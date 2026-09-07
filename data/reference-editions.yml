@@ -1,0 +1,13 @@
+# RECONCILIATION ONLY. Never a publication source.
+# These files live in pdf-source/ alongside the real sources, so the pipeline
+# guards against them explicitly rather than relying on convention.
+references:
+  ccw:
+    title: "Nova Organi Harmonia (Corpus Christi Watershed edition)"
+    file: "Nova Organi Harmonia - Full PDF.pdf"
+    pdf_pages: 2201
+    excluded_reason: >
+      CCWATERSHED.ORG branding is burned into every page image; pages are
+      re-numbered and re-cropped so the original folio and running head are
+      absent; the front matter includes a modern preface translation (D. Cook)
+      under copyright, unlike the public-domain 1942 content.

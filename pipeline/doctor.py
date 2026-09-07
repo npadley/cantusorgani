@@ -1,0 +1,120 @@
+"""Preflight checks. Every failure names the exact fix.
+
+A missing dependency must fail in under a second with instructions, not as a
+library traceback forty minutes into a 2,445-page run.
+"""
+
+from __future__ import annotations
+
+import shutil
+import subprocess
+import sys
+from dataclasses import dataclass
+
+from pipeline.references import load_references, reference_filenames
+from pipeline.volumes import load_volumes
+
+OK, FAIL, SKIP = "ok", "FAIL", "skip"
+
+R2_VARS = ("R2_ACCOUNT_ID", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY", "R2_BUCKET")
+
+
+@dataclass(frozen=True)
+class Check:
+    status: str
+    label: str
+    detail: str = ""
+
+    @property
+    def failed(self) -> bool:
+        return self.status == FAIL
+
+
+def check_python() -> Check:
+    v = sys.version_info
+    if (v.major, v.minor) < (3, 12):
+        return Check(FAIL, f"python {v.major}.{v.minor}",
+                     "Python 3.12+ required.\n      Fix: uv sync")
+    return Check(OK, f"python {v.major}.{v.minor}.{v.micro}")
+
+
+def check_tesseract() -> Check:
+    if shutil.which("tesseract") is None:
+        return Check(FAIL, "tesseract: not installed",
+                     "Required by folio cross-check, running heads and index OCR.\n"
+                     "      Fix:  macOS   brew install tesseract tesseract-lang\n"
+                     "            Debian  sudo apt install tesseract-ocr tesseract-ocr-lat")
+    try:
+        langs = subprocess.run(["tesseract", "--list-langs"], capture_output=True,
+                               text=True, timeout=15, check=False).stdout.split()
+    except (subprocess.SubprocessError, OSError) as exc:
+        return Check(FAIL, "tesseract: could not list languages", str(exc))
+    if "lat" not in langs:
+        return Check(FAIL, "tesseract: Latin language data missing",
+                     "`lat` is required by index OCR and running heads.\n"
+                     "      Fix:  macOS   brew install tesseract-lang\n"
+                     "            Debian  sudo apt install tesseract-ocr-lat\n"
+                     "      Verify: tesseract --list-langs | grep lat")
+    return Check(OK, "tesseract with Latin data")
+
+
+def check_sources() -> list[Check]:
+    checks: list[Check] = []
+    for vol in load_volumes().values():
+        if not vol.path.exists():
+            checks.append(Check(
+                FAIL, f"{vol.file} not found",
+                "Source PDFs are not tracked in git (230 MB). See README\n"
+                "      \"Getting the source PDFs\"; sha256 is pinned in data/volumes.yml."))
+        elif vol.sha256 is None:
+            checks.append(Check(FAIL, f"{vol.file}: sha256 not pinned",
+                                "Fix: uv run noh checksum --volume " + vol.id))
+        else:
+            checks.append(Check(OK, f"{vol.file} present"))
+    return checks
+
+
+def check_reference_not_registered() -> Check:
+    """Reference editions must never become publication sources.
+
+    pdf-source/ holds the Corpus Christi Watershed edition beside the real
+    sources. It carries burned-in branding and a copyrighted modern preface, so
+    registering it in volumes.yml would republish both.
+    """
+    registered = {v.file for v in load_volumes().values()}
+    strays = sorted(registered & reference_filenames())
+    if strays:
+        return Check(
+            FAIL, f"reference edition registered as a source volume: {strays}",
+            "These are reconciliation input only -- see data/reference-editions.yml.\n"
+            "      Fix: remove them from data/volumes.yml.")
+    n = len(load_references())
+    return Check(OK, f"{n} reference edition(s) excluded from publication")
+
+
+def check_r2(env: dict[str, str]) -> Check:
+    missing = [v for v in R2_VARS if not env.get(v)]
+    if missing:
+        return Check(SKIP, f"R2 credentials ({', '.join(missing)}): unset",
+                     "Only `noh publish --upload` needs these.\n"
+                     "      Fix: copy .dev.vars.example to .dev.vars, or export them.")
+    return Check(OK, "R2 credentials present")
+
+
+def run(env: dict[str, str] | None = None) -> list[Check]:
+    import os
+    env = os.environ if env is None else env
+    return [check_python(), check_tesseract(), check_reference_not_registered(),
+            *check_sources(), check_r2(dict(env))]
+
+
+def report(checks: list[Check]) -> int:
+    for c in checks:
+        print(f"{c.status:<5} {c.label}")
+        if c.detail:
+            for line in c.detail.splitlines():
+                print(f"      {line}" if not line.startswith("      ") else line)
+    failures = sum(1 for c in checks if c.failed)
+    if failures:
+        print(f"\n{failures} check(s) failed.")
+    return 1 if failures else 0

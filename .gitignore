@@ -1,0 +1,11 @@
+build/
+.venv/
+node_modules/
+dist/
+.astro/
+.wrangler/
+__pycache__/
+*.pyc
+.DS_Store
+.dev.vars
+pdf-source/

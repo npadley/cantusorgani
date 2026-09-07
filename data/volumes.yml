@@ -1,0 +1,16 @@
+# Publication sources. This file is an ALLOWLIST, never a glob over pdf-source/.
+# pdf-source/ also contains the Corpus Christi Watershed reference edition, which
+# must never be published — see data/reference-editions.yml and docs/LICENSES.md.
+volumes:
+  noh5:
+    title: "Kyriale"
+    part: "V"
+    file: "NOH5 Kyriale.pdf"
+    pdf_pages: 231
+    index_pdf_pages: [231]
+    first_body_pdf_page: 47   # first PDF page bearing an arabic folio; sampling floor only
+    page_offset: null         # DERIVED by pipeline.offset — never hand-edit
+    sha256: "67d38b8bd81bd47ea90409ee4191a2b5ca314d42f9b8486d099a1772e47b97e1"
+    source_url: null          # durable mirror (archive.org / IMSLP item id)
+    retrieved: null           # ISO date
+    provenance: null          # scanning institution, or "author's scan"
