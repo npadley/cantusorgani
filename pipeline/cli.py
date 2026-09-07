@@ -54,6 +54,15 @@ def build_parser() -> argparse.ArgumentParser:
     folio = subs.add_parser("folio", help="read folios for pages (dual-source)")
     _add_common(folio)
 
+    idx = subs.add_parser("index", help="show the hand-transcribed index")
+    idx.add_argument("--volume", required=True)
+
+    cross = subs.add_parser("crosscheck", help="verify index pages against printed folios")
+    cross.add_argument("--volume", required=True)
+
+    head = subs.add_parser("head", help="read running heads and match them to sections")
+    _add_common(head)
+
     return p
 
 
@@ -92,6 +101,36 @@ def main(argv: list[str] | None = None) -> int:
             mark = "ok " if r.agreement else "?? "
             print(f"{mark} pdf p{page:4d}  folio={r.folio}  "
                   f"embedded={r.embedded} tesseract={r.tesseract}  head={r.running_head!r}")
+        return 0
+
+    if args.command == "index":
+        from pipeline.index import load_index, resolve_ranges
+        for entry, lo, hi in resolve_ranges(load_index(args.volume)):
+            span = f"{lo}" if lo == hi else f"{lo}-{hi}"
+            print(f"{entry.slug:44s} {entry.genre:14s} pp.{span:9s} {entry.title[:44]}")
+        return 0
+
+    if args.command == "crosscheck":
+        from collections import Counter
+
+        from pipeline.crosscheck import mismatches, verify_entry_pages
+        checks = verify_entry_pages(args.volume)
+        counts = Counter(c.status for c in checks)
+        for c in checks:
+            mark = {"confirmed": "ok ", "unconfirmed": "?  ", "mismatch": "!! "}[c.status]
+            print(f"{mark} printed {c.printed_page:3d} -> pdf {c.pdf_page:3d}  "
+                  f"embedded={c.embedded} tesseract={c.tesseract}  {c.title[:38]}")
+        print(f"\nconfirmed={counts['confirmed']} unconfirmed={counts['unconfirmed']} "
+              f"mismatch={counts['mismatch']} of {len(checks)}")
+        return 1 if mismatches(checks) else 0
+
+    if args.command == "head":
+        from pipeline.runninghead import read_running_head, vocabulary
+        vocab = vocabulary(args.volume)
+        for page in parse_pages(args.pages or ""):
+            r = read_running_head(args.volume, page, vocab)
+            print(f"pdf p{page:4d}  section={r.matched!s:16s} score={r.score:.2f}  "
+                  f"raw={r.raw[:44]!r}")
         return 0
 
     return 1

@@ -66,13 +66,26 @@ def test_agreement_between_sources_is_verification(tmp_path):
 @needs_tesseract
 @pytest.mark.slow
 def test_disagreement_yields_no_folio_rather_than_a_guess(tmp_path):
-    """NOH5 PDF p127 is printed folio 81; Tesseract misreads it as 8 while the
-    embedded layer finds nothing. Measured 2026-09-07. The gate must refuse it:
-    a wrong folio poisons the derived offset and every reference in the volume."""
-    result = read_folio_dual("noh5", 127, tmp_path)
+    """NOH5 PDF p156 is printed folio 110. The embedded layer reads 110; Tesseract
+    drops the leading digit and reads 10. Measured 2026-09-07. The gate must refuse
+    the page: a wrong folio poisons the derived offset and every reference in the
+    volume, so one confident source is not enough."""
+    result = read_folio_dual("noh5", 156, tmp_path)
+    assert result.embedded == 110
+    assert result.tesseract == 10
     assert result.agreement is False
     assert result.folio is None
-    assert result.tesseract == 8 and result.embedded is None
+
+
+@pytest.mark.source
+@needs_tesseract
+@pytest.mark.slow
+def test_both_sources_silent_yields_no_folio(tmp_path):
+    """NOH5 PDF p127 (printed 81) is unreadable to both sources. Silence must
+    produce None, never a fabricated value."""
+    result = read_folio_dual("noh5", 127, tmp_path)
+    assert result.embedded is None and result.tesseract is None
+    assert result.folio is None and result.agreement is False
 
 
 def test_single_source_mode_must_be_requested_explicitly():

@@ -1,0 +1,71 @@
+# INDEX PARTIS V — hand-transcribed ground truth.
+#
+# Transcribed 2026-09-07 from the printed index (PDF page 231) rendered at 400dpi
+# and read in two halves. This file is AUTHORITATIVE. Both OCR sources — the PDF's
+# embedded text layer and Tesseract — are cross-checks against it, never
+# replacements: the index scan is measurably degraded (`98` prints as `S8`, `106`
+# as `:06`, `110` as `il0`, `114` as `j14`), and only domain reasoning resolves
+# those. `Credo I` is 98 because XVIII ends at 96 and Credo II begins at 102.
+#
+# `page` is the PRINTED folio. PDF page = printed + offset (see derived-offsets.json).
+# Where the index gives a range, `last_page` is set; otherwise the piece runs to
+# the next entry's start.
+volume: noh5
+part: V
+source_pdf_page: 231
+sections:
+  - name: "Ordinarium Missae"
+    entries:
+      - {label: "Asperges",   title: "Ad aspersionem Aquae benedictae extra Tempus Paschale", genre: asperges, page: 1}
+      - {label: "Asperges",   title: "Ad aspersionem Aquae benedictae Tempore Paschali", genre: asperges, page: 2}
+      - {label: "Asperges",   title: "Alii Cantus ad libitum pro Ant. Asperges me", genre: asperges, page: 4}
+      - {label: "I",     title: "Missa Tempore Paschali", incipit: "Lux et origo", genre: mass_ordinary, page: 5}
+      - {label: "II",    title: "In Festis Solemnibus 1", incipit: "Kyrie fons bonitatis", genre: mass_ordinary, page: 11}
+      - {label: "III",   title: "In Festis Solemnibus 2", incipit: "Kyrie Deus sempiterne", genre: mass_ordinary, page: 17}
+      - {label: "IV",    title: "In Festis Duplicibus 1", incipit: "Cunctipotens Genitor", genre: mass_ordinary, page: 23}
+      - {label: "V",     title: "In Festis Duplicibus 2", incipit: "Kyrie magnae Deus potentiae", genre: mass_ordinary, page: 29}
+      - {label: "VI",    title: "In Festis Duplicibus 3", incipit: "Kyrie Rex Genitor", genre: mass_ordinary, page: 35}
+      - {label: "VII",   title: "In Festis Duplicibus 4", incipit: "Kyrie Rex splendens", genre: mass_ordinary, page: 41}
+      - {label: "VIII",  title: "In Festis Duplicibus 5", incipit: "De Angelis", genre: mass_ordinary, page: 47}
+      - {label: "IX",    title: "In Festis B. Mariae V. 1", incipit: "Cum jubilo", genre: mass_ordinary, page: 53}
+      - {label: "X",     title: "In Festis B. Mariae V. 2", incipit: "Alme Pater", genre: mass_ordinary, page: 58}
+      - {label: "XI",    title: "In Dominicis infra annum", incipit: "Orbis factor", genre: mass_ordinary, page: 62}
+      - {label: "XII",   title: "In Festis Semiduplicibus 1", incipit: "Pater cuncta", genre: mass_ordinary, page: 68}
+      - {label: "XIII",  title: "In Festis Semiduplicibus 2", incipit: "Stelliferi Conditor", genre: mass_ordinary, page: 73}
+      - {label: "XIV",   title: "Infra Octavas quae non sunt de B.M.V.", incipit: "Jesu Redemptor", genre: mass_ordinary, page: 78}
+      - {label: "XV",    title: "In Festis Simplicibus", incipit: "Dominator Deus", genre: mass_ordinary, page: 84}
+      - {label: "XVI",   title: "In Feriis per annum", genre: mass_ordinary, page: 89}
+      - {label: "XVII",  title: "In Dominicis Adventus et Quadragesimae", genre: mass_ordinary, page: 91}
+      - {label: "XVIII", title: "In Feriis Adventus et Quadragesimae, in Vigiliis, Feriis IV. Temporum et in Missa Rogationum", genre: mass_ordinary, page: 96}
+      - {label: "Credo I",   title: "Credo I",   genre: credo, page: 98}   # prints as "S8"; bracketed by 96 and 102
+      - {label: "Credo II",  title: "Credo II",  genre: credo, page: 102}
+      - {label: "Credo III", title: "Credo III", genre: credo, page: 106}  # prints as ":06"
+      - {label: "Credo IV",  title: "Credo IV",  genre: credo, page: 110}  # prints as "il0"
+      - {label: "Toni",  title: "Toni Praefationum, ad Pater noster, ante Agnus Dei", genre: tonus, page: 114}  # prints as "j14"
+  - name: "Cantus ad libitum"
+    entries:
+      - {label: "Kyrie I",    title: "Kyrie I",    incipit: "Clemens Rector", genre: kyrie, page: 124}
+      - {label: "Kyrie II",   title: "Kyrie II",   incipit: "Summe Deus", genre: kyrie, page: 126}
+      - {label: "Kyrie III",  title: "Kyrie III",  incipit: "Rector cosmi pie", genre: kyrie, page: 127}
+      - {label: "Kyrie IV",   title: "Kyrie IV",   incipit: "Kyrie altissime", genre: kyrie, page: 128}
+      - {label: "Kyrie V",    title: "Kyrie V",    incipit: "Conditor Kyrie omnium", genre: kyrie, page: 130}
+      - {label: "Kyrie VI",   title: "Kyrie VI",   incipit: "Te Christe Rex supplices", genre: kyrie, page: 131}
+      - {label: "Kyrie VII",  title: "Kyrie VII",  incipit: "Splendor aeterne", genre: kyrie, page: 132}
+      - {label: "Kyrie VIII", title: "Kyrie VIII", incipit: "Firmator sancte", genre: kyrie, page: 134}
+      - {label: "Kyrie IX",   title: "Kyrie IX",   incipit: "O Pater excelse", genre: kyrie, page: 135}
+      - {label: "Kyrie X",    title: "Kyrie X (In Dominicis per annum)", genre: kyrie, page: 137}
+      - {label: "Kyrie XI",   title: "Kyrie XI (In Dominicis Adventus et Quadragesimae)", genre: kyrie, page: 138}
+      - {label: "Gloria I-III",  title: "Gloria I. II. III.",  genre: gloria,  page: 139, last_page: 144}
+      - {label: "Sanctus I-III", title: "Sanctus I. II. III.", genre: sanctus, page: 147, last_page: 149}
+      - {label: "Agnus Dei I-II", title: "Agnus Dei I. II.",   genre: agnus,   page: 150, last_page: 151}
+  - name: "Alii Cantus ad libitum"
+    subtitle: "novissime approbati"
+    entries:
+      - {label: "Gloria Ambr.", title: "Gloria in excelsis (More Ambrosiano)", genre: gloria, page: 152}
+      - {label: "Credo V",  title: "Credo V",  genre: credo, page: 154}
+      - {label: "Credo VI", title: "Credo VI", genre: credo, page: 158}
+  - name: "Missa pro Defunctis"
+    entries:
+      - {label: "I",   title: "Missa « Requiem »", genre: requiem,   page: 163}
+      - {label: "II",  title: "Absolutio pro Defunctis",     genre: absolutio, page: 178}
+      - {label: "III", title: "In Exsequiis Defunctorum",    genre: exsequiis, page: 180}
