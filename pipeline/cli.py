@@ -63,6 +63,13 @@ def build_parser() -> argparse.ArgumentParser:
     head = subs.add_parser("head", help="read running heads and match them to sections")
     _add_common(head)
 
+    cat = subs.add_parser("catalog", help="build data/catalog.json and review-queue.json")
+    cat.add_argument("--volume", required=True)
+
+    overlay = subs.add_parser("overlay", help="write segmentation overlays and contact sheet")
+    _add_common(overlay)
+    overlay.add_argument("--sheet", action="store_true", help="also write contact-sheet.html")
+
     return p
 
 
@@ -131,6 +138,29 @@ def main(argv: list[str] | None = None) -> int:
             r = read_running_head(args.volume, page, vocab)
             print(f"pdf p{page:4d}  section={r.matched!s:16s} score={r.score:.2f}  "
                   f"raw={r.raw[:44]!r}")
+        return 0
+
+    if args.command == "catalog":
+        from pipeline.catalog import write_catalog
+        cat_path, review_path = write_catalog(args.volume)
+        import json as _json
+        catalog = _json.loads(cat_path.read_text(encoding="utf-8"))
+        review = _json.loads(review_path.read_text(encoding="utf-8"))
+        systems = sum(len(p["systems"]) for p in catalog["pieces"])
+        movements = sum(len(p["movements"]) for p in catalog["pieces"])
+        print(f"{cat_path}: {len(catalog['pieces'])} pieces, {systems} systems, "
+              f"{movements} confident movements")
+        print(f"{review_path}: {len(review)} entries needing review")
+        return 0
+
+    if args.command == "overlay":
+        from pipeline.evaluate import write_contact_sheet, write_overlay
+        pages = parse_pages(args.pages) if args.pages else None
+        if pages:
+            for page in pages:
+                print(write_overlay(args.volume, page))
+        if args.sheet or not pages:
+            print(write_contact_sheet(args.volume, pages))
         return 0
 
     return 1

@@ -1,0 +1,143 @@
+"""Stage 6: emit data/catalog.json.
+
+Two tiers of confidence, kept strictly apart:
+
+* **Index pieces** come from the hand-transcribed index and are verified against
+  the printed folios (46 entries, zero mismatches). These are published.
+* **Movement boundaries** within a Mass come from OCR'd chant text and are not
+  in the index at all -- NOH5 lists Missa I at printed page 5 and Missa II at 11,
+  and never says where the Kyrie ends and the Gloria begins. Only confident
+  detections are attached; the rest go to review-queue.json.
+
+A movement that is merely probable is never silently promoted into a published
+piece: an organist opening "Gloria" and finding the Sanctus is worse than an
+organist opening "Missa I" and scrolling.
+"""
+
+from __future__ import annotations
+
+import json
+from dataclasses import asdict, dataclass
+from pathlib import Path
+
+import pymupdf
+
+from pipeline.evaluate import analyse_page
+from pipeline.index import load_index, resolve_ranges
+from pipeline.movements import MovementHit, best_match
+from pipeline.offset import load_offset
+from pipeline.systemtext import PX_TO_PT, condense, system_texts
+from pipeline.volumes import DATA, load_volumes
+
+SCHEMA_VERSION = 1
+LEFT_MARGIN_FRAC = 0.18
+
+
+@dataclass(frozen=True)
+class SystemRef:
+    ref: str
+    pdf_page: int
+    index: int
+    aspect: tuple[int, int]
+
+
+def _left_margin_text(page: pymupdf.Page, box) -> str:
+    rect = pymupdf.Rect(
+        box.left * PX_TO_PT, box.top * PX_TO_PT,
+        (box.left + LEFT_MARGIN_FRAC * (box.right - box.left)) * PX_TO_PT,
+        box.bottom * PX_TO_PT,
+    )
+    return " ".join(page.get_text("text", clip=rect).split())
+
+
+def scan_page(vol_id: str, pdf_page: int, page: pymupdf.Page
+              ) -> tuple[list[SystemRef], list[tuple[int, MovementHit]], list[str]]:
+    """Systems, movement hits and per-system text for one page."""
+    analysis = analyse_page(vol_id, pdf_page)
+    texts = system_texts(vol_id, pdf_page)
+    refs: list[SystemRef] = []
+    hits: list[tuple[int, MovementHit]] = []
+    for i, box in enumerate(analysis.boxes):
+        refs.append(SystemRef(
+            ref=f"{vol_id}/{pdf_page:04d}/{i:03d}", pdf_page=pdf_page, index=i,
+            aspect=(box.right - box.left, box.bottom - box.top),
+        ))
+        hit = best_match(texts[i] if i < len(texts) else "", _left_margin_text(page, box))
+        if hit is not None:
+            hits.append((i, hit))
+    return refs, hits, texts
+
+
+def build_catalog(vol_id: str) -> tuple[dict[str, object], list[dict[str, object]]]:
+    vol = load_volumes()[vol_id]
+    offset = load_offset(vol_id)
+    pieces: list[dict[str, object]] = []
+    review: list[dict[str, object]] = []
+
+    with pymupdf.open(vol.path) as doc:
+        for entry, first, last in resolve_ranges(load_index(vol_id)):
+            refs: list[SystemRef] = []
+            movements: list[dict[str, object]] = []
+            for printed in range(first, last + 1):
+                pdf_page = printed + offset
+                if not 1 <= pdf_page <= vol.pdf_pages:
+                    review.append({"piece": entry.slug, "kind": "page_out_of_range",
+                                   "printed_page": printed, "pdf_page": pdf_page})
+                    continue
+                page_refs, hits, texts = scan_page(vol_id, pdf_page, doc[pdf_page - 1])
+                refs.extend(page_refs)
+                for system_index, hit in hits:
+                    record = {
+                        "movement": hit.movement, "score": hit.score,
+                        "pdf_page": pdf_page, "system": system_index,
+                        "ref": f"{vol_id}/{pdf_page:04d}/{system_index:03d}",
+                        "mode_marker": hit.mode_marker,
+                        "text": condense(texts[system_index])[:60],
+                    }
+                    if hit.confident:
+                        movements.append(record)
+                    else:
+                        review.append({"piece": entry.slug, "kind": "uncertain_movement",
+                                       **record})
+            if not refs:
+                review.append({"piece": entry.slug, "kind": "no_systems",
+                               "printed_pages": [first, last]})
+            pieces.append({
+                "id": f"{vol_id}-{entry.slug}",
+                "volume": vol_id,
+                "slug": entry.slug,
+                "section": entry.section,
+                "label": entry.label,
+                "title": entry.title,
+                "incipit": entry.incipit,
+                "genre": entry.genre,
+                "mode": None,
+                "mass": entry.label if entry.genre == "mass_ordinary" else None,
+                "printed_pages": [first, last],
+                "pdf_pages": [first + offset, last + offset],
+                "systems": [r.ref for r in refs],
+                "system_aspect": [list(r.aspect) for r in refs],
+                "movements": movements,
+                "chant": None,
+                "review_status": "verified" if refs else "review",
+            })
+
+    catalog: dict[str, object] = {
+        "schema_version": SCHEMA_VERSION,
+        "volume": vol_id,
+        "page_offset": offset,
+        "pieces": pieces,
+    }
+    return catalog, review
+
+
+def write_catalog(vol_id: str, data_dir: Path = DATA) -> tuple[Path, Path]:
+    catalog, review = build_catalog(vol_id)
+    cat_path = data_dir / "catalog.json"
+    rev_path = data_dir / "review-queue.json"
+    cat_path.write_text(json.dumps(catalog, indent=2) + "\n", encoding="utf-8")
+    rev_path.write_text(json.dumps(review, indent=2) + "\n", encoding="utf-8")
+    return cat_path, rev_path
+
+
+__all__ = ["SCHEMA_VERSION", "SystemRef", "asdict", "build_catalog", "write_catalog"]
