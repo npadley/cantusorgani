@@ -81,13 +81,14 @@ def analyse_page(vol_id: str, pdf_page: int) -> PageAnalysis:
     height, width = binary.shape
     lines = find_staff_lines(binary)
     staves = group_staves(lines)
+    ink = binary < 128
     base = {
         "vol_id": vol_id, "pdf_page": pdf_page, "page_width": width,
         "page_height": height, "skew": skew, "lines": lines, "staves": staves,
     }
     try:
         systems = group_systems(staves)
-        boxes = _to_bboxes(systems, page_height=height, page_width=width)
+        boxes = _to_bboxes(systems, page_height=height, page_width=width, ink=ink)
     except ValueError as exc:
         return PageAnalysis(**base, error=str(exc))  # type: ignore[arg-type]
     return PageAnalysis(**base, systems=systems, boxes=boxes)  # type: ignore[arg-type]

@@ -184,25 +184,77 @@ def _close(group: list[Staff]) -> System:
 # heights are 224-270px, so 0.55 reserves 123-149px inside an inter-system gap
 # that is never smaller than 171px.
 TEXT_HEADROOM = 0.55
+# Fallback only, used when no ink map is supplied. The bottom of a system is not a
+# fixed fraction of its height: bass notes on ledger lines below the staff, and
+# slurs, run well past the last staff line. Measured over the 52 fixture systems,
+# ink extends below the last staff line by median 0.022 of system height, p90
+# 0.192, max 0.793 -- so a fixed 0.08 pad clipped music on 13 of 52 systems (25%).
+# Pass `ink` to get the correct, adaptive behaviour.
 TAIL_PADDING = 0.08
 
+# --- adaptive bottom edge ---------------------------------------------------
+# A row holding at least this many ink pixels counts as musical content rather
+# than scanner speckle. Measured: speckle rows carry 0-3px, real content >= 10.
+INK_ROW_MIN = 4
+# Sustained clear rows that mark the true end of a system. Intra-system gaps
+# (between the two braced staves) never exceed 116px of which the clear portion is
+# far shorter; inter-system gaps are >= 171px. 30 ends a system without walking
+# across the brace.
+CLEAR_RUN_PX = 30
+# Breathing room below the last ink row, so a slur's outermost pixel is not the
+# literal edge of the crop.
+BOTTOM_MARGIN_PX = 8
 
-def to_bboxes(systems: list[System], page_height: int, page_width: int) -> list[BBox]:
-    """Boxes including the Latin text above and the mode number to the left."""
+
+def _content_bottom(ink: np.ndarray, staff_bottom: int, ceiling: int) -> int:
+    """Last row of this system's ink, scanning down to `ceiling`."""
+    band = ink[staff_bottom:max(staff_bottom, ceiling)]
+    if band.size == 0:
+        return staff_bottom
+    rows = band.sum(axis=1)
+    last = 0
+    clear = 0
+    for y, value in enumerate(rows):
+        if value >= INK_ROW_MIN:
+            last, clear = y, 0
+        else:
+            clear += 1
+            if clear >= CLEAR_RUN_PX and last:
+                break
+    return staff_bottom + last
+
+
+def to_bboxes(systems: list[System], page_height: int, page_width: int,
+              ink: np.ndarray | None = None) -> list[BBox]:
+    """Boxes including the Latin text above and the mode number to the left.
+
+    When `ink` (a boolean page mask) is given, the bottom edge follows the actual
+    end of the music instead of a fixed pad. Without it the fixed pad is used,
+    which is correct for synthetic geometry tests but clips real pages.
+    """
     boxes: list[BBox] = []
     for i, sys_ in enumerate(systems):
         height = sys_.bottom - sys_.top
         want_top = sys_.top - int(height * TEXT_HEADROOM)
         floor = 0 if i == 0 else boxes[-1].bottom
         top = max(want_top, floor)
-        bottom = min(sys_.bottom + int(height * TAIL_PADDING), page_height)
+
         if i + 1 < len(systems):
             nxt = systems[i + 1]
-            nxt_headroom = int((nxt.bottom - nxt.top) * TEXT_HEADROOM)
             # Stop above the *next* system's text line, not above its staff, or the
             # next system's Latin text is cut in half across two slices -- the exact
             # failure this module exists to prevent.
-            bottom = min(bottom, nxt.top - nxt_headroom)
+            ceiling = nxt.top - int((nxt.bottom - nxt.top) * TEXT_HEADROOM)
+        else:
+            ceiling = page_height
+        ceiling = min(ceiling, page_height)
+
+        if ink is None:
+            bottom = sys_.bottom + int(height * TAIL_PADDING)
+        else:
+            bottom = _content_bottom(ink, sys_.bottom, ceiling) + BOTTOM_MARGIN_PX
+        bottom = min(bottom, ceiling)
+
         if bottom <= sys_.bottom:
             raise ValueError(
                 f"system {i}: no clean cut below the staff (bottom={bottom}, "
