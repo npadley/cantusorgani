@@ -23,9 +23,11 @@ from pathlib import Path
 import pymupdf
 
 from pipeline.evaluate import analyse_page
+from pipeline.gregobase import DUMP, load_chants
 from pipeline.index import load_index, resolve_ranges
 from pipeline.movements import MovementHit, best_match
 from pipeline.offset import load_offset
+from pipeline.pairing import pair_entry
 from pipeline.systemtext import PX_TO_PT, condense, system_texts
 from pipeline.volumes import DATA, load_volumes
 
@@ -71,6 +73,9 @@ def scan_page(vol_id: str, pdf_page: int, page: pymupdf.Page
 def build_catalog(vol_id: str) -> tuple[dict[str, object], list[dict[str, object]]]:
     vol = load_volumes()[vol_id]
     offset = load_offset(vol_id)
+    # Chant pairing is optional: the site is usable without it, and the vendored
+    # GregoBase dump is not tracked in git.
+    chants = load_chants() if DUMP.exists() else []
     pieces: list[dict[str, object]] = []
     review: list[dict[str, object]] = []
 
@@ -102,6 +107,17 @@ def build_catalog(vol_id: str) -> tuple[dict[str, object], list[dict[str, object
             if not refs:
                 review.append({"piece": entry.slug, "kind": "no_systems",
                                "printed_pages": [first, last]})
+            pairings = pair_entry(entry, chants) if chants else []
+            for pairing in pairings:
+                if pairing.status != "verified":
+                    review.append({"piece": entry.slug, "kind": "unverified_pairing",
+                                   "movement": pairing.movement,
+                                   "chant_id": pairing.chant_id,
+                                   "chant_incipit": pairing.chant_incipit,
+                                   "score": pairing.score})
+            if chants and not pairings:
+                review.append({"piece": entry.slug, "kind": "unpaired",
+                               "genre": entry.genre, "title": entry.title})
             pieces.append({
                 "id": f"{vol_id}-{entry.slug}",
                 "volume": vol_id,
@@ -118,7 +134,12 @@ def build_catalog(vol_id: str) -> tuple[dict[str, object], list[dict[str, object
                 "systems": [r.ref for r in refs],
                 "system_aspect": [list(r.aspect) for r in refs],
                 "movements": movements,
-                "chant": None,
+                "chant": [
+                    {"source": "gregobase", "id": p.chant_id, "movement": p.movement,
+                     "incipit": p.chant_incipit, "mode": p.mode,
+                     "score": p.score, "status": p.status}
+                    for p in pairings
+                ],
                 "review_status": "verified" if refs else "review",
             })
 
@@ -126,6 +147,13 @@ def build_catalog(vol_id: str) -> tuple[dict[str, object], list[dict[str, object
         "schema_version": SCHEMA_VERSION,
         "volume": vol_id,
         "page_offset": offset,
+        "chant_source": {
+            "name": "GregoBase", "url": "https://gregobase.selapa.net",
+            "licence": "CC BY-SA 4.0",
+            "note": "Attribution must appear on every page rendering a chant; "
+                    "share-alike attaches to chant fields and renderings, not to "
+                    "the public-domain NOH scans. See data/LICENSES.md.",
+        } if chants else None,
         "pieces": pieces,
     }
     return catalog, review

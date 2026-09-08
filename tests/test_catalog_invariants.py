@@ -103,6 +103,44 @@ def test_pieces_without_systems_are_recorded_in_the_review_queue():
     assert empty == queued
 
 
+def test_chant_pairings_carry_an_honest_status():
+    """Unverified pairings ARE published -- shown with a warning, per the design.
+    Hiding them would deny the reader the one thing that lets them catch our
+    mistake. What must never happen is an unverified pairing labelled verified."""
+    for piece in PIECES:
+        for chant in piece["chant"] or []:
+            assert chant["source"] == "gregobase"
+            assert chant["status"] in {"verified", "unverified"}
+            if chant["status"] == "verified":
+                assert chant["score"] >= 0.85, f"{piece['id']}: {chant}"
+            else:
+                assert 0.45 <= chant["score"] < 0.85, f"{piece['id']}: {chant}"
+
+
+def test_every_unverified_pairing_is_queued_for_review():
+    queued = {(r["piece"], r["chant_id"]) for r in REVIEW
+              if r["kind"] == "unverified_pairing"}
+    for piece in PIECES:
+        for chant in piece["chant"] or []:
+            if chant["status"] == "unverified":
+                assert (piece["slug"], chant["id"]) in queued, f"{piece['id']}: {chant}"
+
+
+def test_chant_source_attribution_is_recorded():
+    """CC BY-SA makes attribution a display obligation, so the licence and source
+    must travel with the data, not live only in a docs file."""
+    src = CAT["chant_source"]
+    assert src["licence"] == "CC BY-SA 4.0"
+    assert "gregobase" in src["url"]
+
+
+def test_requiem_carries_no_ordinary_pairing():
+    """Regression: a one-directional repertoire check paired Missa pro Defunctis
+    to Kyrie/Gloria/Sanctus I of the Kyriale at 'verified'."""
+    requiem = next(p for p in PIECES if p["slug"] == "missa-pro-defunctis-i")
+    assert requiem["chant"] == []
+
+
 @pytest.mark.parametrize("kind", ["uncertain_movement", "no_systems"])
 def test_review_entries_name_their_piece(kind):
     for entry in (r for r in REVIEW if r["kind"] == kind):

@@ -1,5 +1,23 @@
 [
   {
+    "piece": "ordinarium-missae-asperges",
+    "kind": "unpaired",
+    "genre": "asperges",
+    "title": "Ad aspersionem Aquae benedictae extra Tempus Paschale"
+  },
+  {
+    "piece": "ordinarium-missae-asperges-p2",
+    "kind": "unpaired",
+    "genre": "asperges",
+    "title": "Ad aspersionem Aquae benedictae Tempore Paschali"
+  },
+  {
+    "piece": "ordinarium-missae-asperges-p4",
+    "kind": "unpaired",
+    "genre": "asperges",
+    "title": "Alii Cantus ad libitum pro Ant. Asperges me"
+  },
+  {
     "piece": "ordinarium-missae-i",
     "kind": "uncertain_movement",
     "movement": "kyrie",
@@ -561,6 +579,14 @@
     "text": "ivitedemlssagratiestas"
   },
   {
+    "piece": "ordinarium-missae-xv",
+    "kind": "unverified_pairing",
+    "movement": "ite",
+    "chant_id": 620,
+    "chant_incipit": "Ite XV/XVI",
+    "score": 0.827
+  },
+  {
     "piece": "ordinarium-missae-xvi",
     "kind": "uncertain_movement",
     "movement": "sanctus",
@@ -693,6 +719,12 @@
     "text": "fifdignumetlusturnesttgratiasagamusdominodeonostror"
   },
   {
+    "piece": "ordinarium-missae-toni",
+    "kind": "unpaired",
+    "genre": "tonus",
+    "title": "Toni Praefationum, ad Pater noster, ante Agnus Dei"
+  },
+  {
     "piece": "cantus-ad-libitum-kyrie-i",
     "kind": "uncertain_movement",
     "movement": "kyrie",
@@ -726,6 +758,14 @@
     "text": "fjichrisleieisonchrisleiieisonu"
   },
   {
+    "piece": "cantus-ad-libitum-kyrie-iii",
+    "kind": "unverified_pairing",
+    "movement": "kyrie",
+    "chant_id": 2237,
+    "chant_incipit": "Kyrie (ad lib.) III / III A",
+    "score": 0.797
+  },
+  {
     "piece": "cantus-ad-libitum-kyrie-iv",
     "kind": "uncertain_movement",
     "movement": "kyrie",
@@ -757,6 +797,14 @@
     "ref": "noh5/0176/003",
     "mode_marker": null,
     "text": "ieleisonchristeie"
+  },
+  {
+    "piece": "cantus-ad-libitum-kyrie-v",
+    "kind": "unverified_pairing",
+    "movement": "kyrie",
+    "chant_id": 2261,
+    "chant_incipit": "Kyrie (ad lib.) V / I B",
+    "score": 0.844
   },
   {
     "piece": "cantus-ad-libitum-kyrie-vi",
@@ -866,6 +914,14 @@
     "text": "jlchrisleeiesonchristeuqlyuibnr"
   },
   {
+    "piece": "cantus-ad-libitum-kyrie-xi",
+    "kind": "unverified_pairing",
+    "movement": "kyrie",
+    "chant_id": 2982,
+    "chant_incipit": "Kyrie XI",
+    "score": 0.75
+  },
+  {
     "piece": "cantus-ad-libitum-gloria-i-iii",
     "kind": "uncertain_movement",
     "movement": "ite",
@@ -943,6 +999,28 @@
     "text": "eivcloriaexeelsisdeoetlerra"
   },
   {
+    "piece": "alii-cantus-ad-libitum-gloria-ambr",
+    "kind": "unpaired",
+    "genre": "gloria",
+    "title": "Gloria in excelsis (More Ambrosiano)"
+  },
+  {
+    "piece": "alii-cantus-ad-libitum-credo-v",
+    "kind": "unverified_pairing",
+    "movement": "credo",
+    "chant_id": 955,
+    "chant_incipit": "Credo V",
+    "score": 0.75
+  },
+  {
+    "piece": "alii-cantus-ad-libitum-credo-vi",
+    "kind": "unverified_pairing",
+    "movement": "credo",
+    "chant_id": 2934,
+    "chant_incipit": "Credo VI",
+    "score": 0.75
+  },
+  {
     "piece": "missa-pro-defunctis-i",
     "kind": "uncertain_movement",
     "movement": "kyrie",
@@ -1007,5 +1085,23 @@
     "ref": "noh5/0222/003",
     "mode_marker": null,
     "text": "minlhosannainexeelsis"
+  },
+  {
+    "piece": "missa-pro-defunctis-i",
+    "kind": "unpaired",
+    "genre": "requiem",
+    "title": "Missa \u00ab Requiem \u00bb"
+  },
+  {
+    "piece": "missa-pro-defunctis-ii",
+    "kind": "unpaired",
+    "genre": "absolutio",
+    "title": "Absolutio pro Defunctis"
+  },
+  {
+    "piece": "missa-pro-defunctis-iii",
+    "kind": "unpaired",
+    "genre": "exsequiis",
+    "title": "In Exsequiis Defunctorum"
   }
 ]

@@ -2,6 +2,12 @@
   "schema_version": 1,
   "volume": "noh5",
   "page_offset": 46,
+  "chant_source": {
+    "name": "GregoBase",
+    "url": "https://gregobase.selapa.net",
+    "licence": "CC BY-SA 4.0",
+    "note": "Attribution must appear on every page rendering a chant; share-alike attaches to chant fields and renderings, not to the public-domain NOH scans. See data/LICENSES.md."
+  },
   "pieces": [
     {
       "id": "noh5-ordinarium-missae-asperges",
@@ -52,7 +58,7 @@
         ]
       ],
       "movements": [],
-      "chant": null,
+      "chant": [],
       "review_status": "verified"
     },
     {
@@ -129,7 +135,7 @@
         ]
       ],
       "movements": [],
-      "chant": null,
+      "chant": [],
       "review_status": "verified"
     },
     {
@@ -186,7 +192,7 @@
         ]
       ],
       "movements": [],
-      "chant": null,
+      "chant": [],
       "review_status": "verified"
     },
     {
@@ -411,7 +417,53 @@
           "text": "nobisagnusdeiquitollispeeciirnundiivetaaaj"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 1143,
+          "movement": "kyrie",
+          "incipit": "Kyrie I",
+          "mode": "8",
+          "score": 0.882,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2980,
+          "movement": "gloria",
+          "incipit": "Gloria I",
+          "mode": "4",
+          "score": 0.91,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 300,
+          "movement": "sanctus",
+          "incipit": "Sanctus I",
+          "mode": "4",
+          "score": 0.893,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2977,
+          "movement": "agnus",
+          "incipit": "Agnus Dei I",
+          "mode": "4",
+          "score": 0.915,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 7297,
+          "movement": "ite",
+          "incipit": "Ite I",
+          "mode": null,
+          "score": 0.885,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -634,7 +686,53 @@
           "text": "dimundequitoliispeccatai"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 309,
+          "movement": "kyrie",
+          "incipit": "Kyrie II",
+          "mode": "3",
+          "score": 0.936,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 862,
+          "movement": "gloria",
+          "incipit": "Gloria II",
+          "mode": "1",
+          "score": 0.902,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 1279,
+          "movement": "sanctus",
+          "incipit": "Sanctus II",
+          "mode": "1",
+          "score": 0.9,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 7302,
+          "movement": "agnus",
+          "incipit": "Agnus II",
+          "mode": "1",
+          "score": 0.904,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 7303,
+          "movement": "ite",
+          "incipit": "Ite II",
+          "mode": null,
+          "score": 0.908,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -869,7 +967,53 @@
           "text": "sanciilssanctllssanctusiv"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 825,
+          "movement": "kyrie",
+          "incipit": "Kyrie III",
+          "mode": "4",
+          "score": 0.92,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 71,
+          "movement": "gloria",
+          "incipit": "Gloria III",
+          "mode": "8",
+          "score": 0.889,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 566,
+          "movement": "sanctus",
+          "incipit": "Sanctus III",
+          "mode": "4",
+          "score": 0.887,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 578,
+          "movement": "agnus",
+          "incipit": "Agnus Dei III",
+          "mode": "4",
+          "score": 0.894,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 7954,
+          "movement": "ite",
+          "incipit": "Benedicamus III",
+          "mode": "1",
+          "score": 0.892,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -1122,7 +1266,53 @@
           "text": "ibenedieamusmlno"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 1061,
+          "movement": "kyrie",
+          "incipit": "Kyrie IV",
+          "mode": "1",
+          "score": 0.893,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2978,
+          "movement": "gloria",
+          "incipit": "Gloria IV",
+          "mode": "4",
+          "score": 0.881,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2518,
+          "movement": "sanctus",
+          "incipit": "Sanctus IV",
+          "mode": "8",
+          "score": 0.91,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 264,
+          "movement": "agnus",
+          "incipit": "Agnus Dei IV",
+          "mode": "6",
+          "score": 0.897,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 353,
+          "movement": "ite",
+          "incipit": "Ite IV",
+          "mode": "1",
+          "score": 0.908,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -1420,7 +1610,53 @@
           "text": "agnusdejquitoliispee"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 474,
+          "movement": "kyrie",
+          "incipit": "Kyrie V",
+          "mode": "8",
+          "score": 0.903,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 337,
+          "movement": "gloria",
+          "incipit": "Gloria V",
+          "mode": "8",
+          "score": 0.876,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2984,
+          "movement": "sanctus",
+          "incipit": "Sanctus V",
+          "mode": "4",
+          "score": 0.892,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 1241,
+          "movement": "agnus",
+          "incipit": "Agnus Dei V",
+          "mode": "4",
+          "score": 0.905,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 1006,
+          "movement": "ite",
+          "incipit": "Ite V",
+          "mode": "8",
+          "score": 0.878,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -1686,7 +1922,53 @@
           "text": "itemlssaestfladegriiastjviiiol"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2903,
+          "movement": "kyrie",
+          "incipit": "Kyrie VI",
+          "mode": "7",
+          "score": 0.934,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 321,
+          "movement": "gloria",
+          "incipit": "Gloria VI",
+          "mode": "8",
+          "score": 0.896,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 431,
+          "movement": "sanctus",
+          "incipit": "Sanctus VI",
+          "mode": "3",
+          "score": 0.861,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 387,
+          "movement": "agnus",
+          "incipit": "Agnus Dei VI",
+          "mode": "8",
+          "score": 0.881,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 1160,
+          "movement": "ite",
+          "incipit": "Ite VI",
+          "mode": "8",
+          "score": 0.902,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -1966,7 +2248,53 @@
           "text": "iieiidemissestgrliiasviiiztqjjlp"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 1262,
+          "movement": "kyrie",
+          "incipit": "Kyrie VII",
+          "mode": "8",
+          "score": 0.914,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 721,
+          "movement": "gloria",
+          "incipit": "Gloria VII",
+          "mode": "6",
+          "score": 0.881,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 1089,
+          "movement": "sanctus",
+          "incipit": "Sanctus VII",
+          "mode": "8",
+          "score": 0.86,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2985,
+          "movement": "agnus",
+          "incipit": "Agnus Dei VII",
+          "mode": "8",
+          "score": 0.878,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 31,
+          "movement": "ite",
+          "incipit": "Ite VII",
+          "mode": "8",
+          "score": 0.885,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -2191,7 +2519,53 @@
           "text": "visanctussanctussanctusd"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 1184,
+          "movement": "kyrie",
+          "incipit": "Kyrie VIII",
+          "mode": "5",
+          "score": 0.895,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 961,
+          "movement": "gloria",
+          "incipit": "Gloria VIII",
+          "mode": "5",
+          "score": 0.878,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 1384,
+          "movement": "sanctus",
+          "incipit": "Sanctus VIII",
+          "mode": "6",
+          "score": 0.891,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2760,
+          "movement": "agnus",
+          "incipit": "Agnus Dei VIII",
+          "mode": "6",
+          "score": 0.9,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 832,
+          "movement": "ite",
+          "incipit": "Ite VIII",
+          "mode": "5",
+          "score": 0.9,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -2348,7 +2722,53 @@
           "text": "iiuiesuchristedmlnedeusagnusdeifiiiusl"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2976,
+          "movement": "kyrie",
+          "incipit": "Kyrie IX",
+          "mode": "1",
+          "score": 0.883,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2771,
+          "movement": "gloria",
+          "incipit": "Gloria IX",
+          "mode": "7",
+          "score": 0.882,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 587,
+          "movement": "sanctus",
+          "incipit": "Sanctus IX",
+          "mode": "5",
+          "score": 0.91,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 707,
+          "movement": "agnus",
+          "incipit": "Agnus Dei IX",
+          "mode": "5",
+          "score": 0.891,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2902,
+          "movement": "ite",
+          "incipit": "Benedicamus IX",
+          "mode": "1",
+          "score": 0.9,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -2541,7 +2961,53 @@
           "text": "ivagnusdeiquitollispecciitamunii"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 795,
+          "movement": "kyrie",
+          "incipit": "Kyrie X",
+          "mode": "1",
+          "score": 0.885,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 1204,
+          "movement": "gloria",
+          "incipit": "Gloria X",
+          "mode": "8",
+          "score": 0.883,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2770,
+          "movement": "sanctus",
+          "incipit": "Sanctus X",
+          "mode": "4",
+          "score": 0.882,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2981,
+          "movement": "agnus",
+          "incipit": "Agnus Dei X",
+          "mode": "4",
+          "score": 0.893,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 8039,
+          "movement": "ite",
+          "incipit": "Ite X",
+          "mode": "5",
+          "score": 0.89,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -2811,7 +3277,53 @@
           "text": "iitedesatiestas"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2982,
+          "movement": "kyrie",
+          "incipit": "Kyrie XI",
+          "mode": "1",
+          "score": 0.895,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 303,
+          "movement": "gloria",
+          "incipit": "Gloria XI",
+          "mode": "2",
+          "score": 0.907,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 1106,
+          "movement": "sanctus",
+          "incipit": "Sanctus XI",
+          "mode": "2",
+          "score": 0.877,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 7313,
+          "movement": "agnus",
+          "incipit": "Agnus XI",
+          "mode": "4",
+          "score": 0.88,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2920,
+          "movement": "ite",
+          "incipit": "Benedicamus XI",
+          "mode": "1",
+          "score": 0.896,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -3049,7 +3561,53 @@
           "text": "iiiideteamlsgrllsaesttiasviii"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2068,
+          "movement": "kyrie",
+          "incipit": "Kyrie XII",
+          "mode": "8",
+          "score": 0.878,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2114,
+          "movement": "gloria",
+          "incipit": "Gloria XII",
+          "mode": "4",
+          "score": 0.877,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 1062,
+          "movement": "sanctus",
+          "incipit": "Sanctus XII",
+          "mode": "2",
+          "score": 0.902,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 759,
+          "movement": "agnus",
+          "incipit": "Agnus XII",
+          "mode": "2",
+          "score": 0.878,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 37,
+          "movement": "ite",
+          "incipit": "Ite XII",
+          "mode": "8",
+          "score": 0.897,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -3299,7 +3857,53 @@
           "text": "ibenedicamusmlnogn"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 137,
+          "movement": "kyrie",
+          "incipit": "Kyrie XIII",
+          "mode": "1",
+          "score": 0.891,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2107,
+          "movement": "gloria",
+          "incipit": "Gloria XIII",
+          "mode": "1",
+          "score": 0.9,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 1067,
+          "movement": "sanctus",
+          "incipit": "Sanctus XIII",
+          "mode": "8",
+          "score": 0.898,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2886,
+          "movement": "agnus",
+          "incipit": "Agnus XIII",
+          "mode": "1",
+          "score": 0.891,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 878,
+          "movement": "ite",
+          "incipit": "Ite XIII",
+          "mode": "1",
+          "score": 0.905,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -3537,7 +4141,53 @@
           "text": "peequitollisagnusdeinohisfjmlsereii"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 441,
+          "movement": "kyrie",
+          "incipit": "Kyrie XIV",
+          "mode": "8",
+          "score": 0.876,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 908,
+          "movement": "gloria",
+          "incipit": "Gloria XIV",
+          "mode": "3",
+          "score": 0.875,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2979,
+          "movement": "sanctus",
+          "incipit": "Sanctus XIV",
+          "mode": "1",
+          "score": 0.886,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2076,
+          "movement": "agnus",
+          "incipit": "Agnus XIV",
+          "mode": "8",
+          "score": 0.876,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2986,
+          "movement": "ite",
+          "incipit": "Ite XIV",
+          "mode": "8",
+          "score": 0.878,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -3773,7 +4423,53 @@
           "text": "bisagnusdequitolispeecatamundiuiiuq"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 393,
+          "movement": "kyrie",
+          "incipit": "Kyrie XV",
+          "mode": "4",
+          "score": 0.877,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2975,
+          "movement": "gloria",
+          "incipit": "Gloria XV",
+          "mode": "4",
+          "score": 0.889,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 386,
+          "movement": "sanctus",
+          "incipit": "Sanctus XV",
+          "mode": "2",
+          "score": 0.9,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 959,
+          "movement": "agnus",
+          "incipit": "Agnus XV",
+          "mode": "1",
+          "score": 0.891,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 620,
+          "movement": "ite",
+          "incipit": "Ite XV/XVI",
+          "mode": "4",
+          "score": 0.827,
+          "status": "unverified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -3915,7 +4611,35 @@
           "text": "agnusdeilistadiquipeceamunf"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 545,
+          "movement": "kyrie",
+          "incipit": "Kyrie XVI",
+          "mode": "3",
+          "score": 0.85,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2990,
+          "movement": "sanctus",
+          "incipit": "Sanctus XVI",
+          "mode": "2",
+          "score": 0.85,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 1336,
+          "movement": "agnus",
+          "incipit": "Agnus XVI",
+          "mode": "1",
+          "score": 0.85,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -4173,7 +4897,44 @@
           "text": "ideograiiasooe"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 272,
+          "movement": "kyrie",
+          "incipit": "Kyrie XVII",
+          "mode": "1",
+          "score": 0.85,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 871,
+          "movement": "sanctus",
+          "incipit": "Sanctus XVII",
+          "mode": "5",
+          "score": 0.85,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 1137,
+          "movement": "agnus",
+          "incipit": "Agnus XVII",
+          "mode": "5",
+          "score": 0.85,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 543,
+          "movement": "ite",
+          "incipit": "Benedicamus XVII",
+          "mode": "1",
+          "score": 0.85,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -4301,7 +5062,35 @@
           "text": "rerebisagnusdeiquitollispeeetamundir"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2522,
+          "movement": "kyrie",
+          "incipit": "Kyrie XVIII",
+          "mode": "4",
+          "score": 0.85,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 298,
+          "movement": "sanctus",
+          "incipit": "Sanctus XVIII",
+          "mode": null,
+          "score": 0.85,
+          "status": "verified"
+        },
+        {
+          "source": "gregobase",
+          "id": 2412,
+          "movement": "agnus",
+          "incipit": "Agnus XVIII",
+          "mode": null,
+          "score": 0.85,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -4437,7 +5226,17 @@
           "text": "tremmolpotentemiueredoinunumdeurnpaivl"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 344,
+          "movement": "credo",
+          "incipit": "Credo I",
+          "mode": "4",
+          "score": 0.85,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -4594,7 +5393,17 @@
           "text": "ncredoinunumdeurnpatremmolpotenimaieiv"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2983,
+          "movement": "credo",
+          "incipit": "Credo II",
+          "mode": "4",
+          "score": 0.85,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -4721,7 +5530,17 @@
           "text": "mpatremmnlpotenternvucredoinunumdeurn"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 749,
+          "movement": "credo",
+          "incipit": "Credo III",
+          "mode": "5",
+          "score": 0.85,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -4878,7 +5697,17 @@
           "text": "ivcredoinunumdeurnpatremmnlpotenternijrt"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 678,
+          "movement": "credo",
+          "incipit": "Credo IV",
+          "mode": "1",
+          "score": 0.85,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -5205,7 +6034,7 @@
           "text": "iiugnumetjustumestfgratiasagamusdominodeonostro"
         }
       ],
-      "chant": null,
+      "chant": [],
       "review_status": "verified"
     },
     {
@@ -5267,7 +6096,17 @@
           "text": "ijukyrjeeieisonii"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2993,
+          "movement": "kyrie",
+          "incipit": "Kyrie (ad lib.) I. - Clemens Rector",
+          "mode": "1",
+          "score": 0.948,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -5334,7 +6173,17 @@
           "text": "ichrisleeiesonchrisleiii"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2021,
+          "movement": "kyrie",
+          "incipit": "Kyrie (ad lib.) II. - Summe Deus",
+          "mode": "1",
+          "score": 0.933,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -5391,7 +6240,17 @@
         ]
       ],
       "movements": [],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2237,
+          "movement": "kyrie",
+          "incipit": "Kyrie (ad lib.) III / III A",
+          "mode": "2",
+          "score": 0.797,
+          "status": "unverified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -5478,7 +6337,17 @@
         ]
       ],
       "movements": [],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2254,
+          "movement": "kyrie",
+          "incipit": "Kyrie (ad lib.) IV. - Kyrie altissime",
+          "mode": "5",
+          "score": 0.948,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -5535,7 +6404,17 @@
         ]
       ],
       "movements": [],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2261,
+          "movement": "kyrie",
+          "incipit": "Kyrie (ad lib.) V / I B",
+          "mode": "7",
+          "score": 0.844,
+          "status": "unverified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -5592,7 +6471,17 @@
         ]
       ],
       "movements": [],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2269,
+          "movement": "kyrie",
+          "incipit": "Kyrie (ad lib.) VI",
+          "mode": "8",
+          "score": 0.888,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -5689,7 +6578,17 @@
           "text": "iesonkyrieeiesoniijjjq"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2363,
+          "movement": "kyrie",
+          "incipit": "Kyrie (ad lib.) VII. - Splendor aeterne",
+          "mode": "1",
+          "score": 0.948,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -5714,7 +6613,17 @@
       "systems": [],
       "system_aspect": [],
       "movements": [],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2468,
+          "movement": "kyrie",
+          "incipit": "Kyrie (ad lib.) VIII. - Firmator sancte",
+          "mode": "6",
+          "score": 0.944,
+          "status": "verified"
+        }
+      ],
       "review_status": "review"
     },
     {
@@ -5817,7 +6726,17 @@
           "text": "kyrieeiesonkyr"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2599,
+          "movement": "kyrie",
+          "incipit": "Kyrie (ad lib.) IX. - O Pater excelse",
+          "mode": "8",
+          "score": 0.948,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -5902,7 +6821,17 @@
           "text": "iesonkyieieison"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2604,
+          "movement": "kyrie",
+          "incipit": "Kyrie (ad lib.) X",
+          "mode": "1",
+          "score": 0.85,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -5959,7 +6888,17 @@
         ]
       ],
       "movements": [],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2982,
+          "movement": "kyrie",
+          "incipit": "Kyrie XI",
+          "mode": "1",
+          "score": 0.75,
+          "status": "unverified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -6171,7 +7110,17 @@
           "text": "dmneqeusagnusdefiiiuspatrisraioj"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2659,
+          "movement": "gloria",
+          "incipit": "Gloria (ad lib.) I.",
+          "mode": "8",
+          "score": 0.85,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -6302,7 +7251,17 @@
           "text": "nitvequidifjoeqbenedictusiln"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2816,
+          "movement": "sanctus",
+          "incipit": "Sanctus (ad lib.) I.",
+          "mode": "1",
+          "score": 0.85,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -6373,7 +7332,17 @@
           "text": "agnusdequitollispcecataee"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2850,
+          "movement": "agnus",
+          "incipit": "Agnus (ad lib.) I.",
+          "mode": "8",
+          "score": 0.85,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -6455,7 +7424,7 @@
         ]
       ],
       "movements": [],
-      "chant": null,
+      "chant": [],
       "review_status": "verified"
     },
     {
@@ -6621,7 +7590,17 @@
           "text": "patremmnipotenternfaetremereiiet"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 955,
+          "movement": "credo",
+          "incipit": "Credo V",
+          "mode": "4",
+          "score": 0.75,
+          "status": "unverified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -6808,7 +7787,17 @@
           "text": "ivcredoinunumdeurnvelcredoinunumdeurni"
         }
       ],
-      "chant": null,
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 2934,
+          "movement": "credo",
+          "incipit": "Credo VI",
+          "mode": "4",
+          "score": 0.75,
+          "status": "unverified"
+        }
+      ],
       "review_status": "verified"
     },
     {
@@ -7325,7 +8314,7 @@
           "text": "donaeisrequiemagnusdeiquilispec"
         }
       ],
-      "chant": null,
+      "chant": [],
       "review_status": "verified"
     },
     {
@@ -7412,7 +8401,7 @@
         ]
       ],
       "movements": [],
-      "chant": null,
+      "chant": [],
       "review_status": "verified"
     },
     {
@@ -7483,7 +8472,7 @@
           "text": "omnessimulkyrieeieson"
         }
       ],
-      "chant": null,
+      "chant": [],
       "review_status": "verified"
     }
   ]
