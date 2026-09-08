@@ -1,23 +1,29 @@
-"""Stage 7: publish slices to Cloudflare R2.
+"""Stage 7: publish slices to Cloudflare R2 over its S3-compatible API.
 
 Credentials come from the environment only -- never a file in the repo, never a
-default, never a literal. Uploads are write-if-absent: keys carry a content hash,
-so an existing object with the same key already holds identical bytes, and
-overwriting could only ever replace good bytes with the same bytes or corrupt a
-URL that deployed HTML already points at.
+default, never a literal. A default would silently publish into somebody else's
+bucket.
+
+Uploads are write-if-absent. Keys carry a content hash, so an object already at
+a key holds identical bytes by construction; overwriting could only replace good
+bytes with the same bytes, or clobber a URL that deployed HTML already points
+at. Skipping is both cheaper and safer.
 """
 
 from __future__ import annotations
 
 import os
+from collections.abc import Iterable
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from pathlib import Path
 
 REQUIRED_VARS = ("R2_ACCOUNT_ID", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY", "R2_BUCKET")
 CONTENT_TYPES = {".webp": "image/webp", ".png": "image/png"}
-# Slices are immutable: the key changes whenever the bytes change, so a long
-# cache is safe and is the point of content addressing.
+# Slices are immutable: the key changes whenever the bytes change, which is the
+# entire point of content addressing.
 CACHE_CONTROL = "public, max-age=31536000, immutable"
+DEFAULT_WORKERS = 8
 
 
 @dataclass(frozen=True)
@@ -39,8 +45,10 @@ def require_credentials(env: dict[str, str] | None = None) -> Credentials:
         raise RuntimeError(
             f"missing R2 credentials: {', '.join(missing)}.\n"
             f"  These are read from the environment only and must never be committed.\n"
-            f"  Fix: copy .dev.vars.example to .dev.vars and export them, or set them\n"
-            f"  in your shell. Run `uv run noh doctor` to check."
+            f"  Create an R2 API token with Object Read & Write:\n"
+            f"    Cloudflare dashboard > R2 > API > Manage API tokens\n"
+            f"  Then copy .dev.vars.example to .dev.vars and export them, or set\n"
+            f"  them in your shell. Run `uv run noh doctor` to check."
         )
     return Credentials(
         account_id=source["R2_ACCOUNT_ID"],
@@ -57,3 +65,85 @@ def content_type_for(path: Path) -> str:
         raise ValueError(
             f"refusing to upload {path.name}: only {sorted(CONTENT_TYPES)} are published"
         ) from None
+
+
+def _client(creds: Credentials):
+    import boto3
+    from botocore.config import Config
+
+    return boto3.client(
+        "s3",
+        endpoint_url=creds.endpoint,
+        aws_access_key_id=creds.access_key_id,
+        aws_secret_access_key=creds.secret_access_key,
+        region_name="auto",
+        config=Config(retries={"max_attempts": 5, "mode": "standard"}),
+    )
+
+
+@dataclass(frozen=True)
+class UploadPlan:
+    key: str
+    path: Path
+
+
+@dataclass
+class UploadReport:
+    uploaded: int = 0
+    skipped: int = 0
+    failed: list[tuple[str, str]] = None  # type: ignore[assignment]
+
+    def __post_init__(self) -> None:
+        if self.failed is None:
+            self.failed = []
+
+
+def exists(client, bucket: str, key: str) -> bool:
+    from botocore.exceptions import ClientError
+
+    try:
+        client.head_object(Bucket=bucket, Key=key)
+    except ClientError as error:
+        code = error.response.get("Error", {}).get("Code", "")
+        if code in ("404", "NoSuchKey", "NotFound"):
+            return False
+        raise
+    return True
+
+
+def upload_all(plans: Iterable[UploadPlan], creds: Credentials | None = None,
+               workers: int = DEFAULT_WORKERS, dry_run: bool = False) -> UploadReport:
+    plans = list(plans)
+    report = UploadReport()
+    if dry_run:
+        report.uploaded = len(plans)
+        return report
+
+    resolved = creds if creds is not None else require_credentials()
+    client = _client(resolved)
+
+    def put(plan: UploadPlan) -> tuple[str, str | None]:
+        try:
+            content_type = content_type_for(plan.path)
+            if exists(client, resolved.bucket, plan.key):
+                return ("skipped", None)
+            client.put_object(
+                Bucket=resolved.bucket,
+                Key=plan.key,
+                Body=plan.path.read_bytes(),
+                ContentType=content_type,
+                CacheControl=CACHE_CONTROL,
+            )
+            return ("uploaded", None)
+        except Exception as error:  # noqa: BLE001 - reported, not swallowed
+            return ("failed", f"{type(error).__name__}: {error}")
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        for plan, (outcome, message) in zip(plans, pool.map(put, plans)):
+            if outcome == "uploaded":
+                report.uploaded += 1
+            elif outcome == "skipped":
+                report.skipped += 1
+            else:
+                report.failed.append((plan.key, message or "unknown error"))
+    return report

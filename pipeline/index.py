@@ -60,15 +60,43 @@ def load_index(vol_id: str, path: Path | None = None) -> list[IndexEntry]:
     return entries
 
 
-def resolve_ranges(entries: list[IndexEntry]) -> list[tuple[IndexEntry, int, int]]:
-    """Fill implicit end pages: an entry runs to the page before the next entry."""
+def resolve_ranges(entries: list[IndexEntry],
+                   last_printed_page: int | None = None
+                   ) -> list[tuple[IndexEntry, int, int]]:
+    """Fill implicit end pages: an entry runs to the page before the next entry.
+
+    Two gaps had to be closed here, both of which orphaned real music:
+
+    * The LAST entry ended at its own start page, because there was no following
+      entry to bound it. In NOH5 that stranded printed pages 181-184 -- four
+      pages of In Exsequiis that no piece referenced and no page linked to.
+    * An entry with an EXPLICIT range that stops short of the next entry left the
+      pages between them unclaimed: the index gives Gloria as 139-144 and Sanctus
+      as 147, orphaning 145-146.
+
+    Music does not simply stop, so a page inside the volume belongs to whichever
+    entry precedes it. `last_printed_page` bounds the final entry; without it the
+    old truncating behaviour is kept so callers cannot silently get a longer
+    range than they asked for.
+    """
     out: list[tuple[IndexEntry, int, int]] = []
     for i, e in enumerate(entries):
-        if e.last_page is not None:
-            end = e.last_page
-        elif i + 1 < len(entries):
+        if i + 1 < len(entries):
+            # Always run up to the next entry, even when the index states a
+            # shorter explicit range: the gap has to belong to someone.
             end = max(e.page, entries[i + 1].page - 1)
+        elif last_printed_page is not None:
+            end = max(e.page, last_printed_page)
         else:
-            end = e.page
+            end = e.last_page if e.last_page is not None else e.page
         out.append((e, e.page, end))
     return out
+
+
+def stated_end(entry: IndexEntry) -> int | None:
+    """The end page the printed index actually states, if any.
+
+    Kept distinct from the resolved range so a piece extended to fill a gap can
+    be told apart from one the index really did bound.
+    """
+    return entry.last_page

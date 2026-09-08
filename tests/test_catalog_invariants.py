@@ -145,3 +145,47 @@ def test_requiem_carries_no_ordinary_pairing():
 def test_review_entries_name_their_piece(kind):
     for entry in (r for r in REVIEW if r["kind"] == kind):
         assert entry.get("piece"), entry
+
+
+def test_every_sliced_system_is_claimed_by_a_piece():
+    """A system that exists on disk but that no piece references is music dropped
+    on the floor: it is in the volume, it renders nowhere, and nothing else in CI
+    notices.
+
+    This caught two real gaps. The last index entry ended at its own start page
+    for want of a following entry, stranding printed 181-184; and an entry with
+    an explicit range that stopped short of the next entry orphaned 145-146.
+    """
+    sliced = Path("build/systems/noh5")
+    if not sliced.exists():
+        pytest.skip("slices not built; run `noh publish --volume noh5`")
+
+    on_disk = {
+        f"noh5/{f.parent.name}/{f.name.split('@')[0]}"
+        for f in sliced.glob("*/*@2x.png")
+    }
+    claimed = {ref for piece in PIECES for ref in piece["systems"]}
+    unclaimed = sorted(on_disk - claimed)
+    assert unclaimed == [], f"{len(unclaimed)} systems claimed by no piece: {unclaimed[:8]}"
+
+
+def test_no_piece_references_a_missing_slice():
+    sliced = Path("build/systems/noh5")
+    if not sliced.exists():
+        pytest.skip("slices not built; run `noh publish --volume noh5`")
+
+    on_disk = {
+        f"noh5/{f.parent.name}/{f.name.split('@')[0]}"
+        for f in sliced.glob("*/*@2x.png")
+    }
+    claimed = {ref for piece in PIECES for ref in piece["systems"]}
+    dangling = sorted(claimed - on_disk)
+    assert dangling == [], f"{len(dangling)} references with no slice: {dangling[:8]}"
+
+
+def test_extended_ranges_are_recorded_for_review():
+    """Extending a piece past the end its index states is a judgement call, so it
+    goes to review rather than happening silently."""
+    for entry in (r for r in REVIEW if r["kind"] == "range_extended"):
+        assert entry["resolved"][1] > entry["stated"][1]
+        assert entry["why"]

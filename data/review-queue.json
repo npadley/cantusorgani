@@ -923,6 +923,19 @@
   },
   {
     "piece": "cantus-ad-libitum-gloria-i-iii",
+    "kind": "range_extended",
+    "stated": [
+      139,
+      144
+    ],
+    "resolved": [
+      139,
+      146
+    ],
+    "why": "pages after the index's stated end were unclaimed"
+  },
+  {
+    "piece": "cantus-ad-libitum-gloria-i-iii",
     "kind": "uncertain_movement",
     "movement": "ite",
     "score": 0.667,

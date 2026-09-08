@@ -69,6 +69,13 @@ class Slice:
         return f"{self.ref}-{self.sha256[:12]}"
 
 
+VARIANTS: tuple[tuple[int, str, str], ...] = (
+    (0, "", "webp"),        # display, half width
+    (1, "@2x", "webp"),     # display, native width
+    (2, "@2x", "png"),      # PDF export
+)
+
+
 def r2_key(vol_id: str, pdf_page: int, index: int, sha256: str,
            variant: str = "", suffix: str = "webp") -> str:
     """Content-addressed object key. Never positional."""
@@ -148,3 +155,18 @@ def slice_systems(vol_id: str, pdf_page: int, dest: Path | None = None,
         slices.append(Slice(ref=ref, sha256=digest, width=crop.width,
                             height=crop.height, paths=tuple(paths)))
     return slices
+
+
+def upload_plans(vol_id: str, pdf_page: int, dest: Path | None = None):
+    """(key, path) pairs for every derivative of a page, for pipeline.upload."""
+    from pipeline.upload import UploadPlan
+
+    plans: list[UploadPlan] = []
+    for sliced in slice_systems(vol_id, pdf_page, dest):
+        page, index = sliced.ref.split("/")[1:]
+        for position, variant, suffix in VARIANTS:
+            plans.append(UploadPlan(
+                key=r2_key(vol_id, int(page), int(index), sliced.sha256, variant, suffix),
+                path=sliced.paths[position],
+            ))
+    return plans

@@ -70,6 +70,8 @@ def build_parser() -> argparse.ArgumentParser:
     _add_common(pub)
     pub.add_argument("--upload", action="store_true", help="also upload to R2")
     pub.add_argument("--no-trim", action="store_true", help="keep full page width")
+    pub.add_argument("--dry-run", action="store_true",
+                     help="with --upload, report what would be sent without sending")
 
     overlay = subs.add_parser("overlay", help="write segmentation overlays and contact sheet")
     _add_common(overlay)
@@ -159,22 +161,39 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "publish":
-        from pipeline.publish import slice_systems
+        from pipeline.publish import slice_systems, upload_plans
         from pipeline.volumes import load_volumes
+        credentials = None
         if args.upload:
             from pipeline.upload import require_credentials
-            require_credentials()   # fail before doing an hour of work
+            credentials = require_credentials()   # fail before an hour of work
         vol = load_volumes()[args.volume]
         pages = parse_pages(args.pages) if args.pages else list(
             range(vol.first_body_pdf_page, vol.pdf_pages + 1))
         total = 0
+        uploaded = skipped = 0
+        failures: list[tuple[str, str]] = []
         for i, page in enumerate(pages, 1):
             written = slice_systems(args.volume, page, args.out, trim=not args.no_trim)
             total += len(written)
-            print(f"[{i}/{len(pages)}] pdf {page}: {len(written)} systems")
+            note = ""
+            if args.upload:
+                from pipeline.upload import upload_all
+                report = upload_all(upload_plans(args.volume, page, args.out),
+                                    credentials, dry_run=args.dry_run)
+                uploaded += report.uploaded
+                skipped += report.skipped
+                failures.extend(report.failed)
+                note = f"  (uploaded {report.uploaded}, skipped {report.skipped})"
+            print(f"[{i}/{len(pages)}] pdf {page}: {len(written)} systems{note}")
+
         print(f"{total} systems sliced")
         if args.upload:
-            print("upload: not yet implemented (Task 22 transport)")
+            print(f"objects uploaded {uploaded}, already present {skipped}, "
+                  f"failed {len(failures)}")
+            for key, message in failures[:10]:
+                print(f"  FAILED {key}: {message}")
+            return 1 if failures else 0
         return 0
 
     if args.command == "overlay":

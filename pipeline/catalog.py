@@ -24,7 +24,7 @@ import pymupdf
 
 from pipeline.evaluate import analyse_page
 from pipeline.gregobase import DUMP, load_chants
-from pipeline.index import load_index, resolve_ranges
+from pipeline.index import load_index, resolve_ranges, stated_end
 from pipeline.movements import MovementHit, best_match
 from pipeline.offset import load_offset
 from pipeline.pairing import pair_entry
@@ -86,7 +86,20 @@ def build_catalog(vol_id: str) -> tuple[dict[str, object], list[dict[str, object
     review: list[dict[str, object]] = []
 
     with pymupdf.open(vol.path) as doc:
-        for entry, first, last in resolve_ranges(load_index(vol_id)):
+        # The last body page of the volume, so the final entry is bounded by the
+        # book rather than by itself.
+        last_body_printed = max(
+            p for p in range(1, vol.pdf_pages + 1)
+            if p not in vol.index_pdf_pages and p >= vol.first_body_pdf_page
+        ) - offset
+        for entry, first, last in resolve_ranges(load_index(vol_id), last_body_printed):
+            declared = stated_end(entry)
+            if declared is not None and last > declared:
+                review.append({
+                    "piece": entry.slug, "kind": "range_extended",
+                    "stated": [entry.page, declared], "resolved": [first, last],
+                    "why": "pages after the index's stated end were unclaimed",
+                })
             refs: list[SystemRef] = []
             movements: list[dict[str, object]] = []
             for printed in range(first, last + 1):
