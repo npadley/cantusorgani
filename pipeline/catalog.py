@@ -28,6 +28,7 @@ from pipeline.index import load_index, resolve_ranges
 from pipeline.movements import MovementHit, best_match
 from pipeline.offset import load_offset
 from pipeline.pairing import pair_entry
+from pipeline.publish import trimmed_boxes
 from pipeline.systemtext import PX_TO_PT, condense, system_texts
 from pipeline.volumes import DATA, load_volumes
 
@@ -57,12 +58,17 @@ def scan_page(vol_id: str, pdf_page: int, page: pymupdf.Page
     """Systems, movement hits and per-system text for one page."""
     analysis = analyse_page(vol_id, pdf_page)
     texts = system_texts(vol_id, pdf_page)
+    # Aspect must describe the PUBLISHED slice, not the pre-trim box, or every
+    # system is letterboxed in a slot wider than its own picture.
+    published = trimmed_boxes(vol_id, pdf_page)
     refs: list[SystemRef] = []
     hits: list[tuple[int, MovementHit]] = []
     for i, box in enumerate(analysis.boxes):
+        left, top, right, bottom = published[i] if i < len(published) else (
+            box.left, box.top, box.right, box.bottom)
         refs.append(SystemRef(
             ref=f"{vol_id}/{pdf_page:04d}/{i:03d}", pdf_page=pdf_page, index=i,
-            aspect=(box.right - box.left, box.bottom - box.top),
+            aspect=(right - left, bottom - top),
         ))
         hit = best_match(texts[i] if i < len(texts) else "", _left_margin_text(page, box))
         if hit is not None:

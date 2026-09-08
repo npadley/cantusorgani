@@ -88,6 +88,26 @@ def _trim_columns(ink: np.ndarray, left: int, right: int) -> tuple[int, int]:
             min(right, left + int(occupied[-1]) + TRIM_PAD))
 
 
+def trimmed_boxes(vol_id: str, pdf_page: int, trim: bool = True
+                  ) -> list[tuple[int, int, int, int]]:
+    """Final (left, top, right, bottom) of each published slice.
+
+    Shared with pipeline.catalog so the recorded aspect ratio always describes the
+    image that is actually served. Recording the pre-trim box instead letterboxes
+    every system in a slot that is wider than its own picture.
+    """
+    analysis = analyse_page(vol_id, pdf_page)
+    if not analysis.boxes:
+        return []
+    ink = clean_page(np.array(Image.open(render_page(vol_id, pdf_page)).convert("L"))) < 128
+    out: list[tuple[int, int, int, int]] = []
+    for box in analysis.boxes:
+        left, right = (_trim_columns(ink[box.top:box.bottom], box.left, box.right)
+                       if trim else (box.left, box.right))
+        out.append((left, box.top, right, box.bottom))
+    return out
+
+
 def slice_systems(vol_id: str, pdf_page: int, dest: Path | None = None,
                   trim: bool = True) -> list[Slice]:
     analysis = analyse_page(vol_id, pdf_page)

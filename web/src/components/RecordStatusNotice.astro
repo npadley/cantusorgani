@@ -1,0 +1,26 @@
+---
+import type { Piece } from "../lib/catalog";
+
+interface Props { readonly piece: Piece }
+const { piece } = Astro.props;
+
+// RecordStatus is about the catalogue entry, not the music. The distinction
+// matters: warning about the title must not read as "this scan may be wrong".
+const needsNotice = piece.status !== "verified";
+---
+
+{needsNotice && (
+  <div class="notice" role="status">
+    <strong>Catalogued, not yet verified.</strong>
+    The title, mode and page range on this page were derived automatically from
+    the 1942 printed index and have not been checked by a person.
+    <span class="reassure">
+      The music images themselves are not in doubt — they are the scanned pages
+      of the printed edition.
+    </span>
+  </div>
+)}
+
+<style>
+  .reassure { display: block; margin-top: var(--s-1); }
+</style>

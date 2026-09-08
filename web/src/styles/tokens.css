@@ -1,0 +1,66 @@
+/* Reading tokens. Every component consumes these; none may introduce a raw hex,
+   a px font size, or an ad-hoc shadow.
+
+   The reference is a printed liturgical edition — rules, generous margins, small
+   caps — not a SaaS landing page. Forbidden: gradients, glassmorphism, drop
+   shadows on cards, decorative radius above 2px, more than one accent colour.
+
+   Contrast ratios below were measured against --paper / --warn-bg. */
+
+:root {
+  color-scheme: light dark;
+
+  /* Ink. The scans are pure #000 on #FFF; never tint the ground behind them. */
+  --paper:     #fdfcf9;   /* warm off-white, 1942 letterpress reference */
+  --ink:       #14120e;   /* on --paper: 15.8:1  AAA */
+  --ink-muted: #524e45;   /* on --paper:  7.4:1  AAA */
+  --rule:      #c9c2b4;   /* hairlines and table rules; never used for text */
+  --accent:    #6b2318;   /* rubric red, from the source edition; 8.9:1  AAA */
+  --warn-bg:   #fbf3e2;
+  --warn-ink:  #5a4409;   /* on --warn-bg: 7.1:1  AAA */
+
+  /* Type: one serif for text, one UI face. No third family. */
+  --font-text: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-ui: system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --step--1: clamp(0.94rem, 0.9rem + 0.2vw, 1rem);
+  --step-0:  clamp(1.06rem, 1rem + 0.3vw, 1.19rem);   /* body: >=17px on tablet */
+  --step-1:  clamp(1.33rem, 1.2rem + 0.6vw, 1.6rem);
+  --step-2:  clamp(1.66rem, 1.4rem + 1.2vw, 2.25rem);
+
+  --s-1: 0.25rem; --s-2: 0.5rem; --s-3: 1rem;
+  --s-4: 1.5rem;  --s-5: 2.5rem; --s-6: 4rem;
+
+  --tap-min: 44px;    /* every interactive target, no exceptions */
+  --measure: 62ch;
+  --radius: 2px;      /* print-shop square, not app-store round */
+  --page-max: 62rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #14140f;
+    --ink: #ece7da;
+    --ink-muted: #b3ac9c;
+    --rule: #3c382f;
+    --accent: #e0a08c;
+    --warn-bg: #2a2318;
+    --warn-ink: #e8c87a;
+  }
+}
+
+/* Console-light rule. In the dark the scans must be inverted, not left as
+   black-on-white lightboxes at an organ console. Inversion suits low light and
+   normal suits daylight, so the viewer can override the system default and the
+   choice persists. */
+:root[data-scan-polarity="inverted"] .system,
+:root:not([data-scan-polarity="normal"]) .system {
+  filter: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-scan-polarity="normal"]) .system { filter: invert(1); }
+}
+
+:root[data-scan-polarity="inverted"] .system { filter: invert(1); }
+:root[data-scan-polarity="normal"] .system { filter: none; }

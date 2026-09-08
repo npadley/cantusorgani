@@ -1,0 +1,215 @@
+import raw from "../../../data/catalog.json";
+
+/** Genre of a catalogued piece. Mirrors the pipeline's controlled set. */
+export type Genre =
+  | "asperges" | "mass_ordinary" | "credo" | "tonus" | "kyrie" | "gloria"
+  | "sanctus" | "agnus" | "requiem" | "absolutio" | "exsequiis";
+
+/** Confidence of the NOH piece -> GregoBase chant match. */
+export type PairStatus = "verified" | "unverified" | "unpaired";
+
+/**
+ * Confidence of the catalog record itself. A distinct axis from PairStatus: a
+ * piece can have a verified chant pairing and an unverified title. The two
+ * vocabularies must never be collapsed in the UI.
+ */
+export type RecordStatus = "verified" | "unmatched" | "review";
+
+export type Movement = "kyrie" | "gloria" | "credo" | "sanctus" | "agnus" | "ite";
+
+export interface ChantPairing {
+  readonly source: "gregobase";
+  readonly id: number;
+  readonly movement: Movement | null;
+  readonly incipit: string;
+  readonly mode: string | null;
+  readonly score: number;
+  readonly status: PairStatus;
+}
+
+export interface MovementBoundary {
+  readonly movement: Movement;
+  readonly score: number;
+  readonly pdfPage: number;
+  readonly system: number;
+  readonly ref: string;
+  readonly modeMarker: string | null;
+}
+
+export interface Piece {
+  readonly id: string;
+  readonly volume: string;
+  readonly slug: string;
+  readonly section: string;
+  readonly label: string;
+  readonly title: string;
+  readonly incipit: string | null;
+  readonly genre: Genre;
+  readonly mode: string | null;
+  readonly mass: string | null;
+  readonly printedPages: readonly [number, number];
+  readonly pdfPages: readonly [number, number];
+  readonly systems: readonly string[];
+  readonly systemAspect: readonly (readonly [number, number])[];
+  readonly movements: readonly MovementBoundary[];
+  readonly chant: readonly ChantPairing[];
+  readonly status: RecordStatus;
+}
+
+export interface ChantSource {
+  readonly name: string;
+  readonly url: string;
+  readonly licence: string;
+  readonly note: string;
+}
+
+export interface Catalog {
+  readonly schemaVersion: number;
+  readonly volume: string;
+  readonly pageOffset: number;
+  readonly chantSource: ChantSource | null;
+  readonly pieces: readonly Piece[];
+}
+
+export const SCHEMA_VERSION = 1;
+
+/** Liturgical order, not catalog order. Never sort movements alphabetically. */
+export const MOVEMENT_ORDER: readonly Movement[] = [
+  "kyrie", "gloria", "credo", "sanctus", "agnus", "ite",
+];
+
+const GENRES: ReadonlySet<string> = new Set<Genre>([
+  "asperges", "mass_ordinary", "credo", "tonus", "kyrie", "gloria",
+  "sanctus", "agnus", "requiem", "absolutio", "exsequiis",
+]);
+
+const RECORD_STATUSES: ReadonlySet<string> = new Set<RecordStatus>([
+  "verified", "unmatched", "review",
+]);
+
+// The pipeline emits snake_case; the site speaks camelCase. Map explicitly and
+// fail the build on drift. A double cast (`raw as unknown as Catalog`) would
+// compile and then ship `undefined` to every template.
+interface RawChant {
+  readonly source: string; readonly id: number; readonly movement: string | null;
+  readonly incipit: string; readonly mode: string | null;
+  readonly score: number; readonly status: string;
+}
+
+interface RawMovement {
+  readonly movement: string; readonly score: number; readonly pdf_page: number;
+  readonly system: number; readonly ref: string; readonly mode_marker: string | null;
+}
+
+interface RawPiece {
+  readonly id: string; readonly volume: string; readonly slug: string;
+  readonly section: string; readonly label: string; readonly title: string;
+  readonly incipit: string | null; readonly genre: string;
+  readonly mode: string | null; readonly mass: string | null;
+  readonly printed_pages: readonly [number, number];
+  readonly pdf_pages: readonly [number, number];
+  readonly systems: readonly string[];
+  readonly system_aspect: readonly (readonly [number, number])[];
+  readonly movements: readonly RawMovement[];
+  readonly chant: readonly RawChant[] | null;
+  readonly review_status: string;
+}
+
+interface RawCatalog {
+  readonly schema_version: number;
+  readonly volume: string;
+  readonly page_offset: number;
+  readonly chant_source: ChantSource | null;
+  readonly pieces: readonly RawPiece[];
+}
+
+let cached: Catalog | null = null;
+
+export function loadCatalog(): Catalog {
+  if (cached) return cached;
+  const doc = raw as RawCatalog;
+  if (doc.schema_version !== SCHEMA_VERSION) {
+    throw new Error(
+      `catalog schema_version ${doc.schema_version}, expected ${SCHEMA_VERSION}`,
+    );
+  }
+
+  const pieces = doc.pieces.map((p): Piece => {
+    if (!GENRES.has(p.genre)) throw new Error(`${p.id}: unknown genre ${p.genre}`);
+    if (!RECORD_STATUSES.has(p.review_status)) {
+      throw new Error(`${p.id}: unknown review_status ${p.review_status}`);
+    }
+    if (p.system_aspect.length !== p.systems.length) {
+      throw new Error(`${p.id}: ${p.systems.length} systems but ${p.system_aspect.length} aspects`);
+    }
+    return {
+      id: p.id, volume: p.volume, slug: p.slug, section: p.section,
+      label: p.label, title: p.title, incipit: p.incipit,
+      genre: p.genre as Genre, mode: p.mode, mass: p.mass,
+      printedPages: p.printed_pages, pdfPages: p.pdf_pages,
+      systems: p.systems, systemAspect: p.system_aspect,
+      movements: p.movements.map((m): MovementBoundary => ({
+        movement: m.movement as Movement, score: m.score, pdfPage: m.pdf_page,
+        system: m.system, ref: m.ref, modeMarker: m.mode_marker,
+      })),
+      chant: (p.chant ?? []).map((c): ChantPairing => ({
+        source: "gregobase", id: c.id,
+        movement: (c.movement as Movement | null) ?? null,
+        incipit: c.incipit, mode: c.mode, score: c.score,
+        status: c.status as PairStatus,
+      })),
+      status: p.review_status as RecordStatus,
+    };
+  });
+
+  cached = {
+    schemaVersion: doc.schema_version,
+    volume: doc.volume,
+    pageOffset: doc.page_offset,
+    chantSource: doc.chant_source,
+    pieces,
+  };
+  return cached;
+}
+
+export function allPieces(): readonly Piece[] {
+  return loadCatalog().pieces;
+}
+
+export function pieceBySlug(slug: string): Piece | undefined {
+  return allPieces().find((p) => p.slug === slug);
+}
+
+/** Ordinary Masses in printed order: I, II, … XVIII. */
+export function ordinaryMasses(): readonly Piece[] {
+  return allPieces()
+    .filter((p) => p.genre === "mass_ordinary")
+    .slice()
+    .sort((a, b) => a.printedPages[0] - b.printedPages[0]);
+}
+
+export function piecesInSection(section: string): readonly Piece[] {
+  return allPieces().filter((p) => p.section === section);
+}
+
+export function sections(): readonly string[] {
+  return [...new Set(allPieces().map((p) => p.section))];
+}
+
+/** Chant pairings in liturgical order, not catalog order. */
+export function orderedChant(piece: Piece): readonly ChantPairing[] {
+  return piece.chant.slice().sort((a, b) => {
+    const ai = a.movement ? MOVEMENT_ORDER.indexOf(a.movement) : 99;
+    const bi = b.movement ? MOVEMENT_ORDER.indexOf(b.movement) : 99;
+    return ai - bi;
+  });
+}
+
+/** Asset base for system images. Falls back to a local path so the site can be
+ *  built and read before anything is uploaded to R2. */
+export function assetBase(): string {
+  const configured = import.meta.env["PUBLIC_ASSET_BASE"];
+  return typeof configured === "string" && configured.length > 0
+    ? configured.replace(/\/$/, "")
+    : "/systems";
+}

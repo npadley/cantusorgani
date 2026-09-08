@@ -1,0 +1,125 @@
+---
+import { assetBase } from "../lib/catalog";
+import type { Piece } from "../lib/catalog";
+
+interface Props {
+  readonly piece: Piece;
+  readonly id?: string;
+}
+
+const { piece, id = "music" } = Astro.props;
+const base = assetBase();
+const captionId = `${id}-caption`;
+
+// Render every system at one consistent scale. At width:100% a short system
+// would appear LARGER than a long one, inverting the relationship printed on the
+// page — the Kyrie's half-length intonation would dwarf a full system.
+const widest = Math.max(1, ...piece.systemAspect.map(([w]) => w));
+---
+
+{piece.systems.length === 0 ? (
+  <div class="notice" role="status">
+    <strong>Music not yet available.</strong> This piece is catalogued at printed
+    pages {piece.printedPages[0]}–{piece.printedPages[1]} of part V, but its
+    systems have not been sliced yet.
+  </div>
+) : (
+  <figure class="systems" id={id} role="group" aria-labelledby={captionId}>
+    <figcaption id={captionId} class="sr-only">
+      {piece.title}
+      {piece.mode ? `, mode ${piece.mode}` : ", mode not recorded"},
+      organ accompaniment from Nova Organi Harmonia part V, printed pages
+      {" "}{piece.printedPages[0]}–{piece.printedPages[1]}, shown as
+      {" "}{piece.systems.length} scanned music systems. These are images of a
+      1942 printed score and cannot be read by a screen reader.
+    </figcaption>
+
+    {piece.systems.map((ref, i) => {
+      const aspect = piece.systemAspect[i] ?? [1600, 400];
+      const relative = (aspect[0] / widest) * 100;
+      return (
+        <div
+          class="system-slot"
+          style={`aspect-ratio:${aspect[0]}/${aspect[1]}; width:${relative.toFixed(2)}%`}
+        >
+          <img
+            class="system"
+            src={`${base}/${ref}.webp`}
+            srcset={`${base}/${ref}.webp 1x, ${base}/${ref}@2x.webp 2x`}
+            sizes="(min-width: 62rem) 60rem, 100vw"
+            width={aspect[0]}
+            height={aspect[1]}
+            loading={i < 2 ? "eager" : "lazy"}
+            decoding="async"
+            fetchpriority={i === 0 ? "high" : "auto"}
+            alt=""
+            data-ref={ref}
+            data-index={i + 1}
+            data-total={piece.systems.length}
+          />
+        </div>
+      );
+    })}
+  </figure>
+)}
+
+<style>
+  .systems { margin: 0; padding: 0; }
+
+  /* The slot reserves each system's exact height from its recorded aspect ratio.
+     Without this the page reflows as slices load, which is the worst possible
+     behaviour for someone following music on a tablet. */
+  .system-slot {
+    /* width is set inline, proportional to the widest system in the piece */
+    max-width: 100%;
+    margin: 0 0 var(--s-4);
+    background: transparent;
+    position: relative;
+  }
+
+  .system {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* Flat, not a shimmer: motion under sight-reading is worse than stillness. */
+  .system-slot:has(img:not([data-loaded])) { background: color-mix(in srgb, var(--rule) 22%, transparent); }
+
+  .system-slot[data-state="error"] { background: var(--warn-bg); }
+  .system-slot[data-state="error"] img { display: none; }
+  .system-slot[data-state="error"]::after {
+    content: attr(data-message);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--s-3);
+    text-align: center;
+    color: var(--warn-ink);
+    font-family: var(--font-ui);
+    font-size: var(--step--1);
+  }
+</style>
+
+<script is:inline>
+  // A missing slice must never collapse its slot: a silently absent system sends
+  // an organist to the bench with a bar missing.
+  document.querySelectorAll("img.system").forEach(function (img) {
+    function loaded() { img.setAttribute("data-loaded", "true"); }
+    if (img.complete && img.naturalWidth > 0) loaded();
+    img.addEventListener("load", loaded);
+    img.addEventListener("error", function () {
+      var slot = img.closest(".system-slot");
+      if (!slot) return;
+      slot.setAttribute("data-state", "error");
+      slot.setAttribute(
+        "data-message",
+        "System " + img.dataset.index + " of " + img.dataset.total +
+          " could not be loaded. The rest of this piece is shown below."
+      );
+    });
+  });
+</script>

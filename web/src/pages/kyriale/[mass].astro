@@ -1,0 +1,76 @@
+---
+import ChantPair from "../../components/ChantPair.astro";
+import Layout from "../../components/Layout.astro";
+import RecordStatusNotice from "../../components/RecordStatusNotice.astro";
+import SystemStack from "../../components/SystemStack.astro";
+import { MOVEMENT_ORDER, ordinaryMasses } from "../../lib/catalog";
+import type { Piece } from "../../lib/catalog";
+
+export function getStaticPaths() {
+  return ordinaryMasses().map((piece) => ({
+    params: { mass: piece.label.toLowerCase() },
+    props: { piece },
+  }));
+}
+
+interface Props { readonly piece: Piece }
+const { piece } = Astro.props;
+
+// Movements in liturgical order, never catalog order. Only confident boundaries
+// reach the catalog, so anything listed here is safe to link.
+const found = MOVEMENT_ORDER
+  .map((m) => piece.movements.find((b) => b.movement === m))
+  .filter((b): b is NonNullable<typeof b> => b !== undefined);
+---
+
+<Layout
+  title={`Missa ${piece.label} — ${piece.incipit ?? piece.title}`}
+  description={`Missa ${piece.label} (${piece.incipit ?? piece.title}) with organ accompaniment, Nova Organi Harmonia part V.`}
+  skipTo="music"
+>
+  <article>
+    <header class="head">
+      <p class="crumb small muted ui">
+        <a href="/">Cantus Organi</a> · <a href="/kyriale/">Kyriale</a>
+      </p>
+      <h1>Missa {piece.label}</h1>
+      <p class="lede">{piece.incipit ?? piece.title}</p>
+      <p class="meta ui small muted">
+        {piece.title} · printed pp. {piece.printedPages[0]}–{piece.printedPages[1]}
+        · {piece.systems.length} systems
+      </p>
+    </header>
+
+    <RecordStatusNotice piece={piece} />
+
+    {found.length > 0 && (
+      <nav class="movements ui no-print" aria-label="Movements">
+        <span class="small muted">Jump to</span>
+        {found.map((b) => (
+          <a href={`#${b.ref.replace(/[^a-z0-9]/gi, "-")}`}>{b.movement}</a>
+        ))}
+      </nav>
+    )}
+
+    <SystemStack piece={piece} id="music" />
+    <ChantPair piece={piece} />
+  </article>
+</Layout>
+
+<style>
+  .head { margin-bottom: var(--s-4); }
+  .crumb { margin: 0 0 var(--s-1); }
+  .crumb a { color: var(--ink-muted); }
+  h1 { margin: 0; }
+  .lede { font-size: var(--step-1); margin: 0 0 var(--s-1); font-style: italic; }
+  .meta { margin: 0; }
+  .movements {
+    display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center;
+    margin: 0 0 var(--s-4); padding-bottom: var(--s-2);
+    border-bottom: 1px solid var(--rule);
+  }
+  .movements a {
+    text-transform: capitalize; min-height: var(--tap-min);
+    display: inline-flex; align-items: center; padding: 0 var(--s-2);
+  }
+</style>

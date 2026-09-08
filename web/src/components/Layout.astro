@@ -1,0 +1,127 @@
+---
+import "../styles/base.css";
+
+interface Props {
+  readonly title: string;
+  readonly description?: string;
+  readonly skipTo?: string;
+}
+
+const { title, description, skipTo } = Astro.props;
+const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organi`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    {skipTo && <a class="skip-link ui" href={`#${skipTo}`}>Skip to music</a>}
+
+    <nav class="nav no-print ui">
+      <div class="nav-inner">
+        <a class="brand" href="/">Cantus Organi</a>
+        <div class="nav-links">
+          <a href="/kyriale/">Kyriale</a>
+          <a href="/search/">Search</a>
+          <button id="polarity" type="button" aria-pressed="false"
+                  title="Invert the scans for a dark organ loft">Invert</button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="page">
+      <slot />
+    </main>
+
+    <footer class="footer no-print">
+      <div class="page prose small muted">
+        <p>
+          <strong>Nova Organi Harmonia ad Graduale Romanum</strong> (Lemmens
+          Institute, Mechelen: H. Dessain, 1942). Page images are in the
+          <strong>public domain</strong>.
+        </p>
+        <p>
+          Chant notation from
+          <a href="https://gregobase.selapa.net">GregoBase</a>, licensed
+          <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+          Share-alike applies to the chant data and its renderings, not to the
+          public-domain scans.
+        </p>
+      </div>
+    </footer>
+
+    <script is:inline>
+      // Per-viewer convenience only: which way round the scans read. Wrapped
+      // because storage throws outright in some privacy modes.
+      (function () {
+        var root = document.documentElement;
+        var btn = document.getElementById("polarity");
+        var stored = null;
+        try { stored = localStorage.getItem("scan-polarity"); } catch (e) { /* ignore */ }
+        if (stored === "inverted" || stored === "normal") {
+          root.setAttribute("data-scan-polarity", stored);
+        }
+        function sync() {
+          var on = root.getAttribute("data-scan-polarity") === "inverted";
+          if (btn) btn.setAttribute("aria-pressed", on ? "true" : "false");
+        }
+        sync();
+        if (btn) {
+          btn.addEventListener("click", function () {
+            var next = root.getAttribute("data-scan-polarity") === "inverted"
+              ? "normal" : "inverted";
+            root.setAttribute("data-scan-polarity", next);
+            try { localStorage.setItem("scan-polarity", next); } catch (e) { /* ignore */ }
+            sync();
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
+
+<style>
+  .nav {
+    border-bottom: 1px solid var(--rule);
+    font-size: var(--step--1);
+  }
+  .nav-inner {
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: var(--s-2) var(--s-3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+    flex-wrap: wrap;
+  }
+  .brand {
+    font-family: var(--font-text);
+    font-size: var(--step-0);
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+  }
+  .nav-links a {
+    min-height: var(--tap-min);
+    display: inline-flex;
+    align-items: center;
+  }
+  .footer {
+    border-top: 1px solid var(--rule);
+    margin-top: var(--s-6);
+    padding: var(--s-4) 0;
+  }
+  .footer p { margin: 0 0 var(--s-2); }
+</style>

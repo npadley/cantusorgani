@@ -1,0 +1,79 @@
+---
+import Layout from "../components/Layout.astro";
+import { allPieces, ordinaryMasses, piecesInSection, sections } from "../lib/catalog";
+
+const masses = ordinaryMasses();
+const total = allPieces().length;
+const withMusic = allPieces().filter((p) => p.systems.length > 0).length;
+---
+
+<Layout
+  title="Cantus Organi"
+  description="Organ accompaniment to Gregorian chant from the Nova Organi Harmonia (Mechelen, 1942), free and in the public domain."
+>
+  <div class="prose">
+    <h1>Cantus Organi</h1>
+    <p>
+      Organ accompaniment to Gregorian chant from the
+      <em>Nova Organi Harmonia ad Graduale Romanum</em> (Mechelen, 1942) —
+      readable in the browser, and exportable as a PDF for the organ bench.
+    </p>
+    <p class="muted small">
+      Part V (Kyriale) is available: {withMusic} of {total} catalogued pieces.
+      The remaining volumes follow.
+    </p>
+  </div>
+
+  <h2 id="ordinarium">Ordinarium Missae</h2>
+  <ul class="mass-list ui">
+    {masses.map((m) => (
+      <li>
+        <a href={`/kyriale/${m.label.toLowerCase()}/`}>
+          <span class="numeral">{m.label}</span>
+          <span class="titles">
+            <span class="name">{m.incipit ?? m.title}</span>
+            <span class="sub muted small">{m.title}</span>
+          </span>
+          <span class="pages muted small">pp. {m.printedPages[0]}–{m.printedPages[1]}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  {sections().filter((s) => s !== "Ordinarium Missae").map((section) => (
+    <>
+      <h2>{section}</h2>
+      <ul class="piece-list ui">
+        {piecesInSection(section).map((p) => (
+          <li>
+            <a href={`/piece/${p.slug}/`}>
+              <span class="name">{p.incipit ?? p.title}</span>
+              <span class="sub muted small">
+                {p.label}{p.incipit ? ` · ${p.title}` : ""} · pp. {p.printedPages[0]}–{p.printedPages[1]}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </>
+  ))}
+</Layout>
+
+<style>
+  h2 { margin-top: var(--s-5); padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule); }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { border-bottom: 1px solid var(--rule); }
+  li a {
+    display: flex; align-items: baseline; gap: var(--s-3);
+    min-height: var(--tap-min); padding: var(--s-2) var(--s-1);
+    color: var(--ink); text-decoration: none;
+  }
+  li a:hover { background: color-mix(in srgb, var(--rule) 20%, transparent); }
+  .numeral { min-width: 3.5rem; font-variant-numeric: tabular-nums; color: var(--accent); font-size: var(--step-1); }
+  .titles { display: flex; flex-direction: column; flex: 1; }
+  .name { font-size: var(--step-1); font-family: var(--font-text); }
+  .sub { display: block; }
+  .pages { white-space: nowrap; }
+  .piece-list .name { font-size: var(--step-0); }
+  @media (max-width: 34rem) { .pages { display: none; } }
+</style>

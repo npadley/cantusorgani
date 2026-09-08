@@ -1,0 +1,41 @@
+---
+import Layout from "../../components/Layout.astro";
+import { ordinaryMasses } from "../../lib/catalog";
+const masses = ordinaryMasses();
+---
+<Layout title="Kyriale" description="The eighteen Mass Ordinaries of the Kyriale with organ accompaniment.">
+  <div class="prose">
+    <h1>Kyriale</h1>
+    <p class="muted">
+      The eighteen Ordinaries of the Roman Kyriale, with the 1942 Mechelen organ
+      accompaniment. Each Mass gathers its Kyrie, Gloria, Sanctus, Agnus Dei and
+      dismissal.
+    </p>
+  </div>
+  <ul class="ui">
+    {masses.map((m) => (
+      <li>
+        <a href={`/kyriale/${m.label.toLowerCase()}/`}>
+          <span class="numeral">{m.label}</span>
+          <span class="titles">
+            <span class="name">{m.incipit ?? m.title}</span>
+            <span class="sub muted small">{m.title}</span>
+          </span>
+          <span class="pages muted small">pp. {m.printedPages[0]}–{m.printedPages[1]}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Layout>
+<style>
+  ul { list-style: none; margin: var(--s-4) 0 0; padding: 0; }
+  li { border-bottom: 1px solid var(--rule); }
+  li a { display: flex; align-items: baseline; gap: var(--s-3); min-height: var(--tap-min);
+         padding: var(--s-2) var(--s-1); color: var(--ink); text-decoration: none; }
+  li a:hover { background: color-mix(in srgb, var(--rule) 20%, transparent); }
+  .numeral { min-width: 3.5rem; color: var(--accent); font-size: var(--step-1); }
+  .titles { display: flex; flex-direction: column; flex: 1; }
+  .name { font-size: var(--step-1); font-family: var(--font-text); }
+  .pages { white-space: nowrap; }
+  @media (max-width: 34rem) { .pages { display: none; } }
+</style>

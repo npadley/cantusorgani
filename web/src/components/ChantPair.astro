@@ -1,0 +1,76 @@
+---
+import { loadCatalog, orderedChant } from "../lib/catalog";
+import type { Piece } from "../lib/catalog";
+
+interface Props { readonly piece: Piece }
+const { piece } = Astro.props;
+
+const pairings = orderedChant(piece);
+const source = loadCatalog().chantSource;
+const anyUnverified = pairings.some((c) => c.status === "unverified");
+---
+
+<section class="chant" aria-labelledby="chant-heading">
+  <h2 id="chant-heading">Chant</h2>
+
+  {pairings.length === 0 ? (
+    <p class="muted">
+      No chant has been matched to this accompaniment yet.
+      <a class="small" href="/corrections/?piece={piece.slug}&amp;field=chant">Suggest a chant</a>
+    </p>
+  ) : (
+    <>
+      {anyUnverified && (
+        <div class="notice" role="status">
+          <strong>Unverified pairing.</strong>
+          We matched this 1942 accompaniment to a chant from GregoBase
+          automatically, and no one has checked it. Compare the notes above the
+          staff before you play from it.
+          <a class="small" href={`/corrections/?piece=${piece.slug}&field=chant`}>
+            This pairing is wrong
+          </a>
+        </div>
+      )}
+
+      <ul class="pairings ui">
+        {pairings.map((c) => (
+          <li class:list={["pairing", c.status]}>
+            <span class="movement">{c.movement ?? "chant"}</span>
+            <span class="incipit">{c.incipit}</span>
+            <span class="detail muted small">
+              {c.mode ? `mode ${c.mode}` : "mode not recorded"}
+              {c.status === "unverified" ? " · unverified" : ""}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  {source && pairings.length > 0 && (
+    /* Attribution lives inside the printed area: share-alike must survive
+       printing, so this is never a footer-only or dismissible notice. */
+    <p class="attribution small muted">
+      Chant identification from <a href={source.url}>{source.name}</a>,
+      licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/">{source.licence}</a>.
+      The page images above are public domain and separately licensed.
+    </p>
+  )}
+</section>
+
+<style>
+  .chant { margin-top: var(--s-5); padding-top: var(--s-3); border-top: 1px solid var(--rule); }
+  .pairings { list-style: none; margin: 0; padding: 0; }
+  .pairing {
+    display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: baseline;
+    padding: var(--s-2) 0; border-bottom: 1px solid var(--rule);
+  }
+  .movement {
+    text-transform: capitalize; min-width: 5.5rem;
+    color: var(--accent); font-size: var(--step--1); letter-spacing: 0.04em;
+  }
+  .incipit { font-family: var(--font-text); flex: 1; }
+  .pairing.unverified .incipit { font-style: italic; }
+  .detail { white-space: nowrap; }
+  .attribution { margin-top: var(--s-3); }
+</style>

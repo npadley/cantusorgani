@@ -70,3 +70,22 @@ def test_trimming_preserves_the_mode_number_and_brace(tmp_path):
     untrimmed = slice_systems("noh5", 229, dest=tmp_path / "u", trim=False)[3]
     assert trimmed.width < untrimmed.width, "trim should remove some dead margin"
     assert trimmed.width > untrimmed.width * 0.6, "trim removed too much"
+
+
+@pytest.mark.source
+@pytest.mark.slow
+def test_catalog_aspect_matches_the_published_slice(tmp_path):
+    """The catalog's system_aspect must describe the image actually served.
+
+    It recorded the PRE-trim box while the published slice was POST-trim, so
+    every system rendered letterboxed inside a slot wider than its own picture.
+    Caught by looking at the page, not by any test that existed.
+    """
+    from pipeline.publish import trimmed_boxes
+
+    for page in (51, 229):
+        boxes = trimmed_boxes("noh5", page)
+        slices = slice_systems("noh5", page, dest=tmp_path / str(page))
+        assert len(boxes) == len(slices)
+        for (left, top, right, bottom), sliced in zip(boxes, slices):
+            assert (right - left, bottom - top) == (sliced.width, sliced.height)

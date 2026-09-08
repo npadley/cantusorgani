@@ -1,0 +1,46 @@
+---
+import ChantPair from "../../components/ChantPair.astro";
+import Layout from "../../components/Layout.astro";
+import RecordStatusNotice from "../../components/RecordStatusNotice.astro";
+import SystemStack from "../../components/SystemStack.astro";
+import { allPieces } from "../../lib/catalog";
+import type { Piece } from "../../lib/catalog";
+
+export function getStaticPaths() {
+  return allPieces().map((piece) => ({ params: { slug: piece.slug }, props: { piece } }));
+}
+
+interface Props { readonly piece: Piece }
+const { piece } = Astro.props;
+const heading = piece.incipit ?? piece.title;
+---
+
+<Layout
+  title={heading}
+  description={`${piece.title} — Nova Organi Harmonia part V, pp. ${piece.printedPages[0]}–${piece.printedPages[1]}`}
+  skipTo="music"
+>
+  <article>
+    <header class="head">
+      <p class="crumb small muted ui"><a href="/">Cantus Organi</a> · {piece.section}</p>
+      <h1>{heading}</h1>
+      <p class="meta ui small muted">
+        {piece.label}{piece.incipit ? ` · ${piece.title}` : ""}
+        · printed pp. {piece.printedPages[0]}–{piece.printedPages[1]}
+        · {piece.systems.length} system{piece.systems.length === 1 ? "" : "s"}
+      </p>
+    </header>
+
+    <RecordStatusNotice piece={piece} />
+    <SystemStack piece={piece} id="music" />
+    <ChantPair piece={piece} />
+  </article>
+</Layout>
+
+<style>
+  .head { margin-bottom: var(--s-4); }
+  .crumb { margin: 0 0 var(--s-1); }
+  .crumb a { color: var(--ink-muted); }
+  h1 { margin: 0 0 var(--s-1); }
+  .meta { margin: 0; }
+</style>
