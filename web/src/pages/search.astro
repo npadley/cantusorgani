@@ -1,0 +1,124 @@
+---
+import Layout from "../components/Layout.astro";
+import { ordinaryMasses } from "../lib/catalog";
+const masses = ordinaryMasses();
+---
+<Layout title="Search" description="Search the Nova Organi Harmonia by Latin incipit, Mass number or mode.">
+  <div class="prose">
+    <h1>Search</h1>
+    <label class="ui" for="q">Search Latin text, titles and modes</label>
+    <input id="q" type="search" autocomplete="off" autofocus
+           placeholder="Kyrie fons bonitatis · Missa IX · mode II" />
+  </div>
+
+  <div id="results" class="ui" aria-live="polite"></div>
+
+  <section id="fallback">
+    <h2>Ordinarium Missae</h2>
+    <p class="muted small">A blank search shows the Kyriale, which is the most common visit.</p>
+    <ul class="ui">
+      {masses.map((m) => (
+        <li>
+          <a href={`/kyriale/${m.label.toLowerCase()}/`}>
+            <span class="numeral">{m.label}</span>
+            <span class="name">{m.incipit ?? m.title}</span>
+            <span class="sub muted small">pp. {m.printedPages[0]}–{m.printedPages[1]}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>
+
+<style>
+  label { display: block; margin-bottom: var(--s-1); font-size: var(--step--1); color: var(--ink-muted); }
+  input {
+    width: 100%; font: inherit; font-family: var(--font-ui);
+    min-height: var(--tap-min); padding: var(--s-2) var(--s-3);
+    background: var(--paper); color: var(--ink);
+    border: 1px solid var(--rule); border-radius: var(--radius);
+  }
+  ul { list-style: none; margin: var(--s-3) 0 0; padding: 0; }
+  li { border-bottom: 1px solid var(--rule); }
+  li a { display: flex; align-items: baseline; gap: var(--s-3); min-height: var(--tap-min);
+         padding: var(--s-2) var(--s-1); color: var(--ink); text-decoration: none; }
+  li a:hover { background: color-mix(in srgb, var(--rule) 20%, transparent); }
+  .numeral { min-width: 3.5rem; color: var(--accent); }
+  .name { flex: 1; font-family: var(--font-text); font-size: var(--step-0); }
+  #results { margin-top: var(--s-4); }
+  #results .empty { color: var(--ink-muted); }
+  h2 { margin-top: var(--s-5); padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule); }
+</style>
+
+<script>
+  const input = document.getElementById("q") as HTMLInputElement | null;
+  const results = document.getElementById("results");
+  const fallback = document.getElementById("fallback");
+
+  interface PagefindResult { id: string; data: () => Promise<PagefindDoc> }
+  interface PagefindDoc { url: string; meta: { title?: string }; excerpt: string }
+  interface Pagefind { search: (q: string) => Promise<{ results: PagefindResult[] }> }
+
+  let engine: Pagefind | null = null;
+
+  async function load(): Promise<Pagefind | null> {
+    if (engine) return engine;
+    try {
+      // Pagefind generates this bundle AFTER the Astro build, so the path must
+      // stay opaque to Rollup — a literal here fails the build with an
+      // unresolved import. Keeping it in a variable defers it to runtime.
+      const path = ["", "pagefind", "pagefind.js"].join("/");
+      engine = (await import(/* @vite-ignore */ path)) as Pagefind;
+      return engine;
+    } catch {
+      return null;
+    }
+  }
+
+  let timer: number | undefined;
+  input?.addEventListener("input", () => {
+    window.clearTimeout(timer);
+    timer = window.setTimeout(async () => {
+      const query = input.value.trim();
+      if (!results || !fallback) return;
+
+      if (query.length === 0) {
+        results.innerHTML = "";
+        fallback.hidden = false;
+        return;
+      }
+      fallback.hidden = true;
+
+      const pagefind = await load();
+      if (!pagefind) {
+        results.innerHTML =
+          '<p class="empty">Search runs on the built site. Run <code>pnpm build</code> and preview it.</p>';
+        return;
+      }
+
+      const found = await pagefind.search(query);
+      if (found.results.length === 0) {
+        results.innerHTML =
+          `<p class="empty">No match for “${query.replace(/[<>&]/g, "")}”. ` +
+          `Try a Latin incipit (Kyrie fons bonitatis), a Mass number (Missa IX), ` +
+          `or a mode (mode II).</p>`;
+        return;
+      }
+
+      const docs = await Promise.all(found.results.slice(0, 25).map((r) => r.data()));
+      const list = document.createElement("ul");
+      for (const doc of docs) {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = doc.url;
+        const name = document.createElement("span");
+        name.className = "name";
+        name.textContent = doc.meta.title ?? doc.url;   // textContent, never innerHTML
+        a.append(name);
+        li.append(a);
+        list.append(li);
+      }
+      results.replaceChildren(list);
+    }, 120);
+  });
+</script>

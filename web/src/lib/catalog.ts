@@ -106,10 +106,12 @@ interface RawPiece {
   readonly section: string; readonly label: string; readonly title: string;
   readonly incipit: string | null; readonly genre: string;
   readonly mode: string | null; readonly mass: string | null;
-  readonly printed_pages: readonly [number, number];
-  readonly pdf_pages: readonly [number, number];
+  // JSON gives plain arrays; the tuple shape is checked at runtime below rather
+  // than asserted here, because asserting it is how `undefined` reaches a page.
+  readonly printed_pages: readonly number[];
+  readonly pdf_pages: readonly number[];
   readonly systems: readonly string[];
-  readonly system_aspect: readonly (readonly [number, number])[];
+  readonly system_aspect: readonly (readonly number[])[];
   readonly movements: readonly RawMovement[];
   readonly chant: readonly RawChant[] | null;
   readonly review_status: string;
@@ -123,11 +125,19 @@ interface RawCatalog {
   readonly pieces: readonly RawPiece[];
 }
 
+function pair(values: readonly number[], where: string): readonly [number, number] {
+  const [first, second] = values;
+  if (typeof first !== "number" || typeof second !== "number" || values.length !== 2) {
+    throw new Error(`${where}: expected exactly two numbers, got ${JSON.stringify(values)}`);
+  }
+  return [first, second];
+}
+
 let cached: Catalog | null = null;
 
 export function loadCatalog(): Catalog {
   if (cached) return cached;
-  const doc = raw as RawCatalog;
+  const doc = raw as unknown as RawCatalog;
   if (doc.schema_version !== SCHEMA_VERSION) {
     throw new Error(
       `catalog schema_version ${doc.schema_version}, expected ${SCHEMA_VERSION}`,
@@ -146,8 +156,10 @@ export function loadCatalog(): Catalog {
       id: p.id, volume: p.volume, slug: p.slug, section: p.section,
       label: p.label, title: p.title, incipit: p.incipit,
       genre: p.genre as Genre, mode: p.mode, mass: p.mass,
-      printedPages: p.printed_pages, pdfPages: p.pdf_pages,
-      systems: p.systems, systemAspect: p.system_aspect,
+      printedPages: pair(p.printed_pages, `${p.id}.printed_pages`),
+      pdfPages: pair(p.pdf_pages, `${p.id}.pdf_pages`),
+      systems: p.systems,
+      systemAspect: p.system_aspect.map((a, i) => pair(a, `${p.id}.system_aspect[${i}]`)),
       movements: p.movements.map((m): MovementBoundary => ({
         movement: m.movement as Movement, score: m.score, pdfPage: m.pdf_page,
         system: m.system, ref: m.ref, modeMarker: m.mode_marker,

@@ -1,5 +1,6 @@
 ---
 import ChantPair from "../../components/ChantPair.astro";
+import ExportBar from "../../components/ExportBar.astro";
 import Layout from "../../components/Layout.astro";
 import RecordStatusNotice from "../../components/RecordStatusNotice.astro";
 import SystemStack from "../../components/SystemStack.astro";
@@ -32,6 +33,7 @@ const heading = piece.incipit ?? piece.title;
     </header>
 
     <RecordStatusNotice piece={piece} />
+    <ExportBar piece={piece} />
     <SystemStack piece={piece} id="music" />
     <ChantPair piece={piece} />
   </article>
