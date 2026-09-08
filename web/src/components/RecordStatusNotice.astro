@@ -18,6 +18,9 @@ const needsNotice = piece.status !== "verified";
       The music images themselves are not in doubt — they are the scanned pages
       of the printed edition.
     </span>
+    <a class="small" href={`/corrections/?piece=${piece.slug}&field=title`}>
+      Something here is wrong
+    </a>
   </div>
 )}
 

@@ -9,6 +9,13 @@ workers_dev = false
 CORRECTIONS_ENABLED = "false"
 ALLOWED_ORIGIN = "https://cantusorgani.org"
 
+# Served from its own subdomain rather than a workers.dev URL, so the endpoint
+# is stable and inside the zone. Same-site but cross-ORIGIN, so the CORS and
+# Origin checks in src/index.ts still apply — that is deliberate.
+[[routes]]
+pattern = "api.cantusorgani.org"
+custom_domain = true
+
 [[d1_databases]]
 binding = "DB"
 database_name = "cantusorgani-corrections"

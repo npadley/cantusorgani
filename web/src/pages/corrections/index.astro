@@ -1,0 +1,296 @@
+---
+import Layout from "../../components/Layout.astro";
+import { CORRECTIONS_ENDPOINT, TURNSTILE_SITE_KEY } from "../../lib/config";
+import { allPieces } from "../../lib/catalog";
+
+// The field list is the same vocabulary the Worker accepts. A free-text field
+// name would be rejected at the boundary anyway, so offering one would only
+// waste the submitter's time.
+const FIELDS = [
+  { value: "title", label: "Title", hint: "e.g. In Festis Solemnibus 1" },
+  { value: "incipit", label: "Incipit", hint: "e.g. Kyrie fons bonitatis" },
+  { value: "mode", label: "Mode", hint: "Roman numeral I–VIII" },
+  { value: "genre", label: "Genre", hint: "kyrie, gloria, credo, …" },
+  { value: "printedPages", label: "Printed pages", hint: "e.g. 5-10" },
+  { value: "chant", label: "Chant pairing", hint: "the correct GregoBase incipit" },
+] as const;
+
+const pieces = allPieces();
+const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length > 0;
+---
+
+<Layout
+  title="Corrections"
+  description="Report an error in the Cantus Organi catalogue."
+>
+  <div class="prose">
+    <h1>Corrections</h1>
+    <p>
+      This catalogue was assembled from a 1942 printed index and automatic
+      matching, and parts of it have never been checked by a person. If something
+      is wrong, telling us is the fastest way to fix it.
+    </p>
+    <p class="muted small">
+      Corrections go into a queue, are reviewed by hand, and land in the public
+      dataset as a recorded change. The page images themselves are scans of the
+      printed edition and are not edited.
+    </p>
+  </div>
+
+  {!configured && (
+    <div class="notice" role="status">
+      <strong>Corrections are not configured in this build.</strong>
+      The endpoint or the Turnstile key is missing, so the form below is
+      disabled. This is expected in local development.
+    </div>
+  )}
+
+  <form id="correction-form" class="ui" novalidate>
+    <div class="field">
+      <label for="pieceId">Which piece?</label>
+      <select id="pieceId" name="pieceId" required>
+        <option value="">Choose a piece…</option>
+        {pieces.map((p) => (
+          <option value={p.slug}>
+            {p.label} · {p.incipit ?? p.title} (pp. {p.printedPages[0]}–{p.printedPages[1]})
+          </option>
+        ))}
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="field">What is wrong?</label>
+      <select id="field" name="field" required>
+        {FIELDS.map((f) => <option value={f.value} data-hint={f.hint}>{f.label}</option>)}
+      </select>
+      <p id="field-hint" class="small muted"></p>
+    </div>
+
+    <div class="field">
+      <label for="proposedValue">What should it be?</label>
+      <input id="proposedValue" name="proposedValue" type="text" required
+             autocomplete="off" maxlength="160" />
+    </div>
+
+    <div class="field">
+      <label for="note">Anything else? <span class="muted">(optional, not published)</span></label>
+      <textarea id="note" name="note" rows="3" maxlength="2000"
+                placeholder="How do you know? A source reference helps most."></textarea>
+      <p class="small muted">
+        Notes are read by the maintainer during review and are never shown on the
+        site.
+      </p>
+    </div>
+
+    {configured && (
+      <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY} data-theme="auto"></div>
+    )}
+
+    <button id="submit" type="submit" disabled={!configured}>Send correction</button>
+    <p id="form-status" class="small" role="status" aria-live="polite"></p>
+  </form>
+
+  <section class="queue">
+    <h2>Recent corrections</h2>
+    <p class="small muted">
+      Everything submitted, and what happened to it. Only the piece, the field
+      and the proposed value are shown — never the submitter's note.
+    </p>
+    <div id="queue-list" aria-live="polite">
+      <p class="muted small">Loading…</p>
+    </div>
+  </section>
+</Layout>
+
+{configured && (
+  <script is:inline async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
+)}
+
+<style>
+  form { max-width: var(--measure); margin: var(--s-4) 0; }
+  .field { margin-bottom: var(--s-4); }
+  label { display: block; margin-bottom: var(--s-1); font-size: var(--step--1); }
+  input, select, textarea {
+    width: 100%; font: inherit; font-family: var(--font-ui);
+    min-height: var(--tap-min); padding: var(--s-2) var(--s-3);
+    background: var(--paper); color: var(--ink);
+    border: 1px solid var(--rule); border-radius: var(--radius);
+  }
+  textarea { min-height: 5rem; resize: vertical; }
+  .field p { margin: var(--s-1) 0 0; }
+  #form-status { margin-top: var(--s-2); min-height: 1.4em; }
+  #form-status[data-state="error"] { color: var(--warn-ink); }
+  #form-status[data-state="ok"] { color: var(--accent); }
+  .cf-turnstile { margin-bottom: var(--s-3); }
+
+  .queue { margin-top: var(--s-6); padding-top: var(--s-3); border-top: 1px solid var(--rule); }
+  .queue table { width: 100%; border-collapse: collapse; font-family: var(--font-ui); font-size: var(--step--1); }
+  .queue th { text-align: left; font-weight: 600; color: var(--ink-muted); padding: var(--s-1) var(--s-2); border-bottom: 1px solid var(--rule); }
+  .queue td { padding: var(--s-2); border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .queue .status { text-transform: capitalize; white-space: nowrap; }
+  .queue .accepted { color: var(--accent); }
+  .queue-scroll { overflow-x: auto; }
+</style>
+
+<script>
+  import { CORRECTIONS_ENDPOINT } from "../../lib/config";
+
+  interface PublicRow {
+    readonly id: number;
+    readonly pieceId: string;
+    readonly field: string;
+    readonly proposedValue: string;
+    readonly status: string;
+    readonly createdAt: string;
+  }
+
+  const form = document.getElementById("correction-form") as HTMLFormElement | null;
+  const status = document.getElementById("form-status");
+  const submit = document.getElementById("submit") as HTMLButtonElement | null;
+  const hint = document.getElementById("field-hint");
+  const fieldSelect = document.getElementById("field") as HTMLSelectElement | null;
+  const queue = document.getElementById("queue-list");
+
+  function say(message: string, state: "ok" | "error" | "" = ""): void {
+    if (!status) return;
+    status.textContent = message;
+    if (state) status.setAttribute("data-state", state);
+    else status.removeAttribute("data-state");
+  }
+
+  function syncHint(): void {
+    const option = fieldSelect?.selectedOptions[0];
+    if (hint) hint.textContent = option?.dataset["hint"] ?? "";
+  }
+  fieldSelect?.addEventListener("change", syncHint);
+  syncHint();
+
+  // Deep links from a piece page: /corrections/?piece=slug&field=chant
+  const params = new URLSearchParams(location.search);
+  const piece = params.get("piece");
+  const field = params.get("field");
+  if (piece) {
+    const select = document.getElementById("pieceId") as HTMLSelectElement | null;
+    if (select) select.value = piece;
+  }
+  if (field && fieldSelect) {
+    fieldSelect.value = field;
+    syncHint();
+  }
+
+  async function loadQueue(): Promise<void> {
+    if (!queue || CORRECTIONS_ENDPOINT.length === 0) {
+      if (queue) queue.textContent = "The corrections queue is not available in this build.";
+      return;
+    }
+    try {
+      const response = await fetch(CORRECTIONS_ENDPOINT, { headers: { accept: "application/json" } });
+      if (!response.ok) throw new Error(String(response.status));
+      const body = (await response.json()) as { corrections?: PublicRow[] };
+      const rows = body.corrections ?? [];
+      if (rows.length === 0) {
+        queue.textContent = "No corrections have been submitted yet.";
+        return;
+      }
+
+      // Built with createElement and textContent throughout. These values were
+      // validated by the Worker on the way out, but the page must not depend on
+      // that being true: never innerHTML for data that came from a stranger.
+      const table = document.createElement("table");
+      const head = document.createElement("tr");
+      for (const label of ["Piece", "Field", "Proposed", "Status"]) {
+        const th = document.createElement("th");
+        th.textContent = label;
+        head.append(th);
+      }
+      table.append(head);
+
+      for (const row of rows) {
+        const tr = document.createElement("tr");
+        for (const value of [row.pieceId, row.field, row.proposedValue]) {
+          const td = document.createElement("td");
+          td.textContent = value;
+          tr.append(td);
+        }
+        const td = document.createElement("td");
+        td.textContent = row.status;
+        td.className = `status ${row.status === "accepted" ? "accepted" : ""}`;
+        tr.append(td);
+        table.append(tr);
+      }
+
+      const scroll = document.createElement("div");
+      scroll.className = "queue-scroll";
+      scroll.append(table);
+      queue.replaceChildren(scroll);
+    } catch {
+      queue.textContent = "The corrections queue could not be loaded just now.";
+    }
+  }
+  void loadQueue();
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!submit) return;
+
+    const data = new FormData(form);
+    const pieceId = String(data.get("pieceId") ?? "");
+    if (!pieceId) {
+      say("Choose which piece the correction applies to.", "error");
+      return;
+    }
+    const proposedValue = String(data.get("proposedValue") ?? "").trim();
+    if (!proposedValue) {
+      say("Say what the value should be.", "error");
+      return;
+    }
+
+    const token = String(data.get("cf-turnstile-response") ?? "");
+    if (!token) {
+      say("Please complete the anti-spam check just above the button.", "error");
+      return;
+    }
+
+    submit.disabled = true;
+    say("Sending…");
+
+    try {
+      const response = await fetch(CORRECTIONS_ENDPOINT, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          pieceId,
+          field: String(data.get("field") ?? ""),
+          proposedValue,
+          note: String(data.get("note") ?? ""),
+          turnstileToken: token,
+        }),
+      });
+
+      const body = (await response.json().catch(() => ({}))) as
+        { error?: string; duplicate?: boolean };
+
+      if (response.status === 503) {
+        say("Corrections are paused at the moment. Please try again later.", "error");
+      } else if (response.status === 429) {
+        say(body.error ?? "Too many corrections from this connection just now.", "error");
+      } else if (!response.ok) {
+        say(body.error ?? `Could not send the correction (${response.status}).`, "error");
+      } else if (body.duplicate) {
+        say("That correction is already in the queue — thank you.", "ok");
+        form.reset();
+      } else {
+        say("Thank you. Your correction is in the queue for review.", "ok");
+        form.reset();
+        syncHint();
+        void loadQueue();
+      }
+    } catch {
+      say("Could not reach the corrections service. Nothing was sent.", "error");
+    } finally {
+      submit.disabled = false;
+      const turnstile = (window as { turnstile?: { reset: () => void } }).turnstile;
+      turnstile?.reset();
+    }
+  });
+</script>
