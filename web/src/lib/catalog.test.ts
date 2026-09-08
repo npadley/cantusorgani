@@ -90,3 +90,32 @@ describe("catalog", () => {
     expect(MOVEMENT_ORDER.at(-1)).toBe("ite");
   });
 });
+
+describe("systemUrlStem", () => {
+  it("uses the published content-hashed key, not the bare ref", async () => {
+    const { systemUrlStem, pieceBySlug } = await import("./catalog");
+    const piece = pieceBySlug("ordinarium-missae-i")!;
+    const stem = systemUrlStem(piece, 0);
+    // Published keys carry a content hash. Deriving a URL from the ref alone
+    // 404s every image in production while working fine against local files.
+    expect(stem).toMatch(/systems\/noh5\/\d{4}\/\d{3}-[0-9a-f]{12}$/);
+    expect(stem).not.toMatch(/\/noh5\/\d{4}\/\d{3}$/);
+  });
+
+  it("gives every system a distinct URL", async () => {
+    const { systemUrlStem, pieceBySlug } = await import("./catalog");
+    const piece = pieceBySlug("ordinarium-missae-i")!;
+    const stems = piece.systems.map((_, i) => systemUrlStem(piece, i));
+    expect(new Set(stems).size).toBe(stems.length);
+  });
+
+  it("records an asset key for every system", async () => {
+    const { allPieces } = await import("./catalog");
+    for (const piece of allPieces()) {
+      expect(piece.systemAssets).toHaveLength(piece.systems.length);
+      for (const asset of piece.systemAssets) {
+        expect(asset).toMatch(/^systems\//);
+      }
+    }
+  });
+});

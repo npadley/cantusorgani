@@ -50,6 +50,9 @@ export interface Piece {
   readonly printedPages: readonly [number, number];
   readonly pdfPages: readonly [number, number];
   readonly systems: readonly string[];
+  /** Published asset key per system, without its variant suffix. Empty when the
+   *  page has not been sliced, in which case the local path is used. */
+  readonly systemAssets: readonly string[];
   readonly systemAspect: readonly (readonly [number, number])[];
   readonly movements: readonly MovementBoundary[];
   readonly chant: readonly ChantPairing[];
@@ -111,6 +114,7 @@ interface RawPiece {
   readonly printed_pages: readonly number[];
   readonly pdf_pages: readonly number[];
   readonly systems: readonly string[];
+  readonly system_assets?: readonly string[];
   readonly system_aspect: readonly (readonly number[])[];
   readonly movements: readonly RawMovement[];
   readonly chant: readonly RawChant[] | null;
@@ -159,6 +163,7 @@ export function loadCatalog(): Catalog {
       printedPages: pair(p.printed_pages, `${p.id}.printed_pages`),
       pdfPages: pair(p.pdf_pages, `${p.id}.pdf_pages`),
       systems: p.systems,
+      systemAssets: p.system_assets ?? [],
       systemAspect: p.system_aspect.map((a, i) => pair(a, `${p.id}.system_aspect[${i}]`)),
       movements: p.movements.map((m): MovementBoundary => ({
         movement: m.movement as Movement, score: m.score, pdfPage: m.pdf_page,
@@ -215,6 +220,22 @@ export function orderedChant(piece: Piece): readonly ChantPairing[] {
     const bi = b.movement ? MOVEMENT_ORDER.indexOf(b.movement) : 99;
     return ai - bi;
   });
+}
+
+/**
+ * Resolves a system to its published URL stem.
+ *
+ * Published keys carry a content hash (systems/noh5/0051/000-91a1743aa200), so
+ * the site cannot derive them from the ref alone — it must use the key the
+ * pipeline recorded. Getting this wrong 404s every image in production while
+ * working perfectly against local files, which is exactly what happened.
+ */
+export function systemUrlStem(piece: Piece, index: number): string {
+  const asset = piece.systemAssets[index];
+  const ref = piece.systems[index];
+  if (asset && asset.length > 0) return `${assetBase()}/${asset}`;
+  // Not yet sliced, or a local development build without manifests.
+  return `${assetBase()}/${ref}`;
 }
 
 /** Asset base for system images. Falls back to a local path so the site can be

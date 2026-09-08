@@ -1,5 +1,6 @@
 ---
-import { ASSET_BASE, MAX_EXPORT_SYSTEMS } from "../lib/config";
+import { MAX_EXPORT_SYSTEMS } from "../lib/config";
+import { systemUrlStem } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
 
 interface Props { readonly piece: Piece }
@@ -10,11 +11,13 @@ const count = piece.systems.length;
 // average a little under a quarter of an A4 page at export width.
 const estimatedPages = Math.max(1, Math.ceil(count / 4.5));
 const overCap = count > MAX_EXPORT_SYSTEMS;
+// Full URL stems: the export worker cannot derive content-hashed keys either.
+const stems = piece.systems.map((_, i) => systemUrlStem(piece, i));
 ---
 
 {count > 0 && (
-  <div class="export no-print ui" data-refs={piece.systems.join(",")}
-       data-base={ASSET_BASE} data-title={`${piece.title} — Nova Organi Harmonia`}>
+  <div class="export no-print ui" data-refs={stems.join(",")}
+       data-title={`${piece.title} — Nova Organi Harmonia`}>
     <button id="export-btn" type="button" disabled={overCap}>
       {overCap
         ? `Too many systems to export (${count})`
@@ -67,7 +70,6 @@ const overCap = count > MAX_EXPORT_SYSTEMS;
 
   if (root && button && status && progress) {
     const refs = (root.dataset["refs"] ?? "").split(",").filter(Boolean);
-    const base = root.dataset["base"] ?? "";
     const title = root.dataset["title"] ?? "Nova Organi Harmonia";
     const idleLabel = button.textContent ?? "Export PDF";
 
@@ -121,7 +123,7 @@ const overCap = count > MAX_EXPORT_SYSTEMS;
         worker.terminate();
       };
 
-      const request: BuildRequest = { refs, base, title };
+      const request: BuildRequest = { refs, base: "", title };
       worker.postMessage(request);
     });
   }

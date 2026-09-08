@@ -79,8 +79,12 @@ export async function buildPdf(options: BuildOptions): Promise<BuildResult> {
 /** Fetches the @2x.png variant. pdf-lib cannot embed WebP, and decoding WebP via
  *  canvas fails silently on older Safari on iPad — the exact device this is for. */
 export function httpPngFetcher(base: string): (ref: string) => Promise<ArrayBuffer> {
+  // `ref` is a full URL stem carrying the content hash, because published keys
+  // cannot be derived from a system reference. `base` is retained only for
+  // callers that still pass bare refs (the Node tests read local files).
   return async (ref: string): Promise<ArrayBuffer> => {
-    const response = await fetch(`${base}/${ref}@2x.png`);
+    const url = base.length > 0 ? `${base}/${ref}@2x.png` : `${ref}@2x.png`;
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error(
         `Could not fetch system ${ref} (${response.status}). Nothing was downloaded.`,

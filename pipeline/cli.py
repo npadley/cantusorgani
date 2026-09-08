@@ -82,6 +82,13 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    # Python block-buffers stdout when it is a pipe, so a seven-minute publish
+    # run writes nothing until it finishes and looks hung to anyone watching a
+    # log file. Progress lines are the only evidence the run is alive.
+    try:
+        sys.stdout.reconfigure(line_buffering=True)
+    except (AttributeError, ValueError):
+        pass
 
     if args.command == "doctor":
         from pipeline.doctor import report, run
@@ -184,13 +191,17 @@ def main(argv: list[str] | None = None) -> int:
                 uploaded += report.uploaded
                 skipped += report.skipped
                 failures.extend(report.failed)
-                note = f"  (uploaded {report.uploaded}, skipped {report.skipped})"
+                verb = "would upload" if args.dry_run else "uploaded"
+                note = f"  ({verb} {report.uploaded}, skipped {report.skipped})"
             print(f"[{i}/{len(pages)}] pdf {page}: {len(written)} systems{note}")
 
         print(f"{total} systems sliced")
         if args.upload:
-            print(f"objects uploaded {uploaded}, already present {skipped}, "
-                  f"failed {len(failures)}")
+            if args.dry_run:
+                print(f"DRY RUN — would upload {uploaded} object(s); nothing was sent.")
+            else:
+                print(f"objects uploaded {uploaded}, already present {skipped}, "
+                      f"failed {len(failures)}")
             for key, message in failures[:10]:
                 print(f"  FAILED {key}: {message}")
             return 1 if failures else 0

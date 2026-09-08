@@ -13,6 +13,7 @@ at. Skipping is both cheaper and safer.
 from __future__ import annotations
 
 import os
+import re
 from collections.abc import Iterable
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
@@ -116,6 +117,10 @@ def upload_all(plans: Iterable[UploadPlan], creds: Credentials | None = None,
     plans = list(plans)
     report = UploadReport()
     if dry_run:
+        # Counted, not sent. The caller must phrase this as "would upload": a
+        # report that says "uploaded" when nothing left the machine is the same
+        # class of lie as a migration run that reports success while dropping the
+        # table it just created.
         report.uploaded = len(plans)
         return report
 
@@ -147,3 +152,38 @@ def upload_all(plans: Iterable[UploadPlan], creds: Credentials | None = None,
             else:
                 report.failed.append((plan.key, message or "unknown error"))
     return report
+
+
+KEY_PATTERN = re.compile(
+    r"^systems/(?P<vol>[a-z0-9]+)/(?P<page>\d{4})/(?P<index>\d{3})-(?P<sha>[0-9a-f]{12})"
+    r"(?P<variant>@2x)?\.(?P<suffix>webp|png)$"
+)
+
+
+def list_published(vol_id: str, creds: Credentials | None = None
+                   ) -> dict[int, dict[int, str]]:
+    """What is actually in the bucket: {pdf_page: {index: sha12}}.
+
+    Reconciling against the store rather than against local state means the
+    catalog describes URLs that provably resolve. A manifest rebuilt from here
+    cannot claim a key the bucket does not hold.
+    """
+    resolved = creds if creds is not None else require_credentials()
+    client = _client(resolved)
+    found: dict[int, dict[int, str]] = {}
+    token: str | None = None
+    while True:
+        kwargs: dict[str, object] = {"Bucket": resolved.bucket, "MaxKeys": 1000}
+        if token:
+            kwargs["ContinuationToken"] = token
+        response = client.list_objects_v2(**kwargs)
+        for obj in response.get("Contents", []):
+            match = KEY_PATTERN.match(obj["Key"])
+            if not match or match.group("vol") != vol_id:
+                continue
+            page = int(match.group("page"))
+            found.setdefault(page, {})[int(match.group("index"))] = match.group("sha")
+        token = response.get("NextContinuationToken")
+        if not token:
+            break
+    return found

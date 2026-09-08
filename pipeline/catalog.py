@@ -28,7 +28,7 @@ from pipeline.index import load_index, resolve_ranges, stated_end
 from pipeline.movements import MovementHit, best_match
 from pipeline.offset import load_offset
 from pipeline.pairing import pair_entry
-from pipeline.publish import trimmed_boxes
+from pipeline.publish import asset_stem, load_manifest, trimmed_boxes
 from pipeline.systemtext import PX_TO_PT, condense, system_texts
 from pipeline.volumes import DATA, load_volumes
 
@@ -42,6 +42,9 @@ class SystemRef:
     pdf_page: int
     index: int
     aspect: tuple[int, int]
+    # Published key without its variant suffix. Empty when the page has not been
+    # sliced yet, in which case the site falls back to a local path.
+    asset: str
 
 
 def _left_margin_text(page: pymupdf.Page, box) -> str:
@@ -60,15 +63,26 @@ def scan_page(vol_id: str, pdf_page: int, page: pymupdf.Page
     texts = system_texts(vol_id, pdf_page)
     # Aspect must describe the PUBLISHED slice, not the pre-trim box, or every
     # system is letterboxed in a slot wider than its own picture.
-    published = trimmed_boxes(vol_id, pdf_page)
+    # Prefer the manifest written by slicing: it carries the exact dimensions and
+    # the content hash of what was actually published, so a catalog built from it
+    # cannot describe an image that does not exist at that URL.
+    manifest = load_manifest(vol_id, pdf_page)
+    published = None if manifest else trimmed_boxes(vol_id, pdf_page)
     refs: list[SystemRef] = []
     hits: list[tuple[int, MovementHit]] = []
     for i, box in enumerate(analysis.boxes):
-        left, top, right, bottom = published[i] if i < len(published) else (
-            box.left, box.top, box.right, box.bottom)
+        if manifest and i < len(manifest):
+            entry = manifest[i]
+            width, height = int(entry["width"]), int(entry["height"])
+            asset = asset_stem(vol_id, pdf_page, i, str(entry["sha256"]))
+        else:
+            left, top, right, bottom = (published[i] if published and i < len(published)
+                                        else (box.left, box.top, box.right, box.bottom))
+            width, height = right - left, bottom - top
+            asset = ""
         refs.append(SystemRef(
             ref=f"{vol_id}/{pdf_page:04d}/{i:03d}", pdf_page=pdf_page, index=i,
-            aspect=(right - left, bottom - top),
+            aspect=(width, height), asset=asset,
         ))
         hit = best_match(texts[i] if i < len(texts) else "", _left_margin_text(page, box))
         if hit is not None:
@@ -151,6 +165,7 @@ def build_catalog(vol_id: str) -> tuple[dict[str, object], list[dict[str, object
                 "printed_pages": [first, last],
                 "pdf_pages": [first + offset, last + offset],
                 "systems": [r.ref for r in refs],
+                "system_assets": [r.asset for r in refs],
                 "system_aspect": [list(r.aspect) for r in refs],
                 "movements": movements,
                 "chant": [

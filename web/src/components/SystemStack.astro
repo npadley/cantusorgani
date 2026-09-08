@@ -1,5 +1,5 @@
 ---
-import { assetBase } from "../lib/catalog";
+import { systemUrlStem } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
 
 interface Props {
@@ -8,7 +8,6 @@ interface Props {
 }
 
 const { piece, id = "music" } = Astro.props;
-const base = assetBase();
 const captionId = `${id}-caption`;
 
 // Render every system at one consistent scale. At width:100% a short system
@@ -37,6 +36,7 @@ const widest = Math.max(1, ...piece.systemAspect.map(([w]) => w));
     {piece.systems.map((ref, i) => {
       const aspect = piece.systemAspect[i] ?? [1600, 400];
       const relative = (aspect[0] / widest) * 100;
+      const stem = systemUrlStem(piece, i);
       return (
         <div
           class="system-slot"
@@ -44,8 +44,8 @@ const widest = Math.max(1, ...piece.systemAspect.map(([w]) => w));
         >
           <img
             class="system"
-            src={`${base}/${ref}.webp`}
-            srcset={`${base}/${ref}.webp 1x, ${base}/${ref}@2x.webp 2x`}
+            src={`${stem}.webp`}
+            srcset={`${stem}.webp 1x, ${stem}@2x.webp 2x`}
             sizes="(min-width: 62rem) 60rem, 100vw"
             width={aspect[0]}
             height={aspect[1]}

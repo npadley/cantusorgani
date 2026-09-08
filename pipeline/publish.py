@@ -34,6 +34,7 @@ back. A content hash makes catalog.json the single revert point.
 from __future__ import annotations
 
 import hashlib
+import json
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -129,6 +130,7 @@ def slice_systems(vol_id: str, pdf_page: int, dest: Path | None = None,
     out_dir.mkdir(parents=True, exist_ok=True)
 
     slices: list[Slice] = []
+    manifest: list[dict[str, object]] = []
     for index, box in enumerate(analysis.boxes):
         left, right = (_trim_columns(ink[box.top:box.bottom], box.left, box.right)
                        if trim else (box.left, box.right))
@@ -154,7 +156,34 @@ def slice_systems(vol_id: str, pdf_page: int, dest: Path | None = None,
 
         slices.append(Slice(ref=ref, sha256=digest, width=crop.width,
                             height=crop.height, paths=tuple(paths)))
+        manifest.append({"index": index, "sha256": digest,
+                         "width": crop.width, "height": crop.height})
+
+    # The content hash is part of every published URL, and only slicing knows it.
+    # Writing it here means the catalog can build real asset keys without
+    # re-cropping the page, and cannot drift from what was actually uploaded.
+    (out_dir / "manifest.json").write_text(
+        json.dumps({"systems": manifest}, indent=2) + "\n", encoding="utf-8")
     return slices
+
+
+def load_manifest(vol_id: str, pdf_page: int,
+                  dest: Path | None = None) -> list[dict[str, object]] | None:
+    """Slice hashes and dimensions for a page, or None if it has not been sliced."""
+    base = dest if dest is not None else BUILD / "systems" / vol_id
+    path = base / f"{pdf_page:04d}" / "manifest.json"
+    if not path.exists():
+        return None
+    data = json.loads(path.read_text(encoding="utf-8"))
+    systems = data.get("systems", [])
+    return list(systems) if isinstance(systems, list) else None
+
+
+def asset_stem(vol_id: str, pdf_page: int, index: int, sha256: str) -> str:
+    """Published key without its variant suffix, e.g.
+    systems/noh5/0051/000-91a1743aa200 — the site appends .webp / @2x.webp /
+    @2x.png."""
+    return f"systems/{vol_id}/{pdf_page:04d}/{index:03d}-{sha256[:12]}"
 
 
 def upload_plans(vol_id: str, pdf_page: int, dest: Path | None = None):
