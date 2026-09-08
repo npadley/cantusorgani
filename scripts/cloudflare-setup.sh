@@ -15,6 +15,10 @@
 # It does NOT attach the custom domain, make the bucket public, or deploy the
 # Worker. Those three are what actually expose something, and are clearer in the
 # dashboard than scripted blind.
+#
+# Note: `wrangler d1 migrations apply` runs EVERY .sql file in migrations/, so
+# down scripts live in rollback/ and are applied by hand. tests/test_migrations.py
+# enforces that.
 
 set -uo pipefail
 

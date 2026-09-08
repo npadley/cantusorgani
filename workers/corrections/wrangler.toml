@@ -12,7 +12,7 @@ ALLOWED_ORIGIN = "https://cantusorgani.org"
 [[d1_databases]]
 binding = "DB"
 database_name = "cantusorgani-corrections"
-database_id = "PLACEHOLDER_SET_BY_SETUP"
+database_id = "4d796209-0d9a-46bd-94c0-00a6435eb502"
 
 # TURNSTILE_SECRET is a secret, never a var. Set it with:
 #   npx wrangler secret put TURNSTILE_SECRET
