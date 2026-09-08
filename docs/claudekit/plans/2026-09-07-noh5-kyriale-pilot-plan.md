@@ -2306,7 +2306,7 @@ Per project security rules: validate at the boundary, no `any`.
 
    export default {
      async fetch(request: Request, env: Env): Promise<Response> {
-       const ALLOWED_ORIGIN = "https://novaorganiharmonia.org";
+       const allowedOrigin = env.ALLOWED_ORIGIN;   // from wrangler.toml [vars]
        const cors = {
          "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
          "Access-Control-Allow-Methods": "POST, OPTIONS",

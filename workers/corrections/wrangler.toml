@@ -1,0 +1,18 @@
+name = "cantusorgani-corrections"
+main = "src/index.ts"
+compatibility_date = "2026-09-07"
+workers_dev = false
+
+# Intake is off until the site is live. A plain var, checked at the top of fetch,
+# so intake can be paused without a redeploy.
+[vars]
+CORRECTIONS_ENABLED = "false"
+ALLOWED_ORIGIN = "https://cantusorgani.org"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "cantusorgani-corrections"
+database_id = "PLACEHOLDER_SET_BY_SETUP"
+
+# TURNSTILE_SECRET is a secret, never a var. Set it with:
+#   npx wrangler secret put TURNSTILE_SECRET
