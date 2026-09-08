@@ -3,10 +3,10 @@ main = "src/index.ts"
 compatibility_date = "2026-09-07"
 workers_dev = false
 
-# Intake is off until the site is live. A plain var, checked at the top of fetch,
-# so intake can be paused without a redeploy.
+# Intake is live. This is a plain var checked at the top of fetch, so setting it
+# to "false" and redeploying pauses submissions without touching any other code.
 [vars]
-CORRECTIONS_ENABLED = "false"
+CORRECTIONS_ENABLED = "true"
 ALLOWED_ORIGIN = "https://cantusorgani.org"
 
 # Served from its own subdomain rather than a workers.dev URL, so the endpoint
