@@ -66,6 +66,11 @@ def build_parser() -> argparse.ArgumentParser:
     cat = subs.add_parser("catalog", help="build data/catalog.json and review-queue.json")
     cat.add_argument("--volume", required=True)
 
+    pub = subs.add_parser("publish", help="slice systems to webp/png derivatives")
+    _add_common(pub)
+    pub.add_argument("--upload", action="store_true", help="also upload to R2")
+    pub.add_argument("--no-trim", action="store_true", help="keep full page width")
+
     overlay = subs.add_parser("overlay", help="write segmentation overlays and contact sheet")
     _add_common(overlay)
     overlay.add_argument("--sheet", action="store_true", help="also write contact-sheet.html")
@@ -151,6 +156,25 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{cat_path}: {len(catalog['pieces'])} pieces, {systems} systems, "
               f"{movements} confident movements")
         print(f"{review_path}: {len(review)} entries needing review")
+        return 0
+
+    if args.command == "publish":
+        from pipeline.publish import slice_systems
+        from pipeline.volumes import load_volumes
+        if args.upload:
+            from pipeline.upload import require_credentials
+            require_credentials()   # fail before doing an hour of work
+        vol = load_volumes()[args.volume]
+        pages = parse_pages(args.pages) if args.pages else list(
+            range(vol.first_body_pdf_page, vol.pdf_pages + 1))
+        total = 0
+        for i, page in enumerate(pages, 1):
+            written = slice_systems(args.volume, page, args.out, trim=not args.no_trim)
+            total += len(written)
+            print(f"[{i}/{len(pages)}] pdf {page}: {len(written)} systems")
+        print(f"{total} systems sliced")
+        if args.upload:
+            print("upload: not yet implemented (Task 22 transport)")
         return 0
 
     if args.command == "overlay":
