@@ -139,9 +139,20 @@ function pair(values: readonly number[], where: string): readonly [number, numbe
 
 let cached: Catalog | null = null;
 
+/** The bundled catalog, validated once and cached. */
 export function loadCatalog(): Catalog {
-  if (cached) return cached;
-  const doc = raw as unknown as RawCatalog;
+  if (!cached) cached = parseCatalog(raw);
+  return cached;
+}
+
+/**
+ * Validate and map a raw catalog document. Pure, so every rejection path can be
+ * exercised with synthetic input rather than only ever seeing the one bundled
+ * file -- a validator that is never shown bad data is a validator nobody has
+ * checked.
+ */
+export function parseCatalog(input: unknown): Catalog {
+  const doc = input as RawCatalog;
   if (doc.schema_version !== SCHEMA_VERSION) {
     throw new Error(
       `catalog schema_version ${doc.schema_version}, expected ${SCHEMA_VERSION}`,
@@ -179,14 +190,13 @@ export function loadCatalog(): Catalog {
     };
   });
 
-  cached = {
+  return {
     schemaVersion: doc.schema_version,
     volume: doc.volume,
     pageOffset: doc.page_offset,
     chantSource: doc.chant_source,
     pieces,
   };
-  return cached;
 }
 
 export function allPieces(): readonly Piece[] {

@@ -111,10 +111,42 @@ def _run(args: list[str], cwd: Path | None = None) -> str:
     return result.stdout
 
 
-def _d1(sql: str, remote: bool) -> list[dict[str, Any]]:
+# `wrangler d1 execute` has no parameter binding, so this tool cannot meet the
+# project's "parameterized queries only" rule literally. Every query therefore goes
+# through _d1(sql, params) with `?` placeholders, and _sql_literal admits only
+# integers, NULL, and strings matching a strict allowlist -- nothing a stranger
+# wrote can reach the SQL. Literal compliance needs Cloudflare's D1 HTTP API,
+# which binds params server-side but requires a D1-scoped API token.
+SAFE_TOKEN = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
+SHA = re.compile(r"^[0-9a-f]{7,40}$")
+
+
+def _sql_literal(value: object) -> str:
+    if value is None:
+        return "NULL"
+    if isinstance(value, bool):
+        raise TypeError("refusing to bind a boolean")
+    if isinstance(value, int):
+        return str(value)
+    if isinstance(value, str) and SAFE_TOKEN.fullmatch(value):
+        return "'" + value.replace("'", "''") + "'"
+    raise ValueError(f"refusing to bind {value!r}: only ints, None and simple tokens")
+
+
+def _bind(sql: str, params: tuple[object, ...]) -> str:
+    parts = sql.split("?")
+    if len(parts) - 1 != len(params):
+        raise ValueError(f"{len(parts) - 1} placeholders but {len(params)} params")
+    out = parts[0]
+    for value, rest in zip(params, parts[1:]):
+        out += _sql_literal(value) + rest
+    return out
+
+
+def _d1(sql: str, remote: bool, params: tuple[object, ...] = ()) -> list[dict[str, Any]]:
     output = _run(
         ["npx", "--yes", "wrangler@4", "d1", "execute", DATABASE,
-         "--remote" if remote else "--local", "--json", "--command", sql],
+         "--remote" if remote else "--local", "--json", "--command", _bind(sql, params)],
         cwd=WORKER_DIR,
     )
     start = output.find("[")
@@ -128,8 +160,9 @@ def _d1(sql: str, remote: bool) -> list[dict[str, Any]]:
 def fetch_pending(remote: bool = True) -> list[Correction]:
     rows = _d1(
         "SELECT id, piece_id, field, proposed, note, status, created_at "
-        "FROM corrections WHERE status = 'pending' ORDER BY created_at",
+        "FROM corrections WHERE status = ? ORDER BY created_at",
         remote,
+        ("pending",),
     )
     return [Correction(**row) for row in rows]
 
@@ -138,16 +171,49 @@ def mark(correction_id: int, status: str, commit_sha: str | None,
          remote: bool = True) -> None:
     if status not in {"accepted", "rejected"}:
         raise ValueError(f"refusing to set status {status!r}")
-    sha = f"'{commit_sha}'" if commit_sha else "NULL"
+    if commit_sha is not None and not SHA.fullmatch(commit_sha):
+        raise ValueError(f"refusing commit sha {commit_sha!r}")
     _d1(
-        f"UPDATE corrections SET status = '{status}', commit_sha = {sha} "
-        f"WHERE id = {int(correction_id)}",
+        "UPDATE corrections SET status = ?, commit_sha = ? WHERE id = ?",
         remote,
+        (status, commit_sha, int(correction_id)),
     )
 
 
 def head_sha() -> str:
-    return _run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT).strip()
+    sha = _run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT).strip()
+    if not SHA.fullmatch(sha):
+        raise RuntimeError(f"unexpected git sha {sha!r}")
+    return sha
+
+
+def catalog_is_committed() -> bool:
+    """True when data/catalog.json has no uncommitted changes."""
+    result = subprocess.run(
+        ["git", "diff", "--quiet", "HEAD", "--", "data/catalog.json"],
+        cwd=ROOT, check=False,
+    )
+    return result.returncode == 0
+
+
+def stamp(remote: bool = True) -> int:
+    """Record HEAD against accepted rows that do not yet carry a commit.
+
+    Only meaningful immediately after committing the catalog, so it refuses to run
+    while data/catalog.json has uncommitted changes -- otherwise it would stamp a
+    commit that does not contain the correction.
+    """
+    if not catalog_is_committed():
+        raise RuntimeError(
+            "data/catalog.json has uncommitted changes. Commit it first, then stamp."
+        )
+    sha = head_sha()
+    _d1(
+        "UPDATE corrections SET commit_sha = ? WHERE status = ? AND commit_sha IS NULL",
+        remote,
+        (sha, "accepted"),
+    )
+    return 0
 
 
 def _cited_page(catalog: dict[str, Any], piece_id: str) -> str:
@@ -165,8 +231,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--local", action="store_true", help="use the local D1 database")
     parser.add_argument("--dry-run", action="store_true",
                         help="show what would change without writing anything")
+    parser.add_argument("--stamp", action="store_true",
+                        help="after committing the catalog, record HEAD against "
+                             "accepted corrections")
     args = parser.parse_args(argv)
     remote = not args.local
+
+    if args.stamp:
+        return stamp(remote)
 
     catalog_path = DATA / "catalog.json"
     catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
@@ -177,7 +249,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     print(f"{len(pending)} pending correction(s)\n")
-    applied = 0
+    accepted: list[int] = []
     for c in pending:
         print(f"#{c.id}  {c.piece_id}")
         print(f"    field     {c.field}")
@@ -213,14 +285,20 @@ def main(argv: list[str] | None = None) -> int:
             print(f"    REFUSED   {exc}\n")
             mark(c.id, "rejected", None, remote)
             continue
-        applied += 1
+        accepted.append(c.id)
         print("    applied\n")
 
-    if applied and not args.dry_run:
+    if accepted and not args.dry_run:
+        # Write the catalog BEFORE marking rows. If marking then fails, the rows stay
+        # pending and the next run re-applies the same value -- harmless. The other
+        # order could mark a correction accepted that never reached the catalog.
         catalog_path.write_text(json.dumps(catalog, indent=2) + "\n", encoding="utf-8")
-        print(f"Wrote {applied} correction(s) to {catalog_path}.")
-        print("Commit, then re-run to record the commit SHA against each row:")
+        for correction_id in accepted:
+            mark(correction_id, "accepted", None, remote)
+        print(f"Wrote {len(accepted)} correction(s) to {catalog_path}.")
+        print("Commit, then record the commit against them:")
         print("  git add data/catalog.json && git commit -m 'data: apply corrections'")
+        print("  uv run triage --stamp")
     return 0
 
 

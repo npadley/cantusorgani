@@ -90,7 +90,8 @@ def scan_page(vol_id: str, pdf_page: int, page: pymupdf.Page
     return refs, hits, texts
 
 
-def build_catalog(vol_id: str) -> tuple[dict[str, object], list[dict[str, object]]]:
+def build_catalog(vol_id: str, index_path: Path | None = None
+                  ) -> tuple[dict[str, object], list[dict[str, object]]]:
     vol = load_volumes()[vol_id]
     offset = load_offset(vol_id)
     # Chant pairing is optional: the site is usable without it, and the vendored
@@ -106,7 +107,7 @@ def build_catalog(vol_id: str) -> tuple[dict[str, object], list[dict[str, object
             p for p in range(1, vol.pdf_pages + 1)
             if p not in vol.index_pdf_pages and p >= vol.first_body_pdf_page
         ) - offset
-        for entry, first, last in resolve_ranges(load_index(vol_id), last_body_printed):
+        for entry, first, last in resolve_ranges(load_index(vol_id, index_path), last_body_printed):
             declared = stated_end(entry)
             if declared is not None and last > declared:
                 review.append({
@@ -193,8 +194,9 @@ def build_catalog(vol_id: str) -> tuple[dict[str, object], list[dict[str, object
     return catalog, review
 
 
-def write_catalog(vol_id: str, data_dir: Path = DATA) -> tuple[Path, Path]:
-    catalog, review = build_catalog(vol_id)
+def write_catalog(vol_id: str, data_dir: Path = DATA,
+                  index_path: Path | None = None) -> tuple[Path, Path]:
+    catalog, review = build_catalog(vol_id, index_path)
     cat_path = data_dir / "catalog.json"
     rev_path = data_dir / "review-queue.json"
     cat_path.write_text(json.dumps(catalog, indent=2) + "\n", encoding="utf-8")

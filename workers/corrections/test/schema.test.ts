@@ -40,6 +40,10 @@ describe("parseCorrection", () => {
     expect(parseCorrection({ ...VALID, proposedValue: "IX" }).ok).toBe(false);
   });
 
+  it("rejects a proposedValue that is not a string", () => {
+    expect(parseCorrection({ ...VALID, proposedValue: 4 }).ok).toBe(false);
+  });
+
   it("rejects a non-object body", () => {
     for (const body of [null, undefined, "string", 42, []]) {
       expect(parseCorrection(body).ok).toBe(false);

@@ -14,7 +14,7 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = ["pytest>=8.3", "ruff>=0.6"]
+dev = ["pytest>=8.3", "pytest-cov>=5.0", "ruff>=0.6"]
 
 [project.scripts]
 noh = "pipeline.cli:main"
@@ -37,3 +37,14 @@ markers = [
   "slow: renders pages at 300dpi",
 ]
 addopts = "--strict-markers"
+
+[tool.coverage.run]
+source = ["pipeline", "tools"]
+
+[tool.coverage.report]
+# Enforced on the FULL suite (scripts/test-all.sh), which needs the source PDFs.
+# The CI subset (-m "not source") measures ~71%: every uncovered line there is
+# rendering or computer-vision code that cannot run without the 230 MB volumes.
+fail_under = 95
+show_missing = true
+skip_covered = true

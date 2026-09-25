@@ -1,8 +1,14 @@
-"""Verify hand-transcribed index pages against the folios actually printed.
+"""Check that every index entry lands on a real, correctly-offset body page.
 
-An index entry claiming page 98 must land on a PDF page whose printed folio reads
-98. This is what catches a transcription slip or a wrong offset before either can
-propagate into the catalog.
+What this verifies is the OFFSET, not the transcription. Every body page carries
+its own folio, so an entry claiming page 58 lands on a page reading 58 -- and so
+would a mistyped 53 or 83. A digit slip that stays inside the volume passes
+untouched; only a wrong offset, or a page number outside the body, fails.
+
+An earlier version of this docstring claimed it caught transcription slips. It
+does not, and a report of "zero mismatches" here says the offset is right, not
+that the index is. Verifying an entry needs evidence on the target page that a
+piece STARTS there -- its printed heading, a mode number beside its first system.
 """
 
 from __future__ import annotations

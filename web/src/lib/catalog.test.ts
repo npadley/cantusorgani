@@ -119,3 +119,86 @@ describe("systemUrlStem", () => {
     }
   });
 });
+
+/** Factory for a minimal valid raw piece, so each rejection test changes one thing. */
+function rawPiece(overrides: Record<string, unknown> = {}): Record<string, unknown> {
+  return {
+    id: "noh5-x", volume: "noh5", slug: "x", section: "S", label: "I", title: "T",
+    incipit: null, genre: "kyrie", mode: null, mass: null,
+    printed_pages: [1, 2], pdf_pages: [47, 48],
+    systems: ["noh5/0047/000"], system_assets: ["systems/noh5/0047/000-aaaaaaaaaaaa"],
+    system_aspect: [[1000, 250]], movements: [], chant: null, review_status: "verified",
+    ...overrides,
+  };
+}
+
+function rawCatalog(pieces: unknown[], overrides: Record<string, unknown> = {}) {
+  return { schema_version: 1, volume: "noh5", page_offset: 46, chant_source: null, pieces, ...overrides };
+}
+
+describe("parseCatalog", () => {
+  it("should map a valid document", async () => {
+    const { parseCatalog } = await import("./catalog");
+    const catalog = parseCatalog(rawCatalog([rawPiece()]));
+    expect(catalog.pieces[0]?.printedPages).toEqual([1, 2]);
+    expect(catalog.pieces[0]?.chant).toEqual([]);
+  });
+
+  it("should reject a schema version it does not understand", async () => {
+    const { parseCatalog } = await import("./catalog");
+    expect(() => parseCatalog(rawCatalog([], { schema_version: 2 }))).toThrow(/schema_version 2/);
+  });
+
+  it("should reject an unknown genre", async () => {
+    const { parseCatalog } = await import("./catalog");
+    expect(() => parseCatalog(rawCatalog([rawPiece({ genre: "motet" })]))).toThrow(/unknown genre/);
+  });
+
+  it("should reject an unknown review status", async () => {
+    const { parseCatalog } = await import("./catalog");
+    expect(() => parseCatalog(rawCatalog([rawPiece({ review_status: "maybe" })])))
+      .toThrow(/unknown review_status/);
+  });
+
+  it("should reject systems and aspects that disagree in count", async () => {
+    const { parseCatalog } = await import("./catalog");
+    expect(() => parseCatalog(rawCatalog([rawPiece({ system_aspect: [] })])))
+      .toThrow(/1 systems but 0 aspects/);
+  });
+
+  it("should reject a page range that is not exactly two numbers", async () => {
+    // Asserting the tuple shape instead of checking it is how undefined reaches a page.
+    const { parseCatalog } = await import("./catalog");
+    expect(() => parseCatalog(rawCatalog([rawPiece({ printed_pages: [5] })])))
+      .toThrow(/printed_pages: expected exactly two numbers/);
+  });
+
+  it("should tolerate a catalog written before asset keys existed", async () => {
+    const { parseCatalog, systemUrlStem } = await import("./catalog");
+    const catalog = parseCatalog(rawCatalog([rawPiece({ system_assets: undefined })]));
+    const piece = catalog.pieces[0]!;
+    expect(piece.systemAssets).toEqual([]);
+    expect(systemUrlStem(piece, 0)).toMatch(/\/noh5\/0047\/000$/);   // falls back to the ref
+  });
+});
+
+describe("catalog navigation helpers", () => {
+  it("should list every section once, in catalog order", async () => {
+    const { sections } = await import("./catalog");
+    const list = sections();
+    expect(new Set(list).size).toBe(list.length);
+    expect(list[0]).toBe("Ordinarium Missae");
+  });
+
+  it("should return only the pieces of the requested section", async () => {
+    const { piecesInSection } = await import("./catalog");
+    const pieces = piecesInSection("Missa pro Defunctis");
+    expect(pieces.length).toBeGreaterThan(0);
+    expect(pieces.every((p) => p.section === "Missa pro Defunctis")).toBe(true);
+  });
+
+  it("should return nothing for an unknown slug", async () => {
+    const { pieceBySlug } = await import("./catalog");
+    expect(pieceBySlug("no-such-piece")).toBeUndefined();
+  });
+});
