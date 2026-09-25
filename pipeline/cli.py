@@ -63,6 +63,10 @@ def build_parser() -> argparse.ArgumentParser:
     head = subs.add_parser("head", help="read running heads and match them to sections")
     _add_common(head)
 
+    calendar = subs.add_parser("calendar", help="regenerate the 1962 calendar from Missalemeum")
+    calendar.add_argument("--from", dest="first", type=int, default=2024)
+    calendar.add_argument("--to", dest="last", type=int, default=2050)
+
     cat = subs.add_parser("catalog", help="build data/catalog.json and review-queue.json")
     cat.add_argument("--volume", required=True)
 
@@ -152,6 +156,13 @@ def main(argv: list[str] | None = None) -> int:
             r = read_running_head(args.volume, page, vocab)
             print(f"pdf p{page:4d}  section={r.matched!s:16s} score={r.score:.2f}  "
                   f"raw={r.raw[:44]!r}")
+        return 0
+
+    if args.command == "calendar":
+        from pipeline.litcal import generate
+        manifest = generate(args.first, args.last)
+        print(f"calendar {args.first}-{args.last} from Missalemeum {manifest['commit']} "
+              f"({manifest['licence']})")
         return 0
 
     if args.command == "catalog":
