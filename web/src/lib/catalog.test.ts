@@ -235,3 +235,26 @@ describe("citedBy", () => {
     expect(citedBy(annunciation!, catalog.pieces).map((p) => p.slug)).toEqual(["vultum"]);
   });
 });
+
+describe("hymns", () => {
+  it("should make readable anchors without accents or punctuation", async () => {
+    const { hymnAnchor } = await import("./catalog");
+    expect(hymnAnchor("Ave maris stella (alius tonus)")).toBe("hymn-ave-maris-stella-alius-tonus");
+    expect(hymnAnchor("Iste Confessor", 1)).toBe("hymn-iste-confessor-2");
+  });
+
+  it("should index every hymn A-Z with its office and skip ones outside the piece", async () => {
+    const { hymnIndex, jumpTargets, parseCatalog } = await import("./catalog");
+    const catalog = parseCatalog(rawCatalog([
+      rawPiece({ id: "noh5-a", slug: "a", systems: ["noh5/0047/000", "noh5/0047/001"],
+                 system_assets: ["", ""], system_aspect: [[1000, 250], [1000, 250]],
+                 hymns: [{ title: "Te lucis", ref: "noh5/0047/001", printed_page: 29 },
+                         { title: "Lost", ref: "noh5/9999/000", printed_page: 1 }] }),
+      rawPiece({ id: "noh5-b", slug: "b",
+                 hymns: [{ title: "Ave maris stella", ref: "noh5/0047/000", printed_page: 174 }] }),
+    ]));
+    expect(hymnIndex(catalog.pieces).map((h) => [h.title, h.piece.slug])).toEqual([
+      ["Ave maris stella", "b"], ["Te lucis", "a"]]);
+    expect(jumpTargets(catalog.pieces[0]!).map((t) => t.anchor)).toEqual(["hymn-te-lucis"]);
+  });
+});

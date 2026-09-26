@@ -1,17 +1,21 @@
 ---
-import { movementStarts } from "../lib/catalog";
+import { jumpTargets } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
 
-// Jump links to the headings SystemStack prints above each movement. Both come
-// from movementStarts, so every link has a target.
+// Jump links to the headings SystemStack prints above each movement and hymn.
+// Both come from jumpTargets, so every link has a target.
 interface Props { readonly piece: Piece }
-const starts = movementStarts(Astro.props.piece);
+const starts = jumpTargets(Astro.props.piece);
+const movements = starts.filter((s) => s.kind === "movement");
+const hymns = starts.filter((s) => s.kind === "hymn");
 ---
 
-{starts.length > 1 && (
-  <nav class="movements ui no-print" aria-label="Movements">
+{(movements.length > 1 || hymns.length > 0) && (
+  <nav class="movements ui no-print" aria-label="Movements and hymns">
     <span class="small muted">Jump to</span>
-    {starts.map((s) => <a href={`#${s.anchor}`}>{s.label}</a>)}
+    {movements.length > 1 && movements.map((s) => <a href={`#${s.anchor}`}>{s.label}</a>)}
+    {hymns.length > 0 && <span class="small muted">Hymns</span>}
+    {hymns.map((s) => <a class="hymn" href={`#${s.anchor}`}>{s.label}</a>)}
   </nav>
 )}
 
@@ -21,6 +25,7 @@ const starts = movementStarts(Astro.props.piece);
     margin: 0 0 var(--s-4); padding-bottom: var(--s-2);
     border-bottom: 1px solid var(--rule);
   }
+  .movements .hymn { font-style: italic; }
   .movements a {
     min-height: var(--tap-min);
     display: inline-flex; align-items: center; padding: 0 var(--s-2);

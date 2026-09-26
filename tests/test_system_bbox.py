@@ -46,3 +46,14 @@ def test_no_systems_means_no_boxes() -> None:
 def test_bbox_is_hashable_and_frozen() -> None:
     box = BBox(0, 1, 2, 3)
     assert hash(box) == hash(BBox(0, 1, 2, 3))
+
+
+def test_to_bboxes_tightly_set_page_splits_the_gap():
+    """NOH8 p. 130: systems so close that the text headroom of the next would
+    cut above this system's own staff. The gap is split instead."""
+    from pipeline.segment import System, to_bboxes
+    systems = [System(469, 710, 2), System(836, 1100, 2)]
+    boxes = to_bboxes(systems, page_height=3300, page_width=2500)
+    assert boxes[0].bottom > 710                      # this system's tail kept
+    assert boxes[0].bottom <= 710 + int((836 - 710) * 0.4)
+    assert boxes[1].top >= boxes[0].bottom            # no overlap

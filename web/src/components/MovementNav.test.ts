@@ -14,14 +14,15 @@ async function render(piece: Piece): Promise<string> {
 }
 
 function links(html: string): string[] {
-  return [...html.matchAll(/<a href="#([^"]+)"/g)].map((m) => m[1] ?? "");
+  return [...html.matchAll(/<a[^>]*\shref="#([^"]+)"/g)].map((m) => m[1] ?? "");
 }
 
 function ids(html: string): Set<string> {
   return new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1] ?? ""));
 }
 
-function mass(movements: readonly [string, number][], systems = 12): Piece {
+function mass(movements: readonly [string, number][], systems = 12,
+              hymns: readonly [string, number][] = []): Piece {
   const refs = Array.from({ length: systems }, (_, i) => `noh5/0100/${String(i).padStart(3, "0")}`);
   return parseCatalog({
     schema_version: 2, volumes: { noh5: { title: "Kyriale", part: "V" } }, chant_source: null,
@@ -33,6 +34,7 @@ function mass(movements: readonly [string, number][], systems = 12): Piece {
       movements: movements.map(([movement, i]) => ({
         movement, score: 0.9, pdf_page: 100, system: i, ref: refs[i], mode_marker: null,
       })),
+      hymns: hymns.map(([title, i]) => ({ title, ref: refs[i], printed_page: 51 })),
     }],
   }).pieces[0]!;
 }
@@ -69,6 +71,22 @@ describe("MovementNav with SystemStack", () => {
     const broken = { ...piece, movements: [...piece.movements,
       { ...piece.movements[1]!, movement: "sanctus" as const, ref: "noh5/9999/000" }] };
     expect(movementStarts(broken).map((s) => s.movement)).toEqual(["kyrie", "gloria"]);
+  });
+});
+
+describe("hymns in a Vespers office", () => {
+  it("should link each hymn to a heading before its first system", async () => {
+    const html = await render(mass([], 10, [["Creator alme siderum", 3], ["Te lucis ante terminum", 7]]));
+    expect(links(html)).toEqual(["hymn-creator-alme-siderum", "hymn-te-lucis-ante-terminum"]);
+    for (const anchor of links(html)) expect(ids(html)).toContain(anchor);
+    expect(html.indexOf('id="hymn-creator-alme-siderum"'))
+      .toBeLessThan(html.indexOf('data-ref="noh5/0100/003"'));
+  });
+
+  it("should give a hymn printed twice two distinct anchors", async () => {
+    const html = await render(mass([], 10, [["Iste Confessor", 2], ["Iste Confessor", 6]]));
+    expect(links(html)).toEqual(["hymn-iste-confessor", "hymn-iste-confessor-2"]);
+    expect(ids(html)).toContain("hymn-iste-confessor-2");
   });
 });
 

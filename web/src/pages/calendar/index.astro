@@ -86,7 +86,7 @@ const [first, last] = CALENDAR_SOURCE.years;
   import type { LocalDate } from "../../lib/liturgy";
   import { dayHref } from "../../lib/indexes";
 
-  interface Link { title: string; href: string }
+  interface Link { title: string; href: string; division?: string }
 
   const SWATCH: Record<string, string> = {
     w: "#f6f3ea", r: "#9b1c1c", v: "#5b2a86", g: "#2e6b30", b: "#111111", p: "#d98aa6",
@@ -154,7 +154,9 @@ const [first, last] = CALENDAR_SOURCE.years;
 
       const music = el("dl", undefined, "music");
       music.append(el("dt", "Proper"));
-      const propers = days[key] ?? [];
+      const all = days[key] ?? [];
+      const propers = all.filter((p) => p.division !== "vesperale");
+      const vespers = all.filter((p) => p.division === "vesperale");
       const properDd = el("dd");
       if (propers.length) {
         propers.forEach((p, i) => {
@@ -163,7 +165,7 @@ const [first, last] = CALENDAR_SOURCE.years;
         });
         properDd.append(" · ", link("all for this day", dayHref(key)));
       } else {
-        properDd.textContent = "Not yet catalogued. The Proper of Time and of the Saints are next.";
+        properDd.textContent = "No Proper of its own is catalogued for this day.";
       }
       music.append(properDd);
 
@@ -188,6 +190,15 @@ const [first, last] = CALENDAR_SOURCE.years;
       }
       if (k.note) ordinaryDd.append(el("p", k.note, "note"));
       music.append(ordinaryDd);
+      if (vespers.length) {
+        music.append(el("dt", "Vespers"));
+        const vespersDd = el("dd");
+        vespers.forEach((p, i) => {
+          if (i) vespersDd.append(" · ");
+          vespersDd.append(link(p.title, p.href));
+        });
+        music.append(vespersDd);
+      }
       block.append(music);
       result.append(block);
     }

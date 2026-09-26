@@ -366,20 +366,29 @@ def rows_from_columns(words: list[Word], columns: list[Column], band_gap: float 
     rows: list[Row] = []
     carried = ""
     for index, column in enumerate(columns):
-        left = columns[index - 1].right if index else 0.0
-        own = [(y, t) for y, t, x0, x1 in spans_h if x0 < column.right and x1 > left]
+        last_own = ""
         for number in sorted(column.members, key=lambda m: m.y0):
+            # The column's extent at this row: from the nearest column to its left
+            # that is present at this height (NOH5's index adds a middle column
+            # only lower down).
+            live = [c.right for c, (top, bottom) in zip(columns, spans, strict=True)
+                    if top <= number.y0 <= bottom and c.right < column.right]
+            left = max(live, default=0.0)
+            own = [(y, t) for y, t, x0, x1 in spans_h if x0 < column.right and x1 > left]
             lines = title_lines.get(id(number), [])
             parts = [w for line in lines for w in line]
-            section = next((t for y, t in reversed(own) if y < number.y0), carried)
+            above = [t for y, t in own if y < number.y0]
+            section = above[-1] if above else carried
+            if above:
+                last_own = above[-1]
             head = " ".join(w.text for w in lines[0]) if lines else ""
             dashed = bool(lines) and any(
                 abs(d.y0 - lines[0][0].y0) < 5 and d.x1 <= lines[0][0].x0 + 1
                 for d in dashes.get(index, []))
             rows.append(Row(number.y0, index, " ".join(w.text for w in parts), number.text,
                             number.source, section, head, dashed))
-        if own:
-            carried = own[-1][1]
+        if last_own:
+            carried = last_own
     # Sections read top-down; inside a two-column section, left column then right.
     rows.sort(key=lambda r: r.y)
     bands: list[list[Row]] = []
@@ -900,10 +909,10 @@ def extract(vol_id: str, ordered: bool = True, ocr: bool = True,
     # Page order is checked section by section: NOH8's index runs the Proper of
     # Time and the Common in page order, but not its Proper of Saints, and its
     # hymns alphabetically.
-    out: list[Proposal] = []
+    groups: list[tuple[bool, list[Proposal]]] = []
+    floor = 0
     for section, group in itertools.groupby(rows, key=lambda r: r.section):
         in_order = ordered and section_in_page_order(section)
-        floor = 0
         placed: list[Proposal] = []
         for row in group:
             candidates = page_candidates(row.token, 1, highest) if row.token else []
@@ -913,8 +922,21 @@ def extract(vol_id: str, ordered: bool = True, ocr: bool = True,
                 floor = result.page          # only verified pages constrain what follows
             placed.append(Proposal(row.title, row.section, row.token, row.source, result.page,
                                    result.status, result.score, result.candidates))
+        groups.append((in_order, placed))
+    # Sections in page order that follow one another bound each other: the
+    # Ordinarium's last Credos lie before the Cantus ad libitum's first Kyrie.
+    in_order_verified = [p.page for flag, g in groups if flag for p in g
+                         if p.status == "verified" and p.page is not None]
+    out: list[Proposal] = []
+    seen_order = 0
+    for in_order, placed in groups:
         if in_order:
-            placed = search_gaps(placed, reader, highest)
+            count = sum(1 for p in placed if p.status == "verified" and p.page is not None)
+            before = in_order_verified[:seen_order]
+            after = in_order_verified[seen_order + count:]
+            seen_order += count
+            placed = search_gaps(placed, reader, highest, low_bound=max(before, default=0),
+                                 high_bound=min(after, default=highest + 1))
         elif not ordered:
             placed = order_by_feast_date(placed, reader, highest)
         else:
@@ -1011,7 +1033,8 @@ CANDIDATE_BONUS = 0.3
 
 
 def search_gaps(proposals: list[Proposal], reader: HeadingReader, highest: int,
-                max_span: int = 60) -> list[Proposal]:
+                max_span: int = 60, low_bound: int = 0, high_bound: int | None = None
+                ) -> list[Proposal]:
     """Second pass for an index in page order.
 
     Between two verified entries lies a run of unverified ones. Their pages must
@@ -1029,8 +1052,9 @@ def search_gaps(proposals: list[Proposal], reader: HeadingReader, highest: int,
         run = list(range(left + 1, right))
         if not run:
             continue
-        low = out[left].page if left >= 0 and out[left].page is not None else 0
-        high = out[right].page if right < len(out) and out[right].page is not None else highest + 1
+        low = out[left].page if left >= 0 and out[left].page is not None else low_bound
+        high = (out[right].page if right < len(out) and out[right].page is not None
+                else (high_bound if high_bound is not None else highest + 1))
         span = range(low + 1, high) if high - low - 1 <= max_span else range(0)
         for i, (page, how, score) in zip(run, _fit_run([out[i] for i in run], span, low, high, reader),
                                          strict=True):

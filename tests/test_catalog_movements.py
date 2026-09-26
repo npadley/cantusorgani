@@ -37,3 +37,43 @@ def test_ordinary_movements_ferial_mass_has_no_gloria(mass_refs):
 
 def test_ordinary_movements_empty_mass():
     assert ordinary_movements("I", []) == ([], [])
+
+
+def test_attach_hymns_to_the_office_printing_them(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+
+    from pipeline import catalog, pagesplit
+    from pipeline.offset import PageMap, Segment
+
+    monkeypatch.setattr(catalog, "analyse_page", lambda _v, _p: SimpleNamespace(boxes=[], page_height=3000))
+    monkeypatch.setattr(catalog, "system_texts", lambda _v, _p: ["", ""])
+    monkeypatch.setattr(pagesplit, "first_system", lambda _reader, title: 1 if "Creator" in title else 0)
+    monkeypatch.setattr(pagesplit.GapReader, "__init__", lambda self, *a, **k: None)
+    pieces = [{"slug": "advent", "systems": ["noh8/0081/000", "noh8/0081/001", "noh8/0082/000"]},
+              {"slug": "christmas", "systems": ["noh8/0099/000"]}]
+    review: list[dict[str, object]] = []
+    page_map = PageMap((Segment(31, 343, 30),))
+    catalog.attach_hymns("noh8", page_map, pieces, review, [
+        {"title": "Creator alme siderum", "page": 51, "status": "verified"},
+        {"title": "Jesu Redemptor omnium", "page": 69, "status": "unverified"},
+        {"title": "Lost hymn", "page": 300, "status": "unverified"}])
+    assert pieces[0]["hymns"] == [{"title": "Creator alme siderum", "ref": "noh8/0081/001", "printed_page": 51}]
+    assert pieces[1]["hymns"][0]["ref"] == "noh8/0099/000"
+    assert [r["kind"] for r in review] == ["hymn_at_page_top", "hymn_unplaced"]
+
+
+def test_load_hymns_from_the_index(tmp_path):
+    from pipeline.catalog import load_hymns
+    path = tmp_path / "index-noh8.yml"
+    path.write_text("sections: []\nhymns:\n- {title: A, page: 51}\n- {title: B, page: null}\n")
+    assert [h["title"] for h in load_hymns("noh8", path)] == ["A"]
+    assert load_hymns("noh8", tmp_path / "missing.yml") == []
+
+
+def test_hymn_system_finds_the_hymns_opening_words():
+    from pipeline.catalog import hymn_system
+    texts = ["elpotestasejusejusisraoticaitu", "ivcreatoralmesiderumeternaluxc", "supplicum"]
+    assert hymn_system("Creator alme siderum", texts, 3) == 1
+    assert hymn_system("Ave maris stella (alius tonus)", ["x" * 12, "avemarisstelladeimater"], 2) == 1
+    assert hymn_system("Te lucis", texts, 3) == 0            # too short to trust
+    assert hymn_system("Ut queant laxis", texts, 3) == 0     # not on this page

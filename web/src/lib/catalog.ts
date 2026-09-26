@@ -36,6 +36,12 @@ export interface MovementBoundary {
   readonly modeMarker: string | null;
 }
 
+export interface Hymn {
+  readonly title: string;
+  readonly ref: string;
+  readonly printedPage: number;
+}
+
 export interface Piece {
   readonly id: string;
   readonly volume: string;
@@ -52,6 +58,8 @@ export interface Piece {
   readonly reference: string | null;
   /** Days this piece serves because another entry cites it, not by its own heading. */
   readonly linkedDays: readonly string[];
+  /** Hymns printed inside this piece (a Vespers office), where each begins. */
+  readonly hymns: readonly Hymn[];
   readonly genre: Genre;
   readonly mode: string | null;
   readonly mass: string | null;
@@ -123,6 +131,7 @@ interface RawPiece {
   readonly division?: string; readonly days?: readonly string[];
   readonly incipit: string | null; readonly genre: string;
   readonly reference?: string | null; readonly linked_days?: readonly string[];
+  readonly hymns?: readonly { readonly title: string; readonly ref: string; readonly printed_page: number }[];
   readonly mode: string | null; readonly mass: string | null;
   // JSON gives plain arrays; the tuple shape is checked at runtime below rather
   // than asserted here, because asserting it is how `undefined` reaches a page.
@@ -192,6 +201,7 @@ export function parseCatalog(input: unknown): Catalog {
       division: p.division ?? "varia", days: p.days ?? [],
       label: p.label, title: p.title, incipit: p.incipit,
       reference: p.reference ?? null, linkedDays: p.linked_days ?? [],
+      hymns: (p.hymns ?? []).map((h): Hymn => ({ title: h.title, ref: h.ref, printedPage: h.printed_page })),
       genre: p.genre as Genre, mode: p.mode, mass: p.mass,
       printedPages: pair(p.printed_pages, `${p.id}.printed_pages`),
       pdfPages: pair(p.pdf_pages, `${p.id}.pdf_pages`),
@@ -321,4 +331,52 @@ export function movementStarts(piece: Piece): readonly MovementStart[] {
     starts.push({ movement, label: MOVEMENT_LABELS[movement], anchor: movement, index });
   }
   return starts.sort((a, b) => a.index - b.index);
+}
+
+/** A readable in-page anchor: "Creator alme siderum" -> "hymn-creator-alme-siderum". */
+export function hymnAnchor(title: string, occurrence = 0): string {
+  const base = title.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return `hymn-${base}${occurrence ? `-${occurrence + 1}` : ""}`;
+}
+
+export interface JumpTarget {
+  readonly label: string;
+  readonly anchor: string;
+  /** Position in piece.systems of the first system. */
+  readonly index: number;
+  readonly kind: "movement" | "hymn";
+}
+
+/**
+ * Everything a reader can jump to in a piece: its movements (a Mass) and the
+ * hymns printed in it (a Vespers office), in page order. The jump links and the
+ * headings in the music both come from here, so every link has a target.
+ */
+export function jumpTargets(piece: Piece): readonly JumpTarget[] {
+  const movements: JumpTarget[] = movementStarts(piece).map((s) => ({
+    label: s.label, anchor: s.anchor, index: s.index, kind: "movement",
+  }));
+  const used = new Map<string, number>();
+  const hymns: JumpTarget[] = [];
+  for (const h of piece.hymns) {
+    const index = piece.systems.indexOf(h.ref);
+    if (index < 0) continue;
+    const seen = used.get(h.title) ?? 0;
+    used.set(h.title, seen + 1);
+    hymns.push({ label: h.title, anchor: hymnAnchor(h.title, seen), index, kind: "hymn" });
+  }
+  return [...movements, ...hymns].sort((a, b) => a.index - b.index);
+}
+
+/** Every hymn in the catalog, A-Z, with the page and anchor that show it. */
+export function hymnIndex(pieces: readonly Piece[] = allPieces()):
+    readonly { readonly title: string; readonly piece: Piece; readonly anchor: string }[] {
+  const out: { title: string; piece: Piece; anchor: string }[] = [];
+  for (const piece of pieces) {
+    for (const t of jumpTargets(piece)) {
+      if (t.kind === "hymn") out.push({ title: t.label, piece, anchor: t.anchor });
+    }
+  }
+  return out.sort((a, b) => a.title.localeCompare(b.title, "la"));
 }

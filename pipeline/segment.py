@@ -210,6 +210,11 @@ def _close(group: list[Staff]) -> System:
 # heights are 224-270px, so 0.55 reserves 123-149px inside an inter-system gap
 # that is never smaller than 171px.
 TEXT_HEADROOM = 0.55
+# On a page too tight for TEXT_HEADROOM, the share of the gap below a system that
+# is kept for its own tail (the rest holds the next system's text line).
+TIGHT_TAIL_SHARE = 0.4
+# Narrower than this, two systems cannot be told apart at all: still an error.
+TIGHT_MIN_GAP = 40
 # Fallback only, used when no ink map is supplied. The bottom of a system is not a
 # fixed fraction of its height: bass notes on ledger lines below the staff, and
 # slurs, run well past the last staff line. Measured over the 52 fixture systems,
@@ -271,6 +276,13 @@ def to_bboxes(systems: list[System], page_height: int, page_width: int,
             # next system's Latin text is cut in half across two slices -- the exact
             # failure this module exists to prevent.
             ceiling = nxt.top - int((nxt.bottom - nxt.top) * TEXT_HEADROOM)
+            if ceiling <= sys_.bottom and nxt.top - sys_.bottom >= TIGHT_MIN_GAP:
+                # Tightly set pages (the Vesperale's versicles) leave less room
+                # between systems than the text headroom assumes, and the cut
+                # would fall above this system's own staff. Split the gap
+                # instead: most of it for the next system's words, the rest for
+                # this one's tail. Only such pages change; the rest keep their cut.
+                ceiling = sys_.bottom + int((nxt.top - sys_.bottom) * TIGHT_TAIL_SHARE)
         else:
             ceiling = page_height
         ceiling = min(ceiling, page_height)

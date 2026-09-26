@@ -42,15 +42,16 @@ def test_write_contact_sheet_unlabelled_page_is_flagged(tmp_path):
 
 @pytest.mark.source
 @pytest.mark.slow
-def test_analyse_page_odd_staff_count_is_captured_not_raised():
-    """PDF 180 detects 11 staves (one bass staff missed). A bad page is a review
-    entry, so analyse_page records the error instead of crashing the run."""
+def test_analyse_page_odd_staff_count_is_recovered_and_flagged():
+    """PDF 180 detects 11 staves (one bass staff missed). The page used to be
+    dropped whole; its systems are now paired by the brace gap and the page is
+    flagged for review instead of vanishing."""
     from pipeline.evaluate import analyse_page, count_systems
     result = analyse_page("noh5", 180)
-    assert result.error is not None and "not a multiple" in result.error
-    assert result.system_count == 0
-    with pytest.raises(ValueError):
-        count_systems("noh5", 180)
+    assert result.error is None
+    assert result.warning is not None and "not a multiple" in result.warning
+    assert result.system_count == 6
+    assert count_systems("noh5", 180) == 6
 
 
 # ----------------------------------------------------------------- catalog ---
@@ -92,7 +93,8 @@ def test_build_catalog_unpaired_pieces_are_queued_for_review(small_index):
 def test_write_catalog_writes_both_files(small_index, tmp_path):
     from pipeline.catalog import write_catalog
     cat_path, rev_path = write_catalog("noh5", tmp_path, small_index)
-    assert json.loads(cat_path.read_text())["schema_version"] == 1
+    from pipeline.catalog import SCHEMA_VERSION
+    assert json.loads(cat_path.read_text())["schema_version"] == SCHEMA_VERSION
     assert isinstance(json.loads(rev_path.read_text()), list)
 
 
@@ -237,9 +239,10 @@ def test_load_index_duplicate_slug_after_disambiguation_is_an_error(tmp_path):
 
 # ------------------------------------------------- catalog failure branches ---
 
-def write_index(tmp_path, entries, name="index.yml"):
+def write_index(tmp_path, entries, name="index.yml", division="varia"):
     path = tmp_path / name
-    path.write_text(yaml.safe_dump({"sections": [{"name": "S", "entries": entries}]}))
+    path.write_text(yaml.safe_dump({"sections": [{"name": "S", "division": division,
+                                                  "entries": entries}]}))
     return path
 
 
@@ -247,7 +250,9 @@ def write_index(tmp_path, entries, name="index.yml"):
 @pytest.mark.slow
 def test_build_catalog_range_past_stated_end_is_queued_as_extended(tmp_path):
     """Gloria's printed range stops at 144 but Sanctus starts at 147: the gap is
-    claimed, and the judgement call is recorded rather than made silently."""
+    claimed, and the judgement call is recorded rather than made silently. The
+    Gloria runs onto 147 itself -- its last systems sit above the Sanctus
+    heading there."""
     from pipeline.catalog import build_catalog
     index = write_index(tmp_path, [
         {"label": "Gloria", "title": "Gloria I. II. III.", "genre": "gloria",
@@ -257,8 +262,8 @@ def test_build_catalog_range_past_stated_end_is_queued_as_extended(tmp_path):
     catalog, review = build_catalog("noh5", index)
     extended = [r for r in review if r["kind"] == "range_extended"]
     assert extended and extended[0]["stated"] == [139, 144]
-    assert extended[0]["resolved"] == [139, 146]
-    assert catalog["pieces"][0]["printed_pages"] == [139, 146]
+    assert extended[0]["resolved"] == [139, 147]
+    assert catalog["pieces"][0]["printed_pages"] == [139, 147]
 
 
 @pytest.mark.source
@@ -277,19 +282,20 @@ def test_build_catalog_page_beyond_volume_is_reported_with_no_systems(tmp_path):
 
 @pytest.mark.source
 @pytest.mark.slow
-def test_build_catalog_unconfident_movement_goes_to_review_not_catalog(tmp_path):
-    """PDF 52's Kyrie continuation scores 0.739 with no mode number: plausible, not
-    confident. It must reach the review queue and never a published movement."""
+def test_build_catalog_mass_movements_in_order_weak_ones_queued(tmp_path):
+    """Missa I has its Kyrie, Gloria, Sanctus and Agnus Dei, once each and in
+    order; a movement placed only by that order is published flagged and queued."""
     from pipeline.catalog import build_catalog
     index = write_index(tmp_path, [
         {"label": "I", "title": "Missa Tempore Paschali", "genre": "mass_ordinary", "page": 5},
-        {"label": "II", "title": "In Festis Solemnibus 1", "genre": "mass_ordinary", "page": 7},
-    ])
+        {"label": "II", "title": "In Festis Solemnibus 1", "genre": "mass_ordinary", "page": 11},
+    ], division="kyriale")
     catalog, review = build_catalog("noh5", index)
-    uncertain = [r for r in review if r["kind"] == "uncertain_movement"]
-    assert any(r["pdf_page"] == 52 and r["movement"] == "kyrie" for r in uncertain)
-    published = {(m["pdf_page"], m["system"]) for m in catalog["pieces"][0]["movements"]}
-    assert all((r["pdf_page"], r["system"]) not in published for r in uncertain)
+    mass = catalog["pieces"][0]
+    assert [m["movement"] for m in mass["movements"] if m["movement"] != "ite"] == [
+        "kyrie", "gloria", "sanctus", "agnus"]
+    queued = {r["ref"] for r in review if r["kind"] == "uncertain_movement" and r["piece"] == mass["slug"]}
+    assert all(m["ref"] in queued for m in mass["movements"] if m["placed"] == "order")
 
 
 @pytest.mark.source

@@ -1,6 +1,6 @@
 ---
-import { movementStarts, systemUrlStem, volumeLabel } from "../lib/catalog";
-import type { Piece } from "../lib/catalog";
+import { jumpTargets, systemUrlStem, volumeLabel } from "../lib/catalog";
+import type { JumpTarget, Piece } from "../lib/catalog";
 
 interface Props {
   readonly piece: Piece;
@@ -14,8 +14,9 @@ const captionId = `${id}-caption`;
 // would appear LARGER than a long one, inverting the relationship printed on the
 // page — the Kyrie's half-length intonation would dwarf a full system.
 const widest = Math.max(1, ...piece.systemAspect.map(([w]) => w));
-// A heading above the first system of each movement: the target of the jump links.
-const startsAt = new Map(movementStarts(piece).map((s) => [s.index, s]));
+// A heading above the first system of each movement and hymn: the jump links' targets.
+const startsAt = new Map<number, JumpTarget[]>();
+for (const t of jumpTargets(piece)) startsAt.set(t.index, [...(startsAt.get(t.index) ?? []), t]);
 ---
 
 {piece.systems.length === 0 ? (
@@ -41,10 +42,12 @@ const startsAt = new Map(movementStarts(piece).map((s) => [s.index, s]));
       const aspect = piece.systemAspect[i] ?? [1600, 400];
       const relative = (aspect[0] / widest) * 100;
       const stem = systemUrlStem(piece, i);
-      const start = startsAt.get(i);
+      const starts = startsAt.get(i) ?? [];
       return (
         <>
-        {start && <h2 class="movement-heading" id={start.anchor}>{start.label}</h2>}
+        {starts.map((start) => (
+          <h2 class={`movement-heading ${start.kind}`} id={start.anchor}>{start.label}</h2>
+        ))}
         <div
           class="system-slot"
           style={`aspect-ratio:${aspect[0]}/${aspect[1]}; width:${relative.toFixed(2)}%`}
@@ -79,6 +82,7 @@ const startsAt = new Map(movementStarts(piece).map((s) => [s.index, s]));
     font-family: var(--font-ui); font-size: var(--step-0); font-weight: 600;
     margin: var(--s-4) 0 var(--s-2); scroll-margin-top: var(--s-4);
   }
+  .movement-heading.hymn { font-style: italic; font-weight: 500; }
 
   /* The slot reserves each system's exact height from its recorded aspect ratio.
      Without this the page reflows as slices load, which is the worst possible

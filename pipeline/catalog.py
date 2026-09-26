@@ -110,6 +110,8 @@ def scan_page(vol_id: str, pdf_page: int, page: pymupdf.Page
 # ("verified", "found"), or its own number agreed with the page order
 # ("consistent"). Anything else is published but marked for review.
 CONFIDENT_INDEX = frozenset({"verified", "found", "consistent"})
+# Divisions whose pieces are Masses divided into movements.
+MOVEMENT_DIVISIONS = frozenset({"kyriale", "defunctorum"})
 
 
 PageScan = tuple[list[SystemRef], list[tuple[int, MovementHit]], list[str]]
@@ -165,6 +167,73 @@ def ordinary_movements(label: str, refs: list[SystemRef]
             uncertain.append({"kind": "uncertain_movement", **record,
                               "why": "placed by the Mass's order; its opening words matched weakly"})
     return movements, uncertain
+
+
+def load_hymns(vol_id: str, index_path: Path | None = None) -> list[Record]:
+    """Hymns an index lists by name (NOH8's "Hymni"), with their printed pages."""
+    path = index_path if index_path is not None else DATA / f"index-{vol_id}.yml"
+    if not path.exists():
+        return []
+    doc = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    return [h for h in doc.get("hymns", []) or [] if h.get("page")]
+
+
+def hymn_system(title: str, texts: list[str], systems: int) -> int:
+    """The first system on a page whose words open with the hymn's title, or 0."""
+    from pipeline.movements import movement_score_for
+
+    opening = condense(re.sub(r"\(.*?\)|,.*$", "", title))[:24]
+    if len(opening) < 8:
+        return 0
+    for i, text in enumerate(texts[:systems]):
+        if movement_score_for((opening,), text) >= HYMN_MATCH:
+            return i
+    return 0
+
+
+HYMN_MATCH = 0.6
+
+
+def attach_hymns(vol_id: str, page_map: PageMap, pieces: list[Record], review: list[Record],
+                 hymns: list[Record]) -> None:
+    """Give each hymn to the office that prints it, at the system it begins.
+
+    A hymn is found at its page's heading gap where the page names it; failing
+    that, at the page's first system -- still the right office, and the reader
+    lands on the page the index gives."""
+    by_ref: dict[str, Record] = {}
+    for piece in pieces:
+        piece["hymns"] = []
+        for ref in list(piece["systems"]):  # a list of refs
+            by_ref[str(ref)] = piece
+    for hymn in hymns:
+        title, printed = str(hymn["title"]), int(hymn["page"])
+        pdf_page = page_map.to_pdf(printed)
+        prefix = f"{vol_id}/{pdf_page:04d}/" if pdf_page else None
+        on_page = sorted(r for r in by_ref if prefix and r.startswith(prefix))
+        if not on_page:
+            review.append({"piece": None, "kind": "hymn_unplaced", "title": title, "printed_page": printed})
+            continue
+        from pipeline.pagesplit import GapReader, first_system
+
+        analysis = analyse_page(vol_id, pdf_page)
+        reader = GapReader(vol_id, pdf_page, printed, [(b.top, b.bottom) for b in analysis.boxes],
+                           analysis.page_height)
+        index = min(first_system(reader, title), len(on_page) - 1)
+        if index == 0:
+            # No heading names it: a hymn's title is its first sung words, so
+            # find the system whose chant text opens with them.
+            index = hymn_system(title, system_texts(vol_id, pdf_page), len(on_page))
+        ref = on_page[index]
+        owner = by_ref[ref]
+        hymns_list = owner["hymns"]
+        assert isinstance(hymns_list, list)
+        hymns_list.append({"title": title, "ref": ref, "printed_page": printed})
+        if index == 0 and hymn_system(title, system_texts(vol_id, pdf_page), len(on_page)) == 0 \
+                and hymn.get("status") not in ("verified", "found"):
+            review.append({"piece": owner["slug"], "kind": "hymn_at_page_top", "title": title,
+                           "printed_page": printed,
+                           "why": "no heading placed the hymn on its page; linked to the page's first system"})
 
 
 def build_catalog(vol_id: str, index_path: Path | None = None
@@ -242,7 +311,9 @@ def build_catalog(vol_id: str, index_path: Path | None = None
                 mine = {r.index for r in page_refs if start <= (printed, r.index) < stop}
                 refs.extend(r for r in page_refs if r.index in mine)
                 for system_index, hit in hits:
-                    if system_index not in mine or ordinary:
+                    # Only a Mass has movements: an Introit's "Gloria Patri" or a
+                    # Vespers antiphon's "Kyrie" is not one.
+                    if system_index not in mine or ordinary or entry.division not in MOVEMENT_DIVISIONS:
                         continue
                     record = {
                         "movement": hit.movement, "score": hit.score,
@@ -312,6 +383,8 @@ def build_catalog(vol_id: str, index_path: Path | None = None
                 "review_status": "verified" if refs and entry.status in CONFIDENT_INDEX
                 else "review",
             })
+
+        attach_hymns(vol_id, page_map, pieces, review, load_hymns(vol_id, index_path))
 
     for gap_first, gap_last in page_map.gaps:
         review.append({"piece": None, "kind": "unmapped_pages", "pdf_pages": [gap_first, gap_last],

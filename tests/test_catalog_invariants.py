@@ -257,3 +257,24 @@ def test_every_day_key_exists_in_the_1962_calendar():
     for piece in PIECES:
         for key in piece["days"]:
             assert key in vocabulary, f"{piece['id']}: unknown calendar key {key}"
+
+
+def test_only_masses_have_movements():
+    """An Introit's "Gloria Patri" is not a Gloria; a jump link to it misleads."""
+    for piece in PIECES:
+        if piece["movements"]:
+            assert piece["division"] in {"kyriale", "defunctorum"}, piece["id"]
+
+
+def test_every_hymn_points_into_its_own_office():
+    for piece in PIECES:
+        for hymn in piece.get("hymns", []):
+            assert hymn["ref"] in piece["systems"], f"{piece['id']}: {hymn['title']}"
+
+
+def test_every_indexed_hymn_is_attached_or_queued():
+    import yaml
+    doc = yaml.safe_load(Path("data/index-noh8.yml").read_text(encoding="utf-8"))
+    attached = sum(len(p.get("hymns", [])) for p in PIECES if p["volume"] == "noh8")
+    queued = sum(1 for r in REVIEW if r["kind"] == "hymn_unplaced" and r["volume"] == "noh8")
+    assert attached + queued == len(doc["hymns"])

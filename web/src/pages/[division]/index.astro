@@ -1,10 +1,11 @@
 ---
 import Layout from "../../components/Layout.astro";
 import PieceList from "../../components/PieceList.astro";
-import { allPieces } from "../../lib/catalog";
+import { allPieces, hymnIndex } from "../../lib/catalog";
 import type { Piece } from "../../lib/catalog";
 import {
-  MONTHS_EN, MONTHS_LA, dayHref, divisionsWithContent, piecesIn, sanctoraleIndex, temporaleIndex,
+  MONTHS_EN, MONTHS_LA, dayHref, divisionsWithContent, pieceHref, piecesIn, sanctoraleIndex,
+  temporaleIndex,
 } from "../../lib/indexes";
 import type { Division, DivisionSummary } from "../../lib/indexes";
 import { SEASON_LABELS } from "../../lib/liturgy";
@@ -34,6 +35,8 @@ if (!seasons.length && !months.length) {
 const reached = new Set([...seasons.flatMap((g) => g.days), ...months.flatMap((m) => m.days)]
   .flatMap((d) => d.pieces.map((p) => p.id)));
 const rest = seasons.length || months.length ? pieces.filter((p) => !reached.has(p.id)) : [];
+// The Vesperale's hymns, A-Z, each linked to the office that prints it.
+const hymns = meta.division === "vesperale" ? hymnIndex(pieces) : [];
 ---
 
 <Layout title={meta.en} description={meta.blurb}>
@@ -83,6 +86,18 @@ const rest = seasons.length || months.length ? pieces.filter((p) => !reached.has
       <PieceList pieces={list} />
     </section>
   ))}
+  {hymns.length > 0 && (
+    <section>
+      <h2 id="hymns">Hymni <span class="la muted">Hymns</span></h2>
+      <ul class="hymns ui">
+        {hymns.map((h) => (
+          <li><a href={`${pieceHref(h.piece)}#${h.anchor}`}>{h.title}</a>
+            <span class="muted small">{h.piece.title}</span></li>
+        ))}
+      </ul>
+    </section>
+  )}
+
 </Layout>
 
 <style>
@@ -92,6 +107,8 @@ const rest = seasons.length || months.length ? pieces.filter((p) => !reached.has
   h2 { margin-top: var(--s-5); padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule); }
   .la { font-weight: 400; font-style: italic; font-size: var(--step-0); }
   .days { list-style: none; margin: 0; padding: 0; }
+  .hymns { list-style: none; margin: 0; padding: 0; columns: 2 18rem; }
+  .hymns li { break-inside: avoid; padding: var(--s-1) 0; display: flex; flex-direction: column; }
   .days li { border-bottom: 1px solid var(--rule); }
   .days a { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-1) var(--s-3);
             min-height: var(--tap-min); padding: var(--s-2) var(--s-1); color: var(--ink); text-decoration: none; }
