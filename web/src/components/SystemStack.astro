@@ -1,5 +1,5 @@
 ---
-import { systemUrlStem } from "../lib/catalog";
+import { systemUrlStem, volumeLabel } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
 
 interface Props {
@@ -17,11 +17,13 @@ const widest = Math.max(1, ...piece.systemAspect.map(([w]) => w));
 ---
 
 {piece.systems.length === 0 ? (
-  <div class="notice" role="status">
-    <strong>Music not yet available.</strong> This piece is catalogued at printed
-    pages {piece.printedPages[0]}–{piece.printedPages[1]} of part V, but its
-    systems have not been sliced yet.
-  </div>
+  piece.reference ? null : (
+    <div class="notice" role="status">
+      <strong>No music of its own.</strong> The book gives this day at printed
+      page {piece.printedPages[0]} of {volumeLabel(piece)} without music of its own,
+      usually with a rubric sending the reader to another Mass.
+    </div>
+  )
 ) : (
   <figure class="systems" id={id} role="group" aria-labelledby={captionId}>
     <figcaption id={captionId} class="sr-only">
