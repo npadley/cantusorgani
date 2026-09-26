@@ -8,17 +8,21 @@
  * read by the Worker.
  */
 
-function env(name: string, fallback: string): string {
-  const value = import.meta.env[name];
+function orDefault(value: unknown, fallback: string): string {
   return typeof value === "string" && value.length > 0 ? value : fallback;
 }
 
+// Each variable by its full name, never `import.meta.env[name]`: Vite replaces
+// a static reference with its value alone, whereas a dynamic lookup can inline
+// the whole env object -- and web/.env (mounted from 1Password) also holds the
+// R2 keys the pipeline uses.
+
 /** Base URL for system slices. Falls back to a local path for development. */
-export const ASSET_BASE = env("PUBLIC_ASSET_BASE", "/systems").replace(/\/$/, "");
+export const ASSET_BASE = orDefault(import.meta.env.PUBLIC_ASSET_BASE, "/systems").replace(/\/$/, "");
 
-export const TURNSTILE_SITE_KEY = env("PUBLIC_TURNSTILE_SITE_KEY", "");
+export const TURNSTILE_SITE_KEY = orDefault(import.meta.env.PUBLIC_TURNSTILE_SITE_KEY, "");
 
-export const CORRECTIONS_ENDPOINT = env("PUBLIC_CORRECTIONS_ENDPOINT", "").replace(/\/$/, "");
+export const CORRECTIONS_ENDPOINT = orDefault(import.meta.env.PUBLIC_CORRECTIONS_ENDPOINT, "").replace(/\/$/, "");
 
 /** Cap on a single PDF export, so it can be built on a tablet at a console. */
 export const MAX_EXPORT_SYSTEMS = 60;

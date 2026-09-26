@@ -284,7 +284,7 @@ export function systemUrlStem(piece: Piece, index: number): string {
 /** Asset base for system images. Falls back to a local path so the site can be
  *  built and read before anything is uploaded to R2. */
 export function assetBase(): string {
-  const configured = import.meta.env["PUBLIC_ASSET_BASE"];
+  const configured = import.meta.env.PUBLIC_ASSET_BASE;
   return typeof configured === "string" && configured.length > 0
     ? configured.replace(/\/$/, "")
     : "/systems";

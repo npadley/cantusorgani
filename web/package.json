@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build && rm -rf dist/systems && pagefind --site dist",
+    "dev": "node scripts/with-public-env.ts astro dev",
+    "build": "node scripts/with-public-env.ts astro build && rm -rf dist/systems && pagefind --site dist",
     "preview": "astro preview",
     "typecheck": "astro check",
     "test": "vitest run"
