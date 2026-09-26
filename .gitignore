@@ -17,3 +17,8 @@ web/.env.development
 web/dist/
 web/public/systems
 data/index-*.proposed.yml
+
+# Local only: secrets come from 1Password
+web/.env
+.mcp.json
+.dev.vars.example
