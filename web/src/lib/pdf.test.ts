@@ -101,7 +101,7 @@ describe("httpPngFetcher", () => {
     const fetchMock = vi.fn(async () => new Response(new Uint8Array([1, 2, 3])));
     vi.stubGlobal("fetch", fetchMock);
     const bytes = await httpPngFetcher("")("https://images.cantusorgani.org/systems/noh5/0051/000-abc");
-    expect(fetchMock).toHaveBeenCalledWith("https://images.cantusorgani.org/systems/noh5/0051/000-abc@2x.png");
+    expect(fetchMock).toHaveBeenCalledWith("https://images.cantusorgani.org/systems/noh5/0051/000-abc@2x.png?export=1");
     expect(bytes.byteLength).toBe(3);
   });
 

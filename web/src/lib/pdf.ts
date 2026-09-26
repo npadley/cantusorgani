@@ -83,7 +83,11 @@ export function httpPngFetcher(base: string): (ref: string) => Promise<ArrayBuff
   // cannot be derived from a system reference. `base` is retained only for
   // callers that still pass bare refs (the Node tests read local files).
   return async (ref: string): Promise<ArrayBuffer> => {
-    const url = base.length > 0 ? `${base}/${ref}@2x.png` : `${ref}@2x.png`;
+    const path = base.length > 0 ? `${base}/${ref}@2x.png` : `${ref}@2x.png`;
+    // A cache key of its own: the CDN keeps copies of each slice fetched by <img>
+    // tags, which carry no CORS header, and would serve them to this cross-origin
+    // fetch. Copies under ?export=1 are only ever fetched with CORS.
+    const url = /^https?:/.test(path) ? `${path}?export=1` : path;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(

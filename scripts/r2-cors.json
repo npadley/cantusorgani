@@ -2,7 +2,7 @@
   "rules": [
     {
       "allowed": {
-        "origins": ["https://cantusorgani.org", "http://localhost:4321", "http://localhost:4322"],
+        "origins": ["*"],
         "methods": ["GET", "HEAD"]
       },
       "maxAgeSeconds": 86400
