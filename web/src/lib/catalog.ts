@@ -41,6 +41,10 @@ export interface Piece {
   readonly volume: string;
   readonly slug: string;
   readonly section: string;
+  /** Which index the piece appears under: kyriale, temporale, sanctorale, … */
+  readonly division: string;
+  /** 1962 calendar keys this piece serves, e.g. "tempora:Adv1-0". */
+  readonly days: readonly string[];
   readonly label: string;
   readonly title: string;
   readonly incipit: string | null;
@@ -107,6 +111,7 @@ interface RawMovement {
 interface RawPiece {
   readonly id: string; readonly volume: string; readonly slug: string;
   readonly section: string; readonly label: string; readonly title: string;
+  readonly division?: string; readonly days?: readonly string[];
   readonly incipit: string | null; readonly genre: string;
   readonly mode: string | null; readonly mass: string | null;
   // JSON gives plain arrays; the tuple shape is checked at runtime below rather
@@ -169,6 +174,7 @@ export function parseCatalog(input: unknown): Catalog {
     }
     return {
       id: p.id, volume: p.volume, slug: p.slug, section: p.section,
+      division: p.division ?? "varia", days: p.days ?? [],
       label: p.label, title: p.title, incipit: p.incipit,
       genre: p.genre as Genre, mode: p.mode, mass: p.mass,
       printedPages: pair(p.printed_pages, `${p.id}.printed_pages`),

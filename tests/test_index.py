@@ -69,3 +69,33 @@ def test_implicit_ranges_run_to_the_next_entry():
 def test_spot_checked_pages(label, page):
     entry = next(e for e in load_index("noh5") if e.label == label)
     assert entry.page == page
+
+
+def test_load_index_sections_declare_their_division():
+    divisions = {e.division for e in load_index("noh5")}
+    assert divisions == {"kyriale", "defunctorum"}
+
+
+def test_load_index_requiem_section_is_the_masses_for_the_dead():
+    requiem = [e for e in load_index("noh5") if e.section == "Missa pro Defunctis"]
+    assert requiem and all(e.division == "defunctorum" for e in requiem)
+
+
+def test_load_index_unknown_division_is_rejected(tmp_path):
+    import yaml
+    path = tmp_path / "bad.yml"
+    path.write_text(yaml.safe_dump({"sections": [{"name": "S", "division": "motets", "entries": [
+        {"label": "A", "title": "t", "genre": "kyrie", "page": 3}]}]}))
+    with pytest.raises(ValueError, match="unknown division 'motets'"):
+        load_index("x", path)
+
+
+def test_load_index_days_pass_through_as_calendar_keys(tmp_path):
+    import yaml
+    path = tmp_path / "days.yml"
+    path.write_text(yaml.safe_dump({"sections": [{"name": "S", "division": "temporale", "entries": [
+        {"label": "Adv1", "title": "Dominica I Adventus", "genre": "mass_ordinary", "page": 3,
+         "days": ["tempora:Adv1-0"]}]}]}))
+    [entry] = load_index("x", path)
+    assert entry.days == ("tempora:Adv1-0",)
+    assert entry.division == "temporale"

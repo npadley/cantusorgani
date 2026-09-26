@@ -21,6 +21,13 @@ def slugify(text: str) -> str:
     return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", ascii_only.lower())).strip("-")
 
 
+# Where a piece appears on the site. The calendar divisions (temporale,
+# sanctorale, commune) are the ones a date lookup links into.
+DIVISIONS = frozenset({
+    "kyriale", "temporale", "sanctorale", "commune", "defunctorum", "vesperale", "varia",
+})
+
+
 @dataclass(frozen=True)
 class IndexEntry:
     slug: str
@@ -31,6 +38,10 @@ class IndexEntry:
     page: int
     last_page: int | None
     incipit: str | None
+    division: str = "varia"
+    # 1962 calendar keys this piece serves, e.g. ("tempora:Adv1-0",). Empty for
+    # pieces that belong to no single day, such as a Kyriale Mass.
+    days: tuple[str, ...] = ()
 
     @property
     def printed_pages(self) -> tuple[int, int]:
@@ -43,6 +54,12 @@ def load_index(vol_id: str, path: Path | None = None) -> list[IndexEntry]:
     entries: list[IndexEntry] = []
     seen: set[str] = set()
     for section in doc["sections"]:
+        division = section.get("division", "varia")
+        if division not in DIVISIONS:
+            raise ValueError(
+                f"{section['name']!r}: unknown division {division!r}; "
+                f"expected one of {sorted(DIVISIONS)}"
+            )
         for e in section["entries"]:
             # Labels are NOT unique: "I"/"II"/"III" occur in both Ordinarium Missae
             # and Missa pro Defunctis, and "Asperges" three times in one section.
@@ -55,7 +72,8 @@ def load_index(vol_id: str, path: Path | None = None) -> list[IndexEntry]:
             entries.append(IndexEntry(
                 slug=slug, section=section["name"], label=e["label"], title=e["title"],
                 genre=e["genre"], page=e["page"], last_page=e.get("last_page"),
-                incipit=e.get("incipit"),
+                incipit=e.get("incipit"), division=division,
+                days=tuple(e.get("days", ())),
             ))
     return entries
 

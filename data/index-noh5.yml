@@ -10,11 +10,15 @@
 # `page` is the PRINTED folio. PDF page = printed + offset (see derived-offsets.json).
 # Where the index gives a range, `last_page` is set; otherwise the piece runs to
 # the next entry's start.
+#
+# `division` is declared per section rather than inferred from its name: it
+# decides which index on the site a piece appears under.
 volume: noh5
 part: V
 source_pdf_page: 231
 sections:
   - name: "Ordinarium Missae"
+    division: kyriale
     entries:
       - {label: "Asperges",   title: "Ad aspersionem Aquae benedictae extra Tempus Paschale", genre: asperges, page: 1}
       - {label: "Asperges",   title: "Ad aspersionem Aquae benedictae Tempore Paschali", genre: asperges, page: 2}
@@ -43,6 +47,7 @@ sections:
       - {label: "Credo IV",  title: "Credo IV",  genre: credo, page: 110}  # prints as "il0"
       - {label: "Toni",  title: "Toni Praefationum, ad Pater noster, ante Agnus Dei", genre: tonus, page: 114}  # prints as "j14"
   - name: "Cantus ad libitum"
+    division: kyriale
     entries:
       - {label: "Kyrie I",    title: "Kyrie I",    incipit: "Clemens Rector", genre: kyrie, page: 124}
       - {label: "Kyrie II",   title: "Kyrie II",   incipit: "Summe Deus", genre: kyrie, page: 126}
@@ -59,12 +64,14 @@ sections:
       - {label: "Sanctus I-III", title: "Sanctus I. II. III.", genre: sanctus, page: 147, last_page: 149}
       - {label: "Agnus Dei I-II", title: "Agnus Dei I. II.",   genre: agnus,   page: 150, last_page: 151}
   - name: "Alii Cantus ad libitum"
+    division: kyriale
     subtitle: "novissime approbati"
     entries:
       - {label: "Gloria Ambr.", title: "Gloria in excelsis (More Ambrosiano)", genre: gloria, page: 152}
       - {label: "Credo V",  title: "Credo V",  genre: credo, page: 154}
       - {label: "Credo VI", title: "Credo VI", genre: credo, page: 158}
   - name: "Missa pro Defunctis"
+    division: defunctorum
     entries:
       - {label: "I",   title: "Missa « Requiem »", genre: requiem,   page: 163}
       - {label: "II",  title: "Absolutio pro Defunctis",     genre: absolutio, page: 178}

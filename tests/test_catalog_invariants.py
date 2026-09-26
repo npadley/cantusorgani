@@ -189,3 +189,19 @@ def test_extended_ranges_are_recorded_for_review():
     for entry in (r for r in REVIEW if r["kind"] == "range_extended"):
         assert entry["resolved"][1] > entry["stated"][1]
         assert entry["why"]
+
+
+DIVISIONS = {"kyriale", "temporale", "sanctorale", "commune", "defunctorum", "vesperale", "varia"}
+
+
+def test_every_piece_has_a_known_division():
+    for piece in PIECES:
+        assert piece["division"] in DIVISIONS, piece["id"]
+
+
+def test_every_day_key_exists_in_the_1962_calendar():
+    """A day key the calendar does not know would link a date to nothing."""
+    vocabulary = json.loads(Path("data/calendar/days.json").read_text(encoding="utf-8"))
+    for piece in PIECES:
+        for key in piece["days"]:
+            assert key in vocabulary, f"{piece['id']}: unknown calendar key {key}"

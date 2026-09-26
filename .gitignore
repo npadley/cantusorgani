@@ -1,11 +1,13 @@
 *.pyc
 .DS_Store
 .astro/
+.coverage
 .dev.vars
 .venv/
 .wrangler/
 __pycache__/
 build/
+coverage/
 dist/
 node_modules/
 pdf-source/

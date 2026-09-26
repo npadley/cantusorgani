@@ -157,6 +157,8 @@ def build_catalog(vol_id: str, index_path: Path | None = None
                 "volume": vol_id,
                 "slug": entry.slug,
                 "section": entry.section,
+                "division": entry.division,
+                "days": list(entry.days),
                 "label": entry.label,
                 "title": entry.title,
                 "incipit": entry.incipit,
