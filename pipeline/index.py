@@ -64,7 +64,7 @@ def load_index(vol_id: str, path: Path | None = None) -> list[IndexEntry]:
             # Labels are NOT unique: "I"/"II"/"III" occur in both Ordinarium Missae
             # and Missa pro Defunctis, and "Asperges" three times in one section.
             # Keying anything by label alone silently overwrites entries.
-            base = f"{slugify(section['name'])}-{slugify(e['label'])}"
+            base = e.get("slug") or f"{slugify(section['name'])}-{slugify(e['label'])}"
             slug = base if base not in seen else f"{base}-p{e['page']}"
             if slug in seen:
                 raise ValueError(f"duplicate index slug {slug!r} in {vol_id}")

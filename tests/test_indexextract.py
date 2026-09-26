@@ -124,6 +124,17 @@ def test_find_number_columns_alphabetical_keeps_unordered(index_page):
     assert len(find_number_columns(shuffled, min_increasing=0.0)) == 2
 
 
+def test_find_number_columns_inline_numerals_rejected():
+    """"Ad I Missam" / "Ad II Missam" / "Ad III Missam": OCR reads 1, 11, 111 in
+    a neat increasing right-aligned stack, and every one runs into a word."""
+    words = []
+    for i, numeral in enumerate(["1", "11", "111", "1V"]):
+        y = 200 + 10 * i
+        words += [word(182, y, "Ad"), word(206 - 5 * len(numeral), y, numeral, 5 * len(numeral)),
+                  word(210, y, "Missam", 26), word(292, y, str(49 + 5 * i), 12)]
+    assert [round(c.right) for c in find_number_columns(words)] == [304]
+
+
 def test_section_headings_capitals_line(index_page):
     assert section_headings(index_page) == [(160, "ORDINARIUM MISSAE")]
 

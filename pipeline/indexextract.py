@@ -109,6 +109,9 @@ def increasing_fraction(words: list[Word]) -> float:
     return sum(1 for a, b in steps if b > a) / len(steps) if steps else 0.0
 
 
+INLINE_GAP = 12.0       # points; a column gutter is wider, a word space narrower
+
+
 def find_number_columns(words: list[Word], min_members: int = 4, tolerance: float = 6.0,
                         min_increasing: float = 0.7, left_limit: float = 150.0) -> list[Column]:
     """Right-aligned columns of page numbers."""
@@ -124,8 +127,16 @@ def find_number_columns(words: list[Word], min_members: int = 4, tolerance: floa
             columns.append(Column(right=word.x1, members=[word]))
     # Page numbers are distinct; a column of repeated ordinals ("2", "2", "2")
     # is not, which matters when order cannot be the test (an alphabetical index).
+    # And a page number ends its line: "Ad I Missam", "Ad II Missam", "Ad III
+    # Missam" stack numerals that read 1, 11, 111 -- increasing, distinct, and
+    # each running straight into the next word.
+    def runs_on(number: Word) -> bool:
+        return any(abs(w.y0 - number.y0) < 5 and 0 <= w.x0 - number.x1 < INLINE_GAP
+                   and re.search(r"[A-Za-z]{2}", w.text) for w in words)
+
     return sorted((c for c in columns if len(c.members) >= min_members
                    and len({m.text for m in c.members}) * 2 > len(c.members)
+                   and sum(map(runs_on, c.members)) * 2 <= len(c.members)
                    and increasing_fraction(c.members) >= min_increasing),
                   key=lambda c: c.right)
 
@@ -279,11 +290,20 @@ STOPWORDS = frozenset({"in", "et", "de", "ad", "pro", "the", "of", "a", "cum", "
 _ROMAN = re.compile(r"^(?=[ivxlc]+$)m{0,3}(cm|cd|d?c{0,3})(xc|xl|l?x{0,3})(ix|iv|v?i{0,3})$")
 
 
+_LIGATURES = str.maketrans({"æ": "ae", "Æ": "Ae", "œ": "oe", "Œ": "Oe"})
+
+
 def fold(text: str) -> str:
-    decomposed = unicodedata.normalize("NFKD", text)
+    """Lower case, accents off, ligatures spelled out: "Quadragesimæ" is one word,
+    not "quadragesim" and a stray "æ"."""
+    decomposed = unicodedata.normalize("NFKD", text.translate(_LIGATURES))
     return "".join(c for c in decomposed if not unicodedata.combining(c)).lower()
 
 
+# Headings spell weekdays out ("FERIA TERTIA") where the index numbers them
+# ("Feria III"): both become the numeral.
+ORDINALS = {"secunda": "ii", "tertia": "iii", "quarta": "iv", "quinta": "v", "sexta": "vi",
+            "prima": "i"}
 _NUMERAL_OCR = str.maketrans({"l": "i", "1": "i", "|": "i", "!": "i", "/": "i"})
 
 
@@ -300,7 +320,8 @@ def tokens(text: str) -> set[str]:
     """Comparable words. Roman numerals are KEPT: for the ad libitum Kyries the
     numeral is the only part of the heading OCR survives ("IV.", "Vil.")."""
     words = [_repair_numeral(w) for w in re.findall(r"[a-z1|!/]+", fold(text))]
-    words = [re.sub(r"[1|!/]", "", w) if not _ROMAN.match(w) else w for w in words]
+    words = [ORDINALS.get(w, w) for w in
+             (re.sub(r"[1|!/]", "", w) if not _ROMAN.match(w) else w for w in words)]
     return {w for w in words if w not in STOPWORDS and (len(w) > 1 or _ROMAN.match(w))}
 
 
@@ -320,7 +341,7 @@ def label_of(text: str) -> str | None:
     """The Roman numeral that numbers an entry or a heading, if it leads: "V. In
     Festis Duplicibus", "Kyrie IV.". A numeral further in ("In Festis B. Mariae
     V.") is part of a name, not a label."""
-    words = [_repair_numeral(w) for w in re.findall(r"[a-z1|!/]+", fold(text))][:2]
+    words = [ORDINALS.get(w, _repair_numeral(w)) for w in re.findall(r"[a-z1|!/]+", fold(text))][:2]
     return next((w for w in words if _ROMAN.match(w)), None)
 
 
@@ -340,6 +361,17 @@ def heading_score(entry_text: str, heading_text: str) -> float:
         return 0.0               # a lone "II" is everywhere: numerals need a word beside them
     coverage = round(len(found) / len(wanted), 3)
     label = label_of(entry_text)
+    first = next(iter(re.findall(r"[a-z]+", fold(entry_text))), "")
+    if label is not None and first and not _ROMAN.match(first):
+        for line in heading_text.splitlines():
+            words = re.findall(r"[a-z]+", fold(line))
+            other = label_of(line)
+            if words and words[0] == first and other is not None and other != label:
+                # "Feria II post dom. IV" on the page headed "FERIA III POST DOM.
+                # IV": every word but the one that matters. The page names a
+                # different entry; it cannot verify this one.
+                coverage = min(coverage, VERIFIED_AT - 0.01)
+                break
     if label is not None:
         for line in heading_text.splitlines():
             words = tokens(line) - {label}
@@ -395,31 +427,84 @@ def _numerals(words: set[str]) -> set[str]:
     return {w for w in words if _ROMAN.match(w)}
 
 
-def title_similarity(a: str, b: str) -> float:
+COVERAGE_WEIGHT = 0.9
+
+
+def _calendar_tokens(text: str) -> set[str]:
+    """Tokens for calendar matching: "Feria quinta" and "Feria V" say the same.
+
+    The index's OCR sets the ligature æ as a colon or "lll" ("Papa:",
+    "Quadragesimlll"), and abbreviates Our Lord's title (D.N.J.C.)."""
+    text = re.sub(r"\bD\.\s?N\.\s?[IJ]\.\s?C\.", "Domini Nostri Jesu Christi", text)
+    text = re.sub(r"([A-Za-z])[:;](?=\s|,|$)", r"\1ae", text)
+    text = re.sub(r"lll\b", "ae", text)
+    return {ORDINALS.get(w, w) for w in tokens(text)}
+
+
+def title_similarity(a: str, b: str, strict_numerals: bool = True) -> float:
     """Word-level similarity that tolerates OCR and spelling ("Quatuor"/"Quattuor",
-    "Penteeostes") but not a different number: Dominica II is never Dominica III."""
-    left, right = tokens(a), tokens(b)
-    if not left or not right or _numerals(left) != _numerals(right):
+    "Penteeostes") but not a different number: Dominica II is never Dominica III.
+
+    Each word contributes how closely it matches, not merely whether it clears the
+    bar -- otherwise "Sexagesima" matches "Septuagesima" as well as itself."""
+    left, right = _calendar_tokens(a), _calendar_tokens(b)
+    if not left or not right:
+        return 0.0
+    # Every number the entry names, the title must name too -- except in a
+    # saint's name, where Missalemeum drops the papal number ("S. Silvestri").
+    numerals_agree = _numerals(left) <= _numerals(right) or not strict_numerals
+    if strict_numerals and not numerals_agree:
         return 0.0
     words_l, words_r = sorted(left - _numerals(left)), sorted(right - _numerals(right))
-    matched = 0
+    matched = 0.0
     unused = list(words_r)
     for word in words_l:
         best = max(unused, key=lambda w: SequenceMatcher(None, word, w).ratio(), default=None)
-        if best is not None and SequenceMatcher(None, word, best).ratio() >= 0.75:
-            matched += 1
+        ratio = SequenceMatcher(None, word, best).ratio() if best is not None else 0.0
+        if best is not None and ratio >= 0.75:
+            matched += ratio
             unused.remove(best)
     total = len(words_l) + len(words_r)
-    return round(2 * matched / total, 3) if total else 1.0
+    symmetric = (2 * matched / total if total else 1.0) if _numerals(left) <= _numerals(right) else 0.0
+    # Missalemeum abbreviates ("S. Thomae M.", "S. Silvestri"): a calendar title
+    # wholly contained in the entry is a strong match, however much longer the
+    # entry is. Discounted so a full match still wins a tie.
+    covered = 0.0
+    for word in words_r:
+        ratios = [1.0 if len(word) >= 4 and w.startswith(word) else
+                  SequenceMatcher(None, word, w).ratio() for w in words_l]
+        best = max(ratios, default=0.0)
+        covered += best if best >= 0.75 else 0.0
+    coverage = covered / len(words_r) if words_r and _numerals(right) <= _numerals(left) else 0.0
+    return round(max(symmetric, COVERAGE_WEIGHT * coverage), 3)
+
+
+TEMPORA_SEASONS = ("Adv", "Nat", "Epi", "Quadp", "Quad", "Pasc", "Pent")
+
+
+def tempora_rank(key: str) -> tuple[int, int, int]:
+    """Liturgical order of a Temporale key: tempora:Pasc7-3 before tempora:Pent02-5,
+    and the September Ember days (tempora:093-3) after the Sundays after Pentecost."""
+    m = re.match(r"(?:tempora:)?([A-Za-z]*)(\d+)-(\d+)", key)
+    if not m:
+        return (99, 0, 0)
+    season, week, day = m.groups()
+    order = TEMPORA_SEASONS.index(season) if season in TEMPORA_SEASONS else len(TEMPORA_SEASONS)
+    return (order, int(week), int(day))
 
 
 def snap_title(ocr_title: str, vocabulary: dict[str, dict[str, object]],
-               minimum: float = 0.6) -> Snap:
-    """Match a noisy index title to the 1962 calendar's Latin titles."""
+               minimum: float = 0.6, after: str | None = None,
+               strict_numerals: bool = True) -> Snap:
+    """Match a noisy index title to the 1962 calendar's Latin titles. Ties go to
+    the first key at or after `after` in liturgical order, since an index runs
+    through the year: the Sacred Heart after Corpus Christi, not the Holy Name."""
+    floor = tempora_rank(after) if after else (0, 0, 0)
     best: tuple[float, str, str] | None = None
-    for key, entry in vocabulary.items():
+    for key, entry in sorted(vocabulary.items(), key=lambda kv: (tempora_rank(kv[0]) < floor,
+                                                                tempora_rank(kv[0]))):
         title = str(entry.get("title_la", ""))
-        score = title_similarity(ocr_title, title)
+        score = title_similarity(ocr_title, title, strict_numerals)
         if best is None or score > best[0]:
             best = (score, key, title)
     if best is None or best[0] < minimum:
@@ -454,7 +539,19 @@ def feast_date(title: str) -> tuple[int, int] | None:
 # ----------------------------------------------------------- page reading ---
 
 PX_PER_PT = 300 / 72
-HEAD_BAND, FOOT_BAND = 0.12, 0.08
+# Headings are read from just below the page edge: a piece's title can sit at
+# 9% of the height, inside what a folio reader treats as the running head. The
+# running head itself is removed by line -- the line carrying the page's folio.
+TOP_BAND, FOOT_BAND = 0.03, 0.08
+
+
+def drop_running_head(text: str, printed: int) -> str:
+    """Remove lines that carry this page's folio: the running head, which on a
+    continuation page repeats the piece's heading ("XIII. IN FESTIS
+    SEMIDUPLICIBUS 2  77") and would verify the wrong page."""
+    folio = str(printed)
+    return "\n".join(line for line in text.splitlines()
+                     if folio not in re.split(r"[^0-9]+", line))
 
 
 def embedded_words(vol_id: str, pdf_page: int) -> list[Word]:
@@ -531,7 +628,7 @@ class HeadingReader:
                 words = embedded_words(self.vol_id, pdf)
                 height = max((w.y1 for w in words), default=1.0) / (1 - FOOT_BAND / 2)
                 kept = [w for w in words
-                        if HEAD_BAND * height < w.y0 < (1 - FOOT_BAND) * height
+                        if TOP_BAND * height < w.y0 < (1 - FOOT_BAND) * height
                         and not any(top <= (w.y0 + w.y1) / 2 <= bottom for top, bottom in boxes)]
                 lines: list[list[Word]] = []
                 for w in sorted(kept, key=lambda w: (w.y0, w.x0)):
@@ -539,8 +636,9 @@ class HeadingReader:
                         lines[-1].append(w)
                     else:
                         lines.append([w])
-                self._embedded[pdf] = "\n".join(
-                    " ".join(w.text for w in sorted(line, key=lambda w: w.x0)) for line in lines)
+                self._embedded[pdf] = drop_running_head("\n".join(
+                    " ".join(w.text for w in sorted(line, key=lambda w: w.x0)) for line in lines),
+                    printed)
         return self._embedded[pdf]
 
     def recognised(self, printed: int) -> str:
@@ -559,26 +657,25 @@ class HeadingReader:
 
                 image = Image.open(render_page(self.vol_id, pdf)).convert("L")
                 width, height = image.size
-                # Below the running head: continuation pages repeat the piece's
-                # heading up there ("XIII. IN FESTIS SEMIDUPLICIBUS 2  77").
-                edges = [int(height * HEAD_BAND)] + [y for box in self._boxes(pdf) for y in box]
+                edges = [int(height * TOP_BAND)] + [y for box in self._boxes(pdf) for y in box]
                 edges.append(int(height * (1 - FOOT_BAND)))
                 gaps = [(edges[i], edges[i + 1]) for i in range(0, len(edges) - 1, 2)
                         if edges[i + 1] - edges[i] > 40]
-                self._ocr[pdf] = " ".join(
+                self._ocr[pdf] = "\n".join(
                     pytesseract.image_to_string(image.crop((0, a, width, b)), lang="lat",
                                                 config="--psm 6")
                     for a, b in gaps)
                 if cache is not None:
                     cache.parent.mkdir(parents=True, exist_ok=True)
                     cache.write_text(self._ocr[pdf], encoding="utf-8")
-        return self._ocr[pdf]
+        return drop_running_head(self._ocr[pdf], printed)
 
     def score(self, entry_text: str, printed: int) -> float:
         first = heading_score(entry_text, self.embedded(printed))
         if first >= VERIFIED_AT:
             return first
-        return max(first, heading_score(entry_text, f"{self.embedded(printed)} {self.recognised(printed)}"))
+        return max(first, heading_score(entry_text,
+                                        f"{self.embedded(printed)}\n{self.recognised(printed)}"))
 
 
 # -------------------------------------------------------------- proposals ---
@@ -610,7 +707,7 @@ def extract(vol_id: str, ordered: bool = True, ocr: bool = True,
         from pipeline.render import BUILD
 
         reader = HeadingReader(vol_id, page_map, vol.pdf_pages, ocr=ocr,
-                               cache_dir=BUILD / "headings" / vol_id,
+                               cache_dir=BUILD / "headings-v2" / vol_id,
                                excluded=frozenset(vol.index_pdf_pages))
     highest = page_map.last_printed
     rows = [r for page in vol.index_pdf_pages for r in read_index_rows(vol_id, page, ordered, ocr)]
@@ -623,11 +720,44 @@ def extract(vol_id: str, ordered: bool = True, ocr: bool = True,
                          floor if ordered else 0)
         if ordered and result.status == "verified" and result.page is not None:
             floor = result.page          # only verified pages constrain what follows
-        days, note = calendar_keys(row.title, vocabulary) if vocabulary else ((), "")
         out.append(Proposal(row.title, row.section, row.token, row.source, result.page,
-                            result.status, result.score, result.candidates, days, note))
+                            result.status, result.score, result.candidates))
     if ordered:
         out = search_gaps(out, reader, highest)
+    if vocabulary:
+        out = assign_calendar(out, vocabulary)
+    return out
+
+
+def assign_calendar(proposals: list[Proposal], vocabulary: dict[str, dict[str, object]]
+                    ) -> list[Proposal]:
+    """Calendar keys for every entry, read in index order so each title has the
+    context of the Sunday before it: "Feria quinta" after Easter Sunday is
+    Thursday of Easter week, not Holy Thursday."""
+    sunday: str | None = None
+    out: list[Proposal] = []
+    previous: tuple[str, ...] = ()
+    heading = ""
+    for prop in proposals:
+        days, note = calendar_keys(prop.title, vocabulary, sunday)
+        if re.match(r"\s*ad\b", fold(prop.title)) and heading:
+            # "In Nativitate Domini. Ad I Missam ..." then "Ad II Missam in
+            # aurora": read the continuation with its heading, and failing that
+            # it is a part of the day above ("Ad Missam" after "Feria IV cinerum").
+            joined, joined_note = calendar_keys(f"{heading} {prop.title}", vocabulary, sunday)
+            if joined and not joined_note:
+                days, note = joined, "read with the entry above"
+            elif not days and previous:
+                days, note = previous, "part of the entry above"
+        else:
+            heading = re.split(r"\bAd\b", prop.title)[0].strip()
+        previous = days
+        # Any Temporale key places the index in its week: after "Feria II
+        # Hebdomadae sanctae", a bare "Sabbato sancto" is Holy Saturday.
+        week = re.match(r"(tempora:[A-Za-z]+\d+)-\d+r?$", days[-1]) if days else None
+        if week:
+            sunday = f"{week.group(1)}-0"
+        out.append(replace(prop, days=days, calendar_note=note))
     return out
 
 
@@ -665,9 +795,13 @@ def search_gaps(proposals: list[Proposal], reader: HeadingReader, highest: int,
 def _fit_run(run: list[Proposal], span: range, low: int, high: int,
              reader: HeadingReader) -> list[tuple[int | None, str, float]]:
     options: list[dict[int, tuple[float, str, float]]] = []
+    own_pages: list[set[int]] = []
     for prop in run:
         choices: dict[int, tuple[float, str, float]] = {}
-        own = [c for c in prop.candidates if low < c < high]
+        # Its own number may equal a neighbour's: two short Masses can begin on
+        # one page (Feria V and VI post dom. III Quadragesimae, both 244).
+        own = [c for c in prop.candidates if low <= c <= high]
+        own_pages.append(set(own))
         for page in sorted(set(span) | set(own)):
             score = reader.score(prop.title, page)
             if page in own:
@@ -682,14 +816,15 @@ def _fit_run(run: list[Proposal], span: range, low: int, high: int,
     # unchanged) or placed on a page after the state. Keep the best total per state.
     states: dict[int, float] = {low: 0.0}
     history: list[dict[int, tuple[int, int | None]]] = []   # state -> (previous state, placed)
-    for choices in options:
+    for i, choices in enumerate(options):
         nxt: dict[int, float] = {}
         back: dict[int, tuple[int, int | None]] = {}
         for state, total in states.items():
             if total > nxt.get(state, -1.0):
                 nxt[state], back[state] = total, (state, None)
-            for page, (value, _how, _score) in choices.items():
-                if page > state and total + value > nxt.get(page, -1.0):
+            for page, (value, how, _score) in choices.items():
+                shared = page == state and how in ("consistent", "found") and page in own_pages[i]
+                if (page > state or shared) and total + value > nxt.get(page, -1.0):
                     nxt[page], back[page] = total + value, (state, page)
         states = nxt
         history.append(back)
@@ -702,13 +837,34 @@ def _fit_run(run: list[Proposal], span: range, low: int, high: int,
             for i, p in enumerate(picks)]
 
 
-def calendar_keys(title: str, vocabulary: dict[str, dict[str, object]]) -> tuple[tuple[str, ...], str]:
+WEEKDAYS = {"secunda": 1, "tertia": 2, "quarta": 3, "quinta": 4, "sexta": 5,
+            "ii": 1, "iii": 2, "iv": 3, "v": 4, "vi": 5}
+CONFIDENT_SNAP = 0.85
+
+
+def weekday_of(title: str) -> int | None:
+    """1-6 for "Feria II"/"Feria secunda" ... "Sabbato"; None for anything else."""
+    words = [_repair_numeral(w) for w in re.findall(r"[a-z1|!]+", fold(title))]
+    if words and words[0].startswith("sabbat"):
+        return 6
+    if len(words) > 1 and words[0] == "feria":
+        best = max(WEEKDAYS, key=lambda w: SequenceMatcher(None, words[1], w).ratio())
+        exact_numeral = _ROMAN.match(words[1]) and words[1] in WEEKDAYS
+        if exact_numeral or not _ROMAN.match(words[1]) and SequenceMatcher(
+                None, words[1], best).ratio() >= 0.75:
+            return WEEKDAYS[words[1] if exact_numeral else best]
+    return None
+
+
+def calendar_keys(title: str, vocabulary: dict[str, dict[str, object]],
+                  sunday: str | None = None) -> tuple[tuple[str, ...], str]:
     """1962 calendar keys for an index title, and a note when there is none.
 
     A dated feast maps by its date -- among that date's observances, the one whose
-    title fits best, since a day can carry a feast and a commemoration. Anything
-    else is matched on its Latin title. A 1942 feast with no 1962 observance is
-    recorded, not dropped."""
+    title fits best, since a day can carry a feast and a commemoration. A weekday
+    ("Feria quinta") maps by the Sunday before it unless its own title names its
+    day outright (the September Ember days do). Anything else is matched on its
+    Latin title. A 1942 entry with no 1962 observance is recorded, not dropped."""
     date = feast_date(title)
     if date is not None:
         month, day = date
@@ -723,10 +879,38 @@ def calendar_keys(title: str, vocabulary: dict[str, dict[str, object]]) -> tuple
             title, str(same_day[k].get("title_la", ""))), k))
         return (scored[0],), "" if title_similarity(title, str(same_day[scored[0]].get(
             "title_la", ""))) > 0 else f"several observances on {prefix[7:]}; chose {scored[0]}"
-    snap = snap_title(title, {k: v for k, v in vocabulary.items() if k.startswith("tempora:")})
+    tempora = {k: v for k, v in vocabulary.items() if k.startswith("tempora:")}
+    numerals = [w for w in (_repair_numeral(x) for x in re.findall(r"[a-z1|!/]+", fold(title)))
+                if _ROMAN.match(w)]
+    if len(numerals) > 1 and re.search(r",|\bet\b", fold(title)):
+        # "Dominica IV, V et VI post Epiphaniam": one Proper, several Sundays.
+        stem = " ".join(w for w in re.findall(r"[A-Za-z]+", title)
+                        if not _ROMAN.match(_repair_numeral(fold(w))) and fold(w) != "et")
+        keys = [snap_title(f"{stem} {n}", tempora, minimum=CONFIDENT_SNAP, after=sunday).key
+                for n in numerals]
+        if all(keys):
+            return tuple(k for k in keys if k), ""
+    snap = snap_title(title, tempora, after=sunday)
+    # A saint kept inside the Temporale (St Stephen in the Christmas octave), or a
+    # feast Missalemeum files by date (the Epiphany): whichever fits better.
+    # Keys ending in a lone "c" are commemorations filed beside a feast ("Pro
+    # Octava Nativitatis" on 26-28 December): never the Mass an entry names.
+    sancti = {k: v for k, v in vocabulary.items()
+              if k.startswith("sancti:") and not re.search(r"\d[c]$", k)}
+    saint = snap_title(title, sancti, strict_numerals=not re.match(r"\s*Ss?\.", title))
+    if saint.key is not None and saint.score > snap.score:
+        snap = saint
+    if snap.key is not None and snap.score >= CONFIDENT_SNAP:
+        return (snap.key,), ""
+    weekday = weekday_of(title)
+    if weekday is not None and sunday is not None:
+        week = re.sub(r"-0r?$", "", sunday)
+        key = next((k for k in (f"{week}-{weekday}", f"{week}-{weekday}r") if k in vocabulary), None)
+        if key is not None:
+            return (key,), ""
     if snap.key is None:
         return (), "no 1962 title matched"
-    return (snap.key,), ""
+    return (snap.key,), f"weak title match ({snap.score}): check"
 
 
 # ------------------------------------------------------------ writing out ---
