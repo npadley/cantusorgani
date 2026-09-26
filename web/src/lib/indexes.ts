@@ -189,6 +189,13 @@ export function dayIndex(pieces: readonly Piece[]): Readonly<Record<string, read
   return out;
 }
 
+/** URL of a calendar day's page. One function, so the calendar, the division
+ *  indexes and the /day/ routes can never disagree about the shape. */
+export function dayHref(key: string): string {
+  const [flex, name] = key.split(":");
+  return `/day/${flex || "feria"}/${name ?? ""}/`;
+}
+
 /** Calendar keys that have catalogued music, and so earn a /day/ page. */
 export function catalogedDays(pieces: readonly Piece[]): readonly string[] {
   return Object.keys(dayIndex(pieces)).sort();

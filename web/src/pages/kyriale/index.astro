@@ -1,41 +1,39 @@
 ---
 import Layout from "../../components/Layout.astro";
-import { ordinaryMasses } from "../../lib/catalog";
-const masses = ordinaryMasses();
+import PieceList from "../../components/PieceList.astro";
+import { allPieces } from "../../lib/catalog";
+import { kyrialeIndex } from "../../lib/indexes";
+
+const groups = kyrialeIndex(allPieces());
+const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 ---
-<Layout title="Kyriale" description="The eighteen Mass Ordinaries of the Kyriale with organ accompaniment.">
+
+<Layout title="Kyriale" description="The eighteen Ordinaries of the Mass, the Credos and chants ad libitum, with organ accompaniment.">
   <div class="prose">
+    <p class="crumb small muted ui"><a href="/">Cantus Organi</a></p>
     <h1>Kyriale</h1>
     <p class="muted">
-      The eighteen Ordinaries of the Roman Kyriale, with the 1942 Mechelen organ
-      accompaniment. Each Mass gathers its Kyrie, Gloria, Sanctus, Agnus Dei and
-      dismissal.
+      The Ordinary of the Mass from Nova Organi Harmonia, part V. To find the
+      Mass for a particular day, use the <a href="/calendar/">calendar</a>.
     </p>
   </div>
-  <ul class="ui">
-    {masses.map((m) => (
-      <li>
-        <a href={`/kyriale/${m.label.toLowerCase()}/`}>
-          <span class="numeral">{m.label}</span>
-          <span class="titles">
-            <span class="name">{m.incipit ?? m.title}</span>
-            <span class="sub muted small">{m.title}</span>
-          </span>
-          <span class="pages muted small">pp. {m.printedPages[0]}–{m.printedPages[1]}</span>
-        </a>
-      </li>
-    ))}
-  </ul>
+
+  <nav class="toc ui small" aria-label="On this page">
+    {groups.map((g) => <a href={`#${slug(g.heading)}`}>{g.heading}</a>)}
+  </nav>
+
+  {groups.map((g) => (
+    <section>
+      <h2 id={slug(g.heading)}>{g.heading}</h2>
+      <PieceList pieces={g.pieces} numbered={g.heading === "Ordinaries of the Mass"} />
+    </section>
+  ))}
 </Layout>
+
 <style>
-  ul { list-style: none; margin: var(--s-4) 0 0; padding: 0; }
-  li { border-bottom: 1px solid var(--rule); }
-  li a { display: flex; align-items: baseline; gap: var(--s-3); min-height: var(--tap-min);
-         padding: var(--s-2) var(--s-1); color: var(--ink); text-decoration: none; }
-  li a:hover { background: color-mix(in srgb, var(--rule) 20%, transparent); }
-  .numeral { min-width: 3.5rem; color: var(--accent); font-size: var(--step-1); }
-  .titles { display: flex; flex-direction: column; flex: 1; }
-  .name { font-size: var(--step-1); font-family: var(--font-text); }
-  .pages { white-space: nowrap; }
-  @media (max-width: 34rem) { .pages { display: none; } }
+  .crumb { margin: 0 0 var(--s-1); }
+  .crumb a { color: var(--ink-muted); }
+  .toc { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-3); margin: var(--s-4) 0; }
+  .toc a { min-height: var(--tap-min); display: inline-flex; align-items: center; }
+  h2 { margin-top: var(--s-5); padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule); scroll-margin-top: var(--s-4); }
 </style>

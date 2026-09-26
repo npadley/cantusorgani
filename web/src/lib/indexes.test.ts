@@ -5,6 +5,7 @@ import type { Piece } from "./catalog";
 import {
   DIVISIONS,
   catalogedDays,
+  dayHref,
   dayIndex,
   divisionMeta,
   divisionsWithContent,
@@ -186,5 +187,16 @@ describe("kyrialeIndex", () => {
     const placed = groups.flatMap((g) => g.pieces.map((p) => p.id));
     expect(new Set(placed).size).toBe(placed.length);
     expect(placed).toHaveLength(43);
+  });
+});
+
+describe("dayHref", () => {
+  it("should split a calendar key into a path", () => {
+    expect(dayHref("tempora:Adv1-0")).toBe("/day/tempora/Adv1-0/");
+    expect(dayHref("sancti:12-25m1")).toBe("/day/sancti/12-25m1/");
+  });
+
+  it("should give the empty-flexibility feria a readable segment", () => {
+    expect(dayHref(":feria")).toBe("/day/feria/feria/");
   });
 });

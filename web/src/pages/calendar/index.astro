@@ -1,0 +1,212 @@
+---
+import Layout from "../../components/Layout.astro";
+import { allPieces, ordinaryMasses } from "../../lib/catalog";
+import { dayIndex } from "../../lib/indexes";
+import { CALENDAR_SOURCE } from "../../lib/liturgy";
+
+// Everything the browser needs to link a date to music, computed at build time.
+const days = dayIndex(allPieces());
+const masses = Object.fromEntries(
+  // Only the Latin nickname ("Cum jubilo"); a Mass without one is named by number
+  // alone, since its title would just repeat the Kyriale heading shown beneath.
+  ordinaryMasses().map((m) => [m.label, { href: `/kyriale/${m.label.toLowerCase()}/`,
+                                          title: m.incipit ?? "" }]));
+const [first, last] = CALENDAR_SOURCE.years;
+---
+
+<Layout title="Calendar" description="Find the Mass for any day of the year under the 1962 rubrics, with its organ accompaniment.">
+  <div class="prose">
+    <p class="crumb small muted ui"><a href="/">Cantus Organi</a></p>
+    <h1>Calendar</h1>
+    <p class="muted">
+      Choose a date to see what is celebrated under the 1962 rubrics, and the
+      music for it.
+    </p>
+  </div>
+
+  <form id="picker" class="picker ui no-print" novalidate>
+    <label for="date" class="sr-only">Date</label>
+    <input id="date" name="date" type="date" min={`${first}-01-01`} max={`${last}-12-31`} />
+    <div class="buttons">
+      <button type="button" data-step="-1" aria-label="Previous day">‹ Day</button>
+      <button type="button" data-go="today">Today</button>
+      <button type="button" data-go="sunday">Next Sunday</button>
+      <button type="button" data-step="1" aria-label="Next day">Day ›</button>
+    </div>
+  </form>
+
+  <article id="result" aria-live="polite">
+    <noscript><p class="notice">The calendar needs JavaScript to look up a date.</p></noscript>
+  </article>
+
+  <p class="source small muted">
+    Calendar computed with <a href={CALENDAR_SOURCE.url}>{CALENDAR_SOURCE.source}</a>
+    ({CALENDAR_SOURCE.licence}), {CALENDAR_SOURCE.rubrics} rubrics, covering {first}–{last}.
+    Suggested Ordinaries follow the headings printed in the Kyriale; the rubrics
+    permit other choices.
+  </p>
+
+  <script type="application/json" id="day-index" set:html={JSON.stringify(days)} />
+  <script type="application/json" id="masses" set:html={JSON.stringify(masses)} />
+</Layout>
+
+<style>
+  .crumb { margin: 0 0 var(--s-1); }
+  .crumb a { color: var(--ink-muted); }
+  .picker { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; margin: var(--s-4) 0; }
+  .picker input {
+    font: inherit; min-height: var(--tap-min); padding: var(--s-1) var(--s-2);
+    background: var(--paper); color: var(--ink); border: 1px solid var(--rule); border-radius: var(--radius);
+  }
+  .buttons { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  .source { margin-top: var(--s-6); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+</style>
+
+<style is:global>
+  #result .date-heading { margin: var(--s-4) 0 var(--s-1); }
+  #result .season { margin: 0 0 var(--s-4); color: var(--ink-muted); font-family: var(--font-ui); }
+  #result .observance { padding: var(--s-3) 0; border-top: 1px solid var(--rule); }
+  #result .observance h2 { margin: 0; }
+  #result .latin { font-style: italic; margin: var(--s-1) 0; }
+  #result .meta { font-family: var(--font-ui); font-size: var(--step--1); color: var(--ink-muted);
+                  display: flex; align-items: center; gap: var(--s-2); }
+  #result .swatch { width: 0.9rem; height: 0.9rem; border: 1px solid var(--rule); display: inline-block; }
+  #result .music { margin: var(--s-3) 0 0; }
+  #result .music dt { font-family: var(--font-ui); font-size: var(--step--1); color: var(--ink-muted); }
+  #result .music dd { margin: 0 0 var(--s-2); }
+  #result .alternatives, #result .note { font-size: var(--step--1); color: var(--ink-muted); margin: var(--s-1) 0 0; }
+  #result .commemorations { margin-top: var(--s-3); font-size: var(--step--1); }
+</style>
+
+<script>
+  import {
+    COLOR_LABELS, CALENDAR_SOURCE, SEASON_LABELS, addDays, classLabel, colorOf, isoOf,
+    kyrialeFor, loadYear, nextSunday, observance, parseIso, seasonForDate, today,
+  } from "../../lib/liturgy";
+  import type { LocalDate } from "../../lib/liturgy";
+  import { dayHref } from "../../lib/indexes";
+
+  interface Link { title: string; href: string }
+
+  const SWATCH: Record<string, string> = {
+    w: "#f6f3ea", r: "#9b1c1c", v: "#5b2a86", g: "#2e6b30", b: "#111111", p: "#d98aa6",
+  };
+
+  function readJson<T>(id: string): T {
+    return JSON.parse(document.getElementById(id)?.textContent ?? "{}") as T;
+  }
+  const days = readJson<Record<string, Link[]>>("day-index");
+  const masses = readJson<Record<string, Link>>("masses");
+
+  const input = document.getElementById("date") as HTMLInputElement;
+  const result = document.getElementById("result") as HTMLElement;
+
+  // Every node is built with createElement/textContent -- never innerHTML.
+  function el<K extends keyof HTMLElementTagNameMap>(tag: K, text?: string, cls?: string) {
+    const node = document.createElement(tag);
+    if (text !== undefined) node.textContent = text;
+    if (cls) node.className = cls;
+    return node;
+  }
+
+  function link(text: string, href: string): HTMLAnchorElement {
+    const a = el("a", text);
+    a.href = href;
+    return a;
+  }
+
+  function longDate(d: LocalDate): string {
+    return new Date(Date.UTC(d.year, d.month - 1, d.day)).toLocaleDateString("en-GB", {
+      weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
+    });
+  }
+
+  async function show(d: LocalDate): Promise<void> {
+    input.value = isoOf(d);
+    history.replaceState(null, "", `?date=${isoOf(d)}`);
+    const calendar = await loadYear(d.year);
+    result.replaceChildren();
+
+    result.append(el("h2", longDate(d), "date-heading"));
+    if (!calendar) {
+      const [a, b] = CALENDAR_SOURCE.years;
+      result.append(el("p", `The calendar covers ${a}–${b}. Choose a date in that range.`, "notice"));
+      return;
+    }
+    const season = SEASON_LABELS[seasonForDate(d)];
+    result.append(el("p", `${season.en} · ${season.la}`, "season"));
+
+    const day = calendar[isoOf(d)];
+    for (const key of day?.celebration ?? []) {
+      const o = observance(key);
+      if (!o) continue;
+      const block = el("section", undefined, "observance");
+      block.append(el("h2", o.flexibility === "" ? `Feria · ${season.en}` : o.titleEn));
+      if (o.flexibility !== "") block.append(el("p", o.titleLa, "latin"));
+
+      const meta = el("p", undefined, "meta");
+      const colour = colorOf(o, d);
+      const swatch = el("span", undefined, "swatch");
+      swatch.style.background = SWATCH[colour] ?? "transparent";
+      swatch.setAttribute("aria-hidden", "true");
+      meta.append(swatch, `${COLOR_LABELS[colour] ?? colour} · ${classLabel(o.rank)}`);
+      block.append(meta);
+
+      const music = el("dl", undefined, "music");
+      music.append(el("dt", "Proper"));
+      const propers = days[key] ?? [];
+      const properDd = el("dd");
+      if (propers.length) {
+        propers.forEach((p, i) => {
+          if (i) properDd.append(" · ");
+          properDd.append(link(p.title, p.href));
+        });
+        properDd.append(" · ", link("all for this day", dayHref(key)));
+      } else {
+        properDd.textContent = "Not yet catalogued. The Proper of Time and of the Saints are next.";
+      }
+      music.append(properDd);
+
+      music.append(el("dt", "Ordinary"));
+      const k = kyrialeFor(o, d);
+      const ordinaryDd = el("dd");
+      if (k.mass && masses[k.mass]) {
+        const nickname = masses[k.mass]!.title;
+        ordinaryDd.append(link(`Missa ${k.mass}${nickname ? ` — ${nickname}` : ""}`, masses[k.mass]!.href));
+      } else {
+        ordinaryDd.append(k.mass ? `Missa ${k.mass}` : "No single Mass is assigned");
+      }
+      ordinaryDd.append(el("p", `Kyriale heading: “${k.heading}”`, "note"));
+      const others = k.candidates.filter((c) => c !== k.mass);
+      if (others.length) {
+        const alt = el("p", "Also appropriate: ", "alternatives");
+        others.forEach((c, i) => {
+          if (i) alt.append(", ");
+          alt.append(masses[c] ? link(`Missa ${c}`, masses[c]!.href) : `Missa ${c}`);
+        });
+        ordinaryDd.append(alt);
+      }
+      if (k.note) ordinaryDd.append(el("p", k.note, "note"));
+      music.append(ordinaryDd);
+      block.append(music);
+      result.append(block);
+    }
+
+    const comms = (day?.commemoration ?? []).map((key) => observance(key)?.titleEn).filter(Boolean);
+    if (comms.length) result.append(el("p", `Commemoration: ${comms.join("; ")}`, "commemorations"));
+  }
+
+  function current(): LocalDate {
+    return parseIso(input.value) ?? today();
+  }
+
+  document.querySelectorAll<HTMLButtonElement>("[data-step]").forEach((b) =>
+    b.addEventListener("click", () => void show(addDays(current(), Number(b.dataset["step"])))));
+  document.querySelector("[data-go=today]")?.addEventListener("click", () => void show(today()));
+  document.querySelector("[data-go=sunday]")?.addEventListener("click", () =>
+    void show(nextSunday(current())));
+  input.addEventListener("change", () => { const d = parseIso(input.value); if (d) void show(d); });
+
+  const requested = parseIso(new URLSearchParams(location.search).get("date") ?? "");
+  void show(requested ?? today());
+</script>

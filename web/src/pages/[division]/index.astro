@@ -1,0 +1,87 @@
+---
+import Layout from "../../components/Layout.astro";
+import PieceList from "../../components/PieceList.astro";
+import { allPieces } from "../../lib/catalog";
+import type { Piece } from "../../lib/catalog";
+import {
+  MONTHS_EN, MONTHS_LA, dayHref, divisionsWithContent, piecesIn, sanctoraleIndex, temporaleIndex,
+} from "../../lib/indexes";
+import type { Division, DivisionSummary } from "../../lib/indexes";
+import { SEASON_LABELS } from "../../lib/liturgy";
+
+// One page per division that has catalogued music. The Kyriale has its own page.
+// Nothing here is a placeholder: a division with no pieces produces no route.
+export function getStaticPaths() {
+  return divisionsWithContent(allPieces())
+    .filter((d) => d.division !== "kyriale")
+    .map((meta) => ({ params: { division: meta.slug }, props: { meta } }));
+}
+
+interface Props { readonly meta: DivisionSummary }
+const { meta } = Astro.props;
+const pieces = piecesIn(allPieces(), meta.division as Division);
+
+const seasons = meta.division === "temporale" ? temporaleIndex(pieces) : [];
+const months = meta.division === "sanctorale" ? sanctoraleIndex(pieces) : [];
+const bySection = new Map<string, Piece[]>();
+if (!seasons.length && !months.length) {
+  for (const p of pieces) bySection.set(p.section, [...(bySection.get(p.section) ?? []), p]);
+}
+---
+
+<Layout title={meta.en} description={meta.blurb}>
+  <div class="prose">
+    <p class="crumb small muted ui"><a href="/">Cantus Organi</a></p>
+    <h1>{meta.en}</h1>
+    <p class="lede">{meta.la}</p>
+    <p class="muted">{meta.blurb}</p>
+  </div>
+
+  {seasons.map((g) => (
+    <section>
+      <h2>{SEASON_LABELS[g.season].en} <span class="la muted">{SEASON_LABELS[g.season].la}</span></h2>
+      <ul class="days ui">
+        {g.days.map((d) => (
+          <li><a href={dayHref(d.key)}><span class="name">{d.title}</span>
+            <span class="muted small">{d.titleLa}</span></a></li>
+        ))}
+      </ul>
+    </section>
+  ))}
+
+  {months.map((m) => (
+    <section>
+      <h2>{MONTHS_EN[m.month - 1]} <span class="la muted">{MONTHS_LA[m.month - 1]}</span></h2>
+      <ul class="days ui">
+        {m.days.map((d) => (
+          <li><a href={dayHref(d.key)}>
+            <span class="date muted">{d.day === 31 && d.key.endsWith("DU") ? "last Sun." : d.day}</span>
+            <span class="name">{d.title}</span>
+            <span class="muted small">{d.titleLa}</span></a></li>
+        ))}
+      </ul>
+    </section>
+  ))}
+
+  {[...bySection].map(([section, list]) => (
+    <section>
+      <h2>{section}</h2>
+      <PieceList pieces={list} />
+    </section>
+  ))}
+</Layout>
+
+<style>
+  .crumb { margin: 0 0 var(--s-1); }
+  .crumb a { color: var(--ink-muted); }
+  .lede { font-style: italic; font-size: var(--step-1); margin: 0 0 var(--s-2); }
+  h2 { margin-top: var(--s-5); padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule); }
+  .la { font-weight: 400; font-style: italic; font-size: var(--step-0); }
+  .days { list-style: none; margin: 0; padding: 0; }
+  .days li { border-bottom: 1px solid var(--rule); }
+  .days a { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-1) var(--s-3);
+            min-height: var(--tap-min); padding: var(--s-2) var(--s-1); color: var(--ink); text-decoration: none; }
+  .days a:hover { background: color-mix(in srgb, var(--rule) 20%, transparent); }
+  .date { min-width: 4.5rem; font-variant-numeric: tabular-nums; }
+  .name { font-family: var(--font-text); }
+</style>

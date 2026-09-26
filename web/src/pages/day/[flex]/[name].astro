@@ -1,0 +1,43 @@
+---
+import Layout from "../../../components/Layout.astro";
+import PieceList from "../../../components/PieceList.astro";
+import { allPieces } from "../../../lib/catalog";
+import { catalogedDays } from "../../../lib/indexes";
+import { COLOR_LABELS, classLabel, observance } from "../../../lib/liturgy";
+
+// A page for each calendar day that has catalogued music -- none until a
+// Proper volume is catalogued. The date lookup links here when one exists.
+export function getStaticPaths() {
+  return catalogedDays(allPieces()).map((key) => {
+    const [flex, name] = key.split(":");
+    return { params: { flex: flex || "feria", name: name ?? "" }, props: { key } };
+  });
+}
+
+interface Props { readonly key: string }
+const { key } = Astro.props;
+const o = observance(key);
+const pieces = allPieces().filter((p) => p.days.includes(key));
+const title = o?.titleEn ?? key;
+---
+
+<Layout title={title} description={`${title} — organ accompaniment from Nova Organi Harmonia.`}>
+  <div class="prose">
+    <p class="crumb small muted ui"><a href="/">Cantus Organi</a> · <a href="/calendar/">Calendar</a></p>
+    <h1>{title}</h1>
+    {o && <p class="lede">{o.titleLa}</p>}
+    {o && (
+      <p class="meta ui small muted">
+        {classLabel(o.rank)} · {o.colors.map((c) => COLOR_LABELS[c] ?? c).join(" / ")}
+      </p>
+    )}
+  </div>
+  <PieceList pieces={pieces} />
+</Layout>
+
+<style>
+  .crumb { margin: 0 0 var(--s-1); }
+  .crumb a { color: var(--ink-muted); }
+  .lede { font-style: italic; font-size: var(--step-1); margin: 0 0 var(--s-1); }
+  .meta { margin: 0 0 var(--s-4); }
+</style>

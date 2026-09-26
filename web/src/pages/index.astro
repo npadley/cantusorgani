@@ -1,9 +1,12 @@
 ---
 import Layout from "../components/Layout.astro";
-import { allPieces, ordinaryMasses, piecesInSection, sections } from "../lib/catalog";
+import { allPieces } from "../lib/catalog";
+import { DIVISIONS, divisionsWithContent } from "../lib/indexes";
 
-const masses = ordinaryMasses();
-const total = allPieces().length;
+const present = divisionsWithContent(allPieces());
+const presentSet = new Set(present.map((d) => d.division));
+// Named honestly, not linked: books whose volumes have not been catalogued yet.
+const pending = DIVISIONS.filter((d) => !presentSet.has(d.division));
 const withMusic = allPieces().filter((p) => p.systems.length > 0).length;
 ---
 
@@ -18,62 +21,50 @@ const withMusic = allPieces().filter((p) => p.systems.length > 0).length;
       <em>Nova Organi Harmonia ad Graduale Romanum</em> (Mechelen, 1942) —
       readable in the browser, and exportable as a PDF for the organ bench.
     </p>
-    <p class="muted small">
-      Part V (Kyriale) is available: {withMusic} of {total} catalogued pieces.
-      The remaining volumes follow.
-    </p>
   </div>
 
-  <h2 id="ordinarium">Ordinarium Missae</h2>
-  <ul class="mass-list ui">
-    {masses.map((m) => (
+  <a class="calendar-card ui" href="/calendar/">
+    <span class="card-title">What is sung today?</span>
+    <span class="muted small">Find the Mass for any date under the 1962 rubrics, with its music.</span>
+  </a>
+
+  <h2>The books</h2>
+  <ul class="divisions ui">
+    {present.map((d) => (
       <li>
-        <a href={`/kyriale/${m.label.toLowerCase()}/`}>
-          <span class="numeral">{m.label}</span>
-          <span class="titles">
-            <span class="name">{m.incipit ?? m.title}</span>
-            <span class="sub muted small">{m.title}</span>
-          </span>
-          <span class="pages muted small">pp. {m.printedPages[0]}–{m.printedPages[1]}</span>
+        <a href={`/${d.slug}/`}>
+          <span class="card-title">{d.en}</span>
+          <span class="la muted">{d.la}</span>
+          <span class="muted small">{d.blurb}</span>
+          <span class="count small">{d.count} {d.count === 1 ? "piece" : "pieces"}</span>
         </a>
       </li>
     ))}
   </ul>
 
-  {sections().filter((s) => s !== "Ordinarium Missae").map((section) => (
-    <>
-      <h2>{section}</h2>
-      <ul class="piece-list ui">
-        {piecesInSection(section).map((p) => (
-          <li>
-            <a href={`/piece/${p.slug}/`}>
-              <span class="name">{p.incipit ?? p.title}</span>
-              <span class="sub muted small">
-                {p.label}{p.incipit ? ` · ${p.title}` : ""} · pp. {p.printedPages[0]}–{p.printedPages[1]}
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </>
-  ))}
+  {pending.length > 0 && (
+    <p class="pending small muted">
+      Still to be catalogued: {pending.map((d) => d.en).join(", ")}. Each appears
+      here as soon as its volume is processed. {withMusic} pieces are available now.
+    </p>
+  )}
 </Layout>
 
 <style>
   h2 { margin-top: var(--s-5); padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule); }
-  ul { list-style: none; margin: 0; padding: 0; }
-  li { border-bottom: 1px solid var(--rule); }
-  li a {
-    display: flex; align-items: baseline; gap: var(--s-3);
-    min-height: var(--tap-min); padding: var(--s-2) var(--s-1);
+  .calendar-card, .divisions a {
+    display: flex; flex-direction: column; gap: var(--s-1);
+    padding: var(--s-3); border: 1px solid var(--rule); border-radius: var(--radius);
     color: var(--ink); text-decoration: none;
   }
-  li a:hover { background: color-mix(in srgb, var(--rule) 20%, transparent); }
-  .numeral { min-width: 3.5rem; font-variant-numeric: tabular-nums; color: var(--accent); font-size: var(--step-1); }
-  .titles { display: flex; flex-direction: column; flex: 1; }
-  .name { font-size: var(--step-1); font-family: var(--font-text); }
-  .sub { display: block; }
-  .pages { white-space: nowrap; }
-  .piece-list .name { font-size: var(--step-0); }
-  @media (max-width: 34rem) { .pages { display: none; } }
+  .calendar-card { margin: var(--s-4) 0; border-left: 3px solid var(--accent); }
+  .calendar-card:hover, .divisions a:hover { background: color-mix(in srgb, var(--rule) 20%, transparent); }
+  .card-title { font-family: var(--font-text); font-size: var(--step-1); }
+  .la { font-style: italic; }
+  .count { color: var(--accent); }
+  .divisions {
+    list-style: none; margin: var(--s-3) 0 0; padding: 0;
+    display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  }
+  .pending { margin-top: var(--s-4); }
 </style>
