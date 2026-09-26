@@ -438,7 +438,13 @@ def merge_catalog(existing: Catalog | None, update: Catalog) -> Catalog:
 
 
 PART_TO_VOLUME = {"I": "noh1", "II": "noh2", "III": "noh3", "IV": "noh4", "V": "noh5"}
-REFERENCE = re.compile(r"Pars\s+(?P<part>[IVX]+|1V|l[VI]+)\s*[,.]?\s*p\.\s*(?P<page>\d{1,3})")
+# OCR reads the I of "IV" as 1, l, | or i, drops the stop after "p", reads the
+# comma as a semicolon and the "p" itself as "»".
+REFERENCE = re.compile(r"Pars\s+(?P<part>[IVX]+|[1l|i][VvI]+)\s*[,.;]?\s*'?(?:p|»)\s*\.?\s*(?P<page>\d{1,3})")
+# "vide ad calcem Partis IV": at the end of Part IV, where the Common of Supreme
+# Pontiffs was added after the feasts pro aliquibus locis ("ad co/cern Portis").
+AT_CALCEM = re.compile(r"\bad\s+c\S{1,3}(?:em|ern)\b")
+AT_END = -1                              # the page of "the end of the volume"
 
 
 SAME_VOLUME = re.compile(r"\bp\.?\s*(?P<page>\d{1,3})\b")
@@ -448,10 +454,12 @@ def parse_reference(text: str, volume: str | None = None) -> tuple[str, int] | N
     """("noh4", 76) from "Missa. Os justi, Pars IV, p. 76." -- OCR reads IV as 1V.
     A page with no part ("Missa. Justus ut palma, p. 82") is in `volume`."""
     m = REFERENCE.search(text)
+    if not m and AT_CALCEM.search(text):
+        return ("noh4", AT_END)
     if not m:
         bare = SAME_VOLUME.search(text) if volume and "Pars" not in text else None
         return (volume, int(bare.group("page"))) if volume and bare else None
-    part = m.group("part").replace("1", "I").replace("l", "I")
+    part = re.sub(r"[1l|i]", "I", m.group("part")).upper()
     volume = PART_TO_VOLUME.get(part)
     return (volume, int(m.group("page"))) if volume else None
 
@@ -477,8 +485,14 @@ def link_rubrics(catalog: Catalog, rubrics: list[Record]) -> list[Record]:
         target = None
         if ref:
             volume, page = ref
-            candidates = [p for p in pieces if p["volume"] == volume
-                          and p["printed_pages"][0] <= page <= p["printed_pages"][1]]
+            # Only a piece with music: a heading whose own Mass is by reference
+            # (SS Cosmas and Damian above St Michael on NOH3 p. 354) cannot be
+            # the Mass another feast borrows.
+            with_music = [p for p in pieces if p["volume"] == volume and p.get("systems")]
+            if page == AT_END and with_music:
+                page = max(int(p["printed_pages"][0]) for p in with_music)
+            candidates = [p for p in with_music
+                          if p["printed_pages"][0] <= page <= p["printed_pages"][1]]
             target = next((p for p in candidates if p["printed_pages"][0] == page),
                           candidates[0] if candidates else None)
         if target is None:
@@ -506,6 +520,10 @@ def load_rubrics(data_dir: Path = DATA) -> list[Record]:
                      "reference": e["reference"], "days": e.get("days", [])}
                     for section in doc.get("sections", []) or [] for e in section["entries"]
                     if e.get("reference")]
+    # Days the 1962 rubrics give another day's Mass, with no line in NOH to say so.
+    extra = data_dir / "rubrics-1962.yml"
+    if extra.exists():
+        rubrics += list(yaml.safe_load(extra.read_text(encoding="utf-8")).get("rubrics") or [])
     return rubrics
 
 
@@ -526,4 +544,4 @@ def write_catalog(vol_id: str, data_dir: Path = DATA,
     return cat_path, rev_path
 
 
-__all__ = ["SCHEMA_VERSION", "SystemRef", "asdict", "build_catalog", "write_catalog"]
+__all__ = ["AT_END", "SCHEMA_VERSION", "SystemRef", "asdict", "build_catalog", "write_catalog"]

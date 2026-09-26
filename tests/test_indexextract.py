@@ -360,6 +360,16 @@ def test_calendar_keys_temporale_title_and_miss(vocabulary):
     assert calendar_keys("De processione", vocabulary) == ((), "no 1962 title matched")
 
 
+def test_calendar_keys_weekday_under_missalemeums_feria_key():
+    """Missalemeum files Friday in Passion Week as "Quad5-5Feria", beside the
+    commemoration of the Seven Sorrows ("Quad5-5Feriac")."""
+    vocab = {"tempora:Quad5-0": {"title_la": "Dominica I Passionis"},
+             "tempora:Quad5-5Feria": {"title_la": "Feria VI infra Hebd Passionis"},
+             "tempora:Quad5-5Feriac": {"title_la": "Commemoratio Septem Dolorum B. M. V."}}
+    assert calendar_keys("Feria VI post dom. I Passionis", vocab, sunday="tempora:Quad5-0") == (
+        ("tempora:Quad5-5Feria",), "")
+
+
 # ------------------------------------------------------------ writing out ---
 
 def test_guess_genre_from_title():

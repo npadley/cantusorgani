@@ -112,7 +112,13 @@
       "section": "Proprium de Tempore",
       "division": "temporale",
       "days": [
-        "tempora:Adv1-0"
+        "tempora:Adv1-0",
+        "tempora:Adv1-1",
+        "tempora:Adv1-2",
+        "tempora:Adv1-3",
+        "tempora:Adv1-4",
+        "tempora:Adv1-5",
+        "tempora:Adv1-6"
       ],
       "label": "Dominica I Adventus",
       "title": "Dominica I Adventus",
@@ -307,7 +313,14 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "tempora:Adv1-1",
+        "tempora:Adv1-2",
+        "tempora:Adv1-3",
+        "tempora:Adv1-4",
+        "tempora:Adv1-5",
+        "tempora:Adv1-6"
+      ]
     },
     {
       "id": "noh1-dominica-ii-adventus",
@@ -316,7 +329,13 @@
       "section": "Proprium de Tempore",
       "division": "temporale",
       "days": [
-        "tempora:Adv2-0"
+        "tempora:Adv2-0",
+        "tempora:Adv2-1",
+        "tempora:Adv2-2",
+        "tempora:Adv2-3",
+        "tempora:Adv2-4",
+        "tempora:Adv2-5",
+        "tempora:Adv2-6"
       ],
       "label": "Dominica II Adventus",
       "title": "Dominica II Adventus",
@@ -541,7 +560,14 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "tempora:Adv2-1",
+        "tempora:Adv2-2",
+        "tempora:Adv2-3",
+        "tempora:Adv2-4",
+        "tempora:Adv2-5",
+        "tempora:Adv2-6"
+      ]
     },
     {
       "id": "noh1-dominica-iii-adventus",
@@ -550,7 +576,10 @@
       "section": "Proprium de Tempore",
       "division": "temporale",
       "days": [
-        "tempora:Adv3-0"
+        "tempora:Adv3-0",
+        "tempora:Adv3-1",
+        "tempora:Adv3-2",
+        "tempora:Adv3-4"
       ],
       "label": "Dominica III Adventus",
       "title": "Dominica III Adventus",
@@ -751,7 +780,11 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "tempora:Adv3-1",
+        "tempora:Adv3-2",
+        "tempora:Adv3-4"
+      ]
     },
     {
       "id": "noh1-feria-iv-quattuor-temporum-adventus",
@@ -1582,7 +1615,12 @@
       "section": "Proprium de Tempore",
       "division": "temporale",
       "days": [
-        "tempora:Adv4-0"
+        "tempora:Adv4-0",
+        "tempora:Adv4-1",
+        "tempora:Adv4-2",
+        "tempora:Adv4-3",
+        "tempora:Adv4-4",
+        "tempora:Adv4-5"
       ],
       "label": "Dominica IV Adventus",
       "title": "Dominica IV Adventus",
@@ -1789,7 +1827,13 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "tempora:Adv4-1",
+        "tempora:Adv4-2",
+        "tempora:Adv4-3",
+        "tempora:Adv4-4",
+        "tempora:Adv4-5"
+      ]
     },
     {
       "id": "noh1-in-vigilia-nativitatis-domini",
@@ -2488,7 +2532,8 @@
       "section": "Proprium de Tempore",
       "division": "temporale",
       "days": [
-        "sancti:12-25m3"
+        "sancti:12-25m3",
+        "tempora:Nat1-1"
       ],
       "label": "Ad 111 Missam in die",
       "title": "Ad 111 Missam in die",
@@ -2707,7 +2752,9 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "tempora:Nat1-1"
+      ]
     },
     {
       "id": "noh1-s-stephani-protomartyris",
@@ -12890,14 +12937,16 @@
       "linked_days": []
     },
     {
-      "id": "noh1-noh1-p294",
+      "id": "noh1-feria-vi-infra-hebd-passionis",
       "volume": "noh1",
-      "slug": "noh1-p294",
+      "slug": "feria-vi-infra-hebd-passionis",
       "section": "Proprium de Tempore",
       "division": "temporale",
-      "days": [],
-      "label": "Feria VI post dom. I Passionis",
-      "title": "Feria VI post dom. I Passionis",
+      "days": [
+        "tempora:Quad5-5Feria"
+      ],
+      "label": "Feria VI infra Hebd Passionis",
+      "title": "Feria VI infra Hebd Passionis",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -17436,7 +17485,8 @@
       "section": "Proprium de Tempore",
       "division": "temporale",
       "days": [
-        "tempora:Pasc5-0"
+        "tempora:Pasc5-0",
+        "tempora:Pasc5-3"
       ],
       "label": "Dominica V Post Pascha",
       "title": "Dominica V Post Pascha",
@@ -17697,7 +17747,9 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "tempora:Pasc5-3"
+      ]
     },
     {
       "id": "noh2-noh2-p61",
@@ -26181,16 +26233,14 @@
       "linked_days": []
     },
     {
-      "id": "noh3-s-saturnini-martyris",
+      "id": "noh3-in-vigilia-s-andreae-apostoli",
       "volume": "noh3",
-      "slug": "s-saturnini-martyris",
+      "slug": "in-vigilia-s-andreae-apostoli",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
-      "days": [
-        "sancti:11-29r"
-      ],
-      "label": "S. Saturnini Martyris",
-      "title": "S. Saturnini Martyris",
+      "days": [],
+      "label": "In Vigilia S. Andre\u00e6 Apostoli",
+      "title": "In Vigilia S. Andre\u00e6 Apostoli",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -26344,6 +26394,7 @@
       "division": "sanctorale",
       "days": [
         "sancti:11-30",
+        "sancti:12-21",
         "sancti:06-11",
         "sancti:07-25",
         "sancti:08-24",
@@ -26562,6 +26613,7 @@
       "review_status": "verified",
       "hymns": [],
       "linked_days": [
+        "sancti:12-21",
         "sancti:06-11",
         "sancti:07-25",
         "sancti:08-24",
@@ -26671,7 +26723,7 @@
       "label": "S. Petri Chrysologi Episcopi Confessoris et Ecclesi\u00e6 Doctoris",
       "title": "S. Petri Chrysologi Episcopi Confessoris et Ecclesi\u00e6 Doctoris",
       "incipit": null,
-      "reference": null,
+      "reference": "Introitus. In medio Ecclesi\u00e6, Pars IV, p. 71. Graduale. Ecce sacerdos magnus, ibid., p. 62.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -27280,11 +27332,11 @@
       "mass": null,
       "printed_pages": [
         25,
-        27
+        26
       ],
       "pdf_pages": [
         58,
-        60
+        59
       ],
       "systems": [
         "noh3/0058/002",
@@ -27293,12 +27345,7 @@
         "noh3/0059/000",
         "noh3/0059/001",
         "noh3/0059/002",
-        "noh3/0059/003",
-        "noh3/0060/000",
-        "noh3/0060/001",
-        "noh3/0060/002",
-        "noh3/0060/003",
-        "noh3/0060/004"
+        "noh3/0059/003"
       ],
       "system_assets": [
         "systems/noh3/0058/002-4cff228bf711",
@@ -27307,12 +27354,7 @@
         "systems/noh3/0059/000-63fddbb38ab1",
         "systems/noh3/0059/001-10f22c93bb07",
         "systems/noh3/0059/002-c1d7b61e5129",
-        "systems/noh3/0059/003-9b6308f20375",
-        "systems/noh3/0060/000-912d3c5da0cd",
-        "systems/noh3/0060/001-cbe3614cb3de",
-        "systems/noh3/0060/002-7fcd261ba7d8",
-        "systems/noh3/0060/003-b045af966248",
-        "systems/noh3/0060/004-34407d4ea63c"
+        "systems/noh3/0059/003-9b6308f20375"
       ],
       "system_aspect": [
         [
@@ -27342,7 +27384,65 @@
         [
           1358,
           441
-        ],
+        ]
+      ],
+      "movements": [],
+      "chant": [],
+      "review_status": "verified",
+      "hymns": [],
+      "linked_days": []
+    },
+    {
+      "id": "noh3-s-thomae-apostoli",
+      "volume": "noh3",
+      "slug": "s-thomae-apostoli",
+      "section": "Proprium Sanctorum",
+      "division": "sanctorale",
+      "days": [
+        "sancti:12-21"
+      ],
+      "label": "S. Thom\u00e6 Apostoli",
+      "title": "S. Thom\u00e6 Apostoli",
+      "incipit": null,
+      "reference": "Introitus. Mihi autem, ut supra, p. 4. Graduale. Nimis honorati sunt, ut supra, p. 2.",
+      "genre": "proper",
+      "mode": null,
+      "mass": null,
+      "printed_pages": [
+        27,
+        28
+      ],
+      "pdf_pages": [
+        60,
+        61
+      ],
+      "systems": [
+        "noh3/0060/000",
+        "noh3/0060/001",
+        "noh3/0060/002",
+        "noh3/0060/003",
+        "noh3/0060/004",
+        "noh3/0061/000",
+        "noh3/0061/001",
+        "noh3/0061/002",
+        "noh3/0061/003",
+        "noh3/0061/004",
+        "noh3/0061/005"
+      ],
+      "system_assets": [
+        "systems/noh3/0060/000-912d3c5da0cd",
+        "systems/noh3/0060/001-cbe3614cb3de",
+        "systems/noh3/0060/002-7fcd261ba7d8",
+        "systems/noh3/0060/003-b045af966248",
+        "systems/noh3/0060/004-34407d4ea63c",
+        "systems/noh3/0061/000-047cafb65202",
+        "systems/noh3/0061/001-b151018da697",
+        "systems/noh3/0061/002-d38a24162067",
+        "systems/noh3/0061/003-68eaff229348",
+        "systems/noh3/0061/004-36558ac2e532",
+        "systems/noh3/0061/005-e079c5900cc7"
+      ],
+      "system_aspect": [
         [
           1759,
           434
@@ -27362,55 +27462,7 @@
         [
           1837,
           437
-        ]
-      ],
-      "movements": [],
-      "chant": [],
-      "review_status": "verified",
-      "hymns": [],
-      "linked_days": []
-    },
-    {
-      "id": "noh3-s-thom-apostoli",
-      "volume": "noh3",
-      "slug": "s-thom-apostoli",
-      "section": "Proprium Sanctorum",
-      "division": "sanctorale",
-      "days": [
-        "sancti:12-21"
-      ],
-      "label": "S. Thom\u00e6 Apostoli",
-      "title": "S. Thom\u00e6 Apostoli",
-      "incipit": null,
-      "reference": null,
-      "genre": "proper",
-      "mode": null,
-      "mass": null,
-      "printed_pages": [
-        28,
-        28
-      ],
-      "pdf_pages": [
-        61,
-        61
-      ],
-      "systems": [
-        "noh3/0061/000",
-        "noh3/0061/001",
-        "noh3/0061/002",
-        "noh3/0061/003",
-        "noh3/0061/004",
-        "noh3/0061/005"
-      ],
-      "system_assets": [
-        "systems/noh3/0061/000-047cafb65202",
-        "systems/noh3/0061/001-b151018da697",
-        "systems/noh3/0061/002-d38a24162067",
-        "systems/noh3/0061/003-68eaff229348",
-        "systems/noh3/0061/004-36558ac2e532",
-        "systems/noh3/0061/005-e079c5900cc7"
-      ],
-      "system_aspect": [
+        ],
         [
           1810,
           407
@@ -27476,16 +27528,14 @@
       "linked_days": []
     },
     {
-      "id": "noh3-s-prisc-virginis",
+      "id": "noh3-in-cathedra-s-petri-romae",
       "volume": "noh3",
-      "slug": "s-prisc-virginis",
+      "slug": "in-cathedra-s-petri-romae",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
-      "days": [
-        "sancti:01-18r"
-      ],
-      "label": "S. Prisc\u00e6 Virginis",
-      "title": "S. Prisc\u00e6 Virginis",
+      "days": [],
+      "label": "In Cathedra S. Petri Rom\u00e6",
+      "title": "In Cathedra S. Petri Rom\u00e6",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -29588,16 +29638,16 @@
       "linked_days": []
     },
     {
-      "id": "noh3-s-cyrilli-episc-alexandrini-confessoris-ecclesi-doctoris",
+      "id": "noh3-in-apparitione-b-mariae-virginis-immaculatae",
       "volume": "noh3",
-      "slug": "s-cyrilli-episc-alexandrini-confessoris-ecclesi-doctoris",
+      "slug": "in-apparitione-b-mariae-virginis-immaculatae",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:02-09"
+        "sancti:02-11"
       ],
-      "label": "S. Cyrilli Episc. Alexandrini Confessoris Ecclesi\u00e6 Doctoris",
-      "title": "S. Cyrilli Episc. Alexandrini Confessoris Ecclesi\u00e6 Doctoris",
+      "label": "In Apparitione Beat\u00e6 Mari\u00e6 Virginis Immaculat\u00e6",
+      "title": "In Apparitione Beat\u00e6 Mari\u00e6 Virginis Immaculat\u00e6",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -30383,14 +30433,16 @@
       "linked_days": []
     },
     {
-      "id": "noh3-noh3-p96",
+      "id": "noh3-s-gabrielis-a-virgine-perdolente-confessoris",
       "volume": "noh3",
-      "slug": "noh3-p96",
+      "slug": "s-gabrielis-a-virgine-perdolente-confessoris",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
-      "days": [],
-      "label": "Gabrielis a Vlrgine Perdolente Conf., 27 vel 28 Febrmlrii",
-      "title": "Gabrielis a Vlrgine Perdolente Conf., 27 vel 28 Febrmlrii",
+      "days": [
+        "sancti:02-27"
+      ],
+      "label": "S. Gabrielis a Virgine Perdolente Confessoris",
+      "title": "S. Gabrielis a Virgine Perdolente Confessoris",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -30765,10 +30817,7 @@
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:03-09",
-        "sancti:06-02",
-        "sancti:08-01r",
-        "sancti:11-10o"
+        "sancti:03-09"
       ],
       "label": "S. Francisc\u00e6 Vidu\u00e6 Roman\u00e6",
       "title": "S. Francisc\u00e6 Vidu\u00e6 Roman\u00e6",
@@ -30792,11 +30841,7 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": [
-        "sancti:06-02",
-        "sancti:08-01r",
-        "sancti:11-10o"
-      ]
+      "linked_days": []
     },
     {
       "id": "noh3-ss-quadraginta-martyrum",
@@ -30805,7 +30850,10 @@
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:03-10"
+        "sancti:03-10",
+        "sancti:06-02",
+        "sancti:08-01r",
+        "sancti:11-10o"
       ],
       "label": "Ss. Quadraginta Martyrum",
       "title": "Ss. Quadraginta Martyrum",
@@ -30892,7 +30940,11 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "sancti:06-02",
+        "sancti:08-01r",
+        "sancti:11-10o"
+      ]
     },
     {
       "id": "noh3-s-cyrilli-episcopi-hierosolymitani-ecclesi-doctoris",
@@ -31807,17 +31859,16 @@
       "linked_days": []
     },
     {
-      "id": "noh3-noh3-p128",
+      "id": "noh3-septem-dolorum-b-mariae-virginis-in-quadragesima",
       "volume": "noh3",
-      "slug": "noh3-p128",
+      "slug": "septem-dolorum-b-mariae-virginis-in-quadragesima",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "tempora:Quadp3-5",
         "sancti:09-15"
       ],
-      "label": "Septem Dolorum, Feria VI post Dom. Passiollis",
-      "title": "Septem Dolorum, Feria VI post Dom. Passiollis",
+      "label": "Septem Dolorum Beat\u00e6 Mari\u00e6 Virginis (Feria VI post Dominicam Passionis)",
+      "title": "Septem Dolorum Beat\u00e6 Mari\u00e6 Virginis (Feria VI post Dominicam Passionis)",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -33208,16 +33259,16 @@
       "linked_days": []
     },
     {
-      "id": "noh3-s-joseph-opificis",
+      "id": "noh3-ss-philippi-et-jacobi-apostolorum",
       "volume": "noh3",
-      "slug": "s-joseph-opificis",
+      "slug": "ss-philippi-et-jacobi-apostolorum",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:05-01r"
+        "sancti:05-11r"
       ],
-      "label": "S. Joseph Opificis",
-      "title": "S. Joseph Opificis",
+      "label": "Ss. Philippi et Jacobi Apostolorum",
+      "title": "Ss. Philippi et Jacobi Apostolorum",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -33379,16 +33430,14 @@
       "linked_days": []
     },
     {
-      "id": "noh3-ss-alexandri-et-sociorum-martyrum",
+      "id": "noh3-in-inventione-s-crucis",
       "volume": "noh3",
-      "slug": "ss-alexandri-et-sociorum-martyrum",
+      "slug": "in-inventione-s-crucis",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
-      "days": [
-        "sancti:05-03r"
-      ],
-      "label": "Ss. Alexandri et Sociorum Martyrum",
-      "title": "Ss. Alexandri et Sociorum Martyrum",
+      "days": [],
+      "label": "In Inventione S. Crucis",
+      "title": "In Inventione S. Crucis",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -33610,14 +33659,14 @@
       "linked_days": []
     },
     {
-      "id": "noh3-noh3-p174",
+      "id": "noh3-s-joannis-ante-portam-latinam",
       "volume": "noh3",
-      "slug": "noh3-p174",
+      "slug": "s-joannis-ante-portam-latinam",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [],
-      "label": "S. JOANNIS ANTE PORTAM LATINAM -, 6 Maii",
-      "title": "S. JOANNIS ANTE PORTAM LATINAM -, 6 Maii",
+      "label": "S. Joannis ante Portam Latinam",
+      "title": "S. Joannis ante Portam Latinam",
       "incipit": null,
       "reference": "Introitus. Protexisti me, Pars IV, p. 29.",
       "genre": "proper",
@@ -36131,16 +36180,16 @@
       "linked_days": []
     },
     {
-      "id": "noh3-in-vigilia-ss-petri-et-pauli-apostolorum",
+      "id": "noh3-s-irenaei-episcopi-et-martyris",
       "volume": "noh3",
-      "slug": "in-vigilia-ss-petri-et-pauli-apostolorum",
+      "slug": "s-irenaei-episcopi-et-martyris",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:06-28r"
+        "sancti:07-03r"
       ],
-      "label": "In Vigilia Ss. Petri et Pauli Apostolorum",
-      "title": "In Vigilia Ss. Petri et Pauli Apostolorum",
+      "label": "S. Iren\u00e6i Episcopi et Martyris",
+      "title": "S. Iren\u00e6i Episcopi et Martyris",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -36419,9 +36468,9 @@
       "linked_days": []
     },
     {
-      "id": "noh3-in-vigilia-ss-petri-et-pauli-apostolorum-2",
+      "id": "noh3-in-vigilia-ss-petri-et-pauli-apostolorum",
       "volume": "noh3",
-      "slug": "in-vigilia-ss-petri-et-pauli-apostolorum-2",
+      "slug": "in-vigilia-ss-petri-et-pauli-apostolorum",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
@@ -36539,8 +36588,7 @@
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:06-29",
-        "sancti:08-01r"
+        "sancti:06-29"
       ],
       "label": "SS. Apostolorum Petri et Pauli",
       "title": "SS. Apostolorum Petri et Pauli",
@@ -36729,9 +36777,7 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": [
-        "sancti:08-01r"
-      ]
+      "linked_days": []
     },
     {
       "id": "noh3-noh3-p242",
@@ -37245,16 +37291,16 @@
       "linked_days": []
     },
     {
-      "id": "noh3-noh3-p254",
+      "id": "noh3-in-visitatione-b-mariae-virginis",
       "volume": "noh3",
-      "slug": "noh3-p254",
+      "slug": "in-visitatione-b-mariae-virginis",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
         "sancti:07-02"
       ],
-      "label": "IN FESTO, 2 Julii",
-      "title": "IN FESTO, 2 Julii",
+      "label": "In Visitatione B. Mari\u00e6 Virginis",
+      "title": "In Visitatione B. Mari\u00e6 Virginis",
       "incipit": null,
       "reference": "Introitus. Salve sancta Parens, Pars IV, p. 182.",
       "genre": "proper",
@@ -37707,14 +37753,14 @@
       "linked_days": []
     },
     {
-      "id": "noh3-noh3-p266",
+      "id": "noh3-in-octava-ss-petri-et-pauli",
       "volume": "noh3",
-      "slug": "noh3-p266",
+      "slug": "in-octava-ss-petri-et-pauli",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [],
-      "label": "IN OCTAVA SS. APOST. PETRI et PAULI, 6 Julii",
-      "title": "IN OCTAVA SS. APOST. PETRI et PAULI, 6 Julii",
+      "label": "In Octava Ss. Apostolorum Petri et Pauli",
+      "title": "In Octava Ss. Apostolorum Petri et Pauli",
       "incipit": null,
       "reference": "Introitus. Sapi\u00e9ntiam, Pars IV, p. 48.",
       "genre": "proper",
@@ -38194,7 +38240,8 @@
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:07-20"
+        "sancti:07-20",
+        "sancti:08-07o"
       ],
       "label": "S. Hieronymi Emiliani Confessoris",
       "title": "S. Hieronymi Emiliani Confessoris",
@@ -38425,7 +38472,9 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "sancti:08-07o"
+      ]
     },
     {
       "id": "noh3-s-praxedis-virginis",
@@ -38434,8 +38483,7 @@
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:07-21",
-        "sancti:08-07o"
+        "sancti:07-21"
       ],
       "label": "S. Praxedis Virginis",
       "title": "S. Praxedis Virginis",
@@ -38459,21 +38507,19 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": [
-        "sancti:08-07o"
-      ]
+      "linked_days": []
     },
     {
-      "id": "noh3-noh3-p280",
+      "id": "noh3-s-mariae-magdalenae-poenitentis",
       "volume": "noh3",
-      "slug": "noh3-p280",
+      "slug": "s-mariae-magdalenae-poenitentis",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:07-02"
+        "sancti:07-22"
       ],
-      "label": "S. MARUE MAGDALEN/E P;ENITENTIS, 2 Julii",
-      "title": "S. MARUE MAGDALEN/E P;ENITENTIS, 2 Julii",
+      "label": "S. Mari\u00e6 Magdalen\u00e6 P\u0153nitentis",
+      "title": "S. Mari\u00e6 Magdalen\u00e6 P\u0153nitentis",
       "incipit": null,
       "reference": "Introitus. Me exspectav\u00e9runt, Pars IV, p. 99.",
       "genre": "proper",
@@ -38917,16 +38963,14 @@
       "linked_days": []
     },
     {
-      "id": "noh3-ss-martyrum-machab-orum",
+      "id": "noh3-s-petri-ad-vincula",
       "volume": "noh3",
-      "slug": "ss-martyrum-machab-orum",
+      "slug": "s-petri-ad-vincula",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
-      "days": [
-        "sancti:08-01r"
-      ],
-      "label": "Ss. Martyrum Machab\u00e6orum",
-      "title": "Ss. Martyrum Machab\u00e6orum",
+      "days": [],
+      "label": "S. Petri ad Vincula",
+      "title": "S. Petri ad Vincula",
       "incipit": null,
       "reference": "Introitus. Nunc scio vere, ut supra, p. 238.",
       "genre": "proper",
@@ -39529,16 +39573,16 @@
       "linked_days": []
     },
     {
-      "id": "noh3-noh3-p302",
+      "id": "noh3-in-transfiguratione-domini",
       "volume": "noh3",
-      "slug": "noh3-p302",
+      "slug": "in-transfiguratione-domini",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
         "sancti:08-06"
       ],
-      "label": "IN TRANSFIGURATIONE D.N.J.C, 6 Augusti",
-      "title": "IN TRANSFIGURATIONE D.N.J.C, 6 Augusti",
+      "label": "In Transfiguratione Domini Nostri Jesu Christi",
+      "title": "In Transfiguratione Domini Nostri Jesu Christi",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -40600,16 +40644,14 @@
       "linked_days": []
     },
     {
-      "id": "noh3-s-hyacinthi-confessoris",
+      "id": "noh3-in-octava-s-laurentii-martyris",
       "volume": "noh3",
-      "slug": "s-hyacinthi-confessoris",
+      "slug": "in-octava-s-laurentii-martyris",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
-      "days": [
-        "sancti:08-17"
-      ],
-      "label": "S. Hyacinthi Confessoris",
-      "title": "S. Hyacinthi Confessoris",
+      "days": [],
+      "label": "In Octava S. Laurentii Martyris",
+      "title": "In Octava S. Laurentii Martyris",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -40711,16 +40753,16 @@
       "linked_days": []
     },
     {
-      "id": "noh3-noh3-p328",
+      "id": "noh3-immaculati-cordis-b-mariae-virginis",
       "volume": "noh3",
-      "slug": "noh3-p328",
+      "slug": "immaculati-cordis-b-mariae-virginis",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
         "sancti:08-22"
       ],
-      "label": "IMMACULATI CORDIS B. M. V, 22 Augusti",
-      "title": "IMMACULATI CORDIS B. M. V, 22 Augusti",
+      "label": "Immaculati Cordis Beat\u00e6 Mari\u00e6 Virginis",
+      "title": "Immaculati Cordis Beat\u00e6 Mari\u00e6 Virginis",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -40728,79 +40770,18 @@
       "mass": null,
       "printed_pages": [
         328,
-        328
+        338
       ],
       "pdf_pages": [
         361,
-        361
+        371
       ],
       "systems": [
         "noh3/0361/000",
         "noh3/0361/001",
         "noh3/0361/002",
         "noh3/0361/003",
-        "noh3/0361/004"
-      ],
-      "system_assets": [
-        "systems/noh3/0361/000-7583c2a6dec4",
-        "systems/noh3/0361/001-dcc80b8f5f9b",
-        "systems/noh3/0361/002-27146c8a5622",
-        "systems/noh3/0361/003-fe5420ec5a43",
-        "systems/noh3/0361/004-982ee9d76825"
-      ],
-      "system_aspect": [
-        [
-          1761,
-          395
-        ],
-        [
-          1834,
-          407
-        ],
-        [
-          2015,
-          423
-        ],
-        [
-          1836,
-          417
-        ],
-        [
-          2034,
-          421
-        ]
-      ],
-      "movements": [],
-      "chant": [],
-      "review_status": "verified",
-      "hymns": [],
-      "linked_days": []
-    },
-    {
-      "id": "noh3-s-joann-francisc-fremiot-de-chantal-vidu",
-      "volume": "noh3",
-      "slug": "s-joann-francisc-fremiot-de-chantal-vidu",
-      "section": "Proprium Sanctorum",
-      "division": "sanctorale",
-      "days": [
-        "sancti:08-21"
-      ],
-      "label": "S. Joann\u00e6 Francisc\u00e6 Fr\u00e9miot de Chantal Vidu\u00e6",
-      "title": "S. Joann\u00e6 Francisc\u00e6 Fr\u00e9miot de Chantal Vidu\u00e6",
-      "incipit": null,
-      "reference": null,
-      "genre": "proper",
-      "mode": null,
-      "mass": null,
-      "printed_pages": [
-        329,
-        338
-      ],
-      "pdf_pages": [
-        362,
-        371
-      ],
-      "systems": [
+        "noh3/0361/004",
         "noh3/0362/000",
         "noh3/0362/001",
         "noh3/0362/002",
@@ -40857,6 +40838,11 @@
         "noh3/0371/001"
       ],
       "system_assets": [
+        "systems/noh3/0361/000-7583c2a6dec4",
+        "systems/noh3/0361/001-dcc80b8f5f9b",
+        "systems/noh3/0361/002-27146c8a5622",
+        "systems/noh3/0361/003-fe5420ec5a43",
+        "systems/noh3/0361/004-982ee9d76825",
         "systems/noh3/0362/000-c844423b379c",
         "systems/noh3/0362/001-56563918b08d",
         "systems/noh3/0362/002-347a7d444910",
@@ -40913,6 +40899,26 @@
         "systems/noh3/0371/001-dd8b261d6516"
       ],
       "system_aspect": [
+        [
+          1761,
+          395
+        ],
+        [
+          1834,
+          407
+        ],
+        [
+          2015,
+          423
+        ],
+        [
+          1836,
+          417
+        ],
+        [
+          2034,
+          421
+        ],
         [
           1830,
           408
@@ -41914,10 +41920,7 @@
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:09-27",
-        "sancti:03-24",
-        "sancti:10-02",
-        "sancti:10-24"
+        "sancti:09-27"
       ],
       "label": "S. Cosm\u00e6 et Damiani Martyrum",
       "title": "S. Cosm\u00e6 et Damiani Martyrum",
@@ -41941,11 +41944,7 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": [
-        "sancti:03-24",
-        "sancti:10-02",
-        "sancti:10-24"
-      ]
+      "linked_days": []
     },
     {
       "id": "noh3-in-dedicatione-s-mich-lis-archangelis",
@@ -41954,7 +41953,10 @@
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:09-29"
+        "sancti:09-29",
+        "sancti:03-24",
+        "sancti:10-02",
+        "sancti:10-24"
       ],
       "label": "In Dedicatione S. Mich\u00e6lis Archangelis",
       "title": "In Dedicatione S. Mich\u00e6lis Archangelis",
@@ -42245,7 +42247,11 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "sancti:03-24",
+        "sancti:10-02",
+        "sancti:10-24"
+      ]
     },
     {
       "id": "noh3-s-hieronymi-presbyteris-confessoris-et-ecclesi-doctoris",
@@ -42377,16 +42383,16 @@
       "linked_days": []
     },
     {
-      "id": "noh3-noh3-p364",
+      "id": "noh3-s-theresiae-a-jesu-infante-virginis",
       "volume": "noh3",
-      "slug": "noh3-p364",
+      "slug": "s-theresiae-a-jesu-infante-virginis",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:10-08"
+        "sancti:10-03"
       ],
-      "label": "S. TERESU/E A JESU INFANTE. 2, 8 Octobris",
-      "title": "S. TERESU/E A JESU INFANTE. 2, 8 Octobris",
+      "label": "S. Theresi\u00e6 a Jesu Infante Virginis",
+      "title": "S. Theresi\u00e6 a Jesu Infante Virginis",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -42779,16 +42785,16 @@
       "linked_days": []
     },
     {
-      "id": "noh3-noh3-p375",
+      "id": "noh3-festum-b-mariae-virginis-a-rosario",
       "volume": "noh3",
-      "slug": "noh3-p375",
+      "slug": "festum-b-mariae-virginis-a-rosario",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
         "sancti:10-07"
       ],
-      "label": "Ssmi ROSARII B. MARI V, 7 Octobris",
-      "title": "Ssmi ROSARII B. MARI V, 7 Octobris",
+      "label": "Festum Beat\u00e6 Mari\u00e6 Virginis a Rosario",
+      "title": "Festum Beat\u00e6 Mari\u00e6 Virginis a Rosario",
       "incipit": null,
       "reference": "Introitus. Gaude\u00e1mus, uf supra, p. 270.",
       "genre": "proper",
@@ -44739,14 +44745,14 @@
       "linked_days": []
     },
     {
-      "id": "noh3-noh3-p424",
+      "id": "noh3-in-vigilia-ss-simonis-et-judae",
       "volume": "noh3",
-      "slug": "noh3-p424",
+      "slug": "in-vigilia-ss-simonis-et-judae",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [],
-      "label": "IN VIGILIA SS. SIMONIS et JUD/E |. APOSTOLORUM, 27 Octobris",
-      "title": "IN VIGILIA SS. SIMONIS et JUD/E |. APOSTOLORUM, 27 Octobris",
+      "label": "In Vigilia Ss. Simonis et Jud\u00e6 Apostolorum",
+      "title": "In Vigilia Ss. Simonis et Jud\u00e6 Apostolorum",
       "incipit": null,
       "reference": "Introitus. Intret, Pars IV, p. 40.",
       "genre": "proper",
@@ -44848,14 +44854,14 @@
       "linked_days": []
     },
     {
-      "id": "noh3-noh3-p425",
+      "id": "noh3-in-vigilia-omnium-sanctorum",
       "volume": "noh3",
-      "slug": "noh3-p425",
+      "slug": "in-vigilia-omnium-sanctorum",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [],
-      "label": "IN VIGILIA OMNIUM SANCTORUM, 31 Octobris",
-      "title": "IN VIGILIA OMNIUM SANCTORUM, 31 Octobris",
+      "label": "In Vigilia Omnium Sanctorum",
+      "title": "In Vigilia Omnium Sanctorum",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -45140,16 +45146,14 @@
       "linked_days": []
     },
     {
-      "id": "noh3-ss-quatuor-coronatorum-martyrum",
+      "id": "noh3-in-octava-omnium-sanctorum",
       "volume": "noh3",
-      "slug": "ss-quatuor-coronatorum-martyrum",
+      "slug": "in-octava-omnium-sanctorum",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
-      "days": [
-        "sancti:11-08r"
-      ],
-      "label": "Ss. Quatuor Coronatorum Martyrum",
-      "title": "Ss. Quatuor Coronatorum Martyrum",
+      "days": [],
+      "label": "In Octava Omnium Sanctorum",
+      "title": "In Octava Omnium Sanctorum",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -46069,6 +46073,7 @@
       "section": "Commune Sanctorum",
       "division": "commune",
       "days": [
+        "sancti:12-16",
         "sancti:01-26",
         "sancti:02-03",
         "sancti:07-23"
@@ -46333,6 +46338,7 @@
       "review_status": "verified",
       "hymns": [],
       "linked_days": [
+        "sancti:12-16",
         "sancti:01-26",
         "sancti:02-03",
         "sancti:07-23"
@@ -46853,7 +46859,6 @@
         "sancti:04-23",
         "sancti:04-24",
         "sancti:04-25",
-        "sancti:04-28",
         "sancti:04-29",
         "sancti:05-07",
         "sancti:05-14",
@@ -47099,7 +47104,6 @@
         "sancti:04-23",
         "sancti:04-24",
         "sancti:04-25",
-        "sancti:04-28",
         "sancti:04-29",
         "sancti:05-07",
         "sancti:05-14",
@@ -47326,6 +47330,7 @@
       "division": "commune",
       "days": [
         "sancti:01-22",
+        "sancti:09-16",
         "sancti:09-16cc",
         "sancti:09-22o",
         "sancti:10-25",
@@ -47665,6 +47670,7 @@
       "hymns": [],
       "linked_days": [
         "sancti:01-22",
+        "sancti:09-16",
         "sancti:09-16cc",
         "sancti:09-22o",
         "sancti:10-25",
@@ -48212,8 +48218,10 @@
         "sancti:03-17",
         "sancti:05-10",
         "sancti:05-16",
+        "sancti:05-25",
         "sancti:06-06",
         "sancti:07-23cc",
+        "sancti:09-05",
         "sancti:09-22",
         "sancti:10-01",
         "sancti:11-04",
@@ -48443,8 +48451,10 @@
         "sancti:03-17",
         "sancti:05-10",
         "sancti:05-16",
+        "sancti:05-25",
         "sancti:06-06",
         "sancti:07-23cc",
+        "sancti:09-05",
         "sancti:09-22",
         "sancti:10-01",
         "sancti:11-04",
@@ -48670,14 +48680,17 @@
       "division": "commune",
       "days": [
         "sancti:01-14",
+        "sancti:02-09",
         "sancti:03-07",
         "sancti:04-04",
         "sancti:04-21",
         "sancti:04-27",
+        "sancti:05-27",
         "sancti:06-13",
         "sancti:06-18",
         "sancti:08-20",
         "sancti:11-24",
+        "sancti:12-04",
         "sancti:12-07",
         "sancti:05-02",
         "sancti:06-14",
@@ -48920,14 +48933,17 @@
       "hymns": [],
       "linked_days": [
         "sancti:01-14",
+        "sancti:02-09",
         "sancti:03-07",
         "sancti:04-04",
         "sancti:04-21",
         "sancti:04-27",
+        "sancti:05-27",
         "sancti:06-13",
         "sancti:06-18",
         "sancti:08-20",
         "sancti:11-24",
+        "sancti:12-04",
         "sancti:12-07",
         "sancti:05-02",
         "sancti:06-14",
@@ -48942,15 +48958,17 @@
       "division": "commune",
       "days": [
         "sancti:02-08",
+        "sancti:03-04",
         "sancti:03-08",
         "sancti:04-05",
+        "sancti:05-15",
         "sancti:05-17",
         "sancti:05-20",
         "sancti:06-12",
         "sancti:07-15",
         "sancti:07-17",
         "sancti:08-07",
-        "sancti:08-09cc",
+        "sancti:08-08",
         "sancti:08-17",
         "sancti:08-25",
         "sancti:08-31",
@@ -48959,7 +48977,8 @@
         "sancti:10-10",
         "sancti:10-13",
         "sancti:11-10",
-        "sancti:08-04"
+        "sancti:08-04",
+        "sancti:09-21"
       ],
       "label": "Commune Confessoris non Pontificis",
       "title": "Commune Confessoris non Pontificis",
@@ -49174,15 +49193,17 @@
       "hymns": [],
       "linked_days": [
         "sancti:02-08",
+        "sancti:03-04",
         "sancti:03-08",
         "sancti:04-05",
+        "sancti:05-15",
         "sancti:05-17",
         "sancti:05-20",
         "sancti:06-12",
         "sancti:07-15",
         "sancti:07-17",
         "sancti:08-07",
-        "sancti:08-09cc",
+        "sancti:08-08",
         "sancti:08-17",
         "sancti:08-25",
         "sancti:08-31",
@@ -49191,7 +49212,8 @@
         "sancti:10-10",
         "sancti:10-13",
         "sancti:11-10",
-        "sancti:08-04"
+        "sancti:08-04",
+        "sancti:09-21"
       ]
     },
     {
@@ -49201,6 +49223,7 @@
       "section": "Commune Sanctorum",
       "division": "commune",
       "days": [
+        "sancti:01-28",
         "sancti:04-02",
         "sancti:07-19",
         "sancti:08-23",
@@ -49381,6 +49404,7 @@
       "review_status": "verified",
       "hymns": [],
       "linked_days": [
+        "sancti:01-28",
         "sancti:04-02",
         "sancti:07-19",
         "sancti:08-23",
@@ -49399,11 +49423,14 @@
       "section": "Commune Sanctorum",
       "division": "commune",
       "days": [
+        "sancti:12-05",
         "sancti:01-15cc",
+        "sancti:01-17",
         "sancti:01-23",
         "sancti:02-07",
         "sancti:03-21",
         "sancti:06-25",
+        "sancti:07-12",
         "sancti:09-01",
         "sancti:10-21",
         "sancti:11-26"
@@ -49578,11 +49605,14 @@
       "review_status": "verified",
       "hymns": [],
       "linked_days": [
+        "sancti:12-05",
         "sancti:01-15cc",
+        "sancti:01-17",
         "sancti:01-23",
         "sancti:02-07",
         "sancti:03-21",
         "sancti:06-25",
+        "sancti:07-12",
         "sancti:09-01",
         "sancti:10-21",
         "sancti:11-26"
@@ -49595,7 +49625,7 @@
       "section": "Commune Sanctorum",
       "division": "commune",
       "days": [
-        "sancti:12-04",
+        "sancti:01-30",
         "sancti:02-09o",
         "sancti:09-23cc",
         "sancti:10-21cc",
@@ -49952,7 +49982,7 @@
       "review_status": "verified",
       "hymns": [],
       "linked_days": [
-        "sancti:12-04",
+        "sancti:01-30",
         "sancti:02-09o",
         "sancti:09-23cc",
         "sancti:10-21cc",
@@ -49976,7 +50006,7 @@
         "sancti:08-29cc",
         "sancti:11-23cc",
         "sancti:01-21",
-        "sancti:07-02"
+        "sancti:07-22"
       ],
       "label": "Commune Virginum \u2014 pro Virgine et Martyre, alia Missa",
       "title": "Commune Virginum \u2014 pro Virgine et Martyre, alia Missa",
@@ -50301,7 +50331,7 @@
         "sancti:08-29cc",
         "sancti:11-23cc",
         "sancti:01-21",
-        "sancti:07-02"
+        "sancti:07-22"
       ]
     },
     {
@@ -50310,17 +50340,7 @@
       "slug": "commune-plurium-virginum-et-martyrum",
       "section": "Commune Sanctorum",
       "division": "commune",
-      "days": [
-        "sancti:02-10",
-        "sancti:05-29",
-        "sancti:06-19",
-        "sancti:07-29",
-        "sancti:08-12",
-        "sancti:08-30",
-        "sancti:10-15",
-        "sancti:11-16",
-        "sancti:12-13r"
-      ],
+      "days": [],
       "label": "Commune plurium Virginum et Martyrum",
       "title": "Commune plurium Virginum et Martyrum",
       "incipit": null,
@@ -50343,17 +50363,7 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": [
-        "sancti:02-10",
-        "sancti:05-29",
-        "sancti:06-19",
-        "sancti:07-29",
-        "sancti:08-12",
-        "sancti:08-30",
-        "sancti:10-15",
-        "sancti:11-16",
-        "sancti:12-13r"
-      ]
+      "linked_days": []
     },
     {
       "id": "noh4-commune-virginum-pro-virgine-tantum",
@@ -50361,7 +50371,18 @@
       "slug": "commune-virginum-pro-virgine-tantum",
       "section": "Commune Sanctorum",
       "division": "commune",
-      "days": [],
+      "days": [
+        "sancti:02-10",
+        "sancti:05-29",
+        "sancti:06-01",
+        "sancti:06-19",
+        "sancti:07-29",
+        "sancti:08-12",
+        "sancti:08-30",
+        "sancti:10-15",
+        "sancti:11-16",
+        "sancti:12-13r"
+      ],
       "label": "Commune Virginum \u2014 pro Virgine tantum",
       "title": "Commune Virginum \u2014 pro Virgine tantum",
       "incipit": null,
@@ -50699,7 +50720,18 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "sancti:02-10",
+        "sancti:05-29",
+        "sancti:06-01",
+        "sancti:06-19",
+        "sancti:07-29",
+        "sancti:08-12",
+        "sancti:08-30",
+        "sancti:10-15",
+        "sancti:11-16",
+        "sancti:12-13r"
+      ]
     },
     {
       "id": "noh4-commune-virginum-pro-virgine-tantum-2",
@@ -51224,7 +51256,8 @@
       "section": "Commune Sanctorum",
       "division": "commune",
       "days": [
-        "sancti:11-09"
+        "sancti:11-09",
+        "sancti:11-18r"
       ],
       "label": "In Anniversario Dedicationis Ecclesiae",
       "title": "In Anniversario Dedicationis Ecclesiae",
@@ -51486,7 +51519,8 @@
       "review_status": "verified",
       "hymns": [],
       "linked_days": [
-        "sancti:11-09"
+        "sancti:11-09",
+        "sancti:11-18r"
       ]
     },
     {
@@ -53556,6 +53590,8 @@
       "section": "Missae Votivae",
       "division": "varia",
       "days": [
+        "sancti:08-05",
+        "sancti:09-08",
         "sancti:09-24",
         "sancti:11-21",
         "sancti:07-02"
@@ -53784,6 +53820,8 @@
       "review_status": "verified",
       "hymns": [],
       "linked_days": [
+        "sancti:08-05",
+        "sancti:09-08",
         "sancti:09-24",
         "sancti:11-21",
         "sancti:07-02"
@@ -61601,7 +61639,30 @@
       "slug": "commune-unius-aut-plurium-summorum-pontificum",
       "section": "Commune Summorum Pontificum",
       "division": "commune",
-      "days": [],
+      "days": [
+        "sancti:12-11",
+        "sancti:01-16",
+        "sancti:03-12",
+        "sancti:04-11",
+        "sancti:04-17",
+        "sancti:04-22",
+        "sancti:04-26",
+        "sancti:05-05",
+        "sancti:05-19",
+        "sancti:05-25o",
+        "sancti:05-26o",
+        "sancti:05-27o",
+        "sancti:05-30",
+        "sancti:06-20",
+        "sancti:07-11",
+        "sancti:08-02o",
+        "sancti:08-26",
+        "sancti:09-23",
+        "sancti:10-07t",
+        "sancti:10-14",
+        "sancti:10-26",
+        "sancti:11-12"
+      ],
       "label": "Commune unius aut plurium Summorum Pontificum",
       "title": "Commune unius aut plurium Summorum Pontificum",
       "incipit": null,
@@ -61927,7 +61988,30 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "sancti:12-11",
+        "sancti:01-16",
+        "sancti:03-12",
+        "sancti:04-11",
+        "sancti:04-17",
+        "sancti:04-22",
+        "sancti:04-26",
+        "sancti:05-05",
+        "sancti:05-19",
+        "sancti:05-25o",
+        "sancti:05-26o",
+        "sancti:05-27o",
+        "sancti:05-30",
+        "sancti:06-20",
+        "sancti:07-11",
+        "sancti:08-02o",
+        "sancti:08-26",
+        "sancti:09-23",
+        "sancti:10-07t",
+        "sancti:10-14",
+        "sancti:10-26",
+        "sancti:11-12"
+      ]
     },
     {
       "id": "noh5-ordinarium-missae-asperges",
@@ -71089,7 +71173,11 @@
       "slug": "missa-pro-defunctis-i",
       "section": "Missa pro Defunctis",
       "division": "defunctorum",
-      "days": [],
+      "days": [
+        "sancti:11-02m1",
+        "sancti:11-02m2",
+        "sancti:11-02m3"
+      ],
       "label": "I",
       "title": "Missa \u00ab Requiem \u00bb",
       "incipit": null,
@@ -71692,7 +71780,11 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "sancti:11-02m1",
+        "sancti:11-02m2",
+        "sancti:11-02m3"
+      ]
     },
     {
       "id": "noh5-missa-pro-defunctis-ii",

@@ -1,0 +1,33 @@
+# Days whose Mass the 1962 rubrics take from another day, where NOH prints no
+# line of its own saying so. Each is linked to that Mass like a rubric printed
+# in the book (pipeline.catalog.link_rubrics); `reference` is "Pars <volume>,
+# p. <printed page>" of the Mass taken.
+#
+# Not here, because NOH has no music for them: Good Friday (the organ is silent
+# from the Gloria of Holy Thursday to the Easter Vigil).
+rubrics:
+# A weekday of Advent that is not an Ember day takes the Mass of the Sunday before.
+- title: Feriae infra Hebdomadam I Adventus
+  reference: Missa de Dominica I Adventus, Pars I, p. 3
+  days: [tempora:Adv1-1, tempora:Adv1-2, tempora:Adv1-3, tempora:Adv1-4, tempora:Adv1-5, tempora:Adv1-6]
+- title: Feriae infra Hebdomadam II Adventus
+  reference: Missa de Dominica II Adventus, Pars I, p. 8
+  days: [tempora:Adv2-1, tempora:Adv2-2, tempora:Adv2-3, tempora:Adv2-4, tempora:Adv2-5, tempora:Adv2-6]
+- title: Feriae infra Hebdomadam III Adventus
+  reference: Missa de Dominica III Adventus, Pars I, p. 13
+  days: [tempora:Adv3-1, tempora:Adv3-2, tempora:Adv3-4]
+- title: Feriae infra Hebdomadam IV Adventus
+  reference: Missa de Dominica IV Adventus, Pars I, p. 38
+  days: [tempora:Adv4-1, tempora:Adv4-2, tempora:Adv4-3, tempora:Adv4-4, tempora:Adv4-5]
+# A free day in the Christmas octave takes the third Mass of Christmas.
+- title: Feria infra Octavam Nativitatis
+  reference: Missa tertia Nativitatis Domini, Pars I, p. 60
+  days: [tempora:Nat1-1]
+# The Vigil of the Ascension takes the Mass of the fifth Sunday after Easter.
+- title: In Vigilia Ascensionis
+  reference: Missa de Dominica V post Pascha, Pars II, p. 54
+  days: [tempora:Pasc5-3]
+# All Souls: each of the three Masses is the Requiem.
+- title: In Commemoratione Omnium Fidelium Defunctorum
+  reference: Missa pro Defunctis, Pars V, p. 163
+  days: [sancti:11-02m1, sancti:11-02m2, sancti:11-02m3]

@@ -805,16 +805,17 @@ sections:
     index_title: Feria V post dom. I Passionis
     days:
     - tempora:Quad5-4
-  - slug: noh1-p294
-    label: Feria VI post dom. I Passionis
-    title: Feria VI post dom. I Passionis
+  - slug: feria-vi-infra-hebd-passionis
+    label: Feria VI infra Hebd Passionis
+    title: Feria VI infra Hebd Passionis
     genre: proper
     page: 294
     status: verified
     score: 0.6
     token: '.294'
     index_title: Feria VI post dom. I Passionis
-    calendar_note: no 1962 title matched
+    days:
+    - tempora:Quad5-5Feria
   - slug: sabbato-infra-hebd-passionis
     label: Sabbato infra Hebd Passionis
     title: Sabbato infra Hebd Passionis

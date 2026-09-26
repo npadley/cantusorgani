@@ -11,6 +11,12 @@
 # Pars IV): they have no music of their own in this volume.
 # The addenda (PDF 480-499: Queenship of Our Lady, St Pius X) have their own
 # pagination and are not catalogued yet.
+# Checked against the 1962 calendar on 2026-09-26 (tests/test_calendar_coverage.py):
+# misread heading dates corrected (St Therese, St Mary Magdalen), feasts 1962
+# moved given their 1962 day (SS Philip and James, St Irenaeus), feasts 1962
+# dropped given no day (`calendar_note` says why), entries that were really
+# rubric lines turned back into rubrics (St Cyril, St Jane Frances de Chantal),
+# and rubric lines index-extract dropped added from the page text (`source`).
 volume: noh3
 part: III
 generated_by: noh index-extract
@@ -18,17 +24,17 @@ sections:
 - name: Proprium Sanctorum
   division: sanctorale
   entries:
-  - slug: s-saturnini-martyris
-    label: S. Saturnini Martyris
-    title: S. Saturnini Martyris
+  - slug: in-vigilia-s-andreae-apostoli
+    label: In Vigilia S. Andreæ Apostoli
+    title: In Vigilia S. Andreæ Apostoli
     genre: proper
     page: 1
     status: verified
     score: 1.0
     token: ''
     index_title: IN VIGILIA S. ANDREE APOSTOLI, 29 Novembris
-    days:
-    - sancti:11-29r
+    days: []
+    calendar_note: a 1942 feast the 1962 calendar does not keep
   - slug: s-andre-apostoli
     label: S. Andreæ Apostoli
     title: S. Andreæ Apostoli
@@ -62,6 +68,8 @@ sections:
     index_title: S. PETRI CHRYSOLOGI EPISCOPI, CONFESSORIS, 4 Decembris
     days:
     - sancti:12-04
+    reference: Introitus. In medio Ecclesiæ, Pars IV, p. 71. Graduale. Ecce sacerdos magnus, ibid., p. 62.
+    calendar_note: only the Communion is printed (p. 12); the rest is by reference
   - slug: s-nicolai-episcopi-et-confessoris
     label: S. Nicolai Episcopi et Confessoris
     title: S. Nicolai Episcopi et Confessoris
@@ -82,8 +90,8 @@ sections:
     status: verified
     score: 1.0
     token: ' | '
-    index_title: S. AMBROSII EPISC., CONF. ET ECCLESIE DOCTORIS, 7 Decembris | IN VIGILIA IMMACULAT/E CONCEPTIONIS
-      B.M.V, 7 Decembris
+    index_title: S. AMBROSII EPISC., CONF. ET ECCLESIE DOCTORIS, 7 Decembris | IN VIGILIA IMMACULAT/E CONCEPTIONIS B.M.V,
+      7 Decembris
     days:
     - sancti:12-07
     reference: Introitus. in médio Ecclésie, Pars IV, p. 71.
@@ -110,17 +118,19 @@ sections:
     days:
     - sancti:12-13r
     reference: Introitus. Dilexisti justitiam, Pars IV, p. 107.
-  - slug: s-thom-apostoli
+  - slug: s-thomae-apostoli
     label: S. Thomæ Apostoli
     title: S. Thomæ Apostoli
     genre: proper
-    page: 28
+    page: 26
     status: consistent
     score: 0.0
-    token: '28'
+    token: '26'
     index_title: '''l''homre Apostoli, 21 Decembris'
     days:
     - sancti:12-21
+    reference: Introitus. Mihi autem, ut supra, p. 4. Graduale. Nimis honorati sunt, ut supra, p. 2.
+    calendar_note: heading and reference lines at the foot of p. 26; its music begins on p. 27
   - slug: s-pauli-primi-eremit-et-confessoris
     label: S. Pauli Primi Eremitæ et Confessoris
     title: S. Pauli Primi Eremitæ et Confessoris
@@ -133,17 +143,17 @@ sections:
     days:
     - sancti:01-15
     reference: Introitus. Justus ut palma, Pars IV, p. 82.
-  - slug: s-prisc-virginis
-    label: S. Priscæ Virginis
-    title: S. Priscæ Virginis
+  - slug: in-cathedra-s-petri-romae
+    label: In Cathedra S. Petri Romæ
+    title: In Cathedra S. Petri Romæ
     genre: proper
     page: 29
     status: verified
     score: 1.0
     token: ''
     index_title: IN FESTO CATHEDRJE S. PETRI, 18 Januarii
-    days:
-    - sancti:01-18r
+    days: []
+    calendar_note: a 1942 feast the 1962 calendar does not keep (1962 keeps one Chair of St Peter, on 22 February)
   - slug: s-marii-et-soc-mart
     label: S. Marii et Soc. Mart.
     title: S. Marii et Soc. Mart.
@@ -266,17 +276,17 @@ sections:
     index_title: S. AGATHJE viRGINIS ET. MARTYRIS, 5 Februarii
     days:
     - sancti:02-05
-  - slug: s-cyrilli-episc-alexandrini-confessoris-ecclesi-doctoris
-    label: S. Cyrilli Episc. Alexandrini Confessoris Ecclesiæ Doctoris
-    title: S. Cyrilli Episc. Alexandrini Confessoris Ecclesiæ Doctoris
+  - slug: in-apparitione-b-mariae-virginis-immaculatae
+    label: In Apparitione Beatæ Mariæ Virginis Immaculatæ
+    title: In Apparitione Beatæ Mariæ Virginis Immaculatæ
     genre: proper
-    page: 78
+    page: 79
     status: verified
     score: 1.0
-    token: ''
-    index_title: S. CYRILLI EPISCOPI ALEXANDRINI, CONFESSORIS ET ECCLESIE, 9 Februarii
+    token: '79'
+    index_title: IN FESTO APPARITIONIS B. M. V. IMMACULATAE, 11 Februarii
     days:
-    - sancti:02-09
+    - sancti:02-11
   - slug: ss-septem-fundat-ord-servorum-b-m-v
     label: Ss. Septem Fundat. Ord. Servorum B. M. V.
     title: Ss. Septem Fundat. Ord. Servorum B. M. V.
@@ -332,16 +342,17 @@ sections:
     index_title: VIgilia, 2:l vel 24 l!'ebruaril
     days:
     - sancti:02-24
-  - slug: noh3-p96
-    label: Gabrielis a Vlrgine Perdolente Conf., 27 vel 28 Febrmlrii
-    title: Gabrielis a Vlrgine Perdolente Conf., 27 vel 28 Febrmlrii
+  - slug: s-gabrielis-a-virgine-perdolente-confessoris
+    label: S. Gabrielis a Virgine Perdolente Confessoris
+    title: S. Gabrielis a Virgine Perdolente Confessoris
     genre: proper
     page: 96
     status: verified
     score: 1.0
     token: '96'
     index_title: Gabrielis a Vlrgine Perdolente Conf., 27 vel 28 Febrmlrii
-    calendar_note: no 1962 observance on 02-28
+    days:
+    - sancti:02-27
   - slug: s-francisc-vidu-roman
     label: S. Franciscæ Viduæ Romanæ
     title: S. Franciscæ Viduæ Romanæ
@@ -433,18 +444,18 @@ sections:
     index_title: S. JOANNIS A CAPISTRANO CONFESSORIS, 28 Martii
     days:
     - sancti:03-28
-  - slug: noh3-p128
-    label: Septem Dolorum, Feria VI post Dom. Passiollis
-    title: Septem Dolorum, Feria VI post Dom. Passiollis
+  - slug: septem-dolorum-b-mariae-virginis-in-quadragesima
+    label: Septem Dolorum Beatæ Mariæ Virginis (Feria VI post Dominicam Passionis)
+    title: Septem Dolorum Beatæ Mariæ Virginis (Feria VI post Dominicam Passionis)
     genre: proper
     page: 128
     status: verified
     score: 0.857
     token: '128'
     index_title: Septem Dolorum, Feria VI post Dom. Passiollis
-    days:
-    - tempora:Quadp3-5
-    calendar_note: 'weak title match (0.6): check'
+    days: []
+    calendar_note: 1962 keeps only a commemoration on Friday in Passion Week; this Mass is sung on 15 September, which the
+      rubric on p. 346 links here
   - slug: s-justini-martyris
     label: S. Justini Martyris
     title: S. Justini Martyris
@@ -478,9 +489,9 @@ sections:
     index_title: S. CATHARINJE SENENSIS VIRGINIS, 30 Aprilis
     days:
     - sancti:04-30
-  - slug: s-joseph-opificis
-    label: S. Joseph Opificis
-    title: S. Joseph Opificis
+  - slug: ss-philippi-et-jacobi-apostolorum
+    label: Ss. Philippi et Jacobi Apostolorum
+    title: Ss. Philippi et Jacobi Apostolorum
     genre: proper
     page: 166
     status: verified
@@ -488,7 +499,8 @@ sections:
     token: ''
     index_title: SS. APOSTOLORUM PHILIPPI et JACOBI, 1 Maii
     days:
-    - sancti:05-01r
+    - sancti:05-11r
+    calendar_note: printed for 1 May; 1962 keeps it on 11 May
   - slug: s-athanasii-confessoris-ecclesi-doctoris
     label: S. Athanasii Confessoris Ecclesiæ Doctoris
     title: S. Athanasii Confessoris Ecclesiæ Doctoris
@@ -501,17 +513,17 @@ sections:
     days:
     - sancti:05-02
     reference: Introitus. in médio Ecclésie, Pars IV, p. 71.
-  - slug: ss-alexandri-et-sociorum-martyrum
-    label: Ss. Alexandri et Sociorum Martyrum
-    title: Ss. Alexandri et Sociorum Martyrum
+  - slug: in-inventione-s-crucis
+    label: In Inventione S. Crucis
+    title: In Inventione S. Crucis
     genre: proper
     page: 170
     status: verified
     score: 1.0
     token: ''
     index_title: IN FESTO, 3 Maii
-    days:
-    - sancti:05-03r
+    days: []
+    calendar_note: a 1942 feast the 1962 calendar does not keep
   - slug: ss-alexandri-et-sociorum-martyrum-2
     label: Ss. Alexandri et Sociorum Martyrum
     title: Ss. Alexandri et Sociorum Martyrum
@@ -523,9 +535,9 @@ sections:
     index_title: SS. ALEXANDRI, EVENTI] et THEODULI MARTYRUM AC, 3 Maii
     days:
     - sancti:05-03r
-  - slug: noh3-p174
-    label: S. JOANNIS ANTE PORTAM LATINAM -, 6 Maii
-    title: S. JOANNIS ANTE PORTAM LATINAM -, 6 Maii
+  - slug: s-joannis-ante-portam-latinam
+    label: S. Joannis ante Portam Latinam
+    title: S. Joannis ante Portam Latinam
     genre: proper
     page: 174
     status: verified
@@ -533,7 +545,8 @@ sections:
     token: ''
     index_title: S. JOANNIS ANTE PORTAM LATINAM -, 6 Maii
     reference: Introitus. Protexisti me, Pars IV, p. 29.
-    calendar_note: no 1962 observance on 05-06
+    days: []
+    calendar_note: a 1942 feast the 1962 calendar does not keep
   - slug: s-gregorii-nazianzeni-episcopi-confessoris-ecclesi-doctoris
     label: S. Gregorii Nazianzeni Episcopi Confessoris Ecclesiæ Doctoris
     title: S. Gregorii Nazianzeni Episcopi Confessoris Ecclesiæ Doctoris
@@ -762,9 +775,9 @@ sections:
     days:
     - sancti:06-26
     reference: Introitus. Multe tribulationes, ut supra, p. 211.
-  - slug: in-vigilia-ss-petri-et-pauli-apostolorum
-    label: In Vigilia Ss. Petri et Pauli Apostolorum
-    title: In Vigilia Ss. Petri et Pauli Apostolorum
+  - slug: s-irenaei-episcopi-et-martyris
+    label: S. Irenæi Episcopi et Martyris
+    title: S. Irenæi Episcopi et Martyris
     genre: proper
     page: 229
     status: verified
@@ -772,8 +785,9 @@ sections:
     token: ''
     index_title: S. IREN/EI] EPISCOPI, MARTYRIS, 28 Junii
     days:
-    - sancti:06-28r
-  - slug: in-vigilia-ss-petri-et-pauli-apostolorum-2
+    - sancti:07-03r
+    calendar_note: printed for 28 June; 1962 keeps it on 3 July
+  - slug: in-vigilia-ss-petri-et-pauli-apostolorum
     label: In Vigilia Ss. Petri et Pauli Apostolorum
     title: In Vigilia Ss. Petri et Pauli Apostolorum
     genre: proper
@@ -828,9 +842,9 @@ sections:
     index_title: Sanguinis Pretiosissimi D. N. J. C., 1.Julii
     days:
     - sancti:07-01
-  - slug: noh3-p254
-    label: IN FESTO, 2 Julii
-    title: IN FESTO, 2 Julii
+  - slug: in-visitatione-b-mariae-virginis
+    label: In Visitatione B. Mariæ Virginis
+    title: In Visitatione B. Mariæ Virginis
     genre: proper
     page: 254
     status: verified
@@ -840,7 +854,6 @@ sections:
     days:
     - sancti:07-02
     reference: Introitus. Salve sancta Parens, Pars IV, p. 182.
-    calendar_note: several observances on 07-02; chose sancti:07-02
   - slug: s-antonii-mari-zaccaria-confessoris
     label: S. Antonii Mariæ Zaccaria Confessoris
     title: S. Antonii Mariæ Zaccaria Confessoris
@@ -852,9 +865,9 @@ sections:
     index_title: S. ANTONII MARUE ZACCARIA CONFESSORIS, 5 Julii
     days:
     - sancti:07-05
-  - slug: noh3-p266
-    label: IN OCTAVA SS. APOST. PETRI et PAULI, 6 Julii
-    title: IN OCTAVA SS. APOST. PETRI et PAULI, 6 Julii
+  - slug: in-octava-ss-petri-et-pauli
+    label: In Octava Ss. Apostolorum Petri et Pauli
+    title: In Octava Ss. Apostolorum Petri et Pauli
     genre: proper
     page: 266
     status: verified
@@ -862,7 +875,8 @@ sections:
     token: ''
     index_title: IN OCTAVA SS. APOST. PETRI et PAULI, 6 Julii
     reference: Introitus. Sapiéntiam, Pars IV, p. 48.
-    calendar_note: no 1962 observance on 07-06
+    days: []
+    calendar_note: a 1942 feast the 1962 calendar does not keep
   - slug: ss-cyrilli-et-methodii-pont-et-conf
     label: Ss. Cyrilli et Methodii Pont. et Conf.
     title: Ss. Cyrilli et Methodii Pont. et Conf.
@@ -942,9 +956,9 @@ sections:
     days:
     - sancti:07-21
     reference: Introitus. Loquébar, Pars IV, p. 90.
-  - slug: noh3-p280
-    label: S. MARUE MAGDALEN/E P;ENITENTIS, 2 Julii
-    title: S. MARUE MAGDALEN/E P;ENITENTIS, 2 Julii
+  - slug: s-mariae-magdalenae-poenitentis
+    label: S. Mariæ Magdalenæ Pœnitentis
+    title: S. Mariæ Magdalenæ Pœnitentis
     genre: proper
     page: 280
     status: verified
@@ -952,9 +966,9 @@ sections:
     token: ''
     index_title: S. MARUE MAGDALEN/E P;ENITENTIS, 2 Julii
     days:
-    - sancti:07-02
+    - sancti:07-22
     reference: Introitus. Me exspectavérunt, Pars IV, p. 99.
-    calendar_note: several observances on 07-02; chose sancti:07-02
+    calendar_note: heading's date read as 2 July; printed 22 July
   - slug: s-apollinaris-episcopi-et-martyris
     label: S. Apollinaris Episcopi et Martyris
     title: S. Apollinaris Episcopi et Martyris
@@ -1035,18 +1049,18 @@ sections:
     index_title: S. IGNATII CONFESSORIS, 31 Julii
     days:
     - sancti:07-31
-  - slug: ss-martyrum-machab-orum
-    label: Ss. Martyrum Machabæorum
-    title: Ss. Martyrum Machabæorum
+  - slug: s-petri-ad-vincula
+    label: S. Petri ad Vincula
+    title: S. Petri ad Vincula
     genre: proper
     page: 287
     status: verified
     score: 1.0
     token: ''
     index_title: S, PETRI AD VINCULA, 1 Augusti
-    days:
-    - sancti:08-01r
+    days: []
     reference: Introitus. Nunc scio vere, ut supra, p. 238.
+    calendar_note: a 1942 feast the 1962 calendar does not keep
   - slug: ss-martyrum-machab-orum-2
     label: Ss. Martyrum Machabæorum
     title: Ss. Martyrum Machabæorum
@@ -1082,9 +1096,9 @@ sections:
     days:
     - sancti:08-04
     reference: Introitus. Os justi, Pars IV, p. 76.
-  - slug: noh3-p302
-    label: IN TRANSFIGURATIONE D.N.J.C, 6 Augusti
-    title: IN TRANSFIGURATIONE D.N.J.C, 6 Augusti
+  - slug: in-transfiguratione-domini
+    label: In Transfiguratione Domini Nostri Jesu Christi
+    title: In Transfiguratione Domini Nostri Jesu Christi
     genre: proper
     page: 302
     status: verified
@@ -1093,7 +1107,6 @@ sections:
     index_title: IN TRANSFIGURATIONE D.N.J.C, 6 Augusti
     days:
     - sancti:08-06
-    calendar_note: several observances on 08-06; chose sancti:08-06
   - slug: ss-cyriaci-largi-et-smaragdi-martyrum
     label: Ss. Cyriaci, Largi et Smaragdi Martyrum
     title: Ss. Cyriaci, Largi et Smaragdi Martyrum
@@ -1173,17 +1186,17 @@ sections:
     days:
     - sancti:08-16
     reference: Introitus. Dispérsit, u? supra, p. 309. |
-  - slug: s-hyacinthi-confessoris
-    label: S. Hyacinthi Confessoris
-    title: S. Hyacinthi Confessoris
+  - slug: in-octava-s-laurentii-martyris
+    label: In Octava S. Laurentii Martyris
+    title: In Octava S. Laurentii Martyris
     genre: proper
     page: 326
     status: verified
     score: 1.0
     token: ''
     index_title: IN OCTAVA S. LAURENTII MARTYRIS, 17 Augusti
-    days:
-    - sancti:08-17
+    days: []
+    calendar_note: a 1942 feast the 1962 calendar does not keep
   - slug: s-joannis-eudes-confessoris
     label: S. Joannis Eudes Confessoris
     title: S. Joannis Eudes Confessoris
@@ -1195,9 +1208,9 @@ sections:
     index_title: CONFESSORIS, 19 Augusti
     days:
     - sancti:08-19
-  - slug: noh3-p328
-    label: IMMACULATI CORDIS B. M. V, 22 Augusti
-    title: IMMACULATI CORDIS B. M. V, 22 Augusti
+  - slug: immaculati-cordis-b-mariae-virginis
+    label: Immaculati Cordis Beatæ Mariæ Virginis
+    title: Immaculati Cordis Beatæ Mariæ Virginis
     genre: proper
     page: 328
     status: verified
@@ -1206,18 +1219,6 @@ sections:
     index_title: IMMACULATI CORDIS B. M. V, 22 Augusti
     days:
     - sancti:08-22
-    calendar_note: several observances on 08-22; chose sancti:08-22
-  - slug: s-joann-francisc-fremiot-de-chantal-vidu
-    label: S. Joannæ Franciscæ Frémiot de Chantal Viduæ
-    title: S. Joannæ Franciscæ Frémiot de Chantal Viduæ
-    genre: proper
-    page: 329
-    status: consistent
-    score: 0.0
-    token: 32S
-    index_title: Joannre Franeiscre Frel1liot de Chantal Vid., 21 Augusti
-    days:
-    - sancti:08-21
   - slug: s-bartholom-i-apostoli
     label: S. Bartholomæi Apostoli
     title: S. Bartholomæi Apostoli
@@ -1379,9 +1380,9 @@ sections:
     days:
     - sancti:10-02
     reference: Introitus. Benedicite, u£ supra, p. 354.
-  - slug: noh3-p364
-    label: S. TERESU/E A JESU INFANTE. 2, 8 Octobris
-    title: S. TERESU/E A JESU INFANTE. 2, 8 Octobris
+  - slug: s-theresiae-a-jesu-infante-virginis
+    label: S. Theresiæ a Jesu Infante Virginis
+    title: S. Theresiæ a Jesu Infante Virginis
     genre: proper
     page: 364
     status: verified
@@ -1389,11 +1390,11 @@ sections:
     token: ''
     index_title: S. TERESU/E A JESU INFANTE. 2, 8 Octobris
     days:
-    - sancti:10-08
-    calendar_note: several observances on 10-08; chose sancti:10-08
-  - slug: noh3-p375
-    label: Ssmi ROSARII B. MARI V, 7 Octobris
-    title: Ssmi ROSARII B. MARI V, 7 Octobris
+    - sancti:10-03
+    calendar_note: heading's date read as 2, 8 October; printed 3 October
+  - slug: festum-b-mariae-virginis-a-rosario
+    label: Festum Beatæ Mariæ Virginis a Rosario
+    title: Festum Beatæ Mariæ Virginis a Rosario
     genre: proper
     page: 375
     status: verified
@@ -1403,7 +1404,6 @@ sections:
     days:
     - sancti:10-07
     reference: Introitus. Gaudeámus, uf supra, p. 270.
-    calendar_note: several observances on 10-07; chose sancti:10-07
   - slug: s-joannis-leonardi-confessoris
     label: S. Joannis Leonardi Confessoris
     title: S. Joannis Leonardi Confessoris
@@ -1493,9 +1493,9 @@ sections:
     token: '415'
     index_title: Jesu Christi Regis, Dom. ultima Oetobris
     calendar_note: no 1962 title matched
-  - slug: noh3-p424
-    label: IN VIGILIA SS. SIMONIS et JUD/E |. APOSTOLORUM, 27 Octobris
-    title: IN VIGILIA SS. SIMONIS et JUD/E |. APOSTOLORUM, 27 Octobris
+  - slug: in-vigilia-ss-simonis-et-judae
+    label: In Vigilia Ss. Simonis et Judæ Apostolorum
+    title: In Vigilia Ss. Simonis et Judæ Apostolorum
     genre: proper
     page: 424
     status: verified
@@ -1503,7 +1503,8 @@ sections:
     token: ''
     index_title: IN VIGILIA SS. SIMONIS et JUD/E |. APOSTOLORUM, 27 Octobris
     reference: Introitus. Intret, Pars IV, p. 40.
-    calendar_note: no 1962 observance on 10-27
+    days: []
+    calendar_note: a 1942 feast the 1962 calendar does not keep
   - slug: ss-simonis-et-jud-apostolorum
     label: Ss. Simonis et Judæ Apostolorum.
     title: Ss. Simonis et Judæ Apostolorum.
@@ -1516,16 +1517,17 @@ sections:
     days:
     - sancti:10-28
     reference: Introitus. Mihi autem, ut supra, p. 4.
-  - slug: noh3-p425
-    label: IN VIGILIA OMNIUM SANCTORUM, 31 Octobris
-    title: IN VIGILIA OMNIUM SANCTORUM, 31 Octobris
+  - slug: in-vigilia-omnium-sanctorum
+    label: In Vigilia Omnium Sanctorum
+    title: In Vigilia Omnium Sanctorum
     genre: proper
     page: 425
     status: verified
     score: 1.0
     token: ''
     index_title: IN VIGILIA OMNIUM SANCTORUM, 31 Octobris
-    calendar_note: no 1962 observance on 10-31
+    days: []
+    calendar_note: a 1942 feast the 1962 calendar does not keep
   - slug: omnium-sanctorum
     label: Omnium Sanctorum
     title: Omnium Sanctorum
@@ -1537,17 +1539,17 @@ sections:
     index_title: IN FESTO OMNIUM SANCTORUM |, 1 Novembris
     days:
     - sancti:11-01
-  - slug: ss-quatuor-coronatorum-martyrum
-    label: Ss. Quatuor Coronatorum Martyrum
-    title: Ss. Quatuor Coronatorum Martyrum
+  - slug: in-octava-omnium-sanctorum
+    label: In Octava Omnium Sanctorum
+    title: In Octava Omnium Sanctorum
     genre: proper
     page: 432
     status: verified
     score: 1.0
     token: ''
     index_title: OCTAVA. OMNIUM SANCTORUM, 8 Novembris
-    days:
-    - sancti:11-08r
+    days: []
+    calendar_note: a 1942 feast the 1962 calendar does not keep
   - slug: ss-tryphonis-respicii-and-nymph
     label: Ss. Tryphonis, Respicii, and Nymphæ
     title: Ss. Tryphonis, Respicii, and Nymphæ
@@ -1628,11 +1630,11 @@ rubrics:
   reference: Missa. Me exspectavérunt, Pars IV, p. 99.
   days:
   - sancti:12-02
-- title: S. Petri Chrysologi Episcopi Confessoris et Ecclesiæ Doctoris
+- title: S. Barbaræ Virginis et Martyris
   page: 13
   reference: Missa. Loquébar, Pars IV, p. 90.
-  days:
-  - sancti:12-04
+  days: []
+  calendar_note: a 1942 commemoration the 1962 calendar does not keep (4 December is St Peter Chrysologus)
 - title: S. Sabbæ Abbatis
   page: 13
   reference: Missa. Os justi, de Communi Abbatum, Pars |V, p. 86.
@@ -1674,6 +1676,12 @@ rubrics:
   reference: Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.
   days:
   - sancti:01-16
+- title: S. Antonii Abbatis
+  page: 29
+  reference: Missa. Os justi, de Communi Abbatum, Pars IV, p. 86.
+  days:
+  - sancti:01-17
+  source: dropped by index-extract; read from the page text 2026-09-26
 - title: S. Priscæ Virginis
   page: 36
   reference: Missa. Me exspectavérunt, Pars IV, p. 99.
@@ -1709,6 +1717,12 @@ rubrics:
   reference: Missa. Sacerdótes Dei, Pars IV, p. 11.
   days:
   - sancti:01-26
+- title: S. Petri Nolasci Confessoris
+  page: 50
+  reference: Missa. Justus ut palma, Pars IV, p. 82.
+  days:
+  - sancti:01-28
+  source: dropped by index-extract; read from the page text 2026-09-26
 - title: S. Martinæ Virginis et Martyris
   page: 51
   reference: Missa. Loquébar, Pars IV, p 90.
@@ -1754,6 +1768,12 @@ rubrics:
   reference: Missa. Dilexisti, Pars IV, p. 107.
   days:
   - sancti:02-10
+- title: S. Cyrilli Episcopi Alexandrini Confessoris et Ecclesiæ Doctoris
+  page: 78
+  reference: Missa. In medio Ecclesiæ, Pars IV, p. 71.
+  days:
+  - sancti:02-09
+  source: dropped by index-extract; read from the page text 2026-09-26
 - title: S. Valentini
   page: 94
   reference: Missa. In virtüte tua, Pars IV, p. 18.
@@ -1864,14 +1884,9 @@ rubrics:
   reference: Missa. In médio, Pars 1V, p. 71.
   days:
   - sancti:04-27
-- title: S. Pauli a Cruce Confessoris
-  page: 161
-  reference: Missa. Protexísti me, Pars IV, p. 29.
-  days:
-  - sancti:04-28
 - title: S. Petri Martyris
   page: 161
-  reference: Missa. Protexisti me, Pars IV, p. 29.
+  reference: Missa. Protexísti me, Pars IV, p. 29.
   days:
   - sancti:04-29
 - title: S. Pii V Papæ Confessoris
@@ -1936,12 +1951,19 @@ rubrics:
   page: 184
   reference: Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.
   days:
-  - sancti:05-25
+  - sancti:05-25o
+  calendar_note: dated by its printed day; 1962 files it as sancti:05-25o
 - title: S. Venantii Martyris
   page: 184
   reference: :Missa. Protexisti me, Pars IV, p. 29.
   days:
   - sancti:05-18
+- title: S. Gregorii VII Papæ Confessoris
+  page: 184
+  reference: Missa. Statuit, Pars IV, p. 60.
+  days:
+  - sancti:05-25
+  source: dropped by index-extract; read from the page text 2026-09-26
 - title: S. Eleutherii
   page: 188
   reference: Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.
@@ -1972,6 +1994,19 @@ rubrics:
   reference: Missa. Vultum tuum, Pars IV, p. 115.
   days:
   - sancti:05-31c
+- title: S. Bedæ Venerabilis Confessoris et Ecclesiæ Doctoris
+  page: 188
+  reference: Missa. In medio Ecclesiæ, Pars IV, p. 71.
+  days:
+  - sancti:05-27
+  source: dropped by index-extract; read from the page text 2026-09-26
+- title: S. Angelæ Mericiæ Virginis
+  page: 188
+  reference: Missa. Dilexisti, Pars IV, p. 107.
+  days:
+  - sancti:06-01
+  source: dropped by index-extract; read from the page text 2026-09-26
+  calendar_note: printed for 31 May; 1962 keeps it on 1 June
 - title: S. Norberti Episc. et Confessoris
   page: 201
   reference: Missa. Státuit, Pars IV, p. 60.
@@ -2017,11 +2052,11 @@ rubrics:
   reference: Missa. Sapiéntiam, Pars IV, p. 48.
   days:
   - sancti:07-02cc
-- title: S. Irenæi Episcopi et Martyris
+- title: S. Leonis II Papæ et Confessoris
   page: 255
   reference: Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.
-  days:
-  - sancti:07-03r
+  days: []
+  calendar_note: a 1942 feast the 1962 calendar does not keep (3 July is St Irenaeus)
 - title: INFRA OCTAVAM SS. APOST. PETRI et PAULI, 4 Julii
   page: 256
   reference: 'Missa. Mihi autem, uf supra, p. 4. :'
@@ -2097,15 +2132,17 @@ rubrics:
   page: 301
   reference: Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.
   days:
-  - sancti:08-02
+  - sancti:08-02o
+  calendar_note: dated by its printed day; 1962 files it as sancti:08-02o
 - title: IN INVENTIONE S. STEPHANI pnoroMaRrTYRIS, 3 Augusti
   page: 301
   reference: Missa. Etenim sedérunt, Pars I, p. 65.
 - title: S. Mariæ ad Nives
   page: 301
-  reference: Missa. Salve sancta Parens, ut in Missis votivis B. M. V. a Pentecoste ad Adventum,
+  reference: Missa. Salve sancta Parens, ut in Missis votivis B. M. V. a Pentecoste ad Adventum [Pars IV, p. 182]
   days:
   - sancti:08-05
+  calendar_note: the votive Mass a Pentecoste ad Adventum is Pars IV, p. 182
 - title: Ss. Xysti II Papæ, Felicissimi et Agapiti Martyrum
   page: 305
   reference: Missa. Sapiéntiam, Pars IV, p. 48. -
@@ -2125,7 +2162,8 @@ rubrics:
   page: 309
   reference: Missa. Os justi, Pars IV, p. 76.
   days:
-  - sancti:08-09cc
+  - sancti:08-08
+  calendar_note: dated by its printed day; 1962 files it as sancti:08-08
 - title: Ss. Tiburtii et Susannæ Virginum et Martyrum
   page: 318
   reference: Missa. Salus autem, Pars IV, p. 54. |
@@ -2176,11 +2214,6 @@ rubrics:
   reference: Missa. Os justi, Pars IV, p. 76.
   days:
   - sancti:08-25
-- title: S. Hermete Martyre
-  page: 339
-  reference: Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.
-  days:
-  - sancti:08-28cc
 - title: S. Zephirini Papæ et Martyris
   page: 339
   reference: Missa. Si diligis me, de Communi unius Summi Ponti/ids, vide ad co/cern Portis IV.
@@ -2241,6 +2274,18 @@ rubrics:
   reference: Missa. Salus autem, Pars IV, p. 54. -
   days:
   - sancti:09-11
+- title: S. Laurentii Justiniani Episcopi Confessoris
+  page: 344
+  reference: Missa. Statuit, Pars IV, p. 60.
+  days:
+  - sancti:09-05
+  source: dropped by index-extract; read from the page text 2026-09-26
+- title: In Nativitate Beatæ Mariæ Virginis
+  page: 344
+  reference: Introitus. Salve sancta Parens, Pars IV, p. 182. Graduale. Benedicta, ibid., p. 184.
+  days:
+  - sancti:09-08
+  source: dropped by index-extract; read from the page text 2026-09-26
 - title: Septem Dolorum Beatæ Mariæ Virginis
   page: 346
   reference: Missa dicitur ut in alio Festo Septem Dolorum posito sub mense Martio, ut supra, p. 128.
@@ -2330,7 +2375,8 @@ rubrics:
   page: 378
   reference: Missa. Si diligis me, de Communi unius summi Pontificis, vide ad calcem Partis IV.
   days:
-  - sancti:10-07
+  - sancti:10-07t
+  calendar_note: dated by its printed day; 1962 files it as sancti:10-07t
 - title: S. Birgittæ Viduæ
   page: 378
   reference: Missa. Cognóvi, Pars IV, p. 121.
@@ -2441,6 +2487,12 @@ rubrics:
   reference: Missa. Dilexlsti, Pars IV, p. 107.
   days:
   - sancti:11-16
+- title: In Dedicatione Basilicarum Ss. Petri et Pauli Apostolorum
+  page: 436
+  reference: Missa. Terribilis est, Pars IV, p. 127.
+  days:
+  - sancti:11-18r
+  source: dropped by index-extract; read from the page text 2026-09-26
 - title: S. Felicis de Valois Confessoris
   page: 437
   reference: Missa. Justus ut palma, Pars IV, p. 82.

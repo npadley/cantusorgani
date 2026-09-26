@@ -1211,7 +1211,9 @@ def calendar_keys(title: str, vocabulary: dict[str, dict[str, object]],
     weekday = weekday_of(title)
     if weekday is not None and sunday is not None:
         week = re.sub(r"-0r?$", "", sunday)
-        key = next((k for k in (f"{week}-{weekday}", f"{week}-{weekday}r") if k in vocabulary), None)
+        # Missalemeum files Friday in Passion Week as "Quad5-5Feria".
+        key = next((k for k in (f"{week}-{weekday}", f"{week}-{weekday}r", f"{week}-{weekday}Feria")
+                    if k in vocabulary), None)
         if key is not None:
             return (key,), ""
     if snap.key is None:
