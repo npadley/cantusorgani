@@ -227,14 +227,13 @@ def main(argv: list[str] | None = None) -> int:
         uploaded = skipped = 0
         failures: list[tuple[str, str]] = []
         for i, page in enumerate(pages, 1):
-            if args.skip_slice:
-                from pipeline.publish import load_manifest
-                manifest = load_manifest(args.volume, page, args.out)
-                if manifest is None:
-                    print(f"[{i}/{len(pages)}] pdf {page}: not sliced; run without --skip-slice")
-                    return 1
+            from pipeline.publish import load_manifest
+            manifest = load_manifest(args.volume, page, args.out) if args.skip_slice else None
+            if manifest is not None:
                 written = list(range(len(manifest)))
             else:
+                # Not sliced yet -- or a page with no systems, which has no
+                # manifest: slicing it again costs nothing.
                 written = slice_systems(args.volume, page, args.out, trim=not args.no_trim)
             total += len(written)
             note = ""

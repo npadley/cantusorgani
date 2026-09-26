@@ -161,9 +161,24 @@ def test_review_entries_name_their_piece(kind):
         assert entry.get("piece"), entry
 
 
+def _duplicate_scans(vol: str) -> set[int]:
+    """PDF pages that repeat a printed page already scanned (NOH1 prints 96 twice,
+    NOH3 375-376): the first scan is the one catalogued."""
+    page_map = PAGE_MAPS[vol]
+    twice = {pdf for seg in page_map.segments for pdf in range(seg.first_pdf, seg.last_pdf + 1)
+             if page_map.to_pdf(pdf - seg.offset) != pdf}
+    # Inserts between segments (NOH4's 162i, 163i) -- each recorded for review.
+    recorded = {tuple(r["pdf_pages"]) for r in REVIEW if r["kind"] == "unmapped_pages"
+                and r["volume"] == vol}
+    inserts = {pdf for gap in page_map.gaps if gap in recorded for pdf in range(gap[0], gap[1] + 1)}
+    return twice | inserts
+
+
 def _sliced(vol: str) -> set[str]:
+    duplicates = _duplicate_scans(vol)
     return {f"{vol}/{f.parent.name}/{f.name.split('@')[0]}"
-            for f in Path(f"build/systems/{vol}").glob("*/*@2x.png")}
+            for f in Path(f"build/systems/{vol}").glob("*/*@2x.png")
+            if int(f.parent.name) not in duplicates}
 
 
 def _built_volumes() -> list[str]:

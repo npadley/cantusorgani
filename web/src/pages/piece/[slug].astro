@@ -4,7 +4,8 @@ import ExportBar from "../../components/ExportBar.astro";
 import Layout from "../../components/Layout.astro";
 import RecordStatusNotice from "../../components/RecordStatusNotice.astro";
 import SystemStack from "../../components/SystemStack.astro";
-import { allPieces } from "../../lib/catalog";
+import { allPieces, citedBy, volumeLabel } from "../../lib/catalog";
+import { pieceHref } from "../../lib/indexes";
 import type { Piece } from "../../lib/catalog";
 
 export function getStaticPaths() {
@@ -14,11 +15,12 @@ export function getStaticPaths() {
 interface Props { readonly piece: Piece }
 const { piece } = Astro.props;
 const heading = piece.incipit ?? piece.title;
+const printedElsewhere = citedBy(piece);
 ---
 
 <Layout
   title={heading}
-  description={`${piece.title} — Nova Organi Harmonia part V, pp. ${piece.printedPages[0]}–${piece.printedPages[1]}`}
+  description={`${piece.title} — ${volumeLabel(piece)}, pp. ${piece.printedPages[0]}–${piece.printedPages[1]}`}
   skipTo="music"
 >
   <article>
@@ -33,6 +35,16 @@ const heading = piece.incipit ?? piece.title;
     </header>
 
     <RecordStatusNotice piece={piece} />
+    {piece.reference && (
+      <div class="notice ui small">
+        <p>The book prints this Mass by reference: <q>{piece.reference}</q></p>
+        {printedElsewhere.length > 0 && (
+          <p>Music: {printedElsewhere.map((p, i) => (
+            <>{i > 0 && " · "}<a href={pieceHref(p)}>{p.incipit ?? p.title}</a></>
+          ))}</p>
+        )}
+      </div>
+    )}
     <ExportBar pieces={[piece]} title={piece.title} />
     <SystemStack piece={piece} id="music" />
     <ChantPair piece={piece} />

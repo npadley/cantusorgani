@@ -45,6 +45,8 @@ class IndexEntry:
     # How the page was established: "verified" for a hand transcription; for a
     # scripted index, the evidence `noh index-extract` found (see its docstring).
     status: str = "verified"
+    # Parts printed elsewhere: "Introitus. Vultum tuum, Pars IV, p. 115."
+    reference: str | None = None
 
     @property
     def printed_pages(self) -> tuple[int, int]:
@@ -77,6 +79,7 @@ def load_index(vol_id: str, path: Path | None = None) -> list[IndexEntry]:
                 genre=e["genre"], page=e["page"], last_page=e.get("last_page"),
                 incipit=e.get("incipit"), division=division,
                 days=tuple(e.get("days", ())), status=e.get("status", "verified"),
+                reference=e.get("reference"),
             ))
     return entries
 

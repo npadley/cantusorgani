@@ -220,3 +220,18 @@ describe("catalog navigation helpers", () => {
     expect(pieceBySlug("no-such-piece")).toBeUndefined();
   });
 });
+
+describe("citedBy", () => {
+  it("should find the pieces that carry a piece's days by citation", async () => {
+    const { citedBy, parseCatalog } = await import("./catalog");
+    const catalog = parseCatalog(rawCatalog([
+      rawPiece({ id: "noh3-annunciation", slug: "annunciation", days: ["sancti:03-25"],
+                 reference: "Introitus. Vultum tuum, Pars IV, p. 115." }),
+      rawPiece({ id: "noh5-vultum", slug: "vultum", days: ["sancti:03-25"], linked_days: ["sancti:03-25"] }),
+      rawPiece({ id: "noh5-other", slug: "other", days: ["sancti:05-01"] }),
+    ]));
+    const [annunciation] = catalog.pieces;
+    expect(annunciation?.reference).toBe("Introitus. Vultum tuum, Pars IV, p. 115.");
+    expect(citedBy(annunciation!, catalog.pieces).map((p) => p.slug)).toEqual(["vultum"]);
+  });
+});

@@ -234,7 +234,7 @@ sections:
   - slug: feria-ii-missa-de-sanctissima-trinitate
     label: Feria II. Missa de Sanctissima Trinitate
     title: Feria II. Missa de Sanctissima Trinitate
-    genre: mass_ordinary
+    genre: proper
     page: 134
     status: verified
     score: 1.0
@@ -243,7 +243,7 @@ sections:
   - slug: feria-iii-missa-de-angelis
     label: Feria III. Missa de Angelis
     title: Feria III. Missa de Angelis
-    genre: mass_ordinary
+    genre: proper
     page: 138
     status: verified
     score: 1.0
@@ -252,7 +252,7 @@ sections:
   - slug: feria-iv-missa-de-s-joseph
     label: Feria IV. Missa de S. Joseph
     title: Feria IV. Missa de S. Joseph
-    genre: mass_ordinary
+    genre: proper
     page: 143
     status: verified
     score: 1.0
@@ -261,7 +261,7 @@ sections:
   - slug: feria-iv-missa-de-ss-apostolis-petro-et-paulo
     label: Feria IV. Missa de SS. Apostolis Petro et Paulo
     title: Feria IV. Missa de SS. Apostolis Petro et Paulo
-    genre: mass_ordinary
+    genre: proper
     page: 144
     status: verified
     score: 1.0
@@ -270,7 +270,7 @@ sections:
   - slug: feria-iv-missa-de-omnibus-ss-apostolis
     label: Feria IV. Missa de omnibus SS. Apostolis
     title: Feria IV. Missa de omnibus SS. Apostolis
-    genre: mass_ordinary
+    genre: proper
     page: 144
     status: verified
     score: 1.0
@@ -279,7 +279,7 @@ sections:
   - slug: feria-v-missa-de-spiritu-sancto
     label: Feria V. Missa de Spiritu Sancto
     title: Feria V. Missa de Spiritu Sancto
-    genre: sanctus
+    genre: proper
     page: 146
     status: verified
     score: 1.0
@@ -288,7 +288,7 @@ sections:
   - slug: feria-v-missa-de-ss-eucharistiae-sacramento
     label: Feria V. Missa de SS. Eucharistiae Sacramento
     title: Feria V. Missa de SS. Eucharistiae Sacramento
-    genre: mass_ordinary
+    genre: proper
     page: 151
     status: verified
     score: 1.0
@@ -297,7 +297,7 @@ sections:
   - slug: feria-v-missa-de-d-n-jesu-christi-summo-et-aeterno-sacerdote
     label: Feria V. Missa de D. N. Jesu Christi summo et aeterno Sacerdote
     title: Feria V. Missa de D. N. Jesu Christi summo et aeterno Sacerdote
-    genre: mass_ordinary
+    genre: proper
     page: 155
     status: verified
     score: 1.0
@@ -306,7 +306,7 @@ sections:
   - slug: feria-vi-missa-de-sancta-cruce
     label: Feria VI. Missa de Sancta Cruce
     title: Feria VI. Missa de Sancta Cruce
-    genre: sanctus
+    genre: proper
     page: 162
     status: verified
     score: 1.0
@@ -315,7 +315,7 @@ sections:
   - slug: feria-vi-missa-de-passione-d-n-jesu-christi
     label: Feria VI. Missa de Passione D. N. Jesu Christi
     title: Feria VI. Missa de Passione D. N. Jesu Christi
-    genre: mass_ordinary
+    genre: proper
     page: 164
     status: verified
     score: 1.0
@@ -324,7 +324,7 @@ sections:
   - slug: missa-de-sancta-maria-in-sabbato-ab-adventu-usque-ad-nativitatem
     label: Missa de Sancta Maria in Sabbato — ab Adventu usque ad Nativitatem
     title: Missa de Sancta Maria in Sabbato — ab Adventu usque ad Nativitatem
-    genre: sanctus
+    genre: proper
     page: 174
     status: verified
     score: 1.0
@@ -333,7 +333,7 @@ sections:
   - slug: missa-de-sancta-maria-in-sabbato-a-nativitate-usque-ad-purificat
     label: Missa de Sancta Maria in Sabbato — a Nativitate usque ad Purificationem
     title: Missa de Sancta Maria in Sabbato — a Nativitate usque ad Purificationem
-    genre: sanctus
+    genre: proper
     page: 177
     status: verified
     score: 1.0
@@ -342,7 +342,7 @@ sections:
   - slug: missa-de-sancta-maria-in-sabbato-a-purificatione-usque-ad-pascha
     label: Missa de Sancta Maria in Sabbato — a Purificatione usque ad Pascha
     title: Missa de Sancta Maria in Sabbato — a Purificatione usque ad Pascha
-    genre: sanctus
+    genre: proper
     page: 180
     status: verified
     score: 1.0
@@ -351,7 +351,7 @@ sections:
   - slug: missa-de-sancta-maria-in-sabbato-a-pascha-usque-ad-pentecosten
     label: Missa de Sancta Maria in Sabbato — a Pascha usque ad Pentecosten
     title: Missa de Sancta Maria in Sabbato — a Pascha usque ad Pentecosten
-    genre: sanctus
+    genre: proper
     page: 181
     status: verified
     score: 1.0
@@ -360,7 +360,7 @@ sections:
   - slug: missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum
     label: Missa de Sancta Maria in Sabbato — a Pentecoste usque ad Adventum
     title: Missa de Sancta Maria in Sabbato — a Pentecoste usque ad Adventum
-    genre: sanctus
+    genre: proper
     page: 182
     status: verified
     score: 1.0
@@ -369,7 +369,7 @@ sections:
   - slug: missa-pro-eligendo-summo-pontifice
     label: Missa pro eligendo Summo Pontifice
     title: Missa pro eligendo Summo Pontifice
-    genre: mass_ordinary
+    genre: proper
     page: 188
     status: verified
     score: 1.0
@@ -378,7 +378,7 @@ sections:
   - slug: missa-ad-tollendum-schisma
     label: Missa ad Tollendum Schisma
     title: Missa ad Tollendum Schisma
-    genre: mass_ordinary
+    genre: proper
     page: 196
     status: verified
     score: 1.0
@@ -387,7 +387,7 @@ sections:
   - slug: missa-pro-quacumque-necessitate
     label: Missa pro Quacumque Necessitate
     title: Missa pro Quacumque Necessitate
-    genre: mass_ordinary
+    genre: proper
     page: 203
     status: verified
     score: 1.0
@@ -396,7 +396,7 @@ sections:
   - slug: missa-pro-remissione-peccatorum
     label: Missa pro Remissione Peccatorum
     title: Missa pro Remissione Peccatorum
-    genre: mass_ordinary
+    genre: proper
     page: 206
     status: verified
     score: 1.0
@@ -405,7 +405,7 @@ sections:
   - slug: missa-ad-postulandam-gratiam-bene-moriendi
     label: Missa ad Postulandam Gratiam Bene Moriendi
     title: Missa ad Postulandam Gratiam Bene Moriendi
-    genre: mass_ordinary
+    genre: proper
     page: 209
     status: verified
     score: 1.0
@@ -414,7 +414,7 @@ sections:
   - slug: missa-contra-paganos
     label: Missa contra Paganos
     title: Missa contra Paganos
-    genre: mass_ordinary
+    genre: proper
     page: 210
     status: verified
     score: 1.0
@@ -423,7 +423,7 @@ sections:
   - slug: missa-tempore-belli
     label: Missa tempore Belli
     title: Missa tempore Belli
-    genre: mass_ordinary
+    genre: proper
     page: 213
     status: verified
     score: 1.0
@@ -432,7 +432,7 @@ sections:
   - slug: missa-pro-pace
     label: Missa pro Pace
     title: Missa pro Pace
-    genre: mass_ordinary
+    genre: proper
     page: 214
     status: verified
     score: 1.0
@@ -441,7 +441,7 @@ sections:
   - slug: missa-pro-vitanda-mortalitate
     label: Missa pro vitanda Mortalitate
     title: Missa pro vitanda Mortalitate
-    genre: mass_ordinary
+    genre: proper
     page: 214
     status: verified
     score: 1.0
@@ -450,7 +450,7 @@ sections:
   - slug: missa-pro-infirmis
     label: Missa pro Infirmis
     title: Missa pro Infirmis
-    genre: mass_ordinary
+    genre: proper
     page: 220
     status: verified
     score: 1.0
@@ -459,7 +459,7 @@ sections:
   - slug: missa-pro-peregrinantibus-vel-iter-agentibus
     label: Missa pro Peregrinantibus vel iter agentibus
     title: Missa pro Peregrinantibus vel iter agentibus
-    genre: mass_ordinary
+    genre: proper
     page: 223
     status: verified
     score: 1.0
@@ -468,7 +468,7 @@ sections:
   - slug: missa-pro-sponso-et-sponsa
     label: Missa pro Sponso et Sponsa
     title: Missa pro Sponso et Sponsa
-    genre: mass_ordinary
+    genre: proper
     page: 226
     status: verified
     score: 1.0
@@ -477,7 +477,7 @@ sections:
   - slug: missa-votiva-pro-fidei-propagatione
     label: Missa Votiva pro Fidei Propagatione
     title: Missa Votiva pro Fidei Propagatione
-    genre: mass_ordinary
+    genre: proper
     page: 234
     status: verified
     score: 1.0
@@ -486,7 +486,7 @@ sections:
   - slug: missa-ad-postulandam-gratiam-spiritus-sancti
     label: Missa ad Postulandam Gratiam Spiritus Sancti
     title: Missa ad Postulandam Gratiam Spiritus Sancti
-    genre: sanctus
+    genre: proper
     page: 243
     status: verified
     score: 1.0
@@ -495,7 +495,7 @@ sections:
   - slug: missa-pro-gratiarum-actione
     label: Missa pro Gratiarum Actione
     title: Missa pro Gratiarum Actione
-    genre: mass_ordinary
+    genre: proper
     page: 243
     status: verified
     score: 1.0

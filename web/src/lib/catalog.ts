@@ -48,6 +48,10 @@ export interface Piece {
   readonly label: string;
   readonly title: string;
   readonly incipit: string | null;
+  /** Parts printed elsewhere, as the book cites them ("Introitus. Vultum tuum, Pars IV, p. 115."). */
+  readonly reference: string | null;
+  /** Days this piece serves because another entry cites it, not by its own heading. */
+  readonly linkedDays: readonly string[];
   readonly genre: Genre;
   readonly mode: string | null;
   readonly mass: string | null;
@@ -118,6 +122,7 @@ interface RawPiece {
   readonly section: string; readonly label: string; readonly title: string;
   readonly division?: string; readonly days?: readonly string[];
   readonly incipit: string | null; readonly genre: string;
+  readonly reference?: string | null; readonly linked_days?: readonly string[];
   readonly mode: string | null; readonly mass: string | null;
   // JSON gives plain arrays; the tuple shape is checked at runtime below rather
   // than asserted here, because asserting it is how `undefined` reaches a page.
@@ -186,6 +191,7 @@ export function parseCatalog(input: unknown): Catalog {
       id: p.id, volume: p.volume, slug: p.slug, section: p.section,
       division: p.division ?? "varia", days: p.days ?? [],
       label: p.label, title: p.title, incipit: p.incipit,
+      reference: p.reference ?? null, linkedDays: p.linked_days ?? [],
       genre: p.genre as Genre, mode: p.mode, mass: p.mass,
       printedPages: pair(p.printed_pages, `${p.id}.printed_pages`),
       pdfPages: pair(p.pdf_pages, `${p.id}.pdf_pages`),
@@ -226,7 +232,8 @@ export function pieceBySlug(slug: string): Piece | undefined {
 /** Ordinary Masses in printed order: I, II, … XVIII. */
 export function ordinaryMasses(): readonly Piece[] {
   return allPieces()
-    .filter((p) => p.genre === "mass_ordinary")
+    // The Kyriale's eighteen Ordinaries, and nothing that only mentions a Missa.
+    .filter((p) => p.genre === "mass_ordinary" && p.division === "kyriale")
     .slice()
     .sort((a, b) => a.printedPages[0] - b.printedPages[0]);
 }
@@ -271,4 +278,15 @@ export function assetBase(): string {
   return typeof configured === "string" && configured.length > 0
     ? configured.replace(/\/$/, "")
     : "/systems";
+}
+
+/** Pieces that carry a piece's days by citation: where its Mass is actually printed. */
+export function citedBy(piece: Piece, pieces: readonly Piece[] = allPieces()): readonly Piece[] {
+  return pieces.filter((p) => p.id !== piece.id && p.linkedDays.some((d) => piece.days.includes(d)));
+}
+
+/** "Nova Organi Harmonia, part III" for a piece's volume. */
+export function volumeLabel(piece: Piece): string {
+  const part = loadCatalog().volumes[piece.volume]?.part;
+  return part ? `Nova Organi Harmonia, part ${part}` : "Nova Organi Harmonia";
 }

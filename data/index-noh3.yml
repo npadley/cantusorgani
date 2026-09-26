@@ -73,6 +73,7 @@ sections:
     index_title: S. NICOLAI EPISCOPI, CONFESSORIS, 6 Decembris
     days:
     - sancti:12-06
+    reference: Introitus. Státuit, Pars IV, p. 3.
   - slug: s-ambrosii-episcopi-confessoris-et-ecclesi-doctoris
     label: S. Ambrosii Episcopi Confessoris et Ecclesiæ Doctoris
     title: S. Ambrosii Episcopi Confessoris et Ecclesiæ Doctoris
@@ -85,6 +86,7 @@ sections:
       B.M.V, 7 Decembris
     days:
     - sancti:12-07
+    reference: Introitus. in médio Ecclésie, Pars IV, p. 71.
   - slug: in-conceptione-immaculata-beat-mari-virginis
     label: In Conceptione Immaculata Beatæ Mariæ Virginis
     title: In Conceptione Immaculata Beatæ Mariæ Virginis
@@ -107,6 +109,7 @@ sections:
     index_title: S. LUCEUE VIRGINIS ET MARTYRIS, 13 Decembris
     days:
     - sancti:12-13r
+    reference: Introitus. Dilexisti justitiam, Pars IV, p. 107.
   - slug: s-thom-apostoli
     label: S. Thomæ Apostoli
     title: S. Thomæ Apostoli
@@ -129,6 +132,7 @@ sections:
     index_title: S, PAULI PRIM! EREMIT/E, 15 Januarii
     days:
     - sancti:01-15
+    reference: Introitus. Justus ut palma, Pars IV, p. 82.
   - slug: s-prisc-virginis
     label: S. Priscæ Virginis
     title: S. Priscæ Virginis
@@ -173,6 +177,7 @@ sections:
     index_title: S. AGNETIS vIRGINIS ET MARTYRIS, 21 Januarii
     days:
     - sancti:01-21
+    reference: Introitus. Me exspectavérunt, Pars IV, p. 99.
   - slug: in-conversione-s-pauli-apostoli
     label: In Conversione S. Pauli Apostoli
     title: In Conversione S. Pauli Apostoli
@@ -206,18 +211,6 @@ sections:
     index_title: S. AGNETIS VIRGINIS ET MARTYRIS, secundo, 28 Januarii
     days:
     - sancti:01-28t
-  - slug: noh3-p50
-    label: VIRGINIS ET MARTYRIS,, 28 Januarii
-    title: VIRGINIS ET MARTYRIS,, 28 Januarii
-    genre: proper
-    page: 50
-    status: verified
-    score: 1.0
-    token: ''
-    index_title: VIRGINIS ET MARTYRIS,, 28 Januarii
-    days:
-    - sancti:01-28
-    calendar_note: several observances on 01-28; chose sancti:01-28
   - slug: s-francisci-salesii-episcopi-confessoris-ecclesi-doctoris
     label: S. Francisci Salesii Episcopi Confessoris Ecclesiæ Doctoris
     title: S. Francisci Salesii Episcopi Confessoris Ecclesiæ Doctoris
@@ -393,6 +386,7 @@ sections:
     index_title: S. JOSEPH, SPONSI B. MARIJE V. CONFESSORIS, CATHOLlCJ£ ECCLESIJ£ PATRONI., 19 Martii
     days:
     - sancti:03-19
+    reference: Introitus. Justus ut palma, Pars IV, p. 82.
   - slug: s-gabrielis-archangeli
     label: S. Gabrielis Archangeli
     title: S. Gabrielis Archangeli
@@ -404,18 +398,7 @@ sections:
     index_title: S. GABRIELIS ARCHANGELI, 24 Martii
     days:
     - sancti:03-24
-  - slug: noh3-p113
-    label: IN FESTo ANNUNTIATTIONIS B. M. V, 25 Maii
-    title: IN FESTo ANNUNTIATTIONIS B. M. V, 25 Maii
-    genre: proper
-    page: 113
-    status: verified
-    score: 1.0
-    token: ''
-    index_title: IN FESTo ANNUNTIATTIONIS B. M. V, 25 Maii
-    days:
-    - sancti:05-25
-    calendar_note: several observances on 05-25; chose sancti:05-25
+    reference: Introitus. Benedicite, uf infra, p. 354.
   - slug: in-annuntiatione-beate-mari-virgine
     label: In Annuntiatione Beate Mariæ Virgine
     title: In Annuntiatione Beate Mariæ Virgine
@@ -424,9 +407,10 @@ sections:
     status: verified
     score: 1.0
     token: ''
-    index_title: IN FESTO, 25 Martii
+    index_title: IN FESTo ANNUNTIATTIONIS B. M. V, 25 Martii
     days:
     - sancti:03-25
+    reference: Introitus. Vultum tuum, Pars IV, p. 115.
   - slug: s-joannis-damasceni-confessoris
     label: S. Joannis Damasceni Confessoris
     title: S. Joannis Damasceni Confessoris
@@ -516,6 +500,7 @@ sections:
     index_title: S. ATHANASII EPISCOPI, CONFESSORIS ET ECCLESIAE DOCTORIS, 2 Maii
     days:
     - sancti:05-02
+    reference: Introitus. in médio Ecclésie, Pars IV, p. 71.
   - slug: ss-alexandri-et-sociorum-martyrum
     label: Ss. Alexandri et Sociorum Martyrum
     title: Ss. Alexandri et Sociorum Martyrum
@@ -547,6 +532,7 @@ sections:
     score: 1.0
     token: ''
     index_title: S. JOANNIS ANTE PORTAM LATINAM -, 6 Maii
+    reference: Introitus. Protexisti me, Pars IV, p. 29.
     calendar_note: no 1962 observance on 05-06
   - slug: s-gregorii-nazianzeni-episcopi-confessoris-ecclesi-doctoris
     label: S. Gregorii Nazianzeni Episcopi Confessoris Ecclesiæ Doctoris
@@ -592,6 +578,17 @@ sections:
     index_title: S. PUDENTIAN/E viRGINIS, 19 Maii
     days:
     - sancti:05-19o
+  - slug: s-philippi-neri-confessoris
+    label: S. Philippi Neri Confessoris
+    title: S. Philippi Neri Confessoris
+    genre: proper
+    page: 184
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: CONFESSORIS, 26 Maii
+    days:
+    - sancti:05-26
   - slug: ss-marcellini-petri-atque-erasmi-martyrum
     label: Ss. Marcellini, Petri, atque Erasmi Martyrum
     title: Ss. Marcellini, Petri, atque Erasmi Martyrum
@@ -603,6 +600,7 @@ sections:
     index_title: SS. MARCELLINI, PETRI et ERASMI MARTYRUM, 2 Junii
     days:
     - sancti:06-02
+    reference: Introitus. Clamavérunt justi, uf supra, p. 106.
   - slug: s-francisci-caracciolo-confessoris
     label: S. Francisci Caracciolo Confessoris
     title: S. Francisci Caracciolo Confessoris
@@ -636,6 +634,7 @@ sections:
     index_title: SS. PRIMI et FELICIANI MARTYRUM, 9 Junii
     days:
     - sancti:06-09
+    reference: Introitus. Sapiéntiam, Pars IV, p. 48.
   - slug: s-barnab-apostoli
     label: S. Barnabæ Apostoli
     title: S. Barnabæ Apostoli
@@ -647,6 +646,7 @@ sections:
     index_title: S. BARNABZE APOSTOLI, 11 Junii
     days:
     - sancti:06-11
+    reference: Introitus. Mihi autem, uf supra, p. 4.
   - slug: s-basilidus
     label: S Basilidus
     title: S Basilidus
@@ -658,6 +658,7 @@ sections:
     index_title: SS. BASILIDIS, CYRINI, NABORIS et NAZARII MARTYRUM, 12 Junii
     days:
     - sancti:06-12o
+    reference: Introitus. intret, Pars IV, p. 40.
   - slug: s-basilii-magni-confessoris-et-ecclesi-doctoris
     label: S. Basilii Magni Confessoris et Ecclesiæ Doctoris
     title: S. Basilii Magni Confessoris et Ecclesiæ Doctoris
@@ -669,6 +670,7 @@ sections:
     index_title: S. BASILII EPISCOPI, CONFESSORIS ET ECCLESIE DOCTORIS, 14 Junii
     days:
     - sancti:06-14
+    reference: Introitus. ln médio Ecclésie, Pars IV, p. 71.
   - slug: ss-viti-modesti-atque-crescenti-martyrum
     label: Ss. Viti, Modesti atque Crescentiæ Martyrum
     title: Ss. Viti, Modesti atque Crescentiæ Martyrum
@@ -691,6 +693,7 @@ sections:
     index_title: SS. MARCI et MARCELLIANI MARTYRUM, 18 Junii
     days:
     - sancti:06-18t
+    reference: Introitus. Salus autem, Pars IV, p. 54.
   - slug: ss-gervasio-et-protasio
     label: Ss. Gervasio et Protasio
     title: Ss. Gervasio et Protasio
@@ -724,6 +727,18 @@ sections:
     index_title: S, PAULINI EPISCOPI, CONFESSORIS, 22 Junii
     days:
     - sancti:06-22
+    reference: Introitus. Sacerdótes tui, Pars IV, p. 66.
+  - slug: in-vigilia-s-joannis-baptist
+    label: In Vigilia S. Joannis Baptistæ
+    title: In Vigilia S. Joannis Baptistæ
+    genre: proper
+    page: 221
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: IN VIGILIA NATIVITATIS S. JOANNIS BAPTISTl£, 23 Junii
+    days:
+    - sancti:06-23
   - slug: in-nativitate-s-joannis-baptist
     label: In Nativitate S. Joannis Baptistæ
     title: In Nativitate S. Joannis Baptistæ
@@ -746,6 +761,7 @@ sections:
     index_title: SS. JOANNIS et PAULI MARTYRUM, 26 Junii
     days:
     - sancti:06-26
+    reference: Introitus. Multe tribulationes, ut supra, p. 211.
   - slug: in-vigilia-ss-petri-et-pauli-apostolorum
     label: In Vigilia Ss. Petri et Pauli Apostolorum
     title: In Vigilia Ss. Petri et Pauli Apostolorum
@@ -800,6 +816,7 @@ sections:
     index_title: IN COMMEM. S. PAULI APOSTOLI, 30 Junii
     days:
     - sancti:06-30
+    reference: Introitus. Scio cui crédidi, uf supra, p. 44.
   - slug: pretiosissimi-sanguinis-domini-nostri-jesu-christi
     label: Pretiosissimi Sanguinis Domini Nostri Jesu Christi
     title: Pretiosissimi Sanguinis Domini Nostri Jesu Christi
@@ -822,6 +839,7 @@ sections:
     index_title: IN FESTO, 2 Julii
     days:
     - sancti:07-02
+    reference: Introitus. Salve sancta Parens, Pars IV, p. 182.
     calendar_note: several observances on 07-02; chose sancti:07-02
   - slug: s-antonii-mari-zaccaria-confessoris
     label: S. Antonii Mariæ Zaccaria Confessoris
@@ -843,6 +861,7 @@ sections:
     score: 1.0
     token: ''
     index_title: IN OCTAVA SS. APOST. PETRI et PAULI, 6 Julii
+    reference: Introitus. Sapiéntiam, Pars IV, p. 48.
     calendar_note: no 1962 observance on 07-06
   - slug: ss-cyrilli-et-methodii-pont-et-conf
     label: Ss. Cyrilli et Methodii Pont. et Conf.
@@ -855,6 +874,7 @@ sections:
     index_title: SS. CYRILLI et METHODII PONT., CONF, 7 Julii
     days:
     - sancti:07-07
+    reference: Introitus. Sacerdótes tui, Pars IV, p. 66.
   - slug: ss-septem-fratrum-martyrum-ac-rufin-et-secund-virginum-et-martyr
     label: Ss. Septem Fratrum Martyrum, ac Rufinæ et Secundæ Virginum et Martyrum
     title: Ss. Septem Fratrum Martyrum, ac Rufinæ et Secundæ Virginum et Martyrum
@@ -921,6 +941,7 @@ sections:
     index_title: S. PRAXEDIS viRGINIS, 21 Julii
     days:
     - sancti:07-21
+    reference: Introitus. Loquébar, Pars IV, p. 90.
   - slug: noh3-p280
     label: S. MARUE MAGDALEN/E P;ENITENTIS, 2 Julii
     title: S. MARUE MAGDALEN/E P;ENITENTIS, 2 Julii
@@ -932,6 +953,7 @@ sections:
     index_title: S. MARUE MAGDALEN/E P;ENITENTIS, 2 Julii
     days:
     - sancti:07-02
+    reference: Introitus. Me exspectavérunt, Pars IV, p. 99.
     calendar_note: several observances on 07-02; chose sancti:07-02
   - slug: s-apollinaris-episcopi-et-martyris
     label: S. Apollinaris Episcopi et Martyris
@@ -944,6 +966,7 @@ sections:
     index_title: S. APOLLINARIS EPISCOPI, MARTYRIS, 23 Julii
     days:
     - sancti:07-23
+    reference: / Introitus. Sacerdótes Dei, Pars IV, p. 11.
   - slug: s-jacobi-apostoli
     label: S. Jacobi Apostoli
     title: S. Jacobi Apostoli
@@ -955,6 +978,7 @@ sections:
     index_title: S. JACOBI aPosToLI, 25 Julii
     days:
     - sancti:07-25
+    reference: Introitus. Mihi autem, uf supra, p. 4.
   - slug: s-ann-matris-b-m-v
     label: S. Annæ Matris B.M.V.
     title: S. Annæ Matris B.M.V.
@@ -999,6 +1023,7 @@ sections:
     index_title: SS. ABDON et SENNEN MARTYRUM, 30 Julii
     days:
     - sancti:07-30
+    reference: Introitus. Intret, Pars IV, p. 40.
   - slug: s-ignatii-confessoris
     label: S. Ignatii Confessoris
     title: S. Ignatii Confessoris
@@ -1021,6 +1046,7 @@ sections:
     index_title: S, PETRI AD VINCULA, 1 Augusti
     days:
     - sancti:08-01r
+    reference: Introitus. Nunc scio vere, ut supra, p. 238.
   - slug: ss-martyrum-machab-orum-2
     label: Ss. Martyrum Machabæorum
     title: Ss. Martyrum Machabæorum
@@ -1032,6 +1058,7 @@ sections:
     index_title: SS. MACHAB/EORUM MARTYRUM, 1 Augusti
     days:
     - sancti:08-01r
+    reference: Introitus. Clamavérunt justi, uf supra, p. 106.
   - slug: s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor
     label: S. Alfonsi Mariæ de Ligorio Episcopi Confessoris et Ecclesiæ Doctoris
     title: S. Alfonsi Mariæ de Ligorio Episcopi Confessoris et Ecclesiæ Doctoris
@@ -1054,6 +1081,7 @@ sections:
     index_title: S. DOMINICI CONFESSORIS, 4 Augusti
     days:
     - sancti:08-04
+    reference: Introitus. Os justi, Pars IV, p. 76.
   - slug: noh3-p302
     label: IN TRANSFIGURATIONE D.N.J.C, 6 Augusti
     title: IN TRANSFIGURATIONE D.N.J.C, 6 Augusti
@@ -1077,6 +1105,17 @@ sections:
     index_title: SS. CYRIACI , LARGI et SMARAGDI MARTYRUM, 8 Augusti
     days:
     - sancti:08-08c
+  - slug: vigilia-s-laurentii-martyris
+    label: Vigilia S. Laurentii Martyris
+    title: Vigilia S. Laurentii Martyris
+    genre: proper
+    page: 309
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: IN VIGILIA S. LAURENTII MARTYRIS, 9 Augusti
+    days:
+    - sancti:08-09t
   - slug: s-romano-martyre
     label: S. Romano Martyre
     title: S. Romano Martyre
@@ -1110,6 +1149,7 @@ sections:
     index_title: IN VIGILIA. ASSUMPTIONIS B. M. V, 14 Augusti
     days:
     - sancti:08-14
+    reference: Introitus. Vultum tuum, Pars IV, p. 115.
   - slug: in-assumptione-beat-mari-virginis
     label: In Assumptione Beatæ Mariæ Virginis
     title: In Assumptione Beatæ Mariæ Virginis
@@ -1132,6 +1172,7 @@ sections:
     index_title: S. JOACHIM CONFESSORIS, PATRIS B. MARUE V,, 16 Augusti
     days:
     - sancti:08-16
+    reference: Introitus. Dispérsit, u? supra, p. 309. |
   - slug: s-hyacinthi-confessoris
     label: S. Hyacinthi Confessoris
     title: S. Hyacinthi Confessoris
@@ -1188,6 +1229,7 @@ sections:
     index_title: S. BARTHOLOM/JLI s»osrou, 24 Augusti
     days:
     - sancti:08-24
+    reference: Introitus. Mihi autem, ut supra, p. 4.
   - slug: s-josephi-calasanctii-confessoris
     label: S. Josephi Calasanctii Confessoris
     title: S. Josephi Calasanctii Confessoris
@@ -1210,6 +1252,7 @@ sections:
     index_title: S. AUGUSTINI EPISCOPI, CONFESSORIS ET ECCLESUE DOCTORIS, 28 Augusti
     days:
     - sancti:08-28
+    reference: Introitus. in médio Ecclésiz, Pars IV, p. 71.
   - slug: decollatione-s-joannis-baptist
     label: Decollatione S. Joannis Baptistæ
     title: Decollatione S. Joannis Baptistæ
@@ -1232,6 +1275,7 @@ sections:
     index_title: SS. FELICIS ET ADAUCTI MARTYRUM, 30 Augusti
     days:
     - sancti:08-30o
+    reference: Introitus. Sapiéntiam, Pars IV, p. 48.
   - slug: in-exaltatione-sanct-crucis
     label: In Exaltatione Sanctæ crucis
     title: In Exaltatione Sanctæ crucis
@@ -1254,6 +1298,7 @@ sections:
     index_title: SANCTISSIMI NOMINIS MARIlE, 12 Septembris
     days:
     - sancti:09-12
+    reference: Introitus. Vultum tuum, Pars IV, p. 115.
   - slug: impressionis-stigmatum-s-francisci
     label: Impressionis Stigmatum S. Francisci
     title: Impressionis Stigmatum S. Francisci
@@ -1287,6 +1332,7 @@ sections:
     index_title: S. MATTH/EI APOST. ET EVANG, 21 Septembris
     days:
     - sancti:09-21
+    reference: Introitus. Os justi, Pars iV, p. 76.
   - slug: s-cosm-et-damiani-martyrum
     label: S. Cosmæ et Damiani Martyrum
     title: S. Cosmæ et Damiani Martyrum
@@ -1298,6 +1344,7 @@ sections:
     index_title: SS. COSM/E et DAMIANI MARTYRUM, 27 Septembris
     days:
     - sancti:09-27
+    reference: Introitus. Sapiéntiam, Pars IV, p. 48.
   - slug: in-dedicatione-s-mich-lis-archangelis
     label: In Dedicatione S. Michælis Archangelis
     title: In Dedicatione S. Michælis Archangelis
@@ -1331,6 +1378,7 @@ sections:
     index_title: SANCTORUM ANGELORUM CUSTODUM, 2 Octobris
     days:
     - sancti:10-02
+    reference: Introitus. Benedicite, u£ supra, p. 354.
   - slug: noh3-p364
     label: S. TERESU/E A JESU INFANTE. 2, 8 Octobris
     title: S. TERESU/E A JESU INFANTE. 2, 8 Octobris
@@ -1354,6 +1402,7 @@ sections:
     index_title: Ssmi ROSARII B. MARI V, 7 Octobris
     days:
     - sancti:10-07
+    reference: Introitus. Gaudeámus, uf supra, p. 270.
     calendar_note: several observances on 10-07; chose sancti:10-07
   - slug: s-joannis-leonardi-confessoris
     label: S. Joannis Leonardi Confessoris
@@ -1410,6 +1459,7 @@ sections:
     index_title: S, LUC/ZE EvANGELISTAE, 18 Octobris
     days:
     - sancti:10-18
+    reference: Introitus. Mihi autem, uf supra, p. 4.
   - slug: s-joannis-cantii-confessoris
     label: S. Joannis Cantii Confessoris
     title: S. Joannis Cantii Confessoris
@@ -1432,6 +1482,7 @@ sections:
     index_title: S, RAPHAELIS ARCHANGELI, 24 Octobris
     days:
     - sancti:10-24
+    reference: Introitus. Benedicite, uf supra, p. 354.
   - slug: noh3-p415
     label: Jesu Christi Regis, Dom. ultima Oetobris
     title: Jesu Christi Regis, Dom. ultima Oetobris
@@ -1451,6 +1502,7 @@ sections:
     score: 1.0
     token: ''
     index_title: IN VIGILIA SS. SIMONIS et JUD/E |. APOSTOLORUM, 27 Octobris
+    reference: Introitus. Intret, Pars IV, p. 40.
     calendar_note: no 1962 observance on 10-27
   - slug: ss-simonis-et-jud-apostolorum
     label: Ss. Simonis et Judæ Apostolorum.
@@ -1463,6 +1515,7 @@ sections:
     index_title: APOSTOLORUM.·, 28 Octobris
     days:
     - sancti:10-28
+    reference: Introitus. Mihi autem, ut supra, p. 4.
   - slug: noh3-p425
     label: IN VIGILIA OMNIUM SANCTORUM, 31 Octobris
     title: IN VIGILIA OMNIUM SANCTORUM, 31 Octobris
@@ -1506,6 +1559,7 @@ sections:
     index_title: SS, TRYPHONIS, RESPICII et NYMPH/E VIRGINIS, MARTYRUM, 10 Novembris
     days:
     - sancti:11-10o
+    reference: Introitus. Clamavérunt justi, uf supra, p. 106.
   - slug: s-martini-episcopi-et-confessoris
     label: S. Martini Episcopi et Confessoris
     title: S. Martini Episcopi et Confessoris
@@ -1517,6 +1571,7 @@ sections:
     index_title: S, MARTINI EPISCOPI, CONFESSORIS, 11 Novembris
     days:
     - sancti:11-11
+    reference: Introitus. Státuit, Pars IV. p. 60.
   - slug: s-josaphat-episcopi-et-martyris
     label: S. Josaphat Episcopi et Martyris
     title: S. Josaphat Episcopi et Martyris
@@ -1887,11 +1942,6 @@ rubrics:
   reference: :Missa. Protexisti me, Pars IV, p. 29.
   days:
   - sancti:05-18
-- title: S. Urbanis Papæ et Martyris
-  page: 184
-  reference: :Missa. Si diligis me, de Communi unius Summi Ponti/icis, vide ad ca/cem Partis IV.
-  days:
-  - sancti:05-25o
 - title: S. Eleutherii
   page: 188
   reference: Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.
@@ -1922,11 +1972,6 @@ rubrics:
   reference: Missa. Vultum tuum, Pars IV, p. 115.
   days:
   - sancti:05-31c
-- title: S. JOANNIS I PAPAE, MARTYRIS, 27 Maii
-  page: 188
-  reference: Missa. Si drligis me, de Communi unius Summi Ponti/icis, vide ad calcem Partis IV.
-  days:
-  - sancti:05-27
 - title: S. Norberti Episc. et Confessoris
   page: 201
   reference: Missa. Státuit, Pars IV, p. 60.
@@ -2048,9 +2093,6 @@ rubrics:
   reference: Missa. Dilexisti, Pars IV, p. 107.
   days:
   - sancti:07-29
-- title: MARTYRIS, 27 Junii
-  page: 283
-  reference: Missa. LreHibitur. Pars IV, p. 24.
 - title: S. STEPHANI I. PAP/E, MARTYRIS, 2 Augusti
   page: 301
   reference: Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.

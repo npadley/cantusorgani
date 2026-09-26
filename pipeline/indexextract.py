@@ -1148,8 +1148,10 @@ def to_yaml_doc(vol_id: str, part: str, proposals: list[Proposal], division: str
             "label": title if section_division in PROPER_DIVISIONS
             else (label_of(first.title) or "").upper() or title,
             "title": title,
-            "genre": "proper" if section_division in PROPER_DIVISIONS
-            else guess(first.title, GENRE_WORDS, "proper"),
+            # Only the Kyriale and the Requiem are sorted by what they contain;
+            # every other Mass (a Common, a votive Mass) is a Proper.
+            "genre": guess(first.title, GENRE_WORDS, "proper")
+            if section_division in ("kyriale", "defunctorum") else "proper",
             "page": first.page,
             "status": min((p.status for p in group), key=WORST_FIRST.index),
             "score": min(p.score for p in group),
@@ -1158,6 +1160,9 @@ def to_yaml_doc(vol_id: str, part: str, proposals: list[Proposal], division: str
         }
         if days:
             entry["days"] = days
+        cited = [p.reference for p in group if p.reference]
+        if cited:
+            entry["reference"] = cited[0]
         notes = [p.calendar_note for p in group if p.calendar_note]
         if notes:
             entry["calendar_note"] = "; ".join(notes)
@@ -1215,6 +1220,8 @@ FEAST_HEADING = re.compile(
     r"|EADEM\s+D[IL]E\s*(?P<same>[0-9lIi\]]{1,3})?\.?)"
     r"\s*(?:[—–-]+\s*\.?\s*(?P<title>.+))?$")
 MONTH_NAMES = {v: k for k, v in MONTHS_GENITIVE.items()}
+# The Introit taken from elsewhere: the feast's Mass is (at least partly) another's.
+REFERENCED_INTROIT = re.compile(r"\W*Intr(?:oitus)?\b.*\b(?:Pars|ibid|p\.\s*\d)", re.IGNORECASE)
 
 
 @dataclass(frozen=True)
@@ -1224,6 +1231,7 @@ class FeastHeading:
     day: int
     title: str
     rubric: str | None          # "Missa. Os justi, ..." when the Mass is only a reference
+    cited: str | None = None    # "Introitus. Vultum tuum, Pars IV, p. 175.": parts cited from elsewhere
 
 
 def parse_feast_heading(line: str, month: int | None) -> tuple[int, int, str] | None:
@@ -1262,6 +1270,7 @@ def scan_feast_headings(reader: HeadingReader, printed_pages: range) -> list[Fea
         # A page can carry two feasts of one date ("EADEM DIE 4."); the second
         # source adds only headings beyond those the first already read.
         counts: list[dict[tuple[int, int], int]] = [{}, {}]
+        running = month                  # the month the book was in before this page
         for source, text in enumerate((reader.recognised(page), reader.embedded(page))):
             lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
             for i, line in enumerate(lines):
@@ -1280,9 +1289,21 @@ def scan_feast_headings(reader: HeadingReader, printed_pages: range) -> list[Fea
                 counts[source][key] = counts[source].get(key, 0) + 1
                 if source and counts[source][key] <= counts[0].get(key, 0):
                     continue
+                twin = next((h for h in found if h.page == page and h.day == day
+                             and (title_similarity(h.title, title) >= 0.3
+                                  or fold(title) in fold(h.title) or fold(h.title) in fold(title))),
+                            None) if source else None
+                if twin is not None:
+                    # The same heading, read by both sources with different dates
+                    # ("25. MARTII" / "25. mami"): keep the month the book is in.
+                    if twin.month != running and month == running:
+                        found[found.index(twin)] = replace(twin, month=month, day=day)
+                    month = running
+                    continue
                 following = rest[0] if rest else ""
                 rubric = following if re.match(r"\W*M[il]ssa\b", following, re.IGNORECASE) else None
-                found.append(FeastHeading(page, month, day, title, rubric))
+                cited = following if REFERENCED_INTROIT.match(following) else None
+                found.append(FeastHeading(page, month, day, title, rubric, cited))
     return found
 
 
@@ -1299,7 +1320,7 @@ def proposals_from_headings(headings: list[FeastHeading],
         days, note = calendar_keys(title, vocabulary) if vocabulary else ((), "")
         out.append(Proposal(title, "", "", "heading", h.page,
                             "rubric" if h.rubric else "verified", 1.0, (h.page,), days, note,
-                            h.rubric or ""))
+                            h.rubric or h.cited or ""))
     return out
 
 

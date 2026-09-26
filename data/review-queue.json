@@ -23,6 +23,13 @@
   {
     "volume": "noh5",
     "piece": "ordinarium-missae-i",
+    "kind": "starts_mid_page",
+    "printed_page": 5,
+    "first_system": 2
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-i",
     "kind": "uncertain_movement",
     "movement": "kyrie",
     "score": 0.739,
@@ -82,7 +89,7 @@
   },
   {
     "volume": "noh5",
-    "piece": "ordinarium-missae-iii",
+    "piece": "ordinarium-missae-ii",
     "kind": "uncertain_movement",
     "movement": "ite",
     "score": 0.692,
@@ -91,6 +98,13 @@
     "ref": "noh5/0063/000",
     "mode_marker": null,
     "text": "itedeminfestissolemnibusmlssaestgrltiasilltvelsecundumcommun"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-iii",
+    "kind": "starts_mid_page",
+    "printed_page": 17,
+    "first_system": 3
   },
   {
     "volume": "noh5",
@@ -443,6 +457,13 @@
   {
     "volume": "noh5",
     "piece": "ordinarium-missae-xi",
+    "kind": "starts_mid_page",
+    "printed_page": 62,
+    "first_system": 3
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-xi",
     "kind": "uncertain_movement",
     "movement": "gloria",
     "score": 0.667,
@@ -668,6 +689,13 @@
   {
     "volume": "noh5",
     "piece": "ordinarium-missae-xvii",
+    "kind": "starts_mid_page",
+    "printed_page": 91,
+    "first_system": 2
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-xvii",
     "kind": "uncertain_movement",
     "movement": "kyrie",
     "score": 0.683,
@@ -739,7 +767,7 @@
   },
   {
     "volume": "noh5",
-    "piece": "ordinarium-missae-credo-i",
+    "piece": "ordinarium-missae-xviii",
     "kind": "uncertain_movement",
     "movement": "ite",
     "score": 0.727,
@@ -748,6 +776,20 @@
     "ref": "noh5/0144/002",
     "mode_marker": null,
     "text": "udegratiaifjv"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-credo-i",
+    "kind": "starts_mid_page",
+    "printed_page": 98,
+    "first_system": 3
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-credo-iii",
+    "kind": "starts_mid_page",
+    "printed_page": 106,
+    "first_system": 3
   },
   {
     "volume": "noh5",
@@ -819,6 +861,13 @@
   {
     "volume": "noh5",
     "piece": "cantus-ad-libitum-kyrie-iii",
+    "kind": "starts_mid_page",
+    "printed_page": 127,
+    "first_system": 2
+  },
+  {
+    "volume": "noh5",
+    "piece": "cantus-ad-libitum-kyrie-iii",
     "kind": "uncertain_movement",
     "movement": "kyrie",
     "score": 0.731,
@@ -885,6 +934,13 @@
   {
     "volume": "noh5",
     "piece": "cantus-ad-libitum-kyrie-vi",
+    "kind": "starts_mid_page",
+    "printed_page": 131,
+    "first_system": 2
+  },
+  {
+    "volume": "noh5",
+    "piece": "cantus-ad-libitum-kyrie-vi",
     "kind": "uncertain_movement",
     "movement": "kyrie",
     "score": 0.667,
@@ -908,7 +964,7 @@
   },
   {
     "volume": "noh5",
-    "piece": "cantus-ad-libitum-kyrie-vii",
+    "piece": "cantus-ad-libitum-kyrie-vi",
     "kind": "uncertain_movement",
     "movement": "kyrie",
     "score": 0.682,
@@ -920,7 +976,7 @@
   },
   {
     "volume": "noh5",
-    "piece": "cantus-ad-libitum-kyrie-vii",
+    "piece": "cantus-ad-libitum-kyrie-vi",
     "kind": "uncertain_movement",
     "movement": "kyrie",
     "score": 0.714,
@@ -929,6 +985,13 @@
     "ref": "noh5/0178/002",
     "mode_marker": null,
     "text": "fluiesonkyrieeiesonkyrifoiir"
+  },
+  {
+    "volume": "noh5",
+    "piece": "cantus-ad-libitum-kyrie-vii",
+    "kind": "starts_mid_page",
+    "printed_page": 132,
+    "first_system": 5
   },
   {
     "volume": "noh5",
@@ -956,12 +1019,10 @@
   },
   {
     "volume": "noh5",
-    "piece": "cantus-ad-libitum-kyrie-viii",
-    "kind": "no_systems",
-    "printed_pages": [
-      134,
-      134
-    ]
+    "piece": "cantus-ad-libitum-kyrie-ix",
+    "kind": "starts_mid_page",
+    "printed_page": 135,
+    "first_system": 3
   },
   {
     "volume": "noh5",
@@ -1018,7 +1079,7 @@
     ],
     "resolved": [
       139,
-      146
+      147
     ],
     "why": "pages after the index's stated end were unclaimed"
   },
@@ -1084,6 +1145,13 @@
   },
   {
     "volume": "noh5",
+    "piece": "cantus-ad-libitum-sanctus-i-iii",
+    "kind": "starts_mid_page",
+    "printed_page": 147,
+    "first_system": 4
+  },
+  {
+    "volume": "noh5",
     "piece": "cantus-ad-libitum-agnus-dei-i-ii",
     "kind": "uncertain_movement",
     "movement": "agnus",
@@ -1121,6 +1189,13 @@
     "chant_id": 955,
     "chant_incipit": "Credo V",
     "score": 0.75
+  },
+  {
+    "volume": "noh5",
+    "piece": "alii-cantus-ad-libitum-credo-vi",
+    "kind": "starts_mid_page",
+    "printed_page": 158,
+    "first_system": 4
   },
   {
     "volume": "noh5",
@@ -1220,8 +1295,5089 @@
   {
     "volume": "noh5",
     "piece": "missa-pro-defunctis-iii",
+    "kind": "starts_mid_page",
+    "printed_page": 180,
+    "first_system": 2
+  },
+  {
+    "volume": "noh5",
+    "piece": "missa-pro-defunctis-iii",
     "kind": "unpaired",
     "genre": "exsequiis",
     "title": "In Exsequiis Defunctorum"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-i-adventus",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica I Adventus"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-ii-adventus",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica II Adventus"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-iii-adventus",
+    "kind": "starts_mid_page",
+    "printed_page": 13,
+    "first_system": 3
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-iii-adventus",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica III Adventus"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iv-quattuor-temporum-adventus",
+    "kind": "starts_mid_page",
+    "printed_page": 18,
+    "first_system": 2
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iv-quattuor-temporum-adventus",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria IV Quattuor Temporum Adventus"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-vi-quattuor-temporum-adventus",
+    "kind": "starts_mid_page",
+    "printed_page": 20,
+    "first_system": 4
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-vi-quattuor-temporum-adventus",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.692,
+    "pdf_page": 49,
+    "system": 4,
+    "ref": "noh1/0049/004",
+    "mode_marker": null,
+    "text": "eecedminusvoietetomnessanetiejuscumcommvi"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-vi-quattuor-temporum-adventus",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria VI Quattuor Temporum Adventus"
+  },
+  {
+    "volume": "noh1",
+    "piece": "sabbato-temporum-adventus",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.684,
+    "pdf_page": 57,
+    "system": 2,
+    "ref": "noh1/0057/002",
+    "mode_marker": null,
+    "text": "benedicrusesdminedeuspatrumnostrrumii"
+  },
+  {
+    "volume": "noh1",
+    "piece": "sabbato-temporum-adventus",
+    "kind": "uncertain_movement",
+    "movement": "sanctus",
+    "score": 0.7,
+    "pdf_page": 59,
+    "system": 0,
+    "ref": "noh1/0059/000",
+    "mode_marker": null,
+    "text": "benedictusesquisedessupercnerubimintuens"
+  },
+  {
+    "volume": "noh1",
+    "piece": "sabbato-temporum-adventus",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato Temporum Adventus"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-iv-adventus",
+    "kind": "starts_mid_page",
+    "printed_page": 38,
+    "first_system": 2
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-iv-adventus",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.667,
+    "pdf_page": 66,
+    "system": 3,
+    "ref": "noh1/0066/003",
+    "mode_marker": null,
+    "text": "etbenedicatammscatono"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-iv-adventus",
+    "kind": "uncertain_movement",
+    "movement": "sanctus",
+    "score": 0.714,
+    "pdf_page": 68,
+    "system": 4,
+    "ref": "noh1/0068/004",
+    "mode_marker": null,
+    "text": "iibusetbenedictus"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-iv-adventus",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica IV Adventus"
+  },
+  {
+    "volume": "noh1",
+    "piece": "in-vigilia-nativitatis-domini",
+    "kind": "starts_mid_page",
+    "printed_page": 43,
+    "first_system": 2
+  },
+  {
+    "volume": "noh1",
+    "piece": "in-vigilia-nativitatis-domini",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Vigilia Nativitatis Domini"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p49",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Nativitate Domini in nocte"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p54",
+    "kind": "starts_mid_page",
+    "printed_page": 54,
+    "first_system": 3
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p54",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ad 11 Missam in aurora."
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p60",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ad 111 Missam in die"
+  },
+  {
+    "volume": "noh1",
+    "piece": "s-stephani-protomartyris",
+    "kind": "starts_mid_page",
+    "printed_page": 65,
+    "first_system": 2
+  },
+  {
+    "volume": "noh1",
+    "piece": "s-stephani-protomartyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Stephani Protomartyris"
+  },
+  {
+    "volume": "noh1",
+    "piece": "s-joannis-apostoli-et-evangelist",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Joannis Apostoli et Evangelist\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "ss-innocentium",
+    "kind": "starts_mid_page",
+    "printed_page": 73,
+    "first_system": 3
+  },
+  {
+    "volume": "noh1",
+    "piece": "ss-innocentium",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Innocentium"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-infra-octavam-nativitatis",
+    "kind": "uncertain_movement",
+    "movement": "gloria",
+    "score": 0.684,
+    "pdf_page": 107,
+    "system": 4,
+    "ref": "noh1/0107/004",
+    "mode_marker": null,
+    "text": "nlmnisraeldefunetisunteterramini"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-infra-octavam-nativitatis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica Infra Octavam Nativitatis"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p82",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Thoma: Episcopi et Martyris"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-infra-octavam-nativitatis-2",
+    "kind": "starts_mid_page",
+    "printed_page": 85,
+    "first_system": 5
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-infra-octavam-nativitatis-2",
+    "kind": "no_systems",
+    "printed_pages": [
+      85,
+      85
+    ]
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-infra-octavam-nativitatis-2",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica Infra Octavam Nativitatis"
+  },
+  {
+    "volume": "noh1",
+    "piece": "s-silvestri",
+    "kind": "starts_mid_page",
+    "printed_page": 85,
+    "first_system": 5
+  },
+  {
+    "volume": "noh1",
+    "piece": "s-silvestri",
+    "kind": "no_systems",
+    "printed_pages": [
+      85,
+      85
+    ]
+  },
+  {
+    "volume": "noh1",
+    "piece": "s-silvestri",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Silvestri"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p86",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die Octav\u00e6 Nativitatis Domini"
+  },
+  {
+    "volume": "noh1",
+    "piece": "sanctissimi-nominis-jesu",
+    "kind": "starts_mid_page",
+    "printed_page": 87,
+    "first_system": 4
+  },
+  {
+    "volume": "noh1",
+    "piece": "sanctissimi-nominis-jesu",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sanctissimi Nominis Jesu"
+  },
+  {
+    "volume": "noh1",
+    "piece": "s-telesphori-pap-et-mart",
+    "kind": "starts_mid_page",
+    "printed_page": 98,
+    "first_system": 3
+  },
+  {
+    "volume": "noh1",
+    "piece": "s-telesphori-pap-et-mart",
+    "kind": "no_systems",
+    "printed_pages": [
+      98,
+      98
+    ]
+  },
+  {
+    "volume": "noh1",
+    "piece": "s-telesphori-pap-et-mart",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Telesphori Pap\u00e6 et Mart."
+  },
+  {
+    "volume": "noh1",
+    "piece": "in-epiphania-domini",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Epiphania Domini"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p103",
+    "kind": "starts_mid_page",
+    "printed_page": 103,
+    "first_system": 5
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p103",
+    "kind": "no_systems",
+    "printed_pages": [
+      103,
+      103
+    ]
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p103",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Diebus ferialibus a 7 ad 12 januarii"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p104",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Familia: Jesu, Marise, Joseph."
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p112",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa Dominiclle I post Epiphaniam"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p118",
+    "kind": "starts_mid_page",
+    "printed_page": 118,
+    "first_system": 5
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p118",
+    "kind": "no_systems",
+    "printed_pages": [
+      118,
+      118
+    ]
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p118",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Hygini Paplll, Martyris."
+  },
+  {
+    "volume": "noh1",
+    "piece": "in-commemoratione-baptismatis-domini-nostri-jesu-christi",
+    "kind": "starts_mid_page",
+    "printed_page": 118,
+    "first_system": 5
+  },
+  {
+    "volume": "noh1",
+    "piece": "in-commemoratione-baptismatis-domini-nostri-jesu-christi",
+    "kind": "no_systems",
+    "printed_pages": [
+      118,
+      118
+    ]
+  },
+  {
+    "volume": "noh1",
+    "piece": "in-commemoratione-baptismatis-domini-nostri-jesu-christi",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Commemoratione Baptismatis Domini Nostri Jesu Christi"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-ii-post-epiphaniam",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica II post Epiphaniam"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-iii-post-epiphaniam",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica III post Epiphaniam"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-iv-post-epiphaniam",
+    "kind": "no_systems",
+    "printed_pages": [
+      131,
+      131
+    ]
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-iv-post-epiphaniam",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica IV post Epiphaniam \u00b7 Dominica V post Epiphaniam \u00b7 Dominica VI post Epiphaniam"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-in-septuagesima",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.667,
+    "pdf_page": 163,
+    "system": 3,
+    "ref": "noh1/0163/003",
+    "mode_marker": null,
+    "text": "tquiaapudtepropitiatioest"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-in-septuagesima",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica in Septuagesima"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-in-sexagesima",
+    "kind": "starts_mid_page",
+    "printed_page": 138,
+    "first_system": 3
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-in-sexagesima",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica in Sexagesima"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-in-quinquagesima",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.737,
+    "pdf_page": 177,
+    "system": 0,
+    "ref": "noh1/0177/000",
+    "mode_marker": null,
+    "text": "offertiiibenedictusesdminedocemejusti"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-in-quinquagesima",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica in Quinquagesima"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iv-cinerum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria IV Cinerum"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p156",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ad Miswm"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-v-post-cineres",
+    "kind": "no_systems",
+    "printed_pages": [
+      164,
+      164
+    ]
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-v-post-cineres",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria V post Cineres"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-vi-post-cineres",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria VI post Cineres"
+  },
+  {
+    "volume": "noh1",
+    "piece": "sabbato-post-cineres",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato post Cineres"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-i-in-quadragesim",
+    "kind": "starts_mid_page",
+    "printed_page": 167,
+    "first_system": 3
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-i-in-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica I in Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-ii-infra-hebd-i-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria II infra Hebd I Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iii-infra-hebd-i-quadragesim",
+    "kind": "starts_mid_page",
+    "printed_page": 183,
+    "first_system": 1
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iii-infra-hebd-i-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria III infra Hebd I Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iv-quatuor-temporum-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria IV Quatuor Temporum Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-v-infra-hebd-i-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria V infra Hebd I Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-vi-quattuor-temporum-quadragesim",
+    "kind": "starts_mid_page",
+    "printed_page": 189,
+    "first_system": 2
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-vi-quattuor-temporum-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria VI Quattuor Temporum Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "sabbato-quattuor-temporum-quadragesim",
+    "kind": "starts_mid_page",
+    "printed_page": 193,
+    "first_system": 1
+  },
+  {
+    "volume": "noh1",
+    "piece": "sabbato-quattuor-temporum-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato Quattuor Temporum Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-ii-in-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica II in Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-ii-infra-hebd-ii-quadragesim",
+    "kind": "starts_mid_page",
+    "printed_page": 209,
+    "first_system": 3
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-ii-infra-hebd-ii-quadragesim",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.686,
+    "pdf_page": 239,
+    "system": 1,
+    "ref": "noh1/0239/001",
+    "mode_marker": null,
+    "text": "tractusdominenonsecundumpbeoedicamdminuquim"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-ii-infra-hebd-ii-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria II infra Hebd II Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iii-infra-hebd-ii-quadragesim",
+    "kind": "starts_mid_page",
+    "printed_page": 213,
+    "first_system": 3
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iii-infra-hebd-ii-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria III infra Hebd II Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iv-infra-hebd-ii-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria IV infra Hebd II Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-v-infra-hebd-ii-quadragesim",
+    "kind": "starts_mid_page",
+    "printed_page": 219,
+    "first_system": 4
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-v-infra-hebd-ii-quadragesim",
+    "kind": "no_systems",
+    "printed_pages": [
+      219,
+      219
+    ]
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-v-infra-hebd-ii-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria V infra Hebd II Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-vi-infra-hebd-ii-quadragesim",
+    "kind": "starts_mid_page",
+    "printed_page": 219,
+    "first_system": 4
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-vi-infra-hebd-ii-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria VI infra Hebd II Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "sabbato-infra-hebd-ii-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato infra Hebd II Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-iii-in-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica III in Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-ii-infra-hebd-iii-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria II infra Hebd III Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iii-infra-hebd-iii-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria III infra Hebd III Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iv-infra-hebd-iii-quadragesim",
+    "kind": "starts_mid_page",
+    "printed_page": 240,
+    "first_system": 1
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iv-infra-hebd-iii-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria IV infra Hebd III Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-v-infra-hebd-iii-quadragesim",
+    "kind": "no_systems",
+    "printed_pages": [
+      244,
+      244
+    ]
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-v-infra-hebd-iii-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria V infra Hebd III Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-vi-infra-hebd-iii-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria VI infra Hebd III Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "sabbato-infra-hebd-iii-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato infra Hebd III Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-iv-in-quadragesim",
+    "kind": "starts_mid_page",
+    "printed_page": 250,
+    "first_system": 2
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-iv-in-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica IV in Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-ii-infra-hebd-iv-quadragesim",
+    "kind": "starts_mid_page",
+    "printed_page": 256,
+    "first_system": 4
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-ii-infra-hebd-iv-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria II infra Hebd IV Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iii-infra-hebd-iv-quadragesim",
+    "kind": "starts_mid_page",
+    "printed_page": 258,
+    "first_system": 3
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iii-infra-hebd-iv-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria III infra Hebd IV Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iv-infra-hebd-iv-quadragesim",
+    "kind": "starts_mid_page",
+    "printed_page": 262,
+    "first_system": 3
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iv-infra-hebd-iv-quadragesim",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.684,
+    "pdf_page": 290,
+    "system": 3,
+    "ref": "noh1/0290/003",
+    "mode_marker": null,
+    "text": "jbenedicamdbmnuminenitprrv"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iv-infra-hebd-iv-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria IV infra Hebd IV Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-v-infra-hebd-iv-quadragesim",
+    "kind": "starts_mid_page",
+    "printed_page": 264,
+    "first_system": 3
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-v-infra-hebd-iv-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria V infra Hebd IV Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-vi-infra-hebd-iv-quadragesim",
+    "kind": "starts_mid_page",
+    "printed_page": 266,
+    "first_system": 5
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-vi-infra-hebd-iv-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria VI infra Hebd IV Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "sabbato-infra-hebd-iv-quadragesim",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato infra Hebd IV Quadragesim\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "dominica-i-passionis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica I Passionis"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-ii-infra-hebd-passionis",
+    "kind": "starts_mid_page",
+    "printed_page": 281,
+    "first_system": 2
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-ii-infra-hebd-passionis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria II infra Hebd Passionis"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iii-infra-hebd-passionis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria III infra Hebd Passionis"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iv-infra-hebd-passionis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria IV infra Hebd Passionis"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-v-infra-hebd-passionis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria V infra Hebd Passionis"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p294",
+    "kind": "starts_mid_page",
+    "printed_page": 294,
+    "first_system": 4
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p294",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria VI post dom. I Passionis"
+  },
+  {
+    "volume": "noh1",
+    "piece": "sabbato-infra-hebd-passionis",
+    "kind": "starts_mid_page",
+    "printed_page": 298,
+    "first_system": 4
+  },
+  {
+    "volume": "noh1",
+    "piece": "sabbato-infra-hebd-passionis",
+    "kind": "no_systems",
+    "printed_pages": [
+      298,
+      298
+    ]
+  },
+  {
+    "volume": "noh1",
+    "piece": "sabbato-infra-hebd-passionis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato infra Hebd Passionis"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p299",
+    "kind": "no_systems",
+    "printed_pages": [
+      299,
+      299
+    ]
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p299",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica II Passionis seu in Palmis"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p299-2",
+    "kind": "uncertain_movement",
+    "movement": "gloria",
+    "score": 0.667,
+    "pdf_page": 326,
+    "system": 2,
+    "ref": "noh1/0326/002",
+    "mode_marker": null,
+    "text": "ihosannainexeelsis"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p299-2",
+    "kind": "uncertain_movement",
+    "movement": "gloria",
+    "score": 0.667,
+    "pdf_page": 327,
+    "system": 0,
+    "ref": "noh1/0327/000",
+    "mode_marker": null,
+    "text": "ieenteshosannainexeelsis"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p299-2",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica II Passionis seu in Palmis"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p302",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica II Passionis seu in Palmis"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-ii-hebdomad-sanct",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria II Hebdomad\u00e6 Sanct\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iii-hebdomad-sanct",
+    "kind": "starts_mid_page",
+    "printed_page": 330,
+    "first_system": 4
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iii-hebdomad-sanct",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.7,
+    "pdf_page": 361,
+    "system": 0,
+    "ref": "noh1/0361/000",
+    "mode_marker": null,
+    "text": "egoverooratiam"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iii-hebdomad-sanct",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria III Hebdomad\u00e6 Sanct\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iv-hebdomad-sanct",
+    "kind": "starts_mid_page",
+    "printed_page": 334,
+    "first_system": 4
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iv-hebdomad-sanct",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria IV Hebdomad\u00e6 Sanct\u00e6"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-quinta-in-coena-domini",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria Quinta in Coena Domini"
+  },
+  {
+    "volume": "noh1",
+    "piece": "sabbato-sancto",
+    "kind": "page_out_of_range",
+    "printed_page": 348,
+    "pdf_page": null
+  },
+  {
+    "volume": "noh1",
+    "piece": "sabbato-sancto",
+    "kind": "page_out_of_range",
+    "printed_page": 349,
+    "pdf_page": null
+  },
+  {
+    "volume": "noh1",
+    "piece": "sabbato-sancto",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato Sancto"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-resurrectionis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica Resurrectionis"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-ii-infra-octavam-pasch",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die II infra octavam Pasch\u00e6"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-iii-infra-octavam-pasch",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die III infra octavam Pasch\u00e6"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-vi-infra-octavam-pasch",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die VI infra octavam Pasch\u00e6"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-v-infra-octavam-pasch",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.696,
+    "pdf_page": 57,
+    "system": 0,
+    "ref": "noh2/0057/000",
+    "mode_marker": null,
+    "text": "quiereavitmnetmiseltusest"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-v-infra-octavam-pasch",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die V infra octavam Pasch\u00e6"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-vi-infra-octavam-pasch-2",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die VI infra octavam Pasch\u00e6"
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-in-albis",
+    "kind": "starts_mid_page",
+    "printed_page": 32,
+    "first_system": 3
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-in-albis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato in Albis"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p37",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica in albis"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-ii-post-pascha",
+    "kind": "starts_mid_page",
+    "printed_page": 41,
+    "first_system": 2
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-ii-post-pascha",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica II Post Pascha"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-iii-post-pascha",
+    "kind": "starts_mid_page",
+    "printed_page": 45,
+    "first_system": 5
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-iii-post-pascha",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica III Post Pascha"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-iv-post-pascha",
+    "kind": "starts_mid_page",
+    "printed_page": 49,
+    "first_system": 5
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-iv-post-pascha",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica IV Post Pascha"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-v-post-pascha",
+    "kind": "starts_mid_page",
+    "printed_page": 54,
+    "first_system": 1
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-v-post-pascha",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica V Post Pascha"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p61",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Litaniis majorilJUs et minoribus"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p65",
+    "kind": "starts_mid_page",
+    "printed_page": 65,
+    "first_system": 1
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p65",
+    "kind": "no_systems",
+    "printed_pages": [
+      65,
+      65
+    ]
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p65",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Vigilia Ascensionis"
+  },
+  {
+    "volume": "noh2",
+    "piece": "in-ascensione-domini",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Ascensione Domini"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-post-ascensionem",
+    "kind": "starts_mid_page",
+    "printed_page": 70,
+    "first_system": 3
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-post-ascensionem",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica post Ascensionem"
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-in-vigilia-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato in Vigilia Pentecostes"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica Pentecostes"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-ii-infra-octavam-pentecostes",
+    "kind": "starts_mid_page",
+    "printed_page": 85,
+    "first_system": 2
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-ii-infra-octavam-pentecostes",
+    "kind": "uncertain_movement",
+    "movement": "agnus",
+    "score": 0.7,
+    "pdf_page": 120,
+    "system": 0,
+    "ref": "noh2/0120/000",
+    "mode_marker": null,
+    "text": "spiritussanctusdocebitvosalielacommeeviii"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-ii-infra-octavam-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die II infra octavam Pentecostes"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-iii-infra-octavam-pentecostes",
+    "kind": "starts_mid_page",
+    "printed_page": 88,
+    "first_system": 2
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-iii-infra-octavam-pentecostes",
+    "kind": "uncertain_movement",
+    "movement": "agnus",
+    "score": 0.7,
+    "pdf_page": 122,
+    "system": 2,
+    "ref": "noh2/0122/002",
+    "mode_marker": null,
+    "text": "sanctusdocebitvosquillcumquedixero"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-iii-infra-octavam-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die III infra octavam Pentecostes"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-iv-quattuor-temporum-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria IV Quattuor Temporum Pentecostes"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-v-infra-octavam-pentecostes",
+    "kind": "starts_mid_page",
+    "printed_page": 94,
+    "first_system": 2
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-v-infra-octavam-pentecostes",
+    "kind": "no_systems",
+    "printed_pages": [
+      94,
+      94
+    ]
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-v-infra-octavam-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die V infra octavam Pentecostes"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-vi-quattuor-temporum-pentecostes",
+    "kind": "starts_mid_page",
+    "printed_page": 94,
+    "first_system": 2
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-vi-quattuor-temporum-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria VI Quattuor temporum Pentecostes"
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-quattuor-temporum-pentecostes",
+    "kind": "starts_mid_page",
+    "printed_page": 98,
+    "first_system": 5
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-quattuor-temporum-pentecostes",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.727,
+    "pdf_page": 135,
+    "system": 1,
+    "ref": "noh2/0135/001",
+    "mode_marker": null,
+    "text": "benedictusesmine"
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-quattuor-temporum-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato Quattuor Temporum Pentecostes"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p105",
+    "kind": "starts_mid_page",
+    "printed_page": 105,
+    "first_system": 2
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p105",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.684,
+    "pdf_page": 138,
+    "system": 0,
+    "ref": "noh2/0138/000",
+    "mode_marker": null,
+    "text": "fjimlsencordiamsuampsdominedominusennrntth"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p105",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sanctissimre Trinitatis"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p110",
+    "kind": "starts_mid_page",
+    "printed_page": 110,
+    "first_system": 4
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p110",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica I. post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p114",
+    "kind": "starts_mid_page",
+    "printed_page": 114,
+    "first_system": 4
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p114",
+    "kind": "uncertain_movement",
+    "movement": "sanctus",
+    "score": 0.69,
+    "pdf_page": 149,
+    "system": 3,
+    "ref": "noh2/0149/003",
+    "mode_marker": null,
+    "text": "omneamalbenedictine"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p114",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Corporis Christi"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-ii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica II Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p133",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sacratissimi Cordis Jesu"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-iii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica III Post Pentecosten\u00a7"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-iv-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 149,
+    "first_system": 2
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-iv-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica IV Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-v-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 153,
+    "first_system": 4
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-v-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica V Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-vi-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 157,
+    "first_system": 2
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-vi-post-pentecosten",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.741,
+    "pdf_page": 192,
+    "system": 4,
+    "ref": "noh2/0192/004",
+    "mode_marker": null,
+    "text": "canttibooetpsalmumdicamdmino"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-vi-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica VI Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-vii-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 160,
+    "first_system": 5
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-vii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica VII Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-viii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica VIII Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-ix-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 171,
+    "first_system": 4
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-ix-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica IX Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-x-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 176,
+    "first_system": 1
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-x-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica X Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xi-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XI Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xii-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 186,
+    "first_system": 5
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xii-post-pentecosten",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.71,
+    "pdf_page": 220,
+    "system": 0,
+    "ref": "noh2/0220/000",
+    "mode_marker": null,
+    "text": "gradviibenedicammlnum"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XII Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xiii-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 194,
+    "first_system": 2
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xiii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XIII Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xiv-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 200,
+    "first_system": 4
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xiv-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XIV Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xv-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 206,
+    "first_system": 2
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xv-post-pentecosten",
+    "kind": "uncertain_movement",
+    "movement": "agnus",
+    "score": 0.667,
+    "pdf_page": 242,
+    "system": 2,
+    "ref": "noh2/0242/002",
+    "mode_marker": null,
+    "text": "elrexrnagnusetcle"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xv-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XV Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xvi-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 212,
+    "first_system": 3
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xvi-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XVI Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xvii-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 216,
+    "first_system": 5
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xvii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XVII Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-iv-quattuor-temporum-septembris",
+    "kind": "starts_mid_page",
+    "printed_page": 222,
+    "first_system": 4
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-iv-quattuor-temporum-septembris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria IV Quattuor Temporum Septembris"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-vi-quattuor-temporum-septembris",
+    "kind": "starts_mid_page",
+    "printed_page": 226,
+    "first_system": 2
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-vi-quattuor-temporum-septembris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria VI Quattuor Temporum Septembris"
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-quattuor-temporum-septembris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato Quattuor Temporum Septembris"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xviii-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 229,
+    "first_system": 1
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xviii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XVIII Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xix-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XIX Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xx-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 238,
+    "first_system": 4
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xx-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XX Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxi-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 243,
+    "first_system": 1
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxi-post-pentecosten",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.667,
+    "pdf_page": 278,
+    "system": 0,
+    "ref": "noh2/0278/000",
+    "mode_marker": null,
+    "text": "raitetorbisasae"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxi-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XXI Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XXII Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxiii-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 255,
+    "first_system": 2
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxiii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XXIII Post Pentecosten"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxiv-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 260,
+    "first_system": 6
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxiv-post-pentecosten",
+    "kind": "no_systems",
+    "printed_pages": [
+      260,
+      260
+    ]
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxiv-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XXIV Post Pentecosten"
+  },
+  {
+    "volume": "noh4",
+    "piece": "in-vigilia-unius-apostoli",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Vigilia Unius Apostoli"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-unius-martyris-pontificis",
+    "kind": "starts_mid_page",
+    "printed_page": 3,
+    "first_system": 1
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-unius-martyris-pontificis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune unius Martyris Pontificis"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-unius-martyris-pontificis-alia-missa",
+    "kind": "starts_mid_page",
+    "printed_page": 11,
+    "first_system": 1
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-unius-martyris-pontificis-alia-missa",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune unius Martyris Pontificis \u2014 alia Missa"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-unius-martyris-non-pontificis",
+    "kind": "uncertain_movement",
+    "movement": "sanctus",
+    "score": 0.7,
+    "pdf_page": 49,
+    "system": 5,
+    "ref": "noh4/0049/005",
+    "mode_marker": null,
+    "text": "benedictimbusdulcedinispoinstisuin"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-unius-martyris-non-pontificis",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.696,
+    "pdf_page": 51,
+    "system": 4,
+    "ref": "noh4/0051/004",
+    "mode_marker": null,
+    "text": "reeogeneratijus"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-unius-martyris-non-pontificis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune unius Martyris non Pontificis"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-unius-martyris-non-pontificis-alia-missa",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune unius Martyris non Pontificis \u2014 alia Missa"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-martyrum-tempore-paschali-de-uno-martyre",
+    "kind": "starts_mid_page",
+    "printed_page": 29,
+    "first_system": 2
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-martyrum-tempore-paschali-de-uno-martyre",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune Martyrum tempore Paschali \u2014 de uno Martyre"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-martyrum-tempore-paschali-de-pluribus-martyribus",
+    "kind": "starts_mid_page",
+    "printed_page": 35,
+    "first_system": 1
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-martyrum-tempore-paschali-de-pluribus-martyribus",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune Martyrum tempore Paschali \u2014 de pluribus Martyribus"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-plurimorum-martyrum",
+    "kind": "starts_mid_page",
+    "printed_page": 40,
+    "first_system": 1
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-plurimorum-martyrum",
+    "kind": "uncertain_movement",
+    "movement": "sanctus",
+    "score": 0.733,
+    "pdf_page": 78,
+    "system": 4,
+    "ref": "noh4/0078/004",
+    "mode_marker": null,
+    "text": "benedictusde"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-plurimorum-martyrum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune Plurimorum Martyrum"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-plurimorum-martyrum-alia-missa",
+    "kind": "starts_mid_page",
+    "printed_page": 48,
+    "first_system": 5
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-plurimorum-martyrum-alia-missa",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune plurimorum Martyrum \u2014 alia Missa (I)"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-plurimorum-martyrum-alia-missa-2",
+    "kind": "starts_mid_page",
+    "printed_page": 54,
+    "first_system": 3
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-plurimorum-martyrum-alia-missa-2",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune plurimorum Martyrum \u2014 alia Missa (II)"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-confessoris-pontificis",
+    "kind": "starts_mid_page",
+    "printed_page": 60,
+    "first_system": 4
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-confessoris-pontificis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune Confessoris Pontificis"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-confessoris-pontificis-alia-missa",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune Confessoris Pontificis \u2014 alia Missa"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-doctorum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune Doctorum"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-confessoris-non-pontificis",
+    "kind": "starts_mid_page",
+    "printed_page": 76,
+    "first_system": 5
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-confessoris-non-pontificis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune Confessoris non Pontificis"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-confessoris-non-pontificis-alia-missa",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune Confessoris non Pontificis \u2014 alia Missa"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-confessoris-non-pontificis-missa-pro-abbatibus",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune Confessoris non Pontificis \u2014 Missa pro Abbatibus"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-virginum-pro-virgine-et-martyre",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune Virginum \u2014 pro Virgine et Martyre"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-virginum-pro-virgine-et-martyre-2",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune Virginum \u2014 pro Virgine et Martyre, alia Missa"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-plurium-virginum-et-martyrum",
+    "kind": "no_systems",
+    "printed_pages": [
+      107,
+      107
+    ]
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-plurium-virginum-et-martyrum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune plurium Virginum et Martyrum"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-virginum-pro-virgine-tantum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune Virginum \u2014 pro Virgine tantum"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-virginum-pro-virgine-tantum-2",
+    "kind": "starts_mid_page",
+    "printed_page": 115,
+    "first_system": 4
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-virginum-pro-virgine-tantum-2",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune Virginum \u2014 pro Virgine tantum, alia Missa"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-non-virginum-pro-una-martyre-non-virgine",
+    "kind": "starts_mid_page",
+    "printed_page": 119,
+    "first_system": 3
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-non-virginum-pro-una-martyre-non-virgine",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune non Virginum \u2014 pro una Martyre non Virgine"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-non-virginum-pro-nec-virgine-nec-martyre",
+    "kind": "starts_mid_page",
+    "printed_page": 121,
+    "first_system": 3
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-non-virginum-pro-nec-virgine-nec-martyre",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune non Virginum \u2014 pro nec Virgine nec Martyre"
+  },
+  {
+    "volume": "noh4",
+    "piece": "in-anniversario-dedicationis-ecclesiae",
+    "kind": "starts_mid_page",
+    "printed_page": 127,
+    "first_system": 1
+  },
+  {
+    "volume": "noh4",
+    "piece": "in-anniversario-dedicationis-ecclesiae",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Anniversario Dedicationis Ecclesiae"
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-ii-missa-de-sanctissima-trinitate",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria II. Missa de Sanctissima Trinitate"
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-iii-missa-de-angelis",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.703,
+    "pdf_page": 172,
+    "system": 3,
+    "ref": "noh4/0172/003",
+    "mode_marker": null,
+    "text": "ejusitobenedicitedominomnes"
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-iii-missa-de-angelis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria III. Missa de Angelis"
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-iv-missa-de-s-joseph",
+    "kind": "starts_mid_page",
+    "printed_page": 143,
+    "first_system": 5
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-iv-missa-de-s-joseph",
+    "kind": "no_systems",
+    "printed_pages": [
+      143,
+      143
+    ]
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-iv-missa-de-s-joseph",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria IV. Missa de S. Joseph"
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-iv-missa-de-ss-apostolis-petro-et-paulo",
+    "kind": "no_systems",
+    "printed_pages": [
+      144,
+      144
+    ]
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-iv-missa-de-ss-apostolis-petro-et-paulo",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria IV. Missa de SS. Apostolis Petro et Paulo"
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-iv-missa-de-omnibus-ss-apostolis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria IV. Missa de omnibus SS. Apostolis"
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-v-missa-de-spiritu-sancto",
+    "kind": "starts_mid_page",
+    "printed_page": 146,
+    "first_system": 3
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-v-missa-de-spiritu-sancto",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria V. Missa de Spiritu Sancto"
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-v-missa-de-ss-eucharistiae-sacramento",
+    "kind": "starts_mid_page",
+    "printed_page": 151,
+    "first_system": 3
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-v-missa-de-ss-eucharistiae-sacramento",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria V. Missa de SS. Eucharistiae Sacramento"
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-v-missa-de-d-n-jesu-christi-summo-et-aeterno-sacerdote",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria V. Missa de D. N. Jesu Christi summo et aeterno Sacerdote"
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-vi-missa-de-sancta-cruce",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria VI. Missa de Sancta Cruce"
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-vi-missa-de-passione-d-n-jesu-christi",
+    "kind": "starts_mid_page",
+    "printed_page": 164,
+    "first_system": 1
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-vi-missa-de-passione-d-n-jesu-christi",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria VI. Missa de Passione D. N. Jesu Christi"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-de-sancta-maria-in-sabbato-ab-adventu-usque-ad-nativitatem",
+    "kind": "starts_mid_page",
+    "printed_page": 174,
+    "first_system": 2
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-de-sancta-maria-in-sabbato-ab-adventu-usque-ad-nativitatem",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa de Sancta Maria in Sabbato \u2014 ab Adventu usque ad Nativitatem"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-de-sancta-maria-in-sabbato-a-nativitate-usque-ad-purificat",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa de Sancta Maria in Sabbato \u2014 a Nativitate usque ad Purificationem"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-de-sancta-maria-in-sabbato-a-purificatione-usque-ad-pascha",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa de Sancta Maria in Sabbato \u2014 a Purificatione usque ad Pascha"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-de-sancta-maria-in-sabbato-a-pascha-usque-ad-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 181,
+    "first_system": 1
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-de-sancta-maria-in-sabbato-a-pascha-usque-ad-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa de Sancta Maria in Sabbato \u2014 a Pascha usque ad Pentecosten"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
+    "kind": "starts_mid_page",
+    "printed_page": 182,
+    "first_system": 4
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa de Sancta Maria in Sabbato \u2014 a Pentecoste usque ad Adventum"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-pro-eligendo-summo-pontifice",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa pro eligendo Summo Pontifice"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-ad-tollendum-schisma",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa ad Tollendum Schisma"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-pro-quacumque-necessitate",
+    "kind": "starts_mid_page",
+    "printed_page": 203,
+    "first_system": 3
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-pro-quacumque-necessitate",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa pro Quacumque Necessitate"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-pro-remissione-peccatorum",
+    "kind": "starts_mid_page",
+    "printed_page": 206,
+    "first_system": 3
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-pro-remissione-peccatorum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa pro Remissione Peccatorum"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-ad-postulandam-gratiam-bene-moriendi",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa ad Postulandam Gratiam Bene Moriendi"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-contra-paganos",
+    "kind": "starts_mid_page",
+    "printed_page": 210,
+    "first_system": 1
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-contra-paganos",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa contra Paganos"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-tempore-belli",
+    "kind": "starts_mid_page",
+    "printed_page": 213,
+    "first_system": 3
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-tempore-belli",
+    "kind": "no_systems",
+    "printed_pages": [
+      213,
+      213
+    ]
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-tempore-belli",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa tempore Belli"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-pro-pace",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa pro Pace"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-pro-vitanda-mortalitate",
+    "kind": "starts_mid_page",
+    "printed_page": 214,
+    "first_system": 2
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-pro-vitanda-mortalitate",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa pro vitanda Mortalitate"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-pro-infirmis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa pro Infirmis"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-pro-peregrinantibus-vel-iter-agentibus",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa pro Peregrinantibus vel iter agentibus"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-pro-sponso-et-sponsa",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.667,
+    "pdf_page": 259,
+    "system": 1,
+    "ref": "noh4/0259/001",
+    "mode_marker": null,
+    "text": "psesitvobiscumquimisertusestq"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-pro-sponso-et-sponsa",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa pro Sponso et Sponsa"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-votiva-pro-fidei-propagatione",
+    "kind": "starts_mid_page",
+    "printed_page": 234,
+    "first_system": 4
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-votiva-pro-fidei-propagatione",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.69,
+    "pdf_page": 269,
+    "system": 5,
+    "ref": "noh4/0269/005",
+    "mode_marker": null,
+    "text": "iltlfbenedicatnos"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-votiva-pro-fidei-propagatione",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa Votiva pro Fidei Propagatione"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-ad-postulandam-gratiam-spiritus-sancti",
+    "kind": "starts_mid_page",
+    "printed_page": 243,
+    "first_system": 5
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-ad-postulandam-gratiam-spiritus-sancti",
+    "kind": "no_systems",
+    "printed_pages": [
+      243,
+      243
+    ]
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-ad-postulandam-gratiam-spiritus-sancti",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa ad Postulandam Gratiam Spiritus Sancti"
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-pro-gratiarum-actione",
+    "kind": "starts_mid_page",
+    "printed_page": 243,
+    "first_system": 5
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-pro-gratiarum-actione",
+    "kind": "no_systems",
+    "printed_pages": [
+      243,
+      243
+    ]
+  },
+  {
+    "volume": "noh4",
+    "piece": "missa-pro-gratiarum-actione",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa pro Gratiarum Actione"
+  },
+  {
+    "volume": "noh4",
+    "piece": "translatio-almae-domus-b-m-v",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Translatio Almae Domus B.M.V., 10 Decembris"
+  },
+  {
+    "volume": "noh4",
+    "piece": "exspectatio-partus-b-m-v",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Exspectatio Partus B.M.V., 18 Decembris"
+  },
+  {
+    "volume": "noh4",
+    "piece": "fuga-d-n-j-c-in-aegyptum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Fuga D.N.J.C. in Aegyptum, 17 Februarii"
+  },
+  {
+    "volume": "noh4",
+    "piece": "oratio-d-n-j-c",
+    "kind": "starts_mid_page",
+    "printed_page": 254,
+    "first_system": 4
+  },
+  {
+    "volume": "noh4",
+    "piece": "oratio-d-n-j-c",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Oratio D.N.J.C. (Feria III post Dominicam Septuagesimae)"
+  },
+  {
+    "volume": "noh4",
+    "piece": "ss-spineae-coronae-d-n-j-c",
+    "kind": "starts_mid_page",
+    "printed_page": 260,
+    "first_system": 3
+  },
+  {
+    "volume": "noh4",
+    "piece": "ss-spineae-coronae-d-n-j-c",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "SS. Spineae Coronae D.N.J.C. (Feria VI post Cineres)"
+  },
+  {
+    "volume": "noh4",
+    "piece": "ss-lanceae-et-clavorum-d-n-j-c",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "SS. Lanceae et Clavorum D.N.J.C. (Feria VI post Dominicam I Quadragesimae)"
+  },
+  {
+    "volume": "noh4",
+    "piece": "ss-sindonis-d-n-j-c",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "SS. Sindonis D.N.J.C. (Feria VI post Dominicam II Quadragesimae)"
+  },
+  {
+    "volume": "noh4",
+    "piece": "s-benedicti-josephi-labre-conf",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Benedicti Josephi Labre Conf., 16 Aprilis"
+  },
+  {
+    "volume": "noh4",
+    "piece": "b-m-v-de-bono-consilio",
+    "kind": "starts_mid_page",
+    "printed_page": 284,
+    "first_system": 4
+  },
+  {
+    "volume": "noh4",
+    "piece": "b-m-v-de-bono-consilio",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "B.M.V. de Bono Consilio, 26 Aprilis"
+  },
+  {
+    "volume": "noh4",
+    "piece": "s-joannis-nepomuceni-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Joannis Nepomuceni Martyris, 16 Maii"
+  },
+  {
+    "volume": "noh4",
+    "piece": "b-m-v-auxilium-christianorum",
+    "kind": "starts_mid_page",
+    "printed_page": 300,
+    "first_system": 3
+  },
+  {
+    "volume": "noh4",
+    "piece": "b-m-v-auxilium-christianorum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "B.M.V. Auxilium Christianorum, 24 Maii"
+  },
+  {
+    "volume": "noh4",
+    "piece": "b-m-v-omnium-gratiarum-mediatricis",
+    "kind": "starts_mid_page",
+    "printed_page": 308,
+    "first_system": 4
+  },
+  {
+    "volume": "noh4",
+    "piece": "b-m-v-omnium-gratiarum-mediatricis",
+    "kind": "uncertain_movement",
+    "movement": "agnus",
+    "score": 0.667,
+    "pdf_page": 345,
+    "system": 3,
+    "ref": "noh4/0345/003",
+    "mode_marker": null,
+    "text": "etgenusdavid"
+  },
+  {
+    "volume": "noh4",
+    "piece": "b-m-v-omnium-gratiarum-mediatricis",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.737,
+    "pdf_page": 346,
+    "system": 4,
+    "ref": "noh4/0346/004",
+    "mode_marker": null,
+    "text": "quamvitregratis"
+  },
+  {
+    "volume": "noh4",
+    "piece": "b-m-v-omnium-gratiarum-mediatricis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "B.M.V. Omnium Gratiarum Mediatricis, 31 Maii"
+  },
+  {
+    "volume": "noh4",
+    "piece": "purissimi-cordis-b-m-v",
+    "kind": "starts_mid_page",
+    "printed_page": 317,
+    "first_system": 3
+  },
+  {
+    "volume": "noh4",
+    "piece": "purissimi-cordis-b-m-v",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Purissimi Cordis B.M.V. (Sabbato post Octavam Corporis Christi)"
+  },
+  {
+    "volume": "noh4",
+    "piece": "eucharistici-cordis-jesu",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Eucharistici Cordis Jesu (Feria V post Octavam Corporis Christi)"
+  },
+  {
+    "volume": "noh4",
+    "piece": "b-m-v-matris-de-gratia",
+    "kind": "starts_mid_page",
+    "printed_page": 336,
+    "first_system": 4
+  },
+  {
+    "volume": "noh4",
+    "piece": "b-m-v-matris-de-gratia",
+    "kind": "no_systems",
+    "printed_pages": [
+      336,
+      336
+    ]
+  },
+  {
+    "volume": "noh4",
+    "piece": "b-m-v-matris-de-gratia",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "B.M.V. Matris de Gratia, 9 Junii"
+  },
+  {
+    "volume": "noh4",
+    "piece": "s-joannis-francisci-regis-conf",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Joannis Francisci Regis Conf., 16 Junii"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commemoratio-omnium-ss-summorum-pontificum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commemoratio omnium SS. Summorum Pontificum, 3 Julii"
+  },
+  {
+    "volume": "noh4",
+    "piece": "humilitatis-b-m-v",
+    "kind": "no_systems",
+    "printed_pages": [
+      346,
+      346
+    ]
+  },
+  {
+    "volume": "noh4",
+    "piece": "humilitatis-b-m-v",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Humilitatis B.M.V., 17 Julii"
+  },
+  {
+    "volume": "noh4",
+    "piece": "s-philumenae-virginis-et-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Philumenae Virginis et Martyris, 11 Augusti"
+  },
+  {
+    "volume": "noh4",
+    "piece": "s-gregorii-episcopi-majoris-armeniae-et-martyris",
+    "kind": "starts_mid_page",
+    "printed_page": 355,
+    "first_system": 3
+  },
+  {
+    "volume": "noh4",
+    "piece": "s-gregorii-episcopi-majoris-armeniae-et-martyris",
+    "kind": "no_systems",
+    "printed_pages": [
+      355,
+      355
+    ]
+  },
+  {
+    "volume": "noh4",
+    "piece": "s-gregorii-episcopi-majoris-armeniae-et-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Gregorii Episcopi Majoris Armeniae et Martyris, 1 Octobris"
+  },
+  {
+    "volume": "noh4",
+    "piece": "puritatis-b-m-v",
+    "kind": "starts_mid_page",
+    "printed_page": 355,
+    "first_system": 3
+  },
+  {
+    "volume": "noh4",
+    "piece": "puritatis-b-m-v",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Puritatis B.M.V., 16 Octobris"
+  },
+  {
+    "volume": "noh4",
+    "piece": "sanctissimi-redemptoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sanctissimi Redemptoris, 23 Octobris"
+  },
+  {
+    "volume": "noh4",
+    "piece": "sacrarum-reliquiarum",
+    "kind": "starts_mid_page",
+    "printed_page": 365,
+    "first_system": 3
+  },
+  {
+    "volume": "noh4",
+    "piece": "sacrarum-reliquiarum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sacrarum Reliquiarum, 5 Novembris"
+  },
+  {
+    "volume": "noh4",
+    "piece": "s-stanislai-kostkae-confessoris",
+    "kind": "uncertain_movement",
+    "movement": "sanctus",
+    "score": 0.667,
+    "pdf_page": 401,
+    "system": 3,
+    "ref": "noh4/0401/003",
+    "mode_marker": null,
+    "text": "eurninbenedicti"
+  },
+  {
+    "volume": "noh4",
+    "piece": "s-stanislai-kostkae-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Stanislai Kostkae Confessoris, 13 Novembris"
+  },
+  {
+    "volume": "noh4",
+    "piece": "commune-unius-aut-plurium-summorum-pontificum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Commune unius aut plurium Summorum Pontificum"
+  },
+  {
+    "volume": "noh4",
+    "piece": null,
+    "kind": "unmapped_pages",
+    "pdf_pages": [
+      195,
+      196
+    ],
+    "why": "pages between page-map segments (an insert, or a page scanned twice) carry no printed page and are not catalogued"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-saturnini-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Saturnini Martyris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-andre-apostoli",
+    "kind": "starts_mid_page",
+    "printed_page": 4,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-andre-apostoli",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Andre\u00e6 Apostoli"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-francisci-xaverii-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Francisci Xaverii Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-petri-chrysologi-episcopi-confessoris-et-ecclesi-doctoris",
+    "kind": "starts_mid_page",
+    "printed_page": 11,
+    "first_system": 4
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-petri-chrysologi-episcopi-confessoris-et-ecclesi-doctoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Petri Chrysologi Episcopi Confessoris et Ecclesi\u00e6 Doctoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-nicolai-episcopi-et-confessoris",
+    "kind": "no_systems",
+    "printed_pages": [
+      13,
+      13
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-nicolai-episcopi-et-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Nicolai Episcopi et Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-ambrosii-episcopi-confessoris-et-ecclesi-doctoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Ambrosii Episcopi Confessoris et Ecclesi\u00e6 Doctoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-conceptione-immaculata-beat-mari-virginis",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.7,
+    "pdf_page": 58,
+    "system": 1,
+    "ref": "noh3/0058/001",
+    "mode_marker": null,
+    "text": "quiafecittihirnagnaquipoitensestq"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-conceptione-immaculata-beat-mari-virginis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Conceptione Immaculata Beat\u00e6 Mari\u00e6 Virginis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-luci-virginis-et-martyris",
+    "kind": "starts_mid_page",
+    "printed_page": 25,
+    "first_system": 2
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-luci-virginis-et-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Luci\u00e6 Virginis et Martyris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-thom-apostoli",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Thom\u00e6 Apostoli"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-pauli-primi-eremit-et-confessoris",
+    "kind": "no_systems",
+    "printed_pages": [
+      29,
+      29
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-pauli-primi-eremit-et-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Pauli Primi Eremit\u00e6 et Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-prisc-virginis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Prisc\u00e6 Virginis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-marii-et-soc-mart",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Marii et Soc. Mart."
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-fabiani-et-sebastiani-martyrum",
+    "kind": "starts_mid_page",
+    "printed_page": 40,
+    "first_system": 1
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-fabiani-et-sebastiani-martyrum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Fabiani et Sebastiani Martyrum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-agnetis-virginis-et-martyris",
+    "kind": "starts_mid_page",
+    "printed_page": 42,
+    "first_system": 4
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-agnetis-virginis-et-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Agnetis Virginis et Martyris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-conversione-s-pauli-apostoli",
+    "kind": "starts_mid_page",
+    "printed_page": 44,
+    "first_system": 1
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-conversione-s-pauli-apostoli",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Conversione S. Pauli Apostoli"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joannis-chrysostomi-episcopi-confessoris-ecclesi-doctoris",
+    "kind": "starts_mid_page",
+    "printed_page": 50,
+    "first_system": 2
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joannis-chrysostomi-episcopi-confessoris-ecclesi-doctoris",
+    "kind": "no_systems",
+    "printed_pages": [
+      50,
+      50
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joannis-chrysostomi-episcopi-confessoris-ecclesi-doctoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Joannis Chrysostomi Episcopi Confessoris Ecclesi\u00e6 Doctoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-agnetis",
+    "kind": "starts_mid_page",
+    "printed_page": 50,
+    "first_system": 2
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-agnetis",
+    "kind": "no_systems",
+    "printed_pages": [
+      50,
+      50
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-agnetis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Agnetis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-francisci-salesii-episcopi-confessoris-ecclesi-doctoris",
+    "kind": "no_systems",
+    "printed_pages": [
+      51,
+      51
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-francisci-salesii-episcopi-confessoris-ecclesi-doctoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Francisci Salesii Episcopi Confessoris Ecclesi\u00e6 Doctoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joannis-bosco-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Joannis Bosco Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-ignatii-episcopi-et-martyris",
+    "kind": "starts_mid_page",
+    "printed_page": 59,
+    "first_system": 1
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-ignatii-episcopi-et-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Ignatii Episcopi et Martyris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-purificatione-beat-mari-virginis",
+    "kind": "starts_mid_page",
+    "printed_page": 61,
+    "first_system": 4
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-purificatione-beat-mari-virginis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Purificatione Beat\u00e6 Mari\u00e6 Virginis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-agath-virginis-et-martyris",
+    "kind": "starts_mid_page",
+    "printed_page": 74,
+    "first_system": 4
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-agath-virginis-et-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Agath\u00e6 Virginis et Martyris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-cyrilli-episc-alexandrini-confessoris-ecclesi-doctoris",
+    "kind": "starts_mid_page",
+    "printed_page": 78,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-cyrilli-episc-alexandrini-confessoris-ecclesi-doctoris",
+    "kind": "uncertain_movement",
+    "movement": "gloria",
+    "score": 0.686,
+    "pdf_page": 114,
+    "system": 3,
+    "ref": "noh3/0114/003",
+    "mode_marker": null,
+    "text": "trllpeinforaminibus"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-cyrilli-episc-alexandrini-confessoris-ecclesi-doctoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Cyrilli Episc. Alexandrini Confessoris Ecclesi\u00e6 Doctoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-septem-fundat-ord-servorum-b-m-v",
+    "kind": "starts_mid_page",
+    "printed_page": 88,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-septem-fundat-ord-servorum-b-m-v",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Septem Fundat. Ord. Servorum B. M. V."
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-simeonis-faustini-episcopi-et-martyris",
+    "kind": "starts_mid_page",
+    "printed_page": 94,
+    "first_system": 4
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-simeonis-faustini-episcopi-et-martyris",
+    "kind": "no_systems",
+    "printed_pages": [
+      94,
+      94
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-simeonis-faustini-episcopi-et-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Simeonis Faustini Episcopi et Martyris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-cathedra-s-petri-ap",
+    "kind": "starts_mid_page",
+    "printed_page": 94,
+    "first_system": 4
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-cathedra-s-petri-ap",
+    "kind": "no_systems",
+    "printed_pages": [
+      94,
+      94
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-cathedra-s-petri-ap",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Cathedra S. Petri Ap."
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-petri-damiani",
+    "kind": "starts_mid_page",
+    "printed_page": 94,
+    "first_system": 4
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-petri-damiani",
+    "kind": "no_systems",
+    "printed_pages": [
+      94,
+      94
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-petri-damiani",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Petri Damiani"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-matthi-apostoli",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Matthi\u00e6 Apostoli"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p96",
+    "kind": "starts_mid_page",
+    "printed_page": 96,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p96",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Gabrielis a Vlrgine Perdolente Conf., 27 vel 28 Febrmlrii"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-francisc-vidu-roman",
+    "kind": "no_systems",
+    "printed_pages": [
+      106,
+      106
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-francisc-vidu-roman",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Francisc\u00e6 Vidu\u00e6 Roman\u00e6"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-quadraginta-martyrum",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.684,
+    "pdf_page": 139,
+    "system": 3,
+    "ref": "noh3/0139/003",
+    "mode_marker": null,
+    "text": "ospsbenedicamdminuminmnitempore"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-quadraginta-martyrum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Quadraginta Martyrum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-cyrilli-episcopi-hierosolymitani-ecclesi-doctoris",
+    "kind": "no_systems",
+    "printed_pages": [
+      108,
+      108
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-cyrilli-episcopi-hierosolymitani-ecclesi-doctoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Cyrilli Episcopi Hierosolymitani Ecclesi\u00e6 Doctoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joseph-sponsi-b-m-v-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Joseph Sponsi B.M.V. Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-gabrielis-archangeli",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Gabrielis Archangeli"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-annuntiatione-beate-mari-virgine",
+    "kind": "starts_mid_page",
+    "printed_page": 113,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-annuntiatione-beate-mari-virgine",
+    "kind": "no_systems",
+    "printed_pages": [
+      113,
+      113
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-annuntiatione-beate-mari-virgine",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Annuntiatione Beate Mari\u00e6 Virgine"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joannis-damasceni-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Joannis Damasceni Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joannis-a-capistrano-confessoris",
+    "kind": "starts_mid_page",
+    "printed_page": 122,
+    "first_system": 1
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joannis-a-capistrano-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Joannis a Capistrano Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p128",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Septem Dolorum, Feria VI post Dom. Passiollis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-justini-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Justini Martyris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-pauli-a-cruce-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Pauli a Cruce Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-catharina-senensis-virgine",
+    "kind": "starts_mid_page",
+    "printed_page": 161,
+    "first_system": 4
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-catharina-senensis-virgine",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Catharina Senensis Virgine"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joseph-opificis",
+    "kind": "starts_mid_page",
+    "printed_page": 166,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joseph-opificis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Joseph Opificis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-athanasii-confessoris-ecclesi-doctoris",
+    "kind": "starts_mid_page",
+    "printed_page": 169,
+    "first_system": 4
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-athanasii-confessoris-ecclesi-doctoris",
+    "kind": "no_systems",
+    "printed_pages": [
+      169,
+      169
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-athanasii-confessoris-ecclesi-doctoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Athanasii Confessoris Ecclesi\u00e6 Doctoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-alexandri-et-sociorum-martyrum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Alexandri et Sociorum Martyrum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-alexandri-et-sociorum-martyrum-2",
+    "kind": "starts_mid_page",
+    "printed_page": 174,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-alexandri-et-sociorum-martyrum-2",
+    "kind": "no_systems",
+    "printed_pages": [
+      174,
+      174
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-alexandri-et-sociorum-martyrum-2",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Alexandri et Sociorum Martyrum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p174",
+    "kind": "starts_mid_page",
+    "printed_page": 174,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p174",
+    "kind": "no_systems",
+    "printed_pages": [
+      174,
+      174
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p174",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. JOANNIS ANTE PORTAM LATINAM -, 6 Maii"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-gregorii-nazianzeni-episcopi-confessoris-ecclesi-doctoris",
+    "kind": "no_systems",
+    "printed_pages": [
+      175,
+      175
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-gregorii-nazianzeni-episcopi-confessoris-ecclesi-doctoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Gregorii Nazianzeni Episcopi Confessoris Ecclesi\u00e6 Doctoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Nerei, Achillei et Domitill\u00e6 Virginis atque Pancratii Martyrum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-roberti-bellarmino-episcopi-confessoris-et-ecclesi-doctoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Roberti Bellarmino Episcopi Confessoris et Ecclesi\u00e6 Doctoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-pudentian-virginis",
+    "kind": "no_systems",
+    "printed_pages": [
+      184,
+      184
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-pudentian-virginis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Pudentian\u00e6 Virginis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-philippi-neri-confessoris",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.692,
+    "pdf_page": 218,
+    "system": 0,
+    "ref": "noh3/0218/000",
+    "mode_marker": null,
+    "text": "aiielulapbenedicanirnarneadomino"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-philippi-neri-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Philippi Neri Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-marcellini-petri-atque-erasmi-martyrum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Marcellini, Petri, atque Erasmi Martyrum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-francisci-caracciolo-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Francisci Caracciolo Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-bonifatii-episc-et-mart",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Bonifatii Episc. et Mart."
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-primi-et-feliciani-martyrum",
+    "kind": "starts_mid_page",
+    "printed_page": 201,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-primi-et-feliciani-martyrum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Primi et Feliciani Martyrum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-barnab-apostoli",
+    "kind": "starts_mid_page",
+    "printed_page": 203,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-barnab-apostoli",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Barnab\u00e6 Apostoli"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-basilidus",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S Basilidus"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-basilii-magni-confessoris-et-ecclesi-doctoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Basilii Magni Confessoris et Ecclesi\u00e6 Doctoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-viti-modesti-atque-crescenti-martyrum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Viti, Modesti atque Crescenti\u00e6 Martyrum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-marci-et-marcelliani",
+    "kind": "starts_mid_page",
+    "printed_page": 213,
+    "first_system": 4
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-marci-et-marcelliani",
+    "kind": "no_systems",
+    "printed_pages": [
+      213,
+      213
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-marci-et-marcelliani",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "SS. Marci et Marcelliani"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-gervasio-et-protasio",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Gervasio et Protasio"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-aloisii-gonzag-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Aloisii Gonzag\u00e6 Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-paulini-episcopi-et-confessoris",
+    "kind": "no_systems",
+    "printed_pages": [
+      221,
+      221
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-paulini-episcopi-et-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Paulini Episcopi et Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-vigilia-s-joannis-baptist",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Vigilia S. Joannis Baptist\u00e6"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-nativitate-s-joannis-baptist",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Nativitate S. Joannis Baptist\u00e6"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-joannis-et-pauli-martyrum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Joannis et Pauli Martyrum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-vigilia-ss-petri-et-pauli-apostolorum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Vigilia Ss. Petri et Pauli Apostolorum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-vigilia-ss-petri-et-pauli-apostolorum-2",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Vigilia Ss. Petri et Pauli Apostolorum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-apostolorum-petri-et-pauli",
+    "kind": "starts_mid_page",
+    "printed_page": 238,
+    "first_system": 1
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-apostolorum-petri-et-pauli",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "SS. Apostolorum Petri et Pauli"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p242",
+    "kind": "starts_mid_page",
+    "printed_page": 242,
+    "first_system": 4
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p242",
+    "kind": "no_systems",
+    "printed_pages": [
+      242,
+      242
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p242",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Missa votiva"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-commemoratione-sancti-pauli-apostoli",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Commemoratione Sancti Pauli Apostoli"
+  },
+  {
+    "volume": "noh3",
+    "piece": "pretiosissimi-sanguinis-domini-nostri-jesu-christi",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Pretiosissimi Sanguinis Domini Nostri Jesu Christi"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p254",
+    "kind": "starts_mid_page",
+    "printed_page": 254,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p254",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "IN FESTO, 2 Julii"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-antonii-mari-zaccaria-confessoris",
+    "kind": "starts_mid_page",
+    "printed_page": 257,
+    "first_system": 1
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-antonii-mari-zaccaria-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Antonii Mari\u00e6 Zaccaria Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p266",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "IN OCTAVA SS. APOST. PETRI et PAULI, 6 Julii"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-cyrilli-et-methodii-pont-et-conf",
+    "kind": "starts_mid_page",
+    "printed_page": 267,
+    "first_system": 5
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-cyrilli-et-methodii-pont-et-conf",
+    "kind": "no_systems",
+    "printed_pages": [
+      267,
+      267
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-cyrilli-et-methodii-pont-et-conf",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Cyrilli et Methodii Pont. et Conf."
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-septem-fratrum-martyrum-ac-rufin-et-secund-virginum-et-martyr",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Septem Fratrum Martyrum, ac Rufin\u00e6 et Secund\u00e6 Virginum et Martyrum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-bonaventur-episcopi-confessoris-et-ecclesi-doctoris",
+    "kind": "starts_mid_page",
+    "printed_page": 269,
+    "first_system": 2
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-bonaventur-episcopi-confessoris-et-ecclesi-doctoris",
+    "kind": "no_systems",
+    "printed_pages": [
+      269,
+      269
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-bonaventur-episcopi-confessoris-et-ecclesi-doctoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Bonaventur\u00e6 Episcopi Confessoris et Ecclesi\u00e6 Doctoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-commemoratione-beat-mari-virgine-de-monte-carmelo",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Commemoratione Beat\u00e6 Mari\u00e6 Virgine de Monte Carmelo."
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-camilli-de-lellis-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Camilli de Lellis Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-hieronymi-emiliani-confessoris",
+    "kind": "starts_mid_page",
+    "printed_page": 274,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-hieronymi-emiliani-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Hieronymi Emiliani Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-praxedis-virginis",
+    "kind": "starts_mid_page",
+    "printed_page": 280,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-praxedis-virginis",
+    "kind": "no_systems",
+    "printed_pages": [
+      280,
+      280
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-praxedis-virginis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Praxedis Virginis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p280",
+    "kind": "starts_mid_page",
+    "printed_page": 280,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p280",
+    "kind": "no_systems",
+    "printed_pages": [
+      280,
+      280
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p280",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. MARUE MAGDALEN/E P;ENITENTIS, 2 Julii"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-apollinaris-episcopi-et-martyris",
+    "kind": "starts_mid_page",
+    "printed_page": 280,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-apollinaris-episcopi-et-martyris",
+    "kind": "no_systems",
+    "printed_pages": [
+      280,
+      280
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-apollinaris-episcopi-et-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Apollinaris Episcopi et Martyris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-jacobi-apostoli",
+    "kind": "no_systems",
+    "printed_pages": [
+      281,
+      281
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-jacobi-apostoli",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Jacobi Apostoli"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-ann-matris-b-m-v",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Ann\u00e6 Matris B.M.V."
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-nazarii-et-celsi-martyrum-victoris-i-pap-et-martyris-ac-innoc",
+    "kind": "starts_mid_page",
+    "printed_page": 283,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-nazarii-et-celsi-martyrum-victoris-i-pap-et-martyris-ac-innoc",
+    "kind": "no_systems",
+    "printed_pages": [
+      283,
+      283
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-nazarii-et-celsi-martyrum-victoris-i-pap-et-martyris-ac-innoc",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Nazarii et Celsi Martyrum, Victoris I Pap\u00e6 et Martyris ac Innocentii I Pap\u00e6 et Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-felicis-simplicii-faustini-et-beatricis",
+    "kind": "starts_mid_page",
+    "printed_page": 283,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-felicis-simplicii-faustini-et-beatricis",
+    "kind": "no_systems",
+    "printed_pages": [
+      283,
+      283
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-felicis-simplicii-faustini-et-beatricis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Felicis, Simplicii, Faustini et Beatricis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-abdon-et-sennen-martyrum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Abdon et Sennen Martyrum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-ignatii-confessoris",
+    "kind": "starts_mid_page",
+    "printed_page": 285,
+    "first_system": 2
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-ignatii-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Ignatii Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-martyrum-machab-orum",
+    "kind": "starts_mid_page",
+    "printed_page": 287,
+    "first_system": 2
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-martyrum-machab-orum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Martyrum Machab\u00e6orum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-martyrum-machab-orum-2",
+    "kind": "no_systems",
+    "printed_pages": [
+      289,
+      289
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-martyrum-machab-orum-2",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Martyrum Machab\u00e6orum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Alfonsi Mari\u00e6 de Ligorio Episcopi Confessoris et Ecclesi\u00e6 Doctoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-dominici-confessoris",
+    "kind": "starts_mid_page",
+    "printed_page": 301,
+    "first_system": 2
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-dominici-confessoris",
+    "kind": "no_systems",
+    "printed_pages": [
+      301,
+      301
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-dominici-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Dominici Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p302",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "IN TRANSFIGURATIONE D.N.J.C, 6 Augusti"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-cyriaci-largi-et-smaragdi-martyrum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Cyriaci, Largi et Smaragdi Martyrum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "vigilia-s-laurentii-martyris",
+    "kind": "starts_mid_page",
+    "printed_page": 309,
+    "first_system": 1
+  },
+  {
+    "volume": "noh3",
+    "piece": "vigilia-s-laurentii-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Vigilia S. Laurentii Martyris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-romano-martyre",
+    "kind": "starts_mid_page",
+    "printed_page": 313,
+    "first_system": 5
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-romano-martyre",
+    "kind": "no_systems",
+    "printed_pages": [
+      313,
+      313
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-romano-martyre",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Romano Martyre"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-laurentii-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Laurentii Martyris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "vigilia-assumptionis-b-m-v",
+    "kind": "no_systems",
+    "printed_pages": [
+      319,
+      319
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "vigilia-assumptionis-b-m-v",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Vigilia Assumptionis B.M.V."
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-assumptione-beat-mari-virginis",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.667,
+    "pdf_page": 357,
+    "system": 1,
+    "ref": "noh3/0357/001",
+    "mode_marker": null,
+    "text": "rnagnaquipotensest"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-assumptione-beat-mari-virginis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Assumptione Beat\u00e6 Mari\u00e6 Virginis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joachim-confessoris-patris-b-mari-virginis",
+    "kind": "starts_mid_page",
+    "printed_page": 324,
+    "first_system": 2
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joachim-confessoris-patris-b-mari-virginis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Joachim Confessoris, Patris B. Mari\u00e6 Virginis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-hyacinthi-confessoris",
+    "kind": "starts_mid_page",
+    "printed_page": 326,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-hyacinthi-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Hyacinthi Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joannis-eudes-confessoris",
+    "kind": "no_systems",
+    "printed_pages": [
+      328,
+      328
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joannis-eudes-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Joannis Eudes Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p328",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "IMMACULATI CORDIS B. M. V, 22 Augusti"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joann-francisc-fremiot-de-chantal-vidu",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Joann\u00e6 Francisc\u00e6 Fr\u00e9miot de Chantal Vidu\u00e6"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-bartholom-i-apostoli",
+    "kind": "starts_mid_page",
+    "printed_page": 338,
+    "first_system": 2
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-bartholom-i-apostoli",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Bartholom\u00e6i Apostoli"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-josephi-calasanctii-confessoris",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.737,
+    "pdf_page": 373,
+    "system": 2,
+    "ref": "noh3/0373/002",
+    "mode_marker": null,
+    "text": "vospsbenedicamdmiouminmniternpore"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-josephi-calasanctii-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Josephi Calasanctii Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-augustini-episcopi-et-confessoris-et-ecclesi-doctoris",
+    "kind": "no_systems",
+    "printed_pages": [
+      342,
+      342
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-augustini-episcopi-et-confessoris-et-ecclesi-doctoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Augustini Episcopi et Confessoris et Ecclesi\u00e6 Doctoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "decollatione-s-joannis-baptist",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Decollatione S. Joannis Baptist\u00e6"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-felice-et-adaucto",
+    "kind": "starts_mid_page",
+    "printed_page": 343,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-felice-et-adaucto",
+    "kind": "no_systems",
+    "printed_pages": [
+      343,
+      343
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-felice-et-adaucto",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Felice et Adaucto"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-exaltatione-sanct-crucis",
+    "kind": "no_systems",
+    "printed_pages": [
+      344,
+      344
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-exaltatione-sanct-crucis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Exaltatione Sanct\u00e6 crucis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-nominis-beat-mari-virginis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Nominis Beat\u00e6 Mari\u00e6 Virginis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "impressionis-stigmatum-s-francisci",
+    "kind": "starts_mid_page",
+    "printed_page": 346,
+    "first_system": 2
+  },
+  {
+    "volume": "noh3",
+    "piece": "impressionis-stigmatum-s-francisci",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Impressionis Stigmatum S. Francisci"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-josephi-de-cupertino-confessoris",
+    "kind": "starts_mid_page",
+    "printed_page": 349,
+    "first_system": 1
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-josephi-de-cupertino-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Josephi de Cupertino Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-matth-i-apostoli-et-evangelist",
+    "kind": "starts_mid_page",
+    "printed_page": 353,
+    "first_system": 2
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-matth-i-apostoli-et-evangelist",
+    "kind": "no_systems",
+    "printed_pages": [
+      353,
+      353
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-matth-i-apostoli-et-evangelist",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Matth\u00e6i Apostoli et Evangelist\u00e6"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-cosm-et-damiani-martyrum",
+    "kind": "no_systems",
+    "printed_pages": [
+      354,
+      354
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-cosm-et-damiani-martyrum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Cosm\u00e6 et Damiani Martyrum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-dedicatione-s-mich-lis-archangelis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Dedicatione S. Mich\u00e6lis Archangelis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-hieronymi-presbyteris-confessoris-et-ecclesi-doctoris",
+    "kind": "no_systems",
+    "printed_pages": [
+      362,
+      362
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-hieronymi-presbyteris-confessoris-et-ecclesi-doctoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Hieronymi Presbyteris Confessoris et Ecclesi\u00e6 Doctoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-angelorum-custodum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Angelorum Custodum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p364",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.696,
+    "pdf_page": 404,
+    "system": 0,
+    "ref": "noh3/0404/000",
+    "mode_marker": null,
+    "text": "temiseranstu"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p364",
+    "kind": "uncertain_movement",
+    "movement": "ite",
+    "score": 0.667,
+    "pdf_page": 406,
+    "system": 5,
+    "ref": "noh3/0406/005",
+    "mode_marker": null,
+    "text": "siclitaquiaditaiassuas"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p364",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. TERESU/E A JESU INFANTE. 2, 8 Octobris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p375",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ssmi ROSARII B. MARI V, 7 Octobris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joannis-leonardi-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Joannis Leonardi Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "maternitatis-beat-mari-virginis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Maternitatis Beat\u00e6 Mari\u00e6 Virginis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-hedwigis-vidu",
+    "kind": "starts_mid_page",
+    "printed_page": 392,
+    "first_system": 5
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-hedwigis-vidu",
+    "kind": "no_systems",
+    "printed_pages": [
+      392,
+      392
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-hedwigis-vidu",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Hedwigis Vidu\u00e6"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-margarit-mari-alaquoque-virginis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Margarit\u00e6 Mari\u00e6 Alaquoque Virginis"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-luc-evangelist",
+    "kind": "starts_mid_page",
+    "printed_page": 401,
+    "first_system": 4
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-luc-evangelist",
+    "kind": "no_systems",
+    "printed_pages": [
+      401,
+      401
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-luc-evangelist",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Luc\u00e6 Evangelist\u00e6"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-joannis-cantii-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Joannis Cantii Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-raph-lis-archangeli",
+    "kind": "starts_mid_page",
+    "printed_page": 408,
+    "first_system": 3
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-raph-lis-archangeli",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Raph\u00e6lis Archangeli"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p415",
+    "kind": "uncertain_movement",
+    "movement": "agnus",
+    "score": 0.7,
+    "pdf_page": 450,
+    "system": 0,
+    "ref": "noh3/0450/000",
+    "mode_marker": null,
+    "text": "intritiestagnusquidedsusest"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p415",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Jesu Christi Regis, Dom. ultima Oetobris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p424",
+    "kind": "no_systems",
+    "printed_pages": [
+      424,
+      424
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p424",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "IN VIGILIA SS. SIMONIS et JUD/E |. APOSTOLORUM, 27 Octobris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-simonis-et-jud-apostolorum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Simonis et Jud\u00e6 Apostolorum."
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p425",
+    "kind": "starts_mid_page",
+    "printed_page": 425,
+    "first_system": 2
+  },
+  {
+    "volume": "noh3",
+    "piece": "noh3-p425",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "IN VIGILIA OMNIUM SANCTORUM, 31 Octobris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "omnium-sanctorum",
+    "kind": "starts_mid_page",
+    "printed_page": 426,
+    "first_system": 4
+  },
+  {
+    "volume": "noh3",
+    "piece": "omnium-sanctorum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Omnium Sanctorum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-quatuor-coronatorum-martyrum",
+    "kind": "no_systems",
+    "printed_pages": [
+      432,
+      432
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-quatuor-coronatorum-martyrum",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Quatuor Coronatorum Martyrum"
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-tryphonis-respicii-and-nymph",
+    "kind": "no_systems",
+    "printed_pages": [
+      432,
+      432
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "ss-tryphonis-respicii-and-nymph",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Ss. Tryphonis, Respicii, and Nymph\u00e6"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-martini-episcopi-et-confessoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Martini Episcopi et Confessoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-josaphat-episcopi-et-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Josaphat Episcopi et Martyris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-alberti-magni-episcopi-confessoris-et-ecclesi-doctoris",
+    "kind": "starts_mid_page",
+    "printed_page": 436,
+    "first_system": 4
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-alberti-magni-episcopi-confessoris-et-ecclesi-doctoris",
+    "kind": "no_systems",
+    "printed_pages": [
+      436,
+      436
+    ]
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-alberti-magni-episcopi-confessoris-et-ecclesi-doctoris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Alberti Magni Episcopi Confessoris et Ecclesi\u00e6 Doctoris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-c-cili-virginis-et-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. C\u00e6cili\u00e6 Virginis et Martyris"
+  },
+  {
+    "volume": "noh3",
+    "piece": "s-clementis-pap-et-martyris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "S. Clementis Pap\u00e6 et Martyris"
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Sabb\u00e6 Abbatis",
+    "reference": "Missa. Os justi, de Communi Abbatum, Pars |V, p. 86.",
+    "days": [
+      "sancti:12-05"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Damasi Pap\u00e6 et Confessoris",
+    "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:12-11"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Eusebii Episcopi et Martyris",
+    "reference": "Missa. Sacerd\u00f3tes Dei, Pars IV, \u00bb. 11.",
+    "days": [
+      "sancti:12-16"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Marcelli Pap\u00e6 et Martyris",
+    "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:01-16"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Martin\u00e6 Virginis et Martyris",
+    "reference": "Missa. Loqu\u00e9bar, Pars IV, p 90.",
+    "days": [
+      "sancti:01-30"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Casimiri Confessoris",
+    "reference": "Missa. Os justi, Pars iV, p. 76. |",
+    "days": [
+      "sancti:03-04"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Gregorii Pap\u00e6 Confessoris et Ecclesi\u00e6 Doctoris",
+    "reference": "Missa. Si diligis me, de Communi unius Summ\u00ed Pontificis, vide ad calcem Pariis IV.",
+    "days": [
+      "sancti:03-12"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Leonis I. Pap\u00e6 Confessoris et Ecclesise Doctoris",
+    "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:04-11"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Aniceti Pap\u00e6 et Martyris",
+    "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:04-17"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "SS. Soteris et Caji Summorum Pontificum et Martyrum",
+    "reference": "Missa. Si diligis me, de Communi plurium Summorum Pontificum, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:04-22"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "SS. Cleti et Marcellini Summorum Pontificum et Martyrum",
+    "reference": "Missa. Si diligis me, de Communi plurium Summorum Pontificum, vide ad cclcem Partis IV.",
+    "days": [
+      "sancti:04-26"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Pii V Pap\u00e6 Confessoris",
+    "reference": "Missa. Si d\u00edligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:05-05"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Johanni Baptist\u00e6 de la Salle Confessoris",
+    "reference": "Missa. Os justi, Pars IV; p. 76.",
+    "days": [
+      "sancti:05-15"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Petri Celestini Pap\u00e6 Confessoris",
+    "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:05-19"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. URBANI I. PAPAE, MARTYRIS, 25 Maii",
+    "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:05-25"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Eleutherii",
+    "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:05-26o"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Joanne",
+    "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV. :",
+    "days": [
+      "sancti:05-27o"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Felicis Pap\u00e6 et Martyris",
+    "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:05-30"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Silverii Pap\u00e6 et Martyri",
+    "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:06-20"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Iren\u00e6i Episcopi et Martyris",
+    "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:07-03r"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Pii I Pap\u00e6 et Martyris",
+    "reference": "Missa. Si d\u00edligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:07-11"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Joannis Gualberti Abbatis",
+    "reference": "Missa. Os justi, de Communi Abbatum, Pars iV, p. 86.",
+    "days": [
+      "sancti:07-12"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. STEPHANI I. PAP/E, MARTYRIS, 2 Augusti",
+    "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:08-02"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Mari\u00e6 ad Nives",
+    "reference": "Missa. Salve sancta Parens, ut in Missis votivis B. M. V. a Pentecoste ad Adventum,",
+    "days": [
+      "sancti:08-05"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Hermete Martyre",
+    "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:08-28cc"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Zephirini Pap\u00e6 et Martyris",
+    "reference": "Missa. Si diligis me, de Communi unius Summi Ponti/ids, vide ad co/cern Portis IV.",
+    "days": [
+      "sancti:08-26"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "Septem Dolorum Beat\u00e6 Mari\u00e6 Virginis",
+    "reference": "Missa dicitur ut in alio Festo Septem Dolorum posito sub mense Martio, ut supra, p. 128.",
+    "days": [
+      "sancti:09-15"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "Ss. Cornelii Pap\u00e6 et Cypriani Episcopi, Martyrum",
+    "reference": "Missa. Intret, Pars iV, 'p 40.",
+    "days": [
+      "sancti:09-16"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Lini Pap\u00e6 et Martyris",
+    "reference": ". Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:09-23"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. MARCI I. PAP4E, CONFESSORIS, 7 Octobris",
+    "reference": "Missa. Si diligis me, de Communi unius summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:10-07"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Callisti Pap\u00e6 et Martyris",
+    "reference": "\u2014 Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:10-14"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Evaristi Pap\u00e6 et Martyris",
+    "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:10-26"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Martini Pap\u00e6 et Martyris",
+    "reference": "Missa. Si d\u00edligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
+    "days": [
+      "sancti:11-12"
+    ]
+  },
+  {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Matth\u00e6i Apostoli et Evangelist\u00e6",
+    "reference": "Introitus. Os justi, Pars iV, p. 76.",
+    "days": [
+      "sancti:09-21"
+    ]
   }
 ]

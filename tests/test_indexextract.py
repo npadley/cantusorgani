@@ -613,3 +613,15 @@ def test_scan_section_headings_votive_section_and_dated_feasts():
     assert [(p.page, p.days) for p in props][3:] == [
         (244, ("sancti:12-10o",)), (248, ("sancti:01-23o",))]
     assert props[4].title == "Desponsationis B.M.V cum S. Joseph, 23 Januarii"
+
+
+def test_scan_feast_headings_twin_reading_keeps_the_running_month():
+    from pipeline.indexextract import scan_feast_headings
+    reader = OcrReader({112: "21. MARTII. — S. BENEDICTI ABBATIS.",
+                        113: "25. MAII. — IN FESTO ANNUNTIATIONIS B. M. V."})
+    reader.embedded = lambda printed: (  # type: ignore[method-assign]
+        "25. MARTII. — IN FESTO" if printed == 113 else "")
+    reader.pages[113] += "\nIntroitus. Vultum tuum, Pars IV, p. 175."
+    found = scan_feast_headings(reader, range(110, 115))
+    assert [(h.page, h.month, h.day) for h in found] == [(112, 3, 21), (113, 3, 25)]
+    assert found[1].cited == "Introitus. Vultum tuum, Pars IV, p. 175."

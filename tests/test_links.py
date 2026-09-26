@@ -61,5 +61,8 @@ def test_load_rubrics_reads_reviewed_indexes_only(tmp_path):
         "volume: noh3\nsections: []\nrubrics:\n- {title: A, page: 4, reference: 'Pars IV, p. 24'}\n")
     (tmp_path / "index-noh3.proposed.yml").write_text(
         "volume: noh3\nrubrics:\n- {title: B, page: 5, reference: x}\n")
-    (tmp_path / "index-noh5.yml").write_text("volume: noh5\nsections: []\n")
-    assert [r["title"] for r in load_rubrics(tmp_path)] == ["A"]
+    (tmp_path / "index-noh5.yml").write_text(
+        "volume: noh5\nsections:\n- name: S\n  entries:\n"
+        "  - {title: C, page: 9, reference: 'Introitus. X, Pars IV, p. 175', days: [sancti:03-25]}\n"
+        "  - {title: D, page: 10}\n")
+    assert [r["title"] for r in load_rubrics(tmp_path)] == ["A", "C"]

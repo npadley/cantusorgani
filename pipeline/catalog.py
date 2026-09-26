@@ -160,8 +160,10 @@ def build_catalog(vol_id: str, index_path: Path | None = None
         for i, (entry, first, last) in enumerate(resolve_ranges(entries, last_body_printed)):
             start = starts[i]
             stop = starts[i + 1] if i + 1 < len(starts) else (last_body_printed + 1, 0)
-            if stop[1] > 0:
-                last = max(last, stop[0])        # the next piece begins mid-page
+            # Run to where the next piece begins: into its page when it begins
+            # mid-page, and past our own first page when our heading sat below
+            # its last system.
+            last = max(last, first, stop[0] if stop[1] > 0 else stop[0] - 1)
             declared = stated_end(entry)
             if declared is not None and last > declared:
                 review.append({
@@ -232,6 +234,7 @@ def build_catalog(vol_id: str, index_path: Path | None = None
                 "label": entry.label,
                 "title": entry.title,
                 "incipit": entry.incipit,
+                "reference": entry.reference,
                 "genre": entry.genre,
                 "mode": None,
                 "mass": entry.label if entry.genre == "mass_ordinary" else None,
@@ -251,6 +254,10 @@ def build_catalog(vol_id: str, index_path: Path | None = None
                 else "review",
             })
 
+    for gap_first, gap_last in page_map.gaps:
+        review.append({"piece": None, "kind": "unmapped_pages", "pdf_pages": [gap_first, gap_last],
+                       "why": "pages between page-map segments (an insert, or a page scanned "
+                              "twice) carry no printed page and are not catalogued"})
     catalog: dict[str, object] = {
         "schema_version": SCHEMA_VERSION,
         "volumes": {vol_id: {"title": vol.title, "part": vol.part,
@@ -360,6 +367,13 @@ def load_rubrics(data_dir: Path = DATA) -> list[Record]:
             continue
         doc = yaml.safe_load(path.read_text(encoding="utf-8"))
         rubrics += [{"volume": doc.get("volume"), **r} for r in doc.get("rubrics", []) or []]
+        # A piece whose parts are cited from elsewhere links its days there too:
+        # the Annunciation in NOH3 prints only "Introitus. Vultum tuum, Pars IV,
+        # p. 175" and the rest of its Mass by reference.
+        rubrics += [{"volume": doc.get("volume"), "title": e.get("title"), "page": e.get("page"),
+                     "reference": e["reference"], "days": e.get("days", [])}
+                    for section in doc.get("sections", []) or [] for e in section["entries"]
+                    if e.get("reference")]
     return rubrics
 
 
