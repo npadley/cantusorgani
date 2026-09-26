@@ -63,3 +63,15 @@ volumes:
     source_url: null
     retrieved: null
     provenance: null
+  noh8:
+    title: "Vesperale"
+    part: "VIII"
+    file: "NOH8 Vesperale.pdf"
+    pdf_pages: 344
+    index_pdf_pages: [344]
+    first_body_pdf_page: 31
+    page_offset: null
+    sha256: "45b0e85ea2ebd31901dacc3babf566299df677687f3f19410727c8d2f98a2da9"
+    source_url: null
+    retrieved: null
+    provenance: null

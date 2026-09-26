@@ -90,6 +90,11 @@ def test_page_candidates_ocr_confusions_expand():
     assert page_candidates("j14") == [114]
 
 
+def test_page_candidates_backslash_is_a_one_or_nothing_and_tilde_four_or_five():
+    assert page_candidates("\\76") == [76, 176]
+    assert page_candidates("1~9") == [149, 159]
+
+
 def test_page_candidates_range_takes_first_page():
     assert page_candidates("139·144") == [139]
     assert page_candidates("147-149") == [147]
@@ -625,3 +630,45 @@ def test_scan_feast_headings_twin_reading_keeps_the_running_month():
     found = scan_feast_headings(reader, range(110, 115))
     assert [(h.page, h.month, h.day) for h in found] == [(112, 3, 21), (113, 3, 25)]
     assert found[1].cited == "Introitus. Vultum tuum, Pars IV, p. 175."
+
+
+def test_roman_value_and_to_roman_round_trip():
+    from pipeline.indexextract import roman_value, to_roman
+    assert [roman_value(n) for n in ("iv", "xxiv", "ix", "xl")] == [4, 24, 9, 40]
+    assert roman_value("abc") is None
+    assert [to_roman(n) for n in (4, 9, 24, 44)] == ["IV", "IX", "XXIV", "XLIV"]
+
+
+def test_calendar_keys_roman_range_names_every_sunday():
+    vocabulary = {f"tempora:Adv{n}-0": {"title_la": f"Dominica {r} Adventus"}
+                  for n, r in ((1, "I"), (2, "II"), (3, "III"), (4, "IV"))}
+    keys, note = calendar_keys("DominiclE I·IV Advenlus 47-62", vocabulary)
+    assert keys == ("tempora:Adv1-0", "tempora:Adv2-0", "tempora:Adv3-0", "tempora:Adv4-0")
+    assert note == ""
+
+
+def test_to_yaml_doc_book_division_and_multi_day_title():
+    vocabulary = {"tempora:Adv1-0": {"title_la": "Dominica I Adventus"},
+                  "tempora:Adv2-0": {"title_la": "Dominica II Adventus"}}
+    props = [Proposal("Dominicae I-II Adventus", "Proprium de Tempore", "47", "embedded", 47,
+                      "verified", 1.0, (47,), ("tempora:Adv1-0", "tempora:Adv2-0"))]
+    doc = to_yaml_doc("noh8", "VIII", props, "vesperale", vocabulary)
+    section = doc["sections"][0]
+    assert section["division"] == "vesperale"
+    assert section["entries"][0]["title"] == "Dominicae I-II Adventus"
+
+
+def test_within_section_span_picks_the_reading_inside_the_section():
+    from pipeline.indexextract import within_section_span
+    props = [Proposal("Immaculatae Conceptionis", "S", "172", "e", 172, "verified", 1.0, (172,)),
+             Proposal("Purificatio", "S", "\\76", "e", None, "unresolved", 0.0, (76, 176)),
+             Proposal("Omnium Sanctorum", "S", "220", "e", 220, "verified", 1.0, (220,))]
+    out = within_section_span(props)
+    assert (out[1].page, out[1].status) == (176, "consistent")
+    assert within_section_span(props[:2]) == props[:2]      # one confirmed page: no span
+
+
+def test_is_heading_word_rejects_ocr_noise():
+    from pipeline.indexextract import is_heading_word
+    assert is_heading_word(word(0, 0, "COMMUNE"))
+    assert not is_heading_word(word(0, 0, "(Ol1I1S)"))

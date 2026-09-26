@@ -97,11 +97,36 @@ def test_attached_movements_are_confident_and_well_formed():
     """Only confident detections may be published; the rest belong in the review
     queue. An organist opening 'Gloria' and finding the Sanctus is worse than one
     opening 'Missa I' and scrolling."""
+    queued = {(r["piece"], r["ref"]) for r in REVIEW if r["kind"] == "uncertain_movement"}
     for piece in PIECES:
         for m in piece["movements"]:
             assert m["movement"] in MOVEMENTS, piece["id"]
-            assert m["score"] >= 0.66, f"{piece['id']}: unconfident movement published"
             assert m["ref"] in piece["systems"], f"{piece['id']}: movement outside piece"
+            if m.get("placed") == "order":
+                # Placed because the Mass must contain it; a person checks it.
+                assert (piece["slug"], m["ref"]) in queued, f"{piece['id']}: {m['movement']} unqueued"
+            else:
+                # Confident: a strong match, or a fair one beside a printed mode number.
+                floor = 0.51 if m.get("mode_marker") else 0.66
+                assert m["score"] >= floor, f"{piece['id']}: unconfident movement published"
+
+
+WITHOUT_GLORIA = {"XVI", "XVII", "XVIII"}
+
+
+@pytest.mark.parametrize("piece", [p for p in PIECES if p["genre"] == "mass_ordinary"
+                                   and p["division"] == "kyriale"], ids=lambda p: p["label"])
+def test_every_kyriale_mass_has_its_movements_once_in_order(piece):
+    """Kyrie, Gloria, Sanctus, Agnus Dei -- no Gloria in the ferial Masses XVI-XVIII."""
+    found = [m["movement"] for m in piece["movements"] if m["movement"] != "ite"]
+    expected = ["kyrie", *([] if piece["label"] in WITHOUT_GLORIA else ["gloria"]), "sanctus", "agnus"]
+    assert found == expected
+    assert piece["movements"][0]["ref"] == piece["systems"][0], "the Kyrie opens the Mass"
+
+
+def test_there_are_eighteen_kyriale_masses():
+    labels = [p["label"] for p in PIECES if p["genre"] == "mass_ordinary" and p["division"] == "kyriale"]
+    assert len(labels) == 18
 
 
 def test_movements_run_in_reading_order():

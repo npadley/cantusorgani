@@ -166,6 +166,32 @@ def group_systems(staves: list[Staff], expected_staves: int = 2) -> list[System]
     return systems
 
 
+# The two staves of one braced system sit 86-116px apart; systems are at least
+# 171px apart (see group_systems). The midpoint-ish separates them with margin.
+BRACE_MAX_GAP = 140
+
+
+def group_systems_by_gap(staves: list[Staff], brace_max: int = BRACE_MAX_GAP) -> list[System]:
+    """Fallback when `group_systems` refuses a page: pair staves by the brace gap.
+
+    Staff detection sometimes misses one staff of a pair (NOH5 p. 57 loses the
+    bass staff of a short system), and a strict pairing then drops every system
+    on the page. Here each staff pairs with the next if they are close enough to
+    be braced; a staff left over becomes a system of its own, and its box still
+    reaches its lost partner because the bottom edge follows the ink. Callers
+    must send the page to review."""
+    systems: list[System] = []
+    i = 0
+    while i < len(staves):
+        if i + 1 < len(staves) and staves[i + 1].top - staves[i].bottom <= brace_max:
+            systems.append(_close(staves[i:i + 2]))
+            i += 2
+        else:
+            systems.append(_close(staves[i:i + 1]))
+            i += 1
+    return systems
+
+
 def _close(group: list[Staff]) -> System:
     return System(top=group[0].top, bottom=group[-1].bottom, staff_count=len(group))
 

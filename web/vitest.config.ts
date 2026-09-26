@@ -1,6 +1,8 @@
-import { defineConfig } from "vitest/config";
+/// <reference types="vitest" />
+import { getViteConfig } from "astro/config";
 
-export default defineConfig({
+// getViteConfig lets tests render .astro components (see *.astro.test.ts).
+export default getViteConfig({
   test: {
     coverage: {
       provider: "v8",

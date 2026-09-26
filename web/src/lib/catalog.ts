@@ -290,3 +290,35 @@ export function volumeLabel(piece: Piece): string {
   const part = loadCatalog().volumes[piece.volume]?.part;
   return part ? `Nova Organi Harmonia, part ${part}` : "Nova Organi Harmonia";
 }
+
+export const MOVEMENT_LABELS: Readonly<Record<Movement, string>> = {
+  kyrie: "Kyrie", gloria: "Gloria", credo: "Credo", sanctus: "Sanctus",
+  agnus: "Agnus Dei", ite: "Ite, missa est",
+};
+
+export interface MovementStart {
+  readonly movement: Movement;
+  readonly label: string;
+  /** The in-page anchor of the movement's heading, e.g. "gloria". */
+  readonly anchor: string;
+  /** Position in piece.systems of the movement's first system. */
+  readonly index: number;
+}
+
+/**
+ * Where each movement begins, one per movement, in liturgical order. The jump
+ * links and the headings in the music both come from here, so a link can never
+ * name an anchor the page does not have.
+ */
+export function movementStarts(piece: Piece): readonly MovementStart[] {
+  const seen = new Set<Movement>();
+  const starts: MovementStart[] = [];
+  for (const movement of MOVEMENT_ORDER) {
+    const boundary = piece.movements.find((b) => b.movement === movement);
+    const index = boundary ? piece.systems.indexOf(boundary.ref) : -1;
+    if (index < 0 || seen.has(movement)) continue;
+    seen.add(movement);
+    starts.push({ movement, label: MOVEMENT_LABELS[movement], anchor: movement, index });
+  }
+  return starts.sort((a, b) => a.index - b.index);
+}

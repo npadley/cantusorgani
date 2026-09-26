@@ -45,3 +45,32 @@ def test_grouping_refuses_when_intra_gap_exceeds_inter_gap() -> None:
 
 def test_no_staves_means_no_systems() -> None:
     assert group_systems([]) == []
+
+
+def test_group_systems_by_gap_keeps_a_page_with_a_lost_staff():
+    """NOH5 p. 57: the bass staff of a short system is missed, leaving 11 staves.
+    Strict pairing drops the page; pairing by the brace gap keeps all six systems."""
+    from pipeline.segment import Staff, group_systems, group_systems_by_gap
+    tops = [511, 960, 1425, 1883, 2329, 2841]
+    staves: list[Staff] = []
+    for k, top in enumerate(tops):
+        staves.append(Staff(top, top + 72))
+        if k != 4:                                   # the fifth system lost its bass staff
+            staves.append(Staff(top + 175, top + 247))
+    with pytest.raises(ValueError):
+        group_systems(staves)
+    systems = group_systems_by_gap(staves)
+    assert [s.staff_count for s in systems] == [2, 2, 2, 2, 1, 2]
+    assert systems[4].top == 2329
+
+
+@pytest.mark.source
+@pytest.mark.slow
+def test_analyse_page_noh5_p57_keeps_all_six_systems():
+    """Regression: 11 staves (one bass staff missed) dropped the whole page, and
+    with it the Agnus Dei of Missa IX, without a trace in the review queue."""
+    from pipeline.evaluate import analyse_page
+    result = analyse_page("noh5", 103)
+    assert result.error is None
+    assert result.system_count == 6
+    assert result.warning and "paired by brace gap" in result.warning

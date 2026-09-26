@@ -29,7 +29,15 @@ from pipeline.evaluate import analyse_page
 from pipeline.gregobase import DUMP, load_chants
 from pipeline.index import IndexEntry, load_index, resolve_ranges, stated_end
 from pipeline.indexextract import MONTH_NAMES
-from pipeline.movements import MovementHit, best_match
+from pipeline.movements import (
+    MovementHit,
+    SystemFeature,
+    best_match,
+    expected_movements,
+    kyrie_offset,
+    mode_marker,
+    segment_mass,
+)
 from pipeline.offset import PageMap, load_page_map
 from pipeline.pairing import pair_entry
 from pipeline.publish import asset_stem, load_manifest, trimmed_boxes
@@ -49,6 +57,8 @@ class SystemRef:
     # Published key without its variant suffix. Empty when the page has not been
     # sliced yet, in which case the site falls back to a local path.
     asset: str
+    text: str = ""                       # the system's chant words, as OCR read them
+    mode_marker: str | None = None       # a mode number printed to its left
 
 
 def _left_margin_text(page: pymupdf.Page, box) -> str:
@@ -84,11 +94,13 @@ def scan_page(vol_id: str, pdf_page: int, page: pymupdf.Page
                                         else (box.left, box.top, box.right, box.bottom))
             width, height = right - left, bottom - top
             asset = ""
+        margin = _left_margin_text(page, box)
+        text = texts[i] if i < len(texts) else ""
         refs.append(SystemRef(
             ref=f"{vol_id}/{pdf_page:04d}/{i:03d}", pdf_page=pdf_page, index=i,
-            aspect=(width, height), asset=asset,
+            aspect=(width, height), asset=asset, text=text, mode_marker=mode_marker(margin),
         ))
-        hit = best_match(texts[i] if i < len(texts) else "", _left_margin_text(page, box))
+        hit = best_match(text, margin)
         if hit is not None:
             hits.append((i, hit))
     return refs, hits, texts
@@ -131,6 +143,30 @@ def start_system(vol_id: str, page_map: PageMap, entry: IndexEntry, systems: int
     return first_system(reader, entry_text(entry))
 
 
+def ordinary_movements(label: str, refs: list[SystemRef]
+                       ) -> tuple[list[Record], list[Record]]:
+    """Movement starts of a Kyriale Mass, and review entries for weak ones.
+
+    Every movement the Mass contains is placed -- the order guarantees it is
+    there -- but one whose opening words matched poorly is marked `placed:
+    "order"` and queued for a person to check."""
+    features = [SystemFeature(r.ref, r.text, r.mode_marker) for r in refs]
+    movements: list[Record] = []
+    uncertain: list[Record] = []
+    for b in segment_mass(features, expected_movements(label)):
+        ref = refs[b.index]
+        record: Record = {
+            "movement": b.movement, "score": b.score, "pdf_page": ref.pdf_page,
+            "system": ref.index, "ref": b.ref, "mode_marker": b.mode_marker,
+            "placed": "match" if b.confident else "order",
+        }
+        movements.append(record)
+        if not b.confident:
+            uncertain.append({"kind": "uncertain_movement", **record,
+                              "why": "placed by the Mass's order; its opening words matched weakly"})
+    return movements, uncertain
+
+
 def build_catalog(vol_id: str, index_path: Path | None = None
                   ) -> tuple[dict[str, object], list[dict[str, object]]]:
     vol = load_volumes()[vol_id]
@@ -148,12 +184,29 @@ def build_catalog(vol_id: str, index_path: Path | None = None
         def scan(pdf_page: int) -> PageScan:
             if pdf_page not in scanned:
                 scanned[pdf_page] = scan_page(vol_id, pdf_page, doc[pdf_page - 1])
+                analysis = analyse_page(vol_id, pdf_page)
+                if analysis.warning:
+                    review.append({"piece": None, "kind": "segmentation_fallback",
+                                   "pdf_page": pdf_page, "why": analysis.warning})
+                if analysis.error:
+                    # Music on this page is not catalogued at all: never silently.
+                    review.append({"piece": None, "kind": "segmentation_failed",
+                                   "pdf_page": pdf_page, "why": analysis.error})
             return scanned[pdf_page]
 
         # Where each piece begins: (printed page, first system on it). Pieces
         # own every system from their start up to the next piece's start.
         starts = [(e.page, start_system(vol_id, page_map, e, len(scan_pdf(page_map, e.page, scan))))
                   for e in entries]
+        # A Kyriale Mass begins at its Kyrie: systems above it on the first page
+        # close the Mass before, whatever the page split made of the heading.
+        for i, e in enumerate(entries):
+            if e.genre == "mass_ordinary" and e.division == "kyriale":
+                page, first_system = starts[i]
+                on_page = [r for r in scan_pdf(page_map, page, scan) if r.index >= first_system]
+                shift = kyrie_offset([SystemFeature(r.ref, r.text, r.mode_marker) for r in on_page])
+                if shift:
+                    starts[i] = (page, first_system + shift)
         # The last body page of the volume, so the final entry is bounded by the
         # book rather than by itself.
         last_body_printed = page_map.last_printed
@@ -176,6 +229,7 @@ def build_catalog(vol_id: str, index_path: Path | None = None
                                "printed_page": start[0], "first_system": start[1]})
             refs: list[SystemRef] = []
             movements: list[dict[str, object]] = []
+            ordinary = entry.genre == "mass_ordinary" and entry.division == "kyriale"
             for printed in range(first, last + 1):
                 pdf_page = page_map.to_pdf(printed)
                 if pdf_page is None:
@@ -188,7 +242,7 @@ def build_catalog(vol_id: str, index_path: Path | None = None
                 mine = {r.index for r in page_refs if start <= (printed, r.index) < stop}
                 refs.extend(r for r in page_refs if r.index in mine)
                 for system_index, hit in hits:
-                    if system_index not in mine:
+                    if system_index not in mine or ordinary:
                         continue
                     record = {
                         "movement": hit.movement, "score": hit.score,
@@ -202,6 +256,11 @@ def build_catalog(vol_id: str, index_path: Path | None = None
                     else:
                         review.append({"piece": entry.slug, "kind": "uncertain_movement",
                                        **record})
+            if ordinary:
+                # An Ordinary is segmented whole, in the order the Kyriale prints
+                # it, rather than trusting each system's hit on its own.
+                movements, uncertain = ordinary_movements(entry.label, refs)
+                review.extend({"piece": entry.slug, **u} for u in uncertain)
             if refs:
                 # Printed pages that actually carry this piece's music.
                 on = sorted({page_map.to_printed(int(r.ref.split("/")[1])) or first for r in refs})

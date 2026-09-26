@@ -82,5 +82,18 @@
     "samples": 16,
     "seed": 0,
     "source_sha256": "67d38b8bd81bd47ea90409ee4191a2b5ca314d42f9b8486d099a1772e47b97e1"
+  },
+  "noh8": {
+    "gaps": [],
+    "offset": 30,
+    "segments": [
+      {
+        "first_pdf": 31,
+        "last_pdf": 343,
+        "offset": 30,
+        "verified": 5
+      }
+    ],
+    "source_sha256": "45b0e85ea2ebd31901dacc3babf566299df677687f3f19410727c8d2f98a2da9"
   }
 }

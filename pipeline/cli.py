@@ -289,7 +289,8 @@ def _index_extract(args: argparse.Namespace) -> int:
     vol = load_volumes()[args.volume]
     # Only calendar books get calendar keys: a Kyriale title matching a feast by
     # accident would put a Mass on the wrong day.
-    vocabulary = load_vocabulary() if args.division in {"temporale", "sanctorale", "commune"} else None
+    vocabulary = (load_vocabulary()
+                  if args.division in {"temporale", "sanctorale", "commune", "vesperale"} else None)
     if args.from_sections:
         from pipeline.indexextract import extract_from_sections
         proposals = extract_from_sections(args.volume, load_vocabulary())

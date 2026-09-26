@@ -2,6 +2,7 @@
 import ChantPair from "../../components/ChantPair.astro";
 import ExportBar from "../../components/ExportBar.astro";
 import Layout from "../../components/Layout.astro";
+import MovementNav from "../../components/MovementNav.astro";
 import RecordStatusNotice from "../../components/RecordStatusNotice.astro";
 import SystemStack from "../../components/SystemStack.astro";
 import { allPieces, citedBy, volumeLabel } from "../../lib/catalog";
@@ -45,6 +46,7 @@ const printedElsewhere = citedBy(piece);
         )}
       </div>
     )}
+    <MovementNav piece={piece} />
     <ExportBar pieces={[piece]} title={piece.title} />
     <SystemStack piece={piece} id="music" />
     <ChantPair piece={piece} />

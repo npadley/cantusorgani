@@ -1,0 +1,28 @@
+---
+import { movementStarts } from "../lib/catalog";
+import type { Piece } from "../lib/catalog";
+
+// Jump links to the headings SystemStack prints above each movement. Both come
+// from movementStarts, so every link has a target.
+interface Props { readonly piece: Piece }
+const starts = movementStarts(Astro.props.piece);
+---
+
+{starts.length > 1 && (
+  <nav class="movements ui no-print" aria-label="Movements">
+    <span class="small muted">Jump to</span>
+    {starts.map((s) => <a href={`#${s.anchor}`}>{s.label}</a>)}
+  </nav>
+)}
+
+<style>
+  .movements {
+    display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center;
+    margin: 0 0 var(--s-4); padding-bottom: var(--s-2);
+    border-bottom: 1px solid var(--rule);
+  }
+  .movements a {
+    min-height: var(--tap-min);
+    display: inline-flex; align-items: center; padding: 0 var(--s-2);
+  }
+</style>

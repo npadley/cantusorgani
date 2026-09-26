@@ -13,6 +13,7 @@ without them is guesswork.
 
 from __future__ import annotations
 
+import functools
 import html
 import json
 from dataclasses import dataclass, field
@@ -23,7 +24,15 @@ import numpy as np
 
 from pipeline.clean import clean_page, estimate_skew
 from pipeline.render import BUILD, render_page
-from pipeline.segment import BBox, Staff, System, find_staff_lines, group_staves, group_systems
+from pipeline.segment import (
+    BBox,
+    Staff,
+    System,
+    find_staff_lines,
+    group_staves,
+    group_systems,
+    group_systems_by_gap,
+)
 from pipeline.segment import to_bboxes as _to_bboxes
 
 OVERLAY = BUILD / "overlay"
@@ -54,6 +63,7 @@ class PageAnalysis:
     systems: list[System] = field(default_factory=list)
     boxes: list[BBox] = field(default_factory=list)
     error: str | None = None
+    warning: str | None = None      # segmented, but by the fallback: review the page
 
     @property
     def system_count(self) -> int:
@@ -69,6 +79,7 @@ def load_page(vol_id: str, pdf_page: int) -> np.ndarray:
     return image
 
 
+@functools.lru_cache(maxsize=16)
 def analyse_page(vol_id: str, pdf_page: int) -> PageAnalysis:
     """Segment one page. Grouping failures are captured in `.error`, not raised.
 
@@ -86,12 +97,19 @@ def analyse_page(vol_id: str, pdf_page: int) -> PageAnalysis:
         "vol_id": vol_id, "pdf_page": pdf_page, "page_width": width,
         "page_height": height, "skew": skew, "lines": lines, "staves": staves,
     }
+    warning = None
     try:
         systems = group_systems(staves)
+    except ValueError as exc:
+        # Keep the page: pair what can be paired, and say so. A page that loses
+        # all its systems for one missed staff is music silently gone.
+        systems = group_systems_by_gap(staves)
+        warning = f"{exc}; paired by brace gap instead"
+    try:
         boxes = _to_bboxes(systems, page_height=height, page_width=width, ink=ink)
     except ValueError as exc:
         return PageAnalysis(**base, error=str(exc))  # type: ignore[arg-type]
-    return PageAnalysis(**base, systems=systems, boxes=boxes)  # type: ignore[arg-type]
+    return PageAnalysis(**base, systems=systems, boxes=boxes, warning=warning)  # type: ignore[arg-type]
 
 
 def count_systems(vol_id: str, pdf_page: int) -> int:

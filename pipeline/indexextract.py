@@ -40,9 +40,11 @@ from pipeline.offset import PageMap
 # 114->"j14", 11->"II", 23->"2.3", 46->"16". "S" is ambiguous between 5 and 9.
 REPAIR: dict[str, str] = {
     "S": "59", "s": "59", ":": "1", "i": "1", "l": "1", "I": "1", "j": "1", "|": "1",
-    "!": "1", "O": "0", "o": "0", "B": "8", "Z": "2", "g": "9", "W": "0", "~": "4",
-    ";": "", "\\": "", "'": "", ".": "", ",": "",
+    "!": "1", "O": "0", "o": "0", "B": "8", "Z": "2", "g": "9", "W": "0", "~": "45",
+    ";": "", "\\": "1_", "'": "", ".": "", ",": "",
 }
+# In a REPAIR value, "_" is the option of reading nothing at all: "\76" is 176 in
+# NOH8 (the backslash a broken 1), but in NOH5 a backslash is often stray ink.
 NUMBER_TOKEN = re.compile(r"^[0-9SsIil:j|!OoBZgW\\;'.,~]{1,5}$")
 RANGE_SPLIT = re.compile(r"\s*[-·–]\s*")
 
@@ -60,7 +62,7 @@ def page_candidates(token: str, lowest: int = 1, highest: int = 999) -> list[int
             repaired = REPAIR.get(ch)
             if repaired is None:
                 return []
-            options.append(tuple(repaired) or ("",))
+            options.append(tuple("" if c == "_" else c for c in repaired) or ("",))
     found: set[int] = set()
     for combo in itertools.product(*options):
         text = "".join(combo)
@@ -95,6 +97,8 @@ class Row:
     token: str
     source: str
     section: str = ""
+    head: str = ""          # the title's first line: what a dashed sub-entry below inherits
+    dashed: bool = False    # the index prints "—" before it: a sub-entry of the row above
 
 
 def is_number_like(word: Word) -> bool:
@@ -190,35 +194,75 @@ def column_at(x0: float, y: float, columns: list[Column],
 
 
 def is_heading_word(word: Word) -> bool:
+    # A real word: "(Ol1I1S)" is OCR of "(Alius tonus)", not a capitals heading.
+    if re.search(r"[0-9()/]", word.text):
+        return False
     letters = [c for c in word.text if c.isalpha()]
     return len(letters) >= 3 and sum(c.isupper() for c in letters) / len(letters) >= 0.75
 
 
+COLUMN_GAP = 30.0        # points between words that belong to different columns
+KNOWN_SECTIONS = ("proprium de tempore", "proprium sanctorum", "commune sanctorum", "hymni",
+                  "ordinarium missae", "cantus ad libitum", "missa pro defunctis", "festa sanctorum")
+
+
+def _known_section(text: str) -> bool:
+    folded = " ".join(re.findall(r"[a-z]+", fold(text)))
+    return any(SequenceMatcher(None, folded, k).ratio() >= 0.85 for k in KNOWN_SECTIONS)
+
+
 def section_headings(words: list[Word], line_tolerance: float = 5.0) -> list[tuple[float, str]]:
-    """Section headings: lines set in capitals ("ORDINARIUM MISSAE"), top to bottom.
-    Roman numerals are capitals too, so a line needs two capitalised words or one
-    long one; "Pag." column heads are not sections."""
-    lines: list[list[Word]] = []
+    """Section headings, top to bottom: lines set in capitals ("ORDINARIUM
+    MISSAE"), or a known section title in any case ("Proprium Sanctorum").
+    Roman numerals are capitals too, so a capitals line needs two capitalised
+    words or one long one; "Pag." column heads are not sections."""
+    return [(y, t) for y, t, _x0, _x1 in section_heading_spans(words, line_tolerance)]
+
+
+def section_heading_spans(words: list[Word], line_tolerance: float = 5.0
+                          ) -> list[tuple[float, str, float, float]]:
+    """`section_headings` with each heading's horizontal extent.
+
+    Lines are split where a wide horizontal gap separates two columns: NOH8's
+    "Proprium Sanctorum" shares its baseline with a numbered row of the right
+    column, and read as one line it would look like an entry."""
+    rows: list[list[Word]] = []
     for word in sorted(words, key=lambda w: (w.y0, w.x0)):
-        if lines and abs(lines[-1][0].y0 - word.y0) <= line_tolerance:
-            lines[-1].append(word)
+        if rows and abs(rows[-1][0].y0 - word.y0) <= line_tolerance:
+            rows[-1].append(word)
         else:
-            lines.append([word])
-    headings: list[tuple[float, str]] = []
+            rows.append([word])
+    lines: list[list[Word]] = []
+    for row in rows:
+        segment: list[Word] = []
+        for word in sorted(row, key=lambda w: w.x0):
+            if segment and word.x0 - segment[-1].x1 > COLUMN_GAP:
+                lines.append(segment)
+                segment = []
+            segment.append(word)
+        if segment:
+            lines.append(segment)
+    headings: list[tuple[float, str, float, float]] = []
     for line in lines:
         caps = [w for w in line if is_heading_word(w) and not _ROMAN.match(fold(w.text).strip(".,"))]
         if any(is_number_like(w) and page_candidates(w.text) for w in line):
             continue
-        if (len(caps) >= 2 or any(len(w.text) >= 6 for w in caps)) and len(caps) >= len(line) / 2:
-            headings.append((line[0].y0, " ".join(w.text for w in sorted(line, key=lambda w: w.x0))))
+        text = " ".join(w.text for w in sorted(line, key=lambda w: w.x0))
+        if re.search(r"printed|imprim|dessain|mechlin|belgi", fold(text)):
+            continue                      # the printer's line at the foot of the page
+        capitals = (len(caps) >= 2 or any(len(w.text) >= 6 for w in caps)) and len(caps) >= len(line) / 2
+        if capitals or _known_section(text):
+            headings.append((line[0].y0, text, min(w.x0 for w in line), max(w.x1 for w in line)))
     # A heading set over two lines ("CANTUS AD" / "LIBITUM") is one heading.
-    merged: list[tuple[float, str]] = []
-    for y, text in headings:
-        if merged and y - merged[-1][0] <= 3 * line_tolerance and not text.upper().startswith("INDEX"):
-            merged[-1] = (merged[-1][0], f"{merged[-1][1]} {text}")
+    merged: list[tuple[float, str, float, float]] = []
+    for y, text, x0, x1 in headings:
+        if merged and y - merged[-1][0] <= 3 * line_tolerance and not text.upper().startswith("INDEX") \
+                and x0 < merged[-1][3] + COLUMN_GAP and x1 > merged[-1][2] - COLUMN_GAP:
+            py, pt, px0, px1 = merged[-1]
+            merged[-1] = (py, f"{pt} {text}", min(px0, x0), max(px1, x1))
         else:
-            merged.append((y, text))
-    return [(y, t) for y, t in merged if not t.upper().startswith("INDEX")]
+            merged.append((y, text, x0, x1))
+    return [h for h in merged if not h[1].upper().startswith("INDEX")]
 
 
 LABEL = re.compile(r"^[IVXLivxl1/]{1,6}[.,]$")
@@ -286,8 +330,7 @@ def rows_from_columns(words: list[Word], columns: list[Column], band_gap: float 
     """One row per page number, joined to its title, in reading order.
 
     Titles wrap, in both directions: see `owner_of_line`."""
-    headings = section_headings(words)
-    heading_ys = {round(y) for y, _ in headings}
+    spans_h = section_heading_spans(words)
     add_label_anchors(words, columns)
     numbers = {id(m) for c in columns for m in c.members}
     spans = column_spans(columns, reach)
@@ -296,27 +339,47 @@ def rows_from_columns(words: list[Word], columns: list[Column], band_gap: float 
         # Digits stay in a title: the Proper of Saints dates every feast ("4 Augusti").
         if id(word) in numbers or not re.search(r"[A-Za-z0-9]", word.text):
             continue
-        if any(abs(word.y0 - y) <= 5 for y in heading_ys) or word.text.lower().startswith("pag"):
-            continue
+        if any(abs(word.y0 - y) <= 5 and x0 - 2 <= word.x0 <= x1 + 2 for y, _t, x0, x1 in spans_h) \
+                or word.text.lower().startswith("pag"):
+            continue                      # a heading's own words, not a title's
         index = column_at(word.x0, word.y0, columns, spans)
         if index is not None:
             by_column.setdefault(index, []).append(word)
-    title_words: dict[int, list[Word]] = {}
+    title_lines: dict[int, list[list[Word]]] = {}
+    dashes: dict[int, list[Word]] = {}
+    for word in words:
+        if re.fullmatch(r"[-–—]+", word.text):
+            index = column_at(word.x0, word.y0, columns, spans)
+            if index is not None:
+                dashes.setdefault(index, []).append(word)
     for index, column_words in by_column.items():
         members = sorted(columns[index].members, key=lambda m: m.y0)
         lines = group_lines(column_words)
         for i, line in enumerate(lines):
             owner = owner_of_line(i, lines, members, reach)
             if owner is not None:
-                title_words.setdefault(id(owner), []).extend(line)
+                title_lines.setdefault(id(owner), []).append(line)
 
+    # A heading governs the columns it spans (NOH5's "ORDINARIUM MISSAE" crosses
+    # both; NOH8's "Proprium Sanctorum" heads one). A column with no heading of
+    # its own above a row continues the section the previous column ended in.
     rows: list[Row] = []
+    carried = ""
     for index, column in enumerate(columns):
-        for number in column.members:
-            parts = title_words.get(id(number), [])
-            section = next((t for y, t in reversed(headings) if y < number.y0), "")
+        left = columns[index - 1].right if index else 0.0
+        own = [(y, t) for y, t, x0, x1 in spans_h if x0 < column.right and x1 > left]
+        for number in sorted(column.members, key=lambda m: m.y0):
+            lines = title_lines.get(id(number), [])
+            parts = [w for line in lines for w in line]
+            section = next((t for y, t in reversed(own) if y < number.y0), carried)
+            head = " ".join(w.text for w in lines[0]) if lines else ""
+            dashed = bool(lines) and any(
+                abs(d.y0 - lines[0][0].y0) < 5 and d.x1 <= lines[0][0].x0 + 1
+                for d in dashes.get(index, []))
             rows.append(Row(number.y0, index, " ".join(w.text for w in parts), number.text,
-                            number.source, section))
+                            number.source, section, head, dashed))
+        if own:
+            carried = own[-1][1]
     # Sections read top-down; inside a two-column section, left column then right.
     rows.sort(key=lambda r: r.y)
     bands: list[list[Row]] = []
@@ -663,12 +726,20 @@ def tidy_rows(rows: list[Row]) -> list[Row]:
     III"), and restore ditto entries: the index prints "- secunda, 28 Januarii"
     under "Agnetis ..." for St Agnes's second feast."""
     out: list[Row] = []
+    parent: Row | None = None
     for row in rows:
         if re.match(r"\s*index\b", fold(row.title)):
             continue
-        first = re.match(r"\s*[-–—]?\s*([a-z])", row.title)
-        if first and out and out[-1].title:
-            row = replace(row, title=f"{out[-1].title.split()[0]} {row.title.lstrip('-–— ')}")
+        variant = re.match(r"\s*\(", row.title) is not None      # "(Alius tonus)"
+        if (row.dashed or variant) and parent is not None and parent.head:
+            # "In Nativitate Domini. 69" / "— Dominica infra Octavam 80": the
+            # sub-entry is named by the entry it hangs from.
+            row = replace(row, title=f"{parent.head.rstrip()} {row.title}")
+        else:
+            first = re.match(r"\s*[-–—]?\s*([a-z])", row.title)
+            if first and out and out[-1].title:
+                row = replace(row, title=f"{out[-1].title.split()[0]} {row.title.lstrip('-–— ')}")
+            parent = row
         out.append(row)
     return out
 
@@ -826,23 +897,62 @@ def extract(vol_id: str, ordered: bool = True, ocr: bool = True,
     highest = page_map.last_printed
     rows = [r for page in vol.index_pdf_pages for r in read_index_rows(vol_id, page, ordered, ocr)]
 
-    floor = 0
+    # Page order is checked section by section: NOH8's index runs the Proper of
+    # Time and the Common in page order, but not its Proper of Saints, and its
+    # hymns alphabetically.
     out: list[Proposal] = []
-    for row in rows:
-        candidates = page_candidates(row.token, 1, highest) if row.token else []
-        result = resolve(candidates, lambda p, t=row.title: reader.score(t, p),
-                         floor if ordered else 0)
-        if ordered and result.status == "verified" and result.page is not None:
-            floor = result.page          # only verified pages constrain what follows
-        out.append(Proposal(row.title, row.section, row.token, row.source, result.page,
-                            result.status, result.score, result.candidates))
-    if ordered:
-        out = search_gaps(out, reader, highest)
-    else:
-        out = order_by_feast_date(out, reader, highest)
+    for section, group in itertools.groupby(rows, key=lambda r: r.section):
+        in_order = ordered and section_in_page_order(section)
+        floor = 0
+        placed: list[Proposal] = []
+        for row in group:
+            candidates = page_candidates(row.token, 1, highest) if row.token else []
+            result = resolve(candidates, lambda p, t=row.title: reader.score(t, p),
+                             floor if in_order else 0)
+            if in_order and result.status == "verified" and result.page is not None:
+                floor = result.page          # only verified pages constrain what follows
+            placed.append(Proposal(row.title, row.section, row.token, row.source, result.page,
+                                   result.status, result.score, result.candidates))
+        if in_order:
+            placed = search_gaps(placed, reader, highest)
+        elif not ordered:
+            placed = order_by_feast_date(placed, reader, highest)
+        else:
+            placed = within_section_span(placed)
+        out += placed
     if vocabulary:
         out = assign_calendar(out, vocabulary)
     return out
+
+
+def within_section_span(proposals: list[Proposal]) -> list[Proposal]:
+    """A section listed by name still occupies one stretch of the book. An
+    unconfirmed entry whose reading could be several pages ("\\76": 76 or 176)
+    takes the one inside the stretch its confirmed neighbours span."""
+    confirmed = [p.page for p in proposals if p.status == "verified" and p.page is not None]
+    if len(confirmed) < 2:
+        return proposals
+    lo, hi = min(confirmed), max(confirmed)
+    out: list[Proposal] = []
+    for p in proposals:
+        inside = [c for c in p.candidates if lo <= c <= hi]
+        if p.status in ("unverified", "unresolved") and len(inside) == 1 and len(p.candidates) > 1:
+            p = replace(p, page=inside[0], status="consistent")
+        out.append(p)
+    return out
+
+
+UNORDERED_SECTIONS = ("proprium sanctorum", "hymni")
+
+
+def section_in_page_order(section: str) -> bool:
+    """False for index sections listed by name rather than by page."""
+    folded = " ".join(re.findall(r"[a-z]+", fold(section)))
+    return not any(SequenceMatcher(None, folded, s).ratio() >= 0.85 for s in UNORDERED_SECTIONS)
+
+
+def is_hymn_section(section: str) -> bool:
+    return SequenceMatcher(None, " ".join(re.findall(r"[a-z]+", fold(section))), "hymni").ratio() >= 0.85
 
 
 def liturgical_date_order(month: int, day: int) -> tuple[int, int]:
@@ -992,6 +1102,27 @@ def weekday_of(title: str) -> int | None:
     return None
 
 
+_ROMAN_VALUES = {"i": 1, "v": 5, "x": 10, "l": 50, "c": 100}
+
+
+def roman_value(numeral: str) -> int | None:
+    if not _ROMAN.match(numeral):
+        return None
+    total = 0
+    for a, b in itertools.zip_longest(numeral, numeral[1:], fillvalue=""):
+        value = _ROMAN_VALUES[a]
+        total += -value if b and _ROMAN_VALUES[b] > value else value
+    return total
+
+
+def to_roman(n: int) -> str:
+    out = ""
+    for value, symbol in ((50, "L"), (40, "XL"), (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I")):
+        while n >= value:
+            out, n = out + symbol, n - value
+    return out
+
+
 def calendar_keys(title: str, vocabulary: dict[str, dict[str, object]],
                   sunday: str | None = None, require_title: bool = False
                   ) -> tuple[tuple[str, ...], str]:
@@ -1026,10 +1157,17 @@ def calendar_keys(title: str, vocabulary: dict[str, dict[str, object]],
     tempora = {k: v for k, v in vocabulary.items() if k.startswith("tempora:")}
     numerals = [w for w in (_repair_numeral(x) for x in re.findall(r"[a-z1|!/]+", fold(title)))
                 if _ROMAN.match(w)]
-    if len(numerals) > 1 and re.search(r",|\bet\b", fold(title)):
+    span = re.search(r"\b([ivxl1|!]+)\s*[-·–.]\s*([ivxl1|!]+)\b", fold(title))
+    if span:
+        # "Dominicae I-IV Adventus", "Dominicae IV-XXIV post Pentecosten": a range.
+        lo, hi = (roman_value(_repair_numeral(g)) for g in span.groups())
+        if lo and hi and lo < hi <= 30:
+            numerals = [to_roman(n).lower() for n in range(lo, hi + 1)]
+    if len(numerals) > 1 and (span or re.search(r",|\bet\b", fold(title))):
         # "Dominica IV, V et VI post Epiphaniam": one Proper, several Sundays.
         stem = " ".join(w for w in re.findall(r"[A-Za-z]+", title)
                         if not _ROMAN.match(_repair_numeral(fold(w))) and fold(w) != "et")
+        stem = re.sub(r"(?i)\bdominic(?:ae|e|re|lE)\b", "Dominica", stem)   # plural to singular
         keys = [snap_title(f"{stem} {n}", tempora, minimum=CONFIDENT_SNAP, after=sunday).key
                 for n in numerals]
         if all(keys):
@@ -1080,6 +1218,7 @@ def guess(title: str, table: tuple[tuple[str, str], ...], default: str) -> str:
 
 
 PROPER_DIVISIONS = frozenset({"temporale", "sanctorale", "commune"})
+BOOK_DIVISIONS = frozenset({"vesperale"})
 WORST_FIRST = ("unresolved", "conflict", "unverified", "consistent", "found", "verified")
 
 
@@ -1096,7 +1235,9 @@ def _group_title(group: list[Proposal], vocabulary: dict[str, dict[str, object]]
                  ) -> tuple[str, bool]:
     """A piece's title and whether it is clean: the calendar titles of the
     entries that have one, else the index's own words as OCR read them."""
-    clean = [t for p in group if (t := _calendar_title(p, vocabulary))]
+    # A piece serving several days ("Dominicae I-IV Adventus") keeps its own
+    # title: four calendar titles in a row name no piece.
+    clean = [t for p in group if len(p.days) == 1 and (t := _calendar_title(p, vocabulary))]
     if clean:
         return " · ".join(dict.fromkeys(clean)), True
     return " ".join(group[0].title.split()), False
@@ -1113,6 +1254,8 @@ def to_yaml_doc(vol_id: str, part: str, proposals: list[Proposal], division: str
     with no page are listed apart: they cannot be catalogued."""
     from pipeline.index import slugify
 
+    hymns = [p for p in proposals if is_hymn_section(p.section)]
+    proposals = [p for p in proposals if not is_hymn_section(p.section)]
     placed = sorted((p for p in proposals if p.page is not None and p.status != "rubric"),
                     key=lambda p: p.page or 0)
     # Entries that begin on one page stay separate pieces: the catalog divides
@@ -1132,7 +1275,10 @@ def to_yaml_doc(vol_id: str, part: str, proposals: list[Proposal], division: str
         title, clean = _group_title(group, vocabulary)
         days = list(dict.fromkeys(k for p in group for k in p.days))
         name = first.section or section_name or "Index"
-        section_division = SECTION_DIVISIONS.get(name) or guess(name, DIVISION_WORDS, division)
+        # A book that is one division throughout (the Vesperale) is not sorted by
+        # its section names, which borrow the Missal's ("Proprium de Tempore").
+        section_division = division if division in BOOK_DIVISIONS else (
+            SECTION_DIVISIONS.get(name) or guess(name, DIVISION_WORDS, division))
         # A URL is kept for good: never build one from OCR noise. A slug comes
         # from the first clean title, or else from the volume and page.
         base = slugify(title.split(" · ")[0])[:64].strip("-") if clean else ""
@@ -1186,6 +1332,11 @@ def to_yaml_doc(vol_id: str, part: str, proposals: list[Proposal], division: str
                               "sections": list(sections.values()), "unplaced": unplaced}
     if rubrics:
         doc["rubrics"] = rubrics
+    if hymns:
+        # Hymns are printed inside the offices; the index lists them by name. They
+        # are named points in the office that contains their page, not pieces.
+        doc["hymns"] = [{"title": " ".join(h.title.split()), "page": h.page, "status": h.status,
+                         "token": h.token} for h in hymns]
     return doc
 
 
