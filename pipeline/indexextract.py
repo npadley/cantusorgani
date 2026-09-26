@@ -98,7 +98,9 @@ class Row:
 
 
 def is_number_like(word: Word) -> bool:
-    return bool(NUMBER_TOKEN.match(word.text)) and any(c.isdigit() or c in REPAIR for c in word.text)
+    """Could be a page number: digits or digit-shaped letters -- not a lone leader
+    dot, which REPAIR maps to nothing."""
+    return bool(NUMBER_TOKEN.match(word.text)) and bool(page_candidates(word.text))
 
 
 def increasing_fraction(words: list[Word]) -> float:
@@ -241,35 +243,77 @@ def add_label_anchors(words: list[Word], columns: list[Column], row_tolerance: f
             column.members.append(Word(column.right - 12, word.y0, column.right, word.y1, "", "label"))
 
 
+def group_lines(words: list[Word], tolerance: float = 4.0) -> list[list[Word]]:
+    """Words into lines, top to bottom, each line left to right. A day number set
+    a point lower than its month is still on the month's line."""
+    lines: list[list[Word]] = []
+    for word in sorted(words, key=lambda w: (w.y0, w.x0)):
+        if lines and abs(lines[-1][0].y0 - word.y0) <= tolerance:
+            lines[-1].append(word)
+        else:
+            lines.append([word])
+    return [sorted(line, key=lambda w: w.x0) for line in lines]
+
+
+def owner_of_line(i: int, lines: list[list[Word]], members: list[Word], reach: float,
+                  tolerance: float = 5.0) -> Word | None:
+    """The page number a title line belongs to.
+
+    A line carrying a number belongs to it. A line without one is either the
+    tail of the entry above -- set indented beneath it, like a Mass's incipit --
+    or the head of the entry below, which then continues indented on the
+    number's line (a long feast name in the Proper of Saints)."""
+    y = lines[i][0].y0
+    on_line = [m for m in members if abs(m.y0 - y) < tolerance]
+    if on_line:
+        return on_line[0]
+    above = [m for m in members if y - reach <= m.y0 < y]
+    below = [m for m in members if y < m.y0 <= y + reach]
+    if not above or not below:
+        return (above[-1:] or below[:1] or [None])[0]
+    here = lines[i][0].x0
+    after = lines[i + 1][0].x0 if i + 1 < len(lines) else here
+    before = lines[i - 1][0].x0 if i else here
+    if here > before + tolerance:
+        return above[-1]             # indented under the line above: its tail
+    if after > here + tolerance:
+        return below[0]              # the next line is indented under this: its head
+    return min(above[-1], below[0], key=lambda m: abs(m.y0 - y))
+
+
 def rows_from_columns(words: list[Word], columns: list[Column], band_gap: float = 24.0,
                       reach: float = 14.0) -> list[Row]:
     """One row per page number, joined to its title, in reading order.
 
-    Titles wrap: the incipit of a Mass sits on the line below its number, and a
-    long feast name ends on the number's line having begun on the line above. So
-    each title word joins the NEAREST number in its column, within `reach`."""
+    Titles wrap, in both directions: see `owner_of_line`."""
     headings = section_headings(words)
     heading_ys = {round(y) for y, _ in headings}
     add_label_anchors(words, columns)
     numbers = {id(m) for c in columns for m in c.members}
-    title_words: dict[int, list[Word]] = {}
     spans = column_spans(columns, reach)
+    by_column: dict[int, list[Word]] = {}
     for word in words:
-        if id(word) in numbers or not re.search(r"[A-Za-z]", word.text):
+        # Digits stay in a title: the Proper of Saints dates every feast ("4 Augusti").
+        if id(word) in numbers or not re.search(r"[A-Za-z0-9]", word.text):
             continue
         if any(abs(word.y0 - y) <= 5 for y in heading_ys) or word.text.lower().startswith("pag"):
             continue
         index = column_at(word.x0, word.y0, columns, spans)
-        if index is None:
-            continue
-        nearest = min(columns[index].members, key=lambda m: abs(m.y0 - word.y0))
-        if abs(nearest.y0 - word.y0) <= reach:
-            title_words.setdefault(id(nearest), []).append(word)
+        if index is not None:
+            by_column.setdefault(index, []).append(word)
+    title_words: dict[int, list[Word]] = {}
+    for index, column_words in by_column.items():
+        members = sorted(columns[index].members, key=lambda m: m.y0)
+        lines = group_lines(column_words)
+        for i, line in enumerate(lines):
+            owner = owner_of_line(i, lines, members, reach)
+            if owner is not None:
+                title_words.setdefault(id(owner), []).extend(line)
 
     rows: list[Row] = []
     for index, column in enumerate(columns):
         for number in column.members:
-            parts = sorted(title_words.get(id(number), []), key=lambda w: (round(w.y0 / 4), w.x0))
+            parts = title_words.get(id(number), [])
             section = next((t for y, t in reversed(headings) if y < number.y0), "")
             rows.append(Row(number.y0, index, " ".join(w.text for w in parts), number.text,
                             number.source, section))
@@ -520,19 +564,33 @@ MONTHS_GENITIVE = {
 }
 
 
+# How the index's OCR damages a day number: "2;;" is 25, "]7" is 17, "2<J" 29.
+DAY_REPAIR = ((";;", "5"), (";)", "5"), ("<J", "9"), ("]", "1"), ("l", "1"), ("I", "1"), ("i", "1"),
+              ("O", "0"), ("o", "0"), ("S", "5"))
+
+
+def _day(token: str) -> int | None:
+    for bad, good in DAY_REPAIR:
+        token = token.replace(bad, good)
+    return int(token) if token.isdigit() and 1 <= int(token) <= 31 else None
+
+
 def feast_date(title: str) -> tuple[int, int] | None:
     """The date the Proper of Saints index prints with each feast ("16 Septembris").
 
     OCR damages month names ("Feb1'uarli", "!'Iovembris"), so each is matched by
-    similarity rather than spelling; the day must be a clean 1-31."""
-    words = re.findall(r"[0-9]{1,2}|[A-Za-z!':;1]{4,}", title)
+    similarity rather than spelling; the day is repaired, then must be 1-31."""
+    words = title.split()
     for day_word, month_word in itertools.pairwise(words):
-        if not day_word.isdigit() or not 1 <= int(day_word) <= 31:
+        day = _day(day_word.strip(".,"))
+        if day is None or not re.search(r"[0-9]", day_word.replace("]", "1").replace(";;", "5")):
             continue
         cleaned = fold(re.sub(r"[^A-Za-z1]", "", month_word)).replace("1", "i")
+        if len(cleaned) < 4:
+            continue
         best = max(MONTHS_GENITIVE, key=lambda m: SequenceMatcher(None, cleaned, m).ratio())
         if SequenceMatcher(None, cleaned, best).ratio() >= 0.7:
-            return MONTHS_GENITIVE[best], int(day_word)
+            return MONTHS_GENITIVE[best], day
     return None
 
 
@@ -595,7 +653,22 @@ def read_index_rows(vol_id: str, pdf_page: int, ordered: bool = True,
     if second_source and columns:
         merge_second_source(columns, tesseract_column_words(vol_id, pdf_page, columns),
                             ordered=ordered)
-    return rows_from_columns(words, columns)
+    return tidy_rows(rows_from_columns(words, columns))
+
+
+def tidy_rows(rows: list[Row]) -> list[Row]:
+    """Drop the index page's own folio (it heads a column, beside "INDEX PARTIS
+    III"), and restore ditto entries: the index prints "- secunda, 28 Januarii"
+    under "Agnetis ..." for St Agnes's second feast."""
+    out: list[Row] = []
+    for row in rows:
+        if re.match(r"\s*index\b", fold(row.title)):
+            continue
+        first = re.match(r"\s*[-–—]?\s*([a-z])", row.title)
+        if first and out and out[-1].title:
+            row = replace(row, title=f"{out[-1].title.split()[0]} {row.title.lstrip('-–— ')}")
+        out.append(row)
+    return out
 
 
 class HeadingReader:
@@ -674,8 +747,21 @@ class HeadingReader:
         first = heading_score(entry_text, self.embedded(printed))
         if first >= VERIFIED_AT:
             return first
-        return max(first, heading_score(entry_text,
-                                        f"{self.embedded(printed)}\n{self.recognised(printed)}"))
+        text = f"{self.embedded(printed)}\n{self.recognised(printed)}"
+        return max(first, heading_score(entry_text, text), date_score(entry_text, text))
+
+
+def date_score(entry_text: str, heading_text: str) -> float:
+    """The Proper of Saints heads each feast with its date ("16. SEPTEMBRIS."):
+    a page whose heading carries the entry's date is evidence even when the
+    index's OCR has left nothing of the saint's name."""
+    wanted = feast_date(entry_text)
+    if wanted is None:
+        return 0.0
+    for line in heading_text.splitlines():
+        if feast_date(line.replace(".", " ")) == wanted:
+            return LABEL_MATCH
+    return 0.0
 
 
 # -------------------------------------------------------------- proposals ---
@@ -692,6 +778,35 @@ class Proposal:
     candidates: tuple[int, ...]
     days: tuple[str, ...] = ()
     calendar_note: str = ""
+    reference: str = ""          # a rubric's pointer elsewhere: "Missa. Os justi, Pars IV, p. 76."
+
+
+def make_reader(vol_id: str, ocr: bool = True) -> HeadingReader:
+    from pipeline.offset import load_page_map
+    from pipeline.render import BUILD
+    from pipeline.volumes import load_volumes
+
+    vol = load_volumes()[vol_id]
+    return HeadingReader(vol_id, load_page_map(vol_id), vol.pdf_pages, ocr=ocr,
+                         cache_dir=BUILD / "headings-v2" / vol_id,
+                         excluded=frozenset(vol.index_pdf_pages))
+
+
+def extract_from_headings(vol_id: str, vocabulary: dict[str, dict[str, object]] | None,
+                          reader: HeadingReader | None = None,
+                          index: list[Proposal] | None = None) -> list[Proposal]:
+    """Catalogue a volume from its body's dated feast headings (NOH3).
+
+    Where OCR lost a heading ("39 JUNIL" for 29 Junii), an index entry placed
+    with evidence fills the page -- the two sources cover each other."""
+    reader = reader or make_reader(vol_id)
+    pages = range(1, reader.page_map.last_printed + 1)
+    scanned = proposals_from_headings(scan_feast_headings(reader, pages), vocabulary)
+    covered = {p.page for p in scanned}
+    extra = [replace(p, source="index") for p in index or []
+             if p.page is not None and p.page not in covered
+             and p.status in ("verified", "found", "consistent")]
+    return sorted(scanned + extra, key=lambda p: p.page or 0)
 
 
 def extract(vol_id: str, ordered: bool = True, ocr: bool = True,
@@ -703,12 +818,7 @@ def extract(vol_id: str, ordered: bool = True, ocr: bool = True,
 
     vol = load_volumes()[vol_id]
     page_map = load_page_map(vol_id)
-    if reader is None:
-        from pipeline.render import BUILD
-
-        reader = HeadingReader(vol_id, page_map, vol.pdf_pages, ocr=ocr,
-                               cache_dir=BUILD / "headings-v2" / vol_id,
-                               excluded=frozenset(vol.index_pdf_pages))
+    reader = reader or make_reader(vol_id, ocr)
     highest = page_map.last_printed
     rows = [r for page in vol.index_pdf_pages for r in read_index_rows(vol_id, page, ordered, ocr)]
 
@@ -724,8 +834,30 @@ def extract(vol_id: str, ordered: bool = True, ocr: bool = True,
                             result.status, result.score, result.candidates))
     if ordered:
         out = search_gaps(out, reader, highest)
+    else:
+        out = order_by_feast_date(out, reader, highest)
     if vocabulary:
         out = assign_calendar(out, vocabulary)
+    return out
+
+
+def liturgical_date_order(month: int, day: int) -> tuple[int, int]:
+    """The Proper of Saints runs from St Saturninus (29 November) to 28 November."""
+    return (-1, day) if month == 11 and day >= 29 else ((month - 12) % 12, day)
+
+
+def order_by_feast_date(proposals: list[Proposal], reader: HeadingReader,
+                        highest: int) -> list[Proposal]:
+    """An alphabetical index has no page order to check against -- but its feasts
+    are dated, and the book prints them in date order. Sorted by date, the dated
+    entries are an ordered index again, and get the same second pass."""
+    dated = [(liturgical_date_order(*d), i) for i, p in enumerate(proposals)
+             if (d := feast_date(p.title)) is not None]
+    order = [i for _, i in sorted(dated)]
+    fitted = search_gaps([proposals[i] for i in order], reader, highest)
+    out = list(proposals)
+    for i, prop in zip(order, fitted, strict=True):
+        out[i] = prop
     return out
 
 
@@ -926,7 +1058,7 @@ DIVISION_WORDS: tuple[tuple[str, str], ...] = (
     ("defunctorum", "defunctorum"), ("ordinarium", "kyriale"), ("tempore", "temporale"),
     ("vesper", "vesperale"),
 )
-REVIEW_STATUSES = frozenset({"found", "consistent", "conflict", "unresolved"})
+REVIEW_STATUSES = frozenset({"found", "consistent", "conflict", "unresolved", "unverified"})
 
 
 def guess(title: str, table: tuple[tuple[str, str], ...], default: str) -> str:
@@ -935,35 +1067,109 @@ def guess(title: str, table: tuple[tuple[str, str], ...], default: str) -> str:
                  if any(w.startswith(key) or _fuzzy_in(key, {w}) for w in words)), default)
 
 
-def to_yaml_doc(vol_id: str, part: str, proposals: list[Proposal], division: str) -> dict[str, object]:
+PROPER_DIVISIONS = frozenset({"temporale", "sanctorale", "commune"})
+WORST_FIRST = ("unresolved", "conflict", "unverified", "consistent", "found", "verified")
+
+
+def _calendar_title(prop: Proposal, vocabulary: dict[str, dict[str, object]] | None) -> str | None:
+    """The calendar's Latin title, where the key is sure."""
+    if vocabulary and prop.days and not prop.calendar_note:
+        titles = [str(vocabulary[k].get("title_la", "")) for k in prop.days if k in vocabulary]
+        if titles and all(titles):
+            return " · ".join(dict.fromkeys(titles))
+    return None
+
+
+def _group_title(group: list[Proposal], vocabulary: dict[str, dict[str, object]] | None
+                 ) -> tuple[str, bool]:
+    """A piece's title and whether it is clean: the calendar titles of the
+    entries that have one, else the index's own words as OCR read them."""
+    clean = [t for p in group if (t := _calendar_title(p, vocabulary))]
+    if clean:
+        return " · ".join(dict.fromkeys(clean)), True
+    return " ".join(group[0].title.split()), False
+
+
+def to_yaml_doc(vol_id: str, part: str, proposals: list[Proposal], division: str,
+                vocabulary: dict[str, dict[str, object]] | None = None,
+                section_name: str | None = None) -> dict[str, object]:
     """A proposal in the shape of data/index-<vol>.yml, loadable by `load_index`.
 
-    Every entry carries its evidence (`status`, `score`, the raw OCR `token`), so
-    the reviewer promoting it sees what the script was and was not sure of.
-    Entries with no page at all are listed apart: they cannot be catalogued."""
+    Entries are put in PAGE order -- an alphabetical index is not -- because a
+    piece runs until the next one begins. Every entry carries its evidence (`status`,
+    `score`, the raw OCR `token` and `index_title`) for the reviewer. Entries
+    with no page are listed apart: they cannot be catalogued."""
+    from pipeline.index import slugify
+
+    placed = sorted((p for p in proposals if p.page is not None and p.status != "rubric"),
+                    key=lambda p: p.page or 0)
+    # Entries that begin on one page stay separate pieces: the catalog divides
+    # the page at each heading (pipeline.pagesplit). Only true duplicates -- the
+    # same day twice on one page, as two sources read it -- are merged.
+    groups: list[list[Proposal]] = []
+    for prop in placed:
+        if groups and groups[-1][0].page == prop.page and prop.days and prop.days == groups[-1][0].days:
+            groups[-1].append(prop)
+        else:
+            groups.append([prop])
+
     sections: dict[str, dict[str, object]] = {}
-    unplaced: list[dict[str, object]] = []
-    for prop in proposals:
-        label = (label_of(prop.title) or "").upper() or prop.title.split(" ")[0] if prop.title else "?"
+    seen: set[str] = set()
+    for group in groups:
+        first = group[0]
+        title, clean = _group_title(group, vocabulary)
+        days = list(dict.fromkeys(k for p in group for k in p.days))
+        name = first.section or section_name or "Index"
+        section_division = guess(name, DIVISION_WORDS, division)
+        # A URL is kept for good: never build one from OCR noise. A slug comes
+        # from the first clean title, or else from the volume and page.
+        base = slugify(title.split(" · ")[0])[:64].strip("-") if clean else ""
+        slug = base = base or f"{vol_id}-p{first.page}"
+        n = 2
+        while slug in seen:
+            slug, n = f"{base}-{n}", n + 1
+        seen.add(slug)
         entry: dict[str, object] = {
-            "label": label, "title": prop.title, "genre": guess(prop.title, GENRE_WORDS, "proper"),
-            "page": prop.page, "status": prop.status, "score": prop.score, "token": prop.token,
+            "slug": slug,
+            # A Proper is named by its day; a numeral label ("I") would only
+            # repeat part of the title.
+            "label": title if section_division in PROPER_DIVISIONS
+            else (label_of(first.title) or "").upper() or title,
+            "title": title,
+            "genre": "proper" if section_division in PROPER_DIVISIONS
+            else guess(first.title, GENRE_WORDS, "proper"),
+            "page": first.page,
+            "status": min((p.status for p in group), key=WORST_FIRST.index),
+            "score": min(p.score for p in group),
+            "token": " | ".join(p.token for p in group),
+            "index_title": " | ".join(" ".join(p.title.split()) for p in group),
         }
-        if prop.days:
-            entry["days"] = list(prop.days)
-        if prop.calendar_note:
-            entry["calendar_note"] = prop.calendar_note
-        if prop.page is None:
-            unplaced.append(entry)
-            continue
-        name = prop.section or "Index"
-        section = sections.setdefault(name, {
-            "name": name, "division": guess(name, DIVISION_WORDS, division), "entries": []})
+        if days:
+            entry["days"] = days
+        notes = [p.calendar_note for p in group if p.calendar_note]
+        if notes:
+            entry["calendar_note"] = "; ".join(notes)
+        section = sections.setdefault(name, {"name": name, "division": section_division,
+                                             "entries": []})
         entries = section["entries"]
         assert isinstance(entries, list)
         entries.append(entry)
-    return {"volume": vol_id, "part": part, "generated_by": "noh index-extract",
-            "sections": list(sections.values()), "unplaced": unplaced}
+    unplaced = [{"index_title": " ".join(p.title.split()), "token": p.token, "status": p.status,
+                 **({"days": list(p.days)} if p.days else {})}
+                for p in proposals if p.page is None]
+    rubrics: list[dict[str, object]] = []
+    for p in proposals:
+        record = {"title": _calendar_title(p, vocabulary) or " ".join(p.title.split()),
+                  "page": p.page, "reference": p.reference,
+                  **({"days": list(p.days)} if p.days else {})}
+        if p.status == "rubric" and not any(r["page"] == p.page and r.get("days") == record.get("days")
+                                            and record.get("days") for r in rubrics):
+            rubrics.append(record)
+    doc: dict[str, object] = {"volume": vol_id, "part": part, "generated_by": "noh index-extract",
+                              "sections": list(sections.values()), "unplaced": unplaced}
+    if rubrics:
+        doc["rubrics"] = rubrics
+    return doc
 
 
 @dataclass(frozen=True)
@@ -981,3 +1187,105 @@ def compare(proposals: list[Proposal], reviewed_pages: list[int]) -> Comparison:
     differ = [(0, p.page, p.title) for p in proposals
               if p.page is not None and p.page not in reviewed_pages]
     return Comparison(agree, differ, missing)
+
+
+# ----------------------------------------------------------- heading scan ---
+#
+# NOH3's alphabetical index is the worst-scanned page in the set; its body is
+# not. Every feast opens with a dated heading -- "21. MARTII. — S. BENEDICTI
+# ABBATIS." -- so the body itself is the better index. And a feast whose whole
+# Mass is a reference ("Missa. Os justi, de Communi Abbatum, Pars IV, p. 86")
+# has no music here at all: it is recorded as a rubric, not given a page of
+# somebody else's music.
+
+FEAST_HEADING = re.compile(
+    r"^\W*(?:(?:DIE\s+)?(?P<day>[0-9lIi\]]{1,3})\s*\.?\s*(?P<month>[A-Za-z\\]{4,})[.,]?"
+    r"|EADEM\s+D[IL]E\s*(?P<same>[0-9lIi\]]{1,3})?\.?)"
+    r"\s*(?:[—–-]+\s*\.?\s*(?P<title>.+))?$")
+MONTH_NAMES = {v: k for k, v in MONTHS_GENITIVE.items()}
+
+
+@dataclass(frozen=True)
+class FeastHeading:
+    page: int
+    month: int
+    day: int
+    title: str
+    rubric: str | None          # "Missa. Os justi, ..." when the Mass is only a reference
+
+
+def parse_feast_heading(line: str, month: int | None) -> tuple[int, int, str] | None:
+    """(month, day, title) from a dated heading line, or None. "EADEM DIE" takes
+    the month of the heading before it."""
+    m = FEAST_HEADING.match(line.strip())
+    if not m:
+        return None
+    title = (m.group("title") or "").strip(" .")
+    if m.group("month"):
+        cleaned = fold(re.sub(r"[^A-Za-z]", "", m.group("month")))
+        best = max(MONTHS_GENITIVE, key=lambda k: SequenceMatcher(None, cleaned, k).ratio())
+        if SequenceMatcher(None, cleaned, best).ratio() < 0.7:
+            return None
+        month = MONTHS_GENITIVE[best]
+    elif month is None:
+        return None
+    raw = m.group("day") or m.group("same")
+    day = _day(raw[:2]) if raw else None
+    if day is None and raw and len(raw) == 3:
+        day = _day(raw[:1])
+    if day is None or month is None:
+        return None
+    return month, day, title
+
+
+def scan_feast_headings(reader: HeadingReader, printed_pages: range) -> list[FeastHeading]:
+    """Every dated feast heading in the body, in page order, from both sources.
+
+    A heading may give its title on the date's line ("21. MARTII. — S.
+    BENEDICTI") or on the lines after it ("8. DECEMBRIS." / "IN FESTO
+    IMMACULATAE CONCEPTIONIS")."""
+    found: list[FeastHeading] = []
+    month: int | None = None
+    for page in printed_pages:
+        # A page can carry two feasts of one date ("EADEM DIE 4."); the second
+        # source adds only headings beyond those the first already read.
+        counts: list[dict[tuple[int, int], int]] = [{}, {}]
+        for source, text in enumerate((reader.recognised(page), reader.embedded(page))):
+            lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+            for i, line in enumerate(lines):
+                parsed = parse_feast_heading(line, month)
+                if parsed is None:
+                    continue
+                month, day, title = parsed
+                rest = lines[i + 1:]
+                if not title:
+                    # The title follows, set in capitals over a line or two.
+                    head = [ln for ln in itertools.takewhile(_is_capitals, rest[:3])]
+                    title, rest = " ".join(head), rest[len(head):]
+                if not title:
+                    continue
+                key = (month, day)
+                counts[source][key] = counts[source].get(key, 0) + 1
+                if source and counts[source][key] <= counts[0].get(key, 0):
+                    continue
+                following = rest[0] if rest else ""
+                rubric = following if re.match(r"\W*M[il]ssa\b", following, re.IGNORECASE) else None
+                found.append(FeastHeading(page, month, day, title, rubric))
+    return found
+
+
+def _is_capitals(line: str) -> bool:
+    letters = [c for c in line if c.isalpha()]
+    return len(letters) >= 4 and sum(c.isupper() for c in letters) / len(letters) >= 0.7
+
+
+def proposals_from_headings(headings: list[FeastHeading],
+                            vocabulary: dict[str, dict[str, object]] | None) -> list[Proposal]:
+    out: list[Proposal] = []
+    for h in headings:
+        title = f"{h.title}, {h.day} {MONTH_NAMES[h.month].capitalize()}"
+        days, note = calendar_keys(title, vocabulary) if vocabulary else ((), "")
+        out.append(Proposal(title, "", "", "heading", h.page,
+                            "rubric" if h.rubric else "verified", 1.0, (h.page,), days, note,
+                            h.rubric or ""))
+    return out

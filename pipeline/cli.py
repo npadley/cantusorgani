@@ -72,10 +72,14 @@ def build_parser() -> argparse.ArgumentParser:
     ix = subs.add_parser("index-extract",
                          help="read a volume's printed index by script and verify it against page headings")
     ix.add_argument("--volume", required=True, help="volume id from data/volumes.yml")
+    ix.add_argument("--from-headings", action="store_true",
+                    help="catalogue from the body's dated feast headings instead of the index (NOH3)")
     ix.add_argument("--alphabetical", action="store_true",
                     help="the index is alphabetical, not in page order (NOH3)")
     ix.add_argument("--division", default="varia", help="division for sections with no clearer one")
     ix.add_argument("--no-ocr", action="store_true", help="embedded text layer only (fast, weaker)")
+    ix.add_argument("--section", default=None,
+                    help="section name for entries under no printed heading, e.g. 'Proprium de Tempore'")
     ix.add_argument("--out", type=Path, default=None,
                     help="proposal path (default data/index-<vol>.proposed.yml)")
 
@@ -212,8 +216,9 @@ def main(argv: list[str] | None = None) -> int:
             from pipeline.upload import require_credentials
             credentials = require_credentials()   # fail before an hour of work
         vol = load_volumes()[args.volume]
-        pages = parse_pages(args.pages) if args.pages else list(
-            range(vol.first_body_pdf_page, vol.pdf_pages + 1))
+        pages = parse_pages(args.pages) if args.pages else [
+            p for p in range(vol.first_body_pdf_page, (vol.last_body_pdf_page or vol.pdf_pages) + 1)
+            if p not in vol.index_pdf_pages]
         total = 0
         uploaded = skipped = 0
         failures: list[tuple[str, str]] = []
@@ -271,11 +276,17 @@ def _index_extract(args: argparse.Namespace) -> int:
     from pipeline.volumes import DATA, load_volumes
 
     vol = load_volumes()[args.volume]
-    proposals = extract(args.volume, ordered=not args.alphabetical, ocr=not args.no_ocr,
-                        # Only calendar books get calendar keys: a Kyriale title matching
-                        # a feast by accident would put a Mass on the wrong day.
-                        vocabulary=load_vocabulary() if args.division in
-                        {"temporale", "sanctorale", "commune"} else None)
+    # Only calendar books get calendar keys: a Kyriale title matching a feast by
+    # accident would put a Mass on the wrong day.
+    vocabulary = load_vocabulary() if args.division in {"temporale", "sanctorale", "commune"} else None
+    if args.from_headings:
+        from pipeline.indexextract import extract_from_headings
+        index = extract(args.volume, ordered=not args.alphabetical, ocr=not args.no_ocr,
+                        vocabulary=vocabulary)
+        proposals = extract_from_headings(args.volume, vocabulary, index=index)
+    else:
+        proposals = extract(args.volume, ordered=not args.alphabetical, ocr=not args.no_ocr,
+                            vocabulary=vocabulary)
     for p in proposals:
         mark = "ok " if p.status == "verified" else "?  " if p.page else "!! "
         days = ",".join(p.days)
@@ -294,7 +305,8 @@ def _index_extract(args: argparse.Namespace) -> int:
               f"{[(p, t[:30]) for _, p, t in result.differ]}")
 
     out = args.out or DATA / f"index-{args.volume}.proposed.yml"
-    doc = to_yaml_doc(args.volume, vol.part, proposals, args.division)
+    doc = to_yaml_doc(args.volume, vol.part, proposals, args.division,
+                      vocabulary=load_vocabulary(), section_name=args.section)
     header = (f"# PROPOSED index for {args.volume}, written by `noh index-extract`. No AI.\n"
               "# Review every entry whose status is not 'verified', then promote this file\n"
               f"# to index-{args.volume}.yml. The script never overwrites a reviewed index.\n")

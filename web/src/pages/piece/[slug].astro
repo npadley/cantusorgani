@@ -33,7 +33,7 @@ const heading = piece.incipit ?? piece.title;
     </header>
 
     <RecordStatusNotice piece={piece} />
-    <ExportBar piece={piece} />
+    <ExportBar pieces={[piece]} title={piece.title} />
     <SystemStack piece={piece} id="music" />
     <ChantPair piece={piece} />
   </article>

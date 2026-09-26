@@ -27,6 +27,11 @@ const bySection = new Map<string, Piece[]>();
 if (!seasons.length && !months.length) {
   for (const p of pieces) bySection.set(p.section, [...(bySection.get(p.section) ?? []), p]);
 }
+// Everything the day lists above do not reach -- a saint kept in the Temporale,
+// a 1942 feast with no 1962 day -- is still listed: no piece is left unlinked.
+const reached = new Set([...seasons.flatMap((g) => g.days), ...months.flatMap((m) => m.days)]
+  .flatMap((d) => d.pieces.map((p) => p.id)));
+const rest = seasons.length || months.length ? pieces.filter((p) => !reached.has(p.id)) : [];
 ---
 
 <Layout title={meta.en} description={meta.blurb}>
@@ -62,6 +67,13 @@ if (!seasons.length && !months.length) {
       </ul>
     </section>
   ))}
+
+  {rest.length > 0 && (
+    <section>
+      <h2>Also in this book</h2>
+      <PieceList pieces={rest} />
+    </section>
+  )}
 
   {[...bySection].map(([section, list]) => (
     <section>

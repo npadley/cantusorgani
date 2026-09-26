@@ -3,21 +3,22 @@ import { MAX_EXPORT_SYSTEMS } from "../lib/config";
 import { systemUrlStem } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
 
-interface Props { readonly piece: Piece }
-const { piece } = Astro.props;
+// One piece, or several in order -- a day's Proper followed by its Ordinary.
+interface Props { readonly pieces: readonly Piece[]; readonly title: string }
+const { pieces, title } = Astro.props;
 
-const count = piece.systems.length;
+const count = pieces.reduce((n, p) => n + p.systems.length, 0);
 // Rough page estimate so the button can say what you are about to get. Systems
 // average a little under a quarter of an A4 page at export width.
 const estimatedPages = Math.max(1, Math.ceil(count / 4.5));
 const overCap = count > MAX_EXPORT_SYSTEMS;
 // Full URL stems: the export worker cannot derive content-hashed keys either.
-const stems = piece.systems.map((_, i) => systemUrlStem(piece, i));
+const stems = pieces.flatMap((piece) => piece.systems.map((_, i) => systemUrlStem(piece, i)));
 ---
 
 {count > 0 && (
   <div class="export no-print ui" data-refs={stems.join(",")}
-       data-title={`${piece.title} — Nova Organi Harmonia`}>
+       data-title={`${title} — Nova Organi Harmonia`}>
     <button id="export-btn" type="button" disabled={overCap}>
       {overCap
         ? `Too many systems to export (${count})`

@@ -15,10 +15,12 @@ from pipeline.indexextract import (
     Column,
     HeadingReader,
     Proposal,
+    Row,
     Word,
     add_label_anchors,
     calendar_keys,
     compare,
+    date_score,
     feast_date,
     find_number_columns,
     guess,
@@ -32,6 +34,7 @@ from pipeline.indexextract import (
     search_gaps,
     section_headings,
     snap_title,
+    tidy_rows,
     title_similarity,
     to_yaml_doc,
     tokens,
@@ -318,6 +321,13 @@ def test_snap_title_below_minimum_is_none(vocabulary):
     assert snap_title("De Benedictione ramorum", vocabulary).key is None
 
 
+def test_feast_date_repairs_damaged_day():
+    assert feast_date("Marci Evangelistae, 2;; Aprilis") == (4, 25)
+    assert feast_date("Octava, ]7 Augusti") == (8, 17)
+    assert feast_date("Sabinae Mart., 2<J Augusti") == (8, 29)
+    assert feast_date("Mathiae Ap., 99 Februarii") is None
+
+
 def test_feast_date_reads_damaged_month():
     assert feast_date("Cyrilli Ep. Aiexandrinl, 9 Feb1'uarli") == (2, 9)
     assert feast_date("Cornelii Papre et Cypriani, 16 Septembris") == (9, 16)
@@ -358,12 +368,49 @@ def test_to_yaml_doc_sections_and_unplaced():
              Proposal("Lost", "ORDINARIUM MISSAE", "", "label", None, "unresolved", 0.0, ()),
              Proposal("Dominica I Adventus", "", "1", "embedded", 1, "consistent", 0.0, (1,),
                       ("tempora:Adv1-0",), "")]
-    doc = to_yaml_doc("noh1", "I", props, "temporale")
+    doc = to_yaml_doc("noh1", "I", props, "temporale",
+                      vocabulary={"tempora:Adv1-0": {"title_la": "Dominica I Adventus"}},
+                      section_name="Proprium de Tempore")
     sections = doc["sections"]
-    assert [s["division"] for s in sections] == ["kyriale", "temporale"]
-    assert sections[0]["entries"][0]["label"] == "II"
-    assert sections[1]["entries"][0]["days"] == ["tempora:Adv1-0"]
-    assert [e["title"] for e in doc["unplaced"]] == ["Lost"]
+    assert [s["name"] for s in sections] == ["Proprium de Tempore", "ORDINARIUM MISSAE"]
+    assert [s["division"] for s in sections] == ["temporale", "kyriale"]
+    advent = sections[0]["entries"][0]
+    assert (advent["slug"], advent["genre"], advent["days"]) == (
+        "dominica-i-adventus", "proper", ["tempora:Adv1-0"])
+    assert sections[1]["entries"][0]["label"] == "II"
+    assert [e["index_title"] for e in doc["unplaced"]] == ["Lost"]
+
+
+def test_to_yaml_doc_page_order_shared_pages_stay_separate():
+    vocabulary = {"sancti:01-11cc": {"title_la": "S. Hyginus Papae et Mart."},
+                  "sancti:01-13": {"title_la": "In Commemoratione Baptismatis"}}
+    props = [Proposal("Zeta, 2 Maii", "", "200", "embedded", 200, "verified", 1.0, (200,)),
+             Proposal("S. Hygini, 11 Januarii", "", "118", "embedded", 118, "verified", 0.7,
+                      (118,), ("sancti:01-11cc",), ""),
+             Proposal("Commemoratio Baptismatis", "", "118", "embedded", 118, "found", 0.5,
+                      (118,), ("sancti:01-13",), ""),
+             Proposal("Commemoratio Baptismatis D.N.J.C.", "", "118", "heading", 118, "verified",
+                      1.0, (118,), ("sancti:01-13",), "")]
+    entries = to_yaml_doc("noh3", "III", props, "sanctorale", vocabulary)["sections"][0]["entries"]
+    assert [(e["page"], e["days"]) for e in entries[:2]] == [
+        (118, ["sancti:01-11cc"]), (118, ["sancti:01-13"])]
+    assert entries[1]["status"] == "found"          # the duplicate merged, worst status kept
+    assert entries[2]["page"] == 200
+
+
+def test_to_yaml_doc_duplicate_slugs_are_numbered():
+    vocabulary = {"tempora:Epi4-0": {"title_la": "Dominica IV Post Epiphaniam"}}
+    props = [Proposal("Dominica IV", "", "1", "embedded", 1, "verified", 1.0, (1,), ("tempora:Epi4-0",)),
+             Proposal("Dominica IV", "", "5", "embedded", 5, "verified", 1.0, (5,), ("tempora:Epi4-0",))]
+    entries = to_yaml_doc("noh1", "I", props, "temporale", vocabulary)["sections"][0]["entries"]
+    assert [e["slug"] for e in entries] == ["dominica-iv-post-epiphaniam", "dominica-iv-post-epiphaniam-2"]
+
+
+def test_to_yaml_doc_ocr_title_never_becomes_a_slug():
+    props = [Proposal("Omnium SnnetOI'lUll, Novemhl'is", "", "426", "embedded", 426, "verified", 1.0,
+                      (426,))]
+    entry = to_yaml_doc("noh3", "III", props, "sanctorale")["sections"][0]["entries"][0]
+    assert (entry["slug"], entry["title"]) == ("noh3-p426", "Omnium SnnetOI'lUll, Novemhl'is")
 
 
 def test_compare_counts_agreement():
@@ -390,3 +437,110 @@ def test_extract_noh5_agrees_with_hand_transcription():
     confident = [p for p in props if p.status in ("verified", "found", "consistent")]
     assert [p.page for p in confident if p.page not in truth] == []
     assert compare(props, truth).agree >= 43
+
+
+def test_tidy_rows_drops_index_folio_and_restores_ditto():
+    rows = [Row(1, 0, "INDEX PARTIS III", "441", "embedded"),
+            Row(2, 0, "Agnetis Virg. et Mart., 21 Januarii", "42", "embedded"),
+            Row(3, 0, "secunda, 28 Januarii", "50", "embedded")]
+    assert [r.title for r in tidy_rows(rows)] == [
+        "Agnetis Virg. et Mart., 21 Januarii", "Agnetis secunda, 28 Januarii"]
+
+
+def test_rows_from_columns_wrapped_feast_name_heads_next_entry():
+    """Proper of Saints: a long name wraps, and the continuation is indented on the
+    number's line; the first line must not join the entry above."""
+    words = [word(113, 100, "Agnetis", 40), word(160, 100, "21", 10), word(172, 100, "Januarii", 40),
+             word(306, 100, "42", 12),
+             word(113, 112, "Alexandri", 40), word(160, 112, "Papae,", 30),
+             word(125, 124, "Martyrum,", 40), word(170, 124, "3", 5), word(177, 124, "Maii", 20),
+             word(306, 124, "174", 12)]
+    words += [word(113, 136 + 12 * i, "Alexii", 30) for i in range(3)]
+    words += [word(306, 136 + 12 * i, str(200 + i), 12) for i in range(3)]
+    rows = rows_from_columns(words, find_number_columns(words, min_increasing=0.0))
+    assert rows[0].title == "Agnetis 21 Januarii"
+    assert rows[1].title == "Alexandri Papae, Martyrum, 3 Maii"
+
+
+def test_date_score_heading_with_the_feast_date():
+    assert date_score("Nkomedis ]\\Iart., 1;; Selltembris", "15. SEPTEMBRIS.\nS. NICOMEDIS") == 0.6
+    assert date_score("Nkomedis, 15 Septembris", "16. SEPTEMBRIS.") == 0.0
+    assert date_score("Dominica I Adventus", "15. SEPTEMBRIS.") == 0.0
+
+
+# ----------------------------------------------------------- heading scan ---
+
+class OcrReader(FakeReader):
+    def recognised(self, printed: int) -> str:
+        return self.pages.get(printed, "")
+
+
+def test_parse_feast_heading_dated_line():
+    from pipeline.indexextract import parse_feast_heading
+    assert parse_feast_heading("21. MARTII. — S. BENEDICTI ABBATIS.", None) == (
+        3, 21, "S. BENEDICTI ABBATIS")
+    assert parse_feast_heading("|. 28. AUGUSTI. —— S. AUGUSTINI EPISCOPI", None) == (
+        8, 28, "S. AUGUSTINI EPISCOPI")
+
+
+def test_parse_feast_heading_same_day_takes_last_month():
+    from pipeline.indexextract import parse_feast_heading
+    assert parse_feast_heading("EADEM DIE 4. — S. LUCII I. PAPAE, MARTYRIS.", 3) == (
+        3, 4, "S. LUCII I. PAPAE, MARTYRIS")
+    assert parse_feast_heading("EADEM DIE 4. — S. LUCII", None) is None
+
+
+def test_parse_feast_heading_ocr_extra_digit_and_rejects_prose():
+    from pipeline.indexextract import parse_feast_heading
+    assert parse_feast_heading("271. AUGUSTI. — S. JOSEPHI CALASANCTII", None) == (
+        8, 27, "S. JOSEPHI CALASANCTII")
+    assert parse_feast_heading("Graduale. Os justi, Pars IV, p. 72.", None) is None
+    assert parse_feast_heading("12. Foobar. — S. X", None) is None
+
+
+def test_scan_feast_headings_marks_mass_by_reference():
+    from pipeline.indexextract import scan_feast_headings
+    reader = OcrReader({
+        106: "FESTA MARTII\n4. MARTII. — S. CASIMIRI CONFESSORIS.\nMissa. Os justi, Pars IV, p. 76.\n"
+             "EADEM DIE 4. — S. LUCII I. PAPAE, MARTYRIS.\nIntroitus. Si diligis me",
+        109: "21. MARTII. — S. BENEDICTI ABBATIS.",
+    })
+    found = scan_feast_headings(reader, range(100, 112))
+    assert [(h.page, h.month, h.day, h.rubric is not None) for h in found] == [
+        (106, 3, 4, True), (106, 3, 4, False), (109, 3, 21, False)]
+
+
+def test_proposals_from_headings_rubric_stays_out_of_sections():
+    from pipeline.indexextract import FeastHeading, proposals_from_headings
+    vocabulary = {"sancti:03-04": {"title_la": "S. Casimiri Confessoris"},
+                  "sancti:03-21": {"title_la": "S. Benedicti Abbatis"}}
+    props = proposals_from_headings([
+        FeastHeading(106, 3, 4, "S. CASIMIRI CONFESSORIS", "Missa. Os justi, Pars IV, p. 76."),
+        FeastHeading(109, 3, 21, "S. BENEDICTI ABBATIS", None)], vocabulary)
+    assert [(p.status, p.days) for p in props] == [
+        ("rubric", ("sancti:03-04",)), ("verified", ("sancti:03-21",))]
+    doc = to_yaml_doc("noh3", "III", props, "sanctorale", vocabulary, "Proprium Sanctorum")
+    assert [e["slug"] for e in doc["sections"][0]["entries"]] == ["s-benedicti-abbatis"]
+    assert doc["rubrics"] == [{"title": "S. Casimiri Confessoris", "page": 106,
+                               "reference": "Missa. Os justi, Pars IV, p. 76.",
+                               "days": ["sancti:03-04"]}]
+
+
+def test_scan_feast_headings_title_on_following_lines_and_die():
+    from pipeline.indexextract import scan_feast_headings
+    reader = OcrReader({17: "8. DECEMBRIS.\nIN FESTO IMMACULATAE CONCEPTIONIS\nBEATAE MARIAE VIRGINIS.\nIntroitus",
+                        426: "FESTA NOVEMBRIS.\nDIE 1 NOVEMBRIS.\nIN FESTO\nOMNIUM SANCTORUM"})
+    found = scan_feast_headings(reader, range(1, 500))
+    assert [(h.page, h.month, h.day, h.title) for h in found] == [
+        (17, 12, 8, "IN FESTO IMMACULATAE CONCEPTIONIS BEATAE MARIAE VIRGINIS."),
+        (426, 11, 1, "IN FESTO OMNIUM SANCTORUM")]
+
+
+def test_extract_from_headings_index_fills_lost_heading():
+    from pipeline.indexextract import extract_from_headings
+    reader = OcrReader({109: "21. MARTII. — S. BENEDICTI ABBATIS."})
+    index = [Proposal("Petri et Pauli, 29 Junii", "", "238", "embedded", 238, "verified", 1.0, (238,)),
+             Proposal("Benedicti, 21 Martii", "", "109", "embedded", 109, "verified", 1.0, (109,)),
+             Proposal("Nemo, 1 Maii", "", "7", "embedded", 7, "unverified", 0.0, (7,))]
+    props = extract_from_headings("noh3", None, reader=reader, index=index)
+    assert [(p.page, p.source) for p in props] == [(109, "heading"), (238, "index")]

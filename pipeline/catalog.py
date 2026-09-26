@@ -17,6 +17,7 @@ organist opening "Missa I" and scrolling.
 from __future__ import annotations
 
 import json
+from collections.abc import Callable
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
@@ -24,7 +25,8 @@ import pymupdf
 
 from pipeline.evaluate import analyse_page
 from pipeline.gregobase import DUMP, load_chants
-from pipeline.index import load_index, resolve_ranges, stated_end
+from pipeline.index import IndexEntry, load_index, resolve_ranges, stated_end
+from pipeline.indexextract import MONTH_NAMES
 from pipeline.movements import MovementHit, best_match
 from pipeline.offset import PageMap, load_page_map
 from pipeline.pairing import pair_entry
@@ -90,6 +92,43 @@ def scan_page(vol_id: str, pdf_page: int, page: pymupdf.Page
     return refs, hits, texts
 
 
+# Index statuses that place a piece with evidence: a heading confirmed the page
+# ("verified", "found"), or its own number agreed with the page order
+# ("consistent"). Anything else is published but marked for review.
+CONFIDENT_INDEX = frozenset({"verified", "found", "consistent"})
+
+
+PageScan = tuple[list[SystemRef], list[tuple[int, MovementHit]], list[str]]
+
+
+def scan_pdf(page_map: PageMap, printed: int, scan: Callable[[int], PageScan]) -> list[SystemRef]:
+    """Systems on a printed page, through the caller's page cache."""
+    pdf_page = page_map.to_pdf(printed)
+    return list(scan(pdf_page)[0]) if pdf_page is not None else []
+
+
+def entry_text(entry: IndexEntry) -> str:
+    """What a piece's heading should say: its label, title and incipit, and for
+    a dated feast the date (the Proper of Saints heads every feast with it)."""
+    dates = [f"{int(k[10:12])} {MONTH_NAMES[int(k[7:9])].capitalize()}" for k in entry.days
+             if k.startswith("sancti:") and k[7:9].isdigit() and k[10:12].isdigit()]
+    return " ".join([entry.label if entry.label != entry.title else "", entry.title,
+                     entry.incipit or "", *dates[:1]]).strip()
+
+
+def start_system(vol_id: str, page_map: PageMap, entry: IndexEntry, systems: int) -> int:
+    """First system of the entry on its first page (see pipeline.pagesplit)."""
+    pdf_page = page_map.to_pdf(entry.page)
+    if pdf_page is None or systems == 0:
+        return 0
+    from pipeline.pagesplit import GapReader, first_system
+
+    analysis = analyse_page(vol_id, pdf_page)
+    reader = GapReader(vol_id, pdf_page, entry.page,
+                       [(b.top, b.bottom) for b in analysis.boxes], analysis.page_height)
+    return first_system(reader, entry_text(entry))
+
+
 def build_catalog(vol_id: str, index_path: Path | None = None
                   ) -> tuple[dict[str, object], list[dict[str, object]]]:
     vol = load_volumes()[vol_id]
@@ -100,11 +139,27 @@ def build_catalog(vol_id: str, index_path: Path | None = None
     pieces: list[dict[str, object]] = []
     review: list[dict[str, object]] = []
 
+    entries = load_index(vol_id, index_path)
     with pymupdf.open(vol.path) as doc:
+        scanned: dict[int, PageScan] = {}
+
+        def scan(pdf_page: int) -> PageScan:
+            if pdf_page not in scanned:
+                scanned[pdf_page] = scan_page(vol_id, pdf_page, doc[pdf_page - 1])
+            return scanned[pdf_page]
+
+        # Where each piece begins: (printed page, first system on it). Pieces
+        # own every system from their start up to the next piece's start.
+        starts = [(e.page, start_system(vol_id, page_map, e, len(scan_pdf(page_map, e.page, scan))))
+                  for e in entries]
         # The last body page of the volume, so the final entry is bounded by the
         # book rather than by itself.
         last_body_printed = page_map.last_printed
-        for entry, first, last in resolve_ranges(load_index(vol_id, index_path), last_body_printed):
+        for i, (entry, first, last) in enumerate(resolve_ranges(entries, last_body_printed)):
+            start = starts[i]
+            stop = starts[i + 1] if i + 1 < len(starts) else (last_body_printed + 1, 0)
+            if stop[1] > 0:
+                last = max(last, stop[0])        # the next piece begins mid-page
             declared = stated_end(entry)
             if declared is not None and last > declared:
                 review.append({
@@ -112,6 +167,9 @@ def build_catalog(vol_id: str, index_path: Path | None = None
                     "stated": [entry.page, declared], "resolved": [first, last],
                     "why": "pages after the index's stated end were unclaimed",
                 })
+            if start[1] > 0:
+                review.append({"piece": entry.slug, "kind": "starts_mid_page",
+                               "printed_page": start[0], "first_system": start[1]})
             refs: list[SystemRef] = []
             movements: list[dict[str, object]] = []
             for printed in range(first, last + 1):
@@ -122,9 +180,12 @@ def build_catalog(vol_id: str, index_path: Path | None = None
                     review.append({"piece": entry.slug, "kind": "page_out_of_range",
                                    "printed_page": printed, "pdf_page": None})
                     continue
-                page_refs, hits, texts = scan_page(vol_id, pdf_page, doc[pdf_page - 1])
-                refs.extend(page_refs)
+                page_refs, hits, texts = scan(pdf_page)
+                mine = {r.index for r in page_refs if start <= (printed, r.index) < stop}
+                refs.extend(r for r in page_refs if r.index in mine)
                 for system_index, hit in hits:
+                    if system_index not in mine:
+                        continue
                     record = {
                         "movement": hit.movement, "score": hit.score,
                         "pdf_page": pdf_page, "system": system_index,
@@ -137,9 +198,17 @@ def build_catalog(vol_id: str, index_path: Path | None = None
                     else:
                         review.append({"piece": entry.slug, "kind": "uncertain_movement",
                                        **record})
+            if refs:
+                # Printed pages that actually carry this piece's music.
+                on = sorted({page_map.to_printed(int(r.ref.split("/")[1])) or first for r in refs})
+                first, last = on[0], on[-1]
             if not refs:
                 review.append({"piece": entry.slug, "kind": "no_systems",
                                "printed_pages": [first, last]})
+            if entry.status not in CONFIDENT_INDEX:
+                review.append({"piece": entry.slug, "kind": "index_unverified",
+                               "status": entry.status, "printed_page": entry.page,
+                               "why": "no heading on the page confirmed the index's page number"})
             pairings = pair_entry(entry, chants) if chants else []
             for pairing in pairings:
                 if pairing.status != "verified":
@@ -176,7 +245,8 @@ def build_catalog(vol_id: str, index_path: Path | None = None
                      "score": p.score, "status": p.status}
                     for p in pairings
                 ],
-                "review_status": "verified" if refs else "review",
+                "review_status": "verified" if refs and entry.status in CONFIDENT_INDEX
+                else "review",
             })
 
     catalog: dict[str, object] = {

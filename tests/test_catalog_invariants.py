@@ -86,10 +86,11 @@ def test_genres_are_from_the_controlled_set():
     assert {p["genre"] for p in PIECES} <= GENRES
 
 
-def test_review_status_is_consistent_with_systems():
+def test_review_status_is_consistent_with_systems_and_index():
+    unconfirmed = {(r["volume"], r["piece"]) for r in REVIEW if r["kind"] == "index_unverified"}
     for piece in PIECES:
-        expected = "verified" if piece["systems"] else "review"
-        assert piece["review_status"] == expected, piece["id"]
+        confident = piece["systems"] and (piece["volume"], piece["slug"]) not in unconfirmed
+        assert piece["review_status"] == ("verified" if confident else "review"), piece["id"]
 
 
 def test_attached_movements_are_confident_and_well_formed():

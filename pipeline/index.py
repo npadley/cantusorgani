@@ -42,6 +42,9 @@ class IndexEntry:
     # 1962 calendar keys this piece serves, e.g. ("tempora:Adv1-0",). Empty for
     # pieces that belong to no single day, such as a Kyriale Mass.
     days: tuple[str, ...] = ()
+    # How the page was established: "verified" for a hand transcription; for a
+    # scripted index, the evidence `noh index-extract` found (see its docstring).
+    status: str = "verified"
 
     @property
     def printed_pages(self) -> tuple[int, int]:
@@ -73,7 +76,7 @@ def load_index(vol_id: str, path: Path | None = None) -> list[IndexEntry]:
                 slug=slug, section=section["name"], label=e["label"], title=e["title"],
                 genre=e["genre"], page=e["page"], last_page=e.get("last_page"),
                 incipit=e.get("incipit"), division=division,
-                days=tuple(e.get("days", ())),
+                days=tuple(e.get("days", ())), status=e.get("status", "verified"),
             ))
     return entries
 

@@ -261,3 +261,30 @@ describe("loadYear", () => {
     expect(await loadYear(1999)).toBeNull();
   });
 });
+
+describe("nextDateOf", () => {
+  const years = {
+    2026: { "2026-09-27": { celebration: ["tempora:Pent17-0"], commemoration: [] },
+            "2026-12-25": { celebration: ["sancti:12-25m1"], commemoration: [] } },
+    2027: { "2027-09-19": { celebration: ["tempora:Pent17-0"], commemoration: [] } },
+  };
+
+  it("should find the next date a key is celebrated, on or after the start", async () => {
+    const { nextDateOf } = await import("./liturgy");
+    expect(nextDateOf("tempora:Pent17-0", { year: 2026, month: 9, day: 27 }, years))
+      .toEqual({ year: 2026, month: 9, day: 27 });
+    expect(nextDateOf("tempora:Pent17-0", { year: 2026, month: 9, day: 28 }, years))
+      .toEqual({ year: 2027, month: 9, day: 19 });
+  });
+
+  it("should return null when the key never falls in the loaded years", async () => {
+    const { nextDateOf } = await import("./liturgy");
+    expect(nextDateOf("sancti:01-01", { year: 2026, month: 1, day: 1 }, years)).toBeNull();
+  });
+
+  it("should load the generated calendar to find a date", async () => {
+    const { findNextDate } = await import("./liturgy");
+    const d = await findNextDate("sancti:12-25m1", { year: 2026, month: 1, day: 1 });
+    expect(d).toEqual({ year: 2026, month: 12, day: 25 });
+  });
+});

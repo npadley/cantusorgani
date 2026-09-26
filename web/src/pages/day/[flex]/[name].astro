@@ -1,12 +1,15 @@
 ---
+import ExportBar from "../../../components/ExportBar.astro";
 import Layout from "../../../components/Layout.astro";
 import PieceList from "../../../components/PieceList.astro";
-import { allPieces } from "../../../lib/catalog";
-import { catalogedDays } from "../../../lib/indexes";
-import { COLOR_LABELS, classLabel, observance } from "../../../lib/liturgy";
+import { allPieces, ordinaryMasses } from "../../../lib/catalog";
+import { catalogedDays, pieceHref } from "../../../lib/indexes";
+import {
+  COLOR_LABELS, classLabel, findNextDate, isoOf, kyrialeFor, observance, today,
+} from "../../../lib/liturgy";
 
-// A page for each calendar day that has catalogued music -- none until a
-// Proper volume is catalogued. The date lookup links here when one exists.
+// A page for each calendar day that has catalogued music. The date lookup and
+// the Proper indexes link here.
 export function getStaticPaths() {
   return catalogedDays(allPieces()).map((key) => {
     const [flex, name] = key.split(":");
@@ -19,6 +22,20 @@ const { key } = Astro.props;
 const o = observance(key);
 const pieces = allPieces().filter((p) => p.days.includes(key));
 const title = o?.titleEn ?? key;
+
+// The Ordinary depends on the season and the weekday, so it is suggested for a
+// real date: the next one this day falls on after the build.
+const date = o ? await findNextDate(key, today()) : null;
+const suggestion = o && date ? kyrialeFor(o, date) : null;
+const ordinary = suggestion?.mass
+  ? ordinaryMasses().find((m) => m.label === suggestion.mass) ?? null
+  : null;
+const exportPieces = ordinary ? [...pieces, ordinary] : pieces;
+const longDate = date
+  ? new Date(Date.UTC(date.year, date.month - 1, date.day)).toLocaleDateString("en-GB", {
+      weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
+    })
+  : null;
 ---
 
 <Layout title={title} description={`${title} — organ accompaniment from Nova Organi Harmonia.`}>
@@ -29,10 +46,33 @@ const title = o?.titleEn ?? key;
     {o && (
       <p class="meta ui small muted">
         {classLabel(o.rank)} · {o.colors.map((c) => COLOR_LABELS[c] ?? c).join(" / ")}
+        {date && longDate && <> · next on <a href={`/calendar/?date=${isoOf(date)}`}>{longDate}</a></>}
       </p>
     )}
   </div>
+
+  <h2 class="ui">Proper</h2>
   <PieceList pieces={pieces} />
+
+  {suggestion && (
+    <section class="ordinary">
+      <h2 class="ui">Ordinary</h2>
+      {ordinary ? (
+        <p><a href={pieceHref(ordinary)}>Missa {ordinary.label}{ordinary.incipit ? ` — ${ordinary.incipit}` : ""}</a></p>
+      ) : (
+        <p>{suggestion.candidates.length
+          ? `Missa ${suggestion.candidates.join(" or ")}`
+          : "No single Mass is assigned"}</p>
+      )}
+      <p class="small muted">
+        Kyriale heading: “{suggestion.heading}”{longDate && ` (for ${longDate})`}.
+        {suggestion.note && ` ${suggestion.note}`}
+      </p>
+    </section>
+  )}
+
+  <ExportBar pieces={exportPieces}
+             title={ordinary ? `${title} with Missa ${ordinary.label}` : title} />
 </Layout>
 
 <style>
@@ -40,4 +80,7 @@ const title = o?.titleEn ?? key;
   .crumb a { color: var(--ink-muted); }
   .lede { font-style: italic; font-size: var(--step-1); margin: 0 0 var(--s-1); }
   .meta { margin: 0 0 var(--s-4); }
+  h2 { margin: var(--s-4) 0 var(--s-2); font-size: var(--step-0); color: var(--ink-muted);
+       text-transform: uppercase; letter-spacing: 0.06em; }
+  .ordinary p { margin: 0 0 var(--s-1); }
 </style>

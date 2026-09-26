@@ -327,3 +327,32 @@ export async function loadYear(year: number): Promise<Record<string, CalendarDay
   const module = await entry[1]();
   return module.default.days;
 }
+
+/**
+ * The first date on or after `from` whose celebration includes `key`. Pure: the
+ * caller supplies the loaded years, keyed by year.
+ */
+export function nextDateOf(
+  key: string, from: LocalDate,
+  years: Readonly<Record<number, Readonly<Record<string, CalendarDay>>>>,
+): LocalDate | null {
+  const start = isoOf(from);
+  for (const year of Object.keys(years).map(Number).sort((a, b) => a - b)) {
+    if (year < from.year) continue;
+    const days = years[year] ?? {};
+    const hit = Object.keys(days).sort()
+      .find((iso) => iso >= start && (days[iso]?.celebration ?? []).includes(key));
+    if (hit) return parseIso(hit);
+  }
+  return null;
+}
+
+/** `nextDateOf` over the generated calendar, loading at most `span` years. */
+export async function findNextDate(key: string, from: LocalDate, span = 3): Promise<LocalDate | null> {
+  const years: Record<number, Record<string, CalendarDay>> = {};
+  for (let y = from.year; y < from.year + span; y += 1) {
+    const days = await loadYear(y);
+    if (days) years[y] = days;
+  }
+  return nextDateOf(key, from, years);
+}

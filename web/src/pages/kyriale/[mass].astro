@@ -53,7 +53,7 @@ const found = MOVEMENT_ORDER
       </nav>
     )}
 
-    <ExportBar piece={piece} />
+    <ExportBar pieces={[piece]} title={`Missa ${piece.label}`} />
     <SystemStack piece={piece} id="music" />
     <ChantPair piece={piece} />
   </article>
