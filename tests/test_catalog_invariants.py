@@ -7,13 +7,15 @@ from pathlib import Path
 import pytest
 
 from pipeline.catalog import SCHEMA_VERSION
+from pipeline.offset import PageMap, Segment
 
 CAT = json.loads(Path("data/catalog.json").read_text(encoding="utf-8"))
 REVIEW = json.loads(Path("data/review-queue.json").read_text(encoding="utf-8"))
 PIECES = CAT["pieces"]
-MAX_PRINTED_PAGE = 185          # NOH5 body ends at printed 185 (PDF 231)
+PAGE_MAPS = {vol: PageMap(tuple(Segment(**s) for s in meta["page_map"]))
+             for vol, meta in CAT["volumes"].items()}
 GENRES = {"asperges", "mass_ordinary", "credo", "tonus", "kyrie", "gloria",
-          "sanctus", "agnus", "requiem", "absolutio", "exsequiis"}
+          "sanctus", "agnus", "requiem", "absolutio", "exsequiis", "proper"}
 MOVEMENTS = {"kyrie", "gloria", "credo", "sanctus", "agnus", "ite"}
 
 
@@ -21,9 +23,19 @@ def test_schema_version_matches_the_writer():
     assert CAT["schema_version"] == SCHEMA_VERSION
 
 
-def test_piece_ids_are_unique():
+def test_piece_ids_and_slugs_are_unique_across_volumes():
     ids = [p["id"] for p in PIECES]
-    assert len(ids) == len(set(ids)) == 46
+    slugs = [p["slug"] for p in PIECES]
+    assert len(ids) == len(set(ids))
+    assert len(slugs) == len(set(slugs)), "a slug is a URL and must be unique site-wide"
+
+
+def test_noh5_keeps_its_46_pieces():
+    assert sum(1 for p in PIECES if p["volume"] == "noh5") == 46
+
+
+def test_every_piece_belongs_to_a_recorded_volume():
+    assert {p["volume"] for p in PIECES} <= set(CAT["volumes"])
 
 
 def test_no_two_pieces_claim_the_same_system():
@@ -37,14 +49,15 @@ def test_no_two_pieces_claim_the_same_system():
 def test_page_ranges_are_ordered_and_in_bounds():
     for piece in PIECES:
         first, last = piece["printed_pages"]
-        assert 1 <= first <= last <= MAX_PRINTED_PAGE, piece["id"]
+        assert 1 <= first <= last <= PAGE_MAPS[piece["volume"]].last_printed, piece["id"]
 
 
-def test_pdf_pages_follow_the_recorded_offset():
-    offset = CAT["page_offset"]
+def test_pdf_pages_follow_the_recorded_page_map():
     for piece in PIECES:
-        assert piece["pdf_pages"] == [piece["printed_pages"][0] + offset,
-                                      piece["printed_pages"][1] + offset], piece["id"]
+        page_map = PAGE_MAPS[piece["volume"]]
+        first, last = piece["printed_pages"]
+        mapped = [p for n in range(first, last + 1) if (p := page_map.to_pdf(n)) is not None]
+        assert piece["pdf_pages"] == [min(mapped), max(mapped)], piece["id"]
 
 
 def test_systems_within_a_piece_are_in_reading_order():
@@ -147,6 +160,18 @@ def test_review_entries_name_their_piece(kind):
         assert entry.get("piece"), entry
 
 
+def _sliced(vol: str) -> set[str]:
+    return {f"{vol}/{f.parent.name}/{f.name.split('@')[0]}"
+            for f in Path(f"build/systems/{vol}").glob("*/*@2x.png")}
+
+
+def _built_volumes() -> list[str]:
+    built = [v for v in CAT["volumes"] if Path(f"build/systems/{v}").exists()]
+    if not built:
+        pytest.skip("slices not built; run `noh publish --volume <vol>`")
+    return built
+
+
 def test_every_sliced_system_is_claimed_by_a_piece():
     """A system that exists on disk but that no piece references is music dropped
     on the floor: it is in the volume, it renders nowhere, and nothing else in CI
@@ -156,31 +181,17 @@ def test_every_sliced_system_is_claimed_by_a_piece():
     for want of a following entry, stranding printed 181-184; and an entry with
     an explicit range that stopped short of the next entry orphaned 145-146.
     """
-    sliced = Path("build/systems/noh5")
-    if not sliced.exists():
-        pytest.skip("slices not built; run `noh publish --volume noh5`")
-
-    on_disk = {
-        f"noh5/{f.parent.name}/{f.name.split('@')[0]}"
-        for f in sliced.glob("*/*@2x.png")
-    }
     claimed = {ref for piece in PIECES for ref in piece["systems"]}
-    unclaimed = sorted(on_disk - claimed)
-    assert unclaimed == [], f"{len(unclaimed)} systems claimed by no piece: {unclaimed[:8]}"
+    for vol in _built_volumes():
+        unclaimed = sorted(_sliced(vol) - claimed)
+        assert unclaimed == [], f"{len(unclaimed)} systems claimed by no piece: {unclaimed[:8]}"
 
 
 def test_no_piece_references_a_missing_slice():
-    sliced = Path("build/systems/noh5")
-    if not sliced.exists():
-        pytest.skip("slices not built; run `noh publish --volume noh5`")
-
-    on_disk = {
-        f"noh5/{f.parent.name}/{f.name.split('@')[0]}"
-        for f in sliced.glob("*/*@2x.png")
-    }
-    claimed = {ref for piece in PIECES for ref in piece["systems"]}
-    dangling = sorted(claimed - on_disk)
-    assert dangling == [], f"{len(dangling)} references with no slice: {dangling[:8]}"
+    for vol in _built_volumes():
+        claimed = {ref for piece in PIECES if piece["volume"] == vol for ref in piece["systems"]}
+        dangling = sorted(claimed - _sliced(vol))
+        assert dangling == [], f"{len(dangling)} references with no slice: {dangling[:8]}"
 
 
 def test_extended_ranges_are_recorded_for_review():

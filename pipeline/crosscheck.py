@@ -18,7 +18,7 @@ from pathlib import Path
 
 from pipeline.folio import read_folio_dual
 from pipeline.index import load_index
-from pipeline.offset import load_offset
+from pipeline.offset import load_page_map
 
 
 @dataclass(frozen=True)
@@ -33,10 +33,14 @@ class EntryCheck:
 
 
 def verify_entry_pages(vol_id: str, work_dir: Path | None = None) -> list[EntryCheck]:
-    offset = load_offset(vol_id)
+    page_map = load_page_map(vol_id)
     results: list[EntryCheck] = []
     for entry in load_index(vol_id):
-        pdf_page = entry.page + offset
+        pdf_page = page_map.to_pdf(entry.page)
+        if pdf_page is None:
+            results.append(EntryCheck(entry.label, entry.title, entry.page, 0, None, None,
+                                      "mismatch"))
+            continue
         reading = read_folio_dual(vol_id, pdf_page, work_dir)
         if reading.folio == entry.page:
             status = "confirmed"

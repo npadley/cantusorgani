@@ -1,7 +1,19 @@
 {
-  "schema_version": 1,
-  "volume": "noh5",
-  "page_offset": 46,
+  "schema_version": 2,
+  "volumes": {
+    "noh5": {
+      "title": "Kyriale",
+      "part": "V",
+      "page_map": [
+        {
+          "first_pdf": 47,
+          "last_pdf": 230,
+          "offset": 46,
+          "verified": 0
+        }
+      ]
+    }
+  },
   "chant_source": {
     "name": "GregoBase",
     "url": "https://gregobase.selapa.net",

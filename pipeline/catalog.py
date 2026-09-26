@@ -26,13 +26,13 @@ from pipeline.evaluate import analyse_page
 from pipeline.gregobase import DUMP, load_chants
 from pipeline.index import load_index, resolve_ranges, stated_end
 from pipeline.movements import MovementHit, best_match
-from pipeline.offset import load_offset
+from pipeline.offset import PageMap, load_page_map
 from pipeline.pairing import pair_entry
 from pipeline.publish import asset_stem, load_manifest, trimmed_boxes
 from pipeline.systemtext import PX_TO_PT, condense, system_texts
 from pipeline.volumes import DATA, load_volumes
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 LEFT_MARGIN_FRAC = 0.18
 
 
@@ -93,7 +93,7 @@ def scan_page(vol_id: str, pdf_page: int, page: pymupdf.Page
 def build_catalog(vol_id: str, index_path: Path | None = None
                   ) -> tuple[dict[str, object], list[dict[str, object]]]:
     vol = load_volumes()[vol_id]
-    offset = load_offset(vol_id)
+    page_map = load_page_map(vol_id)
     # Chant pairing is optional: the site is usable without it, and the vendored
     # GregoBase dump is not tracked in git.
     chants = load_chants() if DUMP.exists() else []
@@ -103,10 +103,7 @@ def build_catalog(vol_id: str, index_path: Path | None = None
     with pymupdf.open(vol.path) as doc:
         # The last body page of the volume, so the final entry is bounded by the
         # book rather than by itself.
-        last_body_printed = max(
-            p for p in range(1, vol.pdf_pages + 1)
-            if p not in vol.index_pdf_pages and p >= vol.first_body_pdf_page
-        ) - offset
+        last_body_printed = page_map.last_printed
         for entry, first, last in resolve_ranges(load_index(vol_id, index_path), last_body_printed):
             declared = stated_end(entry)
             if declared is not None and last > declared:
@@ -118,10 +115,12 @@ def build_catalog(vol_id: str, index_path: Path | None = None
             refs: list[SystemRef] = []
             movements: list[dict[str, object]] = []
             for printed in range(first, last + 1):
-                pdf_page = printed + offset
-                if not 1 <= pdf_page <= vol.pdf_pages:
+                pdf_page = page_map.to_pdf(printed)
+                if pdf_page is None:
+                    # A printed page this scan does not contain (NOH1 lacks
+                    # 348-349), or one outside the body.
                     review.append({"piece": entry.slug, "kind": "page_out_of_range",
-                                   "printed_page": printed, "pdf_page": pdf_page})
+                                   "printed_page": printed, "pdf_page": None})
                     continue
                 page_refs, hits, texts = scan_page(vol_id, pdf_page, doc[pdf_page - 1])
                 refs.extend(page_refs)
@@ -166,7 +165,7 @@ def build_catalog(vol_id: str, index_path: Path | None = None
                 "mode": None,
                 "mass": entry.label if entry.genre == "mass_ordinary" else None,
                 "printed_pages": [first, last],
-                "pdf_pages": [first + offset, last + offset],
+                "pdf_pages": _pdf_span(page_map, first, last),
                 "systems": [r.ref for r in refs],
                 "system_assets": [r.asset for r in refs],
                 "system_aspect": [list(r.aspect) for r in refs],
@@ -182,8 +181,8 @@ def build_catalog(vol_id: str, index_path: Path | None = None
 
     catalog: dict[str, object] = {
         "schema_version": SCHEMA_VERSION,
-        "volume": vol_id,
-        "page_offset": offset,
+        "volumes": {vol_id: {"title": vol.title, "part": vol.part,
+                             "page_map": [asdict(seg) for seg in page_map.segments]}},
         "chant_source": {
             "name": "GregoBase", "url": "https://gregobase.selapa.net",
             "licence": "CC BY-SA 4.0",
@@ -196,13 +195,49 @@ def build_catalog(vol_id: str, index_path: Path | None = None
     return catalog, review
 
 
+def _pdf_span(page_map: PageMap, first: int, last: int) -> list[int]:
+    mapped = [p for p in (page_map.to_pdf(n) for n in range(first, last + 1)) if p is not None]
+    return [min(mapped), max(mapped)] if mapped else [0, 0]
+
+
+Catalog = dict[str, object]
+Record = dict[str, object]
+
+
+def merge_catalog(existing: Catalog | None, update: Catalog) -> Catalog:
+    """Replace one volume's pieces in the site catalog, keeping every other volume.
+
+    Slugs are URLs (/piece/<slug>/), so a slug may appear once across ALL volumes."""
+    new_volumes: dict[str, object] = dict(update["volumes"])  # one volume
+    new_pieces: list[Record] = list(update["pieces"])
+    if existing is None or existing.get("schema_version") != SCHEMA_VERSION:
+        existing = {"schema_version": SCHEMA_VERSION, "volumes": {}, "pieces": []}
+    volumes: dict[str, object] = {**dict(existing["volumes"]), **new_volumes}
+    old_pieces: list[Record] = list(existing["pieces"])
+    pieces = [p for p in old_pieces if p["volume"] not in new_volumes] + new_pieces
+    order = {v: i for i, v in enumerate(sorted(volumes))}
+    pieces.sort(key=lambda p: order[str(p["volume"])])   # stable: page order within a volume
+    slugs = [str(p["slug"]) for p in pieces]
+    duplicates = sorted({s for s in slugs if slugs.count(s) > 1})
+    if duplicates:
+        raise ValueError(f"slugs repeat across volumes: {duplicates}")
+    return {**existing, "schema_version": SCHEMA_VERSION, "volumes": volumes,
+            "chant_source": update.get("chant_source") or existing.get("chant_source"),
+            "pieces": pieces}
+
+
 def write_catalog(vol_id: str, data_dir: Path = DATA,
                   index_path: Path | None = None) -> tuple[Path, Path]:
     catalog, review = build_catalog(vol_id, index_path)
     cat_path = data_dir / "catalog.json"
     rev_path = data_dir / "review-queue.json"
-    cat_path.write_text(json.dumps(catalog, indent=2) + "\n", encoding="utf-8")
-    rev_path.write_text(json.dumps(review, indent=2) + "\n", encoding="utf-8")
+    existing = json.loads(cat_path.read_text(encoding="utf-8")) if cat_path.exists() else None
+    merged = merge_catalog(existing, catalog)
+    queue = json.loads(rev_path.read_text(encoding="utf-8")) if rev_path.exists() else []
+    queue = [r for r in queue if r.get("volume", "noh5") != vol_id]
+    queue += [{"volume": vol_id, **r} for r in review]
+    cat_path.write_text(json.dumps(merged, indent=2) + "\n", encoding="utf-8")
+    rev_path.write_text(json.dumps(queue, indent=2) + "\n", encoding="utf-8")
     return cat_path, rev_path
 
 

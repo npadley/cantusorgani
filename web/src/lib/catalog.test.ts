@@ -133,7 +133,10 @@ function rawPiece(overrides: Record<string, unknown> = {}): Record<string, unkno
 }
 
 function rawCatalog(pieces: unknown[], overrides: Record<string, unknown> = {}) {
-  return { schema_version: 1, volume: "noh5", page_offset: 46, chant_source: null, pieces, ...overrides };
+  return {
+    schema_version: 2, volumes: { noh5: { title: "Kyriale", part: "V", page_map: [] } },
+    chant_source: null, pieces, ...overrides,
+  };
 }
 
 describe("parseCatalog", () => {
@@ -146,7 +149,17 @@ describe("parseCatalog", () => {
 
   it("should reject a schema version it does not understand", async () => {
     const { parseCatalog } = await import("./catalog");
-    expect(() => parseCatalog(rawCatalog([], { schema_version: 2 }))).toThrow(/schema_version 2/);
+    expect(() => parseCatalog(rawCatalog([], { schema_version: 1 }))).toThrow(/schema_version 1/);
+  });
+
+  it("should reject a piece from a volume the catalog does not record", async () => {
+    const { parseCatalog } = await import("./catalog");
+    expect(() => parseCatalog(rawCatalog([rawPiece({ volume: "noh9" })]))).toThrow(/unknown volume/);
+  });
+
+  it("should expose each volume's title and part", async () => {
+    const { parseCatalog } = await import("./catalog");
+    expect(parseCatalog(rawCatalog([])).volumes).toEqual({ noh5: { title: "Kyriale", part: "V" } });
   });
 
   it("should reject an unknown genre", async () => {

@@ -50,6 +50,8 @@ def build_parser() -> argparse.ArgumentParser:
     offset.add_argument("--volume", required=True)
     offset.add_argument("--sample-size", type=int, default=20)
     offset.add_argument("--seed", type=int, default=0)
+    offset.add_argument("--segments", action="store_true",
+                        help="derive a piecewise page map (a scan with inserted or missing pages)")
 
     folio = subs.add_parser("folio", help="read folios for pages (dual-source)")
     _add_common(folio)
@@ -116,6 +118,17 @@ def main(argv: list[str] | None = None) -> int:
         for i, page in enumerate(pages, 1):
             out = render_page(args.volume, page, args.out, dpi=args.dpi, force=args.force)
             print(f"[{i}/{len(pages)}] {out}")
+        return 0
+
+    if args.command == "offset" and args.segments:
+        from pipeline.offset import derive_page_map, persist_page_map
+        page_map = derive_page_map(args.volume, seed=args.seed)
+        for seg in page_map.segments:
+            print(f"{args.volume}: pdf {seg.first_pdf}-{seg.last_pdf}  offset {seg.offset:+d}  "
+                  f"verified readings {seg.verified}")
+        for first, last in page_map.gaps:
+            print(f"  unmapped pdf {first}-{last}")
+        persist_page_map(args.volume, page_map)
         return 0
 
     if args.command == "offset":

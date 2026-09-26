@@ -1,4 +1,56 @@
 {
+  "noh1": {
+    "gaps": [],
+    "offset": 27,
+    "segments": [
+      {
+        "first_pdf": 29,
+        "last_pdf": 122,
+        "offset": 26,
+        "verified": 4
+      },
+      {
+        "first_pdf": 123,
+        "last_pdf": 374,
+        "offset": 27,
+        "verified": 3
+      },
+      {
+        "first_pdf": 375,
+        "last_pdf": 379,
+        "offset": 25,
+        "verified": 3
+      }
+    ],
+    "source_sha256": "7e2b55b20dd29a9eaa6ef665abd59e738d98b8cec6bd98c6e3b8650c284c91d4"
+  },
+  "noh2": {
+    "confidence": 1.0,
+    "disagreements": [],
+    "offset": 32,
+    "samples": 16,
+    "seed": 0,
+    "source_sha256": "7b59b85cc48c1c1984558e94f09438779d6fec221e371fb9ae1709b94ecb0d71"
+  },
+  "noh3": {
+    "gaps": [],
+    "offset": 33,
+    "segments": [
+      {
+        "first_pdf": 34,
+        "last_pdf": 409,
+        "offset": 33,
+        "verified": 5
+      },
+      {
+        "first_pdf": 410,
+        "last_pdf": 475,
+        "offset": 35,
+        "verified": 6
+      }
+    ],
+    "source_sha256": "fca64d8655a8ce1623b32a0af9622eb1cdd357e1fd12af582ac8ed74477ce84f"
+  },
   "noh5": {
     "confidence": 1.0,
     "disagreements": [],

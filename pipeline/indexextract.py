@@ -32,6 +32,8 @@ from dataclasses import dataclass, field, replace
 from difflib import SequenceMatcher
 from pathlib import Path
 
+from pipeline.offset import PageMap
+
 # ------------------------------------------------------------------ digits ---
 
 # OCR confusions observed on NOH index pages: 98->"S8", 106->":06", 110->"il0",
@@ -506,9 +508,9 @@ class HeadingReader:
     line -- it lost some headings entirely -- Tesseract reads the gaps between the
     systems. The same rule applies to every page, so neighbours compete fairly."""
 
-    def __init__(self, vol_id: str, offset: int, pdf_pages: int, ocr: bool = True,
+    def __init__(self, vol_id: str, page_map: PageMap, pdf_pages: int, ocr: bool = True,
                  cache_dir: Path | None = None, excluded: frozenset[int] = frozenset()) -> None:
-        self.vol_id, self.offset, self.pdf_pages, self.ocr = vol_id, offset, pdf_pages, ocr
+        self.vol_id, self.page_map, self.pdf_pages, self.ocr = vol_id, page_map, pdf_pages, ocr
         # The index pages themselves print every title: they would verify anything.
         self.cache_dir, self.excluded = cache_dir, excluded
         self._embedded: dict[int, str] = {}
@@ -520,7 +522,7 @@ class HeadingReader:
         return [(b.top, b.bottom) for b in analyse_page(self.vol_id, pdf_page).boxes]
 
     def embedded(self, printed: int) -> str:
-        pdf = printed + self.offset
+        pdf = self.page_map.to_pdf(printed) or 0
         if pdf not in self._embedded:
             if not 1 <= pdf <= self.pdf_pages or pdf in self.excluded:
                 self._embedded[pdf] = ""
@@ -542,7 +544,7 @@ class HeadingReader:
         return self._embedded[pdf]
 
     def recognised(self, printed: int) -> str:
-        pdf = printed + self.offset
+        pdf = self.page_map.to_pdf(printed) or 0
         cache = self.cache_dir / f"{pdf:04d}.txt" if self.cache_dir else None
         if pdf not in self._ocr and cache is not None and cache.exists():
             self._ocr[pdf] = cache.read_text(encoding="utf-8")
@@ -599,20 +601,18 @@ def extract(vol_id: str, ordered: bool = True, ocr: bool = True,
             vocabulary: dict[str, dict[str, object]] | None = None,
             reader: HeadingReader | None = None) -> list[Proposal]:
     """Read a volume's printed index and verify every page against its headings."""
-    from pipeline.offset import load_offset
+    from pipeline.offset import load_page_map
     from pipeline.volumes import load_volumes
 
     vol = load_volumes()[vol_id]
-    offset = load_offset(vol_id)
-    if offset is None:
-        raise ValueError(f"{vol_id}: no derived offset. Run `uv run noh offset {vol_id}` first.")
+    page_map = load_page_map(vol_id)
     if reader is None:
         from pipeline.render import BUILD
 
-        reader = HeadingReader(vol_id, offset, vol.pdf_pages, ocr=ocr,
+        reader = HeadingReader(vol_id, page_map, vol.pdf_pages, ocr=ocr,
                                cache_dir=BUILD / "headings" / vol_id,
                                excluded=frozenset(vol.index_pdf_pages))
-    highest = vol.pdf_pages - offset
+    highest = page_map.last_printed
     rows = [r for page in vol.index_pdf_pages for r in read_index_rows(vol_id, page, ordered, ocr)]
 
     floor = 0

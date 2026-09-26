@@ -14,3 +14,40 @@ volumes:
     source_url: null          # durable mirror (archive.org / IMSLP item id)
     retrieved: null           # ISO date
     provenance: null          # scanning institution, or "author's scan"
+  noh1:
+    title: "Proprium de Tempore: Advent to Holy Saturday"
+    part: "I"
+    file: "NOH1 Advent-Easter.pdf"
+    pdf_pages: 380
+    index_pdf_pages: [380]   # PDF 28 is a second scan of the same index, before the body
+    first_body_pdf_page: 29
+    page_offset: null
+    sha256: "7e2b55b20dd29a9eaa6ef665abd59e738d98b8cec6bd98c6e3b8650c284c91d4"
+    source_url: null
+    retrieved: null
+    provenance: null
+  noh2:
+    title: "Proprium de Tempore: Easter to the last Sunday after Pentecost"
+    part: "II"
+    file: "NOH2 Easter-Advent.pdf"
+    pdf_pages: 293
+    index_pdf_pages: [293]
+    first_body_pdf_page: 33
+    page_offset: null
+    sha256: "7b59b85cc48c1c1984558e94f09438779d6fec221e371fb9ae1709b94ecb0d71"
+    source_url: null
+    retrieved: null
+    provenance: null
+  noh3:
+    title: "Proprium Sanctorum"
+    part: "III"
+    file: "NOH3 Proprium Sanctorum.pdf"
+    pdf_pages: 499
+    index_pdf_pages: [476, 477, 478, 479]
+    first_body_pdf_page: 34
+    last_body_pdf_page: 475   # 480-499 are addenda with their own pagination
+    page_offset: null
+    sha256: "fca64d8655a8ce1623b32a0af9622eb1cdd357e1fd12af582ac8ed74477ce84f"
+    source_url: null
+    retrieved: null
+    provenance: null

@@ -36,6 +36,7 @@ from pipeline.indexextract import (
     to_yaml_doc,
     tokens,
 )
+from pipeline.offset import PageMap, Segment
 
 needs_tesseract = pytest.mark.skipif(not tesseract_available(), reason="tesseract not installed")
 
@@ -44,7 +45,7 @@ class FakeReader(HeadingReader):
     """Headings from a dict of printed page -> text, no PDF."""
 
     def __init__(self, pages: dict[int, str]) -> None:
-        super().__init__("test", 0, 999, ocr=False)
+        super().__init__("test", PageMap((Segment(1, 999, 0),)), 999, ocr=False)
         self.pages = pages
 
     def embedded(self, printed: int) -> str:

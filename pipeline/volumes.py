@@ -30,6 +30,9 @@ class Volume:
     source_url: str | None
     retrieved: str | None
     provenance: str | None
+    # Last PDF page of the body, when something with its own pagination follows
+    # (NOH3's addenda). Omitted: the body runs to the end, less the index pages.
+    last_body_pdf_page: int | None = None
 
     @property
     def path(self) -> Path:

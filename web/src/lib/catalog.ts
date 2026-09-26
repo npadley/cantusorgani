@@ -3,7 +3,7 @@ import raw from "../../../data/catalog.json";
 /** Genre of a catalogued piece. Mirrors the pipeline's controlled set. */
 export type Genre =
   | "asperges" | "mass_ordinary" | "credo" | "tonus" | "kyrie" | "gloria"
-  | "sanctus" | "agnus" | "requiem" | "absolutio" | "exsequiis";
+  | "sanctus" | "agnus" | "requiem" | "absolutio" | "exsequiis" | "proper";
 
 /** Confidence of the NOH piece -> GregoBase chant match. */
 export type PairStatus = "verified" | "unverified" | "unpaired";
@@ -70,15 +70,20 @@ export interface ChantSource {
   readonly note: string;
 }
 
+/** A source volume, and how its printed pages map to PDF pages. */
+export interface VolumeInfo {
+  readonly title: string;
+  readonly part: string;
+}
+
 export interface Catalog {
   readonly schemaVersion: number;
-  readonly volume: string;
-  readonly pageOffset: number;
+  readonly volumes: Readonly<Record<string, VolumeInfo>>;
   readonly chantSource: ChantSource | null;
   readonly pieces: readonly Piece[];
 }
 
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
 
 /** Liturgical order, not catalog order. Never sort movements alphabetically. */
 export const MOVEMENT_ORDER: readonly Movement[] = [
@@ -87,7 +92,7 @@ export const MOVEMENT_ORDER: readonly Movement[] = [
 
 const GENRES: ReadonlySet<string> = new Set<Genre>([
   "asperges", "mass_ordinary", "credo", "tonus", "kyrie", "gloria",
-  "sanctus", "agnus", "requiem", "absolutio", "exsequiis",
+  "sanctus", "agnus", "requiem", "absolutio", "exsequiis", "proper",
 ]);
 
 const RECORD_STATUSES: ReadonlySet<string> = new Set<RecordStatus>([
@@ -126,10 +131,14 @@ interface RawPiece {
   readonly review_status: string;
 }
 
+interface RawVolume {
+  readonly title: string;
+  readonly part: string;
+}
+
 interface RawCatalog {
   readonly schema_version: number;
-  readonly volume: string;
-  readonly page_offset: number;
+  readonly volumes: Readonly<Record<string, RawVolume>>;
   readonly chant_source: ChantSource | null;
   readonly pieces: readonly RawPiece[];
 }
@@ -165,6 +174,7 @@ export function parseCatalog(input: unknown): Catalog {
   }
 
   const pieces = doc.pieces.map((p): Piece => {
+    if (!(p.volume in doc.volumes)) throw new Error(`${p.id}: unknown volume ${p.volume}`);
     if (!GENRES.has(p.genre)) throw new Error(`${p.id}: unknown genre ${p.genre}`);
     if (!RECORD_STATUSES.has(p.review_status)) {
       throw new Error(`${p.id}: unknown review_status ${p.review_status}`);
@@ -198,8 +208,8 @@ export function parseCatalog(input: unknown): Catalog {
 
   return {
     schemaVersion: doc.schema_version,
-    volume: doc.volume,
-    pageOffset: doc.page_offset,
+    volumes: Object.fromEntries(Object.entries(doc.volumes).map(
+      ([id, v]): [string, VolumeInfo] => [id, { title: v.title, part: v.part }])),
     chantSource: doc.chant_source,
     pieces,
   };
