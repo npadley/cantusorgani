@@ -67,6 +67,16 @@ def build_parser() -> argparse.ArgumentParser:
     calendar.add_argument("--from", dest="first", type=int, default=2024)
     calendar.add_argument("--to", dest="last", type=int, default=2050)
 
+    ix = subs.add_parser("index-extract",
+                         help="read a volume's printed index by script and verify it against page headings")
+    ix.add_argument("--volume", required=True, help="volume id from data/volumes.yml")
+    ix.add_argument("--alphabetical", action="store_true",
+                    help="the index is alphabetical, not in page order (NOH3)")
+    ix.add_argument("--division", default="varia", help="division for sections with no clearer one")
+    ix.add_argument("--no-ocr", action="store_true", help="embedded text layer only (fast, weaker)")
+    ix.add_argument("--out", type=Path, default=None,
+                    help="proposal path (default data/index-<vol>.proposed.yml)")
+
     cat = subs.add_parser("catalog", help="build data/catalog.json and review-queue.json")
     cat.add_argument("--volume", required=True)
 
@@ -165,6 +175,9 @@ def main(argv: list[str] | None = None) -> int:
               f"({manifest['licence']})")
         return 0
 
+    if args.command == "index-extract":
+        return _index_extract(args)
+
     if args.command == "catalog":
         from pipeline.catalog import write_catalog
         cat_path, review_path = write_catalog(args.volume)
@@ -233,3 +246,46 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
+
+def _index_extract(args: argparse.Namespace) -> int:
+    from collections import Counter
+
+    import yaml
+
+    from pipeline.indexextract import REVIEW_STATUSES, compare, extract, to_yaml_doc
+    from pipeline.litcal import load_vocabulary
+    from pipeline.volumes import DATA, load_volumes
+
+    vol = load_volumes()[args.volume]
+    proposals = extract(args.volume, ordered=not args.alphabetical, ocr=not args.no_ocr,
+                        # Only calendar books get calendar keys: a Kyriale title matching
+                        # a feast by accident would put a Mass on the wrong day.
+                        vocabulary=load_vocabulary() if args.division in
+                        {"temporale", "sanctorale", "commune"} else None)
+    for p in proposals:
+        mark = "ok " if p.status == "verified" else "?  " if p.page else "!! "
+        days = ",".join(p.days)
+        print(f"{mark}{p.page!s:>4}  {p.status:10s} {p.score:.2f}  {p.title[:48]:48s} {days}")
+    counts = Counter(p.status for p in proposals)
+    print("\n" + "  ".join(f"{k}={v}" for k, v in sorted(counts.items()))
+          + f"  of {len(proposals)}; {sum(counts[s] for s in REVIEW_STATUSES)} to review")
+
+    reviewed = DATA / f"index-{args.volume}.yml"
+    if reviewed.exists():
+        doc = yaml.safe_load(reviewed.read_text(encoding="utf-8"))
+        pages = [e["page"] for s in doc["sections"] for e in s["entries"]]
+        result = compare(proposals, pages)
+        print(f"against {reviewed.name}: {result.agree}/{len(pages)} pages agree; "
+              f"not proposed {result.missing}; proposed but not reviewed "
+              f"{[(p, t[:30]) for _, p, t in result.differ]}")
+
+    out = args.out or DATA / f"index-{args.volume}.proposed.yml"
+    doc = to_yaml_doc(args.volume, vol.part, proposals, args.division)
+    header = (f"# PROPOSED index for {args.volume}, written by `noh index-extract`. No AI.\n"
+              "# Review every entry whose status is not 'verified', then promote this file\n"
+              f"# to index-{args.volume}.yml. The script never overwrites a reviewed index.\n")
+    out.write_text(header + yaml.safe_dump(doc, sort_keys=False, allow_unicode=True, width=120),
+                   encoding="utf-8")
+    print(f"wrote {out}")
+    return 0
