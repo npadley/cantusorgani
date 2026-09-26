@@ -519,7 +519,9 @@ def title_similarity(a: str, b: str, strict_numerals: bool = True) -> float:
                   SequenceMatcher(None, word, w).ratio() for w in words_l]
         best = max(ratios, default=0.0)
         covered += best if best >= 0.75 else 0.0
-    coverage = covered / len(words_r) if words_r and _numerals(right) <= _numerals(left) else 0.0
+    numbers_fit = _numerals(right) <= _numerals(left) and (
+        _numerals(left) <= _numerals(right) or not strict_numerals)
+    coverage = covered / len(words_r) if words_r and numbers_fit else 0.0
     return round(max(symmetric, COVERAGE_WEIGHT * coverage), 3)
 
 
@@ -702,7 +704,9 @@ class HeadingReader:
                 height = max((w.y1 for w in words), default=1.0) / (1 - FOOT_BAND / 2)
                 kept = [w for w in words
                         if TOP_BAND * height < w.y0 < (1 - FOOT_BAND) * height
-                        and not any(top <= (w.y0 + w.y1) / 2 <= bottom for top, bottom in boxes)]
+                        # By the word's TOP: a heading's tall capitals dip into the
+                        # headroom a system box keeps for the text line above it.
+                        and not any(top <= w.y0 + 2 <= bottom for top, bottom in boxes)]
                 lines: list[list[Word]] = []
                 for w in sorted(kept, key=lambda w: (w.y0, w.x0)):
                     if lines and abs(lines[-1][0].y0 - w.y0) <= 4:
@@ -989,7 +993,8 @@ def weekday_of(title: str) -> int | None:
 
 
 def calendar_keys(title: str, vocabulary: dict[str, dict[str, object]],
-                  sunday: str | None = None) -> tuple[tuple[str, ...], str]:
+                  sunday: str | None = None, require_title: bool = False
+                  ) -> tuple[tuple[str, ...], str]:
     """1962 calendar keys for an index title, and a note when there is none.
 
     A dated feast maps by its date -- among that date's observances, the one whose
@@ -1005,6 +1010,13 @@ def calendar_keys(title: str, vocabulary: dict[str, dict[str, object]],
                     if k.startswith(prefix) and not k[len(prefix):len(prefix) + 1].isdigit()}
         if not same_day:
             return (), f"no 1962 observance on {prefix[7:]}"
+        if require_title:
+            # A feast kept only in some places: its date alone says nothing,
+            # since the general calendar keeps another saint that day.
+            best = max(same_day, key=lambda k: title_similarity(title, str(same_day[k].get("title_la", ""))))
+            if title_similarity(title, str(same_day[best].get("title_la", ""))) < 0.5:
+                return (), f"no 1962 observance of this feast on {prefix[7:]}"
+            return (best,), ""
         if len(same_day) == 1:
             return (next(iter(same_day)),), ""
         scored = sorted(same_day, key=lambda k: (-title_similarity(
@@ -1120,7 +1132,7 @@ def to_yaml_doc(vol_id: str, part: str, proposals: list[Proposal], division: str
         title, clean = _group_title(group, vocabulary)
         days = list(dict.fromkeys(k for p in group for k in p.days))
         name = first.section or section_name or "Index"
-        section_division = guess(name, DIVISION_WORDS, division)
+        section_division = SECTION_DIVISIONS.get(name) or guess(name, DIVISION_WORDS, division)
         # A URL is kept for good: never build one from OCR noise. A slug comes
         # from the first clean title, or else from the volume and page.
         base = slugify(title.split(" · ")[0])[:64].strip("-") if clean else ""
@@ -1289,3 +1301,205 @@ def proposals_from_headings(headings: list[FeastHeading],
                             "rubric" if h.rubric else "verified", 1.0, (h.page,), days, note,
                             h.rubric or ""))
     return out
+
+
+# ------------------------------------------------------- section headings ---
+#
+# NOH4 has no index in this scan. Its body is headed like a book of Commons:
+# "COMMUNE CONFESSORIS PONTIFICIS." opens a Common, "DE EODEM COMMUNI. ALIA
+# MISSA." a second Mass of it, "PRO VIRGINE ET MARTYRE." a variant, and the
+# votive Masses follow under their own titles. Each heading (a line or two of
+# capitals) begins a piece.
+
+HEADING_STARTS = ("commune", "comm", "de", "pro", "item", "similiter", "in", "missa", "missae",
+                  "misse", "alia", "feria", "sabbato", "dominica", "festum", "oratio", "a", "ab")
+NOT_HEADINGS = ("commune sanctorum", "pars iv", "pars")
+# Headings that only qualify the one before: "DE EODEM COMMUNI. ALIA MISSA.",
+# "ITEM PRO VIRGINE TANTUM.", "A PASCHA USQUE AD PENTECOSTEN."
+QUALIFIERS = ("de eodem", "item", "pro ", "similiter", "alia", "a ", "ab ")
+SECTIONS = (("votiv", "Missae Votivae"), ("aliquibus", "Missae pro aliquibus locis"))
+SECTION_DIVISIONS = {"Commune Sanctorum": "commune", "Missae Votivae": "varia",
+                     "Missae pro aliquibus locis": "sanctorale"}
+
+
+@dataclass(frozen=True)
+class SectionHeading:
+    page: int
+    title: str
+    parent: str            # the heading it qualifies ("DE EODEM COMMUNI" -> its COMMUNE)
+    section: str
+    rubric: str | None = None   # "Missa. Si diligis me, vide ad calcem": no music here
+    date: tuple[int, int] | None = None
+
+
+def _heading_words(line: str) -> list[str]:
+    return re.findall(r"[a-z]+", fold(line.replace("~", "i").replace(":", "")))
+
+
+def is_section_heading(line: str) -> bool:
+    words = _heading_words(line)
+    if len(words) < 2 or not _is_capitals(line):
+        return False
+    if " ".join(words) in NOT_HEADINGS or re.match(r"pars\b", " ".join(words)):
+        return False
+    # Real words, not OCR noise off a stave: a known opening, mostly long words.
+    long_words = [w for w in words if len(w) >= 3]
+    if words[0] in ("a", "ab") and "usque" not in words:
+        return False              # "A PASCHA USQUE AD PENTECOSTEN" -- not stave noise
+    return words[0] in HEADING_STARTS and len(long_words) * 2 >= len(words)
+
+
+def _clean_heading(lines: list[str]) -> str:
+    text = " ".join(lines)
+    text = re.sub(r"[|!~]", "", text)
+    text = re.sub(r"\s+", " ", text).strip(" .,;:")
+    return text
+
+
+def _section_marker(line: str) -> str | None:
+    """"MISSAE VOTIVAE" (plural): a section title. "MISSA VOTIVA PRO FIDEI
+    PROPAGATIONE" (singular) is a Mass in that section."""
+    folded = fold(line)
+    first = re.sub(r"[^a-z]", "", folded.split()[0]) if folded.split() else ""
+    if not _is_capitals(line) or not first.startswith("miss") or first == "missa":
+        return None
+    return next((name for key, name in SECTIONS if key in folded), None)
+
+
+def scan_section_headings(reader: HeadingReader, printed_pages: range) -> list[SectionHeading]:
+    """Headings in page order. OCR is read first; the text layer is used on a
+    page only where OCR found none (the two read the same headings, differently
+    spelt, and would otherwise double every entry).
+
+    Three kinds of line open a piece: a capitals heading ("COMMUNE DOCTORUM.",
+    "MISSA PRO PACE."), a dated feast ("10. DECEMBRIS. — TRANSLATIONIS ALMAE
+    DOMUS B.M.V."), and a heading continuing onto a second capitals line joins
+    the first. Section titles ("MISSAE VOTIVAE") and month titles ("FESTA
+    DECEMBRIS") change the context but are not pieces."""
+    found: list[SectionHeading] = []
+    parent, section, month = "", "Commune Sanctorum", None
+    for page in printed_pages:
+        texts = (reader.recognised(page), reader.embedded(page))
+        # A section title governs its whole page, whichever source read it.
+        markers = [m for text in texts for ln in text.splitlines() if (m := _section_marker(ln))]
+        if markers and markers[-1] != section:
+            section, parent = markers[-1], ""
+        for text in texts:
+            lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+            page_found: list[SectionHeading] = []
+            i = 0
+            while i < len(lines):
+                line = lines[i]
+                if _section_marker(line):
+                    i += 1
+                    continue
+                if re.match(r"\W*festa\s+[a-z]+", fold(line)):
+                    i += 1                               # "FESTA DECEMBRIS."
+                    continue
+                dated = parse_feast_heading(line, month)
+                if dated is not None:
+                    month, day, title = dated
+                    group = [title] if title else []
+                    i += 1
+                    while i < len(lines) and _is_capitals(lines[i]) and not parse_feast_heading(lines[i], month):
+                        if title and not is_section_heading(lines[i]) and len(group) >= 1:
+                            group.append(lines[i])       # "CUM S. JOSEPH." ends the title
+                        elif not title:
+                            group.append(lines[i])
+                        else:
+                            break
+                        i += 1
+                    following = lines[i] if i < len(lines) else ""
+                    page_found.append(SectionHeading(page, _clean_heading(group), "", section,
+                                                     _rubric(following), (month, day)))
+                    continue
+                if is_section_heading(line):
+                    group = [line]
+                    i += 1
+                    # A heading runs on over further capitals lines ("IN
+                    # ANNIVERSARIO" / "ELECTIONIS SEU CONSECRATIONIS EPISCOPI").
+                    while (i < len(lines) and _is_capitals(lines[i]) and not _section_marker(lines[i])
+                           and parse_feast_heading(lines[i], month) is None
+                           and not fold(lines[i]).startswith(("commune", "comm"))):
+                        group.append(lines[i])
+                        i += 1
+                    title = _clean_heading(group)
+                    following = lines[i] if i < len(lines) else ""
+                    if is_qualifier(title) and parent:
+                        page_found.append(SectionHeading(page, title, parent, section,
+                                                         _rubric(following)))
+                    else:
+                        # A heading in its own right names the pieces that qualify it.
+                        parent = _clean_heading(group[:1])
+                        page_found.append(SectionHeading(page, title, "", section, _rubric(following)))
+                    continue
+                i += 1
+            if page_found:
+                found += page_found
+                break
+    return found
+
+
+def is_qualifier(title: str) -> bool:
+    """A heading that only qualifies the one before it -- "DE EODEM COMMUNI.
+    ALIA MISSA.", "ITEM PRO VIRGINE TANTUM. ALIA MISSA.", "A PASCHA USQUE AD
+    PENTECOSTEN." -- as against one that names its own Mass ("ITEM FERIA V.
+    MISSA DE SS. EUCHARISTIAE SACRAMENTO")."""
+    folded = fold(title)
+    return (folded.startswith("de eodem") or "alia missa" in folded
+            or (folded.startswith(QUALIFIERS) and "missa" not in folded))
+
+
+def _rubric(following: str) -> str | None:
+    return following if re.match(r"\W*M[il]ssa\b", following, re.IGNORECASE) else None
+
+
+def _title_case(text: str) -> str:
+    small = {"et", "de", "in", "pro", "ad", "nec", "non", "tempore", "sine", "cum", "usque"}
+    words = text.lower().split()
+
+    def cased(i: int, w: str) -> str:
+        if _ROMAN.match(w.strip(".,;:")) or re.fullmatch(r"(?:[a-z]\.){2,}[a-z]?\.?,?", w):
+            return w.upper()                     # "II.", "B.M.V.", "D.N.J.C."
+        if i and w in small and not words[i - 1].endswith("."):
+            return w
+        return w[:1].upper() + w[1:]
+
+    return " ".join(cased(i, w) for i, w in enumerate(words))
+
+
+def proposals_from_sections(headings: list[SectionHeading],
+                            vocabulary: dict[str, dict[str, object]] | None = None) -> list[Proposal]:
+    """One piece per heading, titled with the heading it qualifies ("Commune
+    Virginum — Item pro Virgine tantum, alia Missa"). Dated feasts take calendar
+    keys by their date."""
+    out: list[Proposal] = []
+    for h in headings:
+        title = _title_case(h.title)
+        if h.parent:
+            title = f"{_title_case(h.parent)} — {title}"
+        days: tuple[str, ...] = ()
+        note = ""
+        if h.date is not None and vocabulary:
+            month, day = h.date
+            days, note = calendar_keys(f"{h.title}, {day} {MONTH_NAMES[month].capitalize()}", vocabulary,
+                                       require_title=True)
+            title = f"{title}, {day} {MONTH_NAMES[month].capitalize()}"
+        elif vocabulary and h.section != "Missae pro aliquibus locis":
+            # A votive or Common Mass that is also a day of the calendar (Our
+            # Lady's Saturday Masses). A local feast is not one.
+            snap = snap_title(h.title, {k: v for k, v in vocabulary.items()
+                                        if k.startswith(("commune:", "tempora:"))}, minimum=CONFIDENT_SNAP)
+            days = (snap.key,) if snap.key else ()
+        out.append(Proposal(title, h.section, "", "heading", h.page,
+                            "rubric" if h.rubric else "verified", 1.0, (h.page,), days, note,
+                            h.rubric or ""))
+    return out
+
+
+def extract_from_sections(vol_id: str, vocabulary: dict[str, dict[str, object]] | None = None,
+                          reader: HeadingReader | None = None) -> list[Proposal]:
+    """Catalogue a volume with no index from its section headings (NOH4)."""
+    reader = reader or make_reader(vol_id)
+    pages = range(1, reader.page_map.last_printed + 1)
+    return proposals_from_sections(scan_section_headings(reader, pages), vocabulary)

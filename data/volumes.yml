@@ -51,3 +51,15 @@ volumes:
     source_url: null
     retrieved: null
     provenance: null
+  noh4:
+    title: "Commune Sanctorum, Missae Votivae et pro aliquibus locis"
+    part: "IV"
+    file: "NOH4 Commune Sanctorum.pdf"
+    pdf_pages: 418
+    index_pdf_pages: []       # this scan has no index; catalogued from its headings
+    first_body_pdf_page: 32
+    page_offset: null
+    sha256: "056fa93b299af12c994218bed889707175f6433e59bbcfc5fc36b1ca20da0075"
+    source_url: null
+    retrieved: null
+    provenance: null

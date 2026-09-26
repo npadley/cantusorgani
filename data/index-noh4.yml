@@ -1,0 +1,793 @@
+# PARS IV -- catalogued by `noh index-extract --from-sections` (no AI), reviewed 2026-09-26.
+#
+# This scan has no index. Pieces begin at the capitals headings in the body;
+# titles are the headings as OCR read them, corrected by hand (`index_title` keeps
+# the reading). `rubrics` are feasts whose Mass is only a reference.
+# PDF 195-196 are inserted pages numbered 162i and 163i; they are not mapped to a
+# printed page and are not catalogued yet.
+volume: noh4
+part: IV
+generated_by: noh index-extract
+sections:
+- name: Commune Sanctorum
+  division: commune
+  entries:
+  - slug: in-vigilia-unius-apostoli
+    label: In Vigilia Unius Apostoli
+    title: In Vigilia Unius Apostoli
+    genre: proper
+    page: 1
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: In Vigilia Unius Apostoli
+  - slug: commune-unius-martyris-pontificis
+    label: Commune unius Martyris Pontificis
+    title: Commune unius Martyris Pontificis
+    genre: proper
+    page: 3
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Unius Mar1yris Pontificis
+  - slug: commune-unius-martyris-pontificis-alia-missa
+    label: Commune unius Martyris Pontificis — alia Missa
+    title: Commune unius Martyris Pontificis — alia Missa
+    genre: proper
+    page: 11
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Unius Mar1yris Pontificis — De Eodem Communi. Alia Missa
+  - slug: commune-unius-martyris-non-pontificis
+    label: Commune unius Martyris non Pontificis
+    title: Commune unius Martyris non Pontificis
+    genre: proper
+    page: 18
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Unius Martyris non Pontificis
+  - slug: commune-unius-martyris-non-pontificis-alia-missa
+    label: Commune unius Martyris non Pontificis — alia Missa
+    title: Commune unius Martyris non Pontificis — alia Missa
+    genre: proper
+    page: 24
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Unius Martyris non Pontificis — De Eodem Communi. Alia Missa
+  - slug: commune-martyrum-tempore-paschali-de-uno-martyre
+    label: Commune Martyrum tempore Paschali — de uno Martyre
+    title: Commune Martyrum tempore Paschali — de uno Martyre
+    genre: proper
+    page: 29
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Martyris tempore Paschali. De Uno Martyre
+  - slug: commune-martyrum-tempore-paschali-de-pluribus-martyribus
+    label: Commune Martyrum tempore Paschali — de pluribus Martyribus
+    title: Commune Martyrum tempore Paschali — de pluribus Martyribus
+    genre: proper
+    page: 35
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: De Pluribus Martyribus tempore Paschali
+  - slug: commune-plurimorum-martyrum
+    label: Commune Plurimorum Martyrum
+    title: Commune Plurimorum Martyrum
+    genre: proper
+    page: 40
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Plurimorum Martyrum
+  - slug: commune-plurimorum-martyrum-alia-missa
+    label: Commune plurimorum Martyrum — alia Missa (I)
+    title: Commune plurimorum Martyrum — alia Missa (I)
+    genre: proper
+    page: 48
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Plurimorum Martyrum — De Eodem Communi Alia Missa
+  - slug: commune-plurimorum-martyrum-alia-missa-2
+    label: Commune plurimorum Martyrum — alia Missa (II)
+    title: Commune plurimorum Martyrum — alia Missa (II)
+    genre: proper
+    page: 54
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Plurimorum Martyrum — De Eodem Communi. Alia Missa
+  - slug: commune-confessoris-pontificis
+    label: Commune Confessoris Pontificis
+    title: Commune Confessoris Pontificis
+    genre: proper
+    page: 60
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Confessoris Pontificis
+  - slug: commune-confessoris-pontificis-alia-missa
+    label: Commune Confessoris Pontificis — alia Missa
+    title: Commune Confessoris Pontificis — alia Missa
+    genre: proper
+    page: 66
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Confessoris Pontificis — De Eodem Communi Alia Missa
+  - slug: commune-doctorum
+    label: Commune Doctorum
+    title: Commune Doctorum
+    genre: proper
+    page: 71
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Doctorum
+  - slug: commune-confessoris-non-pontificis
+    label: Commune Confessoris non Pontificis
+    title: Commune Confessoris non Pontificis
+    genre: proper
+    page: 76
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Confessoris non Pontificis
+  - slug: commune-confessoris-non-pontificis-alia-missa
+    label: Commune Confessoris non Pontificis — alia Missa
+    title: Commune Confessoris non Pontificis — alia Missa
+    genre: proper
+    page: 82
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Confessoris non Pontificis — De Eodem Communi Alia Missa
+  - slug: commune-confessoris-non-pontificis-missa-pro-abbatibus
+    label: Commune Confessoris non Pontificis — Missa pro Abbatibus
+    title: Commune Confessoris non Pontificis — Missa pro Abbatibus
+    genre: proper
+    page: 86
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Confessoris non Pontificis — De Eodem Communl Missa pro Abbatibus
+  - slug: commune-virginum-pro-virgine-et-martyre
+    label: Commune Virginum — pro Virgine et Martyre
+    title: Commune Virginum — pro Virgine et Martyre
+    genre: proper
+    page: 90
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Virginum. Pro Virgine et Martyre
+  - slug: commune-virginum-pro-virgine-et-martyre-2
+    label: Commune Virginum — pro Virgine et Martyre, alia Missa
+    title: Commune Virginum — pro Virgine et Martyre, alia Missa
+    genre: proper
+    page: 99
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Virginum — Item pro Virgine et Martyre. Alia Missa
+  - slug: commune-plurium-virginum-et-martyrum
+    label: Commune plurium Virginum et Martyrum
+    title: Commune plurium Virginum et Martyrum
+    genre: proper
+    page: 107
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Plurium Virginum et Martyrum
+  - slug: commune-virginum-pro-virgine-tantum
+    label: Commune Virginum — pro Virgine tantum
+    title: Commune Virginum — pro Virgine tantum
+    genre: proper
+    page: 107
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Plurium Virginum et Martyrum — Pro Virgine Tantum
+  - slug: commune-virginum-pro-virgine-tantum-2
+    label: Commune Virginum — pro Virgine tantum, alia Missa
+    title: Commune Virginum — pro Virgine tantum, alia Missa
+    genre: proper
+    page: 115
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Plurium Virginum et Martyrum — Item pro Virgine Tantum. Alia Missa
+  - slug: commune-non-virginum-pro-una-martyre-non-virgine
+    label: Commune non Virginum — pro una Martyre non Virgine
+    title: Commune non Virginum — pro una Martyre non Virgine
+    genre: proper
+    page: 119
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune non Virginum. Pro Una Martyre non Virgine
+  - slug: commune-non-virginum-pro-nec-virgine-nec-martyre
+    label: Commune non Virginum — pro nec Virgine nec Martyre
+    title: Commune non Virginum — pro nec Virgine nec Martyre
+    genre: proper
+    page: 121
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune non Virginum — Pro nec Virgine nec Martyre
+  - slug: in-anniversario-dedicationis-ecclesiae
+    label: In Anniversario Dedicationis Ecclesiae
+    title: In Anniversario Dedicationis Ecclesiae
+    genre: proper
+    page: 127
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: In Anniversario Dedicationis Ecclesiae
+- name: Missae Votivae
+  division: varia
+  entries:
+  - slug: feria-ii-missa-de-sanctissima-trinitate
+    label: Feria II. Missa de Sanctissima Trinitate
+    title: Feria II. Missa de Sanctissima Trinitate
+    genre: mass_ordinary
+    page: 134
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Feria Il. Missa de Sanctissima Trinitate
+  - slug: feria-iii-missa-de-angelis
+    label: Feria III. Missa de Angelis
+    title: Feria III. Missa de Angelis
+    genre: mass_ordinary
+    page: 138
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Feria Ill, Missa de Angelis
+  - slug: feria-iv-missa-de-s-joseph
+    label: Feria IV. Missa de S. Joseph
+    title: Feria IV. Missa de S. Joseph
+    genre: mass_ordinary
+    page: 143
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Feria IV. Missa de S. Joseph
+  - slug: feria-iv-missa-de-ss-apostolis-petro-et-paulo
+    label: Feria IV. Missa de SS. Apostolis Petro et Paulo
+    title: Feria IV. Missa de SS. Apostolis Petro et Paulo
+    genre: mass_ordinary
+    page: 144
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Item Feria IV. / Missa de Ss. Apostolis Petro et Paulo
+  - slug: feria-iv-missa-de-omnibus-ss-apostolis
+    label: Feria IV. Missa de omnibus SS. Apostolis
+    title: Feria IV. Missa de omnibus SS. Apostolis
+    genre: mass_ordinary
+    page: 144
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Similiter Feria IV, Missa de Omnibus Ss. Apostolis. (omnia Ut in Missa Przecedenti)
+  - slug: feria-v-missa-de-spiritu-sancto
+    label: Feria V. Missa de Spiritu Sancto
+    title: Feria V. Missa de Spiritu Sancto
+    genre: sanctus
+    page: 146
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Feria V. Missa de Spiritu Sancto
+  - slug: feria-v-missa-de-ss-eucharistiae-sacramento
+    label: Feria V. Missa de SS. Eucharistiae Sacramento
+    title: Feria V. Missa de SS. Eucharistiae Sacramento
+    genre: mass_ordinary
+    page: 151
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Item Feria V. Missa de Ss. Eucharistue Sacramento
+  - slug: feria-v-missa-de-d-n-jesu-christi-summo-et-aeterno-sacerdote
+    label: Feria V. Missa de D. N. Jesu Christi summo et aeterno Sacerdote
+    title: Feria V. Missa de D. N. Jesu Christi summo et aeterno Sacerdote
+    genre: mass_ordinary
+    page: 155
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Similiter Feria V. Missa de D. N. Jesu Christi Summi et 7eterni Sacerdotis
+  - slug: feria-vi-missa-de-sancta-cruce
+    label: Feria VI. Missa de Sancta Cruce
+    title: Feria VI. Missa de Sancta Cruce
+    genre: sanctus
+    page: 162
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa de Sancta Cruce
+  - slug: feria-vi-missa-de-passione-d-n-jesu-christi
+    label: Feria VI. Missa de Passione D. N. Jesu Christi
+    title: Feria VI. Missa de Passione D. N. Jesu Christi
+    genre: mass_ordinary
+    page: 164
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Item Feria VI, Missa de Passione D. N. Jesu Christi
+  - slug: missa-de-sancta-maria-in-sabbato-ab-adventu-usque-ad-nativitatem
+    label: Missa de Sancta Maria in Sabbato — ab Adventu usque ad Nativitatem
+    title: Missa de Sancta Maria in Sabbato — ab Adventu usque ad Nativitatem
+    genre: sanctus
+    page: 174
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa de Sancta Maria, in Sabbato. Ab Adventu usque ad Nativitatem Domini
+  - slug: missa-de-sancta-maria-in-sabbato-a-nativitate-usque-ad-purificat
+    label: Missa de Sancta Maria in Sabbato — a Nativitate usque ad Purificationem
+    title: Missa de Sancta Maria in Sabbato — a Nativitate usque ad Purificationem
+    genre: sanctus
+    page: 177
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa de Sancta Maria, in Sabbato — A Nativitate Domini usque ad Purificationem
+  - slug: missa-de-sancta-maria-in-sabbato-a-purificatione-usque-ad-pascha
+    label: Missa de Sancta Maria in Sabbato — a Purificatione usque ad Pascha
+    title: Missa de Sancta Maria in Sabbato — a Purificatione usque ad Pascha
+    genre: sanctus
+    page: 180
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa de Sancta Maria, in Sabbato — A Purificatione usque ad Pascha
+  - slug: missa-de-sancta-maria-in-sabbato-a-pascha-usque-ad-pentecosten
+    label: Missa de Sancta Maria in Sabbato — a Pascha usque ad Pentecosten
+    title: Missa de Sancta Maria in Sabbato — a Pascha usque ad Pentecosten
+    genre: sanctus
+    page: 181
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa de Sancta Maria, in Sabbato — A Pascha usque ad Pentecosten
+  - slug: missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum
+    label: Missa de Sancta Maria in Sabbato — a Pentecoste usque ad Adventum
+    title: Missa de Sancta Maria in Sabbato — a Pentecoste usque ad Adventum
+    genre: sanctus
+    page: 182
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa de Sancta Maria, in Sabbato — A Pentecoste usque ad Adventum
+  - slug: missa-pro-eligendo-summo-pontifice
+    label: Missa pro eligendo Summo Pontifice
+    title: Missa pro eligendo Summo Pontifice
+    genre: mass_ordinary
+    page: 188
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Pro Diversis Rebus. Missa pro Eligendo Summo Pontifice, Sede Vacante
+  - slug: missa-ad-tollendum-schisma
+    label: Missa ad Tollendum Schisma
+    title: Missa ad Tollendum Schisma
+    genre: mass_ordinary
+    page: 196
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa ad Tollendum Schisma
+  - slug: missa-pro-quacumque-necessitate
+    label: Missa pro Quacumque Necessitate
+    title: Missa pro Quacumque Necessitate
+    genre: mass_ordinary
+    page: 203
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa pro Quacumque Necessitate
+  - slug: missa-pro-remissione-peccatorum
+    label: Missa pro Remissione Peccatorum
+    title: Missa pro Remissione Peccatorum
+    genre: mass_ordinary
+    page: 206
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa pro Remissione Peccatorum
+  - slug: missa-ad-postulandam-gratiam-bene-moriendi
+    label: Missa ad Postulandam Gratiam Bene Moriendi
+    title: Missa ad Postulandam Gratiam Bene Moriendi
+    genre: mass_ordinary
+    page: 209
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa ad Postulandam Gratiam Bene Moriendi
+  - slug: missa-contra-paganos
+    label: Missa contra Paganos
+    title: Missa contra Paganos
+    genre: mass_ordinary
+    page: 210
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa Contra Paganos
+  - slug: missa-tempore-belli
+    label: Missa tempore Belli
+    title: Missa tempore Belli
+    genre: mass_ordinary
+    page: 213
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa tempore Belli
+  - slug: missa-pro-pace
+    label: Missa pro Pace
+    title: Missa pro Pace
+    genre: mass_ordinary
+    page: 214
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: ». Missa pro Pace
+  - slug: missa-pro-vitanda-mortalitate
+    label: Missa pro vitanda Mortalitate
+    title: Missa pro vitanda Mortalitate
+    genre: mass_ordinary
+    page: 214
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa pro Vitanda Mortatittatf
+  - slug: missa-pro-infirmis
+    label: Missa pro Infirmis
+    title: Missa pro Infirmis
+    genre: mass_ordinary
+    page: 220
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa pro Infirmis
+  - slug: missa-pro-peregrinantibus-vel-iter-agentibus
+    label: Missa pro Peregrinantibus vel iter agentibus
+    title: Missa pro Peregrinantibus vel iter agentibus
+    genre: mass_ordinary
+    page: 223
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa pro Peregrinantibus Vel Iter Agentibus
+  - slug: missa-pro-sponso-et-sponsa
+    label: Missa pro Sponso et Sponsa
+    title: Missa pro Sponso et Sponsa
+    genre: mass_ordinary
+    page: 226
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa pro Sponso et Sponsa
+  - slug: missa-votiva-pro-fidei-propagatione
+    label: Missa Votiva pro Fidei Propagatione
+    title: Missa Votiva pro Fidei Propagatione
+    genre: mass_ordinary
+    page: 234
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa Votiva pro Fidei Propagatione
+  - slug: missa-ad-postulandam-gratiam-spiritus-sancti
+    label: Missa ad Postulandam Gratiam Spiritus Sancti
+    title: Missa ad Postulandam Gratiam Spiritus Sancti
+    genre: sanctus
+    page: 243
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa ad Postulandam Gratiam Spiritus Sancti
+  - slug: missa-pro-gratiarum-actione
+    label: Missa pro Gratiarum Actione
+    title: Missa pro Gratiarum Actione
+    genre: mass_ordinary
+    page: 243
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Missa pro Gratiarum Actione
+- name: Missae pro aliquibus locis
+  division: sanctorale
+  entries:
+  - slug: translatio-almae-domus-b-m-v
+    label: Translatio Almae Domus B.M.V., 10 Decembris
+    title: Translatio Almae Domus B.M.V., 10 Decembris
+    genre: proper
+    page: 244
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Translationis Alme Domus B.M.V, 10 Decembris
+    calendar_note: no 1962 observance of this feast on 12-10
+  - slug: exspectatio-partus-b-m-v
+    label: Exspectatio Partus B.M.V., 18 Decembris
+    title: Exspectatio Partus B.M.V., 18 Decembris
+    genre: proper
+    page: 248
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Exspectationis Partus B.M.V, 18 Decembris
+    calendar_note: no 1962 observance on 12-18
+  - slug: fuga-d-n-j-c-in-aegyptum
+    label: Fuga D.N.J.C. in Aegyptum, 17 Februarii
+    title: Fuga D.N.J.C. in Aegyptum, 17 Februarii
+    genre: proper
+    page: 249
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Fugjze D.N.J.C. In /egyptum, 17 Februarii
+    calendar_note: no 1962 observance on 02-17
+  - slug: oratio-d-n-j-c
+    label: Oratio D.N.J.C. (Feria III post Dominicam Septuagesimae)
+    title: Oratio D.N.J.C. (Feria III post Dominicam Septuagesimae)
+    genre: proper
+    page: 254
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Feria Ih. Post Dominicam Septuagesima, Orationis Domini Nostri Jesu Christi
+  - slug: ss-spineae-coronae-d-n-j-c
+    label: SS. Spineae Coronae D.N.J.C. (Feria VI post Cineres)
+    title: SS. Spineae Coronae D.N.J.C. (Feria VI post Cineres)
+    genre: proper
+    page: 260
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Feria VI. Post Cineres. Ss. Spine/e Coronee D.N. Jesu Christi
+  - slug: ss-lanceae-et-clavorum-d-n-j-c
+    label: SS. Lanceae et Clavorum D.N.J.C. (Feria VI post Dominicam I Quadragesimae)
+    title: SS. Lanceae et Clavorum D.N.J.C. (Feria VI post Dominicam I Quadragesimae)
+    genre: proper
+    page: 270
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Feria VI. Post Dominicam I.quadragesimje. Ss. Lanceje et Clavorum D.N. Jesu Christi
+  - slug: ss-sindonis-d-n-j-c
+    label: SS. Sindonis D.N.J.C. (Feria VI post Dominicam II Quadragesimae)
+    title: SS. Sindonis D.N.J.C. (Feria VI post Dominicam II Quadragesimae)
+    genre: proper
+    page: 272
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Feria VI. Post Dominicam II. Quadragesima. Sacratissimje. Sindonis D.N. Jesu Christi
+  - slug: s-benedicti-josephi-labre-conf
+    label: S. Benedicti Josephi Labre Conf., 16 Aprilis
+    title: S. Benedicti Josephi Labre Conf., 16 Aprilis
+    genre: proper
+    page: 274
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: '- S. Benedicti Josephi Labre Conr, 16 Aprilis'
+    calendar_note: no 1962 observance on 04-16
+  - slug: b-m-v-de-bono-consilio
+    label: B.M.V. de Bono Consilio, 26 Aprilis
+    title: B.M.V. de Bono Consilio, 26 Aprilis
+    genre: proper
+    page: 284
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: B.M.V. De Bono Consilio, 26 Aprilis
+    calendar_note: no 1962 observance of this feast on 04-26
+  - slug: s-joannis-nepomuceni-martyris
+    label: S. Joannis Nepomuceni Martyris, 16 Maii
+    title: S. Joannis Nepomuceni Martyris, 16 Maii
+    genre: proper
+    page: 292
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Martyris, 16 Maii
+    calendar_note: no 1962 observance of this feast on 05-16
+  - slug: b-m-v-auxilium-christianorum
+    label: B.M.V. Auxilium Christianorum, 24 Maii
+    title: B.M.V. Auxilium Christianorum, 24 Maii
+    genre: proper
+    page: 300
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: B.M.V. Sub Titulo Auxiuum Christianorum, 24 Maii
+    calendar_note: no 1962 observance on 05-24
+  - slug: b-m-v-omnium-gratiarum-mediatricis
+    label: B.M.V. Omnium Gratiarum Mediatricis, 31 Maii
+    title: B.M.V. Omnium Gratiarum Mediatricis, 31 Maii
+    genre: proper
+    page: 308
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: ', 31 Maii'
+    calendar_note: no 1962 observance of this feast on 05-31
+  - slug: purissimi-cordis-b-m-v
+    label: Purissimi Cordis B.M.V. (Sabbato post Octavam Corporis Christi)
+    title: Purissimi Cordis B.M.V. (Sabbato post Octavam Corporis Christi)
+    genre: proper
+    page: 317
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Sabbato Post Octavam Corporis Christi. Purissimi Cordis B. Marue Virginis
+  - slug: eucharistici-cordis-jesu
+    label: Eucharistici Cordis Jesu (Feria V post Octavam Corporis Christi)
+    title: Eucharistici Cordis Jesu (Feria V post Octavam Corporis Christi)
+    genre: proper
+    page: 328
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Feria V, Post Octavam Sacratissimi Corporis Christi. Eucharistici Cordis Jesu. /
+  - slug: b-m-v-matris-de-gratia
+    label: B.M.V. Matris de Gratia, 9 Junii
+    title: B.M.V. Matris de Gratia, 9 Junii
+    genre: proper
+    page: 336
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: 8.m.v. Matris de Gratia, 9 Junii
+    calendar_note: no 1962 observance of this feast on 06-09
+  - slug: s-joannis-francisci-regis-conf
+    label: S. Joannis Francisci Regis Conf., 16 Junii
+    title: S. Joannis Francisci Regis Conf., 16 Junii
+    genre: proper
+    page: 337
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: S. Joannis Francisci Regis Conr, 16 Junii
+    calendar_note: no 1962 observance on 06-16
+  - slug: commemoratio-omnium-ss-summorum-pontificum
+    label: Commemoratio omnium SS. Summorum Pontificum, 3 Julii
+    title: Commemoratio omnium SS. Summorum Pontificum, 3 Julii
+    genre: proper
+    page: 344
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: In Commem. Omnium Ss. Summorum Pontificum, 3 Julii
+    calendar_note: no 1962 observance of this feast on 07-03
+  - slug: humilitatis-b-m-v
+    label: Humilitatis B.M.V., 17 Julii
+    title: Humilitatis B.M.V., 17 Julii
+    genre: proper
+    page: 346
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Humilitatis B.M.V, 17 Julii
+    calendar_note: no 1962 observance of this feast on 07-17
+  - slug: s-philumenae-virginis-et-martyris
+    label: S. Philumenae Virginis et Martyris, 11 Augusti
+    title: S. Philumenae Virginis et Martyris, 11 Augusti
+    genre: proper
+    page: 346
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: S. Philumenz/e Virginis et Martyris, 11 Augusti
+    calendar_note: no 1962 observance of this feast on 08-11
+  - slug: s-gregorii-episcopi-majoris-armeniae-et-martyris
+    label: S. Gregorii Episcopi Majoris Armeniae et Martyris, 1 Octobris
+    title: S. Gregorii Episcopi Majoris Armeniae et Martyris, 1 Octobris
+    genre: proper
+    page: 355
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: S. Gregorii Ep. Maj. Armeni/e et Martyris, 1 Octobris
+    calendar_note: no 1962 observance of this feast on 10-01
+  - slug: puritatis-b-m-v
+    label: Puritatis B.M.V., 16 Octobris
+    title: Puritatis B.M.V., 16 Octobris
+    genre: proper
+    page: 355
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Puritatis B. Marue Virginis, 16 Octobris
+    calendar_note: no 1962 observance of this feast on 10-16
+  - slug: sanctissimi-redemptoris
+    label: Sanctissimi Redemptoris, 23 Octobris
+    title: Sanctissimi Redemptoris, 23 Octobris
+    genre: proper
+    page: 360
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Sanctissimi Redemptoris. T, 23 Octobris
+    calendar_note: no 1962 observance of this feast on 10-23
+  - slug: sacrarum-reliquiarum
+    label: Sacrarum Reliquiarum, 5 Novembris
+    title: Sacrarum Reliquiarum, 5 Novembris
+    genre: proper
+    page: 365
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Sacrarum Reliquiarum, 5 Novembris
+    calendar_note: no 1962 observance on 11-05
+  - slug: s-stanislai-kostkae-confessoris
+    label: S. Stanislai Kostkae Confessoris, 13 Novembris
+    title: S. Stanislai Kostkae Confessoris, 13 Novembris
+    genre: proper
+    page: 366
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: S. Stanislai Kostk/e . Confessoris, 13 Novembris
+    calendar_note: no 1962 observance of this feast on 11-13
+- name: Commune Summorum Pontificum
+  division: commune
+  entries:
+  - slug: commune-unius-aut-plurium-summorum-pontificum
+    label: Commune unius aut plurium Summorum Pontificum
+    title: Commune unius aut plurium Summorum Pontificum
+    genre: proper
+    page: 377
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: Commune Unius Aut Plurium Summorum Pontificum
+unplaced: []
+rubrics:
+- title: 'In Anniversario : Electionis. Seu Consecrationis Episcopi'
+  page: 196
+  reference: Missa. Sacerdótes tui, Dómine, p. 66.
+- title: Desponsationis B.M.V cum S. Joseph, 23 Januarii
+  page: 248
+  reference: Missa. Salve, sancta Parens, uf in Festo Visitationis, Pars Ill, p. 254.
+- title: S. Ildephonsi Ep. Et Conf, 23 Januarii
+  page: 248
+  reference: Missa. In médio, ut supra, p. 71.
+- title: S. Margarit7e De. Cortona P7enitentis, 26 Februarii
+  page: 254
+  reference: Missa. Cognóvi, uf supra, p. 121. |
+- title: Feria Hi. Post Dominicam Sexagesima. In Commem. Ss. Passionis D.N. Jesu Christi
+  page: 260
+  reference: Missa. Humilihvit semetipsum, uf supra, p. 164.
+- title: Feria VI, Post Dominicam III, Quadragesimze, Sacror. Quinque Vulnerum D.N. Jesu Christi
+  page: 273
+  reference: Missa. Humiliávit semetipsum, uf supra, p. 164.
+- title: Feria VI. Post Dominicam Iv.quadragesimje, / Pretiosissimi Sanguinis D. N. Jesu Christi
+  page: 273
+  reference: Missa ut in Graduali, Domínica I. Julii, Pars III, p. 244.
+- title: S. Ferdinandi Regis Conf, 30 Maii
+  page: 300
+  reference: Missa. Justus ut palma, p. 82.
+- title: Sabbato Ante Dominicam IV, Julii. B.M.V. Matris Misericordue
+  page: 346
+  reference: Missa. Salve, sancta Parens, p. 182.
+- title: B.M.V. Titulo Refugium Peccatorum, 13 Augusti
+  page: 346
+  reference: Missa. Salve, sancta Parens, p. 182.
+- title: S. Rochi Confessoris, 16 Augusti
+  page: 355
+  reference: Missa. Justus ut palma, p. 82,
+- title: B.M.V. Divini Pastoris Matris, 3 Septembris
+  page: 355
+  reference: Missa. Salve, sancta Parens, p 182.
+- title: S, Ros/e Viterbiensis Virginis, 4 Septembris
+  page: 355
+  reference: Missa. Dilexisti, p. 107.

@@ -24,8 +24,13 @@ describe("catalog", () => {
     expect(piece?.pdfPages).toEqual([51, 56]);
   });
 
-  it("exposes all 46 pieces", () => {
-    expect(allPieces()).toHaveLength(46);
+  it("should keep all 46 pieces of the Kyriale volume", () => {
+    expect(allPieces().filter((p) => p.volume === "noh5")).toHaveLength(46);
+  });
+
+  it("should give every piece a slug unique across all volumes", () => {
+    const slugs = allPieces().map((p) => p.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
   });
 
   it("lists the eighteen ordinary Masses in printed order", () => {
@@ -200,7 +205,7 @@ describe("catalog navigation helpers", () => {
     const { sections } = await import("./catalog");
     const list = sections();
     expect(new Set(list).size).toBe(list.length);
-    expect(list[0]).toBe("Ordinarium Missae");
+    expect(list).toContain("Ordinarium Missae");
   });
 
   it("should return only the pieces of the requested section", async () => {

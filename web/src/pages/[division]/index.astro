@@ -22,7 +22,9 @@ const { meta } = Astro.props;
 const pieces = piecesIn(allPieces(), meta.division as Division);
 
 const seasons = meta.division === "temporale" ? temporaleIndex(pieces) : [];
-const months = meta.division === "sanctorale" ? sanctoraleIndex(pieces) : [];
+// Saints' days from every book: a feast whose Mass is taken from the Common is
+// listed with the Common Mass it uses.
+const months = meta.division === "sanctorale" ? sanctoraleIndex(allPieces()) : [];
 const bySection = new Map<string, Piece[]>();
 if (!seasons.length && !months.length) {
   for (const p of pieces) bySection.set(p.section, [...(bySection.get(p.section) ?? []), p]);

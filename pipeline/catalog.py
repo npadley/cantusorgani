@@ -17,11 +17,13 @@ organist opening "Missa I" and scrolling.
 from __future__ import annotations
 
 import json
+import re
 from collections.abc import Callable
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
 import pymupdf
+import yaml
 
 from pipeline.evaluate import analyse_page
 from pipeline.gregobase import DUMP, load_chants
@@ -296,6 +298,71 @@ def merge_catalog(existing: Catalog | None, update: Catalog) -> Catalog:
             "pieces": pieces}
 
 
+PART_TO_VOLUME = {"I": "noh1", "II": "noh2", "III": "noh3", "IV": "noh4", "V": "noh5"}
+REFERENCE = re.compile(r"Pars\s+(?P<part>[IVX]+|1V|l[VI]+)\s*[,.]?\s*p\.\s*(?P<page>\d{1,3})")
+
+
+SAME_VOLUME = re.compile(r"\bp\.?\s*(?P<page>\d{1,3})\b")
+
+
+def parse_reference(text: str, volume: str | None = None) -> tuple[str, int] | None:
+    """("noh4", 76) from "Missa. Os justi, Pars IV, p. 76." -- OCR reads IV as 1V.
+    A page with no part ("Missa. Justus ut palma, p. 82") is in `volume`."""
+    m = REFERENCE.search(text)
+    if not m:
+        bare = SAME_VOLUME.search(text) if volume and "Pars" not in text else None
+        return (volume, int(bare.group("page"))) if volume and bare else None
+    part = m.group("part").replace("1", "I").replace("l", "I")
+    volume = PART_TO_VOLUME.get(part)
+    return (volume, int(m.group("page"))) if volume else None
+
+
+def link_rubrics(catalog: Catalog, rubrics: list[Record]) -> list[Record]:
+    """Give each rubric feast's days to the piece its Mass is taken from.
+
+    NOH3 prints 185 feasts as a single line, "Missa. Os justi, de Communi,
+    Pars IV, p. 76": their music is the Common Mass on that page. Linked days
+    are kept apart in `linked_days` and recomputed from scratch, so a rebuilt
+    volume never keeps a stale link. Returns the rubrics that could not be
+    resolved, for the review queue."""
+    pieces: list[Record] = list(catalog["pieces"])
+    for piece in pieces:
+        own = [d for d in piece.get("days", []) if d not in piece.get("linked_days", [])]
+        piece["days"], piece["linked_days"] = own, []
+    unresolved: list[Record] = []
+    for rubric in rubrics:
+        ref = parse_reference(str(rubric.get("reference", "")), str(rubric.get("volume") or "") or None)
+        days = [str(d) for d in rubric.get("days", [])]
+        if not days:
+            continue
+        target = None
+        if ref:
+            volume, page = ref
+            candidates = [p for p in pieces if p["volume"] == volume
+                          and p["printed_pages"][0] <= page <= p["printed_pages"][1]]
+            target = next((p for p in candidates if p["printed_pages"][0] == page),
+                          candidates[0] if candidates else None)
+        if target is None:
+            unresolved.append({"kind": "rubric_unlinked", "title": rubric.get("title"),
+                               "reference": rubric.get("reference"), "days": days})
+            continue
+        for day in days:
+            if day not in target["days"]:
+                target["days"] = [*target["days"], day]
+                target["linked_days"] = [*target["linked_days"], day]
+    return unresolved
+
+
+def load_rubrics(data_dir: Path = DATA) -> list[Record]:
+    rubrics: list[Record] = []
+    for path in sorted(data_dir.glob("index-noh*.yml")):
+        if path.name.endswith(".proposed.yml"):
+            continue
+        doc = yaml.safe_load(path.read_text(encoding="utf-8"))
+        rubrics += [{"volume": doc.get("volume"), **r} for r in doc.get("rubrics", []) or []]
+    return rubrics
+
+
 def write_catalog(vol_id: str, data_dir: Path = DATA,
                   index_path: Path | None = None) -> tuple[Path, Path]:
     catalog, review = build_catalog(vol_id, index_path)
@@ -303,9 +370,11 @@ def write_catalog(vol_id: str, data_dir: Path = DATA,
     rev_path = data_dir / "review-queue.json"
     existing = json.loads(cat_path.read_text(encoding="utf-8")) if cat_path.exists() else None
     merged = merge_catalog(existing, catalog)
+    unlinked = link_rubrics(merged, load_rubrics(data_dir))
     queue = json.loads(rev_path.read_text(encoding="utf-8")) if rev_path.exists() else []
-    queue = [r for r in queue if r.get("volume", "noh5") != vol_id]
+    queue = [r for r in queue if r.get("volume", "noh5") != vol_id and r["kind"] != "rubric_unlinked"]
     queue += [{"volume": vol_id, **r} for r in review]
+    queue += [{"volume": "links", **r} for r in unlinked]
     cat_path.write_text(json.dumps(merged, indent=2) + "\n", encoding="utf-8")
     rev_path.write_text(json.dumps(queue, indent=2) + "\n", encoding="utf-8")
     return cat_path, rev_path

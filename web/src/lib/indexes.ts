@@ -25,17 +25,17 @@ export const DIVISIONS: readonly DivisionMeta[] = [
   { division: "temporale", en: "Proper of Time", la: "Proprium de Tempore", slug: "proper-of-time",
     blurb: "Sundays and seasons of the year, Advent to the last Sunday after Pentecost." },
   { division: "sanctorale", en: "Proper of Saints", la: "Proprium Sanctorum", slug: "proper-of-saints",
-    blurb: "Feasts of the saints, month by month." },
+    blurb: "Feasts of the saints, month by month, with the Masses kept in particular places." },
   { division: "commune", en: "Common of Saints", la: "Commune Sanctorum", slug: "commune",
-    blurb: "Masses shared by saints of the same kind: martyrs, confessors, virgins." },
+    blurb: "Masses shared by saints of the same kind: martyrs, confessors, virgins; and the Dedication of a Church." },
   { division: "kyriale", en: "Kyriale", la: "Kyriale", slug: "kyriale",
     blurb: "The eighteen Ordinaries of the Mass, the Credos, and chants ad libitum." },
   { division: "defunctorum", en: "Masses for the Dead", la: "Missa pro Defunctis", slug: "pro-defunctis",
     blurb: "The Requiem Mass, the Absolution and the Burial rite." },
   { division: "vesperale", en: "Vespers", la: "Vesperale", slug: "vespers",
     blurb: "Sunday and feast-day Vespers." },
-  { division: "varia", en: "Varia", la: "Varia", slug: "varia",
-    blurb: "Hymns, antiphons and other chants." },
+  { division: "varia", en: "Votive Masses and Varia", la: "Missae Votivae · Varia", slug: "varia",
+    blurb: "Votive Masses for the days of the week and for particular needs, and other chants." },
 ];
 
 const META = new Map(DIVISIONS.map((d) => [d.division, d]));

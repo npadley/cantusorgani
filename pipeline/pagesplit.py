@@ -46,9 +46,11 @@ def gap_bounds(boxes: list[tuple[int, int]], height: int) -> list[tuple[int, int
 def embedded_gap_texts(vol_id: str, pdf_page: int, gaps: list[tuple[int, int]]) -> list[str]:
     lines: list[list[tuple[float, float, str]]] = [[] for _ in gaps]
     for w in embedded_words(vol_id, pdf_page):
-        middle = (w.y0 + w.y1) / 2 * PX_PER_PT
+        # By the word's top edge: a heading's capitals reach down into the
+        # headroom of the system box below it.
+        y = (w.y0 + 2) * PX_PER_PT
         for k, (top, bottom) in enumerate(gaps):
-            if top <= middle <= bottom:
+            if top <= y <= bottom:
                 lines[k].append((w.y0, w.x0, w.text))
                 break
     out: list[str] = []

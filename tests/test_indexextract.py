@@ -544,3 +544,72 @@ def test_extract_from_headings_index_fills_lost_heading():
              Proposal("Nemo, 1 Maii", "", "7", "embedded", 7, "unverified", 0.0, (7,))]
     props = extract_from_headings("noh3", None, reader=reader, index=index)
     assert [(p.page, p.source) for p in props] == [(109, "heading"), (238, "index")]
+
+
+# ------------------------------------------------------- section headings ---
+
+@pytest.mark.parametrize("line,expected", [
+    ("COMMUNE UNIUS MARTYRIS NON PONTIFICIS.", True),
+    ("DE EODEM COMMUNI. ALIA MISSA.", True),
+    ("PRO VIRGINE ET MARTYRE.", True),
+    ("PARS IV", False),
+    ("COMMUNE SANCTORUM", False),
+    ("VIII . — —", False),
+    ("gre C HBIDN POERERIN P EEEEEEEEEEUIA", False),
+    ("Missa. Os justi, Pars IV, p. 76.", False),
+])
+def test_is_section_heading_known_openings_only(line, expected):
+    from pipeline.indexextract import is_section_heading
+    assert is_section_heading(line) is expected
+
+
+def test_scan_section_headings_titles_rubrics_and_one_source():
+    from pipeline.indexextract import proposals_from_sections, scan_section_headings
+    reader = OcrReader({
+        3: "Missa. Si diligis me, vide ad calcem\nCOMM. UNIUS VEL PLURIUM SUMMORUM PONTIFICUM\n"
+           "Missa. Si diligis me, vide ad calcem hujus Partis.\nCOMMUNE UNIUS MARTYRIS PONTIFICIS.\nIntr.",
+        11: "DE EODEM COMMUNI. ALIA MISSA.",
+        90: "COMMUNE VIRGINUM.\nPRO VIRGINE ET MARTYRE.\nIntroitus",
+        99: "ITEM PRO VIRGINE ET MARTYRE.\nALIA MISSA.",
+        127: "IN ANNIVERSARIO DEDICATIONIS ECCLESIAE.",
+    })
+    reader.embedded = lambda printed: "COMlVIUNE VIRGINUM." if printed == 90 else ""  # type: ignore[method-assign]
+    props = proposals_from_sections(scan_section_headings(reader, range(1, 130)))
+    assert [(p.page, p.status, p.title) for p in props] == [
+        (3, "rubric", "Comm. Unius Vel Plurium Summorum Pontificum"),
+        (3, "verified", "Commune Unius Martyris Pontificis"),
+        (11, "verified", "Commune Unius Martyris Pontificis — De Eodem Communi. Alia Missa"),
+        (90, "verified", "Commune Virginum. Pro Virgine et Martyre"),
+        (99, "verified", "Commune Virginum — Item pro Virgine et Martyre. Alia Missa"),
+        (127, "verified", "In Anniversario Dedicationis Ecclesiae")]
+
+
+def test_section_marker_plural_title_only():
+    from pipeline.indexextract import _section_marker
+    assert _section_marker("MISS.IE VOTIVAE") == "Missae Votivae"
+    assert _section_marker("MISSAE ALIQUIBUS IN LOCIS CELEBRANDAE") == "Missae pro aliquibus locis"
+    assert _section_marker("MISSA VOTIVA PRO FIDEI PROPAGATIONE.") is None
+
+
+def test_scan_section_headings_votive_section_and_dated_feasts():
+    from pipeline.indexextract import proposals_from_sections, scan_section_headings
+    reader = OcrReader({
+        134: "MISSAE VOTIVAE\nFERIA II.\nMISSA DE SANCTISSIMA TRINITATE.\nIntroitus",
+        174: "MISSA DE SANCTA MARIA, IN SABBATO.\nAB ADVENTU USQUE AD NATIVITATEM DOMINI.",
+        177: "A NATIVITATE DOMINI USQUE AD PURIFICATIONEM.",
+        244: "MISSAE ALIQUIBUS IN LOCIS CELEBRANDAE\nFESTA DECEMBRIS.\n"
+             "10. DECEMBRIS. — TRANSLATIONIS ALMAE DOMUS B.M.V.\nIntroitus",
+        248: "23. JANUARII. — DESPONSATIONIS B.M.V.\nCUM S. JOSEPH.\nIntroitus",
+    })
+    vocabulary = {"sancti:12-10o": {"title_la": "Translationis Almae Domus B.M.V."},
+                  "sancti:01-23o": {"title_la": "Desponsationis B.M.V. cum S. Joseph"}}
+    headings = scan_section_headings(reader, range(130, 250))
+    assert [h.section for h in headings] == ["Missae Votivae"] * 3 + ["Missae pro aliquibus locis"] * 2
+    props = proposals_from_sections(headings, vocabulary)
+    assert [(p.page, p.title) for p in props][:3] == [
+        (134, "Feria II. Missa de Sanctissima Trinitate"),
+        (174, "Missa de Sancta Maria, in Sabbato. Ab Adventu usque ad Nativitatem Domini"),
+        (177, "Missa de Sancta Maria, in Sabbato — A Nativitate Domini usque ad Purificationem")]
+    assert [(p.page, p.days) for p in props][3:] == [
+        (244, ("sancti:12-10o",)), (248, ("sancti:01-23o",))]
+    assert props[4].title == "Desponsationis B.M.V cum S. Joseph, 23 Januarii"

@@ -92,6 +92,23 @@ def test_main_publish_upload_without_credentials_fails_before_slicing(tmp_path, 
     assert not (tmp_path / "0229").exists(), "must fail before doing any work"
 
 
+def test_main_publish_skip_slice_uploads_existing_manifest(tmp_path, fake_r2_env, capsys):
+    assert cli.main(["publish", "--volume", "noh5", "--pages", "229", "--out", str(tmp_path)]) == 0
+    capsys.readouterr()
+    code = cli.main(["publish", "--volume", "noh5", "--pages", "229", "--out", str(tmp_path),
+                     "--upload", "--dry-run", "--skip-slice"])
+    out = capsys.readouterr().out
+    assert code == 0
+    assert "5 systems sliced" in out and "would upload 15" in out
+
+
+def test_main_publish_skip_slice_refuses_unsliced_page(tmp_path, fake_r2_env, capsys):
+    code = cli.main(["publish", "--volume", "noh5", "--pages", "229", "--out", str(tmp_path),
+                     "--upload", "--dry-run", "--skip-slice"])
+    assert code == 1
+    assert "not sliced" in capsys.readouterr().out
+
+
 def test_main_overlay_writes_page_and_sheet(capsys):
     assert cli.main(["overlay", "--volume", "noh5", "--pages", "229", "--sheet"]) == 0
     out = capsys.readouterr().out

@@ -72,6 +72,8 @@ def build_parser() -> argparse.ArgumentParser:
     ix = subs.add_parser("index-extract",
                          help="read a volume's printed index by script and verify it against page headings")
     ix.add_argument("--volume", required=True, help="volume id from data/volumes.yml")
+    ix.add_argument("--from-sections", action="store_true",
+                    help="catalogue a volume with no index from its capitals section headings (NOH4)")
     ix.add_argument("--from-headings", action="store_true",
                     help="catalogue from the body's dated feast headings instead of the index (NOH3)")
     ix.add_argument("--alphabetical", action="store_true",
@@ -90,6 +92,8 @@ def build_parser() -> argparse.ArgumentParser:
     _add_common(pub)
     pub.add_argument("--upload", action="store_true", help="also upload to R2")
     pub.add_argument("--no-trim", action="store_true", help="keep full page width")
+    pub.add_argument("--skip-slice", action="store_true",
+                     help="upload what is already sliced (needs each page's manifest) without re-slicing")
     pub.add_argument("--dry-run", action="store_true",
                      help="with --upload, report what would be sent without sending")
 
@@ -223,7 +227,15 @@ def main(argv: list[str] | None = None) -> int:
         uploaded = skipped = 0
         failures: list[tuple[str, str]] = []
         for i, page in enumerate(pages, 1):
-            written = slice_systems(args.volume, page, args.out, trim=not args.no_trim)
+            if args.skip_slice:
+                from pipeline.publish import load_manifest
+                manifest = load_manifest(args.volume, page, args.out)
+                if manifest is None:
+                    print(f"[{i}/{len(pages)}] pdf {page}: not sliced; run without --skip-slice")
+                    return 1
+                written = list(range(len(manifest)))
+            else:
+                written = slice_systems(args.volume, page, args.out, trim=not args.no_trim)
             total += len(written)
             note = ""
             if args.upload:
@@ -279,7 +291,10 @@ def _index_extract(args: argparse.Namespace) -> int:
     # Only calendar books get calendar keys: a Kyriale title matching a feast by
     # accident would put a Mass on the wrong day.
     vocabulary = load_vocabulary() if args.division in {"temporale", "sanctorale", "commune"} else None
-    if args.from_headings:
+    if args.from_sections:
+        from pipeline.indexextract import extract_from_sections
+        proposals = extract_from_sections(args.volume, load_vocabulary())
+    elif args.from_headings:
         from pipeline.indexextract import extract_from_headings
         index = extract(args.volume, ordered=not args.alphabetical, ocr=not args.no_ocr,
                         vocabulary=vocabulary)

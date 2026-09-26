@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { allPieces } from "./catalog";
+import { observance } from "./liturgy";
 import type { Piece } from "./catalog";
 import {
   DIVISIONS,
@@ -33,9 +34,15 @@ function piece(overrides: Partial<Piece> = {}): Piece {
 }
 
 describe("divisionsWithContent", () => {
-  it("should list only divisions that have catalogued pieces", () => {
-    const found = divisionsWithContent(allPieces()).map((d) => d.division);
-    expect(found).toEqual(["kyriale", "defunctorum"]);   // NOH5 is all that exists today
+  it("should list only divisions that have catalogued pieces, in book order", () => {
+    const found = divisionsWithContent([piece({ division: "defunctorum" }), piece({ division: "kyriale" })])
+      .map((d) => d.division);
+    expect(found).toEqual(["kyriale", "defunctorum"]);
+  });
+
+  it("should count every catalogued piece in exactly one division", () => {
+    const total = divisionsWithContent(allPieces()).reduce((n, d) => n + d.count, 0);
+    expect(total).toBe(allPieces().length);
   });
 
   it("should appear automatically once a volume is catalogued", () => {
@@ -111,7 +118,7 @@ describe("temporaleIndex", () => {
   });
 
   it("should be empty with nothing catalogued, rather than listing placeholder days", () => {
-    expect(temporaleIndex(allPieces())).toEqual([]);
+    expect(temporaleIndex([piece({ division: "kyriale" })])).toEqual([]);
   });
 });
 
@@ -150,8 +157,12 @@ describe("dayIndex", () => {
     expect(Object.keys(index)).toEqual(["sancti:12-25m1", "sancti:12-25m2"]);
   });
 
-  it("should have no days today, because no Proper has been catalogued", () => {
-    expect(catalogedDays(allPieces())).toEqual([]);
+  it("should have no days when no Proper is catalogued", () => {
+    expect(catalogedDays([piece({ division: "kyriale", days: [] })])).toEqual([]);
+  });
+
+  it("should give every catalogued day a key the 1962 calendar knows", () => {
+    for (const key of catalogedDays(allPieces())) expect(observance(key), key).toBeDefined();
   });
 });
 
