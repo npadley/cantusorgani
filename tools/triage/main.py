@@ -1,8 +1,9 @@
 """Triage submitted corrections into the catalog.
 
-D1 is a mailbox, never a source of truth. Accepting a correction writes it into
-data/catalog.json, which is git-tracked and reviewable as a diff; the D1 row is
-then marked with the commit that carried it. The published site can always be
+D1 is a mailbox, never a source of truth. Accepting a correction records it in
+data/corrections.yml (pipeline.corrections), which is git-tracked and reviewable
+as a diff, and rewrites data/catalog.json from it; the D1 row is then marked
+with the commit that carried it. The published site can always be
 rebuilt from pdf-source/ plus data/ alone.
 
 Corrections arrive from strangers, so nothing here trusts them: every field is
@@ -21,6 +22,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from pipeline.corrections import CorrectionError, correct
+from pipeline.corrections import write as write_corrections
 from pipeline.volumes import DATA, ROOT
 
 DATABASE = "cantusorgani-corrections"
@@ -190,7 +193,7 @@ def head_sha() -> str:
 def catalog_is_committed() -> bool:
     """True when data/catalog.json has no uncommitted changes."""
     result = subprocess.run(
-        ["git", "diff", "--quiet", "HEAD", "--", "data/catalog.json"],
+        ["git", "diff", "--quiet", "HEAD", "--", "data/catalog.json", "data/corrections.yml"],
         cwd=ROOT, check=False,
     )
     return result.returncode == 0
@@ -205,7 +208,7 @@ def stamp(remote: bool = True) -> int:
     """
     if not catalog_is_committed():
         raise RuntimeError(
-            "data/catalog.json has uncommitted changes. Commit it first, then stamp."
+            "data/catalog.json or data/corrections.yml has uncommitted changes. Commit them first, then stamp."
         )
     sha = head_sha()
     _d1(
@@ -279,27 +282,43 @@ def main(argv: list[str] | None = None) -> int:
             print("    rejected\n")
             continue
 
+        # Recorded in data/corrections.yml, never written into catalog.json:
+        # the next `noh catalog` regenerates that file and would drop it.
         try:
-            catalog = apply_correction(catalog, c.piece_id, c.field, c.proposed)
-        except (KeyError, RejectedCorrection) as exc:
+            record(catalog, c)
+        except (KeyError, RejectedCorrection, CorrectionError) as exc:
             print(f"    REFUSED   {exc}\n")
             mark(c.id, "rejected", None, remote)
             continue
         accepted.append(c.id)
-        print("    applied\n")
+        print("    recorded in data/corrections.yml\n")
 
     if accepted and not args.dry_run:
-        # Write the catalog BEFORE marking rows. If marking then fails, the rows stay
-        # pending and the next run re-applies the same value -- harmless. The other
-        # order could mark a correction accepted that never reached the catalog.
-        catalog_path.write_text(json.dumps(catalog, indent=2) + "\n", encoding="utf-8")
+        # Write the files BEFORE marking rows. If marking then fails, the rows stay
+        # pending and the next run records the same value again -- harmless. The
+        # other order could mark a correction accepted that never reached the data.
+        write_corrections(DATA / "catalog.base.json", DATA / "corrections.yml", DATA / "catalog.json")
         for correction_id in accepted:
             mark(correction_id, "accepted", None, remote)
-        print(f"Wrote {len(accepted)} correction(s) to {catalog_path}.")
+        print(f"Recorded {len(accepted)} correction(s); data/catalog.json rewritten.")
         print("Commit, then record the commit against them:")
-        print("  git add data/catalog.json && git commit -m 'data: apply corrections'")
-        print("  uv run triage --stamp")
+        print("  git add data/corrections.yml data/catalog.json && git commit -m 'data: apply corrections'")
+        print("  uv run noh triage --stamp   (or: uv run triage --stamp)")
     return 0
+
+
+def record(catalog: dict[str, Any], c: Correction) -> None:
+    """A reader's correction as an entry in data/corrections.yml."""
+    validate(c.field, c.proposed)
+    if c.field == "chant":
+        raise RejectedCorrection("chant pairings are fixed at the source, not by correction; "
+                                 "see docs/EDITING.md, 'A chant link is wrong or missing'")
+    slug = next((p["slug"] for p in catalog.get("pieces", [])
+                 if p.get("id") == c.piece_id or p.get("slug") == c.piece_id), None)
+    if slug is None:
+        raise KeyError(f"no piece with id or slug {c.piece_id!r}")
+    correct(f"piece:{slug}", CATALOG_KEY[c.field], c.proposed, note=c.note[:200],
+            source=f"reader#{c.id}", base_path=DATA / "catalog.base.json", path=DATA / "corrections.yml")
 
 
 if __name__ == "__main__":

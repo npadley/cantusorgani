@@ -109,3 +109,23 @@ def test_field_vocabulary_matches_the_worker():
 def test_catalog_round_trips_as_json():
     out = apply_correction(catalog(), "ordinarium-missae-i", "title", "Missa Paschalis")
     assert json.loads(json.dumps(out))["pieces"][0]["title"] == "Missa Paschalis"
+
+
+def test_record_writes_a_readers_correction_to_the_overlay_not_the_catalog(tmp_path, monkeypatch):
+    from pipeline import corrections
+    from tools.triage import main as triage
+    b, c = tmp_path / "catalog.base.json", tmp_path / "corrections.yml"
+    catalog = {"pieces": [{"id": "noh5-kyrie-i", "volume": "noh5", "slug": "kyrie-i", "title": "Lux",
+                           "incipit": None, "mode": "VIII", "genre": "kyrie", "printed_pages": [1, 2]}]}
+    b.write_text(json.dumps(catalog))
+    monkeypatch.setattr(triage, "DATA", tmp_path)
+    row = triage.Correction(id=7, piece_id="noh5-kyrie-i", field="printedPages", proposed="1-3",
+                            note="p. 3 is the Christe", status="pending", created_at="2026-09-27")
+    triage.record(catalog, row)
+    entry = corrections.load(c)[0]
+    assert (entry.target, entry.field, entry.value, entry.source) == ("piece:kyrie-i", "printed_pages", [1, 3],
+                                                                      "reader#7")
+    assert catalog["pieces"][0]["printed_pages"] == [1, 2]
+    with pytest.raises(triage.RejectedCorrection, match="fixed at the source"):
+        triage.record(catalog, triage.Correction(id=8, piece_id="kyrie-i", field="chant", proposed="Kyrie",
+                                                 note="", status="pending", created_at=""))

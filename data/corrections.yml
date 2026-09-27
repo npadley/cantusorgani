@@ -1,0 +1,18 @@
+# Hand corrections over the generated catalogue. Applied by `noh catalog` and
+# `noh apply-corrections`; see docs/EDITING.md.
+#
+# Do not hand-write entries: `uv run noh correct <target> <field> <value>` fills
+# in `id`, `was` and the date, and checks the value. `was` is what the pipeline
+# generated when the fix was made; if it changes, the build stops and asks.
+#
+# Fields of a piece (target piece:<slug>): title, incipit, mode, genre,
+# printed_pages. For example:
+#
+# - id: c-0001
+#   target: piece:dominica-i-adventus
+#   field: title
+#   was: Dominica I Adventus
+#   value: Dominica prima Adventus
+#   source: editor
+#   date: '2026-09-27'
+#   note: as printed on p. 3

@@ -17,6 +17,10 @@ export function getStaticPaths() {
 
 interface Props { readonly piece: Piece }
 const { piece } = Astro.props;
+// A Kyriale Mass lives at /kyriale/<n>/; its /piece/ address only redirects,
+// so there is one page for it (and one search result).
+const home = pieceHref(piece);
+if (home !== `/piece/${piece.slug}/`) return Astro.redirect(home, 301);
 const heading = piece.incipit ?? piece.title;
 const printedElsewhere = citedBy(piece);
 // A Vesperale section prints only the day's own chants; the full order of

@@ -165,12 +165,31 @@ def check_vespers_lineup(path: Path | None = None) -> Check:
     return Check(OK, "Vespers lineup current with the catalogue")
 
 
+def check_corrections() -> Check:
+    """data/corrections.yml applies cleanly, and catalog.json is current with it."""
+    from pipeline import corrections as c
+    try:
+        base, entries = c.load_base(), c.load()
+        text = c.dump(c.apply(base, entries))
+    except c.CorrectionError as exc:
+        return Check(FAIL, "hand corrections", str(exc))
+    if not c.CATALOG.exists() or c.CATALOG.read_text(encoding="utf-8") != text:
+        return Check(FAIL, "hand corrections", "data/catalog.json is not current with corrections.yml\n"
+                     "      Fix: uv run noh apply-corrections")
+    idle = c.no_ops(base, entries)
+    if idle:
+        return Check(OK, f"{len(entries)} hand correction(s) applied",
+                     "now fixed at the source, safe to drop: " + ", ".join(e.id for e in idle)
+                     + "\n      Fix: uv run noh corrections --drop <id>")
+    return Check(OK, f"{len(entries)} hand correction(s) applied")
+
+
 def run(env: dict[str, str] | None = None) -> list[Check]:
     import os
     env = os.environ if env is None else env
     return [check_python(), check_tesseract(), check_reference_not_registered(),
             *check_sources(), check_gregobase_dump(), check_jgabc(), check_officium(), check_vesperale(),
-            check_vespers_lineup(), check_r2(dict(env))]
+            check_vespers_lineup(), check_corrections(), check_r2(dict(env))]
 
 
 def report(checks: list[Check]) -> int:

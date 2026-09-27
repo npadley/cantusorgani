@@ -41,9 +41,10 @@ def correction(**overrides: object) -> dict[str, object]:
 @pytest.fixture
 def workspace(tmp_path, monkeypatch):
     """A catalog in a temp data dir, and a FakeD1 wired in as the wrangler seam."""
-    catalog = {"pieces": [{"id": "noh5-ordinarium-missae-i", "slug": "ordinarium-missae-i",
+    catalog = {"pieces": [{"id": "noh5-ordinarium-missae-i", "slug": "ordinarium-missae-i", "genre": "kyrie",
                            "mode": "III", "printed_pages": [5, 10], "pdf_pages": [51, 56]}]}
     (tmp_path / "catalog.json").write_text(json.dumps(catalog))
+    (tmp_path / "catalog.base.json").write_text(json.dumps(catalog))
     monkeypatch.setattr(triage, "DATA", tmp_path)
     fake = FakeD1()
     monkeypatch.setattr(triage, "_run", fake.run)
@@ -72,6 +73,9 @@ def test_main_accept_writes_catalog_and_marks_row_accepted(workspace, monkeypatc
     answers(monkeypatch, "y")
     assert triage.main([]) == 0
     assert read_catalog(data)["pieces"][0]["mode"] == "VIII"
+    # Recorded in the overlay, so the next `noh catalog` run keeps it.
+    assert "source: reader#1" in (data / "corrections.yml").read_text()
+    assert json.loads((data / "catalog.base.json").read_text())["pieces"][0]["mode"] == "III"
     assert fake.updates() == [
         "UPDATE corrections SET status = 'accepted', commit_sha = NULL WHERE id = 1"]
 
@@ -158,7 +162,7 @@ def test_mark_rejects_a_malformed_commit_sha(workspace):
 
 def test_stamp_refuses_while_catalog_is_uncommitted(workspace, monkeypatch):
     monkeypatch.setattr(triage, "catalog_is_committed", lambda: False)
-    with pytest.raises(RuntimeError, match="Commit it first"):
+    with pytest.raises(RuntimeError, match="Commit them first"):
         triage.main(["--stamp"])
 
 

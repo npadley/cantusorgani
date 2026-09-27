@@ -5,12 +5,16 @@ against the 1962 Roman calendar and published at
 [cantusorgani.org](https://cantusorgani.org) for organists at the console.
 
 - `pipeline/` — Python: page maps, system segmentation, index extraction, the
-  catalogue (`data/catalog.json`), slicing and upload to R2.
+  catalogue (`data/catalog.base.json`, and `data/catalog.json` with the hand
+  corrections of `data/corrections.yml` applied), slicing and upload to R2.
 - `web/` — the Astro site (static), with client-side PDF export.
 - `workers/corrections/` — the Cloudflare Worker that takes corrections.
 - `data/` — the reviewed indexes, calendar, catalogue and review queue (all
   tracked). Licensing: [`data/LICENSES.md`](data/LICENSES.md).
 - `docs/claudekit/` — design, plans and their reviews.
+
+**To fix something on the site, start with [`docs/EDITING.md`](docs/EDITING.md)**:
+recipes by symptom, most of which need no PDFs.
 
 ## Pipeline
 
@@ -20,7 +24,9 @@ pack.
 ```bash
 uv sync
 uv run noh doctor                      # preflight: every failure names its fix
-uv run noh catalog --volume noh3       # rebuild one volume into data/catalog.json
+uv run noh catalog --volume noh3       # rebuild one volume (data/catalog.base.json), then apply
+                                       # data/corrections.yml into data/catalog.json
+uv run noh apply-corrections           # only the corrections: no PDFs needed
 uv run pytest
 ```
 
@@ -33,7 +39,8 @@ are missing.
 cd web
 pnpm install
 pnpm dev          # http://localhost:4321
-pnpm build        # static site in web/dist, with the Pagefind index
+pnpm build        # static site in web/dist, with the Pagefind index; fails if a page
+                  # cannot be reached by a link (scripts/check-links.ts)
 pnpm test
 ```
 

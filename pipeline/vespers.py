@@ -37,7 +37,9 @@ REVIEWED = DATA / "vespers-noh8.yml"
 PROPOSED = DATA / "vespers-noh8.proposed.yml"
 LINEUP = DATA / "vespers-lineup.json"
 CALENDAR = DATA / "calendar"
-CATALOG = DATA / "catalog.json"
+# The generated catalogue: hand corrections change titles, never systems, so
+# they do not make the lineup stale.
+CATALOG = DATA / "catalog.base.json"
 SCHEMA_VERSION = 1
 
 # The psalm-tone endings NOH8 prints (extended from the book, never by guessing).
@@ -598,7 +600,7 @@ def check_lineup(path: Path = LINEUP, catalog_path: Path = CATALOG) -> str | Non
     if missing:
         return f"{len(missing)} system(s) the catalogue no longer has, e.g. {missing[0]}"
     if doc.get("catalog_sha256") != catalog_sha256(catalog_path):
-        return "data/catalog.json has changed since the lineup was written"
+        return "data/catalog.base.json has changed since the lineup was written"
     return None
 
 

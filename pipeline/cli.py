@@ -114,6 +114,27 @@ def build_parser() -> argparse.ArgumentParser:
                      help="write build/parts-sample-<volume>.html: 30 random part starts beside "
                           "their slices, for a hand check")
 
+    ac = subs.add_parser("apply-corrections",
+                         help="apply data/corrections.yml over data/catalog.base.json into "
+                              "data/catalog.json (no PDFs needed)")
+    ac.add_argument("--check", action="store_true",
+                    help="write nothing; fail if data/catalog.json is not current (for CI)")
+    co = subs.add_parser("correct", help="record a hand correction in data/corrections.yml")
+    co.add_argument("target", help="piece:<slug> (find it with `noh where <page URL>`)")
+    co.add_argument("field", help="title, incipit, mode, genre or printed_pages")
+    co.add_argument("value", help="the corrected value, e.g. \"Dominica I Adventus\" or 5-10")
+    co.add_argument("--note", default="", help="why: e.g. \"as printed on p. 3\"")
+    co.add_argument("--source", default="editor", help="editor, or reader#<id> for a reader's report")
+    wh = subs.add_parser("where", help="what a page is, and which file to change to fix it")
+    wh.add_argument("query", help="a page URL or path (/piece/<slug>/), or a few words of a title")
+    cs = subs.add_parser("corrections", help="list the hand corrections, or drop one")
+    cs.add_argument("--drop", metavar="ID", default=None, help="delete the entry with this id")
+    tr = subs.add_parser("triage", help="review readers' corrections from the Corrections form")
+    tr.add_argument("--local", action="store_true", help="use the local D1 database")
+    tr.add_argument("--dry-run", action="store_true", help="show what would change, write nothing")
+    tr.add_argument("--stamp", action="store_true",
+                    help="after committing, record the commit against the accepted corrections")
+
     pub = subs.add_parser("publish", help="slice systems to webp/png derivatives")
     _add_common(pub)
     pub.add_argument("--upload", action="store_true", help="also upload to R2")
@@ -128,6 +149,59 @@ def build_parser() -> argparse.ArgumentParser:
     overlay.add_argument("--sheet", action="store_true", help="also write contact-sheet.html")
 
     return p
+
+
+def _corrections_command(args: argparse.Namespace) -> int:
+    import json as _json
+
+    from pipeline import corrections as c
+    try:
+        if args.command == "apply-corrections":
+            if args.check:
+                text = c.dump(c.apply(c.load_base(), c.load()))
+                if not c.CATALOG.exists() or c.CATALOG.read_text(encoding="utf-8") != text:
+                    print("data/catalog.json is not current with corrections.yml.\n"
+                          "  Fix: uv run noh apply-corrections, then commit data/catalog.json",
+                          file=sys.stderr)
+                    return 1
+                print("data/catalog.json is current with corrections.yml")
+                return 0
+            path, count, changed = c.write()
+            print(f"{path}: {count} correction(s) applied" + ("" if changed else " (unchanged)"))
+            return 0
+        if args.command == "correct":
+            entry, replaced = c.correct(args.target, args.field, args.value, note=args.note, source=args.source)
+            c.write()
+            verb = "updated" if replaced else "recorded"
+            print(f"{verb} {entry.id}: {entry.target} {entry.field} {entry.was!r} -> {entry.value!r}\n"
+                  "data/catalog.json rewritten. Preview with `pnpm --dir web dev`, then commit\n"
+                  "data/corrections.yml and data/catalog.json.")
+            return 0
+        if args.command == "corrections":
+            if args.drop:
+                entry = c.drop(args.drop)
+                c.write()
+                print(f"dropped {entry.id} ({entry.target} {entry.field}); data/catalog.json rewritten")
+                return 0
+            entries = c.load()
+            base = c.load_base()
+            stale = {e.id for e in c.no_ops(base, entries)}
+            for e in entries:
+                flag = "  (now a no-op: fixed at the source; drop it)" if e.id in stale else ""
+                print(f"{e.id}  {e.target}  {e.field}: {e.was!r} -> {e.value!r}  [{e.source}, {e.date}]{flag}")
+            print(f"{len(entries)} correction(s)")
+            return 0
+        catalog = _json.loads(c.CATALOG.read_text(encoding="utf-8"))
+        found = c.where(args.query, catalog)
+        if not found:
+            print(f"nothing matches {args.query!r}. Paste a page URL, or try fewer words.", file=sys.stderr)
+            return 1
+        for loc in found:
+            print(f"{loc.target}\n  {loc.label}\n  source:  {loc.source}\n  then:    {loc.command}")
+        return 0
+    except c.CorrectionError as exc:
+        print(f"{args.command}: {exc}\n  Nothing was written.", file=sys.stderr)
+        return 1
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -350,12 +424,25 @@ def main(argv: list[str] | None = None) -> int:
               f"or no notation)")
         return 0
 
+    if args.command in {"apply-corrections", "correct", "where", "corrections"}:
+        return _corrections_command(args)
+
+    if args.command == "triage":
+        from tools.triage.main import main as triage
+        return triage([*(["--local"] if args.local else []), *(["--dry-run"] if args.dry_run else []),
+                       *(["--stamp"] if args.stamp else [])])
+
     if args.command == "catalog":
         from pipeline.catalog import PartsUnavailable, write_catalog
+        from pipeline.corrections import CorrectionError
         try:
             cat_path, review_path = write_catalog(args.volume, parts=not args.no_parts)
         except PartsUnavailable as exc:
             print(f"catalog: {exc}\n  Nothing was written.", file=sys.stderr)
+            return 1
+        except CorrectionError as exc:
+            print(f"catalog: wrote data/catalog.base.json, but data/catalog.json was not updated:\n{exc}\n"
+                  "  Fix corrections.yml, then run: uv run noh apply-corrections", file=sys.stderr)
             return 1
         import json as _json
         catalog = _json.loads(cat_path.read_text(encoding="utf-8"))

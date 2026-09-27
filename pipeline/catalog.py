@@ -1,4 +1,5 @@
-"""Stage 6: emit data/catalog.json.
+"""Stage 6: emit data/catalog.base.json, then data/catalog.json with the hand
+corrections of data/corrections.yml applied (pipeline.corrections).
 
 Two tiers of confidence, kept strictly apart:
 
@@ -676,8 +677,12 @@ def write_catalog(vol_id: str, data_dir: Path = DATA,
                   index_path: Path | None = None, parts: bool = True) -> tuple[Path, Path]:
     catalog, review = build_catalog(vol_id, index_path, parts=parts)
     cat_path = data_dir / "catalog.json"
+    base_path = data_dir / "catalog.base.json"
     rev_path = data_dir / "review-queue.json"
-    existing = json.loads(cat_path.read_text(encoding="utf-8")) if cat_path.exists() else None
+    # Merge into the generated base, never into catalog.json: that has the hand
+    # corrections applied, which must not be baked into other volumes' records.
+    source = base_path if base_path.exists() else cat_path
+    existing = json.loads(source.read_text(encoding="utf-8")) if source.exists() else None
     if not parts and existing is not None:
         # Keep each Proper's previous parts rather than writing none.
         previous = {str(p["slug"]): p.get("parts", []) for p in existing.get("pieces", [])}
@@ -696,8 +701,12 @@ def write_catalog(vol_id: str, data_dir: Path = DATA,
              and r["kind"] not in ("rubric_unlinked", "part_borrowed_unresolved")]
     queue += [{"volume": vol_id, **r} for r in review]
     queue += [{"volume": "links", **r} for r in unlinked]
-    cat_path.write_text(json.dumps(merged, indent=2) + "\n", encoding="utf-8")
+    base_path.write_text(json.dumps(merged, indent=2) + "\n", encoding="utf-8")
     rev_path.write_text(json.dumps(queue, indent=2) + "\n", encoding="utf-8")
+    # Last: the hand corrections. A stale one stops here with the base already
+    # written, so fixing corrections.yml needs only `noh apply-corrections`.
+    from pipeline.corrections import write as apply_corrections
+    apply_corrections(base_path, data_dir / "corrections.yml", cat_path)
     return cat_path, rev_path
 
 

@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/with-public-env.ts astro dev",
-    "build": "node scripts/with-public-env.ts astro build && rm -rf dist/systems && pagefind --site dist",
+    "build": "node scripts/with-public-env.ts astro build && rm -rf dist/systems && pagefind --site dist && node scripts/check-links.ts",
+    "check:links": "node scripts/check-links.ts",
     "preview": "astro preview",
     "typecheck": "astro check",
     "test": "vitest run"
