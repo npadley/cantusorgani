@@ -28,8 +28,8 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
         <a class="brand" href="/">Cantus Organi</a>
         <div class="nav-links">
           <a href="/calendar/">Calendar</a>
-          <a href="/kyriale/">Kyriale</a>
           <a href="/search/">Search</a>
+          <a href="/about/">About</a>
           <a href="/corrections/">Corrections</a>
           <button id="polarity" type="button" aria-pressed="false"
                   title="Invert the scans for a dark organ loft">Invert</button>
@@ -42,19 +42,11 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
     </main>
 
     <footer class="footer no-print">
-      <div class="page prose small muted">
-        <p>
-          <strong>Nova Organi Harmonia ad Graduale Romanum</strong> (Lemmens
-          Institute, Mechelen: H. Dessain, 1942). Page images are in the
-          <strong>public domain</strong>.
-        </p>
-        <p>
-          Chant notation from
-          <a href="https://gregobase.selapa.net">GregoBase</a>, released under
-          <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>,
-          drawn with <a href="https://github.com/bbloomf/exsurge">Exsurge</a> (MIT).
-        </p>
-      </div>
+      <p class="page small muted ui">
+        Music from <em>Nova Organi Harmonia</em> (Mechelen, 1942), in the public domain ·
+        <a href="/about/#sources">Sources and attributions</a> ·
+        <a href="/corrections/">Report an error</a>
+      </p>
     </footer>
 
     <script is:inline>
@@ -124,5 +116,5 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
     margin-top: var(--s-6);
     padding: var(--s-4) 0;
   }
-  .footer p { margin: 0 0 var(--s-2); }
+  .footer .page { margin: 0 auto; padding: var(--s-2) var(--s-3); line-height: 1.6; }
 </style>

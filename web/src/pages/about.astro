@@ -1,0 +1,133 @@
+---
+import Layout from "../components/Layout.astro";
+import { allPieces } from "../lib/catalog";
+import { allLineups, sungOn } from "../lib/vespers";
+
+const pieces = allPieces().length;
+const lineups = allLineups();
+const firstYear = lineups[0] ? sungOn(lineups[0]).slice(0, 4) : "";
+const lastYear = lineups.at(-1) ? sungOn(lineups.at(-1)!).slice(0, 4) : "";
+---
+
+<Layout title="About" description="What Cantus Organi is for, how to use it at the organ, and where its material comes from.">
+  <div class="prose">
+    <p class="crumb small muted ui"><a href="/">Cantus Organi</a></p>
+    <h1>About Cantus Organi</h1>
+    <p class="lede">The organ accompaniment of the Graduale, for the Traditional Latin Mass and Vespers, at the console.</p>
+
+    <h2 id="what">What it is for</h2>
+    <p>
+      <em>Nova Organi Harmonia ad Graduale Romanum</em> was published by the Lemmens Institute at
+      Mechelen in 1942: eight volumes of organ accompaniment for the whole of the Gregorian
+      repertoire of the Mass and of Sunday Vespers. It is in the public domain, but in print it is
+      rare and scattered, and finding the right page for a given Sunday means knowing which volume
+      holds it.
+    </p>
+    <p>
+      This site puts the scanned pages online, divided into {pieces} pieces, and ties them to the
+      calendar of the 1962 Missal, so an organist can go from a date to the music for that day's
+      Mass and Vespers. Nothing is re-engraved: every system of music is an image of the printed
+      page, with its printed page number.
+    </p>
+
+    <h2 id="how">How to use it</h2>
+    <h3>Find the music for a day</h3>
+    <p>
+      Open the <a href="/calendar/">Calendar</a> and choose a date. The day's page lists the Proper
+      of the Mass (Introit, Gradual, Alleluia or Tract, Offertory, Communion), the Ordinary it
+      suggests, and its Vespers. Each part has a link straight to its place in the music.
+    </p>
+    <h3>Vespers</h3>
+    <p>
+      For Sundays and feasts, the <a href="/vespers/">Vespers</a> pages give the whole office in
+      the order sung — the opening versicle, the five psalms with their antiphons, the chapter,
+      hymn, versicle, Magnificat and the seasonal Marian antiphon — built for each date from
+      {firstYear} to {lastYear}. I Vespers of the greater feasts have their own page, for the
+      evening before. Where the book prints only the opening of a psalm, the page says which
+      formula to continue with and gives the psalm's text; where it prints no accompaniment in a
+      tone at all, the page says so rather than guess.
+    </p>
+    <h3>Browse the books</h3>
+    <p>
+      The <a href="/">home page</a> lists the books as printed: the Proper of Time, the Proper of
+      Saints, the Common, the <a href="/kyriale/">Kyriale</a>, the Masses for the Dead, the
+      Vesperale, and votive Masses. <a href="/search/">Search</a> finds a piece by its title or
+      opening words.
+    </p>
+    <h3>At the organ</h3>
+    <ul>
+      <li><strong>Invert</strong> (top of every page) turns the scans white on black, for a dark
+        organ loft. The setting is remembered on that device.</li>
+      <li><strong>Export PDF</strong> makes a file of the pages you need, to print or to keep on a
+        tablet on the music desk.</li>
+      <li><strong>Chant</strong> links open the melody on GregoBase; on pages that offer it, the
+        switch <em>Show the chant</em> draws the chant above the accompaniment.</li>
+      <li>Pages print cleanly: the menus and buttons are left off the paper.</li>
+    </ul>
+
+    <h2 id="limits">What it does not do yet</h2>
+    <ul>
+      <li>Only the 1962 rubrics. Earlier and later calendars are not followed.</li>
+      <li>Vespers is built for Sundays and I and II class feasts that the book prints. A few feasts
+        that fall on a Sunday only in some years (the Transfiguration, the Holy Cross, St Michael)
+        have no Vespers page, because the book has no section for them.</li>
+      <li>Some Magnificat and psalm tones are not printed in the Vesperale; those are marked on the
+        page to be sung unaccompanied or improvised.</li>
+      <li>Parts of the catalogue were matched by machine and have not all been checked by eye.</li>
+    </ul>
+
+    <h2 id="corrections">Errors and corrections</h2>
+    <p>
+      If a piece is on the wrong page, a title or mode is wrong, or a chant link points at the
+      wrong melody, please say so on the <a href="/corrections/">Corrections</a> page. Every report
+      is read and fixed by hand.
+    </p>
+
+    <h2 id="sources">Sources and attributions</h2>
+    <dl class="sources">
+      <dt><em>Nova Organi Harmonia ad Graduale Romanum</em></dt>
+      <dd>Lemmens Institute, Mechelen: H. Dessain, 1942. The page images and everything cut from
+        them are in the <strong>public domain</strong>.</dd>
+
+      <dt><a href="https://gregobase.selapa.net">GregoBase</a></dt>
+      <dd>The chant melodies shown with each part and linked from it.
+        Released under <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</dd>
+
+      <dt><a href="https://github.com/bbloomf/exsurge">Exsurge</a></dt>
+      <dd>Draws the chant notation in the browser. MIT licence, © 2016 Fr. Matthew Spencer, OSJ;
+        maintained by Benjamin Bloomfield.</dd>
+
+      <dt><a href="https://github.com/bbloomf/jgabc">jgabc</a></dt>
+      <dd>Which chants make up each day's Proper. The Unlicense (public domain).</dd>
+
+      <dt><a href="https://github.com/mmolenda/missalemeum">Missalemeum</a></dt>
+      <dd>The 1962 calendar: which Mass is said on each date. MIT licence.</dd>
+
+      <dt><a href="https://github.com/DivinumOfficium/divinum-officium">Divinum Officium</a></dt>
+      <dd>The texts of Vespers — antiphons, psalms, chapters and hymns — and which are said on each
+        day. MIT licence.</dd>
+
+      <dt><a href="https://github.com/jsrjenkins/vesperale">vesperale</a></dt>
+      <dd>Fr. John Jenkins's Vespers booklets, whose table of Magnificat antiphons and tones was
+        used to check this site's.</dd>
+
+      <dt><a href="https://pagefind.app">Pagefind</a></dt>
+      <dd>The site search. MIT licence.</dd>
+    </dl>
+    <p>
+      The site itself, its code and its hand-made indexes of the books are released under
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, and are on
+      <a href="https://github.com/npadley/cantusorgani">GitHub</a>, so the work can be copied and
+      carried on.
+    </p>
+  </div>
+</Layout>
+
+<style>
+  .crumb { margin: 0 0 var(--s-1); }
+  .crumb a { color: var(--ink-muted); }
+  .lede { font-style: italic; font-size: var(--step-1); }
+  h2 { margin-top: var(--s-5); }
+  .sources dt { margin-top: var(--s-3); font-weight: 600; }
+  .sources dd { margin: var(--s-1) 0 0; }
+</style>
