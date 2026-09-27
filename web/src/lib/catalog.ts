@@ -36,6 +36,36 @@ export interface MovementBoundary {
   readonly modeMarker: string | null;
 }
 
+export type ProperPartName =
+  | "introit" | "gradual" | "alleluia" | "tract" | "sequence" | "offertory" | "communion";
+
+/** A part of a Proper printed in this piece: where it starts. */
+export interface PrintedPart {
+  readonly kind: "printed";
+  readonly part: ProperPartName;
+  /** "" | "paschal" | "1", "2" … when a part repeats (Ember Saturday Graduals). */
+  readonly variant: string;
+  readonly system: number;
+  readonly ref: string;
+  readonly gregobaseId: number | null;
+  /** How the start was found. "order" is a guess the site does not show. */
+  readonly placed: "label" | "text" | "mode" | "order";
+}
+
+/** A part the book prints elsewhere ("Introitus. Benedicite, ut supra, p. 354"). */
+export interface BorrowedPart {
+  readonly kind: "borrowed";
+  readonly part: ProperPartName;
+  readonly variant: string;
+  /** The lending piece and the system its part starts on; null when unresolved. */
+  readonly borrowedFrom: string | null;
+  readonly borrowedRef: string | null;
+  readonly borrowedPage: number;
+  readonly gregobaseId: number | null;
+}
+
+export type ProperPart = PrintedPart | BorrowedPart;
+
 export interface Hymn {
   readonly title: string;
   readonly ref: string;
@@ -71,6 +101,10 @@ export interface Piece {
   readonly systemAssets: readonly string[];
   readonly systemAspect: readonly (readonly [number, number])[];
   readonly movements: readonly MovementBoundary[];
+  /** A Proper's parts, in printed order; empty for everything else. */
+  readonly parts: readonly ProperPart[];
+  /** The whole Proper in chant on jgabc, when jgabc has it. */
+  readonly jgabcUrl: string | null;
   readonly chant: readonly ChantPairing[];
   readonly status: RecordStatus;
 }
@@ -125,6 +159,14 @@ interface RawMovement {
   readonly system: number; readonly ref: string; readonly mode_marker: string | null;
 }
 
+interface RawPart {
+  readonly part: string; readonly variant?: string;
+  readonly system?: number; readonly ref?: string;
+  readonly gregobase_id?: number | null; readonly placed?: string;
+  readonly borrowed_from?: string | null; readonly borrowed_ref?: string | null;
+  readonly borrowed_page?: number;
+}
+
 interface RawPiece {
   readonly id: string; readonly volume: string; readonly slug: string;
   readonly section: string; readonly label: string; readonly title: string;
@@ -141,6 +183,9 @@ interface RawPiece {
   readonly system_assets?: readonly string[];
   readonly system_aspect: readonly (readonly number[])[];
   readonly movements: readonly RawMovement[];
+  // Optional: a catalog written before Proper parts existed still loads.
+  readonly parts?: readonly RawPart[];
+  readonly jgabc_url?: string | null;
   readonly chant: readonly RawChant[] | null;
   readonly review_status: string;
 }
@@ -163,6 +208,36 @@ function pair(values: readonly number[], where: string): readonly [number, numbe
     throw new Error(`${where}: expected exactly two numbers, got ${JSON.stringify(values)}`);
   }
   return [first, second];
+}
+
+const PART_NAMES: ReadonlySet<string> = new Set(
+  ["introit", "gradual", "alleluia", "tract", "sequence", "offertory", "communion"]);
+const PLACEMENTS: ReadonlySet<string> = new Set(["label", "text", "mode", "order"]);
+
+function parsePart(x: RawPart, where: string): ProperPart {
+  if (!PART_NAMES.has(x.part)) throw new Error(`${where}: unknown part ${x.part}`);
+  const part = x.part as ProperPartName;
+  const variant = x.variant ?? "";
+  const gregobaseId = Number.isInteger(x.gregobase_id) ? (x.gregobase_id as number) : null;
+  if (x.borrowed_page !== undefined) {
+    return {
+      kind: "borrowed", part, variant, gregobaseId, borrowedPage: x.borrowed_page,
+      borrowedFrom: x.borrowed_from ?? null, borrowedRef: x.borrowed_ref ?? null,
+    };
+  }
+  if (typeof x.system !== "number" || typeof x.ref !== "string" || !PLACEMENTS.has(x.placed ?? "")) {
+    throw new Error(`${where}: a printed part needs system, ref and placed`);
+  }
+  return {
+    kind: "printed", part, variant, system: x.system, ref: x.ref, gregobaseId,
+    placed: x.placed as PrintedPart["placed"],
+  };
+}
+
+/** Only jgabc's own propers page: the catalog is data, and a link is output. */
+function safeJgabcUrl(url: string | null): string | null {
+  return url !== null && /^https:\/\/bbloomf\.github\.io\/jgabc\/propers\.html#(saint|sunday|mass|common)=[\w%.-]+$/.test(url)
+    ? url : null;
 }
 
 let cached: Catalog | null = null;
@@ -212,6 +287,8 @@ export function parseCatalog(input: unknown): Catalog {
         movement: m.movement as Movement, score: m.score, pdfPage: m.pdf_page,
         system: m.system, ref: m.ref, modeMarker: m.mode_marker,
       })),
+      parts: (p.parts ?? []).map((x, i) => parsePart(x, `${p.id}.parts[${i}]`)),
+      jgabcUrl: safeJgabcUrl(p.jgabc_url ?? null),
       chant: (p.chant ?? []).map((c): ChantPairing => ({
         source: "gregobase", id: c.id,
         movement: (c.movement as Movement | null) ?? null,
@@ -345,18 +422,78 @@ export interface JumpTarget {
   readonly anchor: string;
   /** Position in piece.systems of the first system. */
   readonly index: number;
-  readonly kind: "movement" | "hymn";
+  readonly kind: "movement" | "hymn" | "part";
+  /** A part's chant on GregoBase, when known. */
+  readonly chantUrl?: string | null;
+}
+
+const PART_LABELS: Readonly<Record<ProperPartName, string>> = {
+  introit: "Introit", gradual: "Gradual", alleluia: "Alleluia", tract: "Tract",
+  sequence: "Sequence", offertory: "Offertory", communion: "Communion",
+};
+
+/** "Paschal Alleluia", "Gradual 2", "Offertory". */
+export function partLabel(part: ProperPartName, variant = ""): string {
+  if (variant === "paschal") return `Paschal ${PART_LABELS[part]}`;
+  return variant ? `${PART_LABELS[part]} ${variant}` : PART_LABELS[part];
+}
+
+/** In-page anchor of a part's heading: "introit", "alleluia-paschal", "gradual-2". */
+export function partAnchor(part: ProperPartName, variant = ""): string {
+  return variant ? `${part}-${variant}` : part;
+}
+
+/** A GregoBase chant page, from a validated integer id only. */
+export function gregobaseUrl(id: number | null): string | null {
+  return id !== null && Number.isInteger(id) && id > 0
+    ? `https://gregobase.selapa.net/chant.php?id=${id}` : null;
+}
+
+export interface BorrowedLink {
+  readonly label: string;
+  /** "/piece/<lender>/#<anchor>", or null when the lender is unknown. */
+  readonly href: string | null;
+  readonly lenderTitle: string | null;
+  readonly page: number;
+  readonly chantUrl: string | null;
+}
+
+/** Parts printed elsewhere, as links to where the lending piece prints them. */
+export function borrowedLinks(piece: Piece, pieces: readonly Piece[] = allPieces()): readonly BorrowedLink[] {
+  return piece.parts.filter((x): x is BorrowedPart => x.kind === "borrowed").map((x) => {
+    const lender = x.borrowedFrom ? pieces.find((p) => p.slug === x.borrowedFrom) : undefined;
+    const lent = lender?.parts.find((q): q is PrintedPart => q.kind === "printed" && q.ref === x.borrowedRef);
+    return {
+      label: partLabel(x.part, x.variant),
+      href: lender && lent ? `/piece/${lender.slug}/#${partAnchor(lent.part, lent.variant)}` : null,
+      lenderTitle: lender ? (lender.incipit ?? lender.title) : null,
+      page: x.borrowedPage,
+      chantUrl: gregobaseUrl(x.gregobaseId),
+    };
+  });
 }
 
 /**
- * Everything a reader can jump to in a piece: its movements (a Mass) and the
- * hymns printed in it (a Vespers office), in page order. The jump links and the
+ * Everything a reader can jump to in a piece: its movements (a Mass), its
+ * parts (a Proper) and the hymns printed in it (a Vespers office), in page order. The jump links and the
  * headings in the music both come from here, so every link has a target.
  */
 export function jumpTargets(piece: Piece): readonly JumpTarget[] {
   const movements: JumpTarget[] = movementStarts(piece).map((s) => ({
     label: s.label, anchor: s.anchor, index: s.index, kind: "movement",
   }));
+  const parts: JumpTarget[] = [];
+  const partAnchors = new Set<string>();
+  for (const x of piece.parts) {
+    // Placed by order alone, a start is a guess: it waits in the review queue.
+    if (x.kind !== "printed" || x.placed === "order") continue;
+    const index = piece.systems.indexOf(x.ref);
+    const anchor = partAnchor(x.part, x.variant);
+    if (index < 0 || partAnchors.has(anchor)) continue;
+    partAnchors.add(anchor);
+    parts.push({ label: partLabel(x.part, x.variant), anchor, index, kind: "part",
+                 chantUrl: gregobaseUrl(x.gregobaseId) });
+  }
   const used = new Map<string, number>();
   const hymns: JumpTarget[] = [];
   for (const h of piece.hymns) {
@@ -366,7 +503,7 @@ export function jumpTargets(piece: Piece): readonly JumpTarget[] {
     used.set(h.title, seen + 1);
     hymns.push({ label: h.title, anchor: hymnAnchor(h.title, seen), index, kind: "hymn" });
   }
-  return [...movements, ...hymns].sort((a, b) => a.index - b.index);
+  return [...movements, ...parts, ...hymns].sort((a, b) => a.index - b.index);
 }
 
 /** Every hymn in the catalog, A-Z, with the page and anchor that show it. */

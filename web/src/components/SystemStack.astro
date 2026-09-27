@@ -45,7 +45,16 @@ for (const t of jumpTargets(piece)) startsAt.set(t.index, [...(startsAt.get(t.in
       const starts = startsAt.get(i) ?? [];
       return (
         <>
-        {starts.map((start) => (
+        {starts.map((start) => start.kind === "part" ? (
+          <div class="part-head">
+            <h2 class="movement-heading part" id={start.anchor}>{start.label}</h2>
+            {start.chantUrl && (
+              <a class="chant-link ui no-print" href={start.chantUrl} target="_blank" rel="noopener">
+                Chant<span class="sr-only"> for the {start.label} (GregoBase, opens in new tab)</span>
+              </a>
+            )}
+          </div>
+        ) : (
           <h2 class={`movement-heading ${start.kind}`} id={start.anchor}>{start.label}</h2>
         ))}
         <div
@@ -83,6 +92,14 @@ for (const t of jumpTargets(piece)) startsAt.set(t.index, [...(startsAt.get(t.in
     margin: var(--s-4) 0 var(--s-2); scroll-margin-top: var(--s-4);
   }
   .movement-heading.hymn { font-style: italic; font-weight: 500; }
+
+  /* The heading is never the link: a stray tap mid-service stays on the music. */
+  .part-head { display: flex; align-items: baseline; gap: var(--s-3); margin: var(--s-4) 0 var(--s-2); }
+  .part-head .movement-heading { margin: 0; }
+  .chant-link {
+    font-size: var(--step--1); color: var(--ink-muted);
+    min-height: var(--tap-min); display: inline-flex; align-items: center;
+  }
 
   /* The slot reserves each system's exact height from its recorded aspect ratio.
      Without this the page reflows as slices load, which is the worst possible

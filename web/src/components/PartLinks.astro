@@ -1,0 +1,35 @@
+---
+import { borrowedLinks, jumpTargets } from "../lib/catalog";
+import type { Piece } from "../lib/catalog";
+import { pieceHref } from "../lib/indexes";
+
+// A day page shows no music: under each Proper, each part links to where the
+// piece's page shows it -- or, for a part printed elsewhere, to that page.
+interface Props { readonly pieces: readonly Piece[] }
+const rows = Astro.props.pieces.map((piece) => {
+  const printed = jumpTargets(piece).filter((t) => t.kind === "part")
+    .map((t) => ({ label: t.label, href: `${pieceHref(piece)}#${t.anchor}`, index: t.index, borrowed: false }));
+  const borrowed = borrowedLinks(piece).flatMap((b) => b.href === null ? [] : [{
+    label: b.label, href: b.href, index: -1, borrowed: true,
+  }]);
+  return { piece, links: [...borrowed, ...printed] };
+}).filter((row) => row.links.length > 0 || row.piece.jgabcUrl);
+---
+
+{rows.map(({ piece, links }) => (
+  <nav class="part-links ui small no-print" aria-label={`Parts of ${piece.incipit ?? piece.title}`}>
+    {links.map((l) => <a class:list={{ borrowed: l.borrowed }} href={l.href}>{l.label}</a>)}
+    {piece.jgabcUrl && (
+      <a class="chant" href={piece.jgabcUrl} target="_blank" rel="noopener">
+        Chant<span class="sr-only"> for the whole Proper (jgabc, opens in new tab)</span>
+      </a>
+    )}
+  </nav>
+))}
+
+<style>
+  .part-links { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-2); margin: var(--s-1) 0 var(--s-3); }
+  .part-links a { min-height: var(--tap-min); display: inline-flex; align-items: center; padding: 0 var(--s-1); }
+  .part-links .borrowed { font-style: italic; }
+  .part-links .chant { color: var(--ink-muted); }
+</style>

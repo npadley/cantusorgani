@@ -258,3 +258,65 @@ describe("hymns", () => {
     expect(jumpTargets(catalog.pieces[0]!).map((t) => t.anchor)).toEqual(["hymn-te-lucis"]);
   });
 });
+
+describe("Proper parts", () => {
+  it("should read printed and borrowed parts, and none from a catalog without them", async () => {
+    const { parseCatalog } = await import("./catalog");
+    const piece = parseCatalog(rawCatalog([rawPiece({ parts: [
+      { part: "introit", variant: "", system: 0, ref: "noh5/0047/000", gregobase_id: 59, placed: "label" },
+      { part: "gradual", variant: "", borrowed_volume: "noh4", borrowed_page: 78,
+        borrowed_from: "confessor", borrowed_ref: "noh4/0110/000", gregobase_id: null },
+    ] })])).pieces[0]!;
+    expect(piece.parts[0]).toMatchObject({ kind: "printed", part: "introit", gregobaseId: 59 });
+    expect(piece.parts[1]).toMatchObject({ kind: "borrowed", borrowedFrom: "confessor", borrowedPage: 78 });
+    expect(parseCatalog(rawCatalog([rawPiece()])).pieces[0]!.parts).toEqual([]);
+  });
+
+  it("should reject an unknown part or a printed part without a placement", async () => {
+    const { parseCatalog } = await import("./catalog");
+    expect(() => parseCatalog(rawCatalog([rawPiece({ parts: [{ part: "gloria", system: 0, ref: "r", placed: "label" }] })])))
+      .toThrow(/unknown part gloria/);
+    expect(() => parseCatalog(rawCatalog([rawPiece({ parts: [{ part: "introit", system: 0, ref: "r" }] })])))
+      .toThrow(/needs system, ref and placed/);
+  });
+
+  it("should keep only jgabc's own propers links", async () => {
+    const { parseCatalog } = await import("./catalog");
+    const ok = "https://bbloomf.github.io/jgabc/propers.html#saint=Oct3";
+    const url = (u: string) => parseCatalog(rawCatalog([rawPiece({ jgabc_url: u })])).pieces[0]!.jgabcUrl;
+    expect(url(ok)).toBe(ok);
+    expect(url("javascript:alert(1)")).toBeNull();
+    expect(url("https://evil.example/jgabc/propers.html#saint=Oct3")).toBeNull();
+  });
+
+  it("should label and anchor parts, including the Paschal Alleluia and repeated Graduals", async () => {
+    const { partAnchor, partLabel } = await import("./catalog");
+    expect(partLabel("alleluia", "paschal")).toBe("Paschal Alleluia");
+    expect(partLabel("gradual", "2")).toBe("Gradual 2");
+    expect(partAnchor("alleluia", "paschal")).toBe("alleluia-paschal");
+    expect(partAnchor("offertory")).toBe("offertory");
+  });
+
+  it("should build GregoBase links from positive integer ids only", async () => {
+    const { gregobaseUrl } = await import("./catalog");
+    expect(gregobaseUrl(59)).toBe("https://gregobase.selapa.net/chant.php?id=59");
+    expect(gregobaseUrl(null)).toBeNull();
+    expect(gregobaseUrl(-1)).toBeNull();
+    expect(gregobaseUrl(1.5)).toBeNull();
+  });
+
+  it("should link a borrowed part to the lending piece's anchor, or to nothing when unresolved", async () => {
+    const { borrowedLinks, parseCatalog } = await import("./catalog");
+    const lender = rawPiece({ id: "noh5-l", slug: "lender", title: "Commune", parts: [
+      { part: "gradual", variant: "", system: 0, ref: "noh5/0047/000", placed: "label" }] });
+    const borrower = rawPiece({ id: "noh5-b", slug: "borrower", parts: [
+      { part: "gradual", borrowed_volume: "noh5", borrowed_page: 1, borrowed_from: "lender",
+        borrowed_ref: "noh5/0047/000" },
+      { part: "offertory", borrowed_volume: "noh5", borrowed_page: 9, borrowed_from: null, borrowed_ref: null },
+    ] });
+    const pieces = parseCatalog(rawCatalog([lender, borrower])).pieces;
+    const links = borrowedLinks(pieces[1]!, pieces);
+    expect(links[0]).toMatchObject({ label: "Gradual", href: "/piece/lender/#gradual", lenderTitle: "Commune" });
+    expect(links[1]!.href).toBeNull();
+  });
+});

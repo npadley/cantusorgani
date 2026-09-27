@@ -46,10 +46,17 @@ const printedElsewhere = citedBy(piece);
         )}
       </div>
     )}
+    {piece.jgabcUrl && (
+      <p class="chant-proper ui small no-print">
+        <a href={piece.jgabcUrl} target="_blank" rel="noopener">Chant for the whole Proper<span class="sr-only"> (jgabc, opens in new tab)</span></a>
+        <span class="muted"> · jgabc</span>
+      </p>
+    )}
     <MovementNav piece={piece} />
     <ExportBar pieces={[piece]} title={piece.title} />
     <SystemStack piece={piece} id="music" />
-    <ChantPair piece={piece} />
+    {/* Parts carry their own chant links; the old pairing box would be a second set. */}
+    {piece.parts.length === 0 && <ChantPair piece={piece} />}
   </article>
 </Layout>
 
@@ -59,4 +66,6 @@ const printedElsewhere = citedBy(piece);
   .crumb a { color: var(--ink-muted); }
   h1 { margin: 0 0 var(--s-1); }
   .meta { margin: 0; }
+  .chant-proper { margin: 0 0 var(--s-3); }
+  .chant-proper a { min-height: var(--tap-min); display: inline-flex; align-items: center; }
 </style>

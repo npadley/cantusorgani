@@ -1,7 +1,7 @@
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import { describe, expect, it } from "vitest";
 
-import { movementStarts, ordinaryMasses, parseCatalog } from "../lib/catalog";
+import { allPieces, movementStarts, ordinaryMasses, parseCatalog } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
 import MovementNav from "./MovementNav.astro";
 import SystemStack from "./SystemStack.astro";
@@ -103,4 +103,87 @@ describe("the Kyriale's eighteen Masses", () => {
       for (const anchor of links(html)) expect(ids(html)).toContain(anchor);
     },
   );
+});
+
+function proper(parts: readonly Record<string, unknown>[], systems = 12, jgabc: string | null = null): Piece {
+  const refs = Array.from({ length: systems }, (_, i) => `noh3/0397/${String(i).padStart(3, "0")}`);
+  return parseCatalog({
+    schema_version: 2, volumes: { noh3: { title: "Sanctorale", part: "III" } }, chant_source: null,
+    pieces: [{
+      id: "noh3-t", volume: "noh3", slug: "t", section: "S", label: "T", title: "S. Theresiae",
+      incipit: null, genre: "proper", mode: null, mass: null, printed_pages: [364, 374],
+      pdf_pages: [397, 407], division: "sanctorale", systems: refs, system_assets: refs.map(() => ""),
+      system_aspect: refs.map(() => [1000, 250]), chant: null, review_status: "verified",
+      movements: [], jgabc_url: jgabc,
+      parts: parts.map((p) => ("system" in p ? { ...p, ref: refs[p["system"] as number] } : p)),
+    }],
+  }).pieces[0]!;
+}
+
+describe("MovementNav for a Proper", () => {
+  const therese = proper([
+    { part: "introit", system: 0, placed: "label", gregobase_id: 59 },
+    { part: "gradual", system: 4, placed: "label", gregobase_id: 1034 },
+    { part: "alleluia", variant: "paschal", system: 7, placed: "text", gregobase_id: null },
+    { part: "communion", system: 10, placed: "label", gregobase_id: 162 },
+  ]);
+
+  it("should link every part to a heading before its first system", async () => {
+    const html = await render(therese);
+    expect(links(html)).toEqual(["introit", "gradual", "alleluia-paschal", "communion"]);
+    for (const anchor of links(html)) expect(ids(html)).toContain(anchor);
+    expect(html.indexOf('id="gradual"')).toBeLessThan(html.indexOf('data-ref="noh3/0397/004"'));
+    expect(html).toContain(">Paschal Alleluia</a>");
+  });
+
+  it("should label the nav as the Proper's parts", async () => {
+    expect(await render(therese)).toContain('aria-label="Parts of the Proper"');
+  });
+
+  it("should put the chant link beside the heading, never inside it, opening a new tab", async () => {
+    const html = await render(therese);
+    expect(html).toMatch(/<h2[^>]*id="introit"[^>]*>Introit<\/h2>/);
+    expect(html).toContain('href="https://gregobase.selapa.net/chant.php?id=59"');
+    expect(html).toMatch(/href="https:\/\/gregobase\.selapa\.net\/chant\.php\?id=59" target="_blank" rel="noopener"/);
+    expect(html).toContain("opens in new tab");
+  });
+
+  it("should leave out the chant link when the part has no chant id", async () => {
+    const html = await render(therese);
+    const paschal = html.slice(html.indexOf('id="alleluia-paschal"'), html.indexOf('id="communion"'));
+    expect(paschal).not.toContain("gregobase");
+  });
+
+  it("should not render a nav for a Proper with a single part", async () => {
+    expect(await render(proper([{ part: "introit", system: 0, placed: "label" }]))).not.toContain("Jump to");
+  });
+});
+
+describe("every divided Proper in the catalog", () => {
+  const propers = allPieces().filter((p) => p.parts.some((x) => x.kind === "printed"));
+
+  it("should exist in quantity", () => {
+    expect(propers.length).toBeGreaterThan(150);
+  });
+
+  it.each(propers.map((p) => [p.slug, p] as const))(
+    "%s should link each part to a heading on the page",
+    async (_slug, piece) => {
+      const html = await render(piece);
+      for (const anchor of links(html)) expect(ids(html)).toContain(anchor);
+    },
+  );
+});
+
+describe("parts placed by order", () => {
+  it("should not be offered as jump links: a wrong link is worse than none", async () => {
+    const piece = proper([
+      { part: "introit", system: 0, placed: "label" },
+      { part: "alleluia", system: 4, placed: "order" },
+      { part: "communion", system: 9, placed: "text" },
+    ]);
+    const html = await render(piece);
+    expect(links(html)).toEqual(["introit", "communion"]);
+    expect(html).not.toContain('id="alleluia"');
+  });
 });

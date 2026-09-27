@@ -1,19 +1,29 @@
 ---
-import { jumpTargets } from "../lib/catalog";
+import { borrowedLinks, jumpTargets } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
 
-// Jump links to the headings SystemStack prints above each movement and hymn.
-// Both come from jumpTargets, so every link has a target.
+// Jump links to the headings SystemStack prints above each movement, part and
+// hymn. Both come from jumpTargets, so every link has a target. Parts printed
+// elsewhere link to the page that prints them.
 interface Props { readonly piece: Piece }
-const starts = jumpTargets(Astro.props.piece);
+const { piece } = Astro.props;
+const starts = jumpTargets(piece);
 const movements = starts.filter((s) => s.kind === "movement");
+const parts = starts.filter((s) => s.kind === "part");
 const hymns = starts.filter((s) => s.kind === "hymn");
+const borrowed = borrowedLinks(piece).filter((b) => b.href !== null);
+const isProper = parts.length > 0 || borrowed.length > 0;
+const label = isProper ? "Parts of the Proper" : hymns.length > 0 ? "Hymns" : "Movements";
 ---
 
-{(movements.length > 1 || hymns.length > 0) && (
-  <nav class="movements ui no-print" aria-label="Movements and hymns">
+{(movements.length > 1 || hymns.length > 0 || parts.length + borrowed.length > 1) && (
+  <nav class="movements ui no-print" aria-label={label}>
     <span class="small muted">Jump to</span>
     {movements.length > 1 && movements.map((s) => <a href={`#${s.anchor}`}>{s.label}</a>)}
+    {parts.map((s) => <a href={`#${s.anchor}`}>{s.label}</a>)}
+    {borrowed.map((b) => (
+      <a class="borrowed" href={b.href ?? undefined}>{b.label} → {b.lenderTitle}, p.&nbsp;{b.page}</a>
+    ))}
     {hymns.length > 0 && <span class="small muted">Hymns</span>}
     {hymns.map((s) => <a class="hymn" href={`#${s.anchor}`}>{s.label}</a>)}
   </nav>
@@ -25,7 +35,7 @@ const hymns = starts.filter((s) => s.kind === "hymn");
     margin: 0 0 var(--s-4); padding-bottom: var(--s-2);
     border-bottom: 1px solid var(--rule);
   }
-  .movements .hymn { font-style: italic; }
+  .movements .hymn, .movements .borrowed { font-style: italic; }
   .movements a {
     min-height: var(--tap-min);
     display: inline-flex; align-items: center; padding: 0 var(--s-2);
