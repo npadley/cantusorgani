@@ -40,18 +40,6 @@
         "4323"
       ],
       "port": 4323
-    },
-    {
-      "name": "scratch-exsurge",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": [
-        "-m",
-        "http.server",
-        "4330",
-        "--directory",
-        "/private/tmp/claude-501/-Users-npadley-development-nova-organi-harmonia-online/3a5f7171-1d79-46eb-90f6-bed237a5347d/scratchpad/exs"
-      ],
-      "port": 4330
     }
   ]
 }
