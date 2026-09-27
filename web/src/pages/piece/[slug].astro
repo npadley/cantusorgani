@@ -5,9 +5,11 @@ import Layout from "../../components/Layout.astro";
 import MovementNav from "../../components/MovementNav.astro";
 import RecordStatusNotice from "../../components/RecordStatusNotice.astro";
 import SystemStack from "../../components/SystemStack.astro";
+import VespersDates from "../../components/VespersDates.astro";
 import { allPieces, citedBy, jumpTargets, volumeLabel } from "../../lib/catalog";
 import { pieceHref } from "../../lib/indexes";
 import type { Piece } from "../../lib/catalog";
+import { lineupsUsing } from "../../lib/vespers";
 
 export function getStaticPaths() {
   return allPieces().map((piece) => ({ params: { slug: piece.slug }, props: { piece } }));
@@ -17,6 +19,9 @@ interface Props { readonly piece: Piece }
 const { piece } = Astro.props;
 const heading = piece.incipit ?? piece.title;
 const printedElsewhere = citedBy(piece);
+// A Vesperale section prints only the day's own chants; the full order of
+// Vespers, psalms and Magnificat included, is on the dated pages.
+const vespersDays = piece.division === "vesperale" ? lineupsUsing(piece.slug) : [];
 ---
 
 <Layout
@@ -51,6 +56,13 @@ const printedElsewhere = citedBy(piece);
         <a href={piece.jgabcUrl} target="_blank" rel="noopener">Chant for the whole Proper<span class="sr-only"> (jgabc, opens in new tab)</span></a>
         <span class="muted"> · jgabc</span>
       </p>
+    )}
+    {vespersDays.length > 0 && (
+      <div class="no-print">
+        <p class="notice ui small">This page is the book's section as printed. For the whole of Vespers in the
+          order sung — psalms, chapter, hymn, Magnificat and Marian antiphon — open a date below.</p>
+        <VespersDates days={vespersDays} />
+      </div>
     )}
     <MovementNav piece={piece} />
     <ExportBar pieces={[piece]} title={piece.title} />

@@ -1,0 +1,84 @@
+---
+import { lineupHref, lineupTitle, sungOn } from "../lib/vespers";
+import type { LineupDay } from "../lib/vespers";
+
+// Links to the full Vespers pages, in the order sung. The site is built ahead
+// of time, so the coming evenings are picked in the browser from the reader's
+// own date; without scripts the full list by year is still there.
+interface Props {
+  readonly days: readonly LineupDay[];
+  readonly heading?: string;
+  /** How many coming evenings to show above the full list. */
+  readonly upcoming?: number;
+}
+const { days, heading = "Full Vespers, in the order sung", upcoming = 4 } = Astro.props;
+function short(iso: string): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  return new Date(Date.UTC(y ?? 1970, (m ?? 1) - 1, d ?? 1)).toLocaleDateString("en-GB", {
+    weekday: "short", day: "numeric", month: "short", year: "numeric", timeZone: "UTC",
+  });
+}
+const years = new Map<string, LineupDay[]>();
+for (const day of days) {
+  const year = sungOn(day).slice(0, 4);
+  years.set(year, [...(years.get(year) ?? []), day]);
+}
+---
+
+{days.length > 0 && (
+  <section class="vespers-dates ui" data-upcoming={upcoming}>
+    <h2>{heading}</h2>
+    <ul class="dates coming" data-coming hidden aria-label="The coming evenings"></ul>
+    <details>
+      <summary class="small">Every date ({days.length})</summary>
+      {[...years].map(([year, list]) => (
+        <>
+          <h3 class="small muted">{year}</h3>
+          <ul class="dates">
+            {list.map((day) => (
+              <li data-date={sungOn(day)}>
+                <a href={lineupHref(day)}>
+                  <span class="date muted">{short(sungOn(day))}</span>
+                  <span class="name">{day.vespers === "I" ? `I Vespers of ${lineupTitle(day)}` : lineupTitle(day)}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      ))}
+    </details>
+  </section>
+)}
+
+<style>
+  .vespers-dates { margin: var(--s-4) 0; }
+  .vespers-dates h3 { margin: var(--s-3) 0 var(--s-1); font-weight: 600; }
+  .dates { list-style: none; margin: 0 0 var(--s-2); padding: 0; }
+  .dates li { border-bottom: 1px solid var(--rule); }
+  .dates a { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-1) var(--s-3);
+             min-height: var(--tap-min); padding: var(--s-2) var(--s-1); color: var(--ink); text-decoration: none; }
+  .dates a:hover { background: color-mix(in srgb, var(--rule) 20%, transparent); }
+  .date { min-width: 8.5rem; font-variant-numeric: tabular-nums; }
+  .name { font-family: var(--font-text); }
+  .coming li:first-child .name { font-weight: 600; }
+  summary { cursor: pointer; min-height: var(--tap-min); display: flex; align-items: center; }
+</style>
+
+<script is:inline>
+  // The reader's local date: the liturgical day is the local day.
+  (function () {
+    var now = new Date();
+    var today = [now.getFullYear(), String(now.getMonth() + 1).padStart(2, "0"),
+                 String(now.getDate()).padStart(2, "0")].join("-");
+    document.querySelectorAll(".vespers-dates").forEach(function (section) {
+      var coming = section.querySelector("[data-coming]");
+      if (!coming) return;
+      var limit = Number(section.getAttribute("data-upcoming")) || 4;
+      var next = Array.prototype.filter.call(section.querySelectorAll("li[data-date]"), function (li) {
+        return li.getAttribute("data-date") >= today;
+      }).slice(0, limit);
+      next.forEach(function (li) { coming.appendChild(li.cloneNode(true)); });
+      if (next.length > 0) coming.hidden = false;
+    });
+  })();
+</script>

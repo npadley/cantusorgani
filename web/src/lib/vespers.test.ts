@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  bankNote, consoleLine, exportLineup, isFormula, isSunday, itemHeading, lineupFor, lineupHref, loadLineup, nextFirstVespers, nextLineupDate,
+  allLineups, bankNote, consoleLine, exportLineup, itemSystems, lineupTitle, lineupsUsing, sungOn, isFormula, isSunday, itemHeading, lineupFor, lineupHref, loadLineup, nextFirstVespers, nextLineupDate,
   parseLineup, sections, spokenTone, toneLabel,
 } from "./vespers";
 import type { LineupDay } from "./vespers";
@@ -140,5 +140,36 @@ describe("isSunday", () => {
     expect(isSunday("tempora:Adv1-0")).toBe(true);
     expect(isSunday("tempora:Pent01-4")).toBe(false);
     expect(isSunday("sancti:10-DU")).toBe(false);
+  });
+});
+
+describe("finding the dated pages", () => {
+  const lineup = loadLineup();
+
+  it("should list every Vespers in the order sung, I Vespers on the evening before", () => {
+    const all = allLineups(lineup);
+    expect(all.length).toBe(lineup.days.size + lineup.firstVespers.size);
+    const sung = all.map(sungOn);
+    expect([...sung].sort()).toEqual(sung);
+    const assumption = lineup.firstVespers.get("2027-08-15")!;
+    expect(sungOn(assumption)).toBe("2027-08-14");
+  });
+
+  it("should find a green Sunday's dates from its Vesperale section, and title them", () => {
+    const days = lineupsUsing("vesperae-dominicae-iv-xxiv-post-pentecosten", lineup);
+    const today = days.find((d) => d.date === "2026-09-27");
+    expect(today).toBeDefined();
+    expect(lineupTitle(today!)).toBe("XVIII Sunday after Pentecost");
+    expect(lineupTitle(lineup.days.get("2026-12-25")!)).not.toBe("sancti:12-25");
+  });
+
+  it("should not count a piece that only lends a tone-bank formula", () => {
+    const christmas = lineup.days.get("2026-12-25")!;
+    const bankSlugs = christmas.items.filter((i) => i.source.type === "bank")
+      .flatMap((i) => itemSystems(i).map((s) => s.piece.slug));
+    for (const slug of bankSlugs) {
+      const own = christmas.items.some((i) => i.source.type === "printed" && itemSystems(i).some((s) => s.piece.slug === slug));
+      expect(lineupsUsing(slug, lineup).includes(christmas)).toBe(own);
+    }
   });
 });

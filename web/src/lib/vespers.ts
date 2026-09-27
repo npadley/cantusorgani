@@ -1,5 +1,6 @@
 import raw from "../../../data/vespers-lineup.json";
 import { allPieces, systemUrlStem } from "./catalog";
+import { observance } from "./liturgy";
 import type { Piece } from "./catalog";
 import type { ExportSegment } from "./exportParts";
 
@@ -167,6 +168,31 @@ export function nextFirstVespers(office: string, from: string, lineup: Lineup = 
 /** Where a lineup day's page is: /vespers/<date>/ (II), /vespers/<date>/i/ (I). */
 export function lineupHref(day: LineupDay): string {
   return day.eveningOf ? `/vespers/${day.date}/i/` : `/vespers/${day.date}/`;
+}
+
+/** The day's title in English: Christmas has three Masses, and Vespers take
+ * the title of the Mass of the day. */
+export function lineupTitle(day: LineupDay): string {
+  const o = observance(day.office) ?? observance(`${day.office}r`) ?? observance(`${day.office}m3`);
+  return o?.titleEn ?? day.office;
+}
+
+/** The evening a lineup is sung: I Vespers the day before its feast. */
+export function sungOn(day: LineupDay): string {
+  return day.eveningOf ?? day.date;
+}
+
+/** Every Vespers with a page, II and I, in the order they are sung. */
+export function allLineups(lineup: Lineup = loadLineup()): readonly LineupDay[] {
+  return [...lineup.days.values(), ...lineup.firstVespers.values()]
+    .sort((a, b) => sungOn(a).localeCompare(sungOn(b)) || a.vespers.localeCompare(b.vespers));
+}
+
+/** The Vespers whose own music comes from `slug` (the day's antiphons,
+ * Magnificat antiphon or hymn) -- not borrowed tone-bank formulas. */
+export function lineupsUsing(slug: string, lineup: Lineup = loadLineup()): readonly LineupDay[] {
+  return allLineups(lineup).filter((day) => day.items.some((item) =>
+    item.source.type === "printed" && itemSystems(item).some((s) => s.piece.slug === slug)));
 }
 
 /** A Sunday of the Proper of the Time ("tempora:Pent15-0"). */

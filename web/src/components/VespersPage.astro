@@ -4,16 +4,15 @@ import Layout from "./Layout.astro";
 import LineupStack from "./LineupStack.astro";
 import { hasNotation } from "../lib/chants";
 import { observance } from "../lib/liturgy";
-import { consoleLine, exportLineup, lineupHref, loadLineup, sections } from "../lib/vespers";
+import { consoleLine, exportLineup, lineupHref, lineupTitle, loadLineup, sections } from "../lib/vespers";
 import type { LineupDay } from "../lib/vespers";
 
 // One Vespers in the order sung: II Vespers of a date (/vespers/<date>/), or
 // I Vespers of a I class feast, sung the evening before (/vespers/<date>/i/).
 interface Props { readonly day: LineupDay }
 const { day } = Astro.props;
-// Christmas has three Masses: Vespers take the title of the Mass of the day.
 const o = observance(day.office) ?? observance(`${day.office}r`) ?? observance(`${day.office}m3`);
-const title = o?.titleEn ?? day.office;
+const title = lineupTitle(day);
 function long(iso: string): string {
   const [y, m, d] = iso.split("-").map(Number);
   return new Date(Date.UTC(y ?? 1970, (m ?? 1) - 1, d ?? 1)).toLocaleDateString("en-GB", {
