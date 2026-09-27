@@ -89,6 +89,8 @@ def build_parser() -> argparse.ArgumentParser:
                          help="vendor jgabc's per-day chant ids into data/jgabc-propers.json")
     jg.add_argument("--commit", default=None, help="jgabc commit sha (default: master's head)")
 
+    subs.add_parser("chants", help="write data/chants.json: the notation of every chant a part names")
+
     cat = subs.add_parser("catalog", help="build data/catalog.json and review-queue.json")
     cat.add_argument("--volume", required=True)
     cat.add_argument("--no-parts", action="store_true",
@@ -217,6 +219,18 @@ def main(argv: list[str] | None = None) -> int:
                   file=sys.stderr)
             return 1
         print(f"{path}: {count} Propers from jgabc @ {commit[:12]}")
+        return 0
+
+    if args.command == "chants":
+        from pipeline.chants import build
+        from pipeline.gregobase import DUMP
+        if not DUMP.exists():
+            print(f"chants: {DUMP.name} is missing (not in git); see README \"Vendored data\".",
+                  file=sys.stderr)
+            return 1
+        path, written, withheld = build()
+        print(f"{path}: {written} chants; {withheld} referenced but withheld (flagged copyrighted, "
+              f"or no notation)")
         return 0
 
     if args.command == "catalog":

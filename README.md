@@ -48,12 +48,15 @@ through the environment: `set -a; . ./.dev.vars; set +a`.
 
 ## Vendored data
 
-Two datasets from elsewhere, pinned and checked by `noh doctor`:
+Data and code from elsewhere, each pinned to its source:
 
 | Data | Where | Tracked | Refresh |
 |---|---|---|---|
 | **jgabc** per-day chant ids — which parts each Proper has, and the GregoBase id of each ([bbloomf/jgabc](https://github.com/bbloomf/jgabc), Unlicense) | `data/jgabc-propers.json`, with the source commit and a content sha256 in its header | yes | `uv run noh jgabc-fetch [--commit SHA]`; never hand-edit |
-| **GregoBase** dump — chant texts, used inside the pipeline to find each part in the scans; not published | `vendor/gregobase_online.sql` | no (17 MB) | download `gregobase_online.sql` from [gregorio-project/GregoBase](https://github.com/gregorio-project/GregoBase) and check its sha256 against `DUMP_SHA256` in `pipeline/gregobase.py` |
+| **GregoBase** dump — chant texts and notation (CC0) | `vendor/gregobase_online.sql` | no (17 MB) | download `gregobase_online.sql` from [gregorio-project/GregoBase](https://github.com/gregorio-project/GregoBase) and check its sha256 against `DUMP_SHA256` in `pipeline/gregobase.py` |
+| **Chant notation** the site publishes — the GABC of every chant a Proper part names, leaving out those GregoBase flags copyrighted | `data/chants.json` | yes | `uv run noh chants` (after `noh catalog`) |
+| **Exsurge** — draws the notation in the browser ([bbloomf/exsurge](https://github.com/bbloomf/exsurge), MIT) | `web/public/vendor/exsurge/`, with its licence and source commit | yes | replace `exsurge.min.js` from a newer commit and update `SOURCE` |
 
-The site publishes **links** to GregoBase and jgabc, not their chant data; see
-the open licence question in `data/LICENSES.md`.
+A reader can show the chant above each part of a Proper ("Show the chant with
+each part", remembered in the browser; off by default), or follow the "Chant"
+link to GregoBase. Licensing: `data/LICENSES.md`.

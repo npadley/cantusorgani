@@ -425,6 +425,8 @@ export interface JumpTarget {
   readonly kind: "movement" | "hymn" | "part";
   /** A part's chant on GregoBase, when known. */
   readonly chantUrl?: string | null;
+  /** The GregoBase id of a part's chant, when known. */
+  readonly chantId?: number | null;
   /** A part's partOrder. */
   readonly order?: number;
 }
@@ -508,7 +510,8 @@ export function jumpTargets(piece: Piece): readonly JumpTarget[] {
     if (index < 0 || partAnchors.has(anchor)) continue;
     partAnchors.add(anchor);
     parts.push({ label: partLabel(x.part, x.variant), anchor, index, kind: "part",
-                 chantUrl: gregobaseUrl(x.gregobaseId), order: partOrder(x.part, x.variant) });
+                 chantUrl: gregobaseUrl(x.gregobaseId), chantId: x.gregobaseId,
+                 order: partOrder(x.part, x.variant) });
   }
   const used = new Map<string, number>();
   const hymns: JumpTarget[] = [];

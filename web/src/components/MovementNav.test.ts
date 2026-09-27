@@ -202,3 +202,37 @@ describe("printed and borrowed parts together", () => {
     expect(links(await render(piece))).toEqual(["offertory", "communion"]);   // unresolved lender: no link
   });
 });
+
+describe("chant notation beside each part", () => {
+  const withChant = proper([
+    { part: "introit", system: 0, placed: "label", gregobase_id: 59 },     // Veni de Libano: published
+    { part: "communion", system: 6, placed: "label", gregobase_id: null },
+  ]);
+
+  it("should offer the switch, off by default, when a part has notation", async () => {
+    const html = await render(withChant);
+    expect(html).toMatch(/<input type="checkbox" data-chant-toggle[^>]*>/);
+    expect(html).not.toMatch(/data-chant-toggle[^>]*checked/);
+    expect(html).toContain("Show the chant with each part");
+  });
+
+  it("should place a hidden container under the part's heading, with its annotation and credit", async () => {
+    const html = await render(withChant);
+    const heading = html.indexOf('id="introit"');
+    const box = html.indexOf('data-chant-id="59"');
+    expect(heading).toBeGreaterThan(-1);
+    expect(box).toBeGreaterThan(heading);
+    expect(html).toMatch(/class="chant-notation"[^>]*hidden/);
+    expect(html).toContain('data-annotation="Intr."');
+    expect(html).toContain("Chant from");
+  });
+
+  it("should offer neither switch nor container where no part has published notation", async () => {
+    const html = await render(proper([
+      { part: "introit", system: 0, placed: "label", gregobase_id: null },
+      { part: "communion", system: 6, placed: "label", gregobase_id: 999999 },
+    ]));
+    expect(html).not.toContain("data-chant-toggle");
+    expect(html).not.toContain("chant-notation");
+  });
+});
