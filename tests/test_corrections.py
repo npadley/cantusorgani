@@ -176,7 +176,8 @@ def point_at(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(corrections, "load_base", lambda path=b: real["load_base"](path))
     monkeypatch.setattr(corrections, "load", lambda path=c: real["load"](path))
     monkeypatch.setattr(corrections, "write", lambda: real["write"](b, c, out))
-    monkeypatch.setattr(corrections, "correct", lambda *a, **k: real["correct"](*a, base_path=b, path=c, **k))
+    monkeypatch.setattr(corrections, "correct",
+                        lambda *a, **k: real["correct"](*a, **{"base_path": b, "path": c, **k}))
     monkeypatch.setattr(corrections, "drop", lambda i: real["drop"](i, c))
 
 
@@ -228,3 +229,62 @@ def test_where_vespers_names_the_office_and_its_line(tmp_path):
     assert (adv.label, adv.source) == ("II Vespers of tempora:Adv1-0 (office adv1)", "data/vespers-offices.yml:2")
     assert where("/vespers/2026-09-27/", base(), tmp_path)[0].source.startswith("data/vespers-noh8.yml:2")
     assert where("/vespers/2026-09-27/i/", base(), tmp_path)[0].label == "no I Vespers page for 2026-09-27"
+
+
+def batch(*entries: dict, batch_id: str = "b-20260927-abc123") -> dict:
+    return {"batch": batch_id, "entries": list(entries)}
+
+
+def test_correct_batch_records_every_entry_with_its_editor_and_source(tmp_path):
+    b, c = tmp_path / "catalog.base.json", tmp_path / "corrections.yml"
+    b.write_text(json.dumps(base()))
+    done = corrections.correct_batch(batch(
+        {"target": "piece:kyrie-i", "field": "mode", "value": "VII", "source": "reader#12", "note": "Liber"},
+        {"target": "piece:dominica-i-adventus", "field": "title", "value": "Dominica prima Adventus",
+         "editor_email": "ed@example.org"}), base_path=b, path=c)
+    assert [(e.id, e.source, e.editor_email) for e in done] == [("c-0001", "reader#12", ""),
+                                                                ("c-0002", "editor", "ed@example.org")]
+    summary = corrections.batch_summary("b-20260927-abc123", done)
+    assert "| c-0002 | piece:dominica-i-adventus | title | \"Dominica I Adventus\" | \"Dominica prima Adventus\" | ed@example.org |" in summary
+
+
+@pytest.mark.parametrize(("payload", "message"), [
+    (batch({"target": "piece:kyrie-i", "field": "mode", "value": "VII"}, batch_id="main; rm"), "batch id"),
+    (batch(), "1 to 100 entries"),
+    (batch({"target": "piece:kyrie-i", "field": "mode", "value": "VII", "source": "bot"}), "source 'bot'"),
+    (batch({"target": "piece:kyrie-i", "field": "mode", "value": "VII", "editor_email": "x"}), "not an address"),
+    (batch("nope"), "not an object"),
+])
+def test_correct_batch_bad_payload_names_the_problem(tmp_path, payload, message):
+    b = tmp_path / "catalog.base.json"
+    b.write_text(json.dumps(base()))
+    with pytest.raises(CorrectionError, match=message):
+        corrections.correct_batch(payload, base_path=b, path=tmp_path / "c.yml")
+
+
+def test_correct_batch_is_all_or_nothing(tmp_path):
+    b, c = tmp_path / "catalog.base.json", tmp_path / "corrections.yml"
+    b.write_text(json.dumps(base()))
+    correct("piece:kyrie-i", "title", "Lux", base_path=b, path=c)
+    before = c.read_text()
+    with pytest.raises(CorrectionError, match="nothing was recorded") as err:
+        corrections.correct_batch(batch({"target": "piece:kyrie-i", "field": "mode", "value": "VII"},
+                                        {"target": "piece:gone", "field": "title", "value": "x"}),
+                                  base_path=b, path=c)
+    assert "entry 2 (piece:gone title)" in str(err.value)
+    assert c.read_text() == before
+    fresh = tmp_path / "fresh.yml"
+    with pytest.raises(CorrectionError):
+        corrections.correct_batch(batch({"target": "piece:gone", "field": "title", "value": "x"}), base_path=b, path=fresh)
+    assert not fresh.exists()
+
+
+def test_cli_correct_batch_writes_the_summary(tmp_path, monkeypatch, capsys):
+    point_at(tmp_path, monkeypatch)
+    real = corrections.correct_batch
+    monkeypatch.setattr(corrections, "correct_batch", lambda b_: real(b_, base_path=tmp_path / "catalog.base.json",
+                                                                         path=tmp_path / "corrections.yml"))
+    (tmp_path / "b.json").write_text(json.dumps(batch({"target": "piece:kyrie-i", "field": "mode", "value": "VII"})))
+    assert cli.main(["correct-batch", str(tmp_path / "b.json"), "--summary", str(tmp_path / "pr.md")]) == 0
+    assert "recorded 1 correction(s): c-0001" in capsys.readouterr().out
+    assert "b-20260927-abc123" in (tmp_path / "pr.md").read_text()

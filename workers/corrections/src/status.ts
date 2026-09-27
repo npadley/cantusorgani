@@ -41,6 +41,16 @@ function isStatus(value: string): value is Status {
   return (STATUSES as readonly string[]).includes(value);
 }
 
+/**
+ * The admin workflow's statuses (migration 0002), as the public sees them: a
+ * report an editor has approved, or that sits in an open pull request, is still
+ * pending until it is merged; a duplicate was not taken up.
+ */
+const PUBLIC_STATUS: Readonly<Record<string, Status>> = {
+  pending: "pending", approved: "pending", queued: "pending",
+  accepted: "accepted", rejected: "rejected", duplicate: "rejected",
+};
+
 export function toPublicRow(row: StoredRow): PublicRow | null {
   const check = parseCorrection({
     pieceId: row.piece_id,
@@ -48,7 +58,8 @@ export function toPublicRow(row: StoredRow): PublicRow | null {
     proposedValue: row.proposed,
   });
   if (!check.ok) return null;
-  if (!isStatus(row.status)) return null;
+  const status = PUBLIC_STATUS[row.status];
+  if (status === undefined || !isStatus(status)) return null;
   if (!ISO_LIKE.test(row.created_at)) return null;
 
   // Emit the values that were validated, never the raw stored strings: if
@@ -59,7 +70,7 @@ export function toPublicRow(row: StoredRow): PublicRow | null {
     pieceId: check.value.pieceId,
     field: check.value.field,
     proposedValue: check.value.proposedValue,
-    status: row.status,
+    status,
     createdAt: row.created_at,
   };
 }

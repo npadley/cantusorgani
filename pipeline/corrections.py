@@ -32,17 +32,13 @@ CORRECTIONS = DATA / "corrections.yml"
 BASE = DATA / "catalog.base.json"
 CATALOG = DATA / "catalog.json"
 
-# Correctable fields of a piece, keyed as in the catalogue. Free text refuses
-# control characters and markup: the site escapes output, but a title with
-# "<" in it is always a mistake.
-TEXT = re.compile(r"^[^\x00-\x1f<>]{1,160}$")
-FIELDS: dict[str, re.Pattern[str]] = {
-    "title": TEXT,
-    "incipit": TEXT,
-    "mode": re.compile(r"^(I|II|III|IV|V|VI|VII|VIII)$"),
-    "genre": re.compile(r"^[a-z_]{1,24}$"),
-    "printed_pages": re.compile(r"^\d{1,3}-\d{1,3}$"),
-}
+# Correctable fields of a piece, keyed as in the catalogue, from the schema the
+# admin screen reads too. Free text refuses control characters and markup: the
+# site escapes output, but a title with "<" in it is always a mistake.
+SCHEMA = DATA / "schema" / "corrections.json"
+_SPEC: dict[str, dict[str, str]] = json.loads(SCHEMA.read_text(encoding="utf-8"))["targets"]["piece"]
+FIELDS: dict[str, re.Pattern[str]] = {name: re.compile(rule["pattern"]) for name, rule in _SPEC.items()}
+HINTS: dict[str, str] = {name: rule["hint"] for name, rule in _SPEC.items()}
 
 HEADER = """\
 # Hand corrections over the generated catalogue. Applied by `noh catalog` and
@@ -135,9 +131,7 @@ def coerce(name: str, value: object) -> Any:
         value = f"{value[0]}-{value[1]}"
     text = str(value).strip()
     if not FIELDS[name].fullmatch(text):
-        hint = {"mode": "a Roman numeral I to VIII", "printed_pages": "first-last, e.g. 5-10",
-                "genre": "a lower-case genre such as proper or kyrie"}.get(name, "plain text, no < or >")
-        raise CorrectionError(f"{text!r} is not a valid {name}: expected {hint}")
+        raise CorrectionError(f"{text!r} is not a valid {name}: expected {HINTS[name]}")
     if name == "printed_pages":
         first, last = (int(p) for p in text.split("-", 1))
         if first > last:
@@ -289,6 +283,65 @@ def _check_and_save(base: dict[str, Any], entries: list[Entry], path: Path) -> N
     save(entries, path)
 
 
+BATCH_ID = re.compile(r"^b-[0-9a-z-]{6,40}$")
+EMAIL = re.compile(r"^[^\s@<>]{1,64}@[^\s@<>]{1,190}$")
+
+
+def correct_batch(batch: dict[str, Any], today: date | None = None, base_path: Path = BASE,
+                  path: Path = CORRECTIONS) -> list[Entry]:
+    """Record a batch from the admin screen, all or nothing.
+
+    The batch arrives from GitHub Actions' repository_dispatch payload, so every
+    field is checked here again, whatever the admin screen already checked."""
+    batch_id = str(batch.get("batch", ""))
+    if not BATCH_ID.fullmatch(batch_id):
+        raise CorrectionError(f"batch id {batch_id!r} is not of the form b-<letters, digits, ->")
+    items = batch.get("entries")
+    if not isinstance(items, list) or not 1 <= len(items) <= 100:
+        raise CorrectionError("a batch needs 1 to 100 entries")
+    before = path.read_text(encoding="utf-8") if path.exists() else None
+    done: list[Entry] = []
+    errors: list[str] = []
+    for n, item in enumerate(items, 1):
+        if not isinstance(item, dict):
+            errors.append(f"entry {n}: not an object")
+            continue
+        source = str(item.get("source", "editor"))
+        email = str(item.get("editor_email", ""))
+        if not re.fullmatch(r"editor|reader#\d{1,9}", source):
+            errors.append(f"entry {n}: source {source!r} must be editor or reader#<id>")
+            continue
+        if email and not EMAIL.fullmatch(email):
+            errors.append(f"entry {n}: editor_email {email!r} is not an address")
+            continue
+        try:
+            entry, _ = correct(str(item.get("target", "")), str(item.get("field", "")), str(item.get("value", "")),
+                               note=str(item.get("note", ""))[:200], source=source, editor_email=email,
+                               today=today, base_path=base_path, path=path)
+            done.append(entry)
+        except CorrectionError as exc:
+            errors.append(f"entry {n} ({item.get('target')} {item.get('field')}): {exc}")
+    if errors:
+        if before is None:
+            path.unlink(missing_ok=True)
+        else:
+            path.write_text(before, encoding="utf-8")
+        raise CorrectionError(f"batch {batch_id}: nothing was recorded.\n" + "\n".join(errors))
+    return done
+
+
+def batch_summary(batch_id: str, entries: list[Entry]) -> str:
+    """The pull request's description: one line per correction, for review."""
+    lines = [f"Corrections from the admin screen, batch `{batch_id}`.", "",
+             "| Id | Target | Field | Was | Now | By | Note |", "|---|---|---|---|---|---|---|"]
+    for e in entries:
+        cells = [e.id, e.target, e.field, json.dumps(e.was, ensure_ascii=False), json.dumps(e.value, ensure_ascii=False),
+                 e.editor_email or e.source, e.note]
+        lines.append("| " + " | ".join(str(c).replace("|", "\\|").replace("\n", " ") for c in cells) + " |")
+    lines += ["", "Merging deploys the site. Closing without merging returns these to the admin queue."]
+    return "\n".join(lines) + "\n"
+
+
 def drop(entry_id: str, path: Path = CORRECTIONS) -> Entry:
     entries = load(path)
     for e in entries:
@@ -377,4 +430,4 @@ def _piece_location(piece: dict[str, Any], data: Path) -> Location:
 
 
 __all__ = ["BASE", "CATALOG", "CORRECTIONS", "FIELDS", "CorrectionError", "Entry", "Location", "apply",
-           "coerce", "correct", "drop", "load", "load_base", "no_ops", "problems", "save", "where", "write"]
+           "batch_summary", "coerce", "correct", "correct_batch", "drop", "load", "load_base", "no_ops", "problems", "save", "where", "write"]

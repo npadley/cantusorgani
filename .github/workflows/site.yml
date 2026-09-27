@@ -74,6 +74,14 @@ jobs:
       - name: Site tests
         run: pnpm exec vitest run
         working-directory: web
+      # The Worker that takes readers' reports shares the corrections database
+      # with the admin screen.
+      - run: pnpm install --frozen-lockfile
+        working-directory: workers/corrections
+      - name: Corrections Worker tests
+        run: pnpm exec tsc --noEmit && pnpm exec vitest run
+        working-directory: workers/corrections
+
       # A missing setting would still build -- with local image paths or a
       # disabled Corrections form -- so stop here instead.
       - name: Build settings present

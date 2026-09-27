@@ -22,3 +22,6 @@ data/index-*.proposed.yml
 web/.env
 .mcp.json
 .dev.vars.example
+
+# D1 exports (npx wrangler d1 export ... --output backups/...): never committed.
+workers/*/backups/

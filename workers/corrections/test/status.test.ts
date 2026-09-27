@@ -53,6 +53,16 @@ describe("toPublicRow", () => {
   });
 });
 
+describe("toPublicRow with the admin statuses", () => {
+  it("should show approved and queued rows as pending, and a duplicate as rejected", () => {
+    const status = (s: string) => toPublicRow({ ...ROW, status: s })?.status;
+    expect(status("approved")).toBe("pending");
+    expect(status("queued")).toBe("pending");
+    expect(status("duplicate")).toBe("rejected");
+    expect(status("published")).toBeUndefined();
+  });
+});
+
 describe("toPublicRows", () => {
   it("filters out unpublishable rows without failing the whole page", () => {
     const rows = toPublicRows([

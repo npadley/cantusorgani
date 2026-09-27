@@ -1,0 +1,77 @@
+# Turn a batch published from the admin screen into a pull request.
+#
+# The admin screen (web/functions/admin) sends a repository_dispatch with the
+# batch; this records it in data/corrections.yml with `noh correct-batch` (which
+# checks every entry again), commits to corrections/<batch> and opens a pull
+# request as the GitHub App, so the site workflow's checks run on it. The owner
+# merges; merging deploys. A failed run is reported back to the admin screen by
+# the App's workflow_run webhook, which returns the batch to its queue.
+#
+# Needs: variable ADMIN_APP_ID, secret ADMIN_APP_PRIVATE_KEY (the App's key).
+name: corrections-batch
+run-name: corrections ${{ github.event.client_payload.batch }}
+
+on:
+  repository_dispatch:
+    types: [corrections-batch]
+
+concurrency:
+  group: corrections-batch
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  open-pull-request:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: App token
+        id: app
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.ADMIN_APP_ID }}
+          private-key: ${{ secrets.ADMIN_APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          token: ${{ steps.app.outputs.token }}
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+
+      # The payload goes through a file, never into a shell command line.
+      - name: Read the batch
+        id: batch
+        env:
+          PAYLOAD: ${{ toJSON(github.event.client_payload) }}
+        run: |
+          printf '%s' "$PAYLOAD" > "$RUNNER_TEMP/batch.json"
+          id=$(jq -r '.batch' "$RUNNER_TEMP/batch.json")
+          if [[ ! "$id" =~ ^b-[0-9a-z-]{6,40}$ ]]; then
+            echo "::error::batch id is not of the form b-<letters, digits, ->"; exit 1
+          fi
+          echo "id=$id" >> "$GITHUB_OUTPUT"
+
+      - name: Record the corrections
+        run: uv run noh correct-batch "$RUNNER_TEMP/batch.json" --summary "$RUNNER_TEMP/pr.md"
+
+      - name: Commit and open the pull request
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          BATCH: ${{ steps.batch.outputs.id }}
+          APP_SLUG: ${{ steps.app.outputs.app-slug }}
+        run: |
+          git config user.name "${APP_SLUG}[bot]"
+          git config user.email "${APP_SLUG}[bot]@users.noreply.github.com"
+          git switch -c "corrections/$BATCH"
+          git add data/corrections.yml data/catalog.json
+          count=$(jq '.entries | length' "$RUNNER_TEMP/batch.json")
+          git commit -q -m "data: corrections batch $BATCH ($count)"
+          git push -q origin "corrections/$BATCH"
+          gh pr create --base main --head "corrections/$BATCH" \
+            --title "Corrections: batch $BATCH ($count)" --body-file "$RUNNER_TEMP/pr.md"

@@ -8,13 +8,17 @@ against the 1962 Roman calendar and published at
   catalogue (`data/catalog.base.json`, and `data/catalog.json` with the hand
   corrections of `data/corrections.yml` applied), slicing and upload to R2.
 - `web/` — the Astro site (static), with client-side PDF export.
-- `workers/corrections/` — the Cloudflare Worker that takes corrections.
+- `workers/corrections/` — the Cloudflare Worker that takes readers' corrections,
+  and the database migrations the admin screen shares.
+- `web/functions/` — the admin screen's API (Pages Functions; the code is in
+  `web/src/lib/admin/`).
 - `data/` — the reviewed indexes, calendar, catalogue and review queue (all
   tracked). Licensing: [`data/LICENSES.md`](data/LICENSES.md).
 - `docs/claudekit/` — design, plans and their reviews.
 
 **To fix something on the site, start with [`docs/EDITING.md`](docs/EDITING.md)**:
-recipes by symptom, most of which need no PDFs.
+recipes by symptom, most of which need no PDFs. Editors use the admin screen at
+`/admin/` ([setup](docs/ADMIN-SETUP.md)).
 
 ## Pipeline
 

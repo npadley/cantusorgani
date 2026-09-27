@@ -9,6 +9,6 @@
     "resolveJsonModule": true,
     "types": ["vitest/globals"]
   },
-  "include": ["src/**/*", "astro.config.mjs"],
+  "include": ["src/**/*", "functions/**/*", "astro.config.mjs"],
   "exclude": ["dist"]
 }

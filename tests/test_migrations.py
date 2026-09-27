@@ -10,6 +10,7 @@ created, dropped, and the summary said everything was fine. Down scripts now liv
 in rollback/ and are applied by hand.
 """
 
+import re
 from pathlib import Path
 
 import pytest
@@ -31,16 +32,45 @@ def test_there_is_at_least_one_migration():
     assert any(d.glob("*.sql") for d in migration_dirs())
 
 
+REBUILD = re.compile(r"drop table (\w+);")
+
+
+def without_table_rebuilds(sql: str) -> str:
+    """The text with each complete table rebuild's DROP removed.
+
+    SQLite cannot ALTER a CHECK constraint, so changing one means a rebuild:
+    create <t>_new, copy every row from <t>, drop <t>, rename <t>_new to <t>.
+    That DROP loses nothing -- the rows are already copied -- but only when all
+    four steps are in the same file, so only then is it allowed."""
+    for table in REBUILD.findall(sql):
+        complete = (f"create table {table}_new" in sql
+                    and re.search(rf"insert into {table}_new\b[^;]*\bfrom {table}\b", sql)
+                    and f"alter table {table}_new rename to {table};" in sql)
+        if complete:
+            sql = sql.replace(f"drop table {table};", "")
+    return sql
+
+
 @pytest.mark.parametrize("directory", migration_dirs(), ids=lambda d: str(d))
 def test_migrations_contain_nothing_destructive(directory):
     """A destructive statement in migrations/ is applied automatically."""
     for sql in directory.glob("*.sql"):
-        lowered = sql.read_text(encoding="utf-8").lower()
+        lowered = without_table_rebuilds(sql.read_text(encoding="utf-8").lower())
         for statement in DESTRUCTIVE:
             assert statement not in lowered, (
                 f"{sql} contains {statement!r}. wrangler applies every .sql file in "
-                f"migrations/, so this would run on deploy. Move it to rollback/."
+                f"migrations/, so this would run on deploy. Move it to rollback/ (a table "
+                f"rebuild that copies every row first is the one exception)."
             )
+
+
+def test_without_table_rebuilds_allows_only_a_complete_rebuild():
+    rebuild = ("create table t_new (a); insert into t_new (a) select a from t; drop table t; "
+               "alter table t_new rename to t;")
+    assert "drop table" not in without_table_rebuilds(rebuild)
+    assert "drop table" in without_table_rebuilds("create table t_new (a); drop table t; "
+                                                  "alter table t_new rename to t;")
+    assert "drop table" in without_table_rebuilds("drop table t;")
 
 
 @pytest.mark.parametrize("directory", migration_dirs(), ids=lambda d: str(d))

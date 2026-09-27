@@ -1,0 +1,28 @@
+# Cloudflare Pages configuration for cantusorgani.org. `wrangler pages deploy
+# dist` reads it: the static site in dist/, plus the admin Functions in
+# functions/ (only /admin/api/* and /api/github/webhook run code; every other
+# page is served as a static file).
+name = "cantusorgani"
+pages_build_output_dir = "./dist"
+compatibility_date = "2026-09-07"
+
+# The corrections database, shared with the Worker that takes readers' reports
+# (workers/corrections).
+[[d1_databases]]
+binding = "DB"
+database_name = "cantusorgani-corrections"
+database_id = "4d796209-0d9a-46bd-94c0-00a6435eb502"
+migrations_dir = "../workers/corrections/migrations"
+
+# Not secret. Empty values leave the admin screen answering "not configured".
+[vars]
+ACCESS_TEAM_DOMAIN = ""
+ACCESS_AUD = ""
+GITHUB_REPO = "npadley/cantusorgani"
+GITHUB_APP_ID = ""
+GITHUB_INSTALLATION_ID = ""
+
+# Secrets, never here (npx wrangler pages secret put <NAME> --project-name cantusorgani):
+#   EDITORS                 comma-separated addresses; the first is the owner
+#   GITHUB_APP_PRIVATE_KEY  the GitHub App's private key (PEM)
+#   GITHUB_WEBHOOK_SECRET   the App's webhook secret

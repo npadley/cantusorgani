@@ -125,6 +125,10 @@ def build_parser() -> argparse.ArgumentParser:
     co.add_argument("value", help="the corrected value, e.g. \"Dominica I Adventus\" or 5-10")
     co.add_argument("--note", default="", help="why: e.g. \"as printed on p. 3\"")
     co.add_argument("--source", default="editor", help="editor, or reader#<id> for a reader's report")
+    cb = subs.add_parser("correct-batch",
+                         help="record a batch of corrections from the admin screen (a JSON file), all or nothing")
+    cb.add_argument("file", help="the batch: {\"batch\": \"b-...\", \"entries\": [...]}")
+    cb.add_argument("--summary", default=None, help="write the pull request description here")
     wh = subs.add_parser("where", help="what a page is, and which file to change to fix it")
     wh.add_argument("query", help="a page URL or path (/piece/<slug>/), or a few words of a title")
     cs = subs.add_parser("corrections", help="list the hand corrections, or drop one")
@@ -176,6 +180,15 @@ def _corrections_command(args: argparse.Namespace) -> int:
             print(f"{verb} {entry.id}: {entry.target} {entry.field} {entry.was!r} -> {entry.value!r}\n"
                   "data/catalog.json rewritten. Preview with `pnpm --dir web dev`, then commit\n"
                   "data/corrections.yml and data/catalog.json.")
+            return 0
+        if args.command == "correct-batch":
+            from pathlib import Path as _Path
+            batch = _json.loads(_Path(args.file).read_text(encoding="utf-8"))
+            recorded = c.correct_batch(batch)
+            c.write()
+            if args.summary:
+                _Path(args.summary).write_text(c.batch_summary(str(batch["batch"]), recorded), encoding="utf-8")
+            print(f"recorded {len(recorded)} correction(s): {', '.join(e.id for e in recorded)}")
             return 0
         if args.command == "corrections":
             if args.drop:
@@ -424,7 +437,7 @@ def main(argv: list[str] | None = None) -> int:
               f"or no notation)")
         return 0
 
-    if args.command in {"apply-corrections", "correct", "where", "corrections"}:
+    if args.command in {"apply-corrections", "correct", "correct-batch", "where", "corrections"}:
         return _corrections_command(args)
 
     if args.command == "triage":

@@ -40,6 +40,15 @@
         "4323"
       ],
       "port": 4323
+    },
+    {
+      "name": "cantusorgani-admin-local",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "cd web && exec npx wrangler pages dev dist --port 8788 --binding EDITORS=editor@example.org --binding ADMIN_DEV_EMAIL=editor@example.org"
+      ],
+      "port": 8788
     }
   ]
 }

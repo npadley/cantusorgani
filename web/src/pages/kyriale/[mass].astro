@@ -44,10 +44,16 @@ const { piece } = Astro.props;
     <ExportBar pieces={[piece]} title={`Missa ${piece.label}`} />
     <SystemStack piece={piece} id="music" />
     <ChantPair piece={piece} />
+    <p class="edit-link small muted ui no-print">
+      <a href={`/corrections/`}>Report an error</a> ·
+      <a href={`/admin/edit/?target=piece:${piece.slug}`}>Edit</a> <span>(editors)</span>
+    </p>
   </article>
 </Layout>
 
 <style>
+  .edit-link { margin: var(--s-5) 0 0; padding-top: var(--s-2); border-top: 1px solid var(--rule); }
+  .edit-link a { color: var(--ink-muted); }
   .head { margin-bottom: var(--s-4); }
   .crumb { margin: 0 0 var(--s-1); }
   .crumb a { color: var(--ink-muted); }

@@ -1,0 +1,285 @@
+---
+import Layout from "../../components/Layout.astro";
+
+// The corrections queue. Static: everything on it is loaded from /admin/api,
+// behind Cloudflare Access. Search engines and the site search skip it.
+---
+
+<Layout title="Admin: corrections" noindex>
+  <div class="admin ui">
+    <p class="who small muted" id="who">Admin</p>
+    <h1>Corrections</h1>
+    <p class="muted small prose">Readers' reports and your own fixes. Approving gathers a change; <strong>Publish
+      changes</strong> sends them all as one pull request on GitHub, which the owner merges to put them on the site.
+      <a href="/admin/edit/">Make a correction yourself</a> · <a href="/about/#corrections">How corrections work</a></p>
+
+    <div id="status" class="status small" role="status" aria-live="polite"></div>
+
+    <div class="batch-bar" id="batch-bar" hidden>
+      <span id="batch-text"></span>
+      <button type="button" class="primary" id="publish">Publish changes</button>
+    </div>
+
+    <section aria-labelledby="pending-h">
+      <h2 id="pending-h">To review</h2>
+      <div id="pending"><p class="muted small">Loading…</p></div>
+    </section>
+
+    <section aria-labelledby="approved-h">
+      <h2 id="approved-h">Approved, waiting to publish</h2>
+      <div id="approved"></div>
+    </section>
+
+    <section aria-labelledby="batches-h">
+      <h2 id="batches-h">On GitHub</h2>
+      <div id="batches"></div>
+    </section>
+
+    <section aria-labelledby="history-h">
+      <h2 id="history-h">History</h2>
+      <button type="button" id="show-history">Show the last 100</button>
+      <div id="history"></div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .admin { max-width: 60rem; }
+  .who { margin: 0 0 var(--s-1); }
+  h1 { margin: 0 0 var(--s-2); }
+  h2 { margin-top: var(--s-5); padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule); font-size: var(--step-1); }
+  .status { min-height: 1.4em; margin: var(--s-3) 0; }
+  .status[data-state="error"] { color: var(--warn-ink); }
+  .batch-bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); padding: var(--s-2) 0;
+               border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  :global(.primary) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  :global(.primary:disabled) { background: var(--paper); color: var(--ink-muted); border-color: var(--rule); }
+  :global(.item) { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2);
+                   padding: var(--s-3) 0; border-bottom: 1px solid var(--rule); }
+  @media (min-width: 60rem) {
+    :global(.item.has-scan) { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s-4); }
+    :global(.item.has-scan .scan) { grid-column: 2; grid-row: 1 / span 4; }
+  }
+  :global(.item h3) { margin: 0; font-size: var(--step-0); }
+  :global(.item h3:focus) { outline: 2px solid var(--accent); outline-offset: 2px; }
+  :global(.values) { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--s-1) var(--s-3);
+                     align-items: center; margin: 0; }
+  :global(.values dt) { color: var(--ink-muted); font-size: var(--step--1); }
+  :global(.values dd) { margin: 0; }
+  :global(.values input), :global(.reason input), :global(.admin-form input), :global(.admin-form select),
+  :global(.admin-form textarea) {
+    width: 100%; font: inherit; font-family: var(--font-ui); min-height: var(--tap-min); padding: var(--s-2) var(--s-3);
+    background: var(--paper); color: var(--ink); border: 1px solid var(--rule); border-radius: var(--radius);
+  }
+  :global(.values input) { font-size: var(--step-1); font-weight: 600; }
+  :global(.actions) { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  :global(.reason) { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: end; }
+  :global(.reason label) { display: block; width: 100%; font-size: var(--step--1); }
+  :global(.scan img) { display: block; width: 100%; height: auto; }
+  :global(.history-table) { width: 100%; border-collapse: collapse; font-size: var(--step--1); margin-top: var(--s-3); }
+  :global(.history-table th), :global(.history-table td) { text-align: left; padding: var(--s-2); border-bottom: 1px solid var(--rule); vertical-align: top; }
+  :global(.scroll) { overflow-x: auto; }
+</style>
+
+<script>
+  import { FIELD_LABELS, api, drafts, h, loadTargets, say, signInAgain } from "../../lib/admin/client";
+  import type { QueueItem } from "../../lib/admin/api";
+
+  interface Queue {
+    pending: QueueItem[]; approved: QueueItem[];
+    batches: { batch: string; pr: number | null; items: QueueItem[] }[]; lastReviewed: string | null;
+  }
+  interface Me { email: string; owner: boolean; publishing: boolean }
+
+  const status = document.getElementById("status");
+  const REPO = "https://github.com/npadley/cantusorgani";
+  let me: Me | null = null;
+  const names = new Map<string, string>();
+
+  function fail(result: { status: number; error: string }): void {
+    if (result.status === 401) signInAgain(status);
+    else say(status, result.error, "error");
+  }
+
+  function label(item: QueueItem): string {
+    const field = FIELD_LABELS[item.resolvedField ?? ""] ?? item.field;
+    const target = item.resolvedTarget ?? `piece:${item.piece_id}`;
+    return `${names.get(target) ?? target.replace(/^piece:/, "")} · ${field}`;
+  }
+
+  function scan(item: QueueItem, stems: Map<string, { stem: string | null; href: string }>): HTMLElement | null {
+    const found = item.resolvedTarget ? stems.get(item.resolvedTarget) : undefined;
+    if (!found?.stem) return null;
+    return h("figure", { class: "scan" },
+      h("img", { src: `${found.stem}.webp`, alt: `The first system of ${label(item).split(" · ")[0]}, as printed`, loading: "lazy" }),
+      h("figcaption", { class: "small muted" }, h("a", { href: found.href }, "Open the page")));
+  }
+
+  /** The heading to focus once the list is drawn again: the next report's, or
+   * the previous one's, or the section's when none is left. */
+  function nextHeadingId(from: HTMLElement): string {
+    const items = [...document.querySelectorAll<HTMLElement>("#pending .item h3")];
+    const at = items.findIndex((el) => from.contains(el));
+    return (items[at + 1] ?? items[at - 1])?.id ?? "pending-h";
+  }
+
+  function focusAfterLoad(id: string): void {
+    const target = document.getElementById(id) ?? document.getElementById("pending-h");
+    if (target && !target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+    target?.focus();
+  }
+
+  function pendingItem(item: QueueItem, stems: Map<string, { stem: string | null; href: string }>): HTMLElement {
+    const heading = h("h3", { tabindex: "-1", id: `item-${item.id}` }, label(item));
+    const picture = scan(item, stems);
+    const article = h("article", { class: picture ? "item has-scan" : "item", "aria-labelledby": `item-${item.id}` }, heading);
+    const draftKey = `row:${item.id}`;
+    const input = h("input", { type: "text", id: `value-${item.id}`, maxlength: "200",
+                               value: drafts.get(draftKey) ?? item.proposed }) as HTMLInputElement;
+    input.addEventListener("input", () => drafts.set(draftKey, input.value));
+    article.append(h("dl", { class: "values" },
+      h("dt", {}, "Now"), h("dd", {}, item.current || "—"),
+      h("dt", {}, h("label", { for: `value-${item.id}` }, "Proposed")), h("dd", {}, item.problem ? item.proposed : input)));
+    if (item.note) article.append(h("p", { class: "small muted" }, `Reader's note: ${item.note}`));
+    if (item.reason) article.append(h("p", { class: "small muted" }, item.reason));
+    if (item.problem) article.append(h("p", { class: "notice" }, item.problem));
+    if (picture) article.append(picture);
+
+    const actions = h("div", { class: "actions" });
+    const act = async (verb: string, body: Record<string, string>, done: string) => {
+      actions.querySelectorAll("button").forEach((b) => { (b as HTMLButtonElement).disabled = true; });
+      const result = await api(`/rows/${item.id}/${verb}`, body);
+      if (!result.ok) {
+        fail(result);
+        actions.querySelectorAll("button").forEach((b) => { (b as HTMLButtonElement).disabled = result.status === 409; });
+        // Also beside the report itself: on a phone the page's status line is out of sight.
+        article.querySelector(".item-error")?.remove();
+        if (result.status !== 401) article.append(h("p", { class: "notice item-error" }, result.error));
+        return;
+      }
+      drafts.clear(draftKey);
+      say(status, `${label(item)}: ${done}.`, "ok");
+      const next = nextHeadingId(article);
+      await load();
+      focusAfterLoad(next);
+    };
+    if (!item.problem) {
+      const accept = h("button", { type: "button", class: "primary" }, "Accept");
+      accept.addEventListener("click", () => void act("approve", { value: input.value }, "approved"));
+      actions.append(accept);
+    }
+    const reject = h("button", { type: "button", "aria-expanded": "false" }, "Reject");
+    const duplicate = h("button", { type: "button" }, "Duplicate");
+    duplicate.addEventListener("click", () => void act("duplicate", {}, "marked as a duplicate"));
+    actions.append(reject, duplicate);
+    article.append(actions);
+
+    reject.addEventListener("click", () => {
+      if (article.querySelector(".reason")) return;
+      reject.setAttribute("aria-expanded", "true");
+      const why = h("input", { type: "text", id: `reason-${item.id}`, maxlength: "300", required: true }) as HTMLInputElement;
+      const confirm = h("button", { type: "button" }, "Reject with this reason");
+      const form = h("div", { class: "reason" }, h("label", { for: `reason-${item.id}` }, "Why? (kept in the log)"), why, confirm);
+      confirm.addEventListener("click", () => {
+        if (!why.value.trim()) { say(status, "Say briefly why it is rejected.", "error"); why.focus(); return; }
+        void act("reject", { reason: why.value }, "rejected");
+      });
+      article.append(form);
+      why.focus();
+    });
+    return article;
+  }
+
+  function approvedItem(item: QueueItem): HTMLElement {
+    const withdraw = h("button", { type: "button" }, item.source === "editor" ? "Withdraw" : "Back to review");
+    withdraw.addEventListener("click", async () => {
+      const result = await api(`/rows/${item.id}/unapprove`, {});
+      if (!result.ok) { fail(result); return; }
+      say(status, `${label(item)}: withdrawn.`, "ok");
+      await load();
+    });
+    return h("article", { class: "item" }, h("h3", {}, label(item)),
+      h("p", { class: "small" }, `${item.current || "—"} → `, h("strong", {}, item.proposed),
+        ` · ${item.source === "editor" ? "your fix" : "a reader's report"}, approved by ${item.editor_email ?? "?"}`),
+      item.reason ? h("p", { class: "notice" }, item.reason) : null,
+      h("div", { class: "actions" }, withdraw));
+  }
+
+  async function load(): Promise<void> {
+    const [queue, targets] = await Promise.all([api<Queue>("/queue"), loadTargets()]);
+    if (!queue.ok) { fail(queue); document.getElementById("pending")?.replaceChildren(); return; }
+    const stems = new Map(Object.values(targets?.pieces ?? {}).map((p) => [`piece:${p.slug}`, { stem: p.stem, href: p.href }]));
+    for (const p of Object.values(targets?.pieces ?? {})) names.set(`piece:${p.slug}`, `${p.label} (${p.volume})`);
+    const { pending, approved, batches, lastReviewed } = queue.data;
+
+    const pendingBox = document.getElementById("pending");
+    pendingBox?.replaceChildren(...(pending.length
+      ? pending.map((i) => pendingItem(i, stems))
+      : [h("p", { class: "muted small" }, `No pending corrections.${lastReviewed ? ` Last reviewed ${lastReviewed} UTC.` : ""} `,
+           h("a", { href: "#history-h" }, "History"))]));
+    document.getElementById("pending-h")!.textContent = `To review (${pending.length})`;
+
+    document.getElementById("approved")?.replaceChildren(...(approved.length ? approved.map(approvedItem)
+      : [h("p", { class: "muted small" }, "Nothing approved yet.")]));
+
+    document.getElementById("batches")?.replaceChildren(...(batches.length ? batches.map((b) => h("p", { class: "small" },
+      b.pr ? h("a", { href: `${REPO}/pull/${b.pr}` }, `PR #${b.pr}`) : "Opening the pull request…",
+      ` · ${b.items.length} correction${b.items.length === 1 ? "" : "s"} · `,
+      b.pr ? "open, waiting for the owner to merge" : "this takes about a minute")) : [h("p", { class: "muted small" }, "No open pull requests.")]));
+
+    const bar = document.getElementById("batch-bar");
+    const text = document.getElementById("batch-text");
+    const publish = document.getElementById("publish") as HTMLButtonElement | null;
+    if (bar && text && publish) {
+      bar.hidden = approved.length === 0 && batches.length === 0;
+      const open = batches[0];
+      if (open) {
+        text.textContent = open.pr ? `PR #${open.pr} open, waiting for the owner.` : "Opening the pull request…";
+        publish.disabled = true;
+      } else if (me && !me.publishing) {
+        text.textContent = `${approved.length} change${approved.length === 1 ? "" : "s"} ready · publishing is not set up yet`;
+        publish.disabled = true;
+      } else {
+        text.textContent = `${approved.length} change${approved.length === 1 ? "" : "s"} ready`;
+        publish.disabled = approved.length === 0;
+      }
+    }
+  }
+
+  document.getElementById("publish")?.addEventListener("click", async (event) => {
+    const button = event.currentTarget as HTMLButtonElement;
+    button.disabled = true;
+    say(status, "Publishing…");
+    const result = await api<{ batch: string; count: number }>("/publish", {});
+    if (!result.ok) {
+      fail(result);
+      button.disabled = false;
+      return;
+    }
+    say(status, `Sent ${result.data.count} correction(s) to GitHub as ${result.data.batch}. The pull request appears under "On GitHub" in about a minute.`, "ok");
+    await load();
+  });
+
+  document.getElementById("show-history")?.addEventListener("click", async (event) => {
+    (event.currentTarget as HTMLButtonElement).disabled = true;
+    const result = await api<{ items: QueueItem[] }>("/history");
+    const box = document.getElementById("history");
+    if (!result.ok) { fail(result); return; }
+    if (result.data.items.length === 0) { box?.replaceChildren(h("p", { class: "muted small" }, "Nothing yet.")); return; }
+    const rows = result.data.items.map((i) => h("tr", {},
+      h("td", {}, i.updated_at ?? i.created_at), h("td", {}, label(i)), h("td", {}, i.proposed),
+      h("td", {}, i.status), h("td", {}, i.editor_email ?? ""),
+      h("td", {}, i.commit_sha ? h("a", { href: `${REPO}/commit/${i.commit_sha}` }, i.commit_sha.slice(0, 7)) : (i.reason ?? ""))));
+    box?.replaceChildren(h("div", { class: "scroll" }, h("table", { class: "history-table" },
+      h("thead", {}, h("tr", {}, ...["When (UTC)", "What", "Value", "Outcome", "Editor", "Commit or reason"].map((t) => h("th", { scope: "col" }, t)))),
+      h("tbody", {}, ...rows))));
+  });
+
+  void (async () => {
+    const who = await api<Me>("/me");
+    if (!who.ok) { fail(who); document.getElementById("pending")?.replaceChildren(); return; }
+    me = who.data;
+    document.getElementById("who")!.textContent = `Admin · signed in as ${me.email}${me.owner ? " (owner)" : ""}`;
+    await load();
+  })();
+</script>

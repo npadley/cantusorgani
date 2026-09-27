@@ -1,0 +1,16 @@
+{
+  "$comment": "The fields a hand correction may change, and what each accepts. Read by pipeline/corrections.py (noh correct, noh apply-corrections) and by the admin screen (web/src/lib/admin). One definition, so the two cannot drift.",
+  "targets": {
+    "piece": {
+      "title": {"pattern": "^[^\\u0000-\\u001f<>]{1,160}$", "hint": "plain text, no < or >"},
+      "incipit": {"pattern": "^[^\\u0000-\\u001f<>]{1,160}$", "hint": "plain text, no < or >"},
+      "mode": {"pattern": "^(I|II|III|IV|V|VI|VII|VIII)$", "hint": "a Roman numeral I to VIII"},
+      "genre": {"pattern": "^[a-z_]{1,24}$", "hint": "a lower-case genre such as proper or kyrie"},
+      "printed_pages": {"pattern": "^\\d{1,3}-\\d{1,3}$", "hint": "first-last, e.g. 5-10"}
+    }
+  },
+  "reader_fields": {
+    "$comment": "The Corrections form's field names (workers/corrections/src/schema.ts) as fields of a piece; chant pairings are fixed at the source, not by correction.",
+    "title": "title", "incipit": "incipit", "mode": "mode", "genre": "genre", "printedPages": "printed_pages"
+  }
+}

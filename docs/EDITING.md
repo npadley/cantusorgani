@@ -11,7 +11,7 @@ most fixes.
 |---|---|---|
 | A piece's title, incipit or mode is wrong | [Title, incipit, mode](#title-incipit-mode) | No |
 | A piece's printed pages are wrong | [Printed pages](#printed-pages) | No |
-| A reader sent a correction | [Reader corrections](#reader-corrections) | No |
+| A reader sent a correction | [The admin screen](#the-admin-screen), or [Reader corrections](#reader-corrections) | No |
 | A Vespers antiphon, tone, hymn or Magnificat antiphon is wrong | [Vespers items](#vespers-items) | No |
 | A Vespers chant link is wrong or missing | [Vespers chant links](#vespers-chant-links) | No (needs the GregoBase dump) |
 | A day shows the wrong Mass, or no Mass | [Days and rubrics](#days-and-rubrics) | Yes |
@@ -23,11 +23,31 @@ most fixes.
 
 Two kinds of people edit:
 
-- **Editors** will use the admin screen, once it exists (Phase C of the plan).
-  It needs no laptop and no secrets.
-- **The maintainer** uses the full loop below.
+- **Editors** use the [admin screen](#the-admin-screen). It needs no laptop and
+  no secrets.
+- **The maintainer** uses the full loop below, for everything the admin screen
+  can't do yet.
 
-Until the admin screen exists, everyone uses the loop.
+## The admin screen
+
+`https://cantusorgani.org/admin/` is for editors: sign in with your email (a
+code arrives by email). Setting it up is described in
+[docs/ADMIN-SETUP.md](ADMIN-SETUP.md).
+
+- **To review** lists readers' reports. Each shows the current value, the
+  proposed one (which you can change before accepting), the reader's note and
+  the printed system. **Accept**, **Reject** (with a reason) or **Duplicate**.
+- **Make a correction yourself**: every piece page has an **Edit** link at its
+  foot, which opens the form for that piece. Your fix is approved at once.
+- **Publish changes** sends everything approved to GitHub as one pull request.
+  The owner merges it, and merging deploys the site. Closing it without merging
+  puts the corrections back under **To review**.
+- **History** lists what was accepted (with its commit) and what was rejected
+  (with the reason).
+
+Every action records who did it. Two editors can't both act on one report: the
+second is told who got there first. The admin screen corrects a piece's title,
+incipit, mode, genre and printed pages. Everything else needs the loop below.
 
 ---
 
