@@ -56,3 +56,18 @@ def test_write_chants_sorted_json_with_its_licence(tmp_path):
     doc = json.loads(path.read_text())
     assert list(doc["chants"]) == ["59", "1034"]
     assert doc["source"]["licence"] == "CC0"
+
+
+def test_select_chants_verified_movement_pairings_of_the_kyriale_are_published():
+    """Missa IX's movements carry GregoBase pairings; an unverified one is left out."""
+    cat = {"pieces": [{"slug": "ordinarium-missae-ix", "parts": [], "chant": [
+        {"source": "gregobase", "id": 2976, "movement": "kyrie", "status": "verified"},
+        {"source": "gregobase", "id": 2771, "movement": "gloria", "status": "unverified"},
+    ]}]}
+    chosen = select_chants(cat, [chant(2976, "ky"), chant(2771, "ky")])
+    assert sorted(chosen) == [2976]
+
+
+def test_chant_body_gabc_stored_as_a_json_string():
+    """Kyrie I (GregoBase 1143) keeps its notation as a JSON-quoted string."""
+    assert chant_body('"(c3) KY(ef!hv)ri(f)e(fhhvGE)"') == "(c3) KY(ef!hv)ri(f)e(fhhvGE)"

@@ -5,7 +5,7 @@ import Layout from "../../components/Layout.astro";
 import MovementNav from "../../components/MovementNav.astro";
 import RecordStatusNotice from "../../components/RecordStatusNotice.astro";
 import SystemStack from "../../components/SystemStack.astro";
-import { allPieces, citedBy, volumeLabel } from "../../lib/catalog";
+import { allPieces, citedBy, jumpTargets, volumeLabel } from "../../lib/catalog";
 import { pieceHref } from "../../lib/indexes";
 import type { Piece } from "../../lib/catalog";
 
@@ -55,8 +55,8 @@ const printedElsewhere = citedBy(piece);
     <MovementNav piece={piece} />
     <ExportBar pieces={[piece]} title={piece.title} />
     <SystemStack piece={piece} id="music" />
-    {/* Parts carry their own chant links; the old pairing box would be a second set. */}
-    {piece.parts.length === 0 && <ChantPair piece={piece} />}
+    {/* Headings carry their own chant links; the old pairing box would be a second set. */}
+    {!jumpTargets(piece).some((t) => t.chantUrl) && <ChantPair piece={piece} />}
   </article>
 </Layout>
 

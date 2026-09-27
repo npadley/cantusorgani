@@ -236,3 +236,36 @@ describe("chant notation beside each part", () => {
     expect(html).not.toContain("chant-notation");
   });
 });
+
+describe("chant notation in the Kyriale", () => {
+  const missaIX = allPieces().find((p) => p.slug === "ordinarium-missae-ix")!;
+  const credoI = allPieces().find((p) => p.slug === "ordinarium-missae-credo-i")!;
+
+  it("should give each movement of Missa IX its chant link and notation, and the switch", async () => {
+    const html = await render(missaIX);
+    expect(html).toContain("data-chant-toggle");
+    for (const id of [2976, 2771, 587, 707]) {
+      expect(html).toContain(`data-chant-id="${id}"`);
+      expect(html).toContain(`gregobase.selapa.net/chant.php?id=${id}`);
+    }
+    // Each notation follows its own heading.
+    expect(html.indexOf('data-chant-id="587"')).toBeGreaterThan(html.indexOf('id="sanctus"'));
+  });
+
+  it("should show a single chant's notation above its music, without a second heading", async () => {
+    const html = await render(credoI);
+    expect(html).toContain("data-chant-toggle");
+    expect(html).toMatch(/class="chant-notation"[^>]*hidden/);
+    expect(html).not.toMatch(/<h2[^>]*id="chant"/);
+    expect(html.indexOf("chant-notation")).toBeLessThan(html.indexOf("data-ref="));
+  });
+
+  it("should not attach an unverified pairing", async () => {
+    const piece = mass([["kyrie", 0], ["gloria", 4]]);
+    const unverified = { ...piece, chant: [{ source: "gregobase" as const, id: 2976, movement: "kyrie" as const,
+      incipit: "Kyrie IX", mode: "1", score: 0.5, status: "unverified" as const }] };
+    const html = await render(unverified);
+    expect(html).not.toContain("data-chant-id");
+    expect(html).not.toContain("data-chant-toggle");
+  });
+});

@@ -2,8 +2,12 @@
  * GABC as Exsurge needs it, and the viewer's chant preference.
  */
 
-/** GregoBase markup Exsurge does not know and would print literally ("<eu>E u o u a e</eu>"). */
-const UNSUPPORTED_TAGS = /<\/?(?:eu|nlba|alt)>/g;
+/**
+ * GregoBase markup Exsurge does not know and would print literally
+ * ("<eu>E u o u a e</eu>", "<clear>*"). Surveyed over all 878 published chants
+ * (2026-09-27): i, sp, sc, alt and v are Exsurge's; eu, clear and nlba are not.
+ */
+const UNSUPPORTED_TAGS = /<\/?(?:eu|clear|nlba)>/g;
 
 export function cleanGabc(gabc: string): string {
   return gabc.replace(UNSUPPORTED_TAGS, "").trim();

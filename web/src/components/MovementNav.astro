@@ -16,7 +16,7 @@ const borrowed = borrowedLinks(piece).filter((b) => b.href !== null);
 const isProper = parts.length > 0 || borrowed.length > 0;
 const label = isProper ? "Parts of the Proper" : hymns.length > 0 ? "Hymns" : "Movements";
 // The switch appears only where there is notation to show.
-const notation = parts.some((s) => hasNotation(s.chantId));
+const notation = starts.some((s) => hasNotation(s.chantId));
 // Printed and borrowed parts together, in the order of Mass.
 const properLinks = [
   ...parts.map((s) => ({ order: s.order ?? 0, label: s.label, href: `#${s.anchor}`, borrowed: false,
@@ -163,6 +163,17 @@ const properLinks = [
     for (const box of boxes) {
       box.hidden = !show;
       if (show) seen.observe(box); else seen.unobserve(box);
+    }
+    if (show) {
+      // The observer's first report can come before layout settles (the
+      // preference applied while the page loads): draw what is already near
+      // the screen directly, once layout has happened.
+      requestAnimationFrame(() => {
+        for (const box of boxes) {
+          const r = box.getBoundingClientRect();
+          if (r.bottom > -800 && r.top < window.innerHeight + 800) void draw(box);
+        }
+      });
     }
   }
 

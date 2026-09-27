@@ -17,6 +17,12 @@ describe("cleanGabc", () => {
   it("should drop GregoBase tags Exsurge would print literally, keeping the rest", () => {
     expect(cleanGabc("Glo(f)ri(g)a.(h) <eu>E(f) u(g)</eu> <i>T. P.</i>"))
       .toBe("Glo(f)ri(g)a.(h) E(f) u(g) <i>T. P.</i>");
+    expect(cleanGabc("Ký(e)ri(f)e <clear>*(,) e(f) <nlba>lé(g)</nlba>")).toBe("Ký(e)ri(f)e *(,) e(f) lé(g)");
+  });
+
+  it("should keep the markup Exsurge does draw", () => {
+    const kept = "<sp>R/</sp>.(::) <alt>ij.</alt> <sc>Ps.</sc> <v>x</v>";
+    expect(cleanGabc(kept)).toBe(kept);
   });
 });
 

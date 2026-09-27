@@ -422,7 +422,8 @@ export interface JumpTarget {
   readonly anchor: string;
   /** Position in piece.systems of the first system. */
   readonly index: number;
-  readonly kind: "movement" | "hymn" | "part";
+  /** "chant": the one chant of a single-chant piece (Credo I), shown above its music. */
+  readonly kind: "movement" | "hymn" | "part" | "chant";
   /** A part's chant on GregoBase, when known. */
   readonly chantUrl?: string | null;
   /** The GregoBase id of a part's chant, when known. */
@@ -496,10 +497,21 @@ export function borrowedLinks(piece: Piece, pieces: readonly Piece[] = allPieces
  * parts (a Proper) and the hymns printed in it (a Vespers office), in page order. The jump links and the
  * headings in the music both come from here, so every link has a target.
  */
+/** The verified GregoBase pairing for a movement (the pairing step's, not a guess). */
+export function verifiedChant(piece: Piece, movement: Movement | null = null): ChantPairing | undefined {
+  const verified = piece.chant.filter((c) => c.status === "verified");
+  return movement === null ? (verified.length === 1 ? verified[0] : undefined)
+    : verified.find((c) => c.movement === movement);
+}
+
 export function jumpTargets(piece: Piece): readonly JumpTarget[] {
-  const movements: JumpTarget[] = movementStarts(piece).map((s) => ({
-    label: s.label, anchor: s.anchor, index: s.index, kind: "movement",
-  }));
+  const movements: JumpTarget[] = movementStarts(piece).map((s) => {
+    const chant = verifiedChant(piece, s.movement);
+    return {
+      label: s.label, anchor: s.anchor, index: s.index, kind: "movement",
+      chantId: chant?.id ?? null, chantUrl: gregobaseUrl(chant?.id ?? null),
+    };
+  });
   const parts: JumpTarget[] = [];
   const partAnchors = new Set<string>();
   for (const x of piece.parts) {
@@ -522,7 +534,16 @@ export function jumpTargets(piece: Piece): readonly JumpTarget[] {
     used.set(h.title, seen + 1);
     hymns.push({ label: h.title, anchor: hymnAnchor(h.title, seen), index, kind: "hymn" });
   }
-  return [...movements, ...parts, ...hymns].sort((a, b) => a.index - b.index);
+  const all = [...movements, ...parts, ...hymns];
+  // A single chant (Credo I, an ad libitum Kyrie): its chant above the music.
+  const single = all.length === 0 && piece.systems.length > 0 ? verifiedChant(piece) : undefined;
+  if (single) {
+    all.push({
+      label: single.movement ? MOVEMENT_LABELS[single.movement] : piece.title, anchor: "chant",
+      index: 0, kind: "chant", chantId: single.id, chantUrl: gregobaseUrl(single.id),
+    });
+  }
+  return all.sort((a, b) => a.index - b.index);
 }
 
 /** Every hymn in the catalog, A-Z, with the page and anchor that show it. */
