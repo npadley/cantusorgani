@@ -25,7 +25,7 @@ describe("config", () => {
     expect((await freshConfig()).TURNSTILE_SITE_KEY).toBe("");
   });
 
-  it("should cap exports at sixty systems", async () => {
-    expect((await freshConfig()).MAX_EXPORT_SYSTEMS).toBe(60);
+  it("should cap exports at three hundred systems, sized from ~12 KB slices", async () => {
+    expect((await freshConfig()).EXPORT_CEILING).toBe(300);
   });
 });

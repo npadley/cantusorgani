@@ -1,17 +1,16 @@
 ---
-import { MAX_EXPORT_SYSTEMS } from "../lib/config";
 import { systemUrlStem } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
+import { estimatePages, validateSelection } from "../lib/pdf";
 
 // One piece, or several in order -- a day's Proper followed by its Ordinary.
 interface Props { readonly pieces: readonly Piece[]; readonly title: string }
 const { pieces, title } = Astro.props;
 
 const count = pieces.reduce((n, p) => n + p.systems.length, 0);
-// Rough page estimate so the button can say what you are about to get. Systems
-// average a little under a quarter of an A4 page at export width.
-const estimatedPages = Math.max(1, Math.ceil(count / 4.5));
-const overCap = count > MAX_EXPORT_SYSTEMS;
+const estimatedPages = estimatePages(count);
+const refusal = count > 0 ? validateSelection(count) : null;
+const overCap = refusal !== null;
 // Full URL stems: the export worker cannot derive content-hashed keys either.
 const stems = pieces.flatMap((piece) => piece.systems.map((_, i) => systemUrlStem(piece, i)));
 ---
@@ -28,12 +27,7 @@ const stems = pieces.flatMap((piece) => piece.systems.map((_, i) => systemUrlSte
     <progress id="export-progress" max={count} value="0" hidden></progress>
     <p id="export-status" class="small" role="status" aria-live="polite"></p>
 
-    {overCap && (
-      <p class="small muted">
-        Export is limited to {MAX_EXPORT_SYSTEMS} systems so it can be built on a
-        tablet. Use the individual movement pages instead.
-      </p>
-    )}
+    {overCap && <p class="small muted">{refusal}</p>}
   </div>
 )}
 

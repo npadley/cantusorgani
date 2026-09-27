@@ -3,7 +3,8 @@ import { resolve } from "node:path";
 
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { MAX_SYSTEMS, buildPdf, httpPngFetcher, validateSelection } from "./pdf";
+import { EXPORT_CEILING } from "./config";
+import { buildPdf, estimatePages, httpPngFetcher, validateSelection } from "./pdf";
 
 const SLICES = resolve(__dirname, "../../../build/systems");
 
@@ -20,18 +21,40 @@ const MISSA_I_PAGE = ["noh5/0051/000", "noh5/0051/001", "noh5/0051/002",
                       "noh5/0051/003", "noh5/0051/004"];
 
 describe("validateSelection", () => {
-  it("refuses an empty selection with an actionable message", () => {
-    expect(validateSelection(0)).toContain("Select at least one");
+  it("should refuse an empty selection and say what to do", () => {
+    expect(validateSelection(0)).toBe("Tick at least one part to export.");
   });
 
-  it("names how many to remove when over the cap", () => {
-    const message = validateSelection(MAX_SYSTEMS + 7);
-    expect(message).toContain(`Remove 7`);
-    expect(message).toContain("two parts");
+  it("should accept a selection exactly at the ceiling", () => {
+    expect(validateSelection(EXPORT_CEILING)).toBeNull();
   });
 
-  it("accepts a normal Mass-sized selection", () => {
-    expect(validateSelection(34)).toBeNull();
+  it("should refuse one system over the ceiling with its size and the limit", () => {
+    const message = validateSelection(EXPORT_CEILING + 1);
+    expect(message).toContain(`This selection is ${EXPORT_CEILING + 1} systems`);
+    expect(message).toContain(`the limit is ${EXPORT_CEILING}`);
+    expect(message).not.toMatch(/movement pages/);
+  });
+
+  it("should name the largest ticked parts that would bring it under the ceiling", () => {
+    const message = validateSelection(EXPORT_CEILING + 10, [
+      { label: "Introit", systems: 8 },
+      { label: "Tract", systems: 14 },
+      { label: "Gradual", systems: 12 },
+    ]);
+    expect(message).toContain("Untick the Tract (14 systems) to fit.");
+  });
+
+  it("should accept St Therese's whole Proper (90 systems)", () => {
+    expect(validateSelection(90)).toBeNull();
+  });
+});
+
+describe("estimatePages", () => {
+  it("should estimate about four and a half systems per A4 page, at least one", () => {
+    expect(estimatePages(0)).toBe(1);
+    expect(estimatePages(9)).toBe(2);
+    expect(estimatePages(90)).toBe(20);
   });
 });
 
@@ -71,14 +94,23 @@ describe("buildPdf", () => {
     })).rejects.toThrow();
   });
 
-  it("refuses an over-cap selection before fetching anything", async () => {
+  it("should refuse an over-ceiling selection before fetching anything", async () => {
     let fetched = 0;
     await expect(buildPdf({
-      refs: Array.from({ length: MAX_SYSTEMS + 1 }, (_, i) => `x/${i}`),
+      refs: Array.from({ length: EXPORT_CEILING + 1 }, (_, i) => `x/${i}`),
       title: "Too big",
       fetchPng: async (r) => { fetched += 1; return fileFetcher(r); },
-    })).rejects.toThrow(/limited to 60/);
+    })).rejects.toThrow(/the limit is 300/);
     expect(fetched).toBe(0);
+  });
+});
+
+describe("buildPdf at scale", () => {
+  it("should build a 150-system document on about 150 / 4.5 pages", async () => {
+    const refs = Array.from({ length: 150 }, (_, i) => MISSA_I_PAGE[i % MISSA_I_PAGE.length]!);
+    const result = await buildPdf({ refs, title: "Long", fetchPng: fileFetcher });
+    expect(result.pages).toBeGreaterThan(20);
+    expect(result.pages).toBeLessThan(60);
   });
 });
 

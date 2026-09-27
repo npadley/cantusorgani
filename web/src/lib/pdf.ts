@@ -1,5 +1,7 @@
 import { PDFDocument } from "pdf-lib";
 
+import { EXPORT_CEILING } from "./config";
+
 /**
  * PDF assembly, kept out of the Worker so it can be tested in Node against real
  * slice files. The Worker is a thin message-passing wrapper around this.
@@ -12,7 +14,8 @@ import { PDFDocument } from "pdf-lib";
 export const A4 = { width: 595.28, height: 841.89 } as const;
 export const MARGIN = 24;
 export const GAP = 14;
-export const MAX_SYSTEMS = 60;
+/** Systems average a little under a quarter of an A4 page at export width. */
+export const SYSTEMS_PER_PAGE = 4.5;
 
 export interface BuildOptions {
   readonly refs: readonly string[];
@@ -27,16 +30,34 @@ export interface BuildResult {
   readonly pages: number;
 }
 
-export function validateSelection(count: number): string | null {
-  if (count === 0) return "Select at least one piece to export.";
-  if (count > MAX_SYSTEMS) {
-    return (
-      `You have selected ${count} systems. Export is limited to ${MAX_SYSTEMS} ` +
-      `so it can be built on a tablet. Remove ${count - MAX_SYSTEMS}, or export ` +
-      `this Mass in two parts.`
-    );
+export function estimatePages(systems: number): number {
+  return Math.max(1, Math.ceil(systems / SYSTEMS_PER_PAGE));
+}
+
+/** A ticked part and its size, so an over-ceiling message can name what to untick. */
+export interface PartSize {
+  readonly label: string;
+  readonly systems: number;
+}
+
+export function validateSelection(count: number, ticked: readonly PartSize[] = []): string | null {
+  if (count === 0) return "Tick at least one part to export.";
+  if (count <= EXPORT_CEILING) return null;
+  const message =
+    `This selection is ${count} systems (about ${estimatePages(count)} pages); ` +
+    `the limit is ${EXPORT_CEILING}.`;
+  // The fewest largest parts that bring it under the ceiling.
+  const over = count - EXPORT_CEILING;
+  const drop: PartSize[] = [];
+  let removed = 0;
+  for (const part of [...ticked].sort((a, b) => b.systems - a.systems)) {
+    if (removed >= over) break;
+    drop.push(part);
+    removed += part.systems;
   }
-  return null;
+  if (drop.length === 0 || removed < over) return `${message} Untick some parts to fit.`;
+  const names = drop.map((p) => `the ${p.label} (${p.systems} systems)`).join(" and ");
+  return `${message} Untick ${names} to fit.`;
 }
 
 export async function buildPdf(options: BuildOptions): Promise<BuildResult> {
