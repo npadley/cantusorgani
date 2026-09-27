@@ -6,9 +6,11 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { EXPORT_CEILING } from "./config";
 import { buildPdf, estimatePages, httpPngFetcher, validateSelection } from "./pdf";
 
-const SLICES = resolve(__dirname, "../../../build/systems");
+// Five real @2x.png slices of NOH5 p. 21 (public domain), kept beside the test
+// so it runs without build/ -- in CI, and on a fresh checkout.
+const SLICES = resolve(__dirname, "__fixtures__/slices");
 
-/** Reads the real @2x.png slices the site would fetch from R2. */
+/** Reads real @2x.png slices, as the site would fetch them from R2. */
 async function fileFetcher(ref: string): Promise<ArrayBuffer> {
   const buffer = await readFile(resolve(SLICES, `${ref}@2x.png`));
   return buffer.buffer.slice(
