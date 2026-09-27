@@ -48,12 +48,8 @@ const anyUnverified = pairings.some((c) => c.status === "unverified");
   )}
 
   {source && pairings.length > 0 && (
-    /* Attribution lives inside the printed area: share-alike must survive
-       printing, so this is never a footer-only or dismissible notice. */
     <p class="attribution small muted">
-      Chant identification from <a href={source.url}>{source.name}</a>,
-      licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/">{source.licence}</a>.
-      The page images above are public domain and separately licensed.
+      Chant identification from <a href={source.url}>{source.name}</a> ({source.licence}).
     </p>
   )}
 </section>

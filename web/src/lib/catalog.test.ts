@@ -80,7 +80,7 @@ describe("catalog", () => {
 
   it("carries chant attribution with the data", () => {
     const source = loadCatalog().chantSource;
-    expect(source?.licence).toBe("CC BY-SA 4.0");
+    expect(source?.licence).toBe("CC0");
     expect(source?.url).toContain("gregobase");
   });
 

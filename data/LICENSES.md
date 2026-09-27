@@ -17,25 +17,27 @@ references, aspect ratios, folio numbers).
 
 No rights reserved. No attribution required, though attribution is welcome.
 
-## Chant data — CC BY-SA 4.0
+## Chant data — CC0 (public domain)
 
-GABC chant notation sourced from **GregoBase** (https://gregobase.selapa.net),
-licensed CC BY-SA 4.0.
+GABC chant notation from **GregoBase** (https://gregobase.selapa.net). Its About
+page states: "All chant transcriptions are released under CC0 (a.k.a. Public
+Domain) license." (checked 2026-09-26). No attribution is required; the site
+credits GregoBase anyway, beside every rendered chant.
 
-Covered: the `chant` field of every catalog piece, any GABC stored or
-redistributed, and every rendering produced from it.
+Covered: `data/chants.json`, the `chant` field of catalog pieces, the chant pages
+the site publishes, and every rendering of them.
 
-Obligations this project accepts:
+GregoBase flags some transcriptions `copyrighted` (taken from modern editions
+still in copyright). Those are never published: the pipeline reads them only to
+recognise a part in the scans, and a part whose chant is flagged gets a link to
+GregoBase, never the notation.
 
-1. **Attribution appears on every page that renders a chant** — not in a footer
-   only, not in a dismissible dialog, and inside the printed area so it survives
-   printing.
-2. **Share-alike attaches** to the chant fields and chant renderings, and to any
-   derived dataset that incorporates them.
-3. **The public-domain scans are licensed separately** and share-alike does NOT
-   attach to them. A consumer must be able to take the NOH imagery and page
-   structure without inheriting CC BY-SA, so the two are kept in distinct fields
-   and distinct asset paths.
+## Exsurge — MIT
+
+Chant notation is drawn in the browser by Exsurge, from the maintained fork
+[bbloomf/exsurge](https://github.com/bbloomf/exsurge) (MIT, © 2016 Fr. Matthew
+Spencer, OSJ), vendored at `web/public/vendor/exsurge/` with its licence and the
+commit it was taken from.
 
 ## jgabc per-day chant ids — Unlicense (public domain)
 
@@ -56,19 +58,10 @@ is ever registered as a publication source.
 ## This project's own work
 
 Pipeline code, the hand-transcribed indices in `data/index-*.yml`, and the site
-are released under CC BY-SA 4.0 to match the strictest inbound obligation, so
-the dataset can be forked and rehosted without asking.
+are released under CC BY-SA 4.0, so the dataset can be forked and rehosted
+without asking.
 
-## Open question — GregoBase licence provenance
-
-The GregoBase website states CC BY-SA 4.0 for its chant data, and this project
-proceeds on that basis. The upstream dump is distributed via
-`gregorio-project/GregoBase` on GitHub, which carries **no LICENSE file**
-(checked 2026-09-07). Before the site goes public, confirm the licence directly
-with the GregoBase maintainers and record their answer here. If it turns out to
-be more restrictive, the `chant` fields and every chant rendering must be
-removed; the public-domain NOH scans and page structure are unaffected, which is
-precisely why the two are kept in separate fields.
+## GregoBase dump
 
 Vendored dump: `vendor/gregobase_online.sql` (untracked, 17.1 MB)
 sha256 `3759c60b529b57fa13f696bfacf748d40a285a847d859276667749caa76de080`

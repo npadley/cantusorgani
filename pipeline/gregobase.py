@@ -2,11 +2,11 @@
 
 GregoBase (https://gregobase.selapa.net) publishes chant as GABC — notation
 source, not images — so a paired chant can be engraved fresh beside the 1942
-accompaniment. The data is CC BY-SA 4.0, which makes attribution a *display*
-obligation, not merely an ingest one; see data/LICENSES.md.
+accompaniment. GregoBase releases its transcriptions under CC0; see
+data/LICENSES.md.
 
-The dump carries a `copyrighted` flag. Rows with it set are excluded outright:
-they are not ours to redistribute regardless of the surrounding licence.
+The dump carries a `copyrighted` flag (a transcription from a modern edition
+still in copyright). Rows with it set are never published.
 """
 
 from __future__ import annotations
@@ -109,29 +109,34 @@ def _split_values(blob: str) -> list[list[str | None]]:
     return rows
 
 
-def load_chants(dump: Path = DUMP, include_copyrighted: bool = False) -> list[Chant]:
+def load_chant_rows(dump: Path = DUMP) -> list[tuple[Chant, bool]]:
+    """Every chant with its `copyrighted` flag, duplicates and chants with no
+    incipit left out. Callers decide what to do with the flag."""
     text = dump.read_text(encoding="utf-8", errors="replace")
     idx = {name: i for i, name in enumerate(COLUMNS)}
-    chants: list[Chant] = []
+    rows_out: list[tuple[Chant, bool]] = []
     for match in re.finditer(r"INSERT INTO `gregobase_chants`[^\n]*?VALUES\s*", text):
         start = match.end()
         end = text.find(";\n", start)
         for row in _split_values(text[start:end if end != -1 else len(text)]):
             if len(row) != len(COLUMNS):
                 continue
-            if not include_copyrighted and (row[idx["copyrighted"]] or "0") != "0":
-                continue
             if row[idx["duplicateof"]] not in (None, "", "0"):
                 continue
             incipit = row[idx["incipit"]] or ""
             if not incipit.strip():
                 continue
-            chants.append(Chant(
+            rows_out.append((Chant(
                 id=int(row[idx["id"]] or 0),
                 incipit=incipit,
                 office_part=row[idx["office-part"]],
                 mode=row[idx["mode"]],
                 gabc=row[idx["gabc"]],
                 cantusid=row[idx["cantusid"]],
-            ))
-    return chants
+            ), (row[idx["copyrighted"]] or "0") != "0"))
+    return rows_out
+
+
+def load_chants(dump: Path = DUMP, include_copyrighted: bool = False) -> list[Chant]:
+    return [chant for chant, copyrighted in load_chant_rows(dump)
+            if include_copyrighted or not copyrighted]

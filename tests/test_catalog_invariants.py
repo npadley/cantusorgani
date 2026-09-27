@@ -166,10 +166,10 @@ def test_every_unverified_pairing_is_queued_for_review():
 
 
 def test_chant_source_attribution_is_recorded():
-    """CC BY-SA makes attribution a display obligation, so the licence and source
-    must travel with the data, not live only in a docs file."""
+    """The licence and source travel with the data, not only in a docs file.
+    GregoBase is CC0 (its About page, checked 2026-09-26)."""
     src = CAT["chant_source"]
-    assert src["licence"] == "CC BY-SA 4.0"
+    assert src["licence"] == "CC0"
     assert "gregobase" in src["url"]
 
 

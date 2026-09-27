@@ -533,10 +533,10 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
                              "page_map": [asdict(seg) for seg in page_map.segments]}},
         "chant_source": {
             "name": "GregoBase", "url": "https://gregobase.selapa.net",
-            "licence": "CC BY-SA 4.0",
-            "note": "Attribution must appear on every page rendering a chant; "
-                    "share-alike attaches to chant fields and renderings, not to "
-                    "the public-domain NOH scans. See data/LICENSES.md.",
+            "licence": "CC0",
+            "note": "GregoBase releases its transcriptions under CC0; the site credits it "
+                    "beside every rendered chant. Transcriptions it flags copyrighted are "
+                    "never published. See data/LICENSES.md.",
         } if chants else None,
         "pieces": pieces,
     }
