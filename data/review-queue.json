@@ -2432,6 +2432,17 @@
   {
     "volume": "noh4",
     "piece": "feria-v-missa-de-spiritu-sancto",
+    "kind": "part_by_order",
+    "part": "alleluia",
+    "variant": "",
+    "expected_incipit": "alleluiahicgenuflectitur",
+    "best_system": 12,
+    "ref": "noh4/0179/005",
+    "score": 0.538
+  },
+  {
+    "volume": "noh4",
+    "piece": "feria-v-missa-de-spiritu-sancto",
     "kind": "unpaired",
     "genre": "proper",
     "title": "Feria V. Missa de Spiritu Sancto"
@@ -9534,6 +9545,15 @@
     "title": "S. Clementis Pap\u00e6 et Martyris"
   },
   {
+    "volume": "links",
+    "kind": "rubric_unlinked",
+    "title": "S. Christin\u00e6 Virginis et Martyris",
+    "reference": "Missa. Ego autem sicut oliva, Pars IV, p. 1l.",
+    "days": [
+      "sancti:07-24r"
+    ]
+  },
+  {
     "volume": "noh1",
     "kind": "part_borrowed_unresolved",
     "piece": "sabbato-infra-hebd-ii-quadragesim",
@@ -9753,6 +9773,13 @@
   {
     "volume": "noh4",
     "kind": "part_borrowed_unresolved",
+    "piece": "decollatione-s-joannis-baptist",
+    "part": "alleluia",
+    "printed_page": 74
+  },
+  {
+    "volume": "noh4",
+    "kind": "part_borrowed_unresolved",
     "piece": "s-nominis-beat-mari-virginis",
     "part": "gradual",
     "printed_page": 162
@@ -9854,6 +9881,13 @@
     "piece": "missa-pro-remissione-peccatorum",
     "part": "gradual",
     "printed_page": 194
+  },
+  {
+    "volume": "noh2",
+    "kind": "part_borrowed_unresolved",
+    "piece": "missa-ad-postulandam-gratiam-bene-moriendi",
+    "part": "alleluia",
+    "printed_page": 159
   },
   {
     "volume": "noh1",

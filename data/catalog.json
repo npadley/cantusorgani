@@ -48707,8 +48707,8 @@
           "gregobase_id": null,
           "borrowed_volume": "noh4",
           "borrowed_page": 74,
-          "borrowed_from": "commune-doctorum",
-          "borrowed_ref": "noh4/0104/004"
+          "borrowed_from": null,
+          "borrowed_ref": null
         },
         {
           "part": "offertory",
@@ -49883,10 +49883,10 @@
           "part": "gradual",
           "variant": "",
           "gregobase_id": 834,
-          "borrowed_volume": "noh4",
-          "borrowed_page": 139,
-          "borrowed_from": "feria-iii-missa-de-angelis",
-          "borrowed_ref": "noh4/0169/000"
+          "borrowed_volume": "noh1",
+          "borrowed_page": 169,
+          "borrowed_from": "dominica-i-in-quadragesim",
+          "borrowed_ref": "noh1/0196/000"
         },
         {
           "part": "alleluia",
@@ -49905,6 +49905,15 @@
           "borrowed_page": 141,
           "borrowed_from": "feria-iii-missa-de-angelis",
           "borrowed_ref": "noh4/0172/000"
+        },
+        {
+          "part": "alleluia",
+          "variant": "paschal",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 139,
+          "borrowed_from": "feria-iii-missa-de-angelis",
+          "borrowed_ref": "noh4/0171/000"
         },
         {
           "part": "offertory",
@@ -53631,8 +53640,8 @@
           "gregobase_id": null,
           "borrowed_volume": "noh3",
           "borrowed_page": 42,
-          "borrowed_from": "s-agnetis-virginis-et-martyris",
-          "borrowed_ref": "noh3/0075/004"
+          "borrowed_from": "ss-fabiani-et-sebastiani-martyrum",
+          "borrowed_ref": "noh3/0073/001"
         },
         {
           "part": "offertory",
@@ -53767,9 +53776,7 @@
       "slug": "in-vigilia-unius-apostoli",
       "section": "Commune Sanctorum",
       "division": "commune",
-      "days": [
-        "sancti:07-24r"
-      ],
+      "days": [],
       "label": "In Vigilia Unius Apostoli",
       "title": "In Vigilia Unius Apostoli",
       "incipit": null,
@@ -53906,9 +53913,7 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": [
-        "sancti:07-24r"
-      ]
+      "linked_days": []
     },
     {
       "id": "noh4-commune-unius-martyris-pontificis",
@@ -58739,11 +58744,11 @@
         {
           "part": "alleluia",
           "variant": "",
-          "gregobase_id": 406,
-          "borrowed_volume": "noh4",
-          "borrowed_page": 92,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "system": 12,
+          "ref": "noh4/0123/000",
+          "gregobase_id": 208,
+          "placed": "text",
+          "score": 0.8
         },
         {
           "part": "tract",
@@ -58753,6 +58758,15 @@
           "gregobase_id": 256,
           "placed": "label",
           "score": 1.0
+        },
+        {
+          "part": "alleluia",
+          "variant": "paschal",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 92,
+          "borrowed_from": null,
+          "borrowed_ref": null
         },
         {
           "part": "offertory",
@@ -59585,29 +59599,29 @@
         {
           "part": "alleluia",
           "variant": "",
-          "gregobase_id": 406,
+          "system": 34,
+          "ref": "noh4/0143/004",
+          "gregobase_id": 208,
+          "placed": "text",
+          "score": 0.7
+        },
+        {
+          "part": "alleluia",
+          "variant": "paschal",
+          "gregobase_id": null,
           "borrowed_volume": "noh4",
           "borrowed_page": 110,
           "borrowed_from": null,
           "borrowed_ref": null
         },
         {
-          "part": "tract",
-          "variant": "",
-          "system": 28,
-          "ref": "noh4/0142/004",
-          "gregobase_id": 738,
-          "placed": "label",
-          "score": 1.0
-        },
-        {
           "part": "offertory",
           "variant": "",
-          "system": 33,
-          "ref": "noh4/0143/003",
+          "system": 41,
+          "ref": "noh4/0144/005",
           "gregobase_id": 1333,
-          "placed": "text",
-          "score": 0.78
+          "placed": "label",
+          "score": 1.0
         },
         {
           "part": "communion",
@@ -61411,20 +61425,20 @@
         {
           "part": "alleluia",
           "variant": "",
+          "system": 7,
+          "ref": "noh4/0179/000",
           "gregobase_id": 181,
+          "placed": "order",
+          "score": 0.41
+        },
+        {
+          "part": "alleluia",
+          "variant": "paschal",
+          "gregobase_id": null,
           "borrowed_volume": "noh2",
           "borrowed_page": 78,
           "borrowed_from": null,
           "borrowed_ref": null
-        },
-        {
-          "part": "tract",
-          "variant": "",
-          "system": 7,
-          "ref": "noh4/0179/000",
-          "gregobase_id": 925,
-          "placed": "label",
-          "score": 1.0
         },
         {
           "part": "offertory",
@@ -64480,8 +64494,8 @@
           "gregobase_id": 745,
           "borrowed_volume": "noh2",
           "borrowed_page": 159,
-          "borrowed_from": "dominica-vi-post-pentecosten",
-          "borrowed_ref": "noh2/0189/005"
+          "borrowed_from": null,
+          "borrowed_ref": null
         },
         {
           "part": "offertory",

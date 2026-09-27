@@ -14,16 +14,22 @@ const hymns = starts.filter((s) => s.kind === "hymn");
 const borrowed = borrowedLinks(piece).filter((b) => b.href !== null);
 const isProper = parts.length > 0 || borrowed.length > 0;
 const label = isProper ? "Parts of the Proper" : hymns.length > 0 ? "Hymns" : "Movements";
+// Printed and borrowed parts together, in the order of Mass.
+const properLinks = [
+  ...parts.map((s) => ({ order: s.order ?? 0, label: s.label, href: `#${s.anchor}`, borrowed: false,
+                         lender: null, page: 0 })),
+  ...borrowed.map((b) => ({ order: b.order, label: b.label, href: b.href ?? "", borrowed: true,
+                            lender: b.lenderTitle, page: b.page })),
+].sort((a, b) => a.order - b.order);
 ---
 
 {(movements.length > 1 || hymns.length > 0 || parts.length + borrowed.length > 1) && (
   <nav class="movements ui no-print" aria-label={label}>
     <span class="small muted">Jump to</span>
     {movements.length > 1 && movements.map((s) => <a href={`#${s.anchor}`}>{s.label}</a>)}
-    {parts.map((s) => <a href={`#${s.anchor}`}>{s.label}</a>)}
-    {borrowed.map((b) => (
-      <a class="borrowed" href={b.href ?? undefined}>{b.label} → {b.lenderTitle}, p.&nbsp;{b.page}</a>
-    ))}
+    {properLinks.map((l) => l.borrowed
+      ? <a class="borrowed" href={l.href}>{l.label} → {l.lender}, p.&nbsp;{l.page}</a>
+      : <a href={l.href}>{l.label}</a>)}
     {hymns.length > 0 && <span class="small muted">Hymns</span>}
     {hymns.map((s) => <a class="hymn" href={`#${s.anchor}`}>{s.label}</a>)}
   </nav>

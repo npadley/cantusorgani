@@ -70,3 +70,22 @@ def test_zone_text_heading_at_the_foot_of_the_page_before():
 def test_zone_text_no_heading_found_starts_at_the_music():
     lines = [line(10, 100, "Offertorium. X, Pars IV, p. 9."), line(10, 500, "Communio. Y, ibid., p. 10.")]
     assert zone_text(lines, start=(10, 300.0)) == "Communio. Y, ibid., p. 10."
+
+
+def test_reference_parts_rubric_naming_a_part_is_not_a_reference():
+    """"Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia ...
+    In conspectu, Pars IV, p. 45" says what replaces the Gradual; the Gradual
+    itself is "Graduale. Angelis suis, Pars I, 169"."""
+    text = ("Graduale. Angelis suis, Pars I, 169. Tempore Paschali omittitur Graduale, et ejus loco "
+            "dicitur : Alleluia, alleluia V. In conspectu, Pars IV, p. 45.")
+    assert ("gradual", "noh1", 169) in reference_parts(text, "noh3")
+    assert all(p != ("gradual", "noh4", 45) for p in reference_parts(text, "noh3"))
+
+
+def test_reference_parts_alleluia_in_the_paschal_rubric_is_the_paschal_alleluia():
+    text = ("Graduale. Angelis suis, Pars I, 169. Alleluia. V. Angelus Domini, Pars II, p. 20. "
+            "Tempore Paschali omittitur Graduale, et ejus loco dicitur : Alleluia, alleluia V. "
+            "In conspectu, Pars IV, p. 139.")
+    parts = reference_parts(text, "noh3")
+    assert ("alleluia", "noh2", 20) in parts
+    assert ("alleluia/paschal", "noh4", 139) in parts

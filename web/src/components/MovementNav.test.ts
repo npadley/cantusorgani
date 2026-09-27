@@ -187,3 +187,18 @@ describe("parts placed by order", () => {
     expect(html).not.toContain('id="alleluia"');
   });
 });
+
+
+describe("printed and borrowed parts together", () => {
+  it("should list them in the order of Mass, not printed first", async () => {
+    const lender = { part: "introit", borrowed_volume: "noh3", borrowed_page: 354, borrowed_from: null,
+                     borrowed_ref: null };
+    const piece = proper([lender, { part: "offertory", system: 2, placed: "label" },
+                          { part: "communion", system: 6, placed: "label" }]);
+    const { partOrder } = await import("../lib/catalog");
+    expect(partOrder("introit")).toBeLessThan(partOrder("offertory"));
+    expect(partOrder("alleluia", "paschal")).toBeGreaterThan(partOrder("tract"));
+    expect(partOrder("gradual", "2")).toBeGreaterThan(partOrder("gradual", "1"));
+    expect(links(await render(piece))).toEqual(["offertory", "communion"]);   // unresolved lender: no link
+  });
+});

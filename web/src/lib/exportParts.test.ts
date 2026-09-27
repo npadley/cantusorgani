@@ -130,3 +130,46 @@ describe("exportSegments and uncertain parts", () => {
     expect(exportSegments([p]).map((s) => [s.label, s.systems])).toEqual([["Introit", 4], ["Communion", 2]]);
   });
 });
+
+describe("exportSegments with borrowed parts", () => {
+  function catalog() {
+    const lenderRefs = Array.from({ length: 8 }, (_, i) => `noh3/0387/${String(i).padStart(3, "0")}`);
+    const ownRefs = Array.from({ length: 4 }, (_, i) => `noh3/0395/${String(i).padStart(3, "0")}`);
+    const base = { volume: "noh3", section: "S", incipit: null, genre: "proper", mode: null, mass: null,
+                   printed_pages: [1, 2], pdf_pages: [3, 4], division: "sanctorale", chant: null,
+                   review_status: "verified", movements: [] };
+    return parseCatalog({
+      schema_version: 2, volumes: { noh3: { title: "III", part: "III" } }, chant_source: null,
+      pieces: [
+        { ...base, id: "noh3-michael", slug: "michael", label: "M", title: "S. Michael",
+          systems: lenderRefs, system_assets: lenderRefs.map(() => ""), system_aspect: lenderRefs.map(() => [1000, 250]),
+          parts: [{ part: "introit", system: 0, ref: lenderRefs[0], placed: "label" },
+                  { part: "gradual", system: 3, ref: lenderRefs[3], placed: "label" },
+                  { part: "communion", system: 6, ref: lenderRefs[6], placed: "label" }] },
+        { ...base, id: "noh3-angels", slug: "angels", label: "A", title: "Ss. Angeli",
+          systems: ownRefs, system_assets: ownRefs.map(() => ""), system_aspect: ownRefs.map(() => [1000, 250]),
+          parts: [{ part: "introit", borrowed_volume: "noh3", borrowed_page: 354, borrowed_from: "michael",
+                    borrowed_ref: lenderRefs[0] },
+                  { part: "offertory", system: 0, ref: ownRefs[0], placed: "label" },
+                  { part: "communion", borrowed_volume: "noh3", borrowed_page: 361, borrowed_from: "michael",
+                    borrowed_ref: lenderRefs[6] }] },
+      ],
+    }).pieces;
+  }
+
+  it("should take a borrowed part's systems from the lender, in the order of Mass", () => {
+    const pieces = catalog();
+    const segments = exportSegments([pieces[1]!], pieces);
+    expect(segments.map((s) => [s.label, s.systems])).toEqual([
+      ["Introit (from S. Michael)", 3], ["Offertory", 4], ["Communion (from S. Michael)", 2],
+    ]);
+    expect(segments[0]!.stems[0]).toContain("noh3/0387/000");
+  });
+
+  it("should leave out a borrowed part whose lender is unknown", () => {
+    const pieces = catalog();
+    const angels = { ...pieces[1]!, parts: pieces[1]!.parts.map((x) =>
+      x.kind === "borrowed" ? { ...x, borrowedFrom: null, borrowedRef: null } : x) };
+    expect(exportSegments([angels], pieces).map((s) => s.label)).toEqual(["Offertory"]);
+  });
+});

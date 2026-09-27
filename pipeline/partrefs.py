@@ -40,15 +40,20 @@ def is_heading(text: str) -> bool:
 
 
 _REF = re.compile(
-    r"\b(?P<label>Introitus|Graduale|Tractus|Sequentia|Offertorium|Communio|Alleluia,\s*alleluia)\b\.?"
+    # The label and its full stop: "omittitur Graduale, et ejus loco dicitur"
+    # names a part without citing it.
+    r"\b(?P<label>Introitus|Graduale|Tractus|Sequentia|Offertorium|Communio|Alleluia,\s*alleluia"
+    r"|Alleluia(?=\s*\.\s*V\b))\b(?!\s*,)\.?"
     r"(?P<body>[^.]{0,90}?(?:ut\s+supra|ut\s+infra|ibid\S*|Pars\s+\S+)\s*,?\s*(?:p\s*\.?\s*\d{1,3}|\d{1,3})?)")
+_PASCHAL = re.compile(r"Pascha|ejus\s+loco", re.IGNORECASE)
 _PART = {"introitus": "introit", "graduale": "gradual", "tractus": "tract", "sequentia": "sequence",
          "offertorium": "offertory", "communio": "communion"}
 
 
 def reference_parts(text: str, volume: str) -> list[tuple[str, str, int]]:
     """(part, volume, printed page) for each part named by reference. "ibid."
-    is the reference before it; "ut supra" this volume."""
+    is the reference before it; "ut supra" this volume. An Alleluia cited in
+    the Eastertide rubric is "alleluia/paschal"."""
     out: list[tuple[str, str, int]] = []
     previous = volume
     # The verse sign ("V.", OCR'd "~." or "t.") is not a sentence end.
@@ -56,6 +61,9 @@ def reference_parts(text: str, volume: str) -> list[tuple[str, str, int]]:
     for m in _REF.finditer(text):
         label = m.group("label").lower()
         part = "alleluia" if label.startswith("alleluia") else _PART[label]
+        if part == "alleluia" and _PASCHAL.search(text[max(0, m.start() - 80):m.start()]):
+            # "Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia ..."
+            part = "alleluia/paschal"
         body = m.group("body")
         where = parse_reference(body, previous if "ibid" in body.lower() else volume)
         if where is None:

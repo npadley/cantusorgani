@@ -425,12 +425,25 @@ export interface JumpTarget {
   readonly kind: "movement" | "hymn" | "part";
   /** A part's chant on GregoBase, when known. */
   readonly chantUrl?: string | null;
+  /** A part's partOrder. */
+  readonly order?: number;
 }
 
 const PART_LABELS: Readonly<Record<ProperPartName, string>> = {
   introit: "Introit", gradual: "Gradual", alleluia: "Alleluia", tract: "Tract",
   sequence: "Sequence", offertory: "Offertory", communion: "Communion",
 };
+
+const PART_ORDER: readonly string[] = [
+  "introit", "gradual", "alleluia", "tract", "alleluia/paschal", "sequence", "offertory", "communion",
+];
+
+/** Position of a part in the order of Mass, for listing printed and borrowed parts together. */
+export function partOrder(part: ProperPartName, variant = ""): number {
+  const key = variant === "paschal" ? `${part}/paschal` : part;
+  const i = PART_ORDER.indexOf(key);
+  return (i < 0 ? PART_ORDER.indexOf(part) : i) + (/^\d+$/.test(variant) ? Number(variant) / 100 : 0);
+}
 
 /** "Paschal Alleluia", "Gradual 2", "Offertory". */
 export function partLabel(part: ProperPartName, variant = ""): string {
@@ -451,6 +464,8 @@ export function gregobaseUrl(id: number | null): string | null {
 
 export interface BorrowedLink {
   readonly label: string;
+  /** partOrder of the part, to list it among the printed ones. */
+  readonly order: number;
   /** "/piece/<lender>/#<anchor>", or null when the lender is unknown. */
   readonly href: string | null;
   readonly lenderTitle: string | null;
@@ -465,6 +480,7 @@ export function borrowedLinks(piece: Piece, pieces: readonly Piece[] = allPieces
     const lent = lender?.parts.find((q): q is PrintedPart => q.kind === "printed" && q.ref === x.borrowedRef);
     return {
       label: partLabel(x.part, x.variant),
+      order: partOrder(x.part, x.variant),
       href: lender && lent ? `/piece/${lender.slug}/#${partAnchor(lent.part, lent.variant)}` : null,
       lenderTitle: lender ? (lender.incipit ?? lender.title) : null,
       page: x.borrowedPage,
@@ -492,7 +508,7 @@ export function jumpTargets(piece: Piece): readonly JumpTarget[] {
     if (index < 0 || partAnchors.has(anchor)) continue;
     partAnchors.add(anchor);
     parts.push({ label: partLabel(x.part, x.variant), anchor, index, kind: "part",
-                 chantUrl: gregobaseUrl(x.gregobaseId) });
+                 chantUrl: gregobaseUrl(x.gregobaseId), order: partOrder(x.part, x.variant) });
   }
   const used = new Map<string, number>();
   const hymns: JumpTarget[] = [];

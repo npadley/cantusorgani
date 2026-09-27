@@ -159,3 +159,8 @@ def test_rubrics_1962_every_reference_resolves():
     for rubric in doc["rubrics"]:
         assert rubric["days"], rubric["title"]
         assert parse_reference(rubric["reference"]) is not None, rubric["title"]
+
+
+def test_parse_reference_page_without_p_still_read():
+    """NOH3 p. 362, the Guardian Angels: "Graduale. Angelis suis, Pars I, 169"."""
+    assert parse_reference("Graduale. Angelis suis, Pars I, 169") == ("noh1", 169)

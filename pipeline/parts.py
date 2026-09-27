@@ -354,7 +354,10 @@ def link_parts(catalog: dict[str, object]) -> list[dict[str, object]]:
             target = None
             for lender in lenders:
                 own = [q for q in lender.get("parts", []) or []  # type: ignore[union-attr]
-                       if q.get("part") == part["part"] and "ref" in q]
+                       if q.get("part") == part["part"] and "ref" in q and q.get("placed") != "order"]
+                # The lender's Alleluia serves a borrowed Paschal Alleluia when it
+                # is the only one it prints (a votive Mass cited in the rubric).
+                own.sort(key=lambda q: q.get("variant", "") != part.get("variant", ""))
                 if own:
                     target = (lender, own[0])
                     break

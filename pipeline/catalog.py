@@ -312,7 +312,8 @@ def proper_parts(vol_id: str, slug: str, days: list[str], reference: str | None,
         if not any(b[0] == part for b in borrowed):
             borrowed.append((part, volume, page))
     lent = {part for part, _, _ in borrowed}
-    printed = [e for e in expected if e.part not in lent]
+    printed = [e for e in expected
+               if (f"{e.part}/{e.variant}" if e.variant == "paschal" else e.part) not in lent]
     features = []
     for r in refs:
         margin = ctx.margins.text(r.ref, r.asset)                    # type: ignore[attr-defined]
@@ -328,8 +329,9 @@ def proper_parts(vol_id: str, slug: str, days: list[str], reference: str | None,
          "gregobase_id": b.gregobase_id, "placed": b.placed, "score": b.score}
         for b in seg.parts]
     ids = {e.part: e.gregobase_id for e in expected}
-    for part, volume, page in borrowed:
-        records.append({"part": part, "variant": "", "gregobase_id": ids.get(part),
+    for key, volume, page in borrowed:
+        part, _, variant = key.partition("/")
+        records.append({"part": part, "variant": variant, "gregobase_id": ids.get(part) if not variant else None,
                         "borrowed_volume": volume, "borrowed_page": page, "borrowed_from": None})
 
     def order(record: dict[str, object]) -> tuple[int, int]:
@@ -574,8 +576,8 @@ def merge_catalog(existing: Catalog | None, update: Catalog) -> Catalog:
 
 PART_TO_VOLUME = {"I": "noh1", "II": "noh2", "III": "noh3", "IV": "noh4", "V": "noh5"}
 # OCR reads the I of "IV" as 1, l, | or i, drops the stop after "p", reads the
-# comma as a semicolon and the "p" itself as "»".
-REFERENCE = re.compile(r"Pars\s+(?P<part>[IVX]+|[1l|i][VvI]+)\s*[,.;]?\s*'?(?:p|»)\s*\.?\s*(?P<page>\d{1,3})")
+# comma as a semicolon and the "p" itself as "»" -- or drops it ("Pars I, 169").
+REFERENCE = re.compile(r"Pars\s+(?P<part>[IVX]+|[1l|i][VvI]+)\s*[,.;]?\s*'?(?:(?:p|»)\s*\.?\s*)?(?P<page>\d{1,3})\b")
 # "vide ad calcem Partis IV": at the end of Part IV, where the Common of Supreme
 # Pontiffs was added after the feasts pro aliquibus locis ("ad co/cern Portis").
 AT_CALCEM = re.compile(r"\bad\s+c\S{1,3}(?:em|ern)\b")

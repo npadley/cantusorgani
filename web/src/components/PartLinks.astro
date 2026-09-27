@@ -8,11 +8,11 @@ import { pieceHref } from "../lib/indexes";
 interface Props { readonly pieces: readonly Piece[] }
 const rows = Astro.props.pieces.map((piece) => {
   const printed = jumpTargets(piece).filter((t) => t.kind === "part")
-    .map((t) => ({ label: t.label, href: `${pieceHref(piece)}#${t.anchor}`, index: t.index, borrowed: false }));
+    .map((t) => ({ label: t.label, href: `${pieceHref(piece)}#${t.anchor}`, order: t.order ?? 0, borrowed: false }));
   const borrowed = borrowedLinks(piece).flatMap((b) => b.href === null ? [] : [{
-    label: b.label, href: b.href, index: -1, borrowed: true,
+    label: b.label, href: b.href, order: b.order, borrowed: true,
   }]);
-  return { piece, links: [...borrowed, ...printed] };
+  return { piece, links: [...borrowed, ...printed].sort((a, b) => a.order - b.order) };
 }).filter((row) => row.links.length > 0 || row.piece.jgabcUrl);
 ---
 

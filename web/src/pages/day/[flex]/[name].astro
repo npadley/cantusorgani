@@ -23,7 +23,12 @@ const { key } = Astro.props;
 const o = observance(key);
 const forDay = allPieces().filter((p) => p.days.includes(key));
 // The Mass and the Office are listed apart; the export is the Mass.
-const pieces = forDay.filter((p) => p.division !== "vesperale");
+// A piece that only lends parts to the day's own Proper (St Michael's Introit
+// on the Guardian Angels) is reached through those parts, not listed whole.
+const lenders = new Set(forDay.filter((p) => !p.linkedDays.includes(key)).flatMap((p) =>
+  p.parts.flatMap((x) => (x.kind === "borrowed" && x.borrowedFrom ? [x.borrowedFrom] : []))));
+const pieces = forDay.filter((p) => p.division !== "vesperale"
+  && !(p.linkedDays.includes(key) && lenders.has(p.slug)));
 const vespers = forDay.filter((p) => p.division === "vesperale");
 const title = o?.titleEn ?? key;
 
