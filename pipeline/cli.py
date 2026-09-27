@@ -91,6 +91,18 @@ def build_parser() -> argparse.ArgumentParser:
 
     subs.add_parser("chants", help="write data/chants.json: the notation of every chant a part names")
 
+    vf = subs.add_parser("vesperale-fetch",
+                         help="vendor jsrjenkins/vesperale's Sunday Vespers table into data/vesperale-lineup.json")
+    vf.add_argument("--commit", default=None, help="vesperale commit sha (default: the pinned one)")
+    subs.add_parser("vespers-items",
+                    help="propose each green Sunday's Magnificat antiphon and tone from NOH8 "
+                         "(data/vespers-noh8.proposed.yml, for review)")
+    vl = subs.add_parser("vespers-lineup",
+                         help="write data/vespers-lineup.json: each Sunday's Vespers in sung order")
+    vl.add_argument("--day", default=None,
+                    help="print one day's lineup instead: a date (2026-09-13) or a key (tempora:Pent16-0)")
+    vl.add_argument("--json", action="store_true", help="with --day: print that day's JSON")
+
     cat = subs.add_parser("catalog", help="build data/catalog.json and review-queue.json")
     cat.add_argument("--volume", required=True)
     cat.add_argument("--no-parts", action="store_true",
@@ -219,6 +231,73 @@ def main(argv: list[str] | None = None) -> int:
                   file=sys.stderr)
             return 1
         print(f"{path}: {count} Propers from jgabc @ {commit[:12]}")
+        return 0
+
+    if args.command == "vesperale-fetch":
+        from pipeline.vesperale import PINNED, VesperaleIntegrityError
+        from pipeline.vesperale import fetch as fetch_vesperale
+        try:
+            path, commit, count = fetch_vesperale(args.commit or PINNED)
+        except (VesperaleIntegrityError, OSError) as exc:
+            print(f"vesperale-fetch: {exc}\n  data/vesperale-lineup.json was left untouched.",
+                  file=sys.stderr)
+            return 1
+        print(f"wrote {path}: {count} Sundays' Magnificat antiphons and tones, commit {commit[:12]}")
+        return 0
+
+    if args.command == "vespers-items":
+        from pipeline.vespers import propose
+        path, count = propose()
+        print(f"{path}: {count} Magnificat antiphons proposed; review each against the scan "
+              f"into data/vespers-noh8.yml")
+        return 0
+
+    if args.command == "vespers-lineup":
+        import json as _json
+
+        from pipeline.vespers import (
+            LINEUP,
+            VespersDataError,
+            calendar_days,
+            describe,
+            resolve_day,
+            write_lineup,
+        )
+        if args.day:
+            if not LINEUP.exists():
+                print("vespers-lineup: data/vespers-lineup.json is missing; run uv run noh vespers-lineup "
+                      "first.", file=sys.stderr)
+                return 1
+            doc = _json.loads(LINEUP.read_text(encoding="utf-8"))
+            try:
+                dates = resolve_day(args.day, calendar_days())
+            except ValueError as exc:
+                print(f"vespers-lineup: {exc}", file=sys.stderr)
+                return 1
+            # A key falls on many dates: show the next one from today.
+            from datetime import UTC, datetime
+            today = datetime.now(UTC).date().isoformat()
+            upcoming = [d for d in dates if d >= today]
+            iso = (upcoming or dates)[0]
+            if args.json:
+                print(_json.dumps(doc["days"].get(iso), ensure_ascii=False, indent=1))
+            else:
+                print(describe(iso, doc))
+            return 0
+        try:
+            path, doc, review = write_lineup()
+        except VespersDataError as exc:
+            print(f"vespers-lineup: {exc}", file=sys.stderr)
+            return 1
+        days, held = doc["days"], doc["held_back"]
+        years = sorted({d[:4] for d in days} | {d[:4] for d in held})
+        print(f"{path}: {len(days)} Sundays with a full lineup, {len(held)} held back "
+              f"({years[0]}-{years[-1]})" if years else "")
+        bank = sum(1 for d in days.values() for i in d["items"] if i["source"]["type"] == "bank")
+        notes = sum(1 for d in days.values() for i in d["items"] if i["source"]["type"] == "note")
+        print(f"  items from the tone bank: {bank}; notes (sung unaccompanied): {notes}")
+        for r in review:
+            print(f"  {r['kind']}: {r['why']}")
         return 0
 
     if args.command == "chants":

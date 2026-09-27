@@ -2,7 +2,7 @@
 
 **Required Skill**: executing-plans
 **Design doc**: `docs/claudekit/specs/2026-09-07-nova-organi-harmonia-design.md`
-**Status**: plan, not started. Written 2026-09-27.
+**Status**: release 1 built 2026-09-27 (see "Release 1 as built"). Written 2026-09-27.
 
 ## Goal
 
@@ -599,3 +599,28 @@ not by order alone.
 2. **Commemorations**: show the commemoration of an occurring feast (1960: at
    most one at Sunday Vespers) as an item, or leave it out as a note?
    Release 1 shows it as a note when the calendar lists one.
+
+## Release 1 as built (2026-09-27)
+
+- **Reviewed items, not a live segmenter.** The Sunday office, the Marian antiphons,
+  the 28 green Sundays' Magnificat antiphons and the tone bank are hand-reviewed
+  entries in `data/vespers-noh8.yml`, validated against the catalogue on every build.
+  `noh vespers-items` proposes the Magnificat antiphons and tones (headings from the
+  text layer, tones from a wide margin crop); a person checks them against the scan.
+- **What NOH8 prints was measured.** Psalm openings are printed only in Advent I and
+  II, the Magnificat only in VIII G (pp. 53 and 59). So for a Magnificat the bank uses
+  the psalm formula in the same tone and ending (a change from step 3's "for a psalm
+  only": the Magnificat is sung to that tone, repeating the intonation each verse),
+  labelled on the page.
+- **Coverage.** 14 of the 28 green Sundays have printed music for every item. The
+  other 14 are held back (`tone_unprinted`) for want of a Magnificat accompaniment in
+  I g2, I a3, I a, VI F, I D, I D2, VII b, IV E, IV A or VI C. That includes the
+  plan's gate Sunday, 2026-09-06 (Pent15-0, IV A: NOH8 prints IV A* only); the gate
+  was run on 2026-11-08 (`tempora:Epi5-0`) instead, every item checked against the
+  book.
+- **vesperale** is vendored and wrong in two places NOH8 is right (Epiphany V and VI
+  list Pentecost XVI's and XVII's antiphons); both are queued as `tone_disagreement`.
+- **Chant**: from the Liber Usualis (1961) or the Liber antiphonarius (1960) only,
+  each mode checked against NOH's tone; the Marian antiphons' solemn tones and *Lucis
+  Creator*'s melody were checked by eye. *Praeceptor* (Pent IV) and *Simile est
+  regnum* (Epi VI) have no Roman-edition transcription in GregoBase: no chant.

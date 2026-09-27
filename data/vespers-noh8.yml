@@ -1,0 +1,154 @@
+# VESPERS ITEMS IN NOH8 (Vesperale) -- reviewed by hand against the scans, 2026-09-27.
+#
+# What `noh vespers-lineup` builds each Sunday's Vespers from. Proposals come from
+# `noh vespers-items` (data/vespers-noh8.proposed.yml: headings and tone labels read
+# from the text layer and a wide margin crop); each entry here was checked against
+# the page. A system is named by its ref, <volume>/<pdf page>/<system>.
+#
+# The Sunday office (pp. 1-27) prints each psalm as: the antiphon's intonation, the
+# psalm accompanied verse by verse, then the full antiphon. Under the 1960 rubrics
+# the antiphon is sung in full before and after its psalm, so the lineup uses the
+# full antiphon both times and leaves the intonation out.
+#
+# Tones are as printed in NOH8's margin (a fixed vocabulary: pipeline/vespers.py
+# TONES). vesperale's table agrees except where noted.
+volume: noh8
+reviewed: 2026-09-27
+
+sunday_office:
+  piece: vesperae-dominica-ad-vesperas
+  initium:                 # Deus in adjutorium, ferial tone, with Alleluia (p. 1)
+    refs: [noh8/0031/000, noh8/0031/001, noh8/0031/002, noh8/0031/003]
+  psalms:
+  - number: 109
+    title: Dixit Dominus
+    tone: VII.c2
+    antiphon: {incipit: Dixit Dominus Domino meo, refs: [noh8/0035/004], chant: 2767}
+    psalm: [noh8/0033/000, noh8/0033/002, noh8/0033/003, noh8/0033/004, noh8/0034/000,
+            noh8/0034/001, noh8/0034/002, noh8/0034/003, noh8/0034/004, noh8/0034/005,
+            noh8/0035/000, noh8/0035/001, noh8/0035/002, noh8/0035/003]
+  - number: 110
+    title: Confitebor tibi
+    tone: III.b                # the antiphon's tone (p. 5); the psalm's own margin reads "Ant. VII" (p. 6), as printed
+    antiphon: {incipit: Magna opera Domini, refs: [noh8/0039/001, noh8/0039/002], chant: 2908}
+    psalm: [noh8/0036/000, noh8/0036/001, noh8/0036/002, noh8/0036/003, noh8/0036/004,
+            noh8/0036/005, noh8/0037/000, noh8/0037/001, noh8/0037/002, noh8/0037/003,
+            noh8/0037/004, noh8/0037/005, noh8/0038/000, noh8/0038/001, noh8/0038/002,
+            noh8/0038/003, noh8/0038/004, noh8/0038/005, noh8/0039/000]
+  - number: 111
+    title: Beatus vir
+    tone: IV.g
+    antiphon: {incipit: Qui timet Dominum, refs: [noh8/0042/003], chant: 2741}
+    psalm: [noh8/0039/004, noh8/0039/005, noh8/0040/000, noh8/0040/001, noh8/0040/002,
+            noh8/0040/003, noh8/0040/004, noh8/0040/005, noh8/0041/000, noh8/0041/001,
+            noh8/0041/002, noh8/0041/003, noh8/0041/004, noh8/0041/005, noh8/0042/000,
+            noh8/0042/001, noh8/0042/002]
+  - number: 112
+    title: Laudate pueri
+    tone: VII.c                # OCR read "VII. e"; the scan reads VII c (p. 12)
+    antiphon: {incipit: Sit nomen Domini, refs: [noh8/0044/005], chant: 1864}
+    psalm: [noh8/0042/005, noh8/0043/000, noh8/0043/001, noh8/0043/002, noh8/0043/003,
+            noh8/0043/004, noh8/0043/005, noh8/0044/000, noh8/0044/001, noh8/0044/002,
+            noh8/0044/003, noh8/0044/004]
+  - number: 113
+    title: In exitu Israel
+    tone: peregrinus
+    antiphon: {incipit: Deus autem noster, refs: [noh8/0051/000, noh8/0051/001], chant: 2882}
+    psalm: [noh8/0045/001, noh8/0045/002, noh8/0045/003, noh8/0046/000, noh8/0046/001,
+            noh8/0046/002, noh8/0046/003, noh8/0046/004, noh8/0046/005, noh8/0047/000,
+            noh8/0047/001, noh8/0047/002, noh8/0047/003, noh8/0047/004, noh8/0047/005,
+            noh8/0048/000, noh8/0048/001, noh8/0048/002, noh8/0048/003, noh8/0048/004,
+            noh8/0048/005, noh8/0049/000, noh8/0049/001, noh8/0049/002, noh8/0049/003,
+            noh8/0049/004, noh8/0049/005, noh8/0050/000, noh8/0050/001, noh8/0050/002,
+            noh8/0050/003, noh8/0050/004, noh8/0050/005]
+  chapter:                 # 2 Cor 1:3-4, read; the response "Deo gratias" is printed (p. 21)
+    text: "Benedictus Deus et Pater Domini nostri Jesu Christi, Pater misericordiarum et Deus totius consolationis, qui consolatur nos in omni tribulatione nostra."
+    refs: [noh8/0051/003]
+  hymn: {title: Lucis Creator optime, tone: VIII, chant: 2014,
+         refs: [noh8/0051/004, noh8/0051/005, noh8/0052/000, noh8/0052/001, noh8/0052/002,
+                noh8/0052/003]}
+  versicle: {text: "Dirigatur, Domine, oratio mea. R. Sicut incensum in conspectu tuo.",
+             refs: [noh8/0052/004, noh8/0052/005]}
+  benedicamus: {refs: [noh8/0057/004, noh8/0057/005]}   # after the commemorations (p. 27)
+  # Left out under the 1962 rubrics: the suffrage (p. 26) and the Eastertide
+  # commemoration of the Cross (p. 27), both abolished in 1955.
+
+marian_antiphons:          # pp. 40-46, the solemn tones (checked by eye against GregoBase)
+  piece: vesperae-antiphonae-finales-b-m-v
+  alma:
+    title: Alma Redemptoris Mater
+    chant: 2238
+    refs: [noh8/0070/000, noh8/0070/001, noh8/0070/002, noh8/0070/003, noh8/0070/004,
+           noh8/0070/005, noh8/0071/000]
+    versicle_advent: [noh8/0071/001, noh8/0071/002, noh8/0071/003]
+    versicle: [noh8/0071/004, noh8/0071/005]     # after Christmas: Post partum Virgo
+  ave:
+    title: Ave Regina caelorum
+    chant: 2602
+    refs: [noh8/0072/000, noh8/0072/001, noh8/0072/002, noh8/0072/003, noh8/0072/004,
+           noh8/0072/005]
+    versicle: [noh8/0073/000, noh8/0073/001]
+  regina:
+    title: Regina caeli
+    chant: 1976
+    refs: [noh8/0073/002, noh8/0073/003, noh8/0073/004, noh8/0073/005, noh8/0074/000,
+           noh8/0074/001]
+    versicle: [noh8/0074/002, noh8/0074/003]
+  salve:
+    title: Salve Regina
+    chant: 2715
+    refs: [noh8/0074/004, noh8/0075/000, noh8/0075/001, noh8/0075/002, noh8/0075/003,
+           noh8/0075/004, noh8/0076/000, noh8/0076/001, noh8/0076/002]
+    versicle: [noh8/0076/003, noh8/0076/004]
+
+# Each green Sunday's Magnificat antiphon, keyed by the calendar key (never by its
+# place in the book's stack). `chant` is null where GregoBase has no Roman-edition
+# transcription (Liber Usualis 1961 or Liber antiphonarius 1960).
+magnificat_antiphons:
+  tempora:Epi2-0:  {piece: vesperae-dominicae-ii-vi-post-epiphaniam, incipit: Deficiente vino, tone: I.f, chant: 2205, refs: [noh8/0135/000, noh8/0135/001]}
+  tempora:Epi3-0:  {piece: vesperae-dominicae-ii-vi-post-epiphaniam, incipit: Domine si tu vis, tone: I.g2, chant: 2453, refs: [noh8/0135/002, noh8/0135/003]}
+  tempora:Epi4-0:  {piece: vesperae-dominicae-ii-vi-post-epiphaniam, incipit: Domine salva nos, tone: I.g2, chant: 2333, refs: [noh8/0135/004, noh8/0135/005]}   # vesperale: 1g
+  tempora:Epi5-0:  {piece: vesperae-dominicae-ii-vi-post-epiphaniam, incipit: Colligite primum zizania, tone: I.g, chant: 1838, refs: [noh8/0136/000, noh8/0136/001, noh8/0136/002, noh8/0136/003]}   # vesperale lists Pent XVI's antiphon here
+  tempora:Epi6-0:  {piece: vesperae-dominicae-ii-vi-post-epiphaniam, incipit: Simile est regnum caelorum fermento, tone: I.a3, chant: null, refs: [noh8/0136/004, noh8/0136/005, noh8/0137/000]}   # vesperale lists Pent XVII's antiphon here
+  tempora:Pent02-0: {piece: vesperae-corporis-christi, incipit: Exi cito in plateas, tone: I.a, chant: 1929, refs: [noh8/0182/000, noh8/0182/001, noh8/0182/002]}
+  tempora:Pent03-0: {piece: vesperae-dominica-infra-octavam-ssmi-cordis-jesu, incipit: Quae mulier, tone: VI.F, chant: 1847, refs: [noh8/0189/000, noh8/0189/001, noh8/0189/002]}
+  tempora:Pent04-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Praeceptor per totam noctem, tone: I.g, chant: null, refs: [noh8/0189/003, noh8/0189/004]}
+  tempora:Pent05-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Si offers munus tuum, tone: I.D, chant: 2479, refs: [noh8/0190/000, noh8/0190/001, noh8/0190/002, noh8/0190/003, noh8/0190/004, noh8/0190/005]}
+  tempora:Pent06-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Misereor super turbam, tone: VII.b, chant: 2424, refs: [noh8/0191/000, noh8/0191/001, noh8/0191/002]}
+  tempora:Pent07-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Non potest arbor bona, tone: I.D, chant: 2082, refs: [noh8/0191/003, noh8/0191/004, noh8/0191/005]}
+  tempora:Pent08-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Quid faciam, tone: IV.E, chant: 2128, refs: [noh8/0192/000, noh8/0192/001, noh8/0192/002, noh8/0192/003, noh8/0192/004]}
+  tempora:Pent09-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Scriptum est enim quia, tone: VIII.G, chant: 2624, refs: [noh8/0192/005, noh8/0193/000, noh8/0193/001, noh8/0193/002]}
+  tempora:Pent10-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Descendit hic justificatus, tone: VIII.G, chant: 2428, refs: [noh8/0193/003, noh8/0193/004, noh8/0193/005]}
+  tempora:Pent11-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Bene omnia fecit, tone: V.a, chant: 2229, refs: [noh8/0194/000, noh8/0194/001]}
+  tempora:Pent12-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Homo quidam descendebat, tone: VIII.G, chant: 1928, refs: [noh8/0194/002, noh8/0194/003, noh8/0194/004, noh8/0194/005]}
+  tempora:Pent13-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Unus autem ex illis, tone: I.D2, chant: 2647, refs: [noh8/0195/000, noh8/0195/001]}
+  tempora:Pent14-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Quaerite primum regnum Dei, tone: I.g, chant: 1995, refs: [noh8/0195/002, noh8/0195/003]}
+  tempora:Pent15-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Propheta magnus, tone: IV.A, chant: 2773, refs: [noh8/0195/004, noh8/0195/005]}
+  tempora:Pent16-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Cum vocatus fueris, tone: VII.a, chant: 1852, refs: [noh8/0196/000, noh8/0196/001, noh8/0196/002, noh8/0196/003]}
+  tempora:Pent17-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Quid vobis videtur, tone: IV.E, chant: 2881, refs: [noh8/0196/004, noh8/0196/005, noh8/0197/000, noh8/0197/001, noh8/0197/002]}
+  tempora:Pent18-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Tulit ergo paralyticus, tone: IV.E, chant: 1828, refs: [noh8/0197/003, noh8/0197/004, noh8/0197/005]}
+  tempora:Pent19-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Intravit autem rex, tone: III.a, chant: 2221, refs: [noh8/0198/000, noh8/0198/001, noh8/0198/002, noh8/0198/003]}
+  tempora:Pent20-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Cognovit autem pater, tone: III.a, chant: 1823, refs: [noh8/0198/004, noh8/0199/000, noh8/0199/001]}
+  tempora:Pent21-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Serve nequam, tone: VI.C, chant: 2688, refs: [noh8/0199/002, noh8/0199/003, noh8/0199/004]}
+  tempora:Pent22-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Reddite ergo, tone: I.g, chant: 2536, refs: [noh8/0200/000, noh8/0200/001]}
+  tempora:Pent23-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: At Jesus conversus, tone: I.f, chant: 2493, refs: [noh8/0200/002, noh8/0200/003, noh8/0200/004]}
+  tempora:Pent24-0: {piece: vesperae-dominicae-iv-xxiv-post-pentecosten, incipit: Amen dico vobis, tone: I.f, chant: 2802, refs: [noh8/0201/000, noh8/0201/001, noh8/0201/002, noh8/0201/003]}
+
+# The tone bank: printed accompaniments that serve a Magnificat in that tone and
+# ending. NOH8 prints the Magnificat itself only in VIII G (Advent I, p. 53); for
+# the other tones the psalm formula in the same tone and ending is the model (the
+# Magnificat repeats the intonation at every verse). A tone missing here is not
+# guessed from a neighbour: that Sunday waits.
+tone_bank:
+  VIII.G: {kind: magnificat, label: "Magnificat in VIII G", source: "Advent I", page: 53,
+           piece: vesperae-dominicae-i-iv-adventus, refs: [noh8/0083/003, noh8/0083/004]}
+  I.f:    {kind: psalm, label: "Psalm 112 in I f", source: "Advent II", page: 57,
+           piece: vesperae-dominicae-i-iv-adventus, refs: [noh8/0087/002, noh8/0087/003]}
+  I.g:    {kind: psalm, label: "Psalm 109 in I g", source: "Advent II", page: 54,
+           piece: vesperae-dominicae-i-iv-adventus, refs: [noh8/0084/002, noh8/0084/003]}
+  V.a:    {kind: psalm, label: "Psalm 111 in V a", source: "Advent I", page: 49,
+           piece: vesperae-dominicae-i-iv-adventus, refs: [noh8/0079/000, noh8/0079/001, noh8/0079/002]}
+  VII.a:  {kind: psalm, label: "Psalm 111 in VII a", source: "Advent II", page: 56,
+           piece: vesperae-dominicae-i-iv-adventus, refs: [noh8/0086/001, noh8/0086/002, noh8/0086/003]}
+  III.a:  {kind: psalm, label: "Psalm 113 in III a", source: "Advent II", page: 58,
+           piece: vesperae-dominicae-i-iv-adventus, refs: [noh8/0088/000, noh8/0088/001, noh8/0088/002]}

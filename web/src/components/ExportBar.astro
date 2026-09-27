@@ -1,6 +1,7 @@
 ---
 import { defaultTicked, defaultsNote, exportSegments, seasonGroup } from "../lib/exportParts";
 import type { Piece } from "../lib/catalog";
+import type { ExportSegment } from "../lib/exportParts";
 import type { Season } from "../lib/liturgy";
 import { estimatePages, validateSelection } from "../lib/pdf";
 
@@ -14,10 +15,12 @@ interface Props {
   readonly season?: Season | null;
   /** "Saturday, 3 October 2026": the date the defaults were chosen for. */
   readonly dateLabel?: string | null;
+  /** Segments built elsewhere (a Vespers lineup, in sung order) instead of `pieces`'. */
+  readonly segments?: readonly ExportSegment[];
 }
 const { pieces, title, season = null, dateLabel = null } = Astro.props;
 
-const segments = exportSegments(pieces);
+const segments = Astro.props.segments ?? exportSegments(pieces);
 const group = seasonGroup(season);
 const ticked = segments.filter((s) => defaultTicked(s, segments, group));
 const count = ticked.reduce((n, s) => n + s.systems, 0);

@@ -1,4 +1,5 @@
-"""The chant notation the site publishes beside each Proper part.
+"""The chant notation the site publishes beside each Proper part (and each
+chant of a Vespers lineup).
 
 `noh chants` writes data/chants.json: for every GregoBase chant a catalogued
 part names (printed or borrowed), and every verified pairing of a Kyriale
@@ -47,11 +48,12 @@ def referenced_ids(catalog: dict[str, object]) -> set[int]:
     return ids
 
 
-def select_chants(catalog: dict[str, object],
-                  rows: list[tuple[Chant, bool]]) -> dict[int, dict[str, object]]:
+def select_chants(catalog: dict[str, object], rows: list[tuple[Chant, bool]],
+                  extra: set[int] | None = None) -> dict[int, dict[str, object]]:
     """Each referenced, publishable chant: {id: {part, mode, incipit, gabc}}.
-    `rows` pairs each chant with its copyrighted flag."""
-    wanted = referenced_ids(catalog)
+    `rows` pairs each chant with its copyrighted flag; `extra` adds ids named
+    elsewhere (the Vespers lineup)."""
+    wanted = referenced_ids(catalog) | (extra or set())
     out: dict[int, dict[str, object]] = {}
     for chant, copyrighted in rows:
         if chant.id not in wanted or copyrighted:
@@ -76,10 +78,12 @@ def write_chants(chants: dict[int, dict[str, object]], path: Path = CHANTS) -> P
 def build(catalog_path: Path = DATA / "catalog.json", path: Path = CHANTS,
           dump: Path = DUMP) -> tuple[Path, int, int]:
     """Write data/chants.json; returns (path, chants written, referenced but withheld)."""
+    from pipeline.vespers import referenced_chants
     catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
     rows = load_chant_rows(dump)
-    chosen = select_chants(catalog, rows)
-    return write_chants(chosen, path), len(chosen), len(referenced_ids(catalog) - set(chosen))
+    vespers = referenced_chants()
+    chosen = select_chants(catalog, rows, vespers)
+    return write_chants(chosen, path), len(chosen), len((referenced_ids(catalog) | vespers) - set(chosen))
 
 
 __all__ = ["build", "chant_body", "referenced_ids", "select_chants", "write_chants"]

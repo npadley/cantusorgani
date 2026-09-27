@@ -136,11 +136,31 @@ def check_jgabc(path: Path | None = None) -> Check:
     return Check(OK, f"jgabc chant ids for {count} Propers")
 
 
+def check_vesperale(path: Path | None = None) -> Check:
+    """jsrjenkins/vesperale's Sunday table, vendored in data/vesperale-lineup.json."""
+    from pipeline.vesperale import VENDORED, VesperaleIntegrityError, load_magnificat
+    try:
+        count = len(load_magnificat(path or VENDORED))
+    except VesperaleIntegrityError as exc:
+        return Check(FAIL, "vesperale Sunday table", f"{exc}\n      Fix: uv run noh vesperale-fetch")
+    return Check(OK, f"vesperale Sunday table for {count} Sundays")
+
+
+def check_vespers_lineup(path: Path | None = None) -> Check:
+    """data/vespers-lineup.json: present, and current with the catalogue."""
+    from pipeline.vespers import LINEUP, check_lineup
+    problem = check_lineup(path or LINEUP)
+    if problem:
+        return Check(FAIL, "Vespers lineup", f"{problem}\n      Fix: uv run noh vespers-lineup")
+    return Check(OK, "Vespers lineup current with the catalogue")
+
+
 def run(env: dict[str, str] | None = None) -> list[Check]:
     import os
     env = os.environ if env is None else env
     return [check_python(), check_tesseract(), check_reference_not_registered(),
-            *check_sources(), check_gregobase_dump(), check_jgabc(), check_r2(dict(env))]
+            *check_sources(), check_gregobase_dump(), check_jgabc(), check_vesperale(),
+            check_vespers_lineup(), check_r2(dict(env))]
 
 
 def report(checks: list[Check]) -> int:

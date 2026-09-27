@@ -1,0 +1,144 @@
+---
+import { volumeLabel } from "../lib/catalog";
+import { annotationFor, chantEntry } from "../lib/chants";
+import { gregobaseUrl } from "../lib/catalog";
+import { bankNote, itemHeading, itemSystems, sections, spokenTone, toneLabel, widestSystem } from "../lib/vespers";
+import type { LineupDay } from "../lib/vespers";
+
+// A Vespers lineup: slices from several pieces (the Sunday psalter, the day's
+// Magnificat antiphon, a tone-bank formula, the Marian antiphon) in sung order.
+// Every system on the page shares one scale, so a formula borrowed from Advent
+// is the same size as the psalms around it.
+interface Props { readonly day: LineupDay }
+const { day } = Astro.props;
+const widest = widestSystem(day);
+const secs = sections(day);
+---
+
+<div class="lineup" id="music">
+  {secs.map((section) => {
+    const systemsIn = section.items.flatMap((i) => itemSystems(i));
+    const pages = [...new Set(systemsIn.map((s) => Number(s.ref.split("/")[1]) - 30))].sort((a, b) => a - b);
+    const captionId = `${section.anchor}-caption`;
+    const volume = systemsIn[0] ? volumeLabel(systemsIn[0].piece) : "Nova Organi Harmonia";
+    return (
+      <section class="vespers-section" aria-labelledby={`${section.anchor}-h`}>
+        <h2 class="section-heading" id={section.anchor}>
+          <span id={`${section.anchor}-h`}>{section.heading}</span>
+        </h2>
+        {systemsIn.length > 0 && (
+          <p id={captionId} class="sr-only">
+            {volume}, printed page{pages.length > 1 ? "s" : ""} {pages.join(", ")}: {systemsIn.length} scanned
+            music system{systemsIn.length === 1 ? "" : "s"}, images of a 1942 printed score that a screen
+            reader cannot read.
+          </p>
+        )}
+        {section.items.map((item) => {
+          const heading = itemHeading(item, section);
+          const entry = item.repeat ? undefined : chantEntry(item.chant);
+          const url = item.repeat ? null : gregobaseUrl(item.chant);
+          const [annotation, mode] = entry ? annotationFor(entry.part, entry.mode) : ["", ""];
+          const systems = itemSystems(item);
+          const provenance = bankNote(item);
+          const name = heading ?? section.heading;
+          return (
+            <div class="item" data-kind={item.kind}>
+              {(heading || url) && (
+                <div class="part-head">
+                  {heading ? <h3 class="item-heading">{heading}</h3> : <span />}
+                  {url && (
+                    <a class="chant-link ui no-print" href={url} target="_blank" rel="noopener">
+                      Chant<span class="sr-only"> for {name} (GregoBase, opens in new tab)</span>
+                    </a>
+                  )}
+                </div>
+              )}
+              {item.tone && <span class="sr-only">{spokenTone(item.tone)}</span>}
+              {provenance && <p class="provenance ui small muted">{provenance}</p>}
+              {entry && (
+                <div class="chant-notation" hidden data-chant-id={entry.id} data-incipit={entry.incipit}
+                     data-annotation={annotation} data-mode={mode}>
+                  <p class="chant-credit ui small muted">Chant from <a href={url ?? "https://gregobase.selapa.net"}>GregoBase</a></p>
+                </div>
+              )}
+              {item.source.type === "note" && (
+                <p class="note ui small">{item.kind === "commemoration"
+                  ? `Commemoration (${item.source.text}): its antiphon, versicle and prayer are said.`
+                  : item.source.text}</p>
+              )}
+              {item.source.type === "printed" && item.source.text && (
+                <p class="note ui small"><em>{item.source.text}</em></p>
+              )}
+              {systems.length > 0 && (
+                <div class="systems" role="group" aria-describedby={captionId}>
+                  {systems.map((s, i) => (
+                    <div class="system-slot"
+                         style={`aspect-ratio:${s.aspect[0]}/${s.aspect[1]}; width:${((s.aspect[0] / widest) * 100).toFixed(2)}%`}>
+                      <img class="system" src={`${s.stem}.webp`} srcset={`${s.stem}.webp 1x, ${s.stem}@2x.webp 2x`}
+                           sizes="(min-width: 62rem) 60rem, 100vw" width={s.aspect[0]} height={s.aspect[1]}
+                           loading="lazy" decoding="async" alt="" data-ref={s.ref}
+                           data-index={i + 1} data-total={systems.length} data-item={name} />
+                    </div>
+                  ))}
+                </div>
+              )}
+              {item.source.type === "bank" && item.source.bankKind === "psalm" && item.tone && (
+                <p class="continue ui small">Continue every verse to this formula in {toneLabel(item.tone)}, then <em>Gloria Patri</em>.</p>
+              )}
+            </div>
+          );
+        })}
+      </section>
+    );
+  })}
+</div>
+
+<style>
+  .vespers-section { margin: 0 0 var(--s-5, 2.5rem); }
+  .section-heading {
+    font-family: var(--font-ui); font-size: var(--step-1); font-weight: 600;
+    margin: var(--s-5, 2.5rem) 0 var(--s-2); scroll-margin-top: var(--s-4);
+  }
+  .item-heading { font-family: var(--font-ui); font-size: var(--step-0); font-weight: 600; margin: 0; }
+  .item[data-kind="antiphon"] .item-heading, .item[data-kind="magnificat-antiphon"] .item-heading { font-weight: 500; }
+  /* The heading is never the link: a stray tap mid-service stays on the music. */
+  .part-head { display: flex; align-items: baseline; gap: var(--s-3); margin: var(--s-3) 0 var(--s-2); }
+  .chant-link {
+    font-size: var(--step--1); color: var(--ink-muted);
+    min-height: var(--tap-min); display: inline-flex; align-items: center;
+  }
+  /* A note is quiet, not a warning: a chapter sung unaccompanied is not a fault. */
+  .note { margin: 0 0 var(--s-3); padding-left: var(--s-3); border-left: 2px solid var(--rule); }
+  .provenance, .continue { margin: 0 0 var(--s-2); }
+  .chant-notation { color: var(--ink); margin: 0 0 var(--s-3); --exsurge-negative-fill: var(--paper); }
+  .chant-notation :global(svg) { display: block; max-width: 100%; height: auto; }
+  .chant-notation :global(svg use) { fill: currentColor; }
+  .chant-notation :global(.chant-error) { margin: 0; }
+  .chant-credit { margin: var(--s-1) 0 0; }
+  .system-slot { max-width: 100%; margin: 0 0 var(--s-4); position: relative; }
+  .system { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .system-slot:has(img:not([data-loaded])) { background: color-mix(in srgb, var(--rule) 22%, transparent); }
+  .system-slot[data-state="error"] { background: var(--warn-bg); }
+  .system-slot[data-state="error"] img { display: none; }
+  .system-slot[data-state="error"]::after {
+    content: attr(data-message); position: absolute; inset: 0; display: flex; align-items: center;
+    justify-content: center; padding: var(--s-3); text-align: center; color: var(--warn-ink);
+    font-family: var(--font-ui); font-size: var(--step--1);
+  }
+</style>
+
+<script is:inline>
+  // A missing slice never collapses its slot, and says which item it belongs to.
+  document.querySelectorAll(".lineup img.system").forEach(function (img) {
+    function loaded() { img.setAttribute("data-loaded", "true"); }
+    if (img.complete && img.naturalWidth > 0) loaded();
+    img.addEventListener("load", loaded);
+    img.addEventListener("error", function () {
+      var slot = img.closest(".system-slot");
+      if (!slot) return;
+      slot.setAttribute("data-state", "error");
+      slot.setAttribute("data-message", "System " + img.dataset.index + " of " + img.dataset.total +
+        " of " + img.dataset.item + " could not be loaded.");
+    });
+  });
+</script>

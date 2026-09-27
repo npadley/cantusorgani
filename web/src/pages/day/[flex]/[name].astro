@@ -8,6 +8,7 @@ import { catalogedDays, pieceHref } from "../../../lib/indexes";
 import {
   COLOR_LABELS, classLabel, findNextDate, isoOf, kyrialeFor, observance, seasonForDate, today,
 } from "../../../lib/liturgy";
+import { consoleLine, isGreenSunday, lineupFor, nextLineupDate } from "../../../lib/vespers";
 
 // A page for each calendar day that has catalogued music. The date lookup and
 // the Proper indexes link here.
@@ -40,6 +41,15 @@ const ordinary = suggestion?.mass
   ? ordinaryMasses().find((m) => m.label === suggestion.mass) ?? null
   : null;
 const exportPieces = ordinary ? [...pieces, ordinary] : pieces;
+// The full order of Vespers, where the lineup has this day (release 1: the
+// green Sundays whose Magnificat tone NOH8 prints).
+const vespersDate = date ? nextLineupDate(key, isoOf(date)) : null;
+const vespersDay = vespersDate ? lineupFor(vespersDate) : undefined;
+const vespersLong = vespersDate
+  ? new Date(`${vespersDate}T00:00:00Z`).toLocaleDateString("en-GB", {
+      weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })
+  : null;
+const magnificatAntiphon = vespersDay?.items.find((i) => i.kind === "magnificat-antiphon");
 const longDate = date
   ? new Date(Date.UTC(date.year, date.month - 1, date.day)).toLocaleDateString("en-GB", {
       weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
@@ -85,10 +95,17 @@ const longDate = date
     </section>
   )}
 
-  {vespers.length > 0 && (
+  {vespersDay ? (
+    <section class="vespers">
+      <h2 class="ui">Vespers</h2>
+      <p class="ui small">{consoleLine(vespersDay)}{magnificatAntiphon && <> · Magnificat antiphon <em>{magnificatAntiphon.label}</em></>}</p>
+      <p><a href={`/vespers/${vespersDay.date}/`}>Full Vespers, in the order sung</a>{vespersLong && <span class="small muted"> ({vespersLong})</span>}</p>
+    </section>
+  ) : vespers.length > 0 && (
     <section class="vespers">
       <h2 class="ui">Vespers</h2>
       <PieceList pieces={vespers} />
+      {isGreenSunday(key) && <p class="small muted">The full order of Vespers for this day is not ready yet.</p>}
     </section>
   )}
 

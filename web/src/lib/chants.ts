@@ -39,6 +39,7 @@ export function chantIds(): readonly number[] {
 
 const PART_ABBREVIATIONS: Readonly<Record<string, string>> = {
   in: "Intr.", gr: "Grad.", al: "Allel.", tr: "Tract.", of: "Offert.", co: "Comm.", se: "Seq.", sq: "Seq.",
+  an: "Ant.", hy: "Hymn.",
   // Kyriale chants ("ky") carry only their mode.
 };
 
