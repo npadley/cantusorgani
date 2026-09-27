@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Self
 
 import pytest
 
@@ -204,3 +205,105 @@ def test_vendored_menus_list_st_therese_under_saints():
 def test_jgabc_key_feasts_jgabc_names_by_two_dates():
     assert jgabc_key("sancti:02-24") == "Feb24or25"
     assert jgabc_key("sancti:02-27") == "Feb27or28"
+
+
+# ------------------------------------------------------ parser rejections ---
+
+
+@pytest.mark.parametrize(("src", "why"), [
+    ('{"a": 1 /* never closed', "unterminated comment"),
+    ('{"a" 1}', "expected ':'"),
+    ('{"a": @}', "unexpected '@'"),
+    ('{[1]: 2}', "expected a key"),
+    ('{"a": "line\nbreak"}', "newline in string"),
+    ('{"a": /never closed\n}', "unterminated regex"),
+    ('{"a": 1} extra', "after the literal"),
+])
+def test_parse_js_literal_malformed_input_raises_naming_the_problem(src: str, why: str):
+    with pytest.raises(JgabcSyntaxError, match=why):
+        parse_js_literal(src)
+
+
+def test_parse_js_literal_line_continuation_joins_the_string():
+    assert parse_js_literal('"one \\\ntwo"') == "one two"
+
+
+def test_extract_proprium_not_an_object_raises():
+    with pytest.raises(JgabcSyntaxError, match="not an object"):
+        extract_proprium("var proprium = [1, 2];")
+
+
+def test_extract_menus_not_an_array_raises():
+    js = 'var sundayKeys = {}; var saintKeys = []; var otherKeys = []; var commonsKeys = [];'
+    with pytest.raises(JgabcSyntaxError, match="sundayKeys is not an array"):
+        extract_menus(js)
+
+
+def test_slim_skips_entries_that_are_not_objects():
+    assert slim({"a": {"inID": 1}, "b": [1, 2], "c": "x"}) == {"a": {"inID": 1}}
+
+
+def test_jgabc_key_for_piece_with_no_own_day_returns_none():
+    assert jgabc_key_for_piece({"slug": "noh3-p999", "days": [], "linked_days": []}) is None
+    assert jgabc_key_for_piece({"slug": "x", "days": ["commune:C1"], "linked_days": []}) is None
+
+
+# ------------------------------------------------------------------ fetch ---
+
+
+class _Response:
+    def __init__(self, body: bytes) -> None:
+        self.body = body
+
+    def read(self) -> bytes:
+        return self.body
+
+    def __enter__(self) -> Self:
+        return self
+
+    def __exit__(self, *args: object) -> None:
+        return None
+
+
+def _fake_github(js: str, head: str = "a" * 40):
+    """GitHub (the external dependency): the commits API and the raw file."""
+    def urlopen(request, timeout=0):
+        url = request.full_url
+        if "api.github.com" in url:
+            return _Response(json.dumps({"sha": head}).encode())
+        return _Response(js.encode())
+    return urlopen
+
+
+JS = ('var sundayKeys = [{key:"Pent18"}]; var saintKeys = [{key:"Oct3"}]; var otherKeys = [];\n'
+      'var commonsKeys = []; var proprium = {"Oct3": {"inID": 59, "inVerses": "Ps"}};')
+
+
+def test_fetch_head_commit_vendors_the_slimmed_proprium_and_menus(tmp_path, monkeypatch):
+    import urllib.request
+
+    from pipeline.jgabc import fetch
+    monkeypatch.setattr(urllib.request, "urlopen", _fake_github(JS))
+    path, commit, count = fetch(path=tmp_path / "j.json")
+    assert (commit, count) == ("a" * 40, 1)
+    assert load_proprium(path) == {"Oct3": {"inID": 59}}
+    assert load_menus(path) == {"Pent18": "sunday", "Oct3": "saint"}
+
+
+def test_fetch_upstream_format_change_leaves_the_vendored_file_untouched(tmp_path, monkeypatch):
+    import urllib.request
+
+    from pipeline.jgabc import fetch
+    path = tmp_path / "j.json"
+    write_vendored({"Oct3": {"inID": 59}}, commit="old", source_sha256="0" * 64, path=path)
+    before = path.read_text()
+    monkeypatch.setattr(urllib.request, "urlopen", _fake_github('var proprium = {"a": fn(1)};'))
+    with pytest.raises(JgabcSyntaxError):
+        fetch(commit="b" * 40, path=path)
+    assert path.read_text() == before
+
+
+def test_fetch_rejects_a_commit_that_is_not_a_sha(tmp_path):
+    from pipeline.jgabc import fetch
+    with pytest.raises(JgabcSyntaxError, match="not a commit sha"):
+        fetch(commit="master; echo nope", path=tmp_path / "j.json")

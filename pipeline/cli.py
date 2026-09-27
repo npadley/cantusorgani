@@ -91,6 +91,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     cat = subs.add_parser("catalog", help="build data/catalog.json and review-queue.json")
     cat.add_argument("--volume", required=True)
+    cat.add_argument("--no-parts", action="store_true",
+                     help="keep each Proper's previous parts instead of re-dividing it")
+    cat.add_argument("--parts-report", action="store_true",
+                     help="write build/parts-sample-<volume>.html: 30 random part starts beside "
+                          "their slices, for a hand check")
 
     pub = subs.add_parser("publish", help="slice systems to webp/png derivatives")
     _add_common(pub)
@@ -215,8 +220,12 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "catalog":
-        from pipeline.catalog import write_catalog
-        cat_path, review_path = write_catalog(args.volume)
+        from pipeline.catalog import PartsUnavailable, write_catalog
+        try:
+            cat_path, review_path = write_catalog(args.volume, parts=not args.no_parts)
+        except PartsUnavailable as exc:
+            print(f"catalog: {exc}\n  Nothing was written.", file=sys.stderr)
+            return 1
         import json as _json
         catalog = _json.loads(cat_path.read_text(encoding="utf-8"))
         review = _json.loads(review_path.read_text(encoding="utf-8"))
@@ -224,6 +233,10 @@ def main(argv: list[str] | None = None) -> int:
         movements = sum(len(p["movements"]) for p in catalog["pieces"])
         print(f"{cat_path}: {len(catalog['pieces'])} pieces, {systems} systems, "
               f"{movements} confident movements")
+        from pipeline.partsreport import summary, write_sample
+        print(summary(catalog, review, args.volume))
+        if args.parts_report:
+            print(f"hand-check sample: {write_sample(catalog, args.volume)}")
         print(f"{review_path}: {len(review)} entries needing review")
         return 0
 

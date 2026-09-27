@@ -314,8 +314,13 @@ def load_proprium(path: Path = VENDORED) -> dict[str, dict[str, object]]:
     return _load(path)["proprium"]  # type: ignore[return-value]
 
 
+_MENUS_CACHE: dict[Path, dict[str, str]] = {}
+
+
 def load_menus(path: Path = VENDORED) -> dict[str, str]:
-    return _load(path).get("menus") or {}  # type: ignore[return-value]
+    if path not in _MENUS_CACHE:
+        _MENUS_CACHE[path] = _load(path).get("menus") or {}  # type: ignore[assignment]
+    return _MENUS_CACHE[path]
 
 
 def proper_url(key: str, menus: dict[str, str]) -> str | None:

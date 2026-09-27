@@ -278,3 +278,77 @@ def test_every_indexed_hymn_is_attached_or_queued():
     attached = sum(len(p.get("hymns", [])) for p in PIECES if p["volume"] == "noh8")
     queued = sum(1 for r in REVIEW if r["kind"] == "hymn_unplaced" and r["volume"] == "noh8")
     assert attached + queued == len(doc["hymns"])
+
+
+# ------------------------------------------------------------ Proper parts ---
+
+PART_NAMES = {"introit", "gradual", "alleluia", "tract", "sequence", "offertory", "communion"}
+PROPER_DIVISIONS = {"temporale", "sanctorale", "commune", "varia"}
+BY_SLUG = {p["slug"]: p for p in PIECES}
+
+
+def _printed(piece):
+    return [x for x in piece.get("parts", []) if "borrowed_page" not in x]
+
+
+def test_only_propers_have_parts():
+    assert {p["division"] for p in PIECES if p.get("parts")} <= PROPER_DIVISIONS
+
+
+def test_parts_are_named_run_in_reading_order_and_point_at_their_own_systems():
+    for piece in PIECES:
+        printed = _printed(piece)
+        assert all(x["part"] in PART_NAMES for x in piece.get("parts", [])), piece["slug"]
+        systems = [x["system"] for x in printed]
+        assert systems == sorted(systems), piece["slug"]
+        assert len(set(systems)) == len(systems), f"two parts start on one system: {piece['slug']}"
+        for x in printed:
+            assert piece["systems"][x["system"]] == x["ref"], piece["slug"]
+            assert x["placed"] in {"label", "text", "order"}
+
+
+def test_no_part_twice_unless_numbered():
+    for piece in PIECES:
+        keys = [(x["part"], x.get("variant", "")) for x in piece.get("parts", [])]
+        assert len(keys) == len(set(keys)), piece["slug"]
+
+
+def test_every_part_placed_by_order_is_queued_for_review():
+    queued = {(r["piece"], r["part"]) for r in REVIEW if r["kind"] == "part_by_order"}
+    for piece in PIECES:
+        for x in _printed(piece):
+            if x["placed"] == "order":
+                assert (piece["slug"], x["part"]) in queued, piece["slug"]
+
+
+def test_borrowed_parts_point_at_a_real_part_or_are_queued():
+    unresolved = {(r["piece"], r["part"]) for r in REVIEW if r["kind"] == "part_borrowed_unresolved"}
+    for piece in PIECES:
+        for x in piece.get("parts", []):
+            if "borrowed_page" not in x:
+                continue
+            if x.get("borrowed_from") is None:
+                assert (piece["slug"], x["part"]) in unresolved, piece["slug"]
+                continue
+            lender = BY_SLUG[x["borrowed_from"]]
+            assert x["borrowed_ref"] in lender["systems"]
+
+
+@pytest.mark.parametrize(("slug", "expected"), [
+    # Hand-verified against the page images, 2026-09-26.
+    ("s-theresiae-a-jesu-infante-virginis",
+     [("introit", 0), ("gradual", 8), ("alleluia", 16), ("tract", 31), ("offertory", 48), ("communion", 55)]),
+    ("s-andre-apostoli", [("introit", 0), ("gradual", 7), ("alleluia", 15), ("offertory", 23),
+                          ("communion", 28)]),
+])
+def test_golden_propers_divide_where_the_page_does(slug, expected):
+    assert [(x["part"], x["system"]) for x in _printed(BY_SLUG[slug])] == expected
+
+
+def test_most_propers_with_music_are_divided():
+    """A floor, not a target: a regression in label reading shows here first.
+    Measured 2026-09-26: 222 of 286 Propers with music (78%); the rest are
+    local or 1942-only feasts jgabc lacks, blessings and processions."""
+    propers = [p for p in PIECES if p["division"] in PROPER_DIVISIONS and p["systems"]]
+    divided = [p for p in propers if _printed(p)]
+    assert len(divided) >= 0.75 * len(propers)

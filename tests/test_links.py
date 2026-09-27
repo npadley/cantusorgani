@@ -152,8 +152,9 @@ def test_load_rubrics_reads_the_1962_rubrics_file(tmp_path):
 
 def test_rubrics_1962_every_reference_resolves():
     """The shipped file: every line names a part and page that parse."""
-    import yaml
     from pathlib import Path
+
+    import yaml
     doc = yaml.safe_load((Path(__file__).parent.parent / "data" / "rubrics-1962.yml").read_text())
     for rubric in doc["rubrics"]:
         assert rubric["days"], rubric["title"]

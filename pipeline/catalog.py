@@ -236,8 +236,119 @@ def attach_hymns(vol_id: str, page_map: PageMap, pieces: list[Record], review: l
                            "why": "no heading placed the hymn on its page; linked to the page's first system"})
 
 
-def build_catalog(vol_id: str, index_path: Path | None = None
+# Divisions whose pieces are Propers, divided into Introit, Gradual ... Communion.
+PART_DIVISIONS = frozenset({"temporale", "sanctorale", "commune", "varia"})
+
+
+class PartsUnavailable(RuntimeError):
+    """The chant data Proper parts are found by is missing or fails its hash."""
+
+
+@dataclass
+class PartsContext:
+    proprium: dict[str, dict[str, object]]
+    chants: dict[int, tuple[str | None, str]]     # GregoBase id -> (office part, sung text)
+    margins: object                                # pipeline.margins.MarginReader
+
+
+def parts_context() -> PartsContext:
+    """Everything segmentation needs, or PartsUnavailable naming the fix. It
+    never falls back to placing parts by order alone: a catalogue with wrong
+    jump links is worse than one with the previous ones."""
+    from pipeline.jgabc import JgabcIntegrityError, load_proprium
+    from pipeline.margins import MarginReader
+    from pipeline.parts import chant_text
+    if not DUMP.exists():
+        raise PartsUnavailable(
+            f"parts need {DUMP.relative_to(DUMP.parent.parent)} (not in git); see README "
+            f"\"Vendored data\". To rebuild without re-dividing Propers, pass --no-parts.")
+    try:
+        proprium = load_proprium()
+    except JgabcIntegrityError as exc:
+        raise PartsUnavailable(f"{exc} To rebuild without re-dividing Propers, pass --no-parts.") from exc
+    chants = {c.id: (c.office_part, chant_text(c.gabc)) for c in load_chants(include_copyrighted=True)}
+    return PartsContext(proprium, chants, MarginReader())
+
+
+def jgabc_url(slug: str, days: list[str]) -> str | None:
+    """jgabc's page for this Proper in chant, when jgabc has it. Needs only the
+    vendored menus, not the GregoBase dump; None when they are missing."""
+    from pipeline.jgabc import JgabcIntegrityError, jgabc_key_for_piece, load_menus, proper_url
+    key = jgabc_key_for_piece({"slug": slug, "days": days, "linked_days": []})
+    if key is None:
+        return None
+    try:
+        return proper_url(key, load_menus())
+    except JgabcIntegrityError:
+        return None
+
+
+def proper_parts(vol_id: str, slug: str, days: list[str], reference: str | None,
+                 refs: list[SystemRef], ctx: PartsContext, zone: str = ""
+                 ) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
+    """A Proper's parts and the review entries for any placed by order, missing,
+    or not found at all. Parts printed by reference are recorded as borrowed and
+    resolved later by link_parts, once every volume is merged."""
+    from pipeline.jgabc import jgabc_key_for_piece
+    from pipeline.parts import (
+        ORDER,
+        PartSystem,
+        borrowed_parts,
+        expected_parts,
+        label_of,
+        margin_mode,
+        segment_proper,
+    )
+
+    key = jgabc_key_for_piece({"slug": slug, "days": days, "linked_days": []})
+    expected = expected_parts(key, ctx.proprium, ctx.chants) if key else []
+    if not expected:
+        return [], [{"piece": slug, "kind": "part_unsupported",
+                     "why": f"no jgabc Proper for {key or 'its day'}; parts are not divided"}]
+    from pipeline.partrefs import reference_parts
+    borrowed = borrowed_parts(reference or "", vol_id)
+    # And the reference lines on the page itself, which the index often lacks.
+    for part, volume, page in reference_parts(zone, vol_id):
+        if not any(b[0] == part for b in borrowed):
+            borrowed.append((part, volume, page))
+    lent = {part for part, _, _ in borrowed}
+    printed = [e for e in expected if e.part not in lent]
+    features = []
+    for r in refs:
+        margin = ctx.margins.text(r.ref, r.asset)                    # type: ignore[attr-defined]
+        # The margin's own OCR first: the text layer's marker reads a stray "f"
+        # of the brace as "I" (pipeline.movements.mode_marker). Only where the
+        # OCR read nothing at all -- a lone "I." is too small for it -- does the
+        # text layer's marker count.
+        mode = margin_mode(margin) if margin.strip() else r.mode_marker
+        features.append(PartSystem(r.ref, r.text, label_of(margin), mode))
+    seg = segment_proper(features, printed)
+    records: list[dict[str, object]] = [
+        {"part": b.part, "variant": b.variant, "system": b.index, "ref": b.ref,
+         "gregobase_id": b.gregobase_id, "placed": b.placed, "score": b.score}
+        for b in seg.parts]
+    ids = {e.part: e.gregobase_id for e in expected}
+    for part, volume, page in borrowed:
+        records.append({"part": part, "variant": "", "gregobase_id": ids.get(part),
+                        "borrowed_volume": volume, "borrowed_page": page, "borrowed_from": None})
+
+    def order(record: dict[str, object]) -> tuple[int, int]:
+        name = f"{record['part']}/paschal" if record.get("variant") == "paschal" else str(record["part"])
+        return (ORDER.index(name) if name in ORDER else len(ORDER), int(record.get("system", -1)))
+
+    records.sort(key=order)
+    review = [{"piece": slug, "kind": p.kind, "part": p.part, "variant": p.variant,
+               "expected_incipit": p.expected_opening,
+               "best_system": p.best_index,
+               "ref": refs[p.best_index].ref if p.best_index is not None else None,
+               "score": round(p.best_score, 3)} for p in seg.problems]
+    return records, review
+
+
+def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = True
                   ) -> tuple[dict[str, object], list[dict[str, object]]]:
+    """`parts=False` leaves Proper parts undivided (the caller carries the
+    previous ones over); otherwise the chant data must be present."""
     vol = load_volumes()[vol_id]
     page_map = load_page_map(vol_id)
     # Chant pairing is optional: the site is usable without it, and the vendored
@@ -247,6 +358,7 @@ def build_catalog(vol_id: str, index_path: Path | None = None
     review: list[dict[str, object]] = []
 
     entries = load_index(vol_id, index_path)
+    ctx = parts_context() if parts and any(e.division in PART_DIVISIONS for e in entries) else None
     with pymupdf.open(vol.path) as doc:
         scanned: dict[int, PageScan] = {}
 
@@ -262,6 +374,21 @@ def build_catalog(vol_id: str, index_path: Path | None = None
                     review.append({"piece": None, "kind": "segmentation_failed",
                                    "pdf_page": pdf_page, "why": analysis.error})
             return scanned[pdf_page]
+
+        lines_cache: dict[int, list[object]] = {}
+
+        def zone_of(piece_refs: list[SystemRef]) -> str:
+            """The text between a Proper's heading and the next one."""
+            from pipeline.partrefs import page_lines, zone_text
+            first_pdf, last_pdf = piece_refs[0].pdf_page, piece_refs[-1].pdf_page
+            lines = []
+            for pg in range(max(1, first_pdf - 1), min(len(doc), last_pdf + 1) + 1):
+                if pg not in lines_cache:
+                    lines_cache[pg] = page_lines(doc[pg - 1], pg)    # type: ignore[assignment]
+                lines.extend(lines_cache[pg])
+            boxes = analyse_page(vol_id, first_pdf).boxes
+            top = boxes[piece_refs[0].index].top * PX_TO_PT if piece_refs[0].index < len(boxes) else 0.0
+            return zone_text(lines, (first_pdf, top))                # type: ignore[arg-type]
 
         # Where each piece begins: (printed page, first system on it). Pieces
         # own every system from their start up to the next piece's start.
@@ -339,6 +466,12 @@ def build_catalog(vol_id: str, index_path: Path | None = None
             if not refs:
                 review.append({"piece": entry.slug, "kind": "no_systems",
                                "printed_pages": [first, last]})
+            proper: list[dict[str, object]] = []
+            jgabc = jgabc_url(entry.slug, list(entry.days)) if entry.division in PART_DIVISIONS else None
+            if ctx is not None and refs and entry.division in PART_DIVISIONS:
+                proper, part_review = proper_parts(vol_id, entry.slug, list(entry.days),
+                                                   entry.reference, refs, ctx, zone_of(refs))
+                review.extend(part_review)
             if entry.status not in CONFIDENT_INDEX:
                 review.append({"piece": entry.slug, "kind": "index_unverified",
                                "status": entry.status, "printed_page": entry.page,
@@ -374,6 +507,8 @@ def build_catalog(vol_id: str, index_path: Path | None = None
                 "system_assets": [r.asset for r in refs],
                 "system_aspect": [list(r.aspect) for r in refs],
                 "movements": movements,
+                "parts": proper,
+                "jgabc_url": jgabc,
                 "chant": [
                     {"source": "gregobase", "id": p.chant_id, "movement": p.movement,
                      "incipit": p.chant_incipit, "mode": p.mode,
@@ -528,15 +663,27 @@ def load_rubrics(data_dir: Path = DATA) -> list[Record]:
 
 
 def write_catalog(vol_id: str, data_dir: Path = DATA,
-                  index_path: Path | None = None) -> tuple[Path, Path]:
-    catalog, review = build_catalog(vol_id, index_path)
+                  index_path: Path | None = None, parts: bool = True) -> tuple[Path, Path]:
+    catalog, review = build_catalog(vol_id, index_path, parts=parts)
     cat_path = data_dir / "catalog.json"
     rev_path = data_dir / "review-queue.json"
     existing = json.loads(cat_path.read_text(encoding="utf-8")) if cat_path.exists() else None
+    if not parts and existing is not None:
+        # Keep each Proper's previous parts rather than writing none.
+        previous = {str(p["slug"]): p.get("parts", []) for p in existing.get("pieces", [])}
+        for piece in catalog["pieces"]:            # type: ignore[union-attr]
+            piece["parts"] = previous.get(str(piece["slug"]), [])
+        review = [r for r in review if not str(r.get("kind", "")).startswith("part_")]
+        review += [r for r in (json.loads(rev_path.read_text(encoding="utf-8")) if rev_path.exists() else [])
+                   if r.get("volume") == vol_id and str(r.get("kind", "")).startswith("part_")]
+        review = [{k: v for k, v in r.items() if k != "volume"} for r in review]
     merged = merge_catalog(existing, catalog)
+    from pipeline.parts import link_parts
     unlinked = link_rubrics(merged, load_rubrics(data_dir))
+    unlinked += link_parts(merged)
     queue = json.loads(rev_path.read_text(encoding="utf-8")) if rev_path.exists() else []
-    queue = [r for r in queue if r.get("volume", "noh5") != vol_id and r["kind"] != "rubric_unlinked"]
+    queue = [r for r in queue if r.get("volume", "noh5") != vol_id
+             and r["kind"] not in ("rubric_unlinked", "part_borrowed_unresolved")]
     queue += [{"volume": vol_id, **r} for r in review]
     queue += [{"volume": "links", **r} for r in unlinked]
     cat_path.write_text(json.dumps(merged, indent=2) + "\n", encoding="utf-8")
@@ -544,4 +691,4 @@ def write_catalog(vol_id: str, data_dir: Path = DATA,
     return cat_path, rev_path
 
 
-__all__ = ["AT_END", "SCHEMA_VERSION", "SystemRef", "asdict", "build_catalog", "write_catalog"]
+__all__ = ["AT_END", "PART_DIVISIONS", "SCHEMA_VERSION", "PartsUnavailable", "SystemRef", "asdict", "build_catalog", "write_catalog"]
