@@ -102,20 +102,29 @@ This takes about 15 minutes, and none of it needs `pdf-source/`.
 | Regenerate | the recipe's command (`noh apply-corrections`, `noh vespers-lineup`, `noh catalog`) | < 1 s; `noh catalog` about 1 min per volume |
 | Check | `uv run noh doctor`; `uv run pytest -m "not source and not slow"` | ~10 s |
 | Preview | `pnpm --dir web dev` → http://localhost:4321 | ~5 s to start |
-| Publish | see [Publishing](#publishing) | ~3 min |
+| Publish | push to `main`; see [Publishing](#publishing) | ~1½ min |
 
 ### Publishing
 
-Commit your change, then build and deploy from `web/`:
+Commit your change and push to `main`. GitHub then checks, builds and deploys
+the site by itself, in about 1½ minutes; the run appears under the repo's
+**Actions** tab. If any check fails, nothing is deployed, and the failing step's
+log says why. A change that touches only `docs/` or `*.md` files deploys
+nothing, because it changes nothing on the site.
+
+To check a change without deploying it, push it to a branch and open a pull
+request: the same checks run, and merging it deploys.
+
+To deploy by hand (if GitHub is down), from `web/`:
 
 ```bash
 pnpm build
 npx wrangler pages deploy dist --project-name cantusorgani --branch main
 ```
 
-`pnpm build` fails if any page can't be reached by a link, or if a link points
-nowhere. Its message names each page and what to do. Once CI is set up (Phase B
-of the plan), pushing to `main` runs this for you.
+To roll back a bad deploy: in the Cloudflare dashboard, open Workers & Pages →
+cantusorgani → Deployments, and use **Rollback** on the last good one. Then
+revert the commit so the next push doesn't bring the problem back.
 
 ---
 
