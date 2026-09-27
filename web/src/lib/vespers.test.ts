@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  bankNote, consoleLine, exportLineup, isGreenSunday, itemHeading, lineupFor, loadLineup, nextLineupDate,
+  bankNote, consoleLine, exportLineup, isFormula, isSunday, itemHeading, lineupFor, lineupHref, loadLineup, nextFirstVespers, nextLineupDate,
   parseLineup, sections, spokenTone, toneLabel,
 } from "./vespers";
 import type { LineupDay } from "./vespers";
@@ -26,7 +26,7 @@ describe("parseLineup", () => {
     const lineup = parseLineup(doc([
       item("initium", "initium"),
       item("magnificat", "magnificat", { tone: "I.g", source: {
-        type: "bank", piece: "vesperae-dominicae-i-iv-adventus", refs: ["noh8/0084/002"], bank_kind: "psalm",
+        type: "bank", refs: ["noh8/0084/002"], bank_kind: "psalm",
         bank_label: "Psalm 109 in I g", borrowed_from: "Advent II, p. 54" } }),
       item("oration", "oration", { source: { type: "note", text: "The collect of the Sunday, as at Mass." } }),
     ]));
@@ -59,10 +59,31 @@ describe("the published lineup", () => {
   const lineup = loadLineup();
   const day = lineupFor("2026-11-08", lineup) as LineupDay;
 
-  it("should have the resumed Epiphany V on 2026-11-08 and hold back Pent XV on 2026-09-06", () => {
+  it("should have the resumed Epiphany V on 2026-11-08, and Pent XV with a note for its Magnificat in IV A", () => {
     expect(day.office).toBe("tempora:Epi5-0");
-    expect(lineupFor("2026-09-06", lineup)).toBeUndefined();
-    expect(lineup.heldBack.get("2026-09-06")).toMatch(/IV A/);
+    const pent15 = lineupFor("2026-09-06", lineup)!;
+    const mag = pent15.items.find((i) => i.kind === "magnificat")!;
+    expect(mag.source.type).toBe("note");
+    expect(mag.source.type === "note" && mag.source.text).toContain("IV A");
+  });
+
+  it("should give I Vespers of Christmas on the evening of 24 December, and of a I class feast the evening before", () => {
+    const eve = lineupFor("2026-12-24", lineup)!;
+    expect(eve.office).toBe("sancti:12-25");
+    expect(eve.vespers).toBe("I");
+    const assumption = nextFirstVespers("sancti:08-15", "2027-01-01", lineup)!;
+    const first = lineup.firstVespers.get(assumption)!;
+    expect(first.eveningOf).toBe("2027-08-14");
+    expect(lineupHref(first)).toBe("/vespers/2027-08-15/i/");
+  });
+
+  it("should give psalm text where NOH prints only a formula, and none for a psalm printed in full", () => {
+    const christmas = lineupFor("2026-12-25", lineup)!;
+    const psalm110 = christmas.items.find((i) => i.kind === "psalm" && i.number === 110)!;
+    expect(isFormula(psalm110)).toBe(true);
+    expect(psalm110.psalmText[0]).toMatch(/^Confitébor tibi/);
+    const lent = lineupFor("2027-02-14", lineup)!;
+    expect(lent.items.find((i) => i.kind === "psalm" && i.number === 109)!.psalmText).toEqual([]);
   });
 
   it("should group items into at most twelve sections with at most nine nav links", () => {
@@ -79,6 +100,11 @@ describe("the published lineup", () => {
     const psalm1 = sections(day)[1]!;
     expect(psalm1.items.map((i) => itemHeading(i, psalm1))).toEqual([
       "Antiphon: Dixit Dominus Domino meo", "Psalm 109", "Antiphon (repeated)"]);
+  });
+
+  it("should list a feast's psalms by number where they are not a run", () => {
+    const first = loadLineup().firstVespers.get("2027-08-15")!;
+    expect(consoleLine(first)).toMatch(/^Pss\. 109, 112, 121, 126, 147: /);
   });
 
   it("should give the console line with each psalm's tone, the Magnificat and the Marian antiphon", () => {
@@ -103,15 +129,16 @@ describe("the published lineup", () => {
 
   it("should find the next date a green Sunday's lineup falls on, and none for a held-back one", () => {
     expect(nextLineupDate("tempora:Epi5-0", "2026-11-01", lineup)).toBe("2026-11-08");
-    expect(nextLineupDate("tempora:Pent15-0", "2026-01-01", lineup)).toBeNull();
+    expect(nextLineupDate("tempora:Pent02-0r", "2026-01-01", lineup)).toBe("2026-06-07");
+    expect(nextLineupDate("sancti:08-06", "2026-01-01", lineup)).toBeNull();
   });
 });
 
-describe("isGreenSunday", () => {
-  it("should cover Epiphany II-VI and Pentecost II-XXIV only", () => {
-    expect(isGreenSunday("tempora:Pent02-0r")).toBe(true);
-    expect(isGreenSunday("tempora:Epi6-0")).toBe(true);
-    expect(isGreenSunday("tempora:Pent01-0r")).toBe(false);
-    expect(isGreenSunday("sancti:10-DU")).toBe(false);
+describe("isSunday", () => {
+  it("should tell a Sunday of the Time from a feast", () => {
+    expect(isSunday("tempora:Pent02-0r")).toBe(true);
+    expect(isSunday("tempora:Adv1-0")).toBe(true);
+    expect(isSunday("tempora:Pent01-4")).toBe(false);
+    expect(isSunday("sancti:10-DU")).toBe(false);
   });
 });

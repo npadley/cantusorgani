@@ -46,7 +46,8 @@ def days():
 
 @pytest.fixture(scope="module")
 def lineup(reviewed, days):
-    doc, review = build_lineup(reviewed, days, "sha")
+    from pipeline.vespers import ranks
+    doc, review = build_lineup(reviewed, days, "sha", ranks())
     return doc, review
 
 
@@ -108,13 +109,14 @@ def test_build_lineup_resumed_epiphany_v_in_november_2026_11_08(lineup):
     assert next(i for i in day["items"] if i["kind"] == "marian-antiphon")["label"] == "Salve Regina"
 
 
-def test_build_lineup_christ_the_king_2026_10_25_has_no_green_lineup(lineup):
-    doc = lineup[0]
-    assert "2026-10-25" not in doc["days"] and "2026-10-25" not in doc["held_back"]
+def test_build_lineup_christ_the_king_2026_10_25_takes_the_sunday(lineup):
+    day = lineup[0]["days"]["2026-10-25"]
+    assert day["office"] == "sancti:10-DU" and day["vespers"] == "II"
+    assert next(i for i in day["items"] if i["kind"] == "hymn")["label"] == "Te saeculorum Principem"
 
 
-def test_build_lineup_all_saints_on_sunday_2026_11_01_has_no_green_lineup(lineup):
-    assert "2026-11-01" not in lineup[0]["days"]
+def test_build_lineup_all_saints_on_sunday_2026_11_01_is_all_saints(lineup):
+    assert lineup[0]["days"]["2026-11-01"]["office"] == "sancti:11-01"
 
 
 def test_build_lineup_last_sunday_is_pent_xxiv_2026_11_22(lineup):
@@ -123,18 +125,62 @@ def test_build_lineup_last_sunday_is_pent_xxiv_2026_11_22(lineup):
     assert next(i for i in day["items"] if i["kind"] == "magnificat-antiphon")["label"] == "Amen dico vobis"
 
 
-def test_build_lineup_magnificat_tone_unprinted_holds_the_sunday_back_2026_09_06(lineup):
-    """tempora:Pent15-0's Magnificat is in IV A; NOH8 prints IV A* only."""
+def test_build_lineup_magnificat_tone_unprinted_is_a_note_2026_09_06(lineup):
+    """tempora:Pent15-0's Magnificat is in IV A; NOH8 prints IV A* only: the
+    page says so rather than guessing a neighbouring ending."""
     doc, review = lineup
-    assert "2026-09-06" not in doc["days"]
-    assert "IV A" in doc["held_back"]["2026-09-06"]
-    assert any(r["kind"] == "tone_unprinted" and "Pent15-0" in r["why"] for r in review)
+    mag = next(i for i in doc["days"]["2026-09-06"]["items"] if i["kind"] == "magnificat")
+    assert mag["source"]["type"] == "note" and "IV A" in mag["source"]["text"]
+    assert any(r["kind"] == "tone_unprinted" and "IV.A" in r["why"] for r in review)
 
 
 def test_build_lineup_pent_ii_2026_06_07_uses_its_own_key_not_the_stack(lineup):
-    """Pent II (Pent02-0r) is outside "Dominicae IV-XXIV"; its antiphon is on p. 152
-    (I a, not printed as a formula): held back by key, not by position."""
-    assert "tempora:Pent02-0" in lineup[0]["held_back"]["2026-06-07"]
+    """Pent II (Pent02-0r) is outside "Dominicae IV-XXIV": its antiphon, "Exi
+    cito", is found by key on p. 152."""
+    mag = next(i for i in lineup[0]["days"]["2026-06-07"]["items"] if i["kind"] == "magnificat-antiphon")
+    assert mag["label"] == "Exi cito in plateas"
+
+
+def test_build_lineup_feast_nohviii_does_not_print_is_held_back_2028_08_06(lineup):
+    """The Transfiguration on a Sunday: NOH VIII has no section for it."""
+    assert "sancti:08-06" in lineup[0]["held_back"]["2028-08-06"]
+
+
+def test_build_lineup_vigil_of_christmas_is_first_vespers_of_christmas_2026_12_24(lineup):
+    day = lineup[0]["days"]["2026-12-24"]
+    assert (day["office"], day["vespers"]) == ("sancti:12-25", "I")
+    assert next(i for i in day["items"] if i["kind"] == "magnificat-antiphon")["label"] == "Cum ortus fúerit"
+
+
+def test_build_lineup_first_vespers_of_a_first_class_feast_the_evening_before_2027_08_14(lineup):
+    first = lineup[0]["first_vespers"]["2027-08-15"]
+    assert (first["office"], first["evening_of"]) == ("sancti:08-15", "2027-08-14")
+
+
+def test_build_lineup_easter_octave_haec_dies_and_its_benedicamus_2027_03_28(lineup):
+    items = lineup[0]["days"]["2027-03-28"]["items"]
+    assert "hymn" not in [i["kind"] for i in items]
+    assert next(i for i in items if i["kind"] == "chapter")["label"] == "Haec dies"
+    assert next(i for i in items if i["kind"] == "benedicamus")["source"]["refs"][0] == "noh8/0149/000"
+    assert next(i for i in items if i["kind"] == "marian-antiphon")["label"] == "Regina caeli"
+
+
+def test_build_lineup_paschaltide_one_antiphon_all_psalms_in_the_seventh_tone_2027_04_04(lineup):
+    items = lineup[0]["days"]["2027-04-04"]["items"]
+    ants = [i for i in items if i["kind"] == "antiphon"]
+    assert len(ants) == 2 and ants[1]["repeat"]
+    assert {i["tone"] for i in items if i["kind"] == "psalm"} == {"VII.c2"}
+
+
+def test_build_lineup_advent_sunday_from_17_december_takes_the_o_antiphon_2026_12_20(lineup):
+    mag = next(i for i in lineup[0]["days"]["2026-12-20"]["items"] if i["kind"] == "magnificat-antiphon")
+    assert mag["label"] == "O clavis David" and mag["tone"] == "II.D"
+
+
+def test_build_lineup_lent_laus_tibi_and_the_lenten_hymn_2027_02_14(lineup):
+    items = lineup[0]["days"]["2027-02-14"]["items"]
+    assert [i["label"] for i in items if i["kind"] == "initium"] == ["Deus in adjutorium", "Laus tibi, Domine"]
+    assert next(i for i in items if i["kind"] == "hymn")["label"] == "Audi benigne Conditor"
 
 
 def test_build_lineup_epiphany_ii_before_candlemas_sings_the_alma_2026_01_18(lineup):
@@ -143,11 +189,12 @@ def test_build_lineup_epiphany_ii_before_candlemas_sings_the_alma_2026_01_18(lin
     assert next(i for i in day["items"] if i["kind"] == "marian-antiphon")["label"] == "Alma Redemptoris Mater"
 
 
-def test_build_lineup_every_day_is_a_sunday_with_unique_item_keys(lineup):
-    for iso, day in lineup[0]["days"].items():
-        assert date.fromisoformat(iso).weekday() == 6
+def test_build_lineup_every_day_has_unique_item_keys_and_real_systems(lineup, reviewed):
+    for iso, day in {**lineup[0]["days"], **lineup[0]["first_vespers"]}.items():
         keys = [i["item_key"] for i in day["items"]]
         assert len(keys) == len(set(keys)), iso
+        for i in day["items"]:
+            assert all(r in reviewed.known for r in i["source"].get("refs") or []), (iso, i["item_key"])
 
 
 # ------------------------------------------------------------ one Sunday ---
@@ -174,7 +221,7 @@ def test_sunday_lineup_commemoration_is_a_note(reviewed):
 
 def test_sunday_lineup_unknown_key_is_held_back(reviewed):
     items, why = sunday_lineup(date(2026, 9, 13), "tempora:Pent99-0", reviewed)
-    assert items is None and "no Magnificat antiphon" in (why or "")
+    assert items is None and "prints no II Vespers" in (why or "")
 
 
 # ------------------------------------------------------------ reviewed data ---
@@ -183,7 +230,7 @@ def test_load_reviewed_bad_ref_or_tone_names_the_entry_and_the_fix(tmp_path):
     doc = yaml.safe_load(REVIEWED.read_text(encoding="utf-8"))
     doc["magnificat_antiphons"]["tempora:Pent16-0"]["refs"] = ["noh8/0999/000"]
     doc["magnificat_antiphons"]["tempora:Pent16-0"]["tone"] = "II.g"
-    path = tmp_path / "v.yml"
+    path = tmp_path / "vespers-noh8.yml"
     path.write_text(yaml.safe_dump(doc), encoding="utf-8")
     with pytest.raises(VespersDataError) as err:
         load_reviewed(path)
@@ -217,8 +264,8 @@ def test_describe_lists_items_with_sources_and_explains_held_and_absent_days(lin
     text = describe("2026-11-08", doc)
     assert "tone bank: Psalm 109 in I g (Advent II, p. 54)" in text
     assert "Salve Regina" in text and "chant 2715" in text
-    assert "held back" in describe("2026-09-06", doc)
-    assert "no Vespers lineup" in describe("2026-10-25", doc)
+    assert "held back" in describe("2028-08-06", doc)
+    assert "no Vespers lineup" in describe("2026-10-26", doc)
 
 
 # ------------------------------------------------------------ the file ---
@@ -367,7 +414,7 @@ def test_cli_vespers_lineup_writes_and_summarises(capsys, monkeypatch, tmp_path)
     monkeypatch.setattr(vespers_mod, "write_lineup", lambda: real(tmp_path / "l.json"))
     assert cli.main(["vespers-lineup"]) == 0
     out = capsys.readouterr().out
-    assert "Sundays with a full lineup" in out and "tone_unprinted" in out
+    assert "Vespers by date" in out and "tone_unprinted" in out
 
 
 def test_cli_vespers_lineup_bad_reviewed_data_exits_1(capsys, monkeypatch):
@@ -378,3 +425,63 @@ def test_cli_vespers_lineup_bad_reviewed_data_exits_1(capsys, monkeypatch):
     monkeypatch.setattr(vespers_mod, "write_lineup", bad)
     assert cli.main(["vespers-lineup"]) == 1
     assert "noh8/0999/000" in capsys.readouterr().err
+
+
+# ------------------------------------------------------------ accompaniment choices ---
+
+def test_psalm_music_full_psalm_opening_formula_or_note(reviewed):
+    from pipeline.vespers import psalm_music
+    full, text = psalm_music(reviewed, 112, "VII.c", None)
+    assert full["type"] == "printed" and len(full["refs"]) == 12 and text is False
+    opening, text = psalm_music(reviewed, 110, "VII.d", ["noh8/0085/001"])
+    assert opening == {"type": "printed", "refs": ["noh8/0085/001"], "opening_only": True} and text
+    formula, text = psalm_music(reviewed, 129, "IV.A*", None)
+    assert formula["type"] == "bank" and formula["bank_label"] == "Psalm 113 in IV A*" and text
+    note, text = psalm_music(reviewed, 111, "VII.b", None)
+    assert note["type"] == "note" and "VII b" in note["text"] and text
+
+
+def test_psalm_music_prefers_the_same_psalm_in_the_tone(reviewed):
+    from pipeline.vespers import psalm_music
+    formula, _ = psalm_music(reviewed, 110, "VIII.G*", None)
+    assert formula["bank_label"] == "Psalm 110 in VIII G*"
+
+
+def test_magnificat_music_printed_magnificat_psalm_formula_or_note(reviewed):
+    from pipeline.vespers import magnificat_music
+    assert magnificat_music(reviewed, "VIII.G*")["bank_kind"] == "magnificat"
+    assert magnificat_music(reviewed, "I.f")["bank_label"] == "Psalm 112 in I f"
+    assert "sing it unaccompanied" in magnificat_music(reviewed, "IV.E")["text"]
+    assert magnificat_music(reviewed, None)["type"] == "note"
+
+
+# ------------------------------------------------------------ the calendar ---
+
+@pytest.mark.parametrize(("year", "day"), [(2026, date(2026, 4, 5)), (2027, date(2027, 3, 28)),
+                                           (2038, date(2038, 4, 25)), (2024, date(2024, 3, 31))])
+def test_easter_known_dates(year, day):
+    from pipeline.vespers import easter
+    assert easter(year) == day
+
+
+def test_advent_start_and_laus_tibi_and_season():
+    from pipeline.vespers import advent_start, laus_tibi, normal_key, season_of
+    assert advent_start(2026) == date(2026, 11, 29)
+    assert laus_tibi(date(2027, 1, 24)) and not laus_tibi(date(2027, 1, 17)) and not laus_tibi(date(2027, 3, 28))
+    assert season_of("tempora:Quad5-0") == "passiontide" and season_of("tempora:Pasc3-0") == "easter"
+    assert season_of("tempora:Pent10-0") is None
+    assert normal_key("sancti:12-25m3") == "sancti:12-25" and normal_key("tempora:Pent01-0r") == "tempora:Pent01-0"
+
+
+def test_marian_for_regina_caeli_in_eastertide_and_alma_in_advent():
+    assert marian_for(date(2027, 4, 4)) == "regina"
+    assert marian_for(date(2027, 5, 22)) == "regina"      # the Saturday after Pentecost
+    assert marian_for(date(2027, 5, 23)) == "salve"       # Trinity
+    assert marian_for(date(2026, 11, 29)) == "alma"
+    assert marian_for(date(2027, 3, 21)) == "ave"
+
+
+def test_window_keeps_last_year_and_five_ahead(days):
+    from pipeline.vespers import window
+    kept = window(days, date(2026, 9, 27))
+    assert {d.year for d, _ in kept} == set(range(2025, 2032))

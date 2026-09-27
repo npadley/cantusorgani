@@ -91,6 +91,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     subs.add_parser("chants", help="write data/chants.json: the notation of every chant a part names")
 
+    of = subs.add_parser("officium-fetch",
+                         help="vendor Divinum Officium's Vespers texts (1960) into data/divinum-officium-vespers.json")
+    of.add_argument("--commit", default=None, help="Divinum Officium commit sha (default: the pinned one)")
     vf = subs.add_parser("vesperale-fetch",
                          help="vendor jsrjenkins/vesperale's Sunday Vespers table into data/vesperale-lineup.json")
     vf.add_argument("--commit", default=None, help="vesperale commit sha (default: the pinned one)")
@@ -233,6 +236,19 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{path}: {count} Propers from jgabc @ {commit[:12]}")
         return 0
 
+    if args.command == "officium-fetch":
+        from pipeline.officium import PINNED as DO_PINNED
+        from pipeline.officium import OfficiumError
+        from pipeline.officium import fetch as fetch_officium
+        try:
+            path, commit, count = fetch_officium(args.commit or DO_PINNED)
+        except (OfficiumError, OSError) as exc:
+            print(f"officium-fetch: {exc}\n  data/divinum-officium-vespers.json was left untouched.",
+                  file=sys.stderr)
+            return 1
+        print(f"wrote {path}: Vespers of {count} offices, commit {commit[:12]}")
+        return 0
+
     if args.command == "vesperale-fetch":
         from pipeline.vesperale import PINNED, VesperaleIntegrityError
         from pipeline.vesperale import fetch as fetch_vesperale
@@ -246,10 +262,31 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "vespers-items":
-        from pipeline.vespers import propose
+        import json as _json
+
+        import yaml as _yaml
+
+        from pipeline.officium import OfficiumError
+        from pipeline.officium import load as load_officium
+        from pipeline.vesperitems import office_systems, propose_offices
+        from pipeline.vespers import CATALOG, propose
         path, count = propose()
-        print(f"{path}: {count} Magnificat antiphons proposed; review each against the scan "
-              f"into data/vespers-noh8.yml")
+        print(f"{path}: {count} Magnificat antiphons of the green Sundays proposed")
+        try:
+            texts = load_officium()
+        except OfficiumError as exc:
+            print(f"vespers-items: {exc}", file=sys.stderr)
+            return 1
+        offices = propose_offices(office_systems(_json.loads(CATALOG.read_text(encoding="utf-8"))), texts)
+        out = CATALOG.with_name("vespers-offices.proposed.yml")
+        out.write_text("# PROPOSED by `noh vespers-items` -- not reviewed. Check each placement (score) and tone "
+                       "against the scan,\n# then carry it into data/vespers-offices.yml.\n"
+                       + _yaml.safe_dump({"offices": offices}, sort_keys=False, allow_unicode=True, width=150),
+                       encoding="utf-8")
+        weak = sum(1 for o in offices.values() for a in (o.get("antiphons") if isinstance(o.get("antiphons"), list)
+                   else []) if not isinstance(a.get("score"), float) or a["score"] < 0.7)
+        print(f"{out}: {len(offices)} offices proposed; {weak} antiphon placements to check by eye "
+              f"(score under 0.7 or unplaced). Review into data/vespers-offices.yml.")
         return 0
 
     if args.command == "vespers-lineup":
@@ -289,10 +326,11 @@ def main(argv: list[str] | None = None) -> int:
         except VespersDataError as exc:
             print(f"vespers-lineup: {exc}", file=sys.stderr)
             return 1
-        days, held = doc["days"], doc["held_back"]
+        days, held, first = doc["days"], doc["held_back"], doc.get("first_vespers", {})
         years = sorted({d[:4] for d in days} | {d[:4] for d in held})
-        print(f"{path}: {len(days)} Sundays with a full lineup, {len(held)} held back "
-              f"({years[0]}-{years[-1]})" if years else "")
+        span = f" ({years[0]}-{years[-1]})" if years else ""
+        print(f"{path}: {len(days)} Vespers by date and {len(first)} I Vespers of I class feasts; "
+              f"{len(held)} Sundays held back{span}")
         bank = sum(1 for d in days.values() for i in d["items"] if i["source"]["type"] == "bank")
         notes = sum(1 for d in days.values() for i in d["items"] if i["source"]["type"] == "note")
         print(f"  items from the tone bank: {bank}; notes (sung unaccompanied): {notes}")

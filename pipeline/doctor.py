@@ -136,6 +136,16 @@ def check_jgabc(path: Path | None = None) -> Check:
     return Check(OK, f"jgabc chant ids for {count} Propers")
 
 
+def check_officium(path: Path | None = None) -> Check:
+    """Divinum Officium's Vespers texts, vendored in data/divinum-officium-vespers.json."""
+    from pipeline.officium import VENDORED, OfficiumError, load
+    try:
+        count = len(load(path or VENDORED)["offices"])      # type: ignore[arg-type]
+    except OfficiumError as exc:
+        return Check(FAIL, "Divinum Officium Vespers texts", f"{exc}\n      Fix: uv run noh officium-fetch")
+    return Check(OK, f"Divinum Officium Vespers texts for {count} offices")
+
+
 def check_vesperale(path: Path | None = None) -> Check:
     """jsrjenkins/vesperale's Sunday table, vendored in data/vesperale-lineup.json."""
     from pipeline.vesperale import VENDORED, VesperaleIntegrityError, load_magnificat
@@ -159,7 +169,7 @@ def run(env: dict[str, str] | None = None) -> list[Check]:
     import os
     env = os.environ if env is None else env
     return [check_python(), check_tesseract(), check_reference_not_registered(),
-            *check_sources(), check_gregobase_dump(), check_jgabc(), check_vesperale(),
+            *check_sources(), check_gregobase_dump(), check_jgabc(), check_officium(), check_vesperale(),
             check_vespers_lineup(), check_r2(dict(env))]
 
 

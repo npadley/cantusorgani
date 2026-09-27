@@ -1,0 +1,13 @@
+---
+import VespersPage from "../../../components/VespersPage.astro";
+import { loadLineup } from "../../../lib/vespers";
+import type { LineupDay } from "../../../lib/vespers";
+
+// I Vespers of a I class feast, sung the evening before it.
+export function getStaticPaths() {
+  return [...loadLineup().firstVespers.values()].map((day) => ({ params: { date: day.date }, props: { day } }));
+}
+interface Props { readonly day: LineupDay }
+const { day } = Astro.props;
+---
+<VespersPage day={day} />

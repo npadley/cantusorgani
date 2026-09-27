@@ -37,7 +37,7 @@ describe("LineupStack", () => {
 
   it("should show a note, not a warning, for what is sung unaccompanied", async () => {
     const html = await render(DAY);
-    expect(html).toMatch(/class="note[^"]*"[^>]*>The collect of the Sunday, as at Mass\./);
+    expect(html).toMatch(/class="note[^"]*"[^>]*>The collect of the day, as at Mass\./);
     expect(html).not.toContain('class="notice"');
   });
 

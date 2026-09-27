@@ -1,0 +1,93 @@
+---
+import ExportBar from "./ExportBar.astro";
+import Layout from "./Layout.astro";
+import LineupStack from "./LineupStack.astro";
+import { hasNotation } from "../lib/chants";
+import { observance } from "../lib/liturgy";
+import { consoleLine, exportLineup, lineupHref, loadLineup, sections } from "../lib/vespers";
+import type { LineupDay } from "../lib/vespers";
+
+// One Vespers in the order sung: II Vespers of a date (/vespers/<date>/), or
+// I Vespers of a I class feast, sung the evening before (/vespers/<date>/i/).
+interface Props { readonly day: LineupDay }
+const { day } = Astro.props;
+// Christmas has three Masses: Vespers take the title of the Mass of the day.
+const o = observance(day.office) ?? observance(`${day.office}r`) ?? observance(`${day.office}m3`);
+const title = o?.titleEn ?? day.office;
+function long(iso: string): string {
+  const [y, m, d] = iso.split("-").map(Number);
+  return new Date(Date.UTC(y ?? 1970, (m ?? 1) - 1, d ?? 1)).toLocaleDateString("en-GB", {
+    weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
+  });
+}
+const when = day.eveningOf ? `sung on the evening of ${long(day.eveningOf)}` : long(day.date);
+const secs = sections(day);
+const nav = secs.filter((s) => s.nav !== null);
+const notation = day.items.some((i) => !i.repeat && hasNotation(i.chant));
+const [flex, name] = (o?.key ?? day.office).split(":");
+// 1962: when tomorrow is a I class feast, this evening's Vespers are its I Vespers.
+const tomorrow = (() => {
+  const [y, m, d] = day.date.split("-").map(Number);
+  return new Date(Date.UTC(y ?? 1970, (m ?? 1) - 1, (d ?? 1) + 1)).toISOString().slice(0, 10);
+})();
+const evening = day.eveningOf ? undefined : [...loadLineup().firstVespers.values()].find((f) => f.eveningOf === day.date && f.date === tomorrow);
+const eveningTitle = evening ? (observance(evening.office)?.titleEn ?? evening.office) : null;
+---
+
+
+<Layout title={`${day.vespers} Vespers: ${title}`} skipTo="initium"
+        description={`${day.vespers} Vespers of ${title}, in the order sung — organ accompaniment from Nova Organi Harmonia.`}>
+  <div class="prose">
+    <p class="crumb small muted ui">
+      <a href="/">Cantus Organi</a> · <a href="/calendar/">Calendar</a> · <a href={`/day/${flex}/${name}/`}>{title}</a>
+    </p>
+    <h1>{title}</h1>
+    {o && <p class="lede">{o.titleLa} · ad Vesperas</p>}
+    <p class="meta ui small muted">{day.vespers} Vespers · {when} · 1962 rubrics · Nova Organi Harmonia VIII</p>
+    <p class="console ui">{consoleLine(day)}</p>
+    {evening && (
+      <p class="notice-quiet ui small">This evening the 1962 rubrics give <a href={lineupHref(evening)}>I Vespers of {eveningTitle}</a> (tomorrow is a I class feast); these are the Vespers of the day itself.</p>
+    )}
+  </div>
+
+  <nav class="order ui no-print" aria-label="Order of Vespers">
+    {nav.map((s) => <a href={`#${s.anchor}`}>{s.nav}</a>)}
+  </nav>
+  {notation && (
+    <label class="chant-toggle ui small no-print">
+      <input type="checkbox" data-chant-toggle />
+      Show the chant with each antiphon and hymn
+    </label>
+  )}
+
+  <LineupStack day={day} />
+
+  <ExportBar pieces={[]} segments={exportLineup(day)} title={`${day.vespers} Vespers — ${title}, ${when}`} />
+</Layout>
+
+<style>
+  .crumb { margin: 0 0 var(--s-1); }
+  .crumb a { color: var(--ink-muted); }
+  .lede { font-style: italic; font-size: var(--step-1); margin: 0 0 var(--s-1); }
+  .meta { margin: 0 0 var(--s-2); }
+  .console { margin: 0 0 var(--s-3); font-weight: 600; }
+  .notice-quiet { margin: 0 0 var(--s-3); padding-left: var(--s-3); border-left: 2px solid var(--rule); }
+  .order {
+    display: flex; flex-wrap: wrap; gap: 0 var(--s-2); align-items: center;
+    margin: 0 0 var(--s-3); padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule);
+    scroll-margin-top: var(--s-4);
+  }
+  .order a {
+    min-height: var(--tap-min); display: inline-flex; align-items: center; padding: 0 var(--s-2);
+  }
+  .chant-toggle {
+    display: inline-flex; align-items: center; gap: var(--s-2);
+    min-height: var(--tap-min); margin: 0 0 var(--s-3); cursor: pointer;
+  }
+  .chant-toggle input { width: 1.25rem; height: 1.25rem; margin: 0; }
+</style>
+
+<script>
+  import { initChantNotation } from "../scripts/chantNotation";
+  initChantNotation();
+</script>

@@ -1,0 +1,3490 @@
+# VESPERS OFFICES IN NOH8 -- reviewed 2026-09-27.
+#
+# Each office the Vespers lineup builds beyond the green Sundays: its texts from
+# Divinum Officium (1960, data/divinum-officium-vespers.json) aligned to the systems
+# NOH8 prints. `noh vespers-items` proposes the alignment (every DO antiphon read
+# against the page's text layer: `score`); placements marked `hand` and every `tone`
+# were checked against the scans by eye (the OCR reads "VIII. c" as "VII. e", and
+# "II. D" as "I. D"). An antiphon a feast shares with another office, or takes from a
+# Common (Peter and Paul's II Vespers), points at the systems where NOH8 prints it.
+offices:
+  adv1:
+    do: Tempora/Adv1-0
+    vespers: II
+    keys:
+    - tempora:Adv1-0
+    antiphons:
+    - n: 1
+      incipit: In illa die
+      psalm: null
+      refs:
+      - noh8/0077/000
+      - noh8/0077/001
+      tone: VIII.G
+      score: 0.92
+      opening:
+      - noh8/0077/002
+      - noh8/0077/003
+      chant: 2835
+    - n: 2
+      incipit: Jucundáre
+      psalm: null
+      refs:
+      - noh8/0077/004
+      - noh8/0077/005
+      tone: VIII.G*
+      score: 0.81
+      chant: 2392
+    - n: 3
+      incipit: Ecce Dóminus véniet
+      psalm: null
+      refs:
+      - noh8/0078/003
+      - noh8/0078/004
+      - noh8/0078/005
+      tone: V.a
+      score: 0.81
+      opening:
+      - noh8/0079/000
+      - noh8/0079/001
+      - noh8/0079/002
+      chant: 2289
+    - n: 4
+      incipit: Omnes sitiéntes
+      psalm: null
+      refs:
+      - noh8/0079/003
+      - noh8/0079/004
+      - noh8/0079/005
+      tone: VII.c
+      score: 0.36
+      opening:
+      - noh8/0080/000
+      - noh8/0080/001
+      chant: 1876
+    - n: 5
+      incipit: Ecce véniet
+      psalm: null
+      refs:
+      - noh8/0080/002
+      - noh8/0080/003
+      tone: IV.A*
+      score: 0.92
+      opening:
+      - noh8/0080/004
+      - noh8/0080/005
+      - noh8/0081/000
+      chant: 2631
+    magnificat:
+      incipit: Ne tímeas, María
+      refs:
+      - noh8/0083/000
+      - noh8/0083/001
+      - noh8/0083/002
+      tone: VIII.G
+      score: 0.71
+      chant: 2627
+    chapter: 'Fratres: Hora est jam nos de somno súrgere: nunc enim própior est nostra salus, quam cum credídimus.'
+  adv2:
+    do: Tempora/Adv2-0
+    vespers: II
+    keys:
+    - tempora:Adv2-0
+    antiphons:
+    - n: 1
+      incipit: Ecce in núbibus cæli
+      psalm: null
+      refs:
+      - noh8/0084/000
+      - noh8/0084/001
+      tone: I.g
+      score: 0.73
+      opening:
+      - noh8/0084/002
+      - noh8/0084/003
+      chant: 2102
+    - n: 2
+      incipit: Urbs fortitúdinis
+      psalm: null
+      refs:
+      - noh8/0084/004
+      - noh8/0084/005
+      - noh8/0085/000
+      tone: VII.d
+      score: 0.85
+      chant: 1927
+    - n: 3
+      incipit: Ecce apparébit
+      psalm: null
+      refs:
+      - noh8/0085/004
+      - noh8/0085/005
+      - noh8/0086/000
+      tone: VII.a
+      score: 0.85
+      opening:
+      - noh8/0086/001
+      - noh8/0086/002
+      - noh8/0086/003
+      chant: 2626
+    - n: 4
+      incipit: Montes et colles
+      psalm: null
+      refs:
+      - noh8/0086/004
+      - noh8/0086/005
+      - noh8/0087/000
+      - noh8/0087/001
+      tone: I.f
+      score: 0.92
+      opening:
+      - noh8/0087/002
+      - noh8/0087/003
+      chant: 2768
+    - n: 5
+      incipit: Ecce Dóminus
+      psalm: null
+      refs:
+      - noh8/0087/004
+      - noh8/0087/005
+      tone: III.a
+      score: 0.89
+      opening:
+      - noh8/0088/000
+      - noh8/0088/001
+      - noh8/0088/002
+      chant: null
+    magnificat:
+      incipit: Tu es, qui ventúrus es
+      refs:
+      - noh8/0088/003
+      - noh8/0088/004
+      - noh8/0088/005
+      - noh8/0089/000
+      tone: VIII.G*
+      score: 0.84
+      chant: 2504
+    chapter: 'Fratres: Quæcúmque scripta sunt, ad nostram doctrínam scripta sunt: ut per patiéntiam, et consolatiónem Scripturárum spem habeámus.'
+  adv3:
+    do: Tempora/Adv3-0
+    vespers: II
+    keys:
+    - tempora:Adv3-0
+    antiphons:
+    - n: 1
+      incipit: Véniet Dóminus
+      psalm: null
+      refs:
+      - noh8/0089/003
+      - noh8/0089/004
+      tone: I.a
+      score: 0.89
+      chant: 2145
+    - n: 2
+      incipit: Jerúsalem, gaude
+      psalm: null
+      refs:
+      - noh8/0090/000
+      - noh8/0090/001
+      tone: VII.b
+      score: 0.85
+      chant: 2116
+    - n: 3
+      incipit: Dabo in Sion
+      psalm: null
+      refs:
+      - noh8/0090/002
+      - noh8/0090/003
+      tone: VIII.G
+      score: 0.5
+      chant: 2830
+    - n: 4
+      incipit: Montes et omnes colles
+      psalm: null
+      refs:
+      - noh8/0090/004
+      - noh8/0090/005
+      - noh8/0091/000
+      tone: V.a
+      score: 0.89
+      chant: 2443
+    - n: 5
+      incipit: Juste et pie
+      psalm: null
+      refs:
+      - noh8/0091/001
+      - noh8/0091/002
+      tone: II.D
+      score: 0.92
+      chant: 1937
+    magnificat:
+      incipit: Beáta es, María
+      refs:
+      - noh8/0091/003
+      - noh8/0091/004
+      - noh8/0091/005
+      tone: VIII.G
+      score: 0.86
+      chant: 13018
+    chapter: 'Fratres: Gaudéte in Dómino semper: íterum dico, gaudéte. Modéstia vestra nota sit ómnibus homínibus: Dóminus enim prope est.'
+  adv4:
+    do: Tempora/Adv4-0
+    vespers: II
+    keys:
+    - tempora:Adv4-0
+    antiphons:
+    - n: 1
+      incipit: Cánite tuba
+      psalm: null
+      refs:
+      - noh8/0092/000
+      - noh8/0092/001
+      - noh8/0092/002
+      tone: I.g
+      score: 0.89
+      chant: 2386
+    - n: 2
+      incipit: Ecce véniet
+      psalm: null
+      refs:
+      - noh8/0092/003
+      - noh8/0092/004
+      - noh8/0092/005
+      tone: I.f
+      score: 0.89
+      chant: 2675
+    - n: 3
+      incipit: Erunt prava
+      psalm: null
+      refs:
+      - noh8/0093/000
+      - noh8/0093/001
+      tone: I.g
+      score: 0.89
+      chant: 2801
+    - n: 4
+      incipit: Dóminus véniet
+      psalm: null
+      refs:
+      - noh8/0093/002
+      - noh8/0093/003
+      - noh8/0093/004
+      - noh8/0093/005
+      tone: I.f
+      score: 0.89
+      chant: 2837
+    - n: 5
+      incipit: Omnípotens Sermo tuus
+      psalm: null
+      refs:
+      - noh8/0094/000
+      - noh8/0094/001
+      tone: II.D
+      score: 0.85
+      chant: 2440
+    chapter: 'Fratres: Sic nos exístimet homo ut minístros Christi, et dispensatóres mysteriórum Dei. Hic jam quǽritur inter dispensatóres, ut fidélis quis
+      inveniátur.'
+  nativitas-1:
+    do: Sancti/12-25
+    vespers: I
+    keys:
+    - sancti:12-25
+    antiphons:
+    - n: 1
+      incipit: Rex pacíficus
+      psalm: 109
+      refs:
+      - noh8/0099/000
+      - noh8/0099/001
+      tone: VIII.G
+      score: 0.89
+      chant: 2996
+    - n: 2
+      incipit: Magnificátus est
+      psalm: 110
+      refs:
+      - noh8/0099/002
+      - noh8/0099/003
+      tone: VII.a
+      score: 0.85
+      chant: 3011
+    - n: 3
+      incipit: Compléti sunt
+      psalm: 111
+      refs:
+      - noh8/0099/004
+      - noh8/0099/005
+      tone: VIII.G
+      score: 0.85
+      chant: 2997
+    - n: 4
+      incipit: Scitóte
+      psalm: 112
+      refs:
+      - noh8/0100/000
+      - noh8/0100/001
+      tone: VIII.G
+      score: 0.92
+      chant: 3005
+    - n: 5
+      incipit: Leváte cápita vestra
+      psalm: 116
+      refs:
+      - noh8/0100/002
+      - noh8/0100/003
+      tone: I.g
+      score: 0.77
+      chant: 3006
+    magnificat:
+      incipit: Cum ortus fúerit
+      refs:
+      - noh8/0102/004
+      - noh8/0102/005
+      - noh8/0103/000
+      tone: VIII.G
+      score: 0.81
+      chant: 3002
+    hymn:
+      title: Jesu Redemptor omnium
+      refs: &id001
+      - noh8/0100/004
+      - noh8/0101/000
+      - noh8/0101/001
+      - noh8/0101/002
+      - noh8/0101/003
+      - noh8/0101/004
+      - noh8/0102/000
+      section: vesperae-in-nativitate-domini
+    versicle: &id008
+    - noh8/0102/001
+    - noh8/0102/002
+    - noh8/0102/003
+    chapter: 'Appáruit benígnitas, et humánitas Salvatóris nostri Dei: non ex opéribus justítiæ, quæ fécimus nos, sed secúndum suam misericórdiam salvos
+      nos fecit.'
+  nativitas-2:
+    do: Sancti/12-25
+    vespers: II
+    keys:
+    - sancti:12-25
+    antiphons:
+    - n: 1
+      incipit: Tecum princípium
+      psalm: 109
+      refs: &id002
+      - noh8/0103/001
+      - noh8/0103/002
+      - noh8/0103/003
+      tone: I.g
+      score: 0.92
+      chant: 2728
+    - n: 2
+      incipit: Redemptiónem
+      psalm: 110
+      refs: &id003
+      - noh8/0103/004
+      - noh8/0103/005
+      tone: VII.a
+      score: 0.89
+      chant: 2736
+    - n: 3
+      incipit: Exórtum est
+      psalm: 111
+      refs: &id004
+      - noh8/0104/000
+      - noh8/0104/001
+      - noh8/0104/002
+      tone: VII.b
+      score: 0.89
+      chant: 12096
+    - n: 4
+      incipit: Apud Dóminum
+      psalm: 129
+      refs: &id005
+      - noh8/0104/003
+      - noh8/0104/004
+      tone: IV.A*
+      score: 0.92
+      chant: 2277
+    - n: 5
+      incipit: De fructu
+      psalm: 131
+      refs: &id006
+      - noh8/0105/000
+      - noh8/0105/001
+      tone: VIII.G
+      score: 0.89
+      chant: 2766
+    magnificat:
+      incipit: Hódie
+      refs:
+      - noh8/0106/000
+      - noh8/0106/001
+      - noh8/0106/002
+      - noh8/0106/003
+      - noh8/0106/004
+      tone: I.g2
+      score: 0.94
+      chant: 2486
+    hymn:
+      title: Jesu Redemptor omnium
+      refs: *id001
+      section: vesperae-in-nativitate-domini
+    versicle: &id007
+    - noh8/0105/002
+    - noh8/0105/003
+    - noh8/0105/004
+    chapter: 'Multifáriam, multísque modis olim Deus loquens pátribus in prophétis: novíssime diébus istis locútus est nobis in Fílio, quem constítuit herédem
+      universórum, per quem fecit et sǽcula.'
+  nat1:
+    do: Tempora/Nat1-0
+    vespers: II
+    keys:
+    - tempora:Nat1-0
+    antiphons:
+    - n: 1
+      incipit: Tecum princípium
+      psalm: 109
+      refs: *id002
+      tone: I.g
+      score: 0.92
+      chant: 2728
+    - n: 2
+      incipit: Redemptiónem
+      psalm: 110
+      refs: *id003
+      tone: VII.a
+      score: 0.89
+      chant: 2736
+    - n: 3
+      incipit: Exórtum est
+      psalm: 111
+      refs: *id004
+      tone: VII.b
+      score: 0.89
+      chant: 12096
+    - n: 4
+      incipit: Apud Dóminum
+      psalm: 129
+      refs: *id005
+      tone: IV.A*
+      score: 0.92
+      chant: 2277
+    - n: 5
+      incipit: De fructu
+      psalm: 131
+      refs: *id006
+      tone: VIII.G
+      score: 0.89
+      chant: 2766
+    magnificat:
+      incipit: Puer Jesus
+      refs:
+      - noh8/0111/002
+      - noh8/0111/003
+      tone: VI.F
+      score: 0.85
+      chant: 2178
+    hymn:
+      title: Jesu Redemptor omnium
+      refs: *id001
+      section: vesperae-in-nativitate-domini
+    versicle: *id007
+    chapter: 'Fratres: Quanto témpore heres párvulus est, nihil differt a servo, cum sit dóminus ómnium: sed sub tutóribus et actóribus est usque ad præfínitum
+      tempus a patre.'
+  circumcisio-1:
+    do: Sancti/01-01
+    vespers: I
+    keys:
+    - sancti:01-01
+    antiphons:
+    - n: 1
+      incipit: O admirábile commércium
+      psalm: 109
+      refs: &id009
+      - noh8/0112/000
+      - noh8/0112/001
+      - noh8/0112/002
+      - noh8/0112/003
+      tone: VI.F
+      score: 0.77
+      chant: 2008
+    - n: 2
+      incipit: Quando natus es
+      psalm: 112
+      refs: &id010
+      - noh8/0112/004
+      - noh8/0113/000
+      - noh8/0113/001
+      - noh8/0113/002
+      tone: III.a2
+      score: 0.89
+      chant: 2973
+    - n: 3
+      incipit: Rubum, quem víderat Móyses
+      psalm: 121
+      refs: &id011
+      - noh8/0113/003
+      - noh8/0113/004
+      - noh8/0113/005
+      tone: IV.E
+      score: 0.89
+      chant: 1903
+    - n: 4
+      incipit: Germinávit radix Jesse
+      psalm: 126
+      refs: &id012
+      - noh8/0114/000
+      - noh8/0114/001
+      tone: I.f
+      score: 0.92
+      chant: 2195
+    - n: 5
+      incipit: Ecce María génuit
+      psalm: 147
+      refs: &id013
+      - noh8/0114/002
+      - noh8/0114/003
+      - noh8/0114/004
+      - noh8/0114/005
+      tone: II.D
+      score: 0.85
+      chant: 2234
+    magnificat:
+      incipit: Propter nímiam
+      refs:
+      - noh8/0115/000
+      - noh8/0115/001
+      - noh8/0115/002
+      tone: VIII.G
+      score: 0.88
+      chant: 2010
+    hymn:
+      title: Jesu Redemptor omnium
+      refs: *id001
+      section: vesperae-in-nativitate-domini
+    versicle: *id008
+    chapter: 'Appáruit benígnitas, et humánitas Salvatóris nostri Dei: non ex opéribus justítiæ, quæ fécimus nos, sed secúndum suam misericórdiam salvos
+      nos fecit.'
+  circumcisio-2:
+    do: Sancti/01-01
+    vespers: II
+    keys:
+    - sancti:01-01
+    antiphons:
+    - n: 1
+      incipit: O admirábile commércium
+      psalm: 109
+      refs: *id009
+      tone: VI.F
+      score: 0.77
+      chant: 2008
+    - n: 2
+      incipit: Quando natus es
+      psalm: 112
+      refs: *id010
+      tone: III.a2
+      score: 0.89
+      chant: 2973
+    - n: 3
+      incipit: Rubum, quem víderat Móyses
+      psalm: 121
+      refs: *id011
+      tone: IV.E
+      score: 0.89
+      chant: 1903
+    - n: 4
+      incipit: Germinávit radix Jesse
+      psalm: 126
+      refs: *id012
+      tone: I.f
+      score: 0.92
+      chant: 2195
+    - n: 5
+      incipit: Ecce María génuit
+      psalm: 147
+      refs: *id013
+      tone: II.D
+      score: 0.85
+      chant: 2234
+    magnificat:
+      incipit: Magnum
+      refs:
+      - noh8/0115/003
+      - noh8/0115/004
+      - noh8/0116/000
+      - noh8/0116/001
+      - noh8/0116/002
+      tone: II.A
+      score: 0.96
+      chant: null
+    hymn:
+      title: Jesu Redemptor omnium
+      refs: *id001
+      section: vesperae-in-nativitate-domini
+    versicle: *id008
+    chapter: Appáruit grátia Dei Salvatóris nostri ómnibus homínibus, erúdiens nos, ut abnegántes impietátem, et sæculária desidéria, sóbrie, et juste,
+      et pie vivámus in hoc sǽculo.
+  nomen-1:
+    do: Tempora/Nat2-0
+    vespers: I
+    keys:
+    - tempora:Nat2-0
+    antiphons:
+    - n: 1
+      incipit: Omnis
+      psalm: null
+      refs:
+      - noh8/0116/003
+      - noh8/0116/004
+      score: hand
+      tone: VIII.G
+      chant: 2597
+    - n: 2
+      incipit: Sanctum et terríbile
+      psalm: null
+      refs: &id014
+      - noh8/0117/000
+      - noh8/0117/001
+      tone: V.a
+      score: 0.46
+      chant: 2775
+    - n: 3
+      incipit: Ego autem
+      psalm: null
+      refs: &id015
+      - noh8/0117/002
+      - noh8/0117/003
+      tone: III.a2
+      score: 0.81
+      chant: 2795
+    - n: 4
+      incipit: A solis ortu
+      psalm: null
+      refs: &id016
+      - noh8/0117/004
+      - noh8/0117/005
+      tone: IV.E
+      score: 0.73
+      chant: 2925
+    - n: 5
+      incipit: Sacrificábo
+      psalm: null
+      refs: &id017
+      - noh8/0118/000
+      - noh8/0118/001
+      tone: VIII.c
+      score: 0.77
+      chant: 2213
+    magnificat:
+      incipit: Fecit
+      refs:
+      - noh8/0120/000
+      - noh8/0120/001
+      tone: VIII.G
+      score: 0.92
+      chant: 2618
+    hymn:
+      title: Jesu dulcis memoria
+      refs: &id018
+      - noh8/0118/002
+      - noh8/0118/003
+      - noh8/0118/004
+      - noh8/0119/000
+      - noh8/0119/001
+      - noh8/0119/002
+      - noh8/0119/003
+      - noh8/0119/004
+      section: vesperae-ssmi-nominis-jesu
+  nomen-2:
+    do: Tempora/Nat2-0
+    vespers: II
+    keys:
+    - tempora:Nat2-0
+    antiphons:
+    - n: 1
+      incipit: Omnis
+      psalm: null
+      refs:
+      - noh8/0116/003
+      - noh8/0116/004
+      score: hand
+      tone: VIII.G
+      chant: 2597
+    - n: 2
+      incipit: Sanctum et terríbile
+      psalm: null
+      refs: *id014
+      tone: V.a
+      score: 0.46
+      chant: 2775
+    - n: 3
+      incipit: Ego autem
+      psalm: null
+      refs: *id015
+      tone: III.a2
+      score: 0.81
+      chant: 2795
+    - n: 4
+      incipit: A solis ortu
+      psalm: null
+      refs: *id016
+      tone: IV.E
+      score: 0.73
+      chant: 2925
+    - n: 5
+      incipit: Sacrificábo
+      psalm: null
+      refs: *id017
+      tone: VIII.c
+      score: 0.77
+      chant: 2213
+    magnificat:
+      incipit: Vocábis
+      refs:
+      - noh8/0120/002
+      - noh8/0120/003
+      - noh8/0120/004
+      tone: I.g
+      score: 0.89
+      chant: 2547
+    hymn:
+      title: Jesu dulcis memoria
+      refs: *id018
+      section: vesperae-ssmi-nominis-jesu
+    chapter: 'Fratres: Christus humiliávit semetípsum, factus obédiens usque ad mortem, mortem autem crucis. Propter quod et Deus exaltávit illum, et donávit
+      illi nomen, quod est super omne nomen, ut in nómine Jesu omne genu flectátur.'
+  epiphania-1:
+    do: Sancti/01-06
+    vespers: I
+    keys:
+    - sancti:01-06
+    antiphons:
+    - n: 1
+      incipit: Ante lucíferum génitus
+      psalm: null
+      refs: &id019
+      - noh8/0121/000
+      - noh8/0121/001
+      - noh8/0121/002
+      tone: II.D
+      score: 0.9
+      chant: 2271
+    - n: 2
+      incipit: Venit lumen tuum
+      psalm: null
+      refs: &id020
+      - noh8/0121/003
+      - noh8/0121/004
+      - noh8/0122/000
+      - noh8/0122/001
+      tone: I.g2
+      score: 0.85
+      chant: 2692
+    - n: 3
+      incipit: Apértis thesáuris suis
+      psalm: null
+      refs: &id021
+      - noh8/0122/002
+      - noh8/0122/003
+      tone: I.g2
+      score: 0.92
+      chant: 2464
+    - n: 4
+      incipit: Mária et flúmina
+      psalm: null
+      refs: &id022
+      - noh8/0122/004
+      - noh8/0122/005
+      tone: IV.E
+      score: 0.85
+      chant: 2004
+    - n: 5
+      incipit: Stella ista
+      psalm: null
+      refs:
+      - noh8/0123/000
+      - noh8/0123/001
+      - noh8/0123/002
+      tone: VII.c2
+      score: hand
+      chant: 1968
+    magnificat:
+      incipit: Magi vidéntes
+      refs:
+      - noh8/0126/000
+      - noh8/0126/001
+      - noh8/0126/002
+      tone: VIII.G
+      score: 0.92
+      chant: 2368
+    hymn:
+      title: Crudelis Herodes
+      refs: &id023
+      - noh8/0123/003
+      - noh8/0123/004
+      - noh8/0124/000
+      - noh8/0124/001
+      - noh8/0124/002
+      - noh8/0124/003
+      section: vesperae-in-epiphania-domini
+    versicle: &id024
+    - noh8/0125/004
+    - noh8/0125/005
+  epiphania-2:
+    do: Sancti/01-06
+    vespers: II
+    keys:
+    - sancti:01-06
+    antiphons:
+    - n: 1
+      incipit: Ante lucíferum génitus
+      psalm: null
+      refs: *id019
+      tone: II.D
+      score: 0.9
+      chant: 2271
+    - n: 2
+      incipit: Venit lumen tuum
+      psalm: null
+      refs: *id020
+      tone: I.g2
+      score: 0.85
+      chant: 2692
+    - n: 3
+      incipit: Apértis thesáuris suis
+      psalm: null
+      refs: *id021
+      tone: I.g2
+      score: 0.92
+      chant: 2464
+    - n: 4
+      incipit: Mária et flúmina
+      psalm: null
+      refs: *id022
+      tone: IV.E
+      score: 0.85
+      chant: 2004
+    - n: 5
+      incipit: Stella ista
+      psalm: null
+      refs:
+      - noh8/0123/000
+      - noh8/0123/001
+      - noh8/0123/002
+      tone: VII.c2
+      score: hand
+      chant: 1968
+    magnificat:
+      incipit: Tribus miráculis
+      refs:
+      - noh8/0126/003
+      - noh8/0126/004
+      - noh8/0127/000
+      - noh8/0127/001
+      - noh8/0127/002
+      tone: I.D
+      score: 0.89
+      chant: 2199
+    hymn:
+      title: Crudelis Herodes
+      refs: *id023
+      section: vesperae-in-epiphania-domini
+    versicle: *id024
+    chapter: Surge, illumináre Jerúsalem, quia venit lumen tuum, et glória Dómini super te orta est.
+  familia-1:
+    do: Tempora/Epi1-0
+    vespers: I
+    keys:
+    - tempora:Epi1-0
+    antiphons:
+    - n: 1
+      incipit: Jacob autem
+      psalm: 109
+      refs:
+      - noh8/0127/003
+      - noh8/0127/004
+      tone: I.g
+      score: 0.81
+      chant: 2663
+    - n: 2
+      incipit: Angelus Dómini
+      psalm: 112
+      refs:
+      - noh8/0128/000
+      - noh8/0128/001
+      - noh8/0128/002
+      - noh8/0128/003
+      tone: VII.c
+      score: 0.89
+      chant: 1834
+    - n: 3
+      incipit: Pastóres venérunt
+      psalm: 121
+      refs:
+      - noh8/0128/004
+      - noh8/0129/000
+      tone: VII.d
+      score: 0.92
+      chant: 2697
+    - n: 4
+      incipit: Magi, intrántes domum
+      psalm: 126
+      refs:
+      - noh8/0129/001
+      - noh8/0129/002
+      tone: II.D
+      score: 0.92
+      chant: 2446
+    - n: 5
+      incipit: Erat Pater ejus
+      psalm: 147
+      refs:
+      - noh8/0129/003
+      - noh8/0129/004
+      tone: I.f
+      score: 0.92
+      chant: 2398
+    magnificat:
+      incipit: Verbum caro
+      refs:
+      - noh8/0131/001
+      - noh8/0131/002
+      - noh8/0131/003
+      - noh8/0131/004
+      tone: VIII.G
+      score: 0.58
+      chant: 2110
+    hymn:
+      title: O lux beata Caelitum
+      refs: &id025
+      - noh8/0130/000
+      - noh8/0130/001
+      - noh8/0130/002
+      - noh8/0130/003
+      - noh8/0130/004
+      - noh8/0131/000
+      section: vesperae-s-familiae-jesu-mariae-joseph
+  familia-2:
+    do: Tempora/Epi1-0
+    vespers: II
+    keys:
+    - tempora:Epi1-0
+    antiphons:
+    - n: 1
+      incipit: Post tríduum
+      psalm: 109
+      refs:
+      - noh8/0132/000
+      - noh8/0132/001
+      - noh8/0132/002
+      score: hand
+      tone: VIII.G
+      chant: 1856
+    - n: 2
+      incipit: Dixit mater Jesu
+      psalm: 112
+      refs:
+      - noh8/0132/003
+      - noh8/0132/004
+      - noh8/0132/005
+      tone: IV.E
+      score: 0.77
+      chant: 2962
+    - n: 3
+      incipit: Descéndit Jesus
+      psalm: 121
+      refs:
+      - noh8/0133/000
+      - noh8/0133/001
+      tone: VIII.G
+      score: 0.89
+      chant: 2147
+    - n: 4
+      incipit: Et Jesus proficiébat
+      psalm: 126
+      refs:
+      - noh8/0133/002
+      - noh8/0133/003
+      tone: II.D
+      score: 0.9
+      chant: 2019
+    - n: 5
+      incipit: Et dicébant
+      psalm: 147
+      refs:
+      - noh8/0133/004
+      - noh8/0133/005
+      tone: VIII.G
+      score: 0.92
+      chant: 2874
+    magnificat:
+      incipit: María autem
+      refs:
+      - noh8/0134/000
+      - noh8/0134/001
+      tone: VIII.G
+      score: 0.86
+      chant: 2824
+    hymn:
+      title: O lux beata Caelitum
+      refs: *id025
+      section: vesperae-s-familiae-jesu-mariae-joseph
+    chapter: 'Descéndit Jesus cum María et Joseph, et venit Názareth: et erat súbditus illis.'
+  septuagesima:
+    do: Tempora/Quadp1-0
+    vespers: II
+    keys:
+    - tempora:Quadp1-0
+    antiphons: sunday
+    magnificat:
+      incipit: Dixit paterfamílias
+      refs:
+      - noh8/0137/001
+      - noh8/0137/002
+      - noh8/0137/003
+      - noh8/0137/004
+      tone: VII.a
+      score: 0.85
+      chant: 11729
+    chapter: 'Fratres: Nescítis quod ii qui in stádio currunt, omnes quidem currunt, sed unus áccipit bravíum? Sic cúrrite ut comprehendátis.'
+  sexagesima:
+    do: Tempora/Quadp2-0
+    vespers: II
+    keys:
+    - tempora:Quadp2-0
+    antiphons: sunday
+    magnificat:
+      incipit: Vobis datum est
+      refs:
+      - noh8/0138/000
+      - noh8/0138/001
+      - noh8/0138/002
+      tone: VI.F
+      score: 0.89
+      chant: 1883
+    chapter: 'Fratres: Libénter suffértis insipiéntes, cum sitis ipsi sapiéntes: sustinétis enim si quis vos in servitútem rédigit, si quis dévorat, si
+      quis áccipit, si quis extóllitur, si quis in fáciem vos cædit.'
+  quinquagesima:
+    do: Tempora/Quadp3-0
+    vespers: II
+    keys:
+    - tempora:Quadp3-0
+    antiphons: sunday
+    magnificat:
+      incipit: Stans autem Jesus
+      refs:
+      - noh8/0138/003
+      - noh8/0138/004
+      - noh8/0139/000
+      - noh8/0139/001
+      - noh8/0139/002
+      tone: I.D
+      score: 0.85
+      chant: 2369
+    chapter: 'Fratres: Si linguis hóminum loquar, et Angelórum, caritátem autem non hábeam, factus sum velut æs sonans, aut cýmbalum tínniens.'
+  quad1:
+    do: Tempora/Quad1-0
+    vespers: II
+    keys:
+    - tempora:Quad1-0
+    antiphons: sunday
+    magnificat:
+      incipit: Ecce nunc tempus
+      refs:
+      - noh8/0141/000
+      - noh8/0141/001
+      - noh8/0141/002
+      - noh8/0141/003
+      - noh8/0141/004
+      tone: VIII.G*
+      score: 0.88
+      chant: 2399
+    chapter: 'Fratres: Hortámur vos, ne in vácuum grátiam Dei recipiátis. Ait enim: Témpore accépto exaudívi te, et in die salútis adjúvi te.'
+  quad2:
+    do: Tempora/Quad2-0
+    vespers: II
+    keys:
+    - tempora:Quad2-0
+    antiphons: sunday
+    magnificat:
+      incipit: Visiónem quam vidístis
+      refs:
+      - noh8/0142/000
+      - noh8/0142/001
+      tone: I.f
+      score: 0.81
+      chant: 2283
+    chapter: 'Fratres: Rogámus vos, et obsecrámus in Dómino Jesu: ut, quemádmodum accepístis a nobis, quómodo vos opórteat ambuláre, et placére Deo, sic
+      et ambulétis, ut abundétis magis.'
+  quad3:
+    do: Tempora/Quad3-0
+    vespers: II
+    keys:
+    - tempora:Quad3-0
+    antiphons: sunday
+    magnificat:
+      incipit: Extóllens vocem
+      refs:
+      - noh8/0142/002
+      - noh8/0142/003
+      - noh8/0142/004
+      - noh8/0143/000
+      tone: VIII.G
+      score: 0.61
+      chant: 2260
+    chapter: 'Fratres: Estóte imitatóres Dei, sicut fílii caríssimi: et ambuláte in dilectióne, sicut et Christus diléxit nos, et trádidit semetípsum pro
+      nobis oblatiónem et hóstiam Deo in odórem suavitátis.'
+  quad4:
+    do: Tempora/Quad4-0
+    vespers: II
+    keys:
+    - tempora:Quad4-0
+    antiphons: sunday
+    magnificat:
+      incipit: Súbiit ergo
+      refs:
+      - noh8/0143/001
+      - noh8/0143/002
+      tone: I.g
+      score: 0.89
+      chant: 2196
+    chapter: 'Fratres: Scriptum est, quóniam Abraham duos fílios hábuit: unum de ancílla, et unum de líbera: sed qui de ancílla, secúndum carnem natus est:
+      qui autem de líbera, per repromissiónem: quæ sunt per allegoríam dicta.'
+  passio:
+    do: Tempora/Quad5-0
+    vespers: II
+    keys:
+    - tempora:Quad5-0
+    antiphons: sunday
+    magnificat:
+      incipit: Abraham pater vester
+      refs:
+      - noh8/0145/000
+      - noh8/0145/001
+      tone: II.D
+      score: 0.89
+      chant: 2718
+    versicle: &id026
+    - noh8/0144/004
+    chapter: 'Fratres: Christus assístens Póntifex futurórum bonórum, per ámplius et perféctius tabernáculum non manu factum, id est, non hujus creatiónis:
+      neque per sánguinem hircórum aut vitulórum, sed per próprium sánguinem introívit semel in Sancta, ætérna redemptióne invénta.'
+  palmae:
+    do: Tempora/Quad6-0
+    vespers: II
+    keys:
+    - tempora:Quad6-0
+    antiphons: sunday
+    magnificat:
+      incipit: Scriptum est enim
+      refs:
+      - noh8/0145/002
+      - noh8/0145/003
+      - noh8/0145/004
+      tone: VIII.G*
+      score: 0.81
+      chant: 2162
+    versicle: *id026
+    chapter: 'Fratres: Hoc enim sentíte in vobis, quod et in Christo Jesu: qui, cum in forma Dei esset, non rapínam arbitrátus est esse se æquálem Deo:
+      sed semetípsum exinanívit, formam servi accípiens, in similitúdinem hóminum factus, et hábitu invéntus ut homo.'
+  pascha:
+    do: Tempora/Pasc0-0
+    vespers: II
+    keys:
+    - tempora:Pasc0-0
+    antiphons:
+    - n: 1
+      incipit: Angelus autem Dómini
+      psalm: null
+      refs:
+      - noh8/0146/000
+      - noh8/0146/001
+      - noh8/0146/002
+      tone: VIII.G
+      score: 0.73
+      chant: 1952
+    - n: 2
+      incipit: Et ecce terræmótus
+      psalm: null
+      refs:
+      - noh8/0146/003
+      - noh8/0146/004
+      tone: VII.c
+      score: 0.46
+      chant: 2038
+    - n: 3
+      incipit: Erat autem
+      psalm: null
+      refs:
+      - noh8/0146/005
+      - noh8/0147/000
+      tone: VIII.c
+      score: 0.65
+      chant: 2344
+    - n: 4
+      incipit: Præ timóre autem ejus
+      psalm: null
+      refs:
+      - noh8/0147/001
+      - noh8/0147/002
+      tone: VII.a
+      score: 0.73
+      chant: 2959
+    - n: 5
+      incipit: Respóndens autem Angelus
+      psalm: null
+      refs:
+      - noh8/0147/003
+      - noh8/0147/004
+      - noh8/0147/005
+      tone: VIII.G
+      score: 0.81
+      chant: 2171
+    magnificat:
+      incipit: Et respiciéntes
+      refs:
+      - noh8/0148/004
+      - noh8/0148/005
+      tone: III.a
+      score: 0.92
+      chant: 2732
+  albis:
+    do: Tempora/Pasc1-0
+    vespers: II
+    keys:
+    - tempora:Pasc1-0
+    antiphons: sunday
+    magnificat:
+      incipit: Post dies octo
+      refs:
+      - noh8/0154/000
+      - noh8/0154/001
+      tone: VIII.c
+      score: 0.85
+      chant: 1930
+    chapter: 'Caríssimi: Omne, quod natum est ex Deo, vincit mundum: et hæc est victória, quæ vincit mundum, fides nostra.'
+  pasc2:
+    do: Tempora/Pasc2-0
+    vespers: II
+    keys:
+    - tempora:Pasc2-0
+    antiphons: sunday
+    magnificat:
+      incipit: Ego sum pastor bonus
+      refs:
+      - noh8/0154/002
+      - noh8/0154/003
+      - noh8/0154/004
+      tone: III.a
+      score: 0.89
+      chant: 2247
+    chapter: 'Caríssimi: Christus passus est pro nobis, vobis relínquens exémplum ut sequámini vestígia ejus. Qui peccátum non fecit, nec invéntus est dolus
+      in ore ejus.'
+  pasc3:
+    do: Tempora/Pasc3-0
+    vespers: II
+    keys:
+    - tempora:Pasc3-0
+    antiphons: sunday
+    magnificat:
+      incipit: Amen dico vobis
+      refs:
+      - noh8/0155/000
+      - noh8/0155/001
+      - noh8/0155/002
+      - noh8/0155/003
+      tone: VIII.G
+      score: 0.85
+      chant: null
+    chapter: 'Caríssimi: Obsecro vos tamquam ádvenas et peregrínos abstinére vos a carnálibus desidériis, quæ mílitant advérsus ánimam.'
+  pasc4:
+    do: Tempora/Pasc4-0
+    vespers: II
+    keys:
+    - tempora:Pasc4-0
+    antiphons: sunday
+    magnificat:
+      incipit: Vado ad eum
+      refs:
+      - noh8/0156/000
+      - noh8/0156/001
+      tone: II.D
+      score: 0.89
+      chant: null
+    chapter: 'Caríssimi: Omne datum óptimum, et omne donum perféctum desúrsum est, descéndens a Patre lúminum, apud quem non est transmutátio, nec vicissitúdinis
+      obumbrátio.'
+  pasc5:
+    do: Tempora/Pasc5-0
+    vespers: II
+    keys:
+    - tempora:Pasc5-0
+    antiphons: sunday
+    magnificat:
+      incipit: Pétite, et accipiétis
+      refs:
+      - noh8/0156/002
+      - noh8/0156/003
+      - noh8/0156/004
+      tone: VIII.G*
+      score: 0.89
+      chant: 2217
+    chapter: 'Caríssimi: Estóte factóres verbi, et non auditóres tantum: falléntes vosmetípsos. Quia si quis audítor est verbi, et non factor, hic comparábitur
+      viro consideránti vultum nativitátis suæ in spéculo: considerávit enim se, et ábiit, et statim oblítus est qualis fúerit.'
+  ascensio-1:
+    do: Tempora/Pasc5-4
+    vespers: I
+    keys:
+    - tempora:Pasc5-4
+    antiphons:
+    - n: 1
+      incipit: Viri Galilǽi
+      psalm: null
+      refs: &id027
+      - noh8/0157/000
+      - noh8/0157/001
+      - noh8/0157/002
+      tone: VII.a
+      score: 0.81
+      chant: 1888
+    - n: 2
+      incipit: Cumque intueréntur
+      psalm: null
+      refs: &id028
+      - noh8/0157/003
+      - noh8/0157/004
+      tone: VIII.G*
+      score: 0.85
+      chant: 2651
+    - n: 3
+      incipit: Elevátis mánibus
+      psalm: null
+      refs: &id029
+      - noh8/0158/000
+      - noh8/0158/001
+      tone: IV.A*
+      score: 0.73
+      chant: 1971
+    - n: 4
+      incipit: Exaltáte Regem regum
+      psalm: null
+      refs: &id030
+      - noh8/0158/002
+      - noh8/0158/003
+      tone: VIII.G*
+      score: 0.92
+      chant: 2072
+    - n: 5
+      incipit: Vidéntibus illis
+      psalm: null
+      refs: &id031
+      - noh8/0158/004
+      - noh8/0158/005
+      tone: VIII.G
+      score: 0.89
+      chant: 2362
+    magnificat:
+      incipit: Pater
+      refs:
+      - noh8/0160/003
+      - noh8/0160/004
+      - noh8/0160/005
+      tone: VI.F
+      score: 0.89
+      chant: 2941
+    hymn:
+      title: Salutis humanae Sator
+      refs: &id032
+      - noh8/0159/000
+      - noh8/0159/001
+      - noh8/0159/002
+      - noh8/0159/003
+      - noh8/0159/004
+      - noh8/0160/000
+      - noh8/0160/001
+      - noh8/0160/002
+      section: vesperae-in-ascensione-domini
+  ascensio-2:
+    do: Tempora/Pasc5-4
+    vespers: II
+    keys:
+    - tempora:Pasc5-4
+    antiphons:
+    - n: 1
+      incipit: Viri Galilǽi
+      psalm: null
+      refs: *id027
+      tone: VII.a
+      score: 0.81
+      chant: 1888
+    - n: 2
+      incipit: Cumque intueréntur
+      psalm: null
+      refs: *id028
+      tone: VIII.G*
+      score: 0.85
+      chant: 2651
+    - n: 3
+      incipit: Elevátis mánibus
+      psalm: null
+      refs: *id029
+      tone: IV.A*
+      score: 0.73
+      chant: 1971
+    - n: 4
+      incipit: Exaltáte Regem regum
+      psalm: null
+      refs: *id030
+      tone: VIII.G*
+      score: 0.92
+      chant: 2072
+    - n: 5
+      incipit: Vidéntibus illis
+      psalm: null
+      refs: *id031
+      tone: VIII.G
+      score: 0.89
+      chant: 2362
+    magnificat:
+      incipit: O Rex glóriæ
+      refs:
+      - noh8/0161/002
+      - noh8/0161/003
+      - noh8/0161/004
+      - noh8/0161/005
+      tone: II.D
+      score: 0.78
+      chant: 1916
+    hymn:
+      title: Salutis humanae Sator
+      refs: *id032
+      section: vesperae-in-ascensione-domini
+    chapter: Primum quidem sermónem feci de ómnibus, o Theóphile, quæ cœpit Jesus fácere et docére usque in diem, qua præcípiens Apóstolis per Spíritum
+      Sanctum, quos elégit, assúmptus est.
+  pasc6:
+    do: Tempora/Pasc6-0
+    vespers: II
+    keys:
+    - tempora:Pasc6-0
+    antiphons:
+    - n: 1
+      incipit: Viri Galilǽi
+      psalm: null
+      refs: *id027
+      tone: VII.a
+      score: 0.81
+      chant: 1888
+    - n: 2
+      incipit: Cumque intueréntur
+      psalm: null
+      refs: *id028
+      tone: VIII.G*
+      score: 0.85
+      chant: 2651
+    - n: 3
+      incipit: Elevátis mánibus
+      psalm: null
+      refs: *id029
+      tone: IV.A*
+      score: 0.73
+      chant: 1971
+    - n: 4
+      incipit: Exaltáte Regem regum
+      psalm: null
+      refs: *id030
+      tone: VIII.G*
+      score: 0.92
+      chant: 2072
+    - n: 5
+      incipit: Vidéntibus illis
+      psalm: null
+      refs: *id031
+      tone: VIII.G
+      score: 0.89
+      chant: 2362
+    magnificat:
+      incipit: Hæc locútus sum
+      refs:
+      - noh8/0162/000
+      - noh8/0162/001
+      - noh8/0162/002
+      tone: VIII.G
+      score: 0.77
+      chant: 1981
+    hymn:
+      title: Salutis humanae Sator
+      refs: *id032
+      section: vesperae-in-ascensione-domini
+    chapter: 'Caríssimi: Estóte prudéntes, et vigiláte in oratiónibus. Ante ómnia autem mútuam in vobismetípsis caritátem contínuam habéntes, quia cáritas
+      óperit multitúdinem peccatórum.'
+  pentecoste-1:
+    do: Tempora/Pasc7-0
+    vespers: I
+    keys:
+    - tempora:Pasc7-0
+    antiphons:
+    - n: 1
+      incipit: Cum compleréntur
+      psalm: null
+      refs: &id033
+      - noh8/0163/000
+      - noh8/0163/001
+      tone: III.a2
+      score: 0.85
+      chant: null
+    - n: 2
+      incipit: Spíritus Dómini
+      psalm: null
+      refs: &id034
+      - noh8/0163/002
+      - noh8/0163/003
+      tone: VIII.G
+      score: 0.77
+      chant: 2393
+    - n: 3
+      incipit: Repléti sunt omnes
+      psalm: null
+      refs: &id035
+      - noh8/0163/004
+      - noh8/0163/005
+      tone: VIII.G
+      score: 0.89
+      chant: 2527
+    - n: 4
+      incipit: Fontes, et ómnia
+      psalm: null
+      refs: &id036
+      - noh8/0164/000
+      - noh8/0164/001
+      tone: I.a3
+      score: 0.85
+      chant: 2550
+    - n: 5
+      incipit: Loquebántur
+      psalm: null
+      refs: &id037
+      - noh8/0164/002
+      - noh8/0164/003
+      - noh8/0164/004
+      tone: VII.c2
+      score: 0.94
+      chant: 2311
+    magnificat:
+      incipit: Non vos relínquam
+      refs:
+      - noh8/0166/004
+      - noh8/0167/000
+      - noh8/0167/001
+      tone: I.D
+      score: 0.85
+      chant: 3003
+    versicle:
+    - noh8/0166/001
+    - noh8/0166/002
+  pentecoste-2:
+    do: Tempora/Pasc7-0
+    vespers: II
+    keys:
+    - tempora:Pasc7-0
+    antiphons:
+    - n: 1
+      incipit: Cum compleréntur
+      psalm: null
+      refs: *id033
+      tone: III.a2
+      score: 0.85
+      chant: null
+    - n: 2
+      incipit: Spíritus Dómini
+      psalm: null
+      refs: *id034
+      tone: VIII.G
+      score: 0.77
+      chant: 2393
+    - n: 3
+      incipit: Repléti sunt omnes
+      psalm: null
+      refs: *id035
+      tone: VIII.G
+      score: 0.89
+      chant: 2527
+    - n: 4
+      incipit: Fontes, et ómnia
+      psalm: null
+      refs: *id036
+      tone: I.a3
+      score: 0.85
+      chant: 2550
+    - n: 5
+      incipit: Loquebántur
+      psalm: null
+      refs: *id037
+      tone: VII.c2
+      score: 0.94
+      chant: 2311
+    magnificat:
+      incipit: Hódie
+      refs:
+      - noh8/0168/000
+      - noh8/0168/001
+      - noh8/0168/002
+      - noh8/0168/003
+      - noh8/0168/004
+      - noh8/0169/000
+      tone: I.D
+      score: 0.89
+      chant: 2249
+    chapter: 'Cum compleréntur dies Pentecóstes, erant omnes discípuli páriter in eódem loco: et factus est repénte de cælo sonus, tamquam adveniéntis spíritus
+      veheméntis, et replévit totam domum, ubi erant sedéntes.'
+  trinitas-1:
+    do: Tempora/Pent01-0
+    vespers: I
+    keys:
+    - tempora:Pent01-0
+    antiphons:
+    - n: 1
+      incipit: Glória tibi, Trínitas
+      psalm: 109
+      refs: &id038
+      - noh8/0170/000
+      - noh8/0170/001
+      - noh8/0170/002
+      tone: I.f
+      score: 0.67
+      chant: 2284
+    - n: 2
+      incipit: Laus et perénnis glória
+      psalm: 110
+      refs: &id039
+      - noh8/0170/003
+      - noh8/0170/004
+      - noh8/0170/005
+      tone: II.D
+      score: 0.79
+      chant: 2475
+    - n: 3
+      incipit: Glória laudis
+      psalm: 111
+      refs: &id040
+      - noh8/0171/000
+      - noh8/0171/001
+      - noh8/0171/002
+      tone: III.a2
+      score: 0.89
+      chant: 2434
+    - n: 4
+      incipit: Laus Deo Patri
+      psalm: 112
+      refs: &id041
+      - noh8/0171/003
+      - noh8/0171/004
+      - noh8/0171/005
+      tone: IV.E
+      score: 0.85
+      chant: 2296
+    - n: 5
+      incipit: Ex quo ómnia
+      psalm: 116
+      refs: &id042
+      - noh8/0172/000
+      - noh8/0172/001
+      - noh8/0172/002
+      tone: V.a
+      score: 0.96
+      chant: 2650
+    magnificat:
+      incipit: Grátias
+      refs:
+      - noh8/0174/000
+      - noh8/0174/001
+      - noh8/0174/002
+      tone: I.D
+      score: 0.85
+      chant: 2935
+    hymn:
+      title: Jam sol recedit
+      refs: &id043
+      - noh8/0172/003
+      - noh8/0172/004
+      - noh8/0173/000
+      - noh8/0173/001
+      - noh8/0173/002
+      - noh8/0173/003
+      - noh8/0173/004
+      - noh8/0173/005
+      section: vesperae-in-festo-ssmae-trinitatis
+  trinitas-2:
+    do: Tempora/Pent01-0
+    vespers: II
+    keys:
+    - tempora:Pent01-0
+    antiphons:
+    - n: 1
+      incipit: Glória tibi, Trínitas
+      psalm: 109
+      refs: *id038
+      tone: I.f
+      score: 0.67
+      chant: 2284
+    - n: 2
+      incipit: Laus et perénnis glória
+      psalm: 110
+      refs: *id039
+      tone: II.D
+      score: 0.79
+      chant: 2475
+    - n: 3
+      incipit: Glória laudis
+      psalm: 111
+      refs: *id040
+      tone: III.a2
+      score: 0.89
+      chant: 2434
+    - n: 4
+      incipit: Laus Deo Patri
+      psalm: 112
+      refs: *id041
+      tone: IV.E
+      score: 0.85
+      chant: 2296
+    - n: 5
+      incipit: Ex quo ómnia
+      psalm: 116
+      refs: *id042
+      tone: V.a
+      score: 0.96
+      chant: 2650
+    magnificat:
+      incipit: Te Deum
+      refs:
+      - noh8/0174/004
+      - noh8/0175/000
+      - noh8/0175/001
+      - noh8/0175/002
+      - noh8/0175/003
+      - noh8/0175/004
+      - noh8/0175/005
+      tone: IV.E
+      score: 0.85
+      chant: 2759
+    hymn:
+      title: Jam sol recedit
+      refs: *id043
+      section: vesperae-in-festo-ssmae-trinitatis
+    chapter: O Altitúdo divitiárum sapiéntiæ, et sciéntiæ Dei, quam incomprehensibília sunt judícia ejus, et investigábiles viæ ejus!
+  corpus-1:
+    do: Tempora/Pent01-4
+    vespers: I
+    keys:
+    - tempora:Pent01-4
+    antiphons:
+    - n: 1
+      incipit: Sacérdos in ætérnum
+      psalm: 109
+      refs: &id044
+      - noh8/0176/000
+      - noh8/0176/001
+      - noh8/0176/002
+      tone: I.f
+      score: 0.85
+      chant: 2546
+    - n: 2
+      incipit: Miserátor Dóminus
+      psalm: 110
+      refs: &id045
+      - noh8/0176/003
+      - noh8/0176/004
+      tone: II.D
+      score: 0.89
+      chant: 2459
+    - n: 3
+      incipit: Cálicem salutáris
+      psalm: 115
+      refs: &id046
+      - noh8/0177/000
+      - noh8/0177/001
+      tone: III.a2
+      score: 0.86
+      chant: 1877
+    - n: 4
+      incipit: Sicut novéllæ olivárum
+      psalm: 127
+      refs: &id047
+      - noh8/0177/002
+      - noh8/0177/003
+      tone: IV.E
+      score: 0.69
+      chant: 1921
+    - n: 5
+      incipit: Qui pacem
+      psalm: 147
+      refs: &id048
+      - noh8/0177/004
+      - noh8/0177/005
+      tone: V.a
+      score: 0.81
+      chant: 2339
+    magnificat:
+      incipit: O quam suávis est
+      refs:
+      - noh8/0180/000
+      - noh8/0180/001
+      - noh8/0180/002
+      - noh8/0180/003
+      - noh8/0180/004
+      - noh8/0180/005
+      tone: VI.F
+      score: 0.85
+      chant: 2826
+    hymn:
+      title: Pange lingua gloriosi Corporis
+      refs: &id049
+      - noh8/0178/000
+      - noh8/0178/001
+      - noh8/0178/002
+      - noh8/0178/003
+      - noh8/0178/004
+      - noh8/0179/000
+      - noh8/0179/001
+      - noh8/0179/002
+      - noh8/0179/003
+      - noh8/0179/004
+      - noh8/0179/005
+      section: vesperae-corporis-christi
+  corpus-2:
+    do: Tempora/Pent01-4
+    vespers: II
+    keys:
+    - tempora:Pent01-4
+    antiphons:
+    - n: 1
+      incipit: Sacérdos in ætérnum
+      psalm: 109
+      refs: *id044
+      tone: I.f
+      score: 0.85
+      chant: 2546
+    - n: 2
+      incipit: Miserátor Dóminus
+      psalm: 110
+      refs: *id045
+      tone: II.D
+      score: 0.89
+      chant: 2459
+    - n: 3
+      incipit: Cálicem salutáris
+      psalm: 115
+      refs: *id046
+      tone: III.a2
+      score: 0.86
+      chant: 1877
+    - n: 4
+      incipit: Sicut novéllæ olivárum
+      psalm: 127
+      refs: *id047
+      tone: IV.E
+      score: 0.69
+      chant: 1921
+    - n: 5
+      incipit: Qui pacem
+      psalm: 147
+      refs: *id048
+      tone: V.a
+      score: 0.81
+      chant: 2339
+    magnificat:
+      incipit: O sacrum convívium
+      refs:
+      - noh8/0181/000
+      - noh8/0181/001
+      - noh8/0181/002
+      - noh8/0181/003
+      - noh8/0181/004
+      tone: V.a
+      score: 0.61
+      chant: 2299
+    hymn:
+      title: Pange lingua gloriosi Corporis
+      refs: *id049
+      section: vesperae-corporis-christi
+    chapter: 'Fratres: Ego enim accépi a Dómino quod et trádidi vobis, quóniam Dóminus Jesus, in qua nocte tradebátur, accépit panem, et grátias agens fregit,
+      et dixit: Accípite et manducáte: hoc est corpus meum, quod pro vobis tradétur: hoc fácite in meam commemoratiónem.'
+  cor-1:
+    do: Tempora/Pent02-5
+    vespers: I
+    keys:
+    - tempora:Pent02-5
+    antiphons:
+    - n: 1
+      incipit: Suávi jugo tuo
+      psalm: 109
+      refs:
+      - noh8/0182/003
+      - noh8/0182/004
+      tone: I.g
+      score: 0.65
+      chant: 2083
+    - n: 2
+      incipit: Miséricors
+      psalm: 110
+      refs:
+      - noh8/0183/000
+      - noh8/0183/001
+      tone: II.D
+      score: 0.88
+      chant: 1936
+    - n: 3
+      incipit: Exórtum est
+      psalm: 111
+      refs:
+      - noh8/0183/002
+      - noh8/0183/003
+      tone: VII.a
+      score: 0.92
+      chant: 12096
+    - n: 4
+      incipit: Quid retríbuam
+      psalm: 115
+      refs:
+      - noh8/0183/004
+      - noh8/0183/005
+      tone: VIII.c
+      score: 0.77
+      chant: 2608
+    - n: 5
+      incipit: Apud Dóminum
+      psalm: 129
+      refs:
+      - noh8/0184/000
+      - noh8/0184/001
+      tone: IV.A*
+      score: 0.81
+      chant: 2322
+    magnificat:
+      incipit: Ignem
+      refs:
+      - noh8/0186/000
+      - noh8/0186/001
+      tone: I.D
+      score: 0.92
+      chant: 1965
+    hymn:
+      title: En ut superba
+      refs: &id050
+      - noh8/0184/002
+      - noh8/0184/003
+      - noh8/0184/004
+      - noh8/0185/000
+      - noh8/0185/001
+      - noh8/0185/002
+      - noh8/0185/003
+      - noh8/0185/004
+      - noh8/0185/005
+      section: vesperae-ssmi-cordis-jesu
+  cor-2:
+    do: Tempora/Pent02-5
+    vespers: II
+    keys:
+    - tempora:Pent02-5
+    antiphons:
+    - n: 1
+      incipit: Unus mílitum
+      psalm: 109
+      refs:
+      - noh8/0186/002
+      - noh8/0186/003
+      tone: I.f
+      score: 0.85
+      chant: 1826
+    - n: 2
+      incipit: Stans Jesus
+      psalm: 110
+      refs:
+      - noh8/0186/004
+      - noh8/0186/005
+      tone: VII.c
+      score: 0.65
+      chant: 2969
+    - n: 3
+      incipit: In caritáte perpétua
+      psalm: 115
+      refs:
+      - noh8/0187/000
+      - noh8/0187/001
+      tone: III.a2
+      score: 0.85
+      chant: 2255
+    - n: 4
+      incipit: Veníte ad me
+      psalm: 127
+      refs:
+      - noh8/0187/002
+      - noh8/0187/003
+      tone: IV.E
+      score: 0.81
+      chant: 1892
+    - n: 5
+      incipit: Fili
+      psalm: 147
+      refs:
+      - noh8/0187/004
+      - noh8/0187/005
+      tone: V.a
+      score: 0.54
+      chant: 2013
+    magnificat:
+      incipit: Ad Jesum autem
+      refs:
+      - noh8/0188/002
+      - noh8/0188/003
+      - noh8/0188/004
+      - noh8/0188/005
+      tone: I.f
+      score: 0.81
+      chant: 2519
+    hymn:
+      title: En ut superba
+      refs: *id050
+      section: vesperae-ssmi-cordis-jesu
+    chapter: 'Fratres: Mihi ómnium sanctórum mínimo data est grátia hæc, in géntibus evangelizáre investigábiles divítias Christi; et illumináre omnes,
+      quæ sit dispensátio sacraménti abscónditi a sǽculis in Deo.'
+  12-08-1:
+    do: Sancti/12-08
+    vespers: I
+    keys:
+    - sancti:12-08
+    antiphons:
+    - n: 1
+      incipit: Tota pulchra
+      psalm: 109
+      refs: &id051
+      - noh8/0202/000
+      - noh8/0202/001
+      tone: I.g2
+      score: 0.92
+      chant: 11950
+    - n: 2
+      incipit: Vestiméntum tuum
+      psalm: 112
+      refs: &id052
+      - noh8/0202/002
+      - noh8/0202/003
+      tone: VIII.G
+      score: 0.89
+      chant: 12087
+    - n: 3
+      incipit: Tu glória Jerúsalem
+      psalm: 121
+      refs: &id053
+      - noh8/0202/004
+      - noh8/0203/000
+      tone: VIII.c
+      score: 0.54
+      chant: 8157
+    - n: 4
+      incipit: Benedícta es tu
+      psalm: 126
+      refs: &id054
+      - noh8/0203/001
+      - noh8/0203/002
+      tone: VII.a
+      score: 0.85
+      chant: 11760
+    - n: 5
+      incipit: Trahe nos
+      psalm: 147
+      refs: &id055
+      - noh8/0203/003
+      - noh8/0203/004
+      tone: III.a2
+      score: 0.89
+      chant: 13149
+    magnificat:
+      incipit: Beátam me dicent
+      refs:
+      - noh8/0205/004
+      - noh8/0205/005
+      tone: VIII.G
+      score: 0.89
+      chant: 2350
+    hymn:
+      title: Ave maris stella
+      refs: &id056
+      - noh8/0204/000
+      - noh8/0204/001
+      - noh8/0204/002
+      - noh8/0204/003
+      - noh8/0205/000
+      - noh8/0205/001
+      section: vesperae-immaculatae-conceptionis-b-m-v
+    versicle: &id057
+    - noh8/0205/002
+    - noh8/0205/003
+  12-08-2:
+    do: Sancti/12-08
+    vespers: II
+    keys:
+    - sancti:12-08
+    antiphons:
+    - n: 1
+      incipit: Tota pulchra
+      psalm: 109
+      refs: *id051
+      tone: I.g2
+      score: 0.92
+      chant: 11950
+    - n: 2
+      incipit: Vestiméntum tuum
+      psalm: 112
+      refs: *id052
+      tone: VIII.G
+      score: 0.89
+      chant: 12087
+    - n: 3
+      incipit: Tu glória Jerúsalem
+      psalm: 121
+      refs: *id053
+      tone: VIII.c
+      score: 0.54
+      chant: 8157
+    - n: 4
+      incipit: Benedícta es tu
+      psalm: 126
+      refs: *id054
+      tone: VII.a
+      score: 0.85
+      chant: 11760
+    - n: 5
+      incipit: Trahe nos
+      psalm: 147
+      refs: *id055
+      tone: III.a2
+      score: 0.89
+      chant: 13149
+    magnificat:
+      incipit: Hódie egréssa est
+      refs:
+      - noh8/0206/000
+      - noh8/0206/001
+      - noh8/0206/002
+      - noh8/0206/003
+      tone: I.f
+      score: 0.89
+      chant: 12150
+    hymn:
+      title: Ave maris stella
+      refs: *id056
+      section: vesperae-immaculatae-conceptionis-b-m-v
+    versicle: *id057
+    chapter: Dóminus possédit me in inítio viárum suárum, ántequam quidquam fáceret a princípio. Ab ætérno ordináta sum, et ex antíquis ántequam terra fíeret.
+      Nondum erant abýssi, et ego jam concépta eram.
+  02-02-1:
+    do: Sancti/02-02
+    vespers: I
+    keys:
+    - sancti:02-02
+    antiphons:
+    - n: 1
+      incipit: O admirábile commércium
+      psalm: 109
+      refs: *id009
+      tone: VI.F
+      score: 0.77
+      chant: 2008
+    - n: 2
+      incipit: Quando natus es
+      psalm: 112
+      refs: *id010
+      tone: III.a2
+      score: 0.89
+      chant: 2973
+    - n: 3
+      incipit: Rubum, quem víderat Móyses
+      psalm: 121
+      refs: *id011
+      tone: IV.E
+      score: 0.89
+      chant: 1903
+    - n: 4
+      incipit: Germinávit radix Jesse
+      psalm: 126
+      refs: *id012
+      tone: I.f
+      score: 0.92
+      chant: 2195
+    - n: 5
+      incipit: Ecce María génuit
+      psalm: 147
+      refs: *id013
+      tone: II.D
+      score: 0.85
+      chant: 2234
+    magnificat:
+      incipit: Senex
+      refs:
+      - noh8/0207/001
+      - noh8/0207/002
+      - noh8/0207/003
+      tone: I.D
+      score: 0.92
+      chant: 1979
+    hymn:
+      title: Ave maris stella
+      refs: *id056
+      section: vesperae-immaculatae-conceptionis-b-m-v
+    versicle:
+    - noh8/0207/000
+  02-02-2:
+    do: Sancti/02-02
+    vespers: II
+    keys:
+    - sancti:02-02
+    antiphons:
+    - n: 1
+      incipit: Símeon justus
+      psalm: 109
+      refs:
+      - noh8/0207/004
+      - noh8/0207/005
+      tone: III.b
+      score: 0.85
+      chant: 2652
+    - n: 2
+      incipit: Respónsum accépit Símeon
+      psalm: 112
+      refs:
+      - noh8/0208/000
+      - noh8/0208/001
+      tone: VII.a
+      score: 0.81
+      chant: 1853
+    - n: 3
+      incipit: Accípiens Símeon
+      psalm: 121
+      refs:
+      - noh8/0208/002
+      - noh8/0208/003
+      tone: III.b
+      score: 0.77
+      chant: 1944
+    - n: 4
+      incipit: Lumen ad revelatiónem géntium
+      psalm: 126
+      refs:
+      - noh8/0208/004
+      - noh8/0208/005
+      tone: VIII.c
+      score: 0.89
+      chant: 2897
+    - n: 5
+      incipit: Obtulérunt
+      psalm: 147
+      refs:
+      - noh8/0209/000
+      - noh8/0209/001
+      tone: VIII.G
+      score: 0.81
+      chant: 2505
+    magnificat:
+      incipit: Hódie
+      refs:
+      - noh8/0209/002
+      - noh8/0209/003
+      - noh8/0209/004
+      - noh8/0209/005
+      tone: VIII.G*
+      score: 0.85
+      chant: 2750
+    hymn:
+      title: Ave maris stella
+      refs: *id056
+      section: vesperae-immaculatae-conceptionis-b-m-v
+    versicle: *id057
+    chapter: Ecce ego mitto Angelum meum, et præparábit viam ante fáciem meam. Et statim véniet ad templum sanctum suum Dominátor, quem vos quǽritis, et
+      Angelus Testaménti, quem vos vultis.
+  03-19-1:
+    do: Sancti/03-19
+    vespers: I
+    keys:
+    - sancti:03-19
+    antiphons:
+    - n: 1
+      incipit: Jacob autem
+      psalm: 109
+      refs:
+      - noh8/0220/003
+      - noh8/0220/004
+      tone: I.g
+      score: 0.92
+      chant: 2663
+    - n: 2
+      incipit: Missus est
+      psalm: 110
+      refs:
+      - noh8/0210/002
+      - noh8/0210/003
+      - noh8/0210/004
+      tone: II.D
+      score: 0.9
+      chant: null
+    - n: 3
+      incipit: Cum esset desponsáta
+      psalm: 111
+      refs:
+      - noh8/0210/005
+      - noh8/0211/000
+      - noh8/0211/001
+      tone: III.a2
+      score: 0.92
+      chant: 12332
+    - n: 4
+      incipit: Joseph vir ejus
+      psalm: 112
+      refs:
+      - noh8/0211/002
+      - noh8/0211/003
+      tone: IV.E
+      score: 0.92
+      chant: 1865
+    - n: 5
+      incipit: Angelus Dómini
+      psalm: 116
+      refs:
+      - noh8/0211/004
+      - noh8/0211/005
+      - noh8/0212/000
+      - noh8/0212/001
+      tone: V.a
+      score: 0.85
+      chant: 2673
+    magnificat:
+      incipit: Exsúrgens Joseph a somno
+      refs:
+      - noh8/0214/002
+      - noh8/0214/003
+      tone: I.g2
+      score: 0.89
+      chant: 2664
+    hymn:
+      title: Te Joseph celebrent
+      refs: &id058
+      - noh8/0212/002
+      - noh8/0212/003
+      - noh8/0212/004
+      - noh8/0213/000
+      - noh8/0213/001
+      - noh8/0213/002
+      - noh8/0213/003
+      - noh8/0213/004
+      - noh8/0213/005
+      - noh8/0214/000
+      - noh8/0214/001
+      section: vesperae-s-joseph-sponsi-b-m-v-conf
+  03-19-2:
+    do: Sancti/03-19
+    vespers: II
+    keys:
+    - sancti:03-19
+    antiphons:
+    - n: 1
+      incipit: Ibant paréntes Jesu
+      psalm: null
+      refs:
+      - noh8/0214/004
+      - noh8/0214/005
+      tone: I.a3
+      score: 0.89
+      chant: 2690
+    - n: 2
+      incipit: Cum redírent
+      psalm: null
+      refs:
+      - noh8/0215/000
+      - noh8/0215/001
+      tone: II.D
+      score: 0.89
+      chant: 2607
+    - n: 3
+      incipit: Non inveniéntes
+      psalm: null
+      refs:
+      - noh8/0215/002
+      - noh8/0215/003
+      - noh8/0215/004
+      - noh8/0215/005
+      tone: III.a2
+      score: 0.92
+      chant: 2796
+    - n: 4
+      incipit: Dixit Mater ejus
+      psalm: null
+      refs:
+      - noh8/0216/000
+      - noh8/0216/001
+      tone: IV.E
+      score: 0.85
+      chant: 2244
+    - n: 5
+      incipit: Descéndit Jesus
+      psalm: null
+      refs:
+      - noh8/0216/002
+      - noh8/0216/003
+      tone: VIII.G
+      score: 0.92
+      chant: 2147
+    magnificat:
+      incipit: Ecce fidélis servus
+      refs:
+      - noh8/0217/000
+      - noh8/0217/001
+      tone: VIII.G
+      score: 0.92
+      chant: 2431
+    hymn:
+      title: Te Joseph celebrent
+      refs: *id058
+      section: vesperae-s-joseph-sponsi-b-m-v-conf
+    chapter: Vir fidélis multum laudábitur. Et, qui custos est Dómini sui, glorificábitur.
+  03-25-1:
+    do: Sancti/03-25
+    vespers: I
+    keys:
+    - sancti:03-25
+    antiphons:
+    - n: 1
+      incipit: Missus est
+      psalm: 109
+      refs: &id059
+      - noh8/0217/002
+      - noh8/0217/003
+      tone: VIII.G*
+      score: 0.92
+      chant: 2503
+    - n: 2
+      incipit: Ave, María
+      psalm: 112
+      refs: &id060
+      - noh8/0217/004
+      - noh8/0217/005
+      tone: I.g
+      score: 0.77
+      chant: 1953
+    - n: 3
+      incipit: Ne tímeas, María
+      psalm: 121
+      refs: &id061
+      - noh8/0218/000
+      - noh8/0218/001
+      - noh8/0218/002
+      tone: VIII.G
+      score: 0.93
+      chant: 2627
+    - n: 4
+      incipit: Dabit ei Dóminus
+      psalm: 126
+      refs: &id062
+      - noh8/0218/003
+      - noh8/0218/004
+      tone: I.f
+      score: 0.69
+      chant: 2088
+    - n: 5
+      incipit: Ecce ancílla Dómini
+      psalm: 147
+      refs: &id063
+      - noh8/0219/000
+      - noh8/0219/001
+      tone: VIII.c
+      score: 0.46
+      chant: 1948
+    magnificat:
+      incipit: Spíritus Sanctus
+      refs:
+      - noh8/0219/003
+      - noh8/0219/004
+      tone: VIII.G
+      score: 0.92
+      chant: 1859
+    hymn:
+      title: Ave maris stella
+      refs: *id056
+      section: vesperae-immaculatae-conceptionis-b-m-v
+    versicle: *id057
+  03-25-2:
+    do: Sancti/03-25
+    vespers: II
+    keys:
+    - sancti:03-25
+    antiphons:
+    - n: 1
+      incipit: Missus est
+      psalm: 109
+      refs: *id059
+      tone: VIII.G*
+      score: 0.92
+      chant: 2503
+    - n: 2
+      incipit: Ave, María
+      psalm: 112
+      refs: *id060
+      tone: I.g
+      score: 0.77
+      chant: 1953
+    - n: 3
+      incipit: Ne tímeas, María
+      psalm: 121
+      refs: *id061
+      tone: VIII.G
+      score: 0.93
+      chant: 2627
+    - n: 4
+      incipit: Dabit ei Dóminus
+      psalm: 126
+      refs: *id062
+      tone: I.f
+      score: 0.69
+      chant: 2088
+    - n: 5
+      incipit: Ecce ancílla Dómini
+      psalm: 147
+      refs: *id063
+      tone: VIII.c
+      score: 0.46
+      chant: 1948
+    magnificat:
+      incipit: Gábriel Angelus
+      refs:
+      - noh8/0220/000
+      - noh8/0220/001
+      - noh8/0220/002
+      tone: VII.d
+      score: 0.73
+      chant: null
+    hymn:
+      title: Ave maris stella
+      refs: *id056
+      section: vesperae-immaculatae-conceptionis-b-m-v
+    versicle: *id057
+    chapter: Ecce virgo concípiet, et páriet fílium, et vocábitur nomen ejus Emmánuel. Butýrum et mel cómedet, ut sciat reprobáre malum, et elígere bonum.
+  06-24-1:
+    do: Sancti/06-24
+    vespers: I
+    keys:
+    - sancti:06-24
+    antiphons:
+    - n: 1
+      incipit: Ipse præíbit
+      psalm: null
+      refs:
+      - noh8/0224/000
+      - noh8/0224/001
+      tone: VII.a
+      score: 0.81
+      chant: 2603
+    - n: 2
+      incipit: Joánnes
+      psalm: null
+      refs:
+      - noh8/0224/002
+      - noh8/0224/003
+      tone: VIII.G
+      score: 0.89
+      chant: 2457
+    - n: 3
+      incipit: Ex útero senectútis
+      psalm: null
+      refs:
+      - noh8/0224/004
+      - noh8/0225/000
+      tone: I.f
+      score: 0.92
+      chant: 2490
+    - n: 4
+      incipit: Iste puer
+      psalm: null
+      refs:
+      - noh8/0225/001
+      - noh8/0225/002
+      tone: IV.A*
+      score: hand
+      chant: 2130
+    - n: 5
+      incipit: Nazarǽus
+      psalm: null
+      refs:
+      - noh8/0225/003
+      - noh8/0225/004
+      - noh8/0225/005
+      tone: V.a
+      score: 0.77
+      chant: 2480
+    magnificat:
+      incipit: Ingrésso
+      refs:
+      - noh8/0227/002
+      - noh8/0227/003
+      tone: VIII.G
+      score: 0.89
+      chant: 2911
+    hymn:
+      title: Ut queant laxis
+      refs: &id064
+      - noh8/0226/000
+      - noh8/0226/001
+      - noh8/0226/002
+      - noh8/0226/003
+      - noh8/0226/004
+      - noh8/0227/000
+      - noh8/0227/001
+      section: vesperae-nativitas-s-joannis-baptistae
+  06-24-2:
+    do: Sancti/06-24
+    vespers: II
+    keys:
+    - sancti:06-24
+    antiphons:
+    - n: 1
+      incipit: Elísabeth Zacharíæ
+      psalm: null
+      refs:
+      - noh8/0227/004
+      - noh8/0227/005
+      tone: III.a
+      score: 0.73
+      chant: 1990
+    - n: 2
+      incipit: Innuébant patri ejus
+      psalm: null
+      refs:
+      - noh8/0228/000
+      - noh8/0228/001
+      tone: IV.E
+      score: 0.92
+      chant: 2867
+    - n: 3
+      incipit: Joánnes vocábitur
+      psalm: null
+      refs:
+      - noh8/0228/002
+      - noh8/0228/003
+      score: hand
+      tone: I.f
+      chant: 1829
+    - n: 4
+      incipit: Inter natos mulíerum
+      psalm: null
+      refs:
+      - noh8/0228/004
+      - noh8/0228/005
+      tone: III.b
+      score: 0.85
+      chant: 2031
+    - n: 5
+      incipit: Tu, puer
+      psalm: null
+      refs:
+      - noh8/0229/000
+      - noh8/0229/001
+      tone: III.b
+      score: 0.89
+      chant: 2352
+    magnificat:
+      incipit: Puer
+      refs:
+      - noh8/0229/003
+      - noh8/0229/004
+      - noh8/0229/005
+      tone: VII.d
+      score: 0.92
+      chant: 2106
+    hymn:
+      title: Ut queant laxis
+      refs: *id064
+      section: vesperae-nativitas-s-joannis-baptistae
+    chapter: 'Audíte, ínsulæ, et atténdite, pópuli de longe: Dóminus ab útero vocávit me, de ventre matris meæ recordátus est nóminis mei.'
+  06-29-1:
+    do: Sancti/06-29
+    vespers: I
+    keys:
+    - sancti:06-29
+    antiphons:
+    - n: 1
+      incipit: Petrus et Joánnes
+      psalm: null
+      refs:
+      - noh8/0230/000
+      - noh8/0230/001
+      tone: VIII.G
+      score: 0.89
+      chant: 1866
+    - n: 2
+      incipit: Argéntum et aurum
+      psalm: null
+      refs:
+      - noh8/0230/002
+      - noh8/0230/003
+      tone: VII.b
+      score: 0.98
+      chant: 2580
+    - n: 3
+      incipit: Dixit Angelus ad Petrum
+      psalm: null
+      refs:
+      - noh8/0230/004
+      - noh8/0231/000
+      tone: VIII.c
+      score: 0.85
+      chant: 2589
+    - n: 4
+      incipit: Misit Dóminus
+      psalm: null
+      refs:
+      - noh8/0231/001
+      - noh8/0231/002
+      tone: VII.c2
+      score: 0.77
+      chant: null
+    - n: 5
+      incipit: Tu es Petrus
+      psalm: null
+      refs:
+      - noh8/0231/003
+      - noh8/0231/004
+      tone: VII.c
+      score: 0.89
+      chant: 1950
+    magnificat:
+      incipit: Tu es pastor óvium
+      refs:
+      - noh8/0235/002
+      - noh8/0235/003
+      tone: I.f
+      score: 0.81
+      chant: 2717
+    hymn:
+      title: Decora lux aeternitatis
+      refs: &id065
+      - noh8/0232/000
+      - noh8/0232/001
+      - noh8/0232/002
+      - noh8/0232/003
+      - noh8/0232/004
+      - noh8/0232/005
+      - noh8/0233/000
+      - noh8/0233/001
+      - noh8/0233/002
+      section: vesperae-ss-petri-et-pauli-apostolorum
+  06-29-2:
+    do: Sancti/06-29
+    vespers: II
+    keys:
+    - sancti:06-29
+    antiphons:
+    - n: 1
+      incipit: Jurávit Dóminus
+      psalm: 109
+      refs:
+      - noh8/0261/004
+      - noh8/0261/005
+      tone: VIII.G
+      score: 0.81
+      chant: 1973
+    - n: 2
+      incipit: Cóllocet eum
+      psalm: 112
+      refs:
+      - noh8/0262/000
+      - noh8/0262/001
+      score: hand
+      tone: VIII.c
+      chant: 2751
+    - n: 3
+      incipit: Dirupísti, Dómine
+      psalm: 115
+      refs:
+      - noh8/0262/002
+      - noh8/0262/003
+      score: hand
+      tone: VII.a
+      chant: 1861
+    - n: 4
+      incipit: Eúntes ibant
+      psalm: 125
+      refs:
+      - noh8/0262/004
+      tone: VIII.c
+      score: 0.89
+      chant: 2337
+    - n: 5
+      incipit: Confortátus est
+      psalm: 138
+      refs:
+      - noh8/0263/000
+      - noh8/0263/001
+      tone: VII.c2
+      score: 0.92
+      chant: 2079
+    magnificat:
+      incipit: Hódie
+      refs:
+      - noh8/0236/000
+      - noh8/0236/001
+      - noh8/0236/002
+      - noh8/0236/003
+      - noh8/0236/004
+      tone: I.D
+      score: 0.85
+      chant: 1918
+    hymn:
+      title: Decora lux aeternitatis
+      refs: *id065
+      section: vesperae-ss-petri-et-pauli-apostolorum
+    chapter: Misit Heródes rex manus ut afflígeret quosdam de Ecclésia. Occídit autem Jacóbum fratrem Joánnis gládio. Videns autem quia placéret Judǽis,
+      appósuit ut apprehénderet et Petrum.
+  07-01-1:
+    do: Sancti/07-01
+    vespers: I
+    keys:
+    - sancti:07-01
+    antiphons:
+    - n: 1
+      incipit: Quis est iste
+      psalm: null
+      refs: &id066
+      - noh8/0237/000
+      - noh8/0237/001
+      tone: VII.a
+      score: 0.85
+      chant: 2248
+    - n: 2
+      incipit: Ego
+      psalm: null
+      refs: &id067
+      - noh8/0237/002
+      - noh8/0237/003
+      tone: VIII.c
+      score: 0.84
+      chant: 2069
+    - n: 3
+      incipit: Vestítus erat
+      psalm: null
+      refs: &id068
+      - noh8/0237/004
+      - noh8/0237/005
+      tone: IV.A
+      score: 0.55
+      chant: 2225
+    - n: 4
+      incipit: Quare ergo
+      psalm: null
+      refs: &id069
+      - noh8/0238/000
+      - noh8/0238/001
+      tone: VIII.c
+      score: 0.73
+      chant: 2066
+    - n: 5
+      incipit: Tórcular
+      psalm: null
+      refs: &id070
+      - noh8/0238/002
+      - noh8/0238/003
+      tone: II.D
+      score: 0.89
+      chant: 2511
+    magnificat:
+      incipit: Accessístis
+      refs:
+      - noh8/0241/000
+      - noh8/0241/001
+      - noh8/0241/002
+      tone: III.a
+      score: 0.81
+      chant: 2509
+    hymn:
+      title: Festivis resonent
+      refs: &id071
+      - noh8/0238/004
+      - noh8/0239/000
+      - noh8/0239/001
+      - noh8/0239/002
+      - noh8/0239/003
+      - noh8/0239/004
+      - noh8/0240/000
+      - noh8/0240/001
+      - noh8/0240/002
+      section: vesperae-pretiosissimi-sanguinis-d-n-j-c
+    versicle: &id072
+    - noh8/0240/003
+    - noh8/0240/004
+  07-01-2:
+    do: Sancti/07-01
+    vespers: II
+    keys:
+    - sancti:07-01
+    antiphons:
+    - n: 1
+      incipit: Quis est iste
+      psalm: null
+      refs: *id066
+      tone: VII.a
+      score: 0.85
+      chant: 2248
+    - n: 2
+      incipit: Ego
+      psalm: null
+      refs: *id067
+      tone: VIII.c
+      score: 0.84
+      chant: 2069
+    - n: 3
+      incipit: Vestítus erat
+      psalm: null
+      refs: *id068
+      tone: IV.A
+      score: 0.55
+      chant: 2225
+    - n: 4
+      incipit: Quare ergo
+      psalm: null
+      refs: *id069
+      tone: VIII.c
+      score: 0.73
+      chant: 2066
+    - n: 5
+      incipit: Tórcular
+      psalm: null
+      refs: *id070
+      tone: II.D
+      score: 0.89
+      chant: 2511
+    magnificat:
+      incipit: Habébitis autem
+      refs:
+      - noh8/0242/000
+      - noh8/0242/001
+      - noh8/0242/002
+      tone: I.D2
+      score: 0.85
+      chant: 2444
+    hymn:
+      title: Festivis resonent
+      refs: *id071
+      section: vesperae-pretiosissimi-sanguinis-d-n-j-c
+    versicle: *id072
+    chapter: 'Fratres: Christus assístens Póntifex futurórum bonórum, per ámplius et perféctius tabernáculum non manufáctum, id est, non hujus creatiónis:
+      neque per sánguinem hircórum aut vitulórum, sed per próprium sánguinem introívit semel in Sancta, ætérna redemptióne invénta.'
+  08-15-1:
+    do: Sancti/08-15
+    vespers: I
+    keys:
+    - sancti:08-15
+    antiphons:
+    - n: 1
+      incipit: Assúmpta est María in cælum
+      psalm: 109
+      refs: &id073
+      - noh8/0242/003
+      - noh8/0242/004
+      tone: VII.a
+      score: 0.89
+      chant: 2561
+    - n: 2
+      incipit: María Virgo assúmpta est
+      psalm: 112
+      refs: &id074
+      - noh8/0243/000
+      - noh8/0243/001
+      tone: VIII.G
+      score: 0.89
+      chant: 2912
+    - n: 3
+      incipit: In odórem
+      psalm: 121
+      refs: &id075
+      - noh8/0243/002
+      - noh8/0243/003
+      tone: IV.A*
+      score: 0.89
+      chant: 2963
+    - n: 4
+      incipit: Benedícta
+      psalm: 126
+      refs: &id076
+      - noh8/0243/004
+      - noh8/0243/005
+      tone: VII.c2
+      score: 0.46
+      chant: 2947
+    - n: 5
+      incipit: Pulchra es
+      psalm: 147
+      refs: &id077
+      - noh8/0244/000
+      - noh8/0244/001
+      tone: I.g2
+      score: 0.89
+      chant: 2861
+    magnificat:
+      incipit: Virgo prudentíssima
+      refs:
+      - noh8/0244/004
+      - noh8/0244/005
+      - noh8/0245/000
+      tone: I.f
+      score: 0.92
+      chant: 2183
+    hymn:
+      title: O prima, Virgo, pródita
+  08-15-2:
+    do: Sancti/08-15
+    vespers: II
+    keys:
+    - sancti:08-15
+    antiphons:
+    - n: 1
+      incipit: Assúmpta est María in cælum
+      psalm: 109
+      refs: *id073
+      tone: VII.a
+      score: 0.89
+      chant: 2561
+    - n: 2
+      incipit: María Virgo assúmpta est
+      psalm: 112
+      refs: *id074
+      tone: VIII.G
+      score: 0.89
+      chant: 2912
+    - n: 3
+      incipit: In odórem
+      psalm: 121
+      refs: *id075
+      tone: IV.A*
+      score: 0.89
+      chant: 2963
+    - n: 4
+      incipit: Benedícta
+      psalm: 126
+      refs: *id076
+      tone: VII.c2
+      score: 0.46
+      chant: 2947
+    - n: 5
+      incipit: Pulchra es
+      psalm: 147
+      refs: *id077
+      tone: I.g2
+      score: 0.89
+      chant: 2861
+    magnificat:
+      incipit: Hódie
+      refs:
+      - noh8/0245/001
+      - noh8/0245/002
+      tone: VIII.G*
+      score: 0.69
+      chant: 2700
+    hymn:
+      title: O prima, Virgo, pródita
+    chapter: Benedíxit te Dóminus in virtúte sua, quia per te ad níhilum redégit inimícos nostros. Benedícta es tu, fília, a Dómino Deo excélso, præ ómnibus
+      muliéribus super terram.
+  10-DU-1:
+    do: Sancti/10-DU
+    vespers: I
+    keys:
+    - sancti:10-DU
+    antiphons:
+    - n: 1
+      incipit: Pacíficus
+      psalm: null
+      refs: &id078
+      - noh8/0245/003
+      - noh8/0245/004
+      tone: VIII.G
+      score: 0.77
+      chant: 2581
+    - n: 2
+      incipit: Regnum ejus
+      psalm: null
+      refs: &id079
+      - noh8/0246/000
+      - noh8/0246/001
+      tone: VIII.c
+      score: 0.92
+      chant: 1949
+    - n: 3
+      incipit: Ecce Vir Oriens
+      psalm: null
+      refs: &id080
+      - noh8/0246/002
+      - noh8/0246/003
+      tone: VII.a
+      score: 0.85
+      chant: 2448
+    - n: 4
+      incipit: Dóminus
+      psalm: null
+      refs: &id081
+      - noh8/0246/004
+      - noh8/0246/005
+      tone: III.a
+      score: 0.92
+      chant: 2724
+    - n: 5
+      incipit: Ecce dedi te
+      psalm: null
+      refs: &id082
+      - noh8/0247/000
+      - noh8/0247/001
+      tone: VIII.G
+      score: 0.85
+      chant: 2676
+    magnificat:
+      incipit: Dabit illi
+      refs:
+      - noh8/0249/000
+      - noh8/0249/001
+      - noh8/0249/002
+      tone: I.f
+      score: 0.81
+      chant: 2668
+    hymn:
+      title: Te saeculorum Principem
+      refs: &id083
+      - noh8/0247/002
+      - noh8/0247/003
+      - noh8/0248/000
+      - noh8/0248/001
+      - noh8/0248/002
+      - noh8/0248/003
+      - noh8/0248/004
+      - noh8/0248/005
+      section: vesperae-d-n-jesu-christi-regis
+  10-DU-2:
+    do: Sancti/10-DU
+    vespers: II
+    keys:
+    - sancti:10-DU
+    antiphons:
+    - n: 1
+      incipit: Pacíficus
+      psalm: null
+      refs: *id078
+      tone: VIII.G
+      score: 0.77
+      chant: 2581
+    - n: 2
+      incipit: Regnum ejus
+      psalm: null
+      refs: *id079
+      tone: VIII.c
+      score: 0.92
+      chant: 1949
+    - n: 3
+      incipit: Ecce Vir Oriens
+      psalm: null
+      refs: *id080
+      tone: VII.a
+      score: 0.85
+      chant: 2448
+    - n: 4
+      incipit: Dóminus
+      psalm: null
+      refs: *id081
+      tone: III.a
+      score: 0.92
+      chant: 2724
+    - n: 5
+      incipit: Ecce dedi te
+      psalm: null
+      refs: *id082
+      tone: VIII.G
+      score: 0.85
+      chant: 2676
+    magnificat:
+      incipit: Habet in vestiménto
+      refs:
+      - noh8/0250/000
+      - noh8/0250/001
+      - noh8/0250/002
+      score: hand
+      tone: VII.a
+      chant: 2139
+    hymn:
+      title: Te saeculorum Principem
+      refs: *id083
+      section: vesperae-d-n-jesu-christi-regis
+    chapter: 'Fratres: Grátias ágimus Deo Patri, qui dignos nos fecit in partem sortis sanctórum in lúmine, qui erípuit nos de potestáte tenebrárum, et
+      tránstulit in regnum Fílii dilectiónis suæ.'
+  11-01-1:
+    do: Sancti/11-01
+    vespers: I
+    keys:
+    - sancti:11-01
+    antiphons:
+    - n: 1
+      incipit: Vidi turbam magnam
+      psalm: null
+      refs: &id084
+      - noh8/0250/003
+      - noh8/0250/004
+      tone: I.f
+      score: 0.92
+      chant: 2883
+    - n: 2
+      incipit: Et omnes Ángeli
+      psalm: null
+      refs: &id085
+      - noh8/0251/000
+      - noh8/0251/001
+      - noh8/0251/002
+      tone: I.f
+      score: 0.89
+      chant: 2634
+    - n: 3
+      incipit: Redemísti nos
+      psalm: null
+      refs: &id086
+      - noh8/0251/003
+      - noh8/0251/004
+      - noh8/0251/005
+      tone: VIII.G
+      score: 0.85
+      chant: 1999
+    - n: 4
+      incipit: Benedícite Dóminum
+      psalm: null
+      refs: &id087
+      - noh8/0252/000
+      - noh8/0252/001
+      tone: VIII.G
+      score: 0.81
+      chant: 2109
+    - n: 5
+      incipit: Hymnus
+      psalm: null
+      refs: &id088
+      - noh8/0252/002
+      - noh8/0252/003
+      tone: VIII.G
+      score: 0.85
+      chant: 2328
+    magnificat:
+      incipit: Ángeli
+      refs:
+      - noh8/0254/002
+      - noh8/0254/003
+      - noh8/0254/004
+      - noh8/0254/005
+      - noh8/0255/000
+      - noh8/0255/001
+      - noh8/0255/002
+      tone: I.D
+      score: 0.77
+      chant: null
+    hymn:
+      title: Placare Christe servulis
+      refs: &id089
+      - noh8/0252/004
+      - noh8/0253/000
+      - noh8/0253/001
+      - noh8/0253/002
+      - noh8/0253/003
+      - noh8/0253/004
+      section: vesperae-omnium-sanctorum
+    versicle:
+    - noh8/0254/000
+    - noh8/0254/001
+  11-01-2:
+    do: Sancti/11-01
+    vespers: II
+    keys:
+    - sancti:11-01
+    antiphons:
+    - n: 1
+      incipit: Vidi turbam magnam
+      psalm: null
+      refs: *id084
+      tone: I.f
+      score: 0.92
+      chant: 2883
+    - n: 2
+      incipit: Et omnes Ángeli
+      psalm: null
+      refs: *id085
+      tone: I.f
+      score: 0.89
+      chant: 2634
+    - n: 3
+      incipit: Redemísti nos
+      psalm: null
+      refs: *id086
+      tone: VIII.G
+      score: 0.85
+      chant: 1999
+    - n: 4
+      incipit: Benedícite Dóminum
+      psalm: null
+      refs: *id087
+      tone: VIII.G
+      score: 0.81
+      chant: 2109
+    - n: 5
+      incipit: Hymnus
+      psalm: null
+      refs: *id088
+      tone: VIII.G
+      score: 0.85
+      chant: 2328
+    magnificat:
+      incipit: O quam gloriósum est regnum
+      refs:
+      - noh8/0256/000
+      - noh8/0256/001
+      - noh8/0256/002
+      tone: VI.F
+      score: 0.96
+      chant: 2216
+    hymn:
+      title: Placare Christe servulis
+      refs: *id089
+      section: vesperae-omnium-sanctorum
+    versicle:
+    - noh8/0255/004
+    chapter: 'Ecce ego Joánnes vidi álterum Angelum ascendéntem ab ortu solis, habéntem signum Dei vivi: et clamávit voce magna quátuor Ángelis, quibus
+      datum est nocére terræ et mari, dicens: Nolíte nocére terræ et mari, neque arbóribus, quoadúsque signémus servos Dei nostri in fróntibus eórum.'
+  11-09-1:
+    do: Sancti/11-09
+    vespers: I
+    keys:
+    - sancti:11-09
+    antiphons:
+    - n: 1
+      incipit: Domum tuam, Dómine
+      psalm: 109
+      refs: &id090
+      - noh8/0329/000
+      - noh8/0329/001
+      tone: VII.a
+      score: 0.85
+      chant: 2758
+    - n: 2
+      incipit: Domus mea
+      psalm: 110
+      refs: &id091
+      - noh8/0329/002
+      - noh8/0329/003
+      tone: I.D2
+      score: 0.89
+      chant: 2508
+    - n: 3
+      incipit: Hæc est domus Dómini
+      psalm: 111
+      refs: &id092
+      - noh8/0329/004
+      - noh8/0329/005
+      tone: I.f
+      score: 0.85
+      chant: 2834
+    - n: 4
+      incipit: Bene fundáta est
+      psalm: 112
+      refs: &id093
+      - noh8/0330/000
+      - noh8/0330/001
+      tone: VIII.c
+      score: 0.96
+      chant: 2869
+    - n: 5
+      incipit: Lápides pretiósi
+      psalm: 147
+      refs: &id094
+      - noh8/0330/002
+      - noh8/0330/003
+      - noh8/0330/004
+      tone: I.g
+      score: 0.85
+      chant: 2776
+    magnificat:
+      incipit: Sanctificávit Dóminus
+      refs:
+      - noh8/0333/000
+      - noh8/0333/001
+      - noh8/0333/002
+      - noh8/0333/003
+      tone: I.g
+      score: 0.85
+      chant: 2315
+    hymn:
+      title: Caelestis urbs Jerusalem
+      refs: &id095
+      - noh8/0331/000
+      - noh8/0331/001
+      - noh8/0331/002
+      - noh8/0331/003
+      - noh8/0331/004
+      - noh8/0332/000
+      - noh8/0332/001
+      - noh8/0332/002
+      - noh8/0332/003
+      section: vesperae-commune-dedicationis-ecclesiae
+    versicle:
+    - noh8/0332/004
+    - noh8/0332/005
+  11-09-2:
+    do: Sancti/11-09
+    vespers: II
+    keys:
+    - sancti:11-09
+    antiphons:
+    - n: 1
+      incipit: Domum tuam, Dómine
+      psalm: 109
+      refs: *id090
+      tone: VII.a
+      score: 0.85
+      chant: 2758
+    - n: 2
+      incipit: Domus mea
+      psalm: 110
+      refs: *id091
+      tone: I.D2
+      score: 0.89
+      chant: 2508
+    - n: 3
+      incipit: Hæc est domus Dómini
+      psalm: 111
+      refs: *id092
+      tone: I.f
+      score: 0.85
+      chant: 2834
+    - n: 4
+      incipit: Bene fundáta est
+      psalm: 112
+      refs: *id093
+      tone: VIII.c
+      score: 0.96
+      chant: 2869
+    - n: 5
+      incipit: Lápides pretiósi
+      psalm: 147
+      refs: *id094
+      tone: I.g
+      score: 0.85
+      chant: 2776
+    magnificat:
+      incipit: O quam metuéndus est
+      refs:
+      - noh8/0334/000
+      - noh8/0334/001
+      - noh8/0334/002
+      tone: VI.F
+      score: 0.81
+      chant: 2416
+    hymn:
+      title: Caelestis urbs Jerusalem
+      refs: *id095
+      section: vesperae-commune-dedicationis-ecclesiae
+    versicle:
+    - noh8/0333/005
+    chapter: Vidi civitátem sanctam, Jerúsalem novam, descendéntem de cælo a Deo, parátam sicut sponsam ornátam viro suo.

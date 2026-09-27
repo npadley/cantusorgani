@@ -57,6 +57,7 @@ Data and code from elsewhere, each pinned to its source:
 | **Chant notation** the site publishes — the GABC of every chant a Proper part names, leaving out those GregoBase flags copyrighted | `data/chants.json` | yes | `uv run noh chants` (after `noh catalog`) |
 | **Exsurge** — draws the notation in the browser ([bbloomf/exsurge](https://github.com/bbloomf/exsurge), MIT) | `web/public/vendor/exsurge/`, with its licence and source commit | yes | replace `exsurge.min.js` from a newer commit and update `SOURCE` |
 
+| **Divinum Officium** Vespers texts (1960) — each office's antiphons with their psalms, Magnificat antiphons, hymn, chapter, and the psalms' verses ([DivinumOfficium/divinum-officium](https://github.com/DivinumOfficium/divinum-officium), MIT) | `data/divinum-officium-vespers.json`, with the source commit and a content sha256 | yes | `uv run noh officium-fetch [--commit SHA]`; never hand-edit |
 | **vesperale** Sunday table — each Sunday's Magnificat antiphon and tone from [jsrjenkins/vesperale](https://github.com/jsrjenkins/vesperale)'s `calendar.sty`, a cross-check on NOH8's own tone labels | `data/vesperale-lineup.json`, with the source commit and a content sha256 | yes | `uv run noh vesperale-fetch [--commit SHA]`; never hand-edit |
 
 A reader can show the chant above each part of a Proper ("Show the chant with
@@ -65,38 +66,52 @@ link to GregoBase. Licensing: `data/LICENSES.md`.
 
 ## Vespers
 
-Each green Sunday (after Epiphany and after Pentecost) has a page, `/vespers/<date>/`,
-with II Vespers in the order sung: *Deus in adjutorium*, five antiphons and psalms
-(each antiphon again after its psalm), the chapter, *Lucis Creator*, the versicle,
-the Magnificat antiphon and the Magnificat in its tone, the Benedicamus and the
-Marian antiphon. The items are NOH8's own systems, reviewed by hand in
-`data/vespers-noh8.yml`; the site's 1962 calendar decides which Sunday a date keeps.
+Every Sunday, and every feast NOH8 prints, has its Vespers in the order sung at
+`/vespers/<date>/` (II Vespers; on 24 December, I Vespers of Christmas), and each I
+class feast its I Vespers, sung the evening before, at `/vespers/<date>/i/`:
+*Deus in adjutorium* (with *Laus tibi* from Septuagesima), the five antiphons each
+before and after its psalm (one Alleluia antiphon in Paschaltide), the chapter's
+response (*Haec dies* in the Easter octave), the hymn and versicle, the Magnificat
+antiphon (the O antiphons from 17 December), the Magnificat, the Benedicamus and the
+Marian antiphon of the season. The site publishes a rolling window: last year and
+five ahead.
 
-NOH8 prints the Magnificat itself only in VIII G. For other tones the psalm formula
-in the same tone and ending is used (the tone bank in `data/vespers-noh8.yml`); a
-Sunday whose Magnificat tone NOH8 does not print at all is held back, not guessed.
+- **What is sung** comes from Divinum Officium (1960), vendored in
+  `data/divinum-officium-vespers.json`; the site's 1962 calendar decides the office.
+- **The music** is NOH8's own systems: the Sunday psalter, Marian antiphons, tone bank
+  and seasons in `data/vespers-noh8.yml`, every other office in
+  `data/vespers-offices.yml` (both reviewed by hand; every tone read from the page).
+- **Psalms**: played from the full psalm where NOH8 prints it in that tone, else from a
+  printed formula in the same tone and ending (labelled, with the psalm's text below);
+  a tone NOH8 never prints is said so on the page, never guessed.
+- NOH8 prints the Magnificat only in VIII G and VIII G*; other tones use the psalm
+  formula in the same tone, or a note.
 
 Rebuild, after `noh catalog` or a change to the reviewed items:
 
 ```bash
+uv run noh officium-fetch         # only to move to a newer Divinum Officium commit
 uv run noh vesperale-fetch        # only to move to a newer vesperale commit
 uv run noh vespers-lineup         # data/vespers-lineup.json, with a coverage summary
 uv run noh chants                 # picks up the lineup's chants
 ```
 
-Check one Sunday against the book without building the site:
+Check one day against the book without building the site:
 
 ```bash
-uv run noh vespers-lineup --day 2026-11-08
+uv run noh vespers-lineup --day 2026-12-25
 ```
 
-`uv run noh vespers-items` proposes Magnificat antiphons and their tones from the
-headings and a wide margin crop (`data/vespers-noh8.proposed.yml`), for review.
+`uv run noh vespers-items` proposes placements for review: the green Sundays'
+Magnificat antiphons (`data/vespers-noh8.proposed.yml`) and every other office's
+antiphons, Magnificat, hymn and versicle aligned to Divinum Officium's texts
+(`data/vespers-offices.proposed.yml`, each placement with a score).
 
 What the lineup's review entries mean:
 
 | Kind | Meaning | To clear it |
 |---|---|---|
-| `tone_unprinted` | A Sunday's Magnificat tone is printed nowhere in NOH8; the Sunday has no page | Add a `tone_bank` entry from a printed accompaniment in that exact tone and ending, or leave it held back |
+| `tone_unprinted` | Magnificat tones NOH8 prints no accompaniment for; the page shows a note | Add a `psalm_formulas` or `magnificats` entry from a printed accompaniment in that exact tone and ending |
+| `office_unprinted` | A Sunday whose office NOH8 has no section for (the Transfiguration, the Holy Cross, St Michael, St Joseph the Worker) | Nothing, unless another volume prints it |
 | `tone_disagreement` | NOH8's margin and vesperale's table give different tones; NOH8's is used | Confirm against the scan (all four current ones are confirmed: NOH8 is right) |
 | `vesperale_unavailable` | The vendored vesperale table is missing or edited | `uv run noh vesperale-fetch` |

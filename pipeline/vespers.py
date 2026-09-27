@@ -45,7 +45,7 @@ TONES = frozenset({
     "I.D", "I.D2", "I.f", "I.g", "I.g2", "I.g3", "I.a", "I.a2", "I.a3", "II.D",
     "III.a", "III.a2", "III.b", "III.g", "IV.E", "IV.A", "IV.A*", "IV.g", "V.a",
     "VI.F", "VI.C", "VII.a", "VII.b", "VII.c", "VII.c2", "VII.d", "VII.e", "VII.e2",
-    "VIII.G", "VIII.G*", "VIII.c", "peregrinus",
+    "VIII.G", "VIII.G*", "VIII.c", "II.A", "peregrinus",
 })
 _ROMANS = ("VIII", "VII", "VI", "IV", "V", "III", "II", "I")
 # OCR's common readings of a roman mode ("VIILG" = VIII.G, "Vil" = VII).
@@ -90,150 +90,361 @@ def tone_label(tone: str) -> str:
 # ------------------------------------------------------------ reviewed data ---
 
 class VespersDataError(ValueError):
-    """data/vespers-noh8.yml names a system the catalogue lacks, or a tone NOH8 does not print."""
+    """The reviewed items name a system the catalogue lacks, or a tone NOH8 does not print."""
 
 
 @dataclass(frozen=True)
 class Reviewed:
-    doc: dict[str, object]
-    owner: dict[str, str]        # ref -> piece slug
+    doc: dict[str, object]                  # data/vespers-noh8.yml
+    offices: dict[str, dict[str, object]]   # data/vespers-offices.yml
+    texts: dict[str, object]                # Divinum Officium's texts (the psalms)
+    known: frozenset[str]                   # every system in the catalogue
+
+    def office_for(self, key: str, vespers: str) -> tuple[str, dict[str, object]] | None:
+        for oid, o in self.offices.items():
+            if o.get("vespers") == vespers and key in (o.get("keys") or []):
+                return oid, o
+        return None
 
 
-def load_reviewed(path: Path = REVIEWED, catalog_path: Path = CATALOG) -> Reviewed:
-    """The reviewed items, checked: every ref belongs to the piece it names in
-    the current catalogue, and every tone is in TONES."""
+def load_reviewed(path: Path = REVIEWED, catalog_path: Path = CATALOG, offices_path: Path | None = None,
+                  texts_path: Path | None = None) -> Reviewed:
+    """The reviewed items, checked: every system they name is in the current
+    catalogue, and every tone is one NOH8 prints."""
+    from pipeline.officium import VENDORED, OfficiumError, load
+
     doc = yaml.safe_load(path.read_text(encoding="utf-8"))
+    op = offices_path or path.with_name("vespers-offices.yml")
+    offices = (yaml.safe_load(op.read_text(encoding="utf-8")) or {}).get("offices", {}) if op.exists() else {}
+    try:
+        texts = load(texts_path or VENDORED)
+    except OfficiumError:
+        texts = {"psalms": {}}
     catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
-    owner = {r: p["slug"] for p in catalog["pieces"] for r in p["systems"]}
+    known = frozenset(r for p in catalog["pieces"] for r in p["systems"])
     problems: list[str] = []
 
-    def check(piece: str, refs: list[str], where: str) -> None:
-        for r in refs:
-            if owner.get(r) != piece:
-                problems.append(f"{where}: {r} is {'not in the catalogue' if r not in owner else 'in ' + owner[r]}, "
-                                f"not {piece}")
+    def check(refs: list[str] | None, where: str) -> None:
+        for r in refs or []:
+            if r not in known:
+                problems.append(f"{where}: {r} is not in the catalogue")
 
-    def tone(value: str, where: str) -> None:
-        if value not in TONES:
+    def tone(value: str | None, where: str) -> None:
+        if value is not None and value not in TONES:
             problems.append(f"{where}: tone {value!r} is not one NOH8 prints (pipeline/vespers.py TONES)")
 
     so = doc["sunday_office"]
-    piece = so["piece"]
-    check(piece, so["initium"]["refs"], "sunday_office.initium")
+    check(so["initium"]["refs"], "sunday_office.initium")
     for ps in so["psalms"]:
         tone(ps["tone"], f"psalm {ps['number']}")
-        check(piece, ps["antiphon"]["refs"] + ps["psalm"], f"psalm {ps['number']}")
+        check(ps["antiphon"]["refs"] + ps["psalm"], f"psalm {ps['number']}")
     for name in ("chapter", "hymn", "versicle", "benedicamus"):
-        check(piece, so[name]["refs"], f"sunday_office.{name}")
-    ma = doc["marian_antiphons"]
+        check(so[name]["refs"], f"sunday_office.{name}")
     for name in ("alma", "ave", "regina", "salve"):
-        check(ma["piece"], ma[name]["refs"] + ma[name]["versicle"], f"marian_antiphons.{name}")
+        m = doc["marian_antiphons"][name]
+        check(m["refs"] + m["versicle"] + m.get("versicle_advent", []), f"marian_antiphons.{name}")
     for key, entry in doc["magnificat_antiphons"].items():
         tone(entry["tone"], key)
-        check(entry["piece"], entry["refs"], key)
-    for key, entry in doc["tone_bank"].items():
-        tone(key, f"tone_bank.{key}")
-        check(entry["piece"], entry["refs"], f"tone_bank.{key}")
+        check(entry["refs"], key)
+    for entry in doc.get("magnificats", []) + doc.get("psalm_formulas", []):
+        tone(entry["tone"], f"tone bank {entry['tone']}")
+        check(entry["refs"], f"tone bank {entry['tone']}")
+    for season, parts in (doc.get("seasons") or {}).items():
+        for name, entry in parts.items():
+            check(entry.get("refs"), f"seasons.{season}.{name}")
+    for day, entry in (doc.get("o_antiphons") or {}).get("days", {}).items():
+        check(entry["refs"], f"o_antiphons.{day}")
+    for oid, o in offices.items():
+        for a in o.get("antiphons") if isinstance(o.get("antiphons"), list) else []:
+            tone(a.get("tone"), f"{oid} antiphon {a.get('n')}")
+            check(a.get("refs"), f"{oid} antiphon {a.get('n')}")
+            check(a.get("opening"), f"{oid} antiphon {a.get('n')} opening")
+        for name in ("magnificat", "hymn"):
+            if isinstance(o.get(name), dict):
+                tone(o[name].get("tone") if name == "magnificat" else None, f"{oid} {name}")
+                check(o[name].get("refs"), f"{oid} {name}")
+        check(o.get("versicle"), f"{oid} versicle")
     if problems:
-        raise VespersDataError(f"{path.name}:\n  " + "\n  ".join(problems)
+        raise VespersDataError(f"{path.name} / {op.name}:\n  " + "\n  ".join(problems)
                                + "\n  Fix the entry against the scan, or re-run noh catalog if the "
                                  "catalogue is out of date.")
-    return Reviewed(doc, owner)
+    return Reviewed(doc, offices, texts, known)
+
+
+# ---------------------------------------------------------------- calendar ---
+
+def easter(year: int) -> date:
+    """Easter Sunday (Gregorian), by the anonymous algorithm."""
+    a, b, c = year % 19, year // 100, year % 100
+    d, e = b // 4, b % 4
+    f = (b + 8) // 25
+    g = (b - f + 1) // 3
+    h = (19 * a + b - d - g + 15) % 30
+    i, k = c // 4, c % 4
+    l_ = (32 + 2 * e + 2 * i - h - k) % 7
+    m = (a + 11 * h + 22 * l_) // 451
+    month = (h + l_ - 7 * m + 114) // 31
+    return date(year, month, (h + l_ - 7 * m + 114) % 31 + 1)
+
+
+def advent_start(year: int) -> date:
+    """The first Sunday of Advent: the Sunday from 27 November to 3 December."""
+    d = date(year, 11, 27)
+    return date.fromordinal(d.toordinal() + (6 - d.weekday()) % 7)
+
+
+def marian_for(day: date) -> str:
+    """The final antiphon of Our Lady sung that day (1962): Alma from Advent to
+    the Purification (2 February), Ave Regina from 3 February to Holy Week,
+    Regina caeli from Easter to the Saturday after Pentecost, Salve Regina from
+    Trinity to Advent."""
+    e = easter(day.year)
+    if day >= advent_start(day.year) or (day.month, day.day) <= (2, 2):
+        return "alma"
+    if day < date.fromordinal(e.toordinal() - 3):
+        return "ave"
+    if day <= date.fromordinal(e.toordinal() + 55):
+        return "regina"
+    return "salve"
+
+
+def laus_tibi(day: date) -> bool:
+    """From Septuagesima to Holy Saturday, "Laus tibi, Domine" replaces Alleluia."""
+    e = easter(day.year).toordinal()
+    return e - 63 <= day.toordinal() < e
+
+
+def season_of(key: str) -> str | None:
+    """The season whose hymn and versicle a Sunday takes, where its office has
+    none of its own."""
+    if key.startswith("tempora:Adv"):
+        return "advent"
+    if re.match(r"tempora:Quad[1-4]-0", key):
+        return "lent"
+    if re.match(r"tempora:Quad[56]-0", key):
+        return "passiontide"
+    if re.match(r"tempora:Pasc[1-5]-0", key):
+        return "easter"
+    if key.startswith("tempora:Pasc7"):
+        return "pentecost"
+    return None
+
+
+def normal_key(key: str) -> str:
+    """"tempora:Pent02-0r" -> "tempora:Pent02-0"; "sancti:12-25m3" -> "sancti:12-25"."""
+    return re.sub(r"m\d$", "", key.removesuffix("r"))
 
 
 # --------------------------------------------------------------- the lineup ---
 
-def marian_for(day: date) -> str:
-    """The final antiphon of Our Lady sung that day (1962): Alma from Advent to
-    the Purification (2 February), Ave Regina to Holy Week, Regina caeli in
-    Eastertide, Salve Regina from Trinity to Advent. Green Sundays only need the
-    first, second and fourth."""
-    if day.month == 1 or (day.month == 2 and day.day <= 2):
-        return "alma"
-    if day.month in (2, 3):
-        return "ave"
-    return "salve"
+def _source(refs: list[str], **extra: object) -> dict[str, object]:
+    return {"type": "printed", "refs": list(refs), **extra}
 
 
-def _source(piece: str, refs: list[str], **extra: object) -> dict[str, object]:
-    return {"type": "printed", "piece": piece, "refs": list(refs), **extra}
+def _note(text: str) -> dict[str, object]:
+    return {"type": "note", "text": text}
 
 
 def _item(key: str, group: str, kind: str, label: str, source: dict[str, object],
           tone: str | None = None, chant: int | None = None, number: int | None = None,
-          repeat: bool = False) -> dict[str, object]:
-    return {"item_key": key, "group": group, "kind": kind, "number": number, "label": label,
-            "tone": tone, "source": source, "chant": chant, "repeat": repeat}
+          repeat: bool = False, psalm_text: list[str] | None = None) -> dict[str, object]:
+    item: dict[str, object] = {"item_key": key, "group": group, "kind": kind, "number": number, "label": label,
+                               "tone": tone, "source": source, "chant": chant, "repeat": repeat}
+    if psalm_text:
+        item["psalm_text"] = psalm_text
+    return item
 
 
-def sunday_lineup(day: date, office: str, reviewed: Reviewed,
-                  commemorations: list[str] | None = None
-                  ) -> tuple[list[dict[str, object]] | None, str | None]:
-    """II Vespers of a green Sunday, item by item; or (None, why) when it is held back."""
+PSALM_TITLES = {109: "Dixit Dominus", 110: "Confitebor tibi", 111: "Beatus vir", 112: "Laudate pueri",
+                113: "In exitu Israel", 115: "Credidi", 116: "Laudate Dominum", 121: "Laetatus sum",
+                125: "In convertendo", 126: "Nisi Dominus", 127: "Beati omnes", 129: "De profundis",
+                131: "Memento Domine", 138: "Domine probasti me", 147: "Lauda Jerusalem"}
+
+
+def psalm_music(reviewed: Reviewed, psalm: int, tone: str | None, opening: list[str] | None
+                ) -> tuple[dict[str, object], bool]:
+    """The accompaniment a psalm is played from, and whether its text should be
+    printed beside it: the Sunday psalter's full psalm when NOH8 prints this
+    psalm in this tone; the office's own printed opening; a printed formula in
+    the same tone and ending (the same psalm first); otherwise a note."""
+    for ps in reviewed.doc["sunday_office"]["psalms"]:      # type: ignore[index]
+        if ps["number"] == psalm and ps["tone"] == tone:
+            return _source(ps["psalm"]), False
+    if opening:
+        return _source(opening, opening_only=True), True
+    if tone:
+        formulas = [f for f in reviewed.doc.get("psalm_formulas", []) if f["tone"] == tone]   # type: ignore[union-attr]
+        formulas.sort(key=lambda f: f["psalm"] != psalm)
+        if formulas:
+            f = formulas[0]
+            return ({"type": "bank", "refs": list(f["refs"]), "bank_kind": "psalm",
+                     "bank_label": f"Psalm {f['psalm']} in {tone_label(tone)}",
+                     "borrowed_from": f"{f['source']}, p. {f['page']}"}, True)
+        return _note(f"No accompaniment in {tone_label(tone)} is printed in NOH VIII; "
+                     f"the psalm is sung in that tone."), True
+    return _note("The tone of this psalm is not printed."), True
+
+
+def magnificat_music(reviewed: Reviewed, tone: str | None) -> dict[str, object]:
     doc = reviewed.doc
-    key = office.removesuffix("r")
-    antiphon = doc["magnificat_antiphons"].get(key)   # type: ignore[union-attr]
-    if antiphon is None:
-        return None, f"{key}: no Magnificat antiphon in data/vespers-noh8.yml"
-    bank = doc["tone_bank"].get(antiphon["tone"])    # type: ignore[union-attr]
-    if bank is None:
-        return None, (f"Magnificat in {tone_label(antiphon['tone'])} ({key}) has no printed "
-                      f"Magnificat or psalm formula in that tone in NOH8")
-    so = doc["sunday_office"]
-    piece = so["piece"]
-    base = f"{day.isoformat()}/{key}"
+    for m in doc.get("magnificats", []):                   # type: ignore[union-attr]
+        if m["tone"] == tone:
+            return {"type": "bank", "refs": list(m["refs"]), "bank_kind": "magnificat", "bank_label": m["label"],
+                    "borrowed_from": f"{m['source']}, p. {m['page']}"}
+    if tone:
+        formulas = [f for f in doc.get("psalm_formulas", []) if f["tone"] == tone]   # type: ignore[union-attr]
+        if formulas:
+            f = formulas[0]
+            return {"type": "bank", "refs": list(f["refs"]), "bank_kind": "psalm",
+                    "bank_label": f"Psalm {f['psalm']} in {tone_label(tone)}",
+                    "borrowed_from": f"{f['source']}, p. {f['page']}"}
+        return _note(f"No accompaniment for the Magnificat in {tone_label(tone)} is printed in NOH VIII; "
+                     f"sing it unaccompanied or improvise in {tone_label(tone)}.")
+    return _note("The tone of the Magnificat is not printed.")
+
+
+def _psalm_verses(reviewed: Reviewed, psalm: int) -> list[str]:
+    return list(reviewed.texts.get("psalms", {}).get(str(psalm), []))      # type: ignore[union-attr]
+
+
+def build_office(day: date, key: str, vespers: str, reviewed: Reviewed,
+                 commemorations: list[str] | None = None
+                 ) -> tuple[list[dict[str, object]] | None, str | None]:
+    """One Vespers, item by item, in the order sung; or (None, why)."""
+    doc = reviewed.doc
+    so = doc["sunday_office"]                               # type: ignore[index]
+    k = normal_key(key)
+    base = f"{day.isoformat()}/{k}/{vespers}"
+    green = bool(GREEN.match(k)) and vespers == "II"
+    found = None if green else reviewed.office_for(k, vespers)
+    if not green and found is None:
+        return None, f"NOH VIII prints no {vespers} Vespers for {k}"
+    office: dict[str, object] = found[1] if found else {}
+    season = season_of(k)
+    easter_octave = k == "tempora:Pasc0-0"
+    paschal = office.get("antiphons") == "sunday" and season == "easter"
+
     items: list[dict[str, object]] = [
-        _item(f"{base}/initium/1", "initium", "initium", "Deus in adjutorium",
-              _source(piece, so["initium"]["refs"])),
+        _item(f"{base}/initium/1", "initium", "initium", "Deus in adjutorium", _source(so["initium"]["refs"])),
     ]
-    for n, ps in enumerate(so["psalms"], start=1):
+    if laus_tibi(day):
+        items.append(_item(f"{base}/initium/2", "initium", "initium", "Laus tibi, Domine",
+                           _source(["noh8/0032/000"], text="From Septuagesima to Easter, “Laus tibi, Domine, Rex "
+                                                          "aeternae gloriae” is sung in place of Alleluia.")))
+
+    # The psalms, each under its antiphon.
+    if green or office.get("antiphons") == "sunday" and not paschal:
+        rows = [{"n": n, "incipit": ps["antiphon"]["incipit"], "psalm": ps["number"], "tone": ps["tone"],
+                 "refs": ps["antiphon"]["refs"], "chant": ps["antiphon"].get("chant")}
+                for n, ps in enumerate(so["psalms"], start=1)]
+    elif paschal:
+        pa = doc["seasons"]["easter"]["antiphon"]            # type: ignore[index]
+        rows = [{"n": n, "incipit": pa["incipit"], "psalm": p, "tone": pa["tone"], "refs": pa["refs"],
+                 "chant": pa.get("chant"), "single": True} for n, p in enumerate((109, 110, 111, 112, 113), start=1)]
+    else:
+        rows = [dict(r) for r in office["antiphons"]]        # type: ignore[union-attr]
+    for n, row in enumerate(rows, start=1):
         group = f"psalm-{n}"
-        ant = _source(piece, ps["antiphon"]["refs"])
-        items += [
-            _item(f"{base}/antiphon/{n}", group, "antiphon", ps["antiphon"]["incipit"], ant,
-                  ps["tone"], ps["antiphon"].get("chant"), n),
-            _item(f"{base}/psalm/{n}", group, "psalm", f"Psalm {ps['number']}: {ps['title']}",
-                  _source(piece, ps["psalm"]), ps["tone"], None, ps["number"]),
-            _item(f"{base}/antiphon/{n}r", group, "antiphon", ps["antiphon"]["incipit"], ant,
-                  ps["tone"], ps["antiphon"].get("chant"), n, repeat=True),
-        ]
+        psalm = row.get("psalm") or (108 + n)
+        tone = row.get("tone")
+        single = row.get("single")
+        title = PSALM_TITLES.get(int(psalm), f"Psalm {psalm}")
+        if not single or n == 1:
+            if row.get("refs"):
+                items.append(_item(f"{base}/antiphon/{n}", group, "antiphon", str(row["incipit"]),
+                                   _source(row["refs"]), tone, row.get("chant"), n))
+            else:
+                items.append(_item(f"{base}/antiphon/{n}", group, "antiphon", str(row["incipit"]),
+                                   _note("This antiphon is not printed in NOH VIII."), None, None, n))
+        music, with_text = psalm_music(reviewed, int(psalm), tone, row.get("opening"))
+        items.append(_item(f"{base}/psalm/{n}", group, "psalm", f"Psalm {psalm}: {title}", music, tone, None,
+                           int(psalm), psalm_text=_psalm_verses(reviewed, int(psalm)) if with_text else None))
+        if (not single or n == len(rows)) and row.get("refs"):
+                items.append(_item(f"{base}/antiphon/{n}r", group, "antiphon", str(row["incipit"]),
+                                   _source(row["refs"]), tone, row.get("chant"), n, repeat=True))
+
+    if easter_octave:
+        hd = doc["seasons"]["easter_octave"]["haec_dies"]    # type: ignore[index]
+        items.append(_item(f"{base}/chapter/1", "chapter", "chapter", "Haec dies",
+                           _source(hd["refs"], text="In the Easter octave “Haec dies” takes the place of the "
+                                                    "chapter, hymn and versicle.")))
+    else:
+        chapter = office.get("chapter") or so["chapter"]["text"]
+        items.append(_item(f"{base}/chapter/1", "chapter", "chapter", "Chapter",
+                           _source(so["chapter"]["refs"], text=chapter)))
+        seasonal = (doc.get("seasons") or {}).get(season or "", {})     # type: ignore[union-attr]
+        hymn = office.get("hymn") if isinstance(office.get("hymn"), dict) else None
+        if hymn and hymn.get("refs"):
+            items.append(_item(f"{base}/hymn/1", "hymn", "hymn", str(hymn["title"]), _source(hymn["refs"]),
+                               hymn.get("tone"), hymn.get("chant")))
+        elif hymn:
+            items.append(_item(f"{base}/hymn/1", "hymn", "hymn", str(hymn["title"]).rstrip(","),
+                               _note(f"NOH VIII prints no accompaniment for this hymn ({hymn['title']}).")))
+        elif seasonal.get("hymn"):
+            h = seasonal["hymn"]
+            items.append(_item(f"{base}/hymn/1", "hymn", "hymn", h["title"], _source(h["refs"]), h.get("tone")))
+        else:
+            items.append(_item(f"{base}/hymn/1", "hymn", "hymn", so["hymn"]["title"], _source(so["hymn"]["refs"]),
+                               so["hymn"]["tone"], so["hymn"].get("chant")))
+        if office.get("versicle"):
+            items.append(_item(f"{base}/versicle/1", "hymn", "versicle", "Versicle", _source(office["versicle"])))
+        elif seasonal.get("versicle"):
+            v = seasonal["versicle"]
+            items.append(_item(f"{base}/versicle/1", "hymn", "versicle", "Versicle",
+                               _source(v["refs"], text=v.get("text"))))
+        elif green or office.get("antiphons") == "sunday":
+            items.append(_item(f"{base}/versicle/1", "hymn", "versicle", "Versicle",
+                               _source(so["versicle"]["refs"], text=so["versicle"]["text"])))
+        else:
+            items.append(_item(f"{base}/versicle/1", "hymn", "versicle", "Versicle",
+                               _note("The versicle of the feast; NOH VIII does not print it here.")))
+
+    # The Magnificat: an O antiphon from 17 to 23 December.
+    o_days = (doc.get("o_antiphons") or {}).get("days", {})      # type: ignore[union-attr]
+    mag: dict[str, object] | None
+    if f"{day.month:02d}-{day.day:02d}" in o_days and k.startswith("tempora:Adv"):
+        o = o_days[f"{day.month:02d}-{day.day:02d}"]
+        mag = {"incipit": o["incipit"], "tone": doc["o_antiphons"]["tone"], "refs": o["refs"], "chant": o.get("chant")}
+    elif green:
+        mag = doc["magnificat_antiphons"].get(k)             # type: ignore[union-attr]
+    else:
+        mag = office.get("magnificat") if isinstance(office.get("magnificat"), dict) else None
+    if mag is None:
+        return None, f"{k}: no Magnificat antiphon for {vespers} Vespers"
+    mag_tone = mag.get("tone")
+    mag_source = _source(mag["refs"]) if mag.get("refs") else _note("This antiphon is not printed in NOH VIII.")
     items += [
-        _item(f"{base}/chapter/1", "chapter", "chapter", "Chapter",
-              _source(piece, so["chapter"]["refs"], text=so["chapter"]["text"])),
-        _item(f"{base}/hymn/1", "hymn", "hymn", so["hymn"]["title"],
-              _source(piece, so["hymn"]["refs"]), so["hymn"]["tone"], so["hymn"].get("chant")),
-        _item(f"{base}/versicle/1", "hymn", "versicle", "Versicle",
-              _source(piece, so["versicle"]["refs"], text=so["versicle"]["text"])),
-    ]
-    mag = _source(antiphon["piece"], antiphon["refs"])
-    items += [
-        _item(f"{base}/magnificat-antiphon/1", "magnificat", "magnificat-antiphon", antiphon["incipit"],
-              mag, antiphon["tone"], antiphon.get("chant")),
+        _item(f"{base}/magnificat-antiphon/1", "magnificat", "magnificat-antiphon", str(mag["incipit"]),
+              mag_source, mag_tone, mag.get("chant")),
         _item(f"{base}/magnificat/1", "magnificat", "magnificat", "Magnificat",
-              {"type": "bank", "piece": bank["piece"], "refs": list(bank["refs"]),
-               "bank_kind": bank["kind"], "bank_label": bank["label"],
-               "borrowed_from": f"{bank['source']}, p. {bank['page']}"},
-              antiphon["tone"]),
-        _item(f"{base}/magnificat-antiphon/1r", "magnificat", "magnificat-antiphon", antiphon["incipit"],
-              mag, antiphon["tone"], antiphon.get("chant"), repeat=True),
-        _item(f"{base}/oration/1", "oration", "oration", "Collect",
-              {"type": "note", "text": "The collect of the Sunday, as at Mass."}),
+              magnificat_music(reviewed, mag_tone), mag_tone),
     ]
+    if mag.get("refs"):
+        items.append(_item(f"{base}/magnificat-antiphon/1r", "magnificat", "magnificat-antiphon",
+                           str(mag["incipit"]), mag_source, mag_tone, mag.get("chant"), repeat=True))
+    items.append(_item(f"{base}/oration/1", "oration", "oration", "Collect",
+                       _note("The collect of the day, as at Mass.")))
     for c in commemorations or []:
-        items.append(_item(f"{base}/commemoration/{c}", "oration", "commemoration", "Commemoration",
-                           {"type": "note", "text": c}))
-    items.append(_item(f"{base}/benedicamus/1", "benedicamus", "benedicamus", "Benedicamus Domino",
-                       _source(piece, so["benedicamus"]["refs"])))
-    marian = doc["marian_antiphons"]
+        items.append(_item(f"{base}/commemoration/{c}", "oration", "commemoration", "Commemoration", _note(c)))
+    bene = doc["seasons"]["easter_octave"]["benedicamus"]["refs"] if easter_octave else so["benedicamus"]["refs"]
+    items.append(_item(f"{base}/benedicamus/1", "benedicamus", "benedicamus", "Benedicamus Domino", _source(bene)))
+    marian = doc["marian_antiphons"]                        # type: ignore[index]
     which = marian_for(day)
-    m = marian[which]   # type: ignore[index]
+    m = marian[which]
+    versicle = m["versicle_advent"] if which == "alma" and season == "advent" and m.get("versicle_advent") \
+        else m["versicle"]
     items += [
-        _item(f"{base}/marian-antiphon/1", "marian", "marian-antiphon", m["title"],
-              _source(marian["piece"], m["refs"]), None, m.get("chant")),   # type: ignore[index]
-        _item(f"{base}/versicle/2", "marian", "versicle", "Versicle and prayer",
-              _source(marian["piece"], m["versicle"])),   # type: ignore[index]
+        _item(f"{base}/marian-antiphon/1", "marian", "marian-antiphon", m["title"], _source(m["refs"]), None,
+              m.get("chant")),
+        _item(f"{base}/versicle/2", "marian", "versicle", "Versicle and prayer", _source(versicle)),
     ]
     return items, None
+
+
+def sunday_lineup(day: date, office: str, reviewed: Reviewed, commemorations: list[str] | None = None
+                  ) -> tuple[list[dict[str, object]] | None, str | None]:
+    """II Vespers of a Sunday (kept for callers of release 1)."""
+    return build_office(day, office, "II", reviewed, commemorations)
 
 
 def calendar_days(calendar_dir: Path = CALENDAR) -> list[tuple[date, dict[str, list[str]]]]:
@@ -245,33 +456,73 @@ def calendar_days(calendar_dir: Path = CALENDAR) -> list[tuple[date, dict[str, l
     return out
 
 
+def ranks(calendar_dir: Path = CALENDAR) -> dict[str, int]:
+    """Each calendar key's class (1 = I class), from data/calendar/days.json."""
+    path = calendar_dir / "days.json"
+    if not path.exists():
+        return {}
+    return {k: int(v.get("rank", 4)) for k, v in json.loads(path.read_text(encoding="utf-8")).items()}
+
+
 def catalog_sha256(catalog_path: Path = CATALOG) -> str:
     return hashlib.sha256(catalog_path.read_bytes()).hexdigest()
 
 
 def build_lineup(reviewed: Reviewed, days: list[tuple[date, dict[str, list[str]]]],
-                 catalog_digest: str) -> tuple[dict[str, object], list[dict[str, object]]]:
-    """The lineup document and the review entries (held-back Sundays)."""
+                 catalog_digest: str, rank: dict[str, int] | None = None
+                 ) -> tuple[dict[str, object], list[dict[str, object]]]:
+    """The lineup document and its review entries.
+
+    Every Sunday, and every feast NOH8 prints, gets its II Vespers (on the
+    Vigil of Christmas, I Vespers of Christmas: that evening's office). A I
+    class feast also gets I Vespers, sung the evening before, at
+    /vespers/<feast date>/i/."""
+    rank = rank or {}
     out: dict[str, object] = {}
+    first: dict[str, object] = {}
     held: dict[str, str] = {}
     review: list[dict[str, object]] = []
-    for day, entry in days:
+    for i, (day, entry) in enumerate(days):
         celebration = entry.get("celebration") or []
-        office = next((c for c in celebration if GREEN.match(c)), None)
-        if office is None or day.weekday() != 6:
+        if not celebration:
             continue
-        items, why = sunday_lineup(day, office, reviewed, list(entry.get("commemoration") or []))
-        if items is None:
-            held[day.isoformat()] = why or ""
+        key = normal_key(celebration[0])
+        commemorations = list(entry.get("commemoration") or [])
+        if key == "sancti:12-24":
+            items, why = build_office(day, "sancti:12-25", "I", reviewed, commemorations)
+            if items:
+                out[day.isoformat()] = {"office": "sancti:12-25", "vespers": "I", "items": items}
             continue
-        out[day.isoformat()] = {"office": office, "vespers": "II", "items": items}
+        wanted = day.weekday() == 6 or reviewed.office_for(key, "II") is not None
+        if wanted:
+            items, why = build_office(day, key, "II", reviewed, commemorations)
+            if items is None:
+                if day.weekday() == 6:
+                    held[day.isoformat()] = why or ""
+            else:
+                out[day.isoformat()] = {"office": key, "vespers": "II", "items": items}
+        # I Vespers of tomorrow's I class feast, sung this evening.
+        if i + 1 < len(days):
+            tomorrow, t_entry = days[i + 1]
+            t_key = normal_key((t_entry.get("celebration") or [""])[0])
+            if t_key != "sancti:12-25" and rank.get((t_entry.get("celebration") or [""])[0], rank.get(t_key, 4)) == 1:
+                items, _ = build_office(tomorrow, t_key, "I", reviewed, [])
+                if items:
+                    first[tomorrow.isoformat()] = {"office": t_key, "vespers": "I", "evening_of": day.isoformat(),
+                                                   "items": items}
     for why in sorted(set(held.values())):
+        review.append({"piece": "vespers", "kind": "office_unprinted", "why": f"{why}; those Sundays have no page",
+                       "fix": "NOH VIII has no section for this office: nothing to add unless another volume prints it"})
+    unprinted = sorted({i["tone"] for d in out.values() for i in d["items"]           # type: ignore[union-attr]
+                        if i["kind"] == "magnificat" and i["source"]["type"] == "note" and i["tone"]})
+    if unprinted:
         review.append({"piece": "vespers", "kind": "tone_unprinted",
-                       "why": f"{why}; those Sundays have no Vespers page",
-                       "fix": "add a bank entry in data/vespers-noh8.yml tone_bank from a printed "
-                              "accompaniment in that exact tone and ending, or leave the Sunday held back"})
+                       "why": "Magnificat tones NOH VIII prints no accompaniment for (the page shows a note): "
+                              + ", ".join(unprinted),
+                       "fix": "add a psalm_formulas or magnificats entry from a printed accompaniment in that "
+                              "exact tone and ending"})
     doc = {"schema_version": SCHEMA_VERSION, "catalog_sha256": catalog_digest,
-           "days": out, "held_back": held}
+           "days": out, "first_vespers": first, "held_back": held}
     return doc, review
 
 
@@ -293,11 +544,23 @@ def tone_disagreements(reviewed: Reviewed, vesperale: dict[str, dict[str, str]])
     return out
 
 
+# The site publishes a rolling window of years: the last one, and five ahead.
+YEARS_BEHIND, YEARS_AHEAD = 1, 5
+
+
+def window(days: list[tuple[date, dict[str, list[str]]]], today: date | None = None
+           ) -> list[tuple[date, dict[str, list[str]]]]:
+    from datetime import UTC, datetime
+    year = (today or datetime.now(UTC).date()).year
+    return [(d, e) for d, e in days if year - YEARS_BEHIND <= d.year <= year + YEARS_AHEAD]
+
+
 def write_lineup(path: Path = LINEUP, reviewed_path: Path = REVIEWED,
-                 catalog_path: Path = CATALOG, calendar_dir: Path = CALENDAR
+                 catalog_path: Path = CATALOG, calendar_dir: Path = CALENDAR, today: date | None = None
                  ) -> tuple[Path, dict[str, object], list[dict[str, object]]]:
     reviewed = load_reviewed(reviewed_path, catalog_path)
-    doc, review = build_lineup(reviewed, calendar_days(calendar_dir), catalog_sha256(catalog_path))
+    doc, review = build_lineup(reviewed, window(calendar_days(calendar_dir), today), catalog_sha256(catalog_path),
+                               ranks(calendar_dir))
     from pipeline.vesperale import VesperaleIntegrityError, load_magnificat
     try:
         review += tone_disagreements(reviewed, load_magnificat())

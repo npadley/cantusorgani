@@ -1,5 +1,5 @@
 import raw from "../../../data/vespers-lineup.json";
-import { pieceBySlug, systemUrlStem } from "./catalog";
+import { allPieces, systemUrlStem } from "./catalog";
 import type { Piece } from "./catalog";
 import type { ExportSegment } from "./exportParts";
 
@@ -19,8 +19,10 @@ export const ITEM_KINDS = [
 export type ItemKind = (typeof ITEM_KINDS)[number];
 
 export type ItemSource =
-  | { readonly type: "printed"; readonly piece: string; readonly refs: readonly string[]; readonly text: string | null }
-  | { readonly type: "bank"; readonly piece: string; readonly refs: readonly string[];
+  | { readonly type: "printed"; readonly refs: readonly string[]; readonly text: string | null;
+      /** Only the first verses are printed (Advent I and II): continue to the formula. */
+      readonly openingOnly: boolean }
+  | { readonly type: "bank"; readonly refs: readonly string[];
       readonly bankKind: "magnificat" | "psalm"; readonly bankLabel: string; readonly borrowedFrom: string }
   | { readonly type: "note"; readonly text: string };
 
@@ -37,17 +39,23 @@ export interface LineupItem {
   readonly chant: number | null;
   /** The antiphon sung again after its psalm or the Magnificat. */
   readonly repeat: boolean;
+  /** A psalm's verses (Divinum Officium), where NOH prints only a formula. */
+  readonly psalmText: readonly string[];
 }
 
 export interface LineupDay {
   readonly date: string;
   readonly office: string;
   readonly vespers: "I" | "II";
+  /** I Vespers: the evening (the day before) it is sung. */
+  readonly eveningOf: string | null;
   readonly items: readonly LineupItem[];
 }
 
 export interface Lineup {
   readonly days: ReadonlyMap<string, LineupDay>;
+  /** I Vespers of a I class feast, keyed by the feast's date. */
+  readonly firstVespers: ReadonlyMap<string, LineupDay>;
   /** Dates held back, and why (a Magnificat tone NOH8 does not print). */
   readonly heldBack: ReadonlyMap<string, string>;
 }
@@ -69,12 +77,12 @@ function refs(value: unknown, where: string): readonly string[] {
 function parseSource(s: Json, where: string): ItemSource {
   switch (s["type"]) {
     case "printed":
-      return { type: "printed", piece: str(s["piece"], where), refs: refs(s["refs"], where),
-               text: typeof s["text"] === "string" ? s["text"] : null };
+      return { type: "printed", refs: refs(s["refs"], where),
+               text: typeof s["text"] === "string" ? s["text"] : null, openingOnly: s["opening_only"] === true };
     case "bank": {
       const kind = s["bank_kind"];
       if (kind !== "magnificat" && kind !== "psalm") throw new Error(`vespers lineup: ${where} bank_kind ${String(kind)}`);
-      return { type: "bank", piece: str(s["piece"], where), refs: refs(s["refs"], where), bankKind: kind,
+      return { type: "bank", refs: refs(s["refs"], where), bankKind: kind,
                bankLabel: str(s["bank_label"], where), borrowedFrom: str(s["borrowed_from"], where) };
     }
     case "note":
@@ -98,7 +106,20 @@ function parseItem(i: Json, where: string): LineupItem {
     source: parseSource((i["source"] ?? {}) as Json, `${where} source`),
     chant: typeof chant === "number" && Number.isInteger(chant) && chant > 0 ? chant : null,
     repeat: i["repeat"] === true,
+    psalmText: Array.isArray(i["psalm_text"]) ? (i["psalm_text"] as unknown[]).filter((v): v is string => typeof v === "string") : [],
   };
+}
+
+function parseDays(raw: Record<string, Json>): Map<string, LineupDay> {
+  const days = new Map<string, LineupDay>();
+  for (const [date, d] of Object.entries(raw)) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error(`vespers lineup: bad date ${date}`);
+    const vespers = d["vespers"] === "I" ? "I" : "II";
+    const items = ((d["items"] ?? []) as Json[]).map((i, n) => parseItem(i, `${date} item ${n + 1}`));
+    days.set(date, { date, office: str(d["office"], date), vespers,
+                     eveningOf: typeof d["evening_of"] === "string" ? d["evening_of"] : null, items });
+  }
+  return days;
 }
 
 /** Validates the lineup file the way parseCatalog validates the catalogue. */
@@ -107,15 +128,10 @@ export function parseLineup(input: unknown): Lineup {
   if (doc["schema_version"] !== LINEUP_SCHEMA_VERSION) {
     throw new Error(`vespers lineup schema_version ${String(doc["schema_version"])}, expected ${LINEUP_SCHEMA_VERSION}`);
   }
-  const days = new Map<string, LineupDay>();
-  for (const [date, d] of Object.entries((doc["days"] ?? {}) as Record<string, Json>)) {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error(`vespers lineup: bad date ${date}`);
-    const vespers = d["vespers"] === "I" ? "I" : "II";
-    const items = ((d["items"] ?? []) as Json[]).map((i, n) => parseItem(i, `${date} item ${n + 1}`));
-    days.set(date, { date, office: str(d["office"], date), vespers, items });
-  }
+  const days = parseDays((doc["days"] ?? {}) as Record<string, Json>);
+  const firstVespers = parseDays((doc["first_vespers"] ?? {}) as Record<string, Json>);
   const held = new Map(Object.entries((doc["held_back"] ?? {}) as Record<string, string>));
-  return { days, heldBack: held };
+  return { days, firstVespers, heldBack: held };
 }
 
 let cached: Lineup | null = null;
@@ -128,16 +144,34 @@ export function lineupFor(date: string, lineup: Lineup = loadLineup()): LineupDa
   return lineup.days.get(date);
 }
 
+/** The calendar's key as the lineup keys offices: no "r", no Mass number. */
+export function normalKey(key: string): string {
+  return key.replace(/r$/, "").replace(/m\d$/, "");
+}
+
 /** The first date on or after `from` (ISO) whose lineup keeps `office`. */
 export function nextLineupDate(office: string, from: string, lineup: Lineup = loadLineup()): string | null {
-  const dates = [...lineup.days.values()].filter((d) => d.office === office || d.office === `${office}r`)
+  const want = normalKey(office);
+  const dates = [...lineup.days.values()].filter((d) => d.office === want && d.vespers === "II")
     .map((d) => d.date).sort();
   return dates.find((d) => d >= from) ?? null;
 }
 
-/** The green Sundays release 1 covers (after Epiphany II-VI, after Pentecost II-XXIV). */
-export function isGreenSunday(key: string): boolean {
-  return /^tempora:(Epi[2-6]|Pent(?:0[2-9]|1\d|2[0-4]))-0r?$/.test(key);
+/** The first I Vespers of `office` on or after `from`, keyed by the feast's date. */
+export function nextFirstVespers(office: string, from: string, lineup: Lineup = loadLineup()): string | null {
+  const want = normalKey(office);
+  const dates = [...lineup.firstVespers.values()].filter((d) => d.office === want).map((d) => d.date).sort();
+  return dates.find((d) => d >= from) ?? null;
+}
+
+/** Where a lineup day's page is: /vespers/<date>/ (II), /vespers/<date>/i/ (I). */
+export function lineupHref(day: LineupDay): string {
+  return day.eveningOf ? `/vespers/${day.date}/i/` : `/vespers/${day.date}/`;
+}
+
+/** A Sunday of the Proper of the Time ("tempora:Pent15-0"). */
+export function isSunday(key: string): boolean {
+  return /^tempora:\w+-0r?$/.test(key);
 }
 
 // ------------------------------------------------------------ presentation ---
@@ -223,7 +257,8 @@ export function itemHeading(item: LineupItem, section: Section): string | null {
 export function consoleLine(day: LineupDay): string {
   const psalms = day.items.filter((i) => i.kind === "psalm");
   const numbers = psalms.map((p) => p.number).filter((n): n is number => n !== null);
-  const span = numbers.length > 1 ? `${numbers[0]}–${numbers[numbers.length - 1]}` : String(numbers[0] ?? "");
+  const consecutive = numbers.every((n, i) => i === 0 || n === (numbers[i - 1] ?? 0) + 1);
+  const span = numbers.length > 1 && consecutive ? `${numbers[0]}–${numbers[numbers.length - 1]}` : numbers.join(", ");
   const tones = psalms.map((p) => (p.tone ? toneLabel(p.tone) : "?")).join(", ");
   const mag = day.items.find((i) => i.kind === "magnificat");
   const marian = day.items.find((i) => i.kind === "marian-antiphon");
@@ -238,9 +273,18 @@ export function bankNote(item: LineupItem): string | null {
   if (item.source.bankKind === "magnificat") {
     return `Magnificat in ${tone}, as printed for ${item.source.borrowedFrom}.`;
   }
+  if (item.kind === "psalm") {
+    return `NOH VIII does not print this psalm in ${tone}: the formula in the same tone and ending serves — `
+      + `${item.source.bankLabel}, as printed for ${item.source.borrowedFrom}.`;
+  }
   return `NOH VIII prints no Magnificat in ${tone}: the psalm formula in the same tone and ending serves — `
     + `${item.source.bankLabel}, as printed for ${item.source.borrowedFrom}. The Magnificat repeats the `
     + `intonation at every verse.`;
+}
+
+/** Whether a psalm item shows only a formula to continue (a bank entry or a printed opening). */
+export function isFormula(item: LineupItem): boolean {
+  return item.source.type === "bank" || (item.source.type === "printed" && item.source.openingOnly);
 }
 
 export interface ItemSystem {
@@ -250,16 +294,25 @@ export interface ItemSystem {
   readonly aspect: readonly [number, number];
 }
 
-/** The systems an item shows, resolved against the catalogue. */
+let owners: Map<string, { piece: Piece; index: number }> | null = null;
+function ownerOf(ref: string): { piece: Piece; index: number } | undefined {
+  if (!owners) {
+    owners = new Map();
+    for (const piece of allPieces()) piece.systems.forEach((r, index) => owners?.set(r, { piece, index }));
+  }
+  return owners.get(ref);
+}
+
+/** The systems an item shows, resolved against the catalogue (an item may
+ * run across two catalogued pieces: Veni Creator). */
 export function itemSystems(item: LineupItem): readonly ItemSystem[] {
   if (item.source.type === "note") return [];
-  const piece = pieceBySlug(item.source.piece);
-  if (!piece) return [];
   return item.source.refs.flatMap((ref) => {
-    const i = piece.systems.indexOf(ref);
-    if (i < 0) return [];
-    const aspect = piece.systemAspect[i] ?? [1600, 400];
-    return [{ piece, ref, stem: systemUrlStem(piece, i), aspect: [aspect[0], aspect[1]] as const }];
+    const owner = ownerOf(ref);
+    if (!owner) return [];
+    const aspect = owner.piece.systemAspect[owner.index] ?? [1600, 400];
+    return [{ piece: owner.piece, ref, stem: systemUrlStem(owner.piece, owner.index),
+              aspect: [aspect[0], aspect[1]] as const }];
   });
 }
 

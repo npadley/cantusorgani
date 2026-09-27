@@ -2,7 +2,7 @@
 
 **Required Skill**: executing-plans
 **Design doc**: `docs/claudekit/specs/2026-09-07-nova-organi-harmonia-design.md`
-**Status**: release 1 built 2026-09-27 (see "Release 1 as built"). Written 2026-09-27.
+**Status**: releases 1-3 built 2026-09-27 (see "As built"); release 4 (NOH7) not started. Written 2026-09-27.
 
 ## Goal
 
@@ -624,3 +624,29 @@ not by order alone.
   each mode checked against NOH's tone; the Marian antiphons' solemn tones and *Lucis
   Creator*'s melody were checked by eye. *Praeceptor* (Pent IV) and *Simile est
   regnum* (Epi VI) have no Roman-edition transcription in GregoBase: no chant.
+
+## Releases 2-3 as built (2026-09-27)
+
+- **Owner's decisions** (2026-09-27): build everything, skip the demand check; a Sunday
+  whose Magnificat tone NOH8 does not print gets its page with a note (the plan's state
+  (d)) rather than being held back.
+- **No other accompaniment was found.** NOH's seven volumes print no further Magnificat
+  (NOH4's "Magnificat anima mea" is a Tract) and no psalm formulas with endings outside
+  Advent I-II, the Sunday psalter and Compline. Of the public-domain alternatives, the
+  Sarum tones (1905) use other endings, and Wagner's Vatican-edition *Organum comitans
+  ad Vesperale* is available only behind Corpus Christi Watershed's subscription.
+- **Divinum Officium** is vendored (`noh officium-fetch`); the resolver reads a
+  feast's own sections before its Common's (All Saints' II Vespers are its own
+  antiphons, not the Common's).
+- **The offices** (57, from Advent to All Saints and the Dedication) were aligned by
+  `noh vespers-items` -- every DO antiphon read against NOH8's text layer, a numbered
+  margin label preferred in the office's own section -- and reviewed: ten placements
+  by hand, and all 222 antiphon and Magnificat tones read from the page by eye (the OCR
+  read "VIII. c" as "VII. e" throughout).
+- **Rules**: Laus tibi from Septuagesima; one Alleluia antiphon with every psalm in VII
+  c2 in Paschaltide; Haec dies and the Alleluia Benedicamus in the Easter octave; the O
+  antiphons from 17 December; the Marian antiphon by season; I Vespers of I class feasts
+  at `/vespers/<date>/i/`, and a note on the day's own page.
+- **Coverage** (2025-2031): 468 Vespers by date, 110 I Vespers; 4 Sundays held back
+  (feasts NOH8 has no section for). Chant: 297 of 307 office antiphons and Magnificat
+  antiphons matched by words, mode and edition (Liber Usualis, Liber antiphonarius).

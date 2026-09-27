@@ -2,7 +2,7 @@
 import { volumeLabel } from "../lib/catalog";
 import { annotationFor, chantEntry } from "../lib/chants";
 import { gregobaseUrl } from "../lib/catalog";
-import { bankNote, itemHeading, itemSystems, sections, spokenTone, toneLabel, widestSystem } from "../lib/vespers";
+import { bankNote, isFormula, itemHeading, itemSystems, sections, spokenTone, toneLabel, widestSystem } from "../lib/vespers";
 import type { LineupDay } from "../lib/vespers";
 
 // A Vespers lineup: slices from several pieces (the Sunday psalter, the day's
@@ -82,8 +82,16 @@ const secs = sections(day);
                   ))}
                 </div>
               )}
-              {item.source.type === "bank" && item.source.bankKind === "psalm" && item.tone && (
+              {isFormula(item) && !(item.source.type === "bank" && item.source.bankKind === "magnificat") && item.tone && (
                 <p class="continue ui small">Continue every verse to this formula in {toneLabel(item.tone)}, then <em>Gloria Patri</em>.</p>
+              )}
+              {item.psalmText.length > 0 && (
+                <details class="psalm-text">
+                  <summary class="ui small">The text of {item.label.replace(/:.*$/, "")}</summary>
+                  <ol>
+                    {item.psalmText.map((verse) => <li>{verse}</li>)}
+                  </ol>
+                </details>
               )}
             </div>
           );
@@ -110,6 +118,10 @@ const secs = sections(day);
   /* A note is quiet, not a warning: a chapter sung unaccompanied is not a fault. */
   .note { margin: 0 0 var(--s-3); padding-left: var(--s-3); border-left: 2px solid var(--rule); }
   .provenance, .continue { margin: 0 0 var(--s-2); }
+  .psalm-text { margin: 0 0 var(--s-4); }
+  .psalm-text summary { cursor: pointer; min-height: var(--tap-min); display: flex; align-items: center; }
+  .psalm-text ol { margin: var(--s-2) 0 0; padding-left: var(--s-5, 2.5rem); line-height: 1.5; }
+  .psalm-text li { margin: 0 0 var(--s-1); }
   .chant-notation { color: var(--ink); margin: 0 0 var(--s-3); --exsurge-negative-fill: var(--paper); }
   .chant-notation :global(svg) { display: block; max-width: 100%; height: auto; }
   .chant-notation :global(svg use) { fill: currentColor; }
