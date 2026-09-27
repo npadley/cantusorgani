@@ -1,0 +1,105 @@
+# Test, build and deploy cantusorgani.org.
+#
+# Pull requests (including the admin screen's correction batches) run every
+# check and build the site, but never deploy. A push to main does the same and
+# then deploys to Cloudflare Pages by direct upload.
+#
+# Free: GitHub Actions minutes are unlimited for public repositories, and a
+# wrangler direct upload does not use Cloudflare Pages' build quota.
+#
+# Needs, in Settings -> Secrets and variables -> Actions:
+#   secrets:   CLOUDFLARE_API_TOKEN (Pages: Edit), CLOUDFLARE_ACCOUNT_ID
+#   variables: PUBLIC_ASSET_BASE, PUBLIC_CORRECTIONS_ENDPOINT, PUBLIC_TURNSTILE_SITE_KEY
+name: site
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["docs/**", "**/*.md"]
+  pull_request:
+    paths-ignore: ["docs/**", "**/*.md"]
+  workflow_dispatch:
+
+# A newer push supersedes a run still going on the same branch.
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check-build-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # gitleaks scans the pushed commits
+
+      - name: Secret scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ---------------------------------------------------------- pipeline ---
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Tesseract (a few unit tests read a synthetic image)
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-lat
+      - run: uv sync --frozen
+      - name: Lint
+        run: uv run ruff check pipeline tools tests
+      # `source` and `slow` tests need the untracked pdf-source/ PDFs.
+      - name: Pipeline tests
+        run: uv run pytest -q -m "not source and not slow"
+      - name: Hand corrections applied
+        run: uv run noh apply-corrections --check
+
+      # --------------------------------------------------------------- site ---
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: web
+      - name: Type check
+        run: pnpm exec astro check
+        working-directory: web
+      - name: Site tests
+        run: pnpm exec vitest run
+        working-directory: web
+      # A missing setting would still build -- with local image paths or a
+      # disabled Corrections form -- so stop here instead.
+      - name: Build settings present
+        run: |
+          for v in PUBLIC_ASSET_BASE PUBLIC_CORRECTIONS_ENDPOINT PUBLIC_TURNSTILE_SITE_KEY; do
+            [ -n "${!v}" ] || { echo "::error::Repository variable $v is not set (Settings -> Secrets and variables -> Actions -> Variables)"; exit 1; }
+          done
+        env:
+          PUBLIC_ASSET_BASE: ${{ vars.PUBLIC_ASSET_BASE }}
+          PUBLIC_CORRECTIONS_ENDPOINT: ${{ vars.PUBLIC_CORRECTIONS_ENDPOINT }}
+          PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_TURNSTILE_SITE_KEY }}
+      # Also crawls dist/: fails on any page no link reaches.
+      - name: Build
+        run: pnpm build
+        working-directory: web
+        env:
+          PUBLIC_ASSET_BASE: ${{ vars.PUBLIC_ASSET_BASE }}
+          PUBLIC_CORRECTIONS_ENDPOINT: ${{ vars.PUBLIC_CORRECTIONS_ENDPOINT }}
+          PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_TURNSTILE_SITE_KEY }}
+
+      # ------------------------------------------------------------- deploy ---
+      - name: Deploy to Cloudflare Pages
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: web
+          command: pages deploy dist --project-name cantusorgani --branch main --commit-hash ${{ github.sha }}
