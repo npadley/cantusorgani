@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import sys
 from dataclasses import dataclass
+from pathlib import Path
 
 from pipeline.references import load_references, reference_filenames
 from pipeline.volumes import load_volumes
@@ -101,11 +102,45 @@ def check_r2(env: dict[str, str]) -> Check:
     return Check(OK, "R2 credentials present")
 
 
+def check_gregobase_dump(path: Path | None = None, pinned: str | None = None) -> Check:
+    """The GregoBase dump: Proper parts are found by their chant texts, which
+    come only from it. It is not in git."""
+    import hashlib
+
+    from pipeline.gregobase import DUMP, DUMP_SHA256
+    path, pinned = path or DUMP, pinned or DUMP_SHA256
+    if not path.exists():
+        return Check(FAIL, "GregoBase dump: missing",
+                     f"Proper parts need {path.name} (not in git).\n"
+                     "      Fix: see README \"Vendored data\" for where to get it.")
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(block)
+    if digest.hexdigest() != pinned:
+        return Check(FAIL, "GregoBase dump: checksum",
+                     f"{path.name} sha256 {digest.hexdigest()[:12]} does not match the pinned "
+                     f"{pinned[:12]}.\n"
+                     "      Fix: restore the pinned dump (README \"Vendored data\"), or re-pin\n"
+                     "      DUMP_SHA256 in pipeline/gregobase.py after checking the new one.")
+    return Check(OK, "GregoBase dump present and pinned")
+
+
+def check_jgabc(path: Path | None = None) -> Check:
+    """jgabc's per-day chant ids, vendored in data/jgabc-propers.json."""
+    from pipeline.jgabc import VENDORED, JgabcIntegrityError, load_proprium
+    try:
+        count = len(load_proprium(path or VENDORED))
+    except JgabcIntegrityError as exc:
+        return Check(FAIL, "jgabc chant ids", f"{exc}\n      Fix: uv run noh jgabc-fetch")
+    return Check(OK, f"jgabc chant ids for {count} Propers")
+
+
 def run(env: dict[str, str] | None = None) -> list[Check]:
     import os
     env = os.environ if env is None else env
     return [check_python(), check_tesseract(), check_reference_not_registered(),
-            *check_sources(), check_r2(dict(env))]
+            *check_sources(), check_gregobase_dump(), check_jgabc(), check_r2(dict(env))]
 
 
 def report(checks: list[Check]) -> int:

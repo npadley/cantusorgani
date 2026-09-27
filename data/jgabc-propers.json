@@ -1,0 +1,4719 @@
+{
+ "content_sha256": "3f5dc881970e073a3b5013299456544c1b01590249b08afe5c0a6210ddd9feb9",
+ "menus": {
+  "5a": "sunday",
+  "5af": "sunday",
+  "5ah": "sunday",
+  "5as": "sunday",
+  "5aw": "sunday",
+  "6a": "sunday",
+  "7a": "sunday",
+  "Adv1": "sunday",
+  "Adv2": "sunday",
+  "Adv3": "sunday",
+  "Adv3f": "sunday",
+  "Adv3s": "sunday",
+  "Adv3ss": "sunday",
+  "Adv3w": "sunday",
+  "Adv4": "sunday",
+  "Apr11": "saint",
+  "Apr13": "saint",
+  "Apr14": "saint",
+  "Apr17": "saint",
+  "Apr2": "saint",
+  "Apr21": "saint",
+  "Apr22": "saint",
+  "Apr23": "saint",
+  "Apr24": "saint",
+  "Apr25": "saint",
+  "Apr26": "saint",
+  "Apr27": "saint",
+  "Apr28": "saint",
+  "Apr29": "saint",
+  "Apr30": "saint",
+  "Apr4": "saint",
+  "Apr5": "saint",
+  "Asc": "sunday",
+  "Aug1": "saint",
+  "Aug10": "saint",
+  "Aug11": "saint",
+  "Aug12": "saint",
+  "Aug13": "saint",
+  "Aug14": "saint",
+  "Aug15": "saint",
+  "Aug16": "saint",
+  "Aug17": "saint",
+  "Aug18": "saint",
+  "Aug19": "saint",
+  "Aug1a": "saint",
+  "Aug2": "saint",
+  "Aug20": "saint",
+  "Aug21": "saint",
+  "Aug22": "saint",
+  "Aug23": "saint",
+  "Aug24": "saint",
+  "Aug25": "saint",
+  "Aug26": "saint",
+  "Aug27": "saint",
+  "Aug28": "saint",
+  "Aug29": "saint",
+  "Aug3": "saint",
+  "Aug30": "saint",
+  "Aug31": "saint",
+  "Aug4": "saint",
+  "Aug5": "saint",
+  "Aug6": "saint",
+  "Aug7": "saint",
+  "Aug8": "saint",
+  "Aug8a": "saint",
+  "Aug9": "saint",
+  "ChristusRex": "sunday",
+  "CorpusChristi": "sunday",
+  "Dec10": "saint",
+  "Dec11": "saint",
+  "Dec12": "saint",
+  "Dec13": "saint",
+  "Dec16": "saint",
+  "Dec18": "saint",
+  "Dec2": "saint",
+  "Dec20": "saint",
+  "Dec21": "saint",
+  "Dec24": "sunday",
+  "Dec25_1": "sunday",
+  "Dec25_2": "sunday",
+  "Dec25_3": "sunday",
+  "Dec26": "saint",
+  "Dec27": "saint",
+  "Dec28": "saint",
+  "Dec29": "saint",
+  "Dec3": "saint",
+  "Dec31": "saint",
+  "Dec31_v": "saint",
+  "Dec4": "saint",
+  "Dec5": "saint",
+  "Dec6": "saint",
+  "Dec7": "saint",
+  "Dec8": "saint",
+  "EmbFriSept": "sunday",
+  "EmbSatSept": "sunday",
+  "EmbSatSeptS": "sunday",
+  "EmbWedSept": "sunday",
+  "Epi": "sunday",
+  "Epi1": "sunday",
+  "Epi1s": "sunday",
+  "Epi2": "sunday",
+  "Epi3": "sunday",
+  "Epi4": "sunday",
+  "Epi5": "sunday",
+  "Epi6": "sunday",
+  "Feb1": "saint",
+  "Feb10": "saint",
+  "Feb11": "saint",
+  "Feb12": "saint",
+  "Feb14": "saint",
+  "Feb15": "saint",
+  "Feb18": "saint",
+  "Feb18a": "saint",
+  "Feb2": "saint",
+  "Feb22": "saint",
+  "Feb23": "saint",
+  "Feb23or24": "saint",
+  "Feb24or25": "saint",
+  "Feb27or28": "saint",
+  "Feb3": "saint",
+  "Feb4": "saint",
+  "Feb5": "saint",
+  "Feb6": "saint",
+  "Feb7": "saint",
+  "Feb8": "saint",
+  "Feb9": "saint",
+  "Jan1": "sunday",
+  "Jan11": "saint",
+  "Jan13": "saint",
+  "Jan14": "saint",
+  "Jan15": "saint",
+  "Jan16": "saint",
+  "Jan17": "saint",
+  "Jan18": "saint",
+  "Jan19": "saint",
+  "Jan20": "saint",
+  "Jan21": "saint",
+  "Jan22": "saint",
+  "Jan23": "saint",
+  "Jan24": "saint",
+  "Jan25": "saint",
+  "Jan26": "saint",
+  "Jan27": "saint",
+  "Jan28": "saint",
+  "Jan29": "saint",
+  "Jan30": "saint",
+  "Jan31": "saint",
+  "Jan5": "saint",
+  "Jan5a": "sunday",
+  "Jul1": "saint",
+  "Jul10": "saint",
+  "Jul11": "saint",
+  "Jul11a": "saint",
+  "Jul12": "saint",
+  "Jul13": "saint",
+  "Jul14": "saint",
+  "Jul15": "saint",
+  "Jul16": "saint",
+  "Jul17": "saint",
+  "Jul18": "saint",
+  "Jul19": "saint",
+  "Jul2": "saint",
+  "Jul20": "saint",
+  "Jul21": "saint",
+  "Jul21a": "saint",
+  "Jul22": "saint",
+  "Jul23": "saint",
+  "Jul24": "saint",
+  "Jul25": "saint",
+  "Jul26": "saint",
+  "Jul27": "saint",
+  "Jul28": "saint",
+  "Jul29": "saint",
+  "Jul3": "saint",
+  "Jul30": "saint",
+  "Jul31": "saint",
+  "Jul3a": "saint",
+  "Jul4": "saint",
+  "Jul5": "saint",
+  "Jul6": "saint",
+  "Jul7": "saint",
+  "Jul8": "saint",
+  "Jun1": "saint",
+  "Jun10": "saint",
+  "Jun11": "saint",
+  "Jun12": "saint",
+  "Jun13": "saint",
+  "Jun14": "saint",
+  "Jun15": "saint",
+  "Jun17": "saint",
+  "Jun18": "saint",
+  "Jun19": "saint",
+  "Jun19a": "saint",
+  "Jun2": "saint",
+  "Jun20": "saint",
+  "Jun21": "saint",
+  "Jun22": "saint",
+  "Jun23": "saint",
+  "Jun24": "saint",
+  "Jun25": "saint",
+  "Jun26": "saint",
+  "Jun28": "saint",
+  "Jun29": "saint",
+  "Jun30": "saint",
+  "Jun4": "saint",
+  "Jun5": "saint",
+  "Jun6": "saint",
+  "Jun9": "saint",
+  "Mar10": "saint",
+  "Mar12": "saint",
+  "Mar17": "saint",
+  "Mar18": "saint",
+  "Mar19": "saint",
+  "Mar21": "saint",
+  "Mar24": "saint",
+  "Mar25": "saint",
+  "Mar27": "saint",
+  "Mar28": "saint",
+  "Mar4": "saint",
+  "Mar6": "saint",
+  "Mar7": "saint",
+  "Mar8": "saint",
+  "Mar9": "saint",
+  "May1": "saint",
+  "May10": "saint",
+  "May11": "saint",
+  "May12": "saint",
+  "May13": "saint",
+  "May14": "saint",
+  "May15": "saint",
+  "May16": "saint",
+  "May17": "saint",
+  "May18": "saint",
+  "May19": "saint",
+  "May2": "saint",
+  "May20": "saint",
+  "May24": "saint",
+  "May25": "saint",
+  "May26": "saint",
+  "May27": "saint",
+  "May28": "saint",
+  "May29": "saint",
+  "May3": "saint",
+  "May30": "saint",
+  "May31": "saint",
+  "May4": "saint",
+  "May5": "saint",
+  "May6": "saint",
+  "May7": "saint",
+  "May8": "saint",
+  "May9": "saint",
+  "Nat1": "sunday",
+  "Nat2": "sunday",
+  "Nov1": "saint",
+  "Nov10": "saint",
+  "Nov11": "saint",
+  "Nov12": "saint",
+  "Nov13": "saint",
+  "Nov13a": "saint",
+  "Nov14": "saint",
+  "Nov15": "saint",
+  "Nov16": "saint",
+  "Nov17": "saint",
+  "Nov18": "saint",
+  "Nov19": "saint",
+  "Nov2": "saint",
+  "Nov20": "saint",
+  "Nov21": "saint",
+  "Nov22": "saint",
+  "Nov23": "saint",
+  "Nov24": "saint",
+  "Nov25": "saint",
+  "Nov26": "saint",
+  "Nov27": "saint",
+  "Nov29": "saint",
+  "Nov29a": "saint",
+  "Nov30": "saint",
+  "Nov4": "saint",
+  "Nov5": "saint",
+  "Nov8": "saint",
+  "Nov9": "saint",
+  "Oct1": "saint",
+  "Oct10": "saint",
+  "Oct11": "saint",
+  "Oct13": "saint",
+  "Oct14": "saint",
+  "Oct15": "saint",
+  "Oct16": "saint",
+  "Oct17": "saint",
+  "Oct18": "saint",
+  "Oct19": "saint",
+  "Oct2": "saint",
+  "Oct20": "saint",
+  "Oct21": "saint",
+  "Oct23": "saint",
+  "Oct24": "saint",
+  "Oct25": "saint",
+  "Oct25a": "saint",
+  "Oct26": "saint",
+  "Oct27": "saint",
+  "Oct28": "saint",
+  "Oct3": "saint",
+  "Oct31": "saint",
+  "Oct4": "saint",
+  "Oct5": "saint",
+  "Oct6": "saint",
+  "Oct7": "saint",
+  "Oct8": "saint",
+  "Oct9": "saint",
+  "Pasc0": "sunday",
+  "Pasc0f": "sunday",
+  "Pasc0h": "sunday",
+  "Pasc0m": "sunday",
+  "Pasc0s": "sunday",
+  "Pasc0t": "sunday",
+  "Pasc0w": "sunday",
+  "Pasc1": "sunday",
+  "Pasc2": "sunday",
+  "Pasc2w": "sunday",
+  "Pasc3": "sunday",
+  "Pasc4": "sunday",
+  "Pasc5": "sunday",
+  "Pasc6": "sunday",
+  "Pasc6s": "sunday",
+  "Pasc6s_v": "sunday",
+  "Pent0": "sunday",
+  "Pent0f": "sunday",
+  "Pent0h": "sunday",
+  "Pent0m": "sunday",
+  "Pent0s": "sunday",
+  "Pent0ss": "sunday",
+  "Pent0t": "sunday",
+  "Pent0w": "sunday",
+  "Pent1": "sunday",
+  "Pent10": "sunday",
+  "Pent11": "sunday",
+  "Pent12": "sunday",
+  "Pent13": "sunday",
+  "Pent14": "sunday",
+  "Pent15": "sunday",
+  "Pent16": "sunday",
+  "Pent17": "sunday",
+  "Pent18": "sunday",
+  "Pent19": "sunday",
+  "Pent1w": "sunday",
+  "Pent2": "sunday",
+  "Pent20": "sunday",
+  "Pent21": "sunday",
+  "Pent22": "sunday",
+  "Pent23": "sunday",
+  "Pent3": "sunday",
+  "Pent4": "sunday",
+  "Pent5": "sunday",
+  "Pent6": "sunday",
+  "Pent7": "sunday",
+  "Pent8": "sunday",
+  "Pent9": "sunday",
+  "Quad1": "sunday",
+  "Quad1f": "sunday",
+  "Quad1h": "sunday",
+  "Quad1m": "sunday",
+  "Quad1s": "sunday",
+  "Quad1ss": "sunday",
+  "Quad1t": "sunday",
+  "Quad1w": "sunday",
+  "Quad2": "sunday",
+  "Quad2f": "sunday",
+  "Quad2h": "sunday",
+  "Quad2m": "sunday",
+  "Quad2s": "sunday",
+  "Quad2t": "sunday",
+  "Quad2w": "sunday",
+  "Quad3": "sunday",
+  "Quad3f": "sunday",
+  "Quad3h": "sunday",
+  "Quad3m": "sunday",
+  "Quad3s": "sunday",
+  "Quad3t": "sunday",
+  "Quad3w": "sunday",
+  "Quad4": "sunday",
+  "Quad4f": "sunday",
+  "Quad4h": "sunday",
+  "Quad4m": "sunday",
+  "Quad4s": "sunday",
+  "Quad4t": "sunday",
+  "Quad4w": "sunday",
+  "Quad5": "sunday",
+  "Quad5f": "sunday",
+  "Quad5f_sd": "sunday",
+  "Quad5h": "sunday",
+  "Quad5m": "sunday",
+  "Quad5s": "sunday",
+  "Quad5t": "sunday",
+  "Quad5w": "sunday",
+  "Quad6": "sunday",
+  "Quad6_v": "sunday",
+  "Quad6f": "sunday",
+  "Quad6f_v": "sunday",
+  "Quad6h": "sunday",
+  "Quad6h-lotio": "sunday",
+  "Quad6h_v": "sunday",
+  "Quad6m": "sunday",
+  "Quad6s": "sunday",
+  "Quad6s_v": "sunday",
+  "Quad6t": "sunday",
+  "Quad6t_v": "sunday",
+  "Quad6w": "sunday",
+  "Quad6w_v": "sunday",
+  "SCJ": "sunday",
+  "SMadvent": "mass",
+  "SMchristmas": "mass",
+  "SMeaster": "mass",
+  "SMlent": "mass",
+  "SMpentecost": "mass",
+  "Sep1": "saint",
+  "Sep10": "saint",
+  "Sep11": "saint",
+  "Sep12": "saint",
+  "Sep14": "saint",
+  "Sep15": "saint",
+  "Sep16": "saint",
+  "Sep17": "saint",
+  "Sep18": "saint",
+  "Sep19": "saint",
+  "Sep19laSalette": "saint",
+  "Sep2": "saint",
+  "Sep20": "saint",
+  "Sep21": "saint",
+  "Sep22": "saint",
+  "Sep23": "saint",
+  "Sep24": "saint",
+  "Sep26": "saint",
+  "Sep26a": "saint",
+  "Sep27": "saint",
+  "Sep28": "saint",
+  "Sep29": "saint",
+  "Sep3": "saint",
+  "Sep30": "saint",
+  "Sep5": "saint",
+  "Sep8": "saint",
+  "Sep9": "saint",
+  "Sep9a": "saint",
+  "custom": "mass",
+  "dedicatio": "mass",
+  "defunctorum": "mass",
+  "litaniis": "mass",
+  "mass_abbots": "common",
+  "mass_doctors": "common",
+  "mass_holy_pope": "common",
+  "mass_holy_woman_martyr": "common",
+  "mass_holy_woman_not_martyr": "common",
+  "mass_i_confessor_bishop": "common",
+  "mass_i_confessor_not_bishop": "common",
+  "mass_i_martyr_bishop": "common",
+  "mass_i_martyr_not_bishop": "common",
+  "mass_i_two_or_more_martyr": "common",
+  "mass_i_virgin_martyr": "common",
+  "mass_i_virgin_not_martyr": "common",
+  "mass_ii_confessor_bishop": "common",
+  "mass_ii_confessor_not_bishop": "common",
+  "mass_ii_martyr_bishop": "common",
+  "mass_ii_martyr_not_bishop": "common",
+  "mass_ii_two_or_more_martyr": "common",
+  "mass_ii_virgin_martyr": "common",
+  "mass_ii_virgin_not_martyr": "common",
+  "mass_iii_two_or_more_martyr": "common",
+  "mass_one_martyr": "common",
+  "mass_two_or_more_martyr": "common",
+  "mass_vigil_apostle": "common",
+  "nuptialis": "mass",
+  "votiveA": "mass",
+  "votiveECJ": "mass",
+  "votiveED": "mass",
+  "votiveESP": "mass",
+  "votiveFP": "mass",
+  "votiveGBM": "mass",
+  "votiveJ": "mass",
+  "votiveJCSES": "mass",
+  "votiveMPI": "mass",
+  "votiveOA": "mass",
+  "votiveP": "mass",
+  "votivePIA": "mass",
+  "votivePJC": "mass",
+  "votivePP": "mass",
+  "votiveQN": "mass",
+  "votiveRP": "mass",
+  "votiveSC": "mass",
+  "votiveSCJ": "mass",
+  "votiveSES": "mass",
+  "votiveSS": "mass",
+  "votiveST": "mass",
+  "votiveTB": "mass",
+  "votiveUE": "mass",
+  "votiveVM": "mass"
+ },
+ "proprium": {
+  "5a": {
+   "coID": 677,
+   "grID": 850,
+   "inID": 1381,
+   "ofID": 1317,
+   "trID": 1299
+  },
+  "5af": {
+   "coID": 897,
+   "grID": 229,
+   "inID": 45,
+   "ofID": 109,
+   "trID": 425
+  },
+  "5ah": {
+   "coID": 1221,
+   "grID": 423,
+   "inID": 299,
+   "ofID": 962
+  },
+  "5as": {
+   "coID": 897,
+   "grID": 229,
+   "inID": 45,
+   "ofID": 109
+  },
+  "5aw": {
+   "coID": 582,
+   "grID": 754,
+   "inID": 533,
+   "ofID": 648,
+   "trID": 425
+  },
+  "6a": {
+   "coID": 554,
+   "grID": 1265,
+   "inID": 529,
+   "ofID": 265,
+   "trID": 1178
+  },
+  "7a": {
+   "coID": 640,
+   "grID": 222,
+   "inID": 1168,
+   "ofID": 1194,
+   "trID": 926
+  },
+  "Adv1": {
+   "alID": 1115,
+   "coID": 1036,
+   "grID": 1169,
+   "inID": 132,
+   "ofID": 962
+  },
+  "Adv2": {
+   "alID": 292,
+   "coID": 966,
+   "grID": 1268,
+   "inID": 356,
+   "ofID": 631
+  },
+  "Adv3": {
+   "alID": 855,
+   "coID": 218,
+   "grID": 1007,
+   "inID": 1225,
+   "ofID": 113
+  },
+  "Adv3f": {
+   "coID": 439,
+   "grID": 1055,
+   "inID": 86,
+   "ofID": 631
+  },
+  "Adv3s": {
+   "coID": 88,
+   "inID": 169,
+   "ofID": 929,
+   "trID": 1157
+  },
+  "Adv3ss": {
+   "coID": 88,
+   "grID": 698,
+   "inID": 169,
+   "ofID": 929,
+   "trID": 1157
+  },
+  "Adv3w": {
+   "coID": 1144,
+   "inID": 79,
+   "ofID": 290
+  },
+  "Adv4": {
+   "alID": 224,
+   "coID": 1144,
+   "grID": 284,
+   "inID": 79,
+   "ofID": 843
+  },
+  "Apr11": {
+   "alID": 228,
+   "coID": 509,
+   "grID": 1119,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope"
+  },
+  "Apr11Pasch": {
+   "alID": 548,
+   "coID": 509,
+   "grID": 228,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope"
+  },
+  "Apr11Quad": {
+   "coID": 509,
+   "grID": 1119,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope",
+   "trID": 1085
+  },
+  "Apr13": {
+   "alID": 1249,
+   "coID": 89,
+   "grID": 153,
+   "inID": 316,
+   "ofID": 407,
+   "ref": "mass_i_martyr_not_bishop"
+  },
+  "Apr13Pasch": {
+   "alID": 1249,
+   "coID": 617,
+   "grID": 762,
+   "inID": 340,
+   "ofID": 1382,
+   "ref": "mass_one_martyr"
+  },
+  "Apr13Quad": {
+   "coID": 89,
+   "grID": 153,
+   "inID": 316,
+   "ofID": 407,
+   "ref": "mass_i_martyr_not_bishop",
+   "trID": 176
+  },
+  "Apr14": {
+   "alID": 289,
+   "coID": 400,
+   "grID": 1345,
+   "inID": 831,
+   "ofID": 285
+  },
+  "Apr14Pasch": {
+   "alID": 289,
+   "coID": 400,
+   "grID": 334,
+   "inID": 831,
+   "ofID": 285
+  },
+  "Apr14Quad": {
+   "coID": 400,
+   "grID": 1345,
+   "inID": 831,
+   "ofID": 285,
+   "trID": 969
+  },
+  "Apr17": {
+   "alID": 228,
+   "coID": 509,
+   "grID": 1119,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope"
+  },
+  "Apr17Pasch": {
+   "alID": 548,
+   "coID": 509,
+   "grID": 228,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope"
+  },
+  "Apr17Quad": {
+   "coID": 509,
+   "grID": 1119,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope",
+   "trID": 1085
+  },
+  "Apr2": {
+   "alID": 765,
+   "coID": 1337,
+   "grID": 511,
+   "inID": 108,
+   "ofID": 667,
+   "ref": "mass_ii_confessor_not_bishop"
+  },
+  "Apr21": {
+   "alID": 14,
+   "coID": 1008,
+   "grID": 511,
+   "inID": 233,
+   "ofID": 777,
+   "ref": "mass_doctors"
+  },
+  "Apr21Pasch": {
+   "alID": 1207,
+   "coID": 1008,
+   "grID": 14,
+   "inID": 233,
+   "ofID": 777,
+   "ref": "mass_doctors"
+  },
+  "Apr22": {
+   "alID": 228,
+   "coID": 509,
+   "grID": 1119,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope"
+  },
+  "Apr22Pasch": {
+   "alID": 548,
+   "coID": 509,
+   "grID": 228,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope"
+  },
+  "Apr23": {
+   "alID": 1249,
+   "coID": 89,
+   "grID": 153,
+   "inID": 316,
+   "ofID": 407,
+   "ref": "mass_i_martyr_not_bishop"
+  },
+  "Apr23Pasch": {
+   "alID": 1249,
+   "coID": 617,
+   "grID": 762,
+   "inID": 340,
+   "ofID": 1382,
+   "ref": "mass_one_martyr"
+  },
+  "Apr23Quad": {
+   "coID": 89,
+   "grID": 153,
+   "inID": 316,
+   "ofID": 407,
+   "ref": "mass_i_martyr_not_bishop",
+   "trID": 176
+  },
+  "Apr24": {
+   "ref": "mass_one_martyr"
+  },
+  "Apr25": {
+   "ref": "mass_one_martyr"
+  },
+  "Apr26": {
+   "ref": "mass_holy_pope"
+  },
+  "Apr27": {
+   "ref": "mass_doctors"
+  },
+  "Apr28": {
+   "alID": 1073,
+   "coID": 732,
+   "grID": 476,
+   "inID": 775,
+   "ofID": 773
+  },
+  "Apr29": {
+   "ref": "mass_one_martyr"
+  },
+  "Apr2Pasch": {
+   "alID": 1207,
+   "coID": 1337,
+   "grID": 765,
+   "inID": 108,
+   "ofID": 667,
+   "ref": "mass_ii_confessor_not_bishop"
+  },
+  "Apr2Quad": {
+   "coID": 1337,
+   "grID": 511,
+   "inID": 108,
+   "ofID": 667,
+   "ref": "mass_ii_confessor_not_bishop",
+   "trID": 7670
+  },
+  "Apr30": {
+   "alID": 406,
+   "coID": 1301,
+   "grID": 208,
+   "inID": 629,
+   "ofID": 1333,
+   "ref": "mass_i_virgin_not_martyr"
+  },
+  "Apr4": {
+   "alID": 14,
+   "coID": 1008,
+   "grID": 511,
+   "inID": 233,
+   "ofID": 777,
+   "ref": "mass_doctors"
+  },
+  "Apr4Pasch": {
+   "alID": 1207,
+   "coID": 1008,
+   "grID": 14,
+   "inID": 233,
+   "ofID": 777,
+   "ref": "mass_doctors"
+  },
+  "Apr4Quad": {
+   "coID": 1008,
+   "grID": 511,
+   "inID": 233,
+   "ofID": 777,
+   "ref": "mass_doctors",
+   "trID": 7670
+  },
+  "Apr5": {
+   "alID": 724,
+   "coID": 1154,
+   "grID": 34,
+   "inID": 1374,
+   "ofID": 630,
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Apr5Pasch": {
+   "alID": 14,
+   "coID": 1154,
+   "grID": 724,
+   "inID": 1374,
+   "ofID": 630,
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Apr5Quad": {
+   "coID": 1154,
+   "grID": 34,
+   "inID": 1374,
+   "ofID": 630,
+   "ref": "mass_i_confessor_not_bishop",
+   "trID": 7670
+  },
+  "Asc": {
+   "alID": 57,
+   "coID": 263,
+   "grID": 17,
+   "inID": 1355,
+   "ofID": 211
+  },
+  "Aug1": {
+   "alID": 32,
+   "coID": 699,
+   "grID": 614,
+   "inID": 788,
+   "ofID": 33
+  },
+  "Aug10": {
+   "alID": 1122,
+   "coID": 685,
+   "grID": 1027,
+   "inID": 956,
+   "ofID": 105
+  },
+  "Aug11": {
+   "alID": 590,
+   "coID": 1002,
+   "grID": 1009,
+   "inID": 737,
+   "ofID": 835,
+   "ref": "mass_iii_two_or_more_martyr"
+  },
+  "Aug12": {
+   "ref": "mass_i_virgin_not_martyr"
+  },
+  "Aug13": {
+   "ref": "mass_iii_two_or_more_martyr"
+  },
+  "Aug14": {
+   "coID": 160,
+   "grID": 392,
+   "inID": 124,
+   "ofID": 567
+  },
+  "Aug15": {
+   "alID": 960,
+   "coID": 286,
+   "grID": 1000,
+   "inID": 23,
+   "ofID": 1083
+  },
+  "Aug16": {
+   "alID": 821,
+   "coID": 1008,
+   "grID": 1212,
+   "inID": 544,
+   "ofID": 407
+  },
+  "Aug17": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Aug18": {
+   "ref": "mass_ii_martyr_not_bishop"
+  },
+  "Aug19": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Aug1a": {
+   "alID": 16,
+   "coID": 509,
+   "grID": 307,
+   "inID": 478,
+   "ofID": 1319
+  },
+  "Aug2": {
+   "alID": 1094,
+   "coID": 1196,
+   "grID": 73,
+   "inID": 214,
+   "ofID": 1116
+  },
+  "Aug20": {
+   "ref": "mass_doctors"
+  },
+  "Aug21": {
+   "ref": "mass_holy_woman_not_martyr"
+  },
+  "Aug22": {
+   "alID": 881,
+   "coID": 982,
+   "grID": 778,
+   "inID": 1110,
+   "ofID": 1045
+  },
+  "Aug22Pasch": {
+   "alID": 460,
+   "coID": 982,
+   "grID": 881,
+   "inID": 1110,
+   "ofID": 1045
+  },
+  "Aug22Quad": {
+   "coID": 982,
+   "grID": 778,
+   "inID": 1110,
+   "ofID": 1045,
+   "trID": 793
+  },
+  "Aug23": {
+   "ref": "mass_ii_confessor_not_bishop"
+  },
+  "Aug24": {
+   "alID": 442,
+   "coID": 97,
+   "grID": 307,
+   "inID": 475,
+   "ofID": 499
+  },
+  "Aug25": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Aug26": {
+   "ref": "mass_holy_pope"
+  },
+  "Aug27": {
+   "alID": 724,
+   "coID": 643,
+   "grID": 511,
+   "inID": 695,
+   "ofID": 1331
+  },
+  "Aug28": {
+   "alID": 1350,
+   "coID": 1008,
+   "grID": 511,
+   "inID": 233,
+   "ofID": 777,
+   "ref": "mass_doctors"
+  },
+  "Aug29": {
+   "alID": 1207,
+   "coID": 586,
+   "grID": 34,
+   "inID": 410,
+   "ofID": 667
+  },
+  "Aug3": {
+   "alID": 561,
+   "coID": 920,
+   "grID": 906,
+   "inID": 1321,
+   "ofID": 462
+  },
+  "Aug30": {
+   "ref": "mass_i_virgin_not_martyr"
+  },
+  "Aug31": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Aug4": {
+   "alID": 1207,
+   "coID": 1008,
+   "grID": 34,
+   "inID": 1374,
+   "ofID": 630
+  },
+  "Aug5": {
+   "ref": "mass_bvm"
+  },
+  "Aug6": {
+   "alID": 1124,
+   "coID": 885,
+   "grID": 1308,
+   "inID": 326,
+   "ofID": 125
+  },
+  "Aug7": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Aug8": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Aug8a": {
+   "alID": 560,
+   "coID": 608,
+   "grID": 371,
+   "inID": 808,
+   "ofID": 786
+  },
+  "Aug9": {
+   "coID": 89,
+   "grID": 1212,
+   "inID": 544,
+   "ofID": 185
+  },
+  "ChristusRex": {
+   "alID": 746,
+   "coID": 1229,
+   "grID": 583,
+   "inID": 128,
+   "ofID": 390
+  },
+  "CorpusChristi": {
+   "alID": 774,
+   "coID": 577,
+   "grID": 1230,
+   "inID": 715,
+   "ofID": 645,
+   "seqID": 308
+  },
+  "Dec10": {
+   "ref": "mass_holy_pope"
+  },
+  "Dec11": {
+   "ref": "mass_holy_pope"
+  },
+  "Dec12": {
+   "alID": 232,
+   "coID": 1133,
+   "grID": 468,
+   "inID": 1140,
+   "ofID": 7
+  },
+  "Dec13": {
+   "alID": 1076,
+   "coID": 1292,
+   "grID": 394,
+   "inID": 629,
+   "ofID": 1107
+  },
+  "Dec16": {
+   "alID": 1118,
+   "coID": 586,
+   "grID": 1206,
+   "inID": 227,
+   "ofID": 779,
+   "ref": "mass_ii_martyr_bishop"
+  },
+  "Dec18": {
+   "alID": 482,
+   "coID": 1144,
+   "grID": 756,
+   "inID": 161,
+   "ofID": 843
+  },
+  "Dec2": {
+   "alID": 500,
+   "coID": 844,
+   "grID": 1373,
+   "inID": 938,
+   "ofID": 177,
+   "ref": "mass_ii_virgin_martyr"
+  },
+  "Dec20": {
+   "coID": 365,
+   "grID": 34,
+   "inID": 163,
+   "ofID": 407
+  },
+  "Dec21": {
+   "alID": 216,
+   "coID": 589,
+   "grID": 148,
+   "inID": 475,
+   "ofID": 570
+  },
+  "Dec24": {
+   "alID": 167,
+   "coID": 367,
+   "grID": 202,
+   "inID": 150,
+   "ofID": 171
+  },
+  "Dec25_1": {
+   "alID": 890,
+   "coID": 117,
+   "grID": 518,
+   "inID": 1175,
+   "ofID": 811
+  },
+  "Dec25_2": {
+   "alID": 714,
+   "coID": 1125,
+   "grID": 217,
+   "inID": 917,
+   "ofID": 979
+  },
+  "Dec25_3": {
+   "alID": 324,
+   "coID": 1139,
+   "grID": 1163,
+   "inID": 72,
+   "ofID": 1274
+  },
+  "Dec26": {
+   "alID": 561,
+   "coID": 920,
+   "grID": 906,
+   "inID": 1321,
+   "ofID": 462
+  },
+  "Dec27": {
+   "alID": 914,
+   "coID": 781,
+   "grID": 702,
+   "inID": 233,
+   "ofID": 777
+  },
+  "Dec28": {
+   "alID": 661,
+   "coID": 136,
+   "grID": 432,
+   "inID": 350,
+   "ofID": 1031
+  },
+  "Dec29": {
+   "alID": 1220,
+   "coID": 556,
+   "grID": 235,
+   "inID": 74,
+   "ofID": 487
+  },
+  "Dec3": {
+   "alID": 724,
+   "coID": 1154,
+   "grID": 34,
+   "inID": 115,
+   "ofID": 630
+  },
+  "Dec31": {
+   "alID": 228,
+   "coID": 509,
+   "grID": 1119,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope"
+  },
+  "Dec31_v": {
+   "communioID": 1154
+  },
+  "Dec4": {
+   "alID": 477,
+   "coID": 383,
+   "grID": 235,
+   "inID": 233,
+   "ofID": 777
+  },
+  "Dec5": {
+   "alID": 946,
+   "coID": 1008,
+   "grID": 600,
+   "inID": 1374,
+   "ofID": 722,
+   "ref": "mass_abbots"
+  },
+  "Dec6": {
+   "alID": 946,
+   "coID": 317,
+   "grID": 827,
+   "inID": 456,
+   "ofID": 630
+  },
+  "Dec7": {
+   "alID": 1187,
+   "coID": 317,
+   "grID": 235,
+   "inID": 233,
+   "ofID": 630
+  },
+  "Dec8": {
+   "alID": 1057,
+   "coID": 1004,
+   "grID": 713,
+   "inID": 622,
+   "ofID": 210
+  },
+  "ECJ": {
+   "alID": 10,
+   "coID": 730,
+   "grID": 492,
+   "inID": 676,
+   "ofID": 683
+  },
+  "EmbFriSept": {
+   "coID": 828,
+   "grID": 1046,
+   "inID": 864,
+   "ofID": 1359
+  },
+  "EmbSatSept": {
+   "coID": 1149,
+   "inID": 450,
+   "ofID": 542,
+   "trID": 1247
+  },
+  "EmbSatSeptS": {
+   "coID": 1149,
+   "grID": 332,
+   "inID": 450,
+   "ofID": 542,
+   "trID": 1247
+  },
+  "EmbWedSept": {
+   "coID": 496,
+   "inID": 1323,
+   "ofID": 810
+  },
+  "Epi": {
+   "alID": 524,
+   "coID": 918,
+   "grID": 205,
+   "inID": 403,
+   "ofID": 1147
+  },
+  "Epi1": {
+   "alID": 816,
+   "coID": 626,
+   "grID": 260,
+   "inID": 336,
+   "ofID": 93
+  },
+  "Epi1s": {
+   "alID": 802,
+   "coID": 705,
+   "grID": 553,
+   "inID": 20,
+   "ofID": 718
+  },
+  "Epi2": {
+   "alID": 538,
+   "coID": 230,
+   "grID": 932,
+   "inID": 13,
+   "ofID": 937
+  },
+  "Epi3": {
+   "alID": 1001,
+   "coID": 1148,
+   "grID": 1173,
+   "inID": 1123,
+   "ofID": 47
+  },
+  "Epi4": {
+   "alID": 1001,
+   "coID": 1148,
+   "grID": 1173,
+   "inID": 1123,
+   "ofID": 47
+  },
+  "Epi5": {
+   "alID": 1001,
+   "coID": 1148,
+   "grID": 1173,
+   "inID": 1123,
+   "ofID": 47
+  },
+  "Epi6": {
+   "alID": 1001,
+   "coID": 1148,
+   "grID": 1173,
+   "inID": 1123,
+   "ofID": 47
+  },
+  "Feb1": {
+   "alID": 1162,
+   "coID": 368,
+   "grID": 235,
+   "inID": 178,
+   "ofID": 407
+  },
+  "Feb10": {
+   "alID": 208,
+   "coID": 1301,
+   "grID": 174,
+   "inID": 629,
+   "ofID": 1333,
+   "ref": "mass_i_virgin_not_martyr"
+  },
+  "Feb10Quad": {
+   "coID": 1301,
+   "grID": 174,
+   "inID": 629,
+   "ofID": 1333,
+   "ref": "mass_i_virgin_not_martyr",
+   "trID": 738
+  },
+  "Feb11": {
+   "alID": 1258,
+   "coID": 80,
+   "grID": 27,
+   "inID": 5,
+   "ofID": 234
+  },
+  "Feb11Quad": {
+   "coID": 80,
+   "grID": 27,
+   "inID": 5,
+   "ofID": 234,
+   "trID": 485
+  },
+  "Feb12": {
+   "alID": 706,
+   "coID": 470,
+   "grID": 1084,
+   "inID": 312,
+   "ofID": 1275
+  },
+  "Feb12Quad": {
+   "coID": 470,
+   "grID": 1084,
+   "inID": 312,
+   "ofID": 1275,
+   "trID": 305
+  },
+  "Feb14": {
+   "alID": 1249,
+   "coID": 89,
+   "grID": 153,
+   "inID": 316,
+   "ofID": 407,
+   "ref": "mass_i_martyr_not_bishop"
+  },
+  "Feb14Quad": {
+   "coID": 89,
+   "grID": 153,
+   "inID": 316,
+   "ofID": 407,
+   "ref": "mass_i_martyr_not_bishop",
+   "trID": 176
+  },
+  "Feb15": {
+   "alID": 590,
+   "coID": 1002,
+   "grID": 1009,
+   "inID": 737,
+   "ofID": 835,
+   "ref": "mass_iii_two_or_more_martyr"
+  },
+  "Feb15Quad": {
+   "coID": 1002,
+   "grID": 1009,
+   "inID": 737,
+   "ofID": 835,
+   "ref": "mass_iii_two_or_more_martyr",
+   "trID": 305
+  },
+  "Feb18": {
+   "ref": "mass_i_martyr_bishop"
+  },
+  "Feb18a": {
+   "coID": 104,
+   "grID": 174,
+   "inID": 124,
+   "ofID": 8253,
+   "trID": 738
+  },
+  "Feb1Quad": {
+   "coID": 368,
+   "grID": 235,
+   "inID": 178,
+   "ofID": 407,
+   "trID": 176
+  },
+  "Feb2": {
+   "alID": 429,
+   "coID": 803,
+   "grID": 50,
+   "inID": 1254,
+   "ofID": 177
+  },
+  "Feb22": {
+   "ref": "Jan18"
+  },
+  "Feb23": {
+   "ref": "mass_doctors"
+  },
+  "Feb23or24": {
+   "coID": 365,
+   "grID": 34,
+   "inID": 163,
+   "ofID": 407
+  },
+  "Feb24or25": {
+   "coID": 1028,
+   "grID": 148,
+   "inID": 475,
+   "ofID": 1319,
+   "trID": 176
+  },
+  "Feb27or28": {
+   "alID": 791,
+   "coID": 164,
+   "grID": 1291,
+   "inID": 1025,
+   "ofID": 1193
+  },
+  "Feb27or28Quad": {
+   "coID": 164,
+   "grID": 1291,
+   "inID": 1025,
+   "ofID": 1193,
+   "trID": 728
+  },
+  "Feb2Quad": {
+   "coID": 803,
+   "grID": 50,
+   "inID": 1254,
+   "ofID": 177,
+   "trID": 1346
+  },
+  "Feb3": {
+   "alID": 1118,
+   "coID": 586,
+   "grID": 1206,
+   "inID": 227,
+   "ofID": 779,
+   "ref": "mass_ii_martyr_bishop"
+  },
+  "Feb3Quad": {
+   "coID": 586,
+   "grID": 1206,
+   "inID": 227,
+   "ofID": 779,
+   "ref": "mass_ii_martyr_bishop",
+   "trID": 7670
+  },
+  "Feb4": {
+   "alID": 477,
+   "coID": 1008,
+   "grID": 235,
+   "inID": 456,
+   "ofID": 779,
+   "ref": "mass_i_confessor_bishop"
+  },
+  "Feb4Quad": {
+   "coID": 1008,
+   "grID": 235,
+   "inID": 456,
+   "ofID": 779,
+   "ref": "mass_i_confessor_bishop",
+   "trID": 7670
+  },
+  "Feb5": {
+   "alID": 642,
+   "coID": 454,
+   "grID": 1373,
+   "inID": 1183,
+   "ofID": 768
+  },
+  "Feb5Quad": {
+   "coID": 454,
+   "grID": 1373,
+   "inID": 1183,
+   "ofID": 768,
+   "trID": 305
+  },
+  "Feb6": {
+   "ref": "mass_i_confessor_bishop"
+  },
+  "Feb7": {
+   "alID": 946,
+   "coID": 1008,
+   "grID": 600,
+   "inID": 1374,
+   "ofID": 722,
+   "ref": "mass_abbots"
+  },
+  "Feb7Quad": {
+   "coID": 1008,
+   "grID": 600,
+   "inID": 1374,
+   "ofID": 722,
+   "ref": "mass_abbots",
+   "trID": 7670
+  },
+  "Feb8": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Feb9": {
+   "ref": "mass_doctors"
+  },
+  "Jan1": {
+   "alID": 863,
+   "coID": 1139,
+   "grID": 1163,
+   "inID": 72,
+   "ofID": 1274
+  },
+  "Jan11": {
+   "alID": 228,
+   "coID": 509,
+   "grID": 1119,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope"
+  },
+  "Jan13": {
+   "alID": 524,
+   "coID": 918,
+   "grID": 205,
+   "inID": 403,
+   "ofID": 1147,
+   "ref": "epiphany"
+  },
+  "Jan14": {
+   "alID": 14,
+   "coID": 1008,
+   "grID": 511,
+   "inID": 233,
+   "ofID": 777,
+   "ref": "mass_doctors"
+  },
+  "Jan15": {
+   "alID": 1207,
+   "coID": 617,
+   "grID": 34,
+   "inID": 108,
+   "ofID": 667
+  },
+  "Jan16": {
+   "ref": "mass_holy_pope"
+  },
+  "Jan17": {
+   "alID": 946,
+   "coID": 1008,
+   "grID": 600,
+   "inID": 1374,
+   "ofID": 722,
+   "ref": "mass_abbots"
+  },
+  "Jan18": {
+   "alID": 228,
+   "coID": 509,
+   "grID": 1119,
+   "inID": 456,
+   "ofID": 1234
+  },
+  "Jan18Quad": {
+   "coID": 509,
+   "grID": 1119,
+   "inID": 456,
+   "ofID": 1234,
+   "trID": 1029
+  },
+  "Jan19": {
+   "alID": 755,
+   "coID": 699,
+   "grID": 98,
+   "inID": 1339,
+   "ofID": 1031
+  },
+  "Jan19Quad": {
+   "coID": 699,
+   "grID": 98,
+   "inID": 1339,
+   "ofID": 1031,
+   "trID": 305
+  },
+  "Jan20": {
+   "alID": 106,
+   "coID": 902,
+   "grID": 888,
+   "inID": 261,
+   "ofID": 786
+  },
+  "Jan20Quad": {
+   "coID": 902,
+   "grID": 888,
+   "inID": 261,
+   "ofID": 786,
+   "trID": 305
+  },
+  "Jan21": {
+   "alID": 301,
+   "coID": 1301,
+   "grID": 947,
+   "inID": 938,
+   "ofID": 1107
+  },
+  "Jan21Quad": {
+   "coID": 1301,
+   "grID": 947,
+   "inID": 938,
+   "ofID": 1107,
+   "trID": 256
+  },
+  "Jan22": {
+   "alID": 1250,
+   "coID": 658,
+   "grID": 888,
+   "inID": 261,
+   "ofID": 919,
+   "ref": "mass_i_two_or_more_martyr"
+  },
+  "Jan22Quad": {
+   "coID": 658,
+   "grID": 888,
+   "inID": 261,
+   "ofID": 919,
+   "ref": "mass_i_two_or_more_martyr",
+   "trID": 305
+  },
+  "Jan23": {
+   "alID": 724,
+   "coID": 1154,
+   "grID": 34,
+   "inID": 1374,
+   "ofID": 630,
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Jan23Quad": {
+   "coID": 1154,
+   "grID": 34,
+   "inID": 1374,
+   "ofID": 630,
+   "ref": "mass_i_confessor_not_bishop",
+   "trID": 7670
+  },
+  "Jan24": {
+   "alID": 477,
+   "coID": 317,
+   "grID": 827,
+   "inID": 456,
+   "ofID": 630,
+   "ref": "mass_i_martyr_bishop"
+  },
+  "Jan24Quad": {
+   "coID": 317,
+   "grID": 827,
+   "inID": 456,
+   "ofID": 630,
+   "ref": "mass_i_martyr_bishop",
+   "trID": 176
+  },
+  "Jan25": {
+   "alID": 466,
+   "coID": 1337,
+   "grID": 1347,
+   "inID": 1179,
+   "ofID": 499
+  },
+  "Jan25Quad": {
+   "coID": 1337,
+   "grID": 1347,
+   "inID": 1179,
+   "ofID": 499,
+   "trID": 884
+  },
+  "Jan26": {
+   "alID": 1118,
+   "coID": 586,
+   "grID": 1206,
+   "inID": 227,
+   "ofID": 779,
+   "ref": "mass_ii_martyr_bishop"
+  },
+  "Jan26Quad": {
+   "coID": 586,
+   "grID": 1206,
+   "inID": 227,
+   "ofID": 779,
+   "ref": "mass_ii_martyr_bishop",
+   "trID": 7670
+  },
+  "Jan27": {
+   "alID": 724,
+   "coID": 1008,
+   "grID": 235,
+   "inID": 233,
+   "ofID": 777,
+   "ref": "mass_doctors"
+  },
+  "Jan27Quad": {
+   "coID": 1008,
+   "grID": 235,
+   "inID": 233,
+   "ofID": 777,
+   "ref": "mass_doctors",
+   "trID": 7670
+  },
+  "Jan28": {
+   "alID": 765,
+   "coID": 1337,
+   "grID": 511,
+   "inID": 108,
+   "ofID": 667,
+   "ref": "mass_ii_confessor_not_bishop"
+  },
+  "Jan28Quad": {
+   "coID": 1337,
+   "grID": 511,
+   "inID": 108,
+   "ofID": 667,
+   "ref": "mass_ii_confessor_not_bishop",
+   "trID": 7670
+  },
+  "Jan29": {
+   "alID": 14,
+   "coID": 1008,
+   "grID": 511,
+   "inID": 233,
+   "ofID": 777,
+   "ref": "mass_doctors"
+  },
+  "Jan29Quad": {
+   "coID": 1008,
+   "grID": 511,
+   "inID": 233,
+   "ofID": 777,
+   "ref": "mass_doctors",
+   "trID": 7670
+  },
+  "Jan30": {
+   "alID": 208,
+   "coID": 1032,
+   "grID": 394,
+   "inID": 510,
+   "ofID": 1107,
+   "ref": "mass_i_virgin_martyr"
+  },
+  "Jan30Quad": {
+   "coID": 1032,
+   "grID": 394,
+   "inID": 510,
+   "ofID": 1107,
+   "ref": "mass_i_virgin_martyr",
+   "trID": 256
+  },
+  "Jan31": {
+   "alID": 225,
+   "coID": 186,
+   "grID": 21,
+   "inID": 1018,
+   "ofID": 805
+  },
+  "Jan31Quad": {
+   "coID": 186,
+   "grID": 21,
+   "inID": 1018,
+   "ofID": 805,
+   "trID": 837
+  },
+  "Jan5": {
+   "alID": 228,
+   "coID": 509,
+   "grID": 1119,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope"
+  },
+  "Jan5a": {
+   "alID": 714,
+   "coID": 1282,
+   "grID": 1308,
+   "inID": 564,
+   "ofID": 979
+  },
+  "Jul1": {
+   "alID": 1038,
+   "coID": 1019,
+   "grID": 1263,
+   "inID": 123,
+   "ofID": 320
+  },
+  "Jul10": {
+   "alID": 32,
+   "coID": 957,
+   "grID": 432,
+   "inID": 87,
+   "ofID": 1031
+  },
+  "Jul11": {
+   "alID": 228,
+   "coID": 509,
+   "grID": 1119,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope"
+  },
+  "Jul11a": {
+   "alID": 477,
+   "coID": 317,
+   "grID": 827,
+   "inID": 456,
+   "ofID": 630
+  },
+  "Jul12": {
+   "ref": "mass_abbots"
+  },
+  "Jul13": {
+   "ref": "mass_holy_pope"
+  },
+  "Jul14": {
+   "alID": 1187,
+   "coID": 1008,
+   "grID": 511,
+   "inID": 233,
+   "ofID": 630
+  },
+  "Jul15": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Jul16": {
+   "alID": 634,
+   "coID": 1053,
+   "grID": 392,
+   "inID": 246,
+   "ofID": 787
+  },
+  "Jul17": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Jul18": {
+   "alID": 765,
+   "coID": 1126,
+   "grID": 511,
+   "inID": 785,
+   "ofID": 667
+  },
+  "Jul19": {
+   "alID": 765,
+   "coID": 1337,
+   "grID": 511,
+   "inID": 108,
+   "ofID": 667,
+   "ref": "mass_ii_confessor_not_bishop"
+  },
+  "Jul2": {
+   "alID": 481,
+   "coID": 160,
+   "grID": 392,
+   "inID": 1140,
+   "ofID": 567
+  },
+  "Jul20": {
+   "alID": 569,
+   "coID": 1014,
+   "grID": 75,
+   "inID": 1297,
+   "ofID": 1362
+  },
+  "Jul21": {
+   "ref": "mass_doctors"
+  },
+  "Jul21a": {
+   "alID": 406,
+   "coID": 944,
+   "grID": 394,
+   "inID": 510,
+   "ofID": 177
+  },
+  "Jul22": {
+   "alID": 1076,
+   "coID": 844,
+   "grID": 394,
+   "inID": 938,
+   "ofID": 1333
+  },
+  "Jul23": {
+   "alID": 1187,
+   "coID": 383,
+   "grID": 827,
+   "inID": 227,
+   "ofID": 630
+  },
+  "Jul24": {
+   "coID": 365,
+   "grID": 34,
+   "inID": 163,
+   "ofID": 407
+  },
+  "Jul25": {
+   "alID": 1030,
+   "coID": 1028,
+   "grID": 307,
+   "inID": 475,
+   "ofID": 570
+  },
+  "Jul26": {
+   "alID": 1076,
+   "coID": 900,
+   "grID": 394,
+   "inID": 950,
+   "ofID": 1333
+  },
+  "Jul27": {
+   "alID": 1201,
+   "coID": 685,
+   "grID": 764,
+   "inID": 251,
+   "ofID": 487,
+   "ref": "mass_ii_martyr_not_bishop"
+  },
+  "Jul28": {
+   "alID": 1250,
+   "coID": 658,
+   "grID": 888,
+   "inID": 261,
+   "ofID": 919,
+   "ref": "mass_i_two_or_more_martyr"
+  },
+  "Jul29": {
+   "ref": "mass_i_virgin_not_martyr"
+  },
+  "Jul3": {
+   "alID": 1015,
+   "coID": 703,
+   "grID": 672,
+   "inID": 1093,
+   "ofID": 1300
+  },
+  "Jul30": {
+   "alID": 836,
+   "coID": 184,
+   "grID": 888,
+   "inID": 261,
+   "ofID": 919
+  },
+  "Jul31": {
+   "alID": 724,
+   "coID": 514,
+   "grID": 34,
+   "inID": 1295,
+   "ofID": 630
+  },
+  "Jul3a": {
+   "alID": 228,
+   "coID": 509,
+   "grID": 1119,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope"
+  },
+  "Jul4": {
+   "alID": 8252,
+   "coID": 1028,
+   "grID": 307,
+   "inID": 475,
+   "ofID": 570
+  },
+  "Jul5": {
+   "alID": 96,
+   "coID": 201,
+   "grID": 155,
+   "inID": 1349,
+   "ofID": 662
+  },
+  "Jul6": {
+   "alID": 440,
+   "coID": 209,
+   "grID": 98,
+   "inID": 11,
+   "ofID": 33
+  },
+  "Jul7": {
+   "alID": 1187,
+   "coID": 1002,
+   "grID": 415,
+   "inID": 48,
+   "ofID": 919
+  },
+  "Jul8": {
+   "ref": "mass_holy_woman_not_martyr"
+  },
+  "Jun1": {
+   "alID": 208,
+   "coID": 1301,
+   "grID": 174,
+   "inID": 629,
+   "ofID": 1333,
+   "ref": "mass_i_virgin_not_martyr"
+  },
+  "Jun10": {
+   "alID": 406,
+   "coID": 799,
+   "grID": 947,
+   "inID": 619,
+   "ofID": 177,
+   "ref": "mass_holy_woman_not_martyr"
+  },
+  "Jun11": {
+   "alID": 1030,
+   "coID": 1028,
+   "grID": 351,
+   "inID": 475,
+   "ofID": 1319
+  },
+  "Jun12": {
+   "alID": 724,
+   "coID": 1154,
+   "grID": 34,
+   "inID": 1374,
+   "ofID": 630,
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Jun13": {
+   "ref": "mass_doctors"
+  },
+  "Jun14": {
+   "alID": 1350,
+   "coID": 1008,
+   "grID": 511,
+   "inID": 233,
+   "ofID": 630
+  },
+  "Jun15": {
+   "alID": 106,
+   "coID": 209,
+   "grID": 963,
+   "inID": 248,
+   "ofID": 919
+  },
+  "Jun15Pasch": {
+   "alID": 207,
+   "coID": 772,
+   "grID": 800,
+   "inID": 1231,
+   "ofID": 870
+  },
+  "Jun17": {
+   "ref": "mass_i_confessor_bishop"
+  },
+  "Jun18": {
+   "ref": "mass_doctors"
+  },
+  "Jun19": {
+   "ref": "mass_i_virgin_not_martyr"
+  },
+  "Jun19a": {
+   "alID": 32,
+   "coID": 184,
+   "grID": 888,
+   "inID": 271,
+   "ofID": 786
+  },
+  "Jun2": {
+   "alID": 1030,
+   "coID": 209,
+   "grID": 1009,
+   "inID": 788,
+   "ofID": 786
+  },
+  "Jun20": {
+   "ref": "mass_holy_pope"
+  },
+  "Jun21": {
+   "alID": 1170,
+   "coID": 711,
+   "grID": 1334,
+   "inID": 857,
+   "ofID": 1306
+  },
+  "Jun22": {
+   "alID": 477,
+   "coID": 1008,
+   "grID": 235,
+   "inID": 48,
+   "ofID": 779
+  },
+  "Jun23": {
+   "coID": 365,
+   "grID": 424,
+   "inID": 1141,
+   "ofID": 407
+  },
+  "Jun24": {
+   "alID": 847,
+   "coID": 133,
+   "grID": 647,
+   "inID": 659,
+   "ofID": 777
+  },
+  "Jun25": {
+   "ref": "mass_abbots"
+  },
+  "Jun26": {
+   "alID": 32,
+   "coID": 658,
+   "grID": 614,
+   "inID": 248,
+   "ofID": 1375
+  },
+  "Jun28": {
+   "coID": 846,
+   "grID": 351,
+   "inID": 1366,
+   "ofID": 499
+  },
+  "Jun29": {
+   "alID": 228,
+   "coID": 509,
+   "grID": 307,
+   "inID": 478,
+   "ofID": 1319
+  },
+  "Jun2Pasch": {
+   "alID": 207,
+   "coID": 772,
+   "grID": 1030,
+   "inID": 1231,
+   "ofID": 870
+  },
+  "Jun30": {
+   "alID": 120,
+   "coID": 1337,
+   "grID": 1347,
+   "inID": 1179,
+   "ofID": 499
+  },
+  "Jun4": {
+   "alID": 594,
+   "coID": 6,
+   "grID": 398,
+   "inID": 1313,
+   "ofID": 777
+  },
+  "Jun5": {
+   "alID": 198,
+   "coID": 1190,
+   "grID": 1181,
+   "inID": 1224,
+   "ofID": 143
+  },
+  "Jun6": {
+   "ref": "mass_i_confessor_bishop"
+  },
+  "Jun9": {
+   "alID": 32,
+   "coID": 470,
+   "grID": 156,
+   "inID": 11,
+   "ofID": 919
+  },
+  "Jun9Pasch": {
+   "alID": 590,
+   "coID": 772,
+   "grID": 32,
+   "inID": 1231,
+   "ofID": 870
+  },
+  "Mar10": {
+   "coID": 957,
+   "grID": 614,
+   "inID": 788,
+   "ofID": 786,
+   "trID": 305
+  },
+  "Mar12": {
+   "coID": 509,
+   "grID": 1119,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope",
+   "trID": 1085
+  },
+  "Mar17": {
+   "coID": 1008,
+   "grID": 235,
+   "inID": 456,
+   "ofID": 779,
+   "ref": "mass_i_confessor_bishop",
+   "trID": 7670
+  },
+  "Mar18": {
+   "ref": "mass_doctors"
+  },
+  "Mar19": {
+   "alID": 14,
+   "coID": 139,
+   "grID": 600,
+   "inID": 108,
+   "ofID": 630
+  },
+  "Mar19Pasch": {
+   "alID": 1207,
+   "coID": 139,
+   "grID": 14,
+   "inID": 108,
+   "ofID": 630
+  },
+  "Mar19Quad": {
+   "coID": 139,
+   "grID": 600,
+   "inID": 108,
+   "ofID": 630,
+   "trID": 7670
+  },
+  "Mar21": {
+   "coID": 1008,
+   "grID": 600,
+   "inID": 1374,
+   "ofID": 722,
+   "ref": "mass_abbots",
+   "trID": 7670
+  },
+  "Mar24": {
+   "coID": 1127,
+   "grID": 609,
+   "inID": 985,
+   "ofID": 302,
+   "trID": 266
+  },
+  "Mar25": {
+   "alID": 1209,
+   "coID": 1144,
+   "grID": 947,
+   "inID": 124,
+   "ofID": 843
+  },
+  "Mar25Pasch": {
+   "alID": 281,
+   "coID": 1144,
+   "grID": 1209,
+   "inID": 124,
+   "ofID": 843
+  },
+  "Mar25Quad": {
+   "coID": 1144,
+   "grID": 947,
+   "inID": 124,
+   "ofID": 843,
+   "trID": 738
+  },
+  "Mar27": {
+   "coID": 601,
+   "grID": 306,
+   "inID": 656,
+   "ofID": 166,
+   "trID": 35
+  },
+  "Mar28": {
+   "coID": 877,
+   "grID": 370,
+   "inID": 52,
+   "ofID": 244,
+   "trID": 250
+  },
+  "Mar4": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Mar6": {
+   "coID": 1292,
+   "grID": 394,
+   "inID": 938,
+   "ofID": 177,
+   "ref": "mass_holy_woman_martyr",
+   "trID": 256
+  },
+  "Mar7": {
+   "coID": 1008,
+   "grID": 511,
+   "inID": 233,
+   "ofID": 777,
+   "ref": "mass_doctors",
+   "trID": 7670
+  },
+  "Mar8": {
+   "coID": 1154,
+   "grID": 34,
+   "inID": 1374,
+   "ofID": 630,
+   "ref": "mass_i_confessor_not_bishop",
+   "trID": 7670
+  },
+  "Mar9": {
+   "coID": 799,
+   "grID": 947,
+   "inID": 619,
+   "ofID": 177,
+   "ref": "mass_holy_woman_not_martyr",
+   "trID": 256
+  },
+  "May1": {
+   "alID": 213,
+   "coID": 28,
+   "grID": 1344,
+   "inID": 646,
+   "ofID": 26
+  },
+  "May10": {
+   "alID": 477,
+   "coID": 1008,
+   "grID": 235,
+   "inID": 456,
+   "ofID": 779,
+   "ref": "mass_i_confessor_bishop"
+  },
+  "May11": {
+   "alID": 1101,
+   "coID": 921,
+   "grID": 307,
+   "inID": 469,
+   "ofID": 1382
+  },
+  "May11Pasch": {
+   "alID": 1101,
+   "coID": 921,
+   "grID": 762,
+   "inID": 469,
+   "ofID": 1382
+  },
+  "May11Quad": {
+   "coID": 921,
+   "grID": 307,
+   "inID": 469,
+   "ofID": 1382,
+   "trID": 305
+  },
+  "May12": {
+   "alID": 590,
+   "coID": 772,
+   "grID": 32,
+   "inID": 1222,
+   "ofID": 1382
+  },
+  "May13": {
+   "alID": 1189,
+   "coID": 559,
+   "grID": 235,
+   "inID": 233,
+   "ofID": 102
+  },
+  "May13Pasch": {
+   "alID": 231,
+   "coID": 559,
+   "grID": 1189,
+   "inID": 233,
+   "ofID": 102
+  },
+  "May13Quad": {
+   "coID": 559,
+   "grID": 235,
+   "inID": 233,
+   "ofID": 102,
+   "trID": 1063
+  },
+  "May14": {
+   "ref": "mass_one_martyr"
+  },
+  "May15": {
+   "alID": 724,
+   "coID": 1154,
+   "grID": 34,
+   "inID": 1374,
+   "ofID": 630,
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "May15Pasch": {
+   "alID": 14,
+   "coID": 1154,
+   "grID": 724,
+   "inID": 1374,
+   "ofID": 630,
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "May16": {
+   "alID": 477,
+   "coID": 1008,
+   "grID": 235,
+   "inID": 456,
+   "ofID": 779,
+   "ref": "mass_i_confessor_bishop"
+  },
+  "May16Pasch": {
+   "alID": 1118,
+   "coID": 1008,
+   "grID": 477,
+   "inID": 456,
+   "ofID": 779,
+   "ref": "mass_i_confessor_bishop"
+  },
+  "May17": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "May18": {
+   "ref": "mass_i_martyr_not_bishop"
+  },
+  "May19": {
+   "ref": "mass_holy_pope"
+  },
+  "May1Pasch": {
+   "alID": 213,
+   "coID": 28,
+   "grID": 1324,
+   "inID": 646,
+   "ofID": 26
+  },
+  "May1Quad": {
+   "coID": 28,
+   "grID": 1344,
+   "inID": 646,
+   "ofID": 26,
+   "trID": 444
+  },
+  "May2": {
+   "alID": 724,
+   "coID": 1002,
+   "grID": 477,
+   "inID": 233,
+   "ofID": 779
+  },
+  "May20": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "May24": {
+   "alID": 127,
+   "coID": 160,
+   "grID": 392,
+   "inID": 1140,
+   "ofID": 843
+  },
+  "May24Pasch": {
+   "alID": 1209,
+   "coID": 160,
+   "grID": 281,
+   "inID": 1140,
+   "ofID": 843
+  },
+  "May25": {
+   "ref": "mass_holy_pope"
+  },
+  "May26": {
+   "alID": 194,
+   "coID": 1367,
+   "grID": 1022,
+   "inID": 530,
+   "ofID": 1253
+  },
+  "May26Pasch": {
+   "alID": 237,
+   "coID": 1367,
+   "grID": 194,
+   "inID": 530,
+   "ofID": 1253
+  },
+  "May27": {
+   "ref": "mass_doctors"
+  },
+  "May28": {
+   "alID": 1187,
+   "coID": 1154,
+   "grID": 415,
+   "inID": 48,
+   "ofID": 630,
+   "ref": "mass_ii_confessor_bishop"
+  },
+  "May28Pasch": {
+   "alID": 14,
+   "coID": 1154,
+   "grID": 1187,
+   "inID": 48,
+   "ofID": 630,
+   "ref": "mass_ii_confessor_bishop"
+  },
+  "May29": {
+   "alID": 208,
+   "coID": 1301,
+   "grID": 174,
+   "inID": 629,
+   "ofID": 1333,
+   "ref": "mass_i_virgin_not_martyr"
+  },
+  "May29Pasch": {
+   "alID": 406,
+   "coID": 1301,
+   "grID": 208,
+   "inID": 629,
+   "ofID": 1333,
+   "ref": "mass_i_virgin_not_martyr"
+  },
+  "May3": {
+   "alID": 859,
+   "coID": 346,
+   "grID": 873,
+   "inID": 359,
+   "ofID": 448
+  },
+  "May30": {
+   "ref": "mass_holy_pope"
+  },
+  "May31": {
+   "alID": 717,
+   "coID": 1053,
+   "grID": 1368,
+   "inID": 61,
+   "ofID": 719
+  },
+  "May31Pasch": {
+   "alID": 354,
+   "coID": 1053,
+   "grID": 734,
+   "inID": 61,
+   "ofID": 719
+  },
+  "May3Pasch": {
+   "alID": 859,
+   "coID": 346,
+   "grID": 627,
+   "inID": 359,
+   "ofID": 448
+  },
+  "May4": {
+   "alID": 913,
+   "coID": 799,
+   "grID": 406,
+   "inID": 619,
+   "ofID": 177,
+   "ref": "mass_holy_woman_not_martyr"
+  },
+  "May5": {
+   "alID": 228,
+   "coID": 509,
+   "grID": 1119,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope"
+  },
+  "May5Pasch": {
+   "alID": 548,
+   "coID": 509,
+   "grID": 228,
+   "inID": 674,
+   "ofID": 358,
+   "ref": "mass_holy_pope"
+  },
+  "May6": {
+   "alID": 1207,
+   "coID": 617,
+   "grID": 946,
+   "inID": 340,
+   "ofID": 1382
+  },
+  "May7": {
+   "alID": 1118,
+   "coID": 586,
+   "grID": 1206,
+   "inID": 227,
+   "ofID": 779,
+   "ref": "mass_ii_martyr_bishop"
+  },
+  "May7Pasch": {
+   "alID": 1249,
+   "coID": 617,
+   "grID": 762,
+   "inID": 340,
+   "ofID": 1382,
+   "ref": "mass_one_martyr"
+  },
+  "May7Quad": {
+   "coID": 586,
+   "grID": 1206,
+   "inID": 227,
+   "ofID": 779,
+   "ref": "mass_ii_martyr_bishop",
+   "trID": 7670
+  },
+  "May8": {
+   "alID": 1017,
+   "coID": 1127,
+   "grID": 1103,
+   "inID": 985,
+   "ofID": 302
+  },
+  "May9": {
+   "ref": "mass_doctors"
+  },
+  "Nat1": {
+   "alID": 714,
+   "coID": 1282,
+   "grID": 1308,
+   "inID": 564,
+   "ofID": 979
+  },
+  "Nat2": {
+   "alID": 1,
+   "coID": 8,
+   "grID": 670,
+   "inID": 1033,
+   "ofID": 980
+  },
+  "Nov1": {
+   "alID": 1237,
+   "coID": 345,
+   "grID": 371,
+   "inID": 752,
+   "ofID": 835
+  },
+  "Nov10": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Nov11": {
+   "alID": 988,
+   "coID": 1154,
+   "grID": 235,
+   "inID": 456,
+   "ofID": 630
+  },
+  "Nov12": {
+   "ref": "mass_holy_pope"
+  },
+  "Nov13": {
+   "ref": "mass_ii_confessor_not_bishop"
+  },
+  "Nov13a": {
+   "alID": 170,
+   "coID": 10604,
+   "grID": 10607,
+   "inID": 656,
+   "ofID": 102
+  },
+  "Nov14": {
+   "alID": 1118,
+   "coID": 556,
+   "grID": 827,
+   "inID": 417,
+   "ofID": 401
+  },
+  "Nov15": {
+   "ref": "mass_doctors"
+  },
+  "Nov16": {
+   "ref": "mass_i_virgin_not_martyr"
+  },
+  "Nov17": {
+   "ref": "mass_i_confessor_bishop"
+  },
+  "Nov18": {
+   "ref": "mass_dedication_church"
+  },
+  "Nov19": {
+   "ref": "mass_holy_woman_not_martyr"
+  },
+  "Nov2": {
+   "ref": "requiem"
+  },
+  "Nov20": {
+   "ref": "mass_ii_confessor_not_bishop"
+  },
+  "Nov21": {
+   "alID": 127,
+   "coID": 160,
+   "grID": 392,
+   "inID": 1140,
+   "ofID": 843,
+   "ref": "mass_bvm"
+  },
+  "Nov22": {
+   "alID": 301,
+   "coID": 1032,
+   "grID": 840,
+   "inID": 510,
+   "ofID": 1107
+  },
+  "Nov23": {
+   "alID": 228,
+   "coID": 509,
+   "grID": 1119,
+   "inID": 409,
+   "ofID": 358
+  },
+  "Nov24": {
+   "ref": "mass_doctors"
+  },
+  "Nov25": {
+   "alID": 208,
+   "coID": 1032,
+   "grID": 394,
+   "inID": 510,
+   "ofID": 1107,
+   "ref": "mass_i_virgin_martyr"
+  },
+  "Nov26": {
+   "alID": 946,
+   "coID": 1008,
+   "grID": 600,
+   "inID": 1374,
+   "ofID": 722,
+   "ref": "mass_abbots"
+  },
+  "Nov27": {
+   "alID": 254,
+   "coID": 1087,
+   "grID": 1174,
+   "inID": 493,
+   "ofID": 687
+  },
+  "Nov29": {
+   "ref": "mass_ii_martyr_not_bishop"
+  },
+  "Nov29a": {
+   "coID": 1021,
+   "grID": 148,
+   "inID": 693,
+   "ofID": 407
+  },
+  "Nov30": {
+   "alID": 984,
+   "coID": 552,
+   "grID": 307,
+   "inID": 475,
+   "ofID": 499
+  },
+  "Nov4": {
+   "ref": "mass_i_confessor_bishop"
+  },
+  "Nov5": {
+   "alID": 896,
+   "coID": 1109,
+   "grID": 963,
+   "inID": 248,
+   "ofID": 919
+  },
+  "Nov8": {
+   "alID": 1250,
+   "coID": 658,
+   "grID": 888,
+   "inID": 261,
+   "ofID": 919,
+   "ref": "mass_i_two_or_more_martyr"
+  },
+  "Nov9": {
+   "alID": 242,
+   "coID": 43,
+   "grID": 651,
+   "inID": 923,
+   "ofID": 200,
+   "ref": "mass_dedication_church"
+  },
+  "Oct1": {
+   "ref": "mass_i_confessor_bishop"
+  },
+  "Oct10": {
+   "ref": "mass_abbots"
+  },
+  "Oct11": {
+   "alID": 1114,
+   "coID": 160,
+   "grID": 471,
+   "inID": 1372,
+   "ofID": 910
+  },
+  "Oct13": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Oct14": {
+   "ref": "mass_holy_pope"
+  },
+  "Oct15": {
+   "ref": "mass_i_virgin_not_martyr"
+  },
+  "Oct16": {
+   "ref": "mass_holy_woman_not_martyr"
+  },
+  "Oct17": {
+   "alID": 1307,
+   "coID": 459,
+   "grID": 790,
+   "inID": 1195,
+   "ofID": 618
+  },
+  "Oct18": {
+   "alID": 1030,
+   "coID": 1028,
+   "grID": 351,
+   "inID": 475,
+   "ofID": 499
+  },
+  "Oct19": {
+   "ref": "mass_ii_confessor_not_bishop"
+  },
+  "Oct2": {
+   "alID": 784,
+   "coID": 1127,
+   "grID": 834,
+   "inID": 985,
+   "ofID": 1270
+  },
+  "Oct20": {
+   "alID": 792,
+   "coID": 1003,
+   "grID": 971,
+   "inID": 970,
+   "ofID": 515
+  },
+  "Oct21": {
+   "ref": "mass_abbots"
+  },
+  "Oct23": {
+   "alID": 1187,
+   "coID": 1154,
+   "grID": 415,
+   "inID": 48,
+   "ofID": 630,
+   "ref": "mass_ii_confessor_bishop"
+  },
+  "Oct24": {
+   "alID": 814,
+   "coID": 1127,
+   "grID": 581,
+   "inID": 985,
+   "ofID": 302
+  },
+  "Oct25": {
+   "ref": "mass_i_two_or_more_martyr"
+  },
+  "Oct25a": {
+   "ref": "mass_ii_confessor_not_bishop"
+  },
+  "Oct26": {
+   "ref": "mass_holy_pope"
+  },
+  "Oct27": {
+   "coID": 184,
+   "grID": 206,
+   "inID": 261,
+   "ofID": 33
+  },
+  "Oct28": {
+   "alID": 130,
+   "coID": 1028,
+   "grID": 307,
+   "inID": 475,
+   "ofID": 570
+  },
+  "Oct3": {
+   "alID": 1257,
+   "coID": 162,
+   "grID": 1034,
+   "inID": 59,
+   "ofID": 362
+  },
+  "Oct31": {
+   "coID": 209,
+   "grID": 963,
+   "inID": 1213,
+   "ofID": 33
+  },
+  "Oct4": {
+   "ref": "st_francis_stigmata"
+  },
+  "Oct5": {
+   "ref": "mass_iii_two_or_more_martyr"
+  },
+  "Oct6": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Oct7": {
+   "alID": 420,
+   "coID": 104,
+   "grID": 807,
+   "inID": 246,
+   "ofID": 494
+  },
+  "Oct8": {
+   "ref": "mass_holy_woman_not_martyr"
+  },
+  "Oct9": {
+   "alID": 664,
+   "coID": 991,
+   "grID": 1186,
+   "inID": 41,
+   "ofID": 1098
+  },
+  "Pasc0": {
+   "alID": 761,
+   "coID": 952,
+   "grID": 1075,
+   "inID": 1043,
+   "ofID": 725,
+   "seqID": 1086
+  },
+  "Pasc0f": {
+   "alID": 627,
+   "coID": 1260,
+   "grID": 1305,
+   "inID": 758,
+   "ofID": 151,
+   "seqID": 1086
+  },
+  "Pasc0h": {
+   "alID": 215,
+   "coID": 1219,
+   "grID": 975,
+   "inID": 1332,
+   "ofID": 1129,
+   "seqID": 1086
+  },
+  "Pasc0m": {
+   "alID": 377,
+   "coID": 121,
+   "grID": 1150,
+   "inID": 1315,
+   "ofID": 789,
+   "seqID": 1086
+  },
+  "Pasc0s": {
+   "alID": 661,
+   "coID": 1293,
+   "grID": 568,
+   "inID": 974,
+   "ofID": 941,
+   "seqID": 1086
+  },
+  "Pasc0t": {
+   "alID": 438,
+   "coID": 243,
+   "grID": 1188,
+   "inID": 1135,
+   "ofID": 869,
+   "seqID": 1086
+  },
+  "Pasc0w": {
+   "alID": 1217,
+   "coID": 593,
+   "grID": 416,
+   "inID": 997,
+   "ofID": 1361,
+   "seqID": 1086
+  },
+  "Pasc1": {
+   "alID": 275,
+   "coID": 953,
+   "grID": 1042,
+   "inID": 25,
+   "ofID": 789
+  },
+  "Pasc2": {
+   "alID": 1220,
+   "coID": 95,
+   "grID": 912,
+   "inID": 135,
+   "ofID": 924
+  },
+  "Pasc2w": {
+   "alID": 213,
+   "coID": 534,
+   "grID": 1324,
+   "inID": 385,
+   "ofID": 845
+  },
+  "Pasc3": {
+   "alID": 446,
+   "coID": 813,
+   "grID": 1341,
+   "inID": 536,
+   "ofID": 668
+  },
+  "Pasc4": {
+   "alID": 1348,
+   "coID": 39,
+   "grID": 159,
+   "inID": 42,
+   "ofID": 937
+  },
+  "Pasc5": {
+   "alID": 1040,
+   "coID": 579,
+   "grID": 633,
+   "inID": 585,
+   "ofID": 860
+  },
+  "Pasc6": {
+   "alID": 107,
+   "coID": 1091,
+   "grID": 405,
+   "inID": 990,
+   "ofID": 211
+  },
+  "Pasc6s": {
+   "coID": 255,
+   "inID": 418,
+   "ofID": 1176,
+   "trID": 1247
+  },
+  "Pasc6s_v": {
+   "ref": "Pasc6s"
+  },
+  "Pent0": {
+   "alID": 181,
+   "coID": 1041,
+   "grID": 99,
+   "inID": 861,
+   "ofID": 361,
+   "seqID": 68
+  },
+  "Pent0f": {
+   "alID": 181,
+   "coID": 981,
+   "grID": 119,
+   "inID": 557,
+   "ofID": 668,
+   "seqID": 68
+  },
+  "Pent0h": {
+   "alID": 181,
+   "coID": 1041,
+   "grID": 99,
+   "inID": 861,
+   "ofID": 361,
+   "seqID": 68
+  },
+  "Pent0m": {
+   "alID": 181,
+   "coID": 1151,
+   "grID": 101,
+   "inID": 715,
+   "ofID": 869,
+   "seqID": 68
+  },
+  "Pent0s": {
+   "coID": 190,
+   "inID": 1228,
+   "ofID": 987,
+   "seqID": 68,
+   "trID": 1247
+  },
+  "Pent0ss": {
+   "alID": 181,
+   "coID": 190,
+   "grID": 1236,
+   "inID": 1228,
+   "ofID": 987,
+   "seqID": 68
+  },
+  "Pent0t": {
+   "alID": 181,
+   "coID": 333,
+   "grID": 1197,
+   "inID": 1278,
+   "ofID": 1361,
+   "seqID": 68
+  },
+  "Pent0w": {
+   "alID": 181,
+   "coID": 91,
+   "grID": 635,
+   "inID": 822,
+   "ofID": 1218,
+   "seqID": 68
+  },
+  "Pent1": {
+   "alID": 1289,
+   "coID": 391,
+   "grID": 965,
+   "inID": 349,
+   "ofID": 1303
+  },
+  "Pent10": {
+   "alID": 1052,
+   "coID": 1221,
+   "grID": 1088,
+   "inID": 299,
+   "ofID": 962
+  },
+  "Pent11": {
+   "alID": 580,
+   "coID": 1145,
+   "grID": 865,
+   "inID": 1026,
+   "ofID": 648
+  },
+  "Pent12": {
+   "alID": 1082,
+   "coID": 1245,
+   "grID": 1182,
+   "inID": 501,
+   "ofID": 325
+  },
+  "Pent13": {
+   "alID": 820,
+   "coID": 388,
+   "grID": 1232,
+   "inID": 691,
+   "ofID": 967
+  },
+  "Pent14": {
+   "alID": 1246,
+   "coID": 868,
+   "grID": 547,
+   "inID": 1071,
+   "ofID": 747
+  },
+  "Pent15": {
+   "alID": 1352,
+   "coID": 782,
+   "grID": 1338,
+   "inID": 1165,
+   "ofID": 182
+  },
+  "Pent16": {
+   "alID": 1077,
+   "coID": 1318,
+   "grID": 1173,
+   "inID": 335,
+   "ofID": 993
+  },
+  "Pent17": {
+   "alID": 595,
+   "coID": 1134,
+   "grID": 1044,
+   "inID": 1284,
+   "ofID": 652
+  },
+  "Pent18": {
+   "alID": 1097,
+   "coID": 404,
+   "grID": 1011,
+   "inID": 172,
+   "ofID": 838
+  },
+  "Pent19": {
+   "alID": 1192,
+   "coID": 479,
+   "grID": 44,
+   "inID": 389,
+   "ofID": 616
+  },
+  "Pent1w": {
+   "alID": 103,
+   "coID": 639,
+   "grID": 399,
+   "inID": 146,
+   "ofID": 293
+  },
+  "Pent2": {
+   "alID": 801,
+   "coID": 794,
+   "grID": 697,
+   "inID": 1111,
+   "ofID": 848
+  },
+  "Pent20": {
+   "alID": 745,
+   "coID": 696,
+   "grID": 1230,
+   "inID": 1056,
+   "ofID": 812
+  },
+  "Pent21": {
+   "alID": 1380,
+   "coID": 1290,
+   "grID": 1108,
+   "inID": 1047,
+   "ofID": 1363
+  },
+  "Pent22": {
+   "alID": 933,
+   "coID": 464,
+   "grID": 614,
+   "inID": 1271,
+   "ofID": 67
+  },
+  "Pent23": {
+   "alID": 331,
+   "coID": 592,
+   "grID": 395,
+   "inID": 735,
+   "ofID": 986
+  },
+  "Pent24": {
+   "ref": "Pent23"
+  },
+  "Pent3": {
+   "alID": 1264,
+   "coID": 1058,
+   "grID": 423,
+   "inID": 1235,
+   "ofID": 1328
+  },
+  "Pent4": {
+   "alID": 727,
+   "coID": 512,
+   "grID": 332,
+   "inID": 874,
+   "ofID": 708
+  },
+  "Pent5": {
+   "alID": 797,
+   "coID": 574,
+   "grID": 1226,
+   "inID": 396,
+   "ofID": 143
+  },
+  "Pent6": {
+   "alID": 239,
+   "coID": 1079,
+   "grID": 1046,
+   "inID": 522,
+   "ofID": 265
+  },
+  "Pent7": {
+   "alID": 77,
+   "coID": 339,
+   "grID": 1022,
+   "inID": 1136,
+   "ofID": 675
+  },
+  "Pent8": {
+   "alID": 709,
+   "coID": 1203,
+   "grID": 886,
+   "inID": 1254,
+   "ofID": 1080
+  },
+  "Pent9": {
+   "alID": 879,
+   "coID": 798,
+   "grID": 1205,
+   "inID": 1357,
+   "ofID": 591
+  },
+  "PentEpi3": {
+   "ref": "Pent23"
+  },
+  "PentEpi4": {
+   "ref": "Pent23"
+  },
+  "PentEpi5": {
+   "ref": "Pent23"
+  },
+  "PentEpi6": {
+   "ref": "Pent23"
+  },
+  "Quad1": {
+   "coID": 1100,
+   "grID": 834,
+   "inID": 327,
+   "ofID": 294,
+   "trID": 889
+  },
+  "Quad1f": {
+   "coID": 484,
+   "grID": 1117,
+   "inID": 100,
+   "ofID": 1359,
+   "trID": 425
+  },
+  "Quad1h": {
+   "coID": 782,
+   "grID": 1088,
+   "inID": 956,
+   "ofID": 747
+  },
+  "Quad1m": {
+   "coID": 623,
+   "grID": 1226,
+   "inID": 1330,
+   "ofID": 1060,
+   "trID": 425
+  },
+  "Quad1s": {
+   "coID": 131,
+   "inID": 238,
+   "ofID": 542,
+   "trID": 1247
+  },
+  "Quad1ss": {
+   "coID": 131,
+   "grID": 332,
+   "inID": 238,
+   "ofID": 542,
+   "trID": 1247
+  },
+  "Quad1t": {
+   "coID": 384,
+   "grID": 44,
+   "inID": 549,
+   "ofID": 967
+  },
+  "Quad1w": {
+   "coID": 373,
+   "grID": 596,
+   "inID": 1294,
+   "ofID": 810,
+   "trID": 276
+  },
+  "Quad2": {
+   "coID": 373,
+   "grID": 596,
+   "inID": 1294,
+   "ofID": 810,
+   "trID": 455
+  },
+  "Quad2f": {
+   "coID": 1159,
+   "grID": 697,
+   "inID": 830,
+   "ofID": 993,
+   "trID": 425
+  },
+  "Quad2h": {
+   "coID": 798,
+   "grID": 332,
+   "inID": 501,
+   "ofID": 325
+  },
+  "Quad2m": {
+   "coID": 998,
+   "grID": 851,
+   "inID": 1314,
+   "ofID": 143,
+   "trID": 425
+  },
+  "Quad2s": {
+   "coID": 1066,
+   "grID": 1338,
+   "inID": 1216,
+   "ofID": 708
+  },
+  "Quad2t": {
+   "coID": 639,
+   "grID": 423,
+   "inID": 751,
+   "ofID": 922
+  },
+  "Quad2w": {
+   "coID": 268,
+   "grID": 296,
+   "inID": 323,
+   "ofID": 962,
+   "trID": 425
+  },
+  "Quad3": {
+   "coID": 1090,
+   "grID": 1298,
+   "inID": 916,
+   "ofID": 591,
+   "trID": 1329
+  },
+  "Quad3f": {
+   "coID": 894,
+   "grID": 865,
+   "inID": 733,
+   "ofID": 293,
+   "trID": 425
+  },
+  "Quad3h": {
+   "coID": 479,
+   "grID": 1230,
+   "inID": 389,
+   "ofID": 616
+  },
+  "Quad3m": {
+   "coID": 931,
+   "grID": 118,
+   "inID": 839,
+   "ofID": 842,
+   "trID": 425
+  },
+  "Quad3s": {
+   "coID": 1010,
+   "grID": 1121,
+   "inID": 1248,
+   "ofID": 1099
+  },
+  "Quad3t": {
+   "coID": 1340,
+   "grID": 1210,
+   "inID": 558,
+   "ofID": 47
+  },
+  "Quad3w": {
+   "coID": 531,
+   "grID": 562,
+   "inID": 1049,
+   "ofID": 1369,
+   "trID": 425
+  },
+  "Quad4": {
+   "coID": 1353,
+   "grID": 1011,
+   "inID": 653,
+   "ofID": 899,
+   "trID": 1377
+  },
+  "Quad4f": {
+   "coID": 704,
+   "grID": 547,
+   "inID": 572,
+   "ofID": 1080,
+   "trID": 425
+  },
+  "Quad4h": {
+   "coID": 1318,
+   "grID": 1232,
+   "inID": 864,
+   "ofID": 731
+  },
+  "Quad4m": {
+   "coID": 1316,
+   "grID": 886,
+   "inID": 458,
+   "ofID": 718,
+   "trID": 425
+  },
+  "Quad4s": {
+   "coID": 278,
+   "grID": 818,
+   "inID": 776,
+   "ofID": 223
+  },
+  "Quad4t": {
+   "coID": 1296,
+   "grID": 152,
+   "inID": 904,
+   "ofID": 182
+  },
+  "Quad4w": {
+   "coID": 989,
+   "inID": 418,
+   "ofID": 860,
+   "trID": 425
+  },
+  "Quad5": {
+   "coID": 726,
+   "grID": 760,
+   "inID": 78,
+   "ofID": 318,
+   "trID": 742
+  },
+  "Quad5f": {
+   "coID": 1158,
+   "grID": 819,
+   "inID": 267,
+   "ofID": 408,
+   "trID": 425
+  },
+  "Quad5f_sd": {
+   "ref": "Sep15",
+   "trID": 1156
+  },
+  "Quad5h": {
+   "coID": 696,
+   "grID": 282,
+   "inID": 1056,
+   "ofID": 812
+  },
+  "Quad5m": {
+   "coID": 81,
+   "grID": 621,
+   "inID": 138,
+   "ofID": 848,
+   "trID": 425
+  },
+  "Quad5s": {
+   "coID": 1158,
+   "grID": 819,
+   "inID": 267,
+   "ofID": 408
+  },
+  "Quad5t": {
+   "coID": 433,
+   "grID": 665,
+   "inID": 60,
+   "ofID": 1328
+  },
+  "Quad5w": {
+   "coID": 141,
+   "grID": 277,
+   "inID": 1054,
+   "ofID": 245,
+   "trID": 425
+  },
+  "Quad6": {
+   "coID": 650,
+   "grID": 49,
+   "inID": 1171,
+   "ofID": 486,
+   "trID": 372
+  },
+  "Quad6_v": {
+   "coID": 650,
+   "grID": 49,
+   "inID": 1171,
+   "ofID": 486,
+   "trID": 372
+  },
+  "Quad6f": {},
+  "Quad6f_v": {},
+  "Quad6h": {
+   "coID": 140,
+   "grID": 873,
+   "inID": 374,
+   "ofID": 47
+  },
+  "Quad6h-lotio": {},
+  "Quad6h_v": {
+   "coID": 140,
+   "grID": 873,
+   "inID": 374,
+   "ofID": 47
+  },
+  "Quad6m": {
+   "coID": 196,
+   "grID": 783,
+   "inID": 226,
+   "ofID": 411,
+   "trID": 425
+  },
+  "Quad6s": {},
+  "Quad6s_v": {},
+  "Quad6t": {
+   "coID": 397,
+   "grID": 903,
+   "inID": 374,
+   "ofID": 1322
+  },
+  "Quad6t_v": {
+   "ref": "Quad6t"
+  },
+  "Quad6w": {
+   "coID": 588,
+   "grID": 1239,
+   "inID": 236,
+   "ofID": 867,
+   "trID": 824
+  },
+  "Quad6w_v": {
+   "ref": "Quad6w"
+  },
+  "SCJ": {
+   "alID": 907,
+   "coID": 1356,
+   "grID": 1035,
+   "inID": 1320,
+   "ofID": 628
+  },
+  "SMadvent": {
+   "alID": 1209,
+   "coID": 1144,
+   "grID": 756,
+   "inID": 161,
+   "ofID": 843
+  },
+  "SMchristmas": {
+   "alID": 127,
+   "coID": 160,
+   "grID": 1308,
+   "inID": 124,
+   "ofID": 280
+  },
+  "SMchristmasQuad": {
+   "coID": 160,
+   "grID": 1308,
+   "inID": 124,
+   "ofID": 280,
+   "trID": 18
+  },
+  "SMeaster": {
+   "alID": 1209,
+   "coID": 160,
+   "grID": 281,
+   "inID": 1140,
+   "ofID": 567
+  },
+  "SMlent": {
+   "alID": 281,
+   "coID": 160,
+   "grID": 392,
+   "inID": 1140,
+   "ofID": 280
+  },
+  "SMlentQuad": {
+   "coID": 160,
+   "grID": 392,
+   "inID": 1140,
+   "ofID": 280,
+   "trID": 18
+  },
+  "SMpentecost": {
+   "alID": 127,
+   "coID": 160,
+   "grID": 392,
+   "inID": 1140,
+   "ofID": 843
+  },
+  "Sep1": {
+   "alID": 724,
+   "coID": 1154,
+   "grID": 34,
+   "inID": 1374,
+   "ofID": 630
+  },
+  "Sep10": {
+   "ref": "mass_ii_confessor_not_bishop"
+  },
+  "Sep11": {
+   "ref": "mass_iii_two_or_more_martyr"
+  },
+  "Sep12": {
+   "alID": 127,
+   "coID": 160,
+   "grID": 392,
+   "inID": 124,
+   "ofID": 843
+  },
+  "Sep14": {
+   "alID": 859,
+   "coID": 346,
+   "grID": 873,
+   "inID": 359,
+   "ofID": 195
+  },
+  "Sep15": {
+   "alID": 853,
+   "coID": 1180,
+   "grID": 1383,
+   "inID": 149,
+   "ofID": 787,
+   "seqID": 681
+  },
+  "Sep16": {
+   "ref": "Jul28"
+  },
+  "Sep17": {
+   "alID": 1200,
+   "coID": 1008,
+   "grID": 511,
+   "inID": 849,
+   "ofID": 630
+  },
+  "Sep18": {
+   "alID": 473,
+   "coID": 976,
+   "grID": 600,
+   "inID": 258,
+   "ofID": 607
+  },
+  "Sep19": {
+   "ref": "mass_iii_two_or_more_martyr"
+  },
+  "Sep19laSalette": {
+   "alID": 19929,
+   "coID": 1053,
+   "grID": 19928,
+   "inID": 19927,
+   "ofID": 787
+  },
+  "Sep2": {
+   "ref": "mass_i_confessor_not_bishop"
+  },
+  "Sep20": {
+   "alID": 896,
+   "coID": 699,
+   "grID": 432,
+   "inID": 11,
+   "ofID": 33
+  },
+  "Sep21": {
+   "alID": 442,
+   "coID": 365,
+   "grID": 153,
+   "inID": 1374,
+   "ofID": 487
+  },
+  "Sep22": {
+   "ref": "mass_i_confessor_bishop"
+  },
+  "Sep23": {
+   "ref": "mass_holy_pope"
+  },
+  "Sep24": {
+   "ref": "mass_bvm"
+  },
+  "Sep26": {
+   "ref": "mass_iii_two_or_more_martyr"
+  },
+  "Sep26a": {
+   "alID": 525,
+   "coID": 126,
+   "grID": 432,
+   "inID": 669,
+   "ofID": 1113
+  },
+  "Sep27": {
+   "alID": 32,
+   "coID": 184,
+   "grID": 1009,
+   "inID": 11,
+   "ofID": 1375
+  },
+  "Sep28": {
+   "alID": 1249,
+   "coID": 89,
+   "grID": 153,
+   "inID": 316,
+   "ofID": 407,
+   "ref": "mass_i_martyr_not_bishop"
+  },
+  "Sep29": {
+   "alID": 1103,
+   "coID": 1127,
+   "grID": 609,
+   "inID": 985,
+   "ofID": 302
+  },
+  "Sep3": {
+   "alID": 467,
+   "coID": 90,
+   "grID": 977,
+   "inID": 452,
+   "ofID": 805
+  },
+  "Sep30": {
+   "ref": "mass_doctors"
+  },
+  "Sep3Pasch": {
+   "alID": 315,
+   "coID": 90,
+   "grID": 467,
+   "inID": 452,
+   "ofID": 805
+  },
+  "Sep3Quad": {
+   "coID": 90,
+   "grID": 977,
+   "inID": 452,
+   "ofID": 805,
+   "trID": 1281
+  },
+  "Sep5": {
+   "ref": "mass_i_confessor_bishop"
+  },
+  "Sep8": {
+   "ref": "Jul2"
+  },
+  "Sep9": {
+   "ref": "mass_ii_martyr_not_bishop"
+  },
+  "Sep9a": {
+   "alID": 1185,
+   "coID": 491,
+   "grID": 498,
+   "inID": 573,
+   "ofID": 1269
+  },
+  "dedicatio": {
+   "alID": 242,
+   "coID": 43,
+   "grID": 651,
+   "inID": 923,
+   "ofID": 200
+  },
+  "dedicatioPasch": {
+   "alID": 1343,
+   "coID": 43,
+   "grID": 242,
+   "inID": 923,
+   "ofID": 200
+  },
+  "dedicatioQuad": {
+   "coID": 43,
+   "grID": 651,
+   "inID": 923,
+   "ofID": 200,
+   "trID": 1377
+  },
+  "defunctorum": {
+   "coID": 241,
+   "grID": 1261,
+   "inID": 766,
+   "ofID": 1199,
+   "seqID": 1198,
+   "trID": 338
+  },
+  "epiphany": {
+   "al": "Vidimus stellam",
+   "alID": 524,
+   "co": "Vidimus (stellam)",
+   "coID": 918,
+   "gr": "Omnes (de Saba)",
+   "grID": 205,
+   "in": "Ecce (advenit)",
+   "inID": 403,
+   "of": "Reges Tharsis",
+   "ofID": 1147
+  },
+  "litaniis": {
+   "alID": 189,
+   "coID": 422,
+   "grID": 395,
+   "inID": 451,
+   "ofID": 584
+  },
+  "litaniisPasch": {
+   "alID": 1342,
+   "coID": 364,
+   "grID": 189,
+   "inID": 939,
+   "ofID": 584
+  },
+  "litaniisQuad": {
+   "coID": 422,
+   "grID": 395,
+   "inID": 451,
+   "ofID": 584,
+   "trID": 276
+  },
+  "mass_abbots": {
+   "al": "Justus ut palma",
+   "alID": 946,
+   "alPaschID": 1207,
+   "co": "Fidelis servus",
+   "coID": 1008,
+   "gr": "Domine (praevenisti)",
+   "grID": 600,
+   "in": "Os justi",
+   "inID": 1374,
+   "of": "Desiderium",
+   "ofID": 722,
+   "trSeptID": 7670
+  },
+  "mass_bvm": {
+   "al": "Post partum Virgo",
+   "alExtraID": 1209,
+   "alID": 127,
+   "alPaschID": 281,
+   "co": "Beata viscera",
+   "coID": 160,
+   "gr": "Benedicta et venerabilis",
+   "grID": 392,
+   "in": "Salve sancta Parens",
+   "inID": 1140,
+   "of": "Ave Maria... et benedictus",
+   "ofID": 843,
+   "trSeptID": 18
+  },
+  "mass_dedication_church": {
+   "al": "Adorabo",
+   "alID": 242,
+   "alPaschID": 1343,
+   "co": "Domus mea",
+   "coID": 43,
+   "gr": "Locus iste",
+   "grID": 651,
+   "in": "Terribilis est",
+   "inID": 923,
+   "of": "Domine Deus(Dedication)",
+   "ofID": 200,
+   "trSeptID": 1377
+  },
+  "mass_doctors": {
+   "al": "Amavit eum",
+   "alID": 14,
+   "alPaschID": 1207,
+   "co": "Fidelis servus",
+   "coID": 1008,
+   "gr": "Os justi",
+   "grID": 511,
+   "in": "In medio",
+   "inID": 233,
+   "of": "Justus (ut palma)",
+   "ofID": 777,
+   "trSeptID": 7670
+  },
+  "mass_holy_pope": {
+   "al": "Tu es Petrus",
+   "alID": 228,
+   "alPaschID": 548,
+   "co": "Tu es Petrus",
+   "coID": 509,
+   "gr": "Exaltent eum",
+   "grID": 1119,
+   "in": "Si diligis me",
+   "inID": 674,
+   "of": "Ecce (dedi)",
+   "ofID": 358,
+   "trSeptID": 1085
+  },
+  "mass_holy_woman_martyr": {
+   "al": "Specie tua",
+   "alID": 406,
+   "alPaschID": 913,
+   "co": "Principes",
+   "coID": 1292,
+   "gr": "Dilexisti",
+   "grID": 394,
+   "in": "Me exspectaverunt",
+   "inID": 938,
+   "of": "Diffusa est",
+   "ofID": 177,
+   "trSeptID": 256
+  },
+  "mass_holy_woman_not_martyr": {
+   "al": "Specie tua",
+   "alID": 406,
+   "alPaschID": 913,
+   "co": "Dilexisti",
+   "coID": 799,
+   "gr": "Diffusa est",
+   "grID": 947,
+   "in": "Cognovi",
+   "inID": 619,
+   "of": "Diffusa est",
+   "ofID": 177,
+   "trSeptID": 256
+  },
+  "mass_i_confessor_bishop": {
+   "al": "Tu es sacerdos",
+   "alID": 477,
+   "alPaschID": 1118,
+   "co": "Fidelis servus",
+   "coID": 1008,
+   "gr": "Ecce sacerdos",
+   "grID": 235,
+   "in": "Statuit",
+   "inID": 456,
+   "of": "Inveni David",
+   "ofID": 779,
+   "trSeptID": 7670
+  },
+  "mass_i_confessor_not_bishop": {
+   "al": "Beatus vir qui suffert",
+   "alID": 724,
+   "alPaschID": 14,
+   "co": "Beatus servus",
+   "coID": 1154,
+   "gr": "Justus ut palma",
+   "grID": 34,
+   "in": "Os justi",
+   "inID": 1374,
+   "of": "Veritas mea",
+   "ofID": 630,
+   "trSeptID": 7670
+  },
+  "mass_i_martyr_bishop": {
+   "al": "Tu es sacerdos",
+   "alID": 477,
+   "co": "Semel juravi",
+   "coID": 317,
+   "gr": "Inveni David",
+   "grID": 827,
+   "in": "Statuit",
+   "inID": 456,
+   "of": "Veritas mea",
+   "ofID": 630,
+   "trSeptID": 176
+  },
+  "mass_i_martyr_not_bishop": {
+   "al": "Posuisti Domine",
+   "alID": 1249,
+   "co": "Qui vult venire",
+   "coID": 89,
+   "gr": "Beatus vir (qui timet)",
+   "grID": 153,
+   "in": "In virtute tua",
+   "inID": 316,
+   "of": "Gloria et honore",
+   "ofID": 407,
+   "trSeptID": 176
+  },
+  "mass_i_two_or_more_martyr": {
+   "al": "Corpora sanctorum",
+   "alID": 1250,
+   "co": "Et si coram",
+   "coID": 658,
+   "gr": "Gloriosus Deus",
+   "grID": 888,
+   "in": "Intret in conspectu",
+   "inID": 261,
+   "of": "Mirabilis Deus",
+   "ofID": 919,
+   "trSeptID": 305
+  },
+  "mass_i_virgin_martyr": {
+   "al": "Adducentur regi virgines",
+   "alID": 208,
+   "alPaschID": 406,
+   "co": "Confundantur superbi",
+   "coID": 1032,
+   "gr": "Dilexisti",
+   "grID": 394,
+   "in": "Loquebar... Ps. Beati immaculati",
+   "inID": 510,
+   "of": "Afferentur... proximae",
+   "ofID": 1107,
+   "trSeptID": 256
+  },
+  "mass_i_virgin_not_martyr": {
+   "al": "Adducentur regi virgines",
+   "alID": 208,
+   "alPaschID": 406,
+   "co": "Quinque prudentes",
+   "coID": 1301,
+   "gr": "Specie tua",
+   "grID": 174,
+   "in": "Dilexisti",
+   "inID": 629,
+   "of": "Filiae regum",
+   "ofID": 1333,
+   "trSeptID": 738
+  },
+  "mass_ii_confessor_bishop": {
+   "al": "Juravit Dominus",
+   "alID": 1187,
+   "alPaschID": 14,
+   "co": "Beatus servus",
+   "coID": 1154,
+   "gr": "Sacerdotes (ejus)",
+   "grID": 415,
+   "in": "Sacerdotes tui",
+   "inID": 48,
+   "of": "Veritas mea",
+   "ofID": 630,
+   "trSeptID": 7670
+  },
+  "mass_ii_confessor_not_bishop": {
+   "al": "Beatus vir qui timet",
+   "alID": 765,
+   "alPaschID": 1207,
+   "co": "Amen dico vobis... quod vos",
+   "coID": 1337,
+   "gr": "Os justi",
+   "grID": 511,
+   "in": "Justus ut palma",
+   "inID": 108,
+   "of": "In virtute tua",
+   "ofID": 667,
+   "trSeptID": 7670
+  },
+  "mass_ii_martyr_bishop": {
+   "al": "Hic est sacerdos",
+   "alID": 1118,
+   "co": "Posuisti Domine",
+   "coID": 586,
+   "gr": "Gloria et honore",
+   "grID": 1206,
+   "in": "Sacerdotes Dei",
+   "inID": 227,
+   "of": "Inveni David",
+   "ofID": 779,
+   "trSeptID": 7670
+  },
+  "mass_ii_martyr_not_bishop": {
+   "al": "Qui sequitur me",
+   "alID": 1201,
+   "co": "Qui mihi ministrat",
+   "coID": 685,
+   "gr": "Justus (cum ceciderit)",
+   "grID": 764,
+   "in": "Laetabitur (justus)",
+   "inID": 251,
+   "of": "Posuisti",
+   "ofID": 487,
+   "trSeptID": 7670
+  },
+  "mass_ii_two_or_more_martyr": {
+   "al": "Justi epulentur",
+   "alID": 896,
+   "co": "Dico autem vobis",
+   "coID": 699,
+   "gr": "Anima nostra",
+   "grID": 432,
+   "in": "Sapientiam (sanctorum)",
+   "inID": 11,
+   "of": "Exsultabunt (sancti)",
+   "ofID": 33,
+   "trSeptID": 305
+  },
+  "mass_ii_virgin_martyr": {
+   "al": "Haec est virgo",
+   "alID": 500,
+   "co": "Feci judicium",
+   "coID": 844,
+   "gr": "Adjuvabit (eam Deus)",
+   "grID": 1373,
+   "in": "Me exspectaverunt",
+   "inID": 938,
+   "of": "Diffusa est",
+   "ofID": 177
+  },
+  "mass_ii_virgin_not_martyr": {
+   "al": "Haec est virgo",
+   "alID": 500,
+   "co": "Simile est",
+   "coID": 673,
+   "gr": "Concupivit rex",
+   "grID": 686,
+   "in": "Vultum tuum",
+   "inID": 124,
+   "of": "Afferentur... proximae",
+   "ofID": 1107
+  },
+  "mass_iii_two_or_more_martyr": {
+   "al": "Te Martyrum",
+   "alID": 590,
+   "co": "Quod dico vobis",
+   "coID": 1002,
+   "gr": "Clamaverunt",
+   "grID": 1009,
+   "in": "Salus autem",
+   "inID": 737,
+   "of": "Justorum (animae)",
+   "ofID": 835,
+   "trSeptID": 305
+  },
+  "mass_one_martyr": {
+   "al": [
+    "Confitebuntur",
+    "Posuisti Domine"
+   ],
+   "co": "Laetabitur justus",
+   "coID": 617,
+   "in": "Protexisti me",
+   "inID": 340,
+   "of": "Confitebuntur",
+   "ofID": 1382
+  },
+  "mass_two_or_more_martyr": {
+   "al": [
+    "Sancti tui... florebunt",
+    "Pretiosa"
+   ],
+   "co": "Gaudete (justi)",
+   "coID": 772,
+   "in": "Sancti tui",
+   "inID": 1231,
+   "of": "Laetamini",
+   "ofID": 870
+  },
+  "mass_vigil_apostle": {
+   "co": "Magna est",
+   "coID": 365,
+   "gr": "Justus ut palma",
+   "grID": 34,
+   "in": "Ego autem sicut",
+   "inID": 163,
+   "of": "Gloria et honore",
+   "ofID": 407
+  },
+  "nuptialis": {
+   "alID": 191,
+   "coID": 490,
+   "grID": 311,
+   "inID": 551,
+   "ofID": 967
+  },
+  "nuptialisPasch": {
+   "alID": 505,
+   "coID": 490,
+   "grID": 191,
+   "inID": 551,
+   "ofID": 967
+  },
+  "nuptialisQuad": {
+   "coID": 490,
+   "grID": 311,
+   "inID": 551,
+   "ofID": 967,
+   "trID": 144
+  },
+  "requiem": {
+   "co": "Lux aeterna",
+   "coID": 241,
+   "gr": "Requiem",
+   "grID": 1261,
+   "in": "Requiem",
+   "inID": 766,
+   "of": "Domine Jesu Christe",
+   "ofID": 1199,
+   "seq": "Dies irae",
+   "seqID": 1198,
+   "tr": "Absolve (Domine)",
+   "trID": 338
+  },
+  "st_francis_stigmata": {
+   "al": "Franciscus pauper",
+   "alID": 1200,
+   "co": "Fidelis servus",
+   "coID": 1008,
+   "gr": "Os justi",
+   "grID": 511,
+   "in": "Mihi autem absit. Ps. Voce mea",
+   "inID": 849,
+   "of": "Veritas mea",
+   "ofID": 630
+  },
+  "votiveA": {
+   "alID": 550,
+   "coID": 599,
+   "grID": 348,
+   "inID": 985,
+   "ofID": 302
+  },
+  "votiveAPasch": {
+   "alID": 377,
+   "coID": 599,
+   "grID": 550,
+   "inID": 985,
+   "ofID": 302
+  },
+  "votiveAQuad": {
+   "coID": 599,
+   "grID": 348,
+   "inID": 985,
+   "ofID": 302,
+   "trID": 949
+  },
+  "votiveECJ": {
+   "ref": "ECJ"
+  },
+  "votiveECJPasch": {
+   "alID": 29,
+   "coID": 730,
+   "grID": 10,
+   "inID": 676,
+   "ofID": 683
+  },
+  "votiveECJQuad": {
+   "coID": 730,
+   "grID": 492,
+   "inID": 676,
+   "ofID": 683
+  },
+  "votiveED": {
+   "alID": 855,
+   "coID": 1290,
+   "grID": 1265,
+   "inID": 529,
+   "ofID": 1080
+  },
+  "votiveEDPasch": {
+   "alID": 539,
+   "coID": 1290,
+   "grID": 855,
+   "inID": 529,
+   "ofID": 1080
+  },
+  "votiveEDQuad": {
+   "coID": 1290,
+   "grID": 1265,
+   "inID": 529,
+   "ofID": 1080,
+   "trID": 380
+  },
+  "votiveESP": {
+   "alID": 679,
+   "coID": 145,
+   "grID": 546,
+   "inID": 1286,
+   "ofID": 690
+  },
+  "votiveESPPasch": {
+   "alID": 1220,
+   "coID": 145,
+   "grID": 679,
+   "inID": 1286,
+   "ofID": 690
+  },
+  "votiveESPQuad": {
+   "coID": 145,
+   "grID": 546,
+   "inID": 1286,
+   "ofID": 690,
+   "trID": 597
+  },
+  "votiveFP": {
+   "alID": 253,
+   "coID": 322,
+   "grID": 632,
+   "inID": 2,
+   "ofID": 1277
+  },
+  "votiveFPPasch": {
+   "alID": 1164,
+   "coID": 322,
+   "grID": 253,
+   "inID": 2,
+   "ofID": 1277
+  },
+  "votiveFPQuad": {
+   "coID": 322,
+   "grID": 632,
+   "inID": 2,
+   "ofID": 1277,
+   "trID": 516
+  },
+  "votiveGBM": {
+   "alID": 239,
+   "coID": 1318,
+   "grID": 1121,
+   "inID": 1072,
+   "ofID": 967
+  },
+  "votiveGBMPasch": {
+   "alID": 745,
+   "coID": 1318,
+   "grID": 1380,
+   "inID": 1072,
+   "ofID": 967
+  },
+  "votiveGBMQuad": {
+   "coID": 1318,
+   "grID": 1121,
+   "inID": 1072,
+   "ofID": 967,
+   "trID": 276
+  },
+  "votiveJ": {
+   "alID": 213,
+   "coID": 534,
+   "grID": 600,
+   "inID": 385,
+   "ofID": 845
+  },
+  "votiveJCSES": {
+   "alID": 1096,
+   "coID": 726,
+   "grID": 1016,
+   "inID": 684,
+   "ofID": 1364
+  },
+  "votiveJCSESPasch": {
+   "alID": 611,
+   "coID": 726,
+   "grID": 1096,
+   "inID": 684,
+   "ofID": 1364
+  },
+  "votiveJCSESQuad": {
+   "coID": 726,
+   "grID": 1016,
+   "inID": 684,
+   "ofID": 1364,
+   "trID": 1370
+  },
+  "votiveJPasch": {
+   "alID": 213,
+   "coID": 534,
+   "grID": 1324,
+   "inID": 385,
+   "ofID": 845
+  },
+  "votiveJQuad": {
+   "coID": 534,
+   "grID": 600,
+   "inID": 385,
+   "ofID": 845,
+   "trID": 7670
+  },
+  "votiveMPI": {
+   "alID": 595,
+   "coID": 640,
+   "grID": 562,
+   "inID": 904,
+   "ofID": 842
+  },
+  "votiveMPIPasch": {
+   "alID": 1285,
+   "coID": 640,
+   "grID": 595,
+   "inID": 904,
+   "ofID": 842
+  },
+  "votiveMPIQuad": {
+   "coID": 640,
+   "grID": 562,
+   "inID": 904,
+   "ofID": 842,
+   "trID": 729
+  },
+  "votiveOA": {
+   "ref": "votivePP"
+  },
+  "votiveOAPasch": {
+   "alID": 1030,
+   "coID": 212,
+   "grID": 762,
+   "inID": 340
+  },
+  "votiveOAQuad": {
+   "ref": "votivePPQuad"
+  },
+  "votiveP": {
+   "alID": 641,
+   "coID": 942,
+   "grID": 180,
+   "inID": 172,
+   "ofID": 899
+  },
+  "votivePIA": {
+   "alID": 352,
+   "coID": 479,
+   "grID": 1121,
+   "inID": 1314,
+   "ofID": 265
+  },
+  "votivePIAPasch": {
+   "alID": 292,
+   "coID": 479,
+   "grID": 352,
+   "inID": 1314,
+   "ofID": 265
+  },
+  "votivePIAQuad": {
+   "coID": 479,
+   "grID": 1121,
+   "inID": 1314,
+   "ofID": 265,
+   "trID": 927
+  },
+  "votivePJC": {
+   "alID": 199,
+   "coID": 84,
+   "grID": 780,
+   "inID": 523,
+   "ofID": 426
+  },
+  "votivePJCPasch": {
+   "alID": 1376,
+   "coID": 84,
+   "grID": 199,
+   "inID": 523,
+   "ofID": 426
+  },
+  "votivePJCQuad": {
+   "coID": 84,
+   "grID": 780,
+   "inID": 523,
+   "ofID": 426,
+   "trID": 978
+  },
+  "votivePP": {
+   "alID": 130,
+   "coID": 1028,
+   "grID": 307,
+   "inID": 475,
+   "ofID": 570
+  },
+  "votivePPPasch": {
+   "alID": 1249,
+   "coID": 617,
+   "grID": 762,
+   "inID": 340,
+   "ofID": 1382
+  },
+  "votivePPQuad": {
+   "coID": 1028,
+   "grID": 307,
+   "inID": 475,
+   "ofID": 570,
+   "trID": 305
+  },
+  "votivePPasch": {
+   "alID": 700,
+   "coID": 942,
+   "grID": 641,
+   "inID": 172,
+   "ofID": 899
+  },
+  "votivePQuad": {
+   "coID": 942,
+   "grID": 180,
+   "inID": 172,
+   "ofID": 899,
+   "trID": 421
+  },
+  "votiveQN": {
+   "alID": 189,
+   "coID": 696,
+   "grID": 395,
+   "inID": 389,
+   "ofID": 616
+  },
+  "votiveQNPasch": {
+   "alID": 1342,
+   "coID": 696,
+   "grID": 189,
+   "inID": 389,
+   "ofID": 616
+  },
+  "votiveQNQuad": {
+   "coID": 696,
+   "grID": 395,
+   "inID": 389,
+   "ofID": 616,
+   "trID": 276
+  },
+  "votiveRP": {
+   "alID": 1264,
+   "coID": 422,
+   "grID": 332,
+   "inID": 533,
+   "ofID": 461
+  },
+  "votiveRPPasch": {
+   "alID": 453,
+   "coID": 364,
+   "grID": 1264,
+   "inID": 533,
+   "ofID": 461
+  },
+  "votiveRPQuad": {
+   "coID": 422,
+   "grID": 332,
+   "inID": 533,
+   "ofID": 461,
+   "trID": 926
+  },
+  "votiveSC": {
+   "alID": 859,
+   "coID": 346,
+   "grID": 873,
+   "inID": 359,
+   "ofID": 195
+  },
+  "votiveSCJ": {
+   "ref": "SCJ"
+  },
+  "votiveSCJPasch": {
+   "alID": 1237,
+   "coID": 154,
+   "grID": 907,
+   "inID": 1320,
+   "ofID": 319
+  },
+  "votiveSCJQuad": {
+   "coID": 1356,
+   "grID": 1035,
+   "inID": 1320,
+   "ofID": 628,
+   "trID": 1244
+  },
+  "votiveSCPasch": {
+   "alID": 859,
+   "coID": 346,
+   "grID": 627,
+   "inID": 359,
+   "ofID": 195
+  },
+  "votiveSCQuad": {
+   "coID": 346,
+   "grID": 873,
+   "inID": 359,
+   "ofID": 195,
+   "trID": 114
+  },
+  "votiveSES": {
+   "alID": 774,
+   "coID": 10950,
+   "grID": 1230,
+   "inID": 62,
+   "ofID": 645
+  },
+  "votiveSESPasch": {
+   "alID": 774,
+   "coID": 577,
+   "grID": 912,
+   "inID": 715,
+   "ofID": 645
+  },
+  "votiveSESQuad": {
+   "coID": 10950,
+   "grID": 1230,
+   "inID": 62,
+   "ofID": 645,
+   "trID": 644
+  },
+  "votiveSS": {
+   "alID": 181,
+   "coID": 1041,
+   "grID": 1044,
+   "inID": 636,
+   "ofID": 361
+  },
+  "votiveSSPasch": {
+   "alID": 181,
+   "coID": 1041,
+   "grID": 99,
+   "inID": 861,
+   "ofID": 361
+  },
+  "votiveSSQuad": {
+   "coID": 972,
+   "grID": 1044,
+   "inID": 636,
+   "ofID": 83,
+   "trID": 925
+  },
+  "votiveST": {
+   "alID": 1289,
+   "coID": 391,
+   "grID": 965,
+   "inID": 349,
+   "ofID": 1303
+  },
+  "votiveSTPasch": {
+   "alID": 744,
+   "coID": 391,
+   "grID": 1289,
+   "inID": 349,
+   "ofID": 1303
+  },
+  "votiveSTQuad": {
+   "coID": 391,
+   "grID": 965,
+   "inID": 349,
+   "ofID": 1303,
+   "trID": 763
+  },
+  "votiveTB": {
+   "alID": 879,
+   "coID": 339,
+   "grID": 850,
+   "inID": 1294,
+   "ofID": 1080
+  },
+  "votiveTBPasch": {
+   "alID": 192,
+   "coID": 339,
+   "grID": 879,
+   "inID": 1294,
+   "ofID": 1080
+  },
+  "votiveTBQuad": {
+   "coID": 339,
+   "grID": 850,
+   "inID": 1294,
+   "ofID": 1080,
+   "trID": 425
+  },
+  "votiveUE": {
+   "alID": 641,
+   "coID": 147,
+   "grID": 180,
+   "inID": 575,
+   "ofID": 1272
+  },
+  "votiveUEPasch": {
+   "alID": 700,
+   "coID": 147,
+   "grID": 641,
+   "inID": 575,
+   "ofID": 1272
+  },
+  "votiveUEQuad": {
+   "coID": 147,
+   "grID": 180,
+   "inID": 575,
+   "ofID": 1272,
+   "trID": 421
+  },
+  "votiveVM": {
+   "alID": 134,
+   "coID": 902,
+   "grID": 932,
+   "inID": 535,
+   "ofID": 723
+  },
+  "votiveVMPasch": {
+   "alID": 158,
+   "coID": 902,
+   "grID": 134,
+   "inID": 535,
+   "ofID": 723
+  },
+  "votiveVMQuad": {
+   "coID": 902,
+   "grID": 932,
+   "inID": 535,
+   "ofID": 723,
+   "trID": 425
+  }
+ },
+ "source": {
+  "commit": "3bf01d3c3248fe11ee17a53c8df70e364dc2e89e",
+  "licence": "Unlicense",
+  "path": "propersdata.js",
+  "refresh": "uv run noh jgabc-fetch [--commit SHA]; do not hand-edit",
+  "repo": "https://github.com/bbloomf/jgabc",
+  "source_sha256": "c632d7774d7fb1ae27f5cf5457cd558d774445b1a2359e5cece000f950d3d0e5"
+ }
+}

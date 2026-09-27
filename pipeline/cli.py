@@ -85,6 +85,10 @@ def build_parser() -> argparse.ArgumentParser:
     ix.add_argument("--out", type=Path, default=None,
                     help="proposal path (default data/index-<vol>.proposed.yml)")
 
+    jg = subs.add_parser("jgabc-fetch",
+                         help="vendor jgabc's per-day chant ids into data/jgabc-propers.json")
+    jg.add_argument("--commit", default=None, help="jgabc commit sha (default: master's head)")
+
     cat = subs.add_parser("catalog", help="build data/catalog.json and review-queue.json")
     cat.add_argument("--volume", required=True)
 
@@ -198,6 +202,17 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "index-extract":
         return _index_extract(args)
+
+    if args.command == "jgabc-fetch":
+        from pipeline.jgabc import JgabcSyntaxError, fetch
+        try:
+            path, commit, count = fetch(args.commit)
+        except JgabcSyntaxError as exc:
+            print(f"jgabc-fetch: {exc}\n  data/jgabc-propers.json was left untouched.",
+                  file=sys.stderr)
+            return 1
+        print(f"{path}: {count} Propers from jgabc @ {commit[:12]}")
+        return 0
 
     if args.command == "catalog":
         from pipeline.catalog import write_catalog

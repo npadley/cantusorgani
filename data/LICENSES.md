@@ -37,6 +37,14 @@ Obligations this project accepts:
    structure without inheriting CC BY-SA, so the two are kept in distinct fields
    and distinct asset paths.
 
+## jgabc per-day chant ids — Unlicense (public domain)
+
+`data/jgabc-propers.json` is extracted from `propersdata.js` in
+[bbloomf/jgabc](https://github.com/bbloomf/jgabc), which carries the Unlicense.
+It records, per day, which parts a Proper has and the GregoBase id of each; the
+site uses it to divide Propers into parts and to link each part to GregoBase.
+Source commit and sha256 are in the file's header.
+
 ## Reference editions — not redistributed
 
 The Corpus Christi Watershed edition (`data/reference-editions.yml`) is read for
