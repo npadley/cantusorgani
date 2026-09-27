@@ -1045,7 +1045,17 @@
         ]
       ],
       "movements": [],
-      "parts": [],
+      "parts": [
+        {
+          "part": "offertory",
+          "variant": "",
+          "system": 10,
+          "ref": "noh1/0046/000",
+          "gregobase_id": 290,
+          "placed": "text",
+          "score": 0.731
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Adv3w",
       "chant": [],
       "review_status": "verified",
@@ -6530,7 +6540,26 @@
         ]
       ],
       "movements": [],
-      "parts": [],
+      "parts": [
+        {
+          "part": "offertory",
+          "variant": "",
+          "system": 23,
+          "ref": "noh1/0157/000",
+          "gregobase_id": 47,
+          "placed": "text",
+          "score": 0.706
+        },
+        {
+          "part": "communion",
+          "variant": "",
+          "system": 27,
+          "ref": "noh1/0157/004",
+          "gregobase_id": 1148,
+          "placed": "text",
+          "score": 0.694
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Epi3",
       "chant": [],
       "review_status": "verified",
@@ -8361,7 +8390,17 @@
         ]
       ],
       "movements": [],
-      "parts": [],
+      "parts": [
+        {
+          "part": "communion",
+          "variant": "",
+          "system": 0,
+          "ref": "noh1/0194/000",
+          "gregobase_id": 897,
+          "placed": "text",
+          "score": 0.808
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=5as",
       "chant": [],
       "review_status": "verified",
@@ -9048,8 +9087,8 @@
           "system": 0,
           "ref": "noh1/0207/000",
           "gregobase_id": 1330,
-          "placed": "text",
-          "score": 0.864
+          "placed": "label",
+          "score": 1.0
         },
         {
           "part": "offertory",
@@ -9326,7 +9365,17 @@
         ]
       ],
       "movements": [],
-      "parts": [],
+      "parts": [
+        {
+          "part": "tract",
+          "variant": "",
+          "system": 0,
+          "ref": "noh1/0212/000",
+          "gregobase_id": 276,
+          "placed": "text",
+          "score": 0.76
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad1w",
       "chant": [],
       "review_status": "verified",
@@ -9983,11 +10032,29 @@
         {
           "part": "introit",
           "variant": "",
-          "system": 48,
-          "ref": "noh1/0228/001",
+          "system": 0,
+          "ref": "noh1/0220/001",
           "gregobase_id": 238,
+          "placed": "label",
+          "score": 1.0
+        },
+        {
+          "part": "tract",
+          "variant": "",
+          "system": 38,
+          "ref": "noh1/0226/003",
+          "gregobase_id": 1247,
+          "placed": "label",
+          "score": 1.0
+        },
+        {
+          "part": "offertory",
+          "variant": "",
+          "system": 46,
+          "ref": "noh1/0227/005",
+          "gregobase_id": 542,
           "placed": "text",
-          "score": 0.684
+          "score": 0.68
         },
         {
           "part": "communion",
@@ -14122,7 +14189,35 @@
         ]
       ],
       "movements": [],
-      "parts": [],
+      "parts": [
+        {
+          "part": "tract",
+          "variant": "",
+          "system": 22,
+          "ref": "noh1/0304/000",
+          "gregobase_id": 742,
+          "placed": "text",
+          "score": 0.684
+        },
+        {
+          "part": "offertory",
+          "variant": "",
+          "system": 37,
+          "ref": "noh1/0306/003",
+          "gregobase_id": 318,
+          "placed": "text",
+          "score": 0.698
+        },
+        {
+          "part": "communion",
+          "variant": "",
+          "system": 43,
+          "ref": "noh1/0307/003",
+          "gregobase_id": 726,
+          "placed": "text",
+          "score": 0.769
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad5",
       "chant": [],
       "review_status": "verified",
@@ -15036,7 +15131,44 @@
         ]
       ],
       "movements": [],
-      "parts": [],
+      "parts": [
+        {
+          "part": "introit",
+          "variant": "",
+          "system": 0,
+          "ref": "noh1/0321/004",
+          "gregobase_id": 267,
+          "placed": "label",
+          "score": 1.0
+        },
+        {
+          "part": "gradual",
+          "variant": "",
+          "system": 7,
+          "ref": "noh1/0323/000",
+          "gregobase_id": 819,
+          "placed": "label",
+          "score": 1.0
+        },
+        {
+          "part": "offertory",
+          "variant": "",
+          "system": 14,
+          "ref": "noh1/0324/001",
+          "gregobase_id": 408,
+          "placed": "label",
+          "score": 1.0
+        },
+        {
+          "part": "communion",
+          "variant": "",
+          "system": 19,
+          "ref": "noh1/0325/000",
+          "gregobase_id": 1158,
+          "placed": "label",
+          "score": 1.0
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad5f",
       "chant": [],
       "review_status": "verified",
@@ -17052,8 +17184,8 @@
           "system": 0,
           "ref": "noh1/0371/000",
           "gregobase_id": 374,
-          "placed": "text",
-          "score": 0.723
+          "placed": "label",
+          "score": 1.0
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad6h",
@@ -18907,7 +19039,35 @@
         ]
       ],
       "movements": [],
-      "parts": [],
+      "parts": [
+        {
+          "part": "alleluia",
+          "variant": "",
+          "system": 4,
+          "ref": "noh2/0059/004",
+          "gregobase_id": 627,
+          "placed": "text",
+          "score": 0.8
+        },
+        {
+          "part": "alleluia",
+          "variant": "paschal",
+          "system": 15,
+          "ref": "noh2/0061/003",
+          "gregobase_id": null,
+          "placed": "text",
+          "score": 0.8
+        },
+        {
+          "part": "offertory",
+          "variant": "",
+          "system": 20,
+          "ref": "noh2/0062/002",
+          "gregobase_id": 151,
+          "placed": "text",
+          "score": 0.75
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pasc0f",
       "chant": [],
       "review_status": "verified",
@@ -21177,7 +21337,26 @@
         ]
       ],
       "movements": [],
-      "parts": [],
+      "parts": [
+        {
+          "part": "alleluia",
+          "variant": "paschal",
+          "system": 0,
+          "ref": "noh2/0107/000",
+          "gregobase_id": null,
+          "placed": "text",
+          "score": 0.8
+        },
+        {
+          "part": "communion",
+          "variant": "",
+          "system": 6,
+          "ref": "noh2/0108/000",
+          "gregobase_id": 255,
+          "placed": "text",
+          "score": 0.692
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pasc6s",
       "chant": [],
       "review_status": "verified",
@@ -21509,7 +21688,53 @@
         ]
       ],
       "movements": [],
-      "parts": [],
+      "parts": [
+        {
+          "part": "alleluia",
+          "variant": "1",
+          "system": 1,
+          "ref": "noh2/0109/001",
+          "gregobase_id": 99,
+          "placed": "text",
+          "score": 0.8
+        },
+        {
+          "part": "alleluia",
+          "variant": "2",
+          "system": 3,
+          "ref": "noh2/0109/003",
+          "gregobase_id": 181,
+          "placed": "text",
+          "score": 0.8
+        },
+        {
+          "part": "alleluia",
+          "variant": "paschal",
+          "system": 4,
+          "ref": "noh2/0109/004",
+          "gregobase_id": null,
+          "placed": "text",
+          "score": 0.8
+        },
+        {
+          "part": "sequence",
+          "variant": "",
+          "system": 23,
+          "ref": "noh2/0113/000",
+          "gregobase_id": 68,
+          "placed": "text",
+          "score": 0.692
+        },
+        {
+          "part": "communion",
+          "variant": "",
+          "system": 44,
+          "ref": "noh2/0116/003",
+          "gregobase_id": 1041,
+          "placed": "text",
+          "score": 0.769
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pent0",
       "chant": [],
       "review_status": "verified",
@@ -22012,7 +22237,17 @@
         ]
       ],
       "movements": [],
-      "parts": [],
+      "parts": [
+        {
+          "part": "alleluia",
+          "variant": "1",
+          "system": 3,
+          "ref": "noh2/0123/003",
+          "gregobase_id": 635,
+          "placed": "text",
+          "score": 0.8
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pent0w",
       "chant": [],
       "review_status": "verified",
@@ -22788,8 +23023,8 @@
           "system": 0,
           "ref": "noh2/0137/002",
           "gregobase_id": 349,
-          "placed": "text",
-          "score": 0.792
+          "placed": "label",
+          "score": 1.0
         },
         {
           "part": "gradual",
@@ -23766,8 +24001,8 @@
           "system": 0,
           "ref": "noh2/0160/000",
           "gregobase_id": 1111,
-          "placed": "text",
-          "score": 0.923
+          "placed": "label",
+          "score": 1.0
         },
         {
           "part": "gradual",
@@ -24215,7 +24450,35 @@
         ]
       ],
       "movements": [],
-      "parts": [],
+      "parts": [
+        {
+          "part": "alleluia",
+          "variant": "",
+          "system": 16,
+          "ref": "noh2/0167/004",
+          "gregobase_id": 907,
+          "placed": "text",
+          "score": 0.8
+        },
+        {
+          "part": "offertory",
+          "variant": "",
+          "system": 45,
+          "ref": "noh2/0172/005",
+          "gregobase_id": 628,
+          "placed": "text",
+          "score": 0.723
+        },
+        {
+          "part": "communion",
+          "variant": "",
+          "system": 58,
+          "ref": "noh2/0175/001",
+          "gregobase_id": 1356,
+          "placed": "text",
+          "score": 0.808
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=SCJ",
       "chant": [],
       "review_status": "verified",
@@ -25916,8 +26179,8 @@
           "system": 0,
           "ref": "noh2/0203/004",
           "gregobase_id": 1357,
-          "placed": "text",
-          "score": 0.898
+          "placed": "label",
+          "score": 1.0
         },
         {
           "part": "gradual",
@@ -28439,8 +28702,8 @@
           "gregobase_id": 810,
           "borrowed_volume": "noh1",
           "borrowed_page": 20,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "feria-iv-quattuor-temporum-adventus",
+          "borrowed_ref": "noh1/0046/000"
         },
         {
           "part": "communion",
@@ -30232,7 +30495,53 @@
         ]
       ],
       "movements": [],
-      "parts": [],
+      "parts": [
+        {
+          "part": "introit",
+          "variant": "",
+          "system": 0,
+          "ref": "noh2/0287/002",
+          "gregobase_id": 735,
+          "placed": "label",
+          "score": 1.0
+        },
+        {
+          "part": "gradual",
+          "variant": "",
+          "system": 9,
+          "ref": "noh2/0288/005",
+          "gregobase_id": 395,
+          "placed": "label",
+          "score": 1.0
+        },
+        {
+          "part": "alleluia",
+          "variant": "",
+          "system": 18,
+          "ref": "noh2/0290/002",
+          "gregobase_id": 331,
+          "placed": "text",
+          "score": 0.8
+        },
+        {
+          "part": "offertory",
+          "variant": "",
+          "system": 22,
+          "ref": "noh2/0291/000",
+          "gregobase_id": 986,
+          "placed": "order",
+          "score": 0.294
+        },
+        {
+          "part": "communion",
+          "variant": "",
+          "system": 31,
+          "ref": "noh2/0292/003",
+          "gregobase_id": 592,
+          "placed": "label",
+          "score": 1.0
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pent23",
       "chant": [],
       "review_status": "verified",
@@ -31707,8 +32016,8 @@
           "gregobase_id": 1292,
           "borrowed_volume": "noh4",
           "borrowed_page": 120,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "commune-non-virginum-pro-una-martyre-non-virgine",
+          "borrowed_ref": "noh4/0151/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Dec13",
@@ -39636,6 +39945,24 @@
           "borrowed_page": 62,
           "borrowed_from": "commune-confessoris-pontificis",
           "borrowed_ref": "noh4/0093/000"
+        },
+        {
+          "part": "alleluia",
+          "variant": "",
+          "system": 0,
+          "ref": "noh3/0211/000",
+          "gregobase_id": 1189,
+          "placed": "text",
+          "score": 0.8
+        },
+        {
+          "part": "offertory",
+          "variant": "",
+          "system": 23,
+          "ref": "noh3/0215/000",
+          "gregobase_id": 102,
+          "placed": "text",
+          "score": 0.756
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=May13",
@@ -48900,8 +49227,8 @@
           "gregobase_id": 392,
           "borrowed_volume": "noh4",
           "borrowed_page": 162,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "feria-vi-missa-de-sancta-cruce",
+          "borrowed_ref": "noh4/0193/000"
         },
         {
           "part": "offertory",
@@ -49060,8 +49387,8 @@
           "gregobase_id": 511,
           "borrowed_volume": "noh4",
           "borrowed_page": 7,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "commune-unius-martyris-pontificis",
+          "borrowed_ref": "noh4/0035/002"
         },
         {
           "part": "alleluia",
@@ -49290,8 +49617,8 @@
           "gregobase_id": 600,
           "borrowed_volume": "noh4",
           "borrowed_page": 86,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "commune-confessoris-non-pontificis-missa-pro-abbatibus",
+          "borrowed_ref": "noh4/0117/000"
         },
         {
           "part": "offertory",
@@ -53446,8 +53773,8 @@
           "gregobase_id": 827,
           "borrowed_volume": "noh4",
           "borrowed_page": 4,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "commune-unius-martyris-pontificis",
+          "borrowed_ref": "noh4/0035/002"
         },
         {
           "part": "alleluia",
@@ -54240,7 +54567,17 @@
         ]
       ],
       "movements": [],
-      "parts": [],
+      "parts": [
+        {
+          "part": "gradual",
+          "variant": "",
+          "system": 7,
+          "ref": "noh4/0035/002",
+          "gregobase_id": 827,
+          "placed": "text",
+          "score": 0.731
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#common=mass_i_martyr_bishop",
       "chant": [],
       "review_status": "verified",
@@ -58347,7 +58684,17 @@
         ]
       ],
       "movements": [],
-      "parts": [],
+      "parts": [
+        {
+          "part": "gradual",
+          "variant": "",
+          "system": 0,
+          "ref": "noh4/0117/000",
+          "gregobase_id": 600,
+          "placed": "text",
+          "score": 0.744
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#common=mass_abbots",
       "chant": [],
       "review_status": "verified",
@@ -59964,7 +60311,26 @@
         ]
       ],
       "movements": [],
-      "parts": [],
+      "parts": [
+        {
+          "part": "alleluia",
+          "variant": "",
+          "system": 0,
+          "ref": "noh4/0150/003",
+          "gregobase_id": 406,
+          "placed": "text",
+          "score": 0.8
+        },
+        {
+          "part": "communion",
+          "variant": "",
+          "system": 6,
+          "ref": "noh4/0151/004",
+          "gregobase_id": 1292,
+          "placed": "text",
+          "score": 0.769
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#common=mass_holy_woman_martyr",
       "chant": [],
       "review_status": "verified",
@@ -61441,8 +61807,8 @@
           "gregobase_id": null,
           "borrowed_volume": "noh2",
           "borrowed_page": 78,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "dominica-pentecostes",
+          "borrowed_ref": "noh2/0109/004"
         },
         {
           "part": "offertory",
@@ -62007,8 +62373,8 @@
           "gregobase_id": 726,
           "borrowed_volume": "noh1",
           "borrowed_page": 280,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "dominica-i-passionis",
+          "borrowed_ref": "noh1/0307/003"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveJCSES",
@@ -62101,6 +62467,15 @@
       ],
       "movements": [],
       "parts": [
+        {
+          "part": "gradual",
+          "variant": "",
+          "system": 0,
+          "ref": "noh4/0193/000",
+          "gregobase_id": 873,
+          "placed": "text",
+          "score": 0.98
+        },
         {
           "part": "communion",
           "variant": "",
@@ -64214,8 +64589,8 @@
           "gregobase_id": 395,
           "borrowed_volume": "noh2",
           "borrowed_page": 256,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "dominica-xxiii-post-pentecosten",
+          "borrowed_ref": "noh2/0288/005"
         },
         {
           "part": "alleluia",
@@ -64232,8 +64607,8 @@
           "gregobase_id": 276,
           "borrowed_volume": "noh1",
           "borrowed_page": 185,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "feria-iv-quatuor-temporum-quadragesim",
+          "borrowed_ref": "noh1/0212/000"
         },
         {
           "part": "offertory",
@@ -72298,6 +72673,8 @@
         ]
       ],
       "movements": [],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [],
       "review_status": "verified",
       "hymns": [],
@@ -72392,6 +72769,8 @@
         ]
       ],
       "movements": [],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [],
       "review_status": "verified",
       "hymns": [],
@@ -72474,6 +72853,8 @@
         ]
       ],
       "movements": [],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [],
       "review_status": "verified",
       "hymns": [],
@@ -72737,6 +73118,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -73097,6 +73480,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -73424,6 +73809,8 @@
           "placed": "order"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -73754,6 +74141,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -74102,6 +74491,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -74432,6 +74823,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -74774,6 +75167,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -75095,6 +75490,8 @@
           "placed": "order"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -75392,6 +75789,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -75671,6 +76070,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -75983,6 +76384,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -76283,6 +76686,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -76589,6 +76994,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -76913,6 +77320,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -77213,6 +77622,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -77414,6 +77825,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -77669,6 +78082,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -77861,6 +78276,8 @@
           "placed": "match"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -78059,6 +78476,8 @@
           "text": "tremmolpotentemiueredoinunumdeurnpaivl"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -78275,6 +78694,8 @@
           "text": "ncredoinunumdeurnpatremmolpotenimaieiv"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -78455,6 +78876,8 @@
           "text": "mpatremmnlpotenternvucredoinunumdeurn"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -78653,6 +79076,8 @@
           "text": "ivcredoinunumdeurnpatremmnlpotenternijrt"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -79055,6 +79480,8 @@
           "text": "iiugnumetjustumestfgratiasagamusdominodeonostro"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [],
       "review_status": "verified",
       "hymns": [],
@@ -79165,6 +79592,8 @@
           "text": "ijukyrjeeieisonii"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -79267,6 +79696,8 @@
           "text": "ichrisleeiesonchrisleiii"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -79335,6 +79766,8 @@
         ]
       ],
       "movements": [],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -79451,6 +79884,8 @@
         ]
       ],
       "movements": [],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -79543,6 +79978,8 @@
         ]
       ],
       "movements": [],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -79641,6 +80078,8 @@
         ]
       ],
       "movements": [],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -79749,6 +80188,8 @@
           "text": "iesonkyrieeiesoniijjjq"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -79872,6 +80313,8 @@
           "text": "fleiqrtiqfeieison"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -79989,6 +80432,8 @@
           "text": "kyrieeiesonkyr"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -80097,6 +80542,8 @@
           "text": "iesonkyieieison"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -80177,6 +80624,8 @@
         ]
       ],
       "movements": [],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -80546,6 +80995,8 @@
           "text": "ijagnusdeifiiuspatrisquitolispecjbtqthl"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -80687,6 +81138,8 @@
           "text": "nitvequidifjoeqbenedictusiln"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -80837,6 +81290,8 @@
           "text": "etamllndiiiliserereagnusdi"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -80947,6 +81402,8 @@
         ]
       ],
       "movements": [],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [],
       "review_status": "verified",
       "hymns": [],
@@ -81168,6 +81625,8 @@
           "text": "patremmnipotenternfaetremereiiet"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -81378,6 +81837,8 @@
           "text": "ivcredoinunumdeurnvelcredoinunumdeurni"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
@@ -82003,6 +82464,63 @@
           "text": "donaeisrequiemagnusdeiquilispec"
         }
       ],
+      "parts": [
+        {
+          "part": "introit",
+          "variant": "",
+          "system": 0,
+          "ref": "noh5/0209/000",
+          "gregobase_id": 766,
+          "placed": "label",
+          "score": 1.0
+        },
+        {
+          "part": "gradual",
+          "variant": "",
+          "system": 12,
+          "ref": "noh5/0211/001",
+          "gregobase_id": 1261,
+          "placed": "label",
+          "score": 1.0
+        },
+        {
+          "part": "tract",
+          "variant": "",
+          "system": 15,
+          "ref": "noh5/0211/004",
+          "gregobase_id": 338,
+          "placed": "order",
+          "score": 0.303
+        },
+        {
+          "part": "sequence",
+          "variant": "",
+          "system": 33,
+          "ref": "noh5/0215/000",
+          "gregobase_id": 1198,
+          "placed": "text",
+          "score": 0.769
+        },
+        {
+          "part": "offertory",
+          "variant": "",
+          "system": 63,
+          "ref": "noh5/0220/000",
+          "gregobase_id": 1199,
+          "placed": "label",
+          "score": 1.0
+        },
+        {
+          "part": "communion",
+          "variant": "",
+          "system": 83,
+          "ref": "noh5/0223/002",
+          "gregobase_id": 241,
+          "placed": "text",
+          "score": 0.692
+        }
+      ],
+      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=defunctorum",
       "chant": [],
       "review_status": "verified",
       "hymns": [],
@@ -82144,6 +82662,8 @@
           "text": "omnessimulkyrieeieson"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [],
       "review_status": "verified",
       "hymns": [],
@@ -82326,6 +82846,8 @@
           "text": "iiegosumbeneclusdominusdeusisrael"
         }
       ],
+      "parts": [],
+      "jgabc_url": null,
       "chant": [],
       "review_status": "verified",
       "hymns": [],

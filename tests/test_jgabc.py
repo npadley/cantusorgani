@@ -307,3 +307,8 @@ def test_fetch_rejects_a_commit_that_is_not_a_sha(tmp_path):
     from pipeline.jgabc import fetch
     with pytest.raises(JgabcSyntaxError, match="not a commit sha"):
         fetch(commit="master; echo nope", path=tmp_path / "j.json")
+
+
+def test_jgabc_key_for_piece_requiem_is_the_mass_for_the_dead():
+    """NOH5's Requiem, by slug: jgabc's "defunctorum" (its menu lists it)."""
+    assert jgabc_key_for_piece({"slug": "missa-pro-defunctis-i", "days": ["sancti:11-02m1"]}) == "defunctorum"

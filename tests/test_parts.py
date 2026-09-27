@@ -316,3 +316,36 @@ def test_segment_proper_introit_after_the_tail_of_the_mass_before():
                     sys_("b"), sys_("c", label="gradual"), sys_("d"), sys_("e", label="communion")])
     result = segment_proper(systems, [exp("introit", "judicame"), exp("gradual"), exp("communion")])
     assert [(p.part, p.index) for p in result.parts] == [("introit", 2), ("gradual", 4), ("communion", 6)]
+
+
+def test_segment_proper_introit_not_found_later_parts_placed_only_by_their_words():
+    """A votive Mass that borrows its Introit (Holy Cross): the Gradual's words
+    place it; a bare "Comm." label does not, since the page may print another
+    formulary; the Offertory has neither and waits (never placed by order)."""
+    systems = refs([sys_("Christus factus est pro nobis obediens"), sys_("a"),
+                    sys_("b"), sys_("c", label="communion"), sys_("d")])
+    result = segment_proper(systems, [exp("introit", "nosautemgloriari"),
+                                      exp("gradual", "christusfactusestpronobis"),
+                                      exp("offertory", "protegeDomine"), exp("communion", "perlignum")])
+    assert [(p.part, p.index, p.placed) for p in result.parts] == [("gradual", 0, "text")]
+    assert [p.kind for p in result.problems] == ["part_mismatch"]
+
+
+def test_segment_proper_repeat_of_the_part_before_is_not_the_next_part():
+    """The Requiem repeats its Introit after the verse, and its Gradual opens
+    with the same "Requiem aeternam": the Gradual is at its label, not the repeat."""
+    systems = refs([sys_("Requiem aeternam dona eis Domine", label="introit"), sys_("a"),
+                    sys_("Requiem aeternam dona eis Domine"), sys_("Kyrie eleison"),
+                    sys_("Requiem aeternam dona eis Domine", label="gradual"), sys_("b")])
+    result = segment_proper(systems, [exp("introit", "requiemaeternamdonaeisdomine"),
+                                      exp("gradual", "requiemaeternamdonaeisdomine")])
+    assert [(p.part, p.index) for p in result.parts] == [("introit", 0), ("gradual", 4)]
+
+
+def test_segment_proper_introit_label_read_as_fntr_in_the_text_layer():
+    """NOH5 p. 163: the text layer reads the margin's "Intr." as "fntr." after
+    the opening line's words."""
+    text = "Re qUI e!n * ter do - - <e nam oa e - fntr. -e-,----- ...-/-"
+    systems = refs([sys_("Te decet hymnus"), sys_(text), sys_("a"), sys_("b")])
+    result = segment_proper(systems, [exp("introit", "zzzzzzzzzzzzzz")])
+    assert [(p.part, p.index, p.placed) for p in result.parts] == [("introit", 1, "label")]

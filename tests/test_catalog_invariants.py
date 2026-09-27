@@ -292,7 +292,19 @@ def _printed(piece):
 
 
 def test_only_propers_have_parts():
-    assert {p["division"] for p in PIECES if p.get("parts")} <= PROPER_DIVISIONS
+    """Propers, and the Requiem Mass (a Proper printed with its Ordinary)."""
+    assert {p["division"] for p in PIECES if p.get("parts") and p["genre"] != "requiem"} <= PROPER_DIVISIONS
+
+
+def test_requiem_parts_introit_gradual_sequence_offertory_communion():
+    """NOH5 pp. 163-177, checked against the scan 2026-09-27. The Introit is
+    repeated after its verse (p. 164) and the Gradual opens with the same
+    words: neither may take the Gradual's place."""
+    requiem = next(p for p in PIECES if p["slug"] == "missa-pro-defunctis-i")
+    shown = {x["part"]: x["ref"] for x in _printed(requiem) if x["placed"] != "order"}
+    assert shown == {"introit": "noh5/0209/000", "gradual": "noh5/0211/001",
+                     "sequence": "noh5/0215/000", "offertory": "noh5/0220/000",
+                     "communion": "noh5/0223/002"}
 
 
 def test_parts_are_named_run_in_reading_order_and_point_at_their_own_systems():

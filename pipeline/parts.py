@@ -17,9 +17,11 @@ names, never past a later part's label. A required part nothing names is
 placed at the next chant start and reported (`part_by_order`); the site does
 not show those (a mode number alone found the right system 5 times in 12 in a
 hand check, 2026-09-26), they wait in the review queue. If nothing
-finds the Introit at all, the scan is not this Proper -- a blessing printed
-before the Mass, or a 1942 text 1962 replaced -- and nothing is placed
-(`part_mismatch`): wrong jump links are worse than none.
+finds the Introit at all (`part_mismatch`), the scan may not be this Proper --
+a blessing printed before the Mass, or a 1942 text 1962 replaced -- or the
+Introit is printed elsewhere (a votive Mass borrows it). Then a later part is
+placed only where its own words match, never by label or order: wrong jump
+links are worse than none.
 """
 
 from __future__ import annotations
@@ -55,7 +57,7 @@ LABELS: tuple[tuple[str, re.Pattern[str]], ...] = (
 # Under the staff the words are Latin, and "cor", "con", "offero" are words:
 # there a label counts only in full, with its full stop.
 TEXT_LABELS: tuple[tuple[str, re.Pattern[str]], ...] = (
-    ("introit", re.compile(r"\bIntr\.")), ("gradual", re.compile(r"\bGrad\.")),
+    ("introit", re.compile(r"\b[Ifl1|]ntr\.")), ("gradual", re.compile(r"\bGrad\.")),
     ("tract", re.compile(r"\bTract\.")), ("sequence", re.compile(r"\bSequentia\b")),
     ("offertory", re.compile(r"\bOffert\.")), ("communion", re.compile(r"\bComm\.")),
 )
@@ -117,8 +119,10 @@ def label_of(margin: str, patterns: tuple[tuple[str, re.Pattern[str]], ...] = LA
 
 
 def _text_label(text: str) -> str | None:
-    """A label in the words under the staff (the text layer catches some)."""
-    return label_of(text[:40], TEXT_LABELS)
+    """A label in the words under the staff (the text layer catches some).
+    An opening system's words run longer before its margin: the Requiem's
+    "Intr." reads "fntr." some 45 characters in (NOH5 p. 163)."""
+    return label_of(text[:40], TEXT_LABELS) or label_of(text[:60], TEXT_LABELS[:1])
 
 
 _ROMAN_VALUES = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 8}
@@ -168,7 +172,15 @@ def segment_proper(systems: list[PartSystem], expected: list[ExpectedPart]) -> S
             return 0.0
         return movement_score_for((part.opening,), systems[i].text)
 
+    def repeats_last(i: int, part: ExpectedPart) -> bool:
+        if last is None or not last.opening or not part.opening or "alleluia" in (part.part, last.part):
+            return False                # every Alleluia opens with the same word
+        own = movement_score_for((part.opening,), systems[i].text)
+        return movement_score_for((last.opening,), systems[i].text) >= own
+
     low, label_low, previous = 0, 0, None
+    last: ExpectedPart | None = None
+    anchored = True
     for k, part in enumerate(expected):
         if previous is not None:
             # A printed label beats the minimum length: it may start on the
@@ -182,14 +194,19 @@ def segment_proper(systems: list[PartSystem], expected: list[ExpectedPart]) -> S
         opening = k == 0 and part.part == "introit"
         high = n if opening else next((i for i in range(label_low, n) if labels[i] in later), n)
         found: tuple[int, str, float] | None = None
+        last = next((e for e in reversed(expected[:k]) if previous is not None
+                     and (e.part, e.variant) == (previous.part, previous.variant)), None)
         for i in range(label_low, high):
-            if labels[i] == part.part:
+            if labels[i] == part.part and anchored:
                 found = (i, "label", 1.0)
                 break
             if i < low:
                 continue
             score = text_score(i, part)
-            if score >= STRONG_TEXT:
+            if score >= STRONG_TEXT and not repeats_last(i, part):
+                # Not where the part before's words fit as well: the Requiem
+                # repeats its Introit after the verse, and its Gradual opens
+                # with the same "Requiem aeternam".
                 found = (i, "text", score)
                 break
 
@@ -197,9 +214,14 @@ def segment_proper(systems: list[PartSystem], expected: list[ExpectedPart]) -> S
             best = max(range(n), key=lambda i: text_score(i, part), default=None)
             result.problems.append(PartProblem("part_mismatch", part.part, part.variant, part.opening,
                                                best, text_score(best, part) if best is not None else 0.0))
-            return Segmentation(parts=[], problems=result.problems)
+            # Without the Introit the page may print another formulary (a 1942
+            # text 1962 replaced), where a "Grad." label would link the wrong
+            # chant: the rest are placed only where their own words match. A
+            # votive Mass that borrows its Introit still gets its Gradual.
+            anchored = False
+            continue
         if found is None:
-            if part.optional:
+            if part.optional or not anchored:
                 continue
             if low >= n:
                 result.problems.append(PartProblem("part_missing", part.part, part.variant,

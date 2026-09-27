@@ -398,6 +398,7 @@ JGABC_BY_SLUG: dict[str, str] = {
     "commune-non-virginum-pro-una-martyre-non-virgine": "mass_holy_woman_martyr",
     "commune-non-virginum-pro-nec-virgine-nec-martyre": "mass_holy_woman_not_martyr",
     "in-anniversario-dedicationis-ecclesiae": "dedicatio",
+    "missa-pro-defunctis-i": "defunctorum",                     # NOH5's Requiem
     "commune-unius-aut-plurium-summorum-pontificum": "mass_holy_pope",
     "feria-ii-missa-de-sanctissima-trinitate": "votiveST",
     "feria-iii-missa-de-angelis": "votiveA",

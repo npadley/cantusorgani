@@ -238,6 +238,14 @@ def attach_hymns(vol_id: str, page_map: PageMap, pieces: list[Record], review: l
 
 # Divisions whose pieces are Propers, divided into Introit, Gradual ... Communion.
 PART_DIVISIONS = frozenset({"temporale", "sanctorale", "commune", "varia"})
+# The Requiem Mass is a Proper too (Introit to Communion), printed among the
+# Masses for the Dead with its Ordinary.
+PART_GENRES = frozenset({"requiem"})
+
+
+def has_parts(entry: IndexEntry) -> bool:
+    """Whether a piece is a Proper divided into parts."""
+    return entry.division in PART_DIVISIONS or entry.genre in PART_GENRES
 
 
 class PartsUnavailable(RuntimeError):
@@ -360,7 +368,7 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
     review: list[dict[str, object]] = []
 
     entries = load_index(vol_id, index_path)
-    ctx = parts_context() if parts and any(e.division in PART_DIVISIONS for e in entries) else None
+    ctx = parts_context() if parts and any(has_parts(e) for e in entries) else None
     with pymupdf.open(vol.path) as doc:
         scanned: dict[int, PageScan] = {}
 
@@ -469,8 +477,8 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
                 review.append({"piece": entry.slug, "kind": "no_systems",
                                "printed_pages": [first, last]})
             proper: list[dict[str, object]] = []
-            jgabc = jgabc_url(entry.slug, list(entry.days)) if entry.division in PART_DIVISIONS else None
-            if ctx is not None and refs and entry.division in PART_DIVISIONS:
+            jgabc = jgabc_url(entry.slug, list(entry.days)) if has_parts(entry) else None
+            if ctx is not None and refs and has_parts(entry):
                 proper, part_review = proper_parts(vol_id, entry.slug, list(entry.days),
                                                    entry.reference, refs, ctx, zone_of(refs))
                 review.extend(part_review)
@@ -693,4 +701,4 @@ def write_catalog(vol_id: str, data_dir: Path = DATA,
     return cat_path, rev_path
 
 
-__all__ = ["AT_END", "PART_DIVISIONS", "SCHEMA_VERSION", "PartsUnavailable", "SystemRef", "asdict", "build_catalog", "write_catalog"]
+__all__ = ["AT_END", "PART_DIVISIONS", "PART_GENRES", "SCHEMA_VERSION", "PartsUnavailable", "SystemRef", "asdict", "build_catalog", "has_parts", "write_catalog"]
