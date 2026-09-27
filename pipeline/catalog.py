@@ -577,14 +577,14 @@ def merge_catalog(existing: Catalog | None, update: Catalog) -> Catalog:
 PART_TO_VOLUME = {"I": "noh1", "II": "noh2", "III": "noh3", "IV": "noh4", "V": "noh5"}
 # OCR reads the I of "IV" as 1, l, | or i, drops the stop after "p", reads the
 # comma as a semicolon and the "p" itself as "»" -- or drops it ("Pars I, 169").
-REFERENCE = re.compile(r"Pars\s+(?P<part>[IVX]+|[1l|i][VvI]+)\s*[,.;]?\s*'?(?:(?:p|»)\s*\.?\s*)?(?P<page>\d{1,3})\b")
+REFERENCE = re.compile(r"Pars\s+(?P<part>[IVX]+|[1l|i][VvI]+)\s*[,.;]?\s*'?(?:(?:p|»)\s*\.?\s*)?(?P<page>\d{1,3})(?:[l|](?![\w]))?(?![\w])")
 # "vide ad calcem Partis IV": at the end of Part IV, where the Common of Supreme
 # Pontiffs was added after the feasts pro aliquibus locis ("ad co/cern Portis").
 AT_CALCEM = re.compile(r"\bad\s+c\S{1,3}(?:em|ern)\b")
 AT_END = -1                              # the page of "the end of the volume"
 
 
-SAME_VOLUME = re.compile(r"\bp\.?\s*(?P<page>\d{1,3})\b")
+SAME_VOLUME = re.compile(r"\bp\.?\s*(?P<page>\d{1,3})(?:[l|](?![\w]))?(?![\w])")
 
 
 def parse_reference(text: str, volume: str | None = None) -> tuple[str, int] | None:
