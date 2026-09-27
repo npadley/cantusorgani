@@ -16,11 +16,13 @@ migrations_dir = "../workers/corrections/migrations"
 
 # Not secret. Empty values leave the admin screen answering "not configured".
 [vars]
-ACCESS_TEAM_DOMAIN = ""
-ACCESS_AUD = ""
+ACCESS_TEAM_DOMAIN = "padley.cloudflareaccess.com"
+# The Access application's audience tag: an identifier, public in every Access
+# sign-in redirect for /admin/, so not a secret (hence gitleaks:allow below).
+ACCESS_AUD = "c605b03d2315a0ace4b6c1dd3396d0247f6bfb313fcbe76fdcba5d8976952ef4"  # gitleaks:allow
 GITHUB_REPO = "npadley/cantusorgani"
-GITHUB_APP_ID = ""
-GITHUB_INSTALLATION_ID = ""
+GITHUB_APP_ID = "5100169"
+GITHUB_INSTALLATION_ID = "165561944"
 
 # Secrets, never here (npx wrangler pages secret put <NAME> --project-name cantusorgani):
 #   EDITORS                 comma-separated addresses; the first is the owner
