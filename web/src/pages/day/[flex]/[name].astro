@@ -1,11 +1,12 @@
 ---
 import ExportBar from "../../../components/ExportBar.astro";
 import Layout from "../../../components/Layout.astro";
+import PartLinks from "../../../components/PartLinks.astro";
 import PieceList from "../../../components/PieceList.astro";
 import { allPieces, ordinaryMasses } from "../../../lib/catalog";
 import { catalogedDays, pieceHref } from "../../../lib/indexes";
 import {
-  COLOR_LABELS, classLabel, findNextDate, isoOf, kyrialeFor, observance, today,
+  COLOR_LABELS, classLabel, findNextDate, isoOf, kyrialeFor, observance, seasonForDate, today,
 } from "../../../lib/liturgy";
 
 // A page for each calendar day that has catalogued music. The date lookup and
@@ -58,6 +59,7 @@ const longDate = date
     <>
       <h2 class="ui">Proper</h2>
       <PieceList pieces={pieces} />
+      <PartLinks pieces={pieces} />
     </>
   )}
 
@@ -86,7 +88,8 @@ const longDate = date
   )}
 
   <ExportBar pieces={exportPieces}
-             title={ordinary ? `${title} with Missa ${ordinary.label}` : title} />
+             title={ordinary ? `${title} with Missa ${ordinary.label}` : title}
+             season={date ? seasonForDate(date) : null} dateLabel={longDate} />
 </Layout>
 
 <style>

@@ -1,33 +1,56 @@
 ---
-import { systemUrlStem } from "../lib/catalog";
+import { defaultTicked, defaultsNote, exportSegments, seasonGroup } from "../lib/exportParts";
 import type { Piece } from "../lib/catalog";
+import type { Season } from "../lib/liturgy";
 import { estimatePages, validateSelection } from "../lib/pdf";
 
-// One piece, or several in order -- a day's Proper followed by its Ordinary.
-interface Props { readonly pieces: readonly Piece[]; readonly title: string }
-const { pieces, title } = Astro.props;
+// One piece, or several in order -- a day's Proper followed by its Ordinary --
+// divided into the parts the organist can tick. On a day page the defaults
+// follow the season of the date shown (no Tract in October); on a piece page
+// everything is ticked.
+interface Props {
+  readonly pieces: readonly Piece[];
+  readonly title: string;
+  readonly season?: Season | null;
+  /** "Saturday, 3 October 2026": the date the defaults were chosen for. */
+  readonly dateLabel?: string | null;
+}
+const { pieces, title, season = null, dateLabel = null } = Astro.props;
 
-const count = pieces.reduce((n, p) => n + p.systems.length, 0);
-const estimatedPages = estimatePages(count);
-const refusal = count > 0 ? validateSelection(count) : null;
-const overCap = refusal !== null;
-// Full URL stems: the export worker cannot derive content-hashed keys either.
-const stems = pieces.flatMap((piece) => piece.systems.map((_, i) => systemUrlStem(piece, i)));
+const segments = exportSegments(pieces);
+const group = seasonGroup(season);
+const ticked = segments.filter((s) => defaultTicked(s, segments, group));
+const count = ticked.reduce((n, s) => n + s.systems, 0);
+const refusal = segments.length > 0 ? validateSelection(count, ticked.map((s) => ({ label: s.label, systems: s.systems }))) : null;
+const note = defaultsNote(segments, group, dateLabel);
+const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${estimatePages(n)} page${estimatePages(n) === 1 ? "" : "s"})`;
 ---
 
-{count > 0 && (
-  <div class="export no-print ui" data-refs={stems.join(",")}
-       data-title={`${title} — Nova Organi Harmonia`}>
-    <button id="export-btn" type="button" disabled={overCap}>
-      {overCap
-        ? `Too many systems to export (${count})`
-        : `Export PDF (${count} system${count === 1 ? "" : "s"}, ~${estimatedPages} page${estimatedPages === 1 ? "" : "s"})`}
+{segments.length > 0 && (
+  <div class="export no-print ui" data-title={`${title} — Nova Organi Harmonia`}>
+    <details class="parts" hidden={segments.length === 1}>
+      <summary>Choose parts (<span data-ticked>{ticked.length}</span>{" "}of {segments.length})</summary>
+      <fieldset>
+        <legend>Parts to export</legend>
+        {segments.map((s) => (
+          <label class="part">
+            <input type="checkbox" name="export-part" value={s.id}
+                   checked={defaultTicked(s, segments, group)}
+                   data-stems={s.stems.join(",")} data-systems={s.systems} data-label={s.label} />
+            <span>{s.label}</span>
+            <span class="muted small">{s.systems}</span>
+          </label>
+        ))}
+      </fieldset>
+    </details>
+    {note && <p class="small muted note">{note}</p>}
+
+    <button id="export-btn" type="button" disabled={refusal !== null}>
+      {refusal !== null && count === 0 ? "Tick at least one part" : label(count)}
     </button>
 
     <progress id="export-progress" max={count} value="0" hidden></progress>
-    <p id="export-status" class="small" role="status" aria-live="polite"></p>
-
-    {overCap && <p class="small muted">{refusal}</p>}
+    <p id="export-status" class="small" role="status" aria-live="polite">{refusal ?? ""}</p>
   </div>
 )}
 
@@ -41,6 +64,15 @@ const stems = pieces.flatMap((piece) => piece.systems.map((_, i) => systemUrlSte
   }
   progress { width: min(100%, 22rem); height: 0.5rem; }
   #export-status { margin: 0; min-height: 1.4em; }
+  .note { margin: 0; }
+  .parts summary { min-height: var(--tap-min); display: flex; align-items: center; cursor: pointer; }
+  .parts fieldset { border: 1px solid var(--rule); margin: var(--s-1) 0 0; padding: var(--s-1) var(--s-2); }
+  .parts legend { font-size: var(--step--1); color: var(--ink-muted); padding: 0 var(--s-1); }
+  .part {
+    display: flex; align-items: center; gap: var(--s-2);
+    min-height: var(--tap-min); cursor: pointer;
+  }
+  .part input { width: 1.25rem; height: 1.25rem; margin: 0; }
   #export-status[data-state="error"] { color: var(--warn-ink); }
 
   /* Reachable one-handed on a console-mounted tablet. */
@@ -57,21 +89,55 @@ const stems = pieces.flatMap((piece) => piece.systems.map((_, i) => systemUrlSte
 
 <script>
   import type { BuildRequest, BuildResponse } from "../workers/pdf.worker";
+  import { estimatePages, validateSelection } from "../lib/pdf";
 
   const root = document.querySelector<HTMLElement>(".export");
   const button = document.getElementById("export-btn") as HTMLButtonElement | null;
   const status = document.getElementById("export-status");
   const progress = document.getElementById("export-progress") as HTMLProgressElement | null;
+  const tickedCount = root?.querySelector<HTMLElement>("[data-ticked]") ?? null;
 
   if (root && button && status && progress) {
-    const refs = (root.dataset["refs"] ?? "").split(",").filter(Boolean);
     const title = root.dataset["title"] ?? "Nova Organi Harmonia";
-    const idleLabel = button.textContent ?? "Export PDF";
+    const boxes = [...root.querySelectorAll<HTMLInputElement>('input[name="export-part"]')];
+
+    // The ticked parts, in page order, with where each starts in the export.
+    function selection() {
+      const refs: string[] = [];
+      const headings: { index: number; label: string }[] = [];
+      const parts: { label: string; systems: number }[] = [];
+      const ticked = boxes.filter((b) => b.checked);
+      for (const box of ticked) {
+        const stems = (box.dataset["stems"] ?? "").split(",").filter(Boolean);
+        const label = box.dataset["label"] ?? "";
+        if (ticked.length > 1) headings.push({ index: refs.length, label });
+        refs.push(...stems);
+        parts.push({ label, systems: stems.length });
+      }
+      return { refs, headings, parts, ticked: ticked.length };
+    }
+
+    function refresh(): void {
+      const { refs, parts, ticked } = selection();
+      if (tickedCount) tickedCount.textContent = String(ticked);
+      const problem = validateSelection(refs.length, parts);
+      button!.disabled = problem !== null;
+      button!.textContent = refs.length === 0
+        ? "Tick at least one part"
+        : `Export PDF (${refs.length} system${refs.length === 1 ? "" : "s"}, ~${estimatePages(refs.length)} page${estimatePages(refs.length) === 1 ? "" : "s"})`;
+      status!.removeAttribute("data-state");
+      status!.textContent = problem ?? "";
+    }
+    boxes.forEach((b) => b.addEventListener("change", refresh));
 
     button.addEventListener("click", () => {
+      const { refs, headings } = selection();
+      if (validateSelection(refs.length) !== null) return;
+      const idleLabel = button.textContent ?? "Export PDF";
       button.disabled = true;
       status.removeAttribute("data-state");
       status.textContent = "Preparing…";
+      progress.max = refs.length;
       progress.value = 0;
       progress.hidden = false;
       root.setAttribute("aria-busy", "true");
@@ -113,12 +179,11 @@ const stems = pieces.flatMap((piece) => piece.systems.map((_, i) => systemUrlSte
         URL.revokeObjectURL(url);
 
         const size = (blob.size / 1_048_576).toFixed(1);
-        status.textContent =
-          `PDF ready — ${refs.length} systems, ${message.pages} pages, ${size} MB.`;
+        status.textContent = `PDF ready — ${refs.length} systems, ${message.pages} pages, ${size} MB.`;
         worker.terminate();
       };
 
-      const request: BuildRequest = { refs, base: "", title };
+      const request: BuildRequest = { refs, base: "", title, headings };
       worker.postMessage(request);
     });
   }

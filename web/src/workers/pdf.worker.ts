@@ -11,6 +11,8 @@ export interface BuildRequest {
   readonly refs: readonly string[];
   readonly base: string;
   readonly title: string;
+  /** A part's heading above its first system; optional for older callers. */
+  readonly headings?: readonly { readonly index: number; readonly label: string }[];
 }
 
 export type BuildResponse =
@@ -23,7 +25,7 @@ function post(message: BuildResponse): void {
 }
 
 self.onmessage = async (event: MessageEvent<BuildRequest>): Promise<void> => {
-  const { refs, base, title } = event.data;
+  const { refs, base, title, headings } = event.data;
 
   const problem = validateSelection(refs.length);
   if (problem) {
@@ -35,6 +37,7 @@ self.onmessage = async (event: MessageEvent<BuildRequest>): Promise<void> => {
     const { bytes, pages } = await buildPdf({
       refs,
       title,
+      headings: headings ?? [],
       fetchPng: httpPngFetcher(base),
       onProgress: (done, total) => post({ kind: "progress", done, total }),
     });

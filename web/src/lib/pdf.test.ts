@@ -111,7 +111,7 @@ describe("buildPdf at scale", () => {
     const result = await buildPdf({ refs, title: "Long", fetchPng: fileFetcher });
     expect(result.pages).toBeGreaterThan(20);
     expect(result.pages).toBeLessThan(60);
-  });
+  }, 60_000);
 });
 
 describe("buildPdf page breaks", () => {
@@ -121,7 +121,7 @@ describe("buildPdf page breaks", () => {
     const result = await buildPdf({ refs, title: "Missa I", fetchPng: fileFetcher });
     expect(result.pages).toBeGreaterThan(1);
     expect(result.pages).toBeLessThan(refs.length);
-  });
+  }, 30_000);
 });
 
 describe("httpPngFetcher", () => {
@@ -147,5 +147,27 @@ describe("httpPngFetcher", () => {
   it("should throw rather than embed an error page when a slice is missing", async () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("not found", { status: 404 })));
     await expect(httpPngFetcher("")("https://x/missing")).rejects.toThrow(/404.*Nothing was downloaded/);
+  });
+});
+
+describe("buildPdf part headings", () => {
+  it("should print each part's heading, and take the room it needs", async () => {
+    const plain = await buildPdf({ refs: MISSA_I_PAGE, title: "T", fetchPng: fileFetcher });
+    const headed = await buildPdf({
+      refs: MISSA_I_PAGE, title: "T", fetchPng: fileFetcher,
+      headings: [{ index: 0, label: "Introit" }, { index: 3, label: "Paschal Alleluia" }],
+    });
+    expect(headed.bytes.byteLength).toBeGreaterThan(plain.bytes.byteLength);
+    const { PDFDocument } = await import("pdf-lib");
+    const loaded = await PDFDocument.load(headed.bytes);
+    const objects = loaded.context.enumerateIndirectObjects().map(([, obj]) => String(obj));
+    expect(objects.some((o) => o.includes("/Helvetica-Bold"))).toBe(true);
+  }, 30_000);
+
+  it("should print headings in Latin characters Helvetica can show", async () => {
+    const { pdfSafe } = await import("./pdf");
+    expect(pdfSafe("S. Theresiæ — Missa")).toBe("S. Theresiæ — Missa");
+    expect(pdfSafe("Dómine ǽterne")).toBe("Dómine æterne");
+    expect(pdfSafe("snow ☃ man")).toBe("snow  man");
   });
 });

@@ -1,4 +1,4 @@
-import { PDFDocument } from "pdf-lib";
+import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 
 import { EXPORT_CEILING } from "./config";
 
@@ -23,6 +23,26 @@ export interface BuildOptions {
   /** Returns the PNG bytes for a system ref. Injected so tests can read files. */
   readonly fetchPng: (ref: string) => Promise<ArrayBuffer>;
   readonly onProgress?: (done: number, total: number) => void;
+  /** A heading printed above the system at `index` (a part's first system). */
+  readonly headings?: readonly { readonly index: number; readonly label: string }[];
+}
+
+export const HEADING_SIZE = 11;
+
+/**
+ * Text Helvetica's WinAnsi encoding can show: accents it lacks are dropped to
+ * the bare letter ("ǽ" -> "æ"), anything else outside Latin-1 and the dashes
+ * is removed. pdf-lib throws on an unencodable character, and a thrown export
+ * at the console is worse than an unaccented heading.
+ */
+export function pdfSafe(text: string): string {
+  return [...text].map((ch) => {
+    if (/^[\u0020-\u007e\u00a0-\u00ff\u2013\u2014\u2018\u2019\u201c\u201d]$/.test(ch)) return ch;
+    const bare = ch.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
+    if (bare === "\u00e6" || ch === "\u01fd") return "\u00e6";
+    if (ch === "\u01fc") return "\u00c6";
+    return /^[\u0020-\u007e\u00a0-\u00ff]$/.test(bare) ? bare : "";
+  }).join("");
 }
 
 export interface BuildResult {
@@ -62,6 +82,7 @@ export function validateSelection(count: number, ticked: readonly PartSize[] = [
 
 export async function buildPdf(options: BuildOptions): Promise<BuildResult> {
   const { refs, title, fetchPng, onProgress } = options;
+  const headings = new Map((options.headings ?? []).map((h) => [h.index, pdfSafe(h.label)]));
 
   const problem = validateSelection(refs.length);
   if (problem) throw new Error(problem);
@@ -71,6 +92,7 @@ export async function buildPdf(options: BuildOptions): Promise<BuildResult> {
   doc.setSubject("Nova Organi Harmonia (Mechelen, 1942) — public domain");
   doc.setCreator("Cantus Organi — cantusorgani.org");
 
+  const font = headings.size > 0 ? await doc.embedFont(StandardFonts.HelveticaBold) : null;
   const usableWidth = A4.width - MARGIN * 2;
   let page = doc.addPage([A4.width, A4.height]);
   let cursor = A4.height - MARGIN;
@@ -81,10 +103,18 @@ export async function buildPdf(options: BuildOptions): Promise<BuildResult> {
     const scale = usableWidth / image.width;
     const height = image.height * scale;
 
-    if (cursor - height < MARGIN) {
+    const heading = headings.get(index);
+    const headingRoom = heading && font ? HEADING_SIZE + 6 : 0;
+    // A heading never ends a page on its own: it moves with its system.
+    if (cursor - headingRoom - height < MARGIN) {
       page = doc.addPage([A4.width, A4.height]);
       cursor = A4.height - MARGIN;
       pages += 1;
+    }
+    if (heading && font) {
+      page.drawText(heading, { x: MARGIN, y: cursor - HEADING_SIZE, size: HEADING_SIZE, font,
+                               color: rgb(0, 0, 0) });
+      cursor -= headingRoom;
     }
     page.drawImage(image, { x: MARGIN, y: cursor - height, width: usableWidth, height });
     cursor -= height + GAP;
