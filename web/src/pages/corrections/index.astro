@@ -210,6 +210,9 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
       { value: "startSystem", label: "Where it starts", hint: "the system of the piece it starts on, counting from 1", key: "start_system" },
       { value: "gregobaseId", label: "Its chant (GregoBase id)", hint: "the number in gregobase.selapa.net/chant.php?id=…, or none", key: "chant" },
     ],
+    pairing: [
+      { value: "gregobaseId", label: "Its chant (GregoBase id)", hint: "the number in gregobase.selapa.net/chant.php?id=…; leave the chant's page open to copy it", key: "chant" },
+    ],
     vespers: [
       { value: "tone", label: "Tone", hint: "as the book prints it, e.g. VIII.G or IV.A*", key: "tone" },
       { value: "gregobaseId", label: "Its chant (GregoBase id)", hint: "the number in gregobase.selapa.net/chant.php?id=…, or none", key: "chant" },

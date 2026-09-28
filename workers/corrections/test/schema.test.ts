@@ -130,3 +130,15 @@ describe("parseCorrection, parts and Vespers items", () => {
   });
 
 });
+
+describe("parseCorrection, chant pairings", () => {
+  it("should accept a movement's chant for the same piece, and nothing else", () => {
+    const ok = parseCorrection({ pieceId: "ordinarium-missae-ix", note: "", target: "pairing:ordinarium-missae-ix/gloria",
+                                 field: "gregobaseId", proposedValue: "2980" });
+    expect(ok.ok && ok.value.target).toBe("pairing:ordinarium-missae-ix/gloria");
+    expect(parseCorrection({ pieceId: "kyrie-i", note: "", target: "pairing:ordinarium-missae-ix/gloria",
+                             field: "gregobaseId", proposedValue: "2980" }).ok).toBe(false);
+    expect(parseCorrection({ pieceId: "ordinarium-missae-ix", note: "", target: "pairing:ordinarium-missae-ix/gloria",
+                             field: "title", proposedValue: "Gloria" }).ok).toBe(false);
+  });
+});

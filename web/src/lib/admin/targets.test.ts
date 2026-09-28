@@ -51,3 +51,25 @@ describe("checkValue", () => {
     expect([readerField("startSystem"), readerField("gregobaseId"), readerField("nope")]).toEqual(["start_system", "chant", null]);
   });
 });
+
+describe("chant pairings", () => {
+  const P = targets(piece("missa-ix", { genre: "mass_ordinary", pairings: [{ movement: "kyrie", id: 1143 }],
+                                        movements: ["kyrie", "gloria"] }),
+                    piece("kyrie-i"), piece("proper-x", { genre: "proper" }));
+
+  it("should read a movement's pairing, or none when not yet paired", () => {
+    expect(describeTarget(P, "pairing:missa-ix/kyrie")).toMatchObject({ kind: "pairing", values: { chant: "1143" } });
+    const gloria = describeTarget(P, "pairing:missa-ix/gloria")!;
+    expect(gloria.label).toBe("missa-ix (noh5) · Gloria chant");
+    expect(checkValue(P, gloria, "chant", "2980")).toEqual({ ok: true, value: "2980" });
+  });
+
+  it("should know only the movements a genre has, and none for a Proper", async () => {
+    const { pairingMovements } = await import("./targets");
+    expect(describeTarget(P, "pairing:missa-ix/credo")).toBeNull();
+    expect(describeTarget(P, "pairing:kyrie-i/kyrie")).not.toBeNull();
+    expect(describeTarget(P, "pairing:proper-x/chant")).toBeNull();
+    expect(pairingMovements("proper")).toEqual([]);
+    expect(pairingMovements("mass_ordinary", ["kyrie", "sanctus", "agnus", "ite"])).toEqual(["kyrie", "sanctus", "agnus", "ite"]);
+  });
+});

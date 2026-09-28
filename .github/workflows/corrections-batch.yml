@@ -61,9 +61,10 @@ jobs:
         run: uv run noh correct-batch "$RUNNER_TEMP/batch.json" --summary "$RUNNER_TEMP/pr.md"
 
       # A corrected chant link brings its notation: the pinned GregoBase dump
-      # (CC0, sha256-checked) gives data/chants.json every chant now named.
+      # (CC0, sha256-checked) gives data/chants.json every chant now named;
+      # applying again gives a newly paired chant its incipit from it.
       - name: Chant notation
-        run: uv run noh gregobase-fetch && uv run noh chants
+        run: uv run noh gregobase-fetch && uv run noh chants && uv run noh apply-corrections
 
       - name: Commit and open the pull request
         env:
