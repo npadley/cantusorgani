@@ -8,6 +8,8 @@ test.describe.serial("The corrections queue", () => {
     await page.goto("/admin/");
     await expect(page.locator("#who")).toHaveText("Admin · signed in as editor@example.org (owner)");
     await expect(page.locator("#pending-h")).toHaveText("To review (3)");
+    await expect(page.locator("#pending article", { hasText: "III (noh5)" }).locator(".scan figcaption").first())
+      .toContainText("First system (noh5/");
     await expect(page.locator("#batch-bar")).toBeHidden();
   });
 
@@ -68,13 +70,16 @@ test.describe("Making a correction", () => {
     await page.getByRole("button", { name: "Approve this correction" }).click();
     await expect(page.locator("#status")).toContainText("out of order");
     await page.locator("#value").fill("5");
+    // The system it starts on now, and the one proposed, from the scans.
+    await expect(page.locator("#scans figcaption")).toContainText(["Starts now: system 4", "Would start: system 5"]);
+    await expect(page.locator("#scans img")).toHaveCount(2);
     await page.getByRole("button", { name: "Approve this correction" }).click();
     await expect(page.locator("#status")).toContainText("Approved.");
   });
 
   test("should switch from a piece to one of its parts", async ({ page }) => {
     await page.goto("/admin/edit/?target=piece:dominica-i-adventus");
-    await expect(page.locator("#field option")).toHaveText(["Title", "Incipit", "Mode", "Genre", "Printed pages"]);
+    await expect(page.locator("#field option")).toHaveText(["Title", "Incipit", "Mode", "Genre", "Printed pages", "Systems (first-last)"]);
     await page.locator("#part").selectOption("part:dominica-i-adventus/introit");
     await expect(page.locator("#field option")).toHaveText(["Starts on system", "Chant (GregoBase id)"]);
     await expect(page.locator("#target-label")).toHaveText("Dominica I Adventus (noh1) · Introit");

@@ -250,16 +250,17 @@ def test_vendored_catalogue_is_current_with_its_corrections():
 
 
 def test_where_vespers_names_the_office_and_its_line(tmp_path):
-    (tmp_path / "vespers-lineup.json").write_text(json.dumps({
+    (tmp_path / "vespers").mkdir()
+    (tmp_path / "vespers" / "vespers-lineup.json").write_text(json.dumps({
         "days": {"2026-11-29": {"office": "tempora:Adv1-0", "vespers": "II"},
                  "2026-09-27": {"office": "tempora:Pent18-0", "vespers": "II"}},
         "first_vespers": {}}))
-    (tmp_path / "vespers-offices.yml").write_text(
+    (tmp_path / "vespers" / "vespers-offices.yml").write_text(
         "offices:\n  adv1:\n    vespers: II\n    keys:\n    - tempora:Adv1-0\n")
-    (tmp_path / "vespers-noh8.yml").write_text("magnificat_antiphons:\n  tempora:Pent18-0: {tone: I.g}\n")
+    (tmp_path / "vespers" / "vespers-noh8.yml").write_text("magnificat_antiphons:\n  tempora:Pent18-0: {tone: I.g}\n")
     adv = where("/vespers/2026-11-29/", base(), tmp_path)[0]
-    assert (adv.label, adv.source) == ("II Vespers of tempora:Adv1-0 (office adv1)", "data/vespers-offices.yml:2")
-    assert where("/vespers/2026-09-27/", base(), tmp_path)[0].source.startswith("data/vespers-noh8.yml:2")
+    assert (adv.label, adv.source) == ("II Vespers of tempora:Adv1-0 (office adv1)", "data/vespers/vespers-offices.yml:2")
+    assert where("/vespers/2026-09-27/", base(), tmp_path)[0].source.startswith("data/vespers/vespers-noh8.yml:2")
     assert where("/vespers/2026-09-27/i/", base(), tmp_path)[0].label == "no I Vespers page for 2026-09-27"
 
 
@@ -390,8 +391,9 @@ def test_problems_vespers_tone_must_be_printed_and_item_must_exist():
 
 
 def test_correct_records_a_vespers_correction_with_was_from_the_files(tmp_path):
-    (tmp_path / "vespers-noh8.yml").write_text("magnificat_antiphons:\n  tempora:Pent04-0: {tone: I.g, chant: null}\n")
-    (tmp_path / "vespers-offices.yml").write_text("offices:\n  adv1:\n    antiphons:\n    - {n: 1, tone: VIII.G, chant: 2835}\n")
+    (tmp_path / "vespers").mkdir()
+    (tmp_path / "vespers" / "vespers-noh8.yml").write_text("magnificat_antiphons:\n  tempora:Pent04-0: {tone: I.g, chant: null}\n")
+    (tmp_path / "vespers" / "vespers-offices.yml").write_text("offices:\n  adv1:\n    antiphons:\n    - {n: 1, tone: VIII.G, chant: 2835}\n")
     c = tmp_path / "corrections.yml"
     made, _ = correct("vespers:adv1/antiphon-1", "chant", "2836", path=c, vespers_dir=tmp_path)
     assert (made.was, made.value) == (2835, 2836)
@@ -414,7 +416,7 @@ def test_load_reviewed_applies_vespers_corrections(tmp_path):
 def test_lineup_anchor_keeps_the_window_a_lineup_already_covers():
     from pipeline.vespers import YEARS_BEHIND, lineup_anchor
     anchor = lineup_anchor()
-    first = min(json.loads(corrections.DATA.joinpath("vespers-lineup.json").read_text())["days"])
+    first = min(json.loads(corrections.DATA.joinpath("vespers", "vespers-lineup.json").read_text())["days"])
     assert anchor is not None and anchor.year == int(first[:4]) + YEARS_BEHIND
 
 
@@ -425,7 +427,7 @@ def test_vendored_outputs_are_current_with_their_corrections():
 def test_every_lineup_target_names_a_correctable_vespers_item():
     """The targets the site offers ("Report an error" on a Vespers page) all
     resolve, for both fields."""
-    lineup = json.loads(corrections.DATA.joinpath("vespers-lineup.json").read_text())
+    lineup = json.loads(corrections.DATA.joinpath("vespers", "vespers-lineup.json").read_text())
     targets = {i["target"] for d in [*lineup["days"].values(), *lineup.get("first_vespers", {}).values()]
                for i in d["items"] if "target" in i}
     data = corrections.load_vespers()
@@ -519,3 +521,150 @@ def test_problems_pairing_movement_must_suit_the_genre():
     assert "has no credo chant to pair (its movements: kyrie, gloria, sanctus)" in found[0]
     assert "a Proper's chants are on its parts" in found[1]
     assert len(found) == 2                     # a Kyrie piece's kyrie is fine
+
+
+# ------------------------------------------------------ system ranges and notes ---
+
+def two_propers(monkeypatch: pytest.MonkeyPatch) -> dict:
+    """Two neighbouring Propers of noh1 over ten published systems of page 34:
+    dominica-ii owns 0-4 (introit on 0, gradual on 2), dominica-iii owns 5-8
+    (introit on 6), and system 9 belongs to nobody."""
+    order = [(f"noh1/0034/{n:03d}", f"systems/noh1/0034/{n:03d}-hash{n}", [1800, 400 + n]) for n in range(10)]
+    monkeypatch.setitem(corrections._VOLUME_SYSTEMS, "noh1", order)
+    b = base()
+
+    def proper_of(slug: str, span: range, parts: list[tuple[str, int]]) -> dict:
+        refs = [order[n] for n in span]
+        return {"id": f"noh1-{slug}", "volume": "noh1", "slug": slug, "title": slug, "incipit": None, "mode": None,
+                "genre": "proper", "printed_pages": [8, 8], "pdf_pages": [34, 34],
+                "systems": [r for r, _, _ in refs], "system_assets": [a for _, a, _ in refs],
+                "system_aspect": [x for _, _, x in refs], "movements": [],
+                "hymns": [{"title": "Hymnus", "ref": order[span[-1]][0], "printed_page": 8}],
+                "parts": [{"part": p, "variant": "", "system": n - span[0], "ref": order[n][0], "gregobase_id": None}
+                          for p, n in parts]}
+
+    b["pieces"] += [proper_of("dominica-ii", range(5), [("introit", 0), ("gradual", 2)]),
+                    proper_of("dominica-iii", range(5, 9), [("introit", 6)])]
+    return b
+
+
+def range_entry(value: str, was: list[str] | None = None, target: str = "piece:dominica-ii", **kw) -> Entry:
+    return entry(target=target, field="system_range", was=was or ["noh1/0034/000", "noh1/0034/004"], value=value, **kw)
+
+
+def test_coerce_system_range_reads_to_spaces_and_hyphens_and_refuses_backwards_or_two_volumes():
+    assert coerce("system_range", "noh1/0034/000 to noh1/0034/004") == ["noh1/0034/000", "noh1/0034/004"]
+    assert coerce("system_range", ["noh1/0034/000", "noh1/0034/004"]) == ["noh1/0034/000", "noh1/0034/004"]
+    with pytest.raises(CorrectionError, match="runs backwards"):
+        coerce("system_range", "noh1/0034/004-noh1/0034/000")
+    with pytest.raises(CorrectionError, match="across two volumes"):
+        coerce("system_range", "noh1/0034/004-noh2/0034/005")
+    with pytest.raises(CorrectionError, match="not a valid system_range"):
+        coerce("system_range", "34/0-34/4")
+
+
+def test_apply_system_range_moves_the_boundary_for_both_neighbours(monkeypatch):
+    out = apply(two_propers(monkeypatch), [range_entry("noh1/0034/000-noh1/0034/005",
+                                                       was=["noh1/0034/000", "noh1/0034/004"])])
+    ii, iii = out["pieces"][2], out["pieces"][3]
+    assert ii["systems"][-1] == "noh1/0034/005" and len(ii["systems"]) == 6
+    assert ii["system_assets"][-1] == "systems/noh1/0034/005-hash5" and ii["system_aspect"][-1] == [1800, 405]
+    assert iii["systems"] == ["noh1/0034/006", "noh1/0034/007", "noh1/0034/008"]
+    assert iii["pdf_pages"] == [34, 34]
+
+
+def test_apply_system_range_recounts_parts_and_moves_hymns_with_their_system(monkeypatch):
+    b = two_propers(monkeypatch)
+    b["pieces"][3]["hymns"][0]["ref"] = "noh1/0034/005"
+    out = apply(b, [range_entry("noh1/0034/000-noh1/0034/005")])
+    ii, iii = out["pieces"][2], out["pieces"][3]
+    assert [p["system"] for p in ii["parts"]] == [0, 2]
+    assert iii["parts"][0]["system"] == 0                                # its introit on 006 is now its 1st system
+    assert [h["ref"] for h in ii["hymns"]] == ["noh1/0034/004", "noh1/0034/005"]
+    assert iii["hymns"] == []
+
+
+def test_problems_system_range_refuses_what_would_break_a_piece(monkeypatch):
+    b = two_propers(monkeypatch)
+    cases = {
+        "noh1/0034/001-noh1/0034/004": "leave its introit (which starts on noh1/0034/000) outside the piece",
+        "noh1/0034/000-noh1/0034/008": "take every system of piece:dominica-iii",
+        "noh1/0034/000-noh1/0034/099": "noh1/0034/099 is not a system of noh1's pages",
+    }
+    for value, message in cases.items():
+        found = problems(b, [range_entry(value)])
+        assert found and message in found[0], (value, found)
+    found = problems(b, [range_entry("noh1/0034/006-noh1/0034/007", target="piece:kyrie-i", was=None)])
+    assert "stale correction" in found[0]
+
+
+def test_problems_system_range_refuses_to_split_a_neighbour_or_take_its_part(monkeypatch):
+    b = two_propers(monkeypatch)
+    b["pieces"][3]["systems"].append("noh1/0034/009")
+    moved = range_entry("noh1/0034/006-noh1/0034/007", target="piece:kyrie-i", was=None)
+    b["pieces"][1].update(volume="noh1", systems=["noh1/0034/007"])
+    moved.was = ["noh1/0034/007", "noh1/0034/007"]
+    assert "split piece:dominica-iii in two" in problems(b, [moved])[0]
+    taking = range_entry("noh1/0034/000-noh1/0034/006")
+    assert "dominica-iii's introit starts on (noh1/0034/006)" in problems(b, [taking])[0]
+
+
+def test_parts_count_from_the_corrected_range_and_correct_records_was_from_it(monkeypatch, tmp_path):
+    b = two_propers(monkeypatch)
+    base_path, c = tmp_path / "base.json", tmp_path / "corrections.yml"
+    base_path.write_text(json.dumps(b))
+    correct("piece:dominica-ii", "system_range", "noh1/0034/000-noh1/0034/005", base_path=base_path, path=c)
+    with pytest.raises(CorrectionError, match="system_range would take the system"):
+        correct("piece:dominica-ii", "system_range", "noh1/0034/000-noh1/0034/006", base_path=base_path, path=c)
+    # The gradual may now start on the 6th system, which the piece did not have before.
+    made, _ = correct("part:dominica-ii/gradual", "start_system", "6", base_path=base_path, path=c)
+    assert made.was == 3
+    out = apply(b, load(c))
+    assert out["pieces"][2]["parts"][1]["ref"] == "noh1/0034/005"
+
+
+def test_apply_vespers_note_replaces_the_music_and_none_brings_it_back():
+    data = vespers_data()
+    data.offices["adv1"]["antiphons"][0]["note"] = "An old note."
+    entries = [entry(target="vespers:adv1/magnificat", field="note", was=None,
+                     value="  The book's version is for II Vespers;\n sing it from the Antiphonale. "),
+               entry(id="c-0002", target="vespers:adv1/antiphon-1", field="note", was="An old note.", value="none")]
+    out = corrections.apply_vespers(data, entries)
+    assert out.offices["adv1"]["magnificat"]["note"] == "The book's version is for II Vespers; sing it from the Antiphonale."
+    assert "note" not in out.offices["adv1"]["antiphons"][0]
+    with pytest.raises(CorrectionError, match="not a valid note"):
+        coerce("note", "<b>bold</b>", kind="vespers")
+
+
+def test_build_office_shows_an_editors_note_in_place_of_the_music_and_keeps_the_target():
+    from datetime import date as _date
+
+    from pipeline.vespers import REVIEWED, build_office, load_reviewed
+    reviewed = load_reviewed(REVIEWED)
+    oid, office = next((k, o) for k, o in reviewed.offices.items()
+                       if isinstance(o.get("magnificat"), dict) and o["magnificat"].get("refs") and o.get("keys"))
+    plain, _ = build_office(_date(2026, 12, 8), office["keys"][0], office["vespers"], reviewed)
+    office["magnificat"]["note"] = "Sung from the Antiphonale."
+    noted, _ = build_office(_date(2026, 12, 8), office["keys"][0], office["vespers"], reviewed)
+    assert plain is not None and noted is not None
+    mag = next(i for i in noted if i.get("target") == f"vespers:{oid}/magnificat")
+    assert mag["source"] == {"type": "note", "text": "Sung from the Antiphonale.", "refs": office["magnificat"]["refs"]}
+    assert len(noted) == len(plain) - 1                                  # no repeat after the Magnificat
+
+
+def test_volume_systems_gives_every_catalogued_system_its_published_key_and_size():
+    """A corrected range takes its image keys from data/published/: they must be
+    the keys `noh catalog` wrote, or every moved system would 404."""
+    for piece in corrections.load_base()["pieces"]:
+        found = {r: (a, x) for r, a, x in corrections.volume_systems(piece["volume"])}
+        for ref, asset, aspect in zip(piece["systems"], piece["system_assets"], piece["system_aspect"], strict=True):
+            assert found[ref] == (asset, aspect), (piece["slug"], ref)
+
+
+def test_stranded_lists_vespers_systems_no_corrected_piece_has():
+    catalog = {"pieces": [{"systems": ["noh8/0031/000"]}]}
+    lineup = {"days": {"2026-11-29": {"items": [
+        {"source": {"type": "printed", "refs": ["noh8/0031/000", "noh8/0031/001"]}},
+        {"source": {"type": "note", "text": "x", "refs": ["noh8/0099/000"]}}]}},
+        "first_vespers": {"2026-12-07": {"items": [{"source": {"type": "bank", "refs": ["noh8/0040/000"]}}]}}}
+    assert corrections._stranded(catalog, lineup) == ["noh8/0031/001", "noh8/0040/000"]

@@ -1,11 +1,11 @@
-import raw from "../../../data/vespers-lineup.json";
+import raw from "../../../data/vespers/vespers-lineup.json";
 import { allPieces, systemUrlStem } from "./catalog";
 import { observance } from "./liturgy";
 import type { Piece } from "./catalog";
 import type { ExportSegment } from "./exportParts";
 
 /**
- * Sunday Vespers in the order it is sung, from data/vespers-lineup.json
+ * Sunday Vespers in the order it is sung, from data/vespers/vespers-lineup.json
  * (`noh vespers-lineup`). Each item is printed NOH8 music, a printed
  * accompaniment in the same tone from the tone bank, or a note for what is
  * sung unaccompanied. Keyed by civil date: I Vespers and commemorations
@@ -25,7 +25,9 @@ export type ItemSource =
       readonly openingOnly: boolean }
   | { readonly type: "bank"; readonly refs: readonly string[];
       readonly bankKind: "magnificat" | "psalm"; readonly bankLabel: string; readonly borrowedFrom: string }
-  | { readonly type: "note"; readonly text: string };
+  | { readonly type: "note"; readonly text: string;
+      /** The systems an editor's note stands in for (a correction), never shown. */
+      readonly refs?: readonly string[] };
 
 export interface LineupItem {
   /** Independent of the source: `<date>/<office>/<kind>/<n>`. */
@@ -91,7 +93,8 @@ function parseSource(s: Json, where: string): ItemSource {
                bankLabel: str(s["bank_label"], where), borrowedFrom: str(s["borrowed_from"], where) };
     }
     case "note":
-      return { type: "note", text: str(s["text"], where) };
+      return s["refs"] === undefined ? { type: "note", text: str(s["text"], where) }
+        : { type: "note", text: str(s["text"], where), refs: refs(s["refs"], where) };
     default:
       throw new Error(`vespers lineup: ${where} has unknown source type ${String(s["type"])}`);
   }

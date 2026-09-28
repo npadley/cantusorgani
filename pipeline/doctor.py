@@ -138,7 +138,7 @@ def check_jgabc(path: Path | None = None) -> Check:
 
 
 def check_officium(path: Path | None = None) -> Check:
-    """Divinum Officium's Vespers texts, vendored in data/divinum-officium-vespers.json."""
+    """Divinum Officium's Vespers texts, vendored in data/vespers/divinum-officium-vespers.json."""
     from pipeline.officium import VENDORED, OfficiumError, load
     try:
         count = len(load(path or VENDORED)["offices"])      # type: ignore[arg-type]
@@ -148,7 +148,7 @@ def check_officium(path: Path | None = None) -> Check:
 
 
 def check_vesperale(path: Path | None = None) -> Check:
-    """jsrjenkins/vesperale's Sunday table, vendored in data/vesperale-lineup.json."""
+    """jsrjenkins/vesperale's Sunday table, vendored in data/vespers/vesperale-lineup.json."""
     from pipeline.vesperale import VENDORED, VesperaleIntegrityError, load_magnificat
     try:
         count = len(load_magnificat(path or VENDORED))
@@ -158,7 +158,7 @@ def check_vesperale(path: Path | None = None) -> Check:
 
 
 def check_vespers_lineup(path: Path | None = None) -> Check:
-    """data/vespers-lineup.json: present, and current with the catalogue."""
+    """data/vespers/vespers-lineup.json: present, and current with the catalogue."""
     from pipeline.vespers import LINEUP, check_lineup
     problem = check_lineup(path or LINEUP)
     if problem:

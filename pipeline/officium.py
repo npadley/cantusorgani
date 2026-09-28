@@ -11,7 +11,7 @@ some rubrics ("(sed rubrica cisterciensis)", "[Rank] (rubrica 1960)").
 
 `noh officium-fetch` downloads the files the Vespers lineup needs at a pinned
 commit, resolves those sections for the 1960 rubrics (a strict reader --
-nothing is executed) and writes data/divinum-officium-vespers.json with a
+nothing is executed) and writes data/vespers/divinum-officium-vespers.json with a
 content sha256. The site uses these texts only as words: which antiphon, which
 psalm, the chapter; NOH8 is the music.
 """
@@ -23,12 +23,12 @@ import json
 import re
 from pathlib import Path
 
-from pipeline.volumes import DATA
+from pipeline.volumes import VESPERS
 
 REPO = "DivinumOfficium/divinum-officium"
 BASE = "web/www/horas/Latin"
 PINNED = "5cf0e7f0a3f2c8e1567e0bb0fef2e662250125a0"
-VENDORED = DATA / "divinum-officium-vespers.json"
+VENDORED = VESPERS / "divinum-officium-vespers.json"
 
 # The offices the lineup reads, by Divinum Officium file (Tempora/..., Sancti/...).
 OFFICES = (

@@ -10,7 +10,7 @@ Sundays, each under a heading printed between the systems.
 `segment(systems)` places each item on the signals the page gives -- a margin
 label, the text layer under the staff, the lines printed above the system, the
 hymn index -- never by position alone. The result is a proposal: `noh
-vespers-items` writes it for review; data/vespers-offices.yml holds the
+vespers-items` writes it for review; data/vespers/vespers-offices.yml holds the
 reviewed offices.
 """
 

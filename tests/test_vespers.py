@@ -351,7 +351,7 @@ def test_write_lineup_without_vesperale_still_writes_and_says_so(tmp_path, monke
     from pipeline.vespers import write_lineup
 
     def missing(*_a, **_k):
-        raise vesperale.VesperaleIntegrityError("data/vesperale-lineup.json is missing")
+        raise vesperale.VesperaleIntegrityError("data/vespers/vesperale-lineup.json is missing")
     monkeypatch.setattr(vesperale, "load_magnificat", missing)
     _, doc, review = write_lineup(tmp_path / "l.json")
     assert "2026-11-08" in doc["days"]
@@ -380,6 +380,7 @@ def test_propose_reads_headings_and_wide_margins_into_a_proposal(tmp_path, monke
 
     from pipeline import catalog as catalog_mod
     from pipeline import vespers as vespers_mod
+    from pipeline.vespers import proposal as proposal_mod
 
     systems = ["noh8/0195/000", "noh8/0195/001", "noh8/0195/002", "noh8/0195/003"]
     cat = {"pieces": [{"slug": "vesperae-dominicae-iv-xxiv-post-pentecosten", "systems": systems}]}
@@ -394,7 +395,7 @@ def test_propose_reads_headings_and_wide_margins_into_a_proposal(tmp_path, monke
     monkeypatch.setattr(catalog_mod, "scan_page", fake_scan)
     monkeypatch.setattr(pymupdf, "open", lambda _p: contextlib.nullcontext({195 - 1: None}))
     readings = iter(["Ad Magnif. Ant. 1. D 2", "Ad Magnif. Ant. I. g"])
-    monkeypatch.setattr(vespers_mod, "read_tone_margin", lambda _png: next(readings))
+    monkeypatch.setattr(proposal_mod, "read_tone_margin", lambda _png: next(readings))
     slices = tmp_path / "slices"
     for r in (systems[0], systems[2]):
         png = slices / "noh8" / f"{r.split('/', 1)[1]}@2x.png"

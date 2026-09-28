@@ -62,10 +62,10 @@ def where(query: str, catalog: dict[str, Any], data: Path = DATA) -> list[Locati
 def _vespers_location(day: str, vespers: str, data: Path) -> Location:
     """The office a Vespers page is built from, and the line that holds it."""
     target = f"vespers:{day}/{vespers}"
-    general = ("data/vespers-offices.yml (a feast's antiphons, tones, hymn); data/vespers-noh8.yml "
+    general = ("data/vespers/vespers-offices.yml (a feast's antiphons, tones, hymn); data/vespers/vespers-noh8.yml "
                "(the Sunday psalter, Magnificat antiphons, seasons, tone bank)")
     command = f"uv run noh vespers-lineup, then check: uv run noh vespers-lineup --day {day}"
-    lineup_path = data / "vespers-lineup.json"
+    lineup_path = data / "vespers" / "vespers-lineup.json"
     if not lineup_path.exists():
         return Location(target, f"{vespers} Vespers of {day}", general, command)
     lineup = json.loads(lineup_path.read_text(encoding="utf-8"))
@@ -74,7 +74,7 @@ def _vespers_location(day: str, vespers: str, data: Path) -> Location:
         return Location(target, f"no {vespers} Vespers page for {day}", general, command)
     office = str(entry.get("office"))
     sung = str(entry.get("vespers", vespers))
-    offices_path = data / "vespers-offices.yml"
+    offices_path = data / "vespers" / "vespers-offices.yml"
     doc = yaml.safe_load(offices_path.read_text(encoding="utf-8")) if offices_path.exists() else {}
     for name, spec in ((doc or {}).get("offices") or {}).items():
         if office in (spec.get("keys") or []) and str(spec.get("vespers")) == sung:
@@ -85,10 +85,10 @@ def _vespers_location(day: str, vespers: str, data: Path) -> Location:
             if isinstance(mag, dict):
                 items += (f"vespers:{name}/magnificat  (tone {mag.get('tone')}, chant {mag.get('chant')})",)
             return Location(target, f"{sung} Vespers of {office} (office {name})",
-                            f"data/vespers-offices.yml:{line}", command, items)
-    noh8 = data / "vespers-noh8.yml"
+                            f"data/vespers/vespers-offices.yml:{line}", command, items)
+    noh8 = data / "vespers" / "vespers-noh8.yml"
     line = _line_of(noh8, f"{office}:") if noh8.exists() else 0
-    source = (f"data/vespers-noh8.yml:{line} (this Sunday's Magnificat antiphon; the psalter and "
+    source = (f"data/vespers/vespers-noh8.yml:{line} (this Sunday's Magnificat antiphon; the psalter and "
               "seasons are in the same file)") if line else general
     items = (f"vespers:sunday:{office}/magnificat",) if line else ()
     return Location(target, f"{sung} Vespers of {office}", source, command, items)

@@ -4,7 +4,7 @@ vesperale (https://github.com/jsrjenkins/vesperale) builds 1962 Sunday Vespers
 booklets. Its `calendar.sty` is a hand-made table by season and Sunday: each
 psalm's antiphon and tone, and each Sunday's Magnificat antiphon and tone.
 `noh vesperale-fetch` reads that table (a strict reader of its `{key}{\\cmd{a}{b}}`
-cases -- nothing is executed) and writes data/vesperale-lineup.json at a pinned
+cases -- nothing is executed) and writes data/vespers/vesperale-lineup.json at a pinned
 commit, with a content sha256; a hand edit fails the check.
 
 NOH8's own margin labels decide the tone the organist plays; this table only
@@ -20,12 +20,12 @@ import json
 import re
 from pathlib import Path
 
-from pipeline.volumes import DATA
+from pipeline.volumes import VESPERS
 
 REPO = "jsrjenkins/vesperale"
 SOURCE_PATH = "calendar.sty"
 PINNED = "98edf0e972af3d07e5732f8a223df8786a2a8746"
-VENDORED = DATA / "vesperale-lineup.json"
+VENDORED = VESPERS / "vesperale-lineup.json"
 
 # vesperale's season names and the calendar keys they cover.
 SEASONS = {"adventus": "Adv", "epiphania": "Epi", "septuagesima": "Quadp", "quadragesima": "Quad",

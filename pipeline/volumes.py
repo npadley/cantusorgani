@@ -13,6 +13,8 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
+# The reviewed Vespers files, the lineup and the vendored Vespers sources.
+VESPERS = DATA / "vespers"
 SOURCE = ROOT / "pdf-source"
 
 

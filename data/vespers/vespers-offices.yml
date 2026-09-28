@@ -1,7 +1,7 @@
 # VESPERS OFFICES IN NOH8 -- reviewed 2026-09-27.
 #
 # Each office the Vespers lineup builds beyond the green Sundays: its texts from
-# Divinum Officium (1960, data/divinum-officium-vespers.json) aligned to the systems
+# Divinum Officium (1960, data/vespers/divinum-officium-vespers.json) aligned to the systems
 # NOH8 prints. `noh vespers-items` proposes the alignment (every DO antiphon read
 # against the page's text layer: `score`); placements marked `hand` and every `tone`
 # were checked against the scans by eye (the OCR reads "VIII. c" as "VII. e", and

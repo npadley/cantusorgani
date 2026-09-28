@@ -75,15 +75,19 @@ import Layout from "../../components/Layout.astro";
   :global(.actions) { display: flex; flex-wrap: wrap; gap: var(--s-2); }
   :global(.reason) { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: end; }
   :global(.reason label) { display: block; width: 100%; font-size: var(--step--1); }
+  :global(.scan figure) { margin: 0 0 var(--s-2); }
   :global(.scan img) { display: block; width: 100%; height: auto; }
+  :global(.scan figcaption) { margin-top: var(--s-1); }
   :global(.history-table) { width: 100%; border-collapse: collapse; font-size: var(--step--1); margin-top: var(--s-3); }
   :global(.history-table th), :global(.history-table td) { text-align: left; padding: var(--s-2); border-bottom: 1px solid var(--rule); vertical-align: top; }
   :global(.scroll) { overflow-x: auto; }
 </style>
 
 <script>
-  import { api, drafts, h, loadTargets, say, signInAgain } from "../../lib/admin/client";
+  import { api, drafts, h, loadScans, loadTargets, say, scanFigures, signInAgain, whenTypingPauses } from "../../lib/admin/client";
   import type { QueueItem } from "../../lib/admin/api";
+  import { namedSystems } from "../../lib/admin/scans";
+  import type { Scans } from "../../lib/admin/scans";
   import { FIELD_LABELS, describeTarget, notFor } from "../../lib/admin/targets";
   import type { Targets } from "../../lib/admin/targets";
 
@@ -97,6 +101,7 @@ import Layout from "../../components/Layout.astro";
   const REPO = "https://github.com/npadley/cantusorgani";
   let me: Me | null = null;
   let targets: Targets | null = null;
+  let scans: Scans | null = null;
 
   function fail(result: { status: number; error: string }): void {
     if (result.status === 401) signInAgain(status);
@@ -108,12 +113,13 @@ import Layout from "../../components/Layout.astro";
     return `${item.label ?? item.resolvedTarget ?? item.target ?? item.piece_id} · ${field}`;
   }
 
-  function scan(item: QueueItem): HTMLElement | null {
+  /** The systems the report names, now and as proposed; without the scan
+   * index, the piece's first system. */
+  function scan(item: QueueItem, field: string, proposed: string): HTMLElement | null {
     const found = targets && item.resolvedTarget ? describeTarget(targets, item.resolvedTarget) : null;
-    if (!found?.stem) return null;
-    return h("figure", { class: "scan" },
-      h("img", { src: `${found.stem}.webp`, alt: `The first system of ${found.label}, as printed`, loading: "lazy" }),
-      h("figcaption", { class: "small muted" }, h("a", { href: found.href }, "Open the page")));
+    if (!found) return null;
+    if (scans) return scanFigures(namedSystems(scans, found, field, proposed), found.href);
+    return found.stem ? scanFigures([{ ref: "", stem: found.stem, aspect: found.aspect, caption: "First system" }], found.href) : null;
   }
 
   /** The heading to focus once the list is drawn again: the next report's, or
@@ -132,8 +138,8 @@ import Layout from "../../components/Layout.astro";
 
   function pendingItem(item: QueueItem): HTMLElement {
     const heading = h("h3", { tabindex: "-1", id: `item-${item.id}` }, label(item));
-    const picture = scan(item);
-    const article = h("article", { class: picture ? "item has-scan" : "item", "aria-labelledby": `item-${item.id}` }, heading);
+    const article = h("article", { class: "item", "aria-labelledby": `item-${item.id}` }, heading);
+    let picture: HTMLElement | null = null;
     const draftKey = `row:${item.id}`;
     const piece = item.kind !== null;
     const input = h("input", { type: "text", id: `value-${item.id}`, maxlength: "200",
@@ -153,7 +159,18 @@ import Layout from "../../components/Layout.astro";
       fieldNote.textContent = info ? (notFor(f, info.genre, info.kind) ?? (f === "start_system" ? info.fixed ?? "" : "")) : "";
       if (f !== (item.resolvedField ?? "")) fieldNote.textContent ||= `The reader filed this under “${item.field}”.`;
     };
-    fieldSelect.addEventListener("change", syncField);
+    // The pictures follow the field and the value: a start moved to system 7
+    // shows system 7 beside the one it starts on now (redrawn as typing pauses).
+    const syncScan = () => {
+      const next = scan(item, fieldSelect.value || (item.resolvedField ?? ""), piece ? input.value : item.proposed);
+      if (picture && next) picture.replaceWith(next);
+      else if (picture) picture.remove();
+      else if (next) article.append(next);
+      picture = next;
+      article.classList.toggle("has-scan", Boolean(next));
+    };
+    fieldSelect.addEventListener("change", () => { syncField(); syncScan(); });
+    input.addEventListener("input", whenTypingPauses(syncScan));
     article.append(h("dl", { class: "values" },
       h("dt", {}, h("label", { for: `field-${item.id}` }, "Field")), h("dd", {}, piece ? fieldSelect : item.field),
       h("dt", {}, "Now"), now,
@@ -164,7 +181,7 @@ import Layout from "../../components/Layout.astro";
     if (item.reason) article.append(h("p", { class: "small muted" }, item.reason));
     if (item.problem && (!piece || item.resolvedField)) article.append(h("p", { class: "notice" }, item.problem));
     else if (item.problem) article.append(h("p", { class: "small muted" }, `${item.problem} Or choose the field it was meant to correct.`));
-    if (picture) article.append(picture);
+    syncScan();
 
     const actions = h("div", { class: "actions" });
     const act = async (verb: string, body: Record<string, string>, done: string) => {
@@ -227,8 +244,9 @@ import Layout from "../../components/Layout.astro";
   }
 
   async function load(): Promise<void> {
-    const [queue, loaded] = await Promise.all([api<Queue>("/queue"), loadTargets()]);
+    const [queue, loaded, pictures] = await Promise.all([api<Queue>("/queue"), loadTargets(), loadScans()]);
     targets = loaded;
+    scans = pictures;
     if (!queue.ok) { fail(queue); document.getElementById("pending")?.replaceChildren(); return; }
     const { pending, approved, batches, lastReviewed } = queue.data;
 

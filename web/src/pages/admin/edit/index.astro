@@ -43,6 +43,8 @@ import Layout from "../../../components/Layout.astro";
         <p class="small muted" id="field-hint"></p>
       </div>
 
+      <div id="scans" class="scans"></div>
+
       <div class="field">
         <label for="note">Why? <span class="muted">(optional; shown in the pull request)</span></label>
         <input id="note" name="note" type="text" maxlength="200" placeholder="e.g. as printed on p. 3" />
@@ -62,6 +64,9 @@ import Layout from "../../../components/Layout.astro";
   .status[data-state="error"] { color: var(--warn-ink); }
   .field { margin-bottom: var(--s-4); }
   .field p { margin: var(--s-1) 0 0; }
+  .scans :global(figure) { margin: 0 0 var(--s-2); }
+  .scans :global(img) { display: block; width: 100%; height: auto; }
+  .scans :global(figcaption) { margin-top: var(--s-1); }
   label { display: block; margin-bottom: var(--s-1); font-size: var(--step--1); }
   :global(.primary) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .link { border: 0; background: none; padding: 0; min-height: auto; text-decoration: underline; color: inherit; }
@@ -72,7 +77,9 @@ import Layout from "../../../components/Layout.astro";
 </style>
 
 <script>
-  import { api, drafts, h, loadTargets, say, signInAgain } from "../../../lib/admin/client";
+  import { api, drafts, h, loadScans, loadTargets, say, scanFigures, signInAgain, whenTypingPauses } from "../../../lib/admin/client";
+  import { namedSystems } from "../../../lib/admin/scans";
+  import type { Scans } from "../../../lib/admin/scans";
   import { FIELDS_OF, FIELD_LABELS, PART_LABELS, describeTarget, kindOf, notFor, partTarget } from "../../../lib/admin/targets";
   import type { TargetInfo, TargetPiece, Targets } from "../../../lib/admin/targets";
 
@@ -81,6 +88,8 @@ import Layout from "../../../components/Layout.astro";
     start_system: "the system of the piece the part starts on, counting from 1",
     chant: "the number in gregobase.selapa.net/chant.php?id=…, or none", tone: "as NOH8 prints it, e.g. VIII.G or IV.A*",
     refs: "the systems it is printed on, in order, separated by spaces; each image's ref is in its data-ref",
+    system_range: "its first and last system, e.g. noh1/0044/002-noh1/0046/003; systems taken from the piece before or after leave it",
+    note: "a sentence shown in place of the music, e.g. why the book's version is not used; none to show the music again",
   };
 
   const status = document.getElementById("status");
@@ -93,6 +102,14 @@ import Layout from "../../../components/Layout.astro";
   const note = document.getElementById("note") as HTMLInputElement;
   let targets: Targets | null = null;
   let chosen: TargetInfo | null = null;
+  let scans: Scans | null = null;
+
+  /** The systems this correction is about, now and as typed. */
+  function showScans(): void {
+    const box = document.getElementById("scans")!;
+    const figures = chosen && scans ? scanFigures(namedSystems(scans, chosen, fieldSelect.value, value.value), null) : null;
+    box.replaceChildren(...(figures ? [figures] : []));
+  }
 
   function draftKey(): string {
     return `edit:${chosen?.target}:${fieldSelect.value}`;
@@ -106,6 +123,7 @@ import Layout from "../../../components/Layout.astro";
     document.getElementById("field-note")!.textContent = chosen
       ? notFor(field, chosen.genre, chosen.kind) ?? (field === "start_system" ? chosen.fixed ?? "" : "") : "";
     if (fillValue) value.value = drafts.get(draftKey()) ?? now;
+    showScans();
   }
 
   function setFields(info: TargetInfo | null): void {
@@ -152,7 +170,7 @@ import Layout from "../../../components/Layout.astro";
       return;
     }
     document.getElementById("who")!.textContent = `Admin · signed in as ${who.data.email}`;
-    targets = await loadTargets();
+    [targets, scans] = await Promise.all([loadTargets(), loadScans()]);
     if (!targets) { say(status, "Could not load the list of pieces. Reload the page.", "error"); return; }
     const pieces = Object.values(targets.pieces).sort((a, b) => a.label.localeCompare(b.label));
     pieceSelect.replaceChildren(h("option", { value: "" }, "Choose a piece…"),
@@ -168,6 +186,7 @@ import Layout from "../../../components/Layout.astro";
   document.getElementById("target-change")?.addEventListener("click", () => { choose(null); pieceSelect.focus(); });
   fieldSelect.addEventListener("change", () => showCurrent(true));
   value.addEventListener("input", () => drafts.set(draftKey(), value.value));
+  value.addEventListener("input", whenTypingPauses(showScans));
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();

@@ -35,6 +35,14 @@ describe("parseLineup", () => {
     expect(lineup.heldBack.get("2026-09-06")).toContain("IV A");
   });
 
+  it("should keep the systems an editor's note stands in for, and show none of them", () => {
+    const lineup = parseLineup(doc([item("antiphon", "psalm-1", { target: "vespers:adv1/antiphon-1",
+      source: { type: "note", text: "Sung from the Antiphonale.", refs: ["noh8/0077/000"] } })]));
+    const noted = lineup.days.get("2026-11-08")!.items[0]!;
+    expect(noted.source).toEqual({ type: "note", text: "Sung from the Antiphonale.", refs: ["noh8/0077/000"] });
+    expect(itemSystems(noted)).toEqual([]);
+  });
+
   it("should reject an unknown schema, kind or source type", () => {
     expect(() => parseLineup({ ...doc([]), schema_version: 9 })).toThrow(/schema_version 9/);
     expect(() => parseLineup(doc([item("sermon", "x")]))).toThrow(/unknown kind sermon/);

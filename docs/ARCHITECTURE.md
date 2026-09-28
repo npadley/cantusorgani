@@ -104,10 +104,23 @@ its Vespers.
 ## Where the code is
 
 - `pipeline/catalog.py`, `parts.py`: pieces, and the Proper parts within them.
-- `pipeline/vespers.py`: each date's Vespers, in the order sung;
-  `vespercal.py`: its calendar (Easter, seasons, Marian antiphons);
-  `vesperitems.py`: aligning texts to the scans (proposals for review).
+- `pipeline/indexextract/`: reading a printed index (`table.py`), matching its
+  entries to headings and the calendar (`matching.py`), reading pages
+  (`pages.py`), proposals and their checks (`proposals.py`), and catalogues read
+  from the body's headings (`headings.py`).
+- `pipeline/vespers/`: each date's Vespers, in the order sung: `calendar.py`
+  (Easter, seasons, Marian antiphons), `reviewed.py` (the reviewed files, with
+  their corrections), `music.py` (each item's systems, tone-bank formula or
+  note), `lineup.py` (the lineup), `proposal.py` (Magnificat antiphons read
+  from the scans). `vesperitems.py`: aligning texts to the scans (proposals for
+  review). Both packages re-export every name, so `from pipeline.vespers import
+  …` still works.
+- `data/vespers/`: the reviewed Vespers files, the lineup and the vendored
+  Vespers sources.
 - `pipeline/corrections.py`: the overlay (`noh correct`, `apply-corrections`,
-  `correct-batch`); `where.py`: `noh where`.
+  `correct-batch`); system ranges apply first, and every other correction
+  counts from them; `where.py`: `noh where`.
+- `web/src/lib/admin/`: the admin screen; `scans.ts` picks the systems shown
+  beside a correction, from `/admin/scans.json`.
 - `web/src/lib/`: catalogue, calendar, Vespers and admin code, each with its
   tests beside it.
