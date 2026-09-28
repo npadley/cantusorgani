@@ -6,14 +6,18 @@
 # generated when the fix was made; if it changes, the build stops and asks.
 #
 # Targets and their fields:
-#   piece:<slug>                          title, incipit, mode, genre, printed_pages
+#   piece:<slug>                          title, incipit, mode, genre, printed_pages, system_range
 #   part:<slug>/<part>[:<variant>]        start_system (counting from 1), chant
-#   vespers:<office>/antiphon-<n>         tone, chant, refs   (an office of vespers-offices.yml)
-#   vespers:<office>/magnificat           tone, chant, refs
-#   vespers:sunday:<key>/magnificat       tone, chant, refs   (vespers-noh8.yml magnificat_antiphons)
+#   vespers:<office>/antiphon-<n>         tone, chant, refs, note   (an office of vespers/vespers-offices.yml)
+#   vespers:<office>/magnificat           tone, chant, refs, note
+#   vespers:sunday:<key>/magnificat       tone, chant, refs, note   (vespers/vespers-noh8.yml magnificat_antiphons)
 #   pairing:<slug>/<movement>             chant   (a Kyrie, Gloria... of a piece without Proper parts)
 # A chant is a GregoBase id, or none; refs are the systems it is printed on
-# ("noh8/0077/000 noh8/0077/001"). For example:
+# ("noh8/0077/000 noh8/0077/001"); a note is shown in place of the music (none
+# shows the music again). A system_range is a piece's first and last system
+# ("noh1/0044/002-noh1/0046/003"): systems it takes from the piece before or
+# after leave that piece, and every other correction counts from the new range.
+# For example:
 #
 # - id: c-0001
 #   target: piece:dominica-i-adventus
@@ -39,5 +43,39 @@
   was: null
   value: 497
   source: reader#3
+  date: '2026-09-28'
+  editor_email: nick@padley.com
+- id: c-0003
+  target: piece:ordinarium-missae-asperges-p2
+  field: system_range
+  was:
+  - noh5/0048/000
+  - noh5/0049/004
+  value:
+  - noh5/0048/001
+  - noh5/0049/004
+  source: editor
+  date: '2026-09-28'
+  note: Wrongly includes the last line from the asperges as the first line of the vidi
+  editor_email: nick@padley.com
+- id: c-0004
+  target: piece:ordinarium-missae-asperges
+  field: system_range
+  was:
+  - noh5/0047/000
+  - noh5/0047/004
+  value:
+  - noh5/0047/000
+  - noh5/0048/000
+  source: editor
+  date: '2026-09-28'
+  note: Fix the last line of the asperges to include the end of the chant.
+  editor_email: nick@padley.com
+- id: c-0005
+  target: pairing:ordinarium-missae-asperges-p2/chant
+  field: chant
+  was: null
+  value: 958
+  source: reader#6
   date: '2026-09-28'
   editor_email: nick@padley.com

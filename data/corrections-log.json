@@ -2,6 +2,45 @@
   "schema_version": 1,
   "corrections": [
     {
+      "id": "c-0005",
+      "target": "pairing:ordinarium-missae-asperges-p2/chant",
+      "field": "chant",
+      "was": null,
+      "value": 958,
+      "date": "2026-09-28",
+      "by": "reader"
+    },
+    {
+      "id": "c-0004",
+      "target": "piece:ordinarium-missae-asperges",
+      "field": "system_range",
+      "was": [
+        "noh5/0047/000",
+        "noh5/0047/004"
+      ],
+      "value": [
+        "noh5/0047/000",
+        "noh5/0048/000"
+      ],
+      "date": "2026-09-28",
+      "by": "editor"
+    },
+    {
+      "id": "c-0003",
+      "target": "piece:ordinarium-missae-asperges-p2",
+      "field": "system_range",
+      "was": [
+        "noh5/0048/000",
+        "noh5/0049/004"
+      ],
+      "value": [
+        "noh5/0048/001",
+        "noh5/0049/004"
+      ],
+      "date": "2026-09-28",
+      "by": "editor"
+    },
+    {
       "id": "c-0002",
       "target": "pairing:ordinarium-missae-asperges/chant",
       "field": "chant",
