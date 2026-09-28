@@ -133,6 +133,8 @@ def build_parser() -> argparse.ArgumentParser:
                          help="record a batch of corrections from the admin screen (a JSON file), all or nothing")
     cb.add_argument("file", help="the batch: {\"batch\": \"b-...\", \"entries\": [...]}")
     cb.add_argument("--summary", default=None, help="write the pull request description here")
+    cb.add_argument("--hold", default=None,
+                    help="write why the batch waits for the owner here, one reason a line (empty: merge it)")
     wh = subs.add_parser("where", help="what a page is, and which file to change to fix it")
     wh.add_argument("query", help="a page URL or path (/piece/<slug>/), or a few words of a title")
     cs = subs.add_parser("corrections", help="list the hand corrections, or drop one")
@@ -190,8 +192,11 @@ def _corrections_command(args: argparse.Namespace) -> int:
             batch = _json.loads(_Path(args.file).read_text(encoding="utf-8"))
             recorded = c.correct_batch(batch)
             c.write_all()
+            hold = c.hold_reasons(recorded)
             if args.summary:
-                _Path(args.summary).write_text(c.batch_summary(str(batch["batch"]), recorded), encoding="utf-8")
+                _Path(args.summary).write_text(c.batch_summary(str(batch["batch"]), recorded, hold), encoding="utf-8")
+            if args.hold:
+                _Path(args.hold).write_text("".join(f"{r}\n" for r in hold), encoding="utf-8")
             print(f"recorded {len(recorded)} correction(s): {', '.join(e.id for e in recorded)}")
             return 0
         if args.command == "corrections":

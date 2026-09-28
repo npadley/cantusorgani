@@ -99,8 +99,18 @@ Go to the repo's **Settings → Rules → Rulesets → New branch ruleset**.
     bypass above means your merge is the approval.
   - **Require status checks to pass**: add `check-build-deploy`.
 
-After this, my changes arrive as pull requests for you to merge, like the
-admin screen's batches.
+After this, my changes arrive as pull requests for you to merge.
+
+Then, in **Settings → General → Pull Requests**, tick **Allow auto-merge**. The
+admin screen's batches use it: a batch merges itself (and deploys) as soon as
+`check-build-deploy` passes, so you do not have to merge each one. Two kinds
+wait for you instead, and their pull request says why:
+
+- a batch that moves systems between pieces (a `system_range` correction);
+- a batch of 25 corrections or more.
+
+If a batch's checks fail, the pull request is closed and its corrections go
+back to the admin screen, marked with the reason.
 
 ## Checking it works
 
@@ -110,8 +120,9 @@ admin screen's batches.
    harmless correction and approve it.
 3. On `/admin/`, press **Publish changes**. Within a minute or two, "On
    GitHub" shows a pull request.
-4. The pull request runs the site checks. Merge it, and the site deploys with
-   the correction, and the history lists it as accepted.
+4. The pull request runs the site checks and, when they pass, merges itself:
+   the site deploys with the correction, and the history lists it as accepted.
+   (A batch that waits for you says so in the pull request; merge it yourself.)
 5. Or close it without merging: the correction goes back to "To review".
 
 If a step fails, the admin screen says why. The GitHub side is under the
