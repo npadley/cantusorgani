@@ -85,7 +85,8 @@ import Layout from "../../components/Layout.astro";
 </style>
 
 <script>
-  import { api, drafts, h, loadScans, loadTargets, say, scanFigures, signInAgain, whenTypingPauses } from "../../lib/admin/client";
+  import { api, drafts, fixLink, h, loadScans, loadTargets, say, scanFigures, signInAgain, whenTypingPauses } from "../../lib/admin/client";
+  import type { Fix } from "../../lib/admin/client";
   import type { QueueItem } from "../../lib/admin/api";
   import { namedSystems } from "../../lib/admin/scans";
   import type { Scans } from "../../lib/admin/scans";
@@ -104,9 +105,10 @@ import Layout from "../../components/Layout.astro";
   let targets: Targets | null = null;
   let scans: Scans | null = null;
 
-  function fail(result: { status: number; error: string }): void {
+  function fail(result: { status: number; error: string; fix?: Fix }): void {
     if (result.status === 401) signInAgain(status);
     else say(status, result.error, "error");
+    if (result.fix) status?.append(" ", fixLink(result.fix));
   }
 
   function label(item: QueueItem): string {
@@ -188,7 +190,7 @@ import Layout from "../../components/Layout.astro";
     const actions = h("div", { class: "actions" });
     const act = async (verb: string, body: Record<string, string>, done: string) => {
       actions.querySelectorAll("button").forEach((b) => { (b as HTMLButtonElement).disabled = true; });
-      const result = await api<{ warning?: string }>(`/rows/${item.id}/${verb}`, body);
+      const result = await api<{ warning?: string; fix?: Fix }>(`/rows/${item.id}/${verb}`, body);
       if (!result.ok) {
         fail(result);
         actions.querySelectorAll("button").forEach((b) => { (b as HTMLButtonElement).disabled = result.status === 409; });
@@ -201,6 +203,7 @@ import Layout from "../../components/Layout.astro";
       // A part moved past a neighbour still to be moved: approved, and said so.
       say(status, `${label(item)}: ${done}.${result.data.warning ? ` ${result.data.warning}` : ""}`,
           result.data.warning ? "error" : "ok");
+      if (result.data.fix) status?.append(" ", fixLink(result.data.fix));
       const next = nextHeadingId(article);
       await load();
       focusAfterLoad(next);

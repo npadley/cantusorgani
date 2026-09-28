@@ -5,7 +5,11 @@
 import type { Scans, Shown } from "./scans";
 import type { Targets } from "./targets";
 
-export type ApiResult<T> = { ok: true; data: T } | { ok: false; status: number; error: string };
+export type ApiResult<T> = { ok: true; data: T }
+  | { ok: false; status: number; error: string; fix?: Fix };
+
+/** The part to move too, when parts would be out of order. */
+export interface Fix { readonly target: string; readonly name: string }
 
 /** A call to /admin/api, with every failure turned into a sentence. */
 export async function api<T>(path: string, body?: unknown): Promise<ApiResult<T>> {
@@ -26,8 +30,11 @@ export async function api<T>(path: string, body?: unknown): Promise<ApiResult<T>
   if (!type.includes("application/json")) {
     return { ok: false, status: 401, error: "Your session ended. Sign in again." };
   }
-  const data = (await response.json().catch(() => ({}))) as T & { error?: string };
-  if (!response.ok) return { ok: false, status: response.status, error: data.error ?? `The request failed (${response.status}).` };
+  const data = (await response.json().catch(() => ({}))) as T & { error?: string; fix?: Fix };
+  if (!response.ok) {
+    return { ok: false, status: response.status, error: data.error ?? `The request failed (${response.status}).`,
+             ...(data.fix ? { fix: data.fix } : {}) };
+  }
   return { ok: true, data };
 }
 
@@ -66,6 +73,11 @@ export function whenTypingPauses(fn: () => void, ms = 300): () => void {
     clearTimeout(timer);
     timer = setTimeout(fn, ms);
   };
+}
+
+/** A link to the edit page of the part to move too. */
+export function fixLink(fix: Fix): HTMLElement {
+  return h("a", { href: `/admin/edit/?target=${encodeURIComponent(fix.target)}` }, `Move the ${fix.name}`);
 }
 
 type Child = Node | string | null | undefined | false;

@@ -70,7 +70,7 @@ test.describe("Making a correction", () => {
     await expect(page.locator("#target-label")).toHaveText("Dominica I Adventus (noh1) · Gradual");
     await expect(page.locator("#part")).toHaveValue("part:dominica-i-adventus/gradual");
     await expect(page.locator("#current")).toHaveText(String(s["gradual"]));
-    await expect(page.locator("#field-note")).toHaveText("A part runs from the system it starts on until the next part " +
+    await expect(page.locator("#field-note")).toContainText("A part runs from the system it starts on until the next part " +
       `starts: this one starts after the Introit (system ${s["introit"]}) and before the Alleluia (system ${s["alleluia"]}). ` +
       "To move it past the Alleluia, move the Alleluia too, in either order, before publishing.");
     await page.locator("#value").fill(String(s.systems + 2));
@@ -90,8 +90,11 @@ test.describe("Making a correction", () => {
     await page.goto("/admin/edit/?target=part:dominica-i-adventus/gradual");
     await page.locator("#value").fill(String(s["alleluia"]));
     await page.getByRole("button", { name: "Approve this correction" }).click();
-    await expect(page.locator("#status .notice")).toContainText("move the Alleluia too. Publishing waits until then.");
-    await page.goto("/admin/edit/?target=part:dominica-i-adventus/alleluia");
+    await expect(page.locator("#status .notice")).toContainText("move the Alleluia too.");
+    await expect(page.locator("#status .notice")).toContainText("Publishing waits until then.");
+    // The link opens the part to move, even one the piece page hides.
+    await page.locator("#status .notice").getByRole("link", { name: "Move the Alleluia" }).click();
+    await expect(page.locator("#target-label")).toHaveText("Dominica I Adventus (noh1) · Alleluia");
     await page.locator("#value").fill(String(s["alleluia"]! + 1));
     await page.getByRole("button", { name: "Approve this correction" }).click();
     await expect(page.locator("#status")).toContainText("Approved.");

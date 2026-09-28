@@ -25,7 +25,8 @@ export function buildTargets(): Targets {
       pairings: p.chant.map((c) => ({ movement: c.movement ?? "chant", id: c.id })),
       movements: p.movements.map((m) => m.movement),
       parts: p.parts.map((part) => part.kind === "printed"
-        ? { part: part.part, variant: part.variant, system: part.system + 1, borrowed: null, chant: part.gregobaseId }
+        ? { part: part.part, variant: part.variant, system: part.system + 1, borrowed: null, chant: part.gregobaseId,
+            ...(part.placed === "order" ? { guessed: true } : {}) }
         : { part: part.part, variant: part.variant, system: null, chant: part.gregobaseId,
             borrowed: `${part.borrowedFrom ?? "another volume"}, p. ${part.borrowedPage}` }),
     };

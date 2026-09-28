@@ -122,9 +122,32 @@ describe("the order of parts", () => {
     const gradual = { target: "part:dominica-i-adventus/gradual:1", value: "5" };
     expect(plannedOrder(T, [gradual])).toBeNull();
     const introit = { target: "part:dominica-i-adventus/introit", value: "4" };
-    expect(plannedOrder(T, [introit])).toBe("In dominica-i-adventus, the Introit would start on system 4 and the Gradual 1 " +
-      "on system 3. A part runs until the next one starts: move the Gradual 1 too.");
+    expect(plannedOrder(T, [introit])).toEqual({
+      message: "In dominica-i-adventus, the Introit would start on system 4 and the Gradual 1 on system 3. " +
+        "A part runs until the next one starts: move the Gradual 1 too.",
+      target: "part:dominica-i-adventus/gradual:1", name: "Gradual 1" });
     expect(plannedOrder(T, [introit, gradual])).toBeNull();
     expect(plannedOrder(T, [{ target: "vespers:adv1/magnificat", value: "3" }, { target: "piece:x", value: "1" }])).toBeNull();
+  });
+});
+
+describe("a part the piece page hides", () => {
+  const H = targets(piece("advent", { genre: "proper", systems: 28, parts: [
+    { part: "introit", variant: "", system: 1, borrowed: null, chant: null },
+    { part: "gradual", variant: "", system: 4, borrowed: null, chant: null },
+    { part: "alleluia", variant: "", system: 9, borrowed: null, chant: null, guessed: true },
+    { part: "offertory", variant: "", system: 22, borrowed: null, chant: null }] }));
+
+  it("should say the next part is hidden and where to find it", () => {
+    expect(startNote(describeTarget(H, "part:advent/gradual")!)).toMatch(
+      /The Alleluia isn't shown on the piece page, because its start was only guessed; choose it under “Which part\?”\.$/);
+  });
+
+  it("should name the hidden part to move, with its target for a link", () => {
+    expect(plannedOrder(H, [{ target: "part:advent/gradual", value: "9" }])).toEqual({
+      message: "In advent, the Gradual would start on system 9 and the Alleluia on system 9. A part runs until the next " +
+        "one starts: move the Alleluia too. (The piece page doesn't show the Alleluia: its start was only guessed.)",
+      target: "part:advent/alleluia", name: "Alleluia" });
+    expect(plannedOrder(H, [{ target: "part:advent/gradual", value: "9" }, { target: "part:advent/alleluia", value: "15" }])).toBeNull();
   });
 });

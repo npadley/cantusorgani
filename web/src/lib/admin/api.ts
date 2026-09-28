@@ -126,10 +126,11 @@ async function plannedStarts(store: Store): Promise<PlannedStart[]> {
 
 /** A part's new start may pass a neighbour that is still to be moved: it is
  * approved, with a warning, and Publish waits until the plan is in order. */
-async function orderWarning(store: Store, targets: Targets, field: string): Promise<string | null> {
-  if (field !== "start_system") return null;
-  const problem = plannedOrder(targets, await plannedStarts(store));
-  return problem ? `${problem} Publishing waits until then.` : null;
+async function orderWarning(store: Store, targets: Targets, field: string): Promise<Record<string, unknown>> {
+  if (field !== "start_system") return {};
+  const found = plannedOrder(targets, await plannedStarts(store));
+  return found ? { warning: `${found.message} Publishing waits until then.`,
+                   fix: { target: found.target, name: found.name } } : {};
 }
 
 async function conflict(store: Store, id: number, row: Row | null): Promise<Response> {
@@ -239,8 +240,7 @@ async function actOnRow(deps: Deps, editor: Editor, id: number, verb: RowVerb, i
   const changed = [field !== item.resolvedField ? `reader filed it under ${row.field}` : "",
                    checked.value !== row.proposed ? `reader proposed: ${row.proposed}` : ""].filter(Boolean).join("; ");
   await store.log(editor.email, "approve", id, changed);
-  const warning = await orderWarning(store, targets, field);
-  return json({ ok: true, status: "approved", field, value: checked.value, ...(warning ? { warning } : {}) });
+  return json({ ok: true, status: "approved", field, value: checked.value, ...(await orderWarning(store, targets, field)) });
 }
 
 async function createEdit(deps: Deps, editor: Editor, input: Record<string, unknown>): Promise<Response> {
@@ -256,8 +256,7 @@ async function createEdit(deps: Deps, editor: Editor, input: Record<string, unkn
   const id = await deps.store.insertEdit({ target: info.target, pieceId: info.slug ?? "vespers", field,
                                            proposed: checked.value, note, email: editor.email });
   await deps.store.log(editor.email, "edit", id, `${info.target} ${field}: ${info.values[field] ?? ""} -> ${checked.value}`);
-  const warning = await orderWarning(deps.store, targets, field);
-  return json({ ok: true, id, status: "approved", ...(warning ? { warning } : {}) }, 201);
+  return json({ ok: true, id, status: "approved", ...(await orderWarning(deps.store, targets, field)) }, 201);
 }
 
 async function publish(deps: Deps, env: AdminEnv, editor: Editor): Promise<Response> {
@@ -272,7 +271,9 @@ async function publish(deps: Deps, env: AdminEnv, editor: Editor): Promise<Respo
   const approved = (await store.list(["approved"], BATCH_MAX)).slice().reverse();
   if (approved.length === 0) return problem(400, "Nothing is approved yet.");
   const disorder = plannedOrder(await deps.targets(), await plannedStarts(store));
-  if (disorder) return problem(422, `${disorder} Nothing was published.`);
+  if (disorder) {
+    return problem(422, `${disorder.message} Nothing was published.`, { fix: { target: disorder.target, name: disorder.name } });
+  }
   const batch = newBatchId();
   const queued = await store.queueBatch(batch, approved.map((r) => r.id));
   if (queued !== approved.length) {
