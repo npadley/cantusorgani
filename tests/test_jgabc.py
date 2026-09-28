@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from typing import Self
+from urllib.parse import urlparse
 
 import pytest
 
@@ -269,7 +270,7 @@ def _fake_github(js: str, head: str = "a" * 40):
     """GitHub (the external dependency): the commits API and the raw file."""
     def urlopen(request, timeout=0):
         url = request.full_url
-        if "api.github.com" in url:
+        if urlparse(url).hostname == "api.github.com":
             return _Response(json.dumps({"sha": head}).encode())
         return _Response(js.encode())
     return urlopen

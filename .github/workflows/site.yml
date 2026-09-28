@@ -4,6 +4,16 @@
 # check and build the site, but never deploy. A push to main does the same and
 # then deploys to Cloudflare Pages by direct upload.
 #
+# Two jobs, side by side:
+#   check-build-deploy  the fast tests, the build, the browser tests, the deploy
+#                       (about 2 minutes to the site after a merge);
+#   scan-tests          the slow tests that read the scans (pages rendered at
+#                       300 dpi, about 8 minutes). They test the code that reads
+#                       the books, not what the site shows, so the deploy does
+#                       not wait for them, and they run only when that code, its
+#                       tests or its inputs change (or by hand). A failure is a
+#                       red check on the commit.
+#
 # Free: GitHub Actions minutes are unlimited for public repositories, and a
 # wrangler direct upload does not use Cloudflare Pages' build quota.
 #
@@ -51,22 +61,13 @@ jobs:
       - run: uv sync --frozen
       - name: Lint
         run: uv run ruff check pipeline tools tests
-      # The scans are in git (pdf-source/), so the tests that read them run
-      # here too. A pull request skips only the `slow` ones (pages rendered at
-      # 300 dpi, a few minutes); main runs everything.
+      # The slow tests that read the scans are the scan-tests job, below.
       # The pinned GregoBase dump (CC0, sha256-checked; not in git): the tests
       # that divide Propers into parts, and the chant notation, read it.
       - name: GregoBase dump
         run: uv run noh gregobase-fetch
       - name: Pipeline tests
-        env:
-          EVENT: ${{ github.event_name }}
-        run: |
-          if [ "$EVENT" = "pull_request" ]; then
-            uv run pytest -q -m "not slow"
-          else
-            uv run pytest -q
-          fi
+        run: uv run pytest -q -m "not slow"
       - name: Hand corrections applied
         run: uv run noh apply-corrections --check
       # Every chant a part or Vespers item names has its notation, from the
@@ -150,3 +151,45 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: web
           command: pages deploy dist --project-name cantusorgani --branch main --commit-hash ${{ github.sha }}
+
+  # The slow tests: the pipeline reading the real scans (pdf-source/, in git).
+  scan-tests:
+    name: Scan tests (slow)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0          # to see what the push or pull request changed
+      - name: Did the code that reads the scans change?
+        id: changed
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          from="${BASE:-$BEFORE}"
+          if [ "$EVENT" = "workflow_dispatch" ] || ! git cat-file -e "${from}^{commit}" 2>/dev/null; then
+            echo "run=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          # The reading code, its tests and dependencies, and what it reads.
+          scan='^(pipeline/|tests/|pdf-source/|pyproject\.toml$|uv\.lock$|data/(catalog\.base\.json|index-[^/]*\.yml|volumes\.yml|derived-offsets\.json|rubrics-1962\.yml|published/|ocr/))'
+          if git diff --name-only "$from" "$GITHUB_SHA" | grep -qE "$scan"; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Nothing that reads the scans changed; the slow tests are skipped."
+          fi
+      - uses: astral-sh/setup-uv@v10.2.0
+        if: steps.changed.outputs.run == 'true'
+        with:
+          enable-cache: true
+      - name: Tesseract
+        if: steps.changed.outputs.run == 'true'
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-lat
+      - name: Install
+        if: steps.changed.outputs.run == 'true'
+        run: uv sync --frozen && uv run noh gregobase-fetch
+      - name: Slow pipeline tests
+        if: steps.changed.outputs.run == 'true'
+        run: uv run pytest -q -m slow

@@ -223,7 +223,7 @@ export function spokenTone(tone: string): string {
   if (tone === "peregrinus") return "tonus peregrinus";
   const [mode = "", ending = ""] = tone.split(".");
   const n = SPOKEN_MODES[mode];
-  const end = ending.replace("*", " star").replace(/(\d)$/, " $1");
+  const end = ending.replaceAll("*", " star").replace(/(\d)$/, " $1");
   return `tone ${n ?? mode}${end ? `, ending ${end}` : ""}`;
 }
 
