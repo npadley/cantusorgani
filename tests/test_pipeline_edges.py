@@ -364,6 +364,13 @@ def test_export_manifests_gathers_every_page_and_load_manifest_reads_it(tmp_path
     path = publish_mod.export_manifests("noh5", source=slices, out=tmp_path / "published")
     assert _json.loads(path.read_text())["pages"] == {"0051": [{"index": 0, "sha256": "abc", "width": 10, "height": 2}],
                                                      "0052": []}
+    # Slicing one more page later keeps the pages recorded before.
+    for page in ("0051", "0052"):
+        (slices / page / "manifest.json").unlink()
+    (slices / "0050").mkdir()
+    (slices / "0050" / "manifest.json").write_text(_json.dumps({"systems": []}))
+    path = publish_mod.export_manifests("noh5", source=slices, out=tmp_path / "published")
+    assert list(_json.loads(path.read_text())["pages"]) == ["0050", "0051", "0052"]
     monkeypatch.setattr(publish_mod, "BUILD", tmp_path / "gone")
     monkeypatch.setattr(publish_mod, "PUBLISHED", tmp_path / "published")
     monkeypatch.setattr(publish_mod, "_PUBLISHED_CACHE", {})

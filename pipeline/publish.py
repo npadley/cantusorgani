@@ -203,13 +203,17 @@ def _published(vol_id: str, root: Path | None = None) -> dict[str, list[dict[str
 
 def export_manifests(vol_id: str, source: Path | None = None, out: Path | None = None) -> Path:
     """Gather every page manifest the slicing wrote into data/published/<vol>.json
-    (one page per line, so a re-slice's diff shows the pages that changed)."""
+    (one page per line, so a re-slice's diff shows the pages that changed).
+
+    Pages already recorded and not sliced this time are kept: publishing a few
+    pages (`--pages`) on a fresh checkout must not drop the rest of the volume."""
     source = source or BUILD / "systems" / vol_id
     out = out or PUBLISHED
-    pages = {}
+    pages = dict(_published(vol_id, out))
     for manifest in sorted(source.glob("[0-9][0-9][0-9][0-9]/manifest.json")):
         systems = json.loads(manifest.read_text(encoding="utf-8")).get("systems", [])
         pages[manifest.parent.name] = systems
+    pages = dict(sorted(pages.items()))
     out.mkdir(parents=True, exist_ok=True)
     path = out / f"{vol_id}.json"
     body = ",\n".join(f"  {json.dumps(k)}: {json.dumps(v, separators=(',', ':'))}" for k, v in pages.items())

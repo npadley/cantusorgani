@@ -1,0 +1,133 @@
+# Publish scanned pages to R2 from GitHub, then rebuild that volume's catalogue
+# so every system names its published image: after new pages are catalogued
+# (NOH3's addenda), or a page is re-segmented.
+#
+# Run it from the Actions tab ("publish" -> "Run workflow"): choose the volume,
+# the PDF pages, and the branch. It slices those pages, uploads any image the
+# bucket lacks (existing keys are skipped; nothing is ever deleted), records
+# them in data/published/<volume>.json, and rebuilds the catalogue. On main it
+# opens a pull request with the result; on any other branch it commits there.
+#
+# Needs the R2 secrets and variable of r2-check (docs/ADMIN-SETUP.md, "R2 for
+# GitHub Actions"), and the App of catalog-rebuild: variable ADMIN_APP_ID,
+# secret ADMIN_APP_PRIVATE_KEY.
+name: publish
+run-name: publish ${{ inputs.volume }} pdf ${{ inputs.pages }} on ${{ inputs.branch }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      volume:
+        description: Volume
+        type: choice
+        options: [noh1, noh2, noh3, noh4, noh5, noh8]
+      pages:
+        description: PDF pages to publish (e.g. 480-499, or 36,40-42)
+        type: string
+        required: true
+      branch:
+        description: Branch whose catalogue to update (main opens a pull request)
+        type: string
+        default: main
+
+concurrency:
+  group: publish-${{ inputs.branch }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check the inputs
+        env:
+          BRANCH: ${{ inputs.branch }}
+          PAGES: ${{ inputs.pages }}
+        run: |
+          if [[ ! "$BRANCH" =~ ^[A-Za-z0-9._/-]{1,100}$ ]]; then
+            echo "::error::branch name has characters it should not"; exit 1
+          fi
+          # Pages are required: a whole volume is hours of work, and never meant.
+          if [[ ! "$PAGES" =~ ^[0-9]{1,4}(-[0-9]{1,4})?(,[0-9]{1,4}(-[0-9]{1,4})?)*$ ]]; then
+            echo "::error::pages must look like 480-499 or 36,40-42"; exit 1
+          fi
+
+      - name: App token
+        id: app
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.ADMIN_APP_ID }}
+          private-key: ${{ secrets.ADMIN_APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.branch }}
+          token: ${{ steps.app.outputs.token }}
+
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: true
+      - name: Tesseract
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-lat
+      - run: uv sync --frozen
+
+      - name: Check the R2 credentials
+        run: uv run noh r2-check
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ vars.R2_BUCKET }}
+
+      - name: Slice and upload
+        env:
+          VOLUME: ${{ inputs.volume }}
+          PAGES: ${{ inputs.pages }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ vars.R2_BUCKET }}
+        run: uv run noh publish --volume "$VOLUME" --pages "$PAGES" --upload
+
+      - name: Rebuild the catalogue
+        env:
+          VOLUME: ${{ inputs.volume }}
+        run: |
+          uv run noh gregobase-fetch
+          uv run noh catalog --volume "$VOLUME"
+          uv run noh vespers-lineup
+          uv run noh chants
+          uv run noh apply-corrections
+          uv run noh doctor || true
+
+      - name: Commit, and open a pull request from main
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          BRANCH: ${{ inputs.branch }}
+          VOLUME: ${{ inputs.volume }}
+          PAGES: ${{ inputs.pages }}
+          APP_SLUG: ${{ steps.app.outputs.app-slug }}
+          RUN: ${{ github.run_id }}
+        run: |
+          if git diff --quiet -- data/; then
+            echo "::notice::Publishing $VOLUME pdf $PAGES changed nothing."
+            exit 0
+          fi
+          git config user.name "${APP_SLUG}[bot]"
+          git config user.email "${APP_SLUG}[bot]@users.noreply.github.com"
+          summary=$(git diff --stat -- data/ | tail -1)
+          if [ "$BRANCH" = "main" ]; then
+            git switch -c "publish/$VOLUME-$RUN"
+          fi
+          git add data/
+          git commit -q -m "data: publish $VOLUME pdf $PAGES, and rebuild its catalogue"
+          if [ "$BRANCH" = "main" ]; then
+            git push -q origin "publish/$VOLUME-$RUN"
+            gh pr create --base main --head "publish/$VOLUME-$RUN" --title "Publish $VOLUME pdf $PAGES" \
+              --body "Run of the publish workflow on main: $summary. The images are already in R2; review data/published/$VOLUME.json and data/catalog.base.json before merging."
+          else
+            git push -q origin "HEAD:$BRANCH"
+          fi
