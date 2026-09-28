@@ -79,3 +79,19 @@
   source: reader#6
   date: '2026-09-28'
   editor_email: nick@padley.com
+- id: c-0006
+  target: part:dominica-i-adventus/gradual
+  field: start_system
+  was: 4
+  value: 9
+  source: editor
+  date: '2026-09-28'
+  editor_email: nick@padley.com
+- id: c-0007
+  target: part:dominica-i-adventus/alleluia
+  field: start_system
+  was: 9
+  value: 15
+  source: editor
+  date: '2026-09-28'
+  editor_email: nick@padley.com
