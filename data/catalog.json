@@ -72630,25 +72630,27 @@
       "mass": null,
       "printed_pages": [
         1,
-        1
+        2
       ],
       "pdf_pages": [
         47,
-        47
+        48
       ],
       "systems": [
         "noh5/0047/000",
         "noh5/0047/001",
         "noh5/0047/002",
         "noh5/0047/003",
-        "noh5/0047/004"
+        "noh5/0047/004",
+        "noh5/0048/000"
       ],
       "system_assets": [
         "systems/noh5/0047/000-71d5b5f9d622",
         "systems/noh5/0047/001-99ce4f610b7f",
         "systems/noh5/0047/002-ba3301b34776",
         "systems/noh5/0047/003-767a163c993f",
-        "systems/noh5/0047/004-8640b67d39c6"
+        "systems/noh5/0047/004-8640b67d39c6",
+        "systems/noh5/0048/000-d1584137129b"
       ],
       "system_aspect": [
         [
@@ -72670,6 +72672,10 @@
         [
           1844,
           420
+        ],
+        [
+          1845,
+          404
         ]
       ],
       "movements": [],
@@ -72713,7 +72719,6 @@
         49
       ],
       "systems": [
-        "noh5/0048/000",
         "noh5/0048/001",
         "noh5/0048/002",
         "noh5/0048/003",
@@ -72725,7 +72730,6 @@
         "noh5/0049/004"
       ],
       "system_assets": [
-        "systems/noh5/0048/000-d1584137129b",
         "systems/noh5/0048/001-5f2f815d5973",
         "systems/noh5/0048/002-bcea60b8ecbe",
         "systems/noh5/0048/003-4d1a7321ef96",
@@ -72737,10 +72741,6 @@
         "systems/noh5/0049/004-cf820322e226"
       ],
       "system_aspect": [
-        [
-          1845,
-          404
-        ],
         [
           1851,
           395
@@ -72781,7 +72781,17 @@
       "movements": [],
       "parts": [],
       "jgabc_url": null,
-      "chant": [],
+      "chant": [
+        {
+          "source": "gregobase",
+          "id": 958,
+          "movement": null,
+          "incipit": "Vidi aquam",
+          "mode": "8",
+          "score": 1.0,
+          "status": "verified"
+        }
+      ],
       "review_status": "verified",
       "hymns": [],
       "linked_days": []
