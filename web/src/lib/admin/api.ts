@@ -9,7 +9,7 @@
 import { authenticate } from "./auth";
 import type { AuthEnv, Editor } from "./auth";
 import { verifyHmac } from "./crypto";
-import { dispatchBatch, githubConfigured, newBatchId } from "./github";
+import { closePullRequest, dispatchBatch, githubConfigured, newBatchId } from "./github";
 import type { Batch, GithubEnv } from "./github";
 import { d1Store } from "./store";
 import type { D1Like, Row, Store } from "./store";
@@ -265,7 +265,7 @@ async function publish(deps: Deps, env: AdminEnv, editor: Editor): Promise<Respo
   const open = await store.list(["queued"], 1);
   if (open.length > 0) {
     const pr = open[0]?.pr_number;
-    return problem(409, pr ? `PR #${pr} is open, waiting for the owner. Publish again once it is merged or closed.`
+    return problem(409, pr ? `PR #${pr} is open: it merges itself when its checks pass, unless it waits for the owner. Publish again once it is merged or closed.`
       : "A batch is still being opened as a pull request. Try again in a minute.");
   }
   const approved = (await store.list(["approved"], BATCH_MAX)).slice().reverse();
@@ -305,16 +305,19 @@ interface PullRequestEvent {
 }
 interface WorkflowRunEvent {
   action?: string;
-  workflow_run?: { name?: string; conclusion?: string | null; display_title?: string; html_url?: string };
+  workflow_run?: { name?: string; conclusion?: string | null; display_title?: string; html_url?: string;
+                   head_branch?: string | null; pull_requests?: { number?: number }[] };
 }
 
 const BATCH_BRANCH = /^corrections\/(b-[0-9a-z-]{6,40})$/;
 const BATCH_TITLE = /^corrections (b-[0-9a-z-]{6,40})$/;
 
 /** GitHub tells the admin screen what became of each batch: its pull request
- * opened, merged or closed, or its workflow run failed. Signed with the
- * webhook secret; anything unsigned is refused. */
-export async function handleWebhook(request: Request, env: AdminEnv, store: Store = d1Store(env.DB)): Promise<Response> {
+ * opened, merged or closed, its workflow run failed, or the site's checks
+ * failed on it (which closes the pull request: a batch merges itself only when
+ * they pass). Signed with the webhook secret; anything unsigned is refused. */
+export async function handleWebhook(request: Request, env: AdminEnv, store: Store = d1Store(env.DB),
+                                    close: (pr: number, why: string) => Promise<void> = (pr, why) => closePullRequest(env, pr, why)): Promise<Response> {
   if (request.method !== "POST") return problem(405, "Method not allowed.");
   const raw = await request.text();
   if (raw.length > 2_000_000) return problem(413, "Request body too large.");
@@ -348,6 +351,23 @@ export async function handleWebhook(request: Request, env: AdminEnv, store: Stor
       const reason = `Publishing failed; see ${run.html_url ?? "the corrections-batch run"} on GitHub`;
       const n = await store.unqueueBatch(batch, "approved", reason.slice(0, 300));
       await store.log("github", "publish-failed", null, `${batch}: ${n} back to approved`);
+      return json({ ok: true, updated: n });
+    }
+    const checked = BATCH_BRANCH.exec(run?.head_branch ?? "")?.[1];
+    if (checked && run?.name === "site" && (run.conclusion === "failure" || run.conclusion === "timed_out")) {
+      const rows = (await store.list(["queued"], BATCH_MAX)).filter((r) => r.batch_id === checked);
+      if (rows.length === 0) return json({ ok: true, ignored: true });   // already merged, closed or returned
+      const pr = rows[0]?.pr_number ?? run.pull_requests?.[0]?.number ?? null;
+      const reason = `The site's checks failed; see ${run.html_url ?? "the site run"} on GitHub`.slice(0, 300);
+      const n = await store.unqueueBatch(checked, "approved", reason);
+      await store.log("github", "checks-failed", null, `${checked}: ${n} back to approved`);
+      if (pr) {
+        try {
+          await close(pr, `${reason}. The corrections are back on the admin screen under Approved; fix them there and publish again.`);
+        } catch (error) {
+          await store.log("github", "close-failed", null, `${checked}: PR #${pr}: ${error instanceof Error ? error.message : "unknown error"}`);
+        }
+      }
       return json({ ok: true, updated: n });
     }
   }

@@ -10,7 +10,7 @@ import Layout from "../../components/Layout.astro";
     <p class="who small muted" id="who">Admin</p>
     <h1>Corrections</h1>
     <p class="muted small prose">Readers' reports and your own fixes. Approving gathers a change; <strong>Publish
-      changes</strong> sends them all as one pull request on GitHub, which the owner merges to put them on the site.
+      changes</strong> sends them all as one pull request on GitHub, which merges itself once the site's checks pass (or waits for the owner, for a batch that moves systems between pieces or has 25 or more).
       <a href="/admin/edit/">Make a correction yourself</a> · <a href="/admin/parts/">Parts to check</a> ·
       <a href="/about/#corrections">How corrections work</a></p>
 
@@ -270,7 +270,7 @@ import Layout from "../../components/Layout.astro";
     document.getElementById("batches")?.replaceChildren(...(batches.length ? batches.map((b) => h("p", { class: "small" },
       b.pr ? h("a", { href: `${REPO}/pull/${b.pr}` }, `PR #${b.pr}`) : "Opening the pull request…",
       ` · ${b.items.length} correction${b.items.length === 1 ? "" : "s"} · `,
-      b.pr ? "open, waiting for the owner to merge" : "this takes about a minute")) : [h("p", { class: "muted small" }, "No open pull requests.")]));
+      b.pr ? "open: merges itself when its checks pass, unless it waits for the owner" : "this takes about a minute")) : [h("p", { class: "muted small" }, "No open pull requests.")]));
 
     const bar = document.getElementById("batch-bar");
     const text = document.getElementById("batch-text");
@@ -279,7 +279,7 @@ import Layout from "../../components/Layout.astro";
       bar.hidden = approved.length === 0 && batches.length === 0;
       const open = batches[0];
       if (open) {
-        text.textContent = open.pr ? `PR #${open.pr} open, waiting for the owner.` : "Opening the pull request…";
+        text.textContent = open.pr ? `PR #${open.pr} open: merges itself when its checks pass, unless it waits for the owner.` : "Opening the pull request…";
         publish.disabled = true;
       } else if (me && !me.publishing) {
         text.textContent = `${approved.length} change${approved.length === 1 ? "" : "s"} ready · publishing is not set up yet`;

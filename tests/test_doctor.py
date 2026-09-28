@@ -76,8 +76,19 @@ def test_check_r2_missing_credentials_is_a_skip_not_a_failure():
 
 
 def test_check_r2_all_present_passes():
-    env = {name: "x" for name in doctor.R2_VARS}
+    env = {"R2_ACCOUNT_ID": "a" * 32, "R2_ACCESS_KEY_ID": "b" * 32,
+           "R2_SECRET_ACCESS_KEY": "c" * 64, "R2_BUCKET": "cantusorgani-assets"}
     assert doctor.check_r2(env).status == OK
+
+
+def test_check_r2_names_an_api_token_in_the_account_id_slot():
+    """The mistake found on 2026-09-28: a cfat_ token pasted as the account ID."""
+    env = {"R2_ACCOUNT_ID": "cfat_" + "z" * 40, "R2_ACCESS_KEY_ID": "b" * 32,
+           "R2_SECRET_ACCESS_KEY": "c" * 64, "R2_BUCKET": "cantusorgani-assets"}
+    check = doctor.check_r2(env)
+    assert check.failed
+    assert "API token" in check.label
+    assert "z" * 10 not in check.label   # never echoes the value
 
 
 def test_check_reference_not_registered_current_registry_passes():

@@ -3,11 +3,21 @@
 # The admin screen (web/functions/admin) sends a repository_dispatch with the
 # batch; this records it in data/corrections.yml with `noh correct-batch` (which
 # checks every entry again), commits to corrections/<batch> and opens a pull
-# request as the GitHub App, so the site workflow's checks run on it. The owner
-# merges; merging deploys. A failed run is reported back to the admin screen by
-# the App's workflow_run webhook, which returns the batch to its queue.
+# request as the GitHub App, so the site workflow's checks run on it.
 #
-# Needs: variable ADMIN_APP_ID, secret ADMIN_APP_PRIVATE_KEY (the App's key).
+# Most batches then merge themselves: auto-merge is switched on, and GitHub
+# merges once the required check passes; merging deploys. A batch that moves
+# systems between pieces, or a large one, waits for the owner instead (the
+# reasons are in the pull request; pipeline/corrections.py hold_reasons). If a
+# check fails, the App's webhook closes the pull request and returns the batch
+# to the admin screen; so does a failed run of this workflow.
+#
+# Auto-merge is done with the App's token, not GITHUB_TOKEN, so the merge's push
+# to main starts the site workflow (and the deploy).
+#
+# Needs: variable ADMIN_APP_ID, secret ADMIN_APP_PRIVATE_KEY (the App's key);
+# in Settings -> General, "Allow auto-merge"; and a rule on main requiring the
+# check-build-deploy check (see docs/ADMIN-SETUP.md).
 name: corrections-batch
 run-name: corrections ${{ github.event.client_payload.batch }}
 
@@ -58,7 +68,7 @@ jobs:
           echo "id=$id" >> "$GITHUB_OUTPUT"
 
       - name: Record the corrections
-        run: uv run noh correct-batch "$RUNNER_TEMP/batch.json" --summary "$RUNNER_TEMP/pr.md"
+        run: uv run noh correct-batch "$RUNNER_TEMP/batch.json" --summary "$RUNNER_TEMP/pr.md" --hold "$RUNNER_TEMP/hold.txt"
 
       # A corrected chant link brings its notation: the pinned GregoBase dump
       # (CC0, sha256-checked) gives data/chants.json every chant now named;
@@ -81,3 +91,16 @@ jobs:
           git push -q origin "corrections/$BATCH"
           gh pr create --base main --head "corrections/$BATCH" \
             --title "Corrections: batch $BATCH ($count)" --body-file "$RUNNER_TEMP/pr.md"
+          # Auto-merge only when main requires the site's check: without that rule
+          # GitHub would merge at once, before any check ran. Any failure here
+          # leaves the pull request open for the owner, as before; it never fails
+          # the run (which would return the batch while its pull request is open).
+          if [ -s "$RUNNER_TEMP/hold.txt" ]; then
+            echo "::notice::Waits for the owner: $(paste -sd';' "$RUNNER_TEMP/hold.txt")"
+          elif ! gh api "repos/$GITHUB_REPOSITORY/rules/branches/main" \
+                 --jq '[.[] | select(.type == "required_status_checks") | .parameters.required_status_checks[].context] | index("check-build-deploy")' \
+                 | grep -qE '^[0-9]+$'; then
+            echo "::warning::main does not require check-build-deploy, so this batch waits for the owner (docs/ADMIN-SETUP.md, section 4)"
+          elif ! gh pr merge "corrections/$BATCH" --auto --merge; then
+            echo "::warning::Could not switch on auto-merge (is Allow auto-merge ticked in Settings -> General?); this batch waits for the owner"
+          fi
