@@ -16,3 +16,13 @@
 #   source: editor
 #   date: '2026-09-27'
 #   note: as printed on p. 3
+
+- id: c-0001
+  target: piece:ordinarium-missae-asperges
+  field: mode
+  was: null
+  value: VII
+  source: editor
+  date: '2026-09-28'
+  note: Mode 7 as printed in the chant itself
+  editor_email: nick@padley.com
