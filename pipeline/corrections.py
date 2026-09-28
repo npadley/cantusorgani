@@ -839,7 +839,28 @@ def correct_batch(batch: dict[str, Any], today: date | None = None, base_path: P
     return done
 
 
-def batch_summary(batch_id: str, entries: list[Entry]) -> str:
+# A batch merges itself once the site's checks pass, unless it holds one of
+# these: moving systems between pieces can carry music into the wrong piece,
+# and a large batch is worth a look. Those wait for the owner.
+STRUCTURAL_FIELDS = frozenset({"system_range"})
+LARGE_BATCH = 25
+
+
+def hold_reasons(entries: list[Entry]) -> list[str]:
+    """Why a batch waits for the owner instead of merging itself; empty when
+    it can merge as soon as its checks pass."""
+    reasons: list[str] = []
+    structural = [e for e in entries if e.field in STRUCTURAL_FIELDS]
+    if structural:
+        reasons.append(f"{len(structural)} correction(s) move systems between pieces "
+                       f"({', '.join(e.target for e in structural[:5])}"
+                       f"{', ...' if len(structural) > 5 else ''})")
+    if len(entries) >= LARGE_BATCH:
+        reasons.append(f"it has {len(entries)} corrections ({LARGE_BATCH} or more)")
+    return reasons
+
+
+def batch_summary(batch_id: str, entries: list[Entry], hold: list[str] | None = None) -> str:
     """The pull request's description: one line per correction, for review."""
     lines = [f"Corrections from the admin screen, batch `{batch_id}`.", "",
              "| Id | Target | Field | Was | Now | By | Note |", "|---|---|---|---|---|---|---|"]
@@ -847,7 +868,12 @@ def batch_summary(batch_id: str, entries: list[Entry]) -> str:
         cells = [e.id, e.target, e.field, json.dumps(e.was, ensure_ascii=False), json.dumps(e.value, ensure_ascii=False),
                  e.editor_email or e.source, e.note]
         lines.append("| " + " | ".join(str(c).replace("|", "\\|").replace("\n", " ") for c in cells) + " |")
-    lines += ["", "Merging deploys the site. Closing without merging returns these to the admin queue."]
+    if hold:
+        lines += ["", "**Waits for the owner** because " + "; and ".join(hold) + ".",
+                  "Merging deploys the site. Closing without merging returns these to the admin queue."]
+    else:
+        lines += ["", ("Merges itself once the site's checks pass, which deploys the site. "
+                       "If a check fails, the pull request is closed and these go back to the admin screen.")]
     return "\n".join(lines) + "\n"
 
 
@@ -877,6 +903,7 @@ __all__ = [
     "correct",
     "correct_batch",
     "drop",
+    "hold_reasons",
     "kind_of",
     "load",
     "load_base",

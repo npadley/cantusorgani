@@ -70,3 +70,15 @@ export async function dispatchBatch(env: GithubEnv, batch: Batch, fetcher: Fetch
   });
   if (response.status !== 204) throw new Error(`GitHub did not start the workflow (HTTP ${response.status})`);
 }
+
+/** Closes a batch's pull request, saying why. Used when the site's checks fail
+ * on it: the batch goes back to the admin screen rather than sitting open. */
+export async function closePullRequest(env: GithubEnv, pr: number, why: string, fetcher: Fetch = fetch): Promise<void> {
+  const token = await installationToken(env, fetcher);
+  const base = `${API}/repos/${env.GITHUB_REPO}`;
+  const send = { ...headers(token), "content-type": "application/json" };
+  const comment = await fetcher(`${base}/issues/${pr}/comments`, { method: "POST", headers: send, body: JSON.stringify({ body: why }) });
+  if (!comment.ok) throw new Error(`GitHub refused the comment on PR #${pr} (HTTP ${comment.status})`);
+  const closed = await fetcher(`${base}/pulls/${pr}`, { method: "PATCH", headers: send, body: JSON.stringify({ state: "closed" }) });
+  if (!closed.ok) throw new Error(`GitHub did not close PR #${pr} (HTTP ${closed.status})`);
+}
