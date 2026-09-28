@@ -155,3 +155,60 @@ def test_list_published_ignores_other_volumes_and_foreign_keys(s3):
 def test_content_type_for_rejects_unknown_suffix():
     with pytest.raises(ValueError, match="refusing"):
         upload.content_type_for(Path("a.jpg"))
+
+
+class ProbeS3(FakeS3):
+    """FakeS3 plus the get and delete the probe uses."""
+
+    def __init__(self, keep_on_delete: bool = False, **kwargs: object):
+        super().__init__(**kwargs)
+        self.keep_on_delete = keep_on_delete
+
+    def get_object(self, Bucket: str, Key: str) -> dict[str, object]:
+        import io
+        return {"Body": io.BytesIO(self.objects[Key])}
+
+    def delete_object(self, Bucket: str, Key: str) -> None:
+        if not self.keep_on_delete:
+            self.objects.pop(Key, None)
+
+
+def test_probe_writes_reads_and_deletes_a_fresh_key(monkeypatch):
+    fake = ProbeS3(existing={"systems/noh5/0051/000-aaaaaaaaaaaa.webp": b"slice"})
+    monkeypatch.setattr(upload, "_client", lambda creds: fake)
+    key = upload.probe(CREDS)
+    assert key.startswith(upload.PROBE_PREFIX)
+    assert fake.objects == {"systems/noh5/0051/000-aaaaaaaaaaaa.webp": b"slice"}
+
+
+def test_probe_fails_when_the_object_survives_delete(monkeypatch):
+    fake = ProbeS3(keep_on_delete=True)
+    monkeypatch.setattr(upload, "_client", lambda creds: fake)
+    with pytest.raises(RuntimeError, match="still there"):
+        upload.probe(CREDS)
+
+
+def test_probe_surfaces_a_refused_write(monkeypatch):
+    fake = ProbeS3(fail_on=set())
+    def refuse(**kwargs: object) -> None:
+        raise ClientError({"Error": {"Code": "AccessDenied"}}, "PutObject")
+    fake.put_object = refuse  # type: ignore[method-assign]
+    monkeypatch.setattr(upload, "_client", lambda creds: fake)
+    with pytest.raises(ClientError):
+        upload.probe(CREDS)
+
+
+def test_credential_problems_accepts_well_formed_values():
+    good = Credentials(account_id="a" * 32, access_key_id="b" * 32,
+                       secret_access_key="c" * 64, bucket="cantusorgani-assets")
+    assert upload.credential_problems(good) == []
+
+
+def test_credential_problems_names_each_bad_slot_without_its_value():
+    bad = Credentials(account_id="cfat_" + "q" * 40, access_key_id="short",
+                      secret_access_key="Z" * 64, bucket="cantusorgani-assets")
+    problems = upload.credential_problems(bad)
+    assert [p.split()[0] for p in problems] == [
+        "R2_ACCOUNT_ID", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY"]
+    assert "API token" in problems[0]
+    assert not any("qqqq" in p or "short" in p or "ZZZZ" in p for p in problems)

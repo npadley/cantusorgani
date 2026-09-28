@@ -59,6 +59,55 @@ def require_credentials(env: dict[str, str] | None = None) -> Credentials:
     )
 
 
+# What each value looks like, so a value pasted into the wrong slot is named
+# before any request is made. Messages never repeat the value itself.
+_HEX32 = re.compile(r"^[0-9a-f]{32}$")
+_HEX64 = re.compile(r"^[0-9a-f]{64}$")
+
+
+def credential_problems(creds: Credentials) -> list[str]:
+    """Values that cannot be right: an API token where the account ID goes, a
+    key of the wrong length. Empty when every value has the expected shape."""
+    problems: list[str] = []
+    if creds.account_id.startswith("cfat_"):
+        problems.append("R2_ACCOUNT_ID holds a Cloudflare API token (it starts with cfat_), "
+                        "not the account ID: the 32-character ID on the R2 overview page")
+    elif not _HEX32.match(creds.account_id):
+        problems.append(f"R2_ACCOUNT_ID is {len(creds.account_id)} characters; "
+                        "an account ID is 32 lowercase hex characters")
+    if not _HEX32.match(creds.access_key_id):
+        problems.append(f"R2_ACCESS_KEY_ID is {len(creds.access_key_id)} characters; "
+                        "an R2 Access Key ID is 32 lowercase hex characters")
+    if not _HEX64.match(creds.secret_access_key):
+        problems.append(f"R2_SECRET_ACCESS_KEY is {len(creds.secret_access_key)} characters; "
+                        "an R2 Secret Access Key is 64 lowercase hex characters")
+    return problems
+
+
+PROBE_PREFIX = "_probe/"
+
+
+def probe(creds: Credentials) -> str:
+    """Write, read back and delete one throwaway object: proof that the token
+    can do what publishing needs. The key is new each time, so the probe can
+    never touch a published object. Returns the key it used; raises on failure."""
+    import uuid
+
+    client = _client(creds)
+    key = f"{PROBE_PREFIX}{uuid.uuid4().hex}.txt"
+    body = b"cantusorgani r2-check\n"
+    client.put_object(Bucket=creds.bucket, Key=key, Body=body, ContentType="text/plain")
+    try:
+        got = client.get_object(Bucket=creds.bucket, Key=key)["Body"].read()
+        if got != body:
+            raise RuntimeError(f"read back {len(got)} bytes from {key}, wrote {len(body)}")
+    finally:
+        client.delete_object(Bucket=creds.bucket, Key=key)
+    if exists(client, creds.bucket, key):
+        raise RuntimeError(f"{key} is still there after deleting it")
+    return key
+
+
 def content_type_for(path: Path) -> str:
     try:
         return CONTENT_TYPES[path.suffix.lower()]

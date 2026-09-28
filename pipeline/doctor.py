@@ -100,6 +100,13 @@ def check_r2(env: dict[str, str]) -> Check:
         return Check(SKIP, f"R2 credentials ({', '.join(missing)}): unset",
                      "Only `noh publish --upload` needs these.\n"
                      "      Fix: copy .dev.vars.example to .dev.vars, or export them.")
+    from pipeline.upload import credential_problems, require_credentials
+
+    problems = credential_problems(require_credentials(env))
+    if problems:
+        return Check(FAIL, "R2 credentials: " + "; ".join(problems),
+                     "Fix: put each value in its own variable (Cloudflare dashboard > R2 >\n"
+                     "      API > Manage API tokens), then run `uv run noh r2-check`.")
     return Check(OK, "R2 credentials present")
 
 
