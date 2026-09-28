@@ -450,3 +450,33 @@ def test_the_workers_tone_list_is_the_shared_schemas():
     source = (corrections.DATA.parent / "workers" / "corrections" / "src" / "schema.ts").read_text()
     block = source[source.index("export const TONES = ["):source.index("] as const;")]
     assert _re.findall(r'"([^"]+)"', block) == json.loads(corrections.SCHEMA.read_text())["tones"]
+
+
+def test_apply_vespers_refs_replaces_the_systems_and_checks_they_exist():
+    data = vespers_data()
+    data.offices["adv1"]["antiphons"][0]["refs"] = ["noh8/0077/000"]
+    data = VespersData(data.doc, data.offices, frozenset({"noh8/0077/000", "noh8/0077/001", "noh8/0077/002"}))
+    moved = entry(target="vespers:adv1/antiphon-1", field="refs", was=["noh8/0077/000"],
+                  value="noh8/0077/001  noh8/0077/002")
+    out = corrections.apply_vespers(data, [moved])
+    assert out.offices["adv1"]["antiphons"][0]["refs"] == ["noh8/0077/001", "noh8/0077/002"]
+    bad = entry(target="vespers:adv1/antiphon-1", field="refs", was=["noh8/0077/000"], value="noh8/9999/000")
+    assert "not systems in the catalogue" in problems(None, [bad], data)[0]
+    with pytest.raises(CorrectionError, match="not a valid refs"):
+        coerce("refs", "noh5/0001/000", kind="vespers")
+
+
+def test_fetch_dump_refuses_a_file_that_is_not_the_pinned_one(tmp_path, monkeypatch):
+    import io
+    import urllib.request
+
+    from pipeline import gregobase
+    monkeypatch.setattr(urllib.request, "urlopen", lambda url, timeout=0: io.BytesIO(b"not the dump"))
+    with pytest.raises(gregobase.DumpError, match="nothing was written"):
+        gregobase.fetch_dump(tmp_path / "dump.sql")
+    assert not (tmp_path / "dump.sql").exists()
+    import hashlib
+    body = b"-- a dump"
+    monkeypatch.setattr(urllib.request, "urlopen", lambda url, timeout=0: io.BytesIO(body))
+    path = gregobase.fetch_dump(tmp_path / "dump.sql", pinned=hashlib.sha256(body).hexdigest())
+    assert path.read_bytes() == body

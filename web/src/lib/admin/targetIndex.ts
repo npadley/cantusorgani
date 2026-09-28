@@ -34,7 +34,8 @@ export function buildTargets(): Targets {
       const first = itemSystems(item)[0];
       vespers[item.target] = {
         label: item.label, when: `${lineupTitle(day)}, ${day.vespers} Vespers`, href: lineupHref(day),
-        tone: item.tone, chant: item.chant, stem: first?.stem ?? null, aspect: first ? first.aspect : null,
+        tone: item.tone, chant: item.chant, refs: item.source.type === "printed" ? item.source.refs : [],
+        stem: first?.stem ?? null, aspect: first ? first.aspect : null,
       };
     }
   }

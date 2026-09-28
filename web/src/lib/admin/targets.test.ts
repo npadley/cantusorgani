@@ -11,7 +11,8 @@ const T = {
             { part: "offertory", variant: "", system: null, borrowed: "dominica-ii, p. 9", chant: 7 }],
   })),
   vespers: { "vespers:adv1/magnificat": { label: "Ne timeas", when: "Advent I, II Vespers", href: "/vespers/2026-11-29/",
-                                           tone: "VIII.G", chant: null, stem: null, aspect: null } },
+                                           tone: "VIII.G", chant: null, refs: ["noh8/0086/000", "noh8/0086/001"],
+                                           stem: null, aspect: null } },
 };
 
 describe("describeTarget", () => {
@@ -44,6 +45,9 @@ describe("checkValue", () => {
     const vespers = describeTarget(T, "vespers:adv1/magnificat")!;
     expect(checkValue(T, vespers, "title", "Ne timeas")).toMatchObject({ ok: false });
     expect(checkValue(T, vespers, "tone", "I.g")).toEqual({ ok: true, value: "I.g" });
+    expect(checkValue(T, vespers, "refs", " noh8/0086/001   noh8/0086/002 ")).toEqual({ ok: true, value: "noh8/0086/001 noh8/0086/002" });
+    expect(checkValue(T, vespers, "refs", "noh8/0086/000 noh8/0086/001")).toMatchObject({ ok: false });
+    expect(checkValue(T, vespers, "refs", "noh5/0001/000")).toMatchObject({ ok: false });
     expect([readerField("startSystem"), readerField("gregobaseId"), readerField("nope")]).toEqual(["start_system", "chant", null]);
   });
 });

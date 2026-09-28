@@ -90,6 +90,8 @@ def build_parser() -> argparse.ArgumentParser:
     jg.add_argument("--commit", default=None, help="jgabc commit sha (default: master's head)")
 
     subs.add_parser("chants", help="write data/chants.json: the notation of every chant a part names")
+    subs.add_parser("gregobase-fetch",
+                    help="download the pinned GregoBase dump (CC0) into vendor/, checked against its sha256")
 
     of = subs.add_parser("officium-fetch",
                          help="vendor Divinum Officium's Vespers texts (1960) into data/divinum-officium-vespers.json")
@@ -430,11 +432,21 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  {r['kind']}: {r['why']}")
         return 0
 
+    if args.command == "gregobase-fetch":
+        from pipeline.gregobase import DumpError, fetch_dump
+        try:
+            path = fetch_dump()
+        except (DumpError, OSError) as exc:
+            print(f"gregobase-fetch: {exc}", file=sys.stderr)
+            return 1
+        print(f"{path}: the pinned GregoBase dump, sha256 checked")
+        return 0
+
     if args.command == "chants":
         from pipeline.chants import build
         from pipeline.gregobase import DUMP
         if not DUMP.exists():
-            print(f"chants: {DUMP.name} is missing (not in git); see README \"Vendored data\".",
+            print(f"chants: {DUMP.name} is missing (not in git).\n  Fix: uv run noh gregobase-fetch",
                   file=sys.stderr)
             return 1
         path, written, withheld = build()

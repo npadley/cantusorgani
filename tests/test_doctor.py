@@ -134,10 +134,10 @@ def test_run_returns_one_check_per_concern(tesseract_with):
     assert any("jgabc" in label for label in labels)
 
 
-def test_check_gregobase_dump_missing_fails_pointing_at_the_readme(tmp_path):
+def test_check_gregobase_dump_missing_fails_naming_the_fetch_command(tmp_path):
     check = doctor.check_gregobase_dump(tmp_path / "absent.sql", "0" * 64)
     assert check.status == FAIL
-    assert "Vendored data" in check.detail
+    assert "uv run noh gregobase-fetch" in check.detail
 
 
 def test_check_gregobase_dump_wrong_checksum_fails(tmp_path):

@@ -57,10 +57,11 @@ HEADER = """\
 # Targets and their fields:
 #   piece:<slug>                          title, incipit, mode, genre, printed_pages
 #   part:<slug>/<part>[:<variant>]        start_system (counting from 1), chant
-#   vespers:<office>/antiphon-<n>         tone, chant   (an office of vespers-offices.yml)
-#   vespers:<office>/magnificat           tone, chant
-#   vespers:sunday:<key>/magnificat       tone, chant   (vespers-noh8.yml magnificat_antiphons)
-# A chant is a GregoBase id, or none. For example:
+#   vespers:<office>/antiphon-<n>         tone, chant, refs   (an office of vespers-offices.yml)
+#   vespers:<office>/magnificat           tone, chant, refs
+#   vespers:sunday:<key>/magnificat       tone, chant, refs   (vespers-noh8.yml magnificat_antiphons)
+# A chant is a GregoBase id, or none; refs are the systems it is printed on
+# ("noh8/0077/000 noh8/0077/001"). For example:
 #
 # - id: c-0001
 #   target: piece:dominica-i-adventus
@@ -156,7 +157,9 @@ def coerce(name: str, value: object, genre: str | None = None, kind: str = "piec
         raise CorrectionError(str(rule["not_for_genres"][genre]))
     if name == "printed_pages" and isinstance(value, list) and len(value) == 2:
         value = f"{value[0]}-{value[1]}"
-    text = "none" if value is None and name == "chant" else str(value).strip()
+    if name == "refs" and isinstance(value, list):
+        value = " ".join(str(v) for v in value)
+    text = "none" if value is None and name == "chant" else " ".join(str(value).split())
     if rule.get("arabic_to_roman") and text.isdigit() and 1 <= int(text) <= len(ROMAN):
         text = ROMAN[int(text) - 1]
     if not re.fullmatch(rule["pattern"], text) or sum(ch.isalpha() for ch in text) < int(rule.get("min_letters", 0)):
@@ -170,6 +173,8 @@ def coerce(name: str, value: object, genre: str | None = None, kind: str = "piec
         return None if text == "none" else int(text)
     if name == "start_system":
         return int(text)
+    if name == "refs":
+        return text.split()
     return text
 
 
@@ -185,9 +190,12 @@ class Slot:
 
 @dataclass
 class VespersData:
-    """The reviewed Vespers files, as loaded: the overlay's vespers targets."""
+    """The reviewed Vespers files, as loaded: the overlay's vespers targets.
+    `known` is every system in the catalogue, for checking corrected refs (empty:
+    not checked here; load_reviewed checks every ref after the overlay)."""
     doc: dict[str, Any]
     offices: dict[str, Any]
+    known: frozenset[str] = frozenset()
 
 
 def load_vespers(data: Path = DATA) -> VespersData:
@@ -195,7 +203,10 @@ def load_vespers(data: Path = DATA) -> VespersData:
     offices_path = data / "vespers-offices.yml"
     offices = (yaml.safe_load(offices_path.read_text(encoding="utf-8")) or {}).get("offices", {}) \
         if offices_path.exists() else {}
-    return VespersData(doc, offices)
+    base = data / "catalog.base.json"
+    known = frozenset(r for p in json.loads(base.read_text(encoding="utf-8"))["pieces"] for r in p["systems"]) \
+        if base.exists() else frozenset()
+    return VespersData(doc, offices, known)
 
 
 def _pieces(catalog: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -262,7 +273,13 @@ def _vespers_slot(target: str, name: str, data: VespersData) -> Slot:
             entry = next((a for a in o.get("antiphons") or [] if a.get("n") == int(m.group(1))), None)
     if entry is None:
         raise _gone(target)
-    return Slot(get=lambda: entry.get(name), put=lambda v: entry.__setitem__(name, v))
+
+    def check(refs: Any) -> str | None:
+        missing = [r for r in refs if data.known and r not in data.known]
+        return f"{target} refs {', '.join(missing)} are not systems in the catalogue" if missing else None
+
+    return Slot(get=lambda: entry.get(name), put=lambda v: entry.__setitem__(name, v),
+                check=check if name == "refs" else None)
 
 
 def slot(target: str, name: str, catalog: dict[str, Any] | None, vespers: VespersData | None) -> Slot:
@@ -354,7 +371,7 @@ def apply_vespers(data: VespersData, entries: list[Entry]) -> VespersData:
     found = problems(None, entries, data)
     if found:
         raise CorrectionError("\n".join(found))
-    out = VespersData(copy.deepcopy(data.doc), copy.deepcopy(data.offices))
+    out = VespersData(copy.deepcopy(data.doc), copy.deepcopy(data.offices), data.known)
     for e in entries:
         if kind_of(e.target) == "vespers":
             slot(e.target, e.field, None, out).put(coerce(e.field, e.value, None, "vespers"))

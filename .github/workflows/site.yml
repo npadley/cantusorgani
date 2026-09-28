@@ -56,6 +56,16 @@ jobs:
         run: uv run pytest -q -m "not source and not slow"
       - name: Hand corrections applied
         run: uv run noh apply-corrections --check
+      # Every chant a part or Vespers item names has its notation, from the
+      # pinned GregoBase dump (downloaded and sha256-checked; not in git).
+      - name: Chant notation current
+        run: |
+          uv run noh gregobase-fetch
+          uv run noh chants
+          git diff --exit-code --stat data/chants.json || {
+            echo "::error::data/chants.json is not current. Fix: uv run noh gregobase-fetch && uv run noh chants, then commit data/chants.json"
+            exit 1
+          }
 
       # --------------------------------------------------------------- site ---
       - uses: pnpm/action-setup@v4

@@ -37,7 +37,7 @@ export const PIECE_FIELDS = FIELDS_OF.piece as readonly PieceField[];
 
 export const FIELD_LABELS: Readonly<Record<string, string>> = {
   title: "Title", incipit: "Incipit", mode: "Mode", genre: "Genre", printed_pages: "Printed pages",
-  start_system: "Starts on system", chant: "Chant (GregoBase id)", tone: "Tone",
+  start_system: "Starts on system", chant: "Chant (GregoBase id)", tone: "Tone", refs: "Printed systems",
 };
 
 export const PART_LABELS: Readonly<Record<string, string>> = {
@@ -80,6 +80,8 @@ export interface TargetVespers {
   readonly href: string;
   readonly tone: string | null;
   readonly chant: number | null;
+  /** The systems it is printed on ("noh8/0077/000"). */
+  readonly refs?: readonly string[];
   readonly stem: string | null;
   readonly aspect: readonly [number, number] | null;
 }
@@ -146,7 +148,8 @@ export function describeTarget(targets: Targets, name: string): TargetInfo | nul
     const v = targets.vespers?.[name];
     if (!v) return null;
     return { target: name, kind, label: `${v.label} (${v.when})`, href: v.href, stem: v.stem, aspect: v.aspect,
-             values: { tone: v.tone ?? "", chant: chantText(v.chant) }, genre: null, slug: null, fixed: null, bounds: null };
+             values: { tone: v.tone ?? "", chant: chantText(v.chant), refs: (v.refs ?? []).join(" ") },
+             genre: null, slug: null, fixed: null, bounds: null };
   }
   const rest = name.includes(":") ? name.slice(name.indexOf(":") + 1) : name;
   const [slugOrId, partName] = rest.split("/") as [string, string | undefined];
@@ -190,6 +193,7 @@ export function normalise(field: string, raw: string, kind: Kind = "piece"): str
   const n = Number(value);
   if (RULES[kind][field]?.arabic_to_roman && /^\d+$/.test(value) && n >= 1 && n <= ROMAN.length) return ROMAN[n - 1] as string;
   if (field === "chant" && value === "") return "none";
+  if (field === "refs") return value.split(/\s+/).filter(Boolean).join(" ");
   return value;
 }
 

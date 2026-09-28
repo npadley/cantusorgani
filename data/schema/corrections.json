@@ -47,6 +47,10 @@
       "chant": {
         "pattern": "^(\\d{1,6}|none)$",
         "hint": "a GregoBase chant id (the number in gregobase.selapa.net/chant.php?id=…), or none"
+      },
+      "refs": {
+        "pattern": "^noh8/\\d{4}/\\d{3}( noh8/\\d{4}/\\d{3}){0,11}$",
+        "hint": "the systems it is printed on, in order, separated by spaces, e.g. noh8/0077/000 noh8/0077/001 (every image on the site carries its ref)"
       }
     }
   },

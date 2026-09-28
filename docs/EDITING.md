@@ -12,8 +12,8 @@ most fixes.
 | A piece's title, incipit or mode is wrong | [Title, incipit, mode](#title-incipit-mode) | No |
 | A piece's printed pages are wrong | [Printed pages](#printed-pages) | No |
 | A reader sent a correction | [The admin screen](#the-admin-screen), or [Reader corrections](#reader-corrections) | No |
-| A Vespers antiphon's or Magnificat antiphon's tone or chant link is wrong | [Vespers items](#vespers-items) | No |
-| A Vespers antiphon is on the wrong systems, or a hymn is wrong | [Vespers at the source](#vespers-at-the-source) | No |
+| A Vespers antiphon's or Magnificat antiphon's tone, chant link or systems are wrong | [Vespers items](#vespers-items) | No |
+| A Vespers hymn, versicle, psalm or season is wrong | [Vespers at the source](#vespers-at-the-source) | No |
 | A day shows the wrong Mass, or no Mass | [Days and rubrics](#days-and-rubrics) | Yes |
 | A piece starts or ends on the wrong page or system | [Piece boundaries](#piece-boundaries) | Yes |
 | A Proper part (Introit, Gradual…) starts on the wrong system, or its chant link is wrong | [Proper parts](#proper-parts) | No |
@@ -49,8 +49,8 @@ code arrives by email). Setting it up is described in
 Every action records who did it. Two editors can't both act on one report: the
 second is told who got there first. The admin screen corrects a piece's title,
 incipit, mode, genre and printed pages; where a Proper part starts and its
-chant; and a Vespers antiphon's tone and chant. Everything else needs the loop
-below.
+chant; and a Vespers antiphon's tone, chant and printed systems. Everything
+else needs the loop below.
 
 ---
 
@@ -214,8 +214,8 @@ pairing" is refused, because a chant belongs to a part: see
 
 ### Vespers items
 
-The tone and chant of an office's antiphons and Magnificat antiphon, and of a
-green Sunday's Magnificat antiphon.
+The tone, chant and printed systems of an office's antiphons and Magnificat
+antiphon, and of a green Sunday's Magnificat antiphon.
 
 - **File**: `data/corrections.yml`.
 - **Change**: `uv run noh where <Vespers page URL>` lists the page's targets.
@@ -224,7 +224,11 @@ green Sunday's Magnificat antiphon.
   ```bash
   uv run noh correct vespers:adv1/antiphon-2 tone VIII.G*
   uv run noh correct vespers:sunday:tempora:Pent18-0/magnificat chant 2205
+  uv run noh correct vespers:adv1/antiphon-1 refs "noh8/0077/000 noh8/0077/001"
   ```
+
+  `refs` are the systems it is printed on, in order; every image on the site
+  carries its ref in `data-ref`. Each must be a system in the catalogue.
 
 - **Command**: none; `noh correct` rebuilds the Vespers lineup for the years it
   already covers.
@@ -234,9 +238,9 @@ green Sunday's Magnificat antiphon.
 
 ### Vespers at the source
 
-Everything else about Vespers — which systems an antiphon is on, hymns, the
-Sunday psalter, seasons, the tone bank — is fixed in the reviewed files, not
-the overlay.
+Everything else about Vespers — hymns, versicles, the Sunday psalter, seasons,
+the tone bank, a psalm's opening — is fixed in the reviewed files, not the
+overlay.
 
 - **File**: `data/vespers-offices.yml` (an office's items) or
   `data/vespers-noh8.yml` (psalter, Marian antiphons, seasons,
@@ -284,10 +288,11 @@ the overlay.
   another volume is corrected where it is printed.
 - **Command**: none; `noh correct` rewrites the files.
 - **Confirm**: the part's heading on the piece page sits above the right
-  system, and its **Chant** link opens the right melody. A new chant id's
-  notation (the chant drawn above the music) appears once someone runs
-  `uv run noh chants` (it needs the GregoBase dump). `noh doctor` lists such
-  ids, and the link works meanwhile.
+  system, and its **Chant** link opens the right melody. A new chant's
+  notation (drawn above the music) comes with it: publishing from the admin
+  screen runs `noh chants` on GitHub. Locally, run
+  `uv run noh gregobase-fetch && uv run noh chants` (the check on every pull
+  request insists on it).
 
 Editors do the same on the admin screen: **Edit** beside the part's heading,
 or **Which part?** on the edit page. Readers use **Report** beside it.

@@ -113,7 +113,7 @@ def check_gregobase_dump(path: Path | None = None, pinned: str | None = None) ->
     if not path.exists():
         return Check(FAIL, "GregoBase dump: missing",
                      f"Proper parts need {path.name} (not in git).\n"
-                     "      Fix: see README \"Vendored data\" for where to get it.")
+                     "      Fix: uv run noh gregobase-fetch")
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for block in iter(lambda: handle.read(1 << 20), b""):
