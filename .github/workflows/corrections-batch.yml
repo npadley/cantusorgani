@@ -39,7 +39,7 @@ jobs:
           ref: main
           token: ${{ steps.app.outputs.token }}
 
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.2.0
         with:
           enable-cache: true
       - run: uv sync --frozen
