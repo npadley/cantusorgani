@@ -44,7 +44,7 @@ from PIL import Image
 from pipeline.clean import clean_page
 from pipeline.evaluate import analyse_page
 from pipeline.render import render_page
-from pipeline.volumes import ROOT
+from pipeline.volumes import DATA, ROOT
 
 BUILD = ROOT / "build"
 # Ink margin kept around a trimmed slice, in native pixels.
@@ -167,16 +167,55 @@ def slice_systems(vol_id: str, pdf_page: int, dest: Path | None = None,
     return slices
 
 
+# What has been published, committed: every page's slice hashes and sizes, per
+# volume, so the catalogue's asset keys can be rebuilt without the slices (in
+# CI, or on a fresh checkout). `noh publish` rewrites it after slicing.
+PUBLISHED = DATA / "published"
+
+
 def load_manifest(vol_id: str, pdf_page: int,
                   dest: Path | None = None) -> list[dict[str, object]] | None:
-    """Slice hashes and dimensions for a page, or None if it has not been sliced."""
+    """Slice hashes and dimensions for a page, or None if it has not been sliced:
+    the slicing's own manifest when present, else the committed record."""
     base = dest if dest is not None else BUILD / "systems" / vol_id
     path = base / f"{pdf_page:04d}" / "manifest.json"
-    if not path.exists():
+    if path.exists():
+        data = json.loads(path.read_text(encoding="utf-8"))
+        systems = data.get("systems", [])
+        return list(systems) if isinstance(systems, list) else None
+    if dest is not None:
         return None
-    data = json.loads(path.read_text(encoding="utf-8"))
-    systems = data.get("systems", [])
-    return list(systems) if isinstance(systems, list) else None
+    record = _published(vol_id)
+    return record.get(f"{pdf_page:04d}")
+
+
+_PUBLISHED_CACHE: dict[str, dict[str, list[dict[str, object]]]] = {}
+
+
+def _published(vol_id: str, root: Path | None = None) -> dict[str, list[dict[str, object]]]:
+    root = root or PUBLISHED
+    key = f"{root}/{vol_id}"
+    if key not in _PUBLISHED_CACHE:
+        path = root / f"{vol_id}.json"
+        _PUBLISHED_CACHE[key] = json.loads(path.read_text(encoding="utf-8"))["pages"] if path.exists() else {}
+    return _PUBLISHED_CACHE[key]
+
+
+def export_manifests(vol_id: str, source: Path | None = None, out: Path | None = None) -> Path:
+    """Gather every page manifest the slicing wrote into data/published/<vol>.json
+    (one page per line, so a re-slice's diff shows the pages that changed)."""
+    source = source or BUILD / "systems" / vol_id
+    out = out or PUBLISHED
+    pages = {}
+    for manifest in sorted(source.glob("[0-9][0-9][0-9][0-9]/manifest.json")):
+        systems = json.loads(manifest.read_text(encoding="utf-8")).get("systems", [])
+        pages[manifest.parent.name] = systems
+    out.mkdir(parents=True, exist_ok=True)
+    path = out / f"{vol_id}.json"
+    body = ",\n".join(f"  {json.dumps(k)}: {json.dumps(v, separators=(',', ':'))}" for k, v in pages.items())
+    path.write_text(f'{{"volume": {json.dumps(vol_id)}, "pages": {{\n{body}\n}}}}\n', encoding="utf-8")
+    _PUBLISHED_CACHE.pop(f"{out}/{vol_id}", None)
+    return path
 
 
 def asset_stem(vol_id: str, pdf_page: int, index: int, sha256: str) -> str:

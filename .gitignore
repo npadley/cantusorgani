@@ -10,7 +10,13 @@ build/
 coverage/
 dist/
 node_modules/
-pdf-source/
+# The scanned NOH volumes are public domain and tracked; nothing else in
+# pdf-source/ is. In particular the Corpus Christi Watershed reference edition
+# ("Nova Organi Harmonia - Full PDF.pdf": burned-in branding, a copyrighted
+# modern preface) must never be published: tests/test_volumes.py fails if any
+# file there but NOH*.pdf is tracked.
+pdf-source/*
+!pdf-source/NOH*.pdf
 vendor/
 # ...except the site's own vendored scripts, which the build serves (Exsurge draws
 # the chant notation; MIT, see its LICENSE and SOURCE).

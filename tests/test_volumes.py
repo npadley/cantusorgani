@@ -23,8 +23,21 @@ def test_registry_is_an_allowlist_not_a_glob():
 @pytest.mark.source
 def test_registry_leaves_the_ccw_edition_on_disk_unregistered():
     on_disk = {f.name for f in SOURCE.glob("*.pdf")}
+    if CCW not in on_disk:
+        pytest.skip("the CCW edition is only on the maintainer's machine (never in git)")
     registered = {v.file for v in load_volumes().values()}
     assert CCW in on_disk - registered
+
+
+def test_git_tracks_only_the_noh_scans_in_pdf_source():
+    """The NOH volumes are public domain and in git; the CCW reference edition,
+    beside them on the maintainer's machine, must never be (.gitignore)."""
+    import subprocess
+    tracked = subprocess.run(["git", "ls-files", "pdf-source"], cwd=SOURCE.parent, capture_output=True,
+                             text=True, check=True).stdout.splitlines()
+    names = [t.removeprefix("pdf-source/") for t in tracked]
+    assert CCW not in names
+    assert all(n.startswith("NOH") and n.endswith(".pdf") and "/" not in n for n in names), names
 
 
 def test_pipeline_refuses_an_unregistered_pdf():

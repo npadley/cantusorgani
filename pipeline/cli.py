@@ -525,6 +525,9 @@ def main(argv: list[str] | None = None) -> int:
             print(f"[{i}/{len(pages)}] pdf {page}: {len(written)} systems{note}")
 
         print(f"{total} systems sliced")
+        if args.out is None:
+            from pipeline.publish import export_manifests
+            print(f"{export_manifests(args.volume)}: the published slices, for rebuilding without them")
         if args.upload:
             if args.dry_run:
                 print(f"DRY RUN — would upload {uploaded} object(s); nothing was sent.")
