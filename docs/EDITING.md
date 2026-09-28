@@ -123,7 +123,8 @@ This takes about 15 minutes, and none of it needs `pdf-source/`.
 | Find it | `uv run noh where <page URL or words>` | instant |
 | Change it | `uv run noh correct …`, or edit the YAML file the recipe names | — |
 | Regenerate | the recipe's command (`noh apply-corrections`, `noh vespers-lineup`, `noh catalog`) | < 1 s; `noh catalog` about 1 min per volume |
-| Check | `uv run noh doctor`; `uv run pytest -m "not source and not slow"` | ~10 s |
+| Check | `uv run noh doctor`; `uv run pytest -m "not source and not slow"`; `pnpm --dir web test` | ~10 s each |
+| Browser tests | `pnpm --dir web build`, then `pnpm --dir web test:e2e` (the admin screen and forms in Chromium) | ~1 min |
 | Preview | `pnpm --dir web dev` → http://localhost:4321 | ~5 s to start |
 | Publish | push to `main`; see [Publishing](#publishing) | ~1½ min |
 
