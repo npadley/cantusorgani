@@ -32,7 +32,7 @@ export async function api<T>(path: string, body?: unknown): Promise<ApiResult<T>
 
 let targetsPromise: Promise<Targets | null> | null = null;
 export function loadTargets(): Promise<Targets | null> {
-  targetsPromise ??= fetch("/admin/targets.json", { credentials: "same-origin" })
+  targetsPromise ??= fetch("/corrections/targets.json", { credentials: "same-origin" })
     .then((r) => (r.ok ? (r.json() as Promise<Targets>) : null)).catch(() => null);
   return targetsPromise;
 }
@@ -79,8 +79,4 @@ export const drafts = {
   clear(key: string): void {
     try { sessionStorage.removeItem(`admin:${key}`); } catch { /* storage unavailable */ }
   },
-};
-
-export const FIELD_LABELS: Readonly<Record<string, string>> = {
-  title: "Title", incipit: "Incipit", mode: "Mode", genre: "Genre", printed_pages: "Printed pages",
 };

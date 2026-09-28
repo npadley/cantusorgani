@@ -398,3 +398,29 @@ make them pleasant.
 4. **Direct editing**: yes. Editors can fix things without a reader's report.
 5. **Admin host**: Pages Functions on the existing site; no second Worker.
 6. **GitHub access**: a GitHub App, not a personal token.
+
+## As built (2026-09-28)
+
+- **A–C** as planned (PRs up to #4).
+- **D**:
+  - Targets `part:<slug>/<part>[:<variant>]` (start_system, chant) and
+    `vespers:<office>/antiphon-<n>|magnificat`, `vespers:sunday:<key>/magnificat`
+    (tone, chant), through the pipeline, admin API, Worker and Corrections form.
+    The lineup stamps each correctable item with its target.
+  - Vespers corrections apply when the reviewed files load.
+  - `noh apply-corrections` also rebuilds the lineup for the years it already
+    covers (`lineup_anchor`), and writes the public log
+    (`data/corrections-log.json` → `/corrections/log/`).
+  - "Report · Edit" beside each shown part and Vespers item.
+  - The target index moved to the public `/corrections/targets.json`.
+  - Vespers item *systems* (refs) stay corrected at the source
+    (`vespers-offices.yml`), not in the overlay.
+  - Parts placed by order alone are not shown on the site, so they have no
+    Report link; they are editable from the admin edit page.
+- **E**:
+  - Lineup days carry `observance` (the calendar key naming the day), so the
+    site no longer guesses titles; a test proves every title is unchanged.
+  - `pipeline/vespercal.py` (calendar) split from `vespers.py`;
+    `pipeline/where.py` split from `corrections.py`. Old import paths still
+    work.
+  - `docs/ARCHITECTURE.md`.

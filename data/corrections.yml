@@ -5,8 +5,13 @@
 # in `id`, `was` and the date, and checks the value. `was` is what the pipeline
 # generated when the fix was made; if it changes, the build stops and asks.
 #
-# Fields of a piece (target piece:<slug>): title, incipit, mode, genre,
-# printed_pages. For example:
+# Targets and their fields:
+#   piece:<slug>                          title, incipit, mode, genre, printed_pages
+#   part:<slug>/<part>[:<variant>]        start_system (counting from 1), chant
+#   vespers:<office>/antiphon-<n>         tone, chant   (an office of vespers-offices.yml)
+#   vespers:<office>/magnificat           tone, chant
+#   vespers:sunday:<key>/magnificat       tone, chant   (vespers-noh8.yml magnificat_antiphons)
+# A chant is a GregoBase id, or none. For example:
 #
 # - id: c-0001
 #   target: piece:dominica-i-adventus

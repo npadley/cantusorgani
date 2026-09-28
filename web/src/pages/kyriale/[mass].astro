@@ -45,7 +45,7 @@ const { piece } = Astro.props;
     <SystemStack piece={piece} id="music" />
     <ChantPair piece={piece} />
     <p class="edit-link small muted ui no-print">
-      <a href={`/corrections/`}>Report an error</a> ·
+      <a href={`/corrections/?target=piece:${piece.slug}`}>Report an error</a> ·
       <a href={`/admin/edit/?target=piece:${piece.slug}`}>Edit</a> <span>(editors)</span>
     </p>
   </article>

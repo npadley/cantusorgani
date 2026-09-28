@@ -42,11 +42,15 @@ export interface LineupItem {
   readonly repeat: boolean;
   /** A psalm's verses (Divinum Officium), where NOH prints only a formula. */
   readonly psalmText: readonly string[];
+  /** Where its tone and chant are corrected ("vespers:adv1/antiphon-1"), if they can be. */
+  readonly target: string | null;
 }
 
 export interface LineupDay {
   readonly date: string;
   readonly office: string;
+  /** The calendar's key that names the day (the pipeline chooses it: "sancti:12-25m3"). */
+  readonly observance: string;
   readonly vespers: "I" | "II";
   /** I Vespers: the evening (the day before) it is sung. */
   readonly eveningOf: string | null;
@@ -108,6 +112,7 @@ function parseItem(i: Json, where: string): LineupItem {
     chant: typeof chant === "number" && Number.isInteger(chant) && chant > 0 ? chant : null,
     repeat: i["repeat"] === true,
     psalmText: Array.isArray(i["psalm_text"]) ? (i["psalm_text"] as unknown[]).filter((v): v is string => typeof v === "string") : [],
+    target: typeof i["target"] === "string" && /^vespers:[a-z0-9:.-]+\/[a-z0-9-]+$/i.test(i["target"]) ? i["target"] : null,
   };
 }
 
@@ -117,7 +122,8 @@ function parseDays(raw: Record<string, Json>): Map<string, LineupDay> {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error(`vespers lineup: bad date ${date}`);
     const vespers = d["vespers"] === "I" ? "I" : "II";
     const items = ((d["items"] ?? []) as Json[]).map((i, n) => parseItem(i, `${date} item ${n + 1}`));
-    days.set(date, { date, office: str(d["office"], date), vespers,
+    const office = str(d["office"], date);
+    days.set(date, { date, office, observance: typeof d["observance"] === "string" ? d["observance"] : office, vespers,
                      eveningOf: typeof d["evening_of"] === "string" ? d["evening_of"] : null, items });
   }
   return days;
@@ -170,11 +176,9 @@ export function lineupHref(day: LineupDay): string {
   return day.eveningOf ? `/vespers/${day.date}/i/` : `/vespers/${day.date}/`;
 }
 
-/** The day's title in English: Christmas has three Masses, and Vespers take
- * the title of the Mass of the day. */
+/** The day's title in English, from the calendar key the pipeline chose. */
 export function lineupTitle(day: LineupDay): string {
-  const o = observance(day.office) ?? observance(`${day.office}r`) ?? observance(`${day.office}m3`);
-  return o?.titleEn ?? day.office;
+  return observance(day.observance)?.titleEn ?? day.office;
 }
 
 /** The evening a lineup is sung: I Vespers the day before its feast. */

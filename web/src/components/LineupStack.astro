@@ -4,6 +4,7 @@ import { annotationFor, chantEntry } from "../lib/chants";
 import { gregobaseUrl } from "../lib/catalog";
 import { bankNote, isFormula, itemHeading, itemSystems, sections, spokenTone, toneLabel, widestSystem } from "../lib/vespers";
 import type { LineupDay } from "../lib/vespers";
+import ReportLinks from "./ReportLinks.astro";
 
 // A Vespers lineup: slices from several pieces (the Sunday psalter, the day's
 // Magnificat antiphon, a tone-bank formula, the Marian antiphon) in sung order.
@@ -43,7 +44,7 @@ const secs = sections(day);
           const name = heading ?? section.heading;
           return (
             <div class="item" data-kind={item.kind}>
-              {(heading || url) && (
+              {(heading || url || (item.target && !item.repeat)) && (
                 <div class="part-head">
                   {heading ? <h3 class="item-heading">{heading}</h3> : <span />}
                   {url && (
@@ -51,6 +52,7 @@ const secs = sections(day);
                       Chant<span class="sr-only"> for {name} (GregoBase, opens in new tab)</span>
                     </a>
                   )}
+                  {item.target && !item.repeat && <ReportLinks target={item.target} name={name} />}
                 </div>
               )}
               {item.tone && <span class="sr-only">{spokenTone(item.tone)}</span>}

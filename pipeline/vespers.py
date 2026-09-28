@@ -31,24 +31,34 @@ from pathlib import Path
 
 import yaml
 
+# The liturgical calendar Vespers keeps (Easter, the seasons, the Marian antiphon
+# of the day, calendar keys) lives in pipeline.vespercal; re-exported here, its
+# old home.
+from pipeline.vespercal import (
+    CALENDAR,
+    advent_start,
+    calendar_days,
+    easter,
+    laus_tibi,
+    marian_for,
+    normal_key,
+    ranks,
+    season_of,
+)
 from pipeline.volumes import DATA
 
 REVIEWED = DATA / "vespers-noh8.yml"
 PROPOSED = DATA / "vespers-noh8.proposed.yml"
 LINEUP = DATA / "vespers-lineup.json"
-CALENDAR = DATA / "calendar"
 # The generated catalogue: hand corrections change titles, never systems, so
 # they do not make the lineup stale.
 CATALOG = DATA / "catalog.base.json"
 SCHEMA_VERSION = 1
 
 # The psalm-tone endings NOH8 prints (extended from the book, never by guessing).
-TONES = frozenset({
-    "I.D", "I.D2", "I.f", "I.g", "I.g2", "I.g3", "I.a", "I.a2", "I.a3", "II.D",
-    "III.a", "III.a2", "III.b", "III.g", "IV.E", "IV.A", "IV.A*", "IV.g", "V.a",
-    "VI.F", "VI.C", "VII.a", "VII.b", "VII.c", "VII.c2", "VII.d", "VII.e", "VII.e2",
-    "VIII.G", "VIII.G*", "VIII.c", "II.A", "peregrinus",
-})
+# The tones NOH8 prints, from the corrections schema (one list, shared with the
+# admin screen and `noh correct`).
+TONES = frozenset(json.loads((DATA / "schema" / "corrections.json").read_text(encoding="utf-8"))["tones"])
 _ROMANS = ("VIII", "VII", "VI", "IV", "V", "III", "II", "I")
 # OCR's common readings of a roman mode ("VIILG" = VIII.G, "Vil" = VII).
 _OCR_ROMAN = {"VIIL": "VIII", "VHI": "VIII", "VIIl": "VIII", "VIIi": "VIII", "VHL": "VIII",
@@ -110,14 +120,22 @@ class Reviewed:
 
 
 def load_reviewed(path: Path = REVIEWED, catalog_path: Path = CATALOG, offices_path: Path | None = None,
-                  texts_path: Path | None = None) -> Reviewed:
+                  texts_path: Path | None = None, corrections_path: Path | None = None) -> Reviewed:
     """The reviewed items, checked: every system they name is in the current
-    catalogue, and every tone is one NOH8 prints."""
+    catalogue, and every tone is one NOH8 prints. The hand corrections of
+    data/corrections.yml that name Vespers items are applied first (for the
+    real data files; `corrections_path` for others)."""
+    from pipeline.corrections import CORRECTIONS, VespersData, apply_vespers
+    from pipeline.corrections import load as load_corrections
     from pipeline.officium import VENDORED, OfficiumError, load
 
     doc = yaml.safe_load(path.read_text(encoding="utf-8"))
     op = offices_path or path.with_name("vespers-offices.yml")
     offices = (yaml.safe_load(op.read_text(encoding="utf-8")) or {}).get("offices", {}) if op.exists() else {}
+    overlay = corrections_path or (CORRECTIONS if path == REVIEWED else None)
+    if overlay is not None:
+        corrected = apply_vespers(VespersData(doc, offices), load_corrections(overlay))
+        doc, offices = corrected.doc, corrected.offices
     try:
         texts = load(texts_path or VENDORED)
     except OfficiumError:
@@ -173,70 +191,6 @@ def load_reviewed(path: Path = REVIEWED, catalog_path: Path = CATALOG, offices_p
     return Reviewed(doc, offices, texts, known)
 
 
-# ---------------------------------------------------------------- calendar ---
-
-def easter(year: int) -> date:
-    """Easter Sunday (Gregorian), by the anonymous algorithm."""
-    a, b, c = year % 19, year // 100, year % 100
-    d, e = b // 4, b % 4
-    f = (b + 8) // 25
-    g = (b - f + 1) // 3
-    h = (19 * a + b - d - g + 15) % 30
-    i, k = c // 4, c % 4
-    l_ = (32 + 2 * e + 2 * i - h - k) % 7
-    m = (a + 11 * h + 22 * l_) // 451
-    month = (h + l_ - 7 * m + 114) // 31
-    return date(year, month, (h + l_ - 7 * m + 114) % 31 + 1)
-
-
-def advent_start(year: int) -> date:
-    """The first Sunday of Advent: the Sunday from 27 November to 3 December."""
-    d = date(year, 11, 27)
-    return date.fromordinal(d.toordinal() + (6 - d.weekday()) % 7)
-
-
-def marian_for(day: date) -> str:
-    """The final antiphon of Our Lady sung that day (1962): Alma from Advent to
-    the Purification (2 February), Ave Regina from 3 February to Holy Week,
-    Regina caeli from Easter to the Saturday after Pentecost, Salve Regina from
-    Trinity to Advent."""
-    e = easter(day.year)
-    if day >= advent_start(day.year) or (day.month, day.day) <= (2, 2):
-        return "alma"
-    if day < date.fromordinal(e.toordinal() - 3):
-        return "ave"
-    if day <= date.fromordinal(e.toordinal() + 55):
-        return "regina"
-    return "salve"
-
-
-def laus_tibi(day: date) -> bool:
-    """From Septuagesima to Holy Saturday, "Laus tibi, Domine" replaces Alleluia."""
-    e = easter(day.year).toordinal()
-    return e - 63 <= day.toordinal() < e
-
-
-def season_of(key: str) -> str | None:
-    """The season whose hymn and versicle a Sunday takes, where its office has
-    none of its own."""
-    if key.startswith("tempora:Adv"):
-        return "advent"
-    if re.match(r"tempora:Quad[1-4]-0", key):
-        return "lent"
-    if re.match(r"tempora:Quad[56]-0", key):
-        return "passiontide"
-    if re.match(r"tempora:Pasc[1-5]-0", key):
-        return "easter"
-    if key.startswith("tempora:Pasc7"):
-        return "pentecost"
-    return None
-
-
-def normal_key(key: str) -> str:
-    """"tempora:Pent02-0r" -> "tempora:Pent02-0"; "sancti:12-25m3" -> "sancti:12-25"."""
-    return re.sub(r"m\d$", "", key.removesuffix("r"))
-
-
 # --------------------------------------------------------------- the lineup ---
 
 def _source(refs: list[str], **extra: object) -> dict[str, object]:
@@ -249,11 +203,14 @@ def _note(text: str) -> dict[str, object]:
 
 def _item(key: str, group: str, kind: str, label: str, source: dict[str, object],
           tone: str | None = None, chant: int | None = None, number: int | None = None,
-          repeat: bool = False, psalm_text: list[str] | None = None) -> dict[str, object]:
+          repeat: bool = False, psalm_text: list[str] | None = None, target: str | None = None) -> dict[str, object]:
     item: dict[str, object] = {"item_key": key, "group": group, "kind": kind, "number": number, "label": label,
                                "tone": tone, "source": source, "chant": chant, "repeat": repeat}
     if psalm_text:
         item["psalm_text"] = psalm_text
+    if target:
+        # Where its tone and chant are corrected (data/corrections.yml).
+        item["target"] = target
     return item
 
 
@@ -322,6 +279,7 @@ def build_office(day: date, key: str, vespers: str, reviewed: Reviewed,
     if not green and found is None:
         return None, f"NOH VIII prints no {vespers} Vespers for {k}"
     office: dict[str, object] = found[1] if found else {}
+    oid = str(found[0]) if found else None
     season = season_of(k)
     easter_octave = k == "tempora:Pasc0-0"
     paschal = office.get("antiphons") == "sunday" and season == "easter"
@@ -344,7 +302,8 @@ def build_office(day: date, key: str, vespers: str, reviewed: Reviewed,
         rows = [{"n": n, "incipit": pa["incipit"], "psalm": p, "tone": pa["tone"], "refs": pa["refs"],
                  "chant": pa.get("chant"), "single": True} for n, p in enumerate((109, 110, 111, 112, 113), start=1)]
     else:
-        rows = [dict(r) for r in office["antiphons"]]        # type: ignore[union-attr]
+        rows = [dict(r, target=f"vespers:{oid}/antiphon-{r.get('n')}")
+                for r in office["antiphons"]]                  # type: ignore[union-attr]
     for n, row in enumerate(rows, start=1):
         group = f"psalm-{n}"
         psalm = row.get("psalm") or (108 + n)
@@ -354,7 +313,7 @@ def build_office(day: date, key: str, vespers: str, reviewed: Reviewed,
         if not single or n == 1:
             if row.get("refs"):
                 items.append(_item(f"{base}/antiphon/{n}", group, "antiphon", str(row["incipit"]),
-                                   _source(row["refs"]), tone, row.get("chant"), n))
+                                   _source(row["refs"]), tone, row.get("chant"), n, target=row.get("target")))
             else:
                 items.append(_item(f"{base}/antiphon/{n}", group, "antiphon", str(row["incipit"]),
                                    _note("This antiphon is not printed in NOH VIII."), None, None, n))
@@ -404,20 +363,23 @@ def build_office(day: date, key: str, vespers: str, reviewed: Reviewed,
     # The Magnificat: an O antiphon from 17 to 23 December.
     o_days = (doc.get("o_antiphons") or {}).get("days", {})      # type: ignore[union-attr]
     mag: dict[str, object] | None
+    mag_target: str | None = None
     if f"{day.month:02d}-{day.day:02d}" in o_days and k.startswith("tempora:Adv"):
         o = o_days[f"{day.month:02d}-{day.day:02d}"]
         mag = {"incipit": o["incipit"], "tone": doc["o_antiphons"]["tone"], "refs": o["refs"], "chant": o.get("chant")}
     elif green:
         mag = doc["magnificat_antiphons"].get(k)             # type: ignore[union-attr]
+        mag_target = f"vespers:sunday:{k}/magnificat"
     else:
         mag = office.get("magnificat") if isinstance(office.get("magnificat"), dict) else None
+        mag_target = f"vespers:{oid}/magnificat" if oid else None
     if mag is None:
         return None, f"{k}: no Magnificat antiphon for {vespers} Vespers"
     mag_tone = mag.get("tone")
     mag_source = _source(mag["refs"]) if mag.get("refs") else _note("This antiphon is not printed in NOH VIII.")
     items += [
         _item(f"{base}/magnificat-antiphon/1", "magnificat", "magnificat-antiphon", str(mag["incipit"]),
-              mag_source, mag_tone, mag.get("chant")),
+              mag_source, mag_tone, mag.get("chant"), target=mag_target),
         _item(f"{base}/magnificat/1", "magnificat", "magnificat", "Magnificat",
               magnificat_music(reviewed, mag_tone), mag_tone),
     ]
@@ -449,23 +411,6 @@ def sunday_lineup(day: date, office: str, reviewed: Reviewed, commemorations: li
     return build_office(day, office, "II", reviewed, commemorations)
 
 
-def calendar_days(calendar_dir: Path = CALENDAR) -> list[tuple[date, dict[str, list[str]]]]:
-    out: list[tuple[date, dict[str, list[str]]]] = []
-    for f in sorted(calendar_dir.glob("[0-9][0-9][0-9][0-9].json")):
-        doc = json.loads(f.read_text(encoding="utf-8"))
-        for iso, entry in doc["days"].items():
-            out.append((date.fromisoformat(iso), entry))
-    return out
-
-
-def ranks(calendar_dir: Path = CALENDAR) -> dict[str, int]:
-    """Each calendar key's class (1 = I class), from data/calendar/days.json."""
-    path = calendar_dir / "days.json"
-    if not path.exists():
-        return {}
-    return {k: int(v.get("rank", 4)) for k, v in json.loads(path.read_text(encoding="utf-8")).items()}
-
-
 def catalog_sha256(catalog_path: Path = CATALOG) -> str:
     return hashlib.sha256(catalog_path.read_bytes()).hexdigest()
 
@@ -480,6 +425,17 @@ def build_lineup(reviewed: Reviewed, days: list[tuple[date, dict[str, list[str]]
     class feast also gets I Vespers, sung the evening before, at
     /vespers/<feast date>/i/."""
     rank = rank or {}
+    known = set(rank)
+
+    def observance(raw: str, office: str) -> str:
+        """The calendar's key that names the day on the site: the office's own,
+        as a Sunday "r"esumed, or Christmas's Mass of the day (m3: Vespers take
+        its title, not the Midnight Mass's), else the celebration as given."""
+        for candidate in (office, f"{office}r", f"{office}m3", raw):
+            if candidate in known:
+                return candidate
+        return office
+
     out: dict[str, object] = {}
     first: dict[str, object] = {}
     held: dict[str, str] = {}
@@ -493,7 +449,8 @@ def build_lineup(reviewed: Reviewed, days: list[tuple[date, dict[str, list[str]]
         if key == "sancti:12-24":
             items, why = build_office(day, "sancti:12-25", "I", reviewed, commemorations)
             if items:
-                out[day.isoformat()] = {"office": "sancti:12-25", "vespers": "I", "items": items}
+                out[day.isoformat()] = {"office": "sancti:12-25", "observance": observance("", "sancti:12-25"),
+                                        "vespers": "I", "items": items}
             continue
         wanted = day.weekday() == 6 or reviewed.office_for(key, "II") is not None
         if wanted:
@@ -502,7 +459,8 @@ def build_lineup(reviewed: Reviewed, days: list[tuple[date, dict[str, list[str]]
                 if day.weekday() == 6:
                     held[day.isoformat()] = why or ""
             else:
-                out[day.isoformat()] = {"office": key, "vespers": "II", "items": items}
+                out[day.isoformat()] = {"office": key, "observance": observance(celebration[0], key),
+                                        "vespers": "II", "items": items}
         # I Vespers of tomorrow's I class feast, sung this evening.
         if i + 1 < len(days):
             tomorrow, t_entry = days[i + 1]
@@ -510,8 +468,9 @@ def build_lineup(reviewed: Reviewed, days: list[tuple[date, dict[str, list[str]]
             if t_key != "sancti:12-25" and rank.get((t_entry.get("celebration") or [""])[0], rank.get(t_key, 4)) == 1:
                 items, _ = build_office(tomorrow, t_key, "I", reviewed, [])
                 if items:
-                    first[tomorrow.isoformat()] = {"office": t_key, "vespers": "I", "evening_of": day.isoformat(),
-                                                   "items": items}
+                    first[tomorrow.isoformat()] = {
+                        "office": t_key, "observance": observance((t_entry.get("celebration") or [""])[0], t_key),
+                        "vespers": "I", "evening_of": day.isoformat(), "items": items}
     for why in sorted(set(held.values())):
         review.append({"piece": "vespers", "kind": "office_unprinted", "why": f"{why}; those Sundays have no page",
                        "fix": "NOH VIII has no section for this office: nothing to add unless another volume prints it"})
@@ -557,9 +516,33 @@ def window(days: list[tuple[date, dict[str, list[str]]]], today: date | None = N
     return [(d, e) for d, e in days if year - YEARS_BEHIND <= d.year <= year + YEARS_AHEAD]
 
 
+def lineup_anchor(path: Path = LINEUP) -> date | None:
+    """The `today` an existing lineup was built for, from its own dates: a
+    rebuild for a correction keeps the window it already covers, whatever the
+    year is now."""
+    if not path.exists():
+        return None
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    years = [int(d[:4]) for d in doc.get("days", {})]
+    return date(min(years) + YEARS_BEHIND, 7, 1) if years else None
+
+
+def lineup_text(reviewed_path: Path = REVIEWED, catalog_path: Path = CATALOG, calendar_dir: Path = CALENDAR,
+                today: date | None = None) -> str:
+    """The lineup file as write_lineup would write it."""
+    return dump_lineup(_lineup(reviewed_path, catalog_path, calendar_dir, today)[0])
+
+
 def write_lineup(path: Path = LINEUP, reviewed_path: Path = REVIEWED,
                  catalog_path: Path = CATALOG, calendar_dir: Path = CALENDAR, today: date | None = None
                  ) -> tuple[Path, dict[str, object], list[dict[str, object]]]:
+    doc, review = _lineup(reviewed_path, catalog_path, calendar_dir, today)
+    path.write_text(dump_lineup(doc), encoding="utf-8")
+    return path, doc, review
+
+
+def _lineup(reviewed_path: Path, catalog_path: Path, calendar_dir: Path, today: date | None
+            ) -> tuple[dict[str, object], list[dict[str, object]]]:
     reviewed = load_reviewed(reviewed_path, catalog_path)
     doc, review = build_lineup(reviewed, window(calendar_days(calendar_dir), today), catalog_sha256(catalog_path),
                                ranks(calendar_dir))
@@ -570,8 +553,7 @@ def write_lineup(path: Path = LINEUP, reviewed_path: Path = REVIEWED,
         # A cross-check only: the lineup stands on NOH8's labels without it.
         review.append({"piece": "vespers", "kind": "vesperale_unavailable", "why": str(exc)})
     doc["review"] = review
-    path.write_text(dump_lineup(doc), encoding="utf-8")
-    return path, doc, review
+    return doc, review
 
 
 def dump_lineup(doc: dict[str, object]) -> str:
@@ -736,7 +718,32 @@ def propose(catalog_path: Path = CATALOG, slices: Path | None = None,
     return path, len(found)
 
 
-__all__ = ["LINEUP", "REVIEWED", "TONES", "Reviewed", "VespersDataError", "build_lineup",
-           "calendar_days", "check_lineup", "describe", "load_reviewed", "marian_for", "normalise_tone", "propose",
-           "read_tone_margin", "referenced_chants", "resolve_day", "sunday_heading", "sunday_lineup", "tone_disagreements",
-           "tone_label", "write_lineup"]
+__all__ = [
+    "LINEUP",
+    "REVIEWED",
+    "TONES",
+    "Reviewed",
+    "VespersDataError",
+    "advent_start",
+    "build_lineup",
+    "calendar_days",
+    "check_lineup",
+    "describe",
+    "easter",
+    "laus_tibi",
+    "load_reviewed",
+    "marian_for",
+    "normal_key",
+    "normalise_tone",
+    "propose",
+    "ranks",
+    "read_tone_margin",
+    "referenced_chants",
+    "resolve_day",
+    "season_of",
+    "sunday_heading",
+    "sunday_lineup",
+    "tone_disagreements",
+    "tone_label",
+    "write_lineup",
+]

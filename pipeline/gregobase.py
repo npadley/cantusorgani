@@ -21,6 +21,33 @@ from pipeline.volumes import ROOT
 
 DUMP = ROOT / "vendor" / "gregobase_online.sql"
 DUMP_SHA256 = "3759c60b529b57fa13f696bfacf748d40a285a847d859276667749caa76de080"
+# The commit of gregorio-project/GregoBase whose dump has that sha256 (its last
+# change to the file, 2024-01-05): `noh gregobase-fetch` downloads exactly it.
+DUMP_COMMIT = "2ebcda3f523f9b19933d59fa32bb4215cd8e7675"
+DUMP_URL = f"https://raw.githubusercontent.com/gregorio-project/GregoBase/{DUMP_COMMIT}/gregobase_online.sql"
+
+
+class DumpError(ValueError):
+    """The GregoBase dump could not be fetched, or is not the pinned one."""
+
+
+def fetch_dump(path: Path = DUMP, url: str = DUMP_URL, pinned: str = DUMP_SHA256) -> Path:
+    """Download the pinned dump (CC0) and check it against DUMP_SHA256 before
+    it replaces anything: a changed file is refused, never used."""
+    import hashlib
+    import urllib.request
+
+    with urllib.request.urlopen(url, timeout=120) as response:
+        body = response.read()
+    digest = hashlib.sha256(body).hexdigest()
+    if digest != pinned:
+        raise DumpError(f"the dump at {url} has sha256 {digest}, not the pinned {pinned}; "
+                        "nothing was written. Check GregoBase's history before moving the pin")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".part")
+    tmp.write_bytes(body)
+    tmp.replace(path)
+    return path
 
 # Column order of gregobase_chants in the dump, as declared by its CREATE TABLE.
 COLUMNS = (

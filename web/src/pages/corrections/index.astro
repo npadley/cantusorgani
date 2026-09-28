@@ -12,7 +12,6 @@ const FIELDS = [
   { value: "mode", label: "Mode", hint: "I to VIII (or 1 to 8)" },
   { value: "genre", label: "Genre", hint: "kyrie, gloria, credo, …" },
   { value: "printedPages", label: "Printed pages", hint: "e.g. 5-10" },
-  { value: "chant", label: "Chant pairing", hint: "the correct GregoBase incipit" },
 ] as const;
 
 const pieces = allPieces();
@@ -32,8 +31,8 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
     </p>
     <p class="muted small">
       Corrections go into a queue, are reviewed by hand, and land in the public
-      dataset as a recorded change. The page images themselves are scans of the
-      printed edition and are not edited.
+      dataset as a recorded change: see the <a href="/corrections/log/">corrections log</a>.
+      The page images themselves are scans of the printed edition and are not edited.
     </p>
   </div>
 
@@ -46,7 +45,9 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
   )}
 
   <form id="correction-form" class="ui" novalidate>
-    <div class="field">
+    <p id="target-fixed" class="field" hidden>Reporting on: <strong id="target-label"></strong> ·
+      <a href="/corrections/">choose something else</a></p>
+    <div class="field" id="piece-row">
       <label for="pieceId">Which piece?</label>
       <select id="pieceId" name="pieceId" required>
         <option value="">Choose a piece…</option>
@@ -136,6 +137,8 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
 
 <script>
   import { CORRECTIONS_ENDPOINT } from "../../lib/config";
+  import { describeTarget } from "../../lib/admin/targets";
+  import type { Targets } from "../../lib/admin/targets";
 
   interface PublicRow {
     readonly id: number;
@@ -169,7 +172,11 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
   // The chosen field's current value for the chosen piece, so the reader sees
   // what they are about to change; Mode is greyed out for a Proper, whose
   // parts each have their own mode.
+  /** A report on a part or Vespers item: what it names, fixed. */
+  let fixed: { target: string; pieceId: string; values: Readonly<Record<string, string>> } | null = null;
+
   function syncHint(): void {
+    if (fixed) { syncFixed(); return; }
     const option = fieldSelect?.selectedOptions[0];
     if (hint) hint.textContent = option?.dataset["hint"] ?? "";
     const piece = pieceSelect?.selectedOptions[0];
@@ -188,13 +195,61 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
   pieceSelect?.addEventListener("change", syncHint);
   syncHint();
 
-  // Deep links from a piece page: /corrections/?piece=slug&field=chant
+  // Deep links: /corrections/?target=piece:<slug> from a piece page, or a
+  // part (part:<slug>/<part>) or Vespers item (vespers:...) from its "Report" link.
   const params = new URLSearchParams(location.search);
-  const piece = params.get("piece");
+  const askedTarget = params.get("target");
+  const piece = params.get("piece") ?? (askedTarget?.startsWith("piece:") ? askedTarget.slice(6) : null);
   const field = params.get("field");
   if (piece && pieceSelect) pieceSelect.value = piece;
   if (field && fieldSelect) fieldSelect.value = field;
   if (piece || field) syncHint();
+
+  const KIND_FIELDS: Readonly<Record<string, readonly { value: string; label: string; hint: string; key: string }[]>> = {
+    part: [
+      { value: "startSystem", label: "Where it starts", hint: "the system of the piece it starts on, counting from 1", key: "start_system" },
+      { value: "gregobaseId", label: "Its chant (GregoBase id)", hint: "the number in gregobase.selapa.net/chant.php?id=…, or none", key: "chant" },
+    ],
+    vespers: [
+      { value: "tone", label: "Tone", hint: "as the book prints it, e.g. VIII.G or IV.A*", key: "tone" },
+      { value: "gregobaseId", label: "Its chant (GregoBase id)", hint: "the number in gregobase.selapa.net/chant.php?id=…, or none", key: "chant" },
+    ],
+  };
+
+  async function fixTarget(target: string): Promise<void> {
+    const kind = target.split(":", 1)[0] ?? "";
+    const fields = KIND_FIELDS[kind];
+    const response = await fetch("/corrections/targets.json").catch(() => null);
+    const targets = response && response.ok ? ((await response.json()) as Targets) : null;
+    const info = targets && fields ? describeTarget(targets, target) : null;
+    if (!info || !fields || !fieldSelect) {
+      say("We couldn't find that item; choose it below.", "error");
+      return;
+    }
+    fixed = { target: info.target, pieceId: info.slug ?? "vespers", values: info.values };
+    document.getElementById("target-label")!.textContent = info.label;
+    document.getElementById("target-fixed")!.hidden = false;
+    document.getElementById("piece-row")!.hidden = true;
+    fieldSelect.replaceChildren(...fields.map((f) => {
+      const option = document.createElement("option");
+      option.value = f.value;
+      option.textContent = f.label;
+      option.dataset["hint"] = f.hint;
+      option.dataset["key"] = f.key;
+      return option;
+    }));
+    syncFixed();
+  }
+
+  function syncFixed(): void {
+    if (!fixed || !fieldSelect) return;
+    const option = fieldSelect.selectedOptions[0];
+    if (hint) hint.textContent = option?.dataset["hint"] ?? "";
+    const current = fixed.values[option?.dataset["key"] ?? ""] ?? "";
+    if (now) now.textContent = `Now: ${current || "(none)"}`;
+  }
+  fieldSelect?.addEventListener("change", () => { if (fixed) syncFixed(); });
+  if (askedTarget && !askedTarget.startsWith("piece:")) void fixTarget(askedTarget);
 
   async function loadQueue(): Promise<void> {
     if (!queue || CORRECTIONS_ENDPOINT.length === 0) {
@@ -252,7 +307,7 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
     if (!submit) return;
 
     const data = new FormData(form);
-    const pieceId = String(data.get("pieceId") ?? "");
+    const pieceId = fixed ? fixed.pieceId : String(data.get("pieceId") ?? "");
     if (!pieceId) {
       say("Choose which piece the correction applies to.", "error");
       return;
@@ -282,6 +337,7 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           pieceId,
+          ...(fixed ? { target: fixed.target } : {}),
           field: String(data.get("field") ?? ""),
           proposedValue,
           note: String(data.get("note") ?? ""),

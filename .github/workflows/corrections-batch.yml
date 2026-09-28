@@ -60,6 +60,11 @@ jobs:
       - name: Record the corrections
         run: uv run noh correct-batch "$RUNNER_TEMP/batch.json" --summary "$RUNNER_TEMP/pr.md"
 
+      # A corrected chant link brings its notation: the pinned GregoBase dump
+      # (CC0, sha256-checked) gives data/chants.json every chant now named.
+      - name: Chant notation
+        run: uv run noh gregobase-fetch && uv run noh chants
+
       - name: Commit and open the pull request
         env:
           GH_TOKEN: ${{ steps.app.outputs.token }}
@@ -69,7 +74,7 @@ jobs:
           git config user.name "${APP_SLUG}[bot]"
           git config user.email "${APP_SLUG}[bot]@users.noreply.github.com"
           git switch -c "corrections/$BATCH"
-          git add data/corrections.yml data/catalog.json
+          git add data/corrections.yml data/catalog.json data/vespers-lineup.json data/corrections-log.json data/chants.json
           count=$(jq '.entries | length' "$RUNNER_TEMP/batch.json")
           git commit -q -m "data: corrections batch $BATCH ($count)"
           git push -q origin "corrections/$BATCH"

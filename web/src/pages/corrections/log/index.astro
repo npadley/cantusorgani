@@ -1,0 +1,53 @@
+---
+import Layout from "../../../components/Layout.astro";
+import { correctionsLog } from "../../../lib/correctionsLog";
+
+// Every accepted correction, newest first: readers see their reports land, and
+// the site reads as a corrected edition.
+const log = correctionsLog();
+---
+
+<Layout title="Corrections log" description="Every correction made to Cantus Organi since it was published.">
+  <div class="prose">
+    <p class="crumb small muted ui"><a href="/">Cantus Organi</a> · <a href="/corrections/">Corrections</a></p>
+    <h1>Corrections log</h1>
+    <p>Every correction made to the site since it was published, newest first. Each was checked against the
+      printed page before it was accepted. To report another, use the <a href="/corrections/">Corrections</a> page,
+      or the <em>Report</em> link beside any part or antiphon.</p>
+  </div>
+
+  {log.length === 0 ? (
+    <p class="muted ui">No corrections yet.</p>
+  ) : (
+    <div class="scroll">
+      <table class="log ui small">
+        <thead>
+          <tr><th scope="col">Date</th><th scope="col">What</th><th scope="col">Changed</th><th scope="col">From</th>
+              <th scope="col">To</th><th scope="col">Reported by</th></tr>
+        </thead>
+        <tbody>
+          {log.map((e) => (
+            <tr>
+              <td class="date">{e.date}</td>
+              <td>{e.href ? <a href={e.href}>{e.label}</a> : e.label}</td>
+              <td>{e.fieldLabel}</td>
+              <td class="muted">{e.was}</td>
+              <td><strong>{e.value}</strong></td>
+              <td>{e.by === "reader" ? "a reader" : "an editor"}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+</Layout>
+
+<style>
+  .crumb { margin: 0 0 var(--s-1); }
+  .crumb a { color: var(--ink-muted); }
+  .scroll { overflow-x: auto; margin-top: var(--s-4); }
+  .log { width: 100%; border-collapse: collapse; }
+  .log th { text-align: left; font-weight: 600; color: var(--ink-muted); padding: var(--s-1) var(--s-2); border-bottom: 1px solid var(--rule); }
+  .log td { padding: var(--s-2); border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .date { white-space: nowrap; font-variant-numeric: tabular-nums; }
+</style>

@@ -46,7 +46,7 @@ def test_migration_0002_accepts_the_admin_statuses_and_refuses_others(db):
 
 def test_migration_0002_reader_intake_insert_still_works_and_still_dedupes(db):
     run(db, "migrations/0002_admin_workflow.sql")
-    insert = "INSERT INTO corrections (piece_id, field, proposed, note, submitter_hash) VALUES (?1, ?2, ?3, ?4, ?5)"
+    insert = "INSERT INTO corrections (piece_id, field, proposed, note, submitter_hash) VALUES (?, ?, ?, ?, ?)"
     db.execute(insert, ("credo-i", "mode", "IV", "", "h3"))
     with pytest.raises(sqlite3.IntegrityError, match="UNIQUE"):
         db.execute(insert, ("credo-i", "mode", "IV", "again", "h4"))

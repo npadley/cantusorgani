@@ -13,8 +13,8 @@ import { dispatchBatch, githubConfigured, newBatchId } from "./github";
 import type { Batch, GithubEnv } from "./github";
 import { d1Store } from "./store";
 import type { D1Like, Row, Store } from "./store";
-import { checkValue, currentValue, findPiece, isPieceField, readerField } from "./targets";
-import type { PieceField, Targets } from "./targets";
+import { FIELDS_OF, checkValue, describeTarget, isField, readerField } from "./targets";
+import type { Kind, Targets } from "./targets";
 
 export interface AdminEnv extends AuthEnv, GithubEnv {
   readonly DB: D1Like;
@@ -51,8 +51,8 @@ export function defaultDeps(request: Request, env: AdminEnv): Deps {
   let cached: Promise<Targets> | null = null;
   return {
     store: d1Store(env.DB),
-    targets: () => (cached ??= (env.ASSETS ? env.ASSETS.fetch(new URL("/admin/targets.json", request.url).toString())
-      : fetch(new URL("/admin/targets.json", request.url))).then(async (r) => {
+    targets: () => (cached ??= (env.ASSETS ? env.ASSETS.fetch(new URL("/corrections/targets.json", request.url).toString())
+      : fetch(new URL("/corrections/targets.json", request.url))).then(async (r) => {
       if (!r.ok) throw new Error(`targets.json: HTTP ${r.status}`);
       return (await r.json()) as Targets;
     })),
@@ -65,24 +65,34 @@ export function defaultDeps(request: Request, env: AdminEnv): Deps {
  * vocabulary, and whether it can be approved as it stands. */
 export interface QueueItem extends Row {
   readonly resolvedTarget: string | null;
-  readonly resolvedField: PieceField | null;
+  readonly resolvedField: string | null;
+  readonly kind: Kind | null;
+  readonly label: string | null;
+  /** The fields this target can correct, and their current values. */
+  readonly fields: readonly string[];
+  readonly values: Readonly<Record<string, string>>;
   readonly current: string | null;
   readonly problem: string | null;
 }
 
 function describeRow(row: Row, targets: Targets): QueueItem {
-  const piece = findPiece(targets, row.target ?? row.piece_id);
-  const field = isPieceField(row.field) ? row.field : readerField(row.field);
+  const info = describeTarget(targets, row.target ?? row.piece_id);
+  const named = info && isField(info.kind, row.field) ? row.field : readerField(row.field);
+  const field = info && named && isField(info.kind, named) ? named : null;
   let issue: string | null = null;
-  if (!piece) issue = "This piece or item no longer exists.";
-  else if (!field) issue = row.field === "chant"
-    ? "Chant pairings are fixed at the source, not here (docs/EDITING.md, Proper parts)."
+  if (!info) issue = "This piece or item no longer exists.";
+  else if (!field) issue = row.field === "chant" && info.kind === "piece"
+    ? "A piece's chant pairing is corrected on its parts (Introit, Gradual…), not the piece."
     : `“${row.field}” is not a field this screen can correct.`;
   return {
     ...row,
-    resolvedTarget: piece ? `piece:${piece.slug}` : null,
+    resolvedTarget: info?.target ?? null,
     resolvedField: field,
-    current: piece && field ? currentValue(piece, field) : null,
+    kind: info?.kind ?? null,
+    label: info?.label ?? null,
+    fields: info ? FIELDS_OF[info.kind] : [],
+    values: info?.values ?? {},
+    current: info && field ? info.values[field] ?? "" : null,
     problem: issue,
   };
 }
@@ -197,17 +207,17 @@ async function actOnRow(deps: Deps, editor: Editor, id: number, verb: RowVerb, i
   // have filed a mode correction under Title.
   const targets = await deps.targets();
   const item = describeRow(row, targets);
-  const piece = item.resolvedTarget ? findPiece(targets, item.resolvedTarget) : null;
-  if (!piece || !item.resolvedTarget) return problem(422, item.problem ?? "This piece or item no longer exists.");
+  const info = item.resolvedTarget ? describeTarget(targets, item.resolvedTarget) : null;
+  if (!info) return problem(422, item.problem ?? "This piece or item no longer exists.");
   const asked = text(input["field"], 40);
-  if (asked && !isPieceField(asked)) return problem(422, `“${asked}” is not a field this screen can correct.`);
-  const field: PieceField | null = asked && isPieceField(asked) ? asked : item.resolvedField;
+  if (asked && !isField(info.kind, asked)) return problem(422, `“${asked}” is not a field this screen can correct.`);
+  const field = asked || item.resolvedField;
   if (!field) return problem(422, item.problem ?? "Choose which field this corrects.");
   const proposed = text(input["value"], 200) || row.proposed;
-  const checked = checkValue(targets, piece, field, proposed);
+  const checked = checkValue(targets, info, field, proposed);
   if (!checked.ok) return problem(422, checked.error);
   const moved = await store.move(id, "pending", "approved", {
-    target: item.resolvedTarget, field, proposed: checked.value, editor_email: editor.email,
+    target: info.target, field, proposed: checked.value, editor_email: editor.email,
   });
   if (!moved) return conflict(store, id, await store.get(id));
   const changed = [field !== item.resolvedField ? `reader filed it under ${row.field}` : "",
@@ -218,19 +228,17 @@ async function actOnRow(deps: Deps, editor: Editor, id: number, verb: RowVerb, i
 
 async function createEdit(deps: Deps, editor: Editor, input: Record<string, unknown>): Promise<Response> {
   const targets = await deps.targets();
-  const target = text(input["target"], 120);
+  const target = text(input["target"], 160);
   const field = text(input["field"], 40);
-  const piece = findPiece(targets, target);
-  if (!target.startsWith("piece:") || !piece) {
-    return problem(422, "Choose a piece: this screen corrects pieces (Vespers items come later).");
-  }
-  if (!isPieceField(field)) return problem(422, `“${field}” is not a field this screen can correct.`);
-  const checked = checkValue(targets, piece, field, text(input["value"], 200));
+  const info = target.includes(":") ? describeTarget(targets, target) : null;
+  if (!info) return problem(422, "Choose what to correct: a piece, one of its parts, or a Vespers item.");
+  if (!isField(info.kind, field)) return problem(422, `“${field}” is not a field this screen can correct for a ${info.kind}.`);
+  const checked = checkValue(targets, info, field, text(input["value"], 200));
   if (!checked.ok) return problem(422, checked.error);
   const note = text(input["note"], 200);
-  const id = await deps.store.insertEdit({ target: `piece:${piece.slug}`, pieceId: piece.slug, field,
+  const id = await deps.store.insertEdit({ target: info.target, pieceId: info.slug ?? "vespers", field,
                                            proposed: checked.value, note, email: editor.email });
-  await deps.store.log(editor.email, "edit", id, `${field}: ${currentValue(piece, field)} -> ${checked.value}`);
+  await deps.store.log(editor.email, "edit", id, `${info.target} ${field}: ${info.values[field] ?? ""} -> ${checked.value}`);
   return json({ ok: true, id, status: "approved" }, 201);
 }
 

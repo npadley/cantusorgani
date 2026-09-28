@@ -11,7 +11,7 @@ import type { LineupDay } from "../lib/vespers";
 // I Vespers of a I class feast, sung the evening before (/vespers/<date>/i/).
 interface Props { readonly day: LineupDay }
 const { day } = Astro.props;
-const o = observance(day.office) ?? observance(`${day.office}r`) ?? observance(`${day.office}m3`);
+const o = observance(day.observance);
 const title = lineupTitle(day);
 function long(iso: string): string {
   const [y, m, d] = iso.split("-").map(Number);
@@ -30,7 +30,7 @@ const tomorrow = (() => {
   return new Date(Date.UTC(y ?? 1970, (m ?? 1) - 1, (d ?? 1) + 1)).toISOString().slice(0, 10);
 })();
 const evening = day.eveningOf ? undefined : [...loadLineup().firstVespers.values()].find((f) => f.eveningOf === day.date && f.date === tomorrow);
-const eveningTitle = evening ? (observance(evening.office)?.titleEn ?? evening.office) : null;
+const eveningTitle = evening ? lineupTitle(evening) : null;
 ---
 
 

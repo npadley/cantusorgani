@@ -82,10 +82,10 @@ import Layout from "../../components/Layout.astro";
 </style>
 
 <script>
-  import { FIELD_LABELS, api, drafts, h, loadTargets, say, signInAgain } from "../../lib/admin/client";
+  import { api, drafts, h, loadTargets, say, signInAgain } from "../../lib/admin/client";
   import type { QueueItem } from "../../lib/admin/api";
-  import { PIECE_FIELDS, currentValue, isPieceField, notFor } from "../../lib/admin/targets";
-  import type { TargetPiece } from "../../lib/admin/targets";
+  import { FIELD_LABELS, describeTarget, notFor } from "../../lib/admin/targets";
+  import type { Targets } from "../../lib/admin/targets";
 
   interface Queue {
     pending: QueueItem[]; approved: QueueItem[];
@@ -96,8 +96,7 @@ import Layout from "../../components/Layout.astro";
   const status = document.getElementById("status");
   const REPO = "https://github.com/npadley/cantusorgani";
   let me: Me | null = null;
-  const names = new Map<string, string>();
-  const pieces = new Map<string, TargetPiece>();
+  let targets: Targets | null = null;
 
   function fail(result: { status: number; error: string }): void {
     if (result.status === 401) signInAgain(status);
@@ -106,15 +105,14 @@ import Layout from "../../components/Layout.astro";
 
   function label(item: QueueItem): string {
     const field = FIELD_LABELS[item.resolvedField ?? ""] ?? item.field;
-    const target = item.resolvedTarget ?? `piece:${item.piece_id}`;
-    return `${names.get(target) ?? target.replace(/^piece:/, "")} · ${field}`;
+    return `${item.label ?? item.resolvedTarget ?? item.target ?? item.piece_id} · ${field}`;
   }
 
-  function scan(item: QueueItem, stems: Map<string, { stem: string | null; href: string }>): HTMLElement | null {
-    const found = item.resolvedTarget ? stems.get(item.resolvedTarget) : undefined;
+  function scan(item: QueueItem): HTMLElement | null {
+    const found = targets && item.resolvedTarget ? describeTarget(targets, item.resolvedTarget) : null;
     if (!found?.stem) return null;
     return h("figure", { class: "scan" },
-      h("img", { src: `${found.stem}.webp`, alt: `The first system of ${label(item).split(" · ")[0]}, as printed`, loading: "lazy" }),
+      h("img", { src: `${found.stem}.webp`, alt: `The first system of ${found.label}, as printed`, loading: "lazy" }),
       h("figcaption", { class: "small muted" }, h("a", { href: found.href }, "Open the page")));
   }
 
@@ -132,12 +130,12 @@ import Layout from "../../components/Layout.astro";
     target?.focus();
   }
 
-  function pendingItem(item: QueueItem, stems: Map<string, { stem: string | null; href: string }>): HTMLElement {
+  function pendingItem(item: QueueItem): HTMLElement {
     const heading = h("h3", { tabindex: "-1", id: `item-${item.id}` }, label(item));
-    const picture = scan(item, stems);
+    const picture = scan(item);
     const article = h("article", { class: picture ? "item has-scan" : "item", "aria-labelledby": `item-${item.id}` }, heading);
     const draftKey = `row:${item.id}`;
-    const piece = item.resolvedTarget ? pieces.get(item.resolvedTarget) : undefined;
+    const piece = item.kind !== null;
     const input = h("input", { type: "text", id: `value-${item.id}`, maxlength: "200",
                                value: drafts.get(draftKey) ?? item.proposed }) as HTMLInputElement;
     input.addEventListener("input", () => drafts.set(draftKey, input.value));
@@ -145,13 +143,14 @@ import Layout from "../../components/Layout.astro";
     // the editor can say which field it really corrects before accepting.
     const fieldSelect = h("select", { id: `field-${item.id}` },
       h("option", { value: "" }, "Choose…"),
-      ...PIECE_FIELDS.map((f) => h("option", { value: f, selected: f === item.resolvedField }, FIELD_LABELS[f] ?? f))) as HTMLSelectElement;
+      ...item.fields.map((f) => h("option", { value: f, selected: f === item.resolvedField }, FIELD_LABELS[f] ?? f))) as HTMLSelectElement;
     const now = h("dd", {}, item.current || "—");
     const fieldNote = h("p", { class: "small muted", id: `field-note-${item.id}` });
     const syncField = () => {
       const f = fieldSelect.value;
-      now.textContent = piece && isPieceField(f) ? (currentValue(piece, f) || "—") : "—";
-      fieldNote.textContent = piece && isPieceField(f) ? (notFor(f, piece.genre) ?? "") : "";
+      now.textContent = item.values[f] || "—";
+      const info = targets && item.resolvedTarget ? describeTarget(targets, item.resolvedTarget) : null;
+      fieldNote.textContent = info ? (notFor(f, info.genre, info.kind) ?? (f === "start_system" ? info.fixed ?? "" : "")) : "";
       if (f !== (item.resolvedField ?? "")) fieldNote.textContent ||= `The reader filed this under “${item.field}”.`;
     };
     fieldSelect.addEventListener("change", syncField);
@@ -228,18 +227,14 @@ import Layout from "../../components/Layout.astro";
   }
 
   async function load(): Promise<void> {
-    const [queue, targets] = await Promise.all([api<Queue>("/queue"), loadTargets()]);
+    const [queue, loaded] = await Promise.all([api<Queue>("/queue"), loadTargets()]);
+    targets = loaded;
     if (!queue.ok) { fail(queue); document.getElementById("pending")?.replaceChildren(); return; }
-    const stems = new Map(Object.values(targets?.pieces ?? {}).map((p) => [`piece:${p.slug}`, { stem: p.stem, href: p.href }]));
-    for (const p of Object.values(targets?.pieces ?? {})) {
-      names.set(`piece:${p.slug}`, `${p.label} (${p.volume})`);
-      pieces.set(`piece:${p.slug}`, p);
-    }
     const { pending, approved, batches, lastReviewed } = queue.data;
 
     const pendingBox = document.getElementById("pending");
     pendingBox?.replaceChildren(...(pending.length
-      ? pending.map((i) => pendingItem(i, stems))
+      ? pending.map((i) => pendingItem(i))
       : [h("p", { class: "muted small" }, `No pending corrections.${lastReviewed ? ` Last reviewed ${lastReviewed} UTC.` : ""} `,
            h("a", { href: "#history-h" }, "History"))]));
     document.getElementById("pending-h")!.textContent = `To review (${pending.length})`;

@@ -2,6 +2,7 @@
 import { jumpTargets, systemUrlStem, volumeLabel } from "../lib/catalog";
 import { annotationFor, chantEntry } from "../lib/chants";
 import type { JumpTarget, Piece } from "../lib/catalog";
+import ReportLinks from "./ReportLinks.astro";
 
 interface Props {
   readonly piece: Piece;
@@ -63,6 +64,7 @@ for (const t of jumpTargets(piece)) startsAt.set(t.index, [...(startsAt.get(t.in
                     {start.kind === "chant" ? "GregoBase" : "Chant"}<span class="sr-only"> for the {start.label} (GregoBase, opens in new tab)</span>
                   </a>
                 )}
+                {start.target && <ReportLinks target={start.target} name={start.label} />}
               </div>
               {entry && (
                 <div class="chant-notation" hidden data-chant-id={entry.id} data-incipit={entry.incipit}

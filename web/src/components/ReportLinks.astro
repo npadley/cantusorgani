@@ -1,0 +1,24 @@
+---
+// "Report · Edit" beside a part or Vespers item: a reader's report goes to the
+// Corrections form, an editor's fix to the admin screen, each already knowing
+// what it is about. Quiet, and never printed: at the console they stay out of
+// the way.
+interface Props {
+  readonly target: string;
+  /** What the links are about, for screen readers ("the Introit"). */
+  readonly name: string;
+}
+const { target, name } = Astro.props;
+const query = `?target=${encodeURIComponent(target)}`;
+---
+
+<span class="report-links ui small no-print">
+  <a href={`/corrections/${query}`}>Report<span class="sr-only"> an error in {name}</span></a>
+  <span aria-hidden="true">·</span>
+  <a href={`/admin/edit/${query}`}>Edit<span class="sr-only"> {name} (editors)</span></a>
+</span>
+
+<style>
+  .report-links { margin-left: auto; display: inline-flex; gap: var(--s-1); align-items: baseline; color: var(--ink-muted); }
+  .report-links a { color: var(--ink-muted); min-height: var(--tap-min); display: inline-flex; align-items: center; }
+</style>

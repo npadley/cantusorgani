@@ -48,8 +48,9 @@ export interface PrintedPart {
   readonly system: number;
   readonly ref: string;
   readonly gregobaseId: number | null;
-  /** How the start was found. "order" is a guess the site does not show. */
-  readonly placed: "label" | "text" | "mode" | "order";
+  /** How the start was found. "order" is a guess the site does not show;
+   *  "hand" is a correction (data/corrections.yml). */
+  readonly placed: "label" | "text" | "mode" | "order" | "hand";
 }
 
 /** A part the book prints elsewhere ("Introitus. Benedicite, ut supra, p. 354"). */
@@ -212,7 +213,7 @@ function pair(values: readonly number[], where: string): readonly [number, numbe
 
 const PART_NAMES: ReadonlySet<string> = new Set(
   ["introit", "gradual", "alleluia", "tract", "sequence", "offertory", "communion"]);
-const PLACEMENTS: ReadonlySet<string> = new Set(["label", "text", "mode", "order"]);
+const PLACEMENTS: ReadonlySet<string> = new Set(["label", "text", "mode", "order", "hand"]);
 
 function parsePart(x: RawPart, where: string): ProperPart {
   if (!PART_NAMES.has(x.part)) throw new Error(`${where}: unknown part ${x.part}`);
@@ -430,6 +431,8 @@ export interface JumpTarget {
   readonly chantId?: number | null;
   /** A part's partOrder. */
   readonly order?: number;
+  /** Where a part is corrected: "part:<slug>/<part>[:<variant>]". */
+  readonly target?: string;
 }
 
 const PART_LABELS: Readonly<Record<ProperPartName, string>> = {
@@ -523,7 +526,8 @@ export function jumpTargets(piece: Piece): readonly JumpTarget[] {
     partAnchors.add(anchor);
     parts.push({ label: partLabel(x.part, x.variant), anchor, index, kind: "part",
                  chantUrl: gregobaseUrl(x.gregobaseId), chantId: x.gregobaseId,
-                 order: partOrder(x.part, x.variant) });
+                 order: partOrder(x.part, x.variant),
+                 target: `part:${piece.slug}/${x.part}${x.variant ? `:${x.variant}` : ""}` });
   }
   const used = new Map<string, number>();
   const hymns: JumpTarget[] = [];

@@ -90,6 +90,8 @@ def build_parser() -> argparse.ArgumentParser:
     jg.add_argument("--commit", default=None, help="jgabc commit sha (default: master's head)")
 
     subs.add_parser("chants", help="write data/chants.json: the notation of every chant a part names")
+    subs.add_parser("gregobase-fetch",
+                    help="download the pinned GregoBase dump (CC0) into vendor/, checked against its sha256")
 
     of = subs.add_parser("officium-fetch",
                          help="vendor Divinum Officium's Vespers texts (1960) into data/divinum-officium-vespers.json")
@@ -120,8 +122,10 @@ def build_parser() -> argparse.ArgumentParser:
     ac.add_argument("--check", action="store_true",
                     help="write nothing; fail if data/catalog.json is not current (for CI)")
     co = subs.add_parser("correct", help="record a hand correction in data/corrections.yml")
-    co.add_argument("target", help="piece:<slug> (find it with `noh where <page URL>`)")
-    co.add_argument("field", help="title, incipit, mode, genre or printed_pages")
+    co.add_argument("target", help="piece:<slug>, part:<slug>/<part>, vespers:<office>/antiphon-<n> ... "
+                                   "(find it with `noh where <page URL>`)")
+    co.add_argument("field", help="a piece: title, incipit, mode, genre, printed_pages; a part: start_system, "
+                                  "chant; a Vespers item: tone, chant")
     co.add_argument("value", help="the corrected value, e.g. \"Dominica I Adventus\" or 5-10")
     co.add_argument("--note", default="", help="why: e.g. \"as printed on p. 3\"")
     co.add_argument("--source", default="editor", help="editor, or reader#<id> for a reader's report")
@@ -162,30 +166,30 @@ def _corrections_command(args: argparse.Namespace) -> int:
     try:
         if args.command == "apply-corrections":
             if args.check:
-                text = c.dump(c.apply(c.load_base(), c.load()))
-                if not c.CATALOG.exists() or c.CATALOG.read_text(encoding="utf-8") != text:
-                    print("data/catalog.json is not current with corrections.yml.\n"
-                          "  Fix: uv run noh apply-corrections, then commit data/catalog.json",
+                stale = c.stale_outputs()
+                if stale:
+                    print(f"{', '.join(stale)} not current with corrections.yml.\n"
+                          "  Fix: uv run noh apply-corrections, then commit the files it names",
                           file=sys.stderr)
                     return 1
-                print("data/catalog.json is current with corrections.yml")
+                print("data/catalog.json and the Vespers lineup are current with corrections.yml")
                 return 0
-            path, count, changed = c.write()
-            print(f"{path}: {count} correction(s) applied" + ("" if changed else " (unchanged)"))
+            count, files = c.write_all()
+            print(f"{count} correction(s) applied; " + (f"rewrote {', '.join(files)}" if files else "nothing changed"))
             return 0
         if args.command == "correct":
             entry, replaced = c.correct(args.target, args.field, args.value, note=args.note, source=args.source)
-            c.write()
+            _, files = c.write_all()
             verb = "updated" if replaced else "recorded"
             print(f"{verb} {entry.id}: {entry.target} {entry.field} {entry.was!r} -> {entry.value!r}\n"
-                  "data/catalog.json rewritten. Preview with `pnpm --dir web dev`, then commit\n"
-                  "data/corrections.yml and data/catalog.json.")
+                  f"rewrote {', '.join(files) or 'nothing else'}. Preview with `pnpm --dir web dev`, then commit\n"
+                  "data/corrections.yml and the files named.")
             return 0
         if args.command == "correct-batch":
             from pathlib import Path as _Path
             batch = _json.loads(_Path(args.file).read_text(encoding="utf-8"))
             recorded = c.correct_batch(batch)
-            c.write()
+            c.write_all()
             if args.summary:
                 _Path(args.summary).write_text(c.batch_summary(str(batch["batch"]), recorded), encoding="utf-8")
             print(f"recorded {len(recorded)} correction(s): {', '.join(e.id for e in recorded)}")
@@ -193,24 +197,27 @@ def _corrections_command(args: argparse.Namespace) -> int:
         if args.command == "corrections":
             if args.drop:
                 entry = c.drop(args.drop)
-                c.write()
-                print(f"dropped {entry.id} ({entry.target} {entry.field}); data/catalog.json rewritten")
+                _, files = c.write_all()
+                print(f"dropped {entry.id} ({entry.target} {entry.field}); rewrote {', '.join(files) or 'nothing'}")
                 return 0
             entries = c.load()
             base = c.load_base()
-            stale = {e.id for e in c.no_ops(base, entries)}
+            stale = {e.id for e in c.no_ops(base, entries, c.load_vespers())}
             for e in entries:
                 flag = "  (now a no-op: fixed at the source; drop it)" if e.id in stale else ""
                 print(f"{e.id}  {e.target}  {e.field}: {e.was!r} -> {e.value!r}  [{e.source}, {e.date}]{flag}")
             print(f"{len(entries)} correction(s)")
             return 0
+        from pipeline.where import where
         catalog = _json.loads(c.CATALOG.read_text(encoding="utf-8"))
-        found = c.where(args.query, catalog)
+        found = where(args.query, catalog)
         if not found:
             print(f"nothing matches {args.query!r}. Paste a page URL, or try fewer words.", file=sys.stderr)
             return 1
         for loc in found:
             print(f"{loc.target}\n  {loc.label}\n  source:  {loc.source}\n  then:    {loc.command}")
+            if loc.more:
+                print("  also:    " + "\n           ".join(loc.more))
         return 0
     except c.CorrectionError as exc:
         print(f"{args.command}: {exc}\n  Nothing was written.", file=sys.stderr)
@@ -425,11 +432,21 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  {r['kind']}: {r['why']}")
         return 0
 
+    if args.command == "gregobase-fetch":
+        from pipeline.gregobase import DumpError, fetch_dump
+        try:
+            path = fetch_dump()
+        except (DumpError, OSError) as exc:
+            print(f"gregobase-fetch: {exc}", file=sys.stderr)
+            return 1
+        print(f"{path}: the pinned GregoBase dump, sha256 checked")
+        return 0
+
     if args.command == "chants":
         from pipeline.chants import build
         from pipeline.gregobase import DUMP
         if not DUMP.exists():
-            print(f"chants: {DUMP.name} is missing (not in git); see README \"Vendored data\".",
+            print(f"chants: {DUMP.name} is missing (not in git).\n  Fix: uv run noh gregobase-fetch",
                   file=sys.stderr)
             return 1
         path, written, withheld = build()
