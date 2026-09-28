@@ -12,6 +12,9 @@ dist/
 node_modules/
 pdf-source/
 vendor/
+# ...except the site's own vendored scripts, which the build serves (Exsurge draws
+# the chant notation; MIT, see its LICENSE and SOURCE).
+!web/public/vendor/
 web/.astro/
 web/.env.development
 web/dist/
