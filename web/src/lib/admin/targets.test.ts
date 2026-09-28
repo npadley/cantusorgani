@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { checkValue, describeTarget, kindOf, normalise, readerField } from "./targets";
+import { checkValue, describeTarget, kindOf, normalise, plannedOrder, readerField, startNote } from "./targets";
 import { piece, targets } from "./testing";
 
 const T = {
@@ -36,7 +36,9 @@ describe("checkValue", () => {
   it("should keep a part's start between its neighbours and read an empty chant as none", () => {
     const gradual = describeTarget(T, "part:dominica-i-adventus/gradual:1")!;
     expect(checkValue(T, gradual, "start_system", "2")).toEqual({ ok: true, value: "2" });
-    expect(checkValue(T, gradual, "start_system", "1")).toMatchObject({ ok: false });
+    // Past a neighbour is allowed here: the order is checked on the plan (plannedOrder).
+    expect(checkValue(T, gradual, "start_system", "1")).toEqual({ ok: true, value: "1" });
+    expect(checkValue(T, gradual, "start_system", "7")).toMatchObject({ ok: false, error: expect.stringMatching(/outside the piece, which has 6 systems/) });
     expect(checkValue(T, gradual, "chant", "")).toMatchObject({ ok: false, error: expect.stringMatching(/already “none”/) });
     expect(normalise("chant", " ", "part")).toBe("none");
   });
@@ -101,5 +103,28 @@ describe("system ranges and notes", () => {
     expect(checkValue(R, noted, "note", "")).toEqual({ ok: true, value: "none" });
     expect(checkValue(R, plain, "note", "none")).toMatchObject({ ok: false, error: expect.stringMatching(/no note to remove/) });
     expect(checkValue(R, plain, "note", "<b>x</b>")).toMatchObject({ ok: false });
+  });
+});
+
+describe("the order of parts", () => {
+  const info = (target: string) => describeTarget(T, target)!;
+
+  it("should say that a part runs until the next one starts, and between which parts this one sits", () => {
+    expect(startNote(info("part:dominica-i-adventus/introit"))).toBe(
+      "A part runs from the system it starts on until the next part starts: this one starts before the Gradual 1 " +
+      "(system 3). To move it past the Gradual 1, move the Gradual 1 too, in either order, before publishing.");
+    expect(startNote(info("part:dominica-i-adventus/gradual:1"))).toBe(
+      "A part runs from the system it starts on until the next part starts: this one starts after the Introit (system 1).");
+    expect(startNote(info("piece:dominica-i-adventus"))).toBe("");
+  });
+
+  it("should accept moves that pass each other once both are planned, and name the part still to move", () => {
+    const gradual = { target: "part:dominica-i-adventus/gradual:1", value: "5" };
+    expect(plannedOrder(T, [gradual])).toBeNull();
+    const introit = { target: "part:dominica-i-adventus/introit", value: "4" };
+    expect(plannedOrder(T, [introit])).toBe("In dominica-i-adventus, the Introit would start on system 4 and the Gradual 1 " +
+      "on system 3. A part runs until the next one starts: move the Gradual 1 too.");
+    expect(plannedOrder(T, [introit, gradual])).toBeNull();
+    expect(plannedOrder(T, [{ target: "vespers:adv1/magnificat", value: "3" }, { target: "piece:x", value: "1" }])).toBeNull();
   });
 });

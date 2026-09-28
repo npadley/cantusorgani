@@ -316,7 +316,8 @@ def test_parts_are_named_run_in_reading_order_and_point_at_their_own_systems():
         assert len(set(systems)) == len(systems), f"two parts start on one system: {piece['slug']}"
         for x in printed:
             assert piece["systems"][x["system"]] == x["ref"], piece["slug"]
-            assert x["placed"] in {"label", "text", "order"}
+            # "hand": corrected in data/corrections.yml (a part start an editor fixed).
+            assert x["placed"] in {"label", "text", "mode", "order", "hand"}
 
 
 def test_no_part_twice_unless_numbered():

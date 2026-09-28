@@ -357,7 +357,7 @@ def test_apply_part_chant_sets_or_clears_the_gregobase_id_and_reads_a_variant():
 
 
 @pytest.mark.parametrize(("target", "value", "message"), [
-    ("part:dominica-ii/gradual", 1, "out of order: it must come after system 1 and before system 5"),
+    ("part:dominica-ii/gradual", 1, "the Introit would start on system 1 and the Gradual on system 1"),
     ("part:dominica-ii/gradual", 9, "outside the piece, which has 5 systems"),
     ("part:dominica-ii/offertory", 2, "printed in another volume (Pars IV, p. 3)"),
     ("part:dominica-ii/tract", 2, "no longer exists"),
@@ -668,3 +668,47 @@ def test_stranded_lists_vespers_systems_no_corrected_piece_has():
         {"source": {"type": "note", "text": "x", "refs": ["noh8/0099/000"]}}]}},
         "first_vespers": {"2026-12-07": {"items": [{"source": {"type": "bank", "refs": ["noh8/0040/000"]}}]}}}
     assert corrections._stranded(catalog, lineup) == ["noh8/0031/001", "noh8/0040/000"]
+
+
+def advent_i(tmp_path: Path | None = None) -> dict:
+    """Dominica I Adventus as the pipeline first read it: 28 systems, the
+    Gradual placed on system 4 and the Alleluia guessed at 9, where the book
+    prints them on 9 and 15."""
+    b = base()
+    refs = [f"noh1/{29 + n // 6:04d}/{n % 6:03d}" for n in range(28)]
+    b["pieces"][0].update(systems=refs, parts=[
+        {"part": p, "variant": "", "system": s, "ref": refs[s], "gregobase_id": None}
+        for p, s in (("introit", 0), ("gradual", 3), ("alleluia", 8), ("offertory", 21), ("communion", 26))])
+    return b
+
+
+def test_parts_can_move_past_each_other_in_either_order_and_are_checked_on_the_result():
+    gradual = entry(target="part:dominica-i-adventus/gradual", field="start_system", was=4, value=9)
+    alleluia = entry(id="c-0002", target="part:dominica-i-adventus/alleluia", field="start_system", was=9, value=15)
+    for entries in ([gradual, alleluia], [alleluia, gradual]):
+        assert problems(advent_i(), entries) == []
+        parts = apply(advent_i(), entries)["pieces"][0]["parts"]
+        assert [p["system"] + 1 for p in parts] == [1, 9, 15, 22, 27]
+    found = problems(advent_i(), [gradual])
+    assert "the Gradual would start on system 9 and the Alleluia on system 9" in found[0]
+    assert "a part runs until the next one starts; move the Alleluia too" in found[0]
+
+
+def test_correct_one_at_a_time_needs_the_later_part_moved_first_but_a_batch_takes_either_order(tmp_path):
+    base_path = tmp_path / "base.json"
+    base_path.write_text(json.dumps(advent_i()))
+    one = tmp_path / "one.yml"
+    with pytest.raises(CorrectionError, match="move the Alleluia too"):
+        correct("part:dominica-i-adventus/gradual", "start_system", "9", base_path=base_path, path=one)
+    correct("part:dominica-i-adventus/alleluia", "start_system", "15", base_path=base_path, path=one)
+    correct("part:dominica-i-adventus/gradual", "start_system", "9", base_path=base_path, path=one)
+    together = tmp_path / "batch.yml"
+    corrections.correct_batch(batch({"target": "part:dominica-i-adventus/gradual", "field": "start_system", "value": "9"},
+                                    {"target": "part:dominica-i-adventus/alleluia", "field": "start_system", "value": "15"}),
+                              base_path=base_path, path=together)
+    assert [e.value for e in load(together)] == [9, 15]
+    alone = tmp_path / "alone.yml"
+    with pytest.raises(CorrectionError, match="(?s)nothing was recorded.*move the Alleluia too"):
+        corrections.correct_batch(batch({"target": "part:dominica-i-adventus/gradual", "field": "start_system",
+                                         "value": "9"}), base_path=base_path, path=alone)
+    assert not alone.exists()

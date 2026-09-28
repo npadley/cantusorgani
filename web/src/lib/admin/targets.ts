@@ -136,8 +136,12 @@ export interface TargetInfo {
   readonly slug: string | null;
   /** Why start_system cannot be corrected here (a part printed elsewhere). */
   readonly fixed: string | null;
-  /** start_system must lie strictly between these. */
-  readonly bounds: { readonly after: number; readonly before: number } | null;
+  /** Where the parts before and after start now (a part runs until the next
+   * one starts); `before` is one past the piece's last system for the last part. */
+  readonly bounds: { readonly after: number; readonly before: number;
+                     readonly previous: string | null; readonly next: string | null } | null;
+  /** How many systems the piece has (for a part's start). */
+  readonly systems: number | null;
 }
 
 export function kindOf(target: string): Kind | null {
@@ -157,6 +161,10 @@ export function isField(kind: Kind, name: string): boolean {
  * data's own name; null for what is not corrected this way. */
 export function readerField(name: string): string | null {
   return READER_FIELDS[name] ?? null;
+}
+
+function nameOfPart(part: TargetPart): string {
+  return `${PART_LABELS[part.part] ?? part.part}${part.variant ? ` ${part.variant}` : ""}`;
 }
 
 export function partTarget(slug: string, part: TargetPart): string {
@@ -179,7 +187,7 @@ export function describeTarget(targets: Targets, name: string): TargetInfo | nul
     if (!v) return null;
     return { target: name, kind, label: `${v.label} (${v.when})`, href: v.href, stem: v.stem, aspect: v.aspect,
              values: { tone: v.tone ?? "", chant: chantText(v.chant), refs: (v.refs ?? []).join(" "), note: v.note ?? "" },
-             genre: null, slug: null, fixed: null, bounds: null };
+             genre: null, slug: null, fixed: null, bounds: null, systems: null };
   }
   const rest = name.includes(":") ? name.slice(name.indexOf(":") + 1) : name;
   const [slugOrId, partName] = rest.split("/") as [string, string | undefined];
@@ -188,7 +196,7 @@ export function describeTarget(targets: Targets, name: string): TargetInfo | nul
   if (kind === "piece") {
     return { target: `piece:${piece.slug}`, kind, label: `${piece.label} (${piece.volume})`, href: piece.href,
              stem: piece.stem, aspect: piece.aspect, values: pieceValues(piece), genre: piece.genre, slug: piece.slug,
-             fixed: null, bounds: null };
+             fixed: null, bounds: null, systems: piece.systems ?? null };
   }
   if (kind === "pairing") {
     const movement = partName ?? "";
@@ -198,7 +206,8 @@ export function describeTarget(targets: Targets, name: string): TargetInfo | nul
     return { target: `pairing:${piece.slug}/${movement}`, kind,
              label: `${piece.label} (${piece.volume}) · ${MOVEMENT_LABELS[movement] ?? movement} chant`,
              href: piece.href, stem: piece.stem, aspect: piece.aspect,
-             values: { chant: chantText(paired?.id ?? null) }, genre: piece.genre, slug: piece.slug, fixed: null, bounds: null };
+             values: { chant: chantText(paired?.id ?? null) }, genre: piece.genre, slug: piece.slug, fixed: null, bounds: null,
+             systems: piece.systems ?? null };
   }
   const [part, variant = ""] = (partName ?? "").split(":") as [string, string | undefined];
   const parts = piece.parts ?? [];
@@ -206,14 +215,16 @@ export function describeTarget(targets: Targets, name: string): TargetInfo | nul
   if (!found) return null;
   const placed = parts.filter((p) => p.system !== null);
   const at = placed.indexOf(found);
+  const prev = at > 0 ? placed[at - 1] : undefined;
+  const next = at + 1 < placed.length ? placed[at + 1] : undefined;
   const bounds = found.system === null ? null : {
-    after: at > 0 ? (placed[at - 1]?.system ?? 0) : 0,
-    before: at + 1 < placed.length ? (placed[at + 1]?.system ?? 0) : (piece.systems ?? 0) + 1,
+    after: prev?.system ?? 0, before: next?.system ?? (piece.systems ?? 0) + 1,
+    previous: prev ? nameOfPart(prev) : null, next: next ? nameOfPart(next) : null,
   };
   const label = `${piece.label} (${piece.volume}) · ${PART_LABELS[found.part] ?? found.part}${variant ? ` ${variant}` : ""}`;
   return { target: partTarget(piece.slug, found), kind, label, href: piece.href, stem: piece.stem, aspect: piece.aspect,
            values: { start_system: found.system === null ? "" : String(found.system), chant: chantText(found.chant) },
-           genre: piece.genre, slug: piece.slug,
+           genre: piece.genre, slug: piece.slug, systems: piece.systems ?? null,
            fixed: found.system === null ? `This part is printed in another volume (${found.borrowed ?? "elsewhere"}); correct it where it is printed.` : null,
            bounds };
 }
@@ -270,15 +281,57 @@ export function checkValue(targets: Targets, info: TargetInfo, field: string, ra
   if (field === "genre" && !targets.genres.includes(value)) {
     return { ok: false, error: `“${value}” is not a genre the catalogue uses (${targets.genres.join(", ")}).` };
   }
-  if (field === "start_system" && info.bounds) {
+  // Only the range here: the order against the other parts is checked on the
+  // result (plannedOrder), so two parts can be moved past each other.
+  if (field === "start_system" && info.systems !== null) {
     const n = Number(value);
-    if (!(info.bounds.after < n && n < info.bounds.before)) {
-      return { ok: false, error: `System ${n} would put this part out of order: it must come after system ` +
-        `${info.bounds.after} and before system ${info.bounds.before}.` };
+    if (n < 1 || n > info.systems) {
+      return { ok: false, error: `System ${n} is outside the piece, which has ${info.systems} systems.` };
     }
   }
   if (value === (info.values[field] ?? "")) {
     return { ok: false, error: `The ${words} is already “${value}”; nothing to correct.` };
   }
   return { ok: true, value };
+}
+
+/** What a part's start means, in words, for the form: a part runs until the
+ * next one starts, so moving it past a neighbour means moving that one too. */
+export function startNote(info: TargetInfo): string {
+  const b = info.bounds;
+  if (info.kind !== "part" || !b) return "";
+  const around = [b.previous ? `after the ${b.previous} (system ${b.after})` : "",
+                  b.next ? `before the ${b.next} (system ${b.before})` : ""].filter(Boolean).join(" and ");
+  return "A part runs from the system it starts on until the next part starts" +
+    (around ? `: this one starts ${around}` : "") + "." +
+    (b.next ? ` To move it past the ${b.next}, move the ${b.next} too, in either order, before publishing.` : "");
+}
+
+/** A start_system correction waiting to be published. */
+export interface PlannedStart { readonly target: string; readonly value: string }
+
+/**
+ * Whether each piece's parts still start in printed order once these start
+ * corrections are published; null when they do, or the first problem in words.
+ * The same rule as `_part_order` in pipeline/corrections.py.
+ */
+export function plannedOrder(targets: Targets, planned: readonly PlannedStart[]): string | null {
+  const starts = new Map<string, number>();
+  for (const p of planned) if (kindOf(p.target) === "part" && /^\d{1,3}$/.test(p.value)) starts.set(p.target, Number(p.value));
+  const slugs = new Set([...starts.keys()].map((t) => t.slice(5).split("/")[0] ?? ""));
+  for (const slug of slugs) {
+    const placed = (targets.pieces[slug]?.parts ?? []).filter((p) => p.system !== null)
+      .map((p) => ({ name: nameOfPart(p), target: partTarget(slug, p),
+                     system: starts.get(partTarget(slug, p)) ?? p.system ?? 0 }));
+    for (let i = 1; i < placed.length; i++) {
+      const [a, b] = [placed[i - 1]!, placed[i]!];
+      if (a.system >= b.system) {
+        // Name the one not moved yet: that is the one to move too.
+        const other = starts.has(b.target) && !starts.has(a.target) ? a : b;
+        return `In ${targets.pieces[slug]?.label ?? slug}, the ${a.name} would start on system ${a.system} and the ` +
+          `${b.name} on system ${b.system}. A part runs until the next one starts: move the ${other.name} too.`;
+      }
+    }
+  }
+  return null;
 }

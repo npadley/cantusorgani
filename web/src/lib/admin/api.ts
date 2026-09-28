@@ -13,8 +13,8 @@ import { dispatchBatch, githubConfigured, newBatchId } from "./github";
 import type { Batch, GithubEnv } from "./github";
 import { d1Store } from "./store";
 import type { D1Like, Row, Store } from "./store";
-import { FIELDS_OF, checkValue, describeTarget, isField, readerField } from "./targets";
-import type { Kind, Targets } from "./targets";
+import { FIELDS_OF, checkValue, describeTarget, isField, plannedOrder, readerField } from "./targets";
+import type { Kind, PlannedStart, Targets } from "./targets";
 
 export interface AdminEnv extends AuthEnv, GithubEnv {
   readonly DB: D1Like;
@@ -114,6 +114,22 @@ async function body(request: Request): Promise<Record<string, unknown> | Respons
 
 function text(value: unknown, max: number): string {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
+}
+
+/** Every part start waiting to be published (approved, or in an open batch). */
+async function plannedStarts(store: Store): Promise<PlannedStart[]> {
+  // Oldest first, so a later correction of the same part wins.
+  return (await store.list(["approved", "queued"], 500)).slice().sort((a, b) => a.id - b.id)
+    .filter((r) => r.field === "start_system" && r.target !== null)
+    .map((r) => ({ target: r.target as string, value: r.proposed }));
+}
+
+/** A part's new start may pass a neighbour that is still to be moved: it is
+ * approved, with a warning, and Publish waits until the plan is in order. */
+async function orderWarning(store: Store, targets: Targets, field: string): Promise<string | null> {
+  if (field !== "start_system") return null;
+  const problem = plannedOrder(targets, await plannedStarts(store));
+  return problem ? `${problem} Publishing waits until then.` : null;
 }
 
 async function conflict(store: Store, id: number, row: Row | null): Promise<Response> {
@@ -223,7 +239,8 @@ async function actOnRow(deps: Deps, editor: Editor, id: number, verb: RowVerb, i
   const changed = [field !== item.resolvedField ? `reader filed it under ${row.field}` : "",
                    checked.value !== row.proposed ? `reader proposed: ${row.proposed}` : ""].filter(Boolean).join("; ");
   await store.log(editor.email, "approve", id, changed);
-  return json({ ok: true, status: "approved", field, value: checked.value });
+  const warning = await orderWarning(store, targets, field);
+  return json({ ok: true, status: "approved", field, value: checked.value, ...(warning ? { warning } : {}) });
 }
 
 async function createEdit(deps: Deps, editor: Editor, input: Record<string, unknown>): Promise<Response> {
@@ -239,7 +256,8 @@ async function createEdit(deps: Deps, editor: Editor, input: Record<string, unkn
   const id = await deps.store.insertEdit({ target: info.target, pieceId: info.slug ?? "vespers", field,
                                            proposed: checked.value, note, email: editor.email });
   await deps.store.log(editor.email, "edit", id, `${info.target} ${field}: ${info.values[field] ?? ""} -> ${checked.value}`);
-  return json({ ok: true, id, status: "approved" }, 201);
+  const warning = await orderWarning(deps.store, targets, field);
+  return json({ ok: true, id, status: "approved", ...(warning ? { warning } : {}) }, 201);
 }
 
 async function publish(deps: Deps, env: AdminEnv, editor: Editor): Promise<Response> {
@@ -253,6 +271,8 @@ async function publish(deps: Deps, env: AdminEnv, editor: Editor): Promise<Respo
   }
   const approved = (await store.list(["approved"], BATCH_MAX)).slice().reverse();
   if (approved.length === 0) return problem(400, "Nothing is approved yet.");
+  const disorder = plannedOrder(await deps.targets(), await plannedStarts(store));
+  if (disorder) return problem(422, `${disorder} Nothing was published.`);
   const batch = newBatchId();
   const queued = await store.queueBatch(batch, approved.map((r) => r.id));
   if (queued !== approved.length) {
