@@ -38,6 +38,12 @@ export const FIELDS_BY_KIND: Readonly<Record<"piece" | "part" | "pairing" | "ves
   vespers: ["tone", "gregobaseId"],
 };
 
+/** A literal as a regular expression: every metacharacter escaped, the
+ * backslash included (a tone is "IV.A*"). */
+function literal(text: string): string {
+  return text.replace(/[\\^$.*+?()[\]{}|/]/g, "\\$&");
+}
+
 const GENRES = [
   "asperges", "mass_ordinary", "credo", "tonus", "kyrie", "gloria",
   "sanctus", "agnus", "requiem", "absolutio", "exsequiis",
@@ -54,7 +60,7 @@ export const PATTERNS: Readonly<Record<CorrectableField, RegExp>> = {
   chant: /^[\p{L}\p{N}\s.,'()/-]{1,160}$/u,
   startSystem: /^\d{1,3}$/,
   gregobaseId: /^(\d{1,6}|none)$/,
-  tone: new RegExp(`^(${TONES.map((t) => t.replace(/[.*]/g, "\\$&")).join("|")})$`),
+  tone: new RegExp(`^(${TONES.map(literal).join("|")})$`),
 };
 
 /** What each field expects, in words, for the reader. */
