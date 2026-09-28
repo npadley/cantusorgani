@@ -413,14 +413,40 @@ make them pleasant.
     (`data/corrections-log.json` → `/corrections/log/`).
   - "Report · Edit" beside each shown part and Vespers item.
   - The target index moved to the public `/corrections/targets.json`.
-  - Vespers item *systems* (refs) stay corrected at the source
-    (`vespers-offices.yml`), not in the overlay.
+  - Vespers item systems (`refs`) are corrected in the overlay too (added
+    after the first pass), each checked against the catalogue.
+  - `pairing:<slug>/<movement>` (chant): the chant paired with a Kyrie,
+    Gloria… of a piece without Proper parts, offered only for the movements
+    an Ordinary prints ("Suggest a chant", PR #7).
   - Parts placed by order alone are not shown on the site, so they have no
     Report link; they are editable from the admin edit page.
 - **E**:
   - Lineup days carry `observance` (the calendar key naming the day), so the
     site no longer guesses titles; a test proves every title is unchanged.
-  - `pipeline/vespercal.py` (calendar) split from `vespers.py`;
-    `pipeline/where.py` split from `corrections.py`. Old import paths still
-    work.
+  - `pipeline/where.py` split from `corrections.py`.
   - `docs/ARCHITECTURE.md`.
+
+## As built, the remainder (2026-09-28)
+
+What the first pass left out, now done:
+
+- **Scans in the queue**: each report shows the systems it names, not only the
+  piece's first: a part's start now and the start proposed, a Vespers item's
+  systems (and the proposed ones), a piece's first and last system, where a
+  movement begins. Captioned with each ref, at most six, updated as the field or
+  value changes; the edit page shows the same. Built from `/admin/scans.json`
+  (every catalogued system's image key and size, behind Access).
+- **`system_range`** on pieces: the first and last system. Systems the range
+  takes leave the neighbouring piece; parts are re-counted; pages follow the
+  systems. Ranges apply first and every other correction counts from them. A
+  range that would strand a part, split or empty a neighbour, or leave a
+  system a Vespers page shows in no piece is refused.
+- **Vespers `note`**: an antiphon or Magnificat antiphon can show a sentence in
+  place of its music (`none` restores it). Admin-only, like `system_range`: the
+  reader's form doesn't offer either.
+- **Module split** (step 6): `pipeline/indexextract/` (table, matching, pages,
+  proposals, headings) and `pipeline/vespers/` (calendar, reviewed, music,
+  lineup, proposal); `pipeline/vespercal.py` became `pipeline/vespers/calendar.py`.
+  Both packages re-export every name.
+- **`data/vespers/`**: the reviewed Vespers files, the lineup and the vendored
+  Vespers sources, moved with their names unchanged.

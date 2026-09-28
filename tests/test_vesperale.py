@@ -132,7 +132,7 @@ def test_fetch_bad_commit_or_empty_table_leaves_the_file_untouched(tmp_path, mon
 def test_cli_vesperale_fetch_reports_and_fails_cleanly(capsys, monkeypatch):
     from pipeline import cli, vesperale
 
-    monkeypatch.setattr(vesperale, "fetch", lambda _c: ("data/vesperale-lineup.json", "abc1234def", 36))
+    monkeypatch.setattr(vesperale, "fetch", lambda _c: ("data/vespers/vesperale-lineup.json", "abc1234def", 36))
     assert cli.main(["vesperale-fetch"]) == 0
     assert "36 Sundays" in capsys.readouterr().out
 

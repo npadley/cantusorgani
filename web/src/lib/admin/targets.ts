@@ -12,7 +12,7 @@
 import schema from "../../../../data/schema/corrections.json";
 
 export type Kind = "piece" | "part" | "vespers" | "pairing";
-export type PieceField = "title" | "incipit" | "mode" | "genre" | "printed_pages";
+export type PieceField = "title" | "incipit" | "mode" | "genre" | "printed_pages" | "system_range";
 
 interface FieldRule {
   readonly pattern: string;
@@ -57,7 +57,8 @@ export const PIECE_FIELDS = FIELDS_OF.piece as readonly PieceField[];
 
 export const FIELD_LABELS: Readonly<Record<string, string>> = {
   title: "Title", incipit: "Incipit", mode: "Mode", genre: "Genre", printed_pages: "Printed pages",
-  start_system: "Starts on system", chant: "Chant (GregoBase id)", tone: "Tone", refs: "Printed systems",
+  system_range: "Systems (first-last)", start_system: "Starts on system", chant: "Chant (GregoBase id)", tone: "Tone",
+  refs: "Printed systems", note: "A note instead of the music",
 };
 
 export const PART_LABELS: Readonly<Record<string, string>> = {
@@ -90,6 +91,8 @@ export interface TargetPiece {
   readonly stem: string | null;
   readonly aspect: readonly [number, number] | null;
   readonly systems?: number;
+  /** Its first and last system ("noh1/0044/002"). */
+  readonly range?: readonly [string, string] | null;
   readonly parts?: readonly TargetPart[];
   /** Chants paired with the piece's movements (movement "chant": a single-chant piece). */
   readonly pairings?: readonly { readonly movement: string; readonly id: number }[];
@@ -106,6 +109,8 @@ export interface TargetVespers {
   readonly chant: number | null;
   /** The systems it is printed on ("noh8/0077/000"). */
   readonly refs?: readonly string[];
+  /** The note an editor put in place of its music, if any. */
+  readonly note?: string | null;
   readonly stem: string | null;
   readonly aspect: readonly [number, number] | null;
 }
@@ -160,7 +165,8 @@ export function partTarget(slug: string, part: TargetPart): string {
 
 function pieceValues(p: TargetPiece): Record<string, string> {
   return { title: p.title, incipit: p.incipit ?? "", mode: p.mode ?? "", genre: p.genre,
-           printed_pages: `${p.printed_pages[0]}-${p.printed_pages[1]}` };
+           printed_pages: `${p.printed_pages[0]}-${p.printed_pages[1]}`,
+           system_range: p.range ? `${p.range[0]}-${p.range[1]}` : "" };
 }
 
 const chantText = (id: number | null): string => (id === null ? "none" : String(id));
@@ -172,7 +178,7 @@ export function describeTarget(targets: Targets, name: string): TargetInfo | nul
     const v = targets.vespers?.[name];
     if (!v) return null;
     return { target: name, kind, label: `${v.label} (${v.when})`, href: v.href, stem: v.stem, aspect: v.aspect,
-             values: { tone: v.tone ?? "", chant: chantText(v.chant), refs: (v.refs ?? []).join(" ") },
+             values: { tone: v.tone ?? "", chant: chantText(v.chant), refs: (v.refs ?? []).join(" "), note: v.note ?? "" },
              genre: null, slug: null, fixed: null, bounds: null };
   }
   const rest = name.includes(":") ? name.slice(name.indexOf(":") + 1) : name;
@@ -226,8 +232,10 @@ export function normalise(field: string, raw: string, kind: Kind = "piece"): str
   const value = raw.trim();
   const n = Number(value);
   if (RULES[kind][field]?.arabic_to_roman && /^\d+$/.test(value) && n >= 1 && n <= ROMAN.length) return ROMAN[n - 1] as string;
-  if (field === "chant" && value === "") return "none";
+  if ((field === "chant" || field === "note") && value === "") return "none";
   if (field === "refs") return value.split(/\s+/).filter(Boolean).join(" ");
+  if (field === "system_range") return value.replace(/\s*(?:\bto\b|-|\s)\s*/g, "-");
+  if (field === "note") return value.replace(/\s+/g, " ");
   return value;
 }
 
@@ -247,6 +255,17 @@ export function checkValue(targets: Targets, info: TargetInfo, field: string, ra
   if (field === "printed_pages") {
     const [first, last] = value.split("-").map(Number);
     if ((first ?? 0) > (last ?? 0)) return { ok: false, error: `The page range ${value} runs backwards.` };
+  }
+  if (field === "system_range") {
+    const [first = "", last = ""] = value.split("-");
+    const volume = (info.values["system_range"] ?? "").split("/", 1)[0];
+    if (volume && (first.split("/", 1)[0] !== volume || last.split("/", 1)[0] !== volume)) {
+      return { ok: false, error: `The systems must be in ${volume}, the volume the piece is printed in.` };
+    }
+    if (first > last) return { ok: false, error: `The system range ${value} runs backwards.` };
+  }
+  if (field === "note" && value === "none" && !info.values["note"]) {
+    return { ok: false, error: "There is no note to remove; the music is shown." };
   }
   if (field === "genre" && !targets.genres.includes(value)) {
     return { ok: false, error: `“${value}” is not a genre the catalogue uses (${targets.genres.join(", ")}).` };

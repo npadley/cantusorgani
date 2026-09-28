@@ -10,7 +10,7 @@ catalogue run changes that value, the entry is stale and the build stops rather
 than silently overwrite a value nobody has looked at.
 
 Fix at the source when the source can express it (data/index-*.yml,
-data/vespers-offices.yml). This overlay is for what the pipeline computes.
+data/vespers/vespers-offices.yml). This overlay is for what the pipeline computes.
 """
 
 from __future__ import annotations
@@ -55,14 +55,18 @@ HEADER = """\
 # generated when the fix was made; if it changes, the build stops and asks.
 #
 # Targets and their fields:
-#   piece:<slug>                          title, incipit, mode, genre, printed_pages
+#   piece:<slug>                          title, incipit, mode, genre, printed_pages, system_range
 #   part:<slug>/<part>[:<variant>]        start_system (counting from 1), chant
-#   vespers:<office>/antiphon-<n>         tone, chant, refs   (an office of vespers-offices.yml)
-#   vespers:<office>/magnificat           tone, chant, refs
-#   vespers:sunday:<key>/magnificat       tone, chant, refs   (vespers-noh8.yml magnificat_antiphons)
+#   vespers:<office>/antiphon-<n>         tone, chant, refs, note   (an office of vespers/vespers-offices.yml)
+#   vespers:<office>/magnificat           tone, chant, refs, note
+#   vespers:sunday:<key>/magnificat       tone, chant, refs, note   (vespers/vespers-noh8.yml magnificat_antiphons)
 #   pairing:<slug>/<movement>             chant   (a Kyrie, Gloria... of a piece without Proper parts)
 # A chant is a GregoBase id, or none; refs are the systems it is printed on
-# ("noh8/0077/000 noh8/0077/001"). For example:
+# ("noh8/0077/000 noh8/0077/001"); a note is shown in place of the music (none
+# shows the music again). A system_range is a piece's first and last system
+# ("noh1/0044/002-noh1/0046/003"): systems it takes from the piece before or
+# after leave that piece, and every other correction counts from the new range.
+# For example:
 #
 # - id: c-0001
 #   target: piece:dominica-i-adventus
@@ -160,7 +164,10 @@ def coerce(name: str, value: object, genre: str | None = None, kind: str = "piec
         value = f"{value[0]}-{value[1]}"
     if name == "refs" and isinstance(value, list):
         value = " ".join(str(v) for v in value)
-    text = "none" if value is None and name == "chant" else " ".join(str(value).split())
+    if name == "system_range":
+        value = "-".join(str(v) for v in value) if isinstance(value, list) else re.sub(
+            r"\s*(?:\bto\b|-|\s)\s*", "-", str(value).strip())
+    text = "none" if value is None and name in ("chant", "note") else " ".join(str(value).split())
     if rule.get("arabic_to_roman") and text.isdigit() and 1 <= int(text) <= len(ROMAN):
         text = ROMAN[int(text) - 1]
     if not re.fullmatch(rule["pattern"], text) or sum(ch.isalpha() for ch in text) < int(rule.get("min_letters", 0)):
@@ -176,6 +183,15 @@ def coerce(name: str, value: object, genre: str | None = None, kind: str = "piec
         return int(text)
     if name == "refs":
         return text.split()
+    if name == "system_range":
+        first, last = text.split("-")
+        if first.split("/")[0] != last.split("/")[0]:
+            raise CorrectionError(f"system range {text!r} runs across two volumes")
+        if first > last:
+            raise CorrectionError(f"system range {text!r} runs backwards")
+        return [first, last]
+    if name == "note":
+        return None if text == "none" else text
     return text
 
 
@@ -200,8 +216,8 @@ class VespersData:
 
 
 def load_vespers(data: Path = DATA) -> VespersData:
-    doc = yaml.safe_load((data / "vespers-noh8.yml").read_text(encoding="utf-8")) or {}
-    offices_path = data / "vespers-offices.yml"
+    doc = yaml.safe_load((data / "vespers" / "vespers-noh8.yml").read_text(encoding="utf-8")) or {}
+    offices_path = data / "vespers" / "vespers-offices.yml"
     offices = (yaml.safe_load(offices_path.read_text(encoding="utf-8")) or {}).get("offices", {}) \
         if offices_path.exists() else {}
     base = data / "catalog.base.json"
@@ -279,8 +295,116 @@ def _vespers_slot(target: str, name: str, data: VespersData) -> Slot:
         missing = [r for r in refs if data.known and r not in data.known]
         return f"{target} refs {', '.join(missing)} are not systems in the catalogue" if missing else None
 
-    return Slot(get=lambda: entry.get(name), put=lambda v: entry.__setitem__(name, v),
-                check=check if name == "refs" else None)
+    def put(v: Any) -> None:
+        if v is None and name == "note":
+            entry.pop("note", None)
+        else:
+            entry[name] = v
+
+    return Slot(get=lambda: entry.get(name), put=put, check=check if name == "refs" else None)
+
+
+_VOLUME_SYSTEMS: dict[str, list[tuple[str, str, list[int]]]] = {}
+
+
+def volume_systems(vol: str) -> list[tuple[str, str, list[int]]]:
+    """Every published system of a volume's body in book order, as (ref, asset
+    key, [width, height]): from data/published/<vol>.json, so no PDFs are needed."""
+    if vol not in _VOLUME_SYSTEMS:
+        from pipeline.offset import load_page_map
+        from pipeline.publish import _published, asset_stem
+        page_map = load_page_map(vol)
+        out = []
+        for page, systems in sorted(_published(vol).items()):
+            pdf = int(page)
+            if page_map.to_printed(pdf) is None:
+                continue
+            for s in sorted(systems, key=lambda s: int(s["index"])):
+                index = int(s["index"])
+                out.append((f"{vol}/{pdf:04d}/{index:03d}", asset_stem(vol, pdf, index, str(s["sha256"])),
+                            [int(s["width"]), int(s["height"])]))
+        _VOLUME_SYSTEMS[vol] = out
+    return _VOLUME_SYSTEMS[vol]
+
+
+def _set_systems(piece: dict[str, Any], span: list[tuple[str, str, list[int]]]) -> None:
+    """Give a piece these systems, keeping what hangs on them: its parts' starts
+    are re-counted, movements and hymns off the new range are let go, and its
+    pages follow its systems."""
+    from pipeline.offset import load_page_map
+    refs = [r for r, _, _ in span]
+    piece.update(systems=refs, system_assets=[a for _, a, _ in span], system_aspect=[list(x) for _, _, x in span])
+    for part in piece.get("parts") or []:
+        if "system" in part:
+            part["system"] = refs.index(part["ref"])
+    inside = set(refs)
+    piece["movements"] = [m for m in piece.get("movements") or [] if m.get("ref") in inside]
+    if "hymns" in piece:
+        piece["hymns"] = [h for h in piece["hymns"] if h.get("ref") in inside]
+    pdfs = [int(r.split("/")[1]) for r in refs]
+    page_map = load_page_map(str(piece["volume"]))
+    printed = [n for n in (page_map.to_printed(p) for p in pdfs) if n is not None]
+    piece["pdf_pages"] = [min(pdfs), max(pdfs)]
+    if printed:
+        piece["printed_pages"] = [min(printed), max(printed)]
+
+
+def _range_slot(target: str, piece: dict[str, Any], pieces: dict[str, dict[str, Any]]) -> Slot:
+    """A piece's first and last system. Moving a boundary moves it for the
+    neighbour too: systems the new range takes leave the piece that had them."""
+    vol = str(piece["volume"])
+    neighbours = [p for p in pieces.values() if p.get("volume") == vol and p is not piece]
+
+    def span(v: list[str]) -> list[tuple[str, str, list[int]]]:
+        order = volume_systems(vol)
+        refs = [r for r, _, _ in order]
+        return order[refs.index(v[0]):refs.index(v[1]) + 1]
+
+    def check(v: list[str]) -> str | None:
+        known = {r for r, _, _ in volume_systems(vol)}
+        wrong = [r for r in v if r not in known]
+        if wrong:
+            return f"{target} system_range: {', '.join(wrong)} is not a system of {vol}'s pages"
+        new = {r for r, _, _ in span(v)}
+        for part in piece.get("parts") or []:
+            if "system" in part and part["ref"] not in new:
+                return (f"{target} system_range would leave its {part['part']} (which starts on {part['ref']}) "
+                        f"outside the piece; correct that part's start_system first")
+        for other in neighbours:
+            theirs = other.get("systems") or []
+            lost = [i for i, r in enumerate(theirs) if r in new]
+            if not lost:
+                continue
+            if len(lost) == len(theirs):
+                return f"{target} system_range would take every system of piece:{other['slug']}"
+            if lost[0] != 0 and lost[-1] != len(theirs) - 1 or len(lost) != lost[-1] - lost[0] + 1:
+                return f"{target} system_range would split piece:{other['slug']} in two"
+            for part in other.get("parts") or []:
+                if "system" in part and part["ref"] in new:
+                    return (f"{target} system_range would take the system piece:{other['slug']}'s "
+                            f"{part['part']} starts on ({part['ref']}); correct that part first")
+        return None
+
+    def put(v: list[str]) -> None:
+        taken = span(v)
+        new = {r for r, _, _ in taken}
+        gained = [h for o in neighbours for h in o.get("hymns") or [] if h.get("ref") in new]
+        for other in neighbours:
+            theirs = other.get("systems") or []
+            if any(r in new for r in theirs):
+                keep = [(r, a, list(x)) for r, a, x in zip(theirs, other.get("system_assets") or [],
+                                                            other.get("system_aspect") or [], strict=False)
+                        if r not in new]
+                _set_systems(other, keep)
+        _set_systems(piece, taken)
+        if gained:
+            piece.setdefault("hymns", []).extend(gained)
+
+    def get() -> list[str] | None:
+        systems = piece.get("systems") or []
+        return [systems[0], systems[-1]] if systems else None
+
+    return Slot(get=get, put=put, check=check, genre=str(piece.get("genre")))
 
 
 _CHANTS: dict[str, Any] | None = None
@@ -357,13 +481,53 @@ def slot(target: str, name: str, catalog: dict[str, Any] | None, vespers: Vesper
     piece = _piece(target, pieces)
     if piece is None:
         raise _gone(target)
+    if name == "system_range":
+        return _range_slot(target, piece, pieces)
     return Slot(get=lambda: piece.get(name), put=lambda v: piece.__setitem__(name, v), genre=str(piece.get("genre")))
 
 
-def problems(base: dict[str, Any] | None, entries: list[Entry], vespers: VespersData | None = None) -> list[str]:
-    """Every reason the entries cannot be applied, one line each. Entries of a
-    kind whose data is not given (vespers without `vespers`, pieces and parts
-    without `base`) are left to the call that has it."""
+def _is_range(e: Entry) -> bool:
+    return e.field == "system_range" and e.target.startswith("piece:")
+
+
+def _stale(e: Entry, now: Any) -> str:
+    return (f"{_where(e)}: stale correction: {e.target} {e.field} was {e.was!r} when the fix "
+            f"was made but the data now says {now!r}; check the new value, "
+            "then set `was` to it or delete this entry (`uv run noh corrections --drop "
+            f"{e.id}`)")
+
+
+def _ranged(base: dict[str, Any], entries: list[Entry]) -> tuple[dict[str, Any], dict[str, str]]:
+    """The catalogue with every system_range entry applied in file order, each
+    checked against the catalogue as it stands just before it; and each failing
+    entry's problem, by id. Every other correction counts from this layer: a
+    part's start is a system of the piece as corrected."""
+    catalog = copy.deepcopy(base)
+    failed: dict[str, str] = {}
+    for e in entries:
+        if not _is_range(e):
+            continue
+        try:
+            s = slot(e.target, e.field, catalog, None)
+            value = coerce(e.field, e.value, s.genre)
+        except CorrectionError as exc:
+            failed[e.id] = f"{_where(e)}: {exc}" if str(exc).startswith(e.target) else f"{_where(e)}: {e.target} {exc}"
+            continue
+        if s.get() != e.was:
+            failed[e.id] = _stale(e, s.get())
+            continue
+        issue = s.check(value) if s.check else None
+        if issue:
+            failed[e.id] = f"{_where(e)}: {issue}"
+            continue
+        s.put(value)
+    return catalog, failed
+
+
+def _check(base: dict[str, Any] | None, entries: list[Entry], vespers: VespersData | None = None
+           ) -> tuple[list[str], dict[str, Any] | None]:
+    """(problems, the catalogue with system ranges applied)."""
+    layer, failed = _ranged(base, entries) if base is not None else (None, {})
     genres = {str(p.get("genre")) for p in _pieces(base or {}).values()}
     seen: dict[tuple[str, str], str] = {}
     ids: set[str] = set()
@@ -386,8 +550,12 @@ def problems(base: dict[str, Any] | None, entries: list[Entry], vespers: Vespers
                        "keep one entry and delete the other")
             continue
         seen[key] = e.id
+        if _is_range(e):
+            if e.id in failed:
+                out.append(failed[e.id])
+            continue
         try:
-            s = slot(e.target, e.field, base, vespers)
+            s = slot(e.target, e.field, layer, vespers)
             value = coerce(e.field, e.value, s.genre, kind)
         except CorrectionError as exc:
             out.append(f"{where}: {exc}" if str(exc).startswith(e.target) else f"{where}: {e.target} {exc}")
@@ -400,26 +568,31 @@ def problems(base: dict[str, Any] | None, entries: list[Entry], vespers: Vespers
             out.append(f"{where}: {e.target} tone {value!r} is not one NOH8 prints")
             continue
         if s.get() != e.was:
-            out.append(f"{where}: stale correction: {e.target} {e.field} was {e.was!r} when the fix "
-                       f"was made but the data now says {s.get()!r}; check the new value, "
-                       "then set `was` to it or delete this entry (`uv run noh corrections --drop "
-                       f"{e.id}`)")
+            out.append(_stale(e, s.get()))
             continue
         issue = s.check(value) if s.check else None
         if issue:
             out.append(f"{where}: {issue}")
-    return out
+    return out, layer
+
+
+def problems(base: dict[str, Any] | None, entries: list[Entry], vespers: VespersData | None = None) -> list[str]:
+    """Every reason the entries cannot be applied, one line each. Entries of a
+    kind whose data is not given (vespers without `vespers`, pieces and parts
+    without `base`) are left to the call that has it."""
+    return _check(base, entries, vespers)[0]
 
 
 def apply(base: dict[str, Any], entries: list[Entry]) -> dict[str, Any]:
     """A new catalogue with every piece and part entry applied; raises if any
-    cannot be. Vespers entries are applied when the Vespers files load."""
-    found = problems(base, entries)
+    cannot be. System ranges go first (see _ranged); Vespers entries are
+    applied when the Vespers files load."""
+    found, layer = _check(base, entries)
     if found:
         raise CorrectionError("\n".join(found))
-    catalog = copy.deepcopy(base)
+    catalog = layer if layer is not None else copy.deepcopy(base)
     for e in entries:
-        if kind_of(e.target) != "vespers":
+        if kind_of(e.target) != "vespers" and not _is_range(e):
             s = slot(e.target, e.field, catalog, None)
             s.put(coerce(e.field, e.value, s.genre, kind_of(e.target)))
     return catalog
@@ -440,13 +613,14 @@ def apply_vespers(data: VespersData, entries: list[Entry]) -> VespersData:
 def no_ops(base: dict[str, Any], entries: list[Entry], vespers: VespersData | None = None) -> list[Entry]:
     """Entries whose value the generated data now has anyway: fixed at the
     source, so they can be deleted."""
+    layer = _ranged(base, entries)[0]
     out = []
     for e in entries:
         try:
             kind = kind_of(e.target)
             if kind == "vespers" and vespers is None:
                 continue
-            s = slot(e.target, e.field, base, vespers)
+            s = slot(e.target, e.field, base if _is_range(e) else layer, vespers)
             if s.get() == coerce(e.field, e.value, s.genre, kind):
                 out.append(e)
         except CorrectionError:
@@ -488,8 +662,24 @@ def _outputs(base_path: Path, path: Path, out: Path) -> dict[Path, str]:
     """Every file the corrections produce, with its text."""
     from pipeline.vespers import LINEUP, lineup_anchor, lineup_text
     entries = load(path)
-    return {out: dump(apply(load_base(base_path), entries)), LINEUP: lineup_text(today=lineup_anchor()),
-            LOG: log_text(entries)}
+    catalog = apply(load_base(base_path), entries)
+    lineup = lineup_text(today=lineup_anchor())
+    stranded = _stranded(catalog, json.loads(lineup))
+    if stranded:
+        raise CorrectionError(f"a system_range correction leaves {stranded[0]}"
+                              + (f" (and {len(stranded) - 1} more)" if len(stranded) > 1 else "")
+                              + " in no piece, but a Vespers page shows it; widen that piece's range, "
+                                "or give the system to the piece before or after")
+    return {out: dump(catalog), LINEUP: lineup, LOG: log_text(entries)}
+
+
+def _stranded(catalog: dict[str, Any], lineup: dict[str, Any]) -> list[str]:
+    """Systems the Vespers lineup shows that no piece of the corrected catalogue
+    has (the site finds each Vespers image through the piece that owns it)."""
+    known = {r for p in catalog.get("pieces", []) for r in p.get("systems") or []}
+    days = [*lineup.get("days", {}).values(), *lineup.get("first_vespers", {}).values()]
+    return sorted({r for d in days for i in d["items"] if i["source"]["type"] != "note"
+                   for r in i["source"].get("refs") or []} - known)
 
 
 def write_all(base_path: Path = BASE, path: Path = CORRECTIONS, out: Path = CATALOG) -> tuple[int, list[str]]:
@@ -521,8 +711,11 @@ def correct(target: str, name: str, value: str, note: str = "", source: str = "e
     kind = kind_of(target)
     base = load_base(base_path) if kind != "vespers" else None
     vespers = load_vespers(vespers_dir) if kind == "vespers" else None
+    entries = load(path)
+    # What the site shows: the catalogue with the system ranges already corrected.
+    layer = _ranged(base, entries)[0] if base is not None else None
     try:
-        s = slot(target, name, base, vespers)
+        s = slot(target, name, layer, vespers)
     except CorrectionError as exc:
         raise CorrectionError(f"{exc}. Run `uv run noh where <page URL>` to find the target") from None
     new = coerce(name, value, s.genre, kind)
@@ -531,7 +724,6 @@ def correct(target: str, name: str, value: str, note: str = "", source: str = "e
     issue = s.check(new) if s.check else None
     if issue:
         raise CorrectionError(issue)
-    entries = load(path)
     stamp = (today or datetime.now(UTC).date()).isoformat()
     for e in entries:
         if (e.target, e.field) == (target, name):

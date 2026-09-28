@@ -73,8 +73,8 @@ Data and code from elsewhere, each pinned to its source:
 | **Chant notation** the site publishes — the GABC of every chant a Proper part names, leaving out those GregoBase flags copyrighted | `data/chants.json` | yes | `uv run noh chants` (after `noh catalog`) |
 | **Exsurge** — draws the notation in the browser ([bbloomf/exsurge](https://github.com/bbloomf/exsurge), MIT) | `web/public/vendor/exsurge/`, with its licence and source commit | yes | replace `exsurge.min.js` from a newer commit and update `SOURCE` |
 
-| **Divinum Officium** Vespers texts (1960) — each office's antiphons with their psalms, Magnificat antiphons, hymn, chapter, and the psalms' verses ([DivinumOfficium/divinum-officium](https://github.com/DivinumOfficium/divinum-officium), MIT) | `data/divinum-officium-vespers.json`, with the source commit and a content sha256 | yes | `uv run noh officium-fetch [--commit SHA]`; never hand-edit |
-| **vesperale** Sunday table — each Sunday's Magnificat antiphon and tone from [jsrjenkins/vesperale](https://github.com/jsrjenkins/vesperale)'s `calendar.sty`, a cross-check on NOH8's own tone labels | `data/vesperale-lineup.json`, with the source commit and a content sha256 | yes | `uv run noh vesperale-fetch [--commit SHA]`; never hand-edit |
+| **Divinum Officium** Vespers texts (1960) — each office's antiphons with their psalms, Magnificat antiphons, hymn, chapter, and the psalms' verses ([DivinumOfficium/divinum-officium](https://github.com/DivinumOfficium/divinum-officium), MIT) | `data/vespers/divinum-officium-vespers.json`, with the source commit and a content sha256 | yes | `uv run noh officium-fetch [--commit SHA]`; never hand-edit |
+| **vesperale** Sunday table — each Sunday's Magnificat antiphon and tone from [jsrjenkins/vesperale](https://github.com/jsrjenkins/vesperale)'s `calendar.sty`, a cross-check on NOH8's own tone labels | `data/vespers/vesperale-lineup.json`, with the source commit and a content sha256 | yes | `uv run noh vesperale-fetch [--commit SHA]`; never hand-edit |
 
 A reader can show the chant above each part of a Proper ("Show the chant with
 each part", remembered in the browser; off by default), or follow the "Chant"
@@ -93,10 +93,10 @@ Marian antiphon of the season. The site publishes a rolling window: last year an
 five ahead.
 
 - **What is sung** comes from Divinum Officium (1960), vendored in
-  `data/divinum-officium-vespers.json`; the site's 1962 calendar decides the office.
+  `data/vespers/divinum-officium-vespers.json`; the site's 1962 calendar decides the office.
 - **The music** is NOH8's own systems: the Sunday psalter, Marian antiphons, tone bank
-  and seasons in `data/vespers-noh8.yml`, every other office in
-  `data/vespers-offices.yml` (both reviewed by hand; every tone read from the page).
+  and seasons in `data/vespers/vespers-noh8.yml`, every other office in
+  `data/vespers/vespers-offices.yml` (both reviewed by hand; every tone read from the page).
 - **Psalms**: played from the full psalm where NOH8 prints it in that tone, else from a
   printed formula in the same tone and ending (labelled, with the psalm's text below);
   a tone NOH8 never prints is said so on the page, never guessed.
@@ -108,7 +108,7 @@ Rebuild, after `noh catalog` or a change to the reviewed items:
 ```bash
 uv run noh officium-fetch         # only to move to a newer Divinum Officium commit
 uv run noh vesperale-fetch        # only to move to a newer vesperale commit
-uv run noh vespers-lineup         # data/vespers-lineup.json, with a coverage summary
+uv run noh vespers-lineup         # data/vespers/vespers-lineup.json, with a coverage summary
 uv run noh chants                 # picks up the lineup's chants
 ```
 
@@ -119,9 +119,9 @@ uv run noh vespers-lineup --day 2026-12-25
 ```
 
 `uv run noh vespers-items` proposes placements for review: the green Sundays'
-Magnificat antiphons (`data/vespers-noh8.proposed.yml`) and every other office's
+Magnificat antiphons (`data/vespers/vespers-noh8.proposed.yml`) and every other office's
 antiphons, Magnificat, hymn and versicle aligned to Divinum Officium's texts
-(`data/vespers-offices.proposed.yml`, each placement with a score).
+(`data/vespers/vespers-offices.proposed.yml`, each placement with a score).
 
 What the lineup's review entries mean:
 

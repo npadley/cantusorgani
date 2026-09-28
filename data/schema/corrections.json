@@ -27,6 +27,10 @@
       "printed_pages": {
         "pattern": "^\\d{1,3}-\\d{1,3}$",
         "hint": "first-last, e.g. 5-10"
+      },
+      "system_range": {
+        "pattern": "^noh\\d/\\d{4}/\\d{3}-noh\\d/\\d{4}/\\d{3}$",
+        "hint": "its first and last system, e.g. noh1/0044/002-noh1/0046/003 (every image on the site carries its ref); a system taken from the piece before or after leaves that piece"
       }
     },
     "part": {
@@ -51,6 +55,11 @@
       "refs": {
         "pattern": "^noh8/\\d{4}/\\d{3}( noh8/\\d{4}/\\d{3}){0,11}$",
         "hint": "the systems it is printed on, in order, separated by spaces, e.g. noh8/0077/000 noh8/0077/001 (every image on the site carries its ref)"
+      },
+      "note": {
+        "pattern": "^([^\\u0000-\\u001f<>]{2,300}|none)$",
+        "hint": "a sentence shown in place of the music (plain text, no < or >), or none to show the music again",
+        "min_letters": 2
       }
     },
     "pairing": {
@@ -109,7 +118,7 @@
   "targets_help": {
     "piece": "piece:<slug>",
     "part": "part:<slug>/<part>, or part:<slug>/<part>:<variant> (introit, gradual, alleluia, tract, sequence, offertory, communion)",
-    "vespers": "vespers:<office>/antiphon-<n> or vespers:<office>/magnificat (an office of data/vespers-offices.yml); vespers:sunday:<calendar key>/magnificat (a green Sunday's Magnificat antiphon, data/vespers-noh8.yml)",
+    "vespers": "vespers:<office>/antiphon-<n> or vespers:<office>/magnificat (an office of data/vespers/vespers-offices.yml); vespers:sunday:<calendar key>/magnificat (a green Sunday's Magnificat antiphon, data/vespers/vespers-noh8.yml)",
     "pairing": "pairing:<slug>/<movement>: the chant paired with one movement of a piece without Proper parts (kyrie, gloria, credo, sanctus, agnus, ite; chant for a single-chant piece)"
   },
   "pairing_movements": {

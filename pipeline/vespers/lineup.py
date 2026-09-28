@@ -1,269 +1,43 @@
-"""The full music of Sunday Vespers, item by item, in the order it is sung.
-
-Release 1 covers the green Sundays (after Epiphany and after Pentecost). Their
-office is the Sunday psalter of NOH8 pp. 1-27 -- five antiphons and psalms,
-the chapter's response, *Lucis Creator*, the versicle, the Benedicamus -- plus
-the day's Magnificat antiphon and the Magnificat in its tone. Each Sunday ends
-with the Marian antiphon of the season.
-
-- data/vespers-noh8.yml holds every item's systems, reviewed by hand against the
-  scans; `noh vespers-items` proposes the Magnificat antiphons and their tones
-  (data/vespers-noh8.proposed.yml) from the headings and a wide margin crop.
-- The site's 1962 calendar (data/calendar/<year>.json) alone decides which office
-  a date keeps. A green Sunday displaced by a feast (Christ the King, All Saints)
-  gets no green lineup.
-- NOH8 prints the Magnificat itself only in VIII G. For another tone the psalm
-  formula in the same tone and ending serves (the tone bank). A tone the bank
-  lacks is never guessed from a neighbour: that Sunday is held back and queued
-  (`tone_unprinted`).
-
-`noh vespers-lineup` writes data/vespers-lineup.json, keyed by civil date.
-"""
+"""The lineup: each date's Vespers, item by item in the order sung, written to
+data/vespers/vespers-lineup.json, and the one-day view of `noh vespers-lineup --day`."""
 
 from __future__ import annotations
 
 import hashlib
 import json
 import re
-from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
-import yaml
-
-# The liturgical calendar Vespers keeps (Easter, the seasons, the Marian antiphon
-# of the day, calendar keys) lives in pipeline.vespercal; re-exported here, its
-# old home.
-from pipeline.vespercal import (
+from pipeline.vespers.calendar import (
     CALENDAR,
-    advent_start,
     calendar_days,
-    easter,
     laus_tibi,
     marian_for,
     normal_key,
     ranks,
     season_of,
 )
-from pipeline.volumes import DATA
-
-REVIEWED = DATA / "vespers-noh8.yml"
-PROPOSED = DATA / "vespers-noh8.proposed.yml"
-LINEUP = DATA / "vespers-lineup.json"
-# The generated catalogue: hand corrections change titles, never systems, so
-# they do not make the lineup stale.
-CATALOG = DATA / "catalog.base.json"
-SCHEMA_VERSION = 1
-
-# The psalm-tone endings NOH8 prints (extended from the book, never by guessing).
-# The tones NOH8 prints, from the corrections schema (one list, shared with the
-# admin screen and `noh correct`).
-TONES = frozenset(json.loads((DATA / "schema" / "corrections.json").read_text(encoding="utf-8"))["tones"])
-_ROMANS = ("VIII", "VII", "VI", "IV", "V", "III", "II", "I")
-# OCR's common readings of a roman mode ("VIILG" = VIII.G, "Vil" = VII).
-_OCR_ROMAN = {"VIIL": "VIII", "VHI": "VIII", "VIIl": "VIII", "VIIi": "VIII", "VHL": "VIII",
-              "Vil": "VII", "VIl": "VII", "VU": "VII", "VIL": "VII", "Vll": "VII",
-              "lil": "III", "Iil": "III", "IIl": "III", "Ill": "III", "Il": "II", "ll": "II",
-              "W": "IV", "IN": "IV", "l": "I", "1": "I"}
-
-GREEN = re.compile(r"^tempora:(Epi[2-6]|Pent(?:0[2-9]|1\d|2[0-4]))-0r?$")
-
-
-def normalise_tone(raw: str) -> str | None:
-    """A printed tone label in NOH's notation, or None when it is not one NOH8
-    prints: "VIII. G" -> "VIII.G", "VIILG" -> "VIII.G", "I. g 2" -> "I.g2",
-    "IV.A*" -> "IV.A*", "T. pereg." -> "peregrinus"."""
-    text = raw.strip()
-    if re.search(r"\bT\.?\s*pere", text, re.IGNORECASE):
-        return "peregrinus"
-    text = re.sub(r"^.*?Ant\.?\s*", "", text)             # "Ad Magnif. Ant. VII. b"
-    m = re.match(r"([IVXLHNUWil1]{1,5})[\s.,]*([A-Ga-g])?\s*(\d)?\s*(\*)?", text)
-    if m is None:
-        return None
-    roman, ending, digit, star = m.groups()
-    for ocr, fixed in sorted(_OCR_ROMAN.items(), key=lambda kv: -len(kv[0])):
-        if roman.startswith(ocr) and roman not in _ROMANS:
-            rest = roman[len(ocr):]
-            roman = fixed
-            if not ending and rest[:1] in ("G",):          # "VIILG": the G was the ending
-                ending = rest[:1]
-            break
-    if roman not in _ROMANS:
-        return None
-    tone = roman + (f".{ending}{digit or ''}" if ending else "") + (star or "")
-    return tone if tone in TONES else None
-
-
-def tone_label(tone: str) -> str:
-    """For headings: "VII.c2" -> "VII c2", "peregrinus" -> "tonus peregrinus"."""
-    return "tonus peregrinus" if tone == "peregrinus" else tone.replace(".", " ")
-
-
-# ------------------------------------------------------------ reviewed data ---
-
-class VespersDataError(ValueError):
-    """The reviewed items name a system the catalogue lacks, or a tone NOH8 does not print."""
-
-
-@dataclass(frozen=True)
-class Reviewed:
-    doc: dict[str, object]                  # data/vespers-noh8.yml
-    offices: dict[str, dict[str, object]]   # data/vespers-offices.yml
-    texts: dict[str, object]                # Divinum Officium's texts (the psalms)
-    known: frozenset[str]                   # every system in the catalogue
-
-    def office_for(self, key: str, vespers: str) -> tuple[str, dict[str, object]] | None:
-        for oid, o in self.offices.items():
-            if o.get("vespers") == vespers and key in (o.get("keys") or []):
-                return oid, o
-        return None
-
-
-def load_reviewed(path: Path = REVIEWED, catalog_path: Path = CATALOG, offices_path: Path | None = None,
-                  texts_path: Path | None = None, corrections_path: Path | None = None) -> Reviewed:
-    """The reviewed items, checked: every system they name is in the current
-    catalogue, and every tone is one NOH8 prints. The hand corrections of
-    data/corrections.yml that name Vespers items are applied first (for the
-    real data files; `corrections_path` for others)."""
-    from pipeline.corrections import CORRECTIONS, VespersData, apply_vespers
-    from pipeline.corrections import load as load_corrections
-    from pipeline.officium import VENDORED, OfficiumError, load
-
-    doc = yaml.safe_load(path.read_text(encoding="utf-8"))
-    op = offices_path or path.with_name("vespers-offices.yml")
-    offices = (yaml.safe_load(op.read_text(encoding="utf-8")) or {}).get("offices", {}) if op.exists() else {}
-    overlay = corrections_path or (CORRECTIONS if path == REVIEWED else None)
-    if overlay is not None:
-        corrected = apply_vespers(VespersData(doc, offices), load_corrections(overlay))
-        doc, offices = corrected.doc, corrected.offices
-    try:
-        texts = load(texts_path or VENDORED)
-    except OfficiumError:
-        texts = {"psalms": {}}
-    catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
-    known = frozenset(r for p in catalog["pieces"] for r in p["systems"])
-    problems: list[str] = []
-
-    def check(refs: list[str] | None, where: str) -> None:
-        for r in refs or []:
-            if r not in known:
-                problems.append(f"{where}: {r} is not in the catalogue")
-
-    def tone(value: str | None, where: str) -> None:
-        if value is not None and value not in TONES:
-            problems.append(f"{where}: tone {value!r} is not one NOH8 prints (pipeline/vespers.py TONES)")
-
-    so = doc["sunday_office"]
-    check(so["initium"]["refs"], "sunday_office.initium")
-    for ps in so["psalms"]:
-        tone(ps["tone"], f"psalm {ps['number']}")
-        check(ps["antiphon"]["refs"] + ps["psalm"], f"psalm {ps['number']}")
-    for name in ("chapter", "hymn", "versicle", "benedicamus"):
-        check(so[name]["refs"], f"sunday_office.{name}")
-    for name in ("alma", "ave", "regina", "salve"):
-        m = doc["marian_antiphons"][name]
-        check(m["refs"] + m["versicle"] + m.get("versicle_advent", []), f"marian_antiphons.{name}")
-    for key, entry in doc["magnificat_antiphons"].items():
-        tone(entry["tone"], key)
-        check(entry["refs"], key)
-    for entry in doc.get("magnificats", []) + doc.get("psalm_formulas", []):
-        tone(entry["tone"], f"tone bank {entry['tone']}")
-        check(entry["refs"], f"tone bank {entry['tone']}")
-    for season, parts in (doc.get("seasons") or {}).items():
-        for name, entry in parts.items():
-            check(entry.get("refs"), f"seasons.{season}.{name}")
-    for day, entry in (doc.get("o_antiphons") or {}).get("days", {}).items():
-        check(entry["refs"], f"o_antiphons.{day}")
-    for oid, o in offices.items():
-        for a in o.get("antiphons") if isinstance(o.get("antiphons"), list) else []:
-            tone(a.get("tone"), f"{oid} antiphon {a.get('n')}")
-            check(a.get("refs"), f"{oid} antiphon {a.get('n')}")
-            check(a.get("opening"), f"{oid} antiphon {a.get('n')} opening")
-        for name in ("magnificat", "hymn"):
-            if isinstance(o.get(name), dict):
-                tone(o[name].get("tone") if name == "magnificat" else None, f"{oid} {name}")
-                check(o[name].get("refs"), f"{oid} {name}")
-        check(o.get("versicle"), f"{oid} versicle")
-    if problems:
-        raise VespersDataError(f"{path.name} / {op.name}:\n  " + "\n  ".join(problems)
-                               + "\n  Fix the entry against the scan, or re-run noh catalog if the "
-                                 "catalogue is out of date.")
-    return Reviewed(doc, offices, texts, known)
-
-
-# --------------------------------------------------------------- the lineup ---
-
-def _source(refs: list[str], **extra: object) -> dict[str, object]:
-    return {"type": "printed", "refs": list(refs), **extra}
-
-
-def _note(text: str) -> dict[str, object]:
-    return {"type": "note", "text": text}
-
-
-def _item(key: str, group: str, kind: str, label: str, source: dict[str, object],
-          tone: str | None = None, chant: int | None = None, number: int | None = None,
-          repeat: bool = False, psalm_text: list[str] | None = None, target: str | None = None) -> dict[str, object]:
-    item: dict[str, object] = {"item_key": key, "group": group, "kind": kind, "number": number, "label": label,
-                               "tone": tone, "source": source, "chant": chant, "repeat": repeat}
-    if psalm_text:
-        item["psalm_text"] = psalm_text
-    if target:
-        # Where its tone and chant are corrected (data/corrections.yml).
-        item["target"] = target
-    return item
-
-
-PSALM_TITLES = {109: "Dixit Dominus", 110: "Confitebor tibi", 111: "Beatus vir", 112: "Laudate pueri",
-                113: "In exitu Israel", 115: "Credidi", 116: "Laudate Dominum", 121: "Laetatus sum",
-                125: "In convertendo", 126: "Nisi Dominus", 127: "Beati omnes", 129: "De profundis",
-                131: "Memento Domine", 138: "Domine probasti me", 147: "Lauda Jerusalem"}
-
-
-def psalm_music(reviewed: Reviewed, psalm: int, tone: str | None, opening: list[str] | None
-                ) -> tuple[dict[str, object], bool]:
-    """The accompaniment a psalm is played from, and whether its text should be
-    printed beside it: the Sunday psalter's full psalm when NOH8 prints this
-    psalm in this tone; the office's own printed opening; a printed formula in
-    the same tone and ending (the same psalm first); otherwise a note."""
-    for ps in reviewed.doc["sunday_office"]["psalms"]:      # type: ignore[index]
-        if ps["number"] == psalm and ps["tone"] == tone:
-            return _source(ps["psalm"]), False
-    if opening:
-        return _source(opening, opening_only=True), True
-    if tone:
-        formulas = [f for f in reviewed.doc.get("psalm_formulas", []) if f["tone"] == tone]   # type: ignore[union-attr]
-        formulas.sort(key=lambda f: f["psalm"] != psalm)
-        if formulas:
-            f = formulas[0]
-            return ({"type": "bank", "refs": list(f["refs"]), "bank_kind": "psalm",
-                     "bank_label": f"Psalm {f['psalm']} in {tone_label(tone)}",
-                     "borrowed_from": f"{f['source']}, p. {f['page']}"}, True)
-        return _note(f"No accompaniment in {tone_label(tone)} is printed in NOH VIII; "
-                     f"the psalm is sung in that tone."), True
-    return _note("The tone of this psalm is not printed."), True
-
-
-def magnificat_music(reviewed: Reviewed, tone: str | None) -> dict[str, object]:
-    doc = reviewed.doc
-    for m in doc.get("magnificats", []):                   # type: ignore[union-attr]
-        if m["tone"] == tone:
-            return {"type": "bank", "refs": list(m["refs"]), "bank_kind": "magnificat", "bank_label": m["label"],
-                    "borrowed_from": f"{m['source']}, p. {m['page']}"}
-    if tone:
-        formulas = [f for f in doc.get("psalm_formulas", []) if f["tone"] == tone]   # type: ignore[union-attr]
-        if formulas:
-            f = formulas[0]
-            return {"type": "bank", "refs": list(f["refs"]), "bank_kind": "psalm",
-                    "bank_label": f"Psalm {f['psalm']} in {tone_label(tone)}",
-                    "borrowed_from": f"{f['source']}, p. {f['page']}"}
-        return _note(f"No accompaniment for the Magnificat in {tone_label(tone)} is printed in NOH VIII; "
-                     f"sing it unaccompanied or improvise in {tone_label(tone)}.")
-    return _note("The tone of the Magnificat is not printed.")
-
-
-def _psalm_verses(reviewed: Reviewed, psalm: int) -> list[str]:
-    return list(reviewed.texts.get("psalms", {}).get(str(psalm), []))      # type: ignore[union-attr]
+from pipeline.vespers.music import (
+    PSALM_TITLES,
+    _item,
+    _music,
+    _note,
+    _psalm_verses,
+    _source,
+    magnificat_music,
+    psalm_music,
+)
+from pipeline.vespers.reviewed import (
+    CATALOG,
+    GREEN,
+    LINEUP,
+    REVIEWED,
+    SCHEMA_VERSION,
+    Reviewed,
+    load_reviewed,
+    tone_label,
+)
 
 
 def build_office(day: date, key: str, vespers: str, reviewed: Reviewed,
@@ -311,16 +85,16 @@ def build_office(day: date, key: str, vespers: str, reviewed: Reviewed,
         single = row.get("single")
         title = PSALM_TITLES.get(int(psalm), f"Psalm {psalm}")
         if not single or n == 1:
-            if row.get("refs"):
+            if row.get("refs") or row.get("note"):
                 items.append(_item(f"{base}/antiphon/{n}", group, "antiphon", str(row["incipit"]),
-                                   _source(row["refs"]), tone, row.get("chant"), n, target=row.get("target")))
+                                   _music(row), tone, row.get("chant"), n, target=row.get("target")))
             else:
                 items.append(_item(f"{base}/antiphon/{n}", group, "antiphon", str(row["incipit"]),
                                    _note("This antiphon is not printed in NOH VIII."), None, None, n))
         music, with_text = psalm_music(reviewed, int(psalm), tone, row.get("opening"))
         items.append(_item(f"{base}/psalm/{n}", group, "psalm", f"Psalm {psalm}: {title}", music, tone, None,
                            int(psalm), psalm_text=_psalm_verses(reviewed, int(psalm)) if with_text else None))
-        if (not single or n == len(rows)) and row.get("refs"):
+        if (not single or n == len(rows)) and row.get("refs") and not row.get("note"):
                 items.append(_item(f"{base}/antiphon/{n}r", group, "antiphon", str(row["incipit"]),
                                    _source(row["refs"]), tone, row.get("chant"), n, repeat=True))
 
@@ -376,14 +150,14 @@ def build_office(day: date, key: str, vespers: str, reviewed: Reviewed,
     if mag is None:
         return None, f"{k}: no Magnificat antiphon for {vespers} Vespers"
     mag_tone = mag.get("tone")
-    mag_source = _source(mag["refs"]) if mag.get("refs") else _note("This antiphon is not printed in NOH VIII.")
+    mag_source = _music(mag)
     items += [
         _item(f"{base}/magnificat-antiphon/1", "magnificat", "magnificat-antiphon", str(mag["incipit"]),
               mag_source, mag_tone, mag.get("chant"), target=mag_target),
         _item(f"{base}/magnificat/1", "magnificat", "magnificat", "Magnificat",
               magnificat_music(reviewed, mag_tone), mag_tone),
     ]
-    if mag.get("refs"):
+    if mag.get("refs") and not mag.get("note"):
         items.append(_item(f"{base}/magnificat-antiphon/1r", "magnificat", "magnificat-antiphon",
                            str(mag["incipit"]), mag_source, mag_tone, mag.get("chant"), repeat=True))
     items.append(_item(f"{base}/oration/1", "oration", "oration", "Collect",
@@ -641,109 +415,3 @@ def describe(day_iso: str, doc: dict[str, object], owner_page: dict[str, int] | 
     return "\n".join(lines)
 
 
-# ------------------------------------------------------------ proposals ---
-
-WIDE_STRIP = 0.16
-
-
-def read_tone_margin(slice_png: Path) -> str:
-    """A wide crop of a system's margin: "Ad Magnif. Ant. VII. b" is wider than
-    the 9% strip Proper labels fit in."""
-    import pytesseract
-    from PIL import Image
-
-    with Image.open(slice_png) as image:
-        grey = image.convert("L")
-        strip = grey.crop((0, int(grey.height * 0.15), int(grey.width * WIDE_STRIP), grey.height))
-        return " ".join(pytesseract.image_to_string(strip, config="--psm 6").split())
-
-
-_HEADING = re.compile(r"DOMINICA\s+([IVXL]+)\.?\s+(?:QU\w+\s+SUPERFUIT\s+)?POST\s+(PENTECOSTEN|EPIPHANIAM)")
-_ROMAN_VALUE = {"I": 1, "V": 5, "X": 10, "L": 50}
-
-
-def sunday_heading(text: str) -> str | None:
-    """The calendar key a system's heading names: "DOMINICA XIV. POST
-    PENTECOSTEN." -> "tempora:Pent14-0"; None when it names no green Sunday."""
-    m = _HEADING.search(text)
-    if m is None:
-        return None
-    digits = m.group(1)
-    n = 0
-    for a, b in zip(digits, digits[1:] + " ", strict=True):
-        v = _ROMAN_VALUE[a]
-        n += -v if b in _ROMAN_VALUE and _ROMAN_VALUE[b] > v else v
-    key = f"tempora:Pent{n:02d}-0" if m.group(2).startswith("PENT") else f"tempora:Epi{n}-0"
-    return key if GREEN.match(key) else None
-
-
-def propose(catalog_path: Path = CATALOG, slices: Path | None = None,
-            path: Path = PROPOSED) -> tuple[Path, int]:
-    """Propose each green Sunday's Magnificat antiphon from NOH8's headings
-    ("DOMINICA XIV. POST PENTECOSTEN.") and its tone from a wide margin crop.
-    The proposal is reviewed against the scans into data/vespers-noh8.yml."""
-    import pymupdf
-
-    from pipeline.catalog import scan_page
-    from pipeline.margins import SLICES
-    from pipeline.volumes import load_volumes
-
-    slices = slices or SLICES
-    vol = load_volumes()["noh8"]
-    catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
-    sections = [p for p in catalog["pieces"] if p["slug"] in (
-        "vesperae-dominicae-ii-vi-post-epiphaniam", "vesperae-dominicae-iv-xxiv-post-pentecosten")]
-    found: dict[str, dict[str, object]] = {}
-    with pymupdf.open(vol.path) as doc:
-        for piece in sections:
-            texts: dict[str, str] = {}
-            for page in sorted({int(r.split("/")[1]) for r in piece["systems"]}):
-                refs, _, _ = scan_page("noh8", page, doc[page - 1])
-                texts.update({r.ref: r.text for r in refs})
-            starts: list[tuple[int, str]] = []
-            for i, ref in enumerate(piece["systems"]):
-                key = sunday_heading(texts.get(ref, ""))
-                if key:
-                    starts.append((i, key))
-            for (i, key), nxt in zip(starts, starts[1:] + [(len(piece["systems"]), "")], strict=True):
-                ref = piece["systems"][i]
-                png = slices / "noh8" / f"{ref.split('/', 1)[1]}@2x.png"
-                raw = read_tone_margin(png) if png.exists() else ""
-                found[key] = {"piece": piece["slug"], "refs": piece["systems"][i:nxt[0]],
-                              "tone": normalise_tone(raw), "margin": raw}
-    header = ("# PROPOSED by `noh vespers-items` -- not reviewed. Check each against the scan\n"
-              "# and copy it into data/vespers-noh8.yml. A tone of null was not readable.\n")
-    path.write_text(header + yaml.safe_dump({"magnificat_antiphons": found}, sort_keys=True,
-                                            allow_unicode=True, width=110), encoding="utf-8")
-    return path, len(found)
-
-
-__all__ = [
-    "LINEUP",
-    "REVIEWED",
-    "TONES",
-    "Reviewed",
-    "VespersDataError",
-    "advent_start",
-    "build_lineup",
-    "calendar_days",
-    "check_lineup",
-    "describe",
-    "easter",
-    "laus_tibi",
-    "load_reviewed",
-    "marian_for",
-    "normal_key",
-    "normalise_tone",
-    "propose",
-    "ranks",
-    "read_tone_margin",
-    "referenced_chants",
-    "resolve_day",
-    "season_of",
-    "sunday_heading",
-    "sunday_lineup",
-    "tone_disagreements",
-    "tone_label",
-    "write_lineup",
-]

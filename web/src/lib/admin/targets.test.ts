@@ -73,3 +73,33 @@ describe("chant pairings", () => {
     expect(pairingMovements("mass_ordinary", ["kyrie", "sanctus", "agnus", "ite"])).toEqual(["kyrie", "sanctus", "agnus", "ite"]);
   });
 });
+
+describe("system ranges and notes", () => {
+  const R = { ...targets(piece("dominica-ii", { genre: "proper", range: ["noh1/0034/000", "noh1/0034/004"] })),
+    vespers: { "vespers:adv1/antiphon-1": { label: "Ecce nomen", when: "Advent I, I Vespers", href: "/vespers/2026-11-28/",
+                                              tone: "VIII.G", chant: null, refs: ["noh8/0077/000"], note: null,
+                                              stem: null, aspect: null },
+               "vespers:adv1/magnificat": { label: "Ne timeas", when: "Advent I, I Vespers", href: "/vespers/2026-11-28/",
+                                            tone: "I.g", chant: null, refs: ["noh8/0078/000"], note: "Sung from the Antiphonale.",
+                                            stem: null, aspect: null } } };
+
+  it("should read a range typed with to, spaces or a hyphen, in the piece's own volume and forwards", () => {
+    const info = describeTarget(R, "piece:dominica-ii")!;
+    expect(info.values["system_range"]).toBe("noh1/0034/000-noh1/0034/004");
+    expect(checkValue(R, info, "system_range", "noh1/0034/000 to noh1/0034/005")).toEqual({ ok: true, value: "noh1/0034/000-noh1/0034/005" });
+    expect(checkValue(R, info, "system_range", "noh1/0034/000 noh1/0034/003")).toEqual({ ok: true, value: "noh1/0034/000-noh1/0034/003" });
+    expect(checkValue(R, info, "system_range", "noh2/0034/000-noh2/0034/004")).toMatchObject({ ok: false, error: expect.stringMatching(/in noh1/) });
+    expect(checkValue(R, info, "system_range", "noh1/0034/004-noh1/0034/000")).toMatchObject({ ok: false, error: expect.stringMatching(/backwards/) });
+    expect(checkValue(R, info, "system_range", "noh1/0034/000-noh1/0034/004")).toMatchObject({ ok: false, error: expect.stringMatching(/already/) });
+  });
+
+  it("should set a note, remove one with none or an empty value, and refuse to remove a note that is not there", () => {
+    const plain = describeTarget(R, "vespers:adv1/antiphon-1")!;
+    const noted = describeTarget(R, "vespers:adv1/magnificat")!;
+    expect(noted.values["note"]).toBe("Sung from the Antiphonale.");
+    expect(checkValue(R, plain, "note", "  Sung   unaccompanied. ")).toEqual({ ok: true, value: "Sung unaccompanied." });
+    expect(checkValue(R, noted, "note", "")).toEqual({ ok: true, value: "none" });
+    expect(checkValue(R, plain, "note", "none")).toMatchObject({ ok: false, error: expect.stringMatching(/no note to remove/) });
+    expect(checkValue(R, plain, "note", "<b>x</b>")).toMatchObject({ ok: false });
+  });
+});

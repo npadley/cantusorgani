@@ -2,6 +2,7 @@
  * Browser-side helpers for the admin pages. Everything shown is built with
  * DOM calls and textContent: values from the database are never parsed as HTML.
  */
+import type { Scans, Shown } from "./scans";
 import type { Targets } from "./targets";
 
 export type ApiResult<T> = { ok: true; data: T } | { ok: false; status: number; error: string };
@@ -35,6 +36,36 @@ export function loadTargets(): Promise<Targets | null> {
   targetsPromise ??= fetch("/corrections/targets.json", { credentials: "same-origin" })
     .then((r) => (r.ok ? (r.json() as Promise<Targets>) : null)).catch(() => null);
   return targetsPromise;
+}
+
+let scansPromise: Promise<Scans | null> | null = null;
+export function loadScans(): Promise<Scans | null> {
+  scansPromise ??= fetch("/admin/scans.json", { credentials: "same-origin" })
+    .then((r) => (r.ok && (r.headers.get("content-type") ?? "").includes("json") ? (r.json() as Promise<Scans>) : null))
+    .catch(() => null);
+  return scansPromise;
+}
+
+/** The pictures of the systems a correction names, each captioned with its ref. */
+export function scanFigures(systems: readonly Shown[], href: string | null): HTMLElement | null {
+  if (systems.length === 0) return null;
+  return h("div", { class: "scan" },
+    ...systems.map((s) => h("figure", {},
+      s.stem ? h("img", { src: `${s.stem}.webp`, alt: `${s.caption}, as printed`, loading: "lazy",
+                          width: s.aspect ? String(s.aspect[0]) : undefined, height: s.aspect ? String(s.aspect[1]) : undefined })
+        : null,
+      h("figcaption", { class: "small muted" }, s.caption))),
+    href ? h("p", { class: "small" }, h("a", { href }, "Open the page")) : null);
+}
+
+/** Runs `fn` once typing pauses: the pictures change while the editor types,
+ * never as focus leaves the field, which would move the button being pressed. */
+export function whenTypingPauses(fn: () => void, ms = 300): () => void {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  return () => {
+    clearTimeout(timer);
+    timer = setTimeout(fn, ms);
+  };
 }
 
 type Child = Node | string | null | undefined | false;

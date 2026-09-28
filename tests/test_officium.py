@@ -186,7 +186,7 @@ def test_check_officium_doctor_fail_and_pass(tmp_path):
 
 def test_cli_officium_fetch_reports_and_fails_cleanly(capsys, monkeypatch):
     from pipeline import officium
-    monkeypatch.setattr(officium, "fetch", lambda _c: ("data/divinum-officium-vespers.json", "abc1234def", 70))
+    monkeypatch.setattr(officium, "fetch", lambda _c: ("data/vespers/divinum-officium-vespers.json", "abc1234def", 70))
     assert cli.main(["officium-fetch"]) == 0
     assert "Vespers of 70 offices" in capsys.readouterr().out
 

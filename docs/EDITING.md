@@ -13,10 +13,11 @@ catalogue can run on GitHub.
 | A piece's title, incipit or mode is wrong | [Title, incipit, mode](#title-incipit-mode) | No |
 | A piece's printed pages are wrong | [Printed pages](#printed-pages) | No |
 | A reader sent a correction | [The admin screen](#the-admin-screen), or [Reader corrections](#reader-corrections) | No |
-| A Vespers antiphon's or Magnificat antiphon's tone, chant link or systems are wrong | [Vespers items](#vespers-items) | No |
+| A Vespers antiphon's or Magnificat antiphon's tone, chant link or systems are wrong, or it should show a note instead | [Vespers items](#vespers-items) | No |
 | A Vespers hymn, versicle, psalm or season is wrong | [Vespers at the source](#vespers-at-the-source) | No |
 | A day shows the wrong Mass, or no Mass | [Days and rubrics](#days-and-rubrics) | Yes, on GitHub |
-| A piece starts or ends on the wrong page or system | [Piece boundaries](#piece-boundaries) | Yes, on GitHub |
+| A piece starts or ends on the wrong system | [System range](#system-range) | No |
+| A piece is listed on the wrong page, or starts on the wrong page | [Piece boundaries](#piece-boundaries) | Yes, on GitHub |
 | A Proper part (Introit, Gradual…) starts on the wrong system, or its chant link is wrong | [Proper parts](#proper-parts) | No |
 | A Vespers psalm uses the wrong formula, or should show a note | [Psalm formulas and notes](#psalm-formulas-and-notes) | No |
 | A newer Divinum Officium, vesperale, jgabc or calendar | [Refreshing a source](#refreshing-a-source) | No |
@@ -36,8 +37,11 @@ code arrives by email). Setting it up is described in
 [docs/ADMIN-SETUP.md](ADMIN-SETUP.md).
 
 - **To review** lists readers' reports. Each shows the current value, the
-  proposed one (which you can change before accepting), the reader's note and
-  the printed system. **Accept**, **Reject** (with a reason) or **Duplicate**.
+  proposed one (which you can change before accepting) and the reader's note,
+  beside the systems the report is about: a part's first system and the one
+  proposed, a Vespers item's systems, a piece's first and last. Each picture is
+  captioned with its ref. **Accept**, **Reject** (with a reason) or
+  **Duplicate**.
 - **Make a correction yourself**: every piece page has an **Edit** link at its
   foot, which opens the form for that piece. Your fix is approved at once.
 - **Publish changes** sends everything approved to GitHub as one pull request.
@@ -49,9 +53,10 @@ code arrives by email). Setting it up is described in
 
 Every action records who did it. Two editors can't both act on one report: the
 second is told who got there first. The admin screen corrects a piece's title,
-incipit, mode, genre and printed pages; where a Proper part starts and its
-chant; and a Vespers antiphon's tone, chant and printed systems. Everything
-else needs the loop below.
+incipit, mode, genre, printed pages and system range; where a Proper part starts
+and its chant; a Mass movement's chant; and a Vespers antiphon's tone, chant,
+printed systems and a note shown instead of its music. Everything else needs the
+loop below.
 
 ---
 
@@ -183,8 +188,30 @@ The maintainer can instead fix the title at its source, `title:` in
 - **Command**: none.
 - **Confirm**: the page's heading line shows the new pages.
 
-This changes only the page numbers shown. If the music itself starts on the
-wrong system, see [Piece boundaries](#piece-boundaries).
+This changes only the page numbers shown. If the music itself starts or ends
+on the wrong system, see [System range](#system-range).
+
+### System range
+
+A piece's first and last system, when the pipeline split two pieces at the
+wrong system.
+
+- **File**: `data/corrections.yml`.
+- **Change**: `uv run noh correct piece:<slug> system_range noh1/0044/002-noh1/0046/003`
+  (or `... to ...`). Every image on the site carries its ref in `data-ref`.
+- **What else moves**: systems the new range takes leave the piece before or
+  after, and its printed pages follow its systems (a `printed_pages`
+  correction still wins). The pieces' Proper parts keep the systems they start
+  on, so a range that would leave a part outside its piece, take the system a
+  neighbour's part starts on, split a neighbour in two or take all of it is
+  refused: move the part first. Part corrections count from the corrected
+  range.
+- **Command**: none.
+- **Confirm**: preview the piece and its neighbour; each starts and ends on the
+  right system.
+
+If the index lists the piece on the wrong page, fix it at the source instead:
+[Piece boundaries](#piece-boundaries).
 
 ### Reader corrections
 
@@ -216,7 +243,8 @@ pairing" is refused, because a chant belongs to a part: see
 ### Vespers items
 
 The tone, chant and printed systems of an office's antiphons and Magnificat
-antiphon, and of a green Sunday's Magnificat antiphon.
+antiphon, and of a green Sunday's Magnificat antiphon; or a note shown in place
+of its music.
 
 - **File**: `data/corrections.yml`.
 - **Change**: `uv run noh where <Vespers page URL>` lists the page's targets.
@@ -226,10 +254,14 @@ antiphon, and of a green Sunday's Magnificat antiphon.
   uv run noh correct vespers:adv1/antiphon-2 tone VIII.G*
   uv run noh correct vespers:sunday:tempora:Pent18-0/magnificat chant 2205
   uv run noh correct vespers:adv1/antiphon-1 refs "noh8/0077/000 noh8/0077/001"
+  uv run noh correct vespers:adv1/magnificat note "The book prints this for II Vespers; sing it from the Antiphonale."
+  uv run noh correct vespers:adv1/magnificat note none      # show the music again
   ```
 
   `refs` are the systems it is printed on, in order; every image on the site
   carries its ref in `data-ref`. Each must be a system in the catalogue.
+  A `note` replaces the item's music (its repeat after the psalm too) with that
+  sentence; its tone and chant link stay.
 
 - **Command**: none; `noh correct` rebuilds the Vespers lineup for the years it
   already covers.
@@ -243,8 +275,8 @@ Everything else about Vespers — hymns, versicles, the Sunday psalter, seasons,
 the tone bank, a psalm's opening — is fixed in the reviewed files, not the
 overlay.
 
-- **File**: `data/vespers-offices.yml` (an office's items) or
-  `data/vespers-noh8.yml` (psalter, Marian antiphons, seasons,
+- **File**: `data/vespers/vespers-offices.yml` (an office's items) or
+  `data/vespers/vespers-noh8.yml` (psalter, Marian antiphons, seasons,
   `magnificat_antiphons`, tone bank). `noh where` names the office and line.
 - **Change**: `refs:` are the systems, as `noh8/<PDF page>/<n>`; every image on
   the site carries its ref in `data-ref`.
@@ -310,7 +342,7 @@ so it has no Report link. It's listed on the admin edit page and in
 
 ### Psalm formulas and notes
 
-- **File**: `psalm_formulas` and `magnificats` in `data/vespers-noh8.yml`.
+- **File**: `psalm_formulas` and `magnificats` in `data/vespers/vespers-noh8.yml`.
 - **Change**: add a formula only from a printed accompaniment in exactly that
   tone and ending. Where NOH8 prints none, the page correctly shows a note, and
   that is not an error.
@@ -354,7 +386,7 @@ the maintainer's machine.
 ## What never to touch
 
 - **Generated files**: `data/catalog.json`, `data/catalog.base.json`,
-  `data/vespers-lineup.json`, `data/chants.json`, `data/review-queue.json`,
+  `data/vespers/vespers-lineup.json`, `data/chants.json`, `data/review-queue.json`,
   and the vendored `data/*-propers.json`, `divinum-officium-vespers.json` and
   `vesperale-lineup.json`. Commands rewrite them, and a hand edit is lost or
   fails its checksum.

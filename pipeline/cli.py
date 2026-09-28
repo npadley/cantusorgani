@@ -94,16 +94,16 @@ def build_parser() -> argparse.ArgumentParser:
                     help="download the pinned GregoBase dump (CC0) into vendor/, checked against its sha256")
 
     of = subs.add_parser("officium-fetch",
-                         help="vendor Divinum Officium's Vespers texts (1960) into data/divinum-officium-vespers.json")
+                         help="vendor Divinum Officium's Vespers texts (1960) into data/vespers/divinum-officium-vespers.json")
     of.add_argument("--commit", default=None, help="Divinum Officium commit sha (default: the pinned one)")
     vf = subs.add_parser("vesperale-fetch",
-                         help="vendor jsrjenkins/vesperale's Sunday Vespers table into data/vesperale-lineup.json")
+                         help="vendor jsrjenkins/vesperale's Sunday Vespers table into data/vespers/vesperale-lineup.json")
     vf.add_argument("--commit", default=None, help="vesperale commit sha (default: the pinned one)")
     subs.add_parser("vespers-items",
                     help="propose each green Sunday's Magnificat antiphon and tone from NOH8 "
-                         "(data/vespers-noh8.proposed.yml, for review)")
+                         "(data/vespers/vespers-noh8.proposed.yml, for review)")
     vl = subs.add_parser("vespers-lineup",
-                         help="write data/vespers-lineup.json: each Sunday's Vespers in sung order")
+                         help="write data/vespers/vespers-lineup.json: each Sunday's Vespers in sung order")
     vl.add_argument("--day", default=None,
                     help="print one day's lineup instead: a date (2026-09-13) or a key (tempora:Pent16-0)")
     vl.add_argument("--json", action="store_true", help="with --day: print that day's JSON")
@@ -337,7 +337,7 @@ def main(argv: list[str] | None = None) -> int:
         try:
             path, commit, count = fetch_officium(args.commit or DO_PINNED)
         except (OfficiumError, OSError) as exc:
-            print(f"officium-fetch: {exc}\n  data/divinum-officium-vespers.json was left untouched.",
+            print(f"officium-fetch: {exc}\n  data/vespers/divinum-officium-vespers.json was left untouched.",
                   file=sys.stderr)
             return 1
         print(f"wrote {path}: Vespers of {count} offices, commit {commit[:12]}")
@@ -349,7 +349,7 @@ def main(argv: list[str] | None = None) -> int:
         try:
             path, commit, count = fetch_vesperale(args.commit or PINNED)
         except (VesperaleIntegrityError, OSError) as exc:
-            print(f"vesperale-fetch: {exc}\n  data/vesperale-lineup.json was left untouched.",
+            print(f"vesperale-fetch: {exc}\n  data/vespers/vesperale-lineup.json was left untouched.",
                   file=sys.stderr)
             return 1
         print(f"wrote {path}: {count} Sundays' Magnificat antiphons and tones, commit {commit[:12]}")
@@ -364,6 +364,7 @@ def main(argv: list[str] | None = None) -> int:
         from pipeline.officium import load as load_officium
         from pipeline.vesperitems import office_systems, propose_offices
         from pipeline.vespers import CATALOG, propose
+        from pipeline.volumes import VESPERS
         path, count = propose()
         print(f"{path}: {count} Magnificat antiphons of the green Sundays proposed")
         try:
@@ -372,15 +373,15 @@ def main(argv: list[str] | None = None) -> int:
             print(f"vespers-items: {exc}", file=sys.stderr)
             return 1
         offices = propose_offices(office_systems(_json.loads(CATALOG.read_text(encoding="utf-8"))), texts)
-        out = CATALOG.with_name("vespers-offices.proposed.yml")
+        out = VESPERS / "vespers-offices.proposed.yml"
         out.write_text("# PROPOSED by `noh vespers-items` -- not reviewed. Check each placement (score) and tone "
-                       "against the scan,\n# then carry it into data/vespers-offices.yml.\n"
+                       "against the scan,\n# then carry it into data/vespers/vespers-offices.yml.\n"
                        + _yaml.safe_dump({"offices": offices}, sort_keys=False, allow_unicode=True, width=150),
                        encoding="utf-8")
         weak = sum(1 for o in offices.values() for a in (o.get("antiphons") if isinstance(o.get("antiphons"), list)
                    else []) if not isinstance(a.get("score"), float) or a["score"] < 0.7)
         print(f"{out}: {len(offices)} offices proposed; {weak} antiphon placements to check by eye "
-              f"(score under 0.7 or unplaced). Review into data/vespers-offices.yml.")
+              f"(score under 0.7 or unplaced). Review into data/vespers/vespers-offices.yml.")
         return 0
 
     if args.command == "vespers-lineup":
@@ -396,7 +397,7 @@ def main(argv: list[str] | None = None) -> int:
         )
         if args.day:
             if not LINEUP.exists():
-                print("vespers-lineup: data/vespers-lineup.json is missing; run uv run noh vespers-lineup "
+                print("vespers-lineup: data/vespers/vespers-lineup.json is missing; run uv run noh vespers-lineup "
                       "first.", file=sys.stderr)
                 return 1
             doc = _json.loads(LINEUP.read_text(encoding="utf-8"))
