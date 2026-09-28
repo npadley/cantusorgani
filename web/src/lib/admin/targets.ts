@@ -11,7 +11,7 @@
  */
 import schema from "../../../../data/schema/corrections.json";
 
-export type Kind = "piece" | "part" | "vespers";
+export type Kind = "piece" | "part" | "vespers" | "pairing";
 export type PieceField = "title" | "incipit" | "mode" | "genre" | "printed_pages";
 
 interface FieldRule {
@@ -32,6 +32,26 @@ const READER_FIELDS = schema.reader_fields as Readonly<Record<string, string>>;
 /** The fields each kind of target can correct, in the order offered. */
 export const FIELDS_OF: Readonly<Record<Kind, readonly string[]>> = {
   piece: Object.keys(RULES.piece), part: Object.keys(RULES.part), vespers: Object.keys(RULES.vespers),
+  pairing: Object.keys(RULES.pairing),
+};
+
+const MOVEMENTS = schema.pairing_movements as unknown as Readonly<Record<string, readonly string[]>>;
+
+/** The chant movements a piece of this genre has ("chant": the one chant of a
+ * single-chant piece); none for a Proper, whose chants are on its parts. For an
+ * Ordinary, give `present` (movements found in its pages, or already paired):
+ * only those count -- Missa XVII, for Advent and Lent, has no Gloria. The same
+ * rule as pipeline/corrections.py piece_movements. */
+export function pairingMovements(genre: string, present?: Iterable<string>): readonly string[] {
+  const allowed = genre === "$comment" ? [] : MOVEMENTS[genre] ?? [];
+  if (genre !== "mass_ordinary" || present === undefined) return allowed;
+  const have = new Set(present);
+  return allowed.filter((m) => have.has(m));
+}
+
+export const MOVEMENT_LABELS: Readonly<Record<string, string>> = {
+  kyrie: "Kyrie", gloria: "Gloria", credo: "Credo", sanctus: "Sanctus", agnus: "Agnus Dei", ite: "Ite missa est",
+  chant: "Chant",
 };
 export const PIECE_FIELDS = FIELDS_OF.piece as readonly PieceField[];
 
@@ -71,6 +91,10 @@ export interface TargetPiece {
   readonly aspect: readonly [number, number] | null;
   readonly systems?: number;
   readonly parts?: readonly TargetPart[];
+  /** Chants paired with the piece's movements (movement "chant": a single-chant piece). */
+  readonly pairings?: readonly { readonly movement: string; readonly id: number }[];
+  /** The movements found in its pages (an Ordinary's Kyrie, Gloria ...). */
+  readonly movements?: readonly string[];
 }
 
 export interface TargetVespers {
@@ -113,7 +137,7 @@ export interface TargetInfo {
 
 export function kindOf(target: string): Kind | null {
   const kind = target.split(":", 1)[0];
-  return kind === "piece" || kind === "part" || kind === "vespers" ? kind : null;
+  return kind === "piece" || kind === "part" || kind === "vespers" || kind === "pairing" ? kind : null;
 }
 
 export function isPieceField(name: string): name is PieceField {
@@ -159,6 +183,16 @@ export function describeTarget(targets: Targets, name: string): TargetInfo | nul
     return { target: `piece:${piece.slug}`, kind, label: `${piece.label} (${piece.volume})`, href: piece.href,
              stem: piece.stem, aspect: piece.aspect, values: pieceValues(piece), genre: piece.genre, slug: piece.slug,
              fixed: null, bounds: null };
+  }
+  if (kind === "pairing") {
+    const movement = partName ?? "";
+    const present = [...(piece.movements ?? []), ...(piece.pairings ?? []).map((c) => c.movement)];
+    if (!pairingMovements(piece.genre, present).includes(movement)) return null;
+    const paired = (piece.pairings ?? []).find((c) => c.movement === movement);
+    return { target: `pairing:${piece.slug}/${movement}`, kind,
+             label: `${piece.label} (${piece.volume}) · ${MOVEMENT_LABELS[movement] ?? movement} chant`,
+             href: piece.href, stem: piece.stem, aspect: piece.aspect,
+             values: { chant: chantText(paired?.id ?? null) }, genre: piece.genre, slug: piece.slug, fixed: null, bounds: null };
   }
   const [part, variant = ""] = (partName ?? "").split(":") as [string, string | undefined];
   const parts = piece.parts ?? [];

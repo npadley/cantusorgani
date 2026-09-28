@@ -60,6 +60,7 @@ HEADER = """\
 #   vespers:<office>/antiphon-<n>         tone, chant, refs   (an office of vespers-offices.yml)
 #   vespers:<office>/magnificat           tone, chant, refs
 #   vespers:sunday:<key>/magnificat       tone, chant, refs   (vespers-noh8.yml magnificat_antiphons)
+#   pairing:<slug>/<movement>             chant   (a Kyrie, Gloria... of a piece without Proper parts)
 # A chant is a GregoBase id, or none; refs are the systems it is printed on
 # ("noh8/0077/000 noh8/0077/001"). For example:
 #
@@ -282,6 +283,62 @@ def _vespers_slot(target: str, name: str, data: VespersData) -> Slot:
                 check=check if name == "refs" else None)
 
 
+_CHANTS: dict[str, Any] | None = None
+
+
+def _chant_names() -> dict[str, Any]:
+    """data/chants.json's entries, for a new pairing's incipit and mode."""
+    global _CHANTS
+    if _CHANTS is None:
+        path = DATA / "chants.json"
+        _CHANTS = json.loads(path.read_text(encoding="utf-8")).get("chants", {}) if path.exists() else {}
+    return _CHANTS
+
+
+def piece_movements(piece: dict[str, Any]) -> list[str]:
+    """The chant movements a piece has: its genre's, and for an Ordinary only
+    those printed in it (found in its pages, or already paired) -- Missa XVII,
+    for the Sundays of Advent and Lent, has no Gloria."""
+    allowed = _SCHEMA["pairing_movements"].get(str(piece.get("genre")), [])
+    if str(piece.get("genre")) != "mass_ordinary":
+        return list(allowed)
+    present = {m.get("movement") for m in piece.get("movements") or []} | \
+              {c.get("movement") for c in piece.get("chant") or []}
+    return [m for m in allowed if m in present]
+
+
+def _pairing_slot(target: str, pieces: dict[str, dict[str, Any]]) -> Slot:
+    """The chant paired with one movement of a piece without Proper parts:
+    setting it adds or replaces the pairing (verified: a person chose it),
+    none removes it."""
+    m = re.fullmatch(r"pairing:([a-z0-9-]+)/([a-z]+)", target)
+    if not m:
+        raise CorrectionError(f"{target} is not of the form pairing:<slug>/<movement>")
+    piece = pieces.get(m.group(1))
+    if piece is None:
+        raise _gone(target)
+    movements = piece_movements(piece)
+    if m.group(2) not in movements:
+        raise CorrectionError(f"{target}: a {piece.get('genre')} has no {m.group(2)} chant to pair"
+                              + (f" (its movements: {', '.join(movements)})" if movements else
+                                 "; a Proper's chants are on its parts (part:<slug>/<part>)"))
+    movement = None if m.group(2) == "chant" else m.group(2)
+    pairings: list[dict[str, Any]] = piece.setdefault("chant", [])
+
+    def found() -> dict[str, Any] | None:
+        return next((c for c in pairings if c.get("movement") == movement), None)
+
+    def put(v: Any) -> None:
+        pairings[:] = [c for c in pairings if c.get("movement") != movement]
+        if v is not None:
+            named = _chant_names().get(str(v), {})
+            pairings.append({"source": "gregobase", "id": int(v), "movement": movement,
+                             "incipit": named.get("incipit") or f"GregoBase {v}", "mode": named.get("mode"),
+                             "score": 1.0, "status": "verified"})
+
+    return Slot(get=lambda: (found() or {}).get("id"), put=put, genre=str(piece.get("genre")))
+
+
 def slot(target: str, name: str, catalog: dict[str, Any] | None, vespers: VespersData | None) -> Slot:
     """The slot a target's field names; raises CorrectionError saying why not."""
     kind = kind_of(target)
@@ -295,6 +352,8 @@ def slot(target: str, name: str, catalog: dict[str, Any] | None, vespers: Vesper
     pieces = _pieces(catalog or {})
     if kind == "part":
         return _part_slot(target, name, pieces)
+    if kind == "pairing":
+        return _pairing_slot(target, pieces)
     piece = _piece(target, pieces)
     if piece is None:
         raise _gone(target)

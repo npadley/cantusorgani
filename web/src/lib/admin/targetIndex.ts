@@ -20,6 +20,8 @@ export function buildTargets(): Targets {
       stem: p.systems.length > 0 ? systemUrlStem(p, 0) : null,
       aspect: aspect ? [aspect[0], aspect[1]] : null,
       systems: p.systems.length,
+      pairings: p.chant.map((c) => ({ movement: c.movement ?? "chant", id: c.id })),
+      movements: p.movements.map((m) => m.movement),
       parts: p.parts.map((part) => part.kind === "printed"
         ? { part: part.part, variant: part.variant, system: part.system + 1, borrowed: null, chant: part.gregobaseId }
         : { part: part.part, variant: part.variant, system: null, chant: part.gregobaseId,

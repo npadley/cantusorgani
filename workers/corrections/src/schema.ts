@@ -28,11 +28,13 @@ export const TONES = [
 ] as const;
 
 /** What a report names: a piece (by its pieceId alone), one of a Proper's
- * parts, or a Vespers item; and the fields each kind can correct. */
-export const TARGET = /^(piece:[a-z0-9-]{1,80}|part:[a-z0-9-]{1,80}\/[a-z]{3,12}(:[a-z0-9-]{1,12})?|vespers:[A-Za-z0-9:.-]{1,60}\/[a-z0-9-]{1,20})$/;
-export const FIELDS_BY_KIND: Readonly<Record<"piece" | "part" | "vespers", readonly CorrectableField[]>> = {
+ * parts, a chant paired with a movement, or a Vespers item; and the fields
+ * each kind can correct. */
+export const TARGET = /^(piece:[a-z0-9-]{1,80}|part:[a-z0-9-]{1,80}\/[a-z]{3,12}(:[a-z0-9-]{1,12})?|pairing:[a-z0-9-]{1,80}\/[a-z]{3,8}|vespers:[A-Za-z0-9:.-]{1,60}\/[a-z0-9-]{1,20})$/;
+export const FIELDS_BY_KIND: Readonly<Record<"piece" | "part" | "pairing" | "vespers", readonly CorrectableField[]>> = {
   piece: ["title", "incipit", "mode", "genre", "printedPages", "chant"],
   part: ["startSystem", "gregobaseId"],
+  pairing: ["gregobaseId"],
   vespers: ["tone", "gregobaseId"],
 };
 
@@ -138,12 +140,12 @@ export function parseCorrection(input: unknown): ParseResult {
     return { ok: false, error: "target must name a piece, one of its parts, or a Vespers item." };
   }
   const target = rawTarget === null || rawTarget.startsWith("piece:") ? null : rawTarget;
-  const kind = target === null ? "piece" : (target.split(":", 1)[0] as "part" | "vespers");
+  const kind = target === null ? "piece" : (target.split(":", 1)[0] as "part" | "pairing" | "vespers");
   if (!FIELDS_BY_KIND[kind].includes(field)) {
     return { ok: false, error: `A ${kind} report can correct ${FIELDS_BY_KIND[kind].join(", ")}, not ${field}.` };
   }
-  if (target?.startsWith("part:") && target.slice(5).split("/")[0] !== pieceId) {
-    return { ok: false, error: "A part's target must name the same piece as pieceId." };
+  if ((kind === "part" || kind === "pairing") && target?.split(":", 2)[1]?.split("/")[0] !== pieceId) {
+    return { ok: false, error: `A ${kind}'s target must name the same piece as pieceId.` };
   }
 
   return { ok: true, value: { pieceId, field, proposedValue, note, target } };
