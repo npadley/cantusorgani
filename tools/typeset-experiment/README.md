@@ -67,5 +67,5 @@ to the score), then `uv run --with mido python compare.py kyrie.midi kyrie.music
   first against Vol. 5's proofread files. See
   `docs/claudekit/specs/2026-09-27-noh-retypesetting-research.md`.
 
-Open: design sections 3-5 (data flow, errors, testing), per-part scan switch or
-page-wide only, then the written plan.
+The full design, including reviewing and editing in the admin screen, is
+`docs/claudekit/specs/2026-09-28-typesetting-design.md`.
