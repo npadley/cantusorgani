@@ -6,7 +6,7 @@ a strip of the published slice reads them. Measured on St Therese's 61 systems
 holds the chant text above the staff), scaled 2x, finds every label -- Intr.,
 Grad., Tract., Offert., Comm. -- and reads the other systems as nothing.
 
-Readings are cached per page under build/margins/, keyed by each slice's
+Readings are cached per page under data/ocr/margins/, keyed by each slice's
 content hash, so a re-sliced page is read again and nothing else is.
 """
 
@@ -16,8 +16,11 @@ import json
 from pathlib import Path
 
 from pipeline.render import BUILD
+from pipeline.volumes import DATA
 
-MARGINS = BUILD / "margins"
+# Committed (data/ocr/margins/): with it the catalogue rebuilds without the
+# slices, and the same readings every time.
+MARGINS = DATA / "ocr" / "margins"
 SLICES = BUILD / "systems"
 STRIP_WIDTH = 0.09
 STRIP_TOP = 0.25

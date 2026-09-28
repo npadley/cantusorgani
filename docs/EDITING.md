@@ -2,24 +2,25 @@
 
 How to fix what the site shows: a wrong title, a wrong tone, a Mass on the
 wrong day, a reader's correction. Start from what you see, find it in the
-table below, and follow the recipe. You do **not** need the scanned PDFs for
-most fixes.
+table below, and follow the recipe. Nothing here needs your own computer's
+files: the scanned PDFs are in the repository, and the recipes that rebuild the
+catalogue can run on GitHub.
 
 ## What do you want to fix?
 
-| You see… | Recipe | Needs the PDFs? |
+| You see… | Recipe | Rebuilds the catalogue? |
 |---|---|---|
 | A piece's title, incipit or mode is wrong | [Title, incipit, mode](#title-incipit-mode) | No |
 | A piece's printed pages are wrong | [Printed pages](#printed-pages) | No |
 | A reader sent a correction | [The admin screen](#the-admin-screen), or [Reader corrections](#reader-corrections) | No |
 | A Vespers antiphon's or Magnificat antiphon's tone, chant link or systems are wrong | [Vespers items](#vespers-items) | No |
 | A Vespers hymn, versicle, psalm or season is wrong | [Vespers at the source](#vespers-at-the-source) | No |
-| A day shows the wrong Mass, or no Mass | [Days and rubrics](#days-and-rubrics) | Yes |
-| A piece starts or ends on the wrong page or system | [Piece boundaries](#piece-boundaries) | Yes |
+| A day shows the wrong Mass, or no Mass | [Days and rubrics](#days-and-rubrics) | Yes, on GitHub |
+| A piece starts or ends on the wrong page or system | [Piece boundaries](#piece-boundaries) | Yes, on GitHub |
 | A Proper part (Introit, Gradual…) starts on the wrong system, or its chant link is wrong | [Proper parts](#proper-parts) | No |
 | A Vespers psalm uses the wrong formula, or should show a note | [Psalm formulas and notes](#psalm-formulas-and-notes) | No |
 | A newer Divinum Officium, vesperale, jgabc or calendar | [Refreshing a source](#refreshing-a-source) | No |
-| A new volume to add | [Adding a volume](#adding-a-volume) | Yes |
+| A new volume to add | [Adding a volume](#adding-a-volume) | Yes (and uploads images: your machine) |
 
 Two kinds of people edit:
 
@@ -97,7 +98,7 @@ To undo it before committing, run `uv run noh corrections --drop c-0001`.
 
 ## Setup, once
 
-This takes about 15 minutes, and none of it needs `pdf-source/`.
+This takes about 15 minutes. The clone includes the scanned PDFs (about 240 MB).
 
 1. Install [uv](https://docs.astral.sh/uv/) and
    [pnpm](https://pnpm.io/installation). Node 22 or newer is required.
@@ -110,8 +111,7 @@ This takes about 15 minutes, and none of it needs `pdf-source/`.
    ```
 
    `noh doctor` checks everything and names the fix for each failure. Failures
-   about `pdf-source/`, Tesseract or R2 only matter for the recipes marked
-   *Needs the PDFs*.
+   about R2 only matter for uploading images.
 3. For `pnpm dev` with the real images, and for publishing, you need the
    1Password Environment mounted as `web/.env` (see the README's Secrets
    section). Without it, `pnpm dev` still runs, using local image paths.
@@ -253,7 +253,10 @@ overlay.
 
 ### Days and rubrics
 
-*Needs the PDFs.*
+*Rebuilds the catalogue:* edit the file on a branch — GitHub's web editor is
+fine — and open a pull request. Then in the repository's **Actions** tab run
+**catalog-rebuild**, with the volume and your branch. It rebuilds on GitHub and
+commits the result to the branch, and the checks run again. Or locally: the command below.
 
 - **File**:
   - `days:` of the piece in `data/index-<volume>.yml` (the calendar keys it's
@@ -266,7 +269,10 @@ overlay.
 
 ### Piece boundaries
 
-*Needs the PDFs.*
+*Rebuilds the catalogue:* edit the file on a branch — GitHub's web editor is
+fine — and open a pull request. Then in the repository's **Actions** tab run
+**catalog-rebuild**, with the volume and your branch. It rebuilds on GitHub and
+commits the result to the branch, and the checks run again. Or locally: the command below.
 
 - **File**: `page:` of the entry in `data/index-<volume>.yml`, the printed page
   the piece starts on.
@@ -328,15 +334,18 @@ summary for anything new to review.
 
 ### Adding a volume
 
-*Needs the PDFs.*
+Slicing and uploading the page images needs the R2 keys, so this one runs on
+the maintainer's machine.
 
-1. Register the PDF in `data/volumes.yml`.
+1. Add the PDF as `pdf-source/NOH<N> <name>.pdf` (only `NOH*.pdf` files are
+   tracked there), and register it in `data/volumes.yml`.
 2. Run `uv run noh index-extract --volume noh<N>`, which proposes
    `data/index-noh<N>.proposed.yml`. Review it, then rename it to
    `index-noh<N>.yml`.
 3. Run `uv run noh catalog --volume noh<N>`.
-4. Run `uv run noh publish --volume noh<N> --upload`, which slices the pages
-   and uploads the images.
+4. Run `uv run noh publish --volume noh<N> --upload`, which slices the pages,
+   uploads the images and records them in `data/published/noh<N>.json` (commit
+   it: a rebuild on GitHub reads it).
 5. Run `uv run noh vespers-lineup` and `uv run noh chants`.
 6. Run `pnpm build`. The link check confirms every new page can be reached.
 
@@ -349,8 +358,11 @@ summary for anything new to review.
   and the vendored `data/*-propers.json`, `divinum-officium-vespers.json` and
   `vesperale-lineup.json`. Commands rewrite them, and a hand edit is lost or
   fails its checksum.
-- **`pdf-source/`**, and especially the Corpus Christi Watershed reference
-  edition in it. The CCW edition is never published.
+- **`pdf-source/`**: only the NOH scans are tracked. The Corpus Christi
+  Watershed reference edition beside them on the maintainer's machine is never
+  published; a test fails if any other file there is ever committed.
+- **`data/published/` and `data/ocr/`**: records of the published images and
+  of the margin readings, written by `noh publish` and `noh catalog`.
 - **Secrets**: `web/.env` and `.dev.vars` are 1Password mounts. Never copy
   their values anywhere.
 

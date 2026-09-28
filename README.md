@@ -36,8 +36,11 @@ uv run noh apply-corrections           # only the corrections: no PDFs needed
 uv run pytest
 ```
 
-The source PDFs are not in git (`pdf-source/`, 230 MB); `noh doctor` says which
-are missing.
+The scanned NOH volumes are in git (`pdf-source/NOH*.pdf`, about 240 MB; nothing
+else in that folder is tracked). `noh catalog` also reads `data/published/`
+(the published images) and `data/ocr/margins/` (margin readings), so a rebuild on
+a fresh checkout, or on GitHub (the catalog-rebuild workflow), gives the same
+catalogue.
 
 ## Site
 

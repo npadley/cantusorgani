@@ -1,0 +1,104 @@
+# Rebuild the catalogue from the scans, on GitHub: after an edit to
+# data/index-*.yml (a day, a piece's page), or to refresh a volume.
+#
+# Run it from the Actions tab ("Run workflow"): choose the volume, and the
+# branch to rebuild. On main it opens a pull request with the result; on any
+# other branch (say, one where an index was edited in GitHub's editor) it
+# commits the result to that branch, and the site checks run again.
+#
+# Needs the same App as the corrections workflow: variable ADMIN_APP_ID,
+# secret ADMIN_APP_PRIVATE_KEY.
+name: catalog-rebuild
+run-name: rebuild ${{ inputs.volume }} on ${{ inputs.branch }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      volume:
+        description: Volume to rebuild
+        type: choice
+        options: [all, noh1, noh2, noh3, noh4, noh5, noh8]
+        default: all
+      branch:
+        description: Branch to rebuild (main opens a pull request)
+        type: string
+        default: main
+
+concurrency:
+  group: catalog-rebuild-${{ inputs.branch }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: App token
+        id: app
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.ADMIN_APP_ID }}
+          private-key: ${{ secrets.ADMIN_APP_PRIVATE_KEY }}
+
+      - name: Check the inputs
+        env:
+          BRANCH: ${{ inputs.branch }}
+        run: |
+          if [[ ! "$BRANCH" =~ ^[A-Za-z0-9._/-]{1,100}$ ]]; then
+            echo "::error::branch name has characters it should not"; exit 1
+          fi
+
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.branch }}
+          token: ${{ steps.app.outputs.token }}
+
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: true
+      - name: Tesseract
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-lat
+      - run: uv sync --frozen
+
+      - name: Rebuild
+        env:
+          VOLUME: ${{ inputs.volume }}
+        run: |
+          uv run noh gregobase-fetch
+          if [ "$VOLUME" = "all" ]; then volumes="noh1 noh2 noh3 noh4 noh5 noh8"; else volumes="$VOLUME"; fi
+          for v in $volumes; do uv run noh catalog --volume "$v"; done
+          uv run noh vespers-lineup
+          uv run noh chants
+          uv run noh apply-corrections
+          uv run noh doctor || true
+
+      - name: Commit, and open a pull request from main
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          BRANCH: ${{ inputs.branch }}
+          VOLUME: ${{ inputs.volume }}
+          APP_SLUG: ${{ steps.app.outputs.app-slug }}
+          RUN: ${{ github.run_id }}
+        run: |
+          if git diff --quiet -- data/; then
+            echo "::notice::Rebuilding $VOLUME changed nothing."
+            exit 0
+          fi
+          git config user.name "${APP_SLUG}[bot]"
+          git config user.email "${APP_SLUG}[bot]@users.noreply.github.com"
+          summary=$(git diff --stat -- data/ | tail -1)
+          if [ "$BRANCH" = "main" ]; then
+            git switch -c "catalog/$VOLUME-$RUN"
+          fi
+          git add data/
+          git commit -q -m "data: rebuild the catalogue ($VOLUME)"
+          if [ "$BRANCH" = "main" ]; then
+            git push -q origin "catalog/$VOLUME-$RUN"
+            gh pr create --base main --head "catalog/$VOLUME-$RUN" --title "Rebuild the catalogue ($VOLUME)" \
+              --body "Run of the catalog-rebuild workflow on main: $summary. Review the diff of data/catalog.base.json and data/review-queue.json before merging."
+          else
+            git push -q origin "HEAD:$BRANCH"
+          fi
