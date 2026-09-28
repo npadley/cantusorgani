@@ -1,50 +1,71 @@
 ---
 import { loadCatalog, orderedChant } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
+import { MOVEMENT_LABELS, pairingMovements } from "../lib/admin/targets";
+import ReportLinks from "./ReportLinks.astro";
 
 interface Props { readonly piece: Piece }
 const { piece } = Astro.props;
 
 const pairings = orderedChant(piece);
 const source = loadCatalog().chantSource;
-const anyUnverified = pairings.some((c) => c.status === "unverified");
+const unverified = pairings.find((c) => c.status === "unverified");
+// Each movement this kind of piece has, with no chant paired yet: a reader can
+// suggest one, and the form opens already knowing which.
+const paired = new Set<string>(pairings.map((c) => c.movement ?? "chant"));
+const movements = pairingMovements(piece.genre, [...piece.movements.map((m) => m.movement), ...paired]);
+const missing = movements.filter((m) => !paired.has(m));
+const target = (movement: string | null) => `pairing:${piece.slug}/${movement ?? "chant"}`;
+const report = (movement: string | null) => `/corrections/?target=${encodeURIComponent(target(movement))}`;
 ---
 
 <section class="chant" aria-labelledby="chant-heading">
   <h2 id="chant-heading">Chant</h2>
 
-  {pairings.length === 0 ? (
+  {pairings.length === 0 && (
     <p class="muted">
       No chant has been matched to this accompaniment yet.
-      <a class="small" href="/corrections/?piece={piece.slug}&amp;field=chant">Suggest a chant</a>
-    </p>
-  ) : (
-    <>
-      {anyUnverified && (
-        <div class="notice" role="status">
-          <strong>Unverified pairing.</strong>
-          We matched this 1942 accompaniment to a chant from GregoBase
-          automatically, and no one has checked it. Compare the notes above the
-          staff before you play from it.
-          <a class="small" href={`/corrections/?piece=${piece.slug}&field=chant`}>
-            This pairing is wrong
-          </a>
-        </div>
+      {movements.length === 0 && (
+        <a class="small" href={`/corrections/?target=${encodeURIComponent(`piece:${piece.slug}`)}`}>Report an error</a>
       )}
+    </p>
+  )}
 
-      <ul class="pairings ui">
-        {pairings.map((c) => (
-          <li class:list={["pairing", c.status]}>
-            <span class="movement">{c.movement ?? "chant"}</span>
-            <span class="incipit">{c.incipit}</span>
-            <span class="detail muted small">
-              {c.mode ? `mode ${c.mode}` : "mode not recorded"}
-              {c.status === "unverified" ? " · unverified" : ""}
-            </span>
-          </li>
-        ))}
-      </ul>
-    </>
+  {unverified && (
+    <div class="notice" role="status">
+      <strong>Unverified pairing.</strong>
+      We matched this 1942 accompaniment to a chant from GregoBase
+      automatically, and no one has checked it. Compare the notes above the
+      staff before you play from it.
+      <a class="small" href={report(unverified.movement)}>This pairing is wrong</a>
+    </div>
+  )}
+
+  {pairings.length > 0 && (
+    <ul class="pairings ui">
+      {pairings.map((c) => (
+        <li class:list={["pairing", c.status]}>
+          <span class="movement">{c.movement ?? "chant"}</span>
+          <span class="incipit">{c.incipit}</span>
+          <span class="detail muted small">
+            {c.mode ? `mode ${c.mode}` : "mode not recorded"}
+            {c.status === "unverified" ? " · unverified" : ""}
+          </span>
+          <ReportLinks target={target(c.movement)} name={`the ${MOVEMENT_LABELS[c.movement ?? "chant"] ?? "chant"} chant`} />
+        </li>
+      ))}
+    </ul>
+  )}
+
+  {missing.length > 0 && (
+    <ul class="missing ui small no-print">
+      {missing.map((m) => (
+        <li>
+          <span class="muted">{MOVEMENT_LABELS[m] ?? m}: no chant yet.</span>
+          <a href={report(m === "chant" ? null : m)}>Suggest a chant<span class="sr-only"> for the {MOVEMENT_LABELS[m] ?? m}</span></a>
+        </li>
+      ))}
+    </ul>
   )}
 
   {source && pairings.length > 0 && (
@@ -56,11 +77,13 @@ const anyUnverified = pairings.some((c) => c.status === "unverified");
 
 <style>
   .chant { margin-top: var(--s-5); padding-top: var(--s-3); border-top: 1px solid var(--rule); }
-  .pairings { list-style: none; margin: 0; padding: 0; }
+  .pairings, .missing { list-style: none; margin: 0; padding: 0; }
   .pairing {
     display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: baseline;
     padding: var(--s-2) 0; border-bottom: 1px solid var(--rule);
   }
+  .missing li { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: baseline; padding: var(--s-2) 0; }
+  .missing a { min-height: var(--tap-min); display: inline-flex; align-items: center; }
   .movement {
     text-transform: capitalize; min-width: 5.5rem;
     color: var(--accent); font-size: var(--step--1); letter-spacing: 0.04em;

@@ -52,6 +52,12 @@
         "pattern": "^noh8/\\d{4}/\\d{3}( noh8/\\d{4}/\\d{3}){0,11}$",
         "hint": "the systems it is printed on, in order, separated by spaces, e.g. noh8/0077/000 noh8/0077/001 (every image on the site carries its ref)"
       }
+    },
+    "pairing": {
+      "chant": {
+        "pattern": "^(\\d{1,6}|none)$",
+        "hint": "a GregoBase chant id (the number in gregobase.selapa.net/chant.php?id=…), or none"
+      }
     }
   },
   "reader_fields": {
@@ -103,6 +109,47 @@
   "targets_help": {
     "piece": "piece:<slug>",
     "part": "part:<slug>/<part>, or part:<slug>/<part>:<variant> (introit, gradual, alleluia, tract, sequence, offertory, communion)",
-    "vespers": "vespers:<office>/antiphon-<n> or vespers:<office>/magnificat (an office of data/vespers-offices.yml); vespers:sunday:<calendar key>/magnificat (a green Sunday's Magnificat antiphon, data/vespers-noh8.yml)"
+    "vespers": "vespers:<office>/antiphon-<n> or vespers:<office>/magnificat (an office of data/vespers-offices.yml); vespers:sunday:<calendar key>/magnificat (a green Sunday's Magnificat antiphon, data/vespers-noh8.yml)",
+    "pairing": "pairing:<slug>/<movement>: the chant paired with one movement of a piece without Proper parts (kyrie, gloria, credo, sanctus, agnus, ite; chant for a single-chant piece)"
+  },
+  "pairing_movements": {
+    "$comment": "The chant movements each genre of piece has (\"chant\": the one chant of a single-chant piece). A Proper's chants are on its parts.",
+    "mass_ordinary": [
+      "kyrie",
+      "gloria",
+      "sanctus",
+      "agnus",
+      "ite"
+    ],
+    "kyrie": [
+      "kyrie"
+    ],
+    "gloria": [
+      "gloria"
+    ],
+    "credo": [
+      "credo"
+    ],
+    "sanctus": [
+      "sanctus"
+    ],
+    "agnus": [
+      "agnus"
+    ],
+    "asperges": [
+      "chant"
+    ],
+    "tonus": [
+      "chant"
+    ],
+    "requiem": [
+      "chant"
+    ],
+    "absolutio": [
+      "chant"
+    ],
+    "exsequiis": [
+      "chant"
+    ]
   }
 }

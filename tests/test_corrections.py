@@ -480,3 +480,42 @@ def test_fetch_dump_refuses_a_file_that_is_not_the_pinned_one(tmp_path, monkeypa
     monkeypatch.setattr(urllib.request, "urlopen", lambda url, timeout=0: io.BytesIO(body))
     path = gregobase.fetch_dump(tmp_path / "dump.sql", pinned=hashlib.sha256(body).hexdigest())
     assert path.read_bytes() == body
+
+
+def ordinary() -> dict:
+    """A catalogue with an Ordinary whose Kyrie is paired and Gloria is not."""
+    b = base()
+    b["pieces"].append({"id": "noh5-missa-ix", "volume": "noh5", "slug": "missa-ix", "title": "Cum jubilo",
+                        "incipit": None, "mode": None, "genre": "mass_ordinary", "printed_pages": [40, 45],
+                        "movements": [{"movement": "kyrie"}, {"movement": "gloria"}, {"movement": "sanctus"}],
+                        "chant": [{"source": "gregobase", "id": 1143, "movement": "kyrie", "incipit": "Kyrie IX",
+                                   "mode": "1", "score": 0.8, "status": "unverified"}]})
+    return b
+
+
+def test_apply_pairing_replaces_adds_and_removes_a_movements_chant(monkeypatch):
+    monkeypatch.setattr(corrections, "_CHANTS", {"2980": {"incipit": "Gloria IX", "mode": "7"}})
+    out = apply(ordinary(), [entry(target="pairing:missa-ix/kyrie", field="chant", was=1143, value=1148),
+                             entry(id="c-0002", target="pairing:missa-ix/gloria", field="chant", was=None, value=2980)])
+    chant = {c["movement"]: c for c in out["pieces"][2]["chant"]}
+    assert (chant["kyrie"]["id"], chant["kyrie"]["status"], chant["kyrie"]["incipit"]) == (1148, "verified", "GregoBase 1148")
+    assert (chant["gloria"]["incipit"], chant["gloria"]["mode"]) == ("Gloria IX", "7")
+    gone = apply(ordinary(), [entry(target="pairing:missa-ix/kyrie", field="chant", was=1143, value="none")])
+    assert gone["pieces"][2]["chant"] == []
+
+
+def test_piece_movements_an_ordinary_has_only_what_is_printed_or_paired():
+    missa = ordinary()["pieces"][2]
+    assert corrections.piece_movements(missa) == ["kyrie", "gloria", "sanctus"]
+    missa["movements"] = [{"movement": "kyrie"}]                # the pairing keeps kyrie
+    assert corrections.piece_movements({**missa, "chant": []}) == ["kyrie"]
+    assert corrections.piece_movements({"genre": "asperges"}) == ["chant"]
+
+
+def test_problems_pairing_movement_must_suit_the_genre():
+    found = problems(ordinary(), [entry(target="pairing:missa-ix/credo", field="chant", was=None, value=1),
+                                  entry(id="c-0002", target="pairing:dominica-i-adventus/chant", field="chant", was=None, value=1),
+                                  entry(id="c-0003", target="pairing:kyrie-i/kyrie", field="chant", was=None, value=5)])
+    assert "has no credo chant to pair (its movements: kyrie, gloria, sanctus)" in found[0]
+    assert "a Proper's chants are on its parts" in found[1]
+    assert len(found) == 2                     # a Kyrie piece's kyrie is fine
