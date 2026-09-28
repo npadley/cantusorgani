@@ -2,6 +2,15 @@
   "schema_version": 1,
   "corrections": [
     {
+      "id": "c-0002",
+      "target": "pairing:ordinarium-missae-asperges/chant",
+      "field": "chant",
+      "was": null,
+      "value": 497,
+      "date": "2026-09-28",
+      "by": "reader"
+    },
+    {
       "id": "c-0001",
       "target": "piece:ordinarium-missae-asperges",
       "field": "mode",
