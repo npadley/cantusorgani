@@ -2,6 +2,24 @@
   "schema_version": 1,
   "corrections": [
     {
+      "id": "c-0007",
+      "target": "part:dominica-i-adventus/alleluia",
+      "field": "start_system",
+      "was": 9,
+      "value": 15,
+      "date": "2026-09-28",
+      "by": "editor"
+    },
+    {
+      "id": "c-0006",
+      "target": "part:dominica-i-adventus/gradual",
+      "field": "start_system",
+      "was": 4,
+      "value": 9,
+      "date": "2026-09-28",
+      "by": "editor"
+    },
+    {
       "id": "c-0005",
       "target": "pairing:ordinarium-missae-asperges-p2/chant",
       "field": "chant",
