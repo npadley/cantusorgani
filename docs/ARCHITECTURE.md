@@ -68,6 +68,7 @@ flowchart LR
 | **CI** | `.github/workflows/site.yml` | On every pull request: tests, secret scan, checks that corrections are applied, build and link check. On `main`: the same, then deploy. |
 | **Publishing** | `.github/workflows/corrections-batch.yml` | Runs when the admin screen publishes: records the batch (`noh correct-batch`), rebuilds the chant notation, and opens a pull request as the GitHub App. |
 | **Rebuilding** | `.github/workflows/catalog-rebuild.yml` | Run by hand from the Actions tab: rebuilds a volume's catalogue from the scans after an index edit, on a branch or as a pull request. |
+| **Images** | `.github/workflows/publish.yml` | Run by hand from the Actions tab: slices the PDF pages named, uploads their images to R2, and rebuilds that volume's catalogue so it names them; on a branch or as a pull request. |
 
 ## A correction's journey
 
