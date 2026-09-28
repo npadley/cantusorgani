@@ -370,7 +370,7 @@ def link_parts(catalog: dict[str, object]) -> list[dict[str, object]]:
                 continue
             volume, page = part["borrowed_volume"], int(part["borrowed_page"])
             lenders = [p for p in pieces if p["volume"] == volume and p.get("systems")
-                       and p is not piece
+                       and p is not piece and not p.get("pagination")   # the body's page
                        and p["printed_pages"][0] <= page <= p["printed_pages"][1]]  # type: ignore[index]
             lenders.sort(key=lambda p: p["printed_pages"][0] != page)  # type: ignore[index]
             target = None

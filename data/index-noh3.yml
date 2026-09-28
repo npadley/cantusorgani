@@ -10,7 +10,7 @@
 # `rubrics` are feasts whose Mass is only a reference (usually to the Common,
 # Pars IV): they have no music of their own in this volume.
 # The addenda (PDF 480-499: Queenship of Our Lady, St Pius X) have their own
-# pagination and are not catalogued yet.
+# pagination; they are the last section, transcribed by hand.
 # Checked against the 1962 calendar on 2026-09-26 (tests/test_calendar_coverage.py):
 # misread heading dates corrected (St Therese, St Mary Magdalen), feasts 1962
 # moved given their 1962 day (SS Philip and James, St Irenaeus), feasts 1962
@@ -1618,6 +1618,32 @@ sections:
     index_title: S. CLEMENTIS 1. PAP/E, MARTYRIS, 23 Novembris
     days:
     - sancti:11-23
+# The two addenda bound after the index (PDF 480-499), transcribed by hand from
+# their headings: each is numbered from its own title page, so `page` counts in
+# its `pagination` (data/volumes.yml), not the body's.
+- name: Addenda ad Partem III
+  division: sanctorale
+  entries:
+  - slug: b-mariae-virginis-reginae
+    label: B. Mariæ Virginis Reginæ
+    title: B. Mariæ Virginis Reginæ
+    genre: proper
+    page: 3
+    pagination: regina
+    status: verified
+    index_title: DIE 31 MAJI, B. MARIÆ VIRGINIS REGINÆ
+    days:
+    - sancti:05-31
+  - slug: s-pii-x-papae-et-confessoris
+    label: S. Pii X Papæ et Confessoris
+    title: S. Pii X Papæ et Confessoris
+    genre: proper
+    page: 3
+    pagination: pius-x
+    status: verified
+    index_title: DIE 3 SEPTEMBRIS, S. PII X PAPÆ ET CONFESSORIS
+    days:
+    - sancti:09-03
 unplaced: []
 rubrics:
 - title: S. Saturnini Martyris

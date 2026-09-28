@@ -19,6 +19,18 @@ SOURCE = ROOT / "pdf-source"
 
 
 @dataclass(frozen=True)
+class Addendum:
+    """A supplement bound into a volume with its own pagination (NOH3's two
+    addenda, each numbered from its own title page)."""
+    id: str
+    title: str
+    first_pdf: int
+    last_pdf: int
+    # Staff lines too faint for the standard staff finder (pipeline.segment).
+    faint_staff_lines: bool = False
+
+
+@dataclass(frozen=True)
 class Volume:
     id: str
     title: str
@@ -35,6 +47,7 @@ class Volume:
     # Last PDF page of the body, when something with its own pagination follows
     # (NOH3's addenda). Omitted: the body runs to the end, less the index pages.
     last_body_pdf_page: int | None = None
+    addenda: tuple[Addendum, ...] = ()
 
     @property
     def path(self) -> Path:
@@ -43,7 +56,8 @@ class Volume:
 
 def load_volumes(path: Path = DATA / "volumes.yml") -> dict[str, Volume]:
     raw = yaml.safe_load(path.read_text(encoding="utf-8"))["volumes"]
-    return {k: Volume(id=k, **v) for k, v in raw.items()}
+    return {k: Volume(id=k, **{**v, "addenda": tuple(Addendum(**a) for a in v.get("addenda", ()))})
+            for k, v in raw.items()}
 
 
 def resolve_source(filename: str) -> Path:

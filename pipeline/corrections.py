@@ -361,6 +361,14 @@ def _range_slot(target: str, piece: dict[str, Any], pieces: dict[str, dict[str, 
         wrong = [r for r in v if r not in known]
         if wrong:
             return f"{target} system_range: {', '.join(wrong)} is not a system of {vol}'s pages"
+        from pipeline.offset import load_page_map
+        page_map = load_page_map(vol)
+        own = piece.get("pagination")
+        for r, _, _ in span(v):
+            seg = page_map.segment_of(int(r.split("/")[1]))
+            if seg is not None and seg.pagination != own:
+                where = f"addendum {seg.pagination}" if seg.pagination else "the body of the volume"
+                return f"{target} system_range: {r} is in {where}, which has its own pages"
         new = {r for r, _, _ in span(v)}
         for part in piece.get("parts") or []:
             if "system" in part and part["ref"] not in new:
@@ -544,6 +552,14 @@ def _part_order(layer: dict[str, Any], entries: list[Entry], skip: set[str]) -> 
     out = []
     for slug, mine in moved.items():
         placed = [p for p in pieces[slug].get("parts") or [] if "system" in p]
+        # The Paschal Alleluia stands in for the Gradual and Alleluia, so a book
+        # may print it before them (NOH3's Queenship addendum) or after: it only
+        # may not start where another part does.
+        paschal = [p for p in placed if p.get("variant") == "paschal"]
+        placed = [p for p in placed if p.get("variant") != "paschal"]
+        clash = next(((p, q) for p in paschal for q in placed if p["system"] == q["system"]), None)
+        if clash:
+            placed = [clash[1], clash[0]]
         for a, b in itertools.pairwise(placed):
             if a["system"] < b["system"]:
                 continue

@@ -116,3 +116,40 @@ def test_merge_catalog_from_nothing_or_old_schema():
 def test_merge_catalog_slug_collision_across_volumes_raises():
     with pytest.raises(ValueError, match="slugs repeat"):
         merge_catalog(catalog("noh5", "kyrie-i"), catalog("noh2", "kyrie-i"))
+
+
+@pytest.fixture
+def noh3_map() -> PageMap:
+    """NOH3 as derived: the body in two segments, then two addenda, each
+    numbered from its own title page."""
+    return PageMap((Segment(34, 409, 33), Segment(410, 475, 35),
+                    Segment(480, 489, 478, 1, "regina"), Segment(490, 499, 488, 4, "pius-x")))
+
+
+def test_page_map_an_addendum_has_its_own_printed_pages(noh3_map):
+    assert noh3_map.to_pdf(3) == 36                      # the body's p. 3
+    assert noh3_map.to_pdf(3, "regina") == 481
+    assert noh3_map.to_pdf(3, "pius-x") == 491
+    assert noh3_map.to_pdf(12, "regina") is None         # past its last page
+    assert noh3_map.to_pdf(3, "unknown") is None
+    assert noh3_map.to_printed(481) == 3 and noh3_map.to_printed(491) == 3
+    assert noh3_map.segment_of(495).pagination == "pius-x"
+
+
+def test_page_map_addenda_are_not_the_body(noh3_map):
+    assert noh3_map.last_printed == 440                  # the body's, not an addendum's
+    assert noh3_map.last_in("regina") == 11
+    assert noh3_map.gaps == []                           # the index pages are not a gap in the body
+
+
+def test_segment_record_names_a_pagination_only_where_there_is_one(noh3_map):
+    from pipeline.offset import segment_record
+    assert segment_record(noh3_map.segments[0]) == {"first_pdf": 34, "last_pdf": 409, "offset": 33, "verified": 0}
+    assert segment_record(noh3_map.segments[2])["pagination"] == "regina"
+
+
+def test_load_page_map_reads_an_addendum_segment(offsets_file):
+    offsets_file.write_text(json.dumps({"noh5": {"offset": 46, "source_sha256": "abc", "segments": [
+        {"first_pdf": 47, "last_pdf": 100, "offset": 46},
+        {"first_pdf": 101, "last_pdf": 110, "offset": 98, "pagination": "extra"}]}}))
+    assert load_page_map("noh5", offsets_file).to_pdf(3, "extra") == 101

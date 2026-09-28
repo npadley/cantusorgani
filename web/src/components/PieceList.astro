@@ -1,5 +1,6 @@
 ---
 import { pieceHref } from "../lib/indexes";
+import { pagesLabel } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
 
 interface Props {
@@ -29,7 +30,7 @@ function subtitle(p: Piece): string {
           <span class="name">{p.incipit ?? p.title}</span>
           {subtitle(p) && <span class="sub muted small">{subtitle(p)}</span>}
         </span>
-        <span class="pages muted small">pp. {p.printedPages[0]}–{p.printedPages[1]}</span>
+        <span class="pages muted small">{pagesLabel(p)}</span>
       </a>
     </li>
   ))}

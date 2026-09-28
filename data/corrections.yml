@@ -95,3 +95,51 @@
   source: editor
   date: '2026-09-28'
   editor_email: nick@padley.com
+- id: c-0008
+  target: part:b-mariae-virginis-reginae/communion
+  field: start_system
+  was: 51
+  value: 48
+  source: editor
+  date: '2026-09-28'
+  note: Comm. I, Regina mundi (addendum p. 11)
+- id: c-0009
+  target: part:s-pii-x-papae-et-confessoris/alleluia
+  field: start_system
+  was: 29
+  value: 22
+  source: editor
+  date: '2026-09-28'
+  note: Alleluia VIII, V. Parasti mihi mensam (addendum p. 6)
+- id: c-0010
+  target: part:b-mariae-virginis-reginae/alleluia
+  field: start_system
+  was: 12
+  value: 34
+  source: editor
+  date: '2026-09-28'
+  note: Alleluia VIII, V. Salve Regina (addendum p. 8)
+- id: c-0011
+  target: part:b-mariae-virginis-reginae/alleluia:paschal
+  field: start_system
+  was: 19
+  value: 12
+  source: editor
+  date: '2026-09-28'
+  note: 'Alleluia III, V. Beata es ... V. Nunc cum eo: printed before the Gradual (addendum p. 5)'
+- id: c-0012
+  target: part:b-mariae-virginis-reginae/gradual
+  field: start_system
+  was: 10
+  value: 22
+  source: editor
+  date: '2026-09-28'
+  note: Grad. Ipse habet, after 'Extra Tempus Paschale dicitur' (addendum p. 6)
+- id: c-0013
+  target: part:s-pii-x-papae-et-confessoris/tract
+  field: start_system
+  was: 36
+  value: 29
+  source: editor
+  date: '2026-09-28'
+  note: Tract. VIII, Sacerdotes, after 'In Missis votivis post Septuagesimam' (addendum p. 7)
