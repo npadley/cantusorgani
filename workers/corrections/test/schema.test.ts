@@ -83,3 +83,21 @@ describe("parseCorrection", () => {
     expect(parseCorrection({ ...VALID, field: "genre", proposedValue: "motet" }).ok).toBe(false);
   });
 });
+
+describe("parseCorrection, values in the reader's own terms", () => {
+  const base = { pieceId: "kyrie-i", note: "" };
+
+  it("should read a mode typed as 1 to 8 as I to VIII", () => {
+    const parsed = parseCorrection({ ...base, field: "mode", proposedValue: " 7 " });
+    expect(parsed.ok && parsed.value.proposedValue).toBe("VII");
+    expect(parseCorrection({ ...base, field: "mode", proposedValue: "9" }).ok).toBe(false);
+  });
+
+  it("should refuse a title or incipit without two letters, saying what it expects in words", () => {
+    const parsed = parseCorrection({ ...base, field: "title", proposedValue: "1" });
+    expect(parsed.ok).toBe(false);
+    expect(!parsed.ok && parsed.error).toBe("“1” is not a valid title: expected at least two letters; letters, digits and . , ' « » ( ) : - only.");
+    expect(parseCorrection({ ...base, field: "incipit", proposedValue: "A 1" }).ok).toBe(false);
+    expect(parseCorrection({ ...base, field: "title", proposedValue: "Missa I" }).ok).toBe(true);
+  });
+});

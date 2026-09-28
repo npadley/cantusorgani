@@ -94,7 +94,7 @@ describe("acting on a report", () => {
     const id = readerReport(db.sqlite, "kyrie-i", "mode", "IX");
     const result = await call("POST", `/rows/${id}/approve`, {});
     expect(result).toMatchObject({ status: 422 });
-    expect(result.body["error"]).toMatch(/Roman numeral/);
+    expect(result.body["error"]).toMatch(/expected I to VIII/);
     expect(statusOf(id)).toBe("pending");
   });
 
@@ -125,6 +125,31 @@ describe("acting on a report", () => {
     expect((await call("POST", `/rows/${id}/approve`, {})).status).toBe(429);
     expect((await call("DELETE", "/queue")).status).toBe(405);
     expect((await call("GET", "/nowhere")).status).toBe(404);
+  });
+});
+
+describe("a report filed under the wrong field", () => {
+  it("should let the editor accept it as the field it really corrects, and log that", async () => {
+    // A reader meant Mode 1 but left the form on Title.
+    const id = readerReport(db.sqlite, "kyrie-i", "title", "1");
+    expect((await call("POST", `/rows/${id}/approve`, {})).body["error"]).toMatch(/at least two letters/);
+    const result = await call("POST", `/rows/${id}/approve`, { field: "mode", value: "1" });
+    expect(result).toMatchObject({ status: 200, body: { field: "mode", value: "I" } });
+    expect(db.sqlite.prepare("SELECT field, proposed FROM corrections WHERE id = ?").get(id)).toMatchObject({ field: "mode", proposed: "I" });
+    const log = db.sqlite.prepare("SELECT detail FROM admin_log WHERE action = 'approve'").get() as { detail: string };
+    expect(log.detail).toBe("reader filed it under title; reader proposed: 1");
+  });
+
+  it("should refuse a mode for a Proper with the reason, and an unknown field", async () => {
+    const id = readerReport(db.sqlite, "dominica-i-adventus", "title", "1");
+    expect((await call("POST", `/rows/${id}/approve`, { field: "mode", value: "I" })).body["error"]).toMatch(/A Proper has no single mode/);
+    expect((await call("POST", `/rows/${id}/approve`, { field: "tone", value: "I" })).status).toBe(422);
+  });
+
+  it("should let a chant report be accepted once the editor names a field it can correct", async () => {
+    const id = readerReport(db.sqlite, "kyrie-i", "chant", "Lux et origo lucis");
+    expect((await call("POST", `/rows/${id}/approve`, {})).status).toBe(422);
+    expect((await call("POST", `/rows/${id}/approve`, { field: "incipit" })).status).toBe(200);
   });
 });
 
