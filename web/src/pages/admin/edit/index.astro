@@ -80,7 +80,7 @@ import Layout from "../../../components/Layout.astro";
   import { api, drafts, h, loadScans, loadTargets, say, scanFigures, signInAgain, whenTypingPauses } from "../../../lib/admin/client";
   import { namedSystems } from "../../../lib/admin/scans";
   import type { Scans } from "../../../lib/admin/scans";
-  import { FIELDS_OF, FIELD_LABELS, PART_LABELS, describeTarget, kindOf, notFor, partTarget } from "../../../lib/admin/targets";
+  import { FIELDS_OF, FIELD_LABELS, PART_LABELS, describeTarget, kindOf, notFor, partTarget, startNote } from "../../../lib/admin/targets";
   import type { TargetInfo, TargetPiece, Targets } from "../../../lib/admin/targets";
 
   const HINTS: Readonly<Record<string, string>> = {
@@ -121,7 +121,7 @@ import Layout from "../../../components/Layout.astro";
     document.getElementById("current")!.textContent = now || "—";
     document.getElementById("field-hint")!.textContent = HINTS[field] ?? "";
     document.getElementById("field-note")!.textContent = chosen
-      ? notFor(field, chosen.genre, chosen.kind) ?? (field === "start_system" ? chosen.fixed ?? "" : "") : "";
+      ? notFor(field, chosen.genre, chosen.kind) ?? (field === "start_system" ? chosen.fixed ?? startNote(chosen) : "") : "";
     if (fillValue) value.value = drafts.get(draftKey()) ?? now;
     showScans();
   }
@@ -193,7 +193,7 @@ import Layout from "../../../components/Layout.astro";
     if (!chosen) { say(status, "Choose what to correct.", "error"); pieceSelect.focus(); return; }
     const save = document.getElementById("save") as HTMLButtonElement;
     save.disabled = true;
-    const result = await api<{ id: number }>("/edits", { target: chosen.target, field: fieldSelect.value,
+    const result = await api<{ id: number; warning?: string }>("/edits", { target: chosen.target, field: fieldSelect.value,
                                                          value: value.value, note: note.value });
     save.disabled = false;
     if (!result.ok) {
@@ -203,7 +203,8 @@ import Layout from "../../../components/Layout.astro";
     }
     drafts.clear(draftKey());
     status?.replaceChildren(h("span", {}, "Approved. It is waiting on the "), h("a", { href: "/admin/" }, "corrections queue"),
-                            h("span", {}, " until someone publishes."));
+                            h("span", {}, " until someone publishes."),
+                            ...(result.data.warning ? [h("p", { class: "notice" }, result.data.warning)] : []));
     if (status) status.dataset["state"] = "ok";
     note.value = "";
   });

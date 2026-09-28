@@ -11,7 +11,8 @@ import Layout from "../../components/Layout.astro";
     <h1>Corrections</h1>
     <p class="muted small prose">Readers' reports and your own fixes. Approving gathers a change; <strong>Publish
       changes</strong> sends them all as one pull request on GitHub, which the owner merges to put them on the site.
-      <a href="/admin/edit/">Make a correction yourself</a> · <a href="/about/#corrections">How corrections work</a></p>
+      <a href="/admin/edit/">Make a correction yourself</a> · <a href="/admin/parts/">Parts to check</a> ·
+      <a href="/about/#corrections">How corrections work</a></p>
 
     <div id="status" class="status small" role="status" aria-live="polite"></div>
 
@@ -88,7 +89,7 @@ import Layout from "../../components/Layout.astro";
   import type { QueueItem } from "../../lib/admin/api";
   import { namedSystems } from "../../lib/admin/scans";
   import type { Scans } from "../../lib/admin/scans";
-  import { FIELD_LABELS, describeTarget, notFor } from "../../lib/admin/targets";
+  import { FIELD_LABELS, describeTarget, notFor, startNote } from "../../lib/admin/targets";
   import type { Targets } from "../../lib/admin/targets";
 
   interface Queue {
@@ -156,7 +157,8 @@ import Layout from "../../components/Layout.astro";
       const f = fieldSelect.value;
       now.textContent = item.values[f] || "—";
       const info = targets && item.resolvedTarget ? describeTarget(targets, item.resolvedTarget) : null;
-      fieldNote.textContent = info ? (notFor(f, info.genre, info.kind) ?? (f === "start_system" ? info.fixed ?? "" : "")) : "";
+      fieldNote.textContent = info ? (notFor(f, info.genre, info.kind) ??
+        (f === "start_system" ? info.fixed ?? startNote(info) : "")) : "";
       if (f !== (item.resolvedField ?? "")) fieldNote.textContent ||= `The reader filed this under “${item.field}”.`;
     };
     // The pictures follow the field and the value: a start moved to system 7
@@ -186,7 +188,7 @@ import Layout from "../../components/Layout.astro";
     const actions = h("div", { class: "actions" });
     const act = async (verb: string, body: Record<string, string>, done: string) => {
       actions.querySelectorAll("button").forEach((b) => { (b as HTMLButtonElement).disabled = true; });
-      const result = await api(`/rows/${item.id}/${verb}`, body);
+      const result = await api<{ warning?: string }>(`/rows/${item.id}/${verb}`, body);
       if (!result.ok) {
         fail(result);
         actions.querySelectorAll("button").forEach((b) => { (b as HTMLButtonElement).disabled = result.status === 409; });
@@ -196,7 +198,9 @@ import Layout from "../../components/Layout.astro";
         return;
       }
       drafts.clear(draftKey);
-      say(status, `${label(item)}: ${done}.`, "ok");
+      // A part moved past a neighbour still to be moved: approved, and said so.
+      say(status, `${label(item)}: ${done}.${result.data.warning ? ` ${result.data.warning}` : ""}`,
+          result.data.warning ? "error" : "ok");
       const next = nextHeadingId(article);
       await load();
       focusAfterLoad(next);

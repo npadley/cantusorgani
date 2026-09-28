@@ -1,0 +1,58 @@
+---
+import Layout from "../../../components/Layout.astro";
+import { allPieces, pieceBySlug } from "../../../lib/catalog";
+import { pieceHref } from "../../../lib/indexes";
+import { suspectParts } from "../../../lib/admin/suspects";
+
+// Proper parts whose start looks wrong, built with the site: each links to the
+// edit page, which shows the scan. Behind Cloudflare Access with /admin/.
+const pieces = suspectParts(allPieces());
+const count = pieces.reduce((n, p) => n + p.parts.length, 0);
+const edit = (target: string) => `/admin/edit/?target=${encodeURIComponent(target)}`;
+---
+
+<Layout title="Admin: parts to check" noindex>
+  <div class="admin ui">
+    <p class="small muted"><a href="/admin/">Corrections</a></p>
+    <h1>Parts to check</h1>
+    <p class="muted small prose">
+      {count} Proper part{count === 1 ? "" : "s"} in {pieces.length} piece{pieces.length === 1 ? "" : "s"} whose start
+      may be wrong: guessed from the order of the parts, or much shorter than that kind of part usually is. A part runs
+      from the system it starts on until the next part starts, so a short part often means the next one starts too
+      early. Open a part to see its scan and correct it; a part you correct leaves this list once it is published.
+    </p>
+    {pieces.length === 0 ? <p>Nothing to check.</p> : (
+      <ol class="suspects">
+        {pieces.map((piece) => {
+          const found = pieceBySlug(piece.slug);
+          return (
+            <li>
+              <h2>{found ? <a href={pieceHref(found)}>{piece.label}</a> : piece.label} <span class="muted small">({piece.volume})</span></h2>
+              <ul>
+                {piece.parts.map((p) => (
+                  <li>
+                    <a href={edit(p.target)}>{p.name}</a>
+                    <span class="muted small"> · starts on system {p.start}, runs for {p.length}</span>
+                    <p class="small">{p.reasons.map((r) => `${r[0]?.toUpperCase()}${r.slice(1)}.`).join(" ")}</p>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          );
+        })}
+      </ol>
+    )}
+  </div>
+</Layout>
+
+<style>
+  .admin { max-width: var(--measure); }
+  h1 { margin: 0 0 var(--s-2); }
+  .suspects { padding-left: 0; list-style: none; }
+  .suspects > li { border-top: 1px solid var(--rule); padding: var(--s-3) 0; }
+  .suspects h2 { font-size: var(--step-0); margin: 0 0 var(--s-1); }
+  .suspects ul { margin: 0; padding-left: var(--s-4); }
+  .suspects ul li { margin: 0 0 var(--s-2); }
+  .suspects ul li a { display: inline-flex; align-items: center; min-height: var(--tap-min); }
+  .suspects p { margin: 0; }
+</style>

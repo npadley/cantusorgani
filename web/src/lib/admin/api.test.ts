@@ -164,11 +164,12 @@ describe("a report filed under the wrong field", () => {
 });
 
 describe("parts and Vespers items", () => {
-  it("should correct where a part starts, inside its neighbours only, and not a part printed elsewhere", async () => {
+  it("should correct where a part starts inside the piece, and not a part printed elsewhere", async () => {
     const ok = await call("POST", "/edits", { target: "part:dominica-i-adventus/gradual", field: "start_system", value: "4" });
-    expect(ok.status).toBe(201);
-    const order = await call("POST", "/edits", { target: "part:dominica-i-adventus/gradual", field: "start_system", value: "5" });
-    expect(order.body["error"]).toMatch(/after system 1 and before system 5/);
+    expect(ok).toMatchObject({ status: 201, body: { status: "approved" } });
+    expect(ok.body["warning"]).toBeUndefined();
+    const outside = await call("POST", "/edits", { target: "part:dominica-i-adventus/gradual", field: "start_system", value: "7" });
+    expect(outside.body["error"]).toMatch(/outside the piece, which has 6 systems/);
     const borrowed = await call("POST", "/edits", { target: "part:dominica-i-adventus/offertory", field: "start_system", value: "4" });
     expect(borrowed.body["error"]).toMatch(/printed in another volume \(dominica-ii, p. 9\)/);
   });
@@ -227,6 +228,19 @@ describe("publishing", () => {
     expect((await call("POST", "/publish", {})).body["error"]).toMatch(/still being opened/);
     const queue = (await call("GET", "/queue")).body;
     expect((queue["batches"] as { items: unknown[] }[])[0]!.items).toHaveLength(2);
+  });
+
+  it("should let parts move past each other in either order, and publish only once they are in order", async () => {
+    const gradual = await call("POST", "/edits", { target: "part:dominica-i-adventus/gradual", field: "start_system", value: "5" });
+    expect(gradual.status).toBe(201);
+    expect(gradual.body["warning"]).toMatch(/the Gradual would start on system 5 and the Communion on system 5\. A part runs until the next one starts: move the Communion too\. Publishing waits/);
+    const held = await call("POST", "/publish", {});
+    expect(held.status).toBe(422);
+    expect(held.body["error"]).toMatch(/move the Communion too\. Nothing was published\.$/);
+    expect(sent).toHaveLength(0);
+    const communion = await call("POST", "/edits", { target: "part:dominica-i-adventus/communion", field: "start_system", value: "6" });
+    expect(communion.body["warning"]).toBeUndefined();
+    expect(await call("POST", "/publish", {})).toMatchObject({ status: 200, body: { count: 2 } });
   });
 
   it("should put everything back when GitHub does not answer", async () => {

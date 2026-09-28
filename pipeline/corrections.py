@@ -16,6 +16,7 @@ data/vespers/vespers-offices.yml). This overlay is for what the pipeline compute
 from __future__ import annotations
 
 import copy
+import itertools
 import json
 import re
 from collections.abc import Callable
@@ -259,15 +260,10 @@ def _part_slot(target: str, name: str, pieces: dict[str, dict[str, Any]]) -> Slo
                               "correct it where it is printed")
 
     def check(n: Any) -> str | None:
+        # Order against the other parts is checked on the result (_part_order),
+        # so two parts can be moved past each other in either order.
         if not 1 <= int(n) <= len(systems):
             return f"{target} start_system {n} is outside the piece, which has {len(systems)} systems"
-        placed = [p for p in parts if "system" in p]
-        at = placed.index(found)
-        before = placed[at - 1]["system"] + 1 if at > 0 else 0
-        after = placed[at + 1]["system"] + 1 if at + 1 < len(placed) else len(systems) + 1
-        if not before < int(n) < after:
-            return (f"{target} start_system {n} would put it out of order: it must come after system "
-                    f"{before} and before system {after}")
         return None
 
     def put(n: Any) -> None:
@@ -524,14 +520,55 @@ def _ranged(base: dict[str, Any], entries: list[Entry]) -> tuple[dict[str, Any],
     return catalog, failed
 
 
-def _check(base: dict[str, Any] | None, entries: list[Entry], vespers: VespersData | None = None
-           ) -> tuple[list[str], dict[str, Any] | None]:
-    """(problems, the catalogue with system ranges applied)."""
+_PART_NAMES = {"introit": "Introit", "gradual": "Gradual", "alleluia": "Alleluia", "tract": "Tract",
+               "sequence": "Sequence", "offertory": "Offertory", "communion": "Communion"}
+
+
+def _part_order(layer: dict[str, Any], entries: list[Entry], skip: set[str]) -> list[str]:
+    """Each piece's printed parts must start in the order they are printed once
+    every start_system entry is applied. Checked on the result, not entry by
+    entry: moving the Gradual down past where the Alleluia starts now is right
+    when the Alleluia moves down too. A part runs until the next one starts."""
+    catalog = copy.deepcopy(layer)
+    moved: dict[str, list[Entry]] = {}
+    for e in entries:
+        if e.field != "start_system" or kind_of(e.target) != "part" or e.id in skip:
+            continue
+        try:
+            s = slot(e.target, e.field, catalog, None)
+            s.put(coerce(e.field, e.value, s.genre, "part"))
+        except CorrectionError:
+            continue
+        moved.setdefault(e.target.split(":", 1)[1].split("/")[0], []).append(e)
+    pieces = _pieces(catalog)
+    out = []
+    for slug, mine in moved.items():
+        placed = [p for p in pieces[slug].get("parts") or [] if "system" in p]
+        for a, b in itertools.pairwise(placed):
+            if a["system"] < b["system"]:
+                continue
+            names = [f"{_PART_NAMES.get(x['part'], x['part'])}{' ' + x['variant'] if x.get('variant') else ''}"
+                     for x in (a, b)]
+            which = {f"part:{slug}/{x['part']}{':' + x['variant'] if x.get('variant') else ''}": n
+                     for x, n in zip((a, b), names, strict=True)}
+            e = next((m for m in reversed(mine) if m.target in which), mine[-1])
+            other = next((n for t, n in which.items() if t != e.target), names[1])
+            out.append(f"{_where(e)}: {e.target} start_system out of order: the {names[0]} would start on "
+                       f"system {a['system'] + 1} and the {names[1]} on system {b['system'] + 1}, but a part "
+                       f"runs until the next one starts; move the {other} too, or choose another system")
+            break
+    return out
+
+
+def _check(base: dict[str, Any] | None, entries: list[Entry], vespers: VespersData | None = None,
+           order: bool = True) -> tuple[list[str], dict[str, Any] | None]:
+    """(problems, the catalogue with system ranges applied). `order`: also check
+    that parts start in printed order once every entry is applied."""
     layer, failed = _ranged(base, entries) if base is not None else (None, {})
     genres = {str(p.get("genre")) for p in _pieces(base or {}).values()}
     seen: dict[tuple[str, str], str] = {}
     ids: set[str] = set()
-    out = []
+    out: list[str] = []
     for e in entries:
         where = _where(e)
         if e.id in ids:
@@ -573,14 +610,19 @@ def _check(base: dict[str, Any] | None, entries: list[Entry], vespers: VespersDa
         issue = s.check(value) if s.check else None
         if issue:
             out.append(f"{where}: {issue}")
+    if order and layer is not None:
+        bad = {e.id for e in entries if any(m.startswith(f"{_where(e)}:") for m in out)}
+        out += _part_order(layer, entries, bad)
     return out, layer
 
 
-def problems(base: dict[str, Any] | None, entries: list[Entry], vespers: VespersData | None = None) -> list[str]:
+def problems(base: dict[str, Any] | None, entries: list[Entry], vespers: VespersData | None = None,
+             order: bool = True) -> list[str]:
     """Every reason the entries cannot be applied, one line each. Entries of a
     kind whose data is not given (vespers without `vespers`, pieces and parts
-    without `base`) are left to the call that has it."""
-    return _check(base, entries, vespers)[0]
+    without `base`) are left to the call that has it. `order=False` leaves out
+    the order of parts, which only the finished file can settle."""
+    return _check(base, entries, vespers, order)[0]
 
 
 def apply(base: dict[str, Any], entries: list[Entry]) -> dict[str, Any]:
@@ -706,8 +748,10 @@ def next_id(entries: list[Entry]) -> str:
 
 def correct(target: str, name: str, value: str, note: str = "", source: str = "editor",
             editor_email: str = "", today: date | None = None, base_path: Path = BASE,
-            path: Path = CORRECTIONS, vespers_dir: Path = DATA) -> tuple[Entry, bool]:
-    """Record one correction; returns (entry, replaced an earlier one)."""
+            path: Path = CORRECTIONS, vespers_dir: Path = DATA, order: bool = True) -> tuple[Entry, bool]:
+    """Record one correction; returns (entry, replaced an earlier one).
+    `order=False` defers the order of parts to the caller (a batch checks it
+    once every entry is in)."""
     kind = kind_of(target)
     base = load_base(base_path) if kind != "vespers" else None
     vespers = load_vespers(vespers_dir) if kind == "vespers" else None
@@ -729,17 +773,17 @@ def correct(target: str, name: str, value: str, note: str = "", source: str = "e
         if (e.target, e.field) == (target, name):
             e.value, e.note, e.source, e.date = new, note or e.note, source, stamp
             e.editor_email = editor_email or e.editor_email
-            _check_and_save(base, entries, path, vespers)
+            _check_and_save(base, entries, path, vespers, order)
             return e, True
     entry = Entry(id=next_id(entries), target=target, field=name, was=s.get(), value=new,
                   source=source, date=stamp, note=note, editor_email=editor_email)
-    _check_and_save(base, [*entries, entry], path, vespers)
+    _check_and_save(base, [*entries, entry], path, vespers, order)
     return entry, False
 
 
 def _check_and_save(base: dict[str, Any] | None, entries: list[Entry], path: Path,
-                    vespers: VespersData | None = None) -> None:
-    found = problems(base, entries, vespers)
+                    vespers: VespersData | None = None, order: bool = True) -> None:
+    found = problems(base, entries, vespers, order)
     if found:
         raise CorrectionError("\n".join(found))
     save(entries, path)
@@ -779,10 +823,13 @@ def correct_batch(batch: dict[str, Any], today: date | None = None, base_path: P
         try:
             entry, _ = correct(str(item.get("target", "")), str(item.get("field", "")), str(item.get("value", "")),
                                note=str(item.get("note", ""))[:200], source=source, editor_email=email,
-                               today=today, base_path=base_path, path=path)
+                               today=today, base_path=base_path, path=path, order=False)
             done.append(entry)
         except CorrectionError as exc:
             errors.append(f"entry {n} ({item.get('target')} {item.get('field')}): {exc}")
+    if not errors:
+        # The order of parts, once the whole batch is in: its moves may pass each other.
+        errors += problems(load_base(base_path), load(path))
     if errors:
         if before is None:
             path.unlink(missing_ok=True)

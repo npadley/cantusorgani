@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test";
 
+import { starts } from "./data";
+
 // The public site as a reader meets it: the links that lead to a correction,
 // the Corrections form's answers, and the pieces of the page that run scripts.
 
@@ -11,7 +13,7 @@ test.describe("Report links", () => {
     await expect(page.locator("#target-fixed")).toContainText("Dominica I Adventus (noh1) · Gradual");
     await expect(page.locator("#piece-row")).toBeHidden();
     await expect(page.locator("#field option")).toHaveText(["Where it starts", "Its chant (GregoBase id)"]);
-    await expect(page.locator("#field-now")).toHaveText("Now: 4");
+    await expect(page.locator("#field-now")).toHaveText(`Now: ${starts("dominica-i-adventus")["gradual"]}`);
   });
 
   test("should link each antiphon of a Vespers page, and list the coming evenings", async ({ page }) => {

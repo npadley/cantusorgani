@@ -323,8 +323,14 @@ commits the result to the branch, and the checks run again. Or locally: the comm
   uv run noh correct part:dominica-i-adventus/gradual chant 1169        # a GregoBase id, or none
   ```
 
-  A part's start must stay between its neighbours' starts. A part printed in
-  another volume is corrected where it is printed.
+  A part has no list of systems: it runs from the system it starts on until
+  the next part starts. So a part that is missing systems at its end is fixed
+  by moving the *next* part's start. The parts must still start in printed
+  order once all your corrections are in, but not after each one: to move the
+  Gradual down past where the Alleluia starts now, move both, in either order,
+  and publish them together. (One at a time with `noh correct`, move the later
+  part first.) A part printed in another volume is corrected where it is
+  printed.
 - **Command**: none; `noh correct` rewrites the files.
 - **Confirm**: the part's heading on the piece page sits above the right
   system, and its **Chant** link opens the right melody. A new chant's
@@ -339,6 +345,12 @@ or **Which part?** on the edit page. Readers use **Report** beside it.
 A part the pipeline placed by order alone (a guess) isn't shown on the site,
 so it has no Report link. It's listed on the admin edit page and in
 `noh where`.
+
+**Parts to check** (`/admin/parts/`, linked from the admin screen) lists the
+parts whose start looks wrong: guessed from the order of the parts, or much
+shorter than that kind of part usually is (often because the next part starts
+too early). Each opens its edit page with the scan. A part corrected by hand
+leaves the list once it is published.
 
 ### Psalm formulas and notes
 

@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test";
 
+import { starts } from "./data";
+
 // The admin screen, signed in as the test editor, against the reports seeded
 // from e2e/seed.sql. Serial: each step leaves the queue as the next expects.
 
@@ -61,20 +63,39 @@ test.describe.serial("The corrections queue", () => {
 });
 
 test.describe("Making a correction", () => {
-  test("should choose a part, refuse a start out of order, and approve one in order", async ({ page }) => {
+  test("should explain a part's start, refuse one outside the piece, and approve one in order", async ({ page }) => {
+    const s = starts("dominica-i-adventus");
+    const inOrder = s["introit"]! + 1 === s["gradual"] ? s["introit"]! + 2 : s["introit"]! + 1;
     await page.goto("/admin/edit/?target=part:dominica-i-adventus/gradual");
     await expect(page.locator("#target-label")).toHaveText("Dominica I Adventus (noh1) · Gradual");
     await expect(page.locator("#part")).toHaveValue("part:dominica-i-adventus/gradual");
-    await expect(page.locator("#current")).toHaveText("4");
-    await page.locator("#value").fill("9");
+    await expect(page.locator("#current")).toHaveText(String(s["gradual"]));
+    await expect(page.locator("#field-note")).toHaveText("A part runs from the system it starts on until the next part " +
+      `starts: this one starts after the Introit (system ${s["introit"]}) and before the Alleluia (system ${s["alleluia"]}). ` +
+      "To move it past the Alleluia, move the Alleluia too, in either order, before publishing.");
+    await page.locator("#value").fill(String(s.systems + 2));
     await page.getByRole("button", { name: "Approve this correction" }).click();
-    await expect(page.locator("#status")).toContainText("out of order");
-    await page.locator("#value").fill("5");
+    await expect(page.locator("#status")).toContainText(`outside the piece, which has ${s.systems} systems`);
+    await page.locator("#value").fill(String(inOrder));
     // The system it starts on now, and the one proposed, from the scans.
-    await expect(page.locator("#scans figcaption")).toContainText(["Starts now: system 4", "Would start: system 5"]);
+    await expect(page.locator("#scans figcaption")).toContainText([`Starts now: system ${s["gradual"]}`, `Would start: system ${inOrder}`]);
     await expect(page.locator("#scans img")).toHaveCount(2);
     await page.getByRole("button", { name: "Approve this correction" }).click();
     await expect(page.locator("#status")).toContainText("Approved.");
+    await expect(page.locator("#status .notice")).toHaveCount(0);
+  });
+
+  test("should approve a part moved past its neighbour with a warning, until the neighbour moves too", async ({ page }) => {
+    const s = starts("dominica-i-adventus");
+    await page.goto("/admin/edit/?target=part:dominica-i-adventus/gradual");
+    await page.locator("#value").fill(String(s["alleluia"]));
+    await page.getByRole("button", { name: "Approve this correction" }).click();
+    await expect(page.locator("#status .notice")).toContainText("move the Alleluia too. Publishing waits until then.");
+    await page.goto("/admin/edit/?target=part:dominica-i-adventus/alleluia");
+    await page.locator("#value").fill(String(s["alleluia"]! + 1));
+    await page.getByRole("button", { name: "Approve this correction" }).click();
+    await expect(page.locator("#status")).toContainText("Approved.");
+    await expect(page.locator("#status .notice")).toHaveCount(0);
   });
 
   test("should switch from a piece to one of its parts", async ({ page }) => {
@@ -83,5 +104,18 @@ test.describe("Making a correction", () => {
     await page.locator("#part").selectOption("part:dominica-i-adventus/introit");
     await expect(page.locator("#field option")).toHaveText(["Starts on system", "Chant (GregoBase id)"]);
     await expect(page.locator("#target-label")).toHaveText("Dominica I Adventus (noh1) · Introit");
+  });
+});
+
+test.describe("Parts to check", () => {
+  test("should list suspect part starts, each opening its edit page with the explanation", async ({ page }) => {
+    await page.goto("/admin/");
+    await page.getByRole("link", { name: "Parts to check" }).click();
+    await expect(page.locator("h1")).toHaveText("Parts to check");
+    const first = page.locator(".suspects ul a").first();
+    await expect(first).toHaveAttribute("href", /^\/admin\/edit\/\?target=part%3A/);
+    await first.click();
+    await expect(page.locator("#field option:checked")).toHaveText("Starts on system");
+    await expect(page.locator("#field-note")).toContainText("A part runs from the system it starts on until the next part starts");
   });
 });
