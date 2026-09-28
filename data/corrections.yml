@@ -16,3 +16,12 @@
 #   source: editor
 #   date: '2026-09-27'
 #   note: as printed on p. 3
+
+- id: c-0001
+  target: piece:missa-pro-gratiarum-actione
+  field: title
+  was: Missa pro Gratiarum Actione
+  value: '1'
+  source: reader#1
+  date: '2026-09-28'
+  editor_email: nick@padley.com
