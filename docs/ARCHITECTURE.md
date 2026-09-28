@@ -8,11 +8,11 @@ the data, never edits to generated files. For how to fix things, see
 ```mermaid
 flowchart LR
   subgraph sources["Sources (pinned)"]
-    PDF["pdf-source/<br/>NOH scans (local only)"]
+    PDF["pdf-source/NOH*.pdf<br/>the scans (in git)"]
     IDX["data/index-noh*.yml<br/>hand-reviewed indexes"]
     CAL["Missalemeum<br/>→ data/calendar/"]
     DO["Divinum Officium<br/>→ divinum-officium-vespers.json"]
-    GB["GregoBase dump<br/>(vendor/, local only)"]
+    GB["GregoBase dump<br/>(noh gregobase-fetch)"]
     VES["data/vespers-*.yml<br/>reviewed Vespers items"]
   end
 
@@ -60,13 +60,14 @@ flowchart LR
 
 | Part | Where | What it does |
 |---|---|---|
-| **Pipeline** | `pipeline/` (`uv run noh …`) | Reads the scans, splits pages into systems, reads the printed indexes and the calendar, and writes the data files. The steps that read scans need `pdf-source/`; applying corrections and building the Vespers lineup do not. |
+| **Pipeline** | `pipeline/` (`uv run noh …`) | Reads the scans (`pdf-source/`, in git), splits pages into systems, reads the printed indexes and the calendar, and writes the data files. A catalogue rebuild also reads `data/published/` and `data/ocr/margins/`, so it gives the same result anywhere; only uploading images needs the R2 keys. |
 | **Data** | `data/` | Reviewed inputs (`index-*.yml`, `vespers-*.yml`, `rubrics-1962.yml`, `corrections.yml`), vendored sources, and generated outputs (`catalog*.json`, `vespers-lineup.json`, `chants.json`, `corrections-log.json`). The generated outputs are committed, so the site builds from git alone. |
 | **Site** | `web/` | A static Astro site built from `data/`. `pnpm build` ends by crawling `dist/` and fails if any page can't be reached by a link. Page images come from R2 (`images.cantusorgani.org`). |
 | **Admin API** | `web/functions/` → `web/src/lib/admin/` | Pages Functions behind Cloudflare Access: the corrections queue, editors' own fixes, and publishing a batch. |
 | **Corrections Worker** | `workers/corrections/` | Takes readers' reports from the Corrections form (Turnstile, rate limit) into D1. Its migrations are the database schema, shared with the admin API. |
 | **CI** | `.github/workflows/site.yml` | On every pull request: tests, secret scan, checks that corrections are applied, build and link check. On `main`: the same, then deploy. |
-| **Publishing** | `.github/workflows/corrections-batch.yml` | Runs when the admin screen publishes: records the batch (`noh correct-batch`) and opens a pull request as the GitHub App. |
+| **Publishing** | `.github/workflows/corrections-batch.yml` | Runs when the admin screen publishes: records the batch (`noh correct-batch`), rebuilds the chant notation, and opens a pull request as the GitHub App. |
+| **Rebuilding** | `.github/workflows/catalog-rebuild.yml` | Run by hand from the Actions tab: rebuilds a volume's catalogue from the scans after an index edit, on a branch or as a pull request. |
 
 ## A correction's journey
 

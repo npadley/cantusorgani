@@ -10,6 +10,11 @@ updates:
     groups:
       minor-and-patch: { update-types: [minor, patch] }
     open-pull-requests-limit: 5
+    ignore:
+      # astro check does not support TypeScript 7 yet (it asks for 6); lift this
+      # when Astro does.
+      - dependency-name: typescript
+        versions: [">=7.0.0"]
 
   - package-ecosystem: npm
     directory: /workers/corrections

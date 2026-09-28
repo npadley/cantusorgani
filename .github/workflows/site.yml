@@ -51,9 +51,18 @@ jobs:
       - run: uv sync --frozen
       - name: Lint
         run: uv run ruff check pipeline tools tests
-      # `source` and `slow` tests need the untracked pdf-source/ PDFs.
+      # The scans are in git (pdf-source/), so the tests that read them run
+      # here too. A pull request skips only the `slow` ones (pages rendered at
+      # 300 dpi, a few minutes); main runs everything.
       - name: Pipeline tests
-        run: uv run pytest -q -m "not source and not slow"
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT" = "pull_request" ]; then
+            uv run pytest -q -m "not slow"
+          else
+            uv run pytest -q
+          fi
       - name: Hand corrections applied
         run: uv run noh apply-corrections --check
       # Every chant a part or Vespers item names has its notation, from the
