@@ -323,6 +323,41 @@ def test_cli_correct_batch_writes_the_summary(tmp_path, monkeypatch, capsys):
     assert "b-20260927-abc123" in (tmp_path / "pr.md").read_text()
 
 
+def recorded(n: int, field: str = "mode", target: str = "piece:kyrie-i") -> corrections.Entry:
+    return corrections.Entry(id=f"c-{n:04d}", target=target, field=field, was=None, value="x")
+
+
+def test_hold_reasons_small_ordinary_batch_merges_itself():
+    done = [recorded(1), recorded(2, "title"), recorded(3, "start_system", "part:dominica-ii/introit")]
+    assert corrections.hold_reasons(done) == []
+    assert "Merges itself once the site's checks pass" in corrections.batch_summary("b-20260927-abc123", done, [])
+
+
+def test_hold_reasons_moving_systems_between_pieces_waits_for_the_owner():
+    done = [recorded(1), recorded(2, "system_range", "piece:dominica-ii")]
+    reasons = corrections.hold_reasons(done)
+    assert reasons == ["1 correction(s) move systems between pieces (piece:dominica-ii)"]
+    summary = corrections.batch_summary("b-20260927-abc123", done, reasons)
+    assert "**Waits for the owner** because 1 correction(s) move systems" in summary
+    assert "Merges itself" not in summary
+
+
+def test_hold_reasons_a_large_batch_waits_for_the_owner():
+    assert corrections.hold_reasons([recorded(n) for n in range(corrections.LARGE_BATCH - 1)]) == []
+    reasons = corrections.hold_reasons([recorded(n) for n in range(corrections.LARGE_BATCH)])
+    assert reasons == [f"it has {corrections.LARGE_BATCH} corrections ({corrections.LARGE_BATCH} or more)"]
+
+
+def test_cli_correct_batch_writes_why_it_waits(tmp_path, monkeypatch):
+    point_at(tmp_path, monkeypatch)
+    real = corrections.correct_batch
+    monkeypatch.setattr(corrections, "correct_batch", lambda b_: real(b_, base_path=tmp_path / "catalog.base.json",
+                                                                         path=tmp_path / "corrections.yml"))
+    (tmp_path / "b.json").write_text(json.dumps(batch({"target": "piece:kyrie-i", "field": "mode", "value": "VII"})))
+    assert cli.main(["correct-batch", str(tmp_path / "b.json"), "--hold", str(tmp_path / "hold.txt")]) == 0
+    assert (tmp_path / "hold.txt").read_text() == ""
+
+
 def proper() -> dict:
     """A catalogue with one Proper: five systems, three placed parts and one borrowed."""
     b = base()

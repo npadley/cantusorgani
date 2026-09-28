@@ -99,8 +99,53 @@ Go to the repo's **Settings → Rules → Rulesets → New branch ruleset**.
     bypass above means your merge is the approval.
   - **Require status checks to pass**: add `check-build-deploy`.
 
-After this, my changes arrive as pull requests for you to merge, like the
-admin screen's batches.
+After this, my changes arrive as pull requests for you to merge.
+
+Then, in **Settings → General → Pull Requests**, tick **Allow auto-merge**. The
+admin screen's batches use it: a batch merges itself (and deploys) as soon as
+`check-build-deploy` passes, so you do not have to merge each one. Two kinds
+wait for you instead, and their pull request says why:
+
+- a batch that moves systems between pieces (a `system_range` correction);
+- a batch of 25 corrections or more.
+
+If a batch's checks fail, the pull request is closed and its corrections go
+back to the admin screen, marked with the reason.
+
+## 5. R2 for GitHub Actions
+
+GitHub Actions publishes to the `cantusorgani-assets` bucket (typeset music,
+later). Give it its own R2 token, separate from the one on your Mac, so either
+can be revoked without the other.
+
+1. In the Cloudflare dashboard, open **R2 Object Storage**, then **Manage API
+   tokens** → **Create Account API token**.
+   - Name: `cantusorgani GitHub Actions`
+   - Permissions: **Object Read & Write**
+   - Specify bucket(s): **Apply to specific buckets only** →
+     `cantusorgani-assets`
+   - TTL: **Forever** (revoke it here if it ever leaks)
+2. **Create API Token**. The next page shows several values, once. Use only
+   these two:
+   - **Access Key ID** (32 characters)
+   - **Secret Access Key** (64 characters)
+
+   Not the **Token value**: that starts `cfat_` and is a Cloudflare API token,
+   not an R2 key.
+3. Your **account ID** is the 32 characters at the start of the S3 endpoint
+   shown on the same page (`https://<account ID>.r2.cloudflarestorage.com`),
+   or on the R2 overview under **Account Details**.
+4. In the repo's **Settings → Secrets and variables → Actions**:
+   - secrets: `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`;
+   - variable: `R2_BUCKET` = `cantusorgani-assets` (*not secret*).
+
+   Save the token in 1Password too.
+5. Go to **Actions → r2-check → Run workflow**. A green run means GitHub can
+   write to the bucket; a red one says which value is wrong, without showing it.
+
+For your Mac, make a second token the same way (name it `cantusorgani Mac`),
+put its values in the 1Password Environment, and check with
+`uv run noh r2-check`.
 
 ## Checking it works
 
@@ -110,8 +155,9 @@ admin screen's batches.
    harmless correction and approve it.
 3. On `/admin/`, press **Publish changes**. Within a minute or two, "On
    GitHub" shows a pull request.
-4. The pull request runs the site checks. Merge it, and the site deploys with
-   the correction, and the history lists it as accepted.
+4. The pull request runs the site checks and, when they pass, merges itself:
+   the site deploys with the correction, and the history lists it as accepted.
+   (A batch that waits for you says so in the pull request; merge it yourself.)
 5. Or close it without merging: the correction goes back to "To review".
 
 If a step fails, the admin screen says why. The GitHub side is under the

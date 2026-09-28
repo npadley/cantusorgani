@@ -41,6 +41,8 @@ def build_parser() -> argparse.ArgumentParser:
     subs = p.add_subparsers(dest="command", required=True)
 
     subs.add_parser("doctor", help="preflight: dependencies, sources, credentials")
+    subs.add_parser("r2-check",
+                    help="check the R2 credentials: their shape, then write, read and delete a test object")
 
     render = subs.add_parser("render", help="rasterise pages at 300dpi")
     _add_common(render)
@@ -133,6 +135,8 @@ def build_parser() -> argparse.ArgumentParser:
                          help="record a batch of corrections from the admin screen (a JSON file), all or nothing")
     cb.add_argument("file", help="the batch: {\"batch\": \"b-...\", \"entries\": [...]}")
     cb.add_argument("--summary", default=None, help="write the pull request description here")
+    cb.add_argument("--hold", default=None,
+                    help="write why the batch waits for the owner here, one reason a line (empty: merge it)")
     wh = subs.add_parser("where", help="what a page is, and which file to change to fix it")
     wh.add_argument("query", help="a page URL or path (/piece/<slug>/), or a few words of a title")
     cs = subs.add_parser("corrections", help="list the hand corrections, or drop one")
@@ -190,8 +194,11 @@ def _corrections_command(args: argparse.Namespace) -> int:
             batch = _json.loads(_Path(args.file).read_text(encoding="utf-8"))
             recorded = c.correct_batch(batch)
             c.write_all()
+            hold = c.hold_reasons(recorded)
             if args.summary:
-                _Path(args.summary).write_text(c.batch_summary(str(batch["batch"]), recorded), encoding="utf-8")
+                _Path(args.summary).write_text(c.batch_summary(str(batch["batch"]), recorded, hold), encoding="utf-8")
+            if args.hold:
+                _Path(args.hold).write_text("".join(f"{r}\n" for r in hold), encoding="utf-8")
             print(f"recorded {len(recorded)} correction(s): {', '.join(e.id for e in recorded)}")
             return 0
         if args.command == "corrections":
@@ -237,6 +244,26 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "doctor":
         from pipeline.doctor import report, run
         return report(run())
+
+    if args.command == "r2-check":
+        from pipeline.upload import credential_problems, probe, require_credentials
+        try:
+            creds = require_credentials()
+        except RuntimeError as error:
+            print(f"FAIL  {error}", file=sys.stderr)
+            return 1
+        problems = credential_problems(creds)
+        for problem in problems:
+            print(f"FAIL  {problem}", file=sys.stderr)
+        if problems:
+            return 1
+        try:
+            key = probe(creds)
+        except Exception as error:  # noqa: BLE001 - reported, then a failing exit
+            print(f"FAIL  bucket {creds.bucket}: {type(error).__name__}: {error}", file=sys.stderr)
+            return 1
+        print(f"OK    bucket {creds.bucket}: wrote, read back and deleted {key}")
+        return 0
 
     if args.command == "render":
         from pipeline.render import render_page

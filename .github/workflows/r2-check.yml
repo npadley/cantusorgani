@@ -1,0 +1,36 @@
+# Check that GitHub Actions can publish to R2: run it from the Actions tab
+# ("r2-check" -> "Run workflow") after setting or rotating the R2 secrets.
+#
+# `noh r2-check` checks each value's shape (an API token pasted where the
+# account ID goes, a key of the wrong length) without printing it, then writes,
+# reads back and deletes one throwaway object under _probe/. It never touches a
+# published object. See docs/ADMIN-SETUP.md, "R2 for GitHub Actions".
+#
+# Needs, in Settings -> Secrets and variables -> Actions:
+#   secrets:   R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY
+#   variables: R2_BUCKET (cantusorgani-assets)
+name: r2-check
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - name: Check the R2 credentials
+        run: uv run noh r2-check
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ vars.R2_BUCKET }}

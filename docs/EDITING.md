@@ -45,8 +45,12 @@ code arrives by email). Setting it up is described in
 - **Make a correction yourself**: every piece page has an **Edit** link at its
   foot, which opens the form for that piece. Your fix is approved at once.
 - **Publish changes** sends everything approved to GitHub as one pull request.
-  The owner merges it, and merging deploys the site. Closing it without merging
-  puts the corrections back under **To review**.
+  When the site's checks pass it merges itself, and merging deploys the site
+  (a few minutes in all). A batch that moves systems between pieces, or has 25
+  corrections or more, waits for the owner to merge it instead. If a check
+  fails, the pull request is closed and the corrections come back under
+  **Approved**, with the reason. Closing a pull request without merging puts
+  its corrections back under **To review**.
 - **History** lists what was accepted (with its commit) and what was rejected
   (with the reason). Accepted corrections also appear publicly at
   `/corrections/log/`, without names or addresses.
