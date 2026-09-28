@@ -1,4 +1,14 @@
 {
   "schema_version": 1,
-  "corrections": []
+  "corrections": [
+    {
+      "id": "c-0001",
+      "target": "piece:ordinarium-missae-asperges",
+      "field": "mode",
+      "was": null,
+      "value": "VII",
+      "date": "2026-09-28",
+      "by": "editor"
+    }
+  ]
 }
