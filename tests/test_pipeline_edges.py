@@ -319,11 +319,14 @@ def test_build_catalog_unverified_pairing_is_published_flagged_and_queued(tmp_pa
 @pytest.mark.source
 @pytest.mark.slow
 def test_build_catalog_unsliced_pages_fall_back_to_computed_boxes(tmp_path, monkeypatch):
-    """Before slicing, no manifest exists: dimensions come from the computed boxes
-    and the asset key is empty, so the site uses its local path."""
+    """Before slicing, no manifest exists -- neither the slicing's own nor the
+    committed record: dimensions come from the computed boxes and the asset key
+    is empty, so the site uses its local path."""
     from pipeline import publish as publish_mod
     from pipeline.catalog import build_catalog
     monkeypatch.setattr(publish_mod, "BUILD", tmp_path / "no-slices-here")
+    monkeypatch.setattr(publish_mod, "PUBLISHED", tmp_path / "no-record-here")
+    monkeypatch.setattr(publish_mod, "_PUBLISHED_CACHE", {})
     index = write_index(tmp_path, [
         {"label": "III", "title": "In Exsequiis Defunctorum", "genre": "exsequiis", "page": 183},
     ])
@@ -332,3 +335,38 @@ def test_build_catalog_unsliced_pages_fall_back_to_computed_boxes(tmp_path, monk
     assert piece["systems"], "systems are still detected without a manifest"
     assert set(piece["system_assets"]) == {""}
     assert all(w > 0 and h > 0 for w, h in piece["system_aspect"])
+
+
+@pytest.mark.source
+@pytest.mark.slow
+def test_build_catalog_without_slices_takes_asset_keys_from_the_committed_record(tmp_path, monkeypatch):
+    """On a fresh checkout (or in CI) there are no slices, but data/published/
+    records what was published: the asset keys are the ones the site serves."""
+    from pipeline import publish as publish_mod
+    from pipeline.catalog import build_catalog
+    monkeypatch.setattr(publish_mod, "BUILD", tmp_path / "no-slices-here")
+    monkeypatch.setattr(publish_mod, "_PUBLISHED_CACHE", {})
+    index = write_index(tmp_path, [
+        {"label": "III", "title": "In Exsequiis Defunctorum", "genre": "exsequiis", "page": 183},
+    ])
+    piece = build_catalog("noh5", index)[0]["pieces"][0]
+    assert piece["system_assets"] and all(a.startswith("systems/noh5/") for a in piece["system_assets"])
+
+
+def test_export_manifests_gathers_every_page_and_load_manifest_reads_it(tmp_path, monkeypatch):
+    import json as _json
+
+    from pipeline import publish as publish_mod
+    slices = tmp_path / "systems" / "noh5"
+    for page, systems in (("0051", [{"index": 0, "sha256": "abc", "width": 10, "height": 2}]), ("0052", [])):
+        (slices / page).mkdir(parents=True)
+        (slices / page / "manifest.json").write_text(_json.dumps({"systems": systems}))
+    path = publish_mod.export_manifests("noh5", source=slices, out=tmp_path / "published")
+    assert _json.loads(path.read_text())["pages"] == {"0051": [{"index": 0, "sha256": "abc", "width": 10, "height": 2}],
+                                                     "0052": []}
+    monkeypatch.setattr(publish_mod, "BUILD", tmp_path / "gone")
+    monkeypatch.setattr(publish_mod, "PUBLISHED", tmp_path / "published")
+    monkeypatch.setattr(publish_mod, "_PUBLISHED_CACHE", {})
+    assert publish_mod.load_manifest("noh5", 51) == [{"index": 0, "sha256": "abc", "width": 10, "height": 2}]
+    assert publish_mod.load_manifest("noh5", 99) is None
+    assert publish_mod.load_manifest("noh5", 51, dest=tmp_path / "elsewhere") is None

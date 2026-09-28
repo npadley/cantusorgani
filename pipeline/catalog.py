@@ -269,8 +269,8 @@ def parts_context() -> PartsContext:
     from pipeline.parts import chant_text
     if not DUMP.exists():
         raise PartsUnavailable(
-            f"parts need {DUMP.relative_to(DUMP.parent.parent)} (not in git); see README "
-            f"\"Vendored data\". To rebuild without re-dividing Propers, pass --no-parts.")
+            f"parts need {DUMP.relative_to(DUMP.parent.parent)} (not in git). Fix: uv run noh "
+            f"gregobase-fetch. To rebuild without re-dividing Propers, pass --no-parts.")
     try:
         proprium = load_proprium()
     except JgabcIntegrityError as exc:
