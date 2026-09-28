@@ -193,21 +193,27 @@ async function actOnRow(deps: Deps, editor: Editor, id: number, verb: RowVerb, i
     await store.log(editor.email, "unapprove", id, "");
     return json({ ok: true });
   }
-  // approve, with the value as the editor leaves it
+  // approve, with the field and value as the editor leaves them: a reader may
+  // have filed a mode correction under Title.
   const targets = await deps.targets();
   const item = describeRow(row, targets);
-  if (item.problem || !item.resolvedTarget || !item.resolvedField) return problem(422, item.problem ?? "Cannot approve.");
-  const piece = findPiece(targets, item.resolvedTarget);
-  if (!piece) return problem(422, "This piece or item no longer exists.");
+  const piece = item.resolvedTarget ? findPiece(targets, item.resolvedTarget) : null;
+  if (!piece || !item.resolvedTarget) return problem(422, item.problem ?? "This piece or item no longer exists.");
+  const asked = text(input["field"], 40);
+  if (asked && !isPieceField(asked)) return problem(422, `“${asked}” is not a field this screen can correct.`);
+  const field: PieceField | null = asked && isPieceField(asked) ? asked : item.resolvedField;
+  if (!field) return problem(422, item.problem ?? "Choose which field this corrects.");
   const proposed = text(input["value"], 200) || row.proposed;
-  const checked = checkValue(targets, piece, item.resolvedField, proposed);
+  const checked = checkValue(targets, piece, field, proposed);
   if (!checked.ok) return problem(422, checked.error);
   const moved = await store.move(id, "pending", "approved", {
-    target: item.resolvedTarget, field: item.resolvedField, proposed: checked.value, editor_email: editor.email,
+    target: item.resolvedTarget, field, proposed: checked.value, editor_email: editor.email,
   });
   if (!moved) return conflict(store, id, await store.get(id));
-  await store.log(editor.email, "approve", id, checked.value === row.proposed ? "" : `reader proposed: ${row.proposed}`);
-  return json({ ok: true, status: "approved", value: checked.value });
+  const changed = [field !== item.resolvedField ? `reader filed it under ${row.field}` : "",
+                   checked.value !== row.proposed ? `reader proposed: ${row.proposed}` : ""].filter(Boolean).join("; ");
+  await store.log(editor.email, "approve", id, changed);
+  return json({ ok: true, status: "approved", field, value: checked.value });
 }
 
 async function createEdit(deps: Deps, editor: Editor, input: Record<string, unknown>): Promise<Response> {

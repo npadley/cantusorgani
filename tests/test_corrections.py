@@ -74,12 +74,30 @@ def test_problems_same_field_twice_and_same_id_twice_fail():
 
 
 @pytest.mark.parametrize(("name", "value", "message"), [
-    ("mode", "IX", "a Roman numeral"), ("printed_pages", "9-3", "runs backwards"),
+    ("mode", "IX", "I to VIII"), ("printed_pages", "9-3", "runs backwards"),
     ("title", "<b>x</b>", "no < or >"), ("chant", "x", "unknown field"),
 ])
 def test_coerce_bad_values_name_the_rule(name, value, message):
     with pytest.raises(CorrectionError, match=message):
         coerce(name, value)
+
+
+@pytest.mark.parametrize(("name", "value", "expected"), [("mode", "1", "I"), ("mode", " 8 ", "VIII"), ("mode", "vii", None),
+                                                        ("title", "1", None), ("title", "A1", None), ("title", "Ad te", "Ad te")])
+def test_coerce_reads_arabic_modes_and_wants_two_letters_in_a_title(name, value, expected):
+    if expected is None:
+        with pytest.raises(CorrectionError, match="expected"):
+            coerce(name, value)
+    else:
+        assert coerce(name, value) == expected
+
+
+def test_coerce_refuses_a_mode_for_a_proper_with_the_reason():
+    with pytest.raises(CorrectionError, match="A Proper has no single mode"):
+        coerce("mode", "I", "proper")
+    assert coerce("mode", "I", "kyrie") == "I"
+    found = problems(base(), [entry(field="mode", was=None, value="I")])     # dominica-i-adventus is a Proper
+    assert "A Proper has no single mode" in found[0]
 
 
 def test_problems_genre_must_be_one_the_catalogue_uses_and_targets_must_be_pieces():

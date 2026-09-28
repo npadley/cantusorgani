@@ -24,13 +24,33 @@ const GENRES = [
 
 /** \p{L} keeps Latin diacritics (Kýrie, æternam) without opening the field up. */
 export const PATTERNS: Readonly<Record<CorrectableField, RegExp>> = {
-  title: /^[\p{L}\p{N}\s.,'«»():-]{1,120}$/u,
-  incipit: /^[\p{L}\p{N}\s.,'-]{1,120}$/u,
+  // At least two letters: a title or incipit of "1" is never right.
+  title: /^(?=(?:[^\p{L}]*\p{L}){2})[\p{L}\p{N}\s.,'«»():-]{1,120}$/u,
+  incipit: /^(?=(?:[^\p{L}]*\p{L}){2})[\p{L}\p{N}\s.,'-]{1,120}$/u,
   mode: /^(I|II|III|IV|V|VI|VII|VIII)$/,
   genre: new RegExp(`^(${GENRES.join("|")})$`),
   printedPages: /^\d{1,3}-\d{1,3}$/,
   chant: /^[\p{L}\p{N}\s.,'()/-]{1,160}$/u,
 };
+
+/** What each field expects, in words, for the reader. */
+export const HINTS: Readonly<Record<CorrectableField, string>> = {
+  title: "at least two letters; letters, digits and . , ' « » ( ) : - only",
+  incipit: "at least two letters; letters, digits and . , ' - only",
+  mode: "I to VIII (1 to 8 is read as I to VIII)",
+  genre: `one of ${GENRES.join(", ")}`,
+  printedPages: "first-last, e.g. 5-10",
+  chant: "letters, digits and . , ' ( ) / - only",
+};
+
+const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"] as const;
+
+/** A value as it will be stored: a mode typed as 1-8 becomes I-VIII. */
+export function normaliseValue(field: CorrectableField, value: string): string {
+  const trimmed = value.trim();
+  if (field === "mode" && /^[1-8]$/.test(trimmed)) return ROMAN[Number(trimmed) - 1] as string;
+  return trimmed;
+}
 
 export const MAX_NOTE = 2000;
 export const MAX_PIECE_ID = 80;
@@ -72,15 +92,13 @@ export function parseCorrection(input: unknown): ParseResult {
     };
   }
 
-  const proposedValue = raw["proposedValue"];
-  if (typeof proposedValue !== "string") {
+  const rawValue = raw["proposedValue"];
+  if (typeof rawValue !== "string") {
     return { ok: false, error: "proposedValue must be a string." };
   }
+  const proposedValue = normaliseValue(field, rawValue);
   if (!PATTERNS[field].test(proposedValue)) {
-    return {
-      ok: false,
-      error: `proposedValue is not valid for field "${field}". Expected pattern: ${PATTERNS[field].source}`,
-    };
+    return { ok: false, error: `“${proposedValue}” is not a valid ${field}: expected ${HINTS[field]}.` };
   }
 
   const note = raw["note"] ?? "";

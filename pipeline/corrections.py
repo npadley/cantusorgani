@@ -36,9 +36,10 @@ CATALOG = DATA / "catalog.json"
 # admin screen reads too. Free text refuses control characters and markup: the
 # site escapes output, but a title with "<" in it is always a mistake.
 SCHEMA = DATA / "schema" / "corrections.json"
-_SPEC: dict[str, dict[str, str]] = json.loads(SCHEMA.read_text(encoding="utf-8"))["targets"]["piece"]
+_SPEC: dict[str, dict[str, Any]] = json.loads(SCHEMA.read_text(encoding="utf-8"))["targets"]["piece"]
 FIELDS: dict[str, re.Pattern[str]] = {name: re.compile(rule["pattern"]) for name, rule in _SPEC.items()}
 HINTS: dict[str, str] = {name: rule["hint"] for name, rule in _SPEC.items()}
+ROMAN = ("I", "II", "III", "IV", "V", "VI", "VII", "VIII")
 
 HEADER = """\
 # Hand corrections over the generated catalogue. Applied by `noh catalog` and
@@ -123,14 +124,24 @@ def save(entries: list[Entry], path: Path = CORRECTIONS) -> Path:
     return path
 
 
-def coerce(name: str, value: object) -> Any:
-    """A value as the catalogue stores it; raises CorrectionError naming the rule."""
+def coerce(name: str, value: object, genre: str | None = None) -> Any:
+    """A value as the catalogue stores it; raises CorrectionError naming the rule.
+
+    `genre` is the piece's, where known: some fields do not apply to some genres
+    (a Proper has no single mode)."""
     if name not in FIELDS:
         raise CorrectionError(f"unknown field {name!r}; a piece's correctable fields are {', '.join(FIELDS)}")
+    rule = _SPEC[name]
+    if genre is not None and genre in (rule.get("not_for_genres") or {}):
+        raise CorrectionError(str(rule["not_for_genres"][genre]))
     if name == "printed_pages" and isinstance(value, list) and len(value) == 2:
         value = f"{value[0]}-{value[1]}"
     text = str(value).strip()
+    if rule.get("arabic_to_roman") and text.isdigit() and 1 <= int(text) <= len(ROMAN):
+        text = ROMAN[int(text) - 1]
     if not FIELDS[name].fullmatch(text):
+        raise CorrectionError(f"{text!r} is not a valid {name}: expected {HINTS[name]}")
+    if sum(ch.isalpha() for ch in text) < int(rule.get("min_letters", 0)):
         raise CorrectionError(f"{text!r} is not a valid {name}: expected {HINTS[name]}")
     if name == "printed_pages":
         first, last = (int(p) for p in text.split("-", 1))
@@ -178,7 +189,7 @@ def problems(base: dict[str, Any], entries: list[Entry]) -> list[str]:
             continue
         seen[key] = e.id
         try:
-            value = coerce(e.field, e.value)
+            value = coerce(e.field, e.value, str(piece.get("genre")))
         except CorrectionError as exc:
             out.append(f"{where}: {e.target} {exc}")
             continue
@@ -204,7 +215,7 @@ def apply(base: dict[str, Any], entries: list[Entry]) -> dict[str, Any]:
     for e in entries:
         piece = _piece(e.target, pieces)
         assert piece is not None
-        piece[e.field] = coerce(e.field, e.value)
+        piece[e.field] = coerce(e.field, e.value, str(piece.get("genre")))
     return catalog
 
 
@@ -259,7 +270,7 @@ def correct(target: str, name: str, value: str, note: str = "", source: str = "e
     if piece is None:
         raise CorrectionError(f"{target} is not a piece in the catalogue; run `uv run noh where "
                               "<page URL>` to find the target")
-    new = coerce(name, value)
+    new = coerce(name, value, str(piece.get("genre")))
     if new == piece.get(name):
         raise CorrectionError(f"{target} {name} is already {new!r}; nothing to correct")
     entries = load(path)

@@ -11,9 +11,20 @@ import schema from "../../../../data/schema/corrections.json";
 
 export type PieceField = "title" | "incipit" | "mode" | "genre" | "printed_pages";
 
-interface FieldRule { readonly pattern: string; readonly hint: string }
+interface FieldRule {
+  readonly pattern: string;
+  readonly hint: string;
+  /** At least this many letters: a title of "1" is never right. */
+  readonly min_letters?: number;
+  /** 1-8 is saved as I-VIII. */
+  readonly arabic_to_roman?: boolean;
+  /** Genres whose pieces have no such value, each with the reason. */
+  readonly not_for_genres?: Readonly<Record<string, string>>;
+}
 
-const RULES = schema.targets.piece as Readonly<Record<PieceField, FieldRule>>;
+const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"] as const;
+
+const RULES = schema.targets.piece as unknown as Readonly<Record<PieceField, FieldRule>>;
 const READER_FIELDS = schema.reader_fields as Readonly<Record<string, string>>;
 
 export const PIECE_FIELDS = Object.keys(RULES) as readonly PieceField[];
@@ -65,11 +76,28 @@ export function currentValue(piece: TargetPiece, field: PieceField): string {
 
 export type Checked = { readonly ok: true; readonly value: string } | { readonly ok: false; readonly error: string };
 
+/** Why a field does not apply to a piece of this genre, or null when it does
+ * (a Proper has no single mode). */
+export function notFor(field: PieceField, genre: string): string | null {
+  return RULES[field].not_for_genres?.[genre] ?? null;
+}
+
+/** A value as it will be saved: trimmed, and 1-8 as I-VIII for a mode. */
+export function normalise(field: PieceField, raw: string): string {
+  const value = raw.trim();
+  const n = Number(value);
+  if (RULES[field].arabic_to_roman && /^\d+$/.test(value) && n >= 1 && n <= ROMAN.length) return ROMAN[n - 1] as string;
+  return value;
+}
+
 /** Checks a proposed value for a field of a piece, with the reason in words. */
 export function checkValue(targets: Targets, piece: TargetPiece, field: PieceField, raw: string): Checked {
-  const value = raw.trim();
   const rule = RULES[field];
-  if (!new RegExp(rule.pattern, "u").test(value)) {
+  const reason = notFor(field, piece.genre);
+  if (reason) return { ok: false, error: reason };
+  const value = normalise(field, raw);
+  const letters = [...value].filter((c) => /\p{L}/u.test(c)).length;
+  if (!new RegExp(rule.pattern, "u").test(value) || letters < (rule.min_letters ?? 0)) {
     return { ok: false, error: `“${value}” is not a valid ${field.replace("_", " ")}: expected ${rule.hint}.` };
   }
   if (field === "printed_pages") {

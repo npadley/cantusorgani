@@ -66,7 +66,7 @@ import Layout from "../../components/Layout.astro";
                      align-items: center; margin: 0; }
   :global(.values dt) { color: var(--ink-muted); font-size: var(--step--1); }
   :global(.values dd) { margin: 0; }
-  :global(.values input), :global(.reason input), :global(.admin-form input), :global(.admin-form select),
+  :global(.values input), :global(.values select), :global(.reason input), :global(.admin-form input), :global(.admin-form select),
   :global(.admin-form textarea) {
     width: 100%; font: inherit; font-family: var(--font-ui); min-height: var(--tap-min); padding: var(--s-2) var(--s-3);
     background: var(--paper); color: var(--ink); border: 1px solid var(--rule); border-radius: var(--radius);
@@ -84,6 +84,8 @@ import Layout from "../../components/Layout.astro";
 <script>
   import { FIELD_LABELS, api, drafts, h, loadTargets, say, signInAgain } from "../../lib/admin/client";
   import type { QueueItem } from "../../lib/admin/api";
+  import { PIECE_FIELDS, currentValue, isPieceField, notFor } from "../../lib/admin/targets";
+  import type { TargetPiece } from "../../lib/admin/targets";
 
   interface Queue {
     pending: QueueItem[]; approved: QueueItem[];
@@ -95,6 +97,7 @@ import Layout from "../../components/Layout.astro";
   const REPO = "https://github.com/npadley/cantusorgani";
   let me: Me | null = null;
   const names = new Map<string, string>();
+  const pieces = new Map<string, TargetPiece>();
 
   function fail(result: { status: number; error: string }): void {
     if (result.status === 401) signInAgain(status);
@@ -134,15 +137,34 @@ import Layout from "../../components/Layout.astro";
     const picture = scan(item, stems);
     const article = h("article", { class: picture ? "item has-scan" : "item", "aria-labelledby": `item-${item.id}` }, heading);
     const draftKey = `row:${item.id}`;
+    const piece = item.resolvedTarget ? pieces.get(item.resolvedTarget) : undefined;
     const input = h("input", { type: "text", id: `value-${item.id}`, maxlength: "200",
                                value: drafts.get(draftKey) ?? item.proposed }) as HTMLInputElement;
     input.addEventListener("input", () => drafts.set(draftKey, input.value));
+    // The reader may have filed it under the wrong field (a mode under Title):
+    // the editor can say which field it really corrects before accepting.
+    const fieldSelect = h("select", { id: `field-${item.id}` },
+      h("option", { value: "" }, "Choose…"),
+      ...PIECE_FIELDS.map((f) => h("option", { value: f, selected: f === item.resolvedField }, FIELD_LABELS[f] ?? f))) as HTMLSelectElement;
+    const now = h("dd", {}, item.current || "—");
+    const fieldNote = h("p", { class: "small muted", id: `field-note-${item.id}` });
+    const syncField = () => {
+      const f = fieldSelect.value;
+      now.textContent = piece && isPieceField(f) ? (currentValue(piece, f) || "—") : "—";
+      fieldNote.textContent = piece && isPieceField(f) ? (notFor(f, piece.genre) ?? "") : "";
+      if (f !== (item.resolvedField ?? "")) fieldNote.textContent ||= `The reader filed this under “${item.field}”.`;
+    };
+    fieldSelect.addEventListener("change", syncField);
     article.append(h("dl", { class: "values" },
-      h("dt", {}, "Now"), h("dd", {}, item.current || "—"),
-      h("dt", {}, h("label", { for: `value-${item.id}` }, "Proposed")), h("dd", {}, item.problem ? item.proposed : input)));
+      h("dt", {}, h("label", { for: `field-${item.id}` }, "Field")), h("dd", {}, piece ? fieldSelect : item.field),
+      h("dt", {}, "Now"), now,
+      h("dt", {}, h("label", { for: `value-${item.id}` }, "Proposed")), h("dd", {}, piece ? input : item.proposed)));
+    article.append(fieldNote);
+    syncField();
     if (item.note) article.append(h("p", { class: "small muted" }, `Reader's note: ${item.note}`));
     if (item.reason) article.append(h("p", { class: "small muted" }, item.reason));
-    if (item.problem) article.append(h("p", { class: "notice" }, item.problem));
+    if (item.problem && (!piece || item.resolvedField)) article.append(h("p", { class: "notice" }, item.problem));
+    else if (item.problem) article.append(h("p", { class: "small muted" }, `${item.problem} Or choose the field it was meant to correct.`));
     if (picture) article.append(picture);
 
     const actions = h("div", { class: "actions" });
@@ -163,9 +185,9 @@ import Layout from "../../components/Layout.astro";
       await load();
       focusAfterLoad(next);
     };
-    if (!item.problem) {
+    if (piece) {
       const accept = h("button", { type: "button", class: "primary" }, "Accept");
-      accept.addEventListener("click", () => void act("approve", { value: input.value }, "approved"));
+      accept.addEventListener("click", () => void act("approve", { field: fieldSelect.value, value: input.value }, "approved"));
       actions.append(accept);
     }
     const reject = h("button", { type: "button", "aria-expanded": "false" }, "Reject");
@@ -209,7 +231,10 @@ import Layout from "../../components/Layout.astro";
     const [queue, targets] = await Promise.all([api<Queue>("/queue"), loadTargets()]);
     if (!queue.ok) { fail(queue); document.getElementById("pending")?.replaceChildren(); return; }
     const stems = new Map(Object.values(targets?.pieces ?? {}).map((p) => [`piece:${p.slug}`, { stem: p.stem, href: p.href }]));
-    for (const p of Object.values(targets?.pieces ?? {})) names.set(`piece:${p.slug}`, `${p.label} (${p.volume})`);
+    for (const p of Object.values(targets?.pieces ?? {})) {
+      names.set(`piece:${p.slug}`, `${p.label} (${p.volume})`);
+      pieces.set(`piece:${p.slug}`, p);
+    }
     const { pending, approved, batches, lastReviewed } = queue.data;
 
     const pendingBox = document.getElementById("pending");

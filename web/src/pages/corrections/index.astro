@@ -9,7 +9,7 @@ import { allPieces } from "../../lib/catalog";
 const FIELDS = [
   { value: "title", label: "Title", hint: "e.g. In Festis Solemnibus 1" },
   { value: "incipit", label: "Incipit", hint: "e.g. Kyrie fons bonitatis" },
-  { value: "mode", label: "Mode", hint: "Roman numeral I–VIII" },
+  { value: "mode", label: "Mode", hint: "I to VIII (or 1 to 8)" },
   { value: "genre", label: "Genre", hint: "kyrie, gloria, credo, …" },
   { value: "printedPages", label: "Printed pages", hint: "e.g. 5-10" },
   { value: "chant", label: "Chant pairing", hint: "the correct GregoBase incipit" },
@@ -51,7 +51,8 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
       <select id="pieceId" name="pieceId" required>
         <option value="">Choose a piece…</option>
         {pieces.map((p) => (
-          <option value={p.slug}>
+          <option value={p.slug} data-title={p.title} data-incipit={p.incipit ?? ""} data-mode={p.mode ?? ""}
+                  data-genre={p.genre} data-printed-pages={`${p.printedPages[0]}-${p.printedPages[1]}`}>
             {p.label} · {p.incipit ?? p.title} (pp. {p.printedPages[0]}–{p.printedPages[1]})
           </option>
         ))}
@@ -64,6 +65,7 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
         {FIELDS.map((f) => <option value={f.value} data-hint={f.hint}>{f.label}</option>)}
       </select>
       <p id="field-hint" class="small muted"></p>
+      <p id="field-now" class="small" aria-live="polite"></p>
     </div>
 
     <div class="field">
@@ -158,25 +160,41 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
     else status.removeAttribute("data-state");
   }
 
+  const pieceSelect = document.getElementById("pieceId") as HTMLSelectElement | null;
+  const now = document.getElementById("field-now");
+  const CURRENT: Readonly<Record<string, string>> = {
+    title: "title", incipit: "incipit", mode: "mode", genre: "genre", printedPages: "printedPages",
+  };
+
+  // The chosen field's current value for the chosen piece, so the reader sees
+  // what they are about to change; Mode is greyed out for a Proper, whose
+  // parts each have their own mode.
   function syncHint(): void {
     const option = fieldSelect?.selectedOptions[0];
     if (hint) hint.textContent = option?.dataset["hint"] ?? "";
+    const piece = pieceSelect?.selectedOptions[0];
+    const proper = piece?.dataset["genre"] === "proper";
+    const modeOption = fieldSelect?.querySelector<HTMLOptionElement>('option[value="mode"]');
+    if (modeOption) modeOption.disabled = proper;
+    if (proper && fieldSelect?.value === "mode") {
+      if (now) now.textContent = "A Proper has no single mode: each of its parts has its own. Choose another field.";
+      return;
+    }
+    const key = CURRENT[fieldSelect?.value ?? ""];
+    const value = piece && piece.value && key ? piece.dataset[key] ?? "" : "";
+    if (now) now.textContent = piece && piece.value && key ? `Now: ${value || "(none)"}` : "";
   }
   fieldSelect?.addEventListener("change", syncHint);
+  pieceSelect?.addEventListener("change", syncHint);
   syncHint();
 
   // Deep links from a piece page: /corrections/?piece=slug&field=chant
   const params = new URLSearchParams(location.search);
   const piece = params.get("piece");
   const field = params.get("field");
-  if (piece) {
-    const select = document.getElementById("pieceId") as HTMLSelectElement | null;
-    if (select) select.value = piece;
-  }
-  if (field && fieldSelect) {
-    fieldSelect.value = field;
-    syncHint();
-  }
+  if (piece && pieceSelect) pieceSelect.value = piece;
+  if (field && fieldSelect) fieldSelect.value = field;
+  if (piece || field) syncHint();
 
   async function loadQueue(): Promise<void> {
     if (!queue || CORRECTIONS_ENDPOINT.length === 0) {
@@ -237,6 +255,10 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
     const pieceId = String(data.get("pieceId") ?? "");
     if (!pieceId) {
       say("Choose which piece the correction applies to.", "error");
+      return;
+    }
+    if (fieldSelect?.value === "mode" && pieceSelect?.selectedOptions[0]?.dataset["genre"] === "proper") {
+      say("A Proper has no single mode: each of its parts has its own. Choose another field.", "error");
       return;
     }
     const proposedValue = String(data.get("proposedValue") ?? "").trim();
