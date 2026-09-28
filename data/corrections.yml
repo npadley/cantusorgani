@@ -8,10 +8,12 @@
 # Targets and their fields:
 #   piece:<slug>                          title, incipit, mode, genre, printed_pages
 #   part:<slug>/<part>[:<variant>]        start_system (counting from 1), chant
-#   vespers:<office>/antiphon-<n>         tone, chant   (an office of vespers-offices.yml)
-#   vespers:<office>/magnificat           tone, chant
-#   vespers:sunday:<key>/magnificat       tone, chant   (vespers-noh8.yml magnificat_antiphons)
-# A chant is a GregoBase id, or none. For example:
+#   vespers:<office>/antiphon-<n>         tone, chant, refs   (an office of vespers-offices.yml)
+#   vespers:<office>/magnificat           tone, chant, refs
+#   vespers:sunday:<key>/magnificat       tone, chant, refs   (vespers-noh8.yml magnificat_antiphons)
+#   pairing:<slug>/<movement>             chant   (a Kyrie, Gloria... of a piece without Proper parts)
+# A chant is a GregoBase id, or none; refs are the systems it is printed on
+# ("noh8/0077/000 noh8/0077/001"). For example:
 #
 # - id: c-0001
 #   target: piece:dominica-i-adventus
@@ -30,4 +32,12 @@
   source: editor
   date: '2026-09-28'
   note: Mode 7 as printed in the chant itself
+  editor_email: nick@padley.com
+- id: c-0002
+  target: pairing:ordinarium-missae-asperges/chant
+  field: chant
+  was: null
+  value: 497
+  source: reader#3
+  date: '2026-09-28'
   editor_email: nick@padley.com
