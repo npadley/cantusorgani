@@ -54,6 +54,10 @@ jobs:
       # The scans are in git (pdf-source/), so the tests that read them run
       # here too. A pull request skips only the `slow` ones (pages rendered at
       # 300 dpi, a few minutes); main runs everything.
+      # The pinned GregoBase dump (CC0, sha256-checked; not in git): the tests
+      # that divide Propers into parts, and the chant notation, read it.
+      - name: GregoBase dump
+        run: uv run noh gregobase-fetch
       - name: Pipeline tests
         env:
           EVENT: ${{ github.event_name }}
@@ -69,7 +73,6 @@ jobs:
       # pinned GregoBase dump (downloaded and sha256-checked; not in git).
       - name: Chant notation current
         run: |
-          uv run noh gregobase-fetch
           uv run noh chants
           git diff --exit-code --stat data/chants.json || {
             echo "::error::data/chants.json is not current. Fix: uv run noh gregobase-fetch && uv run noh chants, then commit data/chants.json"
