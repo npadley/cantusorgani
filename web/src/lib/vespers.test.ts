@@ -173,3 +173,16 @@ describe("finding the dated pages", () => {
     }
   });
 });
+
+describe("the day's title", () => {
+  it("should take every Vespers day's title from the key the pipeline chose, as the old guess did", async () => {
+    const { observance } = await import("./liturgy");
+    const guess = (office: string) =>
+      (observance(office) ?? observance(`${office}r`) ?? observance(`${office}m3`))?.titleEn ?? office;
+    const lineup = loadLineup();
+    for (const day of [...lineup.days.values(), ...lineup.firstVespers.values()]) {
+      expect(lineupTitle(day)).toBe(guess(day.office));
+    }
+    expect(lineupTitle(lineup.days.get("2026-12-25")!)).not.toMatch(/Midnight/i);
+  });
+});

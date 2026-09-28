@@ -6,6 +6,7 @@ library traceback forty minutes into a 2,445-page run.
 
 from __future__ import annotations
 
+import json
 import shutil
 import subprocess
 import sys
@@ -166,22 +167,31 @@ def check_vespers_lineup(path: Path | None = None) -> Check:
 
 
 def check_corrections() -> Check:
-    """data/corrections.yml applies cleanly, and catalog.json is current with it."""
+    """data/corrections.yml applies cleanly, and the files it changes are current."""
     from pipeline import corrections as c
     try:
-        base, entries = c.load_base(), c.load()
-        text = c.dump(c.apply(base, entries))
+        base, entries, vespers = c.load_base(), c.load(), c.load_vespers()
+        found = c.problems(base, entries, vespers)
+        if found:
+            return Check(FAIL, "hand corrections", "\n".join(found))
+        stale = c.stale_outputs()
     except c.CorrectionError as exc:
         return Check(FAIL, "hand corrections", str(exc))
-    if not c.CATALOG.exists() or c.CATALOG.read_text(encoding="utf-8") != text:
-        return Check(FAIL, "hand corrections", "data/catalog.json is not current with corrections.yml\n"
+    if stale:
+        return Check(FAIL, "hand corrections", f"{', '.join(stale)} not current with corrections.yml\n"
                      "      Fix: uv run noh apply-corrections")
-    idle = c.no_ops(base, entries)
+    notes = []
+    idle = c.no_ops(base, entries, vespers)
     if idle:
-        return Check(OK, f"{len(entries)} hand correction(s) applied",
-                     "now fixed at the source, safe to drop: " + ", ".join(e.id for e in idle)
+        notes.append("now fixed at the source, safe to drop: " + ", ".join(e.id for e in idle)
                      + "\n      Fix: uv run noh corrections --drop <id>")
-    return Check(OK, f"{len(entries)} hand correction(s) applied")
+    chants_path = c.DATA / "chants.json"
+    have = set(json.loads(chants_path.read_text(encoding="utf-8")).get("chants", {})) if chants_path.exists() else set()
+    missing = sorted({str(e.value) for e in entries if e.field == "chant" and e.value is not None} - have)
+    if missing:
+        notes.append(f"chant(s) {', '.join(missing)} are linked but their notation is not in data/chants.json\n"
+                     "      Fix: uv run noh chants (needs the GregoBase dump; the links work meanwhile)")
+    return Check(OK, f"{len(entries)} hand correction(s) applied", "\n".join(notes))
 
 
 def run(env: dict[str, str] | None = None) -> list[Check]:

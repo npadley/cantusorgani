@@ -11,11 +11,30 @@
  */
 
 export type CorrectableField =
-  | "title" | "incipit" | "mode" | "genre" | "printedPages" | "chant";
+  | "title" | "incipit" | "mode" | "genre" | "printedPages" | "chant"
+  | "startSystem" | "gregobaseId" | "tone";
 
 export const CORRECTABLE_FIELDS: readonly CorrectableField[] = [
-  "title", "incipit", "mode", "genre", "printedPages", "chant",
+  "title", "incipit", "mode", "genre", "printedPages", "chant", "startSystem", "gregobaseId", "tone",
 ];
+
+/** The tones NOH8 prints: the `tones` of data/schema/corrections.json (a test
+ * keeps the two lists equal). */
+export const TONES = [
+  "I.D", "I.D2", "I.f", "I.g", "I.g2", "I.g3", "I.a", "I.a2", "I.a3", "II.D", "II.A",
+  "III.a", "III.a2", "III.b", "III.g", "IV.E", "IV.A", "IV.A*", "IV.g", "V.a",
+  "VI.F", "VI.C", "VII.a", "VII.b", "VII.c", "VII.c2", "VII.d", "VII.e", "VII.e2",
+  "VIII.G", "VIII.G*", "VIII.c", "peregrinus",
+] as const;
+
+/** What a report names: a piece (by its pieceId alone), one of a Proper's
+ * parts, or a Vespers item; and the fields each kind can correct. */
+export const TARGET = /^(piece:[a-z0-9-]{1,80}|part:[a-z0-9-]{1,80}\/[a-z]{3,12}(:[a-z0-9-]{1,12})?|vespers:[A-Za-z0-9:.-]{1,60}\/[a-z0-9-]{1,20})$/;
+export const FIELDS_BY_KIND: Readonly<Record<"piece" | "part" | "vespers", readonly CorrectableField[]>> = {
+  piece: ["title", "incipit", "mode", "genre", "printedPages", "chant"],
+  part: ["startSystem", "gregobaseId"],
+  vespers: ["tone", "gregobaseId"],
+};
 
 const GENRES = [
   "asperges", "mass_ordinary", "credo", "tonus", "kyrie", "gloria",
@@ -31,6 +50,9 @@ export const PATTERNS: Readonly<Record<CorrectableField, RegExp>> = {
   genre: new RegExp(`^(${GENRES.join("|")})$`),
   printedPages: /^\d{1,3}-\d{1,3}$/,
   chant: /^[\p{L}\p{N}\s.,'()/-]{1,160}$/u,
+  startSystem: /^\d{1,3}$/,
+  gregobaseId: /^(\d{1,6}|none)$/,
+  tone: new RegExp(`^(${TONES.map((t) => t.replace(/[.*]/g, "\\$&")).join("|")})$`),
 };
 
 /** What each field expects, in words, for the reader. */
@@ -41,6 +63,9 @@ export const HINTS: Readonly<Record<CorrectableField, string>> = {
   genre: `one of ${GENRES.join(", ")}`,
   printedPages: "first-last, e.g. 5-10",
   chant: "letters, digits and . , ' ( ) / - only",
+  startSystem: "the system of the piece the part starts on, counting from 1",
+  gregobaseId: "a GregoBase chant id (the number in chant.php?id=…), or none",
+  tone: "a tone as NOH8 prints it, e.g. VIII.G, IV.A* or peregrinus",
 };
 
 const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"] as const;
@@ -60,6 +85,8 @@ export interface Correction {
   readonly field: CorrectableField;
   readonly proposedValue: string;
   readonly note: string;
+  /** A part or Vespers item; null for a report on the piece itself. */
+  readonly target: string | null;
 }
 
 export type ParseResult =
@@ -106,5 +133,18 @@ export function parseCorrection(input: unknown): ParseResult {
     return { ok: false, error: `note must be a string of at most ${MAX_NOTE} characters.` };
   }
 
-  return { ok: true, value: { pieceId, field, proposedValue, note } };
+  const rawTarget = raw["target"] ?? null;
+  if (rawTarget !== null && (typeof rawTarget !== "string" || !TARGET.test(rawTarget))) {
+    return { ok: false, error: "target must name a piece, one of its parts, or a Vespers item." };
+  }
+  const target = rawTarget === null || rawTarget.startsWith("piece:") ? null : rawTarget;
+  const kind = target === null ? "piece" : (target.split(":", 1)[0] as "part" | "vespers");
+  if (!FIELDS_BY_KIND[kind].includes(field)) {
+    return { ok: false, error: `A ${kind} report can correct ${FIELDS_BY_KIND[kind].join(", ")}, not ${field}.` };
+  }
+  if (target?.startsWith("part:") && target.slice(5).split("/")[0] !== pieceId) {
+    return { ok: false, error: "A part's target must name the same piece as pieceId." };
+  }
+
+  return { ok: true, value: { pieceId, field, proposedValue, note, target } };
 }

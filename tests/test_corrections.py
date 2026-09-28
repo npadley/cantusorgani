@@ -15,6 +15,7 @@ from pipeline import cli, corrections, doctor
 from pipeline.corrections import (
     CorrectionError,
     Entry,
+    VespersData,
     apply,
     coerce,
     correct,
@@ -22,9 +23,9 @@ from pipeline.corrections import (
     load,
     no_ops,
     problems,
-    where,
 )
 from pipeline.doctor import FAIL, OK
+from pipeline.where import where
 
 
 def base() -> dict:
@@ -59,7 +60,7 @@ def test_apply_printed_pages_become_a_pair_of_integers():
 def test_problems_missing_target_names_the_line_and_the_next_step():
     found = problems(base(), [entry(target="piece:gone", line=14)])
     assert found == [("corrections.yml:14 (c-0001): piece:gone no longer exists; run `uv run noh where \"gone\"` "
-                      "to see current slugs, then update or delete this entry")]
+                      "to see current targets, then update or delete this entry")]
 
 
 def test_problems_stale_was_stops_the_build_and_says_how_to_fix():
@@ -100,11 +101,11 @@ def test_coerce_refuses_a_mode_for_a_proper_with_the_reason():
     assert "A Proper has no single mode" in found[0]
 
 
-def test_problems_genre_must_be_one_the_catalogue_uses_and_targets_must_be_pieces():
+def test_problems_genre_must_be_one_the_catalogue_uses_and_targets_must_be_known_kinds():
     found = problems(base(), [entry(field="genre", was="proper", value="sermon"),
-                              entry(id="c-0002", target="vespers:2026-09-27/II", field="tone")])
+                              entry(id="c-0002", target="day:tempora:Adv1-0", field="tone")])
     assert "not one the catalogue uses" in found[0]
-    assert "not a target this file can correct yet" in found[1]
+    assert "is not a target this file can correct" in found[1]
 
 
 def test_apply_raises_with_every_problem():
@@ -184,8 +185,9 @@ def test_where_reads_piece_vespers_and_day_urls_and_title_words(tmp_path):
     assert where("nothing like it", cat, tmp_path) == []
 
 
-def point_at(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    """Point the CLI's default paths at a temporary data dir."""
+def point_at(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, vespers: VespersData | None = None) -> None:
+    """Point the CLI's default paths at a temporary data dir. The Vespers lineup
+    is left out: write_all and stale_outputs cover catalog.json only here."""
     b, c, out = tmp_path / "catalog.base.json", tmp_path / "corrections.yml", tmp_path / "catalog.json"
     b.write_text(json.dumps(base(), indent=2) + "\n")
     monkeypatch.setattr(corrections, "CATALOG", out)
@@ -193,7 +195,19 @@ def point_at(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
             "correct": corrections.correct, "drop": corrections.drop}
     monkeypatch.setattr(corrections, "load_base", lambda path=b: real["load_base"](path))
     monkeypatch.setattr(corrections, "load", lambda path=c: real["load"](path))
+    monkeypatch.setattr(corrections, "load_vespers", lambda data=None: vespers or VespersData({}, {}))
     monkeypatch.setattr(corrections, "write", lambda: real["write"](b, c, out))
+
+    def write_all() -> tuple[int, list[str]]:
+        _, count, changed = real["write"](b, c, out)
+        return count, [out.name] if changed else []
+
+    def stale_outputs() -> list[str]:
+        text = corrections.dump(corrections.apply(real["load_base"](b), real["load"](c)))
+        return [] if out.exists() and out.read_text() == text else [out.name]
+
+    monkeypatch.setattr(corrections, "write_all", write_all)
+    monkeypatch.setattr(corrections, "stale_outputs", stale_outputs)
     monkeypatch.setattr(corrections, "correct",
                         lambda *a, **k: real["correct"](*a, **{"base_path": b, "path": c, **k}))
     monkeypatch.setattr(corrections, "drop", lambda i: real["drop"](i, c))
@@ -221,7 +235,7 @@ def test_cli_correct_apply_check_list_drop_and_where(tmp_path, monkeypatch, caps
 def test_check_corrections_doctor_fails_when_stale_or_not_applied(tmp_path, monkeypatch):
     point_at(tmp_path, monkeypatch)
     assert doctor.check_corrections().status == FAIL           # catalog.json not written yet
-    corrections.write()
+    corrections.write_all()
     assert doctor.check_corrections().status == OK
     (tmp_path / "corrections.yml").write_text(
         "- id: c-0001\n  target: piece:kyrie-i\n  field: mode\n  was: VII\n  value: VI\n")
@@ -306,3 +320,133 @@ def test_cli_correct_batch_writes_the_summary(tmp_path, monkeypatch, capsys):
     assert cli.main(["correct-batch", str(tmp_path / "b.json"), "--summary", str(tmp_path / "pr.md")]) == 0
     assert "recorded 1 correction(s): c-0001" in capsys.readouterr().out
     assert "b-20260927-abc123" in (tmp_path / "pr.md").read_text()
+
+
+def proper() -> dict:
+    """A catalogue with one Proper: five systems, three placed parts and one borrowed."""
+    b = base()
+    b["pieces"].append({
+        "id": "noh1-dominica-ii", "volume": "noh1", "slug": "dominica-ii", "title": "Dominica II", "incipit": None,
+        "mode": None, "genre": "proper", "printed_pages": [8, 9],
+        "systems": [f"noh1/0034/00{n}" for n in range(5)],
+        "parts": [{"part": "introit", "variant": "", "system": 0, "ref": "noh1/0034/000", "gregobase_id": 100},
+                  {"part": "gradual", "variant": "", "system": 2, "ref": "noh1/0034/002", "gregobase_id": None},
+                  {"part": "offertory", "variant": "", "borrowed_from": "Pars IV, p. 3", "gregobase_id": 7},
+                  {"part": "communion", "variant": "2", "system": 4, "ref": "noh1/0034/004", "gregobase_id": 300}]})
+    return b
+
+
+def vespers_data() -> VespersData:
+    return VespersData({"magnificat_antiphons": {"tempora:Pent04-0": {"tone": "I.g", "chant": None, "refs": ["x"]}}},
+                       {"adv1": {"antiphons": [{"n": 1, "tone": "VIII.G", "chant": 2835}],
+                                 "magnificat": {"tone": "I.g", "chant": 12}}})
+
+
+def test_apply_part_start_system_moves_the_part_and_its_ref():
+    out = apply(proper(), [entry(target="part:dominica-ii/gradual", field="start_system", was=3, value=2)])
+    gradual = out["pieces"][2]["parts"][1]
+    assert (gradual["system"], gradual["ref"], gradual["placed"]) == (1, "noh1/0034/001", "hand")
+
+
+def test_apply_part_chant_sets_or_clears_the_gregobase_id_and_reads_a_variant():
+    out = apply(proper(), [entry(target="part:dominica-ii/gradual", field="chant", was=None, value=1169),
+                           entry(id="c-0002", target="part:dominica-ii/communion:2", field="chant", was=300, value="none")])
+    parts = out["pieces"][2]["parts"]
+    assert (parts[1]["gregobase_id"], parts[3]["gregobase_id"]) == (1169, None)
+
+
+@pytest.mark.parametrize(("target", "value", "message"), [
+    ("part:dominica-ii/gradual", 1, "out of order: it must come after system 1 and before system 5"),
+    ("part:dominica-ii/gradual", 9, "outside the piece, which has 5 systems"),
+    ("part:dominica-ii/offertory", 2, "printed in another volume (Pars IV, p. 3)"),
+    ("part:dominica-ii/tract", 2, "no longer exists"),
+    ("part:Dominica/II", 2, "is not of the form part:"),
+])
+def test_problems_part_start_system_must_exist_stay_in_order_and_be_printed_here(target, value, message):
+    found = problems(proper(), [entry(target=target, field="start_system", was=3, value=value)])
+    assert message in found[0]
+
+
+def test_apply_vespers_sets_tone_and_chant_on_offices_and_green_sundays():
+    entries = [entry(target="vespers:adv1/antiphon-1", field="tone", was="VIII.G", value="VIII.G*"),
+               entry(id="c-0002", target="vespers:adv1/magnificat", field="chant", was=12, value="none"),
+               entry(id="c-0003", target="vespers:sunday:tempora:Pent04-0/magnificat", field="chant", was=None, value=4242)]
+    data = vespers_data()
+    out = corrections.apply_vespers(data, entries)
+    assert out.offices["adv1"]["antiphons"][0]["tone"] == "VIII.G*"
+    assert out.offices["adv1"]["magnificat"]["chant"] is None
+    assert out.doc["magnificat_antiphons"]["tempora:Pent04-0"]["chant"] == 4242
+    assert data.offices["adv1"]["antiphons"][0]["tone"] == "VIII.G"          # the input is untouched
+    assert apply(base(), entries) == base()                                   # the catalogue ignores them
+
+
+def test_problems_vespers_tone_must_be_printed_and_item_must_exist():
+    found = problems(None, [entry(target="vespers:adv1/antiphon-1", field="tone", was="VIII.G", value="IX.z"),
+                            entry(id="c-0002", target="vespers:adv1/antiphon-7", field="tone", was="I.g", value="I.g2"),
+                            entry(id="c-0003", target="vespers:nowhere/magnificat", field="chant", was=1, value=2)],
+                     vespers_data())
+    assert "not a valid tone" in found[0]
+    assert "no longer exists" in found[1] and "no longer exists" in found[2]
+
+
+def test_correct_records_a_vespers_correction_with_was_from_the_files(tmp_path):
+    (tmp_path / "vespers-noh8.yml").write_text("magnificat_antiphons:\n  tempora:Pent04-0: {tone: I.g, chant: null}\n")
+    (tmp_path / "vespers-offices.yml").write_text("offices:\n  adv1:\n    antiphons:\n    - {n: 1, tone: VIII.G, chant: 2835}\n")
+    c = tmp_path / "corrections.yml"
+    made, _ = correct("vespers:adv1/antiphon-1", "chant", "2836", path=c, vespers_dir=tmp_path)
+    assert (made.was, made.value) == (2835, 2836)
+    with pytest.raises(CorrectionError, match="already 'I.g'"):
+        correct("vespers:sunday:tempora:Pent04-0/magnificat", "tone", "I.g", path=c, vespers_dir=tmp_path)
+
+
+def test_load_reviewed_applies_vespers_corrections(tmp_path):
+    from pipeline.vespers import REVIEWED, load_reviewed
+    c = tmp_path / "corrections.yml"
+    offices = corrections.load_vespers().offices
+    oid, office = next((k, o) for k, o in offices.items() if o.get("antiphons"))
+    first = office["antiphons"][0]
+    new = "VIII.G*" if first["tone"] != "VIII.G*" else "VIII.G"
+    corrections.save([entry(target=f"vespers:{oid}/antiphon-{first['n']}", field="tone", was=first["tone"], value=new)], c)
+    reviewed = load_reviewed(REVIEWED, corrections_path=c)
+    assert reviewed.offices[oid]["antiphons"][0]["tone"] == new
+
+
+def test_lineup_anchor_keeps_the_window_a_lineup_already_covers():
+    from pipeline.vespers import YEARS_BEHIND, lineup_anchor
+    anchor = lineup_anchor()
+    first = min(json.loads(corrections.DATA.joinpath("vespers-lineup.json").read_text())["days"])
+    assert anchor is not None and anchor.year == int(first[:4]) + YEARS_BEHIND
+
+
+def test_vendored_outputs_are_current_with_their_corrections():
+    assert corrections.stale_outputs() == []
+
+
+def test_every_lineup_target_names_a_correctable_vespers_item():
+    """The targets the site offers ("Report an error" on a Vespers page) all
+    resolve, for both fields."""
+    lineup = json.loads(corrections.DATA.joinpath("vespers-lineup.json").read_text())
+    targets = {i["target"] for d in [*lineup["days"].values(), *lineup.get("first_vespers", {}).values()]
+               for i in d["items"] if "target" in i}
+    data = corrections.load_vespers()
+    assert len(targets) > 100
+    for target in targets:
+        for name in ("tone", "chant"):
+            corrections.slot(target, name, None, data)
+
+
+def test_log_text_is_newest_first_and_never_carries_an_address_or_note():
+    entries = [entry(editor_email="ed@example.org", note="private", source="reader#4"),
+               entry(id="c-0002", field="mode", was=None, value="I", source="editor")]
+    doc = json.loads(corrections.log_text(entries))
+    assert [r["id"] for r in doc["corrections"]] == ["c-0002", "c-0001"]
+    assert [r["by"] for r in doc["corrections"]] == ["editor", "reader"]
+    assert "ed@example.org" not in corrections.log_text(entries) and "private" not in corrections.log_text(entries)
+
+
+def test_the_workers_tone_list_is_the_shared_schemas():
+    """workers/corrections cannot read data/ at run time; its copy must match."""
+    import re as _re
+    source = (corrections.DATA.parent / "workers" / "corrections" / "src" / "schema.ts").read_text()
+    block = source[source.index("export const TONES = ["):source.index("] as const;")]
+    assert _re.findall(r'"([^"]+)"', block) == json.loads(corrections.SCHEMA.read_text())["tones"]

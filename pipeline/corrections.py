@@ -18,11 +18,11 @@ from __future__ import annotations
 import copy
 import json
 import re
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlparse
 
 import yaml
 
@@ -31,15 +31,20 @@ from pipeline.volumes import DATA
 CORRECTIONS = DATA / "corrections.yml"
 BASE = DATA / "catalog.base.json"
 CATALOG = DATA / "catalog.json"
+#: The public corrections log (/corrections/log/): what changed and when, no addresses.
+LOG = DATA / "corrections-log.json"
 
-# Correctable fields of a piece, keyed as in the catalogue, from the schema the
-# admin screen reads too. Free text refuses control characters and markup: the
-# site escapes output, but a title with "<" in it is always a mistake.
+# What each kind of target may correct, from the schema the admin screen and the
+# Corrections form read too. Free text refuses control characters and markup:
+# the site escapes output, but a title with "<" in it is always a mistake.
 SCHEMA = DATA / "schema" / "corrections.json"
-_SPEC: dict[str, dict[str, Any]] = json.loads(SCHEMA.read_text(encoding="utf-8"))["targets"]["piece"]
+_SCHEMA: dict[str, Any] = json.loads(SCHEMA.read_text(encoding="utf-8"))
+_SPECS: dict[str, dict[str, dict[str, Any]]] = _SCHEMA["targets"]
+_SPEC = _SPECS["piece"]
 FIELDS: dict[str, re.Pattern[str]] = {name: re.compile(rule["pattern"]) for name, rule in _SPEC.items()}
 HINTS: dict[str, str] = {name: rule["hint"] for name, rule in _SPEC.items()}
 ROMAN = ("I", "II", "III", "IV", "V", "VI", "VII", "VIII")
+PARTS = ("introit", "gradual", "alleluia", "tract", "sequence", "offertory", "communion")
 
 HEADER = """\
 # Hand corrections over the generated catalogue. Applied by `noh catalog` and
@@ -49,8 +54,13 @@ HEADER = """\
 # in `id`, `was` and the date, and checks the value. `was` is what the pipeline
 # generated when the fix was made; if it changes, the build stops and asks.
 #
-# Fields of a piece (target piece:<slug>): title, incipit, mode, genre,
-# printed_pages. For example:
+# Targets and their fields:
+#   piece:<slug>                          title, incipit, mode, genre, printed_pages
+#   part:<slug>/<part>[:<variant>]        start_system (counting from 1), chant
+#   vespers:<office>/antiphon-<n>         tone, chant   (an office of vespers-offices.yml)
+#   vespers:<office>/magnificat           tone, chant
+#   vespers:sunday:<key>/magnificat       tone, chant   (vespers-noh8.yml magnificat_antiphons)
+# A chant is a GregoBase id, or none. For example:
 #
 # - id: c-0001
 #   target: piece:dominica-i-adventus
@@ -124,31 +134,68 @@ def save(entries: list[Entry], path: Path = CORRECTIONS) -> Path:
     return path
 
 
-def coerce(name: str, value: object, genre: str | None = None) -> Any:
-    """A value as the catalogue stores it; raises CorrectionError naming the rule.
+def kind_of(target: str) -> str:
+    """piece, part or vespers; raises for anything else."""
+    kind = target.partition(":")[0]
+    if kind not in _SPECS:
+        raise CorrectionError(f"{target} is not a target this file can correct; targets are "
+                              f"{'; '.join(_SCHEMA['targets_help'].values())}")
+    return kind
+
+
+def coerce(name: str, value: object, genre: str | None = None, kind: str = "piece") -> Any:
+    """A value as the data stores it; raises CorrectionError naming the rule.
 
     `genre` is the piece's, where known: some fields do not apply to some genres
     (a Proper has no single mode)."""
-    if name not in FIELDS:
-        raise CorrectionError(f"unknown field {name!r}; a piece's correctable fields are {', '.join(FIELDS)}")
-    rule = _SPEC[name]
+    spec = _SPECS[kind]
+    if name not in spec:
+        raise CorrectionError(f"unknown field {name!r}; the correctable fields of a {kind} are {', '.join(spec)}")
+    rule = spec[name]
     if genre is not None and genre in (rule.get("not_for_genres") or {}):
         raise CorrectionError(str(rule["not_for_genres"][genre]))
     if name == "printed_pages" and isinstance(value, list) and len(value) == 2:
         value = f"{value[0]}-{value[1]}"
-    text = str(value).strip()
+    text = "none" if value is None and name == "chant" else str(value).strip()
     if rule.get("arabic_to_roman") and text.isdigit() and 1 <= int(text) <= len(ROMAN):
         text = ROMAN[int(text) - 1]
-    if not FIELDS[name].fullmatch(text):
-        raise CorrectionError(f"{text!r} is not a valid {name}: expected {HINTS[name]}")
-    if sum(ch.isalpha() for ch in text) < int(rule.get("min_letters", 0)):
-        raise CorrectionError(f"{text!r} is not a valid {name}: expected {HINTS[name]}")
+    if not re.fullmatch(rule["pattern"], text) or sum(ch.isalpha() for ch in text) < int(rule.get("min_letters", 0)):
+        raise CorrectionError(f"{text!r} is not a valid {name}: expected {rule['hint']}")
     if name == "printed_pages":
         first, last = (int(p) for p in text.split("-", 1))
         if first > last:
             raise CorrectionError(f"page range {text!r} runs backwards")
         return [first, last]
+    if name == "chant":
+        return None if text == "none" else int(text)
+    if name == "start_system":
+        return int(text)
     return text
+
+
+@dataclass
+class Slot:
+    """Where one correctable value lives: how to read it, write it, and what
+    else it must satisfy (a part's start must stay between its neighbours)."""
+    get: Callable[[], Any]
+    put: Callable[[Any], None]
+    genre: str | None = None
+    check: Callable[[Any], str | None] | None = None
+
+
+@dataclass
+class VespersData:
+    """The reviewed Vespers files, as loaded: the overlay's vespers targets."""
+    doc: dict[str, Any]
+    offices: dict[str, Any]
+
+
+def load_vespers(data: Path = DATA) -> VespersData:
+    doc = yaml.safe_load((data / "vespers-noh8.yml").read_text(encoding="utf-8")) or {}
+    offices_path = data / "vespers-offices.yml"
+    offices = (yaml.safe_load(offices_path.read_text(encoding="utf-8")) or {}).get("offices", {}) \
+        if offices_path.exists() else {}
+    return VespersData(doc, offices)
 
 
 def _pieces(catalog: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -160,10 +207,88 @@ def _piece(target: str, pieces: dict[str, dict[str, Any]]) -> dict[str, Any] | N
     return pieces.get(slug) if kind == "piece" else None
 
 
-def problems(base: dict[str, Any], entries: list[Entry]) -> list[str]:
-    """Every reason the entries cannot be applied to `base`, one line each."""
-    pieces = _pieces(base)
-    genres = {str(p.get("genre")) for p in pieces.values()}
+def _gone(target: str) -> CorrectionError:
+    words = target.split(":", 1)[-1].split("/")[0].replace("-", " ")
+    return CorrectionError(f"{target} no longer exists; run `uv run noh where \"{words}\"` to see current "
+                           "targets, then update or delete this entry")
+
+
+def _part_slot(target: str, name: str, pieces: dict[str, dict[str, Any]]) -> Slot:
+    m = re.fullmatch(r"part:([a-z0-9-]+)/([a-z]+)(?::([a-z0-9-]+))?", target)
+    if not m:
+        raise CorrectionError(f"{target} is not of the form part:<slug>/<part>[:<variant>]")
+    slug, part, variant = m.group(1), m.group(2), m.group(3) or ""
+    piece = pieces.get(slug)
+    parts = piece.get("parts") or [] if piece else []
+    found = next((p for p in parts if p.get("part") == part and (p.get("variant") or "") == variant), None)
+    if piece is None or found is None:
+        raise _gone(target)
+    systems: list[str] = piece.get("systems") or []
+    if name == "chant":
+        return Slot(get=lambda: found.get("gregobase_id"), put=lambda v: found.__setitem__("gregobase_id", v))
+    if "system" not in found:
+        raise CorrectionError(f"{target} is printed in another volume ({found.get('borrowed_from', 'elsewhere')}); "
+                              "correct it where it is printed")
+
+    def check(n: Any) -> str | None:
+        if not 1 <= int(n) <= len(systems):
+            return f"{target} start_system {n} is outside the piece, which has {len(systems)} systems"
+        placed = [p for p in parts if "system" in p]
+        at = placed.index(found)
+        before = placed[at - 1]["system"] + 1 if at > 0 else 0
+        after = placed[at + 1]["system"] + 1 if at + 1 < len(placed) else len(systems) + 1
+        if not before < int(n) < after:
+            return (f"{target} start_system {n} would put it out of order: it must come after system "
+                    f"{before} and before system {after}")
+        return None
+
+    def put(n: Any) -> None:
+        found.update(system=int(n) - 1, ref=systems[int(n) - 1], placed="hand", score=1.0)
+
+    return Slot(get=lambda: found["system"] + 1, put=put, check=check)
+
+
+def _vespers_slot(target: str, name: str, data: VespersData) -> Slot:
+    head, _, item = target.rpartition("/")
+    office = head.split(":", 1)[1] if ":" in head else ""
+    entry: dict[str, Any] | None = None
+    if office.startswith("sunday:") and item == "magnificat":
+        entry = (data.doc.get("magnificat_antiphons") or {}).get(office.split(":", 1)[1])
+    elif office in data.offices:
+        o = data.offices[office]
+        if item == "magnificat" and isinstance(o.get("magnificat"), dict):
+            entry = o["magnificat"]
+        elif m := re.fullmatch(r"antiphon-(\d)", item):
+            entry = next((a for a in o.get("antiphons") or [] if a.get("n") == int(m.group(1))), None)
+    if entry is None:
+        raise _gone(target)
+    return Slot(get=lambda: entry.get(name), put=lambda v: entry.__setitem__(name, v))
+
+
+def slot(target: str, name: str, catalog: dict[str, Any] | None, vespers: VespersData | None) -> Slot:
+    """The slot a target's field names; raises CorrectionError saying why not."""
+    kind = kind_of(target)
+    if name not in _SPECS[kind]:
+        raise CorrectionError(f"unknown field {name!r}; the correctable fields of a {kind} are "
+                              f"{', '.join(_SPECS[kind])}")
+    if kind == "vespers":
+        if vespers is None:
+            raise CorrectionError(f"{target}: the Vespers files are not loaded")
+        return _vespers_slot(target, name, vespers)
+    pieces = _pieces(catalog or {})
+    if kind == "part":
+        return _part_slot(target, name, pieces)
+    piece = _piece(target, pieces)
+    if piece is None:
+        raise _gone(target)
+    return Slot(get=lambda: piece.get(name), put=lambda v: piece.__setitem__(name, v), genre=str(piece.get("genre")))
+
+
+def problems(base: dict[str, Any] | None, entries: list[Entry], vespers: VespersData | None = None) -> list[str]:
+    """Every reason the entries cannot be applied, one line each. Entries of a
+    kind whose data is not given (vespers without `vespers`, pieces and parts
+    without `base`) are left to the call that has it."""
+    genres = {str(p.get("genre")) for p in _pieces(base or {}).values()}
     seen: dict[tuple[str, str], str] = {}
     ids: set[str] = set()
     out = []
@@ -172,15 +297,12 @@ def problems(base: dict[str, Any], entries: list[Entry]) -> list[str]:
         if e.id in ids:
             out.append(f"{where}: the id {e.id} is used twice; give one entry a new id")
         ids.add(e.id)
-        if not e.target.startswith("piece:"):
-            out.append(f"{where}: {e.target} is not a target this file can correct yet; "
-                       "use piece:<slug> (run `uv run noh where <page URL>` to find it)")
+        try:
+            kind = kind_of(e.target)
+        except CorrectionError as exc:
+            out.append(f"{where}: {exc}")
             continue
-        piece = _piece(e.target, pieces)
-        if piece is None:
-            out.append(f"{where}: {e.target} no longer exists; run `uv run noh where "
-                       f"\"{e.target.partition(':')[2].replace('-', ' ')}\"` to see current slugs, "
-                       "then update or delete this entry")
+        if (kind == "vespers" and vespers is None) or (kind != "vespers" and base is None):
             continue
         key = (e.target, e.field)
         if key in seen:
@@ -189,45 +311,67 @@ def problems(base: dict[str, Any], entries: list[Entry]) -> list[str]:
             continue
         seen[key] = e.id
         try:
-            value = coerce(e.field, e.value, str(piece.get("genre")))
+            s = slot(e.target, e.field, base, vespers)
+            value = coerce(e.field, e.value, s.genre, kind)
         except CorrectionError as exc:
-            out.append(f"{where}: {e.target} {exc}")
+            out.append(f"{where}: {exc}" if str(exc).startswith(e.target) else f"{where}: {e.target} {exc}")
             continue
         if e.field == "genre" and value not in genres:
             out.append(f"{where}: {e.target} genre {value!r} is not one the catalogue uses "
                        f"({', '.join(sorted(genres))})")
             continue
-        if piece.get(e.field) != e.was:
+        if e.field == "tone" and value not in _SCHEMA["tones"]:
+            out.append(f"{where}: {e.target} tone {value!r} is not one NOH8 prints")
+            continue
+        if s.get() != e.was:
             out.append(f"{where}: stale correction: {e.target} {e.field} was {e.was!r} when the fix "
-                       f"was made but the catalogue now says {piece.get(e.field)!r}; check the new value, "
+                       f"was made but the data now says {s.get()!r}; check the new value, "
                        "then set `was` to it or delete this entry (`uv run noh corrections --drop "
                        f"{e.id}`)")
+            continue
+        issue = s.check(value) if s.check else None
+        if issue:
+            out.append(f"{where}: {issue}")
     return out
 
 
 def apply(base: dict[str, Any], entries: list[Entry]) -> dict[str, Any]:
-    """A new catalogue with every entry applied; raises if any cannot be."""
+    """A new catalogue with every piece and part entry applied; raises if any
+    cannot be. Vespers entries are applied when the Vespers files load."""
     found = problems(base, entries)
     if found:
         raise CorrectionError("\n".join(found))
     catalog = copy.deepcopy(base)
-    pieces = _pieces(catalog)
     for e in entries:
-        piece = _piece(e.target, pieces)
-        assert piece is not None
-        piece[e.field] = coerce(e.field, e.value, str(piece.get("genre")))
+        if kind_of(e.target) != "vespers":
+            s = slot(e.target, e.field, catalog, None)
+            s.put(coerce(e.field, e.value, s.genre, kind_of(e.target)))
     return catalog
 
 
-def no_ops(base: dict[str, Any], entries: list[Entry]) -> list[Entry]:
-    """Entries whose value the generated catalogue now has anyway: fixed at the
+def apply_vespers(data: VespersData, entries: list[Entry]) -> VespersData:
+    """The Vespers files with every vespers entry applied; raises if any cannot be."""
+    found = problems(None, entries, data)
+    if found:
+        raise CorrectionError("\n".join(found))
+    out = VespersData(copy.deepcopy(data.doc), copy.deepcopy(data.offices))
+    for e in entries:
+        if kind_of(e.target) == "vespers":
+            slot(e.target, e.field, None, out).put(coerce(e.field, e.value, None, "vespers"))
+    return out
+
+
+def no_ops(base: dict[str, Any], entries: list[Entry], vespers: VespersData | None = None) -> list[Entry]:
+    """Entries whose value the generated data now has anyway: fixed at the
     source, so they can be deleted."""
-    pieces = _pieces(base)
     out = []
     for e in entries:
-        piece = _piece(e.target, pieces)
         try:
-            if piece is not None and piece.get(e.field) == coerce(e.field, e.value):
+            kind = kind_of(e.target)
+            if kind == "vespers" and vespers is None:
+                continue
+            s = slot(e.target, e.field, base, vespers)
+            if s.get() == coerce(e.field, e.value, s.genre, kind):
                 out.append(e)
         except CorrectionError:
             continue
@@ -256,6 +400,39 @@ def write(base_path: Path = BASE, path: Path = CORRECTIONS, out: Path = CATALOG)
     return out, len(entries), changed
 
 
+def log_text(entries: list[Entry]) -> str:
+    """The public log: each correction's target, field, old and new value, date
+    and whether a reader or an editor made it. Never an address or a note."""
+    rows = [{"id": e.id, "target": e.target, "field": e.field, "was": e.was, "value": e.value, "date": e.date,
+             "by": "reader" if e.source.startswith("reader") else "editor"} for e in reversed(entries)]
+    return json.dumps({"schema_version": 1, "corrections": rows}, indent=2, ensure_ascii=False) + "\n"
+
+
+def _outputs(base_path: Path, path: Path, out: Path) -> dict[Path, str]:
+    """Every file the corrections produce, with its text."""
+    from pipeline.vespers import LINEUP, lineup_anchor, lineup_text
+    entries = load(path)
+    return {out: dump(apply(load_base(base_path), entries)), LINEUP: lineup_text(today=lineup_anchor()),
+            LOG: log_text(entries)}
+
+
+def write_all(base_path: Path = BASE, path: Path = CORRECTIONS, out: Path = CATALOG) -> tuple[int, list[str]]:
+    """Apply every correction: catalog.json, the Vespers lineup (rebuilt for the
+    window it already covers) and the public log. Returns (entries, files changed)."""
+    files = []
+    for file, text in _outputs(base_path, path, out).items():
+        if not file.exists() or file.read_text(encoding="utf-8") != text:
+            file.write_text(text, encoding="utf-8")
+            files.append(file.name)
+    return len(load(path)), files
+
+
+def stale_outputs(base_path: Path = BASE, path: Path = CORRECTIONS, out: Path = CATALOG) -> list[str]:
+    """The generated files that are not current with the corrections (for CI)."""
+    return [f.name for f, text in _outputs(base_path, path, out).items()
+            if not f.exists() or f.read_text(encoding="utf-8") != text]
+
+
 def next_id(entries: list[Entry]) -> str:
     numbers = [int(m.group(1)) for e in entries if (m := re.fullmatch(r"c-(\d+)", e.id))]
     return f"c-{max(numbers, default=0) + 1:04d}"
@@ -263,32 +440,38 @@ def next_id(entries: list[Entry]) -> str:
 
 def correct(target: str, name: str, value: str, note: str = "", source: str = "editor",
             editor_email: str = "", today: date | None = None, base_path: Path = BASE,
-            path: Path = CORRECTIONS) -> tuple[Entry, bool]:
+            path: Path = CORRECTIONS, vespers_dir: Path = DATA) -> tuple[Entry, bool]:
     """Record one correction; returns (entry, replaced an earlier one)."""
-    base = load_base(base_path)
-    piece = _piece(target, _pieces(base))
-    if piece is None:
-        raise CorrectionError(f"{target} is not a piece in the catalogue; run `uv run noh where "
-                              "<page URL>` to find the target")
-    new = coerce(name, value, str(piece.get("genre")))
-    if new == piece.get(name):
+    kind = kind_of(target)
+    base = load_base(base_path) if kind != "vespers" else None
+    vespers = load_vespers(vespers_dir) if kind == "vespers" else None
+    try:
+        s = slot(target, name, base, vespers)
+    except CorrectionError as exc:
+        raise CorrectionError(f"{exc}. Run `uv run noh where <page URL>` to find the target") from None
+    new = coerce(name, value, s.genre, kind)
+    if new == s.get():
         raise CorrectionError(f"{target} {name} is already {new!r}; nothing to correct")
+    issue = s.check(new) if s.check else None
+    if issue:
+        raise CorrectionError(issue)
     entries = load(path)
     stamp = (today or datetime.now(UTC).date()).isoformat()
     for e in entries:
         if (e.target, e.field) == (target, name):
             e.value, e.note, e.source, e.date = new, note or e.note, source, stamp
             e.editor_email = editor_email or e.editor_email
-            _check_and_save(base, entries, path)
+            _check_and_save(base, entries, path, vespers)
             return e, True
-    entry = Entry(id=next_id(entries), target=target, field=name, was=piece.get(name), value=new,
+    entry = Entry(id=next_id(entries), target=target, field=name, was=s.get(), value=new,
                   source=source, date=stamp, note=note, editor_email=editor_email)
-    _check_and_save(base, [*entries, entry], path)
+    _check_and_save(base, [*entries, entry], path, vespers)
     return entry, False
 
 
-def _check_and_save(base: dict[str, Any], entries: list[Entry], path: Path) -> None:
-    found = problems(base, entries)
+def _check_and_save(base: dict[str, Any] | None, entries: list[Entry], path: Path,
+                    vespers: VespersData | None = None) -> None:
+    found = problems(base, entries, vespers)
     if found:
         raise CorrectionError("\n".join(found))
     save(entries, path)
@@ -363,82 +546,31 @@ def drop(entry_id: str, path: Path = CORRECTIONS) -> Entry:
                           f"{', '.join(e.id for e in entries) or 'none'}")
 
 
-# ------------------------------------------------------------------- where ---
-
-@dataclass(frozen=True)
-class Location:
-    target: str
-    label: str
-    source: str
-    command: str
-
-
-def _line_of(path: Path, needle: str) -> int:
-    for n, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
-        if needle in line:
-            return n
-    return 0
-
-
-def where(query: str, catalog: dict[str, Any], data: Path = DATA) -> list[Location]:
-    """What a page URL (or a few words of a title) is, and where to fix it."""
-    path = urlparse(query).path if "/" in query else ""
-    parts = [p for p in path.split("/") if p]
-    pieces = _pieces(catalog)
-    if len(parts) >= 2 and parts[0] == "piece" and parts[1] in pieces:
-        return [_piece_location(pieces[parts[1]], data)]
-    if parts and parts[0] == "vespers" and len(parts) >= 2:
-        vespers = "I" if len(parts) > 2 and parts[2] == "i" else "II"
-        return [_vespers_location(parts[1], vespers, data)]
-    if len(parts) >= 3 and parts[0] == "day":
-        key = f"{parts[1]}:{parts[2]}"
-        return [Location(f"day:{key}", f"the day {key}",
-                         "data/rubrics-1962.yml (a day taking another day's Mass); data/index-noh*.yml "
-                         "(the `days` a piece is sung on)", "uv run noh catalog --volume <vol>")]
-    words = [w for w in re.split(r"[\s/-]+", query.lower()) if w]
-    hits = [p for p in pieces.values()
-            if words and all(w in f"{p['slug']} {p.get('title') or ''} {p.get('incipit') or ''}".lower()
-                             for w in words)]
-    return [_piece_location(p, data) for p in hits[:20]]
-
-
-def _vespers_location(day: str, vespers: str, data: Path) -> Location:
-    """The office a Vespers page is built from, and the line that holds it."""
-    target = f"vespers:{day}/{vespers}"
-    general = ("data/vespers-offices.yml (a feast's antiphons, tones, hymn); data/vespers-noh8.yml "
-               "(the Sunday psalter, Magnificat antiphons, seasons, tone bank)")
-    command = f"uv run noh vespers-lineup, then check: uv run noh vespers-lineup --day {day}"
-    lineup_path = data / "vespers-lineup.json"
-    if not lineup_path.exists():
-        return Location(target, f"{vespers} Vespers of {day}", general, command)
-    lineup = json.loads(lineup_path.read_text(encoding="utf-8"))
-    entry = (lineup.get("first_vespers" if vespers == "I" else "days") or {}).get(day)
-    if not entry:
-        return Location(target, f"no {vespers} Vespers page for {day}", general, command)
-    office = str(entry.get("office"))
-    sung = str(entry.get("vespers", vespers))
-    offices_path = data / "vespers-offices.yml"
-    doc = yaml.safe_load(offices_path.read_text(encoding="utf-8")) if offices_path.exists() else {}
-    for name, spec in ((doc or {}).get("offices") or {}).items():
-        if office in (spec.get("keys") or []) and str(spec.get("vespers")) == sung:
-            line = _line_of(offices_path, f"  {name}:")
-            return Location(target, f"{sung} Vespers of {office} (office {name})",
-                            f"data/vespers-offices.yml:{line}", command)
-    noh8 = data / "vespers-noh8.yml"
-    line = _line_of(noh8, f"{office}:") if noh8.exists() else 0
-    source = (f"data/vespers-noh8.yml:{line} (this Sunday's Magnificat antiphon; the psalter and "
-              "seasons are in the same file)") if line else general
-    return Location(target, f"{sung} Vespers of {office}", source, command)
-
-
-def _piece_location(piece: dict[str, Any], data: Path) -> Location:
-    index = data / f"index-{piece['volume']}.yml"
-    line = _line_of(index, f"slug: {piece['slug']}") if index.exists() else 0
-    source = f"{index.relative_to(data.parent)}:{line}" if line else f"data/index-{piece['volume']}.yml"
-    return Location(f"piece:{piece['slug']}", f"{piece.get('title')} ({piece['volume']}, pp. "
-                    f"{'-'.join(str(n) for n in piece.get('printed_pages') or [])})",
-                    source, f"uv run noh correct piece:{piece['slug']} <field> <value>")
-
-
-__all__ = ["BASE", "CATALOG", "CORRECTIONS", "FIELDS", "CorrectionError", "Entry", "Location", "apply",
-           "batch_summary", "coerce", "correct", "correct_batch", "drop", "load", "load_base", "no_ops", "problems", "save", "where", "write"]
+__all__ = [
+    "BASE",
+    "CATALOG",
+    "CORRECTIONS",
+    "FIELDS",
+    "CorrectionError",
+    "Entry",
+    "Slot",
+    "VespersData",
+    "apply",
+    "apply_vespers",
+    "batch_summary",
+    "coerce",
+    "correct",
+    "correct_batch",
+    "drop",
+    "kind_of",
+    "load",
+    "load_base",
+    "load_vespers",
+    "no_ops",
+    "problems",
+    "save",
+    "slot",
+    "stale_outputs",
+    "write",
+    "write_all",
+]

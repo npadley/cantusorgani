@@ -1,5 +1,5 @@
 {
-  "$comment": "The fields a hand correction may change, and what each accepts. Read by pipeline/corrections.py (noh correct, noh apply-corrections), the admin screen (web/src/lib/admin) and the Corrections form. One definition, so they cannot drift. min_letters: at least that many letters (a title of \"1\" is never right). arabic_to_roman: 1-8 is saved as I-VIII. not_for_genres: pieces of these genres have no such value, with the reason.",
+  "$comment": "The fields a hand correction may change, and what each accepts. Read by pipeline/corrections.py (noh correct, noh apply-corrections), the admin screen (web/src/lib/admin) and the Corrections form. One definition, so they cannot drift. `tones` is also pipeline/vespers.py's TONES. min_letters: at least that many letters (a title of \"1\" is never right). arabic_to_roman: 1-8 is saved as I-VIII. not_for_genres: pieces of these genres have no such value, with the reason.",
   "targets": {
     "piece": {
       "title": {
@@ -28,6 +28,26 @@
         "pattern": "^\\d{1,3}-\\d{1,3}$",
         "hint": "first-last, e.g. 5-10"
       }
+    },
+    "part": {
+      "start_system": {
+        "pattern": "^\\d{1,3}$",
+        "hint": "the system of the piece the part starts on, counting from 1"
+      },
+      "chant": {
+        "pattern": "^(\\d{1,6}|none)$",
+        "hint": "a GregoBase chant id (the number in gregobase.selapa.net/chant.php?id=…), or none"
+      }
+    },
+    "vespers": {
+      "tone": {
+        "pattern": "^(I\\.D|I\\.D2|I\\.f|I\\.g|I\\.g2|I\\.g3|I\\.a|I\\.a2|I\\.a3|II\\.D|II\\.A|III\\.a|III\\.a2|III\\.b|III\\.g|IV\\.E|IV\\.A|IV\\.A\\*|IV\\.g|V\\.a|VI\\.F|VI\\.C|VII\\.a|VII\\.b|VII\\.c|VII\\.c2|VII\\.d|VII\\.e|VII\\.e2|VIII\\.G|VIII\\.G\\*|VIII\\.c|peregrinus)$",
+        "hint": "a tone as NOH8 prints it, e.g. VIII.G, IV.A* or peregrinus"
+      },
+      "chant": {
+        "pattern": "^(\\d{1,6}|none)$",
+        "hint": "a GregoBase chant id (the number in gregobase.selapa.net/chant.php?id=…), or none"
+      }
     }
   },
   "reader_fields": {
@@ -36,6 +56,49 @@
     "incipit": "incipit",
     "mode": "mode",
     "genre": "genre",
-    "printedPages": "printed_pages"
+    "printedPages": "printed_pages",
+    "startSystem": "start_system",
+    "gregobaseId": "chant",
+    "tone": "tone"
+  },
+  "tones": [
+    "I.D",
+    "I.D2",
+    "I.f",
+    "I.g",
+    "I.g2",
+    "I.g3",
+    "I.a",
+    "I.a2",
+    "I.a3",
+    "II.D",
+    "II.A",
+    "III.a",
+    "III.a2",
+    "III.b",
+    "III.g",
+    "IV.E",
+    "IV.A",
+    "IV.A*",
+    "IV.g",
+    "V.a",
+    "VI.F",
+    "VI.C",
+    "VII.a",
+    "VII.b",
+    "VII.c",
+    "VII.c2",
+    "VII.d",
+    "VII.e",
+    "VII.e2",
+    "VIII.G",
+    "VIII.G*",
+    "VIII.c",
+    "peregrinus"
+  ],
+  "targets_help": {
+    "piece": "piece:<slug>",
+    "part": "part:<slug>/<part>, or part:<slug>/<part>:<variant> (introit, gradual, alleluia, tract, sequence, offertory, communion)",
+    "vespers": "vespers:<office>/antiphon-<n> or vespers:<office>/magnificat (an office of data/vespers-offices.yml); vespers:sunday:<calendar key>/magnificat (a green Sunday's Magnificat antiphon, data/vespers-noh8.yml)"
   }
 }

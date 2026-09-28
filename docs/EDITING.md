@@ -12,11 +12,11 @@ most fixes.
 | A piece's title, incipit or mode is wrong | [Title, incipit, mode](#title-incipit-mode) | No |
 | A piece's printed pages are wrong | [Printed pages](#printed-pages) | No |
 | A reader sent a correction | [The admin screen](#the-admin-screen), or [Reader corrections](#reader-corrections) | No |
-| A Vespers antiphon, tone, hymn or Magnificat antiphon is wrong | [Vespers items](#vespers-items) | No |
-| A Vespers chant link is wrong or missing | [Vespers chant links](#vespers-chant-links) | No (needs the GregoBase dump) |
+| A Vespers antiphon's or Magnificat antiphon's tone or chant link is wrong | [Vespers items](#vespers-items) | No |
+| A Vespers antiphon is on the wrong systems, or a hymn is wrong | [Vespers at the source](#vespers-at-the-source) | No |
 | A day shows the wrong Mass, or no Mass | [Days and rubrics](#days-and-rubrics) | Yes |
 | A piece starts or ends on the wrong page or system | [Piece boundaries](#piece-boundaries) | Yes |
-| A Proper part (Introit, Gradual…) starts on the wrong system, or its chant link is wrong | [Proper parts](#proper-parts) | Not yet fixable by hand |
+| A Proper part (Introit, Gradual…) starts on the wrong system, or its chant link is wrong | [Proper parts](#proper-parts) | No |
 | A Vespers psalm uses the wrong formula, or should show a note | [Psalm formulas and notes](#psalm-formulas-and-notes) | No |
 | A newer Divinum Officium, vesperale, jgabc or calendar | [Refreshing a source](#refreshing-a-source) | No |
 | A new volume to add | [Adding a volume](#adding-a-volume) | Yes |
@@ -43,11 +43,14 @@ code arrives by email). Setting it up is described in
   The owner merges it, and merging deploys the site. Closing it without merging
   puts the corrections back under **To review**.
 - **History** lists what was accepted (with its commit) and what was rejected
-  (with the reason).
+  (with the reason). Accepted corrections also appear publicly at
+  `/corrections/log/`, without names or addresses.
 
 Every action records who did it. Two editors can't both act on one report: the
 second is told who got there first. The admin screen corrects a piece's title,
-incipit, mode, genre and printed pages. Everything else needs the loop below.
+incipit, mode, genre and printed pages; where a Proper part starts and its
+chant; and a Vespers antiphon's tone and chant. Everything else needs the loop
+below.
 
 ---
 
@@ -204,51 +207,44 @@ until someone reviews them.
 - **Confirm**: `uv run noh corrections`; the public queue on `/corrections/`
   shows them as accepted.
 
-A report about a chant link is refused with a pointer to
-[Vespers chant links](#vespers-chant-links) or [Proper parts](#proper-parts),
-because chant pairings are fixed at the source.
+Reports can name a piece, one of its parts, or a Vespers item; triage records
+each against its target. An old-style report of a whole piece's "chant
+pairing" is refused, because a chant belongs to a part: see
+[Proper parts](#proper-parts).
 
 ### Vespers items
 
-- **File**:
-  - `data/vespers-offices.yml` for feasts and every office other than the green
-    Sundays;
-  - `data/vespers-noh8.yml` for the green Sundays' Magnificat antiphons
-    (`magnificat_antiphons`), the Sunday psalter, the Marian antiphons and the
-    seasons.
+The tone and chant of an office's antiphons and Magnificat antiphon, and of a
+green Sunday's Magnificat antiphon.
 
-  `noh where <vespers page URL>` names both.
-- **Change**: find the office (for example `adv1:`) and edit the item:
-  - `tone:` as printed in the margin, for example `VIII.G` or `IV.A*`;
-  - `refs:`, the systems it's printed on. Each system is `noh8/<PDF page>/<n>`,
-    and every image on the site carries its ref in `data-ref`.
-  - `incipit:`, the words.
-
-  ```yaml
-      - n: 1
-        incipit: In illa die
-        refs: [noh8/0077/000, noh8/0077/001]
-        tone: VIII.G
-  ```
-
-- **Command**:
+- **File**: `data/corrections.yml`.
+- **Change**: `uv run noh where <Vespers page URL>` lists the page's targets.
+  Then:
 
   ```bash
-  uv run noh vespers-lineup
-  uv run noh vespers-lineup --day 2026-11-29     # check one day, item by item
+  uv run noh correct vespers:adv1/antiphon-2 tone VIII.G*
+  uv run noh correct vespers:sunday:tempora:Pent18-0/magnificat chant 2205
   ```
 
-- **Confirm**: the `--day` output matches the book; preview `/vespers/<date>/`.
+- **Command**: none; `noh correct` rebuilds the Vespers lineup for the years it
+  already covers.
+- **Confirm**: `uv run noh vespers-lineup --day <date>`, or preview
+  `/vespers/<date>/`. On the site, each such item has **Report · Edit** beside
+  its heading.
 
-### Vespers chant links
+### Vespers at the source
 
-- **File**: the `chant:` field of the item, in `data/vespers-offices.yml` or
-  `data/vespers-noh8.yml`, holds the GregoBase id: the number in
-  `gregobase.selapa.net/chant.php?id=<id>`. Use `null` for no link.
-- **Command**: `uv run noh vespers-lineup`, then `uv run noh chants`.
-  `noh chants` needs the GregoBase dump in `vendor/`; the README's Vendored
-  data section says how to get it.
-- **Confirm**: the "Chant" link on the Vespers page opens the right melody.
+Everything else about Vespers — which systems an antiphon is on, hymns, the
+Sunday psalter, seasons, the tone bank — is fixed in the reviewed files, not
+the overlay.
+
+- **File**: `data/vespers-offices.yml` (an office's items) or
+  `data/vespers-noh8.yml` (psalter, Marian antiphons, seasons,
+  `magnificat_antiphons`, tone bank). `noh where` names the office and line.
+- **Change**: `refs:` are the systems, as `noh8/<PDF page>/<n>`; every image on
+  the site carries its ref in `data-ref`.
+- **Command**: `uv run noh vespers-lineup`, then
+  `uv run noh vespers-lineup --day <date>` to check it item by item.
 
 ### Days and rubrics
 
@@ -275,10 +271,30 @@ because chant pairings are fixed at the source.
 
 ### Proper parts
 
-This can't be fixed by hand yet. Where each part starts and which chant it
-links to are worked out from the scans and jgabc when `noh catalog` runs. The
-plan's Phase D adds `part:` corrections. Until then, open an issue on GitHub
-naming the piece and the part.
+- **File**: `data/corrections.yml`.
+- **Change**: `uv run noh where <piece URL>` lists the piece's parts as
+  targets, with where each starts and its chant. Then:
+
+  ```bash
+  uv run noh correct part:dominica-i-adventus/gradual start_system 4    # counting from 1
+  uv run noh correct part:dominica-i-adventus/gradual chant 1169        # a GregoBase id, or none
+  ```
+
+  A part's start must stay between its neighbours' starts. A part printed in
+  another volume is corrected where it is printed.
+- **Command**: none; `noh correct` rewrites the files.
+- **Confirm**: the part's heading on the piece page sits above the right
+  system, and its **Chant** link opens the right melody. A new chant id's
+  notation (the chant drawn above the music) appears once someone runs
+  `uv run noh chants` (it needs the GregoBase dump). `noh doctor` lists such
+  ids, and the link works meanwhile.
+
+Editors do the same on the admin screen: **Edit** beside the part's heading,
+or **Which part?** on the edit page. Readers use **Report** beside it.
+
+A part the pipeline placed by order alone (a guess) isn't shown on the site,
+so it has no Report link. It's listed on the admin edit page and in
+`noh where`.
 
 ### Psalm formulas and notes
 

@@ -101,3 +101,32 @@ describe("parseCorrection, values in the reader's own terms", () => {
     expect(parseCorrection({ ...base, field: "title", proposedValue: "Missa I" }).ok).toBe(true);
   });
 });
+
+describe("parseCorrection, parts and Vespers items", () => {
+  const report = (extra: Record<string, unknown>) =>
+    parseCorrection({ pieceId: "dominica-i-adventus", note: "", ...extra });
+
+  it("should accept where a part starts, or its chant, for the same piece", () => {
+    const start = report({ target: "part:dominica-i-adventus/gradual", field: "startSystem", proposedValue: "4" });
+    expect(start.ok && start.value.target).toBe("part:dominica-i-adventus/gradual");
+    expect(report({ target: "part:dominica-i-adventus/communion:2", field: "gregobaseId", proposedValue: "none" }).ok).toBe(true);
+    const other = report({ target: "part:kyrie-i/gradual", field: "startSystem", proposedValue: "4" });
+    expect(!other.ok && other.error).toMatch(/same piece as pieceId/);
+  });
+
+  it("should accept a Vespers item's tone or chant, and only those", () => {
+    expect(report({ pieceId: "vespers", target: "vespers:adv1/antiphon-1", field: "tone", proposedValue: "IV.A*" }).ok).toBe(true);
+    expect(report({ pieceId: "vespers", target: "vespers:sunday:tempora:Pent04-0/magnificat", field: "gregobaseId", proposedValue: "2205" }).ok).toBe(true);
+    expect(report({ pieceId: "vespers", target: "vespers:adv1/antiphon-1", field: "tone", proposedValue: "IX.z" }).ok).toBe(false);
+    const wrong = report({ pieceId: "vespers", target: "vespers:adv1/antiphon-1", field: "title", proposedValue: "In illa die" });
+    expect(!wrong.ok && wrong.error).toMatch(/A vespers report can correct tone, gregobaseId/);
+  });
+
+  it("should refuse a malformed target, and keep piece reports as they were", () => {
+    expect(report({ target: "piece:x/<b>", field: "title", proposedValue: "Ad te" }).ok).toBe(false);
+    const piece = report({ target: "piece:dominica-i-adventus", field: "title", proposedValue: "Dominica prima" });
+    expect(piece.ok && piece.value.target).toBeNull();
+    expect(report({ field: "startSystem", proposedValue: "4" }).ok).toBe(false);
+  });
+
+});

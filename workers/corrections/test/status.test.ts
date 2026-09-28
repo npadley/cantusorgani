@@ -43,7 +43,7 @@ describe("toPublicRow", () => {
   it("publishes only structural fields", () => {
     const row = toPublicRow(ROW);
     expect(Object.keys(row ?? {}).sort()).toEqual(
-      ["createdAt", "field", "id", "pieceId", "proposedValue", "status"],
+      ["createdAt", "field", "id", "pieceId", "proposedValue", "status", "target"],
     );
   });
 

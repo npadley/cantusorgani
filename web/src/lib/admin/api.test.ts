@@ -31,7 +31,17 @@ beforeEach(() => {
 function deps(e: AdminEnv = env): Deps {
   return {
     store: d1Store(db.d1),
-    targets: async () => targets(piece("kyrie-i"), piece("dominica-i-adventus", { genre: "proper", title: "Dominica I Adventus", mode: null })),
+    targets: async () => ({
+      ...targets(piece("kyrie-i"), piece("dominica-i-adventus", {
+        genre: "proper", title: "Dominica I Adventus", mode: null, systems: 6,
+        parts: [{ part: "introit", variant: "", system: 1, borrowed: null, chant: 132 },
+                { part: "gradual", variant: "", system: 3, borrowed: null, chant: null },
+                { part: "offertory", variant: "", system: null, borrowed: "dominica-ii, p. 9", chant: 7 },
+                { part: "communion", variant: "", system: 5, borrowed: null, chant: 1036 }],
+      })),
+      vespers: { "vespers:adv1/antiphon-1": { label: "In illa die", when: "Advent I, II Vespers", href: "/vespers/2026-11-29/",
+                                               tone: "VIII.G", chant: 2835, stem: null, aspect: null } },
+    }),
     dispatch: async (batch) => { if (failDispatch) throw new Error("GitHub is down"); sent.push(batch); },
     authenticate: (req) => authenticate(req, e),
   };
@@ -72,7 +82,7 @@ describe("reading", () => {
     const pending = body["pending"] as Record<string, unknown>[];
     const pages = pending.find((p) => p["field"] === "printedPages")!;
     expect(pages).toMatchObject({ resolvedTarget: "piece:kyrie-i", resolvedField: "printed_pages", current: "1-2", problem: null });
-    expect(pending.find((p) => p["field"] === "chant")!["problem"]).toMatch(/fixed at the source/);
+    expect(pending.find((p) => p["field"] === "chant")!["problem"]).toMatch(/corrected on its parts/);
     expect(pending.find((p) => p["piece_id"] === "gone")!["problem"]).toBe("This piece or item no longer exists.");
     expect(body["lastReviewed"]).toBeNull();
   });
@@ -153,12 +163,46 @@ describe("a report filed under the wrong field", () => {
   });
 });
 
+describe("parts and Vespers items", () => {
+  it("should correct where a part starts, inside its neighbours only, and not a part printed elsewhere", async () => {
+    const ok = await call("POST", "/edits", { target: "part:dominica-i-adventus/gradual", field: "start_system", value: "4" });
+    expect(ok.status).toBe(201);
+    const order = await call("POST", "/edits", { target: "part:dominica-i-adventus/gradual", field: "start_system", value: "5" });
+    expect(order.body["error"]).toMatch(/after system 1 and before system 5/);
+    const borrowed = await call("POST", "/edits", { target: "part:dominica-i-adventus/offertory", field: "start_system", value: "4" });
+    expect(borrowed.body["error"]).toMatch(/printed in another volume \(dominica-ii, p. 9\)/);
+  });
+
+  it("should set or clear a part's chant, and correct a Vespers item's tone and chant", async () => {
+    expect((await call("POST", "/edits", { target: "part:dominica-i-adventus/gradual", field: "chant", value: "1169" })).status).toBe(201);
+    expect((await call("POST", "/edits", { target: "part:dominica-i-adventus/communion", field: "chant", value: "" })).status).toBe(201);
+    expect((await call("POST", "/edits", { target: "vespers:adv1/antiphon-1", field: "tone", value: "VIII.G*" })).status).toBe(201);
+    expect((await call("POST", "/edits", { target: "vespers:adv1/antiphon-1", field: "tone", value: "IX" })).body["error"]).toMatch(/valid tone/);
+    expect((await call("POST", "/edits", { target: "vespers:adv1/antiphon-1", field: "title", value: "X" })).status).toBe(422);
+    const rows = db.sqlite.prepare("SELECT target, field, proposed, piece_id FROM corrections ORDER BY id").all();
+    expect(rows).toEqual([
+      { target: "part:dominica-i-adventus/gradual", field: "chant", proposed: "1169", piece_id: "dominica-i-adventus" },
+      { target: "part:dominica-i-adventus/communion", field: "chant", proposed: "none", piece_id: "dominica-i-adventus" },
+      { target: "vespers:adv1/antiphon-1", field: "tone", proposed: "VIII.G*", piece_id: "vespers" },
+    ]);
+  });
+
+  it("should read a reader's report on a part by its target", async () => {
+    const id = readerReport(db.sqlite, "dominica-i-adventus", "startSystem", "2");
+    db.sqlite.prepare("UPDATE corrections SET target = 'part:dominica-i-adventus/introit' WHERE id = ?").run(id);
+    const { body } = await call("GET", "/queue");
+    const item = (body["pending"] as Record<string, unknown>[])[0]!;
+    expect(item).toMatchObject({ resolvedTarget: "part:dominica-i-adventus/introit", resolvedField: "start_system", current: "1", kind: "part" });
+    expect((await call("POST", `/rows/${id}/approve`, {})).status).toBe(200);
+  });
+});
+
 describe("editing directly", () => {
   it("should record an editor's own fix as approved, and check it like any other", async () => {
     const made = await call("POST", "/edits", { target: "piece:dominica-i-adventus", field: "title", value: "Dominica prima Adventus", note: "p. 3" });
     expect(made).toMatchObject({ status: 201, body: { status: "approved" } });
     expect((await call("POST", "/edits", { target: "piece:kyrie-i", field: "mode", value: "VIII" })).body["error"]).toMatch(/already/);
-    expect((await call("POST", "/edits", { target: "vespers:2026-09-27/II", field: "tone", value: "I.g" })).status).toBe(422);
+    expect((await call("POST", "/edits", { target: "vespers:nowhere/antiphon-1", field: "tone", value: "I.g" })).status).toBe(422);
     expect((await call("POST", "/edits", { target: "piece:kyrie-i", field: "chant", value: "x" })).status).toBe(422);
   });
 });

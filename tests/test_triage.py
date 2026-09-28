@@ -126,6 +126,21 @@ def test_record_writes_a_readers_correction_to_the_overlay_not_the_catalog(tmp_p
     assert (entry.target, entry.field, entry.value, entry.source) == ("piece:kyrie-i", "printed_pages", [1, 3],
                                                                       "reader#7")
     assert catalog["pieces"][0]["printed_pages"] == [1, 2]
-    with pytest.raises(triage.RejectedCorrection, match="fixed at the source"):
+    with pytest.raises(triage.RejectedCorrection, match="corrected on its parts"):
         triage.record(catalog, triage.Correction(id=8, piece_id="kyrie-i", field="chant", proposed="Kyrie",
                                                  note="", status="pending", created_at=""))
+
+
+def test_record_writes_a_readers_part_correction_by_its_target(tmp_path, monkeypatch):
+    from pipeline import corrections
+    from tools.triage import main as triage
+    catalog = {"pieces": [{"id": "noh1-d", "volume": "noh1", "slug": "d", "title": "D", "incipit": None, "mode": None,
+                           "genre": "proper", "printed_pages": [1, 2], "systems": ["a", "b", "c"],
+                           "parts": [{"part": "introit", "variant": "", "system": 0, "ref": "a", "gregobase_id": None}]}]}
+    (tmp_path / "catalog.base.json").write_text(json.dumps(catalog))
+    monkeypatch.setattr(triage, "DATA", tmp_path)
+    row = triage.Correction(id=9, piece_id="d", field="gregobaseId", proposed="132", note="", status="pending",
+                            created_at="2026-09-28", target="part:d/introit")
+    triage.record(catalog, row)
+    entry = corrections.load(tmp_path / "corrections.yml")[0]
+    assert (entry.target, entry.field, entry.value, entry.source) == ("part:d/introit", "chant", 132, "reader#9")

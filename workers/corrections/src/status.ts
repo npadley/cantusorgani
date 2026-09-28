@@ -21,6 +21,7 @@ const ISO_LIKE = /^\d{4}-\d{2}-\d{2}([ T]\d{2}:\d{2}:\d{2})?Z?$/;
 export interface StoredRow {
   readonly id: number;
   readonly piece_id: string;
+  readonly target?: string | null;
   readonly field: string;
   readonly proposed: string;
   readonly note: string;
@@ -31,6 +32,8 @@ export interface StoredRow {
 export interface PublicRow {
   readonly id: number;
   readonly pieceId: string;
+  /** A part or Vespers item; null for the piece itself. */
+  readonly target: string | null;
   readonly field: string;
   readonly proposedValue: string;
   readonly status: Status;
@@ -56,6 +59,7 @@ export function toPublicRow(row: StoredRow): PublicRow | null {
     pieceId: row.piece_id,
     field: row.field,
     proposedValue: row.proposed,
+    target: row.target ?? null,
   });
   if (!check.ok) return null;
   const status = PUBLIC_STATUS[row.status];
@@ -68,6 +72,7 @@ export function toPublicRow(row: StoredRow): PublicRow | null {
   return {
     id: row.id,
     pieceId: check.value.pieceId,
+    target: check.value.target,
     field: check.value.field,
     proposedValue: check.value.proposedValue,
     status,

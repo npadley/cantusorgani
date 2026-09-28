@@ -1,8 +1,9 @@
 ---
 import Layout from "../../../components/Layout.astro";
 
-// An editor's own correction, without a reader's report. Opened from a piece
-// page's "Edit" link as /admin/edit/?target=piece:<slug>, or empty to choose.
+// An editor's own correction, without a reader's report. Opened from an "Edit"
+// link as /admin/edit/?target=<target> (a piece, one of its parts, or a
+// Vespers item), or empty to choose a piece.
 ---
 
 <Layout title="Admin: make a correction" noindex>
@@ -18,27 +19,28 @@ import Layout from "../../../components/Layout.astro";
           <a id="target-open" href="/">open the page</a> ·
           <button type="button" id="target-change" class="link">Change</button></p>
         <div id="target-choose">
-          <label for="target">Which piece?</label>
-          <select id="target" name="target" required><option value="">Loading…</option></select>
+          <label for="piece">Which piece?</label>
+          <select id="piece" name="piece" required><option value="">Loading…</option></select>
         </div>
+      </div>
+
+      <div class="field" id="part-row" hidden>
+        <label for="part">Which part?</label>
+        <select id="part" name="part"></select>
       </div>
 
       <div class="field">
         <label for="field">What is wrong?</label>
-        <select id="field" name="field" required>
-          <option value="title">Title</option>
-          <option value="incipit">Incipit</option>
-          <option value="mode">Mode</option>
-          <option value="genre">Genre</option>
-          <option value="printed_pages">Printed pages</option>
-        </select>
+        <select id="field" name="field" required></select>
       </div>
 
       <p class="small">Now: <span id="current">—</span></p>
+      <p class="small muted" id="field-note"></p>
 
       <div class="field">
         <label for="value">What should it be?</label>
-        <input id="value" name="value" type="text" required autocomplete="off" maxlength="200" />
+        <input id="value" name="value" type="text" required autocomplete="off" maxlength="200" aria-describedby="field-hint" />
+        <p class="small muted" id="field-hint"></p>
       </div>
 
       <div class="field">
@@ -59,6 +61,7 @@ import Layout from "../../../components/Layout.astro";
   .status { min-height: 1.4em; margin: var(--s-3) 0; }
   .status[data-state="error"] { color: var(--warn-ink); }
   .field { margin-bottom: var(--s-4); }
+  .field p { margin: var(--s-1) 0 0; }
   label { display: block; margin-bottom: var(--s-1); font-size: var(--step--1); }
   :global(.primary) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .link { border: 0; background: none; padding: 0; min-height: auto; text-decoration: underline; color: inherit; }
@@ -70,34 +73,73 @@ import Layout from "../../../components/Layout.astro";
 
 <script>
   import { api, drafts, h, loadTargets, say, signInAgain } from "../../../lib/admin/client";
-  import { currentValue, findPiece, isPieceField } from "../../../lib/admin/targets";
-  import type { TargetPiece } from "../../../lib/admin/targets";
+  import { FIELDS_OF, FIELD_LABELS, PART_LABELS, describeTarget, kindOf, notFor, partTarget } from "../../../lib/admin/targets";
+  import type { TargetInfo, TargetPiece, Targets } from "../../../lib/admin/targets";
+
+  const HINTS: Readonly<Record<string, string>> = {
+    mode: "I to VIII (1 to 8 is read as I to VIII)", printed_pages: "first-last, e.g. 5-10",
+    start_system: "the system of the piece the part starts on, counting from 1",
+    chant: "the number in gregobase.selapa.net/chant.php?id=…, or none", tone: "as NOH8 prints it, e.g. VIII.G or IV.A*",
+  };
 
   const status = document.getElementById("status");
   const form = document.getElementById("edit-form") as HTMLFormElement;
-  const select = document.getElementById("target") as HTMLSelectElement;
+  const pieceSelect = document.getElementById("piece") as HTMLSelectElement;
+  const partRow = document.getElementById("part-row") as HTMLElement;
+  const partSelect = document.getElementById("part") as HTMLSelectElement;
   const fieldSelect = document.getElementById("field") as HTMLSelectElement;
   const value = document.getElementById("value") as HTMLInputElement;
   const note = document.getElementById("note") as HTMLInputElement;
-  let chosen: TargetPiece | null = null;
+  let targets: Targets | null = null;
+  let chosen: TargetInfo | null = null;
+
+  function draftKey(): string {
+    return `edit:${chosen?.target}:${fieldSelect.value}`;
+  }
 
   function showCurrent(fillValue: boolean): void {
     const field = fieldSelect.value;
-    const now = chosen && isPieceField(field) ? currentValue(chosen, field) : "";
+    const now = chosen?.values[field] ?? "";
     document.getElementById("current")!.textContent = now || "—";
-    if (fillValue) value.value = drafts.get(`edit:${chosen?.slug}:${field}`) ?? now;
+    document.getElementById("field-hint")!.textContent = HINTS[field] ?? "";
+    document.getElementById("field-note")!.textContent = chosen
+      ? notFor(field, chosen.genre, chosen.kind) ?? (field === "start_system" ? chosen.fixed ?? "" : "") : "";
+    if (fillValue) value.value = drafts.get(draftKey()) ?? now;
   }
 
-  function fix(piece: TargetPiece | null): void {
-    chosen = piece;
+  function setFields(info: TargetInfo | null): void {
+    const current = fieldSelect.value;
+    const fields = info ? FIELDS_OF[info.kind] : [];
+    fieldSelect.replaceChildren(...fields.map((f) => h("option", { value: f, selected: f === current }, FIELD_LABELS[f] ?? f)));
+  }
+
+  /** The piece's own fields, or one of its parts. */
+  function setParts(piece: TargetPiece | null, selected: string | null): void {
+    const parts = piece?.parts ?? [];
+    partRow.hidden = parts.length === 0;
+    partSelect.replaceChildren(h("option", { value: `piece:${piece?.slug ?? ""}` }, "The piece itself (title, mode, pages)"),
+      ...parts.map((p) => {
+        const t = partTarget(piece?.slug ?? "", p);
+        const where = p.system === null ? "printed elsewhere" : `system ${p.system}`;
+        return h("option", { value: t, selected: t === selected },
+                 `${PART_LABELS[p.part] ?? p.part}${p.variant ? ` ${p.variant}` : ""} (${where})`);
+      }));
+  }
+
+  function choose(target: string | null): void {
+    chosen = targets && target ? describeTarget(targets, target) : null;
     const fixed = document.getElementById("target-fixed")!;
-    const choose = document.getElementById("target-choose")!;
-    fixed.hidden = !piece;
-    choose.hidden = Boolean(piece);
-    if (piece) {
-      document.getElementById("target-label")!.textContent = `${piece.label} (${piece.volume}, pp. ${piece.printed_pages.join("–")})`;
-      (document.getElementById("target-open") as HTMLAnchorElement).href = piece.href;
+    const pick = document.getElementById("target-choose")!;
+    fixed.hidden = !chosen;
+    pick.hidden = Boolean(chosen);
+    if (chosen) {
+      document.getElementById("target-label")!.textContent = chosen.label;
+      (document.getElementById("target-open") as HTMLAnchorElement).href = chosen.href;
     }
+    const piece = chosen?.slug && targets ? targets.pieces[chosen.slug] ?? null : null;
+    if (chosen?.kind === "vespers") partRow.hidden = true;
+    else setParts(piece, chosen?.target ?? null);
+    setFields(chosen);
     showCurrent(true);
   }
 
@@ -109,28 +151,29 @@ import Layout from "../../../components/Layout.astro";
       return;
     }
     document.getElementById("who")!.textContent = `Admin · signed in as ${who.data.email}`;
-    const targets = await loadTargets();
+    targets = await loadTargets();
     if (!targets) { say(status, "Could not load the list of pieces. Reload the page.", "error"); return; }
     const pieces = Object.values(targets.pieces).sort((a, b) => a.label.localeCompare(b.label));
-    select.replaceChildren(h("option", { value: "" }, "Choose a piece…"),
-      ...pieces.map((p) => h("option", { value: p.slug }, `${p.label} · ${p.volume}, pp. ${p.printed_pages.join("–")}`)));
+    pieceSelect.replaceChildren(h("option", { value: "" }, "Choose a piece…"),
+      ...pieces.map((p) => h("option", { value: `piece:${p.slug}` }, `${p.label} · ${p.volume}, pp. ${p.printed_pages.join("–")}`)));
     const asked = new URLSearchParams(location.search).get("target");
-    const piece = asked ? findPiece(targets, asked) : null;
-    if (asked && !piece) say(status, "We couldn't find that item; choose it below. (This screen corrects pieces; Vespers items come later.)", "error");
-    fix(piece);
-    select.addEventListener("change", () => fix(findPiece(targets, select.value)));
+    const known = asked && kindOf(asked) && describeTarget(targets, asked);
+    if (asked && !known) say(status, "We couldn't find that item; choose a piece below.", "error");
+    choose(known ? asked : null);
   })();
 
-  document.getElementById("target-change")?.addEventListener("click", () => { fix(null); select.focus(); });
+  pieceSelect.addEventListener("change", () => choose(pieceSelect.value || null));
+  partSelect.addEventListener("change", () => choose(partSelect.value));
+  document.getElementById("target-change")?.addEventListener("click", () => { choose(null); pieceSelect.focus(); });
   fieldSelect.addEventListener("change", () => showCurrent(true));
-  value.addEventListener("input", () => drafts.set(`edit:${chosen?.slug}:${fieldSelect.value}`, value.value));
+  value.addEventListener("input", () => drafts.set(draftKey(), value.value));
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    if (!chosen) { say(status, "Choose which piece to correct.", "error"); select.focus(); return; }
+    if (!chosen) { say(status, "Choose what to correct.", "error"); pieceSelect.focus(); return; }
     const save = document.getElementById("save") as HTMLButtonElement;
     save.disabled = true;
-    const result = await api<{ id: number }>("/edits", { target: `piece:${chosen.slug}`, field: fieldSelect.value,
+    const result = await api<{ id: number }>("/edits", { target: chosen.target, field: fieldSelect.value,
                                                          value: value.value, note: note.value });
     save.disabled = false;
     if (!result.ok) {
@@ -138,7 +181,7 @@ import Layout from "../../../components/Layout.astro";
       value.focus();
       return;
     }
-    drafts.clear(`edit:${chosen.slug}:${fieldSelect.value}`);
+    drafts.clear(draftKey());
     status?.replaceChildren(h("span", {}, "Approved. It is waiting on the "), h("a", { href: "/admin/" }, "corrections queue"),
                             h("span", {}, " until someone publishes."));
     if (status) status.dataset["state"] = "ok";

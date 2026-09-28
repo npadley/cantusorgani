@@ -41,6 +41,11 @@ FIELD_PATTERNS: dict[str, re.Pattern[str]] = {
     ),
     "printedPages": re.compile(r"^\d{1,3}-\d{1,3}$"),
     "chant": re.compile(r"^[^\x00-\x1f<>]{1,160}$"),
+    # A part's start and chant, a Vespers item's tone and chant: checked in full
+    # by pipeline.corrections when recorded.
+    "startSystem": re.compile(r"^\d{1,3}$"),
+    "gregobaseId": re.compile(r"^(\d{1,6}|none)$"),
+    "tone": re.compile(r"^[A-Za-z0-9.*]{1,12}$"),
 }
 
 CATALOG_KEY = {
@@ -50,6 +55,9 @@ CATALOG_KEY = {
     "genre": "genre",
     "printedPages": "printed_pages",
     "chant": "chant",
+    "startSystem": "start_system",
+    "gregobaseId": "chant",
+    "tone": "tone",
 }
 
 
@@ -62,6 +70,8 @@ class Correction:
     note: str
     status: str
     created_at: str
+    #: A part or Vespers item (migration 0002); None for the piece itself.
+    target: str | None = None
 
 
 class RejectedCorrection(ValueError):
@@ -162,7 +172,7 @@ def _d1(sql: str, remote: bool, params: tuple[object, ...] = ()) -> list[dict[st
 
 def fetch_pending(remote: bool = True) -> list[Correction]:
     rows = _d1(
-        "SELECT id, piece_id, field, proposed, note, status, created_at "
+        "SELECT id, piece_id, target, field, proposed, note, status, created_at "
         "FROM corrections WHERE status = ? ORDER BY created_at",
         remote,
         ("pending",),
@@ -310,15 +320,19 @@ def main(argv: list[str] | None = None) -> int:
 def record(catalog: dict[str, Any], c: Correction) -> None:
     """A reader's correction as an entry in data/corrections.yml."""
     validate(c.field, c.proposed)
-    if c.field == "chant":
-        raise RejectedCorrection("chant pairings are fixed at the source, not by correction; "
-                                 "see docs/EDITING.md, 'A chant link is wrong or missing'")
-    slug = next((p["slug"] for p in catalog.get("pieces", [])
-                 if p.get("id") == c.piece_id or p.get("slug") == c.piece_id), None)
-    if slug is None:
-        raise KeyError(f"no piece with id or slug {c.piece_id!r}")
-    correct(f"piece:{slug}", CATALOG_KEY[c.field], c.proposed, note=c.note[:200],
-            source=f"reader#{c.id}", base_path=DATA / "catalog.base.json", path=DATA / "corrections.yml")
+    if c.field == "chant" and not c.target:
+        raise RejectedCorrection("a piece's chant pairing is corrected on its parts (Introit, Gradual...), "
+                                 "not the piece; see docs/EDITING.md, 'Proper parts'")
+    if c.target and not c.target.startswith("piece:"):
+        target = c.target
+    else:
+        slug = next((p["slug"] for p in catalog.get("pieces", [])
+                     if p.get("id") == c.piece_id or p.get("slug") == c.piece_id), None)
+        if slug is None:
+            raise KeyError(f"no piece with id or slug {c.piece_id!r}")
+        target = f"piece:{slug}"
+    correct(target, CATALOG_KEY[c.field], c.proposed, note=c.note[:200], source=f"reader#{c.id}",
+            base_path=DATA / "catalog.base.json", path=DATA / "corrections.yml", vespers_dir=DATA)
 
 
 if __name__ == "__main__":

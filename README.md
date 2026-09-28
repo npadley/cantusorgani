@@ -16,6 +16,8 @@ against the 1962 Roman calendar and published at
   tracked). Licensing: [`data/LICENSES.md`](data/LICENSES.md).
 - `docs/claudekit/` — design, plans and their reviews.
 
+How the pieces fit together: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+
 **To fix something on the site, start with [`docs/EDITING.md`](docs/EDITING.md)**:
 recipes by symptom, most of which need no PDFs. Editors use the admin screen at
 `/admin/` ([setup](docs/ADMIN-SETUP.md)).
