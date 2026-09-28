@@ -73,6 +73,9 @@ export interface TargetPart {
   readonly system: number | null;
   readonly borrowed: string | null;
   readonly chant: number | null;
+  /** Its start was only guessed from the order of the parts, so the piece page
+   * does not show it (no heading, no Report link); the edit page does. */
+  readonly guessed?: boolean;
 }
 
 /** One piece as the admin screen needs it: current values, and a picture. */
@@ -139,7 +142,9 @@ export interface TargetInfo {
   /** Where the parts before and after start now (a part runs until the next
    * one starts); `before` is one past the piece's last system for the last part. */
   readonly bounds: { readonly after: number; readonly before: number;
-                     readonly previous: string | null; readonly next: string | null } | null;
+                     readonly previous: string | null; readonly next: string | null;
+                     /** The next part is not shown on the piece page: its start was guessed. */
+                     readonly nextHidden?: boolean; readonly nextTarget?: string | null } | null;
   /** How many systems the piece has (for a part's start). */
   readonly systems: number | null;
 }
@@ -220,6 +225,7 @@ export function describeTarget(targets: Targets, name: string): TargetInfo | nul
   const bounds = found.system === null ? null : {
     after: prev?.system ?? 0, before: next?.system ?? (piece.systems ?? 0) + 1,
     previous: prev ? nameOfPart(prev) : null, next: next ? nameOfPart(next) : null,
+    nextHidden: next?.guessed === true, nextTarget: next ? partTarget(piece.slug, next) : null,
   };
   const label = `${piece.label} (${piece.volume}) · ${PART_LABELS[found.part] ?? found.part}${variant ? ` ${variant}` : ""}`;
   return { target: partTarget(piece.slug, found), kind, label, href: piece.href, stem: piece.stem, aspect: piece.aspect,
@@ -304,32 +310,45 @@ export function startNote(info: TargetInfo): string {
                   b.next ? `before the ${b.next} (system ${b.before})` : ""].filter(Boolean).join(" and ");
   return "A part runs from the system it starts on until the next part starts" +
     (around ? `: this one starts ${around}` : "") + "." +
-    (b.next ? ` To move it past the ${b.next}, move the ${b.next} too, in either order, before publishing.` : "");
+    (b.next ? ` To move it past the ${b.next}, move the ${b.next} too, in either order, before publishing.` : "") +
+    (b.nextHidden ? ` The ${b.next} isn't shown on the piece page, because its start was only guessed; ` +
+      `choose it under “Which part?”.` : "");
 }
 
 /** A start_system correction waiting to be published. */
 export interface PlannedStart { readonly target: string; readonly value: string }
 
+/** Parts out of order: what is wrong, and the part to move too. */
+export interface OrderProblem {
+  readonly message: string;
+  /** The part still to move, for a link to its edit page. */
+  readonly target: string;
+  readonly name: string;
+}
+
 /**
  * Whether each piece's parts still start in printed order once these start
- * corrections are published; null when they do, or the first problem in words.
+ * corrections are published; null when they do, or the first problem.
  * The same rule as `_part_order` in pipeline/corrections.py.
  */
-export function plannedOrder(targets: Targets, planned: readonly PlannedStart[]): string | null {
+export function plannedOrder(targets: Targets, planned: readonly PlannedStart[]): OrderProblem | null {
   const starts = new Map<string, number>();
   for (const p of planned) if (kindOf(p.target) === "part" && /^\d{1,3}$/.test(p.value)) starts.set(p.target, Number(p.value));
   const slugs = new Set([...starts.keys()].map((t) => t.slice(5).split("/")[0] ?? ""));
   for (const slug of slugs) {
     const placed = (targets.pieces[slug]?.parts ?? []).filter((p) => p.system !== null)
-      .map((p) => ({ name: nameOfPart(p), target: partTarget(slug, p),
+      .map((p) => ({ name: nameOfPart(p), target: partTarget(slug, p), guessed: p.guessed === true,
                      system: starts.get(partTarget(slug, p)) ?? p.system ?? 0 }));
     for (let i = 1; i < placed.length; i++) {
       const [a, b] = [placed[i - 1]!, placed[i]!];
       if (a.system >= b.system) {
         // Name the one not moved yet: that is the one to move too.
         const other = starts.has(b.target) && !starts.has(a.target) ? a : b;
-        return `In ${targets.pieces[slug]?.label ?? slug}, the ${a.name} would start on system ${a.system} and the ` +
-          `${b.name} on system ${b.system}. A part runs until the next one starts: move the ${other.name} too.`;
+        const message = `In ${targets.pieces[slug]?.label ?? slug}, the ${a.name} would start on system ${a.system} ` +
+          `and the ${b.name} on system ${b.system}. A part runs until the next one starts: move the ${other.name} too.` +
+          (other.guessed && !starts.has(other.target)
+            ? ` (The piece page doesn't show the ${other.name}: its start was only guessed.)` : "");
+        return { message, target: other.target, name: other.name };
       }
     }
   }

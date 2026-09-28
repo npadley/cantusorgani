@@ -234,12 +234,15 @@ describe("publishing", () => {
     const gradual = await call("POST", "/edits", { target: "part:dominica-i-adventus/gradual", field: "start_system", value: "5" });
     expect(gradual.status).toBe(201);
     expect(gradual.body["warning"]).toMatch(/the Gradual would start on system 5 and the Communion on system 5\. A part runs until the next one starts: move the Communion too\. Publishing waits/);
+    expect(gradual.body["fix"]).toEqual({ target: "part:dominica-i-adventus/communion", name: "Communion" });
     const held = await call("POST", "/publish", {});
     expect(held.status).toBe(422);
     expect(held.body["error"]).toMatch(/move the Communion too\. Nothing was published\.$/);
+    expect(held.body["fix"]).toEqual({ target: "part:dominica-i-adventus/communion", name: "Communion" });
     expect(sent).toHaveLength(0);
     const communion = await call("POST", "/edits", { target: "part:dominica-i-adventus/communion", field: "start_system", value: "6" });
     expect(communion.body["warning"]).toBeUndefined();
+    expect(communion.body["fix"]).toBeUndefined();
     expect(await call("POST", "/publish", {})).toMatchObject({ status: 200, body: { count: 2 } });
   });
 
