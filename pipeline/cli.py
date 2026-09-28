@@ -41,6 +41,8 @@ def build_parser() -> argparse.ArgumentParser:
     subs = p.add_subparsers(dest="command", required=True)
 
     subs.add_parser("doctor", help="preflight: dependencies, sources, credentials")
+    subs.add_parser("r2-check",
+                    help="check the R2 credentials: their shape, then write, read and delete a test object")
 
     render = subs.add_parser("render", help="rasterise pages at 300dpi")
     _add_common(render)
@@ -242,6 +244,26 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "doctor":
         from pipeline.doctor import report, run
         return report(run())
+
+    if args.command == "r2-check":
+        from pipeline.upload import credential_problems, probe, require_credentials
+        try:
+            creds = require_credentials()
+        except RuntimeError as error:
+            print(f"FAIL  {error}", file=sys.stderr)
+            return 1
+        problems = credential_problems(creds)
+        for problem in problems:
+            print(f"FAIL  {problem}", file=sys.stderr)
+        if problems:
+            return 1
+        try:
+            key = probe(creds)
+        except Exception as error:  # noqa: BLE001 - reported, then a failing exit
+            print(f"FAIL  bucket {creds.bucket}: {type(error).__name__}: {error}", file=sys.stderr)
+            return 1
+        print(f"OK    bucket {creds.bucket}: wrote, read back and deleted {key}")
+        return 0
 
     if args.command == "render":
         from pipeline.render import render_page

@@ -112,6 +112,41 @@ wait for you instead, and their pull request says why:
 If a batch's checks fail, the pull request is closed and its corrections go
 back to the admin screen, marked with the reason.
 
+## 5. R2 for GitHub Actions
+
+GitHub Actions publishes to the `cantusorgani-assets` bucket (typeset music,
+later). Give it its own R2 token, separate from the one on your Mac, so either
+can be revoked without the other.
+
+1. In the Cloudflare dashboard, open **R2 Object Storage**, then **Manage API
+   tokens** → **Create Account API token**.
+   - Name: `cantusorgani GitHub Actions`
+   - Permissions: **Object Read & Write**
+   - Specify bucket(s): **Apply to specific buckets only** →
+     `cantusorgani-assets`
+   - TTL: **Forever** (revoke it here if it ever leaks)
+2. **Create API Token**. The next page shows several values, once. Use only
+   these two:
+   - **Access Key ID** (32 characters)
+   - **Secret Access Key** (64 characters)
+
+   Not the **Token value**: that starts `cfat_` and is a Cloudflare API token,
+   not an R2 key.
+3. Your **account ID** is the 32 characters at the start of the S3 endpoint
+   shown on the same page (`https://<account ID>.r2.cloudflarestorage.com`),
+   or on the R2 overview under **Account Details**.
+4. In the repo's **Settings → Secrets and variables → Actions**:
+   - secrets: `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`;
+   - variable: `R2_BUCKET` = `cantusorgani-assets` (*not secret*).
+
+   Save the token in 1Password too.
+5. Go to **Actions → r2-check → Run workflow**. A green run means GitHub can
+   write to the bucket; a red one says which value is wrong, without showing it.
+
+For your Mac, make a second token the same way (name it `cantusorgani Mac`),
+put its values in the 1Password Environment, and check with
+`uv run noh r2-check`.
+
 ## Checking it works
 
 1. Open https://cantusorgani.org/admin/. Access asks for your email and sends a
