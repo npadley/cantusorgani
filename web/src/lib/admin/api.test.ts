@@ -3,7 +3,7 @@ import { beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { authenticate } from "./auth";
 import { handleAdmin, handleWebhook } from "./api";
 import type { AdminEnv, Deps } from "./api";
-import { dispatchBatch, installationToken, newBatchId } from "./github";
+import { closePullRequest, dispatchBatch, installationToken, newBatchId } from "./github";
 import type { Batch } from "./github";
 import { d1Store } from "./store";
 import { keyPair, piece, readerReport, targets, testDb } from "./testing";
@@ -16,6 +16,8 @@ let env: AdminEnv;
 let sent: Batch[];
 let failDispatch: boolean;
 let keys: KeyPair;
+let closed: { pr: number; why: string }[];
+let failClose: boolean;
 
 beforeAll(async () => { keys = await keyPair(); });
 
@@ -23,6 +25,8 @@ beforeEach(() => {
   db = testDb();
   sent = [];
   failDispatch = false;
+  closed = [];
+  failClose = false;
   env = { DB: db.d1, EDITORS: "owner@example.org,ed@example.org", ADMIN_DEV_EMAIL: "ed@example.org",
           GITHUB_REPO: "npadley/cantusorgani", GITHUB_APP_ID: "1", GITHUB_INSTALLATION_ID: "2",
           GITHUB_APP_PRIVATE_KEY: "pem", GITHUB_WEBHOOK_SECRET: "hook-secret" };
@@ -65,7 +69,10 @@ async function webhook(event: string, payload: unknown, secret = "hook-secret") 
   const signature = `sha256=${[...mac].map((b) => b.toString(16).padStart(2, "0")).join("")}`;
   const response = await handleWebhook(new Request(`${ORIGIN}/api/github/webhook`, {
     method: "POST", body: raw, headers: { "X-GitHub-Event": event, "X-Hub-Signature-256": signature },
-  }), env, d1Store(db.d1));
+  }), env, d1Store(db.d1), async (pr, why) => {
+    if (failClose) throw new Error("GitHub did not close PR #" + pr + " (HTTP 403)");
+    closed.push({ pr, why });
+  });
   return { status: response.status, body: (await response.json()) as Record<string, unknown> };
 }
 
@@ -271,7 +278,7 @@ describe("the webhook", () => {
   it("should record the pull request, then accept the batch when it is merged", async () => {
     const { id, batch } = await published();
     await webhook("pull_request", { action: "opened", pull_request: { number: 42, head: { ref: `corrections/${batch}` } } });
-    expect((await call("POST", "/publish", {})).body["error"]).toBe("PR #42 is open, waiting for the owner. Publish again once it is merged or closed.");
+    expect((await call("POST", "/publish", {})).body["error"]).toBe("PR #42 is open: it merges itself when its checks pass, unless it waits for the owner. Publish again once it is merged or closed.");
     await webhook("pull_request", { action: "closed", pull_request: { number: 42, merged: true, merge_commit_sha: "abc1234def",
                                                                       head: { ref: `corrections/${batch}` } } });
     expect(db.sqlite.prepare("SELECT status, commit_sha, pr_number FROM corrections WHERE id = ?").get(id))
@@ -290,6 +297,47 @@ describe("the webhook", () => {
       .toMatchObject({ status: "approved", reason: "Publishing failed; see https://github.com/x/actions/runs/1 on GitHub" });
   });
 
+  it("should close the pull request and return the batch to approved when the site's checks fail on it", async () => {
+    const { id, batch } = await published();
+    await webhook("pull_request", { action: "opened", pull_request: { number: 42, head: { ref: `corrections/${batch}` } } });
+    const failed = { name: "site", conclusion: "failure", head_branch: `corrections/${batch}`,
+                     html_url: "https://github.com/x/actions/runs/9" };
+    expect((await webhook("workflow_run", { action: "completed", workflow_run: failed })).body).toEqual({ ok: true, updated: 1 });
+    expect(db.sqlite.prepare("SELECT status, reason, batch_id FROM corrections WHERE id = ?").get(id))
+      .toMatchObject({ status: "approved", reason: "The site's checks failed; see https://github.com/x/actions/runs/9 on GitHub",
+                       batch_id: null });
+    expect(closed).toHaveLength(1);
+    expect(closed[0]).toMatchObject({ pr: 42 });
+    expect(closed[0]?.why).toMatch(/back on the admin screen under Approved/);
+    // The close then arrives as a pull_request event: nothing is left queued, so nothing moves.
+    await webhook("pull_request", { action: "closed", pull_request: { number: 42, merged: false, head: { ref: `corrections/${batch}` } } });
+    expect(statusOf(id)).toBe("approved");
+    // A repeat delivery of the failure finds nothing to do.
+    expect((await webhook("workflow_run", { action: "completed", workflow_run: failed })).body).toEqual({ ok: true, ignored: true });
+    expect(closed).toHaveLength(1);
+  });
+
+  it("should leave a batch queued when the site's checks pass, are cancelled, or are on another branch", async () => {
+    const { id, batch } = await published();
+    for (const run of [{ name: "site", conclusion: "success", head_branch: `corrections/${batch}` },
+                       { name: "site", conclusion: "cancelled", head_branch: `corrections/${batch}` },
+                       { name: "site", conclusion: "failure", head_branch: "feat/typesetting" }]) {
+      expect((await webhook("workflow_run", { action: "completed", workflow_run: run })).body).toEqual({ ok: true, ignored: true });
+    }
+    expect(statusOf(id)).toBe("queued");
+    expect(closed).toEqual([]);
+  });
+
+  it("should still return the batch, and log why, when GitHub will not close the pull request", async () => {
+    const { id, batch } = await published();
+    failClose = true;
+    await webhook("workflow_run", { action: "completed", workflow_run: {
+      name: "site", conclusion: "timed_out", head_branch: `corrections/${batch}`, pull_requests: [{ number: 5 }] } });
+    expect(statusOf(id)).toBe("approved");
+    expect(db.sqlite.prepare("SELECT detail FROM admin_log WHERE action = 'close-failed'").get())
+      .toMatchObject({ detail: expect.stringContaining("PR #5") });
+  });
+
   it("should ignore pull requests that are not correction batches", async () => {
     const { body } = await webhook("pull_request", { action: "opened", pull_request: { number: 3, head: { ref: "feature/x" } } });
     expect(body).toEqual({ ok: true, ignored: true });
@@ -297,6 +345,21 @@ describe("the webhook", () => {
 });
 
 describe("GitHub", () => {
+  it("should comment on a pull request, then close it, as the App", async () => {
+    const calls: { url: string; method: string; body: unknown }[] = [];
+    const fetcher = async (url: string, init?: RequestInit) => {
+      if (url.endsWith("/access_tokens")) return Response.json({ token: "inst-token" }, { status: 201 });
+      calls.push({ url, method: init?.method ?? "GET", body: JSON.parse(String(init?.body)) });
+      return Response.json({}, { status: url.includes("/comments") ? 201 : 200 });
+    };
+    const ghEnv = { GITHUB_REPO: "npadley/cantusorgani", GITHUB_APP_ID: "123", GITHUB_INSTALLATION_ID: "456", GITHUB_APP_PRIVATE_KEY: keys.pem };
+    await closePullRequest(ghEnv, 42, "Checks failed.", fetcher);
+    expect(calls).toEqual([
+      { url: "https://api.github.com/repos/npadley/cantusorgani/issues/42/comments", method: "POST", body: { body: "Checks failed." } },
+      { url: "https://api.github.com/repos/npadley/cantusorgani/pulls/42", method: "PATCH", body: { state: "closed" } },
+    ]);
+  });
+
   it("should sign in as the App with a JWT GitHub can verify, then start the workflow", async () => {
     const calls: { url: string; init?: RequestInit }[] = [];
     const fetcher = async (url: string, init?: RequestInit) => {
