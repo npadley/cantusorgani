@@ -11,7 +11,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "astro": "^5.0.0",
+    "astro": "^7.3.5",
     "pdf-lib": "^1.17.1"
   },
   "devDependencies": {
