@@ -24,7 +24,11 @@ const MAX_BODY_BYTES = 8 * 1024;
 const PAGE_SIZE = 100;
 const TURNSTILE_VERIFY = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
-interface TurnstileOutcome { readonly success?: boolean }
+interface TurnstileOutcome {
+  readonly success?: boolean;
+  readonly "error-codes"?: readonly string[];
+  readonly hostname?: string;
+}
 interface CountRow { readonly n: number }
 
 function corsHeaders(origin: string): Record<string, string> {
@@ -79,8 +83,17 @@ async function verifyTurnstile(env: Env, token: string, ip: string): Promise<boo
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ secret: env.TURNSTILE_SECRET, response: token, remoteip: ip }),
   });
-  if (!response.ok) return false;
+  if (!response.ok) {
+    console.warn(`turnstile: siteverify answered HTTP ${response.status}`);
+    return false;
+  }
   const outcome = (await response.json()) as TurnstileOutcome;
+  if (outcome.success !== true) {
+    // Cloudflare's reason (e.g. invalid-input-secret, timeout-or-duplicate) and
+    // the hostname the widget ran on: never the secret or the token.
+    console.warn(`turnstile: failed: ${(outcome["error-codes"] ?? []).join(", ") || "no reason given"}; ` +
+                 `hostname ${outcome.hostname ?? "unknown"}`);
+  }
   return outcome.success === true;
 }
 
