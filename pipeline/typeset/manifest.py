@@ -8,7 +8,7 @@ data/typeset/review.json     everything else, for the admin screen's queues:
                              status, candidate target, render hash (when it
                              compiles), LilyPond's error (when it does not)
 
-A render hash names typeset/<hash>/{narrow.svg, wide.svg, score.pdf} on R2
+A render hash names typeset/<hash>/{narrow.svg, wide.svg, letter.pdf, a4.pdf} on R2
 (pipeline/typeset/render.py). `noh typeset-render` draws the ones not published
 yet, `noh typeset-publish` uploads them, and `noh typeset-check --remote`
 checks every one the manifest names is there.

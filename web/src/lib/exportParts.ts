@@ -18,6 +18,8 @@ export interface ExportSegment {
   readonly systems: number;
   /** Full URL stems of the segment's systems, in order. */
   readonly stems: readonly string[];
+  /** Where those systems are: a piece and a range of its systems (for typeset music). */
+  readonly source?: { readonly slug: string; readonly start: number; readonly end: number };
 }
 
 /** The confident parts of a piece, each with the systems it runs over. */
@@ -49,12 +51,13 @@ export function exportSegments(pieces: readonly Piece[],
         label: `${partLabel(b.part, b.variant)} (from ${lender.incipit ?? lender.title})`,
         part: b.part, variant: b.variant, pieceSlug: piece.slug,
         systems: lenderStems.length, stems: lenderStems, order: partOrder(b.part, b.variant),
+        source: { slug: lender.slug, start: range.start, end: range.end },
       });
     }
     if (ranges.length === 0 && borrowed.length === 0) {
       if (stems.length > 0) {
         out.push({ id: `${piece.slug}:0`, label: title, part: null, variant: "", pieceSlug: piece.slug,
-                   systems: stems.length, stems });
+                   systems: stems.length, stems, source: { slug: piece.slug, start: 0, end: stems.length } });
       }
       continue;
     }
@@ -62,11 +65,13 @@ export function exportSegments(pieces: readonly Piece[],
     if (first > 0) {
       const lead = ranges[0] ? partLabel(ranges[0].x.part) : "music";
       out.push({ id: `${piece.slug}:before`, label: `${title} (before the ${lead})`,
-                 part: null, variant: "", pieceSlug: piece.slug, systems: first, stems: stems.slice(0, first) });
+                 part: null, variant: "", pieceSlug: piece.slug, systems: first, stems: stems.slice(0, first),
+                 source: { slug: piece.slug, start: 0, end: first } });
     }
     const own = ranges.map(({ x, start, end }) => ({
       id: `${piece.slug}:${start}`, label: partLabel(x.part, x.variant), part: x.part, variant: x.variant,
       pieceSlug: piece.slug, systems: end - start, stems: stems.slice(start, end), order: partOrder(x.part, x.variant),
+      source: { slug: piece.slug, start, end },
     }));
     for (const { order: _order, ...segment } of [...own, ...borrowed].sort((a, b) => a.order - b.order)) {
       out.push(segment);

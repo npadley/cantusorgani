@@ -68,16 +68,24 @@ will settle the rest (PR 6). `noh typeset-match` never changes an entry marked
 
 ## Drawing and publishing
 
-Each file is drawn three times by LilyPond's Cairo backend, which draws text
+Each file is drawn four times by LilyPond's Cairo backend, which draws text
 as outlines, so no fonts are needed (`pipeline/typeset/render.py`):
 
 | File | For | Layout |
 |---|---|---|
 | `narrow.svg` | phones | 90 mm lines, staff 17; the book's line breaks removed, so lines break to fit (`narrow.ily`) |
 | `wide.svg` | tablets and desktops | 190 mm lines, staff 18; the book's own line breaks, to read against the scan |
-| `score.pdf` | the PDF export | A4 pages, staff 18; the book's line breaks |
+| `letter.pdf` | the PDF export | US Letter pages, staff 18, printer's margins; the book's line breaks |
+| `a4.pdf` | the PDF export | the same on A4 |
 
 There are no titles or running heads (`render.ily`): the page names the part.
+
+The PDF export (`web/src/lib/pdf.ts`) makes Letter pages, or A4 if the reader
+chooses (remembered in their browser). A part whose systems are all typeset,
+and which the reader sees typeset, goes in as `letter.pdf` or `a4.pdf`'s own
+pages, drawn as vectors with the part's heading above; everything else goes
+in as scans. If a typeset PDF cannot be fetched, the export uses the scans
+for that part and says so.
 A render is published at `typeset/<hash>/` on R2. The hash covers the source,
 the includes, the render settings and the LilyPond version, so a changed file
 gets a new address and nothing published is ever overwritten.

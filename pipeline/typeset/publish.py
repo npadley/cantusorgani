@@ -138,7 +138,8 @@ def publish(out: Path = OUT, creds: Any = None) -> tuple[int, int, list[str]]:
     problems: list[str] = []
     for folder in sorted(p for p in out.iterdir() if p.is_dir()) if out.exists() else []:
         found = [f"{folder.name}/{n}: {p}" for n, w in WIDTHS.items() for p in check_file(folder / n, w)]
-        found += [f"{folder.name}/score.pdf: {p}" for p in check_pdf((folder / "score.pdf").read_bytes())]
+        found += [f"{folder.name}/{n}: {p}" for n in FILES if n.endswith(".pdf")
+                  for p in check_pdf((folder / n).read_bytes())]
         if found:
             problems += found
             continue
