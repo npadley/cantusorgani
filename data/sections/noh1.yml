@@ -29,3 +29,144 @@ sabbato-temporum-adventus:
 - {kind: tract, label: Tract. VIII, title: Qui regis Israel, ref: noh1/0061/002}
 - {kind: offertory, label: Offert. III, title: Exsulta satis, ref: noh1/0063/001}
 - {kind: communion, label: Comm. VI, title: Ecce Dominus veniet, ref: noh1/0063/005}
+# Step 6 of the proper sections plan: each piece below checked against its scans
+# on 2026-09-29, its extent first. A section printed by reference ("ut infra in
+# Dominica IV Adventus, p. 38") names the piece and system it points to.
+
+# NOH1 pp. 18-20: the Introit, 2nd Gradual and Communion are printed with the
+# Fourth Sunday of Advent; the 1st Gradual (Tollite portas) opens the piece.
+feria-iv-quattuor-temporum-adventus:
+- {kind: introit, title: Rorate caeli, borrowed_volume: noh1, borrowed_page: 38, borrowed_from: dominica-iv-adventus, borrowed_ref: noh1/0064/002, chant: 79}
+- {kind: gradual, n: 1, label: 1. Grad. II, title: Tollite portas, ref: noh1/0044/002, chant: 756}
+- {kind: gradual, n: 2, title: Prope est Dominus, borrowed_volume: noh1, borrowed_page: 39, borrowed_from: dominica-iv-adventus, borrowed_ref: noh1/0065/003, chant: 284}
+- {kind: offertory, label: Offert. IV, title: Confortamini, ref: noh1/0046/000, chant: 290}
+- {kind: communion, title: Ecce virgo, borrowed_volume: noh1, borrowed_page: 43, borrowed_from: dominica-iv-adventus, borrowed_ref: noh1/0069/000, chant: 1144}
+# NOH1 pp. 185-187: only the Tract (after the Epistle) is printed here; the rest
+# is the Second Sunday of Lent's.
+feria-iv-quatuor-temporum-quadragesim:
+- {kind: introit, title: Reminiscere, borrowed_volume: noh1, borrowed_page: 202, borrowed_from: dominica-ii-in-quadragesim, borrowed_ref: noh1/0229/000, chant: 1294}
+- {kind: gradual, title: Tribulationes cordis, borrowed_volume: noh1, borrowed_page: 203, borrowed_from: dominica-ii-in-quadragesim, borrowed_ref: noh1/0230/004, chant: 596}
+- {kind: tract, label: Tract. II, title: De necessitatibus, ref: noh1/0212/000, chant: 276}
+- {kind: offertory, title: Meditabor, borrowed_volume: noh1, borrowed_page: 208, borrowed_from: dominica-ii-in-quadragesim, borrowed_ref: noh1/0235/000, chant: 810}
+- {kind: communion, title: Intellige clamorem, borrowed_volume: noh1, borrowed_page: 208, borrowed_from: dominica-ii-in-quadragesim, borrowed_ref: noh1/0235/005, chant: 373}
+# NOH1 pp. 193-201: a Gradual after each of the first four lessons; after the
+# fifth, Benedictus es "ut in Sabbato Quattuor Temporum Adventus, p. 31".
+sabbato-quattuor-temporum-quadragesim:
+- {kind: introit, label: Intr. III, title: Intret oratio, ref: noh1/0220/001, chant: 238}
+- {kind: gradual, n: 1, label: 1. Grad. V, title: Propitius esto, ref: noh1/0221/003, chant: 332}
+- {kind: gradual, n: 2, label: 2. Grad. V, title: Protector noster, ref: noh1/0223/000, chant: 1226}
+- {kind: gradual, n: 3, label: 3. Grad. V, title: Convertere Domine, ref: noh1/0224/002, chant: 1046}
+- {kind: gradual, n: 4, label: 4. Grad. VII, title: Dirigatur, ref: noh1/0225/003, chant: 44}
+- {kind: hymn, title: Benedictus es, borrowed_volume: noh1, borrowed_page: 31, borrowed_from: sabbato-temporum-adventus, borrowed_ref: noh1/0057/002, chant: 1589}
+- {kind: tract, label: Tract. VIII, title: Laudate Dominum, ref: noh1/0226/003, chant: 1247}
+- {kind: offertory, label: Offert. VIII, title: Domine Deus salutis, ref: noh1/0227/005, chant: 542}
+- {kind: communion, label: Comm. II, title: Domine Deus meus, ref: noh1/0228/003, chant: 131}
+# NOH1 pp. 202-209: its Offertory (Offert. II, Meditabor) on p. 208, lent to the
+# Ember Wednesday of Lent.
+dominica-ii-in-quadragesim:
+- {kind: introit, title: Reminiscere, ref: noh1/0229/000, chant: 1294}
+- {kind: gradual, title: Tribulationes cordis, ref: noh1/0230/004, chant: 596}
+- {kind: tract, title: Confitemini Domino, ref: noh1/0232/002, chant: 455}
+- {kind: offertory, label: Offert. II, title: Meditabor, ref: noh1/0235/000, chant: 810}
+- {kind: communion, label: Comm. V, title: Intellige clamorem, ref: noh1/0235/005, chant: 373}
+# NOH1 pp. 262-264: two Graduals, the Tract and the Offertory printed by reference.
+feria-iv-infra-hebd-iv-quadragesim:
+- {kind: introit, label: Intr. III, title: Dum sanctificatus, ref: noh1/0289/003, chant: 418}
+- {kind: gradual, n: 1, title: Venite filii, borrowed_volume: noh2, borrowed_page: 162, borrowed_from: dominica-vii-post-pentecosten, borrowed_ref: noh2/0194/000, chant: 1022}
+- {kind: gradual, n: 2, title: Beata gens, borrowed_volume: noh2, borrowed_page: 218, borrowed_from: dominica-xvii-post-pentecosten, borrowed_ref: noh2/0250/000, chant: 1044}
+- {kind: tract, title: Domine non secundum, borrowed_volume: noh1, borrowed_page: 160, borrowed_from: noh1-p156, borrowed_ref: noh1/0187/002, chant: 425}
+- {kind: offertory, title: Benedicite gentes, borrowed_volume: noh2, borrowed_page: 58, borrowed_from: dominica-v-post-pascha, borrowed_ref: noh2/0090/004, chant: 860}
+- {kind: communion, label: Comm. VI, title: Lutum fecit, ref: noh1/0291/001, chant: 989}
+# NOH1 pp. 334-343: one Gradual (Ne avertas, V. Salvum me fac) after the lesson,
+# the Tract after the Epistle.
+feria-iv-hebdomad-sanct:
+- {kind: introit, label: Intr. III, title: In nomine Domini, ref: noh1/0361/004, chant: 236}
+- {kind: gradual, label: Grad. II, title: Ne avertas, ref: noh1/0363/000, chant: 1239}
+- {kind: tract, label: Tract. II, title: Domine exaudi, ref: noh1/0364/005, chant: 824}
+- {kind: offertory, label: Offert., title: Domine exaudi, ref: noh1/0369/000, chant: 867}
+- {kind: communion, label: Comm., title: Potum meum, ref: noh1/0370/000, chant: 588}
+# NOH1 pp. 345-354, the Easter Vigil: the Alleluia and Tract after the Epistle,
+# then Lauds. The Lauds antiphon and Psalm 150 (p. 347) and the Benedictus's
+# first staff (p. 350) are not sliced as systems, so the Canticle starts on its
+# first sliced system; see the follow-up on the slicing.
+sabbato-sancto:
+- {kind: alleluia, title: Confitemini Domino, ref: noh1/0372/000, chant: 507}
+- {kind: tract, title: Laudate Dominum, ref: noh1/0373/001, chant: 1247}
+- {kind: other, n: 1, label: Cant., title: Benedictus Dominus Deus Israel, ref: noh1/0375/000, chant: none}
+- {kind: other, n: 2, label: Ant., title: Et valde mane, ref: noh1/0379/002, chant: 1358}
+- {kind: other, n: 3, label: Ite missa est, ref: noh1/0379/004, chant: none}
+# NOH1 pp. 219-221: the Gradual, Tract and Offertory by reference; its Communion
+# on p. 221 (the piece's range ran short of it; corrections.yml c-0016). The
+# "Grad." the proposal read on system 7 is the reference line under it.
+feria-vi-infra-hebd-ii-quadragesim:
+- {kind: introit, label: Intr. I, title: Ego autem cum justitia, ref: noh1/0246/004, chant: 830}
+- {kind: gradual, title: Ad Dominum, borrowed_volume: noh2, borrowed_page: 129, borrowed_from: dominica-ii-post-pentecosten, borrowed_ref: noh2/0161/002, chant: 697}
+- {kind: tract, title: Domine non secundum, borrowed_volume: noh1, borrowed_page: 160, borrowed_from: noh1-p156, borrowed_ref: noh1/0187/002, chant: 425}
+- {kind: offertory, title: Domine in auxilium, borrowed_volume: noh2, borrowed_page: 215, borrowed_from: dominica-xvi-post-pentecosten, borrowed_ref: noh2/0247/001, chant: 993}
+- {kind: communion, label: Comm. III, title: Tu Domine servabis nos, ref: noh1/0248/000, chant: 1159}
+# NOH1 pp. 221-222: its Offertory is NOH2's (Pars II, p. 152), not NOH1's.
+sabbato-infra-hebd-ii-quadragesim:
+- {kind: introit, label: Intr. I, title: Lex Domini, ref: noh1/0248/003, chant: 1216}
+- {kind: gradual, title: Bonum est confiteri, borrowed_volume: noh2, borrowed_page: 208, borrowed_from: dominica-xv-post-pentecosten, borrowed_ref: noh2/0240/000, chant: 1338}
+- {kind: offertory, title: Illumina, borrowed_volume: noh2, borrowed_page: 152, borrowed_from: dominica-iv-post-pentecosten, borrowed_ref: noh2/0184/002, chant: 708}
+- {kind: communion, label: Comm. VIII, title: Oportet te fili, ref: noh1/0249/004, chant: 1066}
+# NOH1 pp. 223-230: no section was placed (the margin OCR reads "Intr." as "lritr.").
+dominica-iii-in-quadragesim:
+- {kind: introit, label: Intr. VII, title: Oculi mei, ref: noh1/0250/000, chant: 916}
+- {kind: gradual, label: Grad. III, title: Exsurge Domine non praevaleat, ref: noh1/0251/004, chant: 1298}
+- {kind: tract, label: Tract. VIII, title: Ad te levavi, ref: noh1/0253/004, chant: 1329}
+- {kind: offertory, label: Offert. IV, title: Justitiae Domini, ref: noh1/0256/001, chant: 591}
+- {kind: communion, label: Comm. I, title: Passer invenit, ref: noh1/0257/000, chant: 1090}
+# NOH1 pp. 244-246: its Communion on p. 246 (c-0017).
+feria-vi-infra-hebd-iii-quadragesim:
+- {kind: introit, label: Intr. II, title: Fac mecum Domine, ref: noh1/0271/000, chant: 733}
+- {kind: gradual, title: In Deo speravit, borrowed_volume: noh2, borrowed_page: 183, borrowed_from: dominica-xi-post-pentecosten, borrowed_ref: noh2/0215/002, chant: 865}
+- {kind: tract, title: Domine non secundum, borrowed_volume: noh1, borrowed_page: 160, borrowed_from: noh1-p156, borrowed_ref: noh1/0187/002, chant: 425}
+- {kind: offertory, label: Offert. V, title: Intende voci, ref: noh1/0272/002, chant: 293}
+- {kind: communion, label: Comm. III, title: Qui biberit, ref: noh1/0273/001, chant: 894}
+sabbato-infra-hebd-iii-quadragesim:
+- {kind: introit, label: Intr. V, title: Verba mea, ref: noh1/0273/005, chant: 1248}
+- {kind: gradual, label: Grad. I, title: Si ambulem, ref: noh1/0275/000, chant: 1121}
+- {kind: offertory, label: Offert. VIII, title: Gressus meos, ref: noh1/0276/002, chant: 1099}
+- {kind: communion, label: Comm. VIII, title: Nemo te condemnavit, ref: noh1/0277/000, chant: 1010}
+# NOH1 pp. 266-268: its Communion on p. 268 (c-0018).
+feria-vi-infra-hebd-iv-quadragesim:
+- {kind: introit, label: Intr. I, title: Meditatio, ref: noh1/0293/005, chant: 572}
+- {kind: gradual, title: Bonum est confidere, borrowed_volume: noh2, borrowed_page: 202, borrowed_from: dominica-xiv-post-pentecosten, borrowed_ref: noh2/0234/002, chant: 547}
+- {kind: tract, title: Domine non secundum, borrowed_volume: noh1, borrowed_page: 160, borrowed_from: noh1-p156, borrowed_ref: noh1/0187/002, chant: 425}
+- {kind: offertory, title: Populum humilem, borrowed_volume: noh2, borrowed_page: 170, borrowed_from: dominica-viii-post-pentecosten, borrowed_ref: noh2/0202/001, chant: 1080}
+- {kind: communion, label: Comm. I, title: Videns Dominus, ref: noh1/0295/000, chant: 704}
+# NOH1 pp. 268-273: its Gradual and Communion were not placed.
+sabbato-infra-hebd-iv-quadragesim:
+- {kind: introit, label: Intr. II, title: Sitientes, ref: noh1/0295/004, chant: 776}
+- {kind: gradual, label: Grad. III, title: Tibi Domine derelictus, ref: noh1/0297/000, chant: 818}
+- {kind: offertory, label: Offert. IV, title: Factus est Dominus, ref: noh1/0298/005, chant: 223}
+- {kind: communion, label: Comm. II, title: Dominus regit me, ref: noh1/0299/004, chant: 278}
+# NOH1 pp. 273-281: its Introit label was not read, so its Gradual was not placed.
+dominica-i-passionis:
+- {kind: introit, label: Intr. IV, title: Judica me, ref: noh1/0300/002, chant: 78}
+- {kind: gradual, label: Grad. III, title: Eripe me, ref: noh1/0301/004, chant: 760}
+- {kind: tract, label: Tract. VIII, title: Saepe expugnaverunt, ref: noh1/0304/000, chant: 742}
+- {kind: offertory, label: Offert. I, title: Confitebor tibi, ref: noh1/0306/003, chant: 318}
+- {kind: communion, label: Comm. VIII, title: Hoc corpus, ref: noh1/0307/003, chant: 726}
+# NOH1 pp. 126-130: its first system's image holds only the bass staff (a slicing
+# fault), so its Introit was not read and its Gradual not placed.
+dominica-iii-post-epiphaniam:
+- {kind: introit, title: Adorate Deum, ref: noh1/0153/000, chant: 1123}
+- {kind: gradual, label: Grad. V, title: Timebunt gentes, ref: noh1/0154/001, chant: 1173}
+- {kind: alleluia, title: Dominus regnavit exsultet, ref: noh1/0155/004, chant: 1001}
+- {kind: offertory, label: Offert. II, title: Dextera Domini, ref: noh1/0157/000, chant: 47}
+- {kind: communion, label: Comm. VII, title: Mirabantur omnes, ref: noh1/0157/004, chant: 1148}
+# NOH1 pp. 293-294: only the Gradual is printed; the rest is NOH2's Twentieth
+# Sunday after Pentecost (pp. 238-242), not NOH1 p. 242.
+feria-v-infra-hebd-passionis:
+- {kind: introit, title: Omnia quae fecisti, borrowed_volume: noh2, borrowed_page: 238, borrowed_from: dominica-xx-post-pentecosten, borrowed_ref: noh2/0270/004, chant: 1056}
+- {kind: gradual, label: Grad. V, title: Tollite hostias, ref: noh1/0320/002, chant: 282}
+- {kind: offertory, title: Super flumina Babylonis, borrowed_volume: noh2, borrowed_page: 241, borrowed_from: dominica-xx-post-pentecosten, borrowed_ref: noh2/0273/005, chant: 812}
+- {kind: communion, title: Memento verbi tui, borrowed_volume: noh2, borrowed_page: 242, borrowed_from: dominica-xx-post-pentecosten, borrowed_ref: noh2/0274/004, chant: 696}
+# NOH1 pp. 299-301, Palm Sunday: the blessing's antiphon, then the two antiphons
+# sung while the palms are given out.
+noh1-p299-2:
+- {kind: other, n: 1, label: Antiph. VII, title: Hosanna filio David, ref: noh1/0326/000, chant: 817}
+- {kind: other, n: 2, label: Ant. 1, title: Pueri Hebraeorum portantes, ref: noh1/0326/003, chant: 10973}
+- {kind: other, n: 3, label: Ant. 2, title: Pueri Hebraeorum vestimenta, ref: noh1/0328/000, chant: 10974}

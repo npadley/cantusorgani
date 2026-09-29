@@ -1091,14 +1091,56 @@
       "movements": [],
       "sections": [
         {
+          "kind": "introit",
+          "variant": "",
+          "title": "Rorate caeli",
+          "gregobase_id": 79,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 38,
+          "borrowed_from": "dominica-iv-adventus",
+          "borrowed_ref": "noh1/0064/002"
+        },
+        {
+          "kind": "gradual",
+          "n": 1,
+          "variant": "",
+          "label": "1. Grad. II",
+          "title": "Tollite portas",
+          "gregobase_id": 756,
+          "system": 0,
+          "ref": "noh1/0044/002",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "n": 2,
+          "variant": "",
+          "title": "Prope est Dominus",
+          "gregobase_id": 284,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 39,
+          "borrowed_from": "dominica-iv-adventus",
+          "borrowed_ref": "noh1/0065/003"
+        },
+        {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. IV",
+          "title": "Confortamini",
+          "gregobase_id": 290,
           "system": 10,
           "ref": "noh1/0046/000",
-          "gregobase_id": 290,
-          "placed": "text",
-          "score": 0.731,
-          "title": "Confortamini"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "title": "Ecce virgo",
+          "gregobase_id": 1144,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 43,
+          "borrowed_from": "dominica-iv-adventus",
+          "borrowed_ref": "noh1/0069/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Adv3w",
@@ -6816,34 +6858,52 @@
       "movements": [],
       "sections": [
         {
+          "kind": "introit",
+          "variant": "",
+          "title": "Adorate Deum",
+          "gregobase_id": 1123,
+          "system": 0,
+          "ref": "noh1/0153/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "label": "Grad. V",
+          "title": "Timebunt gentes",
+          "gregobase_id": 1173,
+          "system": 7,
+          "ref": "noh1/0154/001",
+          "placed": "reviewed"
+        },
+        {
           "kind": "alleluia",
           "variant": "",
+          "title": "Dominus regnavit exsultet",
+          "gregobase_id": 1001,
           "system": 16,
           "ref": "noh1/0155/004",
-          "gregobase_id": 1001,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Dominus regnavit exsultet"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. II",
+          "title": "Dextera Domini",
+          "gregobase_id": 47,
           "system": 23,
           "ref": "noh1/0157/000",
-          "gregobase_id": 47,
-          "placed": "text",
-          "score": 0.706,
-          "title": "Dextera Domini"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VII",
+          "title": "Mirabantur omnes",
+          "gregobase_id": 1148,
           "system": 27,
           "ref": "noh1/0157/004",
-          "gregobase_id": 1148,
-          "placed": "text",
-          "score": 0.694,
-          "title": "Mirabantur omnes"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Epi3",
@@ -9716,14 +9776,54 @@
       "movements": [],
       "sections": [
         {
+          "kind": "introit",
+          "variant": "",
+          "title": "Reminiscere",
+          "gregobase_id": 1294,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 202,
+          "borrowed_from": "dominica-ii-in-quadragesim",
+          "borrowed_ref": "noh1/0229/000"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "title": "Tribulationes cordis",
+          "gregobase_id": 596,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 203,
+          "borrowed_from": "dominica-ii-in-quadragesim",
+          "borrowed_ref": "noh1/0230/004"
+        },
+        {
           "kind": "tract",
           "variant": "",
+          "label": "Tract. II",
+          "title": "De necessitatibus",
+          "gregobase_id": 276,
           "system": 0,
           "ref": "noh1/0212/000",
-          "gregobase_id": 276,
-          "placed": "text",
-          "score": 0.76,
-          "title": "De necessitatibus"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Meditabor",
+          "gregobase_id": 810,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 208,
+          "borrowed_from": "dominica-ii-in-quadragesim",
+          "borrowed_ref": "noh1/0235/000"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "title": "Intellige clamorem",
+          "gregobase_id": 373,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 208,
+          "borrowed_from": "dominica-ii-in-quadragesim",
+          "borrowed_ref": "noh1/0235/005"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad1w",
@@ -10392,55 +10492,96 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. III",
+          "title": "Intret oratio",
+          "gregobase_id": 238,
           "system": 0,
           "ref": "noh1/0220/001",
-          "gregobase_id": 238,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Intret oratio"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
+          "n": 1,
           "variant": "",
+          "label": "1. Grad. V",
+          "title": "Propitius esto",
+          "gregobase_id": 332,
+          "system": 8,
+          "ref": "noh1/0221/003",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "n": 2,
+          "variant": "",
+          "label": "2. Grad. V",
+          "title": "Protector noster",
+          "gregobase_id": 1226,
+          "system": 17,
+          "ref": "noh1/0223/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "n": 3,
+          "variant": "",
+          "label": "3. Grad. V",
+          "title": "Convertere Domine",
+          "gregobase_id": 1046,
+          "system": 25,
+          "ref": "noh1/0224/002",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "n": 4,
+          "variant": "",
+          "label": "4. Grad. VII",
+          "title": "Dirigatur",
+          "gregobase_id": 44,
           "system": 32,
           "ref": "noh1/0225/003",
-          "gregobase_id": null,
-          "placed": "label",
-          "score": 1.0,
-          "label": "4. Grad. VII"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "hymn",
+          "variant": "",
+          "title": "Benedictus es",
+          "gregobase_id": 1589,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 31,
+          "borrowed_from": "sabbato-temporum-adventus",
+          "borrowed_ref": "noh1/0057/002"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract. VIII",
+          "title": "Laudate Dominum",
+          "gregobase_id": 1247,
           "system": 38,
           "ref": "noh1/0226/003",
-          "gregobase_id": 1247,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract.",
-          "title": "Laudate"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. VIII",
+          "title": "Domine Deus salutis",
+          "gregobase_id": 542,
           "system": 46,
           "ref": "noh1/0227/005",
-          "gregobase_id": 542,
-          "placed": "text",
-          "score": 0.68,
-          "title": "Domine Deus salutis"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. II",
+          "title": "Domine Deus meus",
+          "gregobase_id": 131,
           "system": 50,
           "ref": "noh1/0228/003",
-          "gregobase_id": 131,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Domine Deus meus"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad1s",
@@ -10736,45 +10877,49 @@
         {
           "kind": "introit",
           "variant": "",
+          "title": "Reminiscere",
+          "gregobase_id": 1294,
           "system": 0,
           "ref": "noh1/0229/000",
-          "gregobase_id": 1294,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Reminiscere"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "title": "Tribulationes cordis",
+          "gregobase_id": 596,
           "system": 8,
           "ref": "noh1/0230/004",
-          "gregobase_id": 596,
-          "placed": "text",
-          "score": 0.783,
-          "title": "Tribulationes cordis"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "title": "Confitemini Domino",
+          "gregobase_id": 455,
           "system": 18,
           "ref": "noh1/0232/002",
-          "gregobase_id": 455,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract.",
-          "title": "Confitemini Domino quia"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "label": "Offert. II",
+          "title": "Meditabor",
+          "gregobase_id": 810,
+          "system": 33,
+          "ref": "noh1/0235/000",
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. V",
+          "title": "Intellige clamorem",
+          "gregobase_id": 373,
           "system": 38,
           "ref": "noh1/0235/005",
-          "gregobase_id": 373,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Intellige clamorem"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad2",
@@ -11431,11 +11576,11 @@
       "mass": null,
       "printed_pages": [
         219,
-        220
+        221
       ],
       "pdf_pages": [
         246,
-        247
+        248
       ],
       "systems": [
         "noh1/0246/004",
@@ -11444,7 +11589,10 @@
         "noh1/0247/002",
         "noh1/0247/003",
         "noh1/0247/004",
-        "noh1/0247/005"
+        "noh1/0247/005",
+        "noh1/0248/000",
+        "noh1/0248/001",
+        "noh1/0248/002"
       ],
       "system_assets": [
         "systems/noh1/0246/004-17b432f77878",
@@ -11453,7 +11601,10 @@
         "systems/noh1/0247/002-0f3d2d1c7569",
         "systems/noh1/0247/003-1880563a8d60",
         "systems/noh1/0247/004-7ba366ca9fff",
-        "systems/noh1/0247/005-dffa73d7e931"
+        "systems/noh1/0247/005-dffa73d7e931",
+        "systems/noh1/0248/000-38e0cc71c24f",
+        "systems/noh1/0248/001-21d2732ab55d",
+        "systems/noh1/0248/002-b175ff8746cd"
       ],
       "system_aspect": [
         [
@@ -11483,6 +11634,18 @@
         [
           1860,
           622
+        ],
+        [
+          1847,
+          396
+        ],
+        [
+          1876,
+          423
+        ],
+        [
+          1669,
+          454
         ]
       ],
       "movements": [],
@@ -11490,24 +11653,52 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. I",
+          "title": "Ego autem cum justitia",
+          "gregobase_id": 830,
           "system": 0,
           "ref": "noh1/0246/004",
-          "gregobase_id": 830,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Ego autem cum justitia"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
-          "system": 6,
-          "ref": "noh1/0247/005",
+          "title": "Ad Dominum",
           "gregobase_id": 697,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad.",
-          "title": "Ad Dominum"
+          "borrowed_volume": "noh2",
+          "borrowed_page": 129,
+          "borrowed_from": "dominica-ii-post-pentecosten",
+          "borrowed_ref": "noh2/0161/002"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "title": "Domine non secundum",
+          "gregobase_id": 425,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 160,
+          "borrowed_from": "noh1-p156",
+          "borrowed_ref": "noh1/0187/002"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Domine in auxilium",
+          "gregobase_id": 993,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 215,
+          "borrowed_from": "dominica-xvi-post-pentecosten",
+          "borrowed_ref": "noh2/0247/001"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. III",
+          "title": "Tu Domine servabis nos",
+          "gregobase_id": 1159,
+          "system": 7,
+          "ref": "noh1/0248/000",
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad2f",
@@ -11541,9 +11732,6 @@
         249
       ],
       "systems": [
-        "noh1/0248/000",
-        "noh1/0248/001",
-        "noh1/0248/002",
         "noh1/0248/003",
         "noh1/0248/004",
         "noh1/0248/005",
@@ -11555,9 +11743,6 @@
         "noh1/0249/005"
       ],
       "system_assets": [
-        "systems/noh1/0248/000-38e0cc71c24f",
-        "systems/noh1/0248/001-21d2732ab55d",
-        "systems/noh1/0248/002-b175ff8746cd",
         "systems/noh1/0248/003-1551202a00ef",
         "systems/noh1/0248/004-466ce8bec6fb",
         "systems/noh1/0248/005-c51a5fca8494",
@@ -11569,18 +11754,6 @@
         "systems/noh1/0249/005-28c05cfa1b0f"
       ],
       "system_aspect": [
-        [
-          1847,
-          396
-        ],
-        [
-          1876,
-          423
-        ],
-        [
-          1669,
-          454
-        ],
         [
           1801,
           413
@@ -11623,33 +11796,42 @@
         {
           "kind": "introit",
           "variant": "",
-          "system": 3,
-          "ref": "noh1/0248/003",
-          "gregobase_id": 1216,
-          "placed": "label",
-          "score": 1.0,
           "label": "Intr. I",
-          "title": "Lex Domini"
+          "title": "Lex Domini",
+          "gregobase_id": 1216,
+          "system": 0,
+          "ref": "noh1/0248/003",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "title": "Bonum est confiteri",
+          "gregobase_id": 1338,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 208,
+          "borrowed_from": "dominica-xv-post-pentecosten",
+          "borrowed_ref": "noh2/0240/000"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "title": "Illumina",
           "gregobase_id": 708,
-          "borrowed_volume": "noh1",
+          "borrowed_volume": "noh2",
           "borrowed_page": 152,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "dominica-iv-post-pentecosten",
+          "borrowed_ref": "noh2/0184/002"
         },
         {
           "kind": "communion",
           "variant": "",
-          "system": 10,
-          "ref": "noh1/0249/004",
+          "label": "Comm. VIII",
+          "title": "Oportet te fili",
           "gregobase_id": 1066,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Oportet te fili"
+          "system": 7,
+          "ref": "noh1/0249/004",
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad2s",
@@ -11971,7 +12153,58 @@
         ]
       ],
       "movements": [],
-      "sections": [],
+      "sections": [
+        {
+          "kind": "introit",
+          "variant": "",
+          "label": "Intr. VII",
+          "title": "Oculi mei",
+          "gregobase_id": 916,
+          "system": 0,
+          "ref": "noh1/0250/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "label": "Grad. III",
+          "title": "Exsurge Domine non praevaleat",
+          "gregobase_id": 1298,
+          "system": 9,
+          "ref": "noh1/0251/004",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "label": "Tract. VIII",
+          "title": "Ad te levavi",
+          "gregobase_id": 1329,
+          "system": 21,
+          "ref": "noh1/0253/004",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "label": "Offert. IV",
+          "title": "Justitiae Domini",
+          "gregobase_id": 591,
+          "system": 36,
+          "ref": "noh1/0256/001",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. I",
+          "title": "Passer invenit",
+          "gregobase_id": 1090,
+          "system": 41,
+          "ref": "noh1/0257/000",
+          "placed": "reviewed"
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad3",
       "chant": [],
       "review_status": "verified",
@@ -12714,11 +12947,11 @@
       "mass": null,
       "printed_pages": [
         244,
-        245
+        246
       ],
       "pdf_pages": [
         271,
-        272
+        273
       ],
       "systems": [
         "noh1/0271/000",
@@ -12732,7 +12965,12 @@
         "noh1/0272/002",
         "noh1/0272/003",
         "noh1/0272/004",
-        "noh1/0272/005"
+        "noh1/0272/005",
+        "noh1/0273/000",
+        "noh1/0273/001",
+        "noh1/0273/002",
+        "noh1/0273/003",
+        "noh1/0273/004"
       ],
       "system_assets": [
         "systems/noh1/0271/000-0902bb01e501",
@@ -12746,7 +12984,12 @@
         "systems/noh1/0272/002-50bf76fff074",
         "systems/noh1/0272/003-93582cb892ae",
         "systems/noh1/0272/004-504cf6dbedbf",
-        "systems/noh1/0272/005-042788a2fa13"
+        "systems/noh1/0272/005-042788a2fa13",
+        "systems/noh1/0273/000-07857d7dc8ae",
+        "systems/noh1/0273/001-83e3773f6bf3",
+        "systems/noh1/0273/002-d5f8e0f2dc80",
+        "systems/noh1/0273/003-4673d4cbb25c",
+        "systems/noh1/0273/004-8353012f3438"
       ],
       "system_aspect": [
         [
@@ -12796,6 +13039,26 @@
         [
           1931,
           431
+        ],
+        [
+          1336,
+          406
+        ],
+        [
+          1834,
+          433
+        ],
+        [
+          1863,
+          439
+        ],
+        [
+          1867,
+          427
+        ],
+        [
+          1867,
+          450
         ]
       ],
       "movements": [],
@@ -12803,23 +13066,52 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. II",
+          "title": "Fac mecum Domine",
+          "gregobase_id": 733,
           "system": 0,
           "ref": "noh1/0271/000",
-          "gregobase_id": 733,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. II",
-          "title": "Fac mecum Domine"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "title": "In Deo speravit",
+          "gregobase_id": 865,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 183,
+          "borrowed_from": "dominica-xi-post-pentecosten",
+          "borrowed_ref": "noh2/0215/002"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "title": "Domine non secundum",
+          "gregobase_id": 425,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 160,
+          "borrowed_from": "noh1-p156",
+          "borrowed_ref": "noh1/0187/002"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. V",
+          "title": "Intende voci",
+          "gregobase_id": 293,
           "system": 8,
           "ref": "noh1/0272/002",
-          "gregobase_id": 293,
-          "placed": "text",
-          "score": 0.72,
-          "title": "Intende voci"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. III",
+          "title": "Qui biberit",
+          "gregobase_id": 894,
+          "system": 13,
+          "ref": "noh1/0273/001",
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad3f",
@@ -12853,11 +13145,6 @@
         277
       ],
       "systems": [
-        "noh1/0273/000",
-        "noh1/0273/001",
-        "noh1/0273/002",
-        "noh1/0273/003",
-        "noh1/0273/004",
         "noh1/0273/005",
         "noh1/0274/000",
         "noh1/0274/001",
@@ -12881,11 +13168,6 @@
         "noh1/0277/001"
       ],
       "system_assets": [
-        "systems/noh1/0273/000-07857d7dc8ae",
-        "systems/noh1/0273/001-83e3773f6bf3",
-        "systems/noh1/0273/002-d5f8e0f2dc80",
-        "systems/noh1/0273/003-4673d4cbb25c",
-        "systems/noh1/0273/004-8353012f3438",
         "systems/noh1/0273/005-5068d66d4188",
         "systems/noh1/0274/000-c7823046c2dd",
         "systems/noh1/0274/001-11b59e357a4f",
@@ -12909,26 +13191,6 @@
         "systems/noh1/0277/001-9b20ea7b1e88"
       ],
       "system_aspect": [
-        [
-          1336,
-          406
-        ],
-        [
-          1834,
-          433
-        ],
-        [
-          1863,
-          439
-        ],
-        [
-          1867,
-          427
-        ],
-        [
-          1867,
-          450
-        ],
         [
           1803,
           427
@@ -13019,46 +13281,42 @@
         {
           "kind": "introit",
           "variant": "",
-          "system": 5,
-          "ref": "noh1/0273/005",
+          "label": "Intr. V",
+          "title": "Verba mea",
           "gregobase_id": 1248,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Verba mea"
+          "system": 0,
+          "ref": "noh1/0273/005",
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
-          "system": 12,
-          "ref": "noh1/0275/000",
-          "gregobase_id": 1121,
-          "placed": "label",
-          "score": 1.0,
           "label": "Grad. I",
-          "title": "Si ambulem"
+          "title": "Si ambulem",
+          "gregobase_id": 1121,
+          "system": 7,
+          "ref": "noh1/0275/000",
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
-          "system": 20,
-          "ref": "noh1/0276/002",
-          "gregobase_id": 1099,
-          "placed": "label",
-          "score": 1.0,
           "label": "Offert. VIII",
-          "title": "Gressus meos"
+          "title": "Gressus meos",
+          "gregobase_id": 1099,
+          "system": 15,
+          "ref": "noh1/0276/002",
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
-          "system": 24,
-          "ref": "noh1/0277/000",
-          "gregobase_id": 1010,
-          "placed": "label",
-          "score": 1.0,
           "label": "Comm. VIII",
-          "title": "Nemo te condemnavit"
+          "title": "Nemo te condemnavit",
+          "gregobase_id": 1010,
+          "system": 19,
+          "ref": "noh1/0277/000",
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad3s",
@@ -13849,24 +14107,64 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. III",
+          "title": "Dum sanctificatus",
+          "gregobase_id": 418,
           "system": 0,
           "ref": "noh1/0289/003",
-          "gregobase_id": 418,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Dum sanctificatus"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "n": 1,
+          "variant": "",
+          "title": "Venite filii",
+          "gregobase_id": 1022,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 162,
+          "borrowed_from": "dominica-vii-post-pentecosten",
+          "borrowed_ref": "noh2/0194/000"
+        },
+        {
+          "kind": "gradual",
+          "n": 2,
+          "variant": "",
+          "title": "Beata gens",
+          "gregobase_id": 1044,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 218,
+          "borrowed_from": "dominica-xvii-post-pentecosten",
+          "borrowed_ref": "noh2/0250/000"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "title": "Domine non secundum",
+          "gregobase_id": 425,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 160,
+          "borrowed_from": "noh1-p156",
+          "borrowed_ref": "noh1/0187/002"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Benedicite gentes",
+          "gregobase_id": 860,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 58,
+          "borrowed_from": "dominica-v-post-pascha",
+          "borrowed_ref": "noh2/0090/004"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VI",
+          "title": "Lutum fecit",
+          "gregobase_id": 989,
           "system": 10,
           "ref": "noh1/0291/001",
-          "gregobase_id": 989,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VI",
-          "title": "Lutum fecit"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad4w",
@@ -14032,11 +14330,11 @@
       "mass": null,
       "printed_pages": [
         266,
-        267
+        268
       ],
       "pdf_pages": [
         293,
-        294
+        295
       ],
       "systems": [
         "noh1/0293/005",
@@ -14045,7 +14343,11 @@
         "noh1/0294/002",
         "noh1/0294/003",
         "noh1/0294/004",
-        "noh1/0294/005"
+        "noh1/0294/005",
+        "noh1/0295/000",
+        "noh1/0295/001",
+        "noh1/0295/002",
+        "noh1/0295/003"
       ],
       "system_assets": [
         "systems/noh1/0293/005-964c55340edb",
@@ -14054,7 +14356,11 @@
         "systems/noh1/0294/002-7af74a80838d",
         "systems/noh1/0294/003-ae5a56e4735a",
         "systems/noh1/0294/004-68b7fb086925",
-        "systems/noh1/0294/005-e43c8208c1fc"
+        "systems/noh1/0294/005-e43c8208c1fc",
+        "systems/noh1/0295/000-91cac6d50438",
+        "systems/noh1/0295/001-4388fd222cc2",
+        "systems/noh1/0295/002-379a373ac98e",
+        "systems/noh1/0295/003-61e31b5c22ef"
       ],
       "system_aspect": [
         [
@@ -14084,6 +14390,22 @@
         [
           1849,
           452
+        ],
+        [
+          1801,
+          395
+        ],
+        [
+          1844,
+          368
+        ],
+        [
+          1843,
+          375
+        ],
+        [
+          1846,
+          376
         ]
       ],
       "movements": [],
@@ -14091,13 +14413,52 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. I",
+          "title": "Meditatio",
+          "gregobase_id": 572,
           "system": 0,
           "ref": "noh1/0293/005",
-          "gregobase_id": 572,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Meditatio"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "title": "Bonum est confidere",
+          "gregobase_id": 547,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 202,
+          "borrowed_from": "dominica-xiv-post-pentecosten",
+          "borrowed_ref": "noh2/0234/002"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "title": "Domine non secundum",
+          "gregobase_id": 425,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 160,
+          "borrowed_from": "noh1-p156",
+          "borrowed_ref": "noh1/0187/002"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Populum humilem",
+          "gregobase_id": 1080,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 170,
+          "borrowed_from": "dominica-viii-post-pentecosten",
+          "borrowed_ref": "noh2/0202/001"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. I",
+          "title": "Videns Dominus",
+          "gregobase_id": 704,
+          "system": 7,
+          "ref": "noh1/0295/000",
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad4f",
@@ -14131,10 +14492,6 @@
         300
       ],
       "systems": [
-        "noh1/0295/000",
-        "noh1/0295/001",
-        "noh1/0295/002",
-        "noh1/0295/003",
         "noh1/0295/004",
         "noh1/0295/005",
         "noh1/0296/000",
@@ -14165,10 +14522,6 @@
         "noh1/0300/001"
       ],
       "system_assets": [
-        "systems/noh1/0295/000-91cac6d50438",
-        "systems/noh1/0295/001-4388fd222cc2",
-        "systems/noh1/0295/002-379a373ac98e",
-        "systems/noh1/0295/003-61e31b5c22ef",
         "systems/noh1/0295/004-33a560e8b7ea",
         "systems/noh1/0295/005-bd4acfa846ee",
         "systems/noh1/0296/000-5198f0338edf",
@@ -14199,22 +14552,6 @@
         "systems/noh1/0300/001-1369a8dc1be9"
       ],
       "system_aspect": [
-        [
-          1801,
-          395
-        ],
-        [
-          1844,
-          368
-        ],
-        [
-          1843,
-          375
-        ],
-        [
-          1846,
-          376
-        ],
         [
           1789,
           354
@@ -14333,23 +14670,42 @@
         {
           "kind": "introit",
           "variant": "",
-          "system": 4,
-          "ref": "noh1/0295/004",
+          "label": "Intr. II",
+          "title": "Sitientes",
           "gregobase_id": 776,
-          "placed": "text",
-          "score": 0.81,
-          "title": "Sitientes"
+          "system": 0,
+          "ref": "noh1/0295/004",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "label": "Grad. III",
+          "title": "Tibi Domine derelictus",
+          "gregobase_id": 818,
+          "system": 8,
+          "ref": "noh1/0297/000",
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
-          "system": 23,
-          "ref": "noh1/0298/005",
+          "label": "Offert. IV",
+          "title": "Factus est Dominus",
           "gregobase_id": 223,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. V",
-          "title": "Factus est"
+          "system": 19,
+          "ref": "noh1/0298/005",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. II",
+          "title": "Dominus regit me",
+          "gregobase_id": 278,
+          "system": 24,
+          "ref": "noh1/0299/004",
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad4s",
@@ -14679,34 +15035,54 @@
       "movements": [],
       "sections": [
         {
+          "kind": "introit",
+          "variant": "",
+          "label": "Intr. IV",
+          "title": "Judica me",
+          "gregobase_id": 78,
+          "system": 0,
+          "ref": "noh1/0300/002",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "label": "Grad. III",
+          "title": "Eripe me",
+          "gregobase_id": 760,
+          "system": 8,
+          "ref": "noh1/0301/004",
+          "placed": "reviewed"
+        },
+        {
           "kind": "tract",
           "variant": "",
+          "label": "Tract. VIII",
+          "title": "Saepe expugnaverunt",
+          "gregobase_id": 742,
           "system": 22,
           "ref": "noh1/0304/000",
-          "gregobase_id": 742,
-          "placed": "text",
-          "score": 0.684,
-          "title": "Saepe expugnaverunt"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. I",
+          "title": "Confitebor tibi",
+          "gregobase_id": 318,
           "system": 37,
           "ref": "noh1/0306/003",
-          "gregobase_id": 318,
-          "placed": "text",
-          "score": 0.698,
-          "title": "Confitebor tibi"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VIII",
+          "title": "Hoc corpus",
+          "gregobase_id": 726,
           "system": 43,
           "ref": "noh1/0307/003",
-          "gregobase_id": 726,
-          "placed": "text",
-          "score": 0.769,
-          "title": "Hoc corpus"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad5",
@@ -15457,13 +15833,44 @@
       "movements": [],
       "sections": [
         {
+          "kind": "introit",
+          "variant": "",
+          "title": "Omnia quae fecisti",
+          "gregobase_id": 1056,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 238,
+          "borrowed_from": "dominica-xx-post-pentecosten",
+          "borrowed_ref": "noh2/0270/004"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "label": "Grad. V",
+          "title": "Tollite hostias",
+          "gregobase_id": 282,
+          "system": 0,
+          "ref": "noh1/0320/002",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Super flumina Babylonis",
+          "gregobase_id": 812,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 241,
+          "borrowed_from": "dominica-xx-post-pentecosten",
+          "borrowed_ref": "noh2/0273/005"
+        },
+        {
           "kind": "communion",
           "variant": "",
+          "title": "Memento verbi tui",
           "gregobase_id": 696,
-          "borrowed_volume": "noh1",
+          "borrowed_volume": "noh2",
           "borrowed_page": 242,
-          "borrowed_from": "feria-iv-infra-hebd-iii-quadragesim",
-          "borrowed_ref": "noh1/0270/003"
+          "borrowed_from": "dominica-xx-post-pentecosten",
+          "borrowed_ref": "noh2/0274/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad5h",
@@ -15866,7 +16273,41 @@
         ]
       ],
       "movements": [],
-      "sections": [],
+      "sections": [
+        {
+          "kind": "other",
+          "n": 1,
+          "variant": "",
+          "label": "Antiph. VII",
+          "title": "Hosanna filio David",
+          "gregobase_id": 817,
+          "system": 0,
+          "ref": "noh1/0326/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "other",
+          "n": 2,
+          "variant": "",
+          "label": "Ant. 1",
+          "title": "Pueri Hebraeorum portantes",
+          "gregobase_id": 10973,
+          "system": 3,
+          "ref": "noh1/0326/003",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "other",
+          "n": 3,
+          "variant": "",
+          "label": "Ant. 2",
+          "title": "Pueri Hebraeorum vestimenta",
+          "gregobase_id": 10974,
+          "system": 7,
+          "ref": "noh1/0328/000",
+          "placed": "reviewed"
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad6",
       "chant": [],
       "review_status": "verified",
@@ -17678,57 +18119,52 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. III",
+          "title": "In nomine Domini",
+          "gregobase_id": 236,
           "system": 0,
           "ref": "noh1/0361/004",
-          "gregobase_id": 236,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "In nomine Domini"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. II",
+          "title": "Ne avertas",
+          "gregobase_id": 1239,
           "system": 8,
           "ref": "noh1/0363/000",
-          "gregobase_id": 1239,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. II",
-          "title": "Ne avertas"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract. II",
+          "title": "Domine exaudi",
+          "gregobase_id": 824,
           "system": 19,
           "ref": "noh1/0364/005",
-          "gregobase_id": 824,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract. I",
-          "title": "Domine exaudi"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert.",
+          "title": "Domine exaudi",
+          "gregobase_id": 867,
           "system": 44,
           "ref": "noh1/0369/000",
-          "gregobase_id": 867,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert.",
-          "title": "Domine exaudi"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm.",
+          "title": "Potum meum",
+          "gregobase_id": 588,
           "system": 50,
           "ref": "noh1/0370/000",
-          "gregobase_id": 588,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Potum meum"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad6w",
@@ -18070,7 +18506,58 @@
         ]
       ],
       "movements": [],
-      "sections": [],
+      "sections": [
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Confitemini Domino",
+          "gregobase_id": 507,
+          "system": 0,
+          "ref": "noh1/0372/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "title": "Laudate Dominum",
+          "gregobase_id": 1247,
+          "system": 7,
+          "ref": "noh1/0373/001",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "other",
+          "n": 1,
+          "variant": "",
+          "label": "Cant.",
+          "title": "Benedictus Dominus Deus Israel",
+          "gregobase_id": null,
+          "system": 15,
+          "ref": "noh1/0375/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "other",
+          "n": 2,
+          "variant": "",
+          "label": "Ant.",
+          "title": "Et valde mane",
+          "gregobase_id": 1358,
+          "system": 32,
+          "ref": "noh1/0379/002",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "other",
+          "n": 3,
+          "variant": "",
+          "label": "Ite missa est",
+          "gregobase_id": null,
+          "system": 34,
+          "ref": "noh1/0379/004",
+          "placed": "reviewed"
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad6s",
       "chant": [],
       "review_status": "verified",

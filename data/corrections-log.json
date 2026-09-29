@@ -2,6 +2,51 @@
   "schema_version": 1,
   "corrections": [
     {
+      "id": "c-0018",
+      "target": "piece:feria-vi-infra-hebd-iv-quadragesim",
+      "field": "system_range",
+      "was": [
+        "noh1/0293/005",
+        "noh1/0294/005"
+      ],
+      "value": [
+        "noh1/0293/005",
+        "noh1/0295/003"
+      ],
+      "date": "2026-09-29",
+      "by": "editor"
+    },
+    {
+      "id": "c-0017",
+      "target": "piece:feria-vi-infra-hebd-iii-quadragesim",
+      "field": "system_range",
+      "was": [
+        "noh1/0271/000",
+        "noh1/0272/005"
+      ],
+      "value": [
+        "noh1/0271/000",
+        "noh1/0273/004"
+      ],
+      "date": "2026-09-29",
+      "by": "editor"
+    },
+    {
+      "id": "c-0016",
+      "target": "piece:feria-vi-infra-hebd-ii-quadragesim",
+      "field": "system_range",
+      "was": [
+        "noh1/0246/004",
+        "noh1/0247/005"
+      ],
+      "value": [
+        "noh1/0246/004",
+        "noh1/0248/002"
+      ],
+      "date": "2026-09-29",
+      "by": "editor"
+    },
+    {
       "id": "c-0015",
       "target": "piece:die-ii-infra-octavam-pasch",
       "field": "system_range",
