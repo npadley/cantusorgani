@@ -1,7 +1,7 @@
 # Plan: a Proper's sections, as the book prints them
 
 **Date**: 2026-09-29
-**Status**: draft for review, no code yet
+**Status**: decisions taken 2026-09-29 (see Decisions); ready to build
 **Builds on**: `2026-09-26-proper-parts-export-chant-links-plan.md` (parts),
 `2026-09-27-editing-admin-refactor-plan.md` (corrections overlay, admin)
 
@@ -87,7 +87,7 @@ A piece's `sections`: the ordered list of what the book prints on it.
   "title": "In sole posuit", // incipit, where known
   "system": 15, "ref": "noh1/0052/003",   // first system (0-based), as parts
   "gregobase_id": 1234,      // chant, where known
-  "placed": "label" }        // label | text | mode | order | hand | reviewed
+  "placed": "label" }        // label | text | inferred | hand | reviewed
 ```
 
 - A section runs until the next one starts; systems before the first belong
@@ -117,10 +117,16 @@ A piece's `sections`: the ordered list of what the book prints on it.
      no label is sought by text as now, but only **between** labelled
      sections, never across one, and never inside the Introit's own verse and
      Gloria Patri (the bug on this page).
-   - **No invention**: a kind jgabc lists that neither a label nor a strong text
-     match finds is reported (`part_missing`), not placed by order. A part
-     placed by order today is hidden on the site anyway; this makes the queue
-     honest about it.
+   - **Inference, then the queue**: a part jgabc lists that neither a label
+     nor a strong text match finds is placed only when the page leaves one
+     sound conclusion: the part must fall in the gap between the sections
+     before and after it (the order of Mass fixes the gap), and exactly one
+     chant visibly starts there (a mode number, or an opening that no other
+     section claims). It is shown, with `placed: "inferred"` and the reason
+     recorded. When the gap holds no chant start, or more than one, nothing is
+     placed and the part goes to the review queue (`part_missing`, with the
+     candidates named). Today's order placement (a part put at the next chant
+     start, hidden on the site) ends.
 3. **Corrections** (`data/corrections.yml`) still apply last, on top of
    either, to fix one start or one chant without rewriting a list.
 
@@ -141,6 +147,24 @@ removed from the index.
 - **Readers' report form**: "a part is missing or mislabelled" goes to the
   queue with the system named; editors fix it in the Sections screen.
 
+### Chants for every kind
+
+A section's chant comes from jgabc where jgabc has the part. Where it does
+not (a hymn such as *Benedictus es*, the extra Graduals of an Ember day), the
+chant is sought in the GregoBase dump by the section's opening words, as the
+Kyriale's movements are paired today (`pipeline.pairing`): a verified match is
+linked and its notation shown like any other part; an unverified one goes to
+the review queue (`unverified_pairing`); none is linked otherwise.
+
+### Sections that are not Mass parts
+
+Blessings and processions (Candlemas, Palm Sunday, Holy Saturday) print
+sections outside the Mass. They are `kind: other`, with a **suggested label**:
+the heading or rubric printed above the section where the page has one
+("Benedictio candelarum", "Processio"), else the label of the known rite at
+that point of the day. The editor can overwrite it; an overwritten label is
+kept as a correction, like any other.
+
 ### On the site
 
 - Jump links are the sections, in printed order: "Gradual 1 · Gradual 2 ·
@@ -149,8 +173,9 @@ removed from the index.
   variant as now. The Ember days need no new rule: every section on the page is
   sung that day.
 - A heading above each section's first system shows the printed label.
-- A piece page whose sections are proposed (not reviewed) and that the queue
-  flags keeps a quiet notice: "Parts not yet checked against the book".
+- No stopgap: a page whose sections are wrong stays visibly wrong until its
+  sections are fixed or reviewed. That is the tell that something is amiss,
+  and it is how this problem was found.
 
 ### Typesetting
 
@@ -164,14 +189,10 @@ change. A new kind (`hymn`) can be matched once a transcription exists.
   pull requests.
 - Hand fixes are never edits to generated files.
 - Wrong jump links are worse than none: a section is shown only when a label,
-  a strong text match or a person placed it.
+  a strong text match, a single sound inference or a person placed it.
 
 ## Steps (each a pull request)
 
-0. **Stopgap.** Hide the jump links on the Ember Saturday of Advent and any
-   piece whose placed parts contradict its margin labels (a Tract before the
-   first Gradual label, a Communion before the Offertory label). Small, ships
-   first, reverted by step 4. *Optional: skip if step 4 lands within days.*
 1. **Data shape.** `sections` in the pipeline and catalog (schema 3), built from
    today's parts so the catalogue is unchanged except for the field name.
    Invariants move over (`test_catalog_invariants.py`: order, one start per
@@ -183,7 +204,9 @@ change. A new kind (`hymn`) can be matched once a transcription exists.
 3. **Reviewed sections.** `data/sections/`, precedence over the proposal, stale
    detection, `noh sections`. Move the Queenship override into it.
 4. **Proposal from labels.** Numbered and new labels in `label_of`, sections
-   between labels, no order placement, the Introit's own Psalm verse excluded.
+   between labels, inference in place of order placement, the Introit's own
+   Psalm verse excluded, suggested labels for `other`, chants paired by
+   opening where jgabc has none.
    Rebuild every volume and diff: every piece whose sections change is listed
    in the PR, each checked against its scan.
 5. **Admin Sections screen**, the new correction kind, and the report form's
@@ -202,17 +225,20 @@ change. A new kind (`hymn`) can be matched once a transcription exists.
   1–4.
 - A reviewed list naming a system the piece no longer has: the build fails,
   naming the piece and the ref.
+- Inference: a required part with one chant start in its gap is placed
+  `inferred`; with none or two, it is queued with its candidates, not placed.
+- *Benedictus es* on the Ember Saturday of Advent links its GregoBase chant.
 - Site: the jump links, headings and export segments of the Ember Saturday
   follow its sections; seasonal defaults unchanged on St Thérèse.
 
-## Open questions
+## Decisions (owner, 2026-09-29)
 
-1. **The hymn's chant.** *Benedictus es* is in GregoBase. Link it like the
-   other parts, or leave hymns without chant links for now?
-2. **"other"**: the blessings and processions (Candlemas, Palm Sunday, Holy
-   Saturday) print sections that are not Mass parts. Model them now as
-   `other` with a label, or leave those pieces undivided until later?
-3. **Order placement.** Step 4 stops placing a part by order. Today 17 NOH3
-   parts are placed that way (hidden on the site, queued for review). They
-   become `part_missing` until reviewed. Acceptable?
-4. **Stopgap (step 0)**: wanted, or go straight to step 1?
+1. **Hymns get chants.** Wherever a corresponding chant can be found, it is
+   linked and shown, hymns included (see "Chants for every kind").
+2. **Sections outside the Mass**: the pipeline suggests a label; the editor
+   decides, and may overwrite it (see "Sections that are not Mass parts").
+3. **Parts no label or text places**: draw the logical conclusion where the page
+   allows exactly one; otherwise put them in the review queue (see
+   "Inference, then the queue").
+4. **No stopgap.** A wrong page is a good tell that something is amiss; it
+   stays visible until fixed.
