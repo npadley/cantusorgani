@@ -3,9 +3,10 @@ import { pieceHref } from "../indexes";
 import { allLineups, itemSystems, lineupHref, lineupTitle } from "../vespers";
 import type { Scans } from "./scans";
 import type { TargetPiece, TargetVespers, Targets } from "./targets";
+import { typesetTargets } from "./typesetData";
 
 /**
- * Everything a correction can name, with its current values and a picture,
+ * Everything a correction can name (typeset files too), with its current values and a picture,
  * built from the catalogue and the Vespers lineup at build time: served as
  * /corrections/targets.json, and used for the names on /corrections/log/.
  */
@@ -47,7 +48,7 @@ export function buildTargets(): Targets {
     }
   }
   const genres = [...new Set(allPieces().map((p) => p.genre))].sort();
-  cached = { pieces, vespers, genres };
+  cached = { pieces, vespers, typeset: typesetTargets(), genres };
   return cached;
 }
 

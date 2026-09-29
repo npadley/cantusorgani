@@ -22,7 +22,7 @@ are shown.
 | `parts.yml` | which part of the catalogue each file is, and how sure we are |
 | `lilypond.yml` | the LilyPond version every render uses, with each build's checksum |
 | `manifest.json` | the parts the site shows typeset: each matched file's target and render hash |
-| `review.json` | every other file, for the admin screen's queues: status, candidates, render hash or error |
+| `review.json` | every other file, for the admin screen's queues: status, candidates, render hash, or the error and the lines around it |
 
 ## Commands
 
@@ -61,9 +61,31 @@ matter when NOH transposes a chant; repeated notes count once.
 | `melody-differs` | the file points at one part whose melody disagrees |
 | `broken` | LilyPond cannot read the file; the error names the line |
 
-Only `matched` files will be shown on the site. The admin screen's Review area
-will settle the rest (PR 6). `noh typeset-match` never changes an entry marked
-`source: editor`.
+Only `matched` files are shown on the site. Editors settle the rest on the
+admin screen's **Typeset music** page (`/admin/typeset/`, docs/EDITING.md):
+which part a file is, or `none` (not in the catalogue), or `other-setting`.
+Each answer is a `match` correction on `typeset:<file>` in
+`data/corrections.yml`:
+
+```yaml
+- id: c-0012
+  target: typeset:vol-1/al_confitemini_domino.csv.ly
+  field: match
+  was: null            # what the matcher settled on: a target only when matched
+  value: part:dominica-iv-adventus/alleluia
+```
+
+`manifest.json` and `review.json` are written from `parts.yml` with these
+applied (a chosen part is matched, and a file the matcher gave that part goes
+back to `proposed`; `none` and `other-setting` become the statuses `no-match`
+and `other-setting`). `noh apply-corrections` rewrites them too, so a batch of
+corrections carries them. A match's `was` guards it like any correction: if a
+new `noh typeset-match` settles the file differently, the build stops and asks.
+A file LilyPond can't draw can't be chosen as a part until it is fixed.
+
+A proofreading is a `reviewed` correction on `typeset:<file>` whose `was` is
+the render hash, so any edit to the file (or to the render settings) reopens it.
+`noh typeset-match` never changes an entry marked `source: editor`.
 
 ## Drawing and publishing
 

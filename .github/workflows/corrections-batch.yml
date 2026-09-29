@@ -85,7 +85,7 @@ jobs:
           git config user.name "${APP_SLUG}[bot]"
           git config user.email "${APP_SLUG}[bot]@users.noreply.github.com"
           git switch -c "corrections/$BATCH"
-          git add data/corrections.yml data/catalog.json data/vespers/vespers-lineup.json data/corrections-log.json data/chants.json data/reviewed.json
+          git add data/corrections.yml data/catalog.json data/vespers/vespers-lineup.json data/corrections-log.json data/chants.json data/reviewed.json data/typeset/manifest.json data/typeset/review.json
           count=$(jq '.entries | length' "$RUNNER_TEMP/batch.json")
           git commit -q -m "data: corrections batch $BATCH ($count)"
           git push -q origin "corrections/$BATCH"

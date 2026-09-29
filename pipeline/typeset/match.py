@@ -13,8 +13,10 @@ Statuses:
   proposed        no confident answer; the admin screen's Typeset matches queue
   melody-differs  the file points at a part whose melody disagrees
   broken          LilyPond cannot read the file; the Typeset errors queue
-A person settles proposed and melody-differs entries (PR 6); this command never
-overrides an entry a person has settled (source: editor).
+A person settles proposed and melody-differs entries in the admin screen: a
+`match` correction on typeset:<file> in data/corrections.yml, applied over this
+file by with_choices() (the manifest is built from the result). This command
+never overrides an entry marked source: editor.
 """
 
 from __future__ import annotations
@@ -213,7 +215,8 @@ HEADER = """\
 # rendered for the site; the admin screen's Review queues settle the rest.
 #
 # target: part:<slug>/<part>[:<variant>], movement:<slug>/<movement>, piece:<slug>
-# status: matched | proposed | melody-differs | broken
+# status: matched | proposed | melody-differs | broken (and, from an editor's
+#   choice in the admin screen, no-match | other-setting)
 # source: editor (a person settled it; never changed here) | render (LilyPond
 #   could not draw it; evidence.hash is the render it failed at, and the mark
 #   goes when the file changes)
@@ -225,6 +228,45 @@ def load(path: Path = PARTS_FILE) -> list[dict[str, Any]]:
     if not path.exists():
         return []
     return list(yaml.safe_load(path.read_text(encoding="utf-8")) or [])
+
+
+#: The values of a typeset:<file> `match` correction that are not a target.
+NO_MATCH = "none"
+OTHER_SETTING = "other-setting"
+#: The statuses only a person gives: the file is not a part the catalogue has.
+SETTLED = {NO_MATCH: "no-match", OTHER_SETTING: "other-setting"}
+
+
+def settled(entry: dict[str, Any]) -> str | None:
+    """What a `match` correction would say about this entry now: its target
+    when matched, none or other-setting when a person settled it so, and None
+    while it is undecided (proposed, melody-differs, broken)."""
+    status = entry.get("status")
+    if status == "matched":
+        return str(entry["target"]) if entry.get("target") else None
+    return next((value for value, st in SETTLED.items() if st == status), None)
+
+
+def with_choices(entries: list[dict[str, Any]], choices: dict[str, str]) -> list[dict[str, Any]]:
+    """parts.yml with the editors' choices applied: {file: a target, none or
+    other-setting} (typeset:<file> `match` corrections, data/corrections.yml).
+    A chosen target is the chosen file's: a file the matcher gave it to goes
+    back to proposed, with a note."""
+    chosen = {value: file for file, value in choices.items() if ":" in value}
+    out: list[dict[str, Any]] = []
+    for e in entries:
+        value = choices.get(str(e["file"]))
+        if value is None:
+            if e.get("status") == "matched" and e.get("target") in chosen:
+                evidence = {**(e.get("evidence") or {}), "note": f"an editor chose {chosen[e['target']]} for {e['target']}"}
+                e = {**e, "status": "proposed", "evidence": evidence}
+            out.append(e)
+            continue
+        if ":" in value:
+            out.append({**e, "target": value, "status": "matched", "source": "editor"})
+        else:
+            out.append({**e, "target": None, "status": SETTLED[value], "source": "editor"})
+    return out
 
 
 def save(entries: list[Entry], path: Path = PARTS_FILE) -> None:
@@ -299,7 +341,10 @@ def mark_render_failures(failures: dict[str, str], path: Path = PARTS_FILE, src:
 
 __all__ = [
     "MATCHED",
+    "NO_MATCH",
+    "OTHER_SETTING",
     "PARTS_FILE",
+    "SETTLED",
     "Entry",
     "Hints",
     "Target",
@@ -310,6 +355,8 @@ __all__ = [
     "mark_render_failures",
     "run",
     "settle_duplicates",
+    "settled",
     "still_fails",
     "targets",
+    "with_choices",
 ]
