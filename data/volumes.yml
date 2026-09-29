@@ -33,8 +33,12 @@ volumes:
     pdf_pages: 293
     index_pdf_pages: [293]
     first_body_pdf_page: 33
-    # Lines read twice, and a top line lost, hid four staves on p. 101 (PDF 133).
-    refit_staff_pages: [133]
+    # Pages the standard staff finder misreads (pipeline.evaluate): on p. 101
+    # (PDF 133) lines read twice and a top line lost hid four staves; p. 61
+    # (PDF 93) prints its staff lines as dashes.
+    staff_finder:
+      refit: [133]
+      dashed: [93]
     page_offset: null
     sha256: "7b59b85cc48c1c1984558e94f09438779d6fec221e371fb9ae1709b94ecb0d71"
     source_url: null
@@ -85,6 +89,11 @@ volumes:
     pdf_pages: 344
     index_pdf_pages: [344]
     first_body_pdf_page: 31
+    # p. 15 (PDF 45) prints its lines broken, and loses three staves; on p. 28
+    # (PDF 58) tilt recovery splits the response below a versicle's lone staff.
+    staff_finder:
+      refit: [45]
+      plain: [58]
     page_offset: null
     sha256: "45b0e85ea2ebd31901dacc3babf566299df677687f3f19410727c8d2f98a2da9"
     source_url: null

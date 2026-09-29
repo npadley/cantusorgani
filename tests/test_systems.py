@@ -112,3 +112,16 @@ def test_refit_page_finds_staves_read_twice_or_lost():
     result = analyse_page("noh2", 133)
     assert result.warning is None
     assert [s.staff_count for s in result.systems] == [2] * 5
+
+
+@pytest.mark.source
+@pytest.mark.slow
+@pytest.mark.parametrize("vol,page,expected", [("noh2", 93, 4), ("noh8", 45, 6), ("noh8", 58, 6)])
+def test_staff_finder_pages_keep_every_system(vol, page, expected):
+    """NOH2 p. 61 prints its staff lines as dashes (dashed); NOH8 p. 15 loses
+    three staves to broken lines (refit); on NOH8 p. 28 tilt recovery split the
+    response below a versicle's lone staff (plain)."""
+    from pipeline.evaluate import analyse_page
+    result = analyse_page(vol, page)
+    assert result.error is None and result.warning is None
+    assert [s.staff_count for s in result.systems] == [2] * expected

@@ -25,6 +25,7 @@ import numpy as np
 from pipeline.clean import clean_page, estimate_skew
 from pipeline.render import BUILD, render_page
 from pipeline.segment import (
+    CLOSE_PX,
     FAINT_CLOSE_PX,
     FAINT_MIN_ROW_INK,
     BBox,
@@ -84,12 +85,17 @@ def faint_pages(vol_id: str) -> frozenset[int]:
                      for p in range(a.first_pdf, a.last_pdf + 1))
 
 
+# A wider bridge than faint print's, for staff lines printed as dashes with gaps
+# of up to ~40px (NOH2 p. 61): 25 found 6 of that page's 8 staves, 45 all 8.
+DASHED_CLOSE_PX = 45
+
+
 @functools.cache
-def refit_pages(vol_id: str) -> frozenset[int]:
-    """Pages whose staves the standard grouping misses (data/volumes.yml)."""
+def staff_finder(vol_id: str, pdf_page: int) -> str | None:
+    """The setting data/volumes.yml names for a page (`staff_finder`), if any."""
     from pipeline.volumes import load_volumes
     vol = load_volumes().get(vol_id)
-    return frozenset(vol.refit_staff_pages if vol else ())
+    return next((mode for mode, pages in (vol.staff_finder if vol else ()) if pdf_page in pages), None)
 
 
 def load_page(vol_id: str, pdf_page: int) -> np.ndarray:
@@ -116,12 +122,18 @@ def analyse_page(vol_id: str, pdf_page: int) -> PageAnalysis:
         lines = merge_close_lines(find_staff_lines(binary, close_px=FAINT_CLOSE_PX,
                                                    min_row_ink=FAINT_MIN_ROW_INK))
         staves = group_staves_tolerant(lines)
-    elif pdf_page in refit_pages(vol_id):
-        # Well printed, but lines read twice and one lost (NOH2 p. 101) break
-        # the strict run of five: fit the staves as on faint print, strays
-        # ignored.
-        lines = merge_close_lines(find_staff_lines(binary))
+    elif staff_finder(vol_id, pdf_page) in ("refit", "dashed"):
+        # Well printed, but a line read twice and one lost (refit: NOH2 p. 101,
+        # NOH8 p. 15) or printed as dashes (dashed: NOH2 p. 61) break the strict
+        # run of five: fit the staves as on faint print, strays ignored.
+        close = DASHED_CLOSE_PX if staff_finder(vol_id, pdf_page) == "dashed" else CLOSE_PX
+        lines = merge_close_lines(find_staff_lines(binary, close_px=close))
         staves = group_staves_tolerant(lines)
+    elif staff_finder(vol_id, pdf_page) == "plain":
+        # Tilt recovery splits a system on NOH8 p. 28 (a versicle's lone staff
+        # above its response): the strict grouping reads that page as printed.
+        lines = find_staff_lines(binary)
+        staves = group_staves(lines)
     else:
         lines = find_staff_lines(binary)
         staves = recover_tilted_staves(binary, lines, group_staves(lines))
