@@ -13,9 +13,11 @@ import pytest
 
 from tools.triage.main import (
     FIELD_PATTERNS,
+    Correction,
     RejectedCorrection,
     apply_correction,
     coerce,
+    record,
     validate,
 )
 
@@ -144,3 +146,10 @@ def test_record_writes_a_readers_part_correction_by_its_target(tmp_path, monkeyp
     triage.record(catalog, row)
     entry = corrections.load(tmp_path / "corrections.yml")[0]
     assert (entry.target, entry.field, entry.value, entry.source) == ("part:d/introit", "chant", 132, "reader#9")
+
+
+def test_record_sends_a_missing_part_report_to_the_sections_screen():
+    report = Correction(id=7, piece_id="dominica-i-adventus", field="sections", proposed="system 4: the Tract",
+                        note="", status="pending", created_at="2026-09-29")
+    with pytest.raises(RejectedCorrection, match="Sections screen"):
+        record({"pieces": []}, report)

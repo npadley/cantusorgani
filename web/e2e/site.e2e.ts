@@ -12,7 +12,8 @@ test.describe("Report links", () => {
     await expect(page).toHaveURL(/target=part%3Adominica-i-adventus%2Fgradual/);
     await expect(page.locator("#target-fixed")).toContainText("Dominica I Adventus (noh1) · Gradual");
     await expect(page.locator("#piece-row")).toBeHidden();
-    await expect(page.locator("#field option")).toHaveText(["Where it starts", "Its chant (GregoBase id)"]);
+    await expect(page.locator("#field option")).toHaveText(["Where it starts", "Its chant (GregoBase id)",
+                                                          "It is mislabelled, or a part is missing"]);
     await expect(page.locator("#field-now")).toHaveText(`Now: ${starts("dominica-i-adventus")["gradual"]}`);
   });
 

@@ -189,6 +189,11 @@ def coerce(name: str, value: object, genre: str | None = None, kind: str = "piec
     spec = _SPECS.get(kind, {})
     if name not in spec:
         raise CorrectionError(f"unknown field {name!r}; the correctable fields of a {kind} are {', '.join(spec)}")
+    if name == SECTIONS_FIELD:
+        try:
+            return sections.parse_value(value)
+        except sections.ReviewedError as exc:
+            raise CorrectionError(str(exc)) from None
     rule = spec[name]
     if genre is not None and genre in (rule.get("not_for_genres") or {}):
         raise CorrectionError(str(rule["not_for_genres"][genre]))
@@ -235,6 +240,8 @@ class Slot:
     put: Callable[[Any], None]
     genre: str | None = None
     check: Callable[[Any], str | None] | None = None
+    #: The value as the file keeps it (a section's system as its ref).
+    canon: Callable[[Any], Any] | None = None
 
 
 @dataclass
@@ -265,6 +272,40 @@ def _pieces(catalog: dict[str, Any]) -> dict[str, dict[str, Any]]:
 def _piece(target: str, pieces: dict[str, dict[str, Any]]) -> dict[str, Any] | None:
     kind, _, slug = target.partition(":")
     return pieces.get(slug) if kind == "piece" else None
+
+
+#: The field of a sections:<slug> target: the piece's whole list.
+SECTIONS_FIELD = "sections"
+
+
+def _sections_slot(target: str, pieces: dict[str, dict[str, Any]]) -> Slot:
+    """A piece's whole list of sections, as the admin's Sections screen saves it:
+    it replaces the list, as a reviewed list in data/sections/ does."""
+    slug = target.partition(":")[2]
+    piece = pieces.get(slug)
+    if piece is None:
+        raise _gone(target)
+
+    def listed(value: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[str]]:
+        try:
+            entries = sections.with_refs(value, piece)
+        except sections.ReviewedError as exc:
+            return [], [f"{target} {exc}"]
+        return sections.reviewed_list(slug, piece, entries, target)
+
+    def put(value: list[dict[str, Any]]) -> None:
+        out, found = listed(value)
+        if found:
+            raise CorrectionError("\n".join(found))
+        from pipeline.parts import link_one
+        for section in out:
+            if "borrowed_page" in section and not section.get("borrowed_from"):
+                link_one(section, piece, list(pieces.values()))
+        piece["sections"] = out
+
+    return Slot(get=lambda: sections.as_reviewed(piece), put=put, genre=str(piece.get("genre")),
+                check=lambda value: "; ".join(listed(value)[1]) or None,
+                canon=lambda value: sections.with_refs(value, piece))
 
 
 def _gone(target: str) -> CorrectionError:
@@ -629,6 +670,8 @@ def slot(target: str, name: str, catalog: dict[str, Any] | None, vespers: Vesper
         return _part_slot(target, name, pieces)
     if kind == "pairing":
         return _pairing_slot(target, pieces)
+    if kind == "sections":
+        return _sections_slot(target, pieces)
     piece = _piece(target, pieces)
     if piece is None:
         raise _gone(target)
@@ -639,6 +682,15 @@ def slot(target: str, name: str, catalog: dict[str, Any] | None, vespers: Vesper
 
 def _is_range(e: Entry) -> bool:
     return e.field == "system_range" and e.target.startswith("piece:")
+
+
+def _is_sections(e: Entry) -> bool:
+    return e.field == SECTIONS_FIELD and e.target.startswith("sections:")
+
+
+def _in_layer(e: Entry) -> bool:
+    """Applied in the first layer (_ranged), before every other correction."""
+    return _is_range(e) or _is_sections(e)
 
 
 def _stale(e: Entry, now: Any) -> str:
@@ -684,6 +736,24 @@ def _ranged(base: dict[str, Any], entries: list[Entry]) -> tuple[dict[str, Any],
         found = [str(exc)]
     for n, problem in enumerate(found):
         failed[f"sections:{n}"] = problem
+    # Then each list saved on the admin's Sections screen, over the reviewed ones.
+    for e in entries:
+        if not _is_sections(e):
+            continue
+        try:
+            s = slot(e.target, e.field, catalog, None)
+            value = coerce(e.field, e.value, s.genre, "sections")
+        except CorrectionError as exc:
+            failed[e.id] = f"{_where(e)}: {exc}" if str(exc).startswith(e.target) else f"{_where(e)}: {e.target} {exc}"
+            continue
+        if s.get() != e.was:
+            failed[e.id] = _stale(e, s.get())
+            continue
+        issue = s.check(value) if s.check else None
+        if issue:
+            failed[e.id] = f"{_where(e)}: {issue}"
+            continue
+        s.put(value)
     return catalog, failed
 
 
@@ -769,7 +839,7 @@ def _check(base: dict[str, Any] | None, entries: list[Entry], vespers: VespersDa
             except CorrectionError as exc:
                 out.append(f"{where}: {e.target} {exc}")
             continue
-        if _is_range(e):
+        if _in_layer(e):
             if e.id in failed:
                 out.append(failed[e.id])
             continue
@@ -824,7 +894,7 @@ def apply(base: dict[str, Any], entries: list[Entry]) -> dict[str, Any]:
         raise CorrectionError("\n".join(found))
     catalog = layer if layer is not None else copy.deepcopy(base)
     for e in entries:
-        if kind_of(e.target) != "vespers" and not _is_range(e) and e.field != REVIEW_FIELD:
+        if kind_of(e.target) != "vespers" and not _in_layer(e) and e.field != REVIEW_FIELD:
             s = slot(e.target, e.field, catalog, None)
             s.put(coerce(e.field, e.value, s.genre, kind_of(e.target)))
     return catalog
@@ -853,6 +923,16 @@ def no_ops(base: dict[str, Any], entries: list[Entry], vespers: VespersData | No
         try:
             kind = kind_of(e.target)
             if kind == "vespers" and vespers is None:
+                continue
+            if _is_sections(e):
+                # The piece without this list, and with it: the same, once resolved?
+                without = _ranged(base, [x for x in entries if x is not e])[0]
+                now = slot(e.target, e.field, without, vespers).get()
+                applied = copy.deepcopy(without)
+                s = slot(e.target, e.field, applied, vespers)
+                s.put(coerce(e.field, e.value, s.genre, kind))
+                if s.get() == now:
+                    out.append(e)
                 continue
             s = slot(e.target, e.field, base if _is_range(e) else layer, vespers)
             if s.get() == coerce(e.field, e.value, s.genre, kind):
@@ -1015,6 +1095,11 @@ def correct(target: str, name: str, value: str, note: str = "", source: str = "e
     except CorrectionError as exc:
         raise CorrectionError(f"{exc}. Run `uv run noh where <page URL>` to find the target") from None
     new = coerce(name, value, s.genre, kind)
+    if s.canon is not None:
+        try:
+            new = s.canon(new)
+        except sections.ReviewedError as exc:
+            raise CorrectionError(f"{target} {exc}") from None
     if new == s.get():
         raise CorrectionError(f"{target} {name} is already {new!r}; nothing to correct")
     issue = s.check(new) if s.check else None
@@ -1123,13 +1208,24 @@ def hold_reasons(entries: list[Entry]) -> list[str]:
     return reasons
 
 
+def _brief(value: Any) -> str:
+    """A list of sections in a line: each kind (numbered) and where it starts."""
+    if not isinstance(value, list):
+        return json.dumps(value, ensure_ascii=False)
+    def one(s: dict[str, Any]) -> str:
+        name = str(s.get("kind")) + (f" {s['n']}" if s.get("n") else "") + (f" ({s['variant']})" if s.get("variant") else "")
+        where = s.get("ref") or f"{s.get('borrowed_volume')} p. {s.get('borrowed_page')}"
+        return f"{name} {where}"
+    return "; ".join(one(s) for s in value if isinstance(s, dict))
+
+
 def batch_summary(batch_id: str, entries: list[Entry], hold: list[str] | None = None) -> str:
     """The pull request's description: one line per correction, for review."""
     lines = [f"Corrections from the admin screen, batch `{batch_id}`.", "",
              "| Id | Target | Field | Was | Now | By | Note |", "|---|---|---|---|---|---|---|"]
     for e in entries:
-        cells = [e.id, e.target, e.field, json.dumps(e.was, ensure_ascii=False), json.dumps(e.value, ensure_ascii=False),
-                 e.editor_email or e.source, e.note]
+        shown = _brief if _is_sections(e) else (lambda v: json.dumps(v, ensure_ascii=False))
+        cells = [e.id, e.target, e.field, shown(e.was), shown(e.value), e.editor_email or e.source, e.note]
         lines.append("| " + " | ".join(str(c).replace("|", "\\|").replace("\n", " ") for c in cells) + " |")
     if hold:
         lines += ["", "**Waits for the owner** because " + "; and ".join(hold) + ".",

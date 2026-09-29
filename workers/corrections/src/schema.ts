@@ -12,10 +12,10 @@
 
 export type CorrectableField =
   | "title" | "incipit" | "mode" | "genre" | "printedPages" | "chant"
-  | "startSystem" | "gregobaseId" | "tone";
+  | "startSystem" | "gregobaseId" | "tone" | "sections";
 
 export const CORRECTABLE_FIELDS: readonly CorrectableField[] = [
-  "title", "incipit", "mode", "genre", "printedPages", "chant", "startSystem", "gregobaseId", "tone",
+  "title", "incipit", "mode", "genre", "printedPages", "chant", "startSystem", "gregobaseId", "tone", "sections",
 ];
 
 /** The tones NOH8 prints: the `tones` of data/schema/corrections.json (a test
@@ -32,8 +32,9 @@ export const TONES = [
  * each kind can correct. */
 export const TARGET = /^(piece:[a-z0-9-]{1,80}|part:[a-z0-9-]{1,80}\/[a-z]{3,12}(:[a-z0-9-]{1,12})?|pairing:[a-z0-9-]{1,80}\/[a-z]{3,8}|vespers:[A-Za-z0-9:.-]{1,60}\/[a-z0-9-]{1,20})$/;
 export const FIELDS_BY_KIND: Readonly<Record<"piece" | "part" | "pairing" | "vespers", readonly CorrectableField[]>> = {
-  piece: ["title", "incipit", "mode", "genre", "printedPages", "chant"],
-  part: ["startSystem", "gregobaseId"],
+  // sections: "a part is missing or mislabelled", fixed on the admin's Sections screen.
+  piece: ["title", "incipit", "mode", "genre", "printedPages", "chant", "sections"],
+  part: ["startSystem", "gregobaseId", "sections"],
   pairing: ["gregobaseId"],
   vespers: ["tone", "gregobaseId"],
 };
@@ -61,6 +62,8 @@ export const PATTERNS: Readonly<Record<CorrectableField, RegExp>> = {
   startSystem: /^\d{1,3}$/,
   gregobaseId: /^(\d{1,6}|none)$/,
   tone: new RegExp(`^(${TONES.map(literal).join("|")})$`),
+  // Words naming a system: at least one digit and two letters.
+  sections: /^(?=.*\d)(?=(?:[^\p{L}]*\p{L}){2})[\p{L}\p{N}\s.,'«»():;-]{3,200}$/u,
 };
 
 /** What each field expects, in words, for the reader. */
@@ -74,6 +77,7 @@ export const HINTS: Readonly<Record<CorrectableField, string>> = {
   startSystem: "the system of the piece the part starts on, counting from 1",
   gregobaseId: "a GregoBase chant id (the number in chant.php?id=…), or none",
   tone: "a tone as NOH8 prints it, e.g. VIII.G, IV.A* or peregrinus",
+  sections: "the system, and what the book prints there, e.g. system 12: the Gradual starts here (Grad. II)",
 };
 
 const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"] as const;

@@ -4,7 +4,8 @@
  * A target is a piece (piece:<slug>), one of a Proper's parts
  * (part:<slug>/<part>[:<variant>]) or a Vespers item (vespers:<office>/antiphon-<n>,
  * vespers:<office>/magnificat, vespers:sunday:<key>/magnificat), or a typeset
- * transcription (typeset:<file>: which part it is). The field
+ * transcription (typeset:<file>: which part it is), or a Proper's whole list of
+ * sections (sections:<slug>, from the Sections screen). The field
  * rules come from data/schema/corrections.json, the file pipeline/corrections.py
  * reads, so the admin screen, the Corrections form and `noh correct` accept the
  * same values. The GitHub workflow checks every entry again with
@@ -12,7 +13,7 @@
  */
 import schema from "../../../../data/schema/corrections.json";
 
-export type Kind = "piece" | "part" | "vespers" | "pairing" | "typeset";
+export type Kind = "piece" | "part" | "vespers" | "pairing" | "typeset" | "sections";
 export type PieceField = "title" | "incipit" | "mode" | "genre" | "printed_pages" | "system_range";
 
 interface FieldRule {
@@ -33,7 +34,7 @@ const READER_FIELDS = schema.reader_fields as Readonly<Record<string, string>>;
 /** The fields each kind of target can correct, in the order offered. */
 export const FIELDS_OF: Readonly<Record<Kind, readonly string[]>> = {
   piece: Object.keys(RULES.piece), part: Object.keys(RULES.part), vespers: Object.keys(RULES.vespers),
-  pairing: Object.keys(RULES.pairing), typeset: Object.keys(RULES.typeset),
+  pairing: Object.keys(RULES.pairing), typeset: Object.keys(RULES.typeset), sections: Object.keys(RULES.sections),
 };
 
 const MOVEMENTS = schema.pairing_movements as unknown as Readonly<Record<string, readonly string[]>>;
@@ -60,6 +61,7 @@ export const FIELD_LABELS: Readonly<Record<string, string>> = {
   title: "Title", incipit: "Incipit", mode: "Mode", genre: "Genre", printed_pages: "Printed pages",
   system_range: "Systems (first-last)", start_system: "Starts on system", chant: "Chant (GregoBase id)", tone: "Tone",
   refs: "Printed systems", note: "A note instead of the music", reviewed: "Looks right", match: "Which part it is",
+  sections: "Sections",
 };
 
 export const PART_LABELS: Readonly<Record<string, string>> = {
@@ -73,7 +75,13 @@ export interface TargetPart {
   /** The system it starts on, counting from 1; null when printed elsewhere. */
   readonly system: number | null;
   readonly borrowed: string | null;
+  /** Where a part printed elsewhere is: its volume and printed page. */
+  readonly borrowedVolume?: string | null;
+  readonly borrowedPage?: number | null;
   readonly chant: number | null;
+  /** As the book prints it in the margin, and its opening words, where known. */
+  readonly label?: string | null;
+  readonly title?: string | null;
   /** Its start was only guessed from the order of the parts, so the piece page
    * does not show it (no heading, no Report link); the edit page does. */
   readonly guessed?: boolean;
@@ -164,7 +172,7 @@ export interface TargetInfo {
 export function kindOf(target: string): Kind | null {
   const kind = target.split(":", 1)[0];
   return kind === "piece" || kind === "part" || kind === "vespers" || kind === "pairing" || kind === "typeset"
-    ? kind : null;
+    || kind === "sections" ? kind : null;
 }
 
 export function isPieceField(name: string): name is PieceField {
@@ -221,6 +229,12 @@ export function describeTarget(targets: Targets, name: string): TargetInfo | nul
   if (kind === "piece") {
     return { target: `piece:${piece.slug}`, kind, label: `${piece.label} (${piece.volume})`, href: piece.href,
              stem: piece.stem, aspect: piece.aspect, values: pieceValues(piece), genre: piece.genre, slug: piece.slug,
+             fixed: null, bounds: null, systems: piece.systems ?? null };
+  }
+  if (kind === "sections") {
+    return { target: `sections:${piece.slug}`, kind, label: `${piece.label} (${piece.volume}) · sections`,
+             href: piece.href, stem: piece.stem, aspect: piece.aspect,
+             values: { sections: sectionsText(currentSections(piece)) }, genre: piece.genre, slug: piece.slug,
              fixed: null, bounds: null, systems: piece.systems ?? null };
   }
   if (kind === "pairing") {
@@ -287,6 +301,7 @@ export function checkValue(targets: Targets, info: TargetInfo, field: string, ra
   if (field === "match" && info.fixed && raw.includes(":")) {
     return { ok: false, error: `${info.fixed} Fix the file first, or choose “not in the catalogue” or “a different setting”.` };
   }
+  if (field === "sections") return checkSections(info, raw);
   const value = normalise(field, raw, info.kind);
   const letters = [...value].filter((c) => /\p{L}/u.test(c)).length;
   if (!new RegExp(rule.pattern, "u").test(value) || letters < (rule.min_letters ?? 0)) {
@@ -395,4 +410,139 @@ export function plannedOrder(targets: Targets, planned: readonly PlannedStart[])
     }
   }
   return null;
+}
+
+// ------------------------------------------------------------ sections ---
+
+/** One section of a list the Sections screen saves: the same shape
+ * pipeline/sections.py parse_value takes. A start is a system of the piece,
+ * counting from 1; the pipeline records it as the system's ref. */
+export interface SectionEntry {
+  readonly kind: string;
+  readonly n?: number;
+  readonly variant?: "paschal";
+  readonly label?: string;
+  readonly title?: string;
+  readonly system?: number;
+  readonly borrowed_volume?: string;
+  readonly borrowed_page?: number;
+  readonly chant: number | "none";
+}
+
+export const SECTION_KINDS = ["introit", "gradual", "hymn", "alleluia", "tract", "sequence", "offertory", "communion",
+                              "other"] as const;
+export const MAX_SECTIONS = 40;
+const SECTION_KEYS = new Set(["kind", "n", "variant", "label", "title", "system", "borrowed_volume", "borrowed_page",
+                              "chant"]);
+
+/** A piece's sections as the Sections screen starts from them, in printed order. */
+export function currentSections(piece: TargetPiece): SectionEntry[] {
+  return (piece.parts ?? []).map((p) => {
+    const numbered = /^\d$/.test(p.variant);
+    return entry({
+      kind: p.part, ...(numbered ? { n: Number(p.variant) } : {}),
+      ...(p.variant === "paschal" ? { variant: "paschal" as const } : {}),
+      ...(p.label ? { label: p.label } : {}), ...(p.title ? { title: p.title } : {}),
+      ...(p.system !== null ? { system: p.system }
+        : { borrowed_volume: p.borrowedVolume ?? "", borrowed_page: p.borrowedPage ?? 0 }),
+      chant: p.chant ?? "none",
+    });
+  });
+}
+
+/** The keys in one order, so two equal lists are the same text. */
+function entry(e: SectionEntry): SectionEntry {
+  return {
+    kind: e.kind, ...(e.n ? { n: e.n } : {}), ...(e.variant ? { variant: e.variant } : {}),
+    ...(e.label ? { label: e.label } : {}), ...(e.title ? { title: e.title } : {}),
+    ...(e.system !== undefined ? { system: e.system }
+      : { borrowed_volume: e.borrowed_volume ?? "", borrowed_page: e.borrowed_page ?? 0 }),
+    chant: e.chant,
+  };
+}
+
+export function sectionsText(entries: readonly SectionEntry[]): string {
+  return JSON.stringify(entries.map(entry));
+}
+
+const intIn = (v: unknown, lo: number, hi: number): v is number =>
+  typeof v === "number" && Number.isInteger(v) && v >= lo && v <= hi;
+
+/** A list as typed, checked as the pipeline checks it: the list, or why not. */
+export function parseSections(raw: string, systems: number | null): SectionEntry[] | string {
+  let value: unknown;
+  try { value = JSON.parse(raw); } catch { return "The list of sections is not valid JSON."; }
+  if (!Array.isArray(value) || value.length < 1 || value.length > MAX_SECTIONS) {
+    return `A piece has 1 to ${MAX_SECTIONS} sections.`;
+  }
+  const out: SectionEntry[] = [];
+  const names = new Set<string>();
+  let last = 0;
+  for (const [i, item] of value.entries()) {
+    const at = `Section ${i + 1}`;
+    if (typeof item !== "object" || item === null || Array.isArray(item)) return `${at} is not a section.`;
+    const e = item as Record<string, unknown>;
+    const extra = Object.keys(e).filter((k) => !SECTION_KEYS.has(k));
+    if (extra.length) return `${at} has ${extra.join(", ")}, which a section does not take.`;
+    const kind = String(e["kind"] ?? "");
+    if (!(SECTION_KINDS as readonly string[]).includes(kind)) return `${at}: choose what kind of section it is.`;
+    if (e["n"] !== undefined && e["n"] !== null && !intIn(e["n"], 1, 9)) return `${at}: its number should be 1 to 9.`;
+    const variant = e["variant"] ?? "";
+    if (variant !== "" && variant !== "paschal") return `${at}: the only seasonal form is paschal.`;
+    const words: Record<string, string> = {};
+    for (const key of ["label", "title"] as const) {
+      const text = String(e[key] ?? "").replace(/\s+/g, " ").trim();
+      if (text && !/^[^\u0000-\u001f<>]{1,80}$/u.test(text)) return `${at}: the ${key} should be plain text of at most 80 characters, no < or >.`;
+      if (text) words[key] = text;
+    }
+    const chant = e["chant"] ?? "none";
+    const id = typeof chant === "string" && /^\d{1,6}$/.test(chant) ? Number(chant) : chant;
+    if (id !== "none" && id !== "" && !intIn(id, 1, 999_999)) return `${at}: the chant is a GregoBase id, or none.`;
+    const name = `${kind}${e["n"] ? `:${String(e["n"])}` : variant ? `:${String(variant)}` : ""}`;
+    if (names.has(name)) return `${at}: there are two ${PART_LABELS[kind] ?? kind}s with the same number; number them 1, 2 …`;
+    names.add(name);
+    const base = { kind, ...(e["n"] ? { n: e["n"] as number } : {}), ...(variant ? { variant: "paschal" as const } : {}),
+                   ...words, chant: id === "none" || id === "" ? "none" as const : id as number };
+    if (e["borrowed_page"] !== undefined && e["borrowed_page"] !== null && e["borrowed_page"] !== "") {
+      if (!intIn(e["borrowed_page"], 1, 999) || !/^noh\d$/.test(String(e["borrowed_volume"] ?? ""))) {
+        return `${at}: printed elsewhere needs its volume and page.`;
+      }
+      out.push(entry({ ...base, borrowed_volume: String(e["borrowed_volume"]), borrowed_page: e["borrowed_page"] }));
+      continue;
+    }
+    if (!intIn(e["system"], 1, 999)) return `${at}: say which system it starts on, or where it is printed.`;
+    const system = e["system"];
+    if (systems !== null && system > systems) return `${at}: system ${system} is outside the piece, which has ${systems} systems.`;
+    if (system <= last) return `${at} starts on system ${system}, not after the section before: list them in the order the book prints them.`;
+    last = system;
+    out.push(entry({ ...base, system }));
+  }
+  return out;
+}
+
+function checkSections(info: TargetInfo, raw: string): Checked {
+  const parsed = parseSections(raw, info.systems);
+  if (typeof parsed === "string") return { ok: false, error: parsed };
+  const value = sectionsText(parsed);
+  if (value === (info.values["sections"] ?? "")) return { ok: false, error: "The list is as it is now; nothing to correct." };
+  return { ok: true, value };
+}
+
+/** A list of sections in a line, for the queue and the public log: each kind,
+ * numbered, and where it starts ("Gradual 2 at system 16"). Accepts a list as
+ * JSON text, or as the pipeline records it (with refs). */
+export function sectionsSummary(value: unknown): string {
+  let list: unknown = value;
+  if (typeof value === "string") {
+    try { list = JSON.parse(value); } catch { return value; }
+  }
+  if (!Array.isArray(list)) return String(value ?? "");
+  return list.map((raw) => {
+    const e = (raw ?? {}) as Record<string, unknown>;
+    const name = `${PART_LABELS[String(e["kind"])] ?? String(e["kind"])}${e["n"] ? ` ${String(e["n"])}` : ""}` +
+      `${e["variant"] ? ` (${String(e["variant"])})` : ""}`;
+    const where = e["system"] !== undefined ? `system ${String(e["system"])}` : e["ref"] ? String(e["ref"])
+      : `${String(e["borrowed_volume"] ?? "")} p. ${String(e["borrowed_page"] ?? "")}`;
+    return `${name} at ${where}`;
+  }).join("; ");
 }

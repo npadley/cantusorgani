@@ -619,6 +619,27 @@ def borrowed_parts(reference: str, volume: str) -> list[tuple[str, str, int]]:
     return out
 
 
+def link_one(part: dict[str, object], piece: dict[str, object], pieces: list[dict[str, object]]) -> bool:
+    """Resolve one borrowed section to the lending piece's section, in place
+    (borrowed_from, borrowed_ref); False, with both None, where none lends it."""
+    volume, page = part["borrowed_volume"], int(part["borrowed_page"])  # type: ignore[call-overload]
+    lenders = [p for p in pieces if p["volume"] == volume and p.get("systems")
+               and p is not piece and not p.get("pagination")   # the body's page
+               and p["printed_pages"][0] <= page <= p["printed_pages"][1]]  # type: ignore[index]
+    lenders.sort(key=lambda p: p["printed_pages"][0] != page)  # type: ignore[index]
+    for lender in lenders:
+        own = [q for q in lender.get("sections", []) or []  # type: ignore[union-attr]
+               if q.get("kind") == part["kind"] and "ref" in q and q.get("placed") != "order"]
+        # The lender's Alleluia serves a borrowed Paschal Alleluia when it
+        # is the only one it prints (a votive Mass cited in the rubric).
+        own.sort(key=lambda q: q.get("variant", "") != part.get("variant", ""))
+        if own:
+            part["borrowed_from"], part["borrowed_ref"] = lender["slug"], own[0]["ref"]
+            return True
+    part["borrowed_from"], part["borrowed_ref"] = None, None
+    return False
+
+
 def link_parts(catalog: dict[str, object]) -> list[dict[str, object]]:
     """Resolve each borrowed section to the lending piece's section, after every
     volume is merged (a Proper in NOH3 borrows from NOH4's Commons). Returns
@@ -627,30 +648,10 @@ def link_parts(catalog: dict[str, object]) -> list[dict[str, object]]:
     unresolved: list[dict[str, object]] = []
     for piece in pieces:
         for part in piece.get("sections", []) or []:   # type: ignore[union-attr]
-            if "borrowed_page" not in part:
-                continue
-            volume, page = part["borrowed_volume"], int(part["borrowed_page"])
-            lenders = [p for p in pieces if p["volume"] == volume and p.get("systems")
-                       and p is not piece and not p.get("pagination")   # the body's page
-                       and p["printed_pages"][0] <= page <= p["printed_pages"][1]]  # type: ignore[index]
-            lenders.sort(key=lambda p: p["printed_pages"][0] != page)  # type: ignore[index]
-            target = None
-            for lender in lenders:
-                own = [q for q in lender.get("sections", []) or []  # type: ignore[union-attr]
-                       if q.get("kind") == part["kind"] and "ref" in q and q.get("placed") != "order"]
-                # The lender's Alleluia serves a borrowed Paschal Alleluia when it
-                # is the only one it prints (a votive Mass cited in the rubric).
-                own.sort(key=lambda q: q.get("variant", "") != part.get("variant", ""))
-                if own:
-                    target = (lender, own[0])
-                    break
-            if target is None:
-                part["borrowed_from"], part["borrowed_ref"] = None, None
+            if "borrowed_page" in part and not link_one(part, piece, pieces):
                 unresolved.append({"kind": "part_borrowed_unresolved", "piece": piece["slug"],
-                                   "part": part["kind"], "volume": volume, "printed_page": page})
-                continue
-            part["borrowed_from"] = target[0]["slug"]
-            part["borrowed_ref"] = target[1]["ref"]
+                                   "part": part["kind"], "volume": part["borrowed_volume"],
+                                   "printed_page": int(part["borrowed_page"])})
     return unresolved
 
 
@@ -666,6 +667,7 @@ __all__ = [
     "chant_text",
     "expected_parts",
     "label_of",
+    "link_one",
     "link_parts",
     "read_label",
     "segment_proper",

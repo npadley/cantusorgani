@@ -17,7 +17,8 @@ import Layout from "../../../components/Layout.astro";
       <div class="field" id="target-row">
         <p id="target-fixed" hidden>Correcting: <strong id="target-label"></strong> ·
           <a id="target-open" href="/">open the page</a> ·
-          <button type="button" id="target-change" class="link">Change</button></p>
+          <button type="button" id="target-change" class="link">Change</button>
+          <span id="sections-link" hidden> · <a href="/admin/sections/">edit its whole list of sections</a></span></p>
         <div id="target-choose">
           <label for="piece">Which piece?</label>
           <select id="piece" name="piece" required><option value="">Loading…</option></select>
@@ -157,6 +158,10 @@ import Layout from "../../../components/Layout.astro";
       (document.getElementById("target-open") as HTMLAnchorElement).href = chosen.href;
     }
     const piece = chosen?.slug && targets ? targets.pieces[chosen.slug] ?? null : null;
+    // A Proper's sections (a part missing, mislabelled or in the wrong order) are edited as one list.
+    const sections = document.getElementById("sections-link")!;
+    sections.hidden = !piece || (piece.parts ?? []).length === 0;
+    if (piece) sections.querySelector("a")!.href = `/admin/sections/?piece=${encodeURIComponent(piece.slug)}`;
     if (chosen?.kind === "vespers") partRow.hidden = true;
     else setParts(piece, chosen?.target ?? null);
     setFields(chosen);

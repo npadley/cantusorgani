@@ -374,6 +374,28 @@ by hand.
 - **Confirm**: the piece's jump links and headings follow the list, each heading
   showing its printed label.
 
+**On the admin screen**, the **Sections** screen (`/admin/sections/?piece=<slug>`,
+linked from **Parts to check** and from the edit page as "edit its whole list
+of sections") shows the piece's systems beside its list. Press **Start a
+section here** beside a system to add one, change a section's kind, number,
+label, opening words or chant, move or remove it, or mark it printed elsewhere
+(a volume and page). **Approve this list** records it as one correction,
+`sections:<slug>` in `data/corrections.yml`, with the list it replaces as its
+`was`; published, it counts like a list in `data/sections/`, and it goes stale
+(stopping the build) if the piece's list changes underneath it. From the
+command line the same correction is
+
+```bash
+uv run noh correct sections:sabbato-temporum-adventus sections '[{"kind": "introit", "system": 1, "chant": 169}, ...]'
+```
+
+each start a system counting from 1 (it is recorded as that system's ref).
+
+Readers report a missing or mislabelled part with **A part is missing or
+mislabelled** (on the Corrections page, or on a part's **Report**), naming the
+system. The report waits in the queue with a link to the Sections screen;
+saving a list from there marks the report a duplicate of the fix.
+
 Single starts and chants can still be corrected on top of a list (below).
 
 ### Proper parts

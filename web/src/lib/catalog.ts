@@ -70,6 +70,8 @@ export interface BorrowedPart {
   /** The lending piece and the system its part starts on; null when unresolved. */
   readonly borrowedFrom: string | null;
   readonly borrowedRef: string | null;
+  /** The volume it is printed in ("noh4"), and its printed page there. */
+  readonly borrowedVolume: string | null;
   readonly borrowedPage: number;
   readonly gregobaseId: number | null;
 }
@@ -184,7 +186,7 @@ interface RawPart {
   readonly system?: number; readonly ref?: string;
   readonly gregobase_id?: number | null; readonly placed?: string;
   readonly borrowed_from?: string | null; readonly borrowed_ref?: string | null;
-  readonly borrowed_page?: number;
+  readonly borrowed_page?: number; readonly borrowed_volume?: string | null;
 }
 
 interface RawPiece {
@@ -256,6 +258,7 @@ function parsePart(x: RawPart, where: string): ProperPart {
     return {
       kind: "borrowed", part, variant, label, title, gregobaseId, borrowedPage: x.borrowed_page,
       borrowedFrom: x.borrowed_from ?? null, borrowedRef: x.borrowed_ref ?? null,
+      borrowedVolume: x.borrowed_volume ?? null,
     };
   }
   if (typeof x.system !== "number" || typeof x.ref !== "string" || !PLACEMENTS.has(x.placed ?? "")) {

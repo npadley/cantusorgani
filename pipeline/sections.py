@@ -20,6 +20,7 @@ Everything that names a section goes through `suffix` and `target` here.
 
 from __future__ import annotations
 
+import re
 from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
@@ -287,20 +288,129 @@ def as_reviewed(piece: Mapping[str, Any]) -> list[dict[str, Any]]:
 
 
 def save_reviewed(slug: str, volume: str, entries: list[dict[str, Any]], folder: Path = REVIEWED) -> Path:
-    """Write (or replace) one piece's reviewed list in data/sections/<volume>.yml."""
+    """Write (or replace) one piece's reviewed list in data/sections/<volume>.yml,
+    keeping every other piece's list and the comments above it as they are."""
     folder.mkdir(parents=True, exist_ok=True)
     path = folder / f"{volume}.yml"
-    doc = (yaml.safe_load(path.read_text(encoding="utf-8")) or {}) if path.exists() else {}
-    doc[slug] = entries
-    body = "\n".join(yaml.safe_dump({k: v}, sort_keys=False, allow_unicode=True, width=110,
-                                    default_flow_style=None).rstrip() for k, v in doc.items())
-    path.write_text(REVIEWED_HEADER + "\n" + body + "\n", encoding="utf-8")
+    block = yaml.safe_dump({slug: entries}, sort_keys=False, allow_unicode=True, width=110,
+                           default_flow_style=None).rstrip().splitlines()
+    lines = path.read_text(encoding="utf-8").splitlines() if path.exists() else REVIEWED_HEADER.splitlines()
+    start = next((i for i, line in enumerate(lines) if line == f"{slug}:"), None)
+    if start is None:
+        lines += block
+    else:
+        # Its list runs to the next piece, or to the comment written above it.
+        end = next((i for i in range(start + 1, len(lines)) if lines[i] and not lines[i].startswith(("-", " "))),
+                   len(lines))
+        lines[start:end] = block
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return path
+
+
+# ------------------------------------------- a list from the admin screen ---
+
+#: What a list entry from the admin screen (or `noh correct`) may carry.
+_ENTRY_KEYS = frozenset({"kind", "n", "variant", "label", "title", "ref", "system", "borrowed_volume",
+                         "borrowed_page", "borrowed_from", "borrowed_ref", "chant"})
+_TEXT = re.compile(r"^[^\x00-\x1f<>]{1,80}$")
+_REF = re.compile(r"^noh\d/\d{4}/\d{3}$")
+MAX_SECTIONS = 40
+
+
+def parse_value(value: object) -> list[dict[str, Any]]:
+    """A whole list of sections as a correction gives it (JSON text, or a list),
+    checked for shape: each entry's keys and their types. Where it starts is
+    checked against the piece by `with_refs` and `reviewed_list`."""
+    import json as _json
+    if isinstance(value, str):
+        try:
+            value = _json.loads(value)
+        except ValueError:
+            raise ReviewedError("the list of sections is not valid JSON") from None
+    if not isinstance(value, list) or not 1 <= len(value) <= MAX_SECTIONS:
+        raise ReviewedError(f"the sections should be a list of 1 to {MAX_SECTIONS} entries")
+    out: list[dict[str, Any]] = []
+    for i, raw in enumerate(value, 1):
+        if not isinstance(raw, dict):
+            raise ReviewedError(f"section {i} is not an object")
+        extra = set(raw) - _ENTRY_KEYS
+        if extra:
+            raise ReviewedError(f"section {i} has {', '.join(sorted(extra))}, which a section does not take")
+        kind = raw.get("kind")
+        if kind not in KINDS:
+            raise ReviewedError(f"section {i}: kind {kind!r} is not one of {', '.join(KINDS)}")
+        e: dict[str, Any] = {"kind": kind}
+        n = raw.get("n")
+        if n not in (None, ""):
+            if not isinstance(n, int) or isinstance(n, bool) or not 1 <= n <= 9:
+                raise ReviewedError(f"section {i}: n {n!r} should be 1 to 9")
+            e["n"] = n
+        variant = raw.get("variant") or ""
+        if variant:
+            if variant != "paschal":
+                raise ReviewedError(f"section {i}: variant {variant!r} should be paschal, or left out")
+            e["variant"] = variant
+        for key in ("label", "title"):
+            text = " ".join(str(raw.get(key) or "").split())
+            if text:
+                if not _TEXT.fullmatch(text):
+                    raise ReviewedError(f"section {i}: {key} {text!r} should be plain text of at most 80 characters, "
+                                     "no < or >")
+                e[key] = text
+        if raw.get("borrowed_page") not in (None, ""):
+            page, volume = raw.get("borrowed_page"), str(raw.get("borrowed_volume") or "")
+            if not isinstance(page, int) or isinstance(page, bool) or not 1 <= page <= 999 \
+                    or not re.fullmatch(r"noh\d", volume):
+                raise ReviewedError(f"section {i}: printed elsewhere needs borrowed_volume (noh1 ...) and "
+                                 "borrowed_page (a page number)")
+            e.update(borrowed_volume=volume, borrowed_page=page)
+            for key in ("borrowed_from", "borrowed_ref"):
+                if raw.get(key):
+                    e[key] = str(raw[key])
+        elif raw.get("system") not in (None, ""):
+            system = raw["system"]
+            if not isinstance(system, int) or isinstance(system, bool) or not 1 <= system <= 999:
+                raise ReviewedError(f"section {i}: system {system!r} should be a system of the piece, counting from 1")
+            e["system"] = system
+        elif _REF.fullmatch(str(raw.get("ref") or "")):
+            e["ref"] = str(raw["ref"])
+        else:
+            raise ReviewedError(f"section {i}: say where it starts (system, counting from 1) or where it is "
+                             "printed (borrowed_volume and borrowed_page)")
+        chant = raw.get("chant", "none")
+        if chant in (None, "", "none"):
+            e["chant"] = "none"
+        elif isinstance(chant, int) and not isinstance(chant, bool) and 1 <= chant <= 999_999:
+            e["chant"] = chant
+        elif isinstance(chant, str) and chant.isdigit() and len(chant) <= 6:
+            e["chant"] = int(chant)
+        else:
+            raise ReviewedError(f"section {i}: chant {chant!r} should be a GregoBase id, or none")
+        out.append(e)
+    return out
+
+
+def with_refs(entries: list[dict[str, Any]], piece: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """The entries with each start as the system's ref, the form the data keeps
+    (a system number would point elsewhere once the piece is re-sliced)."""
+    systems = list(piece.get("systems") or [])
+    out = []
+    for i, e in enumerate(entries, 1):
+        if "system" not in e:
+            out.append(e)
+            continue
+        if e["system"] > len(systems):
+            raise ReviewedError(f"section {i}: system {e['system']} is outside {piece.get('slug')}, which has "
+                             f"{len(systems)} systems")
+        rest = {k: v for k, v in e.items() if k not in ("system", "chant")}
+        out.append({**rest, "ref": systems[e["system"] - 1], "chant": e["chant"]})
+    return out
 
 
 __all__ = [
     "KINDS",
     "MASS_ORDER",
+    "MAX_SECTIONS",
     "REVIEWED",
     "ReviewedError",
     "apply_reviewed",
@@ -311,6 +421,7 @@ __all__ = [
     "load_reviewed",
     "named",
     "of",
+    "parse_value",
     "printed",
     "record",
     "reviewed_list",
@@ -318,4 +429,5 @@ __all__ = [
     "split_variant",
     "suffix",
     "target",
+    "with_refs",
 ]

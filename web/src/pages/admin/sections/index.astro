@@ -1,0 +1,252 @@
+---
+import Layout from "../../../components/Layout.astro";
+
+// A Proper's whole list of sections, beside its scans: add a section at a
+// system, remove one, change its kind, number, label or chant, move its start.
+// Opened as /admin/sections/?piece=<slug> (and &report=<id> from a reader's
+// "a part is missing or mislabelled", which saving settles). Saving approves
+// one correction (sections:<slug>), published with the others.
+---
+
+<Layout title="Admin: sections" noindex>
+  <div class="admin ui">
+    <p class="who small muted" id="who">Admin</p>
+    <p class="small muted"><a href="/admin/">Corrections</a> · <a href="/admin/parts/">Parts to check</a></p>
+    <h1 id="title">Sections</h1>
+    <p class="muted small prose" id="intro">Each section runs from the system it starts on until the next one starts.
+      List them in the order the book prints them; a section printed in another volume goes where the book cites it.
+      Your list replaces the piece's whole list once it is published.</p>
+    <div id="status" class="status small" role="status" aria-live="polite"></div>
+
+    <div class="layout" id="layout" hidden>
+      <section class="list" aria-labelledby="list-h">
+        <h2 id="list-h">The list</h2>
+        <p class="small muted" id="pending-note" hidden></p>
+        <ol id="rows" class="rows"></ol>
+        <p><button type="button" id="add-elsewhere">Add a section printed elsewhere</button></p>
+        <div class="field">
+          <label for="note">Why? <span class="muted">(optional; shown in the pull request)</span></label>
+          <input id="note" type="text" maxlength="200" placeholder="e.g. the Gradual's label is on p. 12" />
+        </div>
+        <p class="actions">
+          <button type="button" class="primary" id="save">Approve this list</button>
+          <button type="button" id="reset">Start again from the published list</button>
+        </p>
+      </section>
+      <section class="systems" aria-labelledby="systems-h">
+        <h2 id="systems-h">The piece's systems</h2>
+        <p class="small muted">Press <strong>Start a section here</strong> beside a system to add one there.</p>
+        <ol id="systems" class="system-list"></ol>
+      </section>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .admin { max-width: 80rem; }
+  .who { margin: 0 0 var(--s-1); }
+  h1 { margin: 0 0 var(--s-2); }
+  h2 { font-size: var(--step-0); margin: 0 0 var(--s-2); }
+  .status { min-height: 1.4em; margin: var(--s-2) 0; }
+  .status[data-state="error"] { color: var(--warn-ink); }
+  .layout { display: grid; gap: var(--s-5); }
+  @media (min-width: 60rem) {
+    .layout { grid-template-columns: minmax(22rem, 1fr) minmax(0, 1.2fr); align-items: start; }
+    .list { position: sticky; top: var(--s-3); max-height: calc(100vh - 2 * var(--s-3)); overflow-y: auto; }
+  }
+  .rows { list-style: none; padding: 0; margin: 0 0 var(--s-3); counter-reset: row; }
+  :global(.rows > li) { border: 1px solid var(--rule); border-radius: var(--radius); padding: var(--s-3); margin-bottom: var(--s-2); }
+  :global(.rows > li[data-error]) { border-color: var(--warn-ink); }
+  :global(.row-head) { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; margin-bottom: var(--s-2); }
+  :global(.row-head strong) { flex: 1 1 auto; }
+  :global(.row-grid) { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: var(--s-2); }
+  :global(.row-grid label), .field label { display: block; font-size: var(--step--1); margin-bottom: 2px; }
+  :global(.admin input[type="text"]), :global(.admin input[type="number"]), :global(.admin select) {
+    width: 100%; font: inherit; font-family: var(--font-ui); min-height: var(--tap-min); padding: var(--s-1) var(--s-2);
+    background: var(--paper); color: var(--ink); border: 1px solid var(--rule); border-radius: var(--radius);
+  }
+  :global(.check) { display: flex; gap: var(--s-1); align-items: center; min-height: var(--tap-min); }
+  .field { margin: var(--s-3) 0; }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  :global(.primary) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .system-list { list-style: none; padding: 0; margin: 0; }
+  :global(.system-list > li) { margin-bottom: var(--s-3); }
+  :global(.system-list img) { display: block; width: 100%; height: auto; }
+  :global(.system-list .starts) { font-weight: 600; color: var(--accent); }
+  :global(.system-bar) { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; margin-top: var(--s-1); }
+  :global(.system-bar span) { flex: 1 1 auto; }
+</style>
+
+<script>
+  import { api, drafts, h, loadScans, loadTargets, say, signInAgain } from "../../../lib/admin/client";
+  import { pieceSystems, shown } from "../../../lib/admin/scans";
+  import type { Scans } from "../../../lib/admin/scans";
+  import { insertAt, blankRow, move, rowName, rowsValue, startingRows, startsBySystem, unchanged } from "../../../lib/admin/sectionsEditor";
+  import type { Row } from "../../../lib/admin/sectionsEditor";
+  import { PART_LABELS, SECTION_KINDS } from "../../../lib/admin/targets";
+  import type { TargetPiece, Targets } from "../../../lib/admin/targets";
+  import type { QueueItem } from "../../../lib/admin/api";
+
+  const VOLUMES = ["noh1", "noh2", "noh3", "noh4", "noh5", "noh8"];
+  const status = document.getElementById("status");
+  const params = new URLSearchParams(location.search);
+  const slug = params.get("piece") ?? "";
+  const report = /^\d{1,9}$/.test(params.get("report") ?? "") ? params.get("report") : null;
+  const rowsBox = document.getElementById("rows")!;
+  const systemsBox = document.getElementById("systems")!;
+  const note = document.getElementById("note") as HTMLInputElement;
+  const draftKey = `sections:${slug}`;
+  let piece: TargetPiece | null = null;
+  let scans: Scans | null = null;
+  let rows: Row[] = [];
+
+  function keep(): void {
+    drafts.set(draftKey, JSON.stringify(rows));
+  }
+
+  /** A labelled input bound to one field of a row. */
+  function input(row: Row, key: "n" | "label" | "title" | "system" | "page" | "chant", text: string, id: string,
+                 attrs: Record<string, string> = {}): HTMLElement {
+    const el = h("input", { type: "text", id, value: row[key], autocomplete: "off", ...attrs }) as HTMLInputElement;
+    el.addEventListener("input", () => { row[key] = el.value; keep(); if (key === "system" || key === "n" || key === "label") drawSystems(); });
+    return h("div", {}, h("label", { for: id }, text), el);
+  }
+
+  function select(row: Row, key: "kind" | "volume", text: string, id: string, options: readonly [string, string][]): HTMLElement {
+    const el = h("select", { id }, ...options.map(([value, words]) => h("option", { value, selected: row[key] === value }, words))) as HTMLSelectElement;
+    el.addEventListener("change", () => { row[key] = el.value; keep(); drawRows(); drawSystems(); });
+    return h("div", {}, h("label", { for: id }, text), el);
+  }
+
+  function drawRows(): void {
+    rowsBox.replaceChildren(...rows.map((row, i) => {
+      const id = (name: string) => `row-${i}-${name}`;
+      const up = h("button", { type: "button", "aria-label": `Move ${rowName(row)} up`, disabled: i === 0 }, "↑");
+      const down = h("button", { type: "button", "aria-label": `Move ${rowName(row)} down`, disabled: i === rows.length - 1 }, "↓");
+      const remove = h("button", { type: "button", "aria-label": `Remove ${rowName(row)}` }, "Remove");
+      up.addEventListener("click", () => { rows = move(rows, i, -1); keep(); drawRows(); });
+      down.addEventListener("click", () => { rows = move(rows, i, 1); keep(); drawRows(); });
+      remove.addEventListener("click", () => { rows.splice(i, 1); keep(); drawRows(); drawSystems(); });
+      const paschal = h("input", { type: "checkbox", id: id("paschal"), checked: row.paschal }) as HTMLInputElement;
+      paschal.addEventListener("change", () => { row.paschal = paschal.checked; keep(); drawSystems(); });
+      const elsewhere = h("input", { type: "checkbox", id: id("elsewhere"), checked: row.where === "elsewhere" }) as HTMLInputElement;
+      elsewhere.addEventListener("change", () => { row.where = elsewhere.checked ? "elsewhere" : "printed"; keep(); drawRows(); drawSystems(); });
+      const where = row.where === "printed"
+        ? [input(row, "system", "Starts on system", id("system"), { inputmode: "numeric" })]
+        : [select(row, "volume", "Volume", id("volume"), [["", "Choose…"], ...VOLUMES.map((v) => [v, v.toUpperCase()] as [string, string])]),
+           input(row, "page", "Printed page", id("page"), { inputmode: "numeric" })];
+      return h("li", { id: `row-${i}` },
+        h("div", { class: "row-head" }, h("strong", {}, `${i + 1}. ${rowName(row)}`), up, down, remove),
+        h("div", { class: "row-grid" },
+          select(row, "kind", "Kind", id("kind"), SECTION_KINDS.map((k) => [k, PART_LABELS[k] ?? k] as [string, string])),
+          input(row, "n", "Number (2nd, 3rd …)", id("n"), { inputmode: "numeric", placeholder: "only if repeated" }),
+          ...where,
+          input(row, "label", "Label as printed", id("label"), { maxlength: "80", placeholder: "e.g. 2. Grad. I" }),
+          input(row, "title", "Opening words", id("title"), { maxlength: "80" }),
+          input(row, "chant", "Chant (GregoBase id)", id("chant"), { inputmode: "numeric", placeholder: "none" }),
+          h("div", {}, h("label", { class: "check", for: id("paschal") }, paschal, "Paschaltide form")),
+          h("div", {}, h("label", { class: "check", for: id("elsewhere") }, elsewhere, "Printed elsewhere"))));
+    }));
+  }
+
+  function drawSystems(): void {
+    if (!scans || !piece) return;
+    const starts = startsBySystem(rows);
+    const refs = pieceSystems(scans, piece.slug);
+    systemsBox.replaceChildren(...refs.map((ref, i) => {
+      const n = i + 1;
+      const picture = shown(scans!, ref, `System ${n}`);
+      const add = h("button", { type: "button" }, "Start a section here");
+      add.addEventListener("click", () => {
+        rows = insertAt(rows, n);
+        keep(); drawRows(); drawSystems();
+        const at = rows.findIndex((r) => r.where === "printed" && r.system === String(n) && r.kind === "other" && !r.label);
+        (document.getElementById(`row-${at}-kind`) as HTMLSelectElement | null)?.focus();
+      });
+      const here = starts.get(n);
+      return h("li", { id: `system-${n}` },
+        picture.stem ? h("img", { src: `${picture.stem}.webp`, alt: `System ${n} (${ref}), as printed`, loading: "lazy",
+                                  width: picture.aspect ? String(picture.aspect[0]) : undefined,
+                                  height: picture.aspect ? String(picture.aspect[1]) : undefined }) : null,
+        h("div", { class: "system-bar small" },
+          h("span", {}, `System ${n} (${ref})`, here ? h("span", { class: "starts" }, ` · ${here.join(", ")} starts here`) : null),
+          add));
+    }));
+  }
+
+  async function pendingList(): Promise<{ value: string; by: string } | null> {
+    const queue = await api<{ approved: QueueItem[]; batches: { items: QueueItem[] }[] }>("/queue");
+    if (!queue.ok) return null;
+    const mine = [...queue.data.approved, ...queue.data.batches.flatMap((b) => b.items)]
+      .filter((r) => r.field === "sections" && r.source === "editor" && r.target === `sections:${slug}`)
+      .sort((a, b) => b.id - a.id)[0];
+    return mine ? { value: mine.proposed, by: mine.editor_email ?? "an editor" } : null;
+  }
+
+  async function start(fromPublished = false): Promise<void> {
+    if (!piece) return;
+    const pending = fromPublished ? null : await pendingList();
+    const saved = fromPublished ? null : drafts.get(draftKey);
+    const noteBox = document.getElementById("pending-note")!;
+    noteBox.hidden = !pending;
+    if (pending) noteBox.textContent = `Starting from the list ${pending.by} approved, which is not published yet.`;
+    let draft: Row[] | null = null;
+    try { draft = saved ? JSON.parse(saved) as Row[] : null; } catch { draft = null; }
+    rows = Array.isArray(draft) && draft.length ? draft : startingRows(piece, pending?.value ?? null);
+    if (fromPublished) drafts.clear(draftKey);
+    drawRows();
+    drawSystems();
+  }
+
+  void (async () => {
+    const who = await api<{ email: string }>("/me");
+    if (!who.ok) {
+      if (who.status === 401) signInAgain(status); else say(status, who.error, "error");
+      return;
+    }
+    document.getElementById("who")!.textContent = `Admin · signed in as ${who.data.email}`;
+    let targets: Targets | null;
+    [targets, scans] = await Promise.all([loadTargets(), loadScans()]);
+    piece = targets?.pieces[slug] ?? null;
+    if (!targets) { say(status, "Could not load the list of pieces. Reload the page.", "error"); return; }
+    if (!piece) { say(status, "We couldn't find that piece. Open its Sections link from the piece's edit page.", "error"); return; }
+    document.getElementById("title")!.replaceChildren("Sections: ", h("a", { href: piece.href }, piece.label),
+                                                       h("span", { class: "muted small" }, ` (${piece.volume}, ${piece.systems ?? 0} systems)`));
+    if (!scans) say(status, "The scans could not be loaded; the list still works.", "error");
+    document.getElementById("layout")!.hidden = false;
+    await start();
+  })();
+
+  document.getElementById("add-elsewhere")?.addEventListener("click", () => {
+    rows.push(blankRow(null));
+    keep(); drawRows();
+    (document.getElementById(`row-${rows.length - 1}-kind`) as HTMLSelectElement | null)?.focus();
+  });
+  document.getElementById("reset")?.addEventListener("click", () => void start(true));
+
+  document.getElementById("save")?.addEventListener("click", async () => {
+    if (!piece) return;
+    if (unchanged(rows, piece)) { say(status, "The list is as the piece has it now; nothing to approve.", "error"); return; }
+    const save = document.getElementById("save") as HTMLButtonElement;
+    save.disabled = true;
+    const result = await api<{ id: number }>("/edits", { target: `sections:${slug}`, field: "sections",
+                                                        value: rowsValue(rows), note: note.value });
+    if (!result.ok) {
+      save.disabled = false;
+      if (result.status === 401) { signInAgain(status); return; }
+      say(status, result.error, "error");
+      const n = /^Section (\d+)/.exec(result.error)?.[1];
+      if (n) document.getElementById(`row-${Number(n) - 1}-kind`)?.focus();
+      return;
+    }
+    drafts.clear(draftKey);
+    // A reader's report this list answers: settled as a duplicate of the fix.
+    const settled = report ? await api(`/rows/${report}/duplicate`, { reason: `fixed on the Sections screen (#${result.data.id})` }) : null;
+    status?.replaceChildren(h("span", {}, "Approved. It is waiting on the "), h("a", { href: "/admin/" }, "corrections queue"),
+                            h("span", {}, " until someone publishes."),
+                            ...(settled && !settled.ok ? [h("p", { class: "notice" }, `The reader's report is still open: ${settled.error}`)] : []));
+    if (status) status.dataset["state"] = "ok";
+    save.disabled = false;
+    note.value = "";
+  });
+</script>
