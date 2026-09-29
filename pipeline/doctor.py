@@ -110,6 +110,18 @@ def check_r2(env: dict[str, str]) -> Check:
     return Check(OK, "R2 credentials present")
 
 
+def check_lilypond() -> Check:
+    """The pinned LilyPond, which typesetting needs (and nothing else)."""
+    from pipeline.typeset.lilypond import LilyPondError, find, load_pin
+    try:
+        found = find()
+    except LilyPondError:
+        return Check(SKIP, f"LilyPond {load_pin().version}: not installed",
+                     "Only the typesetting commands (noh typeset-*) need it.\n"
+                     "      Fix: uv run noh lilypond-install")
+    return Check(OK, f"LilyPond {load_pin().version} ({found})")
+
+
 def check_gregobase_dump(path: Path | None = None, pinned: str | None = None) -> Check:
     """The GregoBase dump: Proper parts are found by their chant texts, which
     come only from it. It is not in git."""
@@ -206,7 +218,7 @@ def run(env: dict[str, str] | None = None) -> list[Check]:
     env = os.environ if env is None else env
     return [check_python(), check_tesseract(), check_reference_not_registered(),
             *check_sources(), check_gregobase_dump(), check_jgabc(), check_officium(), check_vesperale(),
-            check_vespers_lineup(), check_corrections(), check_r2(dict(env))]
+            check_vespers_lineup(), check_corrections(), check_r2(dict(env)), check_lilypond()]
 
 
 def report(checks: list[Check]) -> int:

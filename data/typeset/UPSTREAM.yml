@@ -1,0 +1,2596 @@
+# Where data/typeset/ came from: the volunteers' LilyPond transcriptions of the
+# Nova Organi Harmonia, imported by `uv run noh typeset-import --commit <sha>`
+# (pipeline/typeset/importer.py). The music is public domain (NOH, 1942).
+# The repository states no licence; the transcriptions are credited on the
+# About page and under every typeset part.
+#
+# files: each file's sha256 upstream at the imported commit, and ours as
+# imported (after convert-ly). When ours no longer matches `imported`, it has
+# been edited here, and a re-import keeps it.
+repo: joeegan2202/nova-organi-harmonia
+commit: bc6388ad215d1da1ad5633469b56664791b3bd36
+credit: Joe Egan (joeegan2202) and the nova-organi-harmonia volunteers
+files:
+  noh.ily:
+    upstream: 0254495472fad234b3150614d02e4a2f8ea32d2202792ffd3a9f6f1ae3b18af6
+    imported: 94de56f321f303d0b64bade7e08f67064cd8cdc75e4bc9e049479c646007b625
+  noh2.ily:
+    upstream: ecc525e8777d3a948628bbb6bd348a9252af42c5d10a647e01856b0fbe6c21f5
+    imported: aa7b01f190e58abcfb152da1b96b89f2024b941dd62785dc16d8571d37803d69
+  volume-1/al_beatus_homo.csv.ly:
+    upstream: 7ac01c708f141bd8142e95d073f9cd6ad469474146a58be7fd2edefb40733fb9
+    imported: 0fd0ce30caba7e6df5a15e3088d88ff7957e0743a2959a95821956dc762c6353
+  volume-1/al_confitemini_domino.csv.ly:
+    upstream: 65d4f0f0fbd17a490ede1e3cb4034c61627512370edf1924da01da130ca70a6c
+    imported: 0caa82ee0fbbb1ac04c425e6cac0fe66e3e3df8a195b2ef538e35408a3a4cd53
+  volume-1/al_crastina_die.csv.ly:
+    upstream: f111c159776c5cc990ffe58309401549083ef15ca3e26ae13abf4996f29965f2
+    imported: 573d7a8da30d860f6ce2055e5b148625b16e5913a42526e279cc4b6d651f2291
+  volume-1/al_dies_sanctificatus.csv.ly:
+    upstream: 36671c98c127aeef2489bbd870c92b2ee65e0e81b2b5fd9d58d51030f1d8f2e8
+    imported: 0ac836ef00826a098d3ae37cff7cef4c4f1ba68f1107dbdfc1bc4ca7b19cc5da
+  volume-1/al_dominus_dixit.csv.ly:
+    upstream: 51283991a0346d57f311fbad57935738787c56d756a32f1dc1cc3973baab8b1a
+    imported: d09e507255898069b481a44788dd32514fa6ffa8bb9683fe2f2a07f98dd08ddf
+  volume-1/al_dominus_regnavit__decorem.csv.ly:
+    upstream: fef7ce943f6bf0c8a386a70010cb638b6467b112a20352d43f5a259a5cfa8395
+    imported: 88e875f5521c07a4b6c46808fb2bad8a89f7dc8affcdce9f0ccf0ec6da1bacf2
+  volume-1/al_dominus_regnavit__exsultet.csv.ly:
+    upstream: f8cdf79875eb9de2ebe68507bee622e1ff3ca2d6d24ed6fb7f9de070f0729ad6
+    imported: aa890feab489238d3e349f4945a884be7fba0c2fe8618bbad9045af25e490021
+  volume-1/al_exaltabo_te.csv.ly:
+    upstream: 066b94e7015329ab2d5578b2c0dd44ea037064cc78b3954826217b32b1bc71e5
+    imported: e0f83bfb61c293e029d79910dbba895d2489591e055f2e498bcd858f987873e1
+  volume-1/al_excita_domine.csv.ly:
+    upstream: 2d005427b34ed7540526ba2a6c893066d3476fabecd6b5253ba24bc298157d95
+    imported: 8470b45102f677309ccd90595618c9324c08701ac4ee3937369f15778bfee182
+  volume-1/al_hic_est_discipulus.csv.ly:
+    upstream: 82e827c186144533990365feb49ce1c680a5b3f4c78e0fa2b9370d1f5d8c7773
+    imported: 1e56435eeeb2cf0f27a7a42ee4214c523502116d128815525a9ba9b80bd4a5d4
+  volume-1/al_jubilate_deo.csv.ly:
+    upstream: e45322c920edd6d668aa1391e2144db3a68c59e9cec00710e1625e0025d8e10f
+    imported: bc477574da860b9070a80695bddcb671e08d5c2c8791865daa4b62682dbfd9c3
+  volume-1/al_laetatus_sum.csv.ly:
+    upstream: 62b30c55e063f18734304a6961a41dd5fc6bb732f4e86dc1af4c93ff195aa7a9
+    imported: 9f82dd4d3e4cbc804321d0748cdce6354d5da24b4fa865e56367ae40837095c7
+  volume-1/al_laudate_deum.csv.ly:
+    upstream: 6929bd3462398c14f3f43036f2d5024d686fc47cdfa4bf5fddafd7e3e1bc9861
+    imported: 409bc24ea37988e5aad03bd8ebe73df307637aaaeda16ccdb5165a98db4c3bd0
+  volume-1/al_laudem_domini.csv.ly:
+    upstream: 07935933756499275396778b34c2fe3d03f5a59c27889ec84a244a2c1388d171
+    imported: f638f504eb2f9e222020ac0b416e81e0cc1fa03d1b6c5affd11c8ba47ae20cd3
+  volume-1/al_multifarie_olim.csv.ly:
+    upstream: dc1a15f334435dd4d487db886d6256e39f41aff7ec6325f00085b09a76daf4f5
+    imported: c4db76198c9828e8cb768467902cba707d99701114284427b88718da6b3191d0
+  volume-1/al_ostende_nobis.csv.ly:
+    upstream: 79d2ca1c6d49a5aaa9cf08f0587daf5935fe622bec7f2b038ec2069eb4dcc461
+    imported: b10b91f6fb06e94d5c58c7ffacf650ce487fdcd55ef24b246ef6fe2fcdb9506b
+  volume-1/al_veni_domine.csv.ly:
+    upstream: 3afb64f1b262efb71810fa1da0ff6e4b0d41d6bd03c3827a24a3a7189d86aff2
+    imported: 7f7c029329d9600c19208b42dd7b0d590055bd99dfb186eb8ccd9f5b90d3fb2f
+  volume-1/al_vere_tu_es.csv.ly:
+    upstream: bfdfc9379002cb2217278a4f744a204048d911494ff0066697d89509761b918d
+    imported: 10550fbf9bf851b60f5ef8234cba453b0c900d2ca1b1c927130cabad5b85059f
+  volume-1/al_video_caelos.csv.ly:
+    upstream: 29b71b5be77cc6bf517cc3b31acb4cd688ab51597b3745dc5b90a4614f4204fd
+    imported: c90549d904487027b6bea950487f822f80be7628a3b61f0a8e705f8664565771
+  volume-1/al_vidimus_stellam.csv.ly:
+    upstream: 3cb9b56707d645fe98818181c5cec29702d2d61051da33aab4322e4d8496e139
+    imported: 789353349e103ef5e8315c5b4516d050f36fdd0b3b6b61ff8c57a4ea498a702b
+  volume-1/al_vita_nostra.csv.ly:
+    upstream: 9981dc994f47fcd3c95e16d57835e48e738ab6500dde67d74e27d8d3e6337a61
+    imported: 61b9d8babf43e48c33c38f26fccf5765bf4edd9952cb1edb0a10a4f885a725fa
+  volume-1/an_ave_rex_noster.csv.ly:
+    upstream: f142b9d4d9907001dadbb8fd7d2e6a96b6db2794818eb29372804ad62904ef2a
+    imported: 8ab8065d8a1d8a061c4d0ae26d5ebb942cabb1a22a289c05698329cade386779
+  volume-1/an_coeperunt_omnes_turbae.csv.ly:
+    upstream: 86f14e956ab3a38acc591aaf5b5305bd3d40cc3951347996cda62bcf8c1fa858
+    imported: 5fde78c46b4b194cc07fca346a9eef821630b154023d9ec9461e080a005286b2
+  volume-1/an_cum_angelis.csv.ly:
+    upstream: 082e6ed667a347cae9111af8b69af87f8df8d040eeab722ba4cfb922e9ba46ef
+    imported: efe02ffbbf984c14aa98f57084d16885a105fc1d3cb404cd9b143504039cbfef
+  volume-1/an_exaudi_nos_domine.csv.ly:
+    upstream: bb9ffcffbf24c2b01f019fd769bf7a82e4c76470186cdd1e6c3be2ce73a2b6f5
+    imported: 93f55bdb869b22cfe6a4c3c48ce57ed82f1795dfe4e4ffdff2f806fef17726e2
+  volume-1/an_fulgentibus_palmis.csv.ly:
+    upstream: 6a2e5a1684b53cfdc0ac933504b0b8544c6e0a634c2bdfc696bb0aa54dfc9832
+    imported: bd545cd5de2403025093e817a1d65df803fde85388e8600b8a5425e545e4116e
+  volume-1/an_hosanna_filio_david.csv.ly:
+    upstream: 7ed0fe13734d0b92b2f932f679a0fa4e9f1d87070e2d083e9ec55ef94dd91412
+    imported: 615ebebe0f0463c3bb9bbe73451fcf530ddb341c569da7a8120f49cb43d3bbd6
+  volume-1/an_immutemur_habitu.csv.ly:
+    upstream: 4b1b2b2cab0402ddaf0b82ade631e4cbba913eeee68284d0dd607375d0c3e611
+    imported: 762a967e25af9b98cc7e8f857cf062b651c4f74b838f5f37d68343c450227a2a
+  volume-1/an_juxta_vestibulum.csv.ly:
+    upstream: dd13427f94701263bb2d6e9bede529470fdad61cb8756ecda29b08dbeb063cfc
+    imported: a939c5f505a2af8a77b917b378dbb95bbcf668a032735e085d9fdfe232c26bc6
+  volume-1/an_occurrunt_turbae.csv.ly:
+    upstream: 400fd28da76568b7bb85fea4f5012abc8368068cb9cac01f44553631deda748d
+    imported: 017eae5c6f4e4ffc0b4fe1a57d3726cf7facd050da6d2e626f639a311adb6b73
+  volume-1/an_omnes_collaudant.csv.ly:
+    upstream: e0cbf1dff0b65c45cd2b294900b7b2ad0fff94bc47e21084cd6272211fd8302a
+    imported: 11b6ed97969a31d741b3bab107b96be475698e7174e040813f9d13f6bff89d65
+  volume-1/an_omnes_collaudant_b.csv.ly:
+    upstream: 1fc93dfbdf1fecb1d5a32d644f0c9aaaa4567602491787125fe5ae6e75ea1681
+    imported: dee679371d3943661791c70523b051be831456e99fc38cd2c3eb90103e444291
+  volume-1/an_pueri_hebraeorum_portantes.csv.ly:
+    upstream: 3a645a00d976169818ffb64cf0e87880c7375d2978c89dacce132a7396f98e30
+    imported: a0a5a57e741731b8b96d81de58b04ee9b52433761b470b1b900d7bc5b5b8e3b5
+  volume-1/an_pueri_hebraeorum_vestimenta.csv.ly:
+    upstream: 682a17891de7496806b0394956eb63249bf40eb77dfea0ec8de1324da44a0e7b
+    imported: 7ac46b82c765868e12c033b4ac9d1dc63a0df7094f3ba5b284e9317e2fc3ce1b
+  volume-1/an_turba_multa.csv.ly:
+    upstream: c4488685d9e831461680899686e477145e3d4d494a5ed5c84c293908dd629f1a
+    imported: 2fd3f8f7bab008808d3f48c6f90764750d612658f92bbef39fe99be107e36613
+  volume-1/co_ab_occultis_meis.csv.ly:
+    upstream: 7bb95b9da3ed04ffa3e22099c637381da0b76858d5c8f64301ef914370b90540
+    imported: 4fdef1d79a66012df103f9516bcccea8bdd6abccb3eeb761c0e522b7c8cf5576
+  volume-1/co_adversum_me.csv.ly:
+    upstream: 03cf28174d806361773b4f9519a468e095342e300fa88e445c4f2eecd0f68212
+    imported: af54f62fbfb534447a6dbb7ae5075c05a065e88a43a7b287a39ed4d22920d1b2
+  volume-1/co_amen_dico_vobis_quod_uni.csv.ly:
+    upstream: 20c449b36ddeb02a66875b0454d097e419f2d70baa5e3f3ae9e9eaec1d978d2b
+    imported: 6bb3627bcfa71314ddc8f94524ebb5a46c1706c11d98969f84c1347f1e567796
+  volume-1/co_cum_invocarem_te.csv.ly:
+    upstream: b742a3e2401488d6a1637d845aeea22afac86716a7c9604de838c69e53792264
+    imported: be13c48a0f6144fb55a040ae8b43d828776a15cbed7ee81e09a030f7fe083483
+  volume-1/co_descendit_jesus.csv.ly:
+    upstream: aeed234f492d8a95688161ece88fecb792335d08260950b76574850b67bec1cb
+    imported: 7ad00daa56b3b5457b4e1bbc3999f58da9c6536dbb4a72cb5e6cca3ef85f7dff
+  volume-1/co_dicit_dominus.csv.ly:
+    upstream: 8fc1bdd23e2d30fc4b078c90fb17ca9955ebe9a4e6842403b8fafee8ba85f217
+    imported: 3b11287479f7f2068cbf787a8f7e7e8ef1c98dea4720beeb99e04912334e5b01
+  volume-1/co_dicite_pusillanimes.csv.ly:
+    upstream: aac4d0963763d6cc0fa5732bef16ed7f747a293877d1fd7b056f5f13d148b99c
+    imported: 1939c1b0842d9e72545ee11739563e821976c180ee2fdc11ce4ad08633db3e28
+  volume-1/co_domine_deus_meus.csv.ly:
+    upstream: 75f2af7533032e18890e19fbd3c1a82f1cd763c0f651add11940a54120bc747d
+    imported: 78873011567bf9a28bef9f30fc824312af939023c1b1372e8129e8339f0b0bdc
+  volume-1/co_domine_dominus_noster.csv.ly:
+    upstream: dfdfbe667a653c624a03b5ad6d14f7137f7bdbc8f3d1404f44b9160279ac7413
+    imported: 03697cd5a51cfcb7e51e15685d19b901c9b4162c98909dce785fee0d91a78e60
+  volume-1/co_domine_quis_habitabit.csv.ly:
+    upstream: 6dc222c7a62dc7be12d99b43d86f304e67a4f5f6db2f79c82a70b714c39b7ff4
+    imported: 0d17cbe6c2495541b9b3d54e5d7d2dfb3e424f86405c7ff926d340d1a6376810
+  volume-1/co_dominus_dabit_benignitatem.csv.ly:
+    upstream: 092caeacf6907a118966a3c2d91741e12c901b17b5de00b871ac5659543e770b
+    imported: 8f60ba5d1fc1a2571d8b3f7ddbb599d34c57c6e140e9eda19ac096286f4f4205
+  volume-1/co_dominus_regit_me.csv.ly:
+    upstream: 8a6e9274021fdc94d694ea4dcaa66233702dae7a160b661bc838f6652fc9bb57
+    imported: 78c554a0b45d4e0a0ef488dd5d08cd43f00f43969cbd03dd5bd4f25efbb41896
+  volume-1/co_dominus_virtutum.csv.ly:
+    upstream: 4994b28e5d9f073654cc92a6f71cf5de8e2529530af51172c98936231b2da3f9
+    imported: fc5040f1292155f502a42c270ced1be5a88eb45e6149c7968826eebc42886df4
+  volume-1/co_ecce_dominus_veniet.csv.ly:
+    upstream: 8eb680d9f6dd012d93977e99f06bd7a347ef2683c431a3033bfcf1775cec0912
+    imported: 73f6ae1149c7a2295c039df9206572519f0a01c2d6da4dc39b749da863efd9d8
+  volume-1/co_ecce_virgo.csv.ly:
+    upstream: 16bb6619544c0fa74882d0123e707359c1ac64853462162724d14901f9f6069f
+    imported: 161b720ef304ab894ae661b48c3aa0c184ba97fe2b02045b43210ac642e72681
+  volume-1/co_ego_sum_pastor_sine_all.csv.ly:
+    upstream: 23403c55cfb45cb99a947c7ebac298ff6d78779add2b5d47da774a9791916b16
+    imported: d7cc8b1bddc5e308dfde9915fec8ada491fd73853bf9ee751e439b387c524ad0
+  volume-1/co_erubescant_et_conturbentur.csv.ly:
+    upstream: 19fe244b19d01d27e13d70395c35288ce13fa0ef130bbdc0ed70e934e2d658d9
+    imported: def39425167ec40102c3ad417bf78d3628c9e16706d07cfae1b5311061ed578a
+  volume-1/co_erubescant_et_revereantur.csv.ly:
+    upstream: 734970cc744e14ef96a2d3a331dec9cc67318f95f30b4bcd9e3508bc2c39233b
+    imported: 8c3b3645437a1ebf18cd00d23bc1d68cf60877bc4b09a5c606b5d2cbe77fc7e0
+  volume-1/co_exiit_sermo.csv.ly:
+    upstream: 1b420e29c48eb11f18707741effc7f206adc0a544bf1dfa9c9ac0abd99831d3b
+    imported: 95347891a6f138dd23292f545b3d479253b172025d6b634ce647edf4689d6b1c
+  volume-1/co_exsulta_filia.csv.ly:
+    upstream: 9100977f135647b71712d795a6c51c12c232325d47f78d5415169b62ac3b7ab1
+    imported: aace8b9616d2ea73d2f6d726a6074dc85f458bacfa255d9ce26b094de331a22a
+  volume-1/co_exsultavit_ut_gigas.csv.ly:
+    upstream: d6eb0db58a57356c42ba3978629accd0ccba4aa0f7050d0c6bee84cb8330a896
+    imported: f3a42917a4427157f488e4acd771aacca85f072849fb8dc113471359624de8c9
+  volume-1/co_fili_quid_fecisti.csv.ly:
+    upstream: d5bdde874f44f544d62e4859cd9227ce9ddfd8fc2cc397cc3f874e1a27c0a902
+    imported: cc7b84a15c3e0d04b7490f39e6202f28658949b65c5f1b0dddf85c912c9925a2
+  volume-1/co_hoc_corpus.csv.ly:
+    upstream: 413789162644fca141829c2beefcdce626b10a7f3e52f49904359bf95726211c
+    imported: 7724cad7da3871621b8228d7df5562fc5dcd6f4b78454208fe9b6ad297f98257
+  volume-1/co_illumina_faciem.csv.ly:
+    upstream: ef1af9d184997c0b0a57fe8570d382ffa8acb94591996699f90c1078e87967c9
+    imported: 4b5163ad14e3c4d47709974fb854fc37a908ccb7d57dea3b437c8be2f468df56
+  volume-1/co_in_splendoribus.csv.ly:
+    upstream: e7c3c7bd02b387090ef8734f74091826aec3aa4eb8bdfe19b80d84d47c9937a7
+    imported: f8422275eec360e19a560129d72983ff6b89d48fbcc0e4afd5a7b070a892125c
+  volume-1/co_intellige_clamorem.csv.ly:
+    upstream: 7f5a43e57b0f40df84ae6f654511675e4fa577c8dcf957552977f5c10f069228
+    imported: 1e8620490dd817d2adcbec0794621b4dc54b7894d487b621abcaaaa159811fbd
+  volume-1/co_introibo.csv.ly:
+    upstream: 02d7aaffa9bd2eac47b3a1645a6c6b9c66459f3e54d92840d50e15d151674e55
+    imported: 1986a38e7bc8a8eee4e4cc41afd087ee13219d3c99762e4e6eca1539ad9826fe
+  volume-1/co_jerusalem_quae.csv.ly:
+    upstream: 8654d7c8c41f9d80f204d30d0386b902dd6613301e0072642ac1a2b9638c8bcb
+    imported: d756e141eebc07115cb4f8218d7b2145c0037a81457e60fe233d0850b4a62d29
+  volume-1/co_jerusalem_surge.csv.ly:
+    upstream: 41049733f25a6ff8f8a70d72701624fd04c41a9af415d3d5db1fcdba6428e065
+    imported: a8c1795342cce418ae6c7c92d9a425beac656eef8daf62c266fdddffad15cf03
+  volume-1/co_justus_dominus.csv.ly:
+    upstream: 4e97913ea480fc415e84c19301daa725b779fa235e30c14c2230d6a061204980
+    imported: 33cc1a782b8d406db2b4ed7fb7e9c1dcb2428fcdb810839aa42dd8379205cfe8
+  volume-1/co_laetabimur.csv.ly:
+    upstream: fb78e2955fd020992ddcc7459559cbe9f7f6dd171c0f51b8968bc1eea8818c10
+    imported: 5ca5cca75722bbeeee9ef9eb983f25c284c339945f28c7f8894b58f4f1945a3d
+  volume-1/co_lavabo.csv.ly:
+    upstream: c040466319baff7e4803e254ebcf96f340480095fcefa12bb3c09cd0d84af4eb
+    imported: 1134d6e0fd958d3eec136bba0b21b7cd0e7adb66664fa2491ae6e1e04df78fc0
+  volume-1/co_lutum_fecit.csv.ly:
+    upstream: db786a54425facc223526b236f1f59443f83e9b28c33cd8d204c86458a2d7883
+    imported: ed61c8f0fbb7d380f05f7d813406c916b6562dc558fd14f3a2d381e4831dbf9e
+  volume-1/co_manducaverunt.csv.ly:
+    upstream: 8e1f781ef6503dbbca68125a060a82e6fd9d6f73649f8149df605aec983141a0
+    imported: 0410e7f24e40d934dd7376da590539a4f4663d862e6654380a35a38923359810
+  volume-1/co_mirabantur_omnes.csv.ly:
+    upstream: d7c2b09e4fa113800f135d518c2d258049311bedd36f19aef2e8391e1c6f2b7c
+    imported: 9283609fe5696d75274521ead34318152a34b5ba320f23423eacd064167ac4f4
+  volume-1/co_narrabo_omnia.csv.ly:
+    upstream: 2424c04b27456e2801ed1000c52a49a1e57cd75c7778bc8d57081cf466ab6080
+    imported: 6eb8f1c445bcef09d9f62f2516271c886bd1eaa62f2494c9df7cbedc669b080c
+  volume-1/co_ne_tradideris_me.csv.ly:
+    upstream: 0ac487b574c2f681d46be3db03d3f75f9fca921e16c3420413ed0423f562b4bd
+    imported: fb9f4f860be67c065ddfbc4619babdb7b5ed46f9f7b6f4199c9e15559cb68879
+  volume-1/co_nemo_te_condemnavit.csv.ly:
+    upstream: 68f84629eb89a2ea27dd3e4faf577200d04cf0c53236b2dca0abe97ebee63f5d
+    imported: 4c0759cbe7af5b2c57102f49f10e50a93976c3a41ade4f578bfa818305930813
+  volume-1/co_notas_mihi_fecisti.csv.ly:
+    upstream: 16ef71e1907d7eb7d4cd91950fc2298f804bdc1a327226ac022dc27d9f731798
+    imported: 41c6889e919d04294a8e4b43ef5dce86acb74265fbc1ce9a27d928f12c9041f7
+  volume-1/co_omnes_gentes.csv.ly:
+    upstream: 128f39120032217a218fd712b6cb43aecf3c7e9e37652d7a7a889a745f9585bf
+    imported: b5b5c790de720da0f90e9d93b0e76b40e5755b23cde2a11dc7ff9d4f34558148
+  volume-1/co_oportet_te_fili.csv.ly:
+    upstream: 5d360d0d2cf7f24c8d90cab54ba87bd7676805e07f43ff8dc1c1ac817ccfa6f1
+    imported: b31c956f3ce61e888f01b5cbe0b22c5284e17551d6db66749c8803c039dabf09
+  volume-1/co_passer_invenit.csv.ly:
+    upstream: 9a3b6f747ef9aeae692a3d9de48351bde0d918678c56631a0ce54b8fa3e87f8f
+    imported: dac5344148d3b61035dc8e6704e5111694b5672dcde26fe3a4757a8c90fb63f7
+  volume-1/co_pater_si_non_potest.csv.ly:
+    upstream: 62e3db176e0fa85ef0a42f8b8efacaceab33821573c847ffe3b2d0f45510cac5
+    imported: b7eb2d42602b65a0d4b87557d31ce079a14ebad1e9569ee075346633c8b5ca9b
+  volume-1/co_potum_meum.csv.ly:
+    upstream: 81f561a538bb56405f7883765170d4eb2d6cf108d5cc6cf149f074003710be4f
+    imported: e81f98d1914c404ac77a4d4c774893ed39afd27738bafd5548ae131047e804bf
+  volume-1/co_qui_biberit.csv.ly:
+    upstream: ae9006c3de2c09750b18c332d80d025c1598a6fd05e56e42e1f98de2cc865c28
+    imported: daa08412ef6e83f0610e0816ffaa12f981d8544836e962d7709d51705c6264db
+  volume-1/co_qui_meditabitur.csv.ly:
+    upstream: 766ef63cf09bbb2a4ae1c655aeb58be898dba028941bf17d07ec0a894c21835f
+    imported: 746481c8a95c9fd87259462a83f913f19c58e24329093ab6b064bc08f58d8ecf
+  volume-1/co_quis_dabit.csv.ly:
+    upstream: 72bd966ba5fd34ae92f98a2a2009931f33951fd2870c6897915d7962c398b43c
+    imported: 53cf1807b9ff507bfb7db695af9e6415773cd218b2c93815653f36e907b7f68b
+  volume-1/co_redime_me.csv.ly:
+    upstream: 4a652e6e9d96e87834ca2b32d313fb7934df40eee0a75d8219bff5129e39113c
+    imported: 9bdebc9c9b0717d6536a1152bace125e182c07b6614ba422c839d09fb7fc3cbb
+  volume-1/co_revelabitur.csv.ly:
+    upstream: 00376bf76f61c08454199f34f402639b7b31cc1a776df635c8429ab1afb69268
+    imported: 3dc9e1341ccea03226ec8b858ed28a53dce465a7c4a0855332006e08f9a3cfaf
+  volume-1/co_scapulis_suis.csv.ly:
+    upstream: d6bf86e7689ac1da2722b93b6558364c433bccd05842f79c0a9b67134fcf0ebf
+    imported: 15bd3fed5f20a85a5e18920469a05db1f86fe8345a5a75e86806f44ed60e0ae0
+  volume-1/co_servite_domino.csv.ly:
+    upstream: 5624ae9b5cfd64569fa947085aea08c6f1d159fe10c0f0b97c4e78789d8ae7cd
+    imported: 1878cae56f4c7bba3586d7abc97189711b168821e891e51517c5f9ed5ccddab6
+  volume-1/co_tolle_puerum.csv.ly:
+    upstream: 60de5b361d85bb81bd83ea46a155a5d9ccf36adcda7e180bc3295cdc718f7b1d
+    imported: e4038116df7e366ed9d041b2917152a826c8551b5aa7d19cfec4f0a4c1d22b10
+  volume-1/co_tu_domine_servabis.csv.ly:
+    upstream: 880e997348f375ea350fd7710291f7d5c2a5a650cc695ed74871786e5ec0fe07
+    imported: 54ea0fa05c577f1bef3e02d3511f129ac88a56f5464418b622cab977a25264fd
+  volume-1/co_videns_dominus.csv.ly:
+    upstream: cabb95e640aea6adb9b7a5451f024829b9562837b5f8bc6efdfd3731dcd6a8d5
+    imported: da3e911d642289e5a95cdd50443d41fd21c91069b1311ff93a191d7c47dc3f6c
+  volume-1/co_video_caelos.csv.ly:
+    upstream: 2407cf379ea94abefdd1051d3a877221715432e0d7a3f9f067e8e59ab4437407
+    imported: f478593b018aecebe1ebd8f50035cab3598931881a63f24056198d05897a7080
+  volume-1/co_viderunt_omnes.csv.ly:
+    upstream: d62ed9e4a2e61b8902418a3165ccd9def61f03f60fa7adaef2945c0bf9d80470
+    imported: 315afd39a160ff532aacd1ff63a3e0aab4dddbb11508caf6bc6ec94c532b502f
+  volume-1/co_vidimus_stellam.csv.ly:
+    upstream: 257b0f4f818bb55b43d8019f3cf3a0a2bcd989d91d27cb9ced0a7811fe783847
+    imported: aca6390b5810589a45c98e256b3af346f51d95042cc4e6108440dbe552321c6a
+  volume-1/co_vox_in_rama.csv.ly:
+    upstream: 1550cfe113ff88298b78657834284fc2b22c0756edbe1adfd40f2c27b7e9f418
+    imported: 0298fa084d75f9a7792fd014e21821d3b50e4b2521b6902ca40dce1c326bb03a
+  volume-1/gr_a_summo_coelo.csv.ly:
+    upstream: 119e2c971542a1ab0e118ee2f11deebd3b6d823ed6b5c7d39732c70c38477944
+    imported: d01999e05c4856e54f7c4cd30305f95d3dbcee3a07712d70e196ca8bb743b071
+  volume-1/gr_ab_occultis_meis.csv.ly:
+    upstream: 3b8b0144284fcdd32f198a4862e70c338958c982f5cd3421906a4b57af400f93
+    imported: 9d26810fe00985376261b4c3d2ec079560dc21d0724efd024804d2b569e74762
+  volume-1/gr_adjutor_in_opportunitatibus.csv.ly:
+    upstream: 7144bb652618307a8093a2c96cbb90d816f128a91ffa6ec001e19723315db52e
+    imported: 209f52d9d7473a1401dd8e5cb281e9dbf12e762bca58e6bbdfad46e766164854
+  volume-1/gr_adjutor_meus.csv.ly:
+    upstream: 4916f743ec9c0624d4f0fb2b3d309bdfc934a619b86effa1619dce077ca26aaa
+    imported: 15bd2023bea59ecbf5dd6eb9745827bdaf33c5ec744b4a53fdfe549da9c2b344
+  volume-1/gr_angelis_suis.csv.ly:
+    upstream: 0201dfef13af81e0936349d043cec85b472087ae9b2dd7c7fed3ac34dbf86495
+    imported: 526541e535f6bbf7c7586cced09f971e97945cf226c12cd52c137a7f2ec54d96
+  volume-1/gr_benedictus_dominus.csv.ly:
+    upstream: c1cf2af507c824564e99e9fc9e25b080d1f400084bd59b4ec6d1d03249ad7996
+    imported: 3c0e206ae10009212a35893d6b1ab66b01d686f7542786f6606c4bfafb83ce37
+  volume-1/gr_benedictus_qui_venit.csv.ly:
+    upstream: fbb72cd7f0c549a2ae9d9c12ca67e47f95d016ed136cb17fb19b6c5031162d24
+    imported: 2e572c75343bf6e7e0670f29e58a7ddd5857c98f9965676cf07812bca8873d5c
+  volume-1/gr_convertere_domine.csv.ly:
+    upstream: f2b1b7c9a13a8db3923b94b0aea4967b7c959c56ddbb1aa31317423726636e2c
+    imported: 3a4b8a1eaf8e837d2a2b8c7b639ed6216ff84f9d2ecad0dbab6993275009a888
+  volume-1/gr_deus_exaudi.csv.ly:
+    upstream: 507644b688a5873d5dd745824423b950f1b4db52062bea1b0b7cfda364909a6a
+    imported: 3fdadfc8357f8f14dde95bfe1bed74e7d2bc07cc268dda7a08f23bd48f9b6e07
+  volume-1/gr_deus_vitam_meam.csv.ly:
+    upstream: 6e7ce502ab42070a6eba7a77a04bd154d3ea9c3eb58d2b478cbff959d8a54696
+    imported: 289880c3efe31dbbee9268fee70d6dcf7b0d52fff9452db02faec9a083bb5ad1
+  volume-1/gr_dirigatur_oratio_mea.csv.ly:
+    upstream: 62b3c8a5477d687aa5ebc3866d659fcdce544e649413f3b05c9d0a2259c1a661
+    imported: 1901c7b1fc330c77309128a1c1cdfd290d49ba0e8d620397abe133c12ee0a8da
+  volume-1/gr_discerne_causam.csv.ly:
+    upstream: a7cb6b063f57c6baa4393d4b776b3dd40abb7e0d9e3fa867ea7e74e8883a2f00
+    imported: 2395fd448e544fb0f7bec06f5ffb318000850f7be07ea9fe1cd8a015a7cb7934
+  volume-1/gr_domine_deus_virtutum.csv.ly:
+    upstream: 868e25fb100efa4d849cdd90ac54662198806ee39f13bbda5defe993dd2fbbf6
+    imported: ed78f2d17a6253f0acd113e0014b973207a842e6337d178bc0a66a67304ba467
+  volume-1/gr_ego_autem.csv.ly:
+    upstream: decb4e2e2b86cdcb6862b04d5a2443f51151e30f632730cb30d166506a08df6b
+    imported: d4d3b35439165a46354ce3425ea34e072e612e3c79bb3c72ec5c1c70899eac75
+  volume-1/gr_eripe_me_domine.csv.ly:
+    upstream: f70470ef43ebe217631f3271e3abcdf1ca81f906980a24e1af49ed6ed235caee
+    imported: 9f06b82532b779919b825df5dcc1bed37c42023d7baa4b7d1ae742c686deb958
+  volume-1/gr_excita_domine.csv.ly:
+    upstream: bc29f78fe16d4a1d7fa7d650f651f9fa05c0c79f85fd18a343b74cbe7495e642
+    imported: 085246e3be0b91aadd20271e7397236807bbb2a0b1acaee506f73c271a921e94
+  volume-1/gr_exsurge__et_intende.csv.ly:
+    upstream: d5d0bb448c58a694177e66fb2dcef67ea8f07ce83922d395910afca5a5f1566d
+    imported: e7c8c57071003fc8841147c2f3c57abb5d295ea0f2ecc33b0c0482888ea4b307
+  volume-1/gr_exsurge__fer_opem.csv.ly:
+    upstream: 85eb6f47b0424101ceef62bdd5f79962c1b3569b0013fe795faf2ac49f2c9882
+    imported: 3ec42603e3419373717e7392e9f05a4bf31873a53b2ccba99c62efb946619286
+  volume-1/gr_exsurge__non_praevaleat.csv.ly:
+    upstream: 1361f5c7851432f896911658b02d7a760f69bf0a550744ca15fccaeb28b0b198
+    imported: 77d287f6d17a462e4d9bb273ef72249f9e87dfc5df32b9f8071fc1ec43ca907f
+  volume-1/gr_hodie_scietis.csv.ly:
+    upstream: 9241e7b293ec58cf1ac4af99621eb9081d48aeb12a7a50795c19e981e868f7c6
+    imported: b83f3331fd35b7a1d5aae80fa270a26e56fa03d8e4f41fabb6a611d51c5f9c8e
+  volume-1/gr_in_sole_posuit.csv.ly:
+    upstream: 5f43d9bbb545c86c1590a97760e88f839ed99b0f57474c064a68788616f4916c
+    imported: ffda09da2ac9cb4d00c71deae65274d083bf53097b4449acff5a4e8b9adb9dc9
+  volume-1/gr_laetatus_sum.csv.ly:
+    upstream: 97eb97f9afc86bfa06413024e7deb5867a03d2d9e8faaa438fa0587a7c82d0cc
+    imported: 047190061b32be81023317ce78dbe91af2df561f1246edd546ceb0cd9c2cf054
+  volume-1/gr_miserere_mei_deus.csv.ly:
+    upstream: 0f43fc9e6546bf411d47cd568504015589be2b7400ef3ca0579c21e7b15d9738
+    imported: 13a6d6e78bf13febfad3641055082011cd97542c7ee8560524b2a2fa8577cbab
+  volume-1/gr_miserere_mihi.csv.ly:
+    upstream: af9799363b1cefd4b7aad94325fef06c5f90db15b47f44e0155d7fab9e0e7377
+    imported: 77409a4220c90a2bbe4a94f86eccd72e0d9587f5a9b945cffcf7067c85ae8f65
+  volume-1/gr_misit_dominus.csv.ly:
+    upstream: c286aa221f71ccd75854f7cbfb9643fc0a4e94c1597e6ec18ecfd4fef0717014
+    imported: db65d527c51d0b6e1835b9d3c3b5442df966b0feb9bd5a996320c7707904fc08
+  volume-1/gr_ne_avertas.csv.ly:
+    upstream: acb8389d368325d62a6f982a8ef9321206faf5251c7a38c1244795522a503210
+    imported: c2406c805959421a880358f166bd192d08e3f878e4870182044551dcbe353670
+  volume-1/gr_omnes_de_saba.csv.ly:
+    upstream: ebaa421daee0be53510e5593e7ccb796746b89ca21d22938c71bc922502ada25
+    imported: 1d183edfe4243c9fe8bdf1e59330953996b50f3e8a7294e9239837f6b83aa307
+  volume-1/gr_ostende_nobis.csv.ly:
+    upstream: 51c324a3ba85d917e93a4d5c2f07e5377dfa2aba0dd9428cb7b8590213b9321b
+    imported: 5222812ffb28a6e42e87ab7c8307b5ffcd632c41a413159ab1786a08d1cf356d
+  volume-1/gr_pacifice_loquebantur.csv.ly:
+    upstream: 4333fcb9d3222f7998f636833c15a80a4a18105a86324c8e8b9c455811e837ec
+    imported: 773c91959aeabad043185da395995e53cee1dd78e1669920043df722ef3439f0
+  volume-1/gr_prope_est_dominus.csv.ly:
+    upstream: b05cd06d7ebb74e526bdd703533a8b3ee689c638c00a932e5040834a4a543854
+    imported: fb8fc878bc9ffd0ae8589401328690d7eaed5f3220ad0d07bfaeb3db5eef9715
+  volume-1/gr_propitius_esto.csv.ly:
+    upstream: b632c47572e5e0227695a1b22e43823c9f1bd906c0a129649660c3bd4adb6e29
+    imported: 25579b83c74b9f180ab4aa40ec76d88f373df0f0bdae5a9bb782814781783f6f
+  volume-1/gr_protector_noster.csv.ly:
+    upstream: 4dc7373d3a2d01414e4f11f01cb5cb250fc1a9c05dbf16692015021f3bf381f5
+    imported: 4add4fc9841a2da3d7656538f61859947259f56f04704b21c1a428279f0084da
+  volume-1/gr_qui_sedes_domine.csv.ly:
+    upstream: 39bd79b48e30914fc72ae09c52ed08c51a43760f48a19c946e9c7b1eaad4b925
+    imported: 79b8382268bdde488f72b7f58a2d6ef4a59f367c2919259ec1b1e842046bce65
+  volume-1/gr_salvos_fac_nos.csv.ly:
+    upstream: c8448349ac5c4881596eab3a706b9cc8f426d1f66a7d0fd762a97451ca7fc748
+    imported: c421ae8b1c6c307fc46d5ab79d5b4ab2cac83cc65bf4a044a526decec5a24876
+  volume-1/gr_salvum_fac_populum.csv.ly:
+    upstream: bd1848585a3d82a6cb0ded04a68efb70d9b0294890a7524e814ed86370e779ad
+    imported: 135a4a4ec97bb54347f31e45c3f3208398e149002451275b6151ff3661d5d7d6
+  volume-1/gr_salvum_fac_servum.csv.ly:
+    upstream: bf47259fae81b231496ba4aa692d34533e00d9eb0d66bc6407759d4bd8d074fe
+    imported: b877b979d8be6f4ea3fd156a0f4d048131518e8aaaf44a2cb391f9e435e98dff
+  volume-1/gr_sciant_gentes.csv.ly:
+    upstream: b1417795efd64530d791727b4fe60bcede2bd9664ad0f2c8973d2f6aa0b376f1
+    imported: b8efedae30bb45c3e7751fda4ccd262082e75f28e38dc6af45a952f305a8f238
+  volume-1/gr_sederunt_principes.csv.ly:
+    upstream: a551419ba600855f98699811e57fd822508e11ef64f53f69253a0e38ee2bc2db
+    imported: ce1764895c2c33fb9bdb629e8588bcfe0ad0a4645e42c7bda2725f6605b4f40c
+  volume-1/gr_si_ambulem.csv.ly:
+    upstream: 4d540a0e4f253a97e6e41250f656c2fe2a9005b46a958e3ceae88dcbcbd10b97
+    imported: 63e34e1b49f4177d5990db35a928e1bc1a8eb5b1a558c782840b806c11514d70
+  volume-1/gr_speciosus_v_eructavit.csv.ly:
+    upstream: e1a93d03d12e7aa83173b9a59cfe37feba3d23f76b2b4c752df4a79b2f8204e9
+    imported: 39f5bdd62dcc00aaf84cbb76a3a8a81df8950686fa5a9e8fd6630ae7d1d1d7e3
+  volume-1/gr_tecum_principium.csv.ly:
+    upstream: 2f93c9b9f1f92cdb48c6ee37a61ebc05b51d2d947788948f49a0427bf1481e0a
+    imported: fb3b0a323713ca205cdca47e7a13770ceaa9b49de8e702b90e40b7800b01ce25
+  volume-1/gr_tenuisti_manum.csv.ly:
+    upstream: 2575dce2b164f4c92abadeb729207332083eb4ce2a53f8dc03ecf358dc3b3ff7
+    imported: 0f95d348bd4977b9597340a5a1e6b4cd3b96cf59b767544a87365e1dc323f6e6
+  volume-1/gr_tibi_domine.csv.ly:
+    upstream: c3024efebd7a50f4870d45d05f71626c8c905adf0cece04f6e6fe073211ae086
+    imported: 2998c0b71568b3c8e574b0fa76533657daff74f99331c5fa81a41042df0dad93
+  volume-1/gr_timebunt_gentes.csv.ly:
+    upstream: 7b900146fdcffba4eff0548e0800ef0133b14e45405e2c430e836431ec2f527e
+    imported: 77b139606cfdcc2cae108018fe8a4b41b50ddd19bf17f85e1c8bbc173515e6f5
+  volume-1/gr_tollite_hostias.csv.ly:
+    upstream: ef497db884935c466c192048634eb32b94a460c0ea5a3b234ecf1bdf8253bf9f
+    imported: 2a7ec258e049f0df90934e383be2474b2ca9f22064c77a4065485e94d8257030
+  volume-1/gr_tollite_portas.csv.ly:
+    upstream: 72c49b5c2bfe9468478ba9d5a245f86270e244366daa29f0e83fee93e86b62e0
+    imported: 6f983c89e37d51de3e0af266f86d9e5334b19dbf19fa4a7307389f30a4f919d6
+  volume-1/gr_tu_es_deus.csv.ly:
+    upstream: d969fcedf0bd738a74a79b3ba834bd0eaada303a5898ad7ad53f47e36a7d4a94
+    imported: 34f6ec295b207568d1209bd862b897fcc4c98af5ee11595711d8a523c0c46bcb
+  volume-1/gr_unam_petii_v_beati.csv.ly:
+    upstream: ead1744e0fb10296026d0d21dcd3a6cf750f6ed3e478fd5ddddcaf1c5261d6ad
+    imported: da9e616b949c61795125f4c18f95b6597fcfe04ddda25a629af5f8427d2b390c
+  volume-1/gr_unam_petii_v_ut_videam__et_protegar.csv.ly:
+    upstream: da64bf507d69a82414cd20075cbb77d92dd501cc65c3438626c5495d7e4e4300
+    imported: b1a6f03e14cd7522cf7ef27aaa24dedf4280f221a8b4b9eecbcdb06bb9883751
+  volume-1/gr_universi_qui_te_exspectant.csv.ly:
+    upstream: 92eb07efad54561c80b1396be06b08af5f8fec1b1cc7b82ecf4bd6d75a52a051
+    imported: a9121ba5ef782f93ff0b16c1c17a94de93531d7fc966a54488212db2f6696d10
+  volume-1/gr_viderunt_omnes.csv.ly:
+    upstream: 9ef1d07ae66de78f1d54644e42c0f135344f9b5dab31ddda7d64fb20534c55d5
+    imported: b1efb9e783845fb830497d161c3435b560a066a3bd8e06d8946ad3777e5ad1ce
+  volume-1/hy_benedictus_es.csv.ly:
+    upstream: d27825cf4ff30f79f218ee75af1377a8b732b600ed0d2c189e40113eb8f1d0b4
+    imported: aadc793100b4d8ff04435a31479999b46c53d908f96a9a018d1569c4acac8553
+  volume-1/hy_gloria_laus.2.csv.ly:
+    upstream: 684b06926026c9e0c672f383a4a5d1a03d5f090a10a38b520a75f443c0e8cebc
+    imported: 79d6a35caa2703e4f6f7a29ad609fd9e3b4c91f510735dd19e12b44fee001c91
+  volume-1/hy_gloria_laus.3.csv.ly:
+    upstream: 6b3b74dcc508aa1ca33b1309c7c5ebf1de111e8a08282dc4ddbca882182d7c35
+    imported: 88f9236d119db77b45623caa3cce8aba628f0532e4150172f966ea606855c0b6
+  volume-1/hy_gloria_laus.4.csv.ly:
+    upstream: f008a3937214c54978a977e78f0d280b4e8a8094bf1ad3249a7b95b0594ee7e1
+    imported: a2c8b26bdecf78621dc71d5c477de396a417da1e461c38f5e21cb74b40fc765b
+  volume-1/hy_gloria_laus.5.csv.ly:
+    upstream: 9f81e9503bf62de224b5ec64342036b0a3a863d0affc337892aecc71b8b7342a
+    imported: a3db01a8e15b7da4ba49b937f8202c737b499b71bc37de54ec138cb7a552f1ce
+  volume-1/hy_gloria_laus.6.csv.ly:
+    upstream: 24f78569c62eb96ee2f43834823588dc280c234737a1250780edd20c65477daa
+    imported: 2d6c4397165cfd83d096f35bff2890b615bdb3d7753c794f09e820aece5e354f
+  volume-1/in_ad_te_levavi.csv.ly:
+    upstream: 6cc96b3e5d1b181be684b3adc65b404574402c4d5ae003cd25e41e876db4707e
+    imported: 3c85afe11716ed222a1b89970bf91d3e8379ec2b9b31147a450070d25238e53f
+  volume-1/in_adorate_deum.csv.ly:
+    upstream: 8e0262f5fd12909af0cec115aa12d060dbed030538ed9ca7074ebdef267193ed
+    imported: f70ce884c0cba92496d6e0c8b2d22b43222382520454fcae13df8dfae0c6dae1
+  volume-1/in_audivit_dominus.csv.ly:
+    upstream: 86e7c20e3f56f344e2e207612b2c7664773fb5ee4c91f5a0d11c127b0a34ac24
+    imported: 6a9747ff6960531d0be86651fbb7e6dba1d30a4976dae99170f47d2b40c0b3b5
+  volume-1/in_circumdederunt_me.csv.ly:
+    upstream: f190b91a2e638cae1ca0f1a066231a4cf6f9968211a134596e82d948e23f7755
+    imported: 15446e6221bcc42bdb2d6ae9b388ad0a590fc28838c4e056a5a2e77ea74a871a
+  volume-1/in_confessio.csv.ly:
+    upstream: 1e332d57f1f92dd96676127de20ca3c9dafae3da9c90968dc3f45163d8b92c59
+    imported: 2fcb0b996b1ee322458cb42953da9b00a5b40f3ac1ee06dc1881dca7db6ce2b0
+  volume-1/in_de_necessitatibus.csv.ly:
+    upstream: 82c1a08016acc3c324906a074b794643353023987159555651872731725e10e1
+    imported: 225019096d6166b04b062434c6d913a7c100dab05cc460215c9650325fad8216
+  volume-1/in_deus_in_nomine_tuo.csv.ly:
+    upstream: dbfd5663ab1714146abd6287414caa82140fa1dd56d05499dee47e48082b78f5
+    imported: 7ba4921826f412cb14ff10dbd0c42aff28c3b94e2f156f0ce5dbe3e90b8b0620
+  volume-1/in_domine_ne_longe.csv.ly:
+    upstream: 53c090cb18930584c6c7e90ae6742673c932eaa96f012cffd5f9f85daed8081c
+    imported: 0a8f494c8da4828037ba94ac6175a3134df2d08d62787804f5cca93d7de7b19a
+  volume-1/in_domine_refugium.csv.ly:
+    upstream: 20ff701b4abfea0653f8e217add1a38e8adcd3b5d8aff4e85a3eb638b5d4b0fc
+    imported: d677125d35af8adfe79549e086c4ef6f8b24145138d1ca9f31c3437ef05b9c33
+  volume-1/in_dum_medium_silentium.csv.ly:
+    upstream: 80e634052650697f212d3016b1341d240ffcffad306407f9a1fe08c795459621
+    imported: 19ac0a3971eb89da1fd9cdebd8aa905a5217ee956523fa2835fb8e890b14af4d
+  volume-1/in_dum_sanctificatus.csv.ly:
+    upstream: 3ac7d6256f15904c686e40e7ae6646b7b7230e4b932adb4925ca2907993b2473
+    imported: 5e95d43b6069a7c5795c6563d59ffbbd53cfd5aa4cd73a8d5a383cceb5e19369
+  volume-1/in_ecce_advenit.csv.ly:
+    upstream: dc917e8d8f2816ed99f182a9c5306fd5bebaf4ea8449d98d3c828c795f59cc24
+    imported: 65599ff6c89b3fc496ec7b7fcf952e17445e9bc0fda8784781a2d4d48003c522
+  volume-1/in_ego_autem_cum_justitia.csv.ly:
+    upstream: 798a57ba6be94a506dea6a0036edf21d333d9b6d6edbbc138bfce72c8b47ea5f
+    imported: 3464f93250348f977746a58185a1111d69fcf27db03cd03d616192f9957ef013
+  volume-1/in_ego_autem_in__speravi.csv.ly:
+    upstream: e20b2a65664e105ecd616eeffca0d7352ef7bb3fd114a809480f0849502a126c
+    imported: 97a9ece03a97c6dfb51c97c5d9215c8256af012c9741f127ff8d85b1da69737e
+  volume-1/in_ego_clamavi.csv.ly:
+    upstream: 8970367474a19ba00c8f1a68587c7f6a9c2134195d46b0fb7e52d35cdb6834eb
+    imported: 0986ac0e5209673444356ec01d5d69c6dd6b39e03cd4258973840abdba7f84e9
+  volume-1/in_esto_mihi.csv.ly:
+    upstream: 8f9c8442053c18e19f1e0b4a8fee005a65af5ea12f9c10ca10d7747d149372bb
+    imported: a0136bbd33b0c08d2d669f13db6523487df8c2a43e75c490a74527aa3b0cf285
+  volume-1/in_etenim_sederunt.csv.ly:
+    upstream: cc382f6db5d31fda30824a657d59192f9af3ef2ab23610cf2308fea9eea00ec5
+    imported: 82e7e8a627495008944694a676dcbbef3f895f7626ada7b8fd798e4916bc8307
+  volume-1/in_exaudi_deus.csv.ly:
+    upstream: 0224b41242cb443f04b6a84d32e7839815ecbf560cacb4a5caa11f1771ef4469
+    imported: 1e8f1ed3ea3be567c8a9d1a2f9647112bfff41a0246758ab479a58989fa2b8fc
+  volume-1/in_exspecta_dominum.csv.ly:
+    upstream: 5c513941b7e78a67679238848a7c008a0dd64888d07fc6eab7ba36e082641c0e
+    imported: afea0ae21d649fdb9968e95af01a7c644c1ca851306188cbee4ecd2b1922f0e8
+  volume-1/in_exsurge.csv.ly:
+    upstream: b38ebe6e8dc7d7a70b5b5073d30f2cad915688aa7da35e03fb3303117efc79f1
+    imported: b2dd09f613e05f141e33090e13dd4195daee364f7fc250e0e73fc0b4115e0abe
+  volume-1/in_fac_mecum_domine.csv.ly:
+    upstream: 1c7d9347b60c667444ce03f5eefc4e04836851fa00585d5a2519c729bcc0ce38
+    imported: 8accec6385a17a26a217a499e925b43b0c9a3ec20080d787dfbf5ab58f09bf70
+  volume-1/in_gaudeamus__thomae.csv.ly:
+    upstream: 3562e2877283c9f4d7f82e0b2b0fc3d63f3539ed6e6a6af5de5a12520b2bfd12
+    imported: cb302563930360d71dbf42029fcbc6790bb377f4ed7da04f5f2f565b2b4d79f9
+  volume-1/in_hodie_scietis.csv.ly:
+    upstream: 95d908a1060c6c1dc11d46e496b6e698334a8e82a198b5e6f0dc2bd74d8ec28c
+    imported: cd06dfab81f647cc575a0cc5fd1a4f15ae4b119f569cedeccc29fb5ca0984fc0
+  volume-1/in_in_deo_laudabo.csv.ly:
+    upstream: 11d9a1dc43c0c614ac2b4262c7bf8d52dfc94b3a9bb34d95d190545ffb96f6a0
+    imported: 367ce39541664538e63eb1b98c1dafe67dc8bfcdd9699a341f37d5bbbe671d59
+  volume-1/in_in_excelso_throno.csv.ly:
+    upstream: c9427dbd34cbc1502cde8ef5c4449060a83186e7f455e8998b6b2e5b87274d98
+    imported: 32d1081df7ec7c63aee29e14635fd4e1e7e2011bccfde33ad7e7cc31d9ee8817
+  volume-1/in_in_nomine_domini.csv.ly:
+    upstream: c02c4230b48a114cc580cbfab5e53a04c39ec03434448ee02c7ba3614cdfbbec
+    imported: 24bfc16fe3ba823b643f80eafc8da5125f41269738760767c0b59f6eb0363073
+  volume-1/in_in_nomine_jesu__ps_domine.csv.ly:
+    upstream: 668d375779e1da14ee8eeedbeb44b8f32dd1bab075cfe45d13d3591e21bf6e5a
+    imported: c7cce66d7e9b40b8503e197afb9323464e8b68222d427abaeff5671b69251b25
+  volume-1/in_intret_oratio.csv.ly:
+    upstream: fcbdec5fb94ff619b1dcaeb9603e872e189ead4f1647dc0299c37c54e76d575b
+    imported: 87c0a9a65d2857a69ca10e9ea301294f024517db58361d1e3d2cef2f8a946f39
+  volume-1/in_invocabit_me.csv.ly:
+    upstream: d68dd51f04c305818797956cdc6f7779586ac25c912d891da01596880b5b4eef
+    imported: 49a517c522467d7c5278447bf9cc75b1477a707d888fc2197d1784965c03099c
+  volume-1/in_judica_domine.csv.ly:
+    upstream: e5afd7eb1c8e0be0ef6d9f83c4bc94108b5614adca5a14828fb28d0fc3b4e2aa
+    imported: c6338c4e6a3f07b1bc5364f87a28bcddc7e59d24ccb1cd0a3266ea7d1b6a6abb
+  volume-1/in_judica_me.csv.ly:
+    upstream: 85d489836c6750bbebc65d80806714b3581160a30748514d7dde3c528c248cc2
+    imported: 24d515601ab9a4708483e78d4372f3ff631381e0b5301b45e3a29b14ece30123
+  volume-1/in_laetare_jerusalem.csv.ly:
+    upstream: 505463b9ad5a21d5dfa0e3cc691c726304e3c0b79504bb09e54845be6cfcf8a7
+    imported: 9b9490ef050255ac828277590e8d4732cadcfaf84cd6981e4c300faca42ba9e1
+  volume-1/in_laetetur_cor.csv.ly:
+    upstream: 38e46d43771b5c9cd50d1d61dff1b2d90b8d5368c72b4f468d94e1aa52ef2523
+    imported: 4826ec2006cdbdfb20484a08943c5c3b547a4354aea9fe9b9df10ed40d368981
+  volume-1/in_lex_domini.csv.ly:
+    upstream: 465dd77992daf93cad30bb3d653557fbea9417a8180ae7c14a272e98d33ffaaa
+    imported: b9a3f4f1fd88e29e49f2a2dc15e8d06bb9a14fd7035a181500105120bd2250e2
+  volume-1/in_liberator_meus.csv.ly:
+    upstream: 31cdc69f0c50b43cf4ec94166896854747ff855e77d3d7f3320da097381e4391
+    imported: fcd9865146212e8b14e522066dc1346e5573f928f34387faeb44a887acf2a448
+  volume-1/in_meditatio.csv.ly:
+    upstream: 3214664d4b7a571b26ef3b191ba1b4d26fe2e2e9a7e5304e338e52cb05a07561
+    imported: 2868b4a7babc84797f7aae1cfcee96cb848dd17bbfab19cd5f3e2646bb631c03
+  volume-1/in_miserere__conculcavit.csv.ly:
+    upstream: 0448c08d2192707e69ddc66eae23119bc88e92e51ff223f47101c23f7807be9c
+    imported: 00755dec439b45f1f35ac63695818a551c31e47c1a8d01afabf267fb44d31725
+  volume-1/in_miserere__tribulor.csv.ly:
+    upstream: f25f4c14564d0d176f4f9a8660f7fe1c0ffd62baada40e466a11651ddae3630a
+    imported: 10f6b93279732d72c7f73cdc65df2d91797b99a71a147c03e655fa39a9472f22
+  volume-1/in_misereris_omnium.csv.ly:
+    upstream: bb5f5cd91b6f3c5597b05713a6ec92d0da900c9d5f8a626ae67ca95403aa4504
+    imported: b04c9f6350def5b52518ad07006075df37ed54c158c1af555ca9be2b72c892b3
+  volume-1/in_ne_derelinquas_me.csv.ly:
+    upstream: ec656fdc831c3a16de76dd3fbf1da9f18407fa43195e81bb9e9266b83b60a635
+    imported: 7393d30ff07b474c7481558c41ac58619c03d94d401f7a7bb05983e5f0483078
+  volume-1/in_nos_autem.csv.ly:
+    upstream: 917291764ee8feddf0b0af010dc0f31108148b095232e28a271307f60c1e7ce6
+    imported: fd8b617baad830e177a24d2848ad893f15828d546d4f59a7d9f7541c803e79ee
+  volume-1/in_oculi_mei.csv.ly:
+    upstream: 14fa832bfe5bd9f149b3fe01b1ad519e3aee96184622af6cbab93d207a2f396a
+    imported: 83565312bb4189c24a7f15215eeb11876afd2af982267aef8a01375e177667eb
+  volume-1/in_omnis_terra.csv.ly:
+    upstream: 1f3be1e5edbb1df8d68a0512af3c971a5d0a331a32e5b5983d9c8aee6b20a313
+    imported: 3b92fbb2861d20697f9752b1cce7e2c5c2c3a4b59ed67fff648de6d07955a94e
+  volume-1/in_populus_sion.csv.ly:
+    upstream: 8b0fbc49e83ec2cdc267be06d04fb9a4f8912a4f3b8df0edb93975060dc169fe
+    imported: 3f1afac929aa85aed8e6e26bbb324fb7aad796653af749eccd020fdb06bdd76d
+  volume-1/in_puer_natus_est.csv.ly:
+    upstream: 43541805f4f98d1242b3659a93a181249cd5ac4100c759f4d127fe6ac1603f93
+    imported: 813cd5c60265ac066ddcefb6106da61f39ad43b9fcecf3e3bf24580daee5e0cb
+  volume-1/in_redime_me.csv.ly:
+    upstream: 13571a8a96769797c96cd61e6f519d40668270582ff33dad2c989a3bfba84821
+    imported: 6265ace398276fda0bd538862fd3689c27f0b57f1c035015277931f9a3334b29
+  volume-1/in_reminiscere.csv.ly:
+    upstream: 5fcbf810eb7eaf545d3c1df46fa2d97d5aec72f70f2bf107b2c51bc921b0baae
+    imported: 84611da2a20b1d2acd736d2a171244eb05201683702bdaa307b9937dc4c9679a
+  volume-1/in_rorate__ps_caeli_enarrant.csv.ly:
+    upstream: ce806b97316edc128d37b856b088263e92b6d9524a8a666257aa5f6a9430bc1d
+    imported: 60b73bc2b03166d2e4bb2b04b9b1518f744d398cb395bec9257928f4e0061995
+  volume-1/in_sicut_oculi.csv.ly:
+    upstream: 6bbb8737159136752ab60f1677e00f126fc42315d308524f71928c03092ad5d1
+    imported: 430070862a1640811a032f01ef34e946eb5aa684972cd33db18de2119bc21465
+  volume-1/in_sitientes.csv.ly:
+    upstream: 77c46242af74bda1169de87a8c1be3209c13e2fd7f5b3b2fd30655f7f5691c0b
+    imported: 23974d7299c040d6876b1c4a559abd145abfc2f3b125fe52256a6014f2bf9a52
+  volume-1/in_verba_mea.csv.ly:
+    upstream: 97903cd6f928511b35652c2930901b54a3b237908789d8b9f82f50fc2307248b
+    imported: e6ae4d6e9c83b1b4353e5e0b3b8059f6c92245b90849290d42306ad7f032d079
+  volume-1/of_ad_te_domine.csv.ly:
+    upstream: 7c47f24b2b26466799c9aac520b2cd5af142b14d40533d17f983bd0aa6a9d39f
+    imported: 5449e76ffe4b5dd70a105be54e9b8c6a9a7f795ef5abd89126ed76df6ab229a0
+  volume-1/of_anima_nostra.csv.ly:
+    upstream: 6fe474e0872d1dc287b494f2afd666dca46de00f0cfb5b93ba3c6d56c73b5f49
+    imported: 544e5f0aff9a9b62f0210840e8af92c0b56d6d79ac7f80a3be558af74a468665
+  volume-1/of_ave_maria__et_benedictus.csv.ly:
+    upstream: 8db8b9b12d5f6f91d29f9c018f7fc87b949721629ac9dece87b3efcb987d0aa5
+    imported: 88a679c488b3dbb3cb98b57b85afc1d54a4054a0f656b02868e56ea2909a10d1
+  volume-1/of_benedic_anima_mea.csv.ly:
+    upstream: edb4b866b1645aa96054fc7c35e27a9ef1a2d5b16cf35175161a186c121dab4f
+    imported: e9d8b4a2c3fd98fedaf7514465d8200d5cdf337cd2e5806aec63c8690917c090
+  volume-1/of_benedicam_dominum.csv.ly:
+    upstream: a520507a68a3ec74dcf592f78ba309ae4a3fa27bc492645e7107ea400f6fd1aa
+    imported: 807f16cc6f77b1e8cb384e44b3d658f4a92bbf87edcf6ba3771106de02a18b17
+  volume-1/of_benedictus_es__et_non_tradas.csv.ly:
+    upstream: f3a5de24d3fb9201dc4ee57bfc2021dcba24e6623906b2cf0e68da96fd74269a
+    imported: c9c181e0d7ec9f05c95cd7c4fbe6ff0ef94d780131d2c8a5ceca40c1e03c5f49
+  volume-1/of_benedictus_es__in_labiis.csv.ly:
+    upstream: 2e9bc4d937c3c611644c9282922f1d2a32bac9946b1b2fd79cf2224724cc8f52
+    imported: 7301ce9f48d532f0173b41def94445f1f89cacf378e2cd29129944053255eb9d
+  volume-1/of_benedixisti_domine.csv.ly:
+    upstream: 52b3c7b7d3114dc6f6d59b4ab7b9fa7a1b8df02776099c9234a14f4cc0e8ad6b
+    imported: 8dc51d269cf5a3f95e6c33320a77b2359cce2433414353accf37db71c919b353
+  volume-1/of_bonum_est_confiteri.csv.ly:
+    upstream: 69cfd56016207f9657298fceb5aa52112907c65c4ee949b910d4584c726e86e6
+    imported: f96361a7b1ad080e153517ee04ef49b0da3318e584c7151c545ffb4f078d0181
+  volume-1/of_confitebor_tibi__deus.csv.ly:
+    upstream: a52fafab5bcea8ec96a25df29b4db809dfb19da2c6ea4101d260e2d2c315fc63
+    imported: e4b34a594c1d70dfdb7b10da6fe7f7978d3ff53da848bd0faf1b87daeaff4c8e
+  volume-1/of_confitebor_tibi__in_toto.csv.ly:
+    upstream: cfd43653182e827cefb4bebec8b5be4cdef688d2a2918b49dc26357db6472856
+    imported: 7a46979589a3f74679a6ed8e6d2596444e08c2446870d2936f056183873aaad8
+  volume-1/of_confortamini.csv.ly:
+    upstream: 825327fe15ee560b262b2da51fff259c76b806e0f4bdb915e899722663f67281
+    imported: 848a3e01f090957d328c5f44f8a561e3a98606e334da2a122ffd04410b8c93e1
+  volume-1/of_custodi_me.csv.ly:
+    upstream: 647978a527d8363b9e60314adae4b6784b8565cd3580a90cc8745d9a30c0d583
+    imported: c4064fa01a903006e00d97e3faf5a783c2c61d4b7398501bf8cbb480dd1777be
+  volume-1/of_deus_enim.csv.ly:
+    upstream: e20bb443d01bb6550651c615b028d233e38a16abbad0fd2aec86003b468aae56
+    imported: 3896fae2acf7f7a0c775b182193ac7a7a3fed62afed59361831f76af6f269d86
+  volume-1/of_deus_tu_convertens.csv.ly:
+    upstream: 581557e1d03c6dd02e2644d6fa5968d33baf93af78cdd618ac725225e8b3e3c6
+    imported: f1857084005dada5b5ee53010f4e076b27d4a5ee1d50b5682fea40e9da1f2ea8
+  volume-1/of_dextera_domini.csv.ly:
+    upstream: e5fc681ddfa9dd648db6a70a586cb6b15015dce188181e5b91208bba6a078031
+    imported: 5aa00bf54b910c7689a971792d754f16ec338467d3f11c9da87572840d8f8802
+  volume-1/of_domine_ad_adjuvandum.csv.ly:
+    upstream: fc2ddbc87cae08f04632e9ed519e92f1a49913cc57092f62d5790484aeac7993
+    imported: 298fec72e0c0c24bdd9b9388f2fac3ec1e25e1d1cd16031a3b7106c387c5c77a
+  volume-1/of_domine_deus_salutis.csv.ly:
+    upstream: 012c7594239f760abb083dd2a533db3336329abf9803e6e832ebae0f7f4a33eb
+    imported: b15962dd71b75820a6154e2eb49e85eff07c41d289d3606c4cc0c14d533f35fb
+  volume-1/of_domine_exaudi__et_clamor.csv.ly:
+    upstream: 4a473fef257ae0bfff3f52688638a0ce21c5b29cc66621ece707ffdf0f685d3b
+    imported: 82a825853eefedef37834ab6087a08fd485db5583caf2460e6f7cac91cf490b3
+  volume-1/of_domine_fac_mecum.csv.ly:
+    upstream: e2f07e18dd9656350212618aeff0f89b59a9eca311cf6839520539def7d201f0
+    imported: 996c3fec201750f97f080c873501de45983fc895b65119598d8a352b8fe973a6
+  volume-1/of_domine_vivifica.csv.ly:
+    upstream: 7e9505a03c2b1d885c37f21b92004ea305328c0d1751be9910ac75928f061061
+    imported: 78199306869bc79435d5182296b2700671fa7e1eb012374d90092349a9730ddc
+  volume-1/of_elegerunt_apostoli.csv.ly:
+    upstream: 3fa702b579f25a84cb8f315d3ae438f2048557583b0c5393c9a09a3e001e7a61
+    imported: a91624fb796b3999d0462c1abf0b85430a38eac451a6e324410b657f4dddb582
+  volume-1/of_eripe_me__deus.csv.ly:
+    upstream: ebd1b802aabcad11c7f668d1de448f2986b23d3780537a6bb162843d54c7f1b0
+    imported: 45ee109a999d558df7274dc61761b5ef57999aa52e2fb4c35397d1526e3c0174
+  volume-1/of_eripe_me__domine.csv.ly:
+    upstream: c79253071d9896fda78c69bbb9fece1f19dd2920f9445a66760a610a9f1cfb00
+    imported: ddd51d8405eb54bbe5ab152afeac3ad8f7568018b2a2fe279e63d5e03b332b76
+  volume-1/of_exaltabo_te.csv.ly:
+    upstream: 3153922951f2cd2127e9354d4a1d768272b831339fb6db8d8864aa0c79b98e66
+    imported: fedbc0c86a2a18f48e3b92ff285b7cfe4494a89fba2d2b3658decc63dff57fcd
+  volume-1/of_exaudi_deus.csv.ly:
+    upstream: 0e64961fe99b8ad6e68383a629568c9ae7d7ef3412c9b511037d9c8ae5a48b11
+    imported: c34cd57c26f7435761b90aef00c80dd4060fc1378f553ecad682c3bf5d5e39f3
+  volume-1/of_exsulta_satis.csv.ly:
+    upstream: faa159d84cfb8cae567cda0b4a971a89fd933a66edb584de729d1f5154a28e49
+    imported: 8b8f81709397b5a5be4a7d104a2874208329e09be8d4b7c6fd038bda6221cf6b
+  volume-1/of_factus_est.csv.ly:
+    upstream: 4b8efcf051690353046b8dce44d2da39c8807cc6d2f1e40d9ff818c4651e99df
+    imported: 3cc45653a842d1cea0d3b81ec0d9cfe7a1fd630748095ec411753de95137556c
+  volume-1/of_gressus_meos.csv.ly:
+    upstream: 29d8845fb496c994193275c6995ff32b1777498913bd9bacab2fe9b3cc208431
+    imported: dd224a5ac1c6da969498b17ff6a649deda05bc2a856a7435a5815a7df952d67d
+  volume-1/of_improperium__et_dederunt.csv.ly:
+    upstream: e82bddbafbe880c4e46ac7393d50216ce07a1ef196111f613c732330400b6656
+    imported: 91e88464107a8915d769a16fd042a94bff85e5e458d9e648b4a0c9a17008ec78
+  volume-1/of_intende_voci.csv.ly:
+    upstream: a2bd698284f03f70ee3b2ae75a69fddb156096f6d8023165a2f578174b3edc3d
+    imported: 23e87ab5a8e0fb767928cc2f477530c0dd843b600743151a1d4c624e86e4f441
+  volume-1/of_jubilate_deo_omnis.csv.ly:
+    upstream: 8728ac04d7832425c06bc0dac031fcdaedf1af9c09c573915b648779632eaf10
+    imported: c2bf866bc12bc216c653a8865323a1dc2568d6e548a86a5ef60ab56de051a598
+  volume-1/of_jubilate_deo_universa.csv.ly:
+    upstream: d8a150d6d79f5778d15062229eef1653bd518ed523fd5c9a2e63c72ee29b8a01
+    imported: 67ecefbf9a90714ce40d4b3525eae33fa4fbef7dd1dee1ae4bbf66174a842d28
+  volume-1/of_justitiae_domini.csv.ly:
+    upstream: 1bb1292cdec3cf8342d204079c127accaffd33c4a8c321d916557798d13cc6e2
+    imported: 6f45f9365a4b17e26de0d0f6ee241701e7ddaaf1e50fbaa4bb0b1b28c1fa855d
+  volume-1/of_laetentur_caeli.csv.ly:
+    upstream: f5d9e51af976f089304eb24b15025f1449d72b7c457574ac714d1bfa1f5d752a
+    imported: cacdf3ac4980f85e32ff9f58d70bf4c28380ae0163238dbd19cf450207b50c37
+  volume-1/of_laudate_dominum.csv.ly:
+    upstream: 36c374b49eeac3d7cc7dcfc412901318077ff2ca8d2b1f87879c7127ccf0fc43
+    imported: 9364edd1b37223a0f7550277fc91bf4bc6e39a231d7dcd6b9b644c6c0dc8f8c0
+  volume-1/of_levabo_oculos.csv.ly:
+    upstream: 4779007a8e01c7d6d304d6c04c95be9bdb61fedbb3ceed3f3f49dd5e8b412817
+    imported: 9e6ec58b6c3962eaa7f7e41ddf53b64402fceab80ecf2d5a4c1a0635e34d19ec
+  volume-1/of_meditabor_sine_alleluia.csv.ly:
+    upstream: 84b3b22a4af8fc66734f836c8bf5adc25ec6543850f73e666c7bd58e47f77fc9
+    imported: 3281ee137220f239c583ca3705d28185d4fc4a8b86a7eb2c009032eb79a3e397
+  volume-1/of_miserere_mihi.csv.ly:
+    upstream: 8eb56b506a2b59150aa3d4fb5473cec7bba05bc778f73db64c2cf9be3439c0f1
+    imported: 737e60953927ef5c57466336336d93794cb436de9555a5bc072240b5aea0b1b0
+  volume-1/of_perfice_gressus.csv.ly:
+    upstream: ec814c30706044e2b2bbe6df57b084e0b0f7cd55ae4a04a42c3a6b467884fe90
+    imported: be8c5373bbc384d41883386b3424349718acf87a1c999a3ddc20278e8da0ae8b
+  volume-1/of_posuisti.csv.ly:
+    upstream: 72745ab0adbb55e714ef17b394c606c07b060f54a33aeb0c76c622f2c0d10945
+    imported: 04673dbff2fd28015cf6acfeedad5bd439f6d0c09325479edf0092a05394f4ee
+  volume-1/of_reges_tharsis.csv.ly:
+    upstream: 0c866d7b4c7e827f5bd8e645590ff239eaf12026d4375f1213daeb7e28e26b21
+    imported: d144bfba42a6fa0421040d9d3fcf10e934ae73ccf272a38c6474a871b804fef1
+  volume-1/of_scapulis_suis.csv.ly:
+    upstream: 7f04dec6170a26c99bc88e75415d0cfcd4bda074ce51c3ff6603a67a2662fde1
+    imported: 290d060e3e005b71b3270e224be085bf8c28b577ab0f141a92945a8c8050ac11
+  volume-1/of_tollite_portas.csv.ly:
+    upstream: b58885c04103f66d682aa5a849b43958a9508d105747408bb86418472a137cb1
+    imported: 57413798a6f1ac481a2ac919dc27e1002925cca5f17241240846b995ec3e241f
+  volume-1/of_tui_sunt_caeli.csv.ly:
+    upstream: 00dc1e86d7949176a008bf93d973cb669009a320baacfd021b1ff1c5d3fedd2f
+    imported: 0de55122a2b759f181271c62d9ff75164c7fcd57ce2b5b1b5a16595617834fc3
+  volume-1/of_tulerunt_jesum.csv.ly:
+    upstream: 7a29f9497000cbfeb27224905969ee56a7a9f5c92b9bf6554774611db4d506d0
+    imported: a5d55e0ee344e1f3c98fb41ba85f2f27512d6c16f9e933e17aeef60ae8663eba
+  volume-1/re_emendemus.csv.ly:
+    upstream: 16a99442d2cfdaf160d45a045f8bc4707a12447a8afaa16ce3e07e304bd4cf44
+    imported: d8d2058284b4da48c29295695e81661da6348abc01bc491c86cd8b5a1c8c6ba9
+  volume-1/tr_ad_te_levavi.csv.ly:
+    upstream: c8d82e3ae4ffb76365303385c3a596fcf19ae49de87fd7d493b70c53fd26bb57
+    imported: 4bc62bade5990a15cbe835d140c9b36489d05f187f56dec39cc661759c801c64
+  volume-1/tr_confitemini.csv.ly:
+    upstream: 0479ad1b2b842640f6f49727bf79ec81127281fbf2c1d832f55a8f20dc980572
+    imported: d5728736b48b496baa6140416b6a80c383bfa3efd79fc370fe416435002a92ab
+  volume-1/tr_de_necessitatibus.csv.ly:
+    upstream: 785bb664355e6b92d76834a9a9da4464f288a11fd875da1f32c9ce415082d531
+    imported: add9a3c5903b9248495ff646db4640680c47f3cd588a4107962aa67eec9db2d7
+  volume-1/tr_de_profundis.csv.ly:
+    upstream: e34a8c16e9c026beea067e9fedb95346b33c7b205d6ddb48245b79a146fc06a4
+    imported: 24406e869b7809a4c0fea761514c909e2642d5f1f9f4d379a2bec888d2f9e3e8
+  volume-1/tr_deus_deus_meus.csv.ly:
+    upstream: 804797304c0a93a7ed9442a6215791322e1f5f688d736fda66dc8478a0c757cc
+    imported: 1e846494a3914602a4b7917062f59d6345b7133cd6e01554b964533670be2552
+  volume-1/tr_domine_deus.csv.ly:
+    upstream: f9ff49b3c5c0d69eb257aacb5cea05a48b8d31f78580079c8e2eef65f6c2690c
+    imported: bfe664e83e592244a8082c025a6f65fd7e7dcf51dffae1d25876b8e0132f8e94
+  volume-1/tr_domine_exaudi.csv.ly:
+    upstream: b1d2c6f47d05aacc8e864d3ed97c2cbd2001ebd06245095d3584f65a4d3105e2
+    imported: 8ac725067ba1ca02613d33a7b522e9eee314e0eceaaf6d85bc54cdb9e57d55c6
+  volume-1/tr_domine_non_secundum.csv.ly:
+    upstream: ec348ebec9f2e3dad56ba3ec2f1b2e4733d2f0df6e1039d9811f4ead79c23675
+    imported: 242d283f0ad59954ae39bfa7087e688a2b5a30a58a6b0b23a7af540d4b33a3bb
+  volume-1/tr_effuderunt.csv.ly:
+    upstream: 11057171cd5dcc32dba2bed645d82059f3275ab5232ad7bdd985b79842087b2a
+    imported: 0859da5a8f30f3bd539b4713dba7135a422afe5917b83834a12f62f38c2abf96
+  volume-1/tr_jubilate_domino.csv.ly:
+    upstream: b998f8dab4579e40ea518b37cc8cb35857cf16eb1d858b6d8b4fd2eb9703cbcf
+    imported: e7a8b64b4aa5897aafcd27d057a75391ebc86852fb3cbd882cab2ba95523b489
+  volume-1/tr_laudate__omnes_gentes.csv.ly:
+    upstream: 1eafcee47d1f475bd418cc60f82e58261675a6294e0de84714f982ab770e2f59
+    imported: aa55954856a6523890928d255ee7d46e7141b064a47280be1f0c71f6faef49a8
+  volume-1/tr_qui_confidunt.csv.ly:
+    upstream: df3b12779e2f140dedc1a2467b7b7ac62833ca63c057b479c3b54ac48024aed7
+    imported: c1473a5db44a759e8fc889dd6758dc6ed5005e76321c80841ea5ace65f784cd2
+  volume-1/tr_qui_regis_israel.csv.ly:
+    upstream: d9547268335ee30b7b3dc477b3919af7b84c7c889d12d97299704eb5c9639148
+    imported: 75dbd943c75ba8facedd2c9db36e8c4930cf628478893a36d128133ed8dd3bbd
+  volume-1/tr_saepe_expugnaverunt.csv.ly:
+    upstream: 672a716db07736d1d7e6cfec4826c2212b4fe9c274fd2d8a090adcf2fbb3f603
+    imported: f9223776408435c4853e550cf3b7e8f7f37a62f3b35311d71d5ad55f0a1c4581
+  volume-2/al_angelus__descendit.csv.ly:
+    upstream: 7eae516ac4909da9f732abb308a57499cf1bb29c18351d4530c702c30a1e44d3
+    imported: af0247401d9b2f25de412b669ab6549f9c9f3f8de61864fa7db44ee2b849fad4
+  volume-2/al_ascendit_deus.csv.ly:
+    upstream: ff6b76c30d9e00c156ede36f29d96b229fe60b618140fcf29f669701e122b5e4
+    imported: bd4382c785493b39a2809c54e2477725bd2feda1ff3762c255f3d1d30b15e9aa
+  volume-2/al_benedictus_es_108.csv.ly:
+    upstream: 677d5f6b1d0964e2eb852004d1fddba631d22c086357719f80c8db24546e2b22
+    imported: b15edd4b7557d916e11e1e3bb26167395194495298ecb92c30e1288176839625
+  volume-2/al_cantate_domino.csv.ly:
+    upstream: f5c2735df7435a845e3e56e41112f2faee761927c0f523545fb8e9e01c7f612b
+    imported: 5bd7295287401f7273b8105de0195f929b98c934647eafdab0f5e2c957da69ee
+  volume-2/al_caro_mea.csv.ly:
+    upstream: ecdf684305e7754c158e91f032824137d9be7bfecf5e6de65a2b8f6d721db0b0
+    imported: d47c4bbcb50f35f30135cdb7dbbba29d6f1a2f4f0d11f0ee29907f31bf397b80
+  volume-2/al_christus_resurgens.csv.ly:
+    upstream: df088127b804f92344308c29c9d5f2617cb5680235f68e34e392440ddca848f7
+    imported: 42eaace782c12f4a9700520cf628874ba27996c5ffa7b4154a488e26e6ce8bbc
+  volume-2/al_cognoverunt.csv.ly:
+    upstream: ba0bda609d1a6c46caa2f4b3eaa1853d9e60996227c0c7eef791451141c7400b
+    imported: d88ea44f495f0ee55d0c086ebffa3c6b6447b1ccb84e7e04d806e515b4583d3e
+  volume-2/al_confitemini__et_invocate.csv.ly:
+    upstream: 1e29abde78ad75793cbf7c8de307dfbf2f6fcfb075cf7e6430530e672cae6f61
+    imported: e7af28d1df6eb202eaef6285aca1dfc259276fcd1b1442fa27f3050b2cfb4904
+  volume-2/al_de_profundis.csv.ly:
+    upstream: fd06b32df922d7522c9a6c6aed744fd618f7a56293d8966c52d416f7d189cc02
+    imported: 52edefccd1ff4fbfb918c9c2616768b08f910dafbc9b21fa7ccc61f4aff8d541
+  volume-2/al_deus_judex_justus.csv.ly:
+    upstream: 387383c807a8ed555f380db049f808678e169f4f40ad08acf926ae7d79181098
+    imported: 104c81d71e164bdc7ce359eee0434cdc8ebfda378cbbf7e0ec62683fc3cd7c27
+  volume-2/al_deus_qui_sedes.csv.ly:
+    upstream: 2401e69891f8e7d42d7cf23693bf3cf9a1acb7c28cd27a5c04341ef658be4c26
+    imported: 055c6d6a44cac01cd17c9f392abe2925351330310ba2e03826cdd54dcbae9b0d
+  volume-2/al_dextera_dei.csv.ly:
+    upstream: 70bb88ab4e6abf978a6dbe2835b8abd70e23aecd15d7b8546c79be887cd8d43d
+    imported: 8d2b6c852bf740f9a0a9ab729db64a326506aa8b464676607fdf9e870a637bca
+  volume-2/al_dicite_in_gentibus.csv.ly:
+    upstream: ee94d219fc42e2b41365b53120121f60b0e4a60ad528545d9271f65d5bc9dec2
+    imported: 8e3bd2cb871c382260b3696ed1c8e0e0f2e3d680b96b21ac89851454dd769cad
+  volume-2/al_domine_deus_meus_in_te.csv.ly:
+    upstream: f4280209c0a8626916f7495afbb4df205d5d7331b92f8c345d9184e1678800d2
+    imported: 6b0bc192086d03d54c5176c2871127cf157883bcc684872ce246c5907b425262
+  volume-2/al_domine_deus_salutis.csv.ly:
+    upstream: 78a3eb4a7ff2f1bc32a6534e4192b16c49976c8a92d333b88dad1a65b53e5989
+    imported: 1fd372f6e16d87fbb1a54f5a053cc50af9206281ec5f7b8e58eb90f57d43e8f9
+  volume-2/al_domine_exaudi.csv.ly:
+    upstream: 67943c0b3a9a67246e817c231ba2016adc8bfa0872be83523a2c8f5be95d662c
+    imported: 956df9897bcd4ad6b54531214e5050a0e73b95b6a344540a4ad859be805f1e6d
+  volume-2/al_domine_in_virtute.csv.ly:
+    upstream: 2cf4f972f582ff1fd5b05a1143883987579f26e5029b71e7d815fac2735d6dee
+    imported: 08bdb50a9c912fb5ea4ba838e1e420407ba2b2b8b9641cc3d6251341fa45af1f
+  volume-2/al_domine_refugium.csv.ly:
+    upstream: 7a87f658ac311aa6fa01952529a60f1932cf3c075b2ef9e5e89131d5388407b4
+    imported: 309c5331b0d98fff80c75f84a87025329c9442a241e3d557ac2c9b57b1e64710
+  volume-2/al_dominus_in_sina.csv.ly:
+    upstream: 28f366132389f30078013848751e5202dee18f0ab0b926445801e484a3c067d4
+    imported: c0da6750a1b5088ed51420370e9329ea8f961cd1e526e2838b1cbae6e5cbb31d
+  volume-2/al_dum_complerentur.csv.ly:
+    upstream: 46b22a201c9d8ab2fdcdfb3430385794b7cde6df008b581f12096c922d5486a5
+    imported: da5f9eefb9b64ffeaa0e62a1b62369543f64f9d8e7d5f2fd11fbb6d349b6ea9d
+  volume-2/al_ego_sum_pastor.csv.ly:
+    upstream: c4d17cf0d41371e3ab205b0d7a9cc0e79399392dd107b4a6bc1344213650f0de
+    imported: 7591f9a1ed1a16b44689b7376a98cee16f35d2e8bbd6df55b5f736d335f8e0ce
+  volume-2/al_emitte_spiritum.csv.ly:
+    upstream: 86a414b0777e2e9a765d07063582e2acfc54504e105764c130ea0d068732e18b
+    imported: 120695f8bec43661c79fa895eaf2e7728776872d2154f22424738bafe0399bd2
+  volume-2/al_eripe_me.csv.ly:
+    upstream: f38b1f7813efefccc55a2b3e8d135bbdb3eb0de40ae8d7c5021c883c5555a577
+    imported: 89bf977ebfd6c9cb85b3af6f0eec50e66200f390ef82cca9d6b486371cb795d5
+  volume-2/al_exivi_a_patre.csv.ly:
+    upstream: 65804c601a694a84a3857f60b1ee81f6e8b3f0c2e2f7c26af8998c2340e7a121
+    imported: d57718deadabf953610c822c9587d4fb981cdcea2a4ed5267d8096f4c7a54ea6
+  volume-2/al_exsultate_deo.csv.ly:
+    upstream: b36122e973e6b95545339c3c44e670d5bf1417481d2ce2ab940b2899b005a794
+    imported: 63af54c559d8f792453706d6d5ddeaa3bbc899db9b33963687c2e71ee4189aba
+  volume-2/al_haec_dies_quam_fecit.csv.ly:
+    upstream: 9d15769793afda737b33b96eee04d540f1f8abe9978a6addaccc017a337488b6
+    imported: 07eddbc954702dd27de0958d8ab56a5216004df0c1fc6ace1fe14ac6c54412c1
+  volume-2/al_in_die_resurrectionis.csv.ly:
+    upstream: 890350ebc512bb21120643fe3db98b71f520b5a06f47e3c9711b0cbc4fd68611
+    imported: 9fdbbecaae1d413115467ab7435a18e9bfe30f22da76e6ef7ad56bf8d03326d7
+  volume-2/al_in_exitu_israel.csv.ly:
+    upstream: 0d4f9b9ca5e23ef00834f8de7329493302bb2952949819c2e1212c55c46bc11b
+    imported: 08813b6d00829b7fd77e667f0e21539bae473b5d8e8c153bd84f498c7720210f
+  volume-2/al_in_te_domine.csv.ly:
+    upstream: 6b0d4b88854a3b16e8c1044e2bcebd102a46d294a4419daa7239e29c79f0d068
+    imported: f03bc5f4908aed810315263f31f1b3ad8c43fef9f3b0060f4b8f95c107c5e1f4
+  volume-2/al_laudate_pueri.csv.ly:
+    upstream: 16b814c56a93638ca3a6dbff0b95a0450d6aad71903bd8805f6e3cde63d720b8
+    imported: 31eed8624cc9b00f918cd7c684bd9f8cc2b78bd0cf1af310b66cc0231be116e2
+  volume-2/al_loquebantur.csv.ly:
+    upstream: 2a8052983239e0e74161620a63d135d8d17507019bff241d00defe9d59730378
+    imported: 89af893fdcfe5b351cab34184d5caaf406e00148a2e2bc95f062118c369aeb0c
+  volume-2/al_magnus_dominus.csv.ly:
+    upstream: 5ea2cc867ebb37e0a0133b169476a594c0d6dcf5521a0674434e65876c0e1b06
+    imported: c68bbac2a5d86b5eb4dd18ddfebd15a54f13812ad90c291079739f527ed0a564
+  volume-2/al_non_vos_relinquam.csv.ly:
+    upstream: 09d8d99363b295e157732f78c954d9c83812bb0211ffc53a8db71ae0faa91401
+    imported: e6f2a80c710c069d4e2ec0c82c883d6968947a9ffdd85e171f099d9ff299ffb0
+  volume-2/al_o_quam_bonus.csv.ly:
+    upstream: 3b0f2d91441806ba51f47bfed05d1c136ba8b489c574cbc783765a94fdfa7d93
+    imported: 3c8e5afcacf6dd23a1a52523afed535b9de3230452b20b8b84d39621ddca1661
+  volume-2/al_omnes_gentes.csv.ly:
+    upstream: 747386f010344da962ff4f3094884031e3a3090c2a335fcffadec85baf35eebe
+    imported: 86bfa3981ac9b2ed7d198ede68b103f8cdaff7ac7e5ac2a3d9be59552257aac2
+  volume-2/al_oportebat_pati_christum.csv.ly:
+    upstream: f166e40baf066dc786dec2ea2a67da4e859225d850345006b982daf237c8f72f
+    imported: c36dd28b369ad68263171752501b27b5d40a394355ae1a5c925201d6ad89df8c
+  volume-2/al_paratum_cor_meum.csv.ly:
+    upstream: 66ad1d9e7d5187daf13cb5054346002aceda3cf3e01bce080998b82e64ea14ff
+    imported: 3feacbf5867dbdac40c878a1fe9138301d087490ea6623b5021e91b87ca80282
+  volume-2/al_pascha_nostrum.csv.ly:
+    upstream: 50174cabb2de53fa8d472ce77216c0feadcb2d98aedd5b6c42705d0f6b2c3322
+    imported: bc1ca75163338983d524cba7743b0a5fc6e15a624619b3f33596e272d1ed4f19
+  volume-2/al_post_dies_octo.csv.ly:
+    upstream: 7a85c6a1a253abe39ba39438b760a288cde27033213d37d15a2b44524184e7b5
+    imported: 3d1cfc6cfc7d9c103ed9d52784cdbf12a9d0b54209d602611e4f86d7334c8797
+  volume-2/al_qui_timent_dominum.csv.ly:
+    upstream: 1552bf7cfe9bedd58ec0be2875557adacf6bbaf2eb2199ab1e8ac870c95ca1ce
+    imported: 2b33b0df9415b2aeb28165530c332a957978e06ec0c173734b05521539f66c28
+  volume-2/al_quoniam_deus.csv.ly:
+    upstream: 3c5dfa28120541d51292f8318e793a829d7acb19de13b4860d9241aba8ec40ff
+    imported: 22cd28cefd6190988363349cb044767234b8eb37bd431e38563cef46af1ffc82
+  volume-2/al_redemptionem.csv.ly:
+    upstream: 161a16b3b335e16462f75bccc0553d9a85af067f5bd7ba3c1fad69158be7f053
+    imported: f04f7a797ca0e22579a5cfaffbea344b5a79c4c479f56a238978e49d3dec9082
+  volume-2/al_regnavit_dominus.csv.ly:
+    upstream: d5ee31140918b7b6af01ed089d3d339b3683996e6734fcd59b5a886f2a55ac37
+    imported: 7208e88803fcde628abdcc057c8e223f819c40cb3b142f901b142d5e3abdbcf1
+  volume-2/al_spiritus_ejus.csv.ly:
+    upstream: 141cc4d1678aae7c0558e905313b5aeeaced5595ebc444fff957b60bf7a67000
+    imported: dbf4cb303e324b2196ef8bb5389d5c0d23db100dafb21d6e47b840d53bf342bb
+  volume-2/al_spiritus_est.csv.ly:
+    upstream: 2c893a6e87cb3e99404abf8ae77bfbde9c85c874111e75ee3513f54ac1d84fbd
+    imported: 80aaf4b586397e852baca5cc19e450ff7d66f5b4e6c4d408ea3bad170aa22137
+  volume-2/al_spiritus_sanctus.csv.ly:
+    upstream: 8c3775418c47a18cc42f744d64f7cac0a2ee9842aab0456e0b774be916c35053
+    imported: 136359914b635e83be486fb0befd8b8bbe30597720fa3467a2174077d59fc7d6
+  volume-2/al_surrexit_christus_et_illuxit.csv.ly:
+    upstream: 505b24b685452a2ed5b960a393f87ed1c1ebccc9764f58c6a72907b846035232
+    imported: 99ce3578fe0ac77a8bf687e20da3d39eea5cfc80feef3d2114e26f33e18576de
+  volume-2/al_surrexit_christus_qui.csv.ly:
+    upstream: 9b21b1736bfa3aa2b20a7d9b466a5152d0ca87660f4806b0a0a20182dceaed86
+    imported: 463278213b952842bf41f13dfa478f8f531b6d6c3e9e09b972261133573ffdc9
+  volume-2/al_surrexit_dominus_de_sepulcro.csv.ly:
+    upstream: 106880e9e4a9c5d339622042b86a056419cd0d299dc54134f8e1a1a50ad04960
+    imported: 06722cec1c3b1f579eb9a0665c32a0cb6a65a4b0b9b102f2b0ea3875e656753b
+  volume-2/al_surrexit_dominus_vere.csv.ly:
+    upstream: c9063fb49dc3b02cd88234d5e88b1e14f512d4131216e6e51d99561842696271
+    imported: e786c9e8de049ccb6b3897a5eeb9b70d07a6b472f26a2dddaf40c5c9ffc7ab87
+  volume-2/al_te_decet_hymnus.csv.ly:
+    upstream: 825652d7904630ce243bfd269dde4f655912ea778e9520ea154612c7c5e4735f
+    imported: bc9d530f140bceab3a41636add2382524c2fbe1d662711e26ee098dc8c2956d8
+  volume-2/al_timebunt_gentes.csv.ly:
+    upstream: 73299e4307ee7c2a0f6ebfb6f1d439f7bb2b7b56ccc17181bd3e3a8b9f0a7ae2
+    imported: 6d3f9053757e6fb82320ccda27a8f0345767d5a628c4fde9ed92cc8e86acc8c0
+  volume-2/al_tollite_jugum.csv.ly:
+    upstream: 4e7c1d38e432719f36c46e07b6bd0b79ce4a663568104915b466c71d8f52084f
+    imported: 3512853af7aa6e57585a6dd00e82e1e5073bd8c89c25ee0abfd0ebafe2c052d0
+  volume-2/al_veni_sancte_spiritus.csv.ly:
+    upstream: 5eb12aa654b0151f57723d6fd7d425243519a4c085c3fa64cdd8875d27e54031
+    imported: d37858e014aed43d49a04296476c2f6fe23095710be5b297c20ac1f8305bd647
+  volume-2/al_venite_ad_me.csv.ly:
+    upstream: 6ac9e19dca80f9819241a90c90ffdba134425fdf61eaee8b0fa0add3e3526c16
+    imported: fd61ef1dcb111a4384da5abb9c88c0b0f031303799abd81a83ea714d63757c20
+  volume-2/al_venite_exsultemus.csv.ly:
+    upstream: 127953c721e220bd1689b78b8fd3ed21b2f0f3ccfb84f98f675a5855afcc83a2
+    imported: 9a21cffd355381465f2769d91e099d7f78a06b2f1325d4b38c7e1d680b7b7378
+  volume-2/al_verba_mea.csv.ly:
+    upstream: 0697ece787b09b2a2277fc147e2e77f52cfd72356105a1830da45eaf31fb0d92
+    imported: 2acd2de54e4cb4c6242263e3fc1a2d44faa93031c8e73ad25d1a266269ba620e
+  volume-2/al_verbo_domini.csv.ly:
+    upstream: f2b8065bcc9fa3630580614216c48eb7397168d770fb080d9a4820cdd7a7a8d0
+    imported: 86b4ea013843799f3d64a0ac34afc372ef2b0ac38036040f03ecf8f74d0ab235
+  volume-2/co_acceptabis.csv.ly:
+    upstream: 379105be0d418b68541160e5fcddc6471a38a0d36f754e34c736fedd86de7113
+    imported: 05890f85ce91b1914cdf3211f1ecc88fa8ca856d981c8e8cc747b7e89ecbf9e3
+  volume-2/co_amen_dico_vobis_quidquid.csv.ly:
+    upstream: 8ff6084f77d6df1c7edfbe05000fbd586e7a7decf8e6212ac149a183ba5e82b9
+    imported: 80ef7f30c3f6446b2f7c412142dbe515f79272bf1179f932f5f3838784463b00
+  volume-2/co_aufer_a_me.csv.ly:
+    upstream: 26068cccbaef3f435883df2d87ac5fd7be750ca61b524b3ffaaec9ea55c40b8f
+    imported: 9210def127f621db0c3f9e8bc8f06135ce760c146433e7a1851bd2cec90ea2f1
+  volume-2/co_benedicimus_deum.csv.ly:
+    upstream: 53b68782f5a03ebbc1a898b9d3dc4ff4dbb5a460a24ccaeb2076b094c8b5a45b
+    imported: 91884d55e70fa1525ab23f94b13ba343db9fe3dc5f48b3d4cb1d87af2f1bc3de
+  volume-2/co_cantabo_domino.csv.ly:
+    upstream: c5040fff7dfd24dfa774561c9a509b1af824991b64fe2880f49d3311e41e65b7
+    imported: 5aab99d3b6544ffc44e9742457430f2f7b2dfed2bbfad7ff5a4c46dab3f918cf
+  volume-2/co_cantate_domino.csv.ly:
+    upstream: 0a919d94a5c2d415baeb7d47947ba3878e75125c164bfceea934943d4e0f3501
+    imported: d820c5e7a32d8a62a2d7d4318704def7a394ee9cbdab2c4b96bf176f38373880
+  volume-2/co_christus_resurgens.csv.ly:
+    upstream: acf14308a883ef091bdbf86abe4b6fb7c4742017f04c81f5b12ca13f6fc8e424
+    imported: 56d4b84b9f11d968b7f5019eec725ae4b417922fc71f6603f6c38c8ccda7b59f
+  volume-2/co_circuibo.csv.ly:
+    upstream: 434d79bf9d90a86ce00d01eda2714992df3591160ee2abb170d8cf1b8e0d9801
+    imported: 47a8def0be5eace16d0480d26c0fab20526d4393ad6546866c3acac907af0d31
+  volume-2/co_comedite_pinguia.csv.ly:
+    upstream: a405502dd568f2cf77570d587f21d333686197a0fbd4bb468e25a6e2b04949b9
+    imported: fbbd21a55afada50820673e2cfb3abcd470ec90e2fdd197095b8b25a5bcc6f51
+  volume-2/co_data_est_mihi.csv.ly:
+    upstream: 94602b21189452a38d50cc413abda95933f6e95c70be0f9e5e8c1bbe7a67b23a
+    imported: 017fec28915917a1e06e8f70c3fe83547a064172861c7ccdc48f8c8d65542455
+  volume-2/co_de_fructu.csv.ly:
+    upstream: e0c4eeba69f2336416ce983aee4c2c2955ee5c13889b49f533d311cdf2a0a3ff
+    imported: 64f0b64422ae1ca6fbf81c0932c6c6e082579cc0cefaf102589e199c93694c38
+  volume-2/co_dico_vobis.csv.ly:
+    upstream: e1e96a6b6615af374cc8a16ec103fde381462ee02dd936d81d807c53bdc537ef
+    imported: e25b17c25729f6a1f2f06c85384ca57ae592c209372ee534eb2a20deee6534de
+  volume-2/co_domine_memorabor.csv.ly:
+    upstream: 1b561485a5860349a1811d8710fca1d1051b0e2a3627a1ff5116d1f9fc0f67b9
+    imported: 6a016bf9ab1f8df5a32a3d47a7c9e8151260e44b47c898f3fb968dfa459c34e7
+  volume-2/co_dominus_firmamentum.csv.ly:
+    upstream: e3643c3aecf8861457d05bb827a57f549fc492ba271d366b8e7fdc84ce31c55f
+    imported: 6e586478744d0113719fbb75bcf5e271b8797b0a422aefd4cb7546c83a93ce38
+  volume-2/co_dum_venerit_paraclitus.csv.ly:
+    upstream: 4d39aefe9259161749e433198b43abd621512a23f69087ae24e24fae849771af
+    imported: 96966b5f4697d79379589c3c5e81dd13adbe35b8036bb80fc1450645bf7712c4
+  volume-2/co_ego_clamavi.csv.ly:
+    upstream: 9379e13d4113bf11cdc0f17e2296b9565c11e474b1168e7572484cd24040ea1a
+    imported: 780c5183ca53e777a0131c94bca6a58382a452b2966bd8eb210215cccf2fa68a
+  volume-2/co_ego_sum_pastor_cum_all.csv.ly:
+    upstream: 9cf9806ac3aafbdafbb06c5cdfd86ac8758b3d076ac31b7dc53ac775aabbd329
+    imported: 7abc8b40278caca6920cd685a8220cf533fcd5f0ca3a560aee4cc258e36bd671
+  volume-2/co_factus_est_cum_alleluia.csv.ly:
+    upstream: b400297bce5b27a9e4223f12bbce7bdaaa7611a0f02eab131561dc0dfcf81143
+    imported: 4d0f4e9649cb79362e755ddaa3bdf56d4487706f638dc8320f2260a65473312d
+  volume-2/co_gustate.csv.ly:
+    upstream: 9d0f45eda926f424bf9c0fa9ab831c04ce3ff6cb59490c3fc15286174f5315e9
+    imported: 177c017862818f28eec2c08bb2437d6fb671a7cc53b8336283776bf9edb5f027
+  volume-2/co_honora_dominum.csv.ly:
+    upstream: 355fad10d252d4cd3509a5b5799e04773956588814432bbe75ac41ddfdd58f52
+    imported: 941d8d7bdec6b3980fb65031c6057b30c7f9d2aabc123209576a8eaa9c96deaa
+  volume-2/co_in_salutari.csv.ly:
+    upstream: 1492d3a5ba12e1a6d38f0906cc7b4829a49617881342a0e8dbff9b257c4f1ec6
+    imported: 958854059bd13e6efb25f10bb7f12e300b9abd30211283a8c8ea3f003a903436
+  volume-2/co_inclina_aurem_tuam.csv.ly:
+    upstream: 472a744b313164c785c6ca200216cee948a24ef142a69b1d1dfa5580e45e1435
+    imported: 4baeb001aadfc97f1ab2c4cfae8c0473c4d01682e29b8f09c1223cc432efc51e
+  volume-2/co_memento_verbi_tui.csv.ly:
+    upstream: 0629c3e18cc3adae49536ec54bc5ef260a2a68aa68d72e6881819a3bf9ed0767
+    imported: ed9bf563a36bf8a9e1ac4c36b5a82155f20cf8d7fc343544b7f08db24ed3abb1
+  volume-2/co_mense_septimo.csv.ly:
+    upstream: c22486737fce4b347aec56f9f2a50e7bfe2dd8b51e3c3e2681e211a203b305fa
+    imported: 87c19b8e40f17e2b8611e41f0e5445806e23b0b696d24cba16cd947280762079
+  volume-2/co_mitte_manum_cum_allel.csv.ly:
+    upstream: 061798417821ce2dac9d9a565c4edb9727fbb5e291f5fe43c307e84dbba08e91
+    imported: 8131a87b90bd5e16a9ce5a9f229d0aadeadb09afcf68fb4f15b6f79bcaeddd0e
+  volume-2/co_modicum.csv.ly:
+    upstream: a8a631939081974f8571645f7699170ee6f68cfb7e1eb41a29f90141c40da020
+    imported: 9d5a8e45eea5dc32b1cb00ba68592a78c729ea5d04b9ad55c4382c5a2e9ac01e
+  volume-2/co_non_vos_relinquam.csv.ly:
+    upstream: d0c271a9fe5906f299215cc5299682b3f9fe67f47ee64930a8e398af83248394
+    imported: 54070a054c91b3e46fe74a012ba0a8e7c6f4bafadcac2064d096b84272fc6bb8
+  volume-2/co_omnes_qui.csv.ly:
+    upstream: 135a71bef974ee3f41cef14a2611f778b45311c08d97a751d02881348a6d38f4
+    imported: 5330747a6fc2e74f4b2779f002919d783e56af6cdf0ef709e23811f08404a49e
+  volume-2/co_pacem_meam.csv.ly:
+    upstream: ea8c0241ef3e0c036a2f22284dbb81a3b54a90ce960b270f6e592b29f2171f69
+    imported: c59491a4b950a6e1639b0474024bbe296f48efb0b2802b68c42060fa197b4e9f
+  volume-2/co_panem_de_caelo.csv.ly:
+    upstream: b7b9f486320d3d6a3b990d25a92e6e1048228f79b738060a2ef2c30a0c9abd21
+    imported: afa995e86b9bae6c7f3d0ab090fbcfa9a04d72b63652914809a51b12e517dd3d
+  volume-2/co_panis_quem_ego.csv.ly:
+    upstream: b6311f4dc28597e535faaac7b67154af855a7260e77d72e080923e8d772091e0
+    imported: bc59752f4fa18c68cabd60c69a53f0a557e61780482ad54111654a1377b08032
+  volume-2/co_pascha_nostrum.csv.ly:
+    upstream: db69b6aa524366f1e503cf9dd603ad99a07264ff8141bff30740b7d6082fca90
+    imported: e440740dbc1f38a469da138e8a7d51a7e7fdb840962f79933acdb544d67eb0ff
+  volume-2/co_pater_cum_essem.csv.ly:
+    upstream: fd771103b76da704a029bd141975a656adec56bd1d271f7ec29bc2da6b55c211
+    imported: 4701b7ac015f38c5300497431dfed9cb6ad1d13230f99b8bd0985310d8bf7cf7
+  volume-2/co_petite_cum_alleluia.csv.ly:
+    upstream: 407a92f6edaeee2c41babd225327edad7b95e7d5061e22895c05a3b31f0e0015
+    imported: d39a2de45e4b406ff3894ce9e37c11f6b9af573ca802f802a3a8821660ab7ffc
+  volume-2/co_populus_acquisitionis.csv.ly:
+    upstream: 425ebf4f1f51f64db9589fd6ad94e024bbc70f3ef6a49ac999025d2a7236f377
+    imported: 387025a90f34520f778018f629fa9ee547838953e5cb598cb017fbb40cfb3305
+  volume-2/co_primum_quaerite.csv.ly:
+    upstream: b489f702363297af8269c41adf34564a76e6deaed4e1ee22c7d853a1741106e9
+    imported: 1913432470f68da5b765ec3bacd96d4f0c282506f6f128f72de4e4c75042f13c
+  volume-2/co_psalite_domino.csv.ly:
+    upstream: a26293a5f0153679133b11d273b96129f90a19dc0d88bfde8f918441423c86ae
+    imported: 748688db608b52c682d96a148db6393ffdddfd3b13ca57c4e5aeae3fa34240c1
+  volume-2/co_qui_manducat.csv.ly:
+    upstream: 09593ed618fe3f85138224b86a2943cc19dc0edd181079baa3ffe2e29e670a18
+    imported: eaba347b4f8fe2a101be9177cb37e9e286c654358f4f1f5dc1ad94595217291b
+  volume-2/co_quotiescumque.csv.ly:
+    upstream: 9e1d21a7219acc624fb98d2298fd4a8212f0dccea7d860554f72132d49ba2da2
+    imported: adf7fb09764afea24aa96db5deed0724bcd8dc8a6d1d24ae4dd16380b0a98476
+  volume-2/co_si_consurrexistis.csv.ly:
+    upstream: d8c7ad958fedf784ad34da158d603a9e9df7007f776e6c1a01562749214afcf0
+    imported: 1668e334dafe80511bbbf1a965c4706b330fa05e67e38d8447b5489b4f7036f8
+  volume-2/co_si_quis_sitit.csv.ly:
+    upstream: 4ced989ccd13797bcf44db0e29c43f990ad86b8db0e6a2eb72609a041501ad11
+    imported: f669b3568b1f3cd5144ff1f7fe84d99a95692eba015b919cc1114aea7afc5453
+  volume-2/co_spiritus_qui.csv.ly:
+    upstream: 3f932d22e529dd164d8648094a2a879d14508e479b7409f4a3317dd9748ff1a2
+    imported: 96c0159151ebb8d1a4bf85d7931419b62bc14a7fa850ee15d8c5711a47e510c0
+  volume-2/co_spiritus_sanctus.csv.ly:
+    upstream: 05553b7c54b8d8dc549f874820eff453637113e5f83e9f05083114ee1824da81
+    imported: b3d0713244b3383dd7c7a3d262dca529f045c589bfa7b7f4f9f47dc82faa5e66
+  volume-2/co_spiritus_ubi.csv.ly:
+    upstream: 89899ef2cffb40d07398f58680f0cbf926dffba512974287229c3b3fdb120bb3
+    imported: 0c418da3581b6318e60dde8a858cb7c5605415b05c188ea301aa479e33ccdf98
+  volume-2/co_surrexit_dominus.csv.ly:
+    upstream: 4e1f2e6ef49d2fe3319c160a0b41d85a5b5d7c4ccf9b703d2e0ad182f626da72
+    imported: 1b35cbd044980f5ff80f243a93a1e62d3b9035cefbf509b90699916cce04c3d6
+  volume-2/co_tollite_hostias.csv.ly:
+    upstream: 7af5b36a3d26cb117802c211f1f3b5983dfddfcd0a295173e4f4603fa5d96ff7
+    imported: d0c2d0a58b00825351a214ad23c08723e7e36d1697f7d48a223eb54dddb5a6b6
+  volume-2/co_tu_mandasti.csv.ly:
+    upstream: ffc2c3ccda23696750bbb7e8cfff0e4d6fc1bc96c91d661435a951bed65de7dc
+    imported: 15414ec454252e9baaa5636649108aa31023364a98f0564530c19f582ebc3332
+  volume-2/co_ultimo_festivitatis.csv.ly:
+    upstream: c24053737476c4f51523406ce61b70d3804aafbd60f9d15260aeccee414aaae4
+    imported: b02a3da46a0e334c180b4d7ef419849fedd8642638608f1ca743a8f7bb318f44
+  volume-2/co_unam_petii.csv.ly:
+    upstream: e5028d8e841a984731643980a181e41b7db7dc965816fba1aecf9aae5f526ba5
+    imported: e58a67ba63e661d7cbd781e7dc63a738de8fa1e4ed71bc80fac1eaba10cafa7c
+  volume-2/co_unus_militum.csv.ly:
+    upstream: a72c3927df166c2dfa9a86cf7c6286295c6c79597fe899c1b91ee10053ba8c21
+    imported: 3c7ee4622b754d5bfc1d8679d91eb54db24bc10b7634512fa419ec2c6c38e31c
+  volume-2/co_vovete.csv.ly:
+    upstream: 33e86108281f8fd4cf72c44227ee0e83064a629b802d6ec1447166b98aaaef0a
+    imported: 749e786300086cebf24f98b8b3b31521323569a853fed61aa5d62fe723c4a415
+  volume-2/gr_ad_dominum.csv.ly:
+    upstream: f62b98d4fbc99e70a89142c3e9257799c5874ee1ad0413e7f466e40f507dd175
+    imported: 86d05e619e8310cd6de746d5ce291a10a8e8a214f8f661e7ebfb88caf6caae92
+  volume-2/gr_beata_gens.csv.ly:
+    upstream: 7d1ea8241ad80b1498678da6fc716f389c0da26d75d3801bd247b543f9253f5a
+    imported: 0d1224514662de8dbd56bb24d1091956abd5b33d0656a82f0e23344d62812bd3
+  volume-2/gr_benedicam_dominum.csv.ly:
+    upstream: 116007ddc44cc6ebdc3cd903979cde651090775472ae8143cfca0ca92e0b99f7
+    imported: 5ec89274f08818710c068cd8baa116cd31e5e029771997b46c8bab778f02265c
+  volume-2/gr_benedictus_es.csv.ly:
+    upstream: 28ee217a6a4b8c7e83037edbf13eaf6fe99511012add98fac63e666ce81ab7b5
+    imported: a391fb32aaa5f006498e466993d7791ceeddbde7a50bf2acddcf956e226cf546
+  volume-2/gr_bonum_est_confiteri.csv.ly:
+    upstream: 6ec425a5b0cc6b8071d2412496d958a9ce2d5f4c9dad4cab04990a58ca798b45
+    imported: f7cbe9f11feef0e9e32348206928d89f18043810b959de4dc388c51e5a09e506
+  volume-2/gr_custodi_me.csv.ly:
+    upstream: 7480c566c1e42be27c1059fe18cbf6870cc9a440a8063a2af16dd06c45441783
+    imported: d5cc2bfb2e46f818c3b03857253806071726ebc60b4a48ad5ebe1b32a8a9d392
+  volume-2/gr_domine_dominus_noster.csv.ly:
+    upstream: 1180d578906f6785112707ba4db068a2ccd864ee6460af15e16d259d251a562a
+    imported: ebedf8c07217a4e0b97a43088c776eb2861f1b233595dce2ba7008b03b7099d7
+  volume-2/gr_domine_refugium.csv.ly:
+    upstream: cfe14d991431f3d8d0496eccc896a21de228a75a8c09d461d3e880cb8cb43041
+    imported: 8a8792fbb6d8042909648c4f2e15d1d6727e6ab21391dee60bd4bcfe3ea6201d
+  volume-2/gr_dulcis_et_rectus.csv.ly:
+    upstream: 6c4af3525bf8897441d21bcee017a5b6bb5ae6d5cfef18bba35bb6ac012b16e6
+    imported: 55f5deec235000971f85e12514e1f938980dad3bb2ad3f81b3f32b4e05c4d9f3
+  volume-2/gr_ecce_quam_bonum.csv.ly:
+    upstream: 9be39167506255b16c919d81a6f5522be64ec60299de8c4b52dc92814b525c54
+    imported: 1e8901fb6c76b097b2d39a06eb9b2e66eb2eaad14923691bd7e307e7391bef0b
+  volume-2/gr_ego_dixi.csv.ly:
+    upstream: e782140047aac86150a9b3d4238a2fbbc03d48f4644f8b4437fa15ac27468aa5
+    imported: f1f09e556d9cb29e39a0e33e9a0e996be2c9a9bab061c437ada4230089d04caf
+  volume-2/gr_esto_mihi.csv.ly:
+    upstream: 5d39681b0cca8464588a92b63e680fed6beb4cc52c5f3cc33247a6c1c97b3a9f
+    imported: 1c8270feb6b8c4b1f0dfceeca9f3aa5a16647ed824f3143e9a8763b0001727f2
+  volume-2/gr_haec_dies_v_benedictus.csv.ly:
+    upstream: c88c6d5b301695f9935630828e72151e82321cff7d3722832bef87e6e9b4b1bb
+    imported: caa0893c7a290fe74d8efa63f6e55535c22419fb0d765eed3901ef11b0f71b45
+  volume-2/gr_haec_dies_v_confitemini.csv.ly:
+    upstream: 42f804f32c1bdf16a5e67983baccdc92574cc18ff362e913e3808db22da1d74e
+    imported: 127a23435b2442f976b495488822188c1a0c36c95691c877e70c9e0e0d75a31a
+  volume-2/gr_haec_dies_v_dextera.csv.ly:
+    upstream: b0ff524da3142291a992f55cd0c77983a69dbd029f655ff6dac9be12dbbab278
+    imported: da0190ac21cd6d038bc47d6271823af590c8434d32a83c363302cddac8e2686d
+  volume-2/gr_haec_dies_v_dicant_nunc.csv.ly:
+    upstream: 6cffa74e3458d338cafd0d852ed493bf929028989983ebb5e7ea3431ca81f092
+    imported: c6055b26a915e3b42a50aa57f469645b5f34b7a34cdf5d234d39084ce4ba25a7
+  volume-2/gr_haec_dies_v_dicat_nunc.csv.ly:
+    upstream: 04bfa724e1072eabf1bd9645079351853ab2d5f2e54ee6d4d3ceb3c1f1fb3f84
+    imported: 24d690cbc6c8d5e77f62393dd7a0322c4189ec81a14f9b19ba5c0d535a5a34cb
+  volume-2/gr_haec_dies_v_lapidem.csv.ly:
+    upstream: 2003d4793a4467a4cfe972dbfcb47034b3eead427e35c7c79c90c93d754ffd80
+    imported: 3f2b858a6419aecade989de718f70c4c84a59a610aa3ec9b9e85ce15e02074a7
+  volume-2/gr_in_deo_speravit.csv.ly:
+    upstream: 52122aac5416f3bcde4c9b034f24e17264f5e6d8b2bec2bc220fd274359bd473
+    imported: 94d9efa1660eb49e106790e61d15a797367fdef5deee94aaaa3077c07a2fbc6f
+  volume-2/gr_jacta_cogitatum.csv.ly:
+    upstream: f57192c5ab62898e7a1cedeacfc56932ffba93684b43e2240efd8343e31bb10c
+    imported: 9e916ace1fa7d5dc6e57f0e2db0b18d1164545843e0139feaa9d6a3a1cafbf66
+  volume-2/gr_liberasti_nos.csv.ly:
+    upstream: 306741ac331a40d097af8976eeffa54ecb96592499ede9008460b4fdbf2f2d46
+    imported: 1644e664f0a9611a515188dc35e1d7e2543dda0093d5e562835bbce5ea8aacd4
+  volume-2/gr_oculi_omnium.csv.ly:
+    upstream: 90fd73379ece4be5c88399ac817218e97b69b70ea7b1ce07fb29df5a042f4b27
+    imported: 07be8ccd6380db97ad33162d563554e46f81df0ccd0cd88242ca2a4e4b8d3c53
+  volume-2/gr_quis_sicut_dominus.csv.ly:
+    upstream: 3ba40d178b4b6262b9d52eb8db78402f1ead1377835747f25fb9d1cc93e6d831
+    imported: 2adde5c0101f76cf4f85d934b8fe1ec47667fee3ae9dcd444b988f0113c87a16
+  volume-2/gr_respice_domine.csv.ly:
+    upstream: 80b3e7a9403bd89f8db5b5e5ac55db9b3e07c7a5a7a4e05a26fdb2806876d4a0
+    imported: 93a12db1d1711cf0f155fc38d71e8db8cbc80f1622729ffbfa8a38b3c5f73b1b
+  volume-2/gr_venite_filii.csv.ly:
+    upstream: a50c03aea66c6aacc1883f57b09b523073eb4e7fdfcc899eded8fc5fafc361de
+    imported: 96a19a3682011d9d0ae599673ee5b57a3e9635c845a2aee4beba27d5ec351463
+  volume-2/in_accipite.csv.ly:
+    upstream: 82019d1665da944064a6369039c9c021729771d142880d60b715471e2f15905e
+    imported: 2c348a678959f5589ba983546babea0a034c944b74762f8411bf46cb60a6c989
+  volume-2/in_aqua_sapientiae.csv.ly:
+    upstream: 0fcf78329f6ff25b8be71f2c3a389757cb53756f8d53327c8b5ad9e51df6ad78
+    imported: d743352dfcba67473836584c93b01c43c16df2f8da92c182ef651dcffd0eb163
+  volume-2/in_cantate_domino.csv.ly:
+    upstream: d363b85264610b63b174123bac41d3404bfde61d2533a42e6705c7b72e969d3d
+    imported: d1bb0a74e39c3f29c6cc0de986c6e0aff115d1341568f0818e51d3a987941e29
+  volume-2/in_caritas_dei_cum_alleluia.csv.ly:
+    upstream: 65beb226db59b0d6c18adda1331865c7746f616619933ce6a7d67f195e8d7049
+    imported: 1fb05da0a7d75f1e5a4d23c2de9b0ce65ddf8bcbfdfe27a045b5571406eb04b1
+  volume-2/in_cibavit_cum_alleluia__corpus_christi.csv.ly:
+    upstream: c2ac64947d2c9a080da170497e35e7aafe6e616af09841d1b9ac01f3221380c6
+    imported: 39ca6f5241388d75962d8f755077d09c8984098897716fc9acabce5c185edd80
+  volume-2/in_cogitationes_cordis.csv.ly:
+    upstream: 7644ed95a41a81ed2b29544c23f6d3e43b11e2c02b6eb47612304243c65ded83
+    imported: a7cf899a1f42cc0a1d4566b8c6d9b85383d24ff7ba4da6add34e2e9d9407b01d
+  volume-2/in_da_pacem.csv.ly:
+    upstream: 2c771a1ea5b6c60adc6a23afa33ae93a135ad63a069b735695b7812266b4fc9d
+    imported: 1a2658b26accd0bdd089eac0f5eb8c18bf0e0caab547464f3c4ee449910da737
+  volume-2/in_deus_dum_egredereris.csv.ly:
+    upstream: 6652b6946e03c54c25dd171bf4c7f4f691a65f4d947646f822f5aac4c9b8ef4d
+    imported: 2eb98f2fbc17cec3bd95eb759957a8716b052f98a4a57858e516b628a127ba79
+  volume-2/in_deus_in_adjutorium.csv.ly:
+    upstream: 3aec594cfc1d8eb3a5451bca5d7d0b186f8284e948dcebf0b8de7dd76a6eb330
+    imported: 5924a7ee6740cbdd733ee41535d932a4790ec43d50042af61ea11f0dc283f7f0
+  volume-2/in_deus_in_loco_sancto.csv.ly:
+    upstream: c46a371237194282e2850d2d8d72636218f1fdbc9c488aa6d53ab9c6e5d33703
+    imported: 3447df34420a5ccf7faf186ad7811f904ae266b3deb12d816673ac38b2fdfa44
+  volume-2/in_dicit_dominus_ego.csv.ly:
+    upstream: 97bb94daf766b8ceb02d665d44f6258d99e80fe766b087c2dfbfb2d7bd135084
+    imported: 9ff7319a6b11e4e51cf4e52ee6ebf68bdd1c0a1dcce767914dbfcb458f0ada38
+  volume-2/in_domine_in_tua_misericordia.csv.ly:
+    upstream: 1496c52814b7e339f3119522f8b5b4c42745d1d6f82b19831f2d3dce5f6521e0
+    imported: 40e01fe1d32c03facbf474d173e95ca6dd15af4d842e4cd7d890fecc3c1821fa
+  volume-2/in_dominus_fortitudio.csv.ly:
+    upstream: e57a43a33250ad8c4f33b5e66b16c3b2b47e4f83a3956b80cdb993fd2e50c875
+    imported: 6383e96c0807dc497f564efd42f77d78452dc51a304703339078267f6ee145f5
+  volume-2/in_dominus_illuminatio.csv.ly:
+    upstream: 9c33fef7a39f67d2128482574aba752da98ad717fc48ce77eae8c16028f764b5
+    imported: f85b5b73cbe7a46f0d93eecd5af008691323bc542755612938a7df4f0d8eeb7e
+  volume-2/in_dum_clamarem.csv.ly:
+    upstream: ba622caa3491770755b3b18378f8d1a43527290889e3a72194428566b390e759
+    imported: d9559e4ea9501cef23b1b75adbb37f5fee4754b61c9371fa9e46af7b0c65da3a
+  volume-2/in_ecce_deus.csv.ly:
+    upstream: 0f6100122aa774455259df0291009dc71e7c8ded0ca982b8dae381be92d9857f
+    imported: 9f64df508ef1482459009ff4b70a836ce4fb3304e4f7433e043953699666917c
+  volume-2/in_eduxit_dominus.csv.ly:
+    upstream: b026822255948d5daae71d58a054bd04222f99925c6554d947d7f8c4a5713780
+    imported: 00768c0acecd60baa56685e9b0a65c0b1264bfa8c4d2620bce3ad1d6848068b8
+  volume-2/in_eduxit_eos.csv.ly:
+    upstream: 5170759a452b872741851324d816de2e6fac9560c42ea4a0c2f207ccad4ca048
+    imported: 0ded91e66de5d4df9088d155168346face55d3d34bcf6fb1f8e5425d69de7f56
+  volume-2/in_exaudi_domine__adjutor.csv.ly:
+    upstream: 7fd8c22d2055ce3fa4864d0882835df17b78fd6abad9c7cdfe3881b00f85eedd
+    imported: 2830baa759cd38b01a8e8c9266caf138d4e364e4d254289804ccc162039e9604
+  volume-2/in_exaudi_domine__tibi.csv.ly:
+    upstream: ef4056f79a1f6f4876cc01e288d4e4ce0676b22654663b642ef047778f4fc4fc
+    imported: a109fc8c2cefb2b4ecbcf69db34ef35625b8ce1a3934c35df34df92be40ae7e7
+  volume-2/in_exaudivit.csv.ly:
+    upstream: 6057cd9b93dd68b14b5a07379ea1ee6b4b627a49de4ffa88233170c12ccf4c78
+    imported: c77db8d9b4e375a39577a26c885ee28b1ddb2a7a0f3260c7c29f70c00b44618c
+  volume-2/in_exsultate_deo.csv.ly:
+    upstream: 5f398a04e6c295595d7d96a1c2fb2d26e86c039e69f1ccda84863ba1df8c48e4
+    imported: f14da60da974170fd5166e4fb4f78ba19d93894d12acd1e22a04c10aaa5b8910
+  volume-2/in_factus_est_dominus.csv.ly:
+    upstream: 576f51eb8d224d470ebb9c67b1b9f8b1741c96d3b043dcf1544e5e4fb869569b
+    imported: 6f94d73f1b260f064080b785c019303d68bf9a44ef917a250637ba27f682a00c
+  volume-2/in_in_voluntate.csv.ly:
+    upstream: 4868337136eaefeee45953844841e9897593879cf0894006f9b53257014c3153
+    imported: 47ff07e49a8739ab9b630848f1fa3ddf732cf314598a1ac13e3e9e42e9ab68f2
+  volume-2/in_inclina_domine.csv.ly:
+    upstream: eb1e2327d70095bb780b1d588785e6d98e87fb86de22f5a79e0a06a5bf198800
+    imported: 728ddf1174596fd087bbc18156d03b3b280be8a52fb82c3ebe6af24273207e18
+  volume-2/in_introduxit_vos.csv.ly:
+    upstream: 0ad190aeb8f508b495713470e2808b21841916764ffd2707dc049dc6ff99917f
+    imported: 7a96b97f314ba9fee417a864d92e2819cb674aaff3bd38dd73e76a4df68ef453
+  volume-2/in_jubilate_deo.csv.ly:
+    upstream: 263e1d05a0761f2e159f46ffd4310558d00d5e169cf43e866d56a43a00e483d4
+    imported: 82b72e6b782e84eab473299e0583a34dad9418054ab1aae193cc9390f07b5403
+  volume-2/in_justus_es_domine.csv.ly:
+    upstream: 5aa84ad1c91efd3125cec2dd8d6136f4a9e1b4080246231bef921c8953721487
+    imported: e633a7d2ef002c7b26d2198b3e6140e8cdcdc908cec5788f1c26073b5cbf54c2
+  volume-2/in_miserere__ad_te.csv.ly:
+    upstream: 51b7b960857ced5b46b46751d68271276ab1b55074356c9884a9e2612f07a0e1
+    imported: 2e1e14a7cad2b5e2e18925aa722441cf95235062c8ec59ef03d0dd79a69956b0
+  volume-2/in_misericordia_domini.csv.ly:
+    upstream: 3afa4512eaebd4655905b5676f94ead74d99bfdc4cf48e156ec8d635d8bdf225
+    imported: a3ade8887d50a7400971fd8c93a91b2a361a9c1ad874a50e0e632bdc5527b288
+  volume-2/in_omnes_gentes.csv.ly:
+    upstream: 89bb385b4c3ea0ec63133f67f22f39a80361cca39666848df8c303dfe4cf7ffb
+    imported: 3d3665889057d7c26fee80d54cd16776d817cdceb98b0bbc7e92e91e8d1fb149
+  volume-2/in_omnia_quae_fecisti.csv.ly:
+    upstream: 15a034fe942afdcb26b34f0339769b9fca185c8387386a425277aaf7eed51a77
+    imported: 79fe9eb5311cddb142f530b0961eada749af3b8c345c6f943139da07c1bf3689
+  volume-2/in_protector_noster.csv.ly:
+    upstream: 3cf4a7f318975619f6408f30805e56be1d7d3d8ae3039aa4eec5f10a79154364
+    imported: c19bdaeaa0741d8f4712ec9cc23ecb11d2c0230542d8c14e4d13dd53db726e7c
+  volume-2/in_quasi_modo.csv.ly:
+    upstream: ed5ec0aa77e303e9159f8323647400c88d489d43428cf7964e14bc17948bd534
+    imported: f145cbc24038bb9014be7ef8ba49c5f1cd6f6516bd4e362c6f61f3f7928c9343
+  volume-2/in_repleatur_os.csv.ly:
+    upstream: 10b915c9a2df25960e7560b545cb1da7795ceb5fa4873f25d004f5b48aaf00cf
+    imported: 517613c67f0ac24fd03a37dd17bc337ccac6fd6603eecdbb91479371c007aeec
+  volume-2/in_respice_domine.csv.ly:
+    upstream: 9a8eeeb8b5a54df828d4f7b43c508b22c5fb3546a0e02116a7b894ab7d56f4a9
+    imported: 02852e57919463a190f9262e553c4ff3f4d8cb31946e8e4f8d5246bc038f04bf
+  volume-2/in_respice_in_me.csv.ly:
+    upstream: b2665e492436b047c22ebcbf8209149cae114faa03254ab0ff43605ee7a844ff
+    imported: 65bbb0459f526f78f978635ec2df163176ef62f094395cf4fa1f39e6f85b4472
+  volume-2/in_resurrexi.csv.ly:
+    upstream: bceb4372ddd30d45f460f7bfcbdd4c31033d43201d3ec151a7161b113b2450f5
+    imported: 19f49a93e81f4390121361b39bbcf556d4aa8dd0f8949ef202c427e685a066fd
+  volume-2/in_salus_populi.csv.ly:
+    upstream: 7afd7766b6aa69ffe21af930a1d554d253eaaea668e32b1139af3f4846545155
+    imported: cbca1a630437321e0b11a1f6c8412d81009adcef1a42f6070af94655f2d59a8e
+  volume-2/in_si_iniquitates.csv.ly:
+    upstream: 4fe9b298089e31a9bb6eb5b7324e7f9941914b854d68dca59608a91aabfc3f51
+    imported: 5885246d80a1e40550541fa799aba0deea917dd2e865a5a1e0a7caa1a8e91971
+  volume-2/in_spiritus_domini_cum_alleluia.csv.ly:
+    upstream: af406ef15f2134157961710f9fc5158063518b98fecb8af61f34505c73d54058
+    imported: 706263ca8d8a7adaa038239339ceeba590781a27b09686c04e80ef08a6bba70e
+  volume-2/in_suscepimus.csv.ly:
+    upstream: f86c59641c48c267b0236433ef5e10e6ffd66aac1d32899217c8ba975964f5af
+    imported: 1de07cd07a8b5e13c4ad8c93ce07f2df9382dfaca7c42864eae0f5060ea00eef
+  volume-2/in_venite_adoremus.csv.ly:
+    upstream: 72af39a59d716ca37e6b14b7b924a93f59f58cc90c7dcc8f3c83e7e3df672d3f
+    imported: 56f7d41a78b707f135cb1e0801e62973739666a97d88bb6cfcdac70fcd26f0db
+  volume-2/in_venite_benedicti.csv.ly:
+    upstream: cec158237086cabe012737f6e51f12d3b88847e986fd67b109b3810fd34b8df2
+    imported: 4f7f010a16ac75775bc3646dae0e85c5f76df7be2ffeda541cea07b998b21ae0
+  volume-2/in_victricem_manum.csv.ly:
+    upstream: 4e3f47bd829e175232434c8fae5838bd734b50fa211c44d4171eafb278fe9f5c
+    imported: 8340a84bca2ecfc71608d1e68aebe4c04dafb3a33ef597e751d4ef46ac6af7b8
+  volume-2/in_viri_galilaei.csv.ly:
+    upstream: 5eca70d572166302a55d5464eb5b80a4a9bd49b5286a0fcf3dfc66e03e972efe
+    imported: f28731732f1fe3d07788be63a14bb6ca691f6d75c5d4182eeb64d487b8cc3404
+  volume-2/in_vocem_jucunditatis.csv.ly:
+    upstream: 8fd16f1b1dbe1d9c96c6e09858cf96397cc63b9785aa3e1a08e2ea6945534c05
+    imported: b4acddb5d2786710816b4b3732be19628fbf6f70e212f5462e5055c00e064246
+  volume-2/of_angelus_domini.csv.ly:
+    upstream: 98e96a8f0a0374782f892e64495e7fce55217085ffa858ecd32ffc2db8362a45
+    imported: 0686a419d12825e93f98ff5f312b0c4f2b1196ecab6014e1e12ec45fad79b13a
+  volume-2/of_ascendit_deus.csv.ly:
+    upstream: 33e06c31c43a5544a581067dc4ca8a8be78a4c53d7f6294b4d67a494c15dca08
+    imported: 6b4936c1d5970ad1589f2d85c313ed8d7c87aff0d6eee95ed3612ac87b4d9506
+  volume-2/of_benedicite_gentes.csv.ly:
+    upstream: 0260ede1ca9c498fba1de4e11ca14ee7f43fdb1d7622ad507c3f9f95513ab142
+    imported: 0396c94e4c5278e0ec18f6b221894a4a4752cdd8a31f717d0a2c65553e6989f1
+  volume-2/of_benedictus_qui_venit.csv.ly:
+    upstream: 6682d5c225e40c2caf233b2d1b67420f6e04b981b28658c86a8b52bbc1414c57
+    imported: ba1ba0ae2ee77c7cfd90b9c54a46a382b04be95ab45550e9c2a466007157c90d
+  volume-2/of_confirma_hoc.csv.ly:
+    upstream: 3a7170a4216e1aa4f9fb664f55048efabdbe910df4eb9d5c80a50d6c63cc9f6f
+    imported: fd53771f9ce0d0dda9e5d500d8a26cba1a9f2f437940a2628e4fd1e7ba7815ca
+  volume-2/of_confitebor_domino.csv.ly:
+    upstream: 98b735a92c463a38615e527b6619be09e8670542cd7f776106d6a8bba031a1cf
+    imported: 29cb5eab4fe8c756b95f07b51dae6dd9e6790ce2ae57cbd7c5585f2e153b0a2f
+  volume-2/of_de_profundis.csv.ly:
+    upstream: 9dbc282f2ac6f14ebb64b5f22b6f1f8241763300821e61c85601917554e0efe9
+    imported: 959dfc30a05fb98498496e651da62ad1b2b1d6fa675c497e9fc5da79524a5e61
+  volume-2/of_deus_deus_meus.csv.ly:
+    upstream: 47964a21693113facf4075b2c5b000bc354b8b9edfa3d00c7037cefdc8fef716
+    imported: 160089ca41962f81f7f88bb70dc8ca3fffa5207c522b8e5e3005b1a8c0216f3b
+  volume-2/of_domine_convertere.csv.ly:
+    upstream: 4c2aaabc92fddb6126b840eb279ca04a4e1ebd93544680161f0c0c5b73fe6c62
+    imported: d6f64bd41f5b22915f28de1a74b82c47b3e27ded32629f8ec2d9db039ffc09de
+  volume-2/of_domine_deus_salutis_alleluia.csv.ly:
+    upstream: 42431b4855828cc591e1bb1fef45a0f43c7ad81b1916b85f06cfa93183c42a15
+    imported: 4686a7adb9a70d84b69958a5e1498083778c418d1318c277911c86c1d9f0bb93
+  volume-2/of_domine_in_auxilium.csv.ly:
+    upstream: 61ed7e9566fa0bae928c738f1adc82225788b61aa7fcee073dce1ba9241ba9f0
+    imported: f26566934d7ff9345fec3ea90058c8d1d733cb113318578de4afd03b3914b135
+  volume-2/of_emitte_spiritum.csv.ly:
+    upstream: df508b9a9947b7e16af719cbf6a7f6ee82da768133fb5f81fd8fd49b27f22321
+    imported: e9ba4b29f2ca0ab81dd88195d0058111fd538a6806cd0127f00730419ca891db
+  volume-2/of_erit_vobis.csv.ly:
+    upstream: f0806feb350a876705da07bc5293a8aa7b5ec644aa75d3c29cc541482c7f6e43
+    imported: a411b0850282b6439ff70eec297d5f1c2fa4fdee7cfb5448200d5d59609e8def
+  volume-2/of_exspectans.csv.ly:
+    upstream: f6bed7b75e69e903bfd53fb221c3d26172e31579f7acab36df658d605e87c178
+    imported: e8194861c25a4e1e1ef8eea98ec30f8bf74cb9471a371163f238e0053df3a5ad
+  volume-2/of_holocaustum.csv.ly:
+    upstream: 32e8fbfa4efa073f5f869b85e7d653fb758dda84780b0c4eeab39bc93279fced
+    imported: 0b99872281ef5fc82bf535388eb13ec161312273a523f83a76f5d54c9eea1224
+  volume-2/of_illumina.csv.ly:
+    upstream: 451ce5961aa3d99cfcc81c823c20c823223c5b3d8793a28dfb25dd328806f5d4
+    imported: b570202ee9417efad21e299911b06f001d965cdb9899dd9ee2a0ad2e92eee69c
+  volume-2/of_immittet_angelus.csv.ly:
+    upstream: 5723a4db7497a2a70d9d03dbddc6150f837f9b44e8a38b4e805cd6a70b034ee4
+    imported: ae3ad531ebdce40187390b4243b482ab09acbbfd16c5a29048b963829f30a00b
+  volume-2/of_improperium_exspectavit.csv.ly:
+    upstream: cf96bcb6bea7a8c74f6324a9e1e48ab9f3f990b3e30844ca21758ebe68936ec5
+    imported: a75ab0b3e4f42546ad99b85759c900130893073e25150107526f9b0f6db6e556
+  volume-2/of_in_die_solemnitatis.csv.ly:
+    upstream: bceae79f3d439219dec4f7d2e0bd82afcf3f1fc82553cec5467707b8746f5d1d
+    imported: 5129ab3625eee9f31078bcd37d733a33e507df74840587347bd5bd6cf6198fa1
+  volume-2/of_in_te_speravi.csv.ly:
+    upstream: 3e0615bf59826435081d8565d0e904bd0255c274ff3d2b8df7970d739fe214d1
+    imported: d63dc6a79481f7c143d405e5651bd17427e385db3a34484822142db16ad4e603
+  volume-2/of_intonuit_de_caelo.csv.ly:
+    upstream: 064ce0d803e307c2700f2c9249b9f2cb48514b5dfb7990754eae415a46289762
+    imported: 83422788d29b6be0243fb86e5fcd0008b1e6be35a9406da7584fc807a6658bf7
+  volume-2/of_lauda_anima.csv.ly:
+    upstream: 3565f7121b293ea59a4f0b7ebd9b6dfdf81db220890c36d806a079defe3715d4
+    imported: 73b7693574a7454daafb4e14aca6d6566f8c8991f1760491ce076244ecf0997d
+  volume-2/of_meditabor_cum_alleluia.csv.ly:
+    upstream: f62ef727c427c7a4d652015f5c7790d4fc19b6ea424c3892e92fbf828de7526f
+    imported: 1270e439430503e00801b4e2b411e295dcb42eeadf86f58dd1679cd41721f04b
+  volume-2/of_oravi_deum.csv.ly:
+    upstream: 8271dfc192388c629e67f2119d9fc138049493806dd4b3c379bf80f6088a61b8
+    imported: fabf770b4c2a56d54b6708868f6b17712b1bde24c40827931fb796012ef96377
+  volume-2/of_populum_humilem.csv.ly:
+    upstream: 99e89d2db6431eaeea87835bfa461af6fd69957adf1beb5044c56c3bc2d39c22
+    imported: 9c3b4d71909262fc71ca6c17e0644fc0aa769a8661c535a1faef38fb5a3e14af
+  volume-2/of_portas_caeli.csv.ly:
+    upstream: 91fb3db34fb2ec430304db66a000c36b4af9b204fce6d5084977b93ba8e6f86d
+    imported: f32070ca890aa39e9cf3ff8c765cb69f08584cdc4f18bdb6a74dc6aa38837309
+  volume-2/of_precatus_est.csv.ly:
+    upstream: ea6fd8d8f8bc10e534f8e6dd1b83d6c18d5df47e96f3c6690e7036425ff1e22e
+    imported: 04eda109d6541b692c1cfcf91fc60991fdbe0f04e819717e82014ea5dfb30d63
+  volume-2/of_recordare_mei.csv.ly:
+    upstream: 29f9231364c72aa02b67c1d282533f30b8be96490a4cd316792a790219b2d60f
+    imported: 02dca49fa8c3d1bcb08a6cf578867f2ed11499d18bd12f06d743fdf82ab00c3c
+  volume-2/of_sacerdotes_domini.csv.ly:
+    upstream: b19affacc30232c95ffd4bb3158e704b189caa6be22beeba2d1a2bfaaa688b0c
+    imported: dc68c8adb5a6116629dee93ee2d8a1eca06191bff6be5aa91cbcfdf400fa9da5
+  volume-2/of_sanctificavit.csv.ly:
+    upstream: 70365cd6454a6e70117b805b5edfd44c711ba2b595349585a3a2040c4785479f
+    imported: eb779c31211e140ba6daf6b4cd4583f5134b11d973701a69300e2212d8341e2d
+  volume-2/of_si_ambulavero.csv.ly:
+    upstream: 87cd35e48d598f14fb664c7cd98ed87d1a54963b701a2d20791e7d3ea0b10992
+    imported: 054de7fd8e4ddbe46152ab67ccfdf21ce59bc9ae849ad100a6b2348f38498c71
+  volume-2/of_sicut_in_holocausto.csv.ly:
+    upstream: 287726b2c2070e44a25830a41bce76c5e1ef1779d3b75952d4d9b168bc795224
+    imported: 3ab8d955aec4b7939c42358fb0439f38d4f2e45a31a67cf154fd7460f8a5ae4e
+  volume-2/of_sperent_in_te.csv.ly:
+    upstream: b2661c56d65a7f0be1ec623664393fd2ce1133b9af9811b952edb710a7479b72
+    imported: 584faa7aef21bd753cf2bc65b023c120520eda4fce5edd825317b67f2f052919
+  volume-2/of_super_flumina.csv.ly:
+    upstream: c26ff0b3cb1857945102ee9eb10cbef0d3ba647c68b8f3267f7c9f78f6505de1
+    imported: b30c4b4e54a5ffa6207bef030b01d92c4676ec678260cf3927e8ce259ca1fa54
+  volume-2/of_terra_tremuit.csv.ly:
+    upstream: 031216e921068944a7fffd31f86ac1e8428331d5d8b5008022c9a3b8ba39a616
+    imported: 6ab14e05c853842ba7d34d24c1935e85a22ae1e011fa533e9160d59760b87324
+  volume-2/of_vir_erat.csv.ly:
+    upstream: e193f3cca055f40805d254bd86d299340f93c7c501d4cc0682b88eba5d87788e
+    imported: 72cb0f8a5683af59c164157ba30eeb24d1500ec310e66e40c8b159d0976e2702
+  volume-2/se_lauda_sion.csv.ly:
+    upstream: 1f6acdedd0934c3197b42adce5ef4b4698d25c694b38db167f0218423606aa02
+    imported: a5b1b0929b58c6a2cb441696e69ca81f2831b01373045a40ad178148d9017fe7
+  volume-2/se_veni_sancte_spiritus.csv.ly:
+    upstream: 12a8a3cdf831af77d7192ab9092dde5677bda3d7bf079bd0449182e2c198f71e
+    imported: 9fbe7807db141743ad755bb9cae5ea3e111ac7eacc7189c153153bd832c6ffa2
+  volume-2/se_victimae_paschali.csv.ly:
+    upstream: d12db37e25591becdf6e4e9609c6fa090f3bbb1cab4cb9ccad107b00ef924e4a
+    imported: 0bbe80773e580041c852fa125d996dd7c6512984ae8537747b2945a1fb2a6f74
+  volume-2/tr_misericors_et_miserator.csv.ly:
+    upstream: 42413388f5e45f247f07526a28627e046ee659519583e6ee98b18d14882b95a1
+    imported: 5dd4860f49502352ebeea08c28c358af5dbe15cbe36c12a906eb9a14c6e8f65b
+  volume-3/al_assumpta_est.csv.ly:
+    upstream: 08264e950eb0db3ff2169f02dd89e21b7f395277d2a0d35a6386aef3f9b27520
+    imported: e3a2baaf67f224db5e779b3696bfd90f375059ff7158a679ac68e9324b11c5ef
+  volume-3/al_beata_es.csv.ly:
+    upstream: 652e33b3a09e5a9386d934251f569acb3e57a1c412a72983c7c9255af6e5eed7
+    imported: 72326f17d440476186265e5778a0a1a58c3ccb3e5a06460c5c22b0830404c489
+  volume-3/al_beatam_me_dicent.csv.ly:
+    upstream: 2f531964a8ff74750cad31684415d59fc93013ed7efac7058269178cb3225b53
+    imported: dbbecbfc116e7ac37043035ce757903adfa90a4d0f2d44527fad74ac4c598428
+  volume-3/al_beatus_quem_elegisti.csv.ly:
+    upstream: 2983ca182fd44258c4502f64c94bf78c0814d8c550ffd62f4435b9c63f04eafa
+    imported: d7358e46261d369f3b894450aef3521b8d60f53982639101a6140a47cc674700
+  volume-3/al_beatus_vir_sanctus_martinus.csv.ly:
+    upstream: e8206fbf674638cb2213a2da16933783d21c8018eb8e11f40bd502e347f6cfbb
+    imported: 83caae061b30c5cfbc9f2ac67c4fd59c156936be9e787e299b9e9f37de0345fa
+  volume-3/al_christo_confixus.csv.ly:
+    upstream: 8155dad40a536b7ce1bdd44bee9fa95caf3b7c90197e977cc3282a40f4b538ae
+    imported: 1698c7354c5c221cb80df2a813a0a2e50d0a8ee948faf0f2dbeba7f286a1f9f4
+  volume-3/al_christus_passus_est.csv.ly:
+    upstream: 24c2fe3080189a963dada666d59dd649c17a532dfb13dce48d9bebd0089cbfc9
+    imported: cf4b16bc5d4bb9eb8f943ebfb620adc14ba891925f7ad0edcaa5ebc3e2251567
+  volume-3/al_custodi_innocentiam.csv.ly:
+    upstream: 55c0c9dd78efb4afe7d347dbf45b8b22424e2cea239aad684c868da5fdcb2350
+    imported: 5886047770c502f4865085128f8097ad930933d6939c8d46a7d7165816b088ee
+  volume-3/al_de_excelso.csv.ly:
+    upstream: 517a8ae3481a9e6b26f8714cf5b9d5d494eae3cb54042a9eae63f8f741ae6dd1
+    imported: c0166f0503e7ea114f31a56df9f1237cd32dafa5e2571420c871bca30b024ccb
+  volume-3/al_de_quacumque.csv.ly:
+    upstream: 152a7c6ed164772d8f95bbeab901c8a91ba62d06fe4caac8659695169c8b31f0
+    imported: 56048f4cbeb2b0d1e06e2215e64ed45df36e09a7e33943f92a8263846fc6f5a8
+  volume-3/al_defecit_caro.csv.ly:
+    upstream: 088a29890fe7cdd8cce7f2ca06d1a44a5711655e22fcf9cb7ce5355ca8074f63
+    imported: 1243bcc8f7dcd165c6c2eb4e6c0c0a1760649c48dd41d01250da325e97a376fb
+  volume-3/al_dicite_in_gentibus.csv.ly:
+    upstream: 07bb3d55b0f4bcd2ff9f891605b534d16298ce04d69d4e37dfbfd83f95039f0f
+    imported: db802d1fb67d97058ac09c7ed489a0bd07b17ffbbbb883ea45b974c773b8a2a1
+  volume-3/al_dispersit.csv.ly:
+    upstream: 80b294e65efcd428725c291cda38d6633bbb512056ea1c443bb35ed1ea128af9
+    imported: 685f1b7f0a7290f24320c1f5b4b4316a336e895bac1308392fa9ca5d8b4a6dbe
+  volume-3/al_ecce_quam_bonum.csv.ly:
+    upstream: 8ca714a1fd764ab28ad0d80072f702de98b0583f23c91e43d2db085f918bf404
+    imported: 0d9eb972de1bcb55acb86f0ed122c327b8ddaa1dff74dcad37edcc7cc234b263
+  volume-3/al_ego_autem_cantabo.csv.ly:
+    upstream: a6c9dd87e68c8e84abb3d2012799c142686cc20a040165e71ba05ce3f6386457
+    imported: 0334673c3d9714733e3bd02a23cd1d7d5a756e8a3d945ef2e1827c023b0d0aca
+  volume-3/al_ego_dilecto.csv.ly:
+    upstream: 20fc76d298edf1eb4d0055d28f192a1e32eb93722fa969e48ac3455778c2b069
+    imported: 509018f07c9096c42620f38321df83d3ed6475961383aa2c1bbada16979995ed
+  volume-3/al_erit_autem_sanguis.csv.ly:
+    upstream: 5f8ad47751a02a4a82416cea4c862c8a760c5013483a141cad5ecad001c43898
+    imported: 08d98161deb6432d41d2b49aae02b93303a79af0ce138d1a3dbe0944a1c38689
+  volume-3/al_gaudete_justi.csv.ly:
+    upstream: 80c59c74f113bad0344c72ff4292c9f23c651e79e93de1e9fb2b9be3ecad7c6c
+    imported: 80b912eb1d958f5ae0d1eac10dd15fef17b277d2576342df118226ede58ff77b
+  volume-3/al_habet_in_vestimento.csv.ly:
+    upstream: 581ec9e1ad3b1d8d001796fcf0af5a59bb433521f14183412db46ccd90dd4509
+    imported: 3aab1c63a94a423561d9f5a8e69897e527c90e83a2539a07783800994b4fc800
+  volume-3/al_haec_est_vera.csv.ly:
+    upstream: 7a5ff0c5c82bd01fae593abb940edff5a98c954c474557e5d9a79183322099f6
+    imported: 4e6c09b47846ec29a3bb49a3add662fcb19c69ae4055e54f790c070de33b7153
+  volume-3/al_in_deo_salutare.csv.ly:
+    upstream: d6ee7efd47fb76d1d0a40423117b0e68d0a214bcdb0c53139cc276fa1e8b4e05
+    imported: 27c2bfc912d69860ad4e6d5bc7b64bab1ee3076714c826e8dcb86bbf52677a61
+  volume-3/al_in_multitudine.csv.ly:
+    upstream: 38edc3911334951d5dc7cd376f933d49faf5cce1c13262598eb7871c552c7a94
+    imported: 300050941e957b4a8329974369a27b345014a4639d44a0fa39759dd5557aa0f1
+  volume-3/al_laetamini.csv.ly:
+    upstream: 74c228e04fb421f1edb76b9ef1277d8f245c626a0eaf6d26b8b57e2514c051ef
+    imported: 1987aafee2c2b0fd4b6f9def5649e75e1515b8272d10cb656966facaa06c182f
+  volume-3/al_missus_est_angelus.csv.ly:
+    upstream: cc741ea38b64afbf88c768fa84ed16f4023b70d47e0b7fdd18fd5e991778ad93
+    imported: a207a8bc498356cb79d0ff4a50a95419deaba23a7aed80e69d6e1c7bd4ec9618
+  volume-3/al_non_derelinquet.csv.ly:
+    upstream: 9947924ac8861b8732d8b492a3c911092ded7262a8454d465ccbe1350b0f4c12
+    imported: 6f07a60fd668ce171ab41038f254e4e7efa38adf6d182df7f9cf69a5c4a95cd4
+  volume-3/al_nunc_cum_eo.csv.ly:
+    upstream: 40b8112ec34e55f1b484e8222e9afc6e87c18d9cd207b67cecbc3890bf16db92
+    imported: eb7c21a62550b8747f626f199062cf9c3c3fa84d433d2aea48bac30efeb2feef
+  volume-3/al_ostende_mihi.csv.ly:
+    upstream: 0d3fc4f3a8d30f678c180bc2f62479bf89241b2ea47abf510241986cbbe407f7
+    imported: 1309209827b2966063e274be1a71704f4d268f9d8390e0cb0f475bfc24561368
+  volume-3/al_pauper.csv.ly:
+    upstream: 05081d50321b6c8ec6dbbc9e1fe7656c3e26695b5599a6b4ab80b6a980f4781e
+    imported: b127068fe9340ffe90d3e862781692012fecee5554accf5ace44a67efe7d0b77
+  volume-3/al_per_te_dei_genitrix.csv.ly:
+    upstream: 3507d95a70a71cf01a6feb6eb86a682cc579398c65b2b27a39776a9e1e2ab72e
+    imported: 48187b4826bd42beaa007c9434df7ec86ce463cc7cf9f91e938a43d77d8520c2
+  volume-3/al_potens_in_terra.csv.ly:
+    upstream: a2f62a5773a35e5a62127dd337f756cf5b0a542507f1daae206e6a1dee178283
+    imported: 4c43b90b201e42677b326c07472d2e29b3e5af613395f2fb0cae6855b72d4131
+  volume-3/al_potestas_ejus.csv.ly:
+    upstream: 8a4437d47a09e361670dd1188dc3eb3d6530f24a0cffc46a97d4d61cee4d5004
+    imported: b34eaf26a89eb14f45ca4b267f415cba953cf24e8b4ed9cfafae79a05e16fcf3
+  volume-3/al_pro_omnibus.csv.ly:
+    upstream: 542feeec0283f24d11d52fe6b60b1c65c8623f72437cd3eed89d7b67036878dd
+    imported: 8c9f2203ba25c67558faed1ea0421cce188c13d25ee0144bd11a8b8e43ff397b
+  volume-3/al_qui_ad_justitiam.csv.ly:
+    upstream: 294fd4ea4d27d627bc854f5fe20ed86947bb649a9cd172cddf4af2aa6aee2f58
+    imported: 55e8021faf08645ce9662a8954c44657c75586bf52e1922b2860c66a47252b45
+  volume-3/al_qui_facit_angelos.csv.ly:
+    upstream: 84882f31cc7660af699a5f8942b98bc690c7c1f2a4dfe538ef2de910b319d2e1
+    imported: 4b8b134a316434468fad3a1f640206581d94f740ed75d45108fd1250c32f0a9f
+  volume-3/al_quia_factus_es.csv.ly:
+    upstream: 0cfd28637fd06b4a20ac60444b1ac9a117e5c65406e14e263f9a9b21c90df359
+    imported: a310d374012b553ed90497223bcbe1ff3d0d44b3d8e9eb7d2e57462366507c83
+  volume-3/al_quinque_prudentes.csv.ly:
+    upstream: 589af9c087716e6fe7f65bf6fa1a20c01583e9420b2e9a47af872519952d0804
+    imported: b971125b6c024f61c400cad35195d4930263aab033a8138bf33762853c5e992d
+  volume-3/al_repleti_fructu.csv.ly:
+    upstream: 2561bf65995f2247e232fb199e38740a4fa506e7bca8b3925ab24b1bfaf4fec7
+    imported: 38fc3a3ceadb569508a9e9e969526c743692281d6dfd1f61d221ce30192b32a4
+  volume-3/al_repletus_sum.csv.ly:
+    upstream: 4336c6ea3f78adec9a40f7f0ce642a427e6268598091d4e941c532a289cd3ea8
+    imported: 682fbc15e7a05a05dcf3139e3ebf4b14b80a9bd325e09df96c07533051fb808c
+  volume-3/al_sancte_michael.csv.ly:
+    upstream: f320b281c7e965caf02e9ad38ba9e55b4f95044dd0adbb9bdf37634956c4191c
+    imported: 81124d85f4d451db6d78ce29b7370e4a4d4718d8d8a7be8b647025a054004d6c
+  volume-3/al_sancte_paule.csv.ly:
+    upstream: 48ff434a6950e81d85dbd953d93ebd09e1e07b4a37c9b2db9c3c534745fb06cc
+    imported: e616db69bc816a115764e6ff5b60630bbb889eb2943e46ca55ede02267877423
+  volume-3/al_sapientia_hujus.csv.ly:
+    upstream: 00476bd6a95d8c88495a4e4afeeda2f5866ed90b890fdfb92e1ee4817f704231
+    imported: 6e3c4df37c70401ec2e81e6f997ada45cc5f0e8ad846f771851cec7b45528973
+  volume-3/al_sapientiam.csv.ly:
+    upstream: d32bf4dfeb20e8e65ee73c7ac787c86de15e7df945dd14abb6f777863e126140
+    imported: cee3f76f0f9de6e3a21b663640224f69d848792e0b5425a239120cc3436f6a3c
+  volume-3/al_si_filii.csv.ly:
+    upstream: 206923ac1200d49da742fdbb19a431ffde0ec9d05b2b5a866c5d361fec83e0ca
+    imported: 7ea61ab933292f465f92fab41cc2d70a3ebcfccd62a2fb927d8c6b49fe145d34
+  volume-3/al_si_testimonium.csv.ly:
+    upstream: 7a56a9b299dcdb3b59e44f778daef599af64826053a95fb5e890c65780b3ace3
+    imported: b3d3e0f5f50bb0231ef55becf41dc7a010f54998eded8525e6b7512aa14f0258
+  volume-3/al_sicut_oliva.csv.ly:
+    upstream: 5a31e90ef641f7859786b127ce22a65ca499c3a1e761db743a2ce98a92fd1339
+    imported: d8f045a37b55e773b851bb4679d3709659796d6d820ad38e5243c07b60b41f9b
+  volume-3/al_stabat_sancta_maria.csv.ly:
+    upstream: 7df3a56852245cdf89a45d76a476cad468ed7db4ee0f576bf0b55dfb49e54a55
+    imported: 3f9b79625c871cbf3d48741140f80b0d879470d5ab26b2845c12ae6ef8daabfd
+  volume-3/al_tamquam_prodigium.csv.ly:
+    upstream: 7cfbe2281a2967ac65ad47e420576e4e2401f85102f60582b667ba20c3eccdc2
+    imported: 38c4c195045d16999d632384c0453f01af413229adcb9e5b9d26f9dd803d33d5
+  volume-3/al_tanto_tempore.csv.ly:
+    upstream: 413407894525caa9d97f898a74a2878387a18697e1549745b455571be4dfa48d
+    imported: 453c5e585fa9a89e2030cb2af8084dc780702aa7008254186cc40bc68c65655a
+  volume-3/al_te_gloriosus.csv.ly:
+    upstream: e4528924c386cc066c3906ca93d23eb8b58882726e8792c4d953fcc07ca7f5b1
+    imported: 78462d5300ab0543d5e71e546a5b8ccab01fab1d77d8e4bdec63f1a063aaf0b6
+  volume-3/al_tu_es_petrus_31.csv.ly:
+    upstream: adb4a5bd94a0b9f6eb8bf6e665f35c2ad7018594853504a3498c3fa8fc0550c9
+    imported: 52216d13161a9a40898982ef1ca7021abbbf7f5317a9a271c1354160df4359d8
+  volume-3/al_virgo_dei_genitrix.csv.ly:
+    upstream: 41fec5463b50c373dd922eef0c08e183431feff2ec0f84897fec59a80da94c16
+    imported: 39642b9549956f2a21126f550571f97e81da2155e9f30cf3c131bfe0b36c7c2c
+  volume-3/an_adorna.csv.ly:
+    upstream: 256ca93bc43da1d36cb2effddad8fb49a618460e5891e41cb16d69a5da617960
+    imported: 78c042ee4ccaf15c1b3fc0dfe55ff4829a1e32ace8e4d97c996b662c57ee303a
+  volume-3/an_exsurge_domine.csv.ly:
+    upstream: f65de5a871de1789072e1ad15ad49c468003d30f8a2ee367341382d6887e5068
+    imported: deb779d4ffe28dd42496ff04388b62f5207336d225ef2f2d4cbd659342f2274b
+  volume-3/an_lumen_ad_revelationem.1.csv.ly:
+    upstream: ab101c1f41e0bea31402a56f10a2557dea55c013a57d0aa9bb2174c24cf9b3d6
+    imported: 85844bfe95fd4a2c11e3d958cff6f94261d7ba7278239cb386ebdc6cfcc1a58b
+  volume-3/an_lumen_ad_revelationem.2.csv.ly:
+    upstream: e6e886882951df0ea6fbdc52949105c1adc6121f4f9f550452006e80c43369d6
+    imported: 28ebc46c7890726a252b01fe2fe9b468f3f06aa86e0449cb1a4cb3d4d2ad7504
+  volume-3/an_lumen_ad_revelationem.3.csv.ly:
+    upstream: 0fd0f407281ca754c5200fe289c57d32b3a56dedf1e9c83d9a4f0a979bdd60c2
+    imported: a772c072b493ad721a7615a176a48eae25c2d8dffc97fc8abe2c5788dda9da04
+  volume-3/an_lumen_ad_revelationem.4.csv.ly:
+    upstream: 355d0dcdea281679a7b9c85d4b71e1336a54a461232e150a572a3a2db825ec26
+    imported: 8fdfb0e30007436178506184a363524dd0f7bfd3b3921e03b64bbb60af9c185c
+  volume-3/an_lumen_ad_revelationem.5.csv.ly:
+    upstream: 5ed2a357ff6fe1e79ed9deb8aacaf853b341c5374fb6ae6513e6d06ebcce11b3
+    imported: 7e1acf8a0a19bba5927b977d76aefd7d6c73ae9db4f9d1d3eef2bdedb8be189e
+  volume-3/an_responsum_accepit.csv.ly:
+    upstream: 4cefbaccade413b889d9e3b3f8659f8960707f390aaabe82d00a00df5d34dd15
+    imported: f0a03004f3d4c164e337e5e073df4ad30a03f8bbddb90595eda9bc3714e17e54
+  volume-3/co_beata_viscera.csv.ly:
+    upstream: 26aaa92afc1330b886d1838245ecc21664e3d3c5ce7b5705b8bb166d97d493ac
+    imported: f33ad1ae4b1c7c82bfa618eb565bbe3125bc54c4237abda44a4420fdbddf700e
+  volume-3/co_beatam_me_dicent.csv.ly:
+    upstream: e159672b14d52a0da26e2c7eb1b034ecbdf5589c7f14ade0a332d0c677c0fd3d
+    imported: ed3ac468a2963fc15a28da8c9b58a84b674a1682a9c3a01b9dde3d3f7a5f4c40
+  volume-3/co_beati_mundo_corde.csv.ly:
+    upstream: 8f438e6288ff6a67533bd14067331bdce843056e474b1d93799ca21654488623
+    imported: 569580f54db4ce981a74a6b8ce0e23d83cab2583c6d57b6d7001af5bb5d885e0
+  volume-3/co_benedicite_omnes_angeli.csv.ly:
+    upstream: d5307ff770f764f7f4f2997230703a59da39c286f06c4a44327223649a9b11cb
+    imported: 7e3d50184968fdb003b374677da1df05b59ec40c2899a40f5badabb640e754cf
+  volume-3/co_brachia_peccatorum.csv.ly:
+    upstream: 442415d00c82fa1aecbb787ab05014c81ab81f1629c6eca75606e21e1368e257
+    imported: 206ff6f7c4d46a0a14d80a6bc2294eb5c63dde301ef3e2b7b05505c5fdd22369
+  volume-3/co_caro_mea.csv.ly:
+    upstream: fa05ba87d4a9766f2f75f2f7ec492c02af64f9501b0cbab5fdfcc7aa63e38886
+    imported: ca00c242144e1fd590b104ca942816e2a6fa4fb163eec33dce9a1fb976381bea
+  volume-3/co_christus_semel.csv.ly:
+    upstream: a5be73d403386775818c743668866a09b902beb9a3f4a955ad2d483fa2b663c9
+    imported: c3b8783da580d4da32c25cd52364c8d3db67ae332017ef7be391bac5ef5a6831
+  volume-3/co_circumduxit_eam.csv.ly:
+    upstream: 00a0f6e867a3487de33093b3ec8f130ba513905fbd41b4dfa56ed728bd73eb6e
+    imported: b776193412bf33e1b01fb21ab11de516bfba7239fd002a21369e5ef41309845d
+  volume-3/co_contra_spem.csv.ly:
+    upstream: 0e89d64624fe29a9a407c16463a1314ece596b21717d95865fea7a5cba8c34c1
+    imported: 07da9dca2861ff6ee05fa6f06b77f67e12e93757cb02c43e1b65be885ec92971
+  volume-3/co_cor_meum.csv.ly:
+    upstream: 4c915c598dd6cac64f9979c3b764a96ed13b0ae1f6f85f195f760cff0db969f6
+    imported: a9b192bb9ecfa181ca84b5747d3eb5d3cb4280286a6a5609ae75b31558ca8086
+  volume-3/co_date_et_dabitur.csv.ly:
+    upstream: ed38155e36d74f0fa1290e49402e9ea16490eec08477b62e126a8e8cb8a8836b
+    imported: 3bfe791b2977423dbab62dcea3342f852c988471ae3ed95bf5dfc6484f69453b
+  volume-3/co_decantaverunt.csv.ly:
+    upstream: 9f66a6ae875f0a77d09f77254f8d39ed1d6dc28720cef03bd6128eebf7d83351
+    imported: 48b68d81eb46d3338d3c7bbd5e18717274a0457c07d6bf6fe277c47574c7d523
+  volume-3/co_dicit_andreas.csv.ly:
+    upstream: bf288f863730dfad67b0816fc82f99f14ca89013a96ed54b7287a3b05e7670ac
+    imported: 3660cb8bc369c7868203cbcae9f733f40a1f01a35f576e53cc92f97ab4464768
+  volume-3/co_diffusa.csv.ly:
+    upstream: e088342c4eaba15a418ac9bfff3cfd001479de77da28e4cbd3343465a6211670
+    imported: 710de74db028bc31c92ae7941d27d966a8846b3b484f9ebaae68a2967fb039f9
+  volume-3/co_dixit_jesus.csv.ly:
+    upstream: 7e11b434ada4b414a94357c27b6e54743dff1f4d3921133bb6213b13a2c9d1b8
+    imported: 1da97867d14da32d207c5a4c6a718cf74b7a1b46dd54dffedc463e7e7913b1fa
+  volume-3/co_domine_quinque_talenta.csv.ly:
+    upstream: 0529470a8def716f87cd4d5941b3c4586badc181d30f56ae5afa90e120f2cf4e
+    imported: 7b61de166079064324f22b29147ea2c60fc2ba4fd2b5f1d5d084ef64ad5948c9
+  volume-3/co_ecce_sto.csv.ly:
+    upstream: fdcc28e8448d8143cf5d8f43025d93e593067d77df75e272805d751f36e0ed61
+    imported: ba25a6a395ce583c888b03c5f9de370486355e67ab0c8bf4b4dfe9693be204dd
+  volume-3/co_ego_dilecto.csv.ly:
+    upstream: f9bd8e81e0c5c887d5705fd9ccb3106194ea1e1e2fa95da5d8ea1e444c5edfa7
+    imported: f87ca07595c97a11ddeebcb4de08196fc3455f08b5924670fb5031c149222977
+  volume-3/co_ego_sum_pauper.csv.ly:
+    upstream: 2fafd6a76551f80a4d0ea09b0cd1c54d491ce0b8f85abaa508bba4af800f47bd
+    imported: 97783bf0e89bf0ede6c73f884214f9416ac3fcfe7caf2b222a0deef2dd363260
+  volume-3/co_ego_vos_elegi.csv.ly:
+    upstream: 8c0833ba2ed7c7b48d979a8f6a087a88a6d033509a3df0ade242246cf4f1d3e1
+    imported: 87de0148d2eb75fa7bea52bb039ffb278d50ac05495e1869dd616e7aff23d501
+  volume-3/co_felices_sensus.csv.ly:
+    upstream: 04d7487273b35e3c5b292e091c4a1309146af46028cc167ba67000bb2e4769a6
+    imported: f0d90f8a1bbeba59a08a58d6f99fd6d361d084cce599e027a3c6b5169efce4e2
+  volume-3/co_florete__et_date.csv.ly:
+    upstream: 0d8674e9d5e725d7b9e9094162e9d87155dcdf59eacc645354da241c90c650be
+    imported: 142512bd5ad889e005d8f73aa2981cbbf88683766b2c55ad3ad4988470bfcfdf
+  volume-3/co_frumentum.csv.ly:
+    upstream: 94fc573671e24579562c88b41616904af13d23d153c39d30fc03fe9b5e3e8560
+    imported: 6f6bd216a4e29c6e5108e5ce7b9b53ed4d22532ca5cc981e66bcfba5bb2d7523
+  volume-3/co_gloriosa.csv.ly:
+    upstream: 89a9ad669d82535b650254c8e371743a0f799bfe03be7bbb9b443f65619f4c13
+    imported: 18cdf94fa847593376bc5105c583e778ba390519cd71e8eaf9db0645922848fa
+  volume-3/co_ignem_veni.csv.ly:
+    upstream: 3054516a4022706a5aad3ffd1356d1d4e696dfa4a7d481966642a2157ad790f2
+    imported: 2cb8af1b77fe4e959b630928c4dfc2d0e4ccfb5f32961dddd61c2274e3c8b21c
+  volume-3/co_imitatores.csv.ly:
+    upstream: 52c952cd712374018650f706268cf0d7e2a29c564f689fcde37aa19e63edd65b
+    imported: a6b2cb03d75582644c0996b91f2fd77d9ecfdefafc01b01d34b82ba89b14a40c
+  volume-3/co_infirmus_fui.csv.ly:
+    upstream: 33e5100f507c53af209e0a87269977e6762a3b79a574367ab967f2a7c4776d13
+    imported: 256e22926ee622649a702af16c0ee33b173c5348adb16a9ca82c9fd867633451
+  volume-3/co_jacob_autem.csv.ly:
+    upstream: 79e07b043c56bc0a330a48e4da25910cb050e9cfbc41f424abb652f023007d82
+    imported: 7317a761a9e1c7673da4ef6274d4ff6651680f49ad0de31f31993574010974be
+  volume-3/co_joseph_fili_david.csv.ly:
+    upstream: 1139ea110294c353ab33ead741d1304858b522c9e4bf320ea583fe1f550c4294
+    imported: b444443977a7cc528bd71407a784cdbe255504bf07b6325de4406bab94e83383
+  volume-3/co_justorum_animae.csv.ly:
+    upstream: faab8933e6ca1e7b449ca9a480b9897cfd57c49e2b4ea79f797529dfd6af7663
+    imported: f9df369682b06088069905b7fce82a9d005c5812829ac8d37fa10723c22658cf
+  volume-3/co_mitte_manum_sine_allel.csv.ly:
+    upstream: 8b158b881d4cd05123b2c09488936f114759de8a99e6f7177a01669fce4e3d59
+    imported: c7191bff33cdfe1499ff9d12cdff27c30c4d9667c0883c8ede5910fae2c97e3d
+  volume-3/co_multitudo_languentium.csv.ly:
+    upstream: 0bbaf73f32342f4b5a6b6cebcd9d72ad18bc0a15f7d5c6dc8e881249226054f2
+    imported: b66da95c85a132fd2937279e253dc74bf682a2ff02319fee6e137ff6d88a535d
+  volume-3/co_panem_coeli.csv.ly:
+    upstream: 519429d2aacd77eeb903a7dae61318cca2d0902b407c7d494e6d2dc290f1e640
+    imported: 26bd266fafd8a28fa63b736a58451d34b1eb4349ff7b8c968a975886f9243175
+  volume-3/co_per_signum_crucis.csv.ly:
+    upstream: b10332a7c371372420207a8265e51442f7ebfbb81ac75e7d9e66d7a9c57ccf78
+    imported: 5b85ae560873ca0ebfcfcd6885091ba61ae7a35d1e7c5cde9a3ba41eb5776406
+  volume-3/co_posuerunt.csv.ly:
+    upstream: baef366db79f3d038bb575ac8231f7af5529be3753ae222175654672ceb120d0
+    imported: 2e4b260ccf554cdf4189397e3278fa1de771ecd054a71d4220c8b3b978f94f0d
+  volume-3/co_quae_est_ista.csv.ly:
+    upstream: 284337f37f82e1040d3a8f063974c058841d863669ab533c0bf305f16df067ff
+    imported: d88dc2196aed8490e756d7efc61006dffd704f138d38926f057a2cc1d98903d5
+  volume-3/co_quae_mihi_fuerunt.csv.ly:
+    upstream: fdb3b9cbe30d0cbff6c3c15831898f2890cf82f2be05fbb87f398dfb98643ad2
+    imported: d171563503ce50a13f818637faf34d35516b2c436b2162015ab746b70ec26843
+  volume-3/co_quam_magna.csv.ly:
+    upstream: 069d31320d5592ba2a8f187a48f082e28f2cb0aa04d9e275c70bd84eebc1ae98
+    imported: 737f81bdeeaa0daafa40290367dbcea4492eb5d784a774bcbd4a42c0ef420ee4
+  volume-3/co_qui_me_dignatus_est.csv.ly:
+    upstream: d2599cd296074c72fce5fcf48a966bb24424bd54dd5b6828202f86fb5530aa74
+    imported: 968cc4c6bae00a0b8ae7aef1872aa58749f9e67d2b6d2200ecbd5ab9c52ed168
+  volume-3/co_qui_vicerit.csv.ly:
+    upstream: 7b58e1ef098c91a42e769470133239efe6c08f30a7c004bca173eb07e1ce4263
+    imported: 60cf26077a486b1e9fb9db2b42f76703237bfeccd22e9b193ada667e406a36ab
+  volume-3/co_quicumque_fecerit.csv.ly:
+    upstream: 9c4009da2ca7220ef4a0b605263c9c96ad822f53bd48a97329e9ef1b7664943f
+    imported: 364d0007b377f6438284d2d8c372f924d9d44b43d2bd7dba545b7f4f20d23b59
+  volume-3/co_regina_mundi_272.csv.ly:
+    upstream: 6f66cec6e38db557dc8453089389cfc25b477e2d8900be9c4b19961163bd9cbb
+    imported: e3e0d0735f425a645bf63eb3eeb1ddf1f779ce1b35a1f1e122f7e7d1735705b2
+  volume-3/co_religio_munda.csv.ly:
+    upstream: 4b4eb40ccda215c657125256f5fb60d9798383328fadfdde8816501db48c17e0
+    imported: 3acd063f19b3db6597338e4629c42f2bbaab0019af4a0906c9bef0f7d6c741c9
+  volume-3/co_responsum.csv.ly:
+    upstream: bd562a96ca99394f9a1c207d908c8b1c8c01511478e42b1d5bdf0465abc4a7f9
+    imported: de575fe145c0ee27fa824fa3088f2ab60fc55ad607b4e0f432c569c120078b8e
+  volume-3/co_sacerdos_magnus.csv.ly:
+    upstream: 949b79696d224a5cd11609546f3525954554ff195bb2c9762efa0ebf0e5d63a8
+    imported: 74b497ac66b73a3f6db6d9b35af6d816134524afc1ae79b28c2a8af51b2b06b4
+  volume-3/co_sedebit_dominus.csv.ly:
+    upstream: beed2576939eec85b48283e313c700c9a7ec9da23978b32b202459b113d35f7c
+    imported: 555c9b1dbd9f0e4c11bb7f6356712d0ae5b3b9c7f4cbf085f727194fe8aea04a
+  volume-3/co_signa_eos.csv.ly:
+    upstream: 1b476930bee1a4f7f2fc64f5a41780eea291325437729dfa45920c62dd8d05e9
+    imported: 1f5002fe41e2f6dd53fd86d6c5275793ff123b7363340c5dc2890ea5968b21f5
+  volume-3/co_simon_joannis.csv.ly:
+    upstream: 52a18406017106bb998960def96dad7ba7b51678be2f925ecaa41e7206bfa4bc
+    imported: 9c06e6fb00e349eca38ee7393179c031cafbef8526563b67651f58f3dd205fcc
+  volume-3/co_sinite_parvulos.csv.ly:
+    upstream: 0e325f02c0e165b0bbdaf066d437f41c3a56baa8d7409440afffc38cf4a65bb3
+    imported: 82c4b643c6a137c4478c4e4dfce552c1b0525a4e1544c512743cbfd81b35bb16
+  volume-3/co_tanto_tempore.csv.ly:
+    upstream: 66ca12917badafb62a95ddceaaaeea5884ce801fa5efe002d9897f5679ad55f4
+    imported: 98d94832fbe85e685ca541e9fe13eafda717d246a1e815a8e181e527201cece7
+  volume-3/co_tu_es_petrus_242.csv.ly:
+    upstream: 9e59bf0bc4cc460471f700bef81e85acb3cdb7ab669edf5ed78030869e160666
+    imported: 62c69d106ad7ca467e147141d63f87b86376c01cfff477fe3da1a03b95c2b9fb
+  volume-3/co_tu_es_petrus_36.csv.ly:
+    upstream: 90d4c1334be6333d5e5c87da008b4f9e2209ab265c57f30116befa15b917cf2c
+    imported: be15d8561a7b5dbb5b61da8ae74a81c96437346ebb8a74fa606f6ded2635574d
+  volume-3/co_tu_puer.csv.ly:
+    upstream: 50557dce9623261e1f3671e8be012acfb99dfed5963950ff2a84375f281cad91
+    imported: d3f99fbfabe57b79b20e32c2f7c1c09ada09918391d10eb4e5c6773969f30eaa
+  volume-3/co_venite_post_me.csv.ly:
+    upstream: 7cd8de22427352094d061a54d449f7c20ddb10a7d4dcb5a40dcff6c7267c58a6
+    imported: bb0f4419a28ddf9a7112398c7fea84a2d89ac4b5f6172ecdaaad5f494bb8cc51
+  volume-3/co_videte.csv.ly:
+    upstream: 8f6588dfe349c06e0f488ceeaa579c1739e5edb71fcef1673600be89a5fc8ba1
+    imported: fcd3d252eee4dda098df8c3ca1edb7a33801baadcce9d4da8f42d9a49ebd5056
+  volume-3/co_visionem.csv.ly:
+    upstream: f90219198b05f883c3eba8ac4a963889d56249ae409f97d3e0cd6b2c6f608125
+    imported: 447d30d7610bcb1d1a4895ad576603b079bf7b9bfe81c6a731adb9554977fd6a
+  volume-3/co_visitasti_terram.csv.ly:
+    upstream: 55a14b92ddcabf2b4a128e5b0eb24d0862185cd335f0a9a837f710d41738db2a
+    imported: 056eec282ff85f407bba960a5d29db896442f1132b2980d59b7ebdb8d1fc7a2e
+  volume-3/co_vos_estis_lux.csv.ly:
+    upstream: fd4194d5de2e8ca5e706ddb6f2bc52a368ebebc0838eae350b71e4fe136a61e6
+    imported: 3fddfebdcc06723611989592b3ee5c05e77d65ceda6f3d2d2f678f7e2488f2cf
+  volume-3/co_vos_qui_secuti__dicit.csv.ly:
+    upstream: 5a0d3e6e45a85018fb29be376de70f3fff8e2d2d64da319159444382b9a4c911
+    imported: 16c40a7db93ea2db2072080d5496d63eccbaa2dcaf493d81964fa063b8ff3569
+  volume-3/gr_aquae_multae.csv.ly:
+    upstream: 7574e59719fea4c4da1ab1330f650366fb04f6929a33570f2dfca6268839eb01
+    imported: 66ef4551c480a083acc9486371994a54a4e84caa9ccfde587e12d9e477195d60
+  volume-3/gr_benedicite_dominum.csv.ly:
+    upstream: b8b94b6fffdcef9a7d802dd5c05fe54f3eb7dfede2015bd5f2f4a8bed8859d39
+    imported: 2adcf670ea314817c5457cce81bfbb44bd52f2319756a931806f2fedd5c8a4d6
+  volume-3/gr_communicantes.csv.ly:
+    upstream: ba275c8c690e7b00562f2bbe3f5aa487af04b59a7a6c567335e74139080255b4
+    imported: 3576291484bffd3b71fed1d27103897674b90a17675c4a3df227bec91ccef53d
+  volume-3/gr_confitebuntur_caeli.csv.ly:
+    upstream: 16e4591518d064c12ccfc0548771a055ef279bd2b55a9883a685d85858803e8b
+    imported: 9e86631e3eeba8b0d8380b031424e089fa79a8444935cdd8e35446e56784956b
+  volume-3/gr_confiteor_tibi.csv.ly:
+    upstream: 9ebd55a9b1d0e334381430f7d0f35f8fbe71888192aac090d87abf9fcbe88d69
+    imported: 7bfea9f0defb3ece570c4a4fabe4c4ce0cb512558b2df14c3376adaf71bb5580
+  volume-3/gr_constitues_eos_6.csv.ly:
+    upstream: e95a0a035e605c7062d5a31781e57dd39c87f4524d383f898bd50295781080dc
+    imported: 16251a6dcbf63978bd65099b58a522ac8918caf56dd0ab7705a82e334d9b6343
+  volume-3/gr_deus_qui_praecinxit_me.csv.ly:
+    upstream: 84eafcca005d6ccd9d6ebb00e24ddbfb8b8c90173d8003a4631d9a9f6344d25c
+    imported: 0b121a5a3a0e0fd34709678320254545271eebbe39f46fe0cbfefc0bb5974f22
+  volume-3/gr_dominabitur.csv.ly:
+    upstream: 49688addce3ecac662010bb4691969e8172faf5efd683ffa1d9f5593b014c5ba
+    imported: ae6373e57fb334263a1ef6e3de5946fd9dd7bab2324e7729694ef4d55b432551
+  volume-3/gr_domine_spes_mea.csv.ly:
+    upstream: 1689a32b9d94d8afecac7ab3bd61be0d5bdcc60181260fbcfbab86a4f46745c8
+    imported: bbd4c68cb96b69c347df0338bbe0d583b941eba4fb4ddd56c0c2bcb3b994be5d
+  volume-3/gr_electi_mei.csv.ly:
+    upstream: aa83eeb6dc4702f18b768a338d4832a3a5fe7119bed2d11d02b34a4585a0a013
+    imported: 3aa9e0fc247e410ee55e66ce591239683d1b6e08dd2abfa121ed013f1cf654d0
+  volume-3/gr_flores_apparuerunt.csv.ly:
+    upstream: cccad573decc5b355b79fcdbd4fa605a75998afe056b1de8dedc471c4fdda99c
+    imported: 7a0452ee5c083d605e6433f0ccfb1434763e0005682ddfa90e8d934bb41497cf
+  volume-3/gr_fuit_homo.csv.ly:
+    upstream: fe88e2eed57d1c752542807a7e2d4b2b8220232410ef244976f6ccbcf22456d3
+    imported: 997a35205e4534c91b24a550b68cd9b8b819926787ee570bed47ccbe962f2b06
+  volume-3/gr_justorum_anime.csv.ly:
+    upstream: dd1c1350e7b3d735c1f7c8a06bf7f45afa24f017381f0b3de34430c0a2e203c5
+    imported: 2b0df08130380d4b24f3811e9ae6dd16898a42b23b6b4d594eedcc7e02a20d24
+  volume-3/gr_mihi_autem.csv.ly:
+    upstream: 445c80b017dbc4acd55e44f0e377dc450d2eaca97b9d66e34da3b1438601f704
+    imported: 8d2b5cdacbed80bf6e32c2423b59f15bfaa88b982ec3292c3cc491bd609dd2fd
+  volume-3/gr_priusquam.csv.ly:
+    upstream: 92548869bf7d4300ead49125066567f98bf1066309004f650e5880c4fa38b788
+    imported: 8377358527c82f1a47fe0cda8442e0cc4eea9d5283630d3a43adbe94f16b22f2
+  volume-3/gr_probasti_domine.csv.ly:
+    upstream: 7ce460b5297a635e186448c0bdb238cc98394f7d45779fb6c63ed2dfdb032bdb
+    imported: 1b297e3fe6f74f593b7c32d535f70c4295bf28a3a121af69234371b83d5e12c3
+  volume-3/gr_propter_fratres_meos.csv.ly:
+    upstream: 65a7585ffbf4740f028db170f29ec5037cd3a7e27d0f9866c79efe553d3b1368
+    imported: c605c9f87d8bf53f82f3c66ca4404db67ee198351e333e06a6cb7d8a8786df2d
+  volume-3/gr_quemadmodum.csv.ly:
+    upstream: b1eb121e3ffd968f873c083b457a5fad4b1259c81585e46e7cb3e3d352874030
+    imported: 2df5d93461ddeb67717bf7afa2abc7328fb28b0ff3f2879c1d019eaf678e68bd
+  volume-3/gr_testis_mihi.csv.ly:
+    upstream: d0e54e56352e58c434688a0e72ca21be92c6a62f157119957337cbef1b7dd909
+    imported: 5b6691db71bc80963ba338f66e891153046761e29ab03228437cee03522bbb42
+  volume-3/in_adeamus_ps_eructavit.csv.ly:
+    upstream: 09f82fd1971a0ff2046bab1aaf409e54cf519468be9996618dbc65d7fdc05690
+    imported: 83453f409e8539fe0b8b300ac748db6ed85e3479b3c06e6e92139564e331ea8c
+  volume-3/in_adjutor.csv.ly:
+    upstream: 84ab24580671444d06d8d9032da2c2ab09c9d216ff1d647f879efd8090d65e98
+    imported: f2a0168f9059115350e1a35fe4be509f286574028b05243375b528e8e86c79ae
+  volume-3/in_benedicite_dominum.csv.ly:
+    upstream: 8585b5b8d1f2e6016e7b697df0d50f6facd40a8672b7373df6f43bb6d2ce2e33
+    imported: 96dd4fcd84c050a8f1a78d6df64724291dee72f623f972a5863c73fef1b8592a
+  volume-3/in_christo_confixus_sum.csv.ly:
+    upstream: ee90bbc832a9ac91bbb74a930bbd198487a68c590396ee441b736f6efa0283b2
+    imported: 1d6ec9cc62effcf6823d27cd2ccd41d6c1554f44687a97b04475c5e0282b6ca3
+  volume-3/in_clamaverunt_justi.csv.ly:
+    upstream: 2aeb97b15da6f475094cbbb13bc46a730d97a9d3e5ddb37d1f2e048245a45c22
+    imported: e628ece646b927d4613bfb6b77028fcf0f3629553c1ca9e728a927c0d2d1a46e
+  volume-3/in_confessio.csv.ly:
+    upstream: fcf6baadc5cd4699f901495a2d0fd73a8d644e354d3c50104d90d7cc60171c66
+    imported: 6ee6b1a15019ad9bea1ac9a9eed1d003379c89c5d5a39ecc3cefe3af330cdad0
+  volume-3/in_de_ventre_matris.csv.ly:
+    upstream: cc8362d341dc86f7693ab963e5d8ac9a3e6446551149da5453b4a3656924057f
+    imported: 7ccb8c7b8c8fd2821917f3818ba5c61aa49450194612b4d61eecffd38b0213a7
+  volume-3/in_dedit_illi.csv.ly:
+    upstream: 19aa6c39845006f06c3228370efe110dc52a74a7305aed1109044bf7ff08398a
+    imported: 15cf4769101192ff7cfeb24bf3ca44a180577bf335640d5b48da99d4cb88c652
+  volume-3/in_dicit_dominus_petro.csv.ly:
+    upstream: a80201a9e9dc39ee9adb9024e5dbc7d2353ef6ef70911594b8b01714a9267e52
+    imported: 9ac9f5245277537b3cc6b071de431f4086dad52be9f748dc47fb9cb60188db1d
+  volume-3/in_dicit_dominus_sermones.csv.ly:
+    upstream: daa11aa2556a53495205c74aea73f99b88d86eaadb1b678441ff175f56d47f86
+    imported: 1a62802f39f73b51f84f7a59ad2c663464674f87ee09e4e1be4f45ac0070ffd8
+  volume-3/in_dignus_est_agnus.csv.ly:
+    upstream: 1b55a6f1b20ecc12d039f2e13a23152a0d54d1c862b9b535c6a62ec7d23e4bce
+    imported: 14bf13757859c68eb92160c7b062e875a244961f3a43026559ede0df8b4fab84
+  volume-3/in_dilectio_dei.csv.ly:
+    upstream: 7bcee37b076b800c35c2672a5c74eb2baff4f96423b1a3a043d2554d2946b8c7
+    imported: 058d2a51cb42f2907200f7dea02a68c38699dd954cec8682dc9d8da8e3c5773f
+  volume-3/in_dispersit.csv.ly:
+    upstream: beade95402ab8c7a11588bb0201f455874d7ee301a4e06625df7a69923960a23
+    imported: 92074bd36eeb286e11646edc6dd4e29f92eceb78d769903b668896ea5a518f9d
+  volume-3/in_dominus_secus_mare.csv.ly:
+    upstream: 9e23618b809394bd2ccef020838445f5c31b98dd2007aedea47e3a415281b1c0
+    imported: 3a84ee485ea38b741cfd9a45788ed4d22faeeeb53671b40f39e3df65706c4829
+  volume-3/in_ecce_oculi.csv.ly:
+    upstream: 14bd5e3e67f54247e8a688101a610bd59e840088cae96000f611f3c267b6fb22
+    imported: e1ac05ddd2542411bc07de7ca983a1cd010cbf99e7d24b979c7ff6d5f9e93671
+  volume-3/in_ecce_virgo.csv.ly:
+    upstream: faaf58c297857b1fb922c24456ae8595d32c8eabf4b52a057ceef54d9b2e053e
+    imported: 5796f60b84eb91831b7e68d848f022c7b9799f90c96c11dda6690cce70654022
+  volume-3/in_effusum_est.csv.ly:
+    upstream: acc4fa26559ed03c9c45134cd31b55fc9258c30b49fc255991323b5921df1454
+    imported: cc72c9fa5f22ea2de6a0253c46491ec94ec6d5ee8bac8940f13f48a5a9cc1803
+  volume-3/in_ego_autem_in__gaudebo.csv.ly:
+    upstream: 80410e0162f257bde30a98c6c526b8e381f738b549c84acce37defbae1ea60a8
+    imported: 0e1e1c687091fdc998af8fa8999f2b529f0f9ef31261a1933fefff432a11573e
+  volume-3/in_exclamaverunt.csv.ly:
+    upstream: 3e56ab226d8f1d54275cec03535eb1fe1318a24d5aab774d380c929fb847c598
+    imported: 38d5c1ae7add790a1adb9957fb0c5ee5ddf38c54db4141e982fb841305028336
+  volume-3/in_exsultabo_in_jerusalem.csv.ly:
+    upstream: 5979f53cacfbaa61ee0e970df712d1855194678809d0a35bbc27b262e254cba1
+    imported: 56336bb03613d4cdd39d27b18d37f5e7b62cc92380b00473e24f81f0c219dba8
+  volume-3/in_extuli_electum.csv.ly:
+    upstream: a311e234fa97d8793b3d045b8e4364e82774485360a5f9db449bf44238651335
+    imported: 4de438acf527d1da53bd048f77b94b5ee26163d51eac6f95f58dd53bda3bd337
+  volume-3/in_gaudeamus__agathae.csv.ly:
+    upstream: 0ec7d10aae9828cefe244c769bae093e22d7a727044a5d5b745d9fc9c5808efa
+    imported: 8a9a03cdec6cf51f9de980d3485d63963377d118e7d3e3ca3ed87e5e2b27ad98
+  volume-3/in_gaudeamus__annae.csv.ly:
+    upstream: 8da64cb3e9217366574a6db3e06d18d12493521dec9fc6a780da0473e731bd86
+    imported: ac916dbd5e9924a65481fe776c7484b0340223101a987d319a21077b73e45f95
+  volume-3/in_gaudeamus__josaphat.csv.ly:
+    upstream: f7558bf4e8421824e21b6441ed8a561941ce7e20376911974a3e5914eaed718c
+    imported: fdb63b0d64988bff8e8c3ee7d85e70b6b30c6449dd2ff64363a8d12c5da49d19
+  volume-3/in_gaudeamus__mariae__reginae.csv.ly:
+    upstream: 0dbcb477696a513ae4a86b9893aa11f78303d8d09d08c9d2d8bbf8f1d731e8dc
+    imported: 40f6b9c5c137d46836593bb3d52889dee2e2837212d0c83aae7a6dbc62a05f56
+  volume-3/in_gaudeamus__sanctorum_omnium.csv.ly:
+    upstream: a2e5af8a262100e0c0220949056f278a47513ec4bb5ae90f539d02d407588bec
+    imported: a239b991441b7012768dd383ff10601d0e26048e1aec4b8816632d76e1bf9d77
+  volume-3/in_gaudens_gaudebo__quasi.csv.ly:
+    upstream: 36cada6d1b756e63eb388000e5164711255bcca0d300402c4d59797bfe012e53
+    imported: a87535cb6605717267ab6ed2854d74d1ec1fd3b7c4a674009428b496c24af159
+  volume-3/in_illuxerunt.csv.ly:
+    upstream: 827ed517b144aa4f24b88543dd02a8689772e9ab4e904adcd6f51457f7658693
+    imported: 1b5fe077c4ee2cab4526e090eb6b8fb0e78ee4c9661c7a56f1e6192b8ba39c05
+  volume-3/in_in_nomine_jesu__ps_gloriabuntur.csv.ly:
+    upstream: 91648ca7915f2c36733d8bffa0c3e56e310b3787e40827bb82de5b8bf7ff5cdc
+    imported: 6e10b8a9a9890c0f823dac573a9d3616583fc723b852aae10c409bca55cab923
+  volume-3/in_in_sermonibus.csv.ly:
+    upstream: 641bf99f2af17412ff008cbd0e72e465469cb957dbc3895bab65b3e61481683c
+    imported: b2972ecdeb7d95ec9abf1ec2eb358cf086f6240a279129d80088385f95083b8a
+  volume-3/in_judicant_sancti.csv.ly:
+    upstream: e30808000d568a1717920cb1f12e41b3babd49ea97b996424fa74eabeed4249f
+    imported: 7692a9d2c6214019baf1b375f666503b26c456fad5c03f49d0c1bbcb522604ac
+  volume-3/in_justi_decantaverunt.csv.ly:
+    upstream: a8b202d4114d6ef9a1c85afc7eb8f696eaff613db0e062f0fc7f97a3962a3aaf
+    imported: 99f5d69b0c9020e6c5a204a5758535393b3bae9095c7120ce243fffcae3ec7d7
+  volume-3/in_justi_epulentur.csv.ly:
+    upstream: a108e7f321e284ba96ac7e7feb30386042cbf31757558f973912b9e90881b5ff
+    imported: 17a1006eaeb2f5ab39bbdc054931b7f10ac68f2a4bf3f49d0c1893caa965ba7c
+  volume-3/in_laudate_pueri.csv.ly:
+    upstream: 0c761cf6ec96a369973e528b23384286c8bded92328e7be0a61af8d6f88b7ee2
+    imported: 956ee42c296ed71ea1087723136b4c1688c43de566617b1df05cd5ae1b4a6ab1
+  volume-3/in_loquebar__ps_bonum_est.csv.ly:
+    upstream: dae4027a864cf2dfc211fba9edfe77940f4c7649d219c775db65401abb0492f9
+    imported: 79c6de46f082bd5badb8123be6c470e9868330b9d0bb077f82945bd9434f1ab9
+  volume-3/in_loquebar__ps_laudate.csv.ly:
+    upstream: 4616a7355286791916804b456f8ce64a5836da3beef3694277e2e303c0422c76
+    imported: d9305cb8c6b20af7c2797f347793163956ef291a4b4e24c319073228831a986b
+  volume-3/in_loquetur_dominus.csv.ly:
+    upstream: 3a13d71706da9961fc5de30d3fea9a18a794ce432206fbf5e5295b45902e629b
+    imported: 86a882a855d81939b778791118113d5dd047fd12ae736a9a3b12bd72318174b5
+  volume-3/in_majorem.csv.ly:
+    upstream: 763e603ee3a3a3d53e21a65142fcd2808a83e5bc105feb830658d82daf895b79
+    imported: 1e44a6eacfd760396f200165e87347e98dafb92b43126d69faa055b0d08f17c8
+  volume-3/in_mihi_autem_absit_ps_memento.csv.ly:
+    upstream: 9763572fd5ddc7449820d10d722c3c01cf4c54fd6fe8be2284cbbd6d408ef8e0
+    imported: 38c410c2527897dbab77e6f6ea264c9bc54db3d390a45de37808d9eff6033288
+  volume-3/in_mihi_autem_absit_ps_voce.csv.ly:
+    upstream: aa20e1dcb162cbe06d045d746904c6f3c2bd768821249f41d2521bd3dda50b66
+    imported: 6d8a34e5e565c6c59613992fba6125341f2e61d5b07d0359af95a5e8c93f25fc
+  volume-3/in_mihi_autem_nimis.csv.ly:
+    upstream: 810be9dc3297eb9f2cdf115a9edea7a91374607531b490bb311e174b26ea86e1
+    imported: d306b556e420610df154c92c03ea75b60609ef2294533cc2c333a14d3462854f
+  volume-3/in_minuisti_eum.csv.ly:
+    upstream: 4753e197e4cf053517e5cdee8af51587a051ae8c0622062f50c5c40d52e6e510
+    imported: fd3b8f7a504c5e38156378c14ae13f4f9dbf3427e3224f1c9352517ace9f61b9
+  volume-3/in_miseratio.csv.ly:
+    upstream: 3487ddeb00abf7fd24e93d761a3ff7fad7ddff6881e247fb5127d4b819aae761
+    imported: 56cf07d65d511ef5092f361da2cf7ad926b712064988fa42982ad8c117336008
+  volume-3/in_multae_tribulationes.csv.ly:
+    upstream: 09aac733c8b10cf943ce304032146c9120a8e60809d1731332147cd3210bfede
+    imported: 139f3e813ab0d83b45ced176762827c7c5e64837dd4fa4161489b2d64561abba
+  volume-3/in_narraverunt.csv.ly:
+    upstream: a65087156cf7438cbefafbde9f24f8caf31ea1ad368969e62d4895d6b55a04be
+    imported: 3e02ca3eb84ca2b5f1f0a92f24ce4215a544940f60ad6e5cc3c62aff74bd035c
+  volume-3/in_ne_timeas.csv.ly:
+    upstream: 4737912563c7ccdbed19ea37905452af25442064acbdb78a2ba10e5d6d1e42e8
+    imported: 32bed269173e0d4168b6532d020d55a61bd13df07b343105e58cab20e7698072
+  volume-3/in_nos_autem__alleluia.csv.ly:
+    upstream: f6d8e116dfd70f0d3c02ca477abc487d50443db53d01641c8716c577ff412055
+    imported: 1e5964e6a033c2da4bf7a1bb4e6d075b21e932220db59d0f1c841c321543ed62
+  volume-3/in_nunc_scio_vere.csv.ly:
+    upstream: b506ea5aa8358b26b6f114eb0167393e5bf8f9c9bf738620ef95eb6a3f45d607
+    imported: 51f81cd24367c3e7a07297cc615aafe3678bc7ada74b0a68f82f8a9405cae391
+  volume-3/in_probasti.csv.ly:
+    upstream: eb6c820eec6454e5b7deef03e69a1c7df2db2d59b0314e4bd0629fe6e3554584
+    imported: f8105f0c4ee261b0a63e70c924ef46e3d8e11de7f874bcd0a53d9dacac188434
+  volume-3/in_redemisti_nos.csv.ly:
+    upstream: bfff6649344d9bf68562c0509ac0778c67e7f52edbdd7e18ca3e8bc1a3c6666e
+    imported: 851fc6da80c1c7dbfd53a84717e407bbe8056bb222ebbcf68c3b70f4759af5e5
+  volume-3/in_scio_cui_credidi.csv.ly:
+    upstream: a123b0f9b4456237f79e24f3083d6e88c9d2925e23cbd2678fe0f4f0399f1be5
+    imported: 5b42b3d6edf375e70901c07297fa2d5f7d3f2fea0579992d26f6cfcfa0f377ec
+  volume-3/in_sermo_meus.csv.ly:
+    upstream: ef082fbbfb54dee38af9c13628ae87ef1361067d1169ae33758a2f8b88326053
+    imported: dd6aede27746e9fa09c6389c39a7d59b67d1d53fc6478014deb742277072684b
+  volume-3/in_signum_magnum.csv.ly:
+    upstream: f77cc8713eb05cd4acd18c33a8ec95c0b464278b298b42ddd5db57f853c5bdbd
+    imported: e20f3bf1d27b10c6ba9bf6249adfba9af1fa1d268da99d00ed1af207acb3b431
+  volume-3/in_spiritus_domini_super_me.csv.ly:
+    upstream: f7ae377fa17f026b334db3ac6dee7b16b188e657c1ee09e257335f2f3f0ba49f
+    imported: 1b2833c0903421f802662a89dfe1d7f3202d24a88421456d9cc009ae8f94ad8c
+  volume-3/in_stabant.csv.ly:
+    upstream: eb3a71f685bf0ac309a83675931bf2e2a11cc31b868de861229ad8ce391f33b0
+    imported: ff8e816614c50e70e9bb40e278aba16f01c10d91d924735a92d6b3c3cb302a96
+  volume-3/in_sub_umbra.csv.ly:
+    upstream: eae03273fecfe421ff515bc6c5b4004f2e7be033580b1a5ccb21e9f063dac248
+    imported: fab4ac05f2c6992ace9f3fd406150ea99f7d6e6e39d3b26f7517079d0b20d8c9
+  volume-3/in_suscepimus.csv.ly:
+    upstream: 9947a3a389a69b2387a3a443bd0fd604845513df2ec1173af3b04e37e48f4655
+    imported: 2974387e196ef9c762fcc4f8e1a8e2ded47c5c1acd8c96bd9175c7bd5be8131e
+  volume-3/in_tenuisti_manum.csv.ly:
+    upstream: f3452a0e288a11e0b57f0e16cdee2a052f749220ee4d0948a0b06a1cb78c0e74
+    imported: 989bdddbf2f5c3598397678f05e2a3b684338545e3af1f8463c2b104573a4ce4
+  volume-3/in_timete_dominum.csv.ly:
+    upstream: 5c54d56dfa28caf251a98a1d689c2067f2873605ae5e408a0fffafc328bf9561
+    imported: 8a139cc5d921cfc779588999f0f64b13c2efe6f8a09afd09730e73a1a9d88098
+  volume-3/in_veni_de_libano.csv.ly:
+    upstream: 2331e3db543ebe0b9d8d6f28ec27691b13646525f143a7263930b00539cc68bb
+    imported: 65021cc75654dea2f4d5d491680a62ae841d68fc77d40e84dd284c6b00ab63d2
+  volume-3/in_venite_audite.csv.ly:
+    upstream: d6ef90a1e1faf143d1e15f213c31b30b92c2fd17ab1796dba47d42baa082b5a0
+    imported: 12763ed8ea26947642f0125545575f67a8a1b8b25af53d9dcf1fb082709f68d1
+  volume-3/in_venite_filii.csv.ly:
+    upstream: 3ea1388e6e3e7684500fbdb39cb3aa5b9af6d2a246bc2a5fcd169cd80c710dd4
+    imported: c0823f8aec32b80e9ed0761039863432b991452f3a9b6fcde3d0585b5dbac59c
+  volume-3/in_vidi_civitatem.csv.ly:
+    upstream: 25e24d2d9706e20b2016f6252d4950b017dffab1c28cb1f25d4d125ac066eca7
+    imported: 58664e61c31b939d0f95a768d932c5546179e39419a755392b38ffb77d4d42d5
+  volume-3/of_adducam_eos.csv.ly:
+    upstream: ade0d3037f3e51efcf981d7485bb0821c89bcf89d71e5b56acaf78d13510a881
+    imported: b04e32713590fae235fb6e98674ea20a568be3f0ee1f37546c91894a6f12f5dc
+  volume-3/of_afferentur__post_eam.csv.ly:
+    upstream: 1de3a5c8c24cfb2fc735e417aefc400d8baf6a634f64d5cdbc59dd8ae00d2561
+    imported: f6a41813bb28d53dd01d725f05a3a3df74ec9f3423823ab34944cc78d346ef3f
+  volume-3/of_benedicite_dominum.csv.ly:
+    upstream: 3f7f2d028f79a7cece837eecfe622d7c15a28a4a5b21b5633b85038248136f93
+    imported: 9e08514491725f98dd1aefbf0d96651b4bdde360d135b774db2181269b7b3316
+  volume-3/of_calix_benedictionis.csv.ly:
+    upstream: 5f3425baca4fce89e1c5a8f0176294a6654a7ee23f35eec2eebf9248716b219b
+    imported: 80540e4b0db34e7e4373cd5743a7f8e5a7436d8ce381fc216dc97b34e313cdbb
+  volume-3/of_confessio.csv.ly:
+    upstream: 11ab6f29a1058107962f297bb71009e824f81c031a004e7d87c8f7cdffe02067
+    imported: 3606bc8b3a73ba1b8f04be00d882d57ff558638276997fc36bf584bfb02a8a86
+  volume-3/of_constitues_eos.csv.ly:
+    upstream: e3da7c4e3c7583af0672bedabdc5604faaaa241b02fb5202b20fb77c698b70dc
+    imported: 0d786f48a955a8566eacbd8bf5530e22f791aecd88372ac6b4ba5e7a9b05b00b
+  volume-3/of_cum_esset_desponsata.csv.ly:
+    upstream: 7ef44c4e8c655178f4746614a424f47d53867d39de04df7006f61d0e3cd0e9d5
+    imported: 7527509190a486b4499a2c59fe82189b68f301ed6352a3e7afb8062f74a44f85
+  volume-3/of_desiderium_pauperum.csv.ly:
+    upstream: acc2f89fff9a0816556158b6a710c2dfb288c7ef2a191cf8ac9d3dbe8e99040d
+    imported: 5c5d062feb103a9fcfcc36314d5df947b70bf5cc5923fff1665ed612461fd5b7
+  volume-3/of_dextera_domini_alleluia.csv.ly:
+    upstream: 4bf01669e0fa6c19d83a8249115b62c5493a5201c6587d671229c954fc655e5a
+    imported: 31fa78390760d06349f8e7b206f7a5e61c5521c6a8ad06afa93682afb99a0fa2
+  volume-3/of_doctrinam.csv.ly:
+    upstream: 2d947abd28c0a7b3c6cb49ec68d0d956d9d30a58f0781db96210ee37b45bd4aa
+    imported: 586a3b0c99eb9238daa8f4990d7ba5304931f7f4ac49c4ff1559eaeb5452be3b
+  volume-3/of_ego_autem.csv.ly:
+    upstream: 2daa018e59b6c73d3a9c66abf06924386a90d323b8cf267f4d5b1d4d4b216064
+    imported: 46328cf234c6461ff8ac9e029276a767042c51e132956f4a46c67bc6e6711cdc
+  volume-3/of_ego_dilecto.csv.ly:
+    upstream: 16e90a022cc2777403226f70f1dd88ed5ecee82018eb1ac18cbe561f0be5bcd7
+    imported: cca8b724d1a64a3bc374a241902e7888cf5822d7a4a477fd854e77751ca4951b
+  volume-3/of_gloriabuntur.csv.ly:
+    upstream: 88d5fb1e903a8ee83eaf128752fe9b25e8e814e86133ebf3ca3f09e28aa0099d
+    imported: de4adc64bc39b7d54110c20b2d744d4b170812f83e6a42fe760fbc23b6905085
+  volume-3/of_honora_dominum.csv.ly:
+    upstream: 5629fc62e681c54b7408dfc590a650423ae4dc2557388c08b896aa5e8c3888ef
+    imported: 66b1becb3b921016246ce385b04881219158dbc5e7bdf3e13f36c1106f30d0d0
+  volume-3/of_in_me_gratia.csv.ly:
+    upstream: 4dd1b0d69346688faac8f673c5882219722d49b69fbc9150a799d37ee9f90745
+    imported: 21b6d85597022ffb957c5439ccd4198a175012100895b8532ae73b45ca2b43f9
+  volume-3/of_inimicitias_ponam.csv.ly:
+    upstream: f200dc1d8472ba31e36508f2299424e3c982869cd40c24f98eb03db769d25bd7
+    imported: c37da461048bfec742f63afa22e23ccea298edfb6cdc4e16c10f6e67db05bb87
+  volume-3/of_invocavit.csv.ly:
+    upstream: 8571228e105f5a80e6eb91e0349a8f06b132d639b79ebc09f229df117ee54424
+    imported: e4a065fce3157f0758c6dffcbd5281ead514740fed282b9ca6088ca6accd075b
+  volume-3/of_justitia_indutus.csv.ly:
+    upstream: 70ba4b1a1e23684f9b8188fe504323a35a1f8bcc6d5fd1d3fe0f2cf0b66b012c
+    imported: 9456c4d599a488c0dd93894b594e0fb7d66c8543caafc6fb50e3cb1bfd21807c
+  volume-3/of_laetamini.csv.ly:
+    upstream: e3aa1b32837bc245353aa9629381e9287c0891e1d3d43e0be6a764ab4970c186
+    imported: a79b68e3980a24065649e6dc5ce19f0f862ce6df2c593d8122c4197db5fa0f25
+  volume-3/of_lauda_jerusalem.csv.ly:
+    upstream: aea801678b3305f9d298ef53ec32496626a6e383aa93a4e155a10100f9a4b898
+    imported: b4287c60285f8f8c35e7c737ece7bb59f2ad001be714f8772d2c011973323cb3
+  volume-3/of_majorem_caritatem.csv.ly:
+    upstream: 1e7da9183d1cebdd15216c0898c69632e2ebaf72a193a17a0178e181d3de1a51
+    imported: cf082eed61a0234eb6e15df435e6d12c6fe2ad61907fe6a2249544ff354ce5fb
+  volume-3/of_non_enim_judicavi.csv.ly:
+    upstream: 2ce7fb594fc8a07220d1682338a1d9e33eeb0768bd7831b36dcf85c66f097455
+    imported: db63194f0cbfb2001a6828dfdbf7d5dcc6715caedfdd4ca56c2964e98ebaea4d
+  volume-3/of_oratio_mea.csv.ly:
+    upstream: dabb1679cef0c70f717af714eb4dd56924f59d2da111fb85ba341a7242a1482c
+    imported: 94c76b873e9cd1e45b5f4728e3b7d669567c458d3932b404fd2d8912bde936e3
+  volume-3/of_postula_a_me.csv.ly:
+    upstream: 7de03a590926fe0756ec0b3a155181f6d553f58bf9214aad21b5570c522f42eb
+    imported: 058c63ffa278ba20361c6c2129d7af0184de4f03b24f966bb0feef9031aea78e
+  volume-3/of_protege_domine.csv.ly:
+    upstream: 51736e3bb45c62f244dc578f9346c29d0ce493a75c910f9ca50319a1878a2cc1
+    imported: f9a7694ad551ebdc581c06b552a71a3642f26e90987eed0560ff387e0b661aea
+  volume-3/of_quid_bonum.csv.ly:
+    upstream: 7b3aaffd2bd86f9d3dac6ed497f55ef48e9659d54786e75a9839f03dc366afab
+    imported: 7cff8099c54785317de52c2260e8511622fc3b83ab8bf5086da8545535fbc526
+  volume-3/of_recordare_virgo.csv.ly:
+    upstream: ece87e2a4d9732005abc9c4a541f71259f6ce245523cf54cfc027a947adb7c1f
+    imported: 869c42099f030811d94ac46cbd4621ac4a62910cbccb040c59fbaecbbd4e6339
+  volume-3/of_regali_ex_progenie.csv.ly:
+    upstream: 2360d2f0194c9d99e99a61f48fd712906b5ffb534182e649ccc2838ab3da0aad
+    imported: cabe964561e6ad20606465aa9a560ec2d44a2512f8ebeb5e42a311191aa3cc5a
+  volume-3/of_venite_filii.csv.ly:
+    upstream: 5b69667e8574dc5dc492245aff324a1ce2e2203297297c04f2c532371d7c88c6
+    imported: 7419f84c900a3abb5c53c135cb7b057c0def238f405623cf3b7b1567a83ccb25
+  volume-3/re_obtulerunt.csv.ly:
+    upstream: 1382af2863ed0a503a830e5ddfcfa3a8853dc0d91148c972e020a9dbbcc8472d
+    imported: 0e95d6f8137b5cc11f6034dc2228f791aac098f72d7db4835620232a97eab7f6
+  volume-3/tr_bonum_est_confiteri.csv.ly:
+    upstream: 508895ae8702653779880c802229e0c02ef88fcfa7db44f791677ac0f1e02d76
+    imported: 9fb07f13aef4fd525fe7ffc2eefd25103a9626d635adb97b51e0ea172616665c
+  volume-3/tr_christo_igitur.csv.ly:
+    upstream: 227e21a2edc15ad027a5c7abe525681e6a987770cfb73105c881689b4885e101
+    imported: aba2940a4a3c6621fc5e8307d9be875fed84e486db18fda8f430dc0cb067311f
+  volume-3/tr_contristatus_sum.csv.ly:
+    upstream: 017cff1bdb4d151921107647c01419649e7fdd27116e93eb37ae75d3738957c7
+    imported: 44151f045b5844a65738a34285bd7505166cd5f96e2c91afd794e0400b4f8b51
+  volume-3/tr_cor_meum.csv.ly:
+    upstream: 7c6bf7a67719b15a201eccae63db09300d0cfe93ed2cfdf19d3a5e4e9870eff8
+    imported: 5403adf9e6aa0ec2c48cf108b9acc4dc0678937f100f5762ef1171eb52e278d2
+  volume-3/tr_fortitudo_mea.csv.ly:
+    upstream: 543bdbae0cf44c736fecdf5c1e159b07f26d402c731cd69c5b27d754169550ea
+    imported: b0e25c39d30c7b7ef8a198608371d6211f03e339959b52f4208e31754f10099f
+  volume-3/tr_laudate__omnes_angeli.csv.ly:
+    upstream: 4d5c77de5c604e472b3d3d0d44927ea21b4f721aeb7060ec34dde44ddca5d4ec
+    imported: 7f7c9b0641a15d9f746ff00bd9adc3742ac35ce459ea5ceed4a2a2a3b377c20b
+  volume-3/tr_non_judicavi.csv.ly:
+    upstream: a146d27dae266971015732898a6d7e46c986bdf9aca9d8d3cb4b9bd97329e869
+    imported: ad549cd66a2d7ef98300bde6a634e616ea12b0c9cfc8a2a1a167675e508d6cf6
+  volume-3/tr_nunc_ergo.csv.ly:
+    upstream: 1dfe3f4e35ec95d49bab3245ef19520ded8beff217ffe9ef8379020d1c632971
+    imported: badb0fcfbb5ddd4f9f950b4ac89ea4e1e3cb48792e6a5082f43b2b4ab07b847f
+  volume-5/ad-libitum/agnus_dei_ad_libitum_I.ly:
+    upstream: 13b48090b0961dcd4d2fa5ca0ab56c46497cd93fedbafb517336006a9e190cce
+    imported: 2d7c22d02fa96096239de7b83e93cd0d8ed9c09e817116aaa906ab73ac7bc000
+  volume-5/ad-libitum/agnus_dei_ad_libitum_II.ly:
+    upstream: 875e5fcdc4633320bebd25f63f4d0642b3b3e736c734916a4be19ee7e60ceb7d
+    imported: 20424a43df33cc5a8efd221172d98b0c0168d56d0f6acacb307a9122985282d8
+  volume-5/ad-libitum/an_asperges_me__ad_lib3.ly:
+    upstream: 2fa3d63b2a0a36995322b4e4e888b85385fc248829038bb6d4d989d6af526551
+    imported: 3f7b8344663cbcbd080e5d3cbd6ad4a9e2f807795235a862547164cf3a318210
+  volume-5/ad-libitum/an_asperges_me__ad_lib4.ly:
+    upstream: 31af6baedc7777fdd51cacaaace0793b56343130a696a7e99786e313d8dde049
+    imported: 5e5daac51c989892b36b4c16d4482c9d564b7761a2116fd146780feca57363d0
+  volume-5/ad-libitum/gloria_ad_libitum_I.ly:
+    upstream: 24ef988018dee0f7f33729e6b8c70b7febcce0ccac4ac41619aaffb4c509e11b
+    imported: afa29cbaa1b1afad747bdf09218c17ee702de977d47b2cc9b4e655fa57d1fdaa
+  volume-5/ad-libitum/gloria_ad_libitum_II.ly:
+    upstream: f42a4bebfebbe62e150fe13aa0218fad13f0dab48d63bf777a8da717b64225ab
+    imported: 4c938ef386fac402120590bb04f3c570dba53d2acd2b6406b8e61d6abe99c6c8
+  volume-5/ad-libitum/gloria_ad_libitum_III.ly:
+    upstream: 53aad9e1e6cb879939a9a05c001ea845c0f6dcd7a7a1571f82601eab8173e8f7
+    imported: 8e2f443ff3252ec4ce6e7bf539c5dcaf8a2927c02b69fa1b37bbe779bc9e2e4a
+  volume-5/ad-libitum/gloria_ad_libitum_IV.ly:
+    upstream: 04acf75224d3c4a53647fa0d9bac80413381efdc06cd2b2a5ff8ee4c46743a82
+    imported: 3d452132a9c4a2dbda0d846a33a5b6afdbd8809708c736d7c28d88596c7e6943
+  volume-5/ad-libitum/kyrie_ad_libitum_I.ly:
+    upstream: 98fd4b0c74365ddddeb661716e4e71d703e0c91cdfacf73c299e43adb286aecb
+    imported: 14f4f386a400b5bf1f410d591b51a246b5262821f336689077cd3e3dc1a44363
+  volume-5/ad-libitum/kyrie_ad_libitum_II.ly:
+    upstream: 89272c3c8ed412e8fad7342af272cb666a50681d4e9e7e02375d083abd5c7195
+    imported: aefd035c88c9e8fff8c10d708b3f34f9cf5b0ce08df2f281771c918988358d97
+  volume-5/ad-libitum/kyrie_ad_libitum_III.ly:
+    upstream: 23e1ca56dbe75ca5fc36c5b7450fcf2dd9c759b3433f517e609a841ca0675d9e
+    imported: 8f1a7bde521bf2abad0fc01035ac7f22b673e168c4888d58f9e0ba01a920c4c5
+  volume-5/ad-libitum/kyrie_ad_libitum_IV.ly:
+    upstream: 6514102eda3234661f8d7b84d0b1302bf0b26a3a9bab92b88f13cb480b18ecda
+    imported: b29340c9fdcbc9f609cc64b2089c8901e85c8f54a57408e999a7c87d867186f3
+  volume-5/ad-libitum/kyrie_ad_libitum_IX.ly:
+    upstream: 2654e1ddcf70531f27f210a471c7712367bf738a6f728c3ec928c26b9b0052a0
+    imported: 3d39dbcc78c7cd1189d7951e8fc14753d80c64e96f458d9a782e7d004b9acead
+  volume-5/ad-libitum/kyrie_ad_libitum_V.ly:
+    upstream: 4b90a6e62f4f693f32f488d1fb78c07bfd68abb337d2b26ac88e6d9152efcf71
+    imported: 6335227234ec336a0f994f1193d076cf084d7ab6d5bbf9e0215408a7dacb5e98
+  volume-5/ad-libitum/kyrie_ad_libitum_VI.ly:
+    upstream: 4c62933a5bc6d84f282d49eb9711431276e1d1fe48148af2eb7fb138a36ac46a
+    imported: 566b77be63fd3dc165dc8a991bf8a691a8af37d2aab20162c1acae2a15310d7a
+  volume-5/ad-libitum/kyrie_ad_libitum_VII.ly:
+    upstream: 6ae4aa238abf183576c74e604b516bfc5df547310049ca4ba370200dd4507bd4
+    imported: 5aac2454a716ee667a5e2cc91f07f512decdac7da15df7128553c6951dad3cd1
+  volume-5/ad-libitum/kyrie_ad_libitum_VIII.ly:
+    upstream: c462783dd268a0e75583d3df94d8a1802142a486dc59feed44d1e3d45bc2c0fe
+    imported: 56dabdf0bfdd2cb3136dded546c137361f632112ca304e043ceeeb7c8c0c0e1b
+  volume-5/ad-libitum/kyrie_ad_libitum_X.ly:
+    upstream: 3858cac6864d08f04aeaef3ed113d25645ae465d6c6c003526aed6dee77230a9
+    imported: b4ebd5cba6b688741a04d20384ed031a9327e2d6044ede034cf9e6af79031e79
+  volume-5/ad-libitum/kyrie_ad_libitum_XI.ly:
+    upstream: 2a199eac8ba5d22054bb791c64f9f6db48beb0f378919e43b482b085c4e1f29d
+    imported: a5268170e88be285565b1dd3bb7cefe1694b13cdf78559cb5895bc0653dc7efd
+  volume-5/ad-libitum/sanctus_ad_libitum_I.ly:
+    upstream: dce525cd9fd6bd560534a0e1e1749a319370000da06e20e820a339d7ec2a7223
+    imported: d0365f8d1514eca70176985a25afeb7c2f999eced12d10c1282fae205c3f078c
+  volume-5/ad-libitum/sanctus_ad_libitum_II.ly:
+    upstream: 9cc96e5536f4be170c6435100ec54f73192321e6b57b339b9c8ff63dc0bab138
+    imported: 03277224d3255a23fe9c16519ae5bf5ebca0c3366684d7143981cbafda7a8c40
+  volume-5/ad-libitum/sanctus_ad_libitum_III.ly:
+    upstream: 62ce13a2248a3c3efc615f5845356004f805e31628c3ce9ae610bfefc8cc8dd8
+    imported: 0b2590f87345715ad5e105d311a4aa8730afd722b2401641147158c595bda5b0
+  volume-5/an_asperges_me.ly:
+    upstream: 24ca570130dd22143fe9cfb26406adb7303f48f66cda02ba784d2b06aa795f86
+    imported: 4fb1b47b3acfe5c384ef0893062cfbcc8cade748d684c922dbba7afae27feee1
+  volume-5/an_vidi_aquam.ly:
+    upstream: 2f6857b0bcc4dba00d011cf75fd169dfcd559c5ff511cf2a262a458aa75a1d26
+    imported: f5087053341023bfaa34220c43e39b9462f748b6beae767f0450731801214ba7
+  volume-5/credo_I.ly:
+    upstream: 9af700a1b3d69f198a21bc6313e65cb7efabf4ccbcdc5a3639aee9024b1eeb11
+    imported: 6a45b31c6dc670f37d85a7614a8f7708b421a8bc8dca0e5923a54745ac09fe6b
+  volume-5/credo_II.ly:
+    upstream: d513b01017f744d220876da776c50e476f324da71ca797e47b1423937fedf537
+    imported: 85e08c12eb452daa6cfaf43ac35f54b1d6a6d09b72a615c95874f6409bc57c8c
+  volume-5/credo_III.ly:
+    upstream: 9c8c39b021a51f87efe2865065ea131ddfabd1c1a2ecaf49885a8ccf20fac8f8
+    imported: 84451b06bffa4831e0d8eb83c5a1a6ead16995d75aef105635dd90adf3625e03
+  volume-5/credo_IV.ly:
+    upstream: 0fcd41e80a433bdeb56733c2a14679881e09950704c5b866a8fc0e0bec83df82
+    imported: c9533f7279cca59721ba00d2b71279ca1ef3b06c31644cf9b4518c76d91d0164
+  volume-5/credo_V.ly:
+    upstream: 2aa06c99561d9535e73d067e7fbe4c4cd0437333dc719860b05ecd65d55453a7
+    imported: 83b7cc59a1593084f951ed6d614dd4a58e8471139b0b99d42e9ba8c1d150fd37
+  volume-5/credo_VI.ly:
+    upstream: f72c68f743c508ece0e5419b2ee87d5e38a6f4c6e3492870aea16ef1d5d560b3
+    imported: c8bab901f2b026a5cbf91e5cb874a8666f11f74e4472324df2c681959c7121cb
+  volume-5/missa-i/agnus_I.ly:
+    upstream: e5d93acf04245224c94c203112baf519066ed3ed1f92f64ece0e990a7cb107c3
+    imported: 64d61a55439c246a148bc84694212b08f7e81a6cd1d2e054c6fe342c9ce2f5e8
+  volume-5/missa-i/gloria_I.ly:
+    upstream: b6da395fc48e1de96a1c8e45a4d0215a6f3f71b52afa6de864e65410891e4c97
+    imported: c075bea03ce331f76038ca911d9199a7fd219f87a26a5f421b5a64bb081235ed
+  volume-5/missa-i/ite_Ia.ly:
+    upstream: d3b8c3a4f1a61cc59acbacb2c797f10a01b3e361546e75b57d734ecde0b6b915
+    imported: 6e82cafda650f861e06a526c5101177f5ef2944655fdf8b70707da7a44081b40
+  volume-5/missa-i/ite_Ib.ly:
+    upstream: 23ea0bb4f1b438c17bc1345b4c44921a7d69f65bc253555e5409692450c159c2
+    imported: 017ea5ecef7bc938d2c8ea8f98b8c9a1535b9fb617eee6c0f0904d06a0d0c5a2
+  volume-5/missa-i/kyrie_I.ly:
+    upstream: a418c619ae540b9b0b890343a468f256f46c7185222fada4559674371f4bf339
+    imported: 78d3bca192cc17cc3f7d6f5b7887efb00b2dd3d68ca48987aa25cbcb1ff0a677
+  volume-5/missa-i/sanctus_I.ly:
+    upstream: c656c535ae5fd320e7a68cdd0ed50a4f369db4e8309a20de17e7290ada4c75a1
+    imported: e7251fe53c53dd94253d4ead5a0a10e73991345354d13766a9a4250d01b8ef6e
+  volume-5/missa-ii/agnus_II.ly:
+    upstream: 485fd3d6c01cd4f5086a6a288c013747f5ee43f478815c522a4b554d570ea609
+    imported: 42923d7954da8b2a94d3479e995ae4b82557fed38e58f7353f9b32411d07db34
+  volume-5/missa-ii/benedicamus_II.ly:
+    upstream: f60ff37268651c1833333a225ea9a441d915bc363e9874dae81f423b3ca1126c
+    imported: eea0b4eb0c6de79ea2b769bf6af292651b0d285472dd989558ec26e9798cca5d
+  volume-5/missa-ii/gloria_II.ly:
+    upstream: 6315c6dffd370b7d344084aeb47fb15435fed2c87f7ec31799717d3a20131d86
+    imported: 9050ce957ab346385f58a5c82cfaaee01070ab7a9d9e99edd86b07fc30100d55
+  volume-5/missa-ii/ite_IIa.ly:
+    upstream: c270989a21e3b0c5cda050f9571ca453240591f682db40eb171f527a80ae6df2
+    imported: a21ad7fa71d8cdce8ddd9cf9f2e4c294695e5cd5bdffed716ac795cf8e7bf780
+  volume-5/missa-ii/ite_IIb.ly:
+    upstream: 34df02cc236d3dd834132e5bda7a0197616ac3c6a91acbdc9b4bf2c178a855cf
+    imported: b3eeb48b919d4ebaf2c71a919107ec5bf5101c74a7e21505413087b684783815
+  volume-5/missa-ii/kyrie_II.ly:
+    upstream: 14a0c2cfbc227c68d075dd3cc456b71a49494464a8a7a940d686bb3cc6b6ea9d
+    imported: 6cba517cccbe22847262db52f19f5b70c6bfa2eb9ec6714644d17b4b47fe0dc8
+  volume-5/missa-ii/sanctus_II.ly:
+    upstream: 66cf539cf48ec07ca6b74e473fad35a400b12d82e4e21d15b0ef4cc09d686b46
+    imported: 9a08a9c36d9f9572bb3f038f324c254f02f72f31634983c4c9fd17d74a8d1286
+  volume-5/missa-iii/agnus_III.ly:
+    upstream: f2c836c715cc5bc3b70be6c51abf0f3762fa4989d1a7154dfa09f3663a998fbf
+    imported: fdda5de28245fc684abbf4ffae055a89b6e2a797043330bb7984cec46ca38648
+  volume-5/missa-iii/gloria_III.ly:
+    upstream: b7fdd6bce8a1546e8adab3bc49c0d8aded6b6b3781f0ed6e8eca611f31d9480f
+    imported: 43eac29e27d1350663a22cbd9fd9cc850fac163ad1e612af1d352495c84bcf8a
+  volume-5/missa-iii/kyrie_III.ly:
+    upstream: 0f5ddea8092ed57f1f26e9de9b1ea40ba07c2b8c67d4b38d1261fd4a843d82c9
+    imported: e0c4ab9859c8c312087468f1f4cc98e249536b7c097b7a0b862350a4c86509ab
+  volume-5/missa-iii/sanctus_III.ly:
+    upstream: d1c7d2579928e3e1344de52ccf0210e5dbaceea4f80b8282464568fafb4f9dcd
+    imported: 4528a7ac86ab111f3f33c248db7c6fdd546683eec85acf299cac4836378fc0d9
+  volume-5/missa-iv/agnus_IV.ly:
+    upstream: 3a22babb2ddcc78e9e45e60dbca5fb4a17b76c5bf2eead71c1876b8075f5c644
+    imported: 5aa63cd9a717e5cb830230797f2c9eeadc8ebf8412db9569dbeba7514db58173
+  volume-5/missa-iv/benedicamus_IV.ly:
+    upstream: 78f9bb4ff2bceabdbead8114bd829480dc7a8dc8b5ff8ed97c7f3fade509984b
+    imported: cc36f0fec3208cac285dcac1a19516473f3c88a2d1b22d9f689ae682c08c496e
+  volume-5/missa-iv/gloria_IV.ly:
+    upstream: 028fb22436e451d59460b9282b394ca82e915e782acdcc3833d5de5d5d5adb74
+    imported: 868577e90023424c23dd90e841a0cdb57d1e7ceeb43e5a72bae4fd16d0be223e
+  volume-5/missa-iv/ite_IV.ly:
+    upstream: 167c90afb371691201e86deaa2e04cd3a5efd0e8641b1035bccc91de447e2605
+    imported: a42500f65b366cc7156b5c5ab04279321440f235ffc6734935cbd96c17c74bc4
+  volume-5/missa-iv/kyrie_IV.ly:
+    upstream: f6781166b50452a5078809f11157c8d0d0ff270f26c36a84daf79573dc7e88a4
+    imported: ba3a9c4a8077ce7c851d094ff8439e1ba567a23ff3c667a59a772b9845e4f01e
+  volume-5/missa-iv/sanctus_IV.ly:
+    upstream: d11b88173c68beb9d76e47a67865d4674986829c5ca4490e27d9d0d84021a508
+    imported: 3e4a644742ff3e2e9a6cd18e0eedfcce1e35128622e62ca013c4c521c68c0b4c
+  volume-5/missa-ix/agnus_IX.ly:
+    upstream: 3fb62148b5071278fac622732753dc1c7bee65be695484d345f7165f70c20460
+    imported: be839b351150dd551dfecfea3d8a59e6ae34bbabb7f70e03b00cd3074936151d
+  volume-5/missa-ix/gloria_IX.ly:
+    upstream: 01b71bf02cf97b723d59966370f45e65517fd6fcfc9c1872cb6d2e85ecc57453
+    imported: fc1f49ab5367d3374c7baf743457802a9b365d0184a0f922a1ac0a03ffbe366a
+  volume-5/missa-ix/ite_IX.ly:
+    upstream: b85bd161bc91543dbd5821e79777968b9e6703fd3731046f0fd72c7b0be5144d
+    imported: c5e0459214f1b2f9d4739a018cea18e4685c02d88235aac667b7f8d833f54f4d
+  volume-5/missa-ix/kyrie_IX.ly:
+    upstream: ae193255fc48f4141a84aed1bcfeecf9e7b851e0a6535ba1017d6449202d6216
+    imported: d6a8f853ad416f45c2be9f61e0269d0f74ef95a8fc979ee744bcc8a63ed7e3e5
+  volume-5/missa-ix/sanctus_IX.ly:
+    upstream: c3de42b44a7174a9a9dd83ad94c24a8f5f0a3dba69cd6493599d3e05f0f2d2eb
+    imported: d063bdb6c726e82724e19de125553c6b6e957007e3d8bc2d0ae1f6c67ebc58bd
+  volume-5/missa-v/agnus_V.ly:
+    upstream: 2bc83afae198504493dab5f0aa5322cf0d7ab89297dcb03585f22cd6d4e0ef18
+    imported: 8f041a5e6af90be86a9b24602bf431e2a22c9fc79567168e38b8ea4e52ae47a2
+  volume-5/missa-v/gloria_V.ly:
+    upstream: ffc78c52d009ff759cb28cafc66561d7bbab68cd69cb1eba62aac920e1766cd7
+    imported: ececc98a2977cce9543d9e0720977821e13e06e55b9ec3da63ef487c0fea6813
+  volume-5/missa-v/ite_V.ly:
+    upstream: 9345c568d9f397d41ac51677e8efb5fa243a068dc86f8bb9434821e84e255e48
+    imported: c4c16228c93e5c12000ef0a95e1a1c36b4add84ec90255436f60eebc66010308
+  volume-5/missa-v/kyrie_V.ly:
+    upstream: 299f0e07a71c7521f856c9c824d07c3fe31b693e1c0fe5cecef1a48d7de57ffd
+    imported: 3f925cc825c3e5db98cf8e603fc144c253521ddd0d5d08fc02045e94adcdc8c4
+  volume-5/missa-v/sanctus_V.ly:
+    upstream: ee963e1669d4c96a5f8646fe5e933af1c836900197bcda3d99301ff8e489d370
+    imported: f86bad014bd79a540254067095a3b4570f511362cdf4b840d432535f731b14c2
+  volume-5/missa-vi/agnus_VI.ly:
+    upstream: 7c17e0a05e824214c12b6f34c321f1b32dcaeb6753b74513acd12f4cc8cd203e
+    imported: 316171612bb4549088827baa4e43b27b6e7fed0947604ac8cfe1c0064800574c
+  volume-5/missa-vi/gloria_VI.ly:
+    upstream: 73fe3ebaaba4ba1b7d0078d2dfb0f0e8a1175ee9e834c52a8ef42ce59a9e585f
+    imported: 91c6015664b54bb97c0bb13536ec5e8aec4c30ee226fb89de73ba52b48ef31e0
+  volume-5/missa-vi/ite_VI.ly:
+    upstream: 7b27dc1cf134ada60161bfa959737df44371dbb2c10e158fc9e9f06c3edc939c
+    imported: 1a3701105d6ce89d94c35083d3a04b664393b9b71d18c5d3c837d48e7bca99ec
+  volume-5/missa-vi/kyrie_VI.ly:
+    upstream: 452d490fdf13ce97f0c7eae0ddce5a32b0940ee93fb99f0b3f3f6541232a6300
+    imported: e162d7a1ed712e4699a94a30187319e8713c72d4fd5a7f7c5a896833114729e4
+  volume-5/missa-vi/sanctus_VI.ly:
+    upstream: e3bb8f603fcf11088044339d991a91729ee18ce86f34553a3f682d7dbd713888
+    imported: 07fc2ce45adc2d9b622df3b724b7bf07caa5cf01a49ced3d1acd7833b19f2177
+  volume-5/missa-vii/agnus_VII.ly:
+    upstream: a7e6c4ef56e0568d8839623fa7b98bfb658fcdcb1ca2630d7f7730e8ce0a875d
+    imported: f3f67050965f5a7e87f23962df4a128751a950e72b72a4a2dfe9e6cf8f3e6bc8
+  volume-5/missa-vii/gloria_VII.ly:
+    upstream: f5b4adfe2b900ff1515c4399757f016744e38b8c231a39466df02efa672752e3
+    imported: fd6deae1be4cf80c1425a8cd25aceb348edeb5078d3643ea18ef0b274bec7714
+  volume-5/missa-vii/ite_VII.ly:
+    upstream: 7c4d5ac70aa0d9061929232f74a3eac70ecd49d60c0949bafc38dda304139fc5
+    imported: dadd9f45d1e5c27bd229cae0de485865f86dc867c3e3248103004c9924e8784a
+  volume-5/missa-vii/kyrie_VII.ly:
+    upstream: c18cbb72abe3c1b2f5bf13d78714589d91190d59a583b86c37a3aec14c622631
+    imported: a09e2021ba1621b08a1ed4a20cedef53aa04a2633383a174e8d46b43efa86944
+  volume-5/missa-vii/sanctus_VII.ly:
+    upstream: 130b40e41642adc3851adcb12b9c41f516c7391aa8b30be50abbfd0f8eb399e8
+    imported: 23808e3c5d1ca216bf6b0de0b1eef572a020c862a1469e45807af63eb0dca739
+  volume-5/missa-viii/agnus_VIII.ly:
+    upstream: 88b955775da83e7b4b521868d86a282026421c8085df90b9ba3324ccff462e48
+    imported: 706b49c1355a451b7ac25b107919a07025bd63909365724a3124c1b68617d284
+  volume-5/missa-viii/gloria_VIII.ly:
+    upstream: b03c8d9586e069c9d78d0f0e60f65a303f9869e5c3e9092f5b5633bed5dadac4
+    imported: 48c38ebda7df843755488cd74fdeb476ba3e234ebc0e247706312030624c9582
+  volume-5/missa-viii/ite_VIII.ly:
+    upstream: 1dd5cfe68d8321189694f862c17c83c674c67326dcc74b1864b3776eefeaf475
+    imported: a78d3aecf2b2d26dd5e4bf05fc6157605fc4e47a55f6166dc590ec7329f0a0c1
+  volume-5/missa-viii/kyrie_VIII.ly:
+    upstream: 5e2bc49fc456204a518e99d5f9abead9480067c561547626d865a4cecdd5d06f
+    imported: 7a4a21e60eb5a26ce849df4a608f843617193c092f6494688a429eb655a278e9
+  volume-5/missa-viii/sanctus_VIII.ly:
+    upstream: a2512e2b5171714bbb96e816249254aaa1ed2ef51001677dec342e48ea1cdab6
+    imported: fe2c62eca1423510c4d5735cb078d9e5e6d6b479d1c56dd6634c53afa00982e5
+  volume-5/missa-x/agnus_X.ly:
+    upstream: 5dfcdd3c453bfa7b694259ce23b4463236b7f24270f5e2d9df5207ad7b7fc7cd
+    imported: 65a2ac61c936694b7617539f6c5107d0cc29cb3f7d881083470179d04cf2acde
+  volume-5/missa-x/gloria_X.ly:
+    upstream: ed106db618f7b793c678fcb7af6c58983825f4805523e8d95873ff844b302085
+    imported: 92c42991cabd53e05cfce1b79bc9148906f44c34673cf53879163de4c9e9b984
+  volume-5/missa-x/kyrie_X.ly:
+    upstream: 827845e999b83a32bd3eb2feb564ddb5946a01cadb7935a11c7c39d20dcf12e0
+    imported: b37a4f2f722b0a249ac9ca2ebc9dac71cff1b7ccf063a80f3693e4859d29b0fa
+  volume-5/missa-x/sanctus_X.ly:
+    upstream: 3a508e4a2a4f4e8bc51b28596ecad198dc2926c6941e774badc6b431cb243e13
+    imported: 1019d3c0adea09dee1732d15e620a2bafd8b5e8323b530936df173457b032bc5
+  volume-5/missa-xi/agnus_XI.ly:
+    upstream: b6a50d1755cdde093968368379fd4accbe439a28772175685293eff5805e4ce6
+    imported: dfb7bcb154626d910f9c27c240bc95f396334976909d452adf7649e7fc47bbc6
+  volume-5/missa-xi/benedicamus_XI.ly:
+    upstream: 02e58ff8d1974c3267c77d39c45506ad6aa6251565918a526f7f6ae3be912fce
+    imported: 9b4b6de2d2187a34944ee9b274404a1ebbff95697f30ce38dc089f3412fb69df
+  volume-5/missa-xi/gloria_XI.ly:
+    upstream: a28fe9bcfaa7330c9002913e8f0b8440a7b2ea3148d01cd7ae7e4168e7878f64
+    imported: 86753afa1eb3b048d6e9456e9ee553eaf1c3fe0a07e9f1be3bb69657800632c3
+  volume-5/missa-xi/ite_XI.ly:
+    upstream: 805491201a71d6c75f6b42f88908e65a7da2cb0757fe591574ab5294f057c75e
+    imported: af2ef50bd6a391fea25d972df1dcdf50c73412e8cb784ce0b32981589251a983
+  volume-5/missa-xi/kyrie_XI.ly:
+    upstream: a681b97e5d4641ba3267983f200868ae5214383b64c8b8b5bc03820d8a820ca5
+    imported: 08d0c2190fd082bab4ae45121c0ad89056d9e4a569d1c639ff826ed6002717ce
+  volume-5/missa-xi/sanctus_XI.ly:
+    upstream: 21f33e668986f2ed41b8b6131ec8439023882598c261bf82c72a31566f1d3956
+    imported: d02b7d2bd5780b024a381018eaf698418f6f1b66c8c21db536d073afd07d3934
+  volume-5/missa-xii/agnus_XII.ly:
+    upstream: 1910d2213c44e95e320b02919ce841868f3bd73fc6049549909aa36c5f7d6f87
+    imported: 60840f6ab765afb1cb9000b47cc17ae5d60b8712093b8c6de5449269518dc49d
+  volume-5/missa-xii/gloria_XII.ly:
+    upstream: 70d8deb5b03e1ddcebdd6a39145be261b6a8d6500b89288d00f3e85cc0628280
+    imported: 0d7e9a692ff5b97e3616a65a3b9e6571ad5c64e4620497b2f60f68d90ac2034b
+  volume-5/missa-xii/ite_XII.ly:
+    upstream: 890d4d1cb8dec77823249fb7ed988fec5f2ef1688a707424c6c186514bb16527
+    imported: 2830b26e57a07eff155c98e81e74651ac323b1bc61e0e39be1b62513d8ca7dc6
+  volume-5/missa-xii/kyrie_XII.ly:
+    upstream: 0e31eaa4d4ab5f9854909c388b853605ccbf65069c1c86a13cfa3a4859edaa35
+    imported: 09c8a93f1acd3a8945fce80c9fbc9d6d1aaeb7d55ab338c67bed14e0482e926b
+  volume-5/missa-xii/sanctus_XII.ly:
+    upstream: 30b0c01235c4f897bda8af13fe19455302cd0106be6bf3789b2ee5f40523748a
+    imported: 0a35b26fc779d803ec1ffe189af9d596090c0fd23b0548003511f62d5f9dfd28
+  volume-5/missa-xiii/agnus_XIII.ly:
+    upstream: e20a60bdc32e2de32b532793cf34fa75ffd7b9c8b1501c3f7310069eb364a23c
+    imported: 0dfdaa29a282fa5639f17f0af149f459460ded2a7a8b833b172665d363d3b264
+  volume-5/missa-xiii/benedicamus_XIII.ly:
+    upstream: 70915fb30539cccdf7115ea67b8236a473dd07842970d994304f49414358f78d
+    imported: 7bf5e857e82659a1d144fbb616c09a007e80ab0d839917db7dbfc2904e777916
+  volume-5/missa-xiii/gloria_XIII.ly:
+    upstream: f2094c515a9fca2d78c484ac9eff571983269585ef92af46d4e45edbf0c5dc3a
+    imported: 557ed1d2c4ceb426a9f8513139d731d57e481f081bedec3740d6e292729d1fcd
+  volume-5/missa-xiii/ite_XIII.ly:
+    upstream: 590b213932c4d5fcc7a55d8936341c592a339450509bc60d6d2f3f3f0b6bdc4c
+    imported: dc45293b501f3283d8b8cafe7610cd9db7ec59b68f9aa35d3608bf2711f3fd85
+  volume-5/missa-xiii/kyrie_XIII.ly:
+    upstream: bed3b5cab760d4a32655a8527ea2ee6ce7625999ef9bbd85809b286b86b465f7
+    imported: 8ac06888c1635aa98a422d98cec6be3fd3c4c12922b0ce8aab3aa0d761f65db9
+  volume-5/missa-xiii/sanctus_XIII.ly:
+    upstream: 5a634961ae8e94e7bf5ecb694e0f7b24e6ebbc51a2570d0350bc34e0f5d7e929
+    imported: f13eff66a2c48a626aa7c36755eac2d0859db6af3d16167648227008c6c69147
+  volume-5/missa-xiv/agnus_XIV.ly:
+    upstream: da1e4d344cc316a8e1b49090e614d183397d5af85c6fbed8ea98e6cd450f5034
+    imported: 040ccb87c7e5aac06ee9b25f2ddc1d3d3ca3f51d0e80e896e3744eccc2a07bad
+  volume-5/missa-xiv/gloria_XIV.ly:
+    upstream: bbe1cb6cec8fc4d1a92d41e3bc2ef8b1df809514afcc0f2a02d3b3cbc97de0b7
+    imported: d284eeff8acea8ccf5ed51818096d13d7c6459c1b3c20838dcfb77a5c367ebcb
+  volume-5/missa-xiv/ite_XIV.ly:
+    upstream: 30102361c3c304de9710e4301e99e12a59af54f12740bfe50a722867b6f06ac0
+    imported: dbc6d97bfd445188d83b476172b385cec886411881c558f0eef52648f4fc00ef
+  volume-5/missa-xiv/kyrie_XIV.ly:
+    upstream: 87f37a5a00af6ed33d6b2482b0e31ad17f858f8e0598a0c0e07d709d55f85ad5
+    imported: 1da1663a0492c9b0804b29c41d08d70a2b54a7544af1702ea101ac0f836b22b0
+  volume-5/missa-xiv/sanctus_XIV.ly:
+    upstream: 13f28d48884e92df32722b316430b2b1b43352f58af17b79f38401fc1c70a45c
+    imported: 361b52647b83b8048b660349b2b4525a8335f31f1b06dbd7fd0e16c3171d1e9e
+  volume-5/missa-xv/agnus_XV.ly:
+    upstream: df2fab20bb4c2cef45ca014d4dd9f4c0048ea46e3af94349e695f7c1a9726b90
+    imported: e7d9c9113f3c9886f9559554018416983ba3f01900635c0078bbc571fe68d58d
+  volume-5/missa-xv/gloria_XV.ly:
+    upstream: 17127c04d05cda8fb2ecfb9c072896b826df85a7d1411eb4a09eb10f30ecd1e3
+    imported: 69d7eebb2126fc34ae9d39b47a4502576a6ed1b9efe01e4cec8dab656e403e94
+  volume-5/missa-xv/ite_XV.ly:
+    upstream: 5c90991061718476da7bfb5387dfa5758d95a76d502cd583c520c8104827a525
+    imported: 5be0004dc5b3f4fcc6210eb4aa6dcd5378f27c2414206ecd868888bb44059975
+  volume-5/missa-xv/kyrie_XV.ly:
+    upstream: c869793cfa1122f6419090b6ab7ed12709415bb0ad8f52be5910c7200d7a4887
+    imported: 213d494c5c74aaf6324764f93806365afd975517a7370553151447df7797a37b
+  volume-5/missa-xv/sanctus_XV.ly:
+    upstream: f551486aa08f9f24821b1ff5878c5bb324de6e7eb0ee0dcdd3c47580fa7fd028
+    imported: ce9547994e103f3ce77874b60da7904d50277ff05ee63a3aeedbd1902702d9f4
+  volume-5/missa-xvi/agnus_XVI.ly:
+    upstream: 635df07f856ac93698ffc73fb28d361f2f990df77699b2aeab1ad2cacef70c6c
+    imported: 0303abfe945ff320ca6607b780a0e4633a940449bee7f72f9e8e8f79df30fa14
+  volume-5/missa-xvi/benedicamus_XVI.ly:
+    upstream: c811e079ed6fdcf918dffb3f102cd3f0898a30d9f5ef7cab8ce3e0ae3121d80c
+    imported: 932170351b59fe21bdc7996e67ba023c45da877ee48db3f6adcdfc0939a87d28
+  volume-5/missa-xvi/kyrie_XVI.ly:
+    upstream: ca37aefeabac83d1eb8aa2e30cd5650acafbded430523698de405086cd7d003f
+    imported: 26eff5b9350196350884bcbf2658388bfaa0a3194f5917ea5bb025105dc690d2
+  volume-5/missa-xvi/sanctus_XVI.ly:
+    upstream: e3a3c64dcd65d68ababc4fc2faf581bddc94d92c453200a76937a69a21b7fd0b
+    imported: d974e3449568ac8e77bda9bae90d9de9c8241b0ac93d066a236355dc6d30bfef
+  volume-5/missa-xvii/agnus_XVII.ly:
+    upstream: 73d93ee448fbd72804f7f5178a7f5cea0ebaa9f486b9f57e609fe5b9eb7654f2
+    imported: 4fe9124642423bdd0f2d1e4415aaf1fa17bb5ca483455f6868857e83278cd21b
+  volume-5/missa-xvii/ite_XVIIa.ly:
+    upstream: 04bdccc3b51021e7a27b574ed2fd4f68bd84bbe26dc5fc71422ae1aca5f7ba01
+    imported: 295dc4a8ad256b54a18affac0fcf9769455552bb36278c64f10a4e8d5b9f2c9f
+  volume-5/missa-xvii/ite_XVIIb.ly:
+    upstream: 094cc461b83697a4af0e83fa392161a83822d1825783287f46b534b7cb46fd21
+    imported: 7b4877232a595316da38f777faa157649b701fd28693ca5572bbb06e358d8562
+  volume-5/missa-xvii/kyrie_XVII.ly:
+    upstream: 50ecb9cc11a17679964589a8b872db510726cf246b98bf530157e46ad94a696c
+    imported: a8d8e2d288fd935a747b9a9273e3e195620ea99756014573863dad7e609bda3b
+  volume-5/missa-xvii/kyrie_XVIIa.ly:
+    upstream: 937a71c35a2a8f836de4ef257e1fcbed82b3e298ba558b1002120bcabe185d8d
+    imported: 89cbf94e0e64a329cde17e4298cbaa35cba4049f3c17e88bf8693f7e013781c6
+  volume-5/missa-xvii/sanctus_XVII.ly:
+    upstream: 0db44165c464ddc1b4ccf90a2d667c251a409a78431b597267d8dc0df05e6cb1
+    imported: ecacff1c5cad69f096529dd72ff99ab05228643d15d16865aae8771b8a335d8b
+  volume-5/missa-xviii/agnus_XVIII.ly:
+    upstream: 48a5626773de483dca89804bf3c8578c64092e81328df3cb78025deb651104e8
+    imported: 494da02a3fc4135859817765b21455d157da57da69a549715c291fa9e579f284
+  volume-5/missa-xviii/ite_XVIII.ly:
+    upstream: 1fffebe83d1bc25f3ac60f38d2e3fa5007d97ab73f59c07e8744e281b43753dd
+    imported: 379d8e31e09b59d1e6339c1c606029a9d961902c999e5857abfabfa4a51ca5a9
+  volume-5/missa-xviii/kyrie_XVIII.ly:
+    upstream: b3891ec3a91d2d821b3151d5239c995ab53b76350c24d04586027509c2ad0e38
+    imported: 6006f1a9df15acef4bac5c32ef73f98aacfbc45065da6275eac0429b42c11917
+  volume-5/missa-xviii/sanctus_XVIII.ly:
+    upstream: c074ed9d077c5c7c57041e9ff2320a0b51764fb18ac1bf2579e2d4caee31a0c1
+    imported: 4f93dd6c5c03f327f91ef3cedf45de3d3458bc7b30bacfed284d32c472228200
+  volume-5/pro-defunctis/agnus_pro_defunctis.ly:
+    upstream: 7d289426f41a4f2a73c8e838306d1487e94572784ca7b6a62dd7830767a9fae0
+    imported: e631592f7cd6eab60088b98ebdaf63851276e5215e0b7071d93a6a745ac2f9b4
+  volume-5/pro-defunctis/an_ego_sum_resurrectio.ly:
+    upstream: cdf9d00b9c1b41012e1a174586e5aa8f9709649efb35eeec401465f1deb914ac
+    imported: 762f414b0ef5cb5e465492a12cd03b15c8eb5af827b6f626bd73f5ca5556ae8b
+  volume-5/pro-defunctis/an_in_paradisum.ly:
+    upstream: ff4025a590f1b288395afaf2d792df6f092d073fa49b878a6a918f07c6c43ad3
+    imported: 98f61aedb4b8a1f7826ca43cee22c6f90b0ece69d18e1cbbbb89933c0597f6ff
+  volume-5/pro-defunctis/ca_benedictus_dominus.ly:
+    upstream: 5ff99be77396d9c636d4e747133f293316651ea0be72edf133b7f543d006bb88
+    imported: da7cbb45c1b6c696a01c56fec5e36dff1416833de9f86fa8a6fc981f41cf35a1
+  volume-5/pro-defunctis/co_lux_aeterna.ly:
+    upstream: ce02fb7984f12904b6d1afb8e789ddd14193a91ffaedb4d5920c05bf2ad7cd64
+    imported: 8d8c830311b41d2ec072345567bd1add7c3d62956059705c54c5a972ae179a59
+  volume-5/pro-defunctis/gr_requiem_aeternam.ly:
+    upstream: 0d82c7f12f4626c43ed43095468bd0913709b75cd9615b79827f69761b9f9546
+    imported: f0659f08059454931d2b2abed6c6925f80f111911259b0b1a944616dc3cd1e57
+  volume-5/pro-defunctis/in_requiem_aeternam.ly:
+    upstream: 0b007e517a9aae5719fcb505cb6486d85433ef4315fc5a57d1facbee1c73ea37
+    imported: 09f927466920ffe86348dd71fb17974941be6bc9c1ababafd2b89c1edbff3f36
+  volume-5/pro-defunctis/kyrie_pro_defunctis.ly:
+    upstream: b6cc2b37a9d762a3e9f755b94ce190d4813c3029fe0f94c415cced23338e912a
+    imported: b8122ff8d4012d355020f7c73bb80adb60d6ead35b84cb8c6fcbc1ae4a2f6904
+  volume-5/pro-defunctis/of_domine_jesu_christe.ly:
+    upstream: c96b6dd7eff8994a48742ff825c8d06561d53d898fbea6c45bdcb5979f4d32a3
+    imported: eb9d70bc469c741a737c110d917d8a4050fb0419b42ccbbb65c13234f70a93a2
+  volume-5/pro-defunctis/re_libera_me_domine_de_morte.ly:
+    upstream: 6d48269b31a2d730d68c749799fa588efa1b809d0a6272e1c1f99f34069aab06
+    imported: 94fd53821388178b5784d6ee7e5323ce999040d7d5d23fecb2e4e9811135b497
+  volume-5/pro-defunctis/re_subvenite.ly:
+    upstream: ea2c5cddab2d1b708312d1ba8c8076e3f17e50fc1d510862309605c4a5830f12
+    imported: c582fc15ee337f3acf4a9532abb8f6f6a0e6843d8f0d569608f3d181422d6a43
+  volume-5/pro-defunctis/sanctus_pro_defunctis.ly:
+    upstream: 9647c4c75723fdc9bff97f74e9e336b8ae9adc32a83f7ab08fe8076139d27573
+    imported: 4dcfdf9f97a6d0a0157a9d0256e45959aa092369ec6bf002f3c9d90de0a5e177
+  volume-5/pro-defunctis/se_dies_irae.ly:
+    upstream: ebb6a43d375e4f5403d61b6bfbb18928c7ed3f8998ad3cbd8d3594d5c47f1d2d
+    imported: 4a833729d1f9445d80ede254cff6c9d032da4b39fd29a5f41d9c53d4e0d3acd6
+  volume-5/pro-defunctis/tr_absolve.ly:
+    upstream: 9eebf4eccd9cfb95669536dad1328c28f9fc7859cb91a29f1ea3910da735a45f
+    imported: e785e1681b270f8386b55b616a6273c1158ca8fa9620b2d7110729e3bab42648
+  volume-5/tonus-solemnis.ly:
+    upstream: 016fa03039c9734421273f87b1676d7a49a80ed22fd051c9d65e68aec29385c7
+    imported: 4387681f952f339043d390a1e46c4fc559dccbbd2628b09c62c2071b7b042dcf

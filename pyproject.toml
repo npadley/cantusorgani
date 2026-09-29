@@ -35,6 +35,7 @@ testpaths = ["tests"]
 markers = [
   "source: requires the untracked 230MB pdf-source/ PDFs; local only",
   "slow: renders pages at 300dpi",
+  "lilypond: runs the pinned LilyPond (uv run noh lilypond-install); skipped where it is missing",
 ]
 addopts = "--strict-markers"
 
