@@ -95,6 +95,9 @@ export interface Piece {
   readonly mode: string | null;
   readonly mass: string | null;
   readonly printedPages: readonly [number, number];
+  /** The addendum a piece is printed in, whose pages are numbered on their own
+   *  ("Addenda ad Partem III"); null for the body of the volume. */
+  readonly pagination: string | null;
   readonly pdfPages: readonly [number, number];
   readonly systems: readonly string[];
   /** Published asset key per system, without its variant suffix. Empty when the
@@ -179,6 +182,7 @@ interface RawPiece {
   // JSON gives plain arrays; the tuple shape is checked at runtime below rather
   // than asserted here, because asserting it is how `undefined` reaches a page.
   readonly printed_pages: readonly number[];
+  readonly pagination?: string;
   readonly pdf_pages: readonly number[];
   readonly systems: readonly string[];
   readonly system_assets?: readonly string[];
@@ -194,6 +198,8 @@ interface RawPiece {
 interface RawVolume {
   readonly title: string;
   readonly part: string;
+  /** Addenda with their own pagination: id to title. */
+  readonly addenda?: Readonly<Record<string, string>>;
 }
 
 interface RawCatalog {
@@ -269,6 +275,10 @@ export function parseCatalog(input: unknown): Catalog {
     if (!RECORD_STATUSES.has(p.review_status)) {
       throw new Error(`${p.id}: unknown review_status ${p.review_status}`);
     }
+    const addenda = doc.volumes[p.volume]?.addenda ?? {};
+    if (p.pagination !== undefined && !Object.hasOwn(addenda, p.pagination)) {
+      throw new Error(`${p.id}: unknown pagination ${p.pagination} in ${p.volume}`);
+    }
     if (p.system_aspect.length !== p.systems.length) {
       throw new Error(`${p.id}: ${p.systems.length} systems but ${p.system_aspect.length} aspects`);
     }
@@ -280,6 +290,7 @@ export function parseCatalog(input: unknown): Catalog {
       hymns: (p.hymns ?? []).map((h): Hymn => ({ title: h.title, ref: h.ref, printedPage: h.printed_page })),
       genre: p.genre as Genre, mode: p.mode, mass: p.mass,
       printedPages: pair(p.printed_pages, `${p.id}.printed_pages`),
+      pagination: p.pagination === undefined ? null : (addenda[p.pagination] ?? null),
       pdfPages: pair(p.pdf_pages, `${p.id}.pdf_pages`),
       systems: p.systems,
       systemAssets: p.system_assets ?? [],
@@ -374,6 +385,13 @@ export function citedBy(piece: Piece, pieces: readonly Piece[] = allPieces()): r
 }
 
 /** "Nova Organi Harmonia, part III" for a piece's volume. */
+/** Where in the book: "pp. 5–10", or for an addendum, which numbers its pages
+ *  afresh, "Addenda ad Partem III, pp. 3–11". */
+export function pagesLabel(piece: Piece): string {
+  const pages = `pp. ${piece.printedPages[0]}–${piece.printedPages[1]}`;
+  return piece.pagination ? `${piece.pagination}, ${pages}` : pages;
+}
+
 export function volumeLabel(piece: Piece): string {
   const part = loadCatalog().volumes[piece.volume]?.part;
   return part ? `Nova Organi Harmonia, part ${part}` : "Nova Organi Harmonia";

@@ -2,6 +2,24 @@
   "schema_version": 1,
   "corrections": [
     {
+      "id": "c-0013",
+      "target": "part:s-pii-x-papae-et-confessoris/tract",
+      "field": "start_system",
+      "was": 36,
+      "value": 29,
+      "date": "2026-09-28",
+      "by": "editor"
+    },
+    {
+      "id": "c-0009",
+      "target": "part:s-pii-x-papae-et-confessoris/alleluia",
+      "field": "start_system",
+      "was": 29,
+      "value": 22,
+      "date": "2026-09-28",
+      "by": "editor"
+    },
+    {
       "id": "c-0007",
       "target": "part:dominica-i-adventus/alleluia",
       "field": "start_system",

@@ -99,3 +99,24 @@ def test_load_index_days_pass_through_as_calendar_keys(tmp_path):
     [entry] = load_index("x", path)
     assert entry.days == ("tempora:Adv1-0",)
     assert entry.division == "temporale"
+
+
+def test_load_index_pagination_from_the_entry_or_its_section(tmp_path):
+    import yaml
+    path = tmp_path / "addenda.yml"
+    path.write_text(yaml.safe_dump({"sections": [
+        {"name": "Body", "division": "sanctorale", "entries": [
+            {"label": "A", "title": "A", "genre": "proper", "page": 3}]},
+        {"name": "Addenda", "division": "sanctorale", "pagination": "one", "entries": [
+            {"label": "B", "title": "B", "genre": "proper", "page": 3},
+            {"label": "C", "title": "C", "genre": "proper", "page": 3, "pagination": "two"}]}]}))
+    assert [e.pagination for e in load_index("x", path)] == [None, "one", "two"]
+
+
+def test_load_index_parts_placed_by_hand_pass_through_counting_from_one(tmp_path):
+    import yaml
+    path = tmp_path / "parts.yml"
+    path.write_text(yaml.safe_dump({"sections": [{"name": "S", "division": "sanctorale", "entries": [
+        {"label": "A", "title": "A", "genre": "proper", "page": 3, "parts": {"alleluia/paschal": 12}},
+        {"label": "B", "title": "B", "genre": "proper", "page": 5}]}]}))
+    assert [e.parts for e in load_index("x", path)] == [(("alleluia/paschal", 12),), ()]

@@ -64,8 +64,26 @@
           "last_pdf": 475,
           "offset": 35,
           "verified": 6
+        },
+        {
+          "first_pdf": 480,
+          "last_pdf": 489,
+          "offset": 478,
+          "verified": 1,
+          "pagination": "regina"
+        },
+        {
+          "first_pdf": 490,
+          "last_pdf": 499,
+          "offset": 488,
+          "verified": 4,
+          "pagination": "pius-x"
         }
-      ]
+      ],
+      "addenda": {
+        "regina": "Addenda ad Partem III",
+        "pius-x": "Addenda ad Partem III"
+      }
     },
     "noh4": {
       "title": "Commune Sanctorum, Missae Votivae et pro aliquibus locis",
@@ -54092,6 +54110,839 @@
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Nov23",
+      "chant": [],
+      "review_status": "verified",
+      "hymns": [],
+      "linked_days": []
+    },
+    {
+      "id": "noh3-b-mariae-virginis-reginae",
+      "volume": "noh3",
+      "slug": "b-mariae-virginis-reginae",
+      "section": "Addenda ad Partem III",
+      "division": "sanctorale",
+      "days": [
+        "sancti:05-31"
+      ],
+      "label": "B. Mari\u00e6 Virginis Regin\u00e6",
+      "title": "B. Mari\u00e6 Virginis Regin\u00e6",
+      "incipit": null,
+      "reference": null,
+      "genre": "proper",
+      "mode": null,
+      "mass": null,
+      "printed_pages": [
+        3,
+        11
+      ],
+      "pagination": "regina",
+      "pdf_pages": [
+        481,
+        489
+      ],
+      "systems": [
+        "noh3/0481/000",
+        "noh3/0481/001",
+        "noh3/0481/002",
+        "noh3/0481/003",
+        "noh3/0481/004",
+        "noh3/0482/000",
+        "noh3/0482/001",
+        "noh3/0482/002",
+        "noh3/0482/003",
+        "noh3/0482/004",
+        "noh3/0482/005",
+        "noh3/0483/000",
+        "noh3/0483/001",
+        "noh3/0483/002",
+        "noh3/0483/003",
+        "noh3/0483/004",
+        "noh3/0483/005",
+        "noh3/0484/000",
+        "noh3/0484/001",
+        "noh3/0484/002",
+        "noh3/0484/003",
+        "noh3/0484/004",
+        "noh3/0484/005",
+        "noh3/0485/000",
+        "noh3/0485/001",
+        "noh3/0485/002",
+        "noh3/0485/003",
+        "noh3/0485/004",
+        "noh3/0485/005",
+        "noh3/0486/000",
+        "noh3/0486/001",
+        "noh3/0486/002",
+        "noh3/0486/003",
+        "noh3/0486/004",
+        "noh3/0486/005",
+        "noh3/0487/000",
+        "noh3/0487/001",
+        "noh3/0487/002",
+        "noh3/0487/003",
+        "noh3/0487/004",
+        "noh3/0487/005",
+        "noh3/0488/000",
+        "noh3/0488/001",
+        "noh3/0488/002",
+        "noh3/0488/003",
+        "noh3/0488/004",
+        "noh3/0488/005",
+        "noh3/0489/000",
+        "noh3/0489/001",
+        "noh3/0489/002",
+        "noh3/0489/003",
+        "noh3/0489/004",
+        "noh3/0489/005"
+      ],
+      "system_assets": [
+        "systems/noh3/0481/000-d07cbd37a1dc",
+        "systems/noh3/0481/001-d4707676b745",
+        "systems/noh3/0481/002-70a13cc5241f",
+        "systems/noh3/0481/003-88ab92feb361",
+        "systems/noh3/0481/004-6762c4182813",
+        "systems/noh3/0482/000-697097e2d89e",
+        "systems/noh3/0482/001-27a47b8ee48f",
+        "systems/noh3/0482/002-17cdd69c8a5c",
+        "systems/noh3/0482/003-825e4419f9e0",
+        "systems/noh3/0482/004-16367e088887",
+        "systems/noh3/0482/005-bcfe89459bbe",
+        "systems/noh3/0483/000-64e966d392c1",
+        "systems/noh3/0483/001-088ba0c0223d",
+        "systems/noh3/0483/002-8f7669dafac7",
+        "systems/noh3/0483/003-94a1169aa916",
+        "systems/noh3/0483/004-1d87e40850cc",
+        "systems/noh3/0483/005-59475e22da65",
+        "systems/noh3/0484/000-3b63b2a34cea",
+        "systems/noh3/0484/001-1698be6a289f",
+        "systems/noh3/0484/002-8a276b9cec1a",
+        "systems/noh3/0484/003-fad1367e34ec",
+        "systems/noh3/0484/004-3bcc42e5653b",
+        "systems/noh3/0484/005-10cc51bb567d",
+        "systems/noh3/0485/000-08788019c048",
+        "systems/noh3/0485/001-91324ac80345",
+        "systems/noh3/0485/002-b2b60db00aa5",
+        "systems/noh3/0485/003-133c2c03102f",
+        "systems/noh3/0485/004-7e8b5549de0a",
+        "systems/noh3/0485/005-d17276075520",
+        "systems/noh3/0486/000-176a36449e47",
+        "systems/noh3/0486/001-5e75805aebda",
+        "systems/noh3/0486/002-5d61fcfedf66",
+        "systems/noh3/0486/003-8aabc4e5d923",
+        "systems/noh3/0486/004-cade883e5dbd",
+        "systems/noh3/0486/005-058562e7b994",
+        "systems/noh3/0487/000-9f2dc3eb7d8e",
+        "systems/noh3/0487/001-0220958d8912",
+        "systems/noh3/0487/002-4d4b2647cde1",
+        "systems/noh3/0487/003-67d31971524b",
+        "systems/noh3/0487/004-9f654a5f8b37",
+        "systems/noh3/0487/005-78d4ee837acb",
+        "systems/noh3/0488/000-5aaa5b39b8f6",
+        "systems/noh3/0488/001-ce850e65b1f0",
+        "systems/noh3/0488/002-3272ec1ce868",
+        "systems/noh3/0488/003-27edfeca5f78",
+        "systems/noh3/0488/004-649e0ae564a4",
+        "systems/noh3/0488/005-18477fb87738",
+        "systems/noh3/0489/000-4d986ffbb116",
+        "systems/noh3/0489/001-e20d4f5528b3",
+        "systems/noh3/0489/002-f054369d9e78",
+        "systems/noh3/0489/003-8d1d9e24679a",
+        "systems/noh3/0489/004-a8b28d4749b2",
+        "systems/noh3/0489/005-390cde118c50"
+      ],
+      "system_aspect": [
+        [
+          2082,
+          431
+        ],
+        [
+          2082,
+          434
+        ],
+        [
+          2082,
+          474
+        ],
+        [
+          2083,
+          425
+        ],
+        [
+          2086,
+          434
+        ],
+        [
+          2076,
+          430
+        ],
+        [
+          1845,
+          420
+        ],
+        [
+          1840,
+          433
+        ],
+        [
+          2068,
+          413
+        ],
+        [
+          1842,
+          415
+        ],
+        [
+          1843,
+          418
+        ],
+        [
+          2070,
+          431
+        ],
+        [
+          2074,
+          426
+        ],
+        [
+          2073,
+          451
+        ],
+        [
+          2073,
+          422
+        ],
+        [
+          2074,
+          433
+        ],
+        [
+          2076,
+          426
+        ],
+        [
+          1114,
+          434
+        ],
+        [
+          1985,
+          418
+        ],
+        [
+          1835,
+          441
+        ],
+        [
+          1846,
+          419
+        ],
+        [
+          2013,
+          433
+        ],
+        [
+          1841,
+          413
+        ],
+        [
+          2068,
+          464
+        ],
+        [
+          2068,
+          439
+        ],
+        [
+          2069,
+          447
+        ],
+        [
+          2071,
+          417
+        ],
+        [
+          2072,
+          414
+        ],
+        [
+          2075,
+          421
+        ],
+        [
+          2075,
+          413
+        ],
+        [
+          1841,
+          422
+        ],
+        [
+          2079,
+          434
+        ],
+        [
+          1626,
+          445
+        ],
+        [
+          2016,
+          418
+        ],
+        [
+          2088,
+          425
+        ],
+        [
+          2058,
+          420
+        ],
+        [
+          2061,
+          420
+        ],
+        [
+          2063,
+          439
+        ],
+        [
+          2065,
+          427
+        ],
+        [
+          2070,
+          417
+        ],
+        [
+          1308,
+          421
+        ],
+        [
+          1992,
+          440
+        ],
+        [
+          1840,
+          464
+        ],
+        [
+          2064,
+          427
+        ],
+        [
+          1840,
+          420
+        ],
+        [
+          1843,
+          411
+        ],
+        [
+          2063,
+          442
+        ],
+        [
+          1807,
+          432
+        ],
+        [
+          1851,
+          429
+        ],
+        [
+          1848,
+          423
+        ],
+        [
+          1845,
+          416
+        ],
+        [
+          1851,
+          437
+        ],
+        [
+          1843,
+          567
+        ]
+      ],
+      "movements": [],
+      "parts": [
+        {
+          "part": "introit",
+          "variant": "",
+          "system": 0,
+          "ref": "noh3/0481/000",
+          "gregobase_id": 61,
+          "placed": "label",
+          "score": 1.0
+        },
+        {
+          "part": "gradual",
+          "variant": "",
+          "system": 21,
+          "ref": "noh3/0484/004",
+          "gregobase_id": 1368,
+          "placed": "label",
+          "score": 1.0
+        },
+        {
+          "part": "alleluia",
+          "variant": "",
+          "system": 33,
+          "ref": "noh3/0486/004",
+          "gregobase_id": 717,
+          "placed": "hand",
+          "score": 1.0
+        },
+        {
+          "part": "alleluia",
+          "variant": "paschal",
+          "system": 11,
+          "ref": "noh3/0483/000",
+          "gregobase_id": 354,
+          "placed": "hand",
+          "score": 1.0
+        },
+        {
+          "part": "offertory",
+          "variant": "",
+          "system": 41,
+          "ref": "noh3/0488/000",
+          "gregobase_id": 719,
+          "placed": "label",
+          "score": 1.0
+        },
+        {
+          "part": "communion",
+          "variant": "",
+          "system": 47,
+          "ref": "noh3/0489/000",
+          "gregobase_id": 1053,
+          "placed": "label",
+          "score": 1.0
+        }
+      ],
+      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=May31",
+      "chant": [],
+      "review_status": "verified",
+      "hymns": [],
+      "linked_days": []
+    },
+    {
+      "id": "noh3-s-pii-x-papae-et-confessoris",
+      "volume": "noh3",
+      "slug": "s-pii-x-papae-et-confessoris",
+      "section": "Addenda ad Partem III",
+      "division": "sanctorale",
+      "days": [
+        "sancti:09-03"
+      ],
+      "label": "S. Pii X Pap\u00e6 et Confessoris",
+      "title": "S. Pii X Pap\u00e6 et Confessoris",
+      "incipit": null,
+      "reference": null,
+      "genre": "proper",
+      "mode": null,
+      "mass": null,
+      "printed_pages": [
+        3,
+        11
+      ],
+      "pagination": "pius-x",
+      "pdf_pages": [
+        491,
+        499
+      ],
+      "systems": [
+        "noh3/0491/000",
+        "noh3/0491/001",
+        "noh3/0491/002",
+        "noh3/0491/003",
+        "noh3/0491/004",
+        "noh3/0492/000",
+        "noh3/0492/001",
+        "noh3/0492/002",
+        "noh3/0492/003",
+        "noh3/0492/004",
+        "noh3/0492/005",
+        "noh3/0493/000",
+        "noh3/0493/001",
+        "noh3/0493/002",
+        "noh3/0493/003",
+        "noh3/0493/004",
+        "noh3/0493/005",
+        "noh3/0494/000",
+        "noh3/0494/001",
+        "noh3/0494/002",
+        "noh3/0494/003",
+        "noh3/0494/004",
+        "noh3/0494/005",
+        "noh3/0495/000",
+        "noh3/0495/001",
+        "noh3/0495/002",
+        "noh3/0495/003",
+        "noh3/0495/004",
+        "noh3/0495/005",
+        "noh3/0496/000",
+        "noh3/0496/001",
+        "noh3/0496/002",
+        "noh3/0496/003",
+        "noh3/0496/004",
+        "noh3/0496/005",
+        "noh3/0497/000",
+        "noh3/0497/001",
+        "noh3/0497/002",
+        "noh3/0497/003",
+        "noh3/0497/004",
+        "noh3/0497/005",
+        "noh3/0498/000",
+        "noh3/0498/001",
+        "noh3/0498/002",
+        "noh3/0498/003",
+        "noh3/0498/004",
+        "noh3/0498/005",
+        "noh3/0499/000",
+        "noh3/0499/001",
+        "noh3/0499/002",
+        "noh3/0499/003",
+        "noh3/0499/004",
+        "noh3/0499/005"
+      ],
+      "system_assets": [
+        "systems/noh3/0491/000-7e696cc5f3ea",
+        "systems/noh3/0491/001-638d8c1146c0",
+        "systems/noh3/0491/002-9bda74830158",
+        "systems/noh3/0491/003-f6c5092482bc",
+        "systems/noh3/0491/004-e2e5910d9ce2",
+        "systems/noh3/0492/000-b7cc41be028c",
+        "systems/noh3/0492/001-c8e415740e40",
+        "systems/noh3/0492/002-d8dc2f48b844",
+        "systems/noh3/0492/003-6d2e0d3cba89",
+        "systems/noh3/0492/004-9bbb566cfc76",
+        "systems/noh3/0492/005-0c7991413fbf",
+        "systems/noh3/0493/000-00ecced06646",
+        "systems/noh3/0493/001-010b8bfe57fa",
+        "systems/noh3/0493/002-3144ab82a9f6",
+        "systems/noh3/0493/003-feccf7e06fbf",
+        "systems/noh3/0493/004-b4688c5c38eb",
+        "systems/noh3/0493/005-5f467f9443d4",
+        "systems/noh3/0494/000-6d78d382c282",
+        "systems/noh3/0494/001-24d0621f766e",
+        "systems/noh3/0494/002-9af411e428d7",
+        "systems/noh3/0494/003-954eb0a8f96e",
+        "systems/noh3/0494/004-6b956c66a40f",
+        "systems/noh3/0494/005-936bc46aafc1",
+        "systems/noh3/0495/000-b9ad922b6148",
+        "systems/noh3/0495/001-d39fafff74f8",
+        "systems/noh3/0495/002-720fa6fbf723",
+        "systems/noh3/0495/003-86cf79d77f82",
+        "systems/noh3/0495/004-f4316ce070df",
+        "systems/noh3/0495/005-b56a2c995e44",
+        "systems/noh3/0496/000-139a092f0e99",
+        "systems/noh3/0496/001-0685798d43a8",
+        "systems/noh3/0496/002-e667f51e09dd",
+        "systems/noh3/0496/003-1de4794c138f",
+        "systems/noh3/0496/004-867048867781",
+        "systems/noh3/0496/005-69689ff3de78",
+        "systems/noh3/0497/000-e3655d9e0dc4",
+        "systems/noh3/0497/001-1d2e0382fa5e",
+        "systems/noh3/0497/002-006764a1bfea",
+        "systems/noh3/0497/003-417814b0ae0d",
+        "systems/noh3/0497/004-a72427362f7b",
+        "systems/noh3/0497/005-b4c81e9e3b15",
+        "systems/noh3/0498/000-c35db417f0de",
+        "systems/noh3/0498/001-440dbad8fc5d",
+        "systems/noh3/0498/002-2c4b8d8770dc",
+        "systems/noh3/0498/003-4b8be67882aa",
+        "systems/noh3/0498/004-631dae6841df",
+        "systems/noh3/0498/005-530cbc3e2dba",
+        "systems/noh3/0499/000-7a2c425e0820",
+        "systems/noh3/0499/001-6de5876d564e",
+        "systems/noh3/0499/002-cf4e88a06cd5",
+        "systems/noh3/0499/003-bb08fbc6f137",
+        "systems/noh3/0499/004-69c8a01c41c5",
+        "systems/noh3/0499/005-5ed41210c0dc"
+      ],
+      "system_aspect": [
+        [
+          2079,
+          453
+        ],
+        [
+          2087,
+          455
+        ],
+        [
+          2086,
+          423
+        ],
+        [
+          2087,
+          411
+        ],
+        [
+          2091,
+          471
+        ],
+        [
+          2079,
+          472
+        ],
+        [
+          2081,
+          450
+        ],
+        [
+          1848,
+          418
+        ],
+        [
+          2090,
+          415
+        ],
+        [
+          1850,
+          451
+        ],
+        [
+          1791,
+          463
+        ],
+        [
+          2071,
+          456
+        ],
+        [
+          2071,
+          434
+        ],
+        [
+          2063,
+          449
+        ],
+        [
+          2063,
+          416
+        ],
+        [
+          2092,
+          415
+        ],
+        [
+          2062,
+          421
+        ],
+        [
+          2087,
+          439
+        ],
+        [
+          2072,
+          434
+        ],
+        [
+          2076,
+          419
+        ],
+        [
+          2074,
+          436
+        ],
+        [
+          1778,
+          413
+        ],
+        [
+          2069,
+          436
+        ],
+        [
+          2072,
+          426
+        ],
+        [
+          2076,
+          423
+        ],
+        [
+          2078,
+          437
+        ],
+        [
+          2081,
+          428
+        ],
+        [
+          2086,
+          444
+        ],
+        [
+          2086,
+          423
+        ],
+        [
+          1850,
+          409
+        ],
+        [
+          2095,
+          474
+        ],
+        [
+          1847,
+          432
+        ],
+        [
+          2092,
+          412
+        ],
+        [
+          1842,
+          457
+        ],
+        [
+          1844,
+          422
+        ],
+        [
+          2091,
+          433
+        ],
+        [
+          2089,
+          448
+        ],
+        [
+          2090,
+          442
+        ],
+        [
+          2096,
+          437
+        ],
+        [
+          2092,
+          424
+        ],
+        [
+          2093,
+          433
+        ],
+        [
+          1845,
+          434
+        ],
+        [
+          2078,
+          428
+        ],
+        [
+          1841,
+          434
+        ],
+        [
+          2084,
+          426
+        ],
+        [
+          1843,
+          411
+        ],
+        [
+          1844,
+          421
+        ],
+        [
+          2071,
+          437
+        ],
+        [
+          1298,
+          441
+        ],
+        [
+          2063,
+          449
+        ],
+        [
+          2062,
+          414
+        ],
+        [
+          2063,
+          495
+        ],
+        [
+          1554,
+          462
+        ]
+      ],
+      "movements": [],
+      "parts": [
+        {
+          "part": "introit",
+          "variant": "",
+          "system": 0,
+          "ref": "noh3/0491/000",
+          "gregobase_id": 452,
+          "placed": "text",
+          "score": 0.791
+        },
+        {
+          "part": "gradual",
+          "variant": "",
+          "system": 10,
+          "ref": "noh3/0492/005",
+          "gregobase_id": 977,
+          "placed": "label",
+          "score": 1.0
+        },
+        {
+          "part": "alleluia",
+          "variant": "",
+          "system": 28,
+          "ref": "noh3/0495/005",
+          "gregobase_id": 467,
+          "placed": "text",
+          "score": 0.8
+        },
+        {
+          "part": "tract",
+          "variant": "",
+          "system": 35,
+          "ref": "noh3/0497/000",
+          "gregobase_id": 1281,
+          "placed": "text",
+          "score": 0.714
+        },
+        {
+          "part": "alleluia",
+          "variant": "paschal",
+          "system": 39,
+          "ref": "noh3/0497/004",
+          "gregobase_id": 315,
+          "placed": "text",
+          "score": 0.8
+        },
+        {
+          "part": "offertory",
+          "variant": "",
+          "system": 45,
+          "ref": "noh3/0498/004",
+          "gregobase_id": 805,
+          "placed": "label",
+          "score": 1.0
+        },
+        {
+          "part": "communion",
+          "variant": "",
+          "system": 49,
+          "ref": "noh3/0499/002",
+          "gregobase_id": 90,
+          "placed": "text",
+          "score": 0.723
+        }
+      ],
+      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Sep3",
       "chant": [],
       "review_status": "verified",
       "hymns": [],

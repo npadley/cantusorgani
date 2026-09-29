@@ -6,7 +6,7 @@ import MovementNav from "../../components/MovementNav.astro";
 import RecordStatusNotice from "../../components/RecordStatusNotice.astro";
 import SystemStack from "../../components/SystemStack.astro";
 import VespersDates from "../../components/VespersDates.astro";
-import { allPieces, citedBy, jumpTargets, volumeLabel } from "../../lib/catalog";
+import { allPieces, citedBy, jumpTargets, pagesLabel, volumeLabel } from "../../lib/catalog";
 import { pieceHref } from "../../lib/indexes";
 import type { Piece } from "../../lib/catalog";
 import { lineupsUsing } from "../../lib/vespers";
@@ -30,7 +30,7 @@ const vespersDays = piece.division === "vesperale" ? lineupsUsing(piece.slug) : 
 
 <Layout
   title={heading}
-  description={`${piece.title} — ${volumeLabel(piece)}, pp. ${piece.printedPages[0]}–${piece.printedPages[1]}`}
+  description={`${piece.title} — ${volumeLabel(piece)}, ${pagesLabel(piece)}`}
   skipTo="music"
 >
   <article>
@@ -39,7 +39,7 @@ const vespersDays = piece.division === "vesperale" ? lineupsUsing(piece.slug) : 
       <h1>{heading}</h1>
       <p class="meta ui small muted">
         {piece.label}{piece.incipit ? ` · ${piece.title}` : ""}
-        · printed pp. {piece.printedPages[0]}–{piece.printedPages[1]}
+        · printed {pagesLabel(piece)}
         · {piece.systems.length} system{piece.systems.length === 1 ? "" : "s"}
       </p>
     </header>

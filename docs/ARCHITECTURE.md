@@ -68,6 +68,7 @@ flowchart LR
 | **CI** | `.github/workflows/site.yml` | On every pull request: tests, secret scan, checks that corrections are applied, build and link check. On `main`: the same, then deploy. |
 | **Publishing** | `.github/workflows/corrections-batch.yml` | Runs when the admin screen publishes: records the batch (`noh correct-batch`), rebuilds the chant notation, and opens a pull request as the GitHub App. |
 | **Rebuilding** | `.github/workflows/catalog-rebuild.yml` | Run by hand from the Actions tab: rebuilds a volume's catalogue from the scans after an index edit, on a branch or as a pull request. |
+| **Images** | `.github/workflows/publish.yml` | Run by hand from the Actions tab: slices the PDF pages named, uploads their images to R2, and rebuilds that volume's catalogue so it names them; on a branch or as a pull request. |
 
 ## A correction's journey
 
@@ -100,6 +101,18 @@ each lineup day's `observance`, so the site looks titles up rather than
 working them out. `normal_key` (dropping a resumed Sunday's `r` or a Christmas
 Mass's `m1`–`m3`) is the one rule both sides share, for matching a day page to
 its Vespers.
+
+## Which page is it?
+
+Each volume's page map (`data/derived-offsets.json`, from `noh offset
+--segments`) turns printed pages into PDF pages. NOH3 also binds two addenda
+(Queenship of Our Lady and St Pius X, both 1954) that number their pages
+afresh. `data/volumes.yml` declares them under `addenda`, and each gets its own
+page-map segment with a `pagination` id. An index entry printed in one names
+that id, and so does its piece, so the site reads "Addenda ad Partem III,
+pp. 3–11". A page reference in a rubric ("Pars III, p. 5") always means the
+body. The addenda are printed faintly, so their staves are found with the
+settings under "faint print" in `pipeline/segment.py`.
 
 ## Where the code is
 

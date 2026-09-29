@@ -46,6 +46,19 @@ volumes:
     index_pdf_pages: [476, 477, 478, 479]
     first_body_pdf_page: 34
     last_body_pdf_page: 475   # 480-499 are addenda with their own pagination
+    # Printed for the two feasts of 1954 (plate numbers 9264 and 9263), each numbered
+    # from its own title page. St Joseph the Worker (1955) is in neither.
+    addenda:
+      - id: regina
+        title: "Addenda ad Partem III"
+        first_pdf: 480
+        last_pdf: 489
+        faint_staff_lines: true
+      - id: pius-x
+        title: "Addenda ad Partem III"
+        first_pdf: 490
+        last_pdf: 499
+        faint_staff_lines: true
     page_offset: null
     sha256: "fca64d8655a8ce1623b32a0af9622eb1cdd357e1fd12af582ac8ed74477ce84f"
     source_url: null

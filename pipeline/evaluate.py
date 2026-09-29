@@ -25,13 +25,17 @@ import numpy as np
 from pipeline.clean import clean_page, estimate_skew
 from pipeline.render import BUILD, render_page
 from pipeline.segment import (
+    FAINT_CLOSE_PX,
+    FAINT_MIN_ROW_INK,
     BBox,
     Staff,
     System,
     find_staff_lines,
     group_staves,
+    group_staves_tolerant,
     group_systems,
     group_systems_by_gap,
+    merge_close_lines,
 )
 from pipeline.segment import to_bboxes as _to_bboxes
 
@@ -70,6 +74,15 @@ class PageAnalysis:
         return len(self.systems)
 
 
+@functools.cache
+def faint_pages(vol_id: str) -> frozenset[int]:
+    """Pages printed too faintly for the standard staff finder (data/volumes.yml)."""
+    from pipeline.volumes import load_volumes
+    vol = load_volumes().get(vol_id)
+    return frozenset(p for a in (vol.addenda if vol else ()) if a.faint_staff_lines
+                     for p in range(a.first_pdf, a.last_pdf + 1))
+
+
 def load_page(vol_id: str, pdf_page: int) -> np.ndarray:
     """Render (or reuse the cached render of) one page as greyscale."""
     path = render_page(vol_id, pdf_page)
@@ -90,8 +103,13 @@ def analyse_page(vol_id: str, pdf_page: int) -> PageAnalysis:
     skew = estimate_skew(gray)
     binary = clean_page(gray)
     height, width = binary.shape
-    lines = find_staff_lines(binary)
-    staves = group_staves(lines)
+    if pdf_page in faint_pages(vol_id):
+        lines = merge_close_lines(find_staff_lines(binary, close_px=FAINT_CLOSE_PX,
+                                                   min_row_ink=FAINT_MIN_ROW_INK))
+        staves = group_staves_tolerant(lines)
+    else:
+        lines = find_staff_lines(binary)
+        staves = group_staves(lines)
     ink = binary < 128
     base = {
         "vol_id": vol_id, "pdf_page": pdf_page, "page_width": width,

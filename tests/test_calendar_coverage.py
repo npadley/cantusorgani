@@ -23,9 +23,7 @@ BY_SLUG = {p["slug"]: p for p in PIECES}
 # missing: a new gap is a catalogue error until it is explained here.
 NOT_IN_NOH = {
     "tempora:Quad6-5r": "Good Friday: the organ is silent from Holy Thursday to the Vigil",
-    "sancti:05-01r": "St Joseph the Worker (1955): NOH3 addenda, not yet catalogued",
-    "sancti:05-31": "Queenship of Our Lady (1954): NOH3 addenda, not yet catalogued",
-    "sancti:09-03": "St Pius X (1954): NOH3 addenda, not yet catalogued",
+    "sancti:05-01r": "St Joseph the Worker, instituted 1955: NOH3's addenda print only the two 1954 feasts",
     "sancti:06-17r": "St Gregory Barbarigo, canonised 1960: after NOH was printed",
     "sancti:07-21r": "St Lawrence of Brindisi, added 1959: after NOH was printed",
     "sancti:10-23r": "St Anthony Mary Claret, canonised 1950: after NOH was printed",

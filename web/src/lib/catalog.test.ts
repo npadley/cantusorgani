@@ -191,6 +191,17 @@ describe("parseCatalog", () => {
       .toThrow(/printed_pages: expected exactly two numbers/);
   });
 
+  it("should name an addendum's pages by the addendum, which numbers them afresh", async () => {
+    const { pagesLabel, parseCatalog } = await import("./catalog");
+    const volumes = { noh5: { title: "Kyriale", part: "V", addenda: { extra: "Addenda ad Partem V" } } };
+    const catalog = parseCatalog(rawCatalog(
+      [rawPiece(), rawPiece({ id: "noh5-y", slug: "y", pagination: "extra", printed_pages: [3, 11] })], { volumes }));
+    expect(catalog.pieces.map((p) => p.pagination)).toEqual([null, "Addenda ad Partem V"]);
+    expect(catalog.pieces.map(pagesLabel)).toEqual(["pp. 1–2", "Addenda ad Partem V, pp. 3–11"]);
+    expect(() => parseCatalog(rawCatalog([rawPiece({ pagination: "other" })], { volumes })))
+      .toThrow(/unknown pagination other in noh5/);
+  });
+
   it("should tolerate a catalog written before asset keys existed", async () => {
     const { parseCatalog, systemUrlStem } = await import("./catalog");
     const catalog = parseCatalog(rawCatalog([rawPiece({ system_assets: undefined })]));

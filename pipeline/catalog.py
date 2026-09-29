@@ -39,7 +39,7 @@ from pipeline.movements import (
     mode_marker,
     segment_mass,
 )
-from pipeline.offset import PageMap, load_page_map
+from pipeline.offset import PageMap, load_page_map, segment_record
 from pipeline.pairing import pair_entry
 from pipeline.publish import asset_stem, load_manifest, trimmed_boxes
 from pipeline.systemtext import PX_TO_PT, condense, system_texts
@@ -118,9 +118,10 @@ MOVEMENT_DIVISIONS = frozenset({"kyriale", "defunctorum"})
 PageScan = tuple[list[SystemRef], list[tuple[int, MovementHit]], list[str]]
 
 
-def scan_pdf(page_map: PageMap, printed: int, scan: Callable[[int], PageScan]) -> list[SystemRef]:
+def scan_pdf(page_map: PageMap, printed: int, scan: Callable[[int], PageScan],
+             pagination: str | None = None) -> list[SystemRef]:
     """Systems on a printed page, through the caller's page cache."""
-    pdf_page = page_map.to_pdf(printed)
+    pdf_page = page_map.to_pdf(printed, pagination)
     return list(scan(pdf_page)[0]) if pdf_page is not None else []
 
 
@@ -135,7 +136,7 @@ def entry_text(entry: IndexEntry) -> str:
 
 def start_system(vol_id: str, page_map: PageMap, entry: IndexEntry, systems: int) -> int:
     """First system of the entry on its first page (see pipeline.pagesplit)."""
-    pdf_page = page_map.to_pdf(entry.page)
+    pdf_page = page_map.to_pdf(entry.page, entry.pagination)
     if pdf_page is None or systems == 0:
         return 0
     from pipeline.pagesplit import GapReader, first_system
@@ -293,7 +294,8 @@ def jgabc_url(slug: str, days: list[str]) -> str | None:
 
 
 def proper_parts(vol_id: str, slug: str, days: list[str], reference: str | None,
-                 refs: list[SystemRef], ctx: PartsContext, zone: str = ""
+                 refs: list[SystemRef], ctx: PartsContext, zone: str = "",
+                 hand: dict[str, int] | None = None
                  ) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
     """A Proper's parts and the review entries for any placed by order, missing,
     or not found at all. Parts printed by reference are recorded as borrowed and
@@ -332,7 +334,10 @@ def proper_parts(vol_id: str, slug: str, days: list[str], reference: str | None,
         # text layer's marker count.
         mode = margin_mode(margin) if margin.strip() else r.mode_marker
         features.append(PartSystem(r.ref, r.text, label_of(margin), mode))
-    seg = segment_proper(features, printed)
+    try:
+        seg = segment_proper(features, printed, hand)
+    except ValueError as error:
+        raise ValueError(f"{vol_id} {slug}: {error}") from error
     records: list[dict[str, object]] = [
         {"part": b.part, "variant": b.variant, "system": b.index, "ref": b.ref,
          "gregobase_id": b.gregobase_id, "placed": b.placed, "score": b.score}
@@ -369,6 +374,12 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
     review: list[dict[str, object]] = []
 
     entries = load_index(vol_id, index_path)
+    known = {None} | {s.pagination for s in page_map.segments}
+    for e in entries:
+        if e.pagination not in known:
+            raise ValueError(f"{vol_id} {e.slug}: pagination {e.pagination!r} has no page map; "
+                             f"declare it under addenda in data/volumes.yml and re-derive "
+                             f"(uv run noh offset --volume {vol_id} --segments)")
     ctx = parts_context() if parts and any(has_parts(e) for e in entries) else None
     with pymupdf.open(vol.path) as doc:
         scanned: dict[int, PageScan] = {}
@@ -403,7 +414,8 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
 
         # Where each piece begins: (printed page, first system on it). Pieces
         # own every system from their start up to the next piece's start.
-        starts = [(e.page, start_system(vol_id, page_map, e, len(scan_pdf(page_map, e.page, scan))))
+        starts = [(e.page, start_system(vol_id, page_map, e,
+                                        len(scan_pdf(page_map, e.page, scan, e.pagination))))
                   for e in entries]
         # A Kyriale Mass begins at its Kyrie: systems above it on the first page
         # close the Mass before, whatever the page split made of the heading.
@@ -414,12 +426,21 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
                 shift = kyrie_offset([SystemFeature(r.ref, r.text, r.mode_marker) for r in on_page])
                 if shift:
                     starts[i] = (page, first_system + shift)
-        # The last body page of the volume, so the final entry is bounded by the
-        # book rather than by itself.
-        last_body_printed = page_map.last_printed
-        for i, (entry, first, last) in enumerate(resolve_ranges(entries, last_body_printed)):
+        # Each pagination (the body, and any addendum) is bounded on its own: an
+        # entry runs to the next entry in its pagination, and the last one to the
+        # end of its pages rather than stopping at itself.
+        spans: dict[int, tuple[int, int, tuple[int, int]]] = {}
+        groups: dict[str | None, list[int]] = {}
+        for i, e in enumerate(entries):
+            groups.setdefault(e.pagination, []).append(i)
+        for pagination, members in groups.items():
+            end = page_map.last_in(pagination)
+            ranges = resolve_ranges([entries[i] for i in members], end)
+            for j, (i, (_, first, last)) in enumerate(zip(members, ranges, strict=True)):
+                spans[i] = (first, last, starts[members[j + 1]] if j + 1 < len(members) else (end + 1, 0))
+        for i, entry in enumerate(entries):
+            first, last, stop = spans[i]
             start = starts[i]
-            stop = starts[i + 1] if i + 1 < len(starts) else (last_body_printed + 1, 0)
             # Run to where the next piece begins: into its page when it begins
             # mid-page, and past our own first page when our heading sat below
             # its last system.
@@ -438,7 +459,7 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
             movements: list[dict[str, object]] = []
             ordinary = entry.genre == "mass_ordinary" and entry.division == "kyriale"
             for printed in range(first, last + 1):
-                pdf_page = page_map.to_pdf(printed)
+                pdf_page = page_map.to_pdf(printed, entry.pagination)
                 if pdf_page is None:
                     # A printed page this scan does not contain (NOH1 lacks
                     # 348-349), or one outside the body.
@@ -481,7 +502,8 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
             jgabc = jgabc_url(entry.slug, list(entry.days)) if has_parts(entry) else None
             if ctx is not None and refs and has_parts(entry):
                 proper, part_review = proper_parts(vol_id, entry.slug, list(entry.days),
-                                                   entry.reference, refs, ctx, zone_of(refs))
+                                                   entry.reference, refs, ctx, zone_of(refs),
+                                                   {k: n - 1 for k, n in entry.parts})
                 review.extend(part_review)
             if entry.status not in CONFIDENT_INDEX:
                 review.append({"piece": entry.slug, "kind": "index_unverified",
@@ -513,7 +535,8 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
                 "mode": None,
                 "mass": entry.label if entry.genre == "mass_ordinary" else None,
                 "printed_pages": [first, last],
-                "pdf_pages": _pdf_span(page_map, first, last),
+                **({"pagination": entry.pagination} if entry.pagination else {}),
+                "pdf_pages": _pdf_span(page_map, first, last, entry.pagination),
                 "systems": [r.ref for r in refs],
                 "system_assets": [r.asset for r in refs],
                 "system_aspect": [list(r.aspect) for r in refs],
@@ -539,7 +562,8 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
     catalog: dict[str, object] = {
         "schema_version": SCHEMA_VERSION,
         "volumes": {vol_id: {"title": vol.title, "part": vol.part,
-                             "page_map": [asdict(seg) for seg in page_map.segments]}},
+                             "page_map": [segment_record(seg) for seg in page_map.segments],
+                             **({"addenda": {a.id: a.title for a in vol.addenda}} if vol.addenda else {})}},
         "chant_source": {
             "name": "GregoBase", "url": "https://gregobase.selapa.net",
             "licence": "CC0",
@@ -552,8 +576,8 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
     return catalog, review
 
 
-def _pdf_span(page_map: PageMap, first: int, last: int) -> list[int]:
-    mapped = [p for p in (page_map.to_pdf(n) for n in range(first, last + 1)) if p is not None]
+def _pdf_span(page_map: PageMap, first: int, last: int, pagination: str | None = None) -> list[int]:
+    mapped = [p for p in (page_map.to_pdf(n, pagination) for n in range(first, last + 1)) if p is not None]
     return [min(mapped), max(mapped)] if mapped else [0, 0]
 
 
@@ -633,8 +657,10 @@ def link_rubrics(catalog: Catalog, rubrics: list[Record]) -> list[Record]:
             volume, page = ref
             # Only a piece with music: a heading whose own Mass is by reference
             # (SS Cosmas and Damian above St Michael on NOH3 p. 354) cannot be
-            # the Mass another feast borrows.
-            with_music = [p for p in pieces if p["volume"] == volume and p.get("systems")]
+            # the Mass another feast borrows. A page cited is the body's, never an
+            # addendum's, whose pages are numbered again from 1.
+            with_music = [p for p in pieces if p["volume"] == volume and p.get("systems")
+                          and not p.get("pagination")]
             if page == AT_END and with_music:
                 page = max(int(p["printed_pages"][0]) for p in with_music)
             candidates = [p for p in with_music

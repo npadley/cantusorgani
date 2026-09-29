@@ -95,3 +95,19 @@
   source: editor
   date: '2026-09-28'
   editor_email: nick@padley.com
+- id: c-0009
+  target: part:s-pii-x-papae-et-confessoris/alleluia
+  field: start_system
+  was: 29
+  value: 22
+  source: editor
+  date: '2026-09-28'
+  note: Alleluia VIII, V. Parasti mihi mensam (addendum p. 6)
+- id: c-0013
+  target: part:s-pii-x-papae-et-confessoris/tract
+  field: start_system
+  was: 36
+  value: 29
+  source: editor
+  date: '2026-09-28'
+  note: Tract. VIII, Sacerdotes, after 'In Missis votivis post Septuagesimam' (addendum p. 7)

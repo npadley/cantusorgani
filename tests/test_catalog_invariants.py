@@ -49,15 +49,26 @@ def test_no_two_pieces_claim_the_same_system():
 def test_page_ranges_are_ordered_and_in_bounds():
     for piece in PIECES:
         first, last = piece["printed_pages"]
-        assert 1 <= first <= last <= PAGE_MAPS[piece["volume"]].last_printed, piece["id"]
+        assert 1 <= first <= last <= PAGE_MAPS[piece["volume"]].last_in(piece.get("pagination")), piece["id"]
 
 
 def test_pdf_pages_follow_the_recorded_page_map():
     for piece in PIECES:
         page_map = PAGE_MAPS[piece["volume"]]
         first, last = piece["printed_pages"]
-        mapped = [p for n in range(first, last + 1) if (p := page_map.to_pdf(n)) is not None]
+        mapped = [p for n in range(first, last + 1)
+                  if (p := page_map.to_pdf(n, piece.get("pagination"))) is not None]
         assert piece["pdf_pages"] == [min(mapped), max(mapped)], piece["id"]
+
+
+def test_an_addendum_piece_names_an_addendum_of_its_volume():
+    """Its pages count from the addendum's own title page, so a piece without
+    its pagination would send the reader to the wrong page of the book."""
+    for piece in PIECES:
+        if "pagination" in piece:
+            assert piece["pagination"] in CAT["volumes"][piece["volume"]]["addenda"], piece["id"]
+            segments = {s.pagination for s in PAGE_MAPS[piece["volume"]].segments}
+            assert piece["pagination"] in segments, piece["id"]
 
 
 def test_systems_within_a_piece_are_in_reading_order():
@@ -311,12 +322,15 @@ def test_parts_are_named_run_in_reading_order_and_point_at_their_own_systems():
     for piece in PIECES:
         printed = _printed(piece)
         assert all(x["part"] in PART_NAMES for x in piece.get("parts", [])), piece["slug"]
-        systems = [x["system"] for x in printed]
+        # The Paschal Alleluia stands in for the Gradual and Alleluia, and may be
+        # printed on either side of them (NOH3's Queenship addendum prints it first).
+        systems = [x["system"] for x in printed if x.get("variant") != "paschal"]
         assert systems == sorted(systems), piece["slug"]
-        assert len(set(systems)) == len(systems), f"two parts start on one system: {piece['slug']}"
+        starts = [x["system"] for x in printed]
+        assert len(set(starts)) == len(starts), f"two parts start on one system: {piece['slug']}"
         for x in printed:
             assert piece["systems"][x["system"]] == x["ref"], piece["slug"]
-            # "hand": corrected in data/corrections.yml (a part start an editor fixed).
+            # "hand": corrected in data/corrections.yml, or placed in the reviewed index.
             assert x["placed"] in {"label", "text", "mode", "order", "hand"}
 
 

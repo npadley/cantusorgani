@@ -1,5 +1,5 @@
 ---
-import { jumpTargets, systemUrlStem, volumeLabel } from "../lib/catalog";
+import { jumpTargets, pagesLabel, systemUrlStem, volumeLabel } from "../lib/catalog";
 import { annotationFor, chantEntry } from "../lib/chants";
 import type { JumpTarget, Piece } from "../lib/catalog";
 import ReportLinks from "./ReportLinks.astro";
@@ -25,7 +25,7 @@ for (const t of jumpTargets(piece)) startsAt.set(t.index, [...(startsAt.get(t.in
   piece.reference ? null : (
     <div class="notice" role="status">
       <strong>No music of its own.</strong> The book gives this day at printed
-      page {piece.printedPages[0]} of {volumeLabel(piece)} without music of its own,
+      page {piece.printedPages[0]}{piece.pagination ? ` of its ${piece.pagination}` : ""} of {volumeLabel(piece)} without music of its own,
       usually with a rubric sending the reader to another Mass.
     </div>
   )
@@ -34,8 +34,7 @@ for (const t of jumpTargets(piece)) startsAt.set(t.index, [...(startsAt.get(t.in
     <figcaption id={captionId} class="sr-only">
       {piece.title}
       {piece.mode ? `, mode ${piece.mode}` : ", mode not recorded"},
-      organ accompaniment from Nova Organi Harmonia part V, printed pages
-      {" "}{piece.printedPages[0]}–{piece.printedPages[1]}, shown as
+      organ accompaniment from {volumeLabel(piece)}, {pagesLabel(piece)}, shown as
       {" "}{piece.systems.length} scanned music systems. These are images of a
       1942 printed score and cannot be read by a screen reader.
     </figcaption>

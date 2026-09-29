@@ -21,7 +21,7 @@ from pathlib import Path
 
 from pipeline.checksum import sha256_of
 from pipeline.folio import read_folio_dual
-from pipeline.volumes import DATA, Volume, load_volumes
+from pipeline.volumes import DATA, Addendum, Volume, load_volumes
 
 MIN_CONFIDENCE = 0.9
 MIN_SAMPLES = 10
@@ -140,32 +140,51 @@ class Segment:
     last_pdf: int
     offset: int
     verified: int = 0          # dual-source readings that agreed with this offset
+    # An addendum's id (data/volumes.yml) when these pages have their own
+    # pagination; None for the body. Printed numbers repeat between paginations,
+    # so a printed page means nothing without the pagination it belongs to.
+    pagination: str | None = None
+
+
+def segment_record(seg: Segment) -> dict[str, object]:
+    """A segment as stored: `pagination` only where there is one."""
+    record = asdict(seg)
+    if record["pagination"] is None:
+        del record["pagination"]
+    return record
 
 
 @dataclass(frozen=True)
 class PageMap:
     segments: tuple[Segment, ...]
 
-    def to_pdf(self, printed: int) -> int | None:
+    def to_pdf(self, printed: int, pagination: str | None = None) -> int | None:
         for seg in self.segments:
             pdf = printed + seg.offset
-            if seg.first_pdf <= pdf <= seg.last_pdf:
+            if seg.pagination == pagination and seg.first_pdf <= pdf <= seg.last_pdf:
                 return pdf
         return None
 
     def to_printed(self, pdf: int) -> int | None:
-        seg = next((s for s in self.segments if s.first_pdf <= pdf <= s.last_pdf), None)
+        seg = self.segment_of(pdf)
         return pdf - seg.offset if seg else None
+
+    def segment_of(self, pdf: int) -> Segment | None:
+        return next((s for s in self.segments if s.first_pdf <= pdf <= s.last_pdf), None)
+
+    def last_in(self, pagination: str | None) -> int:
+        """The last printed page of the body, or of one addendum."""
+        return max(s.last_pdf - s.offset for s in self.segments if s.pagination == pagination)
 
     @property
     def last_printed(self) -> int:
-        return max(s.last_pdf - s.offset for s in self.segments)
+        return self.last_in(None)
 
     @property
     def gaps(self) -> list[tuple[int, int]]:
-        """PDF pages between segments: an inserted plate, or a boundary no
-        reading could place. Nothing there is catalogued until it is."""
-        ordered = sorted(self.segments, key=lambda s: s.first_pdf)
+        """PDF pages between the body's segments: an inserted plate, or a
+        boundary no reading could place. Nothing there is catalogued until it is."""
+        ordered = sorted((s for s in self.segments if s.pagination is None), key=lambda s: s.first_pdf)
         return [(a.last_pdf + 1, b.first_pdf - 1) for a, b in itertools.pairwise(ordered)
                 if b.first_pdf - a.last_pdf > 1]
 
@@ -248,7 +267,35 @@ def derive_page_map(vol_id: str, work_dir: Path | None = None, seed: int = 0) ->
                                 vol, work_dir)
         last = high if last is None and not stopped and after is None else (last or seg.last_pdf)
         extended.append(Segment(first, last, seg.offset, seg.verified))
-    return PageMap(tuple(extended))
+    return PageMap(tuple(extended) + tuple(derive_addendum(vol_id, a, work_dir) for a in vol.addenda))
+
+
+def derive_addendum(vol_id: str, addendum: Addendum, work_dir: Path | None = None) -> Segment:
+    """An addendum's own page map: one offset over its declared pages. An
+    addendum is short (ten pages, the first a title page without a folio), too
+    short for the body's sampling, so it is held to a stricter rule instead:
+    every folio its text layer reads must fit the one offset, and no
+    dual-source reading may contradict it. Tesseract reads few of these folios
+    (NOH3's first addendum is a fainter print), so one agreement suffices."""
+    from pipeline.folio import read_embedded
+
+    pages = range(addendum.first_pdf, addendum.last_pdf + 1)
+    readings = [(p, folio) for p in pages if (folio := read_embedded(vol_id, p)[1]) is not None]
+    offsets = {p - folio for p, folio in readings}
+    if len(offsets) != 1 or len(readings) < MIN_RUN:
+        raise ValueError(f"{vol_id} addendum {addendum.id}: its folios do not agree on one offset: "
+                         f"{readings}")
+    off = offsets.pop()
+    agreed = disagreed = 0
+    for page in pages:
+        folio = read_folio_dual(vol_id, page, work_dir).folio
+        if folio is not None:
+            agreed += page - folio == off
+            disagreed += page - folio != off
+    if agreed < 1 or disagreed:
+        raise ValueError(f"{vol_id} addendum {addendum.id}: offset {off:+d} is not verified: "
+                         f"{agreed} dual-source readings agree, {disagreed} disagree")
+    return Segment(addendum.first_pdf, addendum.last_pdf, off, agreed, addendum.id)
 
 
 def folio_candidates(vol_id: str, pdf_page: int, work_dir: Path | None = None) -> set[int]:
@@ -287,10 +334,10 @@ def _extend(vol_id: str, offset: int, neighbour: int | None, pages: range, vol: 
 def persist_page_map(vol_id: str, page_map: PageMap, path: Path = OFFSETS_FILE) -> dict[str, object]:
     vol = load_volumes()[vol_id]
     store: dict[str, object] = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
-    main = max(page_map.segments, key=lambda s: s.last_pdf - s.first_pdf)
+    main = max((s for s in page_map.segments if s.pagination is None), key=lambda s: s.last_pdf - s.first_pdf)
     entry: dict[str, object] = {
         "offset": main.offset,
-        "segments": [asdict(s) for s in page_map.segments],
+        "segments": [segment_record(s) for s in page_map.segments],
         "gaps": [list(g) for g in page_map.gaps],
         "source_sha256": sha256_of(vol.path),
     }
