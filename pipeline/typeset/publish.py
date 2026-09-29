@@ -86,8 +86,19 @@ def melody_problem(file: str, target: str, src: Path = SRC, data: Path = DATA) -
     return None
 
 
+class StaleManifest(RuntimeError):
+    """The manifest does not name the renders the sources make now."""
+
+
 def render_missing(base: str | None, out: Path = OUT, src: Path = SRC, workers: int = 4,
-                   manifest_path: Path = MANIFEST, review_path: Path = REVIEW) -> RenderReport:
+                   manifest_path: Path = MANIFEST, review_path: Path = REVIEW, check_current: bool = True) -> RenderReport:
+    if check_current:
+        from pipeline.typeset.manifest import stale
+        found = stale(manifest_path, review_path)
+        if found:
+            # Rendering against it would name every render wrongly (and mark
+            # them all broken): refuse before drawing anything.
+            raise StaleManifest(f"{', '.join(found)} not current with the sources: run `uv run noh typeset-manifest` first")
     shown = {r["hash"]: r for r in json.loads(manifest_path.read_text(encoding="utf-8"))["parts"]}
     wanted = hashes(manifest_path, review_path)
     todo = missing(base, wanted) if base else wanted
@@ -143,5 +154,5 @@ def remote_problems(base: str, manifest_path: Path = MANIFEST) -> list[str]:
             for digest, file in sorted(missing(base, wanted).items(), key=lambda x: x[1])]
 
 
-__all__ = ["OUT", "RenderReport", "melody_problem", "missing", "publish", "published", "remote_problems",
+__all__ = ["OUT", "RenderReport", "StaleManifest", "melody_problem", "missing", "publish", "published", "remote_problems",
            "render_missing"]

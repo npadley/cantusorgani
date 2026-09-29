@@ -5,10 +5,12 @@ import Layout from "../../components/Layout.astro";
 import MovementNav from "../../components/MovementNav.astro";
 import RecordStatusNotice from "../../components/RecordStatusNotice.astro";
 import SystemStack from "../../components/SystemStack.astro";
+import TypesetSwitch from "../../components/TypesetSwitch.astro";
 import VespersDates from "../../components/VespersDates.astro";
 import { allPieces, citedBy, jumpTargets, pagesLabel, volumeLabel } from "../../lib/catalog";
 import { pieceHref } from "../../lib/indexes";
 import type { Piece } from "../../lib/catalog";
+import { hasTypeset } from "../../lib/typeset";
 import { lineupsUsing } from "../../lib/vespers";
 
 export function getStaticPaths() {
@@ -70,6 +72,7 @@ const vespersDays = piece.division === "vesperale" ? lineupsUsing(piece.slug) : 
     )}
     <MovementNav piece={piece} />
     <ExportBar pieces={[piece]} title={piece.title} />
+    <TypesetSwitch show={hasTypeset(piece)} />
     <SystemStack piece={piece} id="music" />
     {/* Headings carry their own chant links; the old pairing box would be a second set. */}
     {!jumpTargets(piece).some((t) => t.chantUrl) && <ChantPair piece={piece} />}

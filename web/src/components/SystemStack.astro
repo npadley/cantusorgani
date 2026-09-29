@@ -2,6 +2,7 @@
 import { jumpTargets, pagesLabel, systemUrlStem, volumeLabel } from "../lib/catalog";
 import { annotationFor, chantEntry } from "../lib/chants";
 import type { JumpTarget, Piece } from "../lib/catalog";
+import { segments } from "../lib/typeset";
 import ReportLinks from "./ReportLinks.astro";
 
 interface Props {
@@ -19,6 +20,10 @@ const widest = Math.max(1, ...piece.systemAspect.map(([w]) => w));
 // A heading above the first system of each movement and hymn: the jump links' targets.
 const startsAt = new Map<number, JumpTarget[]>();
 for (const t of jumpTargets(piece)) startsAt.set(t.index, [...(startsAt.get(t.index) ?? []), t]);
+// Typeset music, where a transcription is matched: each segment of systems is
+// either drawn by LilyPond (with its scans behind a switch) or scanned.
+const parts = segments(piece);
+const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.label ?? piece.title;
 ---
 
 {piece.systems.length === 0 ? (
@@ -39,14 +44,11 @@ for (const t of jumpTargets(piece)) startsAt.set(t.index, [...(startsAt.get(t.in
       1942 printed score and cannot be read by a screen reader.
     </figcaption>
 
-    {piece.systems.map((ref, i) => {
-      const aspect = piece.systemAspect[i] ?? [1600, 400];
-      const relative = (aspect[0] / widest) * 100;
-      const stem = systemUrlStem(piece, i);
-      const starts = startsAt.get(i) ?? [];
-      return (
-        <>
-        {starts.map((start) => {
+    {parts.map((seg) => (
+      <>
+      {Array.from({ length: seg.end - seg.start }, (_, k) => seg.start + k).map((i) => {
+        const starts = i === seg.start ? startsAt.get(i) ?? [] : [];
+        return starts.map((start) => {
           if (start.kind === "hymn") {
             return <h2 class={`movement-heading ${start.kind}`} id={start.anchor}>{start.label}</h2>;
           }
@@ -73,30 +75,56 @@ for (const t of jumpTargets(piece)) startsAt.set(t.index, [...(startsAt.get(t.in
               )}
             </>
           );
-        })}
-        <div
-          class="system-slot"
-          style={`aspect-ratio:${aspect[0]}/${aspect[1]}; width:${relative.toFixed(2)}%`}
-        >
-          <img
-            class="system"
-            src={`${stem}.webp`}
-            srcset={`${stem}.webp 1x, ${stem}@2x.webp 2x`}
-            sizes="(min-width: 62rem) 60rem, 100vw"
-            width={aspect[0]}
-            height={aspect[1]}
-            loading={i < 2 ? "eager" : "lazy"}
-            decoding="async"
-            fetchpriority={i === 0 ? "high" : "auto"}
-            alt=""
-            data-ref={ref}
-            data-index={i + 1}
-            data-total={piece.systems.length}
-          />
+        });
+      })}
+      <div class={seg.render ? "segment typeset-segment" : "segment"} data-typeset={seg.render ? "" : undefined}>
+        {seg.render && (
+          <div class="typeset">
+            <picture>
+              <source media="(min-width: 40rem)" srcset={seg.render.wide} type="image/svg+xml" />
+              <img class="typeset-music" src={seg.render.narrow} alt={`${partName(seg.start)}: the music, typeset`}
+                   loading={seg.start < 3 ? "eager" : "lazy"} decoding="async" data-first-system={seg.start + 1} />
+            </picture>
+            <p class="typeset-note ui small muted no-print">
+              <span class="typeset-state">{seg.render.proofread ? "Typeset, proofread" : "Typeset, not yet proofread"}</span>
+              · <a href="/about/#typeset">from the volunteers' transcription</a>
+              · <button type="button" class="link show-scan" aria-expanded="false">Show the scan</button>
+            </p>
+          </div>
+        )}
+        <div class="scans">
+          {Array.from({ length: seg.end - seg.start }, (_, k) => seg.start + k).map((i) => {
+            const ref = piece.systems[i] ?? "";
+            const aspect = piece.systemAspect[i] ?? [1600, 400];
+            const relative = (aspect[0] / widest) * 100;
+            const stem = systemUrlStem(piece, i);
+            return (
+              <div
+                class="system-slot"
+                style={`aspect-ratio:${aspect[0]}/${aspect[1]}; width:${relative.toFixed(2)}%`}
+              >
+                <img
+                  class="system"
+                  src={`${stem}.webp`}
+                  srcset={`${stem}.webp 1x, ${stem}@2x.webp 2x`}
+                  sizes="(min-width: 62rem) 60rem, 100vw"
+                  width={aspect[0]}
+                  height={aspect[1]}
+                  loading={i < 2 && !seg.render ? "eager" : "lazy"}
+                  decoding="async"
+                  fetchpriority={i === 0 && !seg.render ? "high" : "auto"}
+                  alt=""
+                  data-ref={ref}
+                  data-index={i + 1}
+                  data-total={piece.systems.length}
+                />
+              </div>
+            );
+          })}
         </div>
-        </>
-      );
-    })}
+      </div>
+      </>
+    ))}
   </figure>
 )}
 
@@ -137,6 +165,21 @@ for (const t of jumpTargets(piece)) startsAt.set(t.index, [...(startsAt.get(t.in
     position: relative;
   }
 
+  /* Typeset music. Its scans stay in the page, hidden (lazy images in a hidden
+     block do not load), until the page-wide switch or the part's own asks. */
+  .typeset { margin: 0 0 var(--s-4); }
+  .typeset picture, .typeset-music { display: block; width: 100%; height: auto; }
+  .typeset-note { margin: var(--s-1) 0 0; }
+  .typeset-note .link { background: none; border: 0; padding: 0; min-height: var(--tap-min); font: inherit;
+                        color: var(--accent); text-decoration: underline; cursor: pointer; }
+  .typeset-segment .scans { display: none; }
+  .typeset-segment[data-show="scan"] .scans { display: block; }
+  .typeset-segment[data-show="scan"] .typeset picture { display: none; }
+  :global(:root[data-view="scans"]) .typeset-segment:not([data-show="typeset"]) .scans { display: block; }
+  :global(:root[data-view="scans"]) .typeset-segment:not([data-show="typeset"]) .typeset { display: none; }
+  .typeset-segment[data-state="error"] .scans { display: block; }
+  .typeset-segment[data-state="error"] .typeset picture { display: none; }
+
   .system {
     display: block;
     width: 100%;
@@ -165,6 +208,42 @@ for (const t of jumpTargets(piece)) startsAt.set(t.index, [...(startsAt.get(t.in
 </style>
 
 <script is:inline>
+  // Typeset music: a part's own "Show the scan" switch, and falling back to the
+  // scans when the drawing cannot be loaded. The page-wide switch is in Layout.
+  document.querySelectorAll("[data-typeset]").forEach(function (seg) {
+    var button = seg.querySelector(".show-scan");
+    var img = seg.querySelector("img.typeset-music");
+    function scansShown() {
+      var root = document.documentElement.getAttribute("data-view") === "scans";
+      return seg.getAttribute("data-show") === "scan" || (root && seg.getAttribute("data-show") !== "typeset");
+    }
+    function sync() {
+      if (!button) return;
+      var on = scansShown();
+      button.textContent = on ? "Show the typeset music" : "Show the scan";
+      button.setAttribute("aria-expanded", on ? "true" : "false");
+    }
+    if (button) {
+      button.addEventListener("click", function () {
+        seg.setAttribute("data-show", scansShown() ? "typeset" : "scan");
+        sync();
+      });
+    }
+    document.addEventListener("typeset-view", sync);
+    sync();
+    function failed() {
+      seg.setAttribute("data-state", "error");
+      var note = seg.querySelector(".typeset-state");
+      if (note) note.textContent = "The typeset music could not be loaded; the scan is shown";
+      if (button) button.hidden = true;
+    }
+    if (img) {
+      img.addEventListener("error", failed);
+      // It may have failed before this ran.
+      if (img.complete && img.naturalWidth === 0 && img.currentSrc) failed();
+    }
+  });
+
   // A missing slice must never collapse its slot: a silently absent system sends
   // an organist to the bench with a bar missing.
   document.querySelectorAll("img.system").forEach(function (img) {

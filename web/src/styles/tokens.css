@@ -53,14 +53,15 @@
    black-on-white lightboxes at an organ console. Inversion suits low light and
    normal suits daylight, so the viewer can override the system default and the
    choice persists. */
-:root[data-scan-polarity="inverted"] .system,
-:root:not([data-scan-polarity="normal"]) .system {
+/* Typeset music is drawn in black on transparent, so it follows the same rule. */
+:root[data-scan-polarity="inverted"] :is(.system, .typeset-music),
+:root:not([data-scan-polarity="normal"]) :is(.system, .typeset-music) {
   filter: none;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-scan-polarity="normal"]) .system { filter: invert(1); }
+  :root:not([data-scan-polarity="normal"]) :is(.system, .typeset-music) { filter: invert(1); }
 }
 
-:root[data-scan-polarity="inverted"] .system { filter: invert(1); }
-:root[data-scan-polarity="normal"] .system { filter: none; }
+:root[data-scan-polarity="inverted"] :is(.system, .typeset-music) { filter: invert(1); }
+:root[data-scan-polarity="normal"] :is(.system, .typeset-music) { filter: none; }

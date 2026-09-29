@@ -15,6 +15,7 @@
   short-indent = 0
   top-margin = 2\mm
   bottom-margin = 2\mm
-  left-margin = 1\mm
+  % Room for the brace and bracket at the start of each line.
+  left-margin = 4\mm
   right-margin = 1\mm
 }

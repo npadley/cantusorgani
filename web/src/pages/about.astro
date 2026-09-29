@@ -85,11 +85,25 @@ const lastYear = lineups.at(-1) ? sungOn(lineups.at(-1)!).slice(0, 4) : "";
     <p class="small muted">Editors review reports and make corrections on the
       <a href="/admin/">admin screen</a> (sign-in required).</p>
 
+    <h2 id="typeset">Typeset music</h2>
+    <p>Where volunteers have transcribed a piece, the site shows it typeset instead of the scan: clearer on
+      a small screen, and sharp when printed. The transcriptions are the work of <strong>Joe Egan</strong> and
+      the volunteers of the <a href="https://github.com/joeegan2202/nova-organi-harmonia">nova-organi-harmonia</a>
+      project, drawn here with <a href="https://lilypond.org">LilyPond</a>.</p>
+    <p>Everything typeset is marked <strong>not yet proofread</strong> until an editor has checked it against the
+      book. <strong>Show the scans</strong> at the top of the page swaps every part back to its scan (your browser
+      remembers the choice), and <strong>Show the scan</strong> under a part swaps just that one. If the typeset
+      music differs from the scan, the scan is right: please <a href="/corrections/">report it</a>.</p>
+
     <h2 id="sources">Sources and attributions</h2>
     <dl class="sources">
       <dt><em>Nova Organi Harmonia ad Graduale Romanum</em></dt>
       <dd>Lemmens Institute, Mechelen: H. Dessain, 1942. The page images and everything cut from
         them are in the <strong>public domain</strong>.</dd>
+
+      <dt><a href="https://github.com/joeegan2202/nova-organi-harmonia">nova-organi-harmonia</a></dt>
+      <dd>The LilyPond transcriptions behind the typeset music, by Joe Egan and the project's volunteers,
+        imported at a fixed commit and credited wherever they are shown.</dd>
 
       <dt><a href="https://gregobase.selapa.net">GregoBase</a></dt>
       <dd>The chant melodies shown with each part and linked from it.

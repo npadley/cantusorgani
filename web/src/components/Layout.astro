@@ -22,6 +22,11 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
     {description && <meta name="description" content={description} />}
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      // Typeset music or the scans, page-wide (TypesetSwitch.astro): applied
+      // before the page draws, so nothing flashes. Per viewer; storage may throw.
+      try { if (localStorage.getItem("typeset-view") === "scans") document.documentElement.setAttribute("data-view", "scans"); } catch (e) { /* ignore */ }
+    </script>
   </head>
   <body>
     {skipTo && <a class="skip-link ui" href={`#${skipTo}`}>Skip to music</a>}

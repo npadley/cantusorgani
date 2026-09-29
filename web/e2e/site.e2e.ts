@@ -65,3 +65,66 @@ test.describe("At the organ", () => {
     await expect(page.locator("html")).toHaveAttribute("data-scan-polarity", "inverted");
   });
 });
+
+// Typeset music, served here by a stand-in for R2: the tests are about the
+// page's behaviour, not the drawing (pipeline/typeset tests the drawing).
+const DRAWING = '<svg xmlns="http://www.w3.org/2000/svg" width="539" height="120" viewBox="0 0 539 120">' +
+  '<rect x="0" y="50" width="539" height="2"/></svg>';
+
+test.describe("Typeset music", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.route("**/typeset/**", (route) =>
+      route.fulfill({ status: 200, contentType: "image/svg+xml", body: DRAWING }));
+  });
+
+  test("should show a Mass's movements typeset, credited and marked not yet proofread", async ({ page }) => {
+    await page.goto("/kyriale/ix/");
+    const segments = page.locator("[data-typeset]");
+    await expect(segments).toHaveCount(4);
+    await expect(segments.first().locator("img.typeset-music")).toBeVisible();
+    await expect(segments.first().locator("img.typeset-music")).toHaveAttribute("alt", "Kyrie: the music, typeset");
+    await expect(segments.first().locator(".typeset-note")).toContainText("Typeset, not yet proofread");
+    await expect(segments.first().locator(".scans")).toBeHidden();
+    await expect(page.getByRole("button", { name: "Show the scans" })).toBeVisible();
+  });
+
+  test("should swap the whole page to the scans, and remember it", async ({ page }) => {
+    await page.goto("/kyriale/ix/");
+    await page.getByRole("button", { name: "Show the scans" }).click();
+    const first = page.locator("[data-typeset]").first();
+    await expect(first.locator(".scans")).toBeVisible();
+    await expect(first.locator(".typeset")).toBeHidden();
+    await page.reload();
+    await expect(page.locator("[data-typeset]").first().locator(".scans")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Show the typeset music" })).toHaveAttribute("aria-pressed", "true");
+    await page.getByRole("button", { name: "Show the typeset music" }).click();
+    await expect(page.locator("[data-typeset]").first().locator("img.typeset-music")).toBeVisible();
+  });
+
+  test("should swap one part to its scan with its own switch", async ({ page }) => {
+    await page.goto("/kyriale/ix/");
+    const [kyrie, gloria] = [page.locator("[data-typeset]").nth(0), page.locator("[data-typeset]").nth(1)];
+    await gloria.getByRole("button", { name: "Show the scan" }).click();
+    await expect(gloria.locator(".scans")).toBeVisible();
+    await expect(gloria.getByRole("button", { name: "Show the typeset music" })).toHaveAttribute("aria-expanded", "true");
+    await expect(kyrie.locator(".scans")).toBeHidden();
+  });
+
+  test("should fall back to the scans when the drawing cannot be loaded", async ({ page }) => {
+    await page.unroute("**/typeset/**");
+    await page.route("**/typeset/**", (route) => route.fulfill({ status: 404, body: "" }));
+    await page.goto("/kyriale/ix/");
+    const first = page.locator("[data-typeset]").first();
+    await expect(first.locator(".scans")).toBeVisible();
+    await expect(first.locator(".typeset-note")).toContainText("could not be loaded; the scan is shown");
+    await expect(first.getByRole("button", { name: "Show the scan" })).toBeHidden();
+  });
+
+  test("should credit the transcriptions on the About page", async ({ page }) => {
+    await page.goto("/about/#typeset");
+    await expect(page.locator("#typeset")).toHaveText("Typeset music");
+    await expect(page.locator("main")).toContainText("Joe Egan");
+    await expect(page.getByRole("link", { name: "nova-organi-harmonia" }).first())
+      .toHaveAttribute("href", "https://github.com/joeegan2202/nova-organi-harmonia");
+  });
+});

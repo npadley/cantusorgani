@@ -63,7 +63,7 @@ def check_file(path: Path, expected_width_pt: float | None = None) -> list[str]:
 
 MM = 72 / 25.4
 #: The width each SVG is drawn at, in points (render.py's paper widths).
-WIDTHS = {"narrow.svg": 100 * MM, "wide.svg": 190 * MM}
+WIDTHS = {"narrow.svg": 90 * MM, "wide.svg": 190 * MM}
 
 
 def check_pdf(data: bytes) -> list[str]:

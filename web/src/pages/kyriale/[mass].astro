@@ -5,8 +5,10 @@ import Layout from "../../components/Layout.astro";
 import RecordStatusNotice from "../../components/RecordStatusNotice.astro";
 import MovementNav from "../../components/MovementNav.astro";
 import SystemStack from "../../components/SystemStack.astro";
+import TypesetSwitch from "../../components/TypesetSwitch.astro";
 import { ordinaryMasses } from "../../lib/catalog";
 import type { Piece } from "../../lib/catalog";
+import { hasTypeset } from "../../lib/typeset";
 
 export function getStaticPaths() {
   return ordinaryMasses().map((piece) => ({
@@ -42,6 +44,7 @@ const { piece } = Astro.props;
     <MovementNav piece={piece} />
 
     <ExportBar pieces={[piece]} title={`Missa ${piece.label}`} />
+    <TypesetSwitch show={hasTypeset(piece)} />
     <SystemStack piece={piece} id="music" />
     <ChantPair piece={piece} />
     <p class="edit-link small muted ui no-print">
