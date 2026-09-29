@@ -27,15 +27,16 @@
   },
   {
    "file": "vol-1/al_confitemini_domino.csv.ly",
-   "status": "proposed",
+   "status": "melody-differs",
    "target": "part:sabbato-sancto/alleluia",
    "hash": "c4759f545ea4de8025a359ca9c3f88b9",
+   "melody": 0.131,
    "incipit": "Al le lú ia Al le lú ia",
    "page": 345,
    "candidates": [
     {
      "target": "part:sabbato-sancto/alleluia",
-     "melody": null
+     "melody": 0.131
     }
    ]
   },
@@ -180,24 +181,6 @@
    ]
   },
   {
-   "file": "vol-1/an_hosanna_filio_david.csv.ly",
-   "status": "proposed",
-   "target": null,
-   "hash": "060d1330ab21192a2a7f5ed4d0fc93bd",
-   "incipit": "Hosanna fílio David benedíctus qui venit in nómine",
-   "page": 299,
-   "candidates": [
-    {
-     "target": "part:noh1-p299-2/other:1",
-     "melody": null
-    },
-    {
-     "target": "part:noh1-p299-2/other:2",
-     "melody": null
-    }
-   ]
-  },
-  {
    "file": "vol-1/an_immutemur_habitu.csv.ly",
    "status": "proposed",
    "target": "piece:feria-iv-cinerum",
@@ -250,52 +233,6 @@
    ]
   },
   {
-   "file": "vol-1/an_pueri_hebraeorum_portantes.csv.ly",
-   "status": "proposed",
-   "target": null,
-   "hash": "d5d078e2a177a9fbd048ceef1233a0cb",
-   "incipit": "Pueri Hebræórum portántes ramos olivárum obviavérunt Dómino clamántes",
-   "page": 299,
-   "candidates": [
-    {
-     "target": "part:noh1-p299-2/other:1",
-     "melody": null
-    },
-    {
-     "target": "part:noh1-p299-2/other:2",
-     "melody": null
-    }
-   ]
-  },
-  {
-   "file": "vol-1/an_pueri_hebraeorum_vestimenta.csv.ly",
-   "status": "proposed",
-   "target": "part:noh1-p299-2/other:3",
-   "hash": "e4015ad78e3090a297e33afda4d2ed69",
-   "incipit": "Púeri Hebræórum vestiménta prosternébant in via et clamábant",
-   "page": 301,
-   "candidates": [
-    {
-     "target": "part:noh1-p299-2/other:3",
-     "melody": null
-    }
-   ]
-  },
-  {
-   "file": "vol-1/co_dominus_regit_me.csv.ly",
-   "status": "proposed",
-   "target": "part:sabbato-infra-hebd-iv-quadragesim/communion",
-   "hash": "763a2f08e7c08c0923e6905533205f88",
-   "incipit": "Dominus regit me et nihil mihi déerit in",
-   "page": 272,
-   "candidates": [
-    {
-     "target": "part:sabbato-infra-hebd-iv-quadragesim/communion",
-     "melody": null
-    }
-   ]
-  },
-  {
    "file": "vol-1/co_fili_quid_fecisti.csv.ly",
    "status": "proposed",
    "target": "part:feria-ii-infra-hebd-passionis/communion",
@@ -309,15 +246,15 @@
      "melody": 0.6
     },
     {
+     "target": "part:dominica-iii-in-quadragesim/communion",
+     "melody": 0.587
+    },
+    {
      "target": "part:s-joannis-apostoli-et-evangelist/communion",
      "melody": 0.547
     },
     {
      "target": "part:feria-vi-quattuor-temporum-quadragesim/communion",
-     "melody": 0.533
-    },
-    {
-     "target": "part:dominica-i-passionis/communion",
      "melody": 0.533
     }
    ]
@@ -365,62 +302,6 @@
     {
      "target": "part:feria-ii-infra-hebd-iii-quadragesim/communion",
      "melody": 0.661
-    }
-   ]
-  },
-  {
-   "file": "vol-1/co_passer_invenit.csv.ly",
-   "status": "proposed",
-   "target": "part:dominica-iii-in-quadragesim/communion",
-   "hash": "97f9d359e1d27653d6ce8ad6609cb75b",
-   "incipit": "Passer invénit sibi domum et turtur nidum ubi",
-   "page": 230,
-   "candidates": [
-    {
-     "target": "part:dominica-iii-in-quadragesim/communion",
-     "melody": null
-    }
-   ]
-  },
-  {
-   "file": "vol-1/co_qui_biberit.csv.ly",
-   "status": "proposed",
-   "target": "part:feria-vi-infra-hebd-iii-quadragesim/communion",
-   "hash": "4912f72b70cc84aeca878bcaeb9c086a",
-   "incipit": "Qui bíberit aquam quam ego da bo ei",
-   "page": 246,
-   "candidates": [
-    {
-     "target": "part:feria-vi-infra-hebd-iii-quadragesim/communion",
-     "melody": null
-    }
-   ]
-  },
-  {
-   "file": "vol-1/co_tu_domine_servabis.csv.ly",
-   "status": "proposed",
-   "target": "part:feria-vi-infra-hebd-ii-quadragesim/communion",
-   "hash": "793d86a5bb2a6ac982bca8e3a6ec609c",
-   "incipit": "Tu Dó mine servábis nos et custó dies",
-   "page": 221,
-   "candidates": [
-    {
-     "target": "part:feria-vi-infra-hebd-ii-quadragesim/communion",
-     "melody": null
-    }
-   ]
-  },
-  {
-   "file": "vol-1/co_videns_dominus.csv.ly",
-   "status": "proposed",
-   "target": "part:feria-vi-infra-hebd-iv-quadragesim/communion",
-   "hash": "8c09d5fd850b32fdad2a2da6d9aa8727",
-   "incipit": "Videns Dóminus flentes soróres Lázari ad monuméntum lacrimátus",
-   "page": 268,
-   "candidates": [
-    {
-     "target": "part:feria-vi-infra-hebd-iv-quadragesim/communion",
-     "melody": null
     }
    ]
   },
@@ -488,12 +369,12 @@
      "melody": 0.453
     },
     {
-     "target": "part:feria-iv-hebdomad-sanct/gradual",
-     "melody": 0.426
+     "target": "part:dominica-iii-in-quadragesim/gradual",
+     "melody": 0.443
     },
     {
-     "target": "part:noh1-p49/gradual",
-     "melody": 0.419
+     "target": "part:feria-iv-hebdomad-sanct/gradual",
+     "melody": 0.426
     }
    ]
   },
@@ -534,26 +415,12 @@
      "melody": 0.438
     },
     {
-     "target": "part:feria-ii-infra-hebd-passionis/gradual",
-     "melody": 0.428
+     "target": "part:dominica-i-passionis/gradual",
+     "melody": 0.431
     },
     {
-     "target": "part:sanctissimi-nominis-jesu/gradual",
-     "melody": 0.424
-    }
-   ]
-  },
-  {
-   "file": "vol-1/gr_eripe_me_domine.csv.ly",
-   "status": "proposed",
-   "target": "part:dominica-i-passionis/gradual",
-   "hash": "1cc815a18ca17df550372b6e1f039482",
-   "incipit": "E ripe me Dómine de inimícis me is",
-   "page": 274,
-   "candidates": [
-    {
-     "target": "part:dominica-i-passionis/gradual",
-     "melody": null
+     "target": "part:feria-ii-infra-hebd-passionis/gradual",
+     "melody": 0.428
     }
    ]
   },
@@ -575,20 +442,6 @@
      "bes2 ~ bes2*4/2 ~ bes2*3/2 ~ bes2*3/2 a2*7/4 bes4 \\divisioMinima"
     ]
    }
-  },
-  {
-   "file": "vol-1/gr_exsurge__non_praevaleat.csv.ly",
-   "status": "proposed",
-   "target": "part:dominica-iii-in-quadragesim/gradual",
-   "hash": "9b3b475f84f1f159bc4732f9c46927a2",
-   "incipit": "Ex súrge Dómine non prævá leat ho mo",
-   "page": 224,
-   "candidates": [
-    {
-     "target": "part:dominica-iii-in-quadragesim/gradual",
-     "melody": null
-    }
-   ]
   },
   {
    "file": "vol-1/gr_misit_dominus.csv.ly",
@@ -627,20 +480,6 @@
      "g2*5/2 f2*4/2 bes2*3/2 c'2*3/2 \\divisioMinima"
     ]
    }
-  },
-  {
-   "file": "vol-1/gr_tibi_domine.csv.ly",
-   "status": "proposed",
-   "target": "part:sabbato-infra-hebd-iv-quadragesim/gradual",
-   "hash": "3ac934766a29f90e03200b3b6b3d51da",
-   "incipit": "Ti bi Dómine derelí ctus est pau per",
-   "page": 270,
-   "candidates": [
-    {
-     "target": "part:sabbato-infra-hebd-iv-quadragesim/gradual",
-     "melody": null
-    }
-   ]
   },
   {
    "file": "vol-1/gr_tollite_hostias.csv.ly",
@@ -728,12 +567,13 @@
    "status": "proposed",
    "target": "part:dominica-iii-post-epiphaniam/introit",
    "hash": "a3b6f3364207e0305a35ab8e0aaef79b",
+   "melody": 0.845,
    "incipit": "Adoráte Deum omnes Ange li ejus audívit et",
    "page": 126,
    "candidates": [
     {
      "target": "part:dominica-iii-post-epiphaniam/introit",
-     "melody": null
+     "melody": 0.845
     }
    ]
   },
@@ -955,20 +795,6 @@
      "d'2 g'2*3/2 f'2 ees'2 d'2 \\finalis"
     ]
    }
-  },
-  {
-   "file": "vol-1/in_oculi_mei.csv.ly",
-   "status": "proposed",
-   "target": "part:dominica-iii-in-quadragesim/introit",
-   "hash": "e5cc035b8a12f912d399859bae5fb813",
-   "incipit": "Oculi mei sem per ad Dóminum quia ipse",
-   "page": 223,
-   "candidates": [
-    {
-     "target": "part:dominica-iii-in-quadragesim/introit",
-     "melody": null
-    }
-   ]
   },
   {
    "file": "vol-1/in_omnis_terra.csv.ly",
@@ -1254,20 +1080,6 @@
    ]
   },
   {
-   "file": "vol-1/tr_ad_te_levavi.csv.ly",
-   "status": "proposed",
-   "target": "part:dominica-iii-in-quadragesim/tract",
-   "hash": "afb310a2dca57b1c064cc3b5d4fe13d1",
-   "incipit": "Ad te le vávi ó culos meos qui",
-   "page": 226,
-   "candidates": [
-    {
-     "target": "part:dominica-iii-in-quadragesim/tract",
-     "melody": null
-    }
-   ]
-  },
-  {
    "file": "vol-1/tr_confitemini.csv.ly",
    "status": "broken",
    "target": null,
@@ -1360,27 +1172,14 @@
   {
    "file": "vol-2/al_dum_complerentur.csv.ly",
    "status": "proposed",
-   "target": "part:feria-vi-quattuor-temporum-pentecostes/alleluia:1",
+   "target": "part:sabbato-quattuor-temporum-pentecostes/alleluia:2",
    "hash": "f459194c661cf43033b06215d7269e90",
-   "melody": 0.981,
    "incipit": "Allelú ia ℣ Dum compleréntur dies Pentecó stes",
    "page": 101,
    "candidates": [
     {
-     "target": "part:feria-vi-quattuor-temporum-pentecostes/alleluia:1",
-     "melody": 0.981
-    },
-    {
-     "target": "part:dominica-ii-post-pascha/alleluia:1",
-     "melody": 0.405
-    },
-    {
-     "target": "part:dominica-xii-post-pentecosten/alleluia",
-     "melody": 0.405
-    },
-    {
-     "target": "part:noh2-p37/alleluia:1",
-     "melody": 0.4
+     "target": "part:sabbato-quattuor-temporum-pentecostes/alleluia:2",
+     "melody": null
     }
    ]
   },
@@ -1442,33 +1241,6 @@
    }
   },
   {
-   "file": "vol-2/al_paratum_cor_meum.csv.ly",
-   "status": "proposed",
-   "target": "part:dominica-post-ascensionem/alleluia:2",
-   "hash": "7005cd7dba585c7af091241a0d37e795",
-   "melody": 0.489,
-   "incipit": "Allelú ia allelú ia ℣ Parátum cor meum",
-   "page": 240,
-   "candidates": [
-    {
-     "target": "part:dominica-post-ascensionem/alleluia:2",
-     "melody": 0.489
-    },
-    {
-     "target": "part:dominica-xv-post-pentecosten/alleluia",
-     "melody": 0.483
-    },
-    {
-     "target": "part:dominica-vii-post-pentecosten/alleluia",
-     "melody": 0.472
-    },
-    {
-     "target": "part:dominica-vi-post-pentecosten/alleluia",
-     "melody": 0.455
-    }
-   ]
-  },
-  {
    "file": "vol-2/al_post_dies_octo.csv.ly",
    "status": "broken",
    "target": null,
@@ -1490,27 +1262,14 @@
   {
    "file": "vol-2/al_spiritus_ejus.csv.ly",
    "status": "proposed",
-   "target": "part:die-vi-infra-octavam-pasch/alleluia",
+   "target": "part:sabbato-quattuor-temporum-pentecostes/alleluia:2",
    "hash": "499d2afeb7dd5ce43727a530f32b3c78",
-   "melody": 1.0,
    "incipit": "Alle lú ia ℣ Spíri tus e jus",
    "page": 101,
    "candidates": [
     {
-     "target": "part:die-vi-infra-octavam-pasch/alleluia",
-     "melody": 1.0
-    },
-    {
-     "target": "part:dominica-viii-post-pentecosten/alleluia",
-     "melody": 0.806
-    },
-    {
-     "target": "part:die-ii-infra-octavam-pentecostes/alleluia:1",
-     "melody": 0.778
-    },
-    {
-     "target": "part:dominica-v-post-pascha/alleluia:2",
-     "melody": 0.75
+     "target": "part:sabbato-quattuor-temporum-pentecostes/alleluia:2",
+     "melody": null
     }
    ]
   },
@@ -1639,8 +1398,8 @@
      "melody": 0.667
     },
     {
-     "target": "part:feria-iv-quattuor-temporum-pentecostes/alleluia:2",
-     "melody": 0.667
+     "target": "part:dominica-iii-post-pascha/alleluia:2",
+     "melody": 0.656
     }
    ]
   },
@@ -1728,27 +1487,14 @@
   {
    "file": "vol-2/co_mense_septimo.csv.ly",
    "status": "proposed",
-   "target": "part:sabbato-in-vigilia-pentecostes/communion",
+   "target": "part:sabbato-quattuor-temporum-septembris/communion",
    "hash": "924d85b0941f737e1af7b423645ece94",
-   "melody": 0.675,
    "incipit": "Mense séptimo festa celebrábitis cum in tabernáculis habitáre",
    "page": 228,
    "candidates": [
     {
-     "target": "part:sabbato-in-vigilia-pentecostes/communion",
-     "melody": 0.675
-    },
-    {
-     "target": "part:dominica-xiii-post-pentecosten/communion",
-     "melody": 0.55
-    },
-    {
-     "target": "part:dominica-pentecostes/communion",
-     "melody": 0.537
-    },
-    {
-     "target": "part:dominica-post-ascensionem/communion",
-     "melody": 0.525
+     "target": "part:sabbato-quattuor-temporum-septembris/communion",
+     "melody": null
     }
    ]
   },
@@ -1908,13 +1654,13 @@
   {
    "file": "vol-2/gr_quis_sicut_dominus.csv.ly",
    "status": "proposed",
-   "target": "part:feria-iv-quattuor-temporum-septembris/gradual",
+   "target": "part:feria-iv-quattuor-temporum-septembris/gradual:1",
    "hash": "a2081e334945cc0030c1f327ef431ec8",
    "incipit": "Quis sicut Dó minus Deus noster qui in",
    "page": 224,
    "candidates": [
     {
-     "target": "part:feria-iv-quattuor-temporum-septembris/gradual",
+     "target": "part:feria-iv-quattuor-temporum-septembris/gradual:1",
      "melody": null
     }
    ]
@@ -2180,27 +1926,14 @@
   {
    "file": "vol-2/in_venite_adoremus.csv.ly",
    "status": "proposed",
-   "target": "part:dominica-iv-post-pentecosten/introit",
+   "target": "part:sabbato-quattuor-temporum-septembris/introit",
    "hash": "b308ca6d7b15c1a6b89308026ca58978",
-   "melody": 0.639,
    "incipit": "Veníte adorémus Deum et procidámus ante Dóminum ploré",
    "page": 227,
    "candidates": [
     {
-     "target": "part:dominica-iv-post-pentecosten/introit",
-     "melody": 0.639
-    },
-    {
-     "target": "part:dominica-vi-post-pentecosten/introit",
-     "melody": 0.63
-    },
-    {
-     "target": "part:dominica-xix-post-pentecosten/introit",
-     "melody": 0.613
-    },
-    {
-     "target": "part:dominica-xiv-post-pentecosten/introit",
-     "melody": 0.58
+     "target": "part:sabbato-quattuor-temporum-septembris/introit",
+     "melody": null
     }
    ]
   },
@@ -2347,33 +2080,6 @@
      "c2*5/2 ~ c2*4/2 ~ c2 ~ c2*4/2 d2 ~ d2*3/4 \\divisioMaxima"
     ]
    }
-  },
-  {
-   "file": "vol-2/of_super_flumina.csv.ly",
-   "status": "proposed",
-   "target": "part:dominica-xii-post-pentecosten/offertory",
-   "hash": "d3e777c00af568692a6d39a5fa786695",
-   "melody": 0.806,
-   "incipit": "Super flúmina Baby lónis illic sédimus et flévi",
-   "page": 241,
-   "candidates": [
-    {
-     "target": "part:dominica-xii-post-pentecosten/offertory",
-     "melody": 0.806
-    },
-    {
-     "target": "part:sabbato-quattuor-temporum-pentecostes/offertory",
-     "melody": 0.55
-    },
-    {
-     "target": "part:dominica-xviii-post-pentecosten/offertory",
-     "melody": 0.527
-    },
-    {
-     "target": "part:dominica-xxii-post-pentecosten/offertory",
-     "melody": 0.527
-    }
-   ]
   },
   {
    "file": "vol-2/se_lauda_sion.csv.ly",
