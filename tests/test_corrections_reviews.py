@@ -105,7 +105,7 @@ def test_reviews_lapse_when_the_item_changes_and_never_stop_the_build(data):
     # A rebuild finds something new about the item, and the Communion moves.
     requeue(data, {**ITEM, "best_system": 3, "score": 0.6})
     moved = proper()
-    moved["pieces"][2]["parts"][3].update(system=3, ref="noh1/0034/003")
+    moved["pieces"][2]["sections"][3].update(system=3, ref="noh1/0034/003")
     current, lapsed = reviews(apply(moved, entries), entries)
     assert current == [] and {e.target for e in lapsed} == {key(data), "part:dominica-ii/gradual"}
     assert problems(moved, entries) == []

@@ -133,7 +133,9 @@ export interface Catalog {
   readonly pieces: readonly Piece[];
 }
 
-export const SCHEMA_VERSION = 2;
+export const SCHEMA_VERSION = 3;
+/** Schema 2 named a Proper's sections `parts`; read for one release. */
+const OLDER_SCHEMA = 2;
 
 /** Liturgical order, not catalog order. Never sort movements alphabetically. */
 export const MOVEMENT_ORDER: readonly Movement[] = [
@@ -163,8 +165,12 @@ interface RawMovement {
   readonly system: number; readonly ref: string; readonly mode_marker: string | null;
 }
 
+/** A section as the catalogue writes it (schema 3): its kind, and `n` for the
+ * 2nd (3rd ...) of its kind. Schema 2's parts had `part`, with the number in
+ * `variant`. */
 interface RawPart {
-  readonly part: string; readonly variant?: string;
+  readonly kind?: string; readonly n?: number;
+  readonly part?: string; readonly variant?: string;
   readonly system?: number; readonly ref?: string;
   readonly gregobase_id?: number | null; readonly placed?: string;
   readonly borrowed_from?: string | null; readonly borrowed_ref?: string | null;
@@ -188,7 +194,9 @@ interface RawPiece {
   readonly system_assets?: readonly string[];
   readonly system_aspect: readonly (readonly number[])[];
   readonly movements: readonly RawMovement[];
-  // Optional: a catalog written before Proper parts existed still loads.
+  /** A Proper's sections (schema 3). */
+  readonly sections?: readonly RawPart[];
+  /** The same, as schema 2 named them. */
   readonly parts?: readonly RawPart[];
   readonly jgabc_url?: string | null;
   readonly chant: readonly RawChant[] | null;
@@ -222,9 +230,10 @@ const PART_NAMES: ReadonlySet<string> = new Set(
 const PLACEMENTS: ReadonlySet<string> = new Set(["label", "text", "mode", "order", "hand"]);
 
 function parsePart(x: RawPart, where: string): ProperPart {
-  if (!PART_NAMES.has(x.part)) throw new Error(`${where}: unknown part ${x.part}`);
-  const part = x.part as ProperPartName;
-  const variant = x.variant ?? "";
+  const name = x.kind ?? x.part ?? "";
+  if (!PART_NAMES.has(name)) throw new Error(`${where}: unknown part ${name}`);
+  const part = name as ProperPartName;
+  const variant = x.n ? String(x.n) : x.variant ?? "";
   const gregobaseId = Number.isInteger(x.gregobase_id) ? (x.gregobase_id as number) : null;
   if (x.borrowed_page !== undefined) {
     return {
@@ -263,7 +272,7 @@ export function loadCatalog(): Catalog {
  */
 export function parseCatalog(input: unknown): Catalog {
   const doc = input as RawCatalog;
-  if (doc.schema_version !== SCHEMA_VERSION) {
+  if (doc.schema_version !== SCHEMA_VERSION && doc.schema_version !== OLDER_SCHEMA) {
     throw new Error(
       `catalog schema_version ${doc.schema_version}, expected ${SCHEMA_VERSION}`,
     );
@@ -299,7 +308,7 @@ export function parseCatalog(input: unknown): Catalog {
         movement: m.movement as Movement, score: m.score, pdfPage: m.pdf_page,
         system: m.system, ref: m.ref, modeMarker: m.mode_marker,
       })),
-      parts: (p.parts ?? []).map((x, i) => parsePart(x, `${p.id}.parts[${i}]`)),
+      parts: (p.sections ?? p.parts ?? []).map((x, i) => parsePart(x, `${p.id}.sections[${i}]`)),
       jgabcUrl: safeJgabcUrl(p.jgabc_url ?? null),
       chant: (p.chant ?? []).map((c): ChantPairing => ({
         source: "gregobase", id: c.id,

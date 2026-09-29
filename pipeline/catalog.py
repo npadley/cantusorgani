@@ -45,7 +45,7 @@ from pipeline.publish import asset_stem, load_manifest, trimmed_boxes
 from pipeline.systemtext import PX_TO_PT, condense, system_texts
 from pipeline.volumes import DATA, load_volumes
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 LEFT_MARGIN_FRAC = 0.18
 
 
@@ -338,19 +338,20 @@ def proper_parts(vol_id: str, slug: str, days: list[str], reference: str | None,
         seg = segment_proper(features, printed, hand)
     except ValueError as error:
         raise ValueError(f"{vol_id} {slug}: {error}") from error
+    from pipeline.sections import record as section
     records: list[dict[str, object]] = [
-        {"part": b.part, "variant": b.variant, "system": b.index, "ref": b.ref,
-         "gregobase_id": b.gregobase_id, "placed": b.placed, "score": b.score}
+        section(b.part, b.variant, system=b.index, ref=b.ref, gregobase_id=b.gregobase_id,
+                placed=b.placed, score=b.score)
         for b in seg.parts]
     ids = {e.part: e.gregobase_id for e in expected}
     for key, volume, page in borrowed:
         part, _, variant = key.partition("/")
-        records.append({"part": part, "variant": variant, "gregobase_id": ids.get(part) if not variant else None,
-                        "borrowed_volume": volume, "borrowed_page": page, "borrowed_from": None})
+        records.append(section(part, variant, gregobase_id=ids.get(part) if not variant else None,
+                               borrowed_volume=volume, borrowed_page=page, borrowed_from=None))
 
     def order(record: dict[str, object]) -> tuple[int, int]:
-        name = f"{record['part']}/paschal" if record.get("variant") == "paschal" else str(record["part"])
-        return (ORDER.index(name) if name in ORDER else len(ORDER), int(record.get("system", -1)))
+        name = f"{record['kind']}/paschal" if record.get("variant") == "paschal" else str(record["kind"])
+        return (ORDER.index(name) if name in ORDER else len(ORDER), int(record.get("system", -1)))  # type: ignore[call-overload]
 
     records.sort(key=order)
     review = [{"piece": slug, "kind": p.kind, "part": p.part, "variant": p.variant,
@@ -541,7 +542,7 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
                 "system_assets": [r.asset for r in refs],
                 "system_aspect": [list(r.aspect) for r in refs],
                 "movements": movements,
-                "parts": proper,
+                "sections": proper,
                 "jgabc_url": jgabc,
                 "chant": [
                     {"source": "gregobase", "id": p.chant_id, "movement": p.movement,
@@ -710,10 +711,10 @@ def write_catalog(vol_id: str, data_dir: Path = DATA,
     source = base_path if base_path.exists() else cat_path
     existing = json.loads(source.read_text(encoding="utf-8")) if source.exists() else None
     if not parts and existing is not None:
-        # Keep each Proper's previous parts rather than writing none.
-        previous = {str(p["slug"]): p.get("parts", []) for p in existing.get("pieces", [])}
+        # Keep each Proper's previous sections rather than writing none.
+        previous = {str(p["slug"]): p.get("sections", []) for p in existing.get("pieces", [])}
         for piece in catalog["pieces"]:            # type: ignore[union-attr]
-            piece["parts"] = previous.get(str(piece["slug"]), [])
+            piece["sections"] = previous.get(str(piece["slug"]), [])
         review = [r for r in review if not str(r.get("kind", "")).startswith("part_")]
         review += [r for r in (json.loads(rev_path.read_text(encoding="utf-8")) if rev_path.exists() else [])
                    if r.get("volume") == vol_id and str(r.get("kind", "")).startswith("part_")]

@@ -283,6 +283,18 @@ describe("Proper parts", () => {
     expect(parseCatalog(rawCatalog([rawPiece()])).pieces[0]!.parts).toEqual([]);
   });
 
+  it("should read a schema 3 catalogue's sections, the 2nd of a kind numbered by n", async () => {
+    const { parseCatalog } = await import("./catalog");
+    const raw = rawCatalog([rawPiece({ sections: [
+      { kind: "gradual", variant: "", system: 0, ref: "noh1/0050/000", gregobase_id: 12, placed: "label" },
+      { kind: "gradual", n: 2, variant: "", system: 3, ref: "noh1/0050/003", gregobase_id: null, placed: "label" },
+      { kind: "alleluia", variant: "paschal", system: 5, ref: "noh1/0050/005", gregobase_id: null, placed: "text" },
+    ] })]);
+    const piece = parseCatalog({ ...raw, schema_version: 3 }).pieces[0]!;
+    expect(piece.parts.map((x) => [x.part, x.variant])).toEqual([["gradual", ""], ["gradual", "2"], ["alleluia", "paschal"]]);
+    expect(() => parseCatalog({ ...raw, schema_version: 4 })).toThrow(/schema_version 4, expected 3/);
+  });
+
   it("should reject an unknown part or a printed part without a placement", async () => {
     const { parseCatalog } = await import("./catalog");
     expect(() => parseCatalog(rawCatalog([rawPiece({ parts: [{ part: "gloria", system: 0, ref: "r", placed: "label" }] })])))

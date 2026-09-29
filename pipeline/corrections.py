@@ -27,6 +27,7 @@ from typing import Any
 
 import yaml
 
+from pipeline import sections
 from pipeline.volumes import DATA
 
 CORRECTIONS = DATA / "corrections.yml"
@@ -269,8 +270,7 @@ def _part_slot(target: str, name: str, pieces: dict[str, dict[str, Any]]) -> Slo
         raise CorrectionError(f"{target} is not of the form part:<slug>/<part>[:<variant>]")
     slug, part, variant = m.group(1), m.group(2), m.group(3) or ""
     piece = pieces.get(slug)
-    parts = piece.get("parts") or [] if piece else []
-    found = next((p for p in parts if p.get("part") == part and (p.get("variant") or "") == variant), None)
+    found = next((s for s in sections.of(piece) if sections.named(s, part, variant)), None) if piece else None
     if piece is None or found is None:
         raise _gone(target)
     systems: list[str] = piece.get("systems") or []
@@ -351,9 +351,8 @@ def _set_systems(piece: dict[str, Any], span: list[tuple[str, str, list[int]]]) 
     from pipeline.offset import load_page_map
     refs = [r for r, _, _ in span]
     piece.update(systems=refs, system_assets=[a for _, a, _ in span], system_aspect=[list(x) for _, _, x in span])
-    for part in piece.get("parts") or []:
-        if "system" in part:
-            part["system"] = refs.index(part["ref"])
+    for part in sections.printed(piece):
+        part["system"] = refs.index(part["ref"])
     inside = set(refs)
     piece["movements"] = [m for m in piece.get("movements") or [] if m.get("ref") in inside]
     if "hymns" in piece:
@@ -391,9 +390,9 @@ def _range_slot(target: str, piece: dict[str, Any], pieces: dict[str, dict[str, 
                 where = f"addendum {seg.pagination}" if seg.pagination else "the body of the volume"
                 return f"{target} system_range: {r} is in {where}, which has its own pages"
         new = {r for r, _, _ in span(v)}
-        for part in piece.get("parts") or []:
-            if "system" in part and part["ref"] not in new:
-                return (f"{target} system_range would leave its {part['part']} (which starts on {part['ref']}) "
+        for part in sections.printed(piece):
+            if part["ref"] not in new:
+                return (f"{target} system_range would leave its {part['kind']} (which starts on {part['ref']}) "
                         f"outside the piece; correct that part's start_system first")
         for other in neighbours:
             theirs = other.get("systems") or []
@@ -404,10 +403,10 @@ def _range_slot(target: str, piece: dict[str, Any], pieces: dict[str, dict[str, 
                 return f"{target} system_range would take every system of piece:{other['slug']}"
             if lost[0] != 0 and lost[-1] != len(theirs) - 1 or len(lost) != lost[-1] - lost[0] + 1:
                 return f"{target} system_range would split piece:{other['slug']} in two"
-            for part in other.get("parts") or []:
-                if "system" in part and part["ref"] in new:
+            for part in sections.printed(other):
+                if part["ref"] in new:
                     return (f"{target} system_range would take the system piece:{other['slug']}'s "
-                            f"{part['part']} starts on ({part['ref']}); correct that part first")
+                            f"{part['kind']} starts on ({part['ref']}); correct that part first")
         return None
 
     def put(v: list[str]) -> None:
@@ -507,7 +506,7 @@ def part_fingerprint(piece: dict[str, Any], part: dict[str, Any]) -> str:
     """What a review of a part confirms: where it starts and how long it runs (a
     part runs until the next printed part starts). The admin screen's "Parts to
     check" says the same (web/src/lib/admin/suspects.ts partFingerprint)."""
-    placed = [p for p in piece.get("parts") or [] if "system" in p]
+    placed = sections.printed(piece)
     at = next(i for i, p in enumerate(placed) if p is part)
     end = placed[at + 1]["system"] if at + 1 < len(placed) else len(piece.get("systems") or [])
     return f"start {part['system'] + 1}, {end - part['system']} systems"
@@ -530,8 +529,7 @@ def _review_slot(target: str, kind: str, catalog: dict[str, Any] | None) -> Slot
     if not m:
         raise CorrectionError(f"{target} is not of the form part:<slug>/<part>[:<variant>]")
     piece = _pieces(catalog or {}).get(m.group(1))
-    part = next((p for p in (piece or {}).get("parts") or []
-                 if p.get("part") == m.group(2) and (p.get("variant") or "") == (m.group(3) or "")), None)
+    part = next((s for s in sections.of(piece or {}) if sections.named(s, m.group(2), m.group(3) or "")), None)
     if piece is None or part is None:
         raise _gone(target)
     if "system" not in part:
@@ -608,7 +606,8 @@ def _ranged(base: dict[str, Any], entries: list[Entry]) -> tuple[dict[str, Any],
 
 
 _PART_NAMES = {"introit": "Introit", "gradual": "Gradual", "alleluia": "Alleluia", "tract": "Tract",
-               "sequence": "Sequence", "offertory": "Offertory", "communion": "Communion"}
+               "sequence": "Sequence", "hymn": "Hymn", "offertory": "Offertory", "communion": "Communion",
+               "other": "Section"}
 
 
 def _part_order(layer: dict[str, Any], entries: list[Entry], skip: set[str]) -> list[str]:
@@ -630,7 +629,7 @@ def _part_order(layer: dict[str, Any], entries: list[Entry], skip: set[str]) -> 
     pieces = _pieces(catalog)
     out = []
     for slug, mine in moved.items():
-        placed = [p for p in pieces[slug].get("parts") or [] if "system" in p]
+        placed = sections.printed(pieces[slug])
         # The Paschal Alleluia stands in for the Gradual and Alleluia, so a book
         # may print it before them (NOH3's Queenship addendum) or after: it only
         # may not start where another part does.
@@ -642,10 +641,9 @@ def _part_order(layer: dict[str, Any], entries: list[Entry], skip: set[str]) -> 
         for a, b in itertools.pairwise(placed):
             if a["system"] < b["system"]:
                 continue
-            names = [f"{_PART_NAMES.get(x['part'], x['part'])}{' ' + x['variant'] if x.get('variant') else ''}"
+            names = [f"{_PART_NAMES.get(x['kind'], x['kind'])}{sections.suffix(x).replace(':', ' ')}"
                      for x in (a, b)]
-            which = {f"part:{slug}/{x['part']}{':' + x['variant'] if x.get('variant') else ''}": n
-                     for x, n in zip((a, b), names, strict=True)}
+            which = {sections.target(slug, x): n for x, n in zip((a, b), names, strict=True)}
             e = next((m for m in reversed(mine) if m.target in which), mine[-1])
             other = next((n for t, n in which.items() if t != e.target), names[1])
             out.append(f"{_where(e)}: {e.target} start_system out of order: the {names[0]} would start on "

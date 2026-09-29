@@ -97,9 +97,9 @@ def test_hints_read_volume_page_kind_and_mass():
 def catalog() -> dict:
     return {"pieces": [
         {"slug": "dominica-ii", "volume": "noh1", "genre": "proper", "systems": ["noh1/0034/000"],
-         "parts": [{"part": "introit", "variant": "", "system": 0, "ref": "noh1/0034/000", "gregobase_id": 10},
-                   {"part": "alleluia", "variant": "", "system": 3, "ref": "noh1/0035/001", "gregobase_id": 11},
-                   {"part": "offertory", "variant": "", "borrowed_from": "p. 3", "gregobase_id": 12}]},
+         "sections": [{"kind": "introit", "variant": "", "system": 0, "ref": "noh1/0034/000", "gregobase_id": 10},
+                   {"kind": "alleluia", "variant": "", "system": 3, "ref": "noh1/0035/001", "gregobase_id": 11},
+                   {"kind": "offertory", "variant": "", "borrowed_from": "p. 3", "gregobase_id": 12}]},
         {"slug": "ordinarium-missae-ix", "volume": "noh5", "genre": "mass_ordinary", "systems": ["noh5/0061/000"],
          "movements": [{"movement": "kyrie", "ref": "noh5/0061/000"}, {"movement": "gloria", "ref": "noh5/0062/000"}],
          "chant": [{"movement": "kyrie", "id": 20}, {"movement": "gloria", "id": 21}]},

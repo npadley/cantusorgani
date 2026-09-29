@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+from pipeline import sections
 from pipeline.catalog import SCHEMA_VERSION
 from pipeline.offset import PageMap, Segment
 
@@ -299,12 +300,12 @@ BY_SLUG = {p["slug"]: p for p in PIECES}
 
 
 def _printed(piece):
-    return [x for x in piece.get("parts", []) if "borrowed_page" not in x]
+    return [x for x in piece.get("sections", []) if "borrowed_page" not in x]
 
 
 def test_only_propers_have_parts():
     """Propers, and the Requiem Mass (a Proper printed with its Ordinary)."""
-    assert {p["division"] for p in PIECES if p.get("parts") and p["genre"] != "requiem"} <= PROPER_DIVISIONS
+    assert {p["division"] for p in PIECES if p.get("sections") and p["genre"] != "requiem"} <= PROPER_DIVISIONS
 
 
 def test_requiem_parts_introit_gradual_sequence_offertory_communion():
@@ -312,7 +313,7 @@ def test_requiem_parts_introit_gradual_sequence_offertory_communion():
     repeated after its verse (p. 164) and the Gradual opens with the same
     words: neither may take the Gradual's place."""
     requiem = next(p for p in PIECES if p["slug"] == "missa-pro-defunctis-i")
-    shown = {x["part"]: x["ref"] for x in _printed(requiem) if x["placed"] != "order"}
+    shown = {x["kind"]: x["ref"] for x in _printed(requiem) if x["placed"] != "order"}
     assert shown == {"introit": "noh5/0209/000", "gradual": "noh5/0211/001",
                      "sequence": "noh5/0215/000", "offertory": "noh5/0220/000",
                      "communion": "noh5/0223/002"}
@@ -321,7 +322,7 @@ def test_requiem_parts_introit_gradual_sequence_offertory_communion():
 def test_parts_are_named_run_in_reading_order_and_point_at_their_own_systems():
     for piece in PIECES:
         printed = _printed(piece)
-        assert all(x["part"] in PART_NAMES for x in piece.get("parts", [])), piece["slug"]
+        assert all(x["kind"] in PART_NAMES for x in piece.get("sections", [])), piece["slug"]
         # The Paschal Alleluia stands in for the Gradual and Alleluia, and may be
         # printed on either side of them (NOH3's Queenship addendum prints it first).
         systems = [x["system"] for x in printed if x.get("variant") != "paschal"]
@@ -336,7 +337,7 @@ def test_parts_are_named_run_in_reading_order_and_point_at_their_own_systems():
 
 def test_no_part_twice_unless_numbered():
     for piece in PIECES:
-        keys = [(x["part"], x.get("variant", "")) for x in piece.get("parts", [])]
+        keys = [(x["kind"], sections.suffix(x)) for x in piece.get("sections", [])]
         assert len(keys) == len(set(keys)), piece["slug"]
 
 
@@ -345,17 +346,17 @@ def test_every_part_placed_by_order_is_queued_for_review():
     for piece in PIECES:
         for x in _printed(piece):
             if x["placed"] == "order":
-                assert (piece["slug"], x["part"]) in queued, piece["slug"]
+                assert (piece["slug"], x["kind"]) in queued, piece["slug"]
 
 
 def test_borrowed_parts_point_at_a_real_part_or_are_queued():
     unresolved = {(r["piece"], r["part"]) for r in REVIEW if r["kind"] == "part_borrowed_unresolved"}
     for piece in PIECES:
-        for x in piece.get("parts", []):
+        for x in piece.get("sections", []):
             if "borrowed_page" not in x:
                 continue
             if x.get("borrowed_from") is None:
-                assert (piece["slug"], x["part"]) in unresolved, piece["slug"]
+                assert (piece["slug"], x["kind"]) in unresolved, piece["slug"]
                 continue
             lender = BY_SLUG[x["borrowed_from"]]
             assert x["borrowed_ref"] in lender["systems"]
@@ -369,7 +370,7 @@ def test_borrowed_parts_point_at_a_real_part_or_are_queued():
                           ("communion", 28)]),
 ])
 def test_golden_propers_divide_where_the_page_does(slug, expected):
-    assert [(x["part"], x["system"]) for x in _printed(BY_SLUG[slug])] == expected
+    assert [(x["kind"], x["system"]) for x in _printed(BY_SLUG[slug])] == expected
 
 
 def test_most_propers_with_music_are_divided():

@@ -365,10 +365,10 @@ def proper() -> dict:
         "id": "noh1-dominica-ii", "volume": "noh1", "slug": "dominica-ii", "title": "Dominica II", "incipit": None,
         "mode": None, "genre": "proper", "printed_pages": [8, 9],
         "systems": [f"noh1/0034/00{n}" for n in range(5)],
-        "parts": [{"part": "introit", "variant": "", "system": 0, "ref": "noh1/0034/000", "gregobase_id": 100},
-                  {"part": "gradual", "variant": "", "system": 2, "ref": "noh1/0034/002", "gregobase_id": None},
-                  {"part": "offertory", "variant": "", "borrowed_from": "Pars IV, p. 3", "gregobase_id": 7},
-                  {"part": "communion", "variant": "2", "system": 4, "ref": "noh1/0034/004", "gregobase_id": 300}]})
+        "sections": [{"kind": "introit", "variant": "", "system": 0, "ref": "noh1/0034/000", "gregobase_id": 100},
+                  {"kind": "gradual", "variant": "", "system": 2, "ref": "noh1/0034/002", "gregobase_id": None},
+                  {"kind": "offertory", "variant": "", "borrowed_from": "Pars IV, p. 3", "gregobase_id": 7},
+                  {"kind": "communion", "n": 2, "variant": "", "system": 4, "ref": "noh1/0034/004", "gregobase_id": 300}]})
     return b
 
 
@@ -380,14 +380,14 @@ def vespers_data() -> VespersData:
 
 def test_apply_part_start_system_moves_the_part_and_its_ref():
     out = apply(proper(), [entry(target="part:dominica-ii/gradual", field="start_system", was=3, value=2)])
-    gradual = out["pieces"][2]["parts"][1]
+    gradual = out["pieces"][2]["sections"][1]
     assert (gradual["system"], gradual["ref"], gradual["placed"]) == (1, "noh1/0034/001", "hand")
 
 
 def test_apply_part_chant_sets_or_clears_the_gregobase_id_and_reads_a_variant():
     out = apply(proper(), [entry(target="part:dominica-ii/gradual", field="chant", was=None, value=1169),
                            entry(id="c-0002", target="part:dominica-ii/communion:2", field="chant", was=300, value="none")])
-    parts = out["pieces"][2]["parts"]
+    parts = out["pieces"][2]["sections"]
     assert (parts[1]["gregobase_id"], parts[3]["gregobase_id"]) == (1169, None)
 
 
@@ -575,7 +575,7 @@ def two_propers(monkeypatch: pytest.MonkeyPatch) -> dict:
                 "systems": [r for r, _, _ in refs], "system_assets": [a for _, a, _ in refs],
                 "system_aspect": [x for _, _, x in refs], "movements": [],
                 "hymns": [{"title": "Hymnus", "ref": order[span[-1]][0], "printed_page": 8}],
-                "parts": [{"part": p, "variant": "", "system": n - span[0], "ref": order[n][0], "gregobase_id": None}
+                "sections": [{"kind": p, "variant": "", "system": n - span[0], "ref": order[n][0], "gregobase_id": None}
                           for p, n in parts]}
 
     b["pieces"] += [proper_of("dominica-ii", range(5), [("introit", 0), ("gradual", 2)]),
@@ -613,8 +613,8 @@ def test_apply_system_range_recounts_parts_and_moves_hymns_with_their_system(mon
     b["pieces"][3]["hymns"][0]["ref"] = "noh1/0034/005"
     out = apply(b, [range_entry("noh1/0034/000-noh1/0034/005")])
     ii, iii = out["pieces"][2], out["pieces"][3]
-    assert [p["system"] for p in ii["parts"]] == [0, 2]
-    assert iii["parts"][0]["system"] == 0                                # its introit on 006 is now its 1st system
+    assert [p["system"] for p in ii["sections"]] == [0, 2]
+    assert iii["sections"][0]["system"] == 0                                # its introit on 006 is now its 1st system
     assert [h["ref"] for h in ii["hymns"]] == ["noh1/0034/004", "noh1/0034/005"]
     assert iii["hymns"] == []
 
@@ -655,7 +655,7 @@ def test_parts_count_from_the_corrected_range_and_correct_records_was_from_it(mo
     made, _ = correct("part:dominica-ii/gradual", "start_system", "6", base_path=base_path, path=c)
     assert made.was == 3
     out = apply(b, load(c))
-    assert out["pieces"][2]["parts"][1]["ref"] == "noh1/0034/005"
+    assert out["pieces"][2]["sections"][1]["ref"] == "noh1/0034/005"
 
 
 def test_apply_vespers_note_replaces_the_music_and_none_brings_it_back():
@@ -711,8 +711,8 @@ def advent_i(tmp_path: Path | None = None) -> dict:
     prints them on 9 and 15."""
     b = base()
     refs = [f"noh1/{29 + n // 6:04d}/{n % 6:03d}" for n in range(28)]
-    b["pieces"][0].update(systems=refs, parts=[
-        {"part": p, "variant": "", "system": s, "ref": refs[s], "gregobase_id": None}
+    b["pieces"][0].update(systems=refs, sections=[
+        {"kind": p, "variant": "", "system": s, "ref": refs[s], "gregobase_id": None}
         for p, s in (("introit", 0), ("gradual", 3), ("alleluia", 8), ("offertory", 21), ("communion", 26))])
     return b
 
@@ -722,7 +722,7 @@ def test_parts_can_move_past_each_other_in_either_order_and_are_checked_on_the_r
     alleluia = entry(id="c-0002", target="part:dominica-i-adventus/alleluia", field="start_system", was=9, value=15)
     for entries in ([gradual, alleluia], [alleluia, gradual]):
         assert problems(advent_i(), entries) == []
-        parts = apply(advent_i(), entries)["pieces"][0]["parts"]
+        parts = apply(advent_i(), entries)["pieces"][0]["sections"]
         assert [p["system"] + 1 for p in parts] == [1, 9, 15, 22, 27]
     found = problems(advent_i(), [gradual])
     assert "the Gradual would start on system 9 and the Alleluia on system 9" in found[0]
@@ -735,11 +735,11 @@ def test_a_paschal_alleluia_may_be_printed_before_the_gradual_but_not_start_with
     the Gradual and Alleluia, so it may come on either side of them."""
     b = advent_i()
     refs = b["pieces"][0]["systems"]
-    b["pieces"][0]["parts"].insert(3, {"part": "alleluia", "variant": "paschal", "system": 18, "ref": refs[18],
+    b["pieces"][0]["sections"].insert(3, {"kind": "alleluia", "variant": "paschal", "system": 18, "ref": refs[18],
                                       "gregobase_id": None})
     before = entry(target="part:dominica-i-adventus/alleluia:paschal", field="start_system", was=19, value=2)
     assert problems(b, [before]) == []
-    assert apply(b, [before])["pieces"][0]["parts"][3]["system"] == 1
+    assert apply(b, [before])["pieces"][0]["sections"][3]["system"] == 1
     clash = entry(target="part:dominica-i-adventus/alleluia:paschal", field="start_system", was=19, value=4)
     assert "would start on system 4 and the Alleluia paschal on system 4" in problems(b, [clash])[0]
 

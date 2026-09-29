@@ -235,13 +235,13 @@ def test_borrowed_parts_whole_mass_reference_borrows_nothing_part_by_part():
 def test_link_parts_borrowed_across_volumes_resolves_anchor():
     catalog = {"pieces": [
         {"volume": "noh4", "slug": "confessor", "printed_pages": [76, 81], "systems": ["a"],
-         "parts": [{"part": "offertory", "variant": "", "system": 5, "ref": "noh4/0110/002"}]},
+         "sections": [{"kind": "offertory", "variant": "", "system": 5, "ref": "noh4/0110/002"}]},
         {"volume": "noh3", "slug": "borrower", "printed_pages": [11, 12], "systems": ["b"],
-         "parts": [{"part": "offertory", "variant": "", "borrowed_from": None,
+         "sections": [{"kind": "offertory", "variant": "", "borrowed_from": None,
                     "borrowed_volume": "noh4", "borrowed_page": 80}]},
     ]}
     unresolved = link_parts(catalog)
-    part = catalog["pieces"][1]["parts"][0]
+    part = catalog["pieces"][1]["sections"][0]
     assert part["borrowed_from"] == "confessor"
     assert part["borrowed_ref"] == "noh4/0110/002"
     assert unresolved == []
@@ -250,7 +250,7 @@ def test_link_parts_borrowed_across_volumes_resolves_anchor():
 def test_link_parts_lender_missing_queues_review():
     catalog = {"pieces": [
         {"volume": "noh3", "slug": "borrower", "printed_pages": [11, 12], "systems": ["b"],
-         "parts": [{"part": "introit", "variant": "", "borrowed_from": None,
+         "sections": [{"kind": "introit", "variant": "", "borrowed_from": None,
                     "borrowed_volume": "noh3", "borrowed_page": 999}]},
     ]}
     unresolved = link_parts(catalog)

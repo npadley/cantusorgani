@@ -136,7 +136,7 @@ def test_record_writes_a_readers_part_correction_by_its_target(tmp_path, monkeyp
     from tools.triage import main as triage
     catalog = {"pieces": [{"id": "noh1-d", "volume": "noh1", "slug": "d", "title": "D", "incipit": None, "mode": None,
                            "genre": "proper", "printed_pages": [1, 2], "systems": ["a", "b", "c"],
-                           "parts": [{"part": "introit", "variant": "", "system": 0, "ref": "a", "gregobase_id": None}]}]}
+                           "sections": [{"kind": "introit", "variant": "", "system": 0, "ref": "a", "gregobase_id": None}]}]}
     (tmp_path / "catalog.base.json").write_text(json.dumps(catalog))
     monkeypatch.setattr(triage, "DATA", tmp_path)
     row = triage.Correction(id=9, piece_id="d", field="gregobaseId", proposed="132", note="", status="pending",

@@ -16,6 +16,7 @@ from urllib.parse import urlparse
 
 import yaml
 
+from pipeline import sections
 from pipeline.corrections import _pieces
 from pipeline.volumes import DATA
 
@@ -99,10 +100,10 @@ def _piece_location(piece: dict[str, Any], data: Path) -> Location:
     line = _line_of(index, f"slug: {piece['slug']}") if index.exists() else 0
     source = f"{index.relative_to(data.parent)}:{line}" if line else f"data/index-{piece['volume']}.yml"
     parts = tuple(
-        f"part:{piece['slug']}/{p['part']}{':' + p['variant'] if p.get('variant') else ''}  "
+        f"{sections.target(piece['slug'], p)}  "
         + (f"(system {p['system'] + 1}, chant {p.get('gregobase_id')})" if "system" in p
            else f"(printed in {p.get('borrowed_from', 'another volume')})")
-        for p in piece.get("parts") or [])
+        for p in sections.of(piece))
     return Location(f"piece:{piece['slug']}", f"{piece.get('title')} ({piece['volume']}, pp. "
                     f"{'-'.join(str(n) for n in piece.get('printed_pages') or [])})",
                     source, f"uv run noh correct piece:{piece['slug']} <field> <value>", parts)
