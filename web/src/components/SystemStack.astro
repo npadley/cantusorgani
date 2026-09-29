@@ -23,6 +23,11 @@ for (const t of jumpTargets(piece)) startsAt.set(t.index, [...(startsAt.get(t.in
 // Typeset music, where a transcription is matched: each segment of systems is
 // either drawn by LilyPond (with its scans behind a switch) or scanned.
 const parts = segments(piece);
+// What the book prints beside a section, where known: its margin label and its
+// opening words ("2. Grad. I · In sole posuit"), less whatever the heading
+// already says (a hymn is named by its opening words).
+const printedAs = (t: { label: string; printed?: string | null; title?: string | null }): string =>
+  [t.printed, t.title].filter((x): x is string => Boolean(x) && x !== t.label).join(" · ");
 const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.label ?? piece.title;
 ---
 
@@ -59,7 +64,8 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
               <div class="part-head">
                 {start.kind === "chant"
                   ? <span class="chant-only-label ui small muted" id={start.anchor}>Chant</span>
-                  : <h2 class={`movement-heading ${start.kind}`} id={start.anchor}>{start.label}</h2>}
+                  : <h2 class={`movement-heading ${start.kind}`} id={start.anchor}>{start.label}{printedAs(start) && (
+                      <span class="printed-as"> · {printedAs(start)}</span>)}</h2>}
                 {start.chantUrl && (
                   <a class="chant-link ui no-print" href={start.chantUrl} target="_blank" rel="noopener">
                     {start.kind === "chant" ? "GregoBase" : "Chant"}<span class="sr-only"> for the {start.label} (GregoBase, opens in new tab)</span>
@@ -138,6 +144,7 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
     margin: var(--s-4) 0 var(--s-2); scroll-margin-top: var(--s-4);
   }
   .movement-heading.hymn { font-style: italic; font-weight: 500; }
+  .printed-as { font-weight: 400; color: var(--ink-muted); }
 
   /* The heading is never the link: a stray tap mid-service stays on the music. */
   .part-head { display: flex; align-items: baseline; gap: var(--s-3); margin: var(--s-4) 0 var(--s-2); }

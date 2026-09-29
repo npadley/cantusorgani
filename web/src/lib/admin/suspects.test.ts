@@ -7,7 +7,7 @@ import { buildTargets } from "./targetIndex";
 import { describeTarget } from "./targets";
 
 function part(name: PrintedPart["part"], system: number, placed: PrintedPart["placed"] = "label"): PrintedPart {
-  return { kind: "printed", part: name, variant: "", system, ref: `noh1/0029/${system}`, gregobaseId: null, placed };
+  return { kind: "printed", part: name, variant: "", label: null, title: null, system, ref: `noh1/0029/${system}`, gregobaseId: null, placed };
 }
 
 function proper(slug: string, systems: number, parts: PrintedPart[]): Piece {

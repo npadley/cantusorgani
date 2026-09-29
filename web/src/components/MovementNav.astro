@@ -1,5 +1,5 @@
 ---
-import { borrowedLinks, jumpTargets } from "../lib/catalog";
+import { borrowedLinks, inPrintedOrder, jumpTargets } from "../lib/catalog";
 import { hasNotation } from "../lib/chants";
 import type { Piece } from "../lib/catalog";
 
@@ -17,13 +17,13 @@ const isProper = parts.length > 0 || borrowed.length > 0;
 const label = isProper ? "Parts of the Proper" : hymns.length > 0 ? "Hymns" : "Movements";
 // The switch appears only where there is notation to show.
 const notation = starts.some((s) => hasNotation(s.chantId));
-// Printed and borrowed parts together, in the order of Mass.
-const properLinks = [
-  ...parts.map((s) => ({ order: s.order ?? 0, label: s.label, href: `#${s.anchor}`, borrowed: false,
-                         lender: null, page: 0 })),
-  ...borrowed.map((b) => ({ order: b.order, label: b.label, href: b.href ?? "", borrowed: true,
-                            lender: b.lenderTitle, page: b.page })),
-].sort((a, b) => a.order - b.order);
+// The sections printed here in the book's order, those printed elsewhere
+// slotted in by their place in the Mass.
+const properLinks = inPrintedOrder(
+  parts.map((s) => ({ order: s.order ?? 0, label: s.label, href: `#${s.anchor}`, borrowed: false,
+                      lender: null as string | null, page: 0 })),
+  borrowed.map((b) => ({ order: b.order, label: b.label, href: b.href ?? "", borrowed: true,
+                         lender: b.lenderTitle, page: b.page })));
 ---
 
 {(movements.length > 1 || hymns.length > 0 || parts.length + borrowed.length > 1) && (
