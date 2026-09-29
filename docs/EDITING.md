@@ -19,6 +19,7 @@ catalogue can run on GitHub.
 | A piece starts or ends on the wrong system | [System range](#system-range) | No |
 | A piece is listed on the wrong page, or starts on the wrong page | [Piece boundaries](#piece-boundaries) | Yes, on GitHub |
 | A Proper part (Introit, Gradual…) starts on the wrong system, or its chant link is wrong | [Proper parts](#proper-parts) | No |
+| A Proper's sections are missing, extra, mislabelled or out of order (an Ember day's four Graduals) | [Sections](#sections) | No |
 | A Vespers psalm uses the wrong formula, or should show a note | [Psalm formulas and notes](#psalm-formulas-and-notes) | No |
 | A newer Divinum Officium, vesperale, jgabc or calendar | [Refreshing a source](#refreshing-a-source) | No |
 | A new volume to add | [Adding a volume](#adding-a-volume) | Yes (and uploads images: your machine) |
@@ -326,6 +327,36 @@ commits the result to the branch, and the checks run again. Or locally: the comm
 - **Command**: `uv run noh catalog --volume <volume>`. It re-reads the scans
   and reports anything uncertain in `data/review-queue.json`.
 - **Confirm**: preview the piece; its first system is the one printed.
+
+### Sections
+
+A Proper's sections are what the book prints on it, in order: its Introit,
+each Gradual (an Ember Saturday prints four), a hymn such as *Benedictus es*,
+the Tract, and so on. The pipeline proposes them from the margin labels and
+the chants; where that is wrong in more than one start, write the piece's list
+by hand.
+
+- **File**: `data/sections/<volume>.yml`, one list per piece, in printed order.
+  When a piece is listed there, the list is the whole truth for it: the
+  pipeline adds, drops and moves nothing.
+- **Change**:
+
+  ```bash
+  uv run noh sections sabbato-temporum-adventus            # the current list, with each margin label
+  uv run noh sections sabbato-temporum-adventus --review   # write it to data/sections/noh1.yml to edit
+  ```
+
+  Each section has a `kind`, `n` for the 2nd (3rd…) of its kind, the `label`
+  and `title` as printed, the `ref` of its first system (every image on the site
+  carries its ref), and optionally its `chant`. The file's header lists every
+  key.
+- **Command**: `uv run noh apply-corrections`. A list that names a system the
+  piece no longer has (after a re-slice or a new range) stops the build, naming
+  the piece and the ref: check it against the scan again.
+- **Confirm**: the piece's jump links and headings follow the list, each heading
+  showing its printed label.
+
+Single starts and chants can still be corrected on top of a list (below).
 
 ### Proper parts
 

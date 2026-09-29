@@ -36,6 +36,7 @@ markers = [
   "source: requires the untracked 230MB pdf-source/ PDFs; local only",
   "slow: renders pages at 300dpi",
   "lilypond: runs the pinned LilyPond (uv run noh lilypond-install); skipped where it is missing",
+  "real_sections: applies the committed reviewed section lists (data/sections/) with the corrections",
 ]
 addopts = "--strict-markers"
 

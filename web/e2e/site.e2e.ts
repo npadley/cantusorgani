@@ -128,3 +128,21 @@ test.describe("Typeset music", () => {
       .toHaveAttribute("href", "https://github.com/joeegan2202/nova-organi-harmonia");
   });
 });
+
+test.describe("A Proper's sections", () => {
+  // The Ember Saturday of Advent, from its reviewed list (data/sections/noh1.yml).
+  const SECTIONS = ["Introit", "Gradual 1", "Gradual 2", "Gradual 3", "Gradual 4", "Benedictus es", "Tract",
+                    "Offertory", "Communion"];
+
+  test("should link, head and export every section of a Mass with four Graduals and a hymn", async ({ page }) => {
+    await page.goto("/piece/sabbato-temporum-adventus/");
+    await expect(page.locator("nav.movements a")).toHaveText(SECTIONS);
+    await expect(page.locator("#gradual-2")).toHaveText("Gradual 2 · 2. Grad. I · In sole posuit");
+    await expect(page.locator("#hymn")).toHaveText("Benedictus es · Hymn. VIII");
+    await page.locator("nav.movements a", { hasText: "Benedictus es" }).click();
+    await expect(page).toHaveURL(/#hymn$/);
+    const parts = page.locator("input[name=export-part]");
+    await expect(parts).toHaveCount(SECTIONS.length);
+    for (const box of await parts.all()) await expect(box).toBeChecked();
+  });
+});

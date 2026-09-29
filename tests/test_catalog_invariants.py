@@ -294,7 +294,7 @@ def test_every_indexed_hymn_is_attached_or_queued():
 
 # ------------------------------------------------------------ Proper parts ---
 
-PART_NAMES = {"introit", "gradual", "alleluia", "tract", "sequence", "offertory", "communion"}
+PART_NAMES = set(sections.KINDS)
 PROPER_DIVISIONS = {"temporale", "sanctorale", "commune", "varia"}
 BY_SLUG = {p["slug"]: p for p in PIECES}
 
@@ -323,16 +323,18 @@ def test_parts_are_named_run_in_reading_order_and_point_at_their_own_systems():
     for piece in PIECES:
         printed = _printed(piece)
         assert all(x["kind"] in PART_NAMES for x in piece.get("sections", [])), piece["slug"]
-        # The Paschal Alleluia stands in for the Gradual and Alleluia, and may be
-        # printed on either side of them (NOH3's Queenship addendum prints it first).
-        systems = [x["system"] for x in printed if x.get("variant") != "paschal"]
+        # A reviewed list is in the order printed. Elsewhere the Paschal Alleluia
+        # stands in for the Gradual and Alleluia, and may be printed on either side
+        # of them.
+        reviewed = all(x["placed"] == "reviewed" for x in printed)
+        systems = [x["system"] for x in printed if reviewed or x.get("variant") != "paschal"]
         assert systems == sorted(systems), piece["slug"]
         starts = [x["system"] for x in printed]
         assert len(set(starts)) == len(starts), f"two parts start on one system: {piece['slug']}"
         for x in printed:
             assert piece["systems"][x["system"]] == x["ref"], piece["slug"]
-            # "hand": corrected in data/corrections.yml, or placed in the reviewed index.
-            assert x["placed"] in {"label", "text", "mode", "order", "hand"}
+            # "hand": corrected in data/corrections.yml; "reviewed": data/sections/.
+            assert x["placed"] in {"label", "text", "mode", "order", "inferred", "hand", "reviewed"}
 
 
 def test_no_part_twice_unless_numbered():

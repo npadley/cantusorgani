@@ -1634,12 +1634,7 @@ sections:
     index_title: DIE 31 MAJI, B. MARIÆ VIRGINIS REGINÆ
     days:
     - sancti:05-31
-    # Read off the page (system counted from 1): the Paschal Alleluia (III, V.
-    # Beata es, V. Nunc cum eo) is printed before "Extra Tempus Paschale
-    # dicitur: Grad.", and the Alleluia (VIII, V. Salve Regina) after it.
-    parts:
-      alleluia/paschal: 12
-      alleluia: 34
+    # Its sections are a reviewed list: data/sections/noh3.yml.
   - slug: s-pii-x-papae-et-confessoris
     label: S. Pii X Papæ et Confessoris
     title: S. Pii X Papæ et Confessoris

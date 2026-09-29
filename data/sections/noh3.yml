@@ -1,0 +1,27 @@
+# A Proper's sections, checked against the scans: when a piece is listed here,
+# this list is the whole truth for it (the pipeline adds, drops and moves
+# nothing), applied with the hand corrections by `noh apply-corrections`.
+# See docs/EDITING.md, "Sections".
+#
+# Each piece is a list, in the order the book prints it:
+#   kind:   introit gradual alleluia tract sequence hymn offertory communion other
+#   n:      2 for the 2nd of its kind on the piece (1 for the first of several)
+#   variant: paschal ...  (a seasonal form), or leave it out
+#   label:  the margin label as printed ("2. Grad. I")
+#   title:  its opening words
+#   ref:    its first system ("noh1/0052/003"; every image on the site carries its ref)
+#   chant:  a GregoBase id, or none; left out, the pipeline's chant for it is kept
+# A section printed in another volume has borrowed_volume and borrowed_page
+# (and borrowed_from, borrowed_ref) in place of ref.
+# `uv run noh sections <slug> --review` writes a piece's current list here to start from.
+
+# Moved from the parts: override in data/index-noh3.yml, read off the page: the
+# Paschal Alleluia (III, V. Beata es, V. Nunc cum eo) is printed before "Extra
+# Tempus Paschale dicitur: Grad.", and the Alleluia (VIII, V. Salve Regina) after it.
+b-mariae-virginis-reginae:
+- {kind: introit, ref: noh3/0481/000, chant: 61}
+- {kind: alleluia, variant: paschal, ref: noh3/0483/000, chant: 354}
+- {kind: gradual, label: Grad. I, ref: noh3/0484/004, chant: 1368}
+- {kind: alleluia, ref: noh3/0486/004, chant: 717}
+- {kind: offertory, label: Offert. IV, ref: noh3/0488/000, chant: 719}
+- {kind: communion, label: Comm. I, ref: noh3/0489/000, chant: 1053}

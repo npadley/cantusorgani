@@ -1820,38 +1820,96 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. II",
+          "title": "Veni et ostende",
+          "gregobase_id": 169,
           "system": 0,
           "ref": "noh1/0050/000",
-          "gregobase_id": 169,
-          "placed": "label",
-          "score": 1.0
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "n": 1,
+          "variant": "",
+          "label": "Grad. II",
+          "title": "A summo caelo",
+          "gregobase_id": null,
+          "system": 6,
+          "ref": "noh1/0051/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "n": 2,
+          "variant": "",
+          "label": "2. Grad. I",
+          "title": "In sole posuit",
+          "gregobase_id": null,
+          "system": 15,
+          "ref": "noh1/0052/003",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "n": 3,
+          "variant": "",
+          "label": "3. Grad. II",
+          "title": "Domine Deus virtutum",
+          "gregobase_id": null,
+          "system": 24,
+          "ref": "noh1/0054/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "n": 4,
+          "variant": "",
+          "label": "4. Grad. II",
+          "title": "Excita Domine",
+          "gregobase_id": null,
+          "system": 32,
+          "ref": "noh1/0055/002",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "hymn",
+          "variant": "",
+          "label": "Hymn. VIII",
+          "title": "Benedictus es",
+          "gregobase_id": null,
+          "system": 44,
+          "ref": "noh1/0057/002",
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
-          "system": 2,
-          "ref": "noh1/0050/002",
+          "label": "Tract. VIII",
+          "title": "Qui regis Israel",
           "gregobase_id": 1157,
-          "placed": "text",
-          "score": 0.731
+          "system": 68,
+          "ref": "noh1/0061/002",
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
-          "system": 6,
-          "ref": "noh1/0051/000",
+          "label": "Offert. III",
+          "title": "Exsulta satis",
           "gregobase_id": 929,
-          "placed": "order",
-          "score": 0.242
+          "system": 79,
+          "ref": "noh1/0063/001",
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
-          "system": 19,
-          "ref": "noh1/0053/001",
+          "label": "Comm. VI",
+          "title": "Ecce Dominus veniet",
           "gregobase_id": 88,
-          "placed": "label",
-          "score": 1.0
+          "system": 83,
+          "ref": "noh1/0063/005",
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Adv3s",
@@ -54495,56 +54553,53 @@
         {
           "kind": "introit",
           "variant": "",
+          "gregobase_id": 61,
           "system": 0,
           "ref": "noh3/0481/000",
-          "gregobase_id": 61,
-          "placed": "label",
-          "score": 1.0
-        },
-        {
-          "kind": "gradual",
-          "variant": "",
-          "system": 21,
-          "ref": "noh3/0484/004",
-          "gregobase_id": 1368,
-          "placed": "label",
-          "score": 1.0
-        },
-        {
-          "kind": "alleluia",
-          "variant": "",
-          "system": 33,
-          "ref": "noh3/0486/004",
-          "gregobase_id": 717,
-          "placed": "hand",
-          "score": 1.0
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "gregobase_id": 354,
           "system": 11,
           "ref": "noh3/0483/000",
-          "gregobase_id": 354,
-          "placed": "hand",
-          "score": 1.0
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "label": "Grad. I",
+          "gregobase_id": 1368,
+          "system": 21,
+          "ref": "noh3/0484/004",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "gregobase_id": 717,
+          "system": 33,
+          "ref": "noh3/0486/004",
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. IV",
+          "gregobase_id": 719,
           "system": 41,
           "ref": "noh3/0488/000",
-          "gregobase_id": 719,
-          "placed": "label",
-          "score": 1.0
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. I",
+          "gregobase_id": 1053,
           "system": 47,
           "ref": "noh3/0489/000",
-          "gregobase_id": 1053,
-          "placed": "label",
-          "score": 1.0
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=May31",
