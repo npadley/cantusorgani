@@ -147,6 +147,21 @@ For your Mac, make a second token the same way (name it `cantusorgani Mac`),
 put its values in the 1Password Environment, and check with
 `uv run noh r2-check`.
 
+## 6. Database changes
+
+The admin screen and the readers' Corrections form share one D1 database.
+When a change adds a migration (`workers/corrections/migrations/NNNN_*.sql`),
+apply it to the live database **before** merging the change, because the new
+code expects it. Migrations only add, so the site already deployed keeps working
+with them. From `workers/corrections/`:
+
+```bash
+pnpm migrate:remote
+```
+
+It lists what it will apply, and asks first. Each migration has a way back in
+`workers/corrections/rollback/`; export the database before using one.
+
 ## Checking it works
 
 1. Open https://cantusorgani.org/admin/. Access asks for your email and sends a

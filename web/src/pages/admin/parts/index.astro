@@ -2,11 +2,12 @@
 import Layout from "../../../components/Layout.astro";
 import { allPieces, pieceBySlug } from "../../../lib/catalog";
 import { pieceHref } from "../../../lib/indexes";
+import { REVIEWED } from "../../../lib/admin/reviews";
 import { suspectParts } from "../../../lib/admin/suspects";
 
 // Proper parts whose start looks wrong, built with the site: each links to the
 // edit page, which shows the scan. Behind Cloudflare Access with /admin/.
-const pieces = suspectParts(allPieces());
+const pieces = suspectParts(allPieces(), REVIEWED);
 const count = pieces.reduce((n, p) => n + p.parts.length, 0);
 const edit = (target: string) => `/admin/edit/?target=${encodeURIComponent(target)}`;
 ---
@@ -19,10 +20,12 @@ const edit = (target: string) => `/admin/edit/?target=${encodeURIComponent(targe
       {count} Proper part{count === 1 ? "" : "s"} in {pieces.length} piece{pieces.length === 1 ? "" : "s"} whose start
       may be wrong: guessed from the order of the parts, or much shorter than that kind of part usually is. A part runs
       from the system it starts on until the next part starts, so a short part often means the next one starts too
-      early. Open a part to see its scan and correct it; a part you correct leaves this list once it is published.
+      early. Open a part to see its scan and correct it; a part you correct, or mark <strong>Looks right</strong>,
+      leaves this list once it is published. These are also on the <a href="/admin/review/">Review</a> page.
     </p>
+    <div id="status" class="status small" role="status" aria-live="polite"></div>
     {pieces.length === 0 ? <p>Nothing to check.</p> : (
-      <ol class="suspects">
+      <ol class="suspects" id="suspects">
         {pieces.map((piece) => {
           const found = pieceBySlug(piece.slug);
           return (
@@ -30,10 +33,13 @@ const edit = (target: string) => `/admin/edit/?target=${encodeURIComponent(targe
               <h2>{found ? <a href={pieceHref(found)}>{piece.label}</a> : piece.label} <span class="muted small">({piece.volume})</span></h2>
               <ul>
                 {piece.parts.map((p) => (
-                  <li>
-                    <a href={edit(p.target)}>{p.name}</a>
+                  <li data-review-target={p.target} data-review-seen={p.fingerprint}>
+                    <h3 tabindex="-1" class="part-name"><a href={edit(p.target)}>{p.name}</a></h3>
                     <span class="muted small"> · starts on system {p.start}, runs for {p.length}</span>
                     <p class="small">{p.reasons.map((r) => `${r[0]?.toUpperCase()}${r.slice(1)}.`).join(" ")}</p>
+                    <div class="review-actions"><button type="button" data-act="looks-right">Looks right</button>
+                      <button type="button" data-act="skip">Skip…</button></div>
+                    <p class="review-state small" aria-live="polite"></p>
                   </li>
                 ))}
               </ul>
@@ -55,4 +61,22 @@ const edit = (target: string) => `/admin/edit/?target=${encodeURIComponent(targe
   .suspects ul li { margin: 0 0 var(--s-2); }
   .suspects ul li a { display: inline-flex; align-items: center; min-height: var(--tap-min); }
   .suspects p { margin: 0; }
+  .part-name { display: inline; font-size: var(--step-0); margin: 0; font-weight: normal; }
+  .review-actions { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-1); }
+  .status { min-height: 1.4em; margin: var(--s-2) 0; }
+  .status[data-state="error"] { color: var(--warn-ink); }
+  :global(.review-state .reason) { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: end; }
+  :global(.review-state .reason label) { display: block; width: 100%; }
+  :global(.review-state .reason input) { flex: 1 1 16rem; font: inherit; min-height: var(--tap-min);
+    padding: var(--s-2) var(--s-3); background: var(--paper); color: var(--ink); border: 1px solid var(--rule);
+    border-radius: var(--radius); }
+  :global(.review-state button.link) { background: none; border: 0; padding: 0; min-height: var(--tap-min);
+    color: var(--accent); text-decoration: underline; cursor: pointer; font: inherit; }
 </style>
+
+<script>
+  import { wireReviews } from "../../../lib/admin/reviewClient";
+
+  const list = document.getElementById("suspects");
+  if (list) void wireReviews(list, document.getElementById("status"));
+</script>

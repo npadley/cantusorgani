@@ -25,6 +25,8 @@ export interface BatchEntry {
   readonly note: string;
   readonly source: string;
   readonly editor_email: string;
+  /** A review's: what the editor was shown, so the batch refuses a review of something since changed. */
+  readonly seen?: string;
 }
 
 export interface Batch { readonly batch: string; readonly entries: readonly BatchEntry[] }
