@@ -34,6 +34,7 @@ uv run noh typeset-manifest                  # manifest.json and review.json, fr
 uv run noh typeset-check                     # the source check, parts.yml and the manifest (CI runs this)
 uv run noh typeset-render                    # draw into build/typeset/out/ (CI: only what R2 lacks)
 uv run noh typeset-publish                   # check and upload build/typeset/out/ to R2 (needs the R2 variables)
+uv run noh typeset-prune                     # what the cleanup would delete from R2 (--delete to do it)
 ```
 
 After changing a source, an include or parts.yml, run `noh typeset-manifest`
@@ -80,6 +81,14 @@ There are no titles or running heads (`render.ily`): the page names the part.
 A render is published at `typeset/<hash>/` on R2. The hash covers the source,
 the includes, the render settings and the LilyPond version, so a changed file
 gets a new address and nothing published is ever overwritten.
+
+So old renders pile up on R2. To clear them, run **Actions → typeset-prune →
+Run workflow** (`.github/workflows/typeset-prune.yml`). It keeps every render
+main's manifest.json and review.json name, and anything uploaded in the last 14
+days (a pull request's renders go up before it merges), and deletes the rest.
+It never touches the scans. Leave **Delete them** unticked for a dry run: the
+run's summary says how many renders and megabytes would go. Tick it and run
+again to delete them.
 
 In CI (`.github/workflows/site.yml`):
 - **typeset-render** draws every hash the manifest and review files name that

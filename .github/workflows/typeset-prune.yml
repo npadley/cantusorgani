@@ -1,0 +1,68 @@
+# Delete typeset renders on R2 that nothing names any more: run it from the
+# Actions tab ("typeset-prune" -> "Run workflow").
+#
+# Every change to a transcription or to the render settings publishes new
+# files under typeset/<hash>/ and leaves the old ones behind. This keeps every
+# render main's data/typeset/manifest.json and review.json name, and anything
+# uploaded in the last `grace_days` days (a pull request's renders, published
+# before it merges), and deletes the rest. It never touches the scans or
+# typeset-preview/ (pipeline/typeset/prune.py).
+#
+# Leave "delete" unticked for a dry run: the summary says what would go.
+#
+# Needs the same settings as the site's upload job:
+#   secrets:   R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY
+#   variables: R2_BUCKET
+name: typeset-prune
+
+on:
+  workflow_dispatch:
+    inputs:
+      delete:
+        description: "Delete them (unticked: only report what would go)"
+        type: boolean
+        default: false
+      grace_days:
+        description: "Keep anything uploaded within this many days"
+        type: number
+        default: 14
+
+permissions:
+  contents: read
+
+# Never alongside the site's own upload (site.yml's typeset-upload job).
+concurrency:
+  group: typeset-prune
+  cancel-in-progress: false
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      # Always main's files: what the site shows, whichever branch it was run from.
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - name: Prune
+        shell: bash   # with pipefail: a failed delete fails the run through the tee
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ vars.R2_BUCKET }}
+          GRACE_DAYS: ${{ inputs.grace_days }}
+          DELETE: ${{ inputs.delete }}
+        run: |
+          args=(--grace-days "$GRACE_DAYS")
+          [ "$DELETE" = "true" ] && args+=(--delete)
+          uv run noh typeset-prune "${args[@]}" | tee "$RUNNER_TEMP/out.txt"
+          {
+            echo "### typeset-prune ($([ "$DELETE" = "true" ] && echo "deleted" || echo "dry run"))"
+            echo
+            sed 's/^/    /' "$RUNNER_TEMP/out.txt"
+          } >> "$GITHUB_STEP_SUMMARY"
