@@ -17,6 +17,7 @@ import { type Scans, type Shown, pieceSystems, shown } from "./scans";
 import { type Reviewed, suspectParts } from "./suspects";
 import { buildScans } from "./targetIndex";
 import { MOVEMENT_LABELS, pairingMovements } from "./targets";
+import { type TypesetEntry, typesetEntries } from "./typesetQueues";
 
 export const QUEUE = queueJson as unknown as readonly QueueItem[];
 export const REVIEWED = (reviewedJson as { reviewed: Reviewed }).reviewed;
@@ -148,16 +149,31 @@ export function reviewEntries(queue: readonly QueueItem[] = QUEUE, reviewed: Rev
 }
 
 /** What the admin API checks a review against: each reviewable target's
- * fingerprint and words, and the piece it belongs to. */
+ * fingerprint and words, and the piece it belongs to. `review: false`: it can
+ * be skipped with a note, but not marked as right (a typeset file still to be
+ * matched or fixed). */
+export interface ReviewIndexItem {
+  readonly fingerprint: string;
+  readonly label: string;
+  readonly piece: string | null;
+  readonly review?: false;
+}
 export interface ReviewIndex {
-  readonly items: Readonly<Record<string, { readonly fingerprint: string; readonly label: string; readonly piece: string | null }>>;
+  readonly items: Readonly<Record<string, ReviewIndexItem>>;
 }
 
-export function reviewIndex(entries: readonly ReviewEntry[] = reviewEntries()): ReviewIndex {
-  const items: Record<string, { fingerprint: string; label: string; piece: string | null }> = {};
+const QUEUE_WORDS = { matches: "Typeset match", errors: "Typeset error", proofreading: "Proofreading" } as const;
+
+export function reviewIndex(entries: readonly ReviewEntry[] = reviewEntries(),
+                            typeset: readonly TypesetEntry[] = typesetEntries()): ReviewIndex {
+  const items: Record<string, ReviewIndexItem> = {};
+  const pieceOf = (href: string | null): string | null => (href ? href.split("/")[2] ?? null : null);
   for (const e of entries) {
-    items[e.target] = { fingerprint: e.fingerprint, label: `${e.label}: ${e.about}`,
-                        piece: e.href ? e.href.split("/")[2] ?? null : null };
+    items[e.target] = { fingerprint: e.fingerprint, label: `${e.label}: ${e.about}`, piece: pieceOf(e.href) };
+  }
+  for (const e of typeset) {
+    items[e.target] = { fingerprint: e.fingerprint, label: `${QUEUE_WORDS[e.queue]}: ${e.title} (${e.file})`,
+                        piece: pieceOf(e.href), ...(e.queue === "proofreading" ? {} : { review: false as const }) };
   }
   return { items };
 }

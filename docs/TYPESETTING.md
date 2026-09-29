@@ -22,7 +22,7 @@ are shown.
 | `parts.yml` | which part of the catalogue each file is, and how sure we are |
 | `lilypond.yml` | the LilyPond version every render uses, with each build's checksum |
 | `manifest.json` | the parts the site shows typeset: each matched file's target and render hash |
-| `review.json` | every other file, for the admin screen's queues: status, candidates, render hash or error |
+| `review.json` | every other file, for the admin screen's queues: status, candidates, render hash, or the error and the lines around it |
 
 ## Commands
 
@@ -34,6 +34,7 @@ uv run noh typeset-manifest                  # manifest.json and review.json, fr
 uv run noh typeset-check                     # the source check, parts.yml and the manifest (CI runs this)
 uv run noh typeset-render                    # draw into build/typeset/out/ (CI: only what R2 lacks)
 uv run noh typeset-publish                   # check and upload build/typeset/out/ to R2 (needs the R2 variables)
+uv run noh typeset-prune                     # what the cleanup would delete from R2 (--delete to do it)
 ```
 
 After changing a source, an include or parts.yml, run `noh typeset-manifest`
@@ -61,25 +62,63 @@ matter when NOH transposes a chant; repeated notes count once.
 | `melody-differs` | the file points at one part whose melody disagrees |
 | `broken` | LilyPond cannot read the file; the error names the line |
 
-Only `matched` files will be shown on the site. The admin screen's Review area
-will settle the rest (PR 6). `noh typeset-match` never changes an entry marked
-`source: editor`.
+Only `matched` files are shown on the site. Editors settle the rest on the
+admin screen's **Typeset music** page (`/admin/typeset/`, docs/EDITING.md):
+which part a file is, or `none` (not in the catalogue), or `other-setting`.
+Each answer is a `match` correction on `typeset:<file>` in
+`data/corrections.yml`:
+
+```yaml
+- id: c-0012
+  target: typeset:vol-1/al_confitemini_domino.csv.ly
+  field: match
+  was: null            # what the matcher settled on: a target only when matched
+  value: part:dominica-iv-adventus/alleluia
+```
+
+`manifest.json` and `review.json` are written from `parts.yml` with these
+applied (a chosen part is matched, and a file the matcher gave that part goes
+back to `proposed`; `none` and `other-setting` become the statuses `no-match`
+and `other-setting`). `noh apply-corrections` rewrites them too, so a batch of
+corrections carries them. A match's `was` guards it like any correction: if a
+new `noh typeset-match` settles the file differently, the build stops and asks.
+A file LilyPond can't draw can't be chosen as a part until it is fixed.
+
+A proofreading is a `reviewed` correction on `typeset:<file>` whose `was` is
+the render hash, so any edit to the file (or to the render settings) reopens it.
+`noh typeset-match` never changes an entry marked `source: editor`.
 
 ## Drawing and publishing
 
-Each file is drawn three times by LilyPond's Cairo backend, which draws text
+Each file is drawn four times by LilyPond's Cairo backend, which draws text
 as outlines, so no fonts are needed (`pipeline/typeset/render.py`):
 
 | File | For | Layout |
 |---|---|---|
 | `narrow.svg` | phones | 90 mm lines, staff 17; the book's line breaks removed, so lines break to fit (`narrow.ily`) |
 | `wide.svg` | tablets and desktops | 190 mm lines, staff 18; the book's own line breaks, to read against the scan |
-| `score.pdf` | the PDF export | A4 pages, staff 18; the book's line breaks |
+| `letter.pdf` | the PDF export | US Letter pages, staff 18, printer's margins; the book's line breaks |
+| `a4.pdf` | the PDF export | the same on A4 |
 
 There are no titles or running heads (`render.ily`): the page names the part.
+
+The PDF export (`web/src/lib/pdf.ts`) makes Letter pages, or A4 if the reader
+chooses (remembered in their browser). A part whose systems are all typeset,
+and which the reader sees typeset, goes in as `letter.pdf` or `a4.pdf`'s own
+pages, drawn as vectors with the part's heading above; everything else goes
+in as scans. If a typeset PDF cannot be fetched, the export uses the scans
+for that part and says so.
 A render is published at `typeset/<hash>/` on R2. The hash covers the source,
 the includes, the render settings and the LilyPond version, so a changed file
 gets a new address and nothing published is ever overwritten.
+
+So old renders pile up on R2. To clear them, run **Actions → typeset-prune →
+Run workflow** (`.github/workflows/typeset-prune.yml`). It keeps every render
+main's manifest.json and review.json name, and anything uploaded in the last 14
+days (a pull request's renders go up before it merges), and deletes the rest.
+It never touches the scans. Leave **Delete them** unticked for a dry run: the
+run's summary says how many renders and megabytes would go. Tick it and run
+again to delete them.
 
 In CI (`.github/workflows/site.yml`):
 - **typeset-render** draws every hash the manifest and review files name that
