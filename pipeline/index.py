@@ -50,6 +50,10 @@ class IndexEntry:
     # An addendum's id (data/volumes.yml) when the entry is printed in one: its
     # `page` then counts in that addendum's own pagination, not the body's.
     pagination: str | None = None
+    # Parts whose first system (counting from 1) was read off the page by hand,
+    # e.g. (("alleluia/paschal", 12),): for a layout the parts' printed order
+    # does not describe (see pipeline.parts.segment_proper).
+    parts: tuple[tuple[str, int], ...] = ()
 
     @property
     def printed_pages(self) -> tuple[int, int]:
@@ -84,6 +88,7 @@ def load_index(vol_id: str, path: Path | None = None) -> list[IndexEntry]:
                 days=tuple(e.get("days", ())), status=e.get("status", "verified"),
                 reference=e.get("reference"),
                 pagination=e.get("pagination", section.get("pagination")),
+                parts=tuple((str(k), int(v)) for k, v in (e.get("parts") or {}).items()),
             ))
     return entries
 

@@ -156,7 +156,28 @@ def _key(p: ExpectedPart) -> str:
     return f"{p.part}/{p.variant}" if p.variant == "paschal" else p.part
 
 
-def segment_proper(systems: list[PartSystem], expected: list[ExpectedPart]) -> Segmentation:
+def segment_proper(systems: list[PartSystem], expected: list[ExpectedPart],
+                   hand: dict[str, int] | None = None) -> Segmentation:
+    """`hand`: parts whose first system (counting from 0) the reviewed index
+    gives, keyed as ORDER names them ("alleluia/paschal"), for a layout the
+    order below cannot describe -- NOH3's Queenship addendum prints its Paschal
+    Alleluia before the Gradual. The rest are segmented around them."""
+    hand = hand or {}
+    unknown = sorted(set(hand) - {_key(e) for e in expected})
+    if unknown:
+        raise ValueError(f"parts placed by hand that this Proper does not have: {unknown}")
+    outside = sorted(k for k, i in hand.items() if not 0 <= i < len(systems))
+    if outside:
+        raise ValueError(f"parts placed by hand outside the piece's {len(systems)} systems: {outside}")
+    result = _segment(systems, [e for e in expected if _key(e) not in hand])
+    for e in expected:
+        if _key(e) in hand:
+            i = hand[_key(e)]
+            result.parts.append(PartBoundary(e.part, e.variant, i, systems[i].ref, e.gregobase_id, "hand", 1.0))
+    return result
+
+
+def _segment(systems: list[PartSystem], expected: list[ExpectedPart]) -> Segmentation:
     result = Segmentation()
     if not systems or not expected:
         return result

@@ -330,7 +330,7 @@ def test_parts_are_named_run_in_reading_order_and_point_at_their_own_systems():
         assert len(set(starts)) == len(starts), f"two parts start on one system: {piece['slug']}"
         for x in printed:
             assert piece["systems"][x["system"]] == x["ref"], piece["slug"]
-            # "hand": corrected in data/corrections.yml (a part start an editor fixed).
+            # "hand": corrected in data/corrections.yml, or placed in the reviewed index.
             assert x["placed"] in {"label", "text", "mode", "order", "hand"}
 
 

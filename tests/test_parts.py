@@ -349,3 +349,30 @@ def test_segment_proper_introit_label_read_as_fntr_in_the_text_layer():
     systems = refs([sys_("Te decet hymnus"), sys_(text), sys_("a"), sys_("b")])
     result = segment_proper(systems, [exp("introit", "zzzzzzzzzzzzzz")])
     assert [(p.part, p.index, p.placed) for p in result.parts] == [("introit", 1, "label")]
+
+
+def queenship() -> list[PartSystem]:
+    """NOH3's Queenship addendum in small: the Paschal Alleluia is printed
+    before "Extra Tempus Paschale dicitur: Grad.", the Alleluia after it."""
+    return refs([sys_("gaudeamus", label="introit"), sys_("a"), sys_("alleluia beata es"), sys_("b"),
+                 sys_("ipse habet", label="gradual"), sys_("c"), sys_("d"), sys_("salve regina"), sys_("e"),
+                 sys_("regali", label="offertory"), sys_("f"), sys_("regina mundi", label="communion")])
+
+
+QUEENSHIP_PARTS = [exp("introit"), exp("gradual"), exp("alleluia"), exp("alleluia", variant="paschal", optional=True),
+                   exp("offertory"), exp("communion")]
+
+
+def test_segment_proper_hand_places_parts_the_order_cannot_describe():
+    result = segment_proper(queenship(), QUEENSHIP_PARTS, {"alleluia/paschal": 2, "alleluia": 7})
+    placed = sorted((p.index, p.part, p.variant, p.placed) for p in result.parts)
+    assert placed == [(0, "introit", "", "label"), (2, "alleluia", "paschal", "hand"), (4, "gradual", "", "label"),
+                      (7, "alleluia", "", "hand"), (9, "offertory", "", "label"), (11, "communion", "", "label")]
+    assert result.problems == []
+
+
+def test_segment_proper_hand_refuses_a_part_the_proper_lacks_or_a_system_outside_it():
+    with pytest.raises(ValueError, match=r"does not have: \['tract'\]"):
+        segment_proper(queenship(), QUEENSHIP_PARTS, {"tract": 3})
+    with pytest.raises(ValueError, match=r"outside the piece's 12 systems: \['alleluia'\]"):
+        segment_proper(queenship(), QUEENSHIP_PARTS, {"alleluia": 12})

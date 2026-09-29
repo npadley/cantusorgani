@@ -294,7 +294,8 @@ def jgabc_url(slug: str, days: list[str]) -> str | None:
 
 
 def proper_parts(vol_id: str, slug: str, days: list[str], reference: str | None,
-                 refs: list[SystemRef], ctx: PartsContext, zone: str = ""
+                 refs: list[SystemRef], ctx: PartsContext, zone: str = "",
+                 hand: dict[str, int] | None = None
                  ) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
     """A Proper's parts and the review entries for any placed by order, missing,
     or not found at all. Parts printed by reference are recorded as borrowed and
@@ -333,7 +334,10 @@ def proper_parts(vol_id: str, slug: str, days: list[str], reference: str | None,
         # text layer's marker count.
         mode = margin_mode(margin) if margin.strip() else r.mode_marker
         features.append(PartSystem(r.ref, r.text, label_of(margin), mode))
-    seg = segment_proper(features, printed)
+    try:
+        seg = segment_proper(features, printed, hand)
+    except ValueError as error:
+        raise ValueError(f"{vol_id} {slug}: {error}") from error
     records: list[dict[str, object]] = [
         {"part": b.part, "variant": b.variant, "system": b.index, "ref": b.ref,
          "gregobase_id": b.gregobase_id, "placed": b.placed, "score": b.score}
@@ -498,7 +502,8 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
             jgabc = jgabc_url(entry.slug, list(entry.days)) if has_parts(entry) else None
             if ctx is not None and refs and has_parts(entry):
                 proper, part_review = proper_parts(vol_id, entry.slug, list(entry.days),
-                                                   entry.reference, refs, ctx, zone_of(refs))
+                                                   entry.reference, refs, ctx, zone_of(refs),
+                                                   {k: n - 1 for k, n in entry.parts})
                 review.extend(part_review)
             if entry.status not in CONFIDENT_INDEX:
                 review.append({"piece": entry.slug, "kind": "index_unverified",
