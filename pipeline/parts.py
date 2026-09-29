@@ -380,13 +380,13 @@ def borrowed_parts(reference: str, volume: str) -> list[tuple[str, str, int]]:
 
 
 def link_parts(catalog: dict[str, object]) -> list[dict[str, object]]:
-    """Resolve each borrowed part to the lending piece's part, after every
+    """Resolve each borrowed section to the lending piece's section, after every
     volume is merged (a Proper in NOH3 borrows from NOH4's Commons). Returns
     the ones that could not be resolved, for the review queue."""
     pieces: list[dict[str, object]] = list(catalog["pieces"])  # type: ignore[arg-type]
     unresolved: list[dict[str, object]] = []
     for piece in pieces:
-        for part in piece.get("parts", []) or []:   # type: ignore[union-attr]
+        for part in piece.get("sections", []) or []:   # type: ignore[union-attr]
             if "borrowed_page" not in part:
                 continue
             volume, page = part["borrowed_volume"], int(part["borrowed_page"])
@@ -396,8 +396,8 @@ def link_parts(catalog: dict[str, object]) -> list[dict[str, object]]:
             lenders.sort(key=lambda p: p["printed_pages"][0] != page)  # type: ignore[index]
             target = None
             for lender in lenders:
-                own = [q for q in lender.get("parts", []) or []  # type: ignore[union-attr]
-                       if q.get("part") == part["part"] and "ref" in q and q.get("placed") != "order"]
+                own = [q for q in lender.get("sections", []) or []  # type: ignore[union-attr]
+                       if q.get("kind") == part["kind"] and "ref" in q and q.get("placed") != "order"]
                 # The lender's Alleluia serves a borrowed Paschal Alleluia when it
                 # is the only one it prints (a votive Mass cited in the rubric).
                 own.sort(key=lambda q: q.get("variant", "") != part.get("variant", ""))
@@ -407,7 +407,7 @@ def link_parts(catalog: dict[str, object]) -> list[dict[str, object]]:
             if target is None:
                 part["borrowed_from"], part["borrowed_ref"] = None, None
                 unresolved.append({"kind": "part_borrowed_unresolved", "piece": piece["slug"],
-                                   "part": part["part"], "volume": volume, "printed_page": page})
+                                   "part": part["kind"], "volume": volume, "printed_page": page})
                 continue
             part["borrowed_from"] = target[0]["slug"]
             part["borrowed_ref"] = target[1]["ref"]

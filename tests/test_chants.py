@@ -17,13 +17,13 @@ def chant(cid: int, part: str = "in", copyrighted: bool = False) -> tuple[Chant,
 
 def catalog() -> dict[str, object]:
     return {"pieces": [
-        {"slug": "therese", "parts": [
-            {"part": "introit", "gregobase_id": 59, "system": 0, "ref": "r", "placed": "label"},
-            {"part": "gradual", "gregobase_id": 1034, "system": 3, "ref": "s", "placed": "label"},
-            {"part": "offertory", "gregobase_id": None, "system": 5, "ref": "t", "placed": "label"},
-            {"part": "communion", "gregobase_id": 162, "borrowed_page": 81, "borrowed_from": None},
+        {"slug": "therese", "sections": [
+            {"kind": "introit", "gregobase_id": 59, "system": 0, "ref": "r", "placed": "label"},
+            {"kind": "gradual", "gregobase_id": 1034, "system": 3, "ref": "s", "placed": "label"},
+            {"kind": "offertory", "gregobase_id": None, "system": 5, "ref": "t", "placed": "label"},
+            {"kind": "communion", "gregobase_id": 162, "borrowed_page": 81, "borrowed_from": None},
         ]},
-        {"slug": "mass", "parts": []},
+        {"slug": "mass", "sections": []},
     ]}
 
 
@@ -60,7 +60,7 @@ def test_write_chants_sorted_json_with_its_licence(tmp_path):
 
 def test_select_chants_verified_movement_pairings_of_the_kyriale_are_published():
     """Missa IX's movements carry GregoBase pairings; an unverified one is left out."""
-    cat = {"pieces": [{"slug": "ordinarium-missae-ix", "parts": [], "chant": [
+    cat = {"pieces": [{"slug": "ordinarium-missae-ix", "sections": [], "chant": [
         {"source": "gregobase", "id": 2976, "movement": "kyrie", "status": "verified"},
         {"source": "gregobase", "id": 2771, "movement": "gloria", "status": "unverified"},
     ]}]}

@@ -11,12 +11,13 @@ import random
 from collections import Counter
 from pathlib import Path
 
+from pipeline import sections
 from pipeline.render import BUILD
 
 
 def _parts(catalog: dict[str, object], volume: str) -> list[tuple[dict[str, object], dict[str, object]]]:
     return [(piece, part) for piece in catalog.get("pieces", [])     # type: ignore[union-attr]
-            if piece.get("volume") == volume for part in piece.get("parts", []) or []]
+            if piece.get("volume") == volume for part in sections.of(piece)]
 
 
 def summary(catalog: dict[str, object], review: list[dict[str, object]], volume: str) -> str:
@@ -44,7 +45,7 @@ def write_sample(catalog: dict[str, object], volume: str, n: int = 30, seed: int
     rows = []
     for piece, part in sorted(sample, key=lambda pp: str(pp[1]["ref"])):
         ref = html.escape(str(part["ref"]))
-        label = html.escape(f"{part['part']}{' (' + str(part['variant']) + ')' if part.get('variant') else ''}")
+        label = html.escape(f"{part['kind']}{' (' + sections.suffix(part)[1:] + ')' if sections.suffix(part) else ''}")
         rows.append(
             f"<tr><td>{html.escape(str(piece.get('title', piece['slug'])))}<br><b>{label}</b>"
             f"<br><small>{ref} · placed by {html.escape(str(part.get('placed')))}</small></td>"

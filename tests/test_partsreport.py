@@ -7,15 +7,15 @@ from pipeline.partsreport import summary, write_sample
 
 def catalog() -> dict[str, object]:
     return {"pieces": [
-        {"volume": "noh3", "slug": "therese", "title": "S. Theresiæ <&>", "parts": [
-            {"part": "introit", "variant": "", "system": 0, "ref": "noh3/0397/000", "placed": "label"},
-            {"part": "gradual", "variant": "", "system": 8, "ref": "noh3/0398/003", "placed": "text"},
-            {"part": "offertory", "variant": "", "system": 48, "ref": "noh3/0405/002", "placed": "order"},
-            {"part": "communion", "variant": "", "borrowed_volume": "noh4", "borrowed_page": 81,
+        {"volume": "noh3", "slug": "therese", "title": "S. Theresiæ <&>", "sections": [
+            {"kind": "introit", "variant": "", "system": 0, "ref": "noh3/0397/000", "placed": "label"},
+            {"kind": "gradual", "variant": "", "system": 8, "ref": "noh3/0398/003", "placed": "text"},
+            {"kind": "offertory", "variant": "", "system": 48, "ref": "noh3/0405/002", "placed": "order"},
+            {"kind": "communion", "variant": "", "borrowed_volume": "noh4", "borrowed_page": 81,
              "borrowed_from": None},
         ]},
-        {"volume": "noh1", "slug": "other", "title": "x", "parts": [
-            {"part": "introit", "variant": "", "system": 0, "ref": "noh1/0030/000", "placed": "label"}]},
+        {"volume": "noh1", "slug": "other", "title": "x", "sections": [
+            {"kind": "introit", "variant": "", "system": 0, "ref": "noh1/0030/000", "placed": "label"}]},
     ]}
 
 

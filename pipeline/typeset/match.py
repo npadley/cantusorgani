@@ -27,6 +27,7 @@ from typing import Any
 
 import yaml
 
+from pipeline import sections
 from pipeline.typeset.events import Events
 from pipeline.typeset.melody import compare, gabc_steps
 from pipeline.volumes import DATA
@@ -92,12 +93,9 @@ def targets(catalog: dict[str, Any], printed: Any) -> list[Target]:
     for p in catalog.get("pieces", []):
         slug, volume = str(p["slug"]), str(p["volume"])
         systems = p.get("systems") or []
-        for part in p.get("parts") or []:
-            if "system" not in part:
-                continue
-            variant = part.get("variant") or ""
-            out.append(Target(f"part:{slug}/{part['part']}{':' + variant if variant else ''}", volume, slug,
-                              str(part["part"]), printed(part["ref"]), part.get("gregobase_id")))
+        for part in sections.printed(p):
+            out.append(Target(sections.target(slug, part), volume, slug,
+                              str(part["kind"]), printed(part["ref"]), part.get("gregobase_id")))
         chants = {c.get("movement"): c.get("id") for c in p.get("chant") or []}
         if p.get("genre") == "mass_ordinary":
             seen: set[str] = set()
@@ -107,7 +105,7 @@ def targets(catalog: dict[str, Any], printed: Any) -> list[Target]:
                     continue
                 seen.add(name)
                 out.append(Target(f"movement:{slug}/{name}", volume, slug, name, printed(mv["ref"]), chants.get(name)))
-        elif not p.get("parts") and systems:
+        elif not p.get("sections") and systems:
             kind = str(p.get("genre"))
             chant = next(iter(chants.values()), None)
             out.append(Target(f"piece:{slug}", volume, slug, kind, printed(systems[0]), chant))

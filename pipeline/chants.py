@@ -41,7 +41,7 @@ def referenced_ids(catalog: dict[str, object]) -> set[int]:
     pairing of a Kyriale movement (Missa IX's Kyrie, Gloria ...)."""
     ids: set[int] = set()
     for piece in catalog["pieces"]:                                             # type: ignore[union-attr]
-        ids |= {int(p["gregobase_id"]) for p in piece.get("parts", []) or []
+        ids |= {int(p["gregobase_id"]) for p in piece.get("sections", []) or []
                 if isinstance(p.get("gregobase_id"), int)}
         ids |= {int(c["id"]) for c in piece.get("chant", []) or []
                 if c.get("status") == "verified" and isinstance(c.get("id"), int)}
