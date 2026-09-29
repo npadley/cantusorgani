@@ -1,0 +1,43 @@
+---
+// The page-wide switch between typeset music and the scans, on pages that have
+// any typeset music. Remembered in this browser (localStorage "typeset-view");
+// each part's own "Show the scan" overrides it for that part, for the visit.
+interface Props { readonly show: boolean }
+const { show } = Astro.props;
+---
+
+{show && (
+  <p class="typeset-switch ui small no-print">
+    <button type="button" id="typeset-view" aria-pressed="false">Show the scans</button>
+    <span class="muted">Some of this music is typeset from volunteers' transcriptions, not yet proofread.
+      <a href="/about/#typeset">About the typeset music</a></span>
+  </p>
+)}
+
+<style>
+  .typeset-switch { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); margin: 0 0 var(--s-3); }
+  .typeset-switch button { min-height: var(--tap-min); }
+</style>
+
+<script is:inline>
+  (function () {
+    var button = document.getElementById("typeset-view");
+    if (!button) return;
+    var root = document.documentElement;
+    function sync() {
+      var scans = root.getAttribute("data-view") === "scans";
+      button.setAttribute("aria-pressed", scans ? "true" : "false");
+      button.textContent = scans ? "Show the typeset music" : "Show the scans";
+    }
+    button.addEventListener("click", function () {
+      var scans = root.getAttribute("data-view") !== "scans";
+      if (scans) root.setAttribute("data-view", "scans"); else root.removeAttribute("data-view");
+      try { localStorage.setItem("typeset-view", scans ? "scans" : "typeset"); } catch (e) { /* ignore */ }
+      // The whole page follows: each part's own choice is for the page as it was.
+      document.querySelectorAll("[data-typeset]").forEach(function (seg) { seg.removeAttribute("data-show"); });
+      document.dispatchEvent(new Event("typeset-view"));
+      sync();
+    });
+    sync();
+  })();
+</script>
