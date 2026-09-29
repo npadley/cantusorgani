@@ -2,7 +2,7 @@
 import { jumpTargets, pagesLabel, systemUrlStem, volumeLabel } from "../lib/catalog";
 import { annotationFor, chantEntry } from "../lib/chants";
 import type { JumpTarget, Piece } from "../lib/catalog";
-import { segments } from "../lib/typeset";
+import { segmentKey, segments } from "../lib/typeset";
 import ReportLinks from "./ReportLinks.astro";
 
 interface Props {
@@ -83,7 +83,8 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
           );
         });
       })}
-      <div class={seg.render ? "segment typeset-segment" : "segment"} data-typeset={seg.render ? "" : undefined}>
+      <div class={seg.render ? "segment typeset-segment" : "segment"} data-typeset={seg.render ? "" : undefined}
+           data-typeset-key={seg.render ? segmentKey(piece, seg.start) : undefined}>
         {seg.render && (
           <div class="typeset">
             <picture>

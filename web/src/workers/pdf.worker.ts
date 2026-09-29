@@ -1,5 +1,6 @@
 /// <reference lib="webworker" />
-import { buildPdf, httpPngFetcher, validateSelection } from "../lib/pdf";
+import { buildPdf, httpPdfFetcher, httpPngFetcher, validateSelection } from "../lib/pdf";
+import type { Paper, TypesetInsert } from "../lib/pdf";
 
 /**
  * Thin message-passing wrapper. All assembly logic lives in ../lib/pdf.ts so it
@@ -13,11 +14,14 @@ export interface BuildRequest {
   readonly title: string;
   /** A part's heading above its first system; optional for older callers. */
   readonly headings?: readonly { readonly index: number; readonly label: string }[];
+  readonly paper?: Paper;
+  /** Typeset music in place of some systems (see buildPdf). */
+  readonly typeset?: readonly TypesetInsert[];
 }
 
 export type BuildResponse =
   | { readonly kind: "progress"; readonly done: number; readonly total: number }
-  | { readonly kind: "ok"; readonly bytes: Uint8Array; readonly pages: number }
+  | { readonly kind: "ok"; readonly bytes: Uint8Array; readonly pages: number; readonly fallbacks: readonly string[] }
   | { readonly kind: "error"; readonly message: string };
 
 function post(message: BuildResponse): void {
@@ -25,7 +29,7 @@ function post(message: BuildResponse): void {
 }
 
 self.onmessage = async (event: MessageEvent<BuildRequest>): Promise<void> => {
-  const { refs, base, title, headings } = event.data;
+  const { refs, base, title, headings, paper, typeset } = event.data;
 
   const problem = validateSelection(refs.length);
   if (problem) {
@@ -34,14 +38,17 @@ self.onmessage = async (event: MessageEvent<BuildRequest>): Promise<void> => {
   }
 
   try {
-    const { bytes, pages } = await buildPdf({
+    const { bytes, pages, fallbacks } = await buildPdf({
       refs,
       title,
       headings: headings ?? [],
+      paper: paper ?? "letter",
+      typeset: typeset ?? [],
       fetchPng: httpPngFetcher(base),
+      fetchPdf: httpPdfFetcher,
       onProgress: (done, total) => post({ kind: "progress", done, total }),
     });
-    post({ kind: "ok", bytes, pages });
+    post({ kind: "ok", bytes, pages, fallbacks });
   } catch (error) {
     post({
       kind: "error",

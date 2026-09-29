@@ -67,6 +67,12 @@
         "pattern": "^(\\d{1,6}|none)$",
         "hint": "a GregoBase chant id (the number in gregobase.selapa.net/chant.php?id=…), or none"
       }
+    },
+    "typeset": {
+      "match": {
+        "pattern": "^(part:[a-z0-9-]+/[a-z]+(:[a-z0-9-]+)?|movement:[a-z0-9-]+/[a-z]+|piece:[a-z0-9-]+|none|other-setting)$",
+        "hint": "the part it is (part:<slug>/<part>[:<variant>], movement:<slug>/<movement> or piece:<slug>), none if it is not in the catalogue, or other-setting if it is another setting of a chant the catalogue has"
+      }
     }
   },
   "reader_fields": {
@@ -120,7 +126,8 @@
     "part": "part:<slug>/<part>, or part:<slug>/<part>:<variant> (introit, gradual, alleluia, tract, sequence, offertory, communion)",
     "vespers": "vespers:<office>/antiphon-<n> or vespers:<office>/magnificat (an office of data/vespers/vespers-offices.yml); vespers:sunday:<calendar key>/magnificat (a green Sunday's Magnificat antiphon, data/vespers/vespers-noh8.yml)",
     "pairing": "pairing:<slug>/<movement>: the chant paired with one movement of a piece without Proper parts (kyrie, gloria, credo, sanctus, agnus, ite; chant for a single-chant piece)",
-    "review": "review:<volume>/<kind>/<id>: an item of data/review-queue.json (its `key`), for `reviewed` only"
+    "review": "review:<volume>/<kind>/<id>: an item of data/review-queue.json (its `key`), for `reviewed` only",
+    "typeset": "typeset:<file>: a transcription in data/typeset/src/ (its path there, e.g. vol-1/al_crastina_die.csv.ly), for match or reviewed"
   },
   "pairing_movements": {
     "$comment": "The chant movements each genre of piece has (\"chant\": the one chant of a single-chant piece). A Proper's chants are on its parts.",
@@ -163,13 +170,18 @@
     ]
   },
   "reviews": {
-    "$comment": "`reviewed` records that an editor looked at a target and found it right; it changes no data. Its `was` is what was confirmed: a review-queue item's fingerprint, or a part's start and length. When that changes the review lapses (the item comes back) instead of stopping the build.",
+    "$comment": "`reviewed` records that an editor looked at a target and found it right; it changes no data. Its `was` is what was confirmed: a review-queue item's fingerprint, a part's start and length, or a typeset file's render hash (so an edit to the file reopens its proofreading). When that changes the review lapses (the item comes back) instead of stopping the build.",
     "field": "reviewed",
     "kinds": [
       "part",
-      "review"
+      "review",
+      "typeset"
     ],
     "pattern": "^yes$",
     "hint": "yes"
+  },
+  "typeset_file": {
+    "$comment": "A typeset:<file> target's file: a path under data/typeset/src/, never with .. or a leading /.",
+    "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*(/[A-Za-z0-9][A-Za-z0-9._-]*){0,4}\\.ly$"
   }
 }

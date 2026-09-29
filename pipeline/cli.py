@@ -61,6 +61,12 @@ def build_parser() -> argparse.ArgumentParser:
                      help="mark files LilyPond cannot draw as broken in parts.yml (for their scans to stay), "
                           "and rewrite the manifest")
     subs.add_parser("typeset-publish", help="check and upload build/typeset/out/ to R2 (write-if-absent)")
+    tp = subs.add_parser("typeset-prune",
+                         help="delete renders on R2 that the manifest and review files no longer name "
+                              "(a dry run unless --delete)")
+    tp.add_argument("--delete", action="store_true", help="delete them; without it, only report")
+    tp.add_argument("--grace-days", type=int, default=14,
+                    help="keep anything uploaded within this many days (default 14): a pull request's renders")
     subs.add_parser("lilypond-install",
                     help="download the pinned LilyPond (data/typeset/lilypond.yml) into vendor/, checksum-checked")
     subs.add_parser("r2-check",
@@ -200,7 +206,7 @@ def _corrections_command(args: argparse.Namespace) -> int:
                           "  Fix: uv run noh apply-corrections, then commit the files it names",
                           file=sys.stderr)
                     return 1
-                print("data/catalog.json and the Vespers lineup are current with corrections.yml")
+                print("data/catalog.json, the Vespers lineup, reviewed.json and the typeset manifest are current with corrections.yml")
                 return 0
             count, files = c.write_all()
             print(f"{count} correction(s) applied; " + (f"rewrote {', '.join(files)}" if files else "nothing changed"))
@@ -333,6 +339,22 @@ def main(argv: list[str] | None = None) -> int:
             print(f"FAIL  {line}", file=sys.stderr)
         print(f"uploaded {uploaded} file(s); {there} already published")
         return 1 if problems_ else 0
+
+    if args.command == "typeset-prune":
+        from pipeline.typeset.prune import prune
+        if args.grace_days < 1:
+            print("--grace-days must be at least 1", file=sys.stderr)
+            return 2
+        found, failed = prune(apply=args.delete, grace_days=args.grace_days)
+        verb = "deleted" if args.delete else "would delete"
+        print(f"{verb} {len(found.delete)} file(s) of {found.renders} render(s), "
+              f"{found.bytes / 1_048_576:.1f} MB; kept {found.named} file(s) the manifest and review files name "
+              f"and {found.recent} uploaded in the last {args.grace_days} days")
+        if found.other:
+            print(f"note  left {found.other} file(s) under typeset/ that are not a render's")
+        for line in failed:
+            print(f"FAIL  {line}", file=sys.stderr)
+        return 1 if failed else 0
 
     if args.command == "typeset-check":
         from pipeline.typeset.check import problems

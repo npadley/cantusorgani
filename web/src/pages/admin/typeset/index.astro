@@ -1,0 +1,269 @@
+---
+import Layout from "../../../components/Layout.astro";
+import { QUEUE_LABELS, QUEUE_ORDER, typesetEntries } from "../../../lib/admin/typesetQueues";
+import type { TypesetEntry, TypesetQueue } from "../../../lib/admin/typesetQueues";
+
+// The typeset music's three queues, built with the site: which part each
+// uncertain transcription is (Matches), the files LilyPond cannot draw
+// (Errors), and each part shown typeset, to read against its scan
+// (Proofreading). Behind Cloudflare Access with /admin/; the buttons talk to
+// /admin/api.
+const entries = typesetEntries();
+const byQueue = (q: TypesetQueue): readonly TypesetEntry[] => entries.filter((e) => e.queue === q);
+const volumes = [...new Set(entries.map((e) => e.volume))].sort();
+const anchor = (e: TypesetEntry) => `h-${e.file.replace(/[^a-z0-9]/gi, "-")}`;
+const pct = (x: number | null) => (x === null ? "no chant to compare" : `melody ${Math.round(x * 100)}% alike`);
+const INTRO: Readonly<Record<TypesetQueue, string>> = {
+  matches: "Transcriptions the matcher could not place with confidence. Compare the drawing with each candidate's scan " +
+    "(and its chant), then say which part it is. A file chosen for a part replaces the scans there once published.",
+  errors: "Files LilyPond cannot draw, with the line it stopped at. Until the source editor arrives, note what you see " +
+    "with Skip, or settle files that are not in the catalogue.",
+  proofreading: "Every part shown typeset on the site, beside the scan of the same systems. Proofread confirms this drawing; " +
+    "an edit to the file brings it back. Problem leaves a note and keeps it here.",
+};
+---
+
+<Layout title="Admin: typeset music" noindex>
+  <div class="admin ui">
+    <p class="small muted"><a href="/admin/">Corrections</a> · <a href="/admin/review/">Review</a> · <a href="/admin/parts/">Parts to check</a></p>
+    <h1>Typeset music</h1>
+    <p class="muted small prose">
+      The volunteers' LilyPond transcriptions (Joe Egan's <a
+      href="https://github.com/joeegan2202/nova-organi-harmonia">nova-organi-harmonia</a>). What you choose here is
+      published with the next <strong>Publish changes</strong> on the <a href="/admin/">Corrections</a> page.
+    </p>
+
+    <form class="filters" id="filters" aria-label="Show">
+      <fieldset>
+        <legend class="small">Show</legend>
+        {QUEUE_ORDER.map((q, i) => (
+          <label class="choice"><input type="radio" name="queue" value={q} checked={i === 0} />
+            {QUEUE_LABELS[q]} (<span data-count={q}>{byQueue(q).length}</span>)</label>
+        ))}
+      </fieldset>
+      <label class="small">Volume
+        <select name="volume"><option value="">All</option>{volumes.map((v) => <option value={v}>{v}</option>)}</select>
+      </label>
+      <label class="choice small"><input type="checkbox" name="done" /> Show what is already done</label>
+      <label class="choice small"><input type="checkbox" data-chant-toggle /> Show the chant</label>
+    </form>
+
+    <div id="status" class="status small" role="status" aria-live="polite"></div>
+    <p class="small muted" id="shown" aria-live="polite"></p>
+
+    {QUEUE_ORDER.map((q, i) => (
+      <section class="queue" data-queue-list={q} hidden={i !== 0} aria-label={QUEUE_LABELS[q]}>
+        <p class="small muted prose">{INTRO[q]}</p>
+        {byQueue(q).map((e) => (
+          <article class:list={["item", q]} data-review-target={e.target} data-review-seen={e.fingerprint}
+                   data-volume={e.volume} aria-labelledby={anchor(e)}>
+            <div class="main">
+            <h3 tabindex="-1" id={anchor(e)}>{e.title}</h3>
+            <p class="small">{e.look}</p>
+            {e.detail && <p class="small muted">{e.detail}</p>}
+
+            {e.render && (
+              <figure class="drawing">
+                <picture>
+                  <source media="(max-width: 40rem)" srcset={e.render.narrow} />
+                  <img src={e.render.wide} alt={`${e.title}: the transcription, drawn by LilyPond`} loading="lazy" />
+                </picture>
+                <figcaption class="small muted">The transcription, as LilyPond draws it</figcaption>
+              </figure>
+            )}
+
+            {e.error && (
+              <div class="error">
+                <p class="small"><strong>{e.error.line ? `Line ${e.error.line}${e.error.column ? `, column ${e.error.column}` : ""}: ` : ""}</strong>{e.error.message}</p>
+                {e.excerpt.length > 0 && (
+                  <div class="source" role="group" aria-label={`The source around line ${e.error.line ?? ""}`}>
+                    {e.excerpt.map(([n, text]) => (
+                      <code class:list={["line", n === e.error?.line && "at"]} data-line={n}>{text}</code>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {e.shownAs && (
+              <p class="small">Shown as <strong>{e.shownAs.label}</strong>{e.href && <> · <a href={e.href}>Open the page</a></>}</p>
+            )}
+
+            {e.candidates.length > 0 && (
+              <ol class="candidates" aria-label="Candidates">
+                {e.candidates.map((c) => (
+                  <li>
+                    <p class="small"><strong>{c.label}</strong> · {pct(c.melody)}
+                      {c.href && <> · <a href={c.href}>Open the page</a></>}</p>
+                    {c.scan?.stem && (
+                      <figure>
+                        <img src={`${c.scan.stem}.webp`} alt={`${c.label}, where it starts, as printed`} loading="lazy"
+                             width={c.scan.aspect?.[0]} height={c.scan.aspect?.[1]} />
+                      </figure>
+                    )}
+                    {c.chant !== null && (
+                      <div class="chant-notation" hidden data-chant-id={c.chant} data-incipit="">
+                        <p class="chant-credit small muted">Chant from GregoBase</p>
+                      </div>
+                    )}
+                    {q === "matches" && (
+                      <div class="match-actions">
+                        <button type="button" data-choose={c.target} data-value={c.target} data-label={c.label}>This part</button>
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            )}
+
+            <div class="actions review-actions">
+              {q === "proofreading" && <button type="button" data-act="looks-right">Proofread</button>}
+              {q !== "proofreading" && (
+                <>
+                  <span class="match-actions">
+                    <button type="button" data-choose="none" data-value="none" data-label="not in the catalogue">Not in the catalogue</button>
+                    <button type="button" data-choose="other-setting" data-value="other-setting" data-label="a different setting">A different setting</button>
+                  </span>
+                </>
+              )}
+              <button type="button" data-act="skip">{q === "proofreading" ? "Problem…" : "Skip…"}</button>
+            </div>
+            {q === "matches" && (
+              <details class="other match-actions">
+                <summary class="small">Another part…</summary>
+                <label class="small" for={`typed-${anchor(e)}`}>The part it is, as a target (part:&lt;piece&gt;/&lt;part&gt;,
+                  movement:&lt;Mass&gt;/&lt;movement&gt; or piece:&lt;piece&gt;; the piece page's Report link shows it)</label>
+                <input type="text" id={`typed-${anchor(e)}`} data-typed maxlength="160" autocomplete="off" spellcheck="false" />
+                <button type="button" data-choose="typed">Choose it</button>
+              </details>
+            )}
+            <p class="review-state small" aria-live="polite"></p>
+            </div>
+            {e.scans.length > 0 && (
+              <div class="scan">
+                {e.scans.map((s) => (
+                  <figure>
+                    {s.stem && <img src={`${s.stem}.webp`} alt={`${s.caption}, as printed`} loading="lazy"
+                                    width={s.aspect?.[0]} height={s.aspect?.[1]} />}
+                    <figcaption class="small muted">{s.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
+          </article>
+        ))}
+      </section>
+    ))}
+    <p id="none" class="muted" hidden>Nothing to show with these choices.</p>
+  </div>
+</Layout>
+
+<style>
+  .admin { max-width: 64rem; }
+  h1 { margin: 0 0 var(--s-2); }
+  .filters { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: end; margin: var(--s-3) 0;
+             padding: var(--s-2) 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .filters fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-3); }
+  .filters legend { padding: 0; margin-bottom: var(--s-1); }
+  .filters select { display: block; font: inherit; font-family: var(--font-ui); min-height: var(--tap-min);
+                    padding: var(--s-1) var(--s-2); background: var(--paper); color: var(--ink);
+                    border: 1px solid var(--rule); border-radius: var(--radius); }
+  .choice { display: inline-flex; align-items: center; gap: var(--s-1); min-height: var(--tap-min); }
+  .status { min-height: 1.4em; margin: var(--s-2) 0; }
+  .status[data-state="error"] { color: var(--warn-ink); }
+  .item { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); align-items: start;
+          padding: var(--s-3) 0; border-bottom: 1px solid var(--rule); }
+  .main { display: grid; gap: var(--s-2); min-width: 0; }
+  .item h3 { margin: 0; font-size: var(--step-0); }
+  .item h3:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .item p { margin: 0; }
+  .item[data-done="reviewed"], .item[data-done="chosen"] { opacity: 0.7; }
+  @media (min-width: 60rem) {
+    .item.proofreading { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s-4); }
+  }
+  figure { margin: 0; }
+  .drawing img, .scan img, .candidates img { display: block; width: 100%; height: auto; }
+  .drawing { background: #fff; padding: var(--s-1); border: 1px solid var(--rule); }
+  .scan figure { margin: 0 0 var(--s-2); }
+  figcaption { margin-top: var(--s-1); }
+  .candidates { margin: 0; padding-left: var(--s-4); display: grid; gap: var(--s-3); }
+  .candidates li { display: grid; gap: var(--s-1); }
+  .actions, .match-actions { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; }
+  .source { margin: var(--s-1) 0 0; padding: var(--s-2); overflow-x: auto; font-size: var(--step--1);
+             background: var(--paper); border: 1px solid var(--rule); border-radius: var(--radius); }
+  .source .line { display: block; white-space: pre; }
+  .source .line::before { content: attr(data-line); display: inline-block; width: 3.5em; color: var(--ink-muted); }
+  .source .at { background: var(--warn-bg); outline: 1px solid var(--warn-ink); }
+  .other { display: grid; gap: var(--s-1); }
+  .other input { font: inherit; font-family: var(--font-ui); min-height: var(--tap-min); padding: var(--s-2) var(--s-3);
+                 background: var(--paper); color: var(--ink); border: 1px solid var(--rule); border-radius: var(--radius); }
+  .other button { justify-self: start; }
+  .chant-notation { color: var(--ink); --exsurge-negative-fill: var(--paper); }
+  .chant-notation :global(svg) { display: block; max-width: 100%; height: auto; }
+  .chant-notation :global(svg use) { fill: currentColor; }
+  :global(.review-state .reason) { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: end; }
+  :global(.review-state .reason label) { display: block; width: 100%; }
+  :global(.review-state .reason input) { flex: 1 1 16rem; font: inherit; font-family: var(--font-ui);
+    min-height: var(--tap-min); padding: var(--s-2) var(--s-3); background: var(--paper); color: var(--ink);
+    border: 1px solid var(--rule); border-radius: var(--radius); }
+  :global(.review-state button.link) { background: none; border: 0; padding: 0; min-height: var(--tap-min);
+    color: var(--accent); text-decoration: underline; cursor: pointer; font: inherit; }
+</style>
+
+<script>
+  import { REVIEW_WORDS, wireReviews } from "../../../lib/admin/reviewClient";
+  import { applyChoices, wireMatches } from "../../../lib/admin/typesetClient";
+  import type { Choice } from "../../../lib/admin/typesetClient";
+  import { initChantNotation } from "../../../scripts/chantNotation";
+
+  const form = document.getElementById("filters") as HTMLFormElement | null;
+  const status = document.getElementById("status");
+  const none = document.getElementById("none");
+  const shown = document.getElementById("shown");
+  const lists = [...document.querySelectorAll<HTMLElement>("[data-queue-list]")];
+
+  /** Shows the chosen queue's items, and each queue's count of what is left to do.
+   * A skipped item (or a proofreading problem) stays listed, with its note. */
+  function apply(): void {
+    if (!form) return;
+    const data = new FormData(form);
+    const queue = String(data.get("queue") ?? "matches");
+    const volume = String(data.get("volume") ?? "");
+    const done = data.get("done") !== null;
+    let visible = 0;
+    for (const list of lists) {
+      list.hidden = list.dataset["queueList"] !== queue;
+      for (const el of list.querySelectorAll<HTMLElement>("[data-review-target]")) {
+        const finished = el.dataset["done"] === "reviewed" || el.dataset["done"] === "chosen";
+        const show = !list.hidden && (!volume || el.dataset["volume"] === volume) && (done || !finished);
+        el.hidden = !show;
+        if (show) visible++;
+      }
+      const counter = document.querySelector<HTMLElement>(`[data-count="${list.dataset["queueList"] ?? ""}"]`);
+      if (counter) {
+        counter.textContent = String([...list.querySelectorAll<HTMLElement>("[data-review-target]")]
+          .filter((el) => el.dataset["done"] !== "reviewed" && el.dataset["done"] !== "chosen").length);
+      }
+    }
+    if (none) none.hidden = visible > 0;
+    if (shown) shown.textContent = `${visible} shown`;
+  }
+
+  form?.addEventListener("change", apply);
+  apply();
+  const proof = { reviewed: "Proofread", marked: "marked as proofread", skipped: "Problem", skip: "problem note",
+                  why: "What is wrong? (it stays on this list, with your note)", saved: "Noted; it stays on the list." };
+  const wired = lists.map((list) => {
+    const queue = list.dataset["queueList"];
+    const words = queue === "proofreading" ? proof : REVIEW_WORDS;
+    if (queue !== "proofreading") wireMatches(list, status, apply);
+    return wireReviews(list, status, apply, words, (state) => {
+      const choices = (state as { choices?: readonly Choice[] }).choices ?? [];
+      if (queue !== "proofreading") applyChoices(list, choices);
+    });
+  });
+  // What editors have already done is marked once it has loaded: until then
+  // the counts are the page's own.
+  void Promise.all(wired).then(() => form?.setAttribute("data-ready", ""));
+  initChantNotation();
+</script>

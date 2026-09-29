@@ -50,6 +50,10 @@ _SPEC = _SPECS["piece"]
 FIELDS: dict[str, re.Pattern[str]] = {name: re.compile(rule["pattern"]) for name, rule in _SPEC.items()}
 HINTS: dict[str, str] = {name: rule["hint"] for name, rule in _SPEC.items()}
 _REVIEWS: dict[str, Any] = _SCHEMA["reviews"]
+#: A typeset:<file> target's file (a path under data/typeset/src/).
+TYPESET_FILE = re.compile(_SCHEMA["typeset_file"]["pattern"])
+#: The field that says which part a typeset file is.
+MATCH_FIELD = "match"
 #: The field that records a review. It changes no data, and a review whose
 #: confirmed value has changed lapses (the item comes back) rather than
 #: stopping the build.
@@ -74,8 +78,13 @@ HEADER = """\
 #   vespers:sunday:<key>/magnificat       tone, chant, refs, note   (vespers/vespers-noh8.yml magnificat_antiphons)
 #   pairing:<slug>/<movement>             chant   (a Kyrie, Gloria... of a piece without Proper parts)
 #   review:<volume>/<kind>/<id>           reviewed   (an item of review-queue.json, by its key)
-# `reviewed: yes` (on a part or a review item) records that an editor found it
-# right; `was` is what they confirmed, and when that changes the review lapses.
+#   typeset:<file>                        match, reviewed   (a transcription in data/typeset/src/)
+# `reviewed: yes` (on a part, a review item or a typeset file) records that an
+# editor found it right; `was` is what they confirmed (for a typeset file, its
+# render hash), and when that changes the review lapses. A typeset file's match
+# is the part it is (part:..., movement:<slug>/<movement>, piece:<slug>), none
+# (not in the catalogue) or other-setting; it is applied over
+# data/typeset/parts.yml when the manifest is written.
 # A chant is a GregoBase id, or none; refs are the systems it is printed on
 # ("noh8/0077/000 noh8/0077/001"); a note is shown in place of the music (none
 # shows the music again). A system_range is a piece's first and last system
@@ -517,6 +526,13 @@ def _review_slot(target: str, kind: str, catalog: dict[str, Any] | None) -> Slot
     def keep(_: Any) -> None:
         return None
 
+    if kind == "typeset":
+        from pipeline.typeset import match
+        from pipeline.typeset.render import source_hash
+        path = match.SRC / _typeset_file(target)
+        if not path.exists():
+            raise CorrectionError(f"{target} is not a transcription in data/typeset/src/")
+        return Slot(get=lambda: source_hash(path.read_text(encoding="utf-8")), put=keep)
     if kind == "review":
         from pipeline.reviewkeys import KEY
         if not KEY.fullmatch(target):
@@ -537,6 +553,58 @@ def _review_slot(target: str, kind: str, catalog: dict[str, Any] | None) -> Slot
     return Slot(get=lambda: part_fingerprint(piece, part), put=keep)
 
 
+def _typeset_file(target: str) -> str:
+    file = target.split(":", 1)[1] if ":" in target else ""
+    if not TYPESET_FILE.fullmatch(file):
+        raise CorrectionError(f"{target} is not of the form typeset:<file>, a path under data/typeset/src/ "
+                              "such as typeset:vol-1/al_crastina_die.csv.ly")
+    return file
+
+
+_PARTS_CACHE: dict[tuple[str, int], dict[str, dict[str, Any]]] = {}
+
+
+def _typeset_entries() -> dict[str, dict[str, Any]]:
+    """data/typeset/parts.yml's entries, by file (as the matcher left them)."""
+    from pipeline.typeset import match
+    path = match.PARTS_FILE
+    if not path.exists():
+        return {}
+    cache = (str(path), path.stat().st_mtime_ns)
+    if cache not in _PARTS_CACHE:
+        _PARTS_CACHE[cache] = {str(e["file"]): e for e in match.load(path)}
+    return _PARTS_CACHE[cache]
+
+
+def _typeset_slot(target: str, catalog: dict[str, Any] | None) -> Slot:
+    """Which part a transcription is. Reads and writes nothing here: the
+    manifest applies it over parts.yml (pipeline/typeset/match.py with_choices).
+    What it was is what the matcher settled on (a target only when matched)."""
+    from pipeline.typeset.match import settled, targets
+    entry = _typeset_entries().get(_typeset_file(target))
+    if entry is None:
+        raise CorrectionError(f"{target} is not a transcription in data/typeset/src/ (parts.yml has no entry for it)")
+
+    def check(value: Any) -> str | None:
+        if ":" not in str(value):
+            return None
+        if entry.get("status") == "broken":
+            why = (entry.get("evidence") or {}).get("error") or "it does not compile"
+            return (f"{target} cannot be shown as {value}: LilyPond cannot draw it ({str(why)[:120]}); "
+                    "fix the file first, or choose none or other-setting")
+        if catalog is not None and value not in {t.target for t in targets(catalog, lambda ref: None)}:
+            return f"{target} match: {value} is not a part, movement or piece the catalogue has"
+        return None
+
+    return Slot(get=lambda: settled(entry), put=lambda _: None, check=check)
+
+
+def typeset_choices(entries: list[Entry]) -> dict[str, str]:
+    """The editors' answers to which part each typeset file is, by file."""
+    return {e.target.split(":", 1)[1]: str(e.value) for e in entries
+            if e.field == MATCH_FIELD and e.target.startswith("typeset:")}
+
+
 def slot(target: str, name: str, catalog: dict[str, Any] | None, vespers: VespersData | None) -> Slot:
     """The slot a target's field names; raises CorrectionError saying why not."""
     kind = kind_of(target)
@@ -554,6 +622,8 @@ def slot(target: str, name: str, catalog: dict[str, Any] | None, vespers: Vesper
         if vespers is None:
             raise CorrectionError(f"{target}: the Vespers files are not loaded")
         return _vespers_slot(target, name, vespers)
+    if kind == "typeset":
+        return _typeset_slot(target, catalog)
     pieces = _pieces(catalog or {})
     if kind == "part":
         return _part_slot(target, name, pieces)
@@ -710,6 +780,13 @@ def _check(base: dict[str, Any] | None, entries: list[Entry], vespers: VespersDa
         issue = s.check(value) if s.check else None
         if issue:
             out.append(f"{where}: {issue}")
+    chosen: dict[str, Entry] = {}
+    for e in entries:
+        if e.field == MATCH_FIELD and e.target.startswith("typeset:") and ":" in str(e.value):
+            first = chosen.setdefault(str(e.value), e)
+            if first is not e:
+                out.append(f"{_where(e)}: {e.target} and {first.target} ({first.id}) are both chosen as "
+                           f"{e.value}; a part shows one transcription, so keep one")
     if order and layer is not None:
         bad = {e.id for e in entries if any(m.startswith(f"{_where(e)}:") for m in out)}
         out += _part_order(layer, entries, bad)
@@ -837,8 +914,11 @@ def _outputs(base_path: Path, path: Path, out: Path) -> dict[Path, str]:
                               + (f" (and {len(stranded) - 1} more)" if len(stranded) > 1 else "")
                               + " in no piece, but a Vespers page shows it; widen that piece's range, "
                                 "or give the system to the piece before or after")
+    from pipeline.typeset.manifest import MANIFEST, REVIEW, build, text
+    manifest, review_list = build(corrections=entries)
     return {out: dump(catalog), LINEUP: lineup, LOG: log_text(entries),
-            REVIEWED: reviewed_text(reviews(catalog, entries)[0])}
+            REVIEWED: reviewed_text(reviews(catalog, entries)[0]),
+            MANIFEST: text(manifest), REVIEW: text(review_list)}
 
 
 def _stranded(catalog: dict[str, Any], lineup: dict[str, Any]) -> list[str]:
@@ -852,7 +932,8 @@ def _stranded(catalog: dict[str, Any], lineup: dict[str, Any]) -> list[str]:
 
 def write_all(base_path: Path = BASE, path: Path = CORRECTIONS, out: Path = CATALOG) -> tuple[int, list[str]]:
     """Apply every correction: catalog.json, the Vespers lineup (rebuilt for the
-    window it already covers) and the public log. Returns (entries, files changed)."""
+    window it already covers), the public log, reviewed.json and the typeset
+    manifest and review list. Returns (entries, files changed)."""
     files = []
     for file, text in _outputs(base_path, path, out).items():
         if not file.exists() or file.read_text(encoding="utf-8") != text:
@@ -1061,6 +1142,7 @@ __all__ = [
     "CATALOG",
     "CORRECTIONS",
     "FIELDS",
+    "MATCH_FIELD",
     "CorrectionError",
     "Entry",
     "Slot",
@@ -1087,6 +1169,7 @@ __all__ = [
     "save",
     "slot",
     "stale_outputs",
+    "typeset_choices",
     "write",
     "write_all",
 ]

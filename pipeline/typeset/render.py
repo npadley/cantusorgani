@@ -5,9 +5,10 @@
                  (pipeline/typeset/narrow.ily)
     wide.svg     tablet and desktop: 190 mm lines, staff 18, the book's own
                  line breaks, so it can be read against the scan line by line
-    score.pdf    the export: A4 pages, staff 18, the book's line breaks
+    letter.pdf   the export: US Letter pages, staff 18, the book's line breaks
+    a4.pdf       the same on A4
 
-All three use LilyPond's Cairo backend, which draws text as outlines: no
+All four use LilyPond's Cairo backend, which draws text as outlines: no
 fonts are needed to show them. pipeline/typeset/render.ily removes titles and
 running heads; the page names the part, and the credit goes under the music.
 
@@ -31,12 +32,14 @@ from pipeline.typeset.lilypond import INCLUDE
 
 #: Bump to re-render everything after a change to how rendering works that the
 #: files below do not show (a new LilyPond option, say).
-RENDER_VERSION = "1"
+RENDER_VERSION = "2"
 HERE = Path(__file__).parent
 RENDER_ILY = HERE / "render.ily"
 NARROW_ILY = HERE / "narrow.ily"
 PRELUDE_ILY = HERE / "prelude.ily"
-FILES = ("narrow.svg", "wide.svg", "score.pdf")
+FILES = ("narrow.svg", "wide.svg", "letter.pdf", "a4.pdf")
+#: Printed pages keep a printer's margins; the pictures on screen need none.
+PRINT_MARGINS = "top-margin = 12\\mm bottom-margin = 12\\mm left-margin = 15\\mm right-margin = 12\\mm"
 
 _NOH2 = re.compile(r'^(\s*\\include\s+"noh2\.ily".*)$', re.MULTILINE)
 
@@ -53,7 +56,8 @@ class Format:
 FORMATS = (
     Format("narrow", "narrow.svg", "paper-width = 90\\mm page-breaking = #ly:one-page-breaking", 17, True),
     Format("wide", "wide.svg", "paper-width = 190\\mm page-breaking = #ly:one-page-breaking", 18, False),
-    Format("print", "score.pdf", "#(set-paper-size \"a4\")", 18, False),
+    Format("letter", "letter.pdf", f"#(set-paper-size \"letter\") {PRINT_MARGINS}", 18, False),
+    Format("a4", "a4.pdf", f"#(set-paper-size \"a4\") {PRINT_MARGINS}", 18, False),
 )
 #: Warnings that mean LilyPond itself went wrong: these fail a render. Other
 #: warnings are the transcriptions' own small slips (a slur with nothing to
@@ -76,7 +80,8 @@ def settings_text() -> str:
 def source_hash(text: str, include: Path = INCLUDE, version: str | None = None) -> str:
     """The name a render is published under."""
     h = hashlib.sha256()
-    parts = [RENDER_VERSION, version or lilypond.load_pin().version, settings_text(), text,
+    formats = repr([(f.name, f.output, f.paper, f.staff, f.narrow) for f in FORMATS])
+    parts = [RENDER_VERSION, version or lilypond.load_pin().version, settings_text(), formats, text,
              *(f"{p.name}\n{p.read_text(encoding='utf-8')}" for p in sorted(include.glob("*.ily")))]
     for part in parts:
         h.update(part.encode("utf-8"))

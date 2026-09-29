@@ -22,19 +22,39 @@ function stateLine(item: HTMLElement): HTMLElement | null {
   return item.querySelector<HTMLElement>(".review-state");
 }
 
+/** What the buttons' outcomes are called: the Review page's words by default. */
+export interface Words {
+  /** A review recorded ("Looks right", "Proofread"). */
+  readonly reviewed: string;
+  /** Said when a review is recorded: "<item>: marked as looking right." */
+  readonly marked: string;
+  /** A skip recorded ("Skipped", "Problem"). */
+  readonly skipped: string;
+  /** A skip, as a noun ("skip", "problem note"). */
+  readonly skip: string;
+  /** The question a skip's note answers. */
+  readonly why: string;
+  /** Said when a skip is saved. */
+  readonly saved: string;
+}
+export const REVIEW_WORDS: Words = {
+  reviewed: "Looks right", marked: "marked as looking right", skipped: "Skipped", skip: "skip",
+  why: "Why skip it? (for the next editor)", saved: "Skipped, with your note.",
+};
+
 /** An item reviewed and waiting to be published: its buttons go. */
-function markReviewed(item: HTMLElement, by: string | null, queued: boolean): void {
+function markReviewed(item: HTMLElement, by: string | null, queued: boolean, words: Words = REVIEW_WORDS): void {
   item.dataset["done"] = "reviewed";
   item.querySelector(".review-actions")?.setAttribute("hidden", "");
-  stateLine(item)?.replaceChildren(h("strong", {}, "Looks right"),
+  stateLine(item)?.replaceChildren(h("strong", {}, words.reviewed),
     ` · marked by ${by ?? "an editor"}; ${queued ? "publishing now" : "goes with the next Publish on the Corrections page"}.`);
 }
 
-function markSkipped(item: HTMLElement, note: string, by: string, onUnskip: () => void): void {
+function markSkipped(item: HTMLElement, note: string, by: string, onUnskip: () => void, words: Words = REVIEW_WORDS): void {
   item.dataset["done"] = "skipped";
-  const undo = h("button", { type: "button", class: "link" }, "Take back the skip");
+  const undo = h("button", { type: "button", class: "link" }, `Take back the ${words.skip}`);
   undo.addEventListener("click", onUnskip);
-  stateLine(item)?.replaceChildren(h("strong", {}, "Skipped"), ` by ${by}: “${note}” `, undo);
+  stateLine(item)?.replaceChildren(h("strong", {}, words.skipped), ` by ${by}: “${note}” `, undo);
 }
 
 function clearState(item: HTMLElement): void {
@@ -52,7 +72,8 @@ function focusNext(root: ParentNode, from: HTMLElement): void {
 }
 
 export async function wireReviews(root: HTMLElement, status: HTMLElement | null,
-                                  onChange: () => void = () => undefined): Promise<void> {
+                                  onChange: () => void = () => undefined, words: Words = REVIEW_WORDS,
+                                  onState: (state: unknown) => void = () => undefined): Promise<void> {
   const fail = (result: { status: number; error: string }): void => {
     if (result.status === 401) signInAgain(status);
     else say(status, result.error, "error");
@@ -63,7 +84,7 @@ export async function wireReviews(root: HTMLElement, status: HTMLElement | null,
     const result = await api<{ ok: true }>("/skips/remove", { target: item.dataset["reviewTarget"] });
     if (!result.ok) return fail(result);
     clearState(item);
-    say(status, "Skip taken back.", "ok");
+    say(status, `${words.skip[0]?.toUpperCase() ?? ""}${words.skip.slice(1)} taken back.`, "ok");
     onChange();
   }
 
@@ -73,12 +94,13 @@ export async function wireReviews(root: HTMLElement, status: HTMLElement | null,
   } else {
     for (const r of state.data.reviews) {
       const item = byTarget.get(r.target);
-      if (item) markReviewed(item, r.editor_email, r.status === "queued");
+      if (item) markReviewed(item, r.editor_email, r.status === "queued", words);
     }
     for (const s of state.data.skips) {
       const item = byTarget.get(s.target);
-      if (item && !item.dataset["done"]) markSkipped(item, s.note, s.editor_email, () => void unskip(item));
+      if (item && !item.dataset["done"]) markSkipped(item, s.note, s.editor_email, () => void unskip(item), words);
     }
+    onState(state.data);
     onChange();
   }
 
@@ -92,8 +114,8 @@ export async function wireReviews(root: HTMLElement, status: HTMLElement | null,
       void api<{ ok: true }>("/reviews", { target, seen: item.dataset["reviewSeen"] ?? "" }).then((result) => {
         button.disabled = false;
         if (!result.ok) return fail(result);
-        markReviewed(item, "you", false);
-        say(status, `${item.querySelector("h3")?.textContent ?? "Item"}: marked as looking right.`, "ok");
+        markReviewed(item, "you", false, words);
+        say(status, `${item.querySelector("h3")?.textContent ?? "Item"}: ${words.marked}.`, "ok");
         onChange();
         focusNext(root, item);
       });
@@ -101,8 +123,8 @@ export async function wireReviews(root: HTMLElement, status: HTMLElement | null,
     if (button.dataset["act"] === "skip") {
       const id = `skip-${Math.random().toString(36).slice(2, 8)}`;
       const note = h("input", { type: "text", id, maxlength: "300", autocomplete: "off" }) as HTMLInputElement;
-      const save = h("button", { type: "button" }, "Save the skip");
-      const form = h("div", { class: "reason" }, h("label", { for: id }, "Why skip it? (for the next editor)"), note, save);
+      const save = h("button", { type: "button" }, `Save the ${words.skip}`);
+      const form = h("div", { class: "reason" }, h("label", { for: id }, words.why), note, save);
       stateLine(item)?.replaceChildren(form);
       note.focus();
       const submit = (): void => {
@@ -116,8 +138,8 @@ export async function wireReviews(root: HTMLElement, status: HTMLElement | null,
         void api<{ ok: true }>("/skips", { target, note: text }).then((result) => {
           save.removeAttribute("disabled");
           if (!result.ok) return fail(result);
-          markSkipped(item, text, "you", () => void unskip(item));
-          say(status, "Skipped, with your note.", "ok");
+          markSkipped(item, text, "you", () => void unskip(item), words);
+          say(status, words.saved, "ok");
           onChange();
           focusNext(root, item);
         });

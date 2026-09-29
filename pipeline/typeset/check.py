@@ -4,7 +4,8 @@ sound. Needs no LilyPond, so it runs in every CI build:
 - every source and include file passes the source check;
 - data/typeset/parts.yml has one entry for every source file, and only for them;
 - every target it names exists in the catalogue, statuses are known, and no two
-  files are matched to one target.
+  files are matched to one target (with the editors' choices from
+  data/corrections.yml applied).
 """
 
 from __future__ import annotations
@@ -16,11 +17,11 @@ from typing import Any
 
 from pipeline.typeset.importer import INCLUDES
 from pipeline.typeset.lilypond import INCLUDE
-from pipeline.typeset.match import PARTS_FILE, SRC, load, targets
+from pipeline.typeset.match import PARTS_FILE, SRC, targets
 from pipeline.typeset.source_check import check_file
 from pipeline.volumes import DATA
 
-STATUSES = frozenset({"matched", "proposed", "melody-differs", "broken"})
+STATUSES = frozenset({"matched", "proposed", "melody-differs", "broken", "no-match", "other-setting"})
 
 
 def problems(src: Path = SRC, include: Path = INCLUDE, parts: Path = PARTS_FILE,
@@ -30,7 +31,9 @@ def problems(src: Path = SRC, include: Path = INCLUDE, parts: Path = PARTS_FILE,
     for path in [*files, *sorted(include.glob("*.ily"))]:
         for p in check_file(path, frozenset(INCLUDES)):
             out.append(f"{path.relative_to(src.parents[2])}: {p}")
-    entries: list[dict[str, Any]] = load(parts)
+    from pipeline.typeset.manifest import effective
+    # With the editors' choices: a part they chose must still exist too.
+    entries: list[dict[str, Any]] = effective(parts)
     have = {f.relative_to(src).as_posix() for f in files}
     listed = Counter(str(e.get("file")) for e in entries)
     out += [f"parts.yml: {f} is listed {n} times" for f, n in listed.items() if n > 1]

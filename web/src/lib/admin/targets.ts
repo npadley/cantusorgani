@@ -3,7 +3,8 @@
  *
  * A target is a piece (piece:<slug>), one of a Proper's parts
  * (part:<slug>/<part>[:<variant>]) or a Vespers item (vespers:<office>/antiphon-<n>,
- * vespers:<office>/magnificat, vespers:sunday:<key>/magnificat). The field
+ * vespers:<office>/magnificat, vespers:sunday:<key>/magnificat), or a typeset
+ * transcription (typeset:<file>: which part it is). The field
  * rules come from data/schema/corrections.json, the file pipeline/corrections.py
  * reads, so the admin screen, the Corrections form and `noh correct` accept the
  * same values. The GitHub workflow checks every entry again with
@@ -11,7 +12,7 @@
  */
 import schema from "../../../../data/schema/corrections.json";
 
-export type Kind = "piece" | "part" | "vespers" | "pairing";
+export type Kind = "piece" | "part" | "vespers" | "pairing" | "typeset";
 export type PieceField = "title" | "incipit" | "mode" | "genre" | "printed_pages" | "system_range";
 
 interface FieldRule {
@@ -32,7 +33,7 @@ const READER_FIELDS = schema.reader_fields as Readonly<Record<string, string>>;
 /** The fields each kind of target can correct, in the order offered. */
 export const FIELDS_OF: Readonly<Record<Kind, readonly string[]>> = {
   piece: Object.keys(RULES.piece), part: Object.keys(RULES.part), vespers: Object.keys(RULES.vespers),
-  pairing: Object.keys(RULES.pairing),
+  pairing: Object.keys(RULES.pairing), typeset: Object.keys(RULES.typeset),
 };
 
 const MOVEMENTS = schema.pairing_movements as unknown as Readonly<Record<string, readonly string[]>>;
@@ -58,7 +59,7 @@ export const PIECE_FIELDS = FIELDS_OF.piece as readonly PieceField[];
 export const FIELD_LABELS: Readonly<Record<string, string>> = {
   title: "Title", incipit: "Incipit", mode: "Mode", genre: "Genre", printed_pages: "Printed pages",
   system_range: "Systems (first-last)", start_system: "Starts on system", chant: "Chant (GregoBase id)", tone: "Tone",
-  refs: "Printed systems", note: "A note instead of the music", reviewed: "Looks right",
+  refs: "Printed systems", note: "A note instead of the music", reviewed: "Looks right", match: "Which part it is",
 };
 
 export const PART_LABELS: Readonly<Record<string, string>> = {
@@ -118,9 +119,20 @@ export interface TargetVespers {
   readonly aspect: readonly [number, number] | null;
 }
 
+/** A typeset transcription, by its file under data/typeset/src/. */
+export interface TargetTypeset {
+  /** Its opening words, or its file when it has none. */
+  readonly label: string;
+  /** What it is now: a target when shown, none, other-setting, or "" while undecided. */
+  readonly match: string;
+  /** Why it cannot be shown as a part (LilyPond cannot draw it), or null. */
+  readonly broken: string | null;
+}
+
 export interface Targets {
   readonly pieces: Readonly<Record<string, TargetPiece>>;
   readonly vespers?: Readonly<Record<string, TargetVespers>>;
+  readonly typeset?: Readonly<Record<string, TargetTypeset>>;
   readonly genres: readonly string[];
 }
 
@@ -151,7 +163,8 @@ export interface TargetInfo {
 
 export function kindOf(target: string): Kind | null {
   const kind = target.split(":", 1)[0];
-  return kind === "piece" || kind === "part" || kind === "vespers" || kind === "pairing" ? kind : null;
+  return kind === "piece" || kind === "part" || kind === "vespers" || kind === "pairing" || kind === "typeset"
+    ? kind : null;
 }
 
 export function isPieceField(name: string): name is PieceField {
@@ -195,6 +208,13 @@ export function describeTarget(targets: Targets, name: string): TargetInfo | nul
              genre: null, slug: null, fixed: null, bounds: null, systems: null };
   }
   const rest = name.includes(":") ? name.slice(name.indexOf(":") + 1) : name;
+  if (kind === "typeset") {
+    const t = Object.hasOwn(targets.typeset ?? {}, rest) ? targets.typeset?.[rest] : undefined;
+    if (!t) return null;
+    return { target: `typeset:${rest}`, kind, label: `Typeset ${rest} (${t.label})`, href: "/admin/typeset/",
+             stem: null, aspect: null, values: { match: t.match }, genre: null, slug: null, fixed: t.broken,
+             bounds: null, systems: null };
+  }
   const [slugOrId, partName] = rest.split("/") as [string, string | undefined];
   const piece = targets.pieces[slugOrId] ?? Object.values(targets.pieces).find((p) => p.id === slugOrId);
   if (!piece) return null;
@@ -264,6 +284,9 @@ export function checkValue(targets: Targets, info: TargetInfo, field: string, ra
   const reason = notFor(field, info.genre, info.kind);
   if (reason) return { ok: false, error: reason };
   if (field === "start_system" && info.fixed) return { ok: false, error: info.fixed };
+  if (field === "match" && info.fixed && raw.includes(":")) {
+    return { ok: false, error: `${info.fixed} Fix the file first, or choose “not in the catalogue” or “a different setting”.` };
+  }
   const value = normalise(field, raw, info.kind);
   const letters = [...value].filter((c) => /\p{L}/u.test(c)).length;
   if (!new RegExp(rule.pattern, "u").test(value) || letters < (rule.min_letters ?? 0)) {
@@ -284,6 +307,9 @@ export function checkValue(targets: Targets, info: TargetInfo, field: string, ra
   if (field === "note" && value === "none" && !info.values["note"]) {
     return { ok: false, error: "There is no note to remove; the music is shown." };
   }
+  if (field === "match" && value.includes(":") && !typesetTargetExists(targets, value)) {
+    return { ok: false, error: `${value} is not a part, Mass movement or single-chant piece the catalogue has.` };
+  }
   if (field === "genre" && !targets.genres.includes(value)) {
     return { ok: false, error: `“${value}” is not a genre the catalogue uses (${targets.genres.join(", ")}).` };
   }
@@ -299,6 +325,22 @@ export function checkValue(targets: Targets, info: TargetInfo, field: string, ra
     return { ok: false, error: `The ${words} is already “${value}”; nothing to correct.` };
   }
   return { ok: true, value };
+}
+
+/**
+ * Whether a typeset file can be shown as this target: a Proper's part printed
+ * in the piece, a movement found in a Mass, or a whole single-chant piece. The
+ * same rule as `targets` in pipeline/typeset/match.py.
+ */
+export function typesetTargetExists(targets: Targets, target: string): boolean {
+  const m = /^(part|movement|piece):([a-z0-9-]+)(?:\/([a-z]+)(?::([a-z0-9-]+))?)?$/.exec(target);
+  if (!m) return false;
+  const [, kind, slug = "", name = "", variant = ""] = m;
+  const piece = Object.hasOwn(targets.pieces, slug) ? targets.pieces[slug] : undefined;
+  if (!piece) return false;
+  if (kind === "part") return (piece.parts ?? []).some((p) => p.part === name && p.variant === variant && p.system !== null);
+  if (kind === "movement") return !variant && piece.genre === "mass_ordinary" && (piece.movements ?? []).includes(name);
+  return !name && (piece.parts ?? []).length === 0 && (piece.systems ?? 0) > 0 && piece.genre !== "mass_ordinary";
 }
 
 /** What a part's start means, in words, for the form: a part runs until the

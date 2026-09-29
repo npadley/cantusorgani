@@ -26,6 +26,10 @@ const REVIEW_INDEX = {
                     piece: "dominica-i-adventus" },
     "part:dominica-i-adventus/introit": { fingerprint: "start 1, 2 systems", label: "Part to check: Introit",
                                           piece: "dominica-i-adventus" },
+    "typeset:vol-5/missa-ix/kyrie_IX.ly": { fingerprint: "a".repeat(32), label: "Proofreading: Missa IX · Kyrie",
+                                            piece: "ordinarium-missae-ix" },
+    "typeset:vol-5/missa-ix/gloria_IX.ly": { fingerprint: "b".repeat(32), label: "Typeset match: Gloria",
+                                             piece: "ordinarium-missae-ix", review: false as const },
   },
 };
 let failClose: boolean;
@@ -54,7 +58,13 @@ function deps(e: AdminEnv = env): Deps {
                 { part: "gradual", variant: "", system: 3, borrowed: null, chant: null },
                 { part: "offertory", variant: "", system: null, borrowed: "dominica-ii, p. 9", chant: 7 },
                 { part: "communion", variant: "", system: 5, borrowed: null, chant: 1036 }],
-      })),
+      }), piece("ordinarium-missae-ix", { genre: "mass_ordinary", title: "Missa IX", mode: null, systems: 4,
+                                          movements: ["kyrie", "gloria"] })),
+      typeset: {
+        "vol-5/missa-ix/kyrie_IX.ly": { label: "movement:ordinarium-missae-ix/kyrie", match: "movement:ordinarium-missae-ix/kyrie", broken: null },
+        "vol-5/missa-ix/gloria_IX.ly": { label: "Gloria in excelsis", match: "", broken: null },
+        "vol-5/missa-ix/ite_IX.ly": { label: "vol-5/missa-ix/ite_IX.ly", match: "", broken: "LilyPond cannot draw it (line 3: error: x)." },
+      },
       vespers: { "vespers:adv1/antiphon-1": { label: "In illa die", when: "Advent I, II Vespers", href: "/vespers/2026-11-29/",
                                                tone: "VIII.G", chant: 2835, stem: null, aspect: null } },
     }),
@@ -352,6 +362,61 @@ describe("reviews", () => {
     expect((await call("POST", `/rows/${made.body["id"] as number}/unapprove`, {})).status).toBe(200);
     expect(statusOf(made.body["id"] as number)).toBe("rejected");
     expect((await looksRight()).status).toBe(201);
+  });
+});
+
+describe("typeset music", () => {
+  const GLORIA = "typeset:vol-5/missa-ix/gloria_IX.ly";
+  const choose = (target: string, value: string) => call("POST", "/edits", { target, field: "match", value });
+
+  it("should record which part a file is as an approved correction, and publish it", async () => {
+    const made = await choose(GLORIA, "movement:ordinarium-missae-ix/gloria");
+    expect(made).toMatchObject({ status: 201, body: { status: "approved" } });
+    const state = (await call("GET", "/review-state")).body;
+    expect(state["choices"]).toEqual([expect.objectContaining({ target: GLORIA, value: "movement:ordinarium-missae-ix/gloria",
+                                                                 status: "approved" })]);
+    const queue = (await call("GET", "/queue")).body;
+    expect((queue["approved"] as Record<string, unknown>[])[0]).toMatchObject({ resolvedField: "match", kind: "typeset", problem: null });
+    await call("POST", "/publish", {});
+    expect(sent[0]!.entries[0]).toMatchObject({ target: GLORIA, field: "match", value: "movement:ordinarium-missae-ix/gloria" });
+  });
+
+  it("should accept none and other-setting, and refuse a part the catalogue does not have", async () => {
+    expect((await choose(GLORIA, "none")).status).toBe(201);
+    expect((await choose("typeset:vol-5/missa-ix/ite_IX.ly", "other-setting")).status).toBe(201);
+    const missing = await choose(GLORIA, "movement:ordinarium-missae-ix/credo");
+    expect(missing).toMatchObject({ status: 422, body: { error: expect.stringMatching(/not a part, Mass movement or single-chant piece/) } });
+    expect((await choose(GLORIA, "part:dominica-i-adventus/offertory")).status).toBe(422);   // printed elsewhere
+    expect((await choose(GLORIA, "<script>")).status).toBe(422);
+  });
+
+  it("should refuse to show a file LilyPond cannot draw, and what it already is", async () => {
+    const broken = await choose("typeset:vol-5/missa-ix/ite_IX.ly", "movement:ordinarium-missae-ix/gloria");
+    expect(broken).toMatchObject({ status: 422, body: { error: expect.stringMatching(/cannot draw it.*Fix the file first/) } });
+    const same = await choose("typeset:vol-5/missa-ix/kyrie_IX.ly", "movement:ordinarium-missae-ix/kyrie");
+    expect(same.body["error"]).toMatch(/already/);
+    expect((await choose("typeset:vol-5/missa-ix/credo_IX.ly", "none")).status).toBe(422);
+  });
+
+  it("should name who chose a part already chosen for another file", async () => {
+    await choose(GLORIA, "movement:ordinarium-missae-ix/kyrie");
+    const other = { ...deps(), targets: async () => ({ ...(await deps().targets()), typeset: {
+      "vol-5/missa-ix/gloria_IX.ly": { label: "Gloria", match: "", broken: null },
+      "vol-5/missa-ix/kyrie_IX.ly": { label: "Kyrie", match: "", broken: null } } }) };
+    const response = await handleAdmin(new Request(`${ORIGIN}/admin/api/edits`, {
+      method: "POST", headers: { origin: ORIGIN, "content-type": "application/json" },
+      body: JSON.stringify({ target: "typeset:vol-5/missa-ix/kyrie_IX.ly", field: "match", value: "movement:ordinarium-missae-ix/kyrie" }),
+    }), env, other);
+    expect(response.status).toBe(409);
+    expect(((await response.json()) as { error: string }).error).toMatch(/gloria_IX\.ly is already chosen as movement:ordinarium-missae-ix\/kyrie \(by ed@example\.org\)/);
+  });
+
+  it("should record proofreading with the render hash, and refuse it for a file still to be matched", async () => {
+    const proof = await call("POST", "/reviews", { target: "typeset:vol-5/missa-ix/kyrie_IX.ly", seen: "a".repeat(32) });
+    expect(proof.status).toBe(201);
+    const early = await call("POST", "/reviews", { target: GLORIA, seen: "b".repeat(32) });
+    expect(early).toMatchObject({ status: 422, body: { error: expect.stringMatching(/still to be matched/) } });
+    expect((await call("POST", "/skips", { target: GLORIA, note: "Two candidates look alike" })).status).toBe(200);
   });
 });
 

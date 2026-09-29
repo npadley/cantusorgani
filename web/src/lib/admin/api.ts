@@ -302,12 +302,21 @@ async function createEdit(deps: Deps, editor: Editor, input: Record<string, unkn
   const target = text(input["target"], 160);
   const field = text(input["field"], 40);
   const info = target.includes(":") ? describeTarget(targets, target) : null;
-  if (!info) return problem(422, "Choose what to correct: a piece, one of its parts, or a Vespers item.");
+  if (!info) return problem(422, "Choose what to correct: a piece, one of its parts, a Vespers item or a typeset file.");
   if (!isField(info.kind, field)) return problem(422, `“${field}” is not a field this screen can correct for a ${info.kind}.`);
   const checked = checkValue(targets, info, field, text(input["value"], 200));
   if (!checked.ok) return problem(422, checked.error);
+  if (field === "match" && checked.value.includes(":")) {
+    // A part shows one transcription: a batch choosing one part twice is refused whole.
+    const twice = (await deps.store.list(["approved", "queued"], 1000))
+      .find((r) => r.field === "match" && r.proposed === checked.value && r.target !== info.target);
+    if (twice) {
+      return problem(409, `${twice.target?.slice("typeset:".length) ?? "Another file"} is already chosen as ${checked.value} ` +
+        `(by ${twice.editor_email ?? "another editor"}); withdraw that first on the Corrections page.`);
+    }
+  }
   const note = text(input["note"], 200);
-  const id = await deps.store.insertEdit({ target: info.target, pieceId: info.slug ?? "vespers", field,
+  const id = await deps.store.insertEdit({ target: info.target, pieceId: info.slug ?? info.kind, field,
                                            proposed: checked.value, note, email: editor.email });
   await deps.store.log(editor.email, "edit", id, `${info.target} ${field}: ${info.values[field] ?? ""} -> ${checked.value}`);
   return json({ ok: true, id, status: "approved", ...(await orderWarning(deps.store, targets, field)) }, 201);
@@ -358,12 +367,15 @@ const TARGET_MAX = 160;
 const SEEN_MAX = 80;
 const NOTE_MAX = 300;
 
-/** Reviews waiting to be published, and skipped items, for the Review page:
- * what an editor has already acted on disappears from the list at once. */
+/** Reviews and typeset matches waiting to be published, and skipped items,
+ * for the Review pages: what an editor has already acted on is marked at once. */
 async function reviewState(store: Store): Promise<Response> {
-  const rows = (await store.list(["approved", "queued"], 1000)).filter((r) => r.field === "reviewed");
+  const rows = await store.list(["approved", "queued"], 1000);
+  const brief = (r: Row) => ({ id: r.id, target: r.target, status: r.status, editor_email: r.editor_email });
   return json({
-    reviews: rows.map((r) => ({ id: r.id, target: r.target, status: r.status, editor_email: r.editor_email })),
+    reviews: rows.filter((r) => r.field === "reviewed").map(brief),
+    choices: rows.filter((r) => r.field === "match" && (r.target ?? "").startsWith("typeset:"))
+      .map((r) => ({ ...brief(r), value: r.proposed })),
     skips: await store.skips(),
   });
 }
@@ -387,6 +399,9 @@ async function reviewable(deps: Deps, input: Record<string, unknown>)
 async function createReview(deps: Deps, editor: Editor, input: Record<string, unknown>): Promise<Response> {
   const found = await reviewable(deps, input);
   if (found instanceof Response) return found;
+  if (found.item.review === false) {
+    return problem(422, "This typeset file is still to be matched or fixed; say which part it is, or skip it with a note.");
+  }
   const seen = text(input["seen"], SEEN_MAX);
   if (seen !== found.item.fingerprint) {
     return problem(409, "It has changed since this page was built. Reload the page and look again.");

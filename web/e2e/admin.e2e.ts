@@ -175,3 +175,92 @@ test.describe.serial("Reviewing", () => {
     await expect(part.getByRole("button", { name: "Looks right" })).toBeHidden();
   });
 });
+
+// The typeset drawings come from R2; a stand-in serves them here.
+const DRAWING = '<svg xmlns="http://www.w3.org/2000/svg" width="539" height="120" viewBox="0 0 539 120">' +
+  '<rect x="0" y="50" width="539" height="2"/></svg>';
+
+/** The page has marked what editors have already done (its counts are final). */
+async function ready(page: import("@playwright/test").Page): Promise<void> {
+  await expect(page.locator("#filters[data-ready]")).toBeAttached();
+}
+
+test.describe.serial("Typeset music", () => {
+  test.beforeEach(async ({ page }) => {
+    // Only R2's typeset/<hash>/ files: not this page, /admin/typeset/.
+    await page.route((url) => url.pathname.startsWith("/typeset/"), (route) =>
+      route.fulfill({ status: 200, contentType: "image/svg+xml", body: DRAWING }));
+  });
+
+  test("should choose which part a file is, count it done, and keep it after a reload", async ({ page }) => {
+    await page.goto("/admin/");
+    await page.getByRole("link", { name: /^Typeset music \(\d+ to do\)$/ }).click();
+    await expect(page.locator("h1")).toHaveText("Typeset music");
+    await ready(page);
+    const before = Number((await page.locator("[data-count=matches]").textContent()) ?? "0");
+    const item = page.locator("[data-queue-list=matches] article:visible").first();
+    const target = (await item.getAttribute("data-review-target")) ?? "";
+    await expect(item.locator(".drawing img")).toBeVisible();
+    const first = item.locator(".candidates li").first();
+    const label = (await first.locator("strong").textContent()) ?? "";
+    await first.getByRole("button", { name: "This part" }).click();
+    await expect(page.locator("#status")).toContainText(`: ${label}.`);
+    await expect(page.locator("[data-count=matches]")).toHaveText(String(before - 1));
+    await expect(page.locator(`article[data-review-target="${target}"]`)).toBeHidden();
+    await page.reload();
+    await ready(page);
+    await page.getByLabel("Show what is already done").check();
+    await expect(page.locator(`article[data-review-target="${target}"] .review-state`))
+      .toContainText(`Chosen: ${label} · by editor@example.org`);
+    await page.goto("/admin/");
+    await expect(page.locator("#approved")).toContainText(target.slice("typeset:".length));
+  });
+
+  test("should settle a file as not in the catalogue", async ({ page }) => {
+    await page.goto("/admin/typeset/");
+    await ready(page);
+    const target = (await page.locator("[data-queue-list=matches] article:visible").first()
+      .getAttribute("data-review-target")) ?? "";
+    const item = page.locator(`article[data-review-target="${target}"]`);
+    await item.getByRole("button", { name: "Not in the catalogue" }).click();
+    await page.getByLabel("Show what is already done").check();
+    await expect(item.locator(".review-state")).toContainText("Chosen: not in the catalogue · by you");
+  });
+
+  test("should show a broken file's error with its line marked", async ({ page }) => {
+    await page.goto("/admin/typeset/");
+    await ready(page);
+    await page.getByRole("radio", { name: /^Errors/ }).check();
+    const item = page.locator("[data-queue-list=errors] article:visible").first();
+    await expect(item.locator(".error")).toContainText(/Line \d+/);
+    await expect(item.locator(".source .at")).toHaveCount(1);
+    await expect(item.getByRole("button", { name: "This part" })).toHaveCount(0);
+  });
+
+  test("should proofread a part against its scan, and keep one with a problem listed", async ({ page }) => {
+    await page.goto("/admin/typeset/");
+    await ready(page);
+    await page.getByRole("radio", { name: /^Proofreading/ }).check();
+    const before = Number((await page.locator("[data-count=proofreading]").textContent()) ?? "0");
+    const proofed = (await page.locator("[data-queue-list=proofreading] article:visible").first()
+      .getAttribute("data-review-target")) ?? "";
+    const item = page.locator(`article[data-review-target="${proofed}"]`);
+    const heading = (await item.locator("h3").textContent()) ?? "";
+    await expect(item.locator(".scan img").first()).toBeVisible();
+    await item.getByRole("button", { name: "Proofread" }).click();
+    await expect(page.locator("#status")).toHaveText(`${heading}: marked as proofread.`);
+    await expect(page.locator("[data-count=proofreading]")).toHaveText(String(before - 1));
+    const target = (await page.locator("[data-queue-list=proofreading] article:visible").first()
+      .getAttribute("data-review-target")) ?? "";
+    const next = page.locator(`article[data-review-target="${target}"]`);
+    await next.getByRole("button", { name: "Problem…" }).click();
+    await next.getByLabel("What is wrong? (it stays on this list, with your note)").fill("Bar 3: the alto is a step low");
+    await next.getByRole("button", { name: "Save the problem note" }).click();
+    await page.reload();
+    await ready(page);
+    await page.getByRole("radio", { name: /^Proofreading/ }).check();
+    const again = page.locator(`article[data-review-target="${target}"]`);
+    await expect(again).toBeVisible();
+    await expect(again.locator(".review-state")).toContainText("Problem by editor@example.org: “Bar 3: the alto is a step low”");
+  });
+});

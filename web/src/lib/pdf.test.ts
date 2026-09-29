@@ -4,7 +4,9 @@ import { resolve } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { EXPORT_CEILING } from "./config";
-import { buildPdf, estimatePages, httpPngFetcher, validateSelection } from "./pdf";
+import { PDFDocument } from "pdf-lib";
+
+import { A4, LETTER, buildPdf, estimatePages, httpPdfFetcher, httpPngFetcher, validateSelection } from "./pdf";
 
 // Five real @2x.png slices of NOH5 p. 21 (public domain), kept beside the test
 // so it runs without build/ -- in CI, and on a fresh checkout.
@@ -171,5 +173,100 @@ describe("buildPdf part headings", () => {
     expect(pdfSafe("S. Theresiæ — Missa")).toBe("S. Theresiæ — Missa");
     expect(pdfSafe("Dómine ǽterne")).toBe("Dómine æterne");
     expect(pdfSafe("snow ☃ man")).toBe("snow  man");
+  });
+});
+
+/** A stand-in for a typeset part's PDF: `pages` pages at the given size. */
+async function typesetPdf(pages: number, size: { width: number; height: number }): Promise<ArrayBuffer> {
+  const doc = await PDFDocument.create();
+  for (let k = 0; k < pages; k++) doc.addPage([size.width, size.height]).drawText(`music ${k + 1}`);
+  const bytes = await doc.save();
+  return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer;
+}
+
+const pageSizes = async (bytes: Uint8Array) =>
+  (await PDFDocument.load(bytes)).getPages().map((p) => [Math.round(p.getWidth()), Math.round(p.getHeight())]);
+
+describe("buildPdf paper", () => {
+  it("should make US Letter pages by default", async () => {
+    const { bytes } = await buildPdf({ refs: MISSA_I_PAGE.slice(0, 1), title: "T", fetchPng: fileFetcher });
+    expect(await pageSizes(bytes)).toEqual([[612, 792]]);
+  });
+
+  it("should make A4 pages when asked", async () => {
+    const { bytes } = await buildPdf({ refs: MISSA_I_PAGE.slice(0, 1), title: "T", fetchPng: fileFetcher, paper: "a4" });
+    expect(await pageSizes(bytes)).toEqual([[595, 842]]);
+  });
+});
+
+describe("buildPdf typeset music", () => {
+  it("should put a typeset part's own pages in place of its scans", async () => {
+    const fetchPng = vi.fn(fileFetcher);
+    const fetchPdf = vi.fn(async () => typesetPdf(2, LETTER));
+    const result = await buildPdf({
+      refs: MISSA_I_PAGE, title: "T", fetchPng, fetchPdf,
+      headings: [{ index: 0, label: "Kyrie" }, { index: 3, label: "Gloria" }],
+      typeset: [{ index: 0, count: 3, pdf: "https://x/typeset/h/letter.pdf", label: "Kyrie" }],
+    });
+    expect(fetchPdf).toHaveBeenCalledWith("https://x/typeset/h/letter.pdf");
+    // Only the two scanned systems were fetched; the typeset three were not.
+    expect(fetchPng.mock.calls.map(([ref]) => ref)).toEqual(MISSA_I_PAGE.slice(3));
+    // Two typeset pages, then the scans on a page of their own.
+    expect(result.pages).toBe(3);
+    expect(await pageSizes(result.bytes)).toEqual([[612, 792], [612, 792], [612, 792]]);
+    expect(result.fallbacks).toEqual([]);
+  }, 30_000);
+
+  it("should fit an A4 typeset page onto an A4 export", async () => {
+    const result = await buildPdf({
+      refs: MISSA_I_PAGE.slice(0, 2), title: "T", fetchPng: fileFetcher, paper: "a4",
+      fetchPdf: async () => typesetPdf(1, A4),
+      typeset: [{ index: 0, count: 2, pdf: "a4.pdf", label: "Kyrie" }],
+    });
+    expect(result.pages).toBe(1);
+    expect(await pageSizes(result.bytes)).toEqual([[595, 842]]);
+  });
+
+  it("should use the scans and name the part when its typeset PDF cannot be fetched", async () => {
+    const fetchPng = vi.fn(fileFetcher);
+    const result = await buildPdf({
+      refs: MISSA_I_PAGE.slice(0, 3), title: "T", fetchPng,
+      fetchPdf: async () => { throw new Error("typeset PDF 404"); },
+      typeset: [{ index: 0, count: 3, pdf: "letter.pdf", label: "Kyrie" }],
+    });
+    expect(fetchPng).toHaveBeenCalledTimes(3);
+    expect(result.fallbacks).toEqual(["Kyrie"]);
+  }, 30_000);
+
+  it("should use the scans when the typeset PDF cannot be embedded", async () => {
+    const blank = await PDFDocument.create();
+    blank.addPage([612, 792]);
+    const bytes = await blank.save();
+    const result = await buildPdf({
+      refs: MISSA_I_PAGE.slice(0, 1), title: "T", fetchPng: fileFetcher,
+      fetchPdf: async () => bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer,
+      typeset: [{ index: 0, count: 1, pdf: "letter.pdf", label: "Kyrie" }],
+    });
+    expect(result.fallbacks).toEqual(["Kyrie"]);
+    expect(result.pages).toBe(1);
+  });
+});
+
+describe("httpPdfFetcher", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("should fetch a published PDF under its export cache key", async () => {
+    const fetchMock = vi.fn(async () => new Response(new Uint8Array([37, 80])));
+    vi.stubGlobal("fetch", fetchMock);
+    const bytes = await httpPdfFetcher("https://images.cantusorgani.org/typeset/h/letter.pdf");
+    expect(fetchMock).toHaveBeenCalledWith("https://images.cantusorgani.org/typeset/h/letter.pdf?export=1");
+    expect(bytes.byteLength).toBe(2);
+  });
+
+  it("should throw when the PDF is not there", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("", { status: 404 })));
+    await expect(httpPdfFetcher("https://x/a.pdf")).rejects.toThrow(/404/);
   });
 });
