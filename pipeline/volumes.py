@@ -48,21 +48,34 @@ class Volume:
     # (NOH3's addenda). Omitted: the body runs to the end, less the index pages.
     last_body_pdf_page: int | None = None
     addenda: tuple[Addendum, ...] = ()
-    # PDF pages where a stray row or a line read twice or not at all hides a
-    # staff from the standard grouping; their staves are fitted as on faint
-    # print (pipeline.evaluate.analyse_page). Named page by page, after checking
-    # the page's overlay: the fitter re-cuts every page it runs on.
-    refit_staff_pages: tuple[int, ...] = ()
+    # Pages the standard staff finder misreads, by the setting that reads them
+    # (pipeline.evaluate.analyse_page, STAFF_FINDERS). Named page by page, after
+    # checking the page's overlay: a setting re-cuts every page it runs on.
+    staff_finder: tuple[tuple[str, tuple[int, ...]], ...] = ()
 
     @property
     def path(self) -> Path:
         return SOURCE / self.file
 
 
+STAFF_FINDERS = ("refit", "dashed", "plain")
+
+
+def _staff_finder(vol_id: str, raw: dict[str, list[int]]) -> tuple[tuple[str, tuple[int, ...]], ...]:
+    unknown = sorted(set(raw) - set(STAFF_FINDERS))
+    if unknown:
+        raise ValueError(f"data/volumes.yml: {vol_id} staff_finder has {unknown}; "
+                         f"the settings are {', '.join(STAFF_FINDERS)}")
+    pages = [p for v in raw.values() for p in v]
+    if len(pages) != len(set(pages)):
+        raise ValueError(f"data/volumes.yml: {vol_id} staff_finder names a page twice")
+    return tuple((mode, tuple(raw[mode])) for mode in STAFF_FINDERS if mode in raw)
+
+
 def load_volumes(path: Path = DATA / "volumes.yml") -> dict[str, Volume]:
     raw = yaml.safe_load(path.read_text(encoding="utf-8"))["volumes"]
     return {k: Volume(id=k, **{**v, "addenda": tuple(Addendum(**a) for a in v.get("addenda", ())),
-                               "refit_staff_pages": tuple(v.get("refit_staff_pages", ()))})
+                               "staff_finder": _staff_finder(k, v.get("staff_finder") or {})})
             for k, v in raw.items()}
 
 

@@ -462,10 +462,15 @@ or a line read twice or lost, can hide a staff, and the page is then cut wrongly
 
 1. `uv run noh overlay --volume noh<N> --pages <pdf page>` draws the boxes on
    the page (`build/overlay/`).
-2. Add the PDF page to that volume's `refit_staff_pages` in `data/volumes.yml`,
-   with a comment naming the fault. Its staves are then fitted as on faint print
-   (strays ignored, one line of five may be missing). Only the pages named
-   change. Re-run the overlay and check every staff is in a box.
+2. Name the PDF page under that volume's `staff_finder` in `data/volumes.yml`,
+   with a comment naming the fault, and one of these settings:
+   - `refit`: a stray row, or a line read twice or lost; the staves are fitted
+     as on faint print (strays ignored, one line of five may be missing).
+   - `dashed`: staff lines printed as dashes; as `refit`, bridging wider gaps.
+   - `plain`: tilt recovery cuts the page wrongly; the strict finder alone.
+
+   Only the pages named change. Re-run the overlay and check every staff is in
+   a box.
 3. `uv run noh publish --volume noh<N> --pages <pdf page>` re-slices it and
    records the new images in `data/published/`; add `--upload` (R2 keys) to
    send them, or run the Images workflow.

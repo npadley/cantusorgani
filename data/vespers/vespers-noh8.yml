@@ -54,7 +54,8 @@ sunday_office:
     title: In exitu Israel
     tone: peregrinus
     antiphon: {incipit: Deus autem noster, refs: [noh8/0051/000, noh8/0051/001], chant: 2882}
-    psalm: [noh8/0045/001, noh8/0045/002, noh8/0045/003, noh8/0046/000, noh8/0046/001,
+    psalm: [noh8/0045/001, noh8/0045/002, noh8/0045/003, noh8/0045/004, noh8/0045/005,
+            noh8/0046/000, noh8/0046/001,
             noh8/0046/002, noh8/0046/003, noh8/0046/004, noh8/0046/005, noh8/0047/000,
             noh8/0047/001, noh8/0047/002, noh8/0047/003, noh8/0047/004, noh8/0047/005,
             noh8/0048/000, noh8/0048/001, noh8/0048/002, noh8/0048/003, noh8/0048/004,
@@ -160,7 +161,7 @@ psalm_formulas:          # the first verses of a psalm, printed in the antiphon'
 - {tone: VII.c2, psalm: 109, source: "the Sunday psalter", page: 3, piece: vesperae-dominica-ad-vesperas, refs: [noh8/0033/000, noh8/0033/002]}
 - {tone: III.b, psalm: 110, source: "the Sunday psalter", page: 6, piece: vesperae-dominica-ad-vesperas, refs: [noh8/0036/000, noh8/0036/001, noh8/0036/002]}
 - {tone: IV.g, psalm: 111, source: "the Sunday psalter", page: 9, piece: vesperae-dominica-ad-vesperas, refs: [noh8/0039/004, noh8/0039/005, noh8/0040/000]}
-- {tone: peregrinus, psalm: 113, source: "the Sunday psalter", page: 15, piece: vesperae-dominica-ad-vesperas, refs: [noh8/0045/001, noh8/0045/002, noh8/0045/003]}
+- {tone: peregrinus, psalm: 113, source: "the Sunday psalter", page: 15, piece: vesperae-dominica-ad-vesperas, refs: [noh8/0045/001, noh8/0045/002, noh8/0045/003, noh8/0045/004, noh8/0045/005]}
 
 # The seasons' own hymn and versicle (pp. 51-52, 109-114, 120-121, 135-136).
 seasons:

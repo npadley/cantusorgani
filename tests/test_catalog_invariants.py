@@ -203,7 +203,7 @@ def _duplicate_scans(vol: str) -> set[int]:
     NOH3 375-376): the first scan is the one catalogued."""
     page_map = PAGE_MAPS[vol]
     twice = {pdf for seg in page_map.segments for pdf in range(seg.first_pdf, seg.last_pdf + 1)
-             if page_map.to_pdf(pdf - seg.offset) != pdf}
+             if page_map.to_pdf(pdf - seg.offset, seg.pagination) != pdf}
     # Inserts between segments (NOH4's 162i, 163i) -- each recorded for review.
     recorded = {tuple(r["pdf_pages"]) for r in REVIEW if r["kind"] == "unmapped_pages"
                 and r["volume"] == vol}

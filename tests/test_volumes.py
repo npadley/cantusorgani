@@ -47,3 +47,19 @@ def test_pipeline_refuses_an_unregistered_pdf():
 
 def test_registered_volume_resolves():
     assert resolve_source("NOH5 Kyriale.pdf").name == "NOH5 Kyriale.pdf"
+
+
+def test_staff_finder_refuses_an_unknown_setting_or_a_page_named_twice(tmp_path) -> None:
+    import pytest
+    base = {"title": "t", "part": "I", "file": "f.pdf", "pdf_pages": 9, "index_pdf_pages": [],
+            "first_body_pdf_page": 1, "page_offset": None, "sha256": None, "source_url": None,
+            "retrieved": None, "provenance": None}
+    import yaml
+    for finder, message in (({"tilted": [3]}, "the settings are"),
+                            ({"refit": [3], "plain": [3]}, "names a page twice")):
+        path = tmp_path / "volumes.yml"
+        path.write_text(yaml.safe_dump({"volumes": {"nohx": {**base, "staff_finder": finder}}}))
+        with pytest.raises(ValueError, match=message):
+            load_volumes(path)
+    path.write_text(yaml.safe_dump({"volumes": {"nohx": {**base, "staff_finder": {"plain": [4], "refit": [3]}}}}))
+    assert load_volumes(path)["nohx"].staff_finder == (("refit", (3,)), ("plain", (4,)))
