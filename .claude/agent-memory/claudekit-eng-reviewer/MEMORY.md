@@ -1,0 +1,1 @@
+- [Plan smells](project_plan_smells.md) — recurring gaps: calendar keys vs dates, dual calendar authority, exportSegments reuse, web test gaps

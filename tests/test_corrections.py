@@ -729,6 +729,35 @@ def test_parts_can_move_past_each_other_in_either_order_and_are_checked_on_the_r
     assert "a part runs until the next one starts; move the Alleluia too" in found[0]
 
 
+def test_a_paschal_alleluia_may_be_printed_before_the_gradual_but_not_start_with_a_part():
+    """NOH3's Queenship addendum prints the Paschal Alleluia first, then "Extra
+    Tempus Paschale dicitur" and the Gradual: the Paschal Alleluia stands in for
+    the Gradual and Alleluia, so it may come on either side of them."""
+    b = advent_i()
+    refs = b["pieces"][0]["systems"]
+    b["pieces"][0]["parts"].insert(3, {"part": "alleluia", "variant": "paschal", "system": 18, "ref": refs[18],
+                                      "gregobase_id": None})
+    before = entry(target="part:dominica-i-adventus/alleluia:paschal", field="start_system", was=19, value=2)
+    assert problems(b, [before]) == []
+    assert apply(b, [before])["pieces"][0]["parts"][3]["system"] == 1
+    clash = entry(target="part:dominica-i-adventus/alleluia:paschal", field="start_system", was=19, value=4)
+    assert "would start on system 4 and the Alleluia paschal on system 4" in problems(b, [clash])[0]
+
+
+def test_problems_system_range_refuses_to_cross_into_an_addendum(monkeypatch):
+    """An addendum numbers its pages afresh: a body piece cannot run into it."""
+    from pipeline import offset
+    b = two_propers(monkeypatch)
+    order = corrections._VOLUME_SYSTEMS["noh1"]
+    order.append(("noh1/0400/000", "systems/noh1/0400/000-hashx", [1800, 400]))
+    page_map = offset.PageMap((offset.Segment(29, 379, 26), offset.Segment(400, 410, 397, 1, "extra")))
+    monkeypatch.setattr(offset, "load_page_map", lambda _vol: page_map)
+    b["pieces"][3]["systems"].append("noh1/0034/009")
+    found = problems(b, [range_entry("noh1/0034/005-noh1/0400/000", target="piece:dominica-iii",
+                                     was=["noh1/0034/005", "noh1/0034/009"])])
+    assert "noh1/0400/000 is in addendum extra, which has its own pages" in found[0]
+
+
 def test_correct_one_at_a_time_needs_the_later_part_moved_first_but_a_batch_takes_either_order(tmp_path):
     base_path = tmp_path / "base.json"
     base_path.write_text(json.dumps(advent_i()))

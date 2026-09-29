@@ -1,7 +1,7 @@
 ---
 import Layout from "../../components/Layout.astro";
 import { CORRECTIONS_ENDPOINT, TURNSTILE_SITE_KEY } from "../../lib/config";
-import { allPieces } from "../../lib/catalog";
+import { allPieces, pagesLabel } from "../../lib/catalog";
 
 // The field list is the same vocabulary the Worker accepts. A free-text field
 // name would be rejected at the boundary anyway, so offering one would only
@@ -54,7 +54,7 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
         {pieces.map((p) => (
           <option value={p.slug} data-title={p.title} data-incipit={p.incipit ?? ""} data-mode={p.mode ?? ""}
                   data-genre={p.genre} data-printed-pages={`${p.printedPages[0]}-${p.printedPages[1]}`}>
-            {p.label} · {p.incipit ?? p.title} (pp. {p.printedPages[0]}–{p.printedPages[1]})
+            {p.label} · {p.incipit ?? p.title} ({pagesLabel(p)})
           </option>
         ))}
       </select>

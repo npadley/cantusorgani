@@ -134,6 +134,94 @@ def group_staves(lines: list[int], slack: float = STAFF_SLACK,
     return staves
 
 
+# --- faint print --------------------------------------------------------------
+#
+# NOH3's addenda (PDF 481-499) were printed later and more faintly: binarised,
+# their staff lines break into dashes, a thick one reads as two rows a few
+# pixels apart, and beams and text add rows between real lines. Measured on those
+# 18 pages (2026-09-28), the settings above found the right staves on 7. Pages a
+# volume declares faint (data/volumes.yml, `faint_staff_lines`) use the settings
+# below instead, which found every staff on all 18 and change nothing elsewhere.
+#
+# Dash gaps there run 15-25px; 25 bridges them (35 began to join text into lines).
+FAINT_CLOSE_PX = 25
+# The dashed lines keep 0.07-0.10 W of ink after the opening; 0.10 lost three staves.
+FAINT_MIN_ROW_INK = 0.07
+# Two detections this close are one thick line (staff lines are >= 15px apart).
+MERGE_LINES_PX = 6
+# A staff's spacing may stray this far from the page's own median...
+FAINT_SPACING_BAND = 0.12
+# ...and each line this far (as a share of the spacing) from where it should be:
+# detections of a broken line wander by up to 4px on 17.5px spacing.
+FAINT_STAFF_SLACK = 0.25
+
+
+def merge_close_lines(lines: list[int], within: int = MERGE_LINES_PX) -> list[int]:
+    """One row for each run of detections no more than `within` apart."""
+    runs: list[list[int]] = []
+    for y in lines:
+        if runs and y - runs[-1][-1] <= within:
+            runs[-1].append(y)
+        else:
+            runs.append([y])
+    return [int(sum(run) / len(run)) for run in runs]
+
+
+def _fit_staves(lines: list[int], low: float, high: float, need: int,
+                slack: float) -> list[tuple[Staff, float]]:
+    """Staves as five evenly spaced positions, `need` of which have a line.
+
+    Each staff is anchored on a detected line, which is its top line or (when
+    one may be missing) its second; stray rows between the lines are ignored
+    rather than breaking the run, as they do in `group_staves`."""
+    found: list[tuple[Staff, float]] = []
+    i = 0
+    while i < len(lines):
+        y0 = lines[i]
+        best: tuple[tuple[int, float], float, float] | None = None
+        for y in lines[i + 1:]:
+            if y - y0 > 4 * high:
+                break
+            for k in range(1, 5):
+                spacing = (y - y0) / k
+                if not low <= spacing <= high:
+                    continue
+                tol = max(3.0, spacing * slack)
+                for first in ((0, -1) if need < 5 else (0,)):
+                    top = y0 + first * spacing
+                    if found and top <= found[-1][0].bottom:
+                        continue
+                    misses = [min(abs(line - (top + m * spacing)) for line in lines) for m in range(5)]
+                    hits = [d for d in misses if d <= tol]
+                    key = (len(hits), -sum(hits))
+                    if len(hits) >= need and (best is None or key > best[0]):
+                        best = (key, spacing, top)
+        if best is None:
+            i += 1
+            continue
+        _, spacing, top = best
+        bottom = top + 4 * spacing
+        found.append((Staff(top=round(top), bottom=round(bottom)), spacing))
+        while i < len(lines) and lines[i] <= bottom + max(3.0, spacing * slack):
+            i += 1
+    return found
+
+
+def group_staves_tolerant(lines: list[int], min_gap: float = MIN_STAFF_GAP,
+                          max_gap: float = MAX_STAFF_GAP) -> list[Staff]:
+    """Staves on a faintly printed page: four lines of five are enough.
+
+    First the staves whose five lines are all found fix the page's spacing;
+    then every staff is fitted at that spacing, allowing one line missing. Held
+    to the page's own spacing, text and beams cannot pass for a staff."""
+    complete = _fit_staves(lines, min_gap, max_gap, 5, STAFF_SLACK)
+    if not complete:
+        return []
+    spacing = sorted(s for _, s in complete)[len(complete) // 2]
+    return [staff for staff, _ in _fit_staves(lines, spacing * (1 - FAINT_SPACING_BAND),
+                                              spacing * (1 + FAINT_SPACING_BAND), 4, FAINT_STAFF_SLACK)]
+
+
 def group_systems(staves: list[Staff], expected_staves: int = 2) -> list[System]:
     """NOH systems are exactly `expected_staves` braced staves.
 
