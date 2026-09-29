@@ -1,0 +1,15 @@
+# The LilyPond every render uses: the latest stable release when chosen
+# (2026-09-28), pinned by checksum. `uv run noh lilypond-install` downloads the
+# build for this machine into vendor/ (git-ignored) and checks it. The version
+# is part of each rendered file's hash, so changing it re-renders everything.
+version: 2.26.0
+builds:
+  linux-x86_64:
+    url: https://gitlab.com/lilypond/lilypond/-/releases/v2.26.0/downloads/lilypond-2.26.0-linux-x86_64.tar.gz
+    sha256: cd8a097a9f52cb2b9f4e7914774786f203f4fc61fcd299afcbb63c23fa5c6b24
+  darwin-arm64:
+    url: https://gitlab.com/lilypond/lilypond/-/releases/v2.26.0/downloads/lilypond-2.26.0-darwin-arm64.tar.gz
+    sha256: 18ffc454fef3753c26a015d95a3c232f89b22f052b897c046e0198740a1221be
+  darwin-x86_64:
+    url: https://gitlab.com/lilypond/lilypond/-/releases/v2.26.0/downloads/lilypond-2.26.0-darwin-x86_64.tar.gz
+    sha256: 6dcbca34b13ad6d4ba3606a0b48edd02688284fcd52e9c00141242df1996a148

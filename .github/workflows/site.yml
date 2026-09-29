@@ -70,6 +70,10 @@ jobs:
         run: uv run pytest -q -m "not slow"
       - name: Hand corrections applied
         run: uv run noh apply-corrections --check
+      # The typeset sources pass the source check, and parts.yml is sound. Needs
+      # no LilyPond; the job below runs the tests that do.
+      - name: Typeset sources
+        run: uv run noh typeset-check
       # Every chant a part or Vespers item names has its notation, from the
       # pinned GregoBase dump (downloaded and sha256-checked; not in git).
       - name: Chant notation current
@@ -151,6 +155,30 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: web
           command: pages deploy dist --project-name cantusorgani --branch main --commit-hash ${{ github.sha }}
+
+  # The tests that run LilyPond itself (marked `lilypond`), on the pinned
+  # version from data/typeset/lilypond.yml, checksum-checked. No secrets: LilyPond
+  # runs Scheme from the files it reads (docs/claudekit/specs/2026-09-28-typesetting-design.md §3).
+  lilypond-tests:
+    name: LilyPond tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions: {}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - name: Pinned LilyPond, cached
+        uses: actions/cache@v4
+        with:
+          path: vendor/lilypond-*
+          key: lilypond-${{ runner.os }}-${{ hashFiles('data/typeset/lilypond.yml') }}
+      - name: Install LilyPond
+        run: uv run noh lilypond-install
+      - name: LilyPond tests
+        run: uv run pytest -q -m lilypond
 
   # The slow tests: the pipeline reading the real scans (pdf-source/, in git).
   scan-tests:

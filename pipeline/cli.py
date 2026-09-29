@@ -41,6 +41,15 @@ def build_parser() -> argparse.ArgumentParser:
     subs = p.add_subparsers(dest="command", required=True)
 
     subs.add_parser("doctor", help="preflight: dependencies, sources, credentials")
+    ti = subs.add_parser("typeset-import",
+                         help="import the volunteers' LilyPond transcriptions from a pinned commit into data/typeset/")
+    ti.add_argument("--commit", required=True, help="the upstream commit's full sha (never a branch)")
+    subs.add_parser("typeset-match",
+                    help="propose which part each transcription is (data/typeset/parts.yml), by page, name and melody")
+    subs.add_parser("typeset-check",
+                    help="check the typeset sources (source check) and parts.yml; needs no LilyPond (CI)")
+    subs.add_parser("lilypond-install",
+                    help="download the pinned LilyPond (data/typeset/lilypond.yml) into vendor/, checksum-checked")
     subs.add_parser("r2-check",
                     help="check the R2 credentials: their shape, then write, read and delete a test object")
 
@@ -250,6 +259,50 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "doctor":
         from pipeline.doctor import report, run
         return report(run())
+
+    if args.command == "typeset-import":
+        from pipeline.typeset.importer import UpstreamError, run_import
+        try:
+            report = run_import(args.commit)
+        except UpstreamError as error:
+            print(f"FAIL  {error}", file=sys.stderr)
+            return 1
+        print("\n".join(report.lines()))
+        return 1 if report.conflicts else 0
+
+    if args.command == "typeset-match":
+        from collections import Counter
+
+        from pipeline.typeset.lilypond import LilyPondError
+        from pipeline.typeset.match import PARTS_FILE, run
+        try:
+            entries = run()
+        except LilyPondError as error:
+            print(f"FAIL  {error}", file=sys.stderr)
+            return 1
+        counts = Counter(e.status for e in entries)
+        print(f"wrote {PARTS_FILE.relative_to(PARTS_FILE.parents[2])}: {len(entries)} files; "
+              + ", ".join(f"{n} {s}" for s, n in counts.most_common()))
+        return 0
+
+    if args.command == "typeset-check":
+        from pipeline.typeset.check import problems
+        found = problems()
+        for line in found:
+            print(f"FAIL  {line}", file=sys.stderr)
+        if not found:
+            print("data/typeset: every source passes the source check; parts.yml is sound")
+        return 1 if found else 0
+
+    if args.command == "lilypond-install":
+        from pipeline.typeset.lilypond import LilyPondError, install, version_of
+        try:
+            binary = install()
+        except LilyPondError as error:
+            print(f"FAIL  {error}", file=sys.stderr)
+            return 1
+        print(f"OK    {binary} ({version_of(binary)})")
+        return 0
 
     if args.command == "r2-check":
         from pipeline.upload import credential_problems, probe, require_credentials
