@@ -84,6 +84,14 @@ def faint_pages(vol_id: str) -> frozenset[int]:
                      for p in range(a.first_pdf, a.last_pdf + 1))
 
 
+@functools.cache
+def refit_pages(vol_id: str) -> frozenset[int]:
+    """Pages whose staves the standard grouping misses (data/volumes.yml)."""
+    from pipeline.volumes import load_volumes
+    vol = load_volumes().get(vol_id)
+    return frozenset(vol.refit_staff_pages if vol else ())
+
+
 def load_page(vol_id: str, pdf_page: int) -> np.ndarray:
     """Render (or reuse the cached render of) one page as greyscale."""
     path = render_page(vol_id, pdf_page)
@@ -107,6 +115,12 @@ def analyse_page(vol_id: str, pdf_page: int) -> PageAnalysis:
     if pdf_page in faint_pages(vol_id):
         lines = merge_close_lines(find_staff_lines(binary, close_px=FAINT_CLOSE_PX,
                                                    min_row_ink=FAINT_MIN_ROW_INK))
+        staves = group_staves_tolerant(lines)
+    elif pdf_page in refit_pages(vol_id):
+        # Well printed, but lines read twice and one lost (NOH2 p. 101) break
+        # the strict run of five: fit the staves as on faint print, strays
+        # ignored.
+        lines = merge_close_lines(find_staff_lines(binary))
         staves = group_staves_tolerant(lines)
     else:
         lines = find_staff_lines(binary)

@@ -85,13 +85,11 @@ feria-iv-quattuor-temporum-pentecostes:
 # NOH2 pp. 98-105: an Alleluia after each prophecy (the fourth by reference);
 # the Tract is cited as "Pars I, p. 332", but NOH1 prints Laudate Dominum on
 # p. 199 (the Ember Saturday of Lent), not p. 332 (Holy Tuesday's Gradual).
-# Book p. 101 has five staves and three sliced systems: the third Alleluia's
-# first staff has none, so it starts on its first sliced system.
 sabbato-quattuor-temporum-pentecostes:
 - {kind: introit, label: Intr. III, title: Caritas Dei, ref: noh2/0130/005, chant: 1228}
 - {kind: alleluia, n: 1, title: Spiritus est qui vivificat, ref: noh2/0132/001, chant: 1236}
 - {kind: alleluia, n: 2, title: Spiritus ejus ornavit, ref: noh2/0133/000, chant: 1138}
-- {kind: alleluia, n: 3, title: Dum complerentur, ref: noh2/0134/000, chant: 657}
+- {kind: alleluia, n: 3, title: Dum complerentur, ref: noh2/0133/003, chant: 657}
 - {kind: alleluia, n: 4, title: Veni Sancte Spiritus, borrowed_volume: noh2, borrowed_page: 79, borrowed_from: dominica-pentecostes, borrowed_ref: noh2/0111/005, chant: 181}
 - {kind: alleluia, n: 5, title: Benedictus es, ref: noh2/0135/000, chant: 1289}
 - {kind: tract, title: Laudate Dominum, borrowed_volume: noh1, borrowed_page: 332, borrowed_from: sabbato-quattuor-temporum-quadragesim, borrowed_ref: noh1/0226/003, chant: 1247}

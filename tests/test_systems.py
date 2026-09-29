@@ -89,3 +89,26 @@ def test_analyse_page_noh1_holy_saturday_lauds_keeps_its_tilted_systems(page, ex
     result = analyse_page("noh1", page)
     assert result.error is None and result.warning is None
     assert result.system_count == expected
+
+
+@pytest.mark.source
+@pytest.mark.slow
+def test_analyse_page_noh1_p126_keeps_the_introits_treble_staff():
+    """Regression: a slur read as a line inside the Introit's treble staff hid
+    it, and the first system was sliced as its bass staff alone."""
+    from pipeline.evaluate import analyse_page
+    result = analyse_page("noh1", 153)
+    assert result.warning is None
+    assert [s.staff_count for s in result.systems] == [2] * 6
+    assert result.boxes[0].top < result.systems[0].top - 100    # "Adorate Deum" above it
+
+
+@pytest.mark.source
+@pytest.mark.slow
+def test_refit_page_finds_staves_read_twice_or_lost():
+    """NOH2 p. 101: lines read twice and a top line lost hid four staves, and the
+    page was cut into three slices: two systems in one, and one not cut at all."""
+    from pipeline.evaluate import analyse_page
+    result = analyse_page("noh2", 133)
+    assert result.warning is None
+    assert [s.staff_count for s in result.systems] == [2] * 5

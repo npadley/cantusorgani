@@ -33,6 +33,8 @@ volumes:
     pdf_pages: 293
     index_pdf_pages: [293]
     first_body_pdf_page: 33
+    # Lines read twice, and a top line lost, hid four staves on p. 101 (PDF 133).
+    refit_staff_pages: [133]
     page_offset: null
     sha256: "7b59b85cc48c1c1984558e94f09438779d6fec221e371fb9ae1709b94ecb0d71"
     source_url: null
