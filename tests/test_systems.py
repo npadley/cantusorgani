@@ -74,3 +74,26 @@ def test_analyse_page_noh5_p57_keeps_all_six_systems():
     assert result.error is None
     assert result.system_count == 6
     assert result.warning and "paired by brace gap" in result.warning
+
+
+@pytest.mark.source
+@pytest.mark.slow
+def test_refit_page_keeps_a_staff_behind_a_slur():
+    """NOH1 p. 126: a slur read as a line inside the Introit's treble staff hid
+    it, and the first system was sliced as its bass staff alone."""
+    from pipeline.evaluate import analyse_page
+    result = analyse_page("noh1", 153)
+    assert result.warning is None
+    assert [s.staff_count for s in result.systems] == [2] * 6
+    assert result.boxes[0].top < result.systems[0].top - 100    # "Adorate Deum" above it
+
+
+@pytest.mark.source
+@pytest.mark.slow
+def test_refit_page_finds_staves_read_twice_or_lost():
+    """NOH2 p. 101: lines read twice and a top line lost hid four staves, and the
+    page was cut into three slices: two systems in one, and one not cut at all."""
+    from pipeline.evaluate import analyse_page
+    result = analyse_page("noh2", 133)
+    assert result.warning is None
+    assert [s.staff_count for s in result.systems] == [2] * 5

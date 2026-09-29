@@ -48,6 +48,11 @@ class Volume:
     # (NOH3's addenda). Omitted: the body runs to the end, less the index pages.
     last_body_pdf_page: int | None = None
     addenda: tuple[Addendum, ...] = ()
+    # PDF pages where a stray row (a slur, a beam) or a line read twice or not
+    # at all hides a staff from the standard grouping; their staves are fitted
+    # as on faint print (pipeline.evaluate.analyse_page). Named page by page,
+    # after checking the page's overlay: the fitter re-cuts every page it runs on.
+    refit_staff_pages: tuple[int, ...] = ()
 
     @property
     def path(self) -> Path:
@@ -56,7 +61,8 @@ class Volume:
 
 def load_volumes(path: Path = DATA / "volumes.yml") -> dict[str, Volume]:
     raw = yaml.safe_load(path.read_text(encoding="utf-8"))["volumes"]
-    return {k: Volume(id=k, **{**v, "addenda": tuple(Addendum(**a) for a in v.get("addenda", ()))})
+    return {k: Volume(id=k, **{**v, "addenda": tuple(Addendum(**a) for a in v.get("addenda", ())),
+                               "refit_staff_pages": tuple(v.get("refit_staff_pages", ()))})
             for k, v in raw.items()}
 
 

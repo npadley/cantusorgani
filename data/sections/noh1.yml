@@ -149,10 +149,11 @@ dominica-i-passionis:
 - {kind: tract, label: Tract. VIII, title: Saepe expugnaverunt, ref: noh1/0304/000, chant: 742}
 - {kind: offertory, label: Offert. I, title: Confitebor tibi, ref: noh1/0306/003, chant: 318}
 - {kind: communion, label: Comm. VIII, title: Hoc corpus, ref: noh1/0307/003, chant: 726}
-# NOH1 pp. 126-130: its first system's image holds only the bass staff (a slicing
-# fault), so its Introit was not read and its Gradual not placed.
+# NOH1 pp. 126-130: its first system's image held only the bass staff (a slicing
+# fault, fixed by refitting p. 126's staves), so its Introit was not read and its
+# Gradual not placed.
 dominica-iii-post-epiphaniam:
-- {kind: introit, title: Adorate Deum, ref: noh1/0153/000, chant: 1123}
+- {kind: introit, label: Intr. VII, title: Adorate Deum, ref: noh1/0153/000, chant: 1123}
 - {kind: gradual, label: Grad. V, title: Timebunt gentes, ref: noh1/0154/001, chant: 1173}
 - {kind: alleluia, title: Dominus regnavit exsultet, ref: noh1/0155/004, chant: 1001}
 - {kind: offertory, label: Offert. II, title: Dextera Domini, ref: noh1/0157/000, chant: 47}

@@ -6671,12 +6671,12 @@
         "noh1/0157/005"
       ],
       "system_assets": [
-        "systems/noh1/0153/000-2e469131172a",
+        "systems/noh1/0153/000-520f624d51b7",
         "systems/noh1/0153/001-f2cbc6d14504",
         "systems/noh1/0153/002-7518e5d848ff",
-        "systems/noh1/0153/003-fc397777b8c5",
+        "systems/noh1/0153/003-7679240cdf4e",
         "systems/noh1/0153/004-058bcee40f77",
-        "systems/noh1/0153/005-e88937078f8a",
+        "systems/noh1/0153/005-7486061a7603",
         "systems/noh1/0154/000-33657b0ab511",
         "systems/noh1/0154/001-d099a9422fc2",
         "systems/noh1/0154/002-56c9e226290b",
@@ -6703,8 +6703,8 @@
       ],
       "system_aspect": [
         [
-          1776,
-          126
+          1788,
+          415
         ],
         [
           1865,
@@ -6716,7 +6716,7 @@
         ],
         [
           1862,
-          409
+          410
         ],
         [
           1866,
@@ -6724,7 +6724,7 @@
         ],
         [
           1870,
-          445
+          446
         ],
         [
           1421,
@@ -6822,6 +6822,28 @@
       "movements": [],
       "sections": [
         {
+          "kind": "introit",
+          "variant": "",
+          "system": 0,
+          "ref": "noh1/0153/000",
+          "gregobase_id": 1123,
+          "placed": "label",
+          "score": 1.0,
+          "label": "Intr. VII",
+          "title": "Adorate Deum"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "system": 7,
+          "ref": "noh1/0154/001",
+          "gregobase_id": 1173,
+          "placed": "label",
+          "score": 1.0,
+          "label": "Grad.",
+          "title": "Timebunt gentes"
+        },
+        {
           "kind": "alleluia",
           "variant": "",
           "system": 16,
@@ -6837,8 +6859,9 @@
           "system": 23,
           "ref": "noh1/0157/000",
           "gregobase_id": 47,
-          "placed": "text",
-          "score": 0.706,
+          "placed": "label",
+          "score": 1.0,
+          "label": "Offert.",
           "title": "Dextera Domini"
         },
         {
@@ -6847,8 +6870,9 @@
           "system": 27,
           "ref": "noh1/0157/004",
           "gregobase_id": 1148,
-          "placed": "text",
-          "score": 0.694,
+          "placed": "label",
+          "score": 1.0,
+          "label": "Comm.",
           "title": "Mirabantur omnes"
         }
       ],
@@ -23316,6 +23340,8 @@
         "noh2/0133/000",
         "noh2/0133/001",
         "noh2/0133/002",
+        "noh2/0133/003",
+        "noh2/0133/004",
         "noh2/0134/000",
         "noh2/0134/001",
         "noh2/0134/002",
@@ -23350,9 +23376,11 @@
         "systems/noh2/0132/003-548ac80ae661",
         "systems/noh2/0132/004-7a843dcec039",
         "systems/noh2/0132/005-d2a2cf6b7040",
-        "systems/noh2/0133/000-951c1d12466f",
-        "systems/noh2/0133/001-6810737bd32b",
-        "systems/noh2/0133/002-f1bfe0af0dd2",
+        "systems/noh2/0133/000-d4436dcb1656",
+        "systems/noh2/0133/001-3aa1642cba29",
+        "systems/noh2/0133/002-0f1887321c3e",
+        "systems/noh2/0133/003-6810737bd32b",
+        "systems/noh2/0133/004-f1bfe0af0dd2",
         "systems/noh2/0134/000-2b6b6b8a7804",
         "systems/noh2/0134/001-85cd3887f44d",
         "systems/noh2/0134/002-363b5aa5d39d",
@@ -23427,8 +23455,16 @@
           428
         ],
         [
+          2011,
+          401
+        ],
+        [
           2008,
-          700
+          411
+        ],
+        [
+          1842,
+          423
         ],
         [
           1999,
@@ -23531,7 +23567,7 @@
         {
           "kind": "alleluia",
           "variant": "paschal",
-          "system": 22,
+          "system": 24,
           "ref": "noh2/0135/000",
           "gregobase_id": null,
           "placed": "text",
@@ -23540,7 +23576,7 @@
         {
           "kind": "offertory",
           "variant": "",
-          "system": 27,
+          "system": 29,
           "ref": "noh2/0136/000",
           "gregobase_id": 987,
           "placed": "label",
@@ -23551,7 +23587,7 @@
         {
           "kind": "communion",
           "variant": "",
-          "system": 31,
+          "system": 33,
           "ref": "noh2/0136/004",
           "gregobase_id": 190,
           "placed": "label",
@@ -29102,8 +29138,8 @@
           "gregobase_id": 1173,
           "borrowed_volume": "noh1",
           "borrowed_page": 127,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "dominica-iii-post-epiphaniam",
+          "borrowed_ref": "noh1/0154/001"
         },
         {
           "kind": "alleluia",

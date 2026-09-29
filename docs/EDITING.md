@@ -21,6 +21,7 @@ catalogue can run on GitHub.
 | A Proper part (Introit, Gradual…) starts on the wrong system, or its chant link is wrong | [Proper parts](#proper-parts) | No |
 | A Proper's sections are missing, extra, mislabelled or out of order (an Ember day's four Graduals) | [Sections](#sections) | No |
 | A Vespers psalm uses the wrong formula, or should show a note | [Psalm formulas and notes](#psalm-formulas-and-notes) | No |
+| A system image misses a staff, holds two systems, or a system has no image | [Slicing a page](#slicing-a-page) | Yes (and uploads images: your machine) |
 | A newer Divinum Officium, vesperale, jgabc or calendar | [Refreshing a source](#refreshing-a-source) | No |
 | A new volume to add | [Adding a volume](#adding-a-volume) | Yes (and uploads images: your machine) |
 
@@ -453,6 +454,23 @@ or marked **Looks right**, leaves the list once it is published; a part marked
   that is not an error.
 - **Command**: `uv run noh vespers-lineup`. Its summary lists the
   `tone_unprinted` tones left.
+
+### Slicing a page
+
+A page's staves are found line by line; a slur or beam read as a staff line,
+or a line read twice or lost, can hide a staff, and the page is then cut wrongly.
+
+1. `uv run noh overlay --volume noh<N> --pages <pdf page>` draws the boxes on
+   the page (`build/overlay/`).
+2. Add the PDF page to that volume's `refit_staff_pages` in `data/volumes.yml`,
+   with a comment naming the fault. Its staves are then fitted as on faint print
+   (strays ignored, one line of five may be missing). Only the pages named
+   change. Re-run the overlay and check every staff is in a box.
+3. `uv run noh publish --volume noh<N> --pages <pdf page>` re-slices it and
+   records the new images in `data/published/`; add `--upload` (R2 keys) to
+   send them, or run the Images workflow.
+4. `uv run noh catalog --volume noh<N>`, then fix any list in `data/sections/`
+   whose refs moved (the build names them), and `uv run noh apply-corrections`.
 
 ### Refreshing a source
 
