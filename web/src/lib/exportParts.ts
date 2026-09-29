@@ -1,4 +1,4 @@
-import { allPieces, partLabel, partOrder, systemUrlStem } from "./catalog";
+import { allPieces, inPrintedOrder, partOrder, sectionName, systemUrlStem } from "./catalog";
 import type { BorrowedPart, Piece, PrintedPart, ProperPartName } from "./catalog";
 import type { Season } from "./liturgy";
 
@@ -46,7 +46,7 @@ export function exportSegments(pieces: readonly Piece[],
       const lenderStems = lender.systems.map((_, i) => systemUrlStem(lender, i)).slice(range.start, range.end);
       borrowed.push({
         id: `${piece.slug}:from:${lender.slug}:${range.start}`,
-        label: `${partLabel(b.part, b.variant)} (from ${lender.incipit ?? lender.title})`,
+        label: `${sectionName(b)} (from ${lender.incipit ?? lender.title})`,
         part: b.part, variant: b.variant, pieceSlug: piece.slug,
         systems: lenderStems.length, stems: lenderStems, order: partOrder(b.part, b.variant),
       });
@@ -60,15 +60,15 @@ export function exportSegments(pieces: readonly Piece[],
     }
     const first = ranges[0]?.start ?? stems.length;
     if (first > 0) {
-      const lead = ranges[0] ? partLabel(ranges[0].x.part) : "music";
+      const lead = ranges[0] ? sectionName(ranges[0].x) : "music";
       out.push({ id: `${piece.slug}:before`, label: `${title} (before the ${lead})`,
                  part: null, variant: "", pieceSlug: piece.slug, systems: first, stems: stems.slice(0, first) });
     }
     const own = ranges.map(({ x, start, end }) => ({
-      id: `${piece.slug}:${start}`, label: partLabel(x.part, x.variant), part: x.part, variant: x.variant,
+      id: `${piece.slug}:${start}`, label: sectionName(x), part: x.part, variant: x.variant,
       pieceSlug: piece.slug, systems: end - start, stems: stems.slice(start, end), order: partOrder(x.part, x.variant),
     }));
-    for (const { order: _order, ...segment } of [...own, ...borrowed].sort((a, b) => a.order - b.order)) {
+    for (const { order: _order, ...segment } of inPrintedOrder(own, borrowed)) {
       out.push(segment);
     }
   }
@@ -89,7 +89,7 @@ export function defaultTicked(segment: ExportSegment, all: readonly ExportSegmen
   const mine = all.filter((s) => s.pieceSlug === segment.pieceSlug);
   const has = (part: ProperPartName, variant?: string) =>
     mine.some((s) => s.part === part && (variant === undefined || s.variant === variant));
-  const hasAlleluia = has("alleluia", "") || has("alleluia", "paschal");
+  const hasAlleluia = has("alleluia");
   const paschal = segment.part === "alleluia" && segment.variant === "paschal";
   if (segment.part === "tract") return group === "lent" || !hasAlleluia;
   if (paschal) return group === "easter";

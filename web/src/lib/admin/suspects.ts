@@ -19,6 +19,9 @@ import type { Piece, PrintedPart, ProperPartName } from "../catalog";
  * percentile across the catalogue); a part printed that short is worth a look. */
 export const FEWEST: Readonly<Record<ProperPartName, number>> = {
   introit: 5, gradual: 5, tract: 5, alleluia: 3, offertory: 3, sequence: 2, communion: 2,
+  // A hymn within the Mass is long (the Ember Saturday's Benedictus es, 24
+  // systems); a section outside it may be a single line.
+  hymn: 3, other: 1,
 };
 
 export interface SuspectPart {

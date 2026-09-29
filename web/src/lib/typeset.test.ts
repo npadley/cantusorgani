@@ -6,7 +6,7 @@ import { MANIFEST, hasTypeset, renderFor, segments } from "./typeset";
 import type { Render } from "./typeset";
 
 function part(name: PrintedPart["part"], system: number, placed: PrintedPart["placed"] = "label"): PrintedPart {
-  return { kind: "printed", part: name, variant: "", system, ref: `noh1/0029/${String(system).padStart(3, "0")}`,
+  return { kind: "printed", part: name, variant: "", label: null, title: null, system, ref: `noh1/0029/${String(system).padStart(3, "0")}`,
            gregobaseId: null, placed };
 }
 

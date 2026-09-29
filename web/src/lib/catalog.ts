@@ -36,21 +36,28 @@ export interface MovementBoundary {
   readonly modeMarker: string | null;
 }
 
+/** A section's kind: a part of the Mass, a hymn printed within it (the Ember
+ * Saturday's *Benedictus es*), or another section (a blessing, a procession). */
 export type ProperPartName =
-  | "introit" | "gradual" | "alleluia" | "tract" | "sequence" | "offertory" | "communion";
+  | "introit" | "gradual" | "alleluia" | "tract" | "sequence" | "hymn" | "offertory" | "communion" | "other";
 
-/** A part of a Proper printed in this piece: where it starts. */
+/** A section of a Proper printed in this piece (the catalogue's `sections`): where it starts. */
 export interface PrintedPart {
   readonly kind: "printed";
   readonly part: ProperPartName;
-  /** "" | "paschal" | "1", "2" … when a part repeats (Ember Saturday Graduals). */
+  /** "" | "paschal" | "1", "2" … when a kind repeats (the Ember Saturday's four Graduals). */
   readonly variant: string;
+  /** As the book prints it in the margin ("2. Grad. I"), where known. */
+  readonly label: string | null;
+  /** Its opening words ("In sole posuit"), where known. */
+  readonly title: string | null;
   readonly system: number;
   readonly ref: string;
   readonly gregobaseId: number | null;
   /** How the start was found. "order" is a guess the site does not show;
-   *  "hand" is a correction (data/corrections.yml). */
-  readonly placed: "label" | "text" | "mode" | "order" | "hand";
+   *  "inferred": the one start the page allows; "hand" is a correction
+   *  (data/corrections.yml); "reviewed": a list a person checked. */
+  readonly placed: "label" | "text" | "mode" | "order" | "inferred" | "hand" | "reviewed";
 }
 
 /** A part the book prints elsewhere ("Introitus. Benedicite, ut supra, p. 354"). */
@@ -58,6 +65,8 @@ export interface BorrowedPart {
   readonly kind: "borrowed";
   readonly part: ProperPartName;
   readonly variant: string;
+  readonly label: string | null;
+  readonly title: string | null;
   /** The lending piece and the system its part starts on; null when unresolved. */
   readonly borrowedFrom: string | null;
   readonly borrowedRef: string | null;
@@ -171,6 +180,7 @@ interface RawMovement {
 interface RawPart {
   readonly kind?: string; readonly n?: number;
   readonly part?: string; readonly variant?: string;
+  readonly label?: string | null; readonly title?: string | null;
   readonly system?: number; readonly ref?: string;
   readonly gregobase_id?: number | null; readonly placed?: string;
   readonly borrowed_from?: string | null; readonly borrowed_ref?: string | null;
@@ -226,8 +236,13 @@ function pair(values: readonly number[], where: string): readonly [number, numbe
 }
 
 const PART_NAMES: ReadonlySet<string> = new Set(
-  ["introit", "gradual", "alleluia", "tract", "sequence", "offertory", "communion"]);
-const PLACEMENTS: ReadonlySet<string> = new Set(["label", "text", "mode", "order", "hand"]);
+  ["introit", "gradual", "alleluia", "tract", "sequence", "hymn", "offertory", "communion", "other"]);
+const PLACEMENTS: ReadonlySet<string> = new Set(["label", "text", "mode", "order", "inferred", "hand", "reviewed"]);
+
+/** Printed text from the catalogue (a margin label, an incipit), or null. */
+function text(value: unknown): string | null {
+  return typeof value === "string" && value.trim() !== "" ? value.trim() : null;
+}
 
 function parsePart(x: RawPart, where: string): ProperPart {
   const name = x.kind ?? x.part ?? "";
@@ -235,9 +250,11 @@ function parsePart(x: RawPart, where: string): ProperPart {
   const part = name as ProperPartName;
   const variant = x.n ? String(x.n) : x.variant ?? "";
   const gregobaseId = Number.isInteger(x.gregobase_id) ? (x.gregobase_id as number) : null;
+  const label = text(x.label);
+  const title = text(x.title);
   if (x.borrowed_page !== undefined) {
     return {
-      kind: "borrowed", part, variant, gregobaseId, borrowedPage: x.borrowed_page,
+      kind: "borrowed", part, variant, label, title, gregobaseId, borrowedPage: x.borrowed_page,
       borrowedFrom: x.borrowed_from ?? null, borrowedRef: x.borrowed_ref ?? null,
     };
   }
@@ -245,7 +262,7 @@ function parsePart(x: RawPart, where: string): ProperPart {
     throw new Error(`${where}: a printed part needs system, ref and placed`);
   }
   return {
-    kind: "printed", part, variant, system: x.system, ref: x.ref, gregobaseId,
+    kind: "printed", part, variant, label, title, system: x.system, ref: x.ref, gregobaseId,
     placed: x.placed as PrintedPart["placed"],
   };
 }
@@ -460,15 +477,22 @@ export interface JumpTarget {
   readonly order?: number;
   /** Where a part is corrected: "part:<slug>/<part>[:<variant>]". */
   readonly target?: string;
+  /** A section's margin label as printed ("2. Grad. I") and its opening words,
+   * shown beside its heading where known. */
+  readonly printed?: string | null;
+  readonly title?: string | null;
 }
 
 const PART_LABELS: Readonly<Record<ProperPartName, string>> = {
   introit: "Introit", gradual: "Gradual", alleluia: "Alleluia", tract: "Tract",
-  sequence: "Sequence", offertory: "Offertory", communion: "Communion",
+  sequence: "Sequence", hymn: "Hymn", offertory: "Offertory", communion: "Communion", other: "Section",
 };
 
+// The order of Mass, for placing a section printed elsewhere among those
+// printed here. A hymn follows the lessons' Graduals (the Ember Saturday's
+// *Benedictus es*); a section outside the Mass (a blessing) comes last.
 const PART_ORDER: readonly string[] = [
-  "introit", "gradual", "alleluia", "tract", "alleluia/paschal", "sequence", "offertory", "communion",
+  "introit", "gradual", "hymn", "alleluia", "tract", "alleluia/paschal", "sequence", "offertory", "communion", "other",
 ];
 
 /** Position of a part in the order of Mass, for listing printed and borrowed parts together. */
@@ -478,10 +502,36 @@ export function partOrder(part: ProperPartName, variant = ""): number {
   return (i < 0 ? PART_ORDER.indexOf(part) : i) + (/^\d+$/.test(variant) ? Number(variant) / 100 : 0);
 }
 
+/**
+ * Sections printed here in the book's order, with those printed elsewhere
+ * slotted in by their place in the order of Mass: the book may print its
+ * sections out of that order (NOH3's Queenship Mass prints its Paschal
+ * Alleluia before the Gradual), and the page follows the book.
+ */
+export function inPrintedOrder<T extends { readonly order: number }>(own: readonly T[], borrowed: readonly T[]): T[] {
+  const out = [...own];
+  for (const b of [...borrowed].sort((x, y) => x.order - y.order)) {
+    const at = out.findIndex((x) => !borrowed.includes(x) && x.order > b.order);
+    out.splice(at < 0 ? out.length : at, 0, b);
+  }
+  return out;
+}
+
 /** "Paschal Alleluia", "Gradual 2", "Offertory". */
 export function partLabel(part: ProperPartName, variant = ""): string {
   if (variant === "paschal") return `Paschal ${PART_LABELS[part]}`;
   return variant ? `${PART_LABELS[part]} ${variant}` : PART_LABELS[part];
+}
+
+/**
+ * What a section is called on the page and in the jump links: "Gradual 2",
+ * "Paschal Alleluia"; a hymn by its opening words ("Benedictus es"), and a
+ * section outside the Mass by the label the book (or an editor) gives it.
+ */
+export function sectionName(x: ProperPart): string {
+  if (x.part === "hymn" && x.title) return x.title;
+  if (x.part === "other" && (x.label || x.title)) return (x.label ?? x.title) as string;
+  return partLabel(x.part, x.variant);
 }
 
 /** In-page anchor of a part's heading: "introit", "alleluia-paschal", "gradual-2". */
@@ -512,7 +562,7 @@ export function borrowedLinks(piece: Piece, pieces: readonly Piece[] = allPieces
     const lender = x.borrowedFrom ? pieces.find((p) => p.slug === x.borrowedFrom) : undefined;
     const lent = lender?.parts.find((q): q is PrintedPart => q.kind === "printed" && q.ref === x.borrowedRef);
     return {
-      label: partLabel(x.part, x.variant),
+      label: sectionName(x),
       order: partOrder(x.part, x.variant),
       href: lender && lent ? `/piece/${lender.slug}/#${partAnchor(lent.part, lent.variant)}` : null,
       lenderTitle: lender ? (lender.incipit ?? lender.title) : null,
@@ -551,10 +601,11 @@ export function jumpTargets(piece: Piece): readonly JumpTarget[] {
     const anchor = partAnchor(x.part, x.variant);
     if (index < 0 || partAnchors.has(anchor)) continue;
     partAnchors.add(anchor);
-    parts.push({ label: partLabel(x.part, x.variant), anchor, index, kind: "part",
+    parts.push({ label: sectionName(x), anchor, index, kind: "part",
                  chantUrl: gregobaseUrl(x.gregobaseId), chantId: x.gregobaseId,
                  order: partOrder(x.part, x.variant),
-                 target: `part:${piece.slug}/${x.part}${x.variant ? `:${x.variant}` : ""}` });
+                 target: `part:${piece.slug}/${x.part}${x.variant ? `:${x.variant}` : ""}`,
+                 printed: x.label, title: x.title });
   }
   const used = new Map<string, number>();
   const hymns: JumpTarget[] = [];

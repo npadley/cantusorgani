@@ -63,7 +63,7 @@ export const FIELD_LABELS: Readonly<Record<string, string>> = {
 
 export const PART_LABELS: Readonly<Record<string, string>> = {
   introit: "Introit", gradual: "Gradual", alleluia: "Alleluia", tract: "Tract", sequence: "Sequence",
-  offertory: "Offertory", communion: "Communion",
+  hymn: "Hymn", offertory: "Offertory", communion: "Communion", other: "Section",
 };
 
 export interface TargetPart {
