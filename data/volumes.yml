@@ -21,8 +21,6 @@ volumes:
     pdf_pages: 380
     index_pdf_pages: [380]   # PDF 28 is a second scan of the same index, before the body
     first_body_pdf_page: 29
-    # A slur read as a line hid the Introit's treble staff on p. 126 (PDF 153).
-    refit_staff_pages: [153]
     page_offset: null
     sha256: "7e2b55b20dd29a9eaa6ef665abd59e738d98b8cec6bd98c6e3b8650c284c91d4"
     source_url: null

@@ -36,6 +36,7 @@ from pipeline.segment import (
     group_systems,
     group_systems_by_gap,
     merge_close_lines,
+    recover_tilted_staves,
 )
 from pipeline.segment import to_bboxes as _to_bboxes
 
@@ -116,14 +117,14 @@ def analyse_page(vol_id: str, pdf_page: int) -> PageAnalysis:
                                                    min_row_ink=FAINT_MIN_ROW_INK))
         staves = group_staves_tolerant(lines)
     elif pdf_page in refit_pages(vol_id):
-        # Well printed, but a slur read as a line inside a staff (NOH1 p. 126),
-        # or lines read twice and one lost (NOH2 p. 101), breaks the strict run
-        # of five: fit the staves as on faint print, strays ignored.
+        # Well printed, but lines read twice and one lost (NOH2 p. 101) break
+        # the strict run of five: fit the staves as on faint print, strays
+        # ignored.
         lines = merge_close_lines(find_staff_lines(binary))
         staves = group_staves_tolerant(lines)
     else:
         lines = find_staff_lines(binary)
-        staves = group_staves(lines)
+        staves = recover_tilted_staves(binary, lines, group_staves(lines))
     ink = binary < 128
     base = {
         "vol_id": vol_id, "pdf_page": pdf_page, "page_width": width,

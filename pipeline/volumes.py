@@ -48,10 +48,10 @@ class Volume:
     # (NOH3's addenda). Omitted: the body runs to the end, less the index pages.
     last_body_pdf_page: int | None = None
     addenda: tuple[Addendum, ...] = ()
-    # PDF pages where a stray row (a slur, a beam) or a line read twice or not
-    # at all hides a staff from the standard grouping; their staves are fitted
-    # as on faint print (pipeline.evaluate.analyse_page). Named page by page,
-    # after checking the page's overlay: the fitter re-cuts every page it runs on.
+    # PDF pages where a stray row or a line read twice or not at all hides a
+    # staff from the standard grouping; their staves are fitted as on faint
+    # print (pipeline.evaluate.analyse_page). Named page by page, after checking
+    # the page's overlay: the fitter re-cuts every page it runs on.
     refit_staff_pages: tuple[int, ...] = ()
 
     @property
