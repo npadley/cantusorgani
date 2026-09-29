@@ -32,6 +32,10 @@ from pipeline.volumes import DATA
 CORRECTIONS = DATA / "corrections.yml"
 BASE = DATA / "catalog.base.json"
 CATALOG = DATA / "catalog.json"
+#: The pipeline's review queue; a `review:` target names one of its items by key.
+REVIEW_QUEUE = DATA / "review-queue.json"
+#: The reviews that still hold, for the admin screen (what is confirmed drops off its queues).
+REVIEWED = DATA / "reviewed.json"
 #: The public corrections log (/corrections/log/): what changed and when, no addresses.
 LOG = DATA / "corrections-log.json"
 
@@ -44,6 +48,12 @@ _SPECS: dict[str, dict[str, dict[str, Any]]] = _SCHEMA["targets"]
 _SPEC = _SPECS["piece"]
 FIELDS: dict[str, re.Pattern[str]] = {name: re.compile(rule["pattern"]) for name, rule in _SPEC.items()}
 HINTS: dict[str, str] = {name: rule["hint"] for name, rule in _SPEC.items()}
+_REVIEWS: dict[str, Any] = _SCHEMA["reviews"]
+#: The field that records a review. It changes no data, and a review whose
+#: confirmed value has changed lapses (the item comes back) rather than
+#: stopping the build.
+REVIEW_FIELD: str = _REVIEWS["field"]
+REVIEW_KINDS: frozenset[str] = frozenset(_REVIEWS["kinds"])
 ROMAN = ("I", "II", "III", "IV", "V", "VI", "VII", "VIII")
 PARTS = ("introit", "gradual", "alleluia", "tract", "sequence", "offertory", "communion")
 
@@ -62,6 +72,9 @@ HEADER = """\
 #   vespers:<office>/magnificat           tone, chant, refs, note
 #   vespers:sunday:<key>/magnificat       tone, chant, refs, note   (vespers/vespers-noh8.yml magnificat_antiphons)
 #   pairing:<slug>/<movement>             chant   (a Kyrie, Gloria... of a piece without Proper parts)
+#   review:<volume>/<kind>/<id>           reviewed   (an item of review-queue.json, by its key)
+# `reviewed: yes` (on a part or a review item) records that an editor found it
+# right; `was` is what they confirmed, and when that changes the review lapses.
 # A chant is a GregoBase id, or none; refs are the systems it is printed on
 # ("noh8/0077/000 noh8/0077/001"); a note is shown in place of the music (none
 # shows the music again). A system_range is a piece's first and last system
@@ -144,7 +157,7 @@ def save(entries: list[Entry], path: Path = CORRECTIONS) -> Path:
 def kind_of(target: str) -> str:
     """piece, part or vespers; raises for anything else."""
     kind = target.partition(":")[0]
-    if kind not in _SPECS:
+    if kind not in _SPECS and kind not in REVIEW_KINDS:
         raise CorrectionError(f"{target} is not a target this file can correct; targets are "
                               f"{'; '.join(_SCHEMA['targets_help'].values())}")
     return kind
@@ -155,7 +168,15 @@ def coerce(name: str, value: object, genre: str | None = None, kind: str = "piec
 
     `genre` is the piece's, where known: some fields do not apply to some genres
     (a Proper has no single mode)."""
-    spec = _SPECS[kind]
+    if name == REVIEW_FIELD:
+        text = "yes" if value is True else str(value).strip().lower()
+        if kind not in REVIEW_KINDS:
+            raise CorrectionError(f"a {kind} cannot be marked {REVIEW_FIELD}; only a "
+                                  f"{' or '.join(sorted(REVIEW_KINDS))} can")
+        if not re.fullmatch(_REVIEWS["pattern"], text):
+            raise CorrectionError(f"{REVIEW_FIELD} is {_REVIEWS['hint']}, not {text!r}")
+        return text
+    spec = _SPECS.get(kind, {})
     if name not in spec:
         raise CorrectionError(f"unknown field {name!r}; the correctable fields of a {kind} are {', '.join(spec)}")
     rule = spec[name]
@@ -459,9 +480,67 @@ def _pairing_slot(target: str, pieces: dict[str, dict[str, Any]]) -> Slot:
     return Slot(get=lambda: (found() or {}).get("id"), put=put, genre=str(piece.get("genre")))
 
 
+_QUEUE: dict[tuple[str, int], dict[str, str]] = {}
+
+
+def review_fingerprints(path: Path | None = None) -> dict[str, str]:
+    """Each review-queue item's fingerprint, by key (pipeline/reviewkeys.py)."""
+    path = path or REVIEW_QUEUE
+    if not path.exists():
+        return {}
+    cache = (str(path), path.stat().st_mtime_ns)
+    if cache not in _QUEUE:
+        items = json.loads(path.read_text(encoding="utf-8"))
+        _QUEUE[cache] = {str(i["key"]): str(i["fingerprint"]) for i in items if "key" in i}
+    return _QUEUE[cache]
+
+
+def part_fingerprint(piece: dict[str, Any], part: dict[str, Any]) -> str:
+    """What a review of a part confirms: where it starts and how long it runs (a
+    part runs until the next printed part starts). The admin screen's "Parts to
+    check" says the same (web/src/lib/admin/suspects.ts partFingerprint)."""
+    placed = [p for p in piece.get("parts") or [] if "system" in p]
+    at = next(i for i, p in enumerate(placed) if p is part)
+    end = placed[at + 1]["system"] if at + 1 < len(placed) else len(piece.get("systems") or [])
+    return f"start {part['system'] + 1}, {end - part['system']} systems"
+
+
+def _review_slot(target: str, kind: str, catalog: dict[str, Any] | None) -> Slot:
+    """What a review of this target confirms. Reviews change no data: put does nothing."""
+    def keep(_: Any) -> None:
+        return None
+
+    if kind == "review":
+        from pipeline.reviewkeys import KEY
+        if not KEY.fullmatch(target):
+            raise CorrectionError(f"{target} is not of the form review:<volume>/<kind>/<id>")
+        found = review_fingerprints().get(target)
+        if found is None:
+            raise CorrectionError(f"{target} is no longer in the review queue")
+        return Slot(get=lambda: found, put=keep)
+    m = re.fullmatch(r"part:([a-z0-9-]+)/([a-z]+)(?::([a-z0-9-]+))?", target)
+    if not m:
+        raise CorrectionError(f"{target} is not of the form part:<slug>/<part>[:<variant>]")
+    piece = _pieces(catalog or {}).get(m.group(1))
+    part = next((p for p in (piece or {}).get("parts") or []
+                 if p.get("part") == m.group(2) and (p.get("variant") or "") == (m.group(3) or "")), None)
+    if piece is None or part is None:
+        raise _gone(target)
+    if "system" not in part:
+        raise CorrectionError(f"{target} is printed in another volume; review it where it is printed")
+    return Slot(get=lambda: part_fingerprint(piece, part), put=keep)
+
+
 def slot(target: str, name: str, catalog: dict[str, Any] | None, vespers: VespersData | None) -> Slot:
     """The slot a target's field names; raises CorrectionError saying why not."""
     kind = kind_of(target)
+    if name == REVIEW_FIELD:
+        if kind not in REVIEW_KINDS:
+            raise CorrectionError(f"a {kind} cannot be marked {REVIEW_FIELD}; only a "
+                                  f"{' or '.join(sorted(REVIEW_KINDS))} can")
+        return _review_slot(target, kind, catalog)
+    if kind not in _SPECS:
+        raise CorrectionError(f"{target}: a {kind} target takes only {REVIEW_FIELD}")
     if name not in _SPECS[kind]:
         raise CorrectionError(f"unknown field {name!r}; the correctable fields of a {kind} are "
                               f"{', '.join(_SPECS[kind])}")
@@ -587,6 +666,13 @@ def _check(base: dict[str, Any] | None, entries: list[Entry], vespers: VespersDa
                        "keep one entry and delete the other")
             continue
         seen[key] = e.id
+        if e.field == REVIEW_FIELD:
+            # Only its form: a review whose target has changed or gone lapses.
+            try:
+                coerce(e.field, e.value, None, kind)
+            except CorrectionError as exc:
+                out.append(f"{where}: {e.target} {exc}")
+            continue
         if _is_range(e):
             if e.id in failed:
                 out.append(failed[e.id])
@@ -634,7 +720,7 @@ def apply(base: dict[str, Any], entries: list[Entry]) -> dict[str, Any]:
         raise CorrectionError("\n".join(found))
     catalog = layer if layer is not None else copy.deepcopy(base)
     for e in entries:
-        if kind_of(e.target) != "vespers" and not _is_range(e):
+        if kind_of(e.target) != "vespers" and not _is_range(e) and e.field != REVIEW_FIELD:
             s = slot(e.target, e.field, catalog, None)
             s.put(coerce(e.field, e.value, s.genre, kind_of(e.target)))
     return catalog
@@ -658,6 +744,8 @@ def no_ops(base: dict[str, Any], entries: list[Entry], vespers: VespersData | No
     layer = _ranged(base, entries)[0]
     out = []
     for e in entries:
+        if e.field == REVIEW_FIELD:
+            continue
         try:
             kind = kind_of(e.target)
             if kind == "vespers" and vespers is None:
@@ -696,8 +784,31 @@ def log_text(entries: list[Entry]) -> str:
     """The public log: each correction's target, field, old and new value, date
     and whether a reader or an editor made it. Never an address or a note."""
     rows = [{"id": e.id, "target": e.target, "field": e.field, "was": e.was, "value": e.value, "date": e.date,
-             "by": "reader" if e.source.startswith("reader") else "editor"} for e in reversed(entries)]
+             "by": "reader" if e.source.startswith("reader") else "editor"} for e in reversed(entries)
+            if e.field != REVIEW_FIELD]
     return json.dumps({"schema_version": 1, "corrections": rows}, indent=2, ensure_ascii=False) + "\n"
+
+
+def reviews(catalog: dict[str, Any], entries: list[Entry]) -> tuple[list[Entry], list[Entry]]:
+    """(current, lapsed): the reviews whose confirmed value still holds against
+    the corrected catalogue and the review queue, and those that no longer do."""
+    current: list[Entry] = []
+    lapsed: list[Entry] = []
+    for e in entries:
+        if e.field != REVIEW_FIELD:
+            continue
+        try:
+            now = _review_slot(e.target, kind_of(e.target), catalog).get()
+        except CorrectionError:
+            now = None
+        (current if now is not None and now == e.was else lapsed).append(e)
+    return current, lapsed
+
+
+def reviewed_text(current: list[Entry]) -> str:
+    """data/reviewed.json: what still stands reviewed, and what was confirmed."""
+    rows = {e.target: {"was": e.was, "date": e.date} for e in sorted(current, key=lambda e: e.target)}
+    return json.dumps({"schema_version": 1, "reviewed": rows}, indent=2, ensure_ascii=False) + "\n"
 
 
 def _outputs(base_path: Path, path: Path, out: Path) -> dict[Path, str]:
@@ -712,7 +823,8 @@ def _outputs(base_path: Path, path: Path, out: Path) -> dict[Path, str]:
                               + (f" (and {len(stranded) - 1} more)" if len(stranded) > 1 else "")
                               + " in no piece, but a Vespers page shows it; widen that piece's range, "
                                 "or give the system to the piece before or after")
-    return {out: dump(catalog), LINEUP: lineup, LOG: log_text(entries)}
+    return {out: dump(catalog), LINEUP: lineup, LOG: log_text(entries),
+            REVIEWED: reviewed_text(reviews(catalog, entries)[0])}
 
 
 def _stranded(catalog: dict[str, Any], lineup: dict[str, Any]) -> list[str]:
@@ -746,12 +858,44 @@ def next_id(entries: list[Entry]) -> str:
     return f"c-{max(numbers, default=0) + 1:04d}"
 
 
+def review(target: str, value: str = "yes", note: str = "", source: str = "editor", editor_email: str = "",
+           seen: str | None = None, today: date | None = None, base_path: Path = BASE,
+           path: Path = CORRECTIONS) -> tuple[Entry, bool]:
+    """Record that an editor found a target right; returns (entry, replaced an
+    earlier one). `was` is what they confirmed, taken from the catalogue as the
+    site shows it (every correction applied). `seen`, when given, is what the
+    editor was shown: if it is not what is there now, the review is refused, so
+    nobody confirms a value they never saw."""
+    kind = kind_of(target)
+    text = coerce(REVIEW_FIELD, value, None, kind)
+    entries = load(path)
+    catalog = apply(load_base(base_path), entries) if kind == "part" else None
+    now = _review_slot(target, kind, catalog).get()
+    if seen is not None and seen != now:
+        raise CorrectionError(f"{target} has changed since it was shown for review (it said {seen!r}, "
+                              f"now {now!r}); look at it again")
+    stamp = (today or datetime.now(UTC).date()).isoformat()
+    for e in entries:
+        if (e.target, e.field) == (target, REVIEW_FIELD):
+            if e.was != now:
+                e.was, e.value, e.note, e.source, e.date = now, text, note or e.note, source, stamp
+                e.editor_email = editor_email or e.editor_email
+                save(entries, path)
+            return e, True
+    entry = Entry(id=next_id(entries), target=target, field=REVIEW_FIELD, was=now, value=text,
+                  source=source, date=stamp, note=note, editor_email=editor_email)
+    save([*entries, entry], path)
+    return entry, False
+
+
 def correct(target: str, name: str, value: str, note: str = "", source: str = "editor",
             editor_email: str = "", today: date | None = None, base_path: Path = BASE,
             path: Path = CORRECTIONS, vespers_dir: Path = DATA, order: bool = True) -> tuple[Entry, bool]:
     """Record one correction; returns (entry, replaced an earlier one).
     `order=False` defers the order of parts to the caller (a batch checks it
     once every entry is in)."""
+    if name == REVIEW_FIELD:
+        return review(target, value, note, source, editor_email, today=today, base_path=base_path, path=path)
     kind = kind_of(target)
     base = load_base(base_path) if kind != "vespers" else None
     vespers = load_vespers(vespers_dir) if kind == "vespers" else None
@@ -820,10 +964,19 @@ def correct_batch(batch: dict[str, Any], today: date | None = None, base_path: P
         if email and not EMAIL.fullmatch(email):
             errors.append(f"entry {n}: editor_email {email!r} is not an address")
             continue
+        seen = item.get("seen")
+        if seen is not None and not (isinstance(seen, str) and len(seen) <= 80):
+            errors.append(f"entry {n}: seen must be text of at most 80 characters")
+            continue
         try:
-            entry, _ = correct(str(item.get("target", "")), str(item.get("field", "")), str(item.get("value", "")),
-                               note=str(item.get("note", ""))[:200], source=source, editor_email=email,
-                               today=today, base_path=base_path, path=path, order=False)
+            if str(item.get("field", "")) == REVIEW_FIELD:
+                entry, _ = review(str(item.get("target", "")), str(item.get("value", "")),
+                                  note=str(item.get("note", ""))[:200], source=source, editor_email=email,
+                                  seen=seen, today=today, base_path=base_path, path=path)
+            else:
+                entry, _ = correct(str(item.get("target", "")), str(item.get("field", "")), str(item.get("value", "")),
+                                   note=str(item.get("note", ""))[:200], source=source, editor_email=email,
+                                   today=today, base_path=base_path, path=path, order=False)
             done.append(entry)
         except CorrectionError as exc:
             errors.append(f"entry {n} ({item.get('target')} {item.get('field')}): {exc}")
@@ -855,8 +1008,10 @@ def hold_reasons(entries: list[Entry]) -> list[str]:
         reasons.append(f"{len(structural)} correction(s) move systems between pieces "
                        f"({', '.join(e.target for e in structural[:5])}"
                        f"{', ...' if len(structural) > 5 else ''})")
-    if len(entries) >= LARGE_BATCH:
-        reasons.append(f"it has {len(entries)} corrections ({LARGE_BATCH} or more)")
+    # Reviews change no data, so they do not make a batch large.
+    changes = [e for e in entries if e.field != REVIEW_FIELD]
+    if len(changes) >= LARGE_BATCH:
+        reasons.append(f"it has {len(changes)} corrections ({LARGE_BATCH} or more)")
     return reasons
 
 
@@ -909,7 +1064,12 @@ __all__ = [
     "load_base",
     "load_vespers",
     "no_ops",
+    "part_fingerprint",
     "problems",
+    "review",
+    "review_fingerprints",
+    "reviewed_text",
+    "reviews",
     "save",
     "slot",
     "stale_outputs",

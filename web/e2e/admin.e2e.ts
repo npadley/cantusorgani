@@ -122,3 +122,56 @@ test.describe("Parts to check", () => {
     await expect(page.locator("#field-note")).toContainText("A part runs from the system it starts on until the next part starts");
   });
 });
+
+test.describe.serial("Reviewing", () => {
+  test("should mark an item as looking right, send it with the next publish, and keep it done after a reload", async ({ page }) => {
+    await page.goto("/admin/");
+    await page.getByRole("link", { name: /^Review \(\d+ to check\)$/ }).click();
+    await expect(page.locator("h1")).toHaveText("Review");
+    await page.getByLabel(/^To check against the scan/).check();
+    await page.getByLabel("Kind").selectOption("segmentation_fallback");
+    const before = Number((await page.locator("[data-count=check]").textContent()) ?? "0");
+    const item = page.locator("#items article:visible").first();
+    const heading = (await item.locator("h3").textContent()) ?? "";
+    await expect(item.locator(".scan img").first()).toBeVisible();
+    await item.getByRole("button", { name: "Looks right" }).click();
+    await expect(page.locator("#status")).toHaveText(`${heading}: marked as looking right.`);
+    await expect(page.locator("[data-count=check]")).toHaveText(String(before - 1));
+    // Done items are hidden unless asked for; focus moved on to the next one.
+    await expect(page.locator("#items article", { hasText: heading })).toBeHidden();
+    await expect(page.locator(":focus")).toHaveAttribute("id", /^h-review/);
+    await page.reload();
+    await page.getByLabel(/^To check against the scan/).check();
+    await page.getByLabel("Show what is already done").check();
+    await expect(page.locator("#items article", { hasText: heading }).locator(".review-state"))
+      .toContainText("Looks right · marked by editor@example.org");
+    await page.goto("/admin/");
+    await expect(page.locator("#approved")).toContainText("Looks right · marked by editor@example.org");
+  });
+
+  test("should ask why before skipping, and let the skip be taken back", async ({ page }) => {
+    await page.goto("/admin/review/");
+    const item = page.locator("#items article:visible").first();
+    const target = (await item.getAttribute("data-review-target")) ?? "";
+    await item.getByRole("button", { name: "Skip…" }).click();
+    await item.getByRole("button", { name: "Save the skip" }).click();
+    await expect(page.locator("#status")).toHaveText("Say briefly why it is skipped, for the next editor.");
+    await item.getByLabel("Why skip it? (for the next editor)").fill("The scan is too faint to tell");
+    await item.getByRole("button", { name: "Save the skip" }).click();
+    await page.reload();
+    await page.getByLabel("Show what is already done").check();
+    const again = page.locator(`#items article[data-review-target="${target}"]`);
+    await expect(again.locator(".review-state")).toContainText("Skipped by editor@example.org: “The scan is too faint to tell”");
+    await again.getByRole("button", { name: "Take back the skip" }).click();
+    await expect(page.locator("#status")).toHaveText("Skip taken back.");
+    await expect(again.getByRole("button", { name: "Looks right" })).toBeVisible();
+  });
+
+  test("should mark a part to check as looking right from its own list", async ({ page }) => {
+    await page.goto("/admin/parts/");
+    const part = page.locator("#suspects [data-review-target]").first();
+    await part.getByRole("button", { name: "Looks right" }).click();
+    await expect(part.locator(".review-state")).toContainText("Looks right · marked by you");
+    await expect(part.getByRole("button", { name: "Looks right" })).toBeHidden();
+  });
+});

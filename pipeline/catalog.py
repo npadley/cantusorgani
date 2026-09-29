@@ -702,7 +702,8 @@ def write_catalog(vol_id: str, data_dir: Path = DATA,
     queue += [{"volume": vol_id, **r} for r in review]
     queue += [{"volume": "links", **r} for r in unlinked]
     base_path.write_text(json.dumps(merged, indent=2) + "\n", encoding="utf-8")
-    rev_path.write_text(json.dumps(queue, indent=2) + "\n", encoding="utf-8")
+    from pipeline.reviewkeys import with_keys
+    rev_path.write_text(json.dumps(with_keys(queue), indent=2) + "\n", encoding="utf-8")
     # Last: the hand corrections. A stale one stops here with the base already
     # written, so fixing corrections.yml needs only `noh apply-corrections`.
     from pipeline.corrections import write as apply_corrections

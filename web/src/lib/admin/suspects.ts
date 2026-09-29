@@ -8,7 +8,9 @@
  *   often a sign that the NEXT part starts too early: Dominica I Adventus's
  *   Introit had three systems because its Gradual was placed on system 4, not 9.
  *
- * Neither proves an error; each entry names what to look at.
+ * Neither proves an error; each entry names what to look at. An editor who
+ * finds a part right marks it reviewed (**Looks right**): the review records its
+ * start and length, and the part stays off this list until either changes.
  */
 import { partLabel } from "../catalog";
 import type { Piece, PrintedPart, ProperPartName } from "../catalog";
@@ -26,6 +28,8 @@ export interface SuspectPart {
   readonly start: number;
   readonly length: number;
   readonly reasons: readonly string[];
+  /** What a review of it confirms: the same text as pipeline/corrections.py part_fingerprint. */
+  readonly fingerprint: string;
 }
 
 export interface SuspectPiece {
@@ -37,9 +41,18 @@ export interface SuspectPiece {
 
 const targetOf = (slug: string, p: PrintedPart): string => `part:${slug}/${p.part}${p.variant ? `:${p.variant}` : ""}`;
 
+/** What reviewing a part confirms: where it starts (counting from 1) and how
+ * many systems it runs for. */
+export function partFingerprint(start: number, length: number): string {
+  return `start ${start}, ${length} systems`;
+}
+
+/** Reviews that still hold, by target, with what each confirmed (data/reviewed.json). */
+export type Reviewed = Readonly<Record<string, { readonly was: string; readonly date: string }>>;
+
 /** Every piece with a part to check, in catalogue order. Parts corrected by
- * hand ("hand") are taken as checked. */
-export function suspectParts(pieces: readonly Piece[]): readonly SuspectPiece[] {
+ * hand ("hand") are taken as checked, and so are parts reviewed as they are now. */
+export function suspectParts(pieces: readonly Piece[], reviewed: Reviewed = {}): readonly SuspectPiece[] {
   const out: SuspectPiece[] = [];
   for (const piece of pieces) {
     const placed = piece.parts.filter((p): p is PrintedPart => p.kind === "printed");
@@ -55,7 +68,11 @@ export function suspectParts(pieces: readonly Piece[]): readonly SuspectPiece[] 
         reasons.push(`it runs for only ${length} system${length === 1 ? "" : "s"}` +
           (next ? `: check where it starts, and where the ${partLabel(next.part, next.variant)} starts` : ""));
       }
-      if (reasons.length) parts.push({ target: targetOf(piece.slug, p), name, start: p.system + 1, length, reasons });
+      const target = targetOf(piece.slug, p);
+      const fingerprint = partFingerprint(p.system + 1, length);
+      if (reasons.length && reviewed[target]?.was !== fingerprint) {
+        parts.push({ target, name, start: p.system + 1, length, reasons, fingerprint });
+      }
     });
     if (parts.length) out.push({ slug: piece.slug, label: piece.label, volume: piece.volume, parts });
   }

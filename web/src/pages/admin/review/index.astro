@@ -1,0 +1,155 @@
+---
+import Layout from "../../../components/Layout.astro";
+import { GROUP_LABELS, GROUP_ORDER } from "../../../lib/admin/reviewKinds";
+import { reviewEntries } from "../../../lib/admin/reviews";
+
+// Everything the pipeline was not sure of, and the parts whose start looks
+// wrong, built with the site: an editor confirms each against the scan (Looks
+// right), corrects it, or skips it with a note. Behind Cloudflare Access with
+// /admin/; the buttons talk to /admin/api.
+const entries = reviewEntries();
+const edit = (target: string) => `/admin/edit/?target=${encodeURIComponent(target)}`;
+const count = (group: string) => entries.filter((e) => e.group === group).length;
+const volumes = [...new Set(entries.map((e) => e.volume))].sort();
+const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
+---
+
+<Layout title="Admin: review" noindex>
+  <div class="admin ui">
+    <p class="small muted"><a href="/admin/">Corrections</a> · <a href="/admin/parts/">Parts to check</a></p>
+    <h1>Review</h1>
+    <p class="muted small prose">
+      What the pipeline was not sure of when it read the scans, and the parts whose start looks wrong. Look at each
+      against its scan. <strong>Looks right</strong> confirms it as it is; <strong>Correct</strong> opens the edit
+      form; <strong>Skip</strong> leaves a note for the next editor. Confirmations are published with the next
+      <strong>Publish changes</strong> on the <a href="/admin/">Corrections</a> page, and an item comes back here if a
+      later rebuild changes it.
+    </p>
+
+    <form class="filters" id="filters" aria-label="Show">
+      <fieldset>
+        <legend class="small">Show</legend>
+        {GROUP_ORDER.map((group, i) => (
+          <label class="choice"><input type="radio" name="group" value={group} checked={i === 0} />
+            {GROUP_LABELS[group]} (<span data-count={group}>{count(group)}</span>)</label>
+        ))}
+      </fieldset>
+      <label class="small">Volume
+        <select name="volume"><option value="">All</option>{volumes.map((v) => <option value={v}>{v}</option>)}</select>
+      </label>
+      <label class="small">Kind
+        <select name="kind"><option value="">All</option>{kinds.map(([k, l]) => <option value={k}>{l}</option>)}</select>
+      </label>
+      <label class="choice small"><input type="checkbox" name="done" /> Show what is already done</label>
+    </form>
+
+    <div id="status" class="status small" role="status" aria-live="polite"></div>
+    <p class="small muted" id="shown" aria-live="polite"></p>
+
+    <div id="items">
+      {entries.map((e) => (
+        <article class:list={["item", e.scans.length > 0 && "has-scan"]} data-review-target={e.target}
+                 data-review-seen={e.fingerprint} data-group={e.group} data-volume={e.volume} data-kind={e.kind}
+                 aria-labelledby={`h-${e.target.replace(/[^a-z0-9]/gi, "-")}`}>
+          <h3 tabindex="-1" id={`h-${e.target.replace(/[^a-z0-9]/gi, "-")}`}>{e.label}: {e.about}</h3>
+          <p class="small">{e.look}</p>
+          {e.detail && <p class="small muted">{e.detail}</p>}
+          {e.scans.length > 0 && (
+            <div class="scan">
+              {e.scans.map((s) => (
+                <figure>
+                  {s.stem && <img src={`${s.stem}.webp`} alt={`${s.caption}, as printed`} loading="lazy"
+                                  width={s.aspect?.[0]} height={s.aspect?.[1]} />}
+                  <figcaption class="small muted">{s.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          )}
+          <div class="actions review-actions">
+            <button type="button" data-act="looks-right">Looks right</button>
+            {e.correct && <a class="button" href={edit(e.correct)}>Correct</a>}
+            <button type="button" data-act="skip">Skip…</button>
+            {e.href && <a class="small" href={e.href}>Open the page</a>}
+          </div>
+          <p class="review-state small" aria-live="polite"></p>
+        </article>
+      ))}
+    </div>
+    <p id="none" class="muted" hidden>Nothing to show with these choices.</p>
+  </div>
+</Layout>
+
+<style>
+  .admin { max-width: 60rem; }
+  h1 { margin: 0 0 var(--s-2); }
+  .filters { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: end; margin: var(--s-3) 0;
+             padding: var(--s-2) 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .filters fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-3); }
+  .filters legend { padding: 0; margin-bottom: var(--s-1); }
+  .filters select { display: block; font: inherit; font-family: var(--font-ui); min-height: var(--tap-min);
+                    padding: var(--s-1) var(--s-2); background: var(--paper); color: var(--ink);
+                    border: 1px solid var(--rule); border-radius: var(--radius); }
+  .choice { display: inline-flex; align-items: center; gap: var(--s-1); min-height: var(--tap-min); }
+  .status { min-height: 1.4em; margin: var(--s-2) 0; }
+  .status[data-state="error"] { color: var(--warn-ink); }
+  .item { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2);
+          padding: var(--s-3) 0; border-bottom: 1px solid var(--rule); }
+  @media (min-width: 60rem) {
+    .item.has-scan { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s-4); }
+    .item.has-scan .scan { grid-column: 2; grid-row: 1 / span 5; }
+  }
+  .item h3 { margin: 0; font-size: var(--step-0); }
+  .item h3:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .item p { margin: 0; }
+  .item[data-done] { opacity: 0.7; }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; }
+  .button { display: inline-flex; align-items: center; min-height: var(--tap-min); padding: 0 var(--s-3);
+            border: 1px solid var(--rule); border-radius: var(--radius); color: var(--ink); text-decoration: none; }
+  .scan figure { margin: 0 0 var(--s-2); }
+  .scan img { display: block; width: 100%; height: auto; }
+  .scan figcaption { margin-top: var(--s-1); }
+  :global(.review-state .reason) { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: end; }
+  :global(.review-state .reason label) { display: block; width: 100%; }
+  :global(.review-state .reason input) { flex: 1 1 16rem; font: inherit; font-family: var(--font-ui);
+    min-height: var(--tap-min); padding: var(--s-2) var(--s-3); background: var(--paper); color: var(--ink);
+    border: 1px solid var(--rule); border-radius: var(--radius); }
+  :global(.review-state button.link) { background: none; border: 0; padding: 0; min-height: var(--tap-min);
+    color: var(--accent); text-decoration: underline; cursor: pointer; font: inherit; }
+</style>
+
+<script>
+  import { wireReviews } from "../../../lib/admin/reviewClient";
+
+  const form = document.getElementById("filters") as HTMLFormElement | null;
+  const list = document.getElementById("items");
+  const none = document.getElementById("none");
+  const shown = document.getElementById("shown");
+  const all = [...document.querySelectorAll<HTMLElement>("#items [data-review-target]")];
+
+  /** Shows the items the filters choose, and each group's count of what is left to do. */
+  function apply(): void {
+    if (!form) return;
+    const data = new FormData(form);
+    const group = String(data.get("group") ?? "fix");
+    const volume = String(data.get("volume") ?? "");
+    const kind = String(data.get("kind") ?? "");
+    const done = data.get("done") !== null;
+    let visible = 0;
+    for (const el of all) {
+      const show = el.dataset["group"] === group && (!volume || el.dataset["volume"] === volume) &&
+        (!kind || el.dataset["kind"] === kind) && (done || !el.dataset["done"]);
+      el.hidden = !show;
+      if (show) visible++;
+    }
+    for (const counter of document.querySelectorAll<HTMLElement>("[data-count]")) {
+      const g = counter.dataset["count"];
+      counter.textContent = String(all.filter((el) => el.dataset["group"] === g && !el.dataset["done"]).length);
+    }
+    if (none) none.hidden = visible > 0;
+    if (shown) shown.textContent = `${visible} shown`;
+  }
+
+  form?.addEventListener("change", apply);
+  apply();
+  if (list) void wireReviews(list, document.getElementById("status"), apply);
+</script>

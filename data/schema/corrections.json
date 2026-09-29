@@ -119,7 +119,8 @@
     "piece": "piece:<slug>",
     "part": "part:<slug>/<part>, or part:<slug>/<part>:<variant> (introit, gradual, alleluia, tract, sequence, offertory, communion)",
     "vespers": "vespers:<office>/antiphon-<n> or vespers:<office>/magnificat (an office of data/vespers/vespers-offices.yml); vespers:sunday:<calendar key>/magnificat (a green Sunday's Magnificat antiphon, data/vespers/vespers-noh8.yml)",
-    "pairing": "pairing:<slug>/<movement>: the chant paired with one movement of a piece without Proper parts (kyrie, gloria, credo, sanctus, agnus, ite; chant for a single-chant piece)"
+    "pairing": "pairing:<slug>/<movement>: the chant paired with one movement of a piece without Proper parts (kyrie, gloria, credo, sanctus, agnus, ite; chant for a single-chant piece)",
+    "review": "review:<volume>/<kind>/<id>: an item of data/review-queue.json (its `key`), for `reviewed` only"
   },
   "pairing_movements": {
     "$comment": "The chant movements each genre of piece has (\"chant\": the one chant of a single-chant piece). A Proper's chants are on its parts.",
@@ -160,5 +161,15 @@
     "exsequiis": [
       "chant"
     ]
+  },
+  "reviews": {
+    "$comment": "`reviewed` records that an editor looked at a target and found it right; it changes no data. Its `was` is what was confirmed: a review-queue item's fingerprint, or a part's start and length. When that changes the review lapses (the item comes back) instead of stopping the build.",
+    "field": "reviewed",
+    "kinds": [
+      "part",
+      "review"
+    ],
+    "pattern": "^yes$",
+    "hint": "yes"
   }
 }

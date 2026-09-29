@@ -58,7 +58,7 @@ export const PIECE_FIELDS = FIELDS_OF.piece as readonly PieceField[];
 export const FIELD_LABELS: Readonly<Record<string, string>> = {
   title: "Title", incipit: "Incipit", mode: "Mode", genre: "Genre", printed_pages: "Printed pages",
   system_range: "Systems (first-last)", start_system: "Starts on system", chant: "Chant (GregoBase id)", tone: "Tone",
-  refs: "Printed systems", note: "A note instead of the music",
+  refs: "Printed systems", note: "A note instead of the music", reviewed: "Looks right",
 };
 
 export const PART_LABELS: Readonly<Record<string, string>> = {
