@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { allPieces } from "./catalog";
 import type { Piece, PrintedPart } from "./catalog";
-import { MANIFEST, hasTypeset, renderFor, segments } from "./typeset";
+import { MANIFEST, exportRuns, hasTypeset, renderFor, segments } from "./typeset";
 import type { Render } from "./typeset";
 
 function part(name: PrintedPart["part"], system: number, placed: PrintedPart["placed"] = "label"): PrintedPart {
@@ -17,7 +17,8 @@ function proper(slug: string, systems: number, parts: PrintedPart[]): Piece {
            systemAspect: Array.from({ length: systems }, () => [1600, 400] as const), parts };
 }
 
-const drawn = (file: string): Render => ({ narrow: `n/${file}`, wide: `w/${file}`, pdf: `p/${file}`, proofread: false, file });
+const drawn = (file: string): Render => ({ narrow: `n/${file}`, wide: `w/${file}`, letter: `l/${file}`, a4: `a/${file}`,
+                                           proofread: false, file });
 
 describe("segments", () => {
   it("should split a Proper at its parts and show typeset only where a part has a render", () => {
@@ -61,7 +62,8 @@ describe("renderFor", () => {
     const found = renderFor("part:dominica-i-adventus/introit", manifest, {}, []);
     expect(found).toMatchObject({ proofread: false, file: "vol-1/in_ad_te_levavi.csv.ly" });
     expect(found!.narrow).toMatch(/\/typeset\/ab12\/narrow\.svg$/);
-    expect(found!.pdf).toMatch(/\/typeset\/ab12\/score\.pdf$/);
+    expect(found!.letter).toMatch(/\/typeset\/ab12\/letter\.pdf$/);
+    expect(found!.a4).toMatch(/\/typeset\/ab12\/a4\.pdf$/);
   });
 
   it("should call it proofread only when the review confirmed this very render", () => {
@@ -75,5 +77,20 @@ describe("renderFor", () => {
     const short = proper("dominica-i-adventus", 28, [part("introit", 0), part("gradual", 3)]);
     expect(renderFor("part:dominica-i-adventus/introit", manifest, {}, [short])).toBeNull();
     expect(renderFor("part:elsewhere/introit", manifest, {}, [])).toBeNull();
+  });
+});
+
+describe("exportRuns", () => {
+  const piece = proper("dominica-x", 10, [part("introit", 0), part("gradual", 4), part("communion", 8)]);
+  const find = (t: string) => (t === "part:dominica-x/gradual" ? drawn("gr.ly") : null);
+
+  it("should give a typeset part's whole run its PDFs, and scans around it", () => {
+    expect(exportRuns(piece, 0, 10, find).map((r) => [r.count, r.key, r.letter])).toEqual([
+      [4, null, null], [4, "dominica-x:4", "l/gr.ly"], [2, null, null]]);
+    expect(exportRuns(piece, 4, 8, find)[0]).toMatchObject({ count: 4, label: "Gradual", a4: "a/gr.ly" });
+  });
+
+  it("should use scans for a typeset part only partly inside the export", () => {
+    expect(exportRuns(piece, 5, 10, find)).toEqual([{ count: 5, key: null, label: null, letter: null, a4: null }]);
   });
 });

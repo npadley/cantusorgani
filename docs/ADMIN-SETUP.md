@@ -143,6 +143,9 @@ can be revoked without the other.
 5. Go to **Actions → r2-check → Run workflow**. A green run means GitHub can
    write to the bucket; a red one says which value is wrong, without showing it.
 
+The same token lets **Actions → typeset-prune** delete typeset renders nothing
+uses any more (docs/TYPESETTING.md, "Drawing and publishing").
+
 For your Mac, make a second token the same way (name it `cantusorgani Mac`),
 put its values in the 1Password Environment, and check with
 `uv run noh r2-check`.

@@ -14,7 +14,7 @@ from pipeline.typeset.svgcheck import check_pdf, problems
 from tests.test_upload_transport import FakeS3
 
 SOURCE = '\\version "2.26.0"\n\\include "gregorian.ly"\n\\include "noh2.ily"\nx = { c\'4 \\forceBreak }\n'
-NARROW, WIDE, PRINT = FORMATS
+NARROW, WIDE, LETTER, A4 = FORMATS
 
 # ------------------------------------------------------------------ render ---
 
@@ -29,7 +29,8 @@ def test_wrap_the_phone_layout_comes_after_the_house_style_and_the_page_at_the_e
 
 def test_wrap_the_wide_and_print_layouts_keep_the_books_breaks():
     assert "narrow.ily" not in wrap(SOURCE, WIDE) and "prelude.ily" in wrap(SOURCE, WIDE)
-    assert '#(set-paper-size "a4")' in wrap(SOURCE, PRINT)
+    assert '#(set-paper-size "letter")' in wrap(SOURCE, LETTER) and '#(set-paper-size "a4")' in wrap(SOURCE, A4)
+    assert "top-margin = 12\\mm" in wrap(SOURCE, LETTER)
 
 
 def test_source_hash_changes_with_the_source_the_includes_and_the_version(tmp_path: Path):
@@ -60,10 +61,14 @@ def test_render_the_kyrie_draws_three_checked_files(tmp_path: Path):
     result = render.render(Path("data/typeset/src/vol-5/missa-ix/kyrie_IX.ly"), tmp_path)
     assert result.ok and result.problems == []
     folder = tmp_path / result.hash
-    assert sorted(p.name for p in folder.iterdir()) == ["narrow.svg", "score.pdf", "wide.svg"]
+    assert sorted(p.name for p in folder.iterdir()) == ["a4.pdf", "letter.pdf", "narrow.svg", "wide.svg"]
     for name, width in WIDTHS.items():
         assert check_file(folder / name, width) == []
-    assert check_pdf((folder / "score.pdf").read_bytes()) == []
+    for name in ("letter.pdf", "a4.pdf"):
+        assert check_pdf((folder / name).read_bytes()) == []
+    # Letter is 612 x 792 points; A4 595 x 842.
+    assert b"MediaBox [ 0 0 612 792 ]" in (folder / "letter.pdf").read_bytes()
+    assert b"MediaBox [ 0 0 596 842 ]" in (folder / "a4.pdf").read_bytes()
 
 
 @pytest.mark.lilypond
@@ -139,7 +144,7 @@ def test_build_shows_matched_parts_and_lists_the_rest_for_review(tree):
     shown, review = manifest.build(**tree)
     [part] = shown["parts"]
     assert part["target"] == "movement:ordinarium-missae-ix/kyrie" and len(part["hash"]) == 32
-    assert shown["prefix"] == "typeset" and shown["files"] == ["narrow.svg", "wide.svg", "score.pdf"]
+    assert shown["prefix"] == "typeset" and shown["files"] == ["narrow.svg", "wide.svg", "letter.pdf", "a4.pdf"]
     assert "Joe Egan" in shown["credit"]
     proposed, broken = review["items"]
     assert proposed["status"] == "proposed" and "hash" in proposed and proposed["candidates"]
@@ -165,7 +170,8 @@ def rendered(out: Path, digest: str, wide: bytes = GOOD) -> None:
     wide_ok = wide.replace(b'width="283"', b'width="539"') if wide is GOOD else wide
     (folder / "narrow.svg").write_bytes(narrow)
     (folder / "wide.svg").write_bytes(wide_ok)
-    (folder / "score.pdf").write_bytes(b"%PDF-1.7\n")
+    (folder / "letter.pdf").write_bytes(b"%PDF-1.7\n")
+    (folder / "a4.pdf").write_bytes(b"%PDF-1.7\n")
 
 
 def test_publish_uploads_checked_renders_and_nothing_of_a_bad_one(tmp_path, monkeypatch):
@@ -176,12 +182,12 @@ def test_publish_uploads_checked_renders_and_nothing_of_a_bad_one(tmp_path, monk
     from pipeline.upload import Credentials
     creds = Credentials("acct", "id", "secret", "cantusorgani-assets")
     uploaded, there, found = publish.publish(tmp_path, creds)
-    assert uploaded == 3 and there == 0
-    assert sorted(fake.objects) == [f"typeset/{'a' * 32}/{n}" for n in ("narrow.svg", "score.pdf", "wide.svg")]
+    assert uploaded == 4 and there == 0
+    assert sorted(fake.objects) == [f"typeset/{'a' * 32}/{n}" for n in ("a4.pdf", "letter.pdf", "narrow.svg", "wide.svg")]
     assert found == [f"{'b' * 32}/wide.svg: has a <script> element"]
     assert {p["ContentType"] for p in fake.puts} == {"image/svg+xml", "application/pdf"}
     again = publish.publish(tmp_path, creds)
-    assert again[:2] == (0, 3)
+    assert again[:2] == (0, 4)
 
 
 class Answer:
@@ -196,7 +202,8 @@ class Answer:
 
 
 def test_missing_asks_the_public_address_for_every_file(monkeypatch):
-    there = {"typeset/aa/narrow.svg", "typeset/aa/wide.svg", "typeset/aa/score.pdf", "typeset/bb/narrow.svg"}
+    there = {"typeset/aa/narrow.svg", "typeset/aa/wide.svg", "typeset/aa/letter.pdf", "typeset/aa/a4.pdf",
+             "typeset/bb/narrow.svg"}
 
     def urlopen(request, timeout):
         path = request.full_url.split("example.org/", 1)[1]

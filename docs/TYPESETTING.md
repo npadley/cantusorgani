@@ -34,6 +34,7 @@ uv run noh typeset-manifest                  # manifest.json and review.json, fr
 uv run noh typeset-check                     # the source check, parts.yml and the manifest (CI runs this)
 uv run noh typeset-render                    # draw into build/typeset/out/ (CI: only what R2 lacks)
 uv run noh typeset-publish                   # check and upload build/typeset/out/ to R2 (needs the R2 variables)
+uv run noh typeset-prune                     # what the cleanup would delete from R2 (--delete to do it)
 ```
 
 After changing a source, an include or parts.yml, run `noh typeset-manifest`
@@ -89,19 +90,35 @@ the render hash, so any edit to the file (or to the render settings) reopens it.
 
 ## Drawing and publishing
 
-Each file is drawn three times by LilyPond's Cairo backend, which draws text
+Each file is drawn four times by LilyPond's Cairo backend, which draws text
 as outlines, so no fonts are needed (`pipeline/typeset/render.py`):
 
 | File | For | Layout |
 |---|---|---|
 | `narrow.svg` | phones | 90 mm lines, staff 17; the book's line breaks removed, so lines break to fit (`narrow.ily`) |
 | `wide.svg` | tablets and desktops | 190 mm lines, staff 18; the book's own line breaks, to read against the scan |
-| `score.pdf` | the PDF export | A4 pages, staff 18; the book's line breaks |
+| `letter.pdf` | the PDF export | US Letter pages, staff 18, printer's margins; the book's line breaks |
+| `a4.pdf` | the PDF export | the same on A4 |
 
 There are no titles or running heads (`render.ily`): the page names the part.
+
+The PDF export (`web/src/lib/pdf.ts`) makes Letter pages, or A4 if the reader
+chooses (remembered in their browser). A part whose systems are all typeset,
+and which the reader sees typeset, goes in as `letter.pdf` or `a4.pdf`'s own
+pages, drawn as vectors with the part's heading above; everything else goes
+in as scans. If a typeset PDF cannot be fetched, the export uses the scans
+for that part and says so.
 A render is published at `typeset/<hash>/` on R2. The hash covers the source,
 the includes, the render settings and the LilyPond version, so a changed file
 gets a new address and nothing published is ever overwritten.
+
+So old renders pile up on R2. To clear them, run **Actions → typeset-prune →
+Run workflow** (`.github/workflows/typeset-prune.yml`). It keeps every render
+main's manifest.json and review.json name, and anything uploaded in the last 14
+days (a pull request's renders go up before it merges), and deletes the rest.
+It never touches the scans. Leave **Delete them** unticked for a dry run: the
+run's summary says how many renders and megabytes would go. Tick it and run
+again to delete them.
 
 In CI (`.github/workflows/site.yml`):
 - **typeset-render** draws every hash the manifest and review files name that

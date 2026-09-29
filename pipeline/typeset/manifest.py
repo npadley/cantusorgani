@@ -13,7 +13,7 @@ correction on typeset:<file> in data/corrections.yml says which part a file is,
 or that it is none, or another setting (pipeline/typeset/match.py with_choices).
 `noh apply-corrections` writes them too, so a batch of corrections carries them.
 
-A render hash names typeset/<hash>/{narrow.svg, wide.svg, score.pdf} on R2
+A render hash names typeset/<hash>/{narrow.svg, wide.svg, letter.pdf, a4.pdf} on R2
 (pipeline/typeset/render.py). `noh typeset-render` draws the ones not published
 yet, `noh typeset-publish` uploads them, and `noh typeset-check --remote`
 checks every one the manifest names is there.

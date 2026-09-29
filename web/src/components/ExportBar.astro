@@ -1,6 +1,9 @@
 ---
 import { defaultTicked, defaultsNote, exportSegments, seasonGroup } from "../lib/exportParts";
+import { pieceBySlug } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
+import { exportRuns } from "../lib/typeset";
+import type { ExportRun } from "../lib/typeset";
 import type { ExportSegment } from "../lib/exportParts";
 import type { Season } from "../lib/liturgy";
 import { estimatePages, validateSelection } from "../lib/pdf";
@@ -26,6 +29,13 @@ const ticked = segments.filter((s) => defaultTicked(s, segments, group));
 const count = ticked.reduce((n, s) => n + s.systems, 0);
 const refusal = segments.length > 0 ? validateSelection(count, ticked.map((s) => ({ label: s.label, systems: s.systems }))) : null;
 const note = defaultsNote(segments, group, dateLabel);
+// Which of each part's systems are typeset: those go into the PDF as the
+// typeset music's own pages, unless the reader has switched them to the scans.
+const runsOf = (s: ExportSegment): readonly ExportRun[] => {
+  const piece = s.source ? pieceBySlug(s.source.slug) : undefined;
+  return piece && s.source ? exportRuns(piece, s.source.start, s.source.end)
+    : [{ count: s.systems, key: null, label: null, letter: null, a4: null }];
+};
 const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${estimatePages(n)} page${estimatePages(n) === 1 ? "" : "s"})`;
 ---
 
@@ -39,7 +49,8 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
           <label class="part">
             <input type="checkbox" name="export-part" value={s.id}
                    checked={defaultTicked(s, segments, group)}
-                   data-stems={s.stems.join(",")} data-systems={s.systems} data-label={s.label} />
+                   data-stems={s.stems.join(",")} data-systems={s.systems} data-label={s.label}
+                   data-runs={JSON.stringify(runsOf(s))} />
             <span>{s.label}</span>
             <span class="muted small">{s.systems}</span>
           </label>
@@ -48,9 +59,17 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     </details>
     {note && <p class="small muted note">{note}</p>}
 
-    <button id="export-btn" type="button" disabled={refusal !== null}>
-      {refusal !== null && count === 0 ? "Tick at least one part" : label(count)}
-    </button>
+    <div class="go">
+      <button id="export-btn" type="button" disabled={refusal !== null}>
+        {refusal !== null && count === 0 ? "Tick at least one part" : label(count)}
+      </button>
+      <label class="small paper">Paper
+        <select id="export-paper">
+          <option value="letter">Letter (8½ × 11)</option>
+          <option value="a4">A4</option>
+        </select>
+      </label>
+    </div>
 
     <progress id="export-progress" max={count} value="0" hidden></progress>
     <p id="export-status" class="small" role="status" aria-live="polite">{refusal ?? ""}</p>
@@ -68,6 +87,9 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
   progress { width: min(100%, 22rem); height: 0.5rem; }
   #export-status { margin: 0; min-height: 1.4em; }
   .note { margin: 0; }
+  .go { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
+  .paper { display: flex; align-items: center; gap: var(--s-1); min-height: var(--tap-min); }
+  .paper select { min-height: var(--tap-min); }
   .parts summary { min-height: var(--tap-min); display: flex; align-items: center; cursor: pointer; }
   .parts fieldset { border: 1px solid var(--rule); margin: var(--s-1) 0 0; padding: var(--s-1) var(--s-2); }
   .parts legend { font-size: var(--step--1); color: var(--ink-muted); padding: 0 var(--s-1); }
@@ -93,12 +115,47 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
 <script>
   import type { BuildRequest, BuildResponse } from "../workers/pdf.worker";
   import { estimatePages, validateSelection } from "../lib/pdf";
+  import type { Paper, TypesetInsert } from "../lib/pdf";
+  import type { ExportRun } from "../lib/typeset";
 
   const root = document.querySelector<HTMLElement>(".export");
   const button = document.getElementById("export-btn") as HTMLButtonElement | null;
   const status = document.getElementById("export-status");
   const progress = document.getElementById("export-progress") as HTMLProgressElement | null;
   const tickedCount = root?.querySelector<HTMLElement>("[data-ticked]") ?? null;
+  const paperSelect = document.getElementById("export-paper") as HTMLSelectElement | null;
+  const PAPER_KEY = "export-paper";
+
+  // The paper size is remembered in this browser; Letter until chosen.
+  if (paperSelect) {
+    try {
+      const saved = localStorage.getItem(PAPER_KEY);
+      if (saved === "letter" || saved === "a4") paperSelect.value = saved;
+    } catch { /* storage blocked: Letter */ }
+    paperSelect.addEventListener("change", () => {
+      try { localStorage.setItem(PAPER_KEY, paperSelect.value); } catch { /* not remembered */ }
+    });
+  }
+
+  // Whether the reader sees the scans for a typeset segment: the page-wide
+  // switch or the part's own, or the typeset music failed to load. The export
+  // follows what they see.
+  function showsScans(key: string): boolean {
+    const seg = document.querySelector<HTMLElement>(`[data-typeset-key="${CSS.escape(key)}"]`);
+    if (seg?.dataset["state"] === "error") return true;
+    if (seg?.dataset["show"] === "scan") return true;
+    if (seg?.dataset["show"] === "typeset") return false;
+    return document.documentElement.getAttribute("data-view") === "scans";
+  }
+
+  function runsOf(box: HTMLInputElement): ExportRun[] {
+    try {
+      const runs: unknown = JSON.parse(box.dataset["runs"] ?? "[]");
+      return Array.isArray(runs) ? runs as ExportRun[] : [];
+    } catch {
+      return [];
+    }
+  }
 
   if (root && button && status && progress) {
     const title = root.dataset["title"] ?? "Nova Organi Harmonia";
@@ -109,15 +166,32 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
       const refs: string[] = [];
       const headings: { index: number; label: string }[] = [];
       const parts: { label: string; systems: number }[] = [];
+      const typeset: TypesetInsert[] = [];
+      const paper: Paper = paperSelect?.value === "a4" ? "a4" : "letter";
       const ticked = boxes.filter((b) => b.checked);
       for (const box of ticked) {
         const stems = (box.dataset["stems"] ?? "").split(",").filter(Boolean);
         const label = box.dataset["label"] ?? "";
-        if (ticked.length > 1) headings.push({ index: refs.length, label });
+        const start = refs.length;
+        if (ticked.length > 1) headings.push({ index: start, label });
+        const runs = runsOf(box);
+        // The runs cover the part's systems in order; if they do not add up,
+        // the part goes in as scans.
+        if (runs.reduce((n, r) => n + r.count, 0) === stems.length) {
+          let at = start;
+          for (const run of runs) {
+            const pdf = run[paper];
+            if (runs.length > 1 && run.label && at !== start) headings.push({ index: at, label: run.label });
+            if (pdf && run.key && !showsScans(run.key)) {
+              typeset.push({ index: at, count: run.count, pdf, label: run.label ?? label });
+            }
+            at += run.count;
+          }
+        }
         refs.push(...stems);
         parts.push({ label, systems: stems.length });
       }
-      return { refs, headings, parts, ticked: ticked.length };
+      return { refs, headings, parts, typeset, paper, ticked: ticked.length };
     }
 
     function refresh(): void {
@@ -134,7 +208,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     boxes.forEach((b) => b.addEventListener("change", refresh));
 
     button.addEventListener("click", () => {
-      const { refs, headings } = selection();
+      const { refs, headings, typeset, paper } = selection();
       if (validateSelection(refs.length) !== null) return;
       const idleLabel = button.textContent ?? "Export PDF";
       button.disabled = true;
@@ -182,11 +256,14 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
         URL.revokeObjectURL(url);
 
         const size = (blob.size / 1_048_576).toFixed(1);
-        status.textContent = `PDF ready — ${refs.length} systems, ${message.pages} pages, ${size} MB.`;
+        const missed = message.fallbacks.length > 0
+          ? ` The typeset music for ${message.fallbacks.join(", ")} could not be fetched, so its scans are in the PDF.`
+          : "";
+        status.textContent = `PDF ready — ${refs.length} systems, ${message.pages} pages, ${size} MB.${missed}`;
         worker.terminate();
       };
 
-      const request: BuildRequest = { refs, base: "", title, headings };
+      const request: BuildRequest = { refs, base: "", title, headings, paper, typeset };
       worker.postMessage(request);
     });
   }
