@@ -1,7 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it } from "vitest";
 
 import { authenticate } from "./auth";
-import { handleAdmin, handleWebhook } from "./api";
+import { fitting, handleAdmin, handleWebhook } from "./api";
 import type { AdminEnv, Deps } from "./api";
 import { closePullRequest, dispatchBatch, installationToken, newBatchId } from "./github";
 import type { Batch } from "./github";
@@ -253,6 +253,49 @@ describe("editing directly", () => {
     expect((await call("POST", "/edits", { target: "piece:kyrie-i", field: "mode", value: "VIII" })).body["error"]).toMatch(/already/);
     expect((await call("POST", "/edits", { target: "vespers:nowhere/antiphon-1", field: "tone", value: "I.g" })).status).toBe(422);
     expect((await call("POST", "/edits", { target: "piece:kyrie-i", field: "chant", value: "x" })).status).toBe(422);
+  });
+});
+
+describe("a piece's whole list of sections", () => {
+  // Dominica I Adventus as the Sections screen would save it: a Tract added, the Offertory kept where it is printed.
+  const LIST = [{ kind: "introit", system: 1, chant: 132 }, { kind: "gradual", system: 3, chant: "none" },
+                { kind: "tract", title: "Qui regis Israel", system: 4, chant: "none" },
+                { kind: "offertory", borrowed_volume: "noh5", borrowed_page: 9, chant: 7 },
+                { kind: "communion", system: 5, chant: 1036 }];
+
+  it("should record a list from the Sections screen, longer than any other value, and publish it", async () => {
+    const value = JSON.stringify(LIST);
+    expect(value.length).toBeGreaterThan(200);
+    const made = await call("POST", "/edits", { target: "sections:dominica-i-adventus", field: "sections", value, note: "p. 3" });
+    expect(made).toMatchObject({ status: 201, body: { status: "approved" } });
+    const approved = ((await call("GET", "/queue")).body["approved"] as Record<string, unknown>[])[0]!;
+    expect(approved).toMatchObject({ kind: "sections", resolvedField: "sections", problem: null });
+    expect(approved["current"]).toMatch(/^Introit at system 1; Gradual at system 3; Offertory at/);
+    await call("POST", "/publish", {});
+    expect(sent[0]!.entries[0]).toMatchObject({ target: "sections:dominica-i-adventus", field: "sections", value });
+  });
+
+  it("should refuse a list the pipeline would refuse, naming the section", async () => {
+    const backwards = JSON.stringify([LIST[1], LIST[0]]);
+    const refused = await call("POST", "/edits", { target: "sections:dominica-i-adventus", field: "sections", value: backwards });
+    expect(refused).toMatchObject({ status: 422, body: { error: expect.stringMatching(/^Section 2 starts on system 1/) } });
+    expect((await call("POST", "/edits", { target: "sections:nowhere", field: "sections", value: "[]" })).status).toBe(422);
+  });
+
+  it("should send a reader's report of a missing part to the Sections screen instead of approving it", async () => {
+    const id = readerReport(db.sqlite, "dominica-i-adventus", "sections", "system 4: the Tract starts here");
+    const item = ((await call("GET", "/queue")).body["pending"] as Record<string, unknown>[])[0]!;
+    expect(item).toMatchObject({ resolvedTarget: "sections:dominica-i-adventus", kind: "sections",
+                                 problem: expect.stringMatching(/Sections screen/) });
+    expect((await call("POST", `/rows/${id}/approve`, {})).status).toBe(422);
+    expect((await call("POST", `/rows/${id}/duplicate`, { reason: "fixed on the Sections screen (#2)" })).status).toBe(200);
+    expect(statusOf(id)).toBe("duplicate");
+  });
+
+  it("should publish only what fits in one dispatch, oldest first, leaving the rest for the next", () => {
+    const row = (id: number, size: number) => ({ id, proposed: "x".repeat(size), note: "" }) as Parameters<typeof fitting>[0][number];
+    expect(fitting([row(1, 100), row(2, 100), row(3, 100)], 900).map((r) => r.id)).toEqual([1, 2]);
+    expect(fitting([row(1, 5000)], 900).map((r) => r.id)).toEqual([1]);          // one too big still goes, alone
   });
 });
 

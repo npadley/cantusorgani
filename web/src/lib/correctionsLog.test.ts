@@ -17,4 +17,14 @@ describe("parseLog", () => {
     expect(entry).toMatchObject({ label: "part:gone/introit", href: null, value: "none", by: "editor" });
     expect(() => parseLog({ schema_version: 2 })).toThrow(/schema_version 2/);
   });
+
+  it("should show a list of sections in a line, each kind and where it starts", () => {
+    const [entry] = parseLog({ schema_version: 1, corrections: [
+      { id: "c-0003", target: "sections:dominica-i-adventus", field: "sections", date: "2026-09-29", by: "editor",
+        was: [{ kind: "introit", ref: "noh1/0029/000", chant: 132 }],
+        value: [{ kind: "introit", ref: "noh1/0029/000", chant: 132 }, { kind: "gradual", n: 2, ref: "noh1/0031/002", chant: "none" }] }] });
+    expect(entry).toMatchObject({ label: "Dominica I Adventus (noh1) · sections", fieldLabel: "Sections",
+                                  was: "Introit at noh1/0029/000",
+                                  value: "Introit at noh1/0029/000; Gradual 2 at noh1/0031/002" });
+  });
 });

@@ -114,6 +114,16 @@ describe("parseCorrection, parts and Vespers items", () => {
     expect(!other.ok && other.error).toMatch(/same piece as pieceId/);
   });
 
+  it("should accept a part missing or mislabelled, on a piece or a part, only with a system named", () => {
+    expect(report({ field: "sections", proposedValue: "system 12: the Gradual starts here (Grad. II)" }).ok).toBe(true);
+    expect(report({ target: "part:dominica-i-adventus/alleluia", field: "sections",
+                    proposedValue: "It is the Tract, on system 26" }).ok).toBe(true);
+    expect(report({ field: "sections", proposedValue: "the Gradual is missing" }).ok).toBe(false);
+    expect(report({ field: "sections", proposedValue: "system 12 <b>" }).ok).toBe(false);
+    expect(report({ pieceId: "vespers", target: "vespers:adv1/antiphon-1", field: "sections",
+                    proposedValue: "system 1: an antiphon" }).ok).toBe(false);
+  });
+
   it("should accept a Vespers item's tone or chant, and only those", () => {
     expect(report({ pieceId: "vespers", target: "vespers:adv1/antiphon-1", field: "tone", proposedValue: "IV.A*" }).ok).toBe(true);
     expect(report({ pieceId: "vespers", target: "vespers:sunday:tempora:Pent04-0/magnificat", field: "gregobaseId", proposedValue: "2205" }).ok).toBe(true);

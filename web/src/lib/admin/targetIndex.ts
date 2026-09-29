@@ -25,11 +25,14 @@ export function buildTargets(): Targets {
       range: p.systems.length > 0 ? [p.systems[0] ?? "", p.systems.at(-1) ?? ""] : null,
       pairings: p.chant.map((c) => ({ movement: c.movement ?? "chant", id: c.id })),
       movements: p.movements.map((m) => m.movement),
-      parts: p.parts.map((part) => part.kind === "printed"
-        ? { part: part.part, variant: part.variant, system: part.system + 1, borrowed: null, chant: part.gregobaseId,
-            ...(part.placed === "order" ? { guessed: true } : {}) }
-        : { part: part.part, variant: part.variant, system: null, chant: part.gregobaseId,
-            borrowed: `${part.borrowedFrom ?? "another volume"}, p. ${part.borrowedPage}` }),
+      parts: p.parts.map((part) => ({
+        part: part.part, variant: part.variant, chant: part.gregobaseId,
+        ...(part.label ? { label: part.label } : {}), ...(part.title ? { title: part.title } : {}),
+        ...(part.kind === "printed"
+          ? { system: part.system + 1, borrowed: null, ...(part.placed === "order" ? { guessed: true } : {}) }
+          : { system: null, borrowed: `${part.borrowedFrom ?? "another volume"}, p. ${part.borrowedPage}`,
+              borrowedVolume: part.borrowedVolume, borrowedPage: part.borrowedPage }),
+      })),
     };
   }
   // Each Vespers item that can be corrected, once, at the first date it is sung.

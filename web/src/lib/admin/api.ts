@@ -14,7 +14,7 @@ import type { Batch, GithubEnv } from "./github";
 import type { ReviewIndex } from "./reviews";
 import { d1Store } from "./store";
 import type { D1Like, Row, Store } from "./store";
-import { FIELDS_OF, checkValue, describeTarget, isField, plannedOrder, readerField } from "./targets";
+import { FIELDS_OF, checkValue, describeTarget, isField, plannedOrder, readerField, sectionsSummary } from "./targets";
 import type { Kind, PlannedStart, Targets } from "./targets";
 
 export interface AdminEnv extends AuthEnv, GithubEnv {
@@ -39,6 +39,11 @@ const HARDENING = {
   "x-robots-tag": "noindex",
 };
 const MAX_BODY = 8_000;
+/** A value is short text, but a list of sections (the Sections screen) is longer. */
+const VALUE_MAX = 200;
+const SECTIONS_MAX = 6_000;
+/** GitHub refuses a dispatch payload much over 64 KB: Publish sends what fits. */
+const DISPATCH_MAX = 60_000;
 const RATE = 120;                 // actions per editor per minute
 const BATCH_MAX = 100;
 
@@ -93,6 +98,7 @@ function describeReview(row: Row, index: ReviewIndex | null): QueueItem {
 
 function describeRow(row: Row, targets: Targets, index: ReviewIndex | null = null): QueueItem {
   if (row.field === "reviewed") return describeReview(row, index);
+  if (row.field === "sections") return describeSections(row, targets);
   const info = describeTarget(targets, row.target ?? row.piece_id);
   const named = info && isField(info.kind, row.field) ? row.field : readerField(row.field);
   const field = info && named && isField(info.kind, named) ? named : null;
@@ -111,6 +117,22 @@ function describeRow(row: Row, targets: Targets, index: ReviewIndex | null = nul
     values: info?.values ?? {},
     current: info && field ? info.values[field] ?? "" : null,
     problem: issue,
+  };
+}
+
+/** A list of sections (an editor's, from the Sections screen), or a reader's
+ * report that a part is missing or mislabelled: that is fixed on the Sections
+ * screen, so it cannot be approved as it stands. */
+function describeSections(row: Row, targets: Targets): QueueItem {
+  const slug = (row.target ?? "").startsWith("sections:") ? (row.target ?? "").slice("sections:".length) : row.piece_id;
+  const info = describeTarget(targets, `sections:${slug}`);
+  const report = row.source === "reader";
+  return {
+    ...row, resolvedTarget: info?.target ?? null, resolvedField: info ? "sections" : null, kind: info ? "sections" : null,
+    label: info?.label ?? null, fields: [], values: info ? { sections: sectionsSummary(info.values["sections"]) } : {},
+    current: info ? sectionsSummary(info.values["sections"]) : null,
+    problem: !info ? "This piece no longer exists."
+      : report ? "Fix it on the Sections screen, then mark this report a duplicate of your fix." : null,
   };
 }
 
@@ -278,6 +300,7 @@ async function actOnRow(deps: Deps, editor: Editor, id: number, verb: RowVerb, i
   // have filed a mode correction under Title.
   const targets = await deps.targets();
   const item = describeRow(row, targets);
+  if (row.field === "sections") return problem(422, item.problem ?? "A list of sections is saved on the Sections screen.");
   const info = item.resolvedTarget ? describeTarget(targets, item.resolvedTarget) : null;
   if (!info) return problem(422, item.problem ?? "This piece or item no longer exists.");
   const asked = text(input["field"], 40);
@@ -304,7 +327,7 @@ async function createEdit(deps: Deps, editor: Editor, input: Record<string, unkn
   const info = target.includes(":") ? describeTarget(targets, target) : null;
   if (!info) return problem(422, "Choose what to correct: a piece, one of its parts, a Vespers item or a typeset file.");
   if (!isField(info.kind, field)) return problem(422, `“${field}” is not a field this screen can correct for a ${info.kind}.`);
-  const checked = checkValue(targets, info, field, text(input["value"], 200));
+  const checked = checkValue(targets, info, field, text(input["value"], field === "sections" ? SECTIONS_MAX : VALUE_MAX));
   if (!checked.ok) return problem(422, checked.error);
   if (field === "match" && checked.value.includes(":")) {
     // A part shows one transcription: a batch choosing one part twice is refused whole.
@@ -322,6 +345,19 @@ async function createEdit(deps: Deps, editor: Editor, input: Record<string, unkn
   return json({ ok: true, id, status: "approved", ...(await orderWarning(deps.store, targets, field)) }, 201);
 }
 
+/** The oldest approved rows whose values fit in one dispatch; the rest wait for
+ * the next Publish. */
+export function fitting(rows: readonly Row[], max = DISPATCH_MAX): Row[] {
+  const out: Row[] = [];
+  let size = 0;
+  for (const r of rows) {
+    size += r.proposed.length + r.note.length + 300;
+    if (size > max && out.length > 0) break;
+    out.push(r);
+  }
+  return out;
+}
+
 async function publish(deps: Deps, env: AdminEnv, editor: Editor): Promise<Response> {
   if (!githubConfigured(env)) return problem(503, "Publishing is not configured yet (the GitHub App is missing).");
   const store = deps.store;
@@ -331,7 +367,7 @@ async function publish(deps: Deps, env: AdminEnv, editor: Editor): Promise<Respo
     return problem(409, pr ? `PR #${pr} is open: it merges itself when its checks pass, unless it waits for the owner. Publish again once it is merged or closed.`
       : "A batch is still being opened as a pull request. Try again in a minute.");
   }
-  const approved = (await store.list(["approved"], BATCH_MAX)).slice().reverse();
+  const approved = fitting((await store.list(["approved"], BATCH_MAX)).slice().reverse());
   if (approved.length === 0) return problem(400, "Nothing is approved yet.");
   const disorder = plannedOrder(await deps.targets(), await plannedStarts(store));
   if (disorder) {

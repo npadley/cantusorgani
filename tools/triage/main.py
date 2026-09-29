@@ -46,6 +46,9 @@ FIELD_PATTERNS: dict[str, re.Pattern[str]] = {
     "startSystem": re.compile(r"^\d{1,3}$"),
     "gregobaseId": re.compile(r"^(\d{1,6}|none)$"),
     "tone": re.compile(r"^[A-Za-z0-9.*]{1,12}$"),
+    # "A part is missing or mislabelled": words naming a system, fixed by an
+    # editor on the admin's Sections screen, never recorded from here.
+    "sections": re.compile(r"^(?=.*\d)[^\x00-\x1f<>]{3,200}$"),
 }
 
 CATALOG_KEY = {
@@ -320,6 +323,9 @@ def main(argv: list[str] | None = None) -> int:
 def record(catalog: dict[str, Any], c: Correction) -> None:
     """A reader's correction as an entry in data/corrections.yml."""
     validate(c.field, c.proposed)
+    if c.field == "sections":
+        raise RejectedCorrection("a missing or mislabelled part is fixed on the admin's Sections screen "
+                                 "(/admin/sections/), which writes the piece's whole list; see docs/EDITING.md, 'Sections'")
     if c.field == "chant" and not c.target:
         raise RejectedCorrection("a piece's chant pairing is corrected on its parts (Introit, Gradual...), "
                                  "not the piece; see docs/EDITING.md, 'Proper parts'")

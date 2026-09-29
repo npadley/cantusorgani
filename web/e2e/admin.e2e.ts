@@ -123,6 +123,47 @@ test.describe("Parts to check", () => {
   });
 });
 
+test.describe("Sections", () => {
+  test("should list a piece's sections beside its scans, add one at a system, and approve the whole list", async ({ page }) => {
+    await page.goto("/admin/sections/?piece=sabbato-temporum-adventus");
+    await expect(page.locator("h1")).toContainText("Sections: Sabbato Temporum Adventus");
+    const rows = page.locator("#rows > li");
+    await expect(rows).toHaveCount(9);
+    await expect(rows.nth(2).locator("strong")).toHaveText("3. Gradual 2");
+    await expect(page.locator("#system-16 .starts")).toContainText("Gradual 2 starts here");
+    await page.locator("#save").click();
+    await expect(page.locator("#status")).toContainText("nothing to approve");
+
+    await page.locator("#system-3").getByRole("button", { name: "Start a section here" }).click();
+    await expect(rows).toHaveCount(10);
+    await expect(page.locator("#row-1-kind")).toBeFocused();
+    await page.locator("#row-1-kind").selectOption("other");
+    await page.locator("#row-1-label").fill("Oratio");
+    await page.locator("#save").click();
+    await expect(page.locator("#status")).toContainText("Approved. It is waiting on the corrections queue");
+
+    await page.goto("/admin/");
+    await expect(page.locator("#approved")).toContainText("Sabbato Temporum Adventus (noh1) · sections · Sections");
+    await expect(page.locator("#approved")).toContainText("Section at system 3");
+    await page.locator("#approved article", { hasText: "· sections" }).getByRole("button", { name: "Withdraw" }).click();
+  });
+
+  test("should refuse a list out of order, naming the section, with the edit page linking here", async ({ page }) => {
+    await page.goto("/admin/sections/?piece=sabbato-temporum-adventus");
+    await expect(page.locator("#rows > li")).toHaveCount(9);
+    await page.locator("#row-1-system").fill("1");
+    await page.locator("#save").click();
+    await expect(page.locator("#status")).toContainText("Section 2 starts on system 1, not after the section before");
+    await expect(page.locator("#row-1-kind")).toBeFocused();
+    await page.locator("#reset").click();
+    await expect(page.locator("#row-1-system")).toHaveValue("7");
+
+    await page.goto("/admin/edit/?target=piece:sabbato-temporum-adventus");
+    await page.getByRole("link", { name: "edit its whole list of sections" }).click();
+    await expect(page).toHaveURL(/\/admin\/sections\/\?piece=sabbato-temporum-adventus$/);
+  });
+});
+
 test.describe.serial("Reviewing", () => {
   test("should mark an item as looking right, send it with the next publish, and keep it done after a reload", async ({ page }) => {
     await page.goto("/admin/");

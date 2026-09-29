@@ -96,7 +96,7 @@ const typesetToDo = typesetEntries().length;
   import type { QueueItem } from "../../lib/admin/api";
   import { namedSystems } from "../../lib/admin/scans";
   import type { Scans } from "../../lib/admin/scans";
-  import { FIELD_LABELS, describeTarget, notFor, startNote } from "../../lib/admin/targets";
+  import { FIELD_LABELS, describeTarget, notFor, sectionsSummary, startNote } from "../../lib/admin/targets";
   import type { Targets } from "../../lib/admin/targets";
 
   interface Queue {
@@ -115,6 +115,17 @@ const typesetToDo = typesetEntries().length;
     if (result.status === 401) signInAgain(status);
     else say(status, result.error, "error");
     if (result.fix) status?.append(" ", fixLink(result.fix));
+  }
+
+  /** A row's value in words: a list of sections as its summary. */
+  function valueText(item: QueueItem): string {
+    return item.field === "sections" && item.source === "editor" ? sectionsSummary(item.proposed) : item.proposed;
+  }
+
+  /** The Sections screen for a row's piece; a reader's report is named, so saving there settles it. */
+  function sectionsLink(item: QueueItem): HTMLElement {
+    const slug = (item.resolvedTarget ?? "").slice("sections:".length);
+    return h("a", { href: `/admin/sections/?piece=${encodeURIComponent(slug)}&report=${item.id}` }, "Open the Sections screen");
   }
 
   function label(item: QueueItem): string {
@@ -150,7 +161,9 @@ const typesetToDo = typesetEntries().length;
     const article = h("article", { class: "item", "aria-labelledby": `item-${item.id}` }, heading);
     let picture: HTMLElement | null = null;
     const draftKey = `row:${item.id}`;
-    const piece = item.kind !== null;
+    // A reader's "a part is missing or mislabelled" is fixed on the Sections screen.
+    const sections = item.field === "sections";
+    const piece = item.kind !== null && !sections;
     const input = h("input", { type: "text", id: `value-${item.id}`, maxlength: "200",
                                value: drafts.get(draftKey) ?? item.proposed }) as HTMLInputElement;
     input.addEventListener("input", () => drafts.set(draftKey, input.value));
@@ -189,7 +202,8 @@ const typesetToDo = typesetEntries().length;
     syncField();
     if (item.note) article.append(h("p", { class: "small muted" }, `Reader's note: ${item.note}`));
     if (item.reason) article.append(h("p", { class: "small muted" }, item.reason));
-    if (item.problem && (!piece || item.resolvedField)) article.append(h("p", { class: "notice" }, item.problem));
+    if (sections && item.resolvedTarget) article.append(h("p", { class: "notice" }, item.problem ?? "", " ", sectionsLink(item)));
+    else if (item.problem && (!piece || item.resolvedField)) article.append(h("p", { class: "notice" }, item.problem));
     else if (item.problem) article.append(h("p", { class: "small muted" }, `${item.problem} Or choose the field it was meant to correct.`));
     syncScan();
 
@@ -253,7 +267,7 @@ const typesetToDo = typesetEntries().length;
       item.field === "reviewed"
         ? h("p", { class: "small" }, h("strong", {}, "Looks right"), ` · marked by ${item.editor_email ?? "?"}`,
             item.note ? `: “${item.note}”` : "")
-        : h("p", { class: "small" }, `${item.current || "—"} → `, h("strong", {}, item.proposed),
+        : h("p", { class: "small" }, `${item.current || "—"} → `, h("strong", {}, valueText(item)),
             ` · ${item.source === "editor" ? "your fix" : "a reader's report"}, approved by ${item.editor_email ?? "?"}`),
       item.reason ? h("p", { class: "notice" }, item.reason) : null,
       h("div", { class: "actions" }, withdraw));
@@ -321,7 +335,7 @@ const typesetToDo = typesetEntries().length;
     if (!result.ok) { fail(result); return; }
     if (result.data.items.length === 0) { box?.replaceChildren(h("p", { class: "muted small" }, "Nothing yet.")); return; }
     const rows = result.data.items.map((i) => h("tr", {},
-      h("td", {}, i.updated_at ?? i.created_at), h("td", {}, label(i)), h("td", {}, i.proposed),
+      h("td", {}, i.updated_at ?? i.created_at), h("td", {}, label(i)), h("td", {}, valueText(i)),
       h("td", {}, i.status), h("td", {}, i.editor_email ?? ""),
       h("td", {}, i.commit_sha ? h("a", { href: `${REPO}/commit/${i.commit_sha}` }, i.commit_sha.slice(0, 7)) : (i.reason ?? ""))));
     box?.replaceChildren(h("div", { class: "scroll" }, h("table", { class: "history-table" },

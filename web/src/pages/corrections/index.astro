@@ -3,6 +3,10 @@ import Layout from "../../components/Layout.astro";
 import { CORRECTIONS_ENDPOINT, TURNSTILE_SITE_KEY } from "../../lib/config";
 import { allPieces, pagesLabel } from "../../lib/catalog";
 
+// A Proper's section the page misses, or names wrongly (an Alleluia that is the
+// Tract): fixed by an editor on the admin's Sections screen.
+const SECTIONS_HINT = "which system, and what the book prints there, e.g. system 12: the Gradual starts here (Grad. II)";
+
 // The field list is the same vocabulary the Worker accepts. A free-text field
 // name would be rejected at the boundary anyway, so offering one would only
 // waste the submitter's time.
@@ -12,6 +16,7 @@ const FIELDS = [
   { value: "mode", label: "Mode", hint: "I to VIII (or 1 to 8)" },
   { value: "genre", label: "Genre", hint: "kyrie, gloria, credo, …" },
   { value: "printedPages", label: "Printed pages", hint: "e.g. 5-10" },
+  { value: "sections", label: "A part is missing or mislabelled", hint: SECTIONS_HINT },
 ] as const;
 
 const pieces = allPieces();
@@ -183,6 +188,9 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
     const proper = piece?.dataset["genre"] === "proper";
     const modeOption = fieldSelect?.querySelector<HTMLOptionElement>('option[value="mode"]');
     if (modeOption) modeOption.disabled = proper;
+    // Only a Proper has sections (Introit, Gradual …).
+    const sectionsOption = fieldSelect?.querySelector<HTMLOptionElement>('option[value="sections"]');
+    if (sectionsOption) sectionsOption.disabled = Boolean(piece?.value) && !proper;
     if (proper && fieldSelect?.value === "mode") {
       if (now) now.textContent = "A Proper has no single mode: each of its parts has its own. Choose another field.";
       return;
@@ -209,6 +217,7 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
     part: [
       { value: "startSystem", label: "Where it starts", hint: "the system of the piece it starts on, counting from 1", key: "start_system" },
       { value: "gregobaseId", label: "Its chant (GregoBase id)", hint: "the number in gregobase.selapa.net/chant.php?id=…, or none", key: "chant" },
+      { value: "sections", label: "It is mislabelled, or a part is missing", hint: "which system, and what the book prints there, e.g. it is the Tract (Tract. VIII), on system 26", key: "" },
     ],
     pairing: [
       { value: "gregobaseId", label: "Its chant (GregoBase id)", hint: "the number in gregobase.selapa.net/chant.php?id=…; leave the chant's page open to copy it", key: "chant" },
@@ -249,7 +258,7 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
     const option = fieldSelect.selectedOptions[0];
     if (hint) hint.textContent = option?.dataset["hint"] ?? "";
     const current = fixed.values[option?.dataset["key"] ?? ""] ?? "";
-    if (now) now.textContent = `Now: ${current || "(none)"}`;
+    if (now) now.textContent = option?.dataset["key"] ? `Now: ${current || "(none)"}` : "";
   }
   fieldSelect?.addEventListener("change", () => { if (fixed) syncFixed(); });
   if (askedTarget && !askedTarget.startsWith("piece:")) void fixTarget(askedTarget);

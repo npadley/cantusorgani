@@ -1,7 +1,7 @@
 import raw from "../../../data/corrections-log.json";
 
 import { buildTargets } from "./admin/targetIndex";
-import { FIELD_LABELS, describeTarget } from "./admin/targets";
+import { FIELD_LABELS, describeTarget, sectionsSummary } from "./admin/targets";
 
 /**
  * The public corrections log, from data/corrections-log.json (written by
@@ -23,6 +23,7 @@ export interface LogEntry {
 }
 
 function text(value: unknown, field: string): string {
+  if (field === "sections") return sectionsSummary(value);
   if (value === null || value === undefined || value === "") return field === "chant" ? "none" : "(none)";
   return Array.isArray(value) ? value.join("–") : String(value);
 }

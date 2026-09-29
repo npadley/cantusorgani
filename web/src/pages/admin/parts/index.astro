@@ -20,7 +20,8 @@ const edit = (target: string) => `/admin/edit/?target=${encodeURIComponent(targe
       {count} Proper part{count === 1 ? "" : "s"} in {pieces.length} piece{pieces.length === 1 ? "" : "s"} whose start
       may be wrong: guessed from the order of the parts, or much shorter than that kind of part usually is. A part runs
       from the system it starts on until the next part starts, so a short part often means the next one starts too
-      early. Open a part to see its scan and correct it; a part you correct, or mark <strong>Looks right</strong>,
+      early. Open a part to see its scan and correct it, or <strong>Sections</strong> to add, remove or relabel the
+      piece's sections; a part you correct, or mark <strong>Looks right</strong>,
       leaves this list once it is published. These are also on the <a href="/admin/review/">Review</a> page.
     </p>
     <div id="status" class="status small" role="status" aria-live="polite"></div>
@@ -30,7 +31,8 @@ const edit = (target: string) => `/admin/edit/?target=${encodeURIComponent(targe
           const found = pieceBySlug(piece.slug);
           return (
             <li>
-              <h2>{found ? <a href={pieceHref(found)}>{piece.label}</a> : piece.label} <span class="muted small">({piece.volume})</span></h2>
+              <h2>{found ? <a href={pieceHref(found)}>{piece.label}</a> : piece.label} <span class="muted small">({piece.volume})</span>
+                <a class="small" href={`/admin/sections/?piece=${encodeURIComponent(piece.slug)}`}>Sections</a></h2>
               <ul>
                 {piece.parts.map((p) => (
                   <li data-review-target={p.target} data-review-seen={p.fingerprint}>
