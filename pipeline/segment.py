@@ -222,6 +222,111 @@ def group_staves_tolerant(lines: list[int], min_gap: float = MIN_STAFF_GAP,
                                               spacing * (1 + FAINT_SPACING_BAND), 4, FAINT_STAFF_SLACK)]
 
 
+# --- tilted staves -------------------------------------------------------------
+#
+# Some pages were pasted up with their systems at slightly different angles, so
+# no single deskew levels them all: NOH1's Holy Saturday Lauds (PDF 373-378)
+# has systems tilted by +0.4 to +0.75 degrees above others at -0.55 to -0.85,
+# while the page as a whole measures 0. A staff line tilted 0.6 degrees climbs
+# ~15px across the page, so its ink spreads over several rows, each of which the
+# opening in `find_staff_lines` keeps only in part: one line reads as two or
+# three rows, the five no longer fall evenly, and the staff is lost -- or, worse,
+# five of the rows happen to fit and make a false staff 40px tall. Measured on
+# those pages (2026-09-29), 26 of 70 staves were lost this way, and with them
+# 12 of the 35 systems.
+#
+# The rows such a staff leaves behind are the evidence: a band of detected rows
+# that the staves found do not explain. Each such band is levelled on its own
+# and searched again. A band only changes when that finds more staves in it than
+# the first pass did, so a page the first pass read correctly is left as it was.
+#
+# A band is a run of detected rows no more than this many staff spacings apart
+# (a staff is 4 spacings tall; the two staves of a system are ~5 apart).
+TILT_BAND_GAP = 2.0
+# How far beyond its outermost rows a band is searched, in staff spacings: the
+# ends of a tilted line lie a few rows past what the first pass detected.
+TILT_BAND_MARGIN = 1.5
+# The angles tried, in degrees: the tilts measured reach 0.85.
+TILT_LIMIT = 2.0
+TILT_STEP = 0.05
+# A staff whose spacing strays further than this from the page's median is made
+# of the rows a tilted staff scattered, not a staff (PDF 374: 10px against 19).
+TILT_SPACING_BAND = 0.25
+
+
+def _band_angle(ink: np.ndarray) -> float:
+    """Rotation that levels a band, by the same measure as `clean.estimate_skew`."""
+    height, width = ink.shape
+    best_angle, best_score = 0.0, float(np.var(ink.sum(axis=1)))
+    for angle in np.arange(-TILT_LIMIT, TILT_LIMIT + TILT_STEP / 2, TILT_STEP):
+        m = cv2.getRotationMatrix2D((width / 2, height / 2), float(angle), 1.0)
+        rotated = cv2.warpAffine(ink, m, (width, height), flags=cv2.INTER_NEAREST, borderValue=0.0)
+        score = float(np.var(rotated.sum(axis=1)))
+        if score > best_score:
+            best_angle, best_score = float(angle), score
+    return best_angle
+
+
+def recover_tilted_staves(binary: np.ndarray, lines: list[int],
+                          staves: list[Staff]) -> list[Staff]:
+    """`staves`, with those a tilted system lost found again (see above).
+
+    A recovered staff spans every row its tilted lines cross, so its box still
+    holds the whole staff and the text above it. The page itself is not
+    rotated: the slice shows the system as it is printed."""
+    if not staves:
+        return staves
+    height, width = binary.shape
+    spacing = float(np.median([(s.bottom - s.top) / 4 for s in staves]))
+    evenly = [s for s in staves
+              if abs((s.bottom - s.top) / 4 - spacing) <= spacing * TILT_SPACING_BAND]
+    bands: list[list[int]] = []
+    for y in lines:
+        if bands and y - bands[-1][-1] <= spacing * TILT_BAND_GAP:
+            bands[-1].append(y)
+        else:
+            bands.append([y])
+
+    result = list(staves)
+    for band in bands:
+        inside = [s for s in staves if band[0] - 2 <= s.top and s.bottom <= band[-1] + 2]
+        if len(band) < 5 or all(any(s.top - 2 <= y <= s.bottom + 2 for s in inside) for y in band):
+            continue
+        top = max(0, int(band[0] - spacing * TILT_BAND_MARGIN))
+        bottom = min(height, int(band[-1] + spacing * TILT_BAND_MARGIN) + 1)
+        region = binary[top:bottom]
+        angle = _band_angle((region < 128).astype(np.float32))
+        m = cv2.getRotationMatrix2D((width / 2, (bottom - top) / 2), angle, 1.0)
+        level = cv2.warpAffine(region, m, (width, bottom - top), flags=cv2.INTER_NEAREST,
+                               borderValue=255)
+        found = [staff for staff, _ in _fit_staves(
+            find_staff_lines(level), spacing * (1 - TILT_SPACING_BAND),
+            spacing * (1 + TILT_SPACING_BAND), 5, STAFF_SLACK)]
+        if len(found) <= len([s for s in inside if s in evenly]):
+            continue
+        back = cv2.invertAffineTransform(m)
+        result = [s for s in result if s not in inside] + [
+            _unlevel(level, s, back, top, height) for s in found]
+    return sorted(result, key=lambda s: s.top)
+
+
+def _unlevel(level: np.ndarray, staff: Staff, back: np.ndarray, offset: int,
+             height: int) -> Staff:
+    """A staff found in a levelled band, as the rows it spans on the page: from
+    the highest end of its top line to the lowest end of its bottom line."""
+    rows = [round(staff.top + k * (staff.bottom - staff.top) / 4) for k in range(5)]
+    ink = level < 128
+    on_line = sum(ink[max(0, y - 1):y + 2].any(axis=0).astype(int) for y in rows)
+    columns = np.flatnonzero(on_line >= 4)
+    if columns.size == 0:
+        return Staff(top=offset + staff.top, bottom=offset + staff.bottom)
+    ends = [(float(x), float(y)) for y in (staff.top, staff.bottom)
+            for x in (columns[0], columns[-1])]
+    ys = [back[1][0] * x + back[1][1] * y + back[1][2] for x, y in ends]
+    return Staff(top=max(0, offset + int(np.floor(min(ys[:2])))),
+                 bottom=min(height - 1, offset + int(np.ceil(max(ys[2:])))))
+
+
 def group_systems(staves: list[Staff], expected_staves: int = 2) -> list[System]:
     """NOH systems are exactly `expected_staves` braced staves.
 

@@ -85,16 +85,20 @@ feria-iv-hebdomad-sanct:
 - {kind: tract, label: Tract. II, title: Domine exaudi, ref: noh1/0364/005, chant: 824}
 - {kind: offertory, label: Offert., title: Domine exaudi, ref: noh1/0369/000, chant: 867}
 - {kind: communion, label: Comm., title: Potum meum, ref: noh1/0370/000, chant: 588}
-# NOH1 pp. 345-354, the Easter Vigil: the Alleluia and Tract after the Epistle,
-# then Lauds. The Lauds antiphon and Psalm 150 (p. 347) and the Benedictus's
-# first staff (p. 350) are not sliced as systems, so the Canticle starts on its
-# first sliced system; see the follow-up on the slicing.
+# NOH1 pp. 345-354, the Easter Vigil (checked 2026-09-29 against the scans): the
+# Alleluia and Tract after the Epistle, then Lauds: the antiphon Alleluia with
+# Psalm 150 (p. 347), the Benedictus, its antiphon Et valde mane, and the
+# dismissal. Printed pp. 348-349 are missing from this scan (the rest of Psalm
+# 150 and the first staves of Et valde mane), so the page after 347 is 350,
+# which opens on that antiphon's last staff (noh1/0375/000); its repeat after
+# the Canticle is whole.
 sabbato-sancto:
 - {kind: alleluia, title: Confitemini Domino, ref: noh1/0372/000, chant: 507}
 - {kind: tract, title: Laudate Dominum, ref: noh1/0373/001, chant: 1247}
-- {kind: other, n: 1, label: Cant., title: Benedictus Dominus Deus Israel, ref: noh1/0375/000, chant: none}
-- {kind: other, n: 2, label: Ant., title: Et valde mane, ref: noh1/0379/002, chant: 1358}
-- {kind: other, n: 3, label: Ite missa est, ref: noh1/0379/004, chant: none}
+- {kind: other, n: 1, label: Ant., title: Alleluia alleluia alleluia, ref: noh1/0374/003, chant: 2308}
+- {kind: other, n: 2, label: Cant., title: Benedictus Dominus Deus Israel, ref: noh1/0375/001, chant: none}
+- {kind: other, n: 3, label: Ant., title: Et valde mane, ref: noh1/0379/002, chant: 1358}
+- {kind: other, n: 4, label: Ite missa est, ref: noh1/0379/004, chant: none}
 # NOH1 pp. 219-221: the Gradual, Tract and Offertory by reference; its Communion
 # on p. 221 (the piece's range ran short of it; corrections.yml c-0016). The
 # "Grad." the proposal read on system 7 is the reference line under it.
@@ -149,8 +153,8 @@ dominica-i-passionis:
 - {kind: tract, label: Tract. VIII, title: Saepe expugnaverunt, ref: noh1/0304/000, chant: 742}
 - {kind: offertory, label: Offert. I, title: Confitebor tibi, ref: noh1/0306/003, chant: 318}
 - {kind: communion, label: Comm. VIII, title: Hoc corpus, ref: noh1/0307/003, chant: 726}
-# NOH1 pp. 126-130: its first system's image holds only the bass staff (a slicing
-# fault), so its Introit was not read and its Gradual not placed.
+# NOH1 pp. 126-130: its first system's image held only the bass staff (a slicing
+# fault, since fixed), so its Introit was not read and its Gradual not placed.
 dominica-iii-post-epiphaniam:
 - {kind: introit, title: Adorate Deum, ref: noh1/0153/000, chant: 1123}
 - {kind: gradual, label: Grad. V, title: Timebunt gentes, ref: noh1/0154/001, chant: 1173}

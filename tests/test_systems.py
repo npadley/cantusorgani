@@ -68,9 +68,24 @@ def test_group_systems_by_gap_keeps_a_page_with_a_lost_staff():
 @pytest.mark.slow
 def test_analyse_page_noh5_p57_keeps_all_six_systems():
     """Regression: 11 staves (one bass staff missed) dropped the whole page, and
-    with it the Agnus Dei of Missa IX, without a trace in the review queue."""
+    with it the Agnus Dei of Missa IX, without a trace in the review queue. The
+    brace-gap pairing kept it; the missed staff is now found again as a tilted
+    one, so the page no longer needs the fallback."""
     from pipeline.evaluate import analyse_page
     result = analyse_page("noh5", 103)
     assert result.error is None
     assert result.system_count == 6
-    assert result.warning and "paired by brace gap" in result.warning
+    assert len(result.staves) == 12 and result.warning is None
+
+
+@pytest.mark.source
+@pytest.mark.slow
+@pytest.mark.parametrize("page,expected", [(373, 6), (374, 5), (375, 6), (376, 6), (377, 6), (378, 6)])
+def test_analyse_page_noh1_holy_saturday_lauds_keeps_its_tilted_systems(page, expected):
+    """Regression: these pages' systems are printed tilted by up to 0.85 degrees
+    either way. 12 of their 35 systems were lost; PDF 374 sliced an empty strip instead of
+    the Lauds antiphon and Psalm 150, and PDF 375 lost the Benedictus's first staff."""
+    from pipeline.evaluate import analyse_page
+    result = analyse_page("noh1", page)
+    assert result.error is None and result.warning is None
+    assert result.system_count == expected

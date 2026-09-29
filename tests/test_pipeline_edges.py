@@ -43,13 +43,13 @@ def test_write_contact_sheet_unlabelled_page_is_flagged(tmp_path):
 @pytest.mark.source
 @pytest.mark.slow
 def test_analyse_page_odd_staff_count_is_recovered_and_flagged():
-    """PDF 180 detects 11 staves (one bass staff missed). The page used to be
-    dropped whole; its systems are now paired by the brace gap and the page is
-    flagged for review instead of vanishing."""
+    """PDF 180's first pass detects 11 staves (one bass staff missed). The page
+    used to be dropped whole; the brace-gap pairing kept it, and the missed
+    staff is now found again as a tilted one, so all 12 pair as they should."""
     from pipeline.evaluate import analyse_page, count_systems
     result = analyse_page("noh5", 180)
     assert result.error is None
-    assert result.warning is not None and "not a multiple" in result.warning
+    assert len(result.staves) == 12 and result.warning is None
     assert result.system_count == 6
     assert count_systems("noh5", 180) == 6
 
