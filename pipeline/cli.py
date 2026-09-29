@@ -206,7 +206,7 @@ def _corrections_command(args: argparse.Namespace) -> int:
                           "  Fix: uv run noh apply-corrections, then commit the files it names",
                           file=sys.stderr)
                     return 1
-                print("data/catalog.json and the Vespers lineup are current with corrections.yml")
+                print("data/catalog.json, the Vespers lineup, reviewed.json and the typeset manifest are current with corrections.yml")
                 return 0
             count, files = c.write_all()
             print(f"{count} correction(s) applied; " + (f"rewrote {', '.join(files)}" if files else "nothing changed"))

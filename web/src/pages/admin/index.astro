@@ -1,8 +1,10 @@
 ---
 import Layout from "../../components/Layout.astro";
 import { reviewEntries } from "../../lib/admin/reviews";
+import { typesetEntries } from "../../lib/admin/typesetQueues";
 
 const toReview = reviewEntries().filter((e) => e.group !== "info").length;
+const typesetToDo = typesetEntries().length;
 
 // The corrections queue. Static: everything on it is loaded from /admin/api,
 // behind Cloudflare Access. Search engines and the site search skip it.
@@ -15,7 +17,7 @@ const toReview = reviewEntries().filter((e) => e.group !== "info").length;
     <p class="muted small prose">Readers' reports and your own fixes. Approving gathers a change; <strong>Publish
       changes</strong> sends them all as one pull request on GitHub, which merges itself once the site's checks pass (or waits for the owner, for a batch that moves systems between pieces or has 25 or more).
       <a href="/admin/edit/">Make a correction yourself</a> · <a href="/admin/review/">Review ({toReview} to check)</a> ·
-      <a href="/admin/parts/">Parts to check</a> ·
+      <a href="/admin/parts/">Parts to check</a> · <a href="/admin/typeset/">Typeset music ({typesetToDo} to do)</a> ·
       <a href="/about/#corrections">How corrections work</a></p>
 
     <div id="status" class="status small" role="status" aria-live="polite"></div>

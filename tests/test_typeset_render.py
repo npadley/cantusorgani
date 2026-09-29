@@ -148,15 +148,16 @@ def test_build_shows_matched_parts_and_lists_the_rest_for_review(tree):
     assert "Joe Egan" in shown["credit"]
     proposed, broken = review["items"]
     assert proposed["status"] == "proposed" and "hash" in proposed and proposed["candidates"]
+    excerpt = broken.pop("excerpt")
     assert broken == {"file": "vol-5/missa-ix/ite_IX.ly", "status": "broken", "target": None,
                       "error": "line 3: error: x"}
+    assert excerpt["line"] == 3 and excerpt["first"] == 1
 
 
 def test_the_committed_manifest_is_current_and_names_every_matched_part():
     assert manifest.stale() == []
     parts = json.loads(manifest.MANIFEST.read_text())["parts"]
-    from pipeline.typeset.match import load
-    matched = sum(1 for e in load() if e["status"] == "matched")
+    matched = sum(1 for e in manifest.effective() if e["status"] == "matched")
     assert len(parts) == matched
 
 # ----------------------------------------------------------------- publish ---

@@ -55,6 +55,24 @@ code arrives by email). Setting it up is described in
   of the public log). It records what was confirmed, so if a later rebuild
   changes the item, the confirmation lapses and the item comes back;
   `uv run noh corrections --lapsed` lists those.
+- **Typeset music** (`/admin/typeset/`) looks after the volunteers' LilyPond
+  transcriptions ([docs/TYPESETTING.md](TYPESETTING.md)), in three queues:
+  - **Matches**: files the matcher couldn't place with confidence. Each shows
+    the drawing beside its candidate parts: their scans, how alike the melodies
+    are, and (with **Show the chant**) GregoBase's chant. **This part** chooses
+    a candidate; **Another part…** takes any part's target (the piece page's
+    Report link shows it); **Not in the catalogue** and **A different setting**
+    settle a file that is no part the site has. A chosen file replaces the
+    scans for that part once published.
+  - **Errors**: files LilyPond can't draw, with the lines around the one it
+    stopped at. The source editor comes later; for now, **Skip** with a note,
+    or settle a file that isn't in the catalogue.
+  - **Proofreading**: every part shown typeset, beside the scan of the same
+    systems. **Proofread** confirms that drawing (an edit to the file brings it
+    back); **Problem** leaves a note and keeps it listed.
+
+  Each answer is a correction on `typeset:<file>` (`match`, or `reviewed` for
+  a proofreading), published like any other.
 - **Publish changes** sends everything approved to GitHub as one pull request.
   When the site's checks pass it merges itself, and merging deploys the site
   (a few minutes in all). A batch that moves systems between pieces, or has 25
@@ -70,8 +88,8 @@ Every action records who did it. Two editors can't both act on one report: the
 second is told who got there first. The admin screen corrects a piece's title,
 incipit, mode, genre, printed pages and system range; where a Proper part starts
 and its chant; a Mass movement's chant; and a Vespers antiphon's tone, chant,
-printed systems and a note shown instead of its music. Everything else needs the
-loop below.
+printed systems and a note shown instead of its music; and which part a typeset
+transcription is. Everything else needs the loop below.
 
 ---
 
