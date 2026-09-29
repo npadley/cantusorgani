@@ -12,6 +12,14 @@
 #   vespers:<office>/magnificat           tone, chant, refs, note
 #   vespers:sunday:<key>/magnificat       tone, chant, refs, note   (vespers/vespers-noh8.yml magnificat_antiphons)
 #   pairing:<slug>/<movement>             chant   (a Kyrie, Gloria... of a piece without Proper parts)
+#   review:<volume>/<kind>/<id>           reviewed   (an item of review-queue.json, by its key)
+#   typeset:<file>                        match, reviewed   (a transcription in data/typeset/src/)
+# `reviewed: yes` (on a part, a review item or a typeset file) records that an
+# editor found it right; `was` is what they confirmed (for a typeset file, its
+# render hash), and when that changes the review lapses. A typeset file's match
+# is the part it is (part:..., movement:<slug>/<movement>, piece:<slug>), none
+# (not in the catalogue) or other-setting; it is applied over
+# data/typeset/parts.yml when the manifest is written.
 # A chant is a GregoBase id, or none; refs are the systems it is printed on
 # ("noh8/0077/000 noh8/0077/001"); a note is shown in place of the music (none
 # shows the music again). A system_range is a piece's first and last system
@@ -79,30 +87,6 @@
   source: reader#6
   date: '2026-09-28'
   editor_email: nick@padley.com
-- id: c-0006
-  target: part:dominica-i-adventus/gradual
-  field: start_system
-  was: 4
-  value: 9
-  source: editor
-  date: '2026-09-28'
-  editor_email: nick@padley.com
-- id: c-0007
-  target: part:dominica-i-adventus/alleluia
-  field: start_system
-  was: 9
-  value: 15
-  source: editor
-  date: '2026-09-28'
-  editor_email: nick@padley.com
-- id: c-0009
-  target: part:s-pii-x-papae-et-confessoris/alleluia
-  field: start_system
-  was: 29
-  value: 22
-  source: editor
-  date: '2026-09-28'
-  note: Alleluia VIII, V. Parasti mihi mensam (addendum p. 6)
 - id: c-0013
   target: part:s-pii-x-papae-et-confessoris/tract
   field: start_system
@@ -111,3 +95,27 @@
   source: editor
   date: '2026-09-28'
   note: Tract. VIII, Sacerdotes, after 'In Missis votivis post Septuagesimam' (addendum p. 7)
+- id: c-0014
+  target: piece:dominica-resurrectionis
+  field: system_range
+  was:
+  - noh2/0033/000
+  - noh2/0039/005
+  value:
+  - noh2/0033/000
+  - noh2/0040/001
+  source: editor
+  date: '2026-09-29'
+  note: the Communion ends on p. 8, above Feria Secunda
+- id: c-0015
+  target: piece:die-ii-infra-octavam-pasch
+  field: system_range
+  was:
+  - noh2/0040/002
+  - noh2/0043/005
+  value:
+  - noh2/0040/002
+  - noh2/0044/003
+  source: editor
+  date: '2026-09-29'
+  note: its Communion (VI, Surrexit Dominus) is on p. 12, above Feria Tertia

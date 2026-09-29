@@ -167,6 +167,12 @@ def build_parser() -> argparse.ArgumentParser:
                     help="write why the batch waits for the owner here, one reason a line (empty: merge it)")
     wh = subs.add_parser("where", help="what a page is, and which file to change to fix it")
     wh.add_argument("query", help="a page URL or path (/piece/<slug>/), or a few words of a title")
+    se = subs.add_parser("sections", help="a Proper's sections: where each starts, what the book prints "
+                         "there, and its chant; --review writes them to data/sections/ to check")
+    se.add_argument("slug", help="the piece's slug (from its URL: /piece/<slug>/)")
+    se.add_argument("--review", action="store_true",
+                    help="write the current list to data/sections/<volume>.yml, to check against the scans "
+                         "and edit; from then on that list is the piece's sections")
     cs = subs.add_parser("corrections", help="list the hand corrections, or drop one")
     cs.add_argument("--drop", metavar="ID", default=None, help="delete the entry with this id")
     cs.add_argument("--lapsed", action="store_true",
@@ -248,6 +254,20 @@ def _corrections_command(args: argparse.Namespace) -> int:
                         if e.id in lapsed else "")
                 print(f"{e.id}  {e.target}  {e.field}: {e.was!r} -> {e.value!r}  [{e.source}, {e.date}]{flag}")
             print(f"{len(shown)} {'lapsed review' if args.lapsed else 'correction'}(s)")
+            return 0
+        if args.command == "sections":
+            from pipeline import sections as _sections
+            catalog = _json.loads(c.CATALOG.read_text(encoding="utf-8"))
+            piece = next((p for p in catalog["pieces"] if p["slug"] == args.slug), None)
+            if piece is None:
+                print(f"sections: no piece {args.slug!r}. Run `uv run noh where <page URL>` for its slug.",
+                      file=sys.stderr)
+                return 1
+            print(_sections.describe(piece))
+            if args.review:
+                path = _sections.save_reviewed(args.slug, str(piece["volume"]), _sections.as_reviewed(piece))
+                print(f"wrote {path.relative_to(path.parent.parent.parent)}: check each section against the scan "
+                      "and edit it, then `uv run noh apply-corrections`")
             return 0
         from pipeline.where import where
         catalog = _json.loads(c.CATALOG.read_text(encoding="utf-8"))
@@ -617,7 +637,7 @@ def main(argv: list[str] | None = None) -> int:
               f"or no notation)")
         return 0
 
-    if args.command in {"apply-corrections", "correct", "correct-batch", "where", "corrections"}:
+    if args.command in {"apply-corrections", "correct", "correct-batch", "where", "corrections", "sections"}:
         return _corrections_command(args)
 
     if args.command == "triage":

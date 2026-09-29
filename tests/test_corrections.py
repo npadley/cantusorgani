@@ -243,6 +243,7 @@ def test_check_corrections_doctor_fails_when_stale_or_not_applied(tmp_path, monk
     assert bad.status == FAIL and "stale correction" in bad.detail
 
 
+@pytest.mark.real_sections
 def test_vendored_catalogue_is_current_with_its_corrections():
     """The committed catalog.json is the base plus corrections.yml, byte for byte."""
     text = corrections.dump(apply(corrections.load_base(), load()))
@@ -455,6 +456,7 @@ def test_lineup_anchor_keeps_the_window_a_lineup_already_covers():
     assert anchor is not None and anchor.year == int(first[:4]) + YEARS_BEHIND
 
 
+@pytest.mark.real_sections
 def test_vendored_outputs_are_current_with_their_corrections():
     assert corrections.stale_outputs() == []
 

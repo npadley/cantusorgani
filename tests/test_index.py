@@ -113,10 +113,10 @@ def test_load_index_pagination_from_the_entry_or_its_section(tmp_path):
     assert [e.pagination for e in load_index("x", path)] == [None, "one", "two"]
 
 
-def test_load_index_parts_placed_by_hand_pass_through_counting_from_one(tmp_path):
+def test_load_index_refuses_the_old_parts_override_naming_where_it_went(tmp_path):
     import yaml
     path = tmp_path / "parts.yml"
     path.write_text(yaml.safe_dump({"sections": [{"name": "S", "division": "sanctorale", "entries": [
-        {"label": "A", "title": "A", "genre": "proper", "page": 3, "parts": {"alleluia/paschal": 12}},
-        {"label": "B", "title": "B", "genre": "proper", "page": 5}]}]}))
-    assert [e.parts for e in load_index("x", path)] == [(("alleluia/paschal", 12),), ()]
+        {"label": "A", "title": "A", "genre": "proper", "page": 3, "parts": {"alleluia/paschal": 12}}]}]}))
+    with pytest.raises(ValueError, match=r"move it to data/sections/x\.yml"):
+        load_index("x", path)

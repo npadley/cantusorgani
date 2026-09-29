@@ -128,6 +128,8 @@ settings under "faint print" in `pipeline/segment.py`.
   from the scans). `vesperitems.py`: aligning texts to the scans (proposals for
   review). Both packages re-export every name, so `from pipeline.vespers import
   …` still works.
+- `data/sections/`: a Proper's sections as a person checked them, applied with
+  the hand corrections (`pipeline/sections.py`).
 - `data/vespers/`: the reviewed Vespers files, the lineup and the vendored
   Vespers sources.
 - `pipeline/corrections.py`: the overlay (`noh correct`, `apply-corrections`,

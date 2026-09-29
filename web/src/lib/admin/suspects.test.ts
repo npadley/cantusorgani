@@ -34,6 +34,16 @@ describe("suspectParts", () => {
     expect(suspectParts([last])[0]!.parts[0]!.reasons).toEqual(["it runs for only 1 system"]);
   });
 
+  it("should list a start the pipeline inferred, and take a reviewed list as checked", () => {
+    const inferred = proper("inferred", 28, [part("introit", 0), part("gradual", 8), part("alleluia", 14, "inferred"),
+      part("offertory", 21), part("communion", 26)]);
+    expect(suspectParts([inferred])[0]!.parts.map((p) => [p.name, p.reasons])).toEqual([["Alleluia",
+      ["no label or words placed it: its start is the one chant start the page allows between its neighbours"]]]);
+    const reviewed = proper("reviewed", 28, [part("introit", 0, "reviewed"), part("gradual", 2, "reviewed"),
+      part("offertory", 21, "reviewed"), part("communion", 26, "reviewed")]);
+    expect(suspectParts([reviewed])).toEqual([]);
+  });
+
   it("should leave out a part reviewed as it is now, and bring it back when it changes", () => {
     const advent = proper("dominica-i-adventus", 28, [part("introit", 0), part("gradual", 3, "text"),
       part("alleluia", 8, "order"), part("offertory", 21), part("communion", 26)]);

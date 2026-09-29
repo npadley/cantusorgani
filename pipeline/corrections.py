@@ -648,11 +648,17 @@ def _stale(e: Entry, now: Any) -> str:
             f"{e.id}`)")
 
 
+#: Reviewed sections (data/sections/): a piece listed there takes that list.
+SECTIONS = sections.REVIEWED
+
+
 def _ranged(base: dict[str, Any], entries: list[Entry]) -> tuple[dict[str, Any], dict[str, str]]:
     """The catalogue with every system_range entry applied in file order, each
-    checked against the catalogue as it stands just before it; and each failing
-    entry's problem, by id. Every other correction counts from this layer: a
-    part's start is a system of the piece as corrected."""
+    checked against the catalogue as it stands just before it, then every
+    reviewed section list (data/sections/); and each failing entry's problem,
+    by id (a reviewed list's under "sections:<file>"). Every other correction
+    counts from this layer: a part's start is a system of the piece as
+    corrected, and of the list as reviewed."""
     catalog = copy.deepcopy(base)
     failed: dict[str, str] = {}
     for e in entries:
@@ -672,6 +678,12 @@ def _ranged(base: dict[str, Any], entries: list[Entry]) -> tuple[dict[str, Any],
             failed[e.id] = f"{_where(e)}: {issue}"
             continue
         s.put(value)
+    try:
+        found = sections.apply_reviewed(catalog, sections.load_reviewed(SECTIONS))
+    except sections.ReviewedError as exc:
+        found = [str(exc)]
+    for n, problem in enumerate(found):
+        failed[f"sections:{n}"] = problem
     return catalog, failed
 
 
@@ -780,6 +792,7 @@ def _check(base: dict[str, Any] | None, entries: list[Entry], vespers: VespersDa
         issue = s.check(value) if s.check else None
         if issue:
             out.append(f"{where}: {issue}")
+    out += [problem for key, problem in failed.items() if key.startswith("sections:")]
     chosen: dict[str, Entry] = {}
     for e in entries:
         if e.field == MATCH_FIELD and e.target.startswith("typeset:") and ":" in str(e.value):

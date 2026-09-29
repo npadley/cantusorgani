@@ -20,7 +20,7 @@ from __future__ import annotations
 import json
 import re
 from collections.abc import Callable
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 import pymupdf
@@ -259,6 +259,8 @@ class PartsContext:
     proprium: dict[str, dict[str, object]]
     chants: dict[int, tuple[str | None, str]]     # GregoBase id -> (office part, sung text)
     margins: object                                # pipeline.margins.MarginReader
+    # GregoBase's chants, to pair a section jgabc gives no chant (list[pipeline.parts.ChantInfo]).
+    pairing: list[object] = field(default_factory=list)
 
 
 def parts_context() -> PartsContext:
@@ -276,8 +278,15 @@ def parts_context() -> PartsContext:
         proprium = load_proprium()
     except JgabcIntegrityError as exc:
         raise PartsUnavailable(f"{exc} To rebuild without re-dividing Propers, pass --no-parts.") from exc
-    chants = {c.id: (c.office_part, chant_text(c.gabc)) for c in load_chants(include_copyrighted=True)}
-    return PartsContext(proprium, chants, MarginReader())
+    from pipeline.parts import OPENING_CHARS, ChantInfo
+    loaded = load_chants(include_copyrighted=True)
+    chants = {c.id: (c.office_part, chant_text(c.gabc)) for c in loaded}
+    # Only chants the site may show are paired: GregoBase flags some transcriptions copyrighted.
+    shown = {c.id for c in load_chants()}
+    pairing = [ChantInfo(c.id, c.office_part, condense(chants[c.id][1])[:OPENING_CHARS], c.mode, c.incipit,
+                         bool(chants[c.id][1]))
+               for c in loaded if c.id in shown]
+    return PartsContext(proprium, chants, MarginReader(), pairing)
 
 
 def jgabc_url(slug: str, days: list[str]) -> str | None:
@@ -295,19 +304,18 @@ def jgabc_url(slug: str, days: list[str]) -> str | None:
 
 def proper_parts(vol_id: str, slug: str, days: list[str], reference: str | None,
                  refs: list[SystemRef], ctx: PartsContext, zone: str = "",
-                 hand: dict[str, int] | None = None
+                 heading: Callable[[str], str | None] | None = None
                  ) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
     """A Proper's parts and the review entries for any placed by order, missing,
     or not found at all. Parts printed by reference are recorded as borrowed and
     resolved later by link_parts, once every volume is merged."""
     from pipeline.jgabc import jgabc_key_for_piece
     from pipeline.parts import (
-        ORDER,
         PartSystem,
         borrowed_parts,
         expected_parts,
-        label_of,
         margin_mode,
+        read_label,
         segment_proper,
     )
 
@@ -333,15 +341,17 @@ def proper_parts(vol_id: str, slug: str, days: list[str], reference: str | None,
         # OCR read nothing at all -- a lone "I." is too small for it -- does the
         # text layer's marker count.
         mode = margin_mode(margin) if margin.strip() else r.mode_marker
-        features.append(PartSystem(r.ref, r.text, label_of(margin), mode))
-    try:
-        seg = segment_proper(features, printed, hand)
-    except ValueError as error:
-        raise ValueError(f"{vol_id} {slug}: {error}") from error
+        label = read_label(margin)
+        features.append(PartSystem(r.ref, r.text, label[0] if label else None, mode,
+                                   label[1] if label else None, label[2] if label else None))
+    seg = segment_proper(features, printed, ctx.pairing,                       # type: ignore[arg-type]
+                         (lambda i: heading(features[i].ref)) if heading else None)
+    from pipeline.sections import in_printed_order
     from pipeline.sections import record as section
     records: list[dict[str, object]] = [
         section(b.part, b.variant, system=b.index, ref=b.ref, gregobase_id=b.gregobase_id,
-                placed=b.placed, score=b.score)
+                placed=b.placed, score=b.score,
+                **{k: v for k, v in (("label", b.label), ("title", b.title), ("why", b.why)) if v})
         for b in seg.parts]
     ids = {e.part: e.gregobase_id for e in expected}
     for key, volume, page in borrowed:
@@ -349,16 +359,15 @@ def proper_parts(vol_id: str, slug: str, days: list[str], reference: str | None,
         records.append(section(part, variant, gregobase_id=ids.get(part) if not variant else None,
                                borrowed_volume=volume, borrowed_page=page, borrowed_from=None))
 
-    def order(record: dict[str, object]) -> tuple[int, int]:
-        name = f"{record['kind']}/paschal" if record.get("variant") == "paschal" else str(record["kind"])
-        return (ORDER.index(name) if name in ORDER else len(ORDER), int(record.get("system", -1)))  # type: ignore[call-overload]
-
-    records.sort(key=order)
+    # In the order the book prints them; those printed elsewhere by their place in the Mass.
+    records = in_printed_order({"sections": records})
     review = [{"piece": slug, "kind": p.kind, "part": p.part, "variant": p.variant,
                "expected_incipit": p.expected_opening,
                "best_system": p.best_index,
                "ref": refs[p.best_index].ref if p.best_index is not None else None,
-               "score": round(p.best_score, 3)} for p in seg.problems]
+               "score": round(p.best_score, 3),
+               **({"candidates": list(p.candidates)} if p.candidates else {}),
+               **({"chant_id": p.chant_id} if p.chant_id is not None else {})} for p in seg.problems]
     return records, review
 
 
@@ -412,6 +421,27 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
             boxes = analyse_page(vol_id, first_pdf).boxes
             top = boxes[piece_refs[0].index].top * PX_TO_PT if piece_refs[0].index < len(boxes) else 0.0
             return zone_text(lines, (first_pdf, top))                # type: ignore[arg-type]
+
+        def heading_above(ref: str) -> str | None:
+            """The heading printed above a system ("BENEDICTIO CANDELARUM"),
+            between it and the system before on its page: the suggested label of
+            a section outside the Mass."""
+            from pipeline.partrefs import is_heading, page_lines
+            _, page, index = ref.split("/")
+            pdf_page, i = int(page), int(index)
+            if pdf_page not in lines_cache:
+                lines_cache[pdf_page] = page_lines(doc[pdf_page - 1], pdf_page)   # type: ignore[assignment]
+            boxes = analyse_page(vol_id, pdf_page).boxes
+            if i >= len(boxes):
+                return None
+            top = boxes[i].top * PX_TO_PT
+            floor = boxes[i - 1].bottom * PX_TO_PT if i > 0 else 0.0
+            found = [ln.text for ln in lines_cache[pdf_page]                     # type: ignore[attr-defined]
+                     if floor < ln.y < top and is_heading(ln.text)]              # type: ignore[attr-defined]
+            if not found:
+                return None
+            text = " ".join(found[-1].split()).strip(" .")
+            return text[:1].upper() + text[1:].lower()
 
         # Where each piece begins: (printed page, first system on it). Pieces
         # own every system from their start up to the next piece's start.
@@ -503,8 +533,7 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
             jgabc = jgabc_url(entry.slug, list(entry.days)) if has_parts(entry) else None
             if ctx is not None and refs and has_parts(entry):
                 proper, part_review = proper_parts(vol_id, entry.slug, list(entry.days),
-                                                   entry.reference, refs, ctx, zone_of(refs),
-                                                   {k: n - 1 for k, n in entry.parts})
+                                                   entry.reference, refs, ctx, zone_of(refs), heading_above)
                 review.extend(part_review)
             if entry.status not in CONFIDENT_INDEX:
                 review.append({"piece": entry.slug, "kind": "index_unverified",

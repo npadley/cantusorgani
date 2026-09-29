@@ -50,10 +50,6 @@ class IndexEntry:
     # An addendum's id (data/volumes.yml) when the entry is printed in one: its
     # `page` then counts in that addendum's own pagination, not the body's.
     pagination: str | None = None
-    # Parts whose first system (counting from 1) was read off the page by hand,
-    # e.g. (("alleluia/paschal", 12),): for a layout the parts' printed order
-    # does not describe (see pipeline.parts.segment_proper).
-    parts: tuple[tuple[str, int], ...] = ()
 
     @property
     def printed_pages(self) -> tuple[int, int]:
@@ -81,6 +77,10 @@ def load_index(vol_id: str, path: Path | None = None) -> list[IndexEntry]:
             if slug in seen:
                 raise ValueError(f"duplicate index slug {slug!r} in {vol_id}")
             seen.add(slug)
+            if "parts" in e:
+                raise ValueError(f"{vol_id} {slug}: `parts:` placed Proper parts by hand; that is a reviewed "
+                                 f"section list now: move it to data/sections/{vol_id}.yml "
+                                 f"(`uv run noh sections {slug} --review`) and delete `parts:` from the index")
             entries.append(IndexEntry(
                 slug=slug, section=section["name"], label=e["label"], title=e["title"],
                 genre=e["genre"], page=e["page"], last_page=e.get("last_page"),
@@ -88,7 +88,6 @@ def load_index(vol_id: str, path: Path | None = None) -> list[IndexEntry]:
                 days=tuple(e.get("days", ())), status=e.get("status", "verified"),
                 reference=e.get("reference"),
                 pagination=e.get("pagination", section.get("pagination")),
-                parts=tuple((str(k), int(v)) for k, v in (e.get("parts") or {}).items()),
             ))
     return entries
 

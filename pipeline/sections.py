@@ -21,7 +21,15 @@ Everything that names a section goes through `suffix` and `target` here.
 from __future__ import annotations
 
 from collections.abc import Mapping
+from pathlib import Path
 from typing import Any
+
+import yaml
+
+from pipeline.volumes import DATA
+
+#: Sections a person checked against the scans: data/sections/<volume>.yml.
+REVIEWED = DATA / "sections"
 
 KINDS = ("introit", "gradual", "alleluia", "tract", "sequence", "hymn", "offertory", "communion", "other")
 
@@ -77,4 +85,237 @@ def from_part(part: Mapping[str, Any]) -> dict[str, Any]:
     return record(str(part["part"]), str(part.get("variant") or ""), **rest)
 
 
-__all__ = ["KINDS", "from_part", "named", "of", "printed", "record", "split_variant", "suffix", "target"]
+# ------------------------------------------------------- reviewed sections ---
+
+REVIEWED_HEADER = """\
+# A Proper's sections, checked against the scans: when a piece is listed here,
+# this list is the whole truth for it (the pipeline adds, drops and moves
+# nothing), applied with the hand corrections by `noh apply-corrections`.
+# See docs/EDITING.md, "Sections".
+#
+# Each piece is a list, in the order the book prints it:
+#   kind:   introit gradual alleluia tract sequence hymn offertory communion other
+#   n:      2 for the 2nd of its kind on the piece (1 for the first of several)
+#   variant: paschal ...  (a seasonal form), or leave it out
+#   label:  the margin label as printed ("2. Grad. I")
+#   title:  its opening words
+#   ref:    its first system ("noh1/0052/003"; every image on the site carries its ref)
+#   chant:  a GregoBase id, or none; left out, the pipeline's chant for it is kept
+# A section printed in another volume has borrowed_volume and borrowed_page
+# (and borrowed_from, borrowed_ref) in place of ref.
+# `uv run noh sections <slug> --review` writes a piece's current list here to start from.
+"""
+
+
+class ReviewedError(ValueError):
+    """A reviewed list that cannot be applied; each line names the piece and the fix."""
+
+
+def load_reviewed(folder: Path = REVIEWED) -> dict[str, tuple[str, list[dict[str, Any]]]]:
+    """Every reviewed list, by slug: (the file it is in, its entries)."""
+    out: dict[str, tuple[str, list[dict[str, Any]]]] = {}
+    if not folder.exists():
+        return out
+    for path in sorted(folder.glob("*.yml")):
+        doc = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        if not isinstance(doc, dict):
+            raise ReviewedError(f"data/sections/{path.name}: expected pieces by slug, each a list of sections")
+        for slug, entries in doc.items():
+            if slug in out:
+                raise ReviewedError(f"data/sections/{path.name}: {slug} is also listed in {out[slug][0]}; keep one")
+            if not isinstance(entries, list):
+                raise ReviewedError(f"data/sections/{path.name}: {slug} should be a list of sections")
+            out[str(slug)] = (f"data/sections/{path.name}", [dict(e) for e in entries])
+    return out
+
+
+def reviewed_list(slug: str, piece: Mapping[str, Any], entries: list[dict[str, Any]], where: str
+                  ) -> tuple[list[dict[str, Any]], list[str]]:
+    """A reviewed list as the piece's sections, and every problem with it. The
+    pipeline's chant for a section is kept where the list gives none."""
+    systems = list(piece.get("systems") or [])
+    proposed = {f"{s['kind']}{suffix(s)}": s for s in of(piece)}
+    out: list[dict[str, Any]] = []
+    problems: list[str] = []
+    names: set[str] = set()
+    last = -1
+    for i, e in enumerate(entries, 1):
+        at = f"{where}: {slug} section {i}"
+        kind = str(e.get("kind", ""))
+        if kind not in KINDS:
+            problems.append(f"{at}: kind {kind!r} is not one of {', '.join(KINDS)}")
+            continue
+        n = e.get("n")
+        if n is not None and (not isinstance(n, int) or n < 1):
+            problems.append(f"{at}: n {n!r} should be 1, 2, 3 ...")
+            continue
+        section: dict[str, Any] = {"kind": kind}
+        if n:
+            section["n"] = n
+        section["variant"] = str(e.get("variant") or "")
+        name = f"{kind}{suffix(section)}"
+        if name in names:
+            problems.append(f"{at}: part:{slug}/{name} is listed twice; number them with n: 1, n: 2 ...")
+            continue
+        names.add(name)
+        for key in ("label", "title"):
+            if e.get(key):
+                section[key] = str(e[key])
+        chant = e.get("chant", proposed.get(name, {}).get("gregobase_id"))
+        section["gregobase_id"] = None if chant in (None, "none") else chant
+        if not (section["gregobase_id"] is None or isinstance(section["gregobase_id"], int)):
+            problems.append(f"{at}: chant {chant!r} should be a GregoBase id or none")
+            continue
+        if "borrowed_page" in e:
+            section.update({k: e.get(k) for k in ("borrowed_volume", "borrowed_page", "borrowed_from", "borrowed_ref")})
+            out.append(section)
+            continue
+        ref = str(e.get("ref", ""))
+        if ref not in systems:
+            problems.append(f"{at} ({name}): {ref or 'no ref'} is not a system of {slug}, which runs "
+                            f"{systems[0] if systems else '?'} to {systems[-1] if systems else '?'}; the piece's "
+                            "systems changed since the list was checked (a re-slice or a new range): check it "
+                            "against the scan again and correct its refs")
+            continue
+        system = systems.index(ref)
+        if system <= last:
+            problems.append(f"{at} ({name}): starts on {ref}, not after the section before; list the sections "
+                            "in the order the book prints them")
+            continue
+        last = system
+        section.update(system=system, ref=ref, placed="reviewed")
+        out.append(section)
+    return out, problems
+
+
+def apply_reviewed(catalog: dict[str, Any], reviewed: Mapping[str, tuple[str, list[dict[str, Any]]]]) -> list[str]:
+    """Replace each reviewed piece's sections with its list, in place; the
+    problems, one line each (a list that has problems is not applied)."""
+    pieces = {str(p["slug"]): p for p in catalog.get("pieces", [])}
+    problems: list[str] = []
+    for slug, (where, entries) in reviewed.items():
+        piece = pieces.get(slug)
+        if piece is None:
+            problems.append(f"{where}: {slug} is not in the catalogue; run `uv run noh where \"{slug}\"` "
+                            "for current slugs")
+            continue
+        listed, found = reviewed_list(slug, piece, entries, where)
+        problems += found
+        if not found:
+            piece["sections"] = listed
+    return problems
+
+
+def _margin(ref: str, asset: str) -> str:
+    """The margin OCR the catalogue build recorded for a system (data/ocr/margins),
+    read only: "" where it has none."""
+    import json as _json
+
+    from pipeline.margins import MARGINS
+    volume, page, _ = ref.split("/")
+    path = MARGINS / volume / f"{page}.json"
+    cached = _json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+    return " ".join(str(cached.get(f"{ref}|{asset}", "")).split())
+
+
+def describe(piece: Mapping[str, Any]) -> str:
+    """A piece's sections for a person checking them: each one's name, where it
+    starts, how it was placed, what the book prints there, and its chant."""
+    slug = str(piece["slug"])
+    systems = list(piece.get("systems") or [])
+    assets = list(piece.get("system_assets") or [])
+    lines = [f"{slug} ({piece.get('volume')}, {len(systems)} systems"
+             + (f", {systems[0]} to {systems[-1]}" if systems else "") + ")"]
+    for i, s in enumerate(in_printed_order(piece), 1):
+        name = target(slug, s)
+        if "system" not in s:
+            lines.append(f"  {i:>2}. {name}  printed elsewhere ({s.get('borrowed_volume')}, "
+                         f"p. {s.get('borrowed_page')}; {s.get('borrowed_from') or 'unresolved'})")
+            continue
+        ref = str(s["ref"])
+        margin = _margin(ref, assets[s["system"]] if s["system"] < len(assets) else "")
+        said = "  ".join(x for x in (f"label {s['label']!r}" if s.get("label") else "",
+                                     f"title {s['title']!r}" if s.get("title") else "") if x)
+        lines.append(f"  {i:>2}. {name}  system {s['system'] + 1} ({ref})  placed {s.get('placed')}"
+                     f"  chant {s.get('gregobase_id') if s.get('gregobase_id') is not None else 'none'}"
+                     + (f"  {said}" if said else "") + (f"\n      margin: {margin!r}" if margin else ""))
+    if not of(piece):
+        lines.append("  no sections")
+    return "\n".join(lines)
+
+
+#: The order of Mass, for placing a section printed elsewhere among those printed here.
+MASS_ORDER = ("introit", "gradual", "hymn", "alleluia", "tract", "alleluia/paschal", "sequence",
+              "offertory", "communion", "other")
+
+
+def in_printed_order(piece: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """A piece's sections in the order the book prints them: those printed here
+    by where they start, those printed elsewhere slotted in by their place in
+    the order of Mass (as the site does)."""
+    def mass(s: Mapping[str, Any]) -> int:
+        key = f"{s['kind']}/paschal" if s.get("variant") == "paschal" else str(s["kind"])
+        return MASS_ORDER.index(key) if key in MASS_ORDER else len(MASS_ORDER)
+
+    out = sorted(printed(piece), key=lambda s: int(s["system"]))
+    for b in sorted((s for s in of(piece) if "system" not in s), key=mass):
+        at = next((i for i, s in enumerate(out) if "system" in s and mass(s) > mass(b)), len(out))
+        out.insert(at, b)
+    return out
+
+
+def as_reviewed(piece: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """A piece's current sections as reviewed-list entries, in printed order, to
+    start a review from."""
+    out = []
+    for s in in_printed_order(piece):
+        e: dict[str, Any] = {"kind": s["kind"]}
+        if s.get("n"):
+            e["n"] = s["n"]
+        if s.get("variant"):
+            e["variant"] = s["variant"]
+        for key in ("label", "title"):
+            if s.get(key):
+                e[key] = s[key]
+        if "system" in s:
+            e["ref"] = s["ref"]
+        else:
+            e.update({k: s.get(k) for k in ("borrowed_volume", "borrowed_page", "borrowed_from", "borrowed_ref")})
+        e["chant"] = s.get("gregobase_id") if s.get("gregobase_id") is not None else "none"
+        out.append(e)
+    return out
+
+
+def save_reviewed(slug: str, volume: str, entries: list[dict[str, Any]], folder: Path = REVIEWED) -> Path:
+    """Write (or replace) one piece's reviewed list in data/sections/<volume>.yml."""
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / f"{volume}.yml"
+    doc = (yaml.safe_load(path.read_text(encoding="utf-8")) or {}) if path.exists() else {}
+    doc[slug] = entries
+    body = "\n".join(yaml.safe_dump({k: v}, sort_keys=False, allow_unicode=True, width=110,
+                                    default_flow_style=None).rstrip() for k, v in doc.items())
+    path.write_text(REVIEWED_HEADER + "\n" + body + "\n", encoding="utf-8")
+    return path
+
+
+__all__ = [
+    "KINDS",
+    "MASS_ORDER",
+    "REVIEWED",
+    "ReviewedError",
+    "apply_reviewed",
+    "as_reviewed",
+    "describe",
+    "from_part",
+    "in_printed_order",
+    "load_reviewed",
+    "named",
+    "of",
+    "printed",
+    "record",
+    "reviewed_list",
+    "save_reviewed",
+    "split_variant",
+    "suffix",
+    "target",
+]

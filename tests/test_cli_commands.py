@@ -21,6 +21,7 @@ def fake_r2_env(monkeypatch):
         monkeypatch.setenv(name, "test-value")
 
 
+@pytest.mark.real_sections        # doctor checks the committed outputs, reviewed sections applied
 def test_main_doctor_returns_zero_when_everything_needed_is_present(capsys):
     assert cli.main(["doctor"]) == 0
     assert "tesseract" in capsys.readouterr().out

@@ -19,6 +19,7 @@ catalogue can run on GitHub.
 | A piece starts or ends on the wrong system | [System range](#system-range) | No |
 | A piece is listed on the wrong page, or starts on the wrong page | [Piece boundaries](#piece-boundaries) | Yes, on GitHub |
 | A Proper part (Introit, Gradual…) starts on the wrong system, or its chant link is wrong | [Proper parts](#proper-parts) | No |
+| A Proper's sections are missing, extra, mislabelled or out of order (an Ember day's four Graduals) | [Sections](#sections) | No |
 | A Vespers psalm uses the wrong formula, or should show a note | [Psalm formulas and notes](#psalm-formulas-and-notes) | No |
 | A newer Divinum Officium, vesperale, jgabc or calendar | [Refreshing a source](#refreshing-a-source) | No |
 | A new volume to add | [Adding a volume](#adding-a-volume) | Yes (and uploads images: your machine) |
@@ -345,6 +346,36 @@ commits the result to the branch, and the checks run again. Or locally: the comm
   and reports anything uncertain in `data/review-queue.json`.
 - **Confirm**: preview the piece; its first system is the one printed.
 
+### Sections
+
+A Proper's sections are what the book prints on it, in order: its Introit,
+each Gradual (an Ember Saturday prints four), a hymn such as *Benedictus es*,
+the Tract, and so on. The pipeline proposes them from the margin labels and
+the chants; where that is wrong in more than one start, write the piece's list
+by hand.
+
+- **File**: `data/sections/<volume>.yml`, one list per piece, in printed order.
+  When a piece is listed there, the list is the whole truth for it: the
+  pipeline adds, drops and moves nothing.
+- **Change**:
+
+  ```bash
+  uv run noh sections sabbato-temporum-adventus            # the current list, with each margin label
+  uv run noh sections sabbato-temporum-adventus --review   # write it to data/sections/noh1.yml to edit
+  ```
+
+  Each section has a `kind`, `n` for the 2nd (3rd…) of its kind, the `label`
+  and `title` as printed, the `ref` of its first system (every image on the site
+  carries its ref), and optionally its `chant`. The file's header lists every
+  key.
+- **Command**: `uv run noh apply-corrections`. A list that names a system the
+  piece no longer has (after a re-slice or a new range) stops the build, naming
+  the piece and the ref: check it against the scan again.
+- **Confirm**: the piece's jump links and headings follow the list, each heading
+  showing its printed label.
+
+Single starts and chants can still be corrected on top of a list (below).
+
 ### Proper parts
 
 - **File**: `data/corrections.yml`.
@@ -375,14 +406,20 @@ commits the result to the branch, and the checks run again. Or locally: the comm
 Editors do the same on the admin screen: **Edit** beside the part's heading,
 or **Which part?** on the edit page. Readers use **Report** beside it.
 
-A part the pipeline placed by order alone (a guess) isn't shown on the site,
-so it has no Report link. It's listed on the admin edit page and in
-`noh where`.
+How the pipeline places a part: a margin label ("Grad.", "2. Grad.", "Hymn.")
+starts a section; a part jgabc lists that no label names is found by its words,
+only between the sections before and after it; failing that, it is placed only
+where exactly one chant starts in that gap (`inferred`), and otherwise it goes to
+the review queue (`part_missing`, naming the candidate systems). Nothing is
+placed by guesswork any more. Nothing unlabelled starts inside the Introit's
+Psalm verse and Gloria Patri, and the word "alleluia" places an Alleluia only
+where its chant begins (at the start of the line, beside its mode, or before
+its asterisk), not where it ends a Paschaltide Introit, Offertory or Communion.
 
 **Parts to check** (`/admin/parts/`, linked from the admin screen) lists the
-parts whose start looks wrong: guessed from the order of the parts, or much
-shorter than that kind of part usually is (often because the next part starts
-too early). Each opens its edit page with the scan. A part corrected by hand,
+parts whose start looks wrong: inferred rather than read from a label or the
+words, or much shorter than that kind of part usually is (often because the next
+part starts too early). A reviewed section list counts as checked. Each opens its edit page with the scan. A part corrected by hand,
 or marked **Looks right**, leaves the list once it is published; a part marked
 **Looks right** comes back if its start or length changes.
 
