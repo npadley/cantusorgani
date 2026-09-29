@@ -23471,46 +23471,63 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. III",
+          "title": "Deus dum egredereris",
+          "gregobase_id": 822,
           "system": 0,
           "ref": "noh2/0123/000",
-          "gregobase_id": 822,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. III",
-          "title": "Deus dum egredereris"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "n": 1,
           "variant": "",
+          "title": "Verbo Domini",
+          "gregobase_id": 635,
           "system": 9,
           "ref": "noh2/0124/003",
-          "gregobase_id": 635,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Verbo Domini"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "n": 2,
           "variant": "",
-          "system": 17,
-          "ref": "noh2/0125/005",
+          "title": "Veni Sancte Spiritus",
           "gregobase_id": 181,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Veni Sancte Spiritus"
+          "borrowed_volume": "noh2",
+          "borrowed_page": 79,
+          "borrowed_from": "dominica-pentecostes",
+          "borrowed_ref": "noh2/0111/005"
+        },
+        {
+          "kind": "sequence",
+          "variant": "",
+          "title": "Veni Sancte Spiritus",
+          "gregobase_id": 68,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 81,
+          "borrowed_from": "dominica-pentecostes",
+          "borrowed_ref": "noh2/0113/000"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "label": "Offert. II",
+          "title": "Meditabor",
+          "gregobase_id": 1218,
+          "system": 13,
+          "ref": "noh2/0125/001",
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. V",
+          "title": "Pacem meam",
+          "gregobase_id": 91,
           "system": 18,
           "ref": "noh2/0126/000",
-          "gregobase_id": 91,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Pacem meam"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pent0w",
@@ -24034,44 +24051,103 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. III",
+          "title": "Caritas Dei",
+          "gregobase_id": 1228,
           "system": 0,
           "ref": "noh2/0130/005",
-          "gregobase_id": 1228,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. III",
-          "title": "Caritas Dei cum Alleluia"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
-          "variant": "paschal",
+          "n": 1,
+          "variant": "",
+          "title": "Spiritus est qui vivificat",
+          "gregobase_id": 1236,
+          "system": 8,
+          "ref": "noh2/0132/001",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "n": 2,
+          "variant": "",
+          "title": "Spiritus ejus ornavit",
+          "gregobase_id": 1138,
+          "system": 13,
+          "ref": "noh2/0133/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "n": 3,
+          "variant": "",
+          "title": "Dum complerentur",
+          "gregobase_id": 657,
+          "system": 16,
+          "ref": "noh2/0134/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "n": 4,
+          "variant": "",
+          "title": "Veni Sancte Spiritus",
+          "gregobase_id": 181,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 79,
+          "borrowed_from": "dominica-pentecostes",
+          "borrowed_ref": "noh2/0111/005"
+        },
+        {
+          "kind": "alleluia",
+          "n": 5,
+          "variant": "",
+          "title": "Benedictus es",
+          "gregobase_id": 1289,
           "system": 22,
           "ref": "noh2/0135/000",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "title": "Laudate Dominum",
+          "gregobase_id": 1247,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 332,
+          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
+          "borrowed_ref": "noh1/0226/003"
+        },
+        {
+          "kind": "sequence",
+          "variant": "",
+          "title": "Veni Sancte Spiritus",
+          "gregobase_id": 68,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 81,
+          "borrowed_from": "dominica-pentecostes",
+          "borrowed_ref": "noh2/0113/000"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. VIII",
+          "title": "Domine Deus salutis",
+          "gregobase_id": 987,
           "system": 27,
           "ref": "noh2/0136/000",
-          "gregobase_id": 987,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. VIII",
-          "title": "Domine Deus salutis"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VIII",
+          "title": "Spiritus ubi vult",
+          "gregobase_id": 190,
           "system": 31,
           "ref": "noh2/0136/004",
-          "gregobase_id": 190,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VIII",
-          "title": "Spiritus ubi"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pent0s",
@@ -25300,44 +25376,50 @@
         {
           "kind": "introit",
           "variant": "",
+          "title": "Factus est Dominus",
+          "gregobase_id": 1111,
           "system": 0,
           "ref": "noh2/0160/000",
-          "gregobase_id": 1111,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Factus est Dominus"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "label": "Grad. V",
+          "title": "Ad Dominum",
+          "gregobase_id": 697,
+          "system": 8,
+          "ref": "noh2/0161/002",
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Domine Deus meus in te speravi",
+          "gregobase_id": 801,
           "system": 16,
           "ref": "noh2/0162/004",
-          "gregobase_id": 801,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Domine Deus meus in te"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. VI",
+          "title": "Domine convertere",
+          "gregobase_id": 848,
           "system": 24,
           "ref": "noh2/0164/000",
-          "gregobase_id": 848,
-          "placed": "text",
-          "score": 0.889,
-          "title": "Domine convertere"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. II",
+          "title": "Cantabo Domino",
+          "gregobase_id": 794,
           "system": 27,
           "ref": "noh2/0164/003",
-          "gregobase_id": 794,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Cantabo Domino"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pent2",
@@ -30140,42 +30222,54 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. VI",
+          "title": "Exsultate Deo",
+          "gregobase_id": 1323,
           "system": 0,
           "ref": "noh2/0254/004",
-          "gregobase_id": 1323,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. VI",
-          "title": "Exsultate Deo"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
+          "n": 1,
           "variant": "",
+          "label": "Grad. V",
+          "title": "Quis sicut Dominus",
+          "gregobase_id": 472,
           "system": 9,
           "ref": "noh2/0256/001",
-          "gregobase_id": null,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. V"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "n": 2,
+          "variant": "",
+          "title": "Beata gens",
+          "gregobase_id": 1044,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 218,
+          "borrowed_from": "dominica-xvii-post-pentecosten",
+          "borrowed_ref": "noh2/0250/000"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "title": "Meditabor",
           "gregobase_id": 810,
           "borrowed_volume": "noh1",
-          "borrowed_page": 20,
-          "borrowed_from": "feria-iv-quattuor-temporum-adventus",
-          "borrowed_ref": "noh1/0046/000"
+          "borrowed_page": 208,
+          "borrowed_from": "dominica-ii-in-quadragesim",
+          "borrowed_ref": "noh1/0235/000"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VIII",
+          "title": "Comedite pinguia",
+          "gregobase_id": 496,
           "system": 17,
           "ref": "noh2/0257/003",
-          "gregobase_id": 496,
-          "placed": "text",
-          "score": 0.696,
-          "title": "Comedite pinguia"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=EmbWedSept",
@@ -30237,6 +30331,7 @@
         {
           "kind": "introit",
           "variant": "",
+          "title": "Laetetur cor",
           "gregobase_id": 864,
           "borrowed_volume": "noh1",
           "borrowed_page": 264,
@@ -30246,15 +30341,17 @@
         {
           "kind": "gradual",
           "variant": "",
+          "title": "Convertere Domine",
           "gregobase_id": 1046,
           "borrowed_volume": "noh1",
           "borrowed_page": 197,
           "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
-          "borrowed_ref": "noh1/0225/003"
+          "borrowed_ref": "noh1/0224/002"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "title": "Benedic anima mea",
           "gregobase_id": 1359,
           "borrowed_volume": "noh1",
           "borrowed_page": 191,
@@ -30264,13 +30361,12 @@
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. II",
+          "title": "Aufer a me",
+          "gregobase_id": 828,
           "system": 0,
           "ref": "noh2/0258/002",
-          "gregobase_id": 828,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Aufer a me"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=EmbFriSept",
@@ -30378,22 +30474,98 @@
       "movements": [],
       "sections": [
         {
+          "kind": "introit",
+          "variant": "",
+          "label": "Intr. II",
+          "title": "Venite adoremus",
+          "gregobase_id": 450,
+          "system": 0,
+          "ref": "noh2/0259/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "n": 1,
+          "variant": "",
+          "title": "Propitius esto",
+          "gregobase_id": 332,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 194,
+          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
+          "borrowed_ref": "noh1/0221/003"
+        },
+        {
+          "kind": "gradual",
+          "n": 2,
+          "variant": "",
+          "title": "Protector noster",
+          "gregobase_id": 1226,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 196,
+          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
+          "borrowed_ref": "noh1/0223/000"
+        },
+        {
+          "kind": "gradual",
+          "n": 3,
+          "variant": "",
+          "title": "Convertere Domine",
+          "gregobase_id": 1046,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 197,
+          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
+          "borrowed_ref": "noh1/0224/002"
+        },
+        {
+          "kind": "gradual",
+          "n": 4,
+          "variant": "",
+          "title": "Dirigatur",
+          "gregobase_id": 44,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 198,
+          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
+          "borrowed_ref": "noh1/0225/003"
+        },
+        {
+          "kind": "hymn",
+          "variant": "",
+          "title": "Benedictus es",
+          "gregobase_id": 1589,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 31,
+          "borrowed_from": "sabbato-temporum-adventus",
+          "borrowed_ref": "noh1/0057/002"
+        },
+        {
           "kind": "tract",
           "variant": "",
+          "title": "Laudate Dominum",
           "gregobase_id": 1247,
-          "borrowed_volume": "noh2",
+          "borrowed_volume": "noh1",
           "borrowed_page": 199,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
+          "borrowed_ref": "noh1/0226/003"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "title": "Domine Deus salutis",
           "gregobase_id": 542,
-          "borrowed_volume": "noh2",
+          "borrowed_volume": "noh1",
           "borrowed_page": 200,
-          "borrowed_from": "dominica-xiv-post-pentecosten",
-          "borrowed_ref": "noh2/0236/005"
+          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
+          "borrowed_ref": "noh1/0227/005"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. VIII",
+          "title": "Mense septimo",
+          "gregobase_id": 1149,
+          "system": 8,
+          "ref": "noh2/0260/002",
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=EmbSatSept",
@@ -31102,24 +31274,51 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Omnia quae fecisti",
+          "gregobase_id": 1056,
           "system": 0,
           "ref": "noh2/0270/004",
-          "gregobase_id": 1056,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Omnia quae fecisti"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "title": "Oculi omnium",
+          "gregobase_id": 1230,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 116,
+          "borrowed_from": "noh2-p114",
+          "borrowed_ref": "noh2/0148/000"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Paratum cor meum",
+          "gregobase_id": 745,
+          "system": 10,
+          "ref": "noh2/0272/003",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "label": "Offert. I",
+          "title": "Super flumina",
+          "gregobase_id": 812,
+          "system": 18,
+          "ref": "noh2/0273/005",
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. IV",
+          "title": "Memento verbi tui",
+          "gregobase_id": 696,
           "system": 23,
           "ref": "noh2/0274/004",
-          "gregobase_id": 696,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. IV",
-          "title": "Memento verbi tui"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pent20",

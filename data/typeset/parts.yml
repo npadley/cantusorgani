@@ -25,15 +25,15 @@
     melody: null
 - file: vol-1/al_confitemini_domino.csv.ly
   target: part:sabbato-sancto/alleluia
-  status: proposed
+  status: melody-differs
   evidence:
     by: page
     incipit: Al le lú ia Al le lú ia
     page: 345
     candidates:
     - target: part:sabbato-sancto/alleluia
-      melody: null
-    melody: null
+      melody: 0.131
+    melody: 0.131
 - file: vol-1/al_crastina_die.csv.ly
   target: part:in-vigilia-nativitatis-domini/alleluia
   status: matched
@@ -303,18 +303,18 @@
       melody: null
     melody: null
 - file: vol-1/an_hosanna_filio_david.csv.ly
-  target: null
-  status: proposed
+  target: part:noh1-p299-2/other:1
+  status: matched
   evidence:
     by: page
     incipit: Hosanna fílio David benedíctus qui venit in nómine
     page: 299
     candidates:
     - target: part:noh1-p299-2/other:1
-      melody: null
+      melody: 1.0
     - target: part:noh1-p299-2/other:2
-      melody: null
-    melody: null
+      melody: 0.238
+    melody: 1.0
 - file: vol-1/an_immutemur_habitu.csv.ly
   target: piece:feria-iv-cinerum
   status: proposed
@@ -368,29 +368,29 @@
       melody: 0.491
     melody: 0.491
 - file: vol-1/an_pueri_hebraeorum_portantes.csv.ly
-  target: null
-  status: proposed
+  target: part:noh1-p299-2/other:2
+  status: matched
   evidence:
     by: page
     incipit: Pueri Hebræórum portántes ramos olivárum obviavérunt Dómino clamántes
     page: 299
     candidates:
-    - target: part:noh1-p299-2/other:1
-      melody: null
     - target: part:noh1-p299-2/other:2
-      melody: null
-    melody: null
+      melody: 1.0
+    - target: part:noh1-p299-2/other:1
+      melody: 0.525
+    melody: 1.0
 - file: vol-1/an_pueri_hebraeorum_vestimenta.csv.ly
   target: part:noh1-p299-2/other:3
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Púeri Hebræórum vestiménta prosternébant in via et clamábant
     page: 301
     candidates:
     - target: part:noh1-p299-2/other:3
-      melody: null
-    melody: null
+      melody: 1.0
+    melody: 1.0
 - file: vol-1/an_turba_multa.csv.ly
   target: part:noh1-p302/other:3
   status: matched
@@ -527,15 +527,15 @@
     melody: 1.0
 - file: vol-1/co_dominus_regit_me.csv.ly
   target: part:sabbato-infra-hebd-iv-quadragesim/communion
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Dominus regit me et nihil mihi déerit in
     page: 272
     candidates:
     - target: part:sabbato-infra-hebd-iv-quadragesim/communion
-      melody: null
-    melody: null
+      melody: 1.0
+    melody: 1.0
 - file: vol-1/co_dominus_virtutum.csv.ly
   target: part:feria-ii-infra-hebd-passionis/communion
   status: matched
@@ -645,11 +645,11 @@
     candidates:
     - target: part:feria-ii-infra-hebd-passionis/communion
       melody: 0.6
+    - target: part:dominica-iii-in-quadragesim/communion
+      melody: 0.587
     - target: part:s-joannis-apostoli-et-evangelist/communion
       melody: 0.547
     - target: part:feria-vi-quattuor-temporum-quadragesim/communion
-      melody: 0.533
-    - target: part:dominica-i-passionis/communion
       melody: 0.533
     melody: 0.6
 - file: vol-1/co_hoc_corpus.csv.ly
@@ -863,15 +863,15 @@
     melody: 1.0
 - file: vol-1/co_passer_invenit.csv.ly
   target: part:dominica-iii-in-quadragesim/communion
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Passer invénit sibi domum et turtur nidum ubi
     page: 230
     candidates:
     - target: part:dominica-iii-in-quadragesim/communion
-      melody: null
-    melody: null
+      melody: 1.0
+    melody: 1.0
 - file: vol-1/co_pater_si_non_potest.csv.ly
   target: part:noh1-p302/communion
   status: matched
@@ -896,15 +896,15 @@
     melody: 1.0
 - file: vol-1/co_qui_biberit.csv.ly
   target: part:feria-vi-infra-hebd-iii-quadragesim/communion
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Qui bíberit aquam quam ego da bo ei
     page: 246
     candidates:
     - target: part:feria-vi-infra-hebd-iii-quadragesim/communion
-      melody: null
-    melody: null
+      melody: 0.977
+    melody: 0.977
 - file: vol-1/co_qui_meditabitur.csv.ly
   target: part:noh1-p156/communion
   status: matched
@@ -984,26 +984,26 @@
     melody: 1.0
 - file: vol-1/co_tu_domine_servabis.csv.ly
   target: part:feria-vi-infra-hebd-ii-quadragesim/communion
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Tu Dó mine servábis nos et custó dies
     page: 221
     candidates:
     - target: part:feria-vi-infra-hebd-ii-quadragesim/communion
-      melody: null
-    melody: null
+      melody: 1.0
+    melody: 1.0
 - file: vol-1/co_videns_dominus.csv.ly
   target: part:feria-vi-infra-hebd-iv-quadragesim/communion
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Videns Dóminus flentes soróres Lázari ad monuméntum lacrimátus
     page: 268
     candidates:
     - target: part:feria-vi-infra-hebd-iv-quadragesim/communion
-      melody: null
-    melody: null
+      melody: 1.0
+    melody: 1.0
 - file: vol-1/co_video_caelos.csv.ly
   target: part:s-stephani-protomartyris/communion
   status: matched
@@ -1115,10 +1115,10 @@
       melody: 0.483
     - target: part:feria-iv-infra-hebd-ii-quadragesim/gradual
       melody: 0.453
+    - target: part:dominica-iii-in-quadragesim/gradual
+      melody: 0.443
     - target: part:feria-iv-hebdomad-sanct/gradual
       melody: 0.426
-    - target: part:noh1-p49/gradual
-      melody: 0.419
     melody: 0.483
 - file: vol-1/gr_benedictus_qui_venit.csv.ly
   target: part:noh1-p54/gradual
@@ -1203,22 +1203,22 @@
       melody: 0.6
     - target: part:sabbato-temporum-adventus/gradual:4
       melody: 0.438
+    - target: part:dominica-i-passionis/gradual
+      melody: 0.431
     - target: part:feria-ii-infra-hebd-passionis/gradual
       melody: 0.428
-    - target: part:sanctissimi-nominis-jesu/gradual
-      melody: 0.424
     melody: 0.6
 - file: vol-1/gr_eripe_me_domine.csv.ly
   target: part:dominica-i-passionis/gradual
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: E ripe me Dómine de inimícis me is
     page: 274
     candidates:
     - target: part:dominica-i-passionis/gradual
-      melody: null
-    melody: null
+      melody: 1.0
+    melody: 1.0
 - file: vol-1/gr_excita_domine.csv.ly
   target: null
   status: broken
@@ -1248,15 +1248,15 @@
     melody: 1.0
 - file: vol-1/gr_exsurge__non_praevaleat.csv.ly
   target: part:dominica-iii-in-quadragesim/gradual
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Ex súrge Dómine non prævá leat ho mo
     page: 224
     candidates:
     - target: part:dominica-iii-in-quadragesim/gradual
-      melody: null
-    melody: null
+      melody: 1.0
+    melody: 1.0
 - file: vol-1/gr_hodie_scietis.csv.ly
   target: part:in-vigilia-nativitatis-domini/gradual
   status: matched
@@ -1500,15 +1500,15 @@
     melody: 0.992
 - file: vol-1/gr_tibi_domine.csv.ly
   target: part:sabbato-infra-hebd-iv-quadragesim/gradual
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Ti bi Dómine derelí ctus est pau per
     page: 270
     candidates:
     - target: part:sabbato-infra-hebd-iv-quadragesim/gradual
-      melody: null
-    melody: null
+      melody: 1.0
+    melody: 1.0
 - file: vol-1/gr_timebunt_gentes.csv.ly
   target: part:dominica-iii-post-epiphaniam/gradual
   status: matched
@@ -1656,8 +1656,8 @@
     page: 126
     candidates:
     - target: part:dominica-iii-post-epiphaniam/introit
-      melody: null
-    melody: null
+      melody: 0.845
+    melody: 0.845
 - file: vol-1/in_audivit_dominus.csv.ly
   target: part:feria-vi-post-cineres/introit
   status: proposed
@@ -2077,15 +2077,15 @@
     melody: 1.0
 - file: vol-1/in_oculi_mei.csv.ly
   target: part:dominica-iii-in-quadragesim/introit
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Oculi mei sem per ad Dóminum quia ipse
     page: 223
     candidates:
     - target: part:dominica-iii-in-quadragesim/introit
-      melody: null
-    melody: null
+      melody: 0.889
+    melody: 0.889
 - file: vol-1/in_omnis_terra.csv.ly
   target: part:dominica-ii-post-epiphaniam/introit
   status: proposed
@@ -2716,15 +2716,15 @@
     melody: 0.263
 - file: vol-1/tr_ad_te_levavi.csv.ly
   target: part:dominica-iii-in-quadragesim/tract
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Ad te le vávi ó culos meos qui
     page: 226
     candidates:
     - target: part:dominica-iii-in-quadragesim/tract
-      melody: null
-    melody: null
+      melody: 1.0
+    melody: 1.0
 - file: vol-1/tr_confitemini.csv.ly
   target: null
   status: broken
@@ -3054,22 +3054,16 @@
       melody: 1.0
     melody: 1.0
 - file: vol-2/al_dum_complerentur.csv.ly
-  target: part:feria-vi-quattuor-temporum-pentecostes/alleluia:1
+  target: part:sabbato-quattuor-temporum-pentecostes/alleluia:2
   status: proposed
   evidence:
-    by: kind
+    by: page
     incipit: Allelú ia ℣ Dum compleréntur dies Pentecó stes
     page: 101
     candidates:
-    - target: part:feria-vi-quattuor-temporum-pentecostes/alleluia:1
-      melody: 0.981
-    - target: part:dominica-ii-post-pascha/alleluia:1
-      melody: 0.405
-    - target: part:dominica-xii-post-pentecosten/alleluia
-      melody: 0.405
-    - target: part:noh2-p37/alleluia:1
-      melody: 0.4
-    melody: 0.981
+    - target: part:sabbato-quattuor-temporum-pentecostes/alleluia:2
+      melody: null
+    melody: null
 - file: vol-2/al_ego_sum_pastor.csv.ly
   target: null
   status: broken
@@ -3231,22 +3225,16 @@
       melody: 1.0
     melody: 1.0
 - file: vol-2/al_paratum_cor_meum.csv.ly
-  target: part:dominica-post-ascensionem/alleluia:2
-  status: proposed
+  target: part:dominica-xx-post-pentecosten/alleluia
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Allelú ia allelú ia ℣ Parátum cor meum
     page: 240
     candidates:
-    - target: part:dominica-post-ascensionem/alleluia:2
-      melody: 0.489
-    - target: part:dominica-xv-post-pentecosten/alleluia
-      melody: 0.483
-    - target: part:dominica-vii-post-pentecosten/alleluia
-      melody: 0.472
-    - target: part:dominica-vi-post-pentecosten/alleluia
-      melody: 0.455
-    melody: 0.489
+    - target: part:dominica-xx-post-pentecosten/alleluia
+      melody: 0.938
+    melody: 0.938
 - file: vol-2/al_pascha_nostrum.csv.ly
   target: part:dominica-resurrectionis/alleluia
   status: matched
@@ -3310,22 +3298,16 @@
       melody: 0.623
     melody: 0.915
 - file: vol-2/al_spiritus_ejus.csv.ly
-  target: part:die-vi-infra-octavam-pasch/alleluia
+  target: part:sabbato-quattuor-temporum-pentecostes/alleluia:2
   status: proposed
   evidence:
-    by: kind
+    by: page
     incipit: Alle lú ia ℣ Spíri tus e jus
     page: 101
     candidates:
-    - target: part:die-vi-infra-octavam-pasch/alleluia
-      melody: 1.0
-    - target: part:dominica-viii-post-pentecosten/alleluia
-      melody: 0.806
-    - target: part:die-ii-infra-octavam-pentecostes/alleluia:1
-      melody: 0.778
-    - target: part:dominica-v-post-pascha/alleluia:2
-      melody: 0.75
-    melody: 1.0
+    - target: part:sabbato-quattuor-temporum-pentecostes/alleluia:2
+      melody: null
+    melody: null
 - file: vol-2/al_spiritus_est.csv.ly
   target: null
   status: broken
@@ -3478,8 +3460,8 @@
       melody: 0.75
     - target: part:dominica-pentecostes/alleluia:2
       melody: 0.667
-    - target: part:feria-iv-quattuor-temporum-pentecostes/alleluia:2
-      melody: 0.667
+    - target: part:dominica-iii-post-pascha/alleluia:2
+      melody: 0.656
     melody: 0.812
 - file: vol-2/al_verbo_domini.csv.ly
   target: part:feria-iv-quattuor-temporum-pentecostes/alleluia:1
@@ -3764,22 +3746,16 @@
       melody: 1.0
     melody: 1.0
 - file: vol-2/co_mense_septimo.csv.ly
-  target: part:sabbato-in-vigilia-pentecostes/communion
+  target: part:sabbato-quattuor-temporum-septembris/communion
   status: proposed
   evidence:
-    by: kind
+    by: page
     incipit: Mense séptimo festa celebrábitis cum in tabernáculis habitáre
     page: 228
     candidates:
-    - target: part:sabbato-in-vigilia-pentecostes/communion
-      melody: 0.675
-    - target: part:dominica-xiii-post-pentecosten/communion
-      melody: 0.55
-    - target: part:dominica-pentecostes/communion
-      melody: 0.537
-    - target: part:dominica-post-ascensionem/communion
-      melody: 0.525
-    melody: 0.675
+    - target: part:sabbato-quattuor-temporum-septembris/communion
+      melody: null
+    melody: null
 - file: vol-2/co_mitte_manum_cum_allel.csv.ly
   target: part:noh2-p37/communion
   status: matched
@@ -4320,14 +4296,14 @@
       melody: 1.0
     melody: 1.0
 - file: vol-2/gr_quis_sicut_dominus.csv.ly
-  target: part:feria-iv-quattuor-temporum-septembris/gradual
+  target: part:feria-iv-quattuor-temporum-septembris/gradual:1
   status: proposed
   evidence:
     by: page
     incipit: Quis sicut Dó minus Deus noster qui in
     page: 224
     candidates:
-    - target: part:feria-iv-quattuor-temporum-septembris/gradual
+    - target: part:feria-iv-quattuor-temporum-septembris/gradual:1
       melody: null
     melody: null
 - file: vol-2/gr_respice_domine.csv.ly
@@ -4791,22 +4767,16 @@
       melody: 0.879
     melody: 0.879
 - file: vol-2/in_venite_adoremus.csv.ly
-  target: part:dominica-iv-post-pentecosten/introit
+  target: part:sabbato-quattuor-temporum-septembris/introit
   status: proposed
   evidence:
-    by: kind
+    by: page
     incipit: Veníte adorémus Deum et procidámus ante Dóminum ploré
     page: 227
     candidates:
-    - target: part:dominica-iv-post-pentecosten/introit
-      melody: 0.639
-    - target: part:dominica-vi-post-pentecosten/introit
-      melody: 0.63
-    - target: part:dominica-xix-post-pentecosten/introit
-      melody: 0.613
-    - target: part:dominica-xiv-post-pentecosten/introit
-      melody: 0.58
-    melody: 0.639
+    - target: part:sabbato-quattuor-temporum-septembris/introit
+      melody: null
+    melody: null
 - file: vol-2/in_venite_benedicti.csv.ly
   target: part:die-vi-infra-octavam-pasch/introit
   status: matched
@@ -5203,22 +5173,16 @@
       melody: 1.0
     melody: 1.0
 - file: vol-2/of_super_flumina.csv.ly
-  target: part:dominica-xii-post-pentecosten/offertory
-  status: proposed
+  target: part:dominica-xx-post-pentecosten/offertory
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Super flúmina Baby lónis illic sédimus et flévi
     page: 241
     candidates:
-    - target: part:dominica-xii-post-pentecosten/offertory
-      melody: 0.806
-    - target: part:sabbato-quattuor-temporum-pentecostes/offertory
-      melody: 0.55
-    - target: part:dominica-xviii-post-pentecosten/offertory
-      melody: 0.527
-    - target: part:dominica-xxii-post-pentecosten/offertory
-      melody: 0.527
-    melody: 0.806
+    - target: part:dominica-xx-post-pentecosten/offertory
+      melody: 1.0
+    melody: 1.0
 - file: vol-2/of_terra_tremuit.csv.ly
   target: part:dominica-resurrectionis/offertory
   status: matched
