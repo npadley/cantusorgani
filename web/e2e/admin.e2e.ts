@@ -88,6 +88,8 @@ test.describe("Making a correction", () => {
   test("should approve a part moved past its neighbour with a warning, until the neighbour moves too", async ({ page }) => {
     const s = starts("dominica-i-adventus");
     await page.goto("/admin/edit/?target=part:dominica-i-adventus/gradual");
+    // Once the page has loaded the part: it fills in the current start then, over anything typed before.
+    await expect(page.locator("#current")).toHaveText(String(s["gradual"]));
     await page.locator("#value").fill(String(s["alleluia"]));
     await page.getByRole("button", { name: "Approve this correction" }).click();
     await expect(page.locator("#status .notice")).toContainText("move the Alleluia too.");

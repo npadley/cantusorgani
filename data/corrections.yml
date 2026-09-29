@@ -119,3 +119,39 @@
   source: editor
   date: '2026-09-29'
   note: its Communion (VI, Surrexit Dominus) is on p. 12, above Feria Tertia
+- id: c-0016
+  target: piece:feria-vi-infra-hebd-ii-quadragesim
+  field: system_range
+  was:
+  - noh1/0246/004
+  - noh1/0247/005
+  value:
+  - noh1/0246/004
+  - noh1/0248/002
+  source: editor
+  date: '2026-09-29'
+  note: its Communion (III, Tu Domine servabis nos) is on p. 221, above Sabbato
+- id: c-0017
+  target: piece:feria-vi-infra-hebd-iii-quadragesim
+  field: system_range
+  was:
+  - noh1/0271/000
+  - noh1/0272/005
+  value:
+  - noh1/0271/000
+  - noh1/0273/004
+  source: editor
+  date: '2026-09-29'
+  note: its Communion (III, Qui biberit) is on p. 246, above Sabbato
+- id: c-0018
+  target: piece:feria-vi-infra-hebd-iv-quadragesim
+  field: system_range
+  was:
+  - noh1/0293/005
+  - noh1/0294/005
+  value:
+  - noh1/0293/005
+  - noh1/0295/003
+  source: editor
+  date: '2026-09-29'
+  note: its Communion (I, Videns Dominus) is on p. 268, above Sabbato
