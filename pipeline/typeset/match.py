@@ -233,7 +233,10 @@ def save(entries: list[Entry], path: Path = PARTS_FILE) -> None:
 
 
 def run(src: Path = SRC, path: Path = PARTS_FILE, catalog_path: Path = DATA / "catalog.json",
-        chants_path: Path = DATA / "chants.json", read_events: Any = None) -> list[Entry]:
+        chants_path: Path = DATA / "chants.json", read_events: Any = None,
+        forget_render_failures: bool = False) -> list[Entry]:
+    """`forget_render_failures`: decide every file afresh, however it last
+    rendered (after a change to what counts as a failure)."""
     from pipeline.offset import load_page_map
     from pipeline.typeset.events import read_all
 
@@ -255,7 +258,8 @@ def run(src: Path = SRC, path: Path = PARTS_FILE, catalog_path: Path = DATA / "c
     for f in files:
         rel = f.relative_to(src).as_posix()
         s = previous.get(rel) or {}
-        if s.get("source") == "editor" or (s.get("source") == "render" and still_fails(f, s)):
+        if s.get("source") == "editor" or (s.get("source") == "render" and not forget_render_failures
+                                           and still_fails(f, s)):
             entries.append(Entry(rel, s.get("target"), str(s["status"]), dict(s.get("evidence") or {}),
                                  str(s["source"])))
             continue

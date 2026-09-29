@@ -1,6 +1,7 @@
 """Draw each transcription for the site: two SVGs and a PDF, named by a hash.
 
-    narrow.svg   phone width: 100 mm lines, staff 15, lines broken to fit
+    narrow.svg   phone width: 90 mm lines, staff 17 (a 24 px staff on a 390 px
+                 phone), lines broken to fit
                  (pipeline/typeset/narrow.ily)
     wide.svg     tablet and desktop: 190 mm lines, staff 18, the book's own
                  line breaks, so it can be read against the scan line by line
@@ -50,7 +51,7 @@ class Format:
 
 
 FORMATS = (
-    Format("narrow", "narrow.svg", "paper-width = 100\\mm page-breaking = #ly:one-page-breaking", 15, True),
+    Format("narrow", "narrow.svg", "paper-width = 90\\mm page-breaking = #ly:one-page-breaking", 17, True),
     Format("wide", "wide.svg", "paper-width = 190\\mm page-breaking = #ly:one-page-breaking", 18, False),
     Format("print", "score.pdf", "#(set-paper-size \"a4\")", 18, False),
 )
@@ -59,6 +60,11 @@ FORMATS = (
 #: attach to, an unfinished lyric hyphen: hundreds in the upstream files) and
 #: do not spoil the drawing; they are kept with the render for proofreading.
 FATAL_WARNINGS = (re.compile(r"programming error", re.IGNORECASE),)
+#: Programming errors LilyPond recovers from with the drawing otherwise whole:
+#: a tie that meets a line break is left out ("Tie without heads"), and a
+#: spacing column is placed without its neighbour ("Loose column"). Kept as
+#: warnings for proofreading, like the transcriptions' own slips.
+RECOVERED = (re.compile(r"Tie without heads"), re.compile(r"Loose column does not have right side"))
 #: Warnings not worth keeping at all.
 IGNORED_WARNINGS = (re.compile(r"gregorian\.ly is deprecated"),)
 
@@ -128,9 +134,10 @@ def render(path: Path, out: Path, include: Path = INCLUDE) -> Rendered:
                 result.problems.append(f"{fmt.name}: {first_error(done.log)}")
                 return result
             found = warnings_in(done.log)
-            result.problems += [f"{fmt.name}: {w}" for w in found if any(p.search(w) for p in FATAL_WARNINGS)]
-            if fmt.name == "wide":
-                result.warnings = [w for w in found if not any(p.search(w) for p in FATAL_WARNINGS)]
+            fatal = [w for w in found if any(p.search(w) for p in FATAL_WARNINGS)
+                     and not any(p.search(w) for p in RECOVERED)]
+            result.problems += [f"{fmt.name}: {w}" for w in fatal]
+            result.warnings += [f"{fmt.name}: {w}" for w in found if w not in fatal]
             if fmt.output.endswith(".svg") and _pages(work, fmt.name) > 1:
                 result.problems.append(f"{fmt.name}: drew more than one page")
             shutil.move(produced, work / fmt.output)
@@ -150,5 +157,16 @@ def _pages(work: Path, stem: str) -> int:
     return 1 + len(list(work.glob(f"{stem}-*.svg")))
 
 
-__all__ = ["FATAL_WARNINGS", "FILES", "FORMATS", "IGNORED_WARNINGS", "RENDER_VERSION", "Rendered", "render",
-           "source_hash", "warnings_in", "wrap"]
+__all__ = [
+    "FATAL_WARNINGS",
+    "FILES",
+    "FORMATS",
+    "IGNORED_WARNINGS",
+    "RECOVERED",
+    "RENDER_VERSION",
+    "Rendered",
+    "render",
+    "source_hash",
+    "warnings_in",
+    "wrap",
+]

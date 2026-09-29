@@ -72,7 +72,7 @@ as outlines, so no fonts are needed (`pipeline/typeset/render.py`):
 
 | File | For | Layout |
 |---|---|---|
-| `narrow.svg` | phones | 100 mm lines, staff 15; the book's line breaks removed, so lines break to fit (`narrow.ily`) |
+| `narrow.svg` | phones | 90 mm lines, staff 17; the book's line breaks removed, so lines break to fit (`narrow.ily`) |
 | `wide.svg` | tablets and desktops | 190 mm lines, staff 18; the book's own line breaks, to read against the scan |
 | `score.pdf` | the PDF export | A4 pages, staff 18; the book's line breaks |
 
@@ -96,7 +96,9 @@ A matched part that fails to render, or whose melody no longer matches its
 chant (an edit gone wrong), fails CI. A file only on the review list that
 fails is reported and left for the admin screen. LilyPond's warnings about
 the transcriptions' own small slips (a slur with nothing to attach to, an
-unfinished hyphen) don't fail a render; a "programming error" does.
+unfinished hyphen) don't fail a render. A LilyPond "programming error" does,
+except two it recovers from with the drawing otherwise whole: a tie dropped
+where it meets a line break, and a loose spacing column.
 
 ## Safety
 

@@ -44,8 +44,10 @@ def build_parser() -> argparse.ArgumentParser:
     ti = subs.add_parser("typeset-import",
                          help="import the volunteers' LilyPond transcriptions from a pinned commit into data/typeset/")
     ti.add_argument("--commit", required=True, help="the upstream commit's full sha (never a branch)")
-    subs.add_parser("typeset-match",
-                    help="propose which part each transcription is (data/typeset/parts.yml), by page, name and melody")
+    tm = subs.add_parser("typeset-match",
+                         help="propose which part each transcription is (data/typeset/parts.yml), by page, name and melody")
+    tm.add_argument("--forget-render-failures", action="store_true",
+                    help="decide files marked broken by a render afresh (after changing what counts as a failure)")
     tc = subs.add_parser("typeset-check",
                          help="check the typeset sources (source check), parts.yml and the manifest; needs no LilyPond (CI)")
     tc.add_argument("--remote", metavar="BASE", default=None,
@@ -287,7 +289,7 @@ def main(argv: list[str] | None = None) -> int:
         from pipeline.typeset.lilypond import LilyPondError
         from pipeline.typeset.match import PARTS_FILE, run
         try:
-            entries = run()
+            entries = run(forget_render_failures=args.forget_render_failures)
         except LilyPondError as error:
             print(f"FAIL  {error}", file=sys.stderr)
             return 1
@@ -303,8 +305,12 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "typeset-render":
-        from pipeline.typeset.publish import OUT, render_missing
-        report = render_missing(args.missing_from)
+        from pipeline.typeset.publish import OUT, StaleManifest, render_missing
+        try:
+            report = render_missing(args.missing_from)
+        except StaleManifest as error:
+            print(f"FAIL  {error}", file=sys.stderr)
+            return 1
         if args.mark_broken and report.failures:
             from pipeline.typeset.manifest import write
             from pipeline.typeset.match import mark_render_failures
