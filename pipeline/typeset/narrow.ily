@@ -5,6 +5,9 @@
 forceBreak = { \bar "" }
 break = {}
 \layout {
+  % Every line but the last fills the width.
+  ragged-right = ##f
+  ragged-last = ##t
   \context { \Score
     forbidBreakBetweenBarLines = ##f
     \override SpacingSpanner.spacing-increment = #0.7

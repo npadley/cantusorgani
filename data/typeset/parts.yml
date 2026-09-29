@@ -2109,8 +2109,7 @@
     melody: 0.833
 - file: vol-1/in_liberator_meus.csv.ly
   target: part:feria-iv-infra-hebd-passionis/introit
-  status: broken
-  source: render
+  status: matched
   evidence:
     by: page
     incipit: Liberátor me us de géntibus iracúndis ab insurgéntibus
@@ -2119,10 +2118,6 @@
     - target: part:feria-iv-infra-hebd-passionis/introit
       melody: 1.0
     melody: 1.0
-    error: 'narrow: programming error: Tie without heads.  Suicide; narrow: programming error: Tie without heads.  Suicide;
-      narrow: programming error: Tie without heads.  Suicide; narrow: programming error: Tie without heads.  Suicide'
-    was: matched
-    hash: 919710aa2e8ad66763c806285052d8a7
 - file: vol-1/in_meditatio.csv.ly
   target: part:feria-vi-infra-hebd-iv-quadragesim/introit
   status: proposed
@@ -2202,8 +2197,7 @@
     melody: 0.583
 - file: vol-1/in_omnis_terra.csv.ly
   target: part:dominica-ii-post-epiphaniam/introit
-  status: broken
-  source: render
+  status: proposed
   evidence:
     by: page
     incipit: Omnis terra adó ret te De us et
@@ -2212,9 +2206,6 @@
     - target: part:dominica-ii-post-epiphaniam/introit
       melody: 0.846
     melody: 0.846
-    error: 'narrow: programming error: Tie without heads.  Suicide; narrow: programming error: Tie without heads.  Suicide'
-    was: proposed
-    hash: 05d4b207e4ceff56b122d282e1c49ddd
 - file: vol-1/in_populus_sion.csv.ly
   target: part:dominica-ii-adventus/introit
   status: matched
@@ -2824,8 +2815,7 @@
     error: 'line 39:14: error: syntax error, unexpected ''*'''
 - file: vol-1/of_tulerunt_jesum.csv.ly
   target: part:noh1-p104/offertory
-  status: broken
-  source: render
+  status: matched
   evidence:
     by: page
     incipit: Tulérunt Je sum parén tes e jus in
@@ -2834,10 +2824,6 @@
     - target: part:noh1-p104/offertory
       melody: 1.0
     melody: 1.0
-    error: 'wide: programming error: Loose column does not have right side to attach to.; print: programming error: Loose
-      column does not have right side to attach to.'
-    was: matched
-    hash: 5981186923fc446fe405b5dc3097a809
 - file: vol-1/re_emendemus.csv.ly
   target: part:noh1-p156/introit
   status: melody-differs
@@ -3134,8 +3120,7 @@
     melody: 0.955
 - file: vol-2/al_dextera_dei.csv.ly
   target: part:dominica-iv-post-pascha/alleluia:1
-  status: broken
-  source: render
+  status: matched
   evidence:
     by: page
     incipit: Al lelúia al lelúia ℣ Déxtera Dei fe
@@ -3144,10 +3129,6 @@
     - target: part:dominica-iv-post-pascha/alleluia:1
       melody: 0.88
     melody: 0.88
-    error: 'wide: programming error: Loose column does not have right side to attach to.; print: programming error: Loose
-      column does not have right side to attach to.'
-    was: matched
-    hash: 06fdc68185cac91c34a345bf8f672092
 - file: vol-2/al_dicite_in_gentibus.csv.ly
   target: part:die-vi-infra-octavam-pasch-2/alleluia:paschal
   status: proposed
@@ -4870,8 +4851,7 @@
     melody: 0.857
 - file: vol-2/in_jubilate_deo.csv.ly
   target: part:dominica-iii-post-pascha/introit
-  status: broken
-  source: render
+  status: matched
   evidence:
     by: page
     incipit: Jubiláte Deo omnis terra allelúia psalmum dícite nómini
@@ -4880,9 +4860,6 @@
     - target: part:dominica-iii-post-pascha/introit
       melody: 0.867
     melody: 0.867
-    error: 'narrow: programming error: Tie without heads.  Suicide; narrow: programming error: Tie without heads.  Suicide'
-    was: matched
-    hash: 6ab25cc46b7550f6447f54efec9069bd
 - file: vol-2/in_justus_es_domine.csv.ly
   target: part:dominica-xvii-post-pentecosten/introit
   status: proposed
@@ -5429,8 +5406,7 @@
     melody: 1.0
 - file: vol-2/of_si_ambulavero.csv.ly
   target: part:dominica-xix-post-pentecosten/offertory
-  status: broken
-  source: render
+  status: matched
   evidence:
     by: page
     incipit: Si ambulá ve ro in mé dio tribula
@@ -5439,10 +5415,6 @@
     - target: part:dominica-xix-post-pentecosten/offertory
       melody: 1.0
     melody: 1.0
-    error: 'wide: programming error: Loose column does not have right side to attach to.; print: programming error: Loose
-      column does not have right side to attach to.'
-    was: matched
-    hash: 543a0dbcaebe4ef044467ef8d238f065
 - file: vol-2/of_sicut_in_holocausto.csv.ly
   target: part:dominica-vii-post-pentecosten/offertory
   status: matched
@@ -5772,8 +5744,7 @@
     melody: 0.627
 - file: vol-3/al_habet_in_vestimento.csv.ly
   target: part:s-barnab-apostoli/alleluia
-  status: broken
-  source: render
+  status: proposed
   evidence:
     by: kind
     incipit: Alle lúia ℣ Ha bet in vestimén to
@@ -5788,10 +5759,6 @@
     - target: part:in-apparitione-b-mariae-virginis-immaculatae/alleluia
       melody: 0.442
     melody: 0.462
-    error: 'wide: programming error: Loose column does not have right side to attach to.; print: programming error: Loose
-      column does not have right side to attach to.'
-    was: proposed
-    hash: 7335eb3481f1ef8d8382cb2c050d3f6a
 - file: vol-3/al_haec_est_vera.csv.ly
   target: part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/alleluia:2
   status: melody-differs
@@ -7689,8 +7656,7 @@
     melody: 0.822
 - file: vol-3/in_miseratio.csv.ly
   target: part:s-joannis-cantii-confessoris/introit
-  status: broken
-  source: render
+  status: matched
   evidence:
     by: page
     incipit: Miserátio hóminis circa próximum misericórdia autem De i
@@ -7699,10 +7665,6 @@
     - target: part:s-joannis-cantii-confessoris/introit
       melody: 0.885
     melody: 0.885
-    error: 'narrow: programming error: Tie without heads.  Suicide; narrow: programming error: Tie without heads.  Suicide;
-      narrow: programming error: Tie without heads.  Suicide; narrow: programming error: Tie without heads.  Suicide'
-    was: matched
-    hash: 3b7dce6fabb75e65d6eb4b4e1a5e61cb
 - file: vol-3/in_multae_tribulationes.csv.ly
   target: part:ss-viti-modesti-atque-crescenti-martyrum/introit
   status: matched
@@ -7949,8 +7911,7 @@
     melody: 0.87
 - file: vol-3/of_adducam_eos.csv.ly
   target: part:ss-septem-fundat-ord-servorum-b-m-v/offertory
-  status: broken
-  source: render
+  status: matched
   evidence:
     by: page
     incipit: Addú cam eos in montem sanctum me um
@@ -7959,10 +7920,6 @@
     - target: part:ss-septem-fundat-ord-servorum-b-m-v/offertory
       melody: 1.0
     melody: 1.0
-    error: 'wide: programming error: Loose column does not have right side to attach to.; print: programming error: Loose
-      column does not have right side to attach to.'
-    was: matched
-    hash: b5f1e4a00af548da169608a5c84ab5a8
 - file: vol-3/of_afferentur__post_eam.csv.ly
   target: part:s-agath-virginis-et-martyris/offertory
   status: matched

@@ -23,8 +23,8 @@ def test_wrap_the_phone_layout_comes_after_the_house_style_and_the_page_at_the_e
     text = wrap(SOURCE, NARROW)
     assert text.index('\\include "noh2.ily"') < text.index('\\include "prelude.ily"') < \
         text.index('\\include "narrow.ily"') < text.index("x = {")
-    assert text.rstrip().endswith("#(set-global-staff-size 15)")
-    assert "paper-width = 100\\mm" in text and '\\include "render.ily"' in text
+    assert text.rstrip().endswith("#(set-global-staff-size 17)")
+    assert "paper-width = 90\\mm" in text and '\\include "render.ily"' in text
 
 
 def test_wrap_the_wide_and_print_layouts_keep_the_books_breaks():
@@ -50,6 +50,8 @@ def test_warnings_in_names_the_line_and_skips_the_ignored_ones():
            "programming error: no heads for note column\n")
     assert warnings_in(log) == ["line 52:1: warning: Unattached SlurEvent", "programming error: no heads for note column"]
     assert any(p.search(warnings_in(log)[1]) for p in render.FATAL_WARNINGS)
+    assert not any(p.search(warnings_in(log)[1]) for p in render.RECOVERED)
+    assert any(p.search("programming error: Tie without heads.  Suicide") for p in render.RECOVERED)
 
 
 @pytest.mark.lilypond
@@ -158,7 +160,7 @@ def test_the_committed_manifest_is_current_and_names_every_matched_part():
 def rendered(out: Path, digest: str, wide: bytes = GOOD) -> None:
     folder = out / digest
     folder.mkdir(parents=True)
-    narrow = GOOD
+    narrow = GOOD.replace(b'width="283"', b'width="255"')        # 90 mm
     wide_ok = wide.replace(b'width="283"', b'width="539"') if wide is GOOD else wide
     (folder / "narrow.svg").write_bytes(narrow)
     (folder / "wide.svg").write_bytes(wide_ok)
@@ -212,7 +214,8 @@ def test_render_missing_fails_only_for_shown_parts(tmp_path, monkeypatch):
     review.write_text(json.dumps({"items": [{"file": "g.ly", "status": "proposed", "hash": "h2"}]}))
     monkeypatch.setattr(publish, "render", lambda path, out: render.Rendered("h1" if path.name == "k.ly" else "h2",
                                                                               False, problems=["wide: error"]))
-    report = publish.render_missing(None, tmp_path / "out", tmp_path, manifest_path=shown, review_path=review)
+    report = publish.render_missing(None, tmp_path / "out", tmp_path, manifest_path=shown, review_path=review,
+                                    check_current=False)
     assert not report.ok
     assert report.failed_shown == ["k.ly: wide: error"] and report.failed_review == ["g.ly: wide: error"]
 
@@ -232,3 +235,10 @@ def test_mark_render_failures_marks_broken_and_the_mark_goes_when_the_file_chang
     shown, review = manifest.build(**tree)
     assert shown["parts"] == []
     assert any(r["file"] == "vol-5/missa-ix/kyrie_IX.ly" and r["status"] == "broken" for r in review["items"])
+
+
+def test_render_missing_refuses_a_stale_manifest(tmp_path, monkeypatch):
+    monkeypatch.setattr("pipeline.typeset.manifest.stale", lambda *a: ["manifest.json"])
+    with pytest.raises(publish.StaleManifest, match="run `uv run noh typeset-manifest` first"):
+        publish.render_missing(None, tmp_path / "out", tmp_path)
+    assert not (tmp_path / "out").exists()
