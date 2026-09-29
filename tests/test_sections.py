@@ -132,4 +132,6 @@ def test_cli_sections_prints_the_list_and_names_a_missing_piece(capsys):
 
 @pytest.mark.real_sections
 def test_the_committed_reviewed_lists_all_apply():
-    assert sections.apply_reviewed(json.loads(corrections.BASE.read_text()), sections.load_reviewed()) == []
+    # As the build applies them: after the pieces' corrected system ranges.
+    _, failed = corrections._ranged(corrections.load_base(), corrections.load())
+    assert failed == {}

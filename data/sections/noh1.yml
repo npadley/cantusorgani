@@ -17,13 +17,14 @@
 
 # The Ember Saturday of Advent, NOH1 pp. 24-38 (checked 2026-09-29 against each
 # section's margin label): a Gradual after each lesson, the hymn Benedictus es
-# after Daniel, then the Tract.
+# after Daniel, then the Tract. The Graduals' chants are GregoBase's of the same
+# incipit (their text layer is too poor to pair them by their words).
 sabbato-temporum-adventus:
 - {kind: introit, label: Intr. II, title: Veni et ostende, ref: noh1/0050/000}
-- {kind: gradual, n: 1, label: Grad. II, title: A summo caelo, ref: noh1/0051/000}
-- {kind: gradual, n: 2, label: 2. Grad. I, title: In sole posuit, ref: noh1/0052/003}
-- {kind: gradual, n: 3, label: 3. Grad. II, title: Domine Deus virtutum, ref: noh1/0054/000}
-- {kind: gradual, n: 4, label: 4. Grad. II, title: Excita Domine, ref: noh1/0055/002}
+- {kind: gradual, n: 1, label: Grad. II, title: A summo caelo, ref: noh1/0051/000, chant: 698}
+- {kind: gradual, n: 2, label: 2. Grad. I, title: In sole posuit, ref: noh1/0052/003, chant: 203}
+- {kind: gradual, n: 3, label: 3. Grad. II, title: Domine Deus virtutum, ref: noh1/0054/000, chant: 38}
+- {kind: gradual, n: 4, label: 4. Grad. II, title: Excita Domine, ref: noh1/0055/002, chant: 506}
 - {kind: hymn, label: Hymn. VIII, title: Benedictus es, ref: noh1/0057/002}
 - {kind: tract, label: Tract. VIII, title: Qui regis Israel, ref: noh1/0061/002}
 - {kind: offertory, label: Offert. III, title: Exsulta satis, ref: noh1/0063/001}
