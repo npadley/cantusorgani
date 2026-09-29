@@ -89,6 +89,24 @@ async function webhook(event: string, payload: unknown, secret = "hook-secret") 
   return { status: response.status, body: (await response.json()) as Record<string, unknown> };
 }
 
+describe("server errors", () => {
+  it("should name a database that is behind the code, instead of crashing", async () => {
+    db = testDb(2);
+    const { status, body } = await call("GET", "/queue");
+    expect(status).toBe(503);
+    expect(body["error"]).toMatch(/database needs its latest migration.*pnpm migrate:remote/);
+    expect(JSON.stringify(body)).not.toMatch(/no such column|seen/);
+  });
+
+  it("should answer any other failure with a plain 500, not the error's text", async () => {
+    const broken = { ...deps(), store: { ...d1Store(db.d1), list: async () => { throw new Error("D1_ERROR: disk I/O at 0x7f"); } } };
+    const response = await handleAdmin(new Request(`${ORIGIN}/admin/api/queue`, { headers: { origin: ORIGIN } }), env, broken);
+    expect(response.status).toBe(500);
+    const body = (await response.json()) as Record<string, unknown>;
+    expect(body["error"]).toBe("Something went wrong on the server. Try again; if it keeps happening, tell the owner.");
+  });
+});
+
 describe("reading", () => {
   it("should say who is signed in, and whether publishing is set up", async () => {
     expect((await call("GET", "/me")).body).toEqual({ email: "ed@example.org", owner: false, publishing: true });

@@ -157,7 +157,30 @@ async function conflict(store: Store, id: number, row: Row | null): Promise<Resp
   return problem(409, `Already ${row.status} by ${who}.`, { status: row.status });
 }
 
+/** A failure no handler expected, as an answer the admin screen can show:
+ * never the error's own text, which can name tables and columns. A database
+ * whose migrations lag the code (a column or table the code needs is missing)
+ * says so, with the fix; the owner applies them before merging such a change
+ * (docs/ADMIN-SETUP.md, section 6). */
+function serverError(error: unknown): Response {
+  const message = error instanceof Error ? error.message : String(error);
+  console.error("admin API:", message);
+  if (/no such (column|table)/i.test(message)) {
+    return problem(503, "The corrections database needs its latest migration. The owner applies it with " +
+      "`pnpm migrate:remote` in workers/corrections (see docs/ADMIN-SETUP.md); then reload this page.");
+  }
+  return problem(500, "Something went wrong on the server. Try again; if it keeps happening, tell the owner.");
+}
+
 export async function handleAdmin(request: Request, env: AdminEnv, deps: Deps = defaultDeps(request, env)): Promise<Response> {
+  try {
+    return await route(request, env, deps);
+  } catch (error) {
+    return serverError(error);
+  }
+}
+
+async function route(request: Request, env: AdminEnv, deps: Deps): Promise<Response> {
   const auth = await deps.authenticate(request);
   if (!auth.ok) return problem(auth.status, auth.error);
   const editor = auth.editor;
