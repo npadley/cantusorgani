@@ -32,8 +32,9 @@ export interface Render {
   readonly narrow: string;
   /** Tablet and desktop: the book's own line breaks. */
   readonly wide: string;
-  /** A4 pages, for the export. */
-  readonly pdf: string;
+  /** The export's pages, at each paper size. */
+  readonly letter: string;
+  readonly a4: string;
   /** An editor has proofread it against the scan (a `reviewed` correction on typeset:<file>). */
   readonly proofread: boolean;
   readonly file: string;
@@ -53,7 +54,7 @@ let unchecked: Set<string> | null = null;
 function render(part: ManifestPart, prefix: string, reviewed: Reviewed, base: string = assetBase()): Render {
   const at = `${base}/${prefix}/${part.hash}`;
   const review = reviewed[`typeset:${part.file}`];
-  return { narrow: `${at}/narrow.svg`, wide: `${at}/wide.svg`, pdf: `${at}/score.pdf`,
+  return { narrow: `${at}/narrow.svg`, wide: `${at}/wide.svg`, letter: `${at}/letter.pdf`, a4: `${at}/a4.pdf`,
            proofread: review?.was === part.hash, file: part.file };
 }
 
@@ -112,3 +113,46 @@ export function hasTypeset(piece: Piece): boolean {
 
 export const CREDIT = MANIFEST.credit;
 export const SOURCE = MANIFEST.source;
+
+/** A run of an export's systems: typeset (when the whole of a typeset segment
+ * lies inside the export) or scans. `key` names the segment on the page, whose
+ * switches decide which the reader is looking at. */
+export interface ExportRun {
+  readonly count: number;
+  readonly key: string | null;
+  readonly label: string | null;
+  readonly letter: string | null;
+  readonly a4: string | null;
+}
+
+/** The runs of systems start..end (exclusive) of a piece, in order. */
+export function exportRuns(piece: Piece, start: number, end: number,
+                           find: (target: string) => Render | null = renderFor): readonly ExportRun[] {
+  const labels = new Map(jumpTargets(piece).map((t) => [t.index, t.label]));
+  const out: ExportRun[] = [];
+  let scans = 0;
+  const flush = (): void => {
+    if (scans > 0) out.push({ count: scans, key: null, label: null, letter: null, a4: null });
+    scans = 0;
+  };
+  const typeset = new Map(segments(piece, find).filter((s) => s.render).map((s) => [s.start, s]));
+  for (let i = start; i < end;) {
+    const seg = typeset.get(i);
+    if (seg?.render && seg.end <= end) {
+      flush();
+      out.push({ count: seg.end - seg.start, key: segmentKey(piece, seg.start), label: labels.get(seg.start) ?? null,
+                 letter: seg.render.letter, a4: seg.render.a4 });
+      i = seg.end;
+      continue;
+    }
+    scans += 1;
+    i += 1;
+  }
+  flush();
+  return out;
+}
+
+/** How the page and the export name one segment of one piece. */
+export function segmentKey(piece: Piece, start: number): string {
+  return `${piece.slug}:${start}`;
+}
