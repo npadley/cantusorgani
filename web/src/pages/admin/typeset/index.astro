@@ -253,14 +253,17 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
   apply();
   const proof = { reviewed: "Proofread", marked: "marked as proofread", skipped: "Problem", skip: "problem note",
                   why: "What is wrong? (it stays on this list, with your note)", saved: "Noted; it stays on the list." };
-  for (const list of lists) {
+  const wired = lists.map((list) => {
     const queue = list.dataset["queueList"];
     const words = queue === "proofreading" ? proof : REVIEW_WORDS;
-    void wireReviews(list, status, apply, words, (state) => {
+    if (queue !== "proofreading") wireMatches(list, status, apply);
+    return wireReviews(list, status, apply, words, (state) => {
       const choices = (state as { choices?: readonly Choice[] }).choices ?? [];
       if (queue !== "proofreading") applyChoices(list, choices);
     });
-    if (queue !== "proofreading") wireMatches(list, status, apply);
-  }
+  });
+  // What editors have already done is marked once it has loaded: until then
+  // the counts are the page's own.
+  void Promise.all(wired).then(() => form?.setAttribute("data-ready", ""));
   initChantNotation();
 </script>
