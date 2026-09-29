@@ -21,6 +21,8 @@ are shown.
 | `UPSTREAM.yml` | the commit imported, the credit, and each file's sha256 upstream and as imported |
 | `parts.yml` | which part of the catalogue each file is, and how sure we are |
 | `lilypond.yml` | the LilyPond version every render uses, with each build's checksum |
+| `manifest.json` | the parts the site shows typeset: each matched file's target and render hash |
+| `review.json` | every other file, for the admin screen's queues: status, candidates, render hash or error |
 
 ## Commands
 
@@ -28,8 +30,14 @@ are shown.
 uv run noh lilypond-install                  # the pinned LilyPond, into vendor/ (checksum-checked)
 uv run noh typeset-import --commit <sha>     # (re-)import upstream at a commit
 uv run noh typeset-match                     # propose parts.yml from pages, names and melodies
-uv run noh typeset-check                     # the source check and parts.yml (CI runs this)
+uv run noh typeset-manifest                  # manifest.json and review.json, from the sources (no LilyPond)
+uv run noh typeset-check                     # the source check, parts.yml and the manifest (CI runs this)
+uv run noh typeset-render                    # draw into build/typeset/out/ (CI: only what R2 lacks)
+uv run noh typeset-publish                   # check and upload build/typeset/out/ to R2 (needs the R2 variables)
 ```
+
+After changing a source, an include or parts.yml, run `noh typeset-manifest`
+and commit what it writes; CI fails when the manifest is not current.
 
 A re-import adds new files and updates the ones nobody has edited here. A file
 edited here is kept. If it has also changed upstream, it is reported as a
@@ -56,6 +64,39 @@ matter when NOH transposes a chant; repeated notes count once.
 Only `matched` files will be shown on the site. The admin screen's Review area
 will settle the rest (PR 6). `noh typeset-match` never changes an entry marked
 `source: editor`.
+
+## Drawing and publishing
+
+Each file is drawn three times by LilyPond's Cairo backend, which draws text
+as outlines, so no fonts are needed (`pipeline/typeset/render.py`):
+
+| File | For | Layout |
+|---|---|---|
+| `narrow.svg` | phones | 100 mm lines, staff 15; the book's line breaks removed, so lines break to fit (`narrow.ily`) |
+| `wide.svg` | tablets and desktops | 190 mm lines, staff 18; the book's own line breaks, to read against the scan |
+| `score.pdf` | the PDF export | A4 pages, staff 18; the book's line breaks |
+
+There are no titles or running heads (`render.ily`): the page names the part.
+A render is published at `typeset/<hash>/` on R2. The hash covers the source,
+the includes, the render settings and the LilyPond version, so a changed file
+gets a new address and nothing published is ever overwritten.
+
+In CI (`.github/workflows/site.yml`):
+- **typeset-render** draws every hash the manifest and review files name that
+  is not yet at `PUBLIC_ASSET_BASE`. It has no secrets, and LilyPond runs with
+  no network (`NOH_SANDBOX=1`).
+- **typeset-upload** checks each file and uploads it, write-if-absent. It has
+  the R2 secrets and never runs LilyPond. Every SVG must be a drawing and
+  nothing else (`svgcheck.py`), and every PDF free of script.
+- **check-build-deploy** checks every render the manifest names answers at
+  its public address before building, so the site never links to music that
+  isn't there.
+
+A matched part that fails to render, or whose melody no longer matches its
+chant (an edit gone wrong), fails CI. A file only on the review list that
+fails is reported and left for the admin screen. LilyPond's warnings about
+the transcriptions' own small slips (a slur with nothing to attach to, an
+unfinished hyphen) don't fail a render; a "programming error" does.
 
 ## Safety
 

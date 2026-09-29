@@ -132,16 +132,25 @@ class Result:
     log: str
 
 
-def run(args: list[str], cwd: Path, timeout: int = 180, include: Path = INCLUDE) -> Result:
-    """Run the pinned lilypond with our include directory on its path."""
+#: With NOH_SANDBOX=1 (CI's render jobs), LilyPond runs in its own network
+#: namespace: whatever Scheme a file holds, it can reach no network.
+SANDBOX = ["unshare", "--user", "--net", "--map-current-user", "--"]
+
+
+def sandbox() -> list[str]:
+    return SANDBOX if os.environ.get("NOH_SANDBOX") == "1" else []
+
+
+def run(args: list[str], cwd: Path, timeout: int = 180, includes: tuple[Path, ...] = (INCLUDE,)) -> Result:
+    """Run the pinned lilypond with our include directories on its path."""
     binary = find()
+    command = [*sandbox(), str(binary), *(f"--include={i}" for i in includes), "-dno-point-and-click", *args]
     try:
-        done = subprocess.run([str(binary), f"--include={include}", "-dno-point-and-click", *args],
-                              cwd=cwd, check=False, capture_output=True, text=True, timeout=timeout)
+        done = subprocess.run(command, cwd=cwd, check=False, capture_output=True, text=True, timeout=timeout)
     except subprocess.TimeoutExpired:
         return Result(False, f"LilyPond took longer than {timeout} s")
     return Result(done.returncode == 0, done.stderr)
 
 
 __all__ = ["INCLUDE", "PIN", "LilyPondError", "Pin", "Result", "find", "home", "install", "load_pin",
-           "platform_key", "run", "tool", "version_of"]
+           "platform_key", "run", "sandbox", "tool", "version_of"]

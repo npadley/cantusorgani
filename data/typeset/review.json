@@ -1,0 +1,6048 @@
+{
+ "schema_version": 1,
+ "lilypond": "2.26.0",
+ "prefix": "typeset",
+ "files": [
+  "narrow.svg",
+  "wide.svg",
+  "score.pdf"
+ ],
+ "credit": "Joe Egan (joeegan2202) and the nova-organi-harmonia volunteers",
+ "source": "https://github.com/joeegan2202/nova-organi-harmonia",
+ "items": [
+  {
+   "file": "vol-1/al_beatus_homo.csv.ly",
+   "status": "proposed",
+   "target": "part:noh1-p104/alleluia:paschal",
+   "hash": "7cd552178854bcc0c4bf2a57948edee9",
+   "incipit": "Allelúia allelúia ℣ Beá tus ho mo qui",
+   "page": 109,
+   "candidates": [
+    {
+     "target": "part:noh1-p104/alleluia:paschal",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-1/al_confitemini_domino.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-iv-adventus/alleluia",
+   "hash": "f212239407934654b7399021fce9a43e",
+   "melody": 0.566,
+   "incipit": "Al le lú ia Al le lú ia",
+   "page": 345,
+   "candidates": [
+    {
+     "target": "part:dominica-iv-adventus/alleluia",
+     "melody": 0.566
+    },
+    {
+     "target": "part:noh1-p49/alleluia",
+     "melody": 0.492
+    },
+    {
+     "target": "part:dominica-i-adventus/alleluia",
+     "melody": 0.467
+    },
+    {
+     "target": "part:noh1-p104/alleluia",
+     "melody": 0.418
+    }
+   ]
+  },
+  {
+   "file": "vol-1/al_dominus_regnavit__decorem.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-infra-octavam-nativitatis/alleluia",
+   "hash": "e2859b4ad5d9e6bd8bb19656a70f0ed6",
+   "melody": 0.878,
+   "incipit": "Allelú ia allelú ia ℣ Dó minus regná",
+   "page": 57,
+   "candidates": [
+    {
+     "target": "part:dominica-infra-octavam-nativitatis/alleluia",
+     "melody": 0.878
+    },
+    {
+     "target": "part:noh1-p104/alleluia",
+     "melody": 0.442
+    },
+    {
+     "target": "part:dominica-i-adventus/alleluia",
+     "melody": 0.397
+    },
+    {
+     "target": "part:dominica-ii-adventus/alleluia",
+     "melody": 0.397
+    }
+   ]
+  },
+  {
+   "file": "vol-1/al_dominus_regnavit__exsultet.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-i-adventus/alleluia",
+   "hash": "7f60affd8bf85d4d291361a19dd09a6d",
+   "melody": 0.905,
+   "incipit": "Alle lú ia alle lú ia ℣ Dó",
+   "page": 128,
+   "candidates": [
+    {
+     "target": "part:dominica-i-adventus/alleluia",
+     "melody": 0.905
+    },
+    {
+     "target": "part:noh1-p49/alleluia",
+     "melody": 0.905
+    },
+    {
+     "target": "part:dominica-ii-post-epiphaniam/alleluia",
+     "melody": 0.417
+    },
+    {
+     "target": "part:dominica-iv-adventus/alleluia",
+     "melody": 0.381
+    }
+   ]
+  },
+  {
+   "file": "vol-1/al_exaltabo_te.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-ii-adventus/alleluia",
+   "hash": "f53549338b20145826d3c57b0e044ed9",
+   "melody": 0.386,
+   "incipit": "Alle lú ia ℣ Exaltábo te Deus meus",
+   "page": 94,
+   "candidates": [
+    {
+     "target": "part:dominica-ii-adventus/alleluia",
+     "melody": 0.386
+    },
+    {
+     "target": "part:dominica-iv-adventus/alleluia",
+     "melody": 0.37
+    },
+    {
+     "target": "part:sanctissimi-nominis-jesu/alleluia",
+     "melody": 0.342
+    },
+    {
+     "target": "part:dominica-iii-adventus/alleluia",
+     "melody": 0.332
+    }
+   ]
+  },
+  {
+   "file": "vol-1/al_jubilate_deo.csv.ly",
+   "status": "proposed",
+   "target": "part:noh1-p60/alleluia",
+   "hash": "ba53ee080c9bab2ff9a7027441551417",
+   "melody": 0.525,
+   "incipit": "Allelúia allelúia ℣ Jubiláte Deo o mnis ter",
+   "page": 115,
+   "candidates": [
+    {
+     "target": "part:noh1-p60/alleluia",
+     "melody": 0.525
+    },
+    {
+     "target": "part:noh1-p82/alleluia",
+     "melody": 0.484
+    },
+    {
+     "target": "part:s-stephani-protomartyris/alleluia",
+     "melody": 0.467
+    },
+    {
+     "target": "part:s-joannis-apostoli-et-evangelist/alleluia",
+     "melody": 0.467
+    }
+   ]
+  },
+  {
+   "file": "vol-1/al_multifarie_olim.csv.ly",
+   "status": "proposed",
+   "target": "part:noh1-p82/alleluia",
+   "hash": "5c8fe4085ffb588a322433ce05d8589f",
+   "melody": 0.368,
+   "incipit": "Alle lú ia alle lú ia ℣ Multi",
+   "page": 86,
+   "candidates": [
+    {
+     "target": "part:noh1-p82/alleluia",
+     "melody": 0.368
+    },
+    {
+     "target": "part:noh1-p49/alleluia",
+     "melody": 0.359
+    },
+    {
+     "target": "part:dominica-infra-octavam-nativitatis/alleluia",
+     "melody": 0.32
+    },
+    {
+     "target": "part:dominica-ii-adventus/alleluia",
+     "melody": 0.316
+    }
+   ]
+  },
+  {
+   "file": "vol-1/al_vita_nostra.csv.ly",
+   "status": "proposed",
+   "target": "part:noh1-p104/alleluia:paschal",
+   "hash": "d32e171ddcf68db2c7d93f4cea4e0c4c",
+   "incipit": "Al lelúia ℣ Vi ta nostra est abscón",
+   "page": 110,
+   "candidates": [
+    {
+     "target": "part:noh1-p104/alleluia:paschal",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-1/an_ave_rex_noster.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "f87654d39a49175bc613fbc1f376a04d",
+   "incipit": "A ve Rex no ster Fili David Red",
+   "page": 309
+  },
+  {
+   "file": "vol-1/an_coeperunt_omnes_turbae.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "3bd3bce5d6017061ce52ef3fd3e4de64",
+   "incipit": "Cœpérunt omnes turbæ descendéntium gaudéntes laudáre Deum voce",
+   "page": 304
+  },
+  {
+   "file": "vol-1/an_cum_angelis.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "3eb12fe64c2821de7184fc66194f46f1",
+   "incipit": "Cum Angelis et púeris fidéles inveniámur triumphatóri mortis",
+   "page": 303
+  },
+  {
+   "file": "vol-1/an_exaudi_nos_domine.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 86:34: error: not a note name: d’"
+  },
+  {
+   "file": "vol-1/an_fulgentibus_palmis.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "01048c8d072fdf52759fd4d9ca99abcf",
+   "incipit": "Fulgéntibus palmis prostérnimur adveniénti Dómino huic omnes occurrámus",
+   "page": 309
+  },
+  {
+   "file": "vol-1/an_hosanna_filio_david.csv.ly",
+   "status": "proposed",
+   "target": "piece:noh1-p299-2",
+   "hash": "bf8277f8c24dab608965a3b58998ed81",
+   "incipit": "Hosanna fílio David benedíctus qui venit in nómine",
+   "page": 299,
+   "candidates": [
+    {
+     "target": "piece:noh1-p299-2",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-1/an_immutemur_habitu.csv.ly",
+   "status": "proposed",
+   "target": "piece:feria-iv-cinerum",
+   "hash": "9947849e9618605abb54e6d6583b6929",
+   "incipit": "Immutémur há bitu in cíne re et cilício",
+   "page": 153,
+   "candidates": [
+    {
+     "target": "piece:feria-iv-cinerum",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-1/an_juxta_vestibulum.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "f80772bb157f09a7439f23b615557f15",
+   "incipit": "Juxta vestíbulum et altá re plorá bunt sacerdótes",
+   "page": 154
+  },
+  {
+   "file": "vol-1/an_occurrunt_turbae.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "a5ea9e116c267555f32819632ccbe83c",
+   "incipit": "Occúrrunt turbæ cum flóribus et palmis Redemptóri óbviam",
+   "page": 302
+  },
+  {
+   "file": "vol-1/an_omnes_collaudant.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "470f76e218ecc4a04dbd2d9267beb6b6",
+   "incipit": "Omnes colláudant nomen tuum et dicunt <<Benedíctus qui",
+   "page": 307
+  },
+  {
+   "file": "vol-1/an_omnes_collaudant_b.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "b8fc0fb3ccae96eb2d5563a15b56eb48",
+   "incipit": "O mnes colláudant nomen tuum et dicunt <<Benedíctus",
+   "page": 307
+  },
+  {
+   "file": "vol-1/an_pueri_hebraeorum_portantes.csv.ly",
+   "status": "proposed",
+   "target": "piece:noh1-p299-2",
+   "hash": "05c80a8c6bf9b36e1f46270ed88f3cfa",
+   "incipit": "Pueri Hebræórum portántes ramos olivárum obviavérunt Dómino clamántes",
+   "page": 299,
+   "candidates": [
+    {
+     "target": "piece:noh1-p299-2",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-1/an_pueri_hebraeorum_vestimenta.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "20809d9c0233c01cebb443ef402e9f20",
+   "incipit": "Púeri Hebræórum vestiménta prosternébant in via et clamábant",
+   "page": 301
+  },
+  {
+   "file": "vol-1/an_turba_multa.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "f7f4c6e6bb1a57e09920c8eceedb2957",
+   "incipit": "Turba multa quæ convénerat ad diem festum clamábat",
+   "page": 303
+  },
+  {
+   "file": "vol-1/co_dominus_regit_me.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-iii-hebdomad-sanct/communion",
+   "hash": "7bbde32f727b8cdaa6856632138ec717",
+   "melody": 0.656,
+   "incipit": "Dominus regit me et nihil mihi déerit in",
+   "page": 272,
+   "candidates": [
+    {
+     "target": "part:feria-iii-hebdomad-sanct/communion",
+     "melody": 0.656
+    },
+    {
+     "target": "part:feria-iv-hebdomad-sanct/communion",
+     "melody": 0.604
+    },
+    {
+     "target": "part:feria-iii-infra-hebd-i-quadragesim/communion",
+     "melody": 0.573
+    },
+    {
+     "target": "part:sanctissimi-nominis-jesu/communion",
+     "melody": 0.51
+    }
+   ]
+  },
+  {
+   "file": "vol-1/co_exsultavit_ut_gigas.csv.ly",
+   "status": "proposed",
+   "target": "part:sabbato-temporum-adventus/communion",
+   "hash": "ca9cf12fedf0c786e8138bfc18f0d77b",
+   "melody": 1.0,
+   "incipit": "Exsultávit ut gigas ad curréndam viam a sum",
+   "page": 37,
+   "candidates": [
+    {
+     "target": "part:sabbato-temporum-adventus/communion",
+     "melody": 1.0
+    },
+    {
+     "target": "part:feria-iii-hebdomad-sanct/communion",
+     "melody": 0.743
+    },
+    {
+     "target": "part:feria-iii-infra-hebd-i-quadragesim/communion",
+     "melody": 0.614
+    },
+    {
+     "target": "part:feria-ii-infra-hebd-passionis/communion",
+     "melody": 0.543
+    }
+   ]
+  },
+  {
+   "file": "vol-1/co_fili_quid_fecisti.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-ii-infra-hebd-passionis/communion",
+   "hash": "eb76483de9d6cc9c61d0ba8b0c5c17cd",
+   "melody": 0.6,
+   "incipit": "Fili quid fecísti nobis sic? e go et",
+   "page": 118,
+   "candidates": [
+    {
+     "target": "part:feria-ii-infra-hebd-passionis/communion",
+     "melody": 0.6
+    },
+    {
+     "target": "part:s-joannis-apostoli-et-evangelist/communion",
+     "melody": 0.547
+    },
+    {
+     "target": "part:feria-vi-quattuor-temporum-quadragesim/communion",
+     "melody": 0.533
+    },
+    {
+     "target": "part:dominica-i-passionis/communion",
+     "melody": 0.533
+    }
+   ]
+  },
+  {
+   "file": "vol-1/co_jerusalem_surge.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 39:25: error: syntax error, unexpected '*'"
+  },
+  {
+   "file": "vol-1/co_narrabo_omnia.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-iii-hebdomad-sanct/communion",
+   "hash": "8f1f4823d749d547e3164ea0ef73621e",
+   "melody": 0.786,
+   "incipit": "Narrábo ómnia mirabília tu a lætábor et exsultábo",
+   "page": 215,
+   "candidates": [
+    {
+     "target": "part:feria-iii-hebdomad-sanct/communion",
+     "melody": 0.786
+    },
+    {
+     "target": "part:dominica-i-in-quadragesim/communion",
+     "melody": 0.661
+    },
+    {
+     "target": "part:feria-iii-infra-hebd-i-quadragesim/communion",
+     "melody": 0.661
+    },
+    {
+     "target": "part:feria-ii-infra-hebd-iii-quadragesim/communion",
+     "melody": 0.661
+    }
+   ]
+  },
+  {
+   "file": "vol-1/co_passer_invenit.csv.ly",
+   "status": "melody-differs",
+   "target": "part:feria-ii-infra-hebd-iii-quadragesim/communion",
+   "hash": "3fda09b2b492f4f56b58119862393df5",
+   "melody": 0.365,
+   "incipit": "Passer invénit sibi domum et turtur nidum ubi",
+   "page": 230,
+   "candidates": [
+    {
+     "target": "part:feria-ii-infra-hebd-iii-quadragesim/communion",
+     "melody": 0.365
+    }
+   ]
+  },
+  {
+   "file": "vol-1/co_qui_biberit.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-ii-post-epiphaniam/communion",
+   "hash": "09db4b905725c2d40d383f138593f2bc",
+   "melody": 0.581,
+   "incipit": "Qui bíberit aquam quam ego da bo ei",
+   "page": 246,
+   "candidates": [
+    {
+     "target": "part:dominica-ii-post-epiphaniam/communion",
+     "melody": 0.581
+    },
+    {
+     "target": "part:feria-iii-hebdomad-sanct/communion",
+     "melody": 0.581
+    },
+    {
+     "target": "part:feria-iv-hebdomad-sanct/communion",
+     "melody": 0.547
+    },
+    {
+     "target": "part:sanctissimi-nominis-jesu/communion",
+     "melody": 0.523
+    }
+   ]
+  },
+  {
+   "file": "vol-1/co_quis_dabit.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-ii-infra-hebd-iii-quadragesim/communion",
+   "hash": "fbc987226a87a24762e66ecd1e9f0999",
+   "melody": 1.0,
+   "incipit": "Quis dabit ex Sion salutáre Israel? cum avérterit",
+   "page": 235,
+   "candidates": [
+    {
+     "target": "part:feria-ii-infra-hebd-iii-quadragesim/communion",
+     "melody": 1.0
+    },
+    {
+     "target": "part:sanctissimi-nominis-jesu/communion",
+     "melody": 0.667
+    },
+    {
+     "target": "part:dominica-ii-post-epiphaniam/communion",
+     "melody": 0.64
+    },
+    {
+     "target": "part:dominica-ii-in-quadragesim/communion",
+     "melody": 0.627
+    }
+   ]
+  },
+  {
+   "file": "vol-1/co_tu_domine_servabis.csv.ly",
+   "status": "melody-differs",
+   "target": "part:sabbato-infra-hebd-ii-quadragesim/communion",
+   "hash": "de2ca491b07372850f670f8825296eec",
+   "melody": 0.417,
+   "incipit": "Tu Dó mine servábis nos et custó dies",
+   "page": 221,
+   "candidates": [
+    {
+     "target": "part:sabbato-infra-hebd-ii-quadragesim/communion",
+     "melody": 0.417
+    }
+   ]
+  },
+  {
+   "file": "vol-1/co_videns_dominus.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-iv-infra-hebd-passionis/communion",
+   "hash": "4b3dfbae0705cd90efaaa9c4a548b708",
+   "melody": 0.814,
+   "incipit": "Videns Dóminus flentes soróres Lázari ad monuméntum lacrimátus",
+   "page": 268,
+   "candidates": [
+    {
+     "target": "part:feria-iv-infra-hebd-passionis/communion",
+     "melody": 0.814
+    },
+    {
+     "target": "part:feria-iv-hebdomad-sanct/communion",
+     "melody": 0.729
+    },
+    {
+     "target": "part:feria-iii-hebdomad-sanct/communion",
+     "melody": 0.712
+    },
+    {
+     "target": "part:feria-iii-infra-hebd-iv-quadragesim/communion",
+     "melody": 0.644
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_a_summo_coelo.csv.ly",
+   "status": "proposed",
+   "target": "part:in-vigilia-nativitatis-domini/gradual",
+   "hash": "8994ca14fa5f3a9044dd588315c89df0",
+   "melody": 0.978,
+   "incipit": "A summo cœ lo egrés sio e jus",
+   "page": 25,
+   "candidates": [
+    {
+     "target": "part:in-vigilia-nativitatis-domini/gradual",
+     "melody": 0.978
+    },
+    {
+     "target": "part:noh1-p49/gradual",
+     "melody": 0.939
+    },
+    {
+     "target": "part:feria-vi-quattuor-temporum-adventus/gradual",
+     "melody": 0.896
+    },
+    {
+     "target": "part:feria-iv-hebdomad-sanct/gradual",
+     "melody": 0.87
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_ab_occultis_meis.csv.ly",
+   "status": "proposed",
+   "target": "part:noh1-p49/gradual",
+   "hash": "05912b81cc2fcf237fe081a9bdea8b79",
+   "melody": 0.936,
+   "incipit": "Ab occúltis me is mun da me Dó",
+   "page": 237,
+   "candidates": [
+    {
+     "target": "part:noh1-p49/gradual",
+     "melody": 0.936
+    },
+    {
+     "target": "part:in-vigilia-nativitatis-domini/gradual",
+     "melody": 0.919
+    },
+    {
+     "target": "part:feria-iv-hebdomad-sanct/gradual",
+     "melody": 0.907
+    },
+    {
+     "target": "part:feria-vi-quattuor-temporum-adventus/gradual",
+     "melody": 0.903
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_adjutor_meus.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 11:11: error: undefined character or shorthand: \\"
+  },
+  {
+   "file": "vol-1/gr_benedictus_dominus.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-infra-octavam-nativitatis/gradual",
+   "hash": "68b7164783a413740ed0b2db75c2faea",
+   "melody": 0.483,
+   "incipit": "Benedí ctus Dó minus Deus Israel qui facit",
+   "page": 113,
+   "candidates": [
+    {
+     "target": "part:dominica-infra-octavam-nativitatis/gradual",
+     "melody": 0.483
+    },
+    {
+     "target": "part:feria-iv-infra-hebd-ii-quadragesim/gradual",
+     "melody": 0.453
+    },
+    {
+     "target": "part:feria-iv-hebdomad-sanct/gradual",
+     "melody": 0.426
+    },
+    {
+     "target": "part:noh1-p49/gradual",
+     "melody": 0.419
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_convertere_domine.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-iv-infra-hebd-ii-quadragesim/gradual",
+   "hash": "54457007c29ce8b3f856d19147767ed0",
+   "melody": 0.713,
+   "incipit": "Convér tere Dó mine aliquántulum et deprecá re",
+   "page": 197,
+   "candidates": [
+    {
+     "target": "part:feria-iv-infra-hebd-ii-quadragesim/gradual",
+     "melody": 0.713
+    },
+    {
+     "target": "part:feria-vi-post-cineres/gradual",
+     "melody": 0.662
+    },
+    {
+     "target": "part:in-epiphania-domini/gradual",
+     "melody": 0.65
+    },
+    {
+     "target": "part:noh1-p104/gradual",
+     "melody": 0.637
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_deus_exaudi.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 100:17: error: not a note name: bese"
+  },
+  {
+   "file": "vol-1/gr_deus_vitam_meam.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-ii-infra-hebd-passionis/gradual",
+   "hash": "6e139874e7f4607c59f32f9fde0800e1",
+   "melody": 0.895,
+   "incipit": "Deus vitam me am nuntiávi ti bi pó",
+   "page": 232,
+   "candidates": [
+    {
+     "target": "part:feria-ii-infra-hebd-passionis/gradual",
+     "melody": 0.895
+    },
+    {
+     "target": "part:sanctissimi-nominis-jesu/gradual",
+     "melody": 0.509
+    },
+    {
+     "target": "part:dominica-ii-post-epiphaniam/gradual",
+     "melody": 0.449
+    },
+    {
+     "target": "part:noh1-p302/gradual",
+     "melody": 0.446
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_dirigatur_oratio_mea.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-iv-infra-hebd-ii-quadragesim/gradual",
+   "hash": "7865294c5d7c7acbf84be8e73782b1f9",
+   "melody": 0.654,
+   "incipit": "Dirigátur orátio mea sicut incénsum in conspéctu tuo",
+   "page": 198,
+   "candidates": [
+    {
+     "target": "part:feria-iv-infra-hebd-ii-quadragesim/gradual",
+     "melody": 0.654
+    },
+    {
+     "target": "part:dominica-ii-adventus/gradual",
+     "melody": 0.647
+    },
+    {
+     "target": "part:feria-ii-hebdomad-sanct/gradual",
+     "melody": 0.625
+    },
+    {
+     "target": "part:feria-ii-infra-hebd-ii-quadragesim/gradual",
+     "melody": 0.603
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_domine_deus_virtutum.csv.ly",
+   "status": "proposed",
+   "target": "part:in-vigilia-nativitatis-domini/gradual",
+   "hash": "e0fc15c08e6e4d9d5f775a8e61fb899d",
+   "melody": 0.964,
+   "incipit": "Domine Deus virtú tum convér te nos et",
+   "page": 28,
+   "candidates": [
+    {
+     "target": "part:in-vigilia-nativitatis-domini/gradual",
+     "melody": 0.964
+    },
+    {
+     "target": "part:dominica-i-in-quadragesim/gradual",
+     "melody": 0.939
+    },
+    {
+     "target": "part:noh1-p49/gradual",
+     "melody": 0.934
+    },
+    {
+     "target": "part:feria-iv-hebdomad-sanct/gradual",
+     "melody": 0.883
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_ego_autem.csv.ly",
+   "status": "proposed",
+   "target": "part:noh1-p302/gradual",
+   "hash": "670d764170c792ef62b4bc43af319644",
+   "melody": 0.6,
+   "incipit": "Ego autem dum mi hi mo lé sti",
+   "page": 330,
+   "candidates": [
+    {
+     "target": "part:noh1-p302/gradual",
+     "melody": 0.6
+    },
+    {
+     "target": "part:feria-ii-infra-hebd-passionis/gradual",
+     "melody": 0.428
+    },
+    {
+     "target": "part:sanctissimi-nominis-jesu/gradual",
+     "melody": 0.424
+    },
+    {
+     "target": "part:feria-iv-infra-hebd-ii-quadragesim/gradual",
+     "melody": 0.417
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_eripe_me_domine.csv.ly",
+   "status": "proposed",
+   "target": "part:sanctissimi-nominis-jesu/gradual",
+   "hash": "0ba3f27876a8f4fabf00e07ed094f972",
+   "melody": 0.72,
+   "incipit": "E ripe me Dómine de inimícis me is",
+   "page": 274,
+   "candidates": [
+    {
+     "target": "part:sanctissimi-nominis-jesu/gradual",
+     "melody": 0.72
+    },
+    {
+     "target": "part:dominica-in-quinquagesima/gradual",
+     "melody": 0.463
+    },
+    {
+     "target": "part:noh1-p302/gradual",
+     "melody": 0.459
+    },
+    {
+     "target": "part:feria-iv-infra-hebd-passionis/gradual",
+     "melody": 0.419
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_excita_domine.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 117:35: error: not a note name: aeess"
+  },
+  {
+   "file": "vol-1/gr_exsurge__non_praevaleat.csv.ly",
+   "status": "proposed",
+   "target": "part:sanctissimi-nominis-jesu/gradual",
+   "hash": "65099cbeccea6878a8b59f50892f1f4b",
+   "melody": 0.629,
+   "incipit": "Ex súrge Dómine non prævá leat ho mo",
+   "page": 224,
+   "candidates": [
+    {
+     "target": "part:sanctissimi-nominis-jesu/gradual",
+     "melody": 0.629
+    },
+    {
+     "target": "part:feria-iv-infra-hebd-passionis/gradual",
+     "melody": 0.609
+    },
+    {
+     "target": "part:dominica-in-quinquagesima/gradual",
+     "melody": 0.524
+    },
+    {
+     "target": "part:feria-ii-hebdomad-sanct/gradual",
+     "melody": 0.456
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_in_sole_posuit.csv.ly",
+   "status": "proposed",
+   "target": "part:in-vigilia-nativitatis-domini/gradual",
+   "hash": "022be5e1df9551a63e89e64c7f223a37",
+   "melody": 0.964,
+   "incipit": "In sole pó suit taberná culum su um",
+   "page": 26,
+   "candidates": [
+    {
+     "target": "part:in-vigilia-nativitatis-domini/gradual",
+     "melody": 0.964
+    },
+    {
+     "target": "part:noh1-p49/gradual",
+     "melody": 0.924
+    },
+    {
+     "target": "part:feria-vi-quattuor-temporum-adventus/gradual",
+     "melody": 0.884
+    },
+    {
+     "target": "part:feria-iv-hebdomad-sanct/gradual",
+     "melody": 0.857
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_misit_dominus.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 86:21: error: octave marks must precede duration"
+  },
+  {
+   "file": "vol-1/gr_propitius_esto.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-vi-post-cineres/gradual",
+   "hash": "d257e09e7cc74bb33d8a45a885ce39cc",
+   "melody": 0.695,
+   "incipit": "Propítius esto Dó mine peccá tis nostris ne",
+   "page": 194,
+   "candidates": [
+    {
+     "target": "part:feria-vi-post-cineres/gradual",
+     "melody": 0.695
+    },
+    {
+     "target": "part:noh1-p104/gradual",
+     "melody": 0.663
+    },
+    {
+     "target": "part:feria-iv-infra-hebd-passionis/gradual",
+     "melody": 0.636
+    },
+    {
+     "target": "part:s-joannis-apostoli-et-evangelist/gradual",
+     "melody": 0.567
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_protector_noster.csv.ly",
+   "status": "proposed",
+   "target": "part:in-epiphania-domini/gradual",
+   "hash": "9c1c89ede34e59c7ee08a86f3d7006ed",
+   "melody": 0.682,
+   "incipit": "Protéctor no ster á spice De us et",
+   "page": 196,
+   "candidates": [
+    {
+     "target": "part:in-epiphania-domini/gradual",
+     "melody": 0.682
+    },
+    {
+     "target": "part:s-stephani-protomartyris/gradual",
+     "melody": 0.647
+    },
+    {
+     "target": "part:feria-ii-infra-hebd-passionis/gradual",
+     "melody": 0.629
+    },
+    {
+     "target": "part:noh1-p60/gradual",
+     "melody": 0.624
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_tecum_principium.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 126:43: error: not a note name: aas"
+  },
+  {
+   "file": "vol-1/gr_tibi_domine.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-in-septuagesima/gradual",
+   "hash": "0fe5d507014a478f2fd63386fbe6d505",
+   "melody": 0.48,
+   "incipit": "Ti bi Dómine derelí ctus est pau per",
+   "page": 270,
+   "candidates": [
+    {
+     "target": "part:dominica-in-septuagesima/gradual",
+     "melody": 0.48
+    },
+    {
+     "target": "part:dominica-in-sexagesima/gradual",
+     "melody": 0.476
+    },
+    {
+     "target": "part:noh1-p302/gradual",
+     "melody": 0.439
+    },
+    {
+     "target": "part:feria-iii-infra-hebd-iv-quadragesim/gradual",
+     "melody": 0.417
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_timebunt_gentes.csv.ly",
+   "status": "proposed",
+   "target": "part:noh1-p49/gradual",
+   "hash": "86e0daed8826ed0683cf0e80aea795b0",
+   "melody": 0.639,
+   "incipit": "Timébunt gen tes no men tu um Dómi",
+   "page": 127,
+   "candidates": [
+    {
+     "target": "part:noh1-p49/gradual",
+     "melody": 0.639
+    },
+    {
+     "target": "part:feria-vi-infra-hebd-passionis/gradual",
+     "melody": 0.633
+    },
+    {
+     "target": "part:feria-iv-hebdomad-sanct/gradual",
+     "melody": 0.633
+    },
+    {
+     "target": "part:feria-vi-quattuor-temporum-adventus/gradual",
+     "melody": 0.606
+    }
+   ]
+  },
+  {
+   "file": "vol-1/gr_tollite_hostias.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 96:72: error: not a note name: aess"
+  },
+  {
+   "file": "vol-1/gr_tollite_portas.csv.ly",
+   "status": "proposed",
+   "target": "part:noh1-p49/gradual",
+   "hash": "5a45153c736e46d6c34256b7a9cb74da",
+   "melody": 0.89,
+   "incipit": "Tóllite por tas prín cipes ve stras et",
+   "page": 18,
+   "candidates": [
+    {
+     "target": "part:noh1-p49/gradual",
+     "melody": 0.89
+    },
+    {
+     "target": "part:in-vigilia-nativitatis-domini/gradual",
+     "melody": 0.829
+    },
+    {
+     "target": "part:feria-vi-quattuor-temporum-adventus/gradual",
+     "melody": 0.752
+    },
+    {
+     "target": "part:feria-iv-hebdomad-sanct/gradual",
+     "melody": 0.732
+    }
+   ]
+  },
+  {
+   "file": "vol-1/hy_benedictus_es.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "fe37616bdc9337365bf76b414b861208",
+   "incipit": "Benedíctus es Dómine Deus patrum nostrórum Et laudábilis",
+   "page": 31
+  },
+  {
+   "file": "vol-1/hy_gloria_laus.2.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "f9fbc01e81d7b1aabb7d84f70f4051ad",
+   "incipit": "Israel es tu Rex Davídis et ínclyta proles",
+   "page": 305
+  },
+  {
+   "file": "vol-1/hy_gloria_laus.3.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "1664782e10ac7f8f32bda9ddc07673e2",
+   "incipit": "Cœtus in excélsis te laudat cœ́licus omnis Et",
+   "page": 305
+  },
+  {
+   "file": "vol-1/hy_gloria_laus.4.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 39:1: error: not a duration"
+  },
+  {
+   "file": "vol-1/hy_gloria_laus.5.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "563ba2763258a7302885a35927ab292f",
+   "incipit": "Hi tibi passúro solvébant múnia laudis Nos tibi",
+   "page": 305
+  },
+  {
+   "file": "vol-1/hy_gloria_laus.6.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 39:1: error: not a duration"
+  },
+  {
+   "file": "vol-1/in_adorate_deum.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-iv-infra-hebd-ii-quadragesim/introit",
+   "hash": "a90ad28cb034d82a6dd00f46cfe27055",
+   "melody": 0.641,
+   "incipit": "Adoráte Deum omnes Ange li ejus audívit et",
+   "page": 126,
+   "candidates": [
+    {
+     "target": "part:feria-iv-infra-hebd-ii-quadragesim/introit",
+     "melody": 0.641
+    },
+    {
+     "target": "part:feria-vi-quattuor-temporum-quadragesim/introit",
+     "melody": 0.621
+    },
+    {
+     "target": "part:dominica-in-sexagesima/introit",
+     "melody": 0.602
+    },
+    {
+     "target": "part:dominica-in-quinquagesima/introit",
+     "melody": 0.573
+    }
+   ]
+  },
+  {
+   "file": "vol-1/in_audivit_dominus.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-vi-post-cineres/introit",
+   "hash": "9a8a0f367d708d6858d00818ea4265f3",
+   "melody": 0.804,
+   "incipit": "Audívit Dóminus et misér tus est mihi Dóminus",
+   "page": 164,
+   "candidates": [
+    {
+     "target": "part:feria-vi-post-cineres/introit",
+     "melody": 0.804
+    }
+   ]
+  },
+  {
+   "file": "vol-1/in_confessio.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-v-infra-hebd-i-quadragesim/introit",
+   "hash": "35ee7db95be6c2d1e1169cb8e282fd59",
+   "melody": 0.836,
+   "incipit": "Confessio et pulchri tú do in conspé ctu",
+   "page": 188,
+   "candidates": [
+    {
+     "target": "part:feria-v-infra-hebd-i-quadragesim/introit",
+     "melody": 0.836
+    }
+   ]
+  },
+  {
+   "file": "vol-1/in_ecce_advenit.csv.ly",
+   "status": "proposed",
+   "target": "part:in-epiphania-domini/introit",
+   "hash": "6cf63ca48b339ee49ccc26d79bbc46ba",
+   "melody": 0.843,
+   "incipit": "Ecce advénit dominátor Dómi nus et regnum in",
+   "page": 99,
+   "candidates": [
+    {
+     "target": "part:in-epiphania-domini/introit",
+     "melody": 0.843
+    }
+   ]
+  },
+  {
+   "file": "vol-1/in_ego_autem_cum_justitia.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-vi-infra-hebd-ii-quadragesim/introit",
+   "hash": "ac8b73219f7ac54b6f725f9aec240a20",
+   "melody": 0.818,
+   "incipit": "Ego autem cum justí tia ap parébo in",
+   "page": 219,
+   "candidates": [
+    {
+     "target": "part:feria-vi-infra-hebd-ii-quadragesim/introit",
+     "melody": 0.818
+    }
+   ]
+  },
+  {
+   "file": "vol-1/in_ego_autem_in__speravi.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-iv-infra-hebd-iii-quadragesim/introit",
+   "hash": "cbcd7b9da1eb1dbe83503301db8abd81",
+   "melody": 0.828,
+   "incipit": "Ego autem in Dó mino sperá vi exsultábo",
+   "page": 240,
+   "candidates": [
+    {
+     "target": "part:feria-iv-infra-hebd-iii-quadragesim/introit",
+     "melody": 0.828
+    }
+   ]
+  },
+  {
+   "file": "vol-1/in_exsurge.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 136:70: error: not a note name: x"
+  },
+  {
+   "file": "vol-1/in_hodie_scietis.csv.ly",
+   "status": "proposed",
+   "target": "part:in-vigilia-nativitatis-domini/introit",
+   "hash": "989cd51ff715c468d529c6fcd2498421",
+   "melody": 0.802,
+   "incipit": "Hó die sciétis quia véniet Dóminus et salvábit",
+   "page": 43,
+   "candidates": [
+    {
+     "target": "part:in-vigilia-nativitatis-domini/introit",
+     "melody": 0.802
+    }
+   ]
+  },
+  {
+   "file": "vol-1/in_in_excelso_throno.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-infra-octavam-nativitatis/introit",
+   "hash": "de72a27bcc78a3988bf1b722e493b154",
+   "melody": 0.526,
+   "incipit": "In excélso throno vidi se dére virum quem",
+   "page": 112,
+   "candidates": [
+    {
+     "target": "part:dominica-infra-octavam-nativitatis/introit",
+     "melody": 0.526
+    },
+    {
+     "target": "part:dominica-i-in-quadragesim/introit",
+     "melody": 0.526
+    },
+    {
+     "target": "part:feria-iii-infra-hebd-iii-quadragesim/introit",
+     "melody": 0.518
+    },
+    {
+     "target": "part:feria-ii-infra-hebd-ii-quadragesim/introit",
+     "melody": 0.511
+    }
+   ]
+  },
+  {
+   "file": "vol-1/in_intret_oratio.csv.ly",
+   "status": "proposed",
+   "target": "part:sabbato-quattuor-temporum-quadragesim/introit",
+   "hash": "073db4e39a8c08c9d51da91d6c7cea63",
+   "melody": 0.838,
+   "incipit": "Intret orátio mea in conspé ctu tuo inclína",
+   "page": 193,
+   "candidates": [
+    {
+     "target": "part:sabbato-quattuor-temporum-quadragesim/introit",
+     "melody": 0.838
+    }
+   ]
+  },
+  {
+   "file": "vol-1/in_judica_me.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 114:11: error: not a note name: besm"
+  },
+  {
+   "file": "vol-1/in_lex_domini.csv.ly",
+   "status": "proposed",
+   "target": "part:sabbato-infra-hebd-ii-quadragesim/introit",
+   "hash": "099415328ef860d0dd2dd11f216f88d2",
+   "melody": 0.833,
+   "incipit": "Lex Dómi ni irreprehensíbilis convértens ánimas testimó nium",
+   "page": 221,
+   "candidates": [
+    {
+     "target": "part:sabbato-infra-hebd-ii-quadragesim/introit",
+     "melody": 0.833
+    }
+   ]
+  },
+  {
+   "file": "vol-1/in_liberator_meus.csv.ly",
+   "status": "broken",
+   "target": "part:feria-iv-infra-hebd-passionis/introit",
+   "error": "narrow: programming error: Tie without heads.  Suicide; narrow: programming error: Tie without heads.  Suicide; narrow: programming error: Tie without heads.  Suicide; narrow: programming error: Tie without heads.  Suicide",
+   "melody": 1.0,
+   "incipit": "Liberátor me us de géntibus iracúndis ab insurgéntibus",
+   "page": 287,
+   "candidates": [
+    {
+     "target": "part:feria-iv-infra-hebd-passionis/introit",
+     "melody": 1.0
+    }
+   ]
+  },
+  {
+   "file": "vol-1/in_meditatio.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-vi-infra-hebd-iv-quadragesim/introit",
+   "hash": "47a24923dca312166b7ad833f287766b",
+   "melody": 0.828,
+   "incipit": "Meditá tio cordis mei in conspé ctu tuo",
+   "page": 266,
+   "candidates": [
+    {
+     "target": "part:feria-vi-infra-hebd-iv-quadragesim/introit",
+     "melody": 0.828
+    }
+   ]
+  },
+  {
+   "file": "vol-1/in_miserere__tribulor.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 78:4: error: undefined character or shorthand: ;"
+  },
+  {
+   "file": "vol-1/in_oculi_mei.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-iv-infra-hebd-ii-quadragesim/introit",
+   "hash": "ca60d4a8f27e31c2330f4aefca5f2efb",
+   "melody": 0.583,
+   "incipit": "Oculi mei sem per ad Dóminum quia ipse",
+   "page": 223,
+   "candidates": [
+    {
+     "target": "part:feria-iv-infra-hebd-ii-quadragesim/introit",
+     "melody": 0.583
+    },
+    {
+     "target": "part:dominica-ii-adventus/introit",
+     "melody": 0.507
+    },
+    {
+     "target": "part:feria-iv-infra-hebd-iv-quadragesim/introit",
+     "melody": 0.493
+    },
+    {
+     "target": "part:feria-iv-hebdomad-sanct/introit",
+     "melody": 0.479
+    }
+   ]
+  },
+  {
+   "file": "vol-1/in_omnis_terra.csv.ly",
+   "status": "broken",
+   "target": "part:dominica-ii-post-epiphaniam/introit",
+   "error": "narrow: programming error: Tie without heads.  Suicide; narrow: programming error: Tie without heads.  Suicide",
+   "melody": 0.846,
+   "incipit": "Omnis terra adó ret te De us et",
+   "page": 119,
+   "candidates": [
+    {
+     "target": "part:dominica-ii-post-epiphaniam/introit",
+     "melody": 0.846
+    }
+   ]
+  },
+  {
+   "file": "vol-1/in_sitientes.csv.ly",
+   "status": "proposed",
+   "target": "part:sabbato-infra-hebd-iv-quadragesim/introit",
+   "hash": "2ddd2c031cdd4659472a110705983ed8",
+   "melody": 0.84,
+   "incipit": "Sitiéntes veníte ad a quas dicit Dóminus et",
+   "page": 268,
+   "candidates": [
+    {
+     "target": "part:sabbato-infra-hebd-iv-quadragesim/introit",
+     "melody": 0.84
+    }
+   ]
+  },
+  {
+   "file": "vol-1/of_benedicam_dominum.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-ii-infra-hebd-i-quadragesim/offertory",
+   "hash": "081908f77572c3a05e7ebf51008ae8d2",
+   "melody": 0.672,
+   "incipit": "Benedícam Dó minum qui mihi tríbuit intellé ctum",
+   "page": 212,
+   "candidates": [
+    {
+     "target": "part:feria-ii-infra-hebd-i-quadragesim/offertory",
+     "melody": 0.672
+    },
+    {
+     "target": "part:dominica-ii-post-epiphaniam/offertory",
+     "melody": 0.623
+    },
+    {
+     "target": "part:dominica-i-adventus/offertory",
+     "melody": 0.549
+    },
+    {
+     "target": "part:noh1-p82/offertory",
+     "melody": 0.533
+    }
+   ]
+  },
+  {
+   "file": "vol-1/of_bonum_est_confiteri.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 68:1: error: not a note name: rc"
+  },
+  {
+   "file": "vol-1/of_domine_ad_adjuvandum.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 77:1: error: syntax error, unexpected '\\''"
+  },
+  {
+   "file": "vol-1/of_domine_fac_mecum.csv.ly",
+   "status": "proposed",
+   "target": "part:s-stephani-protomartyris/offertory",
+   "hash": "1daac5e2b67d6dbcddbd910abae5fd3a",
+   "melody": 0.667,
+   "incipit": "Domine fac me cum misericór diam tuam propter",
+   "page": 242,
+   "candidates": [
+    {
+     "target": "part:s-stephani-protomartyris/offertory",
+     "melody": 0.667
+    },
+    {
+     "target": "part:feria-vi-infra-hebd-passionis/offertory",
+     "melody": 0.627
+    },
+    {
+     "target": "part:sanctissimi-nominis-jesu/offertory",
+     "melody": 0.569
+    },
+    {
+     "target": "part:dominica-in-quinquagesima/offertory",
+     "melody": 0.569
+    }
+   ]
+  },
+  {
+   "file": "vol-1/of_domine_vivifica.csv.ly",
+   "status": "proposed",
+   "target": "part:sanctissimi-nominis-jesu/offertory",
+   "hash": "1ee9eebd1ea4452aa34c6d5ed8494d54",
+   "melody": 0.766,
+   "incipit": "Domine vivífica me secúndum elóqui um tuum ut",
+   "page": 166,
+   "candidates": [
+    {
+     "target": "part:sanctissimi-nominis-jesu/offertory",
+     "melody": 0.766
+    },
+    {
+     "target": "part:dominica-i-passionis/offertory",
+     "melody": 0.75
+    },
+    {
+     "target": "part:dominica-iv-adventus/offertory",
+     "melody": 0.734
+    },
+    {
+     "target": "part:dominica-ii-post-epiphaniam/offertory",
+     "melody": 0.734
+    }
+   ]
+  },
+  {
+   "file": "vol-1/of_exaltabo_te.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-ii-post-epiphaniam/offertory",
+   "hash": "e9c6813d0c9100a1137213ae4e74424c",
+   "melody": 0.608,
+   "incipit": "Exaltábo te Dómi ne quóniam suscepísti me nec",
+   "page": 162,
+   "candidates": [
+    {
+     "target": "part:dominica-ii-post-epiphaniam/offertory",
+     "melody": 0.608
+    },
+    {
+     "target": "part:dominica-in-sexagesima/offertory",
+     "melody": 0.55
+    },
+    {
+     "target": "part:sanctissimi-nominis-jesu/offertory",
+     "melody": 0.517
+    },
+    {
+     "target": "part:feria-vi-infra-hebd-passionis/offertory",
+     "melody": 0.517
+    }
+   ]
+  },
+  {
+   "file": "vol-1/of_exaudi_deus.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-vi-infra-hebd-passionis/offertory",
+   "hash": "d887dba2b286c847112799a39899c3eb",
+   "melody": 0.598,
+   "incipit": "Exáu di De us oratiónem meam et ne",
+   "page": 234,
+   "candidates": [
+    {
+     "target": "part:feria-vi-infra-hebd-passionis/offertory",
+     "melody": 0.598
+    },
+    {
+     "target": "part:in-epiphania-domini/offertory",
+     "melody": 0.58
+    },
+    {
+     "target": "part:dominica-iv-adventus/offertory",
+     "melody": 0.562
+    },
+    {
+     "target": "part:noh1-p82/offertory",
+     "melody": 0.562
+    }
+   ]
+  },
+  {
+   "file": "vol-1/of_exsulta_satis.csv.ly",
+   "status": "proposed",
+   "target": "part:sabbato-temporum-adventus/offertory",
+   "hash": "c54dce95b1ad6d3205f8cb31cdc90d8a",
+   "melody": 1.0,
+   "incipit": "Exsúl ta satis fíli a Sion prǽdica fí",
+   "page": 37,
+   "candidates": [
+    {
+     "target": "part:sabbato-temporum-adventus/offertory",
+     "melody": 1.0
+    },
+    {
+     "target": "part:dominica-in-quinquagesima/offertory",
+     "melody": 0.775
+    },
+    {
+     "target": "part:dominica-in-sexagesima/offertory",
+     "melody": 0.761
+    },
+    {
+     "target": "part:noh1-p302/offertory",
+     "melody": 0.761
+    }
+   ]
+  },
+  {
+   "file": "vol-1/of_jubilate_deo_omnis.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-ii-post-epiphaniam/offertory",
+   "hash": "726bbbe8b8131f70506c43407f359f1c",
+   "melody": 0.445,
+   "incipit": "Jubilá te De o omnis ter ra jubilá",
+   "page": 116,
+   "candidates": [
+    {
+     "target": "part:dominica-ii-post-epiphaniam/offertory",
+     "melody": 0.445
+    },
+    {
+     "target": "part:sanctissimi-nominis-jesu/offertory",
+     "melody": 0.406
+    },
+    {
+     "target": "part:noh1-p60/offertory",
+     "melody": 0.367
+    },
+    {
+     "target": "part:dominica-in-quinquagesima/offertory",
+     "melody": 0.358
+    }
+   ]
+  },
+  {
+   "file": "vol-1/of_justitiae_domini.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 75:65: error: undefined character or shorthand: ;"
+  },
+  {
+   "file": "vol-1/of_meditabor_sine_alleluia.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-ii-post-epiphaniam/offertory",
+   "hash": "4fbedfa6a1233e296b2785c722547f78",
+   "melody": 0.64,
+   "incipit": "Meditá bor in mandátis tu is quæ diléxi",
+   "page": 208,
+   "candidates": [
+    {
+     "target": "part:dominica-ii-post-epiphaniam/offertory",
+     "melody": 0.64
+    },
+    {
+     "target": "part:sanctissimi-nominis-jesu/offertory",
+     "melody": 0.618
+    },
+    {
+     "target": "part:in-epiphania-domini/offertory",
+     "melody": 0.618
+    },
+    {
+     "target": "part:dominica-iv-in-quadragesim/offertory",
+     "melody": 0.618
+    }
+   ]
+  },
+  {
+   "file": "vol-1/of_tui_sunt_caeli.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 39:14: error: syntax error, unexpected '*'"
+  },
+  {
+   "file": "vol-1/of_tulerunt_jesum.csv.ly",
+   "status": "broken",
+   "target": "part:noh1-p104/offertory",
+   "error": "wide: programming error: Loose column does not have right side to attach to.; print: programming error: Loose column does not have right side to attach to.",
+   "melody": 1.0,
+   "incipit": "Tulérunt Je sum parén tes e jus in",
+   "page": 111,
+   "candidates": [
+    {
+     "target": "part:noh1-p104/offertory",
+     "melody": 1.0
+    }
+   ]
+  },
+  {
+   "file": "vol-1/re_emendemus.csv.ly",
+   "status": "melody-differs",
+   "target": "part:noh1-p156/introit",
+   "hash": "35ab36aa4eeb775df965f497e0b630a2",
+   "melody": 0.263,
+   "incipit": "Emendémus in mélius quæ ignorán ter pec cávimus",
+   "page": 155,
+   "candidates": [
+    {
+     "target": "part:noh1-p156/introit",
+     "melody": 0.263
+    }
+   ]
+  },
+  {
+   "file": "vol-1/tr_ad_te_levavi.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-i-in-quadragesim/tract",
+   "hash": "ae7dd500886f771d45e9c88d1d9494bc",
+   "melody": 0.699,
+   "incipit": "Ad te le vávi ó culos meos qui",
+   "page": 226,
+   "candidates": [
+    {
+     "target": "part:dominica-i-in-quadragesim/tract",
+     "melody": 0.699
+    },
+    {
+     "target": "part:dominica-in-septuagesima/tract",
+     "melody": 0.592
+    },
+    {
+     "target": "part:noh1-p302/tract",
+     "melody": 0.59
+    },
+    {
+     "target": "part:dominica-in-sexagesima/tract",
+     "melody": 0.569
+    }
+   ]
+  },
+  {
+   "file": "vol-1/tr_confitemini.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 111:27: error: not a note name: ee"
+  },
+  {
+   "file": "vol-1/tr_de_necessitatibus.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 118:27: error: octave marks must precede duration"
+  },
+  {
+   "file": "vol-1/tr_deus_deus_meus.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 207:35: error: octave marks must precede duration"
+  },
+  {
+   "file": "vol-1/tr_domine_deus.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-i-passionis/tract",
+   "hash": "ba5f9b17c538b064d1b260fb4e8687f0",
+   "melody": 0.649,
+   "incipit": "Dómine Deus virtú tum convérte nos et osténde",
+   "page": 92,
+   "candidates": [
+    {
+     "target": "part:dominica-i-passionis/tract",
+     "melody": 0.649
+    },
+    {
+     "target": "part:sabbato-temporum-adventus/tract",
+     "melody": 0.645
+    },
+    {
+     "target": "part:noh1-p302/tract",
+     "melody": 0.645
+    },
+    {
+     "target": "part:sabbato-quattuor-temporum-quadragesim/tract",
+     "melody": 0.561
+    }
+   ]
+  },
+  {
+   "file": "vol-1/tr_effuderunt.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-in-sexagesima/tract",
+   "hash": "12aba36d7b82fe317679ad4f04986903",
+   "melody": 0.705,
+   "incipit": "Effudé runt sán guinem sanctórum velut a quam",
+   "page": 75,
+   "candidates": [
+    {
+     "target": "part:dominica-in-sexagesima/tract",
+     "melody": 0.705
+    },
+    {
+     "target": "part:dominica-in-septuagesima/tract",
+     "melody": 0.614
+    },
+    {
+     "target": "part:dominica-i-passionis/tract",
+     "melody": 0.6
+    },
+    {
+     "target": "part:feria-iv-quatuor-temporum-quadragesim/tract",
+     "melody": 0.577
+    }
+   ]
+  },
+  {
+   "file": "vol-1/tr_laudate__omnes_gentes.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 80:26: error: undefined character or shorthand: ;"
+  },
+  {
+   "file": "vol-1/tr_qui_regis_israel.csv.ly",
+   "status": "proposed",
+   "target": "part:sabbato-temporum-adventus/tract",
+   "hash": "ee4215e7f207eb4c2fb7c0015f10bd1f",
+   "melody": 1.0,
+   "incipit": "Qui re gis Israel in ténde qui dedúcis",
+   "page": 35,
+   "candidates": [
+    {
+     "target": "part:sabbato-temporum-adventus/tract",
+     "melody": 1.0
+    },
+    {
+     "target": "part:dominica-i-passionis/tract",
+     "melody": 0.708
+    },
+    {
+     "target": "part:dominica-i-in-quadragesim/tract",
+     "melody": 0.674
+    },
+    {
+     "target": "part:sabbato-quattuor-temporum-quadragesim/tract",
+     "melody": 0.538
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_ascendit_deus.csv.ly",
+   "status": "melody-differs",
+   "target": "part:in-ascensione-domini/alleluia:2",
+   "hash": "703d8df9a2fa4547e3023d877c470b0c",
+   "melody": 0.146,
+   "incipit": "Allelúia allelúia ℣ Ascéndit Deus in jubila tióne",
+   "page": 67,
+   "candidates": [
+    {
+     "target": "part:in-ascensione-domini/alleluia:2",
+     "melody": 0.146
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_caro_mea.csv.ly",
+   "status": "proposed",
+   "target": "part:noh2-p114/alleluia",
+   "hash": "03eb0d7ebeb2a82245bd4fa989971991",
+   "melody": 0.928,
+   "incipit": "Alle lú ia alle lú ia ℣ Caro",
+   "page": 118,
+   "candidates": [
+    {
+     "target": "part:noh2-p114/alleluia",
+     "melody": 0.928
+    },
+    {
+     "target": "part:noh2-p133/alleluia",
+     "melody": 0.582
+    },
+    {
+     "target": "part:dominica-xv-post-pentecosten/alleluia",
+     "melody": 0.479
+    },
+    {
+     "target": "part:dominica-xxiii-post-pentecosten/alleluia",
+     "melody": 0.438
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_christus_resurgens.csv.ly",
+   "status": "melody-differs",
+   "target": "part:dominica-iv-post-pascha/alleluia:1",
+   "hash": "b85fb14f21aae0702b7c67fff421674e",
+   "melody": 0.263,
+   "incipit": "Alle lúia ℣ Christus resúr gens ex mór",
+   "page": 52,
+   "candidates": [
+    {
+     "target": "part:dominica-iv-post-pascha/alleluia:1",
+     "melody": 0.263
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_dextera_dei.csv.ly",
+   "status": "broken",
+   "target": "part:dominica-iv-post-pascha/alleluia:1",
+   "error": "wide: programming error: Loose column does not have right side to attach to.; print: programming error: Loose column does not have right side to attach to.",
+   "melody": 0.88,
+   "incipit": "Al lelúia al lelúia ℣ Déxtera Dei fe",
+   "page": 51,
+   "candidates": [
+    {
+     "target": "part:dominica-iv-post-pascha/alleluia:1",
+     "melody": 0.88
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_dicite_in_gentibus.csv.ly",
+   "status": "proposed",
+   "target": "part:die-vi-infra-octavam-pasch-2/alleluia:paschal",
+   "hash": "b1c164336089b324320dae184063c3c8",
+   "incipit": "Allelúia allelúia ℣ Dícite in géntibus quia Dó",
+   "page": 29,
+   "candidates": [
+    {
+     "target": "part:die-vi-infra-octavam-pasch-2/alleluia:paschal",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_domine_exaudi.csv.ly",
+   "status": "proposed",
+   "target": "part:noh2-p133/alleluia",
+   "hash": "16c627ee764c6f20444dbdfb447a9c13",
+   "melody": 0.627,
+   "incipit": "Allelúia allelúia ℣ Dómine exáudi oratió nem meam",
+   "page": 219,
+   "candidates": [
+    {
+     "target": "part:noh2-p133/alleluia",
+     "melody": 0.627
+    },
+    {
+     "target": "part:dominica-xxiii-post-pentecosten/alleluia",
+     "melody": 0.627
+    },
+    {
+     "target": "part:dominica-xiii-post-pentecosten/alleluia",
+     "melody": 0.61
+    },
+    {
+     "target": "part:dominica-vi-post-pentecosten/alleluia",
+     "melody": 0.593
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_dum_complerentur.csv.ly",
+   "status": "proposed",
+   "target": "part:feria-vi-quattuor-temporum-pentecostes/alleluia:1",
+   "hash": "88d18633dccf67a59a0f1e6f9acff0cd",
+   "melody": 0.981,
+   "incipit": "Allelú ia ℣ Dum compleréntur dies Pentecó stes",
+   "page": 101,
+   "candidates": [
+    {
+     "target": "part:feria-vi-quattuor-temporum-pentecostes/alleluia:1",
+     "melody": 0.981
+    },
+    {
+     "target": "part:dominica-ii-post-pascha/alleluia:1",
+     "melody": 0.405
+    },
+    {
+     "target": "part:dominica-xii-post-pentecosten/alleluia",
+     "melody": 0.405
+    },
+    {
+     "target": "part:noh2-p37/alleluia:1",
+     "melody": 0.4
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_ego_sum_pastor.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 95:39: error: not a note name: er"
+  },
+  {
+   "file": "vol-2/al_eripe_me.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-vii-post-pentecosten/alleluia",
+   "hash": "98a7eb0f8a344599de0c59438bc6f4f2",
+   "melody": 0.557,
+   "incipit": "Alle lúia alle lúia ℣ Eripe me de",
+   "page": 174,
+   "candidates": [
+    {
+     "target": "part:dominica-vii-post-pentecosten/alleluia",
+     "melody": 0.557
+    },
+    {
+     "target": "part:noh2-p133/alleluia",
+     "melody": 0.516
+    },
+    {
+     "target": "part:feria-vi-quattuor-temporum-pentecostes/alleluia:1",
+     "melody": 0.464
+    },
+    {
+     "target": "part:dominica-xiv-post-pentecosten/alleluia",
+     "melody": 0.458
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_exivi_a_patre.csv.ly",
+   "status": "melody-differs",
+   "target": "part:dominica-v-post-pascha/alleluia:1",
+   "hash": "db6b1b9fdbb95ee150c058f213eb3bcd",
+   "melody": 0.312,
+   "incipit": "Alle lúia ℣ Exívi a Pa tre et",
+   "page": 57,
+   "candidates": [
+    {
+     "target": "part:dominica-v-post-pascha/alleluia:1",
+     "melody": 0.312
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_in_die_resurrectionis.csv.ly",
+   "status": "melody-differs",
+   "target": "part:noh2-p37/alleluia:2",
+   "hash": "80e9598fe157ed28f18e8b92953d3408",
+   "melody": 0.538,
+   "incipit": "Allelú ia allelú ia ℣ In die resurrectiónis",
+   "page": 38,
+   "candidates": [
+    {
+     "target": "part:noh2-p37/alleluia:2",
+     "melody": 0.538
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_in_te_domine.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-vi-post-pentecosten/alleluia",
+   "hash": "be7de2ba981fd739f92d8e4e5989aaae",
+   "melody": 0.952,
+   "incipit": "Allelúia allelúia ℣ In te Dómine sperá vi",
+   "page": 159,
+   "candidates": [
+    {
+     "target": "part:dominica-vi-post-pentecosten/alleluia",
+     "melody": 0.952
+    },
+    {
+     "target": "part:dominica-iii-post-pascha/alleluia:2",
+     "melody": 0.519
+    },
+    {
+     "target": "part:dominica-ii-post-pascha/alleluia:2",
+     "melody": 0.492
+    },
+    {
+     "target": "part:dominica-viii-post-pentecosten/alleluia",
+     "melody": 0.481
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_laudate_pueri.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 77:17: error: not a note name: ga"
+  },
+  {
+   "file": "vol-2/al_loquebantur.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-iii-post-pascha/alleluia:2",
+   "hash": "2697fb6a659ef8e0a6ce8f2f77841b3e",
+   "melody": 0.546,
+   "incipit": "Alle lúia alle lúia ℣ Loquebán tur váriis",
+   "page": 86,
+   "candidates": [
+    {
+     "target": "part:dominica-iii-post-pascha/alleluia:2",
+     "melody": 0.546
+    },
+    {
+     "target": "part:dominica-viii-post-pentecosten/alleluia",
+     "melody": 0.495
+    },
+    {
+     "target": "part:die-iii-infra-octavam-pasch/alleluia",
+     "melody": 0.479
+    },
+    {
+     "target": "part:dominica-vii-post-pentecosten/alleluia",
+     "melody": 0.479
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_magnus_dominus.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 126:10: error: syntax error, unexpected '.'"
+  },
+  {
+   "file": "vol-2/al_oportebat_pati_christum.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-iii-post-pascha/alleluia:paschal",
+   "hash": "06f0dfbdad96c52cc29e4ed8cb83a37f",
+   "incipit": "Alle lúia ℣ Opor té bat pa ti",
+   "page": 48,
+   "candidates": [
+    {
+     "target": "part:dominica-iii-post-pascha/alleluia:paschal",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_paratum_cor_meum.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-post-ascensionem/alleluia:2",
+   "hash": "5fc921f23f6b26e18f4e634b832c53c3",
+   "melody": 0.489,
+   "incipit": "Allelú ia allelú ia ℣ Parátum cor meum",
+   "page": 240,
+   "candidates": [
+    {
+     "target": "part:dominica-post-ascensionem/alleluia:2",
+     "melody": 0.489
+    },
+    {
+     "target": "part:dominica-xv-post-pentecosten/alleluia",
+     "melody": 0.483
+    },
+    {
+     "target": "part:dominica-vii-post-pentecosten/alleluia",
+     "melody": 0.472
+    },
+    {
+     "target": "part:dominica-vi-post-pentecosten/alleluia",
+     "melody": 0.455
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_post_dies_octo.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 111:2: error: syntax error, unexpected '.'"
+  },
+  {
+   "file": "vol-2/al_redemptionem.csv.ly",
+   "status": "melody-differs",
+   "target": "part:dominica-iii-post-pascha/alleluia:2",
+   "hash": "4338aea9c947721d9f85d457100dd229",
+   "melody": 0.489,
+   "incipit": "Allelúia allelúia ℣ Redemptió nem misit Dó minus",
+   "page": 47,
+   "candidates": [
+    {
+     "target": "part:dominica-iii-post-pascha/alleluia:2",
+     "melody": 0.489
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_regnavit_dominus.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-post-ascensionem/alleluia:2",
+   "hash": "3d81de1c74407e3af1f73ff7c2cd8211",
+   "melody": 0.623,
+   "incipit": "Allelúia allelúia ℣ Re gnávit Dóminus super omnes",
+   "page": 72,
+   "candidates": [
+    {
+     "target": "part:dominica-post-ascensionem/alleluia:2",
+     "melody": 0.623
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_spiritus_ejus.csv.ly",
+   "status": "proposed",
+   "target": "part:die-vi-infra-octavam-pasch/alleluia",
+   "hash": "3332e34aabc4e7369acfb2cf8203acfb",
+   "melody": 1.0,
+   "incipit": "Alle lú ia ℣ Spíri tus e jus",
+   "page": 101,
+   "candidates": [
+    {
+     "target": "part:die-vi-infra-octavam-pasch/alleluia",
+     "melody": 1.0
+    },
+    {
+     "target": "part:dominica-viii-post-pentecosten/alleluia",
+     "melody": 0.806
+    },
+    {
+     "target": "part:dominica-xiii-post-pentecosten/alleluia",
+     "melody": 0.736
+    },
+    {
+     "target": "part:dominica-vii-post-pentecosten/alleluia",
+     "melody": 0.722
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_spiritus_est.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 94:4: error: syntax error, unexpected '\\''"
+  },
+  {
+   "file": "vol-2/al_spiritus_sanctus.csv.ly",
+   "status": "proposed",
+   "target": "part:die-iii-infra-octavam-pentecostes/alleluia:2",
+   "hash": "d566857ffe2e8369a5c513c4e00476ef",
+   "melody": 0.344,
+   "incipit": "Alle lúia alle lúia ℣ Spíritus Sanctus docébit",
+   "page": 90,
+   "candidates": [
+    {
+     "target": "part:die-iii-infra-octavam-pentecostes/alleluia:2",
+     "melody": 0.344
+    },
+    {
+     "target": "part:feria-iv-quattuor-temporum-pentecostes/alleluia:1",
+     "melody": 0.323
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_surrexit_dominus_vere.csv.ly",
+   "status": "proposed",
+   "target": "part:die-vi-infra-octavam-pasch/alleluia",
+   "hash": "12fe9f21abfd6bb8e43cea04625b123a",
+   "melody": 0.831,
+   "incipit": "Alle lú ia alle lú ia ℣ Surré",
+   "page": 20,
+   "candidates": [
+    {
+     "target": "part:die-vi-infra-octavam-pasch/alleluia",
+     "melody": 0.831
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_timebunt_gentes.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-vii-post-pentecosten/alleluia",
+   "hash": "77db43e3fc80ab273714c687271926eb",
+   "melody": 0.461,
+   "incipit": "Al lelú ia al lelú ia ℣ Ti",
+   "page": 230,
+   "candidates": [
+    {
+     "target": "part:dominica-vii-post-pentecosten/alleluia",
+     "melody": 0.461
+    },
+    {
+     "target": "part:noh2-p114/alleluia",
+     "melody": 0.447
+    },
+    {
+     "target": "part:dominica-xi-post-pentecosten/alleluia",
+     "melody": 0.434
+    },
+    {
+     "target": "part:dominica-iii-post-pascha/alleluia:2",
+     "melody": 0.429
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_veni_sancte_spiritus.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-pentecostes/alleluia:2",
+   "hash": "f972fcd6cbaa9c809eb0292a4e6da928",
+   "melody": 1.0,
+   "incipit": "Alle lúia Hic genuflectitur ℣ Ve ni Sancte",
+   "page": 79,
+   "candidates": [
+    {
+     "target": "part:dominica-pentecostes/alleluia:2",
+     "melody": 1.0
+    },
+    {
+     "target": "part:die-iii-infra-octavam-pentecostes/alleluia:2",
+     "melody": 1.0
+    },
+    {
+     "target": "part:dominica-x-post-pentecosten/alleluia",
+     "melody": 0.614
+    },
+    {
+     "target": "part:dominica-ii-post-pascha/alleluia:1",
+     "melody": 0.557
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_venite_ad_me.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-viii-post-pentecosten/alleluia",
+   "hash": "e7bcc71fe2dae38c8ff261089fb99620",
+   "melody": 0.536,
+   "incipit": "Allelú ia ℣ Vení te ad me o",
+   "page": 139,
+   "candidates": [
+    {
+     "target": "part:dominica-viii-post-pentecosten/alleluia",
+     "melody": 0.536
+    },
+    {
+     "target": "part:dominica-xiii-post-pentecosten/alleluia",
+     "melody": 0.531
+    },
+    {
+     "target": "part:noh2-p37/alleluia:2",
+     "melody": 0.483
+    },
+    {
+     "target": "part:noh2-p37/alleluia:1",
+     "melody": 0.435
+    }
+   ]
+  },
+  {
+   "file": "vol-2/al_verba_mea.csv.ly",
+   "status": "proposed",
+   "target": "part:noh2-p133/alleluia",
+   "hash": "6b43607af9f5009d19562471ed1c66fa",
+   "melody": 0.812,
+   "incipit": "Allelúia allelúia ℣ Verba mea áu ribus pér",
+   "page": 114,
+   "candidates": [
+    {
+     "target": "part:noh2-p133/alleluia",
+     "melody": 0.812
+    },
+    {
+     "target": "part:dominica-pentecostes/alleluia:2",
+     "melody": 0.667
+    },
+    {
+     "target": "part:die-iii-infra-octavam-pentecostes/alleluia:2",
+     "melody": 0.667
+    },
+    {
+     "target": "part:dominica-iii-post-pascha/alleluia:2",
+     "melody": 0.656
+    }
+   ]
+  },
+  {
+   "file": "vol-2/co_acceptabis.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-v-post-pentecosten/communion",
+   "hash": "1418cf7269e11aee24c1bc8be974d582",
+   "melody": 0.571,
+   "incipit": "Acceptá bis sacrifí cium ju stítiæ oblatiónes et",
+   "page": 181,
+   "candidates": [
+    {
+     "target": "part:dominica-v-post-pentecosten/communion",
+     "melody": 0.571
+    },
+    {
+     "target": "part:die-iii-infra-octavam-pasch/communion",
+     "melody": 0.543
+    },
+    {
+     "target": "part:dominica-xi-post-pentecosten/communion",
+     "melody": 0.529
+    },
+    {
+     "target": "part:dominica-xxi-post-pentecosten/communion",
+     "melody": 0.529
+    }
+   ]
+  },
+  {
+   "file": "vol-2/co_data_est_mihi.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-xi-post-pentecosten/communion",
+   "hash": "6e1685d2b6e7f64d7a79a7ad4c34bbaa",
+   "melody": 0.627,
+   "incipit": "Data est mihi omnis potéstas in cœlo et",
+   "page": 31,
+   "candidates": [
+    {
+     "target": "part:dominica-xi-post-pentecosten/communion",
+     "melody": 0.627
+    },
+    {
+     "target": "part:dominica-iv-post-pentecosten/communion",
+     "melody": 0.52
+    },
+    {
+     "target": "part:dominica-v-post-pascha/communion",
+     "melody": 0.51
+    },
+    {
+     "target": "part:in-ascensione-domini/communion",
+     "melody": 0.48
+    }
+   ]
+  },
+  {
+   "file": "vol-2/co_de_fructu.csv.ly",
+   "status": "proposed",
+   "target": "part:sabbato-in-vigilia-pentecostes/communion",
+   "hash": "2f51ba152b0f8fba79454927fa9236ed",
+   "melody": 0.615,
+   "incipit": "De fructu óperum tuórum Dómine satiábitur terra ut",
+   "page": 193,
+   "candidates": [
+    {
+     "target": "part:sabbato-in-vigilia-pentecostes/communion",
+     "melody": 0.615
+    },
+    {
+     "target": "part:die-iii-infra-octavam-pasch/communion",
+     "melody": 0.531
+    },
+    {
+     "target": "part:dominica-xvii-post-pentecosten/communion",
+     "melody": 0.51
+    },
+    {
+     "target": "part:dominica-xix-post-pentecosten/communion",
+     "melody": 0.51
+    }
+   ]
+  },
+  {
+   "file": "vol-2/co_mense_septimo.csv.ly",
+   "status": "proposed",
+   "target": "part:sabbato-in-vigilia-pentecostes/communion",
+   "hash": "18a6ff3f803b426417cb9a673935031b",
+   "melody": 0.675,
+   "incipit": "Mense séptimo festa celebrábitis cum in tabernáculis habitáre",
+   "page": 228,
+   "candidates": [
+    {
+     "target": "part:sabbato-in-vigilia-pentecostes/communion",
+     "melody": 0.675
+    },
+    {
+     "target": "part:dominica-xiii-post-pentecosten/communion",
+     "melody": 0.55
+    },
+    {
+     "target": "part:dominica-pentecostes/communion",
+     "melody": 0.537
+    },
+    {
+     "target": "part:dominica-post-ascensionem/communion",
+     "melody": 0.525
+    }
+   ]
+  },
+  {
+   "file": "vol-2/co_pacem_meam.csv.ly",
+   "status": "proposed",
+   "target": "part:sabbato-in-vigilia-pentecostes/communion",
+   "hash": "84c601aeb44185dc589f3a3feb91ccd1",
+   "melody": 0.875,
+   "incipit": "Pacem meam do vobis allelúia pacem relínquo vobis",
+   "page": 94,
+   "candidates": [
+    {
+     "target": "part:sabbato-in-vigilia-pentecostes/communion",
+     "melody": 0.875
+    },
+    {
+     "target": "part:die-vi-infra-octavam-pasch/communion",
+     "melody": 0.812
+    },
+    {
+     "target": "part:dominica-v-post-pascha/communion",
+     "melody": 0.812
+    },
+    {
+     "target": "part:dominica-xvii-post-pentecosten/communion",
+     "melody": 0.812
+    }
+   ]
+  },
+  {
+   "file": "vol-2/co_petite_cum_alleluia.csv.ly",
+   "status": "proposed",
+   "target": "part:noh2-p105/communion",
+   "hash": "2e287b177d79f2215bcc7b108a8e4bcf",
+   "melody": 0.48,
+   "incipit": "Petite et accipiétis quǽrite et invenié tis pulsáte",
+   "page": 64,
+   "candidates": [
+    {
+     "target": "part:noh2-p105/communion",
+     "melody": 0.48
+    },
+    {
+     "target": "part:dominica-resurrectionis/communion",
+     "melody": 0.432
+    },
+    {
+     "target": "part:dominica-post-ascensionem/communion",
+     "melody": 0.424
+    },
+    {
+     "target": "part:dominica-iv-post-pascha/communion",
+     "melody": 0.4
+    }
+   ]
+  },
+  {
+   "file": "vol-2/co_si_quis_sitit.csv.ly",
+   "status": "melody-differs",
+   "target": "part:noh2-p133/communion",
+   "hash": "0d301893620de5e6ff0dff78fdece75a",
+   "melody": 0.464,
+   "incipit": "Si quis sitit véniat ad me et bibat",
+   "page": 143,
+   "candidates": [
+    {
+     "target": "part:noh2-p133/communion",
+     "melody": 0.464
+    }
+   ]
+  },
+  {
+   "file": "vol-2/gr_ad_dominum.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 102:37: error: not a note name: cv"
+  },
+  {
+   "file": "vol-2/gr_domine_refugium.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 111:1: error: not a note name: gg"
+  },
+  {
+   "file": "vol-2/gr_dulcis_et_rectus.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-xxii-post-pentecosten/gradual",
+   "hash": "05f04604407e254c8e9df9399e6a0833",
+   "melody": 0.882,
+   "incipit": "Dul cis et rectus Dó minus propter hoc",
+   "page": 134,
+   "candidates": [
+    {
+     "target": "part:dominica-xxii-post-pentecosten/gradual",
+     "melody": 0.882
+    },
+    {
+     "target": "part:dominica-xvii-post-pentecosten/gradual",
+     "melody": 0.599
+    },
+    {
+     "target": "part:die-vi-infra-octavam-pasch/gradual",
+     "melody": 0.497
+    },
+    {
+     "target": "part:dominica-xxi-post-pentecosten/gradual",
+     "melody": 0.465
+    }
+   ]
+  },
+  {
+   "file": "vol-2/gr_ego_dixi.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-xxi-post-pentecosten/gradual",
+   "hash": "8671891b79750c6267c8555ebe7834aa",
+   "melody": 0.593,
+   "incipit": "Ego dixi Dómine miseré re mei sana ánimam",
+   "page": 112,
+   "candidates": [
+    {
+     "target": "part:dominica-xxi-post-pentecosten/gradual",
+     "melody": 0.593
+    },
+    {
+     "target": "part:dominica-xv-post-pentecosten/gradual",
+     "melody": 0.561
+    },
+    {
+     "target": "part:dominica-viii-post-pentecosten/gradual",
+     "melody": 0.534
+    },
+    {
+     "target": "part:dominica-xiv-post-pentecosten/gradual",
+     "melody": 0.48
+    }
+   ]
+  },
+  {
+   "file": "vol-2/gr_haec_dies_v_benedictus.csv.ly",
+   "status": "proposed",
+   "target": "part:die-vi-infra-octavam-pasch/gradual",
+   "hash": "df8bc34a4a44cc39676f586aefbd0b29",
+   "melody": 0.97,
+   "incipit": "Hæc di es quam fecit Dóminus exsulté mus",
+   "page": 28,
+   "candidates": [
+    {
+     "target": "part:die-vi-infra-octavam-pasch/gradual",
+     "melody": 0.97
+    },
+    {
+     "target": "part:die-iii-infra-octavam-pasch/gradual",
+     "melody": 0.893
+    },
+    {
+     "target": "part:dominica-xxi-post-pentecosten/gradual",
+     "melody": 0.863
+    },
+    {
+     "target": "part:die-v-infra-octavam-pasch/gradual",
+     "melody": 0.846
+    }
+   ]
+  },
+  {
+   "file": "vol-2/gr_haec_dies_v_dicat_nunc.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 125:35: error: octave marks must precede duration"
+  },
+  {
+   "file": "vol-2/gr_quis_sicut_dominus.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-xi-post-pentecosten/gradual",
+   "hash": "611d956024892f5c00aad3cbd6d563e8",
+   "melody": 0.586,
+   "incipit": "Quis sicut Dó minus Deus noster qui in",
+   "page": 224,
+   "candidates": [
+    {
+     "target": "part:dominica-xi-post-pentecosten/gradual",
+     "melody": 0.586
+    },
+    {
+     "target": "part:dominica-xv-post-pentecosten/gradual",
+     "melody": 0.462
+    },
+    {
+     "target": "part:dominica-x-post-pentecosten/gradual",
+     "melody": 0.452
+    },
+    {
+     "target": "part:dominica-xii-post-pentecosten/gradual",
+     "melody": 0.425
+    }
+   ]
+  },
+  {
+   "file": "vol-2/in_cogitationes_cordis.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-iii-post-pentecosten/introit",
+   "hash": "8f82c1c5313fdbff62a998c21be3e8a8",
+   "melody": 0.584,
+   "incipit": "Cogitatiónes Cor dis ejus in generatióne et generatiónem",
+   "page": 133,
+   "candidates": [
+    {
+     "target": "part:dominica-iii-post-pentecosten/introit",
+     "melody": 0.584
+    },
+    {
+     "target": "part:dominica-x-post-pentecosten/introit",
+     "melody": 0.536
+    },
+    {
+     "target": "part:dominica-resurrectionis/introit",
+     "melody": 0.512
+    },
+    {
+     "target": "part:dominica-vi-post-pentecosten/introit",
+     "melody": 0.496
+    }
+   ]
+  },
+  {
+   "file": "vol-2/in_deus_dum_egredereris.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-x-post-pentecosten/introit",
+   "hash": "6f115a3b6b608a6f7af9b12894916949",
+   "melody": 0.649,
+   "incipit": "Deus dum egrederéris coram pópulo tuo alle lúia",
+   "page": 91,
+   "candidates": [
+    {
+     "target": "part:dominica-x-post-pentecosten/introit",
+     "melody": 0.649
+    },
+    {
+     "target": "part:dominica-xx-post-pentecosten/introit",
+     "melody": 0.64
+    },
+    {
+     "target": "part:feria-vi-quattuor-temporum-pentecostes/introit",
+     "melody": 0.595
+    },
+    {
+     "target": "part:dominica-xxii-post-pentecosten/introit",
+     "melody": 0.577
+    }
+   ]
+  },
+  {
+   "file": "vol-2/in_domine_in_tua_misericordia.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-iii-post-pentecosten/introit",
+   "hash": "ad275bb5b243173fdc719c363532ab7e",
+   "melody": 0.597,
+   "incipit": "Domi ne in tua mise ricórdia spe rávi",
+   "page": 110,
+   "candidates": [
+    {
+     "target": "part:dominica-iii-post-pentecosten/introit",
+     "melody": 0.597
+    },
+    {
+     "target": "part:dominica-xxiii-post-pentecosten/introit",
+     "melody": 0.589
+    },
+    {
+     "target": "part:dominica-xv-post-pentecosten/introit",
+     "melody": 0.532
+    },
+    {
+     "target": "part:dominica-xxi-post-pentecosten/introit",
+     "melody": 0.524
+    }
+   ]
+  },
+  {
+   "file": "vol-2/in_dominus_illuminatio.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 91:1: error: not a note name: eess"
+  },
+  {
+   "file": "vol-2/in_eduxit_eos.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 127:11: error: not a note name: l"
+  },
+  {
+   "file": "vol-2/in_exaudivit.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-xxi-post-pentecosten/introit",
+   "hash": "0e9b2ee2b15a99a50e9cf62070b8f233",
+   "melody": 0.653,
+   "incipit": "Exaudívit de templo sancto su o vocem meam",
+   "page": 61,
+   "candidates": [
+    {
+     "target": "part:dominica-xxi-post-pentecosten/introit",
+     "melody": 0.653
+    },
+    {
+     "target": "part:dominica-xiv-post-pentecosten/introit",
+     "melody": 0.628
+    },
+    {
+     "target": "part:dominica-xx-post-pentecosten/introit",
+     "melody": 0.595
+    },
+    {
+     "target": "part:dominica-xix-post-pentecosten/introit",
+     "melody": 0.587
+    }
+   ]
+  },
+  {
+   "file": "vol-2/in_factus_est_dominus.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-ii-post-pentecosten/introit",
+   "hash": "f991060137d5efebb739f78a67a6fe91",
+   "melody": 0.846,
+   "incipit": "Factus est Dóminus protéctor me us et edúxit",
+   "page": 128,
+   "candidates": [
+    {
+     "target": "part:dominica-ii-post-pentecosten/introit",
+     "melody": 0.846
+    }
+   ]
+  },
+  {
+   "file": "vol-2/in_in_voluntate.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 97:30: error: syntax error, unexpected <"
+  },
+  {
+   "file": "vol-2/in_jubilate_deo.csv.ly",
+   "status": "broken",
+   "target": "part:dominica-iii-post-pascha/introit",
+   "error": "narrow: programming error: Tie without heads.  Suicide; narrow: programming error: Tie without heads.  Suicide",
+   "melody": 0.867,
+   "incipit": "Jubiláte Deo omnis terra allelúia psalmum dícite nómini",
+   "page": 45,
+   "candidates": [
+    {
+     "target": "part:dominica-iii-post-pascha/introit",
+     "melody": 0.867
+    }
+   ]
+  },
+  {
+   "file": "vol-2/in_justus_es_domine.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-xvii-post-pentecosten/introit",
+   "hash": "669fd2375e284a874498d2d003aa74aa",
+   "melody": 0.807,
+   "incipit": "Justus es Dómine et rectum judícium tuum fac",
+   "page": 216,
+   "candidates": [
+    {
+     "target": "part:dominica-xvii-post-pentecosten/introit",
+     "melody": 0.807
+    }
+   ]
+  },
+  {
+   "file": "vol-2/in_omnes_gentes.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-vii-post-pentecosten/introit",
+   "hash": "d6b1915e8bd610173edcf5f47b9d33c2",
+   "melody": 0.827,
+   "incipit": "O mnes gentes pláudite mánibus jubilá te De",
+   "page": 160,
+   "candidates": [
+    {
+     "target": "part:dominica-vii-post-pentecosten/introit",
+     "melody": 0.827
+    }
+   ]
+  },
+  {
+   "file": "vol-2/in_omnia_quae_fecisti.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 128:47: error: badly placed octave marks"
+  },
+  {
+   "file": "vol-2/in_protector_noster.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 88:30: error: undefined character or shorthand: ;"
+  },
+  {
+   "file": "vol-2/in_quasi_modo.csv.ly",
+   "status": "proposed",
+   "target": "part:noh2-p37/introit",
+   "hash": "a6e6a3e6b36af1beaa4241ae93c3b752",
+   "melody": 0.825,
+   "incipit": "Quasi modo gé niti infántes allelúia rationábiles sine",
+   "page": 37,
+   "candidates": [
+    {
+     "target": "part:noh2-p37/introit",
+     "melody": 0.825
+    }
+   ]
+  },
+  {
+   "file": "vol-2/in_respice_in_me.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 99:38: error: not a note name: bess"
+  },
+  {
+   "file": "vol-2/in_si_iniquitates.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-xxii-post-pentecosten/introit",
+   "hash": "79584c196597c5fc6164f3f482d83913",
+   "melody": 0.839,
+   "incipit": "Si iniquitátes observáveris Dómine Dómine quis sustinébit? quia",
+   "page": 250,
+   "candidates": [
+    {
+     "target": "part:dominica-xxii-post-pentecosten/introit",
+     "melody": 0.839
+    }
+   ]
+  },
+  {
+   "file": "vol-2/in_spiritus_domini_cum_alleluia.csv.ly",
+   "status": "proposed",
+   "target": "part:die-ii-infra-octavam-pasch/introit",
+   "hash": "7c0832b373b4f45e30b328f9e8dc275a",
+   "melody": 0.634,
+   "incipit": "Spiritus Dómini replévit orbem terrárum alle lúia et",
+   "page": 77,
+   "candidates": [
+    {
+     "target": "part:die-ii-infra-octavam-pasch/introit",
+     "melody": 0.634
+    },
+    {
+     "target": "part:dominica-xx-post-pentecosten/introit",
+     "melody": 0.593
+    },
+    {
+     "target": "part:dominica-x-post-pentecosten/introit",
+     "melody": 0.561
+    },
+    {
+     "target": "part:dominica-xxi-post-pentecosten/introit",
+     "melody": 0.553
+    }
+   ]
+  },
+  {
+   "file": "vol-2/in_venite_adoremus.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-iv-post-pentecosten/introit",
+   "hash": "496495aae2cddcfe891145986976ca39",
+   "melody": 0.639,
+   "incipit": "Veníte adorémus Deum et procidámus ante Dóminum ploré",
+   "page": 227,
+   "candidates": [
+    {
+     "target": "part:dominica-iv-post-pentecosten/introit",
+     "melody": 0.639
+    },
+    {
+     "target": "part:dominica-vi-post-pentecosten/introit",
+     "melody": 0.63
+    },
+    {
+     "target": "part:dominica-xix-post-pentecosten/introit",
+     "melody": 0.613
+    },
+    {
+     "target": "part:dominica-xiv-post-pentecosten/introit",
+     "melody": 0.58
+    }
+   ]
+  },
+  {
+   "file": "vol-2/in_vocem_jucunditatis.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 140:1: error: syntax error, unexpected '\\''"
+  },
+  {
+   "file": "vol-2/of_confirma_hoc.csv.ly",
+   "status": "proposed",
+   "target": "part:noh2-p114/offertory",
+   "hash": "28f72cf379fe571445090bbbd0ac5a5e",
+   "melody": 0.908,
+   "incipit": "Confírma hoc Deus quod operá tus es in",
+   "page": 83,
+   "candidates": [
+    {
+     "target": "part:noh2-p114/offertory",
+     "melody": 0.908
+    },
+    {
+     "target": "part:dominica-xii-post-pentecosten/offertory",
+     "melody": 0.697
+    },
+    {
+     "target": "part:dominica-vii-post-pentecosten/offertory",
+     "melody": 0.639
+    },
+    {
+     "target": "part:dominica-xix-post-pentecosten/offertory",
+     "melody": 0.639
+    }
+   ]
+  },
+  {
+   "file": "vol-2/of_confitebor_domino.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-vii-post-pentecosten/offertory",
+   "hash": "9b89d9705e43d9f64ec0132d0c6d99cd",
+   "melody": 0.597,
+   "incipit": "Confitébor Dómino ni mis in ore me o",
+   "page": 63,
+   "candidates": [
+    {
+     "target": "part:dominica-vii-post-pentecosten/offertory",
+     "melody": 0.597
+    },
+    {
+     "target": "part:dominica-xix-post-pentecosten/offertory",
+     "melody": 0.532
+    },
+    {
+     "target": "part:die-ii-infra-octavam-pasch/offertory",
+     "melody": 0.489
+    },
+    {
+     "target": "part:dominica-viii-post-pentecosten/offertory",
+     "melody": 0.475
+    }
+   ]
+  },
+  {
+   "file": "vol-2/of_emitte_spiritum.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-xii-post-pentecosten/offertory",
+   "hash": "b8734f219ab31e729c297ab824c42474",
+   "melody": 0.714,
+   "incipit": "Emítte Spíritum tu um et creabún tur et",
+   "page": 75,
+   "candidates": [
+    {
+     "target": "part:dominica-xii-post-pentecosten/offertory",
+     "melody": 0.714
+    },
+    {
+     "target": "part:dominica-xvii-post-pentecosten/offertory",
+     "melody": 0.597
+    },
+    {
+     "target": "part:die-vi-infra-octavam-pasch-2/offertory",
+     "melody": 0.546
+    },
+    {
+     "target": "part:sabbato-in-albis/offertory",
+     "melody": 0.521
+    }
+   ]
+  },
+  {
+   "file": "vol-2/of_holocaustum.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-xix-post-pentecosten/offertory",
+   "hash": "2ffbc50cd13976dce7fd9ea12c4ce934",
+   "melody": 0.556,
+   "incipit": "Holocáustum et pro peccáto non postulá sti tunc",
+   "page": 142,
+   "candidates": [
+    {
+     "target": "part:dominica-xix-post-pentecosten/offertory",
+     "melody": 0.556
+    },
+    {
+     "target": "part:dominica-vi-post-pentecosten/offertory",
+     "melody": 0.503
+    },
+    {
+     "target": "part:sabbato-quattuor-temporum-pentecostes/offertory",
+     "melody": 0.49
+    },
+    {
+     "target": "part:dominica-iii-post-pentecosten/offertory",
+     "melody": 0.477
+    }
+   ]
+  },
+  {
+   "file": "vol-2/of_lauda_anima.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 76:1: error: syntax error, unexpected '\\''"
+  },
+  {
+   "file": "vol-2/of_meditabor_cum_alleluia.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 71:12: error: syntax error, unexpected '\\''"
+  },
+  {
+   "file": "vol-2/of_oravi_deum.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 107:59: error: syntax error, unexpected '.'"
+  },
+  {
+   "file": "vol-2/of_si_ambulavero.csv.ly",
+   "status": "broken",
+   "target": "part:dominica-xix-post-pentecosten/offertory",
+   "error": "wide: programming error: Loose column does not have right side to attach to.; print: programming error: Loose column does not have right side to attach to.",
+   "melody": 1.0,
+   "incipit": "Si ambulá ve ro in mé dio tribula",
+   "page": 236,
+   "candidates": [
+    {
+     "target": "part:dominica-xix-post-pentecosten/offertory",
+     "melody": 1.0
+    }
+   ]
+  },
+  {
+   "file": "vol-2/of_super_flumina.csv.ly",
+   "status": "proposed",
+   "target": "part:dominica-xii-post-pentecosten/offertory",
+   "hash": "46c87b46a98242b8b595bf6e75fbe3cd",
+   "melody": 0.806,
+   "incipit": "Super flúmina Baby lónis illic sédimus et flévi",
+   "page": 241,
+   "candidates": [
+    {
+     "target": "part:dominica-xii-post-pentecosten/offertory",
+     "melody": 0.806
+    },
+    {
+     "target": "part:sabbato-quattuor-temporum-pentecostes/offertory",
+     "melody": 0.55
+    },
+    {
+     "target": "part:dominica-xviii-post-pentecosten/offertory",
+     "melody": 0.527
+    },
+    {
+     "target": "part:dominica-xxii-post-pentecosten/offertory",
+     "melody": 0.527
+    }
+   ]
+  },
+  {
+   "file": "vol-2/se_lauda_sion.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 354:6: error: not a note name: ea"
+  },
+  {
+   "file": "vol-2/tr_misericors_et_miserator.csv.ly",
+   "status": "melody-differs",
+   "target": "part:sabbato-quattuor-temporum-pentecostes/tract",
+   "hash": "1bd3e2e92561e323305e884a154029c4",
+   "melody": 0.35,
+   "incipit": "Miséricors et miserátor Dóminus longánimis et mul tum",
+   "page": 137,
+   "candidates": [
+    {
+     "target": "part:sabbato-quattuor-temporum-pentecostes/tract",
+     "melody": 0.35
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_beata_es.csv.ly",
+   "status": "proposed",
+   "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/alleluia",
+   "hash": "563ed26c5b51ebe93973db0c83d9d1df",
+   "melody": 0.836,
+   "incipit": "Alle lúia alle lúia ℣ Beáta es Virgo",
+   "page": 450,
+   "candidates": [
+    {
+     "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/alleluia",
+     "melody": 0.836
+    },
+    {
+     "target": "part:in-purificatione-beat-mari-virginis/alleluia",
+     "melody": 0.678
+    },
+    {
+     "target": "part:s-andre-apostoli/alleluia",
+     "melody": 0.671
+    },
+    {
+     "target": "part:s-theresiae-a-jesu-infante-virginis/alleluia",
+     "melody": 0.592
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_beatus_vir_sanctus_martinus.csv.ly",
+   "status": "proposed",
+   "target": "part:s-agnetis-virginis-et-martyris/alleluia",
+   "hash": "18b53054c682c63c165c5cad7d381e76",
+   "melody": 0.515,
+   "incipit": "Allelú ia allelú ia ℣ Beátus vir san",
+   "page": 432,
+   "candidates": [
+    {
+     "target": "part:s-agnetis-virginis-et-martyris/alleluia",
+     "melody": 0.515
+    },
+    {
+     "target": "part:s-theresiae-a-jesu-infante-virginis/alleluia",
+     "melody": 0.495
+    },
+    {
+     "target": "part:s-bonifatii-episc-et-mart/alleluia",
+     "melody": 0.46
+    },
+    {
+     "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia",
+     "melody": 0.45
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_christo_confixus.csv.ly",
+   "status": "proposed",
+   "target": "part:s-theresiae-a-jesu-infante-virginis/alleluia",
+   "hash": "4e1657c050c1ca5e6f8c3407b0b2f18f",
+   "melody": 0.689,
+   "incipit": "Alle lúia alle lúia ℣ Christo confí xus",
+   "page": 60,
+   "candidates": [
+    {
+     "target": "part:s-theresiae-a-jesu-infante-virginis/alleluia",
+     "melody": 0.689
+    },
+    {
+     "target": "part:s-andre-apostoli/alleluia",
+     "melody": 0.549
+    },
+    {
+     "target": "part:in-purificatione-beat-mari-virginis/alleluia",
+     "melody": 0.549
+    },
+    {
+     "target": "part:in-conceptione-immaculata-beat-mari-virginis/alleluia",
+     "melody": 0.543
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_christus_passus_est.csv.ly",
+   "status": "melody-differs",
+   "target": "part:s-pauli-a-cruce-confessoris/alleluia:2",
+   "hash": "53c5041a4a923d0836c4a452ed12c576",
+   "melody": 0.323,
+   "incipit": "Alle lú ia alle lú ia ℣ Chri",
+   "page": 156,
+   "candidates": [
+    {
+     "target": "part:s-pauli-a-cruce-confessoris/alleluia:2",
+     "melody": 0.323
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_custodi_innocentiam.csv.ly",
+   "status": "proposed",
+   "target": "part:s-philippi-neri-confessoris/alleluia",
+   "hash": "457bad015ed64af8d415466ed46fa116",
+   "melody": 0.809,
+   "incipit": "Alle lú ia ℣ Custódi innocéntiam et vide",
+   "page": 234,
+   "candidates": [
+    {
+     "target": "part:s-philippi-neri-confessoris/alleluia",
+     "melody": 0.809
+    },
+    {
+     "target": "part:s-philippi-neri-confessoris/alleluia:paschal",
+     "melody": 0.664
+    },
+    {
+     "target": "part:maternitatis-beat-mari-virginis/alleluia",
+     "melody": 0.656
+    },
+    {
+     "target": "part:s-agnetis-virginis-et-martyris/alleluia",
+     "melody": 0.649
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_de_excelso.csv.ly",
+   "status": "melody-differs",
+   "target": "part:s-philippi-neri-confessoris/alleluia:paschal",
+   "hash": "df19e393a595ac514fe5104bb6e84504",
+   "melody": 0.587,
+   "incipit": "Alle lúia alle lúia ℣ De excélso mi",
+   "page": 185,
+   "candidates": [
+    {
+     "target": "part:s-philippi-neri-confessoris/alleluia:paschal",
+     "melody": 0.587
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_de_quacumque.csv.ly",
+   "status": "melody-differs",
+   "target": "part:s-catharina-senensis-virgine/alleluia:2",
+   "hash": "da81123652967b5e567995b1ece5b773",
+   "melody": 0.24,
+   "incipit": "Allelúia allelúia ℣ De quacúmque tribulatió ne clamáverint",
+   "page": 163,
+   "candidates": [
+    {
+     "target": "part:s-catharina-senensis-virgine/alleluia:2",
+     "melody": 0.24
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_dicite_in_gentibus.csv.ly",
+   "status": "proposed",
+   "target": "part:s-theresiae-a-jesu-infante-virginis/alleluia",
+   "hash": "da04896d1cdda45525e92b2f581b2594",
+   "melody": 0.686,
+   "incipit": "Allelú ia allelú ia ℣ Dícite in géntibus",
+   "page": 171,
+   "candidates": [
+    {
+     "target": "part:s-theresiae-a-jesu-infante-virginis/alleluia",
+     "melody": 0.686
+    },
+    {
+     "target": "part:ss-cyriaci-largi-et-smaragdi-martyrum/alleluia",
+     "melody": 0.62
+    },
+    {
+     "target": "part:s-agnetis-virginis-et-martyris/alleluia",
+     "melody": 0.587
+    },
+    {
+     "target": "part:s-bonifatii-episc-et-mart/alleluia",
+     "melody": 0.579
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_dispersit.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 69:25: error: syntax error, unexpected '\\''"
+  },
+  {
+   "file": "vol-3/al_ecce_quam_bonum.csv.ly",
+   "status": "proposed",
+   "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia:paschal",
+   "hash": "c0d8cf9662b63041a531d03fb6ba6598",
+   "incipit": "Alle lú ia alle lú ia ℣ Ecce",
+   "page": 297,
+   "candidates": [
+    {
+     "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia:paschal",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_ego_autem_cantabo.csv.ly",
+   "status": "proposed",
+   "target": "part:s-joannis-a-capistrano-confessoris/alleluia:paschal",
+   "hash": "e59870a29c80bf7400ad0d863ca2d8cd",
+   "incipit": "Allelú ia allelú ia ℣ Ego autem cantá",
+   "page": 126,
+   "candidates": [
+    {
+     "target": "part:s-joannis-a-capistrano-confessoris/alleluia:paschal",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_erit_autem_sanguis.csv.ly",
+   "status": "proposed",
+   "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/alleluia:paschal",
+   "hash": "0d9fe2f3c971fe6eb3db834e3a0d0358",
+   "incipit": "Allelú ia ℣ Erit au tem sanguis vo",
+   "page": 252,
+   "candidates": [
+    {
+     "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/alleluia:paschal",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_gaudete_justi.csv.ly",
+   "status": "proposed",
+   "target": "part:s-catharina-senensis-virgine/alleluia:2",
+   "hash": "39b201c6a399399d78b69f30a41ae7ca",
+   "melody": 0.627,
+   "incipit": "Al lelú ia al lelú ia ℣ Gau",
+   "page": 27,
+   "candidates": [
+    {
+     "target": "part:s-catharina-senensis-virgine/alleluia:2",
+     "melody": 0.627
+    },
+    {
+     "target": "part:s-justini-martyris/alleluia",
+     "melody": 0.619
+    },
+    {
+     "target": "part:s-luci-virginis-et-martyris/alleluia",
+     "melody": 0.612
+    },
+    {
+     "target": "part:s-ann-matris-b-m-v/alleluia",
+     "melody": 0.612
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_habet_in_vestimento.csv.ly",
+   "status": "broken",
+   "target": "part:s-barnab-apostoli/alleluia",
+   "error": "wide: programming error: Loose column does not have right side to attach to.; print: programming error: Loose column does not have right side to attach to.",
+   "melody": 0.462,
+   "incipit": "Alle lúia ℣ Ha bet in vestimén to",
+   "page": 421,
+   "candidates": [
+    {
+     "target": "part:s-barnab-apostoli/alleluia",
+     "melody": 0.462
+    },
+    {
+     "target": "part:impressionis-stigmatum-s-francisci/alleluia",
+     "melody": 0.447
+    },
+    {
+     "target": "part:s-agnetis-virginis-et-martyris/alleluia",
+     "melody": 0.442
+    },
+    {
+     "target": "part:in-apparitione-b-mariae-virginis-immaculatae/alleluia",
+     "melody": 0.442
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_haec_est_vera.csv.ly",
+   "status": "melody-differs",
+   "target": "part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/alleluia:2",
+   "hash": "4ba9af85ffd00fc82a5566acb19ac9b9",
+   "melody": 0.373,
+   "incipit": "Allelú ia allelú ia ℣ Hæc est ve",
+   "page": 176,
+   "candidates": [
+    {
+     "target": "part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/alleluia:2",
+     "melody": 0.373
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_in_deo_salutare.csv.ly",
+   "status": "proposed",
+   "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia",
+   "hash": "f83062a6c13647b0317386f7a27ed51d",
+   "melody": 0.542,
+   "incipit": "Alle lúia ℣ In Deo salutáre me um",
+   "page": 385,
+   "candidates": [
+    {
+     "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia",
+     "melody": 0.542
+    },
+    {
+     "target": "part:s-philippi-neri-confessoris/alleluia:paschal",
+     "melody": 0.494
+    },
+    {
+     "target": "part:immaculati-cordis-b-mariae-virginis/alleluia",
+     "melody": 0.494
+    },
+    {
+     "target": "part:s-barnab-apostoli/alleluia",
+     "melody": 0.464
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_laetamini.csv.ly",
+   "status": "melody-differs",
+   "target": "part:s-bonifatii-episc-et-mart/alleluia",
+   "hash": "b75ff25384f81af86f5af0bfad9ee348",
+   "melody": 0.432,
+   "incipit": "Alle lúia alle lúia ℣ Lætámini cum Jerúsalem",
+   "page": 199,
+   "candidates": [
+    {
+     "target": "part:s-bonifatii-episc-et-mart/alleluia",
+     "melody": 0.432
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_missus_est_angelus.csv.ly",
+   "status": "proposed",
+   "target": "part:s-raph-lis-archangeli/alleluia:paschal",
+   "hash": "f4c675f44d37c92a2f097b73ba468644",
+   "incipit": "Alle lú ia ℣ Missus est Angelus Dómini",
+   "page": 413,
+   "candidates": [
+    {
+     "target": "part:s-raph-lis-archangeli/alleluia:paschal",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_non_derelinquet.csv.ly",
+   "status": "melody-differs",
+   "target": "part:ss-septem-fundat-ord-servorum-b-m-v/alleluia",
+   "hash": "f3b31629a7d9da4b261d7d754448cf93",
+   "melody": 0.564,
+   "incipit": "Alle lú ia ℣ Non derelínquet Dóminus sanctos",
+   "page": 92,
+   "candidates": [
+    {
+     "target": "part:ss-septem-fundat-ord-servorum-b-m-v/alleluia",
+     "melody": 0.564
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_nunc_cum_eo.csv.ly",
+   "status": "proposed",
+   "target": "part:ss-fabiani-et-sebastiani-martyrum/alleluia",
+   "hash": "0df6ab22c15485e0011c6d758f31505e",
+   "melody": 1.0,
+   "incipit": "Allelúia ℣ Nunc cum e o re gnas",
+   "page": 451,
+   "candidates": [
+    {
+     "target": "part:ss-fabiani-et-sebastiani-martyrum/alleluia",
+     "melody": 1.0
+    },
+    {
+     "target": "part:s-basilii-magni-confessoris-et-ecclesi-doctoris/alleluia",
+     "melody": 1.0
+    },
+    {
+     "target": "part:ss-apostolorum-petri-et-pauli/alleluia",
+     "melody": 1.0
+    },
+    {
+     "target": "part:in-conversione-s-pauli-apostoli/alleluia",
+     "melody": 0.984
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_per_te_dei_genitrix.csv.ly",
+   "status": "proposed",
+   "target": "part:in-apparitione-b-mariae-virginis-immaculatae/alleluia",
+   "hash": "b840ef72671a80ee4c2ec505cf68f88e",
+   "melody": 0.5,
+   "incipit": "Allelú ia allelú ia ℣ Per te De",
+   "page": 271,
+   "candidates": [
+    {
+     "target": "part:in-apparitione-b-mariae-virginis-immaculatae/alleluia",
+     "melody": 0.5
+    },
+    {
+     "target": "part:s-roberti-bellarmino-episcopi-confessoris-et-ecclesi-doctoris/alleluia",
+     "melody": 0.5
+    },
+    {
+     "target": "part:s-andre-apostoli/alleluia",
+     "melody": 0.476
+    },
+    {
+     "target": "part:in-purificatione-beat-mari-virginis/alleluia",
+     "melody": 0.476
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_potens_in_terra.csv.ly",
+   "status": "proposed",
+   "target": "part:in-conversione-s-pauli-apostoli/alleluia",
+   "hash": "d2cc4517181fdce526a60d3636599fda",
+   "melody": 0.933,
+   "incipit": "Allelúia allelúia ℣ Po tens in ter ra",
+   "page": 325,
+   "candidates": [
+    {
+     "target": "part:in-conversione-s-pauli-apostoli/alleluia",
+     "melody": 0.933
+    },
+    {
+     "target": "part:s-basilii-magni-confessoris-et-ecclesi-doctoris/alleluia",
+     "melody": 0.933
+    },
+    {
+     "target": "part:in-nativitate-s-joannis-baptist/alleluia",
+     "melody": 0.933
+    },
+    {
+     "target": "part:ss-fabiani-et-sebastiani-martyrum/alleluia",
+     "melody": 0.917
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_potestas_ejus.csv.ly",
+   "status": "proposed",
+   "target": "part:s-barnab-apostoli/alleluia",
+   "hash": "020b5bf41b07500fbc74b991186acdab",
+   "melody": 0.502,
+   "incipit": "Alle lúia alle lúia ℣ Potéstas ejus poté",
+   "page": 418,
+   "candidates": [
+    {
+     "target": "part:s-barnab-apostoli/alleluia",
+     "melody": 0.502
+    },
+    {
+     "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia",
+     "melody": 0.458
+    },
+    {
+     "target": "part:in-purificatione-beat-mari-virginis/alleluia",
+     "melody": 0.432
+    },
+    {
+     "target": "part:s-andre-apostoli/alleluia",
+     "melody": 0.427
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_qui_ad_justitiam.csv.ly",
+   "status": "melody-differs",
+   "target": "part:s-roberti-bellarmino-episcopi-confessoris-et-ecclesi-doctoris/alleluia",
+   "hash": "d46f9aae6af868659e8b429db96a73b2",
+   "melody": 0.27,
+   "incipit": "Alle lúia ℣ Qui ad justí tiam erúdiunt",
+   "page": 179,
+   "candidates": [
+    {
+     "target": "part:s-roberti-bellarmino-episcopi-confessoris-et-ecclesi-doctoris/alleluia",
+     "melody": 0.27
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_qui_facit_angelos.csv.ly",
+   "status": "proposed",
+   "target": "part:s-gabrielis-archangeli/alleluia:paschal",
+   "hash": "c9b1d5d2cd46daf8dd9649444173a0b4",
+   "incipit": "Allelú ia allelú ia ℣ Qui fa cit",
+   "page": 112,
+   "candidates": [
+    {
+     "target": "part:s-gabrielis-archangeli/alleluia:paschal",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_quia_factus_es.csv.ly",
+   "status": "proposed",
+   "target": "part:s-joannis-a-capistrano-confessoris/alleluia:paschal",
+   "hash": "afc657392385262dec71c99734094dc4",
+   "incipit": "Allelú ia ℣ Quia factus es suscéptor meus",
+   "page": 126,
+   "candidates": [
+    {
+     "target": "part:s-joannis-a-capistrano-confessoris/alleluia:paschal",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_repletus_sum.csv.ly",
+   "status": "proposed",
+   "target": "part:s-antonii-mari-zaccaria-confessoris/alleluia:paschal",
+   "hash": "8f995db0f52142c96db1e02e92525a8f",
+   "incipit": "Allelúia allelúia ℣ Replétus sum consolatióne superabúndo gáu",
+   "page": 263,
+   "candidates": [
+    {
+     "target": "part:s-antonii-mari-zaccaria-confessoris/alleluia:paschal",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_sapientia_hujus.csv.ly",
+   "status": "melody-differs",
+   "target": "part:s-justini-martyris/alleluia",
+   "hash": "a6001bbc35cb093cc324c2587b076d79",
+   "melody": 0.471,
+   "incipit": "Alle lú ia alle lú ia ℣ Sapiéntia",
+   "page": 143,
+   "candidates": [
+    {
+     "target": "part:s-justini-martyris/alleluia",
+     "melody": 0.471
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_sapientiam.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 89:2: error: undefined character or shorthand: ;"
+  },
+  {
+   "file": "vol-3/al_sicut_oliva.csv.ly",
+   "status": "proposed",
+   "target": "part:s-agnetis-virginis-et-martyris/alleluia",
+   "hash": "75f0e906771b8e640ab9cd05c5c4f82e",
+   "melody": 0.617,
+   "incipit": "Alle lúia alle lúia ℣ Sicut olíva fructífera",
+   "page": 384,
+   "candidates": [
+    {
+     "target": "part:s-agnetis-virginis-et-martyris/alleluia",
+     "melody": 0.617
+    },
+    {
+     "target": "part:s-gabrielis-a-virgine-perdolente-confessoris/alleluia",
+     "melody": 0.577
+    },
+    {
+     "target": "part:s-theresiae-a-jesu-infante-virginis/alleluia",
+     "melody": 0.557
+    },
+    {
+     "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/alleluia",
+     "melody": 0.517
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_stabat_sancta_maria.csv.ly",
+   "status": "proposed",
+   "target": "part:s-justini-martyris/alleluia",
+   "hash": "d7c548c876eb9fd1b64cc7e41fdd1c3e",
+   "melody": 0.651,
+   "incipit": "Allelúia allelúia ℣ Stabat san cta María cœli",
+   "page": 133,
+   "candidates": [
+    {
+     "target": "part:s-justini-martyris/alleluia",
+     "melody": 0.651
+    },
+    {
+     "target": "part:ss-cyriaci-largi-et-smaragdi-martyrum/alleluia",
+     "melody": 0.575
+    },
+    {
+     "target": "part:omnium-sanctorum/alleluia",
+     "melody": 0.507
+    },
+    {
+     "target": "part:s-theresiae-a-jesu-infante-virginis/alleluia",
+     "melody": 0.5
+    }
+   ]
+  },
+  {
+   "file": "vol-3/al_te_gloriosus.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 49:104: error: unknown command: `\\normal'"
+  },
+  {
+   "file": "vol-3/al_tu_es_petrus_31.csv.ly",
+   "status": "proposed",
+   "target": "part:ss-apostolorum-petri-et-pauli/alleluia",
+   "hash": "46c5dc4b8436f2a0389422dc3439faca",
+   "melody": 0.914,
+   "incipit": "Allelúia allelúia ℣ Tu es Pe trus et",
+   "page": 31,
+   "candidates": [
+    {
+     "target": "part:ss-apostolorum-petri-et-pauli/alleluia",
+     "melody": 0.914
+    },
+    {
+     "target": "part:in-conversione-s-pauli-apostoli/alleluia",
+     "melody": 0.903
+    },
+    {
+     "target": "part:ss-fabiani-et-sebastiani-martyrum/alleluia",
+     "melody": 0.882
+    },
+    {
+     "target": "part:in-nativitate-s-joannis-baptist/alleluia",
+     "melody": 0.731
+    }
+   ]
+  },
+  {
+   "file": "vol-3/an_adorna.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "5a41ef91b2b5221820930c04e0fef6ca",
+   "incipit": "Adórna thálamum tuum Si on et súscipe Regem",
+   "page": 64
+  },
+  {
+   "file": "vol-3/an_exsurge_domine.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "fdecae8471c7a692c7e6db718ef176f9",
+   "incipit": "Exsúrge Dómine ádjuva nos et líbera nos propter",
+   "page": 63
+  },
+  {
+   "file": "vol-3/an_lumen_ad_revelationem.1.csv.ly",
+   "status": "melody-differs",
+   "target": "part:s-ignatii-episcopi-et-martyris/communion",
+   "hash": "b02b01dc5a2cbd31d0555821a5651f0d",
+   "melody": 0.31,
+   "incipit": "Lumen ad revelatiónem géntium et glóriam plebis tuæ",
+   "page": 61,
+   "candidates": [
+    {
+     "target": "part:s-ignatii-episcopi-et-martyris/communion",
+     "melody": 0.31
+    }
+   ]
+  },
+  {
+   "file": "vol-3/an_lumen_ad_revelationem.2.csv.ly",
+   "status": "proposed",
+   "target": "part:s-ignatii-episcopi-et-martyris/communion",
+   "hash": "6c6216ea4e43b04a6b186d3dff3a9e4a",
+   "melody": 0.875,
+   "incipit": "Quia vidérunt óculi mei salutáre tuum",
+   "page": 61,
+   "note": "vol-3/an_lumen_ad_revelationem.3.csv.ly matched part:s-ignatii-episcopi-et-martyris/communion better",
+   "candidates": [
+    {
+     "target": "part:s-ignatii-episcopi-et-martyris/communion",
+     "melody": 0.875
+    }
+   ]
+  },
+  {
+   "file": "vol-3/an_lumen_ad_revelationem.4.csv.ly",
+   "status": "proposed",
+   "target": "part:s-ignatii-episcopi-et-martyris/communion",
+   "hash": "de8c13b9ec2cd18e0ab093aa7ebd54b5",
+   "melody": 0.875,
+   "incipit": "Glória Patri et Fílio et Spirítui Sancto",
+   "page": 61,
+   "note": "vol-3/an_lumen_ad_revelationem.3.csv.ly matched part:s-ignatii-episcopi-et-martyris/communion better",
+   "candidates": [
+    {
+     "target": "part:s-ignatii-episcopi-et-martyris/communion",
+     "melody": 0.875
+    }
+   ]
+  },
+  {
+   "file": "vol-3/an_lumen_ad_revelationem.5.csv.ly",
+   "status": "proposed",
+   "target": "part:s-ignatii-episcopi-et-martyris/communion",
+   "hash": "96fd4f8e4edf1fc08b2f42d8b0c0111c",
+   "melody": 0.875,
+   "incipit": "Sicut erat in princípio et nunc et semper",
+   "page": 61,
+   "note": "vol-3/an_lumen_ad_revelationem.3.csv.ly matched part:s-ignatii-episcopi-et-martyris/communion better",
+   "candidates": [
+    {
+     "target": "part:s-ignatii-episcopi-et-martyris/communion",
+     "melody": 0.875
+    }
+   ]
+  },
+  {
+   "file": "vol-3/an_responsum_accepit.csv.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "a8cb6e2420ad32f66a6597d269db96bb",
+   "incipit": "Respónsum accépit Símeon a Spiritu Sancto non visúrum",
+   "page": 65
+  },
+  {
+   "file": "vol-3/co_caro_mea.csv.ly",
+   "status": "proposed",
+   "target": "part:s-petri-chrysologi-episcopi-confessoris-et-ecclesi-doctoris/communion",
+   "hash": "a103b4dd0cb06aeb2a921930c0b6773f",
+   "melody": 0.847,
+   "incipit": "Caro mea ve re est cibus et sanguis",
+   "page": 466,
+   "candidates": [
+    {
+     "target": "part:s-petri-chrysologi-episcopi-confessoris-et-ecclesi-doctoris/communion",
+     "melody": 0.847
+    },
+    {
+     "target": "part:s-gabrielis-a-virgine-perdolente-confessoris/communion",
+     "melody": 0.681
+    },
+    {
+     "target": "part:s-theresiae-a-jesu-infante-virginis/communion",
+     "melody": 0.653
+    },
+    {
+     "target": "part:ss-fabiani-et-sebastiani-martyrum/communion",
+     "melody": 0.625
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_dicit_andreas.csv.ly",
+   "status": "proposed",
+   "target": "part:s-pauli-a-cruce-confessoris/communion",
+   "hash": "3eb4a2d51ffab1c325b622a9639f4f02",
+   "melody": 0.737,
+   "incipit": "Dicit Andréas Simóni fratri suo Invénimus Messíam qui",
+   "page": 4,
+   "candidates": [
+    {
+     "target": "part:s-pauli-a-cruce-confessoris/communion",
+     "melody": 0.737
+    },
+    {
+     "target": "part:s-ambrosii-episcopi-confessoris-et-ecclesi-doctoris/communion",
+     "melody": 0.719
+    },
+    {
+     "target": "part:s-basilidus/communion",
+     "melody": 0.719
+    },
+    {
+     "target": "part:ss-cyriaci-largi-et-smaragdi-martyrum/communion",
+     "melody": 0.719
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_ecce_sto.csv.ly",
+   "status": "proposed",
+   "target": "part:s-gabrielis-a-virgine-perdolente-confessoris/communion",
+   "hash": "e64b27078e622bc001bb9791b9ce5857",
+   "melody": 0.762,
+   "incipit": "Ecce sto ad óstium et pulso si quis",
+   "page": 105,
+   "candidates": [
+    {
+     "target": "part:s-gabrielis-a-virgine-perdolente-confessoris/communion",
+     "melody": 0.762
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_ego_vos_elegi.csv.ly",
+   "status": "proposed",
+   "target": "part:s-pauli-a-cruce-confessoris/communion",
+   "hash": "e28d2b6fa8fad2bac7aab39af41552f8",
+   "melody": 0.796,
+   "incipit": "Ego vos elégi de mundo ut eátis et",
+   "page": 203,
+   "candidates": [
+    {
+     "target": "part:s-pauli-a-cruce-confessoris/communion",
+     "melody": 0.796
+    },
+    {
+     "target": "part:s-theresiae-a-jesu-infante-virginis/communion",
+     "melody": 0.704
+    },
+    {
+     "target": "part:ss-quadraginta-martyrum/communion",
+     "melody": 0.667
+    },
+    {
+     "target": "part:in-vigilia-ss-petri-et-pauli-apostolorum/communion",
+     "melody": 0.667
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_felices_sensus.csv.ly",
+   "status": "proposed",
+   "target": "part:maternitatis-beat-mari-virginis/communion",
+   "hash": "148e55c472f3f23dbaf1ce897fe6e929",
+   "melody": 0.843,
+   "incipit": "Felíces sen sus beátæ Maríæ Vir ginis qui",
+   "page": 140,
+   "candidates": [
+    {
+     "target": "part:maternitatis-beat-mari-virginis/communion",
+     "melody": 0.843
+    },
+    {
+     "target": "part:festum-b-mariae-virginis-a-rosario/communion",
+     "melody": 0.714
+    },
+    {
+     "target": "part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/communion",
+     "melody": 0.7
+    },
+    {
+     "target": "part:s-theresiae-a-jesu-infante-virginis/communion",
+     "melody": 0.629
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_frumentum.csv.ly",
+   "status": "proposed",
+   "target": "part:s-ignatii-episcopi-et-martyris/communion",
+   "hash": "98d7539004644f21df68791f4de7b389",
+   "melody": 1.0,
+   "incipit": "Fruméntum Christi sum déntibus bestiárum mo lar ut",
+   "page": 61,
+   "note": "vol-3/an_lumen_ad_revelationem.3.csv.ly matched part:s-ignatii-episcopi-et-martyris/communion better",
+   "candidates": [
+    {
+     "target": "part:s-ignatii-episcopi-et-martyris/communion",
+     "melody": 1.0
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_jacob_autem.csv.ly",
+   "status": "melody-differs",
+   "target": "part:s-catharina-senensis-virgine/communion",
+   "hash": "c12e52cbde4acd7720c53599c0eda232",
+   "melody": 0.368,
+   "incipit": "Jacob autem génuit Joseph virum Maríæ de qua",
+   "page": 166,
+   "candidates": [
+    {
+     "target": "part:s-catharina-senensis-virgine/communion",
+     "melody": 0.368
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_per_signum_crucis.csv.ly",
+   "status": "proposed",
+   "target": "part:omnium-sanctorum/communion",
+   "hash": "fe28e3eb0080401c36dcb171134bc3fb",
+   "melody": 0.697,
+   "incipit": "Per signum Crucis de inimícis nostris líbera nos",
+   "page": 174,
+   "candidates": [
+    {
+     "target": "part:omnium-sanctorum/communion",
+     "melody": 0.697
+    },
+    {
+     "target": "part:s-theresiae-a-jesu-infante-virginis/communion",
+     "melody": 0.682
+    },
+    {
+     "target": "part:festum-b-mariae-virginis-a-rosario/communion",
+     "melody": 0.682
+    },
+    {
+     "target": "part:ss-fabiani-et-sebastiani-martyrum/communion",
+     "melody": 0.621
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_posuerunt.csv.ly",
+   "status": "melody-differs",
+   "target": "part:s-basilidus/communion",
+   "hash": "e537ac306cd3e1250de11118681814aa",
+   "melody": 0.328,
+   "incipit": "Posuérunt mortália servórum tuórum Dómine escas volátí libus",
+   "page": 208,
+   "candidates": [
+    {
+     "target": "part:s-basilidus/communion",
+     "melody": 0.328
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_quae_est_ista.csv.ly",
+   "status": "melody-differs",
+   "target": "part:s-ambrosii-episcopi-confessoris-et-ecclesi-doctoris/communion",
+   "hash": "cd04ee89d7c345710097863f22b88f66",
+   "melody": 0.574,
+   "incipit": "Quæ est ista quæ progréditur quasi auróra consúrgens",
+   "page": 16,
+   "candidates": [
+    {
+     "target": "part:s-ambrosii-episcopi-confessoris-et-ecclesi-doctoris/communion",
+     "melody": 0.574
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_quae_mihi_fuerunt.csv.ly",
+   "status": "proposed",
+   "target": "part:s-joannis-leonardi-confessoris/communion",
+   "hash": "abc0efbee7321834651f2c2f83c7df8d",
+   "melody": 0.7,
+   "incipit": "Quæ mihi fuérunt lucra hæc arbitrátus sum propter",
+   "page": 387,
+   "candidates": [
+    {
+     "target": "part:s-joannis-leonardi-confessoris/communion",
+     "melody": 0.7
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_regina_mundi_272.csv.ly",
+   "status": "proposed",
+   "target": "part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/communion",
+   "hash": "b561e23396c8ef63e41603f1dc06ad48",
+   "melody": 1.0,
+   "incipit": "Regína mundi di gníssima María Virgo perpétua intercé",
+   "page": 456,
+   "candidates": [
+    {
+     "target": "part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/communion",
+     "melody": 1.0
+    },
+    {
+     "target": "part:ss-quadraginta-martyrum/communion",
+     "melody": 0.607
+    },
+    {
+     "target": "part:s-basilidus/communion",
+     "melody": 0.548
+    },
+    {
+     "target": "part:s-ann-matris-b-m-v/communion",
+     "melody": 0.548
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_sedebit_dominus.csv.ly",
+   "status": "proposed",
+   "target": "part:s-agath-virginis-et-martyris/communion",
+   "hash": "81cd985ec4e5399af77f61c35f257529",
+   "melody": 0.814,
+   "incipit": "Sedébit Dóminus Rex in ætérnum Dóminus benedícet pópulo",
+   "page": 423,
+   "candidates": [
+    {
+     "target": "part:s-agath-virginis-et-martyris/communion",
+     "melody": 0.814
+    },
+    {
+     "target": "part:in-assumptione-beat-mari-virginis/communion",
+     "melody": 0.791
+    },
+    {
+     "target": "part:s-theresiae-a-jesu-infante-virginis/communion",
+     "melody": 0.791
+    },
+    {
+     "target": "part:omnium-sanctorum/communion",
+     "melody": 0.767
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_signa_eos.csv.ly",
+   "status": "proposed",
+   "target": "part:ss-cyriaci-largi-et-smaragdi-martyrum/communion",
+   "hash": "6f84737605adc849856ced010dfd4d59",
+   "melody": 0.644,
+   "incipit": "Signa eos qui in me cre dunt hæc",
+   "page": 308,
+   "candidates": [
+    {
+     "target": "part:ss-cyriaci-largi-et-smaragdi-martyrum/communion",
+     "melody": 0.644
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_tu_es_petrus_36.csv.ly",
+   "status": "proposed",
+   "target": "part:ss-apostolorum-petri-et-pauli/communion",
+   "hash": "2d1b938fed14a1bdb6deacf55912981c",
+   "melody": 1.0,
+   "incipit": "Tu es Petrus et super hanc petram ædificábo",
+   "page": 36,
+   "candidates": [
+    {
+     "target": "part:ss-apostolorum-petri-et-pauli/communion",
+     "melody": 1.0
+    },
+    {
+     "target": "part:festum-b-mariae-virginis-a-rosario/communion",
+     "melody": 0.943
+    },
+    {
+     "target": "part:ss-quadraginta-martyrum/communion",
+     "melody": 0.886
+    },
+    {
+     "target": "part:omnium-sanctorum/communion",
+     "melody": 0.857
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_vos_estis_lux.csv.ly",
+   "status": "proposed",
+   "target": "part:s-petri-chrysologi-episcopi-confessoris-et-ecclesi-doctoris/communion",
+   "hash": "8a4ea03fb52dc715cb608def2298507d",
+   "melody": 0.841,
+   "incipit": "Vos estis lux mundi sic lúceat lux vestra",
+   "page": 183,
+   "candidates": [
+    {
+     "target": "part:s-petri-chrysologi-episcopi-confessoris-et-ecclesi-doctoris/communion",
+     "melody": 0.841
+    },
+    {
+     "target": "part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/communion",
+     "melody": 0.725
+    },
+    {
+     "target": "part:maternitatis-beat-mari-virginis/communion",
+     "melody": 0.681
+    },
+    {
+     "target": "part:festum-b-mariae-virginis-a-rosario/communion",
+     "melody": 0.652
+    }
+   ]
+  },
+  {
+   "file": "vol-3/co_vos_qui_secuti__dicit.csv.ly",
+   "status": "proposed",
+   "target": "part:s-justini-martyris/communion",
+   "hash": "e04d96549b0b35416d62747c64cd6696",
+   "melody": 0.969,
+   "incipit": "Vos qui secúti estis me sedébitis super sedes",
+   "page": 339,
+   "candidates": [
+    {
+     "target": "part:s-justini-martyris/communion",
+     "melody": 0.969
+    },
+    {
+     "target": "part:ss-fabiani-et-sebastiani-martyrum/communion",
+     "melody": 0.906
+    },
+    {
+     "target": "part:s-catharina-senensis-virgine/communion",
+     "melody": 0.875
+    },
+    {
+     "target": "part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/communion",
+     "melody": 0.844
+    }
+   ]
+  },
+  {
+   "file": "vol-3/gr_benedicite_dominum.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 56:29: error: unknown command: `\\normal'"
+  },
+  {
+   "file": "vol-3/gr_dominabitur.csv.ly",
+   "status": "proposed",
+   "target": "part:in-apparitione-b-mariae-virginis-immaculatae/gradual",
+   "hash": "68e1d271a43bccb25c53d2dfe6fdd339",
+   "melody": 0.607,
+   "incipit": "Dominá bitur a mari us que ad mare",
+   "page": 416,
+   "candidates": [
+    {
+     "target": "part:in-apparitione-b-mariae-virginis-immaculatae/gradual",
+     "melody": 0.607
+    },
+    {
+     "target": "part:in-conversione-s-pauli-apostoli/gradual",
+     "melody": 0.602
+    },
+    {
+     "target": "part:s-theresiae-a-jesu-infante-virginis/gradual",
+     "melody": 0.592
+    },
+    {
+     "target": "part:s-joannis-bosco-confessoris/gradual",
+     "melody": 0.534
+    }
+   ]
+  },
+  {
+   "file": "vol-3/gr_mihi_autem.csv.ly",
+   "status": "proposed",
+   "target": "part:s-joannis-a-capistrano-confessoris/gradual",
+   "hash": "e6b8f33daf7ac6c9fa6a665fb0680876",
+   "melody": 0.547,
+   "incipit": "Mihi autem ab sit glo ri ári ni",
+   "page": 155,
+   "candidates": [
+    {
+     "target": "part:s-joannis-a-capistrano-confessoris/gradual",
+     "melody": 0.547
+    },
+    {
+     "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/gradual",
+     "melody": 0.547
+    },
+    {
+     "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/gradual",
+     "melody": 0.498
+    },
+    {
+     "target": "part:ss-primi-et-feliciani-martyrum/gradual",
+     "melody": 0.489
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_adjutor.csv.ly",
+   "status": "melody-differs",
+   "target": "part:s-catharina-senensis-virgine/introit",
+   "hash": "d6fc17d3a809b82263f9c612c0e49aaa",
+   "melody": 0.344,
+   "incipit": "Adjútor et protéctor noster est Dóminus in eo",
+   "page": 162,
+   "candidates": [
+    {
+     "target": "part:s-catharina-senensis-virgine/introit",
+     "melody": 0.344
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_benedicite_dominum.csv.ly",
+   "status": "proposed",
+   "target": "part:in-dedicatione-s-mich-lis-archangelis/introit",
+   "hash": "1488fe9c10dbabae7783e47cad52e2cc",
+   "melody": 0.838,
+   "incipit": "Benedicite Dóminum omnes Ange li ejus poténtes virtúte",
+   "page": 354,
+   "candidates": [
+    {
+     "target": "part:in-dedicatione-s-mich-lis-archangelis/introit",
+     "melody": 0.838
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_confessio.csv.ly",
+   "status": "proposed",
+   "target": "part:s-laurentii-martyris/introit",
+   "hash": "d082dc9ea2603c6abfcb5ba27835a33f",
+   "melody": 0.836,
+   "incipit": "Confessio et pulchri tú do in conspé ctu",
+   "page": 314,
+   "candidates": [
+    {
+     "target": "part:s-laurentii-martyris/introit",
+     "melody": 0.836
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_dignus_est_agnus.csv.ly",
+   "status": "proposed",
+   "target": "part:s-bonifatii-episc-et-mart/introit",
+   "hash": "9c619b085a411dc00dc66726679b124d",
+   "melody": 0.604,
+   "incipit": "Dignus est Agnus qui occísus est accípere virtú",
+   "page": 415,
+   "candidates": [
+    {
+     "target": "part:s-bonifatii-episc-et-mart/introit",
+     "melody": 0.604
+    },
+    {
+     "target": "part:s-ignatii-confessoris/introit",
+     "melody": 0.542
+    },
+    {
+     "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/introit",
+     "melody": 0.535
+    },
+    {
+     "target": "part:in-vigilia-ss-petri-et-pauli-apostolorum/introit",
+     "melody": 0.521
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_dominus_secus_mare.csv.ly",
+   "status": "proposed",
+   "target": "part:in-nativitate-s-joannis-baptist/introit",
+   "hash": "5317eda1ab714ba94df3b7de9c3bb70c",
+   "melody": 0.583,
+   "incipit": "Dóminus secus ma re Galilǽ æ vidit du",
+   "page": 1,
+   "candidates": [
+    {
+     "target": "part:in-nativitate-s-joannis-baptist/introit",
+     "melody": 0.583
+    },
+    {
+     "target": "part:in-conversione-s-pauli-apostoli/introit",
+     "melody": 0.559
+    },
+    {
+     "target": "part:ss-philippi-et-jacobi-apostolorum/introit",
+     "melody": 0.559
+    },
+    {
+     "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/introit",
+     "melody": 0.535
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_ecce_oculi.csv.ly",
+   "status": "proposed",
+   "target": "part:s-bonifatii-episc-et-mart/introit",
+   "hash": "889805b6847068902a3d0d5bd6bd824d",
+   "melody": 0.57,
+   "incipit": "Ecce óculi Dó mini su per timéntes eum",
+   "page": 175,
+   "candidates": [
+    {
+     "target": "part:s-bonifatii-episc-et-mart/introit",
+     "melody": 0.57
+    },
+    {
+     "target": "part:s-ignatii-confessoris/introit",
+     "melody": 0.491
+    },
+    {
+     "target": "part:in-conceptione-immaculata-beat-mari-virginis/introit",
+     "melody": 0.473
+    },
+    {
+     "target": "part:s-justini-martyris/introit",
+     "melody": 0.473
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_ecce_virgo.csv.ly",
+   "status": "proposed",
+   "target": "part:maternitatis-beat-mari-virginis/introit",
+   "hash": "bec4fc14391b5224e1d17c8de460481a",
+   "melody": 0.795,
+   "incipit": "Ecce Virgo concípiet et páriet Fílium et vocábitur",
+   "page": 388,
+   "candidates": [
+    {
+     "target": "part:maternitatis-beat-mari-virginis/introit",
+     "melody": 0.795
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_exclamaverunt.csv.ly",
+   "status": "proposed",
+   "target": "part:ss-philippi-et-jacobi-apostolorum/introit",
+   "hash": "2492692b7bcad96dd1d5ec31ca4655e8",
+   "melody": 0.843,
+   "incipit": "Exclamaverunt ad te Dómine in témpore afflictiónis suæ",
+   "page": 166,
+   "candidates": [
+    {
+     "target": "part:ss-philippi-et-jacobi-apostolorum/introit",
+     "melody": 0.843
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_extuli_electum.csv.ly",
+   "status": "proposed",
+   "target": "part:in-conceptione-immaculata-beat-mari-virginis/introit",
+   "hash": "5b77465f55cecc852e6e63f2ba660d6a",
+   "melody": 0.732,
+   "incipit": "Extuli eléctum de pó pulo óleo sancto meo",
+   "page": 458,
+   "candidates": [
+    {
+     "target": "part:in-conceptione-immaculata-beat-mari-virginis/introit",
+     "melody": 0.732
+    },
+    {
+     "target": "part:s-antonii-mari-zaccaria-confessoris/introit",
+     "melody": 0.592
+    },
+    {
+     "target": "part:s-theresiae-a-jesu-infante-virginis/introit",
+     "melody": 0.585
+    },
+    {
+     "target": "part:s-francisci-caracciolo-confessoris/introit",
+     "melody": 0.57
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_gaudeamus__annae.csv.ly",
+   "status": "proposed",
+   "target": "part:s-agath-virginis-et-martyris/introit",
+   "hash": "7332d51925ae69bd123de41b5b113da4",
+   "melody": 0.881,
+   "incipit": "Gaudeámus omnes in Dómino diem festum celebrántes sub",
+   "page": 281,
+   "candidates": [
+    {
+     "target": "part:s-agath-virginis-et-martyris/introit",
+     "melody": 0.881
+    },
+    {
+     "target": "part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/introit",
+     "melody": 0.881
+    },
+    {
+     "target": "part:omnium-sanctorum/introit",
+     "melody": 0.881
+    },
+    {
+     "target": "part:s-josaphat-episcopi-et-martyris/introit",
+     "melody": 0.881
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_gaudeamus__mariae__reginae.csv.ly",
+   "status": "proposed",
+   "target": "part:s-josaphat-episcopi-et-martyris/introit",
+   "hash": "b8aef5671e851c976ade85ceb35b8c1d",
+   "melody": 0.75,
+   "incipit": "Gaudeámus omnes in Dómino diem festum celebrántes sub",
+   "page": 448,
+   "candidates": [
+    {
+     "target": "part:s-josaphat-episcopi-et-martyris/introit",
+     "melody": 0.75
+    },
+    {
+     "target": "part:s-agath-virginis-et-martyris/introit",
+     "melody": 0.738
+    },
+    {
+     "target": "part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/introit",
+     "melody": 0.738
+    },
+    {
+     "target": "part:omnium-sanctorum/introit",
+     "melody": 0.738
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_illuxerunt.csv.ly",
+   "status": "proposed",
+   "target": "part:in-transfiguratione-domini/introit",
+   "hash": "9c15943ceb06704edebdb41ea97e2268",
+   "melody": 0.787,
+   "incipit": "Illuxerunt coru scatió nes tuæ orbi terræ commóta",
+   "page": 302,
+   "candidates": [
+    {
+     "target": "part:in-transfiguratione-domini/introit",
+     "melody": 0.787
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_judicant_sancti.csv.ly",
+   "status": "melody-differs",
+   "target": "part:omnium-sanctorum/introit",
+   "hash": "43ecf74c46a1dc88bca12ba05b7f418b",
+   "melody": 0.526,
+   "incipit": "Judicant sancti gen tes et dominántur pópu lis",
+   "page": 425,
+   "candidates": [
+    {
+     "target": "part:omnium-sanctorum/introit",
+     "melody": 0.526
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_justi_epulentur.csv.ly",
+   "status": "proposed",
+   "target": "part:s-marii-et-soc-mart/introit",
+   "hash": "261c73d3747f0908fddecd568673952a",
+   "melody": 0.807,
+   "incipit": "Justi epuléntur et exsúltent in conspéctu Dei delectén",
+   "page": 37,
+   "candidates": [
+    {
+     "target": "part:s-marii-et-soc-mart/introit",
+     "melody": 0.807
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_loquetur_dominus.csv.ly",
+   "status": "melody-differs",
+   "target": "part:ss-gervasio-et-protasio/introit",
+   "hash": "f2e5f05adb8965803f26920d465c63f6",
+   "melody": 0.485,
+   "incipit": "Loquétur Dóminus pacem in ple bem suam et",
+   "page": 214,
+   "candidates": [
+    {
+     "target": "part:ss-gervasio-et-protasio/introit",
+     "melody": 0.485
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_mihi_autem_nimis.csv.ly",
+   "status": "proposed",
+   "target": "part:s-andre-apostoli/introit",
+   "hash": "3ee895c2d1477b685dc27b73acf3a87a",
+   "melody": 0.833,
+   "incipit": "Mihi autem nimis honoráti sunt amíci tui Deus",
+   "page": 4,
+   "candidates": [
+    {
+     "target": "part:s-andre-apostoli/introit",
+     "melody": 0.833
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_minuisti_eum.csv.ly",
+   "status": "proposed",
+   "target": "part:s-aloisii-gonzag-confessoris/introit",
+   "hash": "fa24f898bc7a2e846f0b0541f0f15969",
+   "melody": 0.822,
+   "incipit": "Minuísti e um paulo minus ab Angelis glória",
+   "page": 215,
+   "candidates": [
+    {
+     "target": "part:s-aloisii-gonzag-confessoris/introit",
+     "melody": 0.822
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_miseratio.csv.ly",
+   "status": "broken",
+   "target": "part:s-joannis-cantii-confessoris/introit",
+   "error": "narrow: programming error: Tie without heads.  Suicide; narrow: programming error: Tie without heads.  Suicide; narrow: programming error: Tie without heads.  Suicide; narrow: programming error: Tie without heads.  Suicide",
+   "melody": 0.885,
+   "incipit": "Miserátio hóminis circa próximum misericórdia autem De i",
+   "page": 402,
+   "candidates": [
+    {
+     "target": "part:s-joannis-cantii-confessoris/introit",
+     "melody": 0.885
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_nos_autem__alleluia.csv.ly",
+   "status": "proposed",
+   "target": "part:s-pauli-a-cruce-confessoris/introit",
+   "hash": "fce482009bce434f083d9f084861dffd",
+   "melody": 0.69,
+   "incipit": "Nos au tem gloriári opór tet in cruce",
+   "page": 170,
+   "candidates": [
+    {
+     "target": "part:s-pauli-a-cruce-confessoris/introit",
+     "melody": 0.69
+    },
+    {
+     "target": "part:s-joannis-cantii-confessoris/introit",
+     "melody": 0.586
+    },
+    {
+     "target": "part:in-vigilia-ss-petri-et-pauli-apostolorum/introit",
+     "melody": 0.538
+    },
+    {
+     "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/introit",
+     "melody": 0.51
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_probasti.csv.ly",
+   "status": "proposed",
+   "target": "part:in-assumptione-beat-mari-virginis/introit",
+   "hash": "fcfe91abf4b6ab04201b419f1dd06479",
+   "melody": 0.784,
+   "incipit": "Probasti Dómine cor meum et visitásti nocte i",
+   "page": 326,
+   "candidates": [
+    {
+     "target": "part:in-assumptione-beat-mari-virginis/introit",
+     "melody": 0.784
+    },
+    {
+     "target": "part:s-gabrielis-a-virgine-perdolente-confessoris/introit",
+     "melody": 0.703
+    },
+    {
+     "target": "part:in-vigilia-s-joannis-baptist/introit",
+     "melody": 0.694
+    },
+    {
+     "target": "part:in-purificatione-beat-mari-virginis/introit",
+     "melody": 0.55
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_sermo_meus.csv.ly",
+   "status": "proposed",
+   "target": "part:s-antonii-mari-zaccaria-confessoris/introit",
+   "hash": "49abe508e5d589c51135aabb6e4f8fdd",
+   "melody": 0.835,
+   "incipit": "Sermo meus et prædicátio mea non in persuasibílibus",
+   "page": 257,
+   "candidates": [
+    {
+     "target": "part:s-antonii-mari-zaccaria-confessoris/introit",
+     "melody": 0.835
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_stabant.csv.ly",
+   "status": "proposed",
+   "target": "part:in-vigilia-s-joannis-baptist/introit",
+   "hash": "c51f4a0454a89ab3c5c628b9cc221355",
+   "melody": 0.722,
+   "incipit": "Stabant juxta crucem Je su mater ejus et",
+   "page": 128,
+   "candidates": [
+    {
+     "target": "part:in-vigilia-s-joannis-baptist/introit",
+     "melody": 0.722
+    },
+    {
+     "target": "part:s-clementis-pap-et-martyris/introit",
+     "melody": 0.701
+    },
+    {
+     "target": "part:s-pauli-a-cruce-confessoris/introit",
+     "melody": 0.66
+    },
+    {
+     "target": "part:s-hieronymi-emiliani-confessoris/introit",
+     "melody": 0.66
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_tenuisti_manum.csv.ly",
+   "status": "proposed",
+   "target": "part:s-joannis-damasceni-confessoris/introit",
+   "hash": "5a526a53ff85a07c799b14bf451a60c1",
+   "melody": 0.731,
+   "incipit": "Tenuísti manum déx teram meam et in voluntáte",
+   "page": 114,
+   "candidates": [
+    {
+     "target": "part:s-joannis-damasceni-confessoris/introit",
+     "melody": 0.731
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_timete_dominum.csv.ly",
+   "status": "melody-differs",
+   "target": "part:ss-cyriaci-largi-et-smaragdi-martyrum/introit",
+   "hash": "a2d9f2975cac82564136367df67a8ad5",
+   "melody": 0.415,
+   "incipit": "Timéte Dóminum omnes sancti ejus quóniam nihil deest",
+   "page": 306,
+   "candidates": [
+    {
+     "target": "part:ss-cyriaci-largi-et-smaragdi-martyrum/introit",
+     "melody": 0.415
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_venite_audite.csv.ly",
+   "status": "proposed",
+   "target": "part:in-vigilia-ss-petri-et-pauli-apostolorum/introit",
+   "hash": "c7cc685a613c290f269b618257de6eef",
+   "melody": 0.727,
+   "incipit": "Veni te audíte et narrábo omnes qui timétis",
+   "page": 13,
+   "candidates": [
+    {
+     "target": "part:in-vigilia-ss-petri-et-pauli-apostolorum/introit",
+     "melody": 0.727
+    },
+    {
+     "target": "part:ss-septem-fratrum-martyrum-ac-rufin-et-secund-virginum-et-martyr/introit",
+     "melody": 0.716
+    },
+    {
+     "target": "part:s-gabrielis-a-virgine-perdolente-confessoris/introit",
+     "melody": 0.67
+    },
+    {
+     "target": "part:s-josaphat-episcopi-et-martyris/introit",
+     "melody": 0.67
+    }
+   ]
+  },
+  {
+   "file": "vol-3/in_venite_filii.csv.ly",
+   "status": "proposed",
+   "target": "part:s-josephi-calasanctii-confessoris/introit",
+   "hash": "b99d19d7dd69e4ea3d8602d6f746fb30",
+   "melody": 0.814,
+   "incipit": "Vení te fílii audí te me timórem Dómini",
+   "page": 340,
+   "candidates": [
+    {
+     "target": "part:s-josephi-calasanctii-confessoris/introit",
+     "melody": 0.814
+    }
+   ]
+  },
+  {
+   "file": "vol-3/of_adducam_eos.csv.ly",
+   "status": "broken",
+   "target": "part:ss-septem-fundat-ord-servorum-b-m-v/offertory",
+   "error": "wide: programming error: Loose column does not have right side to attach to.; print: programming error: Loose column does not have right side to attach to.",
+   "melody": 1.0,
+   "incipit": "Addú cam eos in montem sanctum me um",
+   "page": 93,
+   "candidates": [
+    {
+     "target": "part:ss-septem-fundat-ord-servorum-b-m-v/offertory",
+     "melody": 1.0
+    }
+   ]
+  },
+  {
+   "file": "vol-3/of_calix_benedictionis.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 78:16: error: not a note name: aa"
+  },
+  {
+   "file": "vol-3/of_dextera_domini_alleluia.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 84:12: error: not a note name: besm"
+  },
+  {
+   "file": "vol-3/of_ego_dilecto.csv.ly",
+   "status": "melody-differs",
+   "target": "part:s-ambrosii-episcopi-confessoris-et-ecclesi-doctoris/offertory",
+   "hash": "8a578718c8cf4fbba15c1dcddc1d38b9",
+   "melody": 0.235,
+   "incipit": "Ego dilécto me o et diléctus me us",
+   "page": 16,
+   "candidates": [
+    {
+     "target": "part:s-ambrosii-episcopi-confessoris-et-ecclesi-doctoris/offertory",
+     "melody": 0.235
+    }
+   ]
+  },
+  {
+   "file": "vol-3/of_in_me_gratia.csv.ly",
+   "status": "proposed",
+   "target": "part:in-dedicatione-s-mich-lis-archangelis/offertory",
+   "hash": "628a70afc38600f421fb5179fb0df02f",
+   "melody": 0.519,
+   "incipit": "In me grá ti a o mnis vi",
+   "page": 376,
+   "candidates": [
+    {
+     "target": "part:in-dedicatione-s-mich-lis-archangelis/offertory",
+     "melody": 0.519
+    },
+    {
+     "target": "part:s-joannis-leonardi-confessoris/offertory",
+     "melody": 0.519
+    },
+    {
+     "target": "part:ss-angelorum-custodum/offertory",
+     "melody": 0.473
+    },
+    {
+     "target": "part:in-apparitione-b-mariae-virginis-immaculatae/offertory",
+     "melody": 0.465
+    }
+   ]
+  },
+  {
+   "file": "vol-3/of_lauda_jerusalem.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 102:1: error: not a note name: y"
+  },
+  {
+   "file": "vol-3/of_postula_a_me.csv.ly",
+   "status": "proposed",
+   "target": "part:s-nominis-beat-mari-virginis/offertory",
+   "hash": "ea29f1a726f15063b113651c9be67789",
+   "melody": 0.765,
+   "incipit": "Póstula a me et dabo tibi gen tes",
+   "page": 422,
+   "candidates": [
+    {
+     "target": "part:s-nominis-beat-mari-virginis/offertory",
+     "melody": 0.765
+    },
+    {
+     "target": "part:s-joannis-bosco-confessoris/offertory",
+     "melody": 0.755
+    },
+    {
+     "target": "part:s-laurentii-martyris/offertory",
+     "melody": 0.653
+    },
+    {
+     "target": "part:s-roberti-bellarmino-episcopi-confessoris-et-ecclesi-doctoris/offertory",
+     "melody": 0.612
+    }
+   ]
+  },
+  {
+   "file": "vol-3/of_protege_domine.csv.ly",
+   "status": "melody-differs",
+   "target": "part:s-nominis-beat-mari-virginis/offertory",
+   "hash": "f0888c339f093f3e6035bae79b85a704",
+   "melody": 0.235,
+   "incipit": "Pró tege Dó mine plebem tuam per si",
+   "page": 345,
+   "candidates": [
+    {
+     "target": "part:s-nominis-beat-mari-virginis/offertory",
+     "melody": 0.235
+    }
+   ]
+  },
+  {
+   "file": "vol-3/of_recordare_virgo.csv.ly",
+   "status": "proposed",
+   "target": "part:s-theresiae-a-jesu-infante-virginis/offertory",
+   "hash": "327568c265439e4661bbf8872ec39e5a",
+   "melody": 0.674,
+   "incipit": "Re cordáre Vir go Mater in conspéctu Dei",
+   "page": 140,
+   "candidates": [
+    {
+     "target": "part:s-theresiae-a-jesu-infante-virginis/offertory",
+     "melody": 0.674
+    },
+    {
+     "target": "part:s-roberti-bellarmino-episcopi-confessoris-et-ecclesi-doctoris/offertory",
+     "melody": 0.62
+    },
+    {
+     "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/offertory",
+     "melody": 0.609
+    },
+    {
+     "target": "part:s-matthi-apostoli/offertory",
+     "melody": 0.543
+    }
+   ]
+  },
+  {
+   "file": "vol-3/of_regali_ex_progenie.csv.ly",
+   "status": "proposed",
+   "target": "part:ss-joannis-et-pauli-martyrum/offertory",
+   "hash": "85ea9a506e5496fef04ef95876052d24",
+   "melody": 0.575,
+   "incipit": "Regá li ex progéni e María exór ta",
+   "page": 455,
+   "candidates": [
+    {
+     "target": "part:ss-joannis-et-pauli-martyrum/offertory",
+     "melody": 0.575
+    },
+    {
+     "target": "part:s-hieronymi-emiliani-confessoris/offertory",
+     "melody": 0.566
+    },
+    {
+     "target": "part:s-joannis-bosco-confessoris/offertory",
+     "melody": 0.538
+    },
+    {
+     "target": "part:ss-angelorum-custodum/offertory",
+     "melody": 0.528
+    }
+   ]
+  },
+  {
+   "file": "vol-3/of_venite_filii.csv.ly",
+   "status": "proposed",
+   "target": "part:s-joannis-bosco-confessoris/offertory",
+   "hash": "98b0c630121a5d8722d04cda758aec1e",
+   "melody": 0.975,
+   "incipit": "Veníte fí lii audí te me ti mó",
+   "page": 465,
+   "candidates": [
+    {
+     "target": "part:s-joannis-bosco-confessoris/offertory",
+     "melody": 0.975
+    },
+    {
+     "target": "part:s-laurentii-martyris/offertory",
+     "melody": 0.747
+    },
+    {
+     "target": "part:s-nominis-beat-mari-virginis/offertory",
+     "melody": 0.747
+    },
+    {
+     "target": "part:s-roberti-bellarmino-episcopi-confessoris-et-ecclesi-doctoris/offertory",
+     "melody": 0.684
+    }
+   ]
+  },
+  {
+   "file": "vol-3/re_obtulerunt.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 106:4: error: not a note name: t"
+  },
+  {
+   "file": "vol-3/tr_bonum_est_confiteri.csv.ly",
+   "status": "proposed",
+   "target": "part:s-gabrielis-archangeli/tract",
+   "hash": "4f983f4b42331aab1a865a999e4a9a7e",
+   "melody": 0.872,
+   "incipit": "Bonum est confitéri Dómino et psál lere nómini",
+   "page": 180,
+   "candidates": [
+    {
+     "target": "part:s-gabrielis-archangeli/tract",
+     "melody": 0.872
+    },
+    {
+     "target": "part:in-conversione-s-pauli-apostoli/tract",
+     "melody": 0.754
+    },
+    {
+     "target": "part:s-justini-martyris/tract",
+     "melody": 0.754
+    },
+    {
+     "target": "part:s-joannis-damasceni-confessoris/tract",
+     "melody": 0.602
+    }
+   ]
+  },
+  {
+   "file": "vol-3/tr_christo_igitur.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 139:4: error: not a note name: h"
+  },
+  {
+   "file": "vol-3/tr_contristatus_sum.csv.ly",
+   "status": "proposed",
+   "target": "part:s-justini-martyris/tract",
+   "hash": "6916a880e01f01b85ba048747b64d7d6",
+   "melody": 0.854,
+   "incipit": "Contristátus sum in exercitatióne me a et conturbátus",
+   "page": 382,
+   "candidates": [
+    {
+     "target": "part:s-justini-martyris/tract",
+     "melody": 0.854
+    },
+    {
+     "target": "part:s-gabrielis-archangeli/tract",
+     "melody": 0.817
+    },
+    {
+     "target": "part:s-joannis-damasceni-confessoris/tract",
+     "melody": 0.596
+    },
+    {
+     "target": "part:in-conversione-s-pauli-apostoli/tract",
+     "melody": 0.587
+    }
+   ]
+  },
+  {
+   "file": "vol-3/tr_cor_meum.csv.ly",
+   "status": "proposed",
+   "target": "part:s-margarit-mari-alaquoque-virginis/tract",
+   "hash": "eb1f862aa372eee656d6fd8a69dd10cf",
+   "incipit": "Cor me um et ca ro mea exsultavé",
+   "page": 396,
+   "candidates": [
+    {
+     "target": "part:s-margarit-mari-alaquoque-virginis/tract",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-3/tr_laudate__omnes_angeli.csv.ly",
+   "status": "proposed",
+   "target": "part:s-raph-lis-archangeli/tract",
+   "hash": "89327601be1ff9300a69af0415b54203",
+   "incipit": "Laudá te Dó minum omnes Angeli e jus",
+   "page": 411,
+   "candidates": [
+    {
+     "target": "part:s-raph-lis-archangeli/tract",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-3/tr_non_judicavi.csv.ly",
+   "status": "broken",
+   "target": null,
+   "error": "line 116:1: error: not a note name: besb"
+  },
+  {
+   "file": "vol-3/tr_nunc_ergo.csv.ly",
+   "status": "proposed",
+   "target": "part:s-joannis-bosco-confessoris/tract",
+   "hash": "49a9c1fac6904412f90587cc307a0fe5",
+   "melody": 0.706,
+   "incipit": "Nunc er go fí lii audíte me Beáti",
+   "page": 333,
+   "candidates": [
+    {
+     "target": "part:s-joannis-bosco-confessoris/tract",
+     "melody": 0.706
+    },
+    {
+     "target": "part:s-gabrielis-archangeli/tract",
+     "melody": 0.615
+    },
+    {
+     "target": "part:s-joannis-a-capistrano-confessoris/tract",
+     "melody": 0.592
+    },
+    {
+     "target": "part:in-conversione-s-pauli-apostoli/tract",
+     "melody": 0.454
+    }
+   ]
+  },
+  {
+   "file": "vol-5/ad-libitum/agnus_dei_ad_libitum_II.ly",
+   "status": "proposed",
+   "target": "piece:cantus-ad-libitum-agnus-dei-i-ii",
+   "hash": "8b0a45fd0aed83ac8fd43b231ae28a87",
+   "melody": 0.774,
+   "incipit": "Agnus Dei qui tollis peccáta mundi miserére nobis",
+   "page": 151,
+   "candidates": [
+    {
+     "target": "piece:cantus-ad-libitum-agnus-dei-i-ii",
+     "melody": 0.774
+    }
+   ]
+  },
+  {
+   "file": "vol-5/ad-libitum/an_asperges_me__ad_lib3.ly",
+   "status": "proposed",
+   "target": "piece:ordinarium-missae-asperges-p4",
+   "hash": "4b86c5f22054d7700802e86b8fab4626",
+   "incipit": "Aspérges me Dómine hyssópo et mundábor lavábis me",
+   "page": 4,
+   "candidates": [
+    {
+     "target": "piece:ordinarium-missae-asperges-p4",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-5/ad-libitum/an_asperges_me__ad_lib4.ly",
+   "status": "proposed",
+   "target": "piece:ordinarium-missae-asperges-p4",
+   "hash": "3d8d42ce5168ad78618f6dc0ff89133c",
+   "incipit": "Aspérges me Dómine hyssópo et mundábor lavábis me",
+   "page": 4,
+   "candidates": [
+    {
+     "target": "piece:ordinarium-missae-asperges-p4",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-5/ad-libitum/gloria_ad_libitum_II.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-xii/gloria",
+   "hash": "de8b043c8a1e7431a6f19f7a6be7b965",
+   "melody": 0.474,
+   "incipit": "Glória in excélsis Deo Et in terra pax",
+   "page": 141,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xii/gloria",
+     "melody": 0.474
+    },
+    {
+     "target": "movement:ordinarium-missae-i/gloria",
+     "melody": 0.471
+    },
+    {
+     "target": "movement:ordinarium-missae-iv/gloria",
+     "melody": 0.452
+    },
+    {
+     "target": "movement:ordinarium-missae-ix/gloria",
+     "melody": 0.442
+    }
+   ]
+  },
+  {
+   "file": "vol-5/ad-libitum/gloria_ad_libitum_III.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-iii/gloria",
+   "hash": "7001f5d900610fd7265d9bf3a6c8e35b",
+   "melody": 0.307,
+   "incipit": "Glória in excélsis Deo Et in terra pax",
+   "page": 144,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-iii/gloria",
+     "melody": 0.307
+    },
+    {
+     "target": "movement:ordinarium-missae-xi/gloria",
+     "melody": 0.298
+    },
+    {
+     "target": "movement:ordinarium-missae-xiv/gloria",
+     "melody": 0.286
+    },
+    {
+     "target": "movement:ordinarium-missae-vi/gloria",
+     "melody": 0.283
+    }
+   ]
+  },
+  {
+   "file": "vol-5/ad-libitum/gloria_ad_libitum_IV.ly",
+   "status": "proposed",
+   "target": "piece:alii-cantus-ad-libitum-gloria-ambr",
+   "hash": "a1fac35b6e39b236114db759cf26261a",
+   "incipit": "Glória in excélsis Déo Et in térra pax",
+   "page": 152,
+   "candidates": [
+    {
+     "target": "piece:alii-cantus-ad-libitum-gloria-ambr",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-5/ad-libitum/kyrie_ad_libitum_III.ly",
+   "status": "proposed",
+   "target": "piece:cantus-ad-libitum-kyrie-iii",
+   "hash": "07ba36ed19be2faef20b415ee89d5b71",
+   "incipit": "Kýrie eléison Kýrie e léison Kýrie eléison Christe",
+   "page": 127,
+   "candidates": [
+    {
+     "target": "piece:cantus-ad-libitum-kyrie-iii",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-5/ad-libitum/kyrie_ad_libitum_IX.ly",
+   "status": "melody-differs",
+   "target": "piece:cantus-ad-libitum-kyrie-ix",
+   "hash": "298f6b7264d90a82eeca7bc73b141052",
+   "melody": 0.333,
+   "incipit": "Kýrie eléison Kýrie eléison Kýrie eléison Christe eléison",
+   "page": 135,
+   "candidates": [
+    {
+     "target": "piece:cantus-ad-libitum-kyrie-ix",
+     "melody": 0.333
+    }
+   ]
+  },
+  {
+   "file": "vol-5/ad-libitum/kyrie_ad_libitum_V.ly",
+   "status": "proposed",
+   "target": "piece:cantus-ad-libitum-kyrie-v",
+   "hash": "561dbb8a26c1ef1570ac6ef42d56abf1",
+   "incipit": "Kýrie eléison Kýrie eléison Kýrie eléison Christe eléison",
+   "page": 130,
+   "candidates": [
+    {
+     "target": "piece:cantus-ad-libitum-kyrie-v",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-5/ad-libitum/kyrie_ad_libitum_VII.ly",
+   "status": "melody-differs",
+   "target": "piece:cantus-ad-libitum-kyrie-vii",
+   "hash": "29b128209ac42a53508309f8b9520d06",
+   "melody": 0.537,
+   "incipit": "Kýrie e léison Kýrie e léison Kýrie e",
+   "page": 132,
+   "candidates": [
+    {
+     "target": "piece:cantus-ad-libitum-kyrie-vii",
+     "melody": 0.537
+    }
+   ]
+  },
+  {
+   "file": "vol-5/ad-libitum/kyrie_ad_libitum_VIII.ly",
+   "status": "melody-differs",
+   "target": "piece:cantus-ad-libitum-kyrie-viii",
+   "hash": "0e3c98c53bc5efe3b4ea92bdcc7a8bf3",
+   "melody": 0.496,
+   "incipit": "Kýrie eléison Kýrie eléison Kýrie eléison Christe eléison",
+   "page": 134,
+   "candidates": [
+    {
+     "target": "piece:cantus-ad-libitum-kyrie-viii",
+     "melody": 0.496
+    }
+   ]
+  },
+  {
+   "file": "vol-5/ad-libitum/kyrie_ad_libitum_X.ly",
+   "status": "melody-differs",
+   "target": "piece:cantus-ad-libitum-kyrie-x",
+   "hash": "fe601835620fe468fa14ce801b417e19",
+   "melody": 0.444,
+   "incipit": "Kýrie eléison Kýrie eléison Kýrie eléison Christe e",
+   "page": 137,
+   "candidates": [
+    {
+     "target": "piece:cantus-ad-libitum-kyrie-x",
+     "melody": 0.444
+    }
+   ]
+  },
+  {
+   "file": "vol-5/ad-libitum/kyrie_ad_libitum_XI.ly",
+   "status": "melody-differs",
+   "target": "piece:cantus-ad-libitum-kyrie-xi",
+   "hash": "fbddb1eb365d28249a55a8c5e33042bb",
+   "melody": 0.108,
+   "incipit": "Kýrie eléison Kýrie eléison Kýrie eléison Christe e",
+   "page": 138,
+   "candidates": [
+    {
+     "target": "piece:cantus-ad-libitum-kyrie-xi",
+     "melody": 0.108
+    }
+   ]
+  },
+  {
+   "file": "vol-5/ad-libitum/sanctus_ad_libitum_II.ly",
+   "status": "melody-differs",
+   "target": "piece:cantus-ad-libitum-sanctus-i-iii",
+   "hash": "14f87e00722cbbe823a1815514104c47",
+   "melody": 0.436,
+   "incipit": "Sanctus Sanctus Sanctus Dóminus Deus Sábaoth Pleni sunt",
+   "page": 148,
+   "candidates": [
+    {
+     "target": "piece:cantus-ad-libitum-sanctus-i-iii",
+     "melody": 0.436
+    }
+   ]
+  },
+  {
+   "file": "vol-5/ad-libitum/sanctus_ad_libitum_III.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-viii/sanctus",
+   "hash": "2359fe8645da02675722bca42c215936",
+   "melody": 0.655,
+   "incipit": "San ctus Sanctus Sanctus Dóminus Deus Sá baoth",
+   "page": 149,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-viii/sanctus",
+     "melody": 0.655
+    },
+    {
+     "target": "movement:ordinarium-missae-v/sanctus",
+     "melody": 0.571
+    },
+    {
+     "target": "movement:ordinarium-missae-vii/sanctus",
+     "melody": 0.536
+    },
+    {
+     "target": "movement:ordinarium-missae-ix/sanctus",
+     "melody": 0.536
+    }
+   ]
+  },
+  {
+   "file": "vol-5/credo_V.ly",
+   "status": "proposed",
+   "target": "piece:alii-cantus-ad-libitum-credo-v",
+   "hash": "221f984b5474369319516eeef8aec6fe",
+   "incipit": "Credo in unum Deum Credo in unum Deum",
+   "page": 154,
+   "candidates": [
+    {
+     "target": "piece:alii-cantus-ad-libitum-credo-v",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-5/credo_VI.ly",
+   "status": "proposed",
+   "target": "piece:alii-cantus-ad-libitum-credo-vi",
+   "hash": "b3ce2de4669dd61ed206ba0765002cbf",
+   "incipit": "Credo in unum Deum Credo in unum Deum",
+   "page": 158,
+   "candidates": [
+    {
+     "target": "piece:alii-cantus-ad-libitum-credo-vi",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-i/ite_Ia.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-vii/ite",
+   "hash": "dc96b4ce3d0b5f3901298b52ce60a507",
+   "melody": 1.0,
+   "incipit": "IDete o misgrása tiest as alallelelúlúia ia alallelelúlúia",
+   "page": 10,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-vii/ite",
+     "melody": 1.0
+    },
+    {
+     "target": "movement:ordinarium-missae-xiv/ite",
+     "melody": 1.0
+    },
+    {
+     "target": "movement:ordinarium-missae-ii/ite",
+     "melody": 0.929
+    },
+    {
+     "target": "movement:ordinarium-missae-xi/ite",
+     "melody": 0.929
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-i/ite_Ib.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-vi/ite",
+   "hash": "dc70b5caa59ecb3131693646734efb0c",
+   "melody": 0.824,
+   "incipit": "IDete o misgrása tiest as",
+   "page": 10,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-vi/ite",
+     "melody": 0.824
+    },
+    {
+     "target": "movement:ordinarium-missae-vii/ite",
+     "melody": 0.765
+    },
+    {
+     "target": "movement:ordinarium-missae-xi/ite",
+     "melody": 0.765
+    },
+    {
+     "target": "movement:ordinarium-missae-xvii/ite",
+     "melody": 0.706
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-i/kyrie_I.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-i/kyrie",
+   "hash": "55bdc0cf756e0832c8aa712bd8d6bd8b",
+   "melody": 0.456,
+   "incipit": "Kýrie eléison Kýrie eléison Kýrie eléison Christe eléison",
+   "page": 5,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-i/kyrie",
+     "melody": 0.456
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-ii/agnus_II.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-ii/agnus",
+   "hash": "17031c6e442542668923eeba4eb8d29a",
+   "melody": 0.748,
+   "incipit": "Agnus Dei qui tol lis peccáta mun di",
+   "page": 16,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-ii/agnus",
+     "melody": 0.748
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-ii/benedicamus_II.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-iii/kyrie",
+   "hash": "b393f957ff10eaf1ab3a33a0431f8590",
+   "melody": 0.828,
+   "incipit": "Benedicámus Dó mino",
+   "page": 17,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-iii/kyrie",
+     "melody": 0.828
+    },
+    {
+     "target": "movement:ordinarium-missae-ii/ite",
+     "melody": 0.207
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-ii/ite_IIa.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-ii/ite",
+   "hash": "3d5916d0d5ec30ff2a51f264514378bc",
+   "melody": 0.458,
+   "incipit": "IDete o misgrása tiest as",
+   "page": 17,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-ii/ite",
+     "melody": 0.458
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-ii/ite_IIb.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-ii/ite",
+   "hash": "3b5290e548781919e59e21bdeda50509",
+   "melody": 0.207,
+   "incipit": "IDete o misgrá sa tiest as",
+   "page": 17,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-ii/ite",
+     "melody": 0.207
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-ii/kyrie_II.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-ii/kyrie",
+   "hash": "ac1528121627ae27345b5e60b0fdaddc",
+   "melody": 0.456,
+   "incipit": "Kýrie eléison Kýrie eléison Kýrie eléison Christe eléison",
+   "page": 11,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-ii/kyrie",
+     "melody": 0.456
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-iv/ite_IV.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-iv/ite",
+   "hash": "ee7dc99dcaac4a247399bac9cf79f483",
+   "melody": 1.0,
+   "incipit": "IDete o misgrása tiest as",
+   "page": 28,
+   "note": "vol-5/missa-iv/benedicamus_IV.ly matched movement:ordinarium-missae-iv/ite better",
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-iv/ite",
+     "melody": 1.0
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-iv/kyrie_IV.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-iv/kyrie",
+   "hash": "2e04b058f505c9138fb5bfc497413ed6",
+   "melody": 0.467,
+   "incipit": "Kýrie e léison Kýrie e léison Kýrie e",
+   "page": 23,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-iv/kyrie",
+     "melody": 0.467
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-ix/ite_IX.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-ii/ite",
+   "hash": "6dec9f081bd55d6e4d5786b74cae29a0",
+   "melody": 0.889,
+   "incipit": "IDe te o misgrása tiest as",
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-ii/ite",
+     "melody": 0.889
+    },
+    {
+     "target": "movement:ordinarium-missae-xi/ite",
+     "melody": 0.889
+    },
+    {
+     "target": "movement:ordinarium-missae-iv/ite",
+     "melody": 0.833
+    },
+    {
+     "target": "movement:ordinarium-missae-vi/ite",
+     "melody": 0.833
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-v/kyrie_V.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-v/kyrie",
+   "hash": "985bea8226f5302859138ce808fa0d9a",
+   "melody": 0.333,
+   "incipit": "Kýrie e léison Kýrie e léison Kýrie e",
+   "page": 29,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-v/kyrie",
+     "melody": 0.333
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-vii/kyrie_VII.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-vii/kyrie",
+   "hash": "7a90e9bcc3f4016c508df13e343eec2f",
+   "melody": 0.331,
+   "incipit": "Kýrie e léison Kýrie e léison Kýrie e",
+   "page": 41,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-vii/kyrie",
+     "melody": 0.331
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-viii/ite_VIII.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-ii/ite",
+   "hash": "00d12fcebf0784fe3998a7e4e8283538",
+   "melody": 0.905,
+   "incipit": "IDe te o misgrása tiest as",
+   "page": 52,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-ii/ite",
+     "melody": 0.905
+    },
+    {
+     "target": "movement:ordinarium-missae-vii/ite",
+     "melody": 0.81
+    },
+    {
+     "target": "movement:ordinarium-missae-vi/ite",
+     "melody": 0.762
+    },
+    {
+     "target": "movement:ordinarium-missae-xi/ite",
+     "melody": 0.714
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-viii/kyrie_VIII.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-viii/kyrie",
+   "hash": "c2ccfa15bcae8e5711c637692cd61a8a",
+   "melody": 0.471,
+   "incipit": "Kýrie e léison Kýrie e léison Kýrie e",
+   "page": 47,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-viii/kyrie",
+     "melody": 0.471
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-xi/agnus_XI.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-xi/agnus",
+   "hash": "76277159e833b90d39bb8ce4729c4b7d",
+   "melody": 0.407,
+   "incipit": "A gnus Dei qui tollis peccáta mundi miserére",
+   "page": 66,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xi/agnus",
+     "melody": 0.407
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-xi/ite_XI.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-xi/ite",
+   "hash": "2ba378c879d24951ee5fe1f63320ca63",
+   "melody": 1.0,
+   "incipit": "IDete o misgrá sa tiest as",
+   "page": 67,
+   "note": "vol-5/missa-xi/benedicamus_XI.ly matched movement:ordinarium-missae-xi/ite better",
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xi/ite",
+     "melody": 1.0
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-xi/kyrie_XI.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-xi/kyrie",
+   "hash": "57e350acace69c1f212000503c9a252c",
+   "melody": 0.452,
+   "incipit": "Kýrie e léison Kýrie e léison Kýrie e",
+   "page": 62,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xi/kyrie",
+     "melody": 0.452
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-xii/kyrie_XII.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-xii/kyrie",
+   "hash": "beab7931e580416ba3439944df304358",
+   "melody": 0.474,
+   "incipit": "Kýrie eléison Kýrie eléison Kýrie eléison Christe eléison",
+   "page": 68,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xii/kyrie",
+     "melody": 0.474
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-xiii/ite_XIII.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-xiii/ite",
+   "hash": "21b3517b1ec0f7cb4b2dea8f1ab0e229",
+   "melody": 1.0,
+   "incipit": "IDete o misgrá sa tiest as",
+   "page": 77,
+   "note": "vol-5/missa-xiii/benedicamus_XIII.ly matched movement:ordinarium-missae-xiii/ite better",
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xiii/ite",
+     "melody": 1.0
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-xiii/kyrie_XIII.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-xiii/kyrie",
+   "hash": "c5651ec0444c81d7564ced22ddd54bb7",
+   "melody": 0.54,
+   "incipit": "Kýrie e léison Kýrie e léison Kýrie e",
+   "page": 73,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xiii/kyrie",
+     "melody": 0.54
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-xiv/kyrie_XIV.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-xiv/kyrie",
+   "hash": "b739bc57784710847d811976d93fa0e1",
+   "melody": 0.477,
+   "incipit": "Ký rie eléison Ký rie eléison Ký rie",
+   "page": 78,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xiv/kyrie",
+     "melody": 0.477
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-xv/ite_XV.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-xv/ite",
+   "hash": "37253b853408137156fe8ceee61c0be9",
+   "incipit": "IDete o misgrása tiest as",
+   "page": 88,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xv/ite",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-xvi/benedicamus_XVI.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-xvi/agnus",
+   "hash": "4895bec18603ad9c5a5a9383b0c67fdc",
+   "melody": 0.769,
+   "incipit": "Benedicámus DóminoDeo grátias",
+   "page": 90,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xvi/agnus",
+     "melody": 0.769
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-xvi/kyrie_XVI.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-xvi/kyrie",
+   "hash": "d5ebb6f0fb73653f6251de907e2d2a5d",
+   "melody": 0.509,
+   "incipit": "Kýrie eléison Kýrie eléison Kýrie eléison Christe eléison",
+   "page": 89,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xvi/kyrie",
+     "melody": 0.509
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-xvii/ite_XVIIb.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-xvii/ite",
+   "hash": "8941a10f449015642dbece671553e431",
+   "melody": 0.667,
+   "incipit": "IDete o misgrá sa tiest as",
+   "page": 95,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xvii/ite",
+     "melody": 0.667
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-xvii/kyrie_XVII.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-xvii/kyrie",
+   "hash": "d1bc33d5e014ea0ad9ccb6197482881c",
+   "melody": 0.508,
+   "incipit": "Kýrie e léison Kýrie e léison Kýrie e",
+   "page": 91,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xvii/kyrie",
+     "melody": 0.508
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-xvii/kyrie_XVIIa.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-xvii/kyrie",
+   "hash": "2c755d898033c3829fda175914d7f56d",
+   "melody": 0.304,
+   "incipit": "Kýrie e léison Kýrie e léison Kýrie e",
+   "page": 92,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xvii/kyrie",
+     "melody": 0.304
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-xviii/ite_XVIII.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-xviii/ite",
+   "hash": "04970430baef5159c23fdf65e3de1220",
+   "incipit": "IDete o misgrása tiest as",
+   "page": 95,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xviii/ite",
+     "melody": null
+    }
+   ]
+  },
+  {
+   "file": "vol-5/missa-xviii/kyrie_XVIII.ly",
+   "status": "melody-differs",
+   "target": "movement:ordinarium-missae-xviii/kyrie",
+   "hash": "7e9a4859b8201ef236b56f0d46a16657",
+   "melody": 0.493,
+   "incipit": "Kýrie eléison Kýrie eléison Kýrie eléison Christe eléison",
+   "page": 96,
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xviii/kyrie",
+     "melody": 0.493
+    }
+   ]
+  },
+  {
+   "file": "vol-5/pro-defunctis/agnus_pro_defunctis.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-ix/agnus",
+   "hash": "5439312d95882831cdb6b58d072be7e4",
+   "melody": 0.923,
+   "incipit": "Agnus Dei qui tollis peccáta mundi dona eis",
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-ix/agnus",
+     "melody": 0.923
+    },
+    {
+     "target": "movement:ordinarium-missae-xviii/agnus",
+     "melody": 0.923
+    },
+    {
+     "target": "movement:ordinarium-missae-xiii/agnus",
+     "melody": 0.795
+    },
+    {
+     "target": "movement:ordinarium-missae-vi/agnus",
+     "melody": 0.769
+    }
+   ]
+  },
+  {
+   "file": "vol-5/pro-defunctis/an_ego_sum_resurrectio.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "85a3e9ea53c19d489ce65a454e9c63e0",
+   "incipit": "Ego sum resurréctio et vita qui credit in"
+  },
+  {
+   "file": "vol-5/pro-defunctis/an_in_paradisum.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "6e0e23b6f8347664c96e40f2a15362ca",
+   "incipit": "In paradísum dedúcant te Angeli in tuo advéntu"
+  },
+  {
+   "file": "vol-5/pro-defunctis/ca_benedictus_dominus.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "ce29113ec6c1c4d8818b7a4b9ba126f3",
+   "incipit": "Ego som Benedíctus Dóminus Deus Israël quia visitávit"
+  },
+  {
+   "file": "vol-5/pro-defunctis/co_lux_aeterna.ly",
+   "status": "proposed",
+   "target": "part:missa-pro-defunctis-i/communion",
+   "hash": "46650dbe46d341b6f2247e88864b36b2",
+   "melody": 1.0,
+   "incipit": "Lux aetérna luceat eis Dómine Cum sanctis tuis",
+   "candidates": [
+    {
+     "target": "part:missa-pro-defunctis-i/communion",
+     "melody": 1.0
+    }
+   ]
+  },
+  {
+   "file": "vol-5/pro-defunctis/gr_requiem_aeternam.ly",
+   "status": "proposed",
+   "target": "part:missa-pro-defunctis-i/gradual",
+   "hash": "f3fec5fb5f9c20d1b48ef2ced0ed21cc",
+   "melody": 1.0,
+   "incipit": "Réquiem aetér nam do na eis Dó mine",
+   "candidates": [
+    {
+     "target": "part:missa-pro-defunctis-i/gradual",
+     "melody": 1.0
+    }
+   ]
+  },
+  {
+   "file": "vol-5/pro-defunctis/in_requiem_aeternam.ly",
+   "status": "melody-differs",
+   "target": "part:missa-pro-defunctis-i/introit",
+   "hash": "f8f8e68b52df28c0d9719884a4558792",
+   "melody": 0.598,
+   "incipit": "Réquiem ætérnam dona eis Dómine et lux perpétua",
+   "page": 163,
+   "candidates": [
+    {
+     "target": "part:missa-pro-defunctis-i/introit",
+     "melody": 0.598
+    }
+   ]
+  },
+  {
+   "file": "vol-5/pro-defunctis/kyrie_pro_defunctis.ly",
+   "status": "proposed",
+   "target": "piece:cantus-ad-libitum-kyrie-i",
+   "hash": "1d1d63e96c1ccb6ed40695dc66695daf",
+   "melody": 0.726,
+   "incipit": "Kýrie eléison Kýrie eléison Kýrie eléison Christe eléison",
+   "page": 164,
+   "candidates": [
+    {
+     "target": "piece:cantus-ad-libitum-kyrie-i",
+     "melody": 0.726
+    },
+    {
+     "target": "movement:ordinarium-missae-iii/kyrie",
+     "melody": 0.717
+    },
+    {
+     "target": "movement:ordinarium-missae-vi/kyrie",
+     "melody": 0.611
+    },
+    {
+     "target": "piece:cantus-ad-libitum-kyrie-iv",
+     "melody": 0.442
+    }
+   ]
+  },
+  {
+   "file": "vol-5/pro-defunctis/of_domine_jesu_christe.ly",
+   "status": "proposed",
+   "target": "part:missa-pro-defunctis-i/offertory",
+   "hash": "c9adabf19a922747397e64a205b47ab9",
+   "melody": 1.0,
+   "incipit": "Dómine Jesu Christe Rex gló riae libéra ánimas",
+   "candidates": [
+    {
+     "target": "part:missa-pro-defunctis-i/offertory",
+     "melody": 1.0
+    }
+   ]
+  },
+  {
+   "file": "vol-5/pro-defunctis/re_libera_me_domine_de_morte.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "2a7c4bf1967df496e4bdb14c40bc7ce3",
+   "incipit": "Líbera me Dó mine de morte aetér na"
+  },
+  {
+   "file": "vol-5/pro-defunctis/re_subvenite.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "332045345a60ef176012cfc19e1ac1d9",
+   "incipit": "Subveníte Sancti Dei occúr rite Angeli Dómini Suscipiéntes"
+  },
+  {
+   "file": "vol-5/pro-defunctis/sanctus_pro_defunctis.ly",
+   "status": "proposed",
+   "target": "movement:ordinarium-missae-xviii/sanctus",
+   "hash": "3d862792f6b20e7ea91e0286564382dc",
+   "melody": 1.0,
+   "incipit": "Sanctus Sanctus Sanctus Dóminus Deus Sábaoth Pleni sunt",
+   "candidates": [
+    {
+     "target": "movement:ordinarium-missae-xviii/sanctus",
+     "melody": 1.0
+    },
+    {
+     "target": "movement:ordinarium-missae-viii/sanctus",
+     "melody": 0.919
+    },
+    {
+     "target": "movement:ordinarium-missae-i/sanctus",
+     "melody": 0.865
+    },
+    {
+     "target": "movement:ordinarium-missae-vi/sanctus",
+     "melody": 0.811
+    }
+   ]
+  },
+  {
+   "file": "vol-5/pro-defunctis/se_dies_irae.ly",
+   "status": "proposed",
+   "target": "part:missa-pro-defunctis-i/sequence",
+   "hash": "a7cba82cd183c8ee956222e740a30d1b",
+   "melody": 0.998,
+   "incipit": "Dies irae dies illa Solvet saeclum in favílla",
+   "candidates": [
+    {
+     "target": "part:missa-pro-defunctis-i/sequence",
+     "melody": 0.998
+    }
+   ]
+  },
+  {
+   "file": "vol-5/pro-defunctis/tr_absolve.ly",
+   "status": "proposed",
+   "target": "part:missa-pro-defunctis-i/tract",
+   "hash": "782caf8b287d342a9a72d654ccbdb585",
+   "melody": 1.0,
+   "incipit": "Absól ve Dómine ánimas ómnium fidélium defunctó rum",
+   "candidates": [
+    {
+     "target": "part:missa-pro-defunctis-i/tract",
+     "melody": 1.0
+    }
+   ]
+  },
+  {
+   "file": "vol-5/tonus-solemnis.ly",
+   "status": "proposed",
+   "target": null,
+   "hash": "e7298a4dc05617d700bdd2a63b1b2b4e",
+   "incipit": "Per ómnia sǽcula sæculorum Amen Dóminus vobíscum Et"
+  }
+ ]
+}

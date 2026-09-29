@@ -46,8 +46,19 @@ def build_parser() -> argparse.ArgumentParser:
     ti.add_argument("--commit", required=True, help="the upstream commit's full sha (never a branch)")
     subs.add_parser("typeset-match",
                     help="propose which part each transcription is (data/typeset/parts.yml), by page, name and melody")
-    subs.add_parser("typeset-check",
-                    help="check the typeset sources (source check) and parts.yml; needs no LilyPond (CI)")
+    tc = subs.add_parser("typeset-check",
+                         help="check the typeset sources (source check), parts.yml and the manifest; needs no LilyPond (CI)")
+    tc.add_argument("--remote", metavar="BASE", default=None,
+                    help="also check every render the manifest names answers at BASE (PUBLIC_ASSET_BASE)")
+    subs.add_parser("typeset-manifest",
+                    help="write data/typeset/manifest.json and review.json from the sources (no LilyPond)")
+    tr_ = subs.add_parser("typeset-render", help="render the typeset music not yet published, into build/typeset/out/")
+    tr_.add_argument("--missing-from", metavar="BASE", default=None,
+                     help="render only what does not answer at BASE (PUBLIC_ASSET_BASE); default: everything")
+    tr_.add_argument("--mark-broken", action="store_true",
+                     help="mark files LilyPond cannot draw as broken in parts.yml (for their scans to stay), "
+                          "and rewrite the manifest")
+    subs.add_parser("typeset-publish", help="check and upload build/typeset/out/ to R2 (write-if-absent)")
     subs.add_parser("lilypond-install",
                     help="download the pinned LilyPond (data/typeset/lilypond.yml) into vendor/, checksum-checked")
     subs.add_parser("r2-check",
@@ -285,9 +296,46 @@ def main(argv: list[str] | None = None) -> int:
               + ", ".join(f"{n} {s}" for s, n in counts.most_common()))
         return 0
 
+    if args.command == "typeset-manifest":
+        from pipeline.typeset.manifest import write
+        changed = write()
+        print(f"rewrote {', '.join(changed)}" if changed else "manifest.json and review.json are current")
+        return 0
+
+    if args.command == "typeset-render":
+        from pipeline.typeset.publish import OUT, render_missing
+        report = render_missing(args.missing_from)
+        if args.mark_broken and report.failures:
+            from pipeline.typeset.manifest import write
+            from pipeline.typeset.match import mark_render_failures
+            marked = mark_render_failures(report.failures)
+            write()
+            print(f"marked {len(marked)} file(s) broken in parts.yml; rewrote the manifest")
+            return 0
+        for line in report.failed_shown:
+            print(f"FAIL  {line}", file=sys.stderr)
+        for line in report.failed_review:
+            print(f"note  (review list only) {line}")
+        print(f"rendered {len(report.rendered)} into {OUT}; {len(report.failed_shown)} shown part(s) failed, "
+              f"{len(report.failed_review)} on the review list failed")
+        return 0 if report.ok else 1
+
+    if args.command == "typeset-publish":
+        from pipeline.typeset.publish import publish
+        uploaded, there, problems_ = publish()
+        for line in problems_:
+            print(f"FAIL  {line}", file=sys.stderr)
+        print(f"uploaded {uploaded} file(s); {there} already published")
+        return 1 if problems_ else 0
+
     if args.command == "typeset-check":
         from pipeline.typeset.check import problems
+        from pipeline.typeset.manifest import stale
         found = problems()
+        found += [f"data/typeset/{name} is not current: run `uv run noh typeset-manifest`" for name in stale()]
+        if args.remote and not found:
+            from pipeline.typeset.publish import remote_problems
+            found += remote_problems(args.remote)
         for line in found:
             print(f"FAIL  {line}", file=sys.stderr)
         if not found:
