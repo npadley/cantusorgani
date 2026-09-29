@@ -141,6 +141,8 @@ def build_parser() -> argparse.ArgumentParser:
     wh.add_argument("query", help="a page URL or path (/piece/<slug>/), or a few words of a title")
     cs = subs.add_parser("corrections", help="list the hand corrections, or drop one")
     cs.add_argument("--drop", metavar="ID", default=None, help="delete the entry with this id")
+    cs.add_argument("--lapsed", action="store_true",
+                    help="list only the reviews that have lapsed (what they confirmed has changed, or gone)")
     tr = subs.add_parser("triage", help="review readers' corrections from the Corrections form")
     tr.add_argument("--local", action="store_true", help="use the local D1 database")
     tr.add_argument("--dry-run", action="store_true", help="show what would change, write nothing")
@@ -210,10 +212,14 @@ def _corrections_command(args: argparse.Namespace) -> int:
             entries = c.load()
             base = c.load_base()
             stale = {e.id for e in c.no_ops(base, entries, c.load_vespers())}
-            for e in entries:
-                flag = "  (now a no-op: fixed at the source; drop it)" if e.id in stale else ""
+            lapsed = {e.id for e in c.reviews(c.apply(base, entries), entries)[1]}
+            shown = [e for e in entries if e.id in lapsed] if args.lapsed else entries
+            for e in shown:
+                flag = ("  (now a no-op: fixed at the source; drop it)" if e.id in stale else
+                        "  (review lapsed: what it confirmed has changed; review again or drop it)"
+                        if e.id in lapsed else "")
                 print(f"{e.id}  {e.target}  {e.field}: {e.was!r} -> {e.value!r}  [{e.source}, {e.date}]{flag}")
-            print(f"{len(entries)} correction(s)")
+            print(f"{len(shown)} {'lapsed review' if args.lapsed else 'correction'}(s)")
             return 0
         from pipeline.where import where
         catalog = _json.loads(c.CATALOG.read_text(encoding="utf-8"))

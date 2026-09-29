@@ -11,6 +11,7 @@ import type { AuthEnv, Editor } from "./auth";
 import { verifyHmac } from "./crypto";
 import { closePullRequest, dispatchBatch, githubConfigured, newBatchId } from "./github";
 import type { Batch, GithubEnv } from "./github";
+import type { ReviewIndex } from "./reviews";
 import { d1Store } from "./store";
 import type { D1Like, Row, Store } from "./store";
 import { FIELDS_OF, checkValue, describeTarget, isField, plannedOrder, readerField } from "./targets";
@@ -25,6 +26,8 @@ export interface AdminEnv extends AuthEnv, GithubEnv {
 export interface Deps {
   readonly store: Store;
   readonly targets: () => Promise<Targets>;
+  /** What can be reviewed, and what each review confirms (/admin/review.json). */
+  readonly reviews: () => Promise<ReviewIndex>;
   readonly dispatch: (batch: Batch) => Promise<void>;
   readonly authenticate: (request: Request) => ReturnType<typeof authenticate>;
 }
@@ -47,15 +50,21 @@ function problem(status: number, error: string, extra: Record<string, unknown> =
   return json({ error, ...extra }, status);
 }
 
+/** A file built with the site, read through the static assets binding. */
+async function builtJson<T>(request: Request, env: AdminEnv, path: string): Promise<T> {
+  const url = new URL(path, request.url).toString();
+  const r = await (env.ASSETS ? env.ASSETS.fetch(url) : fetch(url));
+  if (!r.ok) throw new Error(`${path}: HTTP ${r.status}`);
+  return (await r.json()) as T;
+}
+
 export function defaultDeps(request: Request, env: AdminEnv): Deps {
   let cached: Promise<Targets> | null = null;
+  let reviews: Promise<ReviewIndex> | null = null;
   return {
     store: d1Store(env.DB),
-    targets: () => (cached ??= (env.ASSETS ? env.ASSETS.fetch(new URL("/corrections/targets.json", request.url).toString())
-      : fetch(new URL("/corrections/targets.json", request.url))).then(async (r) => {
-      if (!r.ok) throw new Error(`targets.json: HTTP ${r.status}`);
-      return (await r.json()) as Targets;
-    })),
+    targets: () => (cached ??= builtJson<Targets>(request, env, "/corrections/targets.json")),
+    reviews: () => (reviews ??= builtJson<ReviewIndex>(request, env, "/admin/review.json")),
     dispatch: (batch) => dispatchBatch(env, batch),
     authenticate: (req) => authenticate(req, env),
   };
@@ -75,7 +84,15 @@ export interface QueueItem extends Row {
   readonly problem: string | null;
 }
 
-function describeRow(row: Row, targets: Targets): QueueItem {
+/** A review ("looks right") as the queue shows it: what was reviewed, in words. */
+function describeReview(row: Row, index: ReviewIndex | null): QueueItem {
+  const target = row.target ?? "";
+  return { ...row, resolvedTarget: target, resolvedField: "reviewed", kind: null,
+           label: index?.items[target]?.label ?? target, fields: [], values: {}, current: null, problem: null };
+}
+
+function describeRow(row: Row, targets: Targets, index: ReviewIndex | null = null): QueueItem {
+  if (row.field === "reviewed") return describeReview(row, index);
   const info = describeTarget(targets, row.target ?? row.piece_id);
   const named = info && isField(info.kind, row.field) ? row.field : readerField(row.field);
   const field = info && named && isField(info.kind, named) ? named : null;
@@ -140,7 +157,30 @@ async function conflict(store: Store, id: number, row: Row | null): Promise<Resp
   return problem(409, `Already ${row.status} by ${who}.`, { status: row.status });
 }
 
+/** A failure no handler expected, as an answer the admin screen can show:
+ * never the error's own text, which can name tables and columns. A database
+ * whose migrations lag the code (a column or table the code needs is missing)
+ * says so, with the fix; the owner applies them before merging such a change
+ * (docs/ADMIN-SETUP.md, section 6). */
+function serverError(error: unknown): Response {
+  const message = error instanceof Error ? error.message : String(error);
+  console.error("admin API:", message);
+  if (/no such (column|table)/i.test(message)) {
+    return problem(503, "The corrections database needs its latest migration. The owner applies it with " +
+      "`pnpm migrate:remote` in workers/corrections (see docs/ADMIN-SETUP.md); then reload this page.");
+  }
+  return problem(500, "Something went wrong on the server. Try again; if it keeps happening, tell the owner.");
+}
+
 export async function handleAdmin(request: Request, env: AdminEnv, deps: Deps = defaultDeps(request, env)): Promise<Response> {
+  try {
+    return await route(request, env, deps);
+  } catch (error) {
+    return serverError(error);
+  }
+}
+
+async function route(request: Request, env: AdminEnv, deps: Deps): Promise<Response> {
   const auth = await deps.authenticate(request);
   if (!auth.ok) return problem(auth.status, auth.error);
   const editor = auth.editor;
@@ -152,10 +192,11 @@ export async function handleAdmin(request: Request, env: AdminEnv, deps: Deps = 
     if (path === "/me") return json({ email: editor.email, owner: editor.owner, publishing: githubConfigured(env) });
     if (path === "/queue") return queue(deps);
     if (path === "/history") {
-      const targets = await deps.targets();
+      const [targets, index] = await Promise.all([deps.targets(), reviewIndex(deps)]);
       const rows = await store.list(["accepted", "rejected", "duplicate"], 100);
-      return json({ items: rows.map((r) => describeRow(r, targets)) });
+      return json({ items: rows.map((r) => describeRow(r, targets, index)) });
     }
+    if (path === "/review-state") return reviewState(store);
     return problem(404, "Not found.");
   }
   if (request.method !== "POST") return problem(405, "Method not allowed.");
@@ -173,14 +214,27 @@ export async function handleAdmin(request: Request, env: AdminEnv, deps: Deps = 
   const rowAction = /^\/rows\/(\d{1,9})\/(approve|reject|duplicate|unapprove)$/.exec(path);
   if (rowAction) return actOnRow(deps, editor, Number(rowAction[1]), rowAction[2] as RowVerb, input);
   if (path === "/edits") return createEdit(deps, editor, input);
+  if (path === "/reviews") return createReview(deps, editor, input);
+  if (path === "/skips") return skipReview(deps, editor, input);
+  if (path === "/skips/remove") return unskipReview(deps, editor, input);
   if (path === "/publish") return publish(deps, env, editor);
   return problem(404, "Not found.");
 }
 
+/** The review index, or null when it cannot be read: the queue still works,
+ * with a review's target in place of its words. */
+async function reviewIndex(deps: Deps): Promise<ReviewIndex | null> {
+  try {
+    return await deps.reviews();
+  } catch {
+    return null;
+  }
+}
+
 async function queue(deps: Deps): Promise<Response> {
-  const targets = await deps.targets();
+  const [targets, index] = await Promise.all([deps.targets(), reviewIndex(deps)]);
   const rows = await deps.store.list(["pending", "approved", "queued"], 500);
-  const items = rows.map((r) => describeRow(r, targets));
+  const items = rows.map((r) => describeRow(r, targets, index));
   const batches = new Map<string, { batch: string; pr: number | null; items: QueueItem[] }>();
   for (const item of items.filter((i) => i.status === "queued" && i.batch_id)) {
     const b = batches.get(item.batch_id as string) ?? { batch: item.batch_id as string, pr: item.pr_number, items: [] };
@@ -286,6 +340,7 @@ async function publish(deps: Deps, env: AdminEnv, editor: Editor): Promise<Respo
       entries: approved.map((r) => ({
         target: r.target ?? `piece:${r.piece_id}`, field: r.field, value: r.proposed, note: r.note.slice(0, 200),
         source: r.source === "reader" ? `reader#${r.id}` : "editor", editor_email: r.editor_email ?? editor.email,
+        ...(r.field === "reviewed" && r.seen ? { seen: r.seen } : {}),
       })),
     });
   } catch (error) {
@@ -295,6 +350,75 @@ async function publish(deps: Deps, env: AdminEnv, editor: Editor): Promise<Respo
   }
   await store.log(editor.email, "publish", null, `${batch}: ${approved.length} correction(s)`);
   return json({ ok: true, batch, count: approved.length });
+}
+
+// ------------------------------------------------------------ reviews ---
+
+const TARGET_MAX = 160;
+const SEEN_MAX = 80;
+const NOTE_MAX = 300;
+
+/** Reviews waiting to be published, and skipped items, for the Review page:
+ * what an editor has already acted on disappears from the list at once. */
+async function reviewState(store: Store): Promise<Response> {
+  const rows = (await store.list(["approved", "queued"], 1000)).filter((r) => r.field === "reviewed");
+  return json({
+    reviews: rows.map((r) => ({ id: r.id, target: r.target, status: r.status, editor_email: r.editor_email })),
+    skips: await store.skips(),
+  });
+}
+
+/** The item a review or skip names, from the list built with the site. */
+async function reviewable(deps: Deps, input: Record<string, unknown>)
+  : Promise<{ target: string; item: ReviewIndex["items"][string] } | Response> {
+  const target = text(input["target"], TARGET_MAX);
+  if (!target) return problem(400, "Say which item.");
+  let index: ReviewIndex;
+  try {
+    index = await deps.reviews();
+  } catch {
+    return problem(503, "The review list could not be read. Try again in a minute.");
+  }
+  const item = index.items[target];
+  if (!item) return problem(404, "That item is not on the review list any more (reviewed, or changed by a rebuild). Reload the page.");
+  return { target, item };
+}
+
+async function createReview(deps: Deps, editor: Editor, input: Record<string, unknown>): Promise<Response> {
+  const found = await reviewable(deps, input);
+  if (found instanceof Response) return found;
+  const seen = text(input["seen"], SEEN_MAX);
+  if (seen !== found.item.fingerprint) {
+    return problem(409, "It has changed since this page was built. Reload the page and look again.");
+  }
+  const store = deps.store;
+  const already = (await store.list(["approved", "queued"], 1000))
+    .find((r) => r.field === "reviewed" && r.target === found.target);
+  if (already) return problem(409, `Already marked as looking right by ${already.editor_email ?? "another editor"}.`);
+  const note = text(input["note"], NOTE_MAX);
+  const id = await store.insertEdit({ target: found.target, pieceId: found.item.piece ?? "review", field: "reviewed",
+                                      proposed: "yes", note, email: editor.email, seen });
+  await store.unskip(found.target);
+  await store.log(editor.email, "review", id, `${found.target}: looks right`);
+  return json({ ok: true, id, status: "approved" }, 201);
+}
+
+async function skipReview(deps: Deps, editor: Editor, input: Record<string, unknown>): Promise<Response> {
+  const found = await reviewable(deps, input);
+  if (found instanceof Response) return found;
+  const note = text(input["note"], NOTE_MAX);
+  if (!note) return problem(400, "Say briefly why it is skipped, for the next editor.");
+  await deps.store.skip(found.target, note, editor.email);
+  await deps.store.log(editor.email, "skip", null, `${found.target}: ${note}`);
+  return json({ ok: true });
+}
+
+async function unskipReview(deps: Deps, editor: Editor, input: Record<string, unknown>): Promise<Response> {
+  const target = text(input["target"], TARGET_MAX);
+  if (!target) return problem(400, "Say which item.");
+  if (!(await deps.store.unskip(target))) return problem(404, "That item is not skipped.");
+  await deps.store.log(editor.email, "unskip", null, target);
+  return json({ ok: true });
 }
 
 // ------------------------------------------------------------ webhook ---

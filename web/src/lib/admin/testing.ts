@@ -24,10 +24,13 @@ function statement(db: DatabaseSync, sql: string, values: SQLInputValue[] = []):
   };
 }
 
-/** A fresh corrections database, migrated like the live one. */
-export function testDb(): { d1: D1Like; sqlite: DatabaseSync } {
+const ALL_MIGRATIONS = ["0001_create_corrections.sql", "0002_admin_workflow.sql", "0003_reviews.sql"];
+
+/** A fresh corrections database, migrated like the live one; `upTo` stops
+ * after that many migrations (a live database not yet migrated). */
+export function testDb(upTo = ALL_MIGRATIONS.length): { d1: D1Like; sqlite: DatabaseSync } {
   const sqlite = new DatabaseSync(":memory:");
-  for (const name of ["0001_create_corrections.sql", "0002_admin_workflow.sql"]) {
+  for (const name of ALL_MIGRATIONS.slice(0, upTo)) {
     sqlite.exec(readFileSync(resolve(MIGRATIONS, name), "utf8"));
   }
   return { d1: { prepare: (sql: string) => statement(sqlite, sql) }, sqlite };

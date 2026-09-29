@@ -34,6 +34,17 @@ describe("suspectParts", () => {
     expect(suspectParts([last])[0]!.parts[0]!.reasons).toEqual(["it runs for only 1 system"]);
   });
 
+  it("should leave out a part reviewed as it is now, and bring it back when it changes", () => {
+    const advent = proper("dominica-i-adventus", 28, [part("introit", 0), part("gradual", 3, "text"),
+      part("alleluia", 8, "order"), part("offertory", 21), part("communion", 26)]);
+    const [found] = suspectParts([advent]);
+    expect(found!.parts[0]!.fingerprint).toBe("start 1, 3 systems");
+    const reviewed = { "part:dominica-i-adventus/introit": { was: "start 1, 3 systems", date: "2026-09-28" } };
+    expect(suspectParts([advent], reviewed)[0]!.parts.map((p) => p.target)).toEqual(["part:dominica-i-adventus/alleluia"]);
+    const lapsed = { "part:dominica-i-adventus/introit": { was: "start 1, 4 systems", date: "2026-09-28" } };
+    expect(suspectParts([advent], lapsed)[0]!.parts).toHaveLength(2);
+  });
+
   it("should name only parts the edit page can open, in the real catalogue", () => {
     const targets = buildTargets();
     for (const piece of suspectParts(allPieces())) {

@@ -17,6 +17,17 @@ let sent: Batch[];
 let failDispatch: boolean;
 let keys: KeyPair;
 let closed: { pr: number; why: string }[];
+let failReviews: boolean;
+
+const REVIEW_KEY = "review:noh1/part_by_order/1a2b3c4d";
+const REVIEW_INDEX = {
+  items: {
+    [REVIEW_KEY]: { fingerprint: "0123456789ab", label: "Part placed by its order: Dominica I Adventus · Alleluia",
+                    piece: "dominica-i-adventus" },
+    "part:dominica-i-adventus/introit": { fingerprint: "start 1, 2 systems", label: "Part to check: Introit",
+                                          piece: "dominica-i-adventus" },
+  },
+};
 let failClose: boolean;
 
 beforeAll(async () => { keys = await keyPair(); });
@@ -26,6 +37,7 @@ beforeEach(() => {
   sent = [];
   failDispatch = false;
   closed = [];
+  failReviews = false;
   failClose = false;
   env = { DB: db.d1, EDITORS: "owner@example.org,ed@example.org", ADMIN_DEV_EMAIL: "ed@example.org",
           GITHUB_REPO: "npadley/cantusorgani", GITHUB_APP_ID: "1", GITHUB_INSTALLATION_ID: "2",
@@ -46,6 +58,7 @@ function deps(e: AdminEnv = env): Deps {
       vespers: { "vespers:adv1/antiphon-1": { label: "In illa die", when: "Advent I, II Vespers", href: "/vespers/2026-11-29/",
                                                tone: "VIII.G", chant: 2835, stem: null, aspect: null } },
     }),
+    reviews: async () => { if (failReviews) throw new Error("review.json: HTTP 500"); return REVIEW_INDEX; },
     dispatch: async (batch) => { if (failDispatch) throw new Error("GitHub is down"); sent.push(batch); },
     authenticate: (req) => authenticate(req, e),
   };
@@ -75,6 +88,24 @@ async function webhook(event: string, payload: unknown, secret = "hook-secret") 
   });
   return { status: response.status, body: (await response.json()) as Record<string, unknown> };
 }
+
+describe("server errors", () => {
+  it("should name a database that is behind the code, instead of crashing", async () => {
+    db = testDb(2);
+    const { status, body } = await call("GET", "/queue");
+    expect(status).toBe(503);
+    expect(body["error"]).toMatch(/database needs its latest migration.*pnpm migrate:remote/);
+    expect(JSON.stringify(body)).not.toMatch(/no such column|seen/);
+  });
+
+  it("should answer any other failure with a plain 500, not the error's text", async () => {
+    const broken = { ...deps(), store: { ...d1Store(db.d1), list: async () => { throw new Error("D1_ERROR: disk I/O at 0x7f"); } } };
+    const response = await handleAdmin(new Request(`${ORIGIN}/admin/api/queue`, { headers: { origin: ORIGIN } }), env, broken);
+    expect(response.status).toBe(500);
+    const body = (await response.json()) as Record<string, unknown>;
+    expect(body["error"]).toBe("Something went wrong on the server. Try again; if it keeps happening, tell the owner.");
+  });
+});
 
 describe("reading", () => {
   it("should say who is signed in, and whether publishing is set up", async () => {
@@ -260,6 +291,67 @@ describe("publishing", () => {
     expect(result.status).toBe(502);
     expect(result.body["error"]).toMatch(/^Nothing was published: GitHub is down/);
     expect(db.sqlite.prepare("SELECT status, batch_id FROM corrections").get()).toMatchObject({ status: "approved", batch_id: null });
+  });
+});
+
+describe("reviews", () => {
+  const looksRight = (target = REVIEW_KEY, seen = "0123456789ab", note = "") =>
+    call("POST", "/reviews", { target, seen, note });
+
+  it("should record a review as an approved correction, and publish it with what the editor saw", async () => {
+    const made = await looksRight();
+    expect(made).toMatchObject({ status: 201, body: { status: "approved" } });
+    const row = db.sqlite.prepare("SELECT target, field, proposed, seen, piece_id, editor_email FROM corrections WHERE id = ?")
+      .get(made.body["id"] as number);
+    expect(row).toMatchObject({ target: REVIEW_KEY, field: "reviewed", proposed: "yes", seen: "0123456789ab",
+                                piece_id: "dominica-i-adventus", editor_email: "ed@example.org" });
+    const queue = (await call("GET", "/queue")).body;
+    expect((queue["approved"] as Record<string, unknown>[])[0]).toMatchObject({
+      resolvedField: "reviewed", label: "Part placed by its order: Dominica I Adventus · Alleluia", problem: null });
+    await call("POST", "/publish", {});
+    expect(sent[0]!.entries[0]).toMatchObject({ target: REVIEW_KEY, field: "reviewed", value: "yes", seen: "0123456789ab" });
+  });
+
+  it("should review a part to check by its start and length", async () => {
+    expect((await looksRight("part:dominica-i-adventus/introit", "start 1, 2 systems")).status).toBe(201);
+  });
+
+  it("should refuse an item not on the list, one changed since the page was built, and a second review", async () => {
+    expect((await looksRight("review:noh1/part_by_order/ffffffff")).status).toBe(404);
+    const changed = await looksRight(REVIEW_KEY, "ffffffffffff");
+    expect(changed).toMatchObject({ status: 409, body: { error: expect.stringMatching(/changed since this page was built/) } });
+    await looksRight();
+    const twice = await looksRight();
+    expect(twice).toMatchObject({ status: 409, body: { error: expect.stringMatching(/Already marked .* by ed@example.org/) } });
+    expect((await call("POST", "/reviews", { seen: "x" })).status).toBe(400);
+  });
+
+  it("should say so when the review list cannot be read", async () => {
+    failReviews = true;
+    expect((await looksRight()).status).toBe(503);
+    expect((await call("GET", "/queue")).status).toBe(200);
+  });
+
+  it("should keep a skipped item with its note, drop the skip when reviewed, and remove a skip", async () => {
+    expect((await call("POST", "/skips", { target: REVIEW_KEY, note: "" })).status).toBe(400);
+    expect((await call("POST", "/skips", { target: REVIEW_KEY, note: "Can't tell from this scan" })).status).toBe(200);
+    let state = (await call("GET", "/review-state")).body;
+    expect(state["skips"]).toEqual([expect.objectContaining({ target: REVIEW_KEY, note: "Can't tell from this scan",
+                                                               editor_email: "ed@example.org" })]);
+    await looksRight();
+    state = (await call("GET", "/review-state")).body;
+    expect(state["skips"]).toEqual([]);
+    expect(state["reviews"]).toEqual([expect.objectContaining({ target: REVIEW_KEY, status: "approved" })]);
+    await call("POST", "/skips", { target: "part:dominica-i-adventus/introit", note: "Later" });
+    expect((await call("POST", "/skips/remove", { target: "part:dominica-i-adventus/introit" })).status).toBe(200);
+    expect((await call("POST", "/skips/remove", { target: "part:dominica-i-adventus/introit" })).status).toBe(404);
+  });
+
+  it("should withdraw a review before it is published", async () => {
+    const made = await looksRight();
+    expect((await call("POST", `/rows/${made.body["id"] as number}/unapprove`, {})).status).toBe(200);
+    expect(statusOf(made.body["id"] as number)).toBe("rejected");
+    expect((await looksRight()).status).toBe(201);
   });
 });
 

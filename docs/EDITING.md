@@ -44,6 +44,17 @@ code arrives by email). Setting it up is described in
   **Duplicate**.
 - **Make a correction yourself**: every piece page has an **Edit** link at its
   foot, which opens the form for that piece. Your fix is approved at once.
+- **Review** (`/admin/review/`) lists what the pipeline was not sure of when it
+  read the scans (`data/review-queue.json`), with the parts to check. Each item
+  says in words what to look at, beside its scans. **Looks right** confirms it
+  as it is; **Correct** opens the edit form, where a correction can fix it;
+  **Skip** leaves a note for the next editor (kept on the admin screen only).
+  Items are grouped: first those a correction can fix, then those to check
+  against the scan, and last those the site can't act on. A confirmation is
+  published like a correction (a `reviewed` entry in `corrections.yml`, left out
+  of the public log). It records what was confirmed, so if a later rebuild
+  changes the item, the confirmation lapses and the item comes back;
+  `uv run noh corrections --lapsed` lists those.
 - **Publish changes** sends everything approved to GitHub as one pull request.
   When the site's checks pass it merges itself, and merging deploys the site
   (a few minutes in all). A batch that moves systems between pieces, or has 25
@@ -353,8 +364,9 @@ so it has no Report link. It's listed on the admin edit page and in
 **Parts to check** (`/admin/parts/`, linked from the admin screen) lists the
 parts whose start looks wrong: guessed from the order of the parts, or much
 shorter than that kind of part usually is (often because the next part starts
-too early). Each opens its edit page with the scan. A part corrected by hand
-leaves the list once it is published.
+too early). Each opens its edit page with the scan. A part corrected by hand,
+or marked **Looks right**, leaves the list once it is published; a part marked
+**Looks right** comes back if its start or length changes.
 
 ### Psalm formulas and notes
 

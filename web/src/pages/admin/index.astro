@@ -1,5 +1,8 @@
 ---
 import Layout from "../../components/Layout.astro";
+import { reviewEntries } from "../../lib/admin/reviews";
+
+const toReview = reviewEntries().filter((e) => e.group !== "info").length;
 
 // The corrections queue. Static: everything on it is loaded from /admin/api,
 // behind Cloudflare Access. Search engines and the site search skip it.
@@ -11,7 +14,8 @@ import Layout from "../../components/Layout.astro";
     <h1>Corrections</h1>
     <p class="muted small prose">Readers' reports and your own fixes. Approving gathers a change; <strong>Publish
       changes</strong> sends them all as one pull request on GitHub, which merges itself once the site's checks pass (or waits for the owner, for a batch that moves systems between pieces or has 25 or more).
-      <a href="/admin/edit/">Make a correction yourself</a> · <a href="/admin/parts/">Parts to check</a> ·
+      <a href="/admin/edit/">Make a correction yourself</a> · <a href="/admin/review/">Review ({toReview} to check)</a> ·
+      <a href="/admin/parts/">Parts to check</a> ·
       <a href="/about/#corrections">How corrections work</a></p>
 
     <div id="status" class="status small" role="status" aria-live="polite"></div>
@@ -244,8 +248,11 @@ import Layout from "../../components/Layout.astro";
       await load();
     });
     return h("article", { class: "item" }, h("h3", {}, label(item)),
-      h("p", { class: "small" }, `${item.current || "—"} → `, h("strong", {}, item.proposed),
-        ` · ${item.source === "editor" ? "your fix" : "a reader's report"}, approved by ${item.editor_email ?? "?"}`),
+      item.field === "reviewed"
+        ? h("p", { class: "small" }, h("strong", {}, "Looks right"), ` · marked by ${item.editor_email ?? "?"}`,
+            item.note ? `: “${item.note}”` : "")
+        : h("p", { class: "small" }, `${item.current || "—"} → `, h("strong", {}, item.proposed),
+            ` · ${item.source === "editor" ? "your fix" : "a reader's report"}, approved by ${item.editor_email ?? "?"}`),
       item.reason ? h("p", { class: "notice" }, item.reason) : null,
       h("div", { class: "actions" }, withdraw));
   }

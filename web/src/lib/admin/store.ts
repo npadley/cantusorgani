@@ -33,12 +33,14 @@ export interface Row {
   readonly reason: string | null;
   readonly batch_id: string | null;
   readonly pr_number: number | null;
+  /** A review's: what the editor was shown (a fingerprint, or a part's start and length). */
+  readonly seen: string | null;
   readonly created_at: string;
   readonly updated_at: string | null;
 }
 
 const COLUMNS = "id, piece_id, target, field, proposed, note, status, source, commit_sha, editor_email, " +
-  "reason, batch_id, pr_number, created_at, updated_at";
+  "reason, batch_id, pr_number, seen, created_at, updated_at";
 
 /** The only columns move() may set: identifiers are never taken from input. */
 const SETTABLE = new Set(["target", "field", "proposed", "editor_email", "reason"]);
@@ -50,7 +52,8 @@ export interface Store {
    * when the row was no longer in `from` (someone else acted first). */
   move(id: number, from: RowStatus, to: RowStatus, set: Partial<Pick<Row, "target" | "field" | "proposed" |
     "editor_email" | "reason">>): Promise<boolean>;
-  insertEdit(edit: { target: string; pieceId: string; field: string; proposed: string; note: string; email: string }): Promise<number>;
+  insertEdit(edit: { target: string; pieceId: string; field: string; proposed: string; note: string; email: string;
+                     seen?: string }): Promise<number>;
   queueBatch(batchId: string, ids: readonly number[]): Promise<number>;
   unqueueBatch(batchId: string, to: RowStatus, reason: string | null): Promise<number>;
   setPullRequest(batchId: string, pr: number): Promise<number>;
@@ -59,7 +62,13 @@ export interface Store {
   lastActor(id: number): Promise<{ email: string; action: string; at: string } | null>;
   actionsSince(email: string, seconds: number): Promise<number>;
   lastReviewed(): Promise<string | null>;
+  /** Items an editor looked at and left a note on, unsettled. */
+  skips(): Promise<readonly Skip[]>;
+  skip(target: string, note: string, email: string): Promise<void>;
+  unskip(target: string): Promise<boolean>;
 }
+
+export interface Skip { readonly target: string; readonly note: string; readonly editor_email: string; readonly at: string }
 
 export function d1Store(db: D1Like): Store {
   return {
@@ -84,9 +93,10 @@ export function d1Store(db: D1Like): Store {
     },
     async insertEdit(edit) {
       const row = await db.prepare(
-        "INSERT INTO corrections (piece_id, target, field, proposed, note, status, source, editor_email, updated_at) " +
-        "VALUES (?1, ?2, ?3, ?4, ?5, 'approved', 'editor', ?6, datetime('now')) RETURNING id",
-      ).bind(edit.pieceId, edit.target, edit.field, edit.proposed, edit.note, edit.email).first<{ id: number }>();
+        "INSERT INTO corrections (piece_id, target, field, proposed, note, status, source, editor_email, seen, updated_at) " +
+        "VALUES (?1, ?2, ?3, ?4, ?5, 'approved', 'editor', ?6, ?7, datetime('now')) RETURNING id",
+      ).bind(edit.pieceId, edit.target, edit.field, edit.proposed, edit.note, edit.email, edit.seen ?? null)
+        .first<{ id: number }>();
       return row?.id ?? 0;
     },
     async queueBatch(batchId, ids) {
@@ -133,6 +143,21 @@ export function d1Store(db: D1Like): Store {
     async lastReviewed() {
       const row = await db.prepare("SELECT MAX(at) AS at FROM admin_log").first<{ at: string | null }>();
       return row?.at ?? null;
+    },
+    async skips() {
+      const { results } = await db.prepare("SELECT target, note, editor_email, at FROM review_skips ORDER BY at DESC")
+        .all<Skip>();
+      return results ?? [];
+    },
+    async skip(target, note, email) {
+      await db.prepare(
+        "INSERT INTO review_skips (target, note, editor_email) VALUES (?1, ?2, ?3) " +
+        "ON CONFLICT(target) DO UPDATE SET note = excluded.note, editor_email = excluded.editor_email, at = datetime('now')",
+      ).bind(target, note, email).run();
+    },
+    async unskip(target) {
+      const result = await db.prepare("DELETE FROM review_skips WHERE target = ?1").bind(target).run();
+      return (result.meta?.changes ?? 0) === 1;
     },
   };
 }
