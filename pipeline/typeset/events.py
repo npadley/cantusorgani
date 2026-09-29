@@ -102,15 +102,9 @@ def read(path: Path, cache: Path = CACHE, include: Path = INCLUDE) -> Events:
     with tempfile.TemporaryDirectory() as tmp:
         wrapper = Path(tmp) / "source.ly"
         wrapper.write_text(with_listener(text), encoding="utf-8")
-        binary = lilypond.find()
-        import subprocess
-        try:
-            done = subprocess.run([str(binary), f"--include={include}", f"--include={LISTEN_DIR}",
-                                   "-dno-point-and-click", "-dno-print-pages", "-o", str(Path(tmp) / "out"),
-                                   str(wrapper)], check=False, capture_output=True, text=True, timeout=180, cwd=tmp)
-            ok, log = done.returncode == 0, done.stderr
-        except subprocess.TimeoutExpired:
-            ok, log = False, "LilyPond took longer than 180 s"
+        result = lilypond.run(["-dno-print-pages", "-o", str(Path(tmp) / "out"), str(wrapper)], cwd=Path(tmp),
+                              includes=(include, LISTEN_DIR))
+        ok, log = result.ok, result.log
         produced = Path(tmp) / "out.events.tsv"
         cache.mkdir(parents=True, exist_ok=True)
         if ok and produced.exists():

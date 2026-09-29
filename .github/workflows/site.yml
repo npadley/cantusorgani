@@ -18,8 +18,10 @@
 # wrangler direct upload does not use Cloudflare Pages' build quota.
 #
 # Needs, in Settings -> Secrets and variables -> Actions:
-#   secrets:   CLOUDFLARE_API_TOKEN (Pages: Edit), CLOUDFLARE_ACCOUNT_ID
-#   variables: PUBLIC_ASSET_BASE, PUBLIC_CORRECTIONS_ENDPOINT, PUBLIC_TURNSTILE_SITE_KEY
+#   secrets:   CLOUDFLARE_API_TOKEN (Pages: Edit), CLOUDFLARE_ACCOUNT_ID,
+#              R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY (typeset-upload;
+#              docs/ADMIN-SETUP.md section 5)
+#   variables: PUBLIC_ASSET_BASE, PUBLIC_CORRECTIONS_ENDPOINT, PUBLIC_TURNSTILE_SITE_KEY, R2_BUCKET
 name: site
 
 on:
@@ -39,7 +41,90 @@ permissions:
   contents: read
 
 jobs:
+  # ------------------------------------------------------------ typeset ---
+  # Typeset music (docs/TYPESETTING.md): draw what is not on R2 yet, then
+  # upload it, in two jobs. LilyPond runs Scheme from the files it reads, so
+  # the job that runs it has no secrets, and LilyPond itself no network; the
+  # job with the R2 secrets never runs it.
+  typeset-render:
+    name: Typeset render
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions: {}
+    outputs:
+      rendered: ${{ steps.render.outputs.rendered }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - name: Pinned LilyPond, cached
+        uses: actions/cache@v4
+        with:
+          path: vendor/lilypond-*
+          key: lilypond-${{ runner.os }}-${{ hashFiles('data/typeset/lilypond.yml') }}
+      - name: Install LilyPond
+        run: uv run noh lilypond-install
+      # Ubuntu blocks unprivileged user namespaces by default; the sandbox
+      # (unshare --user --net) needs one.
+      - name: Allow the LilyPond sandbox
+        run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
+          unshare --user --net --map-current-user true   # fails here, clearly, if the sandbox cannot work
+      - name: Render what is not published
+        id: render
+        env:
+          NOH_SANDBOX: "1"
+          PUBLIC_ASSET_BASE: ${{ vars.PUBLIC_ASSET_BASE }}
+        run: |
+          uv run noh typeset-render --missing-from "$PUBLIC_ASSET_BASE"
+          echo "rendered=$(find build/typeset/out -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)" >> "$GITHUB_OUTPUT"
+      - name: Hand the renders to the upload job
+        if: steps.render.outputs.rendered != '0'
+        uses: actions/cache/save@v4
+        with:
+          path: build/typeset/out
+          key: typeset-out-${{ github.run_id }}-${{ github.run_attempt }}
+
+  typeset-upload:
+    name: Typeset upload
+    needs: typeset-render
+    # Not for pull requests from forks, which get no secrets.
+    if: >-
+      needs.typeset-render.outputs.rendered != '0' &&
+      (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - name: The renders
+        uses: actions/cache/restore@v4
+        with:
+          path: build/typeset/out
+          key: typeset-out-${{ github.run_id }}-${{ github.run_attempt }}
+          fail-on-cache-miss: true
+      - name: Check and upload to R2
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ vars.R2_BUCKET }}
+        run: uv run noh typeset-publish
+
   check-build-deploy:
+    needs: [typeset-render, typeset-upload]
+    # After the renders are published (the upload is skipped when there is
+    # nothing new, and for forks); never after a failed render or upload.
+    if: >-
+      !cancelled() && needs.typeset-render.result == 'success' &&
+      (needs.typeset-upload.result == 'success' || needs.typeset-upload.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -120,6 +205,13 @@ jobs:
           PUBLIC_ASSET_BASE: ${{ vars.PUBLIC_ASSET_BASE }}
           PUBLIC_CORRECTIONS_ENDPOINT: ${{ vars.PUBLIC_CORRECTIONS_ENDPOINT }}
           PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_TURNSTILE_SITE_KEY }}
+      # Every render the manifest names answers at its public address, so the
+      # site never links to music that is not there. (Forks cannot upload.)
+      - name: Typeset music published
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          PUBLIC_ASSET_BASE: ${{ vars.PUBLIC_ASSET_BASE }}
+        run: uv run noh typeset-check --remote "$PUBLIC_ASSET_BASE"
       # Also crawls dist/: fails on any page no link reaches.
       - name: Build
         run: pnpm build

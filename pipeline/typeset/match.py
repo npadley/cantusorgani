@@ -214,6 +214,9 @@ HEADER = """\
 #
 # target: part:<slug>/<part>[:<variant>], movement:<slug>/<movement>, piece:<slug>
 # status: matched | proposed | melody-differs | broken
+# source: editor (a person settled it; never changed here) | render (LilyPond
+#   could not draw it; evidence.hash is the render it failed at, and the mark
+#   goes when the file changes)
 # evidence.melody: how much of the file's melody the chant has, in order (0-1).
 """
 
@@ -247,13 +250,14 @@ def run(src: Path = SRC, path: Path = PARTS_FILE, catalog_path: Path = DATA / "c
     all_targets = targets(catalog, printed)
     files = sorted(src.rglob("*.ly"))
     events = (read_events or read_all)(files)
-    settled = {e["file"]: e for e in load(path) if e.get("source") == "editor"}
+    previous = {e["file"]: e for e in load(path)}
     entries: list[Entry] = []
     for f in files:
         rel = f.relative_to(src).as_posix()
-        if rel in settled:
-            s = settled[rel]
-            entries.append(Entry(rel, s.get("target"), str(s["status"]), dict(s.get("evidence") or {}), "editor"))
+        s = previous.get(rel) or {}
+        if s.get("source") == "editor" or (s.get("source") == "render" and still_fails(f, s)):
+            entries.append(Entry(rel, s.get("target"), str(s["status"]), dict(s.get("evidence") or {}),
+                                 str(s["source"])))
             continue
         entries.append(decide(rel, f.read_text(encoding="utf-8"), events[f], all_targets, chants))
     settle_duplicates(entries)
@@ -261,5 +265,47 @@ def run(src: Path = SRC, path: Path = PARTS_FILE, catalog_path: Path = DATA / "c
     return entries
 
 
-__all__ = ["MATCHED", "PARTS_FILE", "Entry", "Hints", "Target", "candidates", "decide", "hints", "load", "run",
-           "settle_duplicates", "targets"]
+def still_fails(path: Path, entry: dict[str, Any]) -> bool:
+    """A file marked broken because it failed to render stays so until it
+    changes: the mark names the render hash it failed at."""
+    from pipeline.typeset.render import source_hash
+    return (entry.get("evidence") or {}).get("hash") == source_hash(path.read_text(encoding="utf-8"))
+
+
+def mark_render_failures(failures: dict[str, str], path: Path = PARTS_FILE, src: Path = SRC) -> list[str]:
+    """Mark files that LilyPond could not draw as broken, with the reason and the
+    hash they failed at, so the site keeps their scans and the admin screen's
+    Typeset errors queue lists them. Returns the files marked."""
+    from pipeline.typeset.render import source_hash
+    marked = []
+    entries = []
+    for e in load(path):
+        why = failures.get(e["file"])
+        if why is None or e.get("source") == "editor":
+            entries.append(Entry(e["file"], e.get("target"), str(e["status"]), dict(e.get("evidence") or {}),
+                                 str(e.get("source", "match"))))
+            continue
+        evidence = {**(e.get("evidence") or {}), "error": why, "was": e["status"],
+                    "hash": source_hash((src / e["file"]).read_text(encoding="utf-8"))}
+        entries.append(Entry(e["file"], e.get("target"), "broken", evidence, "render"))
+        marked.append(e["file"])
+    save(entries, path)
+    return marked
+
+
+__all__ = [
+    "MATCHED",
+    "PARTS_FILE",
+    "Entry",
+    "Hints",
+    "Target",
+    "candidates",
+    "decide",
+    "hints",
+    "load",
+    "mark_render_failures",
+    "run",
+    "settle_duplicates",
+    "still_fails",
+    "targets",
+]

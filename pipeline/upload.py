@@ -20,7 +20,9 @@ from dataclasses import dataclass
 from pathlib import Path
 
 REQUIRED_VARS = ("R2_ACCOUNT_ID", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY", "R2_BUCKET")
-CONTENT_TYPES = {".webp": "image/webp", ".png": "image/png"}
+CONTENT_TYPES = {".webp": "image/webp", ".png": "image/png",
+                 # Typeset music (pipeline/typeset/publish.py), checked before upload.
+                 ".svg": "image/svg+xml", ".pdf": "application/pdf"}
 # Slices are immutable: the key changes whenever the bytes change, which is the
 # entire point of content addressing.
 CACHE_CONTROL = "public, max-age=31536000, immutable"
