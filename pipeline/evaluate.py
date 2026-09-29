@@ -36,6 +36,7 @@ from pipeline.segment import (
     group_systems,
     group_systems_by_gap,
     merge_close_lines,
+    recover_tilted_staves,
 )
 from pipeline.segment import to_bboxes as _to_bboxes
 
@@ -109,7 +110,7 @@ def analyse_page(vol_id: str, pdf_page: int) -> PageAnalysis:
         staves = group_staves_tolerant(lines)
     else:
         lines = find_staff_lines(binary)
-        staves = group_staves(lines)
+        staves = recover_tilted_staves(binary, lines, group_staves(lines))
     ink = binary < 128
     base = {
         "vol_id": vol_id, "pdf_page": pdf_page, "page_width": width,
