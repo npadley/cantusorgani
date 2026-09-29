@@ -2,8 +2,9 @@
  * Proper parts whose start looks wrong, for an editor to check against the
  * scan (/admin/parts/). Two signs, both cheap and both seen in real errors:
  *
- * - the start was only guessed from the order of the parts ("order"), which the
- *   site does not show;
+ * - no label or words placed it: its start was inferred, the one chant start
+ *   the page allows between its neighbours ("inferred"), or (in a catalogue
+ *   built before 2026-09-29) guessed from the order of the parts ("order");
  * - the part is much shorter than that kind of part ever is. A short part is as
  *   often a sign that the NEXT part starts too early: Dominica I Adventus's
  *   Introit had three systems because its Gradual was placed on system 4, not 9.
@@ -54,19 +55,23 @@ export function partFingerprint(start: number, length: number): string {
 export type Reviewed = Readonly<Record<string, { readonly was: string; readonly date: string }>>;
 
 /** Every piece with a part to check, in catalogue order. Parts corrected by
- * hand ("hand") are taken as checked, and so are parts reviewed as they are now. */
+ * hand ("hand") or in a reviewed section list ("reviewed") are taken as checked,
+ * and so are parts reviewed as they are now. */
 export function suspectParts(pieces: readonly Piece[], reviewed: Reviewed = {}): readonly SuspectPiece[] {
   const out: SuspectPiece[] = [];
   for (const piece of pieces) {
     const placed = piece.parts.filter((p): p is PrintedPart => p.kind === "printed");
     const parts: SuspectPart[] = [];
     placed.forEach((p, i) => {
-      if (p.placed === "hand") return;
+      if (p.placed === "hand" || p.placed === "reviewed") return;
       const next = placed[i + 1];
       const length = (next?.system ?? piece.systems.length) - p.system;
       const name = partLabel(p.part, p.variant);
       const reasons: string[] = [];
       if (p.placed === "order") reasons.push("its start was guessed from the order of the parts, so the site hides it");
+      if (p.placed === "inferred") {
+        reasons.push("no label or words placed it: its start is the one chant start the page allows between its neighbours");
+      }
       if (length < FEWEST[p.part]) {
         reasons.push(`it runs for only ${length} system${length === 1 ? "" : "s"}` +
           (next ? `: check where it starts, and where the ${partLabel(next.part, next.variant)} starts` : ""));

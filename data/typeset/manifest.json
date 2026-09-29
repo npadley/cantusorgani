@@ -417,6 +417,11 @@
    "hash": "e70889a6a4b215dbdeb8c0105a09b167"
   },
   {
+   "target": "part:die-vi-infra-octavam-pasch-2/alleluia",
+   "file": "vol-2/al_dicite_in_gentibus.csv.ly",
+   "hash": "b7ae0772016f3a0fedc80ae6ae647a86"
+  },
+  {
    "target": "part:die-vi-infra-octavam-pasch-2/offertory",
    "file": "vol-2/of_erit_vobis.csv.ly",
    "hash": "106d0c6bbb29019302067b330cb8dfbd"
@@ -605,6 +610,16 @@
    "target": "part:dominica-iii-post-epiphaniam/offertory",
    "file": "vol-1/of_dextera_domini.csv.ly",
    "hash": "2588f60a846a2ebf1e566a68d430bf03"
+  },
+  {
+   "target": "part:dominica-iii-post-pascha/alleluia:1",
+   "file": "vol-2/al_redemptionem.csv.ly",
+   "hash": "a8bdf49b490423bc72bf73717edca1b2"
+  },
+  {
+   "target": "part:dominica-iii-post-pascha/alleluia:2",
+   "file": "vol-2/al_oportebat_pati_christum.csv.ly",
+   "hash": "8c76f8b6b273b239517681b50018d0af"
   },
   {
    "target": "part:dominica-iii-post-pascha/communion",
@@ -812,14 +827,29 @@
    "hash": "da1cee0455ac93b9bf5d79aae8463a3b"
   },
   {
+   "target": "part:dominica-pentecostes/alleluia:2",
+   "file": "vol-2/al_veni_sancte_spiritus.csv.ly",
+   "hash": "102c137f3a73354a86cd3baca019a9b6"
+  },
+  {
    "target": "part:dominica-pentecostes/communion",
    "file": "vol-2/co_factus_est_cum_alleluia.csv.ly",
    "hash": "6cc21c408b471bd51da5bd515eff47fb"
   },
   {
+   "target": "part:dominica-pentecostes/offertory",
+   "file": "vol-2/of_confirma_hoc.csv.ly",
+   "hash": "850fbb8b2c7ee1f6e5f43b11d04c19d3"
+  },
+  {
    "target": "part:dominica-pentecostes/sequence",
    "file": "vol-2/se_veni_sancte_spiritus.csv.ly",
    "hash": "5d6ef4aaa27794e0048727a8f75e2918"
+  },
+  {
+   "target": "part:dominica-post-ascensionem/alleluia:1",
+   "file": "vol-2/al_regnavit_dominus.csv.ly",
+   "hash": "674530ab711c24fcbf3fca9c662746d6"
   },
   {
    "target": "part:dominica-post-ascensionem/alleluia:2",
@@ -895,6 +925,11 @@
    "target": "part:dominica-v-post-pentecosten/introit",
    "file": "vol-2/in_exaudi_domine__adjutor.csv.ly",
    "hash": "64e517487ef55ba87b82e741b9579836"
+  },
+  {
+   "target": "part:dominica-vi-post-pentecosten/alleluia",
+   "file": "vol-2/al_in_te_domine.csv.ly",
+   "hash": "efaf09867a371a0e532fe9f7c76540ba"
   },
   {
    "target": "part:dominica-vi-post-pentecosten/communion",
@@ -1242,6 +1277,11 @@
    "hash": "eee31de223e54a6073e447dcd08bcefb"
   },
   {
+   "target": "part:feria-ii-infra-hebd-iii-quadragesim/communion",
+   "file": "vol-1/co_quis_dabit.csv.ly",
+   "hash": "0e83ecc8dc753ab58722e824b4febea3"
+  },
+  {
    "target": "part:feria-ii-infra-hebd-iii-quadragesim/introit",
    "file": "vol-1/in_in_deo_laudabo.csv.ly",
    "hash": "55829a9846f85cbbd4531183474193a5"
@@ -1562,6 +1602,11 @@
    "hash": "53f9ddbee24d6ee824e72174c28b28cf"
   },
   {
+   "target": "part:in-ascensione-domini/alleluia:1",
+   "file": "vol-2/al_ascendit_deus.csv.ly",
+   "hash": "fea30de3d4b9433cdf2a107bd1c9c3d2"
+  },
+  {
    "target": "part:in-ascensione-domini/alleluia:2",
    "file": "vol-2/al_dominus_in_sina.csv.ly",
    "hash": "3d381d919ff643c11240736669942540"
@@ -1812,6 +1857,11 @@
    "hash": "3f0e0f8f73eaf6ebb87041d2a7d036fe"
   },
   {
+   "target": "part:noh1-p54/alleluia",
+   "file": "vol-1/al_dominus_regnavit__decorem.csv.ly",
+   "hash": "d58acf466b6273b357c73aa2d0b51392"
+  },
+  {
    "target": "part:noh1-p54/communion",
    "file": "vol-1/co_exsulta_filia.csv.ly",
    "hash": "3bff1f1bcc773e5f2a4d6ac09a9d8014"
@@ -1877,6 +1927,11 @@
    "hash": "cb33179d6568b9a78b7095c4873c97a9"
   },
   {
+   "target": "part:noh2-p114/alleluia",
+   "file": "vol-2/al_caro_mea.csv.ly",
+   "hash": "fbd33188179b45cf1464c15a8dee9e81"
+  },
+  {
    "target": "part:noh2-p114/communion",
    "file": "vol-2/co_quotiescumque.csv.ly",
    "hash": "bd6be080e1d384960062887ca6816a34"
@@ -1907,9 +1962,14 @@
    "hash": "4f5d3da3cbcb5041127eda3693162d18"
   },
   {
-   "target": "part:noh2-p133/offertory",
+   "target": "part:noh2-p133/offertory:1",
    "file": "vol-2/of_improperium_exspectavit.csv.ly",
    "hash": "f459aaf02e5b445b65548a6ab69b2773"
+  },
+  {
+   "target": "part:noh2-p37/alleluia:1",
+   "file": "vol-2/al_in_die_resurrectionis.csv.ly",
+   "hash": "83a2ebf6b4747f17bf58f2721cab5c46"
   },
   {
    "target": "part:noh2-p37/communion",
@@ -2312,6 +2372,11 @@
    "hash": "a2aee685c62d9cb49fafefbccbdd8522"
   },
   {
+   "target": "part:s-philippi-neri-confessoris/alleluia",
+   "file": "vol-3/al_de_excelso.csv.ly",
+   "hash": "faefe214bcafbebcce77f95534aaf512"
+  },
+  {
    "target": "part:s-philippi-neri-confessoris/communion",
    "file": "vol-3/co_cor_meum.csv.ly",
    "hash": "a17878c5407f5e8efe83d9dd07c98aa9"
@@ -2445,6 +2510,21 @@
    "target": "part:sabbato-quattuor-temporum-quadragesim/offertory",
    "file": "vol-1/of_domine_deus_salutis.csv.ly",
    "hash": "b743d7e2e97b40ed57888ae9456f3a61"
+  },
+  {
+   "target": "part:sabbato-temporum-adventus/communion",
+   "file": "vol-1/co_exsultavit_ut_gigas.csv.ly",
+   "hash": "e31ba2cdcfd0035e74f1e92e53a6488d"
+  },
+  {
+   "target": "part:sabbato-temporum-adventus/offertory",
+   "file": "vol-1/of_exsulta_satis.csv.ly",
+   "hash": "78d4b2fd543fb8a40cb2b2f03f54cb19"
+  },
+  {
+   "target": "part:sabbato-temporum-adventus/tract",
+   "file": "vol-1/tr_qui_regis_israel.csv.ly",
+   "hash": "abb9706e6904367a8978bd31650ee13e"
   },
   {
    "target": "part:sanctissimi-nominis-jesu/alleluia",

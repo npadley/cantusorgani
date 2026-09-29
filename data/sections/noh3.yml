@@ -25,3 +25,23 @@ b-mariae-virginis-reginae:
 - {kind: alleluia, ref: noh3/0486/004, chant: 717}
 - {kind: offertory, label: Offert. IV, ref: noh3/0488/000, chant: 719}
 - {kind: communion, label: Comm. I, ref: noh3/0489/000, chant: 1053}
+# Checked against the scans 2026-09-29 (NOH3 pp. 152-158): the two Paschaltide
+# Alleluias jgabc lists (IV, Pro omnibus; III, Si filii) come before "Extra
+# Tempus Paschale: Grad.", whose Alleluia (I, Christus passus est) is a third.
+s-pauli-a-cruce-confessoris:
+- {kind: introit, label: Intr. IV, title: Christo confixus sum, ref: noh3/0185/000, chant: 775}
+- {kind: alleluia, n: 1, title: Pro omnibus, ref: noh3/0186/002, chant: 476}
+- {kind: alleluia, n: 2, title: Si filii, ref: noh3/0187/001, chant: 1073}
+- {kind: gradual, label: Grad. IV, title: Mihi autem absit, ref: noh3/0188/000, chant: none}
+- {kind: alleluia, n: 3, title: Christus passus est, ref: noh3/0189/003, chant: none}
+- {kind: tract, label: Tract. II, title: Christo igitur, ref: noh3/0190/003, chant: 1005}
+- {kind: offertory, label: Offert., title: Ambulate, ref: noh3/0193/000, chant: 773}
+- {kind: communion, label: Comm., title: Communicantes, ref: noh3/0194/000, chant: 732}
+# Checked against the scans 2026-09-29 (NOH3 pp. 225-227).
+in-nativitate-s-joannis-baptist:
+- {kind: introit, label: Intr., title: De ventre matris, ref: noh3/0257/000, chant: 659}
+- {kind: gradual, label: Grad. V, title: Priusquam, ref: noh3/0258/003, chant: 647}
+- {kind: alleluia, title: Tu puer, ref: noh3/0259/003, chant: 847}
+- {kind: offertory, borrowed_volume: noh4, borrowed_page: 76, borrowed_from: commune-confessoris-non-pontificis,
+  borrowed_ref: noh4/0111/004, chant: 777}
+- {kind: communion, label: Comm. II, title: Tu puer, ref: noh3/0260/003, chant: 133}

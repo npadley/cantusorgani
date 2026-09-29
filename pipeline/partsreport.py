@@ -32,7 +32,7 @@ def summary(catalog: dict[str, object], review: list[dict[str, object]], volume:
     unresolved = sum(1 for r in review if r.get("kind") == "part_borrowed_unresolved"
                      and r.get("piece") in slugs)
     return (f"{volume}: {len(printed)} parts placed (label {placed['label']}, text {placed['text']}, "
-            f"mode {placed['mode']}, order {placed['order']}), {kinds['part_missing']} missing, "
+            f"inferred {placed['inferred']}, reviewed {placed['reviewed']}), {kinds['part_missing']} missing, "
             f"{kinds['part_mismatch']} mismatched, {kinds['part_unsupported']} unsupported; "
             f"{len(borrowed)} borrowed ({unresolved} unresolved)")
 

@@ -21,8 +21,9 @@ from pipeline.parts import (
 )
 
 
-def sys_(text: str = "", label: str | None = None, marker: str | None = None, ref: str = "") -> PartSystem:
-    return PartSystem(ref=ref, text=text, label=label, mode_marker=marker)
+def sys_(text: str = "", label: str | None = None, marker: str | None = None, ref: str = "",
+         number: int | None = None, mark: str | None = None) -> PartSystem:
+    return PartSystem(ref=ref, text=text, label=label, mode_marker=marker, number=number, mark=mark)
 
 
 def exp(part: str, opening: str | None = None, variant: str = "", optional: bool = False,
@@ -31,8 +32,8 @@ def exp(part: str, opening: str | None = None, variant: str = "", optional: bool
 
 
 def refs(systems: list[PartSystem]) -> list[PartSystem]:
-    return [PartSystem(ref=f"v/0001/{i:03d}", text=s.text, label=s.label, mode_marker=s.mode_marker)
-            for i, s in enumerate(systems)]
+    return [PartSystem(ref=f"v/0001/{i:03d}", text=s.text, label=s.label, mode_marker=s.mode_marker,
+                       number=s.number, mark=s.mark) for i, s in enumerate(systems)]
 
 
 # ------------------------------------------------------------- labels ---
@@ -108,13 +109,14 @@ def test_segment_proper_alleluia_found_by_mode_number_and_its_first_word():
     assert [(p.part, p.index) for p in result.parts][2] == ("alleluia", 4)
 
 
-def test_segment_proper_no_confident_system_places_by_order_and_queues():
+def test_segment_proper_a_part_nothing_names_is_inferred_where_one_chant_starts_in_its_gap():
     systems = refs([sys_("x", label="introit"), sys_("a"), sys_("b"), sys_("c", marker="V"),
                     sys_("d"), sys_("e"), sys_("f", label="communion"), sys_("g")])
     result = segment_proper(systems, [exp("introit"), exp("gradual", "confiteor"), exp("communion")])
     gradual = result.parts[1]
-    assert (gradual.part, gradual.index, gradual.placed) == ("gradual", 3, "order")
-    assert ("part_by_order", "gradual") in [(p.kind, p.part) for p in result.problems]
+    assert (gradual.part, gradual.index, gradual.placed) == ("gradual", 3, "inferred")
+    assert gradual.why == "the one chant start between the Introit and the Communion"
+    assert result.problems == []
 
 
 def test_segment_proper_optional_part_absent_is_skipped_silently():
@@ -271,17 +273,20 @@ def test_margin_mode_noise_without_a_full_stop_is_none():
     assert margin_mode("fe") is None
 
 
-def test_segment_proper_mode_number_alone_places_by_order_and_queues():
+def test_segment_proper_two_chant_starts_or_none_in_the_gap_queue_the_part_with_its_candidates():
     """A mode number with no label or words found the right system 5 times in 12
-    (hand check, 2026-09-26): it is an order placement, for review."""
-    systems = refs([sys_("x", label="introit"), sys_("a"), sys_("b", label="gradual"), sys_("c"),
-                    sys_("d"), sys_("qz xw", marker="VII"), sys_("e"),
-                    sys_("f", label="offertory"), sys_("g"), sys_("h", label="communion")])
-    result = segment_proper(systems, [exp("introit"), exp("gradual"), exp("alleluia", "quasirosa"),
-                                      exp("offertory"), exp("communion")])
-    alleluia = result.parts[2]
-    assert (alleluia.part, alleluia.index, alleluia.placed) == ("alleluia", 5, "order")
-    assert [(p.kind, p.part) for p in result.problems] == [("part_by_order", "alleluia")]
+    (hand check, 2026-09-26): with two candidates nothing is placed."""
+    parts = [exp("introit"), exp("gradual"), exp("alleluia", "quasirosa"), exp("offertory"), exp("communion")]
+    two = refs([sys_("x", label="introit"), sys_("a"), sys_("b", label="gradual"), sys_("c"),
+                sys_("d", marker="II"), sys_("qz xw", marker="VII"), sys_("e"),
+                sys_("f", label="offertory"), sys_("g"), sys_("h", label="communion")])
+    result = segment_proper(two, parts)
+    assert "alleluia" not in [p.part for p in result.parts]
+    assert [(p.kind, p.part, p.candidates) for p in result.problems] == [
+        ("part_missing", "alleluia", ("v/0001/004", "v/0001/005"))]
+    none = refs([sys_("x", label="introit"), sys_("a"), sys_("b", label="gradual"), sys_("c"), sys_("d"),
+                 sys_("f", label="offertory"), sys_("h", label="communion")])
+    assert [(p.kind, p.candidates) for p in segment_proper(none, parts).problems] == [("part_missing", ())]
 
 
 def test_segment_proper_optional_part_never_placed_by_a_mode_number_alone():

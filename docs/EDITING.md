@@ -406,14 +406,20 @@ Single starts and chants can still be corrected on top of a list (below).
 Editors do the same on the admin screen: **Edit** beside the part's heading,
 or **Which part?** on the edit page. Readers use **Report** beside it.
 
-A part the pipeline placed by order alone (a guess) isn't shown on the site,
-so it has no Report link. It's listed on the admin edit page and in
-`noh where`.
+How the pipeline places a part: a margin label ("Grad.", "2. Grad.", "Hymn.")
+starts a section; a part jgabc lists that no label names is found by its words,
+only between the sections before and after it; failing that, it is placed only
+where exactly one chant starts in that gap (`inferred`), and otherwise it goes to
+the review queue (`part_missing`, naming the candidate systems). Nothing is
+placed by guesswork any more. Nothing unlabelled starts inside the Introit's
+Psalm verse and Gloria Patri, and the word "alleluia" places an Alleluia only
+where its chant begins (at the start of the line, beside its mode, or before
+its asterisk), not where it ends a Paschaltide Introit, Offertory or Communion.
 
 **Parts to check** (`/admin/parts/`, linked from the admin screen) lists the
-parts whose start looks wrong: guessed from the order of the parts, or much
-shorter than that kind of part usually is (often because the next part starts
-too early). Each opens its edit page with the scan. A part corrected by hand,
+parts whose start looks wrong: inferred rather than read from a label or the
+words, or much shorter than that kind of part usually is (often because the next
+part starts too early). A reviewed section list counts as checked. Each opens its edit page with the scan. A part corrected by hand,
 or marked **Looks right**, leaves the list once it is published; a part marked
 **Looks right** comes back if its start or length changes.
 

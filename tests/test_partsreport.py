@@ -10,7 +10,7 @@ def catalog() -> dict[str, object]:
         {"volume": "noh3", "slug": "therese", "title": "S. Theresiæ <&>", "sections": [
             {"kind": "introit", "variant": "", "system": 0, "ref": "noh3/0397/000", "placed": "label"},
             {"kind": "gradual", "variant": "", "system": 8, "ref": "noh3/0398/003", "placed": "text"},
-            {"kind": "offertory", "variant": "", "system": 48, "ref": "noh3/0405/002", "placed": "order"},
+            {"kind": "offertory", "variant": "", "system": 48, "ref": "noh3/0405/002", "placed": "inferred"},
             {"kind": "communion", "variant": "", "borrowed_volume": "noh4", "borrowed_page": 81,
              "borrowed_from": None},
         ]},
@@ -24,7 +24,7 @@ def test_summary_counts_one_volumes_parts_by_how_they_were_placed():
               {"volume": "noh3", "kind": "part_unsupported"}, {"volume": "noh1", "kind": "part_missing"},
               {"volume": "links", "kind": "part_borrowed_unresolved", "piece": "therese"}]
     assert summary(catalog(), review, "noh3") == (
-        "noh3: 3 parts placed (label 1, text 1, mode 0, order 1), 1 missing, 1 mismatched, "
+        "noh3: 3 parts placed (label 1, text 1, inferred 1, reviewed 0), 1 missing, 1 mismatched, "
         "1 unsupported; 1 borrowed (1 unresolved)")
 
 

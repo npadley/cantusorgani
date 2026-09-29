@@ -367,7 +367,9 @@ def test_borrowed_parts_point_at_a_real_part_or_are_queued():
 @pytest.mark.parametrize(("slug", "expected"), [
     # Hand-verified against the page images, 2026-09-26.
     ("s-theresiae-a-jesu-infante-virginis",
-     [("introit", 0), ("gradual", 8), ("alleluia", 16), ("tract", 31), ("offertory", 48), ("communion", 55)]),
+     # With the Paschal Alleluia after the Tract ("ut supra, deinde: Alleluia"), checked 2026-09-29.
+     [("introit", 0), ("gradual", 8), ("alleluia", 16), ("tract", 31), ("alleluia", 42), ("offertory", 48),
+      ("communion", 55)]),
     ("s-andre-apostoli", [("introit", 0), ("gradual", 7), ("alleluia", 15), ("offertory", 23),
                           ("communion", 28)]),
 ])

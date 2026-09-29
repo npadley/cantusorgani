@@ -2,38 +2,41 @@
   "schema_version": 1,
   "corrections": [
     {
+      "id": "c-0015",
+      "target": "piece:die-ii-infra-octavam-pasch",
+      "field": "system_range",
+      "was": [
+        "noh2/0040/002",
+        "noh2/0043/005"
+      ],
+      "value": [
+        "noh2/0040/002",
+        "noh2/0044/003"
+      ],
+      "date": "2026-09-29",
+      "by": "editor"
+    },
+    {
+      "id": "c-0014",
+      "target": "piece:dominica-resurrectionis",
+      "field": "system_range",
+      "was": [
+        "noh2/0033/000",
+        "noh2/0039/005"
+      ],
+      "value": [
+        "noh2/0033/000",
+        "noh2/0040/001"
+      ],
+      "date": "2026-09-29",
+      "by": "editor"
+    },
+    {
       "id": "c-0013",
       "target": "part:s-pii-x-papae-et-confessoris/tract",
       "field": "start_system",
       "was": 36,
       "value": 29,
-      "date": "2026-09-28",
-      "by": "editor"
-    },
-    {
-      "id": "c-0009",
-      "target": "part:s-pii-x-papae-et-confessoris/alleluia",
-      "field": "start_system",
-      "was": 29,
-      "value": 22,
-      "date": "2026-09-28",
-      "by": "editor"
-    },
-    {
-      "id": "c-0007",
-      "target": "part:dominica-i-adventus/alleluia",
-      "field": "start_system",
-      "was": 9,
-      "value": 15,
-      "date": "2026-09-28",
-      "by": "editor"
-    },
-    {
-      "id": "c-0006",
-      "target": "part:dominica-i-adventus/gradual",
-      "field": "start_system",
-      "was": 4,
-      "value": 9,
       "date": "2026-09-28",
       "by": "editor"
     },
