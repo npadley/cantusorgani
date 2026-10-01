@@ -11,7 +11,9 @@ export function gabcWords(gabc: string): string {
   const text = body.replace(/<(?:(?:i|sp|alt))\b[^>]*>[\s\S]*?<\/(?:i|sp|alt)>/gi, " ")
     .replace(/\([^)]*\)/g, "").replace(/<[^>]*>/g, "")
     .replace(/[{}*_~]/g, "").replace(/(?:^|\s)\.(?=\s|$)/g, " ");
-  return normalize(text).replace(/^AL(?=le)/, "Al");
+  // Removing nested markup can assemble another tag. Exclude the individual
+  // delimiters as well so extracted words can never contain HTML markup.
+  return normalize(text.replace(/[<>]/g, "")).replace(/^AL(?=le)/, "Al");
 }
 
 /** Preserve word breaks while joining hyphenated sung syllables. */

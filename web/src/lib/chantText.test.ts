@@ -14,3 +14,8 @@ it("includes verses beyond the incipit on a Proper and the Credos without GABC",
   expect(chantTexts(pieceBySlug("dominica-i-adventus")!).join(" ")).toMatch(/conf[úu]nd[ée]ntur/i);
   expect(chantTexts(pieceBySlug("alii-cantus-ad-libitum-credo-v")!).join(" ")).toContain("resurrectiónem mortuórum");
 });
+
+it("never returns markup when removing notation or nested tags assembles a new tag", () => {
+  const hostile = 'La(h)udem(g) <<script>script>alert(1)<<script>/script> <scr(a)ipt>text</scr(b)ipt> Dó(f)mi(g)ni.(h)';
+  expect(gabcWords(hostile)).not.toMatch(/[<>]/);
+});
