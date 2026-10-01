@@ -8,11 +8,16 @@ const normalize = (text: string): string => text.replace(/\s+/g, " ").trim();
 
 export function gabcWords(gabc: string): string {
   const body = gabc.includes("%%") ? gabc.split("%%").slice(1).join("%%") : gabc;
-  const text = body.replace(/<(?:(?:i|sp|alt))\b[^>]*>[\s\S]*?<\/(?:i|sp|alt)>/gi, " ")
-    .replace(/\([^)]*\)/g, "").replace(/<[^>]*>/g, "")
+  let text = body.replace(/<(?:(?:i|sp|alt))\b[^>]*>[\s\S]*?<\/(?:i|sp|alt)>/gi, " ")
+    .replace(/\([^)]*\)/g, "")
     .replace(/[{}*_~]/g, "").replace(/(?:^|\s)\.(?=\s|$)/g, " ");
-  // Removing nested markup can assemble another tag. Exclude the individual
-  // delimiters as well so extracted words can never contain HTML markup.
+  // Removing nested markup can assemble another tag. Repeat until no tags
+  // remain, then exclude stray delimiters from the extracted plain text.
+  let previous: string;
+  do {
+    previous = text;
+    text = text.replace(/<[^<>]*>/g, "");
+  } while (text !== previous);
   return normalize(text.replace(/[<>]/g, "")).replace(/^AL(?=le)/, "Al");
 }
 
