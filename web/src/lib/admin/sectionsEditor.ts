@@ -11,6 +11,8 @@ export interface Row {
   kind: string;
   n: string;
   paschal: boolean;
+  /** A name of its own, in place of the number and the Paschaltide form. */
+  key: string;
   label: string;
   title: string;
   /** "printed" (starts on a system of this piece) or "elsewhere" (another page). */
@@ -23,7 +25,7 @@ export interface Row {
 
 export function toRow(e: SectionEntry): Row {
   return {
-    kind: e.kind, n: e.n ? String(e.n) : "", paschal: e.variant === "paschal", label: e.label ?? "", title: e.title ?? "",
+    kind: e.kind, n: e.n ? String(e.n) : "", paschal: e.variant === "paschal", key: e.key ?? "", label: e.label ?? "", title: e.title ?? "",
     where: e.system !== undefined ? "printed" : "elsewhere", system: e.system !== undefined ? String(e.system) : "",
     volume: e.borrowed_volume ?? "", page: e.borrowed_page ? String(e.borrowed_page) : "",
     chant: e.chant === "none" ? "" : String(e.chant),
@@ -32,7 +34,7 @@ export function toRow(e: SectionEntry): Row {
 
 /** A new row starting on a system. */
 export function blankRow(system: number | null, kind = "other"): Row {
-  return { kind, n: "", paschal: false, label: "", title: "", where: system === null ? "elsewhere" : "printed",
+  return { kind, n: "", paschal: false, key: "", label: "", title: "", where: system === null ? "elsewhere" : "printed",
            system: system === null ? "" : String(system), volume: "", page: "", chant: "" };
 }
 
@@ -53,6 +55,7 @@ export function rowsValue(rows: readonly Row[]): string {
     kind: r.kind,
     ...(r.n.trim() ? { n: whole(r.n) ?? r.n } : {}),
     ...(r.paschal ? { variant: "paschal" } : {}),
+    ...(r.key.trim() ? { key: r.key.trim() } : {}),
     ...(r.label.trim() ? { label: r.label.trim() } : {}),
     ...(r.title.trim() ? { title: r.title.trim() } : {}),
     ...(r.where === "printed" ? { system: whole(r.system) ?? r.system }

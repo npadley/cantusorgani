@@ -1,4 +1,4 @@
-import { allPieces, assetBase, systemUrlStem } from "../catalog";
+import { allPieces, assetBase, movementStarts, systemUrlStem } from "../catalog";
 import { pieceHref } from "../indexes";
 import { allLineups, itemSystems, lineupHref, lineupTitle } from "../vespers";
 import type { Scans } from "./scans";
@@ -24,7 +24,8 @@ export function buildTargets(): Targets {
       systems: p.systems.length,
       range: p.systems.length > 0 ? [p.systems[0] ?? "", p.systems.at(-1) ?? ""] : null,
       pairings: p.chant.map((c) => ({ movement: c.movement ?? "chant", id: c.id })),
-      movements: p.movements.map((m) => m.movement),
+      // The movements with a heading on the page: one a listed section starts on gives way to it.
+      movements: movementStarts(p).map((m) => m.movement),
       parts: p.parts.map((part) => ({
         part: part.part, variant: part.variant, chant: part.gregobaseId,
         ...(part.label ? { label: part.label } : {}), ...(part.title ? { title: part.title } : {}),

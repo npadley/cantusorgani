@@ -269,3 +269,16 @@ describe("chant notation in the Kyriale", () => {
     expect(html).not.toContain("data-chant-toggle");
   });
 });
+
+describe("a Mass with rows of its own (data/sections/noh5.yml)", () => {
+  it("should list Mass XVII's second Kyrie and both responses among its movements, in the book's order", async () => {
+    const xvii = allPieces().find((p) => p.slug === "ordinarium-missae-xvii")!;
+    const html = await render(xvii);
+    expect(html).toContain('aria-label="Movements"');
+    const jump = links(html).filter((a) => !a.startsWith("music"));
+    expect(jump).toEqual(["kyrie", "other-kyrie-b", "sanctus", "agnus", "other-deo-gratias-i", "other-deo-gratias-vi"]);
+    for (const anchor of jump) expect(ids(html).has(anchor), anchor).toBe(true);
+    // The first response starts where the pipeline found "Ite": one heading there, the row's.
+    expect(html).not.toMatch(/<h2[^>]*id="ite"/);
+  });
+});

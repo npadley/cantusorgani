@@ -13,8 +13,12 @@ const movements = starts.filter((s) => s.kind === "movement");
 const parts = starts.filter((s) => s.kind === "part");
 const hymns = starts.filter((s) => s.kind === "hymn");
 const borrowed = borrowedLinks(piece).filter((b) => b.href !== null);
-const isProper = parts.length > 0 || borrowed.length > 0;
-const label = isProper ? "Parts of the Proper" : hymns.length > 0 ? "Hymns" : "Movements";
+// A Mass of the Kyriale with sections of its own (a second Kyrie, each of its
+// dismissals) lists them among its movements, in the book's order.
+const mass = movements.length > 0;
+const inMass = starts.filter((s) => s.kind === "movement" || s.kind === "part");
+const isProper = !mass && (parts.length > 0 || borrowed.length > 0);
+const label = isProper ? "Parts of the Proper" : mass ? "Movements" : hymns.length > 0 ? "Hymns" : "Movements";
 // The switch appears only where there is notation to show.
 const notation = starts.some((s) => hasNotation(s.chantId));
 // The sections printed here in the book's order, those printed elsewhere
@@ -26,11 +30,11 @@ const properLinks = inPrintedOrder(
                          lender: b.lenderTitle, page: b.page })));
 ---
 
-{(movements.length > 1 || hymns.length > 0 || parts.length + borrowed.length > 1) && (
+{(movements.length > 1 || hymns.length > 0 || parts.length + borrowed.length > 1 || (mass && inMass.length > 1)) && (
   <nav class="movements ui no-print" aria-label={label}>
     <span class="small muted">Jump to</span>
-    {movements.length > 1 && movements.map((s) => <a href={`#${s.anchor}`}>{s.label}</a>)}
-    {properLinks.map((l) => l.borrowed
+    {mass && inMass.length > 1 && inMass.map((s) => <a href={`#${s.anchor}`}>{s.label}</a>)}
+    {!mass && properLinks.map((l) => l.borrowed
       ? <a class="borrowed" href={l.href}>{l.label} → {l.lender}, p.&nbsp;{l.page}</a>
       : <a href={l.href}>{l.label}</a>)}
     {hymns.length > 0 && <span class="small muted">Hymns</span>}

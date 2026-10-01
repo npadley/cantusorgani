@@ -365,7 +365,8 @@ by hand.
   uv run noh sections sabbato-temporum-adventus --review   # write it to data/sections/noh1.yml to edit
   ```
 
-  Each section has a `kind`, `n` for the 2nd (3rd…) of its kind, the `label`
+  Each section has a `kind`, `n` for the 2nd (3rd…) of its kind (or a `key`
+  of its own, below), the `label`
   and `title` as printed, the `ref` of its first system (every image on the site
   carries its ref), and optionally its `chant`. The file's header lists every
   key.
@@ -391,6 +392,42 @@ uv run noh correct sections:sabbato-temporum-adventus sections '[{"kind": "intro
 ```
 
 each start a system counting from 1 (it is recorded as that system's ref).
+
+#### A section with a name of its own (`key`)
+
+Sections are named by kind and number (`gradual:2`, `other:3`), so adding one
+before another of its kind renumbers the later ones, and whatever pointed at
+them (a correction, a typeset match) then points at the wrong section. A row
+may instead carry a `key`, a short name of its own in lower-case letters, digits
+and hyphens (`kyrie-b`, `deo-gratias-vi`). It takes the place of `n` and
+`variant`, the section is `part:<slug>/other:kyrie-b`, and it never changes
+when rows are added or removed around it. Use it for whatever the kinds do not
+foresee; give it a `label`, which is what the page shows.
+
+#### A Mass of the Kyriale
+
+A Mass keeps its movements (Kyrie, Gloria, Sanctus, Agnus Dei and one
+dismissal) as the pipeline finds them. `data/sections/noh5.yml` lists only what
+they leave out, each row with a `key`:
+
+- a second Kyrie (Mass XVII's "Vel, ubi moris est");
+- each dismissal, where the book prints several (an Ite for Easter week and
+  another for the rest of Paschaltide; an Ite and a Benedicamus) or the
+  pipeline found none.
+
+```yaml
+ordinarium-missae-iv:
+- {kind: other, key: ite, label: 'Ite, missa est', ref: noh5/0074/004, chant: 353}
+- {kind: other, key: benedicamus, label: Benedicamus Domino, ref: noh5/0074/005, chant: 2856}
+```
+
+On the page the rows stand among the movements in the book's order, each with
+its own heading, jump link, chant and typeset music, and the export offers each
+heading separately. A row that starts on the system where a movement was found
+takes that movement's place (the row `ite` above replaces the heading "Ite,
+missa est" the pipeline put there). Name a row for what it is: a typeset file
+`benedicamus_IV.ly` is matched to the row whose key begins `benedicamus`
+(docs/TYPESETTING.md).
 
 Readers report a missing or mislabelled part with **A part is missing or
 mislabelled** (on the Corrections page, or on a part's **Report**), naming the

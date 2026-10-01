@@ -126,8 +126,8 @@ def test_agreement_takes_the_better_of_as_written_and_written_out():
 
 def test_hints_read_volume_page_kind_and_mass():
     assert hints("vol-1/al_beatus_homo.csv.ly", "%Page reference: page i.109\n") == \
-        match.Hints("noh1", 109, "alleluia", None, None)
-    assert hints("vol-5/missa-ix/kyrie_IX.ly", "") == match.Hints("noh5", None, "kyrie", 9, 9)
+        match.Hints("noh1", 109, "alleluia", None, None, "al")
+    assert hints("vol-5/missa-ix/kyrie_IX.ly", "") == match.Hints("noh5", None, "kyrie", 9, 9, "kyrie")
     assert hints("vol-5/credo_III.ly", "").number == 3
 
 
@@ -291,6 +291,54 @@ def test_decide_melody_and_words_together_match_with_no_page_or_name():
     entry = decide("vol-1/in_x.csv.ly", "", events, all_targets(), {"10": worded(MELODY, SUNG)})
     assert (entry.target, entry.status, entry.evidence["by"]) == \
         ("part:dominica-ii/introit", "matched", "melody and words")
+
+
+def mass_iv() -> dict:
+    """Mass IV with its two dismissals listed (data/sections): the rows take the
+    place of the movement found on the Ite's system."""
+    refs = [f"noh5/0074/{n:03d}" for n in range(6)]
+    return {"pieces": [{
+        "slug": "ordinarium-missae-iv", "volume": "noh5", "genre": "mass_ordinary", "systems": refs,
+        "movements": [{"movement": "agnus", "ref": refs[0]}, {"movement": "ite", "ref": refs[4]}],
+        "chant": [{"movement": "agnus", "id": 264}, {"movement": "ite", "id": 353}],
+        "sections": [
+            {"kind": "other", "key": "ite", "variant": "", "system": 4, "ref": refs[4], "gregobase_id": 353, "placed": "reviewed"},
+            {"kind": "other", "key": "benedicamus", "variant": "", "system": 5, "ref": refs[5], "gregobase_id": 2856,
+             "placed": "reviewed"}]}]}
+
+
+def test_targets_a_listed_row_takes_the_place_of_the_movement_on_its_system():
+    found = [t.target for t in targets(mass_iv(), lambda ref: 28)]
+    assert found == ["part:ordinarium-missae-iv/other:ite", "part:ordinarium-missae-iv/other:benedicamus",
+                     "movement:ordinarium-missae-iv/agnus"]
+
+
+@pytest.mark.parametrize(("rel", "expected"), [
+    ("vol-5/missa-iv/ite_IV.ly", ["part:ordinarium-missae-iv/other:ite"]),
+    ("vol-5/missa-iv/benedicamus_IV.ly", ["part:ordinarium-missae-iv/other:benedicamus"]),
+    ("vol-5/missa-iv/agnus_IV.ly", ["movement:ordinarium-missae-iv/agnus"]),
+    # Named for nothing the Mass lists: both rows are another movement's.
+    ("vol-5/missa-iv/deo_IV.ly", []),
+])
+def test_candidates_a_kyriale_file_goes_to_the_row_its_first_word_names(rel, expected):
+    found, _ = candidates(hints(rel, ""), targets(mass_iv(), lambda ref: 28))
+    assert [t.target for t in found] == expected
+
+
+def test_by_first_word_leaves_out_rows_named_for_another_movement():
+    rows = [Target(f"part:m/other:{key}", "noh5", "m", "other", 1, None) for key in ("kyrie-b", "deo-gratias-i", "deo-gratias-vi")]
+    assert [t.target for t in match.by_first_word("ite", rows)] == ["part:m/other:deo-gratias-i", "part:m/other:deo-gratias-vi"]
+    assert [t.target for t in match.by_first_word("kyrie", rows)] == ["part:m/other:kyrie-b"]
+
+
+def test_decide_two_settings_of_one_melody_are_told_apart_by_their_words():
+    # Easter week's Ite (with alleluias) and the rest of Paschaltide's.
+    rows = [Target("part:ordinarium-missae-i/other:ite-paschal", "noh5", "ordinarium-missae-i", "other", 10, 1),
+            Target("part:ordinarium-missae-i/other:ite", "noh5", "ordinarium-missae-i", "other", 10, 2)]
+    sung = "I te mis sa est al le lu ia al le lu"
+    given = {"1": worded(MELODY, sung), "2": worded(MELODY, "De us in ad iu to ri um me um in ten")}
+    entry = decide("vol-5/missa-i/ite_Ia.ly", "", Events(True, MELODY, tuple(sung.split())), rows, given)
+    assert (entry.target, entry.status) == ("part:ordinarium-missae-i/other:ite-paschal", "matched")
 
 
 def test_settle_duplicates_keeps_the_file_named_for_the_target():

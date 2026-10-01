@@ -90,6 +90,15 @@ A file named for its part is matched on the name, without the melody
   melody must not disagree (60%). Only a piece's first file counts
   (`an_lumen_ad_revelationem.1`, not `.3`).
 
+A Mass may list rows of its own (`data/sections/noh5.yml`: a second Kyrie,
+each of its dismissals). A file in that Mass's folder whose name is not the
+whole answer (`ite_IIa`, `benedicamus_IV`, `kyrie_XVIIa`) is offered those rows:
+the ones whose key begins with the file's first word (`benedicamus_IV` is the
+row `benedicamus`, not `ite`, though they share a melody), or failing any, the
+ones not named for another movement (`ite_XVIIa` may be `deo-gratias-i`, never
+`kyrie-b`). Among those the melody decides, and where two share a melody, the
+words (Easter week's Ite with its alleluias, and the plain one).
+
 When two files claim one part, the one named for it keeps it (`ite_IV`, not
 `benedicamus_IV`, for a Mass's Ite), then the better melody.
 

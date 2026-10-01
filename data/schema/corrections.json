@@ -71,7 +71,7 @@
     "sections": {
       "sections": {
         "pattern": "^\\[.*\\]$",
-        "hint": "the piece's whole list of sections in the order the book prints them, as JSON: each {kind, n?, variant?, label?, title?, system (counting from 1) or ref, or borrowed_volume and borrowed_page, chant}; it replaces the list the piece has now"
+        "hint": "the piece's whole list of sections in the order the book prints them, as JSON: each {kind, n?, variant?, key? (a name of its own in place of n and variant), label?, title?, system (counting from 1) or ref, or borrowed_volume and borrowed_page, chant}; it replaces the list the piece has now"
       }
     },
     "typeset": {
@@ -130,7 +130,7 @@
   ],
   "targets_help": {
     "piece": "piece:<slug>",
-    "part": "part:<slug>/<part>, or part:<slug>/<part>:<variant> (introit, gradual, alleluia, tract, sequence, offertory, communion)",
+    "part": "part:<slug>/<part>, or part:<slug>/<part>:<variant> (introit, gradual, alleluia, tract, sequence, offertory, communion; the variant is a number, paschal, or a section's own key such as kyrie-b)",
     "vespers": "vespers:<office>/antiphon-<n> or vespers:<office>/magnificat (an office of data/vespers/vespers-offices.yml); vespers:sunday:<calendar key>/magnificat (a green Sunday's Magnificat antiphon, data/vespers/vespers-noh8.yml)",
     "pairing": "pairing:<slug>/<movement>: the chant paired with one movement of a piece without Proper parts (kyrie, gloria, credo, sanctus, agnus, ite; chant for a single-chant piece)",
     "sections": "sections:<slug>: a Proper's whole list of sections (introit, gradual, hymn, alleluia, tract, sequence, offertory, communion, other), for sections only",

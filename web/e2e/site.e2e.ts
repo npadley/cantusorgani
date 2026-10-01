@@ -80,8 +80,9 @@ test.describe("Typeset music", () => {
 
   test("should show a Mass's movements typeset, credited and marked not yet proofread", async ({ page }) => {
     await page.goto("/kyriale/ix/");
+    // Its four movements, and the Ite listed for it (data/sections/noh5.yml).
     const segments = page.locator("[data-typeset]");
-    await expect(segments).toHaveCount(4);
+    await expect(segments).toHaveCount(5);
     await expect(segments.first().locator("img.typeset-music")).toBeVisible();
     await expect(segments.first().locator("img.typeset-music")).toHaveAttribute("alt", "Kyrie: the music, typeset");
     await expect(segments.first().locator(".typeset-note")).toContainText("Typeset, not yet proofread");
@@ -127,6 +128,26 @@ test.describe("Typeset music", () => {
     await expect(page.locator("main")).toContainText("Joe Egan");
     await expect(page.getByRole("link", { name: "nova-organi-harmonia" }).first())
       .toHaveAttribute("href", "https://github.com/joeegan2202/nova-organi-harmonia");
+  });
+});
+
+test.describe("A Mass's rows of its own", () => {
+  // Mass II, from its list (data/sections/noh5.yml): two Ite and a Benedicamus.
+  const HEADINGS = ["Kyrie", "Gloria", "Sanctus", "Agnus Dei", "Ite, missa est", "Ite, missa est (the commoner use)",
+                    "Benedicamus Domino"];
+
+  test("should list each dismissal among the movements, head it once, and export it on its own", async ({ page }) => {
+    await page.route("**/typeset/**", (route) =>
+      route.fulfill({ status: 200, contentType: "image/svg+xml", body: DRAWING }));
+    await page.goto("/kyriale/ii/");
+    await expect(page.locator("nav.movements")).toHaveAttribute("aria-label", "Movements");
+    await expect(page.locator("nav.movements a")).toHaveText(HEADINGS);
+    await expect(page.locator("#other-benedicamus")).toHaveText("Benedicamus Domino");
+    // The first Ite's row stands where the pipeline found the dismissal: no second heading there.
+    await expect(page.locator("h2#ite")).toHaveCount(0);
+    await expect(page.locator("[data-typeset]").last().locator("img.typeset-music"))
+      .toHaveAttribute("alt", "Benedicamus Domino: the music, typeset");
+    await expect(page.locator("input[name=export-part]")).toHaveCount(HEADINGS.length);
   });
 });
 
