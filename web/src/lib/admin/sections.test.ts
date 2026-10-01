@@ -50,11 +50,29 @@ describe("sections targets", () => {
       [[{ kind: "introit", system: 1, chant: "twelve" }], /GregoBase id/],
       [[{ kind: "introit", borrowed_page: 3, chant: "none" }], /its volume and page/],
       [[{ kind: "introit", system: 1, chant: "none", colour: "red" }], /colour, which a section does not take/],
+      [[{ kind: "other", key: "Kyrie B", system: 1, chant: "none" }], /its own name should be short/],
+      [[{ kind: "other", key: "2", system: 1, chant: "none" }], /its own name should be short/],
+      [[{ kind: "other", key: "ite", n: 2, system: 1, chant: "none" }], /takes the place of the number/],
+      [[{ kind: "other", key: "ite", system: 1, chant: "none" }, { kind: "other", key: "ite", system: 2, chant: "none" }], /same name/],
     ];
     for (const [value, error] of cases) {
       const parsed = parseSections(typeof value === "string" ? value : JSON.stringify(value), 20);
       expect(parsed, JSON.stringify(value)).toEqual(expect.stringMatching(error));
     }
+  });
+
+  it("should keep a row's own name through the list, the screen's rows and what it saves", () => {
+    const mass = piece("ordinarium-missae-iv", {
+      genre: "mass_ordinary", mode: null, systems: 34,
+      parts: [{ part: "other", variant: "ite", system: 33, borrowed: null, chant: 353, label: "Ite, missa est" },
+              { part: "other", variant: "benedicamus", system: 34, borrowed: null, chant: null, label: "Benedicamus Domino" }],
+    });
+    const list = currentSections(mass);
+    expect(list).toEqual([{ kind: "other", key: "ite", label: "Ite, missa est", system: 33, chant: 353 },
+                          { kind: "other", key: "benedicamus", label: "Benedicamus Domino", system: 34, chant: "none" }]);
+    expect(parseSections(sectionsText(list), 34)).toEqual(list);
+    expect(JSON.parse(rowsValue(startingRows(mass)))).toEqual(list);
+    expect(sectionsSummary(sectionsText(list))).toBe("Ite, missa est at system 33; Benedicamus Domino at system 34");
   });
 
   it("should put a list in a line for the queue and the public log, with systems or refs", () => {

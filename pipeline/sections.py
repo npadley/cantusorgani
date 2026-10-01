@@ -9,11 +9,15 @@ A section is one entry of a piece's `sections` list in the catalogue:
   communion | other.
 - `n`: the 2nd (3rd ...) of its kind on the piece; absent when it is alone.
 - `variant`: "paschal" (and other seasonal forms), or "".
+- `key`: a short name of its own ("kyrie-b", "deo-gratias-vi"), in place of `n`
+  and `variant`. It does not change when a section is added before it, so what
+  points at the section (a correction, a typeset match) keeps pointing at it.
+  For whatever the kinds do not foresee: a Mass's second Kyrie, its dismissals.
 - `system` / `ref`: its first system, counting from 0, as the piece's own list;
   a section printed elsewhere has `borrowed_*` fields instead.
 - A section runs until the next one starts.
 
-A section is named `part:<slug>/<kind>`, with `:<n>` or `:<variant>` -- the
+A section is named `part:<slug>/<kind>`, with `:<key>`, `:<n>` or `:<variant>` -- the
 names corrections, review keys and data/typeset/parts.yml have always used.
 Everything that names a section goes through `suffix` and `target` here.
 """
@@ -33,18 +37,34 @@ from pipeline.volumes import DATA
 REVIEWED = DATA / "sections"
 
 KINDS = ("introit", "gradual", "alleluia", "tract", "sequence", "hymn", "offertory", "communion", "other")
+#: A section's own name: lower-case words joined by hyphens, with a letter in
+#: the first (so never mistaken for a number), and not a seasonal form.
+KEY = re.compile(r"^(?=[a-z0-9]*[a-z])[a-z0-9]+(-[a-z0-9]+)*$")
+MAX_KEY = 30
+VARIANTS = ("paschal",)
+
+
+def key_problem(key: object) -> str | None:
+    """Why this is not a section's key, or None."""
+    if not isinstance(key, str) or len(key) > MAX_KEY or not KEY.fullmatch(key) or key in VARIANTS:
+        return (f"key {key!r} should be a short name in lower-case letters, digits and hyphens, "
+                f"starting with a word that has a letter (kyrie-b, deo-gratias-vi), at most {MAX_KEY} characters")
+    return None
 
 
 def suffix(section: Mapping[str, Any]) -> str:
     """The part of a section's name after its kind: "" when it is alone,
-    ":2" for the second of its kind, ":paschal" for a seasonal form."""
+    ":kyrie-b" for one with a key of its own, ":2" for the second of its kind,
+    ":paschal" for a seasonal form."""
+    if section.get("key"):
+        return f":{section['key']}"
     n = section.get("n")
     variant = section.get("variant") or ""
     return f":{n}" if n else (f":{variant}" if variant else "")
 
 
 def target(slug: str, section: Mapping[str, Any]) -> str:
-    """The section's name: part:<slug>/<kind>[:<n>|:<variant>]."""
+    """The section's name: part:<slug>/<kind>[:<key>|:<n>|:<variant>]."""
     return f"part:{slug}/{section['kind']}{suffix(section)}"
 
 
@@ -98,6 +118,9 @@ REVIEWED_HEADER = """\
 #   kind:   introit gradual alleluia tract sequence hymn offertory communion other
 #   n:      2 for the 2nd of its kind on the piece (1 for the first of several)
 #   variant: paschal ...  (a seasonal form), or leave it out
+#   key:    a name of its own in place of n and variant (kyrie-b, deo-gratias-vi): it
+#           stays the same when a section is added before it. For a Mass of the
+#           Kyriale, whose movements stay as they are: list only what they leave out.
 #   label:  the margin label as printed ("2. Grad. I")
 #   title:  its opening words
 #   ref:    its first system ("noh1/0052/003"; every image on the site carries its ref)
@@ -154,6 +177,12 @@ def reviewed_list(slug: str, piece: Mapping[str, Any], entries: list[dict[str, A
         if n:
             section["n"] = n
         section["variant"] = str(e.get("variant") or "")
+        if e.get("key") is not None:
+            why = key_problem(e["key"])
+            if why or n or section["variant"]:
+                problems.append(f"{at}: {why or 'a key takes the place of n and variant; give one or the other'}")
+                continue
+            section["key"] = e["key"]
         name = f"{kind}{suffix(section)}"
         if name in names:
             problems.append(f"{at}: part:{slug}/{name} is listed twice; number them with n: 1, n: 2 ...")
@@ -275,6 +304,8 @@ def as_reviewed(piece: Mapping[str, Any]) -> list[dict[str, Any]]:
             e["n"] = s["n"]
         if s.get("variant"):
             e["variant"] = s["variant"]
+        if s.get("key"):
+            e["key"] = s["key"]
         for key in ("label", "title"):
             if s.get(key):
                 e[key] = s[key]
@@ -310,7 +341,7 @@ def save_reviewed(slug: str, volume: str, entries: list[dict[str, Any]], folder:
 # ------------------------------------------- a list from the admin screen ---
 
 #: What a list entry from the admin screen (or `noh correct`) may carry.
-_ENTRY_KEYS = frozenset({"kind", "n", "variant", "label", "title", "ref", "system", "borrowed_volume",
+_ENTRY_KEYS = frozenset({"kind", "n", "variant", "key", "label", "title", "ref", "system", "borrowed_volume",
                          "borrowed_page", "borrowed_from", "borrowed_ref", "chant"})
 _TEXT = re.compile(r"^[^\x00-\x1f<>]{1,80}$")
 _REF = re.compile(r"^noh\d/\d{4}/\d{3}$")
@@ -350,6 +381,11 @@ def parse_value(value: object) -> list[dict[str, Any]]:
             if variant != "paschal":
                 raise ReviewedError(f"section {i}: variant {variant!r} should be paschal, or left out")
             e["variant"] = variant
+        if raw.get("key") not in (None, ""):
+            why = key_problem(raw["key"])
+            if why or "n" in e or variant:
+                raise ReviewedError(f"section {i}: {why or 'a key takes the place of n and variant; give one or the other'}")
+            e["key"] = raw["key"]
         for key in ("label", "title"):
             text = " ".join(str(raw.get(key) or "").split())
             if text:
@@ -408,6 +444,7 @@ def with_refs(entries: list[dict[str, Any]], piece: Mapping[str, Any]) -> list[d
 
 
 __all__ = [
+    "KEY",
     "KINDS",
     "MASS_ORDER",
     "MAX_SECTIONS",
@@ -418,6 +455,7 @@ __all__ = [
     "describe",
     "from_part",
     "in_printed_order",
+    "key_problem",
     "load_reviewed",
     "named",
     "of",

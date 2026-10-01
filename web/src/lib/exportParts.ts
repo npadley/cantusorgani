@@ -1,11 +1,13 @@
-import { allPieces, inPrintedOrder, partOrder, sectionName, systemUrlStem } from "./catalog";
+import { allPieces, inPrintedOrder, jumpTargets, movementStarts, partOrder, sectionName, systemUrlStem } from "./catalog";
 import type { BorrowedPart, Piece, PrintedPart, ProperPartName } from "./catalog";
 import type { Season } from "./liturgy";
 
 /**
  * What the export can build, part by part. A Proper splits at its parts
- * (Introit, Gradual …); anything else -- an Ordinary, an undivided Proper --
- * is one segment. The organist ticks the parts sung today; defaults follow the
+ * (Introit, Gradual …). A Mass of the Kyriale that lists sections of its own
+ * (a second Kyrie, each dismissal) splits at every heading on its page, so one
+ * dismissal can be taken without the other. Anything else -- an Ordinary as
+ * the book runs it, an undivided Proper -- is one segment. The organist ticks the parts sung today; defaults follow the
  * season of the date a day page shows.
  */
 export interface ExportSegment {
@@ -32,13 +34,38 @@ function partRanges(piece: Piece): { x: PrintedPart; start: number; end: number 
   return printed.map((p, k) => ({ ...p, end: printed[k + 1]?.start ?? piece.systems.length }));
 }
 
+/** A Mass with sections of its own: a segment for each heading on its page
+ * (movements and sections alike), and one for any music before the first. */
+function massSegments(piece: Piece, stems: readonly string[], title: string): ExportSegment[] {
+  const heads = jumpTargets(piece).filter((t) => t.kind === "movement" || t.kind === "part")
+    .filter((t, i, all) => all.findIndex((o) => o.index === t.index) === i);
+  const out: ExportSegment[] = [];
+  const first = heads[0]?.index ?? stems.length;
+  if (first > 0) {
+    out.push({ id: `${piece.slug}:before`, label: `${title} (before the ${heads[0]?.label ?? "music"})`, part: null,
+               variant: "", pieceSlug: piece.slug, systems: first, stems: stems.slice(0, first),
+               source: { slug: piece.slug, start: 0, end: first } });
+  }
+  heads.forEach((h, k) => {
+    const end = heads[k + 1]?.index ?? stems.length;
+    out.push({ id: `${piece.slug}:${h.index}`, label: h.label, part: null, variant: "", pieceSlug: piece.slug,
+               systems: end - h.index, stems: stems.slice(h.index, end),
+               source: { slug: piece.slug, start: h.index, end } });
+  });
+  return out;
+}
+
 export function exportSegments(pieces: readonly Piece[],
                                lenders: readonly Piece[] = allPieces()): readonly ExportSegment[] {
   const out: ExportSegment[] = [];
   for (const piece of pieces) {
     const stems = piece.systems.map((_, i) => systemUrlStem(piece, i));
-    const ranges = partRanges(piece);
     const title = piece.incipit ?? piece.title;
+    if (movementStarts(piece).length > 0 && partRanges(piece).length > 0) {
+      out.push(...massSegments(piece, stems, title));
+      continue;
+    }
+    const ranges = partRanges(piece);
     // Parts printed elsewhere: the lender's systems for that part.
     const borrowed: (ExportSegment & { order: number })[] = [];
     for (const b of piece.parts.filter((x): x is BorrowedPart => x.kind === "borrowed")) {

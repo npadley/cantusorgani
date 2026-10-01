@@ -82,11 +82,6 @@
    "hash": "76c52999d9ad2b363009657c70bd7365"
   },
   {
-   "target": "movement:ordinarium-missae-iv/ite",
-   "file": "vol-5/missa-iv/ite_IV.ly",
-   "hash": "2b153d77b1742e2d6551229c49399fff"
-  },
-  {
    "target": "movement:ordinarium-missae-iv/kyrie",
    "file": "vol-5/missa-iv/kyrie_IV.ly",
    "hash": "45a485243ed971fdf7661df4823c90d4"
@@ -242,11 +237,6 @@
    "hash": "afbf3d6af9348a46fc2a43038370651a"
   },
   {
-   "target": "movement:ordinarium-missae-xi/ite",
-   "file": "vol-5/missa-xi/ite_XI.ly",
-   "hash": "7b4bd29d9adfa7af03a33b693f81ea61"
-  },
-  {
    "target": "movement:ordinarium-missae-xi/kyrie",
    "file": "vol-5/missa-xi/kyrie_XI.ly",
    "hash": "fb952d26264e320408a66ae93547390b"
@@ -290,11 +280,6 @@
    "target": "movement:ordinarium-missae-xiii/gloria",
    "file": "vol-5/missa-xiii/gloria_XIII.ly",
    "hash": "049a4f09189456b475622d89ddb9b6d8"
-  },
-  {
-   "target": "movement:ordinarium-missae-xiii/ite",
-   "file": "vol-5/missa-xiii/ite_XIII.ly",
-   "hash": "8ae724288aeb1f41fdd16e9474b90495"
   },
   {
    "target": "movement:ordinarium-missae-xiii/kyrie",
@@ -375,11 +360,6 @@
    "target": "movement:ordinarium-missae-xvii/agnus",
    "file": "vol-5/missa-xvii/agnus_XVII.ly",
    "hash": "209e5dd939de8f053ac21a1e5593e326"
-  },
-  {
-   "target": "movement:ordinarium-missae-xvii/ite",
-   "file": "vol-5/missa-xvii/ite_XVIIa.ly",
-   "hash": "ea040adf32994560fb217673dc2f07ab"
   },
   {
    "target": "movement:ordinarium-missae-xvii/kyrie",
@@ -2390,6 +2370,91 @@
    "target": "part:omnium-sanctorum/introit",
    "file": "vol-3/in_gaudeamus__sanctorum_omnium.csv.ly",
    "hash": "55c449a3ace026c9b5f0c1329f3cd57b"
+  },
+  {
+   "target": "part:ordinarium-missae-i/other:ite",
+   "file": "vol-5/missa-i/ite_Ib.ly",
+   "hash": "8eada0c168990b0850ed292cc5d4c887"
+  },
+  {
+   "target": "part:ordinarium-missae-i/other:ite-paschal",
+   "file": "vol-5/missa-i/ite_Ia.ly",
+   "hash": "76fb4842f3dcf3f65110c33e0fa54da8"
+  },
+  {
+   "target": "part:ordinarium-missae-ii/other:benedicamus",
+   "file": "vol-5/missa-ii/benedicamus_II.ly",
+   "hash": "a3d6912438a1e2e6dd0d72648776bb0f"
+  },
+  {
+   "target": "part:ordinarium-missae-ii/other:ite",
+   "file": "vol-5/missa-ii/ite_IIa.ly",
+   "hash": "916deb5f5ec534b37fbec8ac08d3d94d"
+  },
+  {
+   "target": "part:ordinarium-missae-ii/other:ite-communior",
+   "file": "vol-5/missa-ii/ite_IIb.ly",
+   "hash": "f912c704ee589743daf0aa00d0d3bde3"
+  },
+  {
+   "target": "part:ordinarium-missae-iv/other:benedicamus",
+   "file": "vol-5/missa-iv/benedicamus_IV.ly",
+   "hash": "a72c74f541fcf6e3098633a3d23c3097"
+  },
+  {
+   "target": "part:ordinarium-missae-iv/other:ite",
+   "file": "vol-5/missa-iv/ite_IV.ly",
+   "hash": "2b153d77b1742e2d6551229c49399fff"
+  },
+  {
+   "target": "part:ordinarium-missae-ix/other:ite",
+   "file": "vol-5/missa-ix/ite_IX.ly",
+   "hash": "3ad2ee73ef2b1638f00a0d5924cc3857"
+  },
+  {
+   "target": "part:ordinarium-missae-viii/other:ite",
+   "file": "vol-5/missa-viii/ite_VIII.ly",
+   "hash": "f9af2c33a687157ad5546633a3237cab"
+  },
+  {
+   "target": "part:ordinarium-missae-xi/other:benedicamus",
+   "file": "vol-5/missa-xi/benedicamus_XI.ly",
+   "hash": "ffee5ff9146f47b1a3ea71033bbfc136"
+  },
+  {
+   "target": "part:ordinarium-missae-xi/other:ite",
+   "file": "vol-5/missa-xi/ite_XI.ly",
+   "hash": "7b4bd29d9adfa7af03a33b693f81ea61"
+  },
+  {
+   "target": "part:ordinarium-missae-xiii/other:benedicamus",
+   "file": "vol-5/missa-xiii/benedicamus_XIII.ly",
+   "hash": "186820f3028c8064f4ad6594b05e9156"
+  },
+  {
+   "target": "part:ordinarium-missae-xiii/other:ite",
+   "file": "vol-5/missa-xiii/ite_XIII.ly",
+   "hash": "8ae724288aeb1f41fdd16e9474b90495"
+  },
+  {
+   "target": "part:ordinarium-missae-xvi/other:benedicamus",
+   "file": "vol-5/missa-xvi/benedicamus_XVI.ly",
+   "hash": "f7d083cc0468c5f77699f6ad501a873b"
+  },
+  {
+   "target": "part:ordinarium-missae-xvii/other:deo-gratias-i",
+   "file": "vol-5/missa-xvii/ite_XVIIa.ly",
+   "hash": "ea040adf32994560fb217673dc2f07ab"
+  },
+  {
+   "target": "part:ordinarium-missae-xvii/other:deo-gratias-vi",
+   "file": "vol-5/missa-xvii/ite_XVIIb.ly",
+   "hash": "5a761e4bcba00e0f3219e10148999041"
+  },
+  {
+   "target": "part:ordinarium-missae-xvii/other:kyrie-b",
+   "file": "vol-5/missa-xvii/kyrie_XVIIa.ly",
+   "hash": "0b651fe85f7a1dec66e75babbcdf0e9d"
   },
   {
    "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/alleluia",

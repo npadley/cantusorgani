@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { defaultTicked, defaultsNote, exportSegments, seasonGroup } from "./exportParts";
 import type { ExportSegment } from "./exportParts";
-import { parseCatalog } from "./catalog";
+import { jumpTargets, movementStarts, parseCatalog } from "./catalog";
 import type { Piece } from "./catalog";
 
 function piece(slug: string, systems: number, parts: readonly [string, number, string?][] = [],
@@ -171,5 +171,37 @@ describe("exportSegments with borrowed parts", () => {
     const angels = { ...pieces[1]!, parts: pieces[1]!.parts.map((x) =>
       x.kind === "borrowed" ? { ...x, borrowedFrom: null, borrowedRef: null } : x) };
     expect(exportSegments([angels], pieces).map((s) => s.label)).toEqual(["Offertory"]);
+  });
+});
+
+describe("exportSegments for a Mass with rows of its own", () => {
+  // Mass IV: its movements, and the two dismissals listed for it. The Ite's row
+  // takes the place of the movement found on the same system.
+  const refs = Array.from({ length: 8 }, (_, i) => `noh5/0074/${String(i).padStart(3, "0")}`);
+  const mass = parseCatalog({
+    schema_version: 3, volumes: { noh5: { title: "Kyriale", part: "V" } }, chant_source: null,
+    pieces: [{
+      id: "noh5-iv", volume: "noh5", slug: "ordinarium-missae-iv", section: "S", label: "IV", title: "Missa IV",
+      incipit: null, genre: "mass_ordinary", mode: null, mass: "IV", printed_pages: [1, 2], pdf_pages: [3, 4],
+      division: "kyriale", systems: refs, system_assets: refs.map(() => ""), system_aspect: refs.map(() => [1000, 250]),
+      chant: null, review_status: "verified",
+      movements: [["kyrie", 0], ["sanctus", 3], ["agnus", 4], ["ite", 6]].map(([movement, i]) => ({
+        movement, score: 0.9, pdf_page: 74, system: i, ref: refs[i as number], mode_marker: null })),
+      sections: [
+        { kind: "other", key: "ite", variant: "", label: "Ite, missa est", system: 6, ref: refs[6], placed: "reviewed" },
+        { kind: "other", key: "benedicamus", variant: "", label: "Benedicamus Domino", system: 7, ref: refs[7], placed: "reviewed" }],
+    }],
+  }).pieces[0]!;
+
+  it("should give a segment for each heading on the page, movements and rows alike", () => {
+    expect(exportSegments([mass]).map((s) => [s.label, s.systems])).toEqual([
+      ["Kyrie", 3], ["Sanctus", 1], ["Agnus Dei", 2], ["Ite, missa est", 1], ["Benedicamus Domino", 1]]);
+  });
+
+  it("should leave the movement out where a row starts on its system, and name the row in its target", () => {
+    expect(movementStarts(mass).map((m) => m.movement)).toEqual(["kyrie", "sanctus", "agnus"]);
+    expect(jumpTargets(mass).filter((t) => t.kind === "part").map((t) => [t.target, t.anchor])).toEqual([
+      ["part:ordinarium-missae-iv/other:ite", "other-ite"],
+      ["part:ordinarium-missae-iv/other:benedicamus", "other-benedicamus"]]);
   });
 });

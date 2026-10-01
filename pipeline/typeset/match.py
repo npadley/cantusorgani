@@ -91,6 +91,8 @@ class Hints:
     kind: str | None
     mass: int | None
     number: int | None
+    #: The file name's first word ("ite", "benedicamus", "kyrie", "in").
+    word: str = ""
 
 
 def hints(rel: str, text: str) -> Hints:
@@ -106,7 +108,7 @@ def hints(rel: str, text: str) -> Hints:
     mass = ROMAN.get(folder.removeprefix("missa-")) if folder.startswith("missa-") else None
     tail = re.search(r"_([ivx]+)$", name)
     number = ROMAN.get(tail.group(1)) if tail else None
-    return Hints(volume, page, kind, mass, number)
+    return Hints(volume, page, kind, mass, number, prefix)
 
 
 def targets(catalog: dict[str, Any], printed: Any) -> list[Target]:
@@ -122,10 +124,13 @@ def targets(catalog: dict[str, Any], printed: Any) -> list[Target]:
                               part.get("title") or None))
         chants = {c.get("movement"): c.get("id") for c in p.get("chant") or []}
         if p.get("genre") == "mass_ordinary":
+            # A section listed for the Mass (its second Kyrie, each dismissal)
+            # speaks for the system it starts on: the page shows no movement there.
+            listed = {part["ref"] for part in sections.printed(p) if part.get("placed") != "order"}
             seen: set[str] = set()
             for mv in p.get("movements") or []:
                 name = str(mv["movement"])
-                if name in seen:
+                if name in seen or mv["ref"] in listed:
                     continue
                 seen.add(name)
                 out.append(Target(f"movement:{slug}/{name}", volume, slug, name, printed(mv["ref"]), chants.get(name)))
@@ -136,6 +141,21 @@ def targets(catalog: dict[str, Any], printed: Any) -> list[Target]:
     return out
 
 
+#: What a Kyriale file, or a row listed for a Mass, can be named for.
+MASS_WORDS = frozenset({*MOVEMENTS, "benedicamus"})
+
+
+def by_first_word(word: str, found: list[Target]) -> list[Target]:
+    """A Mass's listed rows a file named `word`_... can be: those whose key
+    begins with the same word (benedicamus_IV is the row `benedicamus`, not
+    `ite`, though they share a melody); failing any, those not named for
+    another movement (ite_XVIIa may be `deo-gratias-i`, never `kyrie-b`)."""
+    def first(t: Target) -> str:
+        return t.target.rsplit(":", 1)[-1].split("-")[0] if t.target.startswith("part:") else t.kind
+    same = [t for t in found if first(t) == word]
+    return same or [t for t in found if first(t) not in MASS_WORDS]
+
+
 def roman_slug(n: int) -> str:
     return next(r for r, v in ROMAN.items() if v == n)
 
@@ -143,10 +163,16 @@ def roman_slug(n: int) -> str:
 def candidates(h: Hints, all_targets: list[Target]) -> tuple[list[Target], str]:
     """The targets a file may be, and what chose them."""
     in_volume = [t for t in all_targets if t.volume == h.volume]
-    if h.mass is not None and h.kind:
-        named = [t for t in in_volume if t.target == f"movement:ordinarium-missae-{roman_slug(h.mass)}/{h.kind}"]
-        if named:
+    if h.mass is not None:
+        slug = f"ordinarium-missae-{roman_slug(h.mass)}"
+        named = [t for t in in_volume if h.kind and t.target == f"movement:{slug}/{h.kind}"]
+        if named and numbered(h):
             return named, "folder"
+        # ite_XVIIa, kyrie_XVIIa, benedicamus_II: the movement, or one of the
+        # sections listed for that Mass (data/sections); an editor says which.
+        own = by_first_word(h.word, named + [t for t in in_volume if t.slug == slug and t.target.startswith("part:")])
+        if own:
+            return own, "folder"
     if h.number is not None and h.kind in MOVEMENTS:
         r = roman_slug(h.number)
         named = [t for t in in_volume if t.kind == h.kind and re.search(rf"-{h.kind}(-dei)?-{r}$", t.slug)]
@@ -282,7 +308,10 @@ def decide(rel: str, text: str, events: Events, all_targets: list[Target], chant
         return Entry(rel, best.target if len(scored) == 1 and by != "kind" else None, "proposed", evidence)
     other_words = text is not None and text < OTHER_WORDS
     same_words = text is not None and text >= WORDS
-    clear = score - runner >= MARGIN
+    # Clearly the best: by melody, or (two settings of one melody: Easter
+    # week's Ite and the rest of Paschaltide's) by its words.
+    runner_text = next((words.get(t.target) for t, _ in scored[1:]), None)
+    clear = score - runner >= MARGIN or (text is not None and runner_text is not None and text - runner_text >= MARGIN)
     if by != "kind" and clear and not other_words and (score >= MATCHED or (same_words and score >= DIFFERS)):
         return Entry(rel, best.target, "matched", evidence)
     if by == "kind" and clear and score >= MATCHED and same_words:

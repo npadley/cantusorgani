@@ -105,7 +105,7 @@ import Layout from "../../../components/Layout.astro";
   }
 
   /** A labelled input bound to one field of a row. */
-  function input(row: Row, key: "n" | "label" | "title" | "system" | "page" | "chant", text: string, id: string,
+  function input(row: Row, key: "n" | "key" | "label" | "title" | "system" | "page" | "chant", text: string, id: string,
                  attrs: Record<string, string> = {}): HTMLElement {
     const el = h("input", { type: "text", id, value: row[key], autocomplete: "off", ...attrs }) as HTMLInputElement;
     el.addEventListener("input", () => { row[key] = el.value; keep(); if (key === "system" || key === "n" || key === "label") drawSystems(); });
@@ -141,6 +141,7 @@ import Layout from "../../../components/Layout.astro";
           select(row, "kind", "Kind", id("kind"), SECTION_KINDS.map((k) => [k, PART_LABELS[k] ?? k] as [string, string])),
           input(row, "n", "Number (2nd, 3rd …)", id("n"), { inputmode: "numeric", placeholder: "only if repeated" }),
           ...where,
+          input(row, "key", "A name of its own (instead of a number)", id("key"), { maxlength: "30", placeholder: "e.g. kyrie-b; rarely needed" }),
           input(row, "label", "Label as printed", id("label"), { maxlength: "80", placeholder: "e.g. 2. Grad. I" }),
           input(row, "title", "Opening words", id("title"), { maxlength: "80" }),
           input(row, "chant", "Chant (GregoBase id)", id("chant"), { inputmode: "numeric", placeholder: "none" }),

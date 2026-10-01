@@ -421,6 +421,9 @@ export interface SectionEntry {
   readonly kind: string;
   readonly n?: number;
   readonly variant?: "paschal";
+  /** A name of its own in place of n and variant ("kyrie-b"): it stays the
+   * same when a section is added before it. */
+  readonly key?: string;
   readonly label?: string;
   readonly title?: string;
   readonly system?: number;
@@ -432,16 +435,20 @@ export interface SectionEntry {
 export const SECTION_KINDS = ["introit", "gradual", "hymn", "alleluia", "tract", "sequence", "offertory", "communion",
                               "other"] as const;
 export const MAX_SECTIONS = 40;
-const SECTION_KEYS = new Set(["kind", "n", "variant", "label", "title", "system", "borrowed_volume", "borrowed_page",
+/** As pipeline/sections.py KEY. */
+export const SECTION_KEY = /^(?=[a-z0-9]*[a-z])[a-z0-9]+(-[a-z0-9]+)*$/;
+const SECTION_KEYS = new Set(["kind", "n", "variant", "key", "label", "title", "system", "borrowed_volume", "borrowed_page",
                               "chant"]);
 
 /** A piece's sections as the Sections screen starts from them, in printed order. */
 export function currentSections(piece: TargetPiece): SectionEntry[] {
   return (piece.parts ?? []).map((p) => {
     const numbered = /^\d$/.test(p.variant);
+    const keyed = p.variant !== "" && !numbered && p.variant !== "paschal";
     return entry({
       kind: p.part, ...(numbered ? { n: Number(p.variant) } : {}),
       ...(p.variant === "paschal" ? { variant: "paschal" as const } : {}),
+      ...(keyed ? { key: p.variant } : {}),
       ...(p.label ? { label: p.label } : {}), ...(p.title ? { title: p.title } : {}),
       ...(p.system !== null ? { system: p.system }
         : { borrowed_volume: p.borrowedVolume ?? "", borrowed_page: p.borrowedPage ?? 0 }),
@@ -454,6 +461,7 @@ export function currentSections(piece: TargetPiece): SectionEntry[] {
 function entry(e: SectionEntry): SectionEntry {
   return {
     kind: e.kind, ...(e.n ? { n: e.n } : {}), ...(e.variant ? { variant: e.variant } : {}),
+    ...(e.key ? { key: e.key } : {}),
     ...(e.label ? { label: e.label } : {}), ...(e.title ? { title: e.title } : {}),
     ...(e.system !== undefined ? { system: e.system }
       : { borrowed_volume: e.borrowed_volume ?? "", borrowed_page: e.borrowed_page ?? 0 }),
@@ -489,6 +497,11 @@ export function parseSections(raw: string, systems: number | null): SectionEntry
     if (e["n"] !== undefined && e["n"] !== null && !intIn(e["n"], 1, 9)) return `${at}: its number should be 1 to 9.`;
     const variant = e["variant"] ?? "";
     if (variant !== "" && variant !== "paschal") return `${at}: the only seasonal form is paschal.`;
+    const key = e["key"] === undefined || e["key"] === null || e["key"] === "" ? "" : e["key"];
+    if (key !== "" && (typeof key !== "string" || key.length > 30 || !SECTION_KEY.test(key) || key === "paschal")) {
+      return `${at}: its own name should be short, in lower-case letters, digits and hyphens (kyrie-b, deo-gratias-vi).`;
+    }
+    if (key !== "" && (e["n"] || variant)) return `${at}: a name of its own takes the place of the number and the Paschaltide form; give one or the other.`;
     const words: Record<string, string> = {};
     for (const key of ["label", "title"] as const) {
       const text = String(e[key] ?? "").replace(/\s+/g, " ").trim();
@@ -498,11 +511,11 @@ export function parseSections(raw: string, systems: number | null): SectionEntry
     const chant = e["chant"] ?? "none";
     const id = typeof chant === "string" && /^\d{1,6}$/.test(chant) ? Number(chant) : chant;
     if (id !== "none" && id !== "" && !intIn(id, 1, 999_999)) return `${at}: the chant is a GregoBase id, or none.`;
-    const name = `${kind}${e["n"] ? `:${String(e["n"])}` : variant ? `:${String(variant)}` : ""}`;
-    if (names.has(name)) return `${at}: there are two ${PART_LABELS[kind] ?? kind}s with the same number; number them 1, 2 …`;
+    const name = `${kind}${key ? `:${key}` : e["n"] ? `:${String(e["n"])}` : variant ? `:${String(variant)}` : ""}`;
+    if (names.has(name)) return `${at}: there are two ${PART_LABELS[kind] ?? kind}s with the same ${key ? "name" : "number"}; ${key ? "name them apart" : "number them 1, 2 …"}`;
     names.add(name);
     const base = { kind, ...(e["n"] ? { n: e["n"] as number } : {}), ...(variant ? { variant: "paschal" as const } : {}),
-                   ...words, chant: id === "none" || id === "" ? "none" as const : id as number };
+                   ...(key ? { key } : {}), ...words, chant: id === "none" || id === "" ? "none" as const : id as number };
     if (e["borrowed_page"] !== undefined && e["borrowed_page"] !== null && e["borrowed_page"] !== "") {
       if (!intIn(e["borrowed_page"], 1, 999) || !/^noh\d$/.test(String(e["borrowed_volume"] ?? ""))) {
         return `${at}: printed elsewhere needs its volume and page.`;
@@ -539,8 +552,9 @@ export function sectionsSummary(value: unknown): string {
   if (!Array.isArray(list)) return String(value ?? "");
   return list.map((raw) => {
     const e = (raw ?? {}) as Record<string, unknown>;
-    const name = `${PART_LABELS[String(e["kind"])] ?? String(e["kind"])}${e["n"] ? ` ${String(e["n"])}` : ""}` +
-      `${e["variant"] ? ` (${String(e["variant"])})` : ""}`;
+    const name = e["key"] ? String(e["label"] ?? e["key"])
+      : `${PART_LABELS[String(e["kind"])] ?? String(e["kind"])}${e["n"] ? ` ${String(e["n"])}` : ""}` +
+        `${e["variant"] ? ` (${String(e["variant"])})` : ""}`;
     const where = e["system"] !== undefined ? `system ${String(e["system"])}` : e["ref"] ? String(e["ref"])
       : `${String(e["borrowed_volume"] ?? "")} p. ${String(e["borrowed_page"] ?? "")}`;
     return `${name} at ${where}`;

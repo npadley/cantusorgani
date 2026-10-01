@@ -1,0 +1,53 @@
+# A Mass of the Kyriale keeps its movements (Kyrie, Gloria, Sanctus, Agnus Dei,
+# and one dismissal) as the pipeline finds them. Listed here, checked against the
+# scans 2026-09-30, is what they leave out: a second Kyrie, and each dismissal
+# where the book prints several or the pipeline found none. Every row has a `key`
+# of its own, so a row added later moves no other row's name.
+# A row that starts where a movement was found takes that movement's place.
+#
+# NOH prints each dismissal once, under both its texts ("Ite, missa est" and the
+# response "Deo gratias"); Mass XVII prints the response alone.
+# Masses III and X print no dismissal ("ut in Missa praecedenti").
+
+# p. 10: one dismissal for Easter week, one for the rest of Paschaltide.
+ordinarium-missae-i:
+- {kind: other, key: ite-paschal, label: 'Ite, missa est, alleluia', title: A Missa Sabbati Sancti usque ad Sabbatum in Albis,
+  ref: noh5/0056/003, chant: 2988}
+- {kind: other, key: ite, label: 'Ite, missa est', title: Ab Octava Paschae ad Sabbatum IV Temporum Pentecostes,
+  ref: noh5/0056/004, chant: 2987}
+# p. 17 (under Mass III's running head): two Ite, and the Benedicamus to the second's melody.
+ordinarium-missae-ii:
+- {kind: other, key: ite, label: 'Ite, missa est', ref: noh5/0063/000, chant: 1280}
+- {kind: other, key: ite-communior, label: 'Ite, missa est (the commoner use)', title: Vel secundum communiorem usum,
+  ref: noh5/0063/001, chant: 804}
+- {kind: other, key: benedicamus, label: Benedicamus Domino, ref: noh5/0063/002, chant: 16096}
+# p. 28
+ordinarium-missae-iv:
+- {kind: other, key: ite, label: 'Ite, missa est', ref: noh5/0074/004, chant: 353}
+- {kind: other, key: benedicamus, label: Benedicamus Domino, ref: noh5/0074/005, chant: 2856}
+# p. 52: the pipeline found no dismissal.
+ordinarium-missae-viii:
+- {kind: other, key: ite, label: 'Ite, missa est', ref: noh5/0098/005, chant: 832}
+# p. 57: the pipeline found no dismissal.
+ordinarium-missae-ix:
+- {kind: other, key: ite, label: 'Ite, missa est', ref: noh5/0103/005, chant: 2989}
+# p. 67
+ordinarium-missae-xi:
+- {kind: other, key: ite, label: 'Ite, missa est', ref: noh5/0113/003, chant: 856}
+- {kind: other, key: benedicamus, label: Benedicamus Domino, ref: noh5/0113/004, chant: 2920}
+# p. 77
+ordinarium-missae-xiii:
+- {kind: other, key: ite, label: 'Ite, missa est', ref: noh5/0123/004, chant: 878}
+- {kind: other, key: benedicamus, label: Benedicamus Domino, ref: noh5/0123/005, chant: 2952}
+# p. 91: the Benedicamus begins halfway along the system that ends the Agnus Dei
+# ("dona nobis pacem. | Benedicamus"), so that system is shown with it.
+ordinarium-missae-xvi:
+- {kind: other, key: benedicamus, label: Benedicamus Domino, ref: noh5/0137/000, chant: 15741}
+# p. 92: a second Kyrie ("Vel, ubi moris est"); p. 95: the response alone, twice
+# (the margin gives modes I and VI). The second Kyrie's margin says IV; it is
+# GregoBase's Kyrie XVII C, mode VI.
+ordinarium-missae-xvii:
+- {kind: other, key: kyrie-b, label: 'Kyrie (another, where it is the custom)', title: 'Vel, ubi moris est', ref: noh5/0138/005,
+  chant: 168}
+- {kind: other, key: deo-gratias-i, label: Deo gratias (mode I), ref: noh5/0141/004, chant: 543}
+- {kind: other, key: deo-gratias-vi, label: Deo gratias (mode VI), ref: noh5/0141/005, chant: 3015}

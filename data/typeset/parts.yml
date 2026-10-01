@@ -10633,48 +10633,36 @@
     words: 0.998
     name: gloria_I
 - file: vol-5/missa-i/ite_Ia.ly
-  target: movement:ordinarium-missae-vii/ite
-  status: proposed
+  target: part:ordinarium-missae-i/other:ite-paschal
+  status: matched
   evidence:
-    by: kind
+    by: folder
     incipit: IDete o misgrása tiest as alallelelúlúia ia alallelelúlúia
     page: 10
     candidates:
-    - target: movement:ordinarium-missae-vii/ite
+    - target: part:ordinarium-missae-i/other:ite-paschal
       melody: 1.0
+      words: 0.604
+    - target: part:ordinarium-missae-i/other:ite
+      melody: 0.857
       words: 0.245
-    - target: movement:ordinarium-missae-xiv/ite
-      melody: 1.0
-      words: 0.245
-    - target: movement:ordinarium-missae-ii/ite
-      melody: 0.929
-      words: 0.283
-    - target: movement:ordinarium-missae-xi/ite
-      melody: 0.929
-      words: 0.226
     melody: 1.0
-    words: 0.245
+    words: 0.604
 - file: vol-5/missa-i/ite_Ib.ly
-  target: movement:ordinarium-missae-vi/ite
-  status: proposed
+  target: part:ordinarium-missae-i/other:ite
+  status: matched
   evidence:
-    by: kind
+    by: folder
     incipit: IDete o misgrása tiest as
     page: 10
     candidates:
-    - target: movement:ordinarium-missae-vi/ite
-      melody: 0.824
+    - target: part:ordinarium-missae-i/other:ite
+      melody: 1.0
       words: 0.619
-    - target: movement:ordinarium-missae-vii/ite
+    - target: part:ordinarium-missae-i/other:ite-paschal
       melody: 0.765
       words: 0.619
-    - target: movement:ordinarium-missae-xi/ite
-      melody: 0.765
-      words: 0.571
-    - target: movement:ordinarium-missae-xvii/ite
-      melody: 0.706
-      words: 0.571
-    melody: 0.824
+    melody: 1.0
     words: 0.619
 - file: vol-5/missa-i/kyrie_I.ly
   target: movement:ordinarium-missae-i/kyrie
@@ -10719,21 +10707,18 @@
     words: 1.0
     name: agnus_II
 - file: vol-5/missa-ii/benedicamus_II.ly
-  target: movement:ordinarium-missae-iii/kyrie
-  status: proposed
+  target: part:ordinarium-missae-ii/other:benedicamus
+  status: matched
   evidence:
-    by: page
+    by: folder
     incipit: Benedicámus Dó mino
     page: 17
     candidates:
-    - target: movement:ordinarium-missae-iii/kyrie
-      melody: 0.828
-      words: 0.588
-    - target: movement:ordinarium-missae-ii/ite
-      melody: 0.207
+    - target: part:ordinarium-missae-ii/other:benedicamus
+      melody: 1.0
       words: 1.0
-    melody: 0.828
-    words: 0.588
+    melody: 1.0
+    words: 1.0
 - file: vol-5/missa-ii/gloria_II.ly
   target: movement:ordinarium-missae-ii/gloria
   status: matched
@@ -10749,31 +10734,37 @@
     words: 0.998
     name: gloria_II
 - file: vol-5/missa-ii/ite_IIa.ly
-  target: movement:ordinarium-missae-ii/ite
-  status: melody-differs
+  target: part:ordinarium-missae-ii/other:ite
+  status: matched
   evidence:
     by: folder
     incipit: IDete o misgrása tiest as
     page: 17
     candidates:
-    - target: movement:ordinarium-missae-ii/ite
-      melody: 0.458
-      words: 0.714
-    melody: 0.458
-    words: 0.714
+    - target: part:ordinarium-missae-ii/other:ite
+      melody: 1.0
+      words: 0.619
+    - target: part:ordinarium-missae-ii/other:ite-communior
+      melody: 0.792
+      words: 0.619
+    melody: 1.0
+    words: 0.619
 - file: vol-5/missa-ii/ite_IIb.ly
-  target: movement:ordinarium-missae-ii/ite
-  status: melody-differs
+  target: part:ordinarium-missae-ii/other:ite-communior
+  status: matched
   evidence:
     by: folder
     incipit: IDete o misgrá sa tiest as
     page: 17
     candidates:
-    - target: movement:ordinarium-missae-ii/ite
-      melody: 0.207
-      words: 0.714
-    melody: 0.207
-    words: 0.714
+    - target: part:ordinarium-missae-ii/other:ite-communior
+      melody: 1.0
+      words: 0.619
+    - target: part:ordinarium-missae-ii/other:ite
+      melody: 0.552
+      words: 0.619
+    melody: 1.0
+    words: 0.619
 - file: vol-5/missa-ii/kyrie_II.ly
   target: movement:ordinarium-missae-ii/kyrie
   status: matched
@@ -10873,21 +10864,18 @@
     words: 1.0
     name: agnus_IV
 - file: vol-5/missa-iv/benedicamus_IV.ly
-  target: movement:ordinarium-missae-iv/ite
-  status: proposed
+  target: part:ordinarium-missae-iv/other:benedicamus
+  status: matched
   evidence:
-    by: page
+    by: folder
     incipit: Benedicámus Dó mino
     page: 28
     candidates:
-    - target: movement:ordinarium-missae-iv/ite
+    - target: part:ordinarium-missae-iv/other:benedicamus
       melody: 1.0
-      words: 0.235
-    - target: movement:ordinarium-missae-iv/agnus
-      melody: 0.85
-      words: 0.765
+      words: 1.0
     melody: 1.0
-    words: 0.235
+    words: 1.0
 - file: vol-5/missa-iv/gloria_IV.ly
   target: movement:ordinarium-missae-iv/gloria
   status: matched
@@ -10903,14 +10891,14 @@
     words: 0.998
     name: gloria_IV
 - file: vol-5/missa-iv/ite_IV.ly
-  target: movement:ordinarium-missae-iv/ite
+  target: part:ordinarium-missae-iv/other:ite
   status: matched
   evidence:
     by: folder
     incipit: IDete o misgrása tiest as
     page: 28
     candidates:
-    - target: movement:ordinarium-missae-iv/ite
+    - target: part:ordinarium-missae-iv/other:ite
       melody: 1.0
       words: 0.619
     melody: 1.0
@@ -10971,26 +10959,18 @@
     words: 0.998
     name: gloria_IX
 - file: vol-5/missa-ix/ite_IX.ly
-  target: movement:ordinarium-missae-ii/ite
-  status: proposed
+  target: part:ordinarium-missae-ix/other:ite
+  status: matched
   evidence:
-    by: kind
+    by: folder
     incipit: IDe te o misgrása tiest as
     candidates:
-    - target: movement:ordinarium-missae-ii/ite
-      melody: 0.889
-      words: 0.714
-    - target: movement:ordinarium-missae-xi/ite
-      melody: 0.889
-      words: 0.571
-    - target: movement:ordinarium-missae-iv/ite
-      melody: 0.833
+    - target: part:ordinarium-missae-ix/other:ite
+      melody: 1.0
       words: 0.619
-    - target: movement:ordinarium-missae-vi/ite
-      melody: 0.833
-      words: 0.619
-    melody: 0.889
-    words: 0.714
+    melody: 1.0
+    words: 0.619
+    name: ite_IX
 - file: vol-5/missa-ix/kyrie_IX.ly
   target: movement:ordinarium-missae-ix/kyrie
   status: matched
@@ -11256,27 +11236,19 @@
     words: 0.998
     name: gloria_VIII
 - file: vol-5/missa-viii/ite_VIII.ly
-  target: movement:ordinarium-missae-ii/ite
-  status: proposed
+  target: part:ordinarium-missae-viii/other:ite
+  status: matched
   evidence:
-    by: kind
+    by: folder
     incipit: IDe te o misgrása tiest as
     page: 52
     candidates:
-    - target: movement:ordinarium-missae-ii/ite
-      melody: 0.905
-      words: 0.714
-    - target: movement:ordinarium-missae-vii/ite
-      melody: 0.81
+    - target: part:ordinarium-missae-viii/other:ite
+      melody: 1.0
       words: 0.619
-    - target: movement:ordinarium-missae-vi/ite
-      melody: 0.762
-      words: 0.619
-    - target: movement:ordinarium-missae-xi/ite
-      melody: 0.714
-      words: 0.571
-    melody: 0.905
-    words: 0.714
+    melody: 1.0
+    words: 0.619
+    name: ite_VIII
 - file: vol-5/missa-viii/kyrie_VIII.ly
   target: movement:ordinarium-missae-viii/kyrie
   status: matched
@@ -11376,19 +11348,18 @@
     words: 1.0
     name: agnus_XI
 - file: vol-5/missa-xi/benedicamus_XI.ly
-  target: movement:ordinarium-missae-xi/ite
-  status: proposed
+  target: part:ordinarium-missae-xi/other:benedicamus
+  status: matched
   evidence:
-    by: page
+    by: folder
     incipit: Benedicámus Dó mino
     page: 67
     candidates:
-    - target: movement:ordinarium-missae-xi/ite
+    - target: part:ordinarium-missae-xi/other:benedicamus
       melody: 1.0
       words: 1.0
     melody: 1.0
     words: 1.0
-    note: vol-5/missa-xi/ite_XI.ly matched movement:ordinarium-missae-xi/ite better
 - file: vol-5/missa-xi/gloria_XI.ly
   target: movement:ordinarium-missae-xi/gloria
   status: matched
@@ -11404,18 +11375,18 @@
     words: 0.998
     name: gloria_XI
 - file: vol-5/missa-xi/ite_XI.ly
-  target: movement:ordinarium-missae-xi/ite
+  target: part:ordinarium-missae-xi/other:ite
   status: matched
   evidence:
     by: folder
     incipit: IDete o misgrá sa tiest as
     page: 67
     candidates:
-    - target: movement:ordinarium-missae-xi/ite
+    - target: part:ordinarium-missae-xi/other:ite
       melody: 1.0
-      words: 0.571
+      words: 0.619
     melody: 1.0
-    words: 0.571
+    words: 0.619
     name: ite_XI
 - file: vol-5/missa-xi/kyrie_XI.ly
   target: movement:ordinarium-missae-xi/kyrie
@@ -11530,21 +11501,18 @@
     words: 1.0
     name: agnus_XIII
 - file: vol-5/missa-xiii/benedicamus_XIII.ly
-  target: movement:ordinarium-missae-xiii/ite
-  status: proposed
+  target: part:ordinarium-missae-xiii/other:benedicamus
+  status: matched
   evidence:
-    by: page
+    by: folder
     incipit: Benedicámus Dó mino
     page: 77
     candidates:
-    - target: movement:ordinarium-missae-xiii/ite
+    - target: part:ordinarium-missae-xiii/other:benedicamus
       melody: 1.0
-      words: 0.235
-    - target: movement:ordinarium-missae-xiii/agnus
-      melody: 0.818
-      words: 0.765
+      words: 1.0
     melody: 1.0
-    words: 0.235
+    words: 1.0
 - file: vol-5/missa-xiii/gloria_XIII.ly
   target: movement:ordinarium-missae-xiii/gloria
   status: matched
@@ -11560,14 +11528,14 @@
     words: 0.998
     name: gloria_XIII
 - file: vol-5/missa-xiii/ite_XIII.ly
-  target: movement:ordinarium-missae-xiii/ite
+  target: part:ordinarium-missae-xiii/other:ite
   status: matched
   evidence:
     by: folder
     incipit: IDete o misgrá sa tiest as
     page: 77
     candidates:
-    - target: movement:ordinarium-missae-xiii/ite
+    - target: part:ordinarium-missae-xiii/other:ite
       melody: 1.0
       words: 0.619
     melody: 1.0
@@ -11756,18 +11724,18 @@
     words: 1.0
     name: agnus_XVI
 - file: vol-5/missa-xvi/benedicamus_XVI.ly
-  target: movement:ordinarium-missae-xvi/agnus
-  status: proposed
+  target: part:ordinarium-missae-xvi/other:benedicamus
+  status: matched
   evidence:
-    by: page
+    by: folder
     incipit: Benedicámus DóminoDeo grátias
     page: 90
     candidates:
-    - target: movement:ordinarium-missae-xvi/agnus
-      melody: 0.769
-      words: 0.778
-    melody: 0.769
-    words: 0.778
+    - target: part:ordinarium-missae-xvi/other:benedicamus
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
 - file: vol-5/missa-xvi/kyrie_XVI.ly
   target: movement:ordinarium-missae-xvi/kyrie
   status: matched
@@ -11811,30 +11779,36 @@
     words: 1.0
     name: agnus_XVII
 - file: vol-5/missa-xvii/ite_XVIIa.ly
-  target: movement:ordinarium-missae-xvii/ite
+  target: part:ordinarium-missae-xvii/other:deo-gratias-i
   status: matched
   evidence:
     by: folder
     incipit: IDete o misgrá sa tiest as
     page: 95
     candidates:
-    - target: movement:ordinarium-missae-xvii/ite
+    - target: part:ordinarium-missae-xvii/other:deo-gratias-i
       melody: 1.0
+      words: 0.571
+    - target: part:ordinarium-missae-xvii/other:deo-gratias-vi
+      melody: 0.8
       words: 0.571
     melody: 1.0
     words: 0.571
 - file: vol-5/missa-xvii/ite_XVIIb.ly
-  target: movement:ordinarium-missae-xvii/ite
-  status: proposed
+  target: part:ordinarium-missae-xvii/other:deo-gratias-vi
+  status: matched
   evidence:
     by: folder
     incipit: IDete o misgrá sa tiest as
     page: 95
     candidates:
-    - target: movement:ordinarium-missae-xvii/ite
+    - target: part:ordinarium-missae-xvii/other:deo-gratias-vi
+      melody: 1.0
+      words: 0.571
+    - target: part:ordinarium-missae-xvii/other:deo-gratias-i
       melody: 0.667
       words: 0.571
-    melody: 0.667
+    melody: 1.0
     words: 0.571
 - file: vol-5/missa-xvii/kyrie_XVII.ly
   target: movement:ordinarium-missae-xvii/kyrie
@@ -11851,17 +11825,20 @@
     words: 1.0
     name: kyrie_XVII
 - file: vol-5/missa-xvii/kyrie_XVIIa.ly
-  target: movement:ordinarium-missae-xvii/kyrie
-  status: melody-differs
+  target: part:ordinarium-missae-xvii/other:kyrie-b
+  status: matched
   evidence:
     by: folder
     incipit: Kýrie e léison Kýrie e léison Kýrie e
     page: 92
     candidates:
+    - target: part:ordinarium-missae-xvii/other:kyrie-b
+      melody: 1.0
+      words: 1.0
     - target: movement:ordinarium-missae-xvii/kyrie
       melody: 0.507
       words: 1.0
-    melody: 0.507
+    melody: 1.0
     words: 1.0
 - file: vol-5/missa-xvii/sanctus_XVII.ly
   target: movement:ordinarium-missae-xvii/sanctus

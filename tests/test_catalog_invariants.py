@@ -304,8 +304,20 @@ def _printed(piece):
 
 
 def test_only_propers_have_parts():
-    """Propers, and the Requiem Mass (a Proper printed with its Ordinary)."""
-    assert {p["division"] for p in PIECES if p.get("sections") and p["genre"] != "requiem"} <= PROPER_DIVISIONS
+    """Propers, and the Requiem Mass (a Proper printed with its Ordinary). A
+    Mass of the Kyriale has only the rows a person listed for it, each with a
+    key of its own (data/sections/noh5.yml: a second Kyrie, its dismissals)."""
+    assert {p["division"] for p in PIECES
+            if p.get("sections") and p["genre"] not in ("requiem", "mass_ordinary")} <= PROPER_DIVISIONS
+    listed = [s for p in PIECES if p["genre"] == "mass_ordinary" for s in p.get("sections") or []]
+    assert listed and all(s["kind"] == "other" and s.get("key") and s["placed"] == "reviewed" for s in listed)
+
+
+def test_mass_xvii_has_its_second_kyrie_and_both_responses():
+    """NOH5 pp. 92 and 95, checked against the scan 2026-09-30."""
+    mass = next(p for p in PIECES if p["slug"] == "ordinarium-missae-xvii")
+    assert {s["key"]: s["ref"] for s in mass["sections"]} == {
+        "kyrie-b": "noh5/0138/005", "deo-gratias-i": "noh5/0141/004", "deo-gratias-vi": "noh5/0141/005"}
 
 
 def test_requiem_parts_introit_gradual_sequence_offertory_communion():

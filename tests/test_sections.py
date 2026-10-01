@@ -18,6 +18,51 @@ def test_suffix_target_and_named_follow_the_names_corrections_have_always_used()
     assert sections.named(alone, "introit") and not sections.named(paschal, "alleluia")
 
 
+def test_a_key_of_its_own_names_a_section_whatever_comes_before_it():
+    row = {"kind": "other", "variant": "", "key": "kyrie-b", "system": 8, "ref": "noh5/0138/005"}
+    assert sections.suffix(row) == ":kyrie-b" and sections.target("missa", row) == "part:missa/other:kyrie-b"
+    assert sections.named(row, "other", "kyrie-b") and not sections.named(row, "other", "1")
+    assert sections.key_problem("kyrie-b") is None and sections.key_problem("deo-gratias-vi") is None
+    for bad in ("2", "paschal", "Kyrie", "kyrie b", "-kyrie", "", "k" * 31, 3):
+        assert "should be a short name" in (sections.key_problem(bad) or ""), bad
+
+
+def test_a_reviewed_list_with_keys_keeps_each_rows_name_when_a_row_is_added_before_it():
+    mass = {"slug": "missa", "volume": "noh5", "systems": list(REFS), "sections": []}
+    rows = [{"kind": "other", "key": "ite", "label": "Ite, missa est", "ref": REFS[9], "chant": 353},
+            {"kind": "other", "key": "benedicamus", "ref": REFS[10]}]
+    listed, problems = sections.reviewed_list("missa", mass, rows, "noh5.yml")
+    assert problems == [] and [sections.target("missa", s) for s in listed] == [
+        "part:missa/other:ite", "part:missa/other:benedicamus"]
+    added = [{"kind": "other", "key": "kyrie-b", "ref": REFS[3]}, *rows]
+    listed, problems = sections.reviewed_list("missa", mass, added, "noh5.yml")
+    assert problems == [] and [sections.target("missa", s) for s in listed][1:] == [
+        "part:missa/other:ite", "part:missa/other:benedicamus"]
+    assert sections.as_reviewed({**mass, "sections": listed})[0] == {
+        "kind": "other", "key": "kyrie-b", "ref": REFS[3], "chant": "none"}
+
+
+@pytest.mark.parametrize(("rows", "message"), [
+    ([{"kind": "other", "key": "Kyrie B", "ref": "noh3/0481/003"}], "should be a short name"),
+    ([{"kind": "other", "key": "ite", "n": 2, "ref": "noh3/0481/003"}], "takes the place of n and variant"),
+    ([{"kind": "other", "key": "ite", "ref": "noh3/0481/003"}, {"kind": "other", "key": "ite", "ref": "noh3/0481/004"}],
+     "listed twice"),
+])
+def test_a_reviewed_list_with_a_bad_key_says_so(rows, message):
+    mass = {"slug": "missa", "volume": "noh5", "systems": list(REFS), "sections": []}
+    _, problems = sections.reviewed_list("missa", mass, rows, "noh5.yml")
+    assert len(problems) == 1 and message in problems[0]
+
+
+def test_parse_value_takes_a_key_from_the_admin_screen_and_refuses_a_bad_one():
+    assert sections.parse_value([{"kind": "other", "key": "kyrie-b", "system": 4, "chant": 168}]) == [
+        {"kind": "other", "key": "kyrie-b", "system": 4, "chant": 168}]
+    with pytest.raises(sections.ReviewedError, match="short name"):
+        sections.parse_value([{"kind": "other", "key": "paschal", "system": 4}])
+    with pytest.raises(sections.ReviewedError, match="takes the place"):
+        sections.parse_value([{"kind": "other", "key": "ite", "variant": "paschal", "system": 4}])
+
+
 def test_from_part_reads_a_schema_2_part_and_printed_leaves_out_borrowed_sections():
     old = {"part": "communion", "variant": "2", "system": 4, "ref": "r", "gregobase_id": 300, "placed": "label"}
     assert sections.from_part(old) == {"kind": "communion", "n": 2, "variant": "", "system": 4, "ref": "r",

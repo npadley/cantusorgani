@@ -45,7 +45,8 @@ export type ProperPartName =
 export interface PrintedPart {
   readonly kind: "printed";
   readonly part: ProperPartName;
-  /** "" | "paschal" | "1", "2" … when a kind repeats (the Ember Saturday's four Graduals). */
+  /** "" | "paschal" | "1", "2" … when a kind repeats (the Ember Saturday's four
+   *  Graduals) | a key of its own ("kyrie-b"): what follows the kind in its name. */
   readonly variant: string;
   /** As the book prints it in the margin ("2. Grad. I"), where known. */
   readonly label: string | null;
@@ -180,7 +181,7 @@ interface RawMovement {
  * 2nd (3rd ...) of its kind. Schema 2's parts had `part`, with the number in
  * `variant`. */
 interface RawPart {
-  readonly kind?: string; readonly n?: number;
+  readonly kind?: string; readonly n?: number; readonly key?: string;
   readonly part?: string; readonly variant?: string;
   readonly label?: string | null; readonly title?: string | null;
   readonly system?: number; readonly ref?: string;
@@ -250,7 +251,7 @@ function parsePart(x: RawPart, where: string): ProperPart {
   const name = x.kind ?? x.part ?? "";
   if (!PART_NAMES.has(name)) throw new Error(`${where}: unknown part ${name}`);
   const part = name as ProperPartName;
-  const variant = x.n ? String(x.n) : x.variant ?? "";
+  const variant = x.key ? x.key : x.n ? String(x.n) : x.variant ?? "";
   const gregobaseId = Number.isInteger(x.gregobase_id) ? (x.gregobase_id as number) : null;
   const label = text(x.label);
   const title = text(x.title);
@@ -444,14 +445,20 @@ export interface MovementStart {
  * Where each movement begins, one per movement, in liturgical order. The jump
  * links and the headings in the music both come from here, so a link can never
  * name an anchor the page does not have.
+ *
+ * A section a person listed for the Mass (data/sections: its second Kyrie, each
+ * of its dismissals) speaks for the system it starts on: a movement found on
+ * that same system is left out, so "Ite, missa est" gives way to "Deo gratias (I)".
  */
 export function movementStarts(piece: Piece): readonly MovementStart[] {
+  const listed = new Set(piece.parts.filter((x) => x.kind === "printed" && x.placed !== "order")
+    .map((x) => (x as PrintedPart).ref));
   const seen = new Set<Movement>();
   const starts: MovementStart[] = [];
   for (const movement of MOVEMENT_ORDER) {
     const boundary = piece.movements.find((b) => b.movement === movement);
     const index = boundary ? piece.systems.indexOf(boundary.ref) : -1;
-    if (index < 0 || seen.has(movement)) continue;
+    if (index < 0 || seen.has(movement) || (boundary && listed.has(boundary.ref))) continue;
     seen.add(movement);
     starts.push({ movement, label: MOVEMENT_LABELS[movement], anchor: movement, index });
   }
@@ -523,6 +530,8 @@ export function inPrintedOrder<T extends { readonly order: number }>(own: readon
 /** "Paschal Alleluia", "Gradual 2", "Offertory". */
 export function partLabel(part: ProperPartName, variant = ""): string {
   if (variant === "paschal") return `Paschal ${PART_LABELS[part]}`;
+  // A key of its own ("kyrie-b") with no label to show: its words.
+  if (variant && !/^\d+$/.test(variant)) return variant.replace(/-/g, " ").replace(/^./, (c) => c.toUpperCase());
   return variant ? `${PART_LABELS[part]} ${variant}` : PART_LABELS[part];
 }
 
