@@ -2,6 +2,81 @@
   "schema_version": 1,
   "corrections": [
     {
+      "id": "c-0023",
+      "target": "piece:alii-cantus-ad-libitum-gloria-ambr",
+      "field": "system_range",
+      "was": [
+        "noh5/0198/000",
+        "noh5/0199/005"
+      ],
+      "value": [
+        "noh5/0198/000",
+        "noh5/0200/003"
+      ],
+      "date": "2026-09-30",
+      "by": "editor"
+    },
+    {
+      "id": "c-0022",
+      "target": "piece:alii-cantus-ad-libitum-credo-v",
+      "field": "system_range",
+      "was": [
+        "noh5/0200/000",
+        "noh5/0204/003"
+      ],
+      "value": [
+        "noh5/0200/004",
+        "noh5/0204/003"
+      ],
+      "date": "2026-09-30",
+      "by": "editor"
+    },
+    {
+      "id": "c-0021",
+      "target": "piece:ordinarium-missae-credo-iv",
+      "field": "system_range",
+      "was": [
+        "noh5/0156/003",
+        "noh5/0159/005"
+      ],
+      "value": [
+        "noh5/0156/003",
+        "noh5/0160/002"
+      ],
+      "date": "2026-09-30",
+      "by": "editor"
+    },
+    {
+      "id": "c-0020",
+      "target": "piece:ordinarium-missae-credo-iii",
+      "field": "system_range",
+      "was": [
+        "noh5/0152/003",
+        "noh5/0155/005"
+      ],
+      "value": [
+        "noh5/0152/003",
+        "noh5/0156/002"
+      ],
+      "date": "2026-09-30",
+      "by": "editor"
+    },
+    {
+      "id": "c-0019",
+      "target": "piece:ordinarium-missae-credo-i",
+      "field": "system_range",
+      "was": [
+        "noh5/0144/003",
+        "noh5/0147/005"
+      ],
+      "value": [
+        "noh5/0144/003",
+        "noh5/0148/002"
+      ],
+      "date": "2026-09-30",
+      "by": "editor"
+    },
+    {
       "id": "c-0018",
       "target": "piece:feria-vi-infra-hebd-iv-quadragesim",
       "field": "system_range",

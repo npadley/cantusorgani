@@ -94,3 +94,18 @@ describe("exportRuns", () => {
     expect(exportRuns(piece, 5, 10, find)).toEqual([{ count: 5, key: null, label: null, letter: null, a4: null }]);
   });
 });
+
+it("shows every Credo's whole-piece transcription despite its detected movement heading", () => {
+  const credos = allPieces().filter((p) => p.genre === "credo");
+  expect(credos).toHaveLength(6);
+  for (const credo of credos) {
+    const found = segments(credo);
+    expect(found, credo.title).toHaveLength(1);
+    expect(found[0]!.target).toBe(`piece:${credo.slug}`);
+    expect(found[0]!.render?.file).toMatch(/vol-5\/credo_[IV]+\.ly$/);
+    expect(found[0]!.start).toBe(0);
+    expect(found[0]!.end).toBe(credo.systems.length);
+    expect(hasTypeset(credo)).toBe(true);
+    expect(exportRuns(credo, 0, credo.systems.length)[0]?.letter).toContain("/letter.pdf");
+  }
+});

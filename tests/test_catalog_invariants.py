@@ -401,3 +401,19 @@ def test_most_propers_with_music_are_divided():
     propers = [p for p in PIECES if p["division"] in PROPER_DIVISIONS and p["systems"]]
     divided = [p for p in propers if _printed(p)]
     assert len(divided) >= 0.75 * len(propers)
+
+
+def test_all_credo_ranges_begin_at_their_opening_and_include_the_final_amen():
+    """All six boundaries checked visually against NOH5 PDF on 2026-09-30."""
+    expected = {
+        'ordinarium-missae-credo-i': ('noh5/0144/003', 'noh5/0148/002'),
+        'ordinarium-missae-credo-ii': ('noh5/0148/003', 'noh5/0152/002'),
+        'ordinarium-missae-credo-iii': ('noh5/0152/003', 'noh5/0156/002'),
+        'ordinarium-missae-credo-iv': ('noh5/0156/003', 'noh5/0160/002'),
+        'alii-cantus-ad-libitum-credo-v': ('noh5/0200/004', 'noh5/0204/003'),
+        'alii-cantus-ad-libitum-credo-vi': ('noh5/0204/004', 'noh5/0208/005'),
+    }
+    credos = {p['slug']: p for p in PIECES if p['genre'] == 'credo'}
+    assert credos.keys() == expected.keys()
+    for slug, (first, last) in expected.items():
+        assert (credos[slug]['systems'][0], credos[slug]['systems'][-1]) == (first, last)
