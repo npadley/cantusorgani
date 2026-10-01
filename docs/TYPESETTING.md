@@ -51,16 +51,47 @@ Each file says which volume it belongs to (its folder) and usually its page
 `al_`, `tr_`, `of_`, `co_`, `se_`), or for the Kyriale, the Mass and movement
 (`missa-ix/kyrie_IX.ly`). Those give the candidates.
 
-LilyPond then reads the file, and the chant voice's melody is compared with the
-GregoBase chant of each candidate. The comparison uses intervals, so it doesn't
-matter when NOH transposes a chant; repeated notes count once.
+LilyPond then reads the file, and its chant voice is compared with the
+GregoBase chant of each candidate, twice over (`pipeline/typeset/melody.py`):
+
+- **the melody**, by intervals, so it doesn't matter when NOH transposes a
+  chant; repeated notes count once;
+- **the words**, as bare letters (no accents, `i` for `j`), for the best four
+  candidates by melody.
+
+GregoBase abbreviates what NOH prints in full, so the chant is also read with
+those written out, and the better score kept: "ij." and "iij." repeat the
+phrase before them (a Kyrie's invocations, an Alleluia before its jubilus), and
+an Introit's "Gloria Patri. E u o u a e" becomes the whole doxology, sung to the
+psalm verse's tone.
+
+Melody and words both at 85% or more is the strongest match (`evidence.melody`
+and `evidence.words` in `parts.yml`). That is enough even when the file has no
+page or name to go by, provided no other candidate comes close. Words that
+agree also carry a melody that is only close (60% or more). The same notes
+under other words (less than half) are a type-melody, never a match.
 
 | Status | Meaning |
 |---|---|
-| `matched` | its page or name points at the part, and the melody agrees (at least 85% of its notes, clearly better than any other candidate) |
+| `matched` | its page or name points at the part, and the melody agrees (at least 85% of its notes, clearly better than any other candidate, the words not another text); or melody and words both agree; or the file is named for the part (below) |
 | `proposed` | no confident answer: found by melody alone, a weak melody, no chant to compare, or no candidate |
 | `melody-differs` | the file points at one part whose melody disagrees |
 | `broken` | LilyPond cannot read the file; the error names the line |
+
+A file named for its part is matched on the name, without the melody
+(`evidence.name` in `parts.yml` says what agreed):
+
+- **The Kyriale**: `missa-i/kyrie_I.ly` is Mass I's Kyrie, `credo_V.ly` Credo V,
+  `kyrie_ad_libitum_III.ly` the Kyrie ad libitum III. A name with a letter (`ite_IIa`, `kyrie_XVIIa`) does
+  not say which of two it is, and is left to the melody and to an editor.
+- **A Proper**: `in_adorate_deum` is the Introit on its page that the catalogue
+  titles "Adorate Deum" (or whose GregoBase chant opens so). With no page to go
+  by, the name must fit exactly one part of that kind in the volume, and the
+  melody must not disagree (60%). Only a piece's first file counts
+  (`an_lumen_ad_revelationem.1`, not `.3`).
+
+When two files claim one part, the one named for it keeps it (`ite_IV`, not
+`benedicamus_IV`, for a Mass's Ite), then the better melody.
 
 Only `matched` files are shown on the site. Editors settle the rest on the
 admin screen's **Typeset music** page (`/admin/typeset/`, docs/EDITING.md):
@@ -132,7 +163,8 @@ In CI (`.github/workflows/site.yml`):
   isn't there.
 
 A matched part that fails to render, or whose melody no longer matches its
-chant (an edit gone wrong), fails CI. A file only on the review list that
+chant (an edit gone wrong), fails CI. A part matched below 85% (by its name, or
+by an editor) is held to the score `parts.yml` records for it. A file only on the review list that
 fails is reported and left for the admin screen. LilyPond's warnings about
 the transcriptions' own small slips (a slur with nothing to attach to, an
 unfinished hyphen) don't fail a render. A LilyPond "programming error" does,

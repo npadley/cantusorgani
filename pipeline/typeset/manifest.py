@@ -66,7 +66,7 @@ def build(src: Path = SRC, parts: Path = PARTS_FILE, include: Path = INCLUDE,
         if digest:
             row["hash"] = digest
         evidence = entry.get("evidence") or {}
-        for key in ("error", "melody", "incipit", "page", "note"):
+        for key in ("error", "melody", "words", "incipit", "page", "note"):
             if evidence.get(key) is not None:
                 row[key] = evidence[key]
         if evidence.get("candidates"):

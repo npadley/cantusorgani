@@ -4,15 +4,26 @@ For each file the candidates come from what the file says about itself: its
 volume, its page ("%Page reference: page i.109"), what kind of part its name
 says it is (in_, gr_, al_, tr_, of_, co_, se_), and for the Kyriale its folder
 (missa-ix/kyrie_IX.ly is Mass IX's Kyrie). Each candidate is then scored by
-melody against the chant GregoBase has for it (pipeline/typeset/melody.py), and
-the best one kept, with the evidence.
+melody against the chant GregoBase has for it, and the best few by their words
+too (pipeline/typeset/melody.py, which writes out what GregoBase abbreviates:
+"ij.", "iij.", "Gloria Patri. E u o u a e"). The best one is kept, with the
+evidence. Melody and words both agreeing is the strongest match: it is enough
+even with no page or name to go by, and words that agree carry a melody that is
+only close. The same notes under other words are a type-melody, never a match.
 
 Statuses:
   matched         a name or page candidate whose melody agrees (and clearly
-                  better than any other): rendered for the site
+                  better than any other), or the one target the file's own
+                  name names (below): rendered for the site
   proposed        no confident answer; the admin screen's Typeset matches queue
   melody-differs  the file points at a part whose melody disagrees
   broken          LilyPond cannot read the file; the Typeset errors queue
+A file's name settles it without the melody (evidence.name says what agreed):
+  - the Kyriale: missa-i/kyrie_I.ly is Mass I's Kyrie and kyrie_ad_libitum_III.ly
+    the Kyrie ad libitum III, whatever GregoBase's chant looks like;
+  - a Proper: in_adorate_deum is the Introit on its page titled "Adorate Deum".
+    With no page to go by, the name must fit one part of that kind in the whole
+    volume, and the melody must not disagree.
 A person settles proposed and melody-differs entries in the admin screen: a
 `match` correction on typeset:<file> in data/corrections.yml, applied over this
 file by with_choices() (the manifest is built from the result). This command
@@ -23,6 +34,7 @@ from __future__ import annotations
 
 import json
 import re
+import unicodedata
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -31,7 +43,7 @@ import yaml
 
 from pipeline import sections
 from pipeline.typeset.events import Events
-from pipeline.typeset.melody import compare, gabc_steps
+from pipeline.typeset.melody import agreement
 from pipeline.volumes import DATA
 
 PARTS_FILE = DATA / "typeset" / "parts.yml"
@@ -49,6 +61,13 @@ MATCHED = 0.85
 MARGIN = 0.15
 #: Below this, the file's own candidate is said to differ.
 DIFFERS = 0.6
+#: The words agree: with them, a melody that does not differ is enough.
+WORDS = 0.85
+#: The words are another text: the same notes are then a type-melody (the
+#: Graduals of mode II, the Alleluias of mode VIII), not this chant.
+OTHER_WORDS = 0.5
+#: Candidates whose words are compared (the best by melody).
+SHORTLIST = 4
 
 
 @dataclass(frozen=True)
@@ -61,6 +80,8 @@ class Target:
     kind: str
     page: int | None
     chant: int | None
+    #: What the catalogue calls it: a section's opening words.
+    title: str | None = None
 
 
 @dataclass(frozen=True)
@@ -97,7 +118,8 @@ def targets(catalog: dict[str, Any], printed: Any) -> list[Target]:
         systems = p.get("systems") or []
         for part in sections.printed(p):
             out.append(Target(sections.target(slug, part), volume, slug,
-                              str(part["kind"]), printed(part["ref"]), part.get("gregobase_id")))
+                              str(part["kind"]), printed(part["ref"]), part.get("gregobase_id"),
+                              part.get("title") or None))
         chants = {c.get("movement"): c.get("id") for c in p.get("chant") or []}
         if p.get("genre") == "mass_ordinary":
             seen: set[str] = set()
@@ -143,6 +165,65 @@ def candidates(h: Hints, all_targets: list[Target]) -> tuple[list[Target], str]:
     return [], "none"
 
 
+def _words(text: str) -> tuple[str, ...]:
+    """Latin words as file names spell them: no accents, ae for æ, i for j."""
+    plain = unicodedata.normalize("NFKD", text.lower().replace("æ", "ae").replace("œ", "oe"))
+    plain = "".join(c for c in plain if not unicodedata.combining(c)).replace("j", "i")
+    return tuple(re.findall(r"[a-z]+", plain))
+
+
+def file_name(rel: str) -> list[tuple[str, ...]]:
+    """The opening words a Proper file is named for, after its kind prefix:
+    in_ego_autem_in__speravi is "Ego autem in ... speravi", and
+    gr_speciosus_v_eructavit "Speciosus", verse "Eructavit". A trailing number
+    (co_regina_mundi_272) is not a word. A later verse or strophe
+    (an_lumen_ad_revelationem.3, hy_gloria_laus.2) is not named for the part:
+    only its first file is."""
+    pieces = rel.split("/")[-1].lower().split(".")
+    stem = pieces[0]
+    if "_" not in stem or (len(pieces) > 1 and pieces[1].isdigit() and pieces[1] != "1"):
+        return []
+    body = re.sub(r"_\d+$", "", stem.split("_", 1)[1])
+    return [w for w in (_words(seg) for seg in re.split(r"__|_v_", body)) if w]
+
+
+def catalogue_name(text: str) -> list[tuple[str, ...]]:
+    """A title or a GregoBase incipit ("Ego autem in... speravi", "Confessio (Intr.)")
+    in the same shape."""
+    return [w for w in (_words(seg) for seg in re.sub(r"\([^)]*\)", "", text).split("...")) if w]
+
+
+def _fits(a: tuple[str, ...], b: tuple[str, ...]) -> bool:
+    n = min(len(a), len(b))
+    return n > 0 and a[:n] == b[:n]
+
+
+def named(rel: str, target: Target, chants: dict[str, Any]) -> str | None:
+    """The catalogue's name for this target, if the file is named for it: the
+    opening words fit, and nothing after a "..." contradicts (Gaudeamus ...
+    Annae is not Gaudeamus ... Agathae)."""
+    ours = file_name(rel)
+    if not ours:
+        return None
+    incipit = (chants.get(str(target.chant)) or {}).get("incipit") if target.chant is not None else None
+    found = None
+    for text in (target.title, incipit):
+        theirs = catalogue_name(text) if text else []
+        if not theirs or not _fits(ours[0], theirs[0]):
+            continue
+        if any(not _fits(a, b) for a, b in zip(ours[1:], theirs[1:], strict=False)):
+            return None
+        found = found or text
+    return found
+
+
+def numbered(h: Hints) -> bool:
+    """A Kyriale file whose name is the whole answer: kyrie_I in missa-i,
+    credo_V, kyrie_ad_libitum_III. Not ite_IIa or kyrie_XVIIa: the catalogue
+    has one Ite and one Kyrie for the Mass, and the name does not say which."""
+    return h.number is not None and h.kind in MOVEMENTS and h.mass in (None, h.number)
+
+
 @dataclass
 class Entry:
     file: str
@@ -167,21 +248,45 @@ def decide(rel: str, text: str, events: Events, all_targets: list[Target], chant
     evidence: dict[str, Any] = {"by": by, "incipit": events.incipit}
     if h.page is not None:
         evidence["page"] = h.page
-    scored = []
+    def gabc_of(t: Target) -> str | None:
+        return (chants.get(str(t.chant)) or {}).get("gabc") if t.chant is not None else None
+
+    scored: list[tuple[Target, float | None]] = []
     for t in found:
-        gabc = (chants.get(str(t.chant)) or {}).get("gabc") if t.chant is not None else None
-        score = compare(events.steps, gabc_steps(gabc)).score if gabc else None
-        scored.append((t, score))
+        gabc = gabc_of(t)
+        scored.append((t, agreement(events.steps, (), gabc, with_words=False).melody if gabc else None))
     scored.sort(key=lambda ts: -1 if ts[1] is None else ts[1], reverse=True)
-    evidence["candidates"] = [{"target": t.target, "melody": s} for t, s in scored[:4]]
+    words: dict[str, float | None] = {}
+    for t, _ in scored[:SHORTLIST]:
+        gabc = gabc_of(t)
+        words[t.target] = agreement(events.steps, events.words, gabc).words if gabc else None
+    evidence["candidates"] = [{"target": t.target, "melody": s, "words": words.get(t.target)} for t, s in scored[:SHORTLIST]]
     if not scored:
         return Entry(rel, None, "proposed", evidence)
+    by_name = name_match(rel, h, by, scored, chants)
+    if by_name:
+        best, score, name = by_name
+        evidence["melody"] = score
+        evidence["words"] = words[best.target] if best.target in words else (
+            agreement(events.steps, events.words, gabc_of(best) or "").words if gabc_of(best) else None)
+        evidence["name"] = name
+        if by == "kind":
+            evidence["by"] = "name"
+        return Entry(rel, best.target, "matched", evidence)
     best, score = scored[0]
     runner = next((s for _, s in scored[1:] if s is not None), 0.0)
+    text = words.get(best.target)
     evidence["melody"] = score
+    evidence["words"] = text
     if score is None:
         return Entry(rel, best.target if len(scored) == 1 and by != "kind" else None, "proposed", evidence)
-    if score >= MATCHED and score - runner >= MARGIN and by != "kind":
+    other_words = text is not None and text < OTHER_WORDS
+    same_words = text is not None and text >= WORDS
+    clear = score - runner >= MARGIN
+    if by != "kind" and clear and not other_words and (score >= MATCHED or (same_words and score >= DIFFERS)):
+        return Entry(rel, best.target, "matched", evidence)
+    if by == "kind" and clear and score >= MATCHED and same_words:
+        evidence["by"] = "melody and words"                         # across the volume, but both say so
         return Entry(rel, best.target, "matched", evidence)
     if score >= MATCHED and by == "kind":
         return Entry(rel, best.target, "proposed", evidence)      # found by melody alone: a person confirms
@@ -190,8 +295,27 @@ def decide(rel: str, text: str, events: Events, all_targets: list[Target], chant
     return Entry(rel, best.target, "proposed", evidence)
 
 
+def name_match(rel: str, h: Hints, by: str, scored: list[tuple[Target, float | None]],
+               chants: dict[str, Any]) -> tuple[Target, float | None, str] | None:
+    """The one candidate the file's own name names, with its melody score and
+    the name that agreed; None when the name does not settle it."""
+    if by in ("folder", "name"):
+        if len(scored) == 1 and numbered(h):
+            return scored[0][0], scored[0][1], rel.split("/")[-1].split(".")[0]
+        return None
+    fits = [(t, s, name) for t, s in scored if (name := named(rel, t, chants))]
+    if len(fits) != 1:
+        return None
+    # Found across the whole volume, with no page: a melody that disagrees says
+    # it is another chant with the same opening words.
+    if by == "kind" and fits[0][1] is not None and fits[0][1] < DIFFERS:
+        return None
+    return fits[0]
+
+
 def settle_duplicates(entries: list[Entry]) -> None:
-    """Two files matched to one target: the better melody keeps it, the other is proposed."""
+    """Two files matched to one target: the one named for it keeps it, then the
+    better melody; the other is proposed."""
     by_target: dict[str, list[Entry]] = {}
     for e in entries:
         if e.status == "matched" and e.target:
@@ -199,7 +323,7 @@ def settle_duplicates(entries: list[Entry]) -> None:
     for same in by_target.values():
         if len(same) < 2:
             continue
-        same.sort(key=lambda e: e.evidence.get("melody") or 0.0, reverse=True)
+        same.sort(key=lambda e: (bool(e.evidence.get("name")), e.evidence.get("melody") or 0.0), reverse=True)
         for e in same[1:]:
             e.status = "proposed"
             e.evidence["note"] = f"{same[0].file} matched {e.target} better"
@@ -218,7 +342,12 @@ HEADER = """\
 # source: editor (a person settled it; never changed here) | render (LilyPond
 #   could not draw it; evidence.hash is the render it failed at, and the mark
 #   goes when the file changes)
-# evidence.melody: how much of the file's melody the chant has, in order (0-1).
+# evidence.melody: how much of the file's melody the chant has, in order (0-1),
+#   with GregoBase's "ij.", "iij." and "Gloria Patri. E u o u a e" written out.
+# evidence.words: how much of the file's words the chant has (0-1). Both at
+#   0.85 or more is the strongest match there is.
+# evidence.name: the file is named for its target (matched on that, whatever
+#   the melody and words say).
 """
 
 
@@ -347,10 +476,15 @@ __all__ = [
     "Hints",
     "Target",
     "candidates",
+    "catalogue_name",
     "decide",
+    "file_name",
     "hints",
     "load",
     "mark_render_failures",
+    "name_match",
+    "named",
+    "numbered",
     "run",
     "settle_duplicates",
     "settled",

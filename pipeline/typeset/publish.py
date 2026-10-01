@@ -27,7 +27,7 @@ from pathlib import Path
 from typing import Any
 
 from pipeline.typeset.manifest import MANIFEST, PREFIX, REVIEW, hashes
-from pipeline.typeset.match import MATCHED, SRC, targets
+from pipeline.typeset.match import MATCHED, PARTS_FILE, SRC, load, targets
 from pipeline.typeset.render import FILES, render
 from pipeline.typeset.svgcheck import WIDTHS, check_file, check_pdf
 from pipeline.volumes import DATA
@@ -68,10 +68,12 @@ class RenderReport:
         return not self.failed_shown
 
 
-def melody_problem(file: str, target: str, src: Path = SRC, data: Path = DATA) -> str | None:
-    """A matched file whose melody no longer matches its part's chant."""
+def melody_problem(file: str, target: str, src: Path = SRC, data: Path = DATA,
+                   recorded: float | None = None) -> str | None:
+    """A matched file whose melody no longer matches its part's chant.
+    `recorded`: the score parts.yml has for it, when that is what it was matched at."""
     from pipeline.typeset.events import read
-    from pipeline.typeset.melody import compare, gabc_steps
+    from pipeline.typeset.melody import agreement
 
     catalog = json.loads((data / "catalog.json").read_text(encoding="utf-8"))
     chants = json.loads((data / "chants.json").read_text(encoding="utf-8")).get("chants", {})
@@ -80,10 +82,18 @@ def melody_problem(file: str, target: str, src: Path = SRC, data: Path = DATA) -
     if not gabc:
         return None
     events = read(src / file)
-    score = compare(events.steps, gabc_steps(gabc)).score if events.ok else 0.0
-    if score < MATCHED:
-        return f"{file}: its melody now matches {target}'s chant only {score:.2f} (it needs {MATCHED}); check the edit"
+    score = agreement(events.steps, (), gabc, with_words=False).melody if events.ok else 0.0
+    needs = min(MATCHED, recorded) if recorded is not None else MATCHED
+    if score < needs:
+        return f"{file}: its melody now matches {target}'s chant only {score:.2f} (it needs {needs}); check the edit"
     return None
+
+
+def recorded_melodies(path: Path = PARTS_FILE) -> dict[str, float]:
+    """The melody score parts.yml records for each file. A file matched by its
+    name, or by an editor, may sit below MATCHED: an edit must not take it lower."""
+    return {str(e["file"]): float(e["evidence"]["melody"]) for e in load(path)
+            if isinstance((e.get("evidence") or {}).get("melody"), int | float)}
 
 
 class StaleManifest(RuntimeError):
@@ -103,6 +113,7 @@ def render_missing(base: str | None, out: Path = OUT, src: Path = SRC, workers: 
     wanted = hashes(manifest_path, review_path)
     todo = missing(base, wanted) if base else wanted
     report = RenderReport()
+    melodies = recorded_melodies()
 
     def one(item: tuple[str, str]) -> tuple[str, str, list[str]]:
         digest, file = item
@@ -111,7 +122,7 @@ def render_missing(base: str | None, out: Path = OUT, src: Path = SRC, workers: 
         if result.ok and result.hash != digest:
             problems.append(f"rendered as {result.hash}, but the manifest says {digest}: run `uv run noh typeset-manifest`")
         if result.ok and digest in shown:
-            problem = melody_problem(file, shown[digest]["target"], src)
+            problem = melody_problem(file, shown[digest]["target"], src, recorded=melodies.get(file))
             if problem:
                 problems.append(problem)
         return digest, file, problems
@@ -155,5 +166,6 @@ def remote_problems(base: str, manifest_path: Path = MANIFEST) -> list[str]:
             for digest, file in sorted(missing(base, wanted).items(), key=lambda x: x[1])]
 
 
-__all__ = ["OUT", "RenderReport", "StaleManifest", "melody_problem", "missing", "publish", "published", "remote_problems",
+__all__ = ["OUT", "RenderReport", "StaleManifest", "melody_problem", "missing", "publish", "published",
+           "recorded_melodies", "remote_problems",
            "render_missing"]

@@ -18,7 +18,7 @@ from pipeline.typeset.match import (
     settle_duplicates,
     targets,
 )
-from pipeline.typeset.melody import compare, gabc_steps, intervals
+from pipeline.typeset.melody import agreement, compare, gabc_steps, intervals, letters, read
 
 # ---------------------------------------------------------------- events ---
 
@@ -83,6 +83,43 @@ def test_compare_a_longer_chant_is_not_penalised_but_another_melody_is():
     assert compare(ours, ours + (5, 6, 5, 4, 2)).score == 1.0
     assert compare(ours, (0, -1, -3, -1, 1, 3)).score < 0.5
     assert compare((), ours).score == 0.0
+
+
+KYRIE = "(c4) Ký(f)ri(g)e(h) e(g)lé(f)i(e)son.(d.) <i>iij.</i>(::) Chri(h)ste(j) e(h)lé(g)i(f)son.(e.) <i>ij.</i>(::)"
+
+
+def test_read_writes_out_the_repeats_gregobase_abbreviates():
+    plain, sung = read(KYRIE), read(KYRIE, expand=True)
+    assert plain.text == "kyrieeleisonchristeeleison" and len(plain.steps) == 13
+    assert sung.text == "kyrieeleison" * 3 + "christeeleison" * 2
+    assert sung.steps == plain.steps[:7] * 3 + plain.steps[7:] * 2
+
+
+def test_read_an_alleluia_is_repeated_before_its_jubilus():
+    chant = read("(c4) Al(f)le(g)lú(h)ia.(g) <clear>*(;) <i>ij.</i>(hjh) (::) <sp>V/</sp>. Pa(f)scha(g)", expand=True)
+    assert chant.text == "alleluiaalleluiapascha"
+    assert chant.steps[:8] == chant.steps[:4] * 2 and len(chant.steps) == 13
+
+
+def test_read_writes_out_an_introits_doxology_to_the_psalm_tone():
+    introit = ("(c4) Ad(f)o(g)rá(h)te.(g) (::) <i>Ps.</i> Dó(f)mi(gh)nus(h) :(hj) (:) ter(h)ra.(gf) (::) "
+               "Gló(f)ri(gh)a(h) Pa(h)tri.(h) (::) <eu>E(h) u(h) o(g) u(f) a(g) e.</eu>(f.) (::)")
+    plain, sung = read(introit), read(introit, expand=True)
+    assert plain.text.endswith("gloriapatrieuouae")
+    assert sung.text == "adoratedominusterra" + letters("Gloria Patri et Filio et Spiritui Sancto sicut erat in "
+                                                        "principio et nunc et semper et in saecula saeculorum Amen")
+    half, ending = read("(c4) a(f) a(gh) a(h) a(hj)").steps, read("(c4) a(h) a(h) a(g) a(f) a(g) a(f)").steps
+    assert sung.steps[-(2 * len(half) + len(ending)):] == half + half + ending
+
+
+def test_agreement_takes_the_better_of_as_written_and_written_out():
+    kyrie = read(KYRIE, expand=True)
+    words = ("Kýrie", "eléison") * 3 + ("Christe", "eléison") * 2
+    both = agreement(tuple(n + 2 for n in kyrie.steps), words, KYRIE)
+    assert (both.melody, both.words) == (1.0, 1.0)
+    assert compare(kyrie.steps, gabc_steps(KYRIE)).score < 0.6             # as GregoBase writes it: about half
+    assert agreement(read(KYRIE).steps, (), KYRIE).words is None            # no words to compare
+    assert agreement(kyrie.steps, ("Sanctus", "Dominus", "Deus"), KYRIE).words < 0.5
 
 # ----------------------------------------------------------------- match ---
 
@@ -156,7 +193,7 @@ def test_decide_a_named_candidate_with_its_melody_is_matched():
 def test_decide_a_named_candidate_with_another_melody_differs():
     events = Events(True, MELODY, ())
     other = (0, -1, -3, -2, -4, -1, 0, 3, 1, -2, 0, -3)
-    entry = decide("vol-5/missa-ix/kyrie_IX.ly", "", events, all_targets(), chants(c20=other))
+    entry = decide("vol-5/missa-ix/kyrie_IXb.ly", "", events, all_targets(), chants(c20=other))
     assert entry.status == "melody-differs" and entry.target == "movement:ordinarium-missae-ix/kyrie"
 
 
@@ -171,6 +208,96 @@ def test_decide_no_chant_to_compare_is_proposed_and_broken_is_broken():
     assert (entry.status, entry.evidence["melody"]) == ("proposed", None)
     broken = decide("vol-1/in_x.csv.ly", "", Events(False, (), (), "line 3: error: x"), all_targets(), {})
     assert (broken.status, broken.evidence) == ("broken", {"error": "line 3: error: x"})
+
+
+OTHER = (0, -1, -3, -2, -4, -1, 0, 3, 1, -2, 0, -3)
+
+
+def test_decide_a_kyriale_file_named_for_its_movement_is_matched_whatever_the_melody():
+    # GABC writes "iij." where NOH prints each invocation: the name decides.
+    entry = decide("vol-5/missa-ix/kyrie_IX.ly", "", Events(True, MELODY, ()), all_targets(), chants(c20=OTHER))
+    assert (entry.target, entry.status, entry.evidence["name"]) == \
+        ("movement:ordinarium-missae-ix/kyrie", "matched", "kyrie_IX")
+    assert entry.evidence["melody"] < 0.6
+
+
+def test_decide_a_kyriale_name_with_a_letter_is_not_settled_by_name():
+    entry = decide("vol-5/missa-ix/kyrie_IXa.ly", "", Events(True, MELODY, ()), all_targets(), chants(c20=OTHER))
+    assert entry.status == "melody-differs" and "name" not in entry.evidence
+
+
+def named_catalog() -> list[Target]:
+    return [Target("part:dominica-ii/introit", "noh1", "dominica-ii", "introit", 109, 10, "Adorate Deum"),
+            Target("part:dominica-iii/introit", "noh1", "dominica-iii", "introit", 140, 11, "Gaudeamus"),
+            Target("part:dominica-ii/communion", "noh1", "dominica-ii", "communion", 109, 12, "Mirabantur")]
+
+
+def test_decide_a_proper_named_for_the_part_on_its_page_is_matched():
+    almost = MELODY[:9] + (0, -3, 1)
+    entry = decide("vol-1/in_adorate_deum.csv.ly", "%Page reference: page i.109", Events(True, almost, ()),
+                   named_catalog(), chants(c10=MELODY))
+    assert (entry.target, entry.status, entry.evidence["by"], entry.evidence["name"]) == \
+        ("part:dominica-ii/introit", "matched", "page", "Adorate Deum")
+    assert entry.evidence["melody"] < match.MATCHED
+
+
+def test_decide_a_proper_named_otherwise_than_its_page_candidate_is_not_matched_by_name():
+    entry = decide("vol-1/in_adjutor.csv.ly", "%Page reference: page i.109", Events(True, MELODY, ()),
+                   named_catalog(), chants(c10=OTHER))
+    assert entry.status == "melody-differs" and "name" not in entry.evidence
+
+
+def test_decide_a_name_found_across_the_volume_needs_a_melody_that_does_not_disagree():
+    found = decide("vol-1/in_gaudeamus.csv.ly", "", Events(True, MELODY, ()), named_catalog(), chants(c11=MELODY))
+    assert (found.target, found.status, found.evidence["by"]) == ("part:dominica-iii/introit", "matched", "name")
+    other = decide("vol-1/in_gaudeamus.csv.ly", "", Events(True, MELODY, ()), named_catalog(), chants(c11=OTHER))
+    assert other.status == "proposed"
+
+
+def test_named_reads_the_words_after_the_dots_and_leaves_later_verses_alone():
+    target = Target("part:x/introit", "noh3", "x", "introit", 1, 5, "Gaudeamus")
+    incipits = {"5": {"incipit": "Gaudeamus... Agathae (Intr.)"}}
+    assert match.named("vol-3/in_gaudeamus__agathae.csv.ly", target, incipits) == "Gaudeamus"
+    assert match.named("vol-3/in_gaudeamus__annae.csv.ly", target, incipits) is None
+    assert match.named("vol-3/in_gaudeamus_omnes_12.csv.ly", target, {}) == "Gaudeamus"
+    assert match.named("vol-3/in_gaudeamus.1.csv.ly", target, {}) == "Gaudeamus"
+    assert match.named("vol-3/in_gaudeamus.2.csv.ly", target, {}) is None
+    assert match.file_name("vol-1/gr_speciosus_v_eructavit.csv.ly") == [("speciosus",), ("eructavit",)]
+    assert match.catalogue_name("Júbiláte Deo... ómnis") == [("iubilate", "deo"), ("omnis",)]
+
+
+def worded(steps: tuple[int, ...], text: str) -> dict:
+    return {"gabc": "(c3) " + " ".join(f"{w}({chr(ord('h') + n)})" for w, n in zip(text.split() * 12, steps, strict=False))}
+
+
+SUNG = "A do ra te De um om nes an ge li e"
+
+
+def test_decide_the_same_notes_under_other_words_are_a_type_melody_not_a_match():
+    events = Events(True, MELODY, ("Timebunt", "gentes", "nomen", "tuum"))
+    entry = decide("vol-1/in_x.csv.ly", "%Page reference: page i.109", events, all_targets(), {"10": worded(MELODY, SUNG)})
+    assert (entry.status, entry.evidence["melody"]) == ("proposed", 1.0) and entry.evidence["words"] < 0.5
+
+
+def test_decide_words_that_agree_carry_a_melody_that_is_only_close():
+    close = MELODY[:8] + (0, -3, 1, 6)
+    events = Events(True, close, tuple(SUNG.split()))
+    entry = decide("vol-1/in_x.csv.ly", "%Page reference: page i.109", events, all_targets(), {"10": worded(MELODY, SUNG)})
+    assert entry.status == "matched" and 0.6 <= entry.evidence["melody"] < 0.85 and entry.evidence["words"] == 1.0
+
+
+def test_decide_melody_and_words_together_match_with_no_page_or_name():
+    events = Events(True, MELODY, tuple(SUNG.split()))
+    entry = decide("vol-1/in_x.csv.ly", "", events, all_targets(), {"10": worded(MELODY, SUNG)})
+    assert (entry.target, entry.status, entry.evidence["by"]) == \
+        ("part:dominica-ii/introit", "matched", "melody and words")
+
+
+def test_settle_duplicates_keeps_the_file_named_for_the_target():
+    ite = Entry("vol-5/missa-iv/ite_IV.ly", "movement:m/ite", "matched", {"melody": 0.9, "name": "ite_IV"})
+    benedicamus = Entry("vol-5/missa-iv/benedicamus_IV.ly", "movement:m/ite", "matched", {"melody": 1.0})
+    settle_duplicates([benedicamus, ite])
+    assert (ite.status, benedicamus.status) == ("matched", "proposed")
 
 
 def test_settle_duplicates_keeps_the_better_melody():
