@@ -250,3 +250,21 @@ def test_render_missing_refuses_a_stale_manifest(tmp_path, monkeypatch):
     with pytest.raises(publish.StaleManifest, match="run `uv run noh typeset-manifest` first"):
         publish.render_missing(None, tmp_path / "out", tmp_path)
     assert not (tmp_path / "out").exists()
+
+
+def test_melody_problem_holds_a_file_to_the_score_it_was_matched_at(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    # A file matched by its name can score below 0.85: rendering it is no
+    # problem, but an edit that lowers it is.
+    from pipeline.typeset import events
+    (tmp_path / "catalog.json").write_text(json.dumps({"pieces": [
+        {"slug": "ordinarium-missae-i", "volume": "noh5", "genre": "mass_ordinary", "systems": ["noh5/0010/000"],
+         "movements": [{"movement": "kyrie", "ref": "noh5/0010/000"}],
+         "chant": [{"movement": "kyrie", "id": 7}]}]}))
+    (tmp_path / "chants.json").write_text(json.dumps({"chants": {"7": {"gabc": "(c3) a(h) a(j) a(l) a(k) a(j) a(h)"}}}))
+    twice = (0, 2, 4, 3, 2, 0, 5, 7, 5, 8, 6, 9)                      # the chant, then as much again that it lacks
+    monkeypatch.setattr(events, "read", lambda path: events.Events(True, twice, ()))
+    target = "movement:ordinarium-missae-i/kyrie"
+    args = ("vol-5/missa-i/kyrie_I.ly", target, tmp_path, tmp_path)
+    assert "only 0.46" in (publish.melody_problem(*args) or "")
+    assert publish.melody_problem(*args, recorded=0.455) is None
+    assert "it needs 0.6" in (publish.melody_problem(*args, recorded=0.6) or "")
