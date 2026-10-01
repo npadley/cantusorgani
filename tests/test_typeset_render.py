@@ -268,3 +268,34 @@ def test_melody_problem_holds_a_file_to_the_score_it_was_matched_at(tmp_path: Pa
     assert "only 0.46" in (publish.melody_problem(*args) or "")
     assert publish.melody_problem(*args, recorded=0.455) is None
     assert "it needs 0.6" in (publish.melody_problem(*args, recorded=0.6) or "")
+
+
+@pytest.mark.lilypond
+def test_render_benedicite_without_manual_breaks_keeps_the_music_inside_every_page(tmp_path: Path):
+    """Cadenza music must wrap even when its source supplies no line breaks."""
+    import pymupdf
+
+    result = render.render(Path("data/typeset/src/vol-3/in_benedicite_dominum.csv.ly"), tmp_path)
+    assert result.ok, result.problems
+    for path in result.files:
+        if path.name == "narrow.svg":
+            continue  # This regression concerns the desktop and print layouts.
+        with pymupdf.open(path) as document:
+            pdf_bytes = document.convert_to_pdf() if path.suffix == ".svg" else path.read_bytes()
+        with pymupdf.open("pdf", pdf_bytes) as document:
+            for page in document:
+                right = max(drawing["rect"].x1 for drawing in page.get_drawings())
+                assert right <= page.rect.width + 1, f"{path.name}: music extends to {right}, page ends at {page.rect.width}"
+
+
+@pytest.mark.lilypond
+def test_render_keeps_the_existing_gradual_layout_when_it_already_fits(tmp_path: Path):
+    """The working Angelis suis should retain its book's compact line breaks."""
+    import pymupdf
+
+    result = render.render(Path("data/typeset/src/vol-1/gr_angelis_suis.csv.ly"), tmp_path)
+    assert result.ok, result.problems
+    with pymupdf.open(tmp_path / result.hash / "wide.svg") as document:
+        # The existing drawing is 898 pt high. Doubling its systems regresses
+        # an already readable layout; leave a little room for backend rounding.
+        assert document[0].rect.height < 1000

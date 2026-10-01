@@ -32,11 +32,12 @@ from pipeline.typeset.lilypond import INCLUDE
 
 #: Bump to re-render everything after a change to how rendering works that the
 #: files below do not show (a new LilyPond option, say).
-RENDER_VERSION = "2"
+RENDER_VERSION = "3"
 HERE = Path(__file__).parent
 RENDER_ILY = HERE / "render.ily"
 NARROW_ILY = HERE / "narrow.ily"
 PRELUDE_ILY = HERE / "prelude.ily"
+AUTO_WRAP_ILY = HERE / "auto-wrap.ily"
 FILES = ("narrow.svg", "wide.svg", "letter.pdf", "a4.pdf")
 #: Printed pages keep a printer's margins; the pictures on screen need none.
 PRINT_MARGINS = "top-margin = 12\\mm bottom-margin = 12\\mm left-margin = 15\\mm right-margin = 12\\mm"
@@ -74,7 +75,7 @@ IGNORED_WARNINGS = (re.compile(r"gregorian\.ly is deprecated"),)
 
 
 def settings_text() -> str:
-    return "".join(p.read_text(encoding="utf-8") for p in (PRELUDE_ILY, NARROW_ILY, RENDER_ILY))
+    return "".join(p.read_text(encoding="utf-8") for p in (PRELUDE_ILY, NARROW_ILY, RENDER_ILY, AUTO_WRAP_ILY))
 
 
 def source_hash(text: str, include: Path = INCLUDE, version: str | None = None) -> str:
@@ -89,11 +90,13 @@ def source_hash(text: str, include: Path = INCLUDE, version: str | None = None) 
     return h.hexdigest()[:32]
 
 
-def wrap(text: str, fmt: Format) -> str:
+def wrap(text: str, fmt: Format, auto_wrap: bool = False) -> str:
     """The source with one format's settings: the prelude (and the phone
     layout) right after the house style, before the music uses them; the page
     settings at the end, where they override the file's own."""
     lines = ['\\include "prelude.ily"'] + (['\\include "narrow.ily"'] if fmt.narrow else [])
+    if auto_wrap:
+        lines.append('\\include "auto-wrap.ily"')
     block = "\n".join(lines)
     text = _NOH2.sub(lambda m: f"{m.group(1)}\n{block}", text, count=1) if _NOH2.search(text) \
         else f"{block}\n{text}"
@@ -129,11 +132,16 @@ def render(path: Path, out: Path, include: Path = INCLUDE) -> Rendered:
     with tempfile.TemporaryDirectory() as tmp:
         work = Path(tmp)
         for fmt in FORMATS:
-            (work / "source.ly").write_text(wrap(text, fmt), encoding="utf-8")
             backend = ["-dbackend=cairo", "--svg" if fmt.output.endswith(".svg") else "--pdf"]
-            done = lilypond.run([*backend, "-o", str(work / fmt.name), "source.ly"], cwd=work,
-                                includes=(include, HERE))
             produced = work / f"{fmt.name}{Path(fmt.output).suffix}"
+            for auto_wrap in (False, True):
+                (work / "source.ly").write_text(wrap(text, fmt, auto_wrap), encoding="utf-8")
+                done = lilypond.run([*backend, "-o", str(work / fmt.name), "source.ly"], cwd=work,
+                                    includes=(include, HERE))
+                if not done.ok or not produced.exists() or fmt.narrow or not _clipped_staff(produced):
+                    break
+                if auto_wrap:
+                    result.problems.append(f"{fmt.name}: a staff extends beyond the page after wrapping")
             if not done.ok or not produced.exists():
                 from pipeline.typeset.events import first_error
                 result.problems.append(f"{fmt.name}: {first_error(done.log)}")
@@ -160,6 +168,21 @@ def render(path: Path, out: Path, include: Path = INCLUDE) -> Rendered:
 def _pages(work: Path, stem: str) -> int:
     """LilyPond writes page 2 onwards as <stem>-2.svg ..."""
     return 1 + len(list(work.glob(f"{stem}-*.svg")))
+
+
+def _clipped_staff(path: Path) -> bool:
+    """Inspect the drawing, not LilyPond's exit status: it can silently draw
+    an entire chant on a line much wider than the SVG or PDF page. Long flat
+    strokes are staff lines; short ledger lines and glyph overhangs aren't
+    evidence that the whole system is clipped."""
+    import pymupdf
+
+    with pymupdf.open(path) as document:
+        data = document.convert_to_pdf() if path.suffix == ".svg" else path.read_bytes()
+    with pymupdf.open("pdf", data) as document:
+        return any(drawing["rect"].height < 0.1 and drawing["rect"].width > 20
+                   and drawing["rect"].x1 > page.rect.width + 1
+                   for page in document for drawing in page.get_drawings())
 
 
 __all__ = [

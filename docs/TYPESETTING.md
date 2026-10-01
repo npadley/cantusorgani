@@ -142,6 +142,13 @@ as outlines, so no fonts are needed (`pipeline/typeset/render.py`):
 
 There are no titles or running heads (`render.ily`): the page names the part.
 
+Desktop and print renders first keep the transcription's own line breaks.
+Some unmetred chants have no breaks, and LilyPond can report success while
+drawing one staff wider than its page. The renderer checks the staff lines in
+the resulting SVG or PDF and redraws clipped music with `auto-wrap.ily`, which
+allows breaks between notes. Drawings that already fit keep their original
+layout; a staff still clipped after this retry fails the render.
+
 The PDF export (`web/src/lib/pdf.ts`) makes Letter pages, or A4 if the reader
 chooses (remembered in their browser). A part whose systems are all typeset,
 and which the reader sees typeset, goes in as `letter.pdf` or `a4.pdf`'s own
