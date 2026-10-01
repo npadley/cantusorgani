@@ -227,3 +227,26 @@ test.describe("Export with typeset music", () => {
     await expect(page.locator("#export-status")).toContainText("could not be fetched, so its scans are in the PDF");
   });
 });
+
+for (const [slug, first, last, count] of [
+  ["ordinarium-missae-credo-i", "noh5/0144/003", "noh5/0148/002", 24],
+  ["ordinarium-missae-credo-ii", "noh5/0148/003", "noh5/0152/002", 24],
+  ["ordinarium-missae-credo-iii", "noh5/0152/003", "noh5/0156/002", 24],
+  ["ordinarium-missae-credo-iv", "noh5/0156/003", "noh5/0160/002", 24],
+  ["alii-cantus-ad-libitum-credo-v", "noh5/0200/004", "noh5/0204/003", 24],
+  ["alii-cantus-ad-libitum-credo-vi", "noh5/0204/004", "noh5/0208/005", 26],
+] as const) {
+  test(`Credo ${slug} shows its transcription and complete corresponding scans`, async ({ page }) => {
+    await page.route("**/typeset/**", (route) =>
+      route.fulfill({ status: 200, contentType: "image/svg+xml", body: DRAWING }));
+    await page.goto(`/piece/${slug}/`);
+    await expect(page.locator("[data-typeset]")).toHaveCount(1);
+    await expect(page.locator("img.typeset-music")).toBeVisible();
+    await page.getByRole("button", { name: "Show the scans", exact: true }).click();
+    const scans = page.locator(".scans img");
+    await expect(scans).toHaveCount(count);
+    await expect(scans.first()).toHaveAttribute("src", new RegExp(first));
+    await expect(scans.last()).toHaveAttribute("src", new RegExp(last));
+    await expect(scans.first()).toBeVisible();
+  });
+}

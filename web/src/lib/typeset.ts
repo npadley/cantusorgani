@@ -80,7 +80,8 @@ function starts(piece: Piece): { index: number; target: string | null }[] {
   return jumpTargets(piece).map((t) => ({
     index: t.index,
     target: t.kind === "part" ? t.target ?? null
-      : t.kind === "movement" ? `movement:${piece.slug}/${movements.get(t.index) ?? ""}`
+      : t.kind === "movement" ? (piece.genre === "credo" ? `piece:${piece.slug}`
+        : `movement:${piece.slug}/${movements.get(t.index) ?? ""}`)
       : t.kind === "chant" ? `piece:${piece.slug}` : null,
   }));
 }
