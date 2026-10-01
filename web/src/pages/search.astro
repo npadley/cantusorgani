@@ -3,12 +3,12 @@ import Layout from "../components/Layout.astro";
 import { ordinaryMasses } from "../lib/catalog";
 const masses = ordinaryMasses();
 ---
-<Layout title="Search" description="Search the Nova Organi Harmonia by Latin incipit, Mass number or mode.">
+<Layout title="Search" description="Search chant words, titles, Mass numbers and modes in Nova Organi Harmonia.">
   <div class="prose">
     <h1>Search</h1>
-    <label class="ui" for="q">Search Latin text, titles and modes</label>
+    <label class="ui" for="q">Search chant words, titles and modes</label>
     <input id="q" type="search" autocomplete="off" autofocus
-           placeholder="Kyrie fons bonitatis · Missa IX · mode II" />
+           placeholder="Et vitam venturi · Missa IX · mode II" />
   </div>
 
   <div id="results" class="ui" aria-live="polite"></div>
@@ -46,6 +46,10 @@ const masses = ordinaryMasses();
   .numeral { min-width: 3.5rem; color: var(--accent); }
   .name { flex: 1; font-family: var(--font-text); font-size: var(--step-0); }
   #results { margin-top: var(--s-4); }
+  #results :global(li a) { display: block; padding: var(--s-3) var(--s-1); }
+  #results :global(.name) { font-family: var(--font-text); font-size: var(--step-0); }
+  #results :global(.excerpt) { display: block; margin-top: var(--s-1); color: var(--ink-muted); font-family: var(--font-text); font-size: var(--step--1); }
+  #results :global(mark) { background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--ink); }
   #results .empty { color: var(--ink-muted); }
   h2 { margin-top: var(--s-5); padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule); }
 </style>
@@ -57,7 +61,7 @@ const masses = ordinaryMasses();
 
   interface PagefindResult { id: string; data: () => Promise<PagefindDoc> }
   interface PagefindDoc { url: string; meta: { title?: string }; excerpt: string }
-  interface Pagefind { search: (q: string) => Promise<{ results: PagefindResult[] }> }
+  interface Pagefind { options: (options: { excerptLength: number }) => Promise<void>; search: (q: string) => Promise<{ results: PagefindResult[] }> }
 
   let engine: Pagefind | null = null;
 
@@ -69,6 +73,7 @@ const masses = ordinaryMasses();
       // unresolved import. Keeping it in a variable defers it to runtime.
       const path = ["", "pagefind", "pagefind.js"].join("/");
       engine = (await import(/* @vite-ignore */ path)) as Pagefind;
+      await engine.options({ excerptLength: 24 });
       return engine;
     } catch {
       return null;
@@ -76,7 +81,9 @@ const masses = ordinaryMasses();
   }
 
   let timer: number | undefined;
+  let revision = 0;
   input?.addEventListener("input", () => {
+    const current = ++revision;
     window.clearTimeout(timer);
     timer = window.setTimeout(async () => {
       const query = input.value.trim();
@@ -90,6 +97,7 @@ const masses = ordinaryMasses();
       fallback.hidden = true;
 
       const pagefind = await load();
+      if (current !== revision) return;
       if (!pagefind) {
         results.innerHTML =
           '<p class="empty">Search runs on the built site. Run <code>pnpm build</code> and preview it.</p>';
@@ -97,15 +105,17 @@ const masses = ordinaryMasses();
       }
 
       const found = await pagefind.search(query);
+      if (current !== revision) return;
       if (found.results.length === 0) {
         results.innerHTML =
           `<p class="empty">No match for “${query.replace(/[<>&]/g, "")}”. ` +
-          `Try a Latin incipit (Kyrie fons bonitatis), a Mass number (Missa IX), ` +
+          `Try words from a chant (Et vitam venturi), a Mass number (Missa IX), ` +
           `or a mode (mode II).</p>`;
         return;
       }
 
       const docs = await Promise.all(found.results.slice(0, 25).map((r) => r.data()));
+      if (current !== revision) return;
       const list = document.createElement("ul");
       for (const doc of docs) {
         const li = document.createElement("li");
@@ -115,6 +125,21 @@ const masses = ordinaryMasses();
         name.className = "name";
         name.textContent = doc.meta.title ?? doc.url;   // textContent, never innerHTML
         a.append(name);
+        const excerpt = document.createElement("span");
+        excerpt.className = "excerpt";
+        // Pagefind supplies escaped text and <mark> tags. Rebuild only those
+        // tags, never insert arbitrary HTML into a result.
+        const parsed = new DOMParser().parseFromString(doc.excerpt, "text/html");
+        function appendText(node: Node, parent: Node): void {
+          if (node.nodeType === Node.TEXT_NODE) parent.appendChild(document.createTextNode(node.textContent ?? ""));
+          else if (node instanceof Element && node.tagName === "MARK") {
+            const mark = document.createElement("mark");
+            mark.textContent = node.textContent;
+            parent.appendChild(mark);
+          } else for (const child of node.childNodes) appendText(child, parent);
+        }
+        appendText(parsed.body, excerpt);
+        a.append(excerpt);
         li.append(a);
         list.append(li);
       }
