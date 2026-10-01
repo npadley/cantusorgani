@@ -44,6 +44,20 @@ def test_first_system_running_head_does_not_count():
     assert first_system(reader, "XIII In Festis Semiduplicibus 2") == 2
 
 
+def test_vespers_opening_heading_beside_folio_is_not_a_running_head():
+    """NOH8 p152 starts Sunday's own antiphon before the Sacred Heart feast."""
+    reader = FakeGaps([
+        ("152 DOMINICA INFRA OCT. CORPORIS CHRISTI,\n"
+        "quae est II post Pentecosten.\nIN II. VESPERIS.\n"
+        "Antiphonae et Psalmi ut in I. Vesperis Festi, p. 146."),
+        "", "", ("FERIA VI. POST OCTAVAM SS. CORPORIS CHRISTI.\n"
+        "SACRATISSIMI CORDIS JESU"), "",
+    ], printed=152)
+    reader.vol_id = "noh8"
+    assert "DOMINICA INFRA OCT." in reader.embedded(0)
+    assert first_system(reader, "Dominica infra Octavam Corporis Christi") == 0
+
+
 def test_first_system_falls_back_to_ocr_per_gap():
     reader = FakeGaps(["", "", ""], ocr=["", "21. MARTII. — S. BENEDICTI ABBATIS.", ""])
     assert first_system(reader, "S. Benedicti Abbatis 21 Martii") == 1

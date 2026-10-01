@@ -2152,11 +2152,6 @@
    "hash": "afab2c4cd43c0a4c5d93752ae6ada19f"
   },
   {
-   "target": "part:noh1-p299-2/other:1",
-   "file": "vol-1/an_hosanna_filio_david.csv.ly",
-   "hash": "060d1330ab21192a2a7f5ed4d0fc93bd"
-  },
-  {
    "target": "part:noh1-p299-2/other:2",
    "file": "vol-1/an_pueri_hebraeorum_portantes.csv.ly",
    "hash": "d5d078e2a177a9fbd048ceef1233a0cb"
@@ -2165,6 +2160,11 @@
    "target": "part:noh1-p299-2/other:3",
    "file": "vol-1/an_pueri_hebraeorum_vestimenta.csv.ly",
    "hash": "e4015ad78e3090a297e33afda4d2ed69"
+  },
+  {
+   "target": "part:noh1-p299/other:1",
+   "file": "vol-1/an_hosanna_filio_david.csv.ly",
+   "hash": "060d1330ab21192a2a7f5ed4d0fc93bd"
   },
   {
    "target": "part:noh1-p302/communion",

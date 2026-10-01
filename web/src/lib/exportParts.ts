@@ -77,7 +77,7 @@ export function exportSegments(pieces: readonly Piece[],
         id: `${piece.slug}:from:${lender.slug}:${range.start}`,
         label: `${sectionName(b)} (from ${lender.incipit ?? lender.title})`,
         part: b.part, variant: b.variant, pieceSlug: piece.slug,
-        systems: lenderStems.length, stems: lenderStems, order: partOrder(b.part, b.variant),
+        systems: lenderStems.length, stems: lenderStems, order: piece.division === "vesperale" ? piece.parts.indexOf(b) : partOrder(b.part, b.variant),
         source: { slug: lender.slug, start: range.start, end: range.end },
       });
     }
@@ -97,10 +97,11 @@ export function exportSegments(pieces: readonly Piece[],
     }
     const own = ranges.map(({ x, start, end }) => ({
       id: `${piece.slug}:${start}`, label: sectionName(x), part: x.part, variant: x.variant,
-      pieceSlug: piece.slug, systems: end - start, stems: stems.slice(start, end), order: partOrder(x.part, x.variant),
+      pieceSlug: piece.slug, systems: end - start, stems: stems.slice(start, end), order: piece.division === "vesperale" ? piece.parts.indexOf(x) : partOrder(x.part, x.variant),
       source: { slug: piece.slug, start, end },
     }));
     for (const { order: _order, ...segment } of inPrintedOrder(own, borrowed)) {
+      if (segment.part && piece.excludedParts?.includes(segment.part)) continue;
       out.push(segment);
     }
   }
@@ -118,11 +119,14 @@ export function seasonGroup(season: Season | null): SeasonGroup {
 
 export function defaultTicked(segment: ExportSegment, all: readonly ExportSegment[], group: SeasonGroup): boolean {
   if (group === "all" || segment.part === null) return true;
+  if (segment.variant === "extra-paschal") return group !== "easter";
+  if (segment.variant === "shared" && segment.part === "alleluia") return group !== "lent";
   const mine = all.filter((s) => s.pieceSlug === segment.pieceSlug);
   const has = (part: ProperPartName, variant?: string) =>
-    mine.some((s) => s.part === part && (variant === undefined || s.variant === variant));
+    mine.some((s) => s.part === part && (variant === undefined || s.variant === variant
+      || (variant === "paschal" && /^paschal-\d+$/.test(s.variant))));
   const hasAlleluia = has("alleluia");
-  const paschal = segment.part === "alleluia" && segment.variant === "paschal";
+  const paschal = segment.part === "alleluia" && /^paschal(?:-\d+)?$/.test(segment.variant);
   if (segment.part === "tract") return group === "lent" || !hasAlleluia;
   if (paschal) return group === "easter";
   if (segment.part === "alleluia") {

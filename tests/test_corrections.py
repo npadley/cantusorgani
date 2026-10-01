@@ -778,3 +778,27 @@ def test_correct_one_at_a_time_needs_the_later_part_moved_first_but_a_batch_take
         corrections.correct_batch(batch({"target": "part:dominica-i-adventus/gradual", "field": "start_system",
                                          "value": "9"}), base_path=base_path, path=alone)
     assert not alone.exists()
+
+
+def test_reviewed_borrowers_link_after_new_lender_boundaries_are_applied(tmp_path, monkeypatch):
+    """An audited section can lend music only after its reviewed start exists."""
+    reviewed = tmp_path / 'sections'
+    reviewed.mkdir()
+    (reviewed / 'noh1.yml').write_text('''
+source:
+- {kind: introit, ref: noh1/0030/000}
+- {kind: offertory, ref: noh1/0031/000}
+borrower:
+- {kind: offertory, borrowed_volume: noh1, borrowed_page: 5}
+''')
+    monkeypatch.setattr(corrections, 'SECTIONS', reviewed)
+    doc = {'schema_version': 3, 'volumes': {}, 'pieces': [
+        {'slug': 'source', 'volume': 'noh1', 'genre': 'proper', 'title': 'Source',
+         'printed_pages': [4, 5], 'pdf_pages': [30, 31],
+         'systems': ['noh1/0030/000', 'noh1/0031/000'], 'sections': []},
+        {'slug': 'borrower', 'volume': 'noh1', 'genre': 'proper', 'title': 'Borrower',
+         'printed_pages': [10, 10], 'pdf_pages': [36, 36], 'systems': [], 'sections': []},
+    ]}
+    loan = apply(doc, [])['pieces'][1]['sections'][0]
+    assert loan['borrowed_from'] == 'source'
+    assert loan['borrowed_ref'] == 'noh1/0031/000'

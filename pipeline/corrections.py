@@ -897,6 +897,10 @@ def apply(base: dict[str, Any], entries: list[Entry]) -> dict[str, Any]:
         if kind_of(e.target) != "vespers" and not _in_layer(e) and e.field != REVIEW_FIELD:
             s = slot(e.target, e.field, catalog, None)
             s.put(coerce(e.field, e.value, s.genre, kind_of(e.target)))
+    # Reviewed source lists can introduce both borrowers and lending boundaries.
+    # Resolve against the final overlay, rather than the earlier generated base.
+    from pipeline.parts import link_parts
+    link_parts(catalog)
     return catalog
 
 

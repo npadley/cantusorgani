@@ -43,6 +43,9 @@ export type ProperPartName =
 
 /** A section of a Proper printed in this piece (the catalogue's `sections`): where it starts. */
 export interface PrintedPart {
+  /** Original correction target and citation for an inline borrowed section. */
+  readonly sourceTarget?: string;
+  readonly source?: string;
   readonly kind: "printed";
   readonly part: ProperPartName;
   /** "" | "paschal" | "1", "2" … when a kind repeats (the Ember Saturday's four
@@ -86,6 +89,10 @@ export interface Hymn {
 }
 
 export interface Piece {
+  readonly referenceSources?: { volume: string; page: number; label: string; omit?: readonly string[] }[];
+  readonly excludedParts?: readonly string[];
+  /** Original system positions in a composed view, for typeset/export switches. */
+  readonly systemSources?: readonly { readonly slug: string; readonly index: number }[];
   readonly id: string;
   readonly volume: string;
   readonly slug: string;
@@ -191,6 +198,7 @@ interface RawPart {
 }
 
 interface RawPiece {
+  readonly reference_sources?: { volume: string; page: number; label: string; omit?: readonly string[] }[];
   readonly id: string; readonly volume: string; readonly slug: string;
   readonly section: string; readonly label: string; readonly title: string;
   readonly division?: string; readonly days?: readonly string[];
@@ -316,7 +324,7 @@ export function parseCatalog(input: unknown): Catalog {
       id: p.id, volume: p.volume, slug: p.slug, section: p.section,
       division: p.division ?? "varia", days: p.days ?? [],
       label: p.label, title: p.title, incipit: p.incipit,
-      reference: p.reference ?? null, linkedDays: p.linked_days ?? [],
+      reference: p.reference ?? null, referenceSources: p.reference_sources ?? [], linkedDays: p.linked_days ?? [],
       hymns: (p.hymns ?? []).map((h): Hymn => ({ title: h.title, ref: h.ref, printedPage: h.printed_page })),
       genre: p.genre as Genre, mode: p.mode, mass: p.mass,
       printedPages: pair(p.printed_pages, `${p.id}.printed_pages`),
@@ -473,6 +481,7 @@ export function hymnAnchor(title: string, occurrence = 0): string {
 }
 
 export interface JumpTarget {
+  readonly source?: string;
   readonly label: string;
   readonly anchor: string;
   /** Position in piece.systems of the first system. */
@@ -507,9 +516,11 @@ const PART_ORDER: readonly string[] = [
 
 /** Position of a part in the order of Mass, for listing printed and borrowed parts together. */
 export function partOrder(part: ProperPartName, variant = ""): number {
-  const key = variant === "paschal" ? `${part}/paschal` : part;
+  const paschal = /^paschal(?:-\d+)?$/.test(variant);
+  const key = paschal ? `${part}/paschal` : part;
   const i = PART_ORDER.indexOf(key);
-  return (i < 0 ? PART_ORDER.indexOf(part) : i) + (/^\d+$/.test(variant) ? Number(variant) / 100 : 0);
+  return (i < 0 ? PART_ORDER.indexOf(part) : i) + (paschal && variant.includes("-") ? Number(variant.split("-")[1]) / 100
+    : /^\d+$/.test(variant) ? Number(variant) / 100 : 0);
 }
 
 /**
@@ -529,7 +540,10 @@ export function inPrintedOrder<T extends { readonly order: number }>(own: readon
 
 /** "Paschal Alleluia", "Gradual 2", "Offertory". */
 export function partLabel(part: ProperPartName, variant = ""): string {
-  if (variant === "paschal") return `Paschal ${PART_LABELS[part]}`;
+  if (/^paschal(?:-\d+)?$/.test(variant)) return `Paschal ${PART_LABELS[part]}${variant.includes("-") ? ` ${variant.split("-")[1]}` : ""}`;
+  if (variant === "extra-paschal") return `${PART_LABELS[part]} (outside Paschaltide)`;
+  if (variant === "advent") return `${PART_LABELS[part]} (Advent)`;
+  if (variant === "shared") return PART_LABELS[part];
   // A key of its own ("kyrie-b") with no label to show: its words.
   if (variant && !/^\d+$/.test(variant)) return variant.replace(/-/g, " ").replace(/^./, (c) => c.toUpperCase());
   return variant ? `${PART_LABELS[part]} ${variant}` : PART_LABELS[part];
@@ -609,19 +623,21 @@ export function jumpTargets(piece: Piece): readonly JumpTarget[] {
   for (const x of piece.parts) {
     // Placed by order alone, a start is a guess: it waits in the review queue.
     if (x.kind !== "printed" || x.placed === "order") continue;
-    const index = piece.systems.indexOf(x.ref);
+    const index = piece.systemSources && piece.systems[x.system] === x.ref ? x.system : piece.systems.indexOf(x.ref);
     const anchor = partAnchor(x.part, x.variant);
     if (index < 0 || partAnchors.has(anchor)) continue;
     partAnchors.add(anchor);
     parts.push({ label: sectionName(x), anchor, index, kind: "part",
                  chantUrl: gregobaseUrl(x.gregobaseId), chantId: x.gregobaseId,
                  order: partOrder(x.part, x.variant),
-                 target: `part:${piece.slug}/${x.part}${x.variant ? `:${x.variant}` : ""}`,
+                 target: x.sourceTarget ?? `part:${piece.slug}/${x.part}${x.variant ? `:${x.variant}` : ""}`,
+                 ...(x.source ? { source: x.source } : {}),
                  printed: x.label, title: x.title });
   }
   const used = new Map<string, number>();
   const hymns: JumpTarget[] = [];
   for (const h of piece.hymns) {
+    if (piece.parts.some((p) => p.kind === "printed" && p.part === "hymn" && p.ref === h.ref)) continue;
     const index = piece.systems.indexOf(h.ref);
     if (index < 0) continue;
     const seen = used.get(h.title) ?? 0;

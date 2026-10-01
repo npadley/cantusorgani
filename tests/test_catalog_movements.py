@@ -77,3 +77,8 @@ def test_hymn_system_finds_the_hymns_opening_words():
     assert hymn_system("Ave maris stella (alius tonus)", ["x" * 12, "avemarisstelladeimater"], 2) == 1
     assert hymn_system("Te lucis", texts, 3) == 0            # too short to trust
     assert hymn_system("Ut queant laxis", texts, 3) == 0     # not on this page
+
+
+def test_rubric_resolves_its_first_same_volume_citation_before_later_other_parts():
+    from pipeline.catalog import parse_reference
+    assert parse_reference('Introitus. Clamaverunt justi, ut supra, p. 106. Alleluia. Pretiosa, Pars IV, p. 37.', 'noh3') == ('noh3', 106)

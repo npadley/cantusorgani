@@ -356,3 +356,80 @@ def test_segment_proper_introit_label_read_as_fntr_in_the_text_layer():
     assert [(p.part, p.index, p.placed) for p in result.parts] == [("introit", 1, "label")]
 
 
+
+
+def borrowed_piece(slug, page, sections, volume="noh1", systems=None):
+    return {"slug": slug, "volume": volume, "printed_pages": [page, page + 2],
+            "pdf_pages": [page + 10, page + 12],
+            "systems": systems or [f"{volume}/{page + 10:04d}/{i:03d}" for i in range(3)],
+            "sections": sections}
+
+
+def citation(kind, page, variant="", volume="noh1", gid=None):
+    return {"kind": kind, "variant": variant, "borrowed_volume": volume,
+            "borrowed_page": page, "gregobase_id": gid}
+
+
+def lending_catalog(pieces):
+    return {"volumes": {"noh1": {"page_map": [{"first_pdf": 11, "last_pdf": 100,
+                                                "offset": 10}]}}, "pieces": pieces}
+
+
+def test_link_parts_uses_actual_section_page_not_same_page_piece_start():
+    proper = borrowed_piece("earlier", 1, [
+        {"kind": "offertory", "ref": "noh1/0012/000", "system": 1}],
+        systems=["noh1/0011/000", "noh1/0012/000", "noh1/0012/001"])
+    next_proper = borrowed_piece("next", 2, [
+        {"kind": "introit", "ref": "noh1/0012/002", "system": 0},
+        {"kind": "offertory", "ref": "noh1/0014/000", "system": 1}],
+        systems=["noh1/0012/002", "noh1/0014/000"])
+    borrower = borrowed_piece("borrower", 8, [citation("offertory", 2)])
+    assert link_parts(lending_catalog([proper, next_proper, borrower])) == []
+    assert borrower["sections"][0]["borrowed_from"] == "earlier"
+
+
+def test_link_parts_selects_repeated_gradual_on_cited_page():
+    lender = borrowed_piece("ember", 1, [
+        {"kind": "gradual", "variant": "", "ref": "noh1/0011/000", "system": 0},
+        {"kind": "gradual", "variant": "", "ref": "noh1/0012/000", "system": 1}],
+        systems=["noh1/0011/000", "noh1/0012/000", "noh1/0013/000"])
+    borrower = borrowed_piece("borrower", 8, [citation("gradual", 2)])
+    assert link_parts(lending_catalog([lender, borrower])) == []
+    assert borrower["sections"][0]["borrowed_ref"] == "noh1/0012/000"
+
+
+def test_link_parts_resolves_borrowed_lender_transitively():
+    borrower = borrowed_piece("borrower", 8, [citation("offertory", 4)])
+    middle = borrowed_piece("middle", 4, [citation("offertory", 1)])
+    original = borrowed_piece("original", 1, [
+        {"kind": "offertory", "ref": "noh1/0011/000", "system": 0}])
+    assert link_parts(lending_catalog([borrower, middle, original])) == []
+    assert borrower["sections"][0]["borrowed_from"] == "original"
+    assert borrower["sections"][0]["borrowed_ref"] == "noh1/0011/000"
+
+
+def test_link_parts_self_reference_reuses_regular_alleluia():
+    lender = borrowed_piece("virgin", 1, [
+        {"kind": "alleluia", "variant": "", "ref": "noh1/0011/000", "system": 0},
+        citation("alleluia", 1, "paschal")])
+    assert link_parts(lending_catalog([lender])) == []
+    assert lender["sections"][1]["borrowed_ref"] == "noh1/0011/000"
+
+
+def test_link_parts_cycle_is_unresolved_without_recursion_error():
+    first = borrowed_piece("first", 1, [citation("offertory", 4)])
+    second = borrowed_piece("second", 4, [citation("offertory", 1)])
+    unresolved = link_parts(lending_catalog([first, second]))
+    assert len(unresolved) == 2
+    assert all(p["sections"][0].get("borrowed_ref") is None for p in [first, second])
+
+
+def test_link_parts_prefers_matching_chant_when_repeated_on_same_page():
+    lender = borrowed_piece("ember", 1, [
+        {"kind": "alleluia", "variant": "", "ref": "noh1/0011/000", "system": 0,
+         "gregobase_id": 100},
+        {"kind": "alleluia", "variant": "", "ref": "noh1/0011/001", "system": 1,
+         "gregobase_id": 200}])
+    borrower = borrowed_piece("borrower", 8, [citation("alleluia", 1, gid=200)])
+    assert link_parts(lending_catalog([lender, borrower])) == []
+    assert borrower["sections"][0]["borrowed_ref"] == "noh1/0011/001"

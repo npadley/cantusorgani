@@ -120,6 +120,7 @@ sections:
     score: 1.0
     token: ''
     index_title: Commune Confessoris Pontificis — De Eodem Communi Alia Missa
+    reference: 'Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus. Beatus vir, p. 14. Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. V. Juravit, ut supra; deinde: Alleluia. V. Amavit eum, ut infra, p. 73. Offertorium. Veritas mea, ut infra, p. 80. Communio. Beatus servus, ut infra, p. 81.'
   - slug: commune-doctorum
     label: Commune Doctorum
     title: Commune Doctorum
@@ -138,6 +139,7 @@ sections:
     score: 1.0
     token: ''
     index_title: Commune Confessoris non Pontificis
+    reference: 'Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus. Beatus vir, p. 14. Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. V. Beatus vir, ut supra; deinde: Alleluia. V. Amavit, p. 73.'
   - slug: commune-confessoris-non-pontificis-alia-missa
     label: Commune Confessoris non Pontificis — alia Missa
     title: Commune Confessoris non Pontificis — alia Missa
@@ -147,6 +149,7 @@ sections:
     score: 1.0
     token: ''
     index_title: Commune Confessoris non Pontificis — De Eodem Communi Alia Missa
+    reference: 'Graduale. Os justi, p. 72. Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus. Beatus vir, p. 14. Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. V. Beatus vir, ut supra; deinde: Alleluia. V. Justus germinabit, p. 74.'
   - slug: commune-confessoris-non-pontificis-missa-pro-abbatibus
     label: Commune Confessoris non Pontificis — Missa pro Abbatibus
     title: Commune Confessoris non Pontificis — Missa pro Abbatibus
@@ -174,6 +177,7 @@ sections:
     score: 1.0
     token: ''
     index_title: Commune Virginum — Item pro Virgine et Martyre. Alia Missa
+    reference: 'Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus. Veni sponsa Christi, p. 93.'
   - slug: commune-plurium-virginum-et-martyrum
     label: Commune plurium Virginum et Martyrum
     title: Commune plurium Virginum et Martyrum
@@ -183,6 +187,7 @@ sections:
     score: 1.0
     token: ''
     index_title: Commune Plurium Virginum et Martyrum
+    reference: 'Omnia dicuntur ut supra pro una Virgine et Martyre, p. 90.'
   - slug: commune-virginum-pro-virgine-tantum
     label: Commune Virginum — pro Virgine tantum
     title: Commune Virginum — pro Virgine tantum
@@ -219,6 +224,7 @@ sections:
     score: 1.0
     token: ''
     index_title: Commune non Virginum — Pro nec Virgine nec Martyre
+    reference: 'Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus. Veni sponsa Christi, p. 93, praetermittendo ultimam primi V. clausulam, pro cuius amore... fudisti. Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. V. Specie tua, ut supra; deinde Alleluia. V. Propter veritatem, p. 119. Offertorium. Diffusa est, p. 105.'
   - slug: in-anniversario-dedicationis-ecclesiae
     label: In Anniversario Dedicationis Ecclesiae
     title: In Anniversario Dedicationis Ecclesiae
@@ -228,6 +234,7 @@ sections:
     score: 1.0
     token: ''
     index_title: In Anniversario Dedicationis Ecclesiae
+    reference: 'Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus. Qui confidunt, ut in Dominica IV Quadragesimae, Pars I, p. 253.'
 - name: Missae Votivae
   division: varia
   entries:
@@ -375,6 +382,7 @@ sections:
     score: 1.0
     token: ''
     index_title: Pro Diversis Rebus. Missa pro Eligendo Summo Pontifice, Sede Vacante
+    reference: 'Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. V. Sacerdos, ut supra; deinde: Alleluia. V. Ego sum pastor, Pars II, p. 43.'
   - slug: missa-ad-tollendum-schisma
     label: Missa ad Tollendum Schisma
     title: Missa ad Tollendum Schisma
@@ -492,6 +500,7 @@ sections:
     score: 1.0
     token: ''
     index_title: Missa ad Postulandam Gratiam Spiritus Sancti
+    reference: 'Dicitur Missa ut supra, p. 146.'
   - slug: missa-pro-gratiarum-actione
     label: Missa pro Gratiarum Actione
     title: Missa pro Gratiarum Actione
@@ -501,6 +510,17 @@ sections:
     score: 1.0
     token: ''
     index_title: Missa pro Gratiarum Actione
+    reference: 'Dicitur Missa de Sanctissima Trinitate, vel de Spiritu Sancto, vel de beata Maria Virgine, aut de aliquo Sancto Canonizato, in Martyrologio Romano descripto.'
+    reference_sources:
+    - volume: noh4
+      page: 134
+      label: 'Holy Trinity — free choice'
+    - volume: noh4
+      page: 146
+      label: 'Holy Spirit — free choice'
+    - volume: noh4
+      page: 182
+      label: 'Blessed Virgin Mary — free choice'
 - name: Missae pro aliquibus locis
   division: sanctorale
   entries:
@@ -514,6 +534,7 @@ sections:
     token: ''
     index_title: Translationis Alme Domus B.M.V, 10 Decembris
     calendar_note: no 1962 observance of this feast on 12-10
+    reference: 'Introitus. Terribilis est, ut supra, p. 127.'
   - slug: exspectatio-partus-b-m-v
     label: Exspectatio Partus B.M.V., 18 Decembris
     title: Exspectatio Partus B.M.V., 18 Decembris
@@ -524,6 +545,7 @@ sections:
     token: ''
     index_title: Exspectationis Partus B.M.V, 18 Decembris
     calendar_note: no 1962 observance on 12-18
+    reference: 'Introitus. Rorate caeli, Pars I, p. 38. Graduale. Tollite portas, ibid., p. 18. Offertorium. Ave Maria, Pars I, p. 42. Communio. Ecce virgo, ibid., p. 43.'
   - slug: fuga-d-n-j-c-in-aegyptum
     label: Fuga D.N.J.C. in Aegyptum, 17 Februarii
     title: Fuga D.N.J.C. in Aegyptum, 17 Februarii
@@ -561,6 +583,7 @@ sections:
     score: 1.0
     token: ''
     index_title: Feria VI. Post Dominicam I.quadragesimje. Ss. Lanceje et Clavorum D.N. Jesu Christi
+    reference: 'Graduale cum Tractu, et Offertorium, ut in Missa votiva de Passione, ut supra, p. 166-172.'
   - slug: ss-sindonis-d-n-j-c
     label: SS. Sindonis D.N.J.C. (Feria VI post Dominicam II Quadragesimae)
     title: SS. Sindonis D.N.J.C. (Feria VI post Dominicam II Quadragesimae)
@@ -570,6 +593,7 @@ sections:
     score: 1.0
     token: ''
     index_title: Feria VI. Post Dominicam II. Quadragesima. Sacratissimje. Sindonis D.N. Jesu Christi
+    reference: 'Introitus. Humiliavit, ut supra, p. 164. Graduale. Improperium, p. 166. Tractus. Vere languores, p. 169.'
   - slug: s-benedicti-josephi-labre-conf
     label: S. Benedicti Josephi Labre Conf., 16 Aprilis
     title: S. Benedicti Josephi Labre Conf., 16 Aprilis
@@ -590,6 +614,7 @@ sections:
     token: ''
     index_title: B.M.V. De Bono Consilio, 26 Aprilis
     calendar_note: no 1962 observance of this feast on 04-26
+    reference: 'Alleluia, alleluia. V. Ave Maria, ut supra, p. 175. Alleluia. V. Per te Dei Genitrix, Pars III, p. 271. Offertorium. Recordare, Pars III, p. 140, sic finiendum Tempore Paschali. Communio. Regina mundi, Pars III, p. 272, sic finiendum Tempore Paschali.'
   - slug: s-joannis-nepomuceni-martyris
     label: S. Joannis Nepomuceni Martyris, 16 Maii
     title: S. Joannis Nepomuceni Martyris, 16 Maii
@@ -648,6 +673,7 @@ sections:
     token: ''
     index_title: 8.m.v. Matris de Gratia, 9 Junii
     calendar_note: no 1962 observance of this feast on 06-09
+    reference: 'Missa. Vultum tuum, ut in Festo Sanctissimi Nominis Mariae, die 12 Septembris, Pars III, p. 334, praeter sequentia.'
   - slug: s-joannis-francisci-regis-conf
     label: S. Joannis Francisci Regis Conf., 16 Junii
     title: S. Joannis Francisci Regis Conf., 16 Junii
@@ -698,6 +724,14 @@ sections:
     token: ''
     index_title: S. Gregorii Ep. Maj. Armeni/e et Martyris, 1 Octobris
     calendar_note: no 1962 observance of this feast on 10-01
+    reference: 'Extra Tempus Paschale Missa. Statuit, p. 3. Tempore autem Paschali Missa. Protexisti, p. 29.'
+    reference_sources:
+    - volume: noh4
+      page: 3
+      label: 'Statuit — outside Eastertide'
+    - volume: noh4
+      page: 29
+      label: 'Protexisti — during Eastertide'
   - slug: puritatis-b-m-v
     label: Puritatis B.M.V., 16 Octobris
     title: Puritatis B.M.V., 16 Octobris
@@ -708,6 +742,7 @@ sections:
     token: ''
     index_title: Puritatis B. Marue Virginis, 16 Octobris
     calendar_note: no 1962 observance of this feast on 10-16
+    reference: 'Introitus. Salve, sancta Parens, p. 182. Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. V. Tu gloria Jerusalem, Pars III, p. 22. Alleluia. V. Tota pulchra es, ibid., p. 20.'
   - slug: sanctissimi-redemptoris
     label: Sanctissimi Redemptoris, 23 Octobris
     title: Sanctissimi Redemptoris, 23 Octobris
@@ -728,6 +763,7 @@ sections:
     token: ''
     index_title: Sacrarum Reliquiarum, 5 Novembris
     calendar_note: no 1962 observance on 11-05
+    reference: 'Introitus. Multae tribulationes, Pars III, p. 211. Graduale. Exsultabunt, ibid., p. 212. Alleluia, alleluia. V. Justi epulentur, ut supra, p. 51. Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur: Tractus. Qui seminant, p. 45. Tempore autem Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. V. Sancti tui, p. 36. V. Pretiosa, p. 37. Offertorium. Mirabilis Deus, p. 47.'
   - slug: s-stanislai-kostkae-confessoris
     label: S. Stanislai Kostkae Confessoris, 13 Novembris
     title: S. Stanislai Kostkae Confessoris, 13 Novembris
@@ -757,7 +793,7 @@ rubrics:
   reference: Missa. Sacerdótes tui, Dómine, p. 66.
 - title: Desponsationis B.M.V cum S. Joseph, 23 Januarii
   page: 248
-  reference: Missa. Salve, sancta Parens, uf in Festo Visitationis, Pars Ill, p. 254.
+  reference: Missa. Salve, sancta Parens, ut in Festo Visitationis, Pars III, p. 254.
 - title: S. Ildephonsi Ep. Et Conf, 23 Januarii
   page: 248
   reference: Missa. In médio, ut supra, p. 71.

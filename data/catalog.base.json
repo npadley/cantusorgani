@@ -3108,6 +3108,7 @@
       "division": "temporale",
       "days": [
         "sancti:12-25m3",
+        "tempora:Nat1-0",
         "tempora:Nat1-1"
       ],
       "label": "Ad 111 Missam in die",
@@ -3385,6 +3386,7 @@
       "review_status": "verified",
       "hymns": [],
       "linked_days": [
+        "tempora:Nat1-0",
         "tempora:Nat1-1"
       ]
     },
@@ -3848,7 +3850,7 @@
       "label": "Ss. Innocentium",
       "title": "Ss. Innocentium",
       "incipit": null,
-      "reference": null,
+      "reference": "Graduale. Anima nostra, ut in Comm. plurim. Martyrum, Pars IV, p. 50.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -4324,7 +4326,7 @@
       "label": "S. Thoma: Episcopi et Martyris",
       "title": "S. Thoma: Episcopi et Martyris",
       "incipit": null,
-      "reference": null,
+      "reference": "Graduale. Ecce sacerdos magnus, ut in Communi Conf. Pontificis, Pars IV, p. 62.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -4544,7 +4546,7 @@
       "label": "Dominica Infra Octavam Nativitatis",
       "title": "Dominica Infra Octavam Nativitatis",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. Puer natus est, ut in die, p. 60.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -4579,7 +4581,7 @@
       "label": "S. Silvestri",
       "title": "S. Silvestri",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -5207,7 +5209,7 @@
       "label": "S. Telesphori Pap\u00e6 et Mart.",
       "title": "S. Telesphori Pap\u00e6 et Mart.",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -5237,7 +5239,8 @@
       "section": "Proprium de Tempore",
       "division": "temporale",
       "days": [
-        "sancti:01-06"
+        "sancti:01-06",
+        "sancti:01-13"
       ],
       "label": "In Epiphania Domini",
       "title": "In Epiphania Domini",
@@ -5495,7 +5498,9 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "sancti:01-13"
+      ]
     },
     {
       "id": "noh1-noh1-p103",
@@ -5507,7 +5512,7 @@
       "label": "Diebus ferialibus a 7 ad 12 januarii",
       "title": "Diebus ferialibus a 7 ad 12 januarii",
       "incipit": null,
-      "reference": null,
+      "reference": "Diebus ferialibus a 7 ad 12 januarii ante dominicam I post Epiphaniam occurrentibus, dicitur Missa de festo Epiphaniae; post eandem dominicam vero Missa de eadem dominica In excelso throno, ut infra, p. 112.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -5528,7 +5533,19 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [],
+      "reference_sources": [
+        {
+          "volume": "noh1",
+          "page": 99,
+          "label": "Ecce advenit \u2014 January 7\u201312 before Sunday I after Epiphany"
+        },
+        {
+          "volume": "noh1",
+          "page": 112,
+          "label": "In excelso throno \u2014 January 7\u201312 after Sunday I after Epiphany"
+        }
+      ]
     },
     {
       "id": "noh1-noh1-p104",
@@ -6218,7 +6235,7 @@
       "label": "S. Hygini Paplll, Martyris.",
       "title": "S. Hygini Paplll, Martyris.",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -6253,7 +6270,7 @@
       "label": "In Commemoratione Baptismatis Domini Nostri Jesu Christi",
       "title": "In Commemoratione Baptismatis Domini Nostri Jesu Christi",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. Ecce advenit, ut in die Epiphaniae, p. 99.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -6622,7 +6639,10 @@
       "section": "Proprium de Tempore",
       "division": "temporale",
       "days": [
-        "tempora:Epi3-0"
+        "tempora:Epi3-0",
+        "tempora:Epi4-0",
+        "tempora:Epi5-0",
+        "tempora:Epi6-0"
       ],
       "label": "Dominica III post Epiphaniam",
       "title": "Dominica III post Epiphaniam",
@@ -6880,7 +6900,11 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "tempora:Epi4-0",
+        "tempora:Epi5-0",
+        "tempora:Epi6-0"
+      ]
     },
     {
       "id": "noh1-dominica-iv-post-epiphaniam",
@@ -6896,7 +6920,7 @@
       "label": "Dominica IV post Epiphaniam \u00b7 Dominica V post Epiphaniam \u00b7 Dominica VI post Epiphaniam",
       "title": "Dominica IV post Epiphaniam \u00b7 Dominica V post Epiphaniam \u00b7 Dominica VI post Epiphaniam",
       "incipit": null,
-      "reference": null,
+      "reference": "Omnia ut in Dominica praecedenti, p. 126.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -9502,7 +9526,7 @@
       "label": "Feria III infra Hebd I Quadragesim\u00e6",
       "title": "Feria III infra Hebd I Quadragesim\u00e6",
       "incipit": null,
-      "reference": null,
+      "reference": "Graduale. Dirigatur, ut in Sabbato Quatuor Temp. Quadrag., ut infra, p. 198. Offertorium. In te speravi, ut in Dom. XIII post Pentecosten, Pars II, p. 199.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -9774,7 +9798,7 @@
       "label": "Feria V infra Hebd I Quadragesim\u00e6",
       "title": "Feria V infra Hebd I Quadragesim\u00e6",
       "incipit": null,
-      "reference": null,
+      "reference": "Graduale. Custodi me, ut in Dom. X post Pentecosten, Pars II, p. 178. Offertorium. Immittet Angelus, ut in Dom. XIV post Pentecosten, ibid., p. 204. Communio. Panis quem ego, ut in Dom. XV post Pentecosten, ibid., p. 212.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -11075,7 +11099,7 @@
       "label": "Feria III infra Hebd II Quadragesim\u00e6",
       "title": "Feria III infra Hebd II Quadragesim\u00e6",
       "incipit": null,
-      "reference": null,
+      "reference": "Graduale. Jacta cogitatum, ut in Dominica III post Pentecosten, Pars II, p. 145.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -13598,7 +13622,7 @@
       "label": "Feria III infra Hebd IV Quadragesim\u00e6",
       "title": "Feria III infra Hebd IV Quadragesim\u00e6",
       "incipit": null,
-      "reference": null,
+      "reference": "Offertorium. Exspectans, ut in Dominica XV post Pentecosten, Pars II, p. 211.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -13941,7 +13965,7 @@
       "label": "Feria V infra Hebd IV Quadragesim\u00e6",
       "title": "Feria V infra Hebd IV Quadragesim\u00e6",
       "incipit": null,
-      "reference": null,
+      "reference": "Graduale. Respice Domine, ut in Dominica XIII post Pentecosten, Pars II, p. 196. Communio. Domine, memorabor, ut in Dominica XVI post Pentecosten, Pars II, p. 216.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -14976,7 +15000,7 @@
       "label": "Feria III infra Hebd Passionis",
       "title": "Feria III infra Hebd Passionis",
       "incipit": null,
-      "reference": null,
+      "reference": "Offertorium. Sperent in te, ut in Dominica III post Pentecosten, Pars II, p. 148.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -15533,7 +15557,8 @@
       "section": "Proprium de Tempore",
       "division": "temporale",
       "days": [
-        "tempora:Quad5-5Feria"
+        "tempora:Quad5-5Feria",
+        "tempora:Quad5-6"
       ],
       "label": "Feria VI infra Hebd Passionis",
       "title": "Feria VI infra Hebd Passionis",
@@ -15745,7 +15770,9 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "tempora:Quad5-6"
+      ]
     },
     {
       "id": "noh1-sabbato-infra-hebd-passionis",
@@ -15759,7 +15786,7 @@
       "label": "Sabbato infra Hebd Passionis",
       "title": "Sabbato infra Hebd Passionis",
       "incipit": null,
-      "reference": null,
+      "reference": "Sabbato post Dominicam Passionis, resumitur Missa diei praecedentis, p. 294, excepto Tractu qui omittitur.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -15780,7 +15807,17 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [],
+      "reference_sources": [
+        {
+          "volume": "noh1",
+          "page": 294,
+          "label": "Mass of the preceding Friday, omitting the Tract",
+          "omit": [
+            "tract"
+          ]
+        }
+      ]
     },
     {
       "id": "noh1-noh1-p299",
@@ -15791,8 +15828,8 @@
       "days": [
         "tempora:Quad6-0r"
       ],
-      "label": "Dominica II Passionis seu in Palmis",
-      "title": "Dominica II Passionis seu in Palmis",
+      "label": "De benedictione ramorum",
+      "title": "De benedictione ramorum",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -15806,14 +15843,35 @@
         326,
         326
       ],
-      "systems": [],
-      "system_assets": [],
-      "system_aspect": [],
+      "systems": [
+        "noh1/0326/000",
+        "noh1/0326/001",
+        "noh1/0326/002"
+      ],
+      "system_assets": [
+        "systems/noh1/0326/000-58a6bf22e4de",
+        "systems/noh1/0326/001-b33cc43edfcd",
+        "systems/noh1/0326/002-5b2bc6ff5925"
+      ],
+      "system_aspect": [
+        [
+          1918,
+          426
+        ],
+        [
+          1948,
+          421
+        ],
+        [
+          1025,
+          434
+        ]
+      ],
       "movements": [],
       "sections": [],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad6",
       "chant": [],
-      "review_status": "review",
+      "review_status": "verified",
       "hymns": [],
       "linked_days": []
     },
@@ -15826,8 +15884,8 @@
       "days": [
         "tempora:Quad6-0r"
       ],
-      "label": "Dominica II Passionis seu in Palmis",
-      "title": "Dominica II Passionis seu in Palmis",
+      "label": "De distributione ramorum",
+      "title": "De distributione ramorum",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -15842,9 +15900,6 @@
         328
       ],
       "systems": [
-        "noh1/0326/000",
-        "noh1/0326/001",
-        "noh1/0326/002",
         "noh1/0326/003",
         "noh1/0327/000",
         "noh1/0327/001",
@@ -15857,9 +15912,6 @@
         "noh1/0328/004"
       ],
       "system_assets": [
-        "systems/noh1/0326/000-58a6bf22e4de",
-        "systems/noh1/0326/001-b33cc43edfcd",
-        "systems/noh1/0326/002-5b2bc6ff5925",
         "systems/noh1/0326/003-c6e52763a2c3",
         "systems/noh1/0327/000-8df6c73920ce",
         "systems/noh1/0327/001-cf4bb20f433c",
@@ -15872,18 +15924,6 @@
         "systems/noh1/0328/004-080d14121fc4"
       ],
       "system_aspect": [
-        [
-          1918,
-          426
-        ],
-        [
-          1948,
-          421
-        ],
-        [
-          1025,
-          434
-        ],
         [
           1883,
           429
@@ -18607,7 +18647,7 @@
       "label": "Die II infra octavam Pasch\u00e6",
       "title": "Die II infra octavam Pasch\u00e6",
       "incipit": null,
-      "reference": null,
+      "reference": "Sequentia. Victimae paschali, cum Alleluia in fine, ut supra in Dominica Paschae, p. 5.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -20645,7 +20685,7 @@
       "label": "Dominica III Post Pascha",
       "title": "Dominica III Post Pascha",
       "incipit": null,
-      "reference": null,
+      "reference": "Offertorium. Lauda anima, ut in Feria VI Quatuor Temporum Pentecostes, p. 97.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -21443,7 +21483,7 @@
       "label": "In Litaniis majorilJUs et minoribus",
       "title": "In Litaniis majorilJUs et minoribus",
       "incipit": null,
-      "reference": null,
+      "reference": "Tempore paschali dicitur Alleluia, alleluia. V. Propitius esto, Domine, Pars IV, p. 203. Extra tempus paschale, Graduale. Liberasti nos, Domine, ut infra, p. 256; deinde Alleluia, alleluia. V. Propitius esto, Pars IV, p. 203. Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus. De necessitatibus meis, Pars I, p. 185.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -21611,7 +21651,7 @@
       "label": "Vigilia Ascensionis",
       "title": "Vigilia Ascensionis",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa dicitur de Dominica V. post Pascha, p. 54.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -22136,7 +22176,7 @@
       "label": "Sabbato in Vigilia Pentecostes",
       "title": "Sabbato in Vigilia Pentecostes",
       "incipit": null,
-      "reference": null,
+      "reference": "Introitus. Dum sanctificatus fuero, de feria IV post dominicam IV Quadragesimae, addito duplex Alleluia in fine, Pars I, p. 262. Alleluia. V. Confitemini Domino, Pars I, p. 345, incipiendo a tertio Alleluia; et in fine non repetitur Alleluia, sed immediate sequitur Tractus. Laudate Dominum, omnes gentes, Pars I, p. 199.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -22261,7 +22301,8 @@
       "section": "Proprium de Tempore",
       "division": "temporale",
       "days": [
-        "tempora:Pasc7-0"
+        "tempora:Pasc7-0",
+        "tempora:Pasc7-4"
       ],
       "label": "Dominica Pentecostes",
       "title": "Dominica Pentecostes",
@@ -22650,7 +22691,9 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "tempora:Pasc7-4"
+      ]
     },
     {
       "id": "noh2-die-ii-infra-octavam-pentecostes",
@@ -23215,7 +23258,7 @@
       "label": "Die V infra octavam Pentecostes",
       "title": "Die V infra octavam Pentecostes",
       "incipit": null,
-      "reference": null,
+      "reference": "Omnia ut in die Pentecostes, p. 77.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -24052,7 +24095,7 @@
       "label": "Dominica I. post Pentecosten",
       "title": "Dominica I. post Pentecosten",
       "incipit": null,
-      "reference": null,
+      "reference": "Offertorium. Intende voci, Pars I, p. 245. Communio. Narrabo omnia, ibid., p. 215.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -30096,7 +30139,7 @@
       "label": "Dominica XVIII Post Pentecosten",
       "title": "Dominica XVIII Post Pentecosten",
       "incipit": null,
-      "reference": null,
+      "reference": "Graduale. Laetatus sum, Pars I, p. 252.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -31925,12 +31968,8 @@
       "division": "sanctorale",
       "days": [
         "sancti:11-30",
-        "sancti:12-21",
-        "sancti:06-11",
         "sancti:07-25",
-        "sancti:08-24",
-        "sancti:10-18",
-        "sancti:10-28"
+        "sancti:10-18"
       ],
       "label": "S. Andre\u00e6 Apostoli",
       "title": "S. Andre\u00e6 Apostoli",
@@ -32201,12 +32240,8 @@
       "review_status": "verified",
       "hymns": [],
       "linked_days": [
-        "sancti:12-21",
-        "sancti:06-11",
         "sancti:07-25",
-        "sancti:08-24",
-        "sancti:10-18",
-        "sancti:10-28"
+        "sancti:10-18"
       ]
     },
     {
@@ -32465,7 +32500,7 @@
       "label": "S. Nicolai Episcopi et Confessoris",
       "title": "S. Nicolai Episcopi et Confessoris",
       "incipit": null,
-      "reference": "Introitus. St\u00e1tuit, Pars IV, p. 3.",
+      "reference": "Introitus. Statuit, Pars IV, p. 3. Graduale. Inveni David, ibid., p. 4. Alleluia, alleluia. V. Justus ut palma, ibid., p. 78. Offertorium. Veritas mea, ibid., p. 9. Communio. Semel juravi, ibid., p. 10.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -33412,7 +33447,7 @@
       "label": "S. Pauli Primi Eremit\u00e6 et Confessoris",
       "title": "S. Pauli Primi Eremit\u00e6 et Confessoris",
       "incipit": null,
-      "reference": "Introitus. Justus ut palma, Pars IV, p. 82.",
+      "reference": "Introitus. Justus ut palma, Pars IV, p. 82. Graduale. Justus ut palma, ibid., p. 78. Alleluia, alleluia. V. Justus germinabit, ibid., p. 74. Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus Beatus vir, ibid., p. 14. Offertorium. In virtute tua, ibid., p. 84. Communio. Laetabitur justus, ibid., p. 34, sine Alleluia in fine.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -33441,11 +33476,13 @@
       "slug": "in-cathedra-s-petri-romae",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
-      "days": [],
+      "days": [
+        "sancti:02-22"
+      ],
       "label": "In Cathedra S. Petri Rom\u00e6",
       "title": "In Cathedra S. Petri Rom\u00e6",
       "incipit": null,
-      "reference": null,
+      "reference": "Introitus. Statuit, Pars IV, p. 3.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -33733,7 +33770,9 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [
+        "sancti:02-22"
+      ]
     },
     {
       "id": "noh3-s-marii-et-soc-mart",
@@ -34269,8 +34308,7 @@
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:01-25r",
-        "sancti:06-30"
+        "sancti:01-25r"
       ],
       "label": "In Conversione S. Pauli Apostoli",
       "title": "In Conversione S. Pauli Apostoli",
@@ -34562,9 +34600,7 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": [
-        "sancti:06-30"
-      ]
+      "linked_days": []
     },
     {
       "id": "noh3-s-joannis-chrysostomi-episcopi-confessoris-ecclesi-doctoris",
@@ -34578,7 +34614,7 @@
       "label": "S. Joannis Chrysostomi Episcopi Confessoris Ecclesi\u00e6 Doctoris",
       "title": "S. Joannis Chrysostomi Episcopi Confessoris Ecclesi\u00e6 Doctoris",
       "incipit": null,
-      "reference": null,
+      "reference": "Introitus. In medio Ecclesiae, Pars IV, p. 71. Graduale. Ecce sacerdos magnus, ibid., p. 62. Alleluia, alleluia. V. Beatus vir qui suffert, ibid., p. 79. Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus Beatus vir, ibid., p. 14. Offertorium. Justus ut palma, ibid., p. 76. Communio. Fidelis servus, ibid., p. 65.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -34613,7 +34649,7 @@
       "label": "S. Agnetis",
       "title": "S. Agnetis",
       "incipit": null,
-      "reference": null,
+      "reference": "Introitus. Vultum tuum, Pars IV, p. 115. Graduale. Specie tua, ibid., p. 108. Alleluia, alleluia. V. Adducentur, ibid., p. 110. Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus Audi filia, ibid., p. 111. Offertorium. Diffusa est, ibid., p. 105. Communio. Simile est, ibid., p. 118.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -34648,7 +34684,7 @@
       "label": "S. Francisci Salesii Episcopi Confessoris Ecclesi\u00e6 Doctoris",
       "title": "S. Francisci Salesii Episcopi Confessoris Ecclesi\u00e6 Doctoris",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. In medio Ecclesiae, Pars IV, p. 71.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -36859,7 +36895,7 @@
       "label": "S. Simeonis Faustini Episcopi et Martyris",
       "title": "S. Simeonis Faustini Episcopi et Martyris",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. Statuit, Pars IV, p. 3.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -36894,7 +36930,7 @@
       "label": "In Cathedra S. Petri Ap.",
       "title": "In Cathedra S. Petri Ap.",
       "incipit": null,
-      "reference": null,
+      "reference": "Omnia dicuntur sicut in Festo Cathedrae Romanae, ut supra, p. 29.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -36929,7 +36965,7 @@
       "label": "S. Petri Damiani",
       "title": "S. Petri Damiani",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. In medio Ecclesiae, Pars IV, p. 71.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -37545,7 +37581,7 @@
       "label": "S. Francisc\u00e6 Vidu\u00e6 Roman\u00e6",
       "title": "S. Francisc\u00e6 Vidu\u00e6 Roman\u00e6",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. Cognovi, Pars IV, p. 121.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -37576,7 +37612,6 @@
       "division": "sanctorale",
       "days": [
         "sancti:03-10",
-        "sancti:06-02",
         "sancti:08-01r",
         "sancti:11-10o"
       ],
@@ -37709,7 +37744,6 @@
       "review_status": "verified",
       "hymns": [],
       "linked_days": [
-        "sancti:06-02",
         "sancti:08-01r",
         "sancti:11-10o"
       ]
@@ -37726,7 +37760,7 @@
       "label": "S. Cyrilli Episcopi Hierosolymitani Ecclesi\u00e6 Doctoris",
       "title": "S. Cyrilli Episcopi Hierosolymitani Ecclesi\u00e6 Doctoris",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. In medio Ecclesiae, Pars IV, p. 71.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -38089,7 +38123,7 @@
       "label": "In Annuntiatione Beate Mari\u00e6 Virgine",
       "title": "In Annuntiatione Beate Mari\u00e6 Virgine",
       "incipit": null,
-      "reference": "Introitus. Vultum tuum, Pars IV, p. 115.",
+      "reference": "Introitus. Vultum tuum, Pars IV, p. 115. Graduale. Diffusa est, ibid., p. 123. Tractus. Audi filia, ibid., p. 111. Tempore Paschali, omissis Graduali et Tractu dicitur: Alleluia, alleluia. V. Ave Maria, ibid., p. 175. Alleluia. V. Virga Jesse, ibid., p. 180. Offertorium. Ave Maria, ibid., p. 186. Communio. Ecce Virgo, Pars I, p. 43. (Temp. Paschali, Alleluia.)",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -40632,7 +40666,7 @@
       "label": "S. Athanasii Confessoris Ecclesi\u00e6 Doctoris",
       "title": "S. Athanasii Confessoris Ecclesi\u00e6 Doctoris",
       "incipit": null,
-      "reference": "Introitus. in m\u00e9dio Eccl\u00e9sie, Pars IV, p. 71.",
+      "reference": "Introitus. In medio Ecclesiae, Pars IV, p. 71. Alleluia, alleluia. V. Tu es sacerdos, ibid., p. 63. Alleluia. V. Beatus vir qui suffert, ibid., p. 79. Post Tempus Paschale, Graduale: Ecce sacerdos magnus, ibid., p. 62. Alleluia, alleluia. V. Beatus vir qui suffert, ibid., p. 79. Offertorium. Inveni David, ibid., p. 64. Communio. Quod dico vobis, ibid., p. 60.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -40665,7 +40699,7 @@
       "label": "In Inventione S. Crucis",
       "title": "In Inventione S. Crucis",
       "incipit": null,
-      "reference": null,
+      "reference": "Post Tempus Paschale dicitur eadem Missa, sed Introitus et Communio erunt sine Alleluia, et Graduale. Christus factus est, Pars IV, p. 162. Alleluia, alleluia. V. Dulce lignum, ut supra, p. 172.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -40865,7 +40899,7 @@
       "label": "Ss. Alexandri et Sociorum Martyrum",
       "title": "Ss. Alexandri et Sociorum Martyrum",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. Sancti tui, Pars IV, p. 35. Extra Tempus Paschale, Missa Sapientiam, ibid., p. 48.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -40898,7 +40932,7 @@
       "label": "S. Joannis ante Portam Latinam",
       "title": "S. Joannis ante Portam Latinam",
       "incipit": null,
-      "reference": "Introitus. Protexisti me, Pars IV, p. 29.",
+      "reference": "Introitus. Protexisti me, Pars IV, p. 29. Alleluia, alleluia. V. Justus ut palma, ibid., p. 87. Alleluia. V. Justus germinabit, ibid., p. 74. Offertorium. Confitebuntur, ibid., p. 33. Communio. Laetabitur justus, ibid., p. 34. Post Tempus Paschale, Missa sumatur ex alio Festo ejusdem Sancti mense Decembri, Pars I, p. 70.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -40933,7 +40967,7 @@
       "label": "S. Gregorii Nazianzeni Episcopi Confessoris Ecclesi\u00e6 Doctoris",
       "title": "S. Gregorii Nazianzeni Episcopi Confessoris Ecclesi\u00e6 Doctoris",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. In medio Ecclesiae, Pars IV, p. 71.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -41436,7 +41470,7 @@
       "label": "S. Pudentian\u00e6 Virginis",
       "title": "S. Pudentian\u00e6 Virginis",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. Dilexisti, Pars IV, p. 107.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -43039,8 +43073,7 @@
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:06-15",
-        "sancti:06-26"
+        "sancti:06-15"
       ],
       "label": "Ss. Viti, Modesti atque Crescenti\u00e6 Martyrum",
       "title": "Ss. Viti, Modesti atque Crescenti\u00e6 Martyrum",
@@ -43197,9 +43230,7 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": [
-        "sancti:06-26"
-      ]
+      "linked_days": []
     },
     {
       "id": "noh3-ss-marci-et-marcelliani",
@@ -43213,7 +43244,7 @@
       "label": "SS. Marci et Marcelliani",
       "title": "SS. Marci et Marcelliani",
       "incipit": null,
-      "reference": "Introitus. Salus autem, Pars IV, p. 54.",
+      "reference": "Introitus. Salus autem, Pars IV, p. 54. Graduale. Justorum animae, ut supra, p. 38. Alleluia, alleluia. V. Haec est vera, ut supra, p. 176. Offertorium. Anima nostra, Pars I, p. 76. Communio. Amen dico vobis, ibid., p. 182.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -43654,7 +43685,7 @@
       "label": "S. Paulini Episcopi et Confessoris",
       "title": "S. Paulini Episcopi et Confessoris",
       "incipit": null,
-      "reference": "Introitus. Sacerd\u00f3tes tui, Pars IV, p. 66.",
+      "reference": "Introitus. Sacerdotes tui, Pars IV, p. 66. Graduale. Ecce sacerdos magnus, ibid., p. 62. Alleluia, alleluia. V. Tu es sacerdos, ibid., p. 63. Offertorium. Inveni David, ibid., p. 64. Communio. Fidelis servus, ibid., p. 65.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -44929,7 +44960,7 @@
       "label": "Missa votiva",
       "title": "Missa votiva",
       "incipit": null,
-      "reference": null,
+      "reference": "Extra Tempus Paschale: Introitus. Mihi autem, ut supra, p. 4. Tempore Paschali: Introitus. Protexisti me, Pars IV, p. 29. Graduale. Constitues, ut supra, p. 239. Post Septuagesimam, omissis Alleluia et Versu sequenti, dicitur: Tractus. Tu es Petrus, ut supra, p. 32. Tempore autem Paschali, omittitur Graduale, et ejus loco dicitur Alleluia, alleluia. V. Confitebuntur, ut supra, p. 34. Offertorium. Constitues eos, ut supra, p. 241. Communio. Tu es Petrus, ut supra.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -46163,7 +46194,7 @@
       "label": "In Octava Ss. Apostolorum Petri et Pauli",
       "title": "In Octava Ss. Apostolorum Petri et Pauli",
       "incipit": null,
-      "reference": "Introitus. Sapi\u00e9ntiam, Pars IV, p. 48.",
+      "reference": "Introitus. Sapientiam, Pars IV, p. 48. Graduale. Justorum animae, ut supra, p. 38. Offertorium. Exsultabunt, Pars IV, p. 53. Communio. Justorum animae, ut supra, p. 189.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -46267,7 +46298,7 @@
       "label": "Ss. Cyrilli et Methodii Pont. et Conf.",
       "title": "Ss. Cyrilli et Methodii Pont. et Conf.",
       "incipit": null,
-      "reference": "Introitus. Sacerd\u00f3tes tui, Pars IV, p. 66.",
+      "reference": "Introitus. Sacerdotes tui, Pars IV, p. 66. Graduale. Sacerdotes ejus, ibid., p. 67. Alleluia, alleluia. V. Juravit, ibid., p. 69. Offertorium. Mirabilis Deus, ibid., p. 47. Communio. Quod dico vobis, ibid., p. 60.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -46421,7 +46452,7 @@
       "label": "S. Bonaventur\u00e6 Episcopi Confessoris et Ecclesi\u00e6 Doctoris",
       "title": "S. Bonaventur\u00e6 Episcopi Confessoris et Ecclesi\u00e6 Doctoris",
       "incipit": null,
-      "reference": null,
+      "reference": "Introitus. In medio Ecclesiae, Pars IV, p. 71. Graduale. Os justi, ibid., p. 72. Alleluia, alleluia. V. Juravit, ibid., p. 69. Offertorium. Veritas mea, ibid., p. 80. Communio. Fidelis servus, ibid., p. 65.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -46451,8 +46482,7 @@
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:07-16",
-        "sancti:10-07"
+        "sancti:07-16"
       ],
       "label": "In Commemoratione Beat\u00e6 Mari\u00e6 Virgine de Monte Carmelo.",
       "title": "In Commemoratione Beat\u00e6 Mari\u00e6 Virgine de Monte Carmelo.",
@@ -46632,9 +46662,7 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": [
-        "sancti:10-07"
-      ]
+      "linked_days": []
     },
     {
       "id": "noh3-s-camilli-de-lellis-confessoris",
@@ -47072,7 +47100,7 @@
       "label": "S. Praxedis Virginis",
       "title": "S. Praxedis Virginis",
       "incipit": null,
-      "reference": "Introitus. Loqu\u00e9bar, Pars IV, p. 90.",
+      "reference": "Introitus. Loquebar, Pars IV, p. 90. Graduale. Dilexisti, ibid., p. 91. Alleluia, alleluia. V. Specie tua, ibid., p. 96. Offertorium. Diffusa est, ibid., p. 105. Communio. Simile est, ibid., p. 118.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -47107,7 +47135,7 @@
       "label": "S. Mari\u00e6 Magdalen\u00e6 P\u0153nitentis",
       "title": "S. Mari\u00e6 Magdalen\u00e6 P\u0153nitentis",
       "incipit": null,
-      "reference": "Introitus. Me exspectav\u00e9runt, Pars IV, p. 99.",
+      "reference": "Introitus. Me exspectaverunt, Pars IV, p. 99. Graduale. Dilexisti, ibid., p. 91. Alleluia, alleluia. V. Diffusa est, ut supra, p. 25. Offertorium. Filiae regum, Pars IV, p. 113. Communio. Feci judicium, ibid., p. 106.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -47142,7 +47170,7 @@
       "label": "S. Apollinaris Episcopi et Martyris",
       "title": "S. Apollinaris Episcopi et Martyris",
       "incipit": null,
-      "reference": "/ Introitus. Sacerd\u00f3tes Dei, Pars IV, p. 11.",
+      "reference": "Introitus. Sacerdotes Dei, Pars IV, p. 11. Graduale. Inveni David, ibid., p. 4. Alleluia, alleluia. V. Juravit, ibid., p. 69. Offertorium. Veritas mea, ibid., p. 9. Communio. Domine, quinque talenta, ut supra, p. 12.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -47177,7 +47205,7 @@
       "label": "S. Jacobi Apostoli",
       "title": "S. Jacobi Apostoli",
       "incipit": null,
-      "reference": "Introitus. Mihi autem, uf supra, p. 4.",
+      "reference": "Introitus. Mihi autem, ut supra, p. 4. Graduale. Constitues eos, ut supra, p. 6. Alleluia, alleluia. V. Ego vos elegi, ut supra, p. 205. Offertorium. In omnem terram, ut supra, p. 28. Communio. Vos qui secuti estis me, ut supra, p. 96.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -47366,7 +47394,7 @@
       "label": "Ss. Nazarii et Celsi Martyrum, Victoris I Pap\u00e6 et Martyris ac Innocentii I Pap\u00e6 et Confessoris",
       "title": "Ss. Nazarii et Celsi Martyrum, Victoris I Pap\u00e6 et Martyris ac Innocentii I Pap\u00e6 et Confessoris",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. Intret, Pars IV, p. 40.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -47401,7 +47429,7 @@
       "label": "Ss. Felicis, Simplicii, Faustini et Beatricis",
       "title": "Ss. Felicis, Simplicii, Faustini et Beatricis",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. Sapientiam, Pars IV, p. 48.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -47703,7 +47731,7 @@
       "label": "S. Petri ad Vincula",
       "title": "S. Petri ad Vincula",
       "incipit": null,
-      "reference": "Introitus. Nunc scio vere, ut supra, p. 238.",
+      "reference": "Introitus. Nunc scio vere, ut supra, p. 238. Graduale. Constitues eos, ut supra, p. 239. Offertorium. Constitues eos, ut supra, p. 241. Communio. Tu es Petrus, ut supra, p. 242.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -47783,7 +47811,7 @@
       "label": "Ss. Martyrum Machab\u00e6orum",
       "title": "Ss. Martyrum Machab\u00e6orum",
       "incipit": null,
-      "reference": "Introitus. Clamav\u00e9runt justi, uf supra, p. 106.",
+      "reference": "Introitus. Clamaverunt justi, ut supra, p. 106. Graduale. Ecce quam bonum, Pars II, p. 251. Alleluia, alleluia. V. Haec est vera, ut supra, p. 176. Offertorium. Exsultabunt, Pars IV, p. 53. Communio. Dico autem vobis, ibid., p. 54.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -48362,7 +48390,7 @@
       "label": "S. Dominici Confessoris",
       "title": "S. Dominici Confessoris",
       "incipit": null,
-      "reference": "Introitus. Os justi, Pars IV, p. 76.",
+      "reference": "Introitus. Os justi, Pars IV, p. 76. Graduale. Justus ut palma, ibid., p. 78. Alleluia, alleluia. V. Justus germinabit, ibid., p. 74. Offertorium. Veritas mea, ibid., p. 80. Communio. Fidelis servus, ibid., p. 65.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -48803,8 +48831,7 @@
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:08-09t",
-        "sancti:08-16"
+        "sancti:08-09t"
       ],
       "label": "Vigilia S. Laurentii Martyris",
       "title": "Vigilia S. Laurentii Martyris",
@@ -49026,9 +49053,7 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": [
-        "sancti:08-16"
-      ]
+      "linked_days": []
     },
     {
       "id": "noh3-s-romano-martyre",
@@ -49042,7 +49067,7 @@
       "label": "S. Romano Martyre",
       "title": "S. Romano Martyre",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. Laetabitur, Pars IV, p. 24.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -49330,7 +49355,7 @@
       "label": "Vigilia Assumptionis B.M.V.",
       "title": "Vigilia Assumptionis B.M.V.",
       "incipit": null,
-      "reference": "Introitus. Vultum tuum, Pars IV, p. 115.",
+      "reference": "Introitus. Vultum tuum, Pars IV, p. 115. Graduale. Benedicta, ibid., p. 184. Offertorium. Beata es, sine Alleluia, ibid., p. 181. Communio. Beata viscera, ibid., p. 187.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -49782,7 +49807,7 @@
       "label": "In Octava S. Laurentii Martyris",
       "title": "In Octava S. Laurentii Martyris",
       "incipit": null,
-      "reference": null,
+      "reference": "Graduale. Gloria et honore, Pars IV, p. 12. Alleluia, alleluia. V. Levita Laurentius, ut supra, p. 316. Offertorium. In virtute tua, Pars IV, p. 84. Communio. Qui vult venire, ibid., p. 23.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -49862,7 +49887,7 @@
       "label": "S. Joannis Eudes Confessoris",
       "title": "S. Joannis Eudes Confessoris",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. Os justi, Pars IV, p. 76.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -50642,7 +50667,7 @@
       "label": "S. Augustini Episcopi et Confessoris et Ecclesi\u00e6 Doctoris",
       "title": "S. Augustini Episcopi et Confessoris et Ecclesi\u00e6 Doctoris",
       "incipit": null,
-      "reference": "Introitus. in m\u00e9dio Eccl\u00e9siz, Pars IV, p. 71.",
+      "reference": "Introitus. In medio Ecclesiae, Pars IV, p. 71. Graduale. Os justi, ibid., p. 72. Alleluia, alleluia. V. Inveni David, ut supra, p. 210. Offertorium. Justus ut palma, Pars IV, p. 76. Communio. Fidelis servus, ibid., p. 65.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -50805,7 +50830,7 @@
       "label": "Ss. Felice et Adaucto",
       "title": "Ss. Felice et Adaucto",
       "incipit": null,
-      "reference": "Introitus. Sapi\u00e9ntiam, Pars IV, p. 48.",
+      "reference": "Introitus. Sapientiam, Pars IV, p. 48. Graduale. Justorum animae, ut supra, p. 38. Alleluia, alleluia. V. Fulgebunt justi, ut supra, p. 307. Offertorium. Laetamini, ut supra, p. 41. Communio. Quod dico vobis, Pars IV, p. 60.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -50840,42 +50865,7 @@
       "label": "In Exaltatione Sanct\u00e6 crucis",
       "title": "In Exaltatione Sanct\u00e6 crucis",
       "incipit": null,
-      "reference": null,
-      "genre": "proper",
-      "mode": null,
-      "mass": null,
-      "printed_pages": [
-        344,
-        344
-      ],
-      "pdf_pages": [
-        377,
-        377
-      ],
-      "systems": [],
-      "system_assets": [],
-      "system_aspect": [],
-      "movements": [],
-      "sections": [],
-      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Sep14",
-      "chant": [],
-      "review_status": "review",
-      "hymns": [],
-      "linked_days": []
-    },
-    {
-      "id": "noh3-s-nominis-beat-mari-virginis",
-      "volume": "noh3",
-      "slug": "s-nominis-beat-mari-virginis",
-      "section": "Proprium Sanctorum",
-      "division": "sanctorale",
-      "days": [
-        "sancti:09-12"
-      ],
-      "label": "S. Nominis Beat\u00e6 Mari\u00e6 Virginis",
-      "title": "S. Nominis Beat\u00e6 Mari\u00e6 Virginis",
-      "incipit": null,
-      "reference": "Introitus. Vultum tuum, Pars IV, p. 115.",
+      "reference": "Introitus. Nos autem gloriari, ut supra, p. 170. Graduale. Christus factus est, Pars IV, p. 162. Alleluia, alleluia. V. Dulce lignum, ut supra, p. 172. Communio. Per signum Crucis, ut supra, p. 174.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -50942,49 +50932,45 @@
         ]
       ],
       "movements": [],
-      "sections": [
-        {
-          "kind": "introit",
-          "variant": "",
-          "gregobase_id": 124,
-          "borrowed_volume": "noh4",
-          "borrowed_page": 115,
-          "borrowed_from": "commune-virginum-pro-virgine-tantum-2",
-          "borrowed_ref": "noh4/0146/004"
-        },
-        {
-          "kind": "gradual",
-          "variant": "",
-          "gregobase_id": 392,
-          "borrowed_volume": "noh4",
-          "borrowed_page": 162,
-          "borrowed_from": "feria-vi-missa-de-sancta-cruce",
-          "borrowed_ref": "noh4/0193/000"
-        },
-        {
-          "kind": "offertory",
-          "variant": "",
-          "system": 0,
-          "ref": "noh3/0378/000",
-          "gregobase_id": 843,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. II",
-          "title": "Ave Maria"
-        },
-        {
-          "kind": "communion",
-          "variant": "",
-          "gregobase_id": 160,
-          "borrowed_volume": "noh3",
-          "borrowed_page": 174,
-          "borrowed_from": null,
-          "borrowed_ref": null
-        }
-      ],
-      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Sep12",
+      "sections": [],
+      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Sep14",
       "chant": [],
       "review_status": "verified",
+      "hymns": [],
+      "linked_days": []
+    },
+    {
+      "id": "noh3-s-nominis-beat-mari-virginis",
+      "volume": "noh3",
+      "slug": "s-nominis-beat-mari-virginis",
+      "section": "Proprium Sanctorum",
+      "division": "sanctorale",
+      "days": [
+        "sancti:09-12"
+      ],
+      "label": "S. Nominis Beat\u00e6 Mari\u00e6 Virginis",
+      "title": "S. Nominis Beat\u00e6 Mari\u00e6 Virginis",
+      "incipit": null,
+      "reference": "Introitus. Vultum tuum, Pars IV, p. 115. Graduale. Alleluia. Offertorium et Communio, ut in Missa votiva B. M. V. post Pentecosten, Pars IV, p. 184.",
+      "genre": "proper",
+      "mode": null,
+      "mass": null,
+      "printed_pages": [
+        344,
+        344
+      ],
+      "pdf_pages": [
+        377,
+        377
+      ],
+      "systems": [],
+      "system_assets": [],
+      "system_aspect": [],
+      "movements": [],
+      "sections": [],
+      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Sep12",
+      "chant": [],
+      "review_status": "review",
       "hymns": [],
       "linked_days": []
     },
@@ -51409,7 +51395,7 @@
       "label": "S. Matth\u00e6i Apostoli et Evangelist\u00e6",
       "title": "S. Matth\u00e6i Apostoli et Evangelist\u00e6",
       "incipit": null,
-      "reference": "Introitus. Os justi, Pars iV, p. 76.",
+      "reference": "Introitus. Os justi, Pars IV, p. 76. Graduale. Beatus vir, ibid., p. 19. Alleluia, alleluia. V. Te gloriosus, ut supra, p. 338. Offertorium. Posuisti Domine, Pars IV, p. 27. Communio. Magna est, ibid., p. 2.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -51444,7 +51430,7 @@
       "label": "S. Cosm\u00e6 et Damiani Martyrum",
       "title": "S. Cosm\u00e6 et Damiani Martyrum",
       "incipit": null,
-      "reference": "Introitus. Sapi\u00e9ntiam, Pars IV, p. 48.",
+      "reference": "Introitus. Sapientiam, Pars IV, p. 48. Graduale. Clamaverunt justi, ibid., p. 55. Alleluia, alleluia. V. Haec est vera, ut supra, p. 176. Offertorium. Gloriabuntur, ut supra, p. 228. Communio. Posuerunt, ut supra, p. 208.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -51474,10 +51460,7 @@
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
       "days": [
-        "sancti:09-29",
-        "sancti:03-24",
-        "sancti:10-02",
-        "sancti:10-24"
+        "sancti:09-29"
       ],
       "label": "In Dedicatione S. Mich\u00e6lis Archangelis",
       "title": "In Dedicatione S. Mich\u00e6lis Archangelis",
@@ -51825,11 +51808,7 @@
       "chant": [],
       "review_status": "verified",
       "hymns": [],
-      "linked_days": [
-        "sancti:03-24",
-        "sancti:10-02",
-        "sancti:10-24"
-      ]
+      "linked_days": []
     },
     {
       "id": "noh3-s-hieronymi-presbyteris-confessoris-et-ecclesi-doctoris",
@@ -51843,7 +51822,7 @@
       "label": "S. Hieronymi Presbyteris Confessoris et Ecclesi\u00e6 Doctoris",
       "title": "S. Hieronymi Presbyteris Confessoris et Ecclesi\u00e6 Doctoris",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. In medio Ecclesiae, Pars IV, p. 71.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -53394,7 +53373,7 @@
       "label": "S. Hedwigis Vidu\u00e6",
       "title": "S. Hedwigis Vidu\u00e6",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. Cognovi, Pars IV, p. 121.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -53841,7 +53820,7 @@
       "label": "S. Luc\u00e6 Evangelist\u00e6",
       "title": "S. Luc\u00e6 Evangelist\u00e6",
       "incipit": null,
-      "reference": "Introitus. Mihi autem, uf supra, p. 4.",
+      "reference": "Introitus. Mihi autem, ut supra, p. 4. Graduale. In omnem terram, ut supra, p. 203. Alleluia, alleluia. V. Ego vos elegi, ut supra, p. 205. Offertorium. Mihi autem, ut supra, p. 8. Communio. Vos qui secuti estis me, ut supra, p. 96.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -54865,7 +54844,7 @@
       "label": "In Vigilia Ss. Simonis et Jud\u00e6 Apostolorum",
       "title": "In Vigilia Ss. Simonis et Jud\u00e6 Apostolorum",
       "incipit": null,
-      "reference": "Introitus. Intret, Pars IV, p. 40.",
+      "reference": "Introitus. Intret, Pars IV, p. 40. Graduale. Vindica Domine, ut supra, p. 207. Offertorium. Exsultabunt, Pars IV, p. 53. Communio. Posuerunt, ut supra, p. 208.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -55007,7 +54986,7 @@
       "label": "In Vigilia Omnium Sanctorum",
       "title": "In Vigilia Omnium Sanctorum",
       "incipit": null,
-      "reference": null,
+      "reference": "Graduale. Exsultabunt, ut supra, p. 212. Offertorium. Exsultabunt, Pars IV, p. 53. Communio. Justorum animae, ut supra, p. 189.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -55356,7 +55335,7 @@
       "label": "In Octava Omnium Sanctorum",
       "title": "In Octava Omnium Sanctorum",
       "incipit": null,
-      "reference": null,
+      "reference": "Dicitur Missa sicut in die, ut supra, p. 426.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -55391,7 +55370,7 @@
       "label": "Ss. Tryphonis, Respicii, and Nymph\u00e6",
       "title": "Ss. Tryphonis, Respicii, and Nymph\u00e6",
       "incipit": null,
-      "reference": "Introitus. Clamav\u00e9runt justi, uf supra, p. 106.",
+      "reference": "Introitus. Clamaverunt justi, ut supra, p. 106. Graduale. Vindica Domine, ut supra, p. 207. Alleluia, alleluia. V. Pretiosa, Pars IV, p. 37. Offertorium. Laetamini, ut supra, p. 41. Communio. Quicumque fecerit, ut supra, p. 107.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -55719,7 +55698,7 @@
       "label": "S. Alberti Magni Episcopi Confessoris et Ecclesi\u00e6 Doctoris",
       "title": "S. Alberti Magni Episcopi Confessoris et Ecclesi\u00e6 Doctoris",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. In medio, Pars IV, p. 71.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -57001,7 +56980,8 @@
       "days": [
         "sancti:01-24",
         "sancti:11-26t",
-        "sancti:12-06"
+        "sancti:12-06",
+        "sancti:02-18"
       ],
       "label": "Commune unius Martyris Pontificis",
       "title": "Commune unius Martyris Pontificis",
@@ -57342,7 +57322,8 @@
       "linked_days": [
         "sancti:01-24",
         "sancti:11-26t",
-        "sancti:12-06"
+        "sancti:12-06",
+        "sancti:02-18"
       ]
     },
     {
@@ -58028,7 +58009,8 @@
         "sancti:08-28cc",
         "sancti:09-09",
         "sancti:11-09cc",
-        "sancti:11-11cc"
+        "sancti:11-11cc",
+        "sancti:08-09cc"
       ],
       "label": "Commune unius Martyris non Pontificis \u2014 alia Missa",
       "title": "Commune unius Martyris non Pontificis \u2014 alia Missa",
@@ -58305,7 +58287,8 @@
         "sancti:08-28cc",
         "sancti:09-09",
         "sancti:11-09cc",
-        "sancti:11-11cc"
+        "sancti:11-11cc",
+        "sancti:08-09cc"
       ]
     },
     {
@@ -58622,7 +58605,8 @@
       "section": "Commune Sanctorum",
       "division": "commune",
       "days": [
-        "sancti:05-10o"
+        "sancti:05-10o",
+        "sancti:05-03r"
       ],
       "label": "Commune Martyrum tempore Paschali \u2014 de pluribus Martyribus",
       "title": "Commune Martyrum tempore Paschali \u2014 de pluribus Martyribus",
@@ -58868,7 +58852,8 @@
       "review_status": "verified",
       "hymns": [],
       "linked_days": [
-        "sancti:05-10o"
+        "sancti:05-10o",
+        "sancti:05-03r"
       ]
     },
     {
@@ -58883,8 +58868,7 @@
         "sancti:09-16cc",
         "sancti:09-22o",
         "sancti:10-25",
-        "sancti:06-12o",
-        "sancti:07-30"
+        "sancti:07-28"
       ],
       "label": "Commune Plurimorum Martyrum",
       "title": "Commune Plurimorum Martyrum",
@@ -59280,8 +59264,7 @@
         "sancti:09-16cc",
         "sancti:09-22o",
         "sancti:10-25",
-        "sancti:06-12o",
-        "sancti:07-30"
+        "sancti:07-28"
       ]
     },
     {
@@ -59296,7 +59279,7 @@
         "sancti:09-20",
         "sancti:10-09t",
         "sancti:11-04cc",
-        "sancti:06-09",
+        "sancti:07-29cc",
         "sancti:08-30o",
         "sancti:09-27"
       ],
@@ -59585,7 +59568,7 @@
         "sancti:09-20",
         "sancti:10-09t",
         "sancti:11-04cc",
-        "sancti:06-09",
+        "sancti:07-29cc",
         "sancti:08-30o",
         "sancti:09-27"
       ]
@@ -59944,8 +59927,7 @@
         "sancti:09-22",
         "sancti:10-01",
         "sancti:11-04",
-        "sancti:11-17",
-        "sancti:11-11"
+        "sancti:11-17"
       ],
       "label": "Commune Confessoris Pontificis",
       "title": "Commune Confessoris Pontificis",
@@ -60253,8 +60235,7 @@
         "sancti:09-22",
         "sancti:10-01",
         "sancti:11-04",
-        "sancti:11-17",
-        "sancti:11-11"
+        "sancti:11-17"
       ]
     },
     {
@@ -60271,7 +60252,7 @@
       "label": "Commune Confessoris Pontificis \u2014 alia Missa",
       "title": "Commune Confessoris Pontificis \u2014 alia Missa",
       "incipit": null,
-      "reference": null,
+      "reference": "Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus. Beatus vir, p. 14. Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. V. Juravit, ut supra; deinde: Alleluia. V. Amavit eum, ut infra, p. 73. Offertorium. Veritas mea, ut infra, p. 80. Communio. Beatus servus, ut infra, p. 81.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -60520,11 +60501,16 @@
         "sancti:06-18",
         "sancti:08-20",
         "sancti:11-24",
-        "sancti:12-04",
-        "sancti:12-07",
+        "sancti:01-27",
+        "sancti:01-29",
+        "sancti:02-23r",
+        "sancti:03-18",
         "sancti:05-02",
-        "sancti:06-14",
-        "sancti:08-28"
+        "sancti:05-09",
+        "sancti:07-14",
+        "sancti:08-28",
+        "sancti:09-30",
+        "sancti:11-15"
       ],
       "label": "Commune Doctorum",
       "title": "Commune Doctorum",
@@ -60828,11 +60814,16 @@
         "sancti:06-18",
         "sancti:08-20",
         "sancti:11-24",
-        "sancti:12-04",
-        "sancti:12-07",
+        "sancti:01-27",
+        "sancti:01-29",
+        "sancti:02-23r",
+        "sancti:03-18",
         "sancti:05-02",
-        "sancti:06-14",
-        "sancti:08-28"
+        "sancti:05-09",
+        "sancti:07-14",
+        "sancti:08-28",
+        "sancti:09-30",
+        "sancti:11-15"
       ]
     },
     {
@@ -60863,12 +60854,13 @@
         "sancti:10-13",
         "sancti:11-10",
         "sancti:08-04",
+        "sancti:08-19",
         "sancti:09-21"
       ],
       "label": "Commune Confessoris non Pontificis",
       "title": "Commune Confessoris non Pontificis",
       "incipit": null,
-      "reference": null,
+      "reference": "Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus. Beatus vir, p. 14. Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. V. Beatus vir, ut supra; deinde: Alleluia. V. Amavit, p. 73.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -61155,6 +61147,7 @@
         "sancti:10-13",
         "sancti:11-10",
         "sancti:08-04",
+        "sancti:08-19",
         "sancti:09-21"
       ]
     },
@@ -61173,13 +61166,12 @@
         "sancti:10-19",
         "sancti:11-13",
         "sancti:11-20",
-        "sancti:01-15",
-        "sancti:03-19"
+        "sancti:01-15"
       ],
       "label": "Commune Confessoris non Pontificis \u2014 alia Missa",
       "title": "Commune Confessoris non Pontificis \u2014 alia Missa",
       "incipit": null,
-      "reference": null,
+      "reference": "Graduale. Os justi, p. 72. Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus. Beatus vir, p. 14. Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. V. Beatus vir, ut supra; deinde: Alleluia. V. Justus germinabit, p. 74.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -61401,8 +61393,7 @@
         "sancti:10-19",
         "sancti:11-13",
         "sancti:11-20",
-        "sancti:01-15",
-        "sancti:03-19"
+        "sancti:01-15"
       ]
     },
     {
@@ -62104,13 +62095,12 @@
         "sancti:07-20o",
         "sancti:08-29cc",
         "sancti:11-23cc",
-        "sancti:01-21",
         "sancti:07-22"
       ],
       "label": "Commune Virginum \u2014 pro Virgine et Martyre, alia Missa",
       "title": "Commune Virginum \u2014 pro Virgine et Martyre, alia Missa",
       "incipit": null,
-      "reference": null,
+      "reference": "Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus. Veni sponsa Christi, p. 93.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -62486,7 +62476,6 @@
         "sancti:07-20o",
         "sancti:08-29cc",
         "sancti:11-23cc",
-        "sancti:01-21",
         "sancti:07-22"
       ]
     },
@@ -62500,7 +62489,7 @@
       "label": "Commune plurium Virginum et Martyrum",
       "title": "Commune plurium Virginum et Martyrum",
       "incipit": null,
-      "reference": null,
+      "reference": "Omnia dicuntur ut supra pro una Virgine et Martyre, p. 90.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -62539,7 +62528,7 @@
         "sancti:08-30",
         "sancti:10-15",
         "sancti:11-16",
-        "sancti:12-13r"
+        "sancti:05-19o"
       ],
       "label": "Commune Virginum \u2014 pro Virgine tantum",
       "title": "Commune Virginum \u2014 pro Virgine tantum",
@@ -62965,7 +62954,7 @@
         "sancti:08-30",
         "sancti:10-15",
         "sancti:11-16",
-        "sancti:12-13r"
+        "sancti:05-19o"
       ]
     },
     {
@@ -62976,6 +62965,7 @@
       "division": "commune",
       "days": [
         "sancti:05-31c",
+        "sancti:01-28t",
         "sancti:03-25",
         "sancti:08-14",
         "sancti:09-12"
@@ -63186,6 +63176,7 @@
       "hymns": [],
       "linked_days": [
         "sancti:05-31c",
+        "sancti:01-28t",
         "sancti:03-25",
         "sancti:08-14",
         "sancti:09-12"
@@ -63326,12 +63317,14 @@
         "sancti:07-08",
         "sancti:08-21",
         "sancti:10-08",
-        "sancti:11-19"
+        "sancti:11-19",
+        "sancti:03-09",
+        "sancti:10-16"
       ],
       "label": "Commune non Virginum \u2014 pro nec Virgine nec Martyre",
       "title": "Commune non Virginum \u2014 pro nec Virgine nec Martyre",
       "incipit": null,
-      "reference": null,
+      "reference": "Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus. Veni sponsa Christi, p. 93, praetermittendo ultimam primi V. clausulam, pro cuius amore... fudisti. Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. V. Specie tua, ut supra; deinde Alleluia. V. Propter veritatem, p. 119. Offertorium. Diffusa est, p. 105.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -63597,7 +63590,9 @@
         "sancti:07-08",
         "sancti:08-21",
         "sancti:10-08",
-        "sancti:11-19"
+        "sancti:11-19",
+        "sancti:03-09",
+        "sancti:10-16"
       ]
     },
     {
@@ -63613,7 +63608,7 @@
       "label": "In Anniversario Dedicationis Ecclesiae",
       "title": "In Anniversario Dedicationis Ecclesiae",
       "incipit": null,
-      "reference": null,
+      "reference": "Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus. Qui confidunt, ut in Dominica IV Quadragesimae, Pars I, p. 253.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -66537,8 +66532,7 @@
         "sancti:08-05",
         "sancti:09-08",
         "sancti:09-24",
-        "sancti:11-21",
-        "sancti:07-02"
+        "sancti:11-21"
       ],
       "label": "Missa de Sancta Maria in Sabbato \u2014 a Pentecoste usque ad Adventum",
       "title": "Missa de Sancta Maria in Sabbato \u2014 a Pentecoste usque ad Adventum",
@@ -66824,8 +66818,7 @@
         "sancti:08-05",
         "sancti:09-08",
         "sancti:09-24",
-        "sancti:11-21",
-        "sancti:07-02"
+        "sancti:11-21"
       ]
     },
     {
@@ -66838,7 +66831,7 @@
       "label": "Missa pro eligendo Summo Pontifice",
       "title": "Missa pro eligendo Summo Pontifice",
       "incipit": null,
-      "reference": null,
+      "reference": "Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. V. Sacerdos, ut supra; deinde: Alleluia. V. Ego sum pastor, Pars II, p. 43.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -69875,7 +69868,7 @@
       "label": "Missa ad Postulandam Gratiam Spiritus Sancti",
       "title": "Missa ad Postulandam Gratiam Spiritus Sancti",
       "incipit": null,
-      "reference": null,
+      "reference": "Dicitur Missa ut supra, p. 146.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -69908,7 +69901,7 @@
       "label": "Missa pro Gratiarum Actione",
       "title": "Missa pro Gratiarum Actione",
       "incipit": null,
-      "reference": null,
+      "reference": "Dicitur Missa de Sanctissima Trinitate, vel de Spiritu Sancto, vel de beata Maria Virgine, aut de aliquo Sancto Canonizato, in Martyrologio Romano descripto.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -69929,7 +69922,24 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [],
+      "reference_sources": [
+        {
+          "volume": "noh4",
+          "page": 134,
+          "label": "Holy Trinity \u2014 free choice"
+        },
+        {
+          "volume": "noh4",
+          "page": 146,
+          "label": "Holy Spirit \u2014 free choice"
+        },
+        {
+          "volume": "noh4",
+          "page": 182,
+          "label": "Blessed Virgin Mary \u2014 free choice"
+        }
+      ]
     },
     {
       "id": "noh4-translatio-almae-domus-b-m-v",
@@ -69941,7 +69951,7 @@
       "label": "Translatio Almae Domus B.M.V., 10 Decembris",
       "title": "Translatio Almae Domus B.M.V., 10 Decembris",
       "incipit": null,
-      "reference": null,
+      "reference": "Introitus. Terribilis est, ut supra, p. 127.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -70115,7 +70125,7 @@
       "label": "Exspectatio Partus B.M.V., 18 Decembris",
       "title": "Exspectatio Partus B.M.V., 18 Decembris",
       "incipit": null,
-      "reference": null,
+      "reference": "Introitus. Rorate caeli, Pars I, p. 38. Graduale. Tollite portas, ibid., p. 18. Offertorium. Ave Maria, Pars I, p. 42. Communio. Ecce virgo, ibid., p. 43.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -71009,7 +71019,7 @@
       "label": "SS. Lanceae et Clavorum D.N.J.C. (Feria VI post Dominicam I Quadragesimae)",
       "title": "SS. Lanceae et Clavorum D.N.J.C. (Feria VI post Dominicam I Quadragesimae)",
       "incipit": null,
-      "reference": null,
+      "reference": "Graduale cum Tractu, et Offertorium, ut in Missa votiva de Passione, ut supra, p. 166-172.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -71105,7 +71115,7 @@
       "label": "SS. Sindonis D.N.J.C. (Feria VI post Dominicam II Quadragesimae)",
       "title": "SS. Sindonis D.N.J.C. (Feria VI post Dominicam II Quadragesimae)",
       "incipit": null,
-      "reference": null,
+      "reference": "Introitus. Humiliavit, ut supra, p. 164. Graduale. Improperium, p. 166. Tractus. Vere languores, p. 169.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -71615,7 +71625,7 @@
       "label": "B.M.V. de Bono Consilio, 26 Aprilis",
       "title": "B.M.V. de Bono Consilio, 26 Aprilis",
       "incipit": null,
-      "reference": null,
+      "reference": "Alleluia, alleluia. V. Ave Maria, ut supra, p. 175. Alleluia. V. Per te Dei Genitrix, Pars III, p. 271. Offertorium. Recordare, Pars III, p. 140, sic finiendum Tempore Paschali. Communio. Regina mundi, Pars III, p. 272, sic finiendum Tempore Paschali.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -73673,7 +73683,7 @@
       "label": "B.M.V. Matris de Gratia, 9 Junii",
       "title": "B.M.V. Matris de Gratia, 9 Junii",
       "incipit": null,
-      "reference": null,
+      "reference": "Missa. Vultum tuum, ut in Festo Sanctissimi Nominis Mariae, die 12 Septembris, Pars III, p. 334, praeter sequentia.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -74489,7 +74499,7 @@
       "label": "S. Gregorii Episcopi Majoris Armeniae et Martyris, 1 Octobris",
       "title": "S. Gregorii Episcopi Majoris Armeniae et Martyris, 1 Octobris",
       "incipit": null,
-      "reference": null,
+      "reference": "Extra Tempus Paschale Missa. Statuit, p. 3. Tempore autem Paschali Missa. Protexisti, p. 29.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -74510,7 +74520,19 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": []
+      "linked_days": [],
+      "reference_sources": [
+        {
+          "volume": "noh4",
+          "page": 3,
+          "label": "Statuit \u2014 outside Eastertide"
+        },
+        {
+          "volume": "noh4",
+          "page": 29,
+          "label": "Protexisti \u2014 during Eastertide"
+        }
+      ]
     },
     {
       "id": "noh4-puritatis-b-m-v",
@@ -74522,7 +74544,7 @@
       "label": "Puritatis B.M.V., 16 Octobris",
       "title": "Puritatis B.M.V., 16 Octobris",
       "incipit": null,
-      "reference": null,
+      "reference": "Introitus. Salve, sancta Parens, p. 182. Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. V. Tu gloria Jerusalem, Pars III, p. 22. Alleluia. V. Tota pulchra es, ibid., p. 20.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -74936,7 +74958,7 @@
       "label": "Sacrarum Reliquiarum, 5 Novembris",
       "title": "Sacrarum Reliquiarum, 5 Novembris",
       "incipit": null,
-      "reference": null,
+      "reference": "Introitus. Multae tribulationes, Pars III, p. 211. Graduale. Exsultabunt, ibid., p. 212. Alleluia, alleluia. V. Justi epulentur, ut supra, p. 51. Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur: Tractus. Qui seminant, p. 45. Tempore autem Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. V. Sancti tui, p. 36. V. Pretiosa, p. 37. Offertorium. Mirabilis Deus, p. 47.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -75401,6 +75423,9 @@
       "section": "Commune Summorum Pontificum",
       "division": "commune",
       "days": [
+        "sancti:12-31",
+        "sancti:01-05",
+        "sancti:01-11cc",
         "sancti:12-11",
         "sancti:01-16",
         "sancti:03-12",
@@ -75817,6 +75842,9 @@
       "review_status": "verified",
       "hymns": [],
       "linked_days": [
+        "sancti:12-31",
+        "sancti:01-05",
+        "sancti:01-11cc",
         "sancti:12-11",
         "sancti:01-16",
         "sancti:03-12",
@@ -92066,11 +92094,11 @@
       "mass": null,
       "printed_pages": [
         146,
-        152
+        151
       ],
       "pdf_pages": [
         176,
-        182
+        181
       ],
       "systems": [
         "noh8/0176/000",
@@ -92105,10 +92133,7 @@
         "noh8/0181/001",
         "noh8/0181/002",
         "noh8/0181/003",
-        "noh8/0181/004",
-        "noh8/0182/000",
-        "noh8/0182/001",
-        "noh8/0182/002"
+        "noh8/0181/004"
       ],
       "system_assets": [
         "systems/noh8/0176/000-d8880dcb2d86",
@@ -92143,10 +92168,7 @@
         "systems/noh8/0181/001-46a37ad00c07",
         "systems/noh8/0181/002-a8e605060362",
         "systems/noh8/0181/003-97b7abf44cc8",
-        "systems/noh8/0181/004-18e9ad5a290a",
-        "systems/noh8/0182/000-52e969230564",
-        "systems/noh8/0182/001-4c4046489a49",
-        "systems/noh8/0182/002-32d7cd2f8349"
+        "systems/noh8/0181/004-18e9ad5a290a"
       ],
       "system_aspect": [
         [
@@ -92280,18 +92302,6 @@
         [
           1835,
           414
-        ],
-        [
-          2148,
-          386
-        ],
-        [
-          1847,
-          402
-        ],
-        [
-          2053,
-          477
         ]
       ],
       "movements": [],
@@ -92320,7 +92330,7 @@
       "label": "Dominica infra Octavam Corporis Christi",
       "title": "Dominica infra Octavam Corporis Christi",
       "incipit": null,
-      "reference": null,
+      "reference": "Antiphonae et Psalmi ut in I. Vesperis Festi, p. 146. Hymnus. Pange lingua, ut supra, p. 148.",
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -92332,14 +92342,35 @@
         182,
         182
       ],
-      "systems": [],
-      "system_assets": [],
-      "system_aspect": [],
+      "systems": [
+        "noh8/0182/000",
+        "noh8/0182/001",
+        "noh8/0182/002"
+      ],
+      "system_assets": [
+        "systems/noh8/0182/000-52e969230564",
+        "systems/noh8/0182/001-4c4046489a49",
+        "systems/noh8/0182/002-32d7cd2f8349"
+      ],
+      "system_aspect": [
+        [
+          2148,
+          386
+        ],
+        [
+          1847,
+          402
+        ],
+        [
+          2053,
+          477
+        ]
+      ],
       "movements": [],
       "sections": [],
       "jgabc_url": null,
       "chant": [],
-      "review_status": "review",
+      "review_status": "verified",
       "hymns": [],
       "linked_days": []
     },

@@ -33,6 +33,7 @@ sections:
     index_title: Feria secunda
     days:
     - tempora:Pasc0-1
+    reference: 'Sequentia. Victimae paschali, cum Alleluia in fine, ut supra in Dominica Paschae, p. 5.'
   - slug: die-iii-infra-octavam-pasch
     label: Die III infra octavam Paschæ
     title: Die III infra octavam Paschæ
@@ -122,6 +123,7 @@ sections:
     index_title: Dominica III. post Pascha
     days:
     - tempora:Pasc3-0r
+    reference: 'Offertorium. Lauda anima, ut in Feria VI Quatuor Temporum Pentecostes, p. 97.'
   - slug: dominica-iv-post-pascha
     label: Dominica IV Post Pascha
     title: Dominica IV Post Pascha
@@ -154,6 +156,7 @@ sections:
     token: '61'
     index_title: In Litaniis majorilJUs et minoribus
     calendar_note: no 1962 title matched
+    reference: 'Tempore paschali dicitur Alleluia, alleluia. V. Propitius esto, Domine, Pars IV, p. 203. Extra tempus paschale, Graduale. Liberasti nos, Domine, ut infra, p. 256; deinde Alleluia, alleluia. V. Propitius esto, Pars IV, p. 203. Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus. De necessitatibus meis, Pars I, p. 185.'
   - slug: noh2-p65
     label: Vigilia Ascensionis
     title: Vigilia Ascensionis
@@ -164,6 +167,7 @@ sections:
     token: '65'
     index_title: Vigilia Ascensionis
     calendar_note: no 1962 title matched
+    reference: 'Missa dicitur de Dominica V. post Pascha, p. 54.'
   - slug: in-ascensione-domini
     label: In Ascensione Domini
     title: In Ascensione Domini
@@ -197,6 +201,7 @@ sections:
     index_title: Sabbato in vigilia Pentecostes
     days:
     - tempora:Pasc6-6
+    reference: 'Introitus. Dum sanctificatus fuero, de feria IV post dominicam IV Quadragesimae, addito duplex Alleluia in fine, Pars I, p. 262. Alleluia. V. Confitemini Domino, Pars I, p. 345, incipiendo a tertio Alleluia; et in fine non repetitur Alleluia, sed immediate sequitur Tractus. Laudate Dominum, omnes gentes, Pars I, p. 199.'
   - slug: dominica-pentecostes
     label: Dominica Pentecostes
     title: Dominica Pentecostes
@@ -252,6 +257,7 @@ sections:
     index_title: Feria V. Quatuor Temporum Pentecostes
     days:
     - tempora:Pasc7-4
+    reference: 'Omnia ut in die Pentecostes, p. 77.'
   - slug: feria-vi-quattuor-temporum-pentecostes
     label: Feria VI Quattuor temporum Pentecostes
     title: Feria VI Quattuor temporum Pentecostes
@@ -296,6 +302,7 @@ sections:
     token: '110'
     index_title: Dominica I. post Pentecosten
     calendar_note: no 1962 title matched
+    reference: 'Offertorium. Intende voci, Pars I, p. 245. Communio. Narrabo omnia, ibid., p. 215.'
   - slug: noh2-p114
     label: Corporis Christi
     title: Corporis Christi
@@ -540,6 +547,7 @@ sections:
     index_title: Dominica XVIII. post Pentecosten
     days:
     - tempora:Pent18-0
+    reference: 'Graduale. Laetatus sum, Pars I, p. 252.'
   - slug: dominica-xix-post-pentecosten
     label: Dominica XIX Post Pentecosten
     title: Dominica XIX Post Pentecosten

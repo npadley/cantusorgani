@@ -384,14 +384,14 @@
     words: 1.0
     name: Fulgentibus palmis
 - file: vol-1/an_hosanna_filio_david.csv.ly
-  target: part:noh1-p299-2/other:1
+  target: part:noh1-p299/other:1
   status: matched
   evidence:
     by: page
     incipit: Hosanna fílio David benedíctus qui venit in nómine
     page: 299
     candidates:
-    - target: part:noh1-p299-2/other:1
+    - target: part:noh1-p299/other:1
       melody: 1.0
       words: 1.0
     - target: part:noh1-p299-2/other:2
@@ -474,7 +474,7 @@
     - target: part:noh1-p299-2/other:2
       melody: 1.0
       words: 1.0
-    - target: part:noh1-p299-2/other:1
+    - target: part:noh1-p299/other:1
       melody: 0.525
       words: 0.391
     melody: 1.0
@@ -6916,14 +6916,14 @@
     melody: 0.518
     words: 0.27
 - file: vol-3/al_haec_est_vera.csv.ly
-  target: part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/alleluia:2
+  target: part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/alleluia:shared
   status: proposed
   evidence:
     by: page
     incipit: Allelú ia allelú ia ℣ Hæc est ve
     page: 176
     candidates:
-    - target: part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/alleluia:2
+    - target: part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/alleluia:shared
       melody: 0.373
       words: 0.32
     - target: part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/alleluia:paschal
@@ -9950,14 +9950,14 @@
     words: 0.992
     name: Oratio mea
 - file: vol-3/of_postula_a_me.csv.ly
-  target: part:s-nominis-beat-mari-virginis/offertory
+  target: part:in-exaltatione-sanct-crucis/offertory
   status: proposed
   evidence:
     by: kind
     incipit: Póstula a me et dabo tibi gen tes
     page: 422
     candidates:
-    - target: part:s-nominis-beat-mari-virginis/offertory
+    - target: part:in-exaltatione-sanct-crucis/offertory
       melody: 0.765
       words: 0.109
     - target: part:s-joannis-bosco-confessoris/offertory
@@ -9972,14 +9972,14 @@
     melody: 0.765
     words: 0.109
 - file: vol-3/of_protege_domine.csv.ly
-  target: part:s-nominis-beat-mari-virginis/offertory
+  target: part:in-exaltatione-sanct-crucis/offertory
   status: melody-differs
   evidence:
     by: page
     incipit: Pró tege Dó mine plebem tuam per si
     page: 345
     candidates:
-    - target: part:s-nominis-beat-mari-virginis/offertory
+    - target: part:in-exaltatione-sanct-crucis/offertory
       melody: 0.235
       words: 0.232
     melody: 0.235
@@ -10060,7 +10060,7 @@
     - target: part:s-laurentii-martyris/offertory
       melody: 0.747
       words: 0.333
-    - target: part:s-nominis-beat-mari-virginis/offertory
+    - target: part:in-exaltatione-sanct-crucis/offertory
       melody: 0.747
       words: 0.444
     melody: 0.975

@@ -63,6 +63,16 @@ def test_implicit_ranges_run_to_the_next_entry():
     assert resolved["ordinarium-missae-credo-i"] == (98, 101)
 
 
+def test_noh3_september_rubric_page_leaves_offertory_with_exaltation():
+    """p344 prints Holy Name before Exaltation; p345 continues Exaltation."""
+    entries = load_index("noh3")
+    on_page = [e.slug for e in entries if e.page == 344]
+    assert on_page == ["s-nominis-beat-mari-virginis", "in-exaltatione-sanct-crucis"]
+    resolved = {e.slug: (lo, hi) for e, lo, hi in resolve_ranges(entries)}
+    assert resolved["s-nominis-beat-mari-virginis"] == (344, 344)
+    assert resolved["in-exaltatione-sanct-crucis"] == (344, 345)
+
+
 @pytest.mark.parametrize("label,page", [
     ("I", 5), ("VIII", 47), ("XVIII", 96), ("Credo IV", 110), ("Kyrie I", 124),
 ])

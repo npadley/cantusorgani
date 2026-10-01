@@ -81,7 +81,7 @@ sections:
     index_title: S. NICOLAI EPISCOPI, CONFESSORIS, 6 Decembris
     days:
     - sancti:12-06
-    reference: Introitus. Státuit, Pars IV, p. 3.
+    reference: 'Introitus. Statuit, Pars IV, p. 3. Graduale. Inveni David, ibid., p. 4. Alleluia, alleluia. V. Justus ut palma, ibid., p. 78. Offertorium. Veritas mea, ibid., p. 9. Communio. Semel juravi, ibid., p. 10.'
   - slug: s-ambrosii-episcopi-confessoris-et-ecclesi-doctoris
     label: S. Ambrosii Episcopi Confessoris et Ecclesiæ Doctoris
     title: S. Ambrosii Episcopi Confessoris et Ecclesiæ Doctoris
@@ -142,7 +142,7 @@ sections:
     index_title: S, PAULI PRIM! EREMIT/E, 15 Januarii
     days:
     - sancti:01-15
-    reference: Introitus. Justus ut palma, Pars IV, p. 82.
+    reference: 'Introitus. Justus ut palma, Pars IV, p. 82. Graduale. Justus ut palma, ibid., p. 78. Alleluia, alleluia. V. Justus germinabit, ibid., p. 74. Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus Beatus vir, ibid., p. 14. Offertorium. In virtute tua, ibid., p. 84. Communio. Laetabitur justus, ibid., p. 34, sine Alleluia in fine.'
   - slug: in-cathedra-s-petri-romae
     label: In Cathedra S. Petri Romæ
     title: In Cathedra S. Petri Romæ
@@ -154,6 +154,7 @@ sections:
     index_title: IN FESTO CATHEDRJE S. PETRI, 18 Januarii
     days: []
     calendar_note: a 1942 feast the 1962 calendar does not keep (1962 keeps one Chair of St Peter, on 22 February)
+    reference: 'Introitus. Statuit, Pars IV, p. 3.'
   - slug: s-marii-et-soc-mart
     label: S. Marii et Soc. Mart.
     title: S. Marii et Soc. Mart.
@@ -210,6 +211,7 @@ sections:
     index_title: S. JOANNIS CHRYSOSTOMI EPISCOPI, CONFESSORIS, 27 Januarii
     days:
     - sancti:01-27
+    reference: 'Introitus. In medio Ecclesiae, Pars IV, p. 71. Graduale. Ecce sacerdos magnus, ibid., p. 62. Alleluia, alleluia. V. Beatus vir qui suffert, ibid., p. 79. Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus Beatus vir, ibid., p. 14. Offertorium. Justus ut palma, ibid., p. 76. Communio. Fidelis servus, ibid., p. 65.'
   - slug: s-agnetis
     label: S. Agnetis
     title: S. Agnetis
@@ -221,6 +223,7 @@ sections:
     index_title: S. AGNETIS VIRGINIS ET MARTYRIS, secundo, 28 Januarii
     days:
     - sancti:01-28t
+    reference: 'Introitus. Vultum tuum, Pars IV, p. 115. Graduale. Specie tua, ibid., p. 108. Alleluia, alleluia. V. Adducentur, ibid., p. 110. Post Septuagesimam, omissis Alleluia et V. sequenti, dicitur Tractus Audi filia, ibid., p. 111. Offertorium. Diffusa est, ibid., p. 105. Communio. Simile est, ibid., p. 118.'
   - slug: s-francisci-salesii-episcopi-confessoris-ecclesi-doctoris
     label: S. Francisci Salesii Episcopi Confessoris Ecclesiæ Doctoris
     title: S. Francisci Salesii Episcopi Confessoris Ecclesiæ Doctoris
@@ -232,6 +235,7 @@ sections:
     index_title: S. FRANCISCI SALESII EPISCOPI, CONFESSORIS, 29 Januarii
     days:
     - sancti:01-29
+    reference: 'Missa. In medio Ecclesiae, Pars IV, p. 71.'
   - slug: s-joannis-bosco-confessoris
     label: S. Joannis Bosco Confessoris
     title: S. Joannis Bosco Confessoris
@@ -309,6 +313,7 @@ sections:
     index_title: S, SIMEONIS kPiscoP!, MARTYRIS, 18 Februarii
     days:
     - sancti:02-18
+    reference: 'Missa. Statuit, Pars IV, p. 3.'
   - slug: in-cathedra-s-petri-ap
     label: In Cathedra S. Petri Ap.
     title: In Cathedra S. Petri Ap.
@@ -320,6 +325,7 @@ sections:
     index_title: IN CATHEDRA S. PETRI ANTIOCHUE, 22 Februarii
     days:
     - sancti:02-22
+    reference: 'Omnia dicuntur sicut in Festo Cathedrae Romanae, ut supra, p. 29.'
   - slug: s-petri-damiani
     label: S. Petri Damiani
     title: S. Petri Damiani
@@ -331,6 +337,7 @@ sections:
     index_title: S. PETRI DAMIANI EPISCOPI, CONFESSORIS, 23 Februarii
     days:
     - sancti:02-23r
+    reference: 'Missa. In medio Ecclesiae, Pars IV, p. 71.'
   - slug: s-matthi-apostoli
     label: S. Matthiæ Apostoli
     title: S. Matthiæ Apostoli
@@ -364,6 +371,7 @@ sections:
     index_title: S. FRANCISC/E VIDUAE ROMANAE, 9 Martii
     days:
     - sancti:03-09
+    reference: 'Missa. Cognovi, Pars IV, p. 121.'
   - slug: ss-quadraginta-martyrum
     label: Ss. Quadraginta Martyrum
     title: Ss. Quadraginta Martyrum
@@ -386,6 +394,7 @@ sections:
     index_title: S. CYRILLII EPISCOPI HIEROSOLYMITANI,, 18 Martii
     days:
     - sancti:03-18
+    reference: 'Missa. In medio Ecclesiae, Pars IV, p. 71.'
   - slug: s-joseph-sponsi-b-m-v-confessoris
     label: S. Joseph Sponsi B.M.V. Confessoris
     title: S. Joseph Sponsi B.M.V. Confessoris
@@ -421,7 +430,7 @@ sections:
     index_title: IN FESTo ANNUNTIATTIONIS B. M. V, 25 Martii
     days:
     - sancti:03-25
-    reference: Introitus. Vultum tuum, Pars IV, p. 115.
+    reference: 'Introitus. Vultum tuum, Pars IV, p. 115. Graduale. Diffusa est, ibid., p. 123. Tractus. Audi filia, ibid., p. 111. Tempore Paschali, omissis Graduali et Tractu dicitur: Alleluia, alleluia. V. Ave Maria, ibid., p. 175. Alleluia. V. Virga Jesse, ibid., p. 180. Offertorium. Ave Maria, ibid., p. 186. Communio. Ecce Virgo, Pars I, p. 43. (Temp. Paschali, Alleluia.)'
   - slug: s-joannis-damasceni-confessoris
     label: S. Joannis Damasceni Confessoris
     title: S. Joannis Damasceni Confessoris
@@ -512,7 +521,7 @@ sections:
     index_title: S. ATHANASII EPISCOPI, CONFESSORIS ET ECCLESIAE DOCTORIS, 2 Maii
     days:
     - sancti:05-02
-    reference: Introitus. in médio Ecclésie, Pars IV, p. 71.
+    reference: 'Introitus. In medio Ecclesiae, Pars IV, p. 71. Alleluia, alleluia. V. Tu es sacerdos, ibid., p. 63. Alleluia. V. Beatus vir qui suffert, ibid., p. 79. Post Tempus Paschale, Graduale: Ecce sacerdos magnus, ibid., p. 62. Alleluia, alleluia. V. Beatus vir qui suffert, ibid., p. 79. Offertorium. Inveni David, ibid., p. 64. Communio. Quod dico vobis, ibid., p. 60.'
   - slug: in-inventione-s-crucis
     label: In Inventione S. Crucis
     title: In Inventione S. Crucis
@@ -524,6 +533,7 @@ sections:
     index_title: IN FESTO, 3 Maii
     days: []
     calendar_note: a 1942 feast the 1962 calendar does not keep
+    reference: 'Post Tempus Paschale dicitur eadem Missa, sed Introitus et Communio erunt sine Alleluia, et Graduale. Christus factus est, Pars IV, p. 162. Alleluia, alleluia. V. Dulce lignum, ut supra, p. 172.'
   - slug: ss-alexandri-et-sociorum-martyrum-2
     label: Ss. Alexandri et Sociorum Martyrum
     title: Ss. Alexandri et Sociorum Martyrum
@@ -535,6 +545,7 @@ sections:
     index_title: SS. ALEXANDRI, EVENTI] et THEODULI MARTYRUM AC, 3 Maii
     days:
     - sancti:05-03r
+    reference: 'Missa. Sancti tui, Pars IV, p. 35. Extra Tempus Paschale, Missa Sapientiam, ibid., p. 48.'
   - slug: s-joannis-ante-portam-latinam
     label: S. Joannis ante Portam Latinam
     title: S. Joannis ante Portam Latinam
@@ -544,7 +555,7 @@ sections:
     score: 1.0
     token: ''
     index_title: S. JOANNIS ANTE PORTAM LATINAM -, 6 Maii
-    reference: Introitus. Protexisti me, Pars IV, p. 29.
+    reference: 'Introitus. Protexisti me, Pars IV, p. 29. Alleluia, alleluia. V. Justus ut palma, ibid., p. 87. Alleluia. V. Justus germinabit, ibid., p. 74. Offertorium. Confitebuntur, ibid., p. 33. Communio. Laetabitur justus, ibid., p. 34. Post Tempus Paschale, Missa sumatur ex alio Festo ejusdem Sancti mense Decembri, Pars I, p. 70.'
     days: []
     calendar_note: a 1942 feast the 1962 calendar does not keep
   - slug: s-gregorii-nazianzeni-episcopi-confessoris-ecclesi-doctoris
@@ -558,6 +569,7 @@ sections:
     index_title: S. GREGORII NAZIANZENI EPISCOPI, CONFESSORIS, 9 Maii
     days:
     - sancti:05-09
+    reference: 'Missa. In medio Ecclesiae, Pars IV, p. 71.'
   - slug: ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum
     label: Ss. Nerei, Achillei et Domitillæ Virginis atque Pancratii Martyrum
     title: Ss. Nerei, Achillei et Domitillæ Virginis atque Pancratii Martyrum
@@ -591,6 +603,7 @@ sections:
     index_title: S. PUDENTIAN/E viRGINIS, 19 Maii
     days:
     - sancti:05-19o
+    reference: 'Missa. Dilexisti, Pars IV, p. 107.'
   - slug: s-philippi-neri-confessoris
     label: S. Philippi Neri Confessoris
     title: S. Philippi Neri Confessoris
@@ -706,7 +719,7 @@ sections:
     index_title: SS. MARCI et MARCELLIANI MARTYRUM, 18 Junii
     days:
     - sancti:06-18t
-    reference: Introitus. Salus autem, Pars IV, p. 54.
+    reference: 'Introitus. Salus autem, Pars IV, p. 54. Graduale. Justorum animae, ut supra, p. 38. Alleluia, alleluia. V. Haec est vera, ut supra, p. 176. Offertorium. Anima nostra, Pars I, p. 76. Communio. Amen dico vobis, ibid., p. 182.'
   - slug: ss-gervasio-et-protasio
     label: Ss. Gervasio et Protasio
     title: Ss. Gervasio et Protasio
@@ -740,7 +753,7 @@ sections:
     index_title: S, PAULINI EPISCOPI, CONFESSORIS, 22 Junii
     days:
     - sancti:06-22
-    reference: Introitus. Sacerdótes tui, Pars IV, p. 66.
+    reference: 'Introitus. Sacerdotes tui, Pars IV, p. 66. Graduale. Ecce sacerdos magnus, ibid., p. 62. Alleluia, alleluia. V. Tu es sacerdos, ibid., p. 63. Offertorium. Inveni David, ibid., p. 64. Communio. Fidelis servus, ibid., p. 65.'
   - slug: in-vigilia-s-joannis-baptist
     label: In Vigilia S. Joannis Baptistæ
     title: In Vigilia S. Joannis Baptistæ
@@ -819,6 +832,7 @@ sections:
     token: '242'
     index_title: Missa votiva
     calendar_note: no 1962 title matched
+    reference: 'Extra Tempus Paschale: Introitus. Mihi autem, ut supra, p. 4. Tempore Paschali: Introitus. Protexisti me, Pars IV, p. 29. Graduale. Constitues, ut supra, p. 239. Post Septuagesimam, omissis Alleluia et Versu sequenti, dicitur: Tractus. Tu es Petrus, ut supra, p. 32. Tempore autem Paschali, omittitur Graduale, et ejus loco dicitur Alleluia, alleluia. V. Confitebuntur, ut supra, p. 34. Offertorium. Constitues eos, ut supra, p. 241. Communio. Tu es Petrus, ut supra.'
   - slug: in-commemoratione-sancti-pauli-apostoli
     label: In Commemoratione Sancti Pauli Apostoli
     title: In Commemoratione Sancti Pauli Apostoli
@@ -874,7 +888,7 @@ sections:
     score: 1.0
     token: ''
     index_title: IN OCTAVA SS. APOST. PETRI et PAULI, 6 Julii
-    reference: Introitus. Sapiéntiam, Pars IV, p. 48.
+    reference: 'Introitus. Sapientiam, Pars IV, p. 48. Graduale. Justorum animae, ut supra, p. 38. Offertorium. Exsultabunt, Pars IV, p. 53. Communio. Justorum animae, ut supra, p. 189.'
     days: []
     calendar_note: a 1942 feast the 1962 calendar does not keep
   - slug: ss-cyrilli-et-methodii-pont-et-conf
@@ -888,7 +902,7 @@ sections:
     index_title: SS. CYRILLI et METHODII PONT., CONF, 7 Julii
     days:
     - sancti:07-07
-    reference: Introitus. Sacerdótes tui, Pars IV, p. 66.
+    reference: 'Introitus. Sacerdotes tui, Pars IV, p. 66. Graduale. Sacerdotes ejus, ibid., p. 67. Alleluia, alleluia. V. Juravit, ibid., p. 69. Offertorium. Mirabilis Deus, ibid., p. 47. Communio. Quod dico vobis, ibid., p. 60.'
   - slug: ss-septem-fratrum-martyrum-ac-rufin-et-secund-virginum-et-martyr
     label: Ss. Septem Fratrum Martyrum, ac Rufinæ et Secundæ Virginum et Martyrum
     title: Ss. Septem Fratrum Martyrum, ac Rufinæ et Secundæ Virginum et Martyrum
@@ -911,6 +925,7 @@ sections:
     index_title: S. BONAVENTURZE EPISCOPI, CONFESSORIS, 14 Julii
     days:
     - sancti:07-14
+    reference: 'Introitus. In medio Ecclesiae, Pars IV, p. 71. Graduale. Os justi, ibid., p. 72. Alleluia, alleluia. V. Juravit, ibid., p. 69. Offertorium. Veritas mea, ibid., p. 80. Communio. Fidelis servus, ibid., p. 65.'
   - slug: in-commemoratione-beat-mari-virgine-de-monte-carmelo
     label: In Commemoratione Beatæ Mariæ Virgine de Monte Carmelo.
     title: In Commemoratione Beatæ Mariæ Virgine de Monte Carmelo.
@@ -955,7 +970,7 @@ sections:
     index_title: S. PRAXEDIS viRGINIS, 21 Julii
     days:
     - sancti:07-21
-    reference: Introitus. Loquébar, Pars IV, p. 90.
+    reference: 'Introitus. Loquebar, Pars IV, p. 90. Graduale. Dilexisti, ibid., p. 91. Alleluia, alleluia. V. Specie tua, ibid., p. 96. Offertorium. Diffusa est, ibid., p. 105. Communio. Simile est, ibid., p. 118.'
   - slug: s-mariae-magdalenae-poenitentis
     label: S. Mariæ Magdalenæ Pœnitentis
     title: S. Mariæ Magdalenæ Pœnitentis
@@ -967,7 +982,7 @@ sections:
     index_title: S. MARUE MAGDALEN/E P;ENITENTIS, 2 Julii
     days:
     - sancti:07-22
-    reference: Introitus. Me exspectavérunt, Pars IV, p. 99.
+    reference: 'Introitus. Me exspectaverunt, Pars IV, p. 99. Graduale. Dilexisti, ibid., p. 91. Alleluia, alleluia. V. Diffusa est, ut supra, p. 25. Offertorium. Filiae regum, Pars IV, p. 113. Communio. Feci judicium, ibid., p. 106.'
     calendar_note: heading's date read as 2 July; printed 22 July
   - slug: s-apollinaris-episcopi-et-martyris
     label: S. Apollinaris Episcopi et Martyris
@@ -980,7 +995,7 @@ sections:
     index_title: S. APOLLINARIS EPISCOPI, MARTYRIS, 23 Julii
     days:
     - sancti:07-23
-    reference: / Introitus. Sacerdótes Dei, Pars IV, p. 11.
+    reference: 'Introitus. Sacerdotes Dei, Pars IV, p. 11. Graduale. Inveni David, ibid., p. 4. Alleluia, alleluia. V. Juravit, ibid., p. 69. Offertorium. Veritas mea, ibid., p. 9. Communio. Domine, quinque talenta, ut supra, p. 12.'
   - slug: s-jacobi-apostoli
     label: S. Jacobi Apostoli
     title: S. Jacobi Apostoli
@@ -992,7 +1007,7 @@ sections:
     index_title: S. JACOBI aPosToLI, 25 Julii
     days:
     - sancti:07-25
-    reference: Introitus. Mihi autem, uf supra, p. 4.
+    reference: 'Introitus. Mihi autem, ut supra, p. 4. Graduale. Constitues eos, ut supra, p. 6. Alleluia, alleluia. V. Ego vos elegi, ut supra, p. 205. Offertorium. In omnem terram, ut supra, p. 28. Communio. Vos qui secuti estis me, ut supra, p. 96.'
   - slug: s-ann-matris-b-m-v
     label: S. Annæ Matris B.M.V.
     title: S. Annæ Matris B.M.V.
@@ -1015,6 +1030,7 @@ sections:
     index_title: SS. NAZARII et CELSI MARTYRUM,, 28 Julii
     days:
     - sancti:07-28
+    reference: 'Missa. Intret, Pars IV, p. 40.'
   - slug: ss-felicis-simplicii-faustini-et-beatricis
     label: Ss. Felicis, Simplicii, Faustini et Beatricis
     title: Ss. Felicis, Simplicii, Faustini et Beatricis
@@ -1026,6 +1042,7 @@ sections:
     index_title: SS. FELICIS, SIMPLICII,, 29 Julii
     days:
     - sancti:07-29cc
+    reference: 'Missa. Sapientiam, Pars IV, p. 48.'
   - slug: s-abdon-et-sennen-martyrum
     label: S. Abdon et Sennen Martyrum
     title: S. Abdon et Sennen Martyrum
@@ -1059,7 +1076,7 @@ sections:
     token: ''
     index_title: S, PETRI AD VINCULA, 1 Augusti
     days: []
-    reference: Introitus. Nunc scio vere, ut supra, p. 238.
+    reference: 'Introitus. Nunc scio vere, ut supra, p. 238. Graduale. Constitues eos, ut supra, p. 239. Offertorium. Constitues eos, ut supra, p. 241. Communio. Tu es Petrus, ut supra, p. 242.'
     calendar_note: a 1942 feast the 1962 calendar does not keep
   - slug: ss-martyrum-machab-orum-2
     label: Ss. Martyrum Machabæorum
@@ -1072,7 +1089,7 @@ sections:
     index_title: SS. MACHAB/EORUM MARTYRUM, 1 Augusti
     days:
     - sancti:08-01r
-    reference: Introitus. Clamavérunt justi, uf supra, p. 106.
+    reference: 'Introitus. Clamaverunt justi, ut supra, p. 106. Graduale. Ecce quam bonum, Pars II, p. 251. Alleluia, alleluia. V. Haec est vera, ut supra, p. 176. Offertorium. Exsultabunt, Pars IV, p. 53. Communio. Dico autem vobis, ibid., p. 54.'
   - slug: s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor
     label: S. Alfonsi Mariæ de Ligorio Episcopi Confessoris et Ecclesiæ Doctoris
     title: S. Alfonsi Mariæ de Ligorio Episcopi Confessoris et Ecclesiæ Doctoris
@@ -1095,7 +1112,7 @@ sections:
     index_title: S. DOMINICI CONFESSORIS, 4 Augusti
     days:
     - sancti:08-04
-    reference: Introitus. Os justi, Pars IV, p. 76.
+    reference: 'Introitus. Os justi, Pars IV, p. 76. Graduale. Justus ut palma, ibid., p. 78. Alleluia, alleluia. V. Justus germinabit, ibid., p. 74. Offertorium. Veritas mea, ibid., p. 80. Communio. Fidelis servus, ibid., p. 65.'
   - slug: in-transfiguratione-domini
     label: In Transfiguratione Domini Nostri Jesu Christi
     title: In Transfiguratione Domini Nostri Jesu Christi
@@ -1140,6 +1157,7 @@ sections:
     index_title: S. ROMANI MARTYRIS, 9 Augusti
     days:
     - sancti:08-09cc
+    reference: 'Missa. Laetabitur, Pars IV, p. 24.'
   - slug: s-laurentii-martyris
     label: S. Laurentii Martyris
     title: S. Laurentii Martyris
@@ -1162,7 +1180,7 @@ sections:
     index_title: IN VIGILIA. ASSUMPTIONIS B. M. V, 14 Augusti
     days:
     - sancti:08-14
-    reference: Introitus. Vultum tuum, Pars IV, p. 115.
+    reference: 'Introitus. Vultum tuum, Pars IV, p. 115. Graduale. Benedicta, ibid., p. 184. Offertorium. Beata es, sine Alleluia, ibid., p. 181. Communio. Beata viscera, ibid., p. 187.'
   - slug: in-assumptione-beat-mari-virginis
     label: In Assumptione Beatæ Mariæ Virginis
     title: In Assumptione Beatæ Mariæ Virginis
@@ -1197,6 +1215,7 @@ sections:
     index_title: IN OCTAVA S. LAURENTII MARTYRIS, 17 Augusti
     days: []
     calendar_note: a 1942 feast the 1962 calendar does not keep
+    reference: 'Graduale. Gloria et honore, Pars IV, p. 12. Alleluia, alleluia. V. Levita Laurentius, ut supra, p. 316. Offertorium. In virtute tua, Pars IV, p. 84. Communio. Qui vult venire, ibid., p. 23.'
   - slug: s-joannis-eudes-confessoris
     label: S. Joannis Eudes Confessoris
     title: S. Joannis Eudes Confessoris
@@ -1208,6 +1227,7 @@ sections:
     index_title: CONFESSORIS, 19 Augusti
     days:
     - sancti:08-19
+    reference: 'Missa. Os justi, Pars IV, p. 76.'
   - slug: immaculati-cordis-b-mariae-virginis
     label: Immaculati Cordis Beatæ Mariæ Virginis
     title: Immaculati Cordis Beatæ Mariæ Virginis
@@ -1253,7 +1273,7 @@ sections:
     index_title: S. AUGUSTINI EPISCOPI, CONFESSORIS ET ECCLESUE DOCTORIS, 28 Augusti
     days:
     - sancti:08-28
-    reference: Introitus. in médio Ecclésiz, Pars IV, p. 71.
+    reference: 'Introitus. In medio Ecclesiae, Pars IV, p. 71. Graduale. Os justi, ibid., p. 72. Alleluia, alleluia. V. Inveni David, ut supra, p. 210. Offertorium. Justus ut palma, Pars IV, p. 76. Communio. Fidelis servus, ibid., p. 65.'
   - slug: decollatione-s-joannis-baptist
     label: Decollatione S. Joannis Baptistæ
     title: Decollatione S. Joannis Baptistæ
@@ -1276,18 +1296,7 @@ sections:
     index_title: SS. FELICIS ET ADAUCTI MARTYRUM, 30 Augusti
     days:
     - sancti:08-30o
-    reference: Introitus. Sapiéntiam, Pars IV, p. 48.
-  - slug: in-exaltatione-sanct-crucis
-    label: In Exaltatione Sanctæ crucis
-    title: In Exaltatione Sanctæ crucis
-    genre: proper
-    page: 344
-    status: verified
-    score: 1.0
-    token: ''
-    index_title: IN EXALTATIONE S. CRUCIS, 14 Septembris
-    days:
-    - sancti:09-14
+    reference: 'Introitus. Sapientiam, Pars IV, p. 48. Graduale. Justorum animae, ut supra, p. 38. Alleluia, alleluia. V. Fulgebunt justi, ut supra, p. 307. Offertorium. Laetamini, ut supra, p. 41. Communio. Quod dico vobis, Pars IV, p. 60.'
   - slug: s-nominis-beat-mari-virginis
     label: S. Nominis Beatæ Mariæ Virginis
     title: S. Nominis Beatæ Mariæ Virginis
@@ -1299,7 +1308,19 @@ sections:
     index_title: SANCTISSIMI NOMINIS MARIlE, 12 Septembris
     days:
     - sancti:09-12
-    reference: Introitus. Vultum tuum, Pars IV, p. 115.
+    reference: 'Introitus. Vultum tuum, Pars IV, p. 115. Graduale. Alleluia. Offertorium et Communio, ut in Missa votiva B. M. V. post Pentecosten, Pars IV, p. 184.'
+  - slug: in-exaltatione-sanct-crucis
+    label: In Exaltatione Sanctæ crucis
+    title: In Exaltatione Sanctæ crucis
+    genre: proper
+    page: 344
+    status: verified
+    score: 1.0
+    token: ''
+    index_title: IN EXALTATIONE S. CRUCIS, 14 Septembris
+    days:
+    - sancti:09-14
+    reference: 'Introitus. Nos autem gloriari, ut supra, p. 170. Graduale. Christus factus est, Pars IV, p. 162. Alleluia, alleluia. V. Dulce lignum, ut supra, p. 172. Communio. Per signum Crucis, ut supra, p. 174.'
   - slug: impressionis-stigmatum-s-francisci
     label: Impressionis Stigmatum S. Francisci
     title: Impressionis Stigmatum S. Francisci
@@ -1333,7 +1354,7 @@ sections:
     index_title: S. MATTH/EI APOST. ET EVANG, 21 Septembris
     days:
     - sancti:09-21
-    reference: Introitus. Os justi, Pars iV, p. 76.
+    reference: 'Introitus. Os justi, Pars IV, p. 76. Graduale. Beatus vir, ibid., p. 19. Alleluia, alleluia. V. Te gloriosus, ut supra, p. 338. Offertorium. Posuisti Domine, Pars IV, p. 27. Communio. Magna est, ibid., p. 2.'
   - slug: s-cosm-et-damiani-martyrum
     label: S. Cosmæ et Damiani Martyrum
     title: S. Cosmæ et Damiani Martyrum
@@ -1345,7 +1366,7 @@ sections:
     index_title: SS. COSM/E et DAMIANI MARTYRUM, 27 Septembris
     days:
     - sancti:09-27
-    reference: Introitus. Sapiéntiam, Pars IV, p. 48.
+    reference: 'Introitus. Sapientiam, Pars IV, p. 48. Graduale. Clamaverunt justi, ibid., p. 55. Alleluia, alleluia. V. Haec est vera, ut supra, p. 176. Offertorium. Gloriabuntur, ut supra, p. 228. Communio. Posuerunt, ut supra, p. 208.'
   - slug: in-dedicatione-s-mich-lis-archangelis
     label: In Dedicatione S. Michælis Archangelis
     title: In Dedicatione S. Michælis Archangelis
@@ -1368,6 +1389,7 @@ sections:
     index_title: S. HIERONYMI PRESBYTERI, CONFESSORIS, 30 Septembris
     days:
     - sancti:09-30
+    reference: 'Missa. In medio Ecclesiae, Pars IV, p. 71.'
   - slug: ss-angelorum-custodum
     label: Ss. Angelorum Custodum
     title: Ss. Angelorum Custodum
@@ -1437,6 +1459,7 @@ sections:
     index_title: REGINJE/ VIDUJE, 16 Octobris
     days:
     - sancti:10-16
+    reference: 'Missa. Cognovi, Pars IV, p. 121.'
   - slug: s-margarit-mari-alaquoque-virginis
     label: S. Margaritæ Mariæ Alaquoque Virginis
     title: S. Margaritæ Mariæ Alaquoque Virginis
@@ -1459,7 +1482,7 @@ sections:
     index_title: S, LUC/ZE EvANGELISTAE, 18 Octobris
     days:
     - sancti:10-18
-    reference: Introitus. Mihi autem, uf supra, p. 4.
+    reference: 'Introitus. Mihi autem, ut supra, p. 4. Graduale. In omnem terram, ut supra, p. 203. Alleluia, alleluia. V. Ego vos elegi, ut supra, p. 205. Offertorium. Mihi autem, ut supra, p. 8. Communio. Vos qui secuti estis me, ut supra, p. 96.'
   - slug: s-joannis-cantii-confessoris
     label: S. Joannis Cantii Confessoris
     title: S. Joannis Cantii Confessoris
@@ -1502,7 +1525,7 @@ sections:
     score: 1.0
     token: ''
     index_title: IN VIGILIA SS. SIMONIS et JUD/E |. APOSTOLORUM, 27 Octobris
-    reference: Introitus. Intret, Pars IV, p. 40.
+    reference: 'Introitus. Intret, Pars IV, p. 40. Graduale. Vindica Domine, ut supra, p. 207. Offertorium. Exsultabunt, Pars IV, p. 53. Communio. Posuerunt, ut supra, p. 208.'
     days: []
     calendar_note: a 1942 feast the 1962 calendar does not keep
   - slug: ss-simonis-et-jud-apostolorum
@@ -1528,6 +1551,7 @@ sections:
     index_title: IN VIGILIA OMNIUM SANCTORUM, 31 Octobris
     days: []
     calendar_note: a 1942 feast the 1962 calendar does not keep
+    reference: 'Graduale. Exsultabunt, ut supra, p. 212. Offertorium. Exsultabunt, Pars IV, p. 53. Communio. Justorum animae, ut supra, p. 189.'
   - slug: omnium-sanctorum
     label: Omnium Sanctorum
     title: Omnium Sanctorum
@@ -1550,6 +1574,7 @@ sections:
     index_title: OCTAVA. OMNIUM SANCTORUM, 8 Novembris
     days: []
     calendar_note: a 1942 feast the 1962 calendar does not keep
+    reference: 'Dicitur Missa sicut in die, ut supra, p. 426.'
   - slug: ss-tryphonis-respicii-and-nymph
     label: Ss. Tryphonis, Respicii, and Nymphæ
     title: Ss. Tryphonis, Respicii, and Nymphæ
@@ -1561,7 +1586,7 @@ sections:
     index_title: SS, TRYPHONIS, RESPICII et NYMPH/E VIRGINIS, MARTYRUM, 10 Novembris
     days:
     - sancti:11-10o
-    reference: Introitus. Clamavérunt justi, uf supra, p. 106.
+    reference: 'Introitus. Clamaverunt justi, ut supra, p. 106. Graduale. Vindica Domine, ut supra, p. 207. Alleluia, alleluia. V. Pretiosa, Pars IV, p. 37. Offertorium. Laetamini, ut supra, p. 41. Communio. Quicumque fecerit, ut supra, p. 107.'
   - slug: s-martini-episcopi-et-confessoris
     label: S. Martini Episcopi et Confessoris
     title: S. Martini Episcopi et Confessoris
@@ -1596,6 +1621,7 @@ sections:
     index_title: S. ALBERTI MAGNI, 15 Novembris
     days:
     - sancti:11-15
+    reference: 'Missa. In medio, Pars IV, p. 71.'
   - slug: s-c-cili-virginis-et-martyris
     label: S. Cæciliæ Virginis et Martyris
     title: S. Cæciliæ Virginis et Martyris

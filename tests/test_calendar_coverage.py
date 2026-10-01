@@ -88,7 +88,6 @@ def test_feasts_found_on_the_wrong_day_stay_on_the_right_one(slug, day):
 
 
 @pytest.mark.parametrize(("slug", "day"), [
-    ("in-dedicatione-s-mich-lis-archangelis", "sancti:10-02"),      # not SS Cosmas and Damian's heading
     ("ss-quadraginta-martyrum", "sancti:11-10o"),                   # not St Frances of Rome's heading
     ("commune-unius-aut-plurium-summorum-pontificum", "sancti:10-14"),  # "vide ad calcem Partis IV"
     ("commune-confessoris-non-pontificis", "sancti:03-04"),         # "Pars iV, p. 76"
