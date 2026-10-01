@@ -561,6 +561,7 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
                 "title": entry.title,
                 "incipit": entry.incipit,
                 "reference": entry.reference,
+                **({"reference_sources": list(entry.reference_sources)} if entry.reference_sources else {}),
                 "genre": entry.genre,
                 "mode": None,
                 "mass": entry.label if entry.genre == "mass_ordinary" else None,
@@ -654,6 +655,11 @@ def parse_reference(text: str, volume: str | None = None) -> tuple[str, int] | N
     """("noh4", 76) from "Missa. Os justi, Pars IV, p. 76." -- OCR reads IV as 1V.
     A page with no part ("Missa. Justus ut palma, p. 82") is in `volume`."""
     m = REFERENCE.search(text)
+    bare = SAME_VOLUME.search(text) if volume else None
+    # A rubric can cite several parts. Its first local citation remains the
+    # calendar destination even when a later chant names another volume.
+    if bare and (not m or bare.start() < m.start()) and "Pars" not in text[:bare.start()]:
+        return (volume, int(bare.group("page")))
     if not m and AT_CALCEM.search(text):
         return ("noh4", AT_END)
     if not m:
@@ -681,6 +687,12 @@ def link_rubrics(catalog: Catalog, rubrics: list[Record]) -> list[Record]:
         ref = parse_reference(str(rubric.get("reference", "")), str(rubric.get("volume") or "") or None)
         days = [str(d) for d in rubric.get("days", [])]
         if not days:
+            continue
+        # A Proper with its own music remains the calendar's Mass. Its part
+        # citations supply sections, not another feast's calendar assignment.
+        if any(p.get("systems") and p.get("reference") == rubric.get("reference")
+               and p.get("volume") == rubric.get("volume")
+               and set(days) & set(p["days"]) for p in pieces):
             continue
         target = None
         if ref:

@@ -6,9 +6,9 @@ import type { Piece } from "../lib/catalog";
 // Jump links to the headings SystemStack prints above each movement, part and
 // hymn. Both come from jumpTargets, so every link has a target. Parts printed
 // elsewhere link to the page that prints them.
-interface Props { readonly piece: Piece }
-const { piece } = Astro.props;
-const starts = jumpTargets(piece);
+interface Props { readonly piece: Piece; readonly anchorPrefix?: string }
+const { piece, anchorPrefix = "" } = Astro.props;
+const starts = jumpTargets(piece).map((s) => ({ ...s, anchor: `${anchorPrefix}${s.anchor}` }));
 const movements = starts.filter((s) => s.kind === "movement");
 const parts = starts.filter((s) => s.kind === "part");
 const hymns = starts.filter((s) => s.kind === "hymn");

@@ -47,6 +47,9 @@ class IndexEntry:
     status: str = "verified"
     # Parts printed elsewhere: "Introitus. Vultum tuum, Pars IV, p. 115."
     reference: str | None = None
+    # Reviewed alternatives or exceptions which a prose rubric cannot resolve
+    # to one Mass (e.g. before/after Epiphany's first Sunday).
+    reference_sources: tuple[dict[str, object], ...] = ()
     # An addendum's id (data/volumes.yml) when the entry is printed in one: its
     # `page` then counts in that addendum's own pagination, not the body's.
     pagination: str | None = None
@@ -87,6 +90,7 @@ def load_index(vol_id: str, path: Path | None = None) -> list[IndexEntry]:
                 incipit=e.get("incipit"), division=division,
                 days=tuple(e.get("days", ())), status=e.get("status", "verified"),
                 reference=e.get("reference"),
+                reference_sources=tuple(e.get("reference_sources", ())),
                 pagination=e.get("pagination", section.get("pagination")),
             ))
     return entries

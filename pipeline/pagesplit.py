@@ -15,6 +15,7 @@ cached per page under build/gaps/.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 from pipeline.indexextract import (
@@ -105,6 +106,15 @@ class GapReader:
 
     def _tidy(self, k: int, text: str) -> str:
         # Only the first gap holds the running head.
+        if k == 0 and self.vol_id == "noh8" and re.search(
+                r"(?m)^\s*IN\s+I{1,2}\.?\s+VESPERIS\b", text):
+            # A Vespers opening may print its actual feast heading beside the
+            # folio (NOH8 p152). The following Vespers heading identifies a new
+            # office; discard the folio token, rather than the feast's line.
+            lines = text.splitlines()
+            if lines:
+                lines[0] = re.sub(rf"(?<!\d){self.printed}(?!\d)", "", lines[0]).strip()
+            return "\n".join(lines)
         return drop_running_head(text, self.printed) if k == 0 else text
 
 

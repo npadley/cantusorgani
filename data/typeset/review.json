@@ -2084,7 +2084,7 @@
   {
    "file": "vol-3/al_haec_est_vera.csv.ly",
    "status": "proposed",
-   "target": "part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/alleluia:2",
+   "target": "part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/alleluia:shared",
    "hash": "633ffa182f6e190b0ef322f1db668e68",
    "melody": 0.373,
    "words": 0.32,
@@ -2092,7 +2092,7 @@
    "page": 176,
    "candidates": [
     {
-     "target": "part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/alleluia:2",
+     "target": "part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/alleluia:shared",
      "melody": 0.373,
      "words": 0.32
     },
@@ -3379,7 +3379,7 @@
   {
    "file": "vol-3/of_postula_a_me.csv.ly",
    "status": "proposed",
-   "target": "part:s-nominis-beat-mari-virginis/offertory",
+   "target": "part:in-exaltatione-sanct-crucis/offertory",
    "hash": "30b6eded3cc18009a2c0d5f6b8ffe9e7",
    "melody": 0.765,
    "words": 0.109,
@@ -3387,7 +3387,7 @@
    "page": 422,
    "candidates": [
     {
-     "target": "part:s-nominis-beat-mari-virginis/offertory",
+     "target": "part:in-exaltatione-sanct-crucis/offertory",
      "melody": 0.765,
      "words": 0.109
     },
@@ -3411,7 +3411,7 @@
   {
    "file": "vol-3/of_protege_domine.csv.ly",
    "status": "melody-differs",
-   "target": "part:s-nominis-beat-mari-virginis/offertory",
+   "target": "part:in-exaltatione-sanct-crucis/offertory",
    "hash": "50640de6621e56b42e08b03a3e43000d",
    "melody": 0.235,
    "words": 0.232,
@@ -3419,7 +3419,7 @@
    "page": 345,
    "candidates": [
     {
-     "target": "part:s-nominis-beat-mari-virginis/offertory",
+     "target": "part:in-exaltatione-sanct-crucis/offertory",
      "melody": 0.235,
      "words": 0.232
     }
@@ -3483,7 +3483,7 @@
      "words": 0.333
     },
     {
-     "target": "part:s-nominis-beat-mari-virginis/offertory",
+     "target": "part:in-exaltatione-sanct-crucis/offertory",
      "melody": 0.747,
      "words": 0.444
     }

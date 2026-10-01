@@ -169,3 +169,14 @@ def test_parse_reference_page_without_p_still_read():
 def test_parse_reference_stray_l_after_the_page_is_noise():
     """St Christina, NOH3 p. 281: "Missa. Ego autem sicut oliva, Pars IV, p. 1l." """
     assert parse_reference("Missa. Ego autem sicut oliva, Pars IV, p. 1l.") == ("noh4", 1)
+
+
+def test_partial_reference_does_not_assign_the_feast_day_to_its_lender():
+    catalog = {'pieces': [
+        {'volume': 'noh3', 'slug': 'exaltation', 'reference': 'Introitus, p. 170.',
+         'printed_pages': [344, 346], 'days': ['sancti:09-14'], 'systems': ['own']},
+        {'volume': 'noh3', 'slug': 'invention', 'printed_pages': [170, 174], 'days': [], 'systems': ['source']},
+    ]}
+    assert link_rubrics(catalog, [{'volume': 'noh3', 'reference': 'Introitus, p. 170.',
+                                 'days': ['sancti:09-14']}]) == []
+    assert catalog['pieces'][1]['days'] == []

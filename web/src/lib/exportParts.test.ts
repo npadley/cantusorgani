@@ -205,3 +205,41 @@ describe("exportSegments for a Mass with rows of its own", () => {
       ["part:ordinarium-missae-iv/other:benedicamus", "other-benedicamus"]]);
   });
 });
+describe("audited seasonal references", () => {
+  it("selects both Paschal Alleluias, including the shared verse, in Eastertide", () => {
+    const segments = exportSegments([piece("two-alleluia", 8, [
+      ["introit", 0], ["gradual", 2, "extra-paschal"], ["alleluia", 3, "shared"],
+      ["alleluia", 5, "paschal"], ["communion", 7],
+    ])]);
+    expect(segments.filter((s) => defaultTicked(s, segments, "easter")).map((s) => s.variant))
+      .toEqual(["", "shared", "paschal", ""]);
+    expect(segments.filter((s) => defaultTicked(s, segments, "other")).map((s) => s.variant))
+      .toEqual(["", "extra-paschal", "shared", ""]);
+  });
+  it("selects both numbered Paschal references and labels them as Alleluias", () => {
+    const segments = exportSegments([piece("paschal-2", 8, [
+      ["introit", 0], ["alleluia", 2, "paschal"], ["alleluia", 4, "paschal-2"], ["communion", 6],
+    ])]);
+    expect(segments.filter((s) => defaultTicked(s, segments, "other")).map((s) => s.part))
+      .toEqual(["introit", "communion"]);
+    expect(segments[2]?.label).toBe("Paschal Alleluia 2");
+  });
+  it("honors a rubric omitting the Tract in both the export and inline projection", () => {
+    const segments = exportSegments([{ ...THERESE, excludedParts: ["tract"] }]);
+    expect(segments.map((s) => s.part)).not.toContain("tract");
+    expect(segments.reduce((n, s) => n + s.systems, 0)).toBe(10);
+  });
+});
+
+it("keeps borrowed Vespers psalms before the hymn and Magnificat", () => {
+  const lender = piece("vespers-source", 6, [["other", 0], ["hymn", 3]], "vesperale");
+  const own = piece("vespers-sunday", 2, [["other", 0]], "vesperale");
+  const borrower: Piece = { ...own, parts: [
+    { kind: "borrowed", part: "other", variant: "", borrowedVolume: "noh3", borrowedPage: 1,
+      borrowedFrom: lender.slug, borrowedRef: lender.systems[0]!, gregobaseId: null, label: null, title: null },
+    { kind: "borrowed", part: "hymn", variant: "", borrowedVolume: "noh3", borrowedPage: 2,
+      borrowedFrom: lender.slug, borrowedRef: lender.systems[3]!, gregobaseId: null, label: null, title: null },
+    ...own.parts,
+  ] };
+  expect(exportSegments([borrower], [lender]).map((s) => s.part)).toEqual(["other", "hymn", "other"]);
+});

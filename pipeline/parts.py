@@ -619,36 +619,102 @@ def borrowed_parts(reference: str, volume: str) -> list[tuple[str, str, int]]:
     return out
 
 
-def link_one(part: dict[str, object], piece: dict[str, object], pieces: list[dict[str, object]]) -> bool:
-    """Resolve one borrowed section to the lending piece's section, in place
-    (borrowed_from, borrowed_ref); False, with both None, where none lends it."""
-    volume, page = part["borrowed_volume"], int(part["borrowed_page"])  # type: ignore[call-overload]
-    lenders = [p for p in pieces if p["volume"] == volume and p.get("systems")
-               and p is not piece and not p.get("pagination")   # the body's page
-               and p["printed_pages"][0] <= page <= p["printed_pages"][1]]  # type: ignore[index]
-    lenders.sort(key=lambda p: p["printed_pages"][0] != page)  # type: ignore[index]
-    for lender in lenders:
-        own = [q for q in lender.get("sections", []) or []  # type: ignore[union-attr]
-               if q.get("kind") == part["kind"] and "ref" in q and q.get("placed") != "order"]
-        # The lender's Alleluia serves a borrowed Paschal Alleluia when it
-        # is the only one it prints (a votive Mass cited in the rubric).
-        own.sort(key=lambda q: q.get("variant", "") != part.get("variant", ""))
-        if own:
-            part["borrowed_from"], part["borrowed_ref"] = lender["slug"], own[0]["ref"]
-            return True
-    part["borrowed_from"], part["borrowed_ref"] = None, None
-    return False
+def _section_pages(piece: dict[str, object], section: dict[str, object],
+                   volumes: dict[str, object]) -> list[int]:
+    """Printed pages occupied by this section, ending at the next local start."""
+    refs = list(piece.get("systems", []) or [])
+    ref = section.get("ref")
+    if ref not in refs:
+        return []
+    start = refs.index(ref)
+    stops = [refs.index(q["ref"]) for q in piece.get("sections", []) or []
+             if q.get("ref") in refs and refs.index(q["ref"]) > start]
+    stop = min(stops, default=len(refs))
+    volume = volumes.get(str(piece["volume"]), {})
+    maps = volume.get("page_map", [])
+    pages = []
+    for system in refs[start:stop]:
+        try:
+            pdf_page = int(system.split("/")[1])
+        except (ValueError, IndexError):
+            continue
+        mapped = next((pdf_page - int(m["offset"]) for m in maps
+                       if m["first_pdf"] <= pdf_page <= m["last_pdf"]
+                       and m.get("pagination") == piece.get("pagination")), None)
+        if mapped is None and piece.get("pdf_pages"):
+            mapped = pdf_page - int(piece["pdf_pages"][0]) + int(piece["printed_pages"][0])
+        if mapped is not None:
+            pages.append(mapped)
+    return pages
+
+
+def link_one(part: dict[str, object], piece: dict[str, object], pieces: list[dict[str, object]],
+             volumes: dict[str, object] | None = None) -> bool:
+    """Resolve a citation to the actual local section, following borrowed lenders.
+
+    A cited page can finish one Proper and start another. Only a section whose
+    own systems occupy that page lends its music. Repeated parts use their
+    variant and chant when known. A Paschal rubric may repeat the same piece's
+    regular Alleluia; borrowed lenders may point onwards, with cycles guarded.
+    """
+    page_maps = volumes or {}
+
+    def resolve(current: dict[str, object], owner: dict[str, object],
+                visited: frozenset[int]) -> tuple[str, str] | None:
+        if id(current) in visited:
+            return None
+        visited = visited | {id(current)}
+        volume, page = current["borrowed_volume"], int(current["borrowed_page"])
+        candidates = []
+        for lender in pieces:
+            if lender["volume"] != volume or lender.get("pagination"):
+                continue
+            if not lender["printed_pages"][0] <= page <= lender["printed_pages"][1]:
+                continue
+            for section in lender.get("sections", []) or []:
+                if section is current or section.get("kind") != current["kind"]:
+                    continue
+                if section.get("placed") == "order":
+                    continue
+                pages = _section_pages(lender, section, page_maps)
+                local = section.get("ref") is not None
+                # Legacy catalogs without page maps or realistic system refs
+                # retain piece-range lookup; mapped catalogs require exact pages.
+                if local and (page_maps or pages) and page not in pages:
+                    continue
+                if not local and "borrowed_page" not in section:
+                    continue
+                variant = section.get("variant", "") != current.get("variant", "")
+                chant = (current.get("gregobase_id") is not None
+                         and section.get("gregobase_id") != current.get("gregobase_id"))
+                starts = bool(pages) and pages[0] == page
+                explicit = (lender["slug"] == current.get("borrowed_from")
+                            and section.get("ref") == current.get("borrowed_ref"))
+                candidates.append(((variant, chant, not starts, not explicit,
+                                    lender["printed_pages"][0] != page), lender, section))
+        candidates.sort(key=lambda candidate: candidate[0])
+        for _, lender, section in candidates:
+            if "borrowed_page" in section:
+                target = resolve(section, lender, visited)
+                if target is not None:
+                    return target
+            elif section.get("ref"):
+                return str(lender["slug"]), str(section["ref"])
+        return None
+
+    target = resolve(part, piece, frozenset())
+    part["borrowed_from"], part["borrowed_ref"] = target or (None, None)
+    return target is not None
 
 
 def link_parts(catalog: dict[str, object]) -> list[dict[str, object]]:
-    """Resolve each borrowed section to the lending piece's section, after every
-    volume is merged (a Proper in NOH3 borrows from NOH4's Commons). Returns
-    the ones that could not be resolved, for the review queue."""
+    """Resolve borrowed sections after every volume is merged; return failures."""
     pieces: list[dict[str, object]] = list(catalog["pieces"])  # type: ignore[arg-type]
+    volumes = catalog.get("volumes", {})
     unresolved: list[dict[str, object]] = []
     for piece in pieces:
-        for part in piece.get("sections", []) or []:   # type: ignore[union-attr]
-            if "borrowed_page" in part and not link_one(part, piece, pieces):
+        for part in piece.get("sections", []) or []:
+            if "borrowed_page" in part and not link_one(part, piece, pieces, volumes):
                 unresolved.append({"kind": "part_borrowed_unresolved", "piece": piece["slug"],
                                    "part": part["kind"], "volume": part["borrowed_volume"],
                                    "printed_page": int(part["borrowed_page"])})

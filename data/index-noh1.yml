@@ -175,6 +175,7 @@ sections:
     index_title: S.. Innocentium
     days:
     - sancti:12-28
+    reference: 'Graduale. Anima nostra, ut in Comm. plurim. Martyrum, Pars IV, p. 50.'
   - slug: dominica-infra-octavam-nativitatis
     label: Dominica Infra Octavam Nativitatis
     title: Dominica Infra Octavam Nativitatis
@@ -198,6 +199,7 @@ sections:
     days:
     - sancti:12-29
     calendar_note: 'weak title match (0.831): check'
+    reference: 'Graduale. Ecce sacerdos magnus, ut in Communi Conf. Pontificis, Pars IV, p. 62.'
   - slug: dominica-infra-octavam-nativitatis-2
     label: Dominica Infra Octavam Nativitatis
     title: Dominica Infra Octavam Nativitatis
@@ -209,6 +211,7 @@ sections:
     index_title: Diebus infra octavam Nativitatis Domini.
     days:
     - tempora:Nat1-0
+    reference: 'Missa. Puer natus est, ut in die, p. 60.'
   - slug: s-silvestri
     label: S. Silvestri
     title: S. Silvestri
@@ -220,6 +223,7 @@ sections:
     index_title: 'S. Silvestri I Papa: et Confessoris'
     days:
     - sancti:12-31
+    reference: 'Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.'
   - slug: noh1-p86
     label: Die Octavæ Nativitatis Domini
     title: Die Octavæ Nativitatis Domini
@@ -254,6 +258,7 @@ sections:
     index_title: 'S. Telesphori Papa: et Martyris'
     days:
     - sancti:01-05
+    reference: 'Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.'
   - slug: in-epiphania-domini
     label: In Epiphania Domini
     title: In Epiphania Domini
@@ -275,6 +280,14 @@ sections:
     token: '103'
     index_title: Diebus ferialibus a 7 ad 12 januarii
     calendar_note: no 1962 observance on 01-12
+    reference: 'Diebus ferialibus a 7 ad 12 januarii ante dominicam I post Epiphaniam occurrentibus, dicitur Missa de festo Epiphaniae; post eandem dominicam vero Missa de eadem dominica In excelso throno, ut infra, p. 112.'
+    reference_sources:
+    - volume: noh1
+      page: 99
+      label: 'Ecce advenit — January 7–12 before Sunday I after Epiphany'
+    - volume: noh1
+      page: 112
+      label: 'In excelso throno — January 7–12 after Sunday I after Epiphany'
   - slug: noh1-p104
     label: 'S. Familia: Jesu, Marise, Joseph.'
     title: 'S. Familia: Jesu, Marise, Joseph.'
@@ -309,6 +322,7 @@ sections:
     days:
     - sancti:01-11cc
     calendar_note: 'weak title match (0.831): check'
+    reference: 'Missa. Si diligis me, de Communi unius Summi Pontificis, vide ad calcem Partis IV.'
   - slug: in-commemoratione-baptismatis-domini-nostri-jesu-christi
     label: In Commemoratione Baptismatis Domini Nostri Jesu Christi
     title: In Commemoratione Baptismatis Domini Nostri Jesu Christi
@@ -320,6 +334,7 @@ sections:
     index_title: Commemoratio Baptismatis D.N.I.C.
     days:
     - sancti:01-13
+    reference: 'Missa. Ecce advenit, ut in die Epiphaniae, p. 99.'
   - slug: dominica-ii-post-epiphaniam
     label: Dominica II post Epiphaniam
     title: Dominica II post Epiphaniam
@@ -355,6 +370,7 @@ sections:
     - tempora:Epi4-0
     - tempora:Epi5-0
     - tempora:Epi6-0
+    reference: 'Omnia ut in Dominica praecedenti, p. 126.'
   - slug: dominica-in-septuagesima
     label: Dominica in Septuagesima
     title: Dominica in Septuagesima
@@ -477,6 +493,7 @@ sections:
     index_title: Feria III post dom. I Quadragesimlll
     days:
     - tempora:Quad1-2
+    reference: 'Graduale. Dirigatur, ut in Sabbato Quatuor Temp. Quadrag., ut infra, p. 198. Offertorium. In te speravi, ut in Dom. XIII post Pentecosten, Pars II, p. 199.'
   - slug: feria-iv-quatuor-temporum-quadragesim
     label: Feria IV Quatuor Temporum Quadragesimæ
     title: Feria IV Quatuor Temporum Quadragesimæ
@@ -499,6 +516,7 @@ sections:
     index_title: 'Feria V post dom. I Quadragesima:'
     days:
     - tempora:Quad1-4
+    reference: 'Graduale. Custodi me, ut in Dom. X post Pentecosten, Pars II, p. 178. Offertorium. Immittet Angelus, ut in Dom. XIV post Pentecosten, ibid., p. 204. Communio. Panis quem ego, ut in Dom. XV post Pentecosten, ibid., p. 212.'
   - slug: feria-vi-quattuor-temporum-quadragesim
     label: Feria VI Quattuor Temporum Quadragesimæ
     title: Feria VI Quattuor Temporum Quadragesimæ
@@ -554,6 +572,7 @@ sections:
     index_title: Feria III post dom IT Quadrageaimse
     days:
     - tempora:Quad2-2
+    reference: 'Graduale. Jacta cogitatum, ut in Dominica III post Pentecosten, Pars II, p. 145.'
   - slug: feria-iv-infra-hebd-ii-quadragesim
     label: Feria IV infra Hebd II Quadragesimæ
     title: Feria IV infra Hebd II Quadragesimæ
@@ -708,6 +727,7 @@ sections:
     index_title: Feria III post dom. IV Quadragesime
     days:
     - tempora:Quad4-2
+    reference: 'Offertorium. Exspectans, ut in Dominica XV post Pentecosten, Pars II, p. 211.'
   - slug: feria-iv-infra-hebd-iv-quadragesim
     label: Feria IV infra Hebd IV Quadragesimæ
     title: Feria IV infra Hebd IV Quadragesimæ
@@ -730,6 +750,7 @@ sections:
     index_title: Feria V post dom. IV Quadragesime
     days:
     - tempora:Quad4-4
+    reference: 'Graduale. Respice Domine, ut in Dominica XIII post Pentecosten, Pars II, p. 196. Communio. Domine, memorabor, ut in Dominica XVI post Pentecosten, Pars II, p. 216.'
   - slug: feria-vi-infra-hebd-iv-quadragesim
     label: Feria VI infra Hebd IV Quadragesimæ
     title: Feria VI infra Hebd IV Quadragesimæ
@@ -785,6 +806,7 @@ sections:
     index_title: Feria III poat dom. I Passionis
     days:
     - tempora:Quad5-2
+    reference: 'Offertorium. Sperent in te, ut in Dominica III post Pentecosten, Pars II, p. 148.'
   - slug: feria-iv-infra-hebd-passionis
     label: Feria IV infra Hebd Passionis
     title: Feria IV infra Hebd Passionis
@@ -829,9 +851,15 @@ sections:
     index_title: Sabbato post dom. I Passionis Dominica II Passionis seu in palmis.
     days:
     - tempora:Quad5-6
+    reference: 'Sabbato post Dominicam Passionis, resumitur Missa diei praecedentis, p. 294, excepto Tractu qui omittitur.'
+    reference_sources:
+    - volume: noh1
+      page: 294
+      label: 'Mass of the preceding Friday, omitting the Tract'
+      omit: [tract]
   - slug: noh1-p299
-    label: Dominica II Passionis seu in Palmis
-    title: Dominica II Passionis seu in Palmis
+    label: De benedictione ramorum
+    title: De benedictione ramorum
     genre: proper
     page: 299
     status: verified
@@ -842,8 +870,8 @@ sections:
     days: &id001
     - tempora:Quad6-0r
   - slug: noh1-p299-2
-    label: Dominica II Passionis seu in Palmis
-    title: Dominica II Passionis seu in Palmis
+    label: De distributione ramorum
+    title: De distributione ramorum
     genre: proper
     page: 299
     status: verified

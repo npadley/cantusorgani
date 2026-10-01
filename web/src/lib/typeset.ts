@@ -154,5 +154,7 @@ export function exportRuns(piece: Piece, start: number, end: number,
 
 /** How the page and the export name one segment of one piece. */
 export function segmentKey(piece: Piece, start: number): string {
+  const source = piece.systemSources?.[start];
+  if (source) return `${source.slug}:${source.index}`;
   return `${piece.slug}:${start}`;
 }
