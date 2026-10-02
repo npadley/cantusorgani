@@ -40,6 +40,10 @@ export function typesetStore(db: D1Like) {
         throw error;
       }
     },
+    async activeSnapshot(file:string):Promise<(SourceSnapshot & {status:string})|null> {
+      return db.prepare(`SELECT s.correction_id AS correctionId,s.file,s.text,s.base_blob_sha AS baseBlobSha,s.content_hash AS contentHash,c.status
+        FROM typeset_snapshots s JOIN corrections c ON c.id=s.correction_id WHERE s.file=?1 AND c.status IN ('approved','queued')`).bind(file).first();
+    },
     async snapshots(ids: readonly number[]): Promise<readonly SourceSnapshot[]> {
       if (!ids.length) return [];
       const rows = await db.prepare(`SELECT correction_id AS correctionId,file,text,base_blob_sha AS baseBlobSha,content_hash AS contentHash

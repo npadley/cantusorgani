@@ -9,7 +9,7 @@ export async function previewKey(file:string,text:string,commitSha:string):Promi
 }
 export async function dispatchPreview(env:GithubEnv,payload:PreviewPayload):Promise<void> {
   const api=await githubClient(env);
-  await api("/dispatches",{method:"POST",body:JSON.stringify({event_type:"typeset-preview",client_payload:payload})});
+  await api("dispatches",{method:"POST",body:JSON.stringify({event_type:"typeset-preview",client_payload:payload})});
 }
 export function previewStore(db:D1Like) {
   return {

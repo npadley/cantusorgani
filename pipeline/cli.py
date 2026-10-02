@@ -138,6 +138,9 @@ def build_parser() -> argparse.ArgumentParser:
                     help="print one day's lineup instead: a date (2026-09-13) or a key (tempora:Pent16-0)")
     vl.add_argument("--json", action="store_true", help="with --day: print that day's JSON")
 
+    source_batch = subs.add_parser("typeset-source-batch", help="Check/render approved source and refresh its matching evidence without secrets")
+    source_batch.add_argument("payload", type=Path)
+    source_batch.add_argument("--out", type=Path, default=Path("build/source-batch/parts.yml"))
     for command in ("typeset-preview-render", "typeset-preview-publish"):
         preview = subs.add_parser(command, help="Render or independently upload a source preview")
         if command.endswith("render"):
@@ -236,9 +239,9 @@ def _corrections_command(args: argparse.Namespace) -> int:
             batch = _json.loads(_Path(args.file).read_text(encoding="utf-8"))
             recorded = c.correct_batch(batch)
             c.write_all()
-            hold = c.hold_reasons(recorded)
+            hold = c.hold_reasons(recorded, sources=batch.get("sources"))
             if args.summary:
-                _Path(args.summary).write_text(c.batch_summary(str(batch["batch"]), recorded, hold), encoding="utf-8")
+                _Path(args.summary).write_text(c.batch_summary(str(batch["batch"]), recorded, hold, sources=batch.get("sources")), encoding="utf-8")
             if args.hold:
                 _Path(args.hold).write_text("".join(f"{r}\n" for r in hold), encoding="utf-8")
             print(f"recorded {len(recorded)} correction(s): {', '.join(e.id for e in recorded)}")
@@ -336,8 +339,14 @@ def main(argv: list[str] | None = None) -> int:
         print(f"rewrote {', '.join(changed)}" if changed else "manifest.json and review.json are current")
         return 0
 
+    if args.command == "typeset-source-batch":
+        import json
+
+        from pipeline.typeset.source_batch import refresh_sources
+        refresh_sources(json.loads(args.payload.read_text()), args.out)
+        return 0
     if args.command in ("typeset-preview-render", "typeset-preview-publish"):
-        from pipeline.typeset.preview import render_preview, publish_preview
+        from pipeline.typeset.preview import publish_preview, render_preview
         if args.command.endswith("render"):
             render_preview(args.payload, args.out)
         else:

@@ -1134,8 +1134,41 @@ BATCH_ID = re.compile(r"^b-[0-9a-z-]{6,40}$")
 EMAIL = re.compile(r"^[^\s@<>]{1,64}@[^\s@<>]{1,190}$")
 
 
+def validate_batch_sources(batch: dict[str, Any], source_root: Path = Path("data/typeset/src")) -> list[dict[str, Any]]:
+    """Validate descriptors against committed UTF-8 source; source is never a catalogue field."""
+    import hashlib
+
+    from pipeline.typeset.source_check import check
+    sources = batch.get("sources", [])
+    if not isinstance(sources, list) or len(sources) > 100:
+        raise CorrectionError("invalid source descriptors")
+    if sources and batch.get("branch") != f"corrections/{batch.get('batch')}":
+        raise CorrectionError("source branch does not match batch")
+    seen: set[str] = set()
+    for row in sources:
+        if not isinstance(row, dict) or set(row) != {"correctionId", "file", "baseBlobSha", "contentHash"}:
+            raise CorrectionError("invalid source descriptor fields")
+        file = row.get("file")
+        if not isinstance(file, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_./-]*\.ly", file) or any(p in (".", "..", "") for p in file.split("/")) or file in seen:
+            raise CorrectionError("invalid or duplicate source file")
+        seen.add(file)
+        if type(row.get("correctionId")) is not int or row["correctionId"] <= 0 or not re.fullmatch(r"[a-f0-9]{40}", str(row.get("baseBlobSha"))) or not re.fullmatch(r"[a-f0-9]{64}", str(row.get("contentHash"))):
+            raise CorrectionError("invalid source identity")
+        source = source_root / file
+        if not source.is_file() or source.is_symlink() or source.stat().st_size > 61440:
+            raise CorrectionError("missing/oversized source")
+        try:
+            data = source.read_bytes()
+            text = data.decode("utf-8")
+        except (OSError, UnicodeError) as exc:
+            raise CorrectionError("invalid UTF-8 source") from exc
+        if hashlib.sha256(data).hexdigest() != row["contentHash"] or check(text, frozenset({"noh.ily", "noh2.ily"})):
+            raise CorrectionError("committed source differs from the approved safe snapshot")
+    return sources
+
+
 def correct_batch(batch: dict[str, Any], today: date | None = None, base_path: Path = BASE,
-                  path: Path = CORRECTIONS) -> list[Entry]:
+                  path: Path = CORRECTIONS, source_root: Path = Path("data/typeset/src")) -> list[Entry]:
     """Record a batch from the admin screen, all or nothing.
 
     The batch arrives from GitHub Actions' repository_dispatch payload, so every
@@ -1144,8 +1177,11 @@ def correct_batch(batch: dict[str, Any], today: date | None = None, base_path: P
     if not BATCH_ID.fullmatch(batch_id):
         raise CorrectionError(f"batch id {batch_id!r} is not of the form b-<letters, digits, ->")
     items = batch.get("entries")
-    if not isinstance(items, list) or not 1 <= len(items) <= 100:
-        raise CorrectionError("a batch needs 1 to 100 entries")
+    sources = validate_batch_sources(batch, source_root)
+    if not isinstance(items, list) or not 1 <= len(items) + len(sources) <= 100:
+        raise CorrectionError("a batch needs 1 to 100 entries or source snapshots")
+    if not items:
+        return []
     before = path.read_text(encoding="utf-8") if path.exists() else None
     done: list[Entry] = []
     errors: list[str] = []
@@ -1196,7 +1232,7 @@ STRUCTURAL_FIELDS = frozenset({"system_range"})
 LARGE_BATCH = 25
 
 
-def hold_reasons(entries: list[Entry]) -> list[str]:
+def hold_reasons(entries: list[Entry], sources: list[dict[str, Any]] | None = None) -> list[str]:
     """Why a batch waits for the owner instead of merging itself; empty when
     it can merge as soon as its checks pass."""
     reasons: list[str] = []
@@ -1207,8 +1243,9 @@ def hold_reasons(entries: list[Entry]) -> list[str]:
                        f"{', ...' if len(structural) > 5 else ''})")
     # Reviews change no data, so they do not make a batch large.
     changes = [e for e in entries if e.field != REVIEW_FIELD]
-    if len(changes) >= LARGE_BATCH:
-        reasons.append(f"it has {len(changes)} corrections ({LARGE_BATCH} or more)")
+    count = len(changes) + len(sources or [])
+    if count >= LARGE_BATCH:
+        reasons.append(f"it has {count} corrections ({LARGE_BATCH} or more)")
     return reasons
 
 
@@ -1223,7 +1260,7 @@ def _brief(value: Any) -> str:
     return "; ".join(one(s) for s in value if isinstance(s, dict))
 
 
-def batch_summary(batch_id: str, entries: list[Entry], hold: list[str] | None = None) -> str:
+def batch_summary(batch_id: str, entries: list[Entry], hold: list[str] | None = None, sources: list[dict[str, Any]] | None = None) -> str:
     """The pull request's description: one line per correction, for review."""
     lines = [f"Corrections from the admin screen, batch `{batch_id}`.", "",
              "| Id | Target | Field | Was | Now | By | Note |", "|---|---|---|---|---|---|---|"]
@@ -1231,6 +1268,10 @@ def batch_summary(batch_id: str, entries: list[Entry], hold: list[str] | None = 
         shown = _brief if _is_sections(e) else (lambda v: json.dumps(v, ensure_ascii=False))
         cells = [e.id, e.target, e.field, shown(e.was), shown(e.value), e.editor_email or e.source, e.note]
         lines.append("| " + " | ".join(str(c).replace("|", "\\|").replace("\n", " ") for c in cells) + " |")
+    if sources:
+        lines += ["", "Source snapshots (checked against the committed bytes):", ""]
+        for source in sources:
+            lines.append(f"- #{source['correctionId']}: `{source['file']}` · base `{source['baseBlobSha']}` · approved SHA-256 `{source['contentHash']}`")
     if hold:
         lines += ["", "**Waits for the owner** because " + "; and ".join(hold) + ".",
                   "Merging deploys the site. Closing without merging returns these to the admin queue."]

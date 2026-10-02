@@ -27,7 +27,7 @@ export async function typesetApi(request: Request, env: AdminEnv, deps: Deps, ed
   }
   const main = await repository.readMain();
   const current = await repository.readSource(file,main.commitSha);
-  if (path === "/typeset/source") return json({file,current,draft,renderHash:targets.typeset?.[file]?.hash ?? null});
+  if (path === "/typeset/source") return json({file,current,draft,approved:await store.activeSnapshot(file),renderHash:targets.typeset?.[file]?.hash ?? null});
   const revision = input?.["expectedRevision"];
   if (typeof revision !== "number" || !Number.isSafeInteger(revision) || revision < 0) return fail(400,"Supply the draft revision shown by the editor.");
   const base = (path === "/typeset/draft" || path === "/typeset/preview") ? input?.["baseBlobSha"] : draft?.baseBlobSha;

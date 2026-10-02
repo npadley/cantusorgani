@@ -272,6 +272,7 @@ const typesetToDo = typesetEntries().length;
             item.note ? `: “${item.note}”` : "")
         : h("p", { class: "small" }, `${item.current || "—"} → `, h("strong", {}, valueText(item)),
             ` · ${item.source === "editor" ? "your fix" : "a reader's report"}, approved by ${item.editor_email ?? "?"}`),
+      item.field === "source" && item.target ? h("p",{},h("a",{href:`/admin/typeset/edit/?file=${encodeURIComponent(item.target.slice(8))}`} ,"Inspect approved source")) : null,
       item.reason ? h("p", { class: "notice" }, item.reason) : null,
       h("div", { class: "actions" }, withdraw));
   }

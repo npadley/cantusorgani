@@ -394,7 +394,7 @@ describe("publishing", () => {
     failDispatch = true;
     const result = await call("POST", "/publish", {});
     expect(result.status).toBe(502);
-    expect(result.body["error"]).toMatch(/^Nothing was published: GitHub is down/);
+    expect(result.body["error"]).toMatch(/^Publishing did not finish: GitHub is down/);
     expect(db.sqlite.prepare("SELECT status, batch_id FROM corrections").get()).toMatchObject({ status: "approved", batch_id: null });
   });
 });
@@ -745,4 +745,23 @@ it("signed preview completion releases matching leases idempotently",async()=>{
   const event={action:"completed",workflow_run:{name:"typeset-preview",display_title:`typeset-preview ${key}`,conclusion:"failure"}};
   expect((await webhook("workflow_run",event)).body).toEqual({ok:true,updated:1});
   expect((await webhook("workflow_run",event)).body).toEqual({ok:true,updated:0});
+});
+it("publishes immutable source-only snapshots, resolves on merge and keeps private notes",async()=>{
+  const {typesetStore,sourceContentHash}=await import('./typesetStore');
+  const file='vol-5/missa-ix/kyrie_IX.ly',s=typesetStore(db.d1);
+  await s.saveDraft('ed@example.org',{file,text:'d4',baseBlobSha:'a'.repeat(40),contentHash:await sourceContentHash('d4')},0);
+  const report=Number(db.sqlite.prepare("INSERT INTO corrections(piece_id,target,field,proposed,seen,note) VALUES ('typeset',?,'issue','lyrics',?,'PRIVATE-MARKER')").run(`typeset:${file}`,'b'.repeat(32)).lastInsertRowid);
+  const id=await s.approveDraft('ed@example.org',file,1,'Checked scan',report);
+  await s.saveDraft('ed@example.org',{file,text:'e4',baseBlobSha:'a'.repeat(40),contentHash:await sourceContentHash('e4')},1);
+  const d={...deps(),prepareSources:async(batch:string,snapshots:any)=>{expect(snapshots[0].text).toBe('d4');return {branch:`corrections/${batch}`,commitSha:'c'.repeat(40)};}};
+  const response=await handleAdmin(new Request(`${ORIGIN}/admin/api/publish`,{method:'POST',headers:{origin:ORIGIN,'content-type':'application/json'},body:'{}'}),env,d);
+  expect(response.status).toBe(200);expect(sent[0]?.entries).toEqual([]);
+  expect(sent[0]?.sources).toMatchObject([{correctionId:id,file}]);expect(JSON.stringify(sent)).not.toMatch(/PRIVATE-MARKER|"text"/);
+  const batch=sent[0]!.batch;
+  await webhook('pull_request',{action:'closed',pull_request:{number:7,merged:false,head:{ref:`corrections/${batch}`}}});
+  expect((await d.store.get(id!))?.status).toBe('approved');
+  const again=await handleAdmin(new Request(`${ORIGIN}/admin/api/publish`,{method:'POST',headers:{origin:ORIGIN,'content-type':'application/json'},body:'{}'}),env,d);expect(again.status).toBe(200);
+  await webhook('pull_request',{action:'closed',pull_request:{number:8,merged:true,merge_commit_sha:'abc1234',head:{ref:`corrections/${sent[1]!.batch}`}}});
+  expect(toPublicRow(db.sqlite.prepare('SELECT * FROM corrections WHERE id=?').get(report) as unknown as StoredRow)?.status).toBe('resolved');
+  expect(db.sqlite.prepare('SELECT note FROM corrections WHERE id=?').get(report)).toMatchObject({note:'PRIVATE-MARKER'});
 });

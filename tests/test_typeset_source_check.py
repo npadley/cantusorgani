@@ -88,6 +88,7 @@ def test_shared_typescript_fixtures():
 def test_shared_source_rules_are_current():
     import json
     from pathlib import Path
+
     from pipeline.typeset.source_check import DENIED, DENIED_COMMANDS, LILYPOND_INCLUDES
     rules = json.loads((Path(__file__).parents[1] / "data/schema/typeset-source-check.json").read_text())
     assert sorted(DENIED) == rules["denied"]

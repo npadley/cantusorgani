@@ -1,3 +1,6 @@
+import { prepareSourceBatch, SourceConflict } from "./typesetPublish";
+import { typesetStore } from "./typesetStore";
+import type { SourceSnapshot } from "./typesetStore";
 import { previewStore } from "./typesetPreview";
 import type { PreviewPayload } from "./typesetPreview";
 /**
@@ -29,6 +32,7 @@ export interface AdminEnv extends AuthEnv, GithubEnv {
 }
 
 export interface Deps {
+  readonly prepareSources?: (batch:string,snapshots:readonly SourceSnapshot[]) => Promise<{branch:string;commitSha:string}>;
   readonly source?: SourceRepository;
   readonly previewDispatch?: (payload:PreviewPayload) => Promise<void>;
   readonly store: Store;
@@ -414,10 +418,16 @@ async function publish(deps: Deps, env: AdminEnv, editor: Editor): Promise<Respo
     await store.unqueueBatch(batch, "approved", null);
     return problem(409, "The list changed while publishing (another editor?). Reload and try again.");
   }
+  let sourceBranch:string|undefined;
   try {
+    const sourceRows=approved.filter(r=>r.field==="source");
+    const snapshots=await typesetStore(env.DB).snapshots(sourceRows.map(r=>r.id));
+    if(snapshots.length!==sourceRows.length || snapshots.some(s=>sourceRows.find(r=>r.id===s.correctionId)?.proposed!==s.contentHash))throw Error("An approved source snapshot is missing or changed");
+    if(snapshots.length)sourceBranch=(await (deps.prepareSources ?? ((batch,snapshots)=>prepareSourceBatch(env,batch,snapshots)))(batch,snapshots)).branch;
     await deps.dispatch({
       batch,
-      entries: approved.map((r) => ({
+      ...(sourceBranch ? {branch:sourceBranch,sources:snapshots.map(({correctionId,file,baseBlobSha,contentHash})=>({correctionId,file,baseBlobSha,contentHash}))} : {}),
+      entries: approved.filter(r=>r.field!=="source").map((r) => ({
         target: r.target ?? `piece:${r.piece_id}`, field: r.field, value: r.proposed,
         // Reader notes are private review context, never part of a public PR
         // or corrections.yml. Editor-authored reasons are deliberately public.
@@ -427,9 +437,12 @@ async function publish(deps: Deps, env: AdminEnv, editor: Editor): Promise<Respo
       })),
     });
   } catch (error) {
-    await store.unqueueBatch(batch, "approved", null);
     const why = error instanceof Error ? error.message : "GitHub did not answer";
-    return problem(502, `Nothing was published: ${why}. Try again.`);
+    const recovery=sourceBranch ? ` Source branch ${sourceBranch} is preserved; retries create a new batch and never overwrite it. Check its run/PR before retrying.` : "";
+    await store.unqueueBatch(batch, "approved",`${batch}: ${why}${recovery}`.slice(0,300));
+    await store.log(editor.email,"publish-failed",null,`${batch}: ${why}${recovery}`);
+    if(error instanceof SourceConflict)return problem(409,why,{conflicts:error.conflicts});
+    return problem(502, `Publishing did not finish: ${why}.${recovery} Approved edits are preserved.`);
   }
   await store.log(editor.email, "publish", null, `${batch}: ${approved.length} correction(s)`);
   return json({ ok: true, batch, count: approved.length });

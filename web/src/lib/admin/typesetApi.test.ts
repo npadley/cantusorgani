@@ -52,3 +52,9 @@ it("saves preview drafts, counts failed dispatches and releases their leases",as
   const data=await success.json();expect(data.resultUrl).toBe(`https://assets.example.test/typeset-preview/${data.key}/result.json`);
   expect((await preview(3)).status).toBe(429);
 });
+it('shows the active immutable approval for comparison and linking another report',async()=>{
+  await call('draft',{file,text:'d4',baseBlobSha:current.blobSha,expectedRevision:0});
+  const approved=await call('approve',{file,expectedRevision:1,note:'Checked'});
+  await call('draft',{file,text:'e4',baseBlobSha:current.blobSha,expectedRevision:1});
+  expect((await call(`source?file=${file}`)).data.approved).toMatchObject({correctionId:approved.data.id,text:'d4',status:'approved'});
+});
