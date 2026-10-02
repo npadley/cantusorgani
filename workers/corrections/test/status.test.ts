@@ -55,11 +55,11 @@ describe("toPublicRow", () => {
 });
 
 describe("toPublicRow with the admin statuses", () => {
-  it("should show approved and queued rows as pending, and a duplicate as rejected", () => {
+  it("should show approved and queued rows as pending, and a duplicate distinctly", () => {
     const status = (s: string) => toPublicRow({ ...ROW, status: s })?.status;
     expect(status("approved")).toBe("pending");
     expect(status("queued")).toBe("pending");
-    expect(status("duplicate")).toBe("rejected");
+    expect(status("duplicate")).toBe("duplicate");
     expect(status("published")).toBeUndefined();
   });
 });
@@ -158,4 +158,16 @@ describe("intake text remains publicly representable", () => {
       expect(toPublicRow({ ...ROW, field: "title", proposed })).toBeNull();
     }
   });
+});
+
+
+it("publishes validated resolution links without editor reasons or reader notes", () => {
+  expect(toPublicRow({ ...ROW, status: "accepted", resolved_by: 2, commit_sha: "a".repeat(40) }))
+    .toMatchObject({ status: "resolved", resolvedBy: 2, commitSha: "a".repeat(40) });
+  expect(toPublicRow({ ...ROW, status: "duplicate", duplicate_of: 3 }))
+    .toMatchObject({ status: "duplicate", duplicateOf: 3 });
+  const projected = toPublicRow({ ...ROW, resolved_by: -1, duplicate_of: 0, commit_sha: "<script>" });
+  expect(projected).not.toHaveProperty("resolvedBy");
+  expect(projected).not.toHaveProperty("duplicateOf");
+  expect(projected).not.toHaveProperty("commitSha");
 });

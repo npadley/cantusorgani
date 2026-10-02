@@ -136,7 +136,7 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
   .queue th { text-align: left; font-weight: 600; color: var(--ink-muted); padding: var(--s-1) var(--s-2); border-bottom: 1px solid var(--rule); }
   .queue td { padding: var(--s-2); border-bottom: 1px solid var(--rule); vertical-align: top; }
   .queue .status { text-transform: capitalize; white-space: nowrap; }
-  .queue .accepted { color: var(--accent); }
+  .queue .resolved, .queue .accepted { color: var(--accent); }
   .queue-scroll { overflow-x: auto; }
 </style>
 
@@ -152,6 +152,9 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
     readonly field: string;
     readonly proposedValue: string;
     readonly status: string;
+    readonly resolvedBy?: number;
+    readonly duplicateOf?: number;
+    readonly commitSha?: string;
     readonly createdAt: string;
   }
 
@@ -312,7 +315,15 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
         }
         const td = document.createElement("td");
         td.textContent = row.status;
-        td.className = `status ${row.status === "accepted" ? "accepted" : ""}`;
+        td.className = `status ${["accepted", "resolved"].includes(row.status) ? "accepted" : ""}`;
+        const linkId = row.status === "duplicate" ? row.duplicateOf : row.resolvedBy;
+        if (Number.isSafeInteger(linkId) && linkId! > 0) td.append(document.createTextNode(` · ${row.status === "duplicate" ? "report" : "fix"} #${linkId}`));
+        if (row.commitSha && /^[0-9a-f]{7,40}$/.test(row.commitSha)) {
+          const link = document.createElement("a");
+          link.href = `https://github.com/npadley/cantusorgani/commit/${row.commitSha}`;
+          link.textContent = "Published change";
+          td.append(document.createTextNode(" · "), link);
+        }
         tr.append(td);
         table.append(tr);
       }

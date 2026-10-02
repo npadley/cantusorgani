@@ -541,7 +541,7 @@ describe("the webhook", () => {
     const first = await published();
     await webhook("pull_request", { action: "closed", pull_request: { number: 7, merged: false, head: { ref: `corrections/${first.batch}` } } });
     expect(db.sqlite.prepare("SELECT status, reason FROM corrections WHERE id = ?").get(first.id))
-      .toMatchObject({ status: "pending", reason: "PR #7 was closed without merging" });
+      .toMatchObject({ status: "approved", reason: "PR #7 was closed without merging" });
     const second = await published();
     await webhook("workflow_run", { action: "completed", workflow_run: { name: "corrections-batch", conclusion: "failure",
       display_title: `corrections ${second.batch}`, html_url: "https://github.com/x/actions/runs/1" } });
@@ -647,4 +647,86 @@ describe("GitHub", () => {
     expect(id).toBe("b-202609271405-ssssss");
     expect(id).toMatch(/^b-[0-9a-z-]{6,40}$/);
   });
+});
+
+
+describe("linked report resolution and safe withdrawal", () => {
+  const sectionValue = JSON.stringify([{ kind: "introit", system: 1, chant: 132 }, { kind: "gradual", system: 3, chant: "none" }]);
+  async function linked() {
+    const report = readerReport(db.sqlite, "dominica-i-adventus", "sections", "system 4: the Tract starts here", "private evidence");
+    const edit = await call("POST", "/edits", { target: "sections:dominica-i-adventus", field: "sections", value: sectionValue });
+    const fix = edit.body["id"] as number;
+    expect(await call("POST", `/rows/${report}/resolve`, { correctionId: fix })).toMatchObject({ status: 200 });
+    return { report, fix };
+  }
+  it("keeps a section report pending until its linked correction merges", async () => {
+    const { report, fix } = await linked();
+    const projected = () => toPublicRow(db.sqlite.prepare("SELECT * FROM corrections WHERE id = ?").get(report) as unknown as StoredRow);
+    expect(projected()).toMatchObject({ status: "pending", resolvedBy: fix });
+    expect((await call("GET", "/queue")).body["pending"]).toEqual([]);
+    const published = await call("POST", "/publish", {});
+    expect(sent[0]!.entries).toHaveLength(1);
+    expect(projected()?.status).toBe("pending");
+    await webhook("pull_request", { action: "closed", pull_request: { number: 42, merged: true,
+      merge_commit_sha: "abc1234def", head: { ref: `corrections/${published.body["batch"]}` } } });
+    expect(projected()).toMatchObject({ status: "resolved", resolvedBy: fix, commitSha: "abc1234def" });
+    expect(JSON.stringify(projected())).not.toContain("private evidence");
+  });
+  it("reopens a linked report when its editor withdraws the fix", async () => {
+    const { report, fix } = await linked();
+    expect((await call("POST", `/rows/${fix}/unapprove`, {})).status).toBe(200);
+    expect((await call("GET", "/queue")).body["pending"]).toMatchObject([{ id: report, resolved_by: null }]);
+  });
+  it("refuses to resolve a report with an unrelated correction", async () => {
+    const report = readerReport(db.sqlite, "dominica-i-adventus", "sections", "missing Tract");
+    const edit = await call("POST", "/edits", { target: "piece:kyrie-i", field: "title", value: "Kyrie" });
+    expect((await call("POST", `/rows/${report}/resolve`, { correctionId: edit.body["id"] })).status).toBe(422);
+    expect(statusOf(report)).toBe("pending");
+  });
+  it.each(["title", "printedPages"])("withdraws a %s report safely when an identical newer report is pending", async (field) => {
+    const value = field === "title" ? "Kyrie" : "2-3";
+    const older = readerReport(db.sqlite, "kyrie-i", field, value, "older private note");
+    expect((await call("POST", `/rows/${older}/approve`, {})).status).toBe(200);
+    const newer = readerReport(db.sqlite, "kyrie-i", field, value, "newer private note");
+    expect((await call("POST", `/rows/${older}/unapprove`, {})).status).toBe(200);
+    expect(statusOf(older)).toBe("duplicate");
+    expect(statusOf(newer)).toBe("pending");
+    expect(toPublicRow(db.sqlite.prepare("SELECT * FROM corrections WHERE id = ?").get(older) as unknown as StoredRow))
+      .toMatchObject({ status: "duplicate", duplicateOf: newer });
+    expect(db.sqlite.prepare("SELECT note FROM corrections ORDER BY id").all()).toMatchObject([
+      { note: "older private note" }, { note: "newer private note" },
+    ]);
+  });
+  it("returns a closed section batch to approved so editors can retry publication", async () => {
+    const { report, fix } = await linked();
+    const published = await call("POST", "/publish", {});
+    await webhook("pull_request", { action: "closed", pull_request: { number: 9, merged: false,
+      head: { ref: `corrections/${published.body["batch"]}` } } });
+    expect(statusOf(fix)).toBe("approved");
+    expect(statusOf(report)).toBe("pending");
+    expect((await call("POST", "/publish", {})).status).toBe(200);
+  });
+});
+
+it("returns colliding reader reports from a cancelled batch without losing evidence", async () => {
+  const older = readerReport(db.sqlite, "kyrie-i", "title", "Kyrie", "old evidence");
+  await call("POST", `/rows/${older}/approve`, {});
+  const published = await call("POST", "/publish", {});
+  const newer = readerReport(db.sqlite, "kyrie-i", "title", "Kyrie", "new evidence");
+  await webhook("pull_request", { action: "closed", pull_request: { number: 10, merged: false,
+    head: { ref: `corrections/${published.body["batch"]}` } } });
+  expect(statusOf(older)).toBe("duplicate");
+  expect(statusOf(newer)).toBe("pending");
+  expect(db.sqlite.prepare("SELECT duplicate_of FROM corrections WHERE id = ?").get(older)).toMatchObject({ duplicate_of: newer });
+});
+
+it("does not let a stale editor action change a report linked by another editor", async () => {
+  const report = readerReport(db.sqlite, "dominica-i-adventus", "sections", "missing Tract");
+  const store = d1Store(db.d1);
+  expect((await store.get(report))?.status).toBe("pending");
+  const edit = await call("POST", "/edits", { target: "sections:dominica-i-adventus", field: "sections",
+    value: JSON.stringify([{ kind: "introit", system: 1, chant: 132 }]) });
+  expect((await call("POST", `/rows/${report}/resolve`, { correctionId: edit.body["id"] })).status).toBe(200);
+  expect(await store.move(report, "pending", "rejected", { reason: "stale action" })).toBe(false);
+  expect(statusOf(report)).toBe("pending");
 });

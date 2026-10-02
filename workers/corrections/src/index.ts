@@ -99,7 +99,7 @@ async function verifyTurnstile(env: Env, token: string, ip: string): Promise<boo
 
 async function handleGet(env: Env, cors: Record<string, string>): Promise<Response> {
   const { results } = await env.DB.prepare(
-    "SELECT id, piece_id, target, field, proposed, note, status, created_at " +
+    "SELECT id, piece_id, target, field, proposed, note, status, created_at, resolved_by, duplicate_of, commit_sha " +
       "FROM corrections ORDER BY created_at DESC LIMIT ?1",
   )
     .bind(PAGE_SIZE)

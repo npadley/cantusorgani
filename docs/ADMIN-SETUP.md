@@ -262,3 +262,22 @@ pnpm exec playwright test e2e/corrections.e2e.ts e2e/site.e2e.ts --grep 'Correct
 
 If a step fails, the admin screen says why. The GitHub side is under the
 repo's **Actions** tab, in the `corrections-batch` runs.
+
+
+### Linked reports and migration 0005
+
+Apply `0005_report_resolution.sql` before deploying the updated Worker or Pages:
+both select the new link columns. The Sections screen now links a reader report
+to its approved correction. The report stays pending until that correction merges,
+then appears resolved with the publication commit. Withdrawing the correction
+reopens its reports. A closed, unmerged editor batch returns to approved for retry.
+
+Reader approval withdrawal and closed reader batches return to review unless an
+identical pending report already exists; then the older report becomes a duplicate
+linked to the pending survivor. Both private notes remain in D1. Canonical field
+aliases and legacy piece targets are compared together.
+
+The 0005 rollback preserves reports and notes but removes resolution links. Export
+first; roll back Worker/Pages code before dropping columns they select. Do not
+infer historical resolution links from free-text duplicate reasons. Audit any
+existing section duplicates and reconcile them explicitly.

@@ -44,6 +44,21 @@ describe("typesetEntries", () => {
     expect(proof!.scans.length).toBeGreaterThan(0);
   });
 
+  it("includes every scan of long matched parts, including the last system", () => {
+    const long = TYPESET.parts.find((p) => {
+      const slug = /^(?:piece|movement|part):([a-z0-9-]+)/.exec(p.target)?.[1];
+      const piece = slug ? pieceBySlug(slug) : undefined;
+      const span = piece ? targetSpan(piece, p.target) : null;
+      return span && span[1] - span[0] > 8;
+    })!;
+    expect(long).toBeDefined();
+    const slug = /^(?:piece|movement|part):([a-z0-9-]+)/.exec(long.target)![1]!;
+    const piece = pieceBySlug(slug)!;
+    const span = targetSpan(piece, long.target)!;
+    const entry = typesetEntries({ ...TYPESET, parts: [long], items: [] }, {})[0]!;
+    expect(entry.scans.map((s) => s.ref)).toEqual(piece.systems.slice(span[0], span[1]));
+  });
+
   it("should leave out a part proofread at its current drawing, and bring it back when the drawing changes", () => {
     const proofread = { [`typeset:vol-5/k.ly`]: { was: "a".repeat(32), date: "2026-09-29" } };
     expect(typesetEntries(data(), proofread).some((e) => e.queue === "proofreading")).toBe(false);

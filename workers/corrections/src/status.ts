@@ -13,7 +13,7 @@
 
 import { parseStoredCorrection } from "./schema";
 
-export const STATUSES = ["pending", "accepted", "rejected"] as const;
+export const STATUSES = ["pending", "accepted", "rejected", "duplicate", "resolved"] as const;
 export type Status = (typeof STATUSES)[number];
 
 const ISO_LIKE = /^\d{4}-\d{2}-\d{2}([ T]\d{2}:\d{2}:\d{2})?Z?$/;
@@ -27,6 +27,9 @@ export interface StoredRow {
   readonly note: string;
   readonly status: string;
   readonly created_at: string;
+  readonly resolved_by?: number | null;
+  readonly duplicate_of?: number | null;
+  readonly commit_sha?: string | null;
 }
 
 export interface PublicRow {
@@ -38,6 +41,9 @@ export interface PublicRow {
   readonly proposedValue: string;
   readonly status: Status;
   readonly createdAt: string;
+  readonly resolvedBy?: number;
+  readonly duplicateOf?: number;
+  readonly commitSha?: string;
 }
 
 function isStatus(value: string): value is Status {
@@ -47,11 +53,11 @@ function isStatus(value: string): value is Status {
 /**
  * The admin workflow's statuses (migration 0002), as the public sees them: a
  * report an editor has approved, or that sits in an open pull request, is still
- * pending until it is merged; a duplicate was not taken up.
+ * pending until it is merged; duplicate and resolved are distinct outcomes.
  */
 const PUBLIC_STATUS: Readonly<Record<string, Status>> = {
   pending: "pending", approved: "pending", queued: "pending",
-  accepted: "accepted", rejected: "rejected", duplicate: "rejected",
+  accepted: "accepted", rejected: "rejected", duplicate: "duplicate",
 };
 
 export function toPublicRow(row: StoredRow): PublicRow | null {
@@ -75,14 +81,20 @@ export function toPublicRow(row: StoredRow): PublicRow | null {
   // Emit the values that were validated, never the raw stored strings: if
   // parseStoredCorrection ever normalises, the published value must not diverge from
   // the one that passed the check.
+  const validId = (id: unknown): id is number => typeof id === "number" && Number.isSafeInteger(id) && id > 0;
+  const resolvedBy = validId(row.resolved_by) ? row.resolved_by : undefined;
+  const duplicateOf = validId(row.duplicate_of) ? row.duplicate_of : undefined;
   return {
     id: row.id,
     pieceId: check.value.pieceId,
     target: check.value.target,
     field: check.value.field,
     proposedValue: check.value.proposedValue,
-    status,
+    status: status === "accepted" && resolvedBy ? "resolved" : status,
     createdAt: row.created_at,
+    ...(resolvedBy ? { resolvedBy } : {}),
+    ...(duplicateOf ? { duplicateOf } : {}),
+    ...(row.commit_sha && /^[0-9a-f]{7,40}$/.test(row.commit_sha) ? { commitSha: row.commit_sha } : {}),
   };
 }
 

@@ -241,8 +241,8 @@ import Layout from "../../../components/Layout.astro";
       return;
     }
     drafts.clear(draftKey);
-    // A reader's report this list answers: settled as a duplicate of the fix.
-    const settled = report ? await api(`/rows/${report}/duplicate`, { reason: `fixed on the Sections screen (#${result.data.id})` }) : null;
+    // Link the report to this fix; it resolves only when publication merges.
+    const settled = report ? await api(`/rows/${report}/resolve`, { correctionId: result.data.id }) : null;
     status?.replaceChildren(h("span", {}, "Approved. It is waiting on the "), h("a", { href: "/admin/" }, "corrections queue"),
                             h("span", {}, " until someone publishes."),
                             ...(settled && !settled.ok ? [h("p", { class: "notice" }, `The reader's report is still open: ${settled.error}`)] : []));

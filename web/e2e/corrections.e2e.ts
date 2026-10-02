@@ -39,6 +39,18 @@ test.describe("Corrections compatibility", () => {
     await expect(page.locator("#form-status")).toContainText("in the queue for review");
   });
 
+  test("distinguishes resolved reports and duplicates, with safe publication links", async ({ page }) => {
+    const sha = "a".repeat(40);
+    await queue(page, [{ ...reports[0], status: "resolved", resolvedBy: 9, commitSha: sha },
+      { ...reports[1], status: "duplicate", duplicateOf: 1, commitSha: "javascript:alert(1)" }]);
+    await page.goto("/corrections/");
+    await expect(page.locator("#queue-list")).toContainText("resolved · fix #9");
+    await expect(page.locator("#queue-list")).toContainText("duplicate · report #1");
+    await expect(page.getByRole("link", { name: "Published change" })).toHaveAttribute("href", `https://github.com/npadley/cantusorgani/commit/${sha}`);
+    await expect(page.locator("#queue-list a")).toHaveCount(1);
+    await expect(page.locator("#queue-list")).not.toContainText("private source");
+  });
+
   test("equal-valued reports identify their different sections", async ({ page }) => {
     await queue(page, reports);
     await page.goto("/corrections/");

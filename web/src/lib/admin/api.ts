@@ -132,7 +132,7 @@ function describeSections(row: Row, targets: Targets): QueueItem {
     label: info?.label ?? null, fields: [], values: info ? { sections: sectionsSummary(info.values["sections"]) } : {},
     current: info ? sectionsSummary(info.values["sections"]) : null,
     problem: !info ? "This piece no longer exists."
-      : report ? "Fix it on the Sections screen, then mark this report a duplicate of your fix." : null,
+      : report ? "Fix it on the Sections screen, link this report to your fix. It resolves when the fix publishes." : null,
   };
 }
 
@@ -233,7 +233,7 @@ async function route(request: Request, env: AdminEnv, deps: Deps): Promise<Respo
   const input = await body(request);
   if (input instanceof Response) return input;
 
-  const rowAction = /^\/rows\/(\d{1,9})\/(approve|reject|duplicate|unapprove)$/.exec(path);
+  const rowAction = /^\/rows\/(\d{1,9})\/(approve|reject|duplicate|unapprove|resolve)$/.exec(path);
   if (rowAction) return actOnRow(deps, editor, Number(rowAction[1]), rowAction[2] as RowVerb, input);
   if (path === "/edits") return createEdit(deps, editor, input);
   if (path === "/reviews") return createReview(deps, editor, input);
@@ -264,14 +264,14 @@ async function queue(deps: Deps): Promise<Response> {
     batches.set(b.batch, b);
   }
   return json({
-    pending: items.filter((i) => i.status === "pending"),
+    pending: items.filter((i) => i.status === "pending" && !i.resolved_by),
     approved: items.filter((i) => i.status === "approved"),
     batches: [...batches.values()],
     lastReviewed: await deps.store.lastReviewed(),
   });
 }
 
-type RowVerb = "approve" | "reject" | "duplicate" | "unapprove";
+type RowVerb = "approve" | "reject" | "duplicate" | "unapprove" | "resolve";
 
 async function actOnRow(deps: Deps, editor: Editor, id: number, verb: RowVerb, input: Record<string, unknown>): Promise<Response> {
   const store = deps.store;
@@ -280,6 +280,18 @@ async function actOnRow(deps: Deps, editor: Editor, id: number, verb: RowVerb, i
   const from = verb === "unapprove" ? "approved" : "pending";
   if (row.status !== from) return conflict(store, id, row);
 
+  if (verb === "resolve") {
+    const fixId = input["correctionId"];
+    const fix = typeof fixId === "number" && Number.isSafeInteger(fixId) && fixId > 0 ? await store.get(fixId) : null;
+    if (row.source !== "reader" || row.field !== "sections" || !fix || fix.source !== "editor" ||
+        fix.field !== "sections" || fix.target !== `sections:${row.piece_id}` || !["approved", "queued"].includes(fix.status)) {
+      return problem(422, "Link this report to an approved section correction for the same piece.");
+    }
+    if (!await store.resolveReport(id, fix.id, editor.email)) return conflict(store, id, await store.get(id));
+    await store.log(editor.email, "resolve", id, `linked correction #${fix.id}`);
+    return json({ ok: true, status: "pending", resolvedBy: fix.id });
+  }
+  if (row.resolved_by) return problem(409, "This report is waiting for its linked correction to publish. Withdraw that correction to reopen it.");
   if (verb === "reject" || verb === "duplicate") {
     const reason = text(input["reason"], 300);
     if (verb === "reject" && !reason) return problem(400, "Say briefly why it is rejected.");
@@ -290,8 +302,7 @@ async function actOnRow(deps: Deps, editor: Editor, id: number, verb: RowVerb, i
     return json({ ok: true, status: verb === "reject" ? "rejected" : "duplicate" });
   }
   if (verb === "unapprove") {
-    const moved = await store.move(id, "approved", row.source === "editor" ? "rejected" : "pending",
-                                   row.source === "editor" ? { reason: "withdrawn before publishing" } : {});
+    const moved = await store.withdraw(id);
     if (!moved) return conflict(store, id, await store.get(id));
     await store.log(editor.email, "unapprove", id, "");
     return json({ ok: true });
