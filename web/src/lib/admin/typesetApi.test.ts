@@ -39,3 +39,16 @@ it("returns current and draft versions when the repository base is stale", async
   expect(conflict.status).toBe(409); expect(conflict.data).toMatchObject({ current, draft: { text: "d4" } });
   expect(db.sqlite.prepare("SELECT COUNT(*) AS n FROM corrections").get()).toMatchObject({ n: 0 });
 });
+it("saves preview drafts, counts failed dispatches and releases their leases",async()=>{
+  let attempts=0;deps={...deps,previewDispatch:async()=>{attempts++;throw Error('dispatch failed');}};
+  const env={DB:db.d1,PUBLIC_ASSET_BASE:'https://assets.example.test'} as AdminEnv;
+  const preview=async(revision:number)=>handleAdmin(new Request(`${origin}/admin/api/typeset/preview`,{method:'POST',headers:{origin,'content-type':'application/json'},body:JSON.stringify({file,text:'d4',baseBlobSha:current.blobSha,expectedRevision:revision})}),env,deps);
+  expect((await preview(0)).status).toBe(502);
+  expect((await preview(1)).status).toBe(502);
+  expect(attempts).toBe(2);
+  expect(db.sqlite.prepare('SELECT COUNT(*) AS n FROM typeset_previews WHERE released=1').get()).toMatchObject({n:2});
+  deps={...deps,previewDispatch:async(payload)=>{expect(JSON.stringify(payload)).not.toContain('private-note');}};
+  const success=await preview(2);expect(success.status).toBe(200);
+  const data=await success.json();expect(data.resultUrl).toBe(`https://assets.example.test/typeset-preview/${data.key}/result.json`);
+  expect((await preview(3)).status).toBe(429);
+});

@@ -138,6 +138,12 @@ def build_parser() -> argparse.ArgumentParser:
                     help="print one day's lineup instead: a date (2026-09-13) or a key (tempora:Pent16-0)")
     vl.add_argument("--json", action="store_true", help="with --day: print that day's JSON")
 
+    for command in ("typeset-preview-render", "typeset-preview-publish"):
+        preview = subs.add_parser(command, help="Render or independently upload a source preview")
+        if command.endswith("render"):
+            preview.add_argument("payload", type=Path)
+        preview.add_argument("--out", type=Path, default=Path("build/typeset-preview"))
+
     cat = subs.add_parser("catalog", help="build data/catalog.json and review-queue.json")
     cat.add_argument("--volume", required=True)
     cat.add_argument("--no-parts", action="store_true",
@@ -330,6 +336,13 @@ def main(argv: list[str] | None = None) -> int:
         print(f"rewrote {', '.join(changed)}" if changed else "manifest.json and review.json are current")
         return 0
 
+    if args.command in ("typeset-preview-render", "typeset-preview-publish"):
+        from pipeline.typeset.preview import render_preview, publish_preview
+        if args.command.endswith("render"):
+            render_preview(args.payload, args.out)
+        else:
+            publish_preview(args.out)
+        return 0
     if args.command == "typeset-render":
         from pipeline.typeset.publish import OUT, StaleManifest, render_missing
         try:

@@ -738,3 +738,11 @@ it("routes a stale music report to source repair rather than catalogue approval"
   expect(queue[0]).toMatchObject({ id, kind: "typeset", resolvedField: "issue", fields: [] });
   expect((await call("POST", `/rows/${id}/approve`, {})).status).toBe(422);
 });
+
+it("signed preview completion releases matching leases idempotently",async()=>{
+  const key="a".repeat(64);
+  db.sqlite.prepare("INSERT INTO typeset_previews(editor_email,preview_key,admitted_at,expires_at) VALUES ('ed',?,0,300000)").run(key);
+  const event={action:"completed",workflow_run:{name:"typeset-preview",display_title:`typeset-preview ${key}`,conclusion:"failure"}};
+  expect((await webhook("workflow_run",event)).body).toEqual({ok:true,updated:1});
+  expect((await webhook("workflow_run",event)).body).toEqual({ok:true,updated:0});
+});

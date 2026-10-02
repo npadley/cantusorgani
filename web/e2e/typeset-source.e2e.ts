@@ -29,3 +29,15 @@ test("shows both versions on a stale-base conflict and retains the editor's text
   await expect(page.locator("#latest-source")).toHaveValue("e4");
   await expect(page.locator(".cm-content")).toContainText("d4");
 });
+test("previews unsaved text and shows bounded rendering diagnostics",async({page})=>{
+  await page.clock.install();
+  await page.route('**/admin/api/typeset/source?**',r=>r.fulfill({json:{current:{text:'c4',blobSha:baseBlobSha},draft:null}}));
+  await page.route('**/admin/api/typeset/preview',r=>r.fulfill({json:{draft:{file,text:r.request().postDataJSON().text,revision:1,baseBlobSha,contentHash:'a'.repeat(64)},key:'b'.repeat(64),resultUrl:'https://assets.example.test/typeset-preview/result.json'}}));
+  await page.route('https://assets.example.test/**',r=>r.fulfill({json:{key:'b'.repeat(64),ok:false,problems:['line 2: invalid note'],warnings:[]}}));
+  await page.goto(`/admin/typeset/edit/?file=${file}`);await page.locator('.cm-content').fill('d4');
+  await page.getByRole('button',{name:'Preview draft',exact:true}).click({timeout:2000});
+  await expect(page.locator("#preview")).toContainText("Drawing the preview");
+  await page.clock.fastForward(5000);
+  await expect(page.locator('#preview')).toContainText('line 2: invalid note');
+  await expect(page.locator('.cm-content')).toContainText('d4');
+});

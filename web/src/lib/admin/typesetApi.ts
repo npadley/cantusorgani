@@ -1,3 +1,4 @@
+import { dispatchPreview, previewKey, previewStore } from "./typesetPreview";
 import type { AdminEnv, Deps } from "./api";
 import type { Editor } from "./auth";
 import { githubConfigured, readMain, readSource } from "./github";
@@ -18,8 +19,8 @@ export async function typesetApi(request: Request, env: AdminEnv, deps: Deps, ed
   const repository = deps.source ?? { readMain: () => readMain(env), readSource: (file:string,ref:string) => readSource(env,file,ref) };
   const store = typesetStore(env.DB);
   const draft = await store.getDraft(editor.email,file);
-  if (path !== "/typeset/source" && path !== "/typeset/draft" && path !== "/typeset/approve") return fail(404,"Not found.");
-  if (path === "/typeset/draft") {
+  if (path !== "/typeset/source" && path !== "/typeset/draft" && path !== "/typeset/approve" && path !== "/typeset/preview") return fail(404,"Not found.");
+  if (path === "/typeset/draft" || path === "/typeset/preview") {
     if (typeof input?.["text"] !== "string" || !validSourceSize(input["text"])) return fail(413,"Source must be text of at most 60 KiB in UTF-8.");
     const problems = checkSource(input["text"]);
     if (problems.length) return fail(422,"Source check failed.",{problems});
@@ -29,13 +30,24 @@ export async function typesetApi(request: Request, env: AdminEnv, deps: Deps, ed
   if (path === "/typeset/source") return json({file,current,draft,renderHash:targets.typeset?.[file]?.hash ?? null});
   const revision = input?.["expectedRevision"];
   if (typeof revision !== "number" || !Number.isSafeInteger(revision) || revision < 0) return fail(400,"Supply the draft revision shown by the editor.");
-  const base = path === "/typeset/draft" ? input?.["baseBlobSha"] : draft?.baseBlobSha;
+  const base = (path === "/typeset/draft" || path === "/typeset/preview") ? input?.["baseBlobSha"] : draft?.baseBlobSha;
   if (base !== current.blobSha) return fail(409,"The repository source changed. Compare both versions before saving or approving.",{current,draft});
-  if (path === "/typeset/draft") {
+  if (path === "/typeset/draft" || path === "/typeset/preview") {
     const text = input!["text"] as string;
     const saved = await store.saveDraft(editor.email,{file,text,baseBlobSha:current.blobSha,contentHash:await sourceContentHash(text)},revision);
     if (!saved) return fail(409,"This draft changed in another tab. Reload before saving.",{current,draft:await store.getDraft(editor.email,file)});
     await deps.store.log(editor.email,"source-save",null,file);
+    if (path === "/typeset/preview") {
+      const assetBase=env.PUBLIC_ASSET_BASE;
+      if (!assetBase || !/^https:\/\/[^?#]+$/.test(assetBase)) return fail(503,"Preview needs the public R2 asset URL configuration.");
+      const key=await previewKey(file,text,main.commitSha), leases=previewStore(env.DB);
+      const admission=await leases.acquirePreview(editor.email,key,Date.now());
+      if (!admission.ok) return fail(429,admission.reason === "active" ? "A preview is already running. Wait up to five minutes before retrying." : "Twenty previews per hour are allowed. Try again later.",{draft:saved});
+      try { await (deps.previewDispatch ?? ((payload)=>dispatchPreview(env,payload)))({file,text,commitSha:main.commitSha,key}); }
+      catch { await leases.releasePreview(key); return fail(502,"Preview dispatch failed. Your draft is saved; try again.",{draft:saved}); }
+      await deps.store.log(editor.email,"source-preview",null,key);
+      return json({draft:saved,key,resultUrl:`${assetBase.replace(/\/$/,"")}/typeset-preview/${key}/result.json`});
+    }
     return json({draft:saved});
   }
   const note = input?.["note"] ?? "";

@@ -9,3 +9,4 @@ describe("shared source checker fixtures", () => {
     expect(validSourceSize("é".repeat(30721))).toBe(false);
   });
 });
+it("refuses unpaired UTF-16 surrogates before UTF-8 hashing",()=>{expect(validSourceSize('\ud800')).toBe(false);expect(validSourceSize('🎵')).toBe(true);});

@@ -1,3 +1,5 @@
+import { previewStore } from "./typesetPreview";
+import type { PreviewPayload } from "./typesetPreview";
 /**
  * The admin API behind /admin/api/*, and GitHub's webhook.
  *
@@ -21,12 +23,14 @@ import type { Kind, PlannedStart, Targets } from "./targets";
 
 export interface AdminEnv extends AuthEnv, GithubEnv {
   readonly DB: D1Like;
+  readonly PUBLIC_ASSET_BASE?: string;
   readonly ASSETS?: { fetch(input: Request | string): Promise<Response> };
   readonly GITHUB_WEBHOOK_SECRET?: string;
 }
 
 export interface Deps {
   readonly source?: SourceRepository;
+  readonly previewDispatch?: (payload:PreviewPayload) => Promise<void>;
   readonly store: Store;
   readonly targets: () => Promise<Targets>;
   /** What can be reviewed, and what each review confirms (/admin/review.json). */
@@ -555,6 +559,8 @@ export async function handleWebhook(request: Request, env: AdminEnv, store: Stor
   }
   if (event === "workflow_run" && payload.action === "completed") {
     const run = payload.workflow_run;
+    const preview = /^typeset-preview ([a-f0-9]{64})$/.exec(run?.display_title ?? "")?.[1];
+    if (preview && run?.name === "typeset-preview") return json({ok:true,updated:await previewStore(env.DB).releasePreview(preview)});
     const batch = BATCH_TITLE.exec(run?.display_title ?? "")?.[1];
     if (batch && run?.name === "corrections-batch" && run.conclusion !== "success") {
       const reason = `Publishing failed; see ${run.html_url ?? "the corrections-batch run"} on GitHub`;

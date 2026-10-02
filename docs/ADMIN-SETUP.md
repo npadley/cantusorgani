@@ -281,3 +281,17 @@ The 0005 rollback preserves reports and notes but removes resolution links. Expo
 first; roll back Worker/Pages code before dropping columns they select. Do not
 infer historical resolution links from free-text duplicate reasons. Audit any
 existing section duplicates and reconcile them explicitly.
+
+### Source preview configuration
+
+Set the Pages runtime variable `PUBLIC_ASSET_BASE` to the public HTTPS R2 asset
+origin used by the site. Apply migration 0008 after 0007 before enabling previews.
+The App dispatches `typeset-preview`; signed `workflow_run` completion events
+release its D1 leases. Abandoned leases expire after five minutes, and all
+admissions (including failed dispatches) count toward 20 previews/editor/hour.
+
+Create a separate R2 object lifecycle rule for prefix `typeset-preview/`, deleting
+objects after **14 days**. Do not apply this expiry to `typeset/` or `systems/`.
+Preview URLs are temporary and must never become published catalogue links.
+The renderer checks out the captured main commit without persisted credentials;
+the independent uploader verifies artifacts and never executes submitted source.

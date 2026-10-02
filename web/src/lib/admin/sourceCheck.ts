@@ -4,7 +4,7 @@ import rules from "../../../../data/schema/typeset-source-check.json";
 export const SOURCE_LIMIT = 60 * 1024;
 export const ALLOWED_INCLUDES = rules.includes;
 export interface SourceProblem { readonly line: number; readonly message: string }
-export function validSourceSize(text: string): boolean { return new TextEncoder().encode(text).length <= SOURCE_LIMIT; }
+export function validSourceSize(text: string): boolean { return ![...text].some(c => {const n=c.codePointAt(0)!;return n>=0xd800 && n<=0xdfff;}) && new TextEncoder().encode(text).length <= SOURCE_LIMIT; }
 
 function comments(text: string): string {
   const out = text.split(""); let quoted = false;
