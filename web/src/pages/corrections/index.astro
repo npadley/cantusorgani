@@ -313,7 +313,7 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
       }
       table.append(head);
 
-      const targetCells: { cell: HTMLTableCellElement; target: string; renderHash?: string }[] = [];
+      const targetCells: { cell: HTMLTableCellElement; target: string; renderHash: string | undefined }[] = [];
       for (const row of rows) {
         const tr = document.createElement("tr");
         const cell = document.createElement("td");
