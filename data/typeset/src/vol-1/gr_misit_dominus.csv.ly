@@ -82,7 +82,7 @@ altoMusic = {
 g2*4/2 c'2*13/4 ~ c'2 bes2*3/2 ~ bes4 ~ \divisioMaior
 bes2*4/2 f'2 ees'2*3/2 f'2*3/2 d'2*3/2 ees'2*9/4 ~ ees'2 ~ ees'4 bes2 ~ bes4 \divisioMaxima
 d'2*4/2 ~ d'4 ees'2 ~ ees'2*3/2 ~ ees'2*11/4 ~ ees'2*4/2 ~ ees'2*4/2 d'2 ees'2 aes'2 bes'2 ~ bes'4 \divisioMaxima
-d'2 ~ d'2*3/2 ~ d'2 '2 f'2 ~ f'2*3/2 ~ f'2*4/2 d'2*5/2 ~ d'4 ~ \divisioMaior
+d'2 ~ d'2*3/2 ~ d'2 ees'2 f'2 ~ f'2*3/2 ~ f'2*4/2 d'2*5/2 ~ d'4 ~ \divisioMaior
 d'2 ees'4 f'2*4/2 ees'2*4/2 ~ ees'2 f'2*3/2 ~ f'2 d'2*3/2 c'2*3/4 ~ c'2*3/2 bes4 \finalis
 r2*3/2 g'2 ~ g'2 ~ g'4 f'2*3/2 ees'2*3/2 ~ \divisioMinima
 ees'4 d'2*3/2 ~ d'2*3/2 ees'2*4/2 f'2*3/2 ~ f'2*3/2 d'2*3/2 ~ d'4 ~ \divisioMinima
