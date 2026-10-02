@@ -8,6 +8,7 @@
 /** The part of Cloudflare's D1 binding the admin code uses. */
 export interface D1Like {
   prepare(sql: string): D1StatementLike;
+  batch<T = unknown>(statements: D1StatementLike[]): Promise<{ results?: T[]; meta?: { changes?: number } }[]>;
 }
 export interface D1StatementLike {
   bind(...values: unknown[]): D1StatementLike;
@@ -35,12 +36,14 @@ export interface Row {
   readonly pr_number: number | null;
   /** A review's: what the editor was shown (a fingerprint, or a part's start and length). */
   readonly seen: string | null;
+  readonly resolved_by: number | null;
+  readonly duplicate_of: number | null;
   readonly created_at: string;
   readonly updated_at: string | null;
 }
 
 const COLUMNS = "id, piece_id, target, field, proposed, note, status, source, commit_sha, editor_email, " +
-  "reason, batch_id, pr_number, seen, created_at, updated_at";
+  "reason, batch_id, pr_number, seen, created_at, updated_at, resolved_by, duplicate_of";
 
 /** The only columns move() may set: identifiers are never taken from input. */
 const SETTABLE = new Set(["target", "field", "proposed", "editor_email", "reason"]);
@@ -52,6 +55,8 @@ export interface Store {
    * when the row was no longer in `from` (someone else acted first). */
   move(id: number, from: RowStatus, to: RowStatus, set: Partial<Pick<Row, "target" | "field" | "proposed" |
     "editor_email" | "reason">>): Promise<boolean>;
+  withdraw(id: number): Promise<boolean>;
+  resolveReport(id: number, fix: number, email: string): Promise<boolean>;
   insertEdit(edit: { target: string; pieceId: string; field: string; proposed: string; note: string; email: string;
                      seen?: string }): Promise<number>;
   queueBatch(batchId: string, ids: readonly number[]): Promise<number>;
@@ -70,6 +75,16 @@ export interface Store {
 
 export interface Skip { readonly target: string; readonly note: string; readonly editor_email: string; readonly at: string }
 
+// Approval canonicalises field names. Compare their meaning and exact target/value.
+// Choosing the pending survivor inside the UPDATE avoids a read/write race.
+const canonicalField = (column: string) => `CASE ${column} WHEN 'printedPages' THEN 'printed_pages' WHEN 'startSystem' THEN 'start_system' WHEN 'gregobaseId' THEN 'chant' ELSE ${column} END`;
+const pendingTwin = `(SELECT p.id FROM corrections p WHERE p.status = 'pending' AND p.id <> corrections.id
+  AND COALESCE(p.target, 'piece:' || p.piece_id) = COALESCE(corrections.target, 'piece:' || corrections.piece_id)
+  AND ${canonicalField("p.field")} = ${canonicalField("corrections.field")} AND p.proposed = corrections.proposed AND (corrections.field <> 'issue' OR COALESCE(p.seen,'') = COALESCE(corrections.seen,'')) ORDER BY p.id LIMIT 1)`;
+const returnToReview = `status = CASE WHEN source = 'editor' THEN 'approved' WHEN ${pendingTwin} IS NOT NULL THEN 'duplicate' ELSE 'pending' END,
+  duplicate_of = CASE WHEN source = 'reader' THEN ${pendingTwin} ELSE NULL END`;
+const withdrawToReview = returnToReview.replace("THEN 'approved'", "THEN 'rejected'");
+
 export function d1Store(db: D1Like): Store {
   return {
     async list(statuses, limit) {
@@ -87,8 +102,27 @@ export function d1Store(db: D1Like): Store {
       if (names.some((n) => !SETTABLE.has(n))) throw new Error("move: not a settable column");
       const assignments = names.map((n, i) => `${n} = ?${i + 4}`);
       const sql = `UPDATE corrections SET status = ?1, updated_at = datetime('now')` +
-        (assignments.length ? `, ${assignments.join(", ")}` : "") + " WHERE id = ?2 AND status = ?3";
+        (assignments.length ? `, ${assignments.join(", ")}` : "") + " WHERE id = ?2 AND status = ?3 AND (status <> 'pending' OR resolved_by IS NULL)";
       const result = await db.prepare(sql).bind(to, id, from, ...names.map((n) => set[n] ?? null)).run();
+      return (result.meta?.changes ?? 0) === 1;
+    },
+    async withdraw(id) {
+      const result = await db.prepare(
+        `UPDATE corrections SET ${withdrawToReview}, reason = CASE WHEN source = 'editor' THEN 'withdrawn before publishing' ELSE reason END,
+          updated_at = datetime('now') WHERE id = ?1 AND status = 'approved'`,
+      ).bind(id).run();
+      return (result.meta?.changes ?? 0) === 1;
+    },
+    async resolveReport(id, fix, email) {
+      const result = await db.prepare(
+        "UPDATE corrections SET resolved_by = ?2, editor_email = ?3, updated_at = datetime('now') " +
+        "WHERE id = ?1 AND status = 'pending' AND source = 'reader' AND resolved_by IS NULL " +
+        "AND EXISTS (SELECT 1 FROM corrections f WHERE f.id = ?2 " +
+        "AND f.source = 'editor' AND f.status IN ('approved', 'queued') AND (" +
+        "(corrections.field='sections' AND f.field='sections' AND f.target='sections:' || corrections.piece_id) OR " +
+        "(corrections.field='issue' AND f.field='source' AND f.target=corrections.target " +
+        "AND EXISTS(SELECT 1 FROM typeset_snapshots s WHERE s.correction_id=f.id))))",
+      ).bind(id, fix, email).run();
       return (result.meta?.changes ?? 0) === 1;
     },
     async insertEdit(edit) {
@@ -109,7 +143,7 @@ export function d1Store(db: D1Like): Store {
     },
     async unqueueBatch(batchId, to, reason) {
       const result = await db.prepare(
-        "UPDATE corrections SET status = ?2, reason = ?3, batch_id = NULL, pr_number = NULL, " +
+        `UPDATE corrections SET ${to === "pending" ? returnToReview : "status = ?2"}, reason = ?3, batch_id = NULL, pr_number = NULL, ` +
         "updated_at = datetime('now') WHERE batch_id = ?1 AND status = 'queued'",
       ).bind(batchId, to, reason).run();
       return result.meta?.changes ?? 0;

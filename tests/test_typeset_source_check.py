@@ -74,3 +74,43 @@ def test_scheme_regions_balance_parentheses_across_comments():
     text = '#(a ; )\n b) rest'
     [(start, end)] = scheme_regions(text)
     assert text[start:end] == '#(a ; )\n b)'
+
+
+def test_shared_typescript_fixtures():
+    import json
+    from pathlib import Path
+    fixtures = json.loads((Path(__file__).parent / "fixtures/typeset-source-check.json").read_text())
+    for fixture in fixtures:
+        actual = [{"line": p.line, "message": p.message} for p in check(fixture["text"], frozenset(fixture["includes"]))]
+        assert actual == fixture["problems"], fixture["name"]
+
+
+def test_shared_source_rules_are_current():
+    import json
+    from pathlib import Path
+
+    from pipeline.typeset.source_check import DENIED, DENIED_COMMANDS, LILYPOND_INCLUDES
+    rules = json.loads((Path(__file__).parents[1] / "data/schema/typeset-source-check.json").read_text())
+    assert sorted(DENIED) == rules["denied"]
+    assert sorted(DENIED_COMMANDS) == rules["commands"]
+    assert sorted(LILYPOND_INCLUDES) == rules["lilypondIncludes"]
+
+@pytest.mark.lilypond
+@pytest.mark.parametrize('marker',['# ', '#\n'])
+def test_pinned_lilypond_accepts_spaced_scheme_that_the_checker_refuses(tmp_path,marker):
+    from pipeline.typeset import lilypond
+    from pipeline.typeset.source_check import check
+    text='\\version "2.26.0"\n'+marker+'(system "printf NOH_CHECKER_EVIDENCE >&2")\n{ c\'4 }\n'
+    source=tmp_path/'source.ly';source.write_text(text)
+    result=lilypond.run(['-dno-print-pages',str(source)],cwd=tmp_path)
+    assert result.ok and 'NOH_CHECKER_EVIDENCE' in result.log
+    assert any('`system`' in p.message for p in check(text,frozenset({'noh.ily','noh2.ily'})))
+
+@pytest.mark.lilypond
+def test_pinned_lilypond_accepts_scheme_string_include_that_the_checker_refuses(tmp_path):
+    from pipeline.typeset import lilypond
+    from pipeline.typeset.source_check import check
+    text='\\version "2.26.0"\n\\include #"/dev/null"\n{ c\'4 }\n'
+    source=tmp_path/'source.ly';source.write_text(text)
+    assert lilypond.run(['-dno-print-pages',str(source)],cwd=tmp_path).ok
+    assert any('literal allowlisted' in p.message for p in check(text,frozenset({'noh.ily','noh2.ily'})))

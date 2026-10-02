@@ -11,9 +11,9 @@
  * property of the data — only of the code that happened to be running that day.
  */
 
-import { parseCorrection } from "./schema";
+import { parseStoredCorrection } from "./schema";
 
-export const STATUSES = ["pending", "accepted", "rejected"] as const;
+export const STATUSES = ["pending", "accepted", "rejected", "duplicate", "resolved"] as const;
 export type Status = (typeof STATUSES)[number];
 
 const ISO_LIKE = /^\d{4}-\d{2}-\d{2}([ T]\d{2}:\d{2}:\d{2})?Z?$/;
@@ -27,6 +27,10 @@ export interface StoredRow {
   readonly note: string;
   readonly status: string;
   readonly created_at: string;
+  readonly seen?: string | null;
+  readonly resolved_by?: number | null;
+  readonly duplicate_of?: number | null;
+  readonly commit_sha?: string | null;
 }
 
 export interface PublicRow {
@@ -38,6 +42,10 @@ export interface PublicRow {
   readonly proposedValue: string;
   readonly status: Status;
   readonly createdAt: string;
+  readonly renderHash?: string;
+  readonly resolvedBy?: number;
+  readonly duplicateOf?: number;
+  readonly commitSha?: string;
 }
 
 function isStatus(value: string): value is Status {
@@ -47,17 +55,24 @@ function isStatus(value: string): value is Status {
 /**
  * The admin workflow's statuses (migration 0002), as the public sees them: a
  * report an editor has approved, or that sits in an open pull request, is still
- * pending until it is merged; a duplicate was not taken up.
+ * pending until it is merged; duplicate and resolved are distinct outcomes.
  */
 const PUBLIC_STATUS: Readonly<Record<string, Status>> = {
   pending: "pending", approved: "pending", queued: "pending",
-  accepted: "accepted", rejected: "rejected", duplicate: "rejected",
+  accepted: "accepted", rejected: "rejected", duplicate: "duplicate",
 };
 
 export function toPublicRow(row: StoredRow): PublicRow | null {
-  const check = parseCorrection({
+  // Approval stores canonical admin fields. Keep the public API's reader
+  // vocabulary, including chant's different meaning on a whole piece.
+  const itemChant = row.target?.startsWith("part:") || row.target?.startsWith("pairing:") || row.target?.startsWith("vespers:");
+  const field = row.field === "printed_pages" ? "printedPages"
+    : row.field === "start_system" ? "startSystem"
+    : row.field === "chant" && itemChant ? "gregobaseId" : row.field;
+  const check = parseStoredCorrection({
     pieceId: row.piece_id,
-    field: row.field,
+    seen: row.seen,
+    field,
     proposedValue: row.proposed,
     target: row.target ?? null,
   });
@@ -67,16 +82,23 @@ export function toPublicRow(row: StoredRow): PublicRow | null {
   if (!ISO_LIKE.test(row.created_at)) return null;
 
   // Emit the values that were validated, never the raw stored strings: if
-  // parseCorrection ever normalises, the published value must not diverge from
+  // parseStoredCorrection ever normalises, the published value must not diverge from
   // the one that passed the check.
+  const validId = (id: unknown): id is number => typeof id === "number" && Number.isSafeInteger(id) && id > 0;
+  const resolvedBy = validId(row.resolved_by) ? row.resolved_by : undefined;
+  const duplicateOf = validId(row.duplicate_of) ? row.duplicate_of : undefined;
   return {
     id: row.id,
     pieceId: check.value.pieceId,
     target: check.value.target,
     field: check.value.field,
     proposedValue: check.value.proposedValue,
-    status,
+    status: status === "accepted" && resolvedBy ? "resolved" : status,
     createdAt: row.created_at,
+    ...(check.value.field === "issue" && check.value.seen ? { renderHash: check.value.seen } : {}),
+    ...(resolvedBy ? { resolvedBy } : {}),
+    ...(duplicateOf ? { duplicateOf } : {}),
+    ...(row.commit_sha && /^[0-9a-f]{7,40}$/.test(row.commit_sha) ? { commitSha: row.commit_sha } : {}),
   };
 }
 

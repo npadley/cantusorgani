@@ -127,6 +127,7 @@ def test_record_writes_a_readers_correction_to_the_overlay_not_the_catalog(tmp_p
     entry = corrections.load(c)[0]
     assert (entry.target, entry.field, entry.value, entry.source) == ("piece:kyrie-i", "printed_pages", [1, 3],
                                                                       "reader#7")
+    assert entry.note == ""
     assert catalog["pieces"][0]["printed_pages"] == [1, 2]
     with pytest.raises(triage.RejectedCorrection, match="corrected on its parts"):
         triage.record(catalog, triage.Correction(id=8, piece_id="kyrie-i", field="chant", proposed="Kyrie",
@@ -153,3 +154,8 @@ def test_record_sends_a_missing_part_report_to_the_sections_screen():
                         note="", status="pending", created_at="2026-09-29")
     with pytest.raises(RejectedCorrection, match="Sections screen"):
         record({"pieces": []}, report)
+def test_music_report_is_reviewed_in_source_editor_not_recorded_as_catalogue_change():
+    from tools.triage.main import Correction, record
+    c=Correction(7,'typeset','issue','lyrics','private note','pending','2026-10-02',target='typeset:vol-5/x.ly')
+    with pytest.raises(RejectedCorrection,match='source editor'):
+        record({},c)

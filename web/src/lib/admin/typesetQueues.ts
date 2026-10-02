@@ -29,8 +29,6 @@ export const QUEUE_ORDER: readonly TypesetQueue[] = ["matches", "errors", "proof
 export const QUEUE_LABELS: Readonly<Record<TypesetQueue, string>> = {
   matches: "Matches", errors: "Errors", proofreading: "Proofreading",
 };
-/** At most this many scans beside a part being proofread. */
-const MAX_SCANS = 8;
 
 export interface Candidate {
   readonly target: string;
@@ -188,7 +186,7 @@ export function typesetEntries(data: TypesetData = TYPESET, reviewed: Reviewed =
       title: as.label, volume: piece?.volume ?? volumeOf(part.file),
       look: "Read the typeset music against the scan, note by note and word by word.",
       detail: part.file, render: renderOf(part.hash, data.prefix, base), error: null, excerpt: [], candidates: [],
-      scans: systems.slice(0, MAX_SCANS).map((ref, i) => shown(sc, ref, `System ${i + 1} of ${systems.length}`)),
+      scans: systems.map((ref, i) => shown(sc, ref, `System ${i + 1} of ${systems.length}`)),
       shownAs: as, href: as.href,
     });
   }

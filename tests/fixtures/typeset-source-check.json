@@ -1,0 +1,238 @@
+[
+  {
+    "name": "latin",
+    "text": "\\\\lyricmode { Ex -- it ac -- cé -- pit sy -- stem -- a }",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": []
+  },
+  {
+    "name": "safe",
+    "text": "\\include \"noh.ily\"\n#(define x 1)",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": []
+  },
+  {
+    "name": "system",
+    "text": "#(system \"evil\")",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 1,
+        "message": "Scheme `system` reaches outside the music, so it is not allowed"
+      }
+    ]
+  },
+  {
+    "name": "direct",
+    "text": "#ly:gulp-file",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 1,
+        "message": "Scheme `ly:gulp-file` reaches outside the music, so it is not allowed"
+      }
+    ]
+  },
+  {
+    "name": "comment",
+    "text": "% #(system \"evil\")\nc",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": []
+  },
+  {
+    "name": "string",
+    "text": "words = \"#(system x)\"",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": []
+  },
+  {
+    "name": "nested",
+    "text": "#(define x (eval \"x\"))",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 1,
+        "message": "Scheme `eval` reaches outside the music, so it is not allowed"
+      }
+    ]
+  },
+  {
+    "name": "traversal",
+    "text": "\\include \"../evil.ily\"",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 1,
+        "message": "\\include \"../evil.ily\" is not one of our include files (noh.ily, noh2.ily) or LilyPond's own"
+      }
+    ]
+  },
+  {
+    "name": "file",
+    "text": "\\image #X #1 \"a\"",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 1,
+        "message": "\\image reads or writes files, so it is not allowed"
+      }
+    ]
+  },
+  {
+    "name": "malformed",
+    "text": "#(define x (system \"evil\"",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 1,
+        "message": "Scheme `system` reaches outside the music, so it is not allowed"
+      }
+    ]
+  },
+  {
+    "name": "unicode",
+    "text": "% æ\n#(getenv \"SECRET\")",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 2,
+        "message": "Scheme `getenv` reaches outside the music, so it is not allowed"
+      }
+    ]
+  },
+  {
+    "name": "escaped",
+    "text": "words = \"a\\\" #(system x)\"",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": []
+  },
+  {
+    "name": "dollar",
+    "text": "$(open-input-file \"x\")",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 1,
+        "message": "Scheme `open-input-file` reaches outside the music, so it is not allowed"
+      }
+    ]
+  },
+  {
+    "name": "block",
+    "text": "%{ #(system \"evil\") %}\nc",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": []
+  },
+  {
+    "name": "spaced Scheme",
+    "text": "# (system \"evil\")",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 1,
+        "message": "Scheme `system` reaches outside the music, so it is not allowed"
+      }
+    ]
+  },
+  {
+    "name": "newline Scheme",
+    "text": "#\n(system \"evil\")",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 2,
+        "message": "Scheme `system` reaches outside the music, so it is not allowed"
+      }
+    ]
+  },
+  {
+    "name": "spaced dollar",
+    "text": "$ (open-input-file \"x\")",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 1,
+        "message": "Scheme `open-input-file` reaches outside the music, so it is not allowed"
+      }
+    ]
+  },
+  {
+    "name": "nonliteral include",
+    "text": "\\include #\"/dev/null\"",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 1,
+        "message": "\\include must name a literal allowlisted file"
+      }
+    ]
+  },
+  {
+    "name": "spaced direct Scheme",
+    "text": "# system",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 1,
+        "message": "Scheme `system` reaches outside the music, so it is not allowed"
+      }
+    ]
+  }
+]

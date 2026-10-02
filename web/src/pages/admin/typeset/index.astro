@@ -16,8 +16,8 @@ const pct = (x: number | null) => (x === null ? "no chant to compare" : `melody 
 const INTRO: Readonly<Record<TypesetQueue, string>> = {
   matches: "Transcriptions the matcher could not place with confidence. Compare the drawing with each candidate's scan " +
     "(and its chant), then say which part it is. A file chosen for a part replaces the scans there once published.",
-  errors: "Files LilyPond cannot draw, with the line it stopped at. Until the source editor arrives, note what you see " +
-    "with Skip, or settle files that are not in the catalogue.",
+  errors: "Files LilyPond cannot draw, with the line it stopped at. Open the source editor to repair them, " +
+    "or settle files that are not in the catalogue.",
   proofreading: "Every part shown typeset on the site, beside the scan of the same systems. Proofread confirms this drawing; " +
     "an edit to the file brings it back. Problem leaves a note and keeps it here.",
 };
@@ -60,6 +60,7 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
             <div class="main">
             <h3 tabindex="-1" id={anchor(e)}>{e.title}</h3>
             <p class="small">{e.look}</p>
+            <p class="small"><a href={`/admin/typeset/edit/?file=${encodeURIComponent(e.file)}`}>Edit the source</a></p>
             {e.detail && <p class="small muted">{e.detail}</p>}
 
             {e.render && (

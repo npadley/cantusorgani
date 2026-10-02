@@ -32,6 +32,7 @@ WORKER_DIR = ROOT / "workers" / "corrections"
 # Mirrors workers/corrections/src/schema.ts. Kept in step by
 # tests/test_triage.py, which fails if the two vocabularies drift.
 FIELD_PATTERNS: dict[str, re.Pattern[str]] = {
+    "issue": re.compile(r"^(notation|lyrics|layout|other)$"),
     "title": re.compile(r"^[^\x00-\x1f<>]{1,120}$"),
     "incipit": re.compile(r"^[^\x00-\x1f<>]{1,120}$"),
     "mode": re.compile(r"^(I|II|III|IV|V|VI|VII|VIII)$"),
@@ -323,6 +324,8 @@ def main(argv: list[str] | None = None) -> int:
 def record(catalog: dict[str, Any], c: Correction) -> None:
     """A reader's correction as an entry in data/corrections.yml."""
     validate(c.field, c.proposed)
+    if c.field == "issue":
+        raise RejectedCorrection("Music reports are resolved by a source editor correction (/admin/typeset/edit/), not a catalogue change")
     if c.field == "sections":
         raise RejectedCorrection("a missing or mislabelled part is fixed on the admin's Sections screen "
                                  "(/admin/sections/), which writes the piece's whole list; see docs/EDITING.md, 'Sections'")
@@ -337,7 +340,7 @@ def record(catalog: dict[str, Any], c: Correction) -> None:
         if slug is None:
             raise KeyError(f"no piece with id or slug {c.piece_id!r}")
         target = f"piece:{slug}"
-    correct(target, CATALOG_KEY[c.field], c.proposed, note=c.note[:200], source=f"reader#{c.id}",
+    correct(target, CATALOG_KEY[c.field], c.proposed, note="", source=f"reader#{c.id}",
             base_path=DATA / "catalog.base.json", path=DATA / "corrections.yml", vespers_dir=DATA)
 
 

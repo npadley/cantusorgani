@@ -12,7 +12,9 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@codemirror/state": "^6.7.6",
     "astro": "^7.3.5",
+    "codemirror": "^6.0.2",
     "pdf-lib": "^1.17.1"
   },
   "devDependencies": {

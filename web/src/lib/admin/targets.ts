@@ -129,6 +129,7 @@ export interface TargetVespers {
 
 /** A typeset transcription, by its file under data/typeset/src/. */
 export interface TargetTypeset {
+  readonly hash?: string;
   /** Its opening words, or its file when it has none. */
   readonly label: string;
   /** What it is now: a target when shown, none, other-setting, or "" while undecided. */

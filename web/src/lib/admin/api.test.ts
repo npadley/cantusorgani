@@ -9,6 +9,8 @@ import { d1Store } from "./store";
 import { keyPair, piece, readerReport, targets, testDb } from "./testing";
 import type { KeyPair } from "./testing";
 import { base64UrlDecode } from "./crypto";
+import { toPublicRow } from "../../../../workers/corrections/src/status";
+import type { StoredRow } from "../../../../workers/corrections/src/status";
 
 const ORIGIN = "http://localhost:8788";
 let db: ReturnType<typeof testDb>;
@@ -84,6 +86,56 @@ async function call(method: string, path: string, body?: unknown, headers: Recor
 function statusOf(id: number): string {
   return (db.sqlite.prepare("SELECT status FROM corrections WHERE id = ?").get(id) as { status: string }).status;
 }
+
+describe("public tracking after editor approval", () => {
+  it.each([
+    ["kyrie-i", null, "printedPages", "2-3"],
+    ["dominica-i-adventus", "part:dominica-i-adventus/gradual", "startSystem", "4"],
+    ["dominica-i-adventus", "part:dominica-i-adventus/gradual", "gregobaseId", "133"],
+  ])("keeps a reader's %s %s %s report visible through publication", async (pieceId, target, field, proposed) => {
+    const id = readerReport(db.sqlite, pieceId!, field!, proposed!, "private reader source");
+    db.sqlite.prepare("UPDATE corrections SET target = ? WHERE id = ?").run(target, id);
+    const publicRow = () => toPublicRow(db.sqlite.prepare("SELECT * FROM corrections WHERE id = ?").get(id) as unknown as StoredRow);
+    expect(publicRow()).toMatchObject({ id, field, status: "pending" });
+    expect((await call("POST", `/rows/${id}/approve`, {})).status).toBe(200);
+    expect(publicRow()).toMatchObject({ id, field, status: "pending" });
+    const published = await call("POST", "/publish", {});
+    expect(published.status).toBe(200);
+    expect(JSON.stringify(sent)).not.toContain("private reader source");
+    expect(db.sqlite.prepare("SELECT note FROM corrections WHERE id = ?").get(id)).toMatchObject({ note: "private reader source" });
+    expect(publicRow()).toMatchObject({ id, field, status: "pending" });
+    await webhook("pull_request", { action: "closed", pull_request: { number: 42, merged: true,
+      merge_commit_sha: "abc1234def", head: { ref: `corrections/${published.body["batch"]}` } } });
+    expect(publicRow()).toMatchObject({ id, field, status: "accepted" });
+    expect(JSON.stringify(publicRow())).not.toContain("private reader source");
+  });
+
+  it("retains editor-authored public reasons in publication", async () => {
+    expect((await call("POST", "/edits", { target: "piece:kyrie-i", field: "mode", value: "VII", note: "Verified in the printed book" })).status).toBe(201);
+    expect((await call("POST", "/publish", {})).status).toBe(200);
+    expect(sent[0]?.entries[0]).toMatchObject({ source: "editor", note: "Verified in the printed book" });
+  });
+
+  it.each([
+    { pieceId: "kyrie-i", target: null, readerField: "printedPages", readerValue: "2-3", field: "system_range", value: "noh5/0001/001-noh5/0001/003" },
+    { pieceId: "vespers", target: "vespers:adv1/antiphon-1", readerField: "gregobaseId", readerValue: "123", field: "refs", value: "noh8/0077/000 noh8/0077/001" },
+    { pieceId: "vespers", target: "vespers:adv1/antiphon-1", readerField: "gregobaseId", readerValue: "123", field: "note", value: "The music is printed on the next page" },
+  ])("keeps a reader report recategorized to $field visible through publication", async ({ pieceId, target, readerField, readerValue, field, value }) => {
+    const id = readerReport(db.sqlite, pieceId, readerField, readerValue, "private reader source");
+    db.sqlite.prepare("UPDATE corrections SET target = ? WHERE id = ?").run(target, id);
+    const publicRow = () => toPublicRow(db.sqlite.prepare("SELECT * FROM corrections WHERE id = ?").get(id) as unknown as StoredRow);
+    expect((await call("POST", `/rows/${id}/approve`, { field, value })).status).toBe(200);
+    expect(publicRow()).toMatchObject({ id, field, proposedValue: value, status: "pending" });
+    const published = await call("POST", "/publish", {});
+    expect(published.status).toBe(200);
+    expect(publicRow()).toMatchObject({ id, field, status: "pending" });
+    expect(JSON.stringify(sent)).not.toContain("private reader source");
+    await webhook("pull_request", { action: "closed", pull_request: { number: 42, merged: true,
+      merge_commit_sha: "abc1234def", head: { ref: `corrections/${published.body["batch"]}` } } });
+    expect(publicRow()).toMatchObject({ id, field, status: "accepted" });
+    expect(JSON.stringify(publicRow())).not.toContain("private reader source");
+  });
+});
 
 async function webhook(event: string, payload: unknown, secret = "hook-secret") {
   const raw = JSON.stringify(payload);
@@ -312,7 +364,7 @@ describe("publishing", () => {
     const result = await call("POST", "/publish", {});
     expect(result).toMatchObject({ status: 200, body: { count: 2 } });
     expect(sent[0]!.entries).toEqual([
-      { target: "piece:kyrie-i", field: "mode", value: "VII", note: "Liber", source: `reader#${reader}`, editor_email: "ed@example.org" },
+      { target: "piece:kyrie-i", field: "mode", value: "VII", note: "", source: `reader#${reader}`, editor_email: "ed@example.org" },
       { target: "piece:dominica-i-adventus", field: "title", value: "Dominica prima Adventus", note: "", source: "editor", editor_email: "ed@example.org" },
     ]);
     expect(statusOf(reader)).toBe("queued");
@@ -342,7 +394,7 @@ describe("publishing", () => {
     failDispatch = true;
     const result = await call("POST", "/publish", {});
     expect(result.status).toBe(502);
-    expect(result.body["error"]).toMatch(/^Nothing was published: GitHub is down/);
+    expect(result.body["error"]).toMatch(/^Publishing did not finish: GitHub is down/);
     expect(db.sqlite.prepare("SELECT status, batch_id FROM corrections").get()).toMatchObject({ status: "approved", batch_id: null });
   });
 });
@@ -489,7 +541,7 @@ describe("the webhook", () => {
     const first = await published();
     await webhook("pull_request", { action: "closed", pull_request: { number: 7, merged: false, head: { ref: `corrections/${first.batch}` } } });
     expect(db.sqlite.prepare("SELECT status, reason FROM corrections WHERE id = ?").get(first.id))
-      .toMatchObject({ status: "pending", reason: "PR #7 was closed without merging" });
+      .toMatchObject({ status: "approved", reason: "PR #7 was closed without merging" });
     const second = await published();
     await webhook("workflow_run", { action: "completed", workflow_run: { name: "corrections-batch", conclusion: "failure",
       display_title: `corrections ${second.batch}`, html_url: "https://github.com/x/actions/runs/1" } });
@@ -595,4 +647,130 @@ describe("GitHub", () => {
     expect(id).toBe("b-202609271405-ssssss");
     expect(id).toMatch(/^b-[0-9a-z-]{6,40}$/);
   });
+});
+
+
+describe("linked report resolution and safe withdrawal", () => {
+  const sectionValue = JSON.stringify([{ kind: "introit", system: 1, chant: 132 }, { kind: "gradual", system: 3, chant: "none" }]);
+  async function linked() {
+    const report = readerReport(db.sqlite, "dominica-i-adventus", "sections", "system 4: the Tract starts here", "private evidence");
+    const edit = await call("POST", "/edits", { target: "sections:dominica-i-adventus", field: "sections", value: sectionValue });
+    const fix = edit.body["id"] as number;
+    expect(await call("POST", `/rows/${report}/resolve`, { correctionId: fix })).toMatchObject({ status: 200 });
+    return { report, fix };
+  }
+  it("keeps a section report pending until its linked correction merges", async () => {
+    const { report, fix } = await linked();
+    const projected = () => toPublicRow(db.sqlite.prepare("SELECT * FROM corrections WHERE id = ?").get(report) as unknown as StoredRow);
+    expect(projected()).toMatchObject({ status: "pending", resolvedBy: fix });
+    expect((await call("GET", "/queue")).body["pending"]).toEqual([]);
+    const published = await call("POST", "/publish", {});
+    expect(sent[0]!.entries).toHaveLength(1);
+    expect(projected()?.status).toBe("pending");
+    await webhook("pull_request", { action: "closed", pull_request: { number: 42, merged: true,
+      merge_commit_sha: "abc1234def", head: { ref: `corrections/${published.body["batch"]}` } } });
+    expect(projected()).toMatchObject({ status: "resolved", resolvedBy: fix, commitSha: "abc1234def" });
+    expect(JSON.stringify(projected())).not.toContain("private evidence");
+  });
+  it("reopens a linked report when its editor withdraws the fix", async () => {
+    const { report, fix } = await linked();
+    expect((await call("POST", `/rows/${fix}/unapprove`, {})).status).toBe(200);
+    expect((await call("GET", "/queue")).body["pending"]).toMatchObject([{ id: report, resolved_by: null }]);
+  });
+  it("refuses to resolve a report with an unrelated correction", async () => {
+    const report = readerReport(db.sqlite, "dominica-i-adventus", "sections", "missing Tract");
+    const edit = await call("POST", "/edits", { target: "piece:kyrie-i", field: "title", value: "Kyrie" });
+    expect((await call("POST", `/rows/${report}/resolve`, { correctionId: edit.body["id"] })).status).toBe(422);
+    expect(statusOf(report)).toBe("pending");
+  });
+  it.each(["title", "printedPages"])("withdraws a %s report safely when an identical newer report is pending", async (field) => {
+    const value = field === "title" ? "Kyrie" : "2-3";
+    const older = readerReport(db.sqlite, "kyrie-i", field, value, "older private note");
+    expect((await call("POST", `/rows/${older}/approve`, {})).status).toBe(200);
+    const newer = readerReport(db.sqlite, "kyrie-i", field, value, "newer private note");
+    expect((await call("POST", `/rows/${older}/unapprove`, {})).status).toBe(200);
+    expect(statusOf(older)).toBe("duplicate");
+    expect(statusOf(newer)).toBe("pending");
+    expect(toPublicRow(db.sqlite.prepare("SELECT * FROM corrections WHERE id = ?").get(older) as unknown as StoredRow))
+      .toMatchObject({ status: "duplicate", duplicateOf: newer });
+    expect(db.sqlite.prepare("SELECT note FROM corrections ORDER BY id").all()).toMatchObject([
+      { note: "older private note" }, { note: "newer private note" },
+    ]);
+  });
+  it("returns a closed section batch to approved so editors can retry publication", async () => {
+    const { report, fix } = await linked();
+    const published = await call("POST", "/publish", {});
+    await webhook("pull_request", { action: "closed", pull_request: { number: 9, merged: false,
+      head: { ref: `corrections/${published.body["batch"]}` } } });
+    expect(statusOf(fix)).toBe("approved");
+    expect(statusOf(report)).toBe("pending");
+    expect((await call("POST", "/publish", {})).status).toBe(200);
+  });
+});
+
+it("returns colliding reader reports from a cancelled batch without losing evidence", async () => {
+  const older = readerReport(db.sqlite, "kyrie-i", "title", "Kyrie", "old evidence");
+  await call("POST", `/rows/${older}/approve`, {});
+  const published = await call("POST", "/publish", {});
+  const newer = readerReport(db.sqlite, "kyrie-i", "title", "Kyrie", "new evidence");
+  await webhook("pull_request", { action: "closed", pull_request: { number: 10, merged: false,
+    head: { ref: `corrections/${published.body["batch"]}` } } });
+  expect(statusOf(older)).toBe("duplicate");
+  expect(statusOf(newer)).toBe("pending");
+  expect(db.sqlite.prepare("SELECT duplicate_of FROM corrections WHERE id = ?").get(older)).toMatchObject({ duplicate_of: newer });
+});
+
+it("does not let a stale editor action change a report linked by another editor", async () => {
+  const report = readerReport(db.sqlite, "dominica-i-adventus", "sections", "missing Tract");
+  const store = d1Store(db.d1);
+  expect((await store.get(report))?.status).toBe("pending");
+  const edit = await call("POST", "/edits", { target: "sections:dominica-i-adventus", field: "sections",
+    value: JSON.stringify([{ kind: "introit", system: 1, chant: 132 }]) });
+  expect((await call("POST", `/rows/${report}/resolve`, { correctionId: edit.body["id"] })).status).toBe(200);
+  expect(await store.move(report, "pending", "rejected", { reason: "stale action" })).toBe(false);
+  expect(statusOf(report)).toBe("pending");
+});
+
+it("routes a stale music report to source repair rather than catalogue approval", async () => {
+  const id = readerReport(db.sqlite, "typeset", "issue", "lyrics", "private explanation");
+  db.sqlite.prepare("UPDATE corrections SET target = ?, seen = ? WHERE id = ?").run("typeset:vol-5/missa-ix/kyrie_IX.ly", "c".repeat(32), id);
+  const queue = (await call("GET", "/queue")).body["pending"] as Record<string, unknown>[];
+  expect(queue[0]).toMatchObject({ id, kind: "typeset", resolvedField: "issue", fields: [] });
+  expect((await call("POST", `/rows/${id}/approve`, {})).status).toBe(422);
+});
+
+it("signed preview completion releases matching leases idempotently",async()=>{
+  const key="a".repeat(64);
+  db.sqlite.prepare("INSERT INTO typeset_previews(editor_email,preview_key,admitted_at,expires_at) VALUES ('ed',?,0,300000)").run(key);
+  const event={action:"completed",workflow_run:{name:"typeset-preview",display_title:`typeset-preview ${key} lease 1`,conclusion:"failure"}};
+  expect((await webhook("workflow_run",event)).body).toEqual({ok:true,updated:1});
+  expect((await webhook("workflow_run",event)).body).toEqual({ok:true,updated:0});
+});
+it("publishes immutable source-only snapshots, resolves on merge and keeps private notes",async()=>{
+  const {typesetStore,sourceContentHash}=await import('./typesetStore');
+  const file='vol-5/missa-ix/kyrie_IX.ly',s=typesetStore(db.d1);
+  await s.saveDraft('ed@example.org',{file,text:'d4',baseBlobSha:'a'.repeat(40),contentHash:await sourceContentHash('d4')},0);
+  const report=Number(db.sqlite.prepare("INSERT INTO corrections(piece_id,target,field,proposed,seen,note) VALUES ('typeset',?,'issue','lyrics',?,'PRIVATE-MARKER')").run(`typeset:${file}`,'b'.repeat(32)).lastInsertRowid);
+  const id=await s.approveDraft('ed@example.org',file,1,'Checked scan',report);
+  await s.saveDraft('ed@example.org',{file,text:'e4',baseBlobSha:'a'.repeat(40),contentHash:await sourceContentHash('e4')},1);
+  const d={...deps(),prepareSources:async(batch:string,snapshots:any)=>{expect(snapshots[0].text).toBe('d4');return {branch:`corrections/${batch}`,commitSha:'c'.repeat(40)};}};
+  const response=await handleAdmin(new Request(`${ORIGIN}/admin/api/publish`,{method:'POST',headers:{origin:ORIGIN,'content-type':'application/json'},body:'{}'}),env,d);
+  expect(response.status).toBe(200);expect(sent[0]?.entries).toEqual([]);expect(sent[0]?.sourceReasons).toMatchObject([{reason:'Checked scan',editorEmail:'ed@example.org'}]);
+  expect(sent[0]?.sources).toMatchObject([{correctionId:id,file}]);expect(JSON.stringify(sent)).not.toMatch(/PRIVATE-MARKER|"text"/);
+  const batch=sent[0]!.batch;
+  await webhook('pull_request',{action:'closed',pull_request:{number:7,merged:false,head:{ref:`corrections/${batch}`}}});
+  expect((await d.store.get(id!))?.status).toBe('approved');
+  const again=await handleAdmin(new Request(`${ORIGIN}/admin/api/publish`,{method:'POST',headers:{origin:ORIGIN,'content-type':'application/json'},body:'{}'}),env,d);expect(again.status).toBe(200);
+  await webhook('pull_request',{action:'closed',pull_request:{number:8,merged:true,merge_commit_sha:'abc1234',head:{ref:`corrections/${sent[1]!.batch}`}}});
+  expect(toPublicRow(db.sqlite.prepare('SELECT * FROM corrections WHERE id=?').get(report) as unknown as StoredRow)?.status).toBe('resolved');
+  expect(db.sqlite.prepare('SELECT note FROM corrections WHERE id=?').get(report)).toMatchObject({note:'PRIVATE-MARKER'});
+});
+it('replayed signed completion cannot release another preview attempt',async()=>{
+  const {previewStore}=await import('./typesetPreview');const s=previewStore(db.d1),key='a'.repeat(64);
+  const old=await s.acquirePreview('ed',key,0);if(!old.ok)throw Error('admission');
+  const event={action:'completed',workflow_run:{name:'typeset-preview',display_title:`typeset-preview ${key} lease ${old.leaseId}`,conclusion:'success'}};
+  expect((await webhook('workflow_run',event)).body).toMatchObject({updated:1});
+  const current=await s.acquirePreview('ed',key,1);expect(current.ok).toBe(true);
+  expect((await webhook('workflow_run',event)).body).toMatchObject({updated:0});
+  expect(await s.acquirePreview('ed','b'.repeat(64),2)).toEqual({ok:false,reason:'active'});
 });

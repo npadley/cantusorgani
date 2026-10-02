@@ -99,7 +99,7 @@ async function verifyTurnstile(env: Env, token: string, ip: string): Promise<boo
 
 async function handleGet(env: Env, cors: Record<string, string>): Promise<Response> {
   const { results } = await env.DB.prepare(
-    "SELECT id, piece_id, target, field, proposed, note, status, created_at " +
+    "SELECT id, piece_id, target, field, proposed, note, status, created_at, resolved_by, duplicate_of, commit_sha, seen " +
       "FROM corrections ORDER BY created_at DESC LIMIT ?1",
   )
     .bind(PAGE_SIZE)
@@ -149,13 +149,13 @@ async function handlePost(request: Request, env: Env, cors: Record<string, strin
   const parsed = parseCorrection(body);
   if (!parsed.ok) return json({ error: parsed.error }, 400, cors);
 
-  const { pieceId, field, proposedValue, note, target } = parsed.value;
+  const { pieceId, field, proposedValue, note, target, seen } = parsed.value;
   try {
     await env.DB.prepare(
-      "INSERT INTO corrections (piece_id, field, proposed, note, submitter_hash, target) " +
-        "VALUES (?1, ?2, ?3, ?4, ?5, ?6)",
+      "INSERT INTO corrections (piece_id, field, proposed, note, submitter_hash, target, seen) " +
+        "VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
     )
-      .bind(pieceId, field, proposedValue, note, submitterHash, target)
+      .bind(pieceId, field, proposedValue, note, submitterHash, target, seen ?? null)
       .run();
   } catch (error) {
     // The unique index makes a repeat submission a no-op rather than queue spam.

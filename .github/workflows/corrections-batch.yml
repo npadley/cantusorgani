@@ -33,27 +33,51 @@ permissions:
   contents: read
 
 jobs:
+  source-check:
+    if: ${{ github.event.client_payload.sources[0] != null }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions: {}
+    steps:
+      - name: Validate source branch before checkout
+        id: source
+        env:
+          PAYLOAD: ${{ toJSON(github.event.client_payload) }}
+        run: |
+          printf '%s' "$PAYLOAD" > "$RUNNER_TEMP/batch.json"
+          id=$(jq -r '.batch' "$RUNNER_TEMP/batch.json")
+          branch=$(jq -r '.branch' "$RUNNER_TEMP/batch.json")
+          [[ "$id" =~ ^b-[0-9a-z-]{6,40}$ && "$branch" == "corrections/$id" ]] || exit 1
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ steps.source.outputs.branch }}
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: false
+      - run: uv sync --frozen
+      - run: uv run noh lilypond-install
+      - name: Validate/render snapshots and refresh affected evidence
+        env:
+          NOH_SANDBOX: '1'
+        run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          unshare --user --net --map-current-user true
+          ulimit -t 1200 -f 32768 -v 2097152
+          uv run noh typeset-source-batch "$RUNNER_TEMP/batch.json"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: source-batch-evidence
+          path: build/source-batch/parts.yml
+          retention-days: 1
+          if-no-files-found: error
   open-pull-request:
+    needs: source-check
+    if: ${{ always() && (needs.source-check.result == 'success' || needs.source-check.result == 'skipped') }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: App token
-        id: app
-        uses: actions/create-github-app-token@v3
-        with:
-          app-id: ${{ vars.ADMIN_APP_ID }}
-          private-key: ${{ secrets.ADMIN_APP_PRIVATE_KEY }}
-
-      - uses: actions/checkout@v7
-        with:
-          ref: main
-          token: ${{ steps.app.outputs.token }}
-
-      - uses: astral-sh/setup-uv@v10.2.0
-        with:
-          enable-cache: true
-      - run: uv sync --frozen
-
       # The payload goes through a file, never into a shell command line.
       - name: Read the batch
         id: batch
@@ -66,6 +90,41 @@ jobs:
             echo "::error::batch id is not of the form b-<letters, digits, ->"; exit 1
           fi
           echo "id=$id" >> "$GITHUB_OUTPUT"
+          branch=$(jq -r '.branch // "main"' "$RUNNER_TEMP/batch.json")
+          if [[ "$branch" != "main" && "$branch" != "corrections/$id" ]]; then
+            echo "::error::source branch does not match batch"; exit 1
+          fi
+          jq -e '(.entries | type == "array") and ((.sources // []) | type == "array") and (((.entries | length) + ((.sources // []) | length)) >= 1) and (((.entries | length) + ((.sources // []) | length)) <= 100)' "$RUNNER_TEMP/batch.json" > /dev/null
+          if [[ "$branch" == "main" ]] && [[ $(jq '(.sources // []) | length' "$RUNNER_TEMP/batch.json") != 0 ]]; then exit 1; fi
+          echo "ref=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: App token
+        id: app
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.ADMIN_APP_ID }}
+          private-key: ${{ secrets.ADMIN_APP_PRIVATE_KEY }}
+
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ steps.batch.outputs.ref }}
+          token: ${{ steps.app.outputs.token }}
+
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+
+      - uses: actions/download-artifact@v8
+        if: ${{ github.event.client_payload.sources[0] != null }}
+        with:
+          name: source-batch-evidence
+          path: build/source-batch/
+      - name: Apply checked source evidence
+        if: ${{ github.event.client_payload.sources[0] != null }}
+        run: |
+          uv run noh typeset-source-evidence "$RUNNER_TEMP/batch.json" build/source-batch/parts.yml
+          cp build/source-batch/parts.yml data/typeset/parts.yml
 
       - name: Record the corrections
         run: uv run noh correct-batch "$RUNNER_TEMP/batch.json" --summary "$RUNNER_TEMP/pr.md" --hold "$RUNNER_TEMP/hold.txt"
@@ -76,21 +135,27 @@ jobs:
       - name: Chant notation
         run: uv run noh gregobase-fetch && uv run noh chants && uv run noh apply-corrections
 
+      - name: Regenerate source manifest and review data
+        run: uv run noh typeset-manifest
+
       - name: Commit and open the pull request
         env:
           GH_TOKEN: ${{ steps.app.outputs.token }}
           BATCH: ${{ steps.batch.outputs.id }}
+          SOURCE_REF: ${{ steps.batch.outputs.ref }}
           APP_SLUG: ${{ steps.app.outputs.app-slug }}
         run: |
           git config user.name "${APP_SLUG}[bot]"
           git config user.email "${APP_SLUG}[bot]@users.noreply.github.com"
-          git switch -c "corrections/$BATCH"
-          git add data/corrections.yml data/catalog.json data/vespers/vespers-lineup.json data/corrections-log.json data/chants.json data/reviewed.json data/typeset/manifest.json data/typeset/review.json
-          count=$(jq '.entries | length' "$RUNNER_TEMP/batch.json")
-          git commit -q -m "data: corrections batch $BATCH ($count)"
+          if [[ "$SOURCE_REF" == "main" ]]; then git switch -c "corrections/$BATCH"; fi
+          git add data/corrections.yml data/catalog.json data/vespers/vespers-lineup.json data/corrections-log.json data/chants.json data/reviewed.json data/typeset/manifest.json data/typeset/review.json data/typeset/parts.yml
+          count=$(jq '(.entries | length) + ((.sources // []) | length)' "$RUNNER_TEMP/batch.json")
+          if ! git diff --cached --quiet; then git commit -q -m "data: corrections batch $BATCH ($count)"; fi
           git push -q origin "corrections/$BATCH"
+          if ! gh pr view "corrections/$BATCH" --json number >/dev/null 2>&1; then
           gh pr create --base main --head "corrections/$BATCH" \
             --title "Corrections: batch $BATCH ($count)" --body-file "$RUNNER_TEMP/pr.md"
+          fi
           # Auto-merge only when main requires the site's check: without that rule
           # GitHub would merge at once, before any check ran. Any failure here
           # leaves the pull request open for the owner, as before; it never fails
