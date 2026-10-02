@@ -4038,6 +4038,15 @@
           "title": "Ex ore infantium"
         },
         {
+          "kind": "gradual",
+          "variant": "",
+          "gregobase_id": 432,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 50,
+          "borrowed_from": "commune-plurimorum-martyrum-alia-missa",
+          "borrowed_ref": "noh4/0081/000"
+        },
+        {
           "kind": "alleluia",
           "variant": "",
           "system": 6,
@@ -4494,6 +4503,15 @@
           "score": 1.0,
           "label": "Intr. I",
           "title": "Gaudeamus"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "gregobase_id": 235,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 62,
+          "borrowed_from": "commune-confessoris-pontificis",
+          "borrowed_ref": "noh4/0093/000"
         },
         {
           "kind": "alleluia",
@@ -5513,6 +5531,18 @@
       "title": "Diebus ferialibus a 7 ad 12 januarii",
       "incipit": null,
       "reference": "Diebus ferialibus a 7 ad 12 januarii ante dominicam I post Epiphaniam occurrentibus, dicitur Missa de festo Epiphaniae; post eandem dominicam vero Missa de eadem dominica In excelso throno, ut infra, p. 112.",
+      "reference_sources": [
+        {
+          "volume": "noh1",
+          "page": 99,
+          "label": "Ecce advenit \u2014 January 7\u201312 before Sunday I after Epiphany"
+        },
+        {
+          "volume": "noh1",
+          "page": 112,
+          "label": "In excelso throno \u2014 January 7\u201312 after Sunday I after Epiphany"
+        }
+      ],
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -5533,19 +5563,7 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": [],
-      "reference_sources": [
-        {
-          "volume": "noh1",
-          "page": 99,
-          "label": "Ecce advenit \u2014 January 7\u201312 before Sunday I after Epiphany"
-        },
-        {
-          "volume": "noh1",
-          "page": 112,
-          "label": "In excelso throno \u2014 January 7\u201312 after Sunday I after Epiphany"
-        }
-      ]
+      "linked_days": []
     },
     {
       "id": "noh1-noh1-p104",
@@ -9624,6 +9642,24 @@
           "title": "Domine refugium"
         },
         {
+          "kind": "gradual",
+          "variant": "",
+          "gregobase_id": 44,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 198,
+          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
+          "borrowed_ref": "noh1/0225/003"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "gregobase_id": 967,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 199,
+          "borrowed_from": "dominica-xiii-post-pentecosten",
+          "borrowed_ref": "noh2/0231/003"
+        },
+        {
           "kind": "communion",
           "variant": "",
           "system": 7,
@@ -9876,6 +9912,33 @@
           "score": 1.0,
           "label": "Intr.",
           "title": "Confessio"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "gregobase_id": 1088,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 178,
+          "borrowed_from": "dominica-x-post-pentecosten",
+          "borrowed_ref": "noh2/0210/000"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "gregobase_id": 747,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 204,
+          "borrowed_from": "dominica-xiv-post-pentecosten",
+          "borrowed_ref": "noh2/0236/005"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "gregobase_id": 782,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 212,
+          "borrowed_from": "dominica-xv-post-pentecosten",
+          "borrowed_ref": "noh2/0244/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad1h",
@@ -11217,23 +11280,11 @@
         {
           "kind": "gradual",
           "variant": "",
-          "system": 7,
-          "ref": "noh1/0241/004",
           "gregobase_id": 423,
-          "placed": "text",
-          "score": 0.769,
-          "title": "Jacta cogitatum"
-        },
-        {
-          "kind": "offertory",
-          "variant": "",
-          "system": 11,
-          "ref": "noh1/0242/002",
-          "gregobase_id": 922,
-          "placed": "inferred",
-          "score": 0.0,
-          "title": "Miserere mihi",
-          "why": "the one chant start between the Gradual and the end of the piece"
+          "borrowed_volume": "noh2",
+          "borrowed_page": 145,
+          "borrowed_from": "dominica-iii-post-pentecosten",
+          "borrowed_ref": "noh2/0177/003"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad2t",
@@ -13803,6 +13854,15 @@
           "title": "Exsurge"
         },
         {
+          "kind": "offertory",
+          "variant": "",
+          "gregobase_id": 182,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 211,
+          "borrowed_from": "dominica-xv-post-pentecosten",
+          "borrowed_ref": "noh2/0243/000"
+        },
+        {
           "kind": "communion",
           "variant": "",
           "system": 20,
@@ -14075,6 +14135,15 @@
           "title": "Laetetur cor"
         },
         {
+          "kind": "gradual",
+          "variant": "",
+          "gregobase_id": 1232,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 196,
+          "borrowed_from": "dominica-xiii-post-pentecosten",
+          "borrowed_ref": "noh2/0228/000"
+        },
+        {
           "kind": "offertory",
           "variant": "",
           "system": 8,
@@ -14084,6 +14153,15 @@
           "score": 1.0,
           "label": "Offert. VI",
           "title": "Domine ad adjuvandum"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "gregobase_id": 1318,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 216,
+          "borrowed_from": "dominica-xvi-post-pentecosten",
+          "borrowed_ref": "noh2/0248/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad4h",
@@ -15132,6 +15210,15 @@
           "title": "Discerne causam"
         },
         {
+          "kind": "offertory",
+          "variant": "",
+          "gregobase_id": 1328,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 148,
+          "borrowed_from": "dominica-iii-post-pentecosten",
+          "borrowed_ref": "noh2/0180/000"
+        },
+        {
           "kind": "communion",
           "variant": "",
           "system": 12,
@@ -15540,8 +15627,8 @@
           "gregobase_id": 696,
           "borrowed_volume": "noh1",
           "borrowed_page": 242,
-          "borrowed_from": "feria-iv-infra-hebd-iii-quadragesim",
-          "borrowed_ref": "noh1/0270/003"
+          "borrowed_from": null,
+          "borrowed_ref": null
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad5h",
@@ -15787,6 +15874,16 @@
       "title": "Sabbato infra Hebd Passionis",
       "incipit": null,
       "reference": "Sabbato post Dominicam Passionis, resumitur Missa diei praecedentis, p. 294, excepto Tractu qui omittitur.",
+      "reference_sources": [
+        {
+          "volume": "noh1",
+          "page": 294,
+          "label": "Mass of the preceding Friday, omitting the Tract",
+          "omit": [
+            "tract"
+          ]
+        }
+      ],
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -15807,17 +15904,7 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": [],
-      "reference_sources": [
-        {
-          "volume": "noh1",
-          "page": 294,
-          "label": "Mass of the preceding Friday, omitting the Tract",
-          "omit": [
-            "tract"
-          ]
-        }
-      ]
+      "linked_days": []
     },
     {
       "id": "noh1-noh1-p299",
@@ -18844,6 +18931,15 @@
           "title": "Angelus Domini descendit"
         },
         {
+          "kind": "sequence",
+          "variant": "",
+          "gregobase_id": 1086,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 5,
+          "borrowed_from": "dominica-resurrectionis",
+          "borrowed_ref": "noh2/0037/002"
+        },
+        {
           "kind": "offertory",
           "variant": "",
           "system": 20,
@@ -20883,6 +20979,15 @@
           "title": "Oportebat pati Christum"
         },
         {
+          "kind": "offertory",
+          "variant": "",
+          "gregobase_id": 668,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 97,
+          "borrowed_from": "feria-vi-quattuor-temporum-pentecostes",
+          "borrowed_ref": "noh2/0129/003"
+        },
+        {
           "kind": "communion",
           "variant": "",
           "system": 21,
@@ -22269,6 +22374,24 @@
       "movements": [],
       "sections": [
         {
+          "kind": "introit",
+          "variant": "",
+          "gregobase_id": 418,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 262,
+          "borrowed_from": "feria-iv-infra-hebd-iv-quadragesim",
+          "borrowed_ref": "noh1/0289/003"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "gregobase_id": 1247,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 199,
+          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
+          "borrowed_ref": "noh1/0226/003"
+        },
+        {
           "kind": "alleluia",
           "variant": "paschal",
           "system": 4,
@@ -22278,13 +22401,25 @@
           "score": 0.8
         },
         {
+          "kind": "offertory",
+          "variant": "",
+          "system": 5,
+          "ref": "noh2/0107/005",
+          "gregobase_id": 1176,
+          "placed": "inferred",
+          "score": 0.0,
+          "title": "Emitte Spiritum",
+          "why": "the one chant start between the Alleluia and the Communion"
+        },
+        {
           "kind": "communion",
           "variant": "",
           "system": 6,
           "ref": "noh2/0108/000",
           "gregobase_id": 255,
-          "placed": "text",
-          "score": 0.692,
+          "placed": "label",
+          "score": 1.0,
+          "label": "Comm.",
           "title": "Ultimo festivitatis"
         }
       ],
@@ -26053,8 +26188,8 @@
           "gregobase_id": 332,
           "borrowed_volume": "noh1",
           "borrowed_page": 194,
-          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
-          "borrowed_ref": "noh1/0225/003"
+          "borrowed_from": null,
+          "borrowed_ref": null
         },
         {
           "kind": "alleluia",
@@ -26270,8 +26405,8 @@
           "gregobase_id": 1226,
           "borrowed_volume": "noh1",
           "borrowed_page": 196,
-          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
-          "borrowed_ref": "noh1/0225/003"
+          "borrowed_from": null,
+          "borrowed_ref": null
         },
         {
           "kind": "alleluia",
@@ -26485,8 +26620,8 @@
           "gregobase_id": 1046,
           "borrowed_volume": "noh1",
           "borrowed_page": 197,
-          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
-          "borrowed_ref": "noh1/0225/003"
+          "borrowed_from": null,
+          "borrowed_ref": null
         },
         {
           "kind": "alleluia",
@@ -29968,8 +30103,8 @@
           "gregobase_id": 1046,
           "borrowed_volume": "noh1",
           "borrowed_page": 197,
-          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
-          "borrowed_ref": "noh1/0225/003"
+          "borrowed_from": null,
+          "borrowed_ref": null
         },
         {
           "kind": "offertory",
@@ -30117,8 +30252,8 @@
           "gregobase_id": 542,
           "borrowed_volume": "noh2",
           "borrowed_page": 200,
-          "borrowed_from": "dominica-xiv-post-pentecosten",
-          "borrowed_ref": "noh2/0236/005"
+          "borrowed_from": null,
+          "borrowed_ref": null
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=EmbSatSept",
@@ -30340,12 +30475,21 @@
         {
           "kind": "gradual",
           "variant": "",
+          "gregobase_id": 1011,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 252,
+          "borrowed_from": "dominica-iv-in-quadragesim",
+          "borrowed_ref": "noh1/0279/000"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
           "system": 12,
           "ref": "noh2/0263/001",
-          "gregobase_id": 1011,
+          "gregobase_id": 1097,
           "placed": "inferred",
           "score": 0.0,
-          "title": "Laetatus sum",
+          "title": "Timebunt gentes",
           "why": "the one chant start between the Introit and the Offertory"
         },
         {
@@ -32467,8 +32611,8 @@
           "gregobase_id": 777,
           "borrowed_volume": "noh4",
           "borrowed_page": 76,
-          "borrowed_from": "commune-confessoris-non-pontificis",
-          "borrowed_ref": "noh4/0111/004"
+          "borrowed_from": "commune-doctorum",
+          "borrowed_ref": "noh4/0107/000"
         },
         {
           "kind": "communion",
@@ -33967,8 +34111,8 @@
           "gregobase_id": 699,
           "borrowed_volume": "noh4",
           "borrowed_page": 54,
-          "borrowed_from": "commune-plurimorum-martyrum-alia-missa-2",
-          "borrowed_ref": "noh4/0091/001"
+          "borrowed_from": "commune-plurimorum-martyrum-alia-missa",
+          "borrowed_ref": "noh4/0085/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jan19",
@@ -34291,8 +34435,8 @@
           "gregobase_id": 1301,
           "borrowed_volume": "noh4",
           "borrowed_page": 1,
-          "borrowed_from": "in-vigilia-unius-apostoli",
-          "borrowed_ref": "noh4/0033/004"
+          "borrowed_from": null,
+          "borrowed_ref": null
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jan21",
@@ -36873,8 +37017,8 @@
           "gregobase_id": 470,
           "borrowed_volume": "noh3",
           "borrowed_page": 203,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "s-matthi-apostoli",
+          "borrowed_ref": "noh3/0129/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Feb12",
@@ -41176,8 +41320,8 @@
           "gregobase_id": 772,
           "borrowed_volume": "noh3",
           "borrowed_page": 39,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "commune-plurimorum-martyrum-alia-missa",
+          "borrowed_ref": "noh4/0085/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=May12",
@@ -42053,8 +42197,8 @@
           "gregobase_id": 777,
           "borrowed_volume": "noh4",
           "borrowed_page": 76,
-          "borrowed_from": "commune-confessoris-non-pontificis",
-          "borrowed_ref": "noh4/0111/004"
+          "borrowed_from": "commune-doctorum",
+          "borrowed_ref": "noh4/0107/000"
         },
         {
           "kind": "communion",
@@ -42557,7 +42701,7 @@
           "borrowed_volume": "noh3",
           "borrowed_page": 176,
           "borrowed_from": "ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum",
-          "borrowed_ref": "noh3/0208/002"
+          "borrowed_ref": "noh3/0209/001"
         },
         {
           "kind": "offertory",
@@ -42766,8 +42910,8 @@
           "gregobase_id": 1028,
           "borrowed_volume": "noh3",
           "borrowed_page": 96,
-          "borrowed_from": "s-gabrielis-a-virgine-perdolente-confessoris",
-          "borrowed_ref": "noh3/0138/002"
+          "borrowed_from": "s-matthi-apostoli",
+          "borrowed_ref": "noh3/0129/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jun11",
@@ -44085,8 +44229,8 @@
           "gregobase_id": 777,
           "borrowed_volume": "noh4",
           "borrowed_page": 76,
-          "borrowed_from": "commune-confessoris-non-pontificis",
-          "borrowed_ref": "noh4/0111/004"
+          "borrowed_from": "commune-doctorum",
+          "borrowed_ref": "noh4/0107/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jun24",
@@ -44674,8 +44818,8 @@
           "gregobase_id": 351,
           "borrowed_volume": "noh3",
           "borrowed_page": 20,
-          "borrowed_from": "in-conceptione-immaculata-beat-mari-virginis",
-          "borrowed_ref": "noh3/0051/004"
+          "borrowed_from": null,
+          "borrowed_ref": null
         },
         {
           "kind": "communion",
@@ -46767,8 +46911,8 @@
           "gregobase_id": 667,
           "borrowed_volume": "noh3",
           "borrowed_page": 84,
-          "borrowed_from": "in-apparitione-b-mariae-virginis-immaculatae",
-          "borrowed_ref": "noh3/0120/001"
+          "borrowed_from": null,
+          "borrowed_ref": null
         },
         {
           "kind": "communion",
@@ -47700,8 +47844,8 @@
           "gregobase_id": 630,
           "borrowed_volume": "noh3",
           "borrowed_page": 80,
-          "borrowed_from": "in-apparitione-b-mariae-virginis-immaculatae",
-          "borrowed_ref": "noh3/0120/001"
+          "borrowed_from": null,
+          "borrowed_ref": null
         },
         {
           "kind": "communion",
@@ -50854,6 +50998,41 @@
       "linked_days": []
     },
     {
+      "id": "noh3-s-nominis-beat-mari-virginis",
+      "volume": "noh3",
+      "slug": "s-nominis-beat-mari-virginis",
+      "section": "Proprium Sanctorum",
+      "division": "sanctorale",
+      "days": [
+        "sancti:09-12"
+      ],
+      "label": "S. Nominis Beat\u00e6 Mari\u00e6 Virginis",
+      "title": "S. Nominis Beat\u00e6 Mari\u00e6 Virginis",
+      "incipit": null,
+      "reference": "Introitus. Vultum tuum, Pars IV, p. 115. Graduale. Alleluia. Offertorium et Communio, ut in Missa votiva B. M. V. post Pentecosten, Pars IV, p. 184.",
+      "genre": "proper",
+      "mode": null,
+      "mass": null,
+      "printed_pages": [
+        344,
+        344
+      ],
+      "pdf_pages": [
+        377,
+        377
+      ],
+      "systems": [],
+      "system_assets": [],
+      "system_aspect": [],
+      "movements": [],
+      "sections": [],
+      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Sep12",
+      "chant": [],
+      "review_status": "review",
+      "hymns": [],
+      "linked_days": []
+    },
+    {
       "id": "noh3-in-exaltatione-sanct-crucis",
       "volume": "noh3",
       "slug": "in-exaltatione-sanct-crucis",
@@ -50932,45 +51111,49 @@
         ]
       ],
       "movements": [],
-      "sections": [],
+      "sections": [
+        {
+          "kind": "introit",
+          "variant": "",
+          "gregobase_id": 359,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 170,
+          "borrowed_from": null,
+          "borrowed_ref": null
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "gregobase_id": 873,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 162,
+          "borrowed_from": "feria-vi-missa-de-sancta-cruce",
+          "borrowed_ref": "noh4/0193/000"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "system": 0,
+          "ref": "noh3/0378/000",
+          "gregobase_id": 195,
+          "placed": "label",
+          "score": 1.0,
+          "label": "Offert. II",
+          "title": "Protege Domine"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "gregobase_id": 346,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 174,
+          "borrowed_from": null,
+          "borrowed_ref": null
+        }
+      ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Sep14",
       "chant": [],
       "review_status": "verified",
-      "hymns": [],
-      "linked_days": []
-    },
-    {
-      "id": "noh3-s-nominis-beat-mari-virginis",
-      "volume": "noh3",
-      "slug": "s-nominis-beat-mari-virginis",
-      "section": "Proprium Sanctorum",
-      "division": "sanctorale",
-      "days": [
-        "sancti:09-12"
-      ],
-      "label": "S. Nominis Beat\u00e6 Mari\u00e6 Virginis",
-      "title": "S. Nominis Beat\u00e6 Mari\u00e6 Virginis",
-      "incipit": null,
-      "reference": "Introitus. Vultum tuum, Pars IV, p. 115. Graduale. Alleluia. Offertorium et Communio, ut in Missa votiva B. M. V. post Pentecosten, Pars IV, p. 184.",
-      "genre": "proper",
-      "mode": null,
-      "mass": null,
-      "printed_pages": [
-        344,
-        344
-      ],
-      "pdf_pages": [
-        377,
-        377
-      ],
-      "systems": [],
-      "system_assets": [],
-      "system_aspect": [],
-      "movements": [],
-      "sections": [],
-      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Sep12",
-      "chant": [],
-      "review_status": "review",
       "hymns": [],
       "linked_days": []
     },
@@ -51108,8 +51291,8 @@
           "gregobase_id": 511,
           "borrowed_volume": "noh4",
           "borrowed_page": 7,
-          "borrowed_from": "commune-unius-martyris-pontificis",
-          "borrowed_ref": "noh4/0035/002"
+          "borrowed_from": null,
+          "borrowed_ref": null
         },
         {
           "kind": "alleluia",
@@ -54966,8 +55149,8 @@
           "gregobase_id": 1028,
           "borrowed_volume": "noh3",
           "borrowed_page": 96,
-          "borrowed_from": "s-gabrielis-a-virgine-perdolente-confessoris",
-          "borrowed_ref": "noh3/0138/002"
+          "borrowed_from": "s-matthi-apostoli",
+          "borrowed_ref": "noh3/0129/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Oct28",
@@ -60456,11 +60639,19 @@
           "variant": "",
           "system": 10,
           "ref": "noh4/0098/005",
-          "gregobase_id": 415,
+          "gregobase_id": null,
           "placed": "label",
           "score": 1.0,
-          "label": "Grad. I",
-          "title": "Sacerdotes ejus"
+          "label": "Grad. I"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "gregobase_id": 415,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 73,
+          "borrowed_from": "commune-doctorum",
+          "borrowed_ref": "noh4/0103/002"
         },
         {
           "kind": "alleluia",
@@ -60471,6 +60662,33 @@
           "placed": "text",
           "score": 0.8,
           "title": "Juravit Dominus"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "gregobase_id": 7670,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 14,
+          "borrowed_from": "commune-unius-martyris-pontificis-alia-missa",
+          "borrowed_ref": "noh4/0045/004"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "gregobase_id": 630,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 80,
+          "borrowed_from": "commune-confessoris-non-pontificis",
+          "borrowed_ref": "noh4/0111/004"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "gregobase_id": 1154,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 81,
+          "borrowed_from": "commune-confessoris-non-pontificis",
+          "borrowed_ref": "noh4/0112/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#common=mass_ii_confessor_bishop",
@@ -61089,6 +61307,15 @@
           "title": "Justus ut palma"
         },
         {
+          "kind": "gradual",
+          "variant": "",
+          "gregobase_id": 34,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 73,
+          "borrowed_from": "commune-doctorum",
+          "borrowed_ref": "noh4/0103/002"
+        },
+        {
           "kind": "alleluia",
           "variant": "",
           "system": 17,
@@ -61097,6 +61324,15 @@
           "placed": "text",
           "score": 0.8,
           "title": "Beatus vir qui suffert"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "gregobase_id": 7670,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 14,
+          "borrowed_from": "commune-unius-martyris-pontificis-alia-missa",
+          "borrowed_ref": "noh4/0045/004"
         },
         {
           "kind": "offertory",
@@ -61349,13 +61585,39 @@
         {
           "kind": "gradual",
           "variant": "",
+          "gregobase_id": 511,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 72,
+          "borrowed_from": "commune-doctorum",
+          "borrowed_ref": "noh4/0103/002"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "gregobase_id": 511,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 74,
+          "borrowed_from": null,
+          "borrowed_ref": null
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
           "system": 8,
           "ref": "noh4/0114/002",
-          "gregobase_id": 511,
-          "placed": "inferred",
-          "score": 0.0,
-          "title": "Os justi",
-          "why": "the one chant start between the Introit and the Offertory"
+          "gregobase_id": 765,
+          "placed": "text",
+          "score": 0.8,
+          "title": "Beatus vir qui timet"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "gregobase_id": 7670,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 14,
+          "borrowed_from": "commune-unius-martyris-pontificis-alia-missa",
+          "borrowed_ref": "noh4/0045/004"
         },
         {
           "kind": "offertory",
@@ -62041,8 +62303,8 @@
           "gregobase_id": null,
           "borrowed_volume": "noh4",
           "borrowed_page": 92,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "commune-virginum-pro-virgine-et-martyre",
+          "borrowed_ref": "noh4/0123/000"
         },
         {
           "kind": "offertory",
@@ -62439,6 +62701,15 @@
           "placed": "text",
           "score": 0.8,
           "title": "Haec est virgo"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 93,
+          "borrowed_from": "commune-virginum-pro-virgine-et-martyre",
+          "borrowed_ref": "noh4/0124/002"
         },
         {
           "kind": "offertory",
@@ -62914,8 +63185,8 @@
           "gregobase_id": null,
           "borrowed_volume": "noh4",
           "borrowed_page": 110,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "commune-virginum-pro-virgine-tantum",
+          "borrowed_ref": "noh4/0141/002"
         },
         {
           "kind": "offertory",
@@ -63559,6 +63830,15 @@
           "title": "Diffusa est"
         },
         {
+          "kind": "gradual",
+          "variant": "",
+          "gregobase_id": 947,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 119,
+          "borrowed_from": null,
+          "borrowed_ref": null
+        },
+        {
           "kind": "alleluia",
           "variant": "",
           "system": 21,
@@ -63567,6 +63847,24 @@
           "placed": "text",
           "score": 0.8,
           "title": "Specie tua"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "gregobase_id": 256,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 93,
+          "borrowed_from": "commune-virginum-pro-virgine-et-martyre",
+          "borrowed_ref": "noh4/0124/002"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "gregobase_id": 177,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 105,
+          "borrowed_from": "commune-virginum-pro-virgine-et-martyre-2",
+          "borrowed_ref": "noh4/0136/000"
         },
         {
           "kind": "communion",
@@ -63893,6 +64191,15 @@
           "placed": "text",
           "score": 0.8,
           "title": "Adorabo"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "gregobase_id": 1377,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 253,
+          "borrowed_from": "dominica-iv-in-quadragesim",
+          "borrowed_ref": "noh1/0280/001"
         },
         {
           "kind": "alleluia",
@@ -64838,8 +65145,8 @@
           "gregobase_id": 1044,
           "borrowed_volume": "noh4",
           "borrowed_page": 218,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "dominica-ii-post-epiphaniam",
+          "borrowed_ref": "noh1/0147/001"
         },
         {
           "kind": "tract",
@@ -65067,8 +65374,8 @@
           "gregobase_id": 645,
           "borrowed_volume": "noh4",
           "borrowed_page": 126,
-          "borrowed_from": null,
-          "borrowed_ref": null
+          "borrowed_from": "commune-virginum-pro-virgine-et-martyre-2",
+          "borrowed_ref": "noh4/0136/000"
         },
         {
           "kind": "communion",
@@ -65541,8 +65848,8 @@
           "gregobase_id": 346,
           "borrowed_volume": "noh4",
           "borrowed_page": 174,
-          "borrowed_from": "feria-vi-missa-de-passione-d-n-jesu-christi",
-          "borrowed_ref": "noh4/0206/005"
+          "borrowed_from": "dominica-iv-adventus",
+          "borrowed_ref": "noh1/0069/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveSC",
@@ -66132,8 +66439,8 @@
           "gregobase_id": 756,
           "borrowed_volume": "noh1",
           "borrowed_page": 18,
-          "borrowed_from": "dominica-iii-adventus",
-          "borrowed_ref": "noh1/0041/001"
+          "borrowed_from": null,
+          "borrowed_ref": null
         },
         {
           "kind": "alleluia",
@@ -66160,8 +66467,8 @@
           "gregobase_id": 1144,
           "borrowed_volume": "noh1",
           "borrowed_page": 43,
-          "borrowed_from": "in-vigilia-nativitatis-domini",
-          "borrowed_ref": "noh1/0074/000"
+          "borrowed_from": "dominica-iv-adventus",
+          "borrowed_ref": "noh1/0069/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=SMadvent",
@@ -67144,6 +67451,15 @@
           "title": "Pontifex sacerdos"
         },
         {
+          "kind": "gradual",
+          "variant": "",
+          "gregobase_id": 546,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 43,
+          "borrowed_from": null,
+          "borrowed_ref": null
+        },
+        {
           "kind": "alleluia",
           "variant": "",
           "system": 18,
@@ -67881,8 +68197,8 @@
           "gregobase_id": 332,
           "borrowed_volume": "noh1",
           "borrowed_page": 194,
-          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
-          "borrowed_ref": "noh1/0225/003"
+          "borrowed_from": null,
+          "borrowed_ref": null
         },
         {
           "kind": "alleluia",
@@ -68039,8 +68355,8 @@
           "gregobase_id": 1318,
           "borrowed_volume": "noh2",
           "borrowed_page": 216,
-          "borrowed_from": "dominica-xvii-post-pentecosten",
-          "borrowed_ref": "noh2/0253/005"
+          "borrowed_from": "dominica-xvi-post-pentecosten",
+          "borrowed_ref": "noh2/0248/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveGBM",
@@ -68232,8 +68548,8 @@
           "gregobase_id": 1290,
           "borrowed_volume": "noh1",
           "borrowed_page": 249,
-          "borrowed_from": "sabbato-infra-hebd-iii-quadragesim",
-          "borrowed_ref": "noh1/0277/000"
+          "borrowed_from": null,
+          "borrowed_ref": null
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveED",
@@ -68992,8 +69308,8 @@
           "gregobase_id": 479,
           "borrowed_volume": "noh2",
           "borrowed_page": 238,
-          "borrowed_from": "dominica-xx-post-pentecosten",
-          "borrowed_ref": "noh2/0274/004"
+          "borrowed_from": "dominica-xix-post-pentecosten",
+          "borrowed_ref": "noh2/0270/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votivePIA",
@@ -69902,6 +70218,23 @@
       "title": "Missa pro Gratiarum Actione",
       "incipit": null,
       "reference": "Dicitur Missa de Sanctissima Trinitate, vel de Spiritu Sancto, vel de beata Maria Virgine, aut de aliquo Sancto Canonizato, in Martyrologio Romano descripto.",
+      "reference_sources": [
+        {
+          "volume": "noh4",
+          "page": 134,
+          "label": "Holy Trinity \u2014 free choice"
+        },
+        {
+          "volume": "noh4",
+          "page": 146,
+          "label": "Holy Spirit \u2014 free choice"
+        },
+        {
+          "volume": "noh4",
+          "page": 182,
+          "label": "Blessed Virgin Mary \u2014 free choice"
+        }
+      ],
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -69922,24 +70255,7 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": [],
-      "reference_sources": [
-        {
-          "volume": "noh4",
-          "page": 134,
-          "label": "Holy Trinity \u2014 free choice"
-        },
-        {
-          "volume": "noh4",
-          "page": 146,
-          "label": "Holy Spirit \u2014 free choice"
-        },
-        {
-          "volume": "noh4",
-          "page": 182,
-          "label": "Blessed Virgin Mary \u2014 free choice"
-        }
-      ]
+      "linked_days": []
     },
     {
       "id": "noh4-translatio-almae-domus-b-m-v",
@@ -74500,6 +74816,18 @@
       "title": "S. Gregorii Episcopi Majoris Armeniae et Martyris, 1 Octobris",
       "incipit": null,
       "reference": "Extra Tempus Paschale Missa. Statuit, p. 3. Tempore autem Paschali Missa. Protexisti, p. 29.",
+      "reference_sources": [
+        {
+          "volume": "noh4",
+          "page": 3,
+          "label": "Statuit \u2014 outside Eastertide"
+        },
+        {
+          "volume": "noh4",
+          "page": 29,
+          "label": "Protexisti \u2014 during Eastertide"
+        }
+      ],
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -74520,19 +74848,7 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": [],
-      "reference_sources": [
-        {
-          "volume": "noh4",
-          "page": 3,
-          "label": "Statuit \u2014 outside Eastertide"
-        },
-        {
-          "volume": "noh4",
-          "page": 29,
-          "label": "Protexisti \u2014 during Eastertide"
-        }
-      ]
+      "linked_days": []
     },
     {
       "id": "noh4-puritatis-b-m-v",

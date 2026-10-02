@@ -5558,6 +5558,18 @@
       "title": "Diebus ferialibus a 7 ad 12 januarii",
       "incipit": null,
       "reference": "Diebus ferialibus a 7 ad 12 januarii ante dominicam I post Epiphaniam occurrentibus, dicitur Missa de festo Epiphaniae; post eandem dominicam vero Missa de eadem dominica In excelso throno, ut infra, p. 112.",
+      "reference_sources": [
+        {
+          "volume": "noh1",
+          "page": 99,
+          "label": "Ecce advenit \u2014 January 7\u201312 before Sunday I after Epiphany"
+        },
+        {
+          "volume": "noh1",
+          "page": 112,
+          "label": "In excelso throno \u2014 January 7\u201312 after Sunday I after Epiphany"
+        }
+      ],
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -5578,19 +5590,7 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": [],
-      "reference_sources": [
-        {
-          "volume": "noh1",
-          "page": 99,
-          "label": "Ecce advenit \u2014 January 7\u201312 before Sunday I after Epiphany"
-        },
-        {
-          "volume": "noh1",
-          "page": 112,
-          "label": "In excelso throno \u2014 January 7\u201312 after Sunday I after Epiphany"
-        }
-      ]
+      "linked_days": []
     },
     {
       "id": "noh1-noh1-p104",
@@ -16415,6 +16415,16 @@
       "title": "Sabbato infra Hebd Passionis",
       "incipit": null,
       "reference": "Sabbato post Dominicam Passionis, resumitur Missa diei praecedentis, p. 294, excepto Tractu qui omittitur.",
+      "reference_sources": [
+        {
+          "volume": "noh1",
+          "page": 294,
+          "label": "Mass of the preceding Friday, omitting the Tract",
+          "omit": [
+            "tract"
+          ]
+        }
+      ],
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -16435,17 +16445,7 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": [],
-      "reference_sources": [
-        {
-          "volume": "noh1",
-          "page": 294,
-          "label": "Mass of the preceding Friday, omitting the Tract",
-          "omit": [
-            "tract"
-          ]
-        }
-      ]
+      "linked_days": []
     },
     {
       "id": "noh1-noh1-p299",
@@ -53319,6 +53319,87 @@
       "linked_days": []
     },
     {
+      "id": "noh3-s-nominis-beat-mari-virginis",
+      "volume": "noh3",
+      "slug": "s-nominis-beat-mari-virginis",
+      "section": "Proprium Sanctorum",
+      "division": "sanctorale",
+      "days": [
+        "sancti:09-12"
+      ],
+      "label": "S. Nominis Beat\u00e6 Mari\u00e6 Virginis",
+      "title": "S. Nominis Beat\u00e6 Mari\u00e6 Virginis",
+      "incipit": null,
+      "reference": "Introitus. Vultum tuum, Pars IV, p. 115. Graduale. Alleluia. Offertorium et Communio, ut in Missa votiva B. M. V. post Pentecosten, Pars IV, p. 184.",
+      "genre": "proper",
+      "mode": null,
+      "mass": null,
+      "printed_pages": [
+        344,
+        344
+      ],
+      "pdf_pages": [
+        377,
+        377
+      ],
+      "systems": [],
+      "system_assets": [],
+      "system_aspect": [],
+      "movements": [],
+      "sections": [
+        {
+          "kind": "introit",
+          "variant": "",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 115,
+          "borrowed_from": "commune-virginum-pro-virgine-tantum-2",
+          "borrowed_ref": "noh4/0146/004"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 184,
+          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
+          "borrowed_ref": "noh4/0217/000"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 185,
+          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
+          "borrowed_ref": "noh4/0218/003"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 186,
+          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
+          "borrowed_ref": "noh4/0219/004"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 187,
+          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
+          "borrowed_ref": "noh4/0220/005"
+        }
+      ],
+      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Sep12",
+      "chant": [],
+      "review_status": "review",
+      "hymns": [],
+      "linked_days": []
+    },
+    {
       "id": "noh3-in-exaltatione-sanct-crucis",
       "volume": "noh3",
       "slug": "in-exaltatione-sanct-crucis",
@@ -53447,87 +53528,6 @@
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Sep14",
       "chant": [],
       "review_status": "verified",
-      "hymns": [],
-      "linked_days": []
-    },
-    {
-      "id": "noh3-s-nominis-beat-mari-virginis",
-      "volume": "noh3",
-      "slug": "s-nominis-beat-mari-virginis",
-      "section": "Proprium Sanctorum",
-      "division": "sanctorale",
-      "days": [
-        "sancti:09-12"
-      ],
-      "label": "S. Nominis Beat\u00e6 Mari\u00e6 Virginis",
-      "title": "S. Nominis Beat\u00e6 Mari\u00e6 Virginis",
-      "incipit": null,
-      "reference": "Introitus. Vultum tuum, Pars IV, p. 115. Graduale. Alleluia. Offertorium et Communio, ut in Missa votiva B. M. V. post Pentecosten, Pars IV, p. 184.",
-      "genre": "proper",
-      "mode": null,
-      "mass": null,
-      "printed_pages": [
-        344,
-        344
-      ],
-      "pdf_pages": [
-        377,
-        377
-      ],
-      "systems": [],
-      "system_assets": [],
-      "system_aspect": [],
-      "movements": [],
-      "sections": [
-        {
-          "kind": "introit",
-          "variant": "",
-          "gregobase_id": null,
-          "borrowed_volume": "noh4",
-          "borrowed_page": 115,
-          "borrowed_from": "commune-virginum-pro-virgine-tantum-2",
-          "borrowed_ref": "noh4/0146/004"
-        },
-        {
-          "kind": "gradual",
-          "variant": "",
-          "gregobase_id": null,
-          "borrowed_volume": "noh4",
-          "borrowed_page": 184,
-          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
-          "borrowed_ref": "noh4/0217/000"
-        },
-        {
-          "kind": "alleluia",
-          "variant": "",
-          "gregobase_id": null,
-          "borrowed_volume": "noh4",
-          "borrowed_page": 185,
-          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
-          "borrowed_ref": "noh4/0218/003"
-        },
-        {
-          "kind": "offertory",
-          "variant": "",
-          "gregobase_id": null,
-          "borrowed_volume": "noh4",
-          "borrowed_page": 186,
-          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
-          "borrowed_ref": "noh4/0219/004"
-        },
-        {
-          "kind": "communion",
-          "variant": "",
-          "gregobase_id": null,
-          "borrowed_volume": "noh4",
-          "borrowed_page": 187,
-          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
-          "borrowed_ref": "noh4/0220/005"
-        }
-      ],
-      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Sep12",
-      "chant": [],
-      "review_status": "review",
       "hymns": [],
       "linked_days": []
     },
@@ -68578,8 +68578,8 @@
           "gregobase_id": 346,
           "borrowed_volume": "noh4",
           "borrowed_page": 174,
-          "borrowed_from": "feria-vi-missa-de-passione-d-n-jesu-christi",
-          "borrowed_ref": "noh4/0206/005"
+          "borrowed_from": "dominica-iv-adventus",
+          "borrowed_ref": "noh1/0069/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveSC",
@@ -73012,6 +73012,23 @@
       "title": "Missa pro Gratiarum Actione",
       "incipit": null,
       "reference": "Dicitur Missa de Sanctissima Trinitate, vel de Spiritu Sancto, vel de beata Maria Virgine, aut de aliquo Sancto Canonizato, in Martyrologio Romano descripto.",
+      "reference_sources": [
+        {
+          "volume": "noh4",
+          "page": 134,
+          "label": "Holy Trinity \u2014 free choice"
+        },
+        {
+          "volume": "noh4",
+          "page": 146,
+          "label": "Holy Spirit \u2014 free choice"
+        },
+        {
+          "volume": "noh4",
+          "page": 182,
+          "label": "Blessed Virgin Mary \u2014 free choice"
+        }
+      ],
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -73032,24 +73049,7 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": [],
-      "reference_sources": [
-        {
-          "volume": "noh4",
-          "page": 134,
-          "label": "Holy Trinity \u2014 free choice"
-        },
-        {
-          "volume": "noh4",
-          "page": 146,
-          "label": "Holy Spirit \u2014 free choice"
-        },
-        {
-          "volume": "noh4",
-          "page": 182,
-          "label": "Blessed Virgin Mary \u2014 free choice"
-        }
-      ]
+      "linked_days": []
     },
     {
       "id": "noh4-translatio-almae-domus-b-m-v",
@@ -77898,6 +77898,18 @@
       "title": "S. Gregorii Episcopi Majoris Armeniae et Martyris, 1 Octobris",
       "incipit": null,
       "reference": "Extra Tempus Paschale Missa. Statuit, p. 3. Tempore autem Paschali Missa. Protexisti, p. 29.",
+      "reference_sources": [
+        {
+          "volume": "noh4",
+          "page": 3,
+          "label": "Statuit \u2014 outside Eastertide"
+        },
+        {
+          "volume": "noh4",
+          "page": 29,
+          "label": "Protexisti \u2014 during Eastertide"
+        }
+      ],
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -77918,19 +77930,7 @@
       "chant": [],
       "review_status": "review",
       "hymns": [],
-      "linked_days": [],
-      "reference_sources": [
-        {
-          "volume": "noh4",
-          "page": 3,
-          "label": "Statuit \u2014 outside Eastertide"
-        },
-        {
-          "volume": "noh4",
-          "page": 29,
-          "label": "Protexisti \u2014 during Eastertide"
-        }
-      ]
+      "linked_days": []
     },
     {
       "id": "noh4-puritatis-b-m-v",
