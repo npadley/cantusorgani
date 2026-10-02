@@ -3,8 +3,8 @@ import Layout from "../../components/Layout.astro";
 import { CORRECTIONS_ENDPOINT, TURNSTILE_SITE_KEY } from "../../lib/config";
 import { allPieces, pagesLabel } from "../../lib/catalog";
 
-// A Proper's section the page misses, or names wrongly (an Alleluia that is the
-// Tract): fixed by an editor on the admin's Sections screen.
+// A section the page misses or names wrongly: fixed by an editor on the
+// admin's Sections screen, for Propers and Kyriale Masses alike.
 const SECTIONS_HINT = "which system, and what the book prints there, e.g. system 12: the Gradual starts here (Grad. II)";
 
 // The field list is the same vocabulary the Worker accepts. A free-text field
@@ -101,8 +101,8 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
   <section class="queue">
     <h2>Recent corrections</h2>
     <p class="small muted">
-      Everything submitted, and what happened to it. Only the piece, the field
-      and the proposed value are shown — never the submitter's note.
+      Recent reports and what happened to them. The piece or item, field,
+      proposed value and status are shown — never the submitter's note.
     </p>
     <div id="queue-list" aria-live="polite">
       <p class="muted small">Loading…</p>
@@ -148,6 +148,7 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
   interface PublicRow {
     readonly id: number;
     readonly pieceId: string;
+    readonly target?: string | null;
     readonly field: string;
     readonly proposedValue: string;
     readonly status: string;
@@ -188,9 +189,10 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
     const proper = piece?.dataset["genre"] === "proper";
     const modeOption = fieldSelect?.querySelector<HTMLOptionElement>('option[value="mode"]');
     if (modeOption) modeOption.disabled = proper;
-    // Only a Proper has sections (Introit, Gradual …).
+    // Masses also have named sections; allow reports of missing ones even
+    // when the catalogue has not listed any yet.
     const sectionsOption = fieldSelect?.querySelector<HTMLOptionElement>('option[value="sections"]');
-    if (sectionsOption) sectionsOption.disabled = Boolean(piece?.value) && !proper;
+    if (sectionsOption) sectionsOption.disabled = Boolean(piece?.value) && !proper && piece?.dataset["genre"] !== "mass_ordinary";
     if (proper && fieldSelect?.value === "mode") {
       if (now) now.textContent = "A Proper has no single mode: each of its parts has its own. Choose another field.";
       return;
@@ -228,11 +230,17 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
     ],
   };
 
+  let targetIndex: Promise<Targets | null> | null = null;
+  function loadTargets(): Promise<Targets | null> {
+    return targetIndex ??= fetch("/corrections/targets.json")
+      .then(async (response) => response.ok ? (await response.json()) as Targets : null)
+      .catch(() => null);
+  }
+
   async function fixTarget(target: string): Promise<void> {
     const kind = target.split(":", 1)[0] ?? "";
     const fields = KIND_FIELDS[kind];
-    const response = await fetch("/corrections/targets.json").catch(() => null);
-    const targets = response && response.ok ? ((await response.json()) as Targets) : null;
+    const targets = await loadTargets();
     const info = targets && fields ? describeTarget(targets, target) : null;
     if (!info || !fields || !fieldSelect) {
       say("We couldn't find that item; choose it below.", "error");
@@ -283,16 +291,21 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
       // that being true: never innerHTML for data that came from a stranger.
       const table = document.createElement("table");
       const head = document.createElement("tr");
-      for (const label of ["Piece", "Field", "Proposed", "Status"]) {
+      for (const label of ["Piece or item", "Field", "Proposed", "Status"]) {
         const th = document.createElement("th");
         th.textContent = label;
         head.append(th);
       }
       table.append(head);
 
+      const targetCells: { cell: HTMLTableCellElement; target: string }[] = [];
       for (const row of rows) {
         const tr = document.createElement("tr");
-        for (const value of [row.pieceId, row.field, row.proposedValue]) {
+        const cell = document.createElement("td");
+        cell.textContent = row.target ?? row.pieceId;
+        tr.append(cell);
+        targetCells.push({ cell, target: row.target ?? `piece:${row.pieceId}` });
+        for (const value of [row.field, row.proposedValue]) {
           const td = document.createElement("td");
           td.textContent = value;
           tr.append(td);
@@ -308,6 +321,15 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
       scroll.className = "queue-scroll";
       scroll.append(table);
       queue.replaceChildren(scroll);
+      // Labels enrich an already visible queue. A slow or failed catalogue
+      // request must not hide the reports themselves.
+      void loadTargets().then((targets) => {
+        if (!targets) return;
+        for (const { cell, target } of targetCells) {
+          const label = describeTarget(targets, target)?.label;
+          if (label) cell.textContent = label;
+        }
+      });
     } catch {
       queue.textContent = "The corrections queue could not be loaded just now.";
     }
