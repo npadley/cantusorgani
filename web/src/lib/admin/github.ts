@@ -84,3 +84,42 @@ export async function closePullRequest(env: GithubEnv, pr: number, why: string, 
   const closed = await fetcher(`${base}/pulls/${pr}`, { method: "PATCH", headers: send, body: JSON.stringify({ state: "closed" }) });
   if (!closed.ok) throw new Error(`GitHub did not close PR #${pr} (HTTP ${closed.status})`);
 }
+
+/** An authenticated repository client reused across one operation. */
+export async function githubClient(env: GithubEnv, fetcher: Fetch = fetch): Promise<(path: string, init?: RequestInit) => Promise<unknown>> {
+  const token = await installationToken(env, fetcher);
+  return async (path, init = {}) => {
+    const response = await fetcher(`${API}/repos/${env.GITHUB_REPO}/${path}`, {
+      ...init, headers: { ...headers(token), "content-type": "application/json" },
+    });
+    if (!response.ok) throw new Error(`GitHub request failed (HTTP ${response.status})`);
+    return response.status === 204 ? null : response.json();
+  };
+}
+
+export async function readMain(env: GithubEnv, fetcher: Fetch = fetch): Promise<{ commitSha: string; treeSha: string }> {
+  const request = await githubClient(env, fetcher);
+  const ref = await request("git/ref/heads/main") as { object?: { sha?: string } };
+  const commitSha = ref.object?.sha ?? "";
+  if (!/^[0-9a-f]{40}$/.test(commitSha)) throw new Error("GitHub returned an invalid main revision");
+  const commit = await request(`git/commits/${commitSha}`) as { tree?: { sha?: string } };
+  const treeSha = commit.tree?.sha ?? "";
+  if (!/^[0-9a-f]{40}$/.test(treeSha)) throw new Error("GitHub returned an invalid tree revision");
+  return { commitSha, treeSha };
+}
+
+export async function readSource(env: GithubEnv, file: string, ref: string, fetcher: Fetch = fetch): Promise<{ text: string; blobSha: string }> {
+  const { isTypesetFile } = await import("../../../../workers/corrections/src/schema");
+  const { validSourceSize } = await import("./sourceCheck");
+  if (!isTypesetFile(file) || !/^(main|[0-9a-f]{40})$/.test(ref)) throw new Error("Invalid source path or revision");
+  const request = await githubClient(env, fetcher);
+  const body = await request(`contents/data/typeset/src/${file.split("/").map(encodeURIComponent).join("/")}?ref=${ref}`) as
+    { type?: string; encoding?: string; sha?: string; content?: string; size?: number };
+  if (body.type !== "file" || body.encoding !== "base64" || typeof body.content !== "string" || !/^[0-9a-f]{40}$/.test(body.sha ?? "") || (body.size ?? 0) > 60 * 1024) {
+    throw new Error("GitHub returned invalid or oversized source");
+  }
+  const bytes = Uint8Array.from(atob(body.content.replace(/\s/g, "")), (c) => c.charCodeAt(0));
+  const text = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+  if (!validSourceSize(text)) throw new Error("Source exceeds 60 KiB");
+  return { text, blobSha: body.sha! };
+}

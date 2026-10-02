@@ -74,3 +74,22 @@ def test_scheme_regions_balance_parentheses_across_comments():
     text = '#(a ; )\n b) rest'
     [(start, end)] = scheme_regions(text)
     assert text[start:end] == '#(a ; )\n b)'
+
+
+def test_shared_typescript_fixtures():
+    import json
+    from pathlib import Path
+    fixtures = json.loads((Path(__file__).parent / "fixtures/typeset-source-check.json").read_text())
+    for fixture in fixtures:
+        actual = [{"line": p.line, "message": p.message} for p in check(fixture["text"], frozenset(fixture["includes"]))]
+        assert actual == fixture["problems"], fixture["name"]
+
+
+def test_shared_source_rules_are_current():
+    import json
+    from pathlib import Path
+    from pipeline.typeset.source_check import DENIED, DENIED_COMMANDS, LILYPOND_INCLUDES
+    rules = json.loads((Path(__file__).parents[1] / "data/schema/typeset-source-check.json").read_text())
+    assert sorted(DENIED) == rules["denied"]
+    assert sorted(DENIED_COMMANDS) == rules["commands"]
+    assert sorted(LILYPOND_INCLUDES) == rules["lilypondIncludes"]
