@@ -82,10 +82,10 @@ d'2*4/2 e'2*4/2 ~ e'2*3/2 ~ e'4 ~ e'2 ~ e'2*4/2 ~ \divisioMaior
 e'4 d'2 e'2 ~ e'2 ~ e'2 ~ e'2*3/2 c'2*4/2 a2 ~ a4 \finalis
 d'2*6/2 e'2*3/2 ~ \divisioMinima
 e'2*5/2 ~ e'2*3/2 fis'2 ~ fis'2 \divisioMaxima
-d'2*4/2 ~ d'4 c'2*5/2 d'2*3/2 a2 d’2*6/2 e’2*3/2 ~ e’2*5/2 ~ e’2*4/2 fis’2 ~ fis’2 \divisioMaxima
-d’2*4/2 ~ d’2 ~ d’2 e’2*3/2 ~ \divisioMinima
-e’4 c’2*3/2 e’2 d’2 ~ \divisioMaxima
-d’2*4/2 ~ d’2 ~ d’2 c’2*3/2 d’2 ~ d’2*3/2 a2 \finalis
+d'2*4/2 ~ d'4 c'2*5/2 d'2*3/2 a2 d'2*6/2 e'2*3/2 ~ e'2*5/2 ~ e'2*4/2 fis'2 ~ fis'2 \divisioMaxima
+d'2*4/2 ~ d'2 ~ d'2 e'2*3/2 ~ \divisioMinima
+e'4 c'2*3/2 e'2 d'2 ~ \divisioMaxima
+d'2*4/2 ~ d'2 ~ d'2 c'2*3/2 d'2 ~ d'2*3/2 a2 \finalis
 }
 
 tenorMusic = {
@@ -97,8 +97,8 @@ g2*4/2 ~ g2*4/2 a2*3/2 b4 ~ b2 c'2*4/2 \divisioMaior
 b2*3/2 ~ b2 ~ b2 ~ b2 a2*3/2 ~ a2*4/2 g2 fis4 \finalis
 b2*6/2 c'2*3/2 ~ \divisioMinima
 c'2*5/2 ~ c'2*3/2 d'2 ~ d'2 \divisioMaxima
-fis2*4/2 e4 ~ e2*5/2 g2*3/2 ~ g4 fis4 b2*6/2 c’2*3/2 ~ c’2*3/2 ~ \divisioMinima
-c’2 ~ c’2*6/2 d’2 \divisioMaxima
+fis2*4/2 e4 ~ e2*5/2 g2*3/2 ~ g4 fis4 b2*6/2 c'2*3/2 ~ c'2*3/2 ~ \divisioMinima
+c'2 ~ c'2*6/2 d'2 \divisioMaxima
 fis2*4/2 e2 fis2 e2*4/2 ~ e2*3/2 fis2 ~ fis2 \divisioMaxima
 g2*4/2 ~ g2 fis2 e2*3/2 ~ e2 g2*3/2 ~ g4 fis4 \finalis
 }
@@ -113,7 +113,7 @@ r2*3/2 e2 d2 c2 ~ c2*3/2 a,2*4/2 d2 ~ d4 \finalis
 r2*9/2 \divisioMinima
 b2*5/2 a2*3/2 d'2 b2 \divisioMaxima
 d2*4/2 ~ d4 a,2*5/2 b,2*3/2 d2 r2*9/2 b2*3/2 ~ \divisioMinima
-b2 a2*4/2 d’2 b2 \divisioMaxima
+b2 a2*4/2 d'2 b2 \divisioMaxima
 d2*4/2 ~ d2 ~ d2 c2*3/2 ~ \divisioMinima
 c4 a,2*3/2 c2 b,2 ~ \divisioMaxima
 b,2*4/2 d2 ~ d2 a,2*3/2 b,2 ~ b,2*3/2 d2 \finalis
