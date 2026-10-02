@@ -543,8 +543,8 @@
   },
   {
    "target": "part:dominica-i-adventus/alleluia",
-   "file": "vol-1/al_ostende_nobis.csv.ly",
-   "hash": "38d7eedb744cc0d412b3b7a53e67af29"
+   "file": "vol-1/al_jubilate_deo.csv.ly",
+   "hash": "f5bd474a8b7403391a6bae3e13e55c16"
   },
   {
    "target": "part:dominica-i-adventus/communion",
@@ -2117,6 +2117,11 @@
    "hash": "fea8a7419005ffb9fdf4caa64ac64bff"
   },
   {
+   "target": "part:noh1-p104/alleluia:paschal",
+   "file": "vol-1/al_beatus_homo.csv.ly",
+   "hash": "c604f018126c3968d80decc7b65ba372"
+  },
+  {
    "target": "part:noh1-p104/communion",
    "file": "vol-1/co_descendit_jesus.csv.ly",
    "hash": "dfb1f55a4501f1cf38bd67dec5ae9734"
@@ -2195,6 +2200,11 @@
    "target": "part:noh1-p302/other:3",
    "file": "vol-1/an_turba_multa.csv.ly",
    "hash": "01c89717a9c10cbcf9e0915b7f8f93d1"
+  },
+  {
+   "target": "part:noh1-p302/other:4",
+   "file": "vol-1/an_coeperunt_omnes_turbae.csv.ly",
+   "hash": "c988ae1641c84dd1cba6b4050335327a"
   },
   {
    "target": "part:noh1-p302/other:5",
@@ -2708,8 +2718,8 @@
   },
   {
    "target": "part:s-joannis-apostoli-et-evangelist/communion",
-   "file": "vol-1/co_exiit_sermo.csv.ly",
-   "hash": "62bffca6e4648a471575a4f37cb69da3"
+   "file": "vol-1/co_fili_quid_fecisti.csv.ly",
+   "hash": "a2516e5cba7e18d3fa12e01446aa9daa"
   },
   {
    "target": "part:s-joannis-bosco-confessoris/alleluia",
@@ -3177,6 +3187,11 @@
    "hash": "af205974424117e1e8aade1eb8c5c6da"
   },
   {
+   "target": "part:sanctissimi-nominis-jesu/alleluia:paschal",
+   "file": "vol-1/al_exaltabo_te.csv.ly",
+   "hash": "33876b07dea34a98115c6223dbd6cae7"
+  },
+  {
    "target": "part:sanctissimi-nominis-jesu/communion",
    "file": "vol-1/co_omnes_gentes.csv.ly",
    "hash": "4672afc26d02d6346b5c82a169218e95"
@@ -3400,6 +3415,11 @@
    "target": "piece:cantus-ad-libitum-sanctus-i-iii",
    "file": "vol-5/ad-libitum/sanctus_ad_libitum_I.ly",
    "hash": "c28de5007397ca18fb6a51f743aa989f"
+  },
+  {
+   "target": "piece:feria-iv-cinerum",
+   "file": "vol-1/an_exaudi_nos_domine.csv.ly",
+   "hash": "a28a15bfd9b7057cd7d5fccedc559619"
   },
   {
    "target": "piece:ordinarium-missae-asperges",

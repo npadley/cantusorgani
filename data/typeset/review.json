@@ -12,64 +12,20 @@
  "source": "https://github.com/joeegan2202/nova-organi-harmonia",
  "items": [
   {
-   "file": "vol-1/al_beatus_homo.csv.ly",
+   "file": "vol-1/al_ostende_nobis.csv.ly",
    "status": "proposed",
-   "target": "part:noh1-p104/alleluia:paschal",
-   "hash": "c604f018126c3968d80decc7b65ba372",
-   "incipit": "Allelúia allelúia ℣ Beá tus ho mo qui",
-   "page": 109,
+   "target": "part:dominica-i-adventus/alleluia",
+   "hash": "38d7eedb744cc0d412b3b7a53e67af29",
+   "melody": 0.994,
+   "words": 1.0,
+   "incipit": "Alle lúia alle lú ia Ostén de nobis",
+   "page": 5,
+   "note": "an editor chose vol-1/al_jubilate_deo.csv.ly for part:dominica-i-adventus/alleluia",
    "candidates": [
-    {
-     "target": "part:noh1-p104/alleluia:paschal",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
-   "file": "vol-1/al_exaltabo_te.csv.ly",
-   "status": "proposed",
-   "target": "part:sanctissimi-nominis-jesu/alleluia:paschal",
-   "hash": "33876b07dea34a98115c6223dbd6cae7",
-   "incipit": "Alle lú ia ℣ Exaltábo te Deus meus",
-   "page": 94,
-   "candidates": [
-    {
-     "target": "part:sanctissimi-nominis-jesu/alleluia:paschal",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
-   "file": "vol-1/al_jubilate_deo.csv.ly",
-   "status": "proposed",
-   "target": "part:noh1-p60/alleluia",
-   "hash": "f5bd474a8b7403391a6bae3e13e55c16",
-   "melody": 0.541,
-   "words": 0.683,
-   "incipit": "Allelúia allelúia ℣ Jubiláte Deo o mnis ter",
-   "page": 115,
-   "candidates": [
-    {
-     "target": "part:noh1-p60/alleluia",
-     "melody": 0.541,
-     "words": 0.683
-    },
-    {
-     "target": "part:dominica-iii-post-epiphaniam/alleluia",
-     "melody": 0.508,
-     "words": 0.567
-    },
     {
      "target": "part:dominica-i-adventus/alleluia",
-     "melody": 0.5,
-     "words": 0.533
-    },
-    {
-     "target": "part:noh1-p49/alleluia",
-     "melody": 0.5,
-     "words": 0.417
+     "melody": 0.994,
+     "words": 1.0
     }
    ]
   },
@@ -111,21 +67,6 @@
    ]
   },
   {
-   "file": "vol-1/an_coeperunt_omnes_turbae.csv.ly",
-   "status": "proposed",
-   "target": "part:noh1-p302/other:4",
-   "hash": "c988ae1641c84dd1cba6b4050335327a",
-   "incipit": "Cœpérunt omnes turbæ descendéntium gaudéntes laudáre Deum voce",
-   "page": 304,
-   "candidates": [
-    {
-     "target": "part:noh1-p302/other:4",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
    "file": "vol-1/an_cum_angelis.csv.ly",
    "status": "proposed",
    "target": "part:noh1-p302/other:3",
@@ -142,21 +83,6 @@
     },
     {
      "target": "part:noh1-p302/other:2",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
-   "file": "vol-1/an_exaudi_nos_domine.csv.ly",
-   "status": "proposed",
-   "target": "piece:feria-iv-cinerum",
-   "hash": "a28a15bfd9b7057cd7d5fccedc559619",
-   "incipit": "Exáudi nos Dómine quóniam benígna est misericór dia",
-   "page": 152,
-   "candidates": [
-    {
-     "target": "piece:feria-iv-cinerum",
      "melody": null,
      "words": null
     }
@@ -204,34 +130,20 @@
    ]
   },
   {
-   "file": "vol-1/co_fili_quid_fecisti.csv.ly",
+   "file": "vol-1/co_exiit_sermo.csv.ly",
    "status": "proposed",
-   "target": "part:feria-ii-infra-hebd-passionis/communion",
-   "hash": "a2516e5cba7e18d3fa12e01446aa9daa",
-   "melody": 0.6,
-   "words": 0.125,
-   "incipit": "Fili quid fecísti nobis sic? e go et",
-   "page": 118,
+   "target": "part:s-joannis-apostoli-et-evangelist/communion",
+   "hash": "62bffca6e4648a471575a4f37cb69da3",
+   "melody": 1.0,
+   "words": 1.0,
+   "incipit": "Exiit sermo inter fratres quod discípulus ille non",
+   "page": 73,
+   "note": "an editor chose vol-1/co_fili_quid_fecisti.csv.ly for part:s-joannis-apostoli-et-evangelist/communion",
    "candidates": [
     {
-     "target": "part:feria-ii-infra-hebd-passionis/communion",
-     "melody": 0.6,
-     "words": 0.125
-    },
-    {
-     "target": "part:dominica-iii-in-quadragesim/communion",
-     "melody": 0.587,
-     "words": 0.211
-    },
-    {
      "target": "part:s-joannis-apostoli-et-evangelist/communion",
-     "melody": 0.547,
-     "words": 0.203
-    },
-    {
-     "target": "part:feria-vi-quattuor-temporum-quadragesim/communion",
-     "melody": 0.533,
-     "words": 0.18
+     "melody": 1.0,
+     "words": 1.0
     }
    ]
   },
