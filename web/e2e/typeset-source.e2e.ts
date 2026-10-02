@@ -42,7 +42,7 @@ test("previews unsaved text and shows bounded rendering diagnostics",async({page
   await expect(page.locator('.cm-content')).toContainText('d4');
 });
 for (const outcome of ['success','timeout','superseded'] as const) test(`preview ${outcome} preserves drafts on a phone`,async({page})=>{
-  await page.setViewportSize({width:390,height:844});await page.clock.install();
+  await page.setViewportSize({width:320,height:844});await page.clock.install();
   await page.route('**/admin/api/typeset/source?**',r=>r.fulfill({json:{current:{text:'c4',blobSha:baseBlobSha},draft:null}}));
   await page.route('**/admin/api/typeset/preview',r=>r.fulfill({json:{draft:{file,text:'d4',revision:1,baseBlobSha},key:'b'.repeat(64),resultUrl:'https://assets.example.test/result.json'}}));
   await page.route('https://assets.example.test/**',r=>outcome==='timeout' ? r.fulfill({status:404,body:'pending'}) : r.fulfill({json:{key:'b'.repeat(64),ok:true,problems:[],warnings:[]}}));

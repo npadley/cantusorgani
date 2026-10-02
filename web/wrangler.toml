@@ -16,6 +16,7 @@ migrations_dir = "../workers/corrections/migrations"
 
 # Not secret. Empty values leave the admin screen answering "not configured".
 [vars]
+PUBLIC_ASSET_BASE = "https://images.cantusorgani.org"
 ACCESS_TEAM_DOMAIN = "padley.cloudflareaccess.com"
 # The Access application's audience tag: an identifier, public in every Access
 # sign-in redirect for /admin/, so not a secret (hence gitleaks:allow below).
