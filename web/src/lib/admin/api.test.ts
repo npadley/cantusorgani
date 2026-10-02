@@ -543,7 +543,7 @@ describe("the webhook", () => {
     expect(db.sqlite.prepare("SELECT status, reason FROM corrections WHERE id = ?").get(first.id))
       .toMatchObject({ status: "approved", reason: "PR #7 was closed without merging" });
     const second = await published();
-    await webhook("workflow_run", { action: "completed", workflow_run: { name: "corrections-batch", conclusion: "failure",
+    await webhook("workflow_run", { action: "completed", workflow_run: { name: `corrections ${second.batch}`, path: ".github/workflows/corrections-batch.yml", conclusion: "failure",
       display_title: `corrections ${second.batch}`, html_url: "https://github.com/x/actions/runs/1" } });
     expect(db.sqlite.prepare("SELECT status, reason FROM corrections WHERE id = ?").get(second.id))
       .toMatchObject({ status: "approved", reason: "Publishing failed; see https://github.com/x/actions/runs/1 on GitHub" });
@@ -742,7 +742,8 @@ it("routes a stale music report to source repair rather than catalogue approval"
 it("signed preview completion releases matching leases idempotently",async()=>{
   const key="a".repeat(64);
   db.sqlite.prepare("INSERT INTO typeset_previews(editor_email,preview_key,admitted_at,expires_at) VALUES ('ed',?,0,300000)").run(key);
-  const event={action:"completed",workflow_run:{name:"typeset-preview",display_title:`typeset-preview ${key} lease 1`,conclusion:"failure"}};
+  const event={action:"completed",workflow_run:{name:`typeset-preview ${key} lease 1`,path:'.github/workflows/typeset-preview.yml',display_title:`typeset-preview ${key} lease 1`,conclusion:"failure"}};
+  expect((await webhook("workflow_run",{...event,workflow_run:{...event.workflow_run,path:'.github/workflows/site.yml'}})).body).toEqual({ok:true,ignored:true});
   expect((await webhook("workflow_run",event)).body).toEqual({ok:true,updated:1});
   expect((await webhook("workflow_run",event)).body).toEqual({ok:true,updated:0});
 });
