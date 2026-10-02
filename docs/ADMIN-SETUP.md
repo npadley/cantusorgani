@@ -222,11 +222,18 @@ catalogue change merely to exercise the workflow.
   form should offer the section field. Also check a long keyed-section link,
   such as `part:ordinarium-missae-xvii/other:deo-gratias-vi`.
 - Check the public status row identifies the piece and section/item. Notes
-  must remain absent from both the public table and the API JSON.
+  from readers must remain absent from the public table, API JSON, GitHub batch
+  description and committed correction data. They remain private in D1 for
+  editors to read. Editor-authored publication reasons are deliberately public.
 - Approve a reader page-range, section-start or chant-ID report in the admin.
   Its public row should remain visible as pending after approval and queueing,
   and become accepted only after its correction merges. Reject an unused test
   report and confirm it remains visible as rejected.
+- If an editor changes a report's category to system range, Vespers scan refs
+  or Vespers replacement text, the report must still appear in public status.
+  Vespers replacement text is a proposed public value; it is separate from the
+  reader's private note. Pasted tabs or line breaks in a title/incipit become
+  spaces so an accepted report does not disappear immediately.
 - Verify equal-valued reports for distinct targets are retained, while a
   repeat of the same pending target/field/value is acknowledged as a duplicate.
   This behavior is covered in local D1 regression tests; if performing a live

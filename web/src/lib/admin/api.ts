@@ -383,7 +383,10 @@ async function publish(deps: Deps, env: AdminEnv, editor: Editor): Promise<Respo
     await deps.dispatch({
       batch,
       entries: approved.map((r) => ({
-        target: r.target ?? `piece:${r.piece_id}`, field: r.field, value: r.proposed, note: r.note.slice(0, 200),
+        target: r.target ?? `piece:${r.piece_id}`, field: r.field, value: r.proposed,
+        // Reader notes are private review context, never part of a public PR
+        // or corrections.yml. Editor-authored reasons are deliberately public.
+        note: r.source === "reader" ? "" : r.note.slice(0, 200),
         source: r.source === "reader" ? `reader#${r.id}` : "editor", editor_email: r.editor_email ?? editor.email,
         ...(r.field === "reviewed" && r.seen ? { seen: r.seen } : {}),
       })),

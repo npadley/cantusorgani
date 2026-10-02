@@ -101,7 +101,35 @@ describe("public tracking after editor approval", () => {
     expect(publicRow()).toMatchObject({ id, field, status: "pending" });
     const published = await call("POST", "/publish", {});
     expect(published.status).toBe(200);
+    expect(JSON.stringify(sent)).not.toContain("private reader source");
+    expect(db.sqlite.prepare("SELECT note FROM corrections WHERE id = ?").get(id)).toMatchObject({ note: "private reader source" });
     expect(publicRow()).toMatchObject({ id, field, status: "pending" });
+    await webhook("pull_request", { action: "closed", pull_request: { number: 42, merged: true,
+      merge_commit_sha: "abc1234def", head: { ref: `corrections/${published.body["batch"]}` } } });
+    expect(publicRow()).toMatchObject({ id, field, status: "accepted" });
+    expect(JSON.stringify(publicRow())).not.toContain("private reader source");
+  });
+
+  it("retains editor-authored public reasons in publication", async () => {
+    expect((await call("POST", "/edits", { target: "piece:kyrie-i", field: "mode", value: "VII", note: "Verified in the printed book" })).status).toBe(201);
+    expect((await call("POST", "/publish", {})).status).toBe(200);
+    expect(sent[0]?.entries[0]).toMatchObject({ source: "editor", note: "Verified in the printed book" });
+  });
+
+  it.each([
+    { pieceId: "kyrie-i", target: null, readerField: "printedPages", readerValue: "2-3", field: "system_range", value: "noh5/0001/001-noh5/0001/003" },
+    { pieceId: "vespers", target: "vespers:adv1/antiphon-1", readerField: "gregobaseId", readerValue: "123", field: "refs", value: "noh8/0077/000 noh8/0077/001" },
+    { pieceId: "vespers", target: "vespers:adv1/antiphon-1", readerField: "gregobaseId", readerValue: "123", field: "note", value: "The music is printed on the next page" },
+  ])("keeps a reader report recategorized to $field visible through publication", async ({ pieceId, target, readerField, readerValue, field, value }) => {
+    const id = readerReport(db.sqlite, pieceId, readerField, readerValue, "private reader source");
+    db.sqlite.prepare("UPDATE corrections SET target = ? WHERE id = ?").run(target, id);
+    const publicRow = () => toPublicRow(db.sqlite.prepare("SELECT * FROM corrections WHERE id = ?").get(id) as unknown as StoredRow);
+    expect((await call("POST", `/rows/${id}/approve`, { field, value })).status).toBe(200);
+    expect(publicRow()).toMatchObject({ id, field, proposedValue: value, status: "pending" });
+    const published = await call("POST", "/publish", {});
+    expect(published.status).toBe(200);
+    expect(publicRow()).toMatchObject({ id, field, status: "pending" });
+    expect(JSON.stringify(sent)).not.toContain("private reader source");
     await webhook("pull_request", { action: "closed", pull_request: { number: 42, merged: true,
       merge_commit_sha: "abc1234def", head: { ref: `corrections/${published.body["batch"]}` } } });
     expect(publicRow()).toMatchObject({ id, field, status: "accepted" });
@@ -336,7 +364,7 @@ describe("publishing", () => {
     const result = await call("POST", "/publish", {});
     expect(result).toMatchObject({ status: 200, body: { count: 2 } });
     expect(sent[0]!.entries).toEqual([
-      { target: "piece:kyrie-i", field: "mode", value: "VII", note: "Liber", source: `reader#${reader}`, editor_email: "ed@example.org" },
+      { target: "piece:kyrie-i", field: "mode", value: "VII", note: "", source: `reader#${reader}`, editor_email: "ed@example.org" },
       { target: "piece:dominica-i-adventus", field: "title", value: "Dominica prima Adventus", note: "", source: "editor", editor_email: "ed@example.org" },
     ]);
     expect(statusOf(reader)).toBe("queued");

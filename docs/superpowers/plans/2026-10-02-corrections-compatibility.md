@@ -82,3 +82,15 @@ Typeset-file music-error reports, full scan comparison and the larger source edi
 - Task 2: Catalogue-derived regressions reproduced all seven target failures and proper genre rejection; real admin approval tests reproduced public-status disappearance. Worker: 64 tests and typecheck passed. Web: 686 tests passed.
 - Task 3: Four original browser regressions failed before the page fix. An added stalled-label-lookup test failed and then passed after making label enrichment asynchronous. Ten new/existing corrections/report-link browser tests passed; web typecheck reports zero errors and four existing hints.
 - Task 4: Release runbook documents the separate Worker deployment, migration ordering and rollback limits. Astro built 1,529 pages; Pagefind generated its index; all pages are reachable with no broken internal links. No live migration, deployment or submissions were performed.
+
+## Independent review and fix pass
+
+A fresh reviewer identified three lifecycle issues. Each was reproduced by a failing regression before the fix:
+
+- Publication now excludes reader notes from GitHub batch entries while retaining them privately in D1 and preserving editor-authored public reasons. The two existing reader-attributed entries in current corrections.yml have empty notes; no historical rewrite was performed.
+- Stored status validation now covers editor recategorization to piece system ranges, Vespers scan refs and Vespers replacement text, using target-specific canonical rules. These fields remain unavailable at public intake; replacement text is separate from the private note column.
+- Ordinary pasted title/incipit whitespace is normalized consistently at intake and projection; unsafe control characters remain rejected.
+
+After the fix pass: Worker 75 tests and typecheck passed; web 690 tests and typecheck passed (four existing hints); Wrangler dry-run bundled the Worker successfully. The ten affected browser checks and 1,529-page build/link checks passed for the frontend implementation.
+
+Review scope decisions: typeset reporting/full scans/source editing remain deferred. Section reports continue to resolve through a separate editor correction and duplicate resolution. A pre-existing same-target unapproval collision with a newer pending report remains deferred; it can block withdrawal. Live versions, migration state and publication require the documented release checks.

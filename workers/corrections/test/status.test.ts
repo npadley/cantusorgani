@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { toPublicRow, toPublicRows } from "../src/status";
 import type { StoredRow } from "../src/status";
+import { parseCorrection } from "../src/schema";
 
 const ROW: StoredRow = {
   id: 1,
@@ -117,5 +118,44 @@ describe("canonical stored fields", () => {
     expect(toPublicRow({ ...ROW, field: "printed_pages", proposed: "<script>" })).toBeNull();
     expect(toPublicRow({ ...ROW, field: "start_system", proposed: "3" })).toBeNull();
     expect(toPublicRow({ ...ROW, piece_id: "vespers", target: "vespers:adv1/antiphon-1", field: "chant", proposed: "not a chant id" })).toBeNull();
+  });
+
+  it.each([
+    { piece_id: "kyrie-i", target: "piece:kyrie-i", field: "system_range", proposed: "noh5/0001/001-noh5/0001/003" },
+    { piece_id: "vespers", target: "vespers:adv1/antiphon-1", field: "refs", proposed: "noh8/0077/000 noh8/0077/001" },
+    { piece_id: "vespers", target: "vespers:adv1/antiphon-1", field: "note", proposed: "The music is printed on the next page" },
+  ])("supports an editor's $field category without broadening intake", (data) => {
+    for (const status of ["approved", "queued", "accepted"]) {
+      expect(toPublicRow({ ...ROW, ...data, status })).toMatchObject({ field: data.field, proposedValue: data.proposed });
+    }
+    expect(parseCorrection({ pieceId: data.piece_id, target: data.target, field: data.field, proposedValue: data.proposed }).ok).toBe(false);
+  });
+
+  it("validates editor-only categories by target and rejects malformed values", () => {
+    expect(toPublicRow({ ...ROW, field: "refs", proposed: "noh8/0077/000" })).toBeNull();
+    const vespers = { ...ROW, piece_id: "vespers", target: "vespers:adv1/antiphon-1" };
+    expect(toPublicRow({ ...vespers, field: "system_range", proposed: "noh5/0001/001-noh5/0001/003" })).toBeNull();
+    expect(toPublicRow({ ...vespers, field: "refs", proposed: "noh1/0077/000" })).toBeNull();
+    expect(toPublicRow({ ...vespers, field: "note", proposed: "<script>private</script>" })).toBeNull();
+    expect(toPublicRow({ ...vespers, field: "note", proposed: "A" })).toBeNull();
+    expect(toPublicRow({ ...ROW, field: "system_range", proposed: "broken range" })).toBeNull();
+  });
+});
+
+describe("intake text remains publicly representable", () => {
+  it.each(["Kyrie\teleison", "Kyrie\neleison", " Kyrie\r\n  eleison "])("normalizes pasted whitespace in %j", (proposed) => {
+    for (const field of ["title", "incipit"]) {
+      const parsed = parseCorrection({ pieceId: "kyrie-i", field, proposedValue: proposed });
+      expect(parsed.ok && parsed.value.proposedValue).toBe("Kyrie eleison");
+      // Also project older rows stored before normalization was added.
+      expect(toPublicRow({ ...ROW, field, proposed })?.proposedValue).toBe("Kyrie eleison");
+    }
+  });
+
+  it.each(["\u0000", "\u0001", "\u000b", "\u000c"])("rejects unsafe text controls %j even at the edges", (control) => {
+    for (const proposed of [`Kyrie${control}eleison`, `${control}Kyrie eleison${control}`]) {
+      expect(parseCorrection({ pieceId: "kyrie-i", field: "title", proposedValue: proposed }).ok).toBe(false);
+      expect(toPublicRow({ ...ROW, field: "title", proposed })).toBeNull();
+    }
   });
 });

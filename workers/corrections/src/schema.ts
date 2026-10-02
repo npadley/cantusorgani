@@ -15,6 +15,10 @@ export type CorrectableField =
   | "title" | "incipit" | "mode" | "genre" | "printedPages" | "chant"
   | "startSystem" | "gregobaseId" | "tone" | "sections";
 
+/** Editors can recategorize a reader report to these canonical fields. They
+ * are publishable stored values, never unauthenticated intake fields. */
+export type StoredField = CorrectableField | "system_range" | "refs" | "note";
+
 export const CORRECTABLE_FIELDS: readonly CorrectableField[] = [
   "title", "incipit", "mode", "genre", "printedPages", "chant", "startSystem", "gregobaseId", "tone", "sections",
 ];
@@ -84,8 +88,8 @@ export const HINTS: Readonly<Record<CorrectableField, string>> = {
 const ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"] as const;
 
 /** A value as it will be stored: a mode typed as 1-8 becomes I-VIII. */
-export function normaliseValue(field: CorrectableField, value: string): string {
-  const trimmed = value.trim();
+export function normaliseValue(field: StoredField, value: string): string {
+  const trimmed = (field === "title" || field === "incipit" ? value.replace(/[ \t\r\n]+/g, " ") : value).trim();
   if (field === "mode" && /^[1-8]$/.test(trimmed)) return ROMAN[Number(trimmed) - 1] as string;
   return trimmed;
 }
@@ -93,21 +97,25 @@ export function normaliseValue(field: CorrectableField, value: string): string {
 export const MAX_NOTE = 2000;
 export const MAX_PIECE_ID = 80;
 
-export interface Correction {
+export interface Correction<Field extends StoredField = CorrectableField> {
   readonly pieceId: string;
-  readonly field: CorrectableField;
+  readonly field: Field;
   readonly proposedValue: string;
   readonly note: string;
   /** A part or Vespers item; null for a report on the piece itself. */
   readonly target: string | null;
 }
 
-export type ParseResult =
-  | { readonly ok: true; readonly value: Correction }
+export type ParseResult<Field extends StoredField = CorrectableField> =
+  | { readonly ok: true; readonly value: Correction<Field> }
   | { readonly ok: false; readonly error: string };
 
 function isCorrectableField(value: string): value is CorrectableField {
   return (CORRECTABLE_FIELDS as readonly string[]).includes(value);
+}
+
+function isStoredField(value: string): value is StoredField {
+  return isCorrectableField(value) || value === "system_range" || value === "refs" || value === "note";
 }
 
 export function parseCorrection(input: unknown): ParseResult {
@@ -116,11 +124,13 @@ export function parseCorrection(input: unknown): ParseResult {
 
 /** Stored text may have been corrected by an editor using the canonical
  * plain-text rules. This never changes the unauthenticated intake boundary. */
-export function parseStoredCorrection(input: unknown): ParseResult {
+export function parseStoredCorrection(input: unknown): ParseResult<StoredField> {
   return parse(input, true);
 }
 
-function parse(input: unknown, stored: boolean): ParseResult {
+function parse(input: unknown, stored: false): ParseResult;
+function parse(input: unknown, stored: true): ParseResult<StoredField>;
+function parse(input: unknown, stored: boolean): ParseResult<StoredField> {
   if (typeof input !== "object" || input === null || Array.isArray(input)) {
     return { ok: false, error: "Expected a JSON object." };
   }
@@ -135,7 +145,7 @@ function parse(input: unknown, stored: boolean): ParseResult {
   }
 
   const field = raw["field"];
-  if (typeof field !== "string" || !isCorrectableField(field)) {
+  if (typeof field !== "string" || !isStoredField(field) || (!stored && !isCorrectableField(field))) {
     return {
       ok: false,
       error: `Unknown field ${JSON.stringify(field)}. Correctable fields are: ${CORRECTABLE_FIELDS.join(", ")}.`,
@@ -147,12 +157,17 @@ function parse(input: unknown, stored: boolean): ParseResult {
     return { ok: false, error: "proposedValue must be a string." };
   }
   const proposedValue = normaliseValue(field, rawValue);
-  const textRule = stored && (field === "title" || field === "incipit") ? schema.targets.piece[field] : null;
-  const valid = textRule
-    ? new RegExp(textRule.pattern).test(proposedValue) && (proposedValue.match(/\p{L}/gu)?.length ?? 0) >= textRule.min_letters
-    : PATTERNS[field].test(proposedValue);
-  if (!valid) {
-    return { ok: false, error: `“${proposedValue}” is not a valid ${field}: expected ${HINTS[field]}.` };
+  const unsafeText = (field === "title" || field === "incipit") && /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(rawValue);
+  const rule: { readonly pattern: string; readonly min_letters?: number } | null = !stored ? null
+    : field === "title" || field === "incipit" ? schema.targets.piece[field]
+    : field === "system_range" ? schema.targets.piece.system_range
+    : field === "refs" || field === "note" ? schema.targets.vespers[field] : null;
+  const valid = rule
+    ? new RegExp(rule.pattern, "u").test(proposedValue) && (proposedValue.match(/\p{L}/gu)?.length ?? 0) >= (rule.min_letters ?? 0)
+    : isCorrectableField(field) && PATTERNS[field].test(proposedValue);
+  if (unsafeText || !valid) {
+    const hint = isCorrectableField(field) ? HINTS[field] : "a canonical value for this editor field";
+    return { ok: false, error: `“${proposedValue}” is not a valid ${field}: expected ${hint}.` };
   }
 
   const note = raw["note"] ?? "";
@@ -166,7 +181,8 @@ function parse(input: unknown, stored: boolean): ParseResult {
   }
   const target = rawTarget === null || rawTarget.startsWith("piece:") ? null : rawTarget;
   const kind = target === null ? "piece" : (target.split(":", 1)[0] as "part" | "pairing" | "vespers");
-  if (!FIELDS_BY_KIND[kind].includes(field)) {
+  const editorField = stored && (kind === "piece" && field === "system_range" || kind === "vespers" && (field === "refs" || field === "note"));
+  if (!editorField && !(isCorrectableField(field) && FIELDS_BY_KIND[kind].includes(field))) {
     return { ok: false, error: `A ${kind} report can correct ${FIELDS_BY_KIND[kind].join(", ")}, not ${field}.` };
   }
   if ((kind === "part" || kind === "pairing") && target?.split(":", 2)[1]?.split("/")[0] !== pieceId) {
