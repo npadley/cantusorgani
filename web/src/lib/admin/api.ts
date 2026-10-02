@@ -531,7 +531,7 @@ interface PullRequestEvent {
 }
 interface WorkflowRunEvent {
   action?: string;
-  workflow_run?: { name?: string; conclusion?: string | null; display_title?: string; html_url?: string;
+  workflow_run?: { name?: string; path?: string; conclusion?: string | null; display_title?: string; html_url?: string;
                    head_branch?: string | null; pull_requests?: { number?: number }[] };
 }
 
@@ -573,9 +573,12 @@ export async function handleWebhook(request: Request, env: AdminEnv, store: Stor
   if (event === "workflow_run" && payload.action === "completed") {
     const run = payload.workflow_run;
     const preview = /^typeset-preview ([a-f0-9]{64}) lease ([1-9][0-9]{0,15})$/.exec(run?.display_title ?? "");
-    if (preview && run?.name === "typeset-preview" && Number.isSafeInteger(Number(preview[2]))) return json({ok:true,updated:await previewStore(env.DB).releasePreview(preview[1]!,Number(preview[2]))});
+    // GitHub uses the dynamic run-name as name; path identifies the workflow.
+    const previewWorkflow = run?.path === ".github/workflows/typeset-preview.yml" || run?.name === "typeset-preview";
+    if (preview && previewWorkflow && Number.isSafeInteger(Number(preview[2]))) return json({ok:true,updated:await previewStore(env.DB).releasePreview(preview[1]!,Number(preview[2]))});
     const batch = BATCH_TITLE.exec(run?.display_title ?? "")?.[1];
-    if (batch && run?.name === "corrections-batch" && run.conclusion !== "success") {
+    const batchWorkflow = run?.path === ".github/workflows/corrections-batch.yml" || run?.name === "corrections-batch";
+    if (batch && batchWorkflow && run.conclusion !== "success") {
       const reason = `Publishing failed; see ${run.html_url ?? "the corrections-batch run"} on GitHub`;
       const n = await store.unqueueBatch(batch, "approved", reason.slice(0, 300));
       await store.log("github", "publish-failed", null, `${batch}: ${n} back to approved`);
