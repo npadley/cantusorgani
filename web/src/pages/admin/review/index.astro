@@ -38,10 +38,16 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
         <select name="volume"><option value="">All</option>{volumes.map((v) => <option value={v}>{v}</option>)}</select>
       </label>
       <label class="small">Kind
-        <select name="kind"><option value="">All</option>{kinds.map(([k, l]) => <option value={k}>{l}</option>)}</select>
+        <select name="kind"><option value="">All</option>{kinds.map(([k, l]) => <option value={k} data-label={l}>{l}</option>)}</select>
       </label>
       <label class="choice small"><input type="checkbox" name="done" /> Show what is already done</label>
     </form>
+
+    <section aria-labelledby="waiting-h" class="waiting">
+      <h2 id="waiting-h" class="small">What is waiting</h2>
+      <p class="small muted">Each kind is one sort of check. Choose one to work through it on its own.</p>
+      <ul id="breakdown" class="small"></ul>
+    </section>
 
     <div id="status" class="status small" role="status" aria-live="polite"></div>
     <p class="small muted" id="shown" aria-live="polite"></p>
@@ -49,7 +55,7 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
     <div id="items">
       {entries.map((e) => (
         <article class:list={["item", e.scans.length > 0 && "has-scan"]} data-review-target={e.target}
-                 data-review-seen={e.fingerprint} data-group={e.group} data-volume={e.volume} data-kind={e.kind}
+                 data-review-seen={e.fingerprint} data-group={e.group} data-volume={e.volume} data-kind={e.kind} data-label={e.label}
                  aria-labelledby={`h-${e.target.replace(/[^a-z0-9]/gi, "-")}`}>
           <h3 tabindex="-1" id={`h-${e.target.replace(/[^a-z0-9]/gi, "-")}`}>{e.label}: {e.about}</h3>
           <p class="small">{e.look}</p>
@@ -89,6 +95,12 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
   .filters select { display: block; font: inherit; font-family: var(--font-ui); min-height: var(--tap-min);
                     padding: var(--s-1) var(--s-2); background: var(--paper); color: var(--ink);
                     border: 1px solid var(--rule); border-radius: var(--radius); }
+  .waiting h2 { margin: var(--s-2) 0 0; font-family: var(--font-ui); }
+  .waiting p { margin: 0 0 var(--s-1); }
+  #breakdown { list-style: none; margin: 0 0 var(--s-2); padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-2); }
+  :global(#breakdown button) { font: inherit; font-family: var(--font-ui); min-height: var(--tap-min); padding: 0 var(--s-2);
+    background: var(--paper); color: var(--ink); border: 1px solid var(--rule); border-radius: var(--radius); cursor: pointer; }
+  :global(#breakdown button[aria-pressed="true"]) { border-color: var(--accent); outline: 1px solid var(--accent); }
   .choice { display: inline-flex; align-items: center; gap: var(--s-1); min-height: var(--tap-min); }
   .status { min-height: 1.4em; margin: var(--s-2) 0; }
   .status[data-state="error"] { color: var(--warn-ink); }
@@ -132,7 +144,12 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
     const data = new FormData(form);
     const group = String(data.get("group") ?? "fix");
     const volume = String(data.get("volume") ?? "");
-    const kind = String(data.get("kind") ?? "");
+    let kind = String(data.get("kind") ?? "");
+    // A kind belongs to one group: choosing another group shows all of its kinds.
+    if (kind && !all.some((el) => el.dataset["group"] === group && el.dataset["kind"] === kind)) {
+      (form.elements.namedItem("kind") as HTMLSelectElement).value = "";
+      kind = "";
+    }
     const done = data.get("done") !== null;
     let visible = 0;
     for (const el of all) {
@@ -141,12 +158,53 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
       el.hidden = !show;
       if (show) visible++;
     }
+    breakdown(group, volume, kind);
     for (const counter of document.querySelectorAll<HTMLElement>("[data-count]")) {
       const g = counter.dataset["count"];
       counter.textContent = String(all.filter((el) => el.dataset["group"] === g && !el.dataset["done"]).length);
     }
     if (none) none.hidden = visible > 0;
     if (shown) shown.textContent = `${visible} shown`;
+  }
+
+  /** The kinds waiting in this group (and volume), each with how many are left
+   * to do: a button that shows that kind alone, and the same counts in the
+   * Kind list. A kind with nothing in this group is left out of both. */
+  function breakdown(group: string, volume: string, chosen: string): void {
+    const select = form?.elements.namedItem("kind") as HTMLSelectElement | null;
+    const box = document.getElementById("breakdown");
+    if (!select || !box) return;
+    const left = new Map<string, number>();
+    // A kind's words can differ by group ("No chant linked" is information only
+    // on a Proper): take them from this group's own items.
+    const words = new Map<string, string>();
+    for (const el of all) {
+      if (el.dataset["group"] !== group) continue;
+      const kind = el.dataset["kind"] ?? "";
+      if (!words.has(kind)) words.set(kind, el.dataset["label"] ?? kind);
+      if ((volume && el.dataset["volume"] !== volume) || el.dataset["done"]) continue;
+      left.set(kind, (left.get(kind) ?? 0) + 1);
+    }
+    box.replaceChildren();
+    for (const option of [...select.options]) {
+      if (!option.value) continue;
+      const n = left.get(option.value) ?? 0;
+      const label = words.get(option.value) ?? option.dataset["label"] ?? option.value;
+      option.textContent = `${label} (${n})`;
+      option.hidden = n === 0 && option.value !== chosen;
+      if (n === 0) continue;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = `${label} (${n})`;
+      button.setAttribute("aria-pressed", String(option.value === chosen));
+      button.addEventListener("click", () => {
+        select.value = option.value === select.value ? "" : option.value;
+        apply();
+      });
+      const item = document.createElement("li");
+      item.append(button);
+      box.append(item);
+    }
   }
 
   form?.addEventListener("change", apply);

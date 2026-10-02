@@ -166,6 +166,33 @@ test.describe("Sections", () => {
   });
 });
 
+test.describe("Review, by kind", () => {
+  test("should count what is waiting of each kind, and show one kind alone when it is chosen", async ({ page }) => {
+    await page.goto("/admin/review/");
+    const kinds = page.locator("#breakdown button");
+    // Only the kinds of the group shown, each with a count that adds up to the group's.
+    await expect(kinds.filter({ hasText: /^Piece starts partway down a page \(\d+\)$/ })).toHaveCount(1);
+    await expect(kinds.filter({ hasText: "Mass movement placed by order" })).toHaveCount(0);
+    const counts = (await kinds.allTextContents()).map((t) => Number(/\((\d+)\)$/.exec(t)?.[1] ?? 0));
+    const total = Number((await page.locator("[data-count=fix]").textContent()) ?? "0");
+    expect(counts.reduce((a, b) => a + b, 0)).toBe(total);
+
+    const chosen = kinds.filter({ hasText: "Chant link not confirmed" });
+    const n = Number(/\((\d+)\)$/.exec((await chosen.textContent()) ?? "")?.[1] ?? 0);
+    await chosen.click();
+    await expect(chosen).toHaveAttribute("aria-pressed", "true");
+    await expect(page.getByLabel("Kind")).toHaveValue("unverified_pairing");
+    await expect(page.locator("#shown")).toHaveText(`${n} shown`);
+    await expect(page.locator("#items article:visible h3").first()).toContainText("Chant link not confirmed");
+
+    // Another group has other kinds: the choice is dropped, not left showing nothing.
+    await page.getByLabel(/^To check against the scan/).check();
+    await expect(page.getByLabel("Kind")).toHaveValue("");
+    await expect(kinds.filter({ hasText: /^Mass movement placed by order \(\d+\)$/ })).toHaveCount(1);
+    await expect(page.locator("#items article:visible").first()).toBeVisible();
+  });
+});
+
 test.describe.serial("Reviewing", () => {
   test("should mark an item as looking right, send it with the next publish, and keep it done after a reload", async ({ page }) => {
     await page.goto("/admin/");
