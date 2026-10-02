@@ -1,3 +1,4 @@
+-- Back up first: pnpm exec wrangler d1 export cantusorgani-corrections --remote --output backups/pre-rollback.sql
 -- Export first. This guard must succeed BEFORE dropping the new index.
 -- If distinct targets now collide under the old constraint, stop and keep
 -- the new index; deploy a forward fix instead of discarding those reports.

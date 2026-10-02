@@ -146,18 +146,7 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
   import { describeTarget } from "../../lib/admin/targets";
   import type { Targets } from "../../lib/admin/targets";
 
-  interface PublicRow {
-    readonly id: number;
-    readonly pieceId: string;
-    readonly target?: string | null;
-    readonly field: string;
-    readonly proposedValue: string;
-    readonly status: string;
-    readonly resolvedBy?: number;
-    readonly duplicateOf?: number;
-    readonly commitSha?: string;
-    readonly createdAt: string;
-  }
+  import type { PublicRow } from "../../../../workers/corrections/src/status";
 
   const form = document.getElementById("correction-form") as HTMLFormElement | null;
   const status = document.getElementById("form-status");
@@ -324,13 +313,14 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
       }
       table.append(head);
 
-      const targetCells: { cell: HTMLTableCellElement; target: string }[] = [];
+      const targetCells: { cell: HTMLTableCellElement; target: string; renderHash?: string }[] = [];
       for (const row of rows) {
         const tr = document.createElement("tr");
         const cell = document.createElement("td");
         cell.textContent = row.target ?? row.pieceId;
+        if (row.renderHash && /^[a-f0-9]{32}$/.test(row.renderHash)) cell.append(document.createTextNode(` · drawing ${row.renderHash}`));
         tr.append(cell);
-        targetCells.push({ cell, target: row.target ?? `piece:${row.pieceId}` });
+        targetCells.push({ cell, target: row.target ?? `piece:${row.pieceId}`, renderHash: row.renderHash });
         for (const value of [row.field, row.proposedValue]) {
           const td = document.createElement("td");
           td.textContent = value;
@@ -359,9 +349,9 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
       // request must not hide the reports themselves.
       void loadTargets().then((targets) => {
         if (!targets) return;
-        for (const { cell, target } of targetCells) {
+        for (const { cell, target, renderHash } of targetCells) {
           const label = describeTarget(targets, target)?.label;
-          if (label) cell.textContent = label;
+          if (label) cell.textContent = label + (renderHash && /^[a-f0-9]{32}$/.test(renderHash) ? ` · drawing ${renderHash}` : "");
         }
       });
     } catch {

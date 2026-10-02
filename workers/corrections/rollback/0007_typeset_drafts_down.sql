@@ -1,3 +1,4 @@
+-- Back up first: pnpm exec wrangler d1 export cantusorgani-corrections --remote --output backups/pre-rollback.sql
 -- Export first. Deploy old code before removing source draft/snapshot support.
 -- Refuse rollback while source corrections are active.
 CREATE TABLE typeset_rollback_guard(n INTEGER CHECK(n=0));

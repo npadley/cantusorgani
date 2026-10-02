@@ -108,3 +108,7 @@ test("submits a music error for its exact drawing with private details", async (
     target: "typeset:vol-5/x.ly", seen: hash, note: "Private proofreader evidence" });
   await expect(page.locator("#form-status")).toContainText("in the queue for review");
 });
+test('identifies two reported drawings of the same music file',async({page})=>{
+  await queue(page,['a','b'].map(char=>({id:char==='a'?1:2,pieceId:'typeset',target:'typeset:vol-5/x.ly',field:'issue',proposedValue:'lyrics',renderHash:char.repeat(32),status:'pending',createdAt:'2026-10-02'})));
+  await page.goto('/corrections/');await expect(page.locator('#queue-list')).toContainText('a'.repeat(32));await expect(page.locator('#queue-list')).toContainText('b'.repeat(32));
+});

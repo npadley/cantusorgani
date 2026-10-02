@@ -1,3 +1,4 @@
+-- Back up first: pnpm exec wrangler d1 export cantusorgani-corrections --remote --output backups/pre-rollback.sql
 -- Export first. Removing links loses the explanation of a resolution, while
 -- retaining reports, notes and accepted statuses.
 DROP TRIGGER IF EXISTS resolve_reports_after_merge;

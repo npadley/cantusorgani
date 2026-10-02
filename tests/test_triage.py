@@ -153,3 +153,8 @@ def test_record_sends_a_missing_part_report_to_the_sections_screen():
                         note="", status="pending", created_at="2026-09-29")
     with pytest.raises(RejectedCorrection, match="Sections screen"):
         record({"pieces": []}, report)
+def test_music_report_is_reviewed_in_source_editor_not_recorded_as_catalogue_change():
+    from tools.triage.main import Correction, record
+    c=Correction(7,'typeset','issue','lyrics','private note','pending','2026-10-02',target='typeset:vol-5/x.ly')
+    with pytest.raises(RejectedCorrection,match='source editor'):
+        record({},c)

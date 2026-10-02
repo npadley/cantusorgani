@@ -51,11 +51,25 @@ def without_table_rebuilds(sql: str) -> str:
     return sql
 
 
+def without_index_replacements(sql: str) -> str:
+    """Permit constraint/index replacement only with its named replacement in the same migration."""
+    for name in re.findall(r"drop index (\w+);", sql):
+        if re.search(rf"create unique index {name}\s+on corrections\b", sql):
+            sql = sql.replace(f"drop index {name};", "")
+    return sql
+
+
+def test_index_replacement_requires_the_same_unique_index():
+    assert "drop index" not in without_index_replacements("drop index old; create unique index old on corrections (target);")
+    assert "drop index" in without_index_replacements("drop index old; create unique index other on corrections (target);")
+    assert "drop index" in without_index_replacements("drop index old;")
+
+
 @pytest.mark.parametrize("directory", migration_dirs(), ids=lambda d: str(d))
 def test_migrations_contain_nothing_destructive(directory):
     """A destructive statement in migrations/ is applied automatically."""
     for sql in directory.glob("*.sql"):
-        lowered = without_table_rebuilds(sql.read_text(encoding="utf-8").lower())
+        lowered = without_index_replacements(without_table_rebuilds(sql.read_text(encoding="utf-8").lower()))
         for statement in DESTRUCTIVE:
             assert statement not in lowered, (
                 f"{sql} contains {statement!r}. wrangler applies every .sql file in "

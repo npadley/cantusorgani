@@ -258,7 +258,7 @@ pnpm exec playwright test e2e/corrections.e2e.ts e2e/site.e2e.ts --grep 'Correct
 4. The pull request runs the site checks and, when they pass, merges itself:
    the site deploys with the correction, and the history lists it as accepted.
    (A batch that waits for you says so in the pull request; merge it yourself.)
-5. Or close it without merging: the correction goes back to "To review".
+5. Or close it without merging: editor corrections return to Approved for retry; reader corrections return to review (or a linked duplicate if an identical pending report exists).
 
 If a step fails, the admin screen says why. The GitHub side is under the
 repo's **Actions** tab, in the `corrections-batch` runs.
@@ -295,3 +295,59 @@ objects after **14 days**. Do not apply this expiry to `typeset/` or `systems/`.
 Preview URLs are temporary and must never become published catalogue links.
 The renderer checks out the captured main commit without persisted credentials;
 the independent uploader verifies artifacts and never executes submitted source.
+
+### Typesetting review release (migrations 0001–0008)
+
+The implementation includes versioned music reports, full scan comparison,
+private drafts, immutable approvals, isolated previews and source publication.
+Public notes remain private. Section and music reports resolve through their
+linked editor fix after merge; duplicate and resolved remain distinct outcomes.
+A newer pending twin no longer prevents withdrawal: the older report becomes a
+linked duplicate and both notes survive. The public queue renders identifiers
+before fetching optional labels, and identifies each reported drawing.
+
+Release requires a reviewed commit and a separate live-action approval:
+
+1. Export live D1 privately, recording filename/time, then inspect applied
+   migrations. Apply all outstanding migrations **in order**: 0004 target identity,
+   0005 resolution links, 0006 versioned issue identity, 0007 drafts/snapshots,
+   0008 preview admissions. Existing reports remain intact. Check row counts/status
+   summaries against the export, without printing reader notes.
+2. Deploy the separate corrections Worker from the reviewed commit; record its
+   deployed version and test intake/status on the custom domain. Pages deployment
+   does not deploy this Worker.
+3. Verify Pages D1, Access editor allowlist, App credentials and the runtime
+   `PUBLIC_ASSET_BASE`; verify R2 CORS allows GET from the site, including JSON.
+   The App needs Contents and Pull requests read/write and repository dispatch.
+   Its webhook must deliver signed pull_request and workflow_run events.
+4. Establish the separate 14-day `typeset-preview/` lifecycle rule. Merge the
+   reviewed implementation and wait for Pages and both dispatch workflows to be
+   available on main. Record the Pages commit and site workflow run.
+5. With invited editors, exercise a genuine broken-source repair: report its
+   current drawing, save/reload a draft, preview success and a bounded error,
+   compare every scan, approve, and publish. Verify the source-check job has no
+   secrets, the source-only PR passes render/melody/SVG checks, and the signed
+   merge webhook resolves the report with the actual merge SHA. Then exercise
+   a mixed batch, cancel/retry and explicit stale-base reconciliation. Verify
+   no reader note appears in dispatches, source commits, PR text or public JSON.
+6. Record preview key/context commit, preview run/result, publication branch/PR/run,
+   webhook delivery/outcome, Worker version, Pages commit and migration names.
+   Invite wider readers only after these live checks pass.
+
+If dispatch fails after source branch creation, the approved edits and snapshots
+survive, with the abandoned batch/branch in the admin log and row reason. Inspect
+that run and any PR before retrying; close an orphan PR if required. A retry uses
+a new batch identity and never force-pushes an old source branch. A delayed merge
+that changed main causes the next attempt to refuse its stale base. The source
+editor shows the frozen approved text beside the current repository/draft; withdraw
+it, reconcile explicitly, save and approve again. Private drafts are retained.
+
+Rollback: export again, stop preview/publication activity, and revert application
+code before removing selected columns/tables. 0007 refuses rollback while source
+edits are approved/queued; removing it discards drafts and snapshots, so preserve
+its export. 0006 refuses an older index if different drawing reports would collide;
+0004 likewise refuses distinct-target collisions. Prefer a forward fix or compatible
+application rollback; never delete reports to satisfy a constraint. 0008 removes
+lease/rate history. Apply rollback scripts manually in reverse order, never via
+migrations. Live D1, deployed versions, R2 expiry and end-to-end publication are
+not verified by local tests and remain pending this release procedure.

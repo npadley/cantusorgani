@@ -22,3 +22,10 @@ it("counts dispatch failures and admits only twenty attempts per hour",async()=>
   expect(await store.acquirePreview("ed","last",20)).toEqual({ok:false,reason:"rate"});
   expect((await store.acquirePreview("ed","later",3600000)).ok).toBe(true);
 });
+it('failed dispatch cleanup releases only its own lease, even for the same cached key',async()=>{
+  const {d1}=testDb(),s=previewStore(d1);
+  const first=await s.acquirePreview('one','same',0),second=await s.acquirePreview('two','same',0);
+  if(!first.ok || !second.ok)throw Error('admission failed');
+  expect(await s.releaseLease(second.leaseId)).toBe(1);
+  expect(await s.acquirePreview('one','next',1)).toEqual({ok:false,reason:'active'});
+});

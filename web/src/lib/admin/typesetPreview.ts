@@ -24,6 +24,10 @@ export function previewStore(db:D1Like) {
       const id=result[1]?.results?.[0]?.id;
       return id ? {ok:true,leaseId:id} : {ok:false,reason:result[2]?.results?.[0]?.active ? "active" : "rate"};
     },
+    async releaseLease(id:number):Promise<number> {
+      const result=await db.prepare("UPDATE typeset_previews SET released=1 WHERE id=?1 AND released=0").bind(id).run();
+      return result.meta?.changes ?? 0;
+    },
     async releasePreview(key:string):Promise<number> {
       const result=await db.prepare("UPDATE typeset_previews SET released=1 WHERE preview_key=?1 AND released=0").bind(key).run();
       return result.meta?.changes ?? 0;

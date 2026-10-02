@@ -6,6 +6,7 @@ on:
 permissions: {}
 jobs:
   render:
+    permissions: {}
     runs-on: ubuntu-latest
     timeout-minutes: 6
     steps:

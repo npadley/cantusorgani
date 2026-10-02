@@ -161,3 +161,12 @@ publication run. A build alone does not establish production readiness.
 5. Extend source publication and stale-base conflict handling.
 6. Verify the complete lifecycle, reconcile historical reports, then coordinate
    migrations, Worker/Pages deployment and staging/production checks.
+
+## Implementation progress — October 2
+
+All planned code is implemented on `codex/corrections-compatibility`: versioned
+reports, source validation/access, durable drafts/approvals, isolated previews and
+source-only/mixed publication. Local release verification and whole-branch review
+are recorded in the implementation evidence. Production migrations 0004–0008,
+Worker/Pages integration, R2 lifecycle setup and live smoke publication still require
+the final release approval and the checks in `docs/ADMIN-SETUP.md`.
