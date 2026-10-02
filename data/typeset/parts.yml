@@ -1373,10 +1373,19 @@
     words: 1.0
     name: Adjutor in opportunitatibus
 - file: vol-1/gr_adjutor_meus.csv.ly
-  target: null
-  status: broken
+  target: part:feria-ii-infra-hebd-ii-quadragesim/gradual
+  status: matched
   evidence:
-    error: 'line 11:11: error: undefined character or shorthand: \'
+    by: page
+    incipit: Adjútor meus et liberátor meus esto Dó mi
+    page: 210
+    candidates:
+    - target: part:feria-ii-infra-hebd-ii-quadragesim/gradual
+      melody: 0.995
+      words: 1.0
+    melody: 0.995
+    words: 1.0
+    name: Adjutor meus
 - file: vol-1/gr_angelis_suis.csv.ly
   target: part:dominica-i-in-quadragesim/gradual
   status: matched
@@ -2577,10 +2586,19 @@
     words: 0.985
     name: Miserere mihi
 - file: vol-1/in_miserere__tribulor.csv.ly
-  target: null
-  status: broken
+  target: part:feria-vi-infra-hebd-passionis/introit
+  status: matched
   evidence:
-    error: 'line 78:4: error: undefined character or shorthand: ;'
+    by: page
+    incipit: Misereré mihi Dómine quóni am tríbu lor líbera
+    page: 294
+    candidates:
+    - target: part:feria-vi-infra-hebd-passionis/introit
+      melody: 1.0
+      words: 0.989
+    melody: 1.0
+    words: 0.989
+    name: Miserere mihi
 - file: vol-1/in_misereris_omnium.csv.ly
   target: part:noh1-p156/introit
   status: matched
