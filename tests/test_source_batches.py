@@ -99,3 +99,40 @@ def test_mixed_batch_keeps_normal_entries_and_source_descriptors_separate(tmp_pa
     )
     assert len(recorded) == 1 and recorded[0].field == "mode"
     assert "x.ly" in batch_summary(b["batch"], recorded, sources=b["sources"])
+
+
+def test_source_summary_publishes_only_explicit_editor_reasons(tmp_path):
+    b, _ = batch(tmp_path)
+    b["sourceReasons"] = [
+        {
+            "correctionId": 1,
+            "reason": "Corrected against printed scan",
+            "editorEmail": "ed@example.org",
+        }
+    ]
+    summary = batch_summary(b["batch"], [], sources=b["sources"], source_reasons=b["sourceReasons"])
+    assert "Corrected against printed scan" in summary and "ed@example.org" in summary
+
+
+def test_credentialed_job_refuses_unrelated_or_reassigned_source_evidence(tmp_path):
+    import yaml
+
+    from pipeline.typeset.source_batch import validate_source_evidence
+
+    rows = [
+        {"file": "x.ly", "status": "matched", "target": "piece:original", "evidence": {}},
+        {"file": "y.ly", "status": "proposed", "target": None, "evidence": {}},
+    ]
+    parts = tmp_path / "parts.yml"
+    parts.write_text(yaml.safe_dump(rows))
+    artifact = tmp_path / "artifact.yml"
+    b = {"sources": [{"file": "x.ly"}]}
+    rows[1]["target"] = "piece:unrelated"
+    artifact.write_text(yaml.safe_dump(rows))
+    with pytest.raises(CorrectionError):
+        validate_source_evidence(b, artifact, parts=parts, corrections=[])
+    rows[1]["target"] = None
+    rows[0]["target"] = "piece:reassigned"
+    artifact.write_text(yaml.safe_dump(rows))
+    with pytest.raises(CorrectionError):
+        validate_source_evidence(b, artifact, parts=parts, corrections=[])

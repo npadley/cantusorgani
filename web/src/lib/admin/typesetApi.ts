@@ -43,7 +43,7 @@ export async function typesetApi(request: Request, env: AdminEnv, deps: Deps, ed
       const key=await previewKey(file,text,main.commitSha), leases=previewStore(env.DB);
       const admission=await leases.acquirePreview(editor.email,key,Date.now());
       if (!admission.ok) return fail(429,admission.reason === "active" ? "A preview is already running. Wait up to five minutes before retrying." : "Twenty previews per hour are allowed. Try again later.",{draft:saved});
-      try { await (deps.previewDispatch ?? ((payload)=>dispatchPreview(env,payload)))({file,text,commitSha:main.commitSha,key}); }
+      try { await (deps.previewDispatch ?? ((payload)=>dispatchPreview(env,payload)))({file,text,commitSha:main.commitSha,key,leaseId:admission.leaseId}); }
       catch { await leases.releaseLease(admission.leaseId); return fail(502,"Preview dispatch failed. Your draft is saved; try again.",{draft:saved}); }
       await deps.store.log(editor.email,"source-preview",null,key);
       return json({draft:saved,key,resultUrl:`${assetBase.replace(/\/$/,"")}/typeset-preview/${key}/result.json`});

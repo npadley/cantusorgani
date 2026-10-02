@@ -351,3 +351,16 @@ application rollback; never delete reports to satisfy a constraint. 0008 removes
 lease/rate history. Apply rollback scripts manually in reverse order, never via
 migrations. Live D1, deployed versions, R2 expiry and end-to-end publication are
 not verified by local tests and remain pending this release procedure.
+
+Preview completion titles carry both the content key and unique lease id. Replayed
+or delayed completion events cannot release a newer attempt, even for identical
+source. The uploader binds artifacts to the triggering key; source-evidence import
+likewise rejects unrelated file changes and reassignment of established targets.
+
+The 60 KiB source limit is checked before dispatch. When JSON escaping would exceed
+GitHub's payload budget, the App uploads a Git blob and dispatches a bounded blob
+reference; the renderer reads it without credentials and verifies its Git identity,
+UTF-8 bytes, safety rules and preview key. Preview source can appear in GitHub event
+payloads or unreferenced Git objects; those objects do not follow R2's 14-day expiry.
+Reader notes never enter either transport. Explicit editor public reasons are
+validated separately and appear beside source descriptors in the PR summary.

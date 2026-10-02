@@ -122,7 +122,9 @@ jobs:
           path: build/source-batch/
       - name: Apply checked source evidence
         if: ${{ github.event.client_payload.sources[0] != null }}
-        run: cp build/source-batch/parts.yml data/typeset/parts.yml
+        run: |
+          uv run noh typeset-source-evidence "$RUNNER_TEMP/batch.json" build/source-batch/parts.yml
+          cp build/source-batch/parts.yml data/typeset/parts.yml
 
       - name: Record the corrections
         run: uv run noh correct-batch "$RUNNER_TEMP/batch.json" --summary "$RUNNER_TEMP/pr.md" --hold "$RUNNER_TEMP/hold.txt"

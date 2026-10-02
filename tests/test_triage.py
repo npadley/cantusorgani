@@ -127,6 +127,7 @@ def test_record_writes_a_readers_correction_to_the_overlay_not_the_catalog(tmp_p
     entry = corrections.load(c)[0]
     assert (entry.target, entry.field, entry.value, entry.source) == ("piece:kyrie-i", "printed_pages", [1, 3],
                                                                       "reader#7")
+    assert entry.note == ""
     assert catalog["pieces"][0]["printed_pages"] == [1, 2]
     with pytest.raises(triage.RejectedCorrection, match="corrected on its parts"):
         triage.record(catalog, triage.Correction(id=8, piece_id="kyrie-i", field="chant", proposed="Kyrie",

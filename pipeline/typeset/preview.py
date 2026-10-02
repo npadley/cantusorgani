@@ -27,6 +27,39 @@ def preview_key(file: str, text: str, commit_sha: str) -> str:
     return h.hexdigest()
 
 
+def read_source_blob(repo: str, blob_sha: str) -> str:
+    """Fetch bytes before rendering, without credentials, and verify Git's blob identity."""
+    import base64
+    import urllib.request
+
+    if not re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repo) or not re.fullmatch(
+        r"[a-f0-9]{40}", blob_sha
+    ):
+        raise ValueError("Invalid source blob location")
+    request = urllib.request.Request(
+        f"https://api.github.com/repos/{repo}/git/blobs/{blob_sha}",
+        headers={"Accept": "application/vnd.github+json", "User-Agent": "cantusorgani-preview"},
+    )
+    with urllib.request.urlopen(request, timeout=30) as response:
+        raw = response.read(131073)
+    if len(raw) > 131072:
+        raise ValueError("Source blob response too large")
+    body = json.loads(raw)
+    if (
+        body.get("encoding") != "base64"
+        or body.get("sha") != blob_sha
+        or not isinstance(body.get("content"), str)
+    ):
+        raise ValueError("Invalid source blob response")
+    data = base64.b64decode(re.sub(r"\s", "", body["content"]), validate=True)
+    if (
+        len(data) > 61440
+        or hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest() != blob_sha
+    ):
+        raise ValueError("Source blob differs from its identity or exceeds the limit")
+    return data.decode("utf-8")
+
+
 def render_preview(payload_path: Path, out: Path, *, verify_context: bool = True) -> None:
     if payload_path.stat().st_size > 400000:
         raise ValueError("Preview payload too large")
@@ -38,6 +71,12 @@ def render_preview(payload_path: Path, out: Path, *, verify_context: bool = True
         or any(s in (".", "..") for s in file.split("/"))
     ):
         raise ValueError("Invalid source file")
+    if "sourceBlobSha" in p:
+        import os
+
+        if text is not None:
+            raise ValueError("Ambiguous preview source")
+        text = read_source_blob(os.environ.get("GITHUB_REPOSITORY", ""), p["sourceBlobSha"])
     if not isinstance(text, str) or len(text.encode("utf-8")) > 61440:
         raise ValueError("Source exceeds 60 KiB")
     if (
@@ -98,9 +137,14 @@ def render_preview(payload_path: Path, out: Path, *, verify_context: bool = True
         )
 
 
-def publish_preview(out: Path, creds=None):
+def publish_preview(out: Path, creds=None, *, expected_key: str):
+    if not isinstance(expected_key, str) or not HEX.fullmatch(expected_key):
+        raise ValueError("Invalid trusted preview key")
+    folders = list(out.iterdir())
+    if len(folders) != 1 or folders[0].name != expected_key:
+        raise ValueError("Preview artifacts differ from the triggering request")
     plans = []
-    for folder in sorted(out.iterdir()):
+    for folder in folders:
         if folder.is_symlink() or not folder.is_dir() or not HEX.fullmatch(folder.name):
             raise ValueError("Invalid preview artifact directory")
         result = folder / "result.json"
@@ -121,6 +165,8 @@ def publish_preview(out: Path, creds=None):
             ):
                 raise ValueError("Invalid preview diagnostics")
         drawing = p.get("drawing", p["ok"])
+        if not isinstance(drawing, bool) or (p["ok"] and not drawing):
+            raise ValueError("Invalid drawing flag")
         allowed = {"result.json", "wide.svg"} if drawing else {"result.json"}
         if {f.name for f in folder.iterdir()} != allowed:
             raise ValueError("Unexpected preview artifacts")

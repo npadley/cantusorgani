@@ -426,7 +426,7 @@ async function publish(deps: Deps, env: AdminEnv, editor: Editor): Promise<Respo
     if(snapshots.length)sourceBranch=(await (deps.prepareSources ?? ((batch,snapshots)=>prepareSourceBatch(env,batch,snapshots)))(batch,snapshots)).branch;
     await deps.dispatch({
       batch,
-      ...(sourceBranch ? {branch:sourceBranch,sources:snapshots.map(({correctionId,file,baseBlobSha,contentHash})=>({correctionId,file,baseBlobSha,contentHash}))} : {}),
+      ...(sourceBranch ? {branch:sourceBranch,sources:snapshots.map(({correctionId,file,baseBlobSha,contentHash})=>({correctionId,file,baseBlobSha,contentHash})),sourceReasons:sourceRows.map(r=>({correctionId:r.id,reason:r.source==="editor" ? r.note.slice(0,200) : "",editorEmail:r.editor_email ?? editor.email}))} : {}),
       entries: approved.filter(r=>r.field!=="source").map((r) => ({
         target: r.target ?? `piece:${r.piece_id}`, field: r.field, value: r.proposed,
         // Reader notes are private review context, never part of a public PR
@@ -572,8 +572,8 @@ export async function handleWebhook(request: Request, env: AdminEnv, store: Stor
   }
   if (event === "workflow_run" && payload.action === "completed") {
     const run = payload.workflow_run;
-    const preview = /^typeset-preview ([a-f0-9]{64})$/.exec(run?.display_title ?? "")?.[1];
-    if (preview && run?.name === "typeset-preview") return json({ok:true,updated:await previewStore(env.DB).releasePreview(preview)});
+    const preview = /^typeset-preview ([a-f0-9]{64}) lease ([1-9][0-9]{0,15})$/.exec(run?.display_title ?? "");
+    if (preview && run?.name === "typeset-preview" && Number.isSafeInteger(Number(preview[2]))) return json({ok:true,updated:await previewStore(env.DB).releasePreview(preview[1]!,Number(preview[2]))});
     const batch = BATCH_TITLE.exec(run?.display_title ?? "")?.[1];
     if (batch && run?.name === "corrections-batch" && run.conclusion !== "success") {
       const reason = `Publishing failed; see ${run.html_url ?? "the corrections-batch run"} on GitHub`;

@@ -170,3 +170,11 @@ source-only/mixed publication. Local release verification and whole-branch revie
 are recorded in the implementation evidence. Production migrations 0004–0008,
 Worker/Pages integration, R2 lifecycle setup and live smoke publication still require
 the final release approval and the checks in `docs/ADMIN-SETUP.md`.
+
+Whole-branch review adjustments: correlate completion with a unique lease id as well
+as the reusable content key; bind preview uploads to the trusted requested key;
+use Git blob descriptors when escaped source cannot fit dispatch; reject equivalent
+spaced Scheme and nonliteral includes in both checkers. Source reasons publish as
+separate validated editor metadata. Credentialed source-evidence import verifies
+unchanged files and preserves established targets. These refinements retain the
+approved workflow and full 60 KiB source limit.

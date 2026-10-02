@@ -35,8 +35,10 @@ function blankStrings(text: string): string {
 function regions(text: string): readonly [number, number][] {
   const out: [number, number][] = [];
   for (let i = 0; i < text.length - 1; i++) {
-    if (!"#$".includes(text[i]!) || text[i + 1] !== "(") continue;
-    let depth = 0, j = i + 1;
+    let j=i+1;
+    while(j<text.length && /\s/.test(text[j]!))j++;
+    if (!"#$".includes(text[i]!) || text[j] !== "(") continue;
+    let depth = 0;
     for (; j < text.length; j++) {
       if (text[j] === ";") { while (j < text.length && text[j] !== "\n") j++; if (j === text.length) break; }
       else if (text[j] === "(") depth++;
@@ -53,12 +55,15 @@ export function checkSource(text: string, allowedIncludes: readonly string[] = A
   const found: SourceProblem[] = [];
   const add = (offset: number, message: string) => found.push({ line: clean.slice(0, offset).split("\n").length, message });
   const scheme = (offset: number, name: string) => { if (denied.has(name)) add(offset, `Scheme \`${name}\` reaches outside the music, so it is not allowed`); };
-  for (const m of clean.matchAll(/\\include\s+"([^"]*)"/g)) {
-    const name = m[1]!;
-    if (!allowedIncludes.includes(name) && !rules.lilypondIncludes.includes(name)) add(m.index!, `\\include "${name}" is not one of our include files (${[...allowedIncludes].sort().join(", ")}) or LilyPond's own`);
+  for (const m of code.matchAll(/\\([A-Za-z][A-Za-z-]*)/g)) {
+    if(m[1]==="include") {
+      const literal=/^\\include\s+"([^"]*)"/.exec(clean.slice(m.index!));
+      if(!literal)add(m.index!, "\\include must name a literal allowlisted file");
+      else {const name=literal[1]!;if(!allowedIncludes.includes(name) && !rules.lilypondIncludes.includes(name))add(m.index!, `\\include "${name}" is not one of our include files (${[...allowedIncludes].sort().join(", ")}) or LilyPond's own`);}
+    }
+    if(rules.commands.includes(m[1]!))add(m.index!, `\\${m[1]} reads or writes files, so it is not allowed`);
   }
-  for (const m of code.matchAll(/\\([A-Za-z][A-Za-z-]*)/g)) if (rules.commands.includes(m[1]!)) add(m.index!, `\\${m[1]} reads or writes files, so it is not allowed`);
-  for (const m of code.matchAll(new RegExp(`[#$](${IDENT})`, "g"))) scheme(m.index!, m[1]!);
+  for (const m of code.matchAll(new RegExp(`[#$]\\s*(${IDENT})`, "g"))) scheme(m.index!, m[1]!);
   for (const [start, end] of regions(code)) {
     const token = new RegExp(`(?<![A-Za-z0-9!$%&*/:<=>?^_~+.@'-])(${IDENT})`, "g");
     // Keep the original preceding character so lookbehind matches Python's scan.

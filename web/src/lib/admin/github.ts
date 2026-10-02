@@ -30,7 +30,7 @@ export interface BatchEntry {
 }
 
 export interface BatchSource { readonly correctionId:number; readonly file:string; readonly baseBlobSha:string; readonly contentHash:string }
-export interface Batch { readonly batch: string; readonly entries: readonly BatchEntry[]; readonly branch?:string; readonly sources?:readonly BatchSource[] }
+export interface Batch { readonly batch: string; readonly entries: readonly BatchEntry[]; readonly branch?:string; readonly sources?:readonly BatchSource[]; readonly sourceReasons?:readonly {correctionId:number;reason:string;editorEmail:string}[] }
 
 type Fetch = (input: string, init?: RequestInit) => Promise<Response>;
 

@@ -1,5 +1,5 @@
 name: typeset-preview
-run-name: typeset-preview ${{ github.event.client_payload.key }}
+run-name: typeset-preview ${{ github.event.client_payload.key }} lease ${{ github.event.client_payload.leaseId }}
 on:
   repository_dispatch:
     types: [typeset-preview]
@@ -69,8 +69,9 @@ jobs:
           path: build/typeset-preview/
       - name: Verify artifacts and upload; never execute source
         env:
+          PREVIEW_KEY: ${{ github.event.client_payload.key }}
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           R2_BUCKET: ${{ vars.R2_BUCKET }}
-        run: uv run noh typeset-preview-publish
+        run: uv run noh typeset-preview-publish --key "$PREVIEW_KEY"

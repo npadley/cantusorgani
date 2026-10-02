@@ -340,7 +340,7 @@ def record(catalog: dict[str, Any], c: Correction) -> None:
         if slug is None:
             raise KeyError(f"no piece with id or slug {c.piece_id!r}")
         target = f"piece:{slug}"
-    correct(target, CATALOG_KEY[c.field], c.proposed, note=c.note[:200], source=f"reader#{c.id}",
+    correct(target, CATALOG_KEY[c.field], c.proposed, note="", source=f"reader#{c.id}",
             base_path=DATA / "catalog.base.json", path=DATA / "corrections.yml", vespers_dir=DATA)
 
 

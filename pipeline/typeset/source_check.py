@@ -45,7 +45,7 @@ _IDENT = r"[A-Za-z!$%&*/:<=>?^_~+.@-][A-Za-z0-9!$%&*/:<=>?^_~+.@-]*"
 _TOKEN = re.compile(rf"(?<![A-Za-z0-9!$%&*/:<=>?^_~+.@'-])({_IDENT})")
 _INCLUDE = re.compile(r"\\include\s+\"([^\"]*)\"")
 _COMMAND = re.compile(r"\\([A-Za-z][A-Za-z-]*)")
-_DIRECT = re.compile(rf"[#$]({_IDENT})")
+_DIRECT = re.compile(rf"[#$]\s*({_IDENT})")
 
 
 @dataclass(frozen=True)
@@ -126,8 +126,11 @@ def scheme_regions(text: str) -> list[tuple[int, int]]:
     regions: list[tuple[int, int]] = []
     i, n = 0, len(text)
     while i < n - 1:
-        if text[i] in "#$" and text[i + 1] == "(":
-            start, depth, j = i, 0, i + 1
+        j = i + 1
+        while j < n and text[j].isspace():
+            j += 1
+        if text[i] in "#$" and j < n and text[j] == "(":
+            start, depth = i, 0
             while j < n:
                 ch = text[j]
                 if ch == ";":
@@ -167,12 +170,16 @@ def check(text: str, allowed_includes: frozenset[str]) -> list[Problem]:
 
     code = _blank_strings(clean)
     problems: list[Problem] = []
-    for m in _INCLUDE.finditer(clean):
-        name = m.group(1)
-        if name not in allowed_includes and name not in LILYPOND_INCLUDES:
-            problems.append(Problem(line_of(m.start()), f'\\include "{name}" is not one of our include files '
-                                                        f"({', '.join(sorted(allowed_includes))}) or LilyPond's own"))
     for m in _COMMAND.finditer(code):
+        if m.group(1) == "include":
+            literal = _INCLUDE.match(clean, m.start())
+            if not literal:
+                problems.append(Problem(line_of(m.start()), "\\include must name a literal allowlisted file"))
+            else:
+                name = literal.group(1)
+                if name not in allowed_includes and name not in LILYPOND_INCLUDES:
+                    problems.append(Problem(line_of(m.start()), f'\\include "{name}" is not one of our include files '
+                                                            f"({', '.join(sorted(allowed_includes))}) or LilyPond's own"))
         if m.group(1) in DENIED_COMMANDS:
             problems.append(Problem(line_of(m.start()), f"\\{m.group(1)} reads or writes files, so it is not allowed"))
     for m in _DIRECT.finditer(code):

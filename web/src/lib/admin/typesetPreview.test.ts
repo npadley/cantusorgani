@@ -14,11 +14,12 @@ it("admits exactly one concurrent preview per editor, expires and releases idemp
   expect(results.filter(r=>r.ok)).toHaveLength(1);
   expect(await store.acquirePreview("ed","c",299999)).toEqual({ok:false,reason:"active"});
   expect((await store.acquirePreview("ed","c",300000)).ok).toBe(true);
-  expect(await store.releasePreview("c")).toBe(1); expect(await store.releasePreview("c")).toBe(0);
+  const active=await d1.prepare("SELECT id FROM typeset_previews WHERE preview_key='c'").first<{id:number}>();
+  expect(await store.releasePreview("c",active!.id)).toBe(1); expect(await store.releasePreview("c",active!.id)).toBe(0);
 });
 it("counts dispatch failures and admits only twenty attempts per hour",async()=>{
   const {d1}=testDb(),store=previewStore(d1);
-  for(let i=0;i<20;i++){expect((await store.acquirePreview("ed",String(i),i)).ok).toBe(true);await store.releasePreview(String(i));}
+  for(let i=0;i<20;i++){const admitted=await store.acquirePreview("ed",String(i),i);expect(admitted.ok).toBe(true);if(admitted.ok)await store.releasePreview(String(i),admitted.leaseId);}
   expect(await store.acquirePreview("ed","last",20)).toEqual({ok:false,reason:"rate"});
   expect((await store.acquirePreview("ed","later",3600000)).ok).toBe(true);
 });
@@ -28,4 +29,12 @@ it('failed dispatch cleanup releases only its own lease, even for the same cache
   if(!first.ok || !second.ok)throw Error('admission failed');
   expect(await s.releaseLease(second.leaseId)).toBe(1);
   expect(await s.acquirePreview('one','next',1)).toEqual({ok:false,reason:'active'});
+});
+it('completion of an old attempt cannot release a newer attempt for the same key',async()=>{
+  const {d1}=testDb(),s=previewStore(d1);
+  const old=await s.acquirePreview('ed','same',0);if(!old.ok)throw Error('admission');
+  await s.releasePreview('same',old.leaseId);
+  const newer=await s.acquirePreview('ed','same',1);if(!newer.ok)throw Error('admission');
+  expect(await s.releasePreview('same',old.leaseId)).toBe(0);
+  expect(await s.acquirePreview('ed','other',2)).toEqual({ok:false,reason:'active'});
 });

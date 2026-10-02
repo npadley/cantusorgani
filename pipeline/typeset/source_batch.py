@@ -72,3 +72,42 @@ def refresh_sources(batch: dict, out: Path) -> None:
         match.HEADER + yaml.safe_dump(rows, sort_keys=False, allow_unicode=True, width=120),
         encoding="utf-8",
     )
+
+
+def validate_source_evidence(
+    batch: dict, artifact: Path, *, parts: Path = match.PARTS_FILE, corrections=None
+) -> None:
+    """The credentialed job accepts evidence only for the approved files, preserving established targets."""
+    if artifact.is_symlink() or artifact.stat().st_size > 8 * 1024 * 1024:
+        raise CorrectionError("Invalid source evidence artifact")
+    before = match.load(parts)
+    after = yaml.safe_load(artifact.read_text(encoding="utf-8"))
+    if not isinstance(after, list) or len(after) != len(before):
+        raise CorrectionError("Source evidence changed the transcription inventory")
+    edited = {s["file"] for s in batch.get("sources", [])}
+    established = {r["file"]: r for r in effective(parts, corrections)}
+    for old, new in zip(before, after):
+        if not isinstance(new, dict) or new.get("file") != old["file"]:
+            raise CorrectionError("Source evidence changed file identity/order")
+        if old["file"] not in edited and new != old:
+            raise CorrectionError("Source evidence changed an unrelated file")
+        if old["file"] in edited:
+            previous = established[old["file"]]
+            if previous.get("status") == "matched" and (
+                new.get("status") != "matched" or new.get("target") != previous.get("target")
+            ):
+                raise CorrectionError("Source evidence reassigned an established target")
+            if (
+                set(new) - {"file", "status", "target", "source", "evidence"}
+                or new.get("status")
+                not in {
+                    "matched",
+                    "proposed",
+                    "melody-differs",
+                    "broken",
+                    "no-match",
+                    "other-setting",
+                }
+                or not isinstance(new.get("evidence"), dict)
+            ):
+                raise CorrectionError("Invalid refreshed source evidence")

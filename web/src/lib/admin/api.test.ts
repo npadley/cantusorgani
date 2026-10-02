@@ -742,7 +742,7 @@ it("routes a stale music report to source repair rather than catalogue approval"
 it("signed preview completion releases matching leases idempotently",async()=>{
   const key="a".repeat(64);
   db.sqlite.prepare("INSERT INTO typeset_previews(editor_email,preview_key,admitted_at,expires_at) VALUES ('ed',?,0,300000)").run(key);
-  const event={action:"completed",workflow_run:{name:"typeset-preview",display_title:`typeset-preview ${key}`,conclusion:"failure"}};
+  const event={action:"completed",workflow_run:{name:"typeset-preview",display_title:`typeset-preview ${key} lease 1`,conclusion:"failure"}};
   expect((await webhook("workflow_run",event)).body).toEqual({ok:true,updated:1});
   expect((await webhook("workflow_run",event)).body).toEqual({ok:true,updated:0});
 });
@@ -755,7 +755,7 @@ it("publishes immutable source-only snapshots, resolves on merge and keeps priva
   await s.saveDraft('ed@example.org',{file,text:'e4',baseBlobSha:'a'.repeat(40),contentHash:await sourceContentHash('e4')},1);
   const d={...deps(),prepareSources:async(batch:string,snapshots:any)=>{expect(snapshots[0].text).toBe('d4');return {branch:`corrections/${batch}`,commitSha:'c'.repeat(40)};}};
   const response=await handleAdmin(new Request(`${ORIGIN}/admin/api/publish`,{method:'POST',headers:{origin:ORIGIN,'content-type':'application/json'},body:'{}'}),env,d);
-  expect(response.status).toBe(200);expect(sent[0]?.entries).toEqual([]);
+  expect(response.status).toBe(200);expect(sent[0]?.entries).toEqual([]);expect(sent[0]?.sourceReasons).toMatchObject([{reason:'Checked scan',editorEmail:'ed@example.org'}]);
   expect(sent[0]?.sources).toMatchObject([{correctionId:id,file}]);expect(JSON.stringify(sent)).not.toMatch(/PRIVATE-MARKER|"text"/);
   const batch=sent[0]!.batch;
   await webhook('pull_request',{action:'closed',pull_request:{number:7,merged:false,head:{ref:`corrections/${batch}`}}});
@@ -764,4 +764,13 @@ it("publishes immutable source-only snapshots, resolves on merge and keeps priva
   await webhook('pull_request',{action:'closed',pull_request:{number:8,merged:true,merge_commit_sha:'abc1234',head:{ref:`corrections/${sent[1]!.batch}`}}});
   expect(toPublicRow(db.sqlite.prepare('SELECT * FROM corrections WHERE id=?').get(report) as unknown as StoredRow)?.status).toBe('resolved');
   expect(db.sqlite.prepare('SELECT note FROM corrections WHERE id=?').get(report)).toMatchObject({note:'PRIVATE-MARKER'});
+});
+it('replayed signed completion cannot release another preview attempt',async()=>{
+  const {previewStore}=await import('./typesetPreview');const s=previewStore(db.d1),key='a'.repeat(64);
+  const old=await s.acquirePreview('ed',key,0);if(!old.ok)throw Error('admission');
+  const event={action:'completed',workflow_run:{name:'typeset-preview',display_title:`typeset-preview ${key} lease ${old.leaseId}`,conclusion:'success'}};
+  expect((await webhook('workflow_run',event)).body).toMatchObject({updated:1});
+  const current=await s.acquirePreview('ed',key,1);expect(current.ok).toBe(true);
+  expect((await webhook('workflow_run',event)).body).toMatchObject({updated:0});
+  expect(await s.acquirePreview('ed','b'.repeat(64),2)).toEqual({ok:false,reason:'active'});
 });

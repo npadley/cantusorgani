@@ -1167,6 +1167,21 @@ def validate_batch_sources(batch: dict[str, Any], source_root: Path = Path("data
     return sources
 
 
+def validate_source_reasons(batch: dict[str, Any], sources: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    reasons = batch.get("sourceReasons", [])
+    identities = {source["correctionId"] for source in sources}
+    if not isinstance(reasons,list) or len(reasons)>len(sources):
+        raise CorrectionError("invalid source reasons")
+    seen=set()
+    for reason in reasons:
+        if not isinstance(reason,dict) or set(reason)!={"correctionId","reason","editorEmail"} or type(reason["correctionId"]) is not int or reason["correctionId"] not in identities or reason["correctionId"] in seen:
+            raise CorrectionError("source reason does not identify an approved snapshot")
+        if not isinstance(reason["reason"],str) or len(reason["reason"])>200 or not isinstance(reason["editorEmail"],str) or not EMAIL.fullmatch(reason["editorEmail"]):
+            raise CorrectionError("invalid public source reason")
+        seen.add(reason["correctionId"])
+    return reasons
+
+
 def correct_batch(batch: dict[str, Any], today: date | None = None, base_path: Path = BASE,
                   path: Path = CORRECTIONS, source_root: Path = Path("data/typeset/src")) -> list[Entry]:
     """Record a batch from the admin screen, all or nothing.
@@ -1178,6 +1193,7 @@ def correct_batch(batch: dict[str, Any], today: date | None = None, base_path: P
         raise CorrectionError(f"batch id {batch_id!r} is not of the form b-<letters, digits, ->")
     items = batch.get("entries")
     sources = validate_batch_sources(batch, source_root)
+    validate_source_reasons(batch,sources)
     if not isinstance(items, list) or not 1 <= len(items) + len(sources) <= 100:
         raise CorrectionError("a batch needs 1 to 100 entries or source snapshots")
     if not items:
@@ -1260,7 +1276,7 @@ def _brief(value: Any) -> str:
     return "; ".join(one(s) for s in value if isinstance(s, dict))
 
 
-def batch_summary(batch_id: str, entries: list[Entry], hold: list[str] | None = None, sources: list[dict[str, Any]] | None = None) -> str:
+def batch_summary(batch_id: str, entries: list[Entry], hold: list[str] | None = None, sources: list[dict[str, Any]] | None = None, source_reasons: list[dict[str, Any]] | None = None) -> str:
     """The pull request's description: one line per correction, for review."""
     lines = [f"Corrections from the admin screen, batch `{batch_id}`.", "",
              "| Id | Target | Field | Was | Now | By | Note |", "|---|---|---|---|---|---|---|"]
@@ -1270,8 +1286,13 @@ def batch_summary(batch_id: str, entries: list[Entry], hold: list[str] | None = 
         lines.append("| " + " | ".join(str(c).replace("|", "\\|").replace("\n", " ") for c in cells) + " |")
     if sources:
         lines += ["", "Source snapshots (checked against the committed bytes):", ""]
+        reason_by_id={r["correctionId"]:r for r in source_reasons or []}
         for source in sources:
             lines.append(f"- #{source['correctionId']}: `{source['file']}` · base `{source['baseBlobSha']}` · approved SHA-256 `{source['contentHash']}`")
+            reason=reason_by_id.get(source["correctionId"])
+            if reason:
+                public_reason=reason["reason"].replace("\n"," ").replace("\r"," ")
+                lines.append(f"  {reason['editorEmail']}: {public_reason}")
     if hold:
         lines += ["", "**Waits for the owner** because " + "; and ".join(hold) + ".",
                   "Merging deploys the site. Closing without merging returns these to the admin queue."]

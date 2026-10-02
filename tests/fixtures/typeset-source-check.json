@@ -164,5 +164,75 @@
       "noh2.ily"
     ],
     "problems": []
+  },
+  {
+    "name": "spaced Scheme",
+    "text": "# (system \"evil\")",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 1,
+        "message": "Scheme `system` reaches outside the music, so it is not allowed"
+      }
+    ]
+  },
+  {
+    "name": "newline Scheme",
+    "text": "#\n(system \"evil\")",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 2,
+        "message": "Scheme `system` reaches outside the music, so it is not allowed"
+      }
+    ]
+  },
+  {
+    "name": "spaced dollar",
+    "text": "$ (open-input-file \"x\")",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 1,
+        "message": "Scheme `open-input-file` reaches outside the music, so it is not allowed"
+      }
+    ]
+  },
+  {
+    "name": "nonliteral include",
+    "text": "\\include #\"/dev/null\"",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 1,
+        "message": "\\include must name a literal allowlisted file"
+      }
+    ]
+  },
+  {
+    "name": "spaced direct Scheme",
+    "text": "# system",
+    "includes": [
+      "noh.ily",
+      "noh2.ily"
+    ],
+    "problems": [
+      {
+        "line": 1,
+        "message": "Scheme `system` reaches outside the music, so it is not allowed"
+      }
+    ]
   }
 ]
