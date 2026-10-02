@@ -27,6 +27,7 @@ export interface StoredRow {
   readonly note: string;
   readonly status: string;
   readonly created_at: string;
+  readonly seen?: string | null;
   readonly resolved_by?: number | null;
   readonly duplicate_of?: number | null;
   readonly commit_sha?: string | null;
@@ -41,6 +42,7 @@ export interface PublicRow {
   readonly proposedValue: string;
   readonly status: Status;
   readonly createdAt: string;
+  readonly renderHash?: string;
   readonly resolvedBy?: number;
   readonly duplicateOf?: number;
   readonly commitSha?: string;
@@ -69,6 +71,7 @@ export function toPublicRow(row: StoredRow): PublicRow | null {
     : row.field === "chant" && itemChant ? "gregobaseId" : row.field;
   const check = parseStoredCorrection({
     pieceId: row.piece_id,
+    seen: row.seen,
     field,
     proposedValue: row.proposed,
     target: row.target ?? null,
@@ -92,6 +95,7 @@ export function toPublicRow(row: StoredRow): PublicRow | null {
     proposedValue: check.value.proposedValue,
     status: status === "accepted" && resolvedBy ? "resolved" : status,
     createdAt: row.created_at,
+    ...(check.value.field === "issue" && check.value.seen ? { renderHash: check.value.seen } : {}),
     ...(resolvedBy ? { resolvedBy } : {}),
     ...(duplicateOf ? { duplicateOf } : {}),
     ...(row.commit_sha && /^[0-9a-f]{7,40}$/.test(row.commit_sha) ? { commitSha: row.commit_sha } : {}),

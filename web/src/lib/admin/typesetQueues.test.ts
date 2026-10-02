@@ -106,7 +106,7 @@ describe("targetLabel and targetSpan", () => {
 describe("typesetTargets", () => {
   it("should give each file its current answer, and say which cannot be shown", () => {
     const t = typesetTargets(data());
-    expect(t["vol-5/k.ly"]).toEqual({ label: KYRIE, match: KYRIE, broken: null });
+    expect(t["vol-5/k.ly"]).toEqual({ label: KYRIE, match: KYRIE, broken: null, hash: "a".repeat(32) });
     expect(t["vol-5/g.ly"]!.match).toBe("");
     expect(t["vol-5/n.ly"]!.match).toBe("none");
     expect(t["vol-5/i.ly"]!.broken).toMatch(/cannot draw it \(line 5:2/);

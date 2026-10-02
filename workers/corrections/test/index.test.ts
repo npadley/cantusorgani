@@ -287,3 +287,13 @@ describe("corrections worker", () => {
     });
   });
 });
+
+it("stores a music report with its exact drawing version", async () => {
+  vi.stubGlobal("fetch", vi.fn().mockResolvedValue(Response.json({ success: true, hostname: "cantusorgani.org" })));
+  const db = new FakeD1();
+  const hash = "a".repeat(32);
+  const response = await worker.fetch(post(validBody({ pieceId: "typeset", target: "typeset:vol-5/x.ly", field: "issue", proposedValue: "notation", seen: hash })), makeEnv(db));
+  expect(response.status).toBe(201);
+  expect(db.inserts()[0]!.sql).toContain("seen");
+  expect(db.inserts()[0]!.params).toContain(hash);
+});

@@ -73,3 +73,11 @@ describe("pending report deduplication", () => {
     expect(db.prepare("SELECT COUNT(*) AS n FROM corrections").get()).toEqual({ n: 1 });
   });
 });
+
+it("deduplicates a music issue only within its drawing version", () => {
+  const { sqlite } = testDb();
+  const insert = sqlite.prepare("INSERT INTO corrections (piece_id,target,field,proposed,seen) VALUES ('typeset','typeset:vol-5/x.ly','issue','lyrics',?)");
+  insert.run("a".repeat(32));
+  expect(() => insert.run("a".repeat(32))).toThrow(/UNIQUE/);
+  expect(() => insert.run("b".repeat(32))).not.toThrow();
+});

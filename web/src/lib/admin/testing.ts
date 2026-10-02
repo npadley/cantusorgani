@@ -24,7 +24,7 @@ function statement(db: DatabaseSync, sql: string, values: SQLInputValue[] = []):
   };
 }
 
-const ALL_MIGRATIONS = ["0001_create_corrections.sql", "0002_admin_workflow.sql", "0003_reviews.sql", "0004_target_deduplication.sql", "0005_report_resolution.sql"];
+const ALL_MIGRATIONS = ["0001_create_corrections.sql", "0002_admin_workflow.sql", "0003_reviews.sql", "0004_target_deduplication.sql", "0005_report_resolution.sql", "0006_typeset_reports.sql"];
 
 /** A fresh corrections database, migrated like the live one; `upTo` stops
  * after that many migrations (a live database not yet migrated). */

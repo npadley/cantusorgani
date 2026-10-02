@@ -79,7 +79,7 @@ export interface Skip { readonly target: string; readonly note: string; readonly
 const canonicalField = (column: string) => `CASE ${column} WHEN 'printedPages' THEN 'printed_pages' WHEN 'startSystem' THEN 'start_system' WHEN 'gregobaseId' THEN 'chant' ELSE ${column} END`;
 const pendingTwin = `(SELECT p.id FROM corrections p WHERE p.status = 'pending' AND p.id <> corrections.id
   AND COALESCE(p.target, 'piece:' || p.piece_id) = COALESCE(corrections.target, 'piece:' || corrections.piece_id)
-  AND ${canonicalField("p.field")} = ${canonicalField("corrections.field")} AND p.proposed = corrections.proposed ORDER BY p.id LIMIT 1)`;
+  AND ${canonicalField("p.field")} = ${canonicalField("corrections.field")} AND p.proposed = corrections.proposed AND (corrections.field <> 'issue' OR COALESCE(p.seen,'') = COALESCE(corrections.seen,'')) ORDER BY p.id LIMIT 1)`;
 const returnToReview = `status = CASE WHEN source = 'editor' THEN 'approved' WHEN ${pendingTwin} IS NOT NULL THEN 'duplicate' ELSE 'pending' END,
   duplicate_of = CASE WHEN source = 'reader' THEN ${pendingTwin} ELSE NULL END`;
 const withdrawToReview = returnToReview.replace("THEN 'approved'", "THEN 'rejected'");

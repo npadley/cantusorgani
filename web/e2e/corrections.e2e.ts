@@ -89,3 +89,22 @@ test.describe("Corrections compatibility", () => {
     await expect(page.locator("#queue-list")).toContainText("part:dominica-i-adventus/introit");
   });
 });
+
+
+test("submits a music error for its exact drawing with private details", async ({ page }) => {
+  await queue(page, []);
+  const hash = "a".repeat(32);
+  await page.goto(`/corrections/?target=${encodeURIComponent("typeset:vol-5/x.ly")}&seen=${hash}`);
+  await page.locator("#proposedValue").selectOption("lyrics");
+  await page.locator("#note").fill("Private proofreader evidence");
+  await page.locator("#correction-form").evaluate((form) => {
+    const input = document.createElement("input"); input.name = "cf-turnstile-response";
+    input.type = "hidden"; input.value = "test-token"; form.append(input);
+  });
+  await page.route(ENDPOINT, (route) => route.fulfill({ status: 201, json: { ok: true } }));
+  const sent = page.waitForRequest((r) => ENDPOINT.test(r.url()) && r.method() === "POST");
+  await page.locator("#submit").click();
+  expect((await sent).postDataJSON()).toMatchObject({ pieceId: "typeset", field: "issue", proposedValue: "lyrics",
+    target: "typeset:vol-5/x.ly", seen: hash, note: "Private proofreader evidence" });
+  await expect(page.locator("#form-status")).toContainText("in the queue for review");
+});

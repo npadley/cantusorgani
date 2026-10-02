@@ -730,3 +730,11 @@ it("does not let a stale editor action change a report linked by another editor"
   expect(await store.move(report, "pending", "rejected", { reason: "stale action" })).toBe(false);
   expect(statusOf(report)).toBe("pending");
 });
+
+it("routes a stale music report to source repair rather than catalogue approval", async () => {
+  const id = readerReport(db.sqlite, "typeset", "issue", "lyrics", "private explanation");
+  db.sqlite.prepare("UPDATE corrections SET target = ?, seen = ? WHERE id = ?").run("typeset:vol-5/missa-ix/kyrie_IX.ly", "c".repeat(32), id);
+  const queue = (await call("GET", "/queue")).body["pending"] as Record<string, unknown>[];
+  expect(queue[0]).toMatchObject({ id, kind: "typeset", resolvedField: "issue", fields: [] });
+  expect((await call("POST", `/rows/${id}/approve`, {})).status).toBe(422);
+});

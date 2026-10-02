@@ -38,6 +38,7 @@ export interface Render {
   /** An editor has proofread it against the scan (a `reviewed` correction on typeset:<file>). */
   readonly proofread: boolean;
   readonly file: string;
+  readonly hash: string;
 }
 
 export interface Segment {
@@ -55,7 +56,7 @@ function render(part: ManifestPart, prefix: string, reviewed: Reviewed, base: st
   const at = `${base}/${prefix}/${part.hash}`;
   const review = reviewed[`typeset:${part.file}`];
   return { narrow: `${at}/narrow.svg`, wide: `${at}/wide.svg`, letter: `${at}/letter.pdf`, a4: `${at}/a4.pdf`,
-           proofread: review?.was === part.hash, file: part.file };
+           proofread: review?.was === part.hash, file: part.file, hash: part.hash };
 }
 
 /** The render for a target, or null: none matched, or its start is still to be checked. */

@@ -171,3 +171,9 @@ it("publishes validated resolution links without editor reasons or reader notes"
   expect(projected).not.toHaveProperty("duplicateOf");
   expect(projected).not.toHaveProperty("commitSha");
 });
+
+it("projects versioned music reports but keeps the explanatory note private", () => {
+  const row = toPublicRow({ ...ROW, piece_id: "typeset", target: "typeset:vol-5/x.ly", field: "issue", proposed: "lyrics", seen: "a".repeat(32) });
+  expect(row).toMatchObject({ field: "issue", proposedValue: "lyrics", renderHash: "a".repeat(32) });
+  expect(row).not.toHaveProperty("note");
+});

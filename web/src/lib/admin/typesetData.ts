@@ -43,11 +43,12 @@ export const REVIEWED = (reviewedJson as { reviewed: Reviewed }).reviewed;
 /** Each file's current answer and whether it can be shown, for the admin API's checks. */
 export function typesetTargets(data: TypesetData = TYPESET): Record<string, TargetTypeset> {
   const out: Record<string, TargetTypeset> = {};
-  for (const part of data.parts) out[part.file] = { label: part.target, match: part.target, broken: null };
+  for (const part of data.parts) out[part.file] = { label: part.target, match: part.target, broken: null, hash: part.hash };
   for (const item of data.items) {
     out[item.file] = {
       label: item.incipit ?? item.file,
       match: item.status === "no-match" ? "none" : item.status === "other-setting" ? "other-setting" : "",
+      ...(item.hash ? { hash: item.hash } : {}),
       broken: item.status === "broken" ? `LilyPond cannot draw it (${item.error ?? "an error"}).` : null,
     };
   }

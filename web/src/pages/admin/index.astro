@@ -163,7 +163,7 @@ const typesetToDo = typesetEntries().length;
     const draftKey = `row:${item.id}`;
     // A reader's "a part is missing or mislabelled" is fixed on the Sections screen.
     const sections = item.field === "sections";
-    const piece = item.kind !== null && !sections;
+    const piece = item.kind !== null && !sections && item.field !== "issue";
     const input = h("input", { type: "text", id: `value-${item.id}`, maxlength: "200",
                                value: drafts.get(draftKey) ?? item.proposed }) as HTMLInputElement;
     input.addEventListener("input", () => drafts.set(draftKey, input.value));
@@ -202,7 +202,9 @@ const typesetToDo = typesetEntries().length;
     syncField();
     if (item.note) article.append(h("p", { class: "small muted" }, `Reader's note: ${item.note}`));
     if (item.reason) article.append(h("p", { class: "small muted" }, item.reason));
-    if (sections && item.resolvedTarget) article.append(h("p", { class: "notice" }, item.problem ?? "", " ", sectionsLink(item)));
+    if (item.field === "issue" && item.target) article.append(h("p", { class: "notice" }, item.problem ?? "", " ",
+      h("a", { href: `/admin/typeset/edit/?file=${encodeURIComponent(item.target.slice(8))}&report=${item.id}` }, "Open the source editor")));
+    else if (sections && item.resolvedTarget) article.append(h("p", { class: "notice" }, item.problem ?? "", " ", sectionsLink(item)));
     else if (item.problem && (!piece || item.resolvedField)) article.append(h("p", { class: "notice" }, item.problem));
     else if (item.problem) article.append(h("p", { class: "small muted" }, `${item.problem} Or choose the field it was meant to correct.`));
     syncScan();

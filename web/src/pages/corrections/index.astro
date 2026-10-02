@@ -142,6 +142,7 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
 
 <script>
   import { CORRECTIONS_ENDPOINT } from "../../lib/config";
+  import { MUSIC_ISSUES, isTypesetFile } from "../../../../workers/corrections/src/schema";
   import { describeTarget } from "../../lib/admin/targets";
   import type { Targets } from "../../lib/admin/targets";
 
@@ -182,7 +183,7 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
   // what they are about to change; Mode is greyed out for a Proper, whose
   // parts each have their own mode.
   /** A report on a part or Vespers item: what it names, fixed. */
-  let fixed: { target: string; pieceId: string; values: Readonly<Record<string, string>> } | null = null;
+  let fixed: { target: string; pieceId: string; values: Readonly<Record<string, string>>; seen?: string } | null = null;
 
   function syncHint(): void {
     if (fixed) { syncFixed(); return; }
@@ -242,6 +243,28 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
 
   async function fixTarget(target: string): Promise<void> {
     const kind = target.split(":", 1)[0] ?? "";
+    if (kind === "typeset") {
+      const seen = params.get("seen") ?? "";
+      if (!isTypesetFile(target.slice(8)) || !/^[0-9a-f]{32}$/.test(seen) || !fieldSelect) {
+        say("This music report needs the drawing version. Open the report link beside the music.", "error");
+        if (submit) submit.disabled = true;
+        return;
+      }
+      fixed = { target, pieceId: "typeset", values: {}, seen };
+      document.getElementById("target-label")!.textContent = `${target.slice(8)} · drawing ${seen}`;
+      document.getElementById("target-fixed")!.hidden = false;
+      document.getElementById("piece-row")!.hidden = true;
+      fieldSelect.replaceChildren(new Option("Music error", "issue"));
+      const old = document.getElementById("proposedValue")!;
+      const issues = document.createElement("select");
+      issues.id = "proposedValue"; issues.name = "proposedValue";
+      issues.append(...MUSIC_ISSUES.map((v) => new Option(v, v)));
+      old.replaceWith(issues);
+      document.querySelector('label[for="proposedValue"]')!.textContent = "Kind of problem";
+      if (hint) hint.textContent = "Choose the kind of problem and explain it in the private note below.";
+      if (now) now.textContent = "";
+      return;
+    }
     const fields = KIND_FIELDS[kind];
     const targets = await loadTargets();
     const info = targets && fields ? describeTarget(targets, target) : null;
@@ -382,7 +405,7 @@ const configured = CORRECTIONS_ENDPOINT.length > 0 && TURNSTILE_SITE_KEY.length 
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           pieceId,
-          ...(fixed ? { target: fixed.target } : {}),
+          ...(fixed ? { target: fixed.target, ...(fixed.seen ? { seen: fixed.seen } : {}) } : {}),
           field: String(data.get("field") ?? ""),
           proposedValue,
           note: String(data.get("note") ?? ""),

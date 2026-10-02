@@ -92,6 +92,7 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
       })}
       <div class={seg.render ? "segment typeset-segment" : "segment"} data-typeset={seg.render ? "" : undefined}
            data-typeset-key={seg.render ? segmentKey(piece, seg.start) : undefined}>
+        {seg.render && <a class="ui small no-print" href={`/corrections/?target=${encodeURIComponent(`typeset:${seg.render.file}`)}&seen=${seg.render.hash}`}>Report a music error</a>}
         {seg.render && (
           <div class="typeset">
             <picture>

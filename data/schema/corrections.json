@@ -191,5 +191,11 @@
   "typeset_file": {
     "$comment": "A typeset:<file> target's file: a path under data/typeset/src/, never with .. or a leading /.",
     "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*(/[A-Za-z0-9][A-Za-z0-9._-]*){0,4}\\.ly$"
-  }
+  },
+  "music_issues": [
+    "notation",
+    "lyrics",
+    "layout",
+    "other"
+  ]
 }

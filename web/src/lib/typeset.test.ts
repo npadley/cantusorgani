@@ -18,7 +18,7 @@ function proper(slug: string, systems: number, parts: PrintedPart[]): Piece {
 }
 
 const drawn = (file: string): Render => ({ narrow: `n/${file}`, wide: `w/${file}`, letter: `l/${file}`, a4: `a/${file}`,
-                                           proofread: false, file });
+                                           proofread: false, file, hash: "a".repeat(32) });
 
 describe("segments", () => {
   it("should split a Proper at its parts and show typeset only where a part has a render", () => {

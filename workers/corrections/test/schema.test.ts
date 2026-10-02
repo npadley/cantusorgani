@@ -166,3 +166,14 @@ describe("current keyed sections", () => {
     expect(parseCorrection({ ...VALID, field: "genre", proposedValue: "proper" }).ok).toBe(true);
   });
 });
+
+describe("versioned music reports", () => {
+  const music = { pieceId: "typeset", target: "typeset:vol-5/x.ly", field: "issue", proposedValue: "lyrics", seen: "a".repeat(32), note: "private" };
+  it("accepts a checked file, issue and drawing version", () => {
+    expect(parseCorrection(music)).toMatchObject({ ok: true, value: music });
+  });
+  it.each([{ seen: undefined }, { seen: "<svg>" }, { proposedValue: "script" }, { target: "typeset:vol-5/../x.ly" },
+    { target: "typeset:/x.ly" }, { target: "piece:typeset" }, { pieceId: "other" }])("refuses malformed music identity %o", (change) => {
+    expect(parseCorrection({ ...music, ...change }).ok).toBe(false);
+  });
+});

@@ -97,6 +97,14 @@ function describeReview(row: Row, index: ReviewIndex | null): QueueItem {
 }
 
 function describeRow(row: Row, targets: Targets, index: ReviewIndex | null = null): QueueItem {
+  if (row.field === "issue") {
+    const file = row.target?.slice(8) ?? "";
+    const t = targets.typeset?.[file];
+    const stale = t?.hash && t.hash !== row.seen;
+    return { ...row, resolvedTarget: row.target, resolvedField: "issue", kind: "typeset", label: t?.label ?? file,
+      fields: [], values: {}, current: t?.hash ?? null,
+      problem: `${stale ? "This report describes an older drawing. " : ""}Open the source editor to fix this music report. Reported drawing: ${row.seen ?? "unknown"}.` };
+  }
   if (row.field === "reviewed") return describeReview(row, index);
   if (row.field === "sections") return describeSections(row, targets);
   const info = describeTarget(targets, row.target ?? row.piece_id);
@@ -311,6 +319,7 @@ async function actOnRow(deps: Deps, editor: Editor, id: number, verb: RowVerb, i
   // have filed a mode correction under Title.
   const targets = await deps.targets();
   const item = describeRow(row, targets);
+  if (row.field === "issue") return problem(422, "Music reports are resolved by a published source correction.");
   if (row.field === "sections") return problem(422, item.problem ?? "A list of sections is saved on the Sections screen.");
   const info = item.resolvedTarget ? describeTarget(targets, item.resolvedTarget) : null;
   if (!info) return problem(422, item.problem ?? "This piece or item no longer exists.");

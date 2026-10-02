@@ -13,18 +13,22 @@ import schema from "../../../data/schema/corrections.json";
 
 export type CorrectableField =
   | "title" | "incipit" | "mode" | "genre" | "printedPages" | "chant"
-  | "startSystem" | "gregobaseId" | "tone" | "sections";
+  | "startSystem" | "gregobaseId" | "tone" | "sections" | "issue";
 
 /** Editors can recategorize a reader report to these canonical fields. They
  * are publishable stored values, never unauthenticated intake fields. */
 export type StoredField = CorrectableField | "system_range" | "refs" | "note";
 
 export const CORRECTABLE_FIELDS: readonly CorrectableField[] = [
-  "title", "incipit", "mode", "genre", "printedPages", "chant", "startSystem", "gregobaseId", "tone", "sections",
+  "title", "incipit", "mode", "genre", "printedPages", "chant", "startSystem", "gregobaseId", "tone", "sections", "issue",
 ];
 
 /** The tones NOH8 prints: the `tones` of data/schema/corrections.json (a test
  * keeps the two lists equal). */
+export const MUSIC_ISSUES = schema.music_issues;
+export function isTypesetFile(file: string): boolean {
+  return new RegExp(schema.typeset_file.pattern).test(file) && !file.split("/").some((p) => p === ".." || p === ".");
+}
 export const TONES = [
   "I.D", "I.D2", "I.f", "I.g", "I.g2", "I.g3", "I.a", "I.a2", "I.a3", "II.D", "II.A",
   "III.a", "III.a2", "III.b", "III.g", "IV.E", "IV.A", "IV.A*", "IV.g", "V.a",
@@ -58,6 +62,7 @@ const GENRES = [
 /** \p{L} keeps Latin diacritics (Kýrie, æternam) without opening the field up. */
 export const PATTERNS: Readonly<Record<CorrectableField, RegExp>> = {
   // At least two letters: a title or incipit of "1" is never right.
+  issue: new RegExp(`^(${MUSIC_ISSUES.join("|")})$`),
   title: /^(?=(?:[^\p{L}]*\p{L}){2})[\p{L}\p{N}\s.,'«»():-]{1,120}$/u,
   incipit: /^(?=(?:[^\p{L}]*\p{L}){2})[\p{L}\p{N}\s.,'-]{1,120}$/u,
   mode: /^(I|II|III|IV|V|VI|VII|VIII)$/,
@@ -73,6 +78,7 @@ export const PATTERNS: Readonly<Record<CorrectableField, RegExp>> = {
 
 /** What each field expects, in words, for the reader. */
 export const HINTS: Readonly<Record<CorrectableField, string>> = {
+  issue: "notation, lyrics, layout or other; explain the problem in the private note",
   title: "at least two letters; letters, digits and . , ' « » ( ) : - only",
   incipit: "at least two letters; letters, digits and . , ' - only",
   mode: "I to VIII (1 to 8 is read as I to VIII)",
@@ -104,6 +110,7 @@ export interface Correction<Field extends StoredField = CorrectableField> {
   readonly note: string;
   /** A part or Vespers item; null for a report on the piece itself. */
   readonly target: string | null;
+  readonly seen?: string | null;
 }
 
 export type ParseResult<Field extends StoredField = CorrectableField> =
@@ -144,6 +151,18 @@ function parse(input: unknown, stored: boolean): ParseResult<StoredField> {
     };
   }
 
+  if (raw["field"] === "issue") {
+    const target = raw["target"];
+    const seen = raw["seen"];
+    const issue = raw["proposedValue"];
+    const note = raw["note"] ?? "";
+    if (pieceId !== "typeset" || typeof target !== "string" || !target.startsWith("typeset:") ||
+        !isTypesetFile(target.slice(8)) || typeof seen !== "string" || !/^[0-9a-f]{32}$/.test(seen) ||
+        typeof issue !== "string" || !MUSIC_ISSUES.includes(issue) || typeof note !== "string" || note.length > MAX_NOTE) {
+      return { ok: false, error: "A music report needs a checked file, drawing hash and issue category; details belong in the private note." };
+    }
+    return { ok: true, value: { pieceId, target, field: "issue", proposedValue: issue, seen, note } };
+  }
   const field = raw["field"];
   if (typeof field !== "string" || !isStoredField(field) || (!stored && !isCorrectableField(field))) {
     return {
