@@ -35,7 +35,7 @@ global = {
 }
 
 chantText = \lyricmode {
-Je -- rú -- sa -- lem _ *zwj; sur -- ge, et sta in ex -- cél -- so: 
+Je -- rú -- sa -- lem _ "*zwj;" sur -- ge, et sta in ex -- cél -- so: 
 et vi -- _ _ de ju -- cun -- _ di -- tá -- tem, 
 quæ vé -- ni -- et ti -- _ bi a De -- o _ tu -- o. }
 
