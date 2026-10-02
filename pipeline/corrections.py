@@ -30,6 +30,10 @@ import yaml
 from pipeline import sections
 from pipeline.volumes import DATA
 
+#: As pipeline.catalog (imported there, not here: the catalogue build is heavy).
+_SINGLE_MOVEMENT = frozenset({"kyrie", "gloria", "credo", "sanctus", "agnus"})
+_MOVEMENT_DIVISIONS = frozenset({"kyriale", "defunctorum"})
+
 CORRECTIONS = DATA / "corrections.yml"
 BASE = DATA / "catalog.base.json"
 CATALOG = DATA / "catalog.json"
@@ -405,6 +409,14 @@ def _set_systems(piece: dict[str, Any], span: list[tuple[str, str, list[int]]]) 
         part["system"] = refs.index(part["ref"])
     inside = set(refs)
     piece["movements"] = [m for m in piece.get("movements") or [] if m.get("ref") in inside]
+    # A single-chant piece (a Credo) is its movement from its first system,
+    # wherever a corrected range puts that (pipeline.catalog.own_movement).
+    own = [m for m in piece["movements"] if m.get("placed") == "first"]
+    if piece.get("genre") in _SINGLE_MOVEMENT and piece.get("division") in _MOVEMENT_DIVISIONS and refs:
+        first = refs[0]
+        piece["movements"] = [{"movement": piece["genre"], "score": 1.0, "pdf_page": int(first.split("/")[1]),
+                               "system": int(first.split("/")[2]), "ref": first,
+                               "mode_marker": own[0].get("mode_marker") if own else None, "placed": "first"}]
     if "hymns" in piece:
         piece["hymns"] = [h for h in piece["hymns"] if h.get("ref") in inside]
     pdfs = [int(r.split("/")[1]) for r in refs]

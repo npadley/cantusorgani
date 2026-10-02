@@ -81664,7 +81664,17 @@
           "placed": "match"
         }
       ],
-      "sections": [],
+      "sections": [
+        {
+          "kind": "other",
+          "variant": "",
+          "key": "agnus",
+          "gregobase_id": null,
+          "system": 28,
+          "ref": "noh5/0086/000",
+          "placed": "reviewed"
+        }
+      ],
       "jgabc_url": null,
       "chant": [
         {
@@ -82642,6 +82652,15 @@
         }
       ],
       "sections": [
+        {
+          "kind": "other",
+          "variant": "",
+          "key": "gloria",
+          "gregobase_id": null,
+          "system": 6,
+          "ref": "noh5/0100/000",
+          "placed": "reviewed"
+        },
         {
           "kind": "other",
           "variant": "",
@@ -85434,12 +85453,12 @@
       "movements": [
         {
           "movement": "credo",
-          "score": 0.765,
+          "score": 1.0,
           "pdf_page": 144,
           "system": 3,
           "ref": "noh5/0144/003",
           "mode_marker": null,
-          "text": "tremmolpotentemiueredoinunumdeurnpaivl"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -85634,12 +85653,12 @@
       "movements": [
         {
           "movement": "credo",
-          "score": 0.824,
+          "score": 1.0,
           "pdf_page": 148,
           "system": 3,
           "ref": "noh5/0148/003",
           "mode_marker": null,
-          "text": "ncredoinunumdeurnpatremmolpotenimaieiv"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -85834,12 +85853,12 @@
       "movements": [
         {
           "movement": "credo",
-          "score": 0.903,
+          "score": 1.0,
           "pdf_page": 152,
           "system": 3,
           "ref": "noh5/0152/003",
           "mode_marker": null,
-          "text": "mpatremmnlpotenternvucredoinunumdeurn"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -86034,12 +86053,12 @@
       "movements": [
         {
           "movement": "credo",
-          "score": 0.824,
+          "score": 1.0,
           "pdf_page": 156,
           "system": 3,
           "ref": "noh5/0156/003",
           "mode_marker": null,
-          "text": "ivcredoinunumdeurnpatremmnlpotenternijrt"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -86417,17 +86436,7 @@
           509
         ]
       ],
-      "movements": [
-        {
-          "movement": "ite",
-          "score": 0.667,
-          "pdf_page": 163,
-          "system": 5,
-          "ref": "noh5/0163/005",
-          "mode_marker": "I",
-          "text": "iiugnumetjustumestfgratiasagamusdominodeonostro"
-        }
-      ],
+      "movements": [],
       "sections": [],
       "jgabc_url": null,
       "chant": [],
@@ -86532,12 +86541,12 @@
       "movements": [
         {
           "movement": "kyrie",
-          "score": 0.769,
+          "score": 1.0,
           "pdf_page": 170,
           "system": 0,
           "ref": "noh5/0170/000",
           "mode_marker": null,
-          "text": "ijukyrjeeieisonii"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -86636,12 +86645,12 @@
       "movements": [
         {
           "movement": "kyrie",
-          "score": 0.681,
+          "score": 1.0,
           "pdf_page": 172,
-          "system": 3,
-          "ref": "noh5/0172/003",
-          "mode_marker": "I",
-          "text": "ichrisleeiesonchrisleiii"
+          "system": 0,
+          "ref": "noh5/0172/000",
+          "mode_marker": null,
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -86713,7 +86722,17 @@
           411
         ]
       ],
-      "movements": [],
+      "movements": [
+        {
+          "movement": "kyrie",
+          "score": 1.0,
+          "pdf_page": 173,
+          "system": 2,
+          "ref": "noh5/0173/002",
+          "mode_marker": null,
+          "placed": "first"
+        }
+      ],
       "sections": [],
       "jgabc_url": null,
       "chant": [
@@ -86831,7 +86850,17 @@
           416
         ]
       ],
-      "movements": [],
+      "movements": [
+        {
+          "movement": "kyrie",
+          "score": 1.0,
+          "pdf_page": 174,
+          "system": 0,
+          "ref": "noh5/0174/000",
+          "mode_marker": null,
+          "placed": "first"
+        }
+      ],
       "sections": [],
       "jgabc_url": null,
       "chant": [
@@ -86925,7 +86954,17 @@
           392
         ]
       ],
-      "movements": [],
+      "movements": [
+        {
+          "movement": "kyrie",
+          "score": 1.0,
+          "pdf_page": 176,
+          "system": 0,
+          "ref": "noh5/0176/000",
+          "mode_marker": null,
+          "placed": "first"
+        }
+      ],
       "sections": [],
       "jgabc_url": null,
       "chant": [
@@ -87025,7 +87064,17 @@
           390
         ]
       ],
-      "movements": [],
+      "movements": [
+        {
+          "movement": "kyrie",
+          "score": 1.0,
+          "pdf_page": 177,
+          "system": 2,
+          "ref": "noh5/0177/002",
+          "mode_marker": null,
+          "placed": "first"
+        }
+      ],
       "sections": [],
       "jgabc_url": null,
       "chant": [
@@ -87128,12 +87177,12 @@
       "movements": [
         {
           "movement": "kyrie",
-          "score": 0.714,
-          "pdf_page": 179,
-          "system": 4,
-          "ref": "noh5/0179/004",
-          "mode_marker": "II",
-          "text": "iesonkyrieeiesoniijjjq"
+          "score": 1.0,
+          "pdf_page": 178,
+          "system": 5,
+          "ref": "noh5/0178/005",
+          "mode_marker": null,
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -87226,48 +87275,12 @@
       "movements": [
         {
           "movement": "kyrie",
-          "score": 0.87,
+          "score": 1.0,
           "pdf_page": 180,
-          "system": 3,
-          "ref": "noh5/0180/003",
-          "mode_marker": null,
-          "text": "fjieeiesonkyrieeieson"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.792,
-          "pdf_page": 180,
-          "system": 5,
-          "ref": "noh5/0180/005",
-          "mode_marker": null,
-          "text": "filieiesonchristeoeieison"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.762,
-          "pdf_page": 181,
-          "system": 0,
-          "ref": "noh5/0181/000",
-          "mode_marker": "I",
-          "text": "flikyreieson"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.714,
-          "pdf_page": 181,
-          "system": 1,
-          "ref": "noh5/0181/001",
-          "mode_marker": "II",
-          "text": "kyreeieisonkyniiiqtlq"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.667,
-          "pdf_page": 181,
           "system": 2,
-          "ref": "noh5/0181/002",
-          "mode_marker": "I",
-          "text": "fleiqrtiqfeieison"
+          "ref": "noh5/0180/002",
+          "mode_marker": null,
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -87372,21 +87385,12 @@
       "movements": [
         {
           "movement": "kyrie",
-          "score": 0.786,
+          "score": 1.0,
           "pdf_page": 181,
           "system": 3,
           "ref": "noh5/0181/003",
           "mode_marker": "VIII",
-          "text": "paterexcelseljkyrieelesonviiiitr"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.769,
-          "pdf_page": 181,
-          "system": 4,
-          "ref": "noh5/0181/004",
-          "mode_marker": null,
-          "text": "kyrieeiesonkyr"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -87473,30 +87477,12 @@
       "movements": [
         {
           "movement": "kyrie",
-          "score": 0.723,
+          "score": 1.0,
           "pdf_page": 183,
-          "system": 3,
-          "ref": "noh5/0183/003",
+          "system": 0,
+          "ref": "noh5/0183/000",
           "mode_marker": "I",
-          "text": "ieiesonchrisleeiejson"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.786,
-          "pdf_page": 183,
-          "system": 4,
-          "ref": "noh5/0183/004",
-          "mode_marker": null,
-          "text": "kyrieeieisonkyriee"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.818,
-          "pdf_page": 183,
-          "system": 5,
-          "ref": "noh5/0183/005",
-          "mode_marker": null,
-          "text": "iesonkyieieison"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -87580,7 +87566,17 @@
           387
         ]
       ],
-      "movements": [],
+      "movements": [
+        {
+          "movement": "kyrie",
+          "score": 1.0,
+          "pdf_page": 184,
+          "system": 0,
+          "ref": "noh5/0184/000",
+          "mode_marker": null,
+          "placed": "first"
+        }
+      ],
       "sections": [],
       "jgabc_url": null,
       "chant": [
@@ -87934,22 +87930,13 @@
       ],
       "movements": [
         {
-          "movement": "agnus",
-          "score": 0.8,
-          "pdf_page": 186,
-          "system": 4,
-          "ref": "noh5/0186/004",
+          "movement": "gloria",
+          "score": 1.0,
+          "pdf_page": 185,
+          "system": 0,
+          "ref": "noh5/0185/000",
           "mode_marker": null,
-          "text": "dmneqeusagnusdefiiiuspatrisraioj"
-        },
-        {
-          "movement": "agnus",
-          "score": 0.8,
-          "pdf_page": 192,
-          "system": 1,
-          "ref": "noh5/0192/001",
-          "mode_marker": null,
-          "text": "ijagnusdeifiiuspatrisquitolispecjbtqthl"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -88078,21 +88065,12 @@
       "movements": [
         {
           "movement": "sanctus",
-          "score": 0.85,
-          "pdf_page": 194,
-          "system": 5,
-          "ref": "noh5/0194/005",
-          "mode_marker": null,
-          "text": "hosannainexceisisbenediclusquivenitiiirualn"
-        },
-        {
-          "movement": "sanctus",
-          "score": 0.774,
-          "pdf_page": 195,
+          "score": 1.0,
+          "pdf_page": 193,
           "system": 4,
-          "ref": "noh5/0195/004",
-          "mode_marker": "I",
-          "text": "nitvequidifjoeqbenedictusiln"
+          "ref": "noh5/0193/004",
+          "mode_marker": null,
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -88203,48 +88181,12 @@
       "movements": [
         {
           "movement": "agnus",
-          "score": 0.8,
+          "score": 1.0,
           "pdf_page": 196,
           "system": 0,
           "ref": "noh5/0196/000",
           "mode_marker": null,
-          "text": "agnusdeiquitolviii"
-        },
-        {
-          "movement": "agnus",
-          "score": 0.815,
-          "pdf_page": 196,
-          "system": 2,
-          "ref": "noh5/0196/002",
-          "mode_marker": null,
-          "text": "agnusdequitollispcecataee"
-        },
-        {
-          "movement": "agnus",
-          "score": 0.772,
-          "pdf_page": 197,
-          "system": 1,
-          "ref": "noh5/0197/001",
-          "mode_marker": "VI",
-          "text": "qtaviagnusquiftallispeeeatamuneli"
-        },
-        {
-          "movement": "agnus",
-          "score": 0.8,
-          "pdf_page": 197,
-          "system": 2,
-          "ref": "noh5/0197/002",
-          "mode_marker": null,
-          "text": "serprenobisagnusdetediispeernliquiuq"
-        },
-        {
-          "movement": "agnus",
-          "score": 0.824,
-          "pdf_page": 197,
-          "system": 3,
-          "ref": "noh5/0197/003",
-          "mode_marker": null,
-          "text": "etamllndiiiliserereagnusdi"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -88382,7 +88324,17 @@
           408
         ]
       ],
-      "movements": [],
+      "movements": [
+        {
+          "movement": "gloria",
+          "score": 1.0,
+          "pdf_page": 198,
+          "system": 0,
+          "ref": "noh5/0198/000",
+          "mode_marker": null,
+          "placed": "first"
+        }
+      ],
       "sections": [],
       "jgabc_url": null,
       "chant": [],
@@ -88565,21 +88517,12 @@
       "movements": [
         {
           "movement": "credo",
-          "score": 0.882,
+          "score": 1.0,
           "pdf_page": 200,
           "system": 4,
           "ref": "noh5/0200/004",
           "mode_marker": null,
-          "text": "vivcredoinunumdeumeleredoinuntjmdeumi"
-        },
-        {
-          "movement": "credo",
-          "score": 0.8,
-          "pdf_page": 200,
-          "system": 5,
-          "ref": "noh5/0200/005",
-          "mode_marker": null,
-          "text": "patremmnipotenternfaetremereiiet"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -88786,12 +88729,12 @@
       "movements": [
         {
           "movement": "credo",
-          "score": 0.875,
+          "score": 1.0,
           "pdf_page": 204,
           "system": 4,
           "ref": "noh5/0204/004",
           "mode_marker": null,
-          "text": "ivcredoinunumdeurnvelcredoinunumdeurni"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -89385,15 +89328,6 @@
           "text": "sanetussanetussanctusdminusdeussbaoth"
         },
         {
-          "movement": "sanctus",
-          "score": 0.85,
-          "pdf_page": 222,
-          "system": 2,
-          "ref": "noh5/0222/002",
-          "mode_marker": null,
-          "text": "inexeelsisbenedietusquivenitinnmjne"
-        },
-        {
           "movement": "agnus",
           "score": 0.8,
           "pdf_page": 222,
@@ -89401,24 +89335,6 @@
           "ref": "noh5/0222/004",
           "mode_marker": null,
           "text": "agnusdeitollispeeelltamundidoria"
-        },
-        {
-          "movement": "agnus",
-          "score": 0.885,
-          "pdf_page": 222,
-          "system": 5,
-          "ref": "noh5/0222/005",
-          "mode_marker": null,
-          "text": "eisrequiemagnusdeiquitoliispeecatamundliio"
-        },
-        {
-          "movement": "agnus",
-          "score": 0.8,
-          "pdf_page": 223,
-          "system": 0,
-          "ref": "noh5/0223/000",
-          "mode_marker": null,
-          "text": "donaeisrequiemagnusdeiquilispec"
         }
       ],
       "sections": [
@@ -89607,15 +89523,6 @@
           "ref": "noh5/0226/000",
           "mode_marker": null,
           "text": "cantorcomchotakyrieeiesonchrisleeieson"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.87,
-          "pdf_page": 226,
-          "system": 1,
-          "ref": "noh5/0226/001",
-          "mode_marker": null,
-          "text": "omnessimulkyrieeieson"
         }
       ],
       "sections": [],
@@ -89791,17 +89698,7 @@
           407
         ]
       ],
-      "movements": [
-        {
-          "movement": "sanctus",
-          "score": 0.743,
-          "pdf_page": 229,
-          "system": 3,
-          "ref": "noh5/0229/003",
-          "mode_marker": "II",
-          "text": "iiegosumbeneclusdominusdeusisrael"
-        }
-      ],
+      "movements": [],
       "sections": [],
       "jgabc_url": null,
       "chant": [],
