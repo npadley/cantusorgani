@@ -16,7 +16,6 @@
 #   0.85 or more is the strongest match there is.
 # evidence.name: the file is named for its target (matched on that, whatever
 #   the melody and words say).
-
 - file: vol-1/al_beatus_homo.csv.ly
   target: part:noh1-p104/alleluia:paschal
   status: proposed
@@ -362,10 +361,18 @@
     melody: 0.364
     words: 0.443
 - file: vol-1/an_exaudi_nos_domine.csv.ly
-  target: null
-  status: broken
+  target: piece:feria-iv-cinerum
+  status: proposed
   evidence:
-    error: 'line 86:34: error: not a note name: d’'
+    by: page
+    incipit: Exáudi nos Dómine quóniam benígna est misericór dia
+    page: 152
+    candidates:
+    - target: piece:feria-iv-cinerum
+      melody: null
+      words: null
+    melody: null
+    words: null
 - file: vol-1/an_fulgentibus_palmis.csv.ly
   target: part:noh1-p302/other:7
   status: matched
