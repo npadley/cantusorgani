@@ -149,22 +149,18 @@
   },
   {
    "file": "vol-1/an_exaudi_nos_domine.csv.ly",
-   "status": "broken",
-   "target": null,
-   "error": "line 86:34: error: not a note name: d’",
-   "excerpt": {
-    "first": 83,
-    "line": 86,
-    "lines": [
-     "d'2*6/2 e'2*3/2 ~ \\divisioMinima",
-     "e'2*5/2 ~ e'2*3/2 fis'2 ~ fis'2 \\divisioMaxima",
-     "d'2*4/2 ~ d'4 c'2*5/2 d'2*3/2 a2 d’2*6/2 e’2*3/2 ~ e’2*5/2 ~ e’2*4/2 fis’2 ~ fis’2 \\divisioMaxima",
-     "d’2*4/2 ~ d’2 ~ d’2 e’2*3/2 ~ \\divisioMinima",
-     "e’4 c’2*3/2 e’2 d’2 ~ \\divisioMaxima",
-     "d’2*4/2 ~ d’2 ~ d’2 c’2*3/2 d’2 ~ d’2*3/2 a2 \\finalis",
-     "}"
-    ]
-   }
+   "status": "proposed",
+   "target": "piece:feria-iv-cinerum",
+   "hash": "a28a15bfd9b7057cd7d5fccedc559619",
+   "incipit": "Exáudi nos Dómine quóniam benígna est misericór dia",
+   "page": 152,
+   "candidates": [
+    {
+     "target": "piece:feria-iv-cinerum",
+     "melody": null,
+     "words": null
+    }
+   ]
   },
   {
    "file": "vol-1/an_immutemur_habitu.csv.ly",
