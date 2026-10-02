@@ -15,7 +15,7 @@ BEGIN
   INSERT INTO typeset_snapshots(correction_id,file,text,base_blob_sha,content_hash,editor_email,draft_revision)
   SELECT NEW.id, file, text, base_blob_sha, content_hash, editor_email, revision FROM typeset_drafts
   WHERE editor_email=NEW.editor_email AND 'typeset:'||file=NEW.target AND content_hash=NEW.proposed AND base_blob_sha=NEW.seen;
-  SELECT CASE WHEN changes() <> 1 THEN RAISE(ABORT,'source draft missing') END;
+  SELECT RAISE(ABORT,'source draft missing') WHERE changes() <> 1;
 END;
 CREATE TRIGGER immutable_typeset_snapshot BEFORE UPDATE ON typeset_snapshots
 BEGIN SELECT RAISE(ABORT,'source snapshots are immutable'); END;

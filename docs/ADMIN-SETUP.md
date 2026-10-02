@@ -193,7 +193,7 @@ For the corrections compatibility release (migration 0004), use this order:
 3. From that same reviewed commit and directory, run:
 
    ```bash
-   pnpm deploy
+   pnpm run deploy
    ```
 
    Check Wrangler's deployed version and the custom domain. Existing bindings
