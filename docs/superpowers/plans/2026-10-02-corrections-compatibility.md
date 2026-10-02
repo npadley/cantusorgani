@@ -8,7 +8,7 @@
 
 **Tech stack:** TypeScript, Astro, Cloudflare Workers/D1, Vitest, Node SQLite and Playwright.
 
-**Spec:** [Corrections readiness audit](/Users/npadley/.codex/visualizations/2026/09/29/01a0ed15-775f-7cf1-8af8-796f433443bd/corrections-audit-2026-10-01.md); `docs/EDITING.md`; `data/schema/corrections.json`.
+**Spec:** The accepted corrections audit requirements are captured in the Goal, Global Constraints, Review Focus and tasks below. Existing contracts: `docs/EDITING.md`, `data/schema/corrections.json`, and `docs/claudekit/plans/2026-09-27-editing-admin-refactor-plan.md`.
 
 ## Global constraints
 
@@ -32,10 +32,10 @@
 
 **Interfaces:** Consume real migrations and `testDb(upTo)`; retain the existing `idx_corrections_dedupe` name with identity `(COALESCE(target, 'piece:' || piece_id), field, proposed)` for pending rows.
 
-- [ ] Write tests that upgrade a populated migration-0003 database, preserve its records, allow equal-valued reports for different parts/Vespers items, reject same-target duplicates, and equate null with explicit piece targets. Approved records must not block new pending reports.
-- [ ] Run the new migration tests and confirm the existing index causes the expected collision failure.
-- [ ] Add migration 0004 and include it in the test database migration list. Discuss rollback constraints: restoring the old index may fail after distinct reports have been stored; never discard those reports automatically.
-- [ ] Run migration and existing admin tests, then commit this deliverable on the implementation branch.
+- [x] Write tests that upgrade a populated migration-0003 database, preserve its records, allow equal-valued reports for different parts/Vespers items, reject same-target duplicates, and equate null with explicit piece targets. Approved records must not block new pending reports.
+- [x] Run the new migration tests and confirm the existing index causes the expected collision failure.
+- [x] Add migration 0004 and include it in the test database migration list. Discuss rollback constraints: restoring the old index may fail after distinct reports have been stored; never discard those reports automatically.
+- [x] Run migration and existing admin tests, then commit this deliverable on the implementation branch.
 
 ### Task 2: Reconcile intake and public status with current data
 
@@ -43,12 +43,12 @@
 
 **Interfaces:** Keep `parseCorrection(input)` as the public intake boundary and `toPublicRow(StoredRow): PublicRow | null` as the stored-row projection. Translate canonical `printed_pages`/`start_system`/target-specific `chant` into public names before boundary validation. Validate editor-normalized title/incipit against the canonical shared plain-text schema rather than silently dropping valid editor punctuation. Preserve unknown-field rejection and note omission.
 
-- [ ] Write failing tests for all seven rejected catalogue targets, a 30-character valid key and an over-limit key, and every current catalogue genre including proper.
-- [ ] Write failing status tests for canonical field aliases across approved, queued and accepted states, legacy null targets, valid editor-normalized text, invalid values and private-note omission.
-- [ ] Add an integration test that submits/seeds a real reader report, invokes actual admin approval, and projects the stored row through the Worker serializer. Cover page ranges and section start/chant fields.
-- [ ] Run the tests and verify expected boundary failures before implementation.
-- [ ] Align variant length to 30 and add proper to the controlled genre set. Implement canonical stored-row projection without broadening unauthenticated intake unnecessarily.
-- [ ] Run Worker tests/typecheck and admin lifecycle/catalogue regressions, then commit.
+- [x] Write failing tests for all seven rejected catalogue targets, a 30-character valid key and an over-limit key, and every current catalogue genre including proper.
+- [x] Write failing status tests for canonical field aliases across approved, queued and accepted states, legacy null targets, valid editor-normalized text, invalid values and private-note omission.
+- [x] Add an integration test that submits/seeds a real reader report, invokes actual admin approval, and projects the stored row through the Worker serializer. Cover page ranges and section start/chant fields.
+- [x] Run the tests and verify expected boundary failures before implementation.
+- [x] Align variant length to 30 and add proper to the controlled genre set. Implement canonical stored-row projection without broadening unauthenticated intake unnecessarily.
+- [x] Run Worker tests/typecheck and admin lifecycle/catalogue regressions, then commit.
 
 ### Task 3: Make public reporting and status context accurate
 
@@ -56,10 +56,10 @@
 
 **Interfaces:** Consume existing `/corrections/targets.json` and catalogue option data. Enable section reporting for Proper and Mass ordinary pieces, including missing sections. Retain fixed-target source ownership. Display the human-readable target label, with the raw target as a fallback if no longer in the current catalogue.
 
-- [ ] Write browser regressions selecting a Kyriale Mass and submitting section context, rendering two equal-valued reports for distinct targets, and verifying hostile queue text stays text and private notes are absent.
-- [ ] Run the regressions against the unchanged page and confirm disabled-section/missing-context failures.
-- [ ] Update section eligibility, queue labels and explanatory copy using createElement/textContent. Avoid coupling queue availability to successful target-label lookup.
-- [ ] Run affected browser checks and full web tests/typecheck, then commit.
+- [x] Write browser regressions selecting a Kyriale Mass and submitting section context, rendering two equal-valued reports for distinct targets, and verifying hostile queue text stays text and private notes are absent.
+- [x] Run the regressions against the unchanged page and confirm disabled-section/missing-context failures.
+- [x] Update section eligibility, queue labels and explanatory copy using createElement/textContent. Avoid coupling queue availability to successful target-label lookup.
+- [x] Run affected browser checks and full web tests/typecheck, then commit.
 
 ### Task 4: Document release and verify the complete change
 
@@ -67,11 +67,18 @@
 
 **Interfaces:** Use existing `pnpm migrate:remote` and `pnpm deploy` scripts in `workers/corrections`. Site CI deploys Pages separately.
 
-- [ ] Document backup, migration, Worker deployment and Pages merge/deployment sequence, with compatibility and rollback limits. Correct the claim that all migrations only add.
-- [ ] Document post-deploy report/approval/public-status checks and private-note handling; do not execute live writes during implementation.
-- [ ] Run the complete Worker and web unit suites, Worker/web typechecks and affected browser regressions. Report environmental blockers separately from code failures.
-- [ ] Review the complete diff for schema privacy, migration preservation, target ownership and scope; record results and leave a reviewable implementation branch.
+- [x] Document backup, migration, Worker deployment and Pages merge/deployment sequence, with compatibility and rollback limits. Correct the claim that all migrations only add.
+- [x] Document post-deploy report/approval/public-status checks and private-note handling; do not execute live writes during implementation.
+- [x] Run the complete Worker and web unit suites, Worker/web typechecks and affected browser regressions. Report environmental blockers separately from code failures.
+- [x] Review the complete diff for schema privacy, migration preservation, target ownership and scope; record results and leave a reviewable implementation branch.
 
 ## Deferred discussion
 
 Typeset-file music-error reports, full scan comparison and the larger source editor/draft/render service remain separate follow-on decisions. This change addresses the existing corrections lifecycle first.
+
+## Execution evidence
+
+- Task 1: Real-migration D1 regressions reproduced distinct-target collisions before the fix. Eight migration/rollback tests pass, including preservation of a populated database and refusal of conflicting rollback.
+- Task 2: Catalogue-derived regressions reproduced all seven target failures and proper genre rejection; real admin approval tests reproduced public-status disappearance. Worker: 64 tests and typecheck passed. Web: 686 tests passed.
+- Task 3: Four original browser regressions failed before the page fix. An added stalled-label-lookup test failed and then passed after making label enrichment asynchronous. Ten new/existing corrections/report-link browser tests passed; web typecheck reports zero errors and four existing hints.
+- Task 4: Release runbook documents the separate Worker deployment, migration ordering and rollback limits. Astro built 1,529 pages; Pagefind generated its index; all pages are reachable with no broken internal links. No live migration, deployment or submissions were performed.

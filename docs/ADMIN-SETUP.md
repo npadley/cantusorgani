@@ -155,8 +155,16 @@ put its values in the 1Password Environment, and check with
 The admin screen and the readers' Corrections form share one D1 database.
 When a change adds a migration (`workers/corrections/migrations/NNNN_*.sql`),
 apply it to the live database **before** merging the change, because the new
-code expects it. Migrations only add, so the site already deployed keeps working
-with them. From `workers/corrections/`:
+code expects it. Check each migration's compatibility with the deployed site
+and Worker: migrations can change indexes or rebuild tables as well as add
+columns. Export the live database first. From `workers/corrections/`:
+
+```bash
+mkdir -p backups
+pnpm exec wrangler d1 export cantusorgani-corrections --remote --output backups/pre-migration.sql
+```
+
+Use a new backup filename for each release; keep the export private. Then:
 
 ```bash
 pnpm migrate:remote
@@ -164,6 +172,73 @@ pnpm migrate:remote
 
 It lists what it will apply, and asks first. Each migration has a way back in
 `workers/corrections/rollback/`; export the database before using one.
+
+## 7. Releasing corrections changes
+
+The public API at `https://api.cantusorgani.org` is a separate Worker. The site
+workflow tests its code but deploys **Pages only**. Merging a site pull request
+does not deploy the public corrections API.
+
+For the corrections compatibility release (migration 0004), use this order:
+
+1. Use the reviewed release commit. Run `pnpm test` and `pnpm typecheck` in
+   both `workers/corrections/` and `web/`, and the corrections browser tests
+   against a freshly built local site.
+2. Export live D1 as above, then run `pnpm migrate:remote` from
+   `workers/corrections/`. Check that `0004_target_deduplication.sql` is among
+   the intended migrations. It preserves every report and changes the pending
+   unique index from piece-based to target-based identity; legacy null targets
+   and explicit piece targets still count as the same piece. The currently
+   deployed Worker and admin can continue using this database.
+3. From that same reviewed commit and directory, run:
+
+   ```bash
+   pnpm deploy
+   ```
+
+   Check Wrangler's deployed version and the custom domain. Existing bindings
+   and the `TURNSTILE_SECRET` remain configured; no secret belongs in the site
+   bundle or these instructions.
+4. Verify the API responds at `https://api.cantusorgani.org`, then merge the
+   reviewed Pages change and wait for its site deployment to succeed.
+5. Complete the report lifecycle checks below. Record the Worker version,
+   Pages commit and migration applied so a later audit can identify what is live.
+
+Migration 0004 changes no stored rows. Its rollback is deliberately guarded:
+once different targets have equal-valued pending reports, the old piece-based
+constraint cannot represent them. `rollback/0004_target_deduplication_down.sql`
+refuses that case before dropping the new index. **Do not delete reports to
+make rollback succeed.** Prefer a forward fix, or roll back the application
+code while retaining the compatible target-aware index. Take a fresh export
+before any manual rollback.
+
+### Corrections release checks
+
+Use a genuine report with a correct proposed value, or a clearly identified
+test report that an editor will reject afterward; do not publish a fabricated
+catalogue change merely to exercise the workflow.
+
+- From a Kyriale Mass, report a missing or mislabelled section. Its whole-piece
+  form should offer the section field. Also check a long keyed-section link,
+  such as `part:ordinarium-missae-xvii/other:deo-gratias-vi`.
+- Check the public status row identifies the piece and section/item. Notes
+  must remain absent from both the public table and the API JSON.
+- Approve a reader page-range, section-start or chant-ID report in the admin.
+  Its public row should remain visible as pending after approval and queueing,
+  and become accepted only after its correction merges. Reject an unused test
+  report and confirm it remains visible as rejected.
+- Verify equal-valued reports for distinct targets are retained, while a
+  repeat of the same pending target/field/value is acknowledged as a duplicate.
+  This behavior is covered in local D1 regression tests; if performing a live
+  check, label the test reports and reject them after review.
+
+Local browser regressions intercept the public API and use a throwaway D1
+database, so they do not submit live reports. From `web/`, after building with
+the public corrections endpoint and Turnstile site key configured:
+
+```bash
+pnpm exec playwright test e2e/corrections.e2e.ts e2e/site.e2e.ts --grep 'Corrections|Report links'
+```
 
 ## Checking it works
 
