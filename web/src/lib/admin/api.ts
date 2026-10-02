@@ -6,6 +6,8 @@
  * made it. A status change names the status it expects, so when two editors act
  * on one row the second is told who got there first (409).
  */
+import { typesetApi } from "./typesetApi";
+import type { SourceRepository } from "./typesetApi";
 import { authenticate } from "./auth";
 import type { AuthEnv, Editor } from "./auth";
 import { verifyHmac } from "./crypto";
@@ -24,6 +26,7 @@ export interface AdminEnv extends AuthEnv, GithubEnv {
 }
 
 export interface Deps {
+  readonly source?: SourceRepository;
   readonly store: Store;
   readonly targets: () => Promise<Targets>;
   /** What can be reviewed, and what each review confirms (/admin/review.json). */
@@ -97,6 +100,11 @@ function describeReview(row: Row, index: ReviewIndex | null): QueueItem {
 }
 
 function describeRow(row: Row, targets: Targets, index: ReviewIndex | null = null): QueueItem {
+  if (row.field === "source") {
+    const file = row.target?.slice(8) ?? "";
+    return { ...row,resolvedTarget:row.target,resolvedField:"source",kind:"typeset",label:targets.typeset?.[file]?.label ?? file,
+      fields:[],values:{},current:null,problem:null };
+  }
   if (row.field === "issue") {
     const file = row.target?.slice(8) ?? "";
     const t = targets.typeset?.[file];
@@ -144,12 +152,12 @@ function describeSections(row: Row, targets: Targets): QueueItem {
   };
 }
 
-async function body(request: Request): Promise<Record<string, unknown> | Response> {
+async function body(request: Request, maxBody = MAX_BODY): Promise<Record<string, unknown> | Response> {
   if (!(request.headers.get("content-type") ?? "").includes("application/json")) {
     return problem(415, "Expected application/json.");
   }
   const text = await request.text();
-  if (text.length > MAX_BODY) return problem(413, "Request body too large.");
+  if (text.length > maxBody) return problem(413, "Request body too large.");
   try {
     const parsed: unknown = JSON.parse(text || "{}");
     if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) return problem(400, "Expected a JSON object.");
@@ -219,6 +227,7 @@ async function route(request: Request, env: AdminEnv, deps: Deps): Promise<Respo
   const store = deps.store;
 
   if (request.method === "GET") {
+    if (path === "/typeset/source") return typesetApi(request,env,deps,editor,path);
     if (path === "/me") return json({ email: editor.email, owner: editor.owner, publishing: githubConfigured(env) });
     if (path === "/queue") return queue(deps);
     if (path === "/history") {
@@ -238,9 +247,10 @@ async function route(request: Request, env: AdminEnv, deps: Deps): Promise<Respo
   if ((await store.actionsSince(editor.email, 60)) >= RATE) {
     return problem(429, `Too many changes: at most ${RATE} a minute. Wait a moment and try again.`);
   }
-  const input = await body(request);
+  const input = await body(request, path.startsWith("/typeset/") ? 6 * 61440 + 2048 : MAX_BODY);
   if (input instanceof Response) return input;
 
+  if (path.startsWith("/typeset/")) return typesetApi(request,env,deps,editor,path,input);
   const rowAction = /^\/rows\/(\d{1,9})\/(approve|reject|duplicate|unapprove|resolve)$/.exec(path);
   if (rowAction) return actOnRow(deps, editor, Number(rowAction[1]), rowAction[2] as RowVerb, input);
   if (path === "/edits") return createEdit(deps, editor, input);
@@ -291,9 +301,10 @@ async function actOnRow(deps: Deps, editor: Editor, id: number, verb: RowVerb, i
   if (verb === "resolve") {
     const fixId = input["correctionId"];
     const fix = typeof fixId === "number" && Number.isSafeInteger(fixId) && fixId > 0 ? await store.get(fixId) : null;
-    if (row.source !== "reader" || row.field !== "sections" || !fix || fix.source !== "editor" ||
-        fix.field !== "sections" || fix.target !== `sections:${row.piece_id}` || !["approved", "queued"].includes(fix.status)) {
-      return problem(422, "Link this report to an approved section correction for the same piece.");
+    const same = row.field === "sections" && fix?.field === "sections" && fix.target === `sections:${row.piece_id}` ||
+      row.field === "issue" && fix?.field === "source" && fix.target === row.target;
+    if (row.source !== "reader" || !fix || fix.source !== "editor" || !same || !["approved", "queued"].includes(fix.status)) {
+      return problem(422, "Link this report to an approved correction for the same piece or music file.");
     }
     if (!await store.resolveReport(id, fix.id, editor.email)) return conflict(store, id, await store.get(id));
     await store.log(editor.email, "resolve", id, `linked correction #${fix.id}`);

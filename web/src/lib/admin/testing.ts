@@ -24,7 +24,7 @@ function statement(db: DatabaseSync, sql: string, values: SQLInputValue[] = []):
   };
 }
 
-const ALL_MIGRATIONS = ["0001_create_corrections.sql", "0002_admin_workflow.sql", "0003_reviews.sql", "0004_target_deduplication.sql", "0005_report_resolution.sql", "0006_typeset_reports.sql"];
+const ALL_MIGRATIONS = ["0001_create_corrections.sql", "0002_admin_workflow.sql", "0003_reviews.sql", "0004_target_deduplication.sql", "0005_report_resolution.sql", "0006_typeset_reports.sql", "0007_typeset_drafts.sql"];
 
 /** A fresh corrections database, migrated like the live one; `upTo` stops
  * after that many migrations (a live database not yet migrated). */
@@ -33,7 +33,20 @@ export function testDb(upTo = ALL_MIGRATIONS.length): { d1: D1Like; sqlite: Data
   for (const name of ALL_MIGRATIONS.slice(0, upTo)) {
     sqlite.exec(readFileSync(resolve(MIGRATIONS, name), "utf8"));
   }
-  return { d1: { prepare: (sql: string) => statement(sqlite, sql) }, sqlite };
+  return { d1: { prepare: (sql: string) => statement(sqlite, sql),
+    async batch<T>(statements: D1StatementLike[]) {
+      sqlite.exec("BEGIN");
+      try {
+        const results = [];
+        for (const s of statements) {
+          const result = await s.all<T>();
+          const n = sqlite.prepare("SELECT changes() AS n").get() as { n: number };
+          results.push({ ...result, meta: { changes: n.n } });
+        }
+        sqlite.exec("COMMIT"); return results;
+      } catch (error) { sqlite.exec("ROLLBACK"); throw error; }
+    },
+  }, sqlite };
 }
 
 /** A reader's report, inserted the way the Worker inserts it. */

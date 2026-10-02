@@ -8,6 +8,7 @@
 /** The part of Cloudflare's D1 binding the admin code uses. */
 export interface D1Like {
   prepare(sql: string): D1StatementLike;
+  batch<T = unknown>(statements: D1StatementLike[]): Promise<{ results?: T[]; meta?: { changes?: number } }[]>;
 }
 export interface D1StatementLike {
   bind(...values: unknown[]): D1StatementLike;
@@ -116,9 +117,11 @@ export function d1Store(db: D1Like): Store {
       const result = await db.prepare(
         "UPDATE corrections SET resolved_by = ?2, editor_email = ?3, updated_at = datetime('now') " +
         "WHERE id = ?1 AND status = 'pending' AND source = 'reader' AND resolved_by IS NULL " +
-        "AND field = 'sections' AND EXISTS (SELECT 1 FROM corrections f WHERE f.id = ?2 " +
-        "AND f.source = 'editor' AND f.status IN ('approved', 'queued') AND f.field = 'sections' " +
-        "AND f.target = 'sections:' || corrections.piece_id)",
+        "AND EXISTS (SELECT 1 FROM corrections f WHERE f.id = ?2 " +
+        "AND f.source = 'editor' AND f.status IN ('approved', 'queued') AND (" +
+        "(corrections.field='sections' AND f.field='sections' AND f.target='sections:' || corrections.piece_id) OR " +
+        "(corrections.field='issue' AND f.field='source' AND f.target=corrections.target " +
+        "AND EXISTS(SELECT 1 FROM typeset_snapshots s WHERE s.correction_id=f.id))))",
       ).bind(id, fix, email).run();
       return (result.meta?.changes ?? 0) === 1;
     },

@@ -1,0 +1,129 @@
+---
+import Layout from "../../../components/Layout.astro";
+---
+<Layout title="Admin: edit typeset source" noindex>
+  <div class="admin ui">
+    <p><a href="/admin/">Corrections</a> · <a href="/admin/typeset/">Typeset music</a></p>
+    <h1 id="title">Edit typeset source</h1>
+    <p class="small prose">Save a private draft, check its preview, then approve the edit. Approved edits wait on the corrections queue until someone publishes them.</p>
+    <p id="status" role="status" aria-live="polite">Loading source…</p>
+    <div id="scan-context"></div>
+    <div id="controls" hidden>
+      <div class="panels">
+        <section aria-labelledby="source-heading"><h2 id="source-heading">LilyPond source</h2><div id="source-editor"></div><ul id="problems"></ul></section>
+        <section aria-labelledby="preview-heading"><h2 id="preview-heading">Music preview</h2><div id="preview"><p class="small muted">Preview the saved draft to check its drawing.</p></div></section>
+      </div>
+      <div class="actions"><button id="save" type="button">Save draft</button><button id="preview-button" type="button" disabled>Preview draft</button>
+        <button id="reload" type="button">Reload saved draft</button></div>
+      <div id="conflict" class="notice" hidden>
+        <h2>Compare versions</h2><p>Your editor text is preserved. Review the latest repository source and the saved draft before using the new base.</p>
+        <label for="latest-source">Latest repository source</label><textarea id="latest-source" rows="10" readonly></textarea>
+        <label for="saved-source">Saved draft</label><textarea id="saved-source" rows="10" readonly></textarea>
+        <button id="rebase" type="button">Use the latest base for my editor text</button>
+      </div>
+      <label for="reason">Public reason</label><input id="reason" maxlength="200" placeholder="Explain the change for the published correction" />
+      <p class="small muted">This reason is public. Keep reader notes and personal details out of it.</p>
+      <button id="approve" type="button">Approve this edit</button>
+    </div>
+  </div>
+</Layout>
+<style>
+  .admin { max-width: 90rem; margin: 0 auto; } .panels { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:1.5rem; }
+  .panels section { min-width:0; } .actions { display:flex; flex-wrap:wrap; gap:.6rem; margin:1rem 0; }
+  #source-editor { border:1px solid var(--line); min-height:18rem; } #source-editor :global(.cm-scroller) { overflow:auto; max-height:36rem; }
+  textarea { width:100%; font-family:monospace; } label { display:block; margin-top:1rem; }
+  #preview :global(img), #scan-context :global(img) { max-width:100%; height:auto; }
+  @media(max-width:50rem) { .panels { grid-template-columns:1fr; } }
+</style>
+<script>
+  import { basicSetup, EditorView } from "codemirror";
+  import { EditorState } from "@codemirror/state";
+  import { scanFigures, h } from "../../../lib/admin/client";
+  import type { SourceDraft } from "../../../lib/admin/typesetStore";
+  import type { SourceProblem } from "../../../lib/admin/sourceCheck";
+  import type { Shown } from "../../../lib/admin/scans";
+  const params = new URLSearchParams(location.search), file = params.get("file") ?? "";
+  const report = Number(params.get("report"));
+  const status = document.getElementById("status")!, controls = document.getElementById("controls")!;
+  const approve = document.getElementById("approve") as HTMLButtonElement;
+  let view: EditorView, revision=0, baseBlobSha="", savedText="", busy=false;
+  let conflictCurrent: {text:string;blobSha:string} | null = null;
+  let conflictDraft: SourceDraft | null = null;
+  const say = (message:string) => { status.textContent=message; };
+  const buttons = () => {
+    document.querySelectorAll<HTMLButtonElement>('.actions button, #approve').forEach((b)=> { b.disabled=busy; });
+    (document.getElementById("preview-button") as HTMLButtonElement).disabled=true;
+    approve.disabled=busy || !revision || view?.state.doc.toString() !== savedText;
+  };
+  interface Answer { error?:string; current?:{text:string;blobSha:string}; draft?:SourceDraft|null; problems?:SourceProblem[]; id?:number }
+  async function request(path:string,body?:unknown): Promise<{ok:boolean;data:Answer}> {
+    const response=await fetch(`/admin/api/typeset/${path}`,{credentials:"same-origin",
+      ...(body === undefined ? {} : {method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)})});
+    const data=await response.json().catch(()=>({error:"Your session ended. Sign in again."})) as Answer;
+    return {ok:response.ok && !response.redirected,data};
+  }
+  function showFailure(data:Answer): void {
+    say(data.error ?? "The request failed. Try again.");
+    document.getElementById("problems")!.replaceChildren(...(data.problems ?? []).map((p)=> {
+      const button=h("button",{type:"button"},`Line ${p.line}: ${p.message}`);
+      button.addEventListener("click",()=>{ const line=view.state.doc.line(Math.min(Math.max(1,p.line),view.state.doc.lines)); view.dispatch({selection:{anchor:line.from},scrollIntoView:true}); view.focus(); });
+      return h("li",{},button);
+    }));
+    if (data.current) {
+      conflictCurrent=data.current; conflictDraft=data.draft ?? null;
+      (document.getElementById("latest-source") as HTMLTextAreaElement).value=data.current.text;
+      (document.getElementById("saved-source") as HTMLTextAreaElement).value=data.draft?.text ?? "No saved draft";
+      document.getElementById("conflict")!.hidden=false;
+    }
+  }
+  async function load(): Promise<void> {
+    busy=true; buttons();
+    try {
+      const result=await request(`source?file=${encodeURIComponent(file)}`);
+      if (!result.ok || !result.data.current) { showFailure(result.data); return; }
+      const {current,draft}=result.data; revision=draft?.revision ?? 0; baseBlobSha=draft?.baseBlobSha ?? current.blobSha; savedText=draft?.text ?? current.text;
+      if (view) view.dispatch({changes:{from:0,to:view.state.doc.length,insert:savedText}});
+      else view=new EditorView({parent:document.getElementById("source-editor")!,state:EditorState.create({doc:savedText,
+        extensions:[basicSetup,EditorView.contentAttributes.of({"aria-label":"LilyPond source"}),EditorView.updateListener.of((u)=>{if(u.docChanged) buttons();})]})});
+      controls.hidden=false; say(draft ? "Saved draft loaded." : "Repository source loaded. Save a draft before approving.");
+      if (draft && draft.baseBlobSha !== current.blobSha) showFailure({error:"The repository source changed. Compare both versions.",current,draft});
+    } catch { say("Could not load source. Check the connection and reload."); }
+    finally {busy=false; buttons();}
+  }
+  async function save(): Promise<void> {
+    busy=true; buttons(); const text=view.state.doc.toString();
+    try {
+      const result=await request("draft",{file,text,baseBlobSha,expectedRevision:revision});
+      if (!result.ok || !result.data.draft) {showFailure(result.data); return;}
+      revision=result.data.draft.revision; savedText=result.data.draft.text;
+      document.getElementById("conflict")!.hidden=true; document.getElementById("problems")!.replaceChildren(); say("Draft saved. It is private until you approve and publish it.");
+    } catch {say("Could not save. Your editor text is preserved; try again.");}
+    finally {busy=false; buttons();}
+  }
+  document.getElementById("save")!.addEventListener("click",()=>void save());
+  document.getElementById("reload")!.addEventListener("click",()=>void load());
+  document.getElementById("rebase")!.addEventListener("click",()=>{
+    if (!conflictCurrent) return; baseBlobSha=conflictCurrent.blobSha; revision=conflictDraft?.revision ?? revision;
+    document.getElementById("conflict")!.hidden=true; say("New base selected. Review your editor text, then save it explicitly.");
+  });
+  approve.addEventListener("click",async()=>{
+    busy=true; buttons();
+    try {
+      const result=await request("approve",{file,expectedRevision:revision,note:(document.getElementById("reason") as HTMLInputElement).value,
+        ...(Number.isSafeInteger(report) && report>0 ? {reportId:report} : {})});
+      if (!result.ok) showFailure(result.data);
+      else {say(`Edit #${result.data.id} approved and waiting to publish on the corrections queue.`); status.append(" ",h("a",{href:"/admin/"},"Open corrections"));}
+    } catch {say("Approval did not finish. Your saved draft is preserved; check the queue before retrying.");}
+    finally {busy=false; buttons();}
+  });
+  document.getElementById("title")!.textContent=`Edit ${file}`;
+  void fetch("/admin/typeset/context.json").then(async(r)=>{
+    if(!r.ok)return;
+    const all=await r.json() as Record<string,{title:string;scans:Shown[];error:{message:string;line:number|null}|null;candidates:{scan:Shown|null}[]}>;
+    const context=all[file]; if(!context)return;
+    const figures=scanFigures(context.scans.length ? context.scans : context.candidates.flatMap((c)=>c.scan ? [c.scan] : []),null);
+    if(figures)document.getElementById("scan-context")!.append(figures);
+    if(context.error)document.getElementById("scan-context")!.prepend(h("p",{class:"notice"},`Current error${context.error.line ? ` on line ${context.error.line}` : ""}: ${context.error.message}`));
+  }).catch(()=>{});
+  void load();
+</script>

@@ -119,6 +119,7 @@ const typesetToDo = typesetEntries().length;
 
   /** A row's value in words: a list of sections as its summary. */
   function valueText(item: QueueItem): string {
+    if (item.field === "source") return "Source edit";
     return item.field === "sections" && item.source === "editor" ? sectionsSummary(item.proposed) : item.proposed;
   }
 
