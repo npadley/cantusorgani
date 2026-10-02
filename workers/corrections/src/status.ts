@@ -11,7 +11,7 @@
  * property of the data — only of the code that happened to be running that day.
  */
 
-import { parseCorrection } from "./schema";
+import { parseStoredCorrection } from "./schema";
 
 export const STATUSES = ["pending", "accepted", "rejected"] as const;
 export type Status = (typeof STATUSES)[number];
@@ -55,9 +55,15 @@ const PUBLIC_STATUS: Readonly<Record<string, Status>> = {
 };
 
 export function toPublicRow(row: StoredRow): PublicRow | null {
-  const check = parseCorrection({
+  // Approval stores canonical admin fields. Keep the public API's reader
+  // vocabulary, including chant's different meaning on a whole piece.
+  const itemChant = row.target?.startsWith("part:") || row.target?.startsWith("pairing:") || row.target?.startsWith("vespers:");
+  const field = row.field === "printed_pages" ? "printedPages"
+    : row.field === "start_system" ? "startSystem"
+    : row.field === "chant" && itemChant ? "gregobaseId" : row.field;
+  const check = parseStoredCorrection({
     pieceId: row.piece_id,
-    field: row.field,
+    field,
     proposedValue: row.proposed,
     target: row.target ?? null,
   });
@@ -67,7 +73,7 @@ export function toPublicRow(row: StoredRow): PublicRow | null {
   if (!ISO_LIKE.test(row.created_at)) return null;
 
   // Emit the values that were validated, never the raw stored strings: if
-  // parseCorrection ever normalises, the published value must not diverge from
+  // parseStoredCorrection ever normalises, the published value must not diverge from
   // the one that passed the check.
   return {
     id: row.id,

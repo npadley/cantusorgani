@@ -152,3 +152,17 @@ describe("parseCorrection, chant pairings", () => {
                              field: "title", proposedValue: "Gloria" }).ok).toBe(false);
   });
 });
+
+describe("current keyed sections", () => {
+  it("accepts a section key up to 30 characters, rejecting longer keys and malformed targets", () => {
+    const report = (key: string) => parseCorrection({ pieceId: "ordinarium-missae-i",
+      target: `part:ordinarium-missae-i/other:${key}`, field: "gregobaseId", proposedValue: "none" });
+    expect(report("k".repeat(30)).ok).toBe(true);
+    expect(report("k".repeat(31)).ok).toBe(false);
+    expect(report("../outside").ok).toBe(false);
+  });
+
+  it("accepts proper as a catalogue genre", () => {
+    expect(parseCorrection({ ...VALID, field: "genre", proposedValue: "proper" }).ok).toBe(true);
+  });
+});

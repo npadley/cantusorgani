@@ -9,6 +9,8 @@ import { d1Store } from "./store";
 import { keyPair, piece, readerReport, targets, testDb } from "./testing";
 import type { KeyPair } from "./testing";
 import { base64UrlDecode } from "./crypto";
+import { toPublicRow } from "../../../../workers/corrections/src/status";
+import type { StoredRow } from "../../../../workers/corrections/src/status";
 
 const ORIGIN = "http://localhost:8788";
 let db: ReturnType<typeof testDb>;
@@ -84,6 +86,28 @@ async function call(method: string, path: string, body?: unknown, headers: Recor
 function statusOf(id: number): string {
   return (db.sqlite.prepare("SELECT status FROM corrections WHERE id = ?").get(id) as { status: string }).status;
 }
+
+describe("public tracking after editor approval", () => {
+  it.each([
+    ["kyrie-i", null, "printedPages", "2-3"],
+    ["dominica-i-adventus", "part:dominica-i-adventus/gradual", "startSystem", "4"],
+    ["dominica-i-adventus", "part:dominica-i-adventus/gradual", "gregobaseId", "133"],
+  ])("keeps a reader's %s %s %s report visible through publication", async (pieceId, target, field, proposed) => {
+    const id = readerReport(db.sqlite, pieceId!, field!, proposed!, "private reader source");
+    db.sqlite.prepare("UPDATE corrections SET target = ? WHERE id = ?").run(target, id);
+    const publicRow = () => toPublicRow(db.sqlite.prepare("SELECT * FROM corrections WHERE id = ?").get(id) as unknown as StoredRow);
+    expect(publicRow()).toMatchObject({ id, field, status: "pending" });
+    expect((await call("POST", `/rows/${id}/approve`, {})).status).toBe(200);
+    expect(publicRow()).toMatchObject({ id, field, status: "pending" });
+    const published = await call("POST", "/publish", {});
+    expect(published.status).toBe(200);
+    expect(publicRow()).toMatchObject({ id, field, status: "pending" });
+    await webhook("pull_request", { action: "closed", pull_request: { number: 42, merged: true,
+      merge_commit_sha: "abc1234def", head: { ref: `corrections/${published.body["batch"]}` } } });
+    expect(publicRow()).toMatchObject({ id, field, status: "accepted" });
+    expect(JSON.stringify(publicRow())).not.toContain("private reader source");
+  });
+});
 
 async function webhook(event: string, payload: unknown, secret = "hook-secret") {
   const raw = JSON.stringify(payload);

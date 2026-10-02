@@ -9,6 +9,7 @@
  * status page renders `proposedValue` — so its shape is a security property, not
  * a convenience.
  */
+import schema from "../../../data/schema/corrections.json";
 
 export type CorrectableField =
   | "title" | "incipit" | "mode" | "genre" | "printedPages" | "chant"
@@ -30,7 +31,7 @@ export const TONES = [
 /** What a report names: a piece (by its pieceId alone), one of a Proper's
  * parts, a chant paired with a movement, or a Vespers item; and the fields
  * each kind can correct. */
-export const TARGET = /^(piece:[a-z0-9-]{1,80}|part:[a-z0-9-]{1,80}\/[a-z]{3,12}(:[a-z0-9-]{1,12})?|pairing:[a-z0-9-]{1,80}\/[a-z]{3,8}|vespers:[A-Za-z0-9:.-]{1,60}\/[a-z0-9-]{1,20})$/;
+export const TARGET = /^(piece:[a-z0-9-]{1,80}|part:[a-z0-9-]{1,80}\/[a-z]{3,12}(:[a-z0-9-]{1,30})?|pairing:[a-z0-9-]{1,80}\/[a-z]{3,8}|vespers:[A-Za-z0-9:.-]{1,60}\/[a-z0-9-]{1,20})$/;
 export const FIELDS_BY_KIND: Readonly<Record<"piece" | "part" | "pairing" | "vespers", readonly CorrectableField[]>> = {
   // sections: "a part is missing or mislabelled", fixed on the admin's Sections screen.
   piece: ["title", "incipit", "mode", "genre", "printedPages", "chant", "sections"],
@@ -47,7 +48,7 @@ function literal(text: string): string {
 
 const GENRES = [
   "asperges", "mass_ordinary", "credo", "tonus", "kyrie", "gloria",
-  "sanctus", "agnus", "requiem", "absolutio", "exsequiis",
+  "sanctus", "agnus", "requiem", "absolutio", "exsequiis", "proper",
 ] as const;
 
 /** \p{L} keeps Latin diacritics (Kýrie, æternam) without opening the field up. */
@@ -110,6 +111,16 @@ function isCorrectableField(value: string): value is CorrectableField {
 }
 
 export function parseCorrection(input: unknown): ParseResult {
+  return parse(input, false);
+}
+
+/** Stored text may have been corrected by an editor using the canonical
+ * plain-text rules. This never changes the unauthenticated intake boundary. */
+export function parseStoredCorrection(input: unknown): ParseResult {
+  return parse(input, true);
+}
+
+function parse(input: unknown, stored: boolean): ParseResult {
   if (typeof input !== "object" || input === null || Array.isArray(input)) {
     return { ok: false, error: "Expected a JSON object." };
   }
@@ -136,7 +147,11 @@ export function parseCorrection(input: unknown): ParseResult {
     return { ok: false, error: "proposedValue must be a string." };
   }
   const proposedValue = normaliseValue(field, rawValue);
-  if (!PATTERNS[field].test(proposedValue)) {
+  const textRule = stored && (field === "title" || field === "incipit") ? schema.targets.piece[field] : null;
+  const valid = textRule
+    ? new RegExp(textRule.pattern).test(proposedValue) && (proposedValue.match(/\p{L}/gu)?.length ?? 0) >= textRule.min_letters
+    : PATTERNS[field].test(proposedValue);
+  if (!valid) {
     return { ok: false, error: `“${proposedValue}” is not a valid ${field}: expected ${HINTS[field]}.` };
   }
 

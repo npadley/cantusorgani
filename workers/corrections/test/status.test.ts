@@ -86,3 +86,36 @@ describe("toPublicRows", () => {
     }
   });
 });
+
+describe("canonical stored fields", () => {
+  const cases = [
+    { piece_id: "kyrie-i", target: null, field: "printed_pages", proposed: "5-10", publicField: "printedPages" },
+    { piece_id: "kyrie-i", target: "piece:kyrie-i", field: "printed_pages", proposed: "5-10", publicField: "printedPages" },
+    { piece_id: "ordinarium-missae-i", target: "part:ordinarium-missae-i/other:ite", field: "start_system", proposed: "3", publicField: "startSystem" },
+    { piece_id: "ordinarium-missae-i", target: "part:ordinarium-missae-i/other:ite", field: "chant", proposed: "123", publicField: "gregobaseId" },
+    { piece_id: "ordinarium-missae-i", target: "pairing:ordinarium-missae-i/kyrie", field: "chant", proposed: "none", publicField: "gregobaseId" },
+    { piece_id: "vespers", target: "vespers:adv1/antiphon-1", field: "chant", proposed: "123", publicField: "gregobaseId" },
+  ];
+  it.each(cases)("keeps $target $field visible through the lifecycle", ({ publicField, ...data }) => {
+    for (const [status, publicStatus] of [["approved", "pending"], ["queued", "pending"], ["accepted", "accepted"],
+                                        ["pending", "pending"], ["rejected", "rejected"]]) {
+      const row = toPublicRow({ ...ROW, ...data, status: status! });
+      expect(row).toMatchObject({ field: publicField, status: publicStatus, proposedValue: data.proposed });
+      expect(JSON.stringify(row)).not.toContain(ROW.note);
+    }
+  });
+
+  it.each(["title", "incipit"])("publishes valid editor-normalized %s using the canonical plain-text rule", (field) => {
+    expect(toPublicRow({ ...ROW, field, proposed: "Kýrie – fons bonitatis; alternate setting" })?.proposedValue)
+      .toBe("Kýrie – fons bonitatis; alternate setting");
+    expect(toPublicRow({ ...ROW, field, proposed: "A" })).toBeNull();
+    expect(toPublicRow({ ...ROW, field, proposed: "<svg onload=alert(1)>" })).toBeNull();
+    expect(toPublicRow({ ...ROW, field, proposed: "Kyrie\u0001" })).toBeNull();
+  });
+
+  it("still rejects malformed canonical values and fields on the wrong target kind", () => {
+    expect(toPublicRow({ ...ROW, field: "printed_pages", proposed: "<script>" })).toBeNull();
+    expect(toPublicRow({ ...ROW, field: "start_system", proposed: "3" })).toBeNull();
+    expect(toPublicRow({ ...ROW, piece_id: "vespers", target: "vespers:adv1/antiphon-1", field: "chant", proposed: "not a chant id" })).toBeNull();
+  });
+});
