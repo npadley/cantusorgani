@@ -243,19 +243,6 @@
   {
     "volume": "noh1",
     "piece": "ss-innocentium",
-    "kind": "part_missing",
-    "part": "gradual",
-    "variant": "",
-    "expected_incipit": "animanostrasicutpasserer",
-    "best_system": 8,
-    "ref": "noh1/0101/000",
-    "score": 0.286,
-    "key": "review:noh1/part_missing/f11612b1",
-    "fingerprint": "0a50e413964f"
-  },
-  {
-    "volume": "noh1",
-    "piece": "ss-innocentium",
     "kind": "unpaired",
     "genre": "proper",
     "title": "Ss. Innocentium",
@@ -283,19 +270,6 @@
     "title": "Dominica Infra Octavam Nativitatis",
     "key": "review:noh1/unpaired/f72ad548",
     "fingerprint": "2a56a70799ad"
-  },
-  {
-    "volume": "noh1",
-    "piece": "noh1-p82",
-    "kind": "part_missing",
-    "part": "gradual",
-    "variant": "",
-    "expected_incipit": "eccesacerdosmagnusquiind",
-    "best_system": 11,
-    "ref": "noh1/0109/005",
-    "score": 0.432,
-    "key": "review:noh1/part_missing/d5ab0e64",
-    "fingerprint": "00ebe04cdc4f"
   },
   {
     "volume": "noh1",
@@ -832,32 +806,6 @@
   {
     "volume": "noh1",
     "piece": "feria-iii-infra-hebd-i-quadragesim",
-    "kind": "part_missing",
-    "part": "gradual",
-    "variant": "",
-    "expected_incipit": "dirigaturoratiomeasicuti",
-    "best_system": null,
-    "ref": null,
-    "score": 0.0,
-    "key": "review:noh1/part_missing/8e5f613e",
-    "fingerprint": "a1ce4610ded0"
-  },
-  {
-    "volume": "noh1",
-    "piece": "feria-iii-infra-hebd-i-quadragesim",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "intesperavidominedixitue",
-    "best_system": null,
-    "ref": null,
-    "score": 0.0,
-    "key": "review:noh1/part_missing/734ed1b7",
-    "fingerprint": "318884c09bcb"
-  },
-  {
-    "volume": "noh1",
-    "piece": "feria-iii-infra-hebd-i-quadragesim",
     "kind": "unpaired",
     "genre": "proper",
     "title": "Feria III infra Hebd I Quadragesim\u00e6",
@@ -885,45 +833,6 @@
     "title": "Feria IV Quatuor Temporum Quadragesim\u00e6",
     "key": "review:noh1/unpaired/43926b89",
     "fingerprint": "724984385fbb"
-  },
-  {
-    "volume": "noh1",
-    "piece": "feria-v-infra-hebd-i-quadragesim",
-    "kind": "part_missing",
-    "part": "gradual",
-    "variant": "",
-    "expected_incipit": "custodimedomineutpupilla",
-    "best_system": 7,
-    "ref": "noh1/0216/001",
-    "score": 0.0,
-    "key": "review:noh1/part_missing/03c3d1af",
-    "fingerprint": "3b1e80045e01"
-  },
-  {
-    "volume": "noh1",
-    "piece": "feria-v-infra-hebd-i-quadragesim",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "immittetangelusdominiinc",
-    "best_system": 7,
-    "ref": "noh1/0216/001",
-    "score": 0.0,
-    "key": "review:noh1/part_missing/6294bf2d",
-    "fingerprint": "d8c434258a66"
-  },
-  {
-    "volume": "noh1",
-    "piece": "feria-v-infra-hebd-i-quadragesim",
-    "kind": "part_missing",
-    "part": "communion",
-    "variant": "",
-    "expected_incipit": "panisquemegodederocarome",
-    "best_system": 7,
-    "ref": "noh1/0216/001",
-    "score": 0.0,
-    "key": "review:noh1/part_missing/fa1056b6",
-    "fingerprint": "ed3a574037fd"
   },
   {
     "volume": "noh1",
@@ -1066,14 +975,35 @@
     "volume": "noh1",
     "piece": "feria-iii-infra-hebd-ii-quadragesim",
     "kind": "part_missing",
+    "part": "offertory",
+    "variant": "",
+    "expected_incipit": "misereremihidominesecund",
+    "best_system": 8,
+    "ref": "noh1/0241/005",
+    "score": 0.44,
+    "candidates": [
+      "noh1/0241/004",
+      "noh1/0242/002"
+    ],
+    "key": "review:noh1/part_missing/3a8d128b",
+    "fingerprint": "cf678c98c650"
+  },
+  {
+    "volume": "noh1",
+    "piece": "feria-iii-infra-hebd-ii-quadragesim",
+    "kind": "part_missing",
     "part": "communion",
     "variant": "",
     "expected_incipit": "narraboomniamirabiliatua",
-    "best_system": 13,
-    "ref": "noh1/0242/004",
-    "score": 0.35,
+    "best_system": 11,
+    "ref": "noh1/0242/002",
+    "score": 0.538,
+    "candidates": [
+      "noh1/0241/004",
+      "noh1/0242/002"
+    ],
     "key": "review:noh1/part_missing/afc99332",
-    "fingerprint": "4b88dff5a440"
+    "fingerprint": "f156e8fe4ddb"
   },
   {
     "volume": "noh1",
@@ -1475,19 +1405,6 @@
   {
     "volume": "noh1",
     "piece": "feria-iii-infra-hebd-iv-quadragesim",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "exspectansexspectavidomi",
-    "best_system": 16,
-    "ref": "noh1/0288/002",
-    "score": 0.432,
-    "key": "review:noh1/part_missing/25c275e2",
-    "fingerprint": "02a3a51cb1cf"
-  },
-  {
-    "volume": "noh1",
-    "piece": "feria-iii-infra-hebd-iv-quadragesim",
     "kind": "unpaired",
     "genre": "proper",
     "title": "Feria III infra Hebd IV Quadragesim\u00e6",
@@ -1546,32 +1463,6 @@
     "first_system": 3,
     "key": "review:noh1/starts_mid_page/0117bed2",
     "fingerprint": "228f945011b0"
-  },
-  {
-    "volume": "noh1",
-    "piece": "feria-v-infra-hebd-iv-quadragesim",
-    "kind": "part_missing",
-    "part": "gradual",
-    "variant": "",
-    "expected_incipit": "respicedomineintestament",
-    "best_system": null,
-    "ref": null,
-    "score": 0.0,
-    "key": "review:noh1/part_missing/88070d60",
-    "fingerprint": "0d00e811b36e"
-  },
-  {
-    "volume": "noh1",
-    "piece": "feria-v-infra-hebd-iv-quadragesim",
-    "kind": "part_missing",
-    "part": "communion",
-    "variant": "",
-    "expected_incipit": "dominememoraborjustitiae",
-    "best_system": 12,
-    "ref": "noh1/0293/004",
-    "score": 0.333,
-    "key": "review:noh1/part_missing/d6bb5a03",
-    "fingerprint": "f796ec0df63b"
   },
   {
     "volume": "noh1",
@@ -1761,19 +1652,6 @@
   {
     "volume": "noh1",
     "piece": "feria-iii-infra-hebd-passionis",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "sperentinteomnesquinover",
-    "best_system": 10,
-    "ref": "noh1/0313/001",
-    "score": 0.412,
-    "key": "review:noh1/part_missing/a35c2c50",
-    "fingerprint": "3b051d41af33"
-  },
-  {
-    "volume": "noh1",
-    "piece": "feria-iii-infra-hebd-passionis",
     "kind": "unpaired",
     "genre": "proper",
     "title": "Feria III infra Hebd Passionis",
@@ -1896,11 +1774,33 @@
   {
     "volume": "noh1",
     "piece": "noh1-p299",
+    "kind": "part_mismatch",
+    "part": "introit",
+    "variant": "",
+    "expected_incipit": "dominenelongefaciasauxil",
+    "best_system": 2,
+    "ref": "noh1/0326/002",
+    "score": 0.412,
+    "key": "review:noh1/part_mismatch/96684cd5",
+    "fingerprint": "3cf448cb2b44"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p299",
     "kind": "unpaired",
     "genre": "proper",
-    "title": "Dominica II Passionis seu in Palmis",
-    "key": "review:noh1/unpaired/b8406396",
-    "fingerprint": "06c8f383b037"
+    "title": "De benedictione ramorum",
+    "key": "review:noh1/unpaired/20eef390",
+    "fingerprint": "d94363977d1f"
+  },
+  {
+    "volume": "noh1",
+    "piece": "noh1-p299-2",
+    "kind": "starts_mid_page",
+    "printed_page": 299,
+    "first_system": 3,
+    "key": "review:noh1/starts_mid_page/38c9a4ed",
+    "fingerprint": "2bd4a330013f"
   },
   {
     "volume": "noh1",
@@ -1909,20 +1809,20 @@
     "part": "introit",
     "variant": "",
     "expected_incipit": "dominenelongefaciasauxil",
-    "best_system": 4,
+    "best_system": 1,
     "ref": "noh1/0327/000",
     "score": 0.45,
     "key": "review:noh1/part_mismatch/3c4533bf",
-    "fingerprint": "5920b01155e9"
+    "fingerprint": "8ed391fe1bc5"
   },
   {
     "volume": "noh1",
     "piece": "noh1-p299-2",
     "kind": "unpaired",
     "genre": "proper",
-    "title": "Dominica II Passionis seu in Palmis",
-    "key": "review:noh1/unpaired/ad62b195",
-    "fingerprint": "15bbf3f9e5f5"
+    "title": "De distributione ramorum",
+    "key": "review:noh1/unpaired/8bcbc638",
+    "fingerprint": "d06b328fdc3e"
   },
   {
     "volume": "noh1",
@@ -2156,19 +2056,6 @@
     "title": "Dominica Resurrectionis",
     "key": "review:noh2/unpaired/9c3f4790",
     "fingerprint": "e796f75c8a2e"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-ii-infra-octavam-pasch",
-    "kind": "part_missing",
-    "part": "sequence",
-    "variant": "",
-    "expected_incipit": "victimaepaschalilaudesim",
-    "best_system": 17,
-    "ref": "noh2/0042/005",
-    "score": 0.432,
-    "key": "review:noh2/part_missing/211be735",
-    "fingerprint": "72d12345e2fd"
   },
   {
     "volume": "noh2",
@@ -2446,19 +2333,6 @@
   {
     "volume": "noh2",
     "piece": "dominica-iii-post-pascha",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "laudaanimameadominumlaud",
-    "best_system": 23,
-    "ref": "noh2/0081/004",
-    "score": 0.439,
-    "key": "review:noh2/part_missing/1656b1b8",
-    "fingerprint": "5cdea43d226d"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-iii-post-pascha",
     "kind": "unpaired",
     "genre": "proper",
     "title": "Dominica III Post Pascha",
@@ -2599,19 +2473,6 @@
     "title": "Dominica post Ascensionem",
     "key": "review:noh2/unpaired/d3af0825",
     "fingerprint": "60c9762f93d7"
-  },
-  {
-    "volume": "noh2",
-    "piece": "sabbato-in-vigilia-pentecostes",
-    "kind": "part_mismatch",
-    "part": "introit",
-    "variant": "",
-    "expected_incipit": "dumsanctificatusfueroinv",
-    "best_system": 8,
-    "ref": "noh2/0108/002",
-    "score": 0.423,
-    "key": "review:noh2/part_mismatch/da38c4cc",
-    "fingerprint": "59e5395c37dc"
   },
   {
     "volume": "noh2",
@@ -3484,19 +3345,6 @@
     "first_system": 1,
     "key": "review:noh2/starts_mid_page/ea20f1d6",
     "fingerprint": "fb167f776761"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xviii-post-pentecosten",
-    "kind": "part_missing",
-    "part": "alleluia",
-    "variant": "",
-    "expected_incipit": "alleluiaijvtimebuntgente",
-    "best_system": 14,
-    "ref": "noh2/0263/003",
-    "score": 0.0,
-    "key": "review:noh2/part_missing/ef809c2d",
-    "fingerprint": "0a53efa063a9"
   },
   {
     "volume": "noh2",
@@ -6137,25 +5985,14 @@
   },
   {
     "volume": "noh3",
-    "piece": "in-exaltatione-sanct-crucis",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "In Exaltatione Sanct\u00e6 crucis",
-    "key": "review:noh3/unpaired/3e216599",
-    "fingerprint": "70fbf1700935"
-  },
-  {
-    "volume": "noh3",
     "piece": "s-nominis-beat-mari-virginis",
-    "kind": "part_missing",
-    "part": "alleluia",
-    "variant": "",
-    "expected_incipit": "alleluiaijvpostpartumvir",
-    "best_system": null,
-    "ref": null,
-    "score": 0.0,
-    "key": "review:noh3/part_missing/3860af8a",
-    "fingerprint": "b071080844eb"
+    "kind": "no_systems",
+    "printed_pages": [
+      344,
+      344
+    ],
+    "key": "review:noh3/no_systems/bea698fb",
+    "fingerprint": "bea698fba9a8"
   },
   {
     "volume": "noh3",
@@ -6165,6 +6002,28 @@
     "title": "S. Nominis Beat\u00e6 Mari\u00e6 Virginis",
     "key": "review:noh3/unpaired/3c626df8",
     "fingerprint": "77347cecdd17"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-exaltatione-sanct-crucis",
+    "kind": "part_missing",
+    "part": "alleluia",
+    "variant": "",
+    "expected_incipit": "alleluiavdulcelignumdulc",
+    "best_system": null,
+    "ref": null,
+    "score": 0.0,
+    "key": "review:noh3/part_missing/348d9167",
+    "fingerprint": "e79c74e7109b"
+  },
+  {
+    "volume": "noh3",
+    "piece": "in-exaltatione-sanct-crucis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Exaltatione Sanct\u00e6 crucis",
+    "key": "review:noh3/unpaired/3e216599",
+    "fingerprint": "70fbf1700935"
   },
   {
     "volume": "noh3",
@@ -6974,28 +6833,19 @@
   {
     "volume": "noh4",
     "piece": "commune-confessoris-pontificis-alia-missa",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "veritasmeaetmisericordia",
-    "best_system": 23,
-    "ref": "noh4/0101/000",
-    "score": 0.381,
-    "key": "review:noh4/part_missing/075a1a63",
-    "fingerprint": "d0d130203541"
-  },
-  {
-    "volume": "noh4",
-    "piece": "commune-confessoris-pontificis-alia-missa",
-    "kind": "part_missing",
-    "part": "communion",
-    "variant": "",
-    "expected_incipit": "beatusservusquemcumvener",
-    "best_system": 25,
-    "ref": "noh4/0101/002",
-    "score": 0.353,
-    "key": "review:noh4/part_missing/3aa19051",
-    "fingerprint": "5c68e099d8a4"
+    "kind": "unverified_pairing",
+    "part": "gradual",
+    "variant": "words",
+    "expected_incipit": "sacerdotesejusinduamsalu",
+    "best_system": 10,
+    "ref": "noh4/0098/005",
+    "score": 0.737,
+    "candidates": [
+      "noh4/0098/005"
+    ],
+    "chant_id": 415,
+    "key": "review:noh4/unverified_pairing/0d458583",
+    "fingerprint": "1d90374cbe25"
   },
   {
     "volume": "noh4",
@@ -7045,19 +6895,6 @@
     "title": "Commune Confessoris non Pontificis",
     "key": "review:noh4/unpaired/9a8caab9",
     "fingerprint": "87e56548faef"
-  },
-  {
-    "volume": "noh4",
-    "piece": "commune-confessoris-non-pontificis-alia-missa",
-    "kind": "part_missing",
-    "part": "alleluia",
-    "variant": "",
-    "expected_incipit": "alleluiaijvbeatusvirquit",
-    "best_system": 12,
-    "ref": "noh4/0115/000",
-    "score": 0.182,
-    "key": "review:noh4/part_missing/87b48f99",
-    "fingerprint": "12653e654a31"
   },
   {
     "volume": "noh4",
@@ -7207,19 +7044,6 @@
     "first_system": 3,
     "key": "review:noh4/starts_mid_page/e51744d1",
     "fingerprint": "f22b754fbc2e"
-  },
-  {
-    "volume": "noh4",
-    "piece": "commune-non-virginum-pro-nec-virgine-nec-martyre",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "diffusaestgratiainlabiis",
-    "best_system": 23,
-    "ref": "noh4/0156/002",
-    "score": 0.383,
-    "key": "review:noh4/part_missing/d1de914f",
-    "fingerprint": "58ba58c2499b"
   },
   {
     "volume": "noh4",
@@ -9773,15 +9597,6 @@
   {
     "volume": "noh8",
     "piece": "vesperae-dominica-infra-octavam-corporis-christi",
-    "kind": "starts_mid_page",
-    "printed_page": 152,
-    "first_system": 3,
-    "key": "review:noh8/starts_mid_page/e31a9e52",
-    "fingerprint": "e71e356fbcf4"
-  },
-  {
-    "volume": "noh8",
-    "piece": "vesperae-dominica-infra-octavam-corporis-christi",
     "kind": "unpaired",
     "genre": "proper",
     "title": "Dominica infra Octavam Corporis Christi",
@@ -10458,11 +10273,47 @@
   {
     "volume": "noh1",
     "kind": "part_borrowed_unresolved",
+    "piece": "feria-v-infra-hebd-passionis",
+    "part": "communion",
+    "printed_page": 242,
+    "key": "review:noh1/part_borrowed_unresolved/24d01a05",
+    "fingerprint": "24d01a056f5b"
+  },
+  {
+    "volume": "noh1",
+    "kind": "part_borrowed_unresolved",
+    "piece": "dominica-iv-post-pentecosten",
+    "part": "gradual",
+    "printed_page": 194,
+    "key": "review:noh1/part_borrowed_unresolved/142d7219",
+    "fingerprint": "142d7219e486"
+  },
+  {
+    "volume": "noh1",
+    "kind": "part_borrowed_unresolved",
+    "piece": "dominica-v-post-pentecosten",
+    "part": "gradual",
+    "printed_page": 196,
+    "key": "review:noh1/part_borrowed_unresolved/062c94f3",
+    "fingerprint": "062c94f32085"
+  },
+  {
+    "volume": "noh1",
+    "kind": "part_borrowed_unresolved",
     "piece": "dominica-v-post-pentecosten",
     "part": "offertory",
     "printed_page": 212,
     "key": "review:noh1/part_borrowed_unresolved/7dee49bd",
     "fingerprint": "7dee49bd2319"
+  },
+  {
+    "volume": "noh1",
+    "kind": "part_borrowed_unresolved",
+    "piece": "dominica-vi-post-pentecosten",
+    "part": "gradual",
+    "printed_page": 197,
+    "key": "review:noh1/part_borrowed_unresolved/ad96c584",
+    "fingerprint": "ad96c584543e"
   },
   {
     "volume": "noh1",
@@ -10474,6 +10325,15 @@
     "fingerprint": "766550fb6840"
   },
   {
+    "volume": "noh1",
+    "kind": "part_borrowed_unresolved",
+    "piece": "feria-vi-quattuor-temporum-septembris",
+    "part": "gradual",
+    "printed_page": 197,
+    "key": "review:noh1/part_borrowed_unresolved/24b03e51",
+    "fingerprint": "24b03e51a5cc"
+  },
+  {
     "volume": "noh2",
     "kind": "part_borrowed_unresolved",
     "piece": "sabbato-quattuor-temporum-septembris",
@@ -10481,6 +10341,15 @@
     "printed_page": 199,
     "key": "review:noh2/part_borrowed_unresolved/f71a0c09",
     "fingerprint": "f71a0c09837f"
+  },
+  {
+    "volume": "noh2",
+    "kind": "part_borrowed_unresolved",
+    "piece": "sabbato-quattuor-temporum-septembris",
+    "part": "offertory",
+    "printed_page": 200,
+    "key": "review:noh2/part_borrowed_unresolved/6714221f",
+    "fingerprint": "6714221f93ab"
   },
   {
     "volume": "noh4",
@@ -10530,6 +10399,15 @@
   {
     "volume": "noh4",
     "kind": "part_borrowed_unresolved",
+    "piece": "s-agnetis-virginis-et-martyris",
+    "part": "communion",
+    "printed_page": 1,
+    "key": "review:noh4/part_borrowed_unresolved/30d242cd",
+    "fingerprint": "30d242cd0d0b"
+  },
+  {
+    "volume": "noh4",
+    "kind": "part_borrowed_unresolved",
     "piece": "s-ignatii-episcopi-et-martyris",
     "part": "tract",
     "printed_page": 7,
@@ -10553,15 +10431,6 @@
     "printed_page": 45,
     "key": "review:noh4/part_borrowed_unresolved/428ce183",
     "fingerprint": "428ce183ccee"
-  },
-  {
-    "volume": "noh3",
-    "kind": "part_borrowed_unresolved",
-    "piece": "ss-septem-fundat-ord-servorum-b-m-v",
-    "part": "communion",
-    "printed_page": 203,
-    "key": "review:noh3/part_borrowed_unresolved/a0214e79",
-    "fingerprint": "a0214e79e9e6"
   },
   {
     "volume": "noh3",
@@ -10609,15 +10478,6 @@
     "fingerprint": "0c3dbadc98af"
   },
   {
-    "volume": "noh3",
-    "kind": "part_borrowed_unresolved",
-    "piece": "ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum",
-    "part": "communion",
-    "printed_page": 39,
-    "key": "review:noh3/part_borrowed_unresolved/05de7b24",
-    "fingerprint": "05de7b2453eb"
-  },
-  {
     "volume": "noh1",
     "kind": "part_borrowed_unresolved",
     "piece": "s-bonifatii-episc-et-mart",
@@ -10625,6 +10485,15 @@
     "printed_page": 212,
     "key": "review:noh1/part_borrowed_unresolved/baf879c8",
     "fingerprint": "baf879c891b5"
+  },
+  {
+    "volume": "noh3",
+    "kind": "part_borrowed_unresolved",
+    "piece": "in-vigilia-ss-petri-et-pauli-apostolorum",
+    "part": "gradual",
+    "printed_page": 20,
+    "key": "review:noh3/part_borrowed_unresolved/5b385927",
+    "fingerprint": "5b385927e0f5"
   },
   {
     "volume": "noh4",
@@ -10645,6 +10514,24 @@
     "fingerprint": "85401c37e47f"
   },
   {
+    "volume": "noh3",
+    "kind": "part_borrowed_unresolved",
+    "piece": "s-camilli-de-lellis-confessoris",
+    "part": "offertory",
+    "printed_page": 84,
+    "key": "review:noh3/part_borrowed_unresolved/bd48a401",
+    "fingerprint": "bd48a401f1c4"
+  },
+  {
+    "volume": "noh3",
+    "kind": "part_borrowed_unresolved",
+    "piece": "s-ignatii-confessoris",
+    "part": "offertory",
+    "printed_page": 80,
+    "key": "review:noh3/part_borrowed_unresolved/b0674dce",
+    "fingerprint": "b0674dcef427"
+  },
+  {
     "volume": "noh4",
     "kind": "part_borrowed_unresolved",
     "piece": "s-joachim-confessoris-patris-b-mari-virginis",
@@ -10656,29 +10543,47 @@
   {
     "volume": "noh3",
     "kind": "part_borrowed_unresolved",
-    "piece": "s-nominis-beat-mari-virginis",
+    "piece": "in-exaltatione-sanct-crucis",
+    "part": "introit",
+    "printed_page": 170,
+    "key": "review:noh3/part_borrowed_unresolved/e530db99",
+    "fingerprint": "e530db99ba0f"
+  },
+  {
+    "volume": "noh3",
+    "kind": "part_borrowed_unresolved",
+    "piece": "in-exaltatione-sanct-crucis",
     "part": "communion",
     "printed_page": 174,
-    "key": "review:noh3/part_borrowed_unresolved/e6bc4980",
-    "fingerprint": "e6bc49802e85"
+    "key": "review:noh3/part_borrowed_unresolved/223bcaa5",
+    "fingerprint": "223bcaa5d6f3"
   },
   {
     "volume": "noh4",
     "kind": "part_borrowed_unresolved",
-    "piece": "commune-virginum-pro-virgine-et-martyre",
-    "part": "alleluia",
-    "printed_page": 92,
-    "key": "review:noh4/part_borrowed_unresolved/90d5e6d5",
-    "fingerprint": "90d5e6d5cc85"
+    "piece": "impressionis-stigmatum-s-francisci",
+    "part": "gradual",
+    "printed_page": 7,
+    "key": "review:noh4/part_borrowed_unresolved/ddb81003",
+    "fingerprint": "ddb8100354d1"
   },
   {
     "volume": "noh4",
     "kind": "part_borrowed_unresolved",
-    "piece": "commune-virginum-pro-virgine-tantum",
-    "part": "alleluia",
-    "printed_page": 110,
-    "key": "review:noh4/part_borrowed_unresolved/250a21d2",
-    "fingerprint": "250a21d29dd2"
+    "piece": "commune-confessoris-non-pontificis-alia-missa",
+    "part": "gradual",
+    "printed_page": 74,
+    "key": "review:noh4/part_borrowed_unresolved/c31d8be2",
+    "fingerprint": "c31d8be27a92"
+  },
+  {
+    "volume": "noh4",
+    "kind": "part_borrowed_unresolved",
+    "piece": "commune-non-virginum-pro-nec-virgine-nec-martyre",
+    "part": "gradual",
+    "printed_page": 119,
+    "key": "review:noh4/part_borrowed_unresolved/3ee2385f",
+    "fingerprint": "3ee2385f97bd"
   },
   {
     "volume": "noh3",
@@ -10690,22 +10595,40 @@
     "fingerprint": "7898b4165ac0"
   },
   {
-    "volume": "noh4",
+    "volume": "noh1",
     "kind": "part_borrowed_unresolved",
-    "piece": "feria-v-missa-de-spiritu-sancto",
+    "piece": "missa-de-sancta-maria-in-sabbato-ab-adventu-usque-ad-nativitatem",
     "part": "gradual",
-    "printed_page": 218,
-    "key": "review:noh4/part_borrowed_unresolved/a8891e81",
-    "fingerprint": "a8891e814a4f"
+    "printed_page": 18,
+    "key": "review:noh1/part_borrowed_unresolved/ff54a20e",
+    "fingerprint": "ff54a20e26a6"
   },
   {
-    "volume": "noh4",
+    "volume": "noh2",
     "kind": "part_borrowed_unresolved",
-    "piece": "feria-v-missa-de-ss-eucharistiae-sacramento",
-    "part": "offertory",
-    "printed_page": 126,
-    "key": "review:noh4/part_borrowed_unresolved/e1121b71",
-    "fingerprint": "e1121b715544"
+    "piece": "missa-pro-eligendo-summo-pontifice",
+    "part": "gradual",
+    "printed_page": 43,
+    "key": "review:noh2/part_borrowed_unresolved/2492b3e1",
+    "fingerprint": "2492b3e13435"
+  },
+  {
+    "volume": "noh1",
+    "kind": "part_borrowed_unresolved",
+    "piece": "missa-pro-remissione-peccatorum",
+    "part": "gradual",
+    "printed_page": 194,
+    "key": "review:noh1/part_borrowed_unresolved/7af88a02",
+    "fingerprint": "7af88a02e47d"
+  },
+  {
+    "volume": "noh1",
+    "kind": "part_borrowed_unresolved",
+    "piece": "missa-contra-paganos",
+    "part": "communion",
+    "printed_page": 249,
+    "key": "review:noh1/part_borrowed_unresolved/948db9fd",
+    "fingerprint": "948db9fd7e55"
   },
   {
     "volume": "noh1",
@@ -10715,20 +10638,5 @@
     "printed_page": 234,
     "key": "review:noh1/part_borrowed_unresolved/a029f4db",
     "fingerprint": "a029f4dbb3ff"
-  },
-  {
-    "volume": "noh3",
-    "piece": "s-nominis-beat-mari-virginis",
-    "kind": "no_systems",
-    "printed_pages": [
-      344,
-      344
-    ],
-    "pdf_pages": [
-      377,
-      377
-    ],
-    "key": "review:noh3/no_systems/de6b4914",
-    "fingerprint": "de6b4914ad57"
   }
 ]
