@@ -1,6 +1,6 @@
 # Complete public review and invited-editor typesetting
 
-Status: proposed written design, awaiting review. This updates the source-editor
+Status: approved by the user on October 2, 2026. This updates the source-editor
 stage of `origin/feat/typesetting-2ykxyb`'s September 28 design and plan against
 current main and the corrections compatibility branch. It does not replace the
 existing corrections Worker, admin queue, rendering pipeline or publication flow.
