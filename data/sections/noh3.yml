@@ -665,7 +665,8 @@ s-bartholom-i-apostoli:
 - {kind: offertory, borrowed_volume: noh3, borrowed_page: 8, borrowed_from: s-andre-apostoli, borrowed_ref: noh3/0041/004,
   chant: none}
 - {kind: communion, label: Comm., title: Vos qui secuti, ref: noh3/0372/003, chant: 97}
-s-catharina-senensis-virgine:
+# p. 162: the Solemnity of St Joseph (St Catherine, p. 161, has only "Missa. Dilexisti").
+in-solemnitate-s-joseph:
 - {kind: introit, label: Intr., title: Adjutor et protector, ref: noh3/0195/000, chant: none}
 - {kind: alleluia, n: 1, title: De quacumque tribulatione, ref: noh3/0196/001, chant: none}
 - {kind: alleluia, n: 2, title: Fac nos innocuam, ref: noh3/0197/000, chant: none}

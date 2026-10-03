@@ -218,19 +218,19 @@ feria-iv-missa-de-ss-apostolis-petro-et-paulo:
 - {kind: communion, borrowed_volume: noh3, borrowed_page: 96, borrowed_from: s-matthi-apostoli, borrowed_ref: noh3/0129/000,
   chant: none}
 feria-iv-missa-de-s-joseph:
-- {kind: introit, borrowed_volume: noh3, borrowed_page: 162, borrowed_from: s-catharina-senensis-virgine, borrowed_ref: noh3/0195/000,
+- {kind: introit, borrowed_volume: noh3, borrowed_page: 162, borrowed_from: in-solemnitate-s-joseph, borrowed_ref: noh3/0195/000,
   chant: none}
 - {kind: gradual, borrowed_volume: noh4, borrowed_page: 86, borrowed_from: commune-confessoris-non-pontificis-missa-pro-abbatibus,
   borrowed_ref: noh4/0117/000, chant: none}
-- {kind: alleluia, borrowed_volume: noh3, borrowed_page: 164, borrowed_from: s-catharina-senensis-virgine, borrowed_ref: noh3/0197/000,
+- {kind: alleluia, borrowed_volume: noh3, borrowed_page: 164, borrowed_from: in-solemnitate-s-joseph, borrowed_ref: noh3/0197/000,
   chant: none}
 - {kind: tract, borrowed_volume: noh4, borrowed_page: 14, borrowed_from: commune-unius-martyris-pontificis-alia-missa,
   borrowed_ref: noh4/0045/004, chant: none}
-- {kind: alleluia, variant: paschal, borrowed_volume: noh3, borrowed_page: 163, borrowed_from: s-catharina-senensis-virgine,
+- {kind: alleluia, variant: paschal, borrowed_volume: noh3, borrowed_page: 163, borrowed_from: in-solemnitate-s-joseph,
   borrowed_ref: noh3/0196/001, chant: none}
-- {kind: offertory, borrowed_volume: noh3, borrowed_page: 165, borrowed_from: s-catharina-senensis-virgine, borrowed_ref: noh3/0198/001,
+- {kind: offertory, borrowed_volume: noh3, borrowed_page: 165, borrowed_from: in-solemnitate-s-joseph, borrowed_ref: noh3/0198/001,
   chant: none}
-- {kind: communion, borrowed_volume: noh3, borrowed_page: 166, borrowed_from: s-catharina-senensis-virgine, borrowed_ref: noh3/0199/000,
+- {kind: communion, borrowed_volume: noh3, borrowed_page: 166, borrowed_from: in-solemnitate-s-joseph, borrowed_ref: noh3/0199/000,
   chant: none}
 missa-de-sancta-maria-in-sabbato-ab-adventu-usque-ad-nativitatem:
 - {kind: introit, label: Intr. I, title: Rorate caeli… Benedixisti, ref: noh4/0207/002, chant: 161}
@@ -341,3 +341,21 @@ commune-martyrum-tempore-paschali-de-pluribus-martyribus:
 - {kind: alleluia, variant: paschal-2, title: Pretiosa, ref: noh4/0068/004, chant: none}
 - {kind: offertory, label: Offert., title: Laetamini in Domino, ref: noh4/0069/004, chant: 870}
 - {kind: communion, title: Gaudete cum alleluia, ref: noh4/0070/003, chant: 772}
+# p. 300, checked against the scan 2026-10-03: Mary Help of Christians prints no
+# music, only these citations (the music below its heading is St Joan of Arc's).
+b-m-v-auxilium-christianorum:
+- {kind: introit, title: Salve sancta Parens, borrowed_volume: noh4, borrowed_page: 182, borrowed_from: missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum,
+  borrowed_ref: noh4/0215/004, chant: 1140}
+- {kind: alleluia, variant: paschal, title: Virga Jesse, borrowed_volume: noh4, borrowed_page: 180, borrowed_from: missa-de-sancta-maria-in-sabbato-a-purificatione-usque-ad-pascha,
+  borrowed_ref: noh4/0213/000, chant: 281}
+- {kind: alleluia, key: paschal-ave-maria, label: 'Paschal Alleluia: Ave Maria', title: Ave Maria, borrowed_volume: noh4,
+  borrowed_page: 175, borrowed_from: missa-de-sancta-maria-in-sabbato-ab-adventu-usque-ad-nativitatem, borrowed_ref: noh4/0208/004,
+  chant: 1209}
+- {kind: gradual, title: Benedicta et venerabilis, borrowed_volume: noh4, borrowed_page: 184, borrowed_from: missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum,
+  borrowed_ref: noh4/0217/000, chant: 392}
+- {kind: alleluia, title: Post partum, borrowed_volume: noh4, borrowed_page: 185, borrowed_from: missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum,
+  borrowed_ref: noh4/0218/003, chant: 127}
+- {kind: offertory, title: Ave Maria, borrowed_volume: noh4, borrowed_page: 186, borrowed_from: missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum,
+  borrowed_ref: noh4/0219/004, chant: 843}
+- {kind: communion, title: Beata viscera, borrowed_volume: noh4, borrowed_page: 187, borrowed_from: missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum,
+  borrowed_ref: noh4/0220/005, chant: 160}

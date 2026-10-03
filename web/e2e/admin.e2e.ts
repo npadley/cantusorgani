@@ -177,13 +177,13 @@ test.describe("Review, by kind", () => {
     const total = Number((await page.locator("[data-count=fix]").textContent()) ?? "0");
     expect(counts.reduce((a, b) => a + b, 0)).toBe(total);
 
-    const chosen = kinds.filter({ hasText: "Chant link not confirmed" });
+    const chosen = kinds.filter({ hasText: "No music found for this piece" });
     const n = Number(/\((\d+)\)$/.exec((await chosen.textContent()) ?? "")?.[1] ?? 0);
     await chosen.click();
     await expect(chosen).toHaveAttribute("aria-pressed", "true");
-    await expect(page.getByLabel("Kind")).toHaveValue("unverified_pairing");
+    await expect(page.getByLabel("Kind")).toHaveValue("no_systems");
     await expect(page.locator("#shown")).toHaveText(`${n} shown`);
-    await expect(page.locator("#items article:visible h3").first()).toContainText("Chant link not confirmed");
+    await expect(page.locator("#items article:visible h3").first()).toContainText("No music found for this piece");
 
     // Another group has other kinds: the choice is dropped, not left showing nothing.
     await page.getByLabel(/^To check against the scan/).check();

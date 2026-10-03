@@ -9,7 +9,11 @@ const romanVolumes: Record<string, string> = { I: "noh1", II: "noh2", III: "noh3
 export function massSources(piece: Piece, pieces: readonly Piece[] = allPieces(), seen = new Set<string>()): readonly Piece[] {
   if (seen.has(piece.slug)) return [];
   const reference = piece.reference ?? "";
-  if (!/(?:^Missa\b|\b(?:dicitur|resumitur)\s+Missa\b|^Dicitur Missa\b|^Omnia\b)/i.test(reference)) return [];
+  // Whole-Mass sources the index records outright (reference_sources) need no
+  // wording to recognise: "Extra Tempus Paschale Missa. Statuit, p. 3. Tempore
+  // autem Paschali Missa. Protexisti, p. 29." starts with neither "Missa" nor "Omnia".
+  const recorded = (piece.referenceSources?.length ?? 0) > 0;
+  if (!recorded && !/(?:^Missa\b|\b(?:dicitur|resumitur)\s+Missa\b|^Dicitur Missa\b|^Omnia\b)/i.test(reference)) return [];
   const next = new Set(seen).add(piece.slug);
   const citations = piece.referenceSources?.length ? piece.referenceSources : [];
   if (citations.length === 0) {

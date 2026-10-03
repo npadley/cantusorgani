@@ -2,6 +2,138 @@
   "schema_version": 1,
   "corrections": [
     {
+      "id": "c-0082",
+      "target": "piece:vesperae-in-festo-pentecostes",
+      "field": "system_range",
+      "was": [
+        "noh8/0165/001",
+        "noh8/0169/000"
+      ],
+      "value": [
+        "noh8/0163/000",
+        "noh8/0169/000"
+      ],
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
+      "id": "c-0068",
+      "target": "part:s-raph-lis-archangeli/tract",
+      "field": "chant",
+      "was": null,
+      "value": 671,
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
+      "id": "c-0067",
+      "target": "part:s-margarit-mari-alaquoque-virginis/tract",
+      "field": "chant",
+      "was": null,
+      "value": 63,
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
+      "id": "c-0066",
+      "target": "part:s-theresiae-a-jesu-infante-virginis/tract",
+      "field": "chant",
+      "was": null,
+      "value": 739,
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
+      "id": "c-0065",
+      "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/tract",
+      "field": "chant",
+      "was": null,
+      "value": 437,
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
+      "id": "c-0064",
+      "target": "part:s-antonii-mari-zaccaria-confessoris/tract",
+      "field": "chant",
+      "was": null,
+      "value": 928,
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
+      "id": "c-0063",
+      "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/tract",
+      "field": "chant",
+      "was": null,
+      "value": 502,
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
+      "id": "c-0062",
+      "target": "part:in-purificatione-beat-mari-virginis/other:3",
+      "field": "chant",
+      "was": null,
+      "value": 1311,
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
+      "id": "c-0061",
+      "target": "part:noh2-p133/offertory:2",
+      "field": "chant",
+      "was": null,
+      "value": 319,
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
+      "id": "c-0060",
+      "target": "part:noh2-p133/tract",
+      "field": "chant",
+      "was": null,
+      "value": 1244,
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
+      "id": "c-0059",
+      "target": "part:noh1-p302/other:8",
+      "field": "chant",
+      "was": null,
+      "value": 1051,
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
+      "id": "c-0058",
+      "target": "part:noh1-p302/other:4",
+      "field": "chant",
+      "was": null,
+      "value": 901,
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
+      "id": "c-0057",
+      "target": "part:noh1-p104/tract",
+      "field": "chant",
+      "was": null,
+      "value": 1153,
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
+      "id": "c-0047",
+      "target": "pairing:cantus-ad-libitum-kyrie-xi/kyrie",
+      "field": "chant",
+      "was": 2982,
+      "value": 2614,
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
       "id": "c-0029",
       "target": "typeset:vol-1/co_fili_quid_fecisti.csv.ly",
       "field": "match",
@@ -23,7 +155,7 @@
       "id": "c-0027",
       "target": "typeset:vol-1/an_coeperunt_omnes_turbae.csv.ly",
       "field": "match",
-      "was": null,
+      "was": "part:noh1-p302/other:4",
       "value": "part:noh1-p302/other:4",
       "date": "2026-10-02",
       "by": "editor"

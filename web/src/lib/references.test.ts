@@ -14,6 +14,16 @@ describe("printed Mass references", () => {
     expect(massSources({ ...jerome(), volume: "noh4", reference: "Missa. In medio Ecclesiae, p. 71." })[0]?.slug)
       .toBe("commune-doctorum");
   });
+  it("uses the whole-Mass sources the index records, whatever the rubric's opening words", () => {
+    // NOH4 p. 272: "Extra Tempus Paschale Missa. Statuit, p. 3. Tempore autem Paschali Missa. Protexisti, p. 29."
+    const gregory = pieceBySlug("s-gregorii-episcopi-majoris-armeniae-et-martyris")!;
+    const found = massSources(gregory);
+    expect(found).toHaveLength(2);
+    expect(found.map((p) => p.title)).toEqual([expect.stringMatching(/Statuit — outside Eastertide$/),
+                                               expect.stringMatching(/Protexisti — during Eastertide$/)]);
+    expect(found.every((p) => p.systems.length > 0)).toBe(true);
+    expect(massSources({ ...gregory, referenceSources: [] })).toEqual([]);   // the wording alone is not a whole Mass
+  });
   it("follows a whole-Mass reference chain and stops cycles", () => {
     const first = { ...jerome(), slug: "first", id: "first", volume: "noh4", printedPages: [1, 1] as const,
       reference: "Missa. In medio Ecclesiae, p. 2." };
