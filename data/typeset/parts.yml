@@ -6143,10 +6143,19 @@
     words: 0.993
     name: Respice Domine
 - file: vol-2/in_respice_in_me.csv.ly
-  target: null
-  status: broken
+  target: part:dominica-iii-post-pentecosten/introit
+  status: matched
   evidence:
-    error: 'line 99:38: error: not a note name: bess'
+    by: page
+    incipit: Respice in me et miserére mei Dómine quóniam
+    page: 144
+    candidates:
+    - target: part:dominica-iii-post-pentecosten/introit
+      melody: 0.964
+      words: 0.992
+    melody: 0.964
+    words: 0.992
+    name: Respice in me
 - file: vol-2/in_resurrexi.csv.ly
   target: part:dominica-resurrectionis/introit
   status: matched
@@ -6588,10 +6597,19 @@
     words: 0.987
     name: Intonuit de caelo
 - file: vol-2/of_lauda_anima.csv.ly
-  target: null
-  status: broken
+  target: part:feria-vi-quattuor-temporum-pentecostes/offertory
+  status: matched
   evidence:
-    error: 'line 76:1: error: syntax error, unexpected ''\'''''
+    by: page
+    incipit: Lau da ánima me a Dóminum laudábo Dó
+    page: 97
+    candidates:
+    - target: part:feria-vi-quattuor-temporum-pentecostes/offertory
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Lauda anima mea
 - file: vol-2/of_meditabor_cum_alleluia.csv.ly
   target: null
   status: broken
@@ -7001,10 +7019,19 @@
     words: null
     name: Dicite in gentibus
 - file: vol-3/al_dispersit.csv.ly
-  target: null
-  status: broken
+  target: part:s-hieronymi-emiliani-confessoris/alleluia
+  status: matched
   evidence:
-    error: 'line 69:25: error: syntax error, unexpected ''\'''''
+    by: page
+    incipit: Alle lúia alle lúia ℣ Dispér sit dedit
+    page: 277
+    candidates:
+    - target: part:s-hieronymi-emiliani-confessoris/alleluia
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Dispersit
 - file: vol-3/al_ecce_quam_bonum.csv.ly
   target: part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia:paschal
   status: proposed
@@ -7431,10 +7458,19 @@
     melody: 0.634
     words: 0.45
 - file: vol-3/al_sapientiam.csv.ly
-  target: null
-  status: broken
+  target: part:ss-septem-fundat-ord-servorum-b-m-v/alleluia
+  status: matched
   evidence:
-    error: 'line 89:2: error: undefined character or shorthand: ;'
+    by: page
+    incipit: Allelú ia allelú ia ℣ Sapiéntiam ipsó rum
+    page: 91
+    candidates:
+    - target: part:ss-septem-fundat-ord-servorum-b-m-v/alleluia
+      melody: 0.989
+      words: 1.0
+    melody: 0.989
+    words: 1.0
+    name: Sapientiam ipsorum
 - file: vol-3/al_si_filii.csv.ly
   target: part:s-pauli-a-cruce-confessoris/alleluia:2
   status: matched
@@ -8545,10 +8581,19 @@
     words: 1.0
     name: Aquae multae
 - file: vol-3/gr_benedicite_dominum.csv.ly
-  target: null
-  status: broken
+  target: part:in-dedicatione-s-mich-lis-archangelis/gradual
+  status: matched
   evidence:
-    error: 'line 56:29: error: unknown command: `\normal'''
+    by: page
+    incipit: Bene dícite Dóminum omnes Angeli e jus poténtes
+    page: 356
+    candidates:
+    - target: part:in-dedicatione-s-mich-lis-archangelis/gradual
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Benedicite Dominum omnes Angeli
 - file: vol-3/gr_communicantes.csv.ly
   target: part:s-bonifatii-episc-et-mart/gradual
   status: matched
