@@ -309,34 +309,36 @@
     melody: null
     words: null
 - file: vol-1/an_ave_rex_noster.csv.ly
-  target: part:noh1-p302/other:7
-  status: proposed
+  target: part:noh1-p302/other:8
+  status: matched
   evidence:
     by: page
     incipit: A ve Rex no ster Fili David Red
     page: 309
     candidates:
+    - target: part:noh1-p302/other:8
+      melody: 1.0
+      words: 1.0
     - target: part:noh1-p302/other:7
       melody: 0.157
       words: 0.254
-    - target: part:noh1-p302/other:8
-      melody: null
-      words: null
-    melody: 0.157
-    words: 0.254
+    melody: 1.0
+    words: 1.0
+    name: Ave Rex noster
 - file: vol-1/an_coeperunt_omnes_turbae.csv.ly
   target: part:noh1-p302/other:4
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Cœpérunt omnes turbæ descendéntium gaudéntes laudáre Deum voce
     page: 304
     candidates:
     - target: part:noh1-p302/other:4
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Coeperunt omnes turbae
 - file: vol-1/an_cum_angelis.csv.ly
   target: part:noh1-p302/other:3
   status: proposed
@@ -378,8 +380,8 @@
       melody: 1.0
       words: 1.0
     - target: part:noh1-p302/other:8
-      melody: null
-      words: null
+      melody: 0.516
+      words: 0.408
     melody: 1.0
     words: 1.0
     name: Fulgentibus palmis
@@ -2074,10 +2076,10 @@
     page: 305
     candidates:
     - target: part:noh1-p302/other:4
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 0.767
+      words: 0.438
+    melody: 0.767
+    words: 0.438
 - file: vol-1/hy_gloria_laus.3.csv.ly
   target: part:noh1-p302/other:4
   status: proposed
@@ -2087,10 +2089,10 @@
     page: 305
     candidates:
     - target: part:noh1-p302/other:4
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 0.767
+      words: 0.239
+    melody: 0.767
+    words: 0.239
 - file: vol-1/hy_gloria_laus.4.csv.ly
   target: part:noh1-p302/other:4
   status: proposed
@@ -2100,10 +2102,10 @@
     page: 305
     candidates:
     - target: part:noh1-p302/other:4
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 0.767
+      words: 0.406
+    melody: 0.767
+    words: 0.406
 - file: vol-1/hy_gloria_laus.5.csv.ly
   target: part:noh1-p302/other:4
   status: proposed
@@ -2113,10 +2115,10 @@
     page: 305
     candidates:
     - target: part:noh1-p302/other:4
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 0.767
+      words: 0.5
+    melody: 0.767
+    words: 0.5
 - file: vol-1/hy_gloria_laus.6.csv.ly
   target: part:noh1-p302/other:4
   status: proposed
@@ -2126,10 +2128,10 @@
     page: 305
     candidates:
     - target: part:noh1-p302/other:4
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 0.767
+      words: 0.463
+    melody: 0.767
+    words: 0.463
 - file: vol-1/in_ad_te_levavi.csv.ly
   target: part:dominica-i-adventus/introit
   status: matched
@@ -6501,17 +6503,18 @@
     name: Exspectans
 - file: vol-2/of_holocaustum.csv.ly
   target: part:noh2-p133/offertory:2
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Holocáustum et pro peccáto non postulá sti tunc
     page: 142
     candidates:
     - target: part:noh2-p133/offertory:2
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Holocaustum
 - file: vol-2/of_illumina.csv.ly
   target: part:dominica-iv-post-pentecosten/offertory
   status: matched
@@ -6823,17 +6826,18 @@
     name: Victimae paschali
 - file: vol-2/tr_misericors_et_miserator.csv.ly
   target: part:noh2-p133/tract
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Miséricors et miserátor Dóminus longánimis et mul tum
     page: 137
     candidates:
     - target: part:noh2-p133/tract
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 0.988
+    melody: 1.0
+    words: 0.988
+    name: Misericors et miserator
 - file: vol-3/al_assumpta_est.csv.ly
   target: part:in-assumptione-beat-mari-virginis/alleluia
   status: matched
@@ -6977,14 +6981,14 @@
     words: 1.0
     name: De excelso
 - file: vol-3/al_de_quacumque.csv.ly
-  target: part:s-catharina-senensis-virgine/alleluia:1
+  target: part:in-solemnitate-s-joseph/alleluia:1
   status: matched
   evidence:
     by: page
     incipit: Allelúia allelúia ℣ De quacúmque tribulatió ne clamáverint
     page: 163
     candidates:
-    - target: part:s-catharina-senensis-virgine/alleluia:1
+    - target: part:in-solemnitate-s-joseph/alleluia:1
       melody: null
       words: null
     melody: null
@@ -7589,17 +7593,18 @@
     name: Virgo Dei Genitrix
 - file: vol-3/an_adorna.csv.ly
   target: part:in-purificatione-beat-mari-virginis/other:3
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Adórna thálamum tuum Si on et súscipe Regem
     page: 64
     candidates:
     - target: part:in-purificatione-beat-mari-virginis/other:3
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 0.996
+    melody: 1.0
+    words: 0.996
+    name: Adorna thalamum
 - file: vol-3/an_exsurge_domine.csv.ly
   target: part:in-purificatione-beat-mari-virginis/other:2
   status: matched
@@ -7707,8 +7712,8 @@
       melody: 0.387
       words: 0.188
     - target: part:in-purificatione-beat-mari-virginis/other:3
-      melody: null
-      words: null
+      melody: 0.288
+      words: 0.435
     melody: 0.387
     words: 0.188
 - file: vol-3/co_beata_viscera.csv.ly
@@ -8099,14 +8104,14 @@
     words: 1.0
     name: Infirmus fui
 - file: vol-3/co_jacob_autem.csv.ly
-  target: part:s-catharina-senensis-virgine/communion
+  target: part:in-solemnitate-s-joseph/communion
   status: matched
   evidence:
     by: page
     incipit: Jacob autem génuit Joseph virum Maríæ de qua
     page: 166
     candidates:
-    - target: part:s-catharina-senensis-virgine/communion
+    - target: part:in-solemnitate-s-joseph/communion
       melody: null
       words: null
     melody: null
@@ -8858,14 +8863,14 @@
     words: 0.984
     name: Adeamus
 - file: vol-3/in_adjutor.csv.ly
-  target: part:s-catharina-senensis-virgine/introit
+  target: part:in-solemnitate-s-joseph/introit
   status: matched
   evidence:
     by: page
     incipit: Adjútor et protéctor noster est Dóminus in eo
     page: 162
     candidates:
-    - target: part:s-catharina-senensis-virgine/introit
+    - target: part:in-solemnitate-s-joseph/introit
       melody: null
       words: null
     melody: null
@@ -10202,12 +10207,12 @@
     - target: part:s-pauli-a-cruce-confessoris/tract
       melody: 0.796
       words: 0.277
+    - target: part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/tract
+      melody: 0.773
+      words: 0.289
     - target: part:in-conversione-s-pauli-apostoli/tract
       melody: 0.754
       words: 0.306
-    - target: part:s-justini-martyris/tract
-      melody: 0.754
-      words: 0.168
     melody: 0.872
     words: 0.249
 - file: vol-3/tr_christo_igitur.csv.ly
@@ -10230,17 +10235,18 @@
     words: null
 - file: vol-3/tr_cor_meum.csv.ly
   target: part:s-margarit-mari-alaquoque-virginis/tract
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Cor me um et ca ro mea exsultavé
     page: 396
     candidates:
     - target: part:s-margarit-mari-alaquoque-virginis/tract
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Cor meum
 - file: vol-3/tr_fortitudo_mea.csv.ly
   target: part:s-joannis-a-capistrano-confessoris/tract
   status: matched
@@ -10257,17 +10263,18 @@
     name: Fortitudo mea
 - file: vol-3/tr_laudate__omnes_angeli.csv.ly
   target: part:s-raph-lis-archangeli/tract
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Laudá te Dó minum omnes Angeli e jus
     page: 411
     candidates:
     - target: part:s-raph-lis-archangeli/tract
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Laudate... omnes Angeli
 - file: vol-3/tr_non_judicavi.csv.ly
   target: null
   status: broken
@@ -10559,9 +10566,9 @@
     page: 138
     candidates:
     - target: piece:cantus-ad-libitum-kyrie-xi
-      melody: 0.108
+      melody: 1.0
       words: 1.0
-    melody: 0.108
+    melody: 1.0
     words: 1.0
     name: kyrie_ad_libitum_XI
 - file: vol-5/ad-libitum/sanctus_ad_libitum_I.ly

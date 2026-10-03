@@ -45,28 +45,6 @@
    ]
   },
   {
-   "file": "vol-1/an_ave_rex_noster.csv.ly",
-   "status": "proposed",
-   "target": "part:noh1-p302/other:7",
-   "hash": "9536f6ced3bd35b35c8bf63d26f35028",
-   "melody": 0.157,
-   "words": 0.254,
-   "incipit": "A ve Rex no ster Fili David Red",
-   "page": 309,
-   "candidates": [
-    {
-     "target": "part:noh1-p302/other:7",
-     "melody": 0.157,
-     "words": 0.254
-    },
-    {
-     "target": "part:noh1-p302/other:8",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
    "file": "vol-1/an_cum_angelis.csv.ly",
    "status": "proposed",
    "target": "part:noh1-p302/other:3",
@@ -216,13 +194,15 @@
    "status": "proposed",
    "target": "part:noh1-p302/other:4",
    "hash": "b1f05de2a8cbdb09451609b240e20e95",
+   "melody": 0.767,
+   "words": 0.438,
    "incipit": "Israel es tu Rex Davídis et ínclyta proles",
    "page": 305,
    "candidates": [
     {
      "target": "part:noh1-p302/other:4",
-     "melody": null,
-     "words": null
+     "melody": 0.767,
+     "words": 0.438
     }
    ]
   },
@@ -231,13 +211,15 @@
    "status": "proposed",
    "target": "part:noh1-p302/other:4",
    "hash": "56f9c5a149e66cfd264e53175b599f94",
+   "melody": 0.767,
+   "words": 0.239,
    "incipit": "Cœtus in excélsis te laudat cœ́licus omnis Et",
    "page": 305,
    "candidates": [
     {
      "target": "part:noh1-p302/other:4",
-     "melody": null,
-     "words": null
+     "melody": 0.767,
+     "words": 0.239
     }
    ]
   },
@@ -246,13 +228,15 @@
    "status": "proposed",
    "target": "part:noh1-p302/other:4",
    "hash": "aa6486e4a42ca9f4a5964c209d3016c0",
+   "melody": 0.767,
+   "words": 0.406,
    "incipit": "3 Plebs Hebrǽa tibi cum palmis óbvia venit",
    "page": 305,
    "candidates": [
     {
      "target": "part:noh1-p302/other:4",
-     "melody": null,
-     "words": null
+     "melody": 0.767,
+     "words": 0.406
     }
    ]
   },
@@ -261,13 +245,15 @@
    "status": "proposed",
    "target": "part:noh1-p302/other:4",
    "hash": "1a22a2cd533fcd82bc1e1715fd24b5fb",
+   "melody": 0.767,
+   "words": 0.5,
    "incipit": "Hi tibi passúro solvébant múnia laudis Nos tibi",
    "page": 305,
    "candidates": [
     {
      "target": "part:noh1-p302/other:4",
-     "melody": null,
-     "words": null
+     "melody": 0.767,
+     "words": 0.5
     }
    ]
   },
@@ -276,13 +262,15 @@
    "status": "proposed",
    "target": "part:noh1-p302/other:4",
    "hash": "16471a09d6fa929217a3e74433c4288d",
+   "melody": 0.767,
+   "words": 0.463,
    "incipit": "5 Hi placuére tibi pláceat devótio nostra Rex",
    "page": 305,
    "candidates": [
     {
      "target": "part:noh1-p302/other:4",
-     "melody": null,
-     "words": null
+     "melody": 0.767,
+     "words": 0.463
     }
    ]
   },
@@ -930,21 +918,6 @@
    ]
   },
   {
-   "file": "vol-2/of_holocaustum.csv.ly",
-   "status": "proposed",
-   "target": "part:noh2-p133/offertory:2",
-   "hash": "3aa4507a750157e448cb5585414614e5",
-   "incipit": "Holocáustum et pro peccáto non postulá sti tunc",
-   "page": 142,
-   "candidates": [
-    {
-     "target": "part:noh2-p133/offertory:2",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
    "file": "vol-2/of_meditabor_cum_alleluia.csv.ly",
    "status": "broken",
    "target": null,
@@ -1000,21 +973,6 @@
      "b2 a2 fis2 gis4 ~ \\finalis"
     ]
    }
-  },
-  {
-   "file": "vol-2/tr_misericors_et_miserator.csv.ly",
-   "status": "proposed",
-   "target": "part:noh2-p133/tract",
-   "hash": "8a54d312f6949c24363a8f3597512074",
-   "incipit": "Miséricors et miserátor Dóminus longánimis et mul tum",
-   "page": 137,
-   "candidates": [
-    {
-     "target": "part:noh2-p133/tract",
-     "melody": null,
-     "words": null
-    }
-   ]
   },
   {
    "file": "vol-3/al_beata_es.csv.ly",
@@ -1417,21 +1375,6 @@
    }
   },
   {
-   "file": "vol-3/an_adorna.csv.ly",
-   "status": "proposed",
-   "target": "part:in-purificatione-beat-mari-virginis/other:3",
-   "hash": "4de2b307d800cb98aed3c54f2eae989e",
-   "incipit": "Adórna thálamum tuum Si on et súscipe Regem",
-   "page": 64,
-   "candidates": [
-    {
-     "target": "part:in-purificatione-beat-mari-virginis/other:3",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
    "file": "vol-3/an_lumen_ad_revelationem.2.csv.ly",
    "status": "proposed",
    "target": "part:s-ignatii-episcopi-et-martyris/communion",
@@ -1536,8 +1479,8 @@
     },
     {
      "target": "part:in-purificatione-beat-mari-virginis/other:3",
-     "melody": null,
-     "words": null
+     "melody": 0.288,
+     "words": 0.435
     }
    ]
   },
@@ -2109,14 +2052,14 @@
      "words": 0.277
     },
     {
+     "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/tract",
+     "melody": 0.773,
+     "words": 0.289
+    },
+    {
      "target": "part:in-conversione-s-pauli-apostoli/tract",
      "melody": 0.754,
      "words": 0.306
-    },
-    {
-     "target": "part:s-justini-martyris/tract",
-     "melody": 0.754,
-     "words": 0.168
     }
    ]
   },
@@ -2149,36 +2092,6 @@
    "candidates": [
     {
      "target": "part:s-joannis-leonardi-confessoris/tract",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
-   "file": "vol-3/tr_cor_meum.csv.ly",
-   "status": "proposed",
-   "target": "part:s-margarit-mari-alaquoque-virginis/tract",
-   "hash": "29d309a035b188a646eefc0d03758f24",
-   "incipit": "Cor me um et ca ro mea exsultavé",
-   "page": 396,
-   "candidates": [
-    {
-     "target": "part:s-margarit-mari-alaquoque-virginis/tract",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
-   "file": "vol-3/tr_laudate__omnes_angeli.csv.ly",
-   "status": "proposed",
-   "target": "part:s-raph-lis-archangeli/tract",
-   "hash": "52f07d8223c6a1f421925a90f696aebb",
-   "incipit": "Laudá te Dó minum omnes Angeli e jus",
-   "page": 411,
-   "candidates": [
-    {
-     "target": "part:s-raph-lis-archangeli/tract",
      "melody": null,
      "words": null
     }
