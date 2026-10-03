@@ -270,11 +270,13 @@ feria-ii-infra-hebd-ii-quadragesim:
 - {kind: communion, label: Comm. II, title: Domine Dominus noster, ref: noh1/0240/000, chant: 998}
 feria-ii-infra-hebd-iv-quadragesim:
 - {kind: introit, label: Intr. IV, title: Deus in nomine tuo, ref: noh1/0283/004, chant: 458}
+- {kind: communion, title: Ab occultis meis, ref: noh1/0285/000, chant: 1316}
 - {kind: tract, borrowed_volume: noh1, borrowed_page: 160, borrowed_from: noh1-p156, borrowed_ref: noh1/0187/002,
   chant: 425}
 - {kind: offertory, borrowed_volume: noh1, borrowed_page: 116, borrowed_from: noh1-p112, borrowed_ref: noh1/0143/002,
   chant: 718}
-- {kind: communion, title: Ab occultis meis, ref: noh1/0285/000, chant: 1316}
+- {kind: gradual, title: Esto mihi, borrowed_volume: noh2, borrowed_page: 167, borrowed_from: dominica-viii-post-pentecosten,
+  borrowed_ref: noh2/0199/003, chant: none}
 feria-v-infra-hebd-i-quadragesim:
 - {kind: introit, label: Intr., title: Confessio, ref: noh1/0215/000, chant: 956}
 - {kind: gradual, borrowed_volume: noh2, borrowed_page: 178, borrowed_from: dominica-x-post-pentecosten, borrowed_ref: noh2/0210/000,
@@ -301,3 +303,96 @@ feria-iii-infra-hebd-passionis:
 - {kind: offertory, borrowed_volume: noh2, borrowed_page: 148, borrowed_from: dominica-iii-post-pentecosten, borrowed_ref: noh2/0180/000,
   chant: none}
 - {kind: communion, label: Comm. VII, title: Redime me, ref: noh1/0313/003, chant: 433}
+dominica-infra-octavam-nativitatis:
+- {kind: introit, label: Intr. VI, title: Dum medium silentium, ref: noh1/0104/000, chant: 564}
+- {kind: gradual, label: Grad., title: Speciosus, ref: noh1/0105/003, chant: 1308}
+- {kind: alleluia, title: Dominus regnavit decorem, ref: noh1/0106/002, chant: 714}
+- {kind: communion, label: Comm. VII, title: Tolle puerum, ref: noh1/0107/003, chant: 1282}
+- {kind: offertory, title: Deus enim firmavit, borrowed_volume: noh1, borrowed_page: 58, borrowed_from: noh1-p54,
+  borrowed_ref: noh1/0084/003, chant: none}
+noh1-p86:
+- {kind: alleluia, title: Multifarie olim, ref: noh1/0112/000, chant: 863}
+- {kind: introit, title: Puer natus est, borrowed_volume: noh1, borrowed_page: 60, borrowed_from: noh1-p60, borrowed_ref: noh1/0086/000,
+  chant: none}
+- {kind: gradual, title: Viderunt, borrowed_volume: noh1, borrowed_page: 61, borrowed_from: noh1-p60, borrowed_ref: noh1/0087/002,
+  chant: none}
+feria-ii-infra-hebd-passionis:
+- {kind: introit, label: Intr., title: Miserere mihi, ref: noh1/0308/002, chant: 138}
+- {kind: gradual, label: Grad., title: Deus exaudi, ref: noh1/0309/001, chant: 621}
+- {kind: communion, label: Comm. II, title: Dominus virtutum, ref: noh1/0311/000, chant: 81}
+- {kind: tract, borrowed_volume: noh1, borrowed_page: 160, borrowed_from: noh1-p156, borrowed_ref: noh1/0187/002,
+  chant: 425}
+- {kind: offertory, title: Domine convertere, borrowed_volume: noh2, borrowed_page: 132, borrowed_from: dominica-ii-post-pentecosten,
+  borrowed_ref: noh2/0164/000, chant: none}
+noh1-p156:
+- {kind: introit, label: Intr. I, title: Misereris omnium, ref: noh1/0183/005, chant: 533}
+- {kind: gradual, label: Grad., title: Miserere mei Deus, ref: noh1/0185/003, chant: 754}
+- {kind: tract, label: Tract., title: Domine non secundum, ref: noh1/0187/002, chant: 425}
+- {kind: offertory, label: Offert. II, title: Exaltabo te, ref: noh1/0189/004, chant: none}
+- {kind: communion, label: Comm. III, title: Qui meditabitur, ref: noh1/0190/003, chant: 582}
+feria-vi-post-cineres:
+- {kind: introit, label: Intr. VII, title: Audivit Dominus, ref: noh1/0191/000, chant: 45}
+- {kind: gradual, label: Grad., title: Unam petii, ref: noh1/0192/001, chant: 229}
+- {kind: offertory, label: Offert. III, title: Domine vivifica me, ref: noh1/0193/003, chant: none}
+- {kind: communion, label: Comm. V, title: Servite Domino, ref: noh1/0194/000, chant: none}
+- {kind: tract, title: Domine non secundum, borrowed_volume: noh1, borrowed_page: 160, borrowed_from: noh1-p156,
+  borrowed_ref: noh1/0187/002, chant: none}
+feria-iii-infra-hebd-iii-quadragesim:
+- {kind: introit, label: Intr., title: Ego clamavi, ref: noh1/0263/000, chant: 558}
+- {kind: gradual, label: Grad. II, title: Ab occultis, ref: noh1/0264/004, chant: none}
+- {kind: communion, label: Comm. VI, title: Domine quis habitabit, ref: noh1/0266/003, chant: 1340}
+- {kind: offertory, title: Dextera Domini, borrowed_volume: noh1, borrowed_page: 130, chant: none}
+s-joannis-apostoli-et-evangelist:
+- {kind: gradual, label: Grad. V, title: Exiit sermo, ref: noh1/0096/004, chant: 702}
+- {kind: alleluia, title: Hic est discipulus, ref: noh1/0098/000, chant: 914}
+- {kind: communion, label: Comm., title: Exiit sermo, ref: noh1/0099/000, chant: 781}
+- {kind: introit, borrowed_volume: noh4, borrowed_page: 71, borrowed_from: commune-doctorum, borrowed_ref: noh4/0102/000,
+  chant: 233}
+- {kind: offertory, title: Justus ut palma, borrowed_volume: noh4, borrowed_page: 76, chant: none}
+feria-ii-infra-hebd-i-quadragesim:
+- {kind: introit, label: Intr. IV, title: Sicut oculi, ref: noh1/0207/000, chant: 1330}
+- {kind: offertory, label: Offert., title: Levabo oculos, ref: noh1/0208/003, chant: 1060}
+- {kind: communion, label: Comm., title: Amen dico vobis quod uni, ref: noh1/0209/003, chant: 623}
+- {kind: gradual, title: Protector noster, borrowed_volume: noh1, borrowed_page: 196, chant: none}
+- {kind: tract, title: Domine non secundum, borrowed_volume: noh1, borrowed_page: 160, chant: none}
+feria-vi-quattuor-temporum-quadragesim:
+- {kind: introit, label: Intr. IV, title: De necessitatibus, ref: noh1/0216/002, chant: 100}
+- {kind: gradual, label: Grad., title: Salvum fac servum, ref: noh1/0217/005, chant: 1117}
+- {kind: offertory, label: Offert. V, title: Benedic anima mea, ref: noh1/0218/005, chant: 1359}
+- {kind: communion, label: Comm. IV, title: Erubescant et conturbentur, ref: noh1/0219/004, chant: 484}
+- {kind: tract, title: Domine non secundum, borrowed_volume: noh1, borrowed_page: 160, chant: none}
+feria-iv-infra-hebd-ii-quadragesim:
+- {kind: introit, label: Intr. VII, title: Ne derelinquas me, ref: noh1/0243/000, chant: 323}
+- {kind: gradual, label: Grad. VII, title: Salvum fac populum, ref: noh1/0244/002, chant: 296}
+- {kind: tract, title: Domine non secundum, ref: noh1/0246/000, chant: 425}
+- {kind: communion, label: Comm. V, title: Justus Dominus, ref: noh1/0246/001, chant: 268}
+- {kind: offertory, title: Ad te Domine levavi, borrowed_volume: noh1, borrowed_page: 6, chant: none}
+feria-iv-infra-hebd-iii-quadragesim:
+- {kind: introit, label: Intr., title: Ego autem in, ref: noh1/0267/001, chant: 1049}
+- {kind: gradual, label: Grad. VII, title: Miserere mihi, ref: noh1/0268/003, chant: 562}
+- {kind: offertory, label: Offert. IV, title: Domine fac mecum, ref: noh1/0269/005, chant: none}
+- {kind: communion, label: Comm. VII, title: Notas mihi fecisti, ref: noh1/0270/003, chant: 531}
+- {kind: tract, title: Domine non secundum, borrowed_volume: noh1, borrowed_page: 160, chant: none}
+feria-iv-infra-hebd-passionis:
+- {kind: introit, label: Intr., title: Liberator meus, ref: noh1/0314/000, chant: 1054}
+- {kind: gradual, label: Grad., title: Exaltabo te, ref: noh1/0315/002, chant: 277}
+- {kind: offertory, label: Offert., title: Eripe me de inimicis, ref: noh1/0318/002, chant: 245}
+- {kind: communion, label: Comm. VIII, title: Lavabo, ref: noh1/0319/002, chant: 141}
+- {kind: tract, title: Domine non secundum, borrowed_volume: noh1, borrowed_page: 160, chant: none}
+feria-vi-infra-hebd-passionis:
+- {kind: introit, label: Intr., title: Miserere mihi, ref: noh1/0321/004, chant: 267}
+- {kind: gradual, label: Grad. V, title: Pacifice loquebantur, ref: noh1/0323/000, chant: 819}
+- {kind: offertory, label: Offert., title: Benedictus es, ref: noh1/0324/001, chant: 408}
+- {kind: communion, label: Comm. VII, title: Ne tradideris me, ref: noh1/0325/000, chant: 1158}
+- {kind: tract, title: Domine non secundum, borrowed_volume: noh1, borrowed_page: 160, chant: none}
+feria-ii-hebdomad-sanct:
+- {kind: introit, label: Intr. V, title: Judica Domine, ref: noh1/0353/000, chant: 226}
+- {kind: gradual, label: Grad., title: Exsurge, ref: noh1/0354/001, chant: 783}
+- {kind: offertory, label: Offert. II, title: Eripe me de inimicis, ref: noh1/0356/000, chant: 411}
+- {kind: communion, label: Comm. VII, title: Erubescant et revereantur, ref: noh1/0357/000, chant: 196}
+- {kind: tract, title: Domine non secundum, borrowed_volume: noh1, borrowed_page: 160, chant: none}
+feria-iii-hebdomad-sanct:
+- {kind: gradual, label: Grad. III, title: Ego autem, ref: noh1/0357/004, chant: none}
+- {kind: offertory, label: Offert. I, title: Custodi me, ref: noh1/0360/000, chant: 1322}
+- {kind: communion, label: Comm. V, title: Adversum me, ref: noh1/0360/004, chant: 397}
+- {kind: introit, title: Nos autem gloriari, borrowed_volume: noh1, borrowed_page: 344, chant: none}

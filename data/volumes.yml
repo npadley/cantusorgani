@@ -57,6 +57,10 @@ volumes:
     index_pdf_pages: [476, 477, 478, 479]
     first_body_pdf_page: 34
     last_body_pdf_page: 475   # 480-499 are addenda with their own pagination
+    # A leaf inserted after p. 376, printed "375 a" and "376 a" (PDF 410-411): the end
+    # of the Rosary feast's Alleluia and its Offertory, In me gratia.
+    inserts:
+      - {after_printed: 376, first_pdf: 410, last_pdf: 411, label: "375 a-376 a"}
     # p. 107 (PDF 140): the first treble staff loses lines and was sliced as a lone
     # bass staff; fitted as on faint print.
     staff_finder:
