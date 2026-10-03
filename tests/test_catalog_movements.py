@@ -62,6 +62,28 @@ def test_attach_hymns_to_the_office_printing_them(tmp_path, monkeypatch):
     assert [r["kind"] for r in review] == ["hymn_at_page_top", "hymn_unplaced"]
 
 
+def test_attach_hymns_a_system_placed_by_hand_wins_and_a_bad_one_is_refused(monkeypatch):
+    from types import SimpleNamespace
+
+    from pipeline import catalog, pagesplit
+    from pipeline.offset import PageMap, Segment
+
+    monkeypatch.setattr(catalog, "analyse_page", lambda _v, _p: SimpleNamespace(boxes=[], page_height=3000))
+    monkeypatch.setattr(catalog, "system_texts", lambda _v, _p: ["", "", ""])
+    monkeypatch.setattr(pagesplit, "first_system", lambda _reader, _title: 0)
+    monkeypatch.setattr(pagesplit.GapReader, "__init__", lambda self, *a, **k: None)
+    page_map = PageMap((Segment(31, 343, 30),))
+    pieces = [{"slug": "epiphany", "systems": ["noh8/0123/000", "noh8/0123/001", "noh8/0123/002"]}]
+    review: list[dict[str, object]] = []
+    catalog.attach_hymns("noh8", page_map, pieces, review, [
+        {"title": "Crudelis Herodes", "page": 93, "system": 2, "status": "verified"}])
+    assert pieces[0]["hymns"] == [{"title": "Crudelis Herodes", "ref": "noh8/0123/002", "printed_page": 93}]
+    assert review == []
+    with pytest.raises(ValueError, match="system 7 is not on p. 93"):
+        catalog.attach_hymns("noh8", page_map, [{"slug": "e", "systems": ["noh8/0123/000"]}], [], [
+            {"title": "Crudelis Herodes", "page": 93, "system": 7}])
+
+
 def test_load_hymns_from_the_index(tmp_path):
     from pipeline.catalog import load_hymns
     path = tmp_path / "index-noh8.yml"
