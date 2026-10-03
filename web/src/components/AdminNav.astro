@@ -33,6 +33,30 @@ const links = [
   .admin-nav a[aria-current="page"] { font-weight: 600; color: var(--ink); text-decoration-thickness: 2px; }
   .admin-nav li[hidden] { display: none; }
   .admin-nav .publish a { font-weight: 600; }
+
+  /* Shared by every admin page (each includes this navigation). */
+  :global(.admin .primary) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  :global(.admin .primary:disabled) { background: var(--paper); color: var(--ink-muted); border-color: var(--rule); }
+  :global(.admin button.link) { background: none; border: 0; padding: 0; min-height: var(--tap-min); color: var(--accent);
+    text-decoration: underline; cursor: pointer; font: inherit; }
+  /* The notice bar (client.ts): the last outcome, with Undo, in view whatever the scroll. */
+  :global(.admin-notice) { position: fixed; z-index: 10; left: 50%; bottom: var(--s-3); transform: translateX(-50%);
+    width: max-content; max-width: min(42rem, calc(100% - 2 * var(--s-3))); display: flex; flex-wrap: wrap;
+    align-items: center; gap: var(--s-2) var(--s-3); padding: var(--s-2) var(--s-3); border-radius: var(--radius);
+    background: var(--ink); color: var(--paper); box-shadow: 0 2px 8px rgb(0 0 0 / 0.25); }
+  :global(.admin-notice[hidden]) { display: none; }
+  /* Clicks pass through the bar to the page beneath, except on its own buttons; and
+     scrolling to a control leaves room for the bar, so it never hides what is pressed. */
+  :global(.admin-notice) { pointer-events: none; }
+  :global(.admin-notice button) { pointer-events: auto; }
+  :global(html:has(#admin-notice:not([hidden]))) { scroll-padding-bottom: 6rem; }
+  :global(body:has(#admin-notice:not([hidden]))) { padding-bottom: 6rem; }
+  :global(.admin-notice .dismiss) { font: inherit; min-height: var(--tap-min); min-width: var(--tap-min); padding: 0;
+    background: transparent; color: inherit; border: 0; cursor: pointer; }
+  :global(.admin-notice[data-state="error"]) { background: var(--warn-bg); color: var(--warn-ink); border: 1px solid var(--warn-ink); }
+  :global(.admin-notice[data-state="error"]::before) { content: "Error: "; font-weight: 600; }
+  :global(.admin-notice .undo) { font: inherit; font-weight: 600; min-height: var(--tap-min); padding: 0 var(--s-3);
+    background: transparent; color: inherit; border: 1px solid currentColor; border-radius: var(--radius); cursor: pointer; }
 </style>
 
 <script>

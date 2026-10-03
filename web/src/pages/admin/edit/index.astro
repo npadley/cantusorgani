@@ -12,6 +12,7 @@ import Layout from "../../../components/Layout.astro";
     <AdminNav current="edit" />
     <p class="who small muted" id="who">Admin</p>
     <h1>Make a correction</h1>
+    <p class="small" id="back-to-review" hidden><a href="/admin/review/">← Back to Review</a></p>
     <p class="muted small prose">Your fix is approved straight away and waits with the others until someone presses{" "}
       <strong>Publish changes</strong> on the <a href="/admin/">Admin</a> page.</p>
 
@@ -53,7 +54,8 @@ import Layout from "../../../components/Layout.astro";
         <input id="note" name="note" type="text" maxlength="200" placeholder="e.g. as printed on p. 3" />
       </div>
 
-      <button type="submit" class="primary" id="save">Approve this correction</button>
+      <button type="submit" class="primary" id="save" aria-describedby="save-hint">Approve this correction</button>
+      <p class="small muted" id="save-hint"></p>
       <div id="status" class="status small" role="status" aria-live="polite"></div>
     </form>
   </div>
@@ -98,6 +100,14 @@ import Layout from "../../../components/Layout.astro";
 
   const status = document.getElementById("status");
   const form = document.getElementById("edit-form") as HTMLFormElement;
+  // Opened by Correct on a Review item: the way back to it.
+  const opened = new URLSearchParams(location.search);
+  const fromReview = opened.get("from") === "review" ? opened.get("item") : null;
+  if (fromReview) {
+    const back = document.getElementById("back-to-review")!;
+    back.querySelector("a")!.href = `/admin/review/?at=${encodeURIComponent(fromReview)}`;
+    back.hidden = false;
+  }
   const pieceSelect = document.getElementById("piece") as HTMLSelectElement;
   const partRow = document.getElementById("part-row") as HTMLElement;
   const partSelect = document.getElementById("part") as HTMLSelectElement;
@@ -128,6 +138,17 @@ import Layout from "../../../components/Layout.astro";
       ? notFor(field, chosen.genre, chosen.kind) ?? (field === "start_system" ? chosen.fixed ?? startNote(chosen) : "") : "";
     if (fillValue) value.value = drafts.get(draftKey()) ?? now;
     showScans();
+    syncSave();
+  }
+
+  /** Approve only a change: the value as typed must differ from what it is now. */
+  function syncSave(): void {
+    const save = document.getElementById("save") as HTMLButtonElement;
+    const hint = document.getElementById("save-hint")!;
+    const now = (chosen?.values[fieldSelect.value] ?? "").trim();
+    const same = !chosen || value.value.trim() === now;
+    save.disabled = same;
+    hint.textContent = !chosen ? "Choose what to correct first." : same ? "Change the value above to approve it." : "";
   }
 
   function setFields(info: TargetInfo | null): void {
@@ -194,7 +215,7 @@ import Layout from "../../../components/Layout.astro";
   partSelect.addEventListener("change", () => choose(partSelect.value));
   document.getElementById("target-change")?.addEventListener("click", () => { choose(null); pieceSelect.focus(); });
   fieldSelect.addEventListener("change", () => showCurrent(true));
-  value.addEventListener("input", () => drafts.set(draftKey(), value.value));
+  value.addEventListener("input", () => { drafts.set(draftKey(), value.value); syncSave(); });
   value.addEventListener("input", whenTypingPauses(showScans));
 
   form.addEventListener("submit", async (event) => {
@@ -204,7 +225,7 @@ import Layout from "../../../components/Layout.astro";
     save.disabled = true;
     const result = await api<{ id: number; warning?: string; fix?: Fix }>("/edits", { target: chosen.target, field: fieldSelect.value,
                                                          value: value.value, note: note.value });
-    save.disabled = false;
+    syncSave();
     if (!result.ok) {
       if (result.status === 401) signInAgain(status); else say(status, result.error, "error");
       value.focus();
@@ -212,7 +233,9 @@ import Layout from "../../../components/Layout.astro";
     }
     drafts.clear(draftKey());
     status?.replaceChildren(h("span", {}, "Approved. It is waiting on the "), h("a", { href: "/admin/" }, "Admin page"),
-                            h("span", {}, " until someone publishes."),
+                            h("span", {}, " until someone publishes. "),
+                            ...(fromReview ? [h("a", { href: `/admin/review/?after=${encodeURIComponent(fromReview)}` },
+                                                "Back to Review: the next item")] : []),
                             ...(result.data.warning ? [h("p", { class: "notice" }, `${result.data.warning} `,
                                                          result.data.fix ? fixLink(result.data.fix) : null)] : []));
     if (status) status.dataset["state"] = "ok";

@@ -97,11 +97,52 @@ export function h(tag: string, attrs: Record<string, string | boolean | undefine
   return el;
 }
 
-/** Announces an outcome to screen readers and shows it. */
+/** Announces an outcome to screen readers and shows it. A page's own status
+ * line (#status) is also shown in the notice bar at the foot of the window,
+ * because on a long page the status line is usually scrolled out of sight. */
 export function say(region: HTMLElement | null, message: string, state: "ok" | "error" | "" = ""): void {
   if (!region) return;
   region.textContent = message;
   region.dataset["state"] = state;
+  if (region.id === "status" && message) notice(message, state);
+}
+
+const NOTICE_MS = 10_000;
+let noticeTimer: ReturnType<typeof setTimeout> | undefined;
+
+/** The notice bar: the last outcome, and Undo when it can be taken back. Not a
+ * live region itself (the page's status line already announces it). */
+function noticeBar(): HTMLElement {
+  let bar = document.getElementById("admin-notice");
+  if (!bar) {
+    bar = h("div", { id: "admin-notice", class: "admin-notice ui small", hidden: true });
+    document.body.append(bar);
+  }
+  return bar;
+}
+
+export function notice(message: string, state: "ok" | "error" | "" = ""): void {
+  const bar = noticeBar();
+  const dismiss = h("button", { type: "button", class: "dismiss", "aria-label": "Dismiss this notice" }, "×");
+  dismiss.addEventListener("click", () => { bar.hidden = true; });
+  bar.replaceChildren(h("span", {}, message), dismiss);
+  bar.dataset["state"] = state;
+  bar.hidden = false;
+  clearTimeout(noticeTimer);
+  // An error stays until the next outcome; anything else goes after a while.
+  if (state !== "error") noticeTimer = setTimeout(() => { bar.hidden = true; }, NOTICE_MS);
+}
+
+/** Adds **Undo** to the notice just shown: `run` takes the action back and says
+ * whether it could. */
+export function offerUndo(run: () => Promise<boolean>): void {
+  const bar = noticeBar();
+  const button = h("button", { type: "button", class: "undo" }, "Undo") as HTMLButtonElement;
+  button.addEventListener("click", async () => {
+    button.disabled = true;
+    if (!(await run())) button.disabled = false;
+  });
+  bar.querySelector(".dismiss")?.before(button);
 }
 
 /** The sign-in link shown when a session has ended: back to this very page. */
