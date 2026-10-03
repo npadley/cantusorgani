@@ -67,29 +67,6 @@
    ]
   },
   {
-   "file": "vol-1/an_immutemur_habitu.csv.ly",
-   "status": "proposed",
-   "target": "piece:feria-iv-cinerum",
-   "hash": "8f45ca41d95c8123cd97edaeeeaa8be0",
-   "incipit": "Immutémur há bitu in cíne re et cilício",
-   "page": 153,
-   "candidates": [
-    {
-     "target": "piece:feria-iv-cinerum",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
-   "file": "vol-1/an_juxta_vestibulum.csv.ly",
-   "status": "proposed",
-   "target": null,
-   "hash": "200c26369760243ce07fac4e81575cd8",
-   "incipit": "Juxta vestíbulum et altá re plorá bunt sacerdótes",
-   "page": 154
-  },
-  {
    "file": "vol-1/an_omnes_collaudant_b.csv.ly",
    "status": "proposed",
    "target": "part:noh1-p302/other:5",
@@ -207,23 +184,6 @@
      "target": "part:noh1-p302/other:4",
      "melody": 0.767,
      "words": 0.463
-    }
-   ]
-  },
-  {
-   "file": "vol-1/re_emendemus.csv.ly",
-   "status": "melody-differs",
-   "target": "part:noh1-p156/introit",
-   "hash": "b99b3c8269b5b8efb4050ffa1f97a92f",
-   "melody": 0.303,
-   "words": 0.452,
-   "incipit": "Emendémus in mélius quæ ignorán ter pec cávimus",
-   "page": 155,
-   "candidates": [
-    {
-     "target": "part:noh1-p156/introit",
-     "melody": 0.303,
-     "words": 0.452
     }
    ]
   },

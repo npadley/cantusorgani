@@ -1687,6 +1687,51 @@
    "hash": "819739acff095608ae9eda03cc295bf9"
   },
   {
+   "target": "part:feria-iv-cinerum/communion",
+   "file": "vol-1/co_qui_meditabitur.csv.ly",
+   "hash": "421bb2fd53b4939ba13567464c784ffe"
+  },
+  {
+   "target": "part:feria-iv-cinerum/gradual",
+   "file": "vol-1/gr_miserere_mei_deus.csv.ly",
+   "hash": "b9aca51cfbd87824d6b6e0eca63e42ae"
+  },
+  {
+   "target": "part:feria-iv-cinerum/introit",
+   "file": "vol-1/in_misereris_omnium.csv.ly",
+   "hash": "66e93a0218cf67d3f29cfbb15ecbab8c"
+  },
+  {
+   "target": "part:feria-iv-cinerum/offertory",
+   "file": "vol-1/of_exaltabo_te.csv.ly",
+   "hash": "8020ad82afed452b0f7ab1fc7073566f"
+  },
+  {
+   "target": "part:feria-iv-cinerum/other:1",
+   "file": "vol-1/an_exaudi_nos_domine.csv.ly",
+   "hash": "a28a15bfd9b7057cd7d5fccedc559619"
+  },
+  {
+   "target": "part:feria-iv-cinerum/other:2",
+   "file": "vol-1/an_immutemur_habitu.csv.ly",
+   "hash": "8f45ca41d95c8123cd97edaeeeaa8be0"
+  },
+  {
+   "target": "part:feria-iv-cinerum/other:3",
+   "file": "vol-1/an_juxta_vestibulum.csv.ly",
+   "hash": "200c26369760243ce07fac4e81575cd8"
+  },
+  {
+   "target": "part:feria-iv-cinerum/other:4",
+   "file": "vol-1/re_emendemus.csv.ly",
+   "hash": "b99b3c8269b5b8efb4050ffa1f97a92f"
+  },
+  {
+   "target": "part:feria-iv-cinerum/tract",
+   "file": "vol-1/tr_domine_non_secundum.csv.ly",
+   "hash": "2d6487dea197b16cd794df7fbd401acd"
+  },
+  {
    "target": "part:feria-iv-hebdomad-sanct/communion",
    "file": "vol-1/co_potum_meum.csv.ly",
    "hash": "3494a281b04f85c6a3d784e5c52a60a0"
@@ -2380,31 +2425,6 @@
    "target": "part:noh1-p112/offertory",
    "file": "vol-1/of_jubilate_deo_omnis.csv.ly",
    "hash": "ee77a6f3a0851aebe996efb4c5ec258e"
-  },
-  {
-   "target": "part:noh1-p156/communion",
-   "file": "vol-1/co_qui_meditabitur.csv.ly",
-   "hash": "421bb2fd53b4939ba13567464c784ffe"
-  },
-  {
-   "target": "part:noh1-p156/gradual",
-   "file": "vol-1/gr_miserere_mei_deus.csv.ly",
-   "hash": "b9aca51cfbd87824d6b6e0eca63e42ae"
-  },
-  {
-   "target": "part:noh1-p156/introit",
-   "file": "vol-1/in_misereris_omnium.csv.ly",
-   "hash": "66e93a0218cf67d3f29cfbb15ecbab8c"
-  },
-  {
-   "target": "part:noh1-p156/offertory",
-   "file": "vol-1/of_exaltabo_te.csv.ly",
-   "hash": "8020ad82afed452b0f7ab1fc7073566f"
-  },
-  {
-   "target": "part:noh1-p156/tract",
-   "file": "vol-1/tr_domine_non_secundum.csv.ly",
-   "hash": "2d6487dea197b16cd794df7fbd401acd"
   },
   {
    "target": "part:noh1-p299-2/other:2",
@@ -3780,11 +3800,6 @@
    "target": "piece:cantus-ad-libitum-sanctus-i-iii",
    "file": "vol-5/ad-libitum/sanctus_ad_libitum_I.ly",
    "hash": "c28de5007397ca18fb6a51f743aa989f"
-  },
-  {
-   "target": "piece:feria-iv-cinerum",
-   "file": "vol-1/an_exaudi_nos_domine.csv.ly",
-   "hash": "a28a15bfd9b7057cd7d5fccedc559619"
   },
   {
    "target": "piece:ordinarium-missae-asperges",

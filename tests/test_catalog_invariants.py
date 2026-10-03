@@ -444,3 +444,20 @@ def test_a_rubric_only_piece_leaves_its_page_to_the_pieces_either_side():
     assert by_slug["sabbato-post-cineres"]["systems"] == []
     assert by_slug["feria-vi-post-cineres"]["systems"][-1] == "noh1/0194/002"
     assert by_slug["dominica-i-in-quadragesim"]["systems"][0] == "noh1/0194/003"
+
+
+def test_ash_wednesday_is_one_piece_the_blessing_then_the_mass():
+    """NOH1 pp. 152-163, checked against the scan 2026-10-03: the book cites the
+    Mass as "Feria IV. Cinerum", so the blessing and "Ad Missam" are one piece."""
+    by_slug = {p["slug"]: p for p in PIECES}
+    assert "noh1-p156" not in by_slug
+    ash = by_slug["feria-iv-cinerum"]
+    shown = [(x["kind"], x["ref"]) for x in _printed(ash)]
+    assert shown[0] == ("other", "noh1/0179/000")
+    assert ("introit", "noh1/0183/005") in shown
+    assert shown.index(("introit", "noh1/0183/005")) == 4
+
+
+def test_a_merged_piece_redirects_its_old_address():
+    redirects = Path("web/public/_redirects").read_text(encoding="utf-8")
+    assert "/piece/noh1-p156/ /piece/feria-iv-cinerum/ 301" in redirects

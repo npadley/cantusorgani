@@ -415,18 +415,9 @@ sections:
     index_title: Feria IV cinerum. Ad benedictionem cinerum
     days:
     - tempora:Quadp3-3
-  - slug: noh1-p156
-    label: Ad Miswm
-    title: Ad Miswm
-    genre: proper
-    page: 156
-    status: consistent
-    score: 0.0
-    token: '156'
-    index_title: Ad Miswm
-    days:
-    - tempora:Quadp3-3
-    calendar_note: read with the entry above
+    # pp. 152-163: the blessing of ashes, then "Ad Missam" on p. 156 (checked
+    # against the scan 2026-10-03). One piece: the book cites this Mass as
+    # "Feria IV. Cinerum" (its Tract, p. 160), and /piece/noh1-p156/ redirects here.
   - slug: feria-v-post-cineres
     label: Feria V post Cineres
     title: Feria V post Cineres
