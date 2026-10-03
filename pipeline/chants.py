@@ -83,7 +83,8 @@ def build(catalog_path: Path = DATA / "catalog.json", path: Path = CHANTS,
     rows = load_chant_rows(dump)
     vespers = referenced_chants()
     if catalog_path.resolve() == (DATA / "catalog.json").resolve():
-        from pipeline.hymnpairings import build as hymn_pairings, supplementary_chants
+        from pipeline.hymnpairings import build as hymn_pairings
+        from pipeline.hymnpairings import supplementary_chants
         rows += supplementary_chants()
         vespers |= hymn_pairings(catalog, rows)
     chosen = select_chants(catalog, rows, vespers)

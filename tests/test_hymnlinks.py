@@ -1,5 +1,6 @@
 import pytest
-from pipeline.hymnlinks import load_hymn_links, attach_hymn_links
+
+from pipeline.hymnlinks import attach_hymn_links, load_hymn_links
 
 
 def test_reviewed_alternate_links_preserve_the_existing_accompaniment(tmp_path):

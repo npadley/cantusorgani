@@ -1,5 +1,7 @@
 import pytest
+
 from pipeline.gregobase import Chant
+
 
 def test_research_metadata_is_bound_to_the_actual_hymn_source():
     from pipeline.hymnpairings import compile_pairings

@@ -1,11 +1,12 @@
 """Reviewed Book VII starts override headings absent from its composite scan."""
-from pipeline.index import load_index
-from pipeline.catalog import start_system
-from pipeline.catalog import has_parts
-from pipeline.index import IndexEntry
 import json
-from pipeline.volumes import DATA
+
 import pytest
+
+from pipeline.catalog import has_parts, start_system
+from pipeline.index import IndexEntry, load_index
+from pipeline.volumes import DATA
+
 
 @pytest.mark.parametrize('slug,ref', [
     ('varia-audi-benigne-conditor','noh7/0058/003'),

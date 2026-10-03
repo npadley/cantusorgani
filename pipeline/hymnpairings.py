@@ -1,8 +1,10 @@
 """Source-specific researched hymn links; uncertainty never publishes notation."""
-import json
 import hashlib
+import json
 from pathlib import Path
+
 import yaml
+
 from pipeline.volumes import DATA
 
 REVIEWED = DATA / "hymn-pairings.yml"
