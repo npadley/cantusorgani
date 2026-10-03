@@ -1214,18 +1214,18 @@
     words: 1.0
     name: Scapulis suis
 - file: vol-1/co_servite_domino.csv.ly
-  target: part:sabbato-post-cineres/communion
+  target: part:feria-vi-post-cineres/communion
   status: matched
   evidence:
     by: page
     incipit: Servíte Dómino in timó re et exsultáte e
     page: 167
     candidates:
-    - target: part:sabbato-post-cineres/communion
-      melody: 1.0
-      words: 1.0
-    melody: 1.0
-    words: 1.0
+    - target: part:feria-vi-post-cineres/communion
+      melody: null
+      words: null
+    melody: null
+    words: null
     name: Servite Domino
 - file: vol-1/co_tolle_puerum.csv.ly
   target: part:dominica-infra-octavam-nativitatis/communion
@@ -1339,27 +1339,19 @@
     melody: 1.0
     words: 0.979
 - file: vol-1/gr_ab_occultis_meis.csv.ly
-  target: part:sabbato-temporum-adventus/gradual:4
-  status: proposed
+  target: part:feria-iii-infra-hebd-iii-quadragesim/gradual
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Ab occúltis me is mun da me Dó
     page: 237
     candidates:
-    - target: part:sabbato-temporum-adventus/gradual:4
-      melody: 0.966
-      words: 0.311
-    - target: part:noh1-p49/gradual
-      melody: 0.936
-      words: 0.291
-    - target: part:sabbato-temporum-adventus/gradual:1
-      melody: 0.919
-      words: 0.369
-    - target: part:in-vigilia-nativitatis-domini/gradual
-      melody: 0.919
-      words: 0.291
-    melody: 0.966
-    words: 0.311
+    - target: part:feria-iii-infra-hebd-iii-quadragesim/gradual
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Ab occultis
 - file: vol-1/gr_adjutor_in_opportunitatibus.csv.ly
   target: part:dominica-in-septuagesima/gradual
   status: matched
@@ -1515,27 +1507,19 @@
     words: 1.0
     name: Domine Deus virtutum
 - file: vol-1/gr_ego_autem.csv.ly
-  target: part:noh1-p302/gradual
-  status: proposed
+  target: part:feria-iii-hebdomad-sanct/gradual
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Ego autem dum mi hi mo lé sti
     page: 330
     candidates:
-    - target: part:noh1-p302/gradual
-      melody: 0.6
-      words: 0.294
-    - target: part:sabbato-temporum-adventus/gradual:4
-      melody: 0.438
-      words: 0.183
-    - target: part:dominica-i-passionis/gradual
-      melody: 0.431
-      words: 0.183
-    - target: part:feria-ii-infra-hebd-passionis/gradual
-      melody: 0.428
-      words: 0.206
-    melody: 0.6
-    words: 0.294
+    - target: part:feria-iii-hebdomad-sanct/gradual
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Ego autem
 - file: vol-1/gr_eripe_me_domine.csv.ly
   target: part:dominica-i-passionis/gradual
   status: matched
@@ -3112,49 +3096,33 @@
     melody: 1.0
     words: 1.0
 - file: vol-1/of_domine_fac_mecum.csv.ly
-  target: part:s-stephani-protomartyris/offertory
-  status: proposed
+  target: part:feria-iv-infra-hebd-iii-quadragesim/offertory
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Domine fac me cum misericór diam tuam propter
     page: 242
     candidates:
-    - target: part:s-stephani-protomartyris/offertory
-      melody: 0.667
-      words: 0.25
-    - target: part:feria-vi-infra-hebd-passionis/offertory
-      melody: 0.627
-      words: 0.375
-    - target: part:sanctissimi-nominis-jesu/offertory
-      melody: 0.569
-      words: 0.444
-    - target: part:dominica-in-quinquagesima/offertory
-      melody: 0.569
-      words: 0.431
-    melody: 0.667
-    words: 0.25
+    - target: part:feria-iv-infra-hebd-iii-quadragesim/offertory
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Domine fac mecum
 - file: vol-1/of_domine_vivifica.csv.ly
-  target: part:sanctissimi-nominis-jesu/offertory
-  status: proposed
+  target: part:feria-vi-post-cineres/offertory
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Domine vivífica me secúndum elóqui um tuum ut
     page: 166
     candidates:
-    - target: part:sanctissimi-nominis-jesu/offertory
-      melody: 0.766
-      words: 0.615
-    - target: part:dominica-i-passionis/offertory
-      melody: 0.75
-      words: 0.635
-    - target: part:dominica-iv-adventus/offertory
-      melody: 0.734
-      words: 0.346
-    - target: part:dominica-ii-post-epiphaniam/offertory
-      melody: 0.734
-      words: 0.269
-    melody: 0.766
-    words: 0.615
+    - target: part:feria-vi-post-cineres/offertory
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Domine vivifica me
 - file: vol-1/of_elegerunt_apostoli.csv.ly
   target: part:s-stephani-protomartyris/offertory
   status: matched
@@ -3198,27 +3166,19 @@
     words: 1.0
     name: Eripe me de inimicis
 - file: vol-1/of_exaltabo_te.csv.ly
-  target: part:dominica-ii-post-epiphaniam/offertory
-  status: proposed
+  target: part:noh1-p156/offertory
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Exaltábo te Dómi ne quóniam suscepísti me nec
     page: 162
     candidates:
-    - target: part:dominica-ii-post-epiphaniam/offertory
-      melody: 0.608
-      words: 0.278
-    - target: part:noh1-p112/offertory
-      melody: 0.592
-      words: 0.3
-    - target: part:dominica-in-sexagesima/offertory
-      melody: 0.55
-      words: 0.144
-    - target: part:sanctissimi-nominis-jesu/offertory
-      melody: 0.517
-      words: 0.367
-    melody: 0.608
-    words: 0.278
+    - target: part:noh1-p156/offertory
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Exaltabo te
 - file: vol-1/of_exaudi_deus.csv.ly
   target: part:feria-ii-infra-hebd-iii-quadragesim/offertory
   status: matched
@@ -4696,49 +4656,33 @@
     words: 1.0
     name: Comedite pinguia
 - file: vol-2/co_data_est_mihi.csv.ly
-  target: part:dominica-xi-post-pentecosten/communion
-  status: proposed
+  target: part:die-vi-infra-octavam-pasch-2/communion
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Data est mihi omnis potéstas in cœlo et
     page: 31
     candidates:
-    - target: part:dominica-xi-post-pentecosten/communion
-      melody: 0.627
-      words: 0.201
-    - target: part:dominica-iv-post-pentecosten/communion
-      melody: 0.52
-      words: 0.104
-    - target: part:dominica-v-post-pascha/communion
-      melody: 0.51
-      words: 0.336
-    - target: part:sabbato-quattuor-temporum-septembris/communion
-      melody: 0.5
-      words: 0.276
-    melody: 0.627
-    words: 0.201
+    - target: part:die-vi-infra-octavam-pasch-2/communion
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Data est mihi
 - file: vol-2/co_de_fructu.csv.ly
-  target: part:sabbato-in-vigilia-pentecostes/communion
-  status: proposed
+  target: part:dominica-xii-post-pentecosten/communion
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: De fructu óperum tuórum Dómine satiábitur terra ut
     page: 193
     candidates:
-    - target: part:sabbato-in-vigilia-pentecostes/communion
-      melody: 0.615
-      words: 0.275
-    - target: part:die-iii-infra-octavam-pasch/communion
-      melody: 0.531
-      words: 0.107
-    - target: part:dominica-xvii-post-pentecosten/communion
-      melody: 0.51
-      words: 0.252
-    - target: part:dominica-xix-post-pentecosten/communion
-      melody: 0.51
-      words: 0.237
-    melody: 0.615
-    words: 0.275
+    - target: part:dominica-xii-post-pentecosten/communion
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: De fructu
 - file: vol-2/co_dico_vobis.csv.ly
   target: part:dominica-iii-post-pentecosten/communion
   status: matched
@@ -5473,27 +5417,19 @@
     words: 1.0
     name: Esto mihi
 - file: vol-2/gr_haec_dies_v_benedictus.csv.ly
-  target: part:die-vi-infra-octavam-pasch/gradual
-  status: proposed
+  target: part:die-vi-infra-octavam-pasch-2/gradual
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Hæc di es quam fecit Dóminus exsulté mus
     page: 28
     candidates:
-    - target: part:die-vi-infra-octavam-pasch/gradual
-      melody: 0.97
-      words: 0.695
-    - target: part:die-iii-infra-octavam-pasch/gradual
-      melody: 0.893
-      words: 0.758
-    - target: part:dominica-xxi-post-pentecosten/gradual
-      melody: 0.863
-      words: 0.326
-    - target: part:die-v-infra-octavam-pasch/gradual
-      melody: 0.846
-      words: 0.789
-    melody: 0.97
-    words: 0.695
+    - target: part:die-vi-infra-octavam-pasch-2/gradual
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Haec dies
 - file: vol-2/gr_haec_dies_v_confitemini.csv.ly
   target: part:dominica-resurrectionis/gradual
   status: matched
@@ -7274,27 +7210,18 @@
     words: null
     name: Per te Dei Genitrix
 - file: vol-3/al_potens_in_terra.csv.ly
-  target: part:in-conversione-s-pauli-apostoli/alleluia
+  target: part:s-joachim-confessoris-patris-b-mari-virginis/alleluia
   status: proposed
   evidence:
-    by: kind
+    by: page
     incipit: Allelúia allelúia ℣ Po tens in ter ra
     page: 325
     candidates:
-    - target: part:in-conversione-s-pauli-apostoli/alleluia
-      melody: 1.0
-      words: 0.541
-    - target: part:s-basilii-magni-confessoris-et-ecclesi-doctoris/alleluia
-      melody: 1.0
-      words: 0.475
-    - target: part:in-nativitate-s-joannis-baptist/alleluia
-      melody: 1.0
-      words: 0.541
-    - target: part:ss-fabiani-et-sebastiani-martyrum/alleluia
-      melody: 0.983
-      words: 0.525
-    melody: 1.0
-    words: 0.541
+    - target: part:s-joachim-confessoris-patris-b-mari-virginis/alleluia
+      melody: null
+      words: null
+    melody: null
+    words: null
 - file: vol-3/al_potestas_ejus.csv.ly
   target: part:s-ignatii-episcopi-et-martyris/alleluia
   status: proposed
@@ -7440,27 +7367,19 @@
     words: 1.0
     name: Sancte Paule
 - file: vol-3/al_sapientia_hujus.csv.ly
-  target: part:s-martini-episcopi-et-confessoris/alleluia
-  status: proposed
+  target: part:s-justini-martyris/alleluia:paschal
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Alle lú ia alle lú ia ℣ Sapiéntia
     page: 143
     candidates:
-    - target: part:s-martini-episcopi-et-confessoris/alleluia
-      melody: 0.634
-      words: 0.45
-    - target: part:s-josephi-de-cupertino-confessoris/alleluia
-      melody: 0.541
-      words: 0.342
-    - target: part:s-bonifatii-episc-et-mart/alleluia
-      melody: 0.523
-      words: 0.308
-    - target: part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia
-      melody: 0.494
-      words: 0.475
-    melody: 0.634
-    words: 0.45
+    - target: part:s-justini-martyris/alleluia:paschal
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Sapientia hujus mundi
 - file: vol-3/al_sapientiam.csv.ly
   target: part:ss-septem-fundat-ord-servorum-b-m-v/alleluia
   status: matched
@@ -9955,27 +9874,19 @@
     words: 1.0
     name: Honora Dominum
 - file: vol-3/of_in_me_gratia.csv.ly
-  target: part:in-dedicatione-s-mich-lis-archangelis/offertory
-  status: proposed
+  target: part:festum-b-mariae-virginis-a-rosario/offertory
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: In me grá ti a o mnis vi
     page: 376
     candidates:
-    - target: part:in-dedicatione-s-mich-lis-archangelis/offertory
-      melody: 0.519
-      words: 0.329
-    - target: part:s-joannis-leonardi-confessoris/offertory
-      melody: 0.519
-      words: 0.303
-    - target: part:ss-angelorum-custodum/offertory
-      melody: 0.473
-      words: 0.263
-    - target: part:in-apparitione-b-mariae-virginis-immaculatae/offertory
-      melody: 0.465
-      words: 0.263
-    melody: 0.519
-    words: 0.329
+    - target: part:festum-b-mariae-virginis-a-rosario/offertory
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: In me gratia
 - file: vol-3/of_inimicitias_ponam.csv.ly
   target: part:in-assumptione-beat-mari-virginis/offertory
   status: matched
@@ -12201,12 +12112,18 @@
     words: 0.998
     name: Dies irae
 - file: vol-5/pro-defunctis/tr_absolve.ly
-  target: null
-  status: proposed
+  target: part:missa-pro-defunctis-i/tract
+  status: matched
   evidence:
-    by: kind
+    by: name
     incipit: Absól ve Dómine ánimas ómnium fidélium defunctó rum
-    candidates: []
+    candidates:
+    - target: part:missa-pro-defunctis-i/tract
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Absolve Domine
 - file: vol-5/tonus-solemnis.ly
   target: null
   status: proposed

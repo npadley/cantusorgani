@@ -325,14 +325,15 @@ def test_mass_xvii_has_its_second_kyrie_and_both_responses():
 
 
 
-def test_requiem_parts_introit_gradual_sequence_offertory_communion():
+def test_requiem_parts_introit_gradual_tract_sequence_offertory_communion():
     """NOH5 pp. 163-177, checked against the scan 2026-09-27. The Introit is
     repeated after its verse (p. 164) and the Gradual opens with the same
-    words: neither may take the Gradual's place."""
+    words: neither may take the Gradual's place. The Tract, Absolve Domine,
+    opens p. 167 (checked 2026-10-03)."""
     requiem = next(p for p in PIECES if p["slug"] == "missa-pro-defunctis-i")
     shown = {x["kind"]: x["ref"] for x in _printed(requiem) if x["placed"] != "order"}
     assert shown == {"introit": "noh5/0209/000", "gradual": "noh5/0211/001",
-                     "sequence": "noh5/0215/000", "offertory": "noh5/0220/000",
+                     "tract": "noh5/0213/000", "sequence": "noh5/0215/000", "offertory": "noh5/0220/000",
                      "communion": "noh5/0223/002"}
 
 
@@ -428,3 +429,18 @@ def test_the_holy_cross_votive_mass_takes_its_tract_from_the_inserted_leaf():
     tract = next(s for s in mass["sections"] if s["kind"] == "tract")
     assert (tract["ref"], tract["gregobase_id"]) == ("noh4/0195/000", 114)
     assert not any(r["kind"] == "unmapped_pages" for r in REVIEW)
+
+
+def test_no_two_pieces_in_a_volume_share_a_system():
+    owner: dict[str, str] = {}
+    for piece in PIECES:
+        for ref in piece["systems"]:
+            assert ref not in owner, f"{ref} is in both {owner[ref]} and {piece['id']}"
+            owner[ref] = piece["id"]
+
+
+def test_a_rubric_only_piece_leaves_its_page_to_the_pieces_either_side():
+    by_slug = {p["slug"]: p for p in PIECES}
+    assert by_slug["sabbato-post-cineres"]["systems"] == []
+    assert by_slug["feria-vi-post-cineres"]["systems"][-1] == "noh1/0194/002"
+    assert by_slug["dominica-i-in-quadragesim"]["systems"][0] == "noh1/0194/003"

@@ -53,6 +53,10 @@ class IndexEntry:
     # An addendum's id (data/volumes.yml) when the entry is printed in one: its
     # `page` then counts in that addendum's own pagination, not the body's.
     pagination: str | None = None
+    # The entry prints no music of its own: only its heading or rubric, below the
+    # last system of its page ("Sabbato resumitur Missa Feriae praecedentis").
+    # Every system on that page belongs to the piece before it.
+    no_music: bool = False
 
     @property
     def printed_pages(self) -> tuple[int, int]:
@@ -92,6 +96,7 @@ def load_index(vol_id: str, path: Path | None = None) -> list[IndexEntry]:
                 reference=e.get("reference"),
                 reference_sources=tuple(e.get("reference_sources", ())),
                 pagination=e.get("pagination", section.get("pagination")),
+                no_music=bool(e.get("no_music", False)),
             ))
     return entries
 

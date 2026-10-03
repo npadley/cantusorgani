@@ -126,70 +126,6 @@
    ]
   },
   {
-   "file": "vol-1/gr_ab_occultis_meis.csv.ly",
-   "status": "proposed",
-   "target": "part:sabbato-temporum-adventus/gradual:4",
-   "hash": "1b450545e652b5edbdffa6c39895ba61",
-   "melody": 0.966,
-   "words": 0.311,
-   "incipit": "Ab occúltis me is mun da me Dó",
-   "page": 237,
-   "candidates": [
-    {
-     "target": "part:sabbato-temporum-adventus/gradual:4",
-     "melody": 0.966,
-     "words": 0.311
-    },
-    {
-     "target": "part:noh1-p49/gradual",
-     "melody": 0.936,
-     "words": 0.291
-    },
-    {
-     "target": "part:sabbato-temporum-adventus/gradual:1",
-     "melody": 0.919,
-     "words": 0.369
-    },
-    {
-     "target": "part:in-vigilia-nativitatis-domini/gradual",
-     "melody": 0.919,
-     "words": 0.291
-    }
-   ]
-  },
-  {
-   "file": "vol-1/gr_ego_autem.csv.ly",
-   "status": "proposed",
-   "target": "part:noh1-p302/gradual",
-   "hash": "c268486eb43ad1516fda1e571b4c5e14",
-   "melody": 0.6,
-   "words": 0.294,
-   "incipit": "Ego autem dum mi hi mo lé sti",
-   "page": 330,
-   "candidates": [
-    {
-     "target": "part:noh1-p302/gradual",
-     "melody": 0.6,
-     "words": 0.294
-    },
-    {
-     "target": "part:sabbato-temporum-adventus/gradual:4",
-     "melody": 0.438,
-     "words": 0.183
-    },
-    {
-     "target": "part:dominica-i-passionis/gradual",
-     "melody": 0.431,
-     "words": 0.183
-    },
-    {
-     "target": "part:feria-ii-infra-hebd-passionis/gradual",
-     "melody": 0.428,
-     "words": 0.206
-    }
-   ]
-  },
-  {
    "file": "vol-1/hy_gloria_laus.2.csv.ly",
    "status": "proposed",
    "target": "part:noh1-p302/other:4",
@@ -271,102 +207,6 @@
      "target": "part:noh1-p302/other:4",
      "melody": 0.767,
      "words": 0.463
-    }
-   ]
-  },
-  {
-   "file": "vol-1/of_domine_fac_mecum.csv.ly",
-   "status": "proposed",
-   "target": "part:s-stephani-protomartyris/offertory",
-   "hash": "c0e6d6568e9ba8fa32edd6d0f8d97703",
-   "melody": 0.667,
-   "words": 0.25,
-   "incipit": "Domine fac me cum misericór diam tuam propter",
-   "page": 242,
-   "candidates": [
-    {
-     "target": "part:s-stephani-protomartyris/offertory",
-     "melody": 0.667,
-     "words": 0.25
-    },
-    {
-     "target": "part:feria-vi-infra-hebd-passionis/offertory",
-     "melody": 0.627,
-     "words": 0.375
-    },
-    {
-     "target": "part:sanctissimi-nominis-jesu/offertory",
-     "melody": 0.569,
-     "words": 0.444
-    },
-    {
-     "target": "part:dominica-in-quinquagesima/offertory",
-     "melody": 0.569,
-     "words": 0.431
-    }
-   ]
-  },
-  {
-   "file": "vol-1/of_domine_vivifica.csv.ly",
-   "status": "proposed",
-   "target": "part:sanctissimi-nominis-jesu/offertory",
-   "hash": "d7c23c5ff16f44e994d3e8baabc2e287",
-   "melody": 0.766,
-   "words": 0.615,
-   "incipit": "Domine vivífica me secúndum elóqui um tuum ut",
-   "page": 166,
-   "candidates": [
-    {
-     "target": "part:sanctissimi-nominis-jesu/offertory",
-     "melody": 0.766,
-     "words": 0.615
-    },
-    {
-     "target": "part:dominica-i-passionis/offertory",
-     "melody": 0.75,
-     "words": 0.635
-    },
-    {
-     "target": "part:dominica-iv-adventus/offertory",
-     "melody": 0.734,
-     "words": 0.346
-    },
-    {
-     "target": "part:dominica-ii-post-epiphaniam/offertory",
-     "melody": 0.734,
-     "words": 0.269
-    }
-   ]
-  },
-  {
-   "file": "vol-1/of_exaltabo_te.csv.ly",
-   "status": "proposed",
-   "target": "part:dominica-ii-post-epiphaniam/offertory",
-   "hash": "8020ad82afed452b0f7ab1fc7073566f",
-   "melody": 0.608,
-   "words": 0.278,
-   "incipit": "Exaltábo te Dómi ne quóniam suscepísti me nec",
-   "page": 162,
-   "candidates": [
-    {
-     "target": "part:dominica-ii-post-epiphaniam/offertory",
-     "melody": 0.608,
-     "words": 0.278
-    },
-    {
-     "target": "part:noh1-p112/offertory",
-     "melody": 0.592,
-     "words": 0.3
-    },
-    {
-     "target": "part:dominica-in-sexagesima/offertory",
-     "melody": 0.55,
-     "words": 0.144
-    },
-    {
-     "target": "part:sanctissimi-nominis-jesu/offertory",
-     "melody": 0.517,
-     "words": 0.367
     }
    ]
   },
@@ -499,70 +339,6 @@
    ]
   },
   {
-   "file": "vol-2/co_data_est_mihi.csv.ly",
-   "status": "proposed",
-   "target": "part:dominica-xi-post-pentecosten/communion",
-   "hash": "14e6bd0481e914067dd6ca6e6df341e3",
-   "melody": 0.627,
-   "words": 0.201,
-   "incipit": "Data est mihi omnis potéstas in cœlo et",
-   "page": 31,
-   "candidates": [
-    {
-     "target": "part:dominica-xi-post-pentecosten/communion",
-     "melody": 0.627,
-     "words": 0.201
-    },
-    {
-     "target": "part:dominica-iv-post-pentecosten/communion",
-     "melody": 0.52,
-     "words": 0.104
-    },
-    {
-     "target": "part:dominica-v-post-pascha/communion",
-     "melody": 0.51,
-     "words": 0.336
-    },
-    {
-     "target": "part:sabbato-quattuor-temporum-septembris/communion",
-     "melody": 0.5,
-     "words": 0.276
-    }
-   ]
-  },
-  {
-   "file": "vol-2/co_de_fructu.csv.ly",
-   "status": "proposed",
-   "target": "part:sabbato-in-vigilia-pentecostes/communion",
-   "hash": "413c8b3819fd7741107f0c0a16468288",
-   "melody": 0.615,
-   "words": 0.275,
-   "incipit": "De fructu óperum tuórum Dómine satiábitur terra ut",
-   "page": 193,
-   "candidates": [
-    {
-     "target": "part:sabbato-in-vigilia-pentecostes/communion",
-     "melody": 0.615,
-     "words": 0.275
-    },
-    {
-     "target": "part:die-iii-infra-octavam-pasch/communion",
-     "melody": 0.531,
-     "words": 0.107
-    },
-    {
-     "target": "part:dominica-xvii-post-pentecosten/communion",
-     "melody": 0.51,
-     "words": 0.252
-    },
-    {
-     "target": "part:dominica-xix-post-pentecosten/communion",
-     "melody": 0.51,
-     "words": 0.237
-    }
-   ]
-  },
-  {
    "file": "vol-2/co_petite_cum_alleluia.csv.ly",
    "status": "proposed",
    "target": "part:noh2-p105/communion",
@@ -659,38 +435,6 @@
      "target": "part:dominica-xiv-post-pentecosten/gradual",
      "melody": 0.48,
      "words": 0.298
-    }
-   ]
-  },
-  {
-   "file": "vol-2/gr_haec_dies_v_benedictus.csv.ly",
-   "status": "proposed",
-   "target": "part:die-vi-infra-octavam-pasch/gradual",
-   "hash": "bd83bab592adb20136fedd6df2d38ba7",
-   "melody": 0.97,
-   "words": 0.695,
-   "incipit": "Hæc di es quam fecit Dóminus exsulté mus",
-   "page": 28,
-   "candidates": [
-    {
-     "target": "part:die-vi-infra-octavam-pasch/gradual",
-     "melody": 0.97,
-     "words": 0.695
-    },
-    {
-     "target": "part:die-iii-infra-octavam-pasch/gradual",
-     "melody": 0.893,
-     "words": 0.758
-    },
-    {
-     "target": "part:dominica-xxi-post-pentecosten/gradual",
-     "melody": 0.863,
-     "words": 0.326
-    },
-    {
-     "target": "part:die-v-infra-octavam-pasch/gradual",
-     "melody": 0.846,
-     "words": 0.789
     }
    ]
   },
@@ -1185,32 +929,15 @@
   {
    "file": "vol-3/al_potens_in_terra.csv.ly",
    "status": "proposed",
-   "target": "part:in-conversione-s-pauli-apostoli/alleluia",
+   "target": "part:s-joachim-confessoris-patris-b-mari-virginis/alleluia",
    "hash": "e94e32cd491256ccbdd61109961c70cd",
-   "melody": 1.0,
-   "words": 0.541,
    "incipit": "Allelúia allelúia ℣ Po tens in ter ra",
    "page": 325,
    "candidates": [
     {
-     "target": "part:in-conversione-s-pauli-apostoli/alleluia",
-     "melody": 1.0,
-     "words": 0.541
-    },
-    {
-     "target": "part:s-basilii-magni-confessoris-et-ecclesi-doctoris/alleluia",
-     "melody": 1.0,
-     "words": 0.475
-    },
-    {
-     "target": "part:in-nativitate-s-joannis-baptist/alleluia",
-     "melody": 1.0,
-     "words": 0.541
-    },
-    {
-     "target": "part:ss-fabiani-et-sebastiani-martyrum/alleluia",
-     "melody": 0.983,
-     "words": 0.525
+     "target": "part:s-joachim-confessoris-patris-b-mari-virginis/alleluia",
+     "melody": null,
+     "words": null
     }
    ]
   },
@@ -1305,38 +1032,6 @@
      "target": "part:s-antonii-mari-zaccaria-confessoris/alleluia:paschal",
      "melody": null,
      "words": null
-    }
-   ]
-  },
-  {
-   "file": "vol-3/al_sapientia_hujus.csv.ly",
-   "status": "proposed",
-   "target": "part:s-martini-episcopi-et-confessoris/alleluia",
-   "hash": "c9425fdb21b0d550deeda9e0e4b694a8",
-   "melody": 0.634,
-   "words": 0.45,
-   "incipit": "Alle lú ia alle lú ia ℣ Sapiéntia",
-   "page": 143,
-   "candidates": [
-    {
-     "target": "part:s-martini-episcopi-et-confessoris/alleluia",
-     "melody": 0.634,
-     "words": 0.45
-    },
-    {
-     "target": "part:s-josephi-de-cupertino-confessoris/alleluia",
-     "melody": 0.541,
-     "words": 0.342
-    },
-    {
-     "target": "part:s-bonifatii-episc-et-mart/alleluia",
-     "melody": 0.523,
-     "words": 0.308
-    },
-    {
-     "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia",
-     "melody": 0.494,
-     "words": 0.475
     }
    ]
   },
@@ -1898,38 +1593,6 @@
    ]
   },
   {
-   "file": "vol-3/of_in_me_gratia.csv.ly",
-   "status": "proposed",
-   "target": "part:in-dedicatione-s-mich-lis-archangelis/offertory",
-   "hash": "fa7fd42963cdb3b196efa836fa692a2f",
-   "melody": 0.519,
-   "words": 0.329,
-   "incipit": "In me grá ti a o mnis vi",
-   "page": 376,
-   "candidates": [
-    {
-     "target": "part:in-dedicatione-s-mich-lis-archangelis/offertory",
-     "melody": 0.519,
-     "words": 0.329
-    },
-    {
-     "target": "part:s-joannis-leonardi-confessoris/offertory",
-     "melody": 0.519,
-     "words": 0.303
-    },
-    {
-     "target": "part:ss-angelorum-custodum/offertory",
-     "melody": 0.473,
-     "words": 0.263
-    },
-    {
-     "target": "part:in-apparitione-b-mariae-virginis-immaculatae/offertory",
-     "melody": 0.465,
-     "words": 0.263
-    }
-   ]
-  },
-  {
    "file": "vol-3/of_lauda_jerusalem.csv.ly",
    "status": "broken",
    "target": null,
@@ -2420,13 +2083,6 @@
      "words": 1.0
     }
    ]
-  },
-  {
-   "file": "vol-5/pro-defunctis/tr_absolve.ly",
-   "status": "proposed",
-   "target": null,
-   "hash": "eb9065524522e1d008db139d3e65d6a2",
-   "incipit": "Absól ve Dómine ánimas ómnium fidélium defunctó rum"
   },
   {
    "file": "vol-5/tonus-solemnis.ly",

@@ -22,6 +22,8 @@ describe("a Mass printed wholly by reference", () => {
       "noh4/0045/004", "noh4/0046/000", "noh4/0046/001", "noh4/0046/002", "noh4/0046/003",
       "noh4/0046/004", "noh4/0046/005", "noh4/0047/000", "noh4/0047/001", "noh4/0047/002", "noh4/0047/003",
       ...Array.from({ length: 5 }, (_, i) => `noh4/0107/00${i}`),
+      // The Communion, Fidelis servus, is cited from p. 65.
+      ...Array.from({ length: 4 }, (_, i) => `noh4/0096/00${i + 2}`),
     ]);
     expect(html).not.toContain("No music of its own");
     expect(html).toContain('href="#introit"');

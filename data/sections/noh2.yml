@@ -41,16 +41,22 @@ die-vi-infra-octavam-pasch:
 - {kind: alleluia, title: Surrexit Dominus vere, ref: noh2/0052/000, chant: 1217}
 - {kind: offertory, label: Offert. VIII, title: Portas caeli, ref: noh2/0052/004, chant: 1361}
 - {kind: communion, label: Comm. VIII, title: Christus resurgens, ref: noh2/0053/003, chant: 593}
+- {kind: sequence, title: Victimae paschali, borrowed_volume: noh2, borrowed_page: 5, borrowed_from: dominica-resurrectionis,
+  borrowed_ref: noh2/0037/002, chant: none}
 dominica-post-ascensionem:
 - {kind: introit, label: Intr. I, title: Exaudi Domine, ref: noh2/0102/003, chant: 990}
 - {kind: alleluia, n: 1, title: Regnavit Dominus, ref: noh2/0104/000, chant: 405}
 - {kind: alleluia, n: 2, title: Non vos relinquam, ref: noh2/0104/004, chant: 107}
 - {kind: communion, label: Comm. IV, title: Pater cum essem, ref: noh2/0106/000, chant: 1091}
+- {kind: offertory, title: Ascendit Deus, borrowed_volume: noh2, borrowed_page: 69, borrowed_from: in-ascensione-domini,
+  borrowed_ref: noh2/0101/001, chant: none}
 dominica-xi-post-pentecosten:
 - {kind: introit, label: Intr. V, title: Deus in loco sancto, ref: noh2/0214/000, chant: 1026}
 - {kind: gradual, label: Grad. V, title: In Deo speravit, ref: noh2/0215/002, chant: 865}
 - {kind: alleluia, title: Exsultate Deo, ref: noh2/0216/005, chant: 580}
 - {kind: communion, label: Comm. VI, title: Honora Dominum, ref: noh2/0218/000, chant: 1145}
+- {kind: offertory, title: Exaltabo te, borrowed_volume: noh1, borrowed_page: 162, borrowed_from: noh1-p156, borrowed_ref: noh1/0189/004,
+  chant: none}
 dominica-xiv-post-pentecosten:
 - {kind: introit, label: Intr. V, title: Protector noster, ref: noh2/0232/004, chant: 1071}
 - {kind: gradual, label: Grad. V, title: Bonum est confidere, ref: noh2/0234/002, chant: 547}
@@ -71,6 +77,10 @@ feria-vi-quattuor-temporum-pentecostes:
 - {kind: alleluia, n: 1, title: O quam bonus, ref: noh2/0128/000, chant: 119}
 - {kind: offertory, label: Offert. IV, title: Lauda anima mea, ref: noh2/0129/003, chant: 668}
 - {kind: communion, label: Comm. V, title: Non vos relinquam, ref: noh2/0130/002, chant: 981}
+- {kind: alleluia, n: 2, title: Veni Sancte Spiritus, borrowed_volume: noh2, borrowed_page: 79, borrowed_from: dominica-pentecostes,
+  borrowed_ref: noh2/0111/005, chant: none}
+- {kind: sequence, title: Veni Sancte Spiritus, borrowed_volume: noh2, borrowed_page: 81, borrowed_from: dominica-pentecostes,
+  borrowed_ref: noh2/0113/000, chant: none}
 # Step 6 of the proper sections plan: each piece below checked against its scans
 # on 2026-09-29, its extent first.
 
@@ -226,10 +236,12 @@ dominica-xxiv-post-pentecosten:
   chant: none}
 dominica-vi-post-pentecosten:
 - {kind: introit, label: Intr., title: Dominus fortitudo, ref: noh2/0189/002, chant: 522}
-- {kind: gradual, borrowed_volume: noh1, borrowed_page: 197, borrowed_from: sabbato-quattuor-temporum-quadragesim,
-  borrowed_ref: noh1/0224/002, chant: 1046}
 - {kind: alleluia, title: In te Domine, ref: noh2/0191/000, chant: 239}
 - {kind: communion, label: Comm. VI, title: Circuibo, ref: noh2/0192/002, chant: 1079}
+- {kind: gradual, borrowed_volume: noh1, borrowed_page: 197, borrowed_from: sabbato-quattuor-temporum-quadragesim,
+  borrowed_ref: noh1/0224/002, chant: 1046}
+- {kind: offertory, title: Perfice gressus meos, borrowed_volume: noh1, borrowed_page: 143, borrowed_from: dominica-in-sexagesima,
+  borrowed_ref: noh1/0170/003, chant: none}
 dominica-x-post-pentecosten:
 - {kind: introit, label: Intr. II, title: Dum clamarem, ref: noh2/0208/001, chant: 299}
 - {kind: gradual, label: Grad. I, title: Custodi me, ref: noh2/0210/000, chant: 1088}
@@ -237,3 +249,76 @@ dominica-x-post-pentecosten:
 - {kind: offertory, borrowed_volume: noh1, borrowed_page: 6, borrowed_from: dominica-i-adventus, borrowed_ref: noh1/0032/005,
   chant: 962}
 - {kind: communion, title: Acceptabis sacrificium, ref: noh2/0213/002, chant: none}
+die-iii-infra-octavam-pasch:
+- {kind: introit, label: Intr., title: Aqua sapientiae, ref: noh2/0044/004, chant: 1135}
+- {kind: gradual, label: Grad., title: Haec dies, ref: noh2/0046/000, chant: 1188}
+- {kind: alleluia, title: Surrexit Dominus de sepulcro, ref: noh2/0047/000, chant: 438}
+- {kind: offertory, label: Offert. IV, title: Intonuit de caelo, ref: noh2/0048/000, chant: 869}
+- {kind: communion, label: Comm. VII, title: Si consurrexistis, ref: noh2/0048/005, chant: 243}
+- {kind: sequence, title: Victimae paschali, borrowed_volume: noh2, borrowed_page: 5, borrowed_from: dominica-resurrectionis,
+  borrowed_ref: noh2/0037/002, chant: none}
+die-v-infra-octavam-pasch:
+- {kind: introit, label: Intr. VII, title: Victricem manum, ref: noh2/0054/000, chant: 1332}
+- {kind: gradual, title: Haec dies, ref: noh2/0055/002, chant: 975}
+- {kind: alleluia, title: Surrexit Christus qui, ref: noh2/0056/004, chant: 215}
+- {kind: offertory, title: In die solemnitatis, ref: noh2/0057/002, chant: 1129}
+- {kind: communion, label: Comm. VII, title: Populus acquisitionis, ref: noh2/0058/002, chant: 1219}
+- {kind: sequence, title: Victimae paschali, borrowed_volume: noh2, borrowed_page: 5, borrowed_from: dominica-resurrectionis,
+  borrowed_ref: noh2/0037/002, chant: none}
+die-vi-infra-octavam-pasch-2:
+- {kind: introit, label: Intr. I, title: Eduxit eos, ref: noh2/0059/001, chant: 758}
+- {kind: gradual, label: Grad. II, title: Haec dies, ref: noh2/0060/003, chant: none}
+- {kind: alleluia, title: Dicite in gentibus, ref: noh2/0061/003, chant: 627}
+- {kind: offertory, label: Offert., title: Erit vobis, ref: noh2/0062/002, chant: 151}
+- {kind: communion, label: Comm. I, title: Data est mihi, ref: noh2/0063/004, chant: none}
+- {kind: sequence, title: Victimae paschali, borrowed_volume: noh2, borrowed_page: 5, borrowed_from: dominica-resurrectionis,
+  borrowed_ref: noh2/0037/002, chant: none}
+sabbato-in-albis:
+- {kind: introit, label: Intr. VII, title: Eduxit Dominus, ref: noh2/0064/003, chant: 974}
+- {kind: alleluia, n: 1, title: Haec dies quam fecit, ref: noh2/0066/000, chant: 568}
+- {kind: alleluia, n: 2, title: Laudate pueri, ref: noh2/0067/001, chant: 661}
+- {kind: offertory, label: Offert., title: Benedictus qui venit, ref: noh2/0068/000, chant: 941}
+- {kind: communion, title: Omnes qui in Christo, ref: noh2/0068/003, chant: 1293}
+- {kind: sequence, title: Victimae paschali, borrowed_volume: noh2, borrowed_page: 5, borrowed_from: dominica-resurrectionis,
+  borrowed_ref: noh2/0037/002, chant: none}
+noh2-p37:
+- {kind: introit, label: Intr., title: Quasi modo, ref: noh2/0069/003, chant: 25}
+- {kind: alleluia, n: 1, title: In die resurrectionis, ref: noh2/0070/004, chant: 1042}
+- {kind: alleluia, n: 2, title: Post dies octo, ref: noh2/0071/004, chant: 275}
+- {kind: communion, label: Comm. VI, title: Mitte manum, ref: noh2/0072/005, chant: 953}
+- {kind: offertory, title: Angelus Domini, borrowed_volume: noh2, borrowed_page: 11, borrowed_from: die-ii-infra-octavam-pasch,
+  borrowed_ref: noh2/0043/002, chant: none}
+die-ii-infra-octavam-pentecostes:
+- {kind: introit, label: Intr. II, title: Cibavit eos, ref: noh2/0117/002, chant: 715}
+- {kind: alleluia, n: 1, title: Loquebantur, ref: noh2/0118/004, chant: 101}
+- {kind: communion, label: Comm. VII, title: Spiritus Sanctus, ref: noh2/0120/000, chant: 1151}
+- {kind: alleluia, n: 2, title: Veni Sancte Spiritus, borrowed_volume: noh2, borrowed_page: 79, borrowed_from: dominica-pentecostes,
+  borrowed_ref: noh2/0111/005, chant: none}
+- {kind: sequence, title: Veni Sancte Spiritus, borrowed_volume: noh2, borrowed_page: 81, borrowed_from: dominica-pentecostes,
+  borrowed_ref: noh2/0113/000, chant: none}
+- {kind: offertory, title: Intonuit de caelo, borrowed_volume: noh2, borrowed_page: 16, borrowed_from: die-iii-infra-octavam-pasch,
+  borrowed_ref: noh2/0048/000, chant: none}
+die-iii-infra-octavam-pentecostes:
+- {kind: introit, label: Intr. IV, title: Accipite, ref: noh2/0120/002, chant: 1278}
+- {kind: alleluia, n: 1, title: Spiritus Sanctus, ref: noh2/0122/000, chant: 1197}
+- {kind: communion, label: Comm. VI, title: Spiritus qui, ref: noh2/0122/004, chant: 333}
+- {kind: alleluia, n: 2, title: Veni Sancte Spiritus, borrowed_volume: noh2, borrowed_page: 79, borrowed_from: dominica-pentecostes,
+  borrowed_ref: noh2/0111/005, chant: none}
+- {kind: sequence, title: Veni Sancte Spiritus, borrowed_volume: noh2, borrowed_page: 81, borrowed_from: dominica-pentecostes,
+  borrowed_ref: noh2/0113/000, chant: none}
+- {kind: offertory, title: Portas caeli, borrowed_volume: noh2, borrowed_page: 20, borrowed_from: die-vi-infra-octavam-pasch,
+  borrowed_ref: noh2/0052/004, chant: none}
+noh2-p114:
+- {kind: introit, label: Intr. II, title: Cibavit eos, ref: noh2/0146/004, chant: 715}
+- {kind: gradual, label: Grad. VII, title: Oculi omnium, ref: noh2/0148/000, chant: 1230}
+- {kind: alleluia, title: Caro mea vere, ref: noh2/0150/000, chant: 774}
+- {kind: sequence, label: Sequent. VII, title: Lauda Sion, ref: noh2/0151/003, chant: none}
+- {kind: alleluia, variant: paschal, ref: noh2/0158/000, chant: none}
+- {kind: offertory, label: Offert. IV, title: Sacerdotes Domini, ref: noh2/0158/001, chant: 645}
+- {kind: communion, label: Comm. VII, title: Quotiescumque, ref: noh2/0159/000, chant: 577}
+dominica-xii-post-pentecosten:
+- {kind: introit, label: Intr. VII, title: Deus in adjutorium, ref: noh2/0218/005, chant: 501}
+- {kind: gradual, label: Grad. VII, title: Benedicam Dominum, ref: noh2/0220/000, chant: 1182}
+- {kind: alleluia, title: Domine Deus salutis, ref: noh2/0222/000, chant: 1082}
+- {kind: offertory, label: Offert. VIII, title: Precatus est, ref: noh2/0223/000, chant: 325}
+- {kind: communion, label: Comm. VI, title: De fructu, ref: noh2/0225/003, chant: none}

@@ -460,6 +460,15 @@ sections:
     index_title: Sabbato post cinerea
     days:
     - tempora:Quadp3-6
+    # p. 167, checked against the scan 2026-10-03: the three systems at the top are
+    # Friday's Communion, Servite Domino; Saturday prints only this rubric below them.
+    no_music: true
+    reference: 'Sabbato resumitur Missa Feriae praecedentis, praeter Tractum, qui omittitur.'
+    reference_sources:
+    - volume: noh1
+      page: 164
+      label: 'Mass of the preceding Friday, omitting the Tract'
+      omit: [tract]
   - slug: dominica-i-in-quadragesim
     label: Dominica I in Quadragesimæ
     title: Dominica I in Quadragesimæ
