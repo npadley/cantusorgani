@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "file": "vol-1/co_dominus_dabit_benignitatem.csv.ly",
+  "scan_hash": "5c1318728f42370356d0da522a27f60ef287ac164be2c2edc2cc7c5085d5dceb",
+  "reviewer": "Codex visual source-scan inspection, 2026-10-03",
+  "basis": "source-scan",
+  "complete": false,
+  "systems": [
+    "noh1/0033/004"
+  ],
+  "scope": "three selected lower-voice pitches and onset anchors only; durations, ties and all remaining notes unreviewed",
+  "events": [
+    {
+      "voice": "alto",
+      "kind": "note",
+      "step": -2,
+      "alteration": "0",
+      "onset": "0",
+      "box": [
+        920,
+        235,
+        950,
+        262
+      ],
+      "system": "noh1/0033/004"
+    },
+    {
+      "voice": "tenor",
+      "kind": "note",
+      "step": -4,
+      "alteration": "0",
+      "onset": "0",
+      "box": [
+        920,
+        325,
+        950,
+        352
+      ],
+      "system": "noh1/0033/004"
+    },
+    {
+      "voice": "bass",
+      "kind": "note",
+      "step": -5,
+      "alteration": "0",
+      "onset": "1/2",
+      "box": [
+        1018,
+        341,
+        1048,
+        366
+      ],
+      "system": "noh1/0033/004"
+    }
+  ]
+}

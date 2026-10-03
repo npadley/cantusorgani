@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "file": "vol-5/missa-ix/kyrie_IX.ly",
+  "scan_hash": "e05b3ae58f089152d86b3ec7ecd17e92450fc633d255579cd7e661e583b25fb4",
+  "reviewer": "Codex visual source-scan inspection, 2026-10-03",
+  "basis": "source-scan",
+  "complete": false,
+  "systems": [
+    "noh5/0099/000"
+  ],
+  "scope": "three selected lower-voice pitches and onset anchors only; durations, ties and all remaining notes unreviewed",
+  "events": [
+    {
+      "voice": "alto",
+      "kind": "note",
+      "step": 2,
+      "alteration": "0",
+      "onset": "0",
+      "box": [
+        619,
+        193,
+        649,
+        221
+      ],
+      "system": "noh5/0099/000"
+    },
+    {
+      "voice": "tenor",
+      "kind": "note",
+      "step": -3,
+      "alteration": "0",
+      "onset": "0",
+      "box": [
+        597,
+        314,
+        627,
+        342
+      ],
+      "system": "noh5/0099/000"
+    },
+    {
+      "voice": "bass",
+      "kind": "note",
+      "step": -5,
+      "alteration": "0",
+      "onset": "0",
+      "box": [
+        597,
+        333,
+        627,
+        361
+      ],
+      "system": "noh5/0099/000"
+    }
+  ]
+}

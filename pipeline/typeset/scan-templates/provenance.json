@@ -1,0 +1,41 @@
+{
+  "basis": "independently inspected scan glyphs; not score-derived",
+  "templates": [
+    {
+      "image": "filled.png",
+      "style": "filled",
+      "spacing": 17.5,
+      "source": "noh5/0099/000",
+      "box": [
+        588,
+        190,
+        623,
+        225
+      ]
+    },
+    {
+      "image": "open-line.png",
+      "style": "open",
+      "spacing": 17.5,
+      "source": "noh5/0099/000",
+      "box": [
+        617,
+        190,
+        652,
+        225
+      ]
+    },
+    {
+      "image": "open-space.png",
+      "style": "open",
+      "spacing": 17.5,
+      "source": "noh5/0099/000",
+      "box": [
+        595,
+        311,
+        630,
+        346
+      ]
+    }
+  ]
+}

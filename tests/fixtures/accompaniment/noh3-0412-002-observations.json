@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "file": "vol-3/co_florete__et_date.csv.ly",
+  "scan_hash": "ffe922bda69f2763ce6de6c82229e10f7fbf66159625b5130badd32c0afe7428",
+  "reviewer": "Codex visual source-scan inspection, 2026-10-03",
+  "basis": "source-scan",
+  "complete": false,
+  "systems": [
+    "noh3/0412/002"
+  ],
+  "scope": "three selected lower-voice pitches and onset anchors only; durations, ties and all remaining notes unreviewed",
+  "events": [
+    {
+      "voice": "alto",
+      "kind": "note",
+      "step": -2,
+      "alteration": "0",
+      "onset": "0",
+      "box": [
+        621,
+        224,
+        651,
+        251
+      ],
+      "system": "noh3/0412/002"
+    },
+    {
+      "voice": "tenor",
+      "kind": "note",
+      "step": -5,
+      "alteration": "0",
+      "onset": "1/2",
+      "box": [
+        730,
+        318,
+        760,
+        345
+      ],
+      "system": "noh3/0412/002"
+    },
+    {
+      "voice": "bass",
+      "kind": "note",
+      "step": -6,
+      "alteration": "0",
+      "onset": "0",
+      "box": [
+        622,
+        326,
+        652,
+        352
+      ],
+      "system": "noh3/0412/002"
+    }
+  ]
+}

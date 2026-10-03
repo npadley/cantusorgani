@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "file": "vol-2/co_surrexit_dominus.csv.ly",
+  "scan_hash": "f2df5591d7a542fe99ed875282ee940da499cc2f958d3a0f605cad89a65b7a06",
+  "reviewer": "Codex visual source-scan inspection, 2026-10-03",
+  "basis": "source-scan",
+  "complete": false,
+  "systems": [
+    "noh2/0044/002"
+  ],
+  "scope": "three selected lower-voice pitches and onset anchors only; durations, ties and all remaining notes unreviewed",
+  "events": [
+    {
+      "voice": "alto",
+      "kind": "note",
+      "step": 0,
+      "alteration": "1/2",
+      "onset": "1/4",
+      "box": [
+        953,
+        237,
+        983,
+        264
+      ],
+      "system": "noh2/0044/002"
+    },
+    {
+      "voice": "tenor",
+      "kind": "note",
+      "step": -4,
+      "alteration": "1/2",
+      "onset": "0",
+      "box": [
+        855,
+        342,
+        885,
+        369
+      ],
+      "system": "noh2/0044/002"
+    },
+    {
+      "voice": "bass",
+      "kind": "note",
+      "step": -6,
+      "alteration": "0",
+      "onset": "1",
+      "box": [
+        1099,
+        360,
+        1129,
+        387
+      ],
+      "system": "noh2/0044/002"
+    }
+  ]
+}

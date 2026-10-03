@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "fixtures": [
+    {
+      "image": "noh1-0033-004.png",
+      "system": "noh1/0033/004",
+      "partition": "held-out",
+      "basis": "source-scan visual inspection; selected heads only; not complete voice proofreading",
+      "heads": [
+        {
+          "x": 936,
+          "y": 249,
+          "style": "open"
+        },
+        {
+          "x": 936,
+          "y": 338,
+          "style": "open"
+        },
+        {
+          "x": 1033,
+          "y": 353,
+          "style": "open"
+        }
+      ]
+    },
+    {
+      "image": "noh2-0044-002.png",
+      "system": "noh2/0044/002",
+      "partition": "held-out",
+      "basis": "source-scan visual inspection; selected heads only; not complete voice proofreading",
+      "heads": [
+        {
+          "x": 870,
+          "y": 356,
+          "style": "filled"
+        },
+        {
+          "x": 968,
+          "y": 251,
+          "style": "open"
+        }
+      ]
+    },
+    {
+      "image": "noh3-0412-002.png",
+      "system": "noh3/0412/002",
+      "partition": "held-out",
+      "basis": "source-scan visual inspection; selected heads only; not complete voice proofreading",
+      "heads": [
+        {
+          "x": 636,
+          "y": 238,
+          "style": "open"
+        },
+        {
+          "x": 637,
+          "y": 339,
+          "style": "open"
+        }
+      ]
+    },
+    {
+      "image": "noh5-0099-000.png",
+      "system": "noh5/0099/000",
+      "partition": "calibration",
+      "basis": "source-scan visual inspection; selected heads only; not complete voice proofreading",
+      "heads": [
+        {
+          "x": 634,
+          "y": 207,
+          "style": "open"
+        },
+        {
+          "x": 612,
+          "y": 328,
+          "style": "open"
+        },
+        {
+          "x": 612,
+          "y": 347,
+          "style": "open"
+        }
+      ]
+    },
+    {
+      "image": "noh4-0247-000.png",
+      "system": "noh4/0247/000",
+      "partition": "held-out",
+      "basis": "source-scan visual inspection; selected heads only; not complete voice proofreading",
+      "heads": [
+        {
+          "x": 879,
+          "y": 175,
+          "style": "open"
+        },
+        {
+          "x": 879,
+          "y": 244,
+          "style": "open"
+        }
+      ]
+    }
+  ]
+}
