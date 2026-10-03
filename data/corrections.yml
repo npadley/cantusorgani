@@ -534,14 +534,6 @@
   source: editor
   date: '2026-10-03'
   note: checked against the scan 2026-10-03, words and mode agree with GregoBase
-- id: c-0062
-  target: part:in-purificatione-beat-mari-virginis/other:3
-  field: chant
-  was: null
-  value: 1311
-  source: editor
-  date: '2026-10-03'
-  note: checked against the scan 2026-10-03, words and mode agree with GregoBase
 - id: c-0063
   target: part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/tract
   field: chant
@@ -716,3 +708,48 @@
   date: '2026-10-03'
   note: 'Protege Domine: melody and words 1.0 against the volunteers'' transcription; 843 is the Ave Maria
     offertory'
+- id: c-0084
+  target: review:noh1/part_mismatch/96684cd5
+  field: reviewed
+  was: 3cf448cb2b44
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'not in this piece: p.299 is the Blessing of Palms only; the Palm Sunday Introit Domine ne longe
+    is at noh1/0339/004 under noh1-p302 (checked against the scan)'
+- id: c-0085
+  target: review:noh1/part_mismatch/3c4533bf
+  field: reviewed
+  was: 8ed391fe1bc5
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'not in this piece: the Distribution of Palms (Pueri Hebraeorum antiphons); the Palm Sunday Introit
+    is at noh1/0339/004 under noh1-p302 (checked against the scan)'
+- id: c-0086
+  target: review:noh1/part_missing/aa955548
+  field: reviewed
+  was: ea1cdab32eff
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'not printed: p.344 gives Maundy Thursday''s Introit Nos autem gloriari only, with no gradual
+    and no citation; p.345 begins Holy Saturday (checked against the scan)'
+- id: c-0087
+  target: review:noh1/part_missing/ae23b741
+  field: reviewed
+  was: 119362f0e3ae
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'not printed: p.344 gives Maundy Thursday''s Introit Nos autem gloriari only, with no offertory
+    and no citation; p.345 begins Holy Saturday (checked against the scan)'
+- id: c-0088
+  target: review:noh1/part_missing/bbf33faa
+  field: reviewed
+  was: ff4a1c4e4131
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'not printed: p.344 gives Maundy Thursday''s Introit Nos autem gloriari only, with no communion
+    and no citation; p.345 begins Holy Saturday (checked against the scan)'

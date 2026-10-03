@@ -8586,11 +8586,11 @@
       "mass": null,
       "printed_pages": [
         164,
-        166
+        167
       ],
       "pdf_pages": [
         191,
-        193
+        194
       ],
       "systems": [
         "noh1/0191/000",
@@ -8609,7 +8609,10 @@
         "noh1/0193/002",
         "noh1/0193/003",
         "noh1/0193/004",
-        "noh1/0193/005"
+        "noh1/0193/005",
+        "noh1/0194/000",
+        "noh1/0194/001",
+        "noh1/0194/002"
       ],
       "system_assets": [
         "systems/noh1/0191/000-469d4f37b5bc",
@@ -8628,7 +8631,10 @@
         "systems/noh1/0193/002-41f732ef5b68",
         "systems/noh1/0193/003-8a0b10ceb198",
         "systems/noh1/0193/004-b0fd2cd66fc5",
-        "systems/noh1/0193/005-b082a60f07f0"
+        "systems/noh1/0193/005-b082a60f07f0",
+        "systems/noh1/0194/000-20549cef9bde",
+        "systems/noh1/0194/001-294f6417f7fc",
+        "systems/noh1/0194/002-658b66918d1e"
       ],
       "system_aspect": [
         [
@@ -8698,6 +8704,18 @@
         [
           1871,
           441
+        ],
+        [
+          1856,
+          414
+        ],
+        [
+          1886,
+          414
+        ],
+        [
+          1787,
+          411
         ]
       ],
       "movements": [],
@@ -8733,6 +8751,17 @@
           "placed": "text",
           "score": 0.731,
           "title": "Domine non secundum"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "system": 17,
+          "ref": "noh1/0194/000",
+          "gregobase_id": 897,
+          "placed": "label",
+          "score": 1.0,
+          "label": "Comm.",
+          "title": "Servite Domino"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=5af",
@@ -8753,7 +8782,17 @@
       "label": "Sabbato post Cineres",
       "title": "Sabbato post Cineres",
       "incipit": null,
-      "reference": null,
+      "reference": "Sabbato resumitur Missa Feriae praecedentis, praeter Tractum, qui omittitur.",
+      "reference_sources": [
+        {
+          "volume": "noh1",
+          "page": 164,
+          "label": "Mass of the preceding Friday, omitting the Tract",
+          "omit": [
+            "tract"
+          ]
+        }
+      ],
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -8765,46 +8804,14 @@
         194,
         194
       ],
-      "systems": [
-        "noh1/0194/000",
-        "noh1/0194/001",
-        "noh1/0194/002"
-      ],
-      "system_assets": [
-        "systems/noh1/0194/000-20549cef9bde",
-        "systems/noh1/0194/001-294f6417f7fc",
-        "systems/noh1/0194/002-658b66918d1e"
-      ],
-      "system_aspect": [
-        [
-          1856,
-          414
-        ],
-        [
-          1886,
-          414
-        ],
-        [
-          1787,
-          411
-        ]
-      ],
+      "systems": [],
+      "system_assets": [],
+      "system_aspect": [],
       "movements": [],
-      "sections": [
-        {
-          "kind": "communion",
-          "variant": "",
-          "system": 0,
-          "ref": "noh1/0194/000",
-          "gregobase_id": 897,
-          "placed": "text",
-          "score": 0.808,
-          "title": "Servite Domino"
-        }
-      ],
+      "sections": [],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=5as",
       "chant": [],
-      "review_status": "verified",
+      "review_status": "review",
       "hymns": [],
       "linked_days": []
     },
@@ -52695,6 +52702,18 @@
         "noh3/0409/002",
         "noh3/0409/003",
         "noh3/0409/004",
+        "noh3/0410/000",
+        "noh3/0410/001",
+        "noh3/0410/002",
+        "noh3/0410/003",
+        "noh3/0410/004",
+        "noh3/0410/005",
+        "noh3/0411/000",
+        "noh3/0411/001",
+        "noh3/0411/002",
+        "noh3/0411/003",
+        "noh3/0411/004",
+        "noh3/0411/005",
         "noh3/0412/000",
         "noh3/0412/001",
         "noh3/0412/002",
@@ -52713,6 +52732,18 @@
         "systems/noh3/0409/002-6eff9609fd5f",
         "systems/noh3/0409/003-1d1745d48736",
         "systems/noh3/0409/004-616a60e70e55",
+        "systems/noh3/0410/000-766e0ad6340c",
+        "systems/noh3/0410/001-9a02feda9935",
+        "systems/noh3/0410/002-7e37bcfcf9bf",
+        "systems/noh3/0410/003-b707bc7f48cf",
+        "systems/noh3/0410/004-7c862056c427",
+        "systems/noh3/0410/005-e299f7b193b6",
+        "systems/noh3/0411/000-025786007ef6",
+        "systems/noh3/0411/001-e5375899b080",
+        "systems/noh3/0411/002-6718246586f3",
+        "systems/noh3/0411/003-aaede8be5a27",
+        "systems/noh3/0411/004-4ebb9ab2b1d8",
+        "systems/noh3/0411/005-18abec814248",
         "systems/noh3/0412/000-cc426bfac26f",
         "systems/noh3/0412/001-2b0144ad3a94",
         "systems/noh3/0412/002-8569d136f4c9",
@@ -52760,6 +52791,54 @@
         [
           1777,
           409
+        ],
+        [
+          1832,
+          392
+        ],
+        [
+          1831,
+          413
+        ],
+        [
+          1831,
+          393
+        ],
+        [
+          1828,
+          392
+        ],
+        [
+          1833,
+          415
+        ],
+        [
+          1833,
+          408
+        ],
+        [
+          1836,
+          437
+        ],
+        [
+          1975,
+          446
+        ],
+        [
+          1837,
+          411
+        ],
+        [
+          1994,
+          412
+        ],
+        [
+          1835,
+          420
+        ],
+        [
+          1835,
+          429
         ],
         [
           1832,
@@ -52819,9 +52898,20 @@
           "title": "Solemnitas"
         },
         {
+          "kind": "offertory",
+          "variant": "",
+          "system": 11,
+          "ref": "noh3/0410/001",
+          "gregobase_id": 494,
+          "placed": "inferred",
+          "score": 0.0,
+          "title": "In me gratia",
+          "why": "the one chant start between the Alleluia and the Communion"
+        },
+        {
           "kind": "communion",
           "variant": "",
-          "system": 12,
+          "system": 24,
           "ref": "noh3/0412/002",
           "gregobase_id": 104,
           "placed": "label",

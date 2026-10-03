@@ -123,6 +123,15 @@ def test_load_index_pagination_from_the_entry_or_its_section(tmp_path):
     assert [e.pagination for e in load_index("x", path)] == [None, "one", "two"]
 
 
+def test_load_index_no_music_defaults_off_and_reads_when_set(tmp_path):
+    import yaml
+    path = tmp_path / "rubric.yml"
+    path.write_text(yaml.safe_dump({"sections": [{"name": "S", "division": "temporale", "entries": [
+        {"label": "Fri", "title": "Feria VI", "genre": "proper", "page": 164},
+        {"label": "Sat", "title": "Sabbato", "genre": "proper", "page": 167, "no_music": True}]}]}))
+    assert [e.no_music for e in load_index("x", path)] == [False, True]
+
+
 def test_load_index_refuses_the_old_parts_override_naming_where_it_went(tmp_path):
     import yaml
     path = tmp_path / "parts.yml"

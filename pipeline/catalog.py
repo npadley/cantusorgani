@@ -168,6 +168,8 @@ def start_system(vol_id: str, page_map: PageMap, entry: IndexEntry, systems: int
     pdf_page = page_map.to_pdf(entry.page, entry.pagination)
     if pdf_page is None or systems == 0:
         return 0
+    if entry.no_music:
+        return systems                      # its rubric is below the page's last system
     from pipeline.pagesplit import GapReader, first_system
 
     analysis = analyse_page(vol_id, pdf_page)
@@ -486,6 +488,14 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
                 shift = kyrie_offset([SystemFeature(r.ref, r.text, r.mode_marker) for r in on_page])
                 if shift:
                     starts[i] = (page, first_system + shift)
+        # A rubric with no music of its own sits just above the next piece when
+        # that begins on the same page: it begins (and so ends) where that does,
+        # leaving every system before it to the piece before.
+        for i in range(len(entries) - 2, -1, -1):
+            nxt = entries[i + 1]
+            if (entries[i].no_music and nxt.pagination == entries[i].pagination
+                    and starts[i + 1][0] == starts[i][0]):
+                starts[i] = starts[i + 1]
         # Each pagination (the body, and any addendum) is bounded on its own: an
         # entry runs to the next entry in its pagination, and the last one to the
         # end of its pages rather than stopping at itself.
@@ -756,6 +766,11 @@ def link_rubrics(catalog: Catalog, rubrics: list[Record]) -> list[Record]:
                           if p["printed_pages"][0] <= page <= p["printed_pages"][1]]
             target = next((p for p in candidates if p["printed_pages"][0] == page),
                           candidates[0] if candidates else None)
+        if target is None and ref is None and rubric.get("reference_sources"):
+            # The rubric names no page ("Sabbato resumitur Missa Feriae
+            # praecedentis"), but its reviewed sources show the music on its own
+            # page, which keeps the day.
+            continue
         if target is None:
             unresolved.append({"kind": "rubric_unlinked", "title": rubric.get("title"),
                                "reference": rubric.get("reference"), "days": days})
@@ -778,7 +793,8 @@ def load_rubrics(data_dir: Path = DATA) -> list[Record]:
         # the Annunciation in NOH3 prints only "Introitus. Vultum tuum, Pars IV,
         # p. 175" and the rest of its Mass by reference.
         rubrics += [{"volume": doc.get("volume"), "title": e.get("title"), "page": e.get("page"),
-                     "reference": e["reference"], "days": e.get("days", [])}
+                     "reference": e["reference"], "days": e.get("days", []),
+                     "reference_sources": e.get("reference_sources", [])}
                     for section in doc.get("sections", []) or [] for e in section["entries"]
                     if e.get("reference")]
     # Days the 1962 rubrics give another day's Mass, with no line in NOH to say so.

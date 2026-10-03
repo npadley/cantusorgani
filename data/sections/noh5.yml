@@ -59,3 +59,10 @@ ordinarium-missae-xvii:
   chant: 168}
 - {kind: other, key: deo-gratias-i, label: Deo gratias (mode I), ref: noh5/0141/004, chant: 543}
 - {kind: other, key: deo-gratias-vi, label: Deo gratias (mode VI), ref: noh5/0141/005, chant: 3015}
+missa-pro-defunctis-i:
+- {kind: introit, label: Intr. VI, title: Requiem, ref: noh5/0209/000, chant: 766}
+- {kind: gradual, label: Grad. I, title: Requiem, ref: noh5/0211/001, chant: 1261}
+- {kind: tract, label: Tract. VIII, title: Absolve Domine, ref: noh5/0213/000, chant: none}
+- {kind: sequence, title: Dies irae, ref: noh5/0215/000, chant: 1198}
+- {kind: offertory, label: Offert. I, title: Domine Jesu Christe, ref: noh5/0220/000, chant: 1199}
+- {kind: communion, title: Lux aeterna, ref: noh5/0223/002, chant: 241}

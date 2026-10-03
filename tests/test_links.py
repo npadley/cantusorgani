@@ -180,3 +180,12 @@ def test_partial_reference_does_not_assign_the_feast_day_to_its_lender():
     assert link_rubrics(catalog, [{'volume': 'noh3', 'reference': 'Introitus, p. 170.',
                                  'days': ['sancti:09-14']}]) == []
     assert catalog['pieces'][1]['days'] == []
+
+
+def test_link_rubrics_a_rubric_with_no_page_but_reviewed_sources_is_settled(catalog):
+    """NOH1 p. 167: "Sabbato resumitur Missa Feriae praecedentis" names no page;
+    its index entry's reference_sources give Friday's Mass, shown on its own page."""
+    rubric = {"title": "Sabbato post Cineres", "volume": "noh1", "days": ["tempora:Quadp3-6"],
+              "reference": "Sabbato resumitur Missa Feriae praecedentis, praeter Tractum, qui omittitur."}
+    assert link_rubrics(catalog, [{**rubric, "reference_sources": [{"volume": "noh1", "page": 164}]}]) == []
+    assert [u["kind"] for u in link_rubrics(catalog, [rubric])] == ["rubric_unlinked"]
