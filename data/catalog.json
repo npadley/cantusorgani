@@ -5943,7 +5943,7 @@
           "variant": "",
           "system": 21,
           "ref": "noh1/0134/004",
-          "gregobase_id": null,
+          "gregobase_id": 1153,
           "placed": "label",
           "score": 1.0,
           "label": "Tract."
@@ -17543,7 +17543,7 @@
           "variant": "",
           "system": 11,
           "ref": "noh1/0331/001",
-          "gregobase_id": null,
+          "gregobase_id": 901,
           "placed": "label",
           "score": 1.0,
           "label": "Ant. 4"
@@ -17590,7 +17590,7 @@
           "variant": "",
           "system": 42,
           "ref": "noh1/0336/004",
-          "gregobase_id": null,
+          "gregobase_id": 1051,
           "placed": "label",
           "score": 1.0,
           "label": "Ant. 7"
@@ -26440,7 +26440,7 @@
           "variant": "",
           "system": 26,
           "ref": "noh2/0169/002",
-          "gregobase_id": null,
+          "gregobase_id": 1244,
           "placed": "label",
           "score": 1.0,
           "label": "Tract. II"
@@ -26463,7 +26463,7 @@
           "variant": "",
           "system": 51,
           "ref": "noh2/0174/000",
-          "gregobase_id": null,
+          "gregobase_id": 319,
           "placed": "label",
           "score": 1.0,
           "label": "Offert. VI"
@@ -37184,7 +37184,7 @@
           "variant": "",
           "system": 14,
           "ref": "noh3/0097/000",
-          "gregobase_id": null,
+          "gregobase_id": 1311,
           "placed": "label",
           "score": 1.0,
           "label": "Ant."
@@ -47399,7 +47399,7 @@
           "variant": "",
           "system": 28,
           "ref": "noh3/0281/005",
-          "gregobase_id": null,
+          "gregobase_id": 502,
           "placed": "label",
           "score": 1.0,
           "label": "Tract. II"
@@ -47993,7 +47993,7 @@
           "variant": "",
           "system": 22,
           "ref": "noh3/0294/000",
-          "gregobase_id": null,
+          "gregobase_id": 928,
           "placed": "label",
           "score": 1.0,
           "label": "Tract. VII"
@@ -50575,7 +50575,7 @@
           "variant": "",
           "system": 31,
           "ref": "noh3/0327/002",
-          "gregobase_id": null,
+          "gregobase_id": 437,
           "placed": "label",
           "score": 1.0,
           "label": "Tract. VII"
@@ -55093,7 +55093,7 @@
           "variant": "",
           "system": 31,
           "ref": "noh3/0402/003",
-          "gregobase_id": null,
+          "gregobase_id": 739,
           "placed": "label",
           "score": 1.0,
           "label": "Tract."
@@ -56412,7 +56412,7 @@
           "variant": "",
           "system": 22,
           "ref": "noh3/0431/004",
-          "gregobase_id": null,
+          "gregobase_id": 63,
           "placed": "label",
           "score": 1.0,
           "label": "Tract. VII"
@@ -57134,7 +57134,7 @@
           "variant": "",
           "system": 15,
           "ref": "noh3/0446/001",
-          "gregobase_id": null,
+          "gregobase_id": 671,
           "placed": "label",
           "score": 1.0,
           "label": "Tract. VIII"
@@ -87582,12 +87582,12 @@
       "chant": [
         {
           "source": "gregobase",
-          "id": 2982,
+          "id": 2614,
           "movement": "kyrie",
-          "incipit": "Kyrie XI",
+          "incipit": "Kyrie (ad lib.) XI. - Kyrie Salve",
           "mode": "1",
-          "score": 0.75,
-          "status": "unverified"
+          "score": 1.0,
+          "status": "verified"
         }
       ],
       "review_status": "verified",

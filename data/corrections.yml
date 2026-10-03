@@ -247,7 +247,7 @@
 - id: c-0027
   target: typeset:vol-1/an_coeperunt_omnes_turbae.csv.ly
   field: match
-  was: null
+  was: part:noh1-p302/other:4
   value: part:noh1-p302/other:4
   source: editor
   date: '2026-10-02'
@@ -404,3 +404,293 @@
   source: editor
   date: '2026-10-02'
   editor_email: nick@padley.com
+- id: c-0047
+  target: pairing:cantus-ad-libitum-kyrie-xi/kyrie
+  field: chant
+  was: 2982
+  value: 2614
+  source: editor
+  date: '2026-10-03'
+  note: 'Kyrie (ad lib.) XI Salve: melody and words 100% against the volunteers'' transcription; 2982
+    is Mass XI''s Kyrie'
+- id: c-0048
+  target: review:noh1/unverified_pairing/16ed40a7
+  field: reviewed
+  was: fee56e7118b9
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'chant confirmed: scan words and mode, and melody against the typeset transcription where there
+    is one'
+- id: c-0049
+  target: review:noh1/unverified_pairing/0eabc886
+  field: reviewed
+  was: 921360fc47d7
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'chant confirmed: scan words and mode, and melody against the typeset transcription where there
+    is one'
+- id: c-0050
+  target: review:noh2/unverified_pairing/feedf0fc
+  field: reviewed
+  was: 138c93da2475
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'chant confirmed: scan words and mode, and melody against the typeset transcription where there
+    is one'
+- id: c-0051
+  target: review:noh4/unverified_pairing/0d458583
+  field: reviewed
+  was: 1d90374cbe25
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'chant confirmed: scan words and mode, and melody against the typeset transcription where there
+    is one'
+- id: c-0052
+  target: review:noh5/unverified_pairing/ceeddd9c
+  field: reviewed
+  was: 3fcbd9541372
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'chant confirmed: scan words and mode, and melody against the typeset transcription where there
+    is one'
+- id: c-0053
+  target: review:noh5/unverified_pairing/bdef1dd5
+  field: reviewed
+  was: 144ed072340d
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'chant confirmed: scan words and mode, and melody against the typeset transcription where there
+    is one'
+- id: c-0054
+  target: review:noh5/unverified_pairing/bbf3d366
+  field: reviewed
+  was: 877585bc2b3e
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'chant confirmed: scan words and mode, and melody against the typeset transcription where there
+    is one'
+- id: c-0055
+  target: review:noh5/unverified_pairing/f533543e
+  field: reviewed
+  was: e4ce2d42b5cd
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'chant confirmed: scan words and mode, and melody against the typeset transcription where there
+    is one'
+- id: c-0056
+  target: review:noh5/unverified_pairing/90c6efa1
+  field: reviewed
+  was: de5588192c0c
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'chant confirmed: scan words and mode, and melody against the typeset transcription where there
+    is one'
+- id: c-0057
+  target: part:noh1-p104/tract
+  field: chant
+  was: null
+  value: 1153
+  source: editor
+  date: '2026-10-03'
+  note: checked against the scan 2026-10-03, words and mode agree with GregoBase
+- id: c-0058
+  target: part:noh1-p302/other:4
+  field: chant
+  was: null
+  value: 901
+  source: editor
+  date: '2026-10-03'
+  note: checked against the scan 2026-10-03, words and mode agree with GregoBase
+- id: c-0059
+  target: part:noh1-p302/other:8
+  field: chant
+  was: null
+  value: 1051
+  source: editor
+  date: '2026-10-03'
+  note: checked against the scan 2026-10-03, words and mode agree with GregoBase
+- id: c-0060
+  target: part:noh2-p133/tract
+  field: chant
+  was: null
+  value: 1244
+  source: editor
+  date: '2026-10-03'
+  note: checked against the scan 2026-10-03, words and mode agree with GregoBase
+- id: c-0061
+  target: part:noh2-p133/offertory:2
+  field: chant
+  was: null
+  value: 319
+  source: editor
+  date: '2026-10-03'
+  note: checked against the scan 2026-10-03, words and mode agree with GregoBase
+- id: c-0062
+  target: part:in-purificatione-beat-mari-virginis/other:3
+  field: chant
+  was: null
+  value: 1311
+  source: editor
+  date: '2026-10-03'
+  note: checked against the scan 2026-10-03, words and mode agree with GregoBase
+- id: c-0063
+  target: part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/tract
+  field: chant
+  was: null
+  value: 502
+  source: editor
+  date: '2026-10-03'
+  note: checked against the scan 2026-10-03, words and mode agree with GregoBase
+- id: c-0064
+  target: part:s-antonii-mari-zaccaria-confessoris/tract
+  field: chant
+  was: null
+  value: 928
+  source: editor
+  date: '2026-10-03'
+  note: checked against the scan 2026-10-03, words and mode agree with GregoBase
+- id: c-0065
+  target: part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/tract
+  field: chant
+  was: null
+  value: 437
+  source: editor
+  date: '2026-10-03'
+  note: checked against the scan 2026-10-03, words and mode agree with GregoBase
+- id: c-0066
+  target: part:s-theresiae-a-jesu-infante-virginis/tract
+  field: chant
+  was: null
+  value: 739
+  source: editor
+  date: '2026-10-03'
+  note: checked against the scan 2026-10-03, words and mode agree with GregoBase
+- id: c-0067
+  target: part:s-margarit-mari-alaquoque-virginis/tract
+  field: chant
+  was: null
+  value: 63
+  source: editor
+  date: '2026-10-03'
+  note: checked against the scan 2026-10-03, words and mode agree with GregoBase
+- id: c-0068
+  target: part:s-raph-lis-archangeli/tract
+  field: chant
+  was: null
+  value: 671
+  source: editor
+  date: '2026-10-03'
+  note: checked against the scan 2026-10-03, words and mode agree with GregoBase
+- id: c-0069
+  target: review:noh1/unverified_pairing/54419cdf
+  field: reviewed
+  was: 3bff629d0ebe
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: chant confirmed against the scan 2026-10-03 and attached
+- id: c-0070
+  target: review:noh1/unverified_pairing/3d7240c6
+  field: reviewed
+  was: ed8d6733daef
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: chant confirmed against the scan 2026-10-03 and attached
+- id: c-0071
+  target: review:noh1/unverified_pairing/3d7240c6-2
+  field: reviewed
+  was: fbbe5c5becbf
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: chant confirmed against the scan 2026-10-03 and attached
+- id: c-0072
+  target: review:noh2/unverified_pairing/98f2d656
+  field: reviewed
+  was: a01b989e0026
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: chant confirmed against the scan 2026-10-03 and attached
+- id: c-0073
+  target: review:noh2/unverified_pairing/bb25f2f0
+  field: reviewed
+  was: 2181f4b6d699
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: chant confirmed against the scan 2026-10-03 and attached
+- id: c-0074
+  target: review:noh3/unverified_pairing/d4f16126
+  field: reviewed
+  was: e24e865acae5
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: chant confirmed against the scan 2026-10-03 and attached
+- id: c-0075
+  target: review:noh3/unverified_pairing/936fa1cb
+  field: reviewed
+  was: 5373518820ec
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: chant confirmed against the scan 2026-10-03 and attached
+- id: c-0076
+  target: review:noh3/unverified_pairing/6de760d5
+  field: reviewed
+  was: 64a1882b3824
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: chant confirmed against the scan 2026-10-03 and attached
+- id: c-0077
+  target: review:noh3/unverified_pairing/64866744
+  field: reviewed
+  was: d4af55510227
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: chant confirmed against the scan 2026-10-03 and attached
+- id: c-0078
+  target: review:noh3/unverified_pairing/ce9de2fd
+  field: reviewed
+  was: f57b74e28a7e
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: chant confirmed against the scan 2026-10-03 and attached
+- id: c-0079
+  target: review:noh3/unverified_pairing/bece8817
+  field: reviewed
+  was: 731ea580f11c
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: chant confirmed against the scan 2026-10-03 and attached
+- id: c-0080
+  target: review:noh3/unverified_pairing/ef8251df
+  field: reviewed
+  was: d38605b7ebf6
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: chant confirmed against the scan 2026-10-03 and attached
+- id: c-0081
+  target: review:noh5/unverified_pairing/bb8a08d8
+  field: reviewed
+  was: 613631c07817
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: chant confirmed against the scan 2026-10-03 and attached
