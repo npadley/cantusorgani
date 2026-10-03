@@ -87,7 +87,7 @@ d'2 ~ d'2*4/2 g'2*3/2 f'2*4/2 \divisioMaior
 ees'2 ~ ees'2*5/2 d'2*4/2 \divisioMaxima
 r4 d'2*3/2 ees'2*3/2 ~ \divisioMinima
 ees'4 f'2*3/2 ~ f'2*3/2 g'2*3/2 ees'2*3/2 ~ ees'2 d'2 ees'4 \divisioMaior
-eess'2 d'2 g'2 f'2*4/2 ~ f'2 ~ f'4 \divisioMaxima
+ees'2 d'2 g'2 f'2*4/2 ~ f'2 ~ f'4 \divisioMaxima
 g'4 ~ g'2*4/2 f'2 ees'2*3/2 ~ ees'2 d'2 ~ d'2 ~ d'4 ~ \divisioMinima
 d'4 ~ d'2 ~ d'2*3/2 ~ d'2*3/2 ees'2*4/2 d'2*3/2 ~ d'2 f'4 ees'2*3/2 d'4 \divisioMinima
 c'2*3/2 d'2 c'2*4/2 ~ c'2*3/2 bes4 \finalis

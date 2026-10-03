@@ -72,7 +72,7 @@ fis2 ~ fis2 g2*3/2 b2*4/2 a2*5/2 \divisioMinima
 g2 ~ g2*4/2 fis2*3/2 e2*4/2 fis2*3/2 a4 ~ a2 b2 a2 g4 ~ \divisioMaxima
 g2 fis2*4/2 g2*3/2 a2*3/2 b2*4/2 ~ \divisioMaior
 b4 a2 g2*3/2 ~ g2*3/2 fis2 ~ fis2 g2*3/2 a2*4/2 ~ a2 b4 \divisioMaxima
-'a2 fis2 d2*3/2 g2 ~ g2*3/2 fis2*4/2 e2 a2*3/2 g2 \divisioMaior
+a2 fis2 d2*3/2 g2 ~ g2*3/2 fis2*4/2 e2 a2*3/2 g2 \divisioMaior
 b4 ~ b2 a2*3/2 b2 g4 ~ g2 a2*3/2 g4 \divisioMaior
 fis2*4/2 g2*3/2 a2 b2 a2*5/4 g2*3/2 a2*3/2 g2*4/2 b4 \finalis
 }

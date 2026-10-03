@@ -73,7 +73,7 @@ aes2 bes2*3/4 c'2 g2*5/4 aes2 bes2*3/4 ~ bes2 aes2*4/2 f2 g4 \finalis
 aes2 ~ aes2*3/4 bes2*4/2 c'2*3/2 \divisioMinima
 aes2 bes2*3/2 g2*3/2 f2 g4 \divisioMinima
 f2*3/2 g2*3/2 aes2 \divisioMaxima
-bes2 ~ bes2*4/2 ga2*3/2 aes2*3/2 c'2*3/2 \divisioMinima
+bes2 ~ bes2*4/2 aes2*3/2 aes2*3/2 c'2*3/2 \divisioMinima
 bes2*3/2 aes2*3/2 bes2*3/2 c'2*4/2 ~ c'2*3/2 des'4 \divisioMinima
 aes2 bes2*3/4 c'2 g2*5/4 aes2 bes2*3/4 ~ bes2 aes2*4/2 f2 g4 \finalis
 }

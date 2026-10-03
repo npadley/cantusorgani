@@ -98,7 +98,7 @@ bassMusic = {
 d4 ~ d2 ~ d2*3/2 ~ d2 ~ d2 ~ d2*3/2 ~ d2*4/2 e2*3/2 \divisioMaior
 f4 ~ f2 a2 e2*4/2 ~ \divisioMinima
 e4 d2*5/4 c2*9/4 f2 e2 d2*3/2 ~ d2*3/2 e2 a2*4/2 \divisioMaxima
-f2 ~ f2*4/2 ~ f4 e2*4/2 d2 ~ d2*3/2 cv2*3/4 a,2*4/2 d2 ~ d2*5/4 ~ d2*3/2 ~ d2*4/2 c2 ~ c2 f2 ~ f4 r4 f2 a2*9/4 ~ a2*11/4 ~ a2*3/2 ~ a2 ~ a2*3/2 ~ a2*3/4 ~ a2 f2*3/2 e2*3/2 d2*4/2 g2 ~ g2 ~ g4 d2*3/2 f2*3/2 ~ f2*3/2 ~ f4 d2*7/2 c2*3/2 ~ c2*3/4 ~ c2*4/2 d2 ~ d4 ~ \divisioMaior
+f2 ~ f2*4/2 ~ f4 e2*4/2 d2 ~ d2*3/2 c2*3/4 a,2*4/2 d2 ~ d2*5/4 ~ d2*3/2 ~ d2*4/2 c2 ~ c2 f2 ~ f4 r4 f2 a2*9/4 ~ a2*11/4 ~ a2*3/2 ~ a2 ~ a2*3/2 ~ a2*3/4 ~ a2 f2*3/2 e2*3/2 d2*4/2 g2 ~ g2 ~ g4 d2*3/2 f2*3/2 ~ f2*3/2 ~ f4 d2*7/2 c2*3/2 ~ c2*3/4 ~ c2*4/2 d2 ~ d4 ~ \divisioMaior
 d4 f2*11/4 ~ f2 e2*3/2 ~ e2*4/2 ~ e4 ~ \divisioMinima
 e4 d2*5/4 c2*4/2 f2 e2 d2*3/2 ~ d2*3/2 a2 e2*4/2 \divisioMaxima
 f2*4/2 ~ f2 ~ f2 e2*4/2 d2 ~ d2 \divisioMinima
