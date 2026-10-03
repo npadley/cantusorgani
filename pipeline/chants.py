@@ -56,7 +56,7 @@ def select_chants(catalog: dict[str, object], rows: list[tuple[Chant, bool]],
     wanted = referenced_ids(catalog) | (extra or set())
     out: dict[int, dict[str, object]] = {}
     for chant, copyrighted in rows:
-        if chant.id not in wanted or copyrighted:
+        if chant.id not in wanted or copyrighted is not False:
             continue
         body = chant_body(chant.gabc)
         if body:
@@ -82,6 +82,11 @@ def build(catalog_path: Path = DATA / "catalog.json", path: Path = CHANTS,
     catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
     rows = load_chant_rows(dump)
     vespers = referenced_chants()
+    if catalog_path.resolve() == (DATA / "catalog.json").resolve():
+        from pipeline.hymnpairings import build as hymn_pairings
+        from pipeline.hymnpairings import supplementary_chants
+        rows += supplementary_chants()
+        vespers |= hymn_pairings(catalog, rows)
     chosen = select_chants(catalog, rows, vespers)
     return write_chants(chosen, path), len(chosen), len((referenced_ids(catalog) | vespers) - set(chosen))
 

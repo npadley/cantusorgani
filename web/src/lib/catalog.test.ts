@@ -12,6 +12,14 @@ import {
 } from "./catalog";
 
 describe("catalog", () => {
+  it("links an embedded office hymn to reviewed VII settings without replacing its source", async () => {
+    const { relatedHymnSettings } = await import("./catalog");
+    const office = allPieces().find((p) => p.volume === "noh8" && p.hymns.some((h) => h.title === "Creator alme siderum"))!;
+    expect(relatedHymnSettings(office).map((p) => p.slug)).toContain("varia-creator-alme-siderum");
+    expect(office.systems.every((r) => r.startsWith("noh8/"))).toBe(true);
+    const corpus = pieceBySlug("vesperae-corporis-christi")!;
+    expect(relatedHymnSettings(corpus).map((p) => p.slug)).toContain("varia-pange-lingua-gloriosi-corporis");
+  });
   it("loads with the expected schema version", () => {
     expect(loadCatalog().schemaVersion).toBe(SCHEMA_VERSION);
   });
@@ -248,6 +256,37 @@ describe("citedBy", () => {
 });
 
 describe("hymns", () => {
+  it("indexes standalone and printed-section hymns without duplicating embedded starts", async () => {
+    const { hymnIndex, parseCatalog } = await import("./catalog");
+    const pieces = parseCatalog(rawCatalog([
+      rawPiece({ slug: "standalone", title: "Ave maris stella (alius tonus)", genre: "hymn" }),
+      rawPiece({ slug: "office", title: "Office", parts: [
+        { part: "hymn", variant: "", title: "Benedictus es", system: 0,
+          ref: "noh5/0047/000", placed: "label", gregobase_id: null },
+      ], hymns: [{ title: "Benedictus es", ref: "noh5/0047/000", printed_page: 1 }] }),
+      rawPiece({ slug: "unplaced", parts: [
+        { part: "hymn", variant: "", system: 0, ref: "noh5/0047/000", placed: "order", gregobase_id: null },
+      ] }),
+      rawPiece({ slug: "sequence", genre: "sequence" }),
+    ])).pieces;
+    expect(hymnIndex(pieces).map((h) => [h.title, h.piece.slug, h.anchor])).toEqual([
+      ["Ave maris stella (alius tonus)", "standalone", ""],
+      ["Benedictus es", "office", "hymn"],
+    ]);
+  });
+
+  it("preserves different settings while deduplicating a repeated source reference", async () => {
+    const { hymnIndex, parseCatalog } = await import("./catalog");
+    const pieces = parseCatalog(rawCatalog([
+      rawPiece({ slug: "office", hymns: [
+        { title: "Ave maris stella", ref: "noh5/0047/000", printed_page: 1 },
+        { title: "Ave maris stella", ref: "noh5/0047/000", printed_page: 1 },
+      ] }),
+      rawPiece({ slug: "alternate", title: "Ave maris stella", genre: "hymn" }),
+    ])).pieces;
+    expect(hymnIndex(pieces).map((h) => h.piece.slug).sort()).toEqual(["alternate", "office"]);
+  });
+
   it("should make readable anchors without accents or punctuation", async () => {
     const { hymnAnchor } = await import("./catalog");
     expect(hymnAnchor("Ave maris stella (alius tonus)")).toBe("hymn-ave-maris-stella-alius-tonus");

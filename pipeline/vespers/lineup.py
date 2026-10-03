@@ -176,6 +176,8 @@ def build_office(day: date, key: str, vespers: str, reviewed: Reviewed,
               m.get("chant")),
         _item(f"{base}/versicle/2", "marian", "versicle", "Versicle and prayer", _source(versicle)),
     ]
+    from pipeline.hymnlinks import attach_hymn_links
+    attach_hymn_links(items, reviewed.hymn_links)
     return items, None
 
 
@@ -312,6 +314,13 @@ def write_lineup(path: Path = LINEUP, reviewed_path: Path = REVIEWED,
                  ) -> tuple[Path, dict[str, object], list[dict[str, object]]]:
     doc, review = _lineup(reviewed_path, catalog_path, calendar_dir, today)
     path.write_text(dump_lineup(doc), encoding="utf-8")
+    if path.resolve() == LINEUP.resolve() and reviewed_path.resolve() == REVIEWED.resolve():
+        # Share the reviewed associations with undated Book VIII source pages.
+        from pipeline.hymnlinks import load_hymn_links
+        links = load_hymn_links(REVIEWED.parent / "hymns-noh7.yml",
+                                json.loads(catalog_path.read_text(encoding="utf-8")))
+        (LINEUP.parent / "hymn-links.json").write_text(
+            json.dumps(links, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return path, doc, review
 
 
@@ -413,5 +422,3 @@ def describe(day_iso: str, doc: dict[str, object], owner_page: dict[str, int] | 
         label = item["label"] + (" (repeated)" if item.get("repeat") else "")
         lines.append(f"{n:>3}  {item['kind']:<20} {label:<34} {tone:<16} {where:<44} {chant}")
     return "\n".join(lines)
-
-

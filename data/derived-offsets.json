@@ -97,6 +97,25 @@
     "seed": 0,
     "source_sha256": "67d38b8bd81bd47ea90409ee4191a2b5ca314d42f9b8486d099a1772e47b97e1"
   },
+  "noh7": {
+    "gaps": [],
+    "offset": 29,
+    "segments": [
+      {
+        "first_pdf": 32,
+        "last_pdf": 101,
+        "offset": 31,
+        "verified": 4
+      },
+      {
+        "first_pdf": 102,
+        "last_pdf": 273,
+        "offset": 29,
+        "verified": 6
+      }
+    ],
+    "source_sha256": "2a3f5951b2154a59a360c4089bce0bd4157b44fedfc6f5ca6037bccb1ba9fd5e"
+  },
   "noh8": {
     "gaps": [],
     "offset": 30,

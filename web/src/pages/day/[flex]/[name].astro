@@ -8,7 +8,7 @@ import { catalogedDays, pieceHref } from "../../../lib/indexes";
 import {
   COLOR_LABELS, classLabel, findNextDate, isoOf, kyrialeFor, observance, seasonForDate, today,
 } from "../../../lib/liturgy";
-import { consoleLine, isSunday, lineupFor, lineupHref, loadLineup, nextFirstVespers, nextLineupDate } from "../../../lib/vespers";
+import { consoleLine, hymnSettingsForDay, isSunday, lineupFor, lineupHref, loadLineup, nextFirstVespers, nextLineupDate } from "../../../lib/vespers";
 
 // A page for each calendar day that has catalogued music. The date lookup and
 // the Proper indexes link here.
@@ -31,6 +31,7 @@ const lenders = new Set(forDay.filter((p) => !p.linkedDays.includes(key)).flatMa
 const pieces = forDay.filter((p) => p.division !== "vesperale"
   && !(p.linkedDays.includes(key) && lenders.has(p.slug)));
 const vespers = forDay.filter((p) => p.division === "vesperale");
+const officeHymns = hymnSettingsForDay(key);
 const title = o?.titleEn ?? key;
 
 // The Ordinary depends on the season and the weekday, so it is suggested for a
@@ -109,6 +110,15 @@ const longDate = date
       <h2 class="ui">Vespers</h2>
       <PieceList pieces={vespers} />
       {isSunday(key) && <p class="small muted">NOH VIII does not print the full order of Vespers for this day.</p>}
+    </section>
+  )}
+
+  {officeHymns.length > 0 && (
+    <section class="office-hymns no-print">
+      <h2 class="ui">Hymns for the Office</h2>
+      <p class="small muted">Additional printed settings in Book VII. The Vespers page above keeps its own accompaniment.</p>
+      <PieceList pieces={officeHymns} />
+      <p class="small"><a href="/hymns/">All hymns across the books</a></p>
     </section>
   )}
 

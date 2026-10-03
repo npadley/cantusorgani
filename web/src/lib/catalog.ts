@@ -1,9 +1,12 @@
 import raw from "../../../data/catalog.json";
+import reviewedHymnLinks from "../../../data/vespers/hymn-links.json";
+import { hymnChantId } from "./hymnpairings";
 
 /** Genre of a catalogued piece. Mirrors the pipeline's controlled set. */
 export type Genre =
   | "asperges" | "mass_ordinary" | "credo" | "tonus" | "kyrie" | "gloria"
-  | "sanctus" | "agnus" | "requiem" | "absolutio" | "exsequiis" | "proper";
+  | "sanctus" | "agnus" | "requiem" | "absolutio" | "exsequiis" | "proper"
+  | "hymn" | "sequence" | "antiphon" | "responsory" | "litany" | "psalm" | "canticle" | "versicle";
 
 /** Confidence of the NOH piece -> GregoBase chant match. */
 export type PairStatus = "verified" | "unverified" | "unpaired";
@@ -89,6 +92,7 @@ export interface Hymn {
 }
 
 export interface Piece {
+  readonly sourceNote?: string | null;
   readonly referenceSources?: { volume: string; page: number; label: string; omit?: readonly string[] }[];
   readonly excludedParts?: readonly string[];
   /** Original system positions in a composed view, for typeset/export switches. */
@@ -164,6 +168,7 @@ export const MOVEMENT_ORDER: readonly Movement[] = [
 const GENRES: ReadonlySet<string> = new Set<Genre>([
   "asperges", "mass_ordinary", "credo", "tonus", "kyrie", "gloria",
   "sanctus", "agnus", "requiem", "absolutio", "exsequiis", "proper",
+  "hymn", "sequence", "antiphon", "responsory", "litany", "psalm", "canticle", "versicle",
 ]);
 
 const RECORD_STATUSES: ReadonlySet<string> = new Set<RecordStatus>([
@@ -198,6 +203,7 @@ interface RawPart {
 }
 
 interface RawPiece {
+  readonly source_note?: string;
   readonly reference_sources?: { volume: string; page: number; label: string; omit?: readonly string[] }[];
   readonly id: string; readonly volume: string; readonly slug: string;
   readonly section: string; readonly label: string; readonly title: string;
@@ -321,7 +327,7 @@ export function parseCatalog(input: unknown): Catalog {
       throw new Error(`${p.id}: ${p.systems.length} systems but ${p.system_aspect.length} aspects`);
     }
     return {
-      id: p.id, volume: p.volume, slug: p.slug, section: p.section,
+      id: p.id, volume: p.volume, slug: p.slug, section: p.section, sourceNote: p.source_note ?? null,
       division: p.division ?? "varia", days: p.days ?? [],
       label: p.label, title: p.title, incipit: p.incipit,
       reference: p.reference ?? null, referenceSources: p.reference_sources ?? [], linkedDays: p.linked_days ?? [],
@@ -633,7 +639,8 @@ export function jumpTargets(piece: Piece): readonly JumpTarget[] {
     // A row named for a movement keeps that movement's chant and name unless it gives its own.
     const movement = x.part === "other" && (MOVEMENT_ORDER as readonly string[]).includes(x.variant)
       ? x.variant as Movement : null;
-    const chantId = x.gregobaseId ?? (movement ? verifiedChant(piece, movement)?.id ?? null : null);
+    const chantId = x.gregobaseId ?? (x.part === "hymn" ? hymnChantId(x.ref) : null)
+      ?? (movement ? verifiedChant(piece, movement)?.id ?? null : null);
     const label = movement && !x.label ? MOVEMENT_LABELS[movement] : sectionName(x);
     parts.push({ label, anchor: movement ?? anchor, index, kind: "part",
                  chantUrl: gregobaseUrl(chantId), chantId,
@@ -650,11 +657,15 @@ export function jumpTargets(piece: Piece): readonly JumpTarget[] {
     if (index < 0) continue;
     const seen = used.get(h.title) ?? 0;
     used.set(h.title, seen + 1);
-    hymns.push({ label: h.title, anchor: hymnAnchor(h.title, seen), index, kind: "hymn" });
+    const chantId = hymnChantId(h.ref);
+    hymns.push({ label: h.title, anchor: hymnAnchor(h.title, seen), index, kind: "hymn",
+      chantId, chantUrl: gregobaseUrl(chantId) });
   }
   const all = [...movements, ...parts, ...hymns];
   // A single chant (Credo I, an ad libitum Kyrie): its chant above the music.
-  const single = all.length === 0 && piece.systems.length > 0 ? verifiedChant(piece) : undefined;
+  const researched = piece.genre === "hymn" ? hymnChantId(piece.systems[0] ?? "") : null;
+  const single = all.length === 0 && piece.systems.length > 0
+    ? (researched ? { id: researched, movement: null } : verifiedChant(piece)) : undefined;
   if (single) {
     all.push({
       label: single.movement ? MOVEMENT_LABELS[single.movement] : piece.title, anchor: "chant",
@@ -664,14 +675,39 @@ export function jumpTargets(piece: Piece): readonly JumpTarget[] {
   return all.sort((a, b) => a.index - b.index);
 }
 
-/** Every hymn in the catalog, A-Z, with the page and anchor that show it. */
+/** Every printed hymn setting, including standalone pieces and sections of a Mass. */
 export function hymnIndex(pieces: readonly Piece[] = allPieces()):
-    readonly { readonly title: string; readonly piece: Piece; readonly anchor: string }[] {
-  const out: { title: string; piece: Piece; anchor: string }[] = [];
+    readonly { readonly title: string; readonly piece: Piece; readonly anchor: string; readonly printedPage: number; readonly ref: string }[] {
+  const out: { title: string; piece: Piece; anchor: string; printedPage: number; ref: string }[] = [];
   for (const piece of pieces) {
+    const seen = new Set<string>();
+    if (piece.genre === "hymn" && piece.systems.length > 0 && !piece.sourceNote) {
+      out.push({ title: piece.title, piece, anchor: "", printedPage: piece.printedPages[0], ref: piece.systems[0]! });
+      seen.add(piece.systems[0]!);
+    }
     for (const t of jumpTargets(piece)) {
-      if (t.kind === "hymn") out.push({ title: t.label, piece, anchor: t.anchor });
+      const part = t.kind === "part" ? piece.parts.find((p) =>
+        p.kind === "printed" && p.part === "hymn" && partAnchor(p.part, p.variant) === t.anchor) : undefined;
+      if (t.kind !== "hymn" && !part) continue;
+      const ref = piece.systems[t.index];
+      if (!ref || seen.has(ref)) continue;
+      seen.add(ref);
+      const embedded = piece.hymns.find((h) => h.ref === ref);
+      const pdfPage = Number(ref.split("/")[1]);
+      const volume = raw.volumes[piece.volume as keyof typeof raw.volumes];
+      const segment = volume?.page_map.find((s) => pdfPage >= s.first_pdf && pdfPage <= s.last_pdf);
+      const printedPage = embedded?.printedPage ?? (segment ? pdfPage - segment.offset : piece.printedPages[0]);
+      out.push({ title: embedded?.title ?? part?.title ?? t.label, piece, anchor: t.anchor, printedPage, ref });
     }
   }
-  return out.sort((a, b) => a.title.localeCompare(b.title, "la"));
+  return out.sort((a, b) => a.title.localeCompare(b.title, "la") || a.piece.volume.localeCompare(b.piece.volume)
+    || a.printedPage - b.printedPage);
+}
+
+/** Related settings by reviewed incipit; existing music stays the primary source. */
+export function relatedHymnSettings(piece: Piece, pieces: readonly Piece[] = allPieces()): Piece[] {
+  const links: Readonly<Record<string, readonly string[]>> = reviewedHymnLinks;
+  const slugs = new Set(hymnIndex([piece]).flatMap((h) => links[h.title] ?? []));
+  return pieces.filter((p) => slugs.has(p.slug) && p.slug !== piece.slug && p.volume === "noh7"
+    && p.genre === "hymn" && p.systems.length > 0 && !p.sourceNote);
 }

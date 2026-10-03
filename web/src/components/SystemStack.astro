@@ -38,7 +38,7 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
 </div>
 
 {piece.systems.length === 0 ? (
-  piece.reference ? null : (
+  piece.reference || piece.sourceNote ? null : (
     <div class="notice" role="status">
       <strong>No music of its own.</strong> The book gives this day at printed
       page {piece.printedPages[0]}{piece.pagination ? ` of its ${piece.pagination}` : ""} of {volumeLabel(piece)} without music of its own,
@@ -60,9 +60,6 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
       {Array.from({ length: seg.end - seg.start }, (_, k) => seg.start + k).map((i) => {
         const starts = i === seg.start ? startsAt.get(i) ?? [] : [];
         return starts.map((start) => {
-          if (start.kind === "hymn") {
-            return <h2 class={`movement-heading ${start.kind}`} id={start.anchor}>{start.label}</h2>;
-          }
           const entry = chantEntry(start.chantId);
           const [annotation, mode] = entry ? annotationFor(entry.part, entry.mode) : ["", ""];
           return (

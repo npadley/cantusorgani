@@ -2,7 +2,8 @@
 import { volumeLabel } from "../lib/catalog";
 import { annotationFor, chantEntry } from "../lib/chants";
 import { gregobaseUrl } from "../lib/catalog";
-import { bankNote, isFormula, itemHeading, itemSystems, sections, spokenTone, toneLabel, widestSystem } from "../lib/vespers";
+import { bankNote, hymnSettings, isFormula, itemHeading, itemSystems, sections, spokenTone, toneLabel, widestSystem } from "../lib/vespers";
+import { pieceHref } from "../lib/indexes";
 import type { LineupDay } from "../lib/vespers";
 import ReportLinks from "./ReportLinks.astro";
 
@@ -70,6 +71,11 @@ const secs = sections(day);
               )}
               {item.source.type === "printed" && item.source.text && (
                 <p class="note ui small"><em>{item.source.text}</em></p>
+              )}
+              {hymnSettings(item).length > 0 && (
+                <p class="ui small no-print">Other printed settings in <a href="/hymns/">Book VII</a>: {hymnSettings(item).map((p, i) => (
+                  <>{i > 0 && " · "}<a href={pieceHref(p)}>{p.title}</a> (p. {p.printedPages[0]})</>
+                ))}</p>
               )}
               {systems.length > 0 && (
                 <div class="systems" role="group" aria-describedby={captionId}>

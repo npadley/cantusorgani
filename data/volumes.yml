@@ -100,6 +100,24 @@ volumes:
     source_url: null
     retrieved: null
     provenance: null
+  noh7:
+    title: "Varia: Hymni, Sequentiae, Antiphonae et Responsoria, Litaniae, Psalmi"
+    part: "VII"
+    file: "NOH7 Varia.pdf"
+    pdf_pages: 274
+    index_pdf_pages: [274]
+    first_body_pdf_page: 32
+    last_body_pdf_page: 273
+    # PDF 40 loses a dashed treble staff; PDF 101 binds differently tilted
+    # fragments of printed pages 70 and 72 with a blank seam at 48% height.
+    staff_finder:
+      refit: [40, 146, 152, 156, 204, 210, 232, 238, 254, 258]
+      composite: [101]
+    page_offset: null
+    sha256: "2a3f5951b2154a59a360c4089bce0bd4157b44fedfc6f5ca6037bccb1ba9fd5e"
+    source_url: null
+    retrieved: null
+    provenance: null
   noh8:
     title: "Vesperale"
     part: "VIII"

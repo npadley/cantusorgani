@@ -88,6 +88,20 @@ A reader can show the chant above each part of a Proper ("Show the chant with
 each part", remembered in the browser; off by default), or follow the "Chant"
 link to GregoBase. Licensing: `data/LICENSES.md`.
 
+## Hymns and Book VII
+
+The home-page Hymns box opens `/hymns/`: standalone hymns, Vespers hymn starts,
+and hymns printed within Masses, with separate links for different settings.
+Book VII's full musical body is in Varia; its other genres are excluded from
+the hymn index. Source warnings identify missing or damaged scan material.
+
+Reviewed associations in `data/vespers/hymns-noh7.yml` add related VII settings
+to office, day, and Book VIII source pages. `noh vespers-lineup` regenerates
+`data/vespers/hymn-links.json`. These links preserve the existing accompaniment
+and follow the source's printed verses, tone, and usage. Office hymns remain
+separate from Mass exports. See the [Book VII reference report](docs/reports/2026-10-03-book-seven-hymn-references.md)
+and its complete route inventory for coverage and remaining gaps.
+
 ## Vespers
 
 Every Sunday, and every feast NOH8 prints, has its Vespers in the order sung at

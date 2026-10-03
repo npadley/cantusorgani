@@ -57,6 +57,7 @@ function literal(text: string): string {
 const GENRES = [
   "asperges", "mass_ordinary", "credo", "tonus", "kyrie", "gloria",
   "sanctus", "agnus", "requiem", "absolutio", "exsequiis", "proper",
+  "hymn", "sequence", "antiphon", "responsory", "litany", "psalm", "canticle", "versicle",
 ] as const;
 
 /** \p{L} keeps Latin diacritics (Kýrie, æternam) without opening the field up. */
