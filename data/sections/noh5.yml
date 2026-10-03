@@ -4,6 +4,9 @@
 # where the book prints several or the pipeline found none. Every row has a `key`
 # of its own, so a row added later moves no other row's name.
 # A row that starts where a movement was found takes that movement's place.
+# A row named for a movement (key: gloria) is that movement, wherever the
+# pipeline put it: that is how a movement's start is moved. It keeps the
+# movement's heading and chant unless it gives a label or a chant of its own.
 #
 # NOH prints each dismissal once, under both its texts ("Ite, missa est" and the
 # response "Deo gratias"); Mass XVII prints the response alone.
@@ -28,8 +31,13 @@ ordinarium-missae-iv:
 # p. 52: the pipeline found no dismissal.
 ordinarium-missae-viii:
 - {kind: other, key: ite, label: 'Ite, missa est', ref: noh5/0098/005, chant: 832}
+# p. 34: the Agnus Dei starts at the top of the page; the pipeline put it one system down.
+ordinarium-missae-vi:
+- {kind: other, key: agnus, ref: noh5/0086/000}
+# p. 54: the Gloria starts at the top of the page; the pipeline put it one system down.
 # p. 57: the pipeline found no dismissal.
 ordinarium-missae-ix:
+- {kind: other, key: gloria, ref: noh5/0100/000}
 - {kind: other, key: ite, label: 'Ite, missa est', ref: noh5/0103/005, chant: 2989}
 # p. 67
 ordinarium-missae-xi:

@@ -421,6 +421,26 @@ ordinarium-missae-iv:
 - {kind: other, key: benedicamus, label: Benedicamus Domino, ref: noh5/0074/005, chant: 2856}
 ```
 
+**To move a movement** (the pipeline put the Gloria a system late), give a row
+the movement's own name as its key: `kyrie`, `gloria`, `credo`, `sanctus`,
+`agnus` or `ite`. That row is the movement, wherever the pipeline put it: it
+keeps the movement's heading and chant unless you give it a label or a chant.
+
+```yaml
+ordinarium-missae-ix:
+- {kind: other, key: gloria, ref: noh5/0100/000}
+```
+
+On the admin screen: open the Mass's edit page (**Edit** beside its title, or
+**Correct** on a "Mass movement placed by order" item in Review), follow "edit
+its whole list of sections", press **Start a section here** beside the right
+system, leave its kind as *Section*, and type the movement's name under "A name
+of its own".
+
+A piece that is one chant of the Ordinary (a Credo, an ad libitum Kyrie) is
+that movement from its first system; if its heading is in the wrong place, its
+range is wrong: correct `system_range`.
+
 On the page the rows stand among the movements in the book's order, each with
 its own heading, jump link, chant and typeset music, and the export offers each
 heading separately. A row that starts on the system where a movement was found

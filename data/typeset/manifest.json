@@ -97,11 +97,6 @@
    "hash": "07b47a0a7d96e25b5019ab17bf76ec69"
   },
   {
-   "target": "movement:ordinarium-missae-ix/gloria",
-   "file": "vol-5/missa-ix/gloria_IX.ly",
-   "hash": "5661248f12d040774dfe237eaf7d2c74"
-  },
-  {
    "target": "movement:ordinarium-missae-ix/kyrie",
    "file": "vol-5/missa-ix/kyrie_IX.ly",
    "hash": "640b269879f24af40180e6c68c5dffbd"
@@ -135,11 +130,6 @@
    "target": "movement:ordinarium-missae-v/sanctus",
    "file": "vol-5/missa-v/sanctus_V.ly",
    "hash": "d409e64e845677dd0df60a3659a2359b"
-  },
-  {
-   "target": "movement:ordinarium-missae-vi/agnus",
-   "file": "vol-5/missa-vi/agnus_VI.ly",
-   "hash": "7c0771dee5afb27d404f18cda4fa4011"
   },
   {
    "target": "movement:ordinarium-missae-vi/gloria",
@@ -2577,9 +2567,19 @@
    "hash": "4e96e7feeca6beb75aadf235b6d0cc28"
   },
   {
+   "target": "part:ordinarium-missae-ix/other:gloria",
+   "file": "vol-5/missa-ix/gloria_IX.ly",
+   "hash": "5661248f12d040774dfe237eaf7d2c74"
+  },
+  {
    "target": "part:ordinarium-missae-ix/other:ite",
    "file": "vol-5/missa-ix/ite_IX.ly",
    "hash": "4d45786b0453dc938928afe98e284ce5"
+  },
+  {
+   "target": "part:ordinarium-missae-vi/other:agnus",
+   "file": "vol-5/missa-vi/agnus_VI.ly",
+   "hash": "7c0771dee5afb27d404f18cda4fa4011"
   },
   {
    "target": "part:ordinarium-missae-viii/other:ite",

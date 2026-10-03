@@ -143,8 +143,9 @@ test.describe("A Mass's rows of its own", () => {
     await expect(page.locator("nav.movements")).toHaveAttribute("aria-label", "Movements");
     await expect(page.locator("nav.movements a")).toHaveText(HEADINGS);
     await expect(page.locator("#other-benedicamus")).toHaveText("Benedicamus Domino");
-    // The first Ite's row stands where the pipeline found the dismissal: no second heading there.
-    await expect(page.locator("h2#ite")).toHaveCount(0);
+    // The first Ite's row stands where the pipeline found the dismissal: one heading there, the row's.
+    await expect(page.locator("h2#ite")).toHaveCount(1);
+    await expect(page.locator("h2#ite")).toHaveText("Ite, missa est");
     await expect(page.locator("[data-typeset]").last().locator("img.typeset-music"))
       .toHaveAttribute("alt", "Benedicamus Domino: the music, typeset");
     await expect(page.locator("input[name=export-part]")).toHaveCount(HEADINGS.length);

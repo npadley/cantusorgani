@@ -10244,8 +10244,8 @@
     - target: movement:ordinarium-missae-iv/gloria
       melody: 0.452
       words: 0.998
-    - target: movement:ordinarium-missae-ix/gloria
-      melody: 0.442
+    - target: movement:ordinarium-missae-iii/gloria
+      melody: 0.371
       words: 0.998
     melody: 0.474
     words: 0.998
@@ -10938,13 +10938,13 @@
     words: 1.0
     name: agnus_IX
 - file: vol-5/missa-ix/gloria_IX.ly
-  target: movement:ordinarium-missae-ix/gloria
+  target: part:ordinarium-missae-ix/other:gloria
   status: matched
   evidence:
     by: folder
     incipit: Glória in excélsis Deo Et in terra pax
     candidates:
-    - target: movement:ordinarium-missae-ix/gloria
+    - target: part:ordinarium-missae-ix/other:gloria
       melody: 1.0
       words: 0.998
     melody: 1.0
@@ -11060,14 +11060,14 @@
     words: 0.993
     name: sanctus_V
 - file: vol-5/missa-vi/agnus_VI.ly
-  target: movement:ordinarium-missae-vi/agnus
+  target: part:ordinarium-missae-vi/other:agnus
   status: matched
   evidence:
     by: folder
     incipit: Agnus Dei qui tol lis peccáta mun di
     page: 40
     candidates:
-    - target: movement:ordinarium-missae-vi/agnus
+    - target: part:ordinarium-missae-vi/other:agnus
       melody: 1.0
       words: 1.0
     melody: 1.0
@@ -11918,7 +11918,7 @@
     - target: movement:ordinarium-missae-xiii/agnus
       melody: 0.795
       words: 0.293
-    - target: movement:ordinarium-missae-vi/agnus
+    - target: movement:ordinarium-missae-viii/agnus
       melody: 0.769
       words: 0.293
     melody: 0.923
