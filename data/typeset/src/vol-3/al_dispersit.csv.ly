@@ -65,7 +65,7 @@ r4 cis'2 ~ cis'2*9/4 d'2 b2*5/4 cis'2*13/4 d'2*3/2 e'2 b2 ~ b4 ~ \divisioMaior
 b2 cis'2*5/4 ~ cis'2 ~ cis'2*9/4 b2 cis'2*4/2 a2 b4 \divisioMaxima
 d'4 ~ d'2*3/2 b2*3/2 cis'2*4/2 d'2*5/2 e'4 \divisioMaior
 d'2*4/2 cis'2*3/2 ~ cis'2*3/2 \divisioMinima
-d'2*5/2 cis'2*11/4 d'2 r'2*4/2 \divisioMinima
+d'2*5/2 cis'2*11/4 d'2 r2*4/2 \divisioMinima
 d'2*3/2 cis'2 ~ cis'2*7/4 d'2*3/2 e'2 b2 ~ b4 \finalis
 }
 

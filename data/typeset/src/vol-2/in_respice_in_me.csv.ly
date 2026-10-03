@@ -95,7 +95,7 @@ r4 c'2 ~ c'2*3/2 a2*3/2 bes2*3/2 b4 a4 \finalis
 
 tenorMusic = {
 a2*5/2 ~ a2 ~ a2*3/2 \divisioMinima
-d2 ~ d2 ~ d2*4/2 bes2 a4 g2 ~ g2*3/2 bess4 bes2*3/2 a4 ~ a2 c'2*4/2 ~ c'2*3/2 g2 \divisioMinima
+d2 ~ d2 ~ d2*4/2 bes2 a4 g2 ~ g2*3/2 bes4 bes2*3/2 a4 ~ a2 c'2*4/2 ~ c'2*3/2 g2 \divisioMinima
 a2 ~ a2*5/2 ~ a2*4/2 f2*3/2 e4 ~ \divisioMaxima
 e2 f2 g2*5/2 ~ g2*4/2 a2*5/2 g2 \divisioMaior
 f2*3/2 g2*3/2 ~ g2*3/2 ~ g2 bes2 ~ bes2*4/2 a4 ~ \divisioMaxima

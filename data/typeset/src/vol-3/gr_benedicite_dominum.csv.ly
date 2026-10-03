@@ -52,7 +52,7 @@ chantMusic = {
  g'4 a'4 ( c''4) c''4 c''4 c''4 c''4 ( c''4) ~ c''4 ( c''4) ~ c''4 ( a'4 g'4) b'4 ( g'4 a'4) a'4 \divisioMinima
  b'4 ( c''4 b'4) c''4 ( d''4 b'4.) d''4 ( c''4 b'4 a'4) c''4 ( b'4 a'4) \divisioMinima
  c''4 ( c''4) d''4 ( b'4) c''4 ( a'4 g'4) c''4 ( a'4) b'4 ( a'4) ~ a'4 ( g'4) \divisioMaxima
- g'4 a'4 ( c''4 \tiny b' a' \normal) c''4 ( d''4 c''4 a'4) c''4 ( c''4 \once \tweak #'font-size #-4 a' ) c''4 ( c''4) ~ c''4 ( g'4)  g'4 ( a'4.) e'4 ( f'4 g'\prall a'4 bes'4 g'4) f'4 ( f'4) d'4 ( e'4 d'4) \divisioMaior
+ g'4 a'4 ( c''4 \tiny b' a' \normalsize) c''4 ( d''4 c''4 a'4) c''4 ( c''4 \once \tweak #'font-size #-4 a' ) c''4 ( c''4) ~ c''4 ( g'4)  g'4 ( a'4.) e'4 ( f'4 g'\prall a'4 bes'4 g'4) f'4 ( f'4) d'4 ( e'4 d'4) \divisioMaior
  g'4 ( c''4 b'4) c''4 ( c''4 b'4) c''4 ( d''4) c''4 ( d''4 c''4 a'4) g'4 ( b'4 a'4 b'4) b'4 ( c''4 d''4) c''4 ( \once \tweak #'font-size #-4 d'' ) g'4 ( f'4) \divisioMinima
  f'4 ( a'4 \once \tweak #'font-size #-4 c'' ) b'4 ( g'4.) b'4 ( a'4 g'4) a'4 ( a'4 f'4) a'4 ( a'4) \divisioMinima
   g'4 c''4 ( c''4) ~ c''4 ( c''4) ~ c''4 ( c''4) ~ c''4 ( a'4 g'4 f'4 e'4) f'4 ( a'4.) bes'4 ( g'4 f'4) g'4 ( a'4 g'4) a'4 ( g'4) ~ g'4 ( e'4) \finalis
