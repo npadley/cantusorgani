@@ -6,6 +6,9 @@ table below, and follow the recipe. Nothing here needs your own computer's
 files: the scanned PDFs are in the repository, and the recipes that rebuild the
 catalogue can run on GitHub.
 
+What to run after each change, the checks, and getting a change to the site are
+in [OPERATIONS.md](OPERATIONS.md); this page is the recipes.
+
 ## What do you want to fix?
 
 | You see… | Recipe | Rebuilds the catalogue? |
@@ -24,6 +27,11 @@ catalogue can run on GitHub.
 | A system image misses a staff, holds two systems, or a system has no image | [Slicing a page](#slicing-a-page) | Yes (and uploads images: your machine) |
 | A newer Divinum Officium, vesperale, jgabc or calendar | [Refreshing a source](#refreshing-a-source) | No |
 | A new volume to add | [Adding a volume](#adding-a-volume) | Yes (and uploads images: your machine) |
+| A feast prints only a rubric ("resumitur Missa Feriae praecedentis") | [OPERATIONS: a feast that prints only a rubric](OPERATIONS.md#a-feast-that-prints-only-a-rubric) | Yes |
+| Two pieces should be one (or a piece moved to a new address) | [OPERATIONS: two index entries that are one piece](OPERATIONS.md#two-index-entries-that-are-one-piece) | Yes |
+| Pages printed "bis" between two others | [OPERATIONS: a leaf inserted into the book](OPERATIONS.md#a-leaf-inserted-into-the-book) | Yes (and re-slices) |
+| A Vespers hymn linked to the wrong system | [OPERATIONS: a hymn the heading search misplaces](OPERATIONS.md#a-hymn-the-heading-search-misplaces) | Yes |
+| Many review items checked at once | [OPERATIONS: confirming many items at once](OPERATIONS.md#confirming-many-items-at-once) | No |
 
 Two kinds of people edit:
 
@@ -67,8 +75,11 @@ code arrives by email). Setting it up is described in
     settle a file that is no part the site has. A chosen file replaces the
     scans for that part once published.
   - **Errors**: files LilyPond can't draw, with the lines around the one it
-    stopped at. The source editor comes later; for now, **Skip** with a note,
-    or settle a file that isn't in the catalogue.
+    stopped at. **Edit the source** opens the file in an editor: **Save draft**
+    (private to you), **Preview draft** (LilyPond draws it on GitHub, in a
+    minute or so), then **Approve this edit** with a public reason. The edit
+    publishes like a correction. Or **Skip** with a note, or settle a file that
+    isn't in the catalogue.
   - **Proofreading**: every part shown typeset, beside the scan of the same
     systems. **Proofread** confirms that drawing (an edit to the file brings it
     back); **Problem** leaves a note and keeps it listed.
@@ -162,9 +173,9 @@ This takes about 15 minutes. The clone includes the scanned PDFs (about 240 MB).
 |---|---|---|
 | Find it | `uv run noh where <page URL or words>` | instant |
 | Change it | `uv run noh correct …`, or edit the YAML file the recipe names | — |
-| Regenerate | the recipe's command (`noh apply-corrections`, `noh vespers-lineup`, `noh catalog`) | < 1 s; `noh catalog` about 1 min per volume |
-| Check | `uv run noh doctor`; `uv run pytest -m "not source and not slow"`; `pnpm --dir web test` | ~10 s each |
-| Browser tests | `pnpm --dir web build`, then `pnpm --dir web test:e2e` (the admin screen and forms in Chromium) | ~1 min |
+| Regenerate | `scripts/regenerate.sh` (add the volume after an index edit: `scripts/regenerate.sh noh3`) | ~2 min; each volume rebuilt adds 2–7 min |
+| Check | `scripts/check.sh --quick` (what a pull request checks, less the build) | ~5 min |
+| Browser tests | `scripts/check.sh` (adds the build, the link check and the browser tests) | ~8 min |
 | Preview | `pnpm --dir web dev` → http://localhost:4321 | ~5 s to start |
 | Publish | push to `main`; see [Publishing](#publishing) | ~1½ min |
 
@@ -343,8 +354,9 @@ commits the result to the branch, and the checks run again. Or locally: the comm
 
 - **File**: `page:` of the entry in `data/index-<volume>.yml`, the printed page
   the piece starts on.
-- **Command**: `uv run noh catalog --volume <volume>`. It re-reads the scans
-  and reports anything uncertain in `data/review-queue.json`.
+- **Command**: `scripts/regenerate.sh <volume>` (it runs `noh catalog`, which
+  re-reads the scans and reports anything uncertain in
+  `data/review-queue.json`, then everything after it).
 - **Confirm**: preview the piece; its first system is the one printed.
 
 ### Sections
