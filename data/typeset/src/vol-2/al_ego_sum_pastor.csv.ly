@@ -91,7 +91,7 @@ g2*4/2 fis2*3/2 e2*5/2 ~ e2 ~ e4 ~ e2*4/2 ~ e2*3/4 d2 ~ d2*3/2 e2 \divisioMinima
 fis2 e2*9/4 ~ e2 d2*3/2 e2*5/4 b,2*3/2 e2 ~ e4 \finalis
 r2*13/4 g2*9/4 a2 g2*4/2 \divisioMaior
 r2*3/2 fis2*3/2 g2*7/4 a2 g2*4/2 fis2*3/2 e2 ~ e2 \divisioMaxima
-g,2*3/2 b,2*3/2 ~ b,2 ~ b,2*3/2 c2 e4 er2*3/4 e2*4/2 ~ e2*3/4 d2 ~ d2*3/2 e2 \divisioMinima
+g,2*3/2 b,2*3/2 ~ b,2 ~ b,2*3/2 c2 e4 ~ e2*3/4 e2*4/2 ~ e2*3/4 d2 ~ d2*3/2 e2 \divisioMinima
 fis2 e2*9/4 ~ e2 d2*3/2 c2 ~ c4 b,2*3/2 e2*3/2 ~ e4 \divisioMaxima
 a,2*3/2 b,2*3/2 ~ b,2 ~ b,2*3/2 c2*3/2 e4 ~ e2*3/4 ~ e2*4/2 ~ e2*3/4 d2 ~ d2*3/2 e2 \divisioMinima
 fis2 e2*13/4 d2*3/2 c2 b,2*4/2 e2 ~ e4 \finalis
