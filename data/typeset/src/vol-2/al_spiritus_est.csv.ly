@@ -90,7 +90,7 @@ g2*3/2 c2*7/4 d2*3/2 ~ d4 \finalis
 }
 
 bassMusic = {
-r2 'b2 a2*3/2 e2*9/4 g2*3/2 ~ g4 \divisioMaior
+r2 b2 a2*3/2 e2*9/4 g2*3/2 ~ g4 \divisioMaior
 b,2*3/2 d2*9/4 g2 ~ g2 \divisioMinima
 b,2*3/2 a,2*7/4 g,2*3/2 ~ g,4 \finalis
 r2*29/4 \divisioMinima
