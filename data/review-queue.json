@@ -8380,15 +8380,15 @@
   {
     "volume": "noh1",
     "piece": "feria-iv-cinerum",
-    "kind": "part_mismatch",
-    "part": "introit",
+    "kind": "part_missing",
+    "part": "offertory",
     "variant": "",
-    "expected_incipit": "misererisomniumdomineetn",
-    "best_system": 17,
-    "ref": "noh1/0181/005",
-    "score": 0.449,
-    "key": "review:noh1/part_mismatch/79e1198c",
-    "fingerprint": "9f1314da1d49"
+    "expected_incipit": "exaltabotedominequoniams",
+    "best_system": 52,
+    "ref": "noh1/0187/004",
+    "score": 0.489,
+    "key": "review:noh1/part_missing/a100010d",
+    "fingerprint": "556f92504a23"
   },
   {
     "volume": "noh1",
@@ -8398,28 +8398,6 @@
     "title": "Feria IV Cinerum",
     "key": "review:noh1/unpaired/0ee73874",
     "fingerprint": "07591bfce866"
-  },
-  {
-    "volume": "noh1",
-    "piece": "noh1-p156",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "exaltabotedominequoniams",
-    "best_system": 28,
-    "ref": "noh1/0187/004",
-    "score": 0.489,
-    "key": "review:noh1/part_missing/04b672bd",
-    "fingerprint": "b6b3840927ba"
-  },
-  {
-    "volume": "noh1",
-    "piece": "noh1-p156",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Ad Miswm",
-    "key": "review:noh1/unpaired/1b6f03fc",
-    "fingerprint": "5e7995991ea9"
   },
   {
     "volume": "noh1",

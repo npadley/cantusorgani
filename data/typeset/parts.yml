@@ -356,18 +356,19 @@
     melody: 0.364
     words: 0.443
 - file: vol-1/an_exaudi_nos_domine.csv.ly
-  target: piece:feria-iv-cinerum
-  status: proposed
+  target: part:feria-iv-cinerum/other:1
+  status: matched
   evidence:
     by: page
     incipit: Exáudi nos Dómine quóniam benígna est misericór dia
     page: 152
     candidates:
-    - target: piece:feria-iv-cinerum
-      melody: null
-      words: null
-    melody: null
-    words: null
+    - target: part:feria-iv-cinerum/other:1
+      melody: 0.958
+      words: 0.992
+    melody: 0.958
+    words: 0.992
+    name: Exaudi nos Domine
 - file: vol-1/an_fulgentibus_palmis.csv.ly
   target: part:noh1-p302/other:7
   status: matched
@@ -403,26 +404,33 @@
     words: 1.0
     name: Hosanna filio David
 - file: vol-1/an_immutemur_habitu.csv.ly
-  target: piece:feria-iv-cinerum
-  status: proposed
+  target: part:feria-iv-cinerum/other:2
+  status: matched
   evidence:
     by: page
     incipit: Immutémur há bitu in cíne re et cilício
     page: 153
     candidates:
-    - target: piece:feria-iv-cinerum
-      melody: null
-      words: null
-    melody: null
-    words: null
+    - target: part:feria-iv-cinerum/other:2
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Immutemur habitu
 - file: vol-1/an_juxta_vestibulum.csv.ly
-  target: null
-  status: proposed
+  target: part:feria-iv-cinerum/other:3
+  status: matched
   evidence:
-    by: none
+    by: page
     incipit: Juxta vestíbulum et altá re plorá bunt sacerdótes
     page: 154
-    candidates: []
+    candidates:
+    - target: part:feria-iv-cinerum/other:3
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Juxta vestibulum
 - file: vol-1/an_occurrunt_turbae.csv.ly
   target: part:noh1-p302/other:1
   status: matched
@@ -1144,14 +1152,14 @@
     words: 1.0
     name: Qui biberit
 - file: vol-1/co_qui_meditabitur.csv.ly
-  target: part:noh1-p156/communion
+  target: part:feria-iv-cinerum/communion
   status: matched
   evidence:
     by: page
     incipit: Qui meditábitur in lege Dómini die ac nocte
     page: 163
     candidates:
-    - target: part:noh1-p156/communion
+    - target: part:feria-iv-cinerum/communion
       melody: 1.0
       words: 1.0
     melody: 1.0
@@ -1633,14 +1641,14 @@
     words: 1.0
     name: Laetatus sum
 - file: vol-1/gr_miserere_mei_deus.csv.ly
-  target: part:noh1-p156/gradual
+  target: part:feria-iv-cinerum/gradual
   status: matched
   evidence:
     by: page
     incipit: Mise rére me i Deus miseré re me
     page: 158
     candidates:
-    - target: part:noh1-p156/gradual
+    - target: part:feria-iv-cinerum/gradual
       melody: 1.0
       words: 0.99
     melody: 1.0
@@ -2649,14 +2657,14 @@
     words: 0.989
     name: Miserere mihi
 - file: vol-1/in_misereris_omnium.csv.ly
-  target: part:noh1-p156/introit
+  target: part:feria-iv-cinerum/introit
   status: matched
   evidence:
     by: page
     incipit: Miseréris omnium Dómine et nihil odísti eó rum
     page: 156
     candidates:
-    - target: part:noh1-p156/introit
+    - target: part:feria-iv-cinerum/introit
       melody: 0.964
       words: 0.992
     melody: 0.964
@@ -3166,14 +3174,14 @@
     words: 1.0
     name: Eripe me de inimicis
 - file: vol-1/of_exaltabo_te.csv.ly
-  target: part:noh1-p156/offertory
+  target: part:feria-iv-cinerum/offertory
   status: matched
   evidence:
     by: page
     incipit: Exaltábo te Dómi ne quóniam suscepísti me nec
     page: 162
     candidates:
-    - target: part:noh1-p156/offertory
+    - target: part:feria-iv-cinerum/offertory
       melody: null
       words: null
     melody: null
@@ -3474,18 +3482,19 @@
     words: 1.0
     name: Tulerunt Jesum
 - file: vol-1/re_emendemus.csv.ly
-  target: part:noh1-p156/introit
-  status: melody-differs
+  target: part:feria-iv-cinerum/other:4
+  status: matched
   evidence:
     by: page
     incipit: Emendémus in mélius quæ ignorán ter pec cávimus
     page: 155
     candidates:
-    - target: part:noh1-p156/introit
-      melody: 0.303
-      words: 0.452
-    melody: 0.303
-    words: 0.452
+    - target: part:feria-iv-cinerum/other:4
+      melody: 0.975
+      words: 1.0
+    melody: 0.975
+    words: 1.0
+    name: Emendemus in melius
 - file: vol-1/tr_ad_te_levavi.csv.ly
   target: part:dominica-iii-in-quadragesim/tract
   status: matched
@@ -3584,14 +3593,14 @@
     words: 0.997
     name: Domine exaudi
 - file: vol-1/tr_domine_non_secundum.csv.ly
-  target: part:noh1-p156/tract
+  target: part:feria-iv-cinerum/tract
   status: matched
   evidence:
     by: page
     incipit: Domine non secúndum peccáta nostra quæ fécimus nos
     page: 160
     candidates:
-    - target: part:noh1-p156/tract
+    - target: part:feria-iv-cinerum/tract
       melody: 1.0
       words: 0.925
     melody: 1.0
