@@ -906,10 +906,19 @@
     words: 1.0
     name: Jerusalem quae
 - file: vol-1/co_jerusalem_surge.csv.ly
-  target: null
-  status: broken
+  target: part:dominica-ii-adventus/communion
+  status: matched
   evidence:
-    error: 'line 39:25: error: syntax error, unexpected ''*'''
+    by: page
+    incipit: Jerúsalem zwj surge et sta in excélso et
+    page: 13
+    candidates:
+    - target: part:dominica-ii-adventus/communion
+      melody: 1.0
+      words: 0.955
+    melody: 1.0
+    words: 0.955
+    name: Jerusalem surge
 - file: vol-1/co_justus_dominus.csv.ly
   target: part:feria-iv-infra-hebd-ii-quadragesim/communion
   status: matched
@@ -1366,10 +1375,19 @@
     words: 1.0
     name: Adjutor in opportunitatibus
 - file: vol-1/gr_adjutor_meus.csv.ly
-  target: null
-  status: broken
+  target: part:feria-ii-infra-hebd-ii-quadragesim/gradual
+  status: matched
   evidence:
-    error: 'line 11:11: error: undefined character or shorthand: \'
+    by: page
+    incipit: Adjútor meus et liberátor meus esto Dó mi
+    page: 210
+    candidates:
+    - target: part:feria-ii-infra-hebd-ii-quadragesim/gradual
+      melody: 0.995
+      words: 1.0
+    melody: 0.995
+    words: 1.0
+    name: Adjutor meus
 - file: vol-1/gr_angelis_suis.csv.ly
   target: part:dominica-i-in-quadragesim/gradual
   status: matched
@@ -1427,10 +1445,19 @@
     words: 1.0
     name: Convertere Domine
 - file: vol-1/gr_deus_exaudi.csv.ly
-  target: null
-  status: broken
+  target: part:feria-ii-infra-hebd-passionis/gradual
+  status: matched
   evidence:
-    error: 'line 100:17: error: not a note name: bese'
+    by: page
+    incipit: Deus exáu di oratiónem me am áuribus pér
+    page: 282
+    candidates:
+    - target: part:feria-ii-infra-hebd-passionis/gradual
+      melody: 0.992
+      words: 1.0
+    melody: 0.992
+    words: 1.0
+    name: Deus exaudi
 - file: vol-1/gr_deus_vitam_meam.csv.ly
   target: part:feria-ii-infra-hebd-iii-quadragesim/gradual
   status: matched
@@ -1524,10 +1551,19 @@
     words: 1.0
     name: Eripe me
 - file: vol-1/gr_excita_domine.csv.ly
-  target: null
-  status: broken
+  target: part:sabbato-temporum-adventus/gradual:4
+  status: matched
   evidence:
-    error: 'line 117:35: error: not a note name: aeess'
+    by: page
+    incipit: Excita Dó mine potén tiam tu am et
+    page: 29
+    candidates:
+    - target: part:sabbato-temporum-adventus/gradual:4
+      melody: 0.985
+      words: 1.0
+    melody: 0.985
+    words: 1.0
+    name: Excita Domine
 - file: vol-1/gr_exsurge__et_intende.csv.ly
   target: part:feria-ii-hebdomad-sanct/gradual
   status: matched
@@ -1641,10 +1677,19 @@
     words: 1.0
     name: Miserere mihi
 - file: vol-1/gr_misit_dominus.csv.ly
-  target: null
-  status: broken
+  target: part:dominica-ii-post-epiphaniam/gradual
+  status: matched
   evidence:
-    error: 'line 86:21: error: octave marks must precede duration'
+    by: page
+    incipit: Misit Dó minus ver bum su um et
+    page: 120
+    candidates:
+    - target: part:dominica-ii-post-epiphaniam/gradual
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Misit Dominus
 - file: vol-1/gr_ne_avertas.csv.ly
   target: part:feria-iv-hebdomad-sanct/gradual
   status: matched
@@ -1856,10 +1901,19 @@
     words: 1.0
     name: Speciosus
 - file: vol-1/gr_tecum_principium.csv.ly
-  target: null
-  status: broken
+  target: part:noh1-p49/gradual
+  status: matched
   evidence:
-    error: 'line 126:43: error: not a note name: aas'
+    by: page
+    incipit: Tecum princípi um in di e virtú tis
+    page: 50
+    candidates:
+    - target: part:noh1-p49/gradual
+      melody: 0.993
+      words: 1.0
+    melody: 0.993
+    words: 1.0
+    name: Tecum principium
 - file: vol-1/gr_tenuisti_manum.csv.ly
   target: part:noh1-p302/gradual
   status: matched
@@ -1903,10 +1957,19 @@
     words: 1.0
     name: Timebunt gentes
 - file: vol-1/gr_tollite_hostias.csv.ly
-  target: null
-  status: broken
+  target: part:feria-v-infra-hebd-passionis/gradual
+  status: matched
   evidence:
-    error: 'line 96:72: error: not a note name: aess'
+    by: page
+    incipit: Tollite hóstias et introíte in á tria e
+    page: 293
+    candidates:
+    - target: part:feria-v-infra-hebd-passionis/gradual
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Tollite hostias
 - file: vol-1/gr_tollite_portas.csv.ly
   target: part:feria-iv-quattuor-temporum-adventus/gradual:1
   status: matched
@@ -2031,10 +2094,18 @@
     melody: 0.767
     words: 0.239
 - file: vol-1/hy_gloria_laus.4.csv.ly
-  target: null
-  status: broken
+  target: part:noh1-p302/other:4
+  status: proposed
   evidence:
-    error: 'line 39:1: error: not a duration'
+    by: page
+    incipit: 3 Plebs Hebrǽa tibi cum palmis óbvia venit
+    page: 305
+    candidates:
+    - target: part:noh1-p302/other:4
+      melody: 0.767
+      words: 0.406
+    melody: 0.767
+    words: 0.406
 - file: vol-1/hy_gloria_laus.5.csv.ly
   target: part:noh1-p302/other:4
   status: proposed
@@ -2049,10 +2120,18 @@
     melody: 0.767
     words: 0.5
 - file: vol-1/hy_gloria_laus.6.csv.ly
-  target: null
-  status: broken
+  target: part:noh1-p302/other:4
+  status: proposed
   evidence:
-    error: 'line 39:1: error: not a duration'
+    by: page
+    incipit: 5 Hi placuére tibi pláceat devótio nostra Rex
+    page: 305
+    candidates:
+    - target: part:noh1-p302/other:4
+      melody: 0.767
+      words: 0.463
+    melody: 0.767
+    words: 0.463
 - file: vol-1/in_ad_te_levavi.csv.ly
   target: part:dominica-i-adventus/introit
   status: matched
@@ -2320,10 +2399,19 @@
     words: 0.983
     name: Exspecta Dominum
 - file: vol-1/in_exsurge.csv.ly
-  target: null
-  status: broken
+  target: part:dominica-in-sexagesima/introit
+  status: matched
   evidence:
-    error: 'line 136:70: error: not a note name: x'
+    by: page
+    incipit: Exsúrge quare obdórmis Dómine? exsúr ge et ne
+    page: 138
+    candidates:
+    - target: part:dominica-in-sexagesima/introit
+      melody: 0.957
+      words: 0.994
+    melody: 0.957
+    words: 0.994
+    name: Exsurge
 - file: vol-1/in_fac_mecum_domine.csv.ly
   target: part:feria-vi-infra-hebd-iii-quadragesim/introit
   status: matched
@@ -2465,10 +2553,19 @@
     words: 0.99
     name: Judica Domine
 - file: vol-1/in_judica_me.csv.ly
-  target: null
-  status: broken
+  target: part:dominica-i-passionis/introit
+  status: matched
   evidence:
-    error: 'line 114:11: error: not a note name: besm'
+    by: page
+    incipit: Judica me Deus et dis cérne causam me
+    page: 273
+    candidates:
+    - target: part:dominica-i-passionis/introit
+      melody: 1.0
+      words: 0.99
+    melody: 1.0
+    words: 0.99
+    name: Judica me
 - file: vol-1/in_laetare_jerusalem.csv.ly
   target: part:dominica-iv-in-quadragesim/introit
   status: matched
@@ -2554,10 +2651,19 @@
     words: 0.985
     name: Miserere mihi
 - file: vol-1/in_miserere__tribulor.csv.ly
-  target: null
-  status: broken
+  target: part:feria-vi-infra-hebd-passionis/introit
+  status: matched
   evidence:
-    error: 'line 78:4: error: undefined character or shorthand: ;'
+    by: page
+    incipit: Misereré mihi Dómine quóni am tríbu lor líbera
+    page: 294
+    candidates:
+    - target: part:feria-vi-infra-hebd-passionis/introit
+      melody: 1.0
+      words: 0.989
+    melody: 1.0
+    words: 0.989
+    name: Miserere mihi
 - file: vol-1/in_misereris_omnium.csv.ly
   target: part:noh1-p156/introit
   status: matched
@@ -2853,10 +2959,19 @@
     words: 1.0
     name: Benedixisti Domine
 - file: vol-1/of_bonum_est_confiteri.csv.ly
-  target: null
-  status: broken
+  target: part:dominica-in-septuagesima/offertory
+  status: matched
   evidence:
-    error: 'line 68:1: error: not a note name: rc'
+    by: page
+    incipit: Bonum est confité ri Dómi no et psál
+    page: 137
+    candidates:
+    - target: part:dominica-in-septuagesima/offertory
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Bonum est confiteri
 - file: vol-1/of_confitebor_tibi__deus.csv.ly
   target: part:sanctissimi-nominis-jesu/offertory
   status: matched
@@ -2956,10 +3071,19 @@
     words: 1.0
     name: Dextera Domini
 - file: vol-1/of_domine_ad_adjuvandum.csv.ly
-  target: null
-  status: broken
+  target: part:feria-v-infra-hebd-iv-quadragesim/offertory
+  status: matched
   evidence:
-    error: 'line 77:1: error: syntax error, unexpected ''\'''''
+    by: page
+    incipit: Do mine ad adjuván dum me fe stína
+    page: 266
+    candidates:
+    - target: part:feria-v-infra-hebd-iv-quadragesim/offertory
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Domine ad adjuvandum
 - file: vol-1/of_domine_deus_salutis.csv.ly
   target: part:sabbato-quattuor-temporum-quadragesim/offertory
   status: matched
@@ -3208,10 +3332,19 @@
     words: 1.0
     name: Jubilate Deo universa
 - file: vol-1/of_justitiae_domini.csv.ly
-  target: null
-  status: broken
+  target: part:dominica-iii-in-quadragesim/offertory
+  status: matched
   evidence:
-    error: 'line 75:65: error: undefined character or shorthand: ;'
+    by: page
+    incipit: Justítiæ Dómini re ctæ lætificántes cor da et
+    page: 229
+    candidates:
+    - target: part:dominica-iii-in-quadragesim/offertory
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Justitiae Domini
 - file: vol-1/of_laetentur_caeli.csv.ly
   target: part:noh1-p49/offertory
   status: matched
@@ -3353,10 +3486,19 @@
     words: 1.0
     name: Tollite portas
 - file: vol-1/of_tui_sunt_caeli.csv.ly
-  target: null
-  status: broken
+  target: part:noh1-p60/offertory
+  status: matched
   evidence:
-    error: 'line 39:14: error: syntax error, unexpected ''*'''
+    by: page
+    incipit: Tui sunt cœ li et tua est ter
+    page: 64
+    candidates:
+    - target: part:noh1-p60/offertory
+      melody: 1.0
+      words: 0.99
+    melody: 1.0
+    words: 0.99
+    name: Tui sunt caeli
 - file: vol-1/of_tulerunt_jesum.csv.ly
   target: part:noh1-p104/offertory
   status: matched
@@ -3399,15 +3541,33 @@
     words: 0.995
     name: Ad te levavi
 - file: vol-1/tr_confitemini.csv.ly
-  target: null
-  status: broken
+  target: part:dominica-ii-in-quadragesim/tract
+  status: matched
   evidence:
-    error: 'line 111:27: error: not a note name: ee'
+    by: page
+    incipit: Confitémini Dó mino quó niam bonus quóniam in
+    page: 205
+    candidates:
+    - target: part:dominica-ii-in-quadragesim/tract
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Confitemini Domino
 - file: vol-1/tr_de_necessitatibus.csv.ly
-  target: null
-  status: broken
+  target: part:feria-iv-quatuor-temporum-quadragesim/tract
+  status: matched
   evidence:
-    error: 'line 118:27: error: octave marks must precede duration'
+    by: page
+    incipit: De necessitáti bus me is éripe me Dó
+    page: 185
+    candidates:
+    - target: part:feria-iv-quatuor-temporum-quadragesim/tract
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: De necessitatibus
 - file: vol-1/tr_de_profundis.csv.ly
   target: part:dominica-in-septuagesima/tract
   status: matched
@@ -3423,10 +3583,19 @@
     words: 1.0
     name: De profundis
 - file: vol-1/tr_deus_deus_meus.csv.ly
-  target: null
-  status: broken
+  target: part:noh1-p302/tract
+  status: matched
   evidence:
-    error: 'line 207:35: error: octave marks must precede duration'
+    by: page
+    incipit: Deus Deus meus réspice in me quare me
+    page: 316
+    candidates:
+    - target: part:noh1-p302/tract
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Deus Deus meus
 - file: vol-1/tr_domine_deus.csv.ly
   target: part:sanctissimi-nominis-jesu/tract
   status: proposed

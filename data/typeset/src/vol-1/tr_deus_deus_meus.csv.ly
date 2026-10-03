@@ -203,7 +203,7 @@ altoMusic = {
 d'2*17/4 ~ d'2*13/4 ~ d'2*3/2 ~ \divisioMinima
 d'2 f'2 ~ f'2*4/2 d'2*5/2 ees'2*3/2 d'2 ~ \divisioMaior
 d'4 ees'2 f'2*3/2 ~ \divisioMinima
-f'2*3/2 ~ f'2*3/2 ~ f'2 ~ f'2 d'2 '2*3/2 d'2*3/2 c'2*3/2 \divisioMaxima
+f'2*3/2 ~ f'2*3/2 ~ f'2 ~ f'2 d'2 ~ d'2*3/2 d'2*3/2 c'2*3/2 \divisioMaxima
 d'2 ~ d'2 ~ d'2*3/2 f'2*3/2 ~ f'2 ~ f'2 ~ f'2*4/2 d'2*4/2 ~ d'2*3/2 ~ \finalis
 d'2*3/2 ees'2*5/2 d'2*5/2 f'2*5/2 ~ f'2*3/2 ~ f'2*3/2 ~ f'2 d'4 ~ \divisioMinima
 d'2*3/2 ~ d'2*3/2 ~ d'2 ~ d'2*3/2 ~ d'2 ~ d'2*3/2 ~ d'2*3/2 ~ d'2*3/2 \divisioMaxima

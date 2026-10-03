@@ -114,7 +114,7 @@ d'2 ~ d'2 ~ d'2 g'2*5/2 f'2*4/2 d'2 ~ \divisioMaior
 d'2*6/2 ~ d'2*3/2 ~ d'2*3/2 ~ d'2*3/2 ~ d'4 \divisioMaxima
 g'4 ~ g'2*3/2 f'2*5/2 ~ f'2*4/2 ~ f'2 d'2*3/2 ~ \divisioMaior
 d'2 ees'2*3/2 f'2 ~ f'2*5/2 d'2 \divisioMaior
-ees'2*4/2 f'2*3/2 d'2*3/2 '2*3/2 c'2*3/2 d'2*4/2 ~ d'2*4/2 c'2 d'2*3/2 \divisioMaxima
+ees'2*4/2 f'2*3/2 d'2*3/2 ~ d'2*3/2 c'2*3/2 d'2*4/2 ~ d'2*4/2 c'2 d'2*3/2 \divisioMaxima
 f'4 ~ f'2*3/2 ~ f'2*3/2 d'2 c'2*4/2 f'2 ~ f'2*3/4 ees'2 d'2*3/2 \divisioMaior
 g'2 f'2*3/2 ~ f'2 ~ f'2*4/2 g'2 f'2*3/2 ~ f'4 \divisioMinima
 d'2 ~ d'2*5/2 ~ d'2*3/2 ees'2 d'2*5/2 \divisioMinima
@@ -141,7 +141,7 @@ bes4 a2 g2 ~ g2*6/2 ~ g2 a2*3/2 \divisioMinima
 bes2 a4 g2 bes2*4/2 d'4 c'2*3/2 bes2*4/2 c'2 bes4 ~ \finalis
 bes2 ~ bes2 ~ bes2 ~ bes2*5/2 c'2*4/2 ~ c'4 bes4 \divisioMaior
 a2*6/2 c'2*3/2 ~ c'2*3/2 a2*3/2 bes4 ~ \divisioMaxima
-bes4 g2*3/2 bes2*5/2 '2*4/2 bes2 a2*3/2 \divisioMaior
+bes4 g2*3/2 bes2*5/2 c'2*4/2 bes2 a2*3/2 \divisioMaior
 bes2 ~ bes2*3/2 ~ bes2 c'2*5/2 ~ c'4 bes4 \divisioMaior
 g2*4/2 ~ g2*3/2 a2*3/2 bes2*3/2 a2*3/2 g2*4/2 ~ g2*4/2 ~ g2 a2*3/2 \divisioMaxima
 r4 c'2*3/2 bes2*3/2 a2 g2*4/2 ~ g2 f2*3/4 g2 ~ g2*3/2 ~ \divisioMaior

@@ -73,7 +73,7 @@ f2*5/2 g2*7/4 a2 ~ a2*3/2 ~ a2*3/2 ~ a2*3/2 ~ a4 \divisioMaior
 c'2*3/2 a2*3/2 g2*3/4 ~ g2 ~ g2 f2*3/2 e2*3/2 f2*4/2 g4 f2*3/2 ~ \divisioMinima
 f2 g2*3/2 ~ g2*5/2 f2*3/2 \divisioMaxima
 d'2*3/2 c'2*3/2 b4 a2*4/2 ~ a2*3/2 g2*3/4 e2 f2*3/2 g2*3/2 a4 \divisioMinima
-'4 c'2*3/2 a2*3/2 ~ a2*4/2 ~ a2*3/2 g2 a4 ~ \divisioMinima
+c'4 c'2*3/2 a2*3/2 ~ a2*4/2 ~ a2*3/2 g2 a4 ~ \divisioMinima
 a4 g4 f2 e2*3/4 f2*4/2 a2 c'2*3/4 ~ c'2*3/2 ~ c'2*4/2 bes4 \divisioMaior
 c'4 bes2 b2*4/2 a2 c'2*4/2 ~ c'2 bes2*3/2 \divisioMinima
 d'2*3/4 a2*5/2 ~ a2*3/2 ~ a2*3/2 g2*3/2 bes2*3/2 a4 \finalis

@@ -35,7 +35,8 @@ global = {
 }
 
 chantText = \lyricmode {
-Tu -- i sunt * cœ -- _ li, _ 
+Tu -- i sunt 
+\set stanza = " * " cœ -- _ li, _ 
 et tu -- a est _ _ ter -- _ ra: 
 or -- bem ter -- _ rá -- _ rum, 
 et ple -- ni -- tú -- di -- nem e -- _ _ _ _ _ jus tu fun -- dá -- sti: 
