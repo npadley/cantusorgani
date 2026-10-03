@@ -89,6 +89,21 @@ describe("reviewEntries", () => {
 });
 
 describe("reviewIndex", () => {
+  it("should say which list each item is on, and how many parts are typeset in all", () => {
+    const index = reviewIndex();
+    const buckets = new Set(Object.values(index.items).map((i) => i.bucket));
+    expect([...buckets].every((b) => ["fix", "check", "info", "matches", "errors", "proofreading"].includes(b ?? ""))).toBe(true);
+    expect(Object.values(index.items).every((i) => i.bucket)).toBe(true);
+    expect(index.totals?.proofreading).toBeGreaterThan(0);
+  });
+
+  it("should link an item about where a part starts to its piece's Sections screen, and no other", () => {
+    const entries = reviewEntries();
+    const part = entries.find((e) => e.kind === "part_to_check");
+    expect(part?.sections).toMatch(/^\/admin\/sections\/\?piece=[a-z0-9-]+$/);
+    expect(entries.filter((e) => e.kind === "unpaired").every((e) => e.sections === null)).toBe(true);
+  });
+
   it("should give each item its fingerprint and piece, for the API to check a review against", () => {
     const entries = reviewEntries();
     const index = reviewIndex(entries);

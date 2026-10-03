@@ -161,7 +161,7 @@ export function typesetEntries(data: TypesetData = TYPESET, reviewed: Reviewed =
     out.push({
       target: `typeset:${item.file}`, file: item.file, queue: broken ? "errors" : "matches",
       fingerprint: item.hash ?? "", status: item.status, title, volume: volumeOf(item.file),
-      look: broken ? "LilyPond cannot draw this file. The line it stopped at is marked; the source editor arrives later."
+      look: broken ? "LilyPond cannot draw this file. The line it stopped at is marked: Edit the source to repair it."
         : item.status === "melody-differs"
           ? "The file names this part, but its melody does not agree with the part's chant. Is it this part, another, or none?"
           : "Which part is this? Compare the drawing with the scans and the chant.",

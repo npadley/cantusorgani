@@ -1,4 +1,5 @@
 ---
+import AdminNav from "../../../components/AdminNav.astro";
 import Layout from "../../../components/Layout.astro";
 
 // An editor's own correction, without a reader's report. Opened from an "Edit"
@@ -8,10 +9,11 @@ import Layout from "../../../components/Layout.astro";
 
 <Layout title="Admin: make a correction" noindex>
   <div class="admin ui">
+    <AdminNav current="edit" />
     <p class="who small muted" id="who">Admin</p>
     <h1>Make a correction</h1>
-    <p class="muted small prose">Your fix is approved straight away and waits with the others until someone presses
-      <strong>Publish changes</strong> on the <a href="/admin/">corrections queue</a>.</p>
+    <p class="muted small prose">Your fix is approved straight away and waits with the others until someone presses{" "}
+      <strong>Publish changes</strong> on the <a href="/admin/">Admin</a> page.</p>
 
     <form id="edit-form" class="admin-form" novalidate>
       <div class="field" id="target-row">
@@ -209,7 +211,7 @@ import Layout from "../../../components/Layout.astro";
       return;
     }
     drafts.clear(draftKey());
-    status?.replaceChildren(h("span", {}, "Approved. It is waiting on the "), h("a", { href: "/admin/" }, "corrections queue"),
+    status?.replaceChildren(h("span", {}, "Approved. It is waiting on the "), h("a", { href: "/admin/" }, "Admin page"),
                             h("span", {}, " until someone publishes."),
                             ...(result.data.warning ? [h("p", { class: "notice" }, `${result.data.warning} `,
                                                          result.data.fix ? fixLink(result.data.fix) : null)] : []));
