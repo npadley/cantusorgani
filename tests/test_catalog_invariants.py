@@ -417,3 +417,14 @@ def test_all_credo_ranges_begin_at_their_opening_and_include_the_final_amen():
     assert credos.keys() == expected.keys()
     for slug, (first, last) in expected.items():
         assert (credos[slug]['systems'][0], credos[slug]['systems'][-1]) == (first, last)
+
+
+def test_the_holy_cross_votive_mass_takes_its_tract_from_the_inserted_leaf():
+    """NOH4 pp. 162-164: the Tract Adoramus te Christe, sung after Septuagesima, is
+    printed on the leaf inserted after p. 163 ("162 bis", "163 bis"; PDF 195-196),
+    checked against the scans 2026-10-03."""
+    mass = next(p for p in PIECES if p["slug"] == "feria-vi-missa-de-sancta-cruce")
+    assert {r.split("/")[1] for r in mass["systems"]} == {"0193", "0194", "0195", "0196", "0197"}
+    tract = next(s for s in mass["sections"] if s["kind"] == "tract")
+    assert (tract["ref"], tract["gregobase_id"]) == ("noh4/0195/000", 114)
+    assert not any(r["kind"] == "unmapped_pages" for r in REVIEW)
