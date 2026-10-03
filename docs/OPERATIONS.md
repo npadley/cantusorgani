@@ -86,9 +86,11 @@ uploading images, which you can leave to GitHub (below).
 
 ### Your first hour
 
-1. **Look at what's left.** Open `https://cantusorgani.org/admin/review/`. The
-   three tabs are *to fix*, *to check against the scan*, and *for information*
-   (nothing to do). Work the first two; ignore the third.
+1. **Look at what's left.** Open `https://cantusorgani.org/admin/`. Its
+   **What's waiting** table lists every list with what's left on it and a link
+   to it. On Review, the three tabs are *can be corrected here*, *check against
+   the scan*, and *for information* (nothing to do). Work the first two; ignore
+   the third.
 2. **Make one small fix from the admin screen** (a title, say: the **Edit** link
    at the foot of any piece page). Press **Publish changes** on `/admin/`.
    Watch the pull request appear on GitHub, its checks pass, and the site update
@@ -399,8 +401,8 @@ scans" switch in your own browser first: it's remembered per browser.
 admin Review screen lists those items, minus what's already done, in three
 groups:
 
-- **To fix:** something a correction can fix.
-- **To check against the scan:** look, then **Looks right** or **Correct**.
+- **Can be corrected here:** something a correction can fix.
+- **Check against the scan:** look, then **Looks right** or **Correct**.
 - **For information:** nothing to do. For example, a Proper with no chant
   linked as a whole, or a part printed elsewhere that the site can't find.
 
@@ -562,7 +564,7 @@ to do in its own words. `uv run noh doctor` checks the whole setup.
 
 1. `/admin/`: handle readers' reports (Accept, Reject, Duplicate), then
    **Publish changes**.
-2. `/admin/review/`: work **To fix**, then **To check against the scan**.
+2. `/admin/review/`: work **Can be corrected here**, then **Check against the scan**.
    Publish.
 3. `/admin/typeset/`: a few proposed matches, a few proofreads. Publish.
 4. On GitHub: merge any batch pull request waiting for you.

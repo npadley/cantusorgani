@@ -1,2 +1,5 @@
 # Pieces merged into another: the old address keeps working.
 /piece/noh1-p156/ /piece/feria-iv-cinerum/ 301
+
+# The Parts to check page became a filter on Review.
+/admin/parts/ /admin/review/?kind=part_to_check 301

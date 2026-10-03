@@ -46,7 +46,16 @@ Two kinds of people edit:
 code arrives by email). Setting it up is described in
 [docs/ADMIN-SETUP.md](ADMIN-SETUP.md).
 
-- **To review** lists readers' reports. Each shows the current value, the
+Every admin page starts with the same navigation (**Admin · Review · Typeset
+music · Make a correction**), each with how much is left on it, and "N ready to
+publish" when something is approved. The counts come from one place
+(`/admin/api/summary`), so they agree everywhere: an item is *left* until it is
+marked, chosen or skipped; skipped items are counted apart.
+
+- **What's waiting**, at the top of the **Admin** page (`/admin/`), lists every
+  list with what's left on it and a link to it, and **Publish changes** in its
+  first row. Start each session there.
+- **Readers' reports**, below the table: each shows the current value, the
   proposed one (which you can change before accepting) and the reader's note,
   beside the systems the report is about: a part's first system and the one
   proposed, a Vespers item's systems, a piece's first and last. Each picture is
@@ -92,7 +101,7 @@ code arrives by email). Setting it up is described in
   corrections or more, waits for the owner to merge it instead. If a check
   fails, the pull request is closed and the corrections come back under
   **Approved**, with the reason. Closing a pull request without merging puts
-  its corrections back under **To review**.
+  its corrections back under **Readers' reports**.
 - **History** lists what was accepted (with its commit) and what was rejected
   (with the reason). Accepted corrections also appear publicly at
   `/corrections/log/`, without names or addresses.
@@ -389,8 +398,8 @@ by hand.
   showing its printed label.
 
 **On the admin screen**, the **Sections** screen (`/admin/sections/?piece=<slug>`,
-linked from **Parts to check** and from the edit page as "edit its whole list
-of sections") shows the piece's systems beside its list. Press **Start a
+linked from **Edit the sections** on Review's part items and from the edit page
+as "edit its whole list of sections") shows the piece's systems beside its list. Press **Start a
 section here** beside a system to add one, change a section's kind, number,
 label, opening words or chant, move or remove it, or mark it printed elsewhere
 (a volume and page). **Approve this list** records it as one correction,
@@ -508,8 +517,8 @@ Psalm verse and Gloria Patri, and the word "alleluia" places an Alleluia only
 where its chant begins (at the start of the line, beside its mode, or before
 its asterisk), not where it ends a Paschaltide Introit, Offertory or Communion.
 
-**Parts to check** (`/admin/parts/`, linked from the admin screen) lists the
-parts whose start looks wrong: inferred rather than read from a label or the
+**Part to check**, a kind on Review (`/admin/review/?kind=part_to_check`; the
+old `/admin/parts/` address leads there), lists the parts whose start looks wrong: inferred rather than read from a label or the
 words, or much shorter than that kind of part usually is (often because the next
 part starts too early). A reviewed section list counts as checked. Each opens its edit page with the scan. A part corrected by hand,
 or marked **Looks right**, leaves the list once it is published; a part marked

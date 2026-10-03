@@ -47,7 +47,7 @@ function markReviewed(item: HTMLElement, by: string | null, queued: boolean, wor
   item.dataset["done"] = "reviewed";
   item.querySelector(".review-actions")?.setAttribute("hidden", "");
   stateLine(item)?.replaceChildren(h("strong", {}, words.reviewed),
-    ` · marked by ${by ?? "an editor"}; ${queued ? "publishing now" : "goes with the next Publish on the Corrections page"}.`);
+    ` · marked by ${by ?? "an editor"}; ${queued ? "publishing now" : "goes with the next Publish on the Admin page"}.`);
 }
 
 function markSkipped(item: HTMLElement, note: string, by: string, onUnskip: () => void, words: Words = REVIEW_WORDS): void {

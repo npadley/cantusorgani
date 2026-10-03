@@ -128,7 +128,7 @@ export function reviewKind(item: Pick<QueueItem, "kind" | "genre">): ReviewKind 
 
 export const GROUP_ORDER: readonly ReviewGroup[] = ["fix", "check", "info"];
 export const GROUP_LABELS: Readonly<Record<ReviewGroup, string>> = {
-  fix: "To check, and correct if wrong",
-  check: "To check against the scan",
+  fix: "Can be corrected here",
+  check: "Check against the scan",
   info: "For information",
 };

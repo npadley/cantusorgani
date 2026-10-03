@@ -460,6 +460,30 @@ describe("reviews", () => {
   });
 });
 
+describe("summary", () => {
+  it("should count what is left on each list, what waits to publish and what was skipped, and the reports", async () => {
+    readerReport(db.sqlite, "kyrie-i", "title", "Kyrie I");
+    await call("POST", "/reviews", { target: REVIEW_KEY, seen: "0123456789ab" });
+    await call("POST", "/skips", { target: "part:dominica-i-adventus/introit", note: "Later" });
+    await call("POST", "/edits", { target: "typeset:vol-5/missa-ix/gloria_IX.ly", field: "match",
+                                   value: "movement:ordinarium-missae-ix/gloria" });
+    const got = await call("GET", "/summary");
+    expect(got.status).toBe(200);
+    // REVIEW_INDEX has no buckets: typeset files count as matches, the rest as checks.
+    expect(got.body).toMatchObject({
+      reports: 1, approved: 2, open: null,
+      lists: { check: { total: 2, left: 0, waiting: 1, skipped: 1 }, matches: { total: 2, left: 1, waiting: 1, skipped: 0 } },
+    });
+  });
+
+  it("should still count the reports when the review list cannot be read", async () => {
+    failReviews = true;
+    readerReport(db.sqlite, "kyrie-i", "title", "Kyrie I");
+    const got = await call("GET", "/summary");
+    expect(got).toMatchObject({ status: 200, body: { reports: 1, lists: { fix: { total: 0 } } } });
+  });
+});
+
 describe("typeset music", () => {
   const GLORIA = "typeset:vol-5/missa-ix/gloria_IX.ly";
   const choose = (target: string, value: string) => call("POST", "/edits", { target, field: "match", value });

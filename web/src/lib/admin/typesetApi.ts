@@ -56,7 +56,7 @@ export async function typesetApi(request: Request, env: AdminEnv, deps: Deps, ed
   if (!draft || draft.revision !== revision) return fail(409,"The draft changed. Reload before approving.",{current,draft});
   if (!validSourceSize(draft.text) || checkSource(draft.text).length) return fail(422,"The saved draft fails the source check.");
   const id = await store.approveDraft(editor.email,file,revision,note,reportId as number | undefined);
-  if (!id) return fail(409,"Another source edit is already approved, or the draft/report changed. Check the corrections queue.");
+  if (!id) return fail(409,"Another source edit is already approved, or the draft/report changed. Check the Approved list on the Admin page.");
   await deps.store.log(editor.email,"source-approve",id,file);
   return json({id,status:"approved"},201);
 }
