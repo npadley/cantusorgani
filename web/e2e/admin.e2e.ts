@@ -171,24 +171,26 @@ test.describe("Review, by kind", () => {
     await page.goto("/admin/review/");
     const kinds = page.locator("#breakdown button");
     // Only the kinds of the group shown, each with a count that adds up to the group's.
-    await expect(kinds.filter({ hasText: /^Piece starts partway down a page \(\d+\)$/ })).toHaveCount(1);
-    await expect(kinds.filter({ hasText: "Part not found" })).toHaveCount(0);
+    await expect(kinds.first()).toBeVisible();
     const counts = (await kinds.allTextContents()).map((t) => Number(/\((\d+)\)$/.exec(t)?.[1] ?? 0));
     const total = Number((await page.locator("[data-count=fix]").textContent()) ?? "0");
     expect(counts.reduce((a, b) => a + b, 0)).toBe(total);
 
-    const chosen = kinds.filter({ hasText: "Index page number not confirmed" });
-    const n = Number(/\((\d+)\)$/.exec((await chosen.textContent()) ?? "")?.[1] ?? 0);
+    // Whichever kinds are waiting today: the review queue empties as work is done.
+    const chosen = kinds.first();
+    const text = (await chosen.textContent()) ?? "";
+    const label = text.replace(/ \(\d+\)$/, "");
+    const n = Number(/\((\d+)\)$/.exec(text)?.[1] ?? 0);
     await chosen.click();
     await expect(chosen).toHaveAttribute("aria-pressed", "true");
-    await expect(page.getByLabel("Kind")).toHaveValue("index_unverified");
+    await expect(page.getByLabel("Kind")).not.toHaveValue("");
     await expect(page.locator("#shown")).toHaveText(`${n} shown`);
-    await expect(page.locator("#items article:visible h3").first()).toContainText("Index page number not confirmed");
+    await expect(page.locator("#items article:visible").first()).toHaveAttribute("data-label", label);
 
     // Another group has other kinds: the choice is dropped, not left showing nothing.
     await page.getByLabel(/^To check against the scan/).check();
     await expect(page.getByLabel("Kind")).toHaveValue("");
-    await expect(kinds.filter({ hasText: /^Part not found \(\d+\)$/ })).toHaveCount(1);
+    await expect(kinds.first()).toBeVisible();
     await expect(page.locator("#items article:visible").first()).toBeVisible();
   });
 });
@@ -199,11 +201,10 @@ test.describe.serial("Reviewing", () => {
     await page.getByRole("link", { name: /^Review \(\d+ to check\)$/ }).click();
     await expect(page.locator("h1")).toHaveText("Review");
     await page.getByLabel(/^To check against the scan/).check();
-    await page.getByLabel("Kind").selectOption("hymn_at_page_top");
     const before = Number((await page.locator("[data-count=check]").textContent()) ?? "0");
     const item = page.locator("#items article:visible").first();
     const heading = (await item.locator("h3").textContent()) ?? "";
-    // Two items can share a heading (the same hymn in two offices): find this one by its target.
+    // Two items can share a heading: find this one by its target.
     const target = (await item.getAttribute("data-review-target")) ?? "";
     const self = page.locator(`#items article[data-review-target="${target}"]`);
     await expect(item.locator(".scan img").first()).toBeVisible();

@@ -253,7 +253,12 @@ def attach_hymns(vol_id: str, page_map: PageMap, pieces: list[Record], review: l
         reader = GapReader(vol_id, pdf_page, printed, [(b.top, b.bottom) for b in analysis.boxes],
                            analysis.page_height)
         index = min(first_system(reader, title), len(on_page) - 1)
-        if index == 0:
+        if hymn.get("system") is not None:
+            # Placed by a person from the scan: the system the hymn begins on.
+            index = int(hymn["system"])
+            if not 0 <= index < len(on_page):
+                raise ValueError(f"{vol_id} hymn {title!r}: system {index} is not on p. {printed}")
+        elif index == 0:
             # No heading names it: a hymn's title is its first sung words, so
             # find the system whose chant text opens with them.
             index = hymn_system(title, system_texts(vol_id, pdf_page), len(on_page))
@@ -262,7 +267,8 @@ def attach_hymns(vol_id: str, page_map: PageMap, pieces: list[Record], review: l
         hymns_list = owner["hymns"]
         assert isinstance(hymns_list, list)
         hymns_list.append({"title": title, "ref": ref, "printed_page": printed})
-        if index == 0 and hymn_system(title, system_texts(vol_id, pdf_page), len(on_page)) == 0 \
+        if index == 0 and hymn.get("system") is None \
+                and hymn_system(title, system_texts(vol_id, pdf_page), len(on_page)) == 0 \
                 and hymn.get("status") not in ("verified", "found"):
             review.append({"piece": owner["slug"], "kind": "hymn_at_page_top", "title": title,
                            "printed_page": printed,
