@@ -10,6 +10,13 @@
 
 **Spec:** docs/superpowers/specs/2026-10-03-noh4-recognition-pilot-design.md
 
+**Delivery status (2026-10-03):** All four tasks delivered using the conservative
+reviewed-observation fallback described below. Fresh branch review findings
+were fixed with regressions; final suite: 1,639 passed, four skipped, one
+expected failure. See `docs/ACCOMPANIMENT-VALIDATION.md` for the measured detector
+limits, implementation decisions and remaining milestones. The checklists
+below retain the original implementation brief.
+
 ## Global Constraints
 
 - Implement only the scan-validation component of the approved pilot design. Recognition-to-LilyPond and an overnight scheduling mechanism are later deliverables.

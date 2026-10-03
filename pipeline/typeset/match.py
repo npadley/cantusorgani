@@ -111,6 +111,22 @@ def hints(rel: str, text: str) -> Hints:
     return Hints(volume, page, kind, mass, number, prefix)
 
 
+def effective_movements(piece: dict[str, Any]) -> list[dict[str, Any]]:
+    """Raw Mass movements remaining after reviewed section overrides."""
+    rows = [part for part in sections.printed(piece) if part.get("placed") != "order"]
+    listed = {part["ref"] for part in rows}
+    renamed = {str(part["key"]) for part in rows if part.get("key") and part.get("kind") == "other"}
+    seen: set[str] = set()
+    out = []
+    for mv in piece.get("movements") or []:
+        name = str(mv["movement"])
+        if name in seen or mv["ref"] in listed or name in renamed:
+            continue
+        seen.add(name)
+        out.append(mv)
+    return out
+
+
 def targets(catalog: dict[str, Any], printed: Any) -> list[Target]:
     """Every target in the catalogue. `printed(ref)` gives the printed page a
     system is on."""
@@ -132,15 +148,8 @@ def targets(catalog: dict[str, Any], printed: Any) -> list[Target]:
             # speaks for the system it starts on: the page shows no movement there.
             # A row named for a movement (key: gloria) is that movement, wherever
             # the pipeline put it: that is how a person moves its start.
-            rows = [part for part in sections.printed(p) if part.get("placed") != "order"]
-            listed = {part["ref"] for part in rows}
-            renamed = {str(part.get("key")) for part in rows if part.get("key") and part.get("kind") == "other"}
-            seen: set[str] = set()
-            for mv in p.get("movements") or []:
+            for mv in effective_movements(p):
                 name = str(mv["movement"])
-                if name in seen or mv["ref"] in listed or name in renamed:
-                    continue
-                seen.add(name)
                 out.append(Target(f"movement:{slug}/{name}", volume, slug, name, printed(mv["ref"]), chants.get(name)))
         elif not p.get("sections") and systems:
             kind = str(p.get("genre"))

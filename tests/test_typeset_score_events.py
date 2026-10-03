@@ -73,3 +73,28 @@ def test_read_score_real_kyrie_preserves_four_independently_known_first_notes():
         "tenor": (-3, Fraction(0), Fraction(3, 2)),
         "bass": (-5, Fraction(0), Fraction(3, 2)),
     }
+
+
+@pytest.mark.lilypond
+@pytest.mark.parametrize("notation", ["R1", r"\repeatTie"])
+def test_read_score_flags_notation_that_listener_cannot_fully_compare(tmp_path, notation):
+    from pipeline.typeset.lilypond import LilyPondError, find
+    try:
+        find()
+    except LilyPondError:
+        pytest.skip("pinned LilyPond not installed")
+    source = tmp_path / "unsupported.ly"
+    source.write_text(r'''\version "2.26.0"
+\score { <<
+  \new Staff <<
+    \new Voice = "chant" { c'4 }
+    \new Voice = "alto" { e'4 ''' + notation + r''' }
+  >>
+  \new Staff <<
+    \new Voice = "tenor" { g4 }
+    \new Voice = "bass" { c4 }
+  >>
+>> }
+''')
+    result = read_score(source)
+    assert any("unsupported" in flag for flag in result.flags)

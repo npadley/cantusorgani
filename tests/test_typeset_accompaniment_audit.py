@@ -45,7 +45,7 @@ def test_audit_refuses_source_path_traversal(tmp_path, filename):
         audit([filename], tmp_path / "out", scans, root=root)
 
 
-def test_audit_cache_changes_when_scan_source_or_annotations_change(tmp_path):
+def test_audit_cache_changes_when_scan_or_source_changes(tmp_path):
     root, scans = environment(tmp_path)
     def run():
         return audit(["vol-1/example.ly"], tmp_path / "out", scans, root=root,
@@ -59,6 +59,85 @@ def test_audit_cache_changes_when_scan_source_or_annotations_change(tmp_path):
     source = root / "data/typeset/src/vol-1/example.ly"
     source.write_text(source.read_text() + "\n% changed")
     assert run()["input_hash"] != second["input_hash"]
+
+
+def test_audit_changed_review_invalidates_cached_result(tmp_path):
+    root, scans = environment(tmp_path)
+    review = tmp_path / "review.json"
+    packet = {"schema_version": 1, "scan_hash": scan_digest([
+        ("noh1/0033/004", (scans / "noh1/0033/004.png").read_bytes())]),
+        "systems": ["noh1/0033/004"], "reviewer": "independent reader",
+        "basis": "source-scan", "complete": False, "events": [{
+            "voice": "alto", "kind": "note", "step": 0, "alteration": "0",
+            "onset": "0", "box": [10, 10, 20, 20], "system": "noh1/0033/004"}]}
+    score = ScoreEvidence(events=[MusicalEvent(v, "note", Fraction(0), Fraction(1, 2),
+                                              0, Fraction(0)) for v in ("alto", "tenor", "bass")])
+    def run():
+        review.write_text(json.dumps(packet))
+        return audit(["vol-1/example.ly"], tmp_path / "out", scans, review, root=root,
+                     score_reader=lambda p: score)["files"][0]
+    first = run()
+    assert first["status"] == "needs-review"
+    assert (tmp_path / "out/cache" / first["input_hash"] / "result.json").is_file()
+    packet["scan_hash"] = "0" * 64
+    second = run()
+    assert second["input_hash"] != first["input_hash"]
+    assert second["annotation_hash"] != first["annotation_hash"]
+    assert second["status"] == "blocked"
+
+
+def test_audit_effective_movement_chant_and_render_identity_invalidate_cache(tmp_path):
+    root, scans = environment(tmp_path)
+    catalogue_path = root / "data/catalog.json"
+    piece = json.loads(catalogue_path.read_text())["pieces"][0]
+    piece.update(volume="noh1", genre="mass_ordinary", sections=[],
+                 movements=[{"movement": "kyrie", "ref": "noh1/0033/004"}],
+                 chant=[{"movement": "kyrie", "id": 123}])
+    catalogue_path.write_text(json.dumps({"pieces": [piece]}))
+    manifest_path = root / "data/typeset/manifest.json"
+    manifest = json.loads(manifest_path.read_text())
+    manifest["parts"][0]["target"] = "movement:example/kyrie"
+    manifest_path.write_text(json.dumps(manifest))
+    chants_path = root / "data/chants.json"
+    chants_path.write_text(json.dumps({"chants": {"123": {"gabc": "A"}}}))
+    def run():
+        return audit(["vol-1/example.ly"], tmp_path / "out", scans, root=root,
+                     score_reader=lambda p: ScoreEvidence(flags=["not compiled"]))["files"][0]
+    first = run()
+    assert first["gabc_hash"] is not None
+    chants_path.write_text(json.dumps({"chants": {"123": {"gabc": "B"}}}))
+    second = run()
+    assert first["input_hash"] != second["input_hash"]
+    manifest["parts"][0]["hash"] = "new-reference"
+    manifest_path.write_text(json.dumps(manifest))
+    third = run()
+    assert third["input_hash"] != second["input_hash"]
+    assert third["manifest_render_hash"] == "new-reference"
+    assert third["render_hash"] == second["render_hash"]
+
+
+def test_audit_algorithm_dependency_changes_invalidate_cache(tmp_path, monkeypatch):
+    from pipeline.typeset import accompaniment_audit
+    root, scans = environment(tmp_path)
+    dependency = tmp_path / "geometry.py"
+    dependency.write_text("version1")
+    monkeypatch.setattr(accompaniment_audit, "DEPENDENCIES", (dependency,), raising=False)
+    def run():
+        return audit(["vol-1/example.ly"], tmp_path / "out", scans, root=root,
+                     score_reader=lambda p: ScoreEvidence(flags=["not compiled"]))["files"][0]
+    first = run()
+    dependency.write_text("version2")
+    assert run()["input_hash"] != first["input_hash"]
+
+
+def test_audit_render_identity_is_current_and_manifest_reference_is_separate(tmp_path):
+    from pipeline.typeset.render import source_hash
+    root, scans = environment(tmp_path)
+    row = audit(["vol-1/example.ly"], tmp_path / "out", scans, root=root,
+                score_reader=lambda p: ScoreEvidence(flags=["not compiled"]))["files"][0]
+    assert row["render_hash"] == source_hash(
+        (root / "data/typeset/src/vol-1/example.ly").read_text())
+    assert row["manifest_render_hash"] == "old"
 
 
 def test_report_escapes_source_names_and_errors(tmp_path):
@@ -76,6 +155,12 @@ def test_source_span_includes_last_system_and_stops_at_next_part():
         {"kind": "communion", "system": 2, "ref": "c"}]}
     assert source_span(p, "part:example/introit") == ["a", "b"]
     assert source_span(p, "part:example/communion") == ["c", "d"]
+
+
+def test_source_span_uses_reviewed_movement_start_not_superseded_raw_start():
+    p = next(p for p in json.loads(Path("data/catalog.json").read_text())["pieces"]
+             if p["slug"] == "ordinarium-missae-ix")
+    assert source_span(p, "part:ordinarium-missae-ix/other:gloria") == p["systems"][6:19]
 
 
 def test_scan_digest_binds_identity_order_and_content():

@@ -12,9 +12,10 @@ from fractions import Fraction
 from pathlib import Path
 
 import cv2
+import numpy as np
 
-from pipeline import sections
-from pipeline.typeset import events, lilypond
+from pipeline import sections, segment
+from pipeline.typeset import events, lilypond, match, render
 from pipeline.typeset.accompaniment_compare import compare_accompaniment
 from pipeline.typeset.scan_observations import (
     ScanEvidence,
@@ -26,6 +27,7 @@ from pipeline.typeset.score_events import ScoreEvidence, read_score
 from pipeline.volumes import ROOT
 
 ALGORITHM = "accompaniment-audit-1"
+DEPENDENCIES = (Path(segment.__file__), Path(sections.__file__))
 
 
 def digest(body: bytes) -> str:
@@ -44,7 +46,7 @@ def source_span(piece: dict, target: str) -> list[str]:
     starts = {sections.target(piece["slug"], s): s["system"]
               for s in sections.printed(piece)}
     starts.update({f"movement:{piece['slug']}/{m['movement']}": systems.index(m["ref"])
-                   for m in piece.get("movements", []) if m.get("ref") in systems})
+                   for m in match.effective_movements(piece) if m.get("ref") in systems})
     start = starts.get(target)
     if start is None or not 0 <= start < len(systems):
         return []
@@ -105,6 +107,7 @@ def audit(files: list[str], out: Path, scan_root: Path, annotations: Path | None
     settings = settings or ScanSettings()
     code_hash = digest(b"".join(p.read_bytes() for p in sorted(Path(__file__).parent.glob("*.py")))
                        + events.LISTEN.read_bytes()
+                       + b"".join(p.read_bytes() for p in DEPENDENCIES)
                        + b"".join(p.read_bytes() for p in sorted(
                            (Path(__file__).parent / "scan-templates").glob("*")))
                        + b"".join(p.read_bytes() for p in sorted(lilypond.INCLUDE.glob("*.ily"))))
@@ -114,18 +117,19 @@ def audit(files: list[str], out: Path, scan_root: Path, annotations: Path | None
         try:
             source = src / filename
             source_hash = digest(source.read_bytes())
-            match = matches.get(filename)
-            if match is None:
+            match_entry = matches.get(filename)
+            if match_entry is None:
                 raise ValueError("no confirmed catalogue target for this source")
-            target = match["target"]
+            target = match_entry["target"]
             piece = pieces[target.split(":", 1)[1].split("/", 1)[0]]
             refs = source_span(piece, target)
             if not refs:
                 raise ValueError("no source-system span")
             paths = [_image_path(scan_root, ref) for ref in refs]
             scan_hash = scan_digest([(ref, p.read_bytes()) for ref, p in zip(refs, paths, strict=True)])
-            chant_id = next((s.get("gregobase_id") for s in sections.printed(piece)
-                             if sections.target(piece["slug"], s) == target), None)
+            effective_targets = match.targets(
+                {"pieces": [{**piece, "volume": piece.get("volume", "")}]}, lambda ref: None)
+            chant_id = next((t.chant for t in effective_targets if t.target == target), None)
             gabc = chants.get(str(chant_id), {}).get("gabc")
             annotation = _annotation_path(annotations, filename)
             annotation_hash = digest(annotation.read_bytes()) if annotation else None
@@ -133,9 +137,12 @@ def audit(files: list[str], out: Path, scan_root: Path, annotations: Path | None
                       "target": target, "gabc_hash": digest(gabc.encode()) if gabc else None,
                       "annotation_hash": annotation_hash, "code_hash": code_hash,
                       "algorithm": ALGORITHM, "settings": asdict(settings),
-                      "lilypond": lilypond.load_pin().version}
+                      "lilypond": lilypond.load_pin().version,
+                      "dependencies": {"opencv": cv2.__version__, "numpy": np.__version__},
+                      "render_hash": render.source_hash(source.read_text(encoding="utf-8")),
+                      "manifest_render_hash": match_entry.get("hash")}
             key = digest(_json(inputs).encode())
-            row.update(inputs, input_hash=key, render_hash=match.get("hash"))
+            row.update(inputs, input_hash=key)
             folder = out / "cache" / key
             cached = folder / "result.json"
             if cached.exists():

@@ -25,15 +25,21 @@ Exit status 1 means at least one file was blocked; `discrepancy` and
 
 Results are cached under `out/cache/<input-hash>/`. Changing the source,
 scan bytes or identities, annotations, GABC, code, printed prototypes, includes,
-settings or pinned LilyPond version gives a new identity. Interrupted writes
+settings, staff-geometry code, OpenCV/NumPy versions or pinned LilyPond version
+gives a new identity. `render_hash` is the render identity computed from the
+current source and rendering configuration; it does not certify a render was
+generated. `manifest_render_hash` separately records the manifest's published
+render reference, and changing it also invalidates reuse. Interrupted writes
 use an atomic temporary-file replacement. Failed score extraction is retried
 rather than treated as a reusable pass.
 
 The source reader names voices from explicit `altoMusic`, `tenorMusic` and
 `bassMusic` bindings in its temporary wrapper, never by their vertical pitch
 ordering. It retains written tied segments, exact onset/duration fractions,
-pitch spelling/alteration and LilyPond source locations. Unknown voice bindings,
-malformed events and invalid ties prevent acceptance.
+pitch spelling/alteration and LilyPond note source locations. Unknown voice
+bindings, malformed events, invalid ties, multi-measure rests and repeat ties
+prevent acceptance. The last two constructs currently require an extended
+reader rather than being silently omitted.
 
 ## Add independent readings
 
@@ -143,3 +149,25 @@ The audit also makes catalogue span issues visible. Initial inspection of
 `Si consurrexistis` found its catalogue span contained one system while the
 typeset source continued beyond it. Treat that as a boundary-review candidate,
 not an accompaniment correction or an automatically changed match.
+
+## Delivery review
+
+A fresh whole-branch review identified and regression-tested five substantive
+issues: ignored multi-measure rests/repeat ties, superseded movement starts,
+effective chant identities, the staff-geometry dependency, and stale render
+provenance. All were addressed. Rest discrepancies retain scan boxes but do
+not yet carry the expected rest's LilyPond source location.
+
+Final verification: 1,639 tests passed, four skipped and one expected failure;
+repository lint passed. Temporary Kyrie IX source copies with individually
+transposed alto, tenor and bass each produced a scan-backed pitch discrepancy.
+The original source was preserved.
+
+Implementation decisions: incomplete machine candidates need independent
+readings (additional review cost); partial observations use independently
+recorded exact onsets (more timing cases can remain unresolved); automatic OMR
+accuracy remains a later calibration milestone; reviewer names record asserted
+readings without authenticating their truth; generation, overnight orchestration,
+publication and melody-report integration remain later work. Those last three
+limits respectively require further recognition work, trustworthy review, and
+further implementation before end-to-end unattended processing.

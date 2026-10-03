@@ -75,6 +75,8 @@ def parse_score(tsv: str) -> ScoreEvidence:
     for onset, row in sorted(rows, key=lambda item: item[0]):
         voice, kind = row[1].rsplit(":", 1)[-1], row[2]
         try:
+            if kind.startswith("unsupported-"):
+                result.flags.append(f"unsupported notation {kind[12:]} in {voice}")
             if kind in ("key", "clef"):
                 result.context.append(row)
             if kind not in ("note", "rest", "skip", "tie"):
