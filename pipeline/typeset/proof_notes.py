@@ -68,8 +68,24 @@ def read_events(tsv: str, inserted_after: int = 0) -> NoteSequence:
     lyrics = {r[0]: r[3] for r in rows if r[2] == "lyric" and len(r) > 3}
     held: dict[str, Note] = {}
     previous: dict[str, Note] = {}
+    previous_moment: dict[str, Fraction] = {}
     voices: set[str] = set()
-    moments: set[str] = set()
+    moments: set[Fraction] = set()
+    chant_staffs = {r[1].rsplit(":", 1)[0] for r in rows if r[2] == "note" and r[1].endswith(":chant")}
+    coverage: dict[str, list[tuple[Fraction, Fraction]]] = {}
+    for r in rows:
+        if r[2] == "note" and r[1].endswith(":chant"):
+            try:
+                onset = Fraction(r[0])
+                coverage.setdefault(r[1].rsplit(":", 1)[0], []).append((onset, onset + Fraction(r[9])))
+            except (ValueError, IndexError, ZeroDivisionError):
+                flags.append("malformed chant duration")
+    for r in rows:
+        staff, _, voice_id = r[1].rpartition(":")
+        if r[2] == "note" and voice_id.isdigit() and staff in chant_staffs:
+            onset = Fraction(r[0])
+            if not any(start <= onset < end for start, end in coverage.get(staff, [])):
+                flags.append("anonymous voice during chant gap requires voice assignment review")
     lyric = ""
     for r in rows:
         voice, kind = r[1:3]
@@ -78,7 +94,7 @@ def read_events(tsv: str, inserted_after: int = 0) -> NoteSequence:
         if not voice.endswith(":chant"):
             continue
         if kind == "tie":
-            if voice not in previous or voice in held:
+            if voice not in previous or voice in held or previous_moment.get(voice) != Fraction(r[0]):
                 flags.append("invalid tie")
             else:
                 held[voice] = previous[voice]
@@ -97,19 +113,24 @@ def read_events(tsv: str, inserted_after: int = 0) -> NoteSequence:
                 flags.append("malformed note event")
                 continue
             voices.add(voice)
+            moment = Fraction(r[0])
+            if moment in moments:
+                flags.append("simultaneous chant notes")
+            moments.add(moment)
             continuation = held.pop(voice, None)
             previous[voice] = note
+            previous_moment[voice] = moment
             if continuation:
                 if (continuation.step, continuation.alteration) == (step, alteration):
                     continue
                 flags.append("tie changes pitch")
-            if r[0] in moments:
-                flags.append("simultaneous chant notes")
-            moments.add(r[0])
             notes.append(note)
-        elif kind in {"rest", "skip"} and voice in held:
-            flags.append("tie crosses a rest or skip")
-            held.pop(voice)
+        elif kind in {"rest", "skip"}:
+            if voice in held:
+                flags.append("tie crosses a rest or skip")
+                held.pop(voice)
+            previous.pop(voice, None)
+            previous_moment.pop(voice, None)
     if held:
         flags.append("dangling tie")
     if len(voices) > 1:
@@ -228,10 +249,19 @@ def compare_notes(ours: NoteSequence, chant: NoteSequence) -> Comparison:
     if not a or not b:
         return Comparison(False, None, None, (), _unique([*flags, "empty note sequence"]))
     offsets = Counter(x - y for x, y in zip(a, b))
-    offset = offsets.most_common(1)[0][0]
+    # An insertion shifts zipped indices. Compare a bounded set of likely
+    # offsets instead of allowing that shift to move every later note.
+    starts = Counter(x - y for x in a[:12] for y in b[:12])
+    candidates = list(dict.fromkeys([*(n for n, _ in offsets.most_common(5)),
+                                     *(n for n, _ in starts.most_common(5))]))
+    aligned = []
+    for shift in candidates:
+        codes = tuple(SequenceMatcher(None, [n - shift for n in a], b, autojunk=False).get_opcodes())
+        cost = sum(max(a2 - a1, b2 - b1) for op, a1, a2, b1, b2 in codes if op != "equal")
+        aligned.append((cost, shift, codes))
+    _, offset, opcodes = min(aligned, key=lambda row: (row[0], -offsets[row[1]]))
     shifted = [n - offset for n in a]
     equal = shifted == b
-    opcodes = tuple(SequenceMatcher(None, shifted, b, autojunk=False).get_opcodes())
     ca, cb = [n.chromatic for n in ours.notes], [n.chromatic for n in chant.notes]
     chromatic: bool | None = None
     if equal and all(n is not None for n in [*ca, *cb]):

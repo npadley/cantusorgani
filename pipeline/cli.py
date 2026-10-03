@@ -60,6 +60,12 @@ def build_parser() -> argparse.ArgumentParser:
     tr_.add_argument("--mark-broken", action="store_true",
                      help="mark files LilyPond cannot draw as broken in parts.yml (for their scans to stay), "
                           "and rewrite the manifest")
+    proof = subs.add_parser("typeset-proofread", help="local melody audit; never marks full proofreading complete")
+    proof.add_argument("--limit", type=int, default=30, help="stratified pilot size; 0 checks all remaining")
+    proof.add_argument("--file", action="append", default=None, help="exact remaining matched filename (repeatable)")
+    proof.add_argument("--out", type=Path, default=None, help="report directory (default build/typeset/proofread)")
+    proof.add_argument("--local-assets", type=Path, default=None,
+                       help="read existing build/ caches and scan/render images; writes only to --out")
     subs.add_parser("typeset-publish", help="check and upload build/typeset/out/ to R2 (write-if-absent)")
     tp = subs.add_parser("typeset-prune",
                          help="delete renders on R2 that the manifest and review files no longer name "
@@ -384,6 +390,20 @@ def main(argv: list[str] | None = None) -> int:
         print(f"rendered {len(report.rendered)} into {OUT}; {len(report.failed_shown)} shown part(s) failed, "
               f"{len(report.failed_review)} on the review list failed")
         return 0 if report.ok else 1
+
+    if args.command == "typeset-proofread":
+        from pipeline.typeset.proofread import DEFAULT_OUT, audit
+        if args.limit < 0:
+            print("--limit must be nonnegative", file=sys.stderr)
+            return 2
+        try:
+            report = audit(args.limit, args.out or DEFAULT_OUT, args.file, args.local_assets)
+        except (OSError, ValueError) as error:
+            print(f"FAIL  {error}", file=sys.stderr)
+            return 1
+        print(f"{report['selected']} of {report['remaining']} remaining files: {report['summary']}")
+        print(f"Report: {(args.out or DEFAULT_OUT) / 'index.html'}")
+        return 1 if report['summary'].get('blocked') else 0
 
     if args.command == "typeset-publish":
         from pipeline.typeset.publish import publish

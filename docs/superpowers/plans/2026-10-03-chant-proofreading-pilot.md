@@ -23,24 +23,24 @@ Wrong notes hidden by an old score of 1.000; compressed strophas mistaken for on
 Files: create pipeline/typeset/proof_notes.py and tests/test_typeset_proof_notes.py.
 Interfaces: read_events(tsv, inserted_after) -> NoteSequence; read_gabc(gabc, expand=False) -> NoteSequence; compare_notes(ours, chant) -> Comparison. Note includes step, alteration, origin, lyric, phrase. Comparison includes complete diatonic/chromatic agreement, transposition, opcodes, flags.
 
-- [ ] Write and run failing tests for exact transposition, inserted/deleted/changed notes, repeated attacks, ties, accidental markers, compressed strophas, malformed GABC and source origins.
-- [ ] Implement rich readers and conservative alignment; keep old matcher unchanged.
-- [ ] Verify the tests and the existing matcher suite; commit.
+- [x] Write and run failing tests for exact transposition, inserted/deleted/changed notes, repeated attacks, ties, accidental markers, compressed strophas, malformed GABC and source origins.
+- [x] Implement rich readers and conservative alignment; keep old matcher unchanged.
+- [x] Verify the tests and the existing matcher suite; commit.
 
 ### Task 2: Remaining inventory, pilot and reports
 
 Files: create pipeline/typeset/proofread.py and tests/test_typeset_proofread.py; extend pipeline/cli.py and docs/TYPESETTING.md.
 Interfaces: inventory() -> list[dict]; select_pilot(items, limit) -> list[dict]; audit(limit, out, files=None) -> dict; write_report(report, out) -> Path. CLI: noh typeset-proofread --limit 30 --out build/typeset/proofread; --limit 0 audits all remaining; --file selects exact known remaining filenames.
 
-- [ ] Write and run failing tests for hash-aware inventory, stratified deterministic selection, missing evidence, full-tail discrepancies and escaped report content.
-- [ ] Implement source validation, existing event-cache reuse, note alignment, provenance and JSON/HTML packets with scan-system context.
-- [ ] Verify targeted suites and documented CLI; commit.
+- [x] Write and run failing tests for hash-aware inventory, stratified deterministic selection, missing evidence, full-tail discrepancies and escaped report content.
+- [x] Implement source validation, existing event-cache reuse, note alignment, provenance and JSON/HTML packets with scan-system context.
+- [x] Verify targeted suites and documented CLI; commit.
 
 ### Task 3: Pilot calibration and handoff
 
 Files: create docs/CHANT-PROOFREADING-PILOT.md; generated artifacts stay under ignored build/.
 
-- [ ] Run 30-file pilot on the captured branch; verify deliberately changed/omitted/inserted pitches and repetitions are flagged.
-- [ ] Assign compact clean/discrepant packets to small read-only agents. Distinguish machine agreement from scan-confirmed correctness; record uncertainty and actual results.
-- [ ] Run Python CI suite and lint; obtain one whole-change review, fix substantive findings and record evidence.
-- [ ] Commit code/docs on codex/chant-proofreading-pilot, retain isolated worktree and report next batch instructions. No merge or publication.
+- [x] Run 30-file pilot on the captured branch; verify deliberately changed/omitted/inserted pitches and repetitions are flagged.
+- [x] Assign compact clean/discrepant packets to small read-only agents. Distinguish machine agreement from scan-confirmed correctness; record uncertainty and actual results.
+- [x] Run Python CI suite and lint; obtain one whole-change review, fix substantive findings and record evidence.
+- [x] Commit code/docs on codex/chant-proofreading-pilot, retain isolated worktree and report next batch instructions. No merge or publication.

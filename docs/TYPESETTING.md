@@ -195,3 +195,45 @@ files, the network or LilyPond's options; no commands that read or write files;
 no `\include` except our own include files and LilyPond's. In CI, LilyPond runs
 only in jobs with no secrets. The event logger (`pipeline/typeset/listen.ily`)
 writes a file, so it is pipeline code, not a source any file can include.
+
+## Melody-first proofreading audit
+
+`uv run noh typeset-proofread` writes a local 30-file, stratified pilot under
+`build/typeset/proofread/`. Open `index.html` for source locations, matched scan
+systems, available wide renders and compact JSON packets. It does not change
+`corrections.yml`, `reviewed.json`, matches, source files or public assets.
+
+```bash
+uv run noh typeset-proofread --limit 30
+uv run noh typeset-proofread --limit 0 --out build/typeset/proofread-all
+uv run noh typeset-proofread --file vol-5/missa-xvi/sanctus_XVI.ly
+```
+
+`--local-assets /absolute/path/to/build` reads an existing checkout's exact-key
+LilyPond event cache and matching scan/render images, copying them into this
+report. A cache miss writes only into the report's own event directory. To use
+an existing pinned executable without installing another copy, set
+`NOH_LILYPOND=/absolute/path/to/vendor/lilypond-2.26.0/bin/lilypond`.
+
+The remaining inventory checks actual render hashes before excluding acknowledged
+files. A stale manifest is reported rather than silently trusting an old review.
+The old candidate-matching score is a sampling hint only. The new audit compares
+complete note sequences under a global transposition, preserves repeated attacks,
+joins valid ties, and checks chromatic intervals separately. Missing endings,
+unknown syntax, accidental scope, reconstructed repetitions, ambiguous voice gaps
+and invalid ties cannot produce an unqualified melody-agreement result.
+
+Statuses: `melody-agrees`, `differences`, `review-normalization`, `no-reference`,
+`blocked`. Discrepancies are grouped as `repeated-attacks`,
+`ending-or-extra-section` or `pitch-or-order`. These are triage categories, not
+confirmed errors: NOH and GregoBase may represent different editions, and NOH
+may tie pitches that GABC spells as repeated attacks. Scans decide whether the
+transcription is faithful to NOH.
+
+For low-cost assisted review, give a small read-only agent 10–20 related packets,
+without the whole project conversation. Ask it to cite the source line and scan
+ref, and return one of: scan-confirmed error, likely edition/notation difference,
+sampled agreement, or inconclusive. Escalate unclear cases to a stronger reviewer
+or an editor. A worker must name the passage it inspected; it cannot extrapolate
+a spot-check into full proofreading. See `docs/CHANT-PROOFREADING-PILOT.md` for the
+first run's evidence and a reusable review prompt.

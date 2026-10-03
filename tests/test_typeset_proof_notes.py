@@ -54,14 +54,7 @@ def test_malformed_and_unsupported_gabc_are_not_clean():
 
 
 def test_event_reader_joins_real_ties_preserves_alterations_and_maps_lines():
-    tsv = '\n'.join([
-        '0\tup:chant\tnote\t2\t-1/2\t0\t2\t0\t1\t1/4\t6:2',
-        '0\tlyrics\tlyric\tKy\t',
-        '0\tup:chant\ttie',
-        '1/4\tup:chant\tnote\t2\t-1/2\t0\t2\t0\t1\t1/4\t6:8',
-        '1/2\tup:chant\tnote\t3\t0\t0\t2\t0\t1\t1/4\t7:1',
-        '1/2\tlyrics\tlyric\trie\t',
-    ])
+    tsv = '0\tup:chant\tnote\t2\t-1/2\t0\t2\t0\t1\t1/4\t6:2\n0\tlyrics\tlyric\tKy\t\n0\tup:chant\ttie\n1/4\tup:chant\tnote\t2\t-1/2\t0\t2\t0\t1\t1/4\t6:8\n1/2\tup:chant\tnote\t3\t0\t0\t2\t0\t1\t1/4\t7:1\n1/2\tlyrics\tlyric\trie\t'
     seq = p.read_events(tsv, inserted_after=2)
     assert [n.step for n in seq.notes] == [2, 3]
     assert seq.notes[0].alteration == Fraction(-1, 2)
@@ -84,3 +77,25 @@ def test_chromatic_difference_is_separate_from_diatonic_agreement():
     chant = sequence([0, 1, 2])
     result = p.compare_notes(ours, chant)
     assert result.diatonic_equal and not result.chromatic_equal
+
+
+def test_insertion_does_not_change_estimated_transposition():
+    result = p.compare_notes(sequence([3, 4, 5, 6, 7, 8]), sequence([0, 1, 9, 2, 3, 4, 5]))
+    assert result.transposition == 3
+    assert [op[0] for op in result.opcodes] == ['equal', 'insert', 'equal']
+
+
+def test_anonymous_voices_on_chant_staff_cannot_be_silently_ignored():
+    tsv = '0\tup:chant\tnote\t0\t0\t0\t2\t0\t1\t1/4\t5:1\n1/4\tup:1\tnote\t1\t0\t0\t2\t0\t1\t1/4\t5:5\n1/4\tup:2\tnote\t2\t0\t0\t2\t0\t1\t1/4\t5:8\n1/2\tup:chant\tnote\t3\t0\t0\t2\t0\t1\t1/4\t5:12'
+    assert p.read_events(tsv).flags
+
+
+def test_tie_on_rest_does_not_suppress_later_attack():
+    tsv = '0\tup:chant\tnote\t0\t0\t0\t2\t0\t1\t1/4\t5:1\n1/4\tup:chant\trest\t1/4\n1/4\tup:chant\ttie\n1/2\tup:chant\tnote\t0\t0\t0\t2\t0\t1\t1/4\t5:8'
+    seq = p.read_events(tsv)
+    assert len(seq.notes) == 2 and seq.flags
+
+
+def test_simultaneous_notes_are_checked_before_joining_ties():
+    tsv = '0\tup:chant\tnote\t0\t0\t0\t2\t0\t1\t1/4\t5:1\n0\tup:chant\ttie\n1/4\tup:chant\tnote\t0\t0\t0\t2\t0\t1\t1/4\t5:8\n1/4\tup:chant\tnote\t0\t0\t0\t2\t0\t1\t1/4\t5:10'
+    assert 'simultaneous chant notes' in p.read_events(tsv).flags
