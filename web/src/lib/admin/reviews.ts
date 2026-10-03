@@ -11,13 +11,17 @@
 import queueJson from "../../../../data/review-queue.json";
 import reviewedJson from "../../../../data/reviewed.json";
 import { allPieces, pieceBySlug, partLabel } from "../catalog";
+import { musicView } from "../music";
+import { massSources } from "../references";
 import type { Piece, ProperPartName } from "../catalog";
 import { type QueueItem, type ReviewGroup, reviewKind } from "./reviewKinds";
 import { type Scans, type Shown, pieceSystems, shown } from "./scans";
 import { type Reviewed, suspectParts } from "./suspects";
 import { buildScans } from "./targetIndex";
 import { MOVEMENT_LABELS, pairingMovements } from "./targets";
+import { TYPESET } from "./typesetData";
 import { type TypesetEntry, typesetEntries } from "./typesetQueues";
+import type { Bucket } from "./summary";
 
 export const QUEUE = queueJson as unknown as readonly QueueItem[];
 export const REVIEWED = (reviewedJson as { reviewed: Reviewed }).reviewed;
@@ -41,10 +45,17 @@ export interface ReviewEntry {
   readonly href: string | null;
   /** What the edit form opens with **Correct**; null when a correction cannot fix it. */
   readonly correct: string | null;
+  /** The piece's Sections screen, for an item about where a part or movement starts. */
+  readonly sections: string | null;
   readonly scans: readonly Shown[];
 }
 
 const pad = (n: number, width: number): string => String(n).padStart(width, "0");
+
+/** Kinds about where a part or movement starts: their piece's Sections screen can fix them. */
+const SECTION_KINDS = new Set(["part_to_check", "part_by_order", "part_missing", "part_mismatch", "uncertain_movement"]);
+const sectionsOf = (kind: string, piece: Piece | undefined): string | null =>
+  piece && SECTION_KINDS.has(kind) ? `/admin/sections/?piece=${encodeURIComponent(piece.slug)}` : null;
 
 function partTargetOf(item: QueueItem): string {
   return `part:${item.piece}/${item.part}${item.variant ? `:${item.variant}` : ""}`;
@@ -110,6 +121,31 @@ function detailOf(item: QueueItem): string | null {
   return bits.length ? bits.join("; ") : null;
 }
 
+/**
+ * Whether what an item asks has been answered since the queue was written: the
+ * queue comes from the catalogue build, before the reviewed section lists
+ * (data/sections) and the printed references are applied.
+ * - A part not found, or whose words did not match, now placed by a person,
+ *   by its label or by its words, or recorded as printed elsewhere.
+ * - A piece with no music of its own whose page shows the music it cites (and
+ *   so has no first system to check either).
+ */
+export function settled(item: QueueItem, piece: Piece | undefined): boolean {
+  if (!piece) return false;
+  if (item.kind === "part_missing" || item.kind === "part_mismatch") {
+    return piece.parts.some((p) => p.part === item.part && p.variant === (item.variant ?? "")
+      && (p.kind === "borrowed" || p.placed !== "order"));
+  }
+  // A piece that is only a reference starts nowhere on the page: its music is the music it cites.
+  if (item.kind === "starts_mid_page" && piece.systems.length === 0) {
+    return musicView(piece).systems.length > 0 || massSources(piece).length > 0;
+  }
+  if (item.kind === "no_systems") {
+    return piece.systems.length > 0 || musicView(piece).systems.length > 0 || massSources(piece).length > 0;
+  }
+  return false;
+}
+
 let cached: readonly ReviewEntry[] | null = null;
 
 /** Everything left to review, in group order, then the queue's own order. */
@@ -129,7 +165,7 @@ export function reviewEntries(queue: readonly QueueItem[] = QUEUE, reviewed: Rev
         label: "Part to check", about: `${suspect.label} (${suspect.volume}) · ${p.name}`,
         look: p.reasons.map((r) => `${r[0]?.toUpperCase()}${r.slice(1)}.`).join(" "),
         detail: `starts on system ${p.start}, runs for ${p.length}`, volume: suspect.volume,
-        href: piece ? `/piece/${piece.slug}/` : null, correct: p.target,
+        href: piece ? `/piece/${piece.slug}/` : null, correct: p.target, sections: sectionsOf("part_to_check", piece),
         scans: start ? [shown(scans, start, `Starts now: system ${p.start}`)] : [],
       });
     }
@@ -137,11 +173,12 @@ export function reviewEntries(queue: readonly QueueItem[] = QUEUE, reviewed: Rev
   for (const item of queue) {
     if (reviewed[item.key]?.was === item.fingerprint) continue;
     const piece = find(item.piece);
+    if (settled(item, piece)) continue;
     const kind = reviewKind(item);
     out.push({
       target: item.key, fingerprint: item.fingerprint, kind: item.kind, group: kind.group, label: kind.label,
       about: aboutOf(item, piece), look: kind.look, detail: detailOf(item), volume: item.volume,
-      href: piece ? `/piece/${piece.slug}/` : null, correct: correctTarget(item, piece),
+      href: piece ? `/piece/${piece.slug}/` : null, correct: correctTarget(item, piece), sections: sectionsOf(item.kind, piece),
       scans: scansOf(item, piece, scans).slice(0, MAX_SCANS),
     });
   }
@@ -161,23 +198,29 @@ export interface ReviewIndexItem {
   readonly label: string;
   readonly piece: string | null;
   readonly review?: false;
+  /** Which list it is on: a Review group or a Typeset queue (for the counts). */
+  readonly bucket?: Bucket;
 }
 export interface ReviewIndex {
   readonly items: Readonly<Record<string, ReviewIndexItem>>;
+  /** How many parts are shown typeset in all, proofread or not. */
+  readonly totals?: { readonly proofreading: number };
 }
 
 const QUEUE_WORDS = { matches: "Typeset match", errors: "Typeset error", proofreading: "Proofreading" } as const;
 
 export function reviewIndex(entries: readonly ReviewEntry[] = reviewEntries(),
-                            typeset: readonly TypesetEntry[] = typesetEntries()): ReviewIndex {
+                            typeset: readonly TypesetEntry[] = typesetEntries(),
+                            typesetParts: number = TYPESET.parts.length): ReviewIndex {
   const items: Record<string, ReviewIndexItem> = {};
   const pieceOf = (href: string | null): string | null => (href ? href.split("/")[2] ?? null : null);
   for (const e of entries) {
-    items[e.target] = { fingerprint: e.fingerprint, label: `${e.label}: ${e.about}`, piece: pieceOf(e.href) };
+    items[e.target] = { fingerprint: e.fingerprint, label: `${e.label}: ${e.about}`, piece: pieceOf(e.href), bucket: e.group };
   }
   for (const e of typeset) {
     items[e.target] = { fingerprint: e.fingerprint, label: `${QUEUE_WORDS[e.queue]}: ${e.title} (${e.file})`,
-                        piece: pieceOf(e.href), ...(e.queue === "proofreading" ? {} : { review: false as const }) };
+                        piece: pieceOf(e.href), bucket: e.queue,
+                        ...(e.queue === "proofreading" ? {} : { review: false as const }) };
   }
-  return { items };
+  return { items, totals: { proofreading: typesetParts } };
 }

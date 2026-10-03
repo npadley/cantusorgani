@@ -28,7 +28,7 @@ export function markChosen(item: HTMLElement, value: string, by: string | null, 
   for (const el of item.querySelectorAll(".review-actions, .match-actions")) el.setAttribute("hidden", "");
   item.querySelector<HTMLElement>(".review-state")?.replaceChildren(
     h("strong", {}, `Chosen: ${choiceWords(value, labelsOf(item))}`),
-    ` · by ${by ?? "an editor"}; ${queued ? "publishing now" : "goes with the next Publish on the Corrections page"}.`);
+    ` · by ${by ?? "an editor"}; ${queued ? "publishing now" : "goes with the next Publish on the Admin page"}.`);
 }
 
 /** Marks the items already answered; returns how many. */

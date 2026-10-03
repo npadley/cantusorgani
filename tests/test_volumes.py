@@ -63,3 +63,13 @@ def test_staff_finder_refuses_an_unknown_setting_or_a_page_named_twice(tmp_path)
             load_volumes(path)
     path.write_text(yaml.safe_dump({"volumes": {"nohx": {**base, "staff_finder": {"plain": [4], "refit": [3]}}}}))
     assert load_volumes(path)["nohx"].staff_finder == (("refit", (3,)), ("plain", (4,)))
+    path.write_text(yaml.safe_dump({"volumes": {"nohx": {**base, "staff_finder": {"faint": [5]}}}}))
+    assert load_volumes(path)["nohx"].staff_finder == (("faint", (5,)),)
+
+
+def test_load_volumes_reads_an_inserted_leaf(tmp_path) -> None:
+    """NOH4's leaf printed "162 bis" and "163 bis" (PDF 195-196) follows p. 163."""
+    from pipeline.volumes import Insert
+    noh4 = load_volumes()["noh4"]
+    assert noh4.inserts == (Insert(after_printed=163, first_pdf=195, last_pdf=196, label="162 bis-163 bis"),)
+    assert load_volumes()["noh5"].inserts == ()

@@ -10,6 +10,10 @@ volumes:
     index_pdf_pages: [231]
     first_body_pdf_page: 47   # first PDF page bearing an arabic folio; sampling floor only
     page_offset: null         # DERIVED by pipeline.offset — never hand-edit
+    # p. 151 (PDF 197): the first staff's top and bottom lines print too faintly for
+    # the standard finder, which loses that staff (the treble of the system above).
+    staff_finder:
+      faint: [197]
     sha256: "67d38b8bd81bd47ea90409ee4191a2b5ca314d42f9b8486d099a1772e47b97e1"
     source_url: null          # durable mirror (archive.org / IMSLP item id)
     retrieved: null           # ISO date
@@ -35,9 +39,10 @@ volumes:
     first_body_pdf_page: 33
     # Pages the standard staff finder misreads (pipeline.evaluate): on p. 101
     # (PDF 133) lines read twice and a top line lost hid four staves; p. 61
-    # (PDF 93) prints its staff lines as dashes.
+    # (PDF 93) prints its staff lines as dashes; on p. 37 (PDF 69) the first treble
+    # staff loses lines and was sliced as a lone bass staff.
     staff_finder:
-      refit: [133]
+      refit: [133, 69]
       dashed: [93]
     page_offset: null
     sha256: "7b59b85cc48c1c1984558e94f09438779d6fec221e371fb9ae1709b94ecb0d71"
@@ -52,6 +57,14 @@ volumes:
     index_pdf_pages: [476, 477, 478, 479]
     first_body_pdf_page: 34
     last_body_pdf_page: 475   # 480-499 are addenda with their own pagination
+    # A leaf inserted after p. 376, printed "375 a" and "376 a" (PDF 410-411): the end
+    # of the Rosary feast's Alleluia and its Offertory, In me gratia.
+    inserts:
+      - {after_printed: 376, first_pdf: 410, last_pdf: 411, label: "375 a-376 a"}
+    # p. 107 (PDF 140): the first treble staff loses lines and was sliced as a lone
+    # bass staff; fitted as on faint print.
+    staff_finder:
+      refit: [140]
     # Printed for the two feasts of 1954 (plate numbers 9264 and 9263), each numbered
     # from its own title page. St Joseph the Worker (1955) is in neither.
     addenda:
@@ -77,6 +90,11 @@ volumes:
     pdf_pages: 418
     index_pdf_pages: []       # this scan has no index; catalogued from its headings
     first_body_pdf_page: 32
+    # A leaf inserted after p. 163, printed "162 bis" and "163 bis" (PDF 195-196): the
+    # Holy Cross votive Mass's Alleluia citation and its Tract, Adoramus te Christe,
+    # for after Septuagesima. The Tract ends on p. 164.
+    inserts:
+      - {after_printed: 163, first_pdf: 195, last_pdf: 196, label: "162 bis-163 bis"}
     page_offset: null
     sha256: "056fa93b299af12c994218bed889707175f6433e59bbcfc5fc36b1ca20da0075"
     source_url: null
@@ -89,10 +107,11 @@ volumes:
     pdf_pages: 344
     index_pdf_pages: [344]
     first_body_pdf_page: 31
-    # p. 15 (PDF 45) prints its lines broken, and loses three staves; on p. 28
+    # p. 15 (PDF 45) prints its lines broken, and loses three staves; on p. 45 (PDF
+    # 75) and p. 143 (PDF 173) one treble staff loses lines; on p. 28
     # (PDF 58) tilt recovery splits the response below a versicle's lone staff.
     staff_finder:
-      refit: [45]
+      refit: [45, 75, 173]
       plain: [58]
     page_offset: null
     sha256: "45b0e85ea2ebd31901dacc3babf566299df677687f3f19410727c8d2f98a2da9"

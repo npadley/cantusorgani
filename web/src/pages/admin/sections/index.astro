@@ -1,4 +1,5 @@
 ---
+import AdminNav from "../../../components/AdminNav.astro";
 import Layout from "../../../components/Layout.astro";
 
 // A Proper's whole list of sections, beside its scans: add a section at a
@@ -10,16 +11,16 @@ import Layout from "../../../components/Layout.astro";
 
 <Layout title="Admin: sections" noindex>
   <div class="admin ui">
+    <AdminNav current="sections" />
     <p class="who small muted" id="who">Admin</p>
-    <p class="small muted"><a href="/admin/">Corrections</a> · <a href="/admin/parts/">Parts to check</a></p>
     <h1 id="title">Sections</h1>
     <p class="muted small prose" id="intro">Each section runs from the system it starts on until the next one starts.
       List them in the order the book prints them; a section printed in another volume goes where the book cites it.
       Your list replaces the piece's whole list once it is published.</p>
-    <p class="small prose" id="mass-hint" hidden>This piece has movements, which the pipeline found by their words:
+    <p class="small prose" id="mass-hint" hidden>This piece has movements, which the pipeline found by their words:{" "}
       <strong id="mass-movements"></strong>. List only what they get wrong or leave out. To move a movement, start a
       section on the system where it really begins, kind <em>Section</em>, and give it the movement's name as its own
-      name (<code>kyrie</code>, <code>gloria</code>, <code>credo</code>, <code>sanctus</code>, <code>agnus</code> or
+      name (<code>kyrie</code>, <code>gloria</code>, <code>credo</code>, <code>sanctus</code>, <code>agnus</code> or{" "}
       <code>ite</code>): it takes that movement's place, heading and chant. For a second Kyrie or another dismissal, give
       it any other name (<code>kyrie-b</code>, <code>benedicamus</code>) and a label.</p>
     <div id="status" class="status small" role="status" aria-live="polite"></div>
@@ -253,7 +254,7 @@ import Layout from "../../../components/Layout.astro";
     drafts.clear(draftKey);
     // Link the report to this fix; it resolves only when publication merges.
     const settled = report ? await api(`/rows/${report}/resolve`, { correctionId: result.data.id }) : null;
-    status?.replaceChildren(h("span", {}, "Approved. It is waiting on the "), h("a", { href: "/admin/" }, "corrections queue"),
+    status?.replaceChildren(h("span", {}, "Approved. It is waiting on the "), h("a", { href: "/admin/" }, "Admin page"),
                             h("span", {}, " until someone publishes."),
                             ...(settled && !settled.ok ? [h("p", { class: "notice" }, `The reader's report is still open: ${settled.error}`)] : []));
     if (status) status.dataset["state"] = "ok";

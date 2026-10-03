@@ -116,11 +116,15 @@ def test_refit_page_finds_staves_read_twice_or_lost():
 
 @pytest.mark.source
 @pytest.mark.slow
-@pytest.mark.parametrize("vol,page,expected", [("noh2", 93, 4), ("noh8", 45, 6), ("noh8", 58, 6)])
+@pytest.mark.parametrize("vol,page,expected", [("noh2", 93, 4), ("noh8", 45, 6), ("noh8", 58, 6),
+                                               ("noh2", 69, 6), ("noh3", 140, 6), ("noh8", 75, 5), ("noh8", 173, 6),
+                                               ("noh5", 197, 5)])
 def test_staff_finder_pages_keep_every_system(vol, page, expected):
     """NOH2 p. 61 prints its staff lines as dashes (dashed); NOH8 p. 15 loses
     three staves to broken lines (refit); on NOH8 p. 28 tilt recovery split the
-    response below a versicle's lone staff (plain)."""
+    response below a versicle's lone staff (plain). On five pages one treble
+    staff loses lines and was sliced as a lone bass staff: four refit, and
+    NOH5 p. 151 (faint), whose staff's outer lines print too faintly."""
     from pipeline.evaluate import analyse_page
     result = analyse_page(vol, page)
     assert result.error is None and result.warning is None

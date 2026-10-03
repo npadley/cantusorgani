@@ -19,6 +19,7 @@ import { verifyHmac } from "./crypto";
 import { closePullRequest, dispatchBatch, githubConfigured, newBatchId } from "./github";
 import type { Batch, GithubEnv } from "./github";
 import type { ReviewIndex } from "./reviews";
+import { summarize } from "./summary";
 import { d1Store } from "./store";
 import type { D1Like, Row, Store } from "./store";
 import { FIELDS_OF, checkValue, describeTarget, isField, plannedOrder, readerField, sectionsSummary } from "./targets";
@@ -244,6 +245,7 @@ async function route(request: Request, env: AdminEnv, deps: Deps): Promise<Respo
       return json({ items: rows.map((r) => describeRow(r, targets, index)) });
     }
     if (path === "/review-state") return reviewState(store);
+    if (path === "/summary") return summary(deps);
     return problem(404, "Not found.");
   }
   if (request.method !== "POST") return problem(405, "Method not allowed.");
@@ -374,7 +376,7 @@ async function createEdit(deps: Deps, editor: Editor, input: Record<string, unkn
       .find((r) => r.field === "match" && r.proposed === checked.value && r.target !== info.target);
     if (twice) {
       return problem(409, `${twice.target?.slice("typeset:".length) ?? "Another file"} is already chosen as ${checked.value} ` +
-        `(by ${twice.editor_email ?? "another editor"}); withdraw that first on the Corrections page.`);
+        `(by ${twice.editor_email ?? "another editor"}); withdraw that first on the Admin page.`);
     }
   }
   const note = text(input["note"], 200);
@@ -465,6 +467,16 @@ async function reviewState(store: Store): Promise<Response> {
       .map((r) => ({ ...brief(r), value: r.proposed })),
     skips: await store.skips(),
   });
+}
+
+/** What is waiting on every list, counted one way (summary.ts). Without the
+ * review index, the lists are empty but the reports still count. */
+async function summary(deps: Deps): Promise<Response> {
+  const [index, rows, skips, pending] = await Promise.all([
+    reviewIndex(deps), deps.store.list(["approved", "queued"], 1000), deps.store.skips(),
+    deps.store.list(["pending"], 500)]);
+  const reports = pending.filter((r) => !r.resolved_by).length;
+  return json(summarize(index ?? { items: {} }, rows, skips, reports));
 }
 
 /** The item a review or skip names, from the list built with the site. */

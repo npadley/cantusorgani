@@ -8,12 +8,14 @@ describe("inline borrowed music", () => {
   it("places the Common of Doctors' borrowed Tract before its Offertory", () => {
     const original = pieceBySlug("commune-doctorum")!;
     const view = musicView(original);
-    expect(view.systems).toHaveLength(46);
+    expect(view.systems).toHaveLength(50);
     expect(view.systems.slice(30, 41)).toEqual([
       "noh4/0045/004", "noh4/0046/000", "noh4/0046/001", "noh4/0046/002", "noh4/0046/003",
       "noh4/0046/004", "noh4/0046/005", "noh4/0047/000", "noh4/0047/001", "noh4/0047/002", "noh4/0047/003",
     ]);
     expect(view.systems[41]).toBe("noh4/0107/000");
+    // The Communion is cited too: Fidelis servus, p. 65.
+    expect(view.systems.slice(46)).toEqual(["noh4/0096/002", "noh4/0096/003", "noh4/0096/004", "noh4/0096/005"]);
     const tract = jumpTargets(view).find((t) => t.anchor === "tract")!;
     expect(tract.index).toBe(30);
     expect(tract.target).toBe("part:commune-unius-martyris-pontificis-alia-missa/tract");

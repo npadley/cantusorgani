@@ -15,14 +15,18 @@
 # (and borrowed_from, borrowed_ref) in place of ref.
 # `uv run noh sections <slug> --review` writes a piece's current list here to start from.
 missa-contra-paganos:
+- {kind: tract, label: Tract. I, title: Adjuva nos, ref: noh4/0243/001, chant: 380}
+- {kind: alleluia, variant: paschal, title: Deus virtutum, ref: noh4/0245/003, chant: 539}
 - {kind: introit, borrowed_volume: noh1, borrowed_page: 138, borrowed_from: dominica-in-sexagesima, borrowed_ref: noh1/0165/003,
   chant: 529}
 - {kind: alleluia, borrowed_volume: noh1, borrowed_page: 16, borrowed_from: dominica-iii-adventus, borrowed_ref: noh1/0042/002,
   chant: 539}
-- {kind: tract, label: Tract. I, title: Adjuva nos, ref: noh4/0243/001, chant: 380}
-- {kind: alleluia, variant: paschal, title: Deus virtutum, ref: noh4/0245/003, chant: 539}
 - {kind: communion, borrowed_volume: noh2, borrowed_page: 249, borrowed_from: dominica-xxi-post-pentecosten, borrowed_ref: noh2/0281/001,
   chant: 1290}
+- {kind: gradual, title: Sciant gentes, borrowed_volume: noh1, borrowed_page: 140, borrowed_from: dominica-in-sexagesima,
+  borrowed_ref: noh1/0167/000, chant: none}
+- {kind: offertory, title: Populum humilem, borrowed_volume: noh2, borrowed_page: 170, borrowed_from: dominica-viii-post-pentecosten,
+  borrowed_ref: noh2/0202/001, chant: none}
 ss-lanceae-et-clavorum-d-n-j-c:
 - {kind: gradual, borrowed_volume: noh4, borrowed_page: 166, borrowed_from: feria-vi-missa-de-passione-d-n-jesu-christi,
   borrowed_ref: noh4/0199/000, chant: none}
@@ -33,6 +37,8 @@ ss-lanceae-et-clavorum-d-n-j-c:
 missa-de-sancta-maria-in-sabbato-a-pascha-usque-ad-pentecosten:
 - {kind: offertory, title: Beata es, ref: noh4/0214/001, chant: 567}
 - {kind: alleluia, n: 1, title: Virga Jesse, ref: noh4/0215/002, chant: 281}
+- {kind: introit, title: Salve sancta Parens, borrowed_volume: noh4, borrowed_page: 182, borrowed_from: missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum,
+  borrowed_ref: noh4/0215/004, chant: none}
 humilitatis-b-m-v:
 - {kind: introit, borrowed_volume: noh4, borrowed_page: 182, borrowed_from: missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum,
   borrowed_ref: noh4/0215/004, chant: none}
@@ -158,6 +164,10 @@ missa-pro-infirmis:
   borrowed_ref: noh1/0268/003, chant: 562}
 - {kind: offertory, borrowed_volume: noh1, borrowed_page: 234, borrowed_from: feria-ii-infra-hebd-iii-quadragesim,
   borrowed_ref: noh1/0261/003, chant: 842}
+- {kind: alleluia, title: Domine exaudi, borrowed_volume: noh2, borrowed_page: 219, borrowed_from: dominica-xvii-post-pentecosten,
+  borrowed_ref: noh2/0251/003, chant: none}
+- {kind: communion, title: Illumina faciem tuam, borrowed_volume: noh1, borrowed_page: 138, borrowed_from: dominica-in-septuagesima,
+  borrowed_ref: noh1/0165/000, chant: none}
 feria-v-missa-de-ss-eucharistiae-sacramento:
 - {kind: introit, label: Intr., title: Cibavit sine Alleluia, ref: noh4/0182/003, chant: 62}
 - {kind: tract, label: Tract. VII, title: Ab ortu solis, ref: noh4/0183/004, chant: 644}
@@ -165,6 +175,10 @@ feria-v-missa-de-ss-eucharistiae-sacramento:
   chant: 645}
 - {kind: communion, borrowed_volume: noh2, borrowed_page: 127, borrowed_from: noh2-p114, borrowed_ref: noh2/0159/000,
   chant: 10950}
+- {kind: gradual, title: Oculi omnium, borrowed_volume: noh2, borrowed_page: 116, borrowed_from: noh2-p114, borrowed_ref: noh2/0148/000,
+  chant: none}
+- {kind: alleluia, title: Caro mea, borrowed_volume: noh2, borrowed_page: 118, borrowed_from: noh2-p114, borrowed_ref: noh2/0150/000,
+  chant: none}
 commune-virginum-pro-virgine-et-martyre:
 - {kind: introit, label: Intr. V, title: Loquebar, ref: noh4/0121/000, chant: 510}
 - {kind: gradual, label: Grad., title: Dilexisti, ref: noh4/0122/001, chant: 394}
@@ -250,13 +264,15 @@ puritatis-b-m-v:
   borrowed_ref: noh3/0055/004, chant: none}
 feria-v-missa-de-spiritu-sancto:
 - {kind: introit, label: Intr. VIII, title: Spiritus Domini sine Alleluia, ref: noh4/0177/003, chant: 636}
-- {kind: gradual, borrowed_volume: noh2, borrowed_page: 218, borrowed_from: dominica-xvii-post-pentecosten, borrowed_ref: noh2/0250/000,
-  chant: 1044}
 - {kind: tract, label: Tract., title: Emitte Spiritum, ref: noh4/0179/000, chant: 925}
-- {kind: alleluia, variant: paschal, borrowed_volume: noh2, borrowed_page: 78, borrowed_from: dominica-pentecostes,
-  borrowed_ref: noh2/0110/005, chant: none}
 - {kind: offertory, label: Offert. IV, title: Confirma hoc cum Alleluia, ref: noh4/0181/000, chant: 361}
 - {kind: communion, title: Factus est cum Alleluia, ref: noh4/0181/005, chant: 1041}
+- {kind: gradual, borrowed_volume: noh2, borrowed_page: 218, borrowed_from: dominica-xvii-post-pentecosten, borrowed_ref: noh2/0250/000,
+  chant: 1044}
+- {kind: alleluia, variant: paschal, borrowed_volume: noh2, borrowed_page: 78, borrowed_from: dominica-pentecostes,
+  borrowed_ref: noh2/0110/005, chant: none}
+- {kind: alleluia, title: Veni Sancte Spiritus, borrowed_volume: noh2, borrowed_page: 79, borrowed_from: dominica-pentecostes,
+  borrowed_ref: noh2/0111/005, chant: none}
 commune-virginum-pro-virgine-et-martyre-2:
 - {kind: introit, label: Intr. II, title: Me exspectaverunt, ref: noh4/0130/000, chant: 938}
 - {kind: gradual, label: Grad. V, title: Adjuvabit eam, ref: noh4/0131/003, chant: 1373}
@@ -269,13 +285,17 @@ commune-non-virginum-pro-una-martyre-non-virgine:
 - {kind: alleluia, title: Specie tua, ref: noh4/0150/003, chant: 406}
 - {kind: communion, title: Principes persecuti sunt, ref: noh4/0151/004, chant: 1292}
 - {kind: alleluia, variant: paschal, title: Propter veritatem, ref: noh4/0152/002, chant: 913}
+- {kind: introit, title: Me exspectaverunt, borrowed_volume: noh4, borrowed_page: 99, borrowed_from: commune-virginum-pro-virgine-et-martyre-2,
+  borrowed_ref: noh4/0130/000, chant: none}
 feria-iii-missa-de-angelis:
-- {kind: introit, borrowed_volume: noh3, borrowed_page: 354, borrowed_from: in-dedicatione-s-mich-lis-archangelis,
-  borrowed_ref: noh3/0387/000, chant: 985}
 - {kind: gradual, label: Grad. II, title: Laudate Dominum, ref: noh4/0169/000, chant: 348}
 - {kind: alleluia, title: In conspectu, ref: noh4/0170/004, chant: 550}
 - {kind: tract, label: Tract., title: Benedicte Dominum, ref: noh4/0172/000, chant: 949}
 - {kind: communion, label: Comm. II, title: Angeli Archangeli, ref: noh4/0174/000, chant: 599}
+- {kind: introit, borrowed_volume: noh3, borrowed_page: 354, borrowed_from: in-dedicatione-s-mich-lis-archangelis,
+  borrowed_ref: noh3/0387/000, chant: 985}
+- {kind: offertory, title: Stetit Angelus, borrowed_volume: noh3, borrowed_page: 360,
+  chant: none}
 commune-plurimorum-martyrum:
 - {kind: introit, label: Intr. IV, title: Intret in conspectu, ref: noh4/0071/001, chant: 261}
 - {kind: gradual, label: Grad. I, title: Gloriosus Deus, ref: noh4/0073/000, chant: 888}
@@ -359,3 +379,107 @@ b-m-v-auxilium-christianorum:
   borrowed_ref: noh4/0219/004, chant: 843}
 - {kind: communion, title: Beata viscera, borrowed_volume: noh4, borrowed_page: 187, borrowed_from: missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum,
   borrowed_ref: noh4/0220/005, chant: 160}
+# pp. 162-164 and the leaf inserted after p. 163 ("162 bis", "163 bis"), checked
+# against the scans 2026-10-03. The Mass prints its Gradual and, on the inserted
+# leaf, the Tract sung after Septuagesima; the rest is cited from the Finding of
+# the Holy Cross (Pars III, pp. 170-174) and Protege Domine (cited as p. 335, a
+# misprint: it is printed at p. 345, which is what the list gives).
+feria-vi-missa-de-sancta-cruce:
+- {kind: introit, title: Nos autem gloriari, borrowed_volume: noh3, borrowed_page: 170, borrowed_from: in-inventione-s-crucis,
+  borrowed_ref: noh3/0203/000, chant: none}
+- {kind: gradual, label: Grad. V, title: Christus factus est, ref: noh4/0193/000, chant: 873}
+- {kind: alleluia, title: Dulce lignum, borrowed_volume: noh3, borrowed_page: 172, borrowed_from: in-inventione-s-crucis,
+  borrowed_ref: noh3/0205/002, chant: none}
+- {kind: tract, label: Tract. II, title: Adoramus te Christe, ref: noh4/0195/000, chant: 114}
+- {kind: alleluia, variant: paschal, title: Dicite in gentibus, borrowed_volume: noh3, borrowed_page: 171, borrowed_from: in-inventione-s-crucis,
+  borrowed_ref: noh3/0204/003, chant: none}
+- {kind: offertory, title: Protege Domine, borrowed_volume: noh3, borrowed_page: 345, borrowed_from: in-exaltatione-sanct-crucis,
+  borrowed_ref: noh3/0378/000, chant: 3438}
+- {kind: communion, title: Per signum Crucis, borrowed_volume: noh3, borrowed_page: 174, borrowed_from: in-inventione-s-crucis,
+  borrowed_ref: noh3/0207/000, chant: none}
+commune-unius-martyris-non-pontificis-alia-missa:
+- {kind: introit, label: Intr. VII, title: Laetabitur justus, ref: noh4/0055/000, chant: 251}
+- {kind: gradual, label: Grad. V, title: Justus cum ceciderit, ref: noh4/0056/003, chant: 764}
+- {kind: alleluia, label: II., title: Qui sequitur me, ref: noh4/0057/004, chant: none}
+- {kind: offertory, label: Offert., title: Posuisti Domine, ref: noh4/0058/004, chant: 487}
+- {kind: communion, label: Comm. V, title: Qui mihi ministrat, ref: noh4/0059/005, chant: 685}
+- {kind: tract, borrowed_volume: noh4, borrowed_page: 14, borrowed_from: commune-unius-martyris-pontificis-alia-missa,
+  borrowed_ref: noh4/0045/004, chant: 7670}
+commune-doctorum:
+- {kind: introit, label: Intr. VI, title: In medio Ecclesiae, ref: noh4/0102/000, chant: 233}
+- {kind: gradual, label: Grad. I, title: Os justi, ref: noh4/0103/002, chant: 511}
+- {kind: alleluia, title: Amavit eum Dominus, ref: noh4/0104/004, chant: 14}
+- {kind: offertory, label: Offert. IV, title: Justus ut palma, ref: noh4/0107/000, chant: 777}
+- {kind: tract, borrowed_volume: noh4, borrowed_page: 14, borrowed_from: commune-unius-martyris-pontificis-alia-missa,
+  borrowed_ref: noh4/0045/004, chant: 7670}
+- {kind: communion, title: Fidelis servus, borrowed_volume: noh4, borrowed_page: 65, borrowed_from: commune-confessoris-pontificis,
+  borrowed_ref: noh4/0096/002, chant: none}
+commune-confessoris-non-pontificis-missa-pro-abbatibus:
+- {kind: gradual, title: Domine praevenisti, ref: noh4/0117/000, chant: 600}
+- {kind: alleluia, title: Justus ut palma, ref: noh4/0118/003, chant: 946}
+- {kind: alleluia, variant: paschal, title: Justus germinabit, ref: noh4/0120/005, chant: 1207}
+- {kind: introit, title: Os justi, borrowed_volume: noh4, borrowed_page: 76, borrowed_from: commune-confessoris-non-pontificis,
+  borrowed_ref: noh4/0107/005, chant: none}
+commune-virginum-pro-virgine-tantum-2:
+- {kind: introit, label: Intr. II, title: Vultum tuum, ref: noh4/0146/004, chant: 124}
+- {kind: gradual, label: Grad. I, title: Concupivit rex, ref: noh4/0148/001, chant: 686}
+- {kind: alleluia, title: Haec est virgo, ref: noh4/0148/005, chant: 500}
+- {kind: communion, label: Comm. VIII, title: Simile est, ref: noh4/0149/002, chant: 673}
+- {kind: offertory, title: Afferentur regi, borrowed_volume: noh4, borrowed_page: 97, borrowed_from: commune-virginum-pro-virgine-et-martyre,
+  borrowed_ref: noh4/0128/000, chant: none}
+feria-ii-missa-de-sanctissima-trinitate:
+- {kind: tract, label: Tract. VIII, title: Te Deum Patrem, ref: noh4/0165/000, chant: 763}
+- {kind: alleluia, variant: paschal, title: Benedicamus Patrem, ref: noh4/0168/000, chant: 744}
+- {kind: introit, borrowed_volume: noh2, borrowed_page: 105, borrowed_from: noh2-p105, borrowed_ref: noh2/0137/002,
+  chant: 349}
+- {kind: gradual, borrowed_volume: noh2, borrowed_page: 106, borrowed_from: noh2-p105, borrowed_ref: noh2/0138/005,
+  chant: 965}
+- {kind: communion, borrowed_volume: noh2, borrowed_page: 110, borrowed_from: noh2-p105, borrowed_ref: noh2/0142/000,
+  chant: 391}
+- {kind: alleluia, title: Benedictus es, borrowed_volume: noh2, borrowed_page: 108, borrowed_from: noh2-p105, borrowed_ref: noh2/0140/000,
+  chant: none}
+- {kind: offertory, title: Benedictus sit, borrowed_volume: noh2, borrowed_page: 109, borrowed_from: noh2-p105,
+  borrowed_ref: noh2/0141/000, chant: none}
+feria-iv-missa-de-omnibus-ss-apostolis:
+- {kind: alleluia, title: Nimis honorati sunt, ref: noh4/0175/000, chant: 130}
+- {kind: alleluia, variant: paschal, title: Ego vos elegi, ref: noh4/0177/002, chant: 1030}
+- {kind: introit, title: Mihi autem, borrowed_volume: noh3, borrowed_page: 4, borrowed_from: s-andre-apostoli, borrowed_ref: noh3/0037/003,
+  chant: none}
+missa-de-sancta-maria-in-sabbato-a-nativitate-usque-ad-purificat:
+- {kind: tract, label: Tract., title: Gaude Maria, ref: noh4/0210/000, chant: 18}
+- {kind: offertory, label: Offert. II, title: Felix namque es, ref: noh4/0212/000, chant: 280}
+- {kind: introit, borrowed_volume: noh4, borrowed_page: 115, borrowed_from: commune-virginum-pro-virgine-tantum-2,
+  borrowed_ref: noh4/0146/004, chant: 124}
+- {kind: gradual, borrowed_volume: noh1, borrowed_page: 79, borrowed_from: dominica-infra-octavam-nativitatis, borrowed_ref: noh1/0105/003,
+  chant: 1308}
+- {kind: alleluia, title: Post partum, borrowed_volume: noh4, borrowed_page: 186, borrowed_from: missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum,
+  borrowed_ref: noh4/0218/003, chant: none}
+- {kind: communion, title: Beata viscera, borrowed_volume: noh4, borrowed_page: 187, borrowed_from: missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum,
+  borrowed_ref: noh4/0220/005, chant: none}
+missa-de-sancta-maria-in-sabbato-a-purificatione-usque-ad-pascha:
+- {kind: alleluia, title: Virga Jesse, ref: noh4/0213/000, chant: 281}
+- {kind: introit, title: Salve sancta Parens, borrowed_volume: noh4, borrowed_page: 182, borrowed_from: missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum,
+  borrowed_ref: noh4/0215/004, chant: none}
+missa-pro-quacumque-necessitate:
+- {kind: alleluia, title: Propitius esto, ref: noh4/0236/003, chant: 189}
+- {kind: alleluia, variant: paschal, title: Exsultabo, ref: noh4/0238/000, chant: 1342}
+- {kind: introit, borrowed_volume: noh2, borrowed_page: 234, borrowed_from: dominica-xix-post-pentecosten, borrowed_ref: noh2/0266/000,
+  chant: 389}
+- {kind: gradual, borrowed_volume: noh2, borrowed_page: 256, borrowed_from: dominica-xxiii-post-pentecosten, borrowed_ref: noh2/0288/005,
+  chant: 395}
+- {kind: tract, borrowed_volume: noh1, borrowed_page: 185, borrowed_from: feria-iv-quatuor-temporum-quadragesim,
+  borrowed_ref: noh1/0212/000, chant: 276}
+- {kind: offertory, borrowed_volume: noh2, borrowed_page: 236, borrowed_from: dominica-xix-post-pentecosten, borrowed_ref: noh2/0268/004,
+  chant: 616}
+- {kind: communion, title: Memento verbi tui, borrowed_volume: noh2, borrowed_page: 242, borrowed_from: dominica-xx-post-pentecosten,
+  borrowed_ref: noh2/0274/004, chant: none}
+missa-pro-pace:
+- {kind: communion, label: Comm. V, title: Pacem relinquo, ref: noh4/0247/000, chant: 942}
+- {kind: introit, borrowed_volume: noh2, borrowed_page: 229, borrowed_from: dominica-xviii-post-pentecosten, borrowed_ref: noh2/0261/001,
+  chant: 172}
+- {kind: gradual, borrowed_volume: noh4, borrowed_page: 197, borrowed_from: missa-ad-tollendum-schisma, borrowed_ref: noh4/0230/003,
+  chant: 180}
+- {kind: offertory, borrowed_volume: noh1, borrowed_page: 255, borrowed_from: dominica-iv-in-quadragesim, borrowed_ref: noh1/0282/000,
+  chant: 899}
+- {kind: alleluia, title: Lauda Jerusalem, borrowed_volume: noh4, borrowed_page: 198, borrowed_from: missa-ad-tollendum-schisma,
+  borrowed_ref: noh4/0231/004, chant: none}

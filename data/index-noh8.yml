@@ -664,7 +664,9 @@ hymns:
   index_title: Creator alme siderum.
 - title: Crudelis Herodes
   page: 93
-  status: unverified
+  # Below the 5th antiphon and the Capitulum (checked against the scan 2026-10-03).
+  system: 3
+  status: verified
   index_title: Crudelis Hcrodes
 - title: Crudelis Herodes (alter tonus)
   page: 94

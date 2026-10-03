@@ -31,6 +31,16 @@ class Addendum:
 
 
 @dataclass(frozen=True)
+class Insert:
+    """A leaf inserted after printed page `after_printed`, scan pages
+    `first_pdf`..`last_pdf`, printed as `label` ("162 bis-163 bis")."""
+    after_printed: int
+    first_pdf: int
+    last_pdf: int
+    label: str
+
+
+@dataclass(frozen=True)
 class Volume:
     id: str
     title: str
@@ -52,13 +62,16 @@ class Volume:
     # (pipeline.evaluate.analyse_page, STAFF_FINDERS). Named page by page, after
     # checking the page's overlay: a setting re-cuts every page it runs on.
     staff_finder: tuple[tuple[str, tuple[int, ...]], ...] = ()
+    # Leaves inserted after the book was paginated ("162 bis"): scan pages with no
+    # printed number of their own, catalogued with the piece that runs past them.
+    inserts: tuple[Insert, ...] = ()
 
     @property
     def path(self) -> Path:
         return SOURCE / self.file
 
 
-STAFF_FINDERS = ("refit", "dashed", "plain")
+STAFF_FINDERS = ("refit", "dashed", "plain", "faint")
 
 
 def _staff_finder(vol_id: str, raw: dict[str, list[int]]) -> tuple[tuple[str, tuple[int, ...]], ...]:
@@ -75,6 +88,7 @@ def _staff_finder(vol_id: str, raw: dict[str, list[int]]) -> tuple[tuple[str, tu
 def load_volumes(path: Path = DATA / "volumes.yml") -> dict[str, Volume]:
     raw = yaml.safe_load(path.read_text(encoding="utf-8"))["volumes"]
     return {k: Volume(id=k, **{**v, "addenda": tuple(Addendum(**a) for a in v.get("addenda", ())),
+                               "inserts": tuple(Insert(**i) for i in v.get("inserts", ())),
                                "staff_finder": _staff_finder(k, v.get("staff_finder") or {})})
             for k, v in raw.items()}
 

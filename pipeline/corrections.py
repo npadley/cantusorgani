@@ -384,11 +384,15 @@ def volume_systems(vol: str) -> list[tuple[str, str, list[int]]]:
     if vol not in _VOLUME_SYSTEMS:
         from pipeline.offset import load_page_map
         from pipeline.publish import _published, asset_stem
+        from pipeline.volumes import load_volumes
         page_map = load_page_map(vol)
+        # An inserted leaf ("162 bis") has no printed number but is part of the body,
+        # in scan order between the pages it falls between.
+        inserted = {p for ins in load_volumes()[vol].inserts for p in range(ins.first_pdf, ins.last_pdf + 1)}
         out = []
         for page, systems in sorted(_published(vol).items()):
             pdf = int(page)
-            if page_map.to_printed(pdf) is None:
+            if page_map.to_printed(pdf) is None and pdf not in inserted:
                 continue
             for s in sorted(systems, key=lambda s: int(s["index"])):
                 index = int(s["index"])

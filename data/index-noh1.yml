@@ -415,18 +415,9 @@ sections:
     index_title: Feria IV cinerum. Ad benedictionem cinerum
     days:
     - tempora:Quadp3-3
-  - slug: noh1-p156
-    label: Ad Miswm
-    title: Ad Miswm
-    genre: proper
-    page: 156
-    status: consistent
-    score: 0.0
-    token: '156'
-    index_title: Ad Miswm
-    days:
-    - tempora:Quadp3-3
-    calendar_note: read with the entry above
+    # pp. 152-163: the blessing of ashes, then "Ad Missam" on p. 156 (checked
+    # against the scan 2026-10-03). One piece: the book cites this Mass as
+    # "Feria IV. Cinerum" (its Tract, p. 160), and /piece/noh1-p156/ redirects here.
   - slug: feria-v-post-cineres
     label: Feria V post Cineres
     title: Feria V post Cineres
@@ -460,6 +451,15 @@ sections:
     index_title: Sabbato post cinerea
     days:
     - tempora:Quadp3-6
+    # p. 167, checked against the scan 2026-10-03: the three systems at the top are
+    # Friday's Communion, Servite Domino; Saturday prints only this rubric below them.
+    no_music: true
+    reference: 'Sabbato resumitur Missa Feriae praecedentis, praeter Tractum, qui omittitur.'
+    reference_sources:
+    - volume: noh1
+      page: 164
+      label: 'Mass of the preceding Friday, omitting the Tract'
+      omit: [tract]
   - slug: dominica-i-in-quadragesim
     label: Dominica I in Quadragesimæ
     title: Dominica I in Quadragesimæ

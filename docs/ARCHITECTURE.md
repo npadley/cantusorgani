@@ -3,7 +3,8 @@
 Sources go through the pipeline (Python, `noh`) to data files in git, and the
 site (Astro, static) is built from those files. Corrections are an overlay on
 the data, never edits to generated files. For how to fix things, see
-[EDITING.md](EDITING.md).
+[EDITING.md](EDITING.md); for what to run after a change and how it reaches the
+site, [OPERATIONS.md](OPERATIONS.md).
 
 ```mermaid
 flowchart LR
@@ -68,6 +69,9 @@ flowchart LR
 | **CI** | `.github/workflows/site.yml` | On every pull request: tests, secret scan, checks that corrections are applied, build and link check. On `main`: the same, then deploy. |
 | **Publishing** | `.github/workflows/corrections-batch.yml` | Runs when the admin screen publishes: records the batch (`noh correct-batch`), rebuilds the chant notation, and opens a pull request as the GitHub App. |
 | **Rebuilding** | `.github/workflows/catalog-rebuild.yml` | Run by hand from the Actions tab: rebuilds a volume's catalogue from the scans after an index edit, on a branch or as a pull request. |
+| **Review queue** | `data/review-queue.json` → `/admin/review/` | What `noh catalog` was unsure of. The admin screen lists it, less what is confirmed (`reviewed` corrections, in `data/reviewed.json`) or settled by the data (`web/src/lib/admin/reviews.ts`). A confirmation holds the item's fingerprint and lapses when a rebuild changes the item. |
+| **Typeset music** | `data/typeset/`, `pipeline/typeset/` | The volunteers' LilyPond transcriptions: matched to parts (`noh typeset-match` → `parts.yml`, by page, file name and melody against GregoBase), listed in `manifest.json`, drawn by LilyPond in the site workflow and uploaded to R2 under `typeset/<hash>/`. See [TYPESETTING.md](TYPESETTING.md). |
+| **Typeset cleanup** | `.github/workflows/typeset-prune.yml` | Run by hand: deletes renders on R2 that nothing names, keeping anything recent. |
 | **Images** | `.github/workflows/publish.yml` | Run by hand from the Actions tab: slices the PDF pages named, uploads their images to R2, and rebuilds that volume's catalogue so it names them; on a branch or as a pull request. |
 
 ## A correction's journey
@@ -129,7 +133,21 @@ settings under "faint print" in `pipeline/segment.py`.
   review). Both packages re-export every name, so `from pipeline.vespers import
   …` still works.
 - `data/sections/`: a Proper's sections as a person checked them, applied with
-  the hand corrections (`pipeline/sections.py`).
+  the hand corrections (`pipeline/sections.py`). A row with a `key` keeps its
+  name when rows around it change; a key that is a movement's name
+  (`gloria`) moves that movement.
+- `pipeline/index.py`: the index entries. Besides page, title and days, an
+  entry may carry a `reference` (its Mass is printed elsewhere),
+  `reference_sources` (the cited Masses, with parts to `omit`), `pagination`
+  (printed in an addendum) and `no_music` (a rubric only, below its page's last
+  system).
+- `pipeline/volumes.py`: `data/volumes.yml`: per-page staff-finder settings
+  (`staff_finder`), inserted leaves (`inserts`, "162 bis"), addenda.
+- `pipeline/typeset/`: importing, matching (`match.py`, `melody.py`: words and
+  melody against GregoBase, with the repeats written out), the manifest,
+  rendering and publishing of the typeset music.
+- `scripts/regenerate.sh`, `scripts/check.sh`: the regeneration order and the
+  pull request's checks, for running by hand.
 - `data/vespers/`: the reviewed Vespers files, the lineup and the vendored
   Vespers sources.
 - `pipeline/corrections.py`: the overlay (`noh correct`, `apply-corrections`,

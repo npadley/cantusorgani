@@ -3827,6 +3827,35 @@
       "movements": [],
       "sections": [
         {
+          "kind": "gradual",
+          "variant": "",
+          "label": "Grad. V",
+          "title": "Exiit sermo",
+          "gregobase_id": 702,
+          "system": 0,
+          "ref": "noh1/0096/004",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Hic est discipulus",
+          "gregobase_id": 914,
+          "system": 6,
+          "ref": "noh1/0098/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm.",
+          "title": "Exiit sermo",
+          "gregobase_id": 781,
+          "system": 12,
+          "ref": "noh1/0099/000",
+          "placed": "reviewed"
+        },
+        {
           "kind": "introit",
           "variant": "",
           "gregobase_id": 233,
@@ -3836,36 +3865,14 @@
           "borrowed_ref": "noh4/0102/000"
         },
         {
-          "kind": "gradual",
+          "kind": "offertory",
           "variant": "",
-          "system": 0,
-          "ref": "noh1/0096/004",
-          "gregobase_id": 702,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. V",
-          "title": "Exiit sermo"
-        },
-        {
-          "kind": "alleluia",
-          "variant": "",
-          "system": 6,
-          "ref": "noh1/0098/000",
-          "gregobase_id": 914,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Hic est discipulus"
-        },
-        {
-          "kind": "communion",
-          "variant": "",
-          "system": 12,
-          "ref": "noh1/0099/000",
-          "gregobase_id": 781,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Exiit sermo"
+          "title": "Justus ut palma",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 76,
+          "borrowed_from": "commune-doctorum",
+          "borrowed_ref": "noh4/0107/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Dec27",
@@ -4306,46 +4313,51 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. VI",
+          "title": "Dum medium silentium",
+          "gregobase_id": 564,
           "system": 0,
           "ref": "noh1/0104/000",
-          "gregobase_id": 564,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. VI",
-          "title": "Dum medium silentium"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad.",
+          "title": "Speciosus",
+          "gregobase_id": 1308,
           "system": 9,
           "ref": "noh1/0105/003",
-          "gregobase_id": 1308,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad.",
-          "title": "Speciosus"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Dominus regnavit decorem",
+          "gregobase_id": 714,
           "system": 14,
           "ref": "noh1/0106/002",
-          "gregobase_id": 714,
-          "placed": "inferred",
-          "score": 0.0,
-          "title": "Dominus regnavit decorem",
-          "why": "the one chant start between the Gradual and the Communion"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VII",
+          "title": "Tolle puerum",
+          "gregobase_id": 1282,
           "system": 21,
           "ref": "noh1/0107/003",
-          "gregobase_id": 1282,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VII",
-          "title": "Tolle puerum"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Deus enim firmavit",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 58,
+          "borrowed_from": "noh1-p54",
+          "borrowed_ref": "noh1/0084/003"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Nat1",
@@ -4738,12 +4750,31 @@
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Multifarie olim",
+          "gregobase_id": 863,
           "system": 0,
           "ref": "noh1/0112/000",
-          "gregobase_id": 863,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Multifarie olim"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "introit",
+          "variant": "",
+          "title": "Puer natus est",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 60,
+          "borrowed_from": "noh1-p60",
+          "borrowed_ref": "noh1/0086/000"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "title": "Viderunt",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 61,
+          "borrowed_from": "noh1-p60",
+          "borrowed_ref": "noh1/0087/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Jan1",
@@ -8065,11 +8096,11 @@
       "mass": null,
       "printed_pages": [
         152,
-        155
+        163
       ],
       "pdf_pages": [
         179,
-        182
+        190
       ],
       "systems": [
         "noh1/0179/000",
@@ -8095,7 +8126,55 @@
         "noh1/0182/002",
         "noh1/0182/003",
         "noh1/0182/004",
-        "noh1/0182/005"
+        "noh1/0182/005",
+        "noh1/0183/000",
+        "noh1/0183/001",
+        "noh1/0183/002",
+        "noh1/0183/003",
+        "noh1/0183/004",
+        "noh1/0183/005",
+        "noh1/0184/000",
+        "noh1/0184/001",
+        "noh1/0184/002",
+        "noh1/0184/003",
+        "noh1/0184/004",
+        "noh1/0184/005",
+        "noh1/0185/000",
+        "noh1/0185/001",
+        "noh1/0185/002",
+        "noh1/0185/003",
+        "noh1/0185/004",
+        "noh1/0185/005",
+        "noh1/0186/000",
+        "noh1/0186/001",
+        "noh1/0186/002",
+        "noh1/0186/003",
+        "noh1/0186/004",
+        "noh1/0186/005",
+        "noh1/0187/000",
+        "noh1/0187/001",
+        "noh1/0187/002",
+        "noh1/0187/003",
+        "noh1/0187/004",
+        "noh1/0187/005",
+        "noh1/0188/000",
+        "noh1/0188/001",
+        "noh1/0188/002",
+        "noh1/0188/003",
+        "noh1/0188/004",
+        "noh1/0188/005",
+        "noh1/0189/000",
+        "noh1/0189/001",
+        "noh1/0189/002",
+        "noh1/0189/003",
+        "noh1/0189/004",
+        "noh1/0189/005",
+        "noh1/0190/000",
+        "noh1/0190/001",
+        "noh1/0190/002",
+        "noh1/0190/003",
+        "noh1/0190/004",
+        "noh1/0190/005"
       ],
       "system_assets": [
         "systems/noh1/0179/000-1de53c252a3a",
@@ -8121,7 +8200,55 @@
         "systems/noh1/0182/002-1c0c7eafe187",
         "systems/noh1/0182/003-642bd9bcf8ec",
         "systems/noh1/0182/004-d5c8bd87b898",
-        "systems/noh1/0182/005-198a3a5a7a29"
+        "systems/noh1/0182/005-198a3a5a7a29",
+        "systems/noh1/0183/000-27ab74e84c19",
+        "systems/noh1/0183/001-7f1d1ac91c01",
+        "systems/noh1/0183/002-558f018821e8",
+        "systems/noh1/0183/003-79f7686e0462",
+        "systems/noh1/0183/004-7d44e29f3577",
+        "systems/noh1/0183/005-f046810699ef",
+        "systems/noh1/0184/000-2db8891b50a9",
+        "systems/noh1/0184/001-46a9b922cf86",
+        "systems/noh1/0184/002-c48310988828",
+        "systems/noh1/0184/003-dacd549e8844",
+        "systems/noh1/0184/004-5bee7ee62a43",
+        "systems/noh1/0184/005-dd14403ffe2b",
+        "systems/noh1/0185/000-d159a89fc0c2",
+        "systems/noh1/0185/001-61f1af7efbdd",
+        "systems/noh1/0185/002-ec115a031e98",
+        "systems/noh1/0185/003-5cb213913edf",
+        "systems/noh1/0185/004-b1505e3fa20b",
+        "systems/noh1/0185/005-8d6f05d1b0a7",
+        "systems/noh1/0186/000-888ec47bd3a5",
+        "systems/noh1/0186/001-5b3ac6b4abe0",
+        "systems/noh1/0186/002-5307c17b3ed8",
+        "systems/noh1/0186/003-6399fed813e2",
+        "systems/noh1/0186/004-667b9c8a458f",
+        "systems/noh1/0186/005-b18c1273afc0",
+        "systems/noh1/0187/000-993def1cb800",
+        "systems/noh1/0187/001-02b4927e6adb",
+        "systems/noh1/0187/002-f6436f12e3e7",
+        "systems/noh1/0187/003-03f4ced341d5",
+        "systems/noh1/0187/004-19fbb8532048",
+        "systems/noh1/0187/005-e8dc72c5f236",
+        "systems/noh1/0188/000-8c896fd3ea26",
+        "systems/noh1/0188/001-5e9e14bd38d4",
+        "systems/noh1/0188/002-28d365a638c3",
+        "systems/noh1/0188/003-459a2a6a0aa9",
+        "systems/noh1/0188/004-c7d0505420c3",
+        "systems/noh1/0188/005-50581e8f0ef4",
+        "systems/noh1/0189/000-7d2fc49e1674",
+        "systems/noh1/0189/001-fbb8f8a96fb5",
+        "systems/noh1/0189/002-225157a160b9",
+        "systems/noh1/0189/003-ee99581c450b",
+        "systems/noh1/0189/004-53360f49857c",
+        "systems/noh1/0189/005-c85cd7c8a41f",
+        "systems/noh1/0190/000-23916f5d4dce",
+        "systems/noh1/0190/001-b073796b20c9",
+        "systems/noh1/0190/002-f21307fb3a4d",
+        "systems/noh1/0190/003-2e07cf95ade0",
+        "systems/noh1/0190/004-9b1b1981d531",
+        "systems/noh1/0190/005-7560f60b1d85"
       ],
       "system_aspect": [
         [
@@ -8219,141 +8346,7 @@
         [
           1873,
           411
-        ]
-      ],
-      "movements": [],
-      "sections": [],
-      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=5aw",
-      "chant": [],
-      "review_status": "verified",
-      "hymns": [],
-      "linked_days": []
-    },
-    {
-      "id": "noh1-noh1-p156",
-      "volume": "noh1",
-      "slug": "noh1-p156",
-      "section": "Proprium de Tempore",
-      "division": "temporale",
-      "days": [
-        "tempora:Quadp3-3"
-      ],
-      "label": "Ad Miswm",
-      "title": "Ad Miswm",
-      "incipit": null,
-      "reference": null,
-      "genre": "proper",
-      "mode": null,
-      "mass": null,
-      "printed_pages": [
-        156,
-        163
-      ],
-      "pdf_pages": [
-        183,
-        190
-      ],
-      "systems": [
-        "noh1/0183/000",
-        "noh1/0183/001",
-        "noh1/0183/002",
-        "noh1/0183/003",
-        "noh1/0183/004",
-        "noh1/0183/005",
-        "noh1/0184/000",
-        "noh1/0184/001",
-        "noh1/0184/002",
-        "noh1/0184/003",
-        "noh1/0184/004",
-        "noh1/0184/005",
-        "noh1/0185/000",
-        "noh1/0185/001",
-        "noh1/0185/002",
-        "noh1/0185/003",
-        "noh1/0185/004",
-        "noh1/0185/005",
-        "noh1/0186/000",
-        "noh1/0186/001",
-        "noh1/0186/002",
-        "noh1/0186/003",
-        "noh1/0186/004",
-        "noh1/0186/005",
-        "noh1/0187/000",
-        "noh1/0187/001",
-        "noh1/0187/002",
-        "noh1/0187/003",
-        "noh1/0187/004",
-        "noh1/0187/005",
-        "noh1/0188/000",
-        "noh1/0188/001",
-        "noh1/0188/002",
-        "noh1/0188/003",
-        "noh1/0188/004",
-        "noh1/0188/005",
-        "noh1/0189/000",
-        "noh1/0189/001",
-        "noh1/0189/002",
-        "noh1/0189/003",
-        "noh1/0189/004",
-        "noh1/0189/005",
-        "noh1/0190/000",
-        "noh1/0190/001",
-        "noh1/0190/002",
-        "noh1/0190/003",
-        "noh1/0190/004",
-        "noh1/0190/005"
-      ],
-      "system_assets": [
-        "systems/noh1/0183/000-27ab74e84c19",
-        "systems/noh1/0183/001-7f1d1ac91c01",
-        "systems/noh1/0183/002-558f018821e8",
-        "systems/noh1/0183/003-79f7686e0462",
-        "systems/noh1/0183/004-7d44e29f3577",
-        "systems/noh1/0183/005-f046810699ef",
-        "systems/noh1/0184/000-2db8891b50a9",
-        "systems/noh1/0184/001-46a9b922cf86",
-        "systems/noh1/0184/002-c48310988828",
-        "systems/noh1/0184/003-dacd549e8844",
-        "systems/noh1/0184/004-5bee7ee62a43",
-        "systems/noh1/0184/005-dd14403ffe2b",
-        "systems/noh1/0185/000-d159a89fc0c2",
-        "systems/noh1/0185/001-61f1af7efbdd",
-        "systems/noh1/0185/002-ec115a031e98",
-        "systems/noh1/0185/003-5cb213913edf",
-        "systems/noh1/0185/004-b1505e3fa20b",
-        "systems/noh1/0185/005-8d6f05d1b0a7",
-        "systems/noh1/0186/000-888ec47bd3a5",
-        "systems/noh1/0186/001-5b3ac6b4abe0",
-        "systems/noh1/0186/002-5307c17b3ed8",
-        "systems/noh1/0186/003-6399fed813e2",
-        "systems/noh1/0186/004-667b9c8a458f",
-        "systems/noh1/0186/005-b18c1273afc0",
-        "systems/noh1/0187/000-993def1cb800",
-        "systems/noh1/0187/001-02b4927e6adb",
-        "systems/noh1/0187/002-f6436f12e3e7",
-        "systems/noh1/0187/003-03f4ced341d5",
-        "systems/noh1/0187/004-19fbb8532048",
-        "systems/noh1/0187/005-e8dc72c5f236",
-        "systems/noh1/0188/000-8c896fd3ea26",
-        "systems/noh1/0188/001-5e9e14bd38d4",
-        "systems/noh1/0188/002-28d365a638c3",
-        "systems/noh1/0188/003-459a2a6a0aa9",
-        "systems/noh1/0188/004-c7d0505420c3",
-        "systems/noh1/0188/005-50581e8f0ef4",
-        "systems/noh1/0189/000-7d2fc49e1674",
-        "systems/noh1/0189/001-fbb8f8a96fb5",
-        "systems/noh1/0189/002-225157a160b9",
-        "systems/noh1/0189/003-ee99581c450b",
-        "systems/noh1/0189/004-53360f49857c",
-        "systems/noh1/0189/005-c85cd7c8a41f",
-        "systems/noh1/0190/000-23916f5d4dce",
-        "systems/noh1/0190/001-b073796b20c9",
-        "systems/noh1/0190/002-f21307fb3a4d",
-        "systems/noh1/0190/003-2e07cf95ade0",
-        "systems/noh1/0190/004-9b1b1981d531",
-        "systems/noh1/0190/005-7560f60b1d85"
-      ],
-      "system_aspect": [
+        ],
         [
           1864,
           407
@@ -8550,48 +8543,98 @@
       "movements": [],
       "sections": [
         {
+          "kind": "other",
+          "n": 1,
+          "variant": "",
+          "label": "Antiph. VII",
+          "title": "Exaudi nos Domine",
+          "gregobase_id": 1081,
+          "system": 0,
+          "ref": "noh1/0179/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "other",
+          "n": 2,
+          "variant": "",
+          "label": "Ant. I",
+          "title": "Immutemur habitu",
+          "gregobase_id": 313,
+          "system": 8,
+          "ref": "noh1/0180/002",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "other",
+          "n": 3,
+          "variant": "",
+          "label": "Alia Ant. IV",
+          "title": "Juxta vestibulum",
+          "gregobase_id": 1208,
+          "system": 13,
+          "ref": "noh1/0181/001",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "other",
+          "n": 4,
+          "variant": "",
+          "label": "Resp. II",
+          "title": "Emendemus in melius",
+          "gregobase_id": 743,
+          "system": 19,
+          "ref": "noh1/0182/001",
+          "placed": "reviewed"
+        },
+        {
           "kind": "introit",
           "variant": "",
-          "system": 5,
-          "ref": "noh1/0183/005",
-          "gregobase_id": 533,
-          "placed": "label",
-          "score": 1.0,
           "label": "Intr. I",
-          "title": "Misereris omnium"
+          "title": "Misereris omnium",
+          "gregobase_id": 533,
+          "system": 29,
+          "ref": "noh1/0183/005",
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
-          "system": 15,
-          "ref": "noh1/0185/003",
-          "gregobase_id": 754,
-          "placed": "label",
-          "score": 1.0,
           "label": "Grad.",
-          "title": "Miserere mei Deus"
+          "title": "Miserere mei Deus",
+          "gregobase_id": 754,
+          "system": 39,
+          "ref": "noh1/0185/003",
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
-          "system": 26,
-          "ref": "noh1/0187/002",
-          "gregobase_id": 425,
-          "placed": "label",
-          "score": 1.0,
           "label": "Tract.",
-          "title": "Domine non secundum"
+          "title": "Domine non secundum",
+          "gregobase_id": 425,
+          "system": 50,
+          "ref": "noh1/0187/002",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "label": "Offert. II",
+          "title": "Exaltabo te",
+          "gregobase_id": null,
+          "system": 64,
+          "ref": "noh1/0189/004",
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
-          "system": 45,
-          "ref": "noh1/0190/003",
-          "gregobase_id": 582,
-          "placed": "label",
-          "score": 1.0,
           "label": "Comm. III",
-          "title": "Qui meditabitur"
+          "title": "Qui meditabitur",
+          "gregobase_id": 582,
+          "system": 69,
+          "ref": "noh1/0190/003",
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=5aw",
@@ -8690,11 +8733,11 @@
       "mass": null,
       "printed_pages": [
         164,
-        166
+        167
       ],
       "pdf_pages": [
         191,
-        193
+        194
       ],
       "systems": [
         "noh1/0191/000",
@@ -8713,7 +8756,10 @@
         "noh1/0193/002",
         "noh1/0193/003",
         "noh1/0193/004",
-        "noh1/0193/005"
+        "noh1/0193/005",
+        "noh1/0194/000",
+        "noh1/0194/001",
+        "noh1/0194/002"
       ],
       "system_assets": [
         "systems/noh1/0191/000-469d4f37b5bc",
@@ -8732,7 +8778,10 @@
         "systems/noh1/0193/002-41f732ef5b68",
         "systems/noh1/0193/003-8a0b10ceb198",
         "systems/noh1/0193/004-b0fd2cd66fc5",
-        "systems/noh1/0193/005-b082a60f07f0"
+        "systems/noh1/0193/005-b082a60f07f0",
+        "systems/noh1/0194/000-20549cef9bde",
+        "systems/noh1/0194/001-294f6417f7fc",
+        "systems/noh1/0194/002-658b66918d1e"
       ],
       "system_aspect": [
         [
@@ -8802,6 +8851,18 @@
         [
           1871,
           441
+        ],
+        [
+          1856,
+          414
+        ],
+        [
+          1886,
+          414
+        ],
+        [
+          1787,
+          411
         ]
       ],
       "movements": [],
@@ -8809,34 +8870,52 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. VII",
+          "title": "Audivit Dominus",
+          "gregobase_id": 45,
           "system": 0,
           "ref": "noh1/0191/000",
-          "gregobase_id": 45,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. VII",
-          "title": "Audivit Dominus"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad.",
+          "title": "Unam petii",
+          "gregobase_id": 229,
           "system": 6,
           "ref": "noh1/0192/001",
-          "gregobase_id": 229,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad.",
-          "title": "Unam petii"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "label": "Offert. III",
+          "title": "Domine vivifica me",
+          "gregobase_id": null,
+          "system": 14,
+          "ref": "noh1/0193/003",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. V",
+          "title": "Servite Domino",
+          "gregobase_id": null,
+          "system": 17,
+          "ref": "noh1/0194/000",
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
-          "system": 14,
-          "ref": "noh1/0193/003",
-          "gregobase_id": 425,
-          "placed": "text",
-          "score": 0.731,
-          "title": "Domine non secundum"
+          "title": "Domine non secundum",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 160,
+          "borrowed_from": "feria-iv-cinerum",
+          "borrowed_ref": "noh1/0187/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=5af",
@@ -8857,7 +8936,17 @@
       "label": "Sabbato post Cineres",
       "title": "Sabbato post Cineres",
       "incipit": null,
-      "reference": null,
+      "reference": "Sabbato resumitur Missa Feriae praecedentis, praeter Tractum, qui omittitur.",
+      "reference_sources": [
+        {
+          "volume": "noh1",
+          "page": 164,
+          "label": "Mass of the preceding Friday, omitting the Tract",
+          "omit": [
+            "tract"
+          ]
+        }
+      ],
       "genre": "proper",
       "mode": null,
       "mass": null,
@@ -8869,46 +8958,14 @@
         194,
         194
       ],
-      "systems": [
-        "noh1/0194/000",
-        "noh1/0194/001",
-        "noh1/0194/002"
-      ],
-      "system_assets": [
-        "systems/noh1/0194/000-20549cef9bde",
-        "systems/noh1/0194/001-294f6417f7fc",
-        "systems/noh1/0194/002-658b66918d1e"
-      ],
-      "system_aspect": [
-        [
-          1856,
-          414
-        ],
-        [
-          1886,
-          414
-        ],
-        [
-          1787,
-          411
-        ]
-      ],
+      "systems": [],
+      "system_assets": [],
+      "system_aspect": [],
       "movements": [],
-      "sections": [
-        {
-          "kind": "communion",
-          "variant": "",
-          "system": 0,
-          "ref": "noh1/0194/000",
-          "gregobase_id": 897,
-          "placed": "text",
-          "score": 0.808,
-          "title": "Servite Domino"
-        }
-      ],
+      "sections": [],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=5as",
       "chant": [],
-      "review_status": "verified",
+      "review_status": "review",
       "hymns": [],
       "linked_days": []
     },
@@ -9599,35 +9656,52 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. IV",
+          "title": "Sicut oculi",
+          "gregobase_id": 1330,
           "system": 0,
           "ref": "noh1/0207/000",
-          "gregobase_id": 1330,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. IV",
-          "title": "Sicut oculi"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert.",
+          "title": "Levabo oculos",
+          "gregobase_id": 1060,
           "system": 9,
           "ref": "noh1/0208/003",
-          "gregobase_id": 1060,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert.",
-          "title": "Levabo oculos"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm.",
+          "title": "Amen dico vobis quod uni",
+          "gregobase_id": 623,
           "system": 15,
           "ref": "noh1/0209/003",
-          "gregobase_id": 623,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Amen dico vobis quod uni"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "title": "Protector noster",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 196,
+          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
+          "borrowed_ref": "noh1/0223/000"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "title": "Domine non secundum",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 160,
+          "borrowed_from": "feria-iv-cinerum",
+          "borrowed_ref": "noh1/0187/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad1m",
@@ -10255,46 +10329,52 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. IV",
+          "title": "De necessitatibus",
+          "gregobase_id": 100,
           "system": 0,
           "ref": "noh1/0216/002",
-          "gregobase_id": 100,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. IV",
-          "title": "De necessitatibus"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad.",
+          "title": "Salvum fac servum",
+          "gregobase_id": 1117,
           "system": 8,
           "ref": "noh1/0217/005",
-          "gregobase_id": 1117,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad.",
-          "title": "Salvum fac servum"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. V",
+          "title": "Benedic anima mea",
+          "gregobase_id": 1359,
           "system": 14,
           "ref": "noh1/0218/005",
-          "gregobase_id": 1359,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. V",
-          "title": "Benedic anima mea"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. IV",
+          "title": "Erubescant et conturbentur",
+          "gregobase_id": 484,
           "system": 19,
           "ref": "noh1/0219/004",
-          "gregobase_id": 484,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. IV",
-          "title": "Erubescant et conturbentur"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "title": "Domine non secundum",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 160,
+          "borrowed_from": "feria-iv-cinerum",
+          "borrowed_ref": "noh1/0187/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad1f",
@@ -11313,7 +11393,7 @@
           "gregobase_id": 425,
           "borrowed_volume": "noh1",
           "borrowed_page": 160,
-          "borrowed_from": "noh1-p156",
+          "borrowed_from": "feria-iv-cinerum",
           "borrowed_ref": "noh1/0187/002"
         },
         {
@@ -11669,45 +11749,51 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. VII",
+          "title": "Ne derelinquas me",
+          "gregobase_id": 323,
           "system": 0,
           "ref": "noh1/0243/000",
-          "gregobase_id": 323,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. VII",
-          "title": "Ne derelinquas me"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. VII",
+          "title": "Salvum fac populum",
+          "gregobase_id": 296,
           "system": 8,
           "ref": "noh1/0244/002",
-          "gregobase_id": 296,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. VII",
-          "title": "Salvum fac populum"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "title": "Domine non secundum",
+          "gregobase_id": 425,
           "system": 18,
           "ref": "noh1/0246/000",
-          "gregobase_id": 425,
-          "placed": "text",
-          "score": 0.857,
-          "title": "Domine non secundum"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. V",
+          "title": "Justus Dominus",
+          "gregobase_id": 268,
           "system": 19,
           "ref": "noh1/0246/001",
-          "gregobase_id": 268,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. V",
-          "title": "Justus Dominus"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Ad te Domine levavi",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 6,
+          "borrowed_from": "dominica-i-adventus",
+          "borrowed_ref": "noh1/0032/005"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad2w",
@@ -11907,7 +11993,7 @@
           "gregobase_id": 425,
           "borrowed_volume": "noh1",
           "borrowed_page": 160,
-          "borrowed_from": "noh1-p156",
+          "borrowed_from": "feria-iv-cinerum",
           "borrowed_ref": "noh1/0187/002"
         },
         {
@@ -12680,7 +12766,7 @@
           "gregobase_id": 425,
           "borrowed_volume": "noh1",
           "borrowed_page": 160,
-          "borrowed_from": "noh1-p156",
+          "borrowed_from": "feria-iv-cinerum",
           "borrowed_ref": "noh1/0187/002"
         },
         {
@@ -12894,24 +12980,42 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Ego clamavi",
+          "gregobase_id": 558,
           "system": 0,
           "ref": "noh1/0263/000",
-          "gregobase_id": 558,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Ego clamavi"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "label": "Grad. II",
+          "title": "Ab occultis",
+          "gregobase_id": null,
+          "system": 10,
+          "ref": "noh1/0264/004",
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VI",
+          "title": "Domine quis habitabit",
+          "gregobase_id": 1340,
           "system": 21,
           "ref": "noh1/0266/003",
-          "gregobase_id": 1340,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VI",
-          "title": "Domine quis habitabit"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Dextera Domini",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 130,
+          "borrowed_from": "dominica-iii-post-epiphaniam",
+          "borrowed_ref": "noh1/0157/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad3t",
@@ -13093,35 +13197,52 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Ego autem in",
+          "gregobase_id": 1049,
           "system": 0,
           "ref": "noh1/0267/001",
-          "gregobase_id": 1049,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Ego autem in"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. VII",
+          "title": "Miserere mihi",
+          "gregobase_id": 562,
           "system": 8,
           "ref": "noh1/0268/003",
-          "gregobase_id": 562,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. VII",
-          "title": "Miserere mihi"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "label": "Offert. IV",
+          "title": "Domine fac mecum",
+          "gregobase_id": null,
+          "system": 16,
+          "ref": "noh1/0269/005",
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VII",
+          "title": "Notas mihi fecisti",
+          "gregobase_id": 531,
           "system": 20,
           "ref": "noh1/0270/003",
-          "gregobase_id": 531,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VII",
-          "title": "Notas mihi fecisti"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "title": "Domine non secundum",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 160,
+          "borrowed_from": "feria-iv-cinerum",
+          "borrowed_ref": "noh1/0187/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad3w",
@@ -13363,7 +13484,7 @@
           "gregobase_id": 425,
           "borrowed_volume": "noh1",
           "borrowed_page": 160,
-          "borrowed_from": "noh1-p156",
+          "borrowed_from": "feria-iv-cinerum",
           "borrowed_ref": "noh1/0187/002"
         },
         {
@@ -14028,12 +14149,21 @@
           "placed": "reviewed"
         },
         {
+          "kind": "communion",
+          "variant": "",
+          "title": "Ab occultis meis",
+          "gregobase_id": 1316,
+          "system": 8,
+          "ref": "noh1/0285/000",
+          "placed": "reviewed"
+        },
+        {
           "kind": "tract",
           "variant": "",
           "gregobase_id": 425,
           "borrowed_volume": "noh1",
           "borrowed_page": 160,
-          "borrowed_from": "noh1-p156",
+          "borrowed_from": "feria-iv-cinerum",
           "borrowed_ref": "noh1/0187/002"
         },
         {
@@ -14046,13 +14176,14 @@
           "borrowed_ref": "noh1/0143/002"
         },
         {
-          "kind": "communion",
+          "kind": "gradual",
           "variant": "",
-          "title": "Ab occultis meis",
-          "gregobase_id": 1316,
-          "system": 8,
-          "ref": "noh1/0285/000",
-          "placed": "reviewed"
+          "title": "Esto mihi",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 167,
+          "borrowed_from": "dominica-viii-post-pentecosten",
+          "borrowed_ref": "noh2/0199/003"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad4m",
@@ -14420,7 +14551,7 @@
           "gregobase_id": 425,
           "borrowed_volume": "noh1",
           "borrowed_page": 160,
-          "borrowed_from": "noh1-p156",
+          "borrowed_from": "feria-iv-cinerum",
           "borrowed_ref": "noh1/0187/002"
         },
         {
@@ -14730,7 +14861,7 @@
           "gregobase_id": 425,
           "borrowed_volume": "noh1",
           "borrowed_page": 160,
-          "borrowed_from": "noh1-p156",
+          "borrowed_from": "feria-iv-cinerum",
           "borrowed_ref": "noh1/0187/002"
         },
         {
@@ -15533,24 +15664,32 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Miserere mihi",
+          "gregobase_id": 138,
           "system": 0,
           "ref": "noh1/0308/002",
-          "gregobase_id": 138,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Miserere mihi"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad.",
+          "title": "Deus exaudi",
+          "gregobase_id": 621,
           "system": 5,
           "ref": "noh1/0309/001",
-          "gregobase_id": 621,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad.",
-          "title": "Deus exaudi"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. II",
+          "title": "Dominus virtutum",
+          "gregobase_id": 81,
+          "system": 16,
+          "ref": "noh1/0311/000",
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
@@ -15558,19 +15697,18 @@
           "gregobase_id": 425,
           "borrowed_volume": "noh1",
           "borrowed_page": 160,
-          "borrowed_from": "noh1-p156",
+          "borrowed_from": "feria-iv-cinerum",
           "borrowed_ref": "noh1/0187/002"
         },
         {
-          "kind": "communion",
+          "kind": "offertory",
           "variant": "",
-          "system": 16,
-          "ref": "noh1/0311/000",
-          "gregobase_id": 81,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. II",
-          "title": "Dominus virtutum"
+          "title": "Domine convertere",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 132,
+          "borrowed_from": "dominica-ii-post-pentecosten",
+          "borrowed_ref": "noh2/0164/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad5m",
@@ -16003,46 +16141,52 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Liberator meus",
+          "gregobase_id": 1054,
           "system": 0,
           "ref": "noh1/0314/000",
-          "gregobase_id": 1054,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Liberator meus"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad.",
+          "title": "Exaltabo te",
+          "gregobase_id": 277,
           "system": 7,
           "ref": "noh1/0315/002",
-          "gregobase_id": 277,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad.",
-          "title": "Exaltabo te"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert.",
+          "title": "Eripe me de inimicis",
+          "gregobase_id": 245,
           "system": 25,
           "ref": "noh1/0318/002",
-          "gregobase_id": 245,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert.",
-          "title": "Eripe me de inimicis"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VIII",
+          "title": "Lavabo",
+          "gregobase_id": 141,
           "system": 31,
           "ref": "noh1/0319/002",
-          "gregobase_id": 141,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VIII",
-          "title": "Lavabo"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "title": "Domine non secundum",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 160,
+          "borrowed_from": "feria-iv-cinerum",
+          "borrowed_ref": "noh1/0187/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad5w",
@@ -16352,46 +16496,52 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Miserere mihi",
+          "gregobase_id": 267,
           "system": 0,
           "ref": "noh1/0321/004",
-          "gregobase_id": 267,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Miserere mihi"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. V",
+          "title": "Pacifice loquebantur",
+          "gregobase_id": 819,
           "system": 7,
           "ref": "noh1/0323/000",
-          "gregobase_id": 819,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. V",
-          "title": "Pacifice loquebantur"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert.",
+          "title": "Benedictus es",
+          "gregobase_id": 408,
           "system": 14,
           "ref": "noh1/0324/001",
-          "gregobase_id": 408,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert.",
-          "title": "Benedictus es"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VII",
+          "title": "Ne tradideris me",
+          "gregobase_id": 1158,
           "system": 19,
           "ref": "noh1/0325/000",
-          "gregobase_id": 1158,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VII",
-          "title": "Ne tradideris me"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "title": "Domine non secundum",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 160,
+          "borrowed_from": "feria-iv-cinerum",
+          "borrowed_ref": "noh1/0187/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad5f",
@@ -17866,46 +18016,52 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. V",
+          "title": "Judica Domine",
+          "gregobase_id": 226,
           "system": 0,
           "ref": "noh1/0353/000",
-          "gregobase_id": 226,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. V",
-          "title": "Judica Domine"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad.",
+          "title": "Exsurge",
+          "gregobase_id": 783,
           "system": 7,
           "ref": "noh1/0354/001",
-          "gregobase_id": 783,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad.",
-          "title": "Exsurge"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. II",
+          "title": "Eripe me de inimicis",
+          "gregobase_id": 411,
           "system": 18,
           "ref": "noh1/0356/000",
-          "gregobase_id": 411,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. II",
-          "title": "Eripe me de inimicis"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VII",
+          "title": "Erubescant et revereantur",
+          "gregobase_id": 196,
           "system": 23,
           "ref": "noh1/0357/000",
-          "gregobase_id": 196,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VII",
-          "title": "Erubescant et revereantur"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "title": "Domine non secundum",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 160,
+          "borrowed_from": "feria-iv-cinerum",
+          "borrowed_ref": "noh1/0187/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad6m",
@@ -18085,36 +18241,44 @@
       "movements": [],
       "sections": [
         {
-          "kind": "introit",
+          "kind": "gradual",
           "variant": "",
+          "label": "Grad. III",
+          "title": "Ego autem",
+          "gregobase_id": null,
           "system": 0,
           "ref": "noh1/0357/004",
-          "gregobase_id": 374,
-          "placed": "text",
-          "score": 0.731,
-          "title": "Nos autem"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. I",
+          "title": "Custodi me",
+          "gregobase_id": 1322,
           "system": 13,
           "ref": "noh1/0360/000",
-          "gregobase_id": 1322,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. I",
-          "title": "Custodi me"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. V",
+          "title": "Adversum me",
+          "gregobase_id": 397,
           "system": 17,
           "ref": "noh1/0360/004",
-          "gregobase_id": 397,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. V",
-          "title": "Adversum me"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "introit",
+          "variant": "",
+          "title": "Nos autem gloriari",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 344,
+          "borrowed_from": "feria-quinta-in-coena-domini",
+          "borrowed_ref": "noh1/0371/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Quad6t",
@@ -19816,56 +19980,61 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Aqua sapientiae",
+          "gregobase_id": 1135,
           "system": 0,
           "ref": "noh2/0044/004",
-          "gregobase_id": 1135,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Aqua sapientiae"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad.",
+          "title": "Haec dies",
+          "gregobase_id": 1188,
           "system": 8,
           "ref": "noh2/0046/000",
-          "gregobase_id": 1188,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad.",
-          "title": "Haec dies"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Surrexit Dominus de sepulcro",
+          "gregobase_id": 438,
           "system": 14,
           "ref": "noh2/0047/000",
-          "gregobase_id": 438,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Surrexit Dominus de sepulcro"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. IV",
+          "title": "Intonuit de caelo",
+          "gregobase_id": 869,
           "system": 20,
           "ref": "noh2/0048/000",
-          "gregobase_id": 869,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. IV",
-          "title": "Intonuit de caelo"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VII",
+          "title": "Si consurrexistis",
+          "gregobase_id": 243,
           "system": 25,
           "ref": "noh2/0048/005",
-          "gregobase_id": 243,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VII",
-          "title": "Si consurrexistis"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "sequence",
+          "variant": "",
+          "title": "Victimae paschali",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 5,
+          "borrowed_from": "dominica-resurrectionis",
+          "borrowed_ref": "noh2/0037/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pasc0t",
@@ -20134,6 +20303,16 @@
           "system": 27,
           "ref": "noh2/0053/003",
           "placed": "reviewed"
+        },
+        {
+          "kind": "sequence",
+          "variant": "",
+          "title": "Victimae paschali",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 5,
+          "borrowed_from": "dominica-resurrectionis",
+          "borrowed_ref": "noh2/0037/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pasc0w",
@@ -20357,55 +20536,59 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. VII",
+          "title": "Victricem manum",
+          "gregobase_id": 1332,
           "system": 0,
           "ref": "noh2/0054/000",
-          "gregobase_id": 1332,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. VII",
-          "title": "Victricem manum"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "title": "Haec dies",
+          "gregobase_id": 975,
           "system": 8,
           "ref": "noh2/0055/002",
-          "gregobase_id": 975,
-          "placed": "inferred",
-          "score": 0.0,
-          "title": "Haec dies",
-          "why": "the one chant start between the Introit and the Communion"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Surrexit Christus qui",
+          "gregobase_id": 215,
           "system": 16,
           "ref": "noh2/0056/004",
-          "gregobase_id": 215,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Surrexit Christus qui"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "title": "In die solemnitatis",
+          "gregobase_id": 1129,
           "system": 20,
           "ref": "noh2/0057/002",
-          "gregobase_id": 1129,
-          "placed": "text",
-          "score": 0.732,
-          "title": "In die solemnitatis"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VII",
+          "title": "Populus acquisitionis",
+          "gregobase_id": 1219,
           "system": 26,
           "ref": "noh2/0058/002",
-          "gregobase_id": 1219,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VII",
-          "title": "Populus acquisitionis"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "sequence",
+          "variant": "",
+          "title": "Victimae paschali",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 5,
+          "borrowed_from": "dominica-resurrectionis",
+          "borrowed_ref": "noh2/0037/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pasc0h",
@@ -20647,34 +20830,61 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. I",
+          "title": "Eduxit eos",
+          "gregobase_id": 758,
           "system": 1,
           "ref": "noh2/0059/001",
-          "gregobase_id": 758,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. I",
-          "title": "Eduxit eos"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "label": "Grad. II",
+          "title": "Haec dies",
+          "gregobase_id": null,
+          "system": 9,
+          "ref": "noh2/0060/003",
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Dicite in gentibus",
+          "gregobase_id": 627,
           "system": 15,
           "ref": "noh2/0061/003",
-          "gregobase_id": 627,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Dicite in gentibus"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert.",
+          "title": "Erit vobis",
+          "gregobase_id": 151,
           "system": 20,
           "ref": "noh2/0062/002",
-          "gregobase_id": 151,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert.",
-          "title": "Erit vobis"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. I",
+          "title": "Data est mihi",
+          "gregobase_id": null,
+          "system": 28,
+          "ref": "noh2/0063/004",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "sequence",
+          "variant": "",
+          "title": "Victimae paschali",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 5,
+          "borrowed_from": "dominica-resurrectionis",
+          "borrowed_ref": "noh2/0037/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pasc0f",
@@ -20763,9 +20973,9 @@
         "systems/noh2/0068/003-d3813d837117",
         "systems/noh2/0068/004-022f6ab47a4b",
         "systems/noh2/0068/005-07ba0988a31a",
-        "systems/noh2/0069/000-64d96a7b5314",
-        "systems/noh2/0069/001-0c2c94d28662",
-        "systems/noh2/0069/002-830accc139c9"
+        "systems/noh2/0069/000-a42872e7f498",
+        "systems/noh2/0069/001-4f5291d974d6",
+        "systems/noh2/0069/002-88e3aefe57bc"
       ],
       "system_aspect": [
         [
@@ -20869,16 +21079,16 @@
           411
         ],
         [
-          933,
-          127
+          1364,
+          381
         ],
         [
           2363,
-          392
+          393
         ],
         [
           2049,
-          386
+          385
         ]
       ],
       "movements": [],
@@ -20886,57 +21096,61 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. VII",
+          "title": "Eduxit Dominus",
+          "gregobase_id": 974,
           "system": 0,
           "ref": "noh2/0064/003",
-          "gregobase_id": 974,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. VII",
-          "title": "Eduxit Dominus"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "n": 1,
           "variant": "",
+          "title": "Haec dies quam fecit",
+          "gregobase_id": 568,
           "system": 8,
           "ref": "noh2/0066/000",
-          "gregobase_id": 568,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Haec dies quam fecit"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "n": 2,
           "variant": "",
+          "title": "Laudate pueri",
+          "gregobase_id": 661,
           "system": 15,
           "ref": "noh2/0067/001",
-          "gregobase_id": 661,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Laudate pueri"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert.",
+          "title": "Benedictus qui venit",
+          "gregobase_id": 941,
           "system": 19,
           "ref": "noh2/0068/000",
-          "gregobase_id": 941,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert.",
-          "title": "Benedictus qui venit"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "title": "Omnes qui in Christo",
+          "gregobase_id": 1293,
           "system": 22,
           "ref": "noh2/0068/003",
-          "gregobase_id": 1293,
-          "placed": "inferred",
-          "score": 0.0,
-          "title": "Omnes qui in Christo",
-          "why": "the one chant start between the Offertory and the end of the piece"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "sequence",
+          "variant": "",
+          "title": "Victimae paschali",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 5,
+          "borrowed_from": "dominica-resurrectionis",
+          "borrowed_ref": "noh2/0037/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pasc0s",
@@ -20995,7 +21209,7 @@
         "noh2/0073/001"
       ],
       "system_assets": [
-        "systems/noh2/0069/003-ce717532e0fe",
+        "systems/noh2/0069/003-ad9c2acb21f7",
         "systems/noh2/0069/004-176432c7c202",
         "systems/noh2/0069/005-bce714ccdbcc",
         "systems/noh2/0070/000-b937c4201711",
@@ -21022,7 +21236,7 @@
       "system_aspect": [
         [
           2048,
-          397
+          398
         ],
         [
           2056,
@@ -21118,46 +21332,52 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Quasi modo",
+          "gregobase_id": 25,
           "system": 0,
           "ref": "noh2/0069/003",
-          "gregobase_id": 25,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Quasi modo"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "n": 1,
           "variant": "",
+          "title": "In die resurrectionis",
+          "gregobase_id": 1042,
           "system": 7,
           "ref": "noh2/0070/004",
-          "gregobase_id": 1042,
-          "placed": "text",
-          "score": 0.8,
-          "title": "In die resurrectionis"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "n": 2,
           "variant": "",
+          "title": "Post dies octo",
+          "gregobase_id": 275,
           "system": 13,
           "ref": "noh2/0071/004",
-          "gregobase_id": 275,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Post dies octo"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VI",
+          "title": "Mitte manum",
+          "gregobase_id": 953,
           "system": 20,
           "ref": "noh2/0072/005",
-          "gregobase_id": 953,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VI",
-          "title": "Mitte manum"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Angelus Domini",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 11,
+          "borrowed_from": "die-ii-infra-octavam-pasch",
+          "borrowed_ref": "noh2/0043/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pasc1",
@@ -22944,6 +23164,16 @@
           "system": 21,
           "ref": "noh2/0106/000",
           "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Ascendit Deus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 69,
+          "borrowed_from": "in-ascensione-domini",
+          "borrowed_ref": "noh2/0101/001"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pasc6",
@@ -23651,35 +23881,63 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. II",
+          "title": "Cibavit eos",
+          "gregobase_id": 715,
           "system": 0,
           "ref": "noh2/0117/002",
-          "gregobase_id": 715,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. II",
-          "title": "Cibavit eos"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "n": 1,
           "variant": "",
+          "title": "Loquebantur",
+          "gregobase_id": 101,
           "system": 8,
           "ref": "noh2/0118/004",
-          "gregobase_id": 101,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Loquebantur"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VII",
+          "title": "Spiritus Sanctus",
+          "gregobase_id": 1151,
           "system": 16,
           "ref": "noh2/0120/000",
-          "gregobase_id": 1151,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VII",
-          "title": "Spiritus Sanctus"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "n": 2,
+          "variant": "",
+          "title": "Veni Sancte Spiritus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 79,
+          "borrowed_from": "dominica-pentecostes",
+          "borrowed_ref": "noh2/0111/005"
+        },
+        {
+          "kind": "sequence",
+          "variant": "",
+          "title": "Veni Sancte Spiritus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 81,
+          "borrowed_from": "dominica-pentecostes",
+          "borrowed_ref": "noh2/0113/000"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Intonuit de caelo",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 16,
+          "borrowed_from": "die-iii-infra-octavam-pasch",
+          "borrowed_ref": "noh2/0048/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pent0m",
@@ -23819,35 +24077,63 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. IV",
+          "title": "Accipite",
+          "gregobase_id": 1278,
           "system": 0,
           "ref": "noh2/0120/002",
-          "gregobase_id": 1278,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. IV",
-          "title": "Accipite"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "n": 1,
           "variant": "",
+          "title": "Spiritus Sanctus",
+          "gregobase_id": 1197,
           "system": 10,
           "ref": "noh2/0122/000",
-          "gregobase_id": 1197,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Spiritus Sanctus"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VI",
+          "title": "Spiritus qui",
+          "gregobase_id": 333,
           "system": 14,
           "ref": "noh2/0122/004",
-          "gregobase_id": 333,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VI",
-          "title": "Spiritus qui"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "n": 2,
+          "variant": "",
+          "title": "Veni Sancte Spiritus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 79,
+          "borrowed_from": "dominica-pentecostes",
+          "borrowed_ref": "noh2/0111/005"
+        },
+        {
+          "kind": "sequence",
+          "variant": "",
+          "title": "Veni Sancte Spiritus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 81,
+          "borrowed_from": "dominica-pentecostes",
+          "borrowed_ref": "noh2/0113/000"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Portas caeli",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 20,
+          "borrowed_from": "die-vi-infra-octavam-pasch",
+          "borrowed_ref": "noh2/0052/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pent0t",
@@ -24338,6 +24624,27 @@
           "system": 23,
           "ref": "noh2/0130/002",
           "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "n": 2,
+          "variant": "",
+          "title": "Veni Sancte Spiritus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 79,
+          "borrowed_from": "dominica-pentecostes",
+          "borrowed_ref": "noh2/0111/005"
+        },
+        {
+          "kind": "sequence",
+          "variant": "",
+          "title": "Veni Sancte Spiritus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 81,
+          "borrowed_from": "dominica-pentecostes",
+          "borrowed_ref": "noh2/0113/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pent0f",
@@ -25665,65 +25972,69 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. II",
+          "title": "Cibavit eos",
+          "gregobase_id": 715,
           "system": 0,
           "ref": "noh2/0146/004",
-          "gregobase_id": 715,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. II",
-          "title": "Cibavit eos"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. VII",
+          "title": "Oculi omnium",
+          "gregobase_id": 1230,
           "system": 7,
           "ref": "noh2/0148/000",
-          "gregobase_id": 1230,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. VII",
-          "title": "Oculi omnium"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Caro mea vere",
+          "gregobase_id": 774,
           "system": 17,
           "ref": "noh2/0150/000",
-          "gregobase_id": 774,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Caro mea vere"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "sequence",
+          "variant": "",
+          "label": "Sequent. VII",
+          "title": "Lauda Sion",
+          "gregobase_id": null,
+          "system": 26,
+          "ref": "noh2/0151/003",
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "gregobase_id": null,
           "system": 65,
           "ref": "noh2/0158/000",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. IV",
+          "title": "Sacerdotes Domini",
+          "gregobase_id": 645,
           "system": 66,
           "ref": "noh2/0158/001",
-          "gregobase_id": 645,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. IV",
-          "title": "Sacerdotes Domini"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VII",
+          "title": "Quotiescumque",
+          "gregobase_id": 577,
           "system": 71,
           "ref": "noh2/0159/000",
-          "gregobase_id": 577,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VII",
-          "title": "Quotiescumque"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=CorpusChristi",
@@ -27393,15 +27704,6 @@
           "placed": "reviewed"
         },
         {
-          "kind": "gradual",
-          "variant": "",
-          "gregobase_id": 1046,
-          "borrowed_volume": "noh1",
-          "borrowed_page": 197,
-          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
-          "borrowed_ref": "noh1/0224/002"
-        },
-        {
           "kind": "alleluia",
           "variant": "",
           "title": "In te Domine",
@@ -27419,6 +27721,25 @@
           "system": 18,
           "ref": "noh2/0192/002",
           "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "gregobase_id": 1046,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 197,
+          "borrowed_from": "sabbato-quattuor-temporum-quadragesim",
+          "borrowed_ref": "noh1/0224/002"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Perfice gressus meos",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 143,
+          "borrowed_from": "dominica-in-sexagesima",
+          "borrowed_ref": "noh1/0170/003"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pent6",
@@ -28791,6 +29112,16 @@
           "system": 24,
           "ref": "noh2/0218/000",
           "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Exaltabo te",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 162,
+          "borrowed_from": "feria-iv-cinerum",
+          "borrowed_ref": "noh1/0189/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pent11",
@@ -29104,45 +29435,51 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. VII",
+          "title": "Deus in adjutorium",
+          "gregobase_id": 501,
           "system": 0,
           "ref": "noh2/0218/005",
-          "gregobase_id": 501,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. VII",
-          "title": "Deus in adjutorium"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. VII",
+          "title": "Benedicam Dominum",
+          "gregobase_id": 1182,
           "system": 7,
           "ref": "noh2/0220/000",
-          "gregobase_id": 1182,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. VII",
-          "title": "Benedicam Dominum"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Domine Deus salutis",
+          "gregobase_id": 1082,
           "system": 19,
           "ref": "noh2/0222/000",
-          "gregobase_id": 1082,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Domine Deus salutis"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. VIII",
+          "title": "Precatus est",
+          "gregobase_id": 325,
           "system": 25,
           "ref": "noh2/0223/000",
-          "gregobase_id": 325,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. VIII",
-          "title": "Precatus est"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. VI",
+          "title": "De fructu",
+          "gregobase_id": null,
+          "system": 40,
+          "ref": "noh2/0225/003",
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Pent12",
@@ -33474,6 +33811,16 @@
           "borrowed_page": 81,
           "borrowed_from": "commune-confessoris-non-pontificis",
           "borrowed_ref": "noh4/0112/002"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Beatus vir qui suffert",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 79,
+          "borrowed_from": "commune-confessoris-non-pontificis",
+          "borrowed_ref": "noh4/0110/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Dec3",
@@ -33551,6 +33898,16 @@
       "movements": [],
       "sections": [
         {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. VII",
+          "title": "Domine quinque talenta",
+          "gregobase_id": 383,
+          "system": 0,
+          "ref": "noh3/0045/000",
+          "placed": "reviewed"
+        },
+        {
           "kind": "introit",
           "variant": "",
           "gregobase_id": 233,
@@ -33578,14 +33935,14 @@
           "borrowed_ref": "noh4/0107/000"
         },
         {
-          "kind": "communion",
+          "kind": "alleluia",
           "variant": "",
-          "label": "Comm. VII",
-          "title": "Domine quinque talenta",
-          "gregobase_id": 383,
-          "system": 0,
-          "ref": "noh3/0045/000",
-          "placed": "reviewed"
+          "title": "Tu es sacerdos",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 63,
+          "borrowed_from": "commune-confessoris-pontificis",
+          "borrowed_ref": "noh4/0094/001"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Dec4",
@@ -35233,6 +35590,16 @@
           "borrowed_page": 54,
           "borrowed_from": "commune-plurimorum-martyrum-alia-missa",
           "borrowed_ref": "noh4/0085/000"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Anima nostra",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 76,
+          "borrowed_from": "ss-innocentium",
+          "borrowed_ref": "noh1/0102/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jan19",
@@ -35806,45 +36173,41 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. I",
+          "title": "Scio cui credidi",
+          "gregobase_id": 1179,
           "system": 0,
           "ref": "noh3/0077/001",
-          "gregobase_id": 1179,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. I",
-          "title": "Scio cui credidi"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad.",
+          "title": "Qui operatus est",
+          "gregobase_id": 1347,
           "system": 7,
           "ref": "noh3/0078/004",
-          "gregobase_id": 1347,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad.",
-          "title": "Qui operatus est"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Magnus sanctus Paulus",
+          "gregobase_id": 466,
           "system": 17,
           "ref": "noh3/0080/002",
-          "gregobase_id": 466,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Magnus sanctus Paulus"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract.",
+          "title": "Tu es vas",
+          "gregobase_id": 884,
           "system": 23,
           "ref": "noh3/0081/002",
-          "gregobase_id": 884,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract.",
-          "title": "Tu es vas"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
@@ -35854,6 +36217,16 @@
           "borrowed_page": 8,
           "borrowed_from": "s-andre-apostoli",
           "borrowed_ref": "noh3/0041/004"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "title": "Amen dico vobis",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 85,
+          "borrowed_from": "commune-confessoris-non-pontificis-alia-missa",
+          "borrowed_ref": "noh4/0116/001"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jan25",
@@ -37158,102 +37531,103 @@
           "kind": "other",
           "n": 1,
           "variant": "",
+          "label": "2. februarii. _",
+          "title": "Lumen ad revelationem",
+          "gregobase_id": 1846,
           "system": 0,
           "ref": "noh3/0094/004",
-          "gregobase_id": 1846,
-          "placed": "label",
-          "score": 1.0,
-          "label": "2. februarii. _",
-          "title": "Lumen ad revelationem"
+          "placed": "reviewed"
         },
         {
           "kind": "other",
           "n": 2,
           "variant": "",
+          "label": "Ant.",
+          "title": "Exsurge Domine adjuva",
+          "gregobase_id": 30,
           "system": 8,
           "ref": "noh3/0096/000",
-          "gregobase_id": 30,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Ant.",
-          "title": "Exsurge Domine adjuva"
+          "placed": "reviewed"
         },
         {
           "kind": "other",
           "n": 3,
           "variant": "",
+          "label": "Ant.",
+          "gregobase_id": 1311,
           "system": 14,
           "ref": "noh3/0097/000",
-          "gregobase_id": 1311,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Ant."
+          "placed": "reviewed"
         },
         {
           "kind": "other",
           "n": 4,
           "variant": "",
+          "label": "Resp.",
+          "title": "Obtulerunt",
+          "gregobase_id": 513,
           "system": 31,
           "ref": "noh3/0099/005",
-          "gregobase_id": 513,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Resp.",
-          "title": "Obtulerunt"
+          "placed": "reviewed"
         },
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Suscepimus",
+          "gregobase_id": 1254,
           "system": 40,
           "ref": "noh3/0101/002",
-          "gregobase_id": 1254,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Suscepimus"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad.",
+          "title": "Suscepimus Deus",
+          "gregobase_id": 50,
           "system": 48,
           "ref": "noh3/0102/004",
-          "gregobase_id": 50,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad.",
-          "title": "Suscepimus Deus"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Senex puerum portabat",
+          "gregobase_id": 429,
           "system": 56,
           "ref": "noh3/0104/000",
-          "gregobase_id": 429,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Senex puerum portabat"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract. VIII",
+          "title": "Nunc dimittis",
+          "gregobase_id": 1346,
           "system": 64,
           "ref": "noh3/0105/002",
-          "gregobase_id": 1346,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract. VIII",
-          "title": "Nunc dimittis"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm.",
+          "title": "Responsum",
+          "gregobase_id": 803,
           "system": 75,
           "ref": "noh3/0107/001",
-          "gregobase_id": 803,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Responsum"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Diffusa est",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 105,
+          "borrowed_from": "commune-virginum-pro-virgine-et-martyre-2",
+          "borrowed_ref": "noh4/0136/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Feb2",
@@ -38857,66 +39231,71 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. VII",
+          "title": "Oculus Dei",
+          "gregobase_id": 1025,
           "system": 0,
           "ref": "noh3/0129/003",
-          "gregobase_id": 1025,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. VII",
-          "title": "Oculus Dei"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. V",
+          "title": "Quam magna",
+          "gregobase_id": 1291,
           "system": 9,
           "ref": "noh3/0131/000",
-          "gregobase_id": 1291,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. V",
-          "title": "Quam magna"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract.",
+          "title": "Beatus vir cujus",
+          "gregobase_id": 728,
           "system": 17,
           "ref": "noh3/0132/002",
-          "gregobase_id": 728,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract.",
-          "title": "Beatus vir cujus"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "key": "paschal-minuisti",
+          "label": "VII.",
+          "title": "Minuisti eum",
+          "gregobase_id": null,
+          "system": 31,
+          "ref": "noh3/0134/004",
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "gregobase_id": null,
           "system": 39,
           "ref": "noh3/0136/000",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert.",
+          "title": "O Domine",
+          "gregobase_id": 1193,
           "system": 47,
           "ref": "noh3/0137/002",
-          "gregobase_id": 1193,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert.",
-          "title": "O Domine"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm.",
+          "title": "Ecce sto",
+          "gregobase_id": 164,
           "system": 53,
           "ref": "noh3/0138/002",
-          "gregobase_id": 164,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Ecce sto"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Feb27or28",
@@ -39003,12 +39382,12 @@
         "systems/noh3/0139/001-e904784bd681",
         "systems/noh3/0139/002-1b387664ed00",
         "systems/noh3/0139/003-b362b1982fd4",
-        "systems/noh3/0140/000-ac0236ff336b",
+        "systems/noh3/0140/000-d1e54db52ede",
         "systems/noh3/0140/001-61afe161a549",
         "systems/noh3/0140/002-dc8617b0856b",
         "systems/noh3/0140/003-eda7febfa7cc",
-        "systems/noh3/0140/004-3e158918e7c5",
-        "systems/noh3/0140/005-20987a14e345"
+        "systems/noh3/0140/004-9b82e340822e",
+        "systems/noh3/0140/005-434c83b1acef"
       ],
       "system_aspect": [
         [
@@ -39029,7 +39408,7 @@
         ],
         [
           1829,
-          145
+          413
         ],
         [
           1828,
@@ -39045,11 +39424,11 @@
         ],
         [
           1835,
-          404
+          405
         ],
         [
           1831,
-          413
+          414
         ]
       ],
       "movements": [],
@@ -39062,6 +39441,16 @@
           "gregobase_id": 788,
           "system": 0,
           "ref": "noh3/0139/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. I",
+          "title": "Quicumque fecerit",
+          "gregobase_id": 957,
+          "system": 7,
+          "ref": "noh3/0140/003",
           "placed": "reviewed"
         },
         {
@@ -39083,14 +39472,14 @@
           "borrowed_ref": "noh4/0076/002"
         },
         {
-          "kind": "communion",
+          "kind": "offertory",
           "variant": "",
-          "label": "Comm. I",
-          "title": "Quicumque fecerit",
-          "gregobase_id": 957,
-          "system": 7,
-          "ref": "noh3/0140/003",
-          "placed": "reviewed"
+          "title": "Laetamini",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 41,
+          "borrowed_from": "ss-fabiani-et-sebastiani-martyrum",
+          "borrowed_ref": "noh3/0074/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Mar10",
@@ -39194,6 +39583,16 @@
       "movements": [],
       "sections": [
         {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. VII",
+          "title": "Joseph fili David",
+          "gregobase_id": 139,
+          "system": 0,
+          "ref": "noh3/0141/000",
+          "placed": "reviewed"
+        },
+        {
           "kind": "introit",
           "variant": "",
           "gregobase_id": 108,
@@ -39221,15 +39620,24 @@
           "borrowed_ref": "noh4/0111/004"
         },
         {
-          "kind": "communion",
+          "kind": "gradual",
           "variant": "",
-          "system": 0,
-          "ref": "noh3/0141/000",
-          "gregobase_id": 139,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VII",
-          "title": "Joseph fili David"
+          "title": "Domine praevenisti",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 86,
+          "borrowed_from": "commune-confessoris-non-pontificis-missa-pro-abbatibus",
+          "borrowed_ref": "noh4/0117/000"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "paschal",
+          "title": "Amavit eum",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 73,
+          "borrowed_from": "commune-doctorum",
+          "borrowed_ref": "noh4/0104/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Mar19",
@@ -39421,6 +39829,24 @@
       "movements": [],
       "sections": [
         {
+          "kind": "tract",
+          "variant": "",
+          "label": "Tract.",
+          "title": "Ave Maria",
+          "gregobase_id": 266,
+          "system": 0,
+          "ref": "noh3/0142/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "paschal",
+          "gregobase_id": null,
+          "system": 20,
+          "ref": "noh3/0145/004",
+          "placed": "reviewed"
+        },
+        {
           "kind": "introit",
           "variant": "",
           "gregobase_id": 985,
@@ -39430,26 +39856,6 @@
           "borrowed_ref": "noh3/0387/000"
         },
         {
-          "kind": "tract",
-          "variant": "",
-          "system": 0,
-          "ref": "noh3/0142/000",
-          "gregobase_id": 266,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract.",
-          "title": "Ave Maria"
-        },
-        {
-          "kind": "alleluia",
-          "variant": "paschal",
-          "system": 20,
-          "ref": "noh3/0145/004",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
-        },
-        {
           "kind": "communion",
           "variant": "",
           "gregobase_id": 1127,
@@ -39457,6 +39863,26 @@
           "borrowed_page": 361,
           "borrowed_from": "in-dedicatione-s-mich-lis-archangelis",
           "borrowed_ref": "noh3/0394/002"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "title": "Benedicite",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 356,
+          "borrowed_from": "in-dedicatione-s-mich-lis-archangelis",
+          "borrowed_ref": "noh3/0389/000"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Stetit Angelus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 360,
+          "borrowed_from": "in-dedicatione-s-mich-lis-archangelis",
+          "borrowed_ref": "noh3/0393/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Mar24",
@@ -41211,57 +41637,73 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. II",
+          "title": "Narraverunt",
+          "gregobase_id": 831,
           "system": 0,
           "ref": "noh3/0175/000",
-          "gregobase_id": 831,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. II",
-          "title": "Narraverunt"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "paschal",
+          "label": "I.",
+          "title": "Sapientia hujus mundi",
+          "gregobase_id": null,
+          "system": 8,
+          "ref": "noh3/0176/002",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "key": "paschal-2",
+          "label": "I.",
+          "title": "Verumtamen existimo",
+          "gregobase_id": null,
+          "system": 15,
+          "ref": "noh3/0177/003",
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad.",
+          "title": "Sapientia hujus mundi",
+          "gregobase_id": 1345,
           "system": 24,
           "ref": "noh3/0179/000",
-          "gregobase_id": 1345,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad.",
-          "title": "Sapientia hujus mundi"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract. II",
+          "title": "Non judicavi",
+          "gregobase_id": 969,
           "system": 35,
           "ref": "noh3/0181/000",
-          "gregobase_id": 969,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract. II",
-          "title": "Non judicavi"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. VII",
+          "title": "Non enim judicavi",
+          "gregobase_id": 285,
           "system": 46,
           "ref": "noh3/0183/000",
-          "gregobase_id": 285,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. VII",
-          "title": "Non enim judicavi"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. I",
+          "title": "Reposita est",
+          "gregobase_id": 400,
           "system": 50,
           "ref": "noh3/0183/004",
-          "gregobase_id": 400,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. I",
-          "title": "Reposita est"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Apr14",
@@ -43143,6 +43585,24 @@
       "movements": [],
       "sections": [
         {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Qui docti fuerint fulgebunt",
+          "gregobase_id": 1189,
+          "system": 0,
+          "ref": "noh3/0211/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "paschal",
+          "title": "Qui ad justitiam",
+          "gregobase_id": 231,
+          "system": 29,
+          "ref": "noh3/0216/000",
+          "placed": "reviewed"
+        },
+        {
           "kind": "gradual",
           "variant": "",
           "gregobase_id": 235,
@@ -43152,24 +43612,14 @@
           "borrowed_ref": "noh4/0093/000"
         },
         {
-          "kind": "alleluia",
+          "kind": "introit",
           "variant": "",
-          "system": 0,
-          "ref": "noh3/0211/000",
-          "gregobase_id": 1189,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Qui docti fuerint fulgebunt"
-        },
-        {
-          "kind": "alleluia",
-          "variant": "paschal",
-          "system": 29,
-          "ref": "noh3/0216/000",
-          "gregobase_id": 231,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Qui ad justitiam"
+          "title": "In medio",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 71,
+          "borrowed_from": "commune-doctorum",
+          "borrowed_ref": "noh4/0102/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=May13",
@@ -43515,6 +43965,16 @@
       "movements": [],
       "sections": [
         {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm.",
+          "title": "Justorum animae",
+          "gregobase_id": 209,
+          "system": 0,
+          "ref": "noh3/0222/000",
+          "placed": "reviewed"
+        },
+        {
           "kind": "introit",
           "variant": "",
           "gregobase_id": 788,
@@ -43542,15 +44002,14 @@
           "borrowed_ref": "noh3/0074/002"
         },
         {
-          "kind": "communion",
+          "kind": "alleluia",
           "variant": "",
-          "system": 0,
-          "ref": "noh3/0222/000",
-          "gregobase_id": 209,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Justorum animae"
+          "title": "Ego vos elegi",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 205,
+          "borrowed_from": "s-barnab-apostoli",
+          "borrowed_ref": "noh3/0238/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jun2",
@@ -44622,6 +45081,26 @@
       "movements": [],
       "sections": [
         {
+          "kind": "gradual",
+          "variant": "",
+          "label": "Grad. V",
+          "title": "Justus ut palma",
+          "gregobase_id": 34,
+          "system": 0,
+          "ref": "noh3/0240/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. I",
+          "title": "Beatus servus",
+          "gregobase_id": 1154,
+          "system": 10,
+          "ref": "noh3/0241/004",
+          "placed": "reviewed"
+        },
+        {
           "kind": "introit",
           "variant": "",
           "gregobase_id": 1374,
@@ -44629,17 +45108,6 @@
           "borrowed_page": 40,
           "borrowed_from": "commune-plurimorum-martyrum",
           "borrowed_ref": "noh4/0071/001"
-        },
-        {
-          "kind": "gradual",
-          "variant": "",
-          "system": 0,
-          "ref": "noh3/0240/000",
-          "gregobase_id": 34,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. V",
-          "title": "Justus ut palma"
         },
         {
           "kind": "offertory",
@@ -44651,15 +45119,14 @@
           "borrowed_ref": "noh4/0084/000"
         },
         {
-          "kind": "communion",
+          "kind": "alleluia",
           "variant": "",
-          "system": 10,
-          "ref": "noh3/0241/004",
-          "gregobase_id": 1154,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. I",
-          "title": "Beatus servus"
+          "title": "Corpora sanctorum",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 44,
+          "borrowed_from": "commune-plurimorum-martyrum",
+          "borrowed_ref": "noh4/0075/001"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jun12",
@@ -44914,24 +45381,22 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. I",
+          "title": "Multae tribulationes",
+          "gregobase_id": 248,
           "system": 0,
           "ref": "noh3/0244/000",
-          "gregobase_id": 248,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. I",
-          "title": "Multae tribulationes"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. II",
+          "title": "Exsultabunt sancti",
+          "gregobase_id": 963,
           "system": 7,
           "ref": "noh3/0245/001",
-          "gregobase_id": 963,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. II",
-          "title": "Exsultabunt sancti"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
@@ -44941,6 +45406,26 @@
           "borrowed_page": 47,
           "borrowed_from": "commune-plurimorum-martyrum",
           "borrowed_ref": "noh4/0078/000"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Sancti tui Domine",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 40,
+          "borrowed_from": "ss-fabiani-et-sebastiani-martyrum",
+          "borrowed_ref": "noh3/0073/001"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "title": "Justorum animae",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 189,
+          "borrowed_from": "ss-marcellini-petri-atque-erasmi-martyrum",
+          "borrowed_ref": "noh3/0222/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jun15",
@@ -45108,13 +45593,12 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. II",
+          "title": "Dilexisti",
+          "gregobase_id": 629,
           "system": 0,
           "ref": "noh3/0247/000",
-          "gregobase_id": 629,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. II",
-          "title": "Dilexisti"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
@@ -45133,6 +45617,26 @@
           "borrowed_page": 208,
           "borrowed_from": "s-basilidus",
           "borrowed_ref": "noh3/0241/004"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Haec est vera",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 176,
+          "borrowed_from": "ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum",
+          "borrowed_ref": "noh3/0209/005"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Laetamini",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 41,
+          "borrowed_from": "ss-fabiani-et-sebastiani-martyrum",
+          "borrowed_ref": "noh3/0074/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jun19",
@@ -45654,24 +46158,42 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. VII",
+          "title": "Ne timeas",
+          "gregobase_id": 1141,
           "system": 0,
           "ref": "noh3/0254/000",
-          "gregobase_id": 1141,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. VII",
-          "title": "Ne timeas"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad.",
+          "title": "Fuit homo",
+          "gregobase_id": 424,
           "system": 11,
           "ref": "noh3/0256/000",
-          "gregobase_id": 424,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad.",
-          "title": "Fuit homo"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Gloria et honore",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 22,
+          "borrowed_from": "commune-unius-martyris-non-pontificis",
+          "borrowed_ref": "noh4/0053/003"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "title": "Magna est",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 2,
+          "borrowed_from": "in-vigilia-unius-apostoli",
+          "borrowed_ref": "noh4/0033/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jun23",
@@ -45974,6 +46496,16 @@
       "movements": [],
       "sections": [
         {
+          "kind": "offertory",
+          "variant": "",
+          "label": "Offert. VI",
+          "title": "Gloriabuntur",
+          "gregobase_id": 1375,
+          "system": 0,
+          "ref": "noh3/0261/000",
+          "placed": "reviewed"
+        },
+        {
           "kind": "introit",
           "variant": "",
           "gregobase_id": 248,
@@ -45992,15 +46524,24 @@
           "borrowed_ref": "noh2/0283/002"
         },
         {
-          "kind": "offertory",
+          "kind": "alleluia",
           "variant": "",
-          "system": 0,
-          "ref": "noh3/0261/000",
-          "gregobase_id": 1375,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. VI",
-          "title": "Gloriabuntur"
+          "title": "Haec est vera",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 176,
+          "borrowed_from": "ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum",
+          "borrowed_ref": "noh3/0209/005"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "title": "Et si coram hominibus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 48,
+          "borrowed_from": "commune-plurimorum-martyrum",
+          "borrowed_ref": "noh4/0079/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jun26",
@@ -46484,6 +47025,16 @@
           "placed": "reviewed"
         },
         {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. V",
+          "title": "Simon Joannis",
+          "gregobase_id": 846,
+          "system": 10,
+          "ref": "noh3/0270/004",
+          "placed": "reviewed"
+        },
+        {
           "kind": "gradual",
           "variant": "",
           "gregobase_id": 351,
@@ -46493,14 +47044,14 @@
           "borrowed_ref": "noh3/0236/003"
         },
         {
-          "kind": "communion",
+          "kind": "offertory",
           "variant": "",
-          "label": "Comm. V",
-          "title": "Simon Joannis",
-          "gregobase_id": 846,
-          "system": 10,
-          "ref": "noh3/0270/004",
-          "placed": "reviewed"
+          "title": "Mihi autem",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 8,
+          "borrowed_from": "s-andre-apostoli",
+          "borrowed_ref": "noh3/0041/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jun28",
@@ -48366,13 +48917,12 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. I",
+          "title": "Laudate pueri",
+          "gregobase_id": 87,
           "system": 0,
           "ref": "noh3/0301/000",
-          "gregobase_id": 87,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. I",
-          "title": "Laudate pueri"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
@@ -48400,6 +48950,16 @@
           "borrowed_page": 107,
           "borrowed_from": "ss-quadraginta-martyrum",
           "borrowed_ref": "noh3/0140/003"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Haec est vera",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 176,
+          "borrowed_from": "ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum",
+          "borrowed_ref": "noh3/0209/005"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jul10",
@@ -48771,6 +49331,16 @@
           "placed": "reviewed"
         },
         {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. I",
+          "title": "Infirmus fui",
+          "gregobase_id": 1126,
+          "system": 6,
+          "ref": "noh3/0307/000",
+          "placed": "reviewed"
+        },
+        {
           "kind": "offertory",
           "variant": "",
           "gregobase_id": 667,
@@ -48780,14 +49350,24 @@
           "borrowed_ref": "noh4/0115/001"
         },
         {
-          "kind": "communion",
+          "kind": "gradual",
           "variant": "",
-          "label": "Comm. I",
-          "title": "Infirmus fui",
-          "gregobase_id": 1126,
-          "system": 6,
-          "ref": "noh3/0307/000",
-          "placed": "reviewed"
+          "title": "Os justi",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 72,
+          "borrowed_from": "commune-doctorum",
+          "borrowed_ref": "noh4/0103/002"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Beatus vir qui timet",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 83,
+          "borrowed_from": "commune-doctorum",
+          "borrowed_ref": "noh4/0104/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jul18",
@@ -49519,6 +50099,25 @@
       "movements": [],
       "sections": [
         {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Diffusa est",
+          "gregobase_id": 1076,
+          "system": 0,
+          "ref": "noh3/0314/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. VI",
+          "title": "Diffusa",
+          "gregobase_id": 900,
+          "system": 8,
+          "ref": "noh3/0316/000",
+          "placed": "reviewed"
+        },
+        {
           "kind": "introit",
           "variant": "",
           "gregobase_id": 950,
@@ -49537,17 +50136,6 @@
           "borrowed_ref": "noh4/0122/001"
         },
         {
-          "kind": "alleluia",
-          "variant": "",
-          "system": 0,
-          "ref": "noh3/0314/000",
-          "gregobase_id": 1076,
-          "placed": "inferred",
-          "score": 0.0,
-          "title": "Diffusa est",
-          "why": "the one chant start between the start of the piece and the Communion"
-        },
-        {
           "kind": "tract",
           "variant": "",
           "gregobase_id": null,
@@ -49557,15 +50145,14 @@
           "borrowed_ref": "noh4/0124/002"
         },
         {
-          "kind": "communion",
+          "kind": "offertory",
           "variant": "",
-          "system": 8,
-          "ref": "noh3/0316/000",
-          "gregobase_id": 900,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VI",
-          "title": "Diffusa"
+          "title": "Filiae regum",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 113,
+          "borrowed_from": "commune-virginum-pro-virgine-tantum",
+          "borrowed_ref": "noh4/0144/005"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jul26",
@@ -49886,6 +50473,16 @@
           "placed": "reviewed"
         },
         {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm.",
+          "title": "Ignem veni",
+          "gregobase_id": 514,
+          "system": 9,
+          "ref": "noh3/0320/000",
+          "placed": "reviewed"
+        },
+        {
           "kind": "offertory",
           "variant": "",
           "gregobase_id": 630,
@@ -49895,14 +50492,24 @@
           "borrowed_ref": "noh4/0111/004"
         },
         {
-          "kind": "communion",
+          "kind": "gradual",
           "variant": "",
-          "label": "Comm.",
-          "title": "Ignem veni",
-          "gregobase_id": 514,
-          "system": 9,
-          "ref": "noh3/0320/000",
-          "placed": "reviewed"
+          "title": "Justus ut palma",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 78,
+          "borrowed_from": "commune-confessoris-non-pontificis",
+          "borrowed_ref": "noh4/0109/000"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Beatus vir qui suffert",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 79,
+          "borrowed_from": "commune-confessoris-non-pontificis",
+          "borrowed_ref": "noh4/0110/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jul31",
@@ -51098,13 +51705,31 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. III",
+          "title": "Os justi",
+          "gregobase_id": 1374,
           "system": 0,
           "ref": "noh3/0339/000",
-          "gregobase_id": 1374,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. III",
-          "title": "Os justi"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Beatus vir qui suffert",
+          "gregobase_id": 724,
+          "system": 9,
+          "ref": "noh3/0340/003",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. VII",
+          "title": "Beatus servus",
+          "gregobase_id": 1154,
+          "system": 16,
+          "ref": "noh3/0341/004",
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
@@ -51116,25 +51741,14 @@
           "borrowed_ref": "noh3/0463/002"
         },
         {
-          "kind": "alleluia",
+          "kind": "offertory",
           "variant": "",
-          "system": 9,
-          "ref": "noh3/0340/003",
-          "gregobase_id": 724,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Beatus vir qui suffert"
-        },
-        {
-          "kind": "communion",
-          "variant": "",
-          "system": 16,
-          "ref": "noh3/0341/004",
-          "gregobase_id": 1154,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VII",
-          "title": "Beatus servus"
+          "title": "Laetamini",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 41,
+          "borrowed_from": "ss-fabiani-et-sebastiani-martyrum",
+          "borrowed_ref": "noh3/0074/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Aug8",
@@ -52100,13 +52714,14 @@
       "movements": [],
       "sections": [
         {
-          "kind": "introit",
+          "kind": "alleluia",
           "variant": "",
-          "gregobase_id": 544,
-          "borrowed_volume": "noh3",
-          "borrowed_page": 309,
-          "borrowed_from": "vigilia-s-laurentii-martyris",
-          "borrowed_ref": "noh3/0342/001"
+          "label": "I.",
+          "title": "O Joachim sancte",
+          "gregobase_id": null,
+          "system": 0,
+          "ref": "noh3/0357/002",
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
@@ -52116,6 +52731,15 @@
           "system": 6,
           "ref": "noh3/0358/003",
           "placed": "reviewed"
+        },
+        {
+          "kind": "introit",
+          "variant": "",
+          "gregobase_id": 544,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 309,
+          "borrowed_from": "vigilia-s-laurentii-martyris",
+          "borrowed_ref": "noh3/0342/001"
         },
         {
           "kind": "tract",
@@ -53015,13 +53639,32 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Venite filii",
+          "gregobase_id": 695,
           "system": 0,
           "ref": "noh3/0373/000",
-          "gregobase_id": 695,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Venite filii"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "label": "Offert. I",
+          "title": "Desiderium pauperum",
+          "gregobase_id": 1331,
+          "system": 6,
+          "ref": "noh3/0374/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. VI",
+          "title": "Sinite parvulos",
+          "gregobase_id": 643,
+          "system": 9,
+          "ref": "noh3/0374/003",
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
@@ -53033,26 +53676,14 @@
           "borrowed_ref": "noh4/0103/002"
         },
         {
-          "kind": "offertory",
+          "kind": "alleluia",
           "variant": "",
-          "system": 6,
-          "ref": "noh3/0374/000",
-          "gregobase_id": 1331,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. I",
-          "title": "Desiderium pauperum"
-        },
-        {
-          "kind": "communion",
-          "variant": "",
-          "system": 9,
-          "ref": "noh3/0374/003",
-          "gregobase_id": 643,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VI",
-          "title": "Sinite parvulos"
+          "title": "Beatus vir qui suffert",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 79,
+          "borrowed_from": "commune-confessoris-non-pontificis",
+          "borrowed_ref": "noh4/0110/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Aug27",
@@ -53543,7 +54174,7 @@
           "kind": "offertory",
           "variant": "",
           "title": "Protege Domine",
-          "gregobase_id": 843,
+          "gregobase_id": 3438,
           "system": 0,
           "ref": "noh3/0378/000",
           "placed": "reviewed"
@@ -55204,6 +55835,18 @@
         "noh3/0409/002",
         "noh3/0409/003",
         "noh3/0409/004",
+        "noh3/0410/000",
+        "noh3/0410/001",
+        "noh3/0410/002",
+        "noh3/0410/003",
+        "noh3/0410/004",
+        "noh3/0410/005",
+        "noh3/0411/000",
+        "noh3/0411/001",
+        "noh3/0411/002",
+        "noh3/0411/003",
+        "noh3/0411/004",
+        "noh3/0411/005",
         "noh3/0412/000",
         "noh3/0412/001",
         "noh3/0412/002",
@@ -55222,6 +55865,18 @@
         "systems/noh3/0409/002-6eff9609fd5f",
         "systems/noh3/0409/003-1d1745d48736",
         "systems/noh3/0409/004-616a60e70e55",
+        "systems/noh3/0410/000-766e0ad6340c",
+        "systems/noh3/0410/001-9a02feda9935",
+        "systems/noh3/0410/002-7e37bcfcf9bf",
+        "systems/noh3/0410/003-b707bc7f48cf",
+        "systems/noh3/0410/004-7c862056c427",
+        "systems/noh3/0410/005-e299f7b193b6",
+        "systems/noh3/0411/000-025786007ef6",
+        "systems/noh3/0411/001-e5375899b080",
+        "systems/noh3/0411/002-6718246586f3",
+        "systems/noh3/0411/003-aaede8be5a27",
+        "systems/noh3/0411/004-4ebb9ab2b1d8",
+        "systems/noh3/0411/005-18abec814248",
         "systems/noh3/0412/000-cc426bfac26f",
         "systems/noh3/0412/001-2b0144ad3a94",
         "systems/noh3/0412/002-8569d136f4c9",
@@ -55272,6 +55927,54 @@
         ],
         [
           1832,
+          392
+        ],
+        [
+          1831,
+          413
+        ],
+        [
+          1831,
+          393
+        ],
+        [
+          1828,
+          392
+        ],
+        [
+          1833,
+          415
+        ],
+        [
+          1833,
+          408
+        ],
+        [
+          1836,
+          437
+        ],
+        [
+          1975,
+          446
+        ],
+        [
+          1837,
+          411
+        ],
+        [
+          1994,
+          412
+        ],
+        [
+          1835,
+          420
+        ],
+        [
+          1835,
+          429
+        ],
+        [
+          1832,
           399
         ],
         [
@@ -55298,6 +56001,45 @@
       "movements": [],
       "sections": [
         {
+          "kind": "gradual",
+          "variant": "",
+          "label": "Grad. V",
+          "title": "Propter veritatem",
+          "gregobase_id": 807,
+          "system": 0,
+          "ref": "noh3/0408/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Solemnitas",
+          "gregobase_id": 420,
+          "system": 9,
+          "ref": "noh3/0409/004",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "label": "Offert. VIII",
+          "title": "In me gratia",
+          "gregobase_id": null,
+          "system": 17,
+          "ref": "noh3/0411/001",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm.",
+          "title": "Florete",
+          "gregobase_id": 104,
+          "system": 24,
+          "ref": "noh3/0412/002",
+          "placed": "reviewed"
+        },
+        {
           "kind": "introit",
           "variant": "",
           "gregobase_id": 246,
@@ -55305,38 +56047,6 @@
           "borrowed_page": 270,
           "borrowed_from": "in-commemoratione-beat-mari-virgine-de-monte-carmelo",
           "borrowed_ref": "noh3/0303/000"
-        },
-        {
-          "kind": "gradual",
-          "variant": "",
-          "system": 0,
-          "ref": "noh3/0408/000",
-          "gregobase_id": 807,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. V",
-          "title": "Propter veritatem"
-        },
-        {
-          "kind": "alleluia",
-          "variant": "",
-          "system": 9,
-          "ref": "noh3/0409/004",
-          "gregobase_id": 420,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Solemnitas"
-        },
-        {
-          "kind": "communion",
-          "variant": "",
-          "system": 12,
-          "ref": "noh3/0412/002",
-          "gregobase_id": 104,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Florete"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Oct7",
@@ -57705,15 +58415,6 @@
       "movements": [],
       "sections": [
         {
-          "kind": "introit",
-          "variant": "",
-          "gregobase_id": 475,
-          "borrowed_volume": "noh3",
-          "borrowed_page": 4,
-          "borrowed_from": "s-andre-apostoli",
-          "borrowed_ref": "noh3/0037/003"
-        },
-        {
           "kind": "alleluia",
           "variant": "",
           "title": "Nimis honorati sunt",
@@ -57723,6 +58424,15 @@
           "placed": "reviewed"
         },
         {
+          "kind": "introit",
+          "variant": "",
+          "gregobase_id": 475,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 4,
+          "borrowed_from": "s-andre-apostoli",
+          "borrowed_ref": "noh3/0037/003"
+        },
+        {
           "kind": "communion",
           "variant": "",
           "gregobase_id": 1028,
@@ -57730,6 +58440,26 @@
           "borrowed_page": 96,
           "borrowed_from": "s-matthi-apostoli",
           "borrowed_ref": "noh3/0129/000"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "title": "Constitues eos",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 6,
+          "borrowed_from": "s-andre-apostoli",
+          "borrowed_ref": "noh3/0039/000"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "In omnem terram",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 28,
+          "borrowed_from": "s-thomae-apostoli",
+          "borrowed_ref": "noh3/0061/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Oct28",
@@ -58798,13 +59528,52 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Dicit Dominus : Sermones",
+          "gregobase_id": 409,
           "system": 0,
           "ref": "noh3/0474/000",
-          "gregobase_id": 409,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Dicit Dominus : Sermones"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "title": "Exaltent eum",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 378,
+          "borrowed_from": "commune-unius-aut-plurium-summorum-pontificum",
+          "borrowed_ref": "noh4/0411/002"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Tu es Petrus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 380,
+          "borrowed_from": "commune-unius-aut-plurium-summorum-pontificum",
+          "borrowed_ref": "noh4/0413/000"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Ecce dedi",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 384,
+          "borrowed_from": "commune-unius-aut-plurium-summorum-pontificum",
+          "borrowed_ref": "noh4/0417/002"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "title": "Tu es Petrus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 385,
+          "borrowed_from": "commune-unius-aut-plurium-summorum-pontificum",
+          "borrowed_ref": "noh4/0418/001"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Nov23",
@@ -61091,24 +61860,52 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. VII",
+          "title": "Laetabitur justus",
+          "gregobase_id": 251,
           "system": 0,
           "ref": "noh4/0055/000",
-          "gregobase_id": 251,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. VII",
-          "title": "Laetabitur justus"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. V",
+          "title": "Justus cum ceciderit",
+          "gregobase_id": 764,
           "system": 8,
           "ref": "noh4/0056/003",
-          "gregobase_id": 764,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. V",
-          "title": "Justus cum ceciderit"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "label": "II.",
+          "title": "Qui sequitur me",
+          "gregobase_id": null,
+          "system": 15,
+          "ref": "noh4/0057/004",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "label": "Offert.",
+          "title": "Posuisti Domine",
+          "gregobase_id": 487,
+          "system": 21,
+          "ref": "noh4/0058/004",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. V",
+          "title": "Qui mihi ministrat",
+          "gregobase_id": 685,
+          "system": 28,
+          "ref": "noh4/0059/005",
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
@@ -61118,28 +61915,6 @@
           "borrowed_page": 14,
           "borrowed_from": "commune-unius-martyris-pontificis-alia-missa",
           "borrowed_ref": "noh4/0045/004"
-        },
-        {
-          "kind": "offertory",
-          "variant": "",
-          "system": 21,
-          "ref": "noh4/0058/004",
-          "gregobase_id": 487,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert.",
-          "title": "Posuisti Domine"
-        },
-        {
-          "kind": "communion",
-          "variant": "",
-          "system": 28,
-          "ref": "noh4/0059/005",
-          "gregobase_id": 685,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. V",
-          "title": "Qui mihi ministrat"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#common=mass_ii_martyr_not_bishop",
@@ -63658,34 +64433,41 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. VI",
+          "title": "In medio Ecclesiae",
+          "gregobase_id": 233,
           "system": 0,
           "ref": "noh4/0102/000",
-          "gregobase_id": 233,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. VI",
-          "title": "In medio Ecclesiae"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. I",
+          "title": "Os justi",
+          "gregobase_id": 511,
           "system": 8,
           "ref": "noh4/0103/002",
-          "gregobase_id": 511,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. I",
-          "title": "Os justi"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Amavit eum Dominus",
+          "gregobase_id": 14,
           "system": 16,
           "ref": "noh4/0104/004",
-          "gregobase_id": 14,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Amavit eum Dominus"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "label": "Offert. IV",
+          "title": "Justus ut palma",
+          "gregobase_id": 777,
+          "system": 30,
+          "ref": "noh4/0107/000",
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
@@ -63697,15 +64479,14 @@
           "borrowed_ref": "noh4/0045/004"
         },
         {
-          "kind": "offertory",
+          "kind": "communion",
           "variant": "",
-          "system": 30,
-          "ref": "noh4/0107/000",
-          "gregobase_id": 777,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. IV",
-          "title": "Justus ut palma"
+          "title": "Fidelis servus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 65,
+          "borrowed_from": "commune-confessoris-pontificis",
+          "borrowed_ref": "noh4/0096/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#common=mass_doctors",
@@ -64521,32 +65302,39 @@
         {
           "kind": "gradual",
           "variant": "",
+          "title": "Domine praevenisti",
+          "gregobase_id": 600,
           "system": 0,
           "ref": "noh4/0117/000",
-          "gregobase_id": 600,
-          "placed": "text",
-          "score": 0.744,
-          "title": "Domine praevenisti"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Justus ut palma",
+          "gregobase_id": 946,
           "system": 9,
           "ref": "noh4/0118/003",
-          "gregobase_id": 946,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Justus ut palma"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "title": "Justus germinabit",
+          "gregobase_id": 1207,
           "system": 23,
           "ref": "noh4/0120/005",
-          "gregobase_id": 1207,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Justus germinabit"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "introit",
+          "variant": "",
+          "title": "Os justi",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 76,
+          "borrowed_from": "commune-confessoris-non-pontificis",
+          "borrowed_ref": "noh4/0107/005"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#common=mass_abbots",
@@ -66058,46 +66846,51 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. II",
+          "title": "Vultum tuum",
+          "gregobase_id": 124,
           "system": 0,
           "ref": "noh4/0146/004",
-          "gregobase_id": 124,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. II",
-          "title": "Vultum tuum"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. I",
+          "title": "Concupivit rex",
+          "gregobase_id": 686,
           "system": 9,
           "ref": "noh4/0148/001",
-          "gregobase_id": 686,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. I",
-          "title": "Concupivit rex"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Haec est virgo",
+          "gregobase_id": 500,
           "system": 13,
           "ref": "noh4/0148/005",
-          "gregobase_id": 500,
-          "placed": "inferred",
-          "score": 0.0,
-          "title": "Haec est virgo",
-          "why": "the one chant start between the Gradual and the Communion"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VIII",
+          "title": "Simile est",
+          "gregobase_id": 673,
           "system": 16,
           "ref": "noh4/0149/002",
-          "gregobase_id": 673,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VIII",
-          "title": "Simile est"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Afferentur regi",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 97,
+          "borrowed_from": "commune-virginum-pro-virgine-et-martyre",
+          "borrowed_ref": "noh4/0128/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#common=mass_ii_virgin_not_martyr",
@@ -66234,6 +67027,16 @@
           "system": 10,
           "ref": "noh4/0152/002",
           "placed": "reviewed"
+        },
+        {
+          "kind": "introit",
+          "variant": "",
+          "title": "Me exspectaverunt",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 99,
+          "borrowed_from": "commune-virginum-pro-virgine-et-martyre-2",
+          "borrowed_ref": "noh4/0130/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#common=mass_holy_woman_martyr",
@@ -67056,6 +67859,25 @@
       "movements": [],
       "sections": [
         {
+          "kind": "tract",
+          "variant": "",
+          "label": "Tract. VIII",
+          "title": "Te Deum Patrem",
+          "gregobase_id": 763,
+          "system": 0,
+          "ref": "noh4/0165/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "paschal",
+          "title": "Benedicamus Patrem",
+          "gregobase_id": 744,
+          "system": 15,
+          "ref": "noh4/0168/000",
+          "placed": "reviewed"
+        },
+        {
           "kind": "introit",
           "variant": "",
           "gregobase_id": 349,
@@ -67074,27 +67896,6 @@
           "borrowed_ref": "noh2/0138/005"
         },
         {
-          "kind": "tract",
-          "variant": "",
-          "system": 0,
-          "ref": "noh4/0165/000",
-          "gregobase_id": 763,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract. VIII",
-          "title": "Te Deum Patrem"
-        },
-        {
-          "kind": "alleluia",
-          "variant": "paschal",
-          "system": 15,
-          "ref": "noh4/0168/000",
-          "gregobase_id": 744,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Benedicamus Patrem"
-        },
-        {
           "kind": "communion",
           "variant": "",
           "gregobase_id": 391,
@@ -67102,6 +67903,26 @@
           "borrowed_page": 110,
           "borrowed_from": "noh2-p105",
           "borrowed_ref": "noh2/0142/000"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Benedictus es",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 108,
+          "borrowed_from": "noh2-p105",
+          "borrowed_ref": "noh2/0140/000"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Benedictus sit",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 109,
+          "borrowed_from": "noh2-p105",
+          "borrowed_ref": "noh2/0141/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveST",
@@ -67339,15 +68160,6 @@
       "movements": [],
       "sections": [
         {
-          "kind": "introit",
-          "variant": "",
-          "gregobase_id": 985,
-          "borrowed_volume": "noh3",
-          "borrowed_page": 354,
-          "borrowed_from": "in-dedicatione-s-mich-lis-archangelis",
-          "borrowed_ref": "noh3/0387/000"
-        },
-        {
           "kind": "gradual",
           "variant": "",
           "label": "Grad. II",
@@ -67385,6 +68197,25 @@
           "system": 28,
           "ref": "noh4/0174/000",
           "placed": "reviewed"
+        },
+        {
+          "kind": "introit",
+          "variant": "",
+          "gregobase_id": 985,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 354,
+          "borrowed_from": "in-dedicatione-s-mich-lis-archangelis",
+          "borrowed_ref": "noh3/0387/000"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Stetit Angelus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 360,
+          "borrowed_from": "in-dedicatione-s-mich-lis-archangelis",
+          "borrowed_ref": "noh3/0393/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveA",
@@ -67683,22 +68514,30 @@
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Nimis honorati sunt",
+          "gregobase_id": 130,
           "system": 0,
           "ref": "noh4/0175/000",
-          "gregobase_id": 130,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Nimis honorati sunt"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "title": "Ego vos elegi",
+          "gregobase_id": 1030,
           "system": 11,
           "ref": "noh4/0177/002",
-          "gregobase_id": 1030,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Ego vos elegi"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "introit",
+          "variant": "",
+          "title": "Mihi autem",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 4,
+          "borrowed_from": "s-andre-apostoli",
+          "borrowed_ref": "noh3/0037/003"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveOA",
@@ -67910,15 +68749,6 @@
           "placed": "reviewed"
         },
         {
-          "kind": "gradual",
-          "variant": "",
-          "gregobase_id": 1044,
-          "borrowed_volume": "noh2",
-          "borrowed_page": 218,
-          "borrowed_from": "dominica-xvii-post-pentecosten",
-          "borrowed_ref": "noh2/0250/000"
-        },
-        {
           "kind": "tract",
           "variant": "",
           "label": "Tract.",
@@ -67927,15 +68757,6 @@
           "system": 7,
           "ref": "noh4/0179/000",
           "placed": "reviewed"
-        },
-        {
-          "kind": "alleluia",
-          "variant": "paschal",
-          "gregobase_id": null,
-          "borrowed_volume": "noh2",
-          "borrowed_page": 78,
-          "borrowed_from": "dominica-pentecostes",
-          "borrowed_ref": "noh2/0110/005"
         },
         {
           "kind": "offertory",
@@ -67955,6 +68776,34 @@
           "system": 23,
           "ref": "noh4/0181/005",
           "placed": "reviewed"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "gregobase_id": 1044,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 218,
+          "borrowed_from": "dominica-xvii-post-pentecosten",
+          "borrowed_ref": "noh2/0250/000"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "paschal",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 78,
+          "borrowed_from": "dominica-pentecostes",
+          "borrowed_ref": "noh2/0110/005"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Veni Sancte Spiritus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 79,
+          "borrowed_from": "dominica-pentecostes",
+          "borrowed_ref": "noh2/0111/005"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveSS",
@@ -68150,6 +68999,26 @@
           "borrowed_page": 127,
           "borrowed_from": "noh2-p114",
           "borrowed_ref": "noh2/0159/000"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "title": "Oculi omnium",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 116,
+          "borrowed_from": "noh2-p114",
+          "borrowed_ref": "noh2/0148/000"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Caro mea",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 118,
+          "borrowed_from": "noh2-p114",
+          "borrowed_ref": "noh2/0150/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveSES",
@@ -68544,6 +69413,17 @@
         "noh4/0194/000",
         "noh4/0194/001",
         "noh4/0194/002",
+        "noh4/0195/000",
+        "noh4/0195/001",
+        "noh4/0195/002",
+        "noh4/0195/003",
+        "noh4/0195/004",
+        "noh4/0196/000",
+        "noh4/0196/001",
+        "noh4/0196/002",
+        "noh4/0196/003",
+        "noh4/0196/004",
+        "noh4/0196/005",
         "noh4/0197/000"
       ],
       "system_assets": [
@@ -68555,6 +69435,17 @@
         "systems/noh4/0194/000-4b00bbbb14df",
         "systems/noh4/0194/001-b36d8de8f631",
         "systems/noh4/0194/002-138a196e868f",
+        "systems/noh4/0195/000-035e63b90907",
+        "systems/noh4/0195/001-c50beb5fde1c",
+        "systems/noh4/0195/002-7a15225bb2f4",
+        "systems/noh4/0195/003-ab33622fe11f",
+        "systems/noh4/0195/004-ad4915c7c394",
+        "systems/noh4/0196/000-c16618b31a8d",
+        "systems/noh4/0196/001-808b32fb4d15",
+        "systems/noh4/0196/002-eddaf019bdd6",
+        "systems/noh4/0196/003-ad4c35f9b6bc",
+        "systems/noh4/0196/004-e1154cc26e73",
+        "systems/noh4/0196/005-66b0ea7d9509",
         "systems/noh4/0197/000-dd23199f6c65"
       ],
       "system_aspect": [
@@ -68591,6 +69482,50 @@
           437
         ],
         [
+          1960,
+          406
+        ],
+        [
+          1842,
+          393
+        ],
+        [
+          1863,
+          393
+        ],
+        [
+          2021,
+          397
+        ],
+        [
+          1852,
+          402
+        ],
+        [
+          1840,
+          395
+        ],
+        [
+          1839,
+          406
+        ],
+        [
+          1835,
+          402
+        ],
+        [
+          1838,
+          424
+        ],
+        [
+          1837,
+          401
+        ],
+        [
+          1837,
+          406
+        ],
+        [
           2017,
           405
         ]
@@ -68598,23 +69533,74 @@
       "movements": [],
       "sections": [
         {
+          "kind": "introit",
+          "variant": "",
+          "title": "Nos autem gloriari",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 170,
+          "borrowed_from": "in-inventione-s-crucis",
+          "borrowed_ref": "noh3/0203/000"
+        },
+        {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. V",
+          "title": "Christus factus est",
+          "gregobase_id": 873,
           "system": 0,
           "ref": "noh4/0193/000",
-          "gregobase_id": 873,
-          "placed": "text",
-          "score": 0.98,
-          "title": "Christus factus est"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Dulce lignum",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 172,
+          "borrowed_from": "in-inventione-s-crucis",
+          "borrowed_ref": "noh3/0205/002"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "label": "Tract. II",
+          "title": "Adoramus te Christe",
+          "gregobase_id": 114,
+          "system": 8,
+          "ref": "noh4/0195/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "paschal",
+          "title": "Dicite in gentibus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 171,
+          "borrowed_from": "in-inventione-s-crucis",
+          "borrowed_ref": "noh3/0204/003"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Protege Domine",
+          "gregobase_id": 3438,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 345,
+          "borrowed_from": "in-exaltatione-sanct-crucis",
+          "borrowed_ref": "noh3/0378/000"
         },
         {
           "kind": "communion",
           "variant": "",
-          "gregobase_id": 346,
-          "borrowed_volume": "noh4",
+          "title": "Per signum Crucis",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
           "borrowed_page": 174,
-          "borrowed_from": "dominica-iv-adventus",
-          "borrowed_ref": "noh1/0069/000"
+          "borrowed_from": "in-inventione-s-crucis",
+          "borrowed_ref": "noh3/0207/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveSC",
@@ -69367,6 +70353,26 @@
       "movements": [],
       "sections": [
         {
+          "kind": "tract",
+          "variant": "",
+          "label": "Tract.",
+          "title": "Gaude Maria",
+          "gregobase_id": 18,
+          "system": 0,
+          "ref": "noh4/0210/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "label": "Offert. II",
+          "title": "Felix namque es",
+          "gregobase_id": 280,
+          "system": 11,
+          "ref": "noh4/0212/000",
+          "placed": "reviewed"
+        },
+        {
           "kind": "introit",
           "variant": "",
           "gregobase_id": 124,
@@ -69385,26 +70391,24 @@
           "borrowed_ref": "noh1/0105/003"
         },
         {
-          "kind": "tract",
+          "kind": "alleluia",
           "variant": "",
-          "system": 0,
-          "ref": "noh4/0210/000",
-          "gregobase_id": 18,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract.",
-          "title": "Gaude Maria"
+          "title": "Post partum",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 186,
+          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
+          "borrowed_ref": "noh4/0218/003"
         },
         {
-          "kind": "offertory",
+          "kind": "communion",
           "variant": "",
-          "system": 11,
-          "ref": "noh4/0212/000",
-          "gregobase_id": 280,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. II",
-          "title": "Felix namque es"
+          "title": "Beata viscera",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 187,
+          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
+          "borrowed_ref": "noh4/0220/005"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=SMchristmas",
@@ -69482,12 +70486,21 @@
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Virga Jesse",
+          "gregobase_id": 281,
           "system": 0,
           "ref": "noh4/0213/000",
-          "gregobase_id": 281,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Virga Jesse"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "introit",
+          "variant": "",
+          "title": "Salve sancta Parens",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 182,
+          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
+          "borrowed_ref": "noh4/0215/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=SMlent",
@@ -69592,6 +70605,16 @@
           "system": 6,
           "ref": "noh4/0215/002",
           "placed": "reviewed"
+        },
+        {
+          "kind": "introit",
+          "variant": "",
+          "title": "Salve sancta Parens",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 182,
+          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
+          "borrowed_ref": "noh4/0215/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=SMeaster",
@@ -70776,6 +71799,24 @@
       "movements": [],
       "sections": [
         {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Propitius esto",
+          "gregobase_id": 189,
+          "system": 0,
+          "ref": "noh4/0236/003",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "paschal",
+          "title": "Exsultabo",
+          "gregobase_id": 1342,
+          "system": 8,
+          "ref": "noh4/0238/000",
+          "placed": "reviewed"
+        },
+        {
           "kind": "introit",
           "variant": "",
           "gregobase_id": 389,
@@ -70794,16 +71835,6 @@
           "borrowed_ref": "noh2/0288/005"
         },
         {
-          "kind": "alleluia",
-          "variant": "",
-          "system": 0,
-          "ref": "noh4/0236/003",
-          "gregobase_id": 189,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Propitius esto"
-        },
-        {
           "kind": "tract",
           "variant": "",
           "gregobase_id": 276,
@@ -70813,16 +71844,6 @@
           "borrowed_ref": "noh1/0212/000"
         },
         {
-          "kind": "alleluia",
-          "variant": "paschal",
-          "system": 8,
-          "ref": "noh4/0238/000",
-          "gregobase_id": 1342,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Exsultabo"
-        },
-        {
           "kind": "offertory",
           "variant": "",
           "gregobase_id": 616,
@@ -70830,6 +71851,16 @@
           "borrowed_page": 236,
           "borrowed_from": "dominica-xix-post-pentecosten",
           "borrowed_ref": "noh2/0268/004"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "title": "Memento verbi tui",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 242,
+          "borrowed_from": "dominica-xx-post-pentecosten",
+          "borrowed_ref": "noh2/0274/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveQN",
@@ -70952,7 +71983,7 @@
           "gregobase_id": 533,
           "borrowed_volume": "noh1",
           "borrowed_page": 156,
-          "borrowed_from": "noh1-p156",
+          "borrowed_from": "feria-iv-cinerum",
           "borrowed_ref": "noh1/0183/005"
         },
         {
@@ -71264,24 +72295,6 @@
       "movements": [],
       "sections": [
         {
-          "kind": "introit",
-          "variant": "",
-          "gregobase_id": 529,
-          "borrowed_volume": "noh1",
-          "borrowed_page": 138,
-          "borrowed_from": "dominica-in-sexagesima",
-          "borrowed_ref": "noh1/0165/003"
-        },
-        {
-          "kind": "alleluia",
-          "variant": "",
-          "gregobase_id": 539,
-          "borrowed_volume": "noh1",
-          "borrowed_page": 16,
-          "borrowed_from": "dominica-iii-adventus",
-          "borrowed_ref": "noh1/0042/002"
-        },
-        {
           "kind": "tract",
           "variant": "",
           "label": "Tract. I",
@@ -71301,6 +72314,24 @@
           "placed": "reviewed"
         },
         {
+          "kind": "introit",
+          "variant": "",
+          "gregobase_id": 529,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 138,
+          "borrowed_from": "dominica-in-sexagesima",
+          "borrowed_ref": "noh1/0165/003"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "gregobase_id": 539,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 16,
+          "borrowed_from": "dominica-iii-adventus",
+          "borrowed_ref": "noh1/0042/002"
+        },
+        {
           "kind": "communion",
           "variant": "",
           "gregobase_id": 1290,
@@ -71308,6 +72339,26 @@
           "borrowed_page": 249,
           "borrowed_from": "dominica-xxi-post-pentecosten",
           "borrowed_ref": "noh2/0281/001"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "title": "Sciant gentes",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 140,
+          "borrowed_from": "dominica-in-sexagesima",
+          "borrowed_ref": "noh1/0167/000"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Populum humilem",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 170,
+          "borrowed_from": "dominica-viii-post-pentecosten",
+          "borrowed_ref": "noh2/0202/001"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveED",
@@ -71385,7 +72436,7 @@
           "gregobase_id": null,
           "borrowed_volume": "noh1",
           "borrowed_page": 160,
-          "borrowed_from": "noh1-p156",
+          "borrowed_from": "feria-iv-cinerum",
           "borrowed_ref": "noh1/0187/002"
         },
         {
@@ -71465,6 +72516,16 @@
       "movements": [],
       "sections": [
         {
+          "kind": "communion",
+          "variant": "",
+          "label": "Comm. V",
+          "title": "Pacem relinquo",
+          "gregobase_id": 942,
+          "system": 0,
+          "ref": "noh4/0247/000",
+          "placed": "reviewed"
+        },
+        {
           "kind": "introit",
           "variant": "",
           "gregobase_id": 172,
@@ -71492,15 +72553,14 @@
           "borrowed_ref": "noh1/0282/000"
         },
         {
-          "kind": "communion",
+          "kind": "alleluia",
           "variant": "",
-          "system": 0,
-          "ref": "noh4/0247/000",
-          "gregobase_id": 942,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. V",
-          "title": "Pacem relinquo"
+          "title": "Lauda Jerusalem",
+          "gregobase_id": null,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 198,
+          "borrowed_from": "missa-ad-tollendum-schisma",
+          "borrowed_ref": "noh4/0231/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveP",
@@ -71755,7 +72815,7 @@
           "gregobase_id": 425,
           "borrowed_volume": "noh1",
           "borrowed_page": 160,
-          "borrowed_from": "noh1-p156",
+          "borrowed_from": "feria-iv-cinerum",
           "borrowed_ref": "noh1/0187/002"
         },
         {
@@ -71945,6 +73005,26 @@
           "borrowed_page": 234,
           "borrowed_from": "feria-ii-infra-hebd-iii-quadragesim",
           "borrowed_ref": "noh1/0261/003"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Domine exaudi",
+          "gregobase_id": null,
+          "borrowed_volume": "noh2",
+          "borrowed_page": 219,
+          "borrowed_from": "dominica-xvii-post-pentecosten",
+          "borrowed_ref": "noh2/0251/003"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "title": "Illumina faciem tuam",
+          "gregobase_id": null,
+          "borrowed_volume": "noh1",
+          "borrowed_page": 138,
+          "borrowed_from": "dominica-in-septuagesima",
+          "borrowed_ref": "noh1/0165/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveMPI",
@@ -88271,7 +89351,7 @@
         "systems/noh5/0196/002-2c62f419945b",
         "systems/noh5/0196/003-d27f54d02687",
         "systems/noh5/0196/004-ed9e9aa6d525",
-        "systems/noh5/0197/000-31d5aa93ddec",
+        "systems/noh5/0197/000-5bd1c2d57008",
         "systems/noh5/0197/001-3f2ba4e76f07",
         "systems/noh5/0197/002-6d6959dc6375",
         "systems/noh5/0197/003-f3cf103d8988",
@@ -88299,8 +89379,8 @@
           420
         ],
         [
-          1324,
-          124
+          1499,
+          371
         ],
         [
           1794,
@@ -89482,55 +90562,60 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. VI",
+          "title": "Requiem",
+          "gregobase_id": 766,
           "system": 0,
           "ref": "noh5/0209/000",
-          "gregobase_id": 766,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. VI",
-          "title": "Requiem"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. I",
+          "title": "Requiem",
+          "gregobase_id": 1261,
           "system": 12,
           "ref": "noh5/0211/001",
-          "gregobase_id": 1261,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. I",
-          "title": "Requiem"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "label": "Tract. VIII",
+          "title": "Absolve Domine",
+          "gregobase_id": null,
+          "system": 23,
+          "ref": "noh5/0213/000",
+          "placed": "reviewed"
         },
         {
           "kind": "sequence",
           "variant": "",
+          "title": "Dies irae",
+          "gregobase_id": 1198,
           "system": 33,
           "ref": "noh5/0215/000",
-          "gregobase_id": 1198,
-          "placed": "text",
-          "score": 0.769,
-          "title": "Dies irae"
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. I",
+          "title": "Domine Jesu Christe",
+          "gregobase_id": 1199,
           "system": 63,
           "ref": "noh5/0220/000",
-          "gregobase_id": 1199,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. I",
-          "title": "Domine Jesu Christe"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "title": "Lux aeterna",
+          "gregobase_id": 241,
           "system": 83,
           "ref": "noh5/0223/002",
-          "gregobase_id": 241,
-          "placed": "text",
-          "score": 0.692,
-          "title": "Lux aeterna"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=defunctorum",
@@ -91386,11 +92471,11 @@
         "systems/noh8/0074/002-2ed9b87358d1",
         "systems/noh8/0074/003-664343a7fdf2",
         "systems/noh8/0074/004-f3d979bac61f",
-        "systems/noh8/0075/000-bc3e86fe2915",
-        "systems/noh8/0075/001-3f9561c34c43",
-        "systems/noh8/0075/002-0e40847c6a2a",
+        "systems/noh8/0075/000-4b5dab8b6cda",
+        "systems/noh8/0075/001-41c1f4ac9933",
+        "systems/noh8/0075/002-7a93827a2d4b",
         "systems/noh8/0075/003-1cab4ef29b4b",
-        "systems/noh8/0075/004-0d45ed1d139f",
+        "systems/noh8/0075/004-7fab082c8672",
         "systems/noh8/0076/000-b5a48829d684",
         "systems/noh8/0076/001-73f638e036b9",
         "systems/noh8/0076/002-c9a4c15a5075",
@@ -91515,16 +92600,16 @@
           416
         ],
         [
-          1838,
-          164
+          1841,
+          463
         ],
         [
           1843,
-          438
+          437
         ],
         [
           1839,
-          452
+          451
         ],
         [
           1834,
@@ -91532,7 +92617,7 @@
         ],
         [
           1835,
-          443
+          442
         ],
         [
           1851,
@@ -93521,7 +94606,7 @@
       "hymns": [
         {
           "title": "Crudelis Herodes",
-          "ref": "noh8/0123/000",
+          "ref": "noh8/0123/003",
           "printed_page": 93
         },
         {
@@ -95638,10 +96723,10 @@
         "systems/noh8/0172/003-45fb563a8bb9",
         "systems/noh8/0172/004-86145ff9fb4e",
         "systems/noh8/0173/000-3bf570cf3733",
-        "systems/noh8/0173/001-2979ba8210a9",
-        "systems/noh8/0173/002-26455f46ab99",
-        "systems/noh8/0173/003-45d6533b6a4a",
-        "systems/noh8/0173/004-d0d2da18de0f",
+        "systems/noh8/0173/001-fd2fc18d2895",
+        "systems/noh8/0173/002-0eebf549110c",
+        "systems/noh8/0173/003-b1d26ca08243",
+        "systems/noh8/0173/004-a480c94a8554",
         "systems/noh8/0173/005-936c3d5e3499",
         "systems/noh8/0174/000-34f79b3f1246",
         "systems/noh8/0174/001-1181e2dd734e",
@@ -95729,20 +96814,20 @@
           425
         ],
         [
-          1831,
-          159
+          1832,
+          442
         ],
         [
           1649,
-          423
+          424
         ],
         [
           1825,
-          434
+          420
         ],
         [
           1646,
-          403
+          444
         ],
         [
           1645,

@@ -6,6 +6,9 @@ table below, and follow the recipe. Nothing here needs your own computer's
 files: the scanned PDFs are in the repository, and the recipes that rebuild the
 catalogue can run on GitHub.
 
+What to run after each change, the checks, and getting a change to the site are
+in [OPERATIONS.md](OPERATIONS.md); this page is the recipes.
+
 ## What do you want to fix?
 
 | You see… | Recipe | Rebuilds the catalogue? |
@@ -24,6 +27,11 @@ catalogue can run on GitHub.
 | A system image misses a staff, holds two systems, or a system has no image | [Slicing a page](#slicing-a-page) | Yes (and uploads images: your machine) |
 | A newer Divinum Officium, vesperale, jgabc or calendar | [Refreshing a source](#refreshing-a-source) | No |
 | A new volume to add | [Adding a volume](#adding-a-volume) | Yes (and uploads images: your machine) |
+| A feast prints only a rubric ("resumitur Missa Feriae praecedentis") | [OPERATIONS: a feast that prints only a rubric](OPERATIONS.md#a-feast-that-prints-only-a-rubric) | Yes |
+| Two pieces should be one (or a piece moved to a new address) | [OPERATIONS: two index entries that are one piece](OPERATIONS.md#two-index-entries-that-are-one-piece) | Yes |
+| Pages printed "bis" between two others | [OPERATIONS: a leaf inserted into the book](OPERATIONS.md#a-leaf-inserted-into-the-book) | Yes (and re-slices) |
+| A Vespers hymn linked to the wrong system | [OPERATIONS: a hymn the heading search misplaces](OPERATIONS.md#a-hymn-the-heading-search-misplaces) | Yes |
+| Many review items checked at once | [OPERATIONS: confirming many items at once](OPERATIONS.md#confirming-many-items-at-once) | No |
 
 Two kinds of people edit:
 
@@ -38,7 +46,16 @@ Two kinds of people edit:
 code arrives by email). Setting it up is described in
 [docs/ADMIN-SETUP.md](ADMIN-SETUP.md).
 
-- **To review** lists readers' reports. Each shows the current value, the
+Every admin page starts with the same navigation (**Admin · Review · Typeset
+music · Make a correction**), each with how much is left on it, and "N ready to
+publish" when something is approved. The counts come from one place
+(`/admin/api/summary`), so they agree everywhere: an item is *left* until it is
+marked, chosen or skipped; skipped items are counted apart.
+
+- **What's waiting**, at the top of the **Admin** page (`/admin/`), lists every
+  list with what's left on it and a link to it, and **Publish changes** in its
+  first row. Start each session there.
+- **Readers' reports**, below the table: each shows the current value, the
   proposed one (which you can change before accepting) and the reader's note,
   beside the systems the report is about: a part's first system and the one
   proposed, a Vespers item's systems, a piece's first and last. Each picture is
@@ -67,8 +84,11 @@ code arrives by email). Setting it up is described in
     settle a file that is no part the site has. A chosen file replaces the
     scans for that part once published.
   - **Errors**: files LilyPond can't draw, with the lines around the one it
-    stopped at. The source editor comes later; for now, **Skip** with a note,
-    or settle a file that isn't in the catalogue.
+    stopped at. **Edit the source** opens the file in an editor: **Save draft**
+    (private to you), **Preview draft** (LilyPond draws it on GitHub, in a
+    minute or so), then **Approve this edit** with a public reason. The edit
+    publishes like a correction. Or **Skip** with a note, or settle a file that
+    isn't in the catalogue.
   - **Proofreading**: every part shown typeset, beside the scan of the same
     systems. **Proofread** confirms that drawing (an edit to the file brings it
     back); **Problem** leaves a note and keeps it listed.
@@ -81,7 +101,7 @@ code arrives by email). Setting it up is described in
   corrections or more, waits for the owner to merge it instead. If a check
   fails, the pull request is closed and the corrections come back under
   **Approved**, with the reason. Closing a pull request without merging puts
-  its corrections back under **To review**.
+  its corrections back under **Readers' reports**.
 - **History** lists what was accepted (with its commit) and what was rejected
   (with the reason). Accepted corrections also appear publicly at
   `/corrections/log/`, without names or addresses.
@@ -162,9 +182,9 @@ This takes about 15 minutes. The clone includes the scanned PDFs (about 240 MB).
 |---|---|---|
 | Find it | `uv run noh where <page URL or words>` | instant |
 | Change it | `uv run noh correct …`, or edit the YAML file the recipe names | — |
-| Regenerate | the recipe's command (`noh apply-corrections`, `noh vespers-lineup`, `noh catalog`) | < 1 s; `noh catalog` about 1 min per volume |
-| Check | `uv run noh doctor`; `uv run pytest -m "not source and not slow"`; `pnpm --dir web test` | ~10 s each |
-| Browser tests | `pnpm --dir web build`, then `pnpm --dir web test:e2e` (the admin screen and forms in Chromium) | ~1 min |
+| Regenerate | `scripts/regenerate.sh` (add the volume after an index edit: `scripts/regenerate.sh noh3`) | ~2 min; each volume rebuilt adds 2–7 min |
+| Check | `scripts/check.sh --quick` (what a pull request checks, less the build) | ~5 min |
+| Browser tests | `scripts/check.sh` (adds the build, the link check and the browser tests) | ~8 min |
 | Preview | `pnpm --dir web dev` → http://localhost:4321 | ~5 s to start |
 | Publish | push to `main`; see [Publishing](#publishing) | ~1½ min |
 
@@ -343,8 +363,9 @@ commits the result to the branch, and the checks run again. Or locally: the comm
 
 - **File**: `page:` of the entry in `data/index-<volume>.yml`, the printed page
   the piece starts on.
-- **Command**: `uv run noh catalog --volume <volume>`. It re-reads the scans
-  and reports anything uncertain in `data/review-queue.json`.
+- **Command**: `scripts/regenerate.sh <volume>` (it runs `noh catalog`, which
+  re-reads the scans and reports anything uncertain in
+  `data/review-queue.json`, then everything after it).
 - **Confirm**: preview the piece; its first system is the one printed.
 
 ### Sections
@@ -377,8 +398,8 @@ by hand.
   showing its printed label.
 
 **On the admin screen**, the **Sections** screen (`/admin/sections/?piece=<slug>`,
-linked from **Parts to check** and from the edit page as "edit its whole list
-of sections") shows the piece's systems beside its list. Press **Start a
+linked from **Edit the sections** on Review's part items and from the edit page
+as "edit its whole list of sections") shows the piece's systems beside its list. Press **Start a
 section here** beside a system to add one, change a section's kind, number,
 label, opening words or chant, move or remove it, or mark it printed elsewhere
 (a volume and page). **Approve this list** records it as one correction,
@@ -496,8 +517,8 @@ Psalm verse and Gloria Patri, and the word "alleluia" places an Alleluia only
 where its chant begins (at the start of the line, beside its mode, or before
 its asterisk), not where it ends a Paschaltide Introit, Offertory or Communion.
 
-**Parts to check** (`/admin/parts/`, linked from the admin screen) lists the
-parts whose start looks wrong: inferred rather than read from a label or the
+**Part to check**, a kind on Review (`/admin/review/?kind=part_to_check`; the
+old `/admin/parts/` address leads there), lists the parts whose start looks wrong: inferred rather than read from a label or the
 words, or much shorter than that kind of part usually is (often because the next
 part starts too early). A reviewed section list counts as checked. Each opens its edit page with the scan. A part corrected by hand,
 or marked **Looks right**, leaves the list once it is published; a part marked
