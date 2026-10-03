@@ -2,6 +2,7 @@
 import AdminNav from "../../../components/AdminNav.astro";
 import Layout from "../../../components/Layout.astro";
 import { QUEUE_LABELS, QUEUE_ORDER, typesetEntries } from "../../../lib/admin/typesetQueues";
+import { MELODY_AUDIT_COUNTS } from "../../../lib/admin/melodyAudit";
 import type { TypesetEntry, TypesetQueue } from "../../../lib/admin/typesetQueues";
 
 // The typeset music's three queues, built with the site: which part each
@@ -28,6 +29,12 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
   <div class="admin ui">
     <AdminNav current="typeset" />
     <h1>Typeset music</h1>
+    <p class="small muted" aria-label="Independent melody audit">
+      Melody audit: {MELODY_AUDIT_COUNTS.checked}/{MELODY_AUDIT_COUNTS.remaining} checked ·
+      {MELODY_AUDIT_COUNTS.agreement} agree · {MELODY_AUDIT_COUNTS.attention} need attention ·
+      {MELODY_AUDIT_COUNTS.noReference} without chant reference · {MELODY_AUDIT_COUNTS.unchecked} unchecked.
+      This evidence is separate from full proofreading.
+    </p>
     <p class="muted small prose">
       The volunteers' LilyPond transcriptions (Joe Egan's <a
       href="https://github.com/joeegan2202/nova-organi-harmonia">nova-organi-harmonia</a>). What you choose here is

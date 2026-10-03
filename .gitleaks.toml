@@ -1,0 +1,16 @@
+[extend]
+useDefault = true
+
+# event_key is a content-addressed SHA-256 of score text, the event logger,
+# LilyPond version and shared includes (pipeline/typeset/events.py).
+# Ignore only this JSON hash field in the compact melody audit; scan every
+# other field and file with the default rules, including generic-api-key.
+[[rules]]
+id = "generic-api-key"
+
+[[rules.allowlists]]
+description = "Generated melody event-cache SHA-256, not an API credential"
+condition = "AND"
+paths = ['''^data/typeset/melody-audit\.json$''']
+regexTarget = "line"
+regexes = ['''^\s*"event_key":\s*"[a-f0-9]{64}"[,]?\s*$''']
