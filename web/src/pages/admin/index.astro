@@ -1,34 +1,76 @@
 ---
+import AdminNav from "../../components/AdminNav.astro";
 import Layout from "../../components/Layout.astro";
-import { reviewEntries } from "../../lib/admin/reviews";
-import { typesetEntries } from "../../lib/admin/typesetQueues";
+import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
 
-const toReview = reviewEntries().filter((e) => e.group !== "info").length;
-const typesetToDo = typesetEntries().length;
-
-// The corrections queue. Static: everything on it is loaded from /admin/api,
+// The admin home: what is waiting on every list (/admin/api/summary), then the
+// corrections queue. Static: everything on it is loaded from /admin/api,
 // behind Cloudflare Access. Search engines and the site search skip it.
 ---
 
-<Layout title="Admin: corrections" noindex>
+<Layout title="Admin" noindex>
   <div class="admin ui">
+    <AdminNav current="home" />
     <p class="who small muted" id="who">Admin</p>
-    <h1>Corrections</h1>
-    <p class="muted small prose">Readers' reports and your own fixes. Approving gathers a change; <strong>Publish
-      changes</strong> sends them all as one pull request on GitHub, which merges itself once the site's checks pass (or waits for the owner, for a batch that moves systems between pieces or has 25 or more).
-      <a href="/admin/edit/">Make a correction yourself</a> · <a href="/admin/review/">Review ({toReview} to check)</a> ·
-      <a href="/admin/parts/">Parts to check</a> · <a href="/admin/typeset/">Typeset music ({typesetToDo} to do)</a> ·
-      <a href="/about/#corrections">How corrections work</a></p>
-
+    <h1>Admin</h1>
     <div id="status" class="status small" role="status" aria-live="polite"></div>
 
-    <div class="batch-bar" id="batch-bar" hidden>
-      <span id="batch-text"></span>
-      <button type="button" class="primary" id="publish">Publish changes</button>
-    </div>
+    <section aria-labelledby="waiting-h">
+      <h2 id="waiting-h">What's waiting</h2>
+      <div class="scroll">
+        <table class="waiting">
+          <tbody>
+            <tr class="publish-row">
+              <th scope="row">Ready to publish</th>
+              <td id="batch-text">Loading…</td>
+              <td><button type="button" class="primary" id="publish" disabled>Publish changes</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Readers' reports</th><td data-sum="reports">…</td>
+              <td><a href="#pending-h">Answer them below</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Review: can be corrected here</th><td data-sum="fix">…</td>
+              <td><a href="/admin/review/?group=fix">Open Review</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Review: check against the scan</th><td data-sum="check">…</td>
+              <td><a href="/admin/review/?group=check">Open the checks</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Typeset: which part is it?</th><td data-sum="matches">…</td>
+              <td><a href="/admin/typeset/?queue=matches">Choose parts</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Typeset: files LilyPond can't draw</th><td data-sum="errors">…</td>
+              <td><a href="/admin/typeset/?queue=errors">Fix the files</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Typeset: proofreading</th><td data-sum="proofreading">…</td>
+              <td><a href="/admin/typeset/?queue=proofreading">Proofread</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Typeset: melody audit</th>
+              <td>{MELODY_AUDIT_COUNTS.checked}/{MELODY_AUDIT_COUNTS.remaining} checked · {MELODY_AUDIT_COUNTS.agreement} agree ·
+                {MELODY_AUDIT_COUNTS.attention} need attention · {MELODY_AUDIT_COUNTS.noReference} without chant reference ·
+                {MELODY_AUDIT_COUNTS.unchecked} unchecked</td>
+              <td><a href="/admin/typeset/?queue=proofreading">See proofreading</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <details class="how small">
+        <summary>How publishing works</summary>
+        <p class="prose">Whatever you approve here, mark on Review or choose on Typeset music waits under{" "}
+          <strong>Approved</strong> below. <strong>Publish changes</strong> sends it all to GitHub as one pull request.
+          It merges itself once the site's checks pass, unless it moves systems between pieces or holds 25 changes or more:
+          then it waits for the owner to merge it. The site changes a few minutes after the merge.{" "}
+          <a href="/about/#corrections">How corrections work</a>.</p>
+      </details>
+    </section>
 
     <section aria-labelledby="pending-h">
-      <h2 id="pending-h">To review</h2>
+      <h2 id="pending-h">Readers' reports</h2>
       <div id="pending"><p class="muted small">Loading…</p></div>
     </section>
 
@@ -57,8 +99,22 @@ const typesetToDo = typesetEntries().length;
   h2 { margin-top: var(--s-5); padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule); font-size: var(--step-1); }
   .status { min-height: 1.4em; margin: var(--s-3) 0; }
   .status[data-state="error"] { color: var(--warn-ink); }
-  .batch-bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); padding: var(--s-2) 0;
-               border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .waiting { width: 100%; border-collapse: collapse; }
+  .waiting th, .waiting td { text-align: left; padding: var(--s-2) var(--s-3) var(--s-2) 0; border-bottom: 1px solid var(--rule);
+                             vertical-align: middle; }
+  .waiting th { font-weight: 400; }
+  .waiting td:nth-child(2) { font-variant-numeric: tabular-nums; }
+  .waiting td:last-child { text-align: right; padding-right: 0; white-space: nowrap; }
+  .waiting .publish-row th { font-weight: 600; }
+  @media (max-width: 40rem) {
+    .waiting, .waiting tbody { display: block; }
+    .waiting tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--s-3);
+                  padding: var(--s-2) 0; border-bottom: 1px solid var(--rule); }
+    .waiting th { grid-column: 1 / -1; }
+    .waiting th, .waiting td { border-bottom: 0; padding: 0; }
+  }
+  .how { margin-top: var(--s-2); }
+  .how summary { cursor: pointer; padding: var(--s-2) 0; }
   :global(.primary) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   :global(.primary:disabled) { background: var(--paper); color: var(--ink-muted); border-color: var(--rule); }
   :global(.item) { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-2);
@@ -98,6 +154,8 @@ const typesetToDo = typesetEntries().length;
   import type { Scans } from "../../lib/admin/scans";
   import { FIELD_LABELS, describeTarget, notFor, sectionsSummary, startNote } from "../../lib/admin/targets";
   import type { Targets } from "../../lib/admin/targets";
+  import type { Count, Summary } from "../../lib/admin/summary";
+  import { onSummary, refreshSummary } from "../../lib/admin/summaryClient";
 
   interface Queue {
     pending: QueueItem[]; approved: QueueItem[];
@@ -110,6 +168,7 @@ const typesetToDo = typesetEntries().length;
   let me: Me | null = null;
   let targets: Targets | null = null;
   let scans: Scans | null = null;
+  let loadedOnce = false;
 
   function fail(result: { status: number; error: string; fix?: Fix }): void {
     if (result.status === 401) signInAgain(status);
@@ -289,7 +348,7 @@ const typesetToDo = typesetEntries().length;
       ? pending.map((i) => pendingItem(i))
       : [h("p", { class: "muted small" }, `No pending corrections.${lastReviewed ? ` Last reviewed ${lastReviewed} UTC.` : ""} `,
            h("a", { href: "#history-h" }, "History"))]));
-    document.getElementById("pending-h")!.textContent = `To review (${pending.length})`;
+    document.getElementById("pending-h")!.textContent = `Readers' reports (${pending.length})`;
 
     document.getElementById("approved")?.replaceChildren(...(approved.length ? approved.map(approvedItem)
       : [h("p", { class: "muted small" }, "Nothing approved yet.")]));
@@ -299,24 +358,48 @@ const typesetToDo = typesetEntries().length;
       ` · ${b.items.length} correction${b.items.length === 1 ? "" : "s"} · `,
       b.pr ? "open: merges itself when its checks pass, unless it waits for the owner" : "this takes about a minute")) : [h("p", { class: "muted small" }, "No open pull requests.")]));
 
-    const bar = document.getElementById("batch-bar");
     const text = document.getElementById("batch-text");
     const publish = document.getElementById("publish") as HTMLButtonElement | null;
-    if (bar && text && publish) {
-      bar.hidden = approved.length === 0 && batches.length === 0;
+    if (text && publish) {
       const open = batches[0];
       if (open) {
         text.textContent = open.pr ? `PR #${open.pr} open: merges itself when its checks pass, unless it waits for the owner.` : "Opening the pull request…";
+        publish.disabled = true;
+      } else if (approved.length === 0) {
+        text.textContent = "Nothing waiting to publish";
         publish.disabled = true;
       } else if (me && !me.publishing) {
         text.textContent = `${approved.length} change${approved.length === 1 ? "" : "s"} ready · publishing is not set up yet`;
         publish.disabled = true;
       } else {
         text.textContent = `${approved.length} change${approved.length === 1 ? "" : "s"} ready`;
-        publish.disabled = approved.length === 0;
+        publish.disabled = false;
       }
     }
+    // The navigation fetched the counts as the page opened; after an action, again.
+    if (loadedOnce) refreshSummary(0);
+    loadedOnce = true;
   }
+
+  /** The counts in "What's waiting", from the summary every admin page shares. */
+  function fillWaiting(s: Summary): void {
+    const cell = (key: string) => document.querySelector<HTMLElement>(`[data-sum="${key}"]`);
+    const words = (c: Count, noun = "left") => [`${c.left} ${noun}`, c.skipped ? `${c.skipped} skipped` : "",
+      c.waiting ? `${c.waiting} marked, to publish` : ""].filter(Boolean).join(" · ");
+    const reports = cell("reports");
+    if (reports) reports.textContent = s.reports ? `${s.reports} to answer` : "None";
+    for (const key of ["fix", "check", "matches", "errors"] as const) {
+      const el = cell(key);
+      if (el) el.textContent = s.lists[key].total || s.lists[key].left ? words(s.lists[key]) : "None";
+    }
+    const proof = cell("proofreading");
+    if (proof) {
+      const p = s.proofreading;
+      proof.textContent = `${p.proofread.toLocaleString("en")} of ${p.parts.toLocaleString("en")} proofread` +
+        (s.lists.proofreading.skipped ? ` · ${s.lists.proofreading.skipped} with a problem noted` : "");
+    }
+  }
+  onSummary(fillWaiting);
 
   document.getElementById("publish")?.addEventListener("click", async (event) => {
     const button = event.currentTarget as HTMLButtonElement;

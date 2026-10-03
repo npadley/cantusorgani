@@ -1,6 +1,8 @@
 ---
+import AdminNav from "../../../components/AdminNav.astro";
 import Layout from "../../../components/Layout.astro";
 import { QUEUE_LABELS, QUEUE_ORDER, typesetEntries } from "../../../lib/admin/typesetQueues";
+import { MELODY_AUDIT_COUNTS } from "../../../lib/admin/melodyAudit";
 import type { TypesetEntry, TypesetQueue } from "../../../lib/admin/typesetQueues";
 
 // The typeset music's three queues, built with the site: which part each
@@ -25,12 +27,18 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
 
 <Layout title="Admin: typeset music" noindex>
   <div class="admin ui">
-    <p class="small muted"><a href="/admin/">Corrections</a> · <a href="/admin/review/">Review</a> · <a href="/admin/parts/">Parts to check</a></p>
+    <AdminNav current="typeset" />
     <h1>Typeset music</h1>
+    <p class="small muted" aria-label="Independent melody audit">
+      Melody audit: {MELODY_AUDIT_COUNTS.checked}/{MELODY_AUDIT_COUNTS.remaining} checked ·
+      {MELODY_AUDIT_COUNTS.agreement} agree · {MELODY_AUDIT_COUNTS.attention} need attention ·
+      {MELODY_AUDIT_COUNTS.noReference} without chant reference · {MELODY_AUDIT_COUNTS.unchecked} unchecked.
+      This evidence is separate from full proofreading.
+    </p>
     <p class="muted small prose">
       The volunteers' LilyPond transcriptions (Joe Egan's <a
       href="https://github.com/joeegan2202/nova-organi-harmonia">nova-organi-harmonia</a>). What you choose here is
-      published with the next <strong>Publish changes</strong> on the <a href="/admin/">Corrections</a> page.
+      published with the next <strong>Publish changes</strong> on the <a href="/admin/">Admin</a> page.
     </p>
 
     <form class="filters" id="filters" aria-label="Show">
@@ -38,7 +46,7 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
         <legend class="small">Show</legend>
         {QUEUE_ORDER.map((q, i) => (
           <label class="choice"><input type="radio" name="queue" value={q} checked={i === 0} />
-            {QUEUE_LABELS[q]} (<span data-count={q}>{byQueue(q).length}</span>)</label>
+            {QUEUE_LABELS[q]}{" "}<span>(<span data-count={q}>{byQueue(q).length}</span>)<span class="muted small" data-skipped={q}></span></span></label>
         ))}
       </fieldset>
       <label class="small">Volume
@@ -54,6 +62,7 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
     {QUEUE_ORDER.map((q, i) => (
       <section class="queue" data-queue-list={q} hidden={i !== 0} aria-label={QUEUE_LABELS[q]}>
         <p class="small muted prose">{INTRO[q]}</p>
+        {q === "proofreading" && <p class="small" data-proof-progress></p>}
         {byQueue(q).map((e) => (
           <article class:list={["item", q]} data-review-target={e.target} data-review-seen={e.fingerprint}
                    data-volume={e.volume} aria-labelledby={anchor(e)}>
@@ -216,6 +225,7 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
   import { applyChoices, wireMatches } from "../../../lib/admin/typesetClient";
   import type { Choice } from "../../../lib/admin/typesetClient";
   import { initChantNotation } from "../../../scripts/chantNotation";
+  import { onSummary, refreshSummary } from "../../../lib/admin/summaryClient";
 
   const form = document.getElementById("filters") as HTMLFormElement | null;
   const status = document.getElementById("status");
@@ -240,31 +250,48 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
         el.hidden = !show;
         if (show) visible++;
       }
-      const counter = document.querySelector<HTMLElement>(`[data-count="${list.dataset["queueList"] ?? ""}"]`);
-      if (counter) {
-        counter.textContent = String([...list.querySelectorAll<HTMLElement>("[data-review-target]")]
-          .filter((el) => el.dataset["done"] !== "reviewed" && el.dataset["done"] !== "chosen").length);
-      }
+      // Left: not answered and not skipped (summary.ts counts the same way); skipped said apart.
+      const q = list.dataset["queueList"] ?? "";
+      const listed = [...list.querySelectorAll<HTMLElement>("[data-review-target]")];
+      const counter = document.querySelector<HTMLElement>(`[data-count="${q}"]`);
+      if (counter) counter.textContent = String(listed.filter((el) => !el.dataset["done"]).length);
+      const skipped = listed.filter((el) => el.dataset["done"] === "skipped").length;
+      const note = document.querySelector<HTMLElement>(`[data-skipped="${q}"]`);
+      if (note) note.textContent = skipped ? ` · ${skipped} ${q === "proofreading" ? "with a problem" : "skipped"}` : "";
     }
     if (none) none.hidden = visible > 0;
     if (shown) shown.textContent = `${visible} shown`;
   }
 
+  onSummary((s) => {
+    const el = document.querySelector<HTMLElement>("[data-proof-progress]");
+    if (el) el.textContent = `${s.proofreading.proofread.toLocaleString("en")} of ` +
+      `${s.proofreading.parts.toLocaleString("en")} typeset parts proofread so far.`;
+  });
+
+  // Opened at a queue: /admin/typeset/?queue=errors.
+  const asked = new URLSearchParams(location.search).get("queue");
+  const radio = [...(form?.querySelectorAll<HTMLInputElement>("input[name=queue]") ?? [])].find((r) => r.value === asked);
+  if (radio) radio.checked = true;
+
   form?.addEventListener("change", apply);
   apply();
+  // After the editor acts, the counts every admin page shares are fetched again.
+  let ready = false;
+  const changed = (): void => { apply(); if (ready) refreshSummary(); };
   const proof = { reviewed: "Proofread", marked: "marked as proofread", skipped: "Problem", skip: "problem note",
                   why: "What is wrong? (it stays on this list, with your note)", saved: "Noted; it stays on the list." };
   const wired = lists.map((list) => {
     const queue = list.dataset["queueList"];
     const words = queue === "proofreading" ? proof : REVIEW_WORDS;
-    if (queue !== "proofreading") wireMatches(list, status, apply);
-    return wireReviews(list, status, apply, words, (state) => {
+    if (queue !== "proofreading") wireMatches(list, status, changed);
+    return wireReviews(list, status, changed, words, (state) => {
       const choices = (state as { choices?: readonly Choice[] }).choices ?? [];
       if (queue !== "proofreading") applyChoices(list, choices);
     });
   });
   // What editors have already done is marked once it has loaded: until then
   // the counts are the page's own.
-  void Promise.all(wired).then(() => form?.setAttribute("data-ready", ""));
+  void Promise.all(wired).then(() => { ready = true; form?.setAttribute("data-ready", ""); });
   initChantNotation();
 </script>

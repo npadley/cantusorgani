@@ -9,10 +9,28 @@ test.describe.serial("The corrections queue", () => {
   test("should show who is signed in, the seeded reports, and that publishing is not set up", async ({ page }) => {
     await page.goto("/admin/");
     await expect(page.locator("#who")).toHaveText("Admin · signed in as editor@example.org (owner)");
-    await expect(page.locator("#pending-h")).toHaveText("To review (3)");
+    await expect(page.locator("#pending-h")).toHaveText("Readers' reports (3)");
     await expect(page.locator("#pending article", { hasText: "III (noh5)" }).locator(".scan figcaption").first())
       .toContainText("First system (noh5/");
-    await expect(page.locator("#batch-bar")).toBeHidden();
+    await expect(page.locator("#batch-text")).toHaveText("Nothing waiting to publish");
+    await expect(page.getByRole("button", { name: "Publish changes" })).toBeDisabled();
+  });
+
+  test("should show what is waiting, counted the same as on Review and in the navigation", async ({ page }) => {
+    await page.goto("/admin/");
+    const fixCell = page.locator("[data-sum=fix]");
+    await expect(fixCell).toHaveText(/^\d+ left|^None$/);
+    await expect(page.locator("[data-sum=reports]")).toHaveText("3 to answer");
+    const count = async (sel: string) => Number(/^(\d+) left/.exec((await page.locator(sel).textContent()) ?? "")?.[1] ?? 0);
+    const fix = await count("[data-sum=fix]");
+    const check = await count("[data-sum=check]");
+    await expect(page.locator("[data-nav-count=review]")).toHaveText(`(${fix + check})`);
+    await expect(page.locator("[data-sum=proofreading]")).toHaveText(/^[\d,]+ of [\d,]+ proofread/);
+    await page.getByRole("link", { name: "Open the checks" }).click();
+    await expect(page).toHaveURL(/\/admin\/review\/\?group=check$/);
+    await expect(page.getByLabel(/^Check against the scan/)).toBeChecked();
+    await expect(page.locator("[data-count=check]")).toHaveText(String(check));
+    await expect(page.locator("[data-count=fix]")).toHaveText(String(fix));
   });
 
   test("should accept a report filed under the wrong field as the right one", async ({ page }) => {
@@ -38,7 +56,7 @@ test.describe.serial("The corrections queue", () => {
     await expect(page.locator("#status")).toHaveText("Say briefly why it is rejected.");
     await item.getByLabel("Why? (kept in the log)").fill("The book prints Dominica II Adventus");
     await item.getByRole("button", { name: "Reject with this reason" }).click();
-    await expect(page.locator("#pending-h")).toHaveText("To review (1)");
+    await expect(page.locator("#pending-h")).toHaveText("Readers' reports (1)");
   });
 
   test("should explain an invalid value beside the report, on a phone", async ({ page }) => {
@@ -113,11 +131,14 @@ test.describe("Making a correction", () => {
 });
 
 test.describe("Parts to check", () => {
-  test("should list suspect part starts, each opening its edit page with the explanation", async ({ page }) => {
-    await page.goto("/admin/");
-    await page.getByRole("link", { name: "Parts to check" }).click();
-    await expect(page.locator("h1")).toHaveText("Parts to check");
-    const first = page.locator(".suspects ul a").first();
+  test("should list suspect part starts on Review, each opening its edit page with the explanation", async ({ page }) => {
+    // The old Parts to check page redirects to the same items on Review.
+    await page.goto("/admin/parts/");
+    await expect(page).toHaveURL(/\/admin\/review\/\?kind=part_to_check$/);
+    await expect(page.getByLabel("Kind")).toHaveValue("part_to_check");
+    const item = page.locator("#items article:visible").first();
+    await expect(item.getByRole("link", { name: "Edit the sections" })).toHaveAttribute("href", /^\/admin\/sections\/\?piece=/);
+    const first = item.getByRole("link", { name: "Correct" });
     await expect(first).toHaveAttribute("href", /^\/admin\/edit\/\?target=part%3A/);
     await first.click();
     await expect(page.locator("#field option:checked")).toHaveText("Starts on system");
@@ -142,7 +163,7 @@ test.describe("Sections", () => {
     await page.locator("#row-1-kind").selectOption("other");
     await page.locator("#row-1-label").fill("Oratio");
     await page.locator("#save").click();
-    await expect(page.locator("#status")).toContainText("Approved. It is waiting on the corrections queue");
+    await expect(page.locator("#status")).toContainText("Approved. It is waiting on the Admin page");
 
     await page.goto("/admin/");
     await expect(page.locator("#approved")).toContainText("Sabbato Temporum Adventus (noh1) · sections · Sections");
@@ -171,24 +192,26 @@ test.describe("Review, by kind", () => {
     await page.goto("/admin/review/");
     const kinds = page.locator("#breakdown button");
     // Only the kinds of the group shown, each with a count that adds up to the group's.
-    await expect(kinds.filter({ hasText: /^Piece starts partway down a page \(\d+\)$/ })).toHaveCount(1);
-    await expect(kinds.filter({ hasText: "Part not found" })).toHaveCount(0);
+    await expect(kinds.first()).toBeVisible();
     const counts = (await kinds.allTextContents()).map((t) => Number(/\((\d+)\)$/.exec(t)?.[1] ?? 0));
     const total = Number((await page.locator("[data-count=fix]").textContent()) ?? "0");
     expect(counts.reduce((a, b) => a + b, 0)).toBe(total);
 
-    const chosen = kinds.filter({ hasText: "No music found for this piece" });
-    const n = Number(/\((\d+)\)$/.exec((await chosen.textContent()) ?? "")?.[1] ?? 0);
+    // Whichever kinds are waiting today: the review queue empties as work is done.
+    const chosen = kinds.first();
+    const text = (await chosen.textContent()) ?? "";
+    const label = text.replace(/ \(\d+\)$/, "");
+    const n = Number(/\((\d+)\)$/.exec(text)?.[1] ?? 0);
     await chosen.click();
     await expect(chosen).toHaveAttribute("aria-pressed", "true");
-    await expect(page.getByLabel("Kind")).toHaveValue("no_systems");
+    await expect(page.getByLabel("Kind")).not.toHaveValue("");
     await expect(page.locator("#shown")).toHaveText(`${n} shown`);
-    await expect(page.locator("#items article:visible h3").first()).toContainText("No music found for this piece");
+    await expect(page.locator("#items article:visible").first()).toHaveAttribute("data-label", label);
 
     // Another group has other kinds: the choice is dropped, not left showing nothing.
-    await page.getByLabel(/^To check against the scan/).check();
+    await page.getByLabel(/^Check against the scan/).check();
     await expect(page.getByLabel("Kind")).toHaveValue("");
-    await expect(kinds.filter({ hasText: /^Part not found \(\d+\)$/ })).toHaveCount(1);
+    await expect(kinds.first()).toBeVisible();
     await expect(page.locator("#items article:visible").first()).toBeVisible();
   });
 });
@@ -196,25 +219,26 @@ test.describe("Review, by kind", () => {
 test.describe.serial("Reviewing", () => {
   test("should mark an item as looking right, send it with the next publish, and keep it done after a reload", async ({ page }) => {
     await page.goto("/admin/");
-    await page.getByRole("link", { name: /^Review \(\d+ to check\)$/ }).click();
+    await page.getByRole("navigation", { name: "Admin" }).getByRole("link", { name: "Review" }).click();
     await expect(page.locator("h1")).toHaveText("Review");
-    await page.getByLabel(/^To check against the scan/).check();
-    await page.getByLabel("Kind").selectOption("segmentation_fallback");
+    await page.getByLabel(/^Check against the scan/).check();
     const before = Number((await page.locator("[data-count=check]").textContent()) ?? "0");
     const item = page.locator("#items article:visible").first();
     const heading = (await item.locator("h3").textContent()) ?? "";
+    // Two items can share a heading: find this one by its target.
+    const target = (await item.getAttribute("data-review-target")) ?? "";
+    const self = page.locator(`#items article[data-review-target="${target}"]`);
     await expect(item.locator(".scan img").first()).toBeVisible();
     await item.getByRole("button", { name: "Looks right" }).click();
     await expect(page.locator("#status")).toHaveText(`${heading}: marked as looking right.`);
     await expect(page.locator("[data-count=check]")).toHaveText(String(before - 1));
     // Done items are hidden unless asked for; focus moved on to the next one.
-    await expect(page.locator("#items article", { hasText: heading })).toBeHidden();
+    await expect(self).toBeHidden();
     await expect(page.locator(":focus")).toHaveAttribute("id", /^h-review/);
     await page.reload();
-    await page.getByLabel(/^To check against the scan/).check();
+    await page.getByLabel(/^Check against the scan/).check();
     await page.getByLabel("Show what is already done").check();
-    await expect(page.locator("#items article", { hasText: heading }).locator(".review-state"))
-      .toContainText("Looks right · marked by editor@example.org");
+    await expect(self.locator(".review-state")).toContainText("Looks right · marked by editor@example.org");
     await page.goto("/admin/");
     await expect(page.locator("#approved")).toContainText("Looks right · marked by editor@example.org");
   });
@@ -237,9 +261,10 @@ test.describe.serial("Reviewing", () => {
     await expect(again.getByRole("button", { name: "Looks right" })).toBeVisible();
   });
 
-  test("should mark a part to check as looking right from its own list", async ({ page }) => {
-    await page.goto("/admin/parts/");
-    const part = page.locator("#suspects [data-review-target]").first();
+  test("should mark a part to check as looking right", async ({ page }) => {
+    await page.goto("/admin/review/?kind=part_to_check");
+    const target = (await page.locator("#items article:visible").first().getAttribute("data-review-target")) ?? "";
+    const part = page.locator(`#items article[data-review-target="${target}"]`);
     await part.getByRole("button", { name: "Looks right" }).click();
     await expect(part.locator(".review-state")).toContainText("Looks right · marked by you");
     await expect(part.getByRole("button", { name: "Looks right" })).toBeHidden();
@@ -264,7 +289,7 @@ test.describe.serial("Typeset music", () => {
 
   test("should choose which part a file is, count it done, and keep it after a reload", async ({ page }) => {
     await page.goto("/admin/");
-    await page.getByRole("link", { name: /^Typeset music \(\d+ to do\)$/ }).click();
+    await page.getByRole("navigation", { name: "Admin" }).getByRole("link", { name: "Typeset music" }).click();
     await expect(page.locator("h1")).toHaveText("Typeset music");
     await ready(page);
     const before = Number((await page.locator("[data-count=matches]").textContent()) ?? "0");

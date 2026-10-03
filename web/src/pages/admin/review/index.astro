@@ -1,4 +1,5 @@
 ---
+import AdminNav from "../../../components/AdminNav.astro";
 import Layout from "../../../components/Layout.astro";
 import { GROUP_LABELS, GROUP_ORDER } from "../../../lib/admin/reviewKinds";
 import { reviewEntries } from "../../../lib/admin/reviews";
@@ -16,13 +17,13 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
 
 <Layout title="Admin: review" noindex>
   <div class="admin ui">
-    <p class="small muted"><a href="/admin/">Corrections</a> · <a href="/admin/parts/">Parts to check</a> · <a href="/admin/typeset/">Typeset music</a></p>
+    <AdminNav current="review" />
     <h1>Review</h1>
     <p class="muted small prose">
       What the pipeline was not sure of when it read the scans, and the parts whose start looks wrong. Look at each
       against its scan. <strong>Looks right</strong> confirms it as it is; <strong>Correct</strong> opens the edit
-      form; <strong>Skip</strong> leaves a note for the next editor. Confirmations are published with the next
-      <strong>Publish changes</strong> on the <a href="/admin/">Corrections</a> page, and an item comes back here if a
+      form; <strong>Skip</strong> leaves a note for the next editor. Confirmations are published with the next{" "}
+      <strong>Publish changes</strong> on the <a href="/admin/">Admin</a> page, and an item comes back here if a
       later rebuild changes it.
     </p>
 
@@ -31,7 +32,7 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
         <legend class="small">Show</legend>
         {GROUP_ORDER.map((group, i) => (
           <label class="choice"><input type="radio" name="group" value={group} checked={i === 0} />
-            {GROUP_LABELS[group]} (<span data-count={group}>{count(group)}</span>)</label>
+            {GROUP_LABELS[group]}{" "}<span>(<span data-count={group}>{count(group)}</span>)<span class="muted small" data-skipped={group}></span></span></label>
         ))}
       </fieldset>
       <label class="small">Volume
@@ -74,6 +75,7 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
           <div class="actions review-actions">
             <button type="button" data-act="looks-right">Looks right</button>
             {e.correct && <a class="button" href={edit(e.correct)}>Correct</a>}
+            {e.sections && <a class="small" href={e.sections}>Edit the sections</a>}
             <button type="button" data-act="skip">Skip…</button>
             {e.href && <a class="small" href={e.href}>Open the page</a>}
           </div>
@@ -131,6 +133,7 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
 
 <script>
   import { wireReviews } from "../../../lib/admin/reviewClient";
+  import { refreshSummary } from "../../../lib/admin/summaryClient";
 
   const form = document.getElementById("filters") as HTMLFormElement | null;
   const list = document.getElementById("items");
@@ -159,9 +162,14 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
       if (show) visible++;
     }
     breakdown(group, volume, kind);
+    // Left: not marked and not skipped (summary.ts counts the same way); skipped said apart.
     for (const counter of document.querySelectorAll<HTMLElement>("[data-count]")) {
       const g = counter.dataset["count"];
       counter.textContent = String(all.filter((el) => el.dataset["group"] === g && !el.dataset["done"]).length);
+    }
+    for (const el of document.querySelectorAll<HTMLElement>("[data-skipped]")) {
+      const n = all.filter((i) => i.dataset["group"] === el.dataset["skipped"] && i.dataset["done"] === "skipped").length;
+      el.textContent = n ? ` · ${n} skipped` : "";
     }
     if (none) none.hidden = visible > 0;
     if (shown) shown.textContent = `${visible} shown`;
@@ -207,7 +215,19 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
     }
   }
 
+  // Opened at a list: /admin/review/?group=check, or ?kind=part_to_check (its group follows).
+  const params = new URLSearchParams(location.search);
+  const askedKind = params.get("kind") ?? "";
+  const kindGroup = all.find((el) => el.dataset["kind"] === askedKind)?.dataset["group"];
+  const askedGroup = kindGroup ?? params.get("group") ?? "";
+  const radio = [...(form?.querySelectorAll<HTMLInputElement>("input[name=group]") ?? [])].find((r) => r.value === askedGroup);
+  if (radio) radio.checked = true;
+  if (form && kindGroup) (form.elements.namedItem("kind") as HTMLSelectElement).value = askedKind;
+
   form?.addEventListener("change", apply);
   apply();
-  if (list) void wireReviews(list, document.getElementById("status"), apply);
+  // After the editor acts, the counts every admin page shares are fetched again.
+  let ready = false;
+  const changed = (): void => { apply(); if (ready) refreshSummary(); };
+  if (list) void wireReviews(list, document.getElementById("status"), changed).then(() => { ready = true; });
 </script>

@@ -2,6 +2,15 @@
   "schema_version": 1,
   "corrections": [
     {
+      "id": "c-0083",
+      "target": "part:in-exaltatione-sanct-crucis/offertory",
+      "field": "chant",
+      "was": 843,
+      "value": 3438,
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
       "id": "c-0082",
       "target": "piece:vesperae-in-festo-pentecostes",
       "field": "system_range",
@@ -71,15 +80,6 @@
       "by": "editor"
     },
     {
-      "id": "c-0062",
-      "target": "part:in-purificatione-beat-mari-virginis/other:3",
-      "field": "chant",
-      "was": null,
-      "value": 1311,
-      "date": "2026-10-03",
-      "by": "editor"
-    },
-    {
       "id": "c-0061",
       "target": "part:noh2-p133/offertory:2",
       "field": "chant",
@@ -139,15 +139,6 @@
       "field": "match",
       "was": "part:noh1-p112/communion",
       "value": "part:s-joannis-apostoli-et-evangelist/communion",
-      "date": "2026-10-02",
-      "by": "editor"
-    },
-    {
-      "id": "c-0028",
-      "target": "typeset:vol-1/an_exaudi_nos_domine.csv.ly",
-      "field": "match",
-      "was": null,
-      "value": "piece:feria-iv-cinerum",
       "date": "2026-10-02",
       "by": "editor"
     },

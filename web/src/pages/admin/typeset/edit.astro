@@ -1,11 +1,12 @@
 ---
+import AdminNav from "../../../components/AdminNav.astro";
 import Layout from "../../../components/Layout.astro";
 ---
 <Layout title="Admin: edit typeset source" noindex>
   <div class="admin ui">
-    <p><a href="/admin/">Corrections</a> · <a href="/admin/typeset/">Typeset music</a></p>
+    <AdminNav current="typeset" />
     <h1 id="title">Edit typeset source</h1>
-    <p class="small prose">Save a private draft, check its preview, then approve the edit. Approved edits wait on the corrections queue until someone publishes them.</p>
+    <p class="small prose">Save a private draft, check its preview, then approve the edit. Approved edits wait on the Admin page until someone publishes them.</p>
     <p id="status" role="status" aria-live="polite">Loading source…</p>
     <div id="scan-context"></div>
     <div id="controls" hidden>
@@ -23,8 +24,8 @@ import Layout from "../../../components/Layout.astro";
       </div>
       <section id="approved-edit" hidden><h2>Approved source edit</h2>
         <p id="approved-info"></p><textarea id="approved-source" rows="8" readonly aria-label="Approved source snapshot"></textarea>
-        <p class="small">This snapshot will publish. To replace it, withdraw it on the corrections queue, reconcile your draft, save and approve again.</p>
-        <p><a href="/admin/">Open corrections queue</a></p><button id="link-report" type="button" hidden>Link this report to the approved edit</button>
+        <p class="small">This snapshot will publish. To replace it, withdraw it on the Admin page, reconcile your draft, save and approve again.</p>
+        <p><a href="/admin/">Open the Admin page</a></p><button id="link-report" type="button" hidden>Link this report to the approved edit</button>
       </section>
       <label for="reason">Public reason</label><input id="reason" maxlength="200" placeholder="Explain the change for the published correction" />
       <p class="small muted">This reason is public. Keep reader notes and personal details out of it.</p>
@@ -153,7 +154,7 @@ import Layout from "../../../components/Layout.astro";
       const result=await request("approve",{file,expectedRevision:revision,note:(document.getElementById("reason") as HTMLInputElement).value,
         ...(Number.isSafeInteger(report) && report>0 ? {reportId:report} : {})});
       if (!result.ok) showFailure(result.data);
-      else {activeId=result.data.id ?? 0;say(`Edit #${result.data.id} approved and waiting to publish on the corrections queue.`); status.append(" ",h("a",{href:"/admin/"},"Open corrections"));}
+      else {activeId=result.data.id ?? 0;say(`Edit #${result.data.id} approved and waiting to publish on the Admin page.`); status.append(" ",h("a",{href:"/admin/"},"Open the Admin page"));}
     } catch {say("Approval did not finish. Your saved draft is preserved; check the queue before retrying.");}
     finally {busy=false; buttons();}
   });

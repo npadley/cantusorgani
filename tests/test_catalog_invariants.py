@@ -326,14 +326,15 @@ def test_mass_xvii_has_its_second_kyrie_and_both_responses():
 
 
 
-def test_requiem_parts_introit_gradual_sequence_offertory_communion():
+def test_requiem_parts_introit_gradual_tract_sequence_offertory_communion():
     """NOH5 pp. 163-177, checked against the scan 2026-09-27. The Introit is
     repeated after its verse (p. 164) and the Gradual opens with the same
-    words: neither may take the Gradual's place."""
+    words: neither may take the Gradual's place. The Tract, Absolve Domine,
+    opens p. 167 (checked 2026-10-03)."""
     requiem = next(p for p in PIECES if p["slug"] == "missa-pro-defunctis-i")
     shown = {x["kind"]: x["ref"] for x in _printed(requiem) if x["placed"] != "order"}
     assert shown == {"introit": "noh5/0209/000", "gradual": "noh5/0211/001",
-                     "sequence": "noh5/0215/000", "offertory": "noh5/0220/000",
+                     "tract": "noh5/0213/000", "sequence": "noh5/0215/000", "offertory": "noh5/0220/000",
                      "communion": "noh5/0223/002"}
 
 
@@ -418,3 +419,46 @@ def test_all_credo_ranges_begin_at_their_opening_and_include_the_final_amen():
     assert credos.keys() == expected.keys()
     for slug, (first, last) in expected.items():
         assert (credos[slug]['systems'][0], credos[slug]['systems'][-1]) == (first, last)
+
+
+def test_the_holy_cross_votive_mass_takes_its_tract_from_the_inserted_leaf():
+    """NOH4 pp. 162-164: the Tract Adoramus te Christe, sung after Septuagesima, is
+    printed on the leaf inserted after p. 163 ("162 bis", "163 bis"; PDF 195-196),
+    checked against the scans 2026-10-03."""
+    mass = next(p for p in PIECES if p["slug"] == "feria-vi-missa-de-sancta-cruce")
+    assert {r.split("/")[1] for r in mass["systems"]} == {"0193", "0194", "0195", "0196", "0197"}
+    tract = next(s for s in mass["sections"] if s["kind"] == "tract")
+    assert (tract["ref"], tract["gregobase_id"]) == ("noh4/0195/000", 114)
+    assert not any(r["kind"] == "unmapped_pages" for r in REVIEW)
+
+
+def test_no_two_pieces_in_a_volume_share_a_system():
+    owner: dict[str, str] = {}
+    for piece in PIECES:
+        for ref in piece["systems"]:
+            assert ref not in owner, f"{ref} is in both {owner[ref]} and {piece['id']}"
+            owner[ref] = piece["id"]
+
+
+def test_a_rubric_only_piece_leaves_its_page_to_the_pieces_either_side():
+    by_slug = {p["slug"]: p for p in PIECES}
+    assert by_slug["sabbato-post-cineres"]["systems"] == []
+    assert by_slug["feria-vi-post-cineres"]["systems"][-1] == "noh1/0194/002"
+    assert by_slug["dominica-i-in-quadragesim"]["systems"][0] == "noh1/0194/003"
+
+
+def test_ash_wednesday_is_one_piece_the_blessing_then_the_mass():
+    """NOH1 pp. 152-163, checked against the scan 2026-10-03: the book cites the
+    Mass as "Feria IV. Cinerum", so the blessing and "Ad Missam" are one piece."""
+    by_slug = {p["slug"]: p for p in PIECES}
+    assert "noh1-p156" not in by_slug
+    ash = by_slug["feria-iv-cinerum"]
+    shown = [(x["kind"], x["ref"]) for x in _printed(ash)]
+    assert shown[0] == ("other", "noh1/0179/000")
+    assert ("introit", "noh1/0183/005") in shown
+    assert shown.index(("introit", "noh1/0183/005")) == 4
+
+
+def test_a_merged_piece_redirects_its_old_address():
+    redirects = Path("web/public/_redirects").read_text(encoding="utf-8")
+    assert "/piece/noh1-p156/ /piece/feria-iv-cinerum/ 301" in redirects

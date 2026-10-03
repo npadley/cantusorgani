@@ -113,6 +113,9 @@ def scan_page(vol_id: str, pdf_page: int, page: pymupdf.Page
 CONFIDENT_INDEX = frozenset({"verified", "found", "consistent"})
 # Divisions whose pieces are Masses divided into movements.
 MOVEMENT_DIVISIONS = frozenset({"kyriale", "defunctorum"})
+#: Where an inserted leaf's systems sit, against a piece's start and stop on the
+#: page it follows: after every system printed there.
+INSERTED = 10_000
 #: A piece that is one chant of the Ordinary (a Credo, an ad libitum Kyrie): it
 #: is that movement from its first system. Its words recur all through it
 #: ("Kyrie eleison" nine times), so a system's own words say nothing of where
@@ -169,6 +172,8 @@ def start_system(vol_id: str, page_map: PageMap, entry: IndexEntry, systems: int
     pdf_page = page_map.to_pdf(entry.page, entry.pagination)
     if pdf_page is None or systems == 0:
         return 0
+    if entry.no_music:
+        return systems                      # its rubric is below the page's last system
     from pipeline.pagesplit import GapReader, first_system
 
     analysis = analyse_page(vol_id, pdf_page)
@@ -252,7 +257,12 @@ def attach_hymns(vol_id: str, page_map: PageMap, pieces: list[Record], review: l
         reader = GapReader(vol_id, pdf_page, printed, [(b.top, b.bottom) for b in analysis.boxes],
                            analysis.page_height)
         index = min(first_system(reader, title), len(on_page) - 1)
-        if index == 0:
+        if hymn.get("system") is not None:
+            # Placed by a person from the scan: the system the hymn begins on.
+            index = int(hymn["system"])
+            if not 0 <= index < len(on_page):
+                raise ValueError(f"{vol_id} hymn {title!r}: system {index} is not on p. {printed}")
+        elif index == 0:
             # No heading names it: a hymn's title is its first sung words, so
             # find the system whose chant text opens with them.
             index = hymn_system(title, system_texts(vol_id, pdf_page), len(on_page))
@@ -261,7 +271,8 @@ def attach_hymns(vol_id: str, page_map: PageMap, pieces: list[Record], review: l
         hymns_list = owner["hymns"]
         assert isinstance(hymns_list, list)
         hymns_list.append({"title": title, "ref": ref, "printed_page": printed})
-        if index == 0 and hymn_system(title, system_texts(vol_id, pdf_page), len(on_page)) == 0 \
+        if index == 0 and hymn.get("system") is None \
+                and hymn_system(title, system_texts(vol_id, pdf_page), len(on_page)) == 0 \
                 and hymn.get("status") not in ("verified", "found"):
             review.append({"piece": owner["slug"], "kind": "hymn_at_page_top", "title": title,
                            "printed_page": printed,
@@ -487,6 +498,14 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
                 shift = kyrie_offset([SystemFeature(r.ref, r.text, r.mode_marker) for r in on_page])
                 if shift:
                     starts[i] = (page, first_system + shift)
+        # A rubric with no music of its own sits just above the next piece when
+        # that begins on the same page: it begins (and so ends) where that does,
+        # leaving every system before it to the piece before.
+        for i in range(len(entries) - 2, -1, -1):
+            nxt = entries[i + 1]
+            if (entries[i].no_music and nxt.pagination == entries[i].pagination
+                    and starts[i + 1][0] == starts[i][0]):
+                starts[i] = starts[i + 1]
         # Each pagination (the body, and any addendum) is bounded on its own: an
         # entry runs to the next entry in its pagination, and the last one to the
         # end of its pages rather than stopping at itself.
@@ -520,8 +539,16 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
             movements: list[dict[str, object]] = []
             placed_movements: set[str] = set()
             ordinary = entry.genre == "mass_ordinary" and entry.division == "kyriale"
+            # Each printed page of the piece, and any leaf inserted inside it
+            # (data/volumes.yml `inserts`: NOH4's "162 bis" and "163 bis"), whose
+            # systems all fall after the page it follows.
+            walk: list[tuple[int, int | None, int | None]] = []
             for printed in range(first, last + 1):
-                pdf_page = page_map.to_pdf(printed, entry.pagination)
+                walk.append((printed, page_map.to_pdf(printed, entry.pagination), None))
+                if printed < last and entry.pagination is None:
+                    walk.extend((printed, pdf, INSERTED) for ins in vol.inserts if ins.after_printed == printed
+                                for pdf in range(ins.first_pdf, ins.last_pdf + 1))
+            for printed, pdf_page, fixed_index in walk:
                 if pdf_page is None:
                     # A printed page this scan does not contain (NOH1 lacks
                     # 348-349), or one outside the body.
@@ -529,7 +556,8 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
                                    "printed_page": printed, "pdf_page": None})
                     continue
                 page_refs, hits, texts = scan(pdf_page)
-                mine = {r.index for r in page_refs if start <= (printed, r.index) < stop}
+                mine = {r.index for r in page_refs
+                        if start <= (printed, r.index if fixed_index is None else fixed_index) < stop}
                 refs.extend(r for r in page_refs if r.index in mine)
                 for system_index, hit in hits:
                     # Only a Mass has movements: an Introit's "Gloria Patri" or a
@@ -623,7 +651,10 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
 
         attach_hymns(vol_id, page_map, pieces, review, load_hymns(vol_id, index_path))
 
+    inserted = {p for ins in vol.inserts for p in range(ins.first_pdf, ins.last_pdf + 1)}
     for gap_first, gap_last in page_map.gaps:
+        if set(range(gap_first, gap_last + 1)) <= inserted:
+            continue                      # catalogued as an inserted leaf
         review.append({"piece": None, "kind": "unmapped_pages", "pdf_pages": [gap_first, gap_last],
                        "why": "pages between page-map segments (an insert, or a page scanned "
                               "twice) carry no printed page and are not catalogued"})
@@ -746,6 +777,11 @@ def link_rubrics(catalog: Catalog, rubrics: list[Record]) -> list[Record]:
                           if p["printed_pages"][0] <= page <= p["printed_pages"][1]]
             target = next((p for p in candidates if p["printed_pages"][0] == page),
                           candidates[0] if candidates else None)
+        if target is None and ref is None and rubric.get("reference_sources"):
+            # The rubric names no page ("Sabbato resumitur Missa Feriae
+            # praecedentis"), but its reviewed sources show the music on its own
+            # page, which keeps the day.
+            continue
         if target is None:
             unresolved.append({"kind": "rubric_unlinked", "title": rubric.get("title"),
                                "reference": rubric.get("reference"), "days": days})
@@ -768,7 +804,8 @@ def load_rubrics(data_dir: Path = DATA) -> list[Record]:
         # the Annunciation in NOH3 prints only "Introitus. Vultum tuum, Pars IV,
         # p. 175" and the rest of its Mass by reference.
         rubrics += [{"volume": doc.get("volume"), "title": e.get("title"), "page": e.get("page"),
-                     "reference": e["reference"], "days": e.get("days", [])}
+                     "reference": e["reference"], "days": e.get("days", []),
+                     "reference_sources": e.get("reference_sources", [])}
                     for section in doc.get("sections", []) or [] for e in section["entries"]
                     if e.get("reference")]
     # Days the 1962 rubrics give another day's Mass, with no line in NOH to say so.

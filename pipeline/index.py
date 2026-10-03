@@ -56,6 +56,10 @@ class IndexEntry:
     # Reviewed system position where a missing/damaged heading cannot place an entry.
     first_system: int | None = None
     source_note: str | None = None
+    # The entry prints no music of its own: only its heading or rubric, below the
+    # last system of its page ("Sabbato resumitur Missa Feriae praecedentis").
+    # Every system on that page belongs to the piece before it.
+    no_music: bool = False
 
     @property
     def printed_pages(self) -> tuple[int, int]:
@@ -96,6 +100,7 @@ def load_index(vol_id: str, path: Path | None = None) -> list[IndexEntry]:
                 reference_sources=tuple(e.get("reference_sources", ())),
                 pagination=e.get("pagination", section.get("pagination")),
                 first_system=e.get("first_system"), source_note=e.get("source_note"),
+                no_music=bool(e.get("no_music", False)),
             ))
     return entries
 

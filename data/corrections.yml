@@ -252,14 +252,6 @@
   source: editor
   date: '2026-10-02'
   editor_email: nick@padley.com
-- id: c-0028
-  target: typeset:vol-1/an_exaudi_nos_domine.csv.ly
-  field: match
-  was: null
-  value: piece:feria-iv-cinerum
-  source: editor
-  date: '2026-10-02'
-  editor_email: nick@padley.com
 - id: c-0029
   target: typeset:vol-1/co_fili_quid_fecisti.csv.ly
   field: match
@@ -534,14 +526,6 @@
   source: editor
   date: '2026-10-03'
   note: checked against the scan 2026-10-03, words and mode agree with GregoBase
-- id: c-0062
-  target: part:in-purificatione-beat-mari-virginis/other:3
-  field: chant
-  was: null
-  value: 1311
-  source: editor
-  date: '2026-10-03'
-  note: checked against the scan 2026-10-03, words and mode agree with GregoBase
 - id: c-0063
   target: part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/tract
   field: chant
@@ -707,3 +691,1945 @@
   date: '2026-10-03'
   note: 'checked against the scan 2026-10-03: IN FESTO PENTECOSTES, IN I. VESPERIS heads p. 133; the Ascension
     octave ends on p. 132'
+- id: c-0083
+  target: part:in-exaltatione-sanct-crucis/offertory
+  field: chant
+  was: 843
+  value: 3438
+  source: editor
+  date: '2026-10-03'
+  note: 'Protege Domine: melody and words 1.0 against the volunteers'' transcription; 843 is the Ave Maria
+    offertory'
+- id: c-0084
+  target: review:noh1/part_mismatch/96684cd5
+  field: reviewed
+  was: 3cf448cb2b44
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'not in this piece: p.299 is the Blessing of Palms only; the Palm Sunday Introit Domine ne longe
+    is at noh1/0339/004 under noh1-p302 (checked against the scan)'
+- id: c-0085
+  target: review:noh1/part_mismatch/3c4533bf
+  field: reviewed
+  was: 8ed391fe1bc5
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'not in this piece: the Distribution of Palms (Pueri Hebraeorum antiphons); the Palm Sunday Introit
+    is at noh1/0339/004 under noh1-p302 (checked against the scan)'
+- id: c-0086
+  target: review:noh1/part_missing/aa955548
+  field: reviewed
+  was: ea1cdab32eff
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'not printed: p.344 gives Maundy Thursday''s Introit Nos autem gloriari only, with no gradual
+    and no citation; p.345 begins Holy Saturday (checked against the scan)'
+- id: c-0087
+  target: review:noh1/part_missing/ae23b741
+  field: reviewed
+  was: 119362f0e3ae
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'not printed: p.344 gives Maundy Thursday''s Introit Nos autem gloriari only, with no offertory
+    and no citation; p.345 begins Holy Saturday (checked against the scan)'
+- id: c-0088
+  target: review:noh1/part_missing/bbf33faa
+  field: reviewed
+  was: ff4a1c4e4131
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'not printed: p.344 gives Maundy Thursday''s Introit Nos autem gloriari only, with no communion
+    and no citation; p.345 begins Holy Saturday (checked against the scan)'
+- id: c-0089
+  target: review:noh1/starts_mid_page/f84a4861
+  field: reviewed
+  was: 6f263fa4a27e
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0090
+  target: review:noh1/starts_mid_page/85b690b9
+  field: reviewed
+  was: dae395cc6dd3
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0091
+  target: review:noh1/starts_mid_page/cc102c9d
+  field: reviewed
+  was: 50f7815d4f69
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0092
+  target: review:noh1/starts_mid_page/1a98e499
+  field: reviewed
+  was: ffe791f57e38
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0093
+  target: review:noh1/starts_mid_page/7642f257
+  field: reviewed
+  was: 0e478b5529fe
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0094
+  target: review:noh1/starts_mid_page/41bcb68c
+  field: reviewed
+  was: 01567f1733bc
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0095
+  target: review:noh1/starts_mid_page/df2bfb6b
+  field: reviewed
+  was: a2e3fb838aff
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0096
+  target: review:noh1/starts_mid_page/88989ac3
+  field: reviewed
+  was: b6652995a9e5
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0097
+  target: review:noh1/starts_mid_page/97909fc0
+  field: reviewed
+  was: 2802ed30adb8
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0098
+  target: review:noh1/starts_mid_page/49411f08
+  field: reviewed
+  was: 7b40837eaaba
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0099
+  target: review:noh1/starts_mid_page/af636f8f
+  field: reviewed
+  was: 64c47f3ad73b
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0100
+  target: review:noh1/starts_mid_page/c81880ae
+  field: reviewed
+  was: ad9f5329d5cb
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0101
+  target: review:noh1/starts_mid_page/b6bbe9e6
+  field: reviewed
+  was: 0f07bd87cf70
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0102
+  target: review:noh1/starts_mid_page/85399487
+  field: reviewed
+  was: 5862f2116e80
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0103
+  target: review:noh1/starts_mid_page/dabbcd4d
+  field: reviewed
+  was: 5591fc80849c
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0104
+  target: review:noh1/starts_mid_page/8dc8b3d8
+  field: reviewed
+  was: 8bf559597639
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0105
+  target: review:noh1/starts_mid_page/528ce20e
+  field: reviewed
+  was: 06c5d70d3e4f
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0106
+  target: review:noh1/starts_mid_page/63a844f1
+  field: reviewed
+  was: 050e3735b64c
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0107
+  target: review:noh1/starts_mid_page/a6435c40
+  field: reviewed
+  was: 5283c3e1fdfc
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0108
+  target: review:noh1/starts_mid_page/0f3166bd
+  field: reviewed
+  was: c83a0af9f6d3
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0109
+  target: review:noh1/starts_mid_page/00698a90
+  field: reviewed
+  was: 4ba99c00193e
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0110
+  target: review:noh1/starts_mid_page/fb6d4e83
+  field: reviewed
+  was: d8401ba178f7
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0111
+  target: review:noh1/starts_mid_page/c121ad84
+  field: reviewed
+  was: 2993e9b877ec
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0112
+  target: review:noh1/starts_mid_page/0117bed2
+  field: reviewed
+  was: 228f945011b0
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0113
+  target: review:noh1/starts_mid_page/cdc20326
+  field: reviewed
+  was: 8a01dc2444dd
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0114
+  target: review:noh1/starts_mid_page/04d628cb
+  field: reviewed
+  was: d4113ca38de5
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0115
+  target: review:noh1/starts_mid_page/18e8d7ed
+  field: reviewed
+  was: 6643e12cc00a
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0116
+  target: review:noh1/starts_mid_page/b42af2e1
+  field: reviewed
+  was: 3a7dac688929
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0117
+  target: review:noh1/starts_mid_page/76b7260a
+  field: reviewed
+  was: d97406ebefa2
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0118
+  target: review:noh1/starts_mid_page/19da65c3
+  field: reviewed
+  was: e5e0c1297cc1
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0119
+  target: review:noh1/starts_mid_page/38c9a4ed
+  field: reviewed
+  was: 2bd4a330013f
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0120
+  target: review:noh1/starts_mid_page/a7cc5e95
+  field: reviewed
+  was: 6bd87e68e3d1
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0121
+  target: review:noh1/starts_mid_page/a697efd5
+  field: reviewed
+  was: 7a3d4f6d5f55
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0122
+  target: review:noh2/starts_mid_page/30864f84
+  field: reviewed
+  was: df1f1344fa6b
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0123
+  target: review:noh2/starts_mid_page/b25439f1
+  field: reviewed
+  was: f2cd6f201d30
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0124
+  target: review:noh2/starts_mid_page/2d6503f6
+  field: reviewed
+  was: f0d6757cf948
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0125
+  target: review:noh2/starts_mid_page/7bf10b40
+  field: reviewed
+  was: 7fb76656941c
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0126
+  target: review:noh2/starts_mid_page/92b85b54
+  field: reviewed
+  was: ed38bce45775
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0127
+  target: review:noh2/starts_mid_page/0830b8e1
+  field: reviewed
+  was: 9beef6983e14
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0128
+  target: review:noh2/starts_mid_page/27f8f093
+  field: reviewed
+  was: 2960fb5842e6
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0129
+  target: review:noh2/starts_mid_page/bfb83e22
+  field: reviewed
+  was: aaae22cf41fd
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0130
+  target: review:noh2/starts_mid_page/db25c9fb
+  field: reviewed
+  was: d8ac8ab7b2f1
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0131
+  target: review:noh2/starts_mid_page/b318a642
+  field: reviewed
+  was: c2345d72ed3c
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0132
+  target: review:noh2/starts_mid_page/a33b0847
+  field: reviewed
+  was: 9e58114e41a7
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0133
+  target: review:noh2/starts_mid_page/f9049b5f
+  field: reviewed
+  was: a1974ff58c4e
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0134
+  target: review:noh2/starts_mid_page/5163297c
+  field: reviewed
+  was: 2df6d39286f3
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0135
+  target: review:noh2/starts_mid_page/1f56c0bd
+  field: reviewed
+  was: a3e1c3654eaf
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0136
+  target: review:noh2/starts_mid_page/0614c42f
+  field: reviewed
+  was: 79a2500087a1
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0137
+  target: review:noh2/starts_mid_page/b66f0963
+  field: reviewed
+  was: 9bc2bb2cad1d
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0138
+  target: review:noh2/starts_mid_page/a97fd5d0
+  field: reviewed
+  was: c9eb48ff30a1
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0139
+  target: review:noh2/starts_mid_page/3c6c2bfe
+  field: reviewed
+  was: 381de82a6075
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0140
+  target: review:noh2/starts_mid_page/c600bbf2
+  field: reviewed
+  was: 769db42d2817
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0141
+  target: review:noh2/starts_mid_page/98da153c
+  field: reviewed
+  was: c09abcc27266
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0142
+  target: review:noh2/starts_mid_page/b0b13031
+  field: reviewed
+  was: 5c39e4a379fd
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0143
+  target: review:noh2/starts_mid_page/343a89cc
+  field: reviewed
+  was: 06523e8b3bf0
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0144
+  target: review:noh2/starts_mid_page/08aa32eb
+  field: reviewed
+  was: 69c99bfd35cb
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0145
+  target: review:noh2/starts_mid_page/422906b0
+  field: reviewed
+  was: 400764981cdc
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0146
+  target: review:noh2/starts_mid_page/1fbd9608
+  field: reviewed
+  was: 9b678d52f4a9
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0147
+  target: review:noh2/starts_mid_page/f163f898
+  field: reviewed
+  was: fa7fdba5ff16
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0148
+  target: review:noh2/starts_mid_page/f6454701
+  field: reviewed
+  was: 10186327a536
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0149
+  target: review:noh2/starts_mid_page/111755f1
+  field: reviewed
+  was: 1947f097d1b8
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0150
+  target: review:noh2/starts_mid_page/ea20f1d6
+  field: reviewed
+  was: fb167f776761
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0151
+  target: review:noh2/starts_mid_page/2927988f
+  field: reviewed
+  was: 39e10eaf6a48
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0152
+  target: review:noh2/starts_mid_page/6ba1c8aa
+  field: reviewed
+  was: c10cf0ed462e
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0153
+  target: review:noh2/starts_mid_page/41b58126
+  field: reviewed
+  was: 055f20ee8e51
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0154
+  target: review:noh3/starts_mid_page/fe25b908
+  field: reviewed
+  was: 09af1485f464
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0155
+  target: review:noh3/starts_mid_page/f3cfa10d
+  field: reviewed
+  was: e5a39ae62183
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0156
+  target: review:noh3/starts_mid_page/d67e2aa2
+  field: reviewed
+  was: c77f22f56506
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0157
+  target: review:noh3/starts_mid_page/f2cec46d
+  field: reviewed
+  was: 1afbafb20474
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0158
+  target: review:noh3/starts_mid_page/86711680
+  field: reviewed
+  was: 032b6ae03cc9
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0159
+  target: review:noh3/starts_mid_page/6fbbd8ea
+  field: reviewed
+  was: 0feb304ab9d3
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0160
+  target: review:noh3/starts_mid_page/ccd7ba6d
+  field: reviewed
+  was: b67a8178aae0
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0161
+  target: review:noh3/starts_mid_page/44528b4f
+  field: reviewed
+  was: 2329ac7d3a5a
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0162
+  target: review:noh3/starts_mid_page/dfc83da7
+  field: reviewed
+  was: 70af88bd4981
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0163
+  target: review:noh3/starts_mid_page/1e6787ca
+  field: reviewed
+  was: ecd39aad57d1
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0164
+  target: review:noh3/starts_mid_page/5faf943e
+  field: reviewed
+  was: b288b8f5a15d
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0165
+  target: review:noh3/starts_mid_page/a2ebc835
+  field: reviewed
+  was: c25699adcf38
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0166
+  target: review:noh3/starts_mid_page/947c0d27
+  field: reviewed
+  was: b9bcff385cb1
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0167
+  target: review:noh3/starts_mid_page/e26612d3
+  field: reviewed
+  was: 34480abd6cfb
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0168
+  target: review:noh3/starts_mid_page/34b37efd
+  field: reviewed
+  was: c2df5f20429f
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0169
+  target: review:noh3/starts_mid_page/55eef1fe
+  field: reviewed
+  was: 18fe3615f939
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0170
+  target: review:noh3/starts_mid_page/a3bfb644
+  field: reviewed
+  was: 56b78aca625a
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0171
+  target: review:noh3/starts_mid_page/26cf8048
+  field: reviewed
+  was: 596351f0e842
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0172
+  target: review:noh3/starts_mid_page/bc7268eb
+  field: reviewed
+  was: 547ac2c85cf9
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0173
+  target: review:noh3/starts_mid_page/a936e9a9
+  field: reviewed
+  was: e72f12d8c90c
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0174
+  target: review:noh3/starts_mid_page/89ce4cdd
+  field: reviewed
+  was: 0ab4e5578c53
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0175
+  target: review:noh3/starts_mid_page/9f75d53d
+  field: reviewed
+  was: 37dced28da5f
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0176
+  target: review:noh3/starts_mid_page/3642e0ab
+  field: reviewed
+  was: 0a2482615fb4
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0177
+  target: review:noh3/starts_mid_page/3bea443e
+  field: reviewed
+  was: 4ed36c1e9e50
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0178
+  target: review:noh3/starts_mid_page/ebef4265
+  field: reviewed
+  was: ae402cfdb4d2
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0179
+  target: review:noh3/starts_mid_page/dfcc2dff
+  field: reviewed
+  was: a03de0302f1c
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0180
+  target: review:noh3/starts_mid_page/bbca30e1
+  field: reviewed
+  was: 8aae31c5cb42
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0181
+  target: review:noh3/starts_mid_page/1fc74d80
+  field: reviewed
+  was: 9181e41586b8
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0182
+  target: review:noh3/starts_mid_page/80be538b
+  field: reviewed
+  was: 023f2d9b987c
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0183
+  target: review:noh3/starts_mid_page/1a94ed99
+  field: reviewed
+  was: dd5e36c01f43
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0184
+  target: review:noh3/starts_mid_page/9a2c3be3
+  field: reviewed
+  was: dce1f8ba1924
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0185
+  target: review:noh3/starts_mid_page/954ef375
+  field: reviewed
+  was: 9ce4539691ac
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0186
+  target: review:noh3/starts_mid_page/d11726df
+  field: reviewed
+  was: 5ec559a125cd
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0187
+  target: review:noh4/starts_mid_page/de14029d
+  field: reviewed
+  was: ed2679b3534b
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0188
+  target: review:noh4/starts_mid_page/0bcc0b0e
+  field: reviewed
+  was: 00a92e169491
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0189
+  target: review:noh4/starts_mid_page/e3f9d192
+  field: reviewed
+  was: 5d2016aac603
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0190
+  target: review:noh4/starts_mid_page/3e014149
+  field: reviewed
+  was: 61026bba1b71
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0191
+  target: review:noh4/starts_mid_page/5317be50
+  field: reviewed
+  was: 6a3aa949c196
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0192
+  target: review:noh4/starts_mid_page/25146825
+  field: reviewed
+  was: 5a96cf8854c3
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0193
+  target: review:noh4/starts_mid_page/fc48ad9f
+  field: reviewed
+  was: d283bd005888
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0194
+  target: review:noh4/starts_mid_page/437dfc21
+  field: reviewed
+  was: ef4d9d4cc3f0
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0195
+  target: review:noh4/starts_mid_page/70a43637
+  field: reviewed
+  was: cec735923f91
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0196
+  target: review:noh4/starts_mid_page/601fd118
+  field: reviewed
+  was: '898224904113'
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0197
+  target: review:noh4/starts_mid_page/7642940f
+  field: reviewed
+  was: 85dd30540d08
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0198
+  target: review:noh4/starts_mid_page/e51744d1
+  field: reviewed
+  was: f22b754fbc2e
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0199
+  target: review:noh4/starts_mid_page/cd0110c3
+  field: reviewed
+  was: 6537a9373042
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0200
+  target: review:noh4/starts_mid_page/56d964bd
+  field: reviewed
+  was: 639569b8417c
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0201
+  target: review:noh4/starts_mid_page/889dc9be
+  field: reviewed
+  was: 9ba313a0120f
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0202
+  target: review:noh4/starts_mid_page/a59407a8
+  field: reviewed
+  was: f642125d4aa2
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0203
+  target: review:noh4/starts_mid_page/516c0599
+  field: reviewed
+  was: d8e7238fa272
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0204
+  target: review:noh4/starts_mid_page/452b6882
+  field: reviewed
+  was: a5a88550cb38
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0205
+  target: review:noh4/starts_mid_page/6041d574
+  field: reviewed
+  was: 98aa67d638e8
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0206
+  target: review:noh4/starts_mid_page/ce0d769f
+  field: reviewed
+  was: 492e519a2a47
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0207
+  target: review:noh4/starts_mid_page/7f9172d9
+  field: reviewed
+  was: bfda8bdeb3bc
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0208
+  target: review:noh4/starts_mid_page/a3397dcc
+  field: reviewed
+  was: 99e12db7fa57
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0209
+  target: review:noh4/starts_mid_page/40ef38b1
+  field: reviewed
+  was: 4dc0e4239e14
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0210
+  target: review:noh4/starts_mid_page/fafdc3d7
+  field: reviewed
+  was: b6ebf12f0b98
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0211
+  target: review:noh4/starts_mid_page/ff933c6e
+  field: reviewed
+  was: 23df98471071
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0212
+  target: review:noh4/starts_mid_page/ad1af0a1
+  field: reviewed
+  was: cb483f64955f
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0213
+  target: review:noh4/starts_mid_page/c3b6c660
+  field: reviewed
+  was: 2e569b1e9f19
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0214
+  target: review:noh4/starts_mid_page/0ebb37c0
+  field: reviewed
+  was: 1e66dfa661ce
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0215
+  target: review:noh4/starts_mid_page/bef70f37
+  field: reviewed
+  was: 618d46a74b05
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0216
+  target: review:noh4/starts_mid_page/4bfa56a1
+  field: reviewed
+  was: e4e4ec0c8159
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0217
+  target: review:noh4/starts_mid_page/58812c01
+  field: reviewed
+  was: f67a3396bc60
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0218
+  target: review:noh4/starts_mid_page/d747f686
+  field: reviewed
+  was: b9ed87b82d1b
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0219
+  target: review:noh5/starts_mid_page/9d8ffdc2
+  field: reviewed
+  was: cee18c9cdcc6
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0220
+  target: review:noh5/starts_mid_page/aea61325
+  field: reviewed
+  was: d756ce23070e
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0221
+  target: review:noh5/starts_mid_page/be2ecfb0
+  field: reviewed
+  was: 08da6047d0f3
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0222
+  target: review:noh5/starts_mid_page/99e95b3d
+  field: reviewed
+  was: 904b6055b0c0
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0223
+  target: review:noh5/starts_mid_page/7bfa9955
+  field: reviewed
+  was: 9797817d5a43
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0224
+  target: review:noh5/starts_mid_page/c2482cc1
+  field: reviewed
+  was: 00e45ae5cbf6
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0225
+  target: review:noh5/starts_mid_page/678a7702
+  field: reviewed
+  was: 7b0c70e0bf63
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0226
+  target: review:noh5/starts_mid_page/ce81fd9b
+  field: reviewed
+  was: f6487183b0c8
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0227
+  target: review:noh5/starts_mid_page/01c021ae
+  field: reviewed
+  was: 80ba28e2b614
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0228
+  target: review:noh5/starts_mid_page/d01fc898
+  field: reviewed
+  was: 4eabea7c0c27
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0229
+  target: review:noh5/starts_mid_page/44dbfdea
+  field: reviewed
+  was: 13d95601cfac
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0230
+  target: review:noh5/starts_mid_page/a64e8d4a
+  field: reviewed
+  was: 38a6caed6a0c
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0231
+  target: review:noh5/starts_mid_page/c9163035
+  field: reviewed
+  was: eac056a4563c
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0232
+  target: review:noh5/starts_mid_page/739e3441
+  field: reviewed
+  was: de61673ceaf1
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0233
+  target: review:noh5/starts_mid_page/8f5f56e1
+  field: reviewed
+  was: 4e1c702035fb
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0234
+  target: review:noh5/starts_mid_page/00a9759f
+  field: reviewed
+  was: f32ae2cce3b8
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0235
+  target: review:noh5/uncertain_movement/a3da449f
+  field: reviewed
+  was: c721ddbbf843
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the movement begins at this system'
+- id: c-0236
+  target: review:noh5/uncertain_movement/07e7715a
+  field: reviewed
+  was: da4575100e47
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the movement begins at this system'
+- id: c-0237
+  target: review:noh5/uncertain_movement/027947ca
+  field: reviewed
+  was: 6308bb8b4bcc
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the movement begins at this system'
+- id: c-0238
+  target: review:noh5/uncertain_movement/68ae2818
+  field: reviewed
+  was: 270eb87c341b
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the movement begins at this system'
+- id: c-0239
+  target: review:noh5/uncertain_movement/ea86eadc
+  field: reviewed
+  was: cebec024d76f
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the movement begins at this system'
+- id: c-0240
+  target: review:noh5/uncertain_movement/2886a1ee
+  field: reviewed
+  was: 9f80ef733c83
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the movement begins at this system'
+- id: c-0241
+  target: review:noh5/uncertain_movement/4a130ada
+  field: reviewed
+  was: 4d56d9cf6df9
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the movement begins at this system'
+- id: c-0242
+  target: review:noh8/hymn_at_page_top/3b9142b7
+  field: reviewed
+  was: 6a20ac45fef8
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0243
+  target: review:noh8/hymn_at_page_top/4e74c935
+  field: reviewed
+  was: '350791236048'
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0244
+  target: review:noh8/hymn_at_page_top/69364357
+  field: reviewed
+  was: 563bfa8334a7
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0245
+  target: review:noh8/hymn_at_page_top/eaa1ecd7
+  field: reviewed
+  was: 59f5c203b529
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0246
+  target: review:noh8/hymn_at_page_top/a4b68e2a
+  field: reviewed
+  was: d6b754963fec
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0247
+  target: review:noh8/hymn_at_page_top/c3457aee
+  field: reviewed
+  was: 242152ff6869
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0248
+  target: review:noh8/hymn_at_page_top/6b9688cc
+  field: reviewed
+  was: 105b7fddf900
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0249
+  target: review:noh8/hymn_at_page_top/151d0052
+  field: reviewed
+  was: 75a23f4b4cb3
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0250
+  target: review:noh8/hymn_at_page_top/8b5de6d1
+  field: reviewed
+  was: 4a8a4b4be186
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0251
+  target: review:noh8/hymn_at_page_top/a89122fd
+  field: reviewed
+  was: 6bbf280bb1ae
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0252
+  target: review:noh8/hymn_at_page_top/29d8f8cd
+  field: reviewed
+  was: aa934d34880c
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0253
+  target: review:noh8/hymn_at_page_top/ffc7b039
+  field: reviewed
+  was: 641f4db677a0
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0254
+  target: review:noh8/hymn_at_page_top/b8041634
+  field: reviewed
+  was: 5d262846f71b
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0255
+  target: review:noh8/hymn_at_page_top/4f0b331b
+  field: reviewed
+  was: 9743473ddf72
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0256
+  target: review:noh8/hymn_at_page_top/249a151d
+  field: reviewed
+  was: 47f33f79b66d
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0257
+  target: review:noh8/hymn_at_page_top/e97c07cc
+  field: reviewed
+  was: 62f43d2cbb92
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0258
+  target: review:noh8/hymn_at_page_top/96c82620
+  field: reviewed
+  was: 2bec0713a1c7
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0259
+  target: review:noh8/hymn_at_page_top/6d1883ad
+  field: reviewed
+  was: 3f5c5ce247aa
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0260
+  target: review:noh8/hymn_at_page_top/64f1e594
+  field: reviewed
+  was: a63cc8caa213
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0261
+  target: review:noh8/hymn_at_page_top/c033b471
+  field: reviewed
+  was: 54705a7701eb
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0262
+  target: review:noh8/hymn_at_page_top/b7f04d44
+  field: reviewed
+  was: 9d11b94a0fea
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0263
+  target: review:noh8/hymn_at_page_top/471ce59d
+  field: reviewed
+  was: b4441489106b
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0264
+  target: review:noh8/hymn_at_page_top/0adfca47
+  field: reviewed
+  was: 97f3a8a8f774
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0265
+  target: review:noh8/hymn_at_page_top/3ee1e0d5
+  field: reviewed
+  was: f6328fcbed1b
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the hymn''s first words open this system'
+- id: c-0266
+  target: review:noh8/starts_mid_page/38665746
+  field: reviewed
+  was: 68d3bef3a7af
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0267
+  target: review:noh8/starts_mid_page/0498f135
+  field: reviewed
+  was: e9329ae1425d
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0268
+  target: review:noh8/starts_mid_page/c1700ce4
+  field: reviewed
+  was: 29054afae3bd
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0269
+  target: review:noh8/starts_mid_page/6570cc24
+  field: reviewed
+  was: be04acccb3e7
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0270
+  target: review:noh8/starts_mid_page/490416da
+  field: reviewed
+  was: 6b9bb06747e0
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0271
+  target: review:noh8/starts_mid_page/e6a204c3
+  field: reviewed
+  was: 3ed56c847396
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0272
+  target: review:noh8/starts_mid_page/09ac52af
+  field: reviewed
+  was: e9db7ef76322
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0273
+  target: review:noh8/starts_mid_page/a81ceaa0
+  field: reviewed
+  was: 59207d24cebf
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0274
+  target: review:noh8/starts_mid_page/b9608c82
+  field: reviewed
+  was: caee648f79ba
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0275
+  target: review:noh8/starts_mid_page/392050c1
+  field: reviewed
+  was: a4be19d80589
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0276
+  target: review:noh8/starts_mid_page/3a18bc28
+  field: reviewed
+  was: 635897fb2bf4
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0277
+  target: review:noh8/starts_mid_page/23bb69dd
+  field: reviewed
+  was: ab45e732ed55
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0278
+  target: review:noh8/starts_mid_page/bc0ce206
+  field: reviewed
+  was: 7f967520f059
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0279
+  target: review:noh8/starts_mid_page/1b92b7eb
+  field: reviewed
+  was: 7fdc62b4c50c
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0280
+  target: review:noh8/starts_mid_page/1be5909a
+  field: reviewed
+  was: f0f4286f328e
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0281
+  target: review:noh8/starts_mid_page/238cc983
+  field: reviewed
+  was: b3fb795af828
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0282
+  target: review:noh8/starts_mid_page/585d3b87
+  field: reviewed
+  was: 9c24f46438bc
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0283
+  target: review:noh8/starts_mid_page/3bbac7a8
+  field: reviewed
+  was: a4a66101418f
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0284
+  target: review:noh8/starts_mid_page/0b66f115
+  field: reviewed
+  was: 6153524c0d9b
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0285
+  target: review:noh8/starts_mid_page/38c41071
+  field: reviewed
+  was: f8216d4774d9
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0286
+  target: review:noh8/starts_mid_page/fedf0e56
+  field: reviewed
+  was: c34a884f84d5
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0287
+  target: review:noh8/starts_mid_page/c0f67975
+  field: reviewed
+  was: 56337760c0cf
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0288
+  target: review:noh8/starts_mid_page/c22900dd
+  field: reviewed
+  was: 10911a32c0cf
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0289
+  target: review:noh8/starts_mid_page/d987db9c
+  field: reviewed
+  was: 9e713fcd310e
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0290
+  target: review:noh8/starts_mid_page/dc439ebb
+  field: reviewed
+  was: eb88aba73b7c
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0291
+  target: review:noh8/starts_mid_page/63df9990
+  field: reviewed
+  was: 015e18101a4e
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0292
+  target: review:noh8/starts_mid_page/18fb587d
+  field: reviewed
+  was: ff302f316a38
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0293
+  target: review:noh8/starts_mid_page/a350a933
+  field: reviewed
+  was: 200911bf2a02
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0294
+  target: review:noh8/starts_mid_page/43ce19f0
+  field: reviewed
+  was: 076d6c7fc23e
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0295
+  target: review:noh8/starts_mid_page/f98546c8
+  field: reviewed
+  was: 692e42f601af
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the heading or label sits directly above this first system, and the
+    system above ends the piece before'
+- id: c-0296
+  target: review:noh8/index_unverified/a2429560
+  field: reviewed
+  was: 3ea221659c39
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the printed page number and heading agree with the index'
+- id: c-0297
+  target: review:noh8/index_unverified/1af6cbdc
+  field: reviewed
+  was: aa34a1fd3466
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the printed page number and heading agree with the index'
+- id: c-0298
+  target: review:noh8/index_unverified/b5e58f29
+  field: reviewed
+  was: 6c951e02a394
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the printed page number and heading agree with the index'
+- id: c-0299
+  target: review:noh5/range_extended/7102bf20
+  field: reviewed
+  was: 94303ed64585
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: Gloria III runs on to p.147, where Sanctus I begins'
+- id: c-0300
+  target: review:noh1/page_out_of_range/59e4198a
+  field: reviewed
+  was: 0b08c1450e2b
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the scan goes from printed p.347 to p.350; pp.348-349 are missing'
+- id: c-0301
+  target: review:noh1/page_out_of_range/05dfb5e2
+  field: reviewed
+  was: 4c132fe0f6f4
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'scan checked 2026-10-03: the scan goes from printed p.347 to p.350; pp.348-349 are missing'
+- id: c-0302
+  target: review:noh8/starts_mid_page/d5ff29d8
+  field: reviewed
+  was: f1d337862199
+  value: 'yes'
+  source: editor
+  date: '2026-10-03'
+  note: 'start fixed by c-0082: the office begins at noh8/0163/000 (checked against the scan)'

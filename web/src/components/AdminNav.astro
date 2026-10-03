@@ -1,0 +1,52 @@
+---
+// The admin pages' own navigation, under the site header on every admin page:
+// where each list is, how much is left on it, and whether anything is waiting
+// to publish. The counts come from /admin/api/summary (summary.ts), so every
+// page shows the same numbers.
+interface Props { current: "home" | "review" | "typeset" | "edit" | "sections" }
+const { current } = Astro.props;
+const links = [
+  { key: "home", href: "/admin/", label: "Admin" },
+  { key: "review", href: "/admin/review/", label: "Review" },
+  { key: "typeset", href: "/admin/typeset/", label: "Typeset music" },
+  { key: "edit", href: "/admin/edit/", label: "Make a correction" },
+] as const;
+---
+
+<nav class="admin-nav ui small" aria-label="Admin">
+  <ul>
+    {links.map((l) => (
+      <li>
+        <a href={l.href} aria-current={l.key === current || (current === "sections" && l.key === "edit") ? "page" : undefined}>{l.label}</a>
+        {l.key !== "edit" && <span class="count muted" data-nav-count={l.key}></span>}
+      </li>
+    ))}
+    <li class="publish" hidden data-nav-publish><a href="/admin/#waiting-h"><span data-nav-count="publish"></span> ready to publish</a></li>
+  </ul>
+</nav>
+
+<style>
+  .admin-nav { margin: 0 0 var(--s-3); padding: var(--s-2) 0; border-bottom: 1px solid var(--rule); }
+  .admin-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); }
+  .admin-nav li { display: inline-flex; align-items: baseline; gap: var(--s-1); }
+  .admin-nav a { display: inline-flex; align-items: center; min-height: var(--tap-min); }
+  .admin-nav a[aria-current="page"] { font-weight: 600; color: var(--ink); text-decoration-thickness: 2px; }
+  .admin-nav li[hidden] { display: none; }
+  .admin-nav .publish a { font-weight: 600; }
+</style>
+
+<script>
+  import { loadSummary, navCounts, onSummary } from "../lib/admin/summaryClient";
+
+  onSummary((s) => {
+    const counts = navCounts(s);
+    for (const el of document.querySelectorAll<HTMLElement>("[data-nav-count]")) {
+      const key = el.dataset["navCount"] as keyof typeof counts;
+      const n = counts[key];
+      el.textContent = key === "publish" ? String(n) : `(${n})`;
+    }
+    const publish = document.querySelector<HTMLElement>("[data-nav-publish]");
+    if (publish) publish.hidden = counts.publish === 0;
+  });
+  void loadSummary();
+</script>

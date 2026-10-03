@@ -16,11 +16,17 @@ against the 1962 Roman calendar and published at
   tracked). Licensing: [`data/LICENSES.md`](data/LICENSES.md).
 - `docs/claudekit/` — design, plans and their reviews.
 
+**Running it yourself: start with [`docs/OPERATIONS.md`](docs/OPERATIONS.md)**: what
+to run after which change (`scripts/regenerate.sh`), the checks a pull request
+runs (`scripts/check.sh`), how a change reaches the site, and what to do when a
+check fails.
+
 How the pieces fit together: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 **To fix something on the site, start with [`docs/EDITING.md`](docs/EDITING.md)**:
 recipes by symptom, most of which need no PDFs. Editors use the admin screen at
-`/admin/` ([setup](docs/ADMIN-SETUP.md)).
+`/admin/` ([setup](docs/ADMIN-SETUP.md); a usability review and plan for it:
+[docs/ADMIN-UX-REVIEW.md](docs/ADMIN-UX-REVIEW.md)).
 
 ## Pipeline
 
@@ -33,6 +39,8 @@ uv run noh doctor                      # preflight: every failure names its fix
 uv run noh catalog --volume noh3       # rebuild one volume (data/catalog.base.json), then apply
                                        # data/corrections.yml into data/catalog.json
 uv run noh apply-corrections           # only the corrections: no PDFs needed
+scripts/regenerate.sh [noh1 …]         # every generated file, in order (docs/OPERATIONS.md)
+scripts/check.sh [--quick]             # what a pull request checks, here
 uv run pytest
 ```
 
