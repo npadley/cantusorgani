@@ -2,21 +2,22 @@
 
 The pilot and deterministic first pass ran in the isolated
 `codex/chant-proofreading-pilot` worktree, based on `fix/broken-typeset-2` at
-`dd8acc16da7742454c88880b60f497b693d29864`. This snapshot has 750 matched sources,
-17 current full-proofreading acknowledgments, and 733 remaining. `origin/main`
-had 764 matched sources at investigation time; this run covers the active branch
-snapshot, not those additional 14 sources.
+`dd8acc16da7742454c88880b60f497b693d29864`. The initial snapshot had 750 matched sources and 733 remaining. Before pushing,
+latest `origin/main` was integrated in this isolated worktree and the audit reran:
+764 matched sources, 17 current full-proofreading acknowledgments, 747 remaining.
+The counts below describe that refreshed run; the pilot findings retain their
+original 30-file scope.
 
 ## Results
 
-| Outcome | All 733 remaining | Stratified pilot of 30 |
+| Outcome | All 747 remaining | Stratified pilot of 30 |
 |---|---:|---:|
 | Exact diatonic and chromatic melody agreement | 70 | 4 |
-| Diatonic agreement needing normalization review | 39 | 1 |
-| Repeated-attack differences | 370 | Included in 18 discrepancies |
+| Diatonic agreement needing normalization review | 40 | 1 |
+| Repeated-attack differences | 371 | Included in 18 discrepancies |
 | Ending or extra-section differences | 18 | Included in 18 discrepancies |
-| Pitch or ordering differences | 206 | Included in 18 discrepancies |
-| No selected GABC reference | 30 | 7 |
+| Pitch or ordering differences | 207 | Included in 18 discrepancies |
+| No selected GABC reference | 41 | 7 |
 | Blocked extraction/source evidence | 0 | 0 |
 
 The pilot deliberately samples all nonempty historical-score/reference strata;
@@ -30,8 +31,9 @@ Reports are local generated artifacts under `build/typeset/proofread/` and
 matching scan media and available typeset renders. The pilot also records
 `calibration.json` and `review-findings.json`. Report provenance includes source
 commit, render/source/GABC/event hashes, algorithm identity and input fingerprint.
-Re-run after another agent's changes are committed and integrated; do not merge
-this snapshot over that agent's work.
+Compact evidence for the refreshed run is committed as
+`data/typeset/melody-audit.json`, powering separate admin melody counts.
+Re-run after another agent's changes are committed and integrated.
 
 ## Calibration and independent scan checks
 
@@ -55,9 +57,13 @@ machine discrepancy is not permission to change a source to match GregoBase.
 ## Verification
 
 - Focused regression and existing matcher suites: 70 passed.
-- Python CI suite (`pytest -m 'not source'`): 1,454 passed, 14 skipped,
-  134 deselected, 1 expected failure; 5 existing third-party deprecation warnings.
-- Ruff checks for the changed Python modules and tests pass.
+- Python CI suite (`pytest -m 'not source'`): 1,464 passed, 14 skipped,
+  139 deselected, 1 expected failure; 5 existing third-party deprecation warnings.
+- Repository Python lint passes.
+- Admin web suite: 773 tests passed; Astro check has no errors or warnings.
+- Production site build, search index and link check pass (1,530 reachable pages).
+- Admin snapshot test confirms 747 checked, 70 agreements, 636 needing attention,
+  41 missing references and zero unchecked; stale render/GABC/algorithm evidence is excluded.
 - Pinned LilyPond 2.26.0 rendered five pilot scores locally for scan comparison.
 - Browser inspection confirmed the report presents the typeset drawing and all
   matched scan systems.
@@ -72,9 +78,9 @@ those cases are flagged instead of inventing chromatic agreement.
 
 ## Next review batches
 
-Prioritize the 206 pitch/order packets, then the 18 ending/extra-section packets.
-Group the 370 repeated-attack cases for consistent notation review. Keep the 39
-normalization cases and 30 missing-reference cases explicit. For the 70 clean
+Prioritize the 207 pitch/order packets, then the 18 ending/extra-section packets.
+Group the 371 repeated-attack cases for consistent notation review. Keep the 40
+normalization cases and 41 missing-reference cases explicit. For the 70 clean
 melody cases, the remaining work is the scan/lyrics/accompaniment/layout check,
 with a small independent melody sample retained as calibration.
 

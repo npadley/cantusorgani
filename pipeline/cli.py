@@ -66,6 +66,7 @@ def build_parser() -> argparse.ArgumentParser:
     proof.add_argument("--out", type=Path, default=None, help="report directory (default build/typeset/proofread)")
     proof.add_argument("--local-assets", type=Path, default=None,
                        help="read existing build/ caches and scan/render images; writes only to --out")
+    proof.add_argument("--summary", type=Path, default=None, help="write compact melody evidence for admin counts")
     subs.add_parser("typeset-publish", help="check and upload build/typeset/out/ to R2 (write-if-absent)")
     tp = subs.add_parser("typeset-prune",
                          help="delete renders on R2 that the manifest and review files no longer name "
@@ -392,12 +393,14 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if report.ok else 1
 
     if args.command == "typeset-proofread":
-        from pipeline.typeset.proofread import DEFAULT_OUT, audit
+        from pipeline.typeset.proofread import DEFAULT_OUT, audit, write_admin_summary
         if args.limit < 0:
             print("--limit must be nonnegative", file=sys.stderr)
             return 2
         try:
             report = audit(args.limit, args.out or DEFAULT_OUT, args.file, args.local_assets)
+            if args.summary:
+                write_admin_summary(report, args.summary)
         except (OSError, ValueError) as error:
             print(f"FAIL  {error}", file=sys.stderr)
             return 1

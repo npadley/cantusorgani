@@ -237,3 +237,13 @@ sampled agreement, or inconclusive. Escalate unclear cases to a stronger reviewe
 or an editor. A worker must name the passage it inspected; it cannot extrapolate
 a spot-check into full proofreading. See `docs/CHANT-PROOFREADING-PILOT.md` for the
 first run's evidence and a reusable review prompt.
+
+### Publish melody audit counts
+
+Run the deterministic comparison against the current checkout and commit its compact evidence:
+
+```sh
+noh typeset-proofread --limit 0 --summary data/typeset/melody-audit.json
+```
+
+Use `--local-assets /path/to/existing/build` to reuse local event and image caches. The detailed report stays in `build/typeset/proofread/`; only compact per-file evidence belongs in Git. Admin melody counts are separate from full proofreading. A changed render, target, or selected GABC invalidates the previous melody result. Run the audit again after catalog or notation changes. Melody agreement does not approve lyrics, engraving, or the scanned edition, and never writes a full-proofreading acknowledgment.

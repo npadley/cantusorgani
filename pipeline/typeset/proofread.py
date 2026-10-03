@@ -286,6 +286,17 @@ details{{background:white;border:1px solid #ddd;border-radius:8px;margin:1rem 0;
     return path
 
 
+def write_admin_summary(report: dict, path: Path) -> None:
+    """Persist compact, versioned evidence; never records a proofreading approval."""
+    saved = {key: report[key] for key in ("algorithm", "algorithm_hash", "source_commit", "lilypond")}
+    fields = ("file", "target", "hash", "source_hash", "event_key", "chant_id", "gabc_hash",
+              "status", "difference_kind")
+    saved["items"] = [{key: row[key] for key in fields if key in row}
+                      for row in sorted(report["items"], key=lambda row: row["file"])]
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(saved, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def audit(limit: int = 30, out: Path = DEFAULT_OUT, files: list[str] | None = None,
           local_assets: Path | None = None) -> dict:
     remaining = inventory()

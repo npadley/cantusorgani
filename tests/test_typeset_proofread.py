@@ -118,3 +118,21 @@ def test_acknowledged_file_with_changed_current_source_is_not_excluded(tmp_path)
     reviewed = {'reviewed': {'typeset:a.ly': {'was': '0' * 32}}}
     rows = p.inventory(manifest, reviewed, {'pieces': []}, {}, [], src=tmp_path)
     assert len(rows) == 1 and rows[0]['manifest_stale']
+
+
+def test_admin_summary_keeps_evidence_and_drops_review_packet_details(tmp_path):
+    report = {'algorithm': 'melody-audit-1', 'algorithm_hash': 'algorithm',
+              'source_commit': 'commit', 'lilypond': '2.26.0',
+              'items': [{'file': 'a.ly', 'target': 'piece:a', 'hash': 'render',
+                         'chant_id': 1, 'gabc_hash': 'gabc', 'status': 'melody-agrees',
+                         'source_hash': 'source', 'event_key': 'events',
+                         'full_proofread': False, 'source_excerpt': 'private packet'}]}
+    dest = tmp_path / 'summary.json'
+    p.write_admin_summary(report, dest)
+    saved = json.loads(dest.read_text())
+    assert saved['algorithm_hash'] == 'algorithm'
+    assert saved['items'][0]['status'] == 'melody-agrees'
+    assert saved['items'][0]['hash'] == 'render'
+    assert saved['items'][0]['gabc_hash'] == 'gabc'
+    assert 'source_excerpt' not in saved['items'][0]
+    assert 'full_proofread' not in saved['items'][0]

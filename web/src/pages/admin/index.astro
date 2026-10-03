@@ -1,6 +1,7 @@
 ---
 import AdminNav from "../../components/AdminNav.astro";
 import Layout from "../../components/Layout.astro";
+import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
 
 // The admin home: what is waiting on every list (/admin/api/summary), then the
 // corrections queue. Static: everything on it is loaded from /admin/api,
@@ -47,6 +48,13 @@ import Layout from "../../components/Layout.astro";
             <tr>
               <th scope="row">Typeset: proofreading</th><td data-sum="proofreading">…</td>
               <td><a href="/admin/typeset/?queue=proofreading">Proofread</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Typeset: melody audit</th>
+              <td>{MELODY_AUDIT_COUNTS.checked}/{MELODY_AUDIT_COUNTS.remaining} checked · {MELODY_AUDIT_COUNTS.agreement} agree ·
+                {MELODY_AUDIT_COUNTS.attention} need attention · {MELODY_AUDIT_COUNTS.noReference} without chant reference ·
+                {MELODY_AUDIT_COUNTS.unchecked} unchecked</td>
+              <td><a href="/admin/typeset/?queue=proofreading">See proofreading</a></td>
             </tr>
           </tbody>
         </table>
