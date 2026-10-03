@@ -694,3 +694,16 @@
   source: editor
   date: '2026-10-03'
   note: chant confirmed against the scan 2026-10-03 and attached
+- id: c-0082
+  target: piece:vesperae-in-festo-pentecostes
+  field: system_range
+  was:
+  - noh8/0165/001
+  - noh8/0169/000
+  value:
+  - noh8/0163/000
+  - noh8/0169/000
+  source: editor
+  date: '2026-10-03'
+  note: 'checked against the scan 2026-10-03: IN FESTO PENTECOSTES, IN I. VESPERIS heads p. 133; the Ascension
+    octave ends on p. 132'

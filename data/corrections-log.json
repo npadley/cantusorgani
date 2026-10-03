@@ -2,6 +2,21 @@
   "schema_version": 1,
   "corrections": [
     {
+      "id": "c-0082",
+      "target": "piece:vesperae-in-festo-pentecostes",
+      "field": "system_range",
+      "was": [
+        "noh8/0165/001",
+        "noh8/0169/000"
+      ],
+      "value": [
+        "noh8/0163/000",
+        "noh8/0169/000"
+      ],
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
       "id": "c-0068",
       "target": "part:s-raph-lis-archangeli/tract",
       "field": "chant",

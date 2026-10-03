@@ -6713,14 +6713,14 @@
     words: 1.0
     name: De excelso
 - file: vol-3/al_de_quacumque.csv.ly
-  target: part:s-catharina-senensis-virgine/alleluia:1
+  target: part:in-solemnitate-s-joseph/alleluia:1
   status: matched
   evidence:
     by: page
     incipit: Allelúia allelúia ℣ De quacúmque tribulatió ne clamáverint
     page: 163
     candidates:
-    - target: part:s-catharina-senensis-virgine/alleluia:1
+    - target: part:in-solemnitate-s-joseph/alleluia:1
       melody: null
       words: null
     melody: null
@@ -7818,14 +7818,14 @@
     words: 1.0
     name: Infirmus fui
 - file: vol-3/co_jacob_autem.csv.ly
-  target: part:s-catharina-senensis-virgine/communion
+  target: part:in-solemnitate-s-joseph/communion
   status: matched
   evidence:
     by: page
     incipit: Jacob autem génuit Joseph virum Maríæ de qua
     page: 166
     candidates:
-    - target: part:s-catharina-senensis-virgine/communion
+    - target: part:in-solemnitate-s-joseph/communion
       melody: null
       words: null
     melody: null
@@ -8568,14 +8568,14 @@
     words: 0.984
     name: Adeamus
 - file: vol-3/in_adjutor.csv.ly
-  target: part:s-catharina-senensis-virgine/introit
+  target: part:in-solemnitate-s-joseph/introit
   status: matched
   evidence:
     by: page
     incipit: Adjútor et protéctor noster est Dóminus in eo
     page: 162
     candidates:
-    - target: part:s-catharina-senensis-virgine/introit
+    - target: part:in-solemnitate-s-joseph/introit
       melody: null
       words: null
     melody: null

@@ -40365,6 +40365,39 @@
       "label": "S. Catharina Senensis Virgine",
       "title": "S. Catharina Senensis Virgine",
       "incipit": null,
+      "reference": "Missa. Dilexisti, Pars IV, p. 107.",
+      "genre": "proper",
+      "mode": null,
+      "mass": null,
+      "printed_pages": [
+        161,
+        161
+      ],
+      "pdf_pages": [
+        194,
+        194
+      ],
+      "systems": [],
+      "system_assets": [],
+      "system_aspect": [],
+      "movements": [],
+      "sections": [],
+      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Apr30",
+      "chant": [],
+      "review_status": "review",
+      "hymns": [],
+      "linked_days": []
+    },
+    {
+      "id": "noh3-in-solemnitate-s-joseph",
+      "volume": "noh3",
+      "slug": "in-solemnitate-s-joseph",
+      "section": "Proprium Sanctorum",
+      "division": "sanctorale",
+      "days": [],
+      "label": "In Solemnitate S. Joseph Sponsi B.M.V. Confessoris et Ecclesiae Universalis Patroni",
+      "title": "In Solemnitate S. Joseph",
+      "incipit": null,
       "reference": null,
       "genre": "proper",
       "mode": null,
@@ -40546,53 +40579,8 @@
         ]
       ],
       "movements": [],
-      "sections": [
-        {
-          "kind": "introit",
-          "variant": "",
-          "system": 0,
-          "ref": "noh3/0195/000",
-          "gregobase_id": 629,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Dilexisti"
-        },
-        {
-          "kind": "alleluia",
-          "n": 1,
-          "variant": "",
-          "system": 7,
-          "ref": "noh3/0196/001",
-          "gregobase_id": 208,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Adducentur"
-        },
-        {
-          "kind": "offertory",
-          "variant": "",
-          "system": 19,
-          "ref": "noh3/0198/001",
-          "gregobase_id": 1333,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert.",
-          "title": "Filiae regum"
-        },
-        {
-          "kind": "communion",
-          "variant": "",
-          "system": 24,
-          "ref": "noh3/0199/000",
-          "gregobase_id": 1301,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Quinque prudentes"
-        }
-      ],
-      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Apr30",
+      "sections": [],
+      "jgabc_url": null,
       "chant": [],
       "review_status": "verified",
       "hymns": [],
@@ -62799,6 +62787,7 @@
         "sancti:08-30",
         "sancti:10-15",
         "sancti:11-16",
+        "sancti:04-30",
         "sancti:05-19o"
       ],
       "label": "Commune Virginum \u2014 pro Virgine tantum",
@@ -63225,6 +63214,7 @@
         "sancti:08-30",
         "sancti:10-15",
         "sancti:11-16",
+        "sancti:04-30",
         "sancti:05-19o"
       ]
     },
@@ -72564,6 +72554,39 @@
       "days": [],
       "label": "B.M.V. Auxilium Christianorum, 24 Maii",
       "title": "B.M.V. Auxilium Christianorum, 24 Maii",
+      "incipit": null,
+      "reference": "Introitus. Salve, sancta Parens, ut supra, p. 182. Tempore Paschali; Alleluia, alleluia. V. Virga Jesse, p. 180. Alleluia. V. Ave Maria, p. 175. Extra Tempus Paschale; Graduale. Benedicta, p. 184. Alleluia, alleluia. V. Post partum, p. 185. Offertorium. Ave Maria, p. 186. Communio. Beata viscera, p. 187.",
+      "genre": "proper",
+      "mode": null,
+      "mass": null,
+      "printed_pages": [
+        300,
+        300
+      ],
+      "pdf_pages": [
+        333,
+        333
+      ],
+      "systems": [],
+      "system_assets": [],
+      "system_aspect": [],
+      "movements": [],
+      "sections": [],
+      "jgabc_url": null,
+      "chant": [],
+      "review_status": "review",
+      "hymns": [],
+      "linked_days": []
+    },
+    {
+      "id": "noh4-s-joannae-de-arc-virginis",
+      "volume": "noh4",
+      "slug": "s-joannae-de-arc-virginis",
+      "section": "Missae pro aliquibus locis",
+      "division": "sanctorale",
+      "days": [],
+      "label": "S. Joannae de Arc Virginis, 30 Maii",
+      "title": "S. Joannae de Arc Virginis, 30 Maii",
       "incipit": null,
       "reference": null,
       "genre": "proper",
