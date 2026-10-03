@@ -70,8 +70,10 @@ describe("reviewEntries", () => {
   });
 
   it("should show the page's systems for a page no piece claims", () => {
-    const page = entries.find((e) => e.kind === "segmentation_fallback" && e.about.includes("scan page"));
-    expect(page).toBeDefined();
+    // The committed queue may have none left (NOH5 p. 151 and the rest were re-sliced): use one of its pages.
+    const [page] = reviewEntries([item("segmentation_fallback", { volume: "noh5", pdf_page: 197 })])
+      .filter((e) => e.kind === "segmentation_fallback");
+    expect(page?.about).toContain("scan page 197");
     expect(page!.scans.length).toBeGreaterThan(0);
     expect(page!.scans.length).toBeLessThanOrEqual(4);
   });
