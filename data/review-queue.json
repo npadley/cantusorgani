@@ -2022,1497 +2022,6 @@
     "fingerprint": "c3b77772741d"
   },
   {
-    "volume": "noh2",
-    "piece": null,
-    "kind": "segmentation_fallback",
-    "pdf_page": 69,
-    "why": "11 staves is not a multiple of 2; staff detection dropped or invented a staff \u2014 send this page to review; paired by brace gap instead",
-    "key": "review:noh2/segmentation_fallback/3fdb45cf",
-    "fingerprint": "44b96be9607b"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-resurrectionis",
-    "kind": "part_missing",
-    "part": "gradual",
-    "variant": "",
-    "expected_incipit": "haecdiesquamfecitdominus",
-    "best_system": 10,
-    "ref": "noh2/0034/005",
-    "score": 0.565,
-    "candidates": [
-      "noh2/0034/005",
-      "noh2/0035/003",
-      "noh2/0036/002"
-    ],
-    "key": "review:noh2/part_missing/da0d53ec",
-    "fingerprint": "750b2da200ce"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-resurrectionis",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica Resurrectionis",
-    "key": "review:noh2/unpaired/9c3f4790",
-    "fingerprint": "e796f75c8a2e"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-ii-infra-octavam-pasch",
-    "kind": "part_missing",
-    "part": "communion",
-    "variant": "",
-    "expected_incipit": "surrexitdominusetapparui",
-    "best_system": 23,
-    "ref": "noh2/0043/005",
-    "score": 0.324,
-    "key": "review:noh2/part_missing/3a0954cb",
-    "fingerprint": "bdcd7ab6f6a3"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-ii-infra-octavam-pasch",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Die II infra octavam Pasch\u00e6",
-    "key": "review:noh2/unpaired/0bb4b593",
-    "fingerprint": "9f7245a34517"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-iii-infra-octavam-pasch",
-    "kind": "part_missing",
-    "part": "sequence",
-    "variant": "",
-    "expected_incipit": "victimaepaschalilaudesim",
-    "best_system": 22,
-    "ref": "noh2/0047/004",
-    "score": 0.303,
-    "key": "review:noh2/part_missing/b1ad1f5d",
-    "fingerprint": "182d2b8c995e"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-iii-infra-octavam-pasch",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Die III infra octavam Pasch\u00e6",
-    "key": "review:noh2/unpaired/09a9cf69",
-    "fingerprint": "abcf256795fa"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-vi-infra-octavam-pasch",
-    "kind": "part_missing",
-    "part": "gradual",
-    "variant": "",
-    "expected_incipit": "haecdiesquamfecitdominus",
-    "best_system": 11,
-    "ref": "noh2/0050/005",
-    "score": 0.471,
-    "candidates": [
-      "noh2/0051/004",
-      "noh2/0051/005",
-      "noh2/0052/000",
-      "noh2/0052/003",
-      "noh2/0053/000",
-      "noh2/0053/002"
-    ],
-    "key": "review:noh2/part_missing/dfcf28a7",
-    "fingerprint": "759840481277"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-vi-infra-octavam-pasch",
-    "kind": "part_missing",
-    "part": "sequence",
-    "variant": "",
-    "expected_incipit": "victimaepaschalilaudesim",
-    "best_system": 22,
-    "ref": "noh2/0052/004",
-    "score": 0.615,
-    "candidates": [
-      "noh2/0052/003",
-      "noh2/0053/000",
-      "noh2/0053/002"
-    ],
-    "key": "review:noh2/part_missing/c0d9e67e",
-    "fingerprint": "abb8ed1606c3"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-vi-infra-octavam-pasch",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "portascaeliaperuitdominu",
-    "best_system": 20,
-    "ref": "noh2/0052/002",
-    "score": 0.432,
-    "candidates": [
-      "noh2/0052/003",
-      "noh2/0053/000",
-      "noh2/0053/002"
-    ],
-    "key": "review:noh2/part_missing/5b954992",
-    "fingerprint": "d2d06d08d059"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-vi-infra-octavam-pasch",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Die VI infra octavam Pasch\u00e6",
-    "key": "review:noh2/unpaired/18c363e3",
-    "fingerprint": "c94763394932"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-v-infra-octavam-pasch",
-    "kind": "part_missing",
-    "part": "sequence",
-    "variant": "",
-    "expected_incipit": "victimaepaschalilaudesim",
-    "best_system": 18,
-    "ref": "noh2/0057/000",
-    "score": 0.476,
-    "key": "review:noh2/part_missing/7543db15",
-    "fingerprint": "3020f589c5be"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-v-infra-octavam-pasch",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Die V infra octavam Pasch\u00e6",
-    "key": "review:noh2/unpaired/d4135609",
-    "fingerprint": "6bb2ab67cad4"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-vi-infra-octavam-pasch-2",
-    "kind": "part_missing",
-    "part": "gradual",
-    "variant": "",
-    "expected_incipit": "haecdiesquamfecitdominus",
-    "best_system": 9,
-    "ref": "noh2/0060/003",
-    "score": 0.375,
-    "key": "review:noh2/part_missing/8496ad4c",
-    "fingerprint": "0dd048f292ae"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-vi-infra-octavam-pasch-2",
-    "kind": "part_missing",
-    "part": "sequence",
-    "variant": "",
-    "expected_incipit": "victimaepaschalilaudesim",
-    "best_system": 17,
-    "ref": "noh2/0061/005",
-    "score": 0.303,
-    "key": "review:noh2/part_missing/a276a38b",
-    "fingerprint": "68a94cb0cdff"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-vi-infra-octavam-pasch-2",
-    "kind": "part_missing",
-    "part": "communion",
-    "variant": "",
-    "expected_incipit": "dataestmihiomnispotestas",
-    "best_system": 28,
-    "ref": "noh2/0063/004",
-    "score": 0.545,
-    "key": "review:noh2/part_missing/70d73a1b",
-    "fingerprint": "b7d7ef46756c"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-vi-infra-octavam-pasch-2",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Die VI infra octavam Pasch\u00e6",
-    "key": "review:noh2/unpaired/c3aa5566",
-    "fingerprint": "58cfab1acefe"
-  },
-  {
-    "volume": "noh2",
-    "piece": "sabbato-in-albis",
-    "kind": "starts_mid_page",
-    "printed_page": 32,
-    "first_system": 3,
-    "key": "review:noh2/starts_mid_page/30864f84",
-    "fingerprint": "df1f1344fa6b"
-  },
-  {
-    "volume": "noh2",
-    "piece": "sabbato-in-albis",
-    "kind": "part_missing",
-    "part": "sequence",
-    "variant": "",
-    "expected_incipit": "victimaepaschalilaudesim",
-    "best_system": 16,
-    "ref": "noh2/0067/002",
-    "score": 0.378,
-    "candidates": [
-      "noh2/0067/002",
-      "noh2/0067/004"
-    ],
-    "key": "review:noh2/part_missing/5ad56a01",
-    "fingerprint": "dd7fb4ecb0f2"
-  },
-  {
-    "volume": "noh2",
-    "piece": "sabbato-in-albis",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Sabbato in Albis",
-    "key": "review:noh2/unpaired/8929eb01",
-    "fingerprint": "8d84488bc1cf"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p37",
-    "kind": "starts_mid_page",
-    "printed_page": 37,
-    "first_system": 3,
-    "key": "review:noh2/starts_mid_page/b25439f1",
-    "fingerprint": "f2cd6f201d30"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p37",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "angelusdominidescenditde",
-    "best_system": 15,
-    "ref": "noh2/0072/000",
-    "score": 0.41,
-    "key": "review:noh2/part_missing/81eeec24",
-    "fingerprint": "2a0e72273c6f"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p37",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica in albis",
-    "key": "review:noh2/unpaired/e1c96bbc",
-    "fingerprint": "1fa83ce16373"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-ii-post-pascha",
-    "kind": "starts_mid_page",
-    "printed_page": 41,
-    "first_system": 2,
-    "key": "review:noh2/starts_mid_page/2d6503f6",
-    "fingerprint": "f0d6757cf948"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-ii-post-pascha",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica II Post Pascha",
-    "key": "review:noh2/unpaired/240cb0ae",
-    "fingerprint": "4e7f908b2996"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-iii-post-pascha",
-    "kind": "starts_mid_page",
-    "printed_page": 45,
-    "first_system": 5,
-    "key": "review:noh2/starts_mid_page/7bf10b40",
-    "fingerprint": "7fb76656941c"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-iii-post-pascha",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica III Post Pascha",
-    "key": "review:noh2/unpaired/ba326810",
-    "fingerprint": "9b9db01be836"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-iv-post-pascha",
-    "kind": "starts_mid_page",
-    "printed_page": 49,
-    "first_system": 5,
-    "key": "review:noh2/starts_mid_page/92b85b54",
-    "fingerprint": "ed38bce45775"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-iv-post-pascha",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica IV Post Pascha",
-    "key": "review:noh2/unpaired/ff30c0d6",
-    "fingerprint": "dfdfc3207b76"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-v-post-pascha",
-    "kind": "starts_mid_page",
-    "printed_page": 54,
-    "first_system": 1,
-    "key": "review:noh2/starts_mid_page/0830b8e1",
-    "fingerprint": "9beef6983e14"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-v-post-pascha",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica V Post Pascha",
-    "key": "review:noh2/unpaired/64003b34",
-    "fingerprint": "a2facc0ad5cf"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p61",
-    "kind": "part_unsupported",
-    "why": "no jgabc Proper for its day; parts are not divided",
-    "key": "review:noh2/part_unsupported/8555445a",
-    "fingerprint": "7aead0a8d79e"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p61",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "In Litaniis majorilJUs et minoribus",
-    "key": "review:noh2/unpaired/45fbe4ac",
-    "fingerprint": "4834eb5fe960"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p65",
-    "kind": "starts_mid_page",
-    "printed_page": 65,
-    "first_system": 1,
-    "key": "review:noh2/starts_mid_page/8e5e9b87",
-    "fingerprint": "b4f10a1627dd"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p65",
-    "kind": "no_systems",
-    "printed_pages": [
-      65,
-      65
-    ],
-    "key": "review:noh2/no_systems/1e7a2f2f",
-    "fingerprint": "1e7a2f2f36d8"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p65",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Vigilia Ascensionis",
-    "key": "review:noh2/unpaired/ff459a9e",
-    "fingerprint": "0d40a592185b"
-  },
-  {
-    "volume": "noh2",
-    "piece": "in-ascensione-domini",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "In Ascensione Domini",
-    "key": "review:noh2/unpaired/540b2af5",
-    "fingerprint": "a897e0f5d8f9"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-post-ascensionem",
-    "kind": "starts_mid_page",
-    "printed_page": 70,
-    "first_system": 3,
-    "key": "review:noh2/starts_mid_page/27f8f093",
-    "fingerprint": "2960fb5842e6"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-post-ascensionem",
-    "kind": "part_missing",
-    "part": "alleluia",
-    "variant": "2",
-    "expected_incipit": "alleluiavnonvosrelinquam",
-    "best_system": 15,
-    "ref": "noh2/0105/000",
-    "score": 0.588,
-    "key": "review:noh2/part_missing/d2d06aee",
-    "fingerprint": "61362bf76ad3"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-post-ascensionem",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "ascenditdeusinjubilation",
-    "best_system": 11,
-    "ref": "noh2/0104/002",
-    "score": 0.385,
-    "key": "review:noh2/part_missing/7d5bfbae",
-    "fingerprint": "560b4f5cc081"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-post-ascensionem",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica post Ascensionem",
-    "key": "review:noh2/unpaired/d3af0825",
-    "fingerprint": "60c9762f93d7"
-  },
-  {
-    "volume": "noh2",
-    "piece": "sabbato-in-vigilia-pentecostes",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Sabbato in Vigilia Pentecostes",
-    "key": "review:noh2/unpaired/1106153f",
-    "fingerprint": "78e0b0ce7b83"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-pentecostes",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica Pentecostes",
-    "key": "review:noh2/unpaired/966b6319",
-    "fingerprint": "3d057ecbc0b1"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-ii-infra-octavam-pentecostes",
-    "kind": "starts_mid_page",
-    "printed_page": 85,
-    "first_system": 2,
-    "key": "review:noh2/starts_mid_page/bfb83e22",
-    "fingerprint": "aaae22cf41fd"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-ii-infra-octavam-pentecostes",
-    "kind": "part_missing",
-    "part": "alleluia",
-    "variant": "2",
-    "expected_incipit": "alleluiahicgenuflectitur",
-    "best_system": 11,
-    "ref": "noh2/0119/001",
-    "score": 0.27,
-    "key": "review:noh2/part_missing/ea346c26",
-    "fingerprint": "3404af9c46b8"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-ii-infra-octavam-pentecostes",
-    "kind": "part_missing",
-    "part": "sequence",
-    "variant": "",
-    "expected_incipit": "venisanctespiritusetemit",
-    "best_system": 11,
-    "ref": "noh2/0119/001",
-    "score": 0.3,
-    "key": "review:noh2/part_missing/7c087bf4",
-    "fingerprint": "302c86fc8607"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-ii-infra-octavam-pentecostes",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "intonuitdecaelodominuset",
-    "best_system": 11,
-    "ref": "noh2/0119/001",
-    "score": 0.263,
-    "key": "review:noh2/part_missing/8728ffc6",
-    "fingerprint": "f99a768d1d7c"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-ii-infra-octavam-pentecostes",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Die II infra octavam Pentecostes",
-    "key": "review:noh2/unpaired/8dee7b2d",
-    "fingerprint": "3e1274f10c88"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-iii-infra-octavam-pentecostes",
-    "kind": "starts_mid_page",
-    "printed_page": 88,
-    "first_system": 2,
-    "key": "review:noh2/starts_mid_page/db25c9fb",
-    "fingerprint": "d8ac8ab7b2f1"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-iii-infra-octavam-pentecostes",
-    "kind": "part_missing",
-    "part": "alleluia",
-    "variant": "2",
-    "expected_incipit": "alleluiahicgenuflectitur",
-    "best_system": 12,
-    "ref": "noh2/0122/002",
-    "score": 0.316,
-    "key": "review:noh2/part_missing/53ada602",
-    "fingerprint": "20e3eec90e28"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-iii-infra-octavam-pentecostes",
-    "kind": "part_missing",
-    "part": "sequence",
-    "variant": "",
-    "expected_incipit": "venisanctespiritusetemit",
-    "best_system": 12,
-    "ref": "noh2/0122/002",
-    "score": 0.385,
-    "key": "review:noh2/part_missing/47b685a4",
-    "fingerprint": "c66d4e424c1f"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-iii-infra-octavam-pentecostes",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "portascaeliaperuitdominu",
-    "best_system": 12,
-    "ref": "noh2/0122/002",
-    "score": 0.333,
-    "key": "review:noh2/part_missing/6c0b1571",
-    "fingerprint": "7baaaa4866eb"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-iii-infra-octavam-pentecostes",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Die III infra octavam Pentecostes",
-    "key": "review:noh2/unpaired/8d8a80cf",
-    "fingerprint": "2a462b1bec4e"
-  },
-  {
-    "volume": "noh2",
-    "piece": "feria-iv-quattuor-temporum-pentecostes",
-    "kind": "part_missing",
-    "part": "sequence",
-    "variant": "",
-    "expected_incipit": "venisanctespiritusetemit",
-    "best_system": null,
-    "ref": null,
-    "score": 0.0,
-    "key": "review:noh2/part_missing/9f96f468",
-    "fingerprint": "3d420a17abf9"
-  },
-  {
-    "volume": "noh2",
-    "piece": "feria-iv-quattuor-temporum-pentecostes",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "meditaborinmandatistuisq",
-    "best_system": null,
-    "ref": null,
-    "score": 0.0,
-    "key": "review:noh2/part_missing/09291968",
-    "fingerprint": "ba14dc7fd526"
-  },
-  {
-    "volume": "noh2",
-    "piece": "feria-iv-quattuor-temporum-pentecostes",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Feria IV Quattuor Temporum Pentecostes",
-    "key": "review:noh2/unpaired/fa3c0290",
-    "fingerprint": "8db789e2b389"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-v-infra-octavam-pentecostes",
-    "kind": "starts_mid_page",
-    "printed_page": 94,
-    "first_system": 2,
-    "key": "review:noh2/starts_mid_page/01cc5991",
-    "fingerprint": "72e23074a04c"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-v-infra-octavam-pentecostes",
-    "kind": "no_systems",
-    "printed_pages": [
-      94,
-      94
-    ],
-    "key": "review:noh2/no_systems/84f5de9d",
-    "fingerprint": "84f5de9debf7"
-  },
-  {
-    "volume": "noh2",
-    "piece": "die-v-infra-octavam-pentecostes",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Die V infra octavam Pentecostes",
-    "key": "review:noh2/unpaired/0224568f",
-    "fingerprint": "7db074454296"
-  },
-  {
-    "volume": "noh2",
-    "piece": "feria-vi-quattuor-temporum-pentecostes",
-    "kind": "starts_mid_page",
-    "printed_page": 94,
-    "first_system": 2,
-    "key": "review:noh2/starts_mid_page/b318a642",
-    "fingerprint": "c2345d72ed3c"
-  },
-  {
-    "volume": "noh2",
-    "piece": "feria-vi-quattuor-temporum-pentecostes",
-    "kind": "part_missing",
-    "part": "alleluia",
-    "variant": "1",
-    "expected_incipit": "alleluiaijvoquambonusets",
-    "best_system": 11,
-    "ref": "noh2/0128/002",
-    "score": 0.424,
-    "key": "review:noh2/part_missing/2670a4ef",
-    "fingerprint": "c5e58cb9b85c"
-  },
-  {
-    "volume": "noh2",
-    "piece": "feria-vi-quattuor-temporum-pentecostes",
-    "kind": "part_missing",
-    "part": "alleluia",
-    "variant": "2",
-    "expected_incipit": "alleluiahicgenuflectitur",
-    "best_system": 12,
-    "ref": "noh2/0128/003",
-    "score": 0.378,
-    "key": "review:noh2/part_missing/0b4987de",
-    "fingerprint": "9842e340f669"
-  },
-  {
-    "volume": "noh2",
-    "piece": "feria-vi-quattuor-temporum-pentecostes",
-    "kind": "part_missing",
-    "part": "sequence",
-    "variant": "",
-    "expected_incipit": "venisanctespiritusetemit",
-    "best_system": 13,
-    "ref": "noh2/0128/004",
-    "score": 0.485,
-    "key": "review:noh2/part_missing/facd7056",
-    "fingerprint": "c3fa450fd4be"
-  },
-  {
-    "volume": "noh2",
-    "piece": "feria-vi-quattuor-temporum-pentecostes",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Feria VI Quattuor temporum Pentecostes",
-    "key": "review:noh2/unpaired/d2e36655",
-    "fingerprint": "b272c47e7c77"
-  },
-  {
-    "volume": "noh2",
-    "piece": "sabbato-quattuor-temporum-pentecostes",
-    "kind": "starts_mid_page",
-    "printed_page": 98,
-    "first_system": 5,
-    "key": "review:noh2/starts_mid_page/a33b0847",
-    "fingerprint": "9e58114e41a7"
-  },
-  {
-    "volume": "noh2",
-    "piece": "sabbato-quattuor-temporum-pentecostes",
-    "kind": "part_missing",
-    "part": "tract",
-    "variant": "",
-    "expected_incipit": "laudatedominumomnesgente",
-    "best_system": 18,
-    "ref": "noh2/0134/000",
-    "score": 0.435,
-    "candidates": [
-      "noh2/0133/000",
-      "noh2/0133/003"
-    ],
-    "key": "review:noh2/part_missing/6c21edd3",
-    "fingerprint": "0be743c98807"
-  },
-  {
-    "volume": "noh2",
-    "piece": "sabbato-quattuor-temporum-pentecostes",
-    "kind": "part_missing",
-    "part": "sequence",
-    "variant": "",
-    "expected_incipit": "venisanctespiritusetemit",
-    "best_system": 25,
-    "ref": "noh2/0135/001",
-    "score": 0.513,
-    "key": "review:noh2/part_missing/b77751e6",
-    "fingerprint": "2a792a0486dc"
-  },
-  {
-    "volume": "noh2",
-    "piece": "sabbato-quattuor-temporum-pentecostes",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Sabbato Quattuor Temporum Pentecostes",
-    "key": "review:noh2/unpaired/1206c0ed",
-    "fingerprint": "5ff3cfde660f"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p105",
-    "kind": "starts_mid_page",
-    "printed_page": 105,
-    "first_system": 2,
-    "key": "review:noh2/starts_mid_page/f9049b5f",
-    "fingerprint": "a1974ff58c4e"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p105",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Sanctissimre Trinitatis",
-    "key": "review:noh2/unpaired/ed4a2c1d",
-    "fingerprint": "583803b45fc0"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p110",
-    "kind": "starts_mid_page",
-    "printed_page": 110,
-    "first_system": 4,
-    "key": "review:noh2/starts_mid_page/5163297c",
-    "fingerprint": "2df6d39286f3"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p110",
-    "kind": "part_unsupported",
-    "why": "no jgabc Proper for its day; parts are not divided",
-    "key": "review:noh2/part_unsupported/f0fc8e3a",
-    "fingerprint": "a12139531926"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p110",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica I. post Pentecosten",
-    "key": "review:noh2/unpaired/7b76b22c",
-    "fingerprint": "88757e548e1f"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p114",
-    "kind": "starts_mid_page",
-    "printed_page": 114,
-    "first_system": 4,
-    "key": "review:noh2/starts_mid_page/1f56c0bd",
-    "fingerprint": "a3e1c3654eaf"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p114",
-    "kind": "part_missing",
-    "part": "sequence",
-    "variant": "",
-    "expected_incipit": "laudasionsalvatoremlauda",
-    "best_system": null,
-    "ref": null,
-    "score": 0.0,
-    "key": "review:noh2/part_missing/549ecd95",
-    "fingerprint": "5882cb06a7a3"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p114",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Corporis Christi",
-    "key": "review:noh2/unpaired/f270d60b",
-    "fingerprint": "7b4f777253e5"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-ii-post-pentecosten",
-    "kind": "part_missing",
-    "part": "gradual",
-    "variant": "",
-    "expected_incipit": "addominumdumtribularercl",
-    "best_system": 25,
-    "ref": "noh2/0164/001",
-    "score": 0.367,
-    "candidates": [
-      "noh2/0161/002",
-      "noh2/0163/004",
-      "noh2/0164/000"
-    ],
-    "key": "review:noh2/part_missing/fe86b25a",
-    "fingerprint": "b93d808a382c"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-ii-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica II Post Pentecosten",
-    "key": "review:noh2/unpaired/11ae165f",
-    "fingerprint": "bd63349e579e"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p133",
-    "kind": "unverified_pairing",
-    "part": "tract",
-    "variant": "words",
-    "expected_incipit": "misericorsetmiseratordom",
-    "best_system": 26,
-    "ref": "noh2/0169/002",
-    "score": 0.667,
-    "candidates": [
-      "noh2/0169/002"
-    ],
-    "chant_id": 1244,
-    "key": "review:noh2/unverified_pairing/98f2d656",
-    "fingerprint": "a01b989e0026"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p133",
-    "kind": "unverified_pairing",
-    "part": "offertory",
-    "variant": "words",
-    "expected_incipit": "holocaustumetpropeccaton",
-    "best_system": 51,
-    "ref": "noh2/0174/000",
-    "score": 0.667,
-    "candidates": [
-      "noh2/0174/000"
-    ],
-    "chant_id": 319,
-    "key": "review:noh2/unverified_pairing/bb25f2f0",
-    "fingerprint": "2181f4b6d699"
-  },
-  {
-    "volume": "noh2",
-    "piece": "noh2-p133",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Sacratissimi Cordis Jesu",
-    "key": "review:noh2/unpaired/8f9de66d",
-    "fingerprint": "292ad4aa794c"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-iii-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica III Post Pentecosten\u00a7",
-    "key": "review:noh2/unpaired/84916517",
-    "fingerprint": "d08caa50ff1e"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-iv-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 149,
-    "first_system": 2,
-    "key": "review:noh2/starts_mid_page/0614c42f",
-    "fingerprint": "79a2500087a1"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-iv-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica IV Post Pentecosten",
-    "key": "review:noh2/unpaired/f4bc6b65",
-    "fingerprint": "98a2155e88b7"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-v-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 153,
-    "first_system": 4,
-    "key": "review:noh2/starts_mid_page/b66f0963",
-    "fingerprint": "9bc2bb2cad1d"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-v-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica V Post Pentecosten",
-    "key": "review:noh2/unpaired/d4090de4",
-    "fingerprint": "7c7c54d639be"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-vi-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 157,
-    "first_system": 2,
-    "key": "review:noh2/starts_mid_page/a97fd5d0",
-    "fingerprint": "c9eb48ff30a1"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-vi-post-pentecosten",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "perficegressusmeosinsemi",
-    "best_system": 11,
-    "ref": "noh2/0191/001",
-    "score": 0.375,
-    "candidates": [
-      "noh2/0191/001",
-      "noh2/0191/003",
-      "noh2/0191/005"
-    ],
-    "key": "review:noh2/part_missing/bd934f64",
-    "fingerprint": "9ed049297e54"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-vi-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica VI Post Pentecosten",
-    "key": "review:noh2/unpaired/d4b3b045",
-    "fingerprint": "2ededa8a4479"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-vii-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 160,
-    "first_system": 5,
-    "key": "review:noh2/starts_mid_page/3c6c2bfe",
-    "fingerprint": "381de82a6075"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-vii-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica VII Post Pentecosten",
-    "key": "review:noh2/unpaired/510438ea",
-    "fingerprint": "1e76978abc09"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-viii-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica VIII Post Pentecosten",
-    "key": "review:noh2/unpaired/c87220ce",
-    "fingerprint": "c1dea4a07dc1"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-ix-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 171,
-    "first_system": 4,
-    "key": "review:noh2/starts_mid_page/c600bbf2",
-    "fingerprint": "769db42d2817"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-ix-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica IX Post Pentecosten",
-    "key": "review:noh2/unpaired/99f57294",
-    "fingerprint": "ba5cf58e5b3f"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-x-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 176,
-    "first_system": 1,
-    "key": "review:noh2/starts_mid_page/98da153c",
-    "fingerprint": "c09abcc27266"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-x-post-pentecosten",
-    "kind": "part_missing",
-    "part": "communion",
-    "variant": "",
-    "expected_incipit": "acceptabissacrificiumjus",
-    "best_system": 31,
-    "ref": "noh2/0213/002",
-    "score": 0.478,
-    "key": "review:noh2/part_missing/257ed57e",
-    "fingerprint": "c6909d7e164c"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-x-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica X Post Pentecosten",
-    "key": "review:noh2/unpaired/58210145",
-    "fingerprint": "a32652ea1e69"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xi-post-pentecosten",
-    "kind": "part_missing",
-    "part": "gradual",
-    "variant": "",
-    "expected_incipit": "indeosperavitcormeumetad",
-    "best_system": 24,
-    "ref": "noh2/0218/000",
-    "score": 0.5,
-    "candidates": [
-      "noh2/0215/002",
-      "noh2/0217/002",
-      "noh2/0217/003",
-      "noh2/0218/000"
-    ],
-    "key": "review:noh2/part_missing/a2a5661d",
-    "fingerprint": "952994c29987"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xi-post-pentecosten",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "exaltabotedominequoniams",
-    "best_system": 24,
-    "ref": "noh2/0218/000",
-    "score": 0.5,
-    "candidates": [
-      "noh2/0217/002",
-      "noh2/0217/003",
-      "noh2/0218/000"
-    ],
-    "key": "review:noh2/part_missing/64a3d011",
-    "fingerprint": "db20c7034009"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xi-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica XI Post Pentecosten",
-    "key": "review:noh2/unpaired/3b45c746",
-    "fingerprint": "f9d5580283bf"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xii-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 186,
-    "first_system": 5,
-    "key": "review:noh2/starts_mid_page/b0b13031",
-    "fingerprint": "5c39e4a379fd"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xii-post-pentecosten",
-    "kind": "part_missing",
-    "part": "communion",
-    "variant": "",
-    "expected_incipit": "defructuoperumtuorumdomi",
-    "best_system": 40,
-    "ref": "noh2/0225/003",
-    "score": 0.638,
-    "key": "review:noh2/part_missing/50128a29",
-    "fingerprint": "2840d17a71f6"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xii-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica XII Post Pentecosten",
-    "key": "review:noh2/unpaired/17b17fe7",
-    "fingerprint": "40df76d287c8"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xiii-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 194,
-    "first_system": 2,
-    "key": "review:noh2/starts_mid_page/343a89cc",
-    "fingerprint": "06523e8b3bf0"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xiii-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica XIII Post Pentecosten",
-    "key": "review:noh2/unpaired/6eb37d98",
-    "fingerprint": "30350243fc63"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xiv-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 200,
-    "first_system": 4,
-    "key": "review:noh2/starts_mid_page/08aa32eb",
-    "fingerprint": "69c99bfd35cb"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xiv-post-pentecosten",
-    "kind": "part_missing",
-    "part": "alleluia",
-    "variant": "",
-    "expected_incipit": "alleluiaijvveniteexsulte",
-    "best_system": 20,
-    "ref": "noh2/0236/000",
-    "score": 0.444,
-    "candidates": [
-      "noh2/0235/000",
-      "noh2/0235/004",
-      "noh2/0235/005"
-    ],
-    "key": "review:noh2/part_missing/9363a96e",
-    "fingerprint": "a7fbc9558097"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xiv-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica XIV Post Pentecosten",
-    "key": "review:noh2/unpaired/72e9ec1c",
-    "fingerprint": "1aea85883e8d"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xv-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 206,
-    "first_system": 2,
-    "key": "review:noh2/starts_mid_page/422906b0",
-    "fingerprint": "400764981cdc"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xv-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica XV Post Pentecosten",
-    "key": "review:noh2/unpaired/5c363baa",
-    "fingerprint": "7578e0cec1e8"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xvi-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 212,
-    "first_system": 3,
-    "key": "review:noh2/starts_mid_page/1fbd9608",
-    "fingerprint": "9b678d52f4a9"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xvi-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica XVI Post Pentecosten",
-    "key": "review:noh2/unpaired/8d5837e3",
-    "fingerprint": "47882557ab92"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xvii-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 216,
-    "first_system": 5,
-    "key": "review:noh2/starts_mid_page/f163f898",
-    "fingerprint": "fa7fdba5ff16"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xvii-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica XVII Post Pentecosten",
-    "key": "review:noh2/unpaired/c0fdcb0a",
-    "fingerprint": "a0f2ab24151f"
-  },
-  {
-    "volume": "noh2",
-    "piece": "feria-iv-quattuor-temporum-septembris",
-    "kind": "starts_mid_page",
-    "printed_page": 222,
-    "first_system": 4,
-    "key": "review:noh2/starts_mid_page/f6454701",
-    "fingerprint": "10186327a536"
-  },
-  {
-    "volume": "noh2",
-    "piece": "feria-iv-quattuor-temporum-septembris",
-    "kind": "unverified_pairing",
-    "part": "gradual",
-    "variant": "words",
-    "expected_incipit": "quissicutdominusdeusnost",
-    "best_system": 9,
-    "ref": "noh2/0256/001",
-    "score": 0.776,
-    "candidates": [
-      "noh2/0256/001"
-    ],
-    "chant_id": 472,
-    "key": "review:noh2/unverified_pairing/feedf0fc",
-    "fingerprint": "138c93da2475"
-  },
-  {
-    "volume": "noh2",
-    "piece": "feria-iv-quattuor-temporum-septembris",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Feria IV Quattuor Temporum Septembris",
-    "key": "review:noh2/unpaired/856880d6",
-    "fingerprint": "d4c887529160"
-  },
-  {
-    "volume": "noh2",
-    "piece": "feria-vi-quattuor-temporum-septembris",
-    "kind": "starts_mid_page",
-    "printed_page": 226,
-    "first_system": 2,
-    "key": "review:noh2/starts_mid_page/111755f1",
-    "fingerprint": "1947f097d1b8"
-  },
-  {
-    "volume": "noh2",
-    "piece": "feria-vi-quattuor-temporum-septembris",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Feria VI Quattuor Temporum Septembris",
-    "key": "review:noh2/unpaired/4973a762",
-    "fingerprint": "df711ef9ef70"
-  },
-  {
-    "volume": "noh2",
-    "piece": "sabbato-quattuor-temporum-septembris",
-    "kind": "part_mismatch",
-    "part": "introit",
-    "variant": "",
-    "expected_incipit": "veniteadoremusdeumetproc",
-    "best_system": 0,
-    "ref": "noh2/0259/000",
-    "score": 0.533,
-    "key": "review:noh2/part_mismatch/ff8f327a",
-    "fingerprint": "12dc6853439e"
-  },
-  {
-    "volume": "noh2",
-    "piece": "sabbato-quattuor-temporum-septembris",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Sabbato Quattuor Temporum Septembris",
-    "key": "review:noh2/unpaired/5a617d5f",
-    "fingerprint": "ea9ec26199c3"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xviii-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 229,
-    "first_system": 1,
-    "key": "review:noh2/starts_mid_page/ea20f1d6",
-    "fingerprint": "fb167f776761"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xviii-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica XVIII Post Pentecosten",
-    "key": "review:noh2/unpaired/774ec79b",
-    "fingerprint": "e1630967813f"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xix-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica XIX Post Pentecosten",
-    "key": "review:noh2/unpaired/dc19a343",
-    "fingerprint": "d7da1d52ec10"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xx-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 238,
-    "first_system": 4,
-    "key": "review:noh2/starts_mid_page/2927988f",
-    "fingerprint": "39e10eaf6a48"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xx-post-pentecosten",
-    "kind": "part_missing",
-    "part": "gradual",
-    "variant": "",
-    "expected_incipit": "oculiomniumintesperantdo",
-    "best_system": 19,
-    "ref": "noh2/0273/005",
-    "score": 0.45,
-    "key": "review:noh2/part_missing/56b91baa",
-    "fingerprint": "e54822039d5a"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xx-post-pentecosten",
-    "kind": "part_missing",
-    "part": "alleluia",
-    "variant": "",
-    "expected_incipit": "alleluiaijvparatumcormeu",
-    "best_system": 13,
-    "ref": "noh2/0272/005",
-    "score": 0.578,
-    "key": "review:noh2/part_missing/dcccffa5",
-    "fingerprint": "de61c185dc11"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xx-post-pentecosten",
-    "kind": "part_missing",
-    "part": "offertory",
-    "variant": "",
-    "expected_incipit": "superfluminababylonisill",
-    "best_system": 14,
-    "ref": "noh2/0273/000",
-    "score": 0.455,
-    "key": "review:noh2/part_missing/aef42c70",
-    "fingerprint": "3f71948b2f66"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xx-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica XX Post Pentecosten",
-    "key": "review:noh2/unpaired/c542203d",
-    "fingerprint": "8791a40896b9"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xxi-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 243,
-    "first_system": 1,
-    "key": "review:noh2/starts_mid_page/6ba1c8aa",
-    "fingerprint": "c10cf0ed462e"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xxi-post-pentecosten",
-    "kind": "part_missing",
-    "part": "communion",
-    "variant": "",
-    "expected_incipit": "insalutarituoanimameaeti",
-    "best_system": 36,
-    "ref": "noh2/0281/001",
-    "score": 0.577,
-    "candidates": [
-      "noh2/0281/001",
-      "noh2/0281/005"
-    ],
-    "key": "review:noh2/part_missing/bcc8bcac",
-    "fingerprint": "bcbe9eda2d21"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xxi-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica XXI Post Pentecosten",
-    "key": "review:noh2/unpaired/05dfc006",
-    "fingerprint": "64607b576e89"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xxii-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica XXII Post Pentecosten",
-    "key": "review:noh2/unpaired/a340af13",
-    "fingerprint": "0066584ca955"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xxiii-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 255,
-    "first_system": 2,
-    "key": "review:noh2/starts_mid_page/41b58126",
-    "fingerprint": "055f20ee8e51"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xxiii-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica XXIII Post Pentecosten",
-    "key": "review:noh2/unpaired/71ae28fe",
-    "fingerprint": "8d00d4db095f"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xxiv-post-pentecosten",
-    "kind": "starts_mid_page",
-    "printed_page": 260,
-    "first_system": 6,
-    "key": "review:noh2/starts_mid_page/877c6e1f",
-    "fingerprint": "c74133087b73"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xxiv-post-pentecosten",
-    "kind": "no_systems",
-    "printed_pages": [
-      260,
-      260
-    ],
-    "key": "review:noh2/no_systems/eb5310d6",
-    "fingerprint": "eb5310d669e2"
-  },
-  {
-    "volume": "noh2",
-    "piece": "dominica-xxiv-post-pentecosten",
-    "kind": "unpaired",
-    "genre": "proper",
-    "title": "Dominica XXIV Post Pentecosten",
-    "key": "review:noh2/unpaired/4e452ccd",
-    "fingerprint": "388acbab2441"
-  },
-  {
     "volume": "noh8",
     "piece": "vesperae-dominica-ad-vesperas",
     "kind": "unpaired",
@@ -9847,6 +8356,1488 @@
     "why": "pages between page-map segments (an insert, or a page scanned twice) carry no printed page and are not catalogued",
     "key": "review:noh4/unmapped_pages/7e48a554",
     "fingerprint": "5690fa1e63db"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-resurrectionis",
+    "kind": "part_missing",
+    "part": "gradual",
+    "variant": "",
+    "expected_incipit": "haecdiesquamfecitdominus",
+    "best_system": 10,
+    "ref": "noh2/0034/005",
+    "score": 0.565,
+    "candidates": [
+      "noh2/0034/005",
+      "noh2/0035/003",
+      "noh2/0036/002"
+    ],
+    "key": "review:noh2/part_missing/da0d53ec",
+    "fingerprint": "750b2da200ce"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-resurrectionis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica Resurrectionis",
+    "key": "review:noh2/unpaired/9c3f4790",
+    "fingerprint": "e796f75c8a2e"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-ii-infra-octavam-pasch",
+    "kind": "part_missing",
+    "part": "communion",
+    "variant": "",
+    "expected_incipit": "surrexitdominusetapparui",
+    "best_system": 23,
+    "ref": "noh2/0043/005",
+    "score": 0.324,
+    "key": "review:noh2/part_missing/3a0954cb",
+    "fingerprint": "bdcd7ab6f6a3"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-ii-infra-octavam-pasch",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die II infra octavam Pasch\u00e6",
+    "key": "review:noh2/unpaired/0bb4b593",
+    "fingerprint": "9f7245a34517"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-iii-infra-octavam-pasch",
+    "kind": "part_missing",
+    "part": "sequence",
+    "variant": "",
+    "expected_incipit": "victimaepaschalilaudesim",
+    "best_system": 22,
+    "ref": "noh2/0047/004",
+    "score": 0.303,
+    "key": "review:noh2/part_missing/b1ad1f5d",
+    "fingerprint": "182d2b8c995e"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-iii-infra-octavam-pasch",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die III infra octavam Pasch\u00e6",
+    "key": "review:noh2/unpaired/09a9cf69",
+    "fingerprint": "abcf256795fa"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-vi-infra-octavam-pasch",
+    "kind": "part_missing",
+    "part": "gradual",
+    "variant": "",
+    "expected_incipit": "haecdiesquamfecitdominus",
+    "best_system": 11,
+    "ref": "noh2/0050/005",
+    "score": 0.471,
+    "candidates": [
+      "noh2/0051/004",
+      "noh2/0051/005",
+      "noh2/0052/000",
+      "noh2/0052/003",
+      "noh2/0053/000",
+      "noh2/0053/002"
+    ],
+    "key": "review:noh2/part_missing/dfcf28a7",
+    "fingerprint": "759840481277"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-vi-infra-octavam-pasch",
+    "kind": "part_missing",
+    "part": "sequence",
+    "variant": "",
+    "expected_incipit": "victimaepaschalilaudesim",
+    "best_system": 22,
+    "ref": "noh2/0052/004",
+    "score": 0.615,
+    "candidates": [
+      "noh2/0052/003",
+      "noh2/0053/000",
+      "noh2/0053/002"
+    ],
+    "key": "review:noh2/part_missing/c0d9e67e",
+    "fingerprint": "abb8ed1606c3"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-vi-infra-octavam-pasch",
+    "kind": "part_missing",
+    "part": "offertory",
+    "variant": "",
+    "expected_incipit": "portascaeliaperuitdominu",
+    "best_system": 20,
+    "ref": "noh2/0052/002",
+    "score": 0.432,
+    "candidates": [
+      "noh2/0052/003",
+      "noh2/0053/000",
+      "noh2/0053/002"
+    ],
+    "key": "review:noh2/part_missing/5b954992",
+    "fingerprint": "d2d06d08d059"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-vi-infra-octavam-pasch",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die VI infra octavam Pasch\u00e6",
+    "key": "review:noh2/unpaired/18c363e3",
+    "fingerprint": "c94763394932"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-v-infra-octavam-pasch",
+    "kind": "part_missing",
+    "part": "sequence",
+    "variant": "",
+    "expected_incipit": "victimaepaschalilaudesim",
+    "best_system": 18,
+    "ref": "noh2/0057/000",
+    "score": 0.476,
+    "key": "review:noh2/part_missing/7543db15",
+    "fingerprint": "3020f589c5be"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-v-infra-octavam-pasch",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die V infra octavam Pasch\u00e6",
+    "key": "review:noh2/unpaired/d4135609",
+    "fingerprint": "6bb2ab67cad4"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-vi-infra-octavam-pasch-2",
+    "kind": "part_missing",
+    "part": "gradual",
+    "variant": "",
+    "expected_incipit": "haecdiesquamfecitdominus",
+    "best_system": 9,
+    "ref": "noh2/0060/003",
+    "score": 0.375,
+    "key": "review:noh2/part_missing/8496ad4c",
+    "fingerprint": "0dd048f292ae"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-vi-infra-octavam-pasch-2",
+    "kind": "part_missing",
+    "part": "sequence",
+    "variant": "",
+    "expected_incipit": "victimaepaschalilaudesim",
+    "best_system": 17,
+    "ref": "noh2/0061/005",
+    "score": 0.303,
+    "key": "review:noh2/part_missing/a276a38b",
+    "fingerprint": "68a94cb0cdff"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-vi-infra-octavam-pasch-2",
+    "kind": "part_missing",
+    "part": "communion",
+    "variant": "",
+    "expected_incipit": "dataestmihiomnispotestas",
+    "best_system": 28,
+    "ref": "noh2/0063/004",
+    "score": 0.545,
+    "key": "review:noh2/part_missing/70d73a1b",
+    "fingerprint": "b7d7ef46756c"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-vi-infra-octavam-pasch-2",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die VI infra octavam Pasch\u00e6",
+    "key": "review:noh2/unpaired/c3aa5566",
+    "fingerprint": "58cfab1acefe"
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-in-albis",
+    "kind": "starts_mid_page",
+    "printed_page": 32,
+    "first_system": 3,
+    "key": "review:noh2/starts_mid_page/30864f84",
+    "fingerprint": "df1f1344fa6b"
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-in-albis",
+    "kind": "part_missing",
+    "part": "sequence",
+    "variant": "",
+    "expected_incipit": "victimaepaschalilaudesim",
+    "best_system": 16,
+    "ref": "noh2/0067/002",
+    "score": 0.378,
+    "candidates": [
+      "noh2/0067/002",
+      "noh2/0067/004"
+    ],
+    "key": "review:noh2/part_missing/5ad56a01",
+    "fingerprint": "dd7fb4ecb0f2"
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-in-albis",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato in Albis",
+    "key": "review:noh2/unpaired/8929eb01",
+    "fingerprint": "8d84488bc1cf"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p37",
+    "kind": "starts_mid_page",
+    "printed_page": 37,
+    "first_system": 3,
+    "key": "review:noh2/starts_mid_page/b25439f1",
+    "fingerprint": "f2cd6f201d30"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p37",
+    "kind": "part_missing",
+    "part": "offertory",
+    "variant": "",
+    "expected_incipit": "angelusdominidescenditde",
+    "best_system": 15,
+    "ref": "noh2/0072/000",
+    "score": 0.41,
+    "key": "review:noh2/part_missing/81eeec24",
+    "fingerprint": "2a0e72273c6f"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p37",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica in albis",
+    "key": "review:noh2/unpaired/e1c96bbc",
+    "fingerprint": "1fa83ce16373"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-ii-post-pascha",
+    "kind": "starts_mid_page",
+    "printed_page": 41,
+    "first_system": 2,
+    "key": "review:noh2/starts_mid_page/2d6503f6",
+    "fingerprint": "f0d6757cf948"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-ii-post-pascha",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica II Post Pascha",
+    "key": "review:noh2/unpaired/240cb0ae",
+    "fingerprint": "4e7f908b2996"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-iii-post-pascha",
+    "kind": "starts_mid_page",
+    "printed_page": 45,
+    "first_system": 5,
+    "key": "review:noh2/starts_mid_page/7bf10b40",
+    "fingerprint": "7fb76656941c"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-iii-post-pascha",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica III Post Pascha",
+    "key": "review:noh2/unpaired/ba326810",
+    "fingerprint": "9b9db01be836"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-iv-post-pascha",
+    "kind": "starts_mid_page",
+    "printed_page": 49,
+    "first_system": 5,
+    "key": "review:noh2/starts_mid_page/92b85b54",
+    "fingerprint": "ed38bce45775"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-iv-post-pascha",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica IV Post Pascha",
+    "key": "review:noh2/unpaired/ff30c0d6",
+    "fingerprint": "dfdfc3207b76"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-v-post-pascha",
+    "kind": "starts_mid_page",
+    "printed_page": 54,
+    "first_system": 1,
+    "key": "review:noh2/starts_mid_page/0830b8e1",
+    "fingerprint": "9beef6983e14"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-v-post-pascha",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica V Post Pascha",
+    "key": "review:noh2/unpaired/64003b34",
+    "fingerprint": "a2facc0ad5cf"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p61",
+    "kind": "part_unsupported",
+    "why": "no jgabc Proper for its day; parts are not divided",
+    "key": "review:noh2/part_unsupported/8555445a",
+    "fingerprint": "7aead0a8d79e"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p61",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Litaniis majorilJUs et minoribus",
+    "key": "review:noh2/unpaired/45fbe4ac",
+    "fingerprint": "4834eb5fe960"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p65",
+    "kind": "starts_mid_page",
+    "printed_page": 65,
+    "first_system": 1,
+    "key": "review:noh2/starts_mid_page/8e5e9b87",
+    "fingerprint": "b4f10a1627dd"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p65",
+    "kind": "no_systems",
+    "printed_pages": [
+      65,
+      65
+    ],
+    "key": "review:noh2/no_systems/1e7a2f2f",
+    "fingerprint": "1e7a2f2f36d8"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p65",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Vigilia Ascensionis",
+    "key": "review:noh2/unpaired/ff459a9e",
+    "fingerprint": "0d40a592185b"
+  },
+  {
+    "volume": "noh2",
+    "piece": "in-ascensione-domini",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "In Ascensione Domini",
+    "key": "review:noh2/unpaired/540b2af5",
+    "fingerprint": "a897e0f5d8f9"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-post-ascensionem",
+    "kind": "starts_mid_page",
+    "printed_page": 70,
+    "first_system": 3,
+    "key": "review:noh2/starts_mid_page/27f8f093",
+    "fingerprint": "2960fb5842e6"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-post-ascensionem",
+    "kind": "part_missing",
+    "part": "alleluia",
+    "variant": "2",
+    "expected_incipit": "alleluiavnonvosrelinquam",
+    "best_system": 15,
+    "ref": "noh2/0105/000",
+    "score": 0.588,
+    "key": "review:noh2/part_missing/d2d06aee",
+    "fingerprint": "61362bf76ad3"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-post-ascensionem",
+    "kind": "part_missing",
+    "part": "offertory",
+    "variant": "",
+    "expected_incipit": "ascenditdeusinjubilation",
+    "best_system": 11,
+    "ref": "noh2/0104/002",
+    "score": 0.385,
+    "key": "review:noh2/part_missing/7d5bfbae",
+    "fingerprint": "560b4f5cc081"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-post-ascensionem",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica post Ascensionem",
+    "key": "review:noh2/unpaired/d3af0825",
+    "fingerprint": "60c9762f93d7"
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-in-vigilia-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato in Vigilia Pentecostes",
+    "key": "review:noh2/unpaired/1106153f",
+    "fingerprint": "78e0b0ce7b83"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica Pentecostes",
+    "key": "review:noh2/unpaired/966b6319",
+    "fingerprint": "3d057ecbc0b1"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-ii-infra-octavam-pentecostes",
+    "kind": "starts_mid_page",
+    "printed_page": 85,
+    "first_system": 2,
+    "key": "review:noh2/starts_mid_page/bfb83e22",
+    "fingerprint": "aaae22cf41fd"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-ii-infra-octavam-pentecostes",
+    "kind": "part_missing",
+    "part": "alleluia",
+    "variant": "2",
+    "expected_incipit": "alleluiahicgenuflectitur",
+    "best_system": 11,
+    "ref": "noh2/0119/001",
+    "score": 0.27,
+    "key": "review:noh2/part_missing/ea346c26",
+    "fingerprint": "3404af9c46b8"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-ii-infra-octavam-pentecostes",
+    "kind": "part_missing",
+    "part": "sequence",
+    "variant": "",
+    "expected_incipit": "venisanctespiritusetemit",
+    "best_system": 11,
+    "ref": "noh2/0119/001",
+    "score": 0.3,
+    "key": "review:noh2/part_missing/7c087bf4",
+    "fingerprint": "302c86fc8607"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-ii-infra-octavam-pentecostes",
+    "kind": "part_missing",
+    "part": "offertory",
+    "variant": "",
+    "expected_incipit": "intonuitdecaelodominuset",
+    "best_system": 11,
+    "ref": "noh2/0119/001",
+    "score": 0.263,
+    "key": "review:noh2/part_missing/8728ffc6",
+    "fingerprint": "f99a768d1d7c"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-ii-infra-octavam-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die II infra octavam Pentecostes",
+    "key": "review:noh2/unpaired/8dee7b2d",
+    "fingerprint": "3e1274f10c88"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-iii-infra-octavam-pentecostes",
+    "kind": "starts_mid_page",
+    "printed_page": 88,
+    "first_system": 2,
+    "key": "review:noh2/starts_mid_page/db25c9fb",
+    "fingerprint": "d8ac8ab7b2f1"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-iii-infra-octavam-pentecostes",
+    "kind": "part_missing",
+    "part": "alleluia",
+    "variant": "2",
+    "expected_incipit": "alleluiahicgenuflectitur",
+    "best_system": 12,
+    "ref": "noh2/0122/002",
+    "score": 0.316,
+    "key": "review:noh2/part_missing/53ada602",
+    "fingerprint": "20e3eec90e28"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-iii-infra-octavam-pentecostes",
+    "kind": "part_missing",
+    "part": "sequence",
+    "variant": "",
+    "expected_incipit": "venisanctespiritusetemit",
+    "best_system": 12,
+    "ref": "noh2/0122/002",
+    "score": 0.385,
+    "key": "review:noh2/part_missing/47b685a4",
+    "fingerprint": "c66d4e424c1f"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-iii-infra-octavam-pentecostes",
+    "kind": "part_missing",
+    "part": "offertory",
+    "variant": "",
+    "expected_incipit": "portascaeliaperuitdominu",
+    "best_system": 12,
+    "ref": "noh2/0122/002",
+    "score": 0.333,
+    "key": "review:noh2/part_missing/6c0b1571",
+    "fingerprint": "7baaaa4866eb"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-iii-infra-octavam-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die III infra octavam Pentecostes",
+    "key": "review:noh2/unpaired/8d8a80cf",
+    "fingerprint": "2a462b1bec4e"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-iv-quattuor-temporum-pentecostes",
+    "kind": "part_missing",
+    "part": "sequence",
+    "variant": "",
+    "expected_incipit": "venisanctespiritusetemit",
+    "best_system": null,
+    "ref": null,
+    "score": 0.0,
+    "key": "review:noh2/part_missing/9f96f468",
+    "fingerprint": "3d420a17abf9"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-iv-quattuor-temporum-pentecostes",
+    "kind": "part_missing",
+    "part": "offertory",
+    "variant": "",
+    "expected_incipit": "meditaborinmandatistuisq",
+    "best_system": null,
+    "ref": null,
+    "score": 0.0,
+    "key": "review:noh2/part_missing/09291968",
+    "fingerprint": "ba14dc7fd526"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-iv-quattuor-temporum-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria IV Quattuor Temporum Pentecostes",
+    "key": "review:noh2/unpaired/fa3c0290",
+    "fingerprint": "8db789e2b389"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-v-infra-octavam-pentecostes",
+    "kind": "starts_mid_page",
+    "printed_page": 94,
+    "first_system": 2,
+    "key": "review:noh2/starts_mid_page/01cc5991",
+    "fingerprint": "72e23074a04c"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-v-infra-octavam-pentecostes",
+    "kind": "no_systems",
+    "printed_pages": [
+      94,
+      94
+    ],
+    "key": "review:noh2/no_systems/84f5de9d",
+    "fingerprint": "84f5de9debf7"
+  },
+  {
+    "volume": "noh2",
+    "piece": "die-v-infra-octavam-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Die V infra octavam Pentecostes",
+    "key": "review:noh2/unpaired/0224568f",
+    "fingerprint": "7db074454296"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-vi-quattuor-temporum-pentecostes",
+    "kind": "starts_mid_page",
+    "printed_page": 94,
+    "first_system": 2,
+    "key": "review:noh2/starts_mid_page/b318a642",
+    "fingerprint": "c2345d72ed3c"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-vi-quattuor-temporum-pentecostes",
+    "kind": "part_missing",
+    "part": "alleluia",
+    "variant": "1",
+    "expected_incipit": "alleluiaijvoquambonusets",
+    "best_system": 11,
+    "ref": "noh2/0128/002",
+    "score": 0.424,
+    "key": "review:noh2/part_missing/2670a4ef",
+    "fingerprint": "c5e58cb9b85c"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-vi-quattuor-temporum-pentecostes",
+    "kind": "part_missing",
+    "part": "alleluia",
+    "variant": "2",
+    "expected_incipit": "alleluiahicgenuflectitur",
+    "best_system": 12,
+    "ref": "noh2/0128/003",
+    "score": 0.378,
+    "key": "review:noh2/part_missing/0b4987de",
+    "fingerprint": "9842e340f669"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-vi-quattuor-temporum-pentecostes",
+    "kind": "part_missing",
+    "part": "sequence",
+    "variant": "",
+    "expected_incipit": "venisanctespiritusetemit",
+    "best_system": 13,
+    "ref": "noh2/0128/004",
+    "score": 0.485,
+    "key": "review:noh2/part_missing/facd7056",
+    "fingerprint": "c3fa450fd4be"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-vi-quattuor-temporum-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria VI Quattuor temporum Pentecostes",
+    "key": "review:noh2/unpaired/d2e36655",
+    "fingerprint": "b272c47e7c77"
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-quattuor-temporum-pentecostes",
+    "kind": "starts_mid_page",
+    "printed_page": 98,
+    "first_system": 5,
+    "key": "review:noh2/starts_mid_page/a33b0847",
+    "fingerprint": "9e58114e41a7"
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-quattuor-temporum-pentecostes",
+    "kind": "part_missing",
+    "part": "tract",
+    "variant": "",
+    "expected_incipit": "laudatedominumomnesgente",
+    "best_system": 18,
+    "ref": "noh2/0134/000",
+    "score": 0.435,
+    "candidates": [
+      "noh2/0133/000",
+      "noh2/0133/003"
+    ],
+    "key": "review:noh2/part_missing/6c21edd3",
+    "fingerprint": "0be743c98807"
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-quattuor-temporum-pentecostes",
+    "kind": "part_missing",
+    "part": "sequence",
+    "variant": "",
+    "expected_incipit": "venisanctespiritusetemit",
+    "best_system": 25,
+    "ref": "noh2/0135/001",
+    "score": 0.513,
+    "key": "review:noh2/part_missing/b77751e6",
+    "fingerprint": "2a792a0486dc"
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-quattuor-temporum-pentecostes",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato Quattuor Temporum Pentecostes",
+    "key": "review:noh2/unpaired/1206c0ed",
+    "fingerprint": "5ff3cfde660f"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p105",
+    "kind": "starts_mid_page",
+    "printed_page": 105,
+    "first_system": 2,
+    "key": "review:noh2/starts_mid_page/f9049b5f",
+    "fingerprint": "a1974ff58c4e"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p105",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sanctissimre Trinitatis",
+    "key": "review:noh2/unpaired/ed4a2c1d",
+    "fingerprint": "583803b45fc0"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p110",
+    "kind": "starts_mid_page",
+    "printed_page": 110,
+    "first_system": 4,
+    "key": "review:noh2/starts_mid_page/5163297c",
+    "fingerprint": "2df6d39286f3"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p110",
+    "kind": "part_unsupported",
+    "why": "no jgabc Proper for its day; parts are not divided",
+    "key": "review:noh2/part_unsupported/f0fc8e3a",
+    "fingerprint": "a12139531926"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p110",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica I. post Pentecosten",
+    "key": "review:noh2/unpaired/7b76b22c",
+    "fingerprint": "88757e548e1f"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p114",
+    "kind": "starts_mid_page",
+    "printed_page": 114,
+    "first_system": 4,
+    "key": "review:noh2/starts_mid_page/1f56c0bd",
+    "fingerprint": "a3e1c3654eaf"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p114",
+    "kind": "part_missing",
+    "part": "sequence",
+    "variant": "",
+    "expected_incipit": "laudasionsalvatoremlauda",
+    "best_system": null,
+    "ref": null,
+    "score": 0.0,
+    "key": "review:noh2/part_missing/549ecd95",
+    "fingerprint": "5882cb06a7a3"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p114",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Corporis Christi",
+    "key": "review:noh2/unpaired/f270d60b",
+    "fingerprint": "7b4f777253e5"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-ii-post-pentecosten",
+    "kind": "part_missing",
+    "part": "gradual",
+    "variant": "",
+    "expected_incipit": "addominumdumtribularercl",
+    "best_system": 25,
+    "ref": "noh2/0164/001",
+    "score": 0.367,
+    "candidates": [
+      "noh2/0161/002",
+      "noh2/0163/004",
+      "noh2/0164/000"
+    ],
+    "key": "review:noh2/part_missing/fe86b25a",
+    "fingerprint": "b93d808a382c"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-ii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica II Post Pentecosten",
+    "key": "review:noh2/unpaired/11ae165f",
+    "fingerprint": "bd63349e579e"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p133",
+    "kind": "unverified_pairing",
+    "part": "tract",
+    "variant": "words",
+    "expected_incipit": "misericorsetmiseratordom",
+    "best_system": 26,
+    "ref": "noh2/0169/002",
+    "score": 0.667,
+    "candidates": [
+      "noh2/0169/002"
+    ],
+    "chant_id": 1244,
+    "key": "review:noh2/unverified_pairing/98f2d656",
+    "fingerprint": "a01b989e0026"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p133",
+    "kind": "unverified_pairing",
+    "part": "offertory",
+    "variant": "words",
+    "expected_incipit": "holocaustumetpropeccaton",
+    "best_system": 51,
+    "ref": "noh2/0174/000",
+    "score": 0.667,
+    "candidates": [
+      "noh2/0174/000"
+    ],
+    "chant_id": 319,
+    "key": "review:noh2/unverified_pairing/bb25f2f0",
+    "fingerprint": "2181f4b6d699"
+  },
+  {
+    "volume": "noh2",
+    "piece": "noh2-p133",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sacratissimi Cordis Jesu",
+    "key": "review:noh2/unpaired/8f9de66d",
+    "fingerprint": "292ad4aa794c"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-iii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica III Post Pentecosten\u00a7",
+    "key": "review:noh2/unpaired/84916517",
+    "fingerprint": "d08caa50ff1e"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-iv-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 149,
+    "first_system": 2,
+    "key": "review:noh2/starts_mid_page/0614c42f",
+    "fingerprint": "79a2500087a1"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-iv-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica IV Post Pentecosten",
+    "key": "review:noh2/unpaired/f4bc6b65",
+    "fingerprint": "98a2155e88b7"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-v-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 153,
+    "first_system": 4,
+    "key": "review:noh2/starts_mid_page/b66f0963",
+    "fingerprint": "9bc2bb2cad1d"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-v-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica V Post Pentecosten",
+    "key": "review:noh2/unpaired/d4090de4",
+    "fingerprint": "7c7c54d639be"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-vi-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 157,
+    "first_system": 2,
+    "key": "review:noh2/starts_mid_page/a97fd5d0",
+    "fingerprint": "c9eb48ff30a1"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-vi-post-pentecosten",
+    "kind": "part_missing",
+    "part": "offertory",
+    "variant": "",
+    "expected_incipit": "perficegressusmeosinsemi",
+    "best_system": 11,
+    "ref": "noh2/0191/001",
+    "score": 0.375,
+    "candidates": [
+      "noh2/0191/001",
+      "noh2/0191/003",
+      "noh2/0191/005"
+    ],
+    "key": "review:noh2/part_missing/bd934f64",
+    "fingerprint": "9ed049297e54"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-vi-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica VI Post Pentecosten",
+    "key": "review:noh2/unpaired/d4b3b045",
+    "fingerprint": "2ededa8a4479"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-vii-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 160,
+    "first_system": 5,
+    "key": "review:noh2/starts_mid_page/3c6c2bfe",
+    "fingerprint": "381de82a6075"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-vii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica VII Post Pentecosten",
+    "key": "review:noh2/unpaired/510438ea",
+    "fingerprint": "1e76978abc09"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-viii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica VIII Post Pentecosten",
+    "key": "review:noh2/unpaired/c87220ce",
+    "fingerprint": "c1dea4a07dc1"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-ix-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 171,
+    "first_system": 4,
+    "key": "review:noh2/starts_mid_page/c600bbf2",
+    "fingerprint": "769db42d2817"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-ix-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica IX Post Pentecosten",
+    "key": "review:noh2/unpaired/99f57294",
+    "fingerprint": "ba5cf58e5b3f"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-x-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 176,
+    "first_system": 1,
+    "key": "review:noh2/starts_mid_page/98da153c",
+    "fingerprint": "c09abcc27266"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-x-post-pentecosten",
+    "kind": "part_missing",
+    "part": "communion",
+    "variant": "",
+    "expected_incipit": "acceptabissacrificiumjus",
+    "best_system": 31,
+    "ref": "noh2/0213/002",
+    "score": 0.478,
+    "key": "review:noh2/part_missing/257ed57e",
+    "fingerprint": "c6909d7e164c"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-x-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica X Post Pentecosten",
+    "key": "review:noh2/unpaired/58210145",
+    "fingerprint": "a32652ea1e69"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xi-post-pentecosten",
+    "kind": "part_missing",
+    "part": "gradual",
+    "variant": "",
+    "expected_incipit": "indeosperavitcormeumetad",
+    "best_system": 24,
+    "ref": "noh2/0218/000",
+    "score": 0.5,
+    "candidates": [
+      "noh2/0215/002",
+      "noh2/0217/002",
+      "noh2/0217/003",
+      "noh2/0218/000"
+    ],
+    "key": "review:noh2/part_missing/a2a5661d",
+    "fingerprint": "952994c29987"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xi-post-pentecosten",
+    "kind": "part_missing",
+    "part": "offertory",
+    "variant": "",
+    "expected_incipit": "exaltabotedominequoniams",
+    "best_system": 24,
+    "ref": "noh2/0218/000",
+    "score": 0.5,
+    "candidates": [
+      "noh2/0217/002",
+      "noh2/0217/003",
+      "noh2/0218/000"
+    ],
+    "key": "review:noh2/part_missing/64a3d011",
+    "fingerprint": "db20c7034009"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xi-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XI Post Pentecosten",
+    "key": "review:noh2/unpaired/3b45c746",
+    "fingerprint": "f9d5580283bf"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xii-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 186,
+    "first_system": 5,
+    "key": "review:noh2/starts_mid_page/b0b13031",
+    "fingerprint": "5c39e4a379fd"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xii-post-pentecosten",
+    "kind": "part_missing",
+    "part": "communion",
+    "variant": "",
+    "expected_incipit": "defructuoperumtuorumdomi",
+    "best_system": 40,
+    "ref": "noh2/0225/003",
+    "score": 0.638,
+    "key": "review:noh2/part_missing/50128a29",
+    "fingerprint": "2840d17a71f6"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XII Post Pentecosten",
+    "key": "review:noh2/unpaired/17b17fe7",
+    "fingerprint": "40df76d287c8"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xiii-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 194,
+    "first_system": 2,
+    "key": "review:noh2/starts_mid_page/343a89cc",
+    "fingerprint": "06523e8b3bf0"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xiii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XIII Post Pentecosten",
+    "key": "review:noh2/unpaired/6eb37d98",
+    "fingerprint": "30350243fc63"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xiv-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 200,
+    "first_system": 4,
+    "key": "review:noh2/starts_mid_page/08aa32eb",
+    "fingerprint": "69c99bfd35cb"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xiv-post-pentecosten",
+    "kind": "part_missing",
+    "part": "alleluia",
+    "variant": "",
+    "expected_incipit": "alleluiaijvveniteexsulte",
+    "best_system": 20,
+    "ref": "noh2/0236/000",
+    "score": 0.444,
+    "candidates": [
+      "noh2/0235/000",
+      "noh2/0235/004",
+      "noh2/0235/005"
+    ],
+    "key": "review:noh2/part_missing/9363a96e",
+    "fingerprint": "a7fbc9558097"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xiv-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XIV Post Pentecosten",
+    "key": "review:noh2/unpaired/72e9ec1c",
+    "fingerprint": "1aea85883e8d"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xv-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 206,
+    "first_system": 2,
+    "key": "review:noh2/starts_mid_page/422906b0",
+    "fingerprint": "400764981cdc"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xv-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XV Post Pentecosten",
+    "key": "review:noh2/unpaired/5c363baa",
+    "fingerprint": "7578e0cec1e8"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xvi-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 212,
+    "first_system": 3,
+    "key": "review:noh2/starts_mid_page/1fbd9608",
+    "fingerprint": "9b678d52f4a9"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xvi-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XVI Post Pentecosten",
+    "key": "review:noh2/unpaired/8d5837e3",
+    "fingerprint": "47882557ab92"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xvii-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 216,
+    "first_system": 5,
+    "key": "review:noh2/starts_mid_page/f163f898",
+    "fingerprint": "fa7fdba5ff16"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xvii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XVII Post Pentecosten",
+    "key": "review:noh2/unpaired/c0fdcb0a",
+    "fingerprint": "a0f2ab24151f"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-iv-quattuor-temporum-septembris",
+    "kind": "starts_mid_page",
+    "printed_page": 222,
+    "first_system": 4,
+    "key": "review:noh2/starts_mid_page/f6454701",
+    "fingerprint": "10186327a536"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-iv-quattuor-temporum-septembris",
+    "kind": "unverified_pairing",
+    "part": "gradual",
+    "variant": "words",
+    "expected_incipit": "quissicutdominusdeusnost",
+    "best_system": 9,
+    "ref": "noh2/0256/001",
+    "score": 0.776,
+    "candidates": [
+      "noh2/0256/001"
+    ],
+    "chant_id": 472,
+    "key": "review:noh2/unverified_pairing/feedf0fc",
+    "fingerprint": "138c93da2475"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-iv-quattuor-temporum-septembris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria IV Quattuor Temporum Septembris",
+    "key": "review:noh2/unpaired/856880d6",
+    "fingerprint": "d4c887529160"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-vi-quattuor-temporum-septembris",
+    "kind": "starts_mid_page",
+    "printed_page": 226,
+    "first_system": 2,
+    "key": "review:noh2/starts_mid_page/111755f1",
+    "fingerprint": "1947f097d1b8"
+  },
+  {
+    "volume": "noh2",
+    "piece": "feria-vi-quattuor-temporum-septembris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Feria VI Quattuor Temporum Septembris",
+    "key": "review:noh2/unpaired/4973a762",
+    "fingerprint": "df711ef9ef70"
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-quattuor-temporum-septembris",
+    "kind": "part_mismatch",
+    "part": "introit",
+    "variant": "",
+    "expected_incipit": "veniteadoremusdeumetproc",
+    "best_system": 0,
+    "ref": "noh2/0259/000",
+    "score": 0.533,
+    "key": "review:noh2/part_mismatch/ff8f327a",
+    "fingerprint": "12dc6853439e"
+  },
+  {
+    "volume": "noh2",
+    "piece": "sabbato-quattuor-temporum-septembris",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Sabbato Quattuor Temporum Septembris",
+    "key": "review:noh2/unpaired/5a617d5f",
+    "fingerprint": "ea9ec26199c3"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xviii-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 229,
+    "first_system": 1,
+    "key": "review:noh2/starts_mid_page/ea20f1d6",
+    "fingerprint": "fb167f776761"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xviii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XVIII Post Pentecosten",
+    "key": "review:noh2/unpaired/774ec79b",
+    "fingerprint": "e1630967813f"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xix-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XIX Post Pentecosten",
+    "key": "review:noh2/unpaired/dc19a343",
+    "fingerprint": "d7da1d52ec10"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xx-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 238,
+    "first_system": 4,
+    "key": "review:noh2/starts_mid_page/2927988f",
+    "fingerprint": "39e10eaf6a48"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xx-post-pentecosten",
+    "kind": "part_missing",
+    "part": "gradual",
+    "variant": "",
+    "expected_incipit": "oculiomniumintesperantdo",
+    "best_system": 19,
+    "ref": "noh2/0273/005",
+    "score": 0.45,
+    "key": "review:noh2/part_missing/56b91baa",
+    "fingerprint": "e54822039d5a"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xx-post-pentecosten",
+    "kind": "part_missing",
+    "part": "alleluia",
+    "variant": "",
+    "expected_incipit": "alleluiaijvparatumcormeu",
+    "best_system": 13,
+    "ref": "noh2/0272/005",
+    "score": 0.578,
+    "key": "review:noh2/part_missing/dcccffa5",
+    "fingerprint": "de61c185dc11"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xx-post-pentecosten",
+    "kind": "part_missing",
+    "part": "offertory",
+    "variant": "",
+    "expected_incipit": "superfluminababylonisill",
+    "best_system": 14,
+    "ref": "noh2/0273/000",
+    "score": 0.455,
+    "key": "review:noh2/part_missing/aef42c70",
+    "fingerprint": "3f71948b2f66"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xx-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XX Post Pentecosten",
+    "key": "review:noh2/unpaired/c542203d",
+    "fingerprint": "8791a40896b9"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxi-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 243,
+    "first_system": 1,
+    "key": "review:noh2/starts_mid_page/6ba1c8aa",
+    "fingerprint": "c10cf0ed462e"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxi-post-pentecosten",
+    "kind": "part_missing",
+    "part": "communion",
+    "variant": "",
+    "expected_incipit": "insalutarituoanimameaeti",
+    "best_system": 36,
+    "ref": "noh2/0281/001",
+    "score": 0.577,
+    "candidates": [
+      "noh2/0281/001",
+      "noh2/0281/005"
+    ],
+    "key": "review:noh2/part_missing/bcc8bcac",
+    "fingerprint": "bcbe9eda2d21"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxi-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XXI Post Pentecosten",
+    "key": "review:noh2/unpaired/05dfc006",
+    "fingerprint": "64607b576e89"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XXII Post Pentecosten",
+    "key": "review:noh2/unpaired/a340af13",
+    "fingerprint": "0066584ca955"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxiii-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 255,
+    "first_system": 2,
+    "key": "review:noh2/starts_mid_page/41b58126",
+    "fingerprint": "055f20ee8e51"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxiii-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XXIII Post Pentecosten",
+    "key": "review:noh2/unpaired/71ae28fe",
+    "fingerprint": "8d00d4db095f"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxiv-post-pentecosten",
+    "kind": "starts_mid_page",
+    "printed_page": 260,
+    "first_system": 6,
+    "key": "review:noh2/starts_mid_page/877c6e1f",
+    "fingerprint": "c74133087b73"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxiv-post-pentecosten",
+    "kind": "no_systems",
+    "printed_pages": [
+      260,
+      260
+    ],
+    "key": "review:noh2/no_systems/eb5310d6",
+    "fingerprint": "eb5310d669e2"
+  },
+  {
+    "volume": "noh2",
+    "piece": "dominica-xxiv-post-pentecosten",
+    "kind": "unpaired",
+    "genre": "proper",
+    "title": "Dominica XXIV Post Pentecosten",
+    "key": "review:noh2/unpaired/4e452ccd",
+    "fingerprint": "388acbab2441"
   },
   {
     "volume": "noh1",
