@@ -35,10 +35,13 @@ import Layout from "../../../components/Layout.astro";
           <label for="note">Why? <span class="muted">(optional; shown in the pull request)</span></label>
           <input id="note" type="text" maxlength="200" placeholder="e.g. the Gradual's label is on p. 12" />
         </div>
-        <p class="actions">
-          <button type="button" class="primary" id="save">Approve this list</button>
-          <button type="button" id="reset">Start again from the published list</button>
-        </p>
+        <div class="list-footer">
+          <p class="small" id="changes" aria-live="polite"></p>
+          <p class="actions">
+            <button type="button" class="primary" id="save">Approve this list</button>
+            <button type="button" class="link" id="reset">Start again from the published list</button>
+          </p>
+        </div>
       </section>
       <section class="systems" aria-labelledby="systems-h">
         <h2 id="systems-h">The piece's systems</h2>
@@ -74,19 +77,26 @@ import Layout from "../../../components/Layout.astro";
   }
   :global(.check) { display: flex; gap: var(--s-1); align-items: center; min-height: var(--tap-min); }
   .field { margin: var(--s-3) 0; }
-  .actions { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; margin: 0; }
+  /* Approve stays in view at the foot of the list panel, however long the list. */
+  .list-footer { position: sticky; bottom: 0; background: var(--paper); border-top: 1px solid var(--rule);
+                 padding: var(--s-2) 0; display: grid; gap: var(--s-1); }
+  .list-footer p { margin: 0; }
   :global(.primary) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   .system-list { list-style: none; padding: 0; margin: 0; }
   :global(.system-list > li) { margin-bottom: var(--s-3); }
   :global(.system-list img) { display: block; width: 100%; height: auto; }
-  :global(.system-list .starts) { font-weight: 600; color: var(--accent); }
-  :global(.system-bar) { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; margin-top: var(--s-1); }
-  :global(.system-bar span) { flex: 1 1 auto; }
+  /* A system where a section starts: marked down its side, and named above it. */
+  :global(.system-list > li.is-start) { border-left: 3px solid var(--accent); padding-left: var(--s-2); }
+  :global(.system-list .starts) { margin: 0 0 var(--s-1); font-weight: 600; color: var(--accent); }
+  :global(.system-bar) { display: flex; gap: var(--s-2); align-items: center; margin-top: var(--s-1); }
+  :global(.system-bar span) { flex: 1 1 auto; min-width: 0; }
+  :global(.system-bar button) { flex: none; }
 </style>
 
 <script>
   import { api, drafts, h, loadScans, loadTargets, say, signInAgain } from "../../../lib/admin/client";
-  import { pieceSystems, shown } from "../../../lib/admin/scans";
+  import { pieceSystems, readableRef, shown } from "../../../lib/admin/scans";
   import type { Scans } from "../../../lib/admin/scans";
   import { insertAt, blankRow, move, rowName, rowsValue, startingRows, startsBySystem, unchanged } from "../../../lib/admin/sectionsEditor";
   import type { Row } from "../../../lib/admin/sectionsEditor";
@@ -109,6 +119,16 @@ import Layout from "../../../components/Layout.astro";
 
   function keep(): void {
     drafts.set(draftKey, JSON.stringify(rows));
+    syncFooter();
+  }
+
+  /** Approve only a list that differs from the piece's own, and say whether it does. */
+  function syncFooter(): void {
+    const same = !piece || unchanged(rows, piece);
+    (document.getElementById("save") as HTMLButtonElement).disabled = same;
+    document.getElementById("changes")!.textContent = same
+      ? "No changes yet: the list is as the piece has it now."
+      : `Changed from the piece's list: ${rows.length} section${rows.length === 1 ? "" : "s"}. Approve to keep it.`;
   }
 
   /** A labelled input bound to one field of a row. */
@@ -172,13 +192,13 @@ import Layout from "../../../components/Layout.astro";
         (document.getElementById(`row-${at}-kind`) as HTMLSelectElement | null)?.focus();
       });
       const here = starts.get(n);
-      return h("li", { id: `system-${n}` },
+      return h("li", { id: `system-${n}`, class: here ? "is-start" : undefined },
+        here ? h("p", { class: "starts small" }, `▸ ${here.join(", ")} starts here`) : null,
         picture.stem ? h("img", { src: `${picture.stem}.webp`, alt: `System ${n} (${ref}), as printed`, loading: "lazy",
                                   width: picture.aspect ? String(picture.aspect[0]) : undefined,
                                   height: picture.aspect ? String(picture.aspect[1]) : undefined }) : null,
         h("div", { class: "system-bar small" },
-          h("span", {}, `System ${n} (${ref})`, here ? h("span", { class: "starts" }, ` · ${here.join(", ")} starts here`) : null),
-          add));
+          h("span", {}, `System ${n} (${readableRef(ref)})`), add));
     }));
   }
 
@@ -204,6 +224,7 @@ import Layout from "../../../components/Layout.astro";
     if (fromPublished) drafts.clear(draftKey);
     drawRows();
     drawSystems();
+    syncFooter();
   }
 
   void (async () => {
@@ -258,7 +279,9 @@ import Layout from "../../../components/Layout.astro";
                             h("span", {}, " until someone publishes."),
                             ...(settled && !settled.ok ? [h("p", { class: "notice" }, `The reader's report is still open: ${settled.error}`)] : []));
     if (status) status.dataset["state"] = "ok";
-    save.disabled = false;
+    // Approved as it stands: nothing more to approve until the list changes again.
+    save.disabled = true;
+    document.getElementById("changes")!.textContent = "Approved: it waits on the Admin page until someone publishes.";
     note.value = "";
   });
 </script>

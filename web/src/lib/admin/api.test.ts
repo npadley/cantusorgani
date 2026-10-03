@@ -476,6 +476,21 @@ describe("reopen", () => {
   });
 });
 
+describe("recent batches", () => {
+  it("should list merged batches, newest first, with their commit and count", async () => {
+    const id = readerReport(db.sqlite, "kyrie-i", "title", "Kyrie I");
+    await call("POST", `/rows/${id}/approve`, {});
+    await call("POST", "/publish", {});
+    const store = d1Store(db.d1);
+    const batch = sent[0]!.batch;
+    await store.setPullRequest(batch, 71);
+    await store.acceptBatch(batch, "abc1234");
+    const queue = (await call("GET", "/queue")).body;
+    expect(queue["recent"]).toEqual([expect.objectContaining({ batch, pr: 71, count: 1, commit: "abc1234" })]);
+    expect(queue["batches"]).toEqual([]);
+  });
+});
+
 describe("summary", () => {
   it("should count what is left on each list, what waits to publish and what was skipped, and the reports", async () => {
     readerReport(db.sqlite, "kyrie-i", "title", "Kyrie I");

@@ -44,6 +44,16 @@ describe("typesetEntries", () => {
     expect(proof!.scans.length).toBeGreaterThan(0);
   });
 
+  it("should warn when another file is already chosen for the part, and keep that out of the details", () => {
+    const note = `an editor chose vol-5/other.ly for ${KYRIE}`;
+    const entries = typesetEntries(data({ items: [{ file: "vol-5/g.ly", status: "proposed", target: KYRIE,
+      hash: "b".repeat(32), incipit: "Kyrie", note }] }), {}, allPieces(), undefined, "https://a.example.org");
+    const match = entries.find((e) => e.file === "vol-5/g.ly")!;
+    expect(match.conflict).toBe(`Another file (other.ly) is already chosen for ${targetLabel(KYRIE, MASS)}. ` +
+      "Choosing this file for that part replaces it.");
+    expect(match.detail).not.toContain("an editor chose");
+  });
+
   it("includes every scan of long matched parts, including the last system", () => {
     const long = TYPESET.parts.find((p) => {
       const slug = /^(?:piece|movement|part):([a-z0-9-]+)/.exec(p.target)?.[1];

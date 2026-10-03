@@ -11,7 +11,7 @@ test.describe.serial("The corrections queue", () => {
     await expect(page.locator("#who")).toHaveText("Admin · signed in as editor@example.org (owner)");
     await expect(page.locator("#pending-h")).toHaveText("Readers' reports (3)");
     await expect(page.locator("#pending article", { hasText: "III (noh5)" }).locator(".scan figcaption").first())
-      .toContainText("First system (noh5/");
+      .toContainText("First system (vol. 5, scan p.");
     await expect(page.locator("#batch-text")).toHaveText("Nothing waiting to publish");
     await expect(page.getByRole("button", { name: "Publish changes" })).toBeDisabled();
   });
@@ -162,8 +162,9 @@ test.describe("Sections", () => {
     await expect(rows).toHaveCount(9);
     await expect(rows.nth(2).locator("strong")).toHaveText("3. Gradual 2");
     await expect(page.locator("#system-16 .starts")).toContainText("Gradual 2 starts here");
-    await page.locator("#save").click();
-    await expect(page.locator("#status")).toContainText("nothing to approve");
+    // Nothing changed yet: nothing to approve, and the footer says so.
+    await expect(page.locator("#save")).toBeDisabled();
+    await expect(page.locator("#changes")).toContainText("No changes yet");
 
     await page.locator("#system-3").getByRole("button", { name: "Start a section here" }).click();
     await expect(rows).toHaveCount(10);
@@ -362,6 +363,33 @@ test.describe.serial("Typeset music", () => {
     await item.getByRole("button", { name: "Not in the catalogue" }).click();
     await page.getByLabel("Show what is already done").check();
     await expect(item.locator(".review-state")).toContainText("Chosen: not in the catalogue · by you");
+  });
+
+  test("should find another part by its name, and open a tall drawing whole", async ({ page }) => {
+    await page.goto("/admin/typeset/");
+    await ready(page);
+    const target = (await page.locator("[data-queue-list=matches] article:visible:not([data-done])").first()
+      .getAttribute("data-review-target")) ?? "";
+    const item = page.locator(`article[data-review-target="${target}"]`);
+    const whole = item.getByRole("button", { name: "Show the whole drawing" });
+    await whole.click();
+    await expect(item.getByRole("button", { name: "Show only the first lines" })).toHaveAttribute("aria-expanded", "true");
+    await item.getByText("Another part…").click();
+    const search = item.locator("input[data-typed]");
+    await search.fill("Dominica II Adv");
+    await item.getByRole("button", { name: "Choose it" }).click();
+    await expect(page.locator("#status")).toHaveText("Type part of the piece's name and choose one of the suggestions.");
+    // Focusing the search loads the suggestions: every part, in words. (A part no other test chooses:
+    // one already chosen for another file, and not yet published, is refused.)
+    await expect(page.locator("#part-choices option").first()).toBeAttached();
+    const suggestion = (await page.locator("#part-choices option", { hasText: "" })
+      .evaluateAll((os) => (os as HTMLOptionElement[]).map((o) => o.value).find((v) => v.startsWith("Dominica II Adventus (noh1) · Gradual")))) ?? "";
+    expect(suggestion).not.toBe("");
+    await search.fill(suggestion);
+    await item.getByRole("button", { name: "Choose it" }).click();
+    await expect(item.locator(".review-state")).toContainText(`Chosen: `);
+    await page.locator("#admin-notice").getByRole("button", { name: "Undo" }).click();
+    await expect(page.locator("#status")).toContainText("choice undone");
   });
 
   test("should show a broken file's error with its line marked", async ({ page }) => {

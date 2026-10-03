@@ -53,6 +53,8 @@ export interface TypesetEntry {
   readonly title: string;
   readonly look: string;
   readonly detail: string | null;
+  /** Another file already chosen for the part this one names: choosing this replaces it. */
+  readonly conflict: string | null;
   readonly volume: string;
   /** The drawing, when LilyPond can draw it. */
   readonly render: { readonly wide: string; readonly narrow: string } | null;
@@ -158,6 +160,10 @@ export function typesetEntries(data: TypesetData = TYPESET, reviewed: Reviewed =
     const candidates = named.map((c) => candidate(c.target, c.melody, index, sc));
     const broken = item.status === "broken";
     const title = item.incipit ? `${item.incipit}` : item.file;
+    // The matcher's note when an editor already chose another file for this part.
+    const chosen = /^an editor chose (\S+) for (\S+)$/.exec(item.note ?? "");
+    const conflict = chosen ? `Another file (${chosen[1]!.split("/").pop()}) is already chosen for ` +
+      `${targetLabel(chosen[2]!, pieceOf(chosen[2]!, index))}. Choosing this file for that part replaces it.` : null;
     out.push({
       target: `typeset:${item.file}`, file: item.file, queue: broken ? "errors" : "matches",
       fingerprint: item.hash ?? "", status: item.status, title, volume: volumeOf(item.file),
@@ -165,7 +171,8 @@ export function typesetEntries(data: TypesetData = TYPESET, reviewed: Reviewed =
         : item.status === "melody-differs"
           ? "The file names this part, but its melody does not agree with the part's chant. Is it this part, another, or none?"
           : "Which part is this? Compare the drawing with the scans and the chant.",
-      detail: [item.file, item.page ? `page reference ${item.page}` : "", item.note ?? "",
+      conflict,
+      detail: [item.file, item.page ? `page reference ${item.page}` : "", chosen ? "" : item.note ?? "",
                typeof item.melody === "number" ? `best melody match ${pct(item.melody)}` : ""].filter(Boolean).join(" · "),
       render: renderOf(item.hash, data.prefix, base),
       error: broken && item.error ? parseError(item.error) : null,
@@ -185,7 +192,7 @@ export function typesetEntries(data: TypesetData = TYPESET, reviewed: Reviewed =
       target, file: part.file, queue: "proofreading", fingerprint: part.hash, status: "matched",
       title: as.label, volume: piece?.volume ?? volumeOf(part.file),
       look: "Read the typeset music against the scan, note by note and word by word.",
-      detail: part.file, render: renderOf(part.hash, data.prefix, base), error: null, excerpt: [], candidates: [],
+      detail: part.file, conflict: null, render: renderOf(part.hash, data.prefix, base), error: null, excerpt: [], candidates: [],
       scans: systems.map((ref, i) => shown(sc, ref, `System ${i + 1} of ${systems.length}`)),
       shownAs: as, href: as.href,
     });

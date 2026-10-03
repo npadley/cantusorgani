@@ -43,12 +43,21 @@ function lookup(scans: Scans): Map<string, number> {
 const indexes = new WeakMap<Scans, Map<string, number>>();
 
 /** One system as a picture, captioned. */
+/** A system's ref in words, the ref itself kept at the end (noh where, the docs
+ * and corrections all use it): "vol. 2, scan p. 89, system 4 · noh2/0089/003".
+ * Systems count from 1 here; in a ref they count from 0. */
+export function readableRef(ref: string): string {
+  const m = /^noh(\d+)\/(\d{4})\/(\d{3})$/.exec(ref);
+  return m ? `vol. ${Number(m[1])}, scan p. ${Number(m[2])}, system ${Number(m[3]) + 1} · ${ref}` : ref;
+}
+
 export function shown(scans: Scans, ref: string, caption: string): Shown {
   const i = lookup(scans).get(ref);
-  if (i === undefined) return { ref, stem: null, aspect: null, caption: `${caption} (${ref}, not in the catalogue)` };
+  if (i === undefined) return { ref, stem: null, aspect: null, caption: `${caption} (${readableRef(ref)}, not in the catalogue)` };
   const hash = scans.hash[i] ?? "";
   const aspect = scans.aspect[i] ?? null;
-  return { ref, stem: hash ? `${scans.base}/systems/${ref}-${hash}` : `${scans.base}/${ref}`, aspect, caption: `${caption} (${ref})` };
+  return { ref, stem: hash ? `${scans.base}/systems/${ref}-${hash}` : `${scans.base}/${ref}`, aspect,
+           caption: `${caption} (${readableRef(ref)})` };
 }
 
 /** A piece's systems, in order. */

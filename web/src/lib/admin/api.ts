@@ -295,8 +295,25 @@ async function queue(deps: Deps): Promise<Response> {
     pending: items.filter((i) => i.status === "pending" && !i.resolved_by),
     approved: items.filter((i) => i.status === "approved"),
     batches: [...batches.values()],
+    recent: await recentBatches(deps.store),
     lastReviewed: await deps.store.lastReviewed(),
   });
+}
+
+/** The last few merged batches: when each merged and its commit, so the admin
+ * home can say whether it is live yet. */
+export interface RecentBatch { batch: string; pr: number | null; count: number; commit: string | null; mergedAt: string }
+async function recentBatches(store: Store, max = 3): Promise<RecentBatch[]> {
+  const out = new Map<string, RecentBatch>();
+  for (const r of await store.list(["accepted"], 300)) {
+    if (!r.batch_id) continue;
+    const at = r.updated_at ?? r.created_at;
+    const b = out.get(r.batch_id) ?? { batch: r.batch_id, pr: r.pr_number, count: 0, commit: r.commit_sha, mergedAt: at };
+    b.count++;
+    if (at > b.mergedAt) b.mergedAt = at;
+    out.set(r.batch_id, b);
+  }
+  return [...out.values()].sort((a, b) => b.mergedAt.localeCompare(a.mergedAt)).slice(0, max);
 }
 
 type RowVerb = "approve" | "reject" | "duplicate" | "unapprove" | "resolve" | "reopen";
