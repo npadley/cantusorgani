@@ -77,6 +77,11 @@ volumes:
     pdf_pages: 418
     index_pdf_pages: []       # this scan has no index; catalogued from its headings
     first_body_pdf_page: 32
+    # A leaf inserted after p. 163, printed "162 bis" and "163 bis" (PDF 195-196): the
+    # Holy Cross votive Mass's Alleluia citation and its Tract, Adoramus te Christe,
+    # for after Septuagesima. The Tract ends on p. 164.
+    inserts:
+      - {after_printed: 163, first_pdf: 195, last_pdf: 196, label: "162 bis-163 bis"}
     page_offset: null
     sha256: "056fa93b299af12c994218bed889707175f6433e59bbcfc5fc36b1ca20da0075"
     source_url: null

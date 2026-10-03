@@ -9837,18 +9837,6 @@
     "fingerprint": "f7eb43e78f85"
   },
   {
-    "volume": "noh4",
-    "piece": null,
-    "kind": "unmapped_pages",
-    "pdf_pages": [
-      195,
-      196
-    ],
-    "why": "pages between page-map segments (an insert, or a page scanned twice) carry no printed page and are not catalogued",
-    "key": "review:noh4/unmapped_pages/7e48a554",
-    "fingerprint": "5690fa1e63db"
-  },
-  {
     "volume": "noh1",
     "kind": "part_borrowed_unresolved",
     "piece": "sabbato-infra-hebd-ii-quadragesim",

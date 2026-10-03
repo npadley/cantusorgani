@@ -2217,18 +2217,13 @@
   {
    "file": "vol-3/of_postula_a_me.csv.ly",
    "status": "proposed",
-   "target": "part:in-exaltatione-sanct-crucis/offertory",
+   "target": "part:s-joannis-bosco-confessoris/offertory",
    "hash": "ed353705107c2ebd1b9536e589e72fa1",
-   "melody": 0.765,
-   "words": 0.109,
+   "melody": 0.755,
+   "words": 0.203,
    "incipit": "Póstula a me et dabo tibi gen tes",
    "page": 422,
    "candidates": [
-    {
-     "target": "part:in-exaltatione-sanct-crucis/offertory",
-     "melody": 0.765,
-     "words": 0.109
-    },
     {
      "target": "part:s-joannis-bosco-confessoris/offertory",
      "melody": 0.755,
@@ -2243,6 +2238,11 @@
      "target": "part:s-laurentii-martyris/offertory",
      "melody": 0.653,
      "words": 0.156
+    },
+    {
+     "target": "part:s-philippi-neri-confessoris/offertory",
+     "melody": 0.612,
+     "words": 0.234
     }
    ]
   },
@@ -2272,9 +2272,9 @@
      "words": 0.333
     },
     {
-     "target": "part:in-exaltatione-sanct-crucis/offertory",
-     "melody": 0.747,
-     "words": 0.444
+     "target": "part:b-mariae-virginis-reginae/offertory",
+     "melody": 0.709,
+     "words": 0.25
     }
    ]
   },
