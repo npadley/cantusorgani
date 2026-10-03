@@ -1,5 +1,6 @@
 import raw from "../../../data/catalog.json";
 import reviewedHymnLinks from "../../../data/vespers/hymn-links.json";
+import { hymnChantId } from "./hymnpairings";
 
 /** Genre of a catalogued piece. Mirrors the pipeline's controlled set. */
 export type Genre =
@@ -638,7 +639,8 @@ export function jumpTargets(piece: Piece): readonly JumpTarget[] {
     // A row named for a movement keeps that movement's chant and name unless it gives its own.
     const movement = x.part === "other" && (MOVEMENT_ORDER as readonly string[]).includes(x.variant)
       ? x.variant as Movement : null;
-    const chantId = x.gregobaseId ?? (movement ? verifiedChant(piece, movement)?.id ?? null : null);
+    const chantId = x.gregobaseId ?? (x.part === "hymn" ? hymnChantId(x.ref) : null)
+      ?? (movement ? verifiedChant(piece, movement)?.id ?? null : null);
     const label = movement && !x.label ? MOVEMENT_LABELS[movement] : sectionName(x);
     parts.push({ label, anchor: movement ?? anchor, index, kind: "part",
                  chantUrl: gregobaseUrl(chantId), chantId,
@@ -655,11 +657,15 @@ export function jumpTargets(piece: Piece): readonly JumpTarget[] {
     if (index < 0) continue;
     const seen = used.get(h.title) ?? 0;
     used.set(h.title, seen + 1);
-    hymns.push({ label: h.title, anchor: hymnAnchor(h.title, seen), index, kind: "hymn" });
+    const chantId = hymnChantId(h.ref);
+    hymns.push({ label: h.title, anchor: hymnAnchor(h.title, seen), index, kind: "hymn",
+      chantId, chantUrl: gregobaseUrl(chantId) });
   }
   const all = [...movements, ...parts, ...hymns];
   // A single chant (Credo I, an ad libitum Kyrie): its chant above the music.
-  const single = all.length === 0 && piece.systems.length > 0 ? verifiedChant(piece) : undefined;
+  const researched = piece.genre === "hymn" ? hymnChantId(piece.systems[0] ?? "") : null;
+  const single = all.length === 0 && piece.systems.length > 0
+    ? (researched ? { id: researched, movement: null } : verifiedChant(piece)) : undefined;
   if (single) {
     all.push({
       label: single.movement ? MOVEMENT_LABELS[single.movement] : piece.title, anchor: "chant",
@@ -671,12 +677,12 @@ export function jumpTargets(piece: Piece): readonly JumpTarget[] {
 
 /** Every printed hymn setting, including standalone pieces and sections of a Mass. */
 export function hymnIndex(pieces: readonly Piece[] = allPieces()):
-    readonly { readonly title: string; readonly piece: Piece; readonly anchor: string; readonly printedPage: number }[] {
-  const out: { title: string; piece: Piece; anchor: string; printedPage: number }[] = [];
+    readonly { readonly title: string; readonly piece: Piece; readonly anchor: string; readonly printedPage: number; readonly ref: string }[] {
+  const out: { title: string; piece: Piece; anchor: string; printedPage: number; ref: string }[] = [];
   for (const piece of pieces) {
     const seen = new Set<string>();
     if (piece.genre === "hymn" && piece.systems.length > 0 && !piece.sourceNote) {
-      out.push({ title: piece.title, piece, anchor: "", printedPage: piece.printedPages[0] });
+      out.push({ title: piece.title, piece, anchor: "", printedPage: piece.printedPages[0], ref: piece.systems[0]! });
       seen.add(piece.systems[0]!);
     }
     for (const t of jumpTargets(piece)) {
@@ -691,7 +697,7 @@ export function hymnIndex(pieces: readonly Piece[] = allPieces()):
       const volume = raw.volumes[piece.volume as keyof typeof raw.volumes];
       const segment = volume?.page_map.find((s) => pdfPage >= s.first_pdf && pdfPage <= s.last_pdf);
       const printedPage = embedded?.printedPage ?? (segment ? pdfPage - segment.offset : piece.printedPages[0]);
-      out.push({ title: embedded?.title ?? part?.title ?? t.label, piece, anchor: t.anchor, printedPage });
+      out.push({ title: embedded?.title ?? part?.title ?? t.label, piece, anchor: t.anchor, printedPage, ref });
     }
   }
   return out.sort((a, b) => a.title.localeCompare(b.title, "la") || a.piece.volume.localeCompare(b.piece.volume)

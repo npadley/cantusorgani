@@ -118,7 +118,7 @@ uv run noh apply-corrections
 
 When integrating with other agents, combine reviewed inputs first and regenerate shared catalogs and lineup JSON. Do not resolve generated JSON by dropping another agent's new records. Production site merge and deployment are outside the approved implementation; changes remain isolated in this worktree.
 
-## Verification
+## Initial Book VII verification
 
 - `uv run pytest`: **1,590 passed, 2 skipped, 1 expected failure**. The Book VII source regressions are included.
 - `pnpm test`: **763 passed**. `pnpm typecheck`: **0 errors, 0 warnings** (four existing Astro hints).
@@ -133,3 +133,11 @@ When integrating with other agents, combine reviewed inputs first and regenerate
 The Assumption hymn gap remains **14 pages before and after**. VII contributes additional settings on 543 dated office pages, 69 day pages, and 30 VIII source pages, but resolves no verified missing hymn accompaniment in the current lineup.
 
 Changes are retained in the managed worktree on `codex/hymns-book-seven`; no production site merge or deployment was performed.
+
+## PR integration and chant research
+
+The branch incorporates current `main`, preserving its catalog, segmentation, proofreading, and admin changes. The Hymns index retains 129 complete settings. Source-specific GregoBase research now covers all of them: 127 verified setting identities, one related candidate, and one unresolved hymn. The damaged fragment has an additional candidate record. See [the pairing report](2026-10-03-hymn-gregobase-pairings.md) for every result, source link, and limitation.
+
+Research corrected 22 Book VII opening-system boundaries and confirmed the Book VIII anchors. `noh chants` rebuilds reviewed pairing metadata and verified, publishable notation. Eight newer matches with unknown primary copyright flags are links only.
+
+Integration validation: 1,654 Python tests passed (2 skipped, 1 expected failure), followed by all 45 targeted chant/source regression tests including the added unknown-permission case; 780 frontend tests passed; typecheck reports no errors or warnings; all 1,649 built pages are reachable with no broken internal links. The 29 score/hymn browser tests pass, including actual chant rendering, labelled candidates, complete-day navigation and a published Book VII PDF download. Focused independent review found no remaining defects.

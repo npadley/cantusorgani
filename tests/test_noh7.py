@@ -3,7 +3,37 @@ from pipeline.index import load_index
 from pipeline.catalog import start_system
 from pipeline.catalog import has_parts
 from pipeline.index import IndexEntry
+import json
+from pipeline.volumes import DATA
 import pytest
+
+@pytest.mark.parametrize('slug,ref', [
+    ('varia-audi-benigne-conditor','noh7/0058/003'),
+    ('varia-lucis-creator-optime','noh7/0083/002'),
+    ('varia-deus-tuorum-militum','noh7/0111/003'),
+    ('varia-deus-tuorum-militum-tempore-paschali','noh7/0115/003'),
+    ('varia-fortem-virili-pectore','noh7/0134/002'),
+    ('varia-caelestis-urbs-jerusalem','noh7/0136/002'),
+    ('varia-ecce-panis-angelorum','noh7/0195/003'),
+    ('varia-adeste-fideles','noh7/0253/003'),
+    ('varia-salvete-flores-martyrum','noh7/0046/003'),
+    ('varia-tristes-erant-apostoli','noh7/0113/001'),
+    ('varia-quicumque-christum-quaeritis','noh7/0162/002'),
+    ('varia-te-saeculorum-principem','noh7/0177/002'),
+    ('varia-placare-christe-servulis','noh7/0179/002'),
+    ('varia-panis-angelicus','noh7/0197/001'),
+    ('varia-panis-angelicus-alter-tonus','noh7/0198/001'),
+    ('varia-o-salutaris-hostia','noh7/0199/001'),
+    ('varia-tantum-ergo','noh7/0211/003'),
+    ('varia-tantum-ergo-alio-modo','noh7/0212/003'),
+    ('varia-o-gloriosa-virginum','noh7/0237/001'),
+    ('varia-stabat-mater-dolorosa-hymnus','noh7/0240/003'),
+    ('varia-salve-festa-dies','noh7/0261/002'),
+    ('varia-o-amator-castitatis-s-rumoldi','noh7/0268/002'),
+])
+def test_hymn_starts_after_the_preceding_response(slug,ref):
+    pieces=json.loads((DATA/'catalog.json').read_text())['pieces']
+    assert next(p for p in pieces if p['slug']==slug)['systems'][0] == ref
 
 
 def test_reviewed_start_and_source_note_are_read_from_the_index(tmp_path):

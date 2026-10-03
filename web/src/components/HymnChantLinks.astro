@@ -1,0 +1,15 @@
+---
+import { hymnPairingsFor } from "../lib/hymnpairings";
+interface Props { readonly slug: string }
+const rows = hymnPairingsFor(Astro.props.slug).filter((p) => p.status !== "verified");
+---
+{rows.length > 0 && <aside class="notice ui no-print" aria-label="Hymn chant research">
+  {rows.map((p) => <div>
+    <p>
+    <strong>{p.title}.</strong>{" "}
+    {p.id ? <><a href={`https://gregobase.selapa.net/chant.php?id=${p.id}`} target="_blank" rel="noopener">Related chant on GregoBase</a>
+      {" "}— pairing needs review.</> : <>No matching chant found in GregoBase.</>}
+    </p>
+    <details><summary>Research notes</summary><p class="small">{p.evidence}</p></details>
+  </div>)}
+</aside>}

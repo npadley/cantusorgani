@@ -2,6 +2,7 @@
 import Layout from "../../components/Layout.astro";
 import { hymnIndex, loadCatalog } from "../../lib/catalog";
 import { pieceHref } from "../../lib/indexes";
+import { hymnPairing } from "../../lib/hymnpairings";
 
 const hymns = hymnIndex();
 const volumes = loadCatalog().volumes;
@@ -13,17 +14,24 @@ const volumes = loadCatalog().volumes;
     <h1>Hymns <span class="la muted">Hymni</span></h1>
     <p>Hymns across the books, in alphabetical order. Each link opens the accompaniment where it is printed.
       Different settings and tones are listed separately.</p>
+    <p class="small muted">GregoBase matches were checked against the opening melody and words.
+      Follow each book’s printed verses; pairings that need review are labelled.</p>
     <p class="small muted">{hymns.length} printed settings. See <a href="/varia/">Varia</a> for Book VII’s sequences,
       antiphons, litanies, psalms, and other music.</p>
   </div>
   <ul class="hymns ui">
-    {hymns.map((h) => (
+    {hymns.map((h) => { const chant = hymnPairing(h.ref); return (
       <li>
         <a href={`${pieceHref(h.piece)}${h.anchor ? `#${h.anchor}` : ""}`}>{h.title}</a>
         <span class="muted small">NOH {volumes[h.piece.volume]?.part} · p. {h.printedPage}
           {h.piece.genre !== "hymn" && <> · {h.piece.title}</>}</span>
+        {chant?.id && <a class="small" href={`https://gregobase.selapa.net/chant.php?id=${chant.id}`} target="_blank" rel="noopener">
+          GregoBase{chant.status === "unverified" ? " · pairing needs review" : ""}
+          <span class="sr-only"> for {h.title} (opens in new tab)</span>
+        </a>}
+        {chant?.status === "unresolved" && <span class="small muted">No matching GregoBase chant found</span>}
       </li>
-    ))}
+    ); })}
   </ul>
 </Layout>
 

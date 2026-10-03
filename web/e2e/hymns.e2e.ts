@@ -30,6 +30,27 @@ test("VII reference-only antiphons link to their containing scores", async ({ pa
   await expect(page.locator("#music img")).toHaveCount(0);
 });
 
+test("verified hymn chants render beside both standalone and embedded scores", async ({ page }) => {
+  await page.goto("/piece/varia-creator-alme-siderum/");
+  await page.locator("[data-chant-toggle]").check();
+  await page.locator('.chant-notation[data-chant-id="2134"]').first().scrollIntoViewIfNeeded();
+  await expect(page.locator('.chant-notation[data-chant-id="2134"] svg').first()).toBeVisible({ timeout: 15_000 });
+  await expect(page.locator('a[href="https://gregobase.selapa.net/chant.php?id=2134"]').first()).toBeVisible();
+  await page.goto("/piece/vesperae-dominicae-i-iv-adventus/");
+  await page.locator("[data-chant-toggle]").check();
+  await page.locator('.chant-notation[data-chant-id="2134"]').first().scrollIntoViewIfNeeded();
+  await expect(page.locator('.chant-notation[data-chant-id="2134"] svg').first()).toBeVisible({ timeout: 15_000 });
+});
+
+test("uncertain hymn links carry a review label and publish no notation", async ({ page }) => {
+  await page.goto("/piece/varia-auctor-beate-saeculi/");
+  await expect(page.getByText("pairing needs review.", { exact: false })).toBeVisible();
+  await expect(page.locator('.chant-notation')).toHaveCount(0);
+  await page.goto("/piece/varia-o-amator-castitatis-s-rumoldi/");
+  await expect(page.getByText("No matching chant found in GregoBase.")).toBeVisible();
+  await expect(page.locator('.chant-notation')).toHaveCount(0);
+});
+
 test("a VII hymn loads its published scans and exports a readable PDF", async ({ page }) => {
   test.setTimeout(90_000);
   await page.goto("/piece/varia-creator-alme-siderum/");
