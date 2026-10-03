@@ -71,7 +71,7 @@ ees'4 f'2 g'2*3/2 c'2 des'2*3/4 ees'2 des'2 c'2*3/4 ~ c'2*9/4 ~ c'2*3/2 ees'2*3/
 tenorMusic = {
 r4 ees'4 des'2*3/2 ~ des'2*4/2 c'2 ~ c'4 ~ c'2 ~ c'2*4/2 ~ c'2 ~ \divisioMinima
 c'2 bes2*5/2 c'2 \divisioMaior
-aes2*3/2 ~ aes2 ~ aes2*4/2 c'4 ~ c'2*3/2 bes2*4/2 ~ bes2*3/2 des;4 c'4 \divisioMaxima
+aes2*3/2 ~ aes2 ~ aes2*4/2 c'4 ~ c'2*3/2 bes2*4/2 ~ bes2*3/2 des'4 c'4 \divisioMaxima
 f2*4/2 ees2*3/2 aes4 ~ aes2*3/2 des'2 c'2*3/2 ~ c'2 \divisioMaior
 bes2 ~ bes4 aes2 ~ aes2 ~ aes2*4/2 ~ aes2*3/2 ~ aes2*4/2 bes2 \divisioMaxima
 aes2*4/2 f2 ~ f2*4/2 ees2*3/2 g4 \divisioMaior

@@ -110,7 +110,7 @@ a,2*3/2 ~ a,2*4/2 bes,2*3/2 ~ bes,2 d2*3/2 ~ d2 ~ \divisioMinima
 d2 ~ d4 e2 ~ e2*4/2 ~ \divisioMinima
 e2*3/2 f2*3/2 ~ f2*3/2 g2 \divisioMaxima
 e2 ~ e4 c2*4/2 ~ c4 b,2*4/2 a,2 ~ a,2 ~ a,2*3/2 d2 ~ \divisioMaior
-d2 c2*3/2 besm2*3/4 bes,2*3/2 a,2 ~ a,2*4/2 ~ a,2*4/2 ~ a,2 \finalis
+d2 c2*3/2 bes,2*3/4 bes,2*3/2 a,2 ~ a,2*4/2 ~ a,2*4/2 ~ a,2 \finalis
 a2 ~ a2*5/2 ~ a2*4/2 e2 ~ e2*3/2 a2 ~ a4 \divisioMaxima
 c2 ~ c2*5/2 ~ c2 ~ \divisioMinima
 c2*3/2 b,2*7/2 a,2 ~ \divisioMinima

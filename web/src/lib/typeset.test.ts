@@ -47,7 +47,8 @@ describe("segments", () => {
   it("should give Mass IX's four movements and its listed Ite their typeset music, in the real catalogue", () => {
     const mass = allPieces().find((p) => p.slug === "ordinarium-missae-ix")!;
     const found = segments(mass);
-    expect(found.map((s) => s.target)).toEqual(["movement:ordinarium-missae-ix/kyrie", "movement:ordinarium-missae-ix/gloria",
+    // The Gloria is the row that moves its start one system up (data/sections/noh5.yml).
+    expect(found.map((s) => s.target)).toEqual(["movement:ordinarium-missae-ix/kyrie", "part:ordinarium-missae-ix/other:gloria",
       "movement:ordinarium-missae-ix/sanctus", "movement:ordinarium-missae-ix/agnus", "part:ordinarium-missae-ix/other:ite"]);
     expect(found.every((s) => s.render?.wide.endsWith("/wide.svg"))).toBe(true);
     expect(hasTypeset(mass)).toBe(true);

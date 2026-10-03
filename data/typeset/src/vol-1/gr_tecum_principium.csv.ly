@@ -122,7 +122,7 @@ f'2 ~ f'2 e'2*4/2 ~ e'2*3/2 d'4 \finalis
 tenorMusic = {
 r2*8/2 g2*3/2 bes4 ~ \divisioMinima
 bes2 a2*4/2 d'2 ~ d'2*4/2 bes2 a2 bes4 ~ \divisioMaior
-bes2*3/2 ~ bes2*3/4 ~ bes2*3/2 ~ bes2*3/2 aas2 ~ aas2*3/2 g2 ~ g2*3/2 ~ g2*4/2 ~ g2*4/2 ~ g2*3/2 ~ g2*3/2 d2*3/2 \divisioMaxima
+bes2*3/2 ~ bes2*3/4 ~ bes2*3/2 ~ bes2*3/2 aes2 ~ aes2*3/2 g2 ~ g2*3/2 ~ g2*4/2 ~ g2*4/2 ~ g2*3/2 ~ g2*3/2 d2*3/2 \divisioMaxima
 a2 g2 f2*3/2 ~ f4 g2*3/2 \divisioMinima
 c'4 bes2*4/2 a2*4/2 bes2 c'2*7/4 bes2*3/2 \divisioMaior
 r4 f2*3/2 g2*3/2 ~ g2*4/2 bes2*3/4 ~ bes2*5/2 ~ bes2*3/2 \divisioMaxima

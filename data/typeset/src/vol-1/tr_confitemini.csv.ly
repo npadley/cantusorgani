@@ -107,13 +107,13 @@ d'2*4/2 ~ d'2 ~ d'2*4/2 f'2 ~ f'2*3/2 ~ f'2*3/2 \divisioMaior
 ees'2 f'2*3/2 ~ f'2*3/2 ~ f'2 g'2*3/2 ~ g'2 d'2 ~ d'4 \finalis
 f'2 ~ f'2*3/2 ~ f'2*4/2 g'2 ~ g'2 f'2*3/2 ~ f'2 ees2*5/2 d'2 \divisioMaior
 g'2 f'2*3/2 ~ f'2 ~ f'2 ees'2*4/2 d'2 \divisioMaior
-c'2*3/2 d'2*3/2 ees'2*3/2 ee'2 f'2*5/2 ~ f'2*4/2 ~ f'2*3/2 ~ f'2*3/2 d'2*3/2 \divisioMaxima
+c'2*3/2 d'2*3/2 ees'2*3/2 ees'2 f'2*5/2 ~ f'2*4/2 ~ f'2*3/2 ~ f'2*3/2 d'2*3/2 \divisioMaxima
 c'4 ~ c'2*3/2 bes2 d'2 ~ d'2*4/2 ees'2*5/2 f'2*3/2 ~ \divisioMaior
 f'2 ~ f'2*3/2 ~ f'2 e'2*3/2 ~ e'2*3/2 d'2*3/2 \finalis
 r2 f'2 g'2*3/2 ~ g'2*3/2 ~ g'2*3/4 bes'2 ~ bes'2*4/2 ~ \divisioMinima
 bes'2*3/2 ~ bes'2*7/4 ~ bes'2*3/2 g'2*7/4 a'2*3/2 d'2*3/2 c'2 d'4 \divisioMinima
 f'2*3/2 ~ f'2*4/2 ees'2*4/2 d'2 ~ \divisioMaior
-d'2*3/2 ~ d'2 ees'2*3/2 ~ ees'2*4/2 ee'4 f'2 ~ f'2*3/2 ~ f'2 d'2*3/2 ~ d'2*3/2 c'2*3/2 \divisioMaxima
+d'2*3/2 ~ d'2 ees'2*3/2 ~ ees'2*4/2 ees'4 f'2 ~ f'2*3/2 ~ f'2 d'2*3/2 ~ d'2*3/2 c'2*3/2 \divisioMaxima
 bes2*3/2 c'2 d'2 ~ d'2 ees'2*7/4 ~ ees'2 f'2*3/2 ~ \divisioMaior
 f'2*3/2 ~ f'2*3/2 ~ f'2 ~ f'2*4/2 g'2 f'2*3/2 ~ f'4 \divisioMinima
 e'2*3/2 d'2*4/2 c'2*3/2 d'2 ~ d'2*4/2 ~ d'4 ~ \divisioMinima

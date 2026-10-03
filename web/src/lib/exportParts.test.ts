@@ -198,10 +198,24 @@ describe("exportSegments for a Mass with rows of its own", () => {
       ["Kyrie", 3], ["Sanctus", 1], ["Agnus Dei", 2], ["Ite, missa est", 1], ["Benedicamus Domino", 1]]);
   });
 
+  it("should let a row named for a movement move it: its heading, anchor and chant, on the row's system", () => {
+    const moved = { ...mass, parts: [{ kind: "printed" as const, part: "other" as const, variant: "sanctus", label: null,
+                                       title: null, system: 2, ref: refs[2]!, gregobaseId: null, placed: "reviewed" as const }],
+                    chant: [{ source: "gregobase" as const, id: 2518, movement: "sanctus" as const, incipit: "Sanctus IV",
+                              mode: "8", score: 1, status: "verified" as const }] };
+    expect(movementStarts(moved).map((m) => m.movement)).toEqual(["kyrie", "agnus", "ite"]);
+    const row = jumpTargets(moved).find((t) => t.kind === "part")!;
+    expect(row).toMatchObject({ label: "Sanctus", anchor: "sanctus", index: 2, chantId: 2518,
+                                target: "part:ordinarium-missae-iv/other:sanctus" });
+    expect(exportSegments([moved]).map((s) => [s.label, s.systems])).toEqual([
+      ["Kyrie", 2], ["Sanctus", 2], ["Agnus Dei", 2], ["Ite, missa est", 2]]);
+  });
+
   it("should leave the movement out where a row starts on its system, and name the row in its target", () => {
     expect(movementStarts(mass).map((m) => m.movement)).toEqual(["kyrie", "sanctus", "agnus"]);
     expect(jumpTargets(mass).filter((t) => t.kind === "part").map((t) => [t.target, t.anchor])).toEqual([
-      ["part:ordinarium-missae-iv/other:ite", "other-ite"],
+      // The row named for the dismissal keeps the movement's own anchor.
+      ["part:ordinarium-missae-iv/other:ite", "ite"],
       ["part:ordinarium-missae-iv/other:benedicamus", "other-benedicamus"]]);
   });
 });

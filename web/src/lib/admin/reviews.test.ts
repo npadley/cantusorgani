@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 
+import reviewedJson from "../../../../data/reviewed.json";
+
 import { REVIEW_KINDS, reviewKind } from "./reviewKinds";
 import type { QueueItem } from "./reviewKinds";
 import { QUEUE, reviewEntries, reviewIndex } from "./reviews";
@@ -30,7 +32,11 @@ describe("reviewEntries", () => {
   it("should list every queue item and part to check once, fix first and information last", () => {
     const targets = entries.map((e) => e.target);
     expect(new Set(targets).size).toBe(targets.length);
-    expect(entries.filter((e) => e.target.startsWith("review:"))).toHaveLength(QUEUE.length);
+    // Every item not yet confirmed (data/reviewed.json); a confirmed one is done until a rebuild changes it.
+    const done = (reviewedJson as { reviewed: Record<string, { was?: string }> }).reviewed;
+    const open = QUEUE.filter((i) => done[i.key]?.was !== i.fingerprint);
+    expect(open.length).toBeLessThan(QUEUE.length);
+    expect(entries.filter((e) => e.target.startsWith("review:"))).toHaveLength(open.length);
     const groups = entries.map((e) => e.group);
     expect(groups.indexOf("check")).toBeGreaterThan(groups.lastIndexOf("fix"));
     expect(groups.indexOf("info")).toBeGreaterThan(groups.lastIndexOf("check"));

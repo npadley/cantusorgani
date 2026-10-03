@@ -313,6 +313,17 @@ def test_targets_a_listed_row_takes_the_place_of_the_movement_on_its_system():
                      "movement:ordinarium-missae-iv/agnus"]
 
 
+def test_targets_a_row_named_for_a_movement_is_that_movement_with_its_chant():
+    mass = mass_iv()
+    mass["pieces"][0]["sections"].insert(0, {"kind": "other", "key": "agnus", "variant": "", "system": 1,
+                                             "ref": "noh5/0074/001", "gregobase_id": None, "placed": "reviewed"})
+    found = {t.target: t.chant for t in targets(mass, lambda ref: 28)}
+    assert "movement:ordinarium-missae-iv/agnus" not in found
+    assert found["part:ordinarium-missae-iv/other:agnus"] == 264            # the Agnus's own pairing
+    picked, _ = candidates(hints("vol-5/missa-iv/agnus_IV.ly", ""), targets(mass, lambda ref: 28))
+    assert [t.target for t in picked] == ["part:ordinarium-missae-iv/other:agnus"]
+
+
 @pytest.mark.parametrize(("rel", "expected"), [
     ("vol-5/missa-iv/ite_IV.ly", ["part:ordinarium-missae-iv/other:ite"]),
     ("vol-5/missa-iv/benedicamus_IV.ly", ["part:ordinarium-missae-iv/other:benedicamus"]),

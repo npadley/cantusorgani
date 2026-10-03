@@ -35,7 +35,7 @@ global = {
 }
 
 chantText = \lyricmode {
-3 Plebs He -- brǽ -- a ti -- bi cum pal -- mis ób -- vi -- a ve -- nit: 
+"3" Plebs He -- brǽ -- a ti -- bi cum pal -- mis ób -- vi -- a ve -- nit: 
 Cum pre -- ce, vo -- to, hym -- nis, ád -- su -- mus ec -- ce ti -- bi. }
 
 chantMusic = {

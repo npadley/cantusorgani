@@ -16,6 +16,12 @@ import Layout from "../../../components/Layout.astro";
     <p class="muted small prose" id="intro">Each section runs from the system it starts on until the next one starts.
       List them in the order the book prints them; a section printed in another volume goes where the book cites it.
       Your list replaces the piece's whole list once it is published.</p>
+    <p class="small prose" id="mass-hint" hidden>This piece has movements, which the pipeline found by their words:
+      <strong id="mass-movements"></strong>. List only what they get wrong or leave out. To move a movement, start a
+      section on the system where it really begins, kind <em>Section</em>, and give it the movement's name as its own
+      name (<code>kyrie</code>, <code>gloria</code>, <code>credo</code>, <code>sanctus</code>, <code>agnus</code> or
+      <code>ite</code>): it takes that movement's place, heading and chant. For a second Kyrie or another dismissal, give
+      it any other name (<code>kyrie-b</code>, <code>benedicamus</code>) and a label.</p>
     <div id="status" class="status small" role="status" aria-live="polite"></div>
 
     <div class="layout" id="layout" hidden>
@@ -213,6 +219,10 @@ import Layout from "../../../components/Layout.astro";
     if (!piece) { say(status, "We couldn't find that piece. Open its Sections link from the piece's edit page.", "error"); return; }
     document.getElementById("title")!.replaceChildren("Sections: ", h("a", { href: piece.href }, piece.label),
                                                        h("span", { class: "muted small" }, ` (${piece.volume}, ${piece.systems ?? 0} systems)`));
+    if ((piece.movements ?? []).length > 0) {
+      document.getElementById("mass-movements")!.textContent = (piece.movements ?? []).join(", ");
+      document.getElementById("mass-hint")!.hidden = false;
+    }
     if (!scans) say(status, "The scans could not be loaded; the list still works.", "error");
     document.getElementById("layout")!.hidden = false;
     await start();

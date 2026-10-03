@@ -64,7 +64,7 @@ ees2 ~ ees2*3/2 g2 ~ \divisioMinima
 g2 ~ g2 ~ g2 a2*3/2 bes2*5/2 ~ bes2*3/2 ~ bes2 ~ bes2*3/2 a2 \divisioMaxima
 bes2 a2 g2*3/2 f2*4/2 g2*3/2 a2*3/2 ~ \divisioMinima
 a4 r2*3/2 g2*3/2 ~ g2*4/2 d2 ~ d2*4/2 ~ d2 \divisioMaior
-rc4 ees2 d2 f2 g2 ~ g2 ~ g2*3/2 ~ g2 ~ g2*3/2 ~ g2*3/2 ~ g2*4/2 ~ g2 bes2 a4 \finalis
+r4 ees2 d2 f2 g2 ~ g2 ~ g2*3/2 ~ g2 ~ g2*3/2 ~ g2*3/2 ~ g2*4/2 ~ g2 bes2 a4 \finalis
 }
 
 bassMusic = {

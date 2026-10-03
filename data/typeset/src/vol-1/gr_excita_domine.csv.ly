@@ -113,7 +113,7 @@ f'2 d'2*4/2 ~ d'2 ~ d'2 ~ d'2 \finalis
 tenorMusic = {
 bes2*4/2 ~ bes4 ~ \divisioMinima
 bes2*3/2 ~ bes2*3/2 c'2*3/2 a2 bes4 ~ \divisioMaior
-bes4 ~ bes2*5/2 ~ bes2*3/2 ~ bes2 aeess2*3/2 bes2 ~ bes2*3/2 ~ bes2*4/2 ~ bes2*9/4 ~ bes2*3/2 ~ bes2*3/2 c'2 bes4 ~ \divisioMaxima
+bes4 ~ bes2*5/2 ~ bes2*3/2 ~ bes2 aes2*3/2 bes2 ~ bes2*3/2 ~ bes2*4/2 ~ bes2*9/4 ~ bes2*3/2 ~ bes2*3/2 c'2 bes4 ~ \divisioMaxima
 bes2 ~ bes2*5/2 c'2 d'2*3/2 ~ \divisioMinima
 d'2 c'2*3/2 ~ c'2*5/2 bes2*3/2 ~ bes2*5/2 ~ bes2*3/2 ~ \divisioMaxima
 bes2*5/2 ~ bes2*5/2 c'2 bes2*4/2 ~ bes2*6/2 ~ \divisioMinima

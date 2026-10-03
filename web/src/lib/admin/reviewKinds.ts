@@ -80,8 +80,8 @@ export const REVIEW_KINDS: Readonly<Record<string, ReviewKind>> = {
     look: "The staves on this page could not all be paired, so they were paired by the gaps between braces. Check each system has both hands' staves.",
   },
   uncertain_movement: {
-    label: "Mass movement placed by order", group: "check",
-    look: "Its opening words matched weakly, so it was placed by the Mass's order. Check this system begins the movement named.",
+    label: "Mass movement placed by order", group: "fix",
+    look: "Its opening words matched weakly, so it was placed by the Mass's order. Check this system begins the movement named. If it does not, Correct opens the piece: on its Sections screen, start a section on the right system and give it the movement's name (kyrie, gloria, credo, sanctus, agnus or ite) as its own name.",
   },
   hymn_at_page_top: {
     label: "Hymn linked to the top of its page", group: "check",

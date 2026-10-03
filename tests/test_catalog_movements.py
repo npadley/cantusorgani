@@ -82,3 +82,27 @@ def test_hymn_system_finds_the_hymns_opening_words():
 def test_rubric_resolves_its_first_same_volume_citation_before_later_other_parts():
     from pipeline.catalog import parse_reference
     assert parse_reference('Introitus. Clamaverunt justi, ut supra, p. 106. Alleluia. Pretiosa, Pars IV, p. 37.', 'noh3') == ('noh3', 106)
+
+
+# ---------------------------------------- pieces that are not a whole Mass ---
+
+def test_own_movement_a_single_chant_piece_is_its_movement_from_its_first_system(mass_refs):
+    from pipeline.catalog import own_movement
+    (only,) = own_movement("kyrie", mass_refs)
+    assert (only["movement"], only["ref"], only["placed"]) == ("kyrie", mass_refs[0].ref, "first")
+    assert own_movement("requiem", mass_refs) == [] and own_movement("kyrie", []) == []
+
+
+def test_keeps_hit_only_a_movement_the_genre_prints_and_only_its_first():
+    from pipeline.catalog import keeps_hit
+    assert keeps_hit("requiem", "kyrie", set()) and keeps_hit("requiem", "agnus", {"kyrie"})
+    assert not keeps_hit("requiem", "kyrie", {"kyrie"})        # the Kyrie's later invocations
+    assert not keeps_hit("requiem", "gloria", set())           # a Requiem has no Gloria
+    assert not keeps_hit("tonus", "ite", set())                # "Deo gratias" in a Preface dialogue
+    assert not keeps_hit("kyrie", "kyrie", set())              # a single chant takes own_movement instead
+
+
+def test_the_constants_corrections_keeps_match_the_catalogue_builds():
+    from pipeline import catalog, corrections
+    assert corrections._SINGLE_MOVEMENT == catalog.SINGLE_MOVEMENT
+    assert corrections._MOVEMENT_DIVISIONS == catalog.MOVEMENT_DIVISIONS

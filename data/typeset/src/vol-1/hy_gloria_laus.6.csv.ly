@@ -35,7 +35,7 @@ global = {
 }
 
 chantText = \lyricmode {
-5 Hi pla -- cu -- é -- re ti -- bi, plá -- ce -- at de -- vó -- ti -- o no -- stra: 
+"5" Hi pla -- cu -- é -- re ti -- bi, plá -- ce -- at de -- vó -- ti -- o no -- stra: 
 Rex bo -- ne, Rex cle -- mens, cui bo -- na cun -- cta pla -- cent. }
 
 chantMusic = {

@@ -92,7 +92,7 @@ bes4 ~ bes2*6/2 ~ bes2*3/2 ~ \divisioMinima
 bes4 ~ bes2*4/2 ~ bes2 ~ bes2*5/2 ~ bes2*3/4 a2*3/2 bes2*3/2 ~ bes2*3/4 ~ bes2*4/2 c'2*4/2 ~ c'2 bes4 ~ \divisioMaxima
 bes2 g2*3/2 ~ g2 a2 bes4 ~ \divisioMaior
 bes4 ~ bes2 g2*4/2 ~ g2 \divisioMinima
-bes2*3/2 ~ bes2*4/2 ~ bes2*5/2 ~ bes2*3/4 ~ bes2 ~ bes2*3/2 ~ bes2*4/2 aess2 g4 \finalis
+bes2*3/2 ~ bes2*4/2 ~ bes2*5/2 ~ bes2*3/4 ~ bes2 ~ bes2*3/2 ~ bes2*4/2 aes2 g4 \finalis
 c'4 ~ c'2 d'2 ~ d'4 ~ \divisioMinima
 d'2 ~ d'2 ~ d'2 bes2 a2 bes2 ~ bes2*5/4 ~ bes2*4/2 ~ bes2 ~ bes2 ~ bes4 ~ \divisioMaior
 bes4 ~ bes2 c'2*3/2 d'2 c'2*3/2 ~ c'2*3/2 ~ c'2*4/2 bes2*3/2 ~ \divisioMaxima

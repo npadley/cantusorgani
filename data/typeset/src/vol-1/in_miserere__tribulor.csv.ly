@@ -74,7 +74,7 @@ r4 d'2 ~ d'2*3/2 ees'2*4/2 f'2*4/2 ~ f'4 ~ \divisioMaior
 f'4 ees'2 d'2*3/2 ees'2*5/2 c'2*4/2 ~ c'2 \divisioMaxima
 ees'2*5/2 d'2 g'2 f'2*3/2 ~ \divisioMaior
 f'4 ~ f'4 ees'2*4/2 d'2*4/2 ~ d'4 c'2*3/2 f'2*3/2 ees'2*3/2 ~ ees'2*4/2 f'2*3/2 d'2 ees'2*3/2 c'2 ~ c'4 \divisioMaior
-ees;2*4/2 f'2*3/2 d'2*4/2 ~ d'4 ~ \divisioMaxima
+ees'2*4/2 f'2*3/2 d'2*4/2 ~ d'4 ~ \divisioMaxima
 d'2 r4 ees'4 ~ ees'2 f'2*4/2 ~ \divisioMaior
 f'4 ees'2 d'2*3/2 ~ d'2*4/2 ees'2*5/2 bes2*3/2 ~ bes4 \finalis
 r2 f'2*4/2 ~ f'2*4/2 ees'2*4/2 d'2 ~ \divisioMaxima

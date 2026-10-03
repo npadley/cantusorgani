@@ -113,6 +113,32 @@ def scan_page(vol_id: str, pdf_page: int, page: pymupdf.Page
 CONFIDENT_INDEX = frozenset({"verified", "found", "consistent"})
 # Divisions whose pieces are Masses divided into movements.
 MOVEMENT_DIVISIONS = frozenset({"kyriale", "defunctorum"})
+#: A piece that is one chant of the Ordinary (a Credo, an ad libitum Kyrie): it
+#: is that movement from its first system. Its words recur all through it
+#: ("Kyrie eleison" nine times), so a system's own words say nothing of where
+#: it starts; further chants in one piece (Gloria I-III) are listed by hand
+#: (data/sections).
+SINGLE_MOVEMENT = frozenset({"kyrie", "gloria", "credo", "sanctus", "agnus"})
+#: The movements of the Ordinary other pieces print among their own music. A hit
+#: for any other is the words turning up in passing ("Deo gratias" in a Preface
+#: dialogue is not a dismissal).
+MOVEMENTS_WITHIN: dict[str, tuple[str, ...]] = {"requiem": ("kyrie", "sanctus", "agnus"), "absolutio": ("kyrie",)}
+
+
+def own_movement(genre: str, refs: list[SystemRef]) -> list[Record]:
+    """A single-chant piece's one movement, on its first system."""
+    if genre not in SINGLE_MOVEMENT or not refs:
+        return []
+    first = refs[0]
+    return [{"movement": genre, "score": 1.0, "pdf_page": first.pdf_page, "system": first.index,
+             "ref": first.ref, "mode_marker": first.mode_marker, "placed": "first"}]
+
+
+def keeps_hit(genre: str, movement: str, placed: set[str]) -> bool:
+    """Whether a system's movement hit counts for a piece of this genre: only a
+    movement the genre prints among its music, and only its first hit (the
+    Requiem's Kyrie is nine invocations, each of which reads "Kyrie eleison")."""
+    return movement in MOVEMENTS_WITHIN.get(genre, ()) and movement not in placed
 
 
 PageScan = tuple[list[SystemRef], list[tuple[int, MovementHit]], list[str]]
@@ -488,6 +514,7 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
                                "printed_page": start[0], "first_system": start[1]})
             refs: list[SystemRef] = []
             movements: list[dict[str, object]] = []
+            placed_movements: set[str] = set()
             ordinary = entry.genre == "mass_ordinary" and entry.division == "kyriale"
             for printed in range(first, last + 1):
                 pdf_page = page_map.to_pdf(printed, entry.pagination)
@@ -505,6 +532,8 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
                     # Vespers antiphon's "Kyrie" is not one.
                     if system_index not in mine or ordinary or entry.division not in MOVEMENT_DIVISIONS:
                         continue
+                    if not keeps_hit(entry.genre, hit.movement, placed_movements):
+                        continue
                     record = {
                         "movement": hit.movement, "score": hit.score,
                         "pdf_page": pdf_page, "system": system_index,
@@ -514,9 +543,12 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
                     }
                     if hit.confident:
                         movements.append(record)
+                        placed_movements.add(hit.movement)
                     else:
                         review.append({"piece": entry.slug, "kind": "uncertain_movement",
                                        **record})
+            if entry.division in MOVEMENT_DIVISIONS and entry.genre in SINGLE_MOVEMENT:
+                movements = own_movement(entry.genre, refs)
             if ordinary:
                 # An Ordinary is segmented whole, in the order the Kyriale prints
                 # it, rather than trusting each system's hit on its own.

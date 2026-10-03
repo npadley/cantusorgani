@@ -1,7 +1,7 @@
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import { describe, expect, it } from "vitest";
 
-import { allPieces, movementStarts, ordinaryMasses, parseCatalog } from "../lib/catalog";
+import { allPieces, jumpTargets, movementStarts, ordinaryMasses, parseCatalog } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
 import MovementNav from "./MovementNav.astro";
 import SystemStack from "./SystemStack.astro";
@@ -97,8 +97,12 @@ describe("the Kyriale's eighteen Masses", () => {
     "Missa %s should have its movements, each linked and in order",
     async (label, piece) => {
       const expected = ["kyrie", ...(withoutGloria.has(label) ? [] : ["gloria"]), "sanctus", "agnus"];
-      const starts = movementStarts(piece).map((s) => s.movement);
-      expect(starts.filter((m) => m !== "ite")).toEqual(expected);
+      // A movement, or the row an editor named for it to move its start (data/sections/noh5.yml):
+      // either way it is on the page under the movement's own anchor.
+      const all = ["kyrie", "gloria", "credo", "sanctus", "agnus"];
+      const starts = jumpTargets(piece).filter((t) => all.includes(t.anchor)).map((t) => t.anchor);
+      expect(starts).toEqual(expected);
+      expect(movementStarts(piece).every((s) => expected.includes(s.movement) || s.movement === "ite")).toBe(true);
       const html = await render(piece);
       for (const anchor of links(html)) expect(ids(html)).toContain(anchor);
     },

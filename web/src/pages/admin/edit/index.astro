@@ -160,7 +160,8 @@ import Layout from "../../../components/Layout.astro";
     const piece = chosen?.slug && targets ? targets.pieces[chosen.slug] ?? null : null;
     // A Proper's sections (a part missing, mislabelled or in the wrong order) are edited as one list.
     const sections = document.getElementById("sections-link")!;
-    sections.hidden = !piece || (piece.parts ?? []).length === 0;
+    // A Mass has movements where a Proper has sections; the same screen moves one or adds what they leave out.
+    sections.hidden = !piece || ((piece.parts ?? []).length === 0 && (piece.movements ?? []).length === 0);
     if (piece) sections.querySelector("a")!.href = `/admin/sections/?piece=${encodeURIComponent(piece.slug)}`;
     if (chosen?.kind === "vespers") partRow.hidden = true;
     else setParts(piece, chosen?.target ?? null);

@@ -65,6 +65,10 @@ function correctTarget(item: QueueItem, piece: Piece | undefined): string | null
     }
     case "starts_mid_page": case "no_systems": case "index_unverified": case "range_extended":
       return `piece:${piece.slug}`;
+    case "uncertain_movement":
+      // Its edit page links to the Sections screen, where a row named for the
+      // movement (its own name: gloria) says where it really starts.
+      return `piece:${piece.slug}`;
     default:
       return null;
   }

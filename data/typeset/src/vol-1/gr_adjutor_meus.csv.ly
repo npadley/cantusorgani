@@ -7,7 +7,7 @@
 %(volume.page)
 
 global = {
- \key cis \
+ \key e \minor
  \cadenzaOn 
 }
 

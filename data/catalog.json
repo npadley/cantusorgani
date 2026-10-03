@@ -5943,7 +5943,7 @@
           "variant": "",
           "system": 21,
           "ref": "noh1/0134/004",
-          "gregobase_id": null,
+          "gregobase_id": 1153,
           "placed": "label",
           "score": 1.0,
           "label": "Tract."
@@ -17543,7 +17543,7 @@
           "variant": "",
           "system": 11,
           "ref": "noh1/0331/001",
-          "gregobase_id": null,
+          "gregobase_id": 901,
           "placed": "label",
           "score": 1.0,
           "label": "Ant. 4"
@@ -17590,7 +17590,7 @@
           "variant": "",
           "system": 42,
           "ref": "noh1/0336/004",
-          "gregobase_id": null,
+          "gregobase_id": 1051,
           "placed": "label",
           "score": 1.0,
           "label": "Ant. 7"
@@ -26440,7 +26440,7 @@
           "variant": "",
           "system": 26,
           "ref": "noh2/0169/002",
-          "gregobase_id": null,
+          "gregobase_id": 1244,
           "placed": "label",
           "score": 1.0,
           "label": "Tract. II"
@@ -26463,7 +26463,7 @@
           "variant": "",
           "system": 51,
           "ref": "noh2/0174/000",
-          "gregobase_id": null,
+          "gregobase_id": 319,
           "placed": "label",
           "score": 1.0,
           "label": "Offert. VI"
@@ -37184,7 +37184,7 @@
           "variant": "",
           "system": 14,
           "ref": "noh3/0097/000",
-          "gregobase_id": null,
+          "gregobase_id": 1311,
           "placed": "label",
           "score": 1.0,
           "label": "Ant."
@@ -41731,6 +41731,39 @@
       "label": "S. Catharina Senensis Virgine",
       "title": "S. Catharina Senensis Virgine",
       "incipit": null,
+      "reference": "Missa. Dilexisti, Pars IV, p. 107.",
+      "genre": "proper",
+      "mode": null,
+      "mass": null,
+      "printed_pages": [
+        161,
+        161
+      ],
+      "pdf_pages": [
+        194,
+        194
+      ],
+      "systems": [],
+      "system_assets": [],
+      "system_aspect": [],
+      "movements": [],
+      "sections": [],
+      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Apr30",
+      "chant": [],
+      "review_status": "review",
+      "hymns": [],
+      "linked_days": []
+    },
+    {
+      "id": "noh3-in-solemnitate-s-joseph",
+      "volume": "noh3",
+      "slug": "in-solemnitate-s-joseph",
+      "section": "Proprium Sanctorum",
+      "division": "sanctorale",
+      "days": [],
+      "label": "In Solemnitate S. Joseph Sponsi B.M.V. Confessoris et Ecclesiae Universalis Patroni",
+      "title": "In Solemnitate S. Joseph",
+      "incipit": null,
       "reference": null,
       "genre": "proper",
       "mode": null,
@@ -41964,7 +41997,7 @@
           "placed": "reviewed"
         }
       ],
-      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Apr30",
+      "jgabc_url": null,
       "chant": [],
       "review_status": "verified",
       "hymns": [],
@@ -47399,7 +47432,7 @@
           "variant": "",
           "system": 28,
           "ref": "noh3/0281/005",
-          "gregobase_id": null,
+          "gregobase_id": 502,
           "placed": "label",
           "score": 1.0,
           "label": "Tract. II"
@@ -47993,7 +48026,7 @@
           "variant": "",
           "system": 22,
           "ref": "noh3/0294/000",
-          "gregobase_id": null,
+          "gregobase_id": 928,
           "placed": "label",
           "score": 1.0,
           "label": "Tract. VII"
@@ -50575,7 +50608,7 @@
           "variant": "",
           "system": 31,
           "ref": "noh3/0327/002",
-          "gregobase_id": null,
+          "gregobase_id": 437,
           "placed": "label",
           "score": 1.0,
           "label": "Tract. VII"
@@ -55093,7 +55126,7 @@
           "variant": "",
           "system": 31,
           "ref": "noh3/0402/003",
-          "gregobase_id": null,
+          "gregobase_id": 739,
           "placed": "label",
           "score": 1.0,
           "label": "Tract."
@@ -56412,7 +56445,7 @@
           "variant": "",
           "system": 22,
           "ref": "noh3/0431/004",
-          "gregobase_id": null,
+          "gregobase_id": 63,
           "placed": "label",
           "score": 1.0,
           "label": "Tract. VII"
@@ -57134,7 +57167,7 @@
           "variant": "",
           "system": 15,
           "ref": "noh3/0446/001",
-          "gregobase_id": null,
+          "gregobase_id": 671,
           "placed": "label",
           "score": 1.0,
           "label": "Tract. VIII"
@@ -65429,6 +65462,7 @@
         "sancti:08-30",
         "sancti:10-15",
         "sancti:11-16",
+        "sancti:04-30",
         "sancti:05-19o"
       ],
       "label": "Commune Virginum \u2014 pro Virgine tantum",
@@ -65849,6 +65883,7 @@
         "sancti:08-30",
         "sancti:10-15",
         "sancti:11-16",
+        "sancti:04-30",
         "sancti:05-19o"
       ]
     },
@@ -67391,7 +67426,7 @@
           "gregobase_id": null,
           "borrowed_volume": "noh3",
           "borrowed_page": 162,
-          "borrowed_from": "s-catharina-senensis-virgine",
+          "borrowed_from": "in-solemnitate-s-joseph",
           "borrowed_ref": "noh3/0195/000"
         },
         {
@@ -67409,7 +67444,7 @@
           "gregobase_id": null,
           "borrowed_volume": "noh3",
           "borrowed_page": 164,
-          "borrowed_from": "s-catharina-senensis-virgine",
+          "borrowed_from": "in-solemnitate-s-joseph",
           "borrowed_ref": "noh3/0197/000"
         },
         {
@@ -67427,7 +67462,7 @@
           "gregobase_id": null,
           "borrowed_volume": "noh3",
           "borrowed_page": 163,
-          "borrowed_from": "s-catharina-senensis-virgine",
+          "borrowed_from": "in-solemnitate-s-joseph",
           "borrowed_ref": "noh3/0196/001"
         },
         {
@@ -67436,7 +67471,7 @@
           "gregobase_id": null,
           "borrowed_volume": "noh3",
           "borrowed_page": 165,
-          "borrowed_from": "s-catharina-senensis-virgine",
+          "borrowed_from": "in-solemnitate-s-joseph",
           "borrowed_ref": "noh3/0198/001"
         },
         {
@@ -67445,7 +67480,7 @@
           "gregobase_id": null,
           "borrowed_volume": "noh3",
           "borrowed_page": 166,
-          "borrowed_from": "s-catharina-senensis-virgine",
+          "borrowed_from": "in-solemnitate-s-joseph",
           "borrowed_ref": "noh3/0199/000"
         }
       ],
@@ -75501,6 +75536,112 @@
       "label": "B.M.V. Auxilium Christianorum, 24 Maii",
       "title": "B.M.V. Auxilium Christianorum, 24 Maii",
       "incipit": null,
+      "reference": "Introitus. Salve, sancta Parens, ut supra, p. 182. Tempore Paschali; Alleluia, alleluia. V. Virga Jesse, p. 180. Alleluia. V. Ave Maria, p. 175. Extra Tempus Paschale; Graduale. Benedicta, p. 184. Alleluia, alleluia. V. Post partum, p. 185. Offertorium. Ave Maria, p. 186. Communio. Beata viscera, p. 187.",
+      "genre": "proper",
+      "mode": null,
+      "mass": null,
+      "printed_pages": [
+        300,
+        300
+      ],
+      "pdf_pages": [
+        333,
+        333
+      ],
+      "systems": [],
+      "system_assets": [],
+      "system_aspect": [],
+      "movements": [],
+      "sections": [
+        {
+          "kind": "introit",
+          "variant": "",
+          "title": "Salve sancta Parens",
+          "gregobase_id": 1140,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 182,
+          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
+          "borrowed_ref": "noh4/0215/004"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "paschal",
+          "title": "Virga Jesse",
+          "gregobase_id": 281,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 180,
+          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-purificatione-usque-ad-pascha",
+          "borrowed_ref": "noh4/0213/000"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "key": "paschal-ave-maria",
+          "label": "Paschal Alleluia: Ave Maria",
+          "title": "Ave Maria",
+          "gregobase_id": 1209,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 175,
+          "borrowed_from": "missa-de-sancta-maria-in-sabbato-ab-adventu-usque-ad-nativitatem",
+          "borrowed_ref": "noh4/0208/004"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "title": "Benedicta et venerabilis",
+          "gregobase_id": 392,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 184,
+          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
+          "borrowed_ref": "noh4/0217/000"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Post partum",
+          "gregobase_id": 127,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 185,
+          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
+          "borrowed_ref": "noh4/0218/003"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Ave Maria",
+          "gregobase_id": 843,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 186,
+          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
+          "borrowed_ref": "noh4/0219/004"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "title": "Beata viscera",
+          "gregobase_id": 160,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 187,
+          "borrowed_from": "missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum",
+          "borrowed_ref": "noh4/0220/005"
+        }
+      ],
+      "jgabc_url": null,
+      "chant": [],
+      "review_status": "review",
+      "hymns": [],
+      "linked_days": []
+    },
+    {
+      "id": "noh4-s-joannae-de-arc-virginis",
+      "volume": "noh4",
+      "slug": "s-joannae-de-arc-virginis",
+      "section": "Missae pro aliquibus locis",
+      "division": "sanctorale",
+      "days": [],
+      "label": "S. Joannae de Arc Virginis, 30 Maii",
+      "title": "S. Joannae de Arc Virginis, 30 Maii",
+      "incipit": null,
       "reference": null,
       "genre": "proper",
       "mode": null,
@@ -81664,7 +81805,17 @@
           "placed": "match"
         }
       ],
-      "sections": [],
+      "sections": [
+        {
+          "kind": "other",
+          "variant": "",
+          "key": "agnus",
+          "gregobase_id": null,
+          "system": 28,
+          "ref": "noh5/0086/000",
+          "placed": "reviewed"
+        }
+      ],
       "jgabc_url": null,
       "chant": [
         {
@@ -82642,6 +82793,15 @@
         }
       ],
       "sections": [
+        {
+          "kind": "other",
+          "variant": "",
+          "key": "gloria",
+          "gregobase_id": null,
+          "system": 6,
+          "ref": "noh5/0100/000",
+          "placed": "reviewed"
+        },
         {
           "kind": "other",
           "variant": "",
@@ -85434,12 +85594,12 @@
       "movements": [
         {
           "movement": "credo",
-          "score": 0.765,
+          "score": 1.0,
           "pdf_page": 144,
           "system": 3,
           "ref": "noh5/0144/003",
           "mode_marker": null,
-          "text": "tremmolpotentemiueredoinunumdeurnpaivl"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -85634,12 +85794,12 @@
       "movements": [
         {
           "movement": "credo",
-          "score": 0.824,
+          "score": 1.0,
           "pdf_page": 148,
           "system": 3,
           "ref": "noh5/0148/003",
           "mode_marker": null,
-          "text": "ncredoinunumdeurnpatremmolpotenimaieiv"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -85834,12 +85994,12 @@
       "movements": [
         {
           "movement": "credo",
-          "score": 0.903,
+          "score": 1.0,
           "pdf_page": 152,
           "system": 3,
           "ref": "noh5/0152/003",
           "mode_marker": null,
-          "text": "mpatremmnlpotenternvucredoinunumdeurn"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -86034,12 +86194,12 @@
       "movements": [
         {
           "movement": "credo",
-          "score": 0.824,
+          "score": 1.0,
           "pdf_page": 156,
           "system": 3,
           "ref": "noh5/0156/003",
           "mode_marker": null,
-          "text": "ivcredoinunumdeurnpatremmnlpotenternijrt"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -86417,17 +86577,7 @@
           509
         ]
       ],
-      "movements": [
-        {
-          "movement": "ite",
-          "score": 0.667,
-          "pdf_page": 163,
-          "system": 5,
-          "ref": "noh5/0163/005",
-          "mode_marker": "I",
-          "text": "iiugnumetjustumestfgratiasagamusdominodeonostro"
-        }
-      ],
+      "movements": [],
       "sections": [],
       "jgabc_url": null,
       "chant": [],
@@ -86532,12 +86682,12 @@
       "movements": [
         {
           "movement": "kyrie",
-          "score": 0.769,
+          "score": 1.0,
           "pdf_page": 170,
           "system": 0,
           "ref": "noh5/0170/000",
           "mode_marker": null,
-          "text": "ijukyrjeeieisonii"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -86636,12 +86786,12 @@
       "movements": [
         {
           "movement": "kyrie",
-          "score": 0.681,
+          "score": 1.0,
           "pdf_page": 172,
-          "system": 3,
-          "ref": "noh5/0172/003",
-          "mode_marker": "I",
-          "text": "ichrisleeiesonchrisleiii"
+          "system": 0,
+          "ref": "noh5/0172/000",
+          "mode_marker": null,
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -86713,7 +86863,17 @@
           411
         ]
       ],
-      "movements": [],
+      "movements": [
+        {
+          "movement": "kyrie",
+          "score": 1.0,
+          "pdf_page": 173,
+          "system": 2,
+          "ref": "noh5/0173/002",
+          "mode_marker": null,
+          "placed": "first"
+        }
+      ],
       "sections": [],
       "jgabc_url": null,
       "chant": [
@@ -86831,7 +86991,17 @@
           416
         ]
       ],
-      "movements": [],
+      "movements": [
+        {
+          "movement": "kyrie",
+          "score": 1.0,
+          "pdf_page": 174,
+          "system": 0,
+          "ref": "noh5/0174/000",
+          "mode_marker": null,
+          "placed": "first"
+        }
+      ],
       "sections": [],
       "jgabc_url": null,
       "chant": [
@@ -86925,7 +87095,17 @@
           392
         ]
       ],
-      "movements": [],
+      "movements": [
+        {
+          "movement": "kyrie",
+          "score": 1.0,
+          "pdf_page": 176,
+          "system": 0,
+          "ref": "noh5/0176/000",
+          "mode_marker": null,
+          "placed": "first"
+        }
+      ],
       "sections": [],
       "jgabc_url": null,
       "chant": [
@@ -87025,7 +87205,17 @@
           390
         ]
       ],
-      "movements": [],
+      "movements": [
+        {
+          "movement": "kyrie",
+          "score": 1.0,
+          "pdf_page": 177,
+          "system": 2,
+          "ref": "noh5/0177/002",
+          "mode_marker": null,
+          "placed": "first"
+        }
+      ],
       "sections": [],
       "jgabc_url": null,
       "chant": [
@@ -87128,12 +87318,12 @@
       "movements": [
         {
           "movement": "kyrie",
-          "score": 0.714,
-          "pdf_page": 179,
-          "system": 4,
-          "ref": "noh5/0179/004",
-          "mode_marker": "II",
-          "text": "iesonkyrieeiesoniijjjq"
+          "score": 1.0,
+          "pdf_page": 178,
+          "system": 5,
+          "ref": "noh5/0178/005",
+          "mode_marker": null,
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -87226,48 +87416,12 @@
       "movements": [
         {
           "movement": "kyrie",
-          "score": 0.87,
+          "score": 1.0,
           "pdf_page": 180,
-          "system": 3,
-          "ref": "noh5/0180/003",
-          "mode_marker": null,
-          "text": "fjieeiesonkyrieeieson"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.792,
-          "pdf_page": 180,
-          "system": 5,
-          "ref": "noh5/0180/005",
-          "mode_marker": null,
-          "text": "filieiesonchristeoeieison"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.762,
-          "pdf_page": 181,
-          "system": 0,
-          "ref": "noh5/0181/000",
-          "mode_marker": "I",
-          "text": "flikyreieson"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.714,
-          "pdf_page": 181,
-          "system": 1,
-          "ref": "noh5/0181/001",
-          "mode_marker": "II",
-          "text": "kyreeieisonkyniiiqtlq"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.667,
-          "pdf_page": 181,
           "system": 2,
-          "ref": "noh5/0181/002",
-          "mode_marker": "I",
-          "text": "fleiqrtiqfeieison"
+          "ref": "noh5/0180/002",
+          "mode_marker": null,
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -87372,21 +87526,12 @@
       "movements": [
         {
           "movement": "kyrie",
-          "score": 0.786,
+          "score": 1.0,
           "pdf_page": 181,
           "system": 3,
           "ref": "noh5/0181/003",
           "mode_marker": "VIII",
-          "text": "paterexcelseljkyrieelesonviiiitr"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.769,
-          "pdf_page": 181,
-          "system": 4,
-          "ref": "noh5/0181/004",
-          "mode_marker": null,
-          "text": "kyrieeiesonkyr"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -87473,30 +87618,12 @@
       "movements": [
         {
           "movement": "kyrie",
-          "score": 0.723,
+          "score": 1.0,
           "pdf_page": 183,
-          "system": 3,
-          "ref": "noh5/0183/003",
+          "system": 0,
+          "ref": "noh5/0183/000",
           "mode_marker": "I",
-          "text": "ieiesonchrisleeiejson"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.786,
-          "pdf_page": 183,
-          "system": 4,
-          "ref": "noh5/0183/004",
-          "mode_marker": null,
-          "text": "kyrieeieisonkyriee"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.818,
-          "pdf_page": 183,
-          "system": 5,
-          "ref": "noh5/0183/005",
-          "mode_marker": null,
-          "text": "iesonkyieieison"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -87580,18 +87707,28 @@
           387
         ]
       ],
-      "movements": [],
+      "movements": [
+        {
+          "movement": "kyrie",
+          "score": 1.0,
+          "pdf_page": 184,
+          "system": 0,
+          "ref": "noh5/0184/000",
+          "mode_marker": null,
+          "placed": "first"
+        }
+      ],
       "sections": [],
       "jgabc_url": null,
       "chant": [
         {
           "source": "gregobase",
-          "id": 2982,
+          "id": 2614,
           "movement": "kyrie",
-          "incipit": "Kyrie XI",
+          "incipit": "Kyrie (ad lib.) XI. - Kyrie Salve",
           "mode": "1",
-          "score": 0.75,
-          "status": "unverified"
+          "score": 1.0,
+          "status": "verified"
         }
       ],
       "review_status": "verified",
@@ -87934,22 +88071,13 @@
       ],
       "movements": [
         {
-          "movement": "agnus",
-          "score": 0.8,
-          "pdf_page": 186,
-          "system": 4,
-          "ref": "noh5/0186/004",
+          "movement": "gloria",
+          "score": 1.0,
+          "pdf_page": 185,
+          "system": 0,
+          "ref": "noh5/0185/000",
           "mode_marker": null,
-          "text": "dmneqeusagnusdefiiiuspatrisraioj"
-        },
-        {
-          "movement": "agnus",
-          "score": 0.8,
-          "pdf_page": 192,
-          "system": 1,
-          "ref": "noh5/0192/001",
-          "mode_marker": null,
-          "text": "ijagnusdeifiiuspatrisquitolispecjbtqthl"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -88078,21 +88206,12 @@
       "movements": [
         {
           "movement": "sanctus",
-          "score": 0.85,
-          "pdf_page": 194,
-          "system": 5,
-          "ref": "noh5/0194/005",
-          "mode_marker": null,
-          "text": "hosannainexceisisbenediclusquivenitiiirualn"
-        },
-        {
-          "movement": "sanctus",
-          "score": 0.774,
-          "pdf_page": 195,
+          "score": 1.0,
+          "pdf_page": 193,
           "system": 4,
-          "ref": "noh5/0195/004",
-          "mode_marker": "I",
-          "text": "nitvequidifjoeqbenedictusiln"
+          "ref": "noh5/0193/004",
+          "mode_marker": null,
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -88203,48 +88322,12 @@
       "movements": [
         {
           "movement": "agnus",
-          "score": 0.8,
+          "score": 1.0,
           "pdf_page": 196,
           "system": 0,
           "ref": "noh5/0196/000",
           "mode_marker": null,
-          "text": "agnusdeiquitolviii"
-        },
-        {
-          "movement": "agnus",
-          "score": 0.815,
-          "pdf_page": 196,
-          "system": 2,
-          "ref": "noh5/0196/002",
-          "mode_marker": null,
-          "text": "agnusdequitollispcecataee"
-        },
-        {
-          "movement": "agnus",
-          "score": 0.772,
-          "pdf_page": 197,
-          "system": 1,
-          "ref": "noh5/0197/001",
-          "mode_marker": "VI",
-          "text": "qtaviagnusquiftallispeeeatamuneli"
-        },
-        {
-          "movement": "agnus",
-          "score": 0.8,
-          "pdf_page": 197,
-          "system": 2,
-          "ref": "noh5/0197/002",
-          "mode_marker": null,
-          "text": "serprenobisagnusdetediispeernliquiuq"
-        },
-        {
-          "movement": "agnus",
-          "score": 0.824,
-          "pdf_page": 197,
-          "system": 3,
-          "ref": "noh5/0197/003",
-          "mode_marker": null,
-          "text": "etamllndiiiliserereagnusdi"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -88382,7 +88465,17 @@
           408
         ]
       ],
-      "movements": [],
+      "movements": [
+        {
+          "movement": "gloria",
+          "score": 1.0,
+          "pdf_page": 198,
+          "system": 0,
+          "ref": "noh5/0198/000",
+          "mode_marker": null,
+          "placed": "first"
+        }
+      ],
       "sections": [],
       "jgabc_url": null,
       "chant": [],
@@ -88565,21 +88658,12 @@
       "movements": [
         {
           "movement": "credo",
-          "score": 0.882,
+          "score": 1.0,
           "pdf_page": 200,
           "system": 4,
           "ref": "noh5/0200/004",
           "mode_marker": null,
-          "text": "vivcredoinunumdeumeleredoinuntjmdeumi"
-        },
-        {
-          "movement": "credo",
-          "score": 0.8,
-          "pdf_page": 200,
-          "system": 5,
-          "ref": "noh5/0200/005",
-          "mode_marker": null,
-          "text": "patremmnipotenternfaetremereiiet"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -88786,12 +88870,12 @@
       "movements": [
         {
           "movement": "credo",
-          "score": 0.875,
+          "score": 1.0,
           "pdf_page": 204,
           "system": 4,
           "ref": "noh5/0204/004",
           "mode_marker": null,
-          "text": "ivcredoinunumdeurnvelcredoinunumdeurni"
+          "placed": "first"
         }
       ],
       "sections": [],
@@ -89385,15 +89469,6 @@
           "text": "sanetussanetussanctusdminusdeussbaoth"
         },
         {
-          "movement": "sanctus",
-          "score": 0.85,
-          "pdf_page": 222,
-          "system": 2,
-          "ref": "noh5/0222/002",
-          "mode_marker": null,
-          "text": "inexeelsisbenedietusquivenitinnmjne"
-        },
-        {
           "movement": "agnus",
           "score": 0.8,
           "pdf_page": 222,
@@ -89401,24 +89476,6 @@
           "ref": "noh5/0222/004",
           "mode_marker": null,
           "text": "agnusdeitollispeeelltamundidoria"
-        },
-        {
-          "movement": "agnus",
-          "score": 0.885,
-          "pdf_page": 222,
-          "system": 5,
-          "ref": "noh5/0222/005",
-          "mode_marker": null,
-          "text": "eisrequiemagnusdeiquitoliispeecatamundliio"
-        },
-        {
-          "movement": "agnus",
-          "score": 0.8,
-          "pdf_page": 223,
-          "system": 0,
-          "ref": "noh5/0223/000",
-          "mode_marker": null,
-          "text": "donaeisrequiemagnusdeiquilispec"
         }
       ],
       "sections": [
@@ -89607,15 +89664,6 @@
           "ref": "noh5/0226/000",
           "mode_marker": null,
           "text": "cantorcomchotakyrieeiesonchrisleeieson"
-        },
-        {
-          "movement": "kyrie",
-          "score": 0.87,
-          "pdf_page": 226,
-          "system": 1,
-          "ref": "noh5/0226/001",
-          "mode_marker": null,
-          "text": "omnessimulkyrieeieson"
         }
       ],
       "sections": [],
@@ -89791,17 +89839,7 @@
           407
         ]
       ],
-      "movements": [
-        {
-          "movement": "sanctus",
-          "score": 0.743,
-          "pdf_page": 229,
-          "system": 3,
-          "ref": "noh5/0229/003",
-          "mode_marker": "II",
-          "text": "iiegosumbeneclusdominusdeusisrael"
-        }
-      ],
+      "movements": [],
       "sections": [],
       "jgabc_url": null,
       "chant": [],
@@ -95185,45 +95223,21 @@
       "mass": null,
       "printed_pages": [
         132,
-        135
+        132
       ],
       "pdf_pages": [
         162,
-        165
+        162
       ],
       "systems": [
         "noh8/0162/000",
         "noh8/0162/001",
-        "noh8/0162/002",
-        "noh8/0163/000",
-        "noh8/0163/001",
-        "noh8/0163/002",
-        "noh8/0163/003",
-        "noh8/0163/004",
-        "noh8/0163/005",
-        "noh8/0164/000",
-        "noh8/0164/001",
-        "noh8/0164/002",
-        "noh8/0164/003",
-        "noh8/0164/004",
-        "noh8/0165/000"
+        "noh8/0162/002"
       ],
       "system_assets": [
         "systems/noh8/0162/000-2e00dea790d7",
         "systems/noh8/0162/001-0641cd19d66c",
-        "systems/noh8/0162/002-df57b03157f6",
-        "systems/noh8/0163/000-542d7092139a",
-        "systems/noh8/0163/001-1758025a40c8",
-        "systems/noh8/0163/002-c7159adf0807",
-        "systems/noh8/0163/003-6e6bd76e70e3",
-        "systems/noh8/0163/004-345a614d8f85",
-        "systems/noh8/0163/005-afabebad055a",
-        "systems/noh8/0164/000-cd63434858c1",
-        "systems/noh8/0164/001-0bd7776de47e",
-        "systems/noh8/0164/002-b786dcf08827",
-        "systems/noh8/0164/003-e384e53d7bab",
-        "systems/noh8/0164/004-09a4cf43fb32",
-        "systems/noh8/0165/000-6ca3467d3994"
+        "systems/noh8/0162/002-df57b03157f6"
       ],
       "system_aspect": [
         [
@@ -95237,7 +95251,109 @@
         [
           1837,
           473
-        ],
+        ]
+      ],
+      "movements": [],
+      "sections": [],
+      "jgabc_url": null,
+      "chant": [],
+      "review_status": "verified",
+      "hymns": [],
+      "linked_days": []
+    },
+    {
+      "id": "noh8-vesperae-in-festo-pentecostes",
+      "volume": "noh8",
+      "slug": "vesperae-in-festo-pentecostes",
+      "section": "Proprium de Tempore",
+      "division": "vesperale",
+      "days": [
+        "tempora:Pasc7-0"
+      ],
+      "label": "In Festo Pentecostes",
+      "title": "In Festo Pentecostes",
+      "incipit": null,
+      "reference": null,
+      "genre": "proper",
+      "mode": null,
+      "mass": null,
+      "printed_pages": [
+        133,
+        139
+      ],
+      "pdf_pages": [
+        163,
+        169
+      ],
+      "systems": [
+        "noh8/0163/000",
+        "noh8/0163/001",
+        "noh8/0163/002",
+        "noh8/0163/003",
+        "noh8/0163/004",
+        "noh8/0163/005",
+        "noh8/0164/000",
+        "noh8/0164/001",
+        "noh8/0164/002",
+        "noh8/0164/003",
+        "noh8/0164/004",
+        "noh8/0165/000",
+        "noh8/0165/001",
+        "noh8/0165/002",
+        "noh8/0165/003",
+        "noh8/0165/004",
+        "noh8/0166/000",
+        "noh8/0166/001",
+        "noh8/0166/002",
+        "noh8/0166/003",
+        "noh8/0166/004",
+        "noh8/0167/000",
+        "noh8/0167/001",
+        "noh8/0167/002",
+        "noh8/0167/003",
+        "noh8/0167/004",
+        "noh8/0168/000",
+        "noh8/0168/001",
+        "noh8/0168/002",
+        "noh8/0168/003",
+        "noh8/0168/004",
+        "noh8/0169/000"
+      ],
+      "system_assets": [
+        "systems/noh8/0163/000-542d7092139a",
+        "systems/noh8/0163/001-1758025a40c8",
+        "systems/noh8/0163/002-c7159adf0807",
+        "systems/noh8/0163/003-6e6bd76e70e3",
+        "systems/noh8/0163/004-345a614d8f85",
+        "systems/noh8/0163/005-afabebad055a",
+        "systems/noh8/0164/000-cd63434858c1",
+        "systems/noh8/0164/001-0bd7776de47e",
+        "systems/noh8/0164/002-b786dcf08827",
+        "systems/noh8/0164/003-e384e53d7bab",
+        "systems/noh8/0164/004-09a4cf43fb32",
+        "systems/noh8/0165/000-6ca3467d3994",
+        "systems/noh8/0165/001-260f5fc4e9d7",
+        "systems/noh8/0165/002-a1a4a93cbb49",
+        "systems/noh8/0165/003-1abc79521661",
+        "systems/noh8/0165/004-acd5aae9a6ab",
+        "systems/noh8/0166/000-74fc37429051",
+        "systems/noh8/0166/001-9edb30ca51cb",
+        "systems/noh8/0166/002-7200fa12255d",
+        "systems/noh8/0166/003-ca206d34522b",
+        "systems/noh8/0166/004-99666e3f502d",
+        "systems/noh8/0167/000-a5126083542a",
+        "systems/noh8/0167/001-d7e35f0e9045",
+        "systems/noh8/0167/002-904c1c5c22fc",
+        "systems/noh8/0167/003-dca5fc931bdc",
+        "systems/noh8/0167/004-ac7b2824c985",
+        "systems/noh8/0168/000-6d5850647106",
+        "systems/noh8/0168/001-594f2024d3d7",
+        "systems/noh8/0168/002-64ae20a1f720",
+        "systems/noh8/0168/003-c59a32c478a3",
+        "systems/noh8/0168/004-491587f2303a",
+        "systems/noh8/0169/000-cf2be8f8010d"
+      ],
+      "system_aspect": [
         [
           1817,
           386
@@ -95285,91 +95401,7 @@
         [
           1825,
           414
-        ]
-      ],
-      "movements": [],
-      "sections": [],
-      "jgabc_url": null,
-      "chant": [],
-      "review_status": "verified",
-      "hymns": [
-        {
-          "title": "Veni Creator Spiritus",
-          "ref": "noh8/0165/000",
-          "printed_page": 135
-        }
-      ],
-      "linked_days": []
-    },
-    {
-      "id": "noh8-vesperae-in-festo-pentecostes",
-      "volume": "noh8",
-      "slug": "vesperae-in-festo-pentecostes",
-      "section": "Proprium de Tempore",
-      "division": "vesperale",
-      "days": [
-        "tempora:Pasc7-0"
-      ],
-      "label": "In Festo Pentecostes",
-      "title": "In Festo Pentecostes",
-      "incipit": null,
-      "reference": null,
-      "genre": "proper",
-      "mode": null,
-      "mass": null,
-      "printed_pages": [
-        135,
-        139
-      ],
-      "pdf_pages": [
-        165,
-        169
-      ],
-      "systems": [
-        "noh8/0165/001",
-        "noh8/0165/002",
-        "noh8/0165/003",
-        "noh8/0165/004",
-        "noh8/0166/000",
-        "noh8/0166/001",
-        "noh8/0166/002",
-        "noh8/0166/003",
-        "noh8/0166/004",
-        "noh8/0167/000",
-        "noh8/0167/001",
-        "noh8/0167/002",
-        "noh8/0167/003",
-        "noh8/0167/004",
-        "noh8/0168/000",
-        "noh8/0168/001",
-        "noh8/0168/002",
-        "noh8/0168/003",
-        "noh8/0168/004",
-        "noh8/0169/000"
-      ],
-      "system_assets": [
-        "systems/noh8/0165/001-260f5fc4e9d7",
-        "systems/noh8/0165/002-a1a4a93cbb49",
-        "systems/noh8/0165/003-1abc79521661",
-        "systems/noh8/0165/004-acd5aae9a6ab",
-        "systems/noh8/0166/000-74fc37429051",
-        "systems/noh8/0166/001-9edb30ca51cb",
-        "systems/noh8/0166/002-7200fa12255d",
-        "systems/noh8/0166/003-ca206d34522b",
-        "systems/noh8/0166/004-99666e3f502d",
-        "systems/noh8/0167/000-a5126083542a",
-        "systems/noh8/0167/001-d7e35f0e9045",
-        "systems/noh8/0167/002-904c1c5c22fc",
-        "systems/noh8/0167/003-dca5fc931bdc",
-        "systems/noh8/0167/004-ac7b2824c985",
-        "systems/noh8/0168/000-6d5850647106",
-        "systems/noh8/0168/001-594f2024d3d7",
-        "systems/noh8/0168/002-64ae20a1f720",
-        "systems/noh8/0168/003-c59a32c478a3",
-        "systems/noh8/0168/004-491587f2303a",
-        "systems/noh8/0169/000-cf2be8f8010d"
-      ],
-      "system_aspect": [
+        ],
         [
           1842,
           413
@@ -95456,7 +95488,13 @@
       "jgabc_url": null,
       "chant": [],
       "review_status": "verified",
-      "hymns": [],
+      "hymns": [
+        {
+          "title": "Veni Creator Spiritus",
+          "ref": "noh8/0165/000",
+          "printed_page": 135
+        }
+      ],
       "linked_days": []
     },
     {
