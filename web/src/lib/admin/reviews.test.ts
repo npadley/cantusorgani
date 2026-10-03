@@ -4,7 +4,8 @@ import reviewedJson from "../../../../data/reviewed.json";
 
 import { REVIEW_KINDS, reviewKind } from "./reviewKinds";
 import type { QueueItem } from "./reviewKinds";
-import { QUEUE, reviewEntries, reviewIndex } from "./reviews";
+import { pieceBySlug } from "../catalog";
+import { QUEUE, reviewEntries, reviewIndex, settled } from "./reviews";
 import { buildTargets } from "./targetIndex";
 import { describeTarget } from "./targets";
 
@@ -26,6 +27,25 @@ describe("reviewKind", () => {
   });
 });
 
+describe("settled", () => {
+  const piece = (slug: string) => pieceBySlug(slug)!;
+
+  it("should settle a part not found that a reviewed list has since placed or borrowed", () => {
+    // The Ember Saturday of Advent's fourth Gradual is placed by its reviewed list.
+    expect(settled(item("part_missing", { part: "gradual", variant: "4" }), piece("sabbato-temporum-adventus"))).toBe(true);
+    expect(settled(item("part_missing", { part: "tract", variant: "9" }), piece("sabbato-temporum-adventus"))).toBe(false);
+  });
+
+  it("should settle a piece with no music of its own whose page shows the music it cites", () => {
+    const silvester = piece("s-silvestri");
+    expect(settled(item("no_systems"), silvester)).toBe(true);
+    expect(settled(item("starts_mid_page"), silvester)).toBe(true);
+    expect(settled(item("no_systems"), { ...silvester, reference: null, referenceSources: [] })).toBe(false);
+    expect(settled(item("unpaired"), silvester)).toBe(false);
+    expect(settled(item("no_systems"), undefined)).toBe(false);
+  });
+});
+
 describe("reviewEntries", () => {
   const entries = reviewEntries();
 
@@ -34,7 +54,7 @@ describe("reviewEntries", () => {
     expect(new Set(targets).size).toBe(targets.length);
     // Every item not yet confirmed (data/reviewed.json); a confirmed one is done until a rebuild changes it.
     const done = (reviewedJson as { reviewed: Record<string, { was?: string }> }).reviewed;
-    const open = QUEUE.filter((i) => done[i.key]?.was !== i.fingerprint);
+    const open = QUEUE.filter((i) => done[i.key]?.was !== i.fingerprint && !settled(i, pieceBySlug(i.piece ?? "")));
     expect(open.length).toBeLessThan(QUEUE.length);
     expect(entries.filter((e) => e.target.startsWith("review:"))).toHaveLength(open.length);
     const groups = entries.map((e) => e.group);
@@ -57,7 +77,7 @@ describe("reviewEntries", () => {
   });
 
   it("should leave out an item reviewed as it is now, and bring it back when it changes", () => {
-    const queue = [item("part_missing", { piece: "dominica-i-adventus", part: "alleluia" })];
+    const queue = [item("part_missing", { piece: "dominica-i-adventus", part: "tract" })];   // Advent I prints no Tract: never settled
     const key = queue[0]!.key;
     expect(reviewEntries(queue, { [key]: { was: "abcdefabcdef", date: "2026-09-28" } })
       .filter((e) => e.target === key)).toEqual([]);
