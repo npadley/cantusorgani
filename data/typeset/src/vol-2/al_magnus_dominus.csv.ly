@@ -122,7 +122,7 @@ g2 d2 f2 ~ f2 e4 a2*3/2 g2 ~ g4 \divisioMaxima
 r4 c'2 ~ c'2 r4 a2*3/2 g2*11/4 bes2*3/2 \divisioMinima
 a2*3/2 g2*4/2 ~ g2*3/4 ~ g2*3/2 \divisioMinima
 r2 a2*11/4 ~ a2 r2 f2 e4 c2*3/2 ~ c2 ~ c2 ~ \divisioMaior
-c4 ~ c2 a.2 g,2 ~ g,4 \divisioMinima
+c4 ~ c2 a,2 g,2 ~ g,4 \divisioMinima
 a,2*3/2 d2*4/2 bes,2*3/4 ~ bes,2*3/2 \divisioMinima
 d2*3/2 g2*4/2 ~ g2*3/4 ~ g2*3/2 \divisioMinima
 c2 a,2*4/2 ~ a,2*3/4 ~ a,2 g,2 ~ g,2 a,4 \divisioMaior

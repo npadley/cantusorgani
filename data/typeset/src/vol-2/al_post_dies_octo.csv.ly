@@ -107,7 +107,7 @@ g2 ~ g2 ~ g2*3/2 ~ g2*5/2 ~ g2 fis4 \finalis
 
 bassMusic = {
 r2*15/4 e2 ~ e2 d2 ~ d4 \divisioMinima
-b.2*9/4 b,2 ~ b,2*7/4 d2*4/2 ~ d2 ~ d4 \divisioMaior
+b,2*9/4 b,2 ~ b,2*7/4 d2*4/2 ~ d2 ~ d4 \divisioMaior
 e2 ~ e2 d2 ~ d2*3/4 c2 b,2*7/4 d2*4/2 fis2*3/2 \divisioMinima
 e2 ~ e2 b,2*3/2 a,2*5/2 d2 ~ d4 \finalis
 r2 b2*4/2 a2*4/2 ~ a2*3/2 ~ a2 ~ a2 \divisioMaior
