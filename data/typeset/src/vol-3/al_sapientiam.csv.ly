@@ -85,7 +85,7 @@ c'2 bes2 aes2*3/2 ~ aes2 ~ aes2 ~ aes2*3/2 ~ \divisioMinima
 aes2*4/2 ~ aes2*3/4 ~ aes2*4/2 ~ aes2*4/2 \divisioMaior
 g2 c'2*9/4 bes2*4/2 ~ \divisioMinima
 bes4 c'2 bes2 aes2 bes2*3/2 aes2 \finalis
-c;2 c'2 ~ c'2 bes2*3/2 aes4 des'2 ~ des'2 c'2 ~ c'2*3/2 ~ c'2*3/2 ~ c'4 ~ \divisioMinima
+c'2 c'2 ~ c'2 bes2*3/2 aes4 des'2 ~ des'2 c'2 ~ c'2*3/2 ~ c'2*3/2 ~ c'4 ~ \divisioMinima
 c'2*3/2 bes2*3/4 aes2*3/2 ~ aes2*6/2 ~ aes2*4/2 g2 f2*5/2 g2 ~ g4 \divisioMaior
 f4 g2*3/2 aes2*3/2 g2*3/2 aes4 ~ aes2*3/2 ~ aes2*3/4 ~ aes2 g2*3/2 f2 g2 aes4 \divisioMaxima
 c'2 bes4 ~ bes2*3/2 r2*3/2 bes2*5/2 ~ bes2*4/2 c'2*3/2 ~ c'2*3/2 des'2*3/2 ees'2*3/2 \divisioMinima
