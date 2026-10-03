@@ -118,19 +118,27 @@ def targets(catalog: dict[str, Any], printed: Any) -> list[Target]:
     for p in catalog.get("pieces", []):
         slug, volume = str(p["slug"]), str(p["volume"])
         systems = p.get("systems") or []
-        for part in sections.printed(p):
-            out.append(Target(sections.target(slug, part), volume, slug,
-                              str(part["kind"]), printed(part["ref"]), part.get("gregobase_id"),
-                              part.get("title") or None))
         chants = {c.get("movement"): c.get("id") for c in p.get("chant") or []}
+        for part in sections.printed(p):
+            # A row named for a movement keeps that movement's chant unless it gives its own.
+            chant = part.get("gregobase_id")
+            if chant is None and part.get("key") in MOVEMENTS:
+                chant = chants.get(part.get("key"))
+            out.append(Target(sections.target(slug, part), volume, slug,
+                              str(part["kind"]), printed(part["ref"]), chant,
+                              part.get("title") or None))
         if p.get("genre") == "mass_ordinary":
             # A section listed for the Mass (its second Kyrie, each dismissal)
             # speaks for the system it starts on: the page shows no movement there.
-            listed = {part["ref"] for part in sections.printed(p) if part.get("placed") != "order"}
+            # A row named for a movement (key: gloria) is that movement, wherever
+            # the pipeline put it: that is how a person moves its start.
+            rows = [part for part in sections.printed(p) if part.get("placed") != "order"]
+            listed = {part["ref"] for part in rows}
+            renamed = {str(part.get("key")) for part in rows if part.get("key") and part.get("kind") == "other"}
             seen: set[str] = set()
             for mv in p.get("movements") or []:
                 name = str(mv["movement"])
-                if name in seen or mv["ref"] in listed:
+                if name in seen or mv["ref"] in listed or name in renamed:
                     continue
                 seen.add(name)
                 out.append(Target(f"movement:{slug}/{name}", volume, slug, name, printed(mv["ref"]), chants.get(name)))

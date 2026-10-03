@@ -172,7 +172,7 @@ test.describe("Review, by kind", () => {
     const kinds = page.locator("#breakdown button");
     // Only the kinds of the group shown, each with a count that adds up to the group's.
     await expect(kinds.filter({ hasText: /^Piece starts partway down a page \(\d+\)$/ })).toHaveCount(1);
-    await expect(kinds.filter({ hasText: "Mass movement placed by order" })).toHaveCount(0);
+    await expect(kinds.filter({ hasText: "Part not found" })).toHaveCount(0);
     const counts = (await kinds.allTextContents()).map((t) => Number(/\((\d+)\)$/.exec(t)?.[1] ?? 0));
     const total = Number((await page.locator("[data-count=fix]").textContent()) ?? "0");
     expect(counts.reduce((a, b) => a + b, 0)).toBe(total);
@@ -188,7 +188,7 @@ test.describe("Review, by kind", () => {
     // Another group has other kinds: the choice is dropped, not left showing nothing.
     await page.getByLabel(/^To check against the scan/).check();
     await expect(page.getByLabel("Kind")).toHaveValue("");
-    await expect(kinds.filter({ hasText: /^Mass movement placed by order \(\d+\)$/ })).toHaveCount(1);
+    await expect(kinds.filter({ hasText: /^Part not found \(\d+\)$/ })).toHaveCount(1);
     await expect(page.locator("#items article:visible").first()).toBeVisible();
   });
 });

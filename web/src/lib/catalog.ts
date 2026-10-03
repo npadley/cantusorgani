@@ -457,16 +457,19 @@ export interface MovementStart {
  * A section a person listed for the Mass (data/sections: its second Kyrie, each
  * of its dismissals) speaks for the system it starts on: a movement found on
  * that same system is left out, so "Ite, missa est" gives way to "Deo gratias (I)".
+ * A row named for a movement (its key is `gloria`) is that movement, wherever
+ * the pipeline put it: that is how an editor moves a movement's start.
  */
 export function movementStarts(piece: Piece): readonly MovementStart[] {
-  const listed = new Set(piece.parts.filter((x) => x.kind === "printed" && x.placed !== "order")
-    .map((x) => (x as PrintedPart).ref));
+  const rows = piece.parts.filter((x): x is PrintedPart => x.kind === "printed" && x.placed !== "order");
+  const listed = new Set(rows.map((x) => x.ref));
+  const renamed = new Set(rows.filter((x) => x.part === "other").map((x) => x.variant));
   const seen = new Set<Movement>();
   const starts: MovementStart[] = [];
   for (const movement of MOVEMENT_ORDER) {
     const boundary = piece.movements.find((b) => b.movement === movement);
     const index = boundary ? piece.systems.indexOf(boundary.ref) : -1;
-    if (index < 0 || seen.has(movement) || (boundary && listed.has(boundary.ref))) continue;
+    if (index < 0 || seen.has(movement) || renamed.has(movement) || (boundary && listed.has(boundary.ref))) continue;
     seen.add(movement);
     starts.push({ movement, label: MOVEMENT_LABELS[movement], anchor: movement, index });
   }
@@ -627,8 +630,13 @@ export function jumpTargets(piece: Piece): readonly JumpTarget[] {
     const anchor = partAnchor(x.part, x.variant);
     if (index < 0 || partAnchors.has(anchor)) continue;
     partAnchors.add(anchor);
-    parts.push({ label: sectionName(x), anchor, index, kind: "part",
-                 chantUrl: gregobaseUrl(x.gregobaseId), chantId: x.gregobaseId,
+    // A row named for a movement keeps that movement's chant and name unless it gives its own.
+    const movement = x.part === "other" && (MOVEMENT_ORDER as readonly string[]).includes(x.variant)
+      ? x.variant as Movement : null;
+    const chantId = x.gregobaseId ?? (movement ? verifiedChant(piece, movement)?.id ?? null : null);
+    const label = movement && !x.label ? MOVEMENT_LABELS[movement] : sectionName(x);
+    parts.push({ label, anchor: movement ?? anchor, index, kind: "part",
+                 chantUrl: gregobaseUrl(chantId), chantId,
                  order: partOrder(x.part, x.variant),
                  target: x.sourceTarget ?? `part:${piece.slug}/${x.part}${x.variant ? `:${x.variant}` : ""}`,
                  ...(x.source ? { source: x.source } : {}),

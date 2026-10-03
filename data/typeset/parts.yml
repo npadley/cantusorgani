@@ -16,6 +16,7 @@
 #   0.85 or more is the strongest match there is.
 # evidence.name: the file is named for its target (matched on that, whatever
 #   the melody and words say).
+
 - file: vol-1/al_beatus_homo.csv.ly
   target: part:noh1-p104/alleluia:paschal
   status: proposed
@@ -155,27 +156,19 @@
     words: 1.0
     name: Hic est discipulus
 - file: vol-1/al_jubilate_deo.csv.ly
-  target: part:noh1-p60/alleluia
-  status: proposed
+  target: part:noh1-p112/alleluia
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Allelúia allelúia ℣ Jubiláte Deo o mnis ter
     page: 115
     candidates:
-    - target: part:noh1-p60/alleluia
-      melody: 0.541
-      words: 0.683
-    - target: part:dominica-iii-post-epiphaniam/alleluia
-      melody: 0.508
-      words: 0.567
-    - target: part:dominica-i-adventus/alleluia
-      melody: 0.5
-      words: 0.533
-    - target: part:noh1-p49/alleluia
-      melody: 0.5
-      words: 0.417
-    melody: 0.541
-    words: 0.683
+    - target: part:noh1-p112/alleluia
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Jubilate Deo
 - file: vol-1/al_laetatus_sum.csv.ly
   target: part:dominica-ii-adventus/alleluia
   status: matched
@@ -813,27 +806,19 @@
     words: 0.988
     name: Exsultavit ut gigas
 - file: vol-1/co_fili_quid_fecisti.csv.ly
-  target: part:feria-ii-infra-hebd-passionis/communion
-  status: proposed
+  target: part:noh1-p112/communion
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Fili quid fecísti nobis sic? e go et
     page: 118
     candidates:
-    - target: part:feria-ii-infra-hebd-passionis/communion
-      melody: 0.6
-      words: 0.125
-    - target: part:dominica-iii-in-quadragesim/communion
-      melody: 0.587
-      words: 0.211
-    - target: part:s-joannis-apostoli-et-evangelist/communion
-      melody: 0.547
-      words: 0.203
-    - target: part:feria-vi-quattuor-temporum-quadragesim/communion
-      melody: 0.533
-      words: 0.18
-    melody: 0.6
-    words: 0.125
+    - target: part:noh1-p112/communion
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Fili quid fecisti nobis
 - file: vol-1/co_hoc_corpus.csv.ly
   target: part:dominica-i-passionis/communion
   status: matched
@@ -1008,27 +993,19 @@
     words: 1.0
     name: Mirabantur omnes
 - file: vol-1/co_narrabo_omnia.csv.ly
-  target: part:feria-iii-hebdomad-sanct/communion
-  status: proposed
+  target: part:feria-iii-infra-hebd-ii-quadragesim/communion
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Narrábo ómnia mirabília tu a lætábor et exsultábo
     page: 215
     candidates:
-    - target: part:feria-iii-hebdomad-sanct/communion
-      melody: 0.786
-      words: 0.389
-    - target: part:dominica-i-in-quadragesim/communion
-      melody: 0.661
-      words: 0.25
-    - target: part:feria-iii-infra-hebd-i-quadragesim/communion
-      melody: 0.661
-      words: 0.292
-    - target: part:feria-ii-infra-hebd-iii-quadragesim/communion
-      melody: 0.661
-      words: 0.403
-    melody: 0.786
-    words: 0.389
+    - target: part:feria-iii-infra-hebd-ii-quadragesim/communion
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Narrabo omnia
 - file: vol-1/co_ne_tradideris_me.csv.ly
   target: part:feria-vi-infra-hebd-passionis/communion
   status: matched
@@ -1406,27 +1383,19 @@
     words: 1.0
     name: Angelis suis
 - file: vol-1/gr_benedictus_dominus.csv.ly
-  target: part:dominica-infra-octavam-nativitatis/gradual
-  status: proposed
+  target: part:noh1-p112/gradual
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Benedí ctus Dó minus Deus Israel qui facit
     page: 113
     candidates:
-    - target: part:dominica-infra-octavam-nativitatis/gradual
-      melody: 0.483
-      words: 0.284
-    - target: part:feria-iv-infra-hebd-ii-quadragesim/gradual
-      melody: 0.453
-      words: 0.347
-    - target: part:dominica-iii-in-quadragesim/gradual
-      melody: 0.443
-      words: 0.221
-    - target: part:feria-iv-hebdomad-sanct/gradual
-      melody: 0.426
-      words: 0.295
-    melody: 0.483
-    words: 0.284
+    - target: part:noh1-p112/gradual
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Benedictus Dominus
 - file: vol-1/gr_benedictus_qui_venit.csv.ly
   target: part:noh1-p54/gradual
   status: matched
@@ -2410,27 +2379,19 @@
     words: 0.992
     name: In Deo laudabo
 - file: vol-1/in_in_excelso_throno.csv.ly
-  target: part:dominica-infra-octavam-nativitatis/introit
-  status: proposed
+  target: part:noh1-p112/introit
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: In excélso throno vidi se dére virum quem
     page: 112
     candidates:
-    - target: part:dominica-infra-octavam-nativitatis/introit
-      melody: 0.613
-      words: 0.517
-    - target: part:dominica-i-in-quadragesim/introit
-      melody: 0.613
-      words: 0.487
-    - target: part:noh1-p54/introit
-      melody: 0.584
-      words: 0.513
-    - target: part:feria-iii-infra-hebd-iii-quadragesim/introit
-      melody: 0.562
-      words: 0.525
-    melody: 0.613
-    words: 0.517
+    - target: part:noh1-p112/introit
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: In excelso throno
 - file: vol-1/in_in_nomine_domini.csv.ly
   target: part:feria-iv-hebdomad-sanct/introit
   status: matched
@@ -2834,27 +2795,19 @@
     words: 1.0
     name: Benedic anima mea
 - file: vol-1/of_benedicam_dominum.csv.ly
-  target: part:feria-ii-infra-hebd-i-quadragesim/offertory
-  status: proposed
+  target: part:feria-ii-infra-hebd-ii-quadragesim/offertory
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Benedícam Dó minum qui mihi tríbuit intellé ctum
     page: 212
     candidates:
-    - target: part:feria-ii-infra-hebd-i-quadragesim/offertory
-      melody: 0.672
-      words: 0.356
-    - target: part:dominica-ii-post-epiphaniam/offertory
-      melody: 0.623
-      words: 0.231
-    - target: part:dominica-i-adventus/offertory
-      melody: 0.549
-      words: 0.298
-    - target: part:noh1-p82/offertory
-      melody: 0.533
-      words: 0.26
-    melody: 0.672
-    words: 0.356
+    - target: part:feria-ii-infra-hebd-ii-quadragesim/offertory
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Benedicam Dominum
 - file: vol-1/of_benedictus_es__et_non_tradas.csv.ly
   target: part:feria-vi-infra-hebd-passionis/offertory
   status: matched
@@ -3129,39 +3082,31 @@
     - target: part:dominica-ii-post-epiphaniam/offertory
       melody: 0.608
       words: 0.278
+    - target: part:noh1-p112/offertory
+      melody: 0.592
+      words: 0.3
     - target: part:dominica-in-sexagesima/offertory
       melody: 0.55
       words: 0.144
     - target: part:sanctissimi-nominis-jesu/offertory
       melody: 0.517
       words: 0.367
-    - target: part:feria-vi-infra-hebd-passionis/offertory
-      melody: 0.517
-      words: 0.344
     melody: 0.608
     words: 0.278
 - file: vol-1/of_exaudi_deus.csv.ly
-  target: part:feria-vi-infra-hebd-passionis/offertory
-  status: proposed
+  target: part:feria-ii-infra-hebd-iii-quadragesim/offertory
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Exáu di De us oratiónem meam et ne
     page: 234
     candidates:
-    - target: part:feria-vi-infra-hebd-passionis/offertory
-      melody: 0.598
-      words: 0.423
-    - target: part:in-epiphania-domini/offertory
-      melody: 0.58
-      words: 0.211
-    - target: part:dominica-iv-adventus/offertory
-      melody: 0.562
-      words: 0.408
-    - target: part:noh1-p82/offertory
-      melody: 0.562
-      words: 0.465
-    melody: 0.598
-    words: 0.423
+    - target: part:feria-ii-infra-hebd-iii-quadragesim/offertory
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Exaudi Deus
 - file: vol-1/of_exsulta_satis.csv.ly
   target: part:sabbato-temporum-adventus/offertory
   status: matched
@@ -3233,27 +3178,19 @@
     words: 1.0
     name: Intende voci
 - file: vol-1/of_jubilate_deo_omnis.csv.ly
-  target: part:dominica-ii-post-epiphaniam/offertory
-  status: proposed
+  target: part:noh1-p112/offertory
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Jubilá te De o omnis ter ra jubilá
     page: 116
     candidates:
-    - target: part:dominica-ii-post-epiphaniam/offertory
-      melody: 0.445
-      words: 0.515
-    - target: part:sanctissimi-nominis-jesu/offertory
-      melody: 0.406
-      words: 0.267
-    - target: part:noh1-p60/offertory
-      melody: 0.367
-      words: 0.396
-    - target: part:dominica-in-quinquagesima/offertory
-      melody: 0.358
-      words: 0.257
-    melody: 0.445
-    words: 0.515
+    - target: part:noh1-p112/offertory
+      melody: 0.991
+      words: 1.0
+    melody: 0.991
+    words: 1.0
+    name: Jubilate Deo
 - file: vol-1/of_jubilate_deo_universa.csv.ly
   target: part:dominica-ii-post-epiphaniam/offertory
   status: matched
@@ -4408,27 +4345,19 @@
     words: 0.985
     name: Verbo Domini
 - file: vol-2/co_acceptabis.csv.ly
-  target: part:dominica-v-post-pentecosten/communion
-  status: proposed
+  target: part:dominica-x-post-pentecosten/communion
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Acceptá bis sacrifí cium ju stítiæ oblatiónes et
     page: 181
     candidates:
-    - target: part:dominica-v-post-pentecosten/communion
-      melody: 0.571
-      words: 0.262
-    - target: part:die-iii-infra-octavam-pasch/communion
-      melody: 0.543
-      words: 0.246
-    - target: part:dominica-xi-post-pentecosten/communion
-      melody: 0.529
-      words: 0.246
-    - target: part:dominica-xxi-post-pentecosten/communion
-      melody: 0.529
-      words: 0.338
-    melody: 0.571
-    words: 0.262
+    - target: part:dominica-x-post-pentecosten/communion
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Acceptabis sacrificium
 - file: vol-2/co_amen_dico_vobis_quidquid.csv.ly
   target: part:dominica-xxiii-post-pentecosten/communion
   status: matched
@@ -6781,17 +6710,18 @@
     name: De excelso
 - file: vol-3/al_de_quacumque.csv.ly
   target: part:s-catharina-senensis-virgine/alleluia:1
-  status: melody-differs
+  status: matched
   evidence:
     by: page
     incipit: Allelúia allelúia ℣ De quacúmque tribulatió ne clamáverint
     page: 163
     candidates:
     - target: part:s-catharina-senensis-virgine/alleluia:1
-      melody: 0.287
-      words: 0.378
-    melody: 0.287
-    words: 0.378
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: De quacumque tribulatione
 - file: vol-3/al_defecit_caro.csv.ly
   target: part:s-francisci-caracciolo-confessoris/alleluia
   status: matched
@@ -6807,27 +6737,19 @@
     words: 1.0
     name: Defecit caro
 - file: vol-3/al_dicite_in_gentibus.csv.ly
-  target: part:s-theresiae-a-jesu-infante-virginis/alleluia
-  status: proposed
+  target: part:in-inventione-s-crucis/alleluia:paschal
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Allelú ia allelú ia ℣ Dícite in géntibus
     page: 171
     candidates:
-    - target: part:s-theresiae-a-jesu-infante-virginis/alleluia
-      melody: 0.686
-      words: 0.544
-    - target: part:ss-cyriaci-largi-et-smaragdi-martyrum/alleluia
-      melody: 0.62
-      words: 0.649
-    - target: part:s-agnetis-virginis-et-martyris/alleluia
-      melody: 0.587
-      words: 0.579
-    - target: part:s-bonifatii-episc-et-mart/alleluia
-      melody: 0.579
-      words: 0.544
-    melody: 0.686
-    words: 0.544
+    - target: part:in-inventione-s-crucis/alleluia:paschal
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Dicite in gentibus
 - file: vol-3/al_dispersit.csv.ly
   target: null
   status: broken
@@ -6924,20 +6846,18 @@
     words: 0.27
 - file: vol-3/al_haec_est_vera.csv.ly
   target: part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/alleluia:shared
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Allelú ia allelú ia ℣ Hæc est ve
     page: 176
     candidates:
     - target: part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/alleluia:shared
-      melody: 0.373
-      words: 0.32
-    - target: part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/alleluia:paschal
-      melody: null
-      words: null
-    melody: 0.373
-    words: 0.32
+      melody: 1.0
+      words: 0.981
+    melody: 1.0
+    words: 0.981
+    name: Haec est vera
 - file: vol-3/al_in_deo_salutare.csv.ly
   target: part:s-joannis-leonardi-confessoris/alleluia:paschal
   status: proposed
@@ -7059,27 +6979,19 @@
     words: 1.0
     name: Pauper
 - file: vol-3/al_per_te_dei_genitrix.csv.ly
-  target: part:in-transfiguratione-domini/alleluia
-  status: proposed
+  target: part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/alleluia
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Allelú ia allelú ia ℣ Per te De
     page: 271
     candidates:
-    - target: part:in-transfiguratione-domini/alleluia
-      melody: 0.512
-      words: 0.271
-    - target: part:s-laurentii-martyris/alleluia
-      melody: 0.512
-      words: 0.252
-    - target: part:in-apparitione-b-mariae-virginis-immaculatae/alleluia
-      melody: 0.5
-      words: 0.355
-    - target: part:s-roberti-bellarmino-episcopi-confessoris-et-ecclesi-doctoris/alleluia
-      melody: 0.5
-      words: 0.364
-    melody: 0.512
-    words: 0.271
+    - target: part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/alleluia
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Per te Dei Genitrix
 - file: vol-3/al_potens_in_terra.csv.ly
   target: part:in-conversione-s-pauli-apostoli/alleluia
   status: proposed
@@ -7315,27 +7227,19 @@
     melody: null
     words: null
 - file: vol-3/al_stabat_sancta_maria.csv.ly
-  target: part:ss-cyriaci-largi-et-smaragdi-martyrum/alleluia
-  status: proposed
+  target: part:septem-dolorum-b-mariae-virginis-in-quadragesima/alleluia:1
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Allelúia allelúia ℣ Stabat san cta María cœli
     page: 133
     candidates:
-    - target: part:ss-cyriaci-largi-et-smaragdi-martyrum/alleluia
-      melody: 0.575
-      words: 0.374
-    - target: part:omnium-sanctorum/alleluia
-      melody: 0.541
-      words: 0.374
-    - target: part:s-ignatii-episcopi-et-martyris/alleluia
-      melody: 0.527
-      words: 0.283
-    - target: part:s-francisci-caracciolo-confessoris/alleluia
-      melody: 0.5
-      words: 0.333
-    melody: 0.575
-    words: 0.374
+    - target: part:septem-dolorum-b-mariae-virginis-in-quadragesima/alleluia:1
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Stabat sancta Maria
 - file: vol-3/al_tamquam_prodigium.csv.ly
   target: part:s-joannis-leonardi-confessoris/alleluia
   status: matched
@@ -7370,27 +7274,18 @@
   evidence:
     error: 'line 49:104: error: unknown command: `\normal'''
 - file: vol-3/al_tu_es_petrus_31.csv.ly
-  target: part:ss-apostolorum-petri-et-pauli/alleluia
+  target: part:in-cathedra-s-petri-romae/alleluia:shared
   status: matched
   evidence:
-    by: name
+    by: page
     incipit: Allelúia allelúia ℣ Tu es Pe trus et
     page: 31
     candidates:
-    - target: part:ss-apostolorum-petri-et-pauli/alleluia
-      melody: 1.0
-      words: 1.0
-    - target: part:in-conversione-s-pauli-apostoli/alleluia
-      melody: 0.989
-      words: 0.613
-    - target: part:ss-fabiani-et-sebastiani-martyrum/alleluia
-      melody: 0.968
-      words: 0.468
-    - target: part:in-nativitate-s-joannis-baptist/alleluia
-      melody: 0.817
-      words: 0.532
-    melody: 1.0
-    words: 1.0
+    - target: part:in-cathedra-s-petri-romae/alleluia:shared
+      melody: null
+      words: null
+    melody: null
+    words: null
     name: Tu es Petrus
 - file: vol-3/al_virgo_dei_genitrix.csv.ly
   target: part:maternitatis-beat-mari-virginis/alleluia
@@ -7708,27 +7603,19 @@
     words: 1.0
     name: Decantaverunt
 - file: vol-3/co_dicit_andreas.csv.ly
-  target: part:s-pauli-a-cruce-confessoris/communion
-  status: proposed
+  target: part:in-vigilia-s-andreae-apostoli/communion
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Dicit Andréas Simóni fratri suo Invénimus Messíam qui
     page: 4
     candidates:
-    - target: part:s-pauli-a-cruce-confessoris/communion
-      melody: 0.737
-      words: 0.312
-    - target: part:s-ambrosii-episcopi-confessoris-et-ecclesi-doctoris/communion
-      melody: 0.719
-      words: 0.3
-    - target: part:s-basilidus/communion
-      melody: 0.719
-      words: 0.338
-    - target: part:ss-cyriaci-largi-et-smaragdi-martyrum/communion
-      melody: 0.719
-      words: 0.338
-    melody: 0.737
-    words: 0.312
+    - target: part:in-vigilia-s-andreae-apostoli/communion
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Dicit Andreas
 - file: vol-3/co_diffusa.csv.ly
   target: part:s-ann-matris-b-m-v/communion
   status: matched
@@ -7814,49 +7701,33 @@
     words: 1.0
     name: Ego sum pauper
 - file: vol-3/co_ego_vos_elegi.csv.ly
-  target: part:s-pauli-a-cruce-confessoris/communion
-  status: proposed
+  target: part:ss-primi-et-feliciani-martyrum/communion
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Ego vos elégi de mundo ut eátis et
     page: 203
     candidates:
-    - target: part:s-pauli-a-cruce-confessoris/communion
-      melody: 0.796
-      words: 0.306
-    - target: part:s-theresiae-a-jesu-infante-virginis/communion
-      melody: 0.704
-      words: 0.419
-    - target: part:ss-quadraginta-martyrum/communion
-      melody: 0.667
-      words: 0.371
-    - target: part:in-vigilia-ss-petri-et-pauli-apostolorum/communion
-      melody: 0.667
-      words: 0.194
-    melody: 0.796
-    words: 0.306
+    - target: part:ss-primi-et-feliciani-martyrum/communion
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Ego vos elegi
 - file: vol-3/co_felices_sensus.csv.ly
-  target: part:maternitatis-beat-mari-virginis/communion
-  status: proposed
+  target: part:septem-dolorum-b-mariae-virginis-in-quadragesima/communion
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Felíces sen sus beátæ Maríæ Vir ginis qui
     page: 140
     candidates:
-    - target: part:maternitatis-beat-mari-virginis/communion
-      melody: 0.843
-      words: 0.5
-    - target: part:festum-b-mariae-virginis-a-rosario/communion
-      melody: 0.714
-      words: 0.378
-    - target: part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/communion
-      melody: 0.7
-      words: 0.378
-    - target: part:b-mariae-virginis-reginae/communion
-      melody: 0.7
-      words: 0.378
-    melody: 0.843
-    words: 0.5
+    - target: part:septem-dolorum-b-mariae-virginis-in-quadragesima/communion
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Felices sensus
 - file: vol-3/co_florete__et_date.csv.ly
   target: part:festum-b-mariae-virginis-a-rosario/communion
   status: matched
@@ -7943,17 +7814,18 @@
     name: Infirmus fui
 - file: vol-3/co_jacob_autem.csv.ly
   target: part:s-catharina-senensis-virgine/communion
-  status: melody-differs
+  status: matched
   evidence:
     by: page
     incipit: Jacob autem génuit Joseph virum Maríæ de qua
     page: 166
     candidates:
     - target: part:s-catharina-senensis-virgine/communion
-      melody: 0.368
-      words: 0.409
-    melody: 0.368
-    words: 0.409
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Jacob autem genuit
 - file: vol-3/co_joseph_fili_david.csv.ly
   target: part:s-joseph-sponsi-b-m-v-confessoris/communion
   status: matched
@@ -8024,27 +7896,19 @@
     melody: 1.0
     words: 0.978
 - file: vol-3/co_per_signum_crucis.csv.ly
-  target: part:omnium-sanctorum/communion
-  status: proposed
+  target: part:in-inventione-s-crucis/communion
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Per signum Crucis de inimícis nostris líbera nos
     page: 174
     candidates:
-    - target: part:omnium-sanctorum/communion
-      melody: 0.697
-      words: 0.228
-    - target: part:s-theresiae-a-jesu-infante-virginis/communion
-      melody: 0.682
-      words: 0.298
-    - target: part:festum-b-mariae-virginis-a-rosario/communion
-      melody: 0.682
-      words: 0.123
-    - target: part:ss-fabiani-et-sebastiani-martyrum/communion
-      melody: 0.621
-      words: 0.368
-    melody: 0.697
-    words: 0.228
+    - target: part:in-inventione-s-crucis/communion
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Per signum Crucis
 - file: vol-3/co_posuerunt.csv.ly
   target: part:s-basilidus/communion
   status: melody-differs
@@ -8297,29 +8161,19 @@
     words: 1.0
     name: Tu es Petrus
 - file: vol-3/co_tu_es_petrus_36.csv.ly
-  target: part:ss-apostolorum-petri-et-pauli/communion
-  status: proposed
+  target: part:in-cathedra-s-petri-romae/communion
+  status: matched
   evidence:
-    by: name
+    by: page
     incipit: Tu es Petrus et super hanc petram ædificábo
     page: 36
     candidates:
-    - target: part:ss-apostolorum-petri-et-pauli/communion
-      melody: 1.0
-      words: 1.0
-    - target: part:festum-b-mariae-virginis-a-rosario/communion
-      melody: 0.943
-      words: 0.3
-    - target: part:ss-quadraginta-martyrum/communion
-      melody: 0.886
-      words: 0.18
-    - target: part:omnium-sanctorum/communion
-      melody: 0.857
-      words: 0.4
-    melody: 1.0
-    words: 1.0
+    - target: part:in-cathedra-s-petri-romae/communion
+      melody: null
+      words: null
+    melody: null
+    words: null
     name: Tu es Petrus
-    note: vol-3/co_tu_es_petrus_242.csv.ly matched part:ss-apostolorum-petri-et-pauli/communion better
 - file: vol-3/co_tu_puer.csv.ly
   target: part:in-nativitate-s-joannis-baptist/communion
   status: matched
@@ -8710,17 +8564,18 @@
     name: Adeamus
 - file: vol-3/in_adjutor.csv.ly
   target: part:s-catharina-senensis-virgine/introit
-  status: melody-differs
+  status: matched
   evidence:
     by: page
     incipit: Adjútor et protéctor noster est Dóminus in eo
     page: 162
     candidates:
     - target: part:s-catharina-senensis-virgine/introit
-      melody: 0.464
-      words: 0.596
-    melody: 0.464
-    words: 0.596
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Adjutor et protector
 - file: vol-3/in_benedicite_dominum.csv.ly
   target: part:in-dedicatione-s-mich-lis-archangelis/introit
   status: matched
@@ -8884,49 +8739,33 @@
     words: 0.991
     name: Dispersit
 - file: vol-3/in_dominus_secus_mare.csv.ly
-  target: part:in-nativitate-s-joannis-baptist/introit
-  status: proposed
+  target: part:in-vigilia-s-andreae-apostoli/introit
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Dóminus secus ma re Galilǽ æ vidit du
     page: 1
     candidates:
-    - target: part:in-nativitate-s-joannis-baptist/introit
-      melody: 0.661
-      words: 0.549
-    - target: part:in-conversione-s-pauli-apostoli/introit
-      melody: 0.622
-      words: 0.455
-    - target: part:ss-philippi-et-jacobi-apostolorum/introit
-      melody: 0.614
-      words: 0.482
-    - target: part:s-pauli-a-cruce-confessoris/introit
-      melody: 0.598
-      words: 0.352
-    melody: 0.661
-    words: 0.549
+    - target: part:in-vigilia-s-andreae-apostoli/introit
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Dominus secus mare
 - file: vol-3/in_ecce_oculi.csv.ly
-  target: part:s-bonifatii-episc-et-mart/introit
-  status: proposed
+  target: part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/introit
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Ecce óculi Dó mini su per timéntes eum
     page: 175
     candidates:
-    - target: part:s-bonifatii-episc-et-mart/introit
-      melody: 0.642
-      words: 0.494
-    - target: part:s-ignatii-confessoris/introit
-      melody: 0.564
-      words: 0.449
-    - target: part:in-conceptione-immaculata-beat-mari-virginis/introit
-      melody: 0.545
-      words: 0.38
-    - target: part:ss-apostolorum-petri-et-pauli/introit
-      melody: 0.539
-      words: 0.441
-    melody: 0.642
-    words: 0.494
+    - target: part:ss-nerei-achillei-et-domitill-virginis-atque-pancratii-martyrum/introit
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Ecce oculi Domini
 - file: vol-3/in_ecce_virgo.csv.ly
   target: part:maternitatis-beat-mari-virginis/introit
   status: matched
@@ -9386,27 +9225,19 @@
     words: 0.994
     name: Ne timeas
 - file: vol-3/in_nos_autem__alleluia.csv.ly
-  target: part:s-pauli-a-cruce-confessoris/introit
-  status: proposed
+  target: part:in-inventione-s-crucis/introit
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Nos au tem gloriári opór tet in cruce
     page: 170
     candidates:
-    - target: part:s-pauli-a-cruce-confessoris/introit
-      melody: 0.772
-      words: 0.508
-    - target: part:s-joannis-cantii-confessoris/introit
-      melody: 0.669
-      words: 0.433
-    - target: part:in-vigilia-ss-petri-et-pauli-apostolorum/introit
-      melody: 0.621
-      words: 0.404
-    - target: part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/introit
-      melody: 0.51
-      words: 0.466
-    melody: 0.772
-    words: 0.508
+    - target: part:in-inventione-s-crucis/introit
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Nos autem gloriari
 - file: vol-3/in_nunc_scio_vere.csv.ly
   target: part:ss-apostolorum-petri-et-pauli/introit
   status: matched
@@ -9514,27 +9345,19 @@
     words: 0.992
     name: Spiritus Domini super me
 - file: vol-3/in_stabant.csv.ly
-  target: part:s-clementis-pap-et-martyris/introit
-  status: proposed
+  target: part:septem-dolorum-b-mariae-virginis-in-quadragesima/introit
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Stabant juxta crucem Je su mater ejus et
     page: 128
     candidates:
-    - target: part:s-clementis-pap-et-martyris/introit
-      melody: 0.804
-      words: 0.466
-    - target: part:b-mariae-virginis-reginae/introit
-      melody: 0.804
-      words: 0.582
-    - target: part:in-vigilia-s-joannis-baptist/introit
-      melody: 0.732
-      words: 0.634
-    - target: part:s-hieronymi-emiliani-confessoris/introit
-      melody: 0.732
-      words: 0.539
-    melody: 0.804
-    words: 0.466
+    - target: part:septem-dolorum-b-mariae-virginis-in-quadragesima/introit
+      melody: null
+      words: null
+    melody: null
+    words: null
+    name: Stabant juxta crucem
 - file: vol-3/in_sub_umbra.csv.ly
   target: part:s-margarit-mari-alaquoque-virginis/introit
   status: matched
@@ -9980,7 +9803,7 @@
     words: 0.109
 - file: vol-3/of_protege_domine.csv.ly
   target: part:in-exaltatione-sanct-crucis/offertory
-  status: melody-differs
+  status: matched
   evidence:
     by: page
     incipit: Pró tege Dó mine plebem tuam per si
@@ -9991,6 +9814,7 @@
       words: 0.232
     melody: 0.235
     words: 0.232
+    name: Protege Domine
 - file: vol-3/of_quid_bonum.csv.ly
   target: part:s-margarit-mari-alaquoque-virginis/offertory
   status: matched
@@ -10006,27 +9830,19 @@
     words: 0.987
     name: Quid bonum
 - file: vol-3/of_recordare_virgo.csv.ly
-  target: part:s-theresiae-a-jesu-infante-virginis/offertory
-  status: proposed
+  target: part:septem-dolorum-b-mariae-virginis-in-quadragesima/offertory
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Re cordáre Vir go Mater in conspéctu Dei
     page: 140
     candidates:
-    - target: part:s-theresiae-a-jesu-infante-virginis/offertory
-      melody: 0.674
-      words: 0.31
-    - target: part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/offertory
-      melody: 0.609
-      words: 0.369
-    - target: part:s-matthi-apostoli/offertory
-      melody: 0.543
-      words: 0.357
-    - target: part:ss-apostolorum-petri-et-pauli/offertory
-      melody: 0.543
-      words: 0.357
-    melody: 0.674
-    words: 0.31
+    - target: part:septem-dolorum-b-mariae-virginis-in-quadragesima/offertory
+      melody: 0.978
+      words: 1.0
+    melody: 0.978
+    words: 1.0
+    name: Recordare Virgo Mater
 - file: vol-3/of_regali_ex_progenie.csv.ly
   target: part:b-mariae-virginis-reginae/offertory
   status: matched
@@ -10259,8 +10075,8 @@
     - target: movement:ordinarium-missae-iv/gloria
       melody: 0.452
       words: 0.998
-    - target: movement:ordinarium-missae-ix/gloria
-      melody: 0.442
+    - target: movement:ordinarium-missae-iii/gloria
+      melody: 0.371
       words: 0.998
     melody: 0.474
     words: 0.998
@@ -10953,13 +10769,13 @@
     words: 1.0
     name: agnus_IX
 - file: vol-5/missa-ix/gloria_IX.ly
-  target: movement:ordinarium-missae-ix/gloria
+  target: part:ordinarium-missae-ix/other:gloria
   status: matched
   evidence:
     by: folder
     incipit: Glória in excélsis Deo Et in terra pax
     candidates:
-    - target: movement:ordinarium-missae-ix/gloria
+    - target: part:ordinarium-missae-ix/other:gloria
       melody: 1.0
       words: 0.998
     melody: 1.0
@@ -11075,14 +10891,14 @@
     words: 0.993
     name: sanctus_V
 - file: vol-5/missa-vi/agnus_VI.ly
-  target: movement:ordinarium-missae-vi/agnus
+  target: part:ordinarium-missae-vi/other:agnus
   status: matched
   evidence:
     by: folder
     incipit: Agnus Dei qui tol lis peccáta mun di
     page: 40
     candidates:
-    - target: movement:ordinarium-missae-vi/agnus
+    - target: part:ordinarium-missae-vi/other:agnus
       melody: 1.0
       words: 1.0
     melody: 1.0
@@ -11933,7 +11749,7 @@
     - target: movement:ordinarium-missae-xiii/agnus
       melody: 0.795
       words: 0.293
-    - target: movement:ordinarium-missae-vi/agnus
+    - target: movement:ordinarium-missae-viii/agnus
       melody: 0.769
       words: 0.293
     melody: 0.923
