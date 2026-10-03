@@ -11,6 +11,8 @@
 import queueJson from "../../../../data/review-queue.json";
 import reviewedJson from "../../../../data/reviewed.json";
 import { allPieces, pieceBySlug, partLabel } from "../catalog";
+import { musicView } from "../music";
+import { massSources } from "../references";
 import type { Piece, ProperPartName } from "../catalog";
 import { type QueueItem, type ReviewGroup, reviewKind } from "./reviewKinds";
 import { type Scans, type Shown, pieceSystems, shown } from "./scans";
@@ -110,6 +112,31 @@ function detailOf(item: QueueItem): string | null {
   return bits.length ? bits.join("; ") : null;
 }
 
+/**
+ * Whether what an item asks has been answered since the queue was written: the
+ * queue comes from the catalogue build, before the reviewed section lists
+ * (data/sections) and the printed references are applied.
+ * - A part not found, or whose words did not match, now placed by a person,
+ *   by its label or by its words, or recorded as printed elsewhere.
+ * - A piece with no music of its own whose page shows the music it cites (and
+ *   so has no first system to check either).
+ */
+export function settled(item: QueueItem, piece: Piece | undefined): boolean {
+  if (!piece) return false;
+  if (item.kind === "part_missing" || item.kind === "part_mismatch") {
+    return piece.parts.some((p) => p.part === item.part && p.variant === (item.variant ?? "")
+      && (p.kind === "borrowed" || p.placed !== "order"));
+  }
+  // A piece that is only a reference starts nowhere on the page: its music is the music it cites.
+  if (item.kind === "starts_mid_page" && piece.systems.length === 0) {
+    return musicView(piece).systems.length > 0 || massSources(piece).length > 0;
+  }
+  if (item.kind === "no_systems") {
+    return piece.systems.length > 0 || musicView(piece).systems.length > 0 || massSources(piece).length > 0;
+  }
+  return false;
+}
+
 let cached: readonly ReviewEntry[] | null = null;
 
 /** Everything left to review, in group order, then the queue's own order. */
@@ -137,6 +164,7 @@ export function reviewEntries(queue: readonly QueueItem[] = QUEUE, reviewed: Rev
   for (const item of queue) {
     if (reviewed[item.key]?.was === item.fingerprint) continue;
     const piece = find(item.piece);
+    if (settled(item, piece)) continue;
     const kind = reviewKind(item);
     out.push({
       target: item.key, fingerprint: item.fingerprint, kind: item.kind, group: kind.group, label: kind.label,
