@@ -415,120 +415,6 @@
    ]
   },
   {
-   "file": "vol-1/tr_laudate__omnes_gentes.csv.ly",
-   "status": "broken",
-   "target": null,
-   "error": "line 80:26: error: undefined character or shorthand: ;",
-   "excerpt": {
-    "first": 77,
-    "line": 80,
-    "lines": [
-     "f'4 ees'2 ~ ees'2*3/2 r2*3/2 d'2 ~ d'2*3/2 ~ d'2*4/2 f'2 ees'2*3/2 c'2*3/2 ~ c'2 ees'2 ~ ees'2*4/2 f'4 ~ f'2*7/4 ~ f'2*3/4 ees'2*4/2 ~ ees'2 ~ ees'2 ~ ees'2*3/2 c'2 ~ c'2 ~ c'4 ~ c'2 ~ c'4 \\finalis",
-     "d'2 c'2 ~ c'2*3/2 d'2*6/2 ~ d'4 \\divisioMinima",
-     "f'2*3/2 ~ f'4 d'2 ~ d'2 d;2*5/2 d'2*3/2 ~ \\divisioMaior",
-     "d'4 ~ d'2*3/2 ees'2 f'2*3/2 ~ f'2*3/2 ~ f'2*3/2 ~ f'2*4/2 ees'2*3/2 d'2 ~ d'2*4/2 r2*3/2 \\divisioMaxima",
-     "f'4 ees'2 ~ ees'2*3/2 r2*3/2 d'2*3/2 ~ d'4 ~ d'2*3/2 ~ d'2 ~ d'2*3/2 ~ \\divisioMaior",
-     "d'2 ~ d'2*3/2 r2*3/2 ees'4 ~ ees'2*3/2 f'4 ~ f'2*4/2 ~ f'4 c'2*3/2 ~ c'2*3/2 ~ c'4 \\divisioMinima",
-     "f'2*3/2 ees'2*3/2 ~ ees'2*3/2 r2*4/2 \\divisioMinima"
-    ]
-   }
-  },
-  {
-   "file": "vol-2/al_ego_sum_pastor.csv.ly",
-   "status": "broken",
-   "target": null,
-   "error": "line 95:39: error: not a note name: er",
-   "excerpt": {
-    "first": 92,
-    "line": 95,
-    "lines": [
-     "r2*13/4 g2*9/4 a2 g2*4/2 \\divisioMaior",
-     "r2*3/2 fis2*3/2 g2*7/4 a2 g2*4/2 fis2*3/2 e2 ~ e2 \\divisioMaxima",
-     "g,2*3/2 b,2*3/2 ~ b,2 ~ b,2*3/2 c2 e4 er2*3/4 e2*4/2 ~ e2*3/4 d2 ~ d2*3/2 e2 \\divisioMinima",
-     "fis2 e2*9/4 ~ e2 d2*3/2 c2 ~ c4 b,2*3/2 e2*3/2 ~ e4 \\divisioMaxima",
-     "a,2*3/2 b,2*3/2 ~ b,2 ~ b,2*3/2 c2*3/2 e4 ~ e2*3/4 ~ e2*4/2 ~ e2*3/4 d2 ~ d2*3/2 e2 \\divisioMinima",
-     "fis2 e2*13/4 d2*3/2 c2 b,2*4/2 e2 ~ e4 \\finalis",
-     "}"
-    ]
-   }
-  },
-  {
-   "file": "vol-2/al_laudate_pueri.csv.ly",
-   "status": "broken",
-   "target": null,
-   "error": "line 77:17: error: not a note name: ga",
-   "excerpt": {
-    "first": 74,
-    "line": 77,
-    "lines": [
-     "aes2 bes2*3/2 g2*3/2 f2 g4 \\divisioMinima",
-     "f2*3/2 g2*3/2 aes2 \\divisioMaxima",
-     "bes2 ~ bes2*4/2 ga2*3/2 aes2*3/2 c'2*3/2 \\divisioMinima",
-     "bes2*3/2 aes2*3/2 bes2*3/2 c'2*4/2 ~ c'2*3/2 des'4 \\divisioMinima",
-     "aes2 bes2*3/4 c'2 g2*5/4 aes2 bes2*3/4 ~ bes2 aes2*4/2 f2 g4 \\finalis",
-     "}",
-     ""
-    ]
-   }
-  },
-  {
-   "file": "vol-2/al_magnus_dominus.csv.ly",
-   "status": "broken",
-   "target": null,
-   "error": "line 126:10: error: syntax error, unexpected '.'",
-   "excerpt": {
-    "first": 123,
-    "line": 126,
-    "lines": [
-     "a2*3/2 g2*4/2 ~ g2*3/4 ~ g2*3/2 \\divisioMinima",
-     "r2 a2*11/4 ~ a2 r2 f2 e4 c2*3/2 ~ c2 ~ c2 ~ \\divisioMaior",
-     "c4 ~ c2 a.2 g,2 ~ g,4 \\divisioMinima",
-     "a,2*3/2 d2*4/2 bes,2*3/4 ~ bes,2*3/2 \\divisioMinima",
-     "d2*3/2 g2*4/2 ~ g2*3/4 ~ g2*3/2 \\divisioMinima",
-     "c2 a,2*4/2 ~ a,2*3/4 ~ a,2 g,2 ~ g,2 a,4 \\divisioMaior",
-     "c2 a,2*4/2 ~ a,2*3/4 ~ a,2 g,2*4/2 c2*3/2 ~ c2 ~ c2 ~ c4 \\finalis"
-    ]
-   }
-  },
-  {
-   "file": "vol-2/al_post_dies_octo.csv.ly",
-   "status": "broken",
-   "target": null,
-   "error": "line 111:2: error: syntax error, unexpected '.'",
-   "excerpt": {
-    "first": 108,
-    "line": 111,
-    "lines": [
-     "bassMusic = {",
-     "r2*15/4 e2 ~ e2 d2 ~ d4 \\divisioMinima",
-     "b.2*9/4 b,2 ~ b,2*7/4 d2*4/2 ~ d2 ~ d4 \\divisioMaior",
-     "e2 ~ e2 d2 ~ d2*3/4 c2 b,2*7/4 d2*4/2 fis2*3/2 \\divisioMinima",
-     "e2 ~ e2 b,2*3/2 a,2*5/2 d2 ~ d4 \\finalis",
-     "r2 b2*4/2 a2*4/2 ~ a2*3/2 ~ a2 ~ a2 \\divisioMaior",
-     "r2*4/2 b,2 ~ b,2*3/2 d2*3/2 ~ d4 \\divisioMaxima"
-    ]
-   }
-  },
-  {
-   "file": "vol-2/al_spiritus_est.csv.ly",
-   "status": "broken",
-   "target": null,
-   "error": "line 94:4: error: syntax error, unexpected '\\''",
-   "excerpt": {
-    "first": 91,
-    "line": 94,
-    "lines": [
-     "",
-     "bassMusic = {",
-     "r2 'b2 a2*3/2 e2*9/4 g2*3/2 ~ g4 \\divisioMaior",
-     "b,2*3/2 d2*9/4 g2 ~ g2 \\divisioMinima",
-     "b,2*3/2 a,2*7/4 g,2*3/2 ~ g,4 \\finalis",
-     "r2*29/4 \\divisioMinima",
-     "r2*5/2 g2*6/2 ~ g2 \\divisioMaxima"
-    ]
-   }
-  },
-  {
    "file": "vol-2/al_timebunt_gentes.csv.ly",
    "status": "proposed",
    "target": "part:dominica-vii-post-pentecosten/alleluia",
@@ -738,25 +624,6 @@
    ]
   },
   {
-   "file": "vol-2/gr_ad_dominum.csv.ly",
-   "status": "broken",
-   "target": null,
-   "error": "line 102:37: error: not a note name: cv",
-   "excerpt": {
-    "first": 99,
-    "line": 102,
-    "lines": [
-     "f4 ~ f2 a2 e2*4/2 ~ \\divisioMinima",
-     "e4 d2*5/4 c2*9/4 f2 e2 d2*3/2 ~ d2*3/2 e2 a2*4/2 \\divisioMaxima",
-     "f2 ~ f2*4/2 ~ f4 e2*4/2 d2 ~ d2*3/2 cv2*3/4 a,2*4/2 d2 ~ d2*5/4 ~ d2*3/2 ~ d2*4/2 c2 ~ c2 f2 ~ f4 r4 f2 a2*9/4 ~ a2*11/4 ~ a2*3/2 ~ a2 ~ a2*3/2 ~ a2*3/4 ~ a2 f2*3/2 e2*3/2 d2*4/2 g2 ~ g2 ~ g4 d2*3/2 f",
-     "d4 f2*11/4 ~ f2 e2*3/2 ~ e2*4/2 ~ e4 ~ \\divisioMinima",
-     "e4 d2*5/4 c2*4/2 f2 e2 d2*3/2 ~ d2*3/2 a2 e2*4/2 \\divisioMaxima",
-     "f2*4/2 ~ f2 ~ f2 e2*4/2 d2 ~ d2 \\divisioMinima",
-     "e2 c2*3/2 ~ c2 d2*3/2 \\divisioMaior"
-    ]
-   }
-  },
-  {
    "file": "vol-2/gr_domine_refugium.csv.ly",
    "status": "broken",
    "target": null,
@@ -891,25 +758,6 @@
    ]
   },
   {
-   "file": "vol-2/in_dominus_illuminatio.csv.ly",
-   "status": "broken",
-   "target": null,
-   "error": "line 91:1: error: not a note name: eess",
-   "excerpt": {
-    "first": 88,
-    "line": 91,
-    "lines": [
-     "r4 d'2*3/2 ees'2*3/2 ~ \\divisioMinima",
-     "ees'4 f'2*3/2 ~ f'2*3/2 g'2*3/2 ees'2*3/2 ~ ees'2 d'2 ees'4 \\divisioMaior",
-     "eess'2 d'2 g'2 f'2*4/2 ~ f'2 ~ f'4 \\divisioMaxima",
-     "g'4 ~ g'2*4/2 f'2 ees'2*3/2 ~ ees'2 d'2 ~ d'2 ~ d'4 ~ \\divisioMinima",
-     "d'4 ~ d'2 ~ d'2*3/2 ~ d'2*3/2 ees'2*4/2 d'2*3/2 ~ d'2 f'4 ees'2*3/2 d'4 \\divisioMinima",
-     "c'2*3/2 d'2 c'2*4/2 ~ c'2*3/2 bes4 \\finalis",
-     "r4 d'2 ~ d'2 ~ d'2 ~ d'2 g'2*3/2 f'2 ~ f'4 \\divisioMaxima"
-    ]
-   }
-  },
-  {
    "file": "vol-2/in_eduxit_eos.csv.ly",
    "status": "broken",
    "target": null,
@@ -959,25 +807,6 @@
      "words": 0.564
     }
    ]
-  },
-  {
-   "file": "vol-2/in_in_voluntate.csv.ly",
-   "status": "broken",
-   "target": null,
-   "error": "line 97:30: error: syntax error, unexpected <",
-   "excerpt": {
-    "first": 94,
-    "line": 97,
-    "lines": [
-     "b2 ~ b2*4/2 ~ b2*3/2 ~ b2 ~ b2 e'2 d'2 ~ d'2 cis'4 \\divisioMinima",
-     "b2*3/2 ~ b2 ~ b2*3/2 cis'2*3/2 d'4 \\finalis",
-     "fis'2 e'2 <fis' e'>2 <fis' d'<>2 fis'2 ~ fis'2*3/2 ~ fis'2 ~ fis'4 \\divisioMaxima",
-     "d'2 e'2*3/2 fis'2 ~ fis'4 e'2 cis'2*3/2 d'4 fis'2 e'2*3/2 <f' e'>2*3/2 <f' d'>2*3/2 ~ \\divisioMinima",
-     "<f' d'>2 fis'2 ~ fis'2*3/2 ~ fis'2 ~ fis'4 ~ \\divisioMaxima",
-     "fis'2 e'2 ~ e'2*4/2 d'2*3/2 \\divisioMinima",
-     "cis'2 e'2*3/2 ~ e'2 d'4 ~ \\divisioMaxima"
-    ]
-   }
   },
   {
    "file": "vol-2/in_omnia_quae_fecisti.csv.ly",
