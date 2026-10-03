@@ -8,30 +8,39 @@ import { reviewEntries } from "../../../lib/admin/reviews";
 // wrong, built with the site: an editor confirms each against the scan (Looks
 // right), corrects it, or skips it with a note. Behind Cloudflare Access with
 // /admin/; the buttons talk to /admin/api.
-const entries = reviewEntries();
-const edit = (target: string) => `/admin/edit/?target=${encodeURIComponent(target)}`;
+const all = reviewEntries();
+// What the site cannot act on is listed apart, compactly, with nothing to press.
+const entries = all.filter((e) => e.group !== "info");
+const info = all.filter((e) => e.group === "info");
+const infoKinds = [...new Set(info.map((e) => e.kind))].map((k) => info.filter((e) => e.kind === k));
+const groups = GROUP_ORDER.filter((g) => g !== "info");
+// Correct opens the edit form, which offers the way back to this item.
+const edit = (target: string, from: string) =>
+  `/admin/edit/?target=${encodeURIComponent(target)}&from=review&item=${encodeURIComponent(from)}`;
 const count = (group: string) => entries.filter((e) => e.group === group).length;
 const volumes = [...new Set(entries.map((e) => e.volume))].sort();
 const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
+const anchor = (target: string) => `h-${target.replace(/[^a-z0-9]/gi, "-")}`;
 ---
 
 <Layout title="Admin: review" noindex>
   <div class="admin ui">
     <AdminNav current="review" />
     <h1>Review</h1>
-    <p class="muted small prose">
-      What the pipeline was not sure of when it read the scans, and the parts whose start looks wrong. Look at each
-      against its scan. <strong>Looks right</strong> confirms it as it is; <strong>Correct</strong> opens the edit
-      form; <strong>Skip</strong> leaves a note for the next editor. Confirmations are published with the next{" "}
-      <strong>Publish changes</strong> on the <a href="/admin/">Admin</a> page, and an item comes back here if a
-      later rebuild changes it.
-    </p>
+    <details class="how small">
+      <summary>How Review works</summary>
+      <p class="prose">What the pipeline was not sure of when it read the scans, and the parts whose start looks wrong.
+        Look at each against its scan. The first button confirms it as it is (its words say what you are
+        confirming); <strong>Correct</strong> opens the edit form; <strong>Skip with a note</strong> leaves it for
+        the next editor. Confirmations are published with the next <strong>Publish changes</strong> on the{" "}
+        <a href="/admin/">Admin</a> page, and an item comes back here if a later rebuild changes it.</p>
+    </details>
 
     <form class="filters" id="filters" aria-label="Show">
       <fieldset>
         <legend class="small">Show</legend>
-        {GROUP_ORDER.map((group, i) => (
-          <label class="choice"><input type="radio" name="group" value={group} checked={i === 0} />
+        {groups.map((group, i) => (
+          <label class="choice"><input type="radio" name="group" value={group} checked={i === 0} data-label={GROUP_LABELS[group]} />
             {GROUP_LABELS[group]}{" "}<span>(<span data-count={group}>{count(group)}</span>)<span class="muted small" data-skipped={group}></span></span></label>
         ))}
       </fieldset>
@@ -57,8 +66,8 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
       {entries.map((e) => (
         <article class:list={["item", e.scans.length > 0 && "has-scan"]} data-review-target={e.target}
                  data-review-seen={e.fingerprint} data-group={e.group} data-volume={e.volume} data-kind={e.kind} data-label={e.label}
-                 aria-labelledby={`h-${e.target.replace(/[^a-z0-9]/gi, "-")}`}>
-          <h3 tabindex="-1" id={`h-${e.target.replace(/[^a-z0-9]/gi, "-")}`}>{e.label}: {e.about}</h3>
+                 aria-labelledby={anchor(e.target)}>
+          <h3 tabindex="-1" id={anchor(e.target)}>{e.label}: {e.about}</h3>
           <p class="small">{e.look}</p>
           {e.detail && <p class="small muted">{e.detail}</p>}
           {e.scans.length > 0 && (
@@ -73,23 +82,62 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
             </div>
           )}
           <div class="actions review-actions">
-            <button type="button" data-act="looks-right">Looks right</button>
-            {e.correct && <a class="button" href={edit(e.correct)}>Correct</a>}
+            <button type="button" class="primary" data-act="looks-right">{e.confirm}</button>
+            {e.correct && <a class="button" href={edit(e.correct, e.target)}>Correct</a>}
             {e.sections && <a class="small" href={e.sections}>Edit the sections</a>}
-            <button type="button" data-act="skip">Skip…</button>
+            <button type="button" class="link" data-act="skip">Skip with a note…</button>
             {e.href && <a class="small" href={e.href}>Open the page</a>}
           </div>
           <p class="review-state small" aria-live="polite"></p>
         </article>
       ))}
     </div>
-    <p id="none" class="muted" hidden>Nothing to show with these choices.</p>
+    <div id="none" class="none" hidden>
+      <p id="none-text" class="muted"></p>
+      <div class="actions"><button type="button" id="none-next" hidden></button>
+        <button type="button" id="none-clear" class="link" hidden>Clear the filters</button>
+        <a id="none-home" href="/admin/" hidden>Back to the Admin page</a></div>
+    </div>
+
+    {info.length > 0 && (
+      <section class="info" aria-labelledby="info-h">
+        <h2 id="info-h">Things the site can't act on ({info.length})</h2>
+        <p class="small muted prose">The pipeline noted these; none of them needs an answer. They are listed so you
+          know they are known.</p>
+        {infoKinds.map((items) => (
+          <details>
+            <summary>{items[0]!.label} ({items.length})</summary>
+            <p class="small prose">{items[0]!.look}</p>
+            <div class="scroll">
+              <table class="small">
+                <thead><tr><th scope="col">What</th><th scope="col">Volume</th><th scope="col"><span class="sr-only">Page</span></th></tr></thead>
+                <tbody>
+                  {items.map((e) => (
+                    <tr><td>{e.about}</td><td>{e.volume}</td><td>{e.href && <a href={e.href}>Open the page</a>}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </details>
+        ))}
+      </section>
+    )}
   </div>
 </Layout>
 
 <style>
   .admin { max-width: 60rem; }
   h1 { margin: 0 0 var(--s-2); }
+  .how summary, .info summary { cursor: pointer; padding: var(--s-2) 0; }
+  .how p { margin: 0 0 var(--s-2); }
+  .none { margin: var(--s-4) 0; }
+  .none p { margin: 0 0 var(--s-2); }
+  .info { margin-top: var(--s-6); }
+  .info h2 { font-size: var(--step-1); padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule); }
+  .info details { border-bottom: 1px solid var(--rule); }
+  .info table { width: 100%; border-collapse: collapse; margin: var(--s-2) 0 var(--s-3); }
+  .info th, .info td { text-align: left; padding: var(--s-1) var(--s-2) var(--s-1) 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .scroll { overflow-x: auto; }
   .filters { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: end; margin: var(--s-3) 0;
              padding: var(--s-2) 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
   .filters fieldset { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-3); }
@@ -157,7 +205,7 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
     let visible = 0;
     for (const el of all) {
       const show = el.dataset["group"] === group && (!volume || el.dataset["volume"] === volume) &&
-        (!kind || el.dataset["kind"] === kind) && (done || !el.dataset["done"]);
+        (!kind || el.dataset["kind"] === kind) && (done || !el.dataset["done"] || "recent" in el.dataset);
       el.hidden = !show;
       if (show) visible++;
     }
@@ -172,8 +220,46 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
       el.textContent = n ? ` · ${n} skipped` : "";
     }
     if (none) none.hidden = visible > 0;
+    if (visible === 0) emptyState(group, volume, kind, done);
     if (shown) shown.textContent = `${visible} shown`;
   }
+
+  const LABELS: Record<string, string> = Object.fromEntries(
+    [...(form?.querySelectorAll<HTMLInputElement>("input[name=group]") ?? [])]
+      .map((r) => [r.value, r.dataset["label"] ?? r.value]));
+
+  /** When nothing is shown: done with this list (and where next), or filters that hide everything. */
+  function emptyState(group: string, volume: string, kind: string, done: boolean): void {
+    const text = document.getElementById("none-text");
+    const next = document.getElementById("none-next");
+    const clear = document.getElementById("none-clear");
+    const home = document.getElementById("none-home");
+    if (!text || !next || !clear || !home) return;
+    const filtered = Boolean(volume || kind);
+    const left = (g: string) => all.filter((el) => el.dataset["group"] === g && !el.dataset["done"]).length;
+    const other = Object.keys(LABELS).find((g) => g !== group && left(g) > 0);
+    clear.hidden = !filtered;
+    next.hidden = filtered || !other;
+    home.hidden = filtered || Boolean(other);
+    if (filtered) text.textContent = "Nothing to show with these choices.";
+    else if (other) {
+      text.textContent = `All done in “${LABELS[group] ?? group}”${done ? "" : " (tick “Show what is already done” to see it)"}.`;
+      next.textContent = `Next: ${LABELS[other] ?? other} (${left(other)})`;
+      next.dataset["group"] = other;
+    } else text.textContent = "Review is clear: nothing left on either list.";
+  }
+
+  document.getElementById("none-next")?.addEventListener("click", (event) => {
+    const g = (event.currentTarget as HTMLElement).dataset["group"];
+    const radio = [...(form?.querySelectorAll<HTMLInputElement>("input[name=group]") ?? [])].find((r) => r.value === g);
+    if (radio) { radio.checked = true; apply(); document.querySelector<HTMLElement>("#items article:not([hidden]) h3")?.focus(); }
+  });
+  document.getElementById("none-clear")?.addEventListener("click", () => {
+    if (!form) return;
+    (form.elements.namedItem("kind") as HTMLSelectElement).value = "";
+    (form.elements.namedItem("volume") as HTMLSelectElement).value = "";
+    apply();
+  });
 
   /** The kinds waiting in this group (and volume), each with how many are left
    * to do: a button that shows that kind alone, and the same counts in the
@@ -229,5 +315,19 @@ const kinds = [...new Map(entries.map((e) => [e.kind, e.label])).entries()];
   // After the editor acts, the counts every admin page shares are fetched again.
   let ready = false;
   const changed = (): void => { apply(); if (ready) refreshSummary(); };
-  if (list) void wireReviews(list, document.getElementById("status"), changed).then(() => { ready = true; });
+  // Back from a correction: ?after=<item> goes on to the next item still to do, ?at=<item> to the item itself.
+  const onTo = params.get("after") ?? params.get("at");
+  const after = all.find((el) => el.dataset["reviewTarget"] === onTo);
+  if (after && !kindGroup) {
+    const r = [...(form?.querySelectorAll<HTMLInputElement>("input[name=group]") ?? [])].find((x) => x.value === after.dataset["group"]);
+    if (r) { r.checked = true; apply(); }
+  }
+  if (list) void wireReviews(list, document.getElementById("status"), changed).then(() => {
+    ready = true;
+    if (!after) return;
+    const rest = params.has("at") ? after : all.slice(all.indexOf(after) + 1).find((el) => !el.hidden && !el.dataset["done"]);
+    const heading = (rest ?? after).querySelector<HTMLElement>("h3");
+    heading?.scrollIntoView({ block: "start" });
+    heading?.focus();
+  });
 </script>

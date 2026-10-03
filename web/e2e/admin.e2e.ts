@@ -57,6 +57,14 @@ test.describe.serial("The corrections queue", () => {
     await item.getByLabel("Why? (kept in the log)").fill("The book prints Dominica II Adventus");
     await item.getByRole("button", { name: "Reject with this reason" }).click();
     await expect(page.locator("#pending-h")).toHaveText("Readers' reports (1)");
+    // Undo puts it back to be answered; then reject it for good.
+    await page.locator("#admin-notice").getByRole("button", { name: "Undo" }).click();
+    await expect(page.locator("#pending-h")).toHaveText("Readers' reports (2)");
+    const again = page.locator("#pending article", { hasText: "Dominica II Adventus" });
+    await again.getByRole("button", { name: "Reject", exact: true }).click();
+    await again.getByLabel("Why? (kept in the log)").fill("The book prints Dominica II Adventus");
+    await again.getByRole("button", { name: "Reject with this reason" }).click();
+    await expect(page.locator("#pending-h")).toHaveText("Readers' reports (1)");
   });
 
   test("should explain an invalid value beside the report, on a phone", async ({ page }) => {
@@ -229,11 +237,15 @@ test.describe.serial("Reviewing", () => {
     const target = (await item.getAttribute("data-review-target")) ?? "";
     const self = page.locator(`#items article[data-review-target="${target}"]`);
     await expect(item.locator(".scan img").first()).toBeVisible();
-    await item.getByRole("button", { name: "Looks right" }).click();
+    // The confirming button says what it confirms: "Not printed here" for a part not found.
+    await expect(item.locator("[data-act=looks-right]")).toHaveText("Not printed here");
+    await item.locator("[data-act=looks-right]").click();
     await expect(page.locator("#status")).toHaveText(`${heading}: marked as looking right.`);
     await expect(page.locator("[data-count=check]")).toHaveText(String(before - 1));
     // Done items are hidden unless asked for; focus moved on to the next one.
-    await expect(self).toBeHidden();
+    // It stays in view, dimmed, for ten seconds (with Undo), then the filter hides it.
+    await expect(self.locator(".review-state")).toContainText("Undo");
+    await expect(self).toBeHidden({ timeout: 15_000 });
     await expect(page.locator(":focus")).toHaveAttribute("id", /^h-review/);
     await page.reload();
     await page.getByLabel(/^Check against the scan/).check();
@@ -247,7 +259,7 @@ test.describe.serial("Reviewing", () => {
     await page.goto("/admin/review/");
     const item = page.locator("#items article:visible").first();
     const target = (await item.getAttribute("data-review-target")) ?? "";
-    await item.getByRole("button", { name: "Skip…" }).click();
+    await item.getByRole("button", { name: "Skip with a note…" }).click();
     await item.getByRole("button", { name: "Save the skip" }).click();
     await expect(page.locator("#status")).toHaveText("Say briefly why it is skipped, for the next editor.");
     await item.getByLabel("Why skip it? (for the next editor)").fill("The scan is too faint to tell");
@@ -256,18 +268,48 @@ test.describe.serial("Reviewing", () => {
     await page.getByLabel("Show what is already done").check();
     const again = page.locator(`#items article[data-review-target="${target}"]`);
     await expect(again.locator(".review-state")).toContainText("Skipped by editor@example.org: “The scan is too faint to tell”");
-    await again.getByRole("button", { name: "Take back the skip" }).click();
+    await again.getByRole("button", { name: "Undo the skip" }).click();
     await expect(page.locator("#status")).toHaveText("Skip taken back.");
-    await expect(again.getByRole("button", { name: "Looks right" })).toBeVisible();
+    await expect(again.locator("[data-act=looks-right]")).toBeVisible();
   });
 
   test("should mark a part to check as looking right", async ({ page }) => {
     await page.goto("/admin/review/?kind=part_to_check");
     const target = (await page.locator("#items article:visible").first().getAttribute("data-review-target")) ?? "";
     const part = page.locator(`#items article[data-review-target="${target}"]`);
-    await part.getByRole("button", { name: "Looks right" }).click();
+    await part.getByRole("button", { name: "Starts here: right" }).click();
     await expect(part.locator(".review-state")).toContainText("Looks right · marked by you");
-    await expect(part.getByRole("button", { name: "Looks right" })).toBeHidden();
+    await expect(part.locator("[data-act=looks-right]")).toBeHidden();
+    // Undo, from the notice at the foot of the window: the item is back as it was.
+    await page.locator("#admin-notice").getByRole("button", { name: "Undo" }).click();
+    await expect(page.locator("#status")).toContainText("undone");
+    await expect(part.locator("[data-act=looks-right]")).toBeVisible();
+  });
+
+  test("should list what the site can't act on apart, folded, with nothing to press", async ({ page }) => {
+    await page.goto("/admin/review/");
+    const info = page.locator("section.info");
+    await expect(info.locator("h2")).toHaveText(/^Things the site can't act on \(\d+\)$/);
+    await expect(info.locator("details").first()).not.toHaveAttribute("open", "");
+    await expect(info.locator("button")).toHaveCount(0);
+    await expect(info.locator("img")).toHaveCount(0);
+    await expect(page.getByLabel(/^For information/)).toHaveCount(0);
+  });
+
+  test("should open a correction from Review and come back to the next item", async ({ page }) => {
+    await page.goto("/admin/review/?kind=part_to_check");
+    const items = page.locator("#items article:visible");
+    const first = (await items.first().getAttribute("data-review-target")) ?? "";
+    const second = (await items.nth(1).getAttribute("data-review-target")) ?? "";
+    await items.first().getByRole("link", { name: "Correct" }).click();
+    await expect(page.getByRole("link", { name: "← Back to Review" })).toBeVisible();
+    // Nothing changed yet: nothing to approve.
+    await expect(page.getByRole("button", { name: "Approve this correction" })).toBeDisabled();
+    await expect(page.locator("#save-hint")).toHaveText("Change the value above to approve it.");
+    await expect(page).toHaveURL(new RegExp(`&item=${encodeURIComponent(first).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`));
+    // After approving, the status offers "Back to Review: the next item", which opens Review like this.
+    await page.goto(`/admin/review/?after=${encodeURIComponent(first)}`);
+    await expect(page.locator(":focus")).toHaveAttribute("id", `h-${second.replace(/[^a-z0-9]/gi, "-")}`);
   });
 });
 
@@ -301,7 +343,7 @@ test.describe.serial("Typeset music", () => {
     await first.getByRole("button", { name: "This part" }).click();
     await expect(page.locator("#status")).toContainText(`: ${label}.`);
     await expect(page.locator("[data-count=matches]")).toHaveText(String(before - 1));
-    await expect(page.locator(`article[data-review-target="${target}"]`)).toBeHidden();
+    await expect(page.locator(`article[data-review-target="${target}"]`)).toBeHidden({ timeout: 15_000 });
     await page.reload();
     await ready(page);
     await page.getByLabel("Show what is already done").check();
@@ -345,7 +387,8 @@ test.describe.serial("Typeset music", () => {
     await item.getByRole("button", { name: "Proofread" }).click();
     await expect(page.locator("#status")).toHaveText(`${heading}: marked as proofread.`);
     await expect(page.locator("[data-count=proofreading]")).toHaveText(String(before - 1));
-    const target = (await page.locator("[data-queue-list=proofreading] article:visible").first()
+    // The part just proofread stays in view for a while: take the next one still to do.
+    const target = (await page.locator("[data-queue-list=proofreading] article:visible:not([data-done])").first()
       .getAttribute("data-review-target")) ?? "";
     const next = page.locator(`article[data-review-target="${target}"]`);
     await next.getByRole("button", { name: "Problem…" }).click();

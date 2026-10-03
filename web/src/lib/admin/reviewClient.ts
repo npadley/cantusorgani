@@ -7,7 +7,7 @@
  * Each item is an element with `data-review-target` and `data-review-seen` (its
  * fingerprint), holding a `.review-actions` group and a `.review-state` line.
  */
-import { api, h, say, signInAgain } from "./client";
+import { api, h, offerUndo, say, signInAgain } from "./client";
 
 interface State {
   readonly reviews: readonly { id: number; target: string; status: string; editor_email: string | null }[];
@@ -42,17 +42,31 @@ export const REVIEW_WORDS: Words = {
   why: "Why skip it? (for the next editor)", saved: "Skipped, with your note.",
 };
 
-/** An item reviewed and waiting to be published: its buttons go. */
-function markReviewed(item: HTMLElement, by: string | null, queued: boolean, words: Words = REVIEW_WORDS): void {
+/** How long an item just acted on stays in view (dimmed) before the filter hides it. */
+export const RECENT_MS = 10_000;
+
+/** Keeps an item just acted on in view for a while, so the editor sees what happened. */
+export function keepInView(item: HTMLElement, onChange: () => void): void {
+  item.dataset["recent"] = "";
+  setTimeout(() => { delete item.dataset["recent"]; onChange(); }, RECENT_MS);
+}
+
+/** An item reviewed and waiting to be published: its buttons go. Until it is
+ * published, `undo` takes the review back. */
+function markReviewed(item: HTMLElement, by: string | null, queued: boolean, words: Words = REVIEW_WORDS,
+                      undo: (() => void) | null = null): void {
   item.dataset["done"] = "reviewed";
   item.querySelector(".review-actions")?.setAttribute("hidden", "");
+  const back = undo && !queued ? h("button", { type: "button", class: "link" }, "Undo") : null;
+  back?.addEventListener("click", undo!);
   stateLine(item)?.replaceChildren(h("strong", {}, words.reviewed),
-    ` · marked by ${by ?? "an editor"}; ${queued ? "publishing now" : "goes with the next Publish on the Admin page"}.`);
+    ` · marked by ${by ?? "an editor"}; ${queued ? "publishing now" : "goes with the next Publish on the Admin page"}. `,
+    ...(back ? [back] : []));
 }
 
 function markSkipped(item: HTMLElement, note: string, by: string, onUnskip: () => void, words: Words = REVIEW_WORDS): void {
   item.dataset["done"] = "skipped";
-  const undo = h("button", { type: "button", class: "link" }, `Take back the ${words.skip}`);
+  const undo = h("button", { type: "button", class: "link" }, `Undo the ${words.skip}`);
   undo.addEventListener("click", onUnskip);
   stateLine(item)?.replaceChildren(h("strong", {}, words.skipped), ` by ${by}: “${note}” `, undo);
 }
@@ -80,12 +94,24 @@ export async function wireReviews(root: HTMLElement, status: HTMLElement | null,
   };
   const byTarget = new Map(items(root).map((el) => [el.dataset["reviewTarget"] ?? "", el]));
 
-  async function unskip(item: HTMLElement): Promise<void> {
+  async function unskip(item: HTMLElement): Promise<boolean> {
     const result = await api<{ ok: true }>("/skips/remove", { target: item.dataset["reviewTarget"] });
-    if (!result.ok) return fail(result);
+    if (!result.ok) { fail(result); return false; }
     clearState(item);
     say(status, `${words.skip[0]?.toUpperCase() ?? ""}${words.skip.slice(1)} taken back.`, "ok");
     onChange();
+    return true;
+  }
+
+  /** Takes a review back before it is published (the row is withdrawn). */
+  async function unreview(item: HTMLElement, id: number): Promise<boolean> {
+    const result = await api<{ ok: true }>(`/rows/${id}/unapprove`, {});
+    if (!result.ok) { fail(result); return false; }
+    clearState(item);
+    say(status, `${item.querySelector("h3")?.textContent ?? "Item"}: undone.`, "ok");
+    onChange();
+    item.querySelector<HTMLElement>("h3")?.focus();
+    return true;
   }
 
   const state = await api<State>("/review-state");
@@ -94,7 +120,7 @@ export async function wireReviews(root: HTMLElement, status: HTMLElement | null,
   } else {
     for (const r of state.data.reviews) {
       const item = byTarget.get(r.target);
-      if (item) markReviewed(item, r.editor_email, r.status === "queued", words);
+      if (item) markReviewed(item, r.editor_email, r.status === "queued", words, () => void unreview(item, r.id));
     }
     for (const s of state.data.skips) {
       const item = byTarget.get(s.target);
@@ -111,11 +137,14 @@ export async function wireReviews(root: HTMLElement, status: HTMLElement | null,
     const target = item.dataset["reviewTarget"] ?? "";
     if (button.dataset["act"] === "looks-right") {
       button.disabled = true;
-      void api<{ ok: true }>("/reviews", { target, seen: item.dataset["reviewSeen"] ?? "" }).then((result) => {
+      void api<{ ok: true; id: number }>("/reviews", { target, seen: item.dataset["reviewSeen"] ?? "" }).then((result) => {
         button.disabled = false;
         if (!result.ok) return fail(result);
-        markReviewed(item, "you", false, words);
+        const id = result.data.id;
+        markReviewed(item, "you", false, words, () => void unreview(item, id));
         say(status, `${item.querySelector("h3")?.textContent ?? "Item"}: ${words.marked}.`, "ok");
+        offerUndo(() => unreview(item, id));
+        keepInView(item, onChange);
         onChange();
         focusNext(root, item);
       });
@@ -140,6 +169,8 @@ export async function wireReviews(root: HTMLElement, status: HTMLElement | null,
           if (!result.ok) return fail(result);
           markSkipped(item, text, "you", () => void unskip(item), words);
           say(status, words.saved, "ok");
+          offerUndo(() => unskip(item));
+          keepInView(item, onChange);
           onChange();
           focusNext(root, item);
         });

@@ -47,6 +47,8 @@ export interface ReviewEntry {
   readonly correct: string | null;
   /** The piece's Sections screen, for an item about where a part or movement starts. */
   readonly sections: string | null;
+  /** The confirming button's words ("Starts here: right", "No chant to link"). */
+  readonly confirm: string;
   readonly scans: readonly Shown[];
 }
 
@@ -104,8 +106,15 @@ function scansOf(item: QueueItem, piece: Piece | undefined, scans: Scans): reado
   return [];
 }
 
-function aboutOf(item: QueueItem, piece: Piece | undefined): string {
-  const name = piece ? `${piece.label} (${piece.volume})` : item.piece ?? `${item.volume}`;
+/** A piece's name, with its page where several pieces share a label (three Asperges in NOH5). */
+function nameOf(piece: Piece, pieces: readonly Piece[]): string {
+  const shared = pieces.filter((p) => p.label === piece.label && p.volume === piece.volume).length > 1;
+  const opening = piece.incipit && piece.incipit !== piece.label ? ` · ${piece.incipit}` : "";
+  return shared ? `${piece.label} (${piece.volume}, p. ${piece.printedPages[0]})${opening}` : `${piece.label} (${piece.volume})`;
+}
+
+function aboutOf(item: QueueItem, piece: Piece | undefined, pieces: readonly Piece[]): string {
+  const name = piece ? nameOf(piece, pieces) : item.piece ?? `${item.volume}`;
   if (item.part) return `${name} · ${partLabel(item.part as ProperPartName, item.variant ?? "")}`;
   if (item.movement) return `${name} · ${MOVEMENT_LABELS[item.movement] ?? item.movement}`;
   if (item.title && item.kind === "hymn_at_page_top") return `${name} · ${item.title}`;
@@ -162,7 +171,7 @@ export function reviewEntries(queue: readonly QueueItem[] = QUEUE, reviewed: Rev
       const start = systems[p.start - 1];
       out.push({
         target: p.target, fingerprint: p.fingerprint, kind: "part_to_check", group: "fix",
-        label: "Part to check", about: `${suspect.label} (${suspect.volume}) · ${p.name}`,
+        label: "Part to check", about: `${suspect.label} (${suspect.volume}) · ${p.name}`, confirm: "Starts here: right",
         look: p.reasons.map((r) => `${r[0]?.toUpperCase()}${r.slice(1)}.`).join(" "),
         detail: `starts on system ${p.start}, runs for ${p.length}`, volume: suspect.volume,
         href: piece ? `/piece/${piece.slug}/` : null, correct: p.target, sections: sectionsOf("part_to_check", piece),
@@ -172,12 +181,15 @@ export function reviewEntries(queue: readonly QueueItem[] = QUEUE, reviewed: Rev
   }
   for (const item of queue) {
     if (reviewed[item.key]?.was === item.fingerprint) continue;
+    // A Proper's chants are linked on its parts: "no chant for the Proper as a whole" asks nothing.
+    if (item.kind === "unpaired" && item.genre === "proper") continue;
     const piece = find(item.piece);
     if (settled(item, piece)) continue;
     const kind = reviewKind(item);
     out.push({
       target: item.key, fingerprint: item.fingerprint, kind: item.kind, group: kind.group, label: kind.label,
-      about: aboutOf(item, piece), look: kind.look, detail: detailOf(item), volume: item.volume,
+      about: aboutOf(item, piece, pieces), look: kind.look, detail: detailOf(item), volume: item.volume,
+      confirm: kind.confirm ?? "Looks right",
       href: piece ? `/piece/${piece.slug}/` : null, correct: correctTarget(item, piece), sections: sectionsOf(item.kind, piece),
       scans: scansOf(item, piece, scans).slice(0, MAX_SCANS),
     });

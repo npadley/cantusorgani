@@ -460,6 +460,22 @@ describe("reviews", () => {
   });
 });
 
+describe("reopen", () => {
+  it("should put a rejected or duplicate reader's report back to be answered, and refuse anything else", async () => {
+    const id = readerReport(db.sqlite, "kyrie-i", "title", "Kyrie I");
+    await call("POST", `/rows/${id}/reject`, { reason: "Not so in the book" });
+    expect(statusOf(id)).toBe("rejected");
+    expect((await call("POST", `/rows/${id}/reopen`, {})).status).toBe(200);
+    expect(statusOf(id)).toBe("pending");
+    expect(db.sqlite.prepare("SELECT reason FROM corrections WHERE id = ?").get(id)).toMatchObject({ reason: null });
+    await call("POST", `/rows/${id}/duplicate`, {});
+    expect((await call("POST", `/rows/${id}/reopen`, {})).status).toBe(200);
+    expect(statusOf(id)).toBe("pending");
+    // Pending already, or an editor's own fix: nothing to reopen.
+    expect((await call("POST", `/rows/${id}/reopen`, {})).status).toBe(409);
+  });
+});
+
 describe("summary", () => {
   it("should count what is left on each list, what waits to publish and what was skipped, and the reports", async () => {
     readerReport(db.sqlite, "kyrie-i", "title", "Kyrie I");

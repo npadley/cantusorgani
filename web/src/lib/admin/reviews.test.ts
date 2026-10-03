@@ -49,12 +49,20 @@ describe("settled", () => {
 describe("reviewEntries", () => {
   const entries = reviewEntries();
 
+  it("should leave out a Proper's missing chant as a whole, and give each kind its confirming words", () => {
+    expect(entries.some((e) => e.kind === "unpaired" && e.group === "info")).toBe(false);
+    expect(entries.find((e) => e.kind === "part_to_check")?.confirm).toBe("Starts here: right");
+    expect(entries.every((e) => e.confirm.length > 0)).toBe(true);
+  });
+
   it("should list every queue item and part to check once, fix first and information last", () => {
     const targets = entries.map((e) => e.target);
     expect(new Set(targets).size).toBe(targets.length);
     // Every item not yet confirmed (data/reviewed.json); a confirmed one is done until a rebuild changes it.
     const done = (reviewedJson as { reviewed: Record<string, { was?: string }> }).reviewed;
-    const open = QUEUE.filter((i) => done[i.key]?.was !== i.fingerprint && !settled(i, pieceBySlug(i.piece ?? "")));
+    // Less "no chant for the Proper as a whole": a Proper's chants are linked on its parts.
+    const open = QUEUE.filter((i) => done[i.key]?.was !== i.fingerprint && !settled(i, pieceBySlug(i.piece ?? ""))
+      && !(i.kind === "unpaired" && i.genre === "proper"));
     expect(open.length).toBeLessThan(QUEUE.length);
     expect(entries.filter((e) => e.target.startsWith("review:"))).toHaveLength(open.length);
     const groups = entries.map((e) => e.group);

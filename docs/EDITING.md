@@ -60,16 +60,24 @@ marked, chosen or skipped; skipped items are counted apart.
   beside the systems the report is about: a part's first system and the one
   proposed, a Vespers item's systems, a piece's first and last. Each picture is
   captioned with its ref. **Accept**, **Reject** (with a reason) or
-  **Duplicate**.
+  **Duplicate** (press twice: it asks first).
 - **Make a correction yourself**: every piece page has an **Edit** link at its
   foot, which opens the form for that piece. Your fix is approved at once.
+  **Approve** stays greyed out until the value differs from what it is now.
+- **Undo**: whatever you do (accept, reject, mark, skip, choose a part) is
+  confirmed in a bar at the foot of the window, with **Undo**, until it is
+  published. A marked item stays in view, dimmed, for ten seconds, with its own
+  Undo.
 - **Review** (`/admin/review/`) lists what the pipeline was not sure of when it
   read the scans (`data/review-queue.json`), with the parts to check. Each item
-  says in words what to look at, beside its scans. **Looks right** confirms it
-  as it is; **Correct** opens the edit form, where a correction can fix it;
-  **Skip** leaves a note for the next editor (kept on the admin screen only).
-  Items are grouped: first those a correction can fix, then those to check
-  against the scan, and last those the site can't act on. A confirmation is
+  says in words what to look at, beside its scans. The first button confirms it
+  as it is, and its words say what you are confirming ("Starts here: right",
+  "Not printed here", "No chant to link"); **Correct** opens the edit form,
+  where a correction can fix it, and offers the way back to the next item once
+  you approve; **Skip with a note** leaves it for the next editor (kept on the
+  admin screen only). Two lists: what a correction can fix, and what to check
+  against the scan. What the site can't act on is listed apart at the foot,
+  folded, with nothing to press. A confirmation is
   published like a correction (a `reviewed` entry in `corrections.yml`, left out
   of the public log). It records what was confirmed, so if a later rebuild
   changes the item, the confirmation lapses and the item comes back;
