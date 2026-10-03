@@ -113,6 +113,9 @@ def scan_page(vol_id: str, pdf_page: int, page: pymupdf.Page
 CONFIDENT_INDEX = frozenset({"verified", "found", "consistent"})
 # Divisions whose pieces are Masses divided into movements.
 MOVEMENT_DIVISIONS = frozenset({"kyriale", "defunctorum"})
+#: Where an inserted leaf's systems sit, against a piece's start and stop on the
+#: page it follows: after every system printed there.
+INSERTED = 10_000
 #: A piece that is one chant of the Ordinary (a Credo, an ad libitum Kyrie): it
 #: is that movement from its first system. Its words recur all through it
 #: ("Kyrie eleison" nine times), so a system's own words say nothing of where
@@ -516,8 +519,16 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
             movements: list[dict[str, object]] = []
             placed_movements: set[str] = set()
             ordinary = entry.genre == "mass_ordinary" and entry.division == "kyriale"
+            # Each printed page of the piece, and any leaf inserted inside it
+            # (data/volumes.yml `inserts`: NOH4's "162 bis" and "163 bis"), whose
+            # systems all fall after the page it follows.
+            walk: list[tuple[int, int | None, int | None]] = []
             for printed in range(first, last + 1):
-                pdf_page = page_map.to_pdf(printed, entry.pagination)
+                walk.append((printed, page_map.to_pdf(printed, entry.pagination), None))
+                if printed < last and entry.pagination is None:
+                    walk.extend((printed, pdf, INSERTED) for ins in vol.inserts if ins.after_printed == printed
+                                for pdf in range(ins.first_pdf, ins.last_pdf + 1))
+            for printed, pdf_page, fixed_index in walk:
                 if pdf_page is None:
                     # A printed page this scan does not contain (NOH1 lacks
                     # 348-349), or one outside the body.
@@ -525,7 +536,8 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
                                    "printed_page": printed, "pdf_page": None})
                     continue
                 page_refs, hits, texts = scan(pdf_page)
-                mine = {r.index for r in page_refs if start <= (printed, r.index) < stop}
+                mine = {r.index for r in page_refs
+                        if start <= (printed, r.index if fixed_index is None else fixed_index) < stop}
                 refs.extend(r for r in page_refs if r.index in mine)
                 for system_index, hit in hits:
                     # Only a Mass has movements: an Introit's "Gloria Patri" or a
@@ -618,7 +630,10 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
 
         attach_hymns(vol_id, page_map, pieces, review, load_hymns(vol_id, index_path))
 
+    inserted = {p for ins in vol.inserts for p in range(ins.first_pdf, ins.last_pdf + 1)}
     for gap_first, gap_last in page_map.gaps:
+        if set(range(gap_first, gap_last + 1)) <= inserted:
+            continue                      # catalogued as an inserted leaf
         review.append({"piece": None, "kind": "unmapped_pages", "pdf_pages": [gap_first, gap_last],
                        "why": "pages between page-map segments (an insert, or a page scanned "
                               "twice) carry no printed page and are not catalogued"})

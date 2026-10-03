@@ -359,3 +359,21 @@ b-m-v-auxilium-christianorum:
   borrowed_ref: noh4/0219/004, chant: 843}
 - {kind: communion, title: Beata viscera, borrowed_volume: noh4, borrowed_page: 187, borrowed_from: missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum,
   borrowed_ref: noh4/0220/005, chant: 160}
+# pp. 162-164 and the leaf inserted after p. 163 ("162 bis", "163 bis"), checked
+# against the scans 2026-10-03. The Mass prints its Gradual and, on the inserted
+# leaf, the Tract sung after Septuagesima; the rest is cited from the Finding of
+# the Holy Cross (Pars III, pp. 170-174) and Protege Domine (cited as p. 335, a
+# misprint: it is printed at p. 345, which is what the list gives).
+feria-vi-missa-de-sancta-cruce:
+- {kind: introit, title: Nos autem gloriari, borrowed_volume: noh3, borrowed_page: 170, borrowed_from: in-inventione-s-crucis,
+  borrowed_ref: noh3/0203/000, chant: none}
+- {kind: gradual, label: Grad. V, title: Christus factus est, ref: noh4/0193/000, chant: 873}
+- {kind: alleluia, title: Dulce lignum, borrowed_volume: noh3, borrowed_page: 172, borrowed_from: in-inventione-s-crucis,
+  borrowed_ref: noh3/0205/002, chant: none}
+- {kind: tract, label: Tract. II, title: Adoramus te Christe, ref: noh4/0195/000, chant: 114}
+- {kind: alleluia, variant: paschal, title: Dicite in gentibus, borrowed_volume: noh3, borrowed_page: 171, borrowed_from: in-inventione-s-crucis,
+  borrowed_ref: noh3/0204/003, chant: none}
+- {kind: offertory, title: Protege Domine, borrowed_volume: noh3, borrowed_page: 345, borrowed_from: in-exaltatione-sanct-crucis,
+  borrowed_ref: noh3/0378/000, chant: 3438}
+- {kind: communion, title: Per signum Crucis, borrowed_volume: noh3, borrowed_page: 174, borrowed_from: in-inventione-s-crucis,
+  borrowed_ref: noh3/0207/000, chant: none}

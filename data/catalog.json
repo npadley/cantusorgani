@@ -53543,7 +53543,7 @@
           "kind": "offertory",
           "variant": "",
           "title": "Protege Domine",
-          "gregobase_id": 843,
+          "gregobase_id": 3438,
           "system": 0,
           "ref": "noh3/0378/000",
           "placed": "reviewed"
@@ -68544,6 +68544,17 @@
         "noh4/0194/000",
         "noh4/0194/001",
         "noh4/0194/002",
+        "noh4/0195/000",
+        "noh4/0195/001",
+        "noh4/0195/002",
+        "noh4/0195/003",
+        "noh4/0195/004",
+        "noh4/0196/000",
+        "noh4/0196/001",
+        "noh4/0196/002",
+        "noh4/0196/003",
+        "noh4/0196/004",
+        "noh4/0196/005",
         "noh4/0197/000"
       ],
       "system_assets": [
@@ -68555,6 +68566,17 @@
         "systems/noh4/0194/000-4b00bbbb14df",
         "systems/noh4/0194/001-b36d8de8f631",
         "systems/noh4/0194/002-138a196e868f",
+        "systems/noh4/0195/000-035e63b90907",
+        "systems/noh4/0195/001-c50beb5fde1c",
+        "systems/noh4/0195/002-7a15225bb2f4",
+        "systems/noh4/0195/003-ab33622fe11f",
+        "systems/noh4/0195/004-ad4915c7c394",
+        "systems/noh4/0196/000-c16618b31a8d",
+        "systems/noh4/0196/001-808b32fb4d15",
+        "systems/noh4/0196/002-eddaf019bdd6",
+        "systems/noh4/0196/003-ad4c35f9b6bc",
+        "systems/noh4/0196/004-e1154cc26e73",
+        "systems/noh4/0196/005-66b0ea7d9509",
         "systems/noh4/0197/000-dd23199f6c65"
       ],
       "system_aspect": [
@@ -68591,6 +68613,50 @@
           437
         ],
         [
+          1960,
+          406
+        ],
+        [
+          1842,
+          393
+        ],
+        [
+          1863,
+          393
+        ],
+        [
+          2021,
+          397
+        ],
+        [
+          1852,
+          402
+        ],
+        [
+          1840,
+          395
+        ],
+        [
+          1839,
+          406
+        ],
+        [
+          1835,
+          402
+        ],
+        [
+          1838,
+          424
+        ],
+        [
+          1837,
+          401
+        ],
+        [
+          1837,
+          406
+        ],
+        [
           2017,
           405
         ]
@@ -68598,23 +68664,74 @@
       "movements": [],
       "sections": [
         {
+          "kind": "introit",
+          "variant": "",
+          "title": "Nos autem gloriari",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 170,
+          "borrowed_from": "in-inventione-s-crucis",
+          "borrowed_ref": "noh3/0203/000"
+        },
+        {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. V",
+          "title": "Christus factus est",
+          "gregobase_id": 873,
           "system": 0,
           "ref": "noh4/0193/000",
-          "gregobase_id": 873,
-          "placed": "text",
-          "score": 0.98,
-          "title": "Christus factus est"
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "title": "Dulce lignum",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 172,
+          "borrowed_from": "in-inventione-s-crucis",
+          "borrowed_ref": "noh3/0205/002"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "label": "Tract. II",
+          "title": "Adoramus te Christe",
+          "gregobase_id": 114,
+          "system": 8,
+          "ref": "noh4/0195/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "paschal",
+          "title": "Dicite in gentibus",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 171,
+          "borrowed_from": "in-inventione-s-crucis",
+          "borrowed_ref": "noh3/0204/003"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "title": "Protege Domine",
+          "gregobase_id": 3438,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 345,
+          "borrowed_from": "in-exaltatione-sanct-crucis",
+          "borrowed_ref": "noh3/0378/000"
         },
         {
           "kind": "communion",
           "variant": "",
-          "gregobase_id": 346,
-          "borrowed_volume": "noh4",
+          "title": "Per signum Crucis",
+          "gregobase_id": null,
+          "borrowed_volume": "noh3",
           "borrowed_page": 174,
-          "borrowed_from": "dominica-iv-adventus",
-          "borrowed_ref": "noh1/0069/000"
+          "borrowed_from": "in-inventione-s-crucis",
+          "borrowed_ref": "noh3/0207/000"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#mass=votiveSC",

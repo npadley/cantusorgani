@@ -2,6 +2,15 @@
   "schema_version": 1,
   "corrections": [
     {
+      "id": "c-0083",
+      "target": "part:in-exaltatione-sanct-crucis/offertory",
+      "field": "chant",
+      "was": 843,
+      "value": 3438,
+      "date": "2026-10-03",
+      "by": "editor"
+    },
+    {
       "id": "c-0082",
       "target": "piece:vesperae-in-festo-pentecostes",
       "field": "system_range",

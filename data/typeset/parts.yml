@@ -10080,16 +10080,13 @@
     words: 0.992
     name: Oratio mea
 - file: vol-3/of_postula_a_me.csv.ly
-  target: part:in-exaltatione-sanct-crucis/offertory
+  target: part:s-joannis-bosco-confessoris/offertory
   status: proposed
   evidence:
     by: kind
     incipit: Póstula a me et dabo tibi gen tes
     page: 422
     candidates:
-    - target: part:in-exaltatione-sanct-crucis/offertory
-      melody: 0.765
-      words: 0.109
     - target: part:s-joannis-bosco-confessoris/offertory
       melody: 0.755
       words: 0.203
@@ -10099,8 +10096,11 @@
     - target: part:s-laurentii-martyris/offertory
       melody: 0.653
       words: 0.156
-    melody: 0.765
-    words: 0.109
+    - target: part:s-philippi-neri-confessoris/offertory
+      melody: 0.612
+      words: 0.234
+    melody: 0.755
+    words: 0.203
 - file: vol-3/of_protege_domine.csv.ly
   target: part:in-exaltatione-sanct-crucis/offertory
   status: matched
@@ -10110,10 +10110,10 @@
     page: 345
     candidates:
     - target: part:in-exaltatione-sanct-crucis/offertory
-      melody: 0.235
-      words: 0.232
-    melody: 0.235
-    words: 0.232
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
     name: Protege Domine
 - file: vol-3/of_quid_bonum.csv.ly
   target: part:s-margarit-mari-alaquoque-virginis/offertory
@@ -10183,9 +10183,9 @@
     - target: part:s-laurentii-martyris/offertory
       melody: 0.747
       words: 0.333
-    - target: part:in-exaltatione-sanct-crucis/offertory
-      melody: 0.747
-      words: 0.444
+    - target: part:b-mariae-virginis-reginae/offertory
+      melody: 0.709
+      words: 0.25
     melody: 0.975
     words: 1.0
 - file: vol-3/re_obtulerunt.csv.ly
