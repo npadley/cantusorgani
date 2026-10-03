@@ -2023,15 +2023,6 @@
   },
   {
     "volume": "noh2",
-    "piece": null,
-    "kind": "segmentation_fallback",
-    "pdf_page": 69,
-    "why": "11 staves is not a multiple of 2; staff detection dropped or invented a staff \u2014 send this page to review; paired by brace gap instead",
-    "key": "review:noh2/segmentation_fallback/3fdb45cf",
-    "fingerprint": "44b96be9607b"
-  },
-  {
-    "volume": "noh2",
     "piece": "dominica-resurrectionis",
     "kind": "part_missing",
     "part": "gradual",
@@ -3532,15 +3523,6 @@
   },
   {
     "volume": "noh8",
-    "piece": null,
-    "kind": "segmentation_fallback",
-    "pdf_page": 75,
-    "why": "9 staves is not a multiple of 2; staff detection dropped or invented a staff \u2014 send this page to review; paired by brace gap instead",
-    "key": "review:noh8/segmentation_fallback/f0f1f247",
-    "fingerprint": "1afe52c495f3"
-  },
-  {
-    "volume": "noh8",
     "piece": "vesperae-antiphonae-finales-b-m-v",
     "kind": "unpaired",
     "genre": "proper",
@@ -3898,15 +3880,6 @@
     "title": "Feria II post Pentecosten",
     "key": "review:noh8/unpaired/ddb8bef0",
     "fingerprint": "33f3ee652d86"
-  },
-  {
-    "volume": "noh8",
-    "piece": null,
-    "kind": "segmentation_fallback",
-    "pdf_page": 173,
-    "why": "11 staves is not a multiple of 2; staff detection dropped or invented a staff \u2014 send this page to review; paired by brace gap instead",
-    "key": "review:noh8/segmentation_fallback/ec7607e9",
-    "fingerprint": "1e5e28f1d774"
   },
   {
     "volume": "noh8",
@@ -4585,435 +4558,6 @@
     "fingerprint": "f6328fcbed1b"
   },
   {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-asperges",
-    "kind": "unpaired",
-    "genre": "asperges",
-    "title": "Ad aspersionem Aquae benedictae extra Tempus Paschale",
-    "key": "review:noh5/unpaired/fb263efd",
-    "fingerprint": "fcd8e0de2bcc"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-asperges-p2",
-    "kind": "unpaired",
-    "genre": "asperges",
-    "title": "Ad aspersionem Aquae benedictae Tempore Paschali",
-    "key": "review:noh5/unpaired/fa89a6c2",
-    "fingerprint": "59551bd80e0b"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-asperges-p4",
-    "kind": "unpaired",
-    "genre": "asperges",
-    "title": "Alii Cantus ad libitum pro Ant. Asperges me",
-    "key": "review:noh5/unpaired/0cc98854",
-    "fingerprint": "87031078c375"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-i",
-    "kind": "starts_mid_page",
-    "printed_page": 5,
-    "first_system": 2,
-    "key": "review:noh5/starts_mid_page/9d8ffdc2",
-    "fingerprint": "cee18c9cdcc6"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-ii",
-    "kind": "uncertain_movement",
-    "movement": "sanctus",
-    "score": 0.444,
-    "pdf_page": 61,
-    "system": 1,
-    "ref": "noh5/0061/001",
-    "mode_marker": null,
-    "placed": "order",
-    "why": "placed by the Mass's order; its opening words matched weakly",
-    "key": "review:noh5/uncertain_movement/a3da449f",
-    "fingerprint": "c721ddbbf843"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-iii",
-    "kind": "starts_mid_page",
-    "printed_page": 17,
-    "first_system": 3,
-    "key": "review:noh5/starts_mid_page/aea61325",
-    "fingerprint": "d756ce23070e"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-iii",
-    "kind": "uncertain_movement",
-    "movement": "agnus",
-    "score": 0.0,
-    "pdf_page": 68,
-    "system": 2,
-    "ref": "noh5/0068/002",
-    "mode_marker": null,
-    "placed": "order",
-    "why": "placed by the Mass's order; its opening words matched weakly",
-    "key": "review:noh5/uncertain_movement/07e7715a",
-    "fingerprint": "da4575100e47"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-iv",
-    "kind": "starts_mid_page",
-    "printed_page": 23,
-    "first_system": 2,
-    "key": "review:noh5/starts_mid_page/be2ecfb0",
-    "fingerprint": "08da6047d0f3"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-iv",
-    "kind": "uncertain_movement",
-    "movement": "sanctus",
-    "score": 0.348,
-    "pdf_page": 73,
-    "system": 1,
-    "ref": "noh5/0073/001",
-    "mode_marker": "VIII",
-    "placed": "order",
-    "why": "placed by the Mass's order; its opening words matched weakly",
-    "key": "review:noh5/uncertain_movement/027947ca",
-    "fingerprint": "6308bb8b4bcc"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-vi",
-    "kind": "starts_mid_page",
-    "printed_page": 35,
-    "first_system": 1,
-    "key": "review:noh5/starts_mid_page/99e95b3d",
-    "fingerprint": "904b6055b0c0"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-vi",
-    "kind": "uncertain_movement",
-    "movement": "gloria",
-    "score": 0.619,
-    "pdf_page": 82,
-    "system": 3,
-    "ref": "noh5/0082/003",
-    "mode_marker": null,
-    "placed": "order",
-    "why": "placed by the Mass's order; its opening words matched weakly",
-    "key": "review:noh5/uncertain_movement/68ae2818",
-    "fingerprint": "270eb87c341b"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-viii",
-    "kind": "uncertain_movement",
-    "movement": "agnus",
-    "score": 0.606,
-    "pdf_page": 98,
-    "system": 0,
-    "ref": "noh5/0098/000",
-    "mode_marker": null,
-    "placed": "order",
-    "why": "placed by the Mass's order; its opening words matched weakly",
-    "key": "review:noh5/uncertain_movement/ea86eadc",
-    "fingerprint": "cebec024d76f"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-xi",
-    "kind": "starts_mid_page",
-    "printed_page": 62,
-    "first_system": 3,
-    "key": "review:noh5/starts_mid_page/7bfa9955",
-    "fingerprint": "9797817d5a43"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-xiii",
-    "kind": "uncertain_movement",
-    "movement": "gloria",
-    "score": 0.619,
-    "pdf_page": 120,
-    "system": 1,
-    "ref": "noh5/0120/001",
-    "mode_marker": null,
-    "placed": "order",
-    "why": "placed by the Mass's order; its opening words matched weakly",
-    "key": "review:noh5/uncertain_movement/2886a1ee",
-    "fingerprint": "9f80ef733c83"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-xv",
-    "kind": "unverified_pairing",
-    "movement": "ite",
-    "chant_id": 620,
-    "chant_incipit": "Ite XV/XVI",
-    "score": 0.827,
-    "key": "review:noh5/unverified_pairing/ceeddd9c",
-    "fingerprint": "3fcbd9541372"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-xvii",
-    "kind": "starts_mid_page",
-    "printed_page": 91,
-    "first_system": 2,
-    "key": "review:noh5/starts_mid_page/c2482cc1",
-    "fingerprint": "00e45ae5cbf6"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-credo-i",
-    "kind": "starts_mid_page",
-    "printed_page": 98,
-    "first_system": 3,
-    "key": "review:noh5/starts_mid_page/678a7702",
-    "fingerprint": "7b0c70e0bf63"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-credo-iii",
-    "kind": "starts_mid_page",
-    "printed_page": 106,
-    "first_system": 3,
-    "key": "review:noh5/starts_mid_page/ce81fd9b",
-    "fingerprint": "f6487183b0c8"
-  },
-  {
-    "volume": "noh5",
-    "piece": "ordinarium-missae-toni",
-    "kind": "unpaired",
-    "genre": "tonus",
-    "title": "Toni Praefationum, ad Pater noster, ante Agnus Dei",
-    "key": "review:noh5/unpaired/d5f1c2bf",
-    "fingerprint": "188de8d12df5"
-  },
-  {
-    "volume": "noh5",
-    "piece": "cantus-ad-libitum-kyrie-iii",
-    "kind": "starts_mid_page",
-    "printed_page": 127,
-    "first_system": 2,
-    "key": "review:noh5/starts_mid_page/01c021ae",
-    "fingerprint": "80ba28e2b614"
-  },
-  {
-    "volume": "noh5",
-    "piece": "cantus-ad-libitum-kyrie-iii",
-    "kind": "unverified_pairing",
-    "movement": "kyrie",
-    "chant_id": 2237,
-    "chant_incipit": "Kyrie (ad lib.) III / III A",
-    "score": 0.797,
-    "key": "review:noh5/unverified_pairing/bdef1dd5",
-    "fingerprint": "144ed072340d"
-  },
-  {
-    "volume": "noh5",
-    "piece": "cantus-ad-libitum-kyrie-v",
-    "kind": "unverified_pairing",
-    "movement": "kyrie",
-    "chant_id": 2261,
-    "chant_incipit": "Kyrie (ad lib.) V / I B",
-    "score": 0.844,
-    "key": "review:noh5/unverified_pairing/bbf3d366",
-    "fingerprint": "877585bc2b3e"
-  },
-  {
-    "volume": "noh5",
-    "piece": "cantus-ad-libitum-kyrie-vi",
-    "kind": "starts_mid_page",
-    "printed_page": 131,
-    "first_system": 2,
-    "key": "review:noh5/starts_mid_page/d01fc898",
-    "fingerprint": "4eabea7c0c27"
-  },
-  {
-    "volume": "noh5",
-    "piece": "cantus-ad-libitum-kyrie-vii",
-    "kind": "starts_mid_page",
-    "printed_page": 132,
-    "first_system": 5,
-    "key": "review:noh5/starts_mid_page/44dbfdea",
-    "fingerprint": "13d95601cfac"
-  },
-  {
-    "volume": "noh5",
-    "piece": "cantus-ad-libitum-kyrie-viii",
-    "kind": "starts_mid_page",
-    "printed_page": 134,
-    "first_system": 2,
-    "key": "review:noh5/starts_mid_page/a64e8d4a",
-    "fingerprint": "38a6caed6a0c"
-  },
-  {
-    "volume": "noh5",
-    "piece": "cantus-ad-libitum-kyrie-ix",
-    "kind": "starts_mid_page",
-    "printed_page": 135,
-    "first_system": 3,
-    "key": "review:noh5/starts_mid_page/c9163035",
-    "fingerprint": "eac056a4563c"
-  },
-  {
-    "volume": "noh5",
-    "piece": "cantus-ad-libitum-kyrie-xi",
-    "kind": "unverified_pairing",
-    "movement": "kyrie",
-    "chant_id": 2982,
-    "chant_incipit": "Kyrie XI",
-    "score": 0.75,
-    "key": "review:noh5/unverified_pairing/bb8a08d8",
-    "fingerprint": "613631c07817"
-  },
-  {
-    "volume": "noh5",
-    "piece": "cantus-ad-libitum-gloria-i-iii",
-    "kind": "range_extended",
-    "stated": [
-      139,
-      144
-    ],
-    "resolved": [
-      139,
-      147
-    ],
-    "why": "pages after the index's stated end were unclaimed",
-    "key": "review:noh5/range_extended/7102bf20",
-    "fingerprint": "94303ed64585"
-  },
-  {
-    "volume": "noh5",
-    "piece": "cantus-ad-libitum-sanctus-i-iii",
-    "kind": "starts_mid_page",
-    "printed_page": 147,
-    "first_system": 4,
-    "key": "review:noh5/starts_mid_page/739e3441",
-    "fingerprint": "de61673ceaf1"
-  },
-  {
-    "volume": "noh5",
-    "piece": null,
-    "kind": "segmentation_fallback",
-    "pdf_page": 197,
-    "why": "9 staves is not a multiple of 2; staff detection dropped or invented a staff \u2014 send this page to review; paired by brace gap instead",
-    "key": "review:noh5/segmentation_fallback/ec383c85",
-    "fingerprint": "998c131064f8"
-  },
-  {
-    "volume": "noh5",
-    "piece": "alii-cantus-ad-libitum-gloria-ambr",
-    "kind": "unpaired",
-    "genre": "gloria",
-    "title": "Gloria in excelsis (More Ambrosiano)",
-    "key": "review:noh5/unpaired/36c052e4",
-    "fingerprint": "0a626889dc90"
-  },
-  {
-    "volume": "noh5",
-    "piece": "alii-cantus-ad-libitum-credo-v",
-    "kind": "unverified_pairing",
-    "movement": "credo",
-    "chant_id": 955,
-    "chant_incipit": "Credo V",
-    "score": 0.75,
-    "key": "review:noh5/unverified_pairing/f533543e",
-    "fingerprint": "e4ce2d42b5cd"
-  },
-  {
-    "volume": "noh5",
-    "piece": "alii-cantus-ad-libitum-credo-vi",
-    "kind": "starts_mid_page",
-    "printed_page": 158,
-    "first_system": 4,
-    "key": "review:noh5/starts_mid_page/8f5f56e1",
-    "fingerprint": "4e1c702035fb"
-  },
-  {
-    "volume": "noh5",
-    "piece": "alii-cantus-ad-libitum-credo-vi",
-    "kind": "unverified_pairing",
-    "movement": "credo",
-    "chant_id": 2934,
-    "chant_incipit": "Credo VI",
-    "score": 0.75,
-    "key": "review:noh5/unverified_pairing/90c6efa1",
-    "fingerprint": "de5588192c0c"
-  },
-  {
-    "volume": "noh5",
-    "piece": "missa-pro-defunctis-i",
-    "kind": "uncertain_movement",
-    "movement": "kyrie",
-    "score": 0.696,
-    "pdf_page": 210,
-    "system": 2,
-    "ref": "noh5/0210/002",
-    "mode_marker": null,
-    "text": "virieeiesonky",
-    "key": "review:noh5/uncertain_movement/4a130ada",
-    "fingerprint": "4d56d9cf6df9"
-  },
-  {
-    "volume": "noh5",
-    "piece": "missa-pro-defunctis-i",
-    "kind": "part_missing",
-    "part": "tract",
-    "variant": "",
-    "expected_incipit": "absolvedomineanimasomniu",
-    "best_system": 62,
-    "ref": "noh5/0219/005",
-    "score": 0.538,
-    "candidates": [
-      "noh5/0211/004",
-      "noh5/0213/004",
-      "noh5/0215/000"
-    ],
-    "key": "review:noh5/part_missing/1a0b3952",
-    "fingerprint": "924fa876bc1a"
-  },
-  {
-    "volume": "noh5",
-    "piece": "missa-pro-defunctis-i",
-    "kind": "unpaired",
-    "genre": "requiem",
-    "title": "Missa \u00ab Requiem \u00bb",
-    "key": "review:noh5/unpaired/10cbc5ff",
-    "fingerprint": "2f424c5bc981"
-  },
-  {
-    "volume": "noh5",
-    "piece": "missa-pro-defunctis-ii",
-    "kind": "unpaired",
-    "genre": "absolutio",
-    "title": "Absolutio pro Defunctis",
-    "key": "review:noh5/unpaired/8f141410",
-    "fingerprint": "09b9ac97d1d2"
-  },
-  {
-    "volume": "noh5",
-    "piece": "missa-pro-defunctis-iii",
-    "kind": "starts_mid_page",
-    "printed_page": 180,
-    "first_system": 2,
-    "key": "review:noh5/starts_mid_page/00a9759f",
-    "fingerprint": "f32ae2cce3b8"
-  },
-  {
-    "volume": "noh5",
-    "piece": "missa-pro-defunctis-iii",
-    "kind": "unpaired",
-    "genre": "exsequiis",
-    "title": "In Exsequiis Defunctorum",
-    "key": "review:noh5/unpaired/85a4ab29",
-    "fingerprint": "87a9818c1e12"
-  },
-  {
     "volume": "noh3",
     "piece": "in-vigilia-s-andreae-apostoli",
     "kind": "part_unsupported",
@@ -5645,15 +5189,6 @@
     "title": "S. Francisc\u00e6 Vidu\u00e6 Roman\u00e6",
     "key": "review:noh3/unpaired/84348420",
     "fingerprint": "efb1ff71f4bd"
-  },
-  {
-    "volume": "noh3",
-    "piece": null,
-    "kind": "segmentation_fallback",
-    "pdf_page": 140,
-    "why": "11 staves is not a multiple of 2; staff detection dropped or invented a staff \u2014 send this page to review; paired by brace gap instead",
-    "key": "review:noh3/segmentation_fallback/e4200deb",
-    "fingerprint": "f1a3711c08ff"
   },
   {
     "volume": "noh3",
@@ -8148,6 +7683,426 @@
     "title": "S. Pii X Pap\u00e6 et Confessoris",
     "key": "review:noh3/unpaired/665b967d",
     "fingerprint": "3146c5d1d2e4"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-asperges",
+    "kind": "unpaired",
+    "genre": "asperges",
+    "title": "Ad aspersionem Aquae benedictae extra Tempus Paschale",
+    "key": "review:noh5/unpaired/fb263efd",
+    "fingerprint": "fcd8e0de2bcc"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-asperges-p2",
+    "kind": "unpaired",
+    "genre": "asperges",
+    "title": "Ad aspersionem Aquae benedictae Tempore Paschali",
+    "key": "review:noh5/unpaired/fa89a6c2",
+    "fingerprint": "59551bd80e0b"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-asperges-p4",
+    "kind": "unpaired",
+    "genre": "asperges",
+    "title": "Alii Cantus ad libitum pro Ant. Asperges me",
+    "key": "review:noh5/unpaired/0cc98854",
+    "fingerprint": "87031078c375"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-i",
+    "kind": "starts_mid_page",
+    "printed_page": 5,
+    "first_system": 2,
+    "key": "review:noh5/starts_mid_page/9d8ffdc2",
+    "fingerprint": "cee18c9cdcc6"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-ii",
+    "kind": "uncertain_movement",
+    "movement": "sanctus",
+    "score": 0.444,
+    "pdf_page": 61,
+    "system": 1,
+    "ref": "noh5/0061/001",
+    "mode_marker": null,
+    "placed": "order",
+    "why": "placed by the Mass's order; its opening words matched weakly",
+    "key": "review:noh5/uncertain_movement/a3da449f",
+    "fingerprint": "c721ddbbf843"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-iii",
+    "kind": "starts_mid_page",
+    "printed_page": 17,
+    "first_system": 3,
+    "key": "review:noh5/starts_mid_page/aea61325",
+    "fingerprint": "d756ce23070e"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-iii",
+    "kind": "uncertain_movement",
+    "movement": "agnus",
+    "score": 0.0,
+    "pdf_page": 68,
+    "system": 2,
+    "ref": "noh5/0068/002",
+    "mode_marker": null,
+    "placed": "order",
+    "why": "placed by the Mass's order; its opening words matched weakly",
+    "key": "review:noh5/uncertain_movement/07e7715a",
+    "fingerprint": "da4575100e47"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-iv",
+    "kind": "starts_mid_page",
+    "printed_page": 23,
+    "first_system": 2,
+    "key": "review:noh5/starts_mid_page/be2ecfb0",
+    "fingerprint": "08da6047d0f3"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-iv",
+    "kind": "uncertain_movement",
+    "movement": "sanctus",
+    "score": 0.348,
+    "pdf_page": 73,
+    "system": 1,
+    "ref": "noh5/0073/001",
+    "mode_marker": "VIII",
+    "placed": "order",
+    "why": "placed by the Mass's order; its opening words matched weakly",
+    "key": "review:noh5/uncertain_movement/027947ca",
+    "fingerprint": "6308bb8b4bcc"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-vi",
+    "kind": "starts_mid_page",
+    "printed_page": 35,
+    "first_system": 1,
+    "key": "review:noh5/starts_mid_page/99e95b3d",
+    "fingerprint": "904b6055b0c0"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-vi",
+    "kind": "uncertain_movement",
+    "movement": "gloria",
+    "score": 0.619,
+    "pdf_page": 82,
+    "system": 3,
+    "ref": "noh5/0082/003",
+    "mode_marker": null,
+    "placed": "order",
+    "why": "placed by the Mass's order; its opening words matched weakly",
+    "key": "review:noh5/uncertain_movement/68ae2818",
+    "fingerprint": "270eb87c341b"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-viii",
+    "kind": "uncertain_movement",
+    "movement": "agnus",
+    "score": 0.606,
+    "pdf_page": 98,
+    "system": 0,
+    "ref": "noh5/0098/000",
+    "mode_marker": null,
+    "placed": "order",
+    "why": "placed by the Mass's order; its opening words matched weakly",
+    "key": "review:noh5/uncertain_movement/ea86eadc",
+    "fingerprint": "cebec024d76f"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-xi",
+    "kind": "starts_mid_page",
+    "printed_page": 62,
+    "first_system": 3,
+    "key": "review:noh5/starts_mid_page/7bfa9955",
+    "fingerprint": "9797817d5a43"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-xiii",
+    "kind": "uncertain_movement",
+    "movement": "gloria",
+    "score": 0.619,
+    "pdf_page": 120,
+    "system": 1,
+    "ref": "noh5/0120/001",
+    "mode_marker": null,
+    "placed": "order",
+    "why": "placed by the Mass's order; its opening words matched weakly",
+    "key": "review:noh5/uncertain_movement/2886a1ee",
+    "fingerprint": "9f80ef733c83"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-xv",
+    "kind": "unverified_pairing",
+    "movement": "ite",
+    "chant_id": 620,
+    "chant_incipit": "Ite XV/XVI",
+    "score": 0.827,
+    "key": "review:noh5/unverified_pairing/ceeddd9c",
+    "fingerprint": "3fcbd9541372"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-xvii",
+    "kind": "starts_mid_page",
+    "printed_page": 91,
+    "first_system": 2,
+    "key": "review:noh5/starts_mid_page/c2482cc1",
+    "fingerprint": "00e45ae5cbf6"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-credo-i",
+    "kind": "starts_mid_page",
+    "printed_page": 98,
+    "first_system": 3,
+    "key": "review:noh5/starts_mid_page/678a7702",
+    "fingerprint": "7b0c70e0bf63"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-credo-iii",
+    "kind": "starts_mid_page",
+    "printed_page": 106,
+    "first_system": 3,
+    "key": "review:noh5/starts_mid_page/ce81fd9b",
+    "fingerprint": "f6487183b0c8"
+  },
+  {
+    "volume": "noh5",
+    "piece": "ordinarium-missae-toni",
+    "kind": "unpaired",
+    "genre": "tonus",
+    "title": "Toni Praefationum, ad Pater noster, ante Agnus Dei",
+    "key": "review:noh5/unpaired/d5f1c2bf",
+    "fingerprint": "188de8d12df5"
+  },
+  {
+    "volume": "noh5",
+    "piece": "cantus-ad-libitum-kyrie-iii",
+    "kind": "starts_mid_page",
+    "printed_page": 127,
+    "first_system": 2,
+    "key": "review:noh5/starts_mid_page/01c021ae",
+    "fingerprint": "80ba28e2b614"
+  },
+  {
+    "volume": "noh5",
+    "piece": "cantus-ad-libitum-kyrie-iii",
+    "kind": "unverified_pairing",
+    "movement": "kyrie",
+    "chant_id": 2237,
+    "chant_incipit": "Kyrie (ad lib.) III / III A",
+    "score": 0.797,
+    "key": "review:noh5/unverified_pairing/bdef1dd5",
+    "fingerprint": "144ed072340d"
+  },
+  {
+    "volume": "noh5",
+    "piece": "cantus-ad-libitum-kyrie-v",
+    "kind": "unverified_pairing",
+    "movement": "kyrie",
+    "chant_id": 2261,
+    "chant_incipit": "Kyrie (ad lib.) V / I B",
+    "score": 0.844,
+    "key": "review:noh5/unverified_pairing/bbf3d366",
+    "fingerprint": "877585bc2b3e"
+  },
+  {
+    "volume": "noh5",
+    "piece": "cantus-ad-libitum-kyrie-vi",
+    "kind": "starts_mid_page",
+    "printed_page": 131,
+    "first_system": 2,
+    "key": "review:noh5/starts_mid_page/d01fc898",
+    "fingerprint": "4eabea7c0c27"
+  },
+  {
+    "volume": "noh5",
+    "piece": "cantus-ad-libitum-kyrie-vii",
+    "kind": "starts_mid_page",
+    "printed_page": 132,
+    "first_system": 5,
+    "key": "review:noh5/starts_mid_page/44dbfdea",
+    "fingerprint": "13d95601cfac"
+  },
+  {
+    "volume": "noh5",
+    "piece": "cantus-ad-libitum-kyrie-viii",
+    "kind": "starts_mid_page",
+    "printed_page": 134,
+    "first_system": 2,
+    "key": "review:noh5/starts_mid_page/a64e8d4a",
+    "fingerprint": "38a6caed6a0c"
+  },
+  {
+    "volume": "noh5",
+    "piece": "cantus-ad-libitum-kyrie-ix",
+    "kind": "starts_mid_page",
+    "printed_page": 135,
+    "first_system": 3,
+    "key": "review:noh5/starts_mid_page/c9163035",
+    "fingerprint": "eac056a4563c"
+  },
+  {
+    "volume": "noh5",
+    "piece": "cantus-ad-libitum-kyrie-xi",
+    "kind": "unverified_pairing",
+    "movement": "kyrie",
+    "chant_id": 2982,
+    "chant_incipit": "Kyrie XI",
+    "score": 0.75,
+    "key": "review:noh5/unverified_pairing/bb8a08d8",
+    "fingerprint": "613631c07817"
+  },
+  {
+    "volume": "noh5",
+    "piece": "cantus-ad-libitum-gloria-i-iii",
+    "kind": "range_extended",
+    "stated": [
+      139,
+      144
+    ],
+    "resolved": [
+      139,
+      147
+    ],
+    "why": "pages after the index's stated end were unclaimed",
+    "key": "review:noh5/range_extended/7102bf20",
+    "fingerprint": "94303ed64585"
+  },
+  {
+    "volume": "noh5",
+    "piece": "cantus-ad-libitum-sanctus-i-iii",
+    "kind": "starts_mid_page",
+    "printed_page": 147,
+    "first_system": 4,
+    "key": "review:noh5/starts_mid_page/739e3441",
+    "fingerprint": "de61673ceaf1"
+  },
+  {
+    "volume": "noh5",
+    "piece": "alii-cantus-ad-libitum-gloria-ambr",
+    "kind": "unpaired",
+    "genre": "gloria",
+    "title": "Gloria in excelsis (More Ambrosiano)",
+    "key": "review:noh5/unpaired/36c052e4",
+    "fingerprint": "0a626889dc90"
+  },
+  {
+    "volume": "noh5",
+    "piece": "alii-cantus-ad-libitum-credo-v",
+    "kind": "unverified_pairing",
+    "movement": "credo",
+    "chant_id": 955,
+    "chant_incipit": "Credo V",
+    "score": 0.75,
+    "key": "review:noh5/unverified_pairing/f533543e",
+    "fingerprint": "e4ce2d42b5cd"
+  },
+  {
+    "volume": "noh5",
+    "piece": "alii-cantus-ad-libitum-credo-vi",
+    "kind": "starts_mid_page",
+    "printed_page": 158,
+    "first_system": 4,
+    "key": "review:noh5/starts_mid_page/8f5f56e1",
+    "fingerprint": "4e1c702035fb"
+  },
+  {
+    "volume": "noh5",
+    "piece": "alii-cantus-ad-libitum-credo-vi",
+    "kind": "unverified_pairing",
+    "movement": "credo",
+    "chant_id": 2934,
+    "chant_incipit": "Credo VI",
+    "score": 0.75,
+    "key": "review:noh5/unverified_pairing/90c6efa1",
+    "fingerprint": "de5588192c0c"
+  },
+  {
+    "volume": "noh5",
+    "piece": "missa-pro-defunctis-i",
+    "kind": "uncertain_movement",
+    "movement": "kyrie",
+    "score": 0.696,
+    "pdf_page": 210,
+    "system": 2,
+    "ref": "noh5/0210/002",
+    "mode_marker": null,
+    "text": "virieeiesonky",
+    "key": "review:noh5/uncertain_movement/4a130ada",
+    "fingerprint": "4d56d9cf6df9"
+  },
+  {
+    "volume": "noh5",
+    "piece": "missa-pro-defunctis-i",
+    "kind": "part_missing",
+    "part": "tract",
+    "variant": "",
+    "expected_incipit": "absolvedomineanimasomniu",
+    "best_system": 62,
+    "ref": "noh5/0219/005",
+    "score": 0.538,
+    "candidates": [
+      "noh5/0211/004",
+      "noh5/0213/004",
+      "noh5/0215/000"
+    ],
+    "key": "review:noh5/part_missing/1a0b3952",
+    "fingerprint": "924fa876bc1a"
+  },
+  {
+    "volume": "noh5",
+    "piece": "missa-pro-defunctis-i",
+    "kind": "unpaired",
+    "genre": "requiem",
+    "title": "Missa \u00ab Requiem \u00bb",
+    "key": "review:noh5/unpaired/10cbc5ff",
+    "fingerprint": "2f424c5bc981"
+  },
+  {
+    "volume": "noh5",
+    "piece": "missa-pro-defunctis-ii",
+    "kind": "unpaired",
+    "genre": "absolutio",
+    "title": "Absolutio pro Defunctis",
+    "key": "review:noh5/unpaired/8f141410",
+    "fingerprint": "09b9ac97d1d2"
+  },
+  {
+    "volume": "noh5",
+    "piece": "missa-pro-defunctis-iii",
+    "kind": "starts_mid_page",
+    "printed_page": 180,
+    "first_system": 2,
+    "key": "review:noh5/starts_mid_page/00a9759f",
+    "fingerprint": "f32ae2cce3b8"
+  },
+  {
+    "volume": "noh5",
+    "piece": "missa-pro-defunctis-iii",
+    "kind": "unpaired",
+    "genre": "exsequiis",
+    "title": "In Exsequiis Defunctorum",
+    "key": "review:noh5/unpaired/85a4ab29",
+    "fingerprint": "87a9818c1e12"
   },
   {
     "volume": "noh4",

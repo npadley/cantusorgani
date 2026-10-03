@@ -63,6 +63,8 @@ def test_staff_finder_refuses_an_unknown_setting_or_a_page_named_twice(tmp_path)
             load_volumes(path)
     path.write_text(yaml.safe_dump({"volumes": {"nohx": {**base, "staff_finder": {"plain": [4], "refit": [3]}}}}))
     assert load_volumes(path)["nohx"].staff_finder == (("refit", (3,)), ("plain", (4,)))
+    path.write_text(yaml.safe_dump({"volumes": {"nohx": {**base, "staff_finder": {"faint": [5]}}}}))
+    assert load_volumes(path)["nohx"].staff_finder == (("faint", (5,)),)
 
 
 def test_load_volumes_reads_an_inserted_leaf(tmp_path) -> None:

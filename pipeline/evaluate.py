@@ -118,7 +118,7 @@ def analyse_page(vol_id: str, pdf_page: int) -> PageAnalysis:
     skew = estimate_skew(gray)
     binary = clean_page(gray)
     height, width = binary.shape
-    if pdf_page in faint_pages(vol_id):
+    if pdf_page in faint_pages(vol_id) or staff_finder(vol_id, pdf_page) == "faint":
         lines = merge_close_lines(find_staff_lines(binary, close_px=FAINT_CLOSE_PX,
                                                    min_row_ink=FAINT_MIN_ROW_INK))
         staves = group_staves_tolerant(lines)

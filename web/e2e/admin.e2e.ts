@@ -199,22 +199,24 @@ test.describe.serial("Reviewing", () => {
     await page.getByRole("link", { name: /^Review \(\d+ to check\)$/ }).click();
     await expect(page.locator("h1")).toHaveText("Review");
     await page.getByLabel(/^To check against the scan/).check();
-    await page.getByLabel("Kind").selectOption("segmentation_fallback");
+    await page.getByLabel("Kind").selectOption("hymn_at_page_top");
     const before = Number((await page.locator("[data-count=check]").textContent()) ?? "0");
     const item = page.locator("#items article:visible").first();
     const heading = (await item.locator("h3").textContent()) ?? "";
+    // Two items can share a heading (the same hymn in two offices): find this one by its target.
+    const target = (await item.getAttribute("data-review-target")) ?? "";
+    const self = page.locator(`#items article[data-review-target="${target}"]`);
     await expect(item.locator(".scan img").first()).toBeVisible();
     await item.getByRole("button", { name: "Looks right" }).click();
     await expect(page.locator("#status")).toHaveText(`${heading}: marked as looking right.`);
     await expect(page.locator("[data-count=check]")).toHaveText(String(before - 1));
     // Done items are hidden unless asked for; focus moved on to the next one.
-    await expect(page.locator("#items article", { hasText: heading })).toBeHidden();
+    await expect(self).toBeHidden();
     await expect(page.locator(":focus")).toHaveAttribute("id", /^h-review/);
     await page.reload();
     await page.getByLabel(/^To check against the scan/).check();
     await page.getByLabel("Show what is already done").check();
-    await expect(page.locator("#items article", { hasText: heading }).locator(".review-state"))
-      .toContainText("Looks right · marked by editor@example.org");
+    await expect(self.locator(".review-state")).toContainText("Looks right · marked by editor@example.org");
     await page.goto("/admin/");
     await expect(page.locator("#approved")).toContainText("Looks right · marked by editor@example.org");
   });
