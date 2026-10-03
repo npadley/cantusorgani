@@ -147,7 +147,7 @@ import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
 </style>
 
 <script>
-  import { api, drafts, fixLink, h, loadScans, loadTargets, say, scanFigures, signInAgain, whenTypingPauses } from "../../lib/admin/client";
+  import { api, drafts, fixLink, h, loadScans, loadTargets, offerUndo, say, scanFigures, signInAgain, whenTypingPauses } from "../../lib/admin/client";
   import type { Fix } from "../../lib/admin/client";
   import type { QueueItem } from "../../lib/admin/api";
   import { namedSystems } from "../../lib/admin/scans";
@@ -286,6 +286,15 @@ import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
       say(status, `${label(item)}: ${done}.${result.data.warning ? ` ${result.data.warning}` : ""}`,
           result.data.warning ? "error" : "ok");
       if (result.data.fix) status?.append(" ", fixLink(result.data.fix));
+      // Accepted goes back by withdrawing it; rejected or a duplicate by reopening it.
+      offerUndo(async () => {
+        const back = await api(`/rows/${item.id}/${verb === "approve" ? "unapprove" : "reopen"}`, {});
+        if (!back.ok) { fail(back); return false; }
+        say(status, `${label(item)}: undone; it is back under Readers' reports.`, "ok");
+        await load();
+        focusAfterLoad(`item-${item.id}`);
+        return true;
+      });
       const next = nextHeadingId(article);
       await load();
       focusAfterLoad(next);
@@ -296,8 +305,22 @@ import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
       actions.append(accept);
     }
     const reject = h("button", { type: "button", "aria-expanded": "false" }, "Reject");
-    const duplicate = h("button", { type: "button" }, "Duplicate");
-    duplicate.addEventListener("click", () => void act("duplicate", {}, "marked as a duplicate"));
+    // Duplicate closes the report: a first press asks, a second does it.
+    const duplicate = h("button", { type: "button" }, "Duplicate") as HTMLButtonElement;
+    duplicate.addEventListener("click", () => {
+      if (duplicate.dataset["confirm"] === undefined) {
+        duplicate.dataset["confirm"] = "";
+        duplicate.textContent = "Yes, it repeats another report";
+        say(status, `${label(item)}: press again to close it as a duplicate.`);
+        return;
+      }
+      void act("duplicate", {}, "marked as a duplicate");
+    });
+    duplicate.addEventListener("blur", () => {
+      if (duplicate.dataset["confirm"] === undefined) return;
+      delete duplicate.dataset["confirm"];
+      duplicate.textContent = "Duplicate";
+    });
     actions.append(reject, duplicate);
     article.append(actions);
 

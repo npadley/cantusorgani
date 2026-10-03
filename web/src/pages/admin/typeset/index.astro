@@ -246,7 +246,7 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
       list.hidden = list.dataset["queueList"] !== queue;
       for (const el of list.querySelectorAll<HTMLElement>("[data-review-target]")) {
         const finished = el.dataset["done"] === "reviewed" || el.dataset["done"] === "chosen";
-        const show = !list.hidden && (!volume || el.dataset["volume"] === volume) && (done || !finished);
+        const show = !list.hidden && (!volume || el.dataset["volume"] === volume) && (done || !finished || "recent" in el.dataset);
         el.hidden = !show;
         if (show) visible++;
       }
@@ -287,7 +287,7 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
     if (queue !== "proofreading") wireMatches(list, status, changed);
     return wireReviews(list, status, changed, words, (state) => {
       const choices = (state as { choices?: readonly Choice[] }).choices ?? [];
-      if (queue !== "proofreading") applyChoices(list, choices);
+      if (queue !== "proofreading") applyChoices(list, choices, status, changed);
     });
   });
   // What editors have already done is marked once it has loaded: until then

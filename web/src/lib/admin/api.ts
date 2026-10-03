@@ -261,7 +261,7 @@ async function route(request: Request, env: AdminEnv, deps: Deps): Promise<Respo
   if (input instanceof Response) return input;
 
   if (path.startsWith("/typeset/")) return typesetApi(request,env,deps,editor,path,input);
-  const rowAction = /^\/rows\/(\d{1,9})\/(approve|reject|duplicate|unapprove|resolve)$/.exec(path);
+  const rowAction = /^\/rows\/(\d{1,9})\/(approve|reject|duplicate|unapprove|resolve|reopen)$/.exec(path);
   if (rowAction) return actOnRow(deps, editor, Number(rowAction[1]), rowAction[2] as RowVerb, input);
   if (path === "/edits") return createEdit(deps, editor, input);
   if (path === "/reviews") return createReview(deps, editor, input);
@@ -299,12 +299,21 @@ async function queue(deps: Deps): Promise<Response> {
   });
 }
 
-type RowVerb = "approve" | "reject" | "duplicate" | "unapprove" | "resolve";
+type RowVerb = "approve" | "reject" | "duplicate" | "unapprove" | "resolve" | "reopen";
 
 async function actOnRow(deps: Deps, editor: Editor, id: number, verb: RowVerb, input: Record<string, unknown>): Promise<Response> {
   const store = deps.store;
   const row = await store.get(id);
   if (!row) return problem(404, "No such correction.");
+  // Undo of a Reject or Duplicate: the reader's report goes back to be answered.
+  if (verb === "reopen") {
+    if (row.source !== "reader" || (row.status !== "rejected" && row.status !== "duplicate")) {
+      return problem(409, "Only a reader's report that was rejected or marked a duplicate can be reopened.");
+    }
+    if (!(await store.move(id, row.status, "pending", { reason: null }))) return conflict(store, id, await store.get(id));
+    await store.log(editor.email, "reopen", id, "");
+    return json({ ok: true, status: "pending" });
+  }
   const from = verb === "unapprove" ? "approved" : "pending";
   if (row.status !== from) return conflict(store, id, row);
 
