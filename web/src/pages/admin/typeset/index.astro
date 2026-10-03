@@ -71,14 +71,16 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
             <p class="small">{e.look}</p>
             <p class="small"><a href={`/admin/typeset/edit/?file=${encodeURIComponent(e.file)}`}>Edit the source</a></p>
             {e.detail && <p class="small muted">{e.detail}</p>}
+            {e.conflict && <p class="notice small">{e.conflict}</p>}
 
             {e.render && (
-              <figure class="drawing">
+              <figure class:list={["drawing", q === "matches" && "capped"]}>
                 <picture>
                   <source media="(max-width: 40rem)" srcset={e.render.narrow} />
                   <img src={e.render.wide} alt={`${e.title}: the transcription, drawn by LilyPond`} loading="lazy" />
                 </picture>
                 <figcaption class="small muted">The transcription, as LilyPond draws it</figcaption>
+                {q === "matches" && <button type="button" class="link small" data-uncap aria-expanded="false">Show the whole drawing</button>}
               </figure>
             )}
 
@@ -99,9 +101,11 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
               <p class="small">Shown as <strong>{e.shownAs.label}</strong>{e.href && <> · <a href={e.href}>Open the page</a></>}</p>
             )}
 
+            </div>
             {e.candidates.length > 0 && (
+              <div class="side">
               <ol class="candidates" aria-label="Candidates">
-                {e.candidates.map((c) => (
+                {e.candidates.map((c, n) => (
                   <li>
                     <p class="small"><strong>{c.label}</strong> · {pct(c.melody)}
                       {c.href && <> · <a href={c.href}>Open the page</a></>}</p>
@@ -118,32 +122,35 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
                     )}
                     {q === "matches" && (
                       <div class="match-actions">
-                        <button type="button" data-choose={c.target} data-value={c.target} data-label={c.label}>This part</button>
+                        <button type="button" class:list={[n === 0 && "primary"]} data-choose={c.target} data-value={c.target}
+                                data-label={c.label}>This part</button>
                       </div>
                     )}
                   </li>
                 ))}
               </ol>
+              </div>
             )}
 
+            <div class="footer">
             <div class="actions review-actions">
-              {q === "proofreading" && <button type="button" data-act="looks-right">Proofread</button>}
+              {q === "proofreading" && <button type="button" class="primary" data-act="looks-right">Proofread</button>}
               {q !== "proofreading" && (
-                <>
-                  <span class="match-actions">
-                    <button type="button" data-choose="none" data-value="none" data-label="not in the catalogue">Not in the catalogue</button>
-                    <button type="button" data-choose="other-setting" data-value="other-setting" data-label="a different setting">A different setting</button>
-                  </span>
-                </>
+                <span class="match-actions">
+                  <span class="small muted">None of these:</span>
+                  <button type="button" data-choose="none" data-value="none" data-label="not in the catalogue">Not in the catalogue</button>
+                  <button type="button" data-choose="other-setting" data-value="other-setting" data-label="a different setting">A different setting</button>
+                </span>
               )}
-              <button type="button" data-act="skip">{q === "proofreading" ? "Problem…" : "Skip…"}</button>
+              <button type="button" class="link" data-act="skip">{q === "proofreading" ? "Problem…" : "Skip with a note…"}</button>
             </div>
             {q === "matches" && (
               <details class="other match-actions">
                 <summary class="small">Another part…</summary>
-                <label class="small" for={`typed-${anchor(e)}`}>The part it is, as a target (part:&lt;piece&gt;/&lt;part&gt;,
-                  movement:&lt;Mass&gt;/&lt;movement&gt; or piece:&lt;piece&gt;; the piece page's Report link shows it)</label>
-                <input type="text" id={`typed-${anchor(e)}`} data-typed maxlength="160" autocomplete="off" spellcheck="false" />
+                <label class="small" for={`typed-${anchor(e)}`}>Search for the part: type part of the piece's name, then
+                  choose from the suggestions</label>
+                <input type="text" id={`typed-${anchor(e)}`} data-typed list="part-choices" maxlength="160" autocomplete="off"
+                       spellcheck="false" placeholder="e.g. Dominica I Adventus" />
                 <button type="button" data-choose="typed">Choose it</button>
               </details>
             )}
@@ -165,6 +172,7 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
       </section>
     ))}
     <p id="none" class="muted" hidden>Nothing to show with these choices.</p>
+    <datalist id="part-choices"></datalist>
   </div>
 </Layout>
 
@@ -183,13 +191,22 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
   .status[data-state="error"] { color: var(--warn-ink); }
   .item { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-3); align-items: start;
           padding: var(--s-3) 0; border-bottom: 1px solid var(--rule); }
-  .main { display: grid; gap: var(--s-2); min-width: 0; }
+  .main, .footer, .side { display: grid; gap: var(--s-2); min-width: 0; align-content: start; }
+  .item { grid-template-areas: "main" "side" "footer" "scan"; }
+  .main { grid-area: main; } .side { grid-area: side; } .footer { grid-area: footer; } .scan { grid-area: scan; }
+  /* A tall drawing is cut to its first lines (what is compared), with a button to see it whole. */
+  .drawing.capped picture { display: block; max-height: 18rem; overflow: hidden; }
+  .drawing.capped.open picture { max-height: none; }
+  .drawing button.link { font-size: var(--step--1); min-height: var(--tap-min); }
   .item h3 { margin: 0; font-size: var(--step-0); }
   .item h3:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
   .item p { margin: 0; }
   .item[data-done="reviewed"], .item[data-done="chosen"] { opacity: 0.7; }
   @media (min-width: 60rem) {
-    .item.proofreading { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s-4); }
+    .item.matches { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s-4);
+                    grid-template-areas: "main side" "footer side"; }
+    .item.proofreading { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s-4);
+                         grid-template-areas: "main scan" "footer scan"; }
   }
   figure { margin: 0; }
   .drawing img, .scan img, .candidates img { display: block; width: 100%; height: auto; }
@@ -222,7 +239,8 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
 
 <script>
   import { REVIEW_WORDS, wireReviews } from "../../../lib/admin/reviewClient";
-  import { applyChoices, wireMatches } from "../../../lib/admin/typesetClient";
+  import { loadTargets } from "../../../lib/admin/client";
+  import { applyChoices, partChoices, wireMatches } from "../../../lib/admin/typesetClient";
   import type { Choice } from "../../../lib/admin/typesetClient";
   import { initChantNotation } from "../../../scripts/chantNotation";
   import { onSummary, refreshSummary } from "../../../lib/admin/summaryClient";
@@ -274,6 +292,31 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
   const radio = [...(form?.querySelectorAll<HTMLInputElement>("input[name=queue]") ?? [])].find((r) => r.value === asked);
   if (radio) radio.checked = true;
 
+  // A capped drawing opens whole, and closes again.
+  document.addEventListener("click", (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>("button[data-uncap]");
+    const figure = button?.closest("figure");
+    if (!button || !figure) return;
+    const open = figure.classList.toggle("open");
+    button.setAttribute("aria-expanded", String(open));
+    button.textContent = open ? "Show only the first lines" : "Show the whole drawing";
+  });
+
+  // "Another part…": suggestions of every part, in words, loaded once a search is opened.
+  const choices: { label: string; target: string }[] = [];
+  document.addEventListener("focusin", (event) => {
+    if (choices.length || !(event.target as HTMLElement).matches("input[data-typed]")) return;
+    void loadTargets().then((targets) => {
+      if (!targets || choices.length) return;
+      choices.push(...partChoices(targets));
+      document.getElementById("part-choices")?.replaceChildren(...choices.map((c) => {
+        const option = document.createElement("option");
+        option.value = c.label;
+        return option;
+      }));
+    });
+  });
+
   form?.addEventListener("change", apply);
   apply();
   // After the editor acts, the counts every admin page shares are fetched again.
@@ -284,7 +327,7 @@ const INTRO: Readonly<Record<TypesetQueue, string>> = {
   const wired = lists.map((list) => {
     const queue = list.dataset["queueList"];
     const words = queue === "proofreading" ? proof : REVIEW_WORDS;
-    if (queue !== "proofreading") wireMatches(list, status, changed);
+    if (queue !== "proofreading") wireMatches(list, status, changed, choices);
     return wireReviews(list, status, changed, words, (state) => {
       const choices = (state as { choices?: readonly Choice[] }).choices ?? [];
       if (queue !== "proofreading") applyChoices(list, choices, status, changed);

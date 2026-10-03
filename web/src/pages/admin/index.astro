@@ -56,6 +56,10 @@ import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
                 {MELODY_AUDIT_COUNTS.unchecked} unchecked</td>
               <td><a href="/admin/typeset/?queue=proofreading">See proofreading</a></td>
             </tr>
+            <tr>
+              <th scope="row">Last published</th><td id="last-published">…</td>
+              <td><a href="#batches-h">See publishing</a></td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -80,7 +84,7 @@ import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
     </section>
 
     <section aria-labelledby="batches-h">
-      <h2 id="batches-h">On GitHub</h2>
+      <h2 id="batches-h">Publishing</h2>
       <div id="batches"></div>
     </section>
 
@@ -149,7 +153,8 @@ import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
 <script>
   import { api, drafts, fixLink, h, loadScans, loadTargets, offerUndo, say, scanFigures, signInAgain, whenTypingPauses } from "../../lib/admin/client";
   import type { Fix } from "../../lib/admin/client";
-  import type { QueueItem } from "../../lib/admin/api";
+  import type { QueueItem, RecentBatch } from "../../lib/admin/api";
+  import { deployState, runsFor, when } from "../../lib/admin/deploys";
   import { namedSystems } from "../../lib/admin/scans";
   import type { Scans } from "../../lib/admin/scans";
   import { FIELD_LABELS, describeTarget, notFor, sectionsSummary, startNote } from "../../lib/admin/targets";
@@ -159,7 +164,8 @@ import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
 
   interface Queue {
     pending: QueueItem[]; approved: QueueItem[];
-    batches: { batch: string; pr: number | null; items: QueueItem[] }[]; lastReviewed: string | null;
+    batches: { batch: string; pr: number | null; items: QueueItem[] }[];
+    recent?: RecentBatch[]; lastReviewed: string | null;
   }
   interface Me { email: string; owner: boolean; publishing: boolean }
 
@@ -376,10 +382,18 @@ import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
     document.getElementById("approved")?.replaceChildren(...(approved.length ? approved.map(approvedItem)
       : [h("p", { class: "muted small" }, "Nothing approved yet.")]));
 
-    document.getElementById("batches")?.replaceChildren(...(batches.length ? batches.map((b) => h("p", { class: "small" },
+    const open = batches.map((b) => h("p", { class: "small" },
       b.pr ? h("a", { href: `${REPO}/pull/${b.pr}` }, `PR #${b.pr}`) : "Opening the pull request…",
       ` · ${b.items.length} correction${b.items.length === 1 ? "" : "s"} · `,
-      b.pr ? "open: merges itself when its checks pass, unless it waits for the owner" : "this takes about a minute")) : [h("p", { class: "muted small" }, "No open pull requests.")]));
+      b.pr ? "open: merges itself when its checks pass, unless it waits for the owner" : "this takes about a minute"));
+    const recent = (queue.data.recent ?? []).map((b) => {
+      const line = h("span", { "data-deploy": b.commit ?? "" }, `Merged ${when(b.mergedAt)}.`);
+      return h("p", { class: "small" }, b.pr ? h("a", { href: `${REPO}/pull/${b.pr}` }, `PR #${b.pr}`) : b.batch,
+               ` · ${b.count} correction${b.count === 1 ? "" : "s"} · `, line);
+    });
+    document.getElementById("batches")?.replaceChildren(...(open.length || recent.length ? [...open, ...recent]
+      : [h("p", { class: "muted small" }, "Nothing published yet.")]));
+    void trackDeploys(queue.data.recent ?? []);
 
     const text = document.getElementById("batch-text");
     const publish = document.getElementById("publish") as HTMLButtonElement | null;
@@ -402,6 +416,29 @@ import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
     // The navigation fetched the counts as the page opened; after an action, again.
     if (loadedOnce) refreshSummary(0);
     loadedOnce = true;
+  }
+
+  let deployTimer: ReturnType<typeof setTimeout> | undefined;
+  /** Whether each recent batch is live yet, asked of GitHub; again in 30 s while one is still deploying (10 min at most). */
+  async function trackDeploys(recent: RecentBatch[], tries = 20): Promise<void> {
+    clearTimeout(deployTimer);
+    let waiting = false;
+    for (const [i, b] of recent.entries()) {
+      const state = b.commit ? deployState(await runsFor(b.commit), b.mergedAt)
+        : { live: false, pending: false, words: `Merged ${when(b.mergedAt)}.`, href: null };
+      waiting ||= state.pending;
+      const line = document.querySelector<HTMLElement>(`[data-deploy="${b.commit ?? ""}"]`);
+      line?.replaceChildren(state.words, ...(state.href ? [" ", h("a", { href: state.href }, "The run")] : []));
+      if (i === 0) {
+        const last = document.getElementById("last-published");
+        if (last) last.textContent = state.live ? state.words.replace("Live on the site", "Live") : state.words;
+      }
+    }
+    if (!recent.length) {
+      const last = document.getElementById("last-published");
+      if (last) last.textContent = "Nothing yet";
+    }
+    if (waiting && tries > 0) deployTimer = setTimeout(() => void trackDeploys(recent, tries - 1), 30_000);
   }
 
   /** The counts in "What's waiting", from the summary every admin page shares. */
@@ -434,7 +471,7 @@ import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
       button.disabled = false;
       return;
     }
-    say(status, `Sent ${result.data.count} correction(s) to GitHub as ${result.data.batch}. The pull request appears under "On GitHub" in about a minute.`, "ok");
+    say(status, `Sent ${result.data.count} correction(s) to GitHub as ${result.data.batch}. The pull request appears under Publishing in about a minute; it says when the site is live.`, "ok");
     await load();
   });
 

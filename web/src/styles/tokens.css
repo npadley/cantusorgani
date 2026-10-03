@@ -15,6 +15,7 @@
   --ink:       #14120e;   /* on --paper: 15.8:1  AAA */
   --ink-muted: #524e45;   /* on --paper:  7.4:1  AAA */
   --rule:      #c9c2b4;   /* hairlines and table rules; never used for text */
+  --control-border: #8a8272; /* edges of inputs and buttons: 3.7:1 on --paper (WCAG 1.4.11 asks 3:1) */
   --accent:    #6b2318;   /* rubric red, from the source edition; 8.9:1  AAA */
   --warn-bg:   #fbf3e2;
   --warn-ink:  #5a4409;   /* on --warn-bg: 7.1:1  AAA */
@@ -43,6 +44,7 @@
     --ink: #ece7da;
     --ink-muted: #b3ac9c;
     --rule: #3c382f;
+    --control-border: #7a7363; /* 3.9:1 on --paper */
     --accent: #e0a08c;
     --warn-bg: #2a2318;
     --warn-ink: #e8c87a;

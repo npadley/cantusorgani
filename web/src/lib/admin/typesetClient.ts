@@ -8,6 +8,33 @@
  */
 import { api, h, offerUndo, say, signInAgain } from "./client";
 import { keepInView } from "./reviewClient";
+import { MOVEMENT_LABELS, PART_LABELS, partTarget } from "./targets";
+import type { Targets } from "./targets";
+
+/** Every part, movement and piece a typeset file can be, in words, for the
+ * "Another part…" search: "Dominica I Adventus (noh1) · Gradual". */
+export function partChoices(targets: Targets): { label: string; target: string }[] {
+  const out: { label: string; target: string }[] = [];
+  for (const p of Object.values(targets.pieces)) {
+    const name = `${p.label} (${p.volume})`;
+    for (const part of p.parts ?? []) {
+      out.push({ label: `${name} · ${PART_LABELS[part.part] ?? part.part}${part.variant ? ` ${part.variant}` : ""}`,
+                 target: partTarget(p.slug, part) });
+    }
+    for (const m of p.movements ?? []) {
+      out.push({ label: `${name} · ${MOVEMENT_LABELS[m] ?? m}`, target: `movement:${p.slug}/${m}` });
+    }
+    out.push({ label: `${name} · the whole piece`, target: `piece:${p.slug}` });
+  }
+  return out.sort((a, b) => a.label.localeCompare(b.label));
+}
+
+/** What the search box holds, as a target: a suggestion's words, or a target typed as such. */
+export function typedTarget(text: string, choices: readonly { label: string; target: string }[]): string | null {
+  const t = text.trim();
+  if (/^(part|movement|piece):/.test(t)) return t;
+  return choices.find((c) => c.label === t)?.target ?? null;
+}
 
 export interface Choice { readonly id?: number; readonly target: string | null; readonly value: string;
                           readonly editor_email: string | null; readonly status: string }
@@ -74,7 +101,8 @@ export function applyChoices(root: ParentNode, choices: readonly Choice[], statu
   return n;
 }
 
-export function wireMatches(root: HTMLElement, status: HTMLElement | null, onChange: () => void = () => undefined): void {
+export function wireMatches(root: HTMLElement, status: HTMLElement | null, onChange: () => void = () => undefined,
+                            choices: readonly { label: string; target: string }[] = []): void {
   root.addEventListener("click", (event) => {
     const button = (event.target as HTMLElement).closest<HTMLButtonElement>("button[data-choose]");
     const item = button?.closest<HTMLElement>("[data-review-target]");
@@ -82,12 +110,13 @@ export function wireMatches(root: HTMLElement, status: HTMLElement | null, onCha
     let value = button.dataset["choose"] ?? "";
     if (value === "typed") {
       const input = item.querySelector<HTMLInputElement>("input[data-typed]");
-      value = input?.value.trim() ?? "";
-      if (!value) {
-        say(status, "Type the part it is, e.g. part:dominica-i-adventus/gradual.", "error");
+      const found = typedTarget(input?.value ?? "", choices);
+      if (!found) {
+        say(status, "Type part of the piece's name and choose one of the suggestions.", "error");
         input?.focus();
         return;
       }
+      value = found;
     }
     button.disabled = true;
     void api<{ ok: true; id: number }>("/edits", { target: item.dataset["reviewTarget"], field: "match", value }).then((result) => {

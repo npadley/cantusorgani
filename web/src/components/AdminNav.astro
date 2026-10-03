@@ -35,6 +35,9 @@ const links = [
   .admin-nav .publish a { font-weight: 600; }
 
   /* Shared by every admin page (each includes this navigation). */
+  /* Inputs and buttons edged at 3:1 against the paper, so each control can be seen. */
+  :global(.admin.ui button:not(.primary):not(.link)), :global(.admin.ui .button), :global(.admin.ui input),
+  :global(.admin.ui select), :global(.admin.ui textarea) { border-color: var(--control-border); }
   :global(.admin .primary) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
   :global(.admin .primary:disabled) { background: var(--paper); color: var(--ink-muted); border-color: var(--rule); }
   :global(.admin button.link) { background: none; border: 0; padding: 0; min-height: var(--tap-min); color: var(--accent);

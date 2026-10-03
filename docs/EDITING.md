@@ -87,10 +87,14 @@ marked, chosen or skipped; skipped items are counted apart.
   - **Matches**: files the matcher couldn't place with confidence. Each shows
     the drawing beside its candidate parts: their scans, how alike the melodies
     are, and (with **Show the chant**) GregoBase's chant. **This part** chooses
-    a candidate; **Another part…** takes any part's target (the piece page's
-    Report link shows it); **Not in the catalogue** and **A different setting**
-    settle a file that is no part the site has. A chosen file replaces the
-    scans for that part once published.
+    a candidate; **Another part…** searches every part by name (type part of
+    the piece's name and choose a suggestion; a target such as
+    `part:dominica-i-adventus/gradual` works too); under "None of these",
+    **Not in the catalogue** and **A different setting** settle a file that is
+    no part the site has. A chosen file replaces the scans for that part once
+    published. When another file is already chosen for the same part, a warning
+    says so: choosing this one replaces it. A tall drawing shows its first lines
+    (what you compare); **Show the whole drawing** opens it.
   - **Errors**: files LilyPond can't draw, with the lines around the one it
     stopped at. **Edit the source** opens the file in an editor: **Save draft**
     (private to you), **Preview draft** (LilyPond draws it on GitHub, in a
@@ -109,10 +113,18 @@ marked, chosen or skipped; skipped items are counted apart.
   corrections or more, waits for the owner to merge it instead. If a check
   fails, the pull request is closed and the corrections come back under
   **Approved**, with the reason. Closing a pull request without merging puts
-  its corrections back under **Readers' reports**.
+  its corrections back under **Readers' reports**. **Publishing**, on the Admin
+  page, follows each batch to the site: the pull request while it is open, then
+  "Merged …; building and deploying the site now", then "Live on the site since
+  …" (or the failed run). It asks GitHub's public API, from your browser, every
+  30 seconds while a deploy is under way. **What's waiting** shows the last one.
 - **History** lists what was accepted (with its commit) and what was rejected
   (with the reason). Accepted corrections also appear publicly at
   `/corrections/log/`, without names or addresses.
+
+Scan captions name a system in words and by its ref: "vol. 1, scan p. 50,
+system 4 · noh1/0050/003" (systems count from 1 in words, from 0 in the ref,
+which is what `noh where`, corrections and section lists use).
 
 Every action records who did it. Two editors can't both act on one report: the
 second is told who got there first. The admin screen corrects a piece's title,
@@ -410,7 +422,10 @@ linked from **Edit the sections** on Review's part items and from the edit page
 as "edit its whole list of sections") shows the piece's systems beside its list. Press **Start a
 section here** beside a system to add one, change a section's kind, number,
 label, opening words or chant, move or remove it, or mark it printed elsewhere
-(a volume and page). **Approve this list** records it as one correction,
+(a volume and page). A system where a section starts is marked down its side
+and named above it. **Approve this list**, at the foot of the list panel (it
+stays in view however long the list), is greyed out until the list differs from
+the piece's own; it records it as one correction,
 `sections:<slug>` in `data/corrections.yml`, with the list it replaces as its
 `was`; published, it counts like a list in `data/sections/`, and it goes stale
 (stopping the build) if the piece's list changes underneath it. From the

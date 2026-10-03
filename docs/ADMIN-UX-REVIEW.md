@@ -6,6 +6,13 @@ the source. The review's findings are below, unchanged except for this
 introduction; the screenshots were not committed. Each finding names the file to
 change, the effort (S/M/L) and a priority (P1 first).
 
+**Status (2026-10-03): done.** All three pull requests below are built: #77 (know
+what's left), #80 (less noise, safer actions) and the finishing pull request
+after it. Not done, on purpose: the Sections row form's "More…" folding (S3),
+Kyrie/Gloria choices in its Kind list (S4), the Proposed value's size on the
+Admin page (H5) and hiding the public navigation on admin pages (§4.6). Each is
+small, and can wait until the screens are used.
+
 ## What to do, in three pull requests
 
 The review's top ten, grouped so that each pull request leaves the screens
