@@ -96,7 +96,7 @@ ees2*3/2 f4 \divisioMinima
 d2*4/2 ees2*4/2 f2*3/2 ees2*3/2 ~ ees2*5/4 f2*6/2 ~ f2 ees2*3/2 ~ \divisioMaior
 ees2*3/2 ~ ees2 ~ ees2*4/2 ~ ees2 ~ ees2*3/2 ~ ees2*5/2 ~ ees2*4/2 f2*9/4 bes2*3/2 ~ bes2*3/2 ~ bes2*3/2 \divisioMaxima
 g2*4/2 d2*4/2 ees2*4/2 f2*3/2 ees2*4/2 ~ ees2*5/4 f2*6/2 ~ f2 ees2*3/2 \divisioMaior
-bes2*3/2 ~ bes2 bese2*5/4 bes2*3/2 ~ bes2 ~ bes2 ~ bes2 ~ bes2*6/2 ~ bes2*6/2 ~ bes4 ~ bes2 ~ bes2*4/2 ~ bes2*3/4 c'2*4/2 bes2 d2*3/2 g2*5/2 bes2 ~ bes2 ~ bes2*4/2 \divisioMinima
+bes2*3/2 ~ bes2 bes2*5/4 bes2*3/2 ~ bes2 ~ bes2 ~ bes2 ~ bes2*6/2 ~ bes2*6/2 ~ bes4 ~ bes2 ~ bes2*4/2 ~ bes2*3/4 c'2*4/2 bes2 d2*3/2 g2*5/2 bes2 ~ bes2 ~ bes2*4/2 \divisioMinima
 c'2*4/2 ~ c'2 bes2*4/2 ~ bes2 a4 \finalis
 f'2 ~ f'2 ees'2*3/2 ~ ees'2 d'2 ~ d'2*5/2 ~ d'2*4/2 ~ d'2*3/2 ~ \divisioMinima
 d'2*3/2 ~ d'2 ~ d'2 c'2*3/2 ~ c'2*4/2 bes2 \divisioMaior

@@ -132,7 +132,7 @@ e4 fis2*3/2 e2*3/2 \divisioMinima
 c2 e2*3/2 \divisioMinima
 g2 b2*5/2 b,2 ~ b,2*4/2 e2 \finalis
 r2*13/2 b2 \divisioMaxima
-e2 ~ e2*7/2 b,2*3/2 ~ b,2 e2*3/2 ~ e4 r4 e'2*3/2 ~ e'2*3/2 ~ e'2*8/2 x2*3/2 b2 \divisioMaxima
+e2 ~ e2*7/2 b,2*3/2 ~ b,2 e2*3/2 ~ e4 r4 e'2*3/2 ~ e'2*3/2 ~ e'2*8/2 e'2*3/2 b2 \divisioMaxima
 e2*4/2 ~ e2*4/2 ~ e2*3/2 ~ \divisioMinima
 e4 d2*3/2 c2 b,2 \divisioMaxima
 e2 ~ e2*3/2 b,2*3/2 ~ b,2*3/2 e2 ~ e2*3/2 ~ e4 \finalis
