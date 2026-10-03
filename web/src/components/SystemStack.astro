@@ -38,7 +38,7 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
 </div>
 
 {piece.systems.length === 0 ? (
-  piece.reference ? null : (
+  piece.reference || piece.sourceNote ? null : (
     <div class="notice" role="status">
       <strong>No music of its own.</strong> The book gives this day at printed
       page {piece.printedPages[0]}{piece.pagination ? ` of its ${piece.pagination}` : ""} of {volumeLabel(piece)} without music of its own,

@@ -162,6 +162,10 @@ def entry_text(entry: IndexEntry) -> str:
 
 def start_system(vol_id: str, page_map: PageMap, entry: IndexEntry, systems: int) -> int:
     """First system of the entry on its first page (see pipeline.pagesplit)."""
+    if entry.first_system is not None:
+        if not 0 <= entry.first_system <= systems:
+            raise ValueError(f"{entry.slug}: reviewed first_system {entry.first_system} outside {systems} systems")
+        return entry.first_system
     pdf_page = page_map.to_pdf(entry.page, entry.pagination)
     if pdf_page is None or systems == 0:
         return 0
@@ -273,7 +277,7 @@ PART_GENRES = frozenset({"requiem"})
 
 def has_parts(entry: IndexEntry) -> bool:
     """Whether a piece is a Proper divided into parts."""
-    return entry.division in PART_DIVISIONS or entry.genre in PART_GENRES
+    return (entry.genre == "proper" and entry.division in PART_DIVISIONS) or entry.genre in PART_GENRES
 
 
 class PartsUnavailable(RuntimeError):
@@ -593,6 +597,7 @@ def build_catalog(vol_id: str, index_path: Path | None = None, parts: bool = Tru
                 "title": entry.title,
                 "incipit": entry.incipit,
                 "reference": entry.reference,
+                **({"source_note": entry.source_note} if entry.source_note else {}),
                 **({"reference_sources": list(entry.reference_sources)} if entry.reference_sources else {}),
                 "genre": entry.genre,
                 "mode": None,
@@ -670,7 +675,7 @@ def merge_catalog(existing: Catalog | None, update: Catalog) -> Catalog:
             "pieces": pieces}
 
 
-PART_TO_VOLUME = {"I": "noh1", "II": "noh2", "III": "noh3", "IV": "noh4", "V": "noh5"}
+PART_TO_VOLUME = {"I": "noh1", "II": "noh2", "III": "noh3", "IV": "noh4", "V": "noh5", "VII": "noh7", "VIII": "noh8"}
 # OCR reads the I of "IV" as 1, l, | or i, drops the stop after "p", reads the
 # comma as a semicolon and the "p" itself as "»" -- or drops it ("Pars I, 169").
 REFERENCE = re.compile(r"Pars\s+(?P<part>[IVX]+|[1l|i][VvI]+)\s*[,.;]?\s*'?(?:(?:p|»)\s*\.?\s*)?(?P<page>\d{1,3})(?:[l|](?![\w]))?(?![\w])")

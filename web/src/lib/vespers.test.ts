@@ -22,6 +22,20 @@ function doc(items: Record<string, unknown>[], extra: Record<string, unknown> = 
 }
 
 describe("parseLineup", () => {
+  it("keeps additional hymn links separate from the played music and export", async () => {
+    const { hymnSettings, hymnSettingsForDay } = await import("./vespers");
+    const lineup = parseLineup(doc([item("hymn", "hymn", {
+      hymn_links: ["varia-ave-maris-stella", "varia-ave-maris-stella-alius-tonus"],
+    })]));
+    const day = lineup.days.get("2026-11-08")!;
+    expect(hymnSettings(day.items[0]!).map((p) => p.slug)).toEqual([
+      "varia-ave-maris-stella", "varia-ave-maris-stella-alius-tonus",
+    ]);
+    expect(hymnSettingsForDay("tempora:Epi5-0", lineup)).toHaveLength(2);
+    expect(hymnSettingsForDay("sancti:08-15", lineup)).toHaveLength(0);
+    expect(itemSystems(day.items[0]!).every((s) => s.piece.volume === "noh8")).toBe(true);
+    expect(JSON.stringify(exportLineup(day))).not.toContain("noh7/");
+  });
   it("should read days, items, sources and held-back dates", () => {
     const lineup = parseLineup(doc([
       item("initium", "initium"),

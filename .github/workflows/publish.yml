@@ -20,7 +20,7 @@ on:
       volume:
         description: Volume
         type: choice
-        options: [noh1, noh2, noh3, noh4, noh5, noh8]
+        options: [noh1, noh2, noh3, noh4, noh5, noh7, noh8]
       pages:
         description: PDF pages to publish (e.g. 480-499, or 36,40-42)
         type: string

@@ -1,6 +1,6 @@
 ---
 import Layout from "../components/Layout.astro";
-import { allPieces } from "../lib/catalog";
+import { allPieces, hymnIndex } from "../lib/catalog";
 import { DIVISIONS, divisionsWithContent } from "../lib/indexes";
 
 const present = divisionsWithContent(allPieces());
@@ -30,6 +30,14 @@ const withMusic = allPieces().filter((p) => p.systems.length > 0).length;
 
   <h2>The books</h2>
   <ul class="divisions ui">
+    <li>
+      <a href="/hymns/">
+        <span class="card-title">Hymns</span>
+        <span class="la muted">Hymni</span>
+        <span class="muted small">Hymns across the books, including alternate settings and tones.</span>
+        <span class="count small">{hymnIndex().length} settings</span>
+      </a>
+    </li>
     {present.map((d) => (
       <li>
         <a href={`/${d.slug}/`}>

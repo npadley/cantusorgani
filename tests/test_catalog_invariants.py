@@ -16,7 +16,8 @@ PIECES = CAT["pieces"]
 PAGE_MAPS = {vol: PageMap(tuple(Segment(**s) for s in meta["page_map"]))
              for vol, meta in CAT["volumes"].items()}
 GENRES = {"asperges", "mass_ordinary", "credo", "tonus", "kyrie", "gloria",
-          "sanctus", "agnus", "requiem", "absolutio", "exsequiis", "proper"}
+          "sanctus", "agnus", "requiem", "absolutio", "exsequiis", "proper",
+          "hymn", "sequence", "antiphon", "responsory", "litany", "psalm", "canticle", "versicle"}
 MOVEMENTS = {"kyrie", "gloria", "credo", "sanctus", "agnus", "ite"}
 
 
@@ -398,7 +399,7 @@ def test_most_propers_with_music_are_divided():
     """A floor, not a target: a regression in label reading shows here first.
     Measured 2026-09-26: 222 of 286 Propers with music (78%); the rest are
     local or 1942-only feasts jgabc lacks, blessings and processions."""
-    propers = [p for p in PIECES if p["division"] in PROPER_DIVISIONS and p["systems"]]
+    propers = [p for p in PIECES if p["genre"] == "proper" and p["division"] in PROPER_DIVISIONS and p["systems"]]
     divided = [p for p in propers if _printed(p)]
     assert len(divided) >= 0.75 * len(propers)
 

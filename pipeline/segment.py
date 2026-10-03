@@ -327,6 +327,28 @@ def _unlevel(level: np.ndarray, staff: Staff, back: np.ndarray, offset: int,
                  bottom=min(height - 1, offset + int(np.ceil(max(ys[2:])))))
 
 
+def composite_staves(binary: np.ndarray) -> list[Staff]:
+    """Recover a scan assembled from two differently tilted page fragments.
+
+    The reviewed composite setting uses the blank seam just above the halfway
+    point (48%); staff coordinates return to the original cleaned image, so
+    slices and their bounding boxes continue to describe exactly the same pixels.
+    """
+    height, width = binary.shape
+    seam = round(height * 0.48)
+    result: list[Staff] = []
+    for top, bottom in ((0, seam), (seam, height)):
+        region = binary[top:bottom]
+        angle = _band_angle((region < 128).astype(np.float32))
+        m = cv2.getRotationMatrix2D((width / 2, (bottom - top) / 2), angle, 1.0)
+        level = cv2.warpAffine(region, m, (width, bottom - top), flags=cv2.INTER_NEAREST,
+                              borderValue=255)
+        found = group_staves_tolerant(merge_close_lines(find_staff_lines(level, close_px=45)))
+        back = cv2.invertAffineTransform(m)
+        result.extend(_unlevel(level, s, back, top, height) for s in found)
+    return result
+
+
 def group_systems(staves: list[Staff], expected_staves: int = 2) -> list[System]:
     """NOH systems are exactly `expected_staves` braced staves.
 
@@ -449,7 +471,8 @@ def _content_bottom(ink: np.ndarray, staff_bottom: int, ceiling: int) -> int:
 
 
 def to_bboxes(systems: list[System], page_height: int, page_width: int,
-              ink: np.ndarray | None = None) -> list[BBox]:
+              ink: np.ndarray | None = None, text_headroom: float = TEXT_HEADROOM,
+              bottom_margin: int = BOTTOM_MARGIN_PX) -> list[BBox]:
     """Boxes including the Latin text above and the mode number to the left.
 
     When `ink` (a boolean page mask) is given, the bottom edge follows the actual
@@ -459,7 +482,7 @@ def to_bboxes(systems: list[System], page_height: int, page_width: int,
     boxes: list[BBox] = []
     for i, sys_ in enumerate(systems):
         height = sys_.bottom - sys_.top
-        want_top = sys_.top - int(height * TEXT_HEADROOM)
+        want_top = sys_.top - int(height * text_headroom)
         floor = 0 if i == 0 else boxes[-1].bottom
         top = max(want_top, floor)
 
@@ -468,7 +491,7 @@ def to_bboxes(systems: list[System], page_height: int, page_width: int,
             # Stop above the *next* system's text line, not above its staff, or the
             # next system's Latin text is cut in half across two slices -- the exact
             # failure this module exists to prevent.
-            ceiling = nxt.top - int((nxt.bottom - nxt.top) * TEXT_HEADROOM)
+            ceiling = nxt.top - int((nxt.bottom - nxt.top) * text_headroom)
             if ceiling <= sys_.bottom and nxt.top - sys_.bottom >= TIGHT_MIN_GAP:
                 # Tightly set pages (the Vesperale's versicles) leave less room
                 # between systems than the text headroom assumes, and the cut
@@ -483,7 +506,7 @@ def to_bboxes(systems: list[System], page_height: int, page_width: int,
         if ink is None:
             bottom = sys_.bottom + int(height * TAIL_PADDING)
         else:
-            bottom = _content_bottom(ink, sys_.bottom, ceiling) + BOTTOM_MARGIN_PX
+            bottom = _content_bottom(ink, sys_.bottom, ceiling) + bottom_margin
         bottom = min(bottom, ceiling)
 
         if bottom <= sys_.bottom:

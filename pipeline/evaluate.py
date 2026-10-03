@@ -34,6 +34,7 @@ from pipeline.segment import (
     find_staff_lines,
     group_staves,
     group_staves_tolerant,
+    composite_staves,
     group_systems,
     group_systems_by_gap,
     merge_close_lines,
@@ -129,6 +130,9 @@ def analyse_page(vol_id: str, pdf_page: int) -> PageAnalysis:
         close = DASHED_CLOSE_PX if staff_finder(vol_id, pdf_page) == "dashed" else CLOSE_PX
         lines = merge_close_lines(find_staff_lines(binary, close_px=close))
         staves = group_staves_tolerant(lines)
+    elif staff_finder(vol_id, pdf_page) == "composite":
+        lines = find_staff_lines(binary)
+        staves = composite_staves(binary)
     elif staff_finder(vol_id, pdf_page) == "plain":
         # Tilt recovery splits a system on NOH8 p. 28 (a versicle's lone staff
         # above its response): the strict grouping reads that page as printed.
@@ -148,10 +152,15 @@ def analyse_page(vol_id: str, pdf_page: int) -> PageAnalysis:
     except ValueError as exc:
         # Keep the page: pair what can be paired, and say so. A page that loses
         # all its systems for one missed staff is music silently gone.
-        systems = group_systems_by_gap(staves)
+        # The lower fragment of the reviewed composite scan has a 150px
+        # brace gap; its inter-system gaps remain greater than 175px.
+        systems = group_systems_by_gap(staves, brace_max=160 if staff_finder(vol_id, pdf_page) == "composite" else 140)
         warning = f"{exc}; paired by brace gap instead"
     try:
-        boxes = _to_bboxes(systems, page_height=height, page_width=width, ink=ink)
+        # VII prints several hymn stanzas above a brace. Its words require
+        # more space than the single chant line used by the other books.
+        options = {"text_headroom": 1.0, "bottom_margin": 32} if vol_id == "noh7" else {}
+        boxes = _to_bboxes(systems, page_height=height, page_width=width, ink=ink, **options)
     except ValueError as exc:
         return PageAnalysis(**base, error=str(exc))  # type: ignore[arg-type]
     return PageAnalysis(**base, systems=systems, boxes=boxes, warning=warning)  # type: ignore[arg-type]

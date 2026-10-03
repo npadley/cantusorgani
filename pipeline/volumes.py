@@ -58,7 +58,7 @@ class Volume:
         return SOURCE / self.file
 
 
-STAFF_FINDERS = ("refit", "dashed", "plain")
+STAFF_FINDERS = ("refit", "dashed", "plain", "composite")
 
 
 def _staff_finder(vol_id: str, raw: dict[str, list[int]]) -> tuple[tuple[str, tuple[int, ...]], ...]:

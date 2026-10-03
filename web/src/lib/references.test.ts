@@ -4,6 +4,12 @@ import { massSources } from "./references";
 
 const jerome = () => pieceBySlug("s-hieronymi-presbyteris-confessoris-et-ecclesi-doctoris")!;
 describe("printed Mass references", () => {
+  it("resolves VII's reviewed alias entries to the piece that owns their music", () => {
+    expect(massSources(pieceBySlug("varia-exsurge-domine")!).map((p) => p.slug))
+      .toEqual(["varia-in-litaniis-maioribus-et-minoribus"]);
+    expect(massSources(pieceBySlug("varia-parce-domine-et-ne-des")!).map((p) => p.slug))
+      .toEqual(["varia-qui-habitat-psalmus-90"]);
+  });
   it("resolves the explicit volume and page without relying on calendar links", () => {
     expect(massSources({ ...jerome(), days: [] }).map((p) => p.slug)).toEqual(["commune-doctorum"]);
   });

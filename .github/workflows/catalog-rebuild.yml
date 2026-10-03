@@ -17,7 +17,7 @@ on:
       volume:
         description: Volume to rebuild
         type: choice
-        options: [all, noh1, noh2, noh3, noh4, noh5, noh8]
+        options: [all, noh1, noh2, noh3, noh4, noh5, noh7, noh8]
         default: all
       branch:
         description: Branch to rebuild (main opens a pull request)
@@ -68,7 +68,7 @@ jobs:
           VOLUME: ${{ inputs.volume }}
         run: |
           uv run noh gregobase-fetch
-          if [ "$VOLUME" = "all" ]; then volumes="noh1 noh2 noh3 noh4 noh5 noh8"; else volumes="$VOLUME"; fi
+          if [ "$VOLUME" = "all" ]; then volumes="noh1 noh2 noh3 noh4 noh5 noh7 noh8"; else volumes="$VOLUME"; fi
           for v in $volumes; do uv run noh catalog --volume "$v"; done
           uv run noh vespers-lineup
           uv run noh chants

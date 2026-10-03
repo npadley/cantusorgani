@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 import yaml
@@ -78,6 +78,7 @@ class Reviewed:
     offices: dict[str, dict[str, object]]   # data/vespers/vespers-offices.yml
     texts: dict[str, object]                # Divinum Officium's texts (the psalms)
     known: frozenset[str]                   # every system in the catalogue
+    hymn_links: dict[str, list[str]] = field(default_factory=dict)
 
     def office_for(self, key: str, vespers: str) -> tuple[str, dict[str, object]] | None:
         for oid, o in self.offices.items():
@@ -155,6 +156,7 @@ def load_reviewed(path: Path = REVIEWED, catalog_path: Path = CATALOG, offices_p
         raise VespersDataError(f"{path.name} / {op.name}:\n  " + "\n  ".join(problems)
                                + "\n  Fix the entry against the scan, or re-run noh catalog if the "
                                  "catalogue is out of date.")
-    return Reviewed(doc, offices, texts, known)
-
+    from pipeline.hymnlinks import load_hymn_links
+    hymn_links = load_hymn_links(VESPERS / "hymns-noh7.yml", catalog) if path == REVIEWED else {}
+    return Reviewed(doc, offices, texts, known, hymn_links)
 

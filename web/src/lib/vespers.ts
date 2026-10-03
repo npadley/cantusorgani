@@ -30,6 +30,8 @@ export type ItemSource =
       readonly refs?: readonly string[] };
 
 export interface LineupItem {
+  /** Additional reviewed Book VII settings; do not change the played source. */
+  readonly hymnLinks?: readonly string[];
   /** Independent of the source: `<date>/<office>/<kind>/<n>`. */
   readonly key: string;
   readonly group: string;
@@ -114,6 +116,8 @@ function parseItem(i: Json, where: string): LineupItem {
     source: parseSource((i["source"] ?? {}) as Json, `${where} source`),
     chant: typeof chant === "number" && Number.isInteger(chant) && chant > 0 ? chant : null,
     repeat: i["repeat"] === true,
+    hymnLinks: Array.isArray(i["hymn_links"]) ? (i["hymn_links"] as unknown[])
+      .filter((v): v is string => typeof v === "string") : [],
     psalmText: Array.isArray(i["psalm_text"]) ? (i["psalm_text"] as unknown[]).filter((v): v is string => typeof v === "string") : [],
     target: typeof i["target"] === "string" && /^vespers:[a-z0-9:.-]+\/[a-z0-9-]+$/i.test(i["target"]) ? i["target"] : null,
   };
@@ -199,7 +203,26 @@ export function allLineups(lineup: Lineup = loadLineup()): readonly LineupDay[] 
  * Magnificat antiphon or hymn) -- not borrowed tone-bank formulas. */
 export function lineupsUsing(slug: string, lineup: Lineup = loadLineup()): readonly LineupDay[] {
   return allLineups(lineup).filter((day) => day.items.some((item) =>
-    item.source.type === "printed" && itemSystems(item).some((s) => s.piece.slug === slug)));
+    item.hymnLinks?.includes(slug) || (item.source.type === "printed" && itemSystems(item).some((s) => s.piece.slug === slug))));
+}
+
+/** Available additional settings, validated against the catalogue during generation. */
+export function hymnSettings(item: LineupItem, pieces: readonly Piece[] = allPieces()): readonly Piece[] {
+  return (item.hymnLinks ?? []).flatMap((slug) => {
+    const piece = pieces.find((p) => p.slug === slug && p.volume === "noh7" && p.genre === "hymn"
+      && p.systems.length > 0 && !p.sourceNote);
+    return piece ? [piece] : [];
+  });
+}
+
+/** Office hymn settings for the liturgical day, across its I and II Vespers. */
+export function hymnSettingsForDay(key: string, lineup: Lineup = loadLineup()): readonly Piece[] {
+  const found = new Map<string, Piece>();
+  for (const day of allLineups(lineup)) {
+    if (normalKey(day.observance) !== normalKey(key) && normalKey(day.office) !== normalKey(key)) continue;
+    for (const item of day.items) for (const p of hymnSettings(item)) found.set(p.slug, p);
+  }
+  return [...found.values()];
 }
 
 /** A Sunday of the Proper of the Time ("tempora:Pent15-0"). */
