@@ -93,7 +93,7 @@ e'4 d'2*3/2 cis'2 b2*4/2 ~ b2*3/2 d'2 ~ d'2 ~ d'2*5/2 ~ d'2*3/2 ~ d'2 a2 ~ \divi
 a4 ~ a2 ~ a2*3/2 cis'2 b2*3/2 ~ b2*3/2 ~ \divisioMaxima
 b2 ~ b2*4/2 ~ b2*3/2 ~ b2 ~ b2 e'2 d'2 ~ d'2 cis'4 \divisioMinima
 b2*3/2 ~ b2 ~ b2*3/2 cis'2*3/2 d'4 \finalis
-fis'2 e'2 <fis' e'>2 <fis' d'<>2 fis'2 ~ fis'2*3/2 ~ fis'2 ~ fis'4 \divisioMaxima
+fis'2 e'2 <fis' e'>2 <fis' d'>2 fis'2 ~ fis'2*3/2 ~ fis'2 ~ fis'4 \divisioMaxima
 d'2 e'2*3/2 fis'2 ~ fis'4 e'2 cis'2*3/2 d'4 fis'2 e'2*3/2 <f' e'>2*3/2 <f' d'>2*3/2 ~ \divisioMinima
 <f' d'>2 fis'2 ~ fis'2*3/2 ~ fis'2 ~ fis'4 ~ \divisioMaxima
 fis'2 e'2 ~ e'2*4/2 d'2*3/2 \divisioMinima
