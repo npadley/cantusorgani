@@ -26,6 +26,10 @@ are shown.
 
 ## Commands
 
+For local alto/tenor/bass comparisons against independent source-scan readings,
+see [Accompaniment validation](ACCOMPANIMENT-VALIDATION.md). The initial detector
+produces review candidates; it does not automatically mark full proofreading.
+
 ```bash
 uv run noh lilypond-install                  # the pinned LilyPond, into vendor/ (checksum-checked)
 uv run noh typeset-import --commit <sha>     # (re-)import upstream at a commit

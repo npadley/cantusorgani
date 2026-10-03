@@ -8,12 +8,10 @@ from pipeline.typeset.score_events import instrument_voices, parse_score, read_s
 
 
 def test_parse_score_preserves_voice_pitch_written_value_and_rest_vs_skip():
-    tsv = "\n".join([
-        "0\tup:alto\tnote\t2\t-1/2\t0\t1\t0\t3/2\t3/4\t8:4",
-        "0\tdown:tenor\trest\t1/4",
-        "0\tdown:bass\tskip\t1/4",
-        "3/4\tup:alto\tnote\t1\t0\t0\t2\t0\t1\t1/4\t9:4",
-    ])
+    tsv = ("0\tup:alto\tnote\t2\t-1/2\t0\t1\t0\t3/2\t3/4\t8:4\n"
+           "0\tdown:tenor\trest\t1/4\n"
+           "0\tdown:bass\tskip\t1/4\n"
+           "3/4\tup:alto\tnote\t1\t0\t0\t2\t0\t1\t1/4\t9:4")
     result = parse_score(tsv)
     assert not result.flags
     assert [(e.voice, e.kind, e.step, e.alteration, e.onset, e.duration)

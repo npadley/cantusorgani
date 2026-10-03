@@ -52,6 +52,13 @@ def build_parser() -> argparse.ArgumentParser:
                          help="check the typeset sources (source check), parts.yml and the manifest; needs no LilyPond (CI)")
     tc.add_argument("--remote", metavar="BASE", default=None,
                     help="also check every render the manifest names answers at BASE (PUBLIC_ASSET_BASE)")
+    av = subs.add_parser("typeset-accompaniment-check",
+                         help="compare accompaniment with independent local source-scan evidence")
+    av.add_argument("--file", action="append", required=True,
+                    help="relative LilyPond source; repeat for a bounded batch")
+    av.add_argument("--scan-root", type=Path, required=True, help="local system crops")
+    av.add_argument("--out", type=Path, required=True, help="local JSON/HTML report directory")
+    av.add_argument("--annotations", type=Path, help="reviewed scan observations file or directory")
     subs.add_parser("typeset-manifest",
                     help="write data/typeset/manifest.json and review.json from the sources (no LilyPond)")
     tr_ = subs.add_parser("typeset-render", help="render the typeset music not yet published, into build/typeset/out/")
@@ -408,6 +415,16 @@ def main(argv: list[str] | None = None) -> int:
         for line in failed:
             print(f"FAIL  {line}", file=sys.stderr)
         return 1 if failed else 0
+
+    if args.command == "typeset-accompaniment-check":
+        from pipeline.typeset.accompaniment_audit import audit
+        try:
+            report = audit(args.file, args.out, args.scan_root, args.annotations)
+        except (OSError, ValueError) as exc:
+            print(str(exc), file=sys.stderr)
+            return 1
+        print(f"Accompaniment evidence: {report['counts']}; report: {args.out / 'index.html'}")
+        return 1 if report["counts"].get("blocked") else 0
 
     if args.command == "typeset-check":
         from pipeline.typeset.check import problems
