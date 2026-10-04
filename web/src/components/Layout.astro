@@ -1,5 +1,6 @@
 ---
 import "../styles/base.css";
+import { canonicalUrl, indexablePath, SITE_DESCRIPTION, SITE_ORIGIN } from "../lib/seo";
 
 interface Props {
   readonly title: string;
@@ -9,7 +10,18 @@ interface Props {
   readonly noindex?: boolean;
 }
 
-const { title, description, skipTo, noindex = false } = Astro.props;
+const { title, description = SITE_DESCRIPTION, skipTo } = Astro.props;
+const noindex = (Astro.props.noindex ?? false) || !indexablePath(Astro.url.pathname);
+const canonical = canonicalUrl(Astro.url.pathname);
+const socialImage = `${SITE_ORIGIN}/social-card.png`;
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebSite", "@id": `${SITE_ORIGIN}/#website`, url: `${SITE_ORIGIN}/`, name: "Cantus Organi", description: SITE_DESCRIPTION, inLanguage: "en" },
+    { "@type": "WebPage", "@id": canonical, url: canonical, name: title, description,
+      isPartOf: { "@id": `${SITE_ORIGIN}/#website` }, inLanguage: ["en", "la"] },
+  ],
+};
 const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organi`;
 ---
 
@@ -20,11 +32,31 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     {description && <meta name="description" content={description} />}
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cantus Organi" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Cantus Organi — Gregorian chant organ accompaniments" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content="Cantus Organi — Gregorian chant organ accompaniments" />
+    {!noindex && <script is:inline type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, "\\u003c")} />}
+    {noindex && <meta name="robots" content={Astro.url.pathname.startsWith("/admin/") ? "noindex, nofollow" : "noindex, follow"} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <script is:inline>
       // Typeset music or the scans, page-wide (TypesetSwitch.astro): applied
       // before the page draws, so nothing flashes. Per viewer; storage may throw.
+      try {
+        var polarity = localStorage.getItem("scan-polarity");
+        if (polarity === "normal" || polarity === "inverted") document.documentElement.setAttribute("data-scan-polarity", polarity);
+      } catch (e) { /* ignore */ }
       try { if (localStorage.getItem("typeset-view") === "scans") document.documentElement.setAttribute("data-view", "scans"); } catch (e) { /* ignore */ }
     </script>
   </head>
@@ -40,7 +72,7 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
           <a href="/about/">About</a>
           <a href="/corrections/">Corrections</a>
           <button id="polarity" type="button" aria-pressed="false"
-                  title="Invert the scans for a dark organ loft">Invert</button>
+                  title="Switch the page and music between light and dark">Invert</button>
         </div>
       </div>
     </nav>
@@ -53,12 +85,13 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
       <p class="page small muted ui">
         Music from <em>Nova Organi Harmonia</em> (Mechelen, 1942), in the public domain ·
         <a href="/about/#sources">Sources and attributions</a> ·
-        <a href="/corrections/">Report an error</a>
+        <a href="/corrections/">Report an error</a> ·
+        <a href="/llms.txt">AI discovery guide</a>
       </p>
     </footer>
 
     <script is:inline>
-      // Per-viewer convenience only: which way round the scans read. Wrapped
+      // Per-viewer theme for both the page and its music. Wrapped
       // because storage throws outright in some privacy modes.
       (function () {
         var root = document.documentElement;
@@ -68,14 +101,19 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
         if (stored === "inverted" || stored === "normal") {
           root.setAttribute("data-scan-polarity", stored);
         }
+        var systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+        function inverted() {
+          var choice = root.getAttribute("data-scan-polarity");
+          return choice ? choice === "inverted" : systemTheme.matches;
+        }
         function sync() {
-          var on = root.getAttribute("data-scan-polarity") === "inverted";
+          var on = inverted();
           if (btn) btn.setAttribute("aria-pressed", on ? "true" : "false");
         }
         sync();
         if (btn) {
           btn.addEventListener("click", function () {
-            var next = root.getAttribute("data-scan-polarity") === "inverted"
+            var next = inverted()
               ? "normal" : "inverted";
             root.setAttribute("data-scan-polarity", next);
             try { localStorage.setItem("scan-polarity", next); } catch (e) { /* ignore */ }

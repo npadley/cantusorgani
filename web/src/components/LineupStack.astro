@@ -5,6 +5,9 @@ import { gregobaseUrl } from "../lib/catalog";
 import { bankNote, hymnSettings, isFormula, itemHeading, itemSystems, sections, spokenTone, toneLabel, widestSystem } from "../lib/vespers";
 import { pieceHref } from "../lib/indexes";
 import type { LineupDay } from "../lib/vespers";
+import ChantText from "./ChantText.astro";
+import DisclosureCue from "./DisclosureCue.astro";
+import { textForChant } from "../lib/chantText";
 import ReportLinks from "./ReportLinks.astro";
 
 // A Vespers lineup: slices from several pieces (the Sunday psalter, the day's
@@ -58,6 +61,7 @@ const secs = sections(day);
               )}
               {item.tone && <span class="sr-only">{spokenTone(item.tone)}</span>}
               {provenance && <p class="provenance ui small muted">{provenance}</p>}
+              {!item.repeat && <ChantText text={textForChant(item.chant)} />}
               {entry && (
                 <div class="chant-notation" hidden data-chant-id={entry.id} data-incipit={entry.incipit}
                      data-annotation={annotation} data-mode={mode}>
@@ -95,7 +99,7 @@ const secs = sections(day);
               )}
               {item.psalmText.length > 0 && (
                 <details class="psalm-text">
-                  <summary class="ui small">The text of {item.label.replace(/:.*$/, "")}</summary>
+                  <summary class="disclosure-summary ui small"><DisclosureCue />The text of {item.label.replace(/:.*$/, "")}</summary>
                   <ol>
                     {item.psalmText.map((verse) => <li>{verse}</li>)}
                   </ol>

@@ -7,8 +7,9 @@
 
    Contrast ratios below were measured against --paper / --warn-bg. */
 
-:root {
-  color-scheme: light dark;
+:root, :root[data-scan-polarity="normal"] {
+  color-scheme: light;
+  --score-filter: none;
 
   /* Ink. The scans are pure #000 on #FFF; never tint the ground behind them. */
   --paper:     #fdfcf9;   /* warm off-white, 1942 letterpress reference */
@@ -39,7 +40,9 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-scan-polarity="normal"]) {
+    color-scheme: dark;
+    --score-filter: invert(1);
     --paper: #14140f;
     --ink: #ece7da;
     --ink-muted: #b3ac9c;
@@ -51,19 +54,17 @@
   }
 }
 
-/* Console-light rule. In the dark the scans must be inverted, not left as
-   black-on-white lightboxes at an organ console. Inversion suits low light and
-   normal suits daylight, so the viewer can override the system default and the
-   choice persists. */
-/* Typeset music is drawn in black on transparent, so it follows the same rule. */
-:root[data-scan-polarity="inverted"] :is(.system, .typeset-music),
-:root:not([data-scan-polarity="normal"]) :is(.system, .typeset-music) {
-  filter: none;
+/* The viewer's explicit choice controls both the page and its music. */
+:root[data-scan-polarity="inverted"] {
+  color-scheme: dark;
+  --score-filter: invert(1);
+  --paper: #14140f;
+  --ink: #ece7da;
+  --ink-muted: #b3ac9c;
+  --rule: #3c382f;
+  --accent: #e0a08c;
+  --warn-bg: #2a2318;
+  --warn-ink: #e8c87a;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-scan-polarity="normal"]) :is(.system, .typeset-music) { filter: invert(1); }
-}
-
-:root[data-scan-polarity="inverted"] :is(.system, .typeset-music) { filter: invert(1); }
-:root[data-scan-polarity="normal"] :is(.system, .typeset-music) { filter: none; }
+:is(.system, .typeset-music) { filter: var(--score-filter); }

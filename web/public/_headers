@@ -1,0 +1,15 @@
+/admin/*
+  X-Robots-Tag: noindex, nofollow
+/search/
+  X-Robots-Tag: noindex, follow
+/corrections/
+  X-Robots-Tag: noindex, follow
+/chant/*
+  X-Robots-Tag: noindex
+/corrections/targets.json
+  X-Robots-Tag: noindex
+https://cantusorgani.pages.dev/*
+  X-Robots-Tag: noindex
+# Cloudflare also supplies noindex for its preview deployments.
+https://:preview.cantusorgani.pages.dev/*
+  X-Robots-Tag: noindex

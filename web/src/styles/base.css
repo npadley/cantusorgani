@@ -85,11 +85,24 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: var(--s-5) 0; }
 /* Organists print from the browser. Without this they get navigation chrome on
    the music stand. */
 @media print {
-  :root { --paper: #fff; --ink: #000; --ink-muted: #333; --rule: #999; }
+  :root, :root[data-scan-polarity] { color-scheme: light; --paper: #fff; --ink: #000; --ink-muted: #333; --rule: #999; }
   body { font-size: 11pt; }
   nav, .no-print, .skip-link, button { display: none !important; }
   .page { max-width: none; padding: 0; }
-  .system { break-inside: avoid; filter: none !important; }
+  .system, .typeset-music { break-inside: avoid; filter: none !important; }
   .systems figure, figure { break-inside: avoid; }
   a[href]::after { content: ""; }
 }
+
+/* A shared rubric marker for expandable text and export selections. */
+.disclosure-summary {
+  display: flex; align-items: center; gap: var(--s-2);
+  min-height: var(--tap-min); cursor: pointer; list-style: none;
+}
+.disclosure-summary::-webkit-details-marker { display: none; }
+.disclosure-cue {
+  display: inline-flex; flex-shrink: 0; color: var(--accent);
+  transition: transform 130ms ease;
+}
+details[open] > summary .disclosure-cue { transform: rotate(90deg); }
+@media (prefers-reduced-motion: reduce) { .disclosure-cue { transition: none; } }
