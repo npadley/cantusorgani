@@ -51,6 +51,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
             <input type="checkbox" name="export-part" value={s.id}
                    checked={defaultTicked(s, segments, group)}
                    data-stems={s.stems.join(",")} data-systems={s.systems} data-label={s.label}
+                   data-rubric={s.rubric} data-rubric-translation={s.rubricTranslation}
                    data-runs={JSON.stringify(runsOf(s))} />
             <span>{s.label}</span>
             <span class="muted small">{s.systems}</span>
@@ -165,7 +166,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     // The ticked parts, in page order, with where each starts in the export.
     function selection() {
       const refs: string[] = [];
-      const headings: { index: number; label: string }[] = [];
+      const headings: import("../lib/pdf").PdfHeading[] = [];
       const parts: { label: string; systems: number }[] = [];
       const typeset: TypesetInsert[] = [];
       const paper: Paper = paperSelect?.value === "a4" ? "a4" : "letter";
@@ -174,7 +175,10 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
         const stems = (box.dataset["stems"] ?? "").split(",").filter(Boolean);
         const label = box.dataset["label"] ?? "";
         const start = refs.length;
-        if (ticked.length > 1) headings.push({ index: start, label });
+        const rubric = box.dataset["rubric"];
+        const rubricTranslation = box.dataset["rubricTranslation"];
+        if (ticked.length > 1 || rubric || rubricTranslation) headings.push({ index: start, label,
+          ...(rubric ? { rubric } : {}), ...(rubricTranslation ? { rubricTranslation } : {}) });
         const runs = runsOf(box);
         // The runs cover the part's systems in order; if they do not add up,
         // the part goes in as scans.

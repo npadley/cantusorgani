@@ -76,6 +76,12 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
                 )}
                 {start.target && <ReportLinks target={start.target} name={start.label} />}
               </div>
+              {(start.rubric || start.rubricTranslation) && (
+                <div class="section-rubric">
+                  {start.rubric && <p lang="la">{start.rubric}</p>}
+                  {start.rubricTranslation && <p lang="en">{start.rubricTranslation}</p>}
+                </div>
+              )}
               <ChantText text={textForHeading(piece, start)} />
               {start.source && <p class="ui small muted source-page">Music from {start.source}.</p>}
               {entry && (
@@ -162,6 +168,9 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
   /* The heading is never the link: a stray tap mid-service stays on the music. */
   .part-head { display: flex; align-items: baseline; gap: var(--s-3); margin: var(--s-4) 0 var(--s-2); }
   .part-head .movement-heading { margin: 0; }
+  .section-rubric { margin: 0 0 var(--s-2); font-size: var(--step--1); }
+  .section-rubric p { margin: 0 0 var(--s-1); }
+  .section-rubric p[lang="la"] { font-style: italic; }
   .source-page { margin: 0 0 var(--s-2); }
   /* Exsurge draws in currentColor, so the chant follows the theme. */
   .chant-notation { color: var(--ink); margin: 0 0 var(--s-3); --exsurge-negative-fill: var(--paper); }

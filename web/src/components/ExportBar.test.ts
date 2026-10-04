@@ -54,6 +54,14 @@ describe("ExportBar", () => {
     expect(html).not.toContain("movement pages");
   });
 
+  it("passes the section instruction to export selection even when the only part is selected", async () => {
+    const p = proper(2, [["alleluia", 0]]);
+    const withRubric = { ...p, parts: p.parts.map((s) => ({ ...s, rubric: "Tempore Paschali.", rubricTranslation: "During Paschaltide." })) };
+    const html = await render(ExportBar, { pieces: [withRubric], title: "T" });
+    expect(html).toContain('data-rubric="Tempore Paschali."');
+    expect(html).toContain('data-rubric-translation="During Paschaltide."');
+  });
+
   it("should render nothing for pieces with no music", async () => {
     expect(await render(ExportBar, { pieces: [proper(0, [])], title: "T" })).not.toContain("export-btn");
   });

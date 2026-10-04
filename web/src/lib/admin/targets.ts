@@ -82,6 +82,8 @@ export interface TargetPart {
   /** As the book prints it in the margin, and its opening words, where known. */
   readonly label?: string | null;
   readonly title?: string | null;
+  readonly rubric?: string;
+  readonly rubric_translation?: string;
   /** Its start was only guessed from the order of the parts, so the piece page
    * does not show it (no heading, no Report link); the edit page does. */
   readonly guessed?: boolean;
@@ -427,6 +429,8 @@ export interface SectionEntry {
   readonly key?: string;
   readonly label?: string;
   readonly title?: string;
+  readonly rubric?: string;
+  readonly rubric_translation?: string;
   readonly system?: number;
   readonly borrowed_volume?: string;
   readonly borrowed_page?: number;
@@ -438,7 +442,7 @@ export const SECTION_KINDS = ["introit", "gradual", "hymn", "alleluia", "tract",
 export const MAX_SECTIONS = 40;
 /** As pipeline/sections.py KEY. */
 export const SECTION_KEY = /^(?=[a-z0-9]*[a-z])[a-z0-9]+(-[a-z0-9]+)*$/;
-const SECTION_KEYS = new Set(["kind", "n", "variant", "key", "label", "title", "system", "borrowed_volume", "borrowed_page",
+const SECTION_KEYS = new Set(["kind", "n", "variant", "key", "label", "title", "rubric", "rubric_translation", "system", "borrowed_volume", "borrowed_page",
                               "chant"]);
 
 /** A piece's sections as the Sections screen starts from them, in printed order. */
@@ -451,6 +455,7 @@ export function currentSections(piece: TargetPiece): SectionEntry[] {
       ...(p.variant === "paschal" ? { variant: "paschal" as const } : {}),
       ...(keyed ? { key: p.variant } : {}),
       ...(p.label ? { label: p.label } : {}), ...(p.title ? { title: p.title } : {}),
+      ...(p.rubric ? { rubric: p.rubric } : {}), ...(p.rubric_translation ? { rubric_translation: p.rubric_translation } : {}),
       ...(p.system !== null ? { system: p.system }
         : { borrowed_volume: p.borrowedVolume ?? "", borrowed_page: p.borrowedPage ?? 0 }),
       chant: p.chant ?? "none",
@@ -464,6 +469,7 @@ function entry(e: SectionEntry): SectionEntry {
     kind: e.kind, ...(e.n ? { n: e.n } : {}), ...(e.variant ? { variant: e.variant } : {}),
     ...(e.key ? { key: e.key } : {}),
     ...(e.label ? { label: e.label } : {}), ...(e.title ? { title: e.title } : {}),
+    ...(e.rubric ? { rubric: e.rubric } : {}), ...(e.rubric_translation ? { rubric_translation: e.rubric_translation } : {}),
     ...(e.system !== undefined ? { system: e.system }
       : { borrowed_volume: e.borrowed_volume ?? "", borrowed_page: e.borrowed_page ?? 0 }),
     chant: e.chant,
@@ -508,6 +514,14 @@ export function parseSections(raw: string, systems: number | null): SectionEntry
       const text = String(e[key] ?? "").replace(/\s+/g, " ").trim();
       if (text && !/^[^\u0000-\u001f<>]{1,80}$/u.test(text)) return `${at}: the ${key} should be plain text of at most 80 characters, no < or >.`;
       if (text) words[key] = text;
+    }
+    for (const field of ["rubric", "rubric_translation"] as const) {
+      const value = e[field];
+      if (value === undefined || value === null) continue;
+      if (typeof value !== "string") return `${at}: ${field} should be plain text of at most 500 characters, no < or >.`;
+      const text = value.replace(/\s+/g, " ").trim();
+      if (text.length > 500 || /[\u0000-\u001f<>]/u.test(text)) return `${at}: ${field} should be plain text of at most 500 characters, no < or >.`;
+      if (text) words[field] = text;
     }
     const chant = e["chant"] ?? "none";
     const id = typeof chant === "string" && /^\d{1,6}$/.test(chant) ? Number(chant) : chant;

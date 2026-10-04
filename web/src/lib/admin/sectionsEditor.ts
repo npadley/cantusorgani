@@ -15,6 +15,8 @@ export interface Row {
   key: string;
   label: string;
   title: string;
+  rubric?: string;
+  rubric_translation?: string;
   /** "printed" (starts on a system of this piece) or "elsewhere" (another page). */
   where: "printed" | "elsewhere";
   system: string;
@@ -26,6 +28,7 @@ export interface Row {
 export function toRow(e: SectionEntry): Row {
   return {
     kind: e.kind, n: e.n ? String(e.n) : "", paschal: e.variant === "paschal", key: e.key ?? "", label: e.label ?? "", title: e.title ?? "",
+    rubric: e.rubric ?? "", rubric_translation: e.rubric_translation ?? "",
     where: e.system !== undefined ? "printed" : "elsewhere", system: e.system !== undefined ? String(e.system) : "",
     volume: e.borrowed_volume ?? "", page: e.borrowed_page ? String(e.borrowed_page) : "",
     chant: e.chant === "none" ? "" : String(e.chant),
@@ -58,6 +61,8 @@ export function rowsValue(rows: readonly Row[]): string {
     ...(r.key.trim() ? { key: r.key.trim() } : {}),
     ...(r.label.trim() ? { label: r.label.trim() } : {}),
     ...(r.title.trim() ? { title: r.title.trim() } : {}),
+    ...(r.rubric?.trim() ? { rubric: r.rubric.trim() } : {}),
+    ...(r.rubric_translation?.trim() ? { rubric_translation: r.rubric_translation.trim() } : {}),
     ...(r.where === "printed" ? { system: whole(r.system) ?? r.system }
       : { borrowed_volume: r.volume, borrowed_page: whole(r.page) ?? r.page }),
     chant: r.chant.trim() ? whole(r.chant) ?? r.chant.trim() : "none",

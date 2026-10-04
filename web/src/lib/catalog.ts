@@ -44,8 +44,15 @@ export interface MovementBoundary {
 export type ProperPartName =
   | "introit" | "gradual" | "alleluia" | "tract" | "sequence" | "hymn" | "offertory" | "communion" | "other";
 
+/** Verified printed liturgical instructions attached to a section. */
+export interface SectionRubric {
+  /** Verified printed instruction in Latin, and its English translation. */
+  readonly rubric?: string;
+  readonly rubricTranslation?: string;
+}
+
 /** A section of a Proper printed in this piece (the catalogue's `sections`): where it starts. */
-export interface PrintedPart {
+export interface PrintedPart extends SectionRubric {
   /** Original correction target and citation for an inline borrowed section. */
   readonly sourceTarget?: string;
   readonly source?: string;
@@ -68,7 +75,7 @@ export interface PrintedPart {
 }
 
 /** A part the book prints elsewhere ("Introitus. Benedicite, ut supra, p. 354"). */
-export interface BorrowedPart {
+export interface BorrowedPart extends SectionRubric {
   readonly kind: "borrowed";
   readonly part: ProperPartName;
   readonly variant: string;
@@ -196,6 +203,7 @@ interface RawPart {
   readonly kind?: string; readonly n?: number; readonly key?: string;
   readonly part?: string; readonly variant?: string;
   readonly label?: string | null; readonly title?: string | null;
+  readonly rubric?: string; readonly rubric_translation?: string;
   readonly system?: number; readonly ref?: string;
   readonly gregobase_id?: number | null; readonly placed?: string;
   readonly borrowed_from?: string | null; readonly borrowed_ref?: string | null;
@@ -269,9 +277,12 @@ function parsePart(x: RawPart, where: string): ProperPart {
   const gregobaseId = Number.isInteger(x.gregobase_id) ? (x.gregobase_id as number) : null;
   const label = text(x.label);
   const title = text(x.title);
+  const rubric = text(x.rubric);
+  const rubricTranslation = text(x.rubric_translation);
+  const instructions = { ...(rubric ? { rubric } : {}), ...(rubricTranslation ? { rubricTranslation } : {}) };
   if (x.borrowed_page !== undefined) {
     return {
-      kind: "borrowed", part, variant, label, title, gregobaseId, borrowedPage: x.borrowed_page,
+      kind: "borrowed", part, variant, label, title, ...instructions, gregobaseId, borrowedPage: x.borrowed_page,
       borrowedFrom: x.borrowed_from ?? null, borrowedRef: x.borrowed_ref ?? null,
       borrowedVolume: x.borrowed_volume ?? null,
     };
@@ -280,7 +291,7 @@ function parsePart(x: RawPart, where: string): ProperPart {
     throw new Error(`${where}: a printed part needs system, ref and placed`);
   }
   return {
-    kind: "printed", part, variant, label, title, system: x.system, ref: x.ref, gregobaseId,
+    kind: "printed", part, variant, label, title, ...instructions, system: x.system, ref: x.ref, gregobaseId,
     placed: x.placed as PrintedPart["placed"],
   };
 }
@@ -489,7 +500,7 @@ export function hymnAnchor(title: string, occurrence = 0): string {
   return `hymn-${base}${occurrence ? `-${occurrence + 1}` : ""}`;
 }
 
-export interface JumpTarget {
+export interface JumpTarget extends SectionRubric {
   readonly source?: string;
   readonly label: string;
   readonly anchor: string;
@@ -647,7 +658,9 @@ export function jumpTargets(piece: Piece): readonly JumpTarget[] {
                  order: partOrder(x.part, x.variant),
                  target: x.sourceTarget ?? `part:${piece.slug}/${x.part}${x.variant ? `:${x.variant}` : ""}`,
                  ...(x.source ? { source: x.source } : {}),
-                 printed: x.label, title: x.title });
+                 printed: x.label, title: x.title,
+                 ...(x.rubric ? { rubric: x.rubric } : {}),
+                 ...(x.rubricTranslation ? { rubricTranslation: x.rubricTranslation } : {}) });
   }
   const used = new Map<string, number>();
   const hymns: JumpTarget[] = [];

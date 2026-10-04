@@ -288,7 +288,7 @@ feria-v-infra-hebd-i-quadragesim:
 noh1-p112:
 - {kind: introit, title: In excelso throno, ref: noh1/0139/000, chant: none}
 - {kind: gradual, title: Benedictus Dominus, ref: noh1/0140/002, chant: none}
-- {kind: alleluia, title: Jubilate Deo, ref: noh1/0142/002, chant: none}
+- {kind: alleluia, title: Jubilate Deo, ref: noh1/0142/002, chant: 802}
 - {kind: offertory, title: Jubilate Deo, ref: noh1/0143/002, chant: 718}
 - {kind: communion, title: Fili quid fecisti nobis, ref: noh1/0145/000, chant: none}
 feria-iii-infra-hebd-iv-quadragesim:
@@ -400,3 +400,22 @@ feria-iii-hebdomad-sanct:
 - {kind: offertory, label: Offert. I, title: Custodi me, ref: noh1/0360/000, chant: 1322}
 - {kind: communion, label: Comm. V, title: Adversum me, ref: noh1/0360/004, chant: 397}
 - {kind: introit, title: Nos autem gloriari, borrowed_volume: noh1, borrowed_page: 344, chant: none}
+sanctissimi-nominis-jesu:
+- {kind: introit, label: Intr., title: In nomine Jesu, ref: noh1/0113/004, chant: 1033}
+- {kind: gradual, label: Grad., title: Salvos fac nos, ref: noh1/0115/001, chant: 670}
+- {kind: alleluia, title: Laudem Domini, ref: noh1/0117/002, chant: 1}
+- {kind: tract, label: Tract., ref: noh1/0118/003, chant: none}
+- {kind: alleluia, variant: paschal, ref: noh1/0120/003, chant: 954, title: Exaltabo te, rubric: 'Tempore autem
+    Paschali in Missis votivis: Alleluia, alleluia. ℣. Laudem Domini, ut supra; deinde:', rubric_translation: 'In
+    votive Masses during Paschaltide: Alleluia, alleluia. Verse: Laudem Domini, as above; then:'}
+- {kind: offertory, label: Offert. I, title: Confitebor tibi, ref: noh1/0122/000, chant: 980}
+- {kind: communion, label: Comm. VIII, title: Omnes gentes, ref: noh1/0124/003, chant: 8}
+noh1-p104:
+- {kind: introit, label: Intr., title: Exsultet gaudio, ref: noh1/0131/000, chant: 336}
+- {kind: gradual, label: Grad., title: Unam petii, ref: noh1/0132/002, chant: 260}
+- {kind: alleluia, title: Vere tu es, ref: noh1/0133/004, chant: 816}
+- {kind: tract, label: Tract., ref: noh1/0134/004, chant: none}
+- {kind: alleluia, variant: paschal, ref: noh1/0136/002, chant: 116, title: Beatus homo, rubric: 'Tempore Paschali,
+    omisso Graduali, dicitur:', rubric_translation: 'During Paschaltide, omit the Gradual and sing:'}
+- {kind: offertory, label: Offert. IV, title: Tulerunt Jesum, ref: noh1/0138/000, chant: 93}
+- {kind: communion, label: Comm. I, title: Descendit Jesus, ref: noh1/0138/003, chant: 626}

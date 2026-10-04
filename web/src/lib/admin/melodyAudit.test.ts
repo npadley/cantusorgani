@@ -9,7 +9,7 @@ const auditItem = {
 
 describe("melody audit counts", () => {
   it("matches the checked-in current evidence snapshot", () => {
-    expect(MELODY_AUDIT_COUNTS).toMatchObject({ checked: 747, agreement: 70 });
+    expect(MELODY_AUDIT_COUNTS).toMatchObject({ checked: 755, agreement: 70 });
   });
 
   it("counts only evidence matching the current render and reference GABC", () => {

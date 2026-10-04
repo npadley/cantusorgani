@@ -1,15 +1,19 @@
 {
   "algorithm": "melody-audit-1",
   "algorithm_hash": "83dec6fe8378f73647f0acfe4ccaf8bf33a7e9def632d864353bba9856a31a6f",
-  "source_commit": "29be542290c3ccbce0338bfb061086a54cf3670a",
+  "source_commit": "05a56bfe11d4b058df101de5613aa07f7bfa7eb6",
   "lilypond": "2.26.0",
   "items": [
     {
       "file": "vol-1/al_beatus_homo.csv.ly",
       "target": "part:noh1-p104/alleluia:paschal",
       "hash": "c604f018126c3968d80decc7b65ba372",
-      "chant_id": null,
-      "status": "no-reference"
+      "source_hash": "0fd0ce30caba7e6df5a15e3088d88ff7957e0743a2959a95821956dc762c6353",
+      "event_key": "8cb486eaa1d078fe348cedefdab77d6c407bfd9de3c4e442fcc0d8ebc60d3329",
+      "chant_id": 116,
+      "gabc_hash": "2cf80f1ecd080f2d68f482af0b3ba64815d5b91b0fb66f6f3b9e58905b813c44",
+      "status": "differences",
+      "difference_kind": "repeated-attacks"
     },
     {
       "file": "vol-1/al_confitemini_domino.csv.ly",
@@ -81,8 +85,12 @@
       "file": "vol-1/al_exaltabo_te.csv.ly",
       "target": "part:sanctissimi-nominis-jesu/alleluia:paschal",
       "hash": "33876b07dea34a98115c6223dbd6cae7",
-      "chant_id": null,
-      "status": "no-reference"
+      "source_hash": "e0f83bfb61c293e029d79910dbba895d2489591e055f2e498bcd858f987873e1",
+      "event_key": "6ddc3539e685869810753d07bcb66b13a57300c4f12ac1398022a4a9582bdcc1",
+      "chant_id": 954,
+      "gabc_hash": "5b6fb904f87e051c2d6ff04946319ca082c6b7050e4b0e7b7904143a4d468b05",
+      "status": "differences",
+      "difference_kind": "pitch-or-order"
     },
     {
       "file": "vol-1/al_excita_domine.csv.ly",
@@ -108,14 +116,14 @@
     },
     {
       "file": "vol-1/al_jubilate_deo.csv.ly",
-      "target": "part:dominica-i-adventus/alleluia",
+      "target": "part:noh1-p112/alleluia",
       "hash": "f5bd474a8b7403391a6bae3e13e55c16",
       "source_hash": "bc477574da860b9070a80695bddcb671e08d5c2c8791865daa4b62682dbfd9c3",
       "event_key": "b3debd415c0014f37893ddb68fe45eca9ba9d4eda2a1c7bfe26da0da1567649d",
-      "chant_id": 1115,
-      "gabc_hash": "237505f794c96c2d5d0388f0f606b94881b6dc8e8f050f7e402914beab9b3337",
+      "chant_id": 802,
+      "gabc_hash": "a86cbdece93173c8bf63bd4fd7735deddc6eac9233567e4e3af516ab77499767",
       "status": "differences",
-      "difference_kind": "pitch-or-order"
+      "difference_kind": "repeated-attacks"
     },
     {
       "file": "vol-1/al_laetatus_sum.csv.ly",
@@ -157,6 +165,17 @@
       "event_key": "95ca134de7fad3c9567ccb3c8d0870a76819446696b0eb289279a0eb1d67a37d",
       "chant_id": 863,
       "gabc_hash": "63700e3948511543fa04c07f321cb95284365663448c4531c29d35e2cffb15b3",
+      "status": "differences",
+      "difference_kind": "pitch-or-order"
+    },
+    {
+      "file": "vol-1/al_ostende_nobis.csv.ly",
+      "target": "part:dominica-i-adventus/alleluia",
+      "hash": "38d7eedb744cc0d412b3b7a53e67af29",
+      "source_hash": "b10b91f6fb06e94d5c58c7ffacf650ce487fdcd55ef24b246ef6fe2fcdb9506b",
+      "event_key": "389871182d70e08381174bf1642d26e80d5f7c3a116267e625a9acf2d38e7aef",
+      "chant_id": 1115,
+      "gabc_hash": "237505f794c96c2d5d0388f0f606b94881b6dc8e8f050f7e402914beab9b3337",
       "status": "differences",
       "difference_kind": "pitch-or-order"
     },
@@ -4930,8 +4949,12 @@
       "file": "vol-3/al_christus_passus_est.csv.ly",
       "target": "part:s-pauli-a-cruce-confessoris/alleluia:3",
       "hash": "51331bac0ec2e6556d5ddc1394224b6a",
-      "chant_id": null,
-      "status": "no-reference"
+      "source_hash": "cf4b16bc5d4bb9eb8f943ebfb620adc14ba891925f7ad0edcaa5ebc3e2251567",
+      "event_key": "1df20e02351dd5ba255ec0f379ca18ab479c8478ea52c4a464693c689d4a6a92",
+      "chant_id": 1233,
+      "gabc_hash": "d9bee1917213a08557fea6dd2f87d27ca648d88780c1ddd98f6186d1c7128f82",
+      "status": "differences",
+      "difference_kind": "repeated-attacks"
     },
     {
       "file": "vol-3/al_de_excelso.csv.ly",
@@ -4948,8 +4971,12 @@
       "file": "vol-3/al_de_quacumque.csv.ly",
       "target": "part:in-solemnitate-s-joseph/alleluia:1",
       "hash": "15b00deec53b42b0a17e267be5404e57",
-      "chant_id": null,
-      "status": "no-reference"
+      "source_hash": "56048f4cbeb2b0d1e06e2215e64ed45df36e09a7e33943f92a8263846fc6f5a8",
+      "event_key": "d7208b03e5dbfaa9498bdab71358115dabd73c25d64c977f4a9eff257cb0e820",
+      "chant_id": 1324,
+      "gabc_hash": "1651686605bbaabcc091e96541249dc3930e3031666f648dbb95d1145a440157",
+      "status": "differences",
+      "difference_kind": "repeated-attacks"
     },
     {
       "file": "vol-3/al_defecit_caro.csv.ly",
@@ -4966,8 +4993,12 @@
       "file": "vol-3/al_dicite_in_gentibus.csv.ly",
       "target": "part:in-inventione-s-crucis/alleluia:paschal",
       "hash": "367f2d5d87c6ad38c80549dfc72981e7",
-      "chant_id": null,
-      "status": "no-reference"
+      "source_hash": "db802d1fb67d97058ac09c7ed489a0bd07b17ffbbbb883ea45b974c773b8a2a1",
+      "event_key": "7e0a4d963b97644fd067b915845f912c4de0e19e90a2c1edc5b9c7f9a299bd37",
+      "chant_id": 627,
+      "gabc_hash": "741328a7692282e345d93a43a54c85cdf25685da2b061fb59e1fd419cb1f5733",
+      "status": "differences",
+      "difference_kind": "repeated-attacks"
     },
     {
       "file": "vol-3/al_dispersit.csv.ly",
@@ -4981,6 +5012,28 @@
       "difference_kind": "repeated-attacks"
     },
     {
+      "file": "vol-3/al_ecce_quam_bonum.csv.ly",
+      "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia:paschal",
+      "hash": "bbeb5973cd148bf98f62c396736e95a2",
+      "source_hash": "0d9eb972de1bcb55acb86f0ed122c327b8ddaa1dff74dcad37edcc7cc234b263",
+      "event_key": "2f2ea47b5dfb89d8082dc9630400991478cf275a00371f17a0a5ed6e5d5b1f7d",
+      "chant_id": 1078,
+      "gabc_hash": "42474bbe6ae019f31899d716dd8870d22c7606dcf15060c569e29d97222ea57f",
+      "status": "differences",
+      "difference_kind": "repeated-attacks"
+    },
+    {
+      "file": "vol-3/al_ego_autem_cantabo.csv.ly",
+      "target": "part:s-joannis-a-capistrano-confessoris/alleluia:paschal",
+      "hash": "fdd13e5df538abf99da6ae9107742daf",
+      "source_hash": "0334673c3d9714733e3bd02a23cd1d7d5a756e8a3d945ef2e1827c023b0d0aca",
+      "event_key": "98f70fe4409a4b8e4cfdb4416ef755bbcdba1016bd7995380dd38cb397b3189b",
+      "chant_id": 192,
+      "gabc_hash": "2f541bee713af70d06d254ba627c3a861786c4429494adacf2d13b2621303b68",
+      "status": "differences",
+      "difference_kind": "repeated-attacks"
+    },
+    {
       "file": "vol-3/al_ego_dilecto.csv.ly",
       "target": "part:s-margarit-mari-alaquoque-virginis/alleluia",
       "hash": "dc4c16537394bad84ce2f58ce4470283",
@@ -4988,6 +5041,17 @@
       "event_key": "48a10cbbf377d3f405104432efcdf3498174a180f4fda58c239a5d8322a82d31",
       "chant_id": 1307,
       "gabc_hash": "e67d98b408bfbf60079183659056fedcfe28cde89eecd893ca6eb2f1c4ca294d",
+      "status": "differences",
+      "difference_kind": "repeated-attacks"
+    },
+    {
+      "file": "vol-3/al_erit_autem_sanguis.csv.ly",
+      "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/alleluia:paschal",
+      "hash": "1ad21e91ad5c62fc8e72be4e9a64c97c",
+      "source_hash": "08d98161deb6432d41d2b49aae02b93303a79af0ce138d1a3dbe0944a1c38689",
+      "event_key": "f14904ef4f08f792e7182695ee51f187a83352875a18976fc714c66487cee683",
+      "chant_id": 875,
+      "gabc_hash": "42f24e06f67a8f472ef813736b937b115803fd68240f51fc7bb920fbe54bfb9e",
       "status": "differences",
       "difference_kind": "repeated-attacks"
     },
@@ -5021,6 +5085,17 @@
       "event_key": "6524092fa14e0108725d412b3862cc2c060800505bec0ef0c0ce64a8e1511632",
       "chant_id": 1015,
       "gabc_hash": "cbd39822d17322beaf1502594f89dd9fa559f435f8b5a2ee82bc54a425632f07",
+      "status": "differences",
+      "difference_kind": "repeated-attacks"
+    },
+    {
+      "file": "vol-3/al_non_derelinquet.csv.ly",
+      "target": "part:ss-septem-fundat-ord-servorum-b-m-v/alleluia:paschal",
+      "hash": "bcb6f517d6b1dbdadeb52f45d46093d3",
+      "source_hash": "6f07a60fd668ce171ab41038f254e4e7efa38adf6d182df7f9cf69a5c4a95cd4",
+      "event_key": "8473ce3db516885a037da72c457472f9d307031efd56c0fd0f9046245af3db19",
+      "chant_id": 1379,
+      "gabc_hash": "22a128711d9d153c0b09fa9f2e5afe818bd2f8729790df1de050c1221fd81f65",
       "status": "differences",
       "difference_kind": "repeated-attacks"
     },
@@ -5061,8 +5136,12 @@
       "file": "vol-3/al_per_te_dei_genitrix.csv.ly",
       "target": "part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/alleluia",
       "hash": "cdb6c3a528afe1db7b27d0071189b62c",
-      "chant_id": null,
-      "status": "no-reference"
+      "source_hash": "48187b4826bd42beaa007c9434df7ec86ce463cc7cf9f91e938a43d77d8520c2",
+      "event_key": "d1abf8fd8669708d967891869a1560e022fe800089e0aa5ed88db61bdbcb13a7",
+      "chant_id": 634,
+      "gabc_hash": "8a4dd307e29234ba2e82f4145f3a0e31af7592cfcbc6b16f14b0fd5db7d90f1a",
+      "status": "differences",
+      "difference_kind": "repeated-attacks"
     },
     {
       "file": "vol-3/al_pro_omnibus.csv.ly",
@@ -5072,6 +5151,17 @@
       "event_key": "bffcded117d15b2970415a7ef78a46140afb087a0e4b5b554a629da5f599e2b1",
       "chant_id": 476,
       "gabc_hash": "5d3573a73922ffa066345dff004d7dd7bcdb547c61cb2c44b880b40c43a21437",
+      "status": "differences",
+      "difference_kind": "repeated-attacks"
+    },
+    {
+      "file": "vol-3/al_qui_facit_angelos.csv.ly",
+      "target": "part:s-gabrielis-archangeli/alleluia:paschal",
+      "hash": "3c7f6063848630d8c395c31ecea5efed",
+      "source_hash": "4b8b134a316434468fad3a1f640206581d94f740ed75d45108fd1250c32f0a9f",
+      "event_key": "0d66c1a9ed472d1ab88225d3fcec9386781e4941c0b0464123d4534fa9744401",
+      "chant_id": 1202,
+      "gabc_hash": "d413d133e965afa1a7e64d5b6e75e5ba62ff75e994e8138558488c37a7481b3b",
       "status": "differences",
       "difference_kind": "repeated-attacks"
     },
@@ -5094,6 +5184,17 @@
       "event_key": "57748aba2dd023f674fb595e47edf96201080a33cc63c0d436672a6f0352fcd5",
       "chant_id": 96,
       "gabc_hash": "a906eeac791383a5d51e77daa24380906d62b16f161ab3065dee1d63c86e0fa6",
+      "status": "differences",
+      "difference_kind": "repeated-attacks"
+    },
+    {
+      "file": "vol-3/al_repletus_sum.csv.ly",
+      "target": "part:s-antonii-mari-zaccaria-confessoris/alleluia:paschal",
+      "hash": "9559d69eeda2d3d9394eff923f1609fb",
+      "source_hash": "682fbc15e7a05a05dcf3139e3ebf4b14b80a9bd325e09df96c07533051fb808c",
+      "event_key": "d88b8d62a524120e3c14f00d1f3afea986285fd23f0fd2fcc43e31a2c0744cc2",
+      "chant_id": 1142,
+      "gabc_hash": "af6644790483397fff2f57c4104c5f60ff1427eadec79c4d3336017d8ea0a84d",
       "status": "differences",
       "difference_kind": "repeated-attacks"
     },
@@ -5123,8 +5224,12 @@
       "file": "vol-3/al_sapientia_hujus.csv.ly",
       "target": "part:s-justini-martyris/alleluia:paschal",
       "hash": "c9425fdb21b0d550deeda9e0e4b694a8",
-      "chant_id": null,
-      "status": "no-reference"
+      "source_hash": "6e3c4df37c70401ec2e81e6f997ada45cc5f0e8ad846f771851cec7b45528973",
+      "event_key": "7e8355c3fc0431211d4a1946f006c921760f5cebceeeac0827f10c0cd5dbef2e",
+      "chant_id": 334,
+      "gabc_hash": "aa61a818a23e9393f3cce86edf74813cdecf4badad51eeeeae1f247ad3e8cfc0",
+      "status": "differences",
+      "difference_kind": "repeated-attacks"
     },
     {
       "file": "vol-3/al_sapientiam.csv.ly",
@@ -5160,11 +5265,26 @@
       "difference_kind": "repeated-attacks"
     },
     {
+      "file": "vol-3/al_sicut_oliva.csv.ly",
+      "target": "part:s-joannis-leonardi-confessoris/alleluia:paschal",
+      "hash": "133df28fe7ab1940afb0bc5243c07769",
+      "source_hash": "d8f045a37b55e773b851bb4679d3709659796d6d820ad38e5243c07b60b41f9b",
+      "event_key": "87f5b33d85ad9648afae33ac65630dfa737560e280f971f75cd70f1d78a775fa",
+      "chant_id": 892,
+      "gabc_hash": "262b303e54bd89587a637627203eb06ae8b0b400367d85498323288cb6ea04e7",
+      "status": "differences",
+      "difference_kind": "repeated-attacks"
+    },
+    {
       "file": "vol-3/al_stabat_sancta_maria.csv.ly",
       "target": "part:septem-dolorum-b-mariae-virginis-in-quadragesima/alleluia:1",
       "hash": "80a952bcc49a37627bf00e2c292f7da4",
-      "chant_id": null,
-      "status": "no-reference"
+      "source_hash": "3f9b79625c871cbf3d48741140f80b0d879470d5ab26b2845c12ae6ef8daabfd",
+      "event_key": "00c86330801e41b50555eb0a19c5c26a01a8394b6b9a4917d9285abf034a8f79",
+      "chant_id": 853,
+      "gabc_hash": "97752baa32867d6ea053577711e0c2f30c7953992973b26affa9e9b12222b46f",
+      "status": "differences",
+      "difference_kind": "repeated-attacks"
     },
     {
       "file": "vol-3/al_tamquam_prodigium.csv.ly",
@@ -5192,8 +5312,12 @@
       "file": "vol-3/al_tu_es_petrus_31.csv.ly",
       "target": "part:in-cathedra-s-petri-romae/alleluia:shared",
       "hash": "36c70d3a387bc0c339e6d24f7aa39aab",
-      "chant_id": null,
-      "status": "no-reference"
+      "source_hash": "52216d13161a9a40898982ef1ca7021abbbf7f5317a9a271c1354160df4359d8",
+      "event_key": "623a6b508cac5376a0a758c2ee4fd4efd34af11a26a12c2d4dedded7883ccf80",
+      "chant_id": 228,
+      "gabc_hash": "3a92350f8e1fdd757716d1a640388fa13dadf6e5cb280548234a335986c2e4fc",
+      "status": "differences",
+      "difference_kind": "repeated-attacks"
     },
     {
       "file": "vol-3/al_virgo_dei_genitrix.csv.ly",

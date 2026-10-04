@@ -47,3 +47,18 @@ it("distinguishes a chained rubric citation from the resolved source pages", () 
   expect(source).toContain("rubric cites");
   expect(source).toContain("p. 78");
 });
+
+
+it("uses the borrowing section's rubric in the inline score and omits source-only instructions", () => {
+  const original = pieceBySlug("commune-doctorum")!;
+  const source = pieceBySlug("commune-unius-martyris-pontificis-alia-missa")!;
+  const lender = { ...source, parts: source.parts.map((p) => ({ ...p, rubric: "Source-only instruction." })) };
+  const borrower = { ...original, parts: original.parts.map((p) => p.kind === "borrowed" && p.part === "tract"
+    ? { ...p, rubric: "Tempore Paschali.", rubricTranslation: "During Paschaltide." } : p) };
+  const view = musicView(borrower, [borrower, lender, ...[pieceBySlug("commune-confessoris-non-pontificis")!].filter(Boolean)]);
+  expect(jumpTargets(view).find((p) => p.anchor === "tract")).toMatchObject({
+    rubric: "Tempore Paschali.", rubricTranslation: "During Paschaltide.",
+  });
+  const without = musicView(original, [original, lender]);
+  expect(jumpTargets(without).find((p) => p.anchor === "tract")?.rubric).toBeUndefined();
+});

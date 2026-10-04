@@ -29,6 +29,8 @@ export function buildTargets(): Targets {
       parts: p.parts.map((part) => ({
         part: part.part, variant: part.variant, chant: part.gregobaseId,
         ...(part.label ? { label: part.label } : {}), ...(part.title ? { title: part.title } : {}),
+        ...(part.rubric ? { rubric: part.rubric } : {}),
+        ...(part.rubricTranslation ? { rubric_translation: part.rubricTranslation } : {}),
         ...(part.kind === "printed"
           ? { system: part.system + 1, borrowed: null, ...(part.placed === "order" ? { guessed: true } : {}) }
           : { system: null, borrowed: `${part.borrowedFrom ?? "another volume"}, p. ${part.borrowedPage}`,

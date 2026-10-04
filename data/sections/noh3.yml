@@ -33,7 +33,7 @@ s-pauli-a-cruce-confessoris:
 - {kind: alleluia, n: 1, title: Pro omnibus, ref: noh3/0186/002, chant: 476}
 - {kind: alleluia, n: 2, title: Si filii, ref: noh3/0187/001, chant: 1073}
 - {kind: gradual, label: Grad. IV, title: Mihi autem absit, ref: noh3/0188/000, chant: none}
-- {kind: alleluia, n: 3, title: Christus passus est, ref: noh3/0189/003, chant: none}
+- {kind: alleluia, n: 3, title: Christus passus est, ref: noh3/0189/003, chant: 1233}
 - {kind: tract, label: Tract. II, title: Christo igitur, ref: noh3/0190/003, chant: 1005}
 - {kind: offertory, label: Offert., title: Ambulate, ref: noh3/0193/000, chant: 773}
 - {kind: communion, label: Comm., title: Communicantes, ref: noh3/0194/000, chant: 732}
@@ -151,14 +151,16 @@ in-cathedra-s-petri-romae:
 - {kind: introit, borrowed_volume: noh4, borrowed_page: 3, borrowed_from: commune-unius-martyris-pontificis, borrowed_ref: noh4/0034/001,
   chant: none}
 - {kind: gradual, title: Exaltent eum, ref: noh3/0062/000, chant: none}
-- {kind: alleluia, variant: shared, title: Tu es Petrus, ref: noh3/0064/001, chant: none}
+- {kind: alleluia, variant: shared, title: Tu es Petrus, ref: noh3/0064/001, chant: 228}
 - {kind: tract, title: Tu es Petrus, ref: noh3/0065/000, chant: none}
-- {kind: alleluia, variant: paschal, title: Confiteantur Domino, ref: noh3/0067/000, chant: none}
+- {kind: alleluia, variant: paschal, title: Confiteantur Domino, ref: noh3/0067/000, chant: none, rubric: 'Si hoc
+    Festum intra Tempus Paschale translatum occurrerit, omisso Graduali dicitur:', rubric_translation: 'If this
+    feast is transferred to a date during Paschaltide, omit the Gradual and sing:'}
 - {kind: offertory, title: Tu es Petrus, ref: noh3/0068/001, chant: none}
 - {kind: communion, title: Tu es Petrus, ref: noh3/0069/003, chant: none}
 in-commemoratione-beat-mari-virgine-de-monte-carmelo:
 - {kind: introit, label: Intr. I, title: Gaudeamus, ref: noh3/0303/000, chant: 246}
-- {kind: alleluia, title: Per te Dei Genitrix, ref: noh3/0304/002, chant: none}
+- {kind: alleluia, title: Per te Dei Genitrix, ref: noh3/0304/002, chant: 634}
 - {kind: offertory, borrowed_volume: noh3, borrowed_page: 140, borrowed_from: septem-dolorum-b-mariae-virginis-in-quadragesima,
   borrowed_ref: noh3/0173/000, chant: 787}
 - {kind: communion, label: Comm., title: Regina mundi, ref: noh3/0305/002, chant: 1053}
@@ -219,7 +221,7 @@ s-matth-i-apostoli-et-evangelist:
 - {kind: gradual, borrowed_volume: noh4, borrowed_page: 19, borrowed_from: commune-unius-martyris-non-pontificis,
   borrowed_ref: noh4/0050/004, chant: none}
 - {kind: alleluia, borrowed_volume: noh3, borrowed_page: 338, borrowed_from: s-bartholom-i-apostoli, borrowed_ref: noh3/0371/002,
-  chant: none}
+  chant: 442, title: Te gloriosus}
 - {kind: offertory, borrowed_volume: noh4, borrowed_page: 27, borrowed_from: commune-unius-martyris-non-pontificis-alia-missa,
   borrowed_ref: noh4/0058/004, chant: none}
 - {kind: communion, borrowed_volume: noh4, borrowed_page: 2, borrowed_from: in-vigilia-unius-apostoli, borrowed_ref: noh4/0033/004,
@@ -261,7 +263,7 @@ ss-tryphonis-respicii-and-nymph:
 - {kind: gradual, borrowed_volume: noh3, borrowed_page: 207, borrowed_from: s-basilidus, borrowed_ref: noh3/0240/000,
   chant: none}
 - {kind: alleluia, borrowed_volume: noh4, borrowed_page: 37, borrowed_from: commune-martyrum-tempore-paschali-de-pluribus-martyribus,
-  borrowed_ref: noh4/0067/003, chant: none}
+  borrowed_ref: noh4/0068/004, chant: 207, title: Pretiosa}
 - {kind: offertory, borrowed_volume: noh3, borrowed_page: 41, borrowed_from: ss-fabiani-et-sebastiani-martyrum,
   borrowed_ref: noh3/0074/002, chant: none}
 - {kind: communion, borrowed_volume: noh3, borrowed_page: 107, borrowed_from: ss-quadraginta-martyrum, borrowed_ref: noh3/0140/003,
@@ -404,8 +406,12 @@ septem-dolorum-b-mariae-virginis-in-quadragesima:
 - {kind: introit, title: Stabant juxta crucem, ref: noh3/0161/004, chant: none}
 - {kind: gradual, title: Dolorosa et lacrimabilis, ref: noh3/0163/000, chant: none}
 - {kind: tract, title: Stabat sancta Maria, ref: noh3/0164/003, chant: none}
-- {kind: alleluia, n: 1, variant: paschal, title: Stabat sancta Maria, ref: noh3/0166/000, chant: none}
-- {kind: alleluia, n: 2, variant: paschal, title: O vos omnes, ref: noh3/0167/000, chant: none}
+- {kind: alleluia, n: 1, variant: paschal, title: Stabat sancta Maria, ref: noh3/0166/000, chant: 853, rubric: 'In
+    Missis votivis per annum, Graduale Dolorosa et lacrimabilis, ut supra; deinde:', rubric_translation: 'In votive
+    Masses throughout the year, sing the Gradual Dolorosa et lacrimabilis, as above; then:'}
+- {kind: alleluia, n: 2, variant: paschal, title: O vos omnes, ref: noh3/0167/000, chant: 1326, rubric: 'Tempore
+    Paschali: Alleluia, alleluia. ℣. Stabat sancta Maria, ut supra; deinde:', rubric_translation: 'During Paschaltide:
+    Alleluia, alleluia. Verse: Stabat sancta Maria, as above; then:'}
 - {kind: sequence, title: Stabat Mater, ref: noh3/0168/000, chant: none}
 - {kind: offertory, title: Recordare Virgo Mater, ref: noh3/0173/000, chant: 787}
 - {kind: communion, title: Felices sensus, ref: noh3/0173/004, chant: none}
@@ -433,7 +439,7 @@ in-exaltatione-sanct-crucis:
 - {kind: gradual, borrowed_volume: noh4, borrowed_page: 162, borrowed_from: feria-vi-missa-de-sancta-cruce, borrowed_ref: noh4/0193/000,
   chant: none}
 - {kind: alleluia, borrowed_volume: noh3, borrowed_page: 172, borrowed_from: in-inventione-s-crucis, borrowed_ref: noh3/0205/002,
-  chant: none}
+  chant: 859, title: Dulce lignum}
 - {kind: offertory, title: Protege Domine, ref: noh3/0378/000, chant: 843}
 - {kind: communion, borrowed_volume: noh3, borrowed_page: 174, borrowed_from: in-inventione-s-crucis, borrowed_ref: noh3/0207/000,
   chant: none}
@@ -443,7 +449,9 @@ ss-septem-fundat-ord-servorum-b-m-v:
 - {kind: alleluia, title: Sapientiam ipsorum, ref: noh3/0124/003, chant: 706}
 - {kind: tract, borrowed_volume: noh4, borrowed_page: 45, borrowed_from: commune-plurimorum-martyrum, borrowed_ref: noh4/0076/002,
   chant: 305}
-- {kind: alleluia, variant: paschal, ref: noh3/0125/004, chant: none}
+- {kind: alleluia, variant: paschal, ref: noh3/0125/004, chant: 1379, title: Non derelinquet, rubric: 'Tempore Paschali
+    omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. ℣. Sapientiam, ut supra; deinde:', rubric_translation: 'During
+    Paschaltide, omit the Gradual and in its place sing: Alleluia, alleluia. Verse: Sapientiam, as above; then:'}
 - {kind: offertory, label: Offert. VII, title: Adducam eos, ref: noh3/0126/004, chant: 1275}
 - {kind: communion, borrowed_volume: noh3, borrowed_page: 203, borrowed_from: ss-primi-et-feliciani-martyrum, borrowed_ref: noh3/0236/001,
   chant: 470}
@@ -647,8 +655,8 @@ in-inventione-s-crucis:
 - {kind: introit, title: Nos autem gloriari, ref: noh3/0203/000, chant: none}
 - {kind: gradual, borrowed_volume: noh4, borrowed_page: 162, borrowed_from: feria-vi-missa-de-sancta-cruce, borrowed_ref: noh4/0193/000,
   chant: none}
-- {kind: alleluia, variant: paschal, title: Dicite in gentibus, ref: noh3/0204/003, chant: none}
-- {kind: alleluia, variant: shared, title: Dulce lignum, ref: noh3/0205/002, chant: none}
+- {kind: alleluia, variant: paschal, title: Dicite in gentibus, ref: noh3/0204/003, chant: 627}
+- {kind: alleluia, variant: shared, title: Dulce lignum, ref: noh3/0205/002, chant: 859}
 - {kind: offertory, title: Dextera Domini, ref: noh3/0206/002, chant: none}
 - {kind: communion, title: Per signum Crucis, ref: noh3/0207/000, chant: none}
 s-mariae-magdalenae-poenitentis:
@@ -684,15 +692,15 @@ s-bartholom-i-apostoli:
   chant: 475}
 - {kind: gradual, borrowed_volume: noh3, borrowed_page: 6, borrowed_from: s-andre-apostoli, borrowed_ref: noh3/0039/000,
   chant: none}
-- {kind: alleluia, title: Te gloriosus, ref: noh3/0371/002, chant: none}
+- {kind: alleluia, title: Te gloriosus, ref: noh3/0371/002, chant: 442}
 - {kind: offertory, borrowed_volume: noh3, borrowed_page: 8, borrowed_from: s-andre-apostoli, borrowed_ref: noh3/0041/004,
   chant: none}
 - {kind: communion, label: Comm., title: Vos qui secuti, ref: noh3/0372/003, chant: 97}
 # p. 162: the Solemnity of St Joseph (St Catherine, p. 161, has only "Missa. Dilexisti").
 in-solemnitate-s-joseph:
 - {kind: introit, label: Intr., title: Adjutor et protector, ref: noh3/0195/000, chant: none}
-- {kind: alleluia, n: 1, title: De quacumque tribulatione, ref: noh3/0196/001, chant: none}
-- {kind: alleluia, n: 2, title: Fac nos innocuam, ref: noh3/0197/000, chant: none}
+- {kind: alleluia, n: 1, title: De quacumque tribulatione, ref: noh3/0196/001, chant: 1324}
+- {kind: alleluia, n: 2, title: Fac nos innocuam, ref: noh3/0197/000, chant: 213}
 - {kind: offertory, label: Offert., title: Lauda Jerusalem, ref: noh3/0198/001, chant: none}
 - {kind: communion, label: Comm., title: Jacob autem genuit, ref: noh3/0199/000, chant: none}
 in-conversione-s-pauli-apostoli:
@@ -729,16 +737,18 @@ s-joseph-sponsi-b-m-v-confessoris:
 - {kind: alleluia, variant: paschal, title: Amavit eum, borrowed_volume: noh4, borrowed_page: 73, borrowed_from: commune-doctorum,
   borrowed_ref: noh4/0104/004, chant: none}
 s-gabrielis-archangeli:
-- {kind: tract, label: Tract., title: Ave Maria, ref: noh3/0142/000, chant: 266}
-- {kind: alleluia, variant: paschal, ref: noh3/0145/004, chant: none}
 - {kind: introit, borrowed_volume: noh3, borrowed_page: 354, borrowed_from: in-dedicatione-s-mich-lis-archangelis,
   borrowed_ref: noh3/0387/000, chant: 985}
-- {kind: communion, borrowed_volume: noh3, borrowed_page: 361, borrowed_from: in-dedicatione-s-mich-lis-archangelis,
-  borrowed_ref: noh3/0394/002, chant: 1127}
 - {kind: gradual, title: Benedicite, borrowed_volume: noh3, borrowed_page: 356, borrowed_from: in-dedicatione-s-mich-lis-archangelis,
   borrowed_ref: noh3/0389/000, chant: none}
+- {kind: tract, label: Tract., title: Ave Maria, ref: noh3/0142/000, chant: 266}
+- {kind: alleluia, variant: paschal, ref: noh3/0145/004, chant: 1202, title: Qui facit Angelos, rubric: 'Tempore
+    autem Paschali, omissis Graduali et Tractu, dicitur:', rubric_translation: 'During Paschaltide, omit the Gradual
+    and Tract and sing:'}
 - {kind: offertory, title: Stetit Angelus, borrowed_volume: noh3, borrowed_page: 360, borrowed_from: in-dedicatione-s-mich-lis-archangelis,
   borrowed_ref: noh3/0393/000, chant: none}
+- {kind: communion, borrowed_volume: noh3, borrowed_page: 361, borrowed_from: in-dedicatione-s-mich-lis-archangelis,
+  borrowed_ref: noh3/0394/002, chant: 1127}
 s-gabrielis-a-virgine-perdolente-confessoris:
 - {kind: introit, label: Intr. VII, title: Oculus Dei, ref: noh3/0129/003, chant: 1025}
 - {kind: gradual, label: Grad. V, title: Quam magna, ref: noh3/0131/000, chant: 1291}
@@ -749,7 +759,7 @@ s-gabrielis-a-virgine-perdolente-confessoris:
 - {kind: communion, label: Comm., title: Ecce sto, ref: noh3/0138/002, chant: 164}
 s-justini-martyris:
 - {kind: introit, label: Intr. II, title: Narraverunt, ref: noh3/0175/000, chant: 831}
-- {kind: alleluia, variant: paschal, label: I., title: Sapientia hujus mundi, ref: noh3/0176/002, chant: none}
+- {kind: alleluia, variant: paschal, label: I., title: Sapientia hujus mundi, ref: noh3/0176/002, chant: 334}
 - {kind: alleluia, key: paschal-2, label: I., title: Verumtamen existimo, ref: noh3/0177/003, chant: none}
 - {kind: gradual, label: Grad., title: Sapientia hujus mundi, ref: noh3/0179/000, chant: 1345}
 - {kind: tract, label: Tract. II, title: Non judicavi, ref: noh3/0181/000, chant: 969}
@@ -871,3 +881,96 @@ festum-b-mariae-virginis-a-rosario:
 - {kind: communion, label: Comm., title: Florete, ref: noh3/0412/002, chant: 104}
 - {kind: introit, borrowed_volume: noh3, borrowed_page: 270, borrowed_from: in-commemoratione-beat-mari-virgine-de-monte-carmelo,
   borrowed_ref: noh3/0303/000, chant: 246}
+s-joannis-a-capistrano-confessoris:
+- {kind: introit, label: Intr., title: Ego autem in, ref: noh3/0155/001, chant: 52}
+- {kind: gradual, label: Grad. I, title: Qui timetis, ref: noh3/0156/001, chant: 370}
+- {kind: tract, label: Tract. VIII, title: Fortitudo mea, ref: noh3/0157/004, chant: 250}
+- {kind: alleluia, variant: paschal, ref: noh3/0159/000, chant: 192, title: Ego autem cantabo, rubric: 'Tempore
+    Paschali, omissis Graduali et Tractu dicitur:', rubric_translation: 'During Paschaltide, omit the Gradual and
+    Tract and sing:'}
+- {kind: offertory, label: Offert. VI, title: Invocavit, ref: noh3/0160/004, chant: 244}
+- {kind: communion, label: Comm. I, title: Decantaverunt, ref: noh3/0161/002, chant: 877}
+pretiosissimi-sanguinis-domini-nostri-jesu-christi:
+- {kind: introit, label: Intr. II, title: Redemisti nos Domine, ref: noh3/0277/000, chant: 123}
+- {kind: gradual, label: Grad. III, title: Hic est qui venit, ref: noh3/0278/004, chant: 1263}
+- {kind: alleluia, title: Si testimonium, ref: noh3/0280/005, chant: 1038}
+- {kind: tract, label: Tract. II, ref: noh3/0281/005, chant: none}
+- {kind: alleluia, variant: paschal, ref: noh3/0285/001, chant: 875, title: Erit autem sanguis}
+- {kind: offertory, label: Offert. IV, title: Calix benedictionis, ref: noh3/0286/000, chant: 320}
+- {kind: communion, label: Comm., title: Christus semel, ref: noh3/0287/000, chant: 1019}
+s-antonii-mari-zaccaria-confessoris:
+- {kind: introit, label: Intr., title: Sermo meus, ref: noh3/0290/001, chant: 1349}
+- {kind: gradual, label: Grad. VII, title: Testis mihi, ref: noh3/0291/004, chant: 155}
+- {kind: alleluia, title: Repleti fructu, ref: noh3/0293/002, chant: 96}
+- {kind: tract, label: Tract. VII, ref: noh3/0294/000, chant: none}
+- {kind: alleluia, variant: paschal, ref: noh3/0296/001, chant: 1142, title: Repletus sum, rubric: 'Tempore Paschali
+    omittitur Graduale, et ejus loco dicitur:', rubric_translation: 'During Paschaltide, omit the Gradual and in
+    its place sing:'}
+- {kind: offertory, label: Offert., title: In conspectu Angelorum, ref: noh3/0297/004, chant: 662}
+- {kind: communion, label: Comm. VI, title: Imitatores, ref: noh3/0298/003, chant: 201}
+s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor:
+- {kind: introit, label: Intr. III, title: Spiritus Domini super me, ref: noh3/0322/000, chant: 214}
+- {kind: gradual, label: Grad. IV, title: Memor fui, ref: noh3/0323/002, chant: 73}
+- {kind: alleluia, title: Ipse est directus, ref: noh3/0325/003, chant: 1094}
+- {kind: tract, label: Tract. VII, ref: noh3/0327/002, chant: none}
+- {kind: alleluia, variant: paschal, ref: noh3/0330/001, chant: 1078, title: Ecce quam bonum, rubric: 'Tempore Paschali,
+    omisso Graduali, dicitur:', rubric_translation: 'During Paschaltide, omit the Gradual and sing:'}
+- {kind: offertory, label: Offert. V, title: Honora Dominum, ref: noh3/0332/002, chant: 1116}
+- {kind: communion, label: Comm. I, title: Sacerdos magnus, ref: noh3/0333/004, chant: 1196}
+s-joannis-leonardi-confessoris:
+- {kind: introit, label: Intr. VI, title: In sermonibus, ref: noh3/0413/000, chant: 41}
+- {kind: gradual, label: Grad. I, title: Inflammatum est, ref: noh3/0414/004, chant: 1186}
+- {kind: alleluia, title: Tamquam prodigium, ref: noh3/0416/003, chant: 664}
+- {kind: tract, label: Tract., ref: noh3/0417/003, chant: none}
+- {kind: alleluia, variant: paschal, ref: noh3/0419/000, chant: 892, title: Sicut oliva}
+- {kind: offertory, label: Offert. I, title: Christi factus sum, ref: noh3/0421/000, chant: 1098}
+- {kind: communion, label: Comm., title: Quae mihi fuerunt, ref: noh3/0422/002, chant: 991}
+in-conceptione-immaculata-beat-mari-virginis:
+- {kind: introit, label: Intr. II, title: Gaudens gaudebo, ref: noh3/0050/000, chant: 622}
+- {kind: gradual, label: Grad. V, title: Benedicta es tu, ref: noh3/0051/004, chant: 713}
+- {kind: alleluia, title: Tota pulchra es Maria, ref: noh3/0053/000, chant: 1057}
+- {kind: tract, label: Tract., ref: noh3/0054/001, chant: none}
+- {kind: alleluia, variant: paschal, ref: noh3/0055/004, chant: 1023, title: Tu gloria Jerusalem, rubric: 'Tempore
+    Paschali omittitur Graduale, et ejus loco dicitur:', rubric_translation: 'During Paschaltide, omit the Gradual
+    and in its place sing:'}
+- {kind: offertory, label: Offert. VIII, title: Ave Maria, ref: noh3/0057/000, chant: 210}
+- {kind: communion, label: Comm., title: Gloriosa dicta, ref: noh3/0058/000, chant: 1004}
+in-apparitione-b-mariae-virginis-immaculatae:
+- {kind: introit, label: Intr. VIII, title: Vidi civitatem, ref: noh3/0112/000, chant: 5}
+- {kind: gradual, label: Grad. V, title: Flores apparuerunt, ref: noh3/0113/002, chant: 27}
+- {kind: alleluia, title: Ostende mihi, ref: noh3/0115/000, chant: 1258}
+- {kind: tract, label: Tract. VIII, title: Tu gloria Jerusalem, ref: noh3/0116/001, chant: 485}
+- {kind: alleluia, variant: paschal, ref: noh3/0118/003, chant: 964, title: Flores apparuerunt, rubric: 'Tempore
+    Paschali:', rubric_translation: 'During Paschaltide:'}
+- {kind: offertory, label: Offert., title: Ave gratia plena, ref: noh3/0120/001, chant: 234}
+- {kind: communion, label: Comm., title: Visitasti terram, ref: noh3/0121/000, chant: 80}
+s-aloisii-gonzag-confessoris:
+- {kind: introit, label: Intr., title: Minuisti eum, ref: noh3/0248/001, chant: 857}
+- {kind: gradual, label: Grad. V, title: Domine spes mea, ref: noh3/0249/002, chant: 1334}
+- {kind: alleluia, title: Beatus quem elegisti, ref: noh3/0250/004, chant: 1170}
+- {kind: alleluia, variant: paschal, ref: noh3/0251/004, chant: 741, title: Deus docuisti me, rubric: 'In Missis
+    votivis Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. ℣. Beatus quem elegisti,
+    ut supra, deinde:', rubric_translation: 'In votive Masses during Paschaltide, omit the Gradual and in its place
+    sing: Alleluia, alleluia. Verse: Beatus quem elegisti, as above; then:'}
+- {kind: offertory, label: Offert., title: Quis ascendet, ref: noh3/0253/000, chant: 1306}
+- {kind: communion, title: Panem caeli, ref: noh3/0253/004, chant: 711}
+s-theresiae-a-jesu-infante-virginis:
+- {kind: introit, label: Intr. III, title: Veni de Libano, ref: noh3/0397/000, chant: 59}
+- {kind: gradual, label: Grad., title: Confiteor tibi, ref: noh3/0398/003, chant: 1034}
+- {kind: alleluia, title: Quasi rosa, ref: noh3/0400/000, chant: 1257}
+- {kind: tract, label: Tract., ref: noh3/0402/003, chant: none}
+- {kind: alleluia, variant: paschal, ref: noh3/0404/002, chant: 1304, title: Gustate et videte, rubric: 'Tempore
+    Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. ℣. Quasi rosa, ut supra; deinde:', rubric_translation: 'During
+    Paschaltide, omit the Gradual and in its place sing: Alleluia, alleluia. Verse: Quasi rosa, as above; then:'}
+- {kind: offertory, label: Offert., title: Magnificat, ref: noh3/0405/002, chant: 362}
+- {kind: communion, label: Comm. VII, title: Circumduxit eam, ref: noh3/0406/003, chant: 162}
+s-margarit-mari-alaquoque-virginis:
+- {kind: introit, label: Intr., title: Sub umbra, ref: noh3/0428/000, chant: 1195}
+- {kind: gradual, label: Grad. V, title: Aquae multae, ref: noh3/0429/002, chant: 790}
+- {kind: alleluia, title: Ego dilecto, ref: noh3/0431/000, chant: 1307}
+- {kind: tract, label: Tract. VII, ref: noh3/0431/004, chant: none}
+- {kind: alleluia, variant: paschal, ref: noh3/0433/003, chant: 882, title: Venite comedite, rubric: 'Tempore autem
+    Paschali omittitur Graduale et ejus loco dicitur:', rubric_translation: 'During Paschaltide, omit the Gradual
+    and in its place sing:'}
+- {kind: offertory, label: Offert. V, title: Quid bonum, ref: noh3/0435/003, chant: 618}
+- {kind: communion, label: Comm. IV, title: Ego dilecto, ref: noh3/0436/002, chant: 459}

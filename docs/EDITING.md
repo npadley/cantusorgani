@@ -410,7 +410,11 @@ by hand.
   of its own, below), the `label`
   and `title` as printed, the `ref` of its first system (every image on the site
   carries its ref), and optionally its `chant`. The file's header lists every
-  key.
+  key. Optional `rubric` holds the verified printed liturgical instruction in
+  Latin; `rubric_translation` holds its English translation. Each is plain text
+  of at most 500 characters. Both appear above that section on the piece page
+  and in its PDF export; copy the instruction from the scan rather than infer
+  it from the seasonal variant.
 - **Command**: `uv run noh apply-corrections`. A list that names a system the
   piece no longer has (after a re-slice or a new range) stops the build, naming
   the piece and the ref: check it against the scan again.

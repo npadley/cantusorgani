@@ -22,7 +22,7 @@ const EMBER: readonly [string, number, string, string | null, number | undefined
   ["communion", 83, "Comm. VI", "Ecce Dominus veniet", undefined],
 ];
 
-function ember(): Piece {
+function ember(rubrics = false): Piece {
   const refs = Array.from({ length: 86 }, (_, i) => `noh1/${String(50 + Math.floor(i / 6)).padStart(4, "0")}/${String(i % 6).padStart(3, "0")}`);
   return parseCatalog({
     schema_version: 3, volumes: { noh1: { title: "Proprium de Tempore", part: "I" } }, chant_source: null,
@@ -35,6 +35,7 @@ function ember(): Piece {
       sections: EMBER.map(([kind, system, label, title, n]) => ({
         kind, ...(n ? { n } : {}), variant: "", label, title, system, ref: refs[system], gregobase_id: null,
         placed: "reviewed",
+        ...(rubrics && kind === "gradual" && n === 2 ? { rubric: "Tempore Paschali.", rubric_translation: "During Paschaltide." } : {}),
       })),
     }],
   }).pieces[0]!;
@@ -83,5 +84,33 @@ describe("inPrintedOrder", () => {
     const borrowed = [{ order: 7, id: "offertory (from the Common)" }];
     expect(inPrintedOrder(own, borrowed).map((x) => x.id)).toEqual(
       ["introit", "alleluia-paschal", "gradual", "offertory (from the Common)", "communion"]);
+  });
+});
+
+
+describe("reviewed rubrics", () => {
+  it("normalizes both languages and places them above the affected music only", async () => {
+    const p = ember(true);
+    expect(p.parts[2]).toMatchObject({ rubric: "Tempore Paschali.", rubricTranslation: "During Paschaltide." });
+    const html = await render(p);
+    const heading = html.indexOf('id="gradual-2"');
+    const latin = html.indexOf("Tempore Paschali.");
+    const english = html.indexOf("During Paschaltide.");
+    const music = html.indexOf('data-ref="noh1/0052/003"');
+    expect(heading).toBeLessThan(latin);
+    expect(latin).toBeLessThan(english);
+    expect(english).toBeLessThan(music);
+    expect(html).toMatch(/lang="la"[^>]*>Tempore Paschali\./);
+    expect(html).toMatch(/lang="en"[^>]*>During Paschaltide\./);
+    expect(html.match(/Tempore Paschali\./g)).toHaveLength(1);
+    expect(await render(ember())).not.toContain('class="section-rubric"');
+  });
+
+  it("exports the affected section's bilingual instruction and drops it with an excluded part", () => {
+    const p = ember(true);
+    const segs = exportSegments([p], []);
+    expect(segs[2]).toMatchObject({ rubric: "Tempore Paschali.", rubricTranslation: "During Paschaltide." });
+    expect(segs.filter((s) => s.rubric)).toHaveLength(1);
+    expect(exportSegments([{ ...p, excludedParts: ["gradual"] }], []).some((s) => s.rubric)).toBe(false);
   });
 });

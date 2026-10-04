@@ -12,8 +12,9 @@ import queueJson from "../../../../data/review-queue.json";
 import reviewedJson from "../../../../data/reviewed.json";
 import { allPieces, pieceBySlug, partLabel } from "../catalog";
 import { musicView } from "../music";
+import { exportSegments } from "../exportParts";
 import { massSources } from "../references";
-import type { Piece, ProperPartName } from "../catalog";
+import type { BorrowedPart, Piece, PrintedPart, ProperPartName } from "../catalog";
 import { type QueueItem, type ReviewGroup, reviewKind } from "./reviewKinds";
 import { type Scans, type Shown, pieceSystems, shown } from "./scans";
 import { type Reviewed, suspectParts } from "./suspects";
@@ -130,20 +131,48 @@ function detailOf(item: QueueItem): string | null {
   return bits.length ? bits.join("; ") : null;
 }
 
+/** A resolved citation has the same nonempty source range the page and PDF show. */
+function borrowedRange(part: BorrowedPart, pieces: readonly Piece[]): boolean {
+  const lender = pieces.find((p) => p.slug === part.borrowedFrom);
+  if (!lender || !part.borrowedRef) return false;
+  return exportSegments([lender], pieces).some((segment) => segment.systems > 0 && segment.part === part.part
+    && segment.source?.slug === lender.slug && lender.systems[segment.source.start] === part.borrowedRef);
+}
+
+const confidentlyPrinted = (part: PrintedPart, piece: Piece): boolean =>
+  part.placed !== "order" && piece.systems.includes(part.ref);
+
 /**
  * Whether what an item asks has been answered since the queue was written: the
  * queue comes from the catalogue build, before the reviewed section lists
  * (data/sections) and the printed references are applied.
  * - A part not found, or whose words did not match, now placed by a person,
  *   by its label or by its words, or recorded as printed elsewhere.
+ * - A borrowed section now resolving to music, or an undivided piece now
+ *   carrying confident sections, or a chant link now verified.
  * - A piece with no music of its own whose page shows the music it cites (and
  *   so has no first system to check either).
  */
-export function settled(item: QueueItem, piece: Piece | undefined): boolean {
+export function settled(item: QueueItem, piece: Piece | undefined,
+                        pieces: readonly Piece[] = allPieces()): boolean {
   if (!piece) return false;
   if (item.kind === "part_missing" || item.kind === "part_mismatch") {
     return piece.parts.some((p) => p.part === item.part && p.variant === (item.variant ?? "")
       && (p.kind === "borrowed" || p.placed !== "order"));
+  }
+  if (item.kind === "part_borrowed_unresolved" || item.kind === "part_by_order") {
+    return piece.parts.some((p) => p.part === item.part && p.variant === (item.variant ?? "")
+      && (p.kind === "borrowed" ? borrowedRange(p, pieces)
+        : item.kind === "part_by_order" && confidentlyPrinted(p, piece)));
+  }
+  if (item.kind === "part_unsupported") {
+    return piece.parts.some((p) => p.kind === "printed" ? confidentlyPrinted(p, piece) : borrowedRange(p, pieces));
+  }
+  if (item.kind === "unpaired") {
+    return piece.chant.some((c) => c.status === "verified" && (!item.movement || c.movement === item.movement));
+  }
+  if (item.kind === "unverified_pairing") {
+    return piece.chant.some((c) => c.status === "verified" && c.movement === (item.movement ?? null));
   }
   // A piece that is only a reference starts nowhere on the page: its music is the music it cites.
   if (item.kind === "starts_mid_page" && piece.systems.length === 0) {
@@ -184,7 +213,7 @@ export function reviewEntries(queue: readonly QueueItem[] = QUEUE, reviewed: Rev
     // A Proper's chants are linked on its parts: "no chant for the Proper as a whole" asks nothing.
     if (item.kind === "unpaired" && item.genre === "proper") continue;
     const piece = find(item.piece);
-    if (settled(item, piece)) continue;
+    if (settled(item, piece, pieces)) continue;
     const kind = reviewKind(item);
     out.push({
       target: item.key, fingerprint: item.fingerprint, kind: item.kind, group: kind.group, label: kind.label,

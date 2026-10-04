@@ -132,9 +132,9 @@ import Layout from "../../../components/Layout.astro";
   }
 
   /** A labelled input bound to one field of a row. */
-  function input(row: Row, key: "n" | "key" | "label" | "title" | "system" | "page" | "chant", text: string, id: string,
+  function input(row: Row, key: "n" | "key" | "label" | "title" | "rubric" | "rubric_translation" | "system" | "page" | "chant", text: string, id: string,
                  attrs: Record<string, string> = {}): HTMLElement {
-    const el = h("input", { type: "text", id, value: row[key], autocomplete: "off", ...attrs }) as HTMLInputElement;
+    const el = h("input", { type: "text", id, value: row[key] ?? "", autocomplete: "off", ...attrs }) as HTMLInputElement;
     el.addEventListener("input", () => { row[key] = el.value; keep(); if (key === "system" || key === "n" || key === "label") drawSystems(); });
     return h("div", {}, h("label", { for: id }, text), el);
   }
@@ -171,6 +171,8 @@ import Layout from "../../../components/Layout.astro";
           input(row, "key", "A name of its own (instead of a number)", id("key"), { maxlength: "30", placeholder: "e.g. kyrie-b; rarely needed" }),
           input(row, "label", "Label as printed", id("label"), { maxlength: "80", placeholder: "e.g. 2. Grad. I" }),
           input(row, "title", "Opening words", id("title"), { maxlength: "80" }),
+          input(row, "rubric", "Printed instruction (Latin)", id("rubric"), { maxlength: "500" }),
+          input(row, "rubric_translation", "Instruction (English)", id("rubric_translation"), { maxlength: "500" }),
           input(row, "chant", "Chant (GregoBase id)", id("chant"), { inputmode: "numeric", placeholder: "none" }),
           h("div", {}, h("label", { class: "check", for: id("paschal") }, paschal, "Paschaltide form")),
           h("div", {}, h("label", { class: "check", for: id("elsewhere") }, elsewhere, "Printed elsewhere"))));

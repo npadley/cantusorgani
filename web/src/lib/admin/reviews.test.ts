@@ -5,6 +5,7 @@ import reviewedJson from "../../../../data/reviewed.json";
 import { REVIEW_KINDS, reviewKind } from "./reviewKinds";
 import type { QueueItem } from "./reviewKinds";
 import { pieceBySlug } from "../catalog";
+import type { BorrowedPart, ChantPairing, Piece, PrintedPart } from "../catalog";
 import { QUEUE, reviewEntries, reviewIndex, settled } from "./reviews";
 import { buildTargets } from "./targetIndex";
 import { describeTarget } from "./targets";
@@ -118,5 +119,67 @@ describe("reviewIndex", () => {
     const first = entries.find((e) => e.target.startsWith("review:") && e.href)!;
     expect(index.items[first.target]).toMatchObject({ fingerprint: first.fingerprint });
     expect(index.items[first.target]!.piece).toBe(first.href!.split("/")[2]);
+  });
+});
+
+
+// The pipeline queue predates corrections; these current section records are
+// the facts the admin list must use to recognize resolved work.
+describe("settled corrections after the pipeline queue was written", () => {
+  const base = pieceBySlug("dominica-i-adventus")!;
+  const printed: PrintedPart = { kind: "printed", part: "gradual", variant: "", system: 0,
+    ref: base.systems[0]!, placed: "reviewed", label: null, title: null, gregobaseId: null };
+  const lender: Piece = { ...base, slug: "settlement-lender", parts: [printed] };
+  const borrowed: BorrowedPart = { kind: "borrowed", part: "gradual", variant: "", label: null, title: null,
+    gregobaseId: null, borrowedFrom: lender.slug, borrowedRef: printed.ref, borrowedVolume: lender.volume, borrowedPage: 3 };
+  const withPart = (part: PrintedPart | BorrowedPart): Piece => ({ ...base, parts: [part] });
+  const partItem = (kind: string, variant = "") => item(kind, { piece: base.slug, part: "gradual", variant });
+  const chant: ChantPairing = { source: "gregobase", id: 7, movement: "kyrie", incipit: "Kyrie", mode: "I", score: 1, status: "verified" };
+
+  it("settles an unresolved borrowed-part report only when the lender has a confident music range", () => {
+    const queued = partItem("part_borrowed_unresolved");
+    expect(settled(queued, withPart(borrowed), [lender])).toBe(true);
+    expect(settled(queued, withPart({ ...borrowed, borrowedFrom: null }), [lender])).toBe(false);
+    expect(settled(queued, withPart({ ...borrowed, borrowedRef: null }), [lender])).toBe(false);
+    expect(settled(queued, withPart(borrowed), [])).toBe(false);
+    expect(settled(queued, withPart({ ...borrowed, borrowedRef: "noh1/9999/000" }), [lender])).toBe(false);
+    expect(settled(queued, withPart(borrowed), [{ ...lender, parts: [{ ...printed, placed: "order" }] }])).toBe(false);
+    expect(settled(queued, withPart(borrowed), [{ ...lender, parts: [] }])).toBe(false);
+    expect(settled(partItem("part_borrowed_unresolved", "paschal"), withPart(borrowed), [lender])).toBe(false);
+  });
+
+  it("settles parts-not-divided reports once a confident section or resolved borrowed range is present", () => {
+    const queued = item("part_unsupported", { piece: base.slug });
+    expect(settled(queued, withPart(printed))).toBe(true);
+    expect(settled(queued, withPart(borrowed), [lender])).toBe(true);
+    expect(settled(queued, { ...base, parts: [] })).toBe(false);
+    expect(settled(queued, withPart({ ...printed, placed: "order" }))).toBe(false);
+    expect(settled(queued, withPart({ ...printed, ref: "noh1/9999/000" }))).toBe(false);
+    expect(settled(queued, withPart(borrowed), [])).toBe(false);
+  });
+
+  it("settles guessed-start reports only for the named section now confidently placed", () => {
+    expect(settled(partItem("part_by_order"), withPart(printed))).toBe(true);
+    expect(settled(partItem("part_by_order"), withPart({ ...printed, placed: "order" }))).toBe(false);
+    expect(settled(partItem("part_by_order"), withPart({ ...printed, ref: "noh1/9999/000" }))).toBe(false);
+    expect(settled(partItem("part_by_order", "paschal"), withPart(printed))).toBe(false);
+  });
+
+  it("settles a missing chant link after a verified pairing, keeping unverified and other-movement links open", () => {
+    const paired = { ...base, genre: "mass_ordinary" as const, chant: [chant] };
+    expect(settled(item("unpaired"), paired)).toBe(true);
+    expect(settled(item("unpaired", { movement: "kyrie" }), paired)).toBe(true);
+    expect(settled(item("unpaired", { movement: "gloria" }), paired)).toBe(false);
+    expect(settled(item("unpaired"), { ...paired, chant: [{ ...chant, status: "unverified" }] })).toBe(false);
+    expect(settled(item("unpaired"), { ...paired, chant: [] })).toBe(false);
+  });
+
+  it("settles an unverified-pairing report only after that exact movement is verified", () => {
+    const paired = { ...base, genre: "mass_ordinary" as const, chant: [chant] };
+    expect(settled(item("unverified_pairing", { movement: "kyrie" }), paired)).toBe(true);
+    expect(settled(item("unverified_pairing", { movement: "gloria" }), paired)).toBe(false);
+    expect(settled(item("unverified_pairing", { movement: "kyrie" }), { ...paired, chant: [{ ...chant, status: "unverified" }] })).toBe(false);
+    expect(settled(item("unverified_pairing"), paired)).toBe(false);
+    expect(settled(item("unverified_pairing"), { ...paired, chant: [{ ...chant, movement: null }] })).toBe(true);
   });
 });

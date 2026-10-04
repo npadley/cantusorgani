@@ -223,7 +223,7 @@
 - id: c-0024
   target: typeset:vol-1/al_beatus_homo.csv.ly
   field: match
-  was: null
+  was: part:noh1-p104/alleluia:paschal
   value: part:noh1-p104/alleluia:paschal
   source: editor
   date: '2026-10-02'
@@ -231,16 +231,8 @@
 - id: c-0025
   target: typeset:vol-1/al_exaltabo_te.csv.ly
   field: match
-  was: null
+  was: part:sanctissimi-nominis-jesu/alleluia:paschal
   value: part:sanctissimi-nominis-jesu/alleluia:paschal
-  source: editor
-  date: '2026-10-02'
-  editor_email: nick@padley.com
-- id: c-0026
-  target: typeset:vol-1/al_jubilate_deo.csv.ly
-  field: match
-  was: part:noh1-p112/alleluia
-  value: part:dominica-i-adventus/alleluia
   source: editor
   date: '2026-10-02'
   editor_email: nick@padley.com
@@ -2694,6 +2686,8 @@
     title: Minuisti eum
     ref: noh3/0134/004
     chant: 791
+    rubric: 'Tempore Paschali, omissis Graduali et Tractu, dicitur:'
+    rubric_translation: 'During Paschaltide, omit the Gradual and Tract and sing:'
   - kind: alleluia
     title: Benedictio Dei
     ref: noh3/0136/000
