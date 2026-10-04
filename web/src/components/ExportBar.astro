@@ -1,4 +1,5 @@
 ---
+import DisclosureCue from "./DisclosureCue.astro";
 import { defaultTicked, defaultsNote, exportSegments, seasonGroup } from "../lib/exportParts";
 import { pieceBySlug } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
@@ -42,7 +43,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
 {segments.length > 0 && (
   <div class="export no-print ui" data-title={`${title} — Nova Organi Harmonia`}>
     <details class="parts" hidden={segments.length === 1}>
-      <summary>Choose parts (<span data-ticked>{ticked.length}</span>{" "}of {segments.length})</summary>
+      <summary class="disclosure-summary"><DisclosureCue />Choose parts (<span data-ticked>{ticked.length}</span>{" "}of {segments.length})</summary>
       <fieldset>
         <legend>Parts to export</legend>
         {segments.map((s) => (

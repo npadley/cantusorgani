@@ -1,6 +1,6 @@
 /** Build-time lyric text for search. Notation stays in the music viewer. */
 import { jumpTargets } from "./catalog";
-import type { Piece } from "./catalog";
+import type { JumpTarget, Piece } from "./catalog";
 import { chantEntry } from "./chants";
 import { MANIFEST } from "./typeset";
 
@@ -58,4 +58,32 @@ export function chantTexts(piece: Piece): readonly string[] {
   }
   words.push(...(typesetWords.get(`piece:${piece.slug}`) ?? []));
   return [...new Set(words.filter(Boolean))];
+}
+
+export interface ChantTextSource {
+  readonly words: readonly string[];
+  readonly source: string;
+  readonly url: string;
+}
+
+/** Prefer the chant's notation; use matched transcription lyrics when absent. */
+export function textForHeading(piece: Piece, heading?: JumpTarget): ChantTextSource | undefined {
+  const entry = heading && chantEntry(heading.chantId);
+  if (entry) {
+    const words = gabcWords(entry.gabc);
+    if (words) return { words: [words], source: "GregoBase", url: `https://gregobase.selapa.net/chant.php?id=${entry.id}` };
+  }
+  const target = heading
+    ? heading.target ?? (heading.kind === "movement" ? `movement:${piece.slug}/${heading.anchor}` : `piece:${piece.slug}`)
+    : `piece:${piece.slug}`;
+  const words = typesetWords.get(target) ?? (heading && jumpTargets(piece).length === 1
+    ? typesetWords.get(`piece:${piece.slug}`) : undefined);
+  return words?.length ? { words, source: "Volunteer transcription", url: "/about/#typeset" } : undefined;
+}
+
+export function textForChant(id: number | null | undefined): ChantTextSource | undefined {
+  const entry = chantEntry(id);
+  if (!entry) return undefined;
+  const words = gabcWords(entry.gabc);
+  return words ? { words: [words], source: "GregoBase", url: `https://gregobase.selapa.net/chant.php?id=${entry.id}` } : undefined;
 }

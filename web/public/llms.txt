@@ -1,0 +1,35 @@
+# Cantus Organi
+
+> Gregorian chant organ accompaniments from Nova Organi Harmonia ad Graduale Romanum (Lemmens Institute, Mechelen: H. Dessain, 1942), arranged for organists using the 1962 Roman calendar.
+
+The site contains scanned score systems and, where available, volunteer transcriptions. It provides Mass Propers, the Kyriale, hymns and Vespers. Chant text is included in expandable Latin text sections where a source is available. Scores can be exported as PDFs in the browser; use the HTML page as the citation URL.
+
+## Find music
+
+- [Search](https://cantusorgani.org/search/): Search titles, Latin opening words and chant text.
+- [Calendar](https://cantusorgani.org/calendar/): Find the Mass and Vespers for a date under the 1962 rubrics.
+- [Proper of Time](https://cantusorgani.org/proper-of-time/): Sundays and movable observances.
+- [Proper of Saints](https://cantusorgani.org/proper-of-saints/): Saints and fixed feasts.
+- [Common](https://cantusorgani.org/commune/): Common Masses.
+- [Kyriale](https://cantusorgani.org/kyriale/): Ordinaries of the Mass and related chants.
+- [Hymns](https://cantusorgani.org/hymns/): The hymns in book VII, with chant references.
+- [Vespers](https://cantusorgani.org/vespers/): Dated offices in the order sung.
+- [Sitemap](https://cantusorgani.org/sitemap.xml): Current indexable canonical page URLs.
+
+## Cite music and distinguish page types
+
+Piece pages at /piece/<slug>/ identify the book section, volume and printed page numbers. Movement anchors such as #introit link to a specific part. Kyriale Mass pages at /kyriale/<mass>/ are their preferred addresses; redirected piece URLs are aliases.
+
+An evergreen Vesperale piece page shows the book's music section and links to dates when it is used. A dated /vespers/<date>/ page assembles the full II Vespers for that date. /vespers/<date>/i/ gives I Vespers of the named feast, with the actual evening stated on the page. These are distinct from the source book section. Cite the date and I or II Vespers when citing a dated order. Available dated pages cover the site's published generation window; the current sitemap and Vespers index list them.
+
+Suggested citation: “Nova Organi Harmonia, [volume], [printed pages], [piece or office title], [movement if applicable], Cantus Organi, [canonical page URL with movement anchor if applicable].” For chant melody or text, cite the linked GregoBase record as well. Printed book page numbers differ from PDF scan page numbers.
+
+## Sources, licensing and editorial status
+
+- [About and source attributions](https://cantusorgani.org/about/#sources): The 1942 NOH page images and their slices are public domain. Published GregoBase chant transcriptions are CC0; transcriptions flagged copyrighted are linked rather than reproduced. Other contributions have their own licensing; the whole website should not be described as uniformly public domain.
+- [Typeset music](https://cantusorgani.org/about/#typeset): Volunteer transcriptions are marked with their proofreading status. The scan is the reference when a transcription differs.
+- [Limits](https://cantusorgani.org/about/#limits): Only the 1962 calendar is followed. Missing accompaniments, unprinted tones and uncertain catalogue records are identified on their pages. These notices matter when describing coverage.
+- [Corrections log](https://cantusorgani.org/corrections/log/): Published catalogue corrections.
+- [Report an error](https://cantusorgani.org/corrections/): Report a discrepancy using its linked piece or part.
+
+This is a navigation and citation guide, not a promise of complete liturgical coverage or an indexing requirement. robots.txt provides the site's crawler policy.

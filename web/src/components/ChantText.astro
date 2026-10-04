@@ -1,0 +1,21 @@
+---
+import DisclosureCue from "./DisclosureCue.astro";
+import type { ChantTextSource } from "../lib/chantText";
+interface Props { readonly text: ChantTextSource | undefined }
+const { text } = Astro.props;
+---
+{text && text.words.length > 0 && (
+  <details class="chant-text">
+    <summary class="disclosure-summary ui small"><DisclosureCue />Chant text <span class="muted">· Latin</span></summary>
+    <div class="words">
+      {text.words.map(words => <p lang="la">{words}</p>)}
+      <p class="credit ui small muted">Text source: <a href={text.url}>{text.source}</a></p>
+    </div>
+  </details>
+)}
+<style>
+  .chant-text { margin: 0 0 var(--s-3); }
+  .words { padding-left: var(--s-4); max-width: var(--measure); }
+  .words p { margin: var(--s-2) 0; }
+  .credit { margin-bottom: var(--s-3); }
+</style>

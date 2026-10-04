@@ -4,12 +4,13 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/with-public-env.ts astro dev",
-    "build": "node scripts/with-public-env.ts astro build && rm -rf dist/systems && pagefind --site dist && node scripts/check-links.ts",
+    "build": "node scripts/with-public-env.ts astro build && node scripts/build-discovery.ts && rm -rf dist/systems && pagefind --site dist && node scripts/check-links.ts",
     "check:links": "node scripts/check-links.ts",
     "preview": "astro preview",
     "typecheck": "astro check",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "check:seo": "node scripts/build-discovery.ts"
   },
   "dependencies": {
     "@codemirror/state": "^6.7.6",

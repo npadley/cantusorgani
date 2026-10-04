@@ -19,7 +19,7 @@ export interface ReachReport {
 }
 
 /** Built pages that are reached some other way than by a link. */
-export const NOT_LINKED: readonly RegExp[] = [/^\/404\/$/];
+export const NOT_LINKED: readonly RegExp[] = [/^\/404(?:\/|\.html)$/];
 
 /** A redirect page (an old or duplicate address) needs no link to it. */
 export function isRedirect(html: string): boolean {

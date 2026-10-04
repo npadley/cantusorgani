@@ -4,7 +4,8 @@ import { annotationFor, chantEntry } from "../lib/chants";
 import type { JumpTarget, Piece } from "../lib/catalog";
 import { segmentKey, segments } from "../lib/typeset";
 import ReportLinks from "./ReportLinks.astro";
-import { chantTexts } from "../lib/chantText";
+import { textForHeading } from "../lib/chantText";
+import ChantText from "./ChantText.astro";
 
 interface Props {
   readonly piece: Piece;
@@ -33,10 +34,6 @@ const printedAs = (t: { label: string; printed?: string | null; title?: string |
 const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.label ?? piece.title;
 ---
 
-<div class="search-chant-text" hidden aria-hidden="true">
-  {chantTexts(piece).map((text) => <p>{text}</p>)}
-</div>
-
 {piece.systems.length === 0 ? (
   piece.reference || piece.sourceNote ? null : (
     <div class="notice" role="status">
@@ -55,11 +52,14 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
       1942 printed score and cannot be read by a screen reader.
     </figcaption>
 
+    {jumpTargets(piece).length === 0 && <ChantText text={textForHeading(piece)} />}
+
     {parts.map((seg) => (
       <>
       {Array.from({ length: seg.end - seg.start }, (_, k) => seg.start + k).map((i) => {
         const starts = i === seg.start ? startsAt.get(i) ?? [] : [];
         return starts.map((start) => {
+
           const entry = chantEntry(start.chantId);
           const [annotation, mode] = entry ? annotationFor(entry.part, entry.mode) : ["", ""];
           return (
@@ -76,6 +76,7 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
                 )}
                 {start.target && <ReportLinks target={start.target} name={start.label} />}
               </div>
+              <ChantText text={textForHeading(piece, start)} />
               {start.source && <p class="ui small muted source-page">Music from {start.source}.</p>}
               {entry && (
                 <div class="chant-notation" hidden data-chant-id={entry.id} data-incipit={entry.incipit}

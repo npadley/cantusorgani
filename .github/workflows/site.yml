@@ -183,6 +183,9 @@ jobs:
       - name: Type check
         run: pnpm exec astro check
         working-directory: web
+      - name: Browser runtime
+        run: pnpm exec playwright install --with-deps chromium
+        working-directory: web
       - name: Site tests
         run: pnpm exec vitest run
         working-directory: web
@@ -225,7 +228,6 @@ jobs:
       # throwaway corrections database (web/playwright.config.ts).
       - name: Browser tests
         run: |
-          pnpm exec playwright install --with-deps chromium
           pnpm exec playwright test
         working-directory: web
         env:

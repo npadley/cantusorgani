@@ -1,0 +1,8 @@
+# Public pages are available to search engines and AI discovery crawlers.
+# Admin and utility indexing is controlled by noindex and authentication.
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /pagefind/
+
+Sitemap: https://cantusorgani.org/sitemap.xml

@@ -38,7 +38,7 @@ group("reach", () => {
 
   it("should report broken links, accept a link without its trailing slash, and skip redirects and 404", () => {
     const redirect: BuiltPage = { path: "/piece/old/", html: '<meta http-equiv="refresh" content="0;url=/kyriale/i/">' };
-    const report = reach([page("/", "/a", "/gone/"), page("/a/"), redirect, page("/404/")], new Set());
+    const report = reach([page("/", "/a", "/gone/"), page("/a/"), redirect, page("/404/"), page("/404.html")], new Set());
     expect(report.broken).toEqual([["/", "/gone/"]]);
     expect(report.orphans).toEqual([]);
     expect(isRedirect(redirect.html)).toBe(true);
