@@ -2,6 +2,15 @@
   "schema_version": 1,
   "corrections": [
     {
+      "id": "c-0304",
+      "target": "part:dominica-v-post-pascha/alleluia:2",
+      "field": "start_system",
+      "was": 20,
+      "value": 18,
+      "date": "2026-10-04",
+      "by": "editor"
+    },
+    {
       "id": "c-0303",
       "target": "sections:s-gabrielis-a-virgine-perdolente-confessoris",
       "field": "sections",
