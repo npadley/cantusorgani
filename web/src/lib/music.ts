@@ -30,7 +30,11 @@ export function musicView(piece: Piece, lenders: readonly Piece[] = allPieces())
     const borrower = piece.parts.find((p) => p.part === segment.part && p.variant === segment.variant);
     const borrowed = borrower?.kind === "borrowed" ? borrower : null;
     if (borrowed) resolved.add(partAnchor(borrowed.part, borrowed.variant));
-    parts.push({ ...printed, part: segment.part, variant: segment.variant, system: at,
+    const { rubric: _rubric, rubricTranslation: _translation, ...score } = printed;
+    parts.push({ ...score,
+      ...(segment.rubric ? { rubric: segment.rubric } : {}),
+      ...(segment.rubricTranslation ? { rubricTranslation: segment.rubricTranslation } : {}),
+      part: segment.part, variant: segment.variant, system: at,
       gregobaseId: borrower?.gregobaseId ?? printed.gregobaseId,
       sourceTarget: `part:${source.slug}/${printed.part}${printed.variant ? `:${printed.variant}` : ""}`,
       ...(borrowed ? { source: `${source.incipit ?? source.title}, ${volumeLabel(source)}, ${pagesLabel(source)} (rubric cites ${volumeLabel({ ...source, volume: borrowed.borrowedVolume ?? source.volume })}, p. ${borrowed.borrowedPage})` } : {}),

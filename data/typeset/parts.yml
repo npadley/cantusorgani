@@ -19,17 +19,18 @@
 
 - file: vol-1/al_beatus_homo.csv.ly
   target: part:noh1-p104/alleluia:paschal
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Allelúia allelúia ℣ Beá tus ho mo qui
     page: 109
     candidates:
     - target: part:noh1-p104/alleluia:paschal
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Beatus homo
 - file: vol-1/al_confitemini_domino.csv.ly
   target: part:sabbato-sancto/alleluia
   status: matched
@@ -116,17 +117,18 @@
     name: Dominus regnavit exsultet
 - file: vol-1/al_exaltabo_te.csv.ly
   target: part:sanctissimi-nominis-jesu/alleluia:paschal
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Alle lú ia ℣ Exaltábo te Deus meus
     page: 94
     candidates:
     - target: part:sanctissimi-nominis-jesu/alleluia:paschal
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 0.989
+      words: 1.0
+    melody: 0.989
+    words: 1.0
+    name: Exaltabo te
 - file: vol-1/al_excita_domine.csv.ly
   target: part:dominica-iii-adventus/alleluia
   status: matched
@@ -164,10 +166,10 @@
     page: 115
     candidates:
     - target: part:noh1-p112/alleluia
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
     name: Jubilate Deo
 - file: vol-1/al_laetatus_sum.csv.ly
   target: part:dominica-ii-adventus/alleluia
@@ -304,10 +306,10 @@
     page: 110
     candidates:
     - target: part:noh1-p104/alleluia:paschal
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 0.672
+      words: 0.478
+    melody: 0.672
+    words: 0.478
 - file: vol-1/an_ave_rex_noster.csv.ly
   target: part:noh1-p302/other:8
   status: matched
@@ -6884,10 +6886,10 @@
     page: 156
     candidates:
     - target: part:s-pauli-a-cruce-confessoris/alleluia:3
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
     name: Christus passus est
 - file: vol-3/al_custodi_innocentiam.csv.ly
   target: part:s-philippi-neri-confessoris/alleluia
@@ -6900,15 +6902,15 @@
     - target: part:s-philippi-neri-confessoris/alleluia
       melody: 0.809
       words: 0.289
+    - target: part:in-conceptione-immaculata-beat-mari-virginis/alleluia:paschal
+      melody: 0.702
+      words: 0.342
     - target: part:s-philippi-neri-confessoris/alleluia:paschal
       melody: 0.664
       words: 0.395
     - target: part:s-agnetis-virginis-et-martyris/alleluia
       melody: 0.656
       words: 0.25
-    - target: part:maternitatis-beat-mari-virginis/alleluia
-      melody: 0.656
-      words: 0.368
     melody: 0.809
     words: 0.289
 - file: vol-3/al_de_excelso.csv.ly
@@ -6934,10 +6936,10 @@
     page: 163
     candidates:
     - target: part:in-solemnitate-s-joseph/alleluia:1
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
     name: De quacumque tribulatione
 - file: vol-3/al_defecit_caro.csv.ly
   target: part:s-francisci-caracciolo-confessoris/alleluia
@@ -6962,10 +6964,10 @@
     page: 171
     candidates:
     - target: part:in-inventione-s-crucis/alleluia:paschal
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
     name: Dicite in gentibus
 - file: vol-3/al_dispersit.csv.ly
   target: part:s-hieronymi-emiliani-confessoris/alleluia
@@ -6983,30 +6985,32 @@
     name: Dispersit
 - file: vol-3/al_ecce_quam_bonum.csv.ly
   target: part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia:paschal
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Alle lú ia alle lú ia ℣ Ecce
     page: 297
     candidates:
     - target: part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia:paschal
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Ecce quam bonum
 - file: vol-3/al_ego_autem_cantabo.csv.ly
   target: part:s-joannis-a-capistrano-confessoris/alleluia:paschal
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Allelú ia allelú ia ℣ Ego autem cantá
     page: 126
     candidates:
     - target: part:s-joannis-a-capistrano-confessoris/alleluia:paschal
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Ego autem cantabo
 - file: vol-3/al_ego_dilecto.csv.ly
   target: part:s-margarit-mari-alaquoque-virginis/alleluia
   status: matched
@@ -7023,17 +7027,18 @@
     name: Ego dilecto
 - file: vol-3/al_erit_autem_sanguis.csv.ly
   target: part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/alleluia:paschal
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Allelú ia ℣ Erit au tem sanguis vo
     page: 252
     candidates:
     - target: part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/alleluia:paschal
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Erit autem sanguis
 - file: vol-3/al_gaudete_justi.csv.ly
   target: part:s-thomae-apostoli/alleluia
   status: matched
@@ -7086,17 +7091,17 @@
     name: Haec est vera
 - file: vol-3/al_in_deo_salutare.csv.ly
   target: part:s-joannis-leonardi-confessoris/alleluia:paschal
-  status: proposed
+  status: melody-differs
   evidence:
     by: page
     incipit: Alle lúia ℣ In Deo salutáre me um
     page: 385
     candidates:
     - target: part:s-joannis-leonardi-confessoris/alleluia:paschal
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 0.321
+      words: 0.388
+    melody: 0.321
+    words: 0.388
 - file: vol-3/al_in_multitudine.csv.ly
   target: part:s-irenaei-episcopi-et-martyris/alleluia
   status: matched
@@ -7142,17 +7147,18 @@
     words: null
 - file: vol-3/al_non_derelinquet.csv.ly
   target: part:ss-septem-fundat-ord-servorum-b-m-v/alleluia:paschal
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Alle lú ia ℣ Non derelínquet Dóminus sanctos
     page: 92
     candidates:
     - target: part:ss-septem-fundat-ord-servorum-b-m-v/alleluia:paschal
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Non derelinquet
 - file: vol-3/al_nunc_cum_eo.csv.ly
   target: part:b-mariae-virginis-reginae/alleluia:paschal
   status: matched
@@ -7161,6 +7167,9 @@
     incipit: Allelúia ℣ Nunc cum e o re gnas
     page: 451
     candidates:
+    - target: part:in-cathedra-s-petri-romae/alleluia:shared
+      melody: 1.0
+      words: 0.5
     - target: part:ss-fabiani-et-sebastiani-martyrum/alleluia
       melody: 1.0
       words: 0.667
@@ -7170,9 +7179,6 @@
     - target: part:ss-apostolorum-petri-et-pauli/alleluia
       melody: 1.0
       words: 0.5
-    - target: part:b-mariae-virginis-reginae/alleluia:paschal
-      melody: 1.0
-      words: 1.0
     melody: 1.0
     words: 1.0
     name: Nunc cum eo
@@ -7213,10 +7219,10 @@
     page: 271
     candidates:
     - target: part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/alleluia
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 0.991
+    melody: 1.0
+    words: 0.991
     name: Per te Dei Genitrix
 - file: vol-3/al_potens_in_terra.csv.ly
   target: part:s-joachim-confessoris-patris-b-mari-virginis/alleluia
@@ -7248,9 +7254,9 @@
     - target: part:s-martini-episcopi-et-confessoris/alleluia
       melody: 0.485
       words: 0.259
-    - target: part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia
-      melody: 0.458
-      words: 0.617
+    - target: part:septem-dolorum-b-mariae-virginis-in-quadragesima/alleluia:2
+      melody: 0.463
+      words: 0.333
     melody: 0.546
     words: 0.407
 - file: vol-3/al_pro_omnibus.csv.ly
@@ -7282,30 +7288,31 @@
     words: 0.45
 - file: vol-3/al_qui_facit_angelos.csv.ly
   target: part:s-gabrielis-archangeli/alleluia:paschal
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Allelú ia allelú ia ℣ Qui fa cit
     page: 112
     candidates:
     - target: part:s-gabrielis-archangeli/alleluia:paschal
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Qui facit Angelos
 - file: vol-3/al_quia_factus_es.csv.ly
   target: part:s-joannis-a-capistrano-confessoris/alleluia:paschal
-  status: proposed
+  status: melody-differs
   evidence:
     by: page
     incipit: Allelú ia ℣ Quia factus es suscéptor meus
     page: 126
     candidates:
     - target: part:s-joannis-a-capistrano-confessoris/alleluia:paschal
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 0.345
+      words: 0.362
+    melody: 0.345
+    words: 0.362
 - file: vol-3/al_quinque_prudentes.csv.ly
   target: part:s-agnetis-virginis-et-martyris/alleluia
   status: matched
@@ -7336,17 +7343,18 @@
     name: Repleti fructu
 - file: vol-3/al_repletus_sum.csv.ly
   target: part:s-antonii-mari-zaccaria-confessoris/alleluia:paschal
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Allelúia allelúia ℣ Replétus sum consolatióne superabúndo gáu
     page: 263
     candidates:
     - target: part:s-antonii-mari-zaccaria-confessoris/alleluia:paschal
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Repletus sum
 - file: vol-3/al_sancte_michael.csv.ly
   target: part:in-dedicatione-s-mich-lis-archangelis/alleluia
   status: matched
@@ -7384,10 +7392,10 @@
     page: 143
     candidates:
     - target: part:s-justini-martyris/alleluia:paschal
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
     name: Sapientia hujus mundi
 - file: vol-3/al_sapientiam.csv.ly
   target: part:ss-septem-fundat-ord-servorum-b-m-v/alleluia
@@ -7433,17 +7441,18 @@
     name: Si testimonium
 - file: vol-3/al_sicut_oliva.csv.ly
   target: part:s-joannis-leonardi-confessoris/alleluia:paschal
-  status: proposed
+  status: matched
   evidence:
     by: page
     incipit: Alle lúia alle lúia ℣ Sicut olíva fructífera
     page: 384
     candidates:
     - target: part:s-joannis-leonardi-confessoris/alleluia:paschal
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Sicut oliva
 - file: vol-3/al_stabat_sancta_maria.csv.ly
   target: part:septem-dolorum-b-mariae-virginis-in-quadragesima/alleluia:1
   status: matched
@@ -7453,10 +7462,10 @@
     page: 133
     candidates:
     - target: part:septem-dolorum-b-mariae-virginis-in-quadragesima/alleluia:1
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 0.99
+    melody: 1.0
+    words: 0.99
     name: Stabat sancta Maria
 - file: vol-3/al_tamquam_prodigium.csv.ly
   target: part:s-joannis-leonardi-confessoris/alleluia
@@ -7500,10 +7509,10 @@
     page: 31
     candidates:
     - target: part:in-cathedra-s-petri-romae/alleluia:shared
-      melody: null
-      words: null
-    melody: null
-    words: null
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
     name: Tu es Petrus
 - file: vol-3/al_virgo_dei_genitrix.csv.ly
   target: part:maternitatis-beat-mari-virginis/alleluia

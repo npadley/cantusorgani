@@ -5214,75 +5214,71 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "In nomine Jesu",
+          "gregobase_id": 1033,
           "system": 0,
           "ref": "noh1/0113/004",
-          "gregobase_id": 1033,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "In nomine Jesu"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad.",
+          "title": "Salvos fac nos",
+          "gregobase_id": 670,
           "system": 8,
           "ref": "noh1/0115/001",
-          "gregobase_id": 670,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad.",
-          "title": "Salvos fac nos"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Laudem Domini",
+          "gregobase_id": 1,
           "system": 21,
           "ref": "noh1/0117/002",
-          "gregobase_id": 1,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Laudem Domini"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract.",
+          "gregobase_id": null,
           "system": 28,
           "ref": "noh1/0118/003",
-          "gregobase_id": null,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract."
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "title": "Exaltabo te",
+          "rubric": "Tempore autem Paschali in Missis votivis: Alleluia, alleluia. \u2123. Laudem Domini, ut supra; deinde:",
+          "rubric_translation": "In votive Masses during Paschaltide: Alleluia, alleluia. Verse: Laudem Domini, as above; then:",
+          "gregobase_id": 954,
           "system": 40,
           "ref": "noh1/0120/003",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. I",
+          "title": "Confitebor tibi",
+          "gregobase_id": 980,
           "system": 48,
           "ref": "noh1/0122/000",
-          "gregobase_id": 980,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. I",
-          "title": "Confitebor tibi"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VIII",
+          "title": "Omnes gentes",
+          "gregobase_id": 8,
           "system": 57,
           "ref": "noh1/0124/003",
-          "gregobase_id": 8,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VIII",
-          "title": "Omnes gentes"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Nat2",
@@ -5958,75 +5954,71 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Exsultet gaudio",
+          "gregobase_id": 336,
           "system": 0,
           "ref": "noh1/0131/000",
-          "gregobase_id": 336,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Exsultet gaudio"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad.",
+          "title": "Unam petii",
+          "gregobase_id": 260,
           "system": 7,
           "ref": "noh1/0132/002",
-          "gregobase_id": 260,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad.",
-          "title": "Unam petii"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Vere tu es",
+          "gregobase_id": 816,
           "system": 15,
           "ref": "noh1/0133/004",
-          "gregobase_id": 816,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Vere tu es"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract.",
+          "gregobase_id": 1153,
           "system": 21,
           "ref": "noh1/0134/004",
-          "gregobase_id": 1153,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract."
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "title": "Beatus homo",
+          "rubric": "Tempore Paschali, omisso Graduali, dicitur:",
+          "rubric_translation": "During Paschaltide, omit the Gradual and sing:",
+          "gregobase_id": 116,
           "system": 31,
           "ref": "noh1/0136/002",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. IV",
+          "title": "Tulerunt Jesum",
+          "gregobase_id": 93,
           "system": 41,
           "ref": "noh1/0138/000",
-          "gregobase_id": 93,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. IV",
-          "title": "Tulerunt Jesum"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. I",
+          "title": "Descendit Jesus",
+          "gregobase_id": 626,
           "system": 44,
           "ref": "noh1/0138/003",
-          "gregobase_id": 626,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. I",
-          "title": "Descendit Jesus"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=Epi1",
@@ -6333,7 +6325,7 @@
           "kind": "alleluia",
           "variant": "",
           "title": "Jubilate Deo",
-          "gregobase_id": null,
+          "gregobase_id": 802,
           "system": 20,
           "ref": "noh1/0142/002",
           "placed": "reviewed"
@@ -34603,75 +34595,71 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. II",
+          "title": "Gaudens gaudebo",
+          "gregobase_id": 622,
           "system": 0,
           "ref": "noh3/0050/000",
-          "gregobase_id": 622,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. II",
-          "title": "Gaudens gaudebo"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. V",
+          "title": "Benedicta es tu",
+          "gregobase_id": 713,
           "system": 10,
           "ref": "noh3/0051/004",
-          "gregobase_id": 713,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. V",
-          "title": "Benedicta es tu"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Tota pulchra es Maria",
+          "gregobase_id": 1057,
           "system": 18,
           "ref": "noh3/0053/000",
-          "gregobase_id": 1057,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Tota pulchra es Maria"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract.",
+          "gregobase_id": null,
           "system": 25,
           "ref": "noh3/0054/001",
-          "gregobase_id": null,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract."
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "title": "Tu gloria Jerusalem",
+          "rubric": "Tempore Paschali omittitur Graduale, et ejus loco dicitur:",
+          "rubric_translation": "During Paschaltide, omit the Gradual and in its place sing:",
+          "gregobase_id": 1023,
           "system": 34,
           "ref": "noh3/0055/004",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. VIII",
+          "title": "Ave Maria",
+          "gregobase_id": 210,
           "system": 42,
           "ref": "noh3/0057/000",
-          "gregobase_id": 210,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. VIII",
-          "title": "Ave Maria"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm.",
+          "title": "Gloriosa dicta",
+          "gregobase_id": 1004,
           "system": 48,
           "ref": "noh3/0058/000",
-          "gregobase_id": 1004,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Gloriosa dicta"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Dec8",
@@ -35366,7 +35354,7 @@
           "kind": "alleluia",
           "variant": "shared",
           "title": "Tu es Petrus",
-          "gregobase_id": null,
+          "gregobase_id": 228,
           "system": 10,
           "ref": "noh3/0064/001",
           "placed": "reviewed"
@@ -35384,6 +35372,8 @@
           "kind": "alleluia",
           "variant": "paschal",
           "title": "Confiteantur Domino",
+          "rubric": "Si hoc Festum intra Tempus Paschale translatum occurrerit, omisso Graduali dicitur:",
+          "rubric_translation": "If this feast is transferred to a date during Paschaltide, omit the Gradual and sing:",
           "gregobase_id": null,
           "system": 27,
           "ref": "noh3/0067/000",
@@ -38241,76 +38231,72 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. VIII",
+          "title": "Vidi civitatem",
+          "gregobase_id": 5,
           "system": 0,
           "ref": "noh3/0112/000",
-          "gregobase_id": 5,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. VIII",
-          "title": "Vidi civitatem"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. V",
+          "title": "Flores apparuerunt",
+          "gregobase_id": 27,
           "system": 8,
           "ref": "noh3/0113/002",
-          "gregobase_id": 27,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. V",
-          "title": "Flores apparuerunt"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Ostende mihi",
+          "gregobase_id": 1258,
           "system": 17,
           "ref": "noh3/0115/000",
-          "gregobase_id": 1258,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Ostende mihi"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract. VIII",
+          "title": "Tu gloria Jerusalem",
+          "gregobase_id": 485,
           "system": 24,
           "ref": "noh3/0116/001",
-          "gregobase_id": 485,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract. VIII",
-          "title": "Tu gloria Jerusalem"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "title": "Flores apparuerunt",
+          "rubric": "Tempore Paschali:",
+          "rubric_translation": "During Paschaltide:",
+          "gregobase_id": 964,
           "system": 37,
           "ref": "noh3/0118/003",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert.",
+          "title": "Ave gratia plena",
+          "gregobase_id": 234,
           "system": 47,
           "ref": "noh3/0120/001",
-          "gregobase_id": 234,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert.",
-          "title": "Ave gratia plena"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm.",
+          "title": "Visitasti terram",
+          "gregobase_id": 80,
           "system": 52,
           "ref": "noh3/0121/000",
-          "gregobase_id": 80,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Visitasti terram"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Feb11",
@@ -38602,7 +38588,10 @@
         {
           "kind": "alleluia",
           "variant": "paschal",
-          "gregobase_id": null,
+          "title": "Non derelinquet",
+          "rubric": "Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. \u2123. Sapientiam, ut supra; deinde:",
+          "rubric_translation": "During Paschaltide, omit the Gradual and in its place sing: Alleluia, alleluia. Verse: Sapientiam, as above; then:",
+          "gregobase_id": 1379,
           "system": 24,
           "ref": "noh3/0125/004",
           "placed": "reviewed"
@@ -39281,6 +39270,8 @@
           "variant": "paschal",
           "label": "VII.",
           "title": "Minuisti eum",
+          "rubric": "Tempore Paschali, omissis Graduali et Tractu, dicitur:",
+          "rubric_translation": "During Paschaltide, omit the Gradual and Tract and sing:",
           "gregobase_id": 791,
           "system": 31,
           "ref": "noh3/0134/004",
@@ -39847,24 +39838,6 @@
       "movements": [],
       "sections": [
         {
-          "kind": "tract",
-          "variant": "",
-          "label": "Tract.",
-          "title": "Ave Maria",
-          "gregobase_id": 266,
-          "system": 0,
-          "ref": "noh3/0142/000",
-          "placed": "reviewed"
-        },
-        {
-          "kind": "alleluia",
-          "variant": "paschal",
-          "gregobase_id": null,
-          "system": 20,
-          "ref": "noh3/0145/004",
-          "placed": "reviewed"
-        },
-        {
           "kind": "introit",
           "variant": "",
           "gregobase_id": 985,
@@ -39872,15 +39845,6 @@
           "borrowed_page": 354,
           "borrowed_from": "in-dedicatione-s-mich-lis-archangelis",
           "borrowed_ref": "noh3/0387/000"
-        },
-        {
-          "kind": "communion",
-          "variant": "",
-          "gregobase_id": 1127,
-          "borrowed_volume": "noh3",
-          "borrowed_page": 361,
-          "borrowed_from": "in-dedicatione-s-mich-lis-archangelis",
-          "borrowed_ref": "noh3/0394/002"
         },
         {
           "kind": "gradual",
@@ -39893,6 +39857,27 @@
           "borrowed_ref": "noh3/0389/000"
         },
         {
+          "kind": "tract",
+          "variant": "",
+          "label": "Tract.",
+          "title": "Ave Maria",
+          "gregobase_id": 266,
+          "system": 0,
+          "ref": "noh3/0142/000",
+          "placed": "reviewed"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "paschal",
+          "title": "Qui facit Angelos",
+          "rubric": "Tempore autem Paschali, omissis Graduali et Tractu, dicitur:",
+          "rubric_translation": "During Paschaltide, omit the Gradual and Tract and sing:",
+          "gregobase_id": 1202,
+          "system": 20,
+          "ref": "noh3/0145/004",
+          "placed": "reviewed"
+        },
+        {
           "kind": "offertory",
           "variant": "",
           "title": "Stetit Angelus",
@@ -39901,6 +39886,15 @@
           "borrowed_page": 360,
           "borrowed_from": "in-dedicatione-s-mich-lis-archangelis",
           "borrowed_ref": "noh3/0393/000"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "gregobase_id": 1127,
+          "borrowed_volume": "noh3",
+          "borrowed_page": 361,
+          "borrowed_from": "in-dedicatione-s-mich-lis-archangelis",
+          "borrowed_ref": "noh3/0394/002"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Mar24",
@@ -40675,66 +40669,63 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Ego autem in",
+          "gregobase_id": 52,
           "system": 0,
           "ref": "noh3/0155/001",
-          "gregobase_id": 52,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Ego autem in"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. I",
+          "title": "Qui timetis",
+          "gregobase_id": 370,
           "system": 6,
           "ref": "noh3/0156/001",
-          "gregobase_id": 370,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. I",
-          "title": "Qui timetis"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract. VIII",
+          "title": "Fortitudo mea",
+          "gregobase_id": 250,
           "system": 15,
           "ref": "noh3/0157/004",
-          "gregobase_id": 250,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract. VIII",
-          "title": "Fortitudo mea"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "title": "Ego autem cantabo",
+          "rubric": "Tempore Paschali, omissis Graduali et Tractu dicitur:",
+          "rubric_translation": "During Paschaltide, omit the Gradual and Tract and sing:",
+          "gregobase_id": 192,
           "system": 23,
           "ref": "noh3/0159/000",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. VI",
+          "title": "Invocavit",
+          "gregobase_id": 244,
           "system": 33,
           "ref": "noh3/0160/004",
-          "gregobase_id": 244,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. VI",
-          "title": "Invocavit"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. I",
+          "title": "Decantaverunt",
+          "gregobase_id": 877,
           "system": 37,
           "ref": "noh3/0161/002",
-          "gregobase_id": 877,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. I",
-          "title": "Decantaverunt"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Mar28",
@@ -41251,7 +41242,9 @@
           "n": 1,
           "variant": "paschal",
           "title": "Stabat sancta Maria",
-          "gregobase_id": null,
+          "rubric": "In Missis votivis per annum, Graduale Dolorosa et lacrimabilis, ut supra; deinde:",
+          "rubric_translation": "In votive Masses throughout the year, sing the Gradual Dolorosa et lacrimabilis, as above; then:",
+          "gregobase_id": 853,
           "system": 25,
           "ref": "noh3/0166/000",
           "placed": "reviewed"
@@ -41261,7 +41254,9 @@
           "n": 2,
           "variant": "paschal",
           "title": "O vos omnes",
-          "gregobase_id": null,
+          "rubric": "Tempore Paschali: Alleluia, alleluia. \u2123. Stabat sancta Maria, ut supra; deinde:",
+          "rubric_translation": "During Paschaltide: Alleluia, alleluia. Verse: Stabat sancta Maria, as above; then:",
+          "gregobase_id": 1326,
           "system": 31,
           "ref": "noh3/0167/000",
           "placed": "reviewed"
@@ -41667,7 +41662,7 @@
           "variant": "paschal",
           "label": "I.",
           "title": "Sapientia hujus mundi",
-          "gregobase_id": null,
+          "gregobase_id": 334,
           "system": 8,
           "ref": "noh3/0176/002",
           "placed": "reviewed"
@@ -42137,7 +42132,7 @@
           "n": 3,
           "variant": "",
           "title": "Christus passus est",
-          "gregobase_id": null,
+          "gregobase_id": 1233,
           "system": 27,
           "ref": "noh3/0189/003",
           "placed": "reviewed"
@@ -42421,7 +42416,7 @@
           "n": 1,
           "variant": "",
           "title": "De quacumque tribulatione",
-          "gregobase_id": null,
+          "gregobase_id": 1324,
           "system": 7,
           "ref": "noh3/0196/001",
           "placed": "reviewed"
@@ -42431,7 +42426,7 @@
           "n": 2,
           "variant": "",
           "title": "Fac nos innocuam",
-          "gregobase_id": null,
+          "gregobase_id": 213,
           "system": 12,
           "ref": "noh3/0197/000",
           "placed": "reviewed"
@@ -42966,7 +42961,7 @@
           "kind": "alleluia",
           "variant": "paschal",
           "title": "Dicite in gentibus",
-          "gregobase_id": null,
+          "gregobase_id": 627,
           "system": 9,
           "ref": "noh3/0204/003",
           "placed": "reviewed"
@@ -42975,7 +42970,7 @@
           "kind": "alleluia",
           "variant": "shared",
           "title": "Dulce lignum",
-          "gregobase_id": null,
+          "gregobase_id": 859,
           "system": 14,
           "ref": "noh3/0205/002",
           "placed": "reviewed"
@@ -45892,64 +45887,61 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Minuisti eum",
+          "gregobase_id": 857,
           "system": 0,
           "ref": "noh3/0248/001",
-          "gregobase_id": 857,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Minuisti eum"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. V",
+          "title": "Domine spes mea",
+          "gregobase_id": 1334,
           "system": 6,
           "ref": "noh3/0249/002",
-          "gregobase_id": 1334,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. V",
-          "title": "Domine spes mea"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Beatus quem elegisti",
+          "gregobase_id": 1170,
           "system": 14,
           "ref": "noh3/0250/004",
-          "gregobase_id": 1170,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Beatus quem elegisti"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "title": "Deus docuisti me",
+          "rubric": "In Missis votivis Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. \u2123. Beatus quem elegisti, ut supra, deinde:",
+          "rubric_translation": "In votive Masses during Paschaltide, omit the Gradual and in its place sing: Alleluia, alleluia. Verse: Beatus quem elegisti, as above; then:",
+          "gregobase_id": 741,
           "system": 20,
           "ref": "noh3/0251/004",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert.",
+          "title": "Quis ascendet",
+          "gregobase_id": 1306,
           "system": 26,
           "ref": "noh3/0253/000",
-          "gregobase_id": 1306,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert.",
-          "title": "Quis ascendet"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "title": "Panem caeli",
+          "gregobase_id": 711,
           "system": 30,
           "ref": "noh3/0253/004",
-          "gregobase_id": 711,
-          "placed": "text",
-          "score": 0.714,
-          "title": "Panem caeli"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jun21",
@@ -47967,75 +47959,69 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. II",
+          "title": "Redemisti nos Domine",
+          "gregobase_id": 123,
           "system": 0,
           "ref": "noh3/0277/000",
-          "gregobase_id": 123,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. II",
-          "title": "Redemisti nos Domine"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. III",
+          "title": "Hic est qui venit",
+          "gregobase_id": 1263,
           "system": 9,
           "ref": "noh3/0278/004",
-          "gregobase_id": 1263,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. III",
-          "title": "Hic est qui venit"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Si testimonium",
+          "gregobase_id": 1038,
           "system": 22,
           "ref": "noh3/0280/005",
-          "gregobase_id": 1038,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Si testimonium"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract. II",
+          "gregobase_id": 502,
           "system": 28,
           "ref": "noh3/0281/005",
-          "gregobase_id": 502,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract. II"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "title": "Erit autem sanguis",
+          "gregobase_id": 875,
           "system": 48,
           "ref": "noh3/0285/001",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. IV",
+          "title": "Calix benedictionis",
+          "gregobase_id": 320,
           "system": 53,
           "ref": "noh3/0286/000",
-          "gregobase_id": 320,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. IV",
-          "title": "Calix benedictionis"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm.",
+          "title": "Christus semel",
+          "gregobase_id": 1019,
           "system": 59,
           "ref": "noh3/0287/000",
-          "gregobase_id": 1019,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Christus semel"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jul1",
@@ -48561,75 +48547,71 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Sermo meus",
+          "gregobase_id": 1349,
           "system": 0,
           "ref": "noh3/0290/001",
-          "gregobase_id": 1349,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Sermo meus"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. VII",
+          "title": "Testis mihi",
+          "gregobase_id": 155,
           "system": 8,
           "ref": "noh3/0291/004",
-          "gregobase_id": 155,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. VII",
-          "title": "Testis mihi"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Repleti fructu",
+          "gregobase_id": 96,
           "system": 18,
           "ref": "noh3/0293/002",
-          "gregobase_id": 96,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Repleti fructu"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract. VII",
+          "gregobase_id": 928,
           "system": 22,
           "ref": "noh3/0294/000",
-          "gregobase_id": 928,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract. VII"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "title": "Repletus sum",
+          "rubric": "Tempore Paschali omittitur Graduale, et ejus loco dicitur:",
+          "rubric_translation": "During Paschaltide, omit the Gradual and in its place sing:",
+          "gregobase_id": 1142,
           "system": 35,
           "ref": "noh3/0296/001",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert.",
+          "title": "In conspectu Angelorum",
+          "gregobase_id": 662,
           "system": 44,
           "ref": "noh3/0297/004",
-          "gregobase_id": 662,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert.",
-          "title": "In conspectu Angelorum"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VI",
+          "title": "Imitatores",
+          "gregobase_id": 201,
           "system": 48,
           "ref": "noh3/0298/003",
-          "gregobase_id": 201,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VI",
-          "title": "Imitatores"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Jul5",
@@ -49221,7 +49203,7 @@
           "kind": "alleluia",
           "variant": "",
           "title": "Per te Dei Genitrix",
-          "gregobase_id": null,
+          "gregobase_id": 634,
           "system": 8,
           "ref": "noh3/0304/002",
           "placed": "reviewed"
@@ -51199,75 +51181,71 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. III",
+          "title": "Spiritus Domini super me",
+          "gregobase_id": 214,
           "system": 0,
           "ref": "noh3/0322/000",
-          "gregobase_id": 214,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. III",
-          "title": "Spiritus Domini super me"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. IV",
+          "title": "Memor fui",
+          "gregobase_id": 73,
           "system": 7,
           "ref": "noh3/0323/002",
-          "gregobase_id": 73,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. IV",
-          "title": "Memor fui"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Ipse est directus",
+          "gregobase_id": 1094,
           "system": 20,
           "ref": "noh3/0325/003",
-          "gregobase_id": 1094,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Ipse est directus"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract. VII",
+          "gregobase_id": 437,
           "system": 31,
           "ref": "noh3/0327/002",
-          "gregobase_id": 437,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract. VII"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "title": "Ecce quam bonum",
+          "rubric": "Tempore Paschali, omisso Graduali, dicitur:",
+          "rubric_translation": "During Paschaltide, omit the Gradual and sing:",
+          "gregobase_id": 1078,
           "system": 48,
           "ref": "noh3/0330/001",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. V",
+          "title": "Honora Dominum",
+          "gregobase_id": 1116,
           "system": 61,
           "ref": "noh3/0332/002",
-          "gregobase_id": 1116,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. V",
-          "title": "Honora Dominum"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. I",
+          "title": "Sacerdos magnus",
+          "gregobase_id": 1196,
           "system": 69,
           "ref": "noh3/0333/004",
-          "gregobase_id": 1196,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. I",
-          "title": "Sacerdos magnus"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Aug2",
@@ -53519,7 +53497,7 @@
           "kind": "alleluia",
           "variant": "",
           "title": "Te gloriosus",
-          "gregobase_id": null,
+          "gregobase_id": 442,
           "system": 0,
           "ref": "noh3/0371/002",
           "placed": "reviewed"
@@ -54182,7 +54160,8 @@
         {
           "kind": "alleluia",
           "variant": "",
-          "gregobase_id": null,
+          "title": "Dulce lignum",
+          "gregobase_id": 859,
           "borrowed_volume": "noh3",
           "borrowed_page": 172,
           "borrowed_from": "in-inventione-s-crucis",
@@ -54670,7 +54649,8 @@
         {
           "kind": "alleluia",
           "variant": "",
-          "gregobase_id": null,
+          "title": "Te gloriosus",
+          "gregobase_id": 442,
           "borrowed_volume": "noh3",
           "borrowed_page": 338,
           "borrowed_from": "s-bartholom-i-apostoli",
@@ -55741,75 +55721,71 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. III",
+          "title": "Veni de Libano",
+          "gregobase_id": 59,
           "system": 0,
           "ref": "noh3/0397/000",
-          "gregobase_id": 59,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. III",
-          "title": "Veni de Libano"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad.",
+          "title": "Confiteor tibi",
+          "gregobase_id": 1034,
           "system": 8,
           "ref": "noh3/0398/003",
-          "gregobase_id": 1034,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad.",
-          "title": "Confiteor tibi"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Quasi rosa",
+          "gregobase_id": 1257,
           "system": 16,
           "ref": "noh3/0400/000",
-          "gregobase_id": 1257,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Quasi rosa"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract.",
+          "gregobase_id": 739,
           "system": 31,
           "ref": "noh3/0402/003",
-          "gregobase_id": 739,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract."
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "title": "Gustate et videte",
+          "rubric": "Tempore Paschali omittitur Graduale, et ejus loco dicitur: Alleluia, alleluia. \u2123. Quasi rosa, ut supra; deinde:",
+          "rubric_translation": "During Paschaltide, omit the Gradual and in its place sing: Alleluia, alleluia. Verse: Quasi rosa, as above; then:",
+          "gregobase_id": 1304,
           "system": 42,
           "ref": "noh3/0404/002",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert.",
+          "title": "Magnificat",
+          "gregobase_id": 362,
           "system": 48,
           "ref": "noh3/0405/002",
-          "gregobase_id": 362,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert.",
-          "title": "Magnificat"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. VII",
+          "title": "Circumduxit eam",
+          "gregobase_id": 162,
           "system": 55,
           "ref": "noh3/0406/003",
-          "gregobase_id": 162,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. VII",
-          "title": "Circumduxit eam"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Oct3",
@@ -56438,75 +56414,69 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. VI",
+          "title": "In sermonibus",
+          "gregobase_id": 41,
           "system": 0,
           "ref": "noh3/0413/000",
-          "gregobase_id": 41,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. VI",
-          "title": "In sermonibus"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. I",
+          "title": "Inflammatum est",
+          "gregobase_id": 1186,
           "system": 8,
           "ref": "noh3/0414/004",
-          "gregobase_id": 1186,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. I",
-          "title": "Inflammatum est"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Tamquam prodigium",
+          "gregobase_id": 664,
           "system": 18,
           "ref": "noh3/0416/003",
-          "gregobase_id": 664,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Tamquam prodigium"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract.",
+          "gregobase_id": null,
           "system": 24,
           "ref": "noh3/0417/003",
-          "gregobase_id": null,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract."
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "title": "Sicut oliva",
+          "gregobase_id": 892,
           "system": 33,
           "ref": "noh3/0419/000",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. I",
+          "title": "Christi factus sum",
+          "gregobase_id": 1098,
           "system": 45,
           "ref": "noh3/0421/000",
-          "gregobase_id": 1098,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. I",
-          "title": "Christi factus sum"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm.",
+          "title": "Quae mihi fuerunt",
+          "gregobase_id": 991,
           "system": 52,
           "ref": "noh3/0422/002",
-          "gregobase_id": 991,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm.",
-          "title": "Quae mihi fuerunt"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Oct9",
@@ -57139,75 +57109,71 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr.",
+          "title": "Sub umbra",
+          "gregobase_id": 1195,
           "system": 0,
           "ref": "noh3/0428/000",
-          "gregobase_id": 1195,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr.",
-          "title": "Sub umbra"
+          "placed": "reviewed"
         },
         {
           "kind": "gradual",
           "variant": "",
+          "label": "Grad. V",
+          "title": "Aquae multae",
+          "gregobase_id": 790,
           "system": 8,
           "ref": "noh3/0429/002",
-          "gregobase_id": 790,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Grad. V",
-          "title": "Aquae multae"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "",
+          "title": "Ego dilecto",
+          "gregobase_id": 1307,
           "system": 18,
           "ref": "noh3/0431/000",
-          "gregobase_id": 1307,
-          "placed": "text",
-          "score": 0.8,
-          "title": "Ego dilecto"
+          "placed": "reviewed"
         },
         {
           "kind": "tract",
           "variant": "",
+          "label": "Tract. VII",
+          "gregobase_id": 63,
           "system": 22,
           "ref": "noh3/0431/004",
-          "gregobase_id": 63,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Tract. VII"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "title": "Venite comedite",
+          "rubric": "Tempore autem Paschali omittitur Graduale et ejus loco dicitur:",
+          "rubric_translation": "During Paschaltide, omit the Gradual and in its place sing:",
+          "gregobase_id": 882,
           "system": 32,
           "ref": "noh3/0433/003",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. V",
+          "title": "Quid bonum",
+          "gregobase_id": 618,
           "system": 44,
           "ref": "noh3/0435/003",
-          "gregobase_id": 618,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. V",
-          "title": "Quid bonum"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. IV",
+          "title": "Ego dilecto",
+          "gregobase_id": 459,
           "system": 48,
           "ref": "noh3/0436/002",
-          "gregobase_id": 459,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. IV",
-          "title": "Ego dilecto"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#saint=Oct17",
@@ -58946,7 +58912,8 @@
         {
           "kind": "alleluia",
           "variant": "",
-          "gregobase_id": null,
+          "title": "Pretiosa",
+          "gregobase_id": 207,
           "borrowed_volume": "noh4",
           "borrowed_page": 37,
           "borrowed_from": "commune-martyrum-tempore-paschali-de-pluribus-martyribus",
@@ -61900,10 +61867,19 @@
           "variant": "",
           "label": "II.",
           "title": "Qui sequitur me",
-          "gregobase_id": null,
+          "gregobase_id": 1201,
           "system": 15,
           "ref": "noh4/0057/004",
           "placed": "reviewed"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "gregobase_id": 7670,
+          "borrowed_volume": "noh4",
+          "borrowed_page": 14,
+          "borrowed_from": "commune-unius-martyris-pontificis-alia-missa",
+          "borrowed_ref": "noh4/0045/004"
         },
         {
           "kind": "offertory",
@@ -61924,15 +61900,6 @@
           "system": 28,
           "ref": "noh4/0059/005",
           "placed": "reviewed"
-        },
-        {
-          "kind": "tract",
-          "variant": "",
-          "gregobase_id": 7670,
-          "borrowed_volume": "noh4",
-          "borrowed_page": 14,
-          "borrowed_from": "commune-unius-martyris-pontificis-alia-missa",
-          "borrowed_ref": "noh4/0045/004"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#common=mass_ii_martyr_not_bishop",
@@ -62203,44 +62170,41 @@
         {
           "kind": "introit",
           "variant": "",
+          "label": "Intr. VII",
+          "title": "Protexisti me",
+          "gregobase_id": 340,
           "system": 0,
           "ref": "noh4/0060/002",
-          "gregobase_id": 340,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Intr. VII",
-          "title": "Protexisti me"
+          "placed": "reviewed"
         },
         {
           "kind": "alleluia",
           "variant": "paschal",
+          "title": "Confitebuntur caeli",
+          "gregobase_id": 762,
           "system": 9,
           "ref": "noh4/0061/005",
-          "gregobase_id": null,
-          "placed": "text",
-          "score": 0.8
+          "placed": "reviewed"
         },
         {
           "kind": "offertory",
           "variant": "",
+          "label": "Offert. VII",
+          "title": "Confitebuntur",
+          "gregobase_id": 1382,
           "system": 24,
           "ref": "noh4/0064/002",
-          "gregobase_id": 1382,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Offert. VII",
-          "title": "Confitebuntur"
+          "placed": "reviewed"
         },
         {
           "kind": "communion",
           "variant": "",
+          "label": "Comm. V",
+          "title": "Laetabitur justus",
+          "gregobase_id": 617,
           "system": 30,
           "ref": "noh4/0065/002",
-          "gregobase_id": 617,
-          "placed": "label",
-          "score": 1.0,
-          "label": "Comm. V",
-          "title": "Laetabitur justus"
+          "placed": "reviewed"
         }
       ],
       "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#common=mass_one_martyr",
@@ -62478,8 +62442,8 @@
         {
           "kind": "alleluia",
           "variant": "paschal",
-          "title": "Sancti tui",
-          "gregobase_id": null,
+          "title": "Sancti tui florebunt",
+          "gregobase_id": 800,
           "system": 8,
           "ref": "noh4/0067/003",
           "placed": "reviewed"
@@ -62488,7 +62452,7 @@
           "kind": "alleluia",
           "variant": "paschal-2",
           "title": "Pretiosa",
-          "gregobase_id": null,
+          "gregobase_id": 207,
           "system": 14,
           "ref": "noh4/0068/004",
           "placed": "reviewed"
@@ -68290,7 +68254,8 @@
         {
           "kind": "alleluia",
           "variant": "",
-          "gregobase_id": null,
+          "title": "Fac nos innocuam",
+          "gregobase_id": 213,
           "borrowed_volume": "noh3",
           "borrowed_page": 164,
           "borrowed_from": "in-solemnitate-s-joseph",
@@ -68308,7 +68273,8 @@
         {
           "kind": "alleluia",
           "variant": "paschal",
-          "gregobase_id": null,
+          "title": "De quacumque tribulatione",
+          "gregobase_id": 1324,
           "borrowed_volume": "noh3",
           "borrowed_page": 163,
           "borrowed_from": "in-solemnitate-s-joseph",
@@ -69574,7 +69540,7 @@
           "kind": "alleluia",
           "variant": "",
           "title": "Dulce lignum",
-          "gregobase_id": null,
+          "gregobase_id": 859,
           "borrowed_volume": "noh3",
           "borrowed_page": 172,
           "borrowed_from": "in-inventione-s-crucis",
@@ -69594,7 +69560,7 @@
           "kind": "alleluia",
           "variant": "paschal",
           "title": "Dicite in gentibus",
-          "gregobase_id": null,
+          "gregobase_id": 627,
           "borrowed_volume": "noh3",
           "borrowed_page": 171,
           "borrowed_from": "in-inventione-s-crucis",
@@ -72442,7 +72408,8 @@
         {
           "kind": "alleluia",
           "variant": "paschal-2",
-          "gregobase_id": null,
+          "title": "Ego autem cantabo",
+          "gregobase_id": 192,
           "borrowed_volume": "noh3",
           "borrowed_page": 126,
           "borrowed_from": "s-joannis-a-capistrano-confessoris",
@@ -76251,7 +76218,8 @@
           "kind": "alleluia",
           "n": 2,
           "variant": "",
-          "gregobase_id": null,
+          "title": "Per te Dei Genitrix",
+          "gregobase_id": 634,
           "borrowed_volume": "noh3",
           "borrowed_page": 271,
           "borrowed_from": "in-commemoratione-beat-mari-virgine-de-monte-carmelo",
@@ -79372,7 +79340,8 @@
         {
           "kind": "alleluia",
           "variant": "paschal",
-          "gregobase_id": null,
+          "title": "Tu gloria Jerusalem",
+          "gregobase_id": 1023,
           "borrowed_volume": "noh3",
           "borrowed_page": 22,
           "borrowed_from": "in-conceptione-immaculata-beat-mari-virginis",
@@ -79685,7 +79654,8 @@
         {
           "kind": "alleluia",
           "variant": "paschal-2",
-          "gregobase_id": null,
+          "title": "Pretiosa",
+          "gregobase_id": 207,
           "borrowed_volume": "noh4",
           "borrowed_page": 37,
           "borrowed_from": "commune-martyrum-tempore-paschali-de-pluribus-martyribus",
@@ -79703,7 +79673,8 @@
         {
           "kind": "alleluia",
           "variant": "paschal",
-          "gregobase_id": null,
+          "title": "Sancti tui florebunt",
+          "gregobase_id": 800,
           "borrowed_volume": "noh4",
           "borrowed_page": 36,
           "borrowed_from": "commune-martyrum-tempore-paschali-de-pluribus-martyribus",

@@ -41,6 +41,8 @@ KINDS = ("introit", "gradual", "alleluia", "tract", "sequence", "hymn", "offerto
 #: the first (so never mistaken for a number), and not a seasonal form.
 KEY = re.compile(r"^(?=[a-z0-9]*[a-z])[a-z0-9]+(-[a-z0-9]+)*$")
 MAX_KEY = 30
+MAX_RUBRIC = 500
+RUBRIC_FIELDS = ("rubric", "rubric_translation")
 VARIANTS = ("paschal",)
 
 
@@ -122,6 +124,8 @@ REVIEWED_HEADER = """\
 #           stays the same when a section is added before it. For a Mass of the
 #           Kyriale, whose movements stay as they are: list only what they leave out.
 #   label:  the margin label as printed ("2. Grad. I")
+#   rubric: the printed liturgical instruction (Latin, plain text, at most 500 characters)
+#   rubric_translation: its English translation (plain text, at most 500 characters)
 #   title:  its opening words
 #   ref:    its first system ("noh1/0052/003"; every image on the site carries its ref)
 #   chant:  a GregoBase id, or none; left out, the pipeline's chant for it is kept
@@ -133,6 +137,23 @@ REVIEWED_HEADER = """\
 
 class ReviewedError(ValueError):
     """A reviewed list that cannot be applied; each line names the piece and the fix."""
+
+
+def _rubrics(entry: Mapping[str, Any]) -> dict[str, str]:
+    """Reviewed printed instructions and their English translation, as plain text."""
+    out = {}
+    for field in RUBRIC_FIELDS:
+        value = entry.get(field)
+        if value is None:
+            continue
+        if not isinstance(value, str):
+            raise ReviewedError(f"{field} should be plain text of at most {MAX_RUBRIC} characters, no < or >")
+        text = " ".join(value.split())
+        if len(text) > MAX_RUBRIC or re.search(r"[\x00-\x1f<>]", text):
+            raise ReviewedError(f"{field} should be plain text of at most {MAX_RUBRIC} characters, no < or >")
+        if text:
+            out[field] = text
+    return out
 
 
 def load_reviewed(folder: Path = REVIEWED) -> dict[str, tuple[str, list[dict[str, Any]]]]:
@@ -191,6 +212,11 @@ def reviewed_list(slug: str, piece: Mapping[str, Any], entries: list[dict[str, A
         for key in ("label", "title"):
             if e.get(key):
                 section[key] = str(e[key])
+        try:
+            section.update(_rubrics(e))
+        except ReviewedError as exc:
+            problems.append(f"{at}: {exc}")
+            continue
         chant = e.get("chant", proposed.get(name, {}).get("gregobase_id"))
         section["gregobase_id"] = None if chant in (None, "none") else chant
         if not (section["gregobase_id"] is None or isinstance(section["gregobase_id"], int)):
@@ -306,7 +332,7 @@ def as_reviewed(piece: Mapping[str, Any]) -> list[dict[str, Any]]:
             e["variant"] = s["variant"]
         if s.get("key"):
             e["key"] = s["key"]
-        for key in ("label", "title"):
+        for key in ("label", "title", *RUBRIC_FIELDS):
             if s.get(key):
                 e[key] = s[key]
         if "system" in s:
@@ -342,7 +368,7 @@ def save_reviewed(slug: str, volume: str, entries: list[dict[str, Any]], folder:
 
 #: What a list entry from the admin screen (or `noh correct`) may carry.
 _ENTRY_KEYS = frozenset({"kind", "n", "variant", "key", "label", "title", "ref", "system", "borrowed_volume",
-                         "borrowed_page", "borrowed_from", "borrowed_ref", "chant"})
+                         "borrowed_page", "borrowed_from", "borrowed_ref", "chant", *RUBRIC_FIELDS})
 _TEXT = re.compile(r"^[^\x00-\x1f<>]{1,80}$")
 _REF = re.compile(r"^noh\d/\d{4}/\d{3}$")
 MAX_SECTIONS = 40
@@ -393,6 +419,10 @@ def parse_value(value: object) -> list[dict[str, Any]]:
                     raise ReviewedError(f"section {i}: {key} {text!r} should be plain text of at most 80 characters, "
                                      "no < or >")
                 e[key] = text
+        try:
+            e.update(_rubrics(raw))
+        except ReviewedError as exc:
+            raise ReviewedError(f"section {i}: {exc}") from None
         if raw.get("borrowed_page") not in (None, ""):
             page, volume = raw.get("borrowed_page"), str(raw.get("borrowed_volume") or "")
             if not isinstance(page, int) or isinstance(page, bool) or not 1 <= page <= 999 \

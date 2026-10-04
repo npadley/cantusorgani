@@ -1,5 +1,5 @@
 import { allPieces, inPrintedOrder, jumpTargets, movementStarts, partOrder, sectionName, systemUrlStem } from "./catalog";
-import type { BorrowedPart, Piece, PrintedPart, ProperPartName } from "./catalog";
+import type { BorrowedPart, Piece, PrintedPart, ProperPartName, SectionRubric } from "./catalog";
 import type { Season } from "./liturgy";
 
 /**
@@ -10,7 +10,7 @@ import type { Season } from "./liturgy";
  * the book runs it, an undivided Proper -- is one segment. The organist ticks the parts sung today; defaults follow the
  * season of the date a day page shows.
  */
-export interface ExportSegment {
+export interface ExportSegment extends SectionRubric {
   /** Unique within one export bar: "<slug>:<index>". */
   readonly id: string;
   readonly label: string;
@@ -50,7 +50,9 @@ function massSegments(piece: Piece, stems: readonly string[], title: string): Ex
     const end = heads[k + 1]?.index ?? stems.length;
     out.push({ id: `${piece.slug}:${h.index}`, label: h.label, part: null, variant: "", pieceSlug: piece.slug,
                systems: end - h.index, stems: stems.slice(h.index, end),
-               source: { slug: piece.slug, start: h.index, end } });
+               source: { slug: piece.slug, start: h.index, end },
+               ...(h.rubric ? { rubric: h.rubric } : {}),
+               ...(h.rubricTranslation ? { rubricTranslation: h.rubricTranslation } : {}) });
   });
   return out;
 }
@@ -77,6 +79,8 @@ export function exportSegments(pieces: readonly Piece[],
         id: `${piece.slug}:from:${lender.slug}:${range.start}`,
         label: `${sectionName(b)} (from ${lender.incipit ?? lender.title})`,
         part: b.part, variant: b.variant, pieceSlug: piece.slug,
+        ...(b.rubric ? { rubric: b.rubric } : {}),
+        ...(b.rubricTranslation ? { rubricTranslation: b.rubricTranslation } : {}),
         systems: lenderStems.length, stems: lenderStems, order: piece.division === "vesperale" ? piece.parts.indexOf(b) : partOrder(b.part, b.variant),
         source: { slug: lender.slug, start: range.start, end: range.end },
       });
@@ -99,6 +103,8 @@ export function exportSegments(pieces: readonly Piece[],
       id: `${piece.slug}:${start}`, label: sectionName(x), part: x.part, variant: x.variant,
       pieceSlug: piece.slug, systems: end - start, stems: stems.slice(start, end), order: piece.division === "vesperale" ? piece.parts.indexOf(x) : partOrder(x.part, x.variant),
       source: { slug: piece.slug, start, end },
+      ...(x.rubric ? { rubric: x.rubric } : {}),
+      ...(x.rubricTranslation ? { rubricTranslation: x.rubricTranslation } : {}),
     }));
     for (const { order: _order, ...segment } of inPrintedOrder(own, borrowed)) {
       if (segment.part && piece.excludedParts?.includes(segment.part)) continue;

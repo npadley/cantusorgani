@@ -180,3 +180,38 @@ def test_the_committed_reviewed_lists_all_apply():
     # As the build applies them: after the pieces' corrected system ranges.
     _, failed = corrections._ranged(corrections.load_base(), corrections.load())
     assert failed == {}
+
+
+RUBRIC = {"rubric": "Tempore Paschali.", "rubric_translation": "During Paschaltide."}
+
+
+def test_reviewed_rubrics_survive_saved_review_and_admin_correction_round_trips(tmp_path):
+    entries = [{"kind": "alleluia", "ref": REFS[0], "chant": "none", **RUBRIC},
+               {"kind": "communion", "borrowed_volume": "noh4", "borrowed_page": 76,
+                "borrowed_from": "commune", "borrowed_ref": "noh4/0111/000", "chant": "none", **RUBRIC}]
+    listed, problems = sections.reviewed_list("regina", piece(), entries, "noh3.yml")
+    assert problems == []
+    assert [{k: s.get(k) for k in RUBRIC} for s in listed] == [RUBRIC, RUBRIC]
+    reviewed = sections.as_reviewed({**piece(), "sections": listed})
+    assert reviewed == entries
+    sections.save_reviewed("regina", "noh3", reviewed, tmp_path)
+    assert sections.load_reviewed(tmp_path)["regina"][1] == entries
+    admin = [{**entries[0], "system": 1}, entries[1]]
+    admin[0].pop("ref")
+    assert sections.with_refs(sections.parse_value(admin), piece()) == entries
+
+
+@pytest.mark.parametrize("field", ["rubric", "rubric_translation"])
+@pytest.mark.parametrize("value", [23, True, "x" * 501, "<i>rubric</i>", "rubric\x00text"])
+def test_invalid_rubric_names_its_field_in_reviewed_lists_and_corrections(field, value):
+    _, problems = sections.reviewed_list("regina", piece(), [{"kind": "introit", "ref": REFS[0], field: value}], "noh3.yml")
+    assert problems and field in problems[0] and "500" in problems[0]
+    with pytest.raises(sections.ReviewedError, match=field + ".*500"):
+        sections.parse_value([{"kind": "introit", "system": 1, field: value}])
+
+
+def test_rubric_whitespace_and_empty_values_are_normalized_without_guessing_from_variant():
+    entries = [{"kind": "alleluia", "variant": "paschal", "system": 1, "rubric": "  Tempore\n Paschali. ",
+                "rubric_translation": "  "}]
+    assert sections.parse_value(entries) == [{"kind": "alleluia", "variant": "paschal", "system": 1,
+                                             "rubric": "Tempore Paschali.", "chant": "none"}]

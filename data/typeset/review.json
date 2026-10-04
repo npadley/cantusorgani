@@ -12,35 +12,19 @@
  "source": "https://github.com/joeegan2202/nova-organi-harmonia",
  "items": [
   {
-   "file": "vol-1/al_ostende_nobis.csv.ly",
-   "status": "proposed",
-   "target": "part:dominica-i-adventus/alleluia",
-   "hash": "38d7eedb744cc0d412b3b7a53e67af29",
-   "melody": 0.994,
-   "words": 1.0,
-   "incipit": "Alle lúia alle lú ia Ostén de nobis",
-   "page": 5,
-   "note": "an editor chose vol-1/al_jubilate_deo.csv.ly for part:dominica-i-adventus/alleluia",
-   "candidates": [
-    {
-     "target": "part:dominica-i-adventus/alleluia",
-     "melody": 0.994,
-     "words": 1.0
-    }
-   ]
-  },
-  {
    "file": "vol-1/al_vita_nostra.csv.ly",
    "status": "proposed",
    "target": "part:noh1-p104/alleluia:paschal",
    "hash": "8234c02edba72ce25f654daa1a8b6530",
+   "melody": 0.672,
+   "words": 0.478,
    "incipit": "Al lelúia ℣ Vi ta nostra est abscón",
    "page": 110,
    "candidates": [
     {
      "target": "part:noh1-p104/alleluia:paschal",
-     "melody": null,
-     "words": null
+     "melody": 0.672,
+     "words": 0.478
     }
    ]
   },
@@ -726,6 +710,11 @@
      "words": 0.289
     },
     {
+     "target": "part:in-conceptione-immaculata-beat-mari-virginis/alleluia:paschal",
+     "melody": 0.702,
+     "words": 0.342
+    },
+    {
      "target": "part:s-philippi-neri-confessoris/alleluia:paschal",
      "melody": 0.664,
      "words": 0.395
@@ -734,56 +723,6 @@
      "target": "part:s-agnetis-virginis-et-martyris/alleluia",
      "melody": 0.656,
      "words": 0.25
-    },
-    {
-     "target": "part:maternitatis-beat-mari-virginis/alleluia",
-     "melody": 0.656,
-     "words": 0.368
-    }
-   ]
-  },
-  {
-   "file": "vol-3/al_ecce_quam_bonum.csv.ly",
-   "status": "proposed",
-   "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia:paschal",
-   "hash": "bbeb5973cd148bf98f62c396736e95a2",
-   "incipit": "Alle lú ia alle lú ia ℣ Ecce",
-   "page": 297,
-   "candidates": [
-    {
-     "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia:paschal",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
-   "file": "vol-3/al_ego_autem_cantabo.csv.ly",
-   "status": "proposed",
-   "target": "part:s-joannis-a-capistrano-confessoris/alleluia:paschal",
-   "hash": "fdd13e5df538abf99da6ae9107742daf",
-   "incipit": "Allelú ia allelú ia ℣ Ego autem cantá",
-   "page": 126,
-   "candidates": [
-    {
-     "target": "part:s-joannis-a-capistrano-confessoris/alleluia:paschal",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
-   "file": "vol-3/al_erit_autem_sanguis.csv.ly",
-   "status": "proposed",
-   "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/alleluia:paschal",
-   "hash": "1ad21e91ad5c62fc8e72be4e9a64c97c",
-   "incipit": "Allelú ia ℣ Erit au tem sanguis vo",
-   "page": 252,
-   "candidates": [
-    {
-     "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/alleluia:paschal",
-     "melody": null,
-     "words": null
     }
    ]
   },
@@ -821,16 +760,18 @@
   },
   {
    "file": "vol-3/al_in_deo_salutare.csv.ly",
-   "status": "proposed",
+   "status": "melody-differs",
    "target": "part:s-joannis-leonardi-confessoris/alleluia:paschal",
    "hash": "3afa3b0307a4bab752e349757a543deb",
+   "melody": 0.321,
+   "words": 0.388,
    "incipit": "Alle lúia ℣ In Deo salutáre me um",
    "page": 385,
    "candidates": [
     {
      "target": "part:s-joannis-leonardi-confessoris/alleluia:paschal",
-     "melody": null,
-     "words": null
+     "melody": 0.321,
+     "words": 0.388
     }
    ]
   },
@@ -866,21 +807,6 @@
    "candidates": [
     {
      "target": "part:s-raph-lis-archangeli/alleluia:paschal",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
-   "file": "vol-3/al_non_derelinquet.csv.ly",
-   "status": "proposed",
-   "target": "part:ss-septem-fundat-ord-servorum-b-m-v/alleluia:paschal",
-   "hash": "bcb6f517d6b1dbdadeb52f45d46093d3",
-   "incipit": "Alle lú ia ℣ Non derelínquet Dóminus sanctos",
-   "page": 92,
-   "candidates": [
-    {
-     "target": "part:ss-septem-fundat-ord-servorum-b-m-v/alleluia:paschal",
      "melody": null,
      "words": null
     }
@@ -927,9 +853,9 @@
      "words": 0.259
     },
     {
-     "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia",
-     "melody": 0.458,
-     "words": 0.617
+     "target": "part:septem-dolorum-b-mariae-virginis-in-quadragesima/alleluia:2",
+     "melody": 0.463,
+     "words": 0.333
     }
    ]
   },
@@ -951,62 +877,19 @@
    ]
   },
   {
-   "file": "vol-3/al_qui_facit_angelos.csv.ly",
-   "status": "proposed",
-   "target": "part:s-gabrielis-archangeli/alleluia:paschal",
-   "hash": "3c7f6063848630d8c395c31ecea5efed",
-   "incipit": "Allelú ia allelú ia ℣ Qui fa cit",
-   "page": 112,
-   "candidates": [
-    {
-     "target": "part:s-gabrielis-archangeli/alleluia:paschal",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
    "file": "vol-3/al_quia_factus_es.csv.ly",
-   "status": "proposed",
+   "status": "melody-differs",
    "target": "part:s-joannis-a-capistrano-confessoris/alleluia:paschal",
    "hash": "fcae5c52630850d1ce0c9e3a5a5ab321",
+   "melody": 0.345,
+   "words": 0.362,
    "incipit": "Allelú ia ℣ Quia factus es suscéptor meus",
    "page": 126,
    "candidates": [
     {
      "target": "part:s-joannis-a-capistrano-confessoris/alleluia:paschal",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
-   "file": "vol-3/al_repletus_sum.csv.ly",
-   "status": "proposed",
-   "target": "part:s-antonii-mari-zaccaria-confessoris/alleluia:paschal",
-   "hash": "9559d69eeda2d3d9394eff923f1609fb",
-   "incipit": "Allelúia allelúia ℣ Replétus sum consolatióne superabúndo gáu",
-   "page": 263,
-   "candidates": [
-    {
-     "target": "part:s-antonii-mari-zaccaria-confessoris/alleluia:paschal",
-     "melody": null,
-     "words": null
-    }
-   ]
-  },
-  {
-   "file": "vol-3/al_sicut_oliva.csv.ly",
-   "status": "proposed",
-   "target": "part:s-joannis-leonardi-confessoris/alleluia:paschal",
-   "hash": "133df28fe7ab1940afb0bc5243c07769",
-   "incipit": "Alle lúia alle lúia ℣ Sicut olíva fructífera",
-   "page": 384,
-   "candidates": [
-    {
-     "target": "part:s-joannis-leonardi-confessoris/alleluia:paschal",
-     "melody": null,
-     "words": null
+     "melody": 0.345,
+     "words": 0.362
     }
    ]
   },

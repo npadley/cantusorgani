@@ -543,8 +543,8 @@
   },
   {
    "target": "part:dominica-i-adventus/alleluia",
-   "file": "vol-1/al_jubilate_deo.csv.ly",
-   "hash": "f5bd474a8b7403391a6bae3e13e55c16"
+   "file": "vol-1/al_ostende_nobis.csv.ly",
+   "hash": "38d7eedb744cc0d412b3b7a53e67af29"
   },
   {
    "target": "part:dominica-i-adventus/communion",
@@ -2412,6 +2412,11 @@
    "hash": "a6b0d3b5955ee9dd9f21c91e6ebe126d"
   },
   {
+   "target": "part:noh1-p112/alleluia",
+   "file": "vol-1/al_jubilate_deo.csv.ly",
+   "hash": "f5bd474a8b7403391a6bae3e13e55c16"
+  },
+  {
    "target": "part:noh1-p112/gradual",
    "file": "vol-1/gr_benedictus_dominus.csv.ly",
    "hash": "6d258c3742dc422f79841e3052ec2daa"
@@ -2787,6 +2792,11 @@
    "hash": "a99365a1be22b307d3d2853cc0df1df1"
   },
   {
+   "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/alleluia:paschal",
+   "file": "vol-3/al_erit_autem_sanguis.csv.ly",
+   "hash": "1ad21e91ad5c62fc8e72be4e9a64c97c"
+  },
+  {
    "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/communion",
    "file": "vol-3/co_christus_semel.csv.ly",
    "hash": "974d92c7a42450be6e6eb417410ff8b1"
@@ -2815,6 +2825,11 @@
    "target": "part:s-agnetis-virginis-et-martyris/alleluia",
    "file": "vol-3/al_quinque_prudentes.csv.ly",
    "hash": "06846ee90e0b6734edc77b5809fc7afe"
+  },
+  {
+   "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia:paschal",
+   "file": "vol-3/al_ecce_quam_bonum.csv.ly",
+   "hash": "bbeb5973cd148bf98f62c396736e95a2"
   },
   {
    "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/communion",
@@ -2875,6 +2890,11 @@
    "target": "part:s-antonii-mari-zaccaria-confessoris/alleluia",
    "file": "vol-3/al_repleti_fructu.csv.ly",
    "hash": "9563136bf53069dda5e2eff1f10614fc"
+  },
+  {
+   "target": "part:s-antonii-mari-zaccaria-confessoris/alleluia:paschal",
+   "file": "vol-3/al_repletus_sum.csv.ly",
+   "hash": "9559d69eeda2d3d9394eff923f1609fb"
   },
   {
    "target": "part:s-antonii-mari-zaccaria-confessoris/communion",
@@ -2952,6 +2972,11 @@
    "hash": "abec32ddc0ebb21842af0d2b749bb5fb"
   },
   {
+   "target": "part:s-gabrielis-archangeli/alleluia:paschal",
+   "file": "vol-3/al_qui_facit_angelos.csv.ly",
+   "hash": "3c7f6063848630d8c395c31ecea5efed"
+  },
+  {
    "target": "part:s-hieronymi-emiliani-confessoris/alleluia",
    "file": "vol-3/al_dispersit.csv.ly",
    "hash": "dd8da2fed2971aa67f55c32fe88fde53"
@@ -3010,6 +3035,11 @@
    "target": "part:s-irenaei-episcopi-et-martyris/offertory",
    "file": "vol-3/of_doctrinam.csv.ly",
    "hash": "cc0119f1115c69034627a50d84562d6b"
+  },
+  {
+   "target": "part:s-joannis-a-capistrano-confessoris/alleluia:paschal",
+   "file": "vol-3/al_ego_autem_cantabo.csv.ly",
+   "hash": "fdd13e5df538abf99da6ae9107742daf"
   },
   {
    "target": "part:s-joannis-a-capistrano-confessoris/communion",
@@ -3090,6 +3120,11 @@
    "target": "part:s-joannis-leonardi-confessoris/alleluia",
    "file": "vol-3/al_tamquam_prodigium.csv.ly",
    "hash": "e48618e48c53392a32a1afb0d0b546e2"
+  },
+  {
+   "target": "part:s-joannis-leonardi-confessoris/alleluia:paschal",
+   "file": "vol-3/al_sicut_oliva.csv.ly",
+   "hash": "133df28fe7ab1940afb0bc5243c07769"
   },
   {
    "target": "part:s-joannis-leonardi-confessoris/communion",
@@ -3690,6 +3725,11 @@
    "target": "part:ss-septem-fundat-ord-servorum-b-m-v/alleluia",
    "file": "vol-3/al_sapientiam.csv.ly",
    "hash": "fde836c7325319a260d117f6e4c89272"
+  },
+  {
+   "target": "part:ss-septem-fundat-ord-servorum-b-m-v/alleluia:paschal",
+   "file": "vol-3/al_non_derelinquet.csv.ly",
+   "hash": "bcb6f517d6b1dbdadeb52f45d46093d3"
   },
   {
    "target": "part:ss-septem-fundat-ord-servorum-b-m-v/gradual",

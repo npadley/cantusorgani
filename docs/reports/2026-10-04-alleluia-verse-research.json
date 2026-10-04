@@ -1,0 +1,492 @@
+{
+  "date": "2026-10-04",
+  "source": "Pinned CC0 GregoBase dump and NOH scans",
+  "pairings": [
+    {
+      "target": "part:sanctissimi-nominis-jesu/alleluia:paschal",
+      "ref": "noh1/0120/003",
+      "id": 954,
+      "title": "Exaltabo te",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=954",
+      "mode": "5",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-1/al_exaltabo_te.csv.ly",
+      "melody": 0.989,
+      "words": 1.0
+    },
+    {
+      "target": "part:noh1-p104/alleluia:paschal",
+      "ref": "noh1/0136/002",
+      "id": 116,
+      "title": "Beatus homo",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=116",
+      "mode": "1",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-1/al_beatus_homo.csv.ly",
+      "melody": 1.0,
+      "words": 1.0
+    },
+    {
+      "target": "part:noh1-p112/alleluia",
+      "ref": "noh1/0142/002",
+      "id": 802,
+      "title": "Jubilate Deo",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=802",
+      "mode": "3",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-1/al_jubilate_deo.csv.ly",
+      "melody": 1.0,
+      "words": 1.0
+    },
+    {
+      "target": "part:in-cathedra-s-petri-romae/alleluia:shared",
+      "ref": "noh3/0064/001",
+      "id": 228,
+      "title": "Tu es Petrus",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=228",
+      "mode": "2",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-3/al_tu_es_petrus_31.csv.ly",
+      "melody": 1.0,
+      "words": 1.0
+    },
+    {
+      "target": "part:ss-septem-fundat-ord-servorum-b-m-v/alleluia:paschal",
+      "ref": "noh3/0125/004",
+      "id": 1379,
+      "title": "Non derelinquet",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=1379",
+      "mode": "5",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-3/al_non_derelinquet.csv.ly",
+      "melody": 1.0,
+      "words": 1.0
+    },
+    {
+      "target": "part:s-gabrielis-archangeli/alleluia:paschal",
+      "ref": "noh3/0145/004",
+      "id": 1202,
+      "title": "Qui facit Angelos",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=1202",
+      "mode": "4",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-3/al_qui_facit_angelos.csv.ly",
+      "melody": 1.0,
+      "words": 1.0
+    },
+    {
+      "target": "part:s-joannis-a-capistrano-confessoris/alleluia:paschal",
+      "ref": "noh3/0159/000",
+      "id": 192,
+      "title": "Ego autem cantabo",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=192",
+      "mode": "2",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-3/al_ego_autem_cantabo.csv.ly",
+      "melody": 1.0,
+      "words": 1.0
+    },
+    {
+      "target": "part:septem-dolorum-b-mariae-virginis-in-quadragesima/alleluia:1",
+      "ref": "noh3/0166/000",
+      "id": 853,
+      "title": "Stabat sancta Maria",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=853",
+      "mode": "2",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-3/al_stabat_sancta_maria.csv.ly",
+      "melody": 1.0,
+      "words": 0.99
+    },
+    {
+      "target": "part:septem-dolorum-b-mariae-virginis-in-quadragesima/alleluia:2",
+      "ref": "noh3/0167/000",
+      "id": 1326,
+      "title": "O vos omnes",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=1326",
+      "mode": "2",
+      "evidence": "Printed verse, mode and exact start checked directly in the NOH scan, including adjacent pages where needed. No complete automated melody comparison; no full proofreading claim."
+    },
+    {
+      "target": "part:s-justini-martyris/alleluia:paschal",
+      "ref": "noh3/0176/002",
+      "id": 334,
+      "title": "Sapientia hujus mundi",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=334",
+      "mode": "1",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-3/al_sapientia_hujus.csv.ly",
+      "melody": 1.0,
+      "words": 1.0
+    },
+    {
+      "target": "part:s-pauli-a-cruce-confessoris/alleluia:3",
+      "ref": "noh3/0189/003",
+      "id": 1233,
+      "title": "Christus passus est",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=1233",
+      "mode": "1",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-3/al_christus_passus_est.csv.ly",
+      "melody": 1.0,
+      "words": 1.0
+    },
+    {
+      "target": "part:in-solemnitate-s-joseph/alleluia:1",
+      "ref": "noh3/0196/001",
+      "id": 1324,
+      "title": "De quacumque tribulatione",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=1324",
+      "mode": "1",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-3/al_de_quacumque.csv.ly",
+      "melody": 1.0,
+      "words": 1.0
+    },
+    {
+      "target": "part:in-solemnitate-s-joseph/alleluia:2",
+      "ref": "noh3/0197/000",
+      "id": 213,
+      "title": "Fac nos innocuam",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=213",
+      "mode": "8",
+      "evidence": "Printed verse, mode and exact start checked directly in the NOH scan, including adjacent pages where needed. No complete automated melody comparison; no full proofreading claim."
+    },
+    {
+      "target": "part:in-inventione-s-crucis/alleluia:paschal",
+      "ref": "noh3/0204/003",
+      "id": 627,
+      "title": "Dicite in gentibus",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=627",
+      "mode": "8",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-3/al_dicite_in_gentibus.csv.ly",
+      "melody": 1.0,
+      "words": 1.0
+    },
+    {
+      "target": "part:in-inventione-s-crucis/alleluia:shared",
+      "ref": "noh3/0205/002",
+      "id": 859,
+      "title": "Dulce lignum",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=859",
+      "mode": "8",
+      "evidence": "Printed verse, mode and exact start checked directly in the NOH scan, including adjacent pages where needed. No complete automated melody comparison; no full proofreading claim."
+    },
+    {
+      "target": "part:pretiosissimi-sanguinis-domini-nostri-jesu-christi/alleluia:paschal",
+      "ref": "noh3/0285/001",
+      "id": 875,
+      "title": "Erit autem sanguis",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=875",
+      "mode": "1",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-3/al_erit_autem_sanguis.csv.ly",
+      "melody": 1.0,
+      "words": 1.0
+    },
+    {
+      "target": "part:s-antonii-mari-zaccaria-confessoris/alleluia:paschal",
+      "ref": "noh3/0296/001",
+      "id": 1142,
+      "title": "Repletus sum",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=1142",
+      "mode": "1",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-3/al_repletus_sum.csv.ly",
+      "melody": 1.0,
+      "words": 1.0
+    },
+    {
+      "target": "part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/alleluia",
+      "ref": "noh3/0304/002",
+      "id": 634,
+      "title": "Per te Dei Genitrix",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=634",
+      "mode": "1",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-3/al_per_te_dei_genitrix.csv.ly",
+      "melody": 1.0,
+      "words": 0.991
+    },
+    {
+      "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/alleluia:paschal",
+      "ref": "noh3/0330/001",
+      "id": 1078,
+      "title": "Ecce quam bonum",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=1078",
+      "mode": "8",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-3/al_ecce_quam_bonum.csv.ly",
+      "melody": 1.0,
+      "words": 1.0
+    },
+    {
+      "target": "part:s-bartholom-i-apostoli/alleluia",
+      "ref": "noh3/0371/002",
+      "id": 442,
+      "title": "Te gloriosus",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=442",
+      "mode": "5",
+      "evidence": "Printed verse, mode and exact start checked directly in the NOH scan, including adjacent pages where needed. No complete automated melody comparison; no full proofreading claim."
+    },
+    {
+      "target": "part:in-exaltatione-sanct-crucis/alleluia",
+      "ref": "noh3/0205/002",
+      "id": 859,
+      "title": "Dulce lignum",
+      "borrowed": true,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=859",
+      "mode": "8",
+      "evidence": "Existing reviewed borrowed_ref resolves to the verified printed source; a named borrower verse must also occur in the selected GABC."
+    },
+    {
+      "target": "part:s-matth-i-apostoli-et-evangelist/alleluia",
+      "ref": "noh3/0371/002",
+      "id": 442,
+      "title": "Te gloriosus",
+      "borrowed": true,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=442",
+      "mode": "5",
+      "evidence": "Existing reviewed borrowed_ref resolves to the verified printed source; a named borrower verse must also occur in the selected GABC."
+    },
+    {
+      "target": "part:s-joannis-leonardi-confessoris/alleluia:paschal",
+      "ref": "noh3/0419/000",
+      "id": 892,
+      "title": "Sicut oliva",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=892",
+      "mode": "1",
+      "evidence": "Exact scan location/verse/mode reviewed; complete existing LilyPond chant voice compared using the project interval/text matcher. Scores are matching evidence, not full proofreading.",
+      "source": "vol-3/al_sicut_oliva.csv.ly",
+      "melody": 1.0,
+      "words": 1.0
+    },
+    {
+      "target": "part:ss-tryphonis-respicii-and-nymph/alleluia",
+      "ref": "noh4/0068/004",
+      "id": 207,
+      "title": "Pretiosa",
+      "borrowed": true,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=207",
+      "mode": "4",
+      "evidence": "Existing reviewed borrowed_ref resolves to the verified printed source; a named borrower verse must also occur in the selected GABC."
+    },
+    {
+      "target": "part:commune-unius-martyris-non-pontificis-alia-missa/alleluia",
+      "ref": "noh4/0057/004",
+      "id": 1201,
+      "title": "Qui sequitur me",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=1201",
+      "mode": "2",
+      "evidence": "Printed verse, mode and exact start checked directly in the NOH scan, including adjacent pages where needed. No complete automated melody comparison; no full proofreading claim."
+    },
+    {
+      "target": "part:commune-martyrum-tempore-paschali-de-pluribus-martyribus/alleluia:paschal",
+      "ref": "noh4/0067/003",
+      "id": 800,
+      "title": "Sancti tui florebunt",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=800",
+      "mode": "8",
+      "evidence": "Printed verse, mode and exact start checked directly in the NOH scan, including adjacent pages where needed. No complete automated melody comparison; no full proofreading claim."
+    },
+    {
+      "target": "part:commune-martyrum-tempore-paschali-de-pluribus-martyribus/alleluia:paschal-2",
+      "ref": "noh4/0068/004",
+      "id": 207,
+      "title": "Pretiosa",
+      "borrowed": false,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=207",
+      "mode": "4",
+      "evidence": "Printed verse, mode and exact start checked directly in the NOH scan, including adjacent pages where needed. No complete automated melody comparison; no full proofreading claim."
+    },
+    {
+      "target": "part:feria-iv-missa-de-s-joseph/alleluia",
+      "ref": "noh3/0197/000",
+      "id": 213,
+      "title": "Fac nos innocuam",
+      "borrowed": true,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=213",
+      "mode": "8",
+      "evidence": "Existing reviewed borrowed_ref resolves to the verified printed source; a named borrower verse must also occur in the selected GABC."
+    },
+    {
+      "target": "part:feria-iv-missa-de-s-joseph/alleluia:paschal",
+      "ref": "noh3/0196/001",
+      "id": 1324,
+      "title": "De quacumque tribulatione",
+      "borrowed": true,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=1324",
+      "mode": "1",
+      "evidence": "Existing reviewed borrowed_ref resolves to the verified printed source; a named borrower verse must also occur in the selected GABC."
+    },
+    {
+      "target": "part:feria-vi-missa-de-sancta-cruce/alleluia",
+      "ref": "noh3/0205/002",
+      "id": 859,
+      "title": "Dulce lignum",
+      "borrowed": true,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=859",
+      "mode": "8",
+      "evidence": "Existing reviewed borrowed_ref resolves to the verified printed source; a named borrower verse must also occur in the selected GABC."
+    },
+    {
+      "target": "part:feria-vi-missa-de-sancta-cruce/alleluia:paschal",
+      "ref": "noh3/0204/003",
+      "id": 627,
+      "title": "Dicite in gentibus",
+      "borrowed": true,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=627",
+      "mode": "8",
+      "evidence": "Existing reviewed borrowed_ref resolves to the verified printed source; a named borrower verse must also occur in the selected GABC."
+    },
+    {
+      "target": "part:missa-tempore-belli/alleluia:paschal-2",
+      "ref": "noh3/0159/000",
+      "id": 192,
+      "title": "Ego autem cantabo",
+      "borrowed": true,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=192",
+      "mode": "2",
+      "evidence": "Existing reviewed borrowed_ref resolves to the verified printed source; a named borrower verse must also occur in the selected GABC."
+    },
+    {
+      "target": "part:b-m-v-de-bono-consilio/alleluia:2",
+      "ref": "noh3/0304/002",
+      "id": 634,
+      "title": "Per te Dei Genitrix",
+      "borrowed": true,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=634",
+      "mode": "1",
+      "evidence": "Existing reviewed borrowed_ref resolves to the verified printed source; a named borrower verse must also occur in the selected GABC."
+    },
+    {
+      "target": "part:sacrarum-reliquiarum/alleluia:paschal-2",
+      "ref": "noh4/0068/004",
+      "id": 207,
+      "title": "Pretiosa",
+      "borrowed": true,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=207",
+      "mode": "4",
+      "evidence": "Existing reviewed borrowed_ref resolves to the verified printed source; a named borrower verse must also occur in the selected GABC."
+    },
+    {
+      "target": "part:sacrarum-reliquiarum/alleluia:paschal",
+      "ref": "noh4/0067/003",
+      "id": 800,
+      "title": "Sancti tui florebunt",
+      "borrowed": true,
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=800",
+      "mode": "8",
+      "evidence": "Existing reviewed borrowed_ref resolves to the verified printed source; a named borrower verse must also occur in the selected GABC."
+    },
+    {
+      "target": "part:in-conceptione-immaculata-beat-mari-virginis/alleluia:paschal",
+      "ref": "noh3/0055/004",
+      "id": 1023,
+      "title": "Tu gloria Jerusalem",
+      "borrowed": false,
+      "mode": "7",
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=1023",
+      "evidence": "Printed verse, mode and exact start checked directly in the NOH scan, including adjacent pages where needed. No complete automated melody comparison; no full proofreading claim."
+    },
+    {
+      "target": "part:in-apparitione-b-mariae-virginis-immaculatae/alleluia:paschal",
+      "ref": "noh3/0118/003",
+      "id": 964,
+      "title": "Flores apparuerunt",
+      "borrowed": false,
+      "mode": "1",
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=964",
+      "evidence": "Printed verse, mode and exact start checked directly in the NOH scan, including adjacent pages where needed. No complete automated melody comparison; no full proofreading claim."
+    },
+    {
+      "target": "part:s-aloisii-gonzag-confessoris/alleluia:paschal",
+      "ref": "noh3/0251/004",
+      "id": 741,
+      "title": "Deus docuisti me",
+      "borrowed": false,
+      "mode": "1",
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=741",
+      "evidence": "Printed verse, mode and exact start checked directly in the NOH scan, including adjacent pages where needed. No complete automated melody comparison; no full proofreading claim."
+    },
+    {
+      "target": "part:s-theresiae-a-jesu-infante-virginis/alleluia:paschal",
+      "ref": "noh3/0404/002",
+      "id": 1304,
+      "title": "Gustate et videte",
+      "borrowed": false,
+      "mode": "2",
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=1304",
+      "evidence": "Printed verse, mode and exact start checked directly in the NOH scan, including adjacent pages where needed. No complete automated melody comparison; no full proofreading claim."
+    },
+    {
+      "target": "part:s-margarit-mari-alaquoque-virginis/alleluia:paschal",
+      "ref": "noh3/0433/003",
+      "id": 882,
+      "title": "Venite comedite",
+      "borrowed": false,
+      "mode": "1",
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=882",
+      "evidence": "Printed verse, mode and exact start checked directly in the NOH scan, including adjacent pages where needed. No complete automated melody comparison; no full proofreading claim."
+    },
+    {
+      "target": "part:commune-martyrum-tempore-paschali-de-uno-martyre/alleluia:paschal",
+      "ref": "noh4/0061/005",
+      "id": 762,
+      "title": "Confitebuntur caeli",
+      "borrowed": false,
+      "mode": "7",
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=762",
+      "evidence": "Printed verse, mode and exact start checked directly in the NOH scan, including adjacent pages where needed. No complete automated melody comparison; no full proofreading claim."
+    },
+    {
+      "target": "part:puritatis-b-m-v/alleluia:paschal",
+      "ref": "noh3/0055/004",
+      "id": 1023,
+      "title": "Tu gloria Jerusalem",
+      "borrowed": true,
+      "mode": "7",
+      "gregobase_url": "https://gregobase.selapa.net/chant.php?id=1023",
+      "evidence": "Existing reviewed borrowed_ref resolves to the verified printed source."
+    }
+  ],
+  "held": [
+    {
+      "target": "part:in-cathedra-s-petri-romae/alleluia:paschal",
+      "verse": "Confiteantur Domino",
+      "reason": "NOH mode VIII; pinned GregoBase 5433 mode VII. Title agreement alone is insufficient."
+    },
+    {
+      "target": "part:in-visitatione-b-mariae-virginis/alleluia:paschal",
+      "reason": "Source ref noh3/0289/000 shows Rogavi pro te, Petre under the July 4 octave heading, not a Marian verse. Requires section/ownership review."
+    },
+    {
+      "target": "part:s-joannis-damasceni-confessoris/alleluia:paschal",
+      "reason": "Scan at noh3/0153/000 is headed Post Tempus Paschale; seasonal section assignment requires review."
+    }
+  ]
+}

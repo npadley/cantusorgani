@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { EXPORT_CEILING } from "./config";
-import { PDFDocument } from "pdf-lib";
+import { PDFDocument, PDFArray, PDFRawStream, decodePDFRawStream } from "pdf-lib";
 
 import { A4, LETTER, buildPdf, estimatePages, httpPdfFetcher, httpPngFetcher, validateSelection } from "./pdf";
 
@@ -269,4 +269,67 @@ describe("httpPdfFetcher", () => {
     vi.stubGlobal("fetch", vi.fn(async () => new Response("", { status: 404 })));
     await expect(httpPdfFetcher("https://x/a.pdf")).rejects.toThrow(/404/);
   });
+});
+
+
+/** Actual PDF text and drawing operators, decoded from the saved page streams. */
+async function pageOperators(bytes: Uint8Array): Promise<string[]> {
+  const doc = await PDFDocument.load(bytes);
+  return doc.getPages().map((page) => (page.node.Contents() as PDFArray).asArray().map((ref) => {
+    const stream = doc.context.lookup(ref) as PDFRawStream;
+    return new TextDecoder().decode(decodePDFRawStream(stream).decode());
+  }).join("\n"));
+}
+
+const rubricHeading = { index: 0, label: "Alleluia", rubric: "Tempore Paschali.", rubricTranslation: "During Paschaltide." };
+const hex = (text: string): string => Buffer.from(text, "latin1").toString("hex").toUpperCase();
+
+it.each(["scans", "typeset", "fallback"])("prints both rubric languages above %s music even for a single selected part", async (mode) => {
+  const result = await buildPdf({
+    refs: MISSA_I_PAGE.slice(0, 1), title: "T", fetchPng: fileFetcher, headings: [rubricHeading],
+    ...(mode !== "scans" ? {
+      typeset: [{ index: 0, count: 1, pdf: "https://x/music.pdf", label: "Alleluia" }],
+      fetchPdf: async () => { if (mode === "fallback") throw new Error("missing"); return typesetPdf(1, LETTER); },
+    } : {}),
+  });
+  const [content] = await pageOperators(result.bytes);
+  const latin = content!.indexOf(hex(rubricHeading.rubric));
+  const english = content!.indexOf(hex(rubricHeading.rubricTranslation));
+  expect(latin).toBeGreaterThan(-1);
+  expect(english).toBeGreaterThan(latin);
+  expect(english).toBeLessThan(content!.indexOf(" Do"));
+  expect((content!.match(new RegExp(hex(rubricHeading.rubric), "g")) ?? []).length).toBe(1);
+  expect(result.fallbacks).toEqual(mode === "fallback" ? ["Alleluia"] : []);
+});
+
+it("wraps long rubric text inside the margins and moves the instruction with its system", async () => {
+  const long = "During Paschaltide the following verse is sung. ".repeat(8).trim();
+  const result = await buildPdf({ refs: MISSA_I_PAGE, title: "T", fetchPng: fileFetcher,
+    headings: [{ index: 4, label: "Alleluia", rubric: "Tempore Paschali.", rubricTranslation: long }],
+  });
+  const pages = await pageOperators(result.bytes);
+  const instructions = pages.filter((content) => content.includes(hex("Tempore Paschali.")));
+  expect(instructions).toHaveLength(1);
+  const content = instructions[0]!;
+  expect(content.indexOf(hex("Tempore Paschali."))).toBeLessThan(content.lastIndexOf(" Do"));
+  const lines = [...content.matchAll(/<([0-9A-F]+)> Tj/g)].map((m) => Buffer.from(m[1]!, "hex").toString("latin1"));
+  const translationLines = lines.filter((line) => !["Alleluia", "Tempore Paschali."].includes(line));
+  expect(translationLines.length).toBeGreaterThan(1);
+  expect(translationLines.join(" ")).toBe(long);
+});
+
+it("keeps verse and response marks readable in PDF's standard font", async () => {
+  const { pdfSafe } = await import("./pdf");
+  expect(pdfSafe("℣. Tempore Paschali. ℟. Alleluia.")).toBe("V. Tempore Paschali. R. Alleluia.");
+});
+
+
+it("preserves the full typeset page when it has no export heading or rubric", async () => {
+  const result = await buildPdf({ refs: MISSA_I_PAGE.slice(0, 1), title: "T", fetchPng: fileFetcher,
+    typeset: [{ index: 0, count: 1, pdf: "https://x/music.pdf", label: "Alleluia" }],
+    fetchPdf: async () => typesetPdf(1, LETTER),
+  });
+  const [content] = await pageOperators(result.bytes);
+  const matrices = [...content!.matchAll(/([0-9. -]+) cm/g)].map((m) => m[1]!.trim());
+  expect(matrices).toEqual(Array(4).fill("1 0 0 1 0 0"));
 });

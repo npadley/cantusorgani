@@ -1,5 +1,8 @@
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 
+import type { PDFFont } from "pdf-lib";
+import type { SectionRubric } from "./catalog";
+
 import { EXPORT_CEILING } from "./config";
 
 /**
@@ -22,6 +25,11 @@ export const TYPESET_TOP = 12 * 72 / 25.4;
 /** Systems average a little under a quarter of a page at export width. */
 export const SYSTEMS_PER_PAGE = 4.5;
 
+export interface PdfHeading extends SectionRubric {
+  readonly index: number;
+  readonly label: string;
+}
+
 export interface BuildOptions {
   readonly refs: readonly string[];
   readonly title: string;
@@ -29,7 +37,7 @@ export interface BuildOptions {
   readonly fetchPng: (ref: string) => Promise<ArrayBuffer>;
   readonly onProgress?: (done: number, total: number) => void;
   /** A heading printed above the system at `index` (a part's first system). */
-  readonly headings?: readonly { readonly index: number; readonly label: string }[];
+  readonly headings?: readonly PdfHeading[];
   /** Letter (the default) or A4. */
   readonly paper?: Paper;
   /** Typeset music in place of scans: the `count` systems from `index` are
@@ -57,7 +65,7 @@ export const HEADING_SIZE = 11;
  * at the console is worse than an unaccented heading.
  */
 export function pdfSafe(text: string): string {
-  return [...text].map((ch) => {
+  return [...text.replace(/℣\.?/g, "V.").replace(/℟\.?/g, "R.")].map((ch) => {
     if (/^[\u0020-\u007e\u00a0-\u00ff\u2013\u2014\u2018\u2019\u201c\u201d]$/.test(ch)) return ch;
     const bare = ch.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
     if (bare === "\u00e6" || ch === "\u01fd") return "\u00e6";
@@ -105,7 +113,7 @@ export function validateSelection(count: number, ticked: readonly PartSize[] = [
 
 export async function buildPdf(options: BuildOptions): Promise<BuildResult> {
   const { refs, title, fetchPng, onProgress } = options;
-  const headings = new Map((options.headings ?? []).map((h) => [h.index, pdfSafe(h.label)]));
+  const headings = new Map((options.headings ?? []).map((h) => [h.index, h]));
   const size = PAPERS[options.paper ?? "letter"];
   const inserts = new Map((options.typeset ?? []).map((t) => [t.index, t]));
 
@@ -118,6 +126,9 @@ export async function buildPdf(options: BuildOptions): Promise<BuildResult> {
   doc.setCreator("Cantus Organi — cantusorgani.org");
 
   const font = headings.size > 0 ? await doc.embedFont(StandardFonts.HelveticaBold) : null;
+  const hasRubrics = [...headings.values()].some((h) => h.rubric || h.rubricTranslation);
+  const latinFont = hasRubrics ? await doc.embedFont(StandardFonts.HelveticaOblique) : null;
+  const englishFont = hasRubrics ? await doc.embedFont(StandardFonts.Helvetica) : null;
   const usableWidth = size.width - MARGIN * 2;
   let page = doc.addPage([size.width, size.height]);
   let cursor = size.height - MARGIN;
@@ -133,8 +144,51 @@ export async function buildPdf(options: BuildOptions): Promise<BuildResult> {
     fresh = true;
   }
 
+  type Line = { text: string; font: PDFFont; size: number };
+
+  // Break by measured font width, including a single word too long for the line.
+  function wrap(text: string, face: PDFFont, size: number): Line[] {
+    const lines: Line[] = [];
+    let line = "";
+    for (const word of pdfSafe(text).split(/\s+/).filter(Boolean)) {
+      const joined = line ? `${line} ${word}` : word;
+      if (face.widthOfTextAtSize(joined, size) <= usableWidth) { line = joined; continue; }
+      if (line) lines.push({ text: line, font: face, size });
+      line = "";
+      for (const ch of word) {
+        if (face.widthOfTextAtSize(line + ch, size) > usableWidth) {
+          lines.push({ text: line, font: face, size });
+          line = "";
+        }
+        line += ch;
+      }
+    }
+    if (line) lines.push({ text: line, font: face, size });
+    return lines;
+  }
+
+  function headingLines(heading: PdfHeading | undefined): Line[] {
+    if (!heading || !font) return [];
+    return [
+      ...wrap(heading.label, font, HEADING_SIZE),
+      ...(heading.rubric && latinFont ? wrap(heading.rubric, latinFont, 10) : []),
+      ...(heading.rubricTranslation && englishFont ? wrap(heading.rubricTranslation, englishFont, 10) : []),
+    ];
+  }
+
+  const roomFor = (lines: readonly Line[]): number =>
+    lines.length > 0 ? lines.reduce((height, line) => height + line.size + 3, 3) : 0;
+
+  function drawHeading(lines: readonly Line[], top: number): void {
+    let y = top;
+    for (const line of lines) {
+      page.drawText(line.text, { x: MARGIN, y: y - line.size, size: line.size, font: line.font, color: rgb(0, 0, 0) });
+      y -= line.size + 3;
+    }
+  }
+
   /** A typeset part's own pages, each drawn whole onto one of ours; false if it cannot be had. */
-  async function typeset(insert: TypesetInsert, heading: string | undefined): Promise<boolean> {
+  async function typeset(insert: TypesetInsert, heading: PdfHeading | undefined): Promise<boolean> {
     if (!options.fetchPdf) return false;
     let embedded: Awaited<ReturnType<PDFDocument["embedPdf"]>>;
     try {
@@ -148,18 +202,16 @@ export async function buildPdf(options: BuildOptions): Promise<BuildResult> {
     }
     if (embedded.length === 0) return false;
     newPage();
+    const lines = headingLines(heading);
     embedded.forEach((art, k) => {
       if (k > 0) newPage();
       // Drawn to fit the page (they are made at this paper size, so 1:1),
       // lowered on the first page just enough to clear the part's heading.
-      const drop = k === 0 && heading && font ? Math.max(0, MARGIN + HEADING_SIZE + 6 - TYPESET_TOP) : 0;
+      const drop = k === 0 && lines.length > 0 ? Math.max(0, MARGIN + roomFor(lines) - TYPESET_TOP) : 0;
       const scale = Math.min(size.width / art.width, (size.height - drop) / art.height);
+      if (k === 0) drawHeading(lines, size.height - MARGIN);
       page.drawPage(art, { x: 0, y: size.height - drop - art.height * scale, width: art.width * scale,
                            height: art.height * scale });
-      if (k === 0 && heading && font) {
-        page.drawText(heading, { x: MARGIN, y: size.height - MARGIN - HEADING_SIZE, size: HEADING_SIZE, font,
-                                 color: rgb(0, 0, 0) });
-      }
       fresh = false;
       cursor = MARGIN;          // a part after typeset music starts on a new page
     });
@@ -181,18 +233,15 @@ export async function buildPdf(options: BuildOptions): Promise<BuildResult> {
     const scale = usableWidth / image.width;
     const height = image.height * scale;
 
-    const heading = headings.get(index);
-    const headingRoom = heading && font ? HEADING_SIZE + 6 : 0;
+    const lines = headingLines(headings.get(index));
+    const headingRoom = roomFor(lines);
     // A heading never ends a page on its own: it moves with its system.
     if (cursor - headingRoom - height < MARGIN) {
       fresh = false;
       newPage();
     }
-    if (heading && font) {
-      page.drawText(heading, { x: MARGIN, y: cursor - HEADING_SIZE, size: HEADING_SIZE, font,
-                               color: rgb(0, 0, 0) });
-      cursor -= headingRoom;
-    }
+    drawHeading(lines, cursor);
+    cursor -= headingRoom;
     page.drawImage(image, { x: MARGIN, y: cursor - height, width: usableWidth, height });
     cursor -= height + GAP;
     fresh = false;

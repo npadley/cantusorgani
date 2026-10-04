@@ -112,3 +112,27 @@ describe("the Sections screen's list", () => {
     expect(unchanged([rows[0]!], ember())).toBe(false);
   });
 });
+
+
+describe("section rubric editing", () => {
+  const rubric = { rubric: "Tempore Paschali.", rubric_translation: "During Paschaltide." };
+  it("preserves both languages through catalog targets, form rows, pending edits and API values", () => {
+    const p = ember();
+    const withRubric = { ...p, parts: p.parts!.map((part, i) => i === 2 ? { ...part, ...rubric } : part) };
+    const list = currentSections(withRubric);
+    expect(list[2]).toMatchObject(rubric);
+    expect(parseSections(sectionsText(list), 20)).toEqual(list);
+    expect(JSON.parse(rowsValue(startingRows(withRubric)))[2]).toMatchObject(rubric);
+    expect(unchanged(startingRows(withRubric), withRubric)).toBe(true);
+    const pending = JSON.stringify(list.map((e, i) => i === 2 ? { ...e, rubric_translation: "In Eastertide." } : e));
+    expect(JSON.parse(rowsValue(startingRows(withRubric, pending)))[2].rubric_translation).toBe("In Eastertide.");
+  });
+
+  it.each(["rubric", "rubric_translation"])("validates %s as plain text up to 500 characters", (field) => {
+    const base = { kind: "introit", system: 1, chant: "none" };
+    for (const value of [23, true, "x".repeat(501), "<i>text</i>", "x\u0000y"]) {
+      expect(parseSections(JSON.stringify([{ ...base, [field]: value }]), 20)).toMatch(new RegExp(field + ".*500"));
+    }
+    expect(parseSections(JSON.stringify([{ ...base, [field]: "x".repeat(500) }]), 20)).toEqual([{ ...base, [field]: "x".repeat(500) }]);
+  });
+});

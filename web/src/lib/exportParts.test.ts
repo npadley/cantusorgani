@@ -166,6 +166,17 @@ describe("exportSegments with borrowed parts", () => {
     expect(segments[0]!.stems[0]).toContain("noh3/0387/000");
   });
 
+  it("keeps the borrower rubric with borrowed music without importing the lender instruction", () => {
+    const [lender, borrower] = catalog();
+    const source = { ...lender!, parts: lender!.parts.map((p) => ({ ...p, rubric: "Source-only instruction." })) };
+    const destination = { ...borrower!, parts: borrower!.parts.map((p) => p.kind === "borrowed" && p.part === "introit"
+      ? { ...p, rubric: "Tempore Paschali.", rubricTranslation: "During Paschaltide." } : p) };
+    const segments = exportSegments([destination], [source]);
+    expect(segments[0]).toMatchObject({ rubric: "Tempore Paschali.", rubricTranslation: "During Paschaltide." });
+    expect(segments[2]!.rubric).toBeUndefined();
+    expect(exportSegments([{ ...destination, excludedParts: ["introit"] }], [source]).some((s) => s.rubric)).toBe(false);
+  });
+
   it("should leave out a borrowed part whose lender is unknown", () => {
     const pieces = catalog();
     const angels = { ...pieces[1]!, parts: pieces[1]!.parts.map((x) =>

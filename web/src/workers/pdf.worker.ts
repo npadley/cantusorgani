@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 import { buildPdf, httpPdfFetcher, httpPngFetcher, validateSelection } from "../lib/pdf";
-import type { Paper, TypesetInsert } from "../lib/pdf";
+import type { Paper, PdfHeading, TypesetInsert } from "../lib/pdf";
 
 /**
  * Thin message-passing wrapper. All assembly logic lives in ../lib/pdf.ts so it
@@ -13,7 +13,7 @@ export interface BuildRequest {
   readonly base: string;
   readonly title: string;
   /** A part's heading above its first system; optional for older callers. */
-  readonly headings?: readonly { readonly index: number; readonly label: string }[];
+  readonly headings?: readonly PdfHeading[];
   readonly paper?: Paper;
   /** Typeset music in place of some systems (see buildPdf). */
   readonly typeset?: readonly TypesetInsert[];
