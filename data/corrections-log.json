@@ -2,6 +2,115 @@
   "schema_version": 1,
   "corrections": [
     {
+      "id": "c-0303",
+      "target": "sections:s-gabrielis-a-virgine-perdolente-confessoris",
+      "field": "sections",
+      "was": [
+        {
+          "kind": "introit",
+          "label": "Intr. VII",
+          "title": "Oculus Dei",
+          "ref": "noh3/0129/003",
+          "chant": 1025
+        },
+        {
+          "kind": "gradual",
+          "label": "Grad. V",
+          "title": "Quam magna",
+          "ref": "noh3/0131/000",
+          "chant": 1291
+        },
+        {
+          "kind": "tract",
+          "label": "Tract.",
+          "title": "Beatus vir cujus",
+          "ref": "noh3/0132/002",
+          "chant": 728
+        },
+        {
+          "kind": "alleluia",
+          "key": "paschal-minuisti",
+          "label": "VII.",
+          "title": "Minuisti eum",
+          "ref": "noh3/0134/004",
+          "chant": "none"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "paschal",
+          "ref": "noh3/0136/000",
+          "chant": "none"
+        },
+        {
+          "kind": "offertory",
+          "label": "Offert.",
+          "title": "O Domine",
+          "ref": "noh3/0137/002",
+          "chant": 1193
+        },
+        {
+          "kind": "communion",
+          "label": "Comm.",
+          "title": "Ecce sto",
+          "ref": "noh3/0138/002",
+          "chant": 164
+        }
+      ],
+      "value": [
+        {
+          "kind": "introit",
+          "label": "Intr. VII",
+          "title": "Oculus Dei",
+          "ref": "noh3/0129/003",
+          "chant": 1025
+        },
+        {
+          "kind": "gradual",
+          "label": "Grad. V",
+          "title": "Quam magna",
+          "ref": "noh3/0131/000",
+          "chant": 1291
+        },
+        {
+          "kind": "tract",
+          "label": "Tract.",
+          "title": "Beatus vir cujus",
+          "ref": "noh3/0132/002",
+          "chant": 728
+        },
+        {
+          "kind": "alleluia",
+          "variant": "paschal",
+          "label": "VII.",
+          "title": "Minuisti eum",
+          "ref": "noh3/0134/004",
+          "chant": 791
+        },
+        {
+          "kind": "alleluia",
+          "title": "Benedictio Dei",
+          "ref": "noh3/0136/000",
+          "chant": 295
+        },
+        {
+          "kind": "offertory",
+          "label": "Offert.",
+          "title": "O Domine",
+          "ref": "noh3/0137/002",
+          "chant": 1193
+        },
+        {
+          "kind": "communion",
+          "label": "Comm.",
+          "title": "Ecce sto",
+          "ref": "noh3/0138/002",
+          "chant": 164
+        }
+      ],
+      "date": "2026-10-04",
+      "by": "editor"
+    },
+    {
       "id": "c-0083",
       "target": "part:in-exaltatione-sanct-crucis/offertory",
       "field": "chant",
