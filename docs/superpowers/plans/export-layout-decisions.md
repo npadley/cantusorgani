@@ -20,6 +20,11 @@ Append-only. Each entry: date, ID, decision, evidence, owner. Spikes (S0–S7) a
 
 _(S0–S7 append here: date, spike, decision, evidence paths, consequences for downstream tasks.)_
 
+### S5: MEI 5.0 schema validator (2026-10-08)
+- **Decision:** validate with `lxml.etree.RelaxNG` (lxml 6.1.3, libxml2 2.14.6) against the vendored `data/typeset/mei/schemas/mei-5.0/mei-CMN.rng` (MEI v5.0, ECL-2.0, self-contained: one schema file plus `LICENSE` and `SOURCE.md`). `jing` is not used; Java is also not installed on the dev host. Every file (schema and input) is parsed with `XMLParser(resolve_entities=False, no_network=True, load_dtd=False)`.
+- **Evidence:** `docs/superpowers/experiments/s5-schema.md`. The experiment MEI is **valid with 0 errors**; a negative control (`<bogus/>` in `<mdiv>`) is rejected. The same run works with `socket.socket` patched to raise. DOCTYPE, external-entity (file and http) and entity-bomb inputs are rejected with no network use and no expansion.
+- **Consequences:** coordinator adds `lxml>=5,<7` to `pyproject.toml`. A3 `validate_schema` **must** reject any DOCTYPE/entity (`docinfo.doctype`, `system_url`, `public_id`; optionally a byte scan for `<!DOCTYPE`/`<!ENTITY`), because RelaxNG validation alone *accepts* documents with unexpanded entity references. Schematron rules embedded in the `.rng` are not enforced by libxml2, so "valid" means RelaxNG-valid only. `SchemaBundle.validator` is `lxml-relaxng 6.1.3` (from `etree.LXML_VERSION`).
+
 ### S6: Verovio WASM bundling (2026-10-08)
 - **Decision:** `verovio@6.3.0` (exact pin) bundles under the Astro 7 static build with **no Astro or Vite config change**. Import `createVerovioModule` from `verovio/wasm` and `VerovioToolkit` from `verovio/esm`, in a worker created with `new Worker(new URL("../workers/<name>.worker.ts", import.meta.url), { type: "module" })`.
 - **Evidence:** `docs/superpowers/experiments/s6-bundling.md`. One new chunk, 8,307,650 B raw (7.92 MiB) and 2,401,338 B gzip (2.29 MiB), against Cloudflare Pages' 25 MiB per-file limit. The WASM is inlined (no `.wasm` file). `grep -rl verovio dist --include='*.html'` finds only the spike page. A Playwright smoke run rendered the Kyrie IX MEI to a 243,744-character SVG in 365 ms (desktop Chromium).
