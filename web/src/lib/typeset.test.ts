@@ -91,8 +91,12 @@ describe("exportRuns", () => {
     expect(exportRuns(piece, 4, 8, find)[0]).toMatchObject({ count: 4, label: "Gradual", a4: "a/gr.ly" });
   });
 
+  it("should name a typeset run's target and render hash, for finding its conversion", () => {
+    expect(exportRuns(piece, 4, 8, find)[0]).toMatchObject({ target: "part:dominica-x/gradual", hash: "a".repeat(32) });
+  });
+
   it("should use scans for a typeset part only partly inside the export", () => {
-    expect(exportRuns(piece, 5, 10, find)).toEqual([{ count: 5, key: null, label: null, letter: null, a4: null }]);
+    expect(exportRuns(piece, 5, 10, find)).toEqual([{ count: 5, key: null, label: null, letter: null, a4: null, target: null, hash: null }]);
   });
 });
 
