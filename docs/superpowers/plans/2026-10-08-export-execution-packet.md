@@ -133,7 +133,7 @@ Haiku never edits a validator, oracle, sanitizer, publisher or security boundary
 3. Do not commit `lilypond-resolved.xml`, `kyrie-ix.musicxml`, `musicxml-*`, `comparison*.html` or `build_comparison.py`.
 
 **Done when:**
-- `grep -rn '/Users/\|/private/tmp' docs/superpowers/experiments tests/fixtures/mei web/src/lib/export-layout/__fixtures__` prints nothing.
+- `grep -rln '/Users/\|/private/tmp' $(git show --name-only --format= HEAD)` prints nothing (every committed file, including SVG `textedit://` links).
 - `baseline-events.json` has 4 voices with 180/61/61/61 events.
 - The note-event count across all voices is 358, plus 5 skips.
 - Each voice's durations sum to `373/8`.
