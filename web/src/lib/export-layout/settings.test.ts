@@ -91,7 +91,7 @@ describe('paperDimensions', () => {
     const result = paperDimensions({ ...DEFAULT_SETTINGS, page: 'ipad-mini', orientation: 'portrait' });
     expect(result).toEqual({
       widthMm: 115.9,
-      heightMm: 176.5,
+      heightMm: 176.6,
       kind: 'screen',
     });
   });
@@ -100,7 +100,7 @@ describe('paperDimensions', () => {
     const result = paperDimensions({ ...DEFAULT_SETTINGS, page: 'ipad-13', orientation: 'portrait' });
     expect(result).toEqual({
       widthMm: 197.0,
-      heightMm: 262.8,
+      heightMm: 262.9,
       kind: 'screen',
     });
   });
@@ -435,5 +435,158 @@ describe('verovioOptions', () => {
 
       expect(options.unit).toBe(sizeInfo.unit);
     }
+  });
+});
+
+describe('custom/null invariant', () => {
+  it('resets to default page when custom with null customSize', () => {
+    const result = normalizeSettings({ ...DEFAULT_SETTINGS, page: 'custom', customSize: null });
+    expect(result.settings.page).toBe('letter');
+    expect(result.settings.customSize).toBeNull();
+    expect(result.notices.some((n) => n.code === 'INVALID_VALUE_RESET' && n.field === 'page')).toBe(true);
+  });
+
+  it('paperDimensions works after normalizing custom with null customSize', () => {
+    const normalized = normalizeSettings({ ...DEFAULT_SETTINGS, page: 'custom', customSize: null });
+    const result = paperDimensions(normalized.settings);
+    expect(result).not.toThrow;
+    expect(result.widthMm).toBe(215.9); // letter
+  });
+
+  it('drops customSize to null when page is non-custom', () => {
+    const input: LayoutSettings = {
+      ...DEFAULT_SETTINGS,
+      page: 'letter',
+      customSize: { widthMm: 100, heightMm: 150 },
+    };
+    const result = normalizeSettings(input);
+    expect(result.settings.customSize).toBeNull();
+    expect(result.notices.some((n) => n.code === 'INVALID_VALUE_RESET' && n.field === 'customSize')).toBe(true);
+  });
+});
+
+describe('non-finite numbers rejection', () => {
+  it('resets NaN marginMm to default', () => {
+    const result = normalizeSettings({ ...DEFAULT_SETTINGS, marginMm: NaN });
+    expect(result.settings.marginMm).toBe(12);
+    expect(result.notices.some((n) => n.code === 'INVALID_VALUE_RESET' && n.field === 'marginMm')).toBe(true);
+  });
+
+  it('resets Infinity marginMm to default', () => {
+    const result = normalizeSettings({ ...DEFAULT_SETTINGS, marginMm: Infinity });
+    expect(result.settings.marginMm).toBe(12);
+    expect(result.notices.some((n) => n.code === 'INVALID_VALUE_RESET' && n.field === 'marginMm')).toBe(true);
+  });
+
+  it('resets NaN customSize.widthMm', () => {
+    const input: LayoutSettings = {
+      ...DEFAULT_SETTINGS,
+      page: 'custom',
+      customSize: { widthMm: NaN, heightMm: 150 },
+    };
+    const result = normalizeSettings(input);
+    expect(result.notices.some((n) => n.code === 'INVALID_VALUE_RESET')).toBe(true);
+  });
+
+  it('resets Infinity customSize.heightMm', () => {
+    const input: LayoutSettings = {
+      ...DEFAULT_SETTINGS,
+      page: 'custom',
+      customSize: { widthMm: 100, heightMm: Infinity },
+    };
+    const result = normalizeSettings(input);
+    expect(result.notices.some((n) => n.code === 'INVALID_VALUE_RESET')).toBe(true);
+  });
+
+  it('resets NaN maxSystems to default', () => {
+    const result = normalizeSettings({ ...DEFAULT_SETTINGS, maxSystems: NaN });
+    expect(result.settings.maxSystems).toBeNull();
+    expect(result.notices.some((n) => n.code === 'INVALID_VALUE_RESET' && n.field === 'maxSystems')).toBe(true);
+  });
+});
+
+describe('margin rounding and clamping', () => {
+  it('rounds margin to whole number', () => {
+    const result = normalizeSettings({ ...DEFAULT_SETTINGS, marginMm: 12.7 });
+    expect(result.settings.marginMm).toBe(13);
+  });
+
+  it('rounds margin down', () => {
+    const result = normalizeSettings({ ...DEFAULT_SETTINGS, marginMm: 12.3 });
+    expect(result.settings.marginMm).toBe(12);
+  });
+
+  it('emits notice when margin value changes due to rounding', () => {
+    const result = normalizeSettings({ ...DEFAULT_SETTINGS, marginMm: 12.5 });
+    expect(result.notices.some((n) => n.code === 'INVALID_VALUE_RESET' && n.field === 'marginMm')).toBe(true);
+  });
+});
+
+describe('maxSystems validation', () => {
+  it('resets 0 to default', () => {
+    const result = normalizeSettings({ ...DEFAULT_SETTINGS, maxSystems: 0 });
+    expect(result.settings.maxSystems).toBeNull();
+    expect(result.notices.some((n) => n.code === 'INVALID_VALUE_RESET' && n.field === 'maxSystems')).toBe(true);
+  });
+
+  it('resets 9 (over limit) to default', () => {
+    const result = normalizeSettings({ ...DEFAULT_SETTINGS, maxSystems: 9 });
+    expect(result.settings.maxSystems).toBeNull();
+    expect(result.notices.some((n) => n.code === 'INVALID_VALUE_RESET' && n.field === 'maxSystems')).toBe(true);
+  });
+
+  it('resets 100 to default', () => {
+    const result = normalizeSettings({ ...DEFAULT_SETTINGS, maxSystems: 100 });
+    expect(result.settings.maxSystems).toBeNull();
+    expect(result.notices.some((n) => n.code === 'INVALID_VALUE_RESET' && n.field === 'maxSystems')).toBe(true);
+  });
+
+  it('resets 2.5 (non-integer) to default', () => {
+    const result = normalizeSettings({ ...DEFAULT_SETTINGS, maxSystems: 2.5 });
+    expect(result.settings.maxSystems).toBeNull();
+    expect(result.notices.some((n) => n.code === 'INVALID_VALUE_RESET' && n.field === 'maxSystems')).toBe(true);
+  });
+
+  it('accepts valid values 1-8', () => {
+    for (let i = 1; i <= 8; i++) {
+      const result = normalizeSettings({ ...DEFAULT_SETTINGS, maxSystems: i });
+      expect(result.settings.maxSystems).toBe(i);
+      expect(result.notices.some((n) => n.field === 'maxSystems')).toBe(false);
+    }
+  });
+});
+
+describe('custom size portrait normalization', () => {
+  it('swaps dimensions if width > height', () => {
+    const input: LayoutSettings = {
+      ...DEFAULT_SETTINGS,
+      page: 'custom',
+      customSize: { widthMm: 200, heightMm: 150 },
+    };
+    const result = normalizeSettings(input);
+    expect(result.settings.customSize!.widthMm).toBe(150);
+    expect(result.settings.customSize!.heightMm).toBe(200);
+    expect(result.notices.some((n) => n.code === 'CUSTOM_SIZE_CLAMPED')).toBe(false);
+  });
+
+  it('keeps dimensions if width <= height', () => {
+    const input: LayoutSettings = {
+      ...DEFAULT_SETTINGS,
+      page: 'custom',
+      customSize: { widthMm: 150, heightMm: 200 },
+    };
+    const result = normalizeSettings(input);
+    expect(result.settings.customSize!.widthMm).toBe(150);
+    expect(result.settings.customSize!.heightMm).toBe(200);
+  });
+});
+
+describe('preset heights (S7 verification)', () => {
+  it('ipad-mini has updated height', () => {
+    expect(PAGE_PRESETS['ipad-mini'].heightMm).toBe(176.6);
+  });
+
+  it('ipad-13 has updated height', () => {
+    expect(PAGE_PRESETS['ipad-13'].heightMm).toBe(262.9);
   });
 });

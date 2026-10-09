@@ -104,23 +104,77 @@ export function normalizeSettings(unknown: unknown): NormalizedSettings {
     DEFAULT_SETTINGS.page
   );
 
+  // Handle customSize with custom/null invariant
   let customSize: { readonly widthMm: number; readonly heightMm: number } | null = null;
-  if (obj.customSize === null) {
-    customSize = null;
-  } else if (
-    typeof obj.customSize === 'object' &&
-    obj.customSize !== null &&
-    typeof (obj.customSize as Record<string, unknown>).widthMm === 'number' &&
-    typeof (obj.customSize as Record<string, unknown>).heightMm === 'number'
-  ) {
-    customSize = obj.customSize as { readonly widthMm: number; readonly heightMm: number };
+  if (page === 'custom') {
+    // Page is custom, so customSize must be valid
+    if (obj.customSize === null || obj.customSize === undefined) {
+      // custom page with null customSize: reset page to default
+      const newPage = DEFAULT_SETTINGS.page;
+      notices.push({
+        code: 'INVALID_VALUE_RESET',
+        field: 'page',
+        partId: null,
+      });
+      // Return with default page and null customSize
+      const marginMm = DEFAULT_SETTINGS.marginMm;
+      return {
+        settings: {
+          version: 2,
+          page: newPage,
+          customSize: null,
+          orientation: DEFAULT_SETTINGS.orientation,
+          marginMm,
+          staff: DEFAULT_SETTINGS.staff,
+          lyrics: DEFAULT_SETTINGS.lyrics,
+          spacing: DEFAULT_SETTINGS.spacing,
+          maxSystems: DEFAULT_SETTINGS.maxSystems,
+          linePolicy: DEFAULT_SETTINGS.linePolicy,
+        },
+        notices,
+      };
+    } else if (
+      typeof obj.customSize === 'object' &&
+      typeof (obj.customSize as Record<string, unknown>).widthMm === 'number' &&
+      typeof (obj.customSize as Record<string, unknown>).heightMm === 'number' &&
+      Number.isFinite((obj.customSize as Record<string, unknown>).widthMm) &&
+      Number.isFinite((obj.customSize as Record<string, unknown>).heightMm)
+    ) {
+      customSize = obj.customSize as { readonly widthMm: number; readonly heightMm: number };
+    } else {
+      // Invalid customSize for custom page: reset to default page
+      notices.push({
+        code: 'INVALID_VALUE_RESET',
+        field: 'customSize',
+        partId: null,
+      });
+      const marginMm = DEFAULT_SETTINGS.marginMm;
+      return {
+        settings: {
+          version: 2,
+          page: DEFAULT_SETTINGS.page,
+          customSize: null,
+          orientation: DEFAULT_SETTINGS.orientation,
+          marginMm,
+          staff: DEFAULT_SETTINGS.staff,
+          lyrics: DEFAULT_SETTINGS.lyrics,
+          spacing: DEFAULT_SETTINGS.spacing,
+          maxSystems: DEFAULT_SETTINGS.maxSystems,
+          linePolicy: DEFAULT_SETTINGS.linePolicy,
+        },
+        notices,
+      };
+    }
   } else {
-    notices.push({
-      code: 'INVALID_VALUE_RESET',
-      field: 'customSize',
-      partId: null,
-    });
-    customSize = DEFAULT_SETTINGS.customSize;
+    // Page is non-custom, so drop any customSize to null
+    if (obj.customSize !== null && obj.customSize !== undefined) {
+      customSize = null;
+      notices.push({
+        code: 'INVALID_VALUE_RESET',
+        field: 'customSize',
+        partId: null,
+      });
+    }
   }
 
   // Clamp custom size if needed
@@ -153,6 +207,11 @@ export function normalizeSettings(unknown: unknown): NormalizedSettings {
       clamped = true;
     }
 
+    // Portrait-normalize: if width > height, swap them
+    if (customSize.widthMm > customSize.heightMm) {
+      customSize = { widthMm: customSize.heightMm, heightMm: customSize.widthMm };
+    }
+
     if (clamped) {
       notices.push({
         code: 'CUSTOM_SIZE_CLAMPED',
@@ -168,11 +227,23 @@ export function normalizeSettings(unknown: unknown): NormalizedSettings {
     DEFAULT_SETTINGS.orientation
   );
 
+  // Margin: validate finitude, round, clamp
   let marginMm = getField<number>(
     'marginMm',
-    (v): v is number => typeof v === 'number',
+    (v): v is number => typeof v === 'number' && Number.isFinite(v),
     DEFAULT_SETTINGS.marginMm
   );
+
+  // Round margin to whole number
+  const roundedMargin = Math.round(marginMm);
+  if (roundedMargin !== marginMm) {
+    marginMm = roundedMargin;
+    notices.push({
+      code: 'INVALID_VALUE_RESET',
+      field: 'marginMm',
+      partId: null,
+    });
+  }
 
   // Clamp margin to 3-25
   if (marginMm < MARGIN_MIN_MM || marginMm > MARGIN_MAX_MM) {
@@ -198,11 +269,26 @@ export function normalizeSettings(unknown: unknown): NormalizedSettings {
     DEFAULT_SETTINGS.spacing
   );
 
-  const maxSystems = getField<number | null>(
-    'maxSystems',
-    (v): v is number | null => v === null || (typeof v === 'number' && v >= 1),
-    DEFAULT_SETTINGS.maxSystems
-  );
+  // maxSystems: must be null or integer in 1..MAX_SYSTEMS_LIMIT
+  let maxSystems: number | null = null;
+  if (obj.maxSystems === null || obj.maxSystems === undefined) {
+    maxSystems = null;
+  } else if (
+    typeof obj.maxSystems === 'number' &&
+    Number.isFinite(obj.maxSystems) &&
+    Number.isInteger(obj.maxSystems) &&
+    obj.maxSystems >= 1 &&
+    obj.maxSystems <= 8
+  ) {
+    maxSystems = obj.maxSystems;
+  } else {
+    maxSystems = DEFAULT_SETTINGS.maxSystems;
+    notices.push({
+      code: 'INVALID_VALUE_RESET',
+      field: 'maxSystems',
+      partId: null,
+    });
+  }
 
   const linePolicy = getField<'original' | 'automatic'>(
     'linePolicy',
