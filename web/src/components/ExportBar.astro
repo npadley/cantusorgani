@@ -35,7 +35,7 @@ const note = defaultsNote(segments, group, dateLabel);
 const runsOf = (s: ExportSegment): readonly ExportRun[] => {
   const piece = s.source ? pieceBySlug(s.source.slug) : undefined;
   return piece && s.source ? exportRuns(piece, s.source.start, s.source.end)
-    : [{ count: s.systems, key: null, label: null, letter: null, a4: null }];
+    : [{ count: s.systems, key: null, label: null, letter: null, a4: null, target: null, hash: null }];
 };
 const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${estimatePages(n)} page${estimatePages(n) === 1 ? "" : "s"})`;
 ---
@@ -118,7 +118,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
   import type { BuildRequest, BuildResponse } from "../workers/pdf.worker";
   import { estimatePages, validateSelection } from "../lib/pdf";
   import type { Paper, TypesetInsert } from "../lib/pdf";
-  import type { ExportRun } from "../lib/typeset";
+  import { readSelectionInput } from "../lib/exportSelection";
   import { trackExport } from "../lib/exportAnalytics";
 
   const root = document.querySelector<HTMLElement>(".export");
@@ -151,15 +151,6 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     return document.documentElement.getAttribute("data-view") === "scans";
   }
 
-  function runsOf(box: HTMLInputElement): ExportRun[] {
-    try {
-      const runs: unknown = JSON.parse(box.dataset["runs"] ?? "[]");
-      return Array.isArray(runs) ? runs as ExportRun[] : [];
-    } catch {
-      return [];
-    }
-  }
-
   if (root && button && status && progress) {
     const title = root.dataset["title"] ?? "Nova Organi Harmonia";
     const boxes = [...root.querySelectorAll<HTMLInputElement>('input[name="export-part"]')];
@@ -171,16 +162,11 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
       const parts: { label: string; systems: number }[] = [];
       const typeset: TypesetInsert[] = [];
       const paper: Paper = paperSelect?.value === "a4" ? "a4" : "letter";
-      const ticked = boxes.filter((b) => b.checked);
-      for (const box of ticked) {
-        const stems = (box.dataset["stems"] ?? "").split(",").filter(Boolean);
-        const label = box.dataset["label"] ?? "";
+      const ticked = readSelectionInput(boxes, title, showsScans).segments;
+      for (const { stems, label, rubric, rubricTranslation, runs } of ticked) {
         const start = refs.length;
-        const rubric = box.dataset["rubric"];
-        const rubricTranslation = box.dataset["rubricTranslation"];
         if (ticked.length > 1 || rubric || rubricTranslation) headings.push({ index: start, label,
           ...(rubric ? { rubric } : {}), ...(rubricTranslation ? { rubricTranslation } : {}) });
-        const runs = runsOf(box);
         // The runs cover the part's systems in order; if they do not add up,
         // the part goes in as scans.
         if (runs.reduce((n, r) => n + r.count, 0) === stems.length) {
@@ -188,7 +174,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
           for (const run of runs) {
             const pdf = run[paper];
             if (runs.length > 1 && run.label && at !== start) headings.push({ index: at, label: run.label });
-            if (pdf && run.key && !showsScans(run.key)) {
+            if (pdf && run.key && !run.showsScans) {
               typeset.push({ index: at, count: run.count, pdf, label: run.label ?? label });
             }
             at += run.count;
