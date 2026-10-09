@@ -10,11 +10,13 @@
 
 **Spec:** [Design](../specs/2026-10-06-export-layout-editor-design.md), §4–5/7–8. [Shared contracts](2026-10-06-export-layout-implementation-plan.md).
 
+> **Revised 2026-10-08.** Implement from the [execution packet](2026-10-08-export-execution-packet.md) cards (S2, S3+S4, S6, S7, B0–B10b); they split this plan's tasks into single-session units with model routing, and supersede this plan where they differ. Types: [frozen contracts](2026-10-08-export-contracts.md). Decisions: [decision log](export-layout-decisions.md). The corrections below are applied inline; the rest of this plan is rationale and test intent. The UI is specified in the [UI specification](../specs/2026-10-08-export-editor-ui-spec.md).
+
 ## Global Constraints
 
-- Letter 215.9 × 279.4 mm; A4 210 × 297 mm; A5 148 × 210 mm. Portrait and Landscape for every size.
-- One margin value, 8–25 mm; default 12 mm. Staff heights Small 5.6 mm, Medium 7.2 mm, Large 9.6 mm; Medium default.
-- Leipzig default; Bravura only after verification. Bundled serif default and bundled sans alternative must share preview/PDF assets and metrics.
+- Print: Letter 215.9 × 279.4 mm; A4 210 × 297 mm; A5 148 × 210 mm. iPad: mini / 11-inch / 13-inch (contracts `PAGE_PRESETS`, S7). Custom: 90–450 mm per side, ratio ≤ 3. Portrait and Landscape for every size. PDF MediaBox = exactly the chosen mm × 72/25.4 pt.
+- One margin value, 3–25 mm; default 12 mm print, 4 mm iPad/Custom. Staff heights Small 5.6 mm, Medium 7.2 mm, Large 9.6 mm (Verovio `unit` 7/9/12 at `scale: 100`); Medium default.
+- Leipzig only and one bundled text face in v1; no font controls (D3). Preview and PDF share the same font assets and metrics.
 - `lyricSize` 3.5/4.5/5.5; `spacingSystem` 2/4/8; default Medium/Normal. Values are versioned and subject to pilot visual approval.
 - Maximum systems Automatic or 1–8, never an exact target. Original line breaks default. Each part starts a new page.
 - User page breaks → user system breaks → original/automatic policy → page packing under the cap.
@@ -41,7 +43,7 @@ New pure modules live in `web/src/lib/export-layout/`, with colocated `.test.ts`
 | `fonts.ts`, `vectorPdf.ts` | Verified font assets/metrics and selected SVG-to-vector adapter |
 | `mei.ts`, `breaks.ts`, `layout.ts` | Renderer adapter, effective anchors, canonical MEI layout |
 | `svg.ts` | Dedicated Verovio sanitization, ID namespaces, bounds |
-| `compose.ts`, `fixedPreview.ts`, `pdf.ts` | Scan/fixed/MEI pages, original-PDF preview, exact-page PDF assembly |
+| `compose.ts`, `fixedPreview.ts`, `exportPdf.ts` (not `pdf.ts`, which would shadow `web/src/lib/pdf.ts`) | Scan/fixed/MEI pages, original-PDF preview, exact-page PDF assembly |
 | `controller.ts`, `preferences.ts` | Revision state, worker lifecycle, versioned local settings |
 | `web/src/workers/export-layout.worker.ts`, `export-layout-pdf.worker.ts` | Lazy rendering and download workers |
 | `web/src/components/ExportLayoutEditor.astro`, `ExportPagePreview.astro` | Accessible editor and page frames |
@@ -54,6 +56,8 @@ Coordinator owns edits to `ExportBar.astro`, dependencies/lockfile, and site bui
 ## B1. Complete editor mockups for approval
 
 **Dependencies:** Spec only; parallel with conversion. **Owner:** design/prototyping agent.
+
+**Brief:** build from the [UI specification](../specs/2026-10-08-export-editor-ui-spec.md) using `tokens.css`/`base.css`; the 13 scenarios are listed on packet card B1.
 
 **Files:** Create `docs/superpowers/mockups/export-layout/editor.html`, `README.md`, and desktop/narrow preview images if helpful. Mockup assets must be self-contained and clearly labeled prototype; no production component changes.
 
@@ -119,9 +123,9 @@ expect(layout.pages.every(p => p.systemCount <= 2)).toBe(true);
 expect(layout.effectiveBreaks).toContainEqual(manualPageBreak);
 expect(impossible.diagnostics.map(d => d.code)).toContain('UNSATISFIABLE_LAYOUT');
 ```
-- [ ] Test a sustained cross-boundary fixture from A3 and compare normalized events before/after layout changes. Add renderer-backed regression for the retained experiment profile showing Letter/Large/Automatic 4+1 systems on two visibly separate pages; production-profile tests may use changed counts after explicitly reviewed engraving changes.
+- [ ] Test a sustained cross-boundary fixture from A3 and compare normalized events before/after layout changes. Add renderer-backed regression over the contracts §3 matrix: every page visibly separate, final system present, no exact system counts (the experiment's 4 + 1 was measured at `scale: 40`; D8).
 - [ ] Run `pnpm exec vitest run src/lib/export-layout/breaks.test.ts src/lib/export-layout/layout.test.ts`; expect failures.
-- [ ] Implement a pinned adapter: reserve measured heading/footer space, convert physical usable dimensions into renderer units, materialize safe manual/source breaks into a copy of approved MEI, and verify resulting anchors/system counts/bounds. Automatic mode excludes source-only line breaks; Original preserves them while paginating. If renderer options alone cannot enforce the cap, inspect rendered system starts, add safe effective page breaks, rerender, and verify convergence. Bound iterations by candidate boundary count/resource limits; fail with a localized constraint diagnostic on nonconvergence. Never remove user anchors, shrink staff silently, or blindly rely on `breaks="encoded"`.
+- [ ] Implement a pinned adapter: reserve measured heading/footer space, convert physical usable dimensions into renderer units, materialize safe manual/source breaks into a copy of approved MEI, and verify resulting anchors/system counts/bounds. Automatic mode excludes source-only line breaks; Original preserves them while paginating. Use the two-pass algorithm (packet B4d): pass 1 renders one tall page to obtain line breaks and system heights; a pure `paginate()` packs systems under cap, height and forced page starts; pass 2 encodes every `<sb>`/`<pb>` and renders with `breaks: "encoded"`; a mismatch between passes is `UNSATISFIABLE_LAYOUT`/`no-convergence`, never a loop. Bound iterations by candidate boundary count/resource limits; fail with a localized constraint diagnostic on nonconvergence. Never remove user anchors, shrink staff silently, or blindly rely on `breaks="encoded"`.
 - [ ] Run tests and the representative six-dimension/policy fixture matrix; expect no lost musical events, clipping, or cap violation. Verify measured staff height within 0.1 mm. Record renderer build/hash and option translation.
 - [ ] Commit with `feat: render MEI with verified physical layout and break constraints`.
 
@@ -151,7 +155,7 @@ The sanitizer result is `{svg: string, ids: string[], namespace: string}`; the r
 
 **Dependencies:** B2, B4, B5. **Owner:** PDF implementer.
 
-**Files:** Create `compose.ts`, `fixedPreview.ts`, `pdf.ts`, tests and licensed PDF/PNG fixtures. Coordinator pins a lazy original-PDF preview dependency if needed.
+**Files:** Create `compose.ts`, `fixedPreview.ts`, `exportPdf.ts`, tests and licensed PDF/PNG fixtures. Coordinator pins a lazy original-PDF preview dependency if needed.
 
 **Interfaces:** `composeExport(parts: ExportPart[], meiLayouts: Map<string, MeiLayout>, settings: LayoutSettings, assets: AssetLoader) -> Promise<LayoutResult>`; `previewFixedPage(page: FixedCanonicalPage, assets: AssetLoader) -> Promise<PreviewBitmap>`; `exportCanonicalPdf(result: LayoutResult, assets: AssetLoader) -> Promise<PdfResult>`. `PdfResult` includes bytes, page count, and byte size. `AssetLoader` verifies immutable paths/hashes and retains original image/PDF bytes.
 
@@ -164,7 +168,7 @@ expect(fixed.transform.scaleX).toBe(fixed.transform.scaleY);
 await expect(exportCanonicalPdf(result, missingAssetLoader)).rejects.toThrow(/ASSET_MISSING/);
 ```
 - [ ] Run `pnpm exec vitest run src/lib/export-layout/compose.test.ts src/lib/export-layout/pdf.test.ts`; expect failures.
-- [ ] Implement scan placements once during composition and copy original fixed PDF pages with recorded transforms. Preview uses those exact placements and a PDF preview adapter loaded only for fixed parts; rasterizing a fixed-page screen preview must not rasterize the export. Use B2's vector adapter for MEI. Measure headings with the same font profile and preserve existing credits, translations, rubrics, accents, and selected headings. Do not reuse quick export's lossy WinAnsi text sanitizer for custom Unicode headings.
+- [ ] Implement scan placements once during composition and copy original fixed PDF pages with recorded transforms. Preview uses those exact placements and a PDF preview adapter loaded only for fixed parts; rasterizing a fixed-page screen preview must not rasterize the export. Use B2's vector adapter for MEI. Measure headings with the same font profile and preserve existing credits, translations, rubrics, accents, and selected headings. Do not reuse quick export's lossy WinAnsi text sanitizer (`pdfSafe`, `web/src/lib/pdf.ts:67`) for custom Unicode headings; use `@pdf-lib/fontkit`. Fixed parts exist only as `letter.pdf`/`a4.pdf`: use `a4.pdf` when the target page's h/w ≥ 1.35, else `letter.pdf`, fitted uniformly and centred.
 - [ ] Run tests and render the mixed fixture PDF for comparison. Assert no typeset raster replacement, no cropped page, and no empty accidental trailing page. Existing `pnpm exec vitest run src/lib/pdf.test.ts` must pass unchanged.
 - [ ] Commit with `feat: compose matching preview and PDF pages for mixed exports`.
 
@@ -199,7 +203,7 @@ Expose `canDownload` in controller state and `{preferences, notices}` in `Prefer
 
 **Interfaces:** Editor accepts a selection snapshot and controller; its DOM bindings render state, dispatch settings/anchor actions, and perform the final download only for a current result. Page component displays canonical dimensions, printable margin indication, actual page/system counts, outside-paper labels, boundary overlays, and zoom.
 
-- [ ] Write failing component/browser tests for keyboard opening/closing and focus return, narrow viewport controls, capability labels, disabled unavailable controls, updating/error states, break menu operation, Reset layout, and Download PDF enabled only in ready state.
+- [ ] Write failing **Playwright** tests (`web/e2e/export-layout.e2e.ts`; narrow via `test.use({ viewport: { width: 390, height: 844 } })`) for keyboard opening/closing and focus return — Astro container tests render static HTML only and assert labels/ARIA/disabled states, narrow viewport controls, capability labels, disabled unavailable controls, updating/error states, break menu operation, Reset layout, and Download PDF enabled only in ready state.
 - [ ] Test paper versus continuous view: paper retains blank bottom and correct ratio; continuous crops blank display space consistently without changing `LayoutResult`/PDF digest. Boundary overlays and Page N of M labels must be outside printable output.
 - [ ] Run `pnpm exec vitest run src/components/ExportLayoutEditor.test.ts` and the focused Playwright scenarios after a build; expect failures before implementation.
 - [ ] Implement approved mockups using controller state. Offer “Start new system here,” “Start new page here,” and “Remove my break”; never expose invented measure numbers. Keep paper view primary; zoom affects display only. Label unavailable fixed typography, maximum-system behavior, and per-part mixed capability in plain language.
@@ -225,7 +229,7 @@ Expose `canDownload` in controller state and `{preferences, notices}` in `Prefer
 
 **Dependencies:** B9 plus current A5 evidence. **Owner:** independent QA/rendering reviewer; fixes return to owning task.
 
-**Files:** Complete `web/e2e/export-layout.e2e.ts`, `web/scripts/verify-export-pdf.ts`, deterministic approved test assets, and `docs/superpowers/plans/export-layout-decisions.md`. Fixture activation is test-only and cannot cause the production manifest to approve a score.
+**Files:** Complete `web/e2e/export-layout.e2e.ts`, `web/scripts/verify-export-pdf.ts`, deterministic approved test assets, and `docs/superpowers/plans/export-layout-decisions.md`. Fixture activation is test-only and cannot cause the production manifest to approve a score: the fixture manifest is selected only when `PUBLIC_MEI_MANIFEST=fixture`, `with-public-env.ts` refuses that value with the production `PUBLIC_ASSET_BASE`, and the e2e build goes to `dist-e2e/`.
 
 **Interface:** A reproducible report linking input/conversion/font/renderer hashes, settings, canonical result digest, exported PDF digest, and each case's result.
 

@@ -10,6 +10,8 @@
 
 **Spec:** [Design](../specs/2026-10-06-export-layout-editor-design.md), §6.5/7–9. [Coordination and gate owners](2026-10-06-export-layout-implementation-plan.md).
 
+> **Revised 2026-10-08.** Implement from the [execution packet](2026-10-08-export-execution-packet.md) cards (C1a–C4b); they split this plan's tasks into single-session units with model routing, and supersede this plan where they differ. Types: [frozen contracts](2026-10-08-export-contracts.md). Decisions: [decision log](export-layout-decisions.md). The corrections below are applied inline; the rest of this plan is rationale and test intent.
+
 ## Global Constraints
 
 - “Publish only approved assets to the public editor.”
@@ -63,7 +65,7 @@ assert fake_store.keys == recorded_immutable_keys
 ```
 
 Define `PublishBlocked` with structured diagnostics in `publish.py`; the compiler spy and fake store are test fixtures.
-- [ ] Add workflow tests matching the existing `test_typeset_workflows.py` pattern: source jobs have `permissions: {}`, no `secrets.*`, no credentialed checkout, sandboxed/network-isolated pinned runner with CPU/file/memory bounds; upload is a separate job, does not execute source or install/run the compiler, and is unavailable to untrusted forks. Validate source revision/ref before execution using existing trusted-preview rules.
+- [ ] Add workflow tests matching the existing `test_typeset_workflows.py` pattern: source jobs have `permissions: {}`, no `secrets.*`, no credentialed checkout, sandboxed/network-isolated pinned runner with CPU/file/memory bounds; upload is a separate job, does not execute source or install/run the compiler, and is unavailable to untrusted forks. Validate source revision/ref before execution using the trusted-ref rules in `.github/workflows/typeset-preview.yml` and `corrections-batch.yml` and their contract tests in `tests/test_typeset_workflows.py`.
 - [ ] Run `uv run pytest -q tests/test_mei_publish.py tests/test_mei_workflows.py`; expect failures.
 - [ ] Implement digest verification before upload and write-if-absent immutable keys under a distinct MEI conversion prefix. Record source/dependency/tool/schema/profile/renderer/font versions and every asset hash. Upload job treats downloaded artifacts as data; revalidate approval and paths independently. Site build excludes unavailable/stale entries rather than trusting a claimed `approved` string. Integrate new checks without altering existing isolated typeset workflows.
 - [ ] Run new tests and `uv run pytest -q tests/test_typeset_workflows.py`. Dry-run with a fake store and then an authorized staging destination; verify uploaded bytes/hash and asset lookup. A dry-run does not authorize production publication.

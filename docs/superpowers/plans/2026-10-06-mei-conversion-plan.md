@@ -10,6 +10,8 @@
 
 **Spec:** [Design](../specs/2026-10-06-export-layout-editor-design.md), especially §6 and the conversion gate. [Coordination contracts and handoffs](2026-10-06-export-layout-implementation-plan.md).
 
+> **Revised 2026-10-08.** Implement from the [execution packet](2026-10-08-export-execution-packet.md) cards (S0, S1, S5, A1a–A6); they split this plan's tasks into single-session units with model routing, and supersede this plan where they differ. Types: [frozen contracts](2026-10-08-export-contracts.md). Decisions: [decision log](export-layout-decisions.md). The corrections below are applied inline; the rest of this plan is rationale and test intent.
+
 ## Global Constraints
 
 - “Do not depend on the experimental converter's line-number voice selection or its lyric-to-slur heuristic.”
@@ -37,7 +39,7 @@
 | --- | --- |
 | `pipeline/typeset/mei/__init__.py`, `model.py`, `diagnostics.py` | Public conversion types, rational serialization, diagnostic vocabulary |
 | `pipeline/typeset/mei/audit.py` | Dependency closure, source/target inventory, feature families |
-| `pipeline/typeset/mei/extract.py`, `listen.ily` | Resolved full-score extraction with source provenance |
+| `pipeline/typeset/mei/extract.py`, `listen_full.ily` (new; never edit `pipeline/typeset/listen.ily`) | Resolved full-score extraction with source provenance |
 | `pipeline/typeset/mei/encode.py`, `features.py`, `schema.py` | Explicit feature mappings, deterministic MEI, schema validation |
 | `pipeline/typeset/mei/normalize.py`, `validate.py` | Independent musical normalization and semantic comparison |
 | `pipeline/typeset/mei/evidence.py`, `review.py`, `manifest.py`, `cli.py` | Review packets, approval binding, exportable manifest contract |
@@ -55,11 +57,11 @@ Generated audit/conversion/render/evidence files go under `build/typeset/mei/`, 
 
 **Interfaces:** `audit_sources(root: Path, targets: list[dict], include_dir: Path) -> AuditReport`; `ScoreIR.to_dict() -> dict`; `ScoreIR.from_dict(value: dict) -> ScoreIR`; `Diagnostic(code, severity, source_location, event_ids, details)`. `AuditReport` contains source records, dependency closures/digests, matched target references, discovered/unknown feature families, compilation status, and exceptions. CLI: `uv run noh typeset-mei-audit --out build/typeset/mei/audit.json`.
 
-- [ ] Write failing tests named `test_dependency_change_changes_digest`, `test_empty_source_is_not_failed_conversion`, and `test_unknown_include_reports_location`. Assert a changed nested include changes the digest; an empty transcription is excluded from conversion denominators; untrusted/unknown dependencies are diagnosed without execution. Add rational round-trip assertions `Fraction(14,16) -> "7/8"` and reject float timing.
+- [ ] Write failing tests named `test_dependency_change_changes_digest`, `test_absent_target_is_not_a_failure`, and `test_unknown_include_reports_location`. Assert a changed nested include changes the digest; an empty transcription is excluded from conversion denominators; untrusted/unknown dependencies are diagnosed without execution. Add rational round-trip assertions `Fraction(14,16) -> "7/8"` and reject float timing.
 
 ```python
 assert before.sources[0].dependency_digest != after.sources[0].dependency_digest
-assert empty_record.state == "absent"
+assert "movement:example/absent" in report.absent_targets  # no source is empty; "absent" = target without a source
 assert unknown.diagnostics[0].source_location.filename == "score.ly"
 ```
 
@@ -75,7 +77,7 @@ Here `absent` is an audit classification, not a new conversion state. Fixture bu
 
 **Dependencies:** A1. **Owner:** music-data implementer; independent semantic reviewer.
 
-**Files:** Create `extract.py`, `listen.ily`, `tests/test_mei_extract.py`, `tests/fixtures/mei/extraction/`. Add extractor command in `mei/cli.py`.
+**Files:** Create `extract.py`, `listen_full.ily`, `tests/test_mei_extract.py`, `tests/fixtures/mei/extraction/`. Add extractor command in `mei/cli.py`.
 
 **Interfaces:** `extract_score(source: Path, *, runner: LilyPondRunnerAdapter, profile: ConversionProfile) -> ExtractionResult`, where result contains `ScoreIR | None`, diagnostics, compiler version, dependency digest, and raw evidence path. Define `LilyPondRunnerAdapter` locally around existing `pipeline/typeset/lilypond.py` APIs; do not assume a class already exists. CLI: `typeset-mei-extract SOURCE --out DIRECTORY`.
 
@@ -83,7 +85,8 @@ Here `absent` is an audit classification, not a new conversion state. Fixture bu
 - [ ] Add lyric fixtures with melisma, repeated text, stanza markers, blank tokens, accented text, and lyric contexts linked to named voices. Assert `lyric.anchorEventId` identifies the intended event even when accompaniment shares its timestamp. An entry marker is preserved separately from lyric text.
 
 ```python
-assert {layer.name for layer in ir.layers} == {"chant", "alto", "tenor", "bass"}
+assert [l.id for l in ir.layers] == ["up:chant", "up:#1", "down:#2", "down:#3"]  # alto/tenor/bass voices are anonymous in kyrie_IX.ly
+assert [l.voice_command for l in ir.layers] == ["voiceOne", "voiceTwo", "voiceOne", "voiceTwo"]
 assert syllable.anchor_event_id == chant_attack.id
 assert accompaniment_attack.onset == chant_attack.onset
 assert syllable.anchor_event_id != accompaniment_attack.id
@@ -159,7 +162,7 @@ with pytest.raises(ReviewBlocked, match="UNSUPPORTED_FEATURE"):
 
 Define `ReviewBlocked` in `review.py` and preserve its diagnostic codes for CLI errors.
 - [ ] Run `uv run pytest -q tests/test_mei_review.py`; expect failures.
-- [ ] Implement side-by-side LilyPond/MEI/scan context, source-linked diagnostics, and geometry checks for overflow/clipping/suspicious collisions. Reuse existing scan-context lookup rather than making new catalogue matches. Geometry findings flag review, never auto-approve visual fidelity. Render representative cases: six paper/orientation combinations at medium staff under both line policies, Letter/large, both music/text font choices, and cap two. Clearly label unavailable font proof until B2 resolves it.
+- [ ] Implement side-by-side LilyPond/MEI/scan context, source-linked diagnostics, and geometry checks for overflow/clipping/suspicious collisions. Reuse existing scan-context lookup rather than making new catalogue matches. Geometry findings flag review, never auto-approve visual fidelity. Render the 13-case matrix in contracts §3 for every pilot fixture F1–F5 (no font-choice cases in v1, D3).
 - [ ] Run tests; independently inspect Kyrie packet for each voice, lyric/entry, division, cross-staff feature, final system, and stress layout. Record exact accepted engraving differences; do not accept omitted musical content. A designated maintainer signs final approval after the whole matrix is complete.
 - [ ] Commit code/schema with `feat: generate revision-bound MEI review evidence`; commit tracked decisions only after authorized approval, separately from code.
 
