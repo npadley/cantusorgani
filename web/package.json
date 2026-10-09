@@ -16,7 +16,8 @@
     "@codemirror/state": "^6.7.6",
     "astro": "^7.3.5",
     "codemirror": "^6.0.2",
-    "pdf-lib": "^1.17.1"
+    "pdf-lib": "^1.17.1",
+    "verovio": "6.3.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
