@@ -74,16 +74,16 @@ export const LYRIC_SIZE: Readonly<Record<LyricSizeId, number>> = { small: 3.5, m
 export const SYSTEM_SPACING: Readonly<Record<SpacingId, number>> = { compact: 2, normal: 4, spacious: 8 };  // Verovio spacingSystem
 
 /**
- * Portrait sizes. Screen presets are PROVISIONAL until spike S7 verifies them against Apple's tech specs
+ * Portrait sizes. Screen presets verified by spike S7 (2026-10-08) against Apple tech specs, ±0.3 %
  * (native px / ppi * 25.4). Record the verified values and the device generation in the decision log.
  */
 export const PAGE_PRESETS: Readonly<Record<Exclude<PagePresetId, 'custom'>, PageSize & { readonly kind: Exclude<PageKind, 'custom'>; readonly label: string; readonly sub: string }>> = {
   letter:      { widthMm: 215.9, heightMm: 279.4, kind: 'print',  label: 'Letter',      sub: '8½ × 11 in' },
   a4:          { widthMm: 210,   heightMm: 297,   kind: 'print',  label: 'A4',          sub: '210 × 297 mm' },
   a5:          { widthMm: 148,   heightMm: 210,   kind: 'print',  label: 'A5',          sub: '148 × 210 mm' },
-  'ipad-mini': { widthMm: 115.9, heightMm: 176.5, kind: 'screen', label: 'iPad mini',   sub: 'fills the screen in forScore' }, // 1488×2266 @326
+  'ipad-mini': { widthMm: 115.9, heightMm: 176.6, kind: 'screen', label: 'iPad mini',   sub: 'fills the screen in forScore' }, // 1488×2266 @326
   'ipad-11':   { widthMm: 157.8, heightMm: 227.1, kind: 'screen', label: '11-inch iPad', sub: 'fills the screen in forScore' }, // 1640×2360 @264
-  'ipad-13':   { widthMm: 197.0, heightMm: 262.8, kind: 'screen', label: '13-inch iPad', sub: 'fills the screen in forScore' }, // 2048×2732 @264
+  'ipad-13':   { widthMm: 197.0, heightMm: 262.9, kind: 'screen', label: '13-inch iPad', sub: 'fills the screen in forScore' }, // 2048×2732 @264
 };
 
 export const DEFAULT_SETTINGS: LayoutSettings = {
