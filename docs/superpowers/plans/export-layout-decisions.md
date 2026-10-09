@@ -15,6 +15,9 @@ Append-only. Each entry: date, ID, decision, evidence, owner. Spikes (S0–S7) a
 | D9 | 2026-10-08 | Kyrie IX experiment artifacts are checked in by S0. python-ly `xml-export.ily` (GPL) is **not** vendored (repo is CC0). | Eng review §2a/b. | Coordinator |
 | D10 | 2026-10-08 | Execution: Opus coordinates and runs spikes S1–S4, S7; Sonnet and Haiku implement per the execution packet. Gates G0–G4 retained. Escalation checkpoints (not kill switches): if S1 + A2 + A3 together exceed 4 weeks, or S4 exceeds 2 weeks, the coordinator stops and reviews with the user before continuing. | CEO review time-box recommendation, adapted to D1. | Coordinator |
 | D11 | 2026-10-08 | Add export analytics (task B0): one GoatCounter event per export recording quick vs custom, page preset, orientation, staff size, systems cap, line policy. No personal data. | CEO review: no demand data exists; informs which presets matter. | Coordinator |
+| D12 | 2026-10-09 | No preset for the 10.2-inch iPad (9th gen, 4:3). Those users use Custom (155.9 × 207.8 mm). | S7: it shows at 91.5 % on the 11-inch preset. | User |
+| D13 | 2026-10-09 | forScore's default portrait mode is Best Fit, so the iPad preset subtitle "fills the screen in forScore" stays as written. | User confirmation; S7 forScore documentation. | User |
+| D14 | 2026-10-09 | **Open:** Verovio licence. The npm package `verovio@6.3.0` (rism-digital) declares LGPL-3.0-or-later; `mei-toolbox/verovio` on GitHub is MIT. Interim plan: ship the unmodified package as its own lazy chunk, with a licence notice and source link in the site credits. | `web/node_modules/verovio/package.json`; rism-digital/verovio `COPYING`. | User (pending) |
 
 ## Spike outcomes
 
