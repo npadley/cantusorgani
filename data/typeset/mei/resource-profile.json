@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "provisional": true,
+  "limits": {
+    "maxMeiBytes": 8388608,
+    "maxEvents": 20000,
+    "maxPages": 100,
+    "jobTimeoutMs": 60000
+  },
+  "maxAggregateEvents": 60000,
+  "measuredOn": [],
+  "rendererDigest": "",
+  "fontDigest": ""
+}
