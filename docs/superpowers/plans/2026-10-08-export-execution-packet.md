@@ -358,7 +358,13 @@ Text-scan counts are classified as candidates only. Remove the old PA assertion 
 **Done when:**
 - The experiment MEI gives the result DL S5 recorded.
 - A document with a DOCTYPE or external entity gives `SCHEMA_INVALID` with no network access (assert with a socket-blocking fixture).
-- The bundle sha256 is checked at load.
+  - **RelaxNG alone accepts such documents** (DL S5). `validate_schema` must:
+    - byte-scan the input for `<!DOCTYPE` / `<!ENTITY` before parsing;
+    - parse with `XMLParser(resolve_entities=False, no_network=True, load_dtd=False)`;
+    - reject when `docinfo.doctype`, `system_url` or `public_id` is non-empty.
+  - Test all four of S5's hostile documents (external DTD, file entity, http entity, entity bomb). Each returns a `SCHEMA_INVALID` Diagnostic and never raises.
+- The bundle sha256 is checked at load. It covers `mei-CMN.rng` alone, per S5. The validator string is `f"lxml-relaxng {'.'.join(map(str, etree.LXML_VERSION[:3]))}"`.
+- "Valid" means RelaxNG-valid only: libxml2 ignores the embedded Schematron rules. Note this in the module docstring.
 
 ### A3b [O→H] Feature profile — depends: S1, S2
 1. **[O]** writes the mapping table: one `FeatureRule` per `FEATURE_FAMILIES` entry, using S2's render results. For example: finalis → `measure@right="dbl"`; minima/maior/maxima → `<breath>` + `@type`, or engraving-only; quilisma → `@head.shape` or `unsupported`; voice-line glissando → `<gliss>` between `@visible="false"` notes, or `unsupported` per S2; scaled durations → a hidden `<tuplet>` as in the experiment.
