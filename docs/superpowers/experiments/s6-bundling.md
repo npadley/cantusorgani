@@ -66,7 +66,7 @@ Sizes in bytes; gzip is `gzip -9`. Only files over 90 KB are listed (the other `
 
 ## Ordinary pages do not reference the chunk
 
-Build log: `/private/tmp/claude-501/s6build.log`.
+Build log: local only (not retained).
 
 ```
 $ grep -rl verovio dist --include='*.html'
