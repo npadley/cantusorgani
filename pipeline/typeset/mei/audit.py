@@ -6,8 +6,9 @@ uses the feature", never "the encoder will cope with it". The extractor (A2)
 and the validators are the authority.
 
 Paths. ``root`` is the directory holding the ``.ly`` sources (data/typeset/src).
-``SourceRecord.path`` and ``SourceLocation.filename`` are POSIX paths relative
-to ``root`` (the same keys parts.yml and manifest.json use for ``file``).
+``SourceRecord.path`` is a POSIX path relative to ``root`` (the keys parts.yml
+and manifest.json use for ``file``). ``SourceLocation.filename`` is repo-relative
+(``data/typeset/src/...``); the repo root is ``include_dir.resolve().parents[2]``.
 
 Dependency digest. ``render.source_hash(text, include_dir)``, unchanged: it
 covers the render version, the LilyPond pin, the house settings, the formats,
@@ -121,6 +122,13 @@ def mask(text: str, strings: bool = False) -> str:
     return "".join(out)
 
 
+def _repo_relative(path: Path, repo: Path, fallback: str) -> str:
+    try:
+        return path.resolve().relative_to(repo).as_posix()
+    except ValueError:
+        return fallback
+
+
 def _location(text: str, offset: int, filename: str) -> SourceLocation:
     line = text.count("\n", 0, offset) + 1
     column = offset - (text.rfind("\n", 0, offset) + 1) + 1
@@ -149,6 +157,7 @@ def _read_manifest(include_dir: Path) -> dict[str, str]:
 def audit_sources(root: Path, targets: list[dict[str, Any]], include_dir: Path) -> AuditReport:
     """Scan every ``*.ly`` under ``root``. ``targets`` are parts.yml entries
     (``file``, ``target``, ``status``). Never runs LilyPond."""
+    repo = include_dir.resolve().parents[2]
     by_file = {str(t["file"]): t for t in targets if "file" in t}
     manifest = _read_manifest(include_dir)
     include_defs: set[str] = set()
@@ -175,7 +184,7 @@ def audit_sources(root: Path, targets: list[dict[str, Any]], include_dir: Path) 
                 diagnostics.append(Diagnostic(
                     code="UNKNOWN_INCLUDE", severity="error",
                     message=f'\\include "{name}" is not a trusted include file',
-                    source_location=_location(text, m.start(), rel),
+                    source_location=_location(text, m.start(), _repo_relative(path, repo, rel)),
                     details=(("include", name),),
                 ))
 

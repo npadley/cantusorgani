@@ -15,10 +15,10 @@ HEADER = '\\version "2.26.0"\n\\include "gregorian.ly"\n\\include "noh2.ily"\n'
 
 @pytest.fixture
 def world(tmp_path: Path) -> tuple[Path, Path]:
-    src = tmp_path / "src"
-    inc = tmp_path / "include"
-    src.mkdir()
-    inc.mkdir()
+    src = tmp_path / "data" / "typeset" / "src"
+    inc = tmp_path / "data" / "typeset" / "include"
+    src.mkdir(parents=True)
+    inc.mkdir(parents=True)
     shutil.copy(REAL_INCLUDE / "noh2.ily", inc / "noh2.ily")
     return src, inc
 
@@ -67,7 +67,9 @@ def test_unknown_include_reports_location(world):
     assert diag.severity == "error"
     assert diag.source_location is not None
     assert (diag.source_location.filename, diag.source_location.line, diag.source_location.column) \
-        == ("vol-1/a.ly", 2, 1)
+        == ("data/typeset/src/vol-1/a.ly", 2, 1)
+    assert diag.source_location.filename.startswith("data/typeset/src/")
+    assert record.path == "vol-1/a.ly"
     assert record.includes == ("other.ily",)
 
 
