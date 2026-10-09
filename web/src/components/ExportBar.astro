@@ -119,6 +119,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
   import { estimatePages, validateSelection } from "../lib/pdf";
   import type { Paper, TypesetInsert } from "../lib/pdf";
   import type { ExportRun } from "../lib/typeset";
+  import { trackExport } from "../lib/exportAnalytics";
 
   const root = document.querySelector<HTMLElement>(".export");
   const button = document.getElementById("export-btn") as HTMLButtonElement | null;
@@ -270,6 +271,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
 
       const request: BuildRequest = { refs, base: "", title, headings, paper, typeset };
       worker.postMessage(request);
+      trackExport("quick", { paper });
     });
   }
 </script>
