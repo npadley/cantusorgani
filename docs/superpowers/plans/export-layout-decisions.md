@@ -19,3 +19,9 @@ Append-only. Each entry: date, ID, decision, evidence, owner. Spikes (S0–S7) a
 ## Spike outcomes
 
 _(S0–S7 append here: date, spike, decision, evidence paths, consequences for downstream tasks.)_
+
+### S6: Verovio WASM bundling (2026-10-08)
+- **Decision:** `verovio@6.3.0` (exact pin) bundles under the Astro 7 static build with **no Astro or Vite config change**. Import `createVerovioModule` from `verovio/wasm` and `VerovioToolkit` from `verovio/esm`, in a worker created with `new Worker(new URL("../workers/<name>.worker.ts", import.meta.url), { type: "module" })`.
+- **Evidence:** `docs/superpowers/experiments/s6-bundling.md`. One new chunk, 8,307,650 B raw (7.92 MiB) and 2,401,338 B gzip (2.29 MiB), against Cloudflare Pages' 25 MiB per-file limit. The WASM is inlined (no `.wasm` file). `grep -rl verovio dist --include='*.html'` finds only the spike page. A Playwright smoke run rendered the Kyrie IX MEI to a 243,744-character SVG in 365 ms (desktop Chromium).
+- **Consequences:** the package ships no types, so B4 adds an ambient `web/src/workers/verovio.d.ts` (a draft is in the experiment doc). The `node:module` externalisation warning at build is harmless. The worker call must stay in editor-only code so that ordinary pages never fetch the chunk (B9 asserts this). `check-links.ts` has no exemption for unlinked pages. The licence is LGPL-3.0-or-later (not assessed). iPad Safari needs 15+ for module workers, which the site already requires. iPad cold start and memory are not measured and stay with C2.
+
