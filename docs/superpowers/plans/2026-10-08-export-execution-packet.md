@@ -580,7 +580,7 @@ It calls `window.goatcounter?.count({ path: 'export/' + kind, title: <details jo
 - Anchors survive orientation and staff changes (same input, different settings, same user breaks).
 
 ### B4c [S] MEI break materialisation — lane W1 — depends: B4b
-**Files:** `meiDoc.ts::materialiseBreaks(meiXml: string, breaks: EffectiveBreaks, boundaries: readonly SafeBoundary[], policy: LinePolicy): string` (DOMParser copy) and tests.
+**Files:** `meiDoc.ts::materialiseBreaks(meiXml: string, breaks: EffectiveBreaks, boundaries: readonly SafeBoundary[], policy: LinePolicy): string` and tests. Parse and serialise with `@xmldom/xmldom` (`DOMParser`/`XMLSerializer` imported from it), **not** the global `DOMParser`. That global doesn't exist in Web Workers, where this runs, or in this repo's Vitest environment.
 
 **Done when:**
 - `<sb/>`/`<pb/>` are inserted after the boundary's `measureId`.
@@ -616,7 +616,7 @@ It calls `window.goatcounter?.count({ path: 'export/' + kind, title: <details jo
 ### B5 [S] SVG sanitization — lane W1 — depends: B4d
 **Read:** PB B5 (all of it still applies).
 
-**Files:** `svg.ts` (`sanitizePageSvg(svg, namespace): SanitizedSvg`, `measureSvgBounds`) and tests.
+**Files:** `svg.ts` (`sanitizePageSvg(svg, namespace): SanitizedSvg`, `measureSvgBounds`) and tests. Parse with `@xmldom/xmldom`, so it works in a worker and in Vitest. Construct its `DOMParser` with an `onError` that turns warnings and errors into `INVALID_PAGE`.
 
 **Done when** the PB B5 assertions pass, plus:
 - `INVALID_PAGE` for an unparseable document;

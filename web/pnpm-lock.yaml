@@ -11,6 +11,9 @@ importers:
       '@codemirror/state':
         specifier: ^6.7.6
         version: 6.7.6
+      '@xmldom/xmldom':
+        specifier: 0.9.12
+        version: 0.9.12
       astro:
         specifier: ^7.3.5
         version: 7.3.5(@types/node@26.6.2)(yaml@2.9.0)
@@ -1300,6 +1303,10 @@ packages:
 
   '@vscode/l10n@0.0.18':
     resolution: {integrity: sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ==}
+
+  '@xmldom/xmldom@0.9.12':
+    resolution: {integrity: sha512-5AXjrcMClTryPe9LgZrygpB1lj7s0S9E0+W+AHaVKAVyHanafK86iPSvG5xHVSp/jC+VH1UXu0TAEmY279xH7A==}
+    engines: {node: '>=14.6'}
 
   ajv-draft-04@1.0.0:
     resolution: {integrity: sha512-mv00Te6nmYbRp5DCwclxtt7yV/joXJPGS7nM+97GdxvuttCOfgI3K4U25zboyeX0O+myI8ERluxQe5wljMmVIw==}
@@ -3427,6 +3434,8 @@ snapshots:
       vscode-uri: 3.2.0
 
   '@vscode/l10n@0.0.18': {}
+
+  '@xmldom/xmldom@0.9.12': {}
 
   ajv-draft-04@1.0.0(ajv@8.20.0):
     optionalDependencies:
