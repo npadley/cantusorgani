@@ -19,3 +19,21 @@ Append-only. Each entry: date, ID, decision, evidence, owner. Spikes (S0–S7) a
 ## Spike outcomes
 
 _(S0–S7 append here: date, spike, decision, evidence paths, consequences for downstream tasks.)_
+
+### S7 — iPad preset dimensions (2026-10-08)
+
+**Decision:** keep the three iPad presets, one geometry each, matching the current Air/base/mini screens. No class is split.
+
+| Preset | Portrait mm | px @ ppi | Exact on | Worst in-class error |
+|---|---|---|---|---|
+| `ipad-mini` | 115.9 × 176.6 | 1488×2266 @326 | mini 6th gen, mini (A17 Pro) | none |
+| `ipad-11` | 157.8 × 227.1 | 1640×2360 @264 | Air 5/M2/M3/M4, iPad 10th gen, iPad (A16) | Pro 11 M4/M5: aspect 0.81 %, Best-Fit scale +1.7 %, 1.9 mm blank strip |
+| `ipad-13` | 197.0 × 262.9 | 2048×2732 @264 | Air 13 M2/M3/M4, Pro 12.9 5th/6th gen | Pro 13 M4/M5: aspect 0.05 %, scale +0.7 % |
+
+**Evidence:** `docs/superpowers/experiments/s7-ipad-presets.md`. It holds the full 2021–2026 model table, sourced from Apple tech-spec pages, and the forScore display-mode documentation.
+
+**Consequences:**
+- Contracts `PAGE_PRESETS` is **unchanged**: every value is within 0.5 mm. The contract's mini and 13-inch heights (176.5, 262.8) are truncated, not rounded, by 0.05 mm, which is optional to correct.
+- B3a may use the existing presets as final.
+- forScore documents "Best Fit" as fitting the page as large as possible without clipping. "Standard Fit" letterboxes to a common aspect ratio. The "fills the screen in forScore" copy therefore holds in Best Fit only. Whether toolbars overlap the page is undocumented, so it needs a real-device check ([U]).
+- 10.2-inch iPads (9th gen, 4:3) fall outside every preset; they use Custom 155.9 × 207.8 mm.
