@@ -18,6 +18,7 @@ Append-only. Each entry: date, ID, decision, evidence, owner. Spikes (S0–S7) a
 | D12 | 2026-10-09 | No preset for the 10.2-inch iPad (9th gen, 4:3). Those users use Custom (155.9 × 207.8 mm). | S7: it shows at 91.5 % on the 11-inch preset. | User |
 | D13 | 2026-10-09 | forScore's default portrait mode is Best Fit, so the iPad preset subtitle "fills the screen in forScore" stays as written. | User confirmation; S7 forScore documentation. | User |
 | D14 | 2026-10-09 | **Open:** Verovio licence. The npm package `verovio@6.3.0` (rism-digital) declares LGPL-3.0-or-later; `mei-toolbox/verovio` on GitHub is MIT. Interim plan: ship the unmodified package as its own lazy chunk, with a licence notice and source link in the site credits. | `web/node_modules/verovio/package.json`; rism-digital/verovio `COPYING`. | User (pending) |
+| D15 | 2026-10-09 | Pilot fixture F3 becomes `vol-5/missa-xi/agnus_XI.ly` (was `vol-5/missa-ix/agnus_IX.ly`). `agnus_IX.tsv` stays as a supplementary extraction fixture (same-staff voice-line and ordinary glissandi). | S1: `agnus_IX` uses only `\voiceLine "down" "down"`, so it never changes staff; `agnus_XI` has three `\voiceLine "down" "up"` and the only printed accidentals among the fixtures. Matched in `data/typeset/manifest.json`. | Coordinator (within D6) |
 
 ## Spike outcomes
 

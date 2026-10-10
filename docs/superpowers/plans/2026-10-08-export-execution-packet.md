@@ -153,7 +153,7 @@ Haiku never edits a validator, oracle, sanitizer, publisher or security boundary
 **Files:**
 - `pipeline/typeset/mei/__init__.py` (empty)
 - `pipeline/typeset/mei/listen_full.ily` (new; do **not** modify `pipeline/typeset/listen.ily`)
-- `tests/fixtures/mei/extraction/{kyrie_IX,al_ego_dilecto.csv,agnus_IX,ite_Ib,co_inclina_aurem_tuam.csv}.tsv`
+- `tests/fixtures/mei/extraction/{kyrie_IX,al_ego_dilecto.csv,agnus_XI,ite_Ib,co_inclina_aurem_tuam.csv}.tsv`
 - `docs/superpowers/experiments/s1-extraction.md`
 
 **Done when:**

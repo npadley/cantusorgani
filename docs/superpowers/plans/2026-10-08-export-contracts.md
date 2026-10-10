@@ -865,7 +865,7 @@ class AuditReport:
 PILOT_FIXTURES: tuple[str, ...] = (
     "vol-5/missa-ix/kyrie_IX.ly",            # F1 public pilot: 4 voices, entry markers
     "vol-3/al_ego_dilecto.csv.ly",           # F2 typical: 5th hidden voiceLines voice
-    "vol-5/missa-ix/agnus_IX.ly",            # F3 \voiceLine cross-staff glissandi (>=3)
+    "vol-5/missa-xi/agnus_XI.ly",            # F3 \voiceLine "down" "up": cross-staff glissandi, printed accidentals (D15)
     "vol-5/missa-i/ite_Ib.ly",               # F4 \quil
     "vol-2/co_inclina_aurem_tuam.csv.ly",    # F5 divisio maior / maxima (also via \halfBar/\singleBar)
 )
@@ -953,7 +953,7 @@ No case asserts an exact system count. The old "Letter/Large/Automatic → 4 + 1
 
 ## 4. TSV grammar (output of `listen_full.ily`, owned by spike S1)
 
-**Finalised by S1 (2026-10-09), extractor `listen_full/1`.** This replaced the draft grammar; the change list is at the end of this section. Raw outputs for F1–F5 (and the cross-staff/accidental supplement `agnus_XI.tsv`) are checked in at `tests/fixtures/mei/extraction/<basename>.tsv`. Evidence and field mapping: `docs/superpowers/experiments/s1-extraction.md`.
+**Finalised by S1 (2026-10-09), extractor `listen_full/1`.** This replaced the draft grammar; the change list is at the end of this section. Raw outputs for F1–F5 (F3 is `agnus_XI` per D15; `agnus_IX.tsv` is kept as a supplementary same-staff glissando fixture) are checked in at `tests/fixtures/mei/extraction/<basename>.tsv`. Evidence and field mapping: `docs/superpowers/experiments/s1-extraction.md`.
 - One record per line, `\n`-terminated, UTF-8. Fields are tab-separated; the field count is fixed per `kind` (column 4).
 - `onset` is an exact Guile rational of whole notes (`"109/8"`, `"0"`, `"3"`); parse with `Fraction`. A moment with a grace part is written `main@grace` so that a plain-rational parser fails loudly (no pilot has one).
 - `dur` is the same kind of rational and already includes the duration scale.

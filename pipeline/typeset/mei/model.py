@@ -613,7 +613,7 @@ class AuditReport:
 PILOT_FIXTURES: tuple[str, ...] = (
     "vol-5/missa-ix/kyrie_IX.ly",            # F1 public pilot: 4 voices, entry markers
     "vol-3/al_ego_dilecto.csv.ly",           # F2 typical: 5th hidden voiceLines voice
-    "vol-5/missa-ix/agnus_IX.ly",            # F3 \voiceLine cross-staff glissandi (>=3)
+    "vol-5/missa-xi/agnus_XI.ly",            # F3 \voiceLine "down" "up": cross-staff glissandi, printed accidentals (D15)
     "vol-5/missa-i/ite_Ib.ly",               # F4 \quil
     "vol-2/co_inclina_aurem_tuam.csv.ly",    # F5 divisio maior / maxima (also via \halfBar/\singleBar)
 )
