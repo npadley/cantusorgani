@@ -60,19 +60,17 @@ def test_compare_scores_identical_scores_yield_nothing() -> None:
 
 
 @pytest.mark.parametrize("fixture", sorted(PILOTS))
-def test_compare_scores_pilot_has_only_the_known_final_finalis_difference(fixture: str) -> None:
+def test_compare_scores_pilot_has_no_differences(fixture: str) -> None:
     ir, encoded = pilot(fixture)
-    found = compare_scores(normalize_ir(ir), normalize_mei(encoded.xml, encoded.provenance))
-    assert [(d.code, d.onset) for d in found] == [("DIVISION_MISMATCH", ir.total_duration)]
-    assert "finalis" in found[0].detail
+    assert compare_scores(normalize_ir(ir), normalize_mei(encoded.xml, encoded.provenance)) == []
 
 
-def test_validate_conversion_kyrie_fails_only_on_the_final_finalis() -> None:
+def test_validate_conversion_kyrie_is_eligible() -> None:
     ir, encoded = pilot("F1")
     report = validate_conversion(ir, encoded, load_schema_bundle())
     assert report.schema_ok
-    assert [d.code for d in report.semantic_differences] == ["DIVISION_MISMATCH"]
-    assert not report.eligible
+    assert report.semantic_differences == ()
+    assert report.eligible
     assert set(report.hashes) == {"ir", "mei", "schema"}
     assert report.hashes["mei"] == encoded.artifact_sha256
     assert "schema_validator" in report.tool_versions
@@ -151,13 +149,25 @@ def test_compare_scores_voice_line_gliss_is_a_slur_mismatch_with_detail() -> Non
     assert "voice-line" in found[0].detail
 
 
-def test_validate_command_writes_report_and_exits_one_when_not_eligible(tmp_path, capsys) -> None:
+def _write_dir(tmp_path, xml: bytes) -> None:
     ir, encoded = pilot("F1")
     (tmp_path / "ir.json").write_text(json.dumps(ir.to_dict()), encoding="utf-8")
-    (tmp_path / "score.mei").write_bytes(encoded.xml)
+    (tmp_path / "score.mei").write_bytes(xml)
     (tmp_path / "provenance.json").write_text(json.dumps(encoded.provenance), encoding="utf-8")
-    assert main(["typeset-mei-validate", str(tmp_path)]) == 1
+
+
+def test_validate_command_eligible_directory_exits_zero(tmp_path) -> None:
+    _write_dir(tmp_path, pilot("F1")[1].xml)
+    assert main(["typeset-mei-validate", str(tmp_path)]) == 0
     report = json.loads((tmp_path / "validation.json").read_text(encoding="utf-8"))
     assert report["schema_ok"] is True
+    assert report["eligible"] is True
+
+
+def test_validate_command_mutated_directory_exits_one(tmp_path) -> None:
+    xml = pilot("F1")[1].xml.replace(b'pname="c"', b'pname="d"', 1)
+    _write_dir(tmp_path, xml)
+    assert main(["typeset-mei-validate", str(tmp_path)]) == 1
+    report = json.loads((tmp_path / "validation.json").read_text(encoding="utf-8"))
     assert report["eligible"] is False
-    assert [d["code"] for d in report["semantic_differences"]] == ["DIVISION_MISMATCH"]
+    assert report["semantic_differences"][0]["code"] == "PITCH_MISMATCH"
