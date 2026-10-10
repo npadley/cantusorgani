@@ -180,6 +180,12 @@ def build_parser() -> argparse.ArgumentParser:
     mei_manifest.add_argument("--artifacts", type=Path, default=None,
                               help="folder of <sha256>/score.mei + boundaries.json (default: --records)")
 
+    mei_publish = subs.add_parser("typeset-mei-publish",
+                                  help="verify approved MEI conversions and upload them write-once (never compiles)")
+    mei_publish.add_argument("--artifacts", type=Path, required=True)
+    mei_publish.add_argument("--records", type=Path, required=True)
+    mei_publish.add_argument("--dry-run", action="store_true", help="print the keys that would be uploaded")
+
     cat = subs.add_parser("catalog", help="build data/catalog.json and review-queue.json")
     cat.add_argument("--volume", required=True)
     cat.add_argument("--no-parts", action="store_true",
@@ -390,6 +396,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "typeset-mei-manifest":
         from pipeline.typeset.mei.cli import manifest_command
         return manifest_command(args.records, args.out, args.artifacts)
+    if args.command == "typeset-mei-publish":
+        from pipeline.typeset.mei.cli import publish_command
+        return publish_command(args.artifacts, args.records, args.dry_run)
     if args.command == "typeset-source-batch":
         import json
 

@@ -156,3 +156,65 @@ def manifest_command(
         print(f"excluded {key}: {reason}")
     print(f"wrote {len(manifest.parts)} approved conversion(s) to {out}")
     return 0
+
+
+class _MemoryStore:
+    """Dry-run store: nothing leaves the machine; remembers what it was asked to write."""
+
+    def __init__(self) -> None:
+        self.objects: dict[str, bytes] = {}
+
+    def exists(self, key: str) -> bool:
+        return key in self.objects
+
+    def put_if_absent(self, key: str, data: bytes, content_type: str) -> bool:
+        if key in self.objects:
+            return False
+        self.objects[key] = data
+        return True
+
+    def content_sha256(self, key: str) -> str:
+        import hashlib
+
+        return hashlib.sha256(self.objects[key]).hexdigest()
+
+
+def publish_command(
+    artifacts: Path,
+    records_dir: Path,
+    dry_run: bool = False,
+    store: Any = None,
+    current_inputs: Any = None,
+) -> int:
+    """Verify every ConversionRecord JSON in RECORDS_DIR against ARTIFACTS, then upload write-once.
+
+    Reads bytes only; never runs a compiler. Every record in RECORDS_DIR must be publishable, so the
+    directory holds approved records only. Exit 1 on PublishBlocked (codes printed)."""
+    from pipeline.typeset.mei.manifest import current_inputs_from_files, record_from_dict
+    from pipeline.typeset.mei.publish import (
+        PublishBlocked,
+        R2AssetStore,
+        publish_verified,
+        verify_publish_bundle,
+    )
+
+    records = [
+        record_from_dict(json.loads(path.read_text(encoding="utf-8"))) for path in sorted(records_dir.glob("*.json"))
+    ]
+    try:
+        bundle = verify_publish_bundle(artifacts, records, current_inputs or current_inputs_from_files)
+        if dry_run:
+            memory = _MemoryStore()
+            report = publish_verified(bundle, memory)
+            for key in sorted(report.uploaded):
+                print(f"would upload {key}")
+            return 0
+        report = publish_verified(bundle, store or R2AssetStore.from_environment())
+    except PublishBlocked as blocked:
+        print(f"publish blocked: {', '.join(blocked.codes)}: {blocked}")
+        return 1
+    for key in report.uploaded:
+        print(f"uploaded {key}")
+    for key in report.skipped_existing:
+        print(f"skipped existing {key}")
+    return 0

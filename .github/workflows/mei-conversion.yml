@@ -1,0 +1,104 @@
+name: mei-conversion
+on:
+  workflow_dispatch:
+    inputs:
+      sources:
+        description: Newline-separated paths under data/typeset/src/ (.ly)
+        required: true
+        type: string
+      publish:
+        description: Publish approved, verified records after converting
+        required: false
+        default: false
+        type: boolean
+permissions: {}
+jobs:
+  convert:
+    permissions: {}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Validate the requested sources
+        env:
+          SOURCES: ${{ inputs.sources }}
+        run: |
+          : > "$RUNNER_TEMP/sources.txt"
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            case "$line" in
+              /*|*..*) echo "rejected path: $line"; exit 1 ;;
+            esac
+            [[ "$line" =~ ^data/typeset/src/[A-Za-z0-9._/-]+\.ly$ ]] || { echo "rejected path: $line"; exit 1; }
+            [ -f "$line" ] || { echo "no such source: $line"; exit 1; }
+            echo "$line" >> "$RUNNER_TEMP/sources.txt"
+          done <<< "$SOURCES"
+          [ -s "$RUNNER_TEMP/sources.txt" ] || { echo "no sources"; exit 1; }
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: false
+      - run: uv sync --frozen
+      - run: uv run noh lilypond-install
+      - name: Convert without network or credentials
+        env:
+          NOH_SANDBOX: '1'
+        run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          unshare --user --net --map-current-user true
+          ulimit -t 180 -f 32768 -v 2097152
+          mkdir -p build/mei/artifacts build/mei/work build/mei/evidence
+          n=0
+          while IFS= read -r src; do
+            n=$((n+1))
+            uv run noh typeset-mei-convert "$src" --out "build/mei/work/$n"
+            digest=$(sha256sum "build/mei/work/$n/score.mei" | cut -d' ' -f1)
+            mkdir -p "build/mei/artifacts/$digest"
+            cp "build/mei/work/$n/score.mei" "build/mei/work/$n/boundaries.json" "build/mei/artifacts/$digest/"
+            cp -r "build/mei/work/$n" "build/mei/evidence/$digest"
+          done < "$RUNNER_TEMP/sources.txt"
+      # typeset-mei-validate and typeset-mei-evidence are added here once A4b merges; until then
+      # conversion output and diagnostics are the only evidence uploaded.
+      - uses: actions/upload-artifact@v7
+        with:
+          name: mei-artifacts
+          path: build/mei/artifacts/
+          retention-days: 1
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v7
+        with:
+          name: mei-evidence
+          path: build/mei/evidence/
+          retention-days: 7
+          if-no-files-found: error
+  publish:
+    needs: convert
+    if: >-
+      inputs.publish == true && github.event_name == 'workflow_dispatch' &&
+      github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    environment: mei-publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: false
+      - run: uv sync --frozen
+      - uses: actions/download-artifact@v8
+        with:
+          name: mei-artifacts
+          path: build/mei/artifacts/
+      - name: Verify artifacts against approved records and upload; never execute source
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ vars.R2_BUCKET }}
+        run: uv run noh typeset-mei-publish --artifacts build/mei/artifacts --records data/typeset/mei/records
