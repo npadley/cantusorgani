@@ -322,7 +322,6 @@ def evidence_command(
 
 # --- typeset-mei-review ----------------------------------------------------------------------
 
-CONVERTER_VERSION = "mei-convert/1"
 VEROVIO_VERSION = "6.3.0-425dd7b"
 FONTS_DIR = Path(__file__).resolve().parents[3] / "web" / "public" / "fonts" / "export"
 
@@ -345,6 +344,7 @@ def record_for_directory(
     from pipeline.typeset.mei.evidence import _manifest_entry
     from pipeline.typeset.mei.manifest import current_inputs_from_files
     from pipeline.typeset.mei.review import state_for
+    from pipeline.typeset.mei.versions import converter_version, extractor_version
 
     ir = json.loads((convert_dir / "ir.json").read_text(encoding="utf-8"))
     xml = (convert_dir / "score.mei").read_bytes()
@@ -352,7 +352,7 @@ def record_for_directory(
     profile = ConversionProfile.load(PROFILE_PATH)
     skeleton = ConversionInputs(
         source_sha256="", include_sha256="", lilypond_version=str(ir["lilypondVersion"]),
-        extractor_version=str(ir["extractorVersion"]), converter_version=CONVERTER_VERSION, profile_id=profile.id,
+        extractor_version=extractor_version(), converter_version=converter_version(), profile_id=profile.id,
         profile_sha256="", schema_sha256="", verovio_version=VEROVIO_VERSION, font_digest=font_digest(fonts),
     )
     base = ConversionRecord(

@@ -321,7 +321,8 @@ def test_current_inputs_from_files_recomputes_file_hashes_and_keeps_tool_version
     _, record = world
     now = current_inputs_from_files(record)
     assert re.fullmatch("[0-9a-f]{64}", now.source_sha256) and re.fullmatch("[0-9a-f]{64}", now.schema_sha256)
-    assert (now.extractor_version, now.converter_version, now.verovio_version, now.font_digest) == (
-        INPUTS.extractor_version, INPUTS.converter_version, INPUTS.verovio_version, INPUTS.font_digest
-    )
+    from pipeline.typeset.mei import versions
+
+    assert (now.extractor_version, now.converter_version) == (versions.extractor_version(), versions.converter_version())
+    assert (now.verovio_version, now.font_digest) == (INPUTS.verovio_version, INPUTS.font_digest)
     assert now != INPUTS  # the placeholder file hashes in INPUTS are stale, so such a record is excluded

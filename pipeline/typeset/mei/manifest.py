@@ -209,6 +209,7 @@ def current_inputs_from_files(record: ConversionRecord) -> ConversionInputs:
     from pipeline.typeset import lilypond
     from pipeline.typeset.mei.cli import PROFILE_PATH
     from pipeline.typeset.mei.schema import load_schema_bundle
+    from pipeline.typeset.mei.versions import converter_version, extractor_version
 
     source = lilypond.ROOT / record.source_path
     include = hashlib.sha256()
@@ -219,6 +220,8 @@ def current_inputs_from_files(record: ConversionRecord) -> ConversionInputs:
         source_sha256=hashlib.sha256(source.read_bytes()).hexdigest() if source.is_file() else "missing",
         include_sha256=include.hexdigest(),
         lilypond_version=lilypond.load_pin().version,
+        extractor_version=extractor_version(),
+        converter_version=converter_version(),
         profile_sha256=hashlib.sha256(PROFILE_PATH.read_bytes()).hexdigest(),
         schema_sha256=load_schema_bundle().sha256,
     )
