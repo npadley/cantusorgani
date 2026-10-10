@@ -414,6 +414,7 @@ describe('verovioOptions', () => {
     expect(options.evenNoteSpacing).toBe(true);
     expect(options.spacingLinear).toBe(0.25);
     expect(options.spacingNonLinear).toBe(0.6);
+    expect(options.lyricWordSpace).toBe(2);
     expect(options.xmlIdChecksum).toBe(true);
   });
 
