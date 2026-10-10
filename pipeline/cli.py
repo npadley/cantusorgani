@@ -186,6 +186,10 @@ def build_parser() -> argparse.ArgumentParser:
     mei_publish.add_argument("--records", type=Path, required=True)
     mei_publish.add_argument("--dry-run", action="store_true", help="print the keys that would be uploaded")
 
+    mei_validate = subs.add_parser("typeset-mei-validate",
+                                   help="check a converted MEI directory against its IR (no LilyPond)")
+    mei_validate.add_argument("directory", type=Path)
+
     cat = subs.add_parser("catalog", help="build data/catalog.json and review-queue.json")
     cat.add_argument("--volume", required=True)
     cat.add_argument("--no-parts", action="store_true",
@@ -399,6 +403,10 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "typeset-mei-publish":
         from pipeline.typeset.mei.cli import publish_command
         return publish_command(args.artifacts, args.records, args.dry_run)
+
+    if args.command == "typeset-mei-validate":
+        from pipeline.typeset.mei.cli import validate_command
+        return validate_command(args.directory)
     if args.command == "typeset-source-batch":
         import json
 
