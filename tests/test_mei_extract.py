@@ -546,3 +546,76 @@ def test_build_boundaries_single_layer_without_breaks_works():
     assert (b.id, b.onset, b.safe, b.source_break, b.division, b.after_text) == (
         "b000", Fraction(1, 4), True, False, None, "A",
     )
+
+
+# --- ir_from_rows ----------------------------------------------------------------------
+
+from pipeline.typeset.mei.extract import ir_from_rows
+from pipeline.typeset.mei.model import ScoreIR
+
+
+def _ir(name: str) -> ScoreIR:
+    rows = parse_rows((EXTRACTION / f"{name}.tsv").read_text(encoding="utf-8"))
+    return ir_from_rows(rows, f"data/typeset/src/{name}.ly", "0" * 64)
+
+
+@pytest.mark.parametrize("name", FIXTURE_NAMES)
+def test_ir_from_rows_pilot_fixtures_round_trip_through_dict(name):
+    ir = _ir(name)
+    assert ir.schema_version == 1
+    assert ir.lilypond_version == "2.26.0" and ir.extractor_version == "listen_full/1"
+    assert ir.total_duration == total_duration(ir.events)
+    assert not any(d.severity == "error" for d in ir.diagnostics)
+    assert ScoreIR.from_dict(ir.to_dict()) == ir
+
+
+def test_ir_from_rows_kyrie_dict_is_json_serialisable_without_floats():
+    ir = _ir("kyrie_IX")
+    assert ir.total_duration == Fraction(373, 8)
+    text = json.dumps(ir.to_dict(), sort_keys=True)
+
+    def no_floats(value):
+        if isinstance(value, float):
+            return False
+        if isinstance(value, dict):
+            return all(no_floats(v) for v in value.values())
+        if isinstance(value, list):
+            return all(no_floats(v) for v in value)
+        return True
+
+    assert no_floats(json.loads(text))
+    assert len(ir.lyrics) == 82 and len(ir.entry_markers) == 3 and len(ir.divisions) == 22
+
+
+# --- run_listener (card A2a) -------------------------------------------------------------
+
+from pipeline.typeset import lilypond
+from pipeline.typeset.mei.extract import PinnedLilyPondRunner, run_listener
+
+PILOT_SOURCES = {
+    "kyrie_IX": "vol-5/missa-ix/kyrie_IX.ly",
+    "al_ego_dilecto.csv": "vol-3/al_ego_dilecto.csv.ly",
+    "agnus_XI": "vol-5/missa-xi/agnus_XI.ly",
+    "ite_Ib": "vol-5/missa-i/ite_Ib.ly",
+    "co_inclina_aurem_tuam.csv": "vol-2/co_inclina_aurem_tuam.csv.ly",
+}
+
+
+@pytest.mark.lilypond
+@pytest.mark.parametrize("name", list(PILOT_SOURCES))
+def test_run_listener_pilot_fixture_matches_checked_in_tsv_byte_for_byte(name):
+    source = lilypond.ROOT / "data" / "typeset" / "src" / PILOT_SOURCES[name]
+    text = run_listener(source, PinnedLilyPondRunner())
+    assert text.encode("utf-8") == (EXTRACTION / f"{name}.tsv").read_bytes()
+
+
+def test_run_listener_failed_runner_raises_listener_error():
+    class Failing:
+        version = "2.26.0"
+
+        def run(self, args, cwd, includes, timeout):
+            return False, "boom"
+
+    source = lilypond.ROOT / "data" / "typeset" / "src" / PILOT_SOURCES["ite_Ib"]
+    with pytest.raises(extract.ListenerError, match="boom"):
+        run_listener(source, Failing())

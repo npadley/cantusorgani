@@ -1,41 +1,52 @@
 """Turn the ``listen_full`` TSV (contracts section 4) into exact staves, layers and events.
 
-Everything here is pure parsing: it never runs LilyPond (card A2a adds ``run_listener``).
+The parsing and assembly functions are pure and never run LilyPond; only ``run_listener`` does.
 All arithmetic is on ``fractions.Fraction``; no binary floating point is used.
 """
 
 from __future__ import annotations
 
 import re
+import tempfile
 from collections import defaultdict
 from dataclasses import dataclass
 from fractions import Fraction
 from itertools import pairwise
+from pathlib import Path
 from typing import Literal, cast
 
+from pipeline.typeset import lilypond
+from pipeline.typeset.importer import INCLUDES
 from pipeline.typeset.mei.diagnostics import Diagnostic, SourceLocation
 from pipeline.typeset.mei.model import (
     FEATURE_FAMILIES,
+    IR_SCHEMA_VERSION,
     Boundary,
     BoundaryReason,
+    ConversionProfile,
     Division,
     DivisionKind,
     EntryMarker,
     Event,
     EventKind,
+    ExtractionResult,
     FeatureUse,
     LayerDef,
     LayerRole,
+    LilyPondRunnerAdapter,
     LyricSyllable,
     NotatedDuration,
     Notehead,
     Pitch,
     PrintedAccidental,
+    ScoreIR,
     Span,
     SpanKind,
     StaffDef,
     Step,
 )
+from pipeline.typeset.render import source_hash
+from pipeline.typeset.source_check import check_file
 
 # Number of fields after the kind column, per row kind (contracts section 4).
 FIELD_COUNTS: dict[str, int] = {
@@ -772,3 +783,145 @@ def splits_at(boundary: Boundary, events: tuple[Event, ...]) -> tuple[str, ...]:
     """
     t = boundary.onset
     return tuple(e.id for e in events if e.onset < t < e.onset + e.duration)
+
+
+def ir_from_rows(rows: list[Row], source_path: str, dependency_digest: str) -> ScoreIR:
+    """Assemble the whole ScoreIR from parsed listener rows. Pure: no LilyPond, no I/O."""
+    staves = build_staves(rows)
+    layers = build_layers(rows)
+    events, event_diagnostics = build_events(rows, source_path)
+    lyrics, markers, lyric_diagnostics = build_lyrics(rows, layers, events)
+    spans, span_diagnostics = build_spans(rows, events)
+    divisions = build_divisions(rows, layers)
+    boundaries = build_boundaries(rows, layers, events, spans, lyrics, divisions)
+    features = feature_uses(rows, events, spans, layers, lyrics, markers, divisions)
+    return ScoreIR(
+        schema_version=IR_SCHEMA_VERSION,
+        source_path=source_path,
+        dependency_digest=dependency_digest,
+        lilypond_version=lilypond_version(rows),
+        extractor_version=extractor_version(rows),
+        total_duration=total_duration(events),
+        staves=staves,
+        layers=layers,
+        events=events,
+        spans=spans,
+        lyrics=lyrics,
+        entry_markers=markers,
+        divisions=divisions,
+        boundaries=boundaries,
+        features=features,
+        diagnostics=(
+            *event_diagnostics,
+            *lyric_diagnostics,
+            *span_diagnostics,
+            *division_diagnostics(rows),
+        ),
+    )
+
+
+# --- running the listener (card A2a) -------------------------------------------------
+
+MEI_DIR = Path(__file__).resolve().parent
+#: Where the listener writes: ``-o <tmp>/out`` makes LilyPond emit ``<tmp>/out.listen.tsv``.
+LISTENER_OUTPUT = "out.listen.tsv"
+LISTENER_TIMEOUT = 300
+
+
+class ListenerError(RuntimeError):
+    """The source failed the source check, or LilyPond did not produce the listener TSV."""
+
+    def __init__(self, message: str, code: str = "COMPILE_FAILED") -> None:
+        super().__init__(message)
+        self.code = code
+
+
+class PinnedLilyPondRunner:
+    """Production LilyPondRunnerAdapter: the pinned, optionally sandboxed LilyPond."""
+
+    def __init__(self) -> None:
+        self.version = lilypond.load_pin().version
+
+    def run(
+        self, args: list[str], cwd: Path, includes: tuple[Path, ...], timeout: int
+    ) -> tuple[bool, str]:
+        result = lilypond.run(args, cwd=cwd, timeout=timeout, includes=includes)
+        return result.ok, result.log
+
+
+def _scheme_string(text: str) -> str:
+    return '"' + text.replace("\\", "\\\\").replace('"', '\\"') + '"'
+
+
+def run_listener(source: Path, runner: LilyPondRunnerAdapter) -> str:
+    """Run ``listen_full.ily`` over an unmodified source and return the raw TSV text.
+
+    The source must be under the repository root so that locations come out repo-relative. It is
+    checked with ``source_check`` first, then included (never rewritten) by a throwaway wrapper in
+    a temporary directory. A runner must leave the TSV at ``<cwd>/out.listen.tsv``.
+    """
+    source = source.resolve()
+    problems = check_file(source, frozenset(INCLUDES))
+    if problems:
+        raise ListenerError(f"{source.name}: source check failed: {problems}", "SOURCE_CHECK_FAILED")
+    with tempfile.TemporaryDirectory() as tmp_name:
+        tmp = Path(tmp_name)
+        wrapper = tmp / "wrapper.ly"
+        wrapper.write_text(
+            f'\\version "{runner.version}"\n'
+            f"#(define listen-full-root {_scheme_string(str(lilypond.ROOT) + '/')})\n"
+            '\\include "listen_full.ily"\n'
+            f"\\include {_scheme_string(str(source))}\n",
+            encoding="utf-8",
+        )
+        ok, log = runner.run(
+            ["-dno-print-pages", "-o", str(tmp / "out"), str(wrapper)],
+            tmp,
+            (lilypond.INCLUDE, MEI_DIR),
+            LISTENER_TIMEOUT,
+        )
+        produced = tmp / LISTENER_OUTPUT
+        if not ok or not produced.exists():
+            raise ListenerError(f"{source.name}: LilyPond failed\n{log}")
+        return produced.read_bytes().decode("utf-8")
+
+
+# --- the extraction entry point (card A2e) ---------------------------------------------
+
+BUILD_ROOT = lilypond.ROOT / "build" / "typeset" / "mei"
+
+
+def _failure(code: str, message: str, version: str, digest: str, path: Path) -> ExtractionResult:
+    diagnostic = Diagnostic(code, "error", message)  # type: ignore[arg-type]
+    return ExtractionResult(None, (diagnostic,), version, digest, path)
+
+
+def extract_score(
+    source: Path,
+    *,
+    runner: LilyPondRunnerAdapter,
+    profile: ConversionProfile | None = None,
+    build_root: Path = BUILD_ROOT,
+) -> ExtractionResult:
+    """Run the listener, save its raw TSV as evidence and assemble the ScoreIR.
+
+    The dependency digest is ``render.source_hash`` of the source text. The raw TSV is written
+    to ``<build_root>/<digest>/events.tsv`` before parsing, so a parse failure still leaves
+    evidence. Failures come back as an ExtractionResult with ``ir=None`` and an error
+    Diagnostic. ``profile`` is accepted for the A3 pipeline and is not used by extraction.
+    """
+    source = source.resolve()
+    digest = source_hash(source.read_text(encoding="utf-8"))
+    evidence = build_root / digest / "events.tsv"
+    try:
+        tsv = run_listener(source, runner)
+    except ListenerError as error:
+        return _failure(error.code, str(error), runner.version, digest, evidence)
+    evidence.parent.mkdir(parents=True, exist_ok=True)
+    evidence.write_bytes(tsv.encode("utf-8"))
+    try:
+        rows = parse_rows(tsv)
+        ir = ir_from_rows(rows, source.relative_to(lilypond.ROOT).as_posix(), digest)
+    except ValueError as error:
+        return _failure("UNKNOWN_FEATURE", str(error), runner.version, digest, evidence)
+    return ExtractionResult(ir, ir.diagnostics, ir.lilypond_version, digest, evidence)
