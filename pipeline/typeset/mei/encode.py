@@ -31,6 +31,7 @@ from pathlib import PurePosixPath
 from pipeline.typeset.mei.diagnostics import Diagnostic, DiagnosticCode, SourceLocation
 from pipeline.typeset.mei.extract import notated_from_duration
 from pipeline.typeset.mei.model import (
+    Boundary,
     BoundaryManifestEntry,
     ConversionProfile,
     EncodedScore,
@@ -505,7 +506,16 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
     division_layers: dict[Fraction, list[str]] = {}
     for division in ir.divisions:
         division_layers.setdefault(division.onset, []).append(division.layer_id)
-    for boundary in ir.boundaries:
+    # The piece-final division sits at the total, where the IR has no boundary.
+    division_points = list(ir.boundaries)
+    if total not in {b.onset for b in ir.boundaries} and total > 0:
+        final_kinds = {d.kind for d in ir.divisions if d.onset == total}
+        for kind in ("finalis", "maxima", "maior", "minima"):
+            if kind in final_kinds:
+                division_points.append(Boundary("end", total, False, kind, None, True, None))
+                break
+    final_division = division_points[-1].division if division_points and division_points[-1].id == "end" else None
+    for boundary in division_points:
         if boundary.source_break and not boundary.safe:
             diagnostics.append(
                 _diagnostic(
@@ -589,7 +599,7 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
     for k in range(measure_count):
         end = ordered[k + 1]
         boundary = boundary_by_onset.get(end)
-        division = boundary.division if boundary else None
+        division = boundary.division if boundary else (final_division if end == total else None)
         measure = section.add(
             "measure",
             **{
