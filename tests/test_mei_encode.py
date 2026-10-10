@@ -590,3 +590,11 @@ def test_encode_score_kyrie_renders_continuations_without_noteheads_or_ties(tmp_
     assert result["splitTies"] == 0
     # Only the score's own ties are drawn (spanning pieces aside).
     assert result["ties"] == sum(1 for e in ir.events if e.tie_to_next)
+
+
+@pytest.mark.parametrize("fixture", sorted(PILOTS))
+def test_encode_score_pilot_last_measure_carries_the_final_division(fixture: str) -> None:
+    tsv = PILOTS[fixture][0]
+    ir = ir_for(tsv)
+    assert any(d.kind == "finalis" and d.onset == ir.total_duration for d in ir.divisions)
+    assert q(tree(tsv), "//m:measure")[-1].get("right") == "dbl"

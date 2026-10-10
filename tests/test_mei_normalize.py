@@ -79,11 +79,6 @@ def test_normalize_mei_pilot_round_trip_equals_normalize_ir(fixture: str) -> Non
     assert actual.total_duration == expected.total_duration
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason="encoder defect: boundaries exist only for 0 < t < total, so the piece-final finalis is never "
-    "written and the last measure gets right='invis'",
-)
 @pytest.mark.parametrize("fixture", sorted(PILOTS))
 def test_normalize_mei_pilot_round_trip_keeps_the_final_division(fixture: str) -> None:
     ir, encoded = pilot(fixture)
