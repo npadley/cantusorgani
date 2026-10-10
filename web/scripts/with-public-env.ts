@@ -50,6 +50,12 @@ if (args.includes("build") && !env["PUBLIC_ASSET_BASE"]) {
     "(1Password, Cantus Organi Environment) or set it in the environment.");
   process.exit(1);
 }
+if (env["PUBLIC_MEI_MANIFEST"] === "fixture" && /^https?:\/\//.test(env["PUBLIC_ASSET_BASE"] ?? "")) {
+  console.error(
+    "PUBLIC_MEI_MANIFEST=fixture is for e2e builds only, and PUBLIC_ASSET_BASE is a remote " +
+    "(production) base: the site would offer unapproved conversions. Unset PUBLIC_MEI_MANIFEST.");
+  process.exit(1);
+}
 const result = spawnSync(command, args, { stdio: "inherit", env });
 // The pipe read may still be pending in the background; do not wait for it.
 process.exit(result.status ?? 1);
