@@ -7,7 +7,7 @@ import { DEFAULT_SETTINGS } from "../lib/export-layout/types";
 import type { LayoutDiagnostic, LayoutDiagnosticCode, UnsatisfiableReason } from "../lib/export-layout/types";
 import ExportLayoutEditor from "./ExportLayoutEditor.astro";
 
-const SOURCE = readFileSync(new URL("./ExportLayoutEditor.astro", import.meta.url), "utf8");
+const SOURCE = readFileSync(new URL("../styles/exportEditor.css", import.meta.url), "utf8");
 const SCRIPT = readFileSync(new URL("../scripts/exportLayout.ts", import.meta.url), "utf8");
 
 // Exhaustive by construction: a new code in the union fails to compile here until it is added.

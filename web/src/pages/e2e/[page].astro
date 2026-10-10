@@ -176,7 +176,8 @@ export function getStaticPaths() {
       return wrapper;
     };
     window.__openEditor = async (parts, title) => {
-      const { openExportEditor } = await import("../../scripts/exportLayout");
+      const { openExportEditor, stylesReady } = await import("../../scripts/exportLayout");
+      await stylesReady;
       return openExportEditor({ parts, title, opener: document.getElementById("export-customize"), deps: { createLayoutWorker: faultingWorker } });
     };
 

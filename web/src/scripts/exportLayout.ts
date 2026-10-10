@@ -7,6 +7,8 @@
 // Visitor-facing text comes from exportLayoutCopy.ts or from literals here. `LayoutDiagnostic.detail`
 // is never read by any code in this file: it cannot reach the DOM.
 
+import editorCss from '../styles/exportEditor.css?url';
+import { loadStylesheet } from './lazyStyles';
 import { createExportController } from '../lib/export-layout/controller';
 import { parseResourceProfile } from '../lib/export-layout/limits';
 import { capabilitiesFor } from '../lib/export-layout/capabilities';
@@ -23,7 +25,7 @@ import type {
   StorageLike,
 } from '../lib/export-layout/types';
 import profileJson from '../../../data/typeset/mei/resource-profile.json';
-import { destroyPreview, getView, getZoom, initPreview, renderPreview, setView, setZoom } from './exportPagePreview';
+import { destroyPreview, getView, getZoom, initPreview, previewStylesReady, renderPreview, setView, setZoom } from './exportPagePreview';
 import { BreakEditor } from './exportBreakEditor';
 import { ACTION_LABEL, CUSTOM_ERRORS, MM_PER_IN, PRINTER_ADVISORY, copyFor, isGlobalDiagnostic, paperName, smallerStaff } from './exportLayoutCopy';
 import type { ActionId, CopyContext } from './exportLayoutCopy';
@@ -34,6 +36,8 @@ export interface OpenExportEditorOptions {
   readonly title: string;
   /** Receives focus when the dialog closes (#export-customize). */
   readonly opener: HTMLElement | null;
+  /** Called after a custom PDF has been delivered, with the settings it was made with (analytics). */
+  readonly onExported?: (settings: LayoutSettings) => void;
   /** Dependency overrides (tests, the e2e fault injector). */
   readonly deps?: Partial<ControllerDependencies>;
 }
@@ -42,6 +46,9 @@ export interface EditorHandle {
   readonly dialog: HTMLDialogElement;
   close(): void;
 }
+
+/** Resolves when the editor's and the preview's stylesheets are in. Await it before openExportEditor so the dialog never shows unstyled. */
+export const stylesReady: Promise<void> = Promise.all([loadStylesheet(editorCss), previewStylesReady]).then(() => undefined);
 
 const HASH = '#customize-export';
 const WIDE_QUERY = '(min-width: 62rem)';
@@ -488,6 +495,7 @@ class Session {
     await this.controller.download();
     const s = this.state;
     if (this.savedBytes !== null && s !== null && s.phase === 'ready' && s.result !== null) {
+      this.options.onExported?.(s.settings);
       this.say(`PDF downloaded: ${pageWord(s.result.pages.length)}, ${(this.savedBytes / (1024 * 1024)).toFixed(1)} MB.`, true);
     }
   }

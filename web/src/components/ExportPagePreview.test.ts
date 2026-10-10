@@ -9,7 +9,7 @@ import type { CanonicalPage, MeiCanonicalPage, ScanCanonicalPage, FixedCanonical
 import ExportPagePreview from "./ExportPagePreview.astro";
 
 const SCRIPT = readFileSync(new URL("../scripts/exportPagePreview.ts", import.meta.url), "utf8");
-const COMPONENT = readFileSync(new URL("./ExportPagePreview.astro", import.meta.url), "utf8");
+const COMPONENT = readFileSync(new URL("../styles/exportPreview.css", import.meta.url), "utf8");
 
 const rect = { xMm: 12, yMm: 12, widthMm: 191.9, heightMm: 255.4 };
 const base = { index: 0, widthMm: 215.9, heightMm: 279.4, partId: "kyrie:0", printable: rect, content: rect, heading: null, footer: null, unusedFraction: 0 };

@@ -11,6 +11,8 @@
 // pdf.js is reached only through a dynamic import of fixedPreview.ts, the first time a fixed
 // page is drawn.
 
+import previewCss from '../styles/exportPreview.css?url';
+import { loadStylesheet } from './lazyStyles';
 import { PAGE_PRESETS } from '../lib/export-layout/types';
 import type {
   AssetLoader,
@@ -20,6 +22,9 @@ import type {
   MeiCanonicalPage,
   ScanCanonicalPage,
 } from '../lib/export-layout/types';
+
+/** Resolves when the preview's stylesheet has loaded (it is not linked from any page). */
+export const previewStylesReady: Promise<void> = loadStylesheet(previewCss);
 
 export type PreviewView = 'pages' | 'continuous';
 export const ZOOM_STEPS: readonly number[] = [50, 75, 100, 125, 150, 200, 300];
