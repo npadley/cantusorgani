@@ -1,0 +1,39 @@
+---
+// TEST ONLY. Starts the real export layout worker for e2e/export-layout-worker.e2e.ts.
+//
+// The page is not built unless the build is run with E2E_TEST_PAGES=1: without it
+// getStaticPaths returns nothing, so a normal `pnpm build` emits no /e2e/ page, no link to
+// one, and no worker chunk from this file (check-links has no exemption mechanism, and an
+// unlinked page would fail it). The e2e build is
+//   E2E_TEST_PAGES=1 PUBLIC_ASSET_BASE=/systems pnpm exec astro build
+import Layout from "../../components/Layout.astro";
+
+export function getStaticPaths() {
+  return process.env["E2E_TEST_PAGES"] === "1" ? [{ params: { page: "export-layout-worker" } }] : [];
+}
+---
+
+<Layout title="Export worker test" description="Test page for the export layout worker." noindex>
+  <p id="state" data-state="idle">idle</p>
+  <script>
+    import type { LayoutWorkerRequest } from "../../lib/export-layout/types";
+
+    interface WorkerHarness {
+      readonly messages: unknown[];
+      readonly errors: string[];
+      post(message: LayoutWorkerRequest): void;
+    }
+    declare global {
+      interface Window { __layoutWorker?: WorkerHarness }
+    }
+
+    const worker = new Worker(new URL("../../workers/export-layout.worker.ts", import.meta.url), { type: "module" });
+    const messages: unknown[] = [];
+    const errors: string[] = [];
+    worker.onmessage = (event: MessageEvent<unknown>) => { messages.push(event.data); };
+    worker.onerror = (event) => { errors.push(event.message); };
+    window.__layoutWorker = { messages, errors, post: (message) => worker.postMessage(message) };
+    const state = document.getElementById("state");
+    if (state) { state.dataset["state"] = "ready"; state.textContent = "ready"; }
+  </script>
+</Layout>
