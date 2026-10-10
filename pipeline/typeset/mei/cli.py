@@ -276,3 +276,36 @@ def validate_command(directory: Path) -> int:
         f"semantic differences; wrote {directory / 'validation.json'}"
     )
     return 0 if report.eligible else 1
+
+# --- typeset-mei-evidence ------------------------------------------------------------------
+
+
+def evidence_command(
+    convert_dir: Path,
+    out: Path | None = None,
+    node_runner: Any = None,
+    lilypond_svg: Any = None,
+    scan_images: Any = None,
+) -> int:
+    """Build the review evidence packet for a ``typeset-mei-convert`` output directory and print the
+    path of its ``index.html``. The packet is written to OUT, default
+    ``build/typeset/mei/<inputs digest>/evidence``."""
+    from pipeline.typeset.mei import evidence
+
+    try:
+        packet = evidence.build_evidence(
+            convert_dir,
+            None,
+            out,
+            node_runner=node_runner or evidence.run_node_renderer,
+            lilypond_svg=lilypond_svg or evidence.default_lilypond_svg,
+            scan_images=scan_images or evidence.default_scan_images,
+        )
+    except evidence.EvidenceError as error:
+        print(f"error: {error}")
+        return 1
+    counts = Counter(f.code for f in packet.geometry_findings)
+    flags = ", ".join(f"{n} {code}" for code, n in sorted(counts.items())) or "none"
+    print(f"geometry flags (flags only): {flags}")
+    print(packet.index_html)
+    return 0
