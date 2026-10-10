@@ -65,6 +65,9 @@ _PRINTED: dict[str, PrintedAccidental] = {
 }
 _RIGHT_DIVISION: dict[str, DivisionKind] = {"dbl": "finalis", "single": "maxima"}
 _CAESURA_DIVISION: dict[str, DivisionKind] = {"U+E8F3": "minima", "U+E8F4": "maior"}
+#: <dir type="..."> the encoder uses for a tick mark drawn as text (Verovio cannot place the SMuFL tick on the line).
+_DIR_DIVISION: dict[str, DivisionKind] = {"divisio-minima": "minima"}
+_MARK_DIVISIONS = ("minima", "maior")
 _UNSUPPORTED = {"chord", "mRest", "mSpace", "multiRest", "beatRpt", "mRpt", "halfmRpt", "graceGrp"}
 _PITCH_STEPS = ("c", "d", "e", "f", "g", "a", "b")
 
@@ -131,6 +134,12 @@ def normalize_ir(ir: ScoreIR) -> NormalizedScore:
 
     spans = tuple(sorted({(s.kind, s.start_event_id, s.end_event_id) for s in ir.spans}))
     divisions = tuple(sorted({(d.kind, d.onset) for d in ir.divisions}, key=lambda d: (d[1], d[0])))
+    marks = tuple(
+        sorted(
+            {(d.kind, d.onset, int(layer_key[d.layer_id].split(".")[0])) for d in ir.divisions if d.kind in _MARK_DIVISIONS},
+            key=lambda m: (m[1], m[0], m[2]),
+        )
+    )
     return NormalizedScore(
         layers={key: tuple(events) for key, events in grouped.items()},
         lyrics=lyrics,
@@ -138,6 +147,7 @@ def normalize_ir(ir: ScoreIR) -> NormalizedScore:
         spans=spans,
         divisions=divisions,
         total_duration=ir.total_duration,
+        division_marks=marks,
     )
 
 
@@ -345,11 +355,18 @@ def normalize_mei(xml: bytes, provenance: Mapping[str, str]) -> NormalizedScore:
     for end, right in measure_ends:
         if right in _RIGHT_DIVISION:
             found.add((_RIGHT_DIVISION[right], end))
-    for el in root.iter(_M + "caesura"):
-        kind = _CAESURA_DIVISION.get(el.get("glyph.num", ""))
+    mark_set: set[tuple[DivisionKind, Fraction, int]] = set()
+    for el in (*root.iter(_M + "caesura"), *root.iter(_M + "dir")):
+        if _local(el) == "caesura":
+            kind = _CAESURA_DIVISION.get(el.get("glyph.num", ""))
+        else:
+            kind = _DIR_DIVISION.get(el.get("type", ""))
         anchor_frag = by_id.get(_ref(el.get("startid")) or "")
         if kind is not None and anchor_frag is not None:
             found.add((kind, anchor_frag.end))
+            staff = el.get("staff")
+            if staff is not None and staff.isdigit():
+                mark_set.add((kind, anchor_frag.end, int(staff)))
     divisions = tuple(sorted(found, key=lambda d: (d[1], d[0])))
 
     total = max((e.onset + e.duration for evs in layers.values() for e in evs), default=Fraction(0))
@@ -360,6 +377,7 @@ def normalize_mei(xml: bytes, provenance: Mapping[str, str]) -> NormalizedScore:
         spans=tuple(sorted(spans)),
         divisions=divisions,
         total_duration=total,
+        division_marks=tuple(sorted(mark_set, key=lambda m: (m[1], m[0], m[2]))),
     )
 
 

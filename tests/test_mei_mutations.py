@@ -242,14 +242,26 @@ def test_compare_scores_dropped_final_double_bar_reports_division_mismatch() -> 
     assert any("finalis" in d.detail and d.onset == normalize_ir(ir).total_duration for d in hits)
 
 
-def test_compare_scores_dropped_caesura_reports_division_mismatch() -> None:
+def _ticks(root: etree._Element) -> list[etree._Element]:
+    return list(root.iter(M + "dir"))
+
+
+def test_compare_scores_dropped_divisio_minima_reports_division_mismatch() -> None:
     def mutate(root: etree._Element, prov: dict[str, str]) -> None:
-        caesura = next(root.iter(M + "caesura"))
-        caesura.getparent().remove(caesura)
+        for tick in _ticks(root):
+            tick.getparent().remove(tick)
 
     hits = with_code(run("F1", mutate), "DIVISION_MISMATCH")
-    assert any("missing" in d.detail and d.onset is not None for d in hits)
-    assert any(d.detail.split()[1] in ("minima", "maior") for d in hits)
+    assert any("missing minima at" in d.detail and d.onset is not None for d in hits)
+
+
+def test_compare_scores_divisio_minima_missing_from_one_staff_reports_division_mismatch() -> None:
+    def mutate(root: etree._Element, prov: dict[str, str]) -> None:
+        bass = next(t for t in _ticks(root) if t.get("staff") == "2")
+        bass.getparent().remove(bass)
+
+    hits = with_code(run("F1", mutate), "DIVISION_MISMATCH")
+    assert [d.detail.split(" at ")[0] for d in hits] == ["missing minima mark on staff 2"]
 
 
 def test_compare_scores_removed_entry_marker_reports_entry_marker_mismatch() -> None:

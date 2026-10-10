@@ -165,6 +165,11 @@ def compare_scores(source: NormalizedScore, converted: NormalizedScore) -> list[
         for kind, onset in divisions:  # type: ignore[misc]
             out.append(_diff("DIVISION_MISMATCH", f"{label} {kind} at {onset}", None, onset))
 
+    missing_k, extra_k = _both_ways(source.division_marks, converted.division_marks)
+    for label, marks in (("missing", missing_k), ("extra", extra_k)):
+        for kind, onset, staff in marks:  # type: ignore[misc]
+            out.append(_diff("DIVISION_MISMATCH", f"{label} {kind} mark on staff {staff} at {onset}", None, onset))
+
     missing_m, extra_m = _both_ways(source.entry_markers, converted.entry_markers)
     for label, markers in (("missing", missing_m), ("extra", extra_m)):
         for text, anchor in markers:  # type: ignore[misc]

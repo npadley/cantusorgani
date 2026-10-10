@@ -187,13 +187,25 @@ def test_encode_score_pilot_division_barlines_follow_the_profile(fixture: str) -
     ir = ir_for(tsv)
     assert not [b for b in ir.boundaries if not b.safe and b.division in ("finalis", "maxima")]
     assert not [d for d in result.diagnostics if dict(d.details)["code"] == "division-inside-measure"]
-    caesuras = Counter(c.get("glyph.num") for c in q(root, "//m:caesura"))
-    want = Counter(
-        {"minima": "U+E8F3", "maior": "U+E8F4"}[b.division]
-        for b in ir.boundaries
-        if b.division in ("minima", "maior")
-    )
-    assert caesuras == want
+    # A5f: a minima is a text tick (<dir type="divisio-minima">) on every staff it is set on, a maior a caesura.
+    staff_of_layer = {layer.id: next(st.index for st in ir.staves if st.id == layer.home_staff_id) for layer in ir.layers}
+    want = {(d.kind, d.onset, staff_of_layer[d.layer_id]) for d in ir.divisions if d.kind in ("minima", "maior")}
+    got: set[tuple[str, Fraction, int]] = set()
+    anchors: dict[tuple[str, Fraction], set[str]] = {}
+    glyph = {"U+E8F4": "maior"}
+    id_to_end = {
+        n.get(XML_ID): n for n in q(root, "//m:note")
+    }
+    for el in q(root, "//m:caesura | //m:dir[@type='divisio-minima']"):
+        kind = "minima" if el.tag.endswith("dir") else glyph[el.get("glyph.num")]
+        anchor = id_to_end[el.get("startid")[1:]]
+        onset = next(e.onset + e.duration for e in ir.events if "ev" + e.id == anchor.get(XML_ID))
+        assert (kind, onset, int(el.get("staff"))) not in got  # exactly one mark per staff
+        got.add((kind, onset, int(el.get("staff"))))
+        anchors.setdefault((kind, onset), set()).add(el.get("startid"))
+    assert got == want
+    assert all(len(v) == 1 for v in anchors.values())  # the marks of one division share an anchor and line up
+    assert not q(root, "//m:caesura[@glyph.num='U+E8F3']")
 
 
 @pytest.mark.parametrize("fixture", sorted(PILOTS))

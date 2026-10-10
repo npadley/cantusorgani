@@ -55,6 +55,14 @@ SPLIT_TIE = "split-tie"
 
 _NCNAME_START = re.compile(r"^[A-Za-z_]")
 _CAESURA_GLYPHS = {"minima": "U+E8F3", "maior": "U+E8F4"}
+#: The divisio minima is a "|" in the page's serif text, not the SMuFL tick (E8F3): Verovio places that
+#: glyph above the top line and ignores @vo on a caesura, whereas a <dir> honours @vo, so the text tick can
+#: be centred on the top line. 50% of the default direction size makes the bar about one staff space tall;
+#: @vo and @ho (virtual units = half a staff space) were fitted from real renders; web/layout.ties-style test
+#: ``layout.divisio.realmei.test.ts`` asserts the tick crosses the top line on both staves.
+_MINIMA_VO = "-1.5"
+_MINIMA_HO = "2.5"
+_MINIMA_TYPE = "divisio-minima"
 _RIGHT_BARLINE = {"finalis": "dbl", "maxima": "single"}
 _SHARP_ORDER = "fcgdaeb"
 _FLAT_ORDER = "beadgcf"
@@ -162,6 +170,24 @@ def _representable(value: Fraction) -> tuple[int, int] | None:
             if Fraction(1, 2**log) * (2 - Fraction(1, 2**dots)) == value:
                 return log, dots
     return None
+
+
+def _division_mark(boundary: Boundary, kind: str, anchor: str, staff: int, ordinal: int) -> _Node:
+    """The mark for a divisio minima or maior on one staff, anchored to ``anchor``."""
+    mark_id = "c" + boundary.id + ("" if ordinal == 1 else f"s{staff}")
+    if kind == "minima":
+        node = _Node(
+            "dir",
+            {"xml:id": mark_id, "type": _MINIMA_TYPE, "staff": str(staff), "startid": "#" + anchor,
+             "place": "above", "vo": _MINIMA_VO, "ho": _MINIMA_HO},
+        )
+        node.add("rend", "|", fontstyle="normal", fontsize="50%")
+        return node
+    return _Node(
+        "caesura",
+        {"xml:id": mark_id, "startid": "#" + anchor, "staff": str(staff), "glyph.auth": "smufl",
+         "glyph.num": _CAESURA_GLYPHS[kind]},
+    )
 
 
 def _fragment_notated(duration: Fraction, original: NotatedDuration, first: bool = False) -> NotatedDuration:
@@ -549,15 +575,23 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
         wanted = [
             lid for lid in division_layers.get(boundary.onset, []) if lid in home_staff
         ] or [layer.id for layer in ir.layers[:1]]
-        layer_id = wanted[0]
-        candidates = [f for f in by_layer_measure.get((layer_id, k), []) if f.onset < boundary.onset] or [
-            f
-            for (lid, mk), frags in sorted(by_layer_measure.items())
-            if mk == k and home_staff[lid] == home_staff[layer_id]
-            for f in frags
-            if f.onset < boundary.onset
-        ]
-        if not candidates:
+        # LilyPond draws the divisio across every staff the division is set on (all of them in a
+        # piano system); all marks share one anchor note, so they line up vertically.
+        by_staff: dict[str, str] = {}
+        for lid in wanted:
+            by_staff.setdefault(home_staff[lid], lid)
+        anchor_note: _Fragment | None = None
+        first_layer = next(iter(by_staff.values()), None)
+        if first_layer is not None:
+            first_candidates = [f for f in by_layer_measure.get((first_layer, k), []) if f.onset < boundary.onset] or [
+                f
+                for (lid, mk), frags in sorted(by_layer_measure.items())
+                if mk == k and home_staff[lid] == home_staff[first_layer]
+                for f in frags
+                if f.onset < boundary.onset
+            ]
+            anchor_note = first_candidates[-1] if first_candidates else None
+        if anchor_note is None:
             diagnostics.append(
                 _diagnostic(
                     "division has no event to attach to",
@@ -567,19 +601,10 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                 )
             )
             continue
-        anchor = candidates[-1]
-        controls[k].append(
-            _Node(
-                "caesura",
-                {
-                    "xml:id": "c" + boundary.id,
-                    "startid": "#" + anchor.mei_id,
-                    "staff": str(staff_index[home_staff[layer_id]]),
-                    "glyph.auth": "smufl",
-                    "glyph.num": _CAESURA_GLYPHS[boundary.division],
-                },
-            )
-        )
+        for number, (staff_name, _layer) in enumerate(
+            sorted(by_staff.items(), key=lambda kv: staff_index[kv[0]]), start=1
+        ):
+            controls[k].append(_division_mark(boundary, boundary.division, anchor_note.mei_id, staff_index[staff_name], number))
 
     # --- document ------------------------------------------------------------------------------
     root = _Node("mei", {"xmlns": MEI_NS, "meiversion": "5.0"})

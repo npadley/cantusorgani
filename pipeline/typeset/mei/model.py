@@ -538,6 +538,8 @@ class NormalizedScore:
     spans: tuple[tuple[SpanKind, str, str], ...]
     divisions: tuple[tuple[DivisionKind, Fraction], ...]
     total_duration: Fraction
+    #: (kind, onset, staff number) of every divisio drawn as a mark on a staff (minima, maior).
+    division_marks: tuple[tuple[DivisionKind, Fraction, int], ...] = ()
 
 @dataclass(frozen=True)
 class SemanticDifference:
