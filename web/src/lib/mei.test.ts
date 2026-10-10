@@ -50,11 +50,11 @@ describe("shipped manifests", () => {
   it("should parse the fixture and match the fixture MEI hash", () => {
     const m = parseManifest(fixture);
     expect(m.parts).toHaveLength(1);
-    const mei = readFileSync(new URL("./export-layout/__fixtures__/kyrie-ix-experiment.mei", import.meta.url));
+    const mei = readFileSync(new URL("./export-layout/__fixtures__/kyrie-ix.mei", import.meta.url));
     const sha = createHash("sha256").update(mei).digest("hex");
     expect(m.parts[0]?.meiSha256).toBe(sha);
     expect(m.parts[0]?.digest).toBe(sha);
-    expect(m.parts[0]?.boundaries).toHaveLength(5);
+    expect(m.parts[0]?.boundaries).toHaveLength(81);
   });
 
   it("should ship an empty production manifest", () => {
