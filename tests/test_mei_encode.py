@@ -143,8 +143,9 @@ def test_encode_score_pilot_boundaries_map_to_measures_ending_there(fixture: str
     result = encoded(tsv)
     root = tree(tsv)
     measure_ids = [m.get(XML_ID) for m in q(root, "//m:measure")]
-    assert len(result.boundaries) == len(ir.boundaries)
-    for boundary, entry in zip(ir.boundaries, result.boundaries, strict=True):
+    safe = [b for b in ir.boundaries if b.safe]
+    assert len(result.boundaries) == len(safe)
+    for boundary, entry in zip(safe, result.boundaries, strict=True):
         assert entry.boundary_id == boundary.id
         assert entry.onset == rational_to_str(boundary.onset)
         assert entry.after_text == boundary.after_text
@@ -161,14 +162,18 @@ def test_encode_score_pilot_boundaries_map_to_measures_ending_there(fixture: str
 @pytest.mark.parametrize("fixture", sorted(PILOTS))
 def test_encode_score_pilot_division_barlines_follow_the_profile(fixture: str) -> None:
     tsv = PILOTS[fixture][0]
+    ir = ir_for(tsv)
     result = encoded(tsv)
     root = tree(tsv)
     right = {m.get(XML_ID): m.get("right") for m in q(root, "//m:measure")}
     for entry in result.boundaries:
         expected = {"finalis": "dbl", "maxima": "single"}.get(entry.division or "", "invis")
         assert right[entry.measure_id] == expected
-    caesuras = Counter(c.get("glyph.num") for c in q(root, "//m:caesura"))
+    # Unsafe boundaries have no barline; the fixtures have no finalis/maxima there.
     ir = ir_for(tsv)
+    assert not [b for b in ir.boundaries if not b.safe and b.division in ("finalis", "maxima")]
+    assert not [d for d in result.diagnostics if dict(d.details)["code"] == "division-inside-measure"]
+    caesuras = Counter(c.get("glyph.num") for c in q(root, "//m:caesura"))
     want = Counter(
         {"minima": "U+E8F3", "maior": "U+E8F4"}[b.division]
         for b in ir.boundaries
@@ -269,9 +274,13 @@ def test_encode_score_kyrie_tuplets_are_hidden_and_totals_exact() -> None:
             assert layer_total(events) == Fraction(373, 8)
 
 
-def test_encode_score_kyrie_measures_are_bounded_by_every_boundary_onset() -> None:
-    ir = ir_for(KYRIE)
-    assert len(q(tree(KYRIE), "//m:measure")) == len(ir.boundaries) + 1
+@pytest.mark.parametrize("fixture", sorted(PILOTS))
+def test_encode_score_pilot_measures_are_cut_only_at_safe_boundaries(fixture: str) -> None:
+    tsv = PILOTS[fixture][0]
+    ir = ir_for(tsv)
+    ends = {b.onset for b in ir.boundaries if b.safe} | {ir.total_duration}
+    assert len(q(tree(tsv), "//m:measure")) == len(ends)
+    assert all(entry.safe for entry in encoded(tsv).boundaries)
 
 
 def test_encode_score_kyrie_staff_defs_carry_clef_and_key_only() -> None:
@@ -297,7 +306,7 @@ def test_encode_score_kyrie_ties_slurs_and_sustain_split_diagnostics() -> None:
         assert slur.get("startid", "").startswith("#ev") and slur.get("endid", "").startswith("#ev")
         assert slur.get(XML_ID)
     # Sustains that cross a boundary are reported (A3d splits them) and still emitted whole.
-    ons = sorted({b.onset for b in ir.boundaries})
+    ons = sorted({b.onset for b in ir.boundaries if b.safe})
     crossing = [e for e in ir.events if any(e.onset < o < e.onset + e.duration for o in ons)]
     assert crossing
     assert {d.event_ids[0] for d in encoded(KYRIE).diagnostics} == {e.id for e in crossing}

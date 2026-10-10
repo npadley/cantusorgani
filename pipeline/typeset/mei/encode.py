@@ -219,10 +219,12 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
 
     # --- measures -------------------------------------------------------------------------------
     total = ir.total_duration
-    points = {Fraction(0), total, *(b.onset for b in ir.boundaries)}
     for boundary in ir.boundaries:
         if not 0 < boundary.onset <= total:
             raise ValueError(f"boundary {boundary.id} at {boundary.onset} lies outside (0, {total}]")
+    # D17: measure lines only at safe boundaries; unsafe onsets fall inside measures.
+    safe_boundaries = tuple(b for b in ir.boundaries if b.safe)
+    points = {Fraction(0), total, *(b.onset for b in safe_boundaries)}
     ordered = sorted(points)
     if len(ordered) == 1:
         ordered = [Fraction(0), Fraction(0)]
@@ -234,7 +236,7 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
         return min(bisect_right(starts, onset) - 1, measure_count - 1)
 
     ending_at = {ordered[k + 1]: k for k in range(measure_count)}
-    boundary_by_onset = {b.onset: b for b in ir.boundaries}
+    boundary_by_onset = {b.onset: b for b in safe_boundaries}
 
     # --- per-event decoration ------------------------------------------------------------------
     hidden_rests = {eid for use in ir.features if use.family == "hidden-rest" for eid in use.event_ids}
@@ -376,7 +378,7 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
         k = measure_of(event.onset)
         by_layer_measure.setdefault((event.layer_id, k), []).append(event)
         if event.onset + event.duration > ordered[k + 1]:
-            crossed = next(b for b in ir.boundaries if b.onset == ordered[k + 1])
+            crossed = next(b for b in safe_boundaries if b.onset == ordered[k + 1])
             diagnostics.append(
                 _diagnostic(
                     "event crosses a measure boundary and is emitted whole until the split card lands",
@@ -421,15 +423,40 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
     for division in ir.divisions:
         division_layers.setdefault(division.onset, []).append(division.layer_id)
     for boundary in ir.boundaries:
+        if boundary.source_break and not boundary.safe:
+            diagnostics.append(
+                _diagnostic(
+                    "source line break falls inside a measure and cannot be placed",
+                    "source-break-inside-measure",
+                    boundary=boundary.id,
+                )
+            )
+        if boundary.division is None:
+            continue
+        if not boundary.safe and boundary.division in _RIGHT_BARLINE:
+            at = [d for d in ir.divisions if d.onset == boundary.onset and d.kind == boundary.division]
+            diagnostics.append(
+                _diagnostic(
+                    f"{boundary.division} falls inside a measure, where there is no barline for it",
+                    "division-inside-measure",
+                    location=at[0].location if at else None,
+                    boundary=boundary.id,
+                )
+            )
+            continue
         if boundary.division not in _CAESURA_GLYPHS:
             continue
-        k = ending_at[boundary.onset]
+        k = ending_at[boundary.onset] if boundary.safe else measure_of(boundary.onset)
         wanted = [
             lid for lid in division_layers.get(boundary.onset, []) if lid in home_staff
         ] or [layer.id for layer in ir.layers[:1]]
         layer_id = wanted[0]
-        candidates = by_layer_measure.get((layer_id, k), []) or [
-            e for (lid, mk), evs in sorted(by_layer_measure.items()) if mk == k and home_staff[lid] == home_staff[layer_id] for e in evs
+        candidates = [e for e in by_layer_measure.get((layer_id, k), []) if e.onset < boundary.onset] or [
+            e
+            for (lid, mk), evs in sorted(by_layer_measure.items())
+            if mk == k and home_staff[lid] == home_staff[layer_id]
+            for e in evs
+            if e.onset < boundary.onset
         ]
         if not candidates:
             diagnostics.append(
@@ -524,7 +551,7 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
             division=b.division,
             after_text=b.after_text,
         )
-        for b in ir.boundaries
+        for b in safe_boundaries
     )
     counts: dict[str, int] = {}
     for use in ir.features:
