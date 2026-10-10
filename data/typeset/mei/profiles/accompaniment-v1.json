@@ -5,27 +5,115 @@
   "lyricPlace": "above",
   "containerPolicy": "common-onset",
   "rules": [
-    {"family": "scaled-duration", "status": "supported", "mei": "hidden <tuplet> with @num/@numbase, @bracket.visible=\"false\" @num.visible=\"false\""},
-    {"family": "tie", "status": "supported", "mei": "<tie> (or @tie i/m/t)"},
-    {"family": "slur", "status": "supported", "mei": "<slur> with @startid/@endid"},
-    {"family": "hidden-stem", "status": "supported", "mei": "note@stem.visible=\"false\""},
-    {"family": "hidden-rest", "status": "supported", "mei": "<space>"},
-    {"family": "skip", "status": "supported", "mei": "<space>"},
-    {"family": "finalis", "status": "supported", "mei": "measure@right=\"dbl\""},
-    {"family": "divisio-maxima", "status": "supported", "mei": "measure@right=\"single\""},
-    {"family": "divisio-maior", "status": "engraving-only", "mei": "<caesura glyph.num=\"U+E8F4\">; draws from the top line, not centred (S2)"},
-    {"family": "divisio-minima", "status": "supported", "mei": "<caesura glyph.num=\"U+E8F3\">"},
-    {"family": "force-break", "status": "supported", "mei": "<sb/>"},
-    {"family": "stanza-marker", "status": "supported", "mei": "<verse><label> text before the syllable; render must be verified in A3c"},
-    {"family": "blank-lyric", "status": "supported", "mei": "no <syl> for the blank token"},
-    {"family": "melisma", "status": "supported", "mei": "<syl @con=\"u\"> extender / @wordpos"},
-    {"family": "voice-line-voice", "status": "supported", "mei": "separate <layer> of note@visible=\"false\""},
-    {"family": "voice-line-glissando", "status": "supported", "mei": "<gliss lform=\"dotted\"> between hidden notes; note@staff when cross-staff"},
-    {"family": "cross-staff", "status": "supported", "mei": "note@staff"},
-    {"family": "quilisma", "status": "supported", "mei": "hidden notehead plus <dir place=\"within\"><symbol glyph.num=\"U+E56C\"/></dir>"},
-    {"family": "key-change", "status": "supported", "mei": "<keySig> / staffDef@keysig"},
-    {"family": "clef-change", "status": "supported", "mei": "<clef>"},
-    {"family": "note-shift", "status": "engraving-only", "mei": "ignored (horizontal shift); review diagnostic"},
-    {"family": "manual-spacing", "status": "engraving-only", "mei": "ignored (X-extent override); review diagnostic"}
+    {
+      "family": "scaled-duration",
+      "status": "supported",
+      "mei": "hidden <tuplet> with @num/@numbase, @bracket.visible=\"false\" @num.visible=\"false\""
+    },
+    {
+      "family": "tie",
+      "status": "supported",
+      "mei": "<tie> (or @tie i/m/t)"
+    },
+    {
+      "family": "slur",
+      "status": "supported",
+      "mei": "<slur> with @startid/@endid"
+    },
+    {
+      "family": "hidden-stem",
+      "status": "supported",
+      "mei": "note@stem.visible=\"false\""
+    },
+    {
+      "family": "hidden-rest",
+      "status": "supported",
+      "mei": "<space>"
+    },
+    {
+      "family": "skip",
+      "status": "supported",
+      "mei": "<space>"
+    },
+    {
+      "family": "finalis",
+      "status": "supported",
+      "mei": "measure@right=\"dbl\""
+    },
+    {
+      "family": "divisio-maxima",
+      "status": "supported",
+      "mei": "measure@right=\"single\""
+    },
+    {
+      "family": "divisio-maior",
+      "status": "engraving-only",
+      "mei": "<caesura glyph.num=\"U+E8F4\">; draws from the top line, not centred (S2)"
+    },
+    {
+      "family": "divisio-minima",
+      "status": "supported",
+      "mei": "<caesura glyph.num=\"U+E8F3\">"
+    },
+    {
+      "family": "force-break",
+      "status": "supported",
+      "mei": "<sb/>"
+    },
+    {
+      "family": "stanza-marker",
+      "status": "supported",
+      "mei": "<verse><label> text before the syllable; render must be verified in A3c"
+    },
+    {
+      "family": "blank-lyric",
+      "status": "supported",
+      "mei": "no <syl> for the blank token"
+    },
+    {
+      "family": "melisma",
+      "status": "supported",
+      "mei": "<syl @con=\"u\"> extender / @wordpos"
+    },
+    {
+      "family": "voice-line-voice",
+      "status": "supported",
+      "mei": "separate <layer> of note@visible=\"false\""
+    },
+    {
+      "family": "voice-line-glissando",
+      "status": "supported",
+      "mei": "<gliss lform=\"dotted\"> between hidden notes; note@staff when cross-staff"
+    },
+    {
+      "family": "cross-staff",
+      "status": "supported",
+      "mei": "note@staff"
+    },
+    {
+      "family": "quilisma",
+      "status": "supported",
+      "mei": "hidden notehead plus <mordent form=\"upper\"> over it (drawn as a path); the Leipzig-text <dir><symbol U+E56C> route is rejected by the SVG sanitizer and vector PDF (B2/B5, D16). Visual approximation reviewed in A5d."
+    },
+    {
+      "family": "key-change",
+      "status": "supported",
+      "mei": "<keySig> / staffDef@keysig"
+    },
+    {
+      "family": "clef-change",
+      "status": "supported",
+      "mei": "<clef>"
+    },
+    {
+      "family": "note-shift",
+      "status": "engraving-only",
+      "mei": "ignored (horizontal shift); review diagnostic"
+    },
+    {
+      "family": "manual-spacing",
+      "status": "engraving-only",
+      "mei": "ignored (X-extent override); review diagnostic"
+    }
   ]
 }
