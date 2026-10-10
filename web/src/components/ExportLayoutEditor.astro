@@ -294,6 +294,30 @@ const IPAD = [
   .cx-foot #cx-status { flex: 1 1 12rem; margin: 0; min-height: 1.4em; }
   .cx-foot .primary { min-width: 12rem; }
 
+
+  /* Break editing: a per-page overlay beside the aria-hidden sheet. Handles are 44 px buttons around a 24 px square. */
+  .cx-overlay { position: absolute; inset: 0; pointer-events: none; }
+  .cx-overlay > * { pointer-events: auto; }
+  .cx-bpline { position: absolute; width: 1px; background: var(--accent); pointer-events: none !important; }
+  .cx-bp { position: absolute; width: var(--tap-min); height: var(--tap-min); min-height: var(--tap-min); padding: 0; margin: 0; background: transparent; border: 0; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; font-family: var(--font-ui); font-size: 0.75rem; color: var(--accent); cursor: pointer; }
+  .cx-bp .box { width: 24px; height: 24px; border: 1px solid var(--accent); border-radius: var(--radius); background: var(--print-paper); display: flex; align-items: center; justify-content: center; }
+  .cx-bp[data-kind="page"] .box { background: var(--accent); color: var(--print-paper); }
+  .cx-bp[data-kind="orig"], .cx-bp[data-kind="auto"] { color: var(--ink-muted); }
+  .cx-bp[data-kind="orig"] .box, .cx-bp[data-kind="auto"] .box { border-color: var(--ink-muted); }
+  .cx-bplab { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: var(--step--1); color: var(--ink); background: var(--paper); padding: 0 var(--s-1); z-index: 2; }
+  .cx-bp:hover .cx-bplab, .cx-bp:focus-visible .cx-bplab { display: block; }
+  .cx-bp:hover + .cx-bpline, .cx-bp:focus-visible + .cx-bpline { width: 2px; }
+  .cx-bp:focus-visible { outline: 2px solid var(--accent); outline-offset: 0; }
+  .cx-menu { position: absolute; z-index: 4; width: 20rem; max-width: 90%; background: var(--paper); color: var(--ink); border: 1px solid var(--control-border); border-radius: var(--radius); padding: var(--s-3); font-family: var(--font-ui); transform: translateX(-50%); margin-top: 26px; }
+  .cx-menu p { margin: 0 0 var(--s-2); }
+  .cx-menu button { display: block; width: 100%; margin-bottom: var(--s-2); border-color: var(--control-border); }
+  .cx-menu button.link { width: auto; border: 0; }
+  .cx-menu-nav { display: flex; gap: var(--s-2); margin-bottom: var(--s-2); }
+  .cx-menu-nav button { margin: 0; flex: 1; }
+  @media (max-width: 39.99rem) {
+    .cx-menu { position: fixed; left: 0 !important; right: 0; top: auto !important; width: auto; max-width: none; transform: none; margin: 0; border-width: 1px 0 0; z-index: 8; }
+  }
+
   /* ---- Below 62rem: header, FIT strip, preview, footer; settings are a panel. ---- */
   @media (max-width: 61.99rem) {
     .cx-fit { border-bottom: 1px solid var(--rule); padding: var(--s-2) var(--s-3); background: var(--paper); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }

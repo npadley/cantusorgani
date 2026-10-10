@@ -23,7 +23,8 @@ import type {
   StorageLike,
 } from '../lib/export-layout/types';
 import profileJson from '../../../data/typeset/mei/resource-profile.json';
-import { destroyPreview, initPreview, renderPreview } from './exportPagePreview';
+import { destroyPreview, getView, initPreview, renderPreview, setView } from './exportPagePreview';
+import { BreakEditor } from './exportBreakEditor';
 import { ACTION_LABEL, CUSTOM_ERRORS, MM_PER_IN, PRINTER_ADVISORY, copyFor, isGlobalDiagnostic, paperName, smallerStaff } from './exportLayoutCopy';
 import type { ActionId, CopyContext } from './exportLayoutCopy';
 
@@ -149,6 +150,9 @@ class Session {
   private savedBytes: number | null = null;
   private hasShownResult = false;
   private moreChecked = false;
+  /** A break action's own sentence is the announcement; the "Preview updated" that follows would overwrite it. */
+  private holdUpdated = false;
+  private breakEditor!: BreakEditor;
   private announcedFirst = false;
   private afterClose: (() => void) | null = null;
   private readonly listeners: { target: EventTarget; type: string; fn: EventListener }[] = [];
@@ -195,6 +199,23 @@ class Session {
       this.extras.append(w);
       return w;
     })();
+    this.breakEditor = new BreakEditor({
+      preview: this.preview,
+      state: () => this.state,
+      parts: () => this.parts,
+      partLabel: (id) => this.partLabels[id] ?? 'this part',
+      view: () => getView(this.preview),
+      setBreak: (partId, boundaryId, sourceRevision, kind) => {
+        this.controller.setBreak(partId, kind === 'remove' ? { boundaryId, kind } : { boundaryId, sourceRevision, kind });
+      },
+      say: (text) => { this.holdUpdated = true; this.say(text, true); },
+      armUndo: () => this.armUndo(),
+      leaveOverlay: () => {
+        if (!this.wide.matches) this.q('settings-btn').focus();
+        else this.q('break-mode').focus();
+      },
+      footerHeight: () => this.dlg.querySelector<HTMLElement>('.cx-foot')?.offsetHeight ?? 0,
+    });
     this.handle = { controller: this.controller, dialog: dlg, close: () => this.requestClose() };
   }
 
@@ -241,7 +262,11 @@ class Session {
     this.on(dlg, 'cancel', (e) => this.onCancel(e));
     this.on(dlg, 'close', () => this.onClosed());
     this.on(window, 'popstate', () => this.onPop());
-    this.on(dlg, 'cx-view-change', () => undefined);
+    this.on(this.preview, 'cx-view-change', (e) => {
+      const view = (e as CustomEvent<string>).detail;
+      if (view === 'continuous' && this.breakEditor.active) this.setBreakMode(false, false);
+      else this.breakEditor.refresh();
+    });
   }
 
   // ------------------------------------------------------------- open/close ---
@@ -271,6 +296,8 @@ class Session {
       if (status !== null) status.textContent = 'Custom PDF cancelled.';
     }
     this.unsubscribe?.();
+    this.breakEditor.destroy();
+    this.q('break-mode').setAttribute('aria-pressed', 'false');
     this.controller.close();
     destroyPreview(this.preview);
     for (const t of [this.undoTimer, this.updatingTimer, this.slowTimer, this.announceTimer]) if (t !== null) window.clearTimeout(t);
@@ -393,8 +420,7 @@ class Session {
       case 'download': void this.download(); break;
       case 'stale-dismiss': this.dismissStale(); break;
       case 'break-mode':
-        // B8c implements break editing; B8b only exposes the control and tells it to start.
-        this.dlg.dispatchEvent(new CustomEvent('cx-break-mode-toggle', { detail: { pressed: btn.getAttribute('aria-pressed') !== 'true' } }));
+        this.setBreakMode(!this.breakEditor.active, true);
         break;
       default: break;
     }
@@ -406,6 +432,19 @@ class Session {
       const typing = t instanceof HTMLInputElement && (t.type === 'text' || t.type === 'number') || t instanceof HTMLTextAreaElement;
       if (!typing) { e.preventDefault(); this.controller.undo(); this.armUndo(); }
     }
+  }
+
+  /** Break editing is available only in Pages view; turning it on switches back to Pages. */
+  private setBreakMode(on: boolean, announce: boolean): void {
+    const btn = this.q('break-mode');
+    btn.setAttribute('aria-pressed', String(on));
+    if (on) {
+      if (getView(this.preview) === 'continuous') setView(this.preview, 'pages');
+      if (this.panelOpen()) this.setPanel(false, false);
+    }
+    this.breakEditor.setMode(on);
+    if (on) this.breakEditor.focusFirst();
+    if (announce) this.say(on ? 'Break points shown. Select one to start a new system or page there.' : 'Break points hidden.', true);
   }
 
   private armUndo(): void {
@@ -497,7 +536,7 @@ class Session {
     if (status === null || text === '') return;
     const now = Date.now();
     const wait = this.lastAnnounceAt + ANNOUNCE_GAP_MS - now;
-    if (immediate && wait <= 0 || wait <= 0) { this.lastAnnounceAt = now; status.textContent = text; this.pendingAnnounce = null; return; }
+    if (immediate || wait <= 0) { this.lastAnnounceAt = now; status.textContent = text; this.pendingAnnounce = null; return; }
     this.pendingAnnounce = text;
     if (this.announceTimer === null) {
       this.announceTimer = window.setTimeout(() => {
@@ -702,6 +741,7 @@ class Session {
       this.lastShown = shown;
       this.lastUpdatingFlag = showUpdating;
       renderPreview(this.preview, shown, { partLabels: this.partLabels, updating: showUpdating });
+      this.breakEditor.refresh();
     }
     if (shown !== null) this.hasShownResult = true;
     this.syncWait(s);
@@ -816,7 +856,8 @@ class Session {
   private syncAnnouncements(s: ControllerState, prev: ControllerState | null): void {
     if (prev === null) return;
     if (s.phase === 'ready' && prev.phase !== 'ready' && prev.phase !== 'exporting' && s.result !== null && this.hasShownResult && prev.previousResult !== null) {
-      this.say(`Preview updated: ${pageWord(s.result.pages.length)}.`);
+      if (this.holdUpdated) this.holdUpdated = false;
+      else this.say(`Preview updated: ${pageWord(s.result.pages.length)}.`);
     } else if (s.phase === 'ready' && prev.phase !== 'ready' && prev.phase !== 'exporting' && !this.announcedFirst) {
       // First open: nothing to announce, but clear the loading message.
       this.announcedFirst = true;

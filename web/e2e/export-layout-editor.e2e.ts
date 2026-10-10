@@ -408,3 +408,241 @@ test.describe("editor controls", () => {
     expect(await page.evaluate(() => document.activeElement?.id)).toBe("export-btn");
   });
 });
+
+// ------------------------------------------------------------ break editing ---
+const BREAK_VIEWPORTS = [
+  { name: "1280", width: 1280, height: 800 },
+  { name: "390", width: 390, height: 844 },
+] as const;
+const SHOTS_C = resolve(process.cwd(), "..", "build", "b8c");
+
+interface Pack { phase: string; systems: number; pages: number; digest: string; breaks: { boundaryId: string; kind: string; origin: string }[] }
+async function pack(page: Page): Promise<Pack> {
+  return page.evaluate(() => {
+    const w = window as unknown as Win;
+    let out: Pack | null = null;
+    w.__editor!.controller.subscribe((s) => {
+      const st = s as { phase: string; result: { digests: { result: string }; pages: { systemCount: number | null }[]; effectiveBreaks: { breaks: { boundaryId: string; kind: string; origin: string }[] }[] } | null };
+      out = {
+        phase: st.phase, pages: st.result?.pages.length ?? 0, digest: st.result?.digests.result ?? "",
+        systems: (st.result?.pages ?? []).reduce((n, p) => n + (p.systemCount ?? 0), 0),
+        breaks: (st.result?.effectiveBreaks ?? []).flatMap((e) => e.breaks),
+      };
+    })();
+    return out!;
+  });
+}
+async function settleResult(page: Page, previousDigest: string): Promise<Pack> {
+  await expect.poll(async () => { const p = await pack(page); return p.phase === "ready" && p.digest !== previousDigest && p.digest !== ""; }, { timeout: 120_000 }).toBe(true);
+  return pack(page);
+}
+
+for (const vp of BREAK_VIEWPORTS) {
+  test.describe(`break editing at ${vp.width}x${vp.height}`, () => {
+    test.use({ viewport: { width: vp.width, height: vp.height } });
+    const narrow = vp.width < 992;
+    const handles = (page: Page) => page.locator("dialog.cx .cx-bp:not([hidden])");
+
+    async function modeOn(page: Page): Promise<void> {
+      if (narrow) await page.locator('dialog.cx [data-cx="settings-btn"]').click();
+      await page.locator('dialog.cx [data-cx="break-mode"]').click();
+      await expect(page.locator('dialog.cx [data-cx="break-mode"]')).toHaveAttribute("aria-pressed", "true");
+      await expect(handles(page).first()).toBeVisible();
+    }
+    /** A visible handle of the given kind, deep enough in the piece to be a mid-line point. */
+    async function pick(page: Page, kind: string, nth = 1): Promise<string> {
+      const list = page.locator(`dialog.cx .cx-bp:not([hidden])[data-kind="${kind}"]`);
+      await expect.poll(() => list.count()).toBeGreaterThan(nth);
+      return (await list.nth(nth).getAttribute("data-boundary"))!;
+    }
+    const byId = (page: Page, id: string) => page.locator(`dialog.cx .cx-bp[data-boundary="${id}"]`);
+
+    test("shows labelled handles with 44 px hit areas and a roving tab stop, and keeps overlay markup out of the layout result", async ({ page }) => {
+      await openEditor(page);
+      if (narrow) await expect(page.locator('dialog.cx [data-cx="settings-btn"]')).toBeVisible();
+      await modeOn(page);
+      expect(await page.evaluate(() => document.activeElement?.classList.contains("cx-bp"))).toBe(true); // focus moved to the first handle
+      if (narrow) await expect(page.locator('dialog.cx [data-cx="settings"]')).toBeHidden();
+      await expect(page.locator("dialog.cx #cx-status")).toHaveText("Break points shown. Select one to start a new system or page there.");
+
+      const first = handles(page).first();
+      expect(await first.getAttribute("aria-label")).toMatch(/^Break point \d+ of \d+ in Kyrie IX, after '.+', page 1\. Now: (no break|original line break)\.$/);
+      const sizes = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>("dialog.cx .cx-bp:not([hidden])")].map((b) => { const r = b.getBoundingClientRect(); return [Math.round(r.width), Math.round(r.height)]; }));
+      expect(sizes.length).toBeGreaterThan(3);
+      for (const [w, h] of sizes) { expect(w).toBeGreaterThanOrEqual(44); expect(h).toBeGreaterThanOrEqual(44); }
+      await expect(page.locator('dialog.cx .cx-bp[data-kind="orig"]').first()).toHaveAttribute("aria-label", /Now: original line break\.$/);
+
+      // One tab stop per page section.
+      const stops = await page.evaluate(() => [...document.querySelectorAll("dialog.cx .cx-overlay")].map((o) => o.querySelectorAll('.cx-bp[tabindex="0"]').length));
+      expect(stops.length).toBeGreaterThan(0);
+      for (const n of stops) expect(n).toBe(1);
+
+      // Roving focus: arrows, Home, End.
+      const idAt = () => page.evaluate(() => (document.activeElement as HTMLElement).dataset["boundary"]);
+      const start = await idAt();
+      await page.keyboard.press("ArrowRight");
+      const second = await idAt();
+      expect(second).not.toBe(start);
+      await page.keyboard.press("ArrowLeft");
+      expect(await idAt()).toBe(start);
+      await page.keyboard.press("End");
+      const last = await idAt();
+      await page.keyboard.press("Home");
+      expect(await idAt()).toBe(start);
+      expect(last).not.toBe(start);
+      expect(await page.evaluate(() => document.querySelectorAll('dialog.cx .cx-bp[tabindex="0"]').length)).toBe(1);
+
+      // Overlays are in the preview only: not inside the sheet, and never in the result's SVG.
+      expect(await page.locator("dialog.cx .cx-sheet .cx-overlay, dialog.cx .cx-svg .cx-bp").count()).toBe(0);
+      const leaked = await page.evaluate(() => {
+        let svgs: string[] = [];
+        (window as unknown as Win).__editor!.controller.subscribe((s) => {
+          const st = s as { result: { pages: { svg?: { svg: string; ids: string[] } }[] } | null };
+          svgs = (st.result?.pages ?? []).flatMap((p) => (p.svg ? [p.svg.svg, ...p.svg.ids] : []));
+        })();
+        return svgs.filter((x) => /cx-(overlay|bp|bpline|menu|bplab)|data-boundary|aria-haspopup/.test(x)).length;
+      });
+      expect(leaked).toBe(0);
+      mkdirSync(SHOTS_C, { recursive: true });
+      if (!narrow) await page.screenshot({ path: `${SHOTS_C}/break-mode-${vp.name}.png` });
+
+      // Esc on a handle leaves the overlay without closing the dialog.
+      await page.keyboard.press("Escape");
+      await expect(page.locator("dialog.cx")).toHaveAttribute("open", "");
+      expect(await page.evaluate(() => document.activeElement?.getAttribute("data-cx"))).toBe(narrow ? "settings-btn" : "break-mode");
+    });
+
+    test("adds a page break by keyboard, sees the page count and the PDF change, then undoes it with Ctrl/Cmd+Z", async ({ page }) => {
+      await openEditor(page);
+      const before = await pack(page);
+      await modeOn(page);
+      const id = await pick(page, "none", 3);
+      await byId(page, id).focus();
+      await page.keyboard.press("Enter");
+      const menu = page.locator("dialog.cx .cx-menu");
+      await expect(menu).toBeVisible();
+      await expect(menu).toHaveAttribute("role", "group");
+      await expect(menu.locator("#cx-menu-title")).toContainText("break point");
+      await expect(menu.getByRole("button")).toHaveText(["◀ Previous", "Next ▶", "Start new system here", "Start new page here", "Cancel"]);
+      expect(await page.evaluate(() => document.activeElement?.getAttribute("data-m"))).toBe("system");
+      if (narrow) {
+        const mb = (await menu.boundingBox())!;
+        const fb = (await page.locator("dialog.cx .cx-foot").boundingBox())!;
+        expect(mb.y + mb.height).toBeLessThanOrEqual(fb.y + 1); // above the footer
+        expect(mb.width).toBeGreaterThanOrEqual(vp.width - 2);
+        await page.screenshot({ path: `${SHOTS_C}/break-menu-${vp.name}.png` });
+      }
+      await page.keyboard.press("Escape"); // closes the menu, back to the handle
+      await expect(menu).toHaveCount(0);
+      expect(await page.evaluate(() => (document.activeElement as HTMLElement).dataset["boundary"])).toBe(id);
+      await page.keyboard.press("Enter");
+      await page.getByRole("button", { name: "Start new page here" }).focus();
+      await page.keyboard.press("Enter");
+
+      const after = await settleResult(page, before.digest);
+      expect(after.pages).toBe(before.pages + 1);
+      expect(after.breaks.find((b) => b.boundaryId === id)).toMatchObject({ kind: "page", origin: "user" });
+      await expect(menu).toHaveCount(0);
+      // Focus returns to the same handle, now a page break.
+      await expect(byId(page, id)).toBeFocused();
+      await expect(byId(page, id)).toHaveAttribute("data-kind", "page");
+      await expect(byId(page, id)).toHaveAttribute("aria-label", /Now: your new page\.$/);
+      await expect(page.locator("dialog.cx #cx-status")).toContainText("New page starts after");
+      await expect(page.locator("dialog.cx #cx-status")).toContainText("Undo is available.");
+      await expect(page.locator('dialog.cx [data-cx="undo"]')).toBeVisible();
+      await expect(page.locator('dialog.cx [data-cx="break-count"]').or(page.locator("dialog.cx .cx-help", { hasText: "of your breaks" })).first()).toBeAttached();
+      await expect(page.locator("dialog.cx .cx-page")).toHaveCount(after.pages);
+
+      // The downloaded PDF has the new page.
+      const button = page.locator('dialog.cx [data-cx="download"]');
+      await expect(button).toHaveText(`Download PDF · ${after.pages} pages`);
+      const [download] = await Promise.all([page.waitForEvent("download", { timeout: 120_000 }), button.click()]);
+      const doc = await PDFDocument.load(readFileSync(await download.path()), { updateMetadata: false });
+      expect(doc.getPageCount()).toBe(after.pages);
+      await expect(button).toBeEnabled({ timeout: 60_000 });
+
+      // Undo with the keyboard (focus is on a handle, not in a text field).
+      await byId(page, id).focus();
+      await page.keyboard.press("ControlOrMeta+z");
+      const undone = await settleResult(page, after.digest);
+      expect(undone.pages).toBe(before.pages);
+      expect(undone.breaks.find((b) => b.boundaryId === id)).toBeUndefined();
+      expect(undone.digest).toBe(before.digest);
+    });
+
+    test("adds and removes a system break by pointer, and an original line break offers no new-system action", async ({ page }) => {
+      await openEditor(page);
+      const before = await pack(page);
+      await modeOn(page);
+      const id = await pick(page, "none", 4);
+      await byId(page, id).scrollIntoViewIfNeeded();
+      await byId(page, id).click();
+      await page.getByRole("button", { name: "Start new system here" }).click();
+      const added = await settleResult(page, before.digest);
+      expect(added.systems).toBe(before.systems + 1);
+      expect(added.breaks.find((b) => b.boundaryId === id)).toMatchObject({ kind: "system", origin: "user" });
+      await expect(byId(page, id)).toHaveAttribute("data-kind", "system");
+      await expect(byId(page, id)).toHaveAttribute("aria-label", /Now: your new system\.$/);
+      await expect(page.locator("dialog.cx #cx-status")).toContainText("New system starts after");
+
+      await byId(page, id).click();
+      await expect(page.getByRole("button", { name: "Start new system here (current)" })).toBeDisabled();
+      await page.getByRole("button", { name: "Remove my break" }).click();
+      const removed = await settleResult(page, added.digest);
+      expect(removed.systems).toBe(before.systems);
+      expect(removed.digest).toBe(before.digest);
+      await expect(byId(page, id)).toHaveAttribute("data-kind", "none");
+      await expect(page.locator("dialog.cx #cx-status")).toContainText("Break removed after");
+
+      // Original line break: the panel replaces "Start new system" with a note.
+      const orig = page.locator('dialog.cx .cx-bp:not([hidden])[data-kind="orig"]').first();
+      await orig.scrollIntoViewIfNeeded();
+      await orig.click();
+      const menu = page.locator("dialog.cx .cx-menu");
+      await expect(menu).toContainText("Original line break. To remove it, choose Line breaks: Fit to page.");
+      await expect(menu.getByRole("button", { name: /Start new system here/ })).toHaveCount(0);
+      await expect(menu.getByRole("button", { name: "Remove my break" })).toHaveCount(0);
+      await menu.getByRole("button", { name: "Cancel" }).click();
+      await expect(menu).toHaveCount(0);
+      await expect(orig).toBeFocused();
+    });
+
+    test("thins crowded handles by zoom and turns off in Continuous view", async ({ page }) => {
+      await openEditor(page);
+      await modeOn(page);
+      const total = await page.locator("dialog.cx .cx-bp").count();
+      const zoomOut = page.locator("dialog.cx").getByRole("button", { name: "Zoom out" });
+      const zoomIn = page.locator("dialog.cx").getByRole("button", { name: "Zoom in" });
+      const v100 = await handles(page).count();
+      await zoomOut.click();
+      await zoomOut.click();
+      const v50 = await handles(page).count();
+      for (let i = 0; i < 6; i++) await zoomIn.click();
+      const v300 = await handles(page).count();
+      expect(v50).toBeLessThanOrEqual(v100);
+      expect(v300).toBeGreaterThanOrEqual(v100);
+      expect(v50).toBeLessThan(v300);
+      expect(total).toBeGreaterThanOrEqual(v300);
+      // Visible handles never sit closer than 44 px within a row.
+      const gaps = await page.evaluate(() => {
+        const rows = new Map<string, number[]>();
+        for (const b of document.querySelectorAll<HTMLElement>("dialog.cx .cx-bp:not([hidden])")) {
+          const r = b.getBoundingClientRect();
+          const key = `${b.closest(".cx-pg")?.getAttribute("data-page")}:${Math.round(r.top / 8)}`;
+          rows.set(key, [...(rows.get(key) ?? []), r.left + r.width / 2]);
+        }
+        return [...rows.values()].flatMap((xs) => xs.sort((a, b) => a - b).slice(1).map((x, i) => x - xs[i]!));
+      });
+      for (const g of gaps) expect(g).toBeGreaterThanOrEqual(43);
+
+      await page.locator("dialog.cx .cx-vo", { hasText: "Continuous" }).click();
+      await expect(page.locator('dialog.cx [data-cx="break-mode"]')).toHaveAttribute("aria-pressed", "false");
+      await expect(page.locator("dialog.cx .cx-bp")).toHaveCount(0);
+      // Turning it on again switches back to Pages.
+      if (narrow) await page.locator('dialog.cx [data-cx="settings-btn"]').click();
+      await page.locator('dialog.cx [data-cx="break-mode"]').click();
+      await expect(page.locator("dialog.cx .cx-preview")).toHaveAttribute("data-view", "pages");
+      await expect(handles(page).first()).toBeVisible();
+    });
+  });
+}
