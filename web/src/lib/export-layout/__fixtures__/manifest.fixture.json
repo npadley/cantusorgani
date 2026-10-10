@@ -1,0 +1,61 @@
+{
+  "_note": "experimental, unapproved, never published",
+  "schemaVersion": 1,
+  "parts": [
+    {
+      "target": "movement:ordinarium-missae-ix/kyrie",
+      "renderHash": "640b269879f24af40180e6c68c5dffbd",
+      "digest": "3bdeae05a1a80c94de087f5a682e168444cffe03ee5fc43fa1b88bb529bb0c55",
+      "meiUrl": "/__fixtures__/kyrie-ix-experiment.mei",
+      "meiSha256": "3bdeae05a1a80c94de087f5a682e168444cffe03ee5fc43fa1b88bb529bb0c55",
+      "sourceRevision": "640b269879f24af40180e6c68c5dffbd",
+      "profile": "experiment-unapproved",
+      "verovio": "6.3.0",
+      "capabilities": {
+        "manualBreaks": true
+      },
+      "boundaries": [
+        {
+          "id": "b001",
+          "onset": "7",
+          "sourceBreak": true,
+          "division": null,
+          "measureId": "m008",
+          "afterText": null
+        },
+        {
+          "id": "b002",
+          "onset": "109/8",
+          "sourceBreak": true,
+          "division": null,
+          "measureId": "m016",
+          "afterText": null
+        },
+        {
+          "id": "b003",
+          "onset": "85/4",
+          "sourceBreak": true,
+          "division": null,
+          "measureId": "m026",
+          "afterText": null
+        },
+        {
+          "id": "b004",
+          "onset": "233/8",
+          "sourceBreak": true,
+          "division": null,
+          "measureId": "m039",
+          "afterText": null
+        },
+        {
+          "id": "b005",
+          "onset": "38",
+          "sourceBreak": true,
+          "division": null,
+          "measureId": "m050",
+          "afterText": null
+        }
+      ]
+    }
+  ]
+}
