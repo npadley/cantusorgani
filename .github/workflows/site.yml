@@ -60,7 +60,7 @@ jobs:
           enable-cache: true
       - run: uv sync --frozen
       - name: Pinned LilyPond, cached
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: vendor/lilypond-*
           key: lilypond-${{ runner.os }}-${{ hashFiles('data/typeset/lilypond.yml') }}
@@ -82,7 +82,7 @@ jobs:
           echo "rendered=$(find build/typeset/out -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)" >> "$GITHUB_OUTPUT"
       - name: Hand the renders to the upload job
         if: steps.render.outputs.rendered != '0'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6
         with:
           path: build/typeset/out
           key: typeset-out-${{ github.run_id }}-${{ github.run_attempt }}
@@ -105,7 +105,7 @@ jobs:
           enable-cache: true
       - run: uv sync --frozen
       - name: The renders
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6
         with:
           path: build/typeset/out
           key: typeset-out-${{ github.run_id }}-${{ github.run_attempt }}
@@ -265,7 +265,7 @@ jobs:
           enable-cache: true
       - run: uv sync --frozen
       - name: Pinned LilyPond, cached
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: vendor/lilypond-*
           key: lilypond-${{ runner.os }}-${{ hashFiles('data/typeset/lilypond.yml') }}
