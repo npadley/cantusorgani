@@ -109,3 +109,61 @@ describe('materialiseBreaks', () => {
     expect(() => materialiseBreaks('<mei><measure></mei>', breaksOf(), [], 'original')).toThrow();
   });
 });
+
+describe('materialiseBreaks split sustains', () => {
+  const SPLIT = `<?xml version="1.0" encoding="utf-8"?>
+<mei xmlns="${MEI_NS}" meiversion="5.0"><music><body><mdiv><score><section>
+  <measure xml:id="ma"><staff n="1"><layer n="1"><note xml:id="evx" dur="2" pname="c" oct="4" accid="s" next="#evxc1"/></layer></staff></measure>
+  <measure xml:id="mb"><staff n="1"><layer n="1"><note xml:id="evxc1" type="split-continuation" prev="#evx" dur="2" pname="c" oct="4" head.visible="false" stem.visible="false"/><note xml:id="evy" dur="2" pname="d" oct="4"/></layer></staff>
+  <staff n="2"><layer n="1"><space xml:id="evzc1" type="split-continuation" prev="#evz" dur="1"/></layer></staff></measure>
+  <measure xml:id="mc"><staff n="1"><layer n="1"><note xml:id="evw" dur="1" pname="e" oct="4"/></layer></staff></measure>
+</section></score></mdiv></body></music></mei>`;
+  const SB = [bd('b1', 'ma'), bd('b2', 'mb')];
+  const el = (xml: string, id: string): Element | undefined =>
+    Array.from(parse(xml).getElementsByTagName('*')).find((e) => e.getAttribute('xml:id') === id);
+
+  for (const kind of ['system', 'page'] as const) {
+    it(`reveals the continuation with a tie at a ${kind} break`, () => {
+      const out = materialiseBreaks(SPLIT, breaksOf(eb('b1', kind)), SB, 'automatic');
+      const cont = el(out, 'evxc1');
+      expect(cont?.hasAttribute('head.visible')).toBe(false);
+      expect(cont?.hasAttribute('stem.visible')).toBe(false);
+      expect(cont?.getAttribute('accid')).toBe('s');
+      const tie = el(out, 'evxc1-tie');
+      expect(tie?.localName).toBe('tie');
+      expect(tie?.namespaceURI).toBe(MEI_NS);
+      expect(tie?.getAttribute('type')).toBe('split-tie');
+      expect(tie?.getAttribute('startid')).toBe('#evx');
+      expect(tie?.getAttribute('endid')).toBe('#evxc1');
+      expect(tie?.parentNode?.nodeName).toBe('measure');
+      expect((tie?.parentNode as Element | null)?.getAttribute('xml:id')).toBe('ma');
+      expect(eventIds(out)).toEqual(eventIds(SPLIT));
+      expect(parse(out).documentElement?.namespaceURI).toBe(MEI_NS);
+    });
+  }
+
+  it('copies no accid when the first fragment had none', () => {
+    const noAccid = SPLIT.replace(' accid="s"', '');
+    const out = materialiseBreaks(noAccid, breaksOf(eb('b1', 'system')), SB, 'automatic');
+    expect(el(out, 'evxc1')?.hasAttribute('accid')).toBe(false);
+    expect(el(out, 'evxc1-tie')).toBeDefined();
+  });
+
+  it('leaves continuations untouched where there is no break', () => {
+    const out = materialiseBreaks(SPLIT, breaksOf(eb('b2', 'system')), SB, 'automatic');
+    const cont = el(out, 'evxc1');
+    expect(cont?.getAttribute('head.visible')).toBe('false');
+    expect(cont?.getAttribute('stem.visible')).toBe('false');
+    expect(cont?.hasAttribute('accid')).toBe(false);
+    expect(el(out, 'evxc1-tie')).toBeUndefined();
+    expect(count(out, 'tie')).toBe(0);
+  });
+
+  it('adds no tie for space continuations and does not mutate the input', () => {
+    const copy = `${SPLIT}`;
+    const out = materialiseBreaks(SPLIT, breaksOf(eb('b1', 'system'), eb('b2', 'page')), SB, 'original');
+    expect(SPLIT).toBe(copy);
+    expect(el(out, 'evzc1-tie')).toBeUndefined();
+    expect(count(out, 'tie')).toBe(1);
+  });
+});

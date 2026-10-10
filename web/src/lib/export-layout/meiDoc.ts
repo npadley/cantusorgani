@@ -1,5 +1,5 @@
 import { DOMParser, XMLSerializer } from '@xmldom/xmldom';
-import type { Element, Node } from '@xmldom/xmldom';
+import type { Document, Element, Node } from '@xmldom/xmldom';
 import type { EffectiveBreaks, LinePolicy, SafeBoundary } from './types';
 
 const MEI_NS = 'http://www.music-encoding.org/ns/mei';
@@ -19,6 +19,74 @@ function nextElementSibling(node: Node): Element | null {
 
 function localName(el: Element): string {
   return el.localName ?? el.nodeName;
+}
+
+function enclosingMeasure(node: Node): Element | null {
+  for (let n: Node | null = node.parentNode; n; n = n.parentNode) {
+    if (n.nodeType === 1 && localName(n as Element) === 'measure') return n as Element;
+  }
+  return null;
+}
+
+const refId = (ref: string | null): string | null => (ref && ref.startsWith('#') ? ref.slice(1) : null);
+
+/**
+ * At each chosen break, show the split-continuation notes that begin the next measure,
+ * and draw a tie from their predecessor (end of the broken measure) to them.
+ */
+function revealSplitSustains(
+  doc: Document,
+  breaks: EffectiveBreaks,
+  byId: ReadonlyMap<string, SafeBoundary>,
+): void {
+  const brokenMeasureIds = new Set<string>();
+  for (const br of breaks.breaks) {
+    const b = byId.get(br.boundaryId);
+    if (b) brokenMeasureIds.add(b.measureId);
+  }
+  if (brokenMeasureIds.size === 0) return;
+
+  const byXmlId = new Map<string, Element>();
+  for (const e of Array.from(doc.getElementsByTagName('*'))) {
+    const id = e.getAttribute(XML_ID);
+    if (id) byXmlId.set(id, e);
+  }
+  const continuations = Array.from(byXmlId.values()).filter((e) => e.getAttribute('type') === 'split-continuation');
+  for (const cont of continuations) {
+    if (localName(cont) !== 'note') continue;
+    const prevId = refId(cont.getAttribute('prev'));
+    const prev = prevId ? byXmlId.get(prevId) : undefined;
+    const measure = prev ? enclosingMeasure(prev) : null;
+    const measureId = measure?.getAttribute(XML_ID);
+    if (!prev || !measure || !prevId || !measureId || !brokenMeasureIds.has(measureId)) continue;
+    const contId = cont.getAttribute(XML_ID);
+    if (!contId || enclosingMeasure(cont) === measure) continue;
+
+    cont.removeAttribute('head.visible');
+    cont.removeAttribute('stem.visible');
+
+    // Courtesy accidental: copy the written accid from the first fragment of the chain.
+    let first: Element = prev;
+    const seen = new Set<Element>();
+    while (first.getAttribute('type') === 'split-continuation' && !seen.has(first)) {
+      seen.add(first);
+      const pid = refId(first.getAttribute('prev'));
+      const p = pid ? byXmlId.get(pid) : undefined;
+      if (!p) break;
+      first = p;
+    }
+    const accid = first.getAttribute('accid');
+    if (accid) cont.setAttribute('accid', accid);
+
+    const tieId = `${contId}-tie`;
+    if (byXmlId.has(tieId)) continue;
+    const tie = doc.createElementNS(MEI_NS, 'tie');
+    tie.setAttribute(XML_ID, tieId);
+    tie.setAttribute('type', 'split-tie');
+    tie.setAttribute('startid', `#${prevId}`);
+    tie.setAttribute('endid', `#${contId}`);
+    measure.appendChild(tie);
+  }
 }
 
 /**
@@ -68,6 +136,8 @@ export function materialiseBreaks(
       else measure.parentNode.insertBefore(pb, measure.nextSibling);
     }
   }
+
+  revealSplitSustains(doc, breaks, byId);
 
   const out = new XMLSerializer().serializeToString(doc);
   const decl = /^\s*(<\?xml[^?]*\?>)/.exec(meiXml);
