@@ -406,5 +406,9 @@ export function verovioOptions(
     evenNoteSpacing: true,
     spacingLinear: 0.25,
     spacingNonLinear: 0.6,
+    // Space between words in 1/10 staff-space units (default 1.2). At 1.2 the gap between "son." and
+    // "Chri" shrinks to 0.47 mm on A5 once justification squeezes the line; 2 keeps every
+    // word gap at or above 1.1 mm over the contracts s3 matrix without changing any page count.
+    lyricWordSpace: 2,
   };
 }

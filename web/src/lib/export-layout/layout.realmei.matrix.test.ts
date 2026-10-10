@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { renderMei } from './layout';
 import { paperDimensions } from './settings';
+import { lyricCollisions } from './__fixtures__/lyricCollisions';
 import { WASM_TIMEOUT_MS, ctxOf, errors, partOf, rectsOf, settingsOf, useRealVerovio } from './__fixtures__/layoutHarness';
 import manifest from './__fixtures__/manifest.fixture.json';
 import type { LayoutSettings, SafeBoundary } from './types';
@@ -49,6 +50,10 @@ describe('real Kyrie IX over the layout matrix', { timeout: WASM_TIMEOUT_MS }, (
 
     const svg = layout.pages.map((p) => p.svg).join('\n');
     const present = new Set([...svg.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]!));
+    // Lyrics: real Liberation Serif widths, 0.3 mm minimum gap (evidence.py's 0.45 em estimate overstates).
+    expect(layout.pages.flatMap((p) => lyricCollisions(p.svg, 0.3))).toEqual([]);
+    // Word gaps stay readable (>= 1 mm), which the default lyricWordSpace did not give on A5.
+    expect(layout.pages.flatMap((p) => lyricCollisions(p.svg, 1.0))).toEqual([]);
     expect(NOTES.filter((id) => !present.has(id))).toEqual([]);
     for (const p of layout.pages) expect(p.systems.length).toBeLessThanOrEqual(s.maxSystems ?? Infinity);
     expect(Math.abs(layout.staffHeightMm - (s.staff === 'small' ? 5.6 : s.staff === 'large' ? 9.6 : 7.2))).toBeLessThanOrEqual(0.1);
