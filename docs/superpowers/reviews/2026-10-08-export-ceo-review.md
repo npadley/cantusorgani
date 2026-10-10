@@ -54,7 +54,7 @@ The engineering is careful. The strategy came from following the conversation, n
 
 ### S8. The experiment evidence sits outside the repo, and the spec says so
 - Evidence: "Experimental artifacts are retained in this chat's `kyrie-ix-experiment` directory" (spec, line 205).
-- Verified present at `/Users/npadley/.codex/visualizations/2026/10/06/01a10f81-7606-7733-b9d5-b66fceed337e/kyrie-ix-experiment/`: `convert.py`, `kyrie-ix.mei`, `kyrie-ix.musicxml`, `lilypond-resolved.xml`, `validation.json`, `README.md`, `comparison.html`, `build_comparison.py`, the SVGs, and `../kyrie-ix-comparison.html`. It is one `rm` away from loss, and A2's baseline counts (358/5/60) depend on it.
+- Verified present at `(the original Codex experiment directory, outside the repo)`: `convert.py`, `kyrie-ix.mei`, `kyrie-ix.musicxml`, `lilypond-resolved.xml`, `validation.json`, `README.md`, `comparison.html`, `build_comparison.py`, the SVGs, and `../kyrie-ix-comparison.html`. It is one `rm` away from loss, and A2's baseline counts (358/5/60) depend on it.
 
 ### S9. Strategic omissions
 - No export analytics and no feedback link.

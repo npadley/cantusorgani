@@ -7,7 +7,7 @@ Inputs reviewed in full:
 - `docs/superpowers/plans/2026-10-06-mei-conversion-plan.md` (**PA:line**)
 - `docs/superpowers/plans/2026-10-06-export-editor-plan.md` (**PB:line**)
 - `docs/superpowers/plans/2026-10-06-export-rollout-plan.md` (**PC:line**)
-- Kyrie IX experiment at `/Users/npadley/.codex/visualizations/2026/10/06/01a10f81-7606-7733-b9d5-b66fceed337e/kyrie-ix-experiment/` and its extraction frontend clone at `/private/tmp/kyrie-ly-to-musicxml/` (commit 5adbd4d).
+- Kyrie IX experiment at `(the original Codex experiment directory, outside the repo)` and its extraction frontend clone at `(a temporary clone of ly-to-musicxml)` (commit 5adbd4d).
 
 **Settled decision (user, 2026-10-08):** MEI/Verovio reflow is v1. The target use: an organist sets page size, staff size and systems per page, and the music reflows. The output is printed on custom paper or read in an iPad app such as forScore. This review does not reopen that choice. Server-side LilyPond is mentioned only as the fallback named in §7 if gate G1 or G2 fails.
 
@@ -1168,8 +1168,8 @@ Parallelism: the Python lane and the three web lanes run concurrently from day o
 | # | Plan text (location) | Reality | Correction |
 |---|---|---|---|
 | 1 | `uv sync --extra dev` (P0:140) | `dev` is a `[dependency-groups]` group (pyproject.toml), not an extra | `uv sync` (dev group is synced by default) |
-| 2 | Experiment "retained in this chat's `kyrie-ix-experiment` directory" (S:205) | `/Users/npadley/.codex/visualizations/2026/10/06/01a10f81-7606-7733-b9d5-b66fceed337e/kyrie-ix-experiment/` (outside repo) | Check in per §2b (S0) |
-| 3 | Frontend clone (implied by README) | `/private/tmp/kyrie-ly-to-musicxml/` (volatile `/private/tmp`) | Record the commit + `xml-export.ily` origin in the provenance README; do not depend on it |
+| 2 | Experiment "retained in this chat's `kyrie-ix-experiment` directory" (S:205) | `(the original Codex experiment directory, outside the repo)` (outside repo) | Check in per §2b (S0) |
+| 3 | Frontend clone (implied by README) | `(a temporary clone of ly-to-musicxml)` (volatile `/private/tmp`) | Record the commit + `xml-export.ily` origin in the provenance README; do not depend on it |
 | 4 | `{"chant","alto","tenor","bass"}` (PA:86) | Anonymous voices (kyrie_IX.ly:168,175,178) | C2 |
 | 5 | `empty_record.state == "absent"` / empty transcriptions (PA:58,62) | 0 of 859 `.ly` files are empty | "absent" = catalogue target with no source |
 | 6 | "fixture include families", cycle handling (PA:54,68) | All 859 sources include exactly `gregorian.ly` + `noh2.ily` | Digest = source + all `data/typeset/include/*.ily` + pin, as `render.source_hash` |
