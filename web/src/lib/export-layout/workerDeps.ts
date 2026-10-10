@@ -1,20 +1,24 @@
-// B7c: the real dependencies of the export workers that are not written yet.
+// B7c/B7d: the real dependencies of the export workers.
 //
-// PLACEHOLDERS. `composeExport` (B6a) and `exportCanonicalPdf` (B6b) throw until those cards
-// land. B6a replaces the `composeExport` export below with `export { composeExport } from
-// './compose'`; B6b replaces `exportCanonicalPdf` with `export { exportCanonicalPdf } from
-// './exportPdf'`. The workers import only from this module, so they need no other edit.
+// `createCompose` wires B6a's composeExport with a fetch-based AssetLoader, a PNG header reader
+// and a pdf-lib page-size reader. `exportCanonicalPdf` is still a PLACEHOLDER that throws
+// `NOT_WIRED: exportPdf`; B6b replaces it with `export { exportCanonicalPdf } from './exportPdf'`.
+// The workers import only from this module.
 //
-// `renderMeiPart` is real: it fetches and verifies a part's MEI, works out the page rectangles
-// and calls renderMei. The heading reservation on page 1 is provisional (B6a owns the real
-// heading height and may replace this function with its own).
+// `createRenderPart` fetches and verifies a part's MEI, builds the page rectangles from compose's
+// own reservationFor (so compose never sees a size mismatch) and calls renderMei.
+import { PDFDocument } from 'pdf-lib';
+import { composeExport as composeParts, reservationFor } from './compose';
+import type { ComposeDeps } from './compose';
 import { renderMei } from './layout';
 import type { PageRects } from './layout';
 import { sha256Hex } from './fonts';
 import { paperDimensions, usableRect } from './settings';
 import type {
+  AssetLoader,
   BreakOverride,
   ExportPart,
+  FontProfile,
   LayoutResult,
   LayoutSettings,
   MeiExportPart,
@@ -23,19 +27,6 @@ import type {
   RenderContext,
 } from './types';
 
-/** Space reserved above the first system of a part that has a heading (provisional). */
-const HEADING_RESERVE_MM = 18;
-
-export function composeExport(
-  parts: readonly ExportPart[],
-  layouts: readonly MeiLayout[],
-  settings: LayoutSettings,
-  token: number,
-): Promise<LayoutResult> {
-  void parts; void layouts; void settings; void token;
-  return Promise.reject(new Error('NOT_WIRED: compose'));
-}
-
 export function exportCanonicalPdf(result: LayoutResult): Promise<PdfResult> {
   void result;
   return Promise.reject(new Error('NOT_WIRED: exportPdf'));
@@ -43,10 +34,23 @@ export function exportCanonicalPdf(result: LayoutResult): Promise<PdfResult> {
 
 export type FetchBytes = (url: string) => Promise<Uint8Array>;
 
-export function pageRectsFor(settings: LayoutSettings, part: MeiExportPart): PageRects {
-  const content = usableRect(paperDimensions(settings), settings.marginMm);
-  const reserve = part.heading === null ? 0 : HEADING_RESERVE_MM;
-  return { content, firstPageContent: { ...content, heightMm: Math.max(0, content.heightMm - reserve) } };
+/**
+ * The rectangles renderMei lays out into, identical to the content rects composeExport uses:
+ * the usable rect minus the footer on every page, and also minus the heading (with the y offset
+ * moved down by it) on the part's first page.
+ */
+export function pageRectsFor(settings: LayoutSettings, part: MeiExportPart, fonts: FontProfile): PageRects {
+  const reservation = reservationFor(part, settings, fonts);
+  const full = usableRect(paperDimensions(settings), settings.marginMm);
+  const content = { ...full, heightMm: full.heightMm - reservation.footerMm };
+  return {
+    content,
+    firstPageContent: {
+      ...content,
+      yMm: content.yMm + reservation.headingMm,
+      heightMm: content.heightMm - reservation.headingMm,
+    },
+  };
 }
 
 /** Fetch the part's MEI, check it against the manifest digest, and lay it out. */
@@ -62,6 +66,68 @@ export function createRenderPart(fetchBytes: FetchBytes) {
     if (bytes.byteLength > ctx.limits.maxMeiBytes) throw new Error(`SOURCE_CEILING: ${meiUrl}`);
     if ((await sha256Hex(bytes)) !== meiSha256) throw new Error(`ASSET_HASH_MISMATCH: ${meiUrl}`);
     const meiXml = new TextDecoder().decode(bytes);
-    return renderMei({ part, meiXml }, settings, overrides, ctx, pageRectsFor(settings, part));
+    return renderMei({ part, meiXml }, settings, overrides, ctx, pageRectsFor(settings, part, ctx.fonts));
   };
+}
+
+// ------------------------------------------------------------ compose deps ---
+const hex = (bytes: ArrayBuffer): string => Array.from(new Uint8Array(bytes), (b) => b.toString(16).padStart(2, '0')).join('');
+
+/** Fetch with optional sha256 verification. Errors follow the contracts' AssetLoader convention. */
+export function createAssetLoader(fetchFn: typeof fetch = fetch): AssetLoader {
+  return {
+    async bytes(url: string, sha256: string | null): Promise<Uint8Array> {
+      let data: Uint8Array;
+      try {
+        const response = await fetchFn(url);
+        if (!response.ok) throw new Error('not ok');
+        data = new Uint8Array(await response.arrayBuffer());
+      } catch {
+        throw new Error(`ASSET_MISSING: ${url}`);
+      }
+      if (sha256 !== null) {
+        const digest = hex(await crypto.subtle.digest('SHA-256', data as Uint8Array<ArrayBuffer>));
+        if (digest !== sha256.toLowerCase()) throw new Error(`ASSET_HASH_MISMATCH: ${url}`);
+      }
+      return data;
+    },
+  };
+}
+
+const PNG_SIGNATURE = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
+
+/** Width and height from a PNG's IHDR chunk. Throws on anything that is not a PNG. */
+export function readPngSize(bytes: Uint8Array): { width: number; height: number } {
+  const isIhdr = bytes.length >= 24 && bytes[12] === 0x49 && bytes[13] === 0x48 && bytes[14] === 0x44 && bytes[15] === 0x52;
+  if (!isIhdr || PNG_SIGNATURE.some((b, i) => bytes[i] !== b)) throw new Error('INVALID_PAGE: not a PNG');
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  const width = view.getUint32(16);
+  const height = view.getUint32(20);
+  if (width === 0 || height === 0) throw new Error('INVALID_PAGE: PNG has a zero dimension');
+  return { width, height };
+}
+
+/** Page count and the size (PDF points) of page `index` (clamped to the last page). */
+export async function readPdfPageSize(bytes: Uint8Array, index: number): Promise<{ width: number; height: number; count: number }> {
+  const doc = await PDFDocument.load(bytes, { updateMetadata: false });
+  const count = doc.getPageCount();
+  if (count === 0) throw new Error('INVALID_PAGE: PDF has no pages');
+  const { width, height } = doc.getPage(Math.min(Math.max(0, index), count - 1)).getSize();
+  return { width, height, count };
+}
+
+export function composeDepsFor(assets: AssetLoader, fonts: FontProfile): ComposeDeps {
+  return { assets, fonts, pngSize: readPngSize, pdfPageSize: readPdfPageSize };
+}
+
+/** The worker's `compose` dependency: composeExport with real asset, PNG and PDF readers. */
+export function createCompose(assets: AssetLoader) {
+  return (
+    parts: readonly ExportPart[],
+    layouts: readonly MeiLayout[],
+    settings: LayoutSettings,
+    token: number,
+    fonts: FontProfile,
+  ): Promise<LayoutResult> =>
+    composeParts(parts, new Map(layouts.map((l) => [l.partId, l] as const)), settings, composeDepsFor(assets, fonts), token);
 }
