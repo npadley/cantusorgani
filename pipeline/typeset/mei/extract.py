@@ -1,18 +1,22 @@
 """Turn the ``listen_full`` TSV (contracts section 4) into exact staves, layers and events.
 
-Everything here is pure parsing: it never runs LilyPond (card A2a adds ``run_listener``).
+The parsing and assembly functions are pure and never run LilyPond; only ``run_listener`` does.
 All arithmetic is on ``fractions.Fraction``; no binary floating point is used.
 """
 
 from __future__ import annotations
 
 import re
+import tempfile
 from collections import defaultdict
 from dataclasses import dataclass
 from fractions import Fraction
 from itertools import pairwise
+from pathlib import Path
 from typing import Literal, cast
 
+from pipeline.typeset import lilypond
+from pipeline.typeset.importer import INCLUDES
 from pipeline.typeset.mei.diagnostics import Diagnostic, SourceLocation
 from pipeline.typeset.mei.model import (
     FEATURE_FAMILIES,
@@ -27,6 +31,7 @@ from pipeline.typeset.mei.model import (
     FeatureUse,
     LayerDef,
     LayerRole,
+    LilyPondRunnerAdapter,
     LyricSyllable,
     NotatedDuration,
     Notehead,
@@ -38,6 +43,7 @@ from pipeline.typeset.mei.model import (
     StaffDef,
     Step,
 )
+from pipeline.typeset.source_check import check_file
 
 # Number of fields after the kind column, per row kind (contracts section 4).
 FIELD_COUNTS: dict[str, int] = {
@@ -809,3 +815,65 @@ def ir_from_rows(rows: list[Row], source_path: str, dependency_digest: str) -> S
             *division_diagnostics(rows),
         ),
     )
+
+
+# --- running the listener (card A2a) -------------------------------------------------
+
+MEI_DIR = Path(__file__).resolve().parent
+#: Where the listener writes: ``-o <tmp>/out`` makes LilyPond emit ``<tmp>/out.listen.tsv``.
+LISTENER_OUTPUT = "out.listen.tsv"
+LISTENER_TIMEOUT = 300
+
+
+class ListenerError(RuntimeError):
+    """The source failed the source check, or LilyPond did not produce the listener TSV."""
+
+
+class PinnedLilyPondRunner:
+    """Production LilyPondRunnerAdapter: the pinned, optionally sandboxed LilyPond."""
+
+    def __init__(self) -> None:
+        self.version = lilypond.load_pin().version
+
+    def run(
+        self, args: list[str], cwd: Path, includes: tuple[Path, ...], timeout: int
+    ) -> tuple[bool, str]:
+        result = lilypond.run(args, cwd=cwd, timeout=timeout, includes=includes)
+        return result.ok, result.log
+
+
+def _scheme_string(text: str) -> str:
+    return '"' + text.replace("\\", "\\\\").replace('"', '\\"') + '"'
+
+
+def run_listener(source: Path, runner: LilyPondRunnerAdapter) -> str:
+    """Run ``listen_full.ily`` over an unmodified source and return the raw TSV text.
+
+    The source must be under the repository root so that locations come out repo-relative. It is
+    checked with ``source_check`` first, then included (never rewritten) by a throwaway wrapper in
+    a temporary directory. A runner must leave the TSV at ``<cwd>/out.listen.tsv``.
+    """
+    source = source.resolve()
+    problems = check_file(source, frozenset(INCLUDES))
+    if problems:
+        raise ListenerError(f"{source.name}: source check failed: {problems}")
+    with tempfile.TemporaryDirectory() as tmp_name:
+        tmp = Path(tmp_name)
+        wrapper = tmp / "wrapper.ly"
+        wrapper.write_text(
+            f'\\version "{runner.version}"\n'
+            f"#(define listen-full-root {_scheme_string(str(lilypond.ROOT) + '/')})\n"
+            '\\include "listen_full.ily"\n'
+            f"\\include {_scheme_string(str(source))}\n",
+            encoding="utf-8",
+        )
+        ok, log = runner.run(
+            ["-dno-print-pages", "-o", str(tmp / "out"), str(wrapper)],
+            tmp,
+            (lilypond.INCLUDE, MEI_DIR),
+            LISTENER_TIMEOUT,
+        )
+        produced = tmp / LISTENER_OUTPUT
+        if not ok or not produced.exists():
+            raise ListenerError(f"{source.name}: LilyPond failed\n{log}")
+        return produced.read_bytes().decode("utf-8")

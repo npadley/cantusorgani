@@ -585,3 +585,37 @@ def test_ir_from_rows_kyrie_dict_is_json_serialisable_without_floats():
 
     assert no_floats(json.loads(text))
     assert len(ir.lyrics) == 82 and len(ir.entry_markers) == 3 and len(ir.divisions) == 22
+
+
+# --- run_listener (card A2a) -------------------------------------------------------------
+
+from pipeline.typeset import lilypond
+from pipeline.typeset.mei.extract import PinnedLilyPondRunner, run_listener
+
+PILOT_SOURCES = {
+    "kyrie_IX": "vol-5/missa-ix/kyrie_IX.ly",
+    "al_ego_dilecto.csv": "vol-3/al_ego_dilecto.csv.ly",
+    "agnus_XI": "vol-5/missa-xi/agnus_XI.ly",
+    "ite_Ib": "vol-5/missa-i/ite_Ib.ly",
+    "co_inclina_aurem_tuam.csv": "vol-2/co_inclina_aurem_tuam.csv.ly",
+}
+
+
+@pytest.mark.lilypond
+@pytest.mark.parametrize("name", list(PILOT_SOURCES))
+def test_run_listener_pilot_fixture_matches_checked_in_tsv_byte_for_byte(name):
+    source = lilypond.ROOT / "data" / "typeset" / "src" / PILOT_SOURCES[name]
+    text = run_listener(source, PinnedLilyPondRunner())
+    assert text.encode("utf-8") == (EXTRACTION / f"{name}.tsv").read_bytes()
+
+
+def test_run_listener_failed_runner_raises_listener_error():
+    class Failing:
+        version = "2.26.0"
+
+        def run(self, args, cwd, includes, timeout):
+            return False, "boom"
+
+    source = lilypond.ROOT / "data" / "typeset" / "src" / PILOT_SOURCES["ite_Ib"]
+    with pytest.raises(extract.ListenerError, match="boom"):
+        run_listener(source, Failing())
