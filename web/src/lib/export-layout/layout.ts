@@ -41,6 +41,8 @@ type OptionRecord = Readonly<Record<string, string | number | boolean>>;
 /** Verovio's maximum page height (0.1 mm units): pass 1 uses it to keep everything on one page. */
 const TALL_PAGE = 60000;
 const STAFF_TOLERANCE_MM = 0.1;
+/** Lowest justification ratio accepted when moving an automatic line break to a word boundary. */
+const MIN_WORD_BREAK_RATIO = 0.8;
 const RIGHT_EDGE_TOLERANCE_MM = 0.5;
 const BOTTOM_TOLERANCE_MM = 0.05;
 const MEI_NS = 'http://www.music-encoding.org/ns/mei';
@@ -385,8 +387,46 @@ export async function renderMei(
     }
 
     // ------------------------------------------------------- planning ---
-    const planned = planSystems(sys1, allMeasures, realisable, measureByBoundary, boundaryBeforeMeasure);
-    const gaps = sys1.slice(1).map((s, i) => s.topMm - ((sys1[i]?.topMm ?? 0) + (sys1[i]?.heightMm ?? 0)));
+    let planned = planSystems(sys1, allMeasures, realisable, measureByBoundary, boundaryBeforeMeasure);
+    let measuredForGaps: readonly MeasuredSystem[] = sys1;
+
+    // Automatic reflow: Verovio breaks at any measure, even inside a word ("Chri-" / "ste"). Move
+    // such a start back to the nearest earlier word boundary, then verify with ONE encoded render
+    // that nothing overflows. All or nothing, and never repeated.
+    if (settings.linePolicy === 'automatic' && planned.length > 1) {
+      const wordFinal = wordFinalMeasures(part.meiXml);
+      const pinned = new Set(realisable.map((b) => nextMeasureInMei.get(measureByBoundary.get(b.boundaryId) ?? '') ?? ''));
+      const moved: string[] = [];
+      planned.forEach((p, k) => {
+        moved.push(k === 0 || pinned.has(p.startMeasureId)
+          ? p.startMeasureId
+          : moveToWordStart(p.startMeasureId, moved[k - 1] ?? '', allMeasures, measureIndex, wordFinal, boundaryByMeasure));
+      });
+      if (moved.some((m, k) => m !== planned[k]?.startMeasureId)) {
+        const messagesBefore = consoleMessages.length;
+        const mei1b = rewriteBreaks(part.meiXml, { stripSb: true, insertBefore: new Map(moved.slice(1).map((m) => [m, 'system'] as const)) });
+        const bad1b = apply({ ...pass1Options, breaks: 'encoded' });
+        if (bad1b.length > 0) return failed(`word-boundary options not applied: ${bad1b.join('; ')}`);
+        if (!load(mei1b)) return failed('loadData failed in the word-boundary pass');
+        const pages1b = captureConsole(consoleMessages, () => tk.getPageCount());
+        const sys1b = pages1b === 1 ? measureSvgPage(renderPage(1)).systems : [];
+        // Moving a start back makes one line denser. Only accept it while Verovio does not compress
+        // that line (no ratio below 0.8): at 0.7 to 0.76 neighbouring syllables overlap, which is
+        // worse than breaking inside a word. Large staves on narrow pages therefore keep theirs.
+        const ratios = consoleMessages.slice(messagesBefore)
+          .map((m) => /ratio smaller than [\d.]+: ([\d.]+)/.exec(m)?.[1])
+          .flatMap((r) => (r === undefined ? [] : [Number(r)]));
+        const sameStarts = sys1b.length === moved.length && sys1b.every((s, k) => s.firstMeasureId === moved[k]);
+        const fits = Math.max(...sys1b.map((s) => s.maxXMm)) - page.content.widthMm <= RIGHT_EDGE_TOLERANCE_MM;
+        if (sameStarts && fits && ratios.every((r) => r >= MIN_WORD_BREAK_RATIO)) {
+          planned = planSystems(sys1b, allMeasures, [], measureByBoundary, boundaryBeforeMeasure);
+          measuredForGaps = sys1b;
+        }
+        await tick();
+        if (ctx.isCancelled()) return cancelled();
+      }
+    }
+    const gaps = measuredForGaps.slice(1).map((s, i) => s.topMm - ((measuredForGaps[i]?.topMm ?? 0) + (measuredForGaps[i]?.heightMm ?? 0)));
     const minGapMm = gaps.length > 0 ? Math.max(0, ...gaps) : 0; // R1: the maximum measured gap
 
     const userPageBoundaries = new Set(eff.breaks.filter((b) => b.origin === 'user' && b.kind === 'page').map((b) => b.boundaryId));
@@ -546,6 +586,40 @@ export async function renderMei(
     }
     return failed(message);
   }
+}
+
+/**
+ * Measures after which a lyric word is complete, from the `wordpos` of each `<syl>`
+ * (i = initial, m = medial: still inside a word; t = terminal, s = single). Measures without
+ * lyrics keep the state of the one before.
+ */
+export function wordFinalMeasures(meiXml: string): Set<string> {
+  const out = new Set<string>();
+  let open = false;
+  for (const block of meiXml.split(/<measure\b/).slice(1)) {
+    const id = /\sxml:id="([^"]+)"/.exec(block)?.[1];
+    for (const m of block.matchAll(/<syl\b[^>]*?\swordpos="([imts])"/g)) open = m[1] === 'i' || m[1] === 'm';
+    if (id && !open) out.add(id);
+  }
+  return out;
+}
+
+/** Nearest start at or before `start` (after `prevStart`) that begins a new word and follows a safe boundary. */
+function moveToWordStart(
+  start: string,
+  prevStart: string,
+  allMeasures: readonly string[],
+  measureIndex: ReadonlyMap<string, number>,
+  wordFinal: ReadonlySet<string>,
+  boundaryByMeasure: ReadonlyMap<string, string>,
+): string {
+  const idx = measureIndex.get(start) ?? 0;
+  const lo = (measureIndex.get(prevStart) ?? -1) + 1;
+  for (let j = idx; j > lo; j--) {
+    const before = allMeasures[j - 1] ?? '';
+    if (wordFinal.has(before) && boundaryByMeasure.has(before)) return allMeasures[j] ?? start;
+  }
+  return start;
 }
 
 /** First (page, system) where planned and actual system-start lists differ, or null when identical. */

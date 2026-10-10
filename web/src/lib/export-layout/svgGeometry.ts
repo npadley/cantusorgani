@@ -18,6 +18,8 @@ export interface MeasuredSystem {
   /** Top line of the first staff and bottom line of the last staff. */
   readonly staffTopMm: number;
   readonly staffBottomMm: number;
+  /** Top line of each staff of the system, in order (taken from its first measure). */
+  readonly staffTopsMm: readonly number[];
   readonly minXMm: number;
   readonly maxXMm: number;
 }
@@ -38,6 +40,8 @@ interface WorkSystem {
   bbox: Box | null;
   staffBox: Box | null;
   staffLineSets: number[][];
+  /** Index into staffLineSets where each measure's staves begin. */
+  measureStaffStart: number[];
 }
 
 const MILESTONE = new Set(['pageMilestone', 'systemMilestone', 'mdiv', 'score', 'section']);
@@ -100,10 +104,11 @@ export function measureSvgPage(svg: string): MeasuredPage {
         offsetY = t && t[2] !== undefined ? Number(t[2]) : 0;
       }
       if (cls.includes('system') && !cls.includes('bounding-box')) {
-        sys = { measureIds: [], bbox: null, staffBox: null, staffLineSets: [] };
+        sys = { measureIds: [], bbox: null, staffBox: null, staffLineSets: [], measureStaffStart: [] };
         systems.push(sys);
       } else if (sys && cls.includes('measure') && !cls.includes('bounding-box')) {
         sys.measureIds.push(el.getAttribute('id') ?? '');
+        sys.measureStaffStart.push(sys.staffLineSets.length);
       } else if (sys && cls.includes('staff') && !cls.includes('bounding-box')) {
         stf = [];
         sys.staffLineSets.push(stf);
@@ -159,6 +164,10 @@ export function measureSvgPage(svg: string): MeasuredPage {
       heightMm: round3((bottom - top) * k),
       staffTopMm: round3(((s.staffBox?.minY ?? 0) + offsetY) * k),
       staffBottomMm: round3(((s.staffBox?.maxY ?? 0) + offsetY) * k),
+      staffTopsMm: s.staffLineSets
+        .slice(s.measureStaffStart[0] ?? 0, s.measureStaffStart[1] ?? s.staffLineSets.length)
+        .filter((lines) => lines.length > 0)
+        .map((lines) => round3((Math.min(...lines) + offsetY) * k)),
       minXMm: round3((box.minX + offsetX) * k),
       maxXMm: round3((box.maxX + offsetX) * k),
     };
