@@ -470,11 +470,11 @@ export type BudgetDecision =
   - The margin is rounded to an integer and clamped to 3–25.
 - `defaultMarginFor(kind)`: 12 for `print`, 4 for `screen` and `custom`. When the page kind changes, the margin follows the new default **only if** it still equals the old kind's default (the user hasn't touched it).
 - `verovioOptions(settings, contentRect) -> Record<string, …>`, at **`scale: 100`**:
-  - Page geometry: `pageWidth = floor(content.widthMm * 10)`, `pageHeight = floor(content.heightMm * 10)`, and every `pageMargin*` is `0` (we own margins and headings).
+  - Page geometry: `pageWidth = floor(content.widthMm * 10)`, `pageHeight = floor(content.heightMm * 10)`. **`pageMarginLeft = ceil(unit * 3)`** (0.1 mm units: 2.1/2.7/3.6 mm), because Verovio draws the brace and the system barline at −0.28 × unit mm, left of the system origin (S2). `pageMarginRight`, `pageMarginTop` and `pageMarginBottom` are `0`. We own the margins and headings. The music overhangs `pageWidth` on the right by up to 0.35 mm (glyph and stroke overhang), so clipping checks use a 0.5 mm right-edge tolerance.
   - Sizes: `unit = STAFF_SIZES[staff].unit`, `lyricSize = LYRIC_SIZE[lyrics]`, `spacingSystem = SYSTEM_SPACING[spacing]`.
-  - Fixed options: `font: 'Leipzig'`, `justifyVertically: page.kind !== 'print'`, `header: 'none'`, `footer: 'none'`, `svgViewBox: true`, `mnumInterval: 0`, `evenNoteSpacing: true`, `spacingLinear: 0.25`, `spacingNonLinear: 0.6`.
+  - Fixed options: `font: 'Leipzig'`, `justifyVertically: page.kind !== 'print'`, `header: 'none'`, `footer: 'none'`, `svgViewBox: true`, `mnumInterval: 0`, `evenNoteSpacing: true`, `spacingLinear: 0.25`, `spacingNonLinear: 0.6`, **`xmlIdChecksum: true`**. That last option makes generated SVG ids reproducible, and makes Python and WASM output byte-identical (S2).
   - `breaks` is set by B4 (pass 1: `'line'` or `'auto'`; pass 2: `'encoded'`).
-  - Spike S2 must confirm every option name against Verovio 6.3.0.
+  - Verified by spike S2 (2026-10-09, `docs/superpowers/experiments/s2-verovio.md`): every name is accepted by Verovio 6.3.0. `setOptions` never reports a rejected name or value. It prints only to `console.error`, keeps the previous value, and `getLog()` stays empty. Callers therefore verify the values with `getOptions()`. `systemMaxPerPage` is deliberately unused, because `encoded` ignores it and the cap lives in `paginate()`. Pass 1 additionally sets `justifyVertically: false`, `pageHeight: 60000` and `svgBoundingBoxes: true`.
 - The PDF MediaBox is exactly `widthMm × heightMm × 72/25.4` pt, as float64 with no further rounding. The Verovio SVG is placed at the content rect origin.
 
 ---
