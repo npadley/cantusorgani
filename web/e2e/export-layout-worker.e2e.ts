@@ -9,6 +9,7 @@
 import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 import type { Page } from "@playwright/test";
+import { PDFDocument } from "pdf-lib";
 
 const FIXTURES = "src/lib/export-layout/__fixtures__";
 const PAGE = "/e2e/export-layout-worker/";
@@ -81,5 +82,29 @@ test("the real layout worker lays out the Kyrie MEI and composes a complete Lett
     expect(p.widthMm).toBeCloseTo(215.9, 1);
     expect(p.heightMm).toBeCloseTo(279.4, 1);
   }
+
+  // PDF worker: the same result goes in, a real vector PDF comes out.
+  const pdfStarted = Date.now();
+  await page.evaluate((message) => {
+    (window as unknown as { __pdfWorker: { post(m: unknown): void } }).__pdfWorker.post(message);
+  }, { type: "pdf", token: 1, result });
+  const pdfMessages = async (): Promise<readonly { type: string; token: number; pageCount?: number; byteSize?: number; diagnostic?: unknown }[]> =>
+    page.evaluate(() => (window as unknown as { __pdfWorker: { messages: never[] } }).__pdfWorker.messages);
+  await expect.poll(async () => (await pdfMessages()).length, { timeout: 60_000 }).toBeGreaterThan(0);
+  console.log(`export-layout pdf worker: result to pdf ${Date.now() - pdfStarted} ms`);
+  const pdfResponse = (await pdfMessages()).at(-1)!;
+  expect(pdfResponse.type, JSON.stringify(pdfResponse.diagnostic)).toBe("pdf");
+  expect(pdfResponse.token).toBe(1);
+  expect(pdfResponse.pageCount).toBe(result.pages.length);
+  expect(pdfResponse.byteSize).toBeGreaterThan(0);
+  const base64 = await page.evaluate(() => (window as unknown as { __pdfWorker: { pdfBase64: string | null } }).__pdfWorker.pdfBase64);
+  const bytes = Buffer.from(base64 ?? "", "base64");
+  expect(bytes.length).toBe(pdfResponse.byteSize);
+  expect(bytes.subarray(0, 5).toString("latin1")).toBe("%PDF-");
+  const doc = await PDFDocument.load(bytes, { updateMetadata: false });
+  expect(doc.getPageCount()).toBe(result.pages.length);
+  const size = doc.getPage(0).getSize();
+  expect(Math.abs(size.width - 612)).toBeLessThanOrEqual(0.5);
+  expect(Math.abs(size.height - 792)).toBeLessThanOrEqual(0.5);
   expect(workerFailures).toEqual([]);
 });

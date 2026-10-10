@@ -16,15 +16,21 @@ export function getStaticPaths() {
 <Layout title="Export worker test" description="Test page for the export layout worker." noindex>
   <p id="state" data-state="idle">idle</p>
   <script>
-    import type { LayoutWorkerRequest } from "../../lib/export-layout/types";
+    import type { LayoutWorkerRequest, PdfWorkerRequest } from "../../lib/export-layout/types";
 
     interface WorkerHarness {
       readonly messages: unknown[];
       readonly errors: string[];
       post(message: LayoutWorkerRequest): void;
     }
+    interface PdfHarness {
+      readonly messages: unknown[];
+      /** Base64 of the bytes of the last `pdf` response (an ArrayBuffer cannot cross to the test). */
+      pdfBase64: string | null;
+      post(message: PdfWorkerRequest): void;
+    }
     declare global {
-      interface Window { __layoutWorker?: WorkerHarness }
+      interface Window { __layoutWorker?: WorkerHarness; __pdfWorker?: PdfHarness }
     }
 
     const worker = new Worker(new URL("../../workers/export-layout.worker.ts", import.meta.url), { type: "module" });
@@ -33,6 +39,23 @@ export function getStaticPaths() {
     worker.onmessage = (event: MessageEvent<unknown>) => { messages.push(event.data); };
     worker.onerror = (event) => { errors.push(event.message); };
     window.__layoutWorker = { messages, errors, post: (message) => worker.postMessage(message) };
+
+    const pdfWorker = new Worker(new URL("../../workers/export-layout-pdf.worker.ts", import.meta.url), { type: "module" });
+    const pdfMessages: unknown[] = [];
+    const pdfHarness: PdfHarness = { messages: pdfMessages, pdfBase64: null, post: (message) => pdfWorker.postMessage(message) };
+    pdfWorker.onmessage = (event: MessageEvent<{ type: string; bytes?: ArrayBuffer }>) => {
+      const { bytes, ...rest } = event.data;
+      if (bytes) {
+        let binary = "";
+        const view = new Uint8Array(bytes);
+        for (let i = 0; i < view.length; i += 0x8000) binary += String.fromCharCode(...view.subarray(i, i + 0x8000));
+        pdfHarness.pdfBase64 = btoa(binary);
+      }
+      pdfMessages.push(rest);
+    };
+    pdfWorker.onerror = (event) => { errors.push(event.message); };
+    window.__pdfWorker = pdfHarness;
+
     const state = document.getElementById("state");
     if (state) { state.dataset["state"] = "ready"; state.textContent = "ready"; }
   </script>

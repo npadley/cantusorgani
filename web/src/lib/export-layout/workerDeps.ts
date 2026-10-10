@@ -1,18 +1,18 @@
 // B7c/B7d: the real dependencies of the export workers.
 //
 // `createCompose` wires B6a's composeExport with a fetch-based AssetLoader, a PNG header reader
-// and a pdf-lib page-size reader. `exportCanonicalPdf` is still a PLACEHOLDER that throws
-// `NOT_WIRED: exportPdf`; B6b replaces it with `export { exportCanonicalPdf } from './exportPdf'`.
-// The workers import only from this module.
+// and a pdf-lib page-size reader. `createExportPdf` wires B6b's exportCanonicalPdf with the same
+// AssetLoader and a lazily loaded font profile. The workers import only from this module.
 //
 // `createRenderPart` fetches and verifies a part's MEI, builds the page rectangles from compose's
 // own reservationFor (so compose never sees a size mismatch) and calls renderMei.
 import { PDFDocument } from 'pdf-lib';
 import { composeExport as composeParts, reservationFor } from './compose';
 import type { ComposeDeps } from './compose';
+import { exportCanonicalPdf } from './exportPdf';
 import { renderMei } from './layout';
 import type { PageRects } from './layout';
-import { sha256Hex } from './fonts';
+import { loadFontProfile, sha256Hex } from './fonts';
 import { paperDimensions, usableRect } from './settings';
 import type {
   AssetLoader,
@@ -26,11 +26,6 @@ import type {
   PdfResult,
   RenderContext,
 } from './types';
-
-export function exportCanonicalPdf(result: LayoutResult): Promise<PdfResult> {
-  void result;
-  return Promise.reject(new Error('NOT_WIRED: exportPdf'));
-}
 
 export type FetchBytes = (url: string) => Promise<Uint8Array>;
 
@@ -130,4 +125,19 @@ export function createCompose(assets: AssetLoader) {
     fonts: FontProfile,
   ): Promise<LayoutResult> =>
     composeParts(parts, new Map(layouts.map((l) => [l.partId, l] as const)), settings, composeDepsFor(assets, fonts), token);
+}
+
+/** The PDF worker's `exportPdf` dependency. Fonts load on first use; a failed load is retried. */
+export function createExportPdf(assets: AssetLoader) {
+  let fonts: Promise<FontProfile> | null = null;
+  const loadFonts = (): Promise<FontProfile> => {
+    if (fonts === null) {
+      const attempt = loadFontProfile((url) => assets.bytes(url, null));
+      fonts = attempt;
+      attempt.catch(() => { if (fonts === attempt) fonts = null; });
+    }
+    return fonts;
+  };
+  return async (result: LayoutResult): Promise<PdfResult> =>
+    exportCanonicalPdf(result, { assets, fonts: await loadFonts() });
 }
