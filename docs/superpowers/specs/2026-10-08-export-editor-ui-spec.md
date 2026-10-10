@@ -26,8 +26,9 @@ dialog.cx  (inset 0; width 100vw; height 100dvh; max-width/max-height none; marg
 │     h2#cx-title "Customize export" (font-family var(--font-text); font-size var(--step-1); weight 600)
 │     p.cx-sel .ui.small.muted  "Missa IX · Kyrie"   (selection title, from ExportBar data-title minus site name)
 │     button.cx-close  "Close"   (default button style; text, not an × icon) — right-aligned
-├── div.cx-body           (≥62rem: grid-template-columns 20rem 1fr; <62rem: single column)
-│     aside.cx-settings   (≥62rem: overflow-y auto; border-right 1px var(--rule); padding var(--s-3))
+├── div.cx-fitstrip       (<62rem only; the FIT group, §1.5; between the header and the body in the DOM)
+├── div.cx-body           (≥62rem: grid-template-columns 20rem 1fr; <62rem: the preview only, plus the Settings panel as an overlay region)
+│     aside.cx-settings   (role=region aria-label="Export settings"; ≥62rem: overflow-y auto; border-right 1px var(--rule); padding var(--s-3); <62rem: the Settings panel, §1.5)
 │        section "In this PDF"   (parts list, §1.3)
 │        fieldset Fit (Music size, Systems per page, result line) / fieldset Page / fieldset Breaks / details More options
 │        p.cx-storage (only when storage blocked, §7)
@@ -45,8 +46,7 @@ dialog.cx  (inset 0; width 100vw; height 100dvh; max-width/max-height none; marg
 
 Breakpoints reuse the site's existing values, with no new numbers:
 - **≥62rem** (`--page-max`, the same as ExportBar's sticky breakpoint): two columns. The settings column is 20rem wide, and both columns scroll independently. iPad landscape (1024px) lands here.
-- **40rem–62rem** (iPad portrait, 768px): one column. The settings come first, but each group is a collapsed `<details>` (§1.5), so the first page of the preview is visible without scrolling at 768×1024.
-- **<40rem** (390px phone): same as the middle range. The footer wraps: the status line takes the full width on row 1, and row 2 holds `[Reset layout]` on the left and `[Download PDF]` filling the rest.
+- **<62rem** (iPad portrait 768px, phone 390px): **the preview comes first.** The regions stack as header, **FIT strip**, preview (toolbar plus pages), footer. The settings column is not shown above the preview; its contents (minus FIT) move into the **Settings panel** (§1.5), opened from the strip. The first page's top edge is visible without scrolling at 768×1024 and at 390×844. Below 40rem the footer wraps: the status line takes the full width on row 1, and row 2 holds `[Reset layout]` on the left and `[Download PDF]` filling the rest.
 
 Visual hierarchy, in order:
 1. **Paper preview.** It is the largest region and the only white surface, and it shows the reflow as soon as a control changes.
@@ -148,12 +148,18 @@ Capability rules:
 - When closed, the summary shows the non-default values in `.small.muted`: "More options · Large sung text, Spacious".
 - It opens on load when either of its two values differs from its default.
 
-### 1.5 Group headings and narrow-screen collapse
+### 1.5 Group headings, FIT strip and Settings panel below 62rem
 
 - `legend`/`h3`: `font-family: var(--font-text); font-variant-caps: all-small-caps; letter-spacing: 0.06em; font-size: var(--step-0); color: var(--accent); font-weight: 600`. These are rubric-style headings taken from the source edition, and they are the editor's signature detail. Use them for FIT, PAGE, BREAKS and IN THIS PDF.
 - Groups are separated by `border-top: 1px solid var(--rule); padding-top: var(--s-3); margin-top: var(--s-3)`. No boxes and no backgrounds.
-- **<62rem:** FIT is always expanded. Its two controls and the result line take about 230px, so the first page of the preview still starts above the fold at 768×1024. PAGE, BREAKS and More options are `<details>` whose summaries show the heading and a value summary ("PAGE · 11-inch iPad, Portrait, 4 mm"); they start closed. The open/closed state is not persisted.
-- **<62rem result strip:** while the preview's first page is scrolled out of view, the sticky preview toolbar repeats the result line ("2 pages · 4 + 1 systems"), so an organist adjusting FIT can see the effect without scrolling.
+- **<62rem layout (replaces the old "FIT expanded above collapsed details").** Grid rows are header, FIT strip, body (preview), footer. The settings column never sits above the preview.
+- **FIT strip:** a fixed row under the header (it never scrolls away), `--paper` background, `border-bottom: 1px solid var(--rule)`. It holds, wrapping as needed: Music size (3-option segmented control, options at least 44px; "Small / Medium / Large" at 768, "S / M / L" at 390 with the full name kept as the accessible name); the Systems per page stepper (− and + at 44×44, same behaviour and `aria-label`s as §1.4); the live result line ("2 pages · 4 + 1 systems"); and a **Settings** button (default outline style, text label, `aria-expanded`, `aria-controls="cx-settings"`). The group labels and the helper text of these controls are visually hidden or omitted in the strip (they stay in the accessible names); the "Applies to / Not to" and "Doesn't apply to" lines appear only through the part capability text in the panel. Height: about 2 rows, at most 120px at 768 and 170px at 390. The FIT group is the same DOM and the same controls as the desktop FIT group, moved into the strip.
+- **Settings panel:** `aside.cx-settings` with `role="region"` and `aria-label="Export settings"`, a non-modal region inside the already-modal dialog (no nested `<dialog>`). It holds, in the desktop order and with the same controls, In this PDF, Page, Breaks and More options (FIT is in the strip). Its groups are always expanded; there are no `<details>` collapses except More options. It starts with a heading row "Settings" and a **Done** button.
+  - **768 (40rem–62rem):** a full-height panel 22rem wide anchored to the right edge, `border-left: 1px solid var(--control-border)`. While it is open the preview pane gets `margin-right: 22rem`, so the preview is visible and reflows beside it and keeps updating live.
+  - **390 (<40rem):** a full-width bottom sheet, `max-height: 85dvh`, scrolling inside, `border-top: 1px solid var(--control-border)`.
+  - **Focus:** opening moves focus to the panel region (`tabindex="-1"`, no visible outline) so its name is announced; Done, the Settings button (toggle) and Esc close it and return focus to the Settings button. **Esc closes the panel first, then the dialog.**
+  - **Break editing:** the mode button stays in the Breaks group inside the panel. Turning it on closes the panel and moves focus to the first break handle; Esc on a handle focuses the Settings button.
+- The old per-group value summaries and the sticky-toolbar result strip are removed.
 
 ### 1.6 Preview pane
 
@@ -309,7 +315,8 @@ Now: no break
 
 - **Semantics:** `<dialog aria-labelledby="cx-title" aria-describedby="cx-sel">` opened with `showModal()`, so the rest of the page is inert and Esc closes it natively. While open, add `html:has(dialog.cx[open]) { overflow: hidden }`. Mark the dialog `.no-print`.
 - **Open:** focus the `h2#cx-title` (`tabindex="-1"`) so screen readers announce the title and selection. **Close** (button, Esc, browser Back) returns focus to `#export-customize`. During exporting, closing cancels the PDF and sets `#export-status` to "Custom PDF cancelled."
-- **Focus order (DOM order):** Close → parts list (no stops) → Fit (music size, systems − / +) → Page (tier 1, tier 2 or custom inputs and unit, orientation, margin − / input / +) → Breaks (line breaks, break-mode button) → More options summary → its controls → toolbar (view, zoom −, +, Fit width) → break-point handles (one roving stop per page, only in edit mode) → footer (Undo, Reset/Cancel, Download PDF). On <62rem the same order holds; the group `<details>` summaries are stops.
+- **Focus order, ≥62rem (DOM order):** Close → parts list (no stops) → Fit (music size, systems − / +) → Page (tier 1, tier 2 or custom inputs and unit, orientation, margin − / input / +) → Breaks (line breaks, break-mode button) → More options summary → its controls → toolbar (view, zoom −, +, Fit width) → break-point handles (one roving stop per page, only in edit mode) → footer (Undo, Reset/Cancel, Download PDF).
+- **Focus order, <62rem:** Close → FIT strip (music size, systems − / +, Settings) → toolbar (view, zoom −, +, Fit width) → break-point handles (only in edit mode) → footer (Undo, Reset/Cancel, Download PDF). The Settings panel is out of the tab order while closed; while open, focus starts on the panel region and then follows the desktop order for Page, Breaks and More options, ending at Done.
 - **Radio groups:** native radios give arrow-key selection inside a group. Don't re-implement them.
 - **Live region:**
   - Exactly one polite region, `#cx-status`. No `role=alert` except for global errors (a separate `role="alert"` paragraph inside the error notice, rendered once).
