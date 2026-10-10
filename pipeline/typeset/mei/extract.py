@@ -16,6 +16,7 @@ from typing import Literal, cast
 from pipeline.typeset.mei.diagnostics import Diagnostic, SourceLocation
 from pipeline.typeset.mei.model import (
     FEATURE_FAMILIES,
+    IR_SCHEMA_VERSION,
     Boundary,
     BoundaryReason,
     Division,
@@ -31,6 +32,7 @@ from pipeline.typeset.mei.model import (
     Notehead,
     Pitch,
     PrintedAccidental,
+    ScoreIR,
     Span,
     SpanKind,
     StaffDef,
@@ -772,3 +774,38 @@ def splits_at(boundary: Boundary, events: tuple[Event, ...]) -> tuple[str, ...]:
     """
     t = boundary.onset
     return tuple(e.id for e in events if e.onset < t < e.onset + e.duration)
+
+
+def ir_from_rows(rows: list[Row], source_path: str, dependency_digest: str) -> ScoreIR:
+    """Assemble the whole ScoreIR from parsed listener rows. Pure: no LilyPond, no I/O."""
+    staves = build_staves(rows)
+    layers = build_layers(rows)
+    events, event_diagnostics = build_events(rows, source_path)
+    lyrics, markers, lyric_diagnostics = build_lyrics(rows, layers, events)
+    spans, span_diagnostics = build_spans(rows, events)
+    divisions = build_divisions(rows, layers)
+    boundaries = build_boundaries(rows, layers, events, spans, lyrics, divisions)
+    features = feature_uses(rows, events, spans, layers, lyrics, markers, divisions)
+    return ScoreIR(
+        schema_version=IR_SCHEMA_VERSION,
+        source_path=source_path,
+        dependency_digest=dependency_digest,
+        lilypond_version=lilypond_version(rows),
+        extractor_version=extractor_version(rows),
+        total_duration=total_duration(events),
+        staves=staves,
+        layers=layers,
+        events=events,
+        spans=spans,
+        lyrics=lyrics,
+        entry_markers=markers,
+        divisions=divisions,
+        boundaries=boundaries,
+        features=features,
+        diagnostics=(
+            *event_diagnostics,
+            *lyric_diagnostics,
+            *span_diagnostics,
+            *division_diagnostics(rows),
+        ),
+    )

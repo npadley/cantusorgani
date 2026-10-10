@@ -546,3 +546,42 @@ def test_build_boundaries_single_layer_without_breaks_works():
     assert (b.id, b.onset, b.safe, b.source_break, b.division, b.after_text) == (
         "b000", Fraction(1, 4), True, False, None, "A",
     )
+
+
+# --- ir_from_rows ----------------------------------------------------------------------
+
+from pipeline.typeset.mei.extract import ir_from_rows
+from pipeline.typeset.mei.model import ScoreIR
+
+
+def _ir(name: str) -> ScoreIR:
+    rows = parse_rows((EXTRACTION / f"{name}.tsv").read_text(encoding="utf-8"))
+    return ir_from_rows(rows, f"data/typeset/src/{name}.ly", "0" * 64)
+
+
+@pytest.mark.parametrize("name", FIXTURE_NAMES)
+def test_ir_from_rows_pilot_fixtures_round_trip_through_dict(name):
+    ir = _ir(name)
+    assert ir.schema_version == 1
+    assert ir.lilypond_version == "2.26.0" and ir.extractor_version == "listen_full/1"
+    assert ir.total_duration == total_duration(ir.events)
+    assert not any(d.severity == "error" for d in ir.diagnostics)
+    assert ScoreIR.from_dict(ir.to_dict()) == ir
+
+
+def test_ir_from_rows_kyrie_dict_is_json_serialisable_without_floats():
+    ir = _ir("kyrie_IX")
+    assert ir.total_duration == Fraction(373, 8)
+    text = json.dumps(ir.to_dict(), sort_keys=True)
+
+    def no_floats(value):
+        if isinstance(value, float):
+            return False
+        if isinstance(value, dict):
+            return all(no_floats(v) for v in value.values())
+        if isinstance(value, list):
+            return all(no_floats(v) for v in value)
+        return True
+
+    assert no_floats(json.loads(text))
+    assert len(ir.lyrics) == 82 and len(ir.entry_markers) == 3 and len(ir.divisions) == 22
