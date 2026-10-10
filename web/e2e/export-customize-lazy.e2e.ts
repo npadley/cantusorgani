@@ -164,10 +164,13 @@ test.describe("Customize export is lazy", () => {
   });
 });
 
-test("screenshots of the export bar (build/b9/)", async ({ page }) => {
-  mkdirSync(OUT, { recursive: true });
+test("screenshots of the export bar (build/b10a/), only where the button exists", async ({ page }) => {
+  const shots = resolve(process.cwd(), "..", "build", "b10a");
+  mkdirSync(shots, { recursive: true });
   await page.route("**/systems/typeset/**", (route) =>
     route.fulfill({ contentType: "image/svg+xml", body: '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"/>' }));
+  await page.goto("/kyriale/ix/", { waitUntil: "networkidle" });
+  test.skip((await page.locator("#export-customize").count()) === 0, "built without PUBLIC_MEI_MANIFEST=fixture: no button to show");
   for (const [name, path, size] of [
     ["kyriale-ix-1280", "/kyriale/ix/", { width: 1280, height: 800 }],
     ["kyriale-ix-390", "/kyriale/ix/", { width: 390, height: 844 }],
@@ -175,7 +178,9 @@ test("screenshots of the export bar (build/b9/)", async ({ page }) => {
   ] as const) {
     await page.setViewportSize(size);
     await page.goto(path, { waitUntil: "networkidle" });
+    // Kyrie IX shows the button, Missa I does not; the shot must show exactly that.
+    await expect(page.locator("#export-customize")).toHaveCount(name.startsWith("kyriale-ix") ? 1 : 0);
     await page.locator(".export").scrollIntoViewIfNeeded();
-    await page.screenshot({ path: `${OUT}/export-bar-${name}.png` });
+    await page.screenshot({ path: `${shots}/export-bar-${name}.png` });
   }
 });

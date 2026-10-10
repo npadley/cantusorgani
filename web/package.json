@@ -4,12 +4,15 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/with-public-env.ts astro dev",
-    "build": "node scripts/with-public-env.ts astro build && node scripts/build-discovery.ts && rm -rf dist/systems && pagefind --site dist && node scripts/check-links.ts",
+    "build": "node scripts/with-public-env.ts astro build && node scripts/build-discovery.ts && rm -rf dist/systems && pagefind --site dist && node scripts/check-links.ts && node scripts/check-no-fixture.ts dist",
+    "build:e2e": "E2E_TEST_PAGES=1 PUBLIC_MEI_MANIFEST=fixture PUBLIC_ASSET_BASE=/systems node scripts/with-public-env.ts astro build --outDir dist-e2e",
+    "check:no-fixture": "node scripts/check-no-fixture.ts dist",
     "check:links": "node scripts/check-links.ts",
     "preview": "astro preview",
     "typecheck": "astro check",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "test:e2e:export": "E2E_DIST=dist-e2e playwright test e2e/export-",
     "check:seo": "node scripts/build-discovery.ts"
   },
   "dependencies": {

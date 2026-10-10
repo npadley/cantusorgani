@@ -181,6 +181,26 @@ export function getStaticPaths() {
       return openExportEditor({ parts, title, opener: document.getElementById("export-customize"), deps: { createLayoutWorker: faultingWorker } });
     };
 
+    // B10a: draw one page of a PDF with pdf.js, so the e2e can look at what the export really contains.
+    declare global { interface Window { __renderPdfPage?: (base64: string, pageNumber: number, scale: number) => Promise<string> } }
+    window.__renderPdfPage = async (base64, pageNumber, scale) => {
+      const pdfjs = (await import("pdfjs-dist/legacy/build/pdf.mjs")) as unknown as {
+        GlobalWorkerOptions: { workerSrc: string };
+        getDocument(src: { data: Uint8Array }): { promise: Promise<{ getPage(n: number): Promise<{ getViewport(p: { scale: number }): { width: number; height: number }; render(p: { canvasContext: CanvasRenderingContext2D; canvas: HTMLCanvasElement; viewport: { width: number; height: number }; background: string }): { promise: Promise<void> } }> }> };
+      };
+      pdfjs.GlobalWorkerOptions.workerSrc = new URL("pdfjs-dist/legacy/build/pdf.worker.min.mjs", import.meta.url).toString();
+      const bytes = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
+      const doc = await pdfjs.getDocument({ data: bytes }).promise;
+      const pdfPage = await doc.getPage(pageNumber);
+      const viewport = pdfPage.getViewport({ scale });
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.ceil(viewport.width);
+      canvas.height = Math.ceil(viewport.height);
+      const context = canvas.getContext("2d")!;
+      await pdfPage.render({ canvasContext: context, canvas, viewport, background: "rgb(255,255,255)" }).promise;
+      return canvas.toDataURL("image/png");
+    };
+
     const state = document.getElementById("state");
     if (state) { state.dataset["state"] = "ready"; state.textContent = "ready"; }
   </script>
