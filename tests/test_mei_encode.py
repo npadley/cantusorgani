@@ -309,9 +309,15 @@ def test_encode_score_kyrie_staff_defs_carry_clef_and_key_only() -> None:
 def test_encode_score_kyrie_ties_and_slurs_follow_the_ir() -> None:
     ir = ir_for(KYRIE)
     root = tree(KYRIE)
-    ties = Counter(n.get("tie") for n in q(root, "//m:note[@tie]"))
-    assert ties["i"] == ties["t"]
-    assert sum(1 for e in ir.events if e.tie_to_next) == ties["i"] + ties["m"]
+    # A5e: ties are explicit <tie> control events between the first heads of the two real notes.
+    assert q(root, "//m:note[@tie]") == []
+    ties = q(root, "//m:tie")
+    assert len(ties) == sum(1 for e in ir.events if e.tie_to_next)
+    heads = {n.get(XML_ID): n for n in q(root, "//m:note")}
+    for tie in ties:
+        start, end = heads[tie.get("startid")[1:]], heads[tie.get("endid")[1:]]
+        assert start.get("type") != "split-continuation" and end.get("type") != "split-continuation"
+        assert (start.get("pname"), start.get("oct")) == (end.get("pname"), end.get("oct"))
     slurs = q(root, "//m:slur")
     assert len(slurs) == sum(1 for s in ir.spans if s.kind == "slur") == 59
     for slur in slurs:
@@ -506,7 +512,8 @@ def test_encode_score_sustain_split_keeps_one_attack_and_the_total() -> None:
     assert cont.get("head.visible") == "false" and cont.get("stem.visible") == "false"
     assert cont.get("accid") is None
     assert first.get("next") == "#ev0e0000c1" and cont.get("prev") == "#ev0e0000"
-    assert q(root, "//m:tie") == [] and first.get("tie") is None and cont.get("tie") is None
+    assert first.get("tie") is None and cont.get("tie") is None
+    assert [t.get("startid") for t in q(root, "//m:tie")] == []  # no tie in this fixture
     assert sum(dur_of(n) for n in layer1) == Fraction(7, 8)
     assert result.provenance == {
         "ev0e0000": "0e0000", "ev0e0000c1": "0e0000", "ev1e0000": "1e0000", "ev1e0001": "1e0001"
@@ -561,7 +568,7 @@ def test_encode_score_pilot_continuations_map_back_and_sum_exactly(fixture: str)
     assert by_event == {e.id: e.duration for e in ir.events}
     for c in q(root, "//*[@type='split-continuation']"):
         assert c.get(XML_ID).split("c")[0] in result.provenance
-        assert c.get("tie") in (None, "i")  # only the real outgoing tie of the last fragment
+        assert c.get("tie") is None  # ties are control events from the first head, never on a fragment
 
 
 def test_encode_score_split_counts_per_fixture_are_stable() -> None:
@@ -598,3 +605,36 @@ def test_encode_score_pilot_last_measure_carries_the_final_division(fixture: str
     ir = ir_for(tsv)
     assert any(d.kind == "finalis" and d.onset == ir.total_duration for d in ir.divisions)
     assert q(tree(tsv), "//m:measure")[-1].get("right") == "dbl"
+
+
+def test_encode_score_split_scaled_sustain_keeps_the_written_head_and_real_onsets() -> None:
+    """A5e: LilyPond ``e2*7/4`` cut at a measure line shows a half head, not a dotted quarter, and every
+    attack of every layer sits at its TSV onset."""
+    from lxml import etree
+
+    from pipeline.typeset.mei.normalize import normalize_ir, normalize_mei
+    from tests.test_mei_normalize import pilot
+
+    ir, encoded = pilot("F1")
+
+    root = etree.fromstring(encoded.xml)
+    ns = "{http://www.music-encoding.org/ns/mei}"
+    notes = {n.get("{http://www.w3.org/XML/1998/namespace}id"): n for n in root.iter(ns + "note")}
+    scaled_split = [
+        e for e in ir.events if e.kind == "note" and e.notated.scale != 1 and notes["ev" + e.id].get("next")
+    ]
+    assert scaled_split
+    for event in scaled_split:
+        note = notes["ev" + event.id]
+        assert note.get("dur") == str(2**event.notated.log)
+        assert note.get("dots") == (str(event.notated.dots) if event.notated.dots else None)
+    expected = {e.id: e.onset for e in ir.events if e.kind == "note"}
+    converted = normalize_mei(encoded.xml, encoded.provenance)
+    seen = {
+        ev.source_event_id: ev.onset
+        for events in converted.layers.values()
+        for ev in events
+        if ev.is_attack and ev.kind == "note" and ev.source_event_id
+    }
+    assert seen == expected
+    assert normalize_ir(ir).layers.keys() == converted.layers.keys()

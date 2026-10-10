@@ -269,13 +269,9 @@ def test_compare_scores_removed_tie_reports_tie_mismatch() -> None:
     target: dict[str, str] = {}
 
     def mutate(root: etree._Element, prov: dict[str, str]) -> None:
-        note = next(
-            n
-            for n in layer_notes(root, "2", "1")
-            if is_attack(n) and n.get("tie") in ("i", "m") and n.get("next") is None
-        )
-        del note.attrib["tie"]
-        target["id"] = sid(prov, note)
+        tie = next(root.iter(M + "tie"))
+        target["id"] = prov[tie.get("startid").removeprefix("#")]  # type: ignore[union-attr]
+        tie.getparent().remove(tie)
 
     hits = with_code(run("F1", mutate), "TIE_MISMATCH")
     assert any(target["id"] in d.source_event_ids for d in hits)
@@ -431,3 +427,32 @@ def test_compare_scores_continuation_overlapping_its_successor_is_reported() -> 
     assert diffs
     assert any(target["id"] in d.source_event_ids for d in diffs)
     assert {d.code for d in diffs} & {"DURATION_MISMATCH", "ONSET_MISMATCH", "ATTACK_MISMATCH"}
+
+
+# --- A5e: scaled accompaniment sustains --------------------------------------------------------
+
+
+def _first_fragment_in_tuplet(root: etree._Element) -> etree._Element:
+    """A split first fragment of a scaled sustain: written head kept, length given by a hidden tuplet."""
+    return next(
+        n
+        for n in root.iter(M + "note")
+        if n.get("next") and n.get("type") != SPLIT and n.getparent().tag == M + "tuplet" and n.get("dur") == "2"
+    )
+
+
+def test_compare_scores_scaled_first_fragment_without_its_tuplet_reports_duration_mismatch() -> None:
+    target: dict[str, str] = {}
+
+    def mutate(root: etree._Element, prov: dict[str, str]) -> None:
+        note = _first_fragment_in_tuplet(root)
+        tuplet = note.getparent()
+        target["id"] = sid(prov, note)
+        if len(tuplet) == 1:
+            tuplet.addprevious(note)
+            tuplet.getparent().remove(tuplet)
+        else:  # shared wrapper: give the note its own unscaled position
+            tuplet.addprevious(note)
+
+    hits = with_code(run("F1", mutate), "DURATION_MISMATCH")
+    assert any(target["id"] in d.source_event_ids for d in hits)
