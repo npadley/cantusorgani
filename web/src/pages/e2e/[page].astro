@@ -7,6 +7,7 @@
 // unlinked page would fail it). The e2e build is
 //   E2E_TEST_PAGES=1 PUBLIC_ASSET_BASE=/systems pnpm exec astro build
 import Layout from "../../components/Layout.astro";
+import ExportPagePreview from "../../components/ExportPagePreview.astro";
 
 export function getStaticPaths() {
   return process.env["E2E_TEST_PAGES"] === "1" ? [{ params: { page: "export-layout-worker" } }] : [];
@@ -15,8 +16,11 @@ export function getStaticPaths() {
 
 <Layout title="Export worker test" description="Test page for the export layout worker." noindex>
   <p id="state" data-state="idle">idle</p>
+  <!-- B8a: the preview component, driven by e2e/export-layout-preview.e2e.ts through window.__preview. -->
+  <ExportPagePreview />
   <script>
     import type { LayoutWorkerRequest, PdfWorkerRequest } from "../../lib/export-layout/types";
+    import { destroyPreview, getView, getZoom, renderPreview, setView, setZoom } from "../../scripts/exportPagePreview";
 
     interface WorkerHarness {
       readonly messages: unknown[];
@@ -29,8 +33,17 @@ export function getStaticPaths() {
       pdfBase64: string | null;
       post(message: PdfWorkerRequest): void;
     }
+    interface PreviewHarness {
+      readonly root: HTMLElement;
+      readonly renderPreview: typeof renderPreview;
+      readonly setZoom: typeof setZoom;
+      readonly setView: typeof setView;
+      readonly getZoom: typeof getZoom;
+      readonly getView: typeof getView;
+      readonly destroyPreview: typeof destroyPreview;
+    }
     declare global {
-      interface Window { __layoutWorker?: WorkerHarness; __pdfWorker?: PdfHarness }
+      interface Window { __layoutWorker?: WorkerHarness; __pdfWorker?: PdfHarness; __preview?: PreviewHarness }
     }
 
     const worker = new Worker(new URL("../../workers/export-layout.worker.ts", import.meta.url), { type: "module" });
@@ -55,6 +68,9 @@ export function getStaticPaths() {
     };
     pdfWorker.onerror = (event) => { errors.push(event.message); };
     window.__pdfWorker = pdfHarness;
+
+    const previewRoot = document.querySelector<HTMLElement>("[data-cx-preview]");
+    if (previewRoot) window.__preview = { root: previewRoot, renderPreview, setZoom, setView, getZoom, getView, destroyPreview };
 
     const state = document.getElementById("state");
     if (state) { state.dataset["state"] = "ready"; state.textContent = "ready"; }
