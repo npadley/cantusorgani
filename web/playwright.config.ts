@@ -20,7 +20,19 @@ export default defineConfig({
   retries: process.env["CI"] ? 1 : 0,
   reporter: process.env["CI"] ? [["github"], ["list"]] : "list",
   use: { baseURL: `http://localhost:${PORT}`, trace: "retain-on-failure" },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  projects: [
+    { name: "chromium", testIgnore: /export-device\.e2e\.ts/, use: { ...devices["Desktop Chrome"] } },
+    // The iPad-over-LAN check (e2e/export-device.e2e.ts): an iPad Pro 11 viewport reaching the device-test server by its
+    // LAN address, which Safari and Chrome both treat as an insecure context. It runs in WebKit, Safari's engine, when
+    // E2E_WEBKIT=1 (after `pnpm exec playwright install webkit`); without it the same checks run in Chromium.
+    {
+      name: "ipad-lan",
+      testMatch: /export-device\.e2e\.ts/,
+      use: process.env["E2E_WEBKIT"] === "1"
+        ? { ...devices["iPad Pro 11"] }
+        : (() => { const { defaultBrowserType: _ignored, ...ipad } = devices["iPad Pro 11"]; return { ...ipad, browserName: "chromium" as const }; })(),
+    },
+  ],
   webServer: {
     command: [
       `${wrangler} d1 migrations apply cantusorgani-corrections --local --persist-to ${STATE}`,
