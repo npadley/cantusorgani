@@ -572,7 +572,13 @@ class ConversionInputs:
     verovio_version: str
     font_digest: str
     def digest(self) -> str:
-        raise NotImplementedError("card A5a")
+        """sha256 (hex) of the canonical JSON of every field: sorted keys, no whitespace."""
+        import dataclasses  # local imports: this card may only touch this body
+        import hashlib
+        import json
+
+        canonical = json.dumps(dataclasses.asdict(self), sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+        return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
 @dataclass(frozen=True)
 class LayoutCase:
@@ -583,7 +589,21 @@ class LayoutCase:
     line_policy: Literal["original", "automatic"]
     max_systems: int | None
 
-REQUIRED_MATRIX: tuple[LayoutCase, ...] = ()  # A5a fills this from contracts §3
+REQUIRED_MATRIX: tuple[LayoutCase, ...] = (  # contracts §3, in table order
+    LayoutCase("letter-p-orig", "letter", "portrait", "medium", "original", None),
+    LayoutCase("letter-p-auto", "letter", "portrait", "medium", "automatic", None),
+    LayoutCase("letter-l-orig", "letter", "landscape", "medium", "original", None),
+    LayoutCase("a4-p-orig", "a4", "portrait", "medium", "original", None),
+    LayoutCase("a4-l-auto", "a4", "landscape", "medium", "automatic", None),
+    LayoutCase("a5-p-auto", "a5", "portrait", "medium", "automatic", None),
+    LayoutCase("a5-l-orig", "a5", "landscape", "medium", "original", None),
+    LayoutCase("letter-p-large-auto", "letter", "portrait", "large", "automatic", None),
+    LayoutCase("letter-p-small-cap2", "letter", "portrait", "small", "automatic", 2),
+    LayoutCase("ipad11-p-auto", "ipad-11", "portrait", "medium", "automatic", None),
+    LayoutCase("ipad11-l-large-auto", "ipad-11", "landscape", "large", "automatic", None),
+    LayoutCase("ipadmini-p-auto", "ipad-mini", "portrait", "medium", "automatic", None),
+    LayoutCase("custom-160x230-auto", "custom:160x230", "portrait", "medium", "automatic", None),
+)
 
 @dataclass(frozen=True)
 class ReviewDecision:
