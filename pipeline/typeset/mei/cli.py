@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import dataclasses
+import hashlib
 import json
 from collections import Counter
 from fractions import Fraction
@@ -12,11 +13,17 @@ from typing import Any
 from pipeline.typeset.lilypond import INCLUDE
 from pipeline.typeset.match import PARTS_FILE, SRC, load
 from pipeline.typeset.mei.audit import audit_sources
-from pipeline.typeset.mei.diagnostics import Diagnostic
+from pipeline.typeset.mei.diagnostics import Diagnostic, SourceLocation
 from pipeline.typeset.mei.encode import encode_score
 from pipeline.typeset.mei.extract import BUILD_ROOT, PinnedLilyPondRunner, extract_score
-from pipeline.typeset.mei.model import ConversionProfile, LilyPondRunnerAdapter
+from pipeline.typeset.mei.model import (
+    ConversionProfile,
+    EncodedScore,
+    LilyPondRunnerAdapter,
+    ScoreIR,
+)
 from pipeline.typeset.mei.schema import load_schema_bundle, validate_schema
+from pipeline.typeset.mei.validate import validate_conversion
 
 
 def _json_default(value: Any) -> Any:
@@ -90,7 +97,7 @@ def convert_command(
     profile_path: Path = PROFILE_PATH,
 ) -> int:
     """Extract, encode and schema-validate one source. Writes score.mei, boundaries.json,
-    diagnostics.json and ir.json to OUT. No approval, review or publish side effects."""
+    diagnostics.json, provenance.json and ir.json to OUT. No approval, review or publish side effects."""
     profile = ConversionProfile.load(profile_path)
     result = extract_score(source, runner=runner or PinnedLilyPondRunner(), build_root=build_root)
     diagnostics: list[Diagnostic] = list(result.diagnostics)
@@ -121,6 +128,7 @@ def convert_command(
     )
     _write_json(out / "diagnostics.json", [_diagnostic_dict(d) for d in diagnostics])
     _write_json(out / "ir.json", ir.to_dict())
+    _write_json(out / "provenance.json", encoded.provenance)
     errors = [d for d in diagnostics if d.severity == "error"]
     for d in diagnostics:
         print(f"{d.severity}: {d.code}: {d.message}")
@@ -129,3 +137,54 @@ def convert_command(
         f"sha256 {encoded.artifact_sha256}; wrote {out}"
     )
     return 1 if errors else 0
+
+
+# --- typeset-mei-validate --------------------------------------------------------------
+
+
+def _diagnostic_from_dict(raw: dict[str, Any]) -> Diagnostic:
+    loc = raw.get("sourceLocation")
+    return Diagnostic(
+        code=raw["code"],
+        severity=raw["severity"],
+        message=raw["message"],
+        source_location=None if loc is None else SourceLocation(loc["filename"], loc["line"], loc["column"]),
+        event_ids=tuple(raw.get("eventIds", [])),
+        details=tuple((k, v) for k, v in raw.get("details", [])),
+    )
+
+
+def validate_command(directory: Path) -> int:
+    """Validate a converter output directory (ir.json, score.mei, provenance.json, diagnostics.json).
+    Writes validation.json; exit 1 when the conversion is not eligible."""
+    ir = ScoreIR.from_dict(json.loads((directory / "ir.json").read_text(encoding="utf-8")))
+    xml = (directory / "score.mei").read_bytes()
+    provenance = json.loads((directory / "provenance.json").read_text(encoding="utf-8"))
+    diagnostics_path = directory / "diagnostics.json"
+    recorded = (
+        [_diagnostic_from_dict(d) for d in json.loads(diagnostics_path.read_text(encoding="utf-8"))]
+        if diagnostics_path.exists()
+        else []
+    )
+    encoded = EncodedScore(
+        xml=xml,
+        artifact_sha256=hashlib.sha256(xml).hexdigest(),
+        boundaries=(),
+        feature_decisions=(),
+        provenance=provenance,
+        diagnostics=tuple(recorded),
+    )
+    report = validate_conversion(ir, encoded, load_schema_bundle())
+    _write_json(
+        directory / "validation.json",
+        json.loads(json.dumps(dataclasses.asdict(report), default=_json_default)),
+    )
+    for difference in report.semantic_differences:
+        print(f"{difference.code}: {difference.detail}")
+    for d in report.schema_diagnostics:
+        print(f"{d.code}: {d.message}")
+    print(
+        f"{'eligible' if report.eligible else 'NOT eligible'}: {len(report.semantic_differences)} "
+        f"semantic differences; wrote {directory / 'validation.json'}"
+    )
+    return 0 if report.eligible else 1

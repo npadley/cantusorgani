@@ -94,7 +94,7 @@ from pipeline.typeset.mei.schema import load_schema_bundle, validate_schema
 def test_convert_command_fake_runner_writes_four_artifacts(tmp_path: Path):
     out = tmp_path / "out"
     assert convert_command(ITE_IB, out, FakeRunner(), tmp_path / "build") == 0
-    assert sorted(p.name for p in out.iterdir()) == ["boundaries.json", "diagnostics.json", "ir.json", "score.mei"]
+    assert sorted(p.name for p in out.iterdir()) == ["boundaries.json", "diagnostics.json", "ir.json", "provenance.json", "score.mei"]
     assert validate_schema((out / "score.mei").read_bytes(), load_schema_bundle()) == []
     boundaries = json.loads((out / "boundaries.json").read_text(encoding="utf-8"))
     assert boundaries
