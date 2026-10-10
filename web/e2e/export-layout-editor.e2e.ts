@@ -196,7 +196,7 @@ for (const vp of VIEWPORTS) {
         expect(fit.width).toBeCloseTo(320, 0);
         expect(prev.x).toBeGreaterThanOrEqual(fit.x + fit.width - 1);
         await expect(page.locator('dialog.cx input[name="cx-tier"]').first()).toBeAttached();
-        await expect(page.getByText("Choose where systems break")).toBeVisible();
+        await expect(page.getByRole("button", { name: "Choose where systems break" })).toBeVisible();
         mkdirSync(SHOTS, { recursive: true });
         await page.screenshot({ path: `${SHOTS}/editor-${vp.name}.png` });
       });
@@ -415,6 +415,7 @@ const BREAK_VIEWPORTS = [
   { name: "390", width: 390, height: 844 },
 ] as const;
 const SHOTS_C = resolve(process.cwd(), "..", "build", "b8c");
+const SHOTS_C2 = resolve(process.cwd(), "..", "build", "b8c2");
 
 interface Pack { phase: string; systems: number; pages: number; digest: string; breaks: { boundaryId: string; kind: string; origin: string }[] }
 async function pack(page: Page): Promise<Pack> {
@@ -504,12 +505,13 @@ for (const vp of BREAK_VIEWPORTS) {
       });
       expect(leaked).toBe(0);
       mkdirSync(SHOTS_C, { recursive: true });
+      mkdirSync(SHOTS_C2, { recursive: true });
       if (!narrow) await page.screenshot({ path: `${SHOTS_C}/break-mode-${vp.name}.png` });
 
       // Esc on a handle leaves the overlay without closing the dialog.
       await page.keyboard.press("Escape");
       await expect(page.locator("dialog.cx")).toHaveAttribute("open", "");
-      expect(await page.evaluate(() => document.activeElement?.getAttribute("data-cx"))).toBe(narrow ? "settings-btn" : "break-mode");
+      expect(await page.evaluate(() => document.activeElement?.getAttribute("data-cx"))).toBe(narrow ? "break-done" : "break-mode");
     });
 
     test("adds a page break by keyboard, sees the page count and the PDF change, then undoes it with Ctrl/Cmd+Z", async ({ page }) => {
@@ -523,7 +525,9 @@ for (const vp of BREAK_VIEWPORTS) {
       await expect(menu).toBeVisible();
       await expect(menu).toHaveAttribute("role", "group");
       await expect(menu.locator("#cx-menu-title")).toContainText("break point");
-      await expect(menu.getByRole("button")).toHaveText(["◀ Previous", "Next ▶", "Start new system here", "Start new page here", "Cancel"]);
+      await expect(menu.getByRole("button")).toHaveText(["◀", "▶", "Cancel", "Start new system here", "Start new page here"]);
+      await expect(menu.getByRole("button", { name: "Previous break point" })).toBeVisible();
+      await expect(menu.getByRole("button", { name: "Next break point" })).toBeVisible();
       expect(await page.evaluate(() => document.activeElement?.getAttribute("data-m"))).toBe("system");
       if (narrow) {
         const mb = (await menu.boundingBox())!;
@@ -609,6 +613,21 @@ for (const vp of BREAK_VIEWPORTS) {
 
     test("thins crowded handles by zoom and turns off in Continuous view", async ({ page }) => {
       await openEditor(page);
+      if (narrow) {
+        // Below 40rem the strip and toolbar give way to a compact bar, and the page is enlarged to 300% for tapping.
+        await modeOn(page);
+        await expect(page.locator("dialog.cx .cx-fit")).toBeHidden();
+        await expect(page.locator("dialog.cx .cx-toolbar")).toBeHidden();
+        await expect(page.locator("dialog.cx .cx-breakbar")).toBeVisible();
+        await expect(page.locator('dialog.cx [data-cx="zoom-value"], dialog.cx [data-cx-zoom-value]')).toHaveText("300%");
+        await page.locator('dialog.cx [data-cx="break-done"]').click();
+        await expect(page.locator('dialog.cx [data-cx="break-mode"]')).toHaveAttribute("aria-pressed", "false");
+        await expect(page.locator("dialog.cx .cx-bp")).toHaveCount(0);
+        await expect(page.locator("dialog.cx .cx-fit")).toBeVisible();
+        await expect(page.locator("dialog.cx [data-cx-zoom-value]")).toHaveText("100%");
+        expect(await page.evaluate(() => document.activeElement?.getAttribute("data-cx"))).toBe("settings-btn");
+        return;
+      }
       await modeOn(page);
       const total = await page.locator("dialog.cx .cx-bp").count();
       const zoomOut = page.locator("dialog.cx").getByRole("button", { name: "Zoom out" });
@@ -638,11 +657,143 @@ for (const vp of BREAK_VIEWPORTS) {
       await page.locator("dialog.cx .cx-vo", { hasText: "Continuous" }).click();
       await expect(page.locator('dialog.cx [data-cx="break-mode"]')).toHaveAttribute("aria-pressed", "false");
       await expect(page.locator("dialog.cx .cx-bp")).toHaveCount(0);
-      // Turning it on again switches back to Pages.
-      if (narrow) await page.locator('dialog.cx [data-cx="settings-btn"]').click();
       await page.locator('dialog.cx [data-cx="break-mode"]').click();
       await expect(page.locator("dialog.cx .cx-preview")).toHaveAttribute("data-view", "pages");
       await expect(handles(page).first()).toBeVisible();
+    });
+
+    test("keeps handle chips and lines clear of the music: chips sit below the staves, lines show only for focus and existing breaks", async ({ page }) => {
+      await openEditor(page);
+      await modeOn(page);
+      await page.screenshot({ path: `${SHOTS_C2}/break-mode-${vp.name}.png` });
+      const geometry = await page.evaluate(() => {
+        // Staff extents of every drawn system, in viewport px.
+        const systems = [...document.querySelectorAll("dialog.cx .cx-svg g.system")].map((s) => {
+          const lines = [...s.querySelectorAll("g.staff > path")].map((l) => l.getBoundingClientRect());
+          return { top: Math.min(...lines.map((r) => r.top)), bottom: Math.max(...lines.map((r) => r.bottom)), left: Math.min(...lines.map((r) => r.left)), right: Math.max(...lines.map((r) => r.right)) };
+        });
+        const bad: string[] = [];
+        let checked = 0;
+        for (const b of document.querySelectorAll<HTMLElement>("dialog.cx .cx-bp:not([hidden])")) {
+          const chip = b.querySelector(".box")!.getBoundingClientRect();
+          const cy = chip.top + chip.height / 2;
+          const cx = chip.left + chip.width / 2;
+          // The system this chip belongs to: the lowest one whose staves end above the chip's centre.
+          const above = systems.filter((s) => s.bottom <= cy + 1 && cx >= s.left - 40 && cx <= s.right + 40).sort((a, b2) => b2.bottom - a.bottom)[0];
+          checked++;
+          if (above === undefined) { bad.push(`no system above chip at ${Math.round(cx)},${Math.round(cy)}`); continue; }
+          if (chip.top < above.bottom - 0.5) bad.push(`chip overlaps staves (${Math.round(chip.top)} < ${Math.round(above.bottom)})`);
+          const next = systems.filter((s) => s.top > above.bottom + 1).sort((a, b2) => a.top - b2.top)[0];
+          if (next !== undefined && chip.bottom > next.top) bad.push("chip runs into the next system's staves");
+          if (chip.width > 16 || chip.height > 16) bad.push(`chip ${chip.width}x${chip.height} is not small`);
+        }
+        return { bad, checked };
+      });
+      expect(geometry.checked).toBeGreaterThan(5);
+      expect(geometry.bad).toEqual([]);
+
+      const opacity = (sel: string) => page.locator(sel).first().evaluate((e) => Number(getComputedStyle(e).opacity));
+      // A plain, unfocused break point shows no line.
+      const plainId = (await page.locator('dialog.cx .cx-bp:not([hidden])[data-kind="none"]').nth(2).getAttribute("data-boundary"))!;
+      const plain = byId(page, plainId);
+      await page.locator("#export-btn").focus(); // move focus out of the overlay (also behind the modal: harmless)
+      await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+      const lineOf = (id: string) => page.locator(`dialog.cx .cx-bp[data-boundary="${id}"] + .cx-bpline`);
+      expect(await lineOf(plainId).evaluate((e) => Number(getComputedStyle(e).opacity))).toBe(0);
+      // An original line break keeps a thin, translucent line.
+      const origOpacity = await opacity('dialog.cx .cx-bpline[data-kind="orig"]');
+      expect(origOpacity).toBeGreaterThan(0.2);
+      expect(origOpacity).toBeLessThan(0.8);
+      expect(await page.locator('dialog.cx .cx-bpline[data-kind="orig"]').first().evaluate((e) => getComputedStyle(e).width)).toBe("1px");
+      // Focus (or hover) reveals one line, thin and translucent.
+      await plain.focus();
+      const focused = await lineOf(plainId).evaluate((e) => Number(getComputedStyle(e).opacity));
+      expect(focused).toBeGreaterThan(0.4);
+      expect(focused).toBeLessThan(1);
+      await expect(plain.locator(".cx-bplab")).toBeVisible();
+      await page.screenshot({ path: `${SHOTS_C2}/handle-focused-${vp.name}.png` });
+      // The caption sits beside the chip, in the gap: it does not intersect any lyric text.
+      const overLyrics = await page.evaluate(() => {
+        const cap = document.querySelector<HTMLElement>("dialog.cx .cx-bp:focus .cx-bplab")!.getBoundingClientRect();
+        return [...document.querySelectorAll("dialog.cx .cx-svg text, dialog.cx .cx-svg tspan")].filter((n) => {
+          const r = n.getBoundingClientRect();
+          return r.width > 0 && r.left < cap.right && r.right > cap.left && r.top < cap.bottom - 2 && r.bottom > cap.top + 2;
+        }).length;
+      });
+      expect(overLyrics).toBe(0);
+      // Existing breaks keep a distinct chip: a user system break shows the glyph and its own line.
+      await plain.click();
+      await page.getByRole("button", { name: "Start new system here" }).click();
+      await expect(plain).toHaveAttribute("data-kind", "system");
+      expect(await plain.locator(".box").textContent()).toBe("↵");
+    });
+
+    test("with the action panel open the current system is fully visible above the panel", async ({ page }) => {
+      await openEditor(page);
+      await modeOn(page);
+      const id = await pick(page, "none", 6);
+      await byId(page, id).click();
+      const menu = page.locator("dialog.cx .cx-menu");
+      await expect(menu).toBeVisible();
+      await expect(menu.getByRole("button", { name: "Start new system here" })).toBeVisible();
+      await expect(menu.getByRole("button", { name: "Start new page here" })).toBeVisible();
+      // Compact: title row, one row of two actions, one line for "Now" and remove-or-note.
+      const rows = await menu.evaluate((m) => {
+        const r = (s: string) => m.querySelector(s)!.getBoundingClientRect();
+        const a = m.querySelector('[data-m="system"]')!.getBoundingClientRect();
+        const b = m.querySelector('[data-m="page"]')!.getBoundingClientRect();
+        return { sideBySide: Math.abs(a.top - b.top) < 2 && b.left > a.left, height: m.getBoundingClientRect().height, headBottom: r(".cx-menu-head").bottom, actsTop: r(".cx-menu-acts").top };
+      });
+      expect(rows.sideBySide).toBe(true);
+      if (narrow) expect(rows.height).toBeLessThanOrEqual(190);
+      const view = await page.evaluate((boundary) => {
+        const chip = document.querySelector<HTMLElement>(`dialog.cx .cx-bp[data-boundary="${boundary}"]`)!;
+        const line = chip.nextElementSibling!.getBoundingClientRect();
+        // The system that holds this break point: the g.system whose vertical range contains the line.
+        const mid = line.top + line.height / 2;
+        const sys = [...document.querySelectorAll("dialog.cx .cx-svg g.system")].map((s) => s.getBoundingClientRect()).find((r) => r.top <= mid && mid <= r.bottom)!;
+        const menuTop = document.querySelector("dialog.cx .cx-menu")!.getBoundingClientRect().top;
+        const previewTop = document.querySelector("dialog.cx .cx-preview")!.getBoundingClientRect().top;
+        return { top: sys.top, bottom: sys.bottom, height: sys.height, menuTop, previewTop, vh: window.innerHeight };
+      }, id);
+      expect(view.height).toBeGreaterThanOrEqual(120);
+      expect(view.top).toBeGreaterThanOrEqual(view.previewTop - 1);
+      expect(view.bottom).toBeLessThanOrEqual(narrow ? view.menuTop + 1 : view.vh);
+      expect(view.bottom).toBeLessThanOrEqual(view.vh);
+      mkdirSync(SHOTS_C2, { recursive: true });
+      await page.screenshot({ path: `${SHOTS_C2}/panel-open-${vp.name}.png` });
+    });
+
+    test("the left column never overlaps itself: the FIT summary clears the settings text at every scroll position", async ({ page }) => {
+      test.skip(narrow, "the two-column layout is 62rem and up");
+      await openEditor(page);
+      const overlaps = async (): Promise<string[]> => page.evaluate(() => {
+        const q = (s: string) => document.querySelector<HTMLElement>(`dialog.cx ${s}`)!;
+        const result = q("[data-cx=result]").getBoundingClientRect();
+        const fit = q("[data-cx=fit]");
+        const fitBox = fit.getBoundingClientRect();
+        const settings = q("[data-cx=settings]").getBoundingClientRect();
+        const out: string[] = [];
+        // Only the part of a settings element inside the scroller is drawn: clip it, then test it against the summary.
+        for (const n of document.querySelectorAll<HTMLElement>("dialog.cx [data-cx=settings] :is(p, span, label, legend, h3, li, summary, button, input):not([hidden])")) {
+          const r = n.getBoundingClientRect();
+          const l = Math.max(r.left, settings.left), rt = Math.min(r.right, settings.right), tp = Math.max(r.top, settings.top), bt = Math.min(r.bottom, settings.bottom);
+          if (rt <= l || bt <= tp) continue;
+          if (l < result.right && rt > result.left && tp < result.bottom && bt > result.top) out.push(`${n.tagName} ${n.textContent?.trim().slice(0, 30)}`);
+        }
+        if (fitBox.bottom > settings.top + 0.5) out.push("fit group extends into the settings column");
+        if (result.bottom > fitBox.bottom - 8) out.push("the summary has no padding above the group's edge");
+        if (getComputedStyle(fit).borderBottomWidth !== "1px") out.push("no rule under the FIT group");
+        return out;
+      });
+      expect(await overlaps()).toEqual([]);
+      const scroller = page.locator("dialog.cx [data-cx=settings]");
+      const max = await scroller.evaluate((e) => e.scrollHeight - e.clientHeight);
+      expect(max).toBeGreaterThan(50);
+      for (const at of [Math.round(max / 2), max]) {
+        await scroller.evaluate((e, y) => { e.scrollTop = y; }, at);
+        expect(await overlaps(), `scrollTop ${at}`).toEqual([]);
+      }
     });
   });
 }

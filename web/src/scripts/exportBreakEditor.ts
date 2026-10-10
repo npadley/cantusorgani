@@ -33,9 +33,13 @@ interface Handle {
   readonly page: number;
   readonly kind: BreakKind;
   readonly xFrac: number;
-  readonly yFrac: number;
-  readonly hFrac: number;
+  /** Staff top and bottom of the handle's system, as fractions of the page frame. */
+  readonly topFrac: number;
+  readonly bottomFrac: number;
+  /** Where the visible chip sits: just below the bottom staff, inside the page margin. */
+  readonly chipFrac: number;
   readonly sysStart: boolean;
+  readonly sysEl: Element | null;
   el: HTMLButtonElement;
   line: HTMLElement;
   overlay: HTMLElement;
@@ -49,6 +53,8 @@ const el = <K extends keyof HTMLElementTagNameMap>(tag: K, cls?: string, text?: 
   return n;
 };
 const pct = (f: number): string => `${f * 100}%`;
+/** Lowest y (page fraction) the chip may take: inside the bottom margin edge. */
+const chipLimit = (p: { heightMm: number; printable: { yMm: number; heightMm: number } }): number => (p.printable.yMm + p.printable.heightMm) / p.heightMm - 0.012;
 const isNav = (k: string): k is NavKey => k === 'ArrowLeft' || k === 'ArrowRight' || k === 'Home' || k === 'End';
 
 export class BreakEditor {
@@ -127,33 +133,44 @@ export class BreakEditor {
       part.conversion.boundaries.forEach((boundary, index) => {
         let page = -1;
         let xFrac = 0;
-        let yFrac = 0;
-        let hFrac = 0;
+        let topFrac = 0;
+        let bottomFrac = 0;
+        let sysEl: Element | null = null;
         const start = starts.get(boundary.id);
-        if (start !== undefined) {
-          ({ page, x: xFrac, y: yFrac, h: hFrac } = start);
-        } else {
-          for (let i = 0; i < result.pages.length && page < 0; i++) {
-            const p = result.pages[i]!;
-            if (p.kind !== 'mei' || p.partId !== part.id) continue;
-            const wrap = pagesHost.querySelector<HTMLElement>(`.cx-pg[data-page="${i + 1}"]`);
-            const frame = wrap?.querySelector<HTMLElement>('.cx-page');
+        /** Staff extents of a drawn system, from its staff lines (notes and lyrics would make every handle differ). */
+        const staffExtent = (system: Element, f: DOMRect): [number, number] | null => {
+          const lines = [...system.querySelectorAll('g.staff > path')].map((l) => l.getBoundingClientRect());
+          if (lines.length === 0 || f.height === 0) return null;
+          return [(Math.min(...lines.map((r) => r.top)) - f.top) / f.height, (Math.max(...lines.map((r) => r.bottom)) - f.top) / f.height];
+        };
+        for (let i = 0; i < result.pages.length && page < 0; i++) {
+          const p = result.pages[i]!;
+          if (p.kind !== 'mei' || p.partId !== part.id) continue;
+          if (start !== undefined && start.page !== i) continue;
+          const wrap = pagesHost.querySelector<HTMLElement>(`.cx-pg[data-page="${i + 1}"]`);
+          const frame = wrap?.querySelector<HTMLElement>('.cx-page');
+          if (frame == null) continue;
+          const f = frame.getBoundingClientRect();
+          if (f.width === 0 || f.height === 0) continue;
+          if (start !== undefined) {
+            const systems = [...(wrap?.querySelectorAll('.cx-svg g.system') ?? [])];
+            const target = f.top + (start.y + start.h / 2) * f.height;
+            sysEl = systems.find((s) => { const r = s.getBoundingClientRect(); return r.top <= target && target <= r.bottom; }) ?? null;
+            const ext = sysEl === null ? null : staffExtent(sysEl, f);
+            page = i;
+            xFrac = start.x;
+            topFrac = ext?.[0] ?? start.y;
+            bottomFrac = ext?.[1] ?? start.y + start.h;
+          } else {
             const measure = wrap?.querySelector<Element>(`.cx-svg [id="${p.svg.namespace}-${boundary.measureId}"]`);
-            if (frame == null || measure == null) continue;
-            const f = frame.getBoundingClientRect();
+            if (measure == null) continue;
+            sysEl = measure.closest('g.system');
+            const ext = sysEl === null ? null : staffExtent(sysEl, f);
             const m = measure.getBoundingClientRect();
-            if (f.width === 0 || f.height === 0) continue;
-            // The staves' own lines give the system's top and bottom (notes and lyrics would make every handle differ).
-            const staves = [...measure.querySelectorAll(':scope > g.staff')];
-            const lines = (s: Element | undefined): DOMRect[] => [...(s?.querySelectorAll(':scope > path') ?? [])].map((l) => l.getBoundingClientRect());
-            const top = lines(staves[0]).map((r) => r.top);
-            const bottom = lines(staves[staves.length - 1]).map((r) => r.bottom);
-            const topPx = top.length > 0 ? Math.min(...top) : m.top;
-            const bottomPx = bottom.length > 0 ? Math.max(...bottom) : m.bottom;
             page = i;
             xFrac = (m.right - f.left) / f.width;
-            yFrac = (topPx - f.top) / f.height;
-            hFrac = (bottomPx - topPx) / f.height;
+            topFrac = ext?.[0] ?? (m.top - f.top) / f.height;
+            bottomFrac = ext?.[1] ?? (m.bottom - f.top) / f.height;
           }
         }
         if (page < 0) return;
@@ -161,7 +178,8 @@ export class BreakEditor {
         if (overlay === null) return;
         const kind = kindOf(effective.get(boundary.id));
         const handle: Handle = {
-          boundary, index, total, part, page: page + 1, kind, xFrac, yFrac, hFrac, sysStart: start !== undefined,
+          boundary, index, total, part, page: page + 1, kind, xFrac, topFrac, bottomFrac, sysStart: start !== undefined, sysEl,
+          chipFrac: Math.min(bottomFrac, chipLimit(result.pages[page]!)),
           el: el('button', 'cx-bp'), line: el('div', 'cx-bpline'), overlay, visible: true,
         };
         this.build(handle);
@@ -202,7 +220,7 @@ export class BreakEditor {
     b.setAttribute('aria-label', handleLabel({ index: h.index, total: h.total, part: this.host.partLabel(h.part.id), afterText: h.boundary.afterText, page: h.page, kind: h.kind }));
     b.setAttribute('aria-haspopup', 'true');
     b.style.left = pct(h.xFrac);
-    b.style.top = pct(h.yFrac);
+    b.style.top = pct(h.chipFrac);
     if (h.sysStart) b.style.marginLeft = '22px'; // system-start handles sit just inside the line's left edge
     const box = el('span', 'box', glyphOf(h.kind));
     box.setAttribute('aria-hidden', 'true');
@@ -210,10 +228,12 @@ export class BreakEditor {
     cap.setAttribute('aria-hidden', 'true');
     b.append(box, cap);
     line.setAttribute('aria-hidden', 'true');
+    line.dataset['kind'] = h.kind;
     line.style.left = pct(h.xFrac);
-    line.style.top = pct(h.yFrac);
-    line.style.height = pct(h.hFrac);
-    h.overlay.append(line, b);
+    line.style.top = pct(h.topFrac);
+    line.style.height = pct(h.bottomFrac - h.topFrac);
+    // The line follows its button so CSS can show it for :hover and :focus-visible.
+    h.overlay.append(b, line);
   }
 
   /** Hide handles closer than 44 CSS px; hit areas are never shrunk. */
@@ -221,7 +241,7 @@ export class BreakEditor {
     if (this.handles.length === 0) return;
     const centers = this.handles.map((h) => {
       const r = h.overlay.getBoundingClientRect();
-      return { row: `${h.page}:${Math.round(h.yFrac * r.height / 8)}`, x: h.xFrac * r.width + (h.sysStart ? 22 : 0) };
+      return { row: `${h.page}:${Math.round(h.chipFrac * r.height / 8)}`, x: h.xFrac * r.width + (h.sysStart ? 22 : 0) };
     });
     const flags = thin(centers);
     this.handles.forEach((h, i) => {
@@ -246,6 +266,13 @@ export class BreakEditor {
 
   private handleFor(id: string): Handle | undefined { return this.handles.find((h) => h.boundary.id === id); }
 
+  private markCurrent(): void {
+    for (const h of this.handles) {
+      if (h.boundary.id === this.currentId) h.el.dataset['current'] = 'true';
+      else delete h.el.dataset['current'];
+    }
+  }
+
   private focusHandle(id: string, scroll: boolean): void {
     const h = this.handleFor(id);
     if (h === undefined) return;
@@ -253,9 +280,35 @@ export class BreakEditor {
     h.visible = true;
     h.el.hidden = false;
     h.line.hidden = false;
+    this.markCurrent();
     this.setTabStops();
-    h.el.focus({ preventScroll: !scroll });
-    if (scroll) h.el.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    h.el.focus({ preventScroll: true });
+    if (scroll) this.reveal(h);
+  }
+
+  /** Scroll so the handle's whole system is on screen, above the narrow action panel when one is open. */
+  private reveal(h: Handle): void {
+    const scroller = this.host.preview;
+    const pages = scroller.querySelector<HTMLElement>('[data-cx-pages]');
+    const sr = scroller.getBoundingClientRect();
+    const toolbar = scroller.querySelector<HTMLElement>('.cx-toolbar');
+    const toolbarBottom = toolbar !== null && toolbar.offsetParent !== null ? toolbar.getBoundingClientRect().bottom : sr.top;
+    const topLimit = Math.max(sr.top, toolbarBottom) + 8;
+    let bottomLimit = sr.bottom - 8;
+    const menu = scroller.querySelector<HTMLElement>('.cx-menu');
+    if (menu !== null && getComputedStyle(menu).position === 'fixed') bottomLimit = Math.min(bottomLimit, menu.getBoundingClientRect().top - 8);
+    const chip = h.el.getBoundingClientRect();
+    const sys = h.sysEl?.getBoundingClientRect();
+    const top = Math.min(sys?.top ?? chip.top, chip.top);
+    const bottom = Math.max(sys?.bottom ?? chip.bottom, chip.bottom);
+    if (top < topLimit) scroller.scrollTop -= topLimit - top;
+    else if (bottom > bottomLimit) scroller.scrollTop += Math.min(bottom - bottomLimit, top - topLimit);
+    if (pages !== null) {
+      const pr = pages.getBoundingClientRect();
+      const x = chip.left + chip.width / 2;
+      if (x < pr.left + 32) pages.scrollLeft -= pr.left + 32 - x;
+      else if (x > pr.right - 32) pages.scrollLeft += x - (pr.right - 32);
+    }
   }
 
   // ------------------------------------------------------------------- menu ---
@@ -279,24 +332,25 @@ export class BreakEditor {
     menu.setAttribute('aria-labelledby', 'cx-menu-title');
     menu.dataset['boundary'] = id;
     menu.style.left = pct(h.xFrac);
-    menu.style.top = pct(h.yFrac);
+    menu.style.top = pct(h.chipFrac);
     menu.style.bottom = `${this.host.footerHeight()}px`; // only used by the narrow, fixed layout
+    const head = el('div', 'cx-menu-head');
     const title = el('p', 'cx-menu-title');
     title.id = 'cx-menu-title';
-    const strong = el('strong', undefined, model.title);
-    title.append(strong);
-    const nav = el('div', 'cx-menu-nav');
-    const prev = el('button', undefined, '◀ Previous');
-    prev.type = 'button';
-    prev.dataset['m'] = 'prev';
-    prev.disabled = h.index === 0;
-    const next = el('button', undefined, 'Next ▶');
-    next.type = 'button';
-    next.dataset['m'] = 'next';
-    next.disabled = h.index === h.total - 1;
-    nav.append(prev, next);
-    const now = el('p', 'small', model.now);
-    menu.append(title, nav, now);
+    title.append(el('strong', undefined, model.title));
+    const iconButton = (key: string, glyph: string, label: string, disabled: boolean): HTMLButtonElement => {
+      const b = el('button', 'cx-menu-icon', glyph);
+      b.type = 'button';
+      b.dataset['m'] = key;
+      b.setAttribute('aria-label', label);
+      b.disabled = disabled;
+      return b;
+    };
+    const cancel = el('button', 'link', 'Cancel');
+    cancel.type = 'button';
+    cancel.dataset['m'] = 'cancel';
+    head.append(title, iconButton('prev', '◀', 'Previous break point', h.index === 0), iconButton('next', '▶', 'Next break point', h.index === h.total - 1), cancel);
+    menu.append(head);
     const action = (key: string, label: string, disabled: boolean): HTMLButtonElement => {
       const b = el('button', undefined, label);
       b.type = 'button';
@@ -304,16 +358,19 @@ export class BreakEditor {
       b.disabled = disabled;
       return b;
     };
-    if (model.originalNote !== null) menu.append(el('p', 'small muted', model.originalNote));
-    else if (model.system !== null) menu.append(action('system', model.system.label, model.system.disabled));
-    menu.append(action('page', model.page.label, model.page.disabled));
-    if (model.remove) menu.append(action('remove', 'Remove my break', false));
-    const cancel = action('cancel', 'Cancel', false);
-    cancel.className = 'link';
-    menu.append(cancel);
+    const acts = el('div', 'cx-menu-acts');
+    if (model.system !== null) acts.append(action('system', model.system.label, model.system.disabled));
+    acts.append(action('page', model.page.label, model.page.disabled));
+    const now = el('div', 'cx-menu-now small');
+    now.append(el('span', undefined, model.now));
+    if (model.originalNote !== null) now.append(el('span', 'muted', model.originalNote));
+    if (model.remove) now.append(action('remove', 'Remove my break', false));
+    menu.append(acts, now);
     h.overlay.append(menu);
     this.clampMenu(menu, h.overlay);
-    if (focus) (menu.querySelector<HTMLButtonElement>('[data-m=system]:not(:disabled), [data-m=page]:not(:disabled)') ?? menu.querySelector<HTMLButtonElement>('[data-m=remove], [data-m=cancel]'))?.focus();
+    this.markCurrent();
+    this.reveal(h);
+    if (focus) (menu.querySelector<HTMLButtonElement>('[data-m=system]:not(:disabled), [data-m=page]:not(:disabled)') ?? menu.querySelector<HTMLButtonElement>('[data-m=remove], [data-m=cancel]'))?.focus({ preventScroll: true });
   }
 
   private clampMenu(menu: HTMLElement, overlay: HTMLElement): void {
@@ -329,7 +386,7 @@ export class BreakEditor {
 
   private readonly onFocusIn = (e: Event): void => {
     const t = e.target instanceof Element ? e.target.closest<HTMLElement>('.cx-bp') : null;
-    if (t?.dataset['boundary'] !== undefined) { this.currentId = t.dataset['boundary']; this.setTabStops(); }
+    if (t?.dataset['boundary'] !== undefined) { this.currentId = t.dataset['boundary']; this.markCurrent(); this.setTabStops(); }
   };
 
   private readonly onClick = (e: Event): void => {

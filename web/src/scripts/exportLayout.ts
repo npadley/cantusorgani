@@ -23,7 +23,7 @@ import type {
   StorageLike,
 } from '../lib/export-layout/types';
 import profileJson from '../../../data/typeset/mei/resource-profile.json';
-import { destroyPreview, getView, initPreview, renderPreview, setView } from './exportPagePreview';
+import { destroyPreview, getView, getZoom, initPreview, renderPreview, setView, setZoom } from './exportPagePreview';
 import { BreakEditor } from './exportBreakEditor';
 import { ACTION_LABEL, CUSTOM_ERRORS, MM_PER_IN, PRINTER_ADVISORY, copyFor, isGlobalDiagnostic, paperName, smallerStaff } from './exportLayoutCopy';
 import type { ActionId, CopyContext } from './exportLayoutCopy';
@@ -49,6 +49,7 @@ const UPDATING_DELAY_MS = 300;
 const ANNOUNCE_GAP_MS = 2000;
 const UNDO_VISIBLE_MS = 30_000;
 const SLOW_NOTE_MS = 8000;
+const BREAK_ZOOM = 300;
 const MM_PRECISION = 10;
 
 /** The URL fragment is only ever set while the editor is open; strip a stale one on load without opening. */
@@ -150,6 +151,7 @@ class Session {
   private savedBytes: number | null = null;
   private hasShownResult = false;
   private moreChecked = false;
+  private zoomBefore: number | null = null;
   /** A break action's own sentence is the announcement; the "Preview updated" that follows would overwrite it. */
   private holdUpdated = false;
   private breakEditor!: BreakEditor;
@@ -211,7 +213,9 @@ class Session {
       say: (text) => { this.holdUpdated = true; this.say(text, true); },
       armUndo: () => this.armUndo(),
       leaveOverlay: () => {
-        if (!this.wide.matches) this.q('settings-btn').focus();
+        const done = this.q('break-done');
+        if (done.offsetParent !== null) done.focus(); // below 40rem the strip is hidden while choosing breaks
+        else if (!this.wide.matches) this.q('settings-btn').focus();
         else this.q('break-mode').focus();
       },
       footerHeight: () => this.dlg.querySelector<HTMLElement>('.cx-foot')?.offsetHeight ?? 0,
@@ -304,6 +308,8 @@ class Session {
     for (const l of this.listeners) l.target.removeEventListener(l.type, l.fn);
     this.listeners.length = 0;
     this.dlg.removeAttribute('data-panel');
+    this.dlg.removeAttribute('data-breaking');
+    this.zoomBefore = null;
     this.notices.replaceChildren();
     this.wait.hidden = true;
     if (this.pushed) {
@@ -419,6 +425,7 @@ class Session {
       case 'cancel': this.controller.cancelDownload(); this.say('PDF stopped.', true); break;
       case 'download': void this.download(); break;
       case 'stale-dismiss': this.dismissStale(); break;
+      case 'break-done': this.setBreakMode(false, true); if (!this.wide.matches) this.q('settings-btn').focus(); else this.q('break-mode').focus(); break;
       case 'break-mode':
         this.setBreakMode(!this.breakEditor.active, true);
         break;
@@ -441,6 +448,15 @@ class Session {
     if (on) {
       if (getView(this.preview) === 'continuous') setView(this.preview, 'pages');
       if (this.panelOpen()) this.setPanel(false, false);
+    }
+    // Below 40rem the strip and toolbar give way to a compact bar, and the page is enlarged so a system is tall enough to read and tap.
+    const compact = matchMedia('(max-width: 39.99rem)').matches;
+    if (on) {
+      this.dlg.dataset['breaking'] = 'true';
+      if (compact) { this.zoomBefore = getZoom(this.preview); setZoom(this.preview, BREAK_ZOOM); }
+    } else {
+      delete this.dlg.dataset['breaking'];
+      if (this.zoomBefore !== null) { setZoom(this.preview, this.zoomBefore); this.zoomBefore = null; }
     }
     this.breakEditor.setMode(on);
     if (on) this.breakEditor.focusFirst();

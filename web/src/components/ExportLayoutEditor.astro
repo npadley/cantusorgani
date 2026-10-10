@@ -75,6 +75,11 @@ const IPAD = [
       <button type="button" class="cx-settings-btn" data-cx="settings-btn" aria-expanded="false" aria-controls="cx-settings">Settings</button>
     </fieldset>
 
+    <div class="cx-breakbar" data-cx="breakbar">
+      <span class="cx-breakbar-title">Choose where systems break</span>
+      <button type="button" data-cx="break-done">Done</button>
+    </div>
+
     <aside class="cx-settings" id="cx-settings" data-cx="settings" role="region" aria-label="Export settings" tabindex="-1">
       <div class="cx-phead"><span class="cx-ptitle" aria-hidden="true">Settings</span><button type="button" data-cx="panel-done">Done</button></div>
 
@@ -295,26 +300,44 @@ const IPAD = [
   .cx-foot .primary { min-width: 12rem; }
 
 
-  /* Break editing: a per-page overlay beside the aria-hidden sheet. Handles are 44 px buttons around a 24 px square. */
+  /* Break editing: a per-page overlay beside the aria-hidden sheet. The chip sits in the white space below
+     each system's bottom staff; the 44 px hit area around it is transparent and may overlap the staff. */
   .cx-overlay { position: absolute; inset: 0; pointer-events: none; }
   .cx-overlay > * { pointer-events: auto; }
-  .cx-bpline { position: absolute; width: 1px; background: var(--accent); pointer-events: none !important; }
-  .cx-bp { position: absolute; width: var(--tap-min); height: var(--tap-min); min-height: var(--tap-min); padding: 0; margin: 0; background: transparent; border: 0; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; font-family: var(--font-ui); font-size: 0.75rem; color: var(--accent); cursor: pointer; }
-  .cx-bp .box { width: 24px; height: 24px; border: 1px solid var(--accent); border-radius: var(--radius); background: var(--print-paper); display: flex; align-items: center; justify-content: center; }
+  .cx-bpline { position: absolute; width: 1px; background: var(--accent); opacity: 0; pointer-events: none !important; }
+  .cx-bpline[data-kind="system"], .cx-bpline[data-kind="page"], .cx-bpline[data-kind="orig"] { opacity: 0.45; }
+  .cx-bp:hover + .cx-bpline, .cx-bp:focus + .cx-bpline, .cx-bp[data-current] + .cx-bpline { opacity: 0.7; }
+  .cx-bp { position: absolute; width: var(--tap-min); height: var(--tap-min); min-height: var(--tap-min); padding: 0; margin: 12px 0 0; background: transparent; border: 0; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; font-family: var(--font-ui); font-size: 0.6875rem; line-height: 1; color: var(--accent); cursor: pointer; }
+  .cx-bp .box { width: 14px; height: 14px; border: 1px solid var(--accent); border-radius: var(--radius); background: var(--print-paper); display: flex; align-items: center; justify-content: center; }
+  .cx-bp[data-kind="system"] .box { border-width: 2px; }
   .cx-bp[data-kind="page"] .box { background: var(--accent); color: var(--print-paper); }
   .cx-bp[data-kind="orig"], .cx-bp[data-kind="auto"] { color: var(--ink-muted); }
   .cx-bp[data-kind="orig"] .box, .cx-bp[data-kind="auto"] .box { border-color: var(--ink-muted); }
-  .cx-bplab { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: var(--step--1); color: var(--ink); background: var(--paper); padding: 0 var(--s-1); z-index: 2; }
-  .cx-bp:hover .cx-bplab, .cx-bp:focus-visible .cx-bplab { display: block; }
-  .cx-bp:hover + .cx-bpline, .cx-bp:focus-visible + .cx-bpline { width: 2px; }
-  .cx-bp:focus-visible { outline: 2px solid var(--accent); outline-offset: 0; }
-  .cx-menu { position: absolute; z-index: 4; width: 20rem; max-width: 90%; background: var(--paper); color: var(--ink); border: 1px solid var(--control-border); border-radius: var(--radius); padding: var(--s-3); font-family: var(--font-ui); transform: translateX(-50%); margin-top: 26px; }
-  .cx-menu p { margin: 0 0 var(--s-2); }
-  .cx-menu button { display: block; width: 100%; margin-bottom: var(--s-2); border-color: var(--control-border); }
-  .cx-menu button.link { width: auto; border: 0; }
-  .cx-menu-nav { display: flex; gap: var(--s-2); margin-bottom: var(--s-2); }
-  .cx-menu-nav button { margin: 0; flex: 1; }
+  .cx-bp[data-kind="none"] .box { opacity: 0.8; }
+  .cx-bp:focus .box, .cx-bp:hover .box, .cx-bp[data-current] .box { opacity: 1; border-width: 2px; }
+  /* The caption sits beside the chip, in the empty gap, never over the lyrics. */
+  .cx-bplab { display: none; position: absolute; left: calc(50% + 12px); top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: var(--step--1); color: var(--ink); background: var(--print-paper); padding: 0 var(--s-1); z-index: 2; }
+  .cx-bp:hover .cx-bplab, .cx-bp:focus .cx-bplab { display: block; }
+  .cx-bp:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
+  .cx-bp:hover, .cx-bp:focus { z-index: 3; }
+
+  .cx-menu { position: absolute; z-index: 4; width: 20rem; max-width: 90%; background: var(--paper); color: var(--ink); border: 1px solid var(--control-border); border-radius: var(--radius); padding: var(--s-2) var(--s-3); font-family: var(--font-ui); transform: translateX(-50%); margin-top: 26px; }
+  .cx-menu-head { display: flex; align-items: center; gap: var(--s-1); flex-wrap: wrap; }
+  .cx-menu-title { margin: 0; flex: 1 1 8rem; font-size: var(--step--1); }
+  .cx-menu button { margin: 0; border-color: var(--control-border); }
+  .cx-menu button.cx-menu-icon { min-width: var(--tap-min); padding: 0; }
+  .cx-menu button.link { border: 0; padding: 0 var(--s-1); }
+  .cx-menu-acts { display: flex; gap: var(--s-2); margin: var(--s-1) 0; }
+  .cx-menu-acts button { flex: 1 1 0; padding-inline: var(--s-1); }
+  .cx-menu-now { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s-1) var(--s-3); }
+  .cx-menu-now button { flex: none; }
+
+  /* Choosing breaks below 40rem: the strip and toolbar give way to one compact bar. */
+  .cx-breakbar { display: none; }
   @media (max-width: 39.99rem) {
+    dialog.cx[data-breaking] :is(.cx-fit, .cx-toolbar) { display: none; }
+    dialog.cx[data-breaking] .cx-breakbar { display: flex; align-items: center; justify-content: space-between; gap: var(--s-2); border-bottom: 1px solid var(--rule); padding: var(--s-1) var(--s-3); }
+    .cx-breakbar button { border-color: var(--control-border); }
     .cx-menu { position: fixed; left: 0 !important; right: 0; top: auto !important; width: auto; max-width: none; transform: none; margin: 0; border-width: 1px 0 0; z-index: 8; }
   }
 
@@ -353,9 +376,9 @@ const IPAD = [
   @media (min-width: 62rem) {
     dialog.cx[open] { grid-template-columns: 20rem minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr) auto; }
     .cx-head { grid-column: 1 / -1; grid-row: 1; }
-    .cx-fit { grid-column: 1; grid-row: 2; padding: var(--s-3) var(--s-3) 0; border-right: 1px solid var(--rule); }
-    .cx-settings { grid-column: 1; grid-row: 3; overflow-y: auto; border-right: 1px solid var(--rule); padding: 0 var(--s-3) var(--s-3); min-width: 0; }
-    .cx-settings .cx-grp.first { border-top: 1px solid var(--rule); padding-top: var(--s-3); margin-top: var(--s-3); }
+    /* A rule and padding under the FIT group: settings text scrolling beneath it is clipped at a clean edge. */
+    .cx-fit { grid-column: 1; grid-row: 2; padding: var(--s-3) var(--s-3) var(--s-3); border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .cx-settings { grid-column: 1; grid-row: 3; overflow-y: auto; border-right: 1px solid var(--rule); padding: var(--s-3); min-width: 0; }
     .cx-settings:focus { outline: none; }
     dialog.cx .cx-preview { grid-column: 2; grid-row: 2 / 4; }
     .cx-foot { grid-column: 1 / -1; grid-row: 4; }
