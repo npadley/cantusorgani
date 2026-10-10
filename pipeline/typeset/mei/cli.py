@@ -17,9 +17,12 @@ from pipeline.typeset.mei.diagnostics import Diagnostic, SourceLocation
 from pipeline.typeset.mei.encode import encode_score
 from pipeline.typeset.mei.extract import BUILD_ROOT, PinnedLilyPondRunner, extract_score
 from pipeline.typeset.mei.model import (
+    ConversionInputs,
     ConversionProfile,
+    ConversionRecord,
     EncodedScore,
     LilyPondRunnerAdapter,
+    ReviewDecision,
     ScoreIR,
     ValidationReport,
 )
@@ -314,4 +317,78 @@ def evidence_command(
     flags = ", ".join(f"{n} {code}" for code, n in sorted(counts.items())) or "none"
     print(f"geometry flags (flags only): {flags}")
     print(packet.index_html)
+    return 0
+
+
+# --- typeset-mei-review ----------------------------------------------------------------------
+
+CONVERTER_VERSION = "mei-convert/1"
+VEROVIO_VERSION = "6.3.0-425dd7b"
+FONTS_DIR = Path(__file__).resolve().parents[3] / "web" / "public" / "fonts" / "export"
+
+
+def font_digest(fonts: Path = FONTS_DIR) -> str:
+    """sha256 over the bundled export fonts (``name NUL bytes NUL`` in name order)."""
+    digest = hashlib.sha256()
+    for path in sorted(fonts.glob("*.ttf")):
+        digest.update(path.name.encode() + b"\0" + path.read_bytes() + b"\0")
+    return digest.hexdigest()
+
+
+def record_for_directory(
+    convert_dir: Path, inputs_fn: Any = None, fonts: Path = FONTS_DIR
+) -> tuple[ConversionRecord, ConversionInputs]:
+    """The unreviewed ConversionRecord for a convert directory and its current inputs.
+
+    Inputs come from ``manifest.current_inputs_from_files`` (the single definition) plus the tool
+    versions; target and render_hash are looked up in data/typeset/manifest.json, never inferred."""
+    from pipeline.typeset.mei.evidence import _manifest_entry
+    from pipeline.typeset.mei.manifest import current_inputs_from_files
+    from pipeline.typeset.mei.review import state_for
+
+    ir = json.loads((convert_dir / "ir.json").read_text(encoding="utf-8"))
+    xml = (convert_dir / "score.mei").read_bytes()
+    entry = _manifest_entry(str(ir["sourcePath"]))
+    profile = ConversionProfile.load(PROFILE_PATH)
+    skeleton = ConversionInputs(
+        source_sha256="", include_sha256="", lilypond_version=str(ir["lilypondVersion"]),
+        extractor_version=str(ir["extractorVersion"]), converter_version=CONVERTER_VERSION, profile_id=profile.id,
+        profile_sha256="", schema_sha256="", verovio_version=VEROVIO_VERSION, font_digest=font_digest(fonts),
+    )
+    base = ConversionRecord(
+        source_path=str(ir["sourcePath"]), target=entry["target"] if entry else None,
+        render_hash=entry["hash"] if entry else None, state="needs-review", inputs=skeleton,
+        artifact_sha256=hashlib.sha256(xml).hexdigest(),
+        diagnostics=tuple(_diagnostic_from_dict(d) for d in json.loads((convert_dir / "diagnostics.json").read_text(encoding="utf-8"))),
+        validation=validation_for_directory(convert_dir), review=None,
+    )
+    current = (inputs_fn or current_inputs_from_files)(base)
+    record = dataclasses.replace(base, inputs=current)
+    return dataclasses.replace(record, state=state_for(record)), current
+
+
+def _decision_from_dict(raw: dict[str, Any]) -> ReviewDecision:
+    return ReviewDecision(
+        reviewer=raw["reviewer"], timestamp=raw["timestamp"], inputs_digest=raw["inputs_digest"],
+        artifact_sha256=raw["artifact_sha256"], matrix_results=dict(raw["matrix_results"]),
+        accepted_differences=tuple(raw.get("accepted_differences", [])), decision=raw["decision"],
+    )
+
+
+def review_command(convert_dir: Path, decision_path: Path, out: Path, inputs_fn: Any = None) -> int:
+    """Apply a reviewer's decision to the convert directory's record and write the record JSON.
+    Exit 1 (printing the codes) when the review is blocked."""
+    from pipeline.typeset.mei.manifest import record_to_dict
+    from pipeline.typeset.mei.review import ReviewBlocked, apply_review
+
+    record, current = record_for_directory(convert_dir, inputs_fn)
+    decision = _decision_from_dict(json.loads(decision_path.read_text(encoding="utf-8")))
+    try:
+        reviewed = apply_review(record, decision, current)
+    except ReviewBlocked as blocked:
+        print(f"review blocked: {', '.join(blocked.codes)}")
+        return 1
+    out.parent.mkdir(parents=True, exist_ok=True)
+    _write_json(out, record_to_dict(reviewed))
+    print(f"{reviewed.state}: inputs {current.digest()} artifact {reviewed.artifact_sha256}; wrote {out}")
     return 0
