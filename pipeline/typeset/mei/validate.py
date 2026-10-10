@@ -5,11 +5,14 @@ side from ``normalize_mei``) and reports every difference with a contracts ``Dia
 ``validate_conversion`` is the whole check for one conversion: schema, normalise both sides, compare.
 
 Alignment inside a layer: converted events are matched to source events by ``source_event_id`` (an
-attack is preferred over a continuation sharing the id). Source events left over are then paired, in
-order, with converted events that carry no usable id. Anything still unpaired is reported:
+attack is preferred over a continuation sharing the id). Pairing is by id only: there is no positional
+fallback, so a converted event without provenance never stands in for a source event. Anything unpaired
+is reported:
 
 - source event with no converted counterpart: ``RENDER_EVENT_MISSING``;
-- extra converted event (no source counterpart, id unknown, or a non-attack continuation left
+- converted event with no provenance (``source_event_id`` None): ``RENDER_EVENT_MISSING``, "unmapped
+  converted event"; its would-be source event is reported missing too;
+- extra converted event (id the source layer does not have, or a non-attack continuation left
   standing alone): ``ATTACK_MISMATCH``, because what the page shows is an attack the source lacks.
 
 A change of kind (note, rest, skip) is reported as ``PITCH_MISMATCH`` (pitch present versus absent, or
@@ -74,18 +77,9 @@ def _align(
         pick = next((i for i in candidates if converted[i].is_attack), candidates[0])
         used.add(pick)
         pairs[si] = pick
-    source_ids = {e.source_event_id for e in source if e.source_event_id is not None}
-    loose = [
-        i
-        for i, e in enumerate(converted)
-        if i not in used and (e.source_event_id is None or e.source_event_id not in source_ids)
-    ]
-    for si in (i for i in range(len(source)) if i not in pairs):
-        if not loose:
-            break
-        pick = loose.pop(0)
-        used.add(pick)
-        pairs[si] = pick
+    # Pairing is by id only, never positional: a converted event without a usable id (None, or an id
+    # the source does not have) must not silently stand in for a source event that lost its match.
+    # Both sides are then reported (source: RENDER_EVENT_MISSING; converted: see _compare_layer).
     matched = [(source[si], converted[ci]) for si, ci in sorted(pairs.items())]
     missing = [source[si] for si in range(len(source)) if si not in pairs]
     extra = [converted[i] for i in range(len(converted)) if i not in used]
@@ -122,6 +116,9 @@ def _compare_layer(key: str, source: Sequence[NormalizedEvent], converted: Seque
     for s in missing:
         out.append(_diff("RENDER_EVENT_MISSING", f"{s.kind} at {s.onset} has no converted event", key, s.onset, _ids(s.source_event_id)))
     for c in extra:
+        if c.source_event_id is None:
+            out.append(_diff("RENDER_EVENT_MISSING", f"unmapped converted event at {c.onset}", key, c.onset, ()))
+            continue
         what = "continuation fragment left standing" if not c.is_attack else "converted attack with no source event"
         out.append(_diff("ATTACK_MISMATCH", f"{what} at {c.onset}", key, c.onset, _ids(c.source_event_id)))
     return out

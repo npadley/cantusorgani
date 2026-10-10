@@ -354,13 +354,6 @@ def test_compare_scores_note_id_absent_from_provenance_is_reported_unmapped() ->
     assert any(d.code == "SLUR_MISMATCH" for d in unmapped)
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason=(
-        "FINDING: a bare note (no lyric, slur, tie) whose xml:id is absent from provenance is paired "
-        "positionally with the source event that lost its id match, so compare_scores reports nothing."
-    ),
-)
 def test_compare_scores_bare_note_id_absent_from_provenance_is_reported() -> None:
     def mutate(root: etree._Element, prov: dict[str, str]) -> None:
         note = next(
@@ -370,7 +363,10 @@ def test_compare_scores_bare_note_id_absent_from_provenance_is_reported() -> Non
         )
         note.set(XML_ID, "rogue-id")
 
-    assert run("F1", mutate) != []
+    diffs = run("F1", mutate)
+    assert [d for d in diffs if "unmapped converted event" in d.detail and d.layer_key == "1.2"]
+    assert {d.code for d in diffs} == {"RENDER_EVENT_MISSING"}
+    assert len(diffs) == 2  # the unmapped converted event, and its source event with no counterpart
 
 
 # --- split normalisation --------------------------------------------------------------------

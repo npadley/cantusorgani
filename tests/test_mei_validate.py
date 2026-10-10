@@ -107,12 +107,16 @@ def test_compare_scores_dropped_event_is_render_event_missing() -> None:
     assert codes(score(), score(events=(ev(0, "A"),))) == ["RENDER_EVENT_MISSING"]
 
 
-def test_compare_scores_unmapped_event_pairs_by_order_and_reports_nothing_else() -> None:
-    assert codes(score(), score(events=(ev(0, "A"), ev(1, None)))) == []
+def test_compare_scores_unmapped_event_is_never_paired_by_order() -> None:
+    # The unmapped converted event is reported, and the source event it would have matched is missing.
+    assert sorted(codes(score(), score(events=(ev(0, "A"), ev(1, None))))) == [
+        "RENDER_EVENT_MISSING",
+        "RENDER_EVENT_MISSING",
+    ]
 
 
 def test_compare_scores_extra_converted_event_is_attack_mismatch() -> None:
-    converted = score(events=(ev(0, "A"), ev(1, "B"), ev(2, None)))
+    converted = score(events=(ev(0, "A"), ev(1, "B"), ev(2, "Z")))
     assert codes(score(), converted) == ["ATTACK_MISMATCH"]
 
 
