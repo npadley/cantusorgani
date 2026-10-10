@@ -198,3 +198,183 @@ def test_parse_rows_missing_version_raises_value_error():
 def test_extract_source_has_no_float_calls():
     source = Path(extract.__file__).read_text(encoding="utf-8")
     assert "float(" not in source
+
+
+# --- A2c: lyrics, spans, divisions, features ------------------------------------------
+
+from collections import Counter
+
+from pipeline.typeset.mei.extract import (
+    build_divisions,
+    build_lyrics,
+    build_spans,
+    division_diagnostics,
+    feature_uses,
+)
+
+
+def load_all(name: str):
+    rows, layers, events, _ = load(name)
+    lyrics, markers, lyric_diags = build_lyrics(rows, layers, events)
+    spans, span_diags = build_spans(rows, events)
+    divisions = build_divisions(rows, layers)
+    features = feature_uses(rows, events, spans, layers, lyrics, markers, divisions)
+    return rows, layers, events, lyrics, markers, lyric_diags, spans, span_diags, divisions, features
+
+
+FIXTURE_NAMES = [
+    "kyrie_IX", "al_ego_dilecto.csv", "agnus_XI", "ite_Ib", "co_inclina_aurem_tuam.csv", "agnus_IX",
+]
+
+
+@pytest.mark.parametrize("name", FIXTURE_NAMES)
+def test_build_lyrics_pilot_fixtures_have_no_unanchored_syllables(name):
+    assert load_all(name)[5] == ()
+
+
+def test_build_lyrics_kyrie_counts_and_anchors_are_chant_attacks():
+    _, _, events, lyrics, _, _, _, _, _, _ = load_all("kyrie_IX")
+    assert len(lyrics) == 82
+    assert sum(s.text != "" for s in lyrics) == 60
+    by_id = {e.id: e for e in events}
+    for s in lyrics:
+        anchor = by_id[s.anchor_event_id]
+        assert anchor.layer_id == "up:chant" and anchor.kind == "note" and anchor.onset == s.onset
+
+
+def test_build_lyrics_anchor_ignores_accompaniment_sharing_the_onset():
+    _, _, events, lyrics, _, _, _, _, _, _ = load_all("kyrie_IX")
+    shared = [
+        s
+        for s in lyrics
+        if any(e.layer_id != "up:chant" and e.kind == "note" and e.onset == s.onset for e in events)
+    ]
+    assert shared
+    by_id = {e.id: e for e in events}
+    for s in shared:
+        assert by_id[s.anchor_event_id].layer_id == "up:chant"
+
+
+def test_build_lyrics_kyrie_entry_markers_on_right_syllables():
+    _, _, _, lyrics, markers, *_ = load_all("kyrie_IX")
+    by_id = {s.id: s for s in lyrics}
+    got = [(m.text, by_id[m.syllable_id].onset, by_id[m.syllable_id].text) for m in markers]
+    assert got == [("*", Fraction(25, 8), "e"), ("*", Fraction(38), ""), ("**", Fraction(42), "")]
+
+
+def test_build_lyrics_ite_ib_unnamed_contexts_are_separate():
+    _, _, _, lyrics, *_ = load_all("ite_Ib")
+    assert {s.lyrics_context for s in lyrics} == {"lyrics:#0", "lyrics:#1"}
+    assert any(s.hyphen_after for s in lyrics)
+
+
+def test_build_lyrics_unanchored_syllable_reports_error():
+    tsv = (
+        "0\t-\t-\tversion\tlisten_full/1\t2.26.0\n"
+        "0\t-\tup\tstaff\t1\n"
+        "0\t-\tup\tclef\tclefs.G\t-2\t-\n"
+        "0\tup:chant\tup\tvoice\t0\tvoiceOne\n"
+        "0\tup:chant\tup\tnote\tc\t0\t4\t2\t0\t1\t1\t1/4\ta.ly:1:0\n"
+        "1/4\tlyrics:#0\tup:chant\tlyric\tx\t-\ta.ly:2:0\n"
+    )
+    rows = parse_rows(tsv)
+    layers = build_layers(rows)
+    events, _ = build_events(rows, "a.ly")
+    lyrics, _, diags = build_lyrics(rows, layers, events)
+    assert lyrics[0].anchor_event_id is None
+    assert [(d.code, d.severity) for d in diags] == [("LYRIC_UNANCHORED", "error")]
+
+
+def test_build_divisions_kyrie_kinds():
+    *_, divisions, _ = load_all("kyrie_IX")
+    assert len(divisions) == 22
+    assert Counter(d.kind for d in divisions) == {"finalis": 18, "minima": 4}
+
+
+def test_build_divisions_co_inclina_has_maxima():
+    *_, divisions, _ = load_all("co_inclina_aurem_tuam.csv")
+    assert Counter(d.kind for d in divisions)["maxima"] == 4
+
+
+def test_division_diagnostics_other_kind_is_error():
+    tsv = (
+        "0\t-\t-\tversion\tlisten_full/1\t2.26.0\n"
+        "1\tup:chant\tup\tdiv\tother\ta.ly:1:0\n"
+    )
+    rows = parse_rows(tsv)
+    assert build_divisions(rows, ()) == ()
+    assert [(d.code, d.severity) for d in division_diagnostics(rows)] == [("UNKNOWN_FEATURE", "error")]
+
+
+def test_build_spans_kyrie_ties_slurs_and_repeated_attacks():
+    result = load_all("kyrie_IX")
+    events, spans, span_diags = result[2], result[6], result[7]
+    assert span_diags == ()
+    assert Counter(s.kind for s in spans) == {"tie": 68, "slur": 59}
+    tied = {s.start_event_id for s in spans if s.kind == "tie"}
+    repeats = [
+        (a, b)
+        for layer in {e.layer_id for e in events}
+        for a, b in zip(
+            [e for e in events if e.layer_id == layer],
+            [e for e in events if e.layer_id == layer][1:],
+            strict=False,
+        )
+        if a.kind == b.kind == "note" and a.pitch == b.pitch and not a.tie_to_next
+    ]
+    assert repeats
+    for a, b in repeats:
+        assert a.id not in tied
+
+
+def test_build_spans_agnus_xi_voice_line_spans():
+    *_, spans, span_diags, _, _ = load_all("agnus_XI")
+    assert Counter(s.kind for s in spans)["voice-line"] == 3
+    assert span_diags == ()
+
+
+def test_build_spans_ordinary_glissando_warns():
+    _, _, _, _, _, _, spans, span_diags, _, _ = load_all("agnus_IX")
+    assert Counter(s.kind for s in spans)["voice-line"] == 4
+    assert [(d.code, d.severity) for d in span_diags] == [("UNKNOWN_FEATURE", "warning")] * 4
+
+
+def test_build_spans_unbalanced_slur_reports_error():
+    base = (
+        "0\t-\t-\tversion\tlisten_full/1\t2.26.0\n"
+        "0\t-\tup\tstaff\t1\n"
+        "0\t-\tup\tclef\tclefs.G\t-2\t-\n"
+        "0\tup:chant\tup\tvoice\t0\tvoiceOne\n"
+        "0\tup:chant\tup\tnote\tc\t0\t4\t2\t0\t1\t1\t1/4\ta.ly:1:0\n"
+        "0\tup:chant\tup\tslur\t-1\ta.ly:1:2\n"
+    )
+    rows = parse_rows(base)
+    events, _ = build_events(rows, "a.ly")
+    spans, diags = build_spans(rows, events)
+    assert spans == ()
+    assert [(d.code, d.severity) for d in diags] == [("UNKNOWN_FEATURE", "error")]
+
+
+def test_feature_uses_ite_ib_reports_quilisma():
+    *_, features = load_all("ite_Ib")
+    assert [f.family for f in features].count("quilisma") == 1
+
+
+def test_feature_uses_agnus_xi_reports_voice_line_and_cross_staff():
+    *_, features = load_all("agnus_XI")
+    families = Counter(f.family for f in features)
+    assert families["voice-line-voice"] == 1
+    assert families["voice-line-glissando"] == 3
+    assert families["cross-staff"] >= 3
+    assert all(f.family in extract.FEATURE_FAMILIES for f in features)
+
+
+def test_feature_uses_kyrie_reports_marker_blank_and_division_families():
+    *_, features = load_all("kyrie_IX")
+    families = Counter(f.family for f in features)
+    assert families["stanza-marker"] == 3
+    assert families["blank-lyric"] == 22
+    assert families["finalis"] == 18
+    assert families["divisio-minima"] == 4
+    assert families["force-break"] == 5
+    assert families["key-change"] == 0 and families["clef-change"] == 0

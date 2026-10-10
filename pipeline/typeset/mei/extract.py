@@ -14,14 +14,22 @@ from typing import Literal, cast
 
 from pipeline.typeset.mei.diagnostics import Diagnostic, SourceLocation
 from pipeline.typeset.mei.model import (
+    FEATURE_FAMILIES,
+    Division,
+    DivisionKind,
+    EntryMarker,
     Event,
     EventKind,
+    FeatureUse,
     LayerDef,
     LayerRole,
+    LyricSyllable,
     NotatedDuration,
     Notehead,
     Pitch,
     PrintedAccidental,
+    Span,
+    SpanKind,
     StaffDef,
     Step,
 )
@@ -371,3 +379,283 @@ def build_events(
 def total_duration(events: tuple[Event, ...]) -> Fraction:
     """Maximum over events of onset + duration (zero for no events)."""
     return max((e.onset + e.duration for e in events), default=Fraction(0))
+
+
+# --- lyrics, spans, divisions, features (card A2c) ---------------------------------
+
+
+def _loc_or_blank(text: str, context: str) -> SourceLocation:
+    """Like ``_location`` but a "-" (no causing event) becomes SourceLocation("-", 0, 0)."""
+    if text == "-":
+        return SourceLocation("-", 0, 0)
+    return _location(text, context)
+
+
+def build_lyrics(
+    rows: list[Row], layers: tuple[LayerDef, ...], events: tuple[Event, ...]
+) -> tuple[tuple[LyricSyllable, ...], tuple[EntryMarker, ...], tuple[Diagnostic, ...]]:
+    """Syllables, entry markers and LYRIC_UNANCHORED errors.
+
+    The anchor is the first note attack in the lyric's associated layer (the ``staff`` column of
+    the lyric row) whose onset equals the lyric's onset. Events of other layers are never used.
+    """
+    layer_ids = {layer.id for layer in layers}
+    attacks: dict[tuple[str, Fraction], Event] = {}
+    for event in events:
+        if event.kind == "note":
+            attacks.setdefault((event.layer_id, event.onset), event)
+    hyphens = {(r.layer, r.onset) for r in rows if r.kind == "hyphen"}
+    extenders = {(r.layer, r.onset) for r in rows if r.kind == "extender"}
+
+    syllables: list[LyricSyllable] = []
+    markers: list[EntryMarker] = []
+    diagnostics: list[Diagnostic] = []
+    lyric_rows = [r for r in rows if r.kind == "lyric"]
+    for index, row in enumerate(sorted(lyric_rows, key=lambda r: r.onset)):
+        text, stanza, loc_text = row.fields
+        location = _loc_or_blank(loc_text, f"lyric at {row.onset}")
+        anchor = attacks.get((row.staff, row.onset)) if row.staff in layer_ids else None
+        syllable_id = f"l{index:04d}"
+        if anchor is None:
+            diagnostics.append(
+                Diagnostic(
+                    code="LYRIC_UNANCHORED",
+                    severity="error",
+                    message=f"lyric {text!r} at {row.onset} has no note attack in layer {row.staff!r}",
+                    source_location=location,
+                )
+            )
+        syllables.append(
+            LyricSyllable(
+                id=syllable_id,
+                text=text,
+                onset=row.onset,
+                anchor_event_id=anchor.id if anchor else None,
+                hyphen_after=(row.layer, row.onset) in hyphens,
+                extender_after=(row.layer, row.onset) in extenders,
+                lyrics_context=row.layer,
+                location=location,
+            )
+        )
+        if stanza != "-":
+            markers.append(
+                EntryMarker(
+                    id=f"m{len(markers):03d}", text=stanza, syllable_id=syllable_id, location=location
+                )
+            )
+    return tuple(syllables), tuple(markers), tuple(diagnostics)
+
+
+def build_spans(
+    rows: list[Row], events: tuple[Event, ...]
+) -> tuple[tuple[Span, ...], tuple[Diagnostic, ...]]:
+    """Tie, slur and voice-line spans plus diagnostics (this returns a pair, unlike a bare tuple).
+
+    - slur: start/stop rows paired per layer in order (stops before starts at one onset); the
+      endpoints are the layer's first note attack at each row's onset. Unbalanced or unattached
+      slurs give an UNKNOWN_FEATURE error.
+    - tie: each ``tie_to_next`` note spans to the next later event of its layer with the same
+      pitch (repeated attacks without a tie row never form a span); a missing target is an
+      UNKNOWN_FEATURE warning.
+    - voice-line: a ``gliss`` row in a voice-line-role layer spans from that layer's note at the
+      onset to the layer's next note; a gliss in any other layer is an UNKNOWN_FEATURE warning.
+    """
+    roles = {layer.id: layer.role for layer in build_layers(rows)}
+    per_layer: dict[str, list[Event]] = defaultdict(list)
+    for event in events:
+        per_layer[event.layer_id].append(event)
+    spans: list[Span] = []
+    diagnostics: list[Diagnostic] = []
+
+    def add(kind: SpanKind, start: Event, end: Event) -> None:
+        spans.append(Span(f"sp{len(spans):04d}", kind, start.id, end.id))
+
+    def note_at(layer_id: str, onset: Fraction) -> Event | None:
+        return next(
+            (e for e in per_layer[layer_id] if e.kind == "note" and e.onset == onset), None
+        )
+
+    slurs: dict[str, list[Row]] = defaultdict(list)
+    for row in rows:
+        if row.kind == "slur":
+            slurs[row.layer].append(row)
+    for layer_id, layer_rows in slurs.items():
+        ordered = sorted(layer_rows, key=lambda r: (r.onset, r.fields[0] == "-1"))
+        open_start: Event | None = None
+        for row in ordered:
+            where = _loc_or_blank(row.fields[1], "slur")
+            event = note_at(layer_id, row.onset)
+            if event is None:
+                diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "error", f"slur at {row.onset} in {layer_id} has no note", where))
+            elif row.fields[0] == "-1":
+                if open_start is not None:
+                    diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "error", f"nested slur start at {row.onset} in {layer_id}", where))
+                open_start = event
+            elif open_start is None:
+                diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "error", f"slur stop without start at {row.onset} in {layer_id}", where))
+            else:
+                add("slur", open_start, event)
+                open_start = None
+        if open_start is not None:
+            diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "error", f"slur starting at {open_start.onset} in {layer_id} never stops", None, (open_start.id,)))
+
+    for layer_id, layer_events in per_layer.items():
+        for i, event in enumerate(layer_events):
+            if event.kind != "note" or not event.tie_to_next:
+                continue
+            target = next(
+                (e for e in layer_events[i + 1 :] if e.kind == "note" and e.onset >= event.onset + event.duration),
+                None,
+            )
+            if target is not None and target.pitch == event.pitch:
+                add("tie", event, target)
+            else:
+                diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "warning", f"tie at {event.onset} in {layer_id} has no same-pitch target", event.location, (event.id,)))
+
+    for row in rows:
+        if row.kind != "gliss":
+            continue
+        where = _loc_or_blank(row.fields[0], "gliss")
+        if roles.get(row.layer) != "voice-line":
+            diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "warning", f"ordinary glissando at {row.onset} in {row.layer}", where))
+            continue
+        start = note_at(row.layer, row.onset)
+        later = [e for e in per_layer[row.layer] if e.kind == "note" and e.onset > row.onset]
+        if start is None or not later:
+            diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "error", f"voice-line glissando at {row.onset} in {row.layer} lacks a start or end note", where))
+        else:
+            add("voice-line", start, later[0])
+    return tuple(spans), tuple(diagnostics)
+
+
+_DIVISIONS = ("finalis", "maxima", "maior", "minima")
+
+
+def build_divisions(rows: list[Row], layers: tuple[LayerDef, ...]) -> tuple[Division, ...]:
+    """Divisions from ``div`` rows (kind ``other`` is skipped; see ``division_diagnostics``)."""
+    known = {layer.id for layer in layers}
+    result: list[Division] = []
+    for row in rows:
+        if row.kind != "div" or row.fields[0] not in _DIVISIONS:
+            continue
+        if row.layer not in known:
+            raise ValueError(f"div row for unknown layer {row.layer!r}")
+        result.append(
+            Division(
+                id=f"d{len(result):03d}",
+                kind=cast(DivisionKind, row.fields[0]),
+                onset=row.onset,
+                layer_id=row.layer,
+                location=_loc_or_blank(row.fields[1], "div"),
+            )
+        )
+    return tuple(result)
+
+
+def division_diagnostics(rows: list[Row]) -> tuple[Diagnostic, ...]:
+    return tuple(
+        Diagnostic(
+            "UNKNOWN_FEATURE",
+            "error",
+            f"unrecognised division at {row.onset} in {row.layer}",
+            _loc_or_blank(row.fields[1], "div"),
+        )
+        for row in rows
+        if row.kind == "div" and row.fields[0] not in _DIVISIONS
+    )
+
+
+def feature_uses(
+    rows: list[Row],
+    events: tuple[Event, ...],
+    spans: tuple[Span, ...],
+    layers: tuple[LayerDef, ...] | None = None,
+    lyrics: tuple[LyricSyllable, ...] | None = None,
+    entry_markers: tuple[EntryMarker, ...] | None = None,
+    divisions: tuple[Division, ...] | None = None,
+) -> tuple[FeatureUse, ...]:
+    """One FeatureUse per occurrence, in a stable order (family order, then source order).
+
+    Melisma is reported per ``extender`` row only. Hidden stems are reported for every note or
+    rest whose stem is not visible (noh2 hides all of them). Key and clef changes are changes of
+    value after a staff's first state.
+    """
+    layers = build_layers(rows) if layers is None else layers
+    if lyrics is None or entry_markers is None:
+        built_lyrics, built_markers, _ = build_lyrics(rows, layers, events)
+        lyrics = built_lyrics if lyrics is None else lyrics
+        entry_markers = built_markers if entry_markers is None else entry_markers
+    divisions = build_divisions(rows, layers) if divisions is None else divisions
+
+    home = {layer.id: layer.home_staff_id for layer in layers}
+    by_key = {(e.onset, e.layer_id, f"{e.location.filename}:{e.location.line}:{e.location.column}"): e for e in events}
+    by_id = {e.id: e for e in events}
+    found: dict[str, list[FeatureUse]] = {family: [] for family in FEATURE_FAMILIES}
+
+    def use(family: str, location: SourceLocation, *ids: str) -> None:
+        found[family].append(FeatureUse(family, location, tuple(ids)))
+
+    for e in events:
+        if e.notated.scale != 1 and e.kind == "note":
+            use("scaled-duration", e.location, e.id)
+        if e.kind != "skip" and not e.stem_visible:
+            use("hidden-stem", e.location, e.id)
+        if e.kind == "skip":
+            use("skip", e.location, e.id)
+        if e.staff_id != home[e.layer_id]:
+            use("cross-staff", e.location, e.id)
+        if e.notehead == "quilisma":
+            use("quilisma", e.location, e.id)
+    for span in spans:
+        start = by_id[span.start_event_id]
+        if span.kind == "tie":
+            use("tie", start.location, span.start_event_id, span.end_event_id)
+        elif span.kind == "slur":
+            use("slur", start.location, span.start_event_id, span.end_event_id)
+        elif span.kind == "voice-line":
+            use("voice-line-glissando", start.location, span.start_event_id, span.end_event_id)
+    for layer in layers:
+        if layer.role == "voice-line":
+            ids = tuple(e.id for e in events if e.layer_id == layer.id)
+            first = next((e.location for e in events if e.layer_id == layer.id), SourceLocation("-", 0, 0))
+            use("voice-line-voice", first, *ids)
+    for row in rows:
+        if row.kind == "rhead" and row.fields[0] == "1":
+            loc = _loc_or_blank(row.fields[1], "rhead")
+            hit = by_key.get((row.onset, row.layer, row.fields[1]))
+            use("hidden-rest", loc, *([hit.id] if hit else []))
+        elif row.kind == "break":
+            use("force-break", _loc_or_blank(row.fields[0], "break"))
+        elif row.kind == "col":
+            shift, extent, loc_text = row.fields
+            loc = _loc_or_blank(loc_text, "col")
+            hit = by_key.get((row.onset, row.layer, loc_text))
+            ids = [hit.id] if hit else []
+            if shift not in ("-", "0"):
+                use("note-shift", loc, *ids)
+            if extent != "-":
+                use("manual-spacing", loc, *ids)
+    for division in divisions:
+        family = "finalis" if division.kind == "finalis" else f"divisio-{division.kind}"
+        use(family, division.location)
+    syllable_by_id = {s.id: s for s in lyrics}
+    for marker in entry_markers:
+        use("stanza-marker", marker.location, *([syllable_by_id[marker.syllable_id].anchor_event_id] if syllable_by_id[marker.syllable_id].anchor_event_id else []))
+    for s in lyrics:
+        anchor = [s.anchor_event_id] if s.anchor_event_id else []
+        if s.text == "":
+            use("blank-lyric", s.location, *anchor)
+        if s.extender_after:
+            use("melisma", s.location, *anchor)
+    for kind, family, width in (("key", "key-change", 1), ("clef", "clef-change", 2)):
+        previous: dict[str, tuple[str, ...]] = {}
+        seen: set[tuple[str, Fraction]] = set()
+        for row in rows:
+            if row.kind != kind or (row.staff, row.onset) in seen:
+                continue
+            seen.add((row.staff, row.onset))
+            state = row.fields[:width]
+            if row.staff in previous and previous[row.staff] != state:
+                use(family, _loc_or_blank(row.fields[width], kind))
+            previous[row.staff] = state
+    return tuple(u for family in FEATURE_FAMILIES for u in found[family])
