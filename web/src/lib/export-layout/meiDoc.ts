@@ -34,16 +34,7 @@ const refId = (ref: string | null): string | null => (ref && ref.startsWith('#')
  * At each chosen break, show the split-continuation notes that begin the next measure,
  * and draw a tie from their predecessor (end of the broken measure) to them.
  */
-function revealSplitSustains(
-  doc: Document,
-  breaks: EffectiveBreaks,
-  byId: ReadonlyMap<string, SafeBoundary>,
-): void {
-  const brokenMeasureIds = new Set<string>();
-  for (const br of breaks.breaks) {
-    const b = byId.get(br.boundaryId);
-    if (b) brokenMeasureIds.add(b.measureId);
-  }
+function revealSplitSustains(doc: Document, brokenMeasureIds: ReadonlySet<string>): void {
   if (brokenMeasureIds.size === 0) return;
 
   const byXmlId = new Map<string, Element>();
@@ -99,6 +90,8 @@ export function materialiseBreaks(
   breaks: EffectiveBreaks,
   boundaries: readonly SafeBoundary[],
   policy: LinePolicy,
+  /** Reveal split sustains at the chosen breaks (default). Layout pass 1 passes false to keep them hidden. */
+  reveal = true,
 ): string {
   const doc = new DOMParser({
     onError: (level, msg) => {
@@ -137,10 +130,34 @@ export function materialiseBreaks(
     }
   }
 
-  revealSplitSustains(doc, breaks, byId);
+  if (reveal) {
+    const broken = new Set<string>();
+    for (const br of breaks.breaks) {
+      const b = byId.get(br.boundaryId);
+      if (b) broken.add(b.measureId);
+    }
+    revealSplitSustains(doc, broken);
+  }
 
   const out = new XMLSerializer().serializeToString(doc);
   const decl = /^\s*(<\?xml[^?]*\?>)/.exec(meiXml);
   if (decl && !out.startsWith('<?xml')) return `${decl[1]}\n${out}`;
   return out;
+}
+
+/**
+ * Reveal split sustains that cross the end of each listed measure (a system or page starts
+ * after it): unhide the continuation head and stem and add a `split-tie`. Returns a new string.
+ */
+export function revealSplitSustainsAfter(meiXml: string, brokenMeasureIds: ReadonlySet<string>): string {
+  if (brokenMeasureIds.size === 0) return meiXml;
+  const doc = new DOMParser({
+    onError: (level, msg) => {
+      if (level === 'error' || level === 'fatalError') throw new Error(`MEI_PARSE_ERROR: ${msg}`);
+    },
+  }).parseFromString(meiXml, 'text/xml');
+  revealSplitSustains(doc, brokenMeasureIds);
+  const out = new XMLSerializer().serializeToString(doc);
+  const decl = /^\s*(<\?xml[^?]*\?>)/.exec(meiXml);
+  return decl && !out.startsWith('<?xml') ? `${decl[1]}\n${out}` : out;
 }
