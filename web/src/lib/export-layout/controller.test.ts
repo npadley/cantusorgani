@@ -1,9 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { createExportController } from './controller';
-import type { TitledExportController } from './controller';
 import { DEFAULT_SETTINGS, PREFERENCES_KEY, PROVISIONAL_LIMITS } from './types';
 import type {
-  BreakOverride, ControllerDependencies, ExportPart, LayoutDiagnostic, LayoutRequest, LayoutResult,
+  BreakOverride, ControllerDependencies, ExportController, ExportPart, LayoutDiagnostic, LayoutRequest, LayoutResult,
   MeiExportPart, StorageLike, WorkerLike,
 } from './types';
 
@@ -68,7 +67,7 @@ function setup(storage: StorageLike | null = memStorage(), parts: ExportPart[] =
     saveFile: (bytes, filename) => { saved.push({ bytes, filename }); },
     limits: PROVISIONAL_LIMITS,
   };
-  const c: TitledExportController = createExportController(deps);
+  const c: ExportController = createExportController(deps);
   const fire = (ms: number) => {
     for (const [id, t] of [...timers]) if (t.ms === ms) { timers.delete(id); t.fn(); }
   };
@@ -281,6 +280,19 @@ describe('export controller', () => {
     const t = setup(memStorage({ [PREFERENCES_KEY]: JSON.stringify(prefs) }));
     expect(t.st().notices.some((n) => n.code === 'STALE_ANCHOR')).toBe(true);
     expect(t.st().overrides.p1).toBeUndefined();
+  });
+
+  it('margin follows the page kind unless the user set one', () => {
+    const a = setup();
+    a.c.updateSettings({ page: 'ipad-11' });
+    expect(a.st().settings.marginMm).toBe(4);
+    const b = setup();
+    b.c.updateSettings({ marginMm: 18 });
+    b.c.updateSettings({ page: 'ipad-11' });
+    expect(b.st().settings.marginMm).toBe(18);
+    const c = setup();
+    c.c.updateSettings({ page: 'ipad-11', marginMm: 7 });
+    expect(c.st().settings.marginMm).toBe(7);
   });
 
   it('subscribe emits immediately and unsubscribes', () => {

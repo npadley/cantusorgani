@@ -15,7 +15,7 @@ import type {
   WorkerLike,
 } from './types';
 import { DEFAULT_SETTINGS, PAGE_PRESETS } from './types';
-import { defaultMarginFor, normalizeSettings } from './settings';
+import { defaultMarginFor, nextMargin, normalizeSettings } from './settings';
 import { readPreferences, writePreferences } from './preferences';
 
 const DEBOUNCE_MS = 250;
@@ -46,12 +46,7 @@ function computeCanDownload(phase: ControllerState['phase'], result: LayoutResul
   );
 }
 
-/** ExportController with the optional `title` parameter on open (types.ts is not owned by this card). */
-export interface TitledExportController extends ExportController {
-  open(parts: readonly ExportPart[], title?: string): void;
-}
-
-export function createExportController(deps: ControllerDependencies): TitledExportController {
+export function createExportController(deps: ControllerDependencies): ExportController {
   const listeners = new Set<(state: ControllerState) => void>();
   let state: ControllerState = {
     phase: 'idle', parts: [], settings: DEFAULT_SETTINGS, overrides: {}, requestToken: 0,
@@ -214,7 +209,7 @@ export function createExportController(deps: ControllerDependencies): TitledExpo
     if (undoStack.length > UNDO_CAP) undoStack = undoStack.slice(undoStack.length - UNDO_CAP);
   }
 
-  const controller: TitledExportController = {
+  const controller: ExportController = {
     open(parts, exportTitle) {
       closed = false;
       clearDebounce();
@@ -243,7 +238,12 @@ export function createExportController(deps: ControllerDependencies): TitledExpo
 
     updateSettings(patch: SettingsPatch) {
       if (closed || state.phase === 'idle') return;
-      const { settings, notices } = normalizeSettings({ ...state.settings, ...patch, version: 2 });
+      const merged = { ...state.settings, ...patch, version: 2 };
+      if (patch.page !== undefined && patch.marginMm === undefined) {
+        const kindOf = (page: LayoutSettings['page']) => (page === 'custom' ? 'custom' as const : PAGE_PRESETS[page].kind);
+        merged.marginMm = nextMargin(kindOf(state.settings.page), kindOf(patch.page), state.settings.marginMm);
+      }
+      const { settings, notices } = normalizeSettings(merged);
       const extra: SettingsNotice[] = [...notices];
       set({ settings, notices: [...state.notices, ...extra] });
       persist();

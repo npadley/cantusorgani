@@ -423,7 +423,7 @@ export interface ControllerDependencies {
 }
 export type BreakAction = BreakOverride | { readonly boundaryId: string; readonly kind: 'remove' };
 export interface ExportController {
-  open(parts: readonly ExportPart[]): void;
+  open(parts: readonly ExportPart[], title?: string): void;
   updateSettings(patch: Partial<Omit<LayoutSettings, 'version'>>): void;
   setBreak(partId: string, action: BreakAction): void;
   /** Clears user breaks and restores every setting to default EXCEPT page, customSize, orientation. Undoable. */
