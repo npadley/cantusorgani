@@ -173,6 +173,12 @@ def build_parser() -> argparse.ArgumentParser:
     mei_convert.add_argument("source", type=Path)
     mei_convert.add_argument("--out", type=Path, required=True)
 
+    mei_evidence = subs.add_parser("typeset-mei-evidence",
+                                   help="build the review evidence packet (index.html) for a typeset-mei-convert directory")
+    mei_evidence.add_argument("convert_dir", type=Path)
+    mei_evidence.add_argument("--out", type=Path, default=None,
+                              help="evidence folder (default build/typeset/mei/<digest>/evidence)")
+
     mei_manifest = subs.add_parser("typeset-mei-manifest",
                                    help="build the approved-conversion manifest from ConversionRecord JSON files")
     mei_manifest.add_argument("--records", type=Path, required=True)
@@ -387,6 +393,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "typeset-mei-convert":
         from pipeline.typeset.mei.cli import convert_command
         return convert_command(args.source, args.out)
+    if args.command == "typeset-mei-evidence":
+        from pipeline.typeset.mei.cli import evidence_command
+        return evidence_command(args.convert_dir, args.out)
     if args.command == "typeset-mei-manifest":
         from pipeline.typeset.mei.cli import manifest_command
         return manifest_command(args.records, args.out, args.artifacts)
