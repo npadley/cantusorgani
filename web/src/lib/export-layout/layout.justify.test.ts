@@ -21,18 +21,30 @@ describe('vertical justification keeps the grand staff together', { timeout: WAS
     expect(errors(justified.diagnostics)).toEqual([]);
     const after = justified.pages.map((p) => measureSvgPage(p.svg));
 
-    // The same page without justification, straight from the toolkit.
+    // The same systems without justification: sb at every final system start, breaks encoded.
+    const byBoundary = new Map(PART.part.conversion.boundaries.map((x) => [x.id, x.measureId] as const));
+    const order = [...MEI.matchAll(/<measure\b[^>]*?\sxml:id="([^"]+)"/g)].map((m) => m[1]!);
+    const startMeasures = justified.pages.flatMap((p) => p.systems).flatMap((sys) =>
+      (sys.firstBoundaryId ? [order[order.indexOf(byBoundary.get(sys.firstBoundaryId)!) + 1]!] : []));
+    let mei = MEI.replace(/<sb\s*\/>/g, '');
+    for (const m of startMeasures) mei = mei.replace(new RegExp(`(<measure\\b[^>]*?\\sxml:id="${m}")`), '<sb/>$1');
     const tk = newToolkit();
-    tk.setOptions({ ...verovioOptions(s, rects.content), justifyVertically: false, breaks: 'auto' });
-    expect(tk.loadData(MEI)).toBeTruthy();
-    const natural = measureSvgPage(tk.renderToSVG(1)).systems[0]!;
-    const naturalGap = natural.staffTopsMm[1]! - natural.staffTopsMm[0]!;
-    expect(naturalGap).toBeGreaterThan(10);
+    tk.setOptions({ ...verovioOptions(s, rects.content), justifyVertically: false, pageHeight: 60000, breaks: 'encoded' });
+    expect(tk.loadData(mei)).toBeTruthy();
+    const naturalSystems = measureSvgPage(tk.renderToSVG(1)).systems;
+    expect(naturalSystems).toHaveLength(startMeasures.length + 1);
+    const natural = naturalSystems[0]!;
+    const naturalGaps = naturalSystems.map((x) => x.staffTopsMm[1]! - x.staffTopsMm[0]!);
+    expect(Math.min(...naturalGaps)).toBeGreaterThan(10);
 
+    let k = 0;
     for (const page of after) {
       for (const sys of page.systems) {
         expect(sys.staffTopsMm).toHaveLength(2);
-        expect(Math.abs(sys.staffTopsMm[1]! - sys.staffTopsMm[0]! - naturalGap)).toBeLessThanOrEqual(0.2);
+        const gap = sys.staffTopsMm[1]! - sys.staffTopsMm[0]!;
+        // The very last system of the part gets 0.33 mm extra from Verovio's last-page justification.
+        const last = k === naturalGaps.length - 1;
+        expect(Math.abs(gap - naturalGaps[k++]!)).toBeLessThanOrEqual(last ? 0.5 : 0.2);
       }
     }
     // Systems still spread: with two systems on a page the second starts far below its natural place.
