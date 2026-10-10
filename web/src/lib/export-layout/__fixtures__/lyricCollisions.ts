@@ -2,8 +2,10 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { DOMParser } from '@xmldom/xmldom';
 import type { Element } from '@xmldom/xmldom';
-import { create as createFont } from '@pdf-lib/fontkit';
+import fontkit from '@pdf-lib/fontkit';
 import type { Font } from '@pdf-lib/fontkit';
+
+const createFont = fontkit.create; // default import: the CJS package has no named ESM exports under plain Node
 
 /**
  * Measures adjacent lyric syllables on a laid-out Verovio page with REAL text widths
@@ -12,7 +14,7 @@ import type { Font } from '@pdf-lib/fontkit';
  */
 let font: Font | undefined;
 const liberation = (): Font => {
-  font ??= createFont(readFileSync(join(__dirname, '..', '..', '..', '..', 'public', 'fonts', 'export', 'LiberationSerif-Regular.ttf')));
+  font ??= createFont(readFileSync(join(import.meta.dirname, '..', '..', '..', '..', 'public', 'fonts', 'export', 'LiberationSerif-Regular.ttf')));
   return font;
 };
 

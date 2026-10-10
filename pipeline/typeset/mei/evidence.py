@@ -6,7 +6,7 @@
 ``web/scripts/render-mei-cases.ts``, never a parallel renderer) next to the LilyPond original and the
 scan, all at one physical scale (1 CSS mm = 1 mm), with the page frame drawn.
 
-Geometry findings (``GEOMETRY_CLIPPING``, ``GEOMETRY_COLLISION``) are flags for the reviewer only.
+Geometry findings (``GEOMETRY_CLIPPING``, ``GEOMETRY_COLLISION``; lyric pairs 0.3 to 1.0 mm apart are noted as close) are flags for the reviewer only.
 Nothing here builds or changes a ``ConversionRecord`` or a ``ValidationReport``: a flag can never set
 ``eligible`` or a review state.
 
@@ -23,7 +23,7 @@ import json
 import re
 import shutil
 import subprocess
-from collections.abc import Callable, Iterator
+from collections.abc import Callable, Iterator, Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
@@ -56,8 +56,10 @@ SCRIPT = "scripts/render-mei-cases.ts"
 UNRECORDED = "unrecorded"
 #: Overshoot beyond the page viewBox that still counts as inside (0.1 mm; viewBox units are 0.01 mm).
 CLIP_TOLERANCE_UNITS = 10.0
-#: Average advance of a lyric glyph in em, for the estimated lyric boxes (Verovio gives none).
-LYRIC_EM_WIDTH = 0.45
+#: Adjacent lyrics closer than this are a ``GEOMETRY_COLLISION`` flag; closer than ``LYRIC_CLOSE_MM`` an
+#: informational "close" note. Gaps are measured by render-mei-cases.ts with real Liberation Serif widths.
+LYRIC_COLLISION_MM = 0.3
+LYRIC_CLOSE_MM = 1.0
 #: Boxes of these containers are not glyphs.
 _CONTAINERS = frozenset(
     {"mdiv", "score", "page", "system", "measure", "staff", "layer", "verse", "syl", "text", "section",
@@ -195,27 +197,10 @@ def _walk(
             yield from _walk(child, dx, dy, system, systems)
 
 
-def _text_box(text: etree._Element, dx: float, dy: float) -> tuple[float, float, float, float, str] | None:
-    """Estimated box of one lyric ``<text>``: Verovio reports no bounding box for lyric text."""
-    content = "".join(text.itertext()).strip()
-    sizes = [
-        float(m.group(1)) for el in text.iter() if (m := re.fullmatch(r"([\d.]+)px", el.get("font-size") or ""))
-        and float(m.group(1)) > 0
-    ]
-    try:
-        x, y = float(text.get("x", "")), float(text.get("y", ""))
-    except ValueError:
-        return None
-    if not content or not sizes:
-        return None
-    size = max(sizes)
-    left = x + dx
-    return left, y + dy - 0.8 * size, left + len(content) * size * LYRIC_EM_WIDTH, y + dy + 0.2 * size, content
-
-
-def geometry_findings(case_id: str, svg: Path) -> list[Diagnostic]:
+def geometry_findings(case_id: str, svg: Path, lyric_gaps: Sequence[Mapping[str, Any]] = ()) -> list[Diagnostic]:
     """Flags for one rendered page: glyph boxes outside the page ``viewBox`` (``GEOMETRY_CLIPPING``)
-    and overlapping lyric text in one system (``GEOMETRY_COLLISION``). The Verovio bounding-box
+    and adjacent lyrics under 0.3 mm apart (``GEOMETRY_COLLISION``, from ``lyric_gaps``: the real-width
+    measurements for this page that render-mei-cases.ts wrote to cases.json). The Verovio bounding-box
     render ``<stem>.bbox.svg`` next to ``svg`` is used when present. Flags only: warning severity,
     never blocking, and nothing here can touch eligibility or a review state."""
     source = svg.with_name(svg.name[: -len(".svg")] + ".bbox.svg") if svg.name.endswith(".svg") else svg
@@ -232,7 +217,6 @@ def geometry_findings(case_id: str, svg: Path) -> list[Diagnostic]:
         return []
     width, height = box[2], box[3]
     clipped: list[tuple[str, float]] = []
-    lyrics: dict[int, list[tuple[float, float, float, float, str]]] = {}
     for element, dx, dy, system in _walk(inner, 0.0, 0.0, -1, []):
         name = _local(element)
         parent_classes = _classes(element.getparent()) if element.getparent() is not None else []
@@ -248,10 +232,6 @@ def geometry_findings(case_id: str, svg: Path) -> list[Diagnostic]:
             if over > CLIP_TOLERANCE_UNITS:
                 owner = element.getparent().getparent() if element.getparent().getparent() is not None else element
                 clipped.append((f"{kinds[0]} {owner.get('id') or ''}".strip(), over / 100))
-        elif name == "text" and "syl" in (_classes(element.getparent()) if element.getparent() is not None else []):
-            measured = _text_box(element, dx, dy)
-            if measured is not None:
-                lyrics.setdefault(system, []).append(measured)
     findings: list[Diagnostic] = []
     if clipped:
         worst = max(c[1] for c in clipped)
@@ -261,20 +241,24 @@ def geometry_findings(case_id: str, svg: Path) -> list[Diagnostic]:
             f"({', '.join(c[0] for c in clipped[:3])}{'...' if len(clipped) > 3 else ''})",
             details=(("case", case_id), ("count", str(len(clipped))), ("page", page), ("worst_mm", f"{worst:.2f}")),
         ))
-    pairs: list[str] = []
-    for boxes in lyrics.values():
-        for i, a in enumerate(boxes):
-            for b in boxes[i + 1:]:
-                if min(a[2], b[2]) - max(a[0], b[0]) > 0 and min(a[3], b[3]) - max(a[1], b[1]) > 0:
-                    pairs.append(f"{a[4]!r} / {b[4]!r}")
+    pairs = [f"{g['a']!r} / {g['b']!r} ({float(g['gapMm']):.2f} mm)" for g in lyric_gaps if float(g["gapMm"]) < LYRIC_COLLISION_MM]
     if pairs:
         findings.append(Diagnostic(
             "GEOMETRY_COLLISION", "warning",
-            f"{page}: {len(pairs)} overlapping lyric pair(s), estimated from text length ({', '.join(pairs[:3])}"
+            f"{page}: {len(pairs)} lyric pair(s) closer than {LYRIC_COLLISION_MM} mm ({', '.join(pairs[:3])}"
             f"{'...' if len(pairs) > 3 else ''})",
             details=(("case", case_id), ("count", str(len(pairs))), ("page", page)),
         ))
     return findings
+
+
+def lyric_close_notes(page: str, lyric_gaps: Sequence[Mapping[str, Any]]) -> list[str]:
+    """Informational notes (not flags on the packet) for lyric pairs 0.3 to 1.0 mm apart."""
+    return [
+        f"{page}: {g['a']!r} / {g['b']!r} {float(g['gapMm']):.2f} mm apart"
+        for g in lyric_gaps
+        if LYRIC_COLLISION_MM <= float(g["gapMm"]) < LYRIC_CLOSE_MM
+    ]
 
 
 # --- inputs and validation shown in the header ------------------------------------------------------
@@ -467,6 +451,7 @@ def build_evidence(
         raise EvidenceError(f"the renderer produced no result for {', '.join(missing)}")
 
     findings: list[Diagnostic] = []
+    close: dict[str, list[str]] = {}
     case_files: dict[str, Path] = {}
     pages: dict[str, list[Path]] = {}
     for case in cases:
@@ -474,8 +459,10 @@ def build_evidence(
         pages[case.id] = [f for f in files if f.is_file()]
         if pages[case.id]:
             case_files[case.id] = pages[case.id][0]
-        for svg in pages[case.id]:
-            findings.extend(geometry_findings(case.id, svg))
+        for n, svg in enumerate(pages[case.id], start=1):
+            gaps = [g for g in info[case.id].get("lyricGaps", []) if g.get("page") == n]
+            findings.extend(geometry_findings(case.id, svg, gaps))
+            close.setdefault(case.id, []).extend(lyric_close_notes(svg.name.removesuffix(".svg"), gaps))
 
     work = directory / "lilypond"
     original = lilypond_svg(source_path, work)
@@ -503,7 +490,7 @@ def build_evidence(
         ir=ir, verovio=str(summary.get("verovio") or UNRECORDED), record=record, schema_ok=schema_ok,
         schema_messages=schema_messages, differences=differences, eligible=eligible, validation_note=validation_note,
         tool_versions=tool_versions, hashes=hashes, diagnostics=diagnostics, findings=findings,
-        cases=cases, info=info, pages=pages, original=original, original_is_cached=_is_cached(original, work), scans=scans,
+        cases=cases, info=info, pages=pages, close=close, original=original, original_is_cached=_is_cached(original, work), scans=scans,
     )
     index = directory / "index.html"
     index.write_text(page, encoding="utf-8")
@@ -526,7 +513,8 @@ def _render_html(
     ir: dict[str, Any], verovio: str, record: ConversionRecord | None, schema_ok: bool, schema_messages: list[str],
     differences: list[str], eligible: bool, validation_note: str, tool_versions: dict[str, str], hashes: dict[str, str],
     diagnostics: list[dict[str, Any]], findings: list[Diagnostic], cases: list[LayoutCase], info: dict[str, Any],
-    pages: dict[str, list[Path]], original: Path | None, original_is_cached: bool, scans: list[Path],
+    pages: dict[str, list[Path]], close: dict[str, list[str]], original: Path | None, original_is_cached: bool,
+    scans: list[Path],
 ) -> str:
     orig_size = _svg_size_mm(original) if original else None
     flagged = {(dict(f.details).get("case")) for f in findings}
@@ -587,13 +575,13 @@ def _render_html(
         out.append(f'<li><a href="#case-{_e(case.id)}">{_e(case.id)}</a> ({info[case.id].get("pageCount", 0)} p){mark}</li>')
     out.append("</ul></nav>")
     for case in cases:
-        out.append(_render_case(case, info[case.id], pages[case.id], original, original_is_cached, orig_size, scans))
+        out.append(_render_case(case, info[case.id], pages[case.id], close.get(case.id, []), original, original_is_cached, orig_size, scans))
     out.append("</body></html>")
     return "\n".join(out)
 
 
 def _render_case(
-    case: LayoutCase, info: dict[str, Any], pages: list[Path], original: Path | None, cached: bool,
+    case: LayoutCase, info: dict[str, Any], pages: list[Path], close: list[str], original: Path | None, cached: bool,
     orig_size: tuple[float, float] | None, scans: list[Path],
 ) -> str:
     cap = "all systems" if case.max_systems is None else f"cap {case.max_systems}"
@@ -608,6 +596,8 @@ def _render_case(
     ]
     for d in info.get("diagnostics", []):
         out.append(f'<p class="{"bad" if d.get("severity") == "error" else "warn"}">{_e(d.get("code"))}: {_e(d.get("detail"))}</p>')
+    for note in close:
+        out.append(f'<p class="muted">close (note only): {_e(note)}</p>')
     if not pages:
         out.append('<p class="bad">No pages were produced for this case.</p>')
     out.append('<div class="row">')

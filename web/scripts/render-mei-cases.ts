@@ -16,6 +16,7 @@ import { join } from 'node:path';
 import createVerovioModule from 'verovio/wasm';
 import { VerovioToolkit } from 'verovio/esm';
 import { renderMei } from '../src/lib/export-layout/layout.ts';
+import { lyricCollisions } from '../src/lib/export-layout/__fixtures__/lyricCollisions';
 import type { PageRects } from '../src/lib/export-layout/layout.ts';
 import { defaultMarginFor, paperDimensions, usableRect } from '../src/lib/export-layout/settings.ts';
 import { DEFAULT_SETTINGS, PROVISIONAL_LIMITS, STAFF_SIZES } from '../src/lib/export-layout/types.ts';
@@ -51,6 +52,8 @@ interface CaseResult {
   readonly contentWidthMm: number;
   readonly contentHeightMm: number;
   readonly files: readonly string[];
+  /** Adjacent-lyric pairs closer than 1 mm, measured with real Liberation Serif widths (lyricCollisions.ts). */
+  readonly lyricGaps: readonly { readonly page: number; readonly a: string; readonly b: string; readonly gapMm: number }[];
   readonly diagnostics: readonly { readonly code: string; readonly severity: string; readonly detail: string }[];
 }
 
@@ -127,6 +130,7 @@ for (const spec of cases) {
       token: 1, fonts: {} as FontProfile, limits: PROVISIONAL_LIMITS, isCancelled: () => false, toolkit: spy,
     }, rects);
     const files: string[] = [];
+    const lyricGaps = layout.pages.flatMap((p, i) => lyricCollisions(p.svg, 1.0).map((c) => ({ page: i + 1, ...c })));
     layout.pages.forEach((p, i) => {
       const n = i + 1;
       const name = `${spec.id}-p${n}.svg`;
@@ -153,6 +157,7 @@ for (const spec of cases) {
       contentWidthMm: content.widthMm,
       contentHeightMm: content.heightMm,
       files,
+      lyricGaps,
       diagnostics,
     });
   } finally {

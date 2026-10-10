@@ -45,13 +45,6 @@ CLEAN_SVG = (
 )
 
 
-def _syl(x: int, text: str) -> str:
-    return (
-        f'<g class="syl"><text x="{x}" y="300" font-size="0px"><tspan class="text">'
-        f'<tspan font-size="400px">{text}</tspan></tspan></text></g>'
-    )
-
-
 def _svg(body: str) -> str:
     return (
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500">'
@@ -63,8 +56,7 @@ def _svg(body: str) -> str:
 CLIPPED_SVG = _svg(
     '<g class="note"><g class="note bounding-box"><rect x="9900" y="100" width="300" height="200"/></g></g>'
 )
-COLLIDING_SVG = _svg(_syl(1000, "Kyrie") + _syl(1500, "eleison"))
-SEPARATE_SVG = _svg(_syl(1000, "Ky") + _syl(5000, "rie"))
+GAP = {"page": 1, "a": "son.", "b": "Chri"}
 
 
 class _Runner:
@@ -82,7 +74,7 @@ def converted(tmp_path_factory: pytest.TempPathFactory) -> Path:
     return base / "kyrie"
 
 
-def fake_runner(svg_for: dict[str, str] | None = None, default: str = CLEAN_SVG):
+def fake_runner(svg_for: dict[str, str] | None = None, default: str = CLEAN_SVG, gaps: dict[str, list[dict]] | None = None):
     """A node runner that writes canned SVGs for every requested case."""
     calls: list[tuple[Path, list[LayoutCase], Path, Path | None]] = []
 
@@ -99,7 +91,7 @@ def fake_runner(svg_for: dict[str, str] | None = None, default: str = CLEAN_SVG)
                 "id": case.id, "pageCount": 1, "systemsPerPage": [1], "systemCount": 1,
                 "staffHeightMm": 7.2, "expectedStaffHeightMm": 7.2, "pageWidthMm": 215.9, "pageHeightMm": 279.4,
                 "marginMm": 12, "contentWidthMm": 100.0, "contentHeightMm": 50.0,
-                "files": [f"{case.id}/{name}"], "diagnostics": [],
+                "files": [f"{case.id}/{name}"], "lyricGaps": (gaps or {}).get(case.id, []), "diagnostics": [],
             })
         (out / "cases.json").write_text(json.dumps({"verovio": "6.3.0-test", "cases": results}), encoding="utf-8")
 
@@ -232,17 +224,26 @@ def test_geometry_findings_clean_page_reports_nothing(tmp_path: Path) -> None:
     assert geometry_findings("c", path) == []
 
 
-def test_geometry_findings_overlapping_lyrics_report_collision(tmp_path: Path) -> None:
+def test_geometry_findings_lyric_gap_under_threshold_reports_collision(tmp_path: Path) -> None:
     path = tmp_path / "c-p1.svg"
-    path.write_text(COLLIDING_SVG, encoding="utf-8")
-    (finding,) = geometry_findings("c", path)
-    assert finding.code == "GEOMETRY_COLLISION"
+    path.write_text(CLEAN_SVG, encoding="utf-8")
+    (finding,) = geometry_findings("c", path, [{**GAP, "gapMm": 0.1}])
+    assert finding.code == "GEOMETRY_COLLISION" and "0.10 mm" in finding.message
 
 
-def test_geometry_findings_separated_lyrics_report_nothing(tmp_path: Path) -> None:
+def test_geometry_findings_lyric_gap_at_or_above_threshold_reports_nothing(tmp_path: Path) -> None:
     path = tmp_path / "c-p1.svg"
-    path.write_text(SEPARATE_SVG, encoding="utf-8")
-    assert geometry_findings("c", path) == []
+    path.write_text(CLEAN_SVG, encoding="utf-8")
+    assert geometry_findings("c", path, [{**GAP, "gapMm": 0.3}, {**GAP, "gapMm": 0.9}]) == []
+
+
+def test_build_evidence_close_lyric_pair_is_a_note_not_a_finding(converted: Path, tmp_path: Path) -> None:
+    runner = fake_runner(gaps={"a4-p-orig": [{**GAP, "gapMm": 0.6}]})
+    packet = build(converted, tmp_path, runner)
+    assert packet.geometry_findings == ()
+    page = html_of(packet)
+    assert "close (note only)" in page and "0.60 mm apart" in page
+    assert "estimated" not in page
 
 
 def test_geometry_findings_prefers_the_bounding_box_render(tmp_path: Path) -> None:
@@ -257,7 +258,7 @@ def test_build_evidence_geometry_flags_are_listed_but_never_change_eligibility_o
 ) -> None:
     record = record_for(converted)
     before = (record.validation, state_for(record), record.state, record.review)
-    runner = fake_runner({"letter-p-orig": CLIPPED_SVG, "a4-p-orig": COLLIDING_SVG})
+    runner = fake_runner({"letter-p-orig": CLIPPED_SVG}, gaps={"a4-p-orig": [{**GAP, "gapMm": -0.2}]})
     packet = build(converted, tmp_path, runner, record=record)
     assert {f.code for f in packet.geometry_findings} == {"GEOMETRY_CLIPPING", "GEOMETRY_COLLISION"}
     page = html_of(packet)
