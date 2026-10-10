@@ -1,13 +1,13 @@
 /// <reference lib="webworker" />
 import type { PdfWorkerRequest, PdfWorkerResponse } from "../lib/export-layout/types";
-import { exportCanonicalPdf } from "../lib/export-layout/workerDeps";
+import { createAssetLoader, createExportPdf } from "../lib/export-layout/workerDeps";
 import { createPdfHandler } from "../lib/export-layout/workerCore";
 
 /** Thin wrapper around createPdfHandler; the PDF bytes are transferred, not copied. */
 const scope = self as unknown as Worker;
 
 const handler = createPdfHandler({
-  exportPdf: exportCanonicalPdf,
+  exportPdf: createExportPdf(createAssetLoader()),
   post: (message: PdfWorkerResponse): void => scope.postMessage(message),
   postTransfer: (message: PdfWorkerResponse, transfer: Transferable[]): void => scope.postMessage(message, transfer),
   now: () => Date.now(),

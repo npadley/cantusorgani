@@ -5,7 +5,7 @@ import { VerovioToolkit } from "verovio/esm";
 import { loadFontProfile } from "../lib/export-layout/fonts";
 import { PROVISIONAL_LIMITS } from "../lib/export-layout/types";
 import type { LayoutWorkerRequest, LayoutWorkerResponse, VerovioLike } from "../lib/export-layout/types";
-import { composeExport, createRenderPart } from "../lib/export-layout/workerDeps";
+import { createAssetLoader, createCompose, createRenderPart } from "../lib/export-layout/workerDeps";
 import type { FetchBytes } from "../lib/export-layout/workerDeps";
 import { createLayoutHandler } from "../lib/export-layout/workerCore";
 
@@ -26,7 +26,7 @@ const handler = createLayoutHandler({
   loadFonts: () => loadFontProfile(fetchBytes),
   limits: PROVISIONAL_LIMITS,
   renderPart: createRenderPart(fetchBytes),
-  compose: composeExport,
+  compose: createCompose(createAssetLoader()),
   post: (message: LayoutWorkerResponse): void => (self as unknown as Worker).postMessage(message),
   now: () => Date.now(),
 });

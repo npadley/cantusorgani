@@ -43,6 +43,7 @@ export interface LayoutHandlerDeps {
     layouts: readonly MeiLayout[],
     settings: LayoutSettings,
     token: number,
+    fonts: FontProfile,
   ) => Promise<LayoutResult>;
   readonly post: (message: LayoutWorkerResponse) => void;
   /** Reserved for timing; the controller owns the job timeout and terminates the worker. */
@@ -146,7 +147,7 @@ export function createLayoutHandler(deps: LayoutHandlerDeps): LayoutHandler {
         layouts.push(layout);
         deps.post({ type: 'progress', token, partId: part.id, done: layouts.length, total: meiParts.length });
       }
-      const result = await deps.compose(parts, layouts, settings, token);
+      const result = await deps.compose(parts, layouts, settings, token, fontProfile);
       if (!isCurrent(token)) return;
       deps.post({ type: 'result', token, result });
     } catch (error) {

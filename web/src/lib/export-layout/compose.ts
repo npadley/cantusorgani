@@ -17,7 +17,7 @@
 //  - The credit footer is reserved on EVERY page of a MEI or scan part (that is
 //    what the caller's PageRects.content for renderMei must subtract), but is
 //    drawn only on the part's last page.
-import { create as createFont } from '@pdf-lib/fontkit';
+import fontkit from '@pdf-lib/fontkit';
 import type { Font } from '@pdf-lib/fontkit';
 import { sha256Hex } from './fonts';
 import { paperDimensions } from './settings';
@@ -71,7 +71,7 @@ const fontCache = new WeakMap<Uint8Array, Font>();
 function fontOf(asset: FontAsset): Font {
   let f = fontCache.get(asset.bytes);
   if (f === undefined) {
-    f = createFont(asset.bytes);
+    f = fontkit.create(asset.bytes);
     fontCache.set(asset.bytes, f);
   }
   return f;
