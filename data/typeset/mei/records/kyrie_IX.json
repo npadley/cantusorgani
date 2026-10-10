@@ -1,8 +1,8 @@
 {
-  "artifact_sha256": "be8c34223a3ceedf910643d2addaeafc2e58afd186b1454cca9c70040f89735f",
+  "artifact_sha256": "ccfcbdb499ca3203d4420507ee14b262c600a108dcc067ff3c724bf161eaf69d",
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+dc653fdc31f8e35a",
+    "converter_version": "mei-convert/1+3a91423f1d449675",
     "extractor_version": "listen_full/1+c4de7df64f8a458d",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "9d75f6ac3f4cc9bb55b7f1d985ffa17b1daee43ea3d5197181a914fea8556b3e",
@@ -17,12 +17,12 @@
   "review": {
     "accepted_differences": [
       "slur direction chosen by Verovio",
-      "divisio maior drawn from the top staff line",
+      "divisio minima drawn as a short text tick across the top line of each staff",
       "even chant horizontal spacing differs from LilyPond"
     ],
-    "artifact_sha256": "be8c34223a3ceedf910643d2addaeafc2e58afd186b1454cca9c70040f89735f",
+    "artifact_sha256": "ccfcbdb499ca3203d4420507ee14b262c600a108dcc067ff3c724bf161eaf69d",
     "decision": "approve",
-    "inputs_digest": "825bc9743558566f7461136ba79bc65498e0b1dfa996dfaf753320b84b65416a",
+    "inputs_digest": "d5facb256c58c762d1acf989cfcdd8632345c551b89548df4e38eb241a9697db",
     "matrix_results": {
       "a4-l-auto": "accepted-difference",
       "a4-p-orig": "accepted-difference",
@@ -39,7 +39,7 @@
       "letter-p-small-cap2": "accepted-difference"
     },
     "reviewer": "Nick Padley",
-    "timestamp": "2026-10-10T13:15:33Z"
+    "timestamp": "2026-10-10T23:14:16Z"
   },
   "source_path": "data/typeset/src/vol-5/missa-ix/kyrie_IX.ly",
   "state": "approved",
@@ -48,7 +48,7 @@
     "eligible": true,
     "hashes": {
       "ir": "08140377a68cadd755b2e633d982b165c67d9125dcc11074f01cd261ada1059c",
-      "mei": "be8c34223a3ceedf910643d2addaeafc2e58afd186b1454cca9c70040f89735f",
+      "mei": "ccfcbdb499ca3203d4420507ee14b262c600a108dcc067ff3c724bf161eaf69d",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },
     "schema_diagnostics": [],
