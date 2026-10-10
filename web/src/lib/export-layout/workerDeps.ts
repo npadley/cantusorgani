@@ -13,6 +13,7 @@ import { exportCanonicalPdf } from './exportPdf';
 import { renderMei } from './layout';
 import type { PageRects } from './layout';
 import { loadFontProfile, sha256Hex } from './fonts';
+import { sha256Bytes, toHex } from './sha256';
 import { paperDimensions, usableRect } from './settings';
 import type {
   AssetLoader,
@@ -66,7 +67,6 @@ export function createRenderPart(fetchBytes: FetchBytes) {
 }
 
 // ------------------------------------------------------------ compose deps ---
-const hex = (bytes: ArrayBuffer): string => Array.from(new Uint8Array(bytes), (b) => b.toString(16).padStart(2, '0')).join('');
 
 /** Fetch with optional sha256 verification. Errors follow the contracts' AssetLoader convention. */
 export function createAssetLoader(fetchFn: typeof fetch = fetch): AssetLoader {
@@ -81,7 +81,7 @@ export function createAssetLoader(fetchFn: typeof fetch = fetch): AssetLoader {
         throw new Error(`ASSET_MISSING: ${url}`);
       }
       if (sha256 !== null) {
-        const digest = hex(await crypto.subtle.digest('SHA-256', data as Uint8Array<ArrayBuffer>));
+        const digest = toHex(await sha256Bytes(data));
         if (digest !== sha256.toLowerCase()) throw new Error(`ASSET_HASH_MISMATCH: ${url}`);
       }
       return data;

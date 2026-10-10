@@ -1,6 +1,7 @@
 // B2: the single export font profile (spike S3/S4). Liberation Serif 2.1.5
 // (SIL OFL 1.1) is Times-metric-compatible, which is what Verovio lays lyrics
 // out with. The fetcher is injected so tests and workers choose the transport.
+import { sha256Bytes, toHex } from './sha256';
 import type { FontAsset, FontProfile } from './types';
 
 export const FONT_BASE_URL = '/fonts/export/';
@@ -19,11 +20,8 @@ const FAMILY = 'Liberation Serif';
 const LICENSE = 'OFL-1.1';
 
 export async function sha256Hex(bytes: Uint8Array): Promise<string> {
-  // Copy into a plain ArrayBuffer so the digest input type is unambiguous.
-  const copy = new Uint8Array(bytes.byteLength);
-  copy.set(bytes);
-  const digest = await crypto.subtle.digest('SHA-256', copy);
-  return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, '0')).join('');
+  // crypto.subtle is missing in an insecure context (a tablet on http://<lan-address>); sha256Bytes falls back to JavaScript.
+  return toHex(await sha256Bytes(bytes));
 }
 
 async function loadAsset(

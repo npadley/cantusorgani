@@ -6,6 +6,7 @@
     "dev": "node scripts/with-public-env.ts astro dev",
     "build": "node scripts/with-public-env.ts astro build && node scripts/build-discovery.ts && rm -rf dist/systems && pagefind --site dist && node scripts/check-links.ts && node scripts/check-no-fixture.ts dist",
     "build:e2e": "E2E_TEST_PAGES=1 PUBLIC_MEI_MANIFEST=fixture PUBLIC_ASSET_BASE=/systems node scripts/with-public-env.ts astro build --outDir dist-e2e",
+    "serve:device": "node scripts/serve-device-test.ts",
     "check:no-fixture": "node scripts/check-no-fixture.ts dist",
     "check:links": "node scripts/check-links.ts",
     "preview": "astro preview",
