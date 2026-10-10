@@ -796,6 +796,7 @@ Not Haiku. **Review focus:** whether any path lets the uploader execute source.
 Run C2b on a desktop and a real iPad. The coordinator derives the measured profile (`provisional: false`). **G3.**
 
 ### C3 [O+U] Kyrie IX pilot release — depends: G0–G3, A5d
+**Publish order (from C1a):** run `build_manifest` (which validates `boundaries.json` against the verified MEI) **before** `verify_publish_bundle`/`publish_verified`. The record pins only the MEI hash; `boundaries.json` is pinned from verify to publish time only.
 Follow PC C3 exactly, using the Kyrie target `movement:ordinarium-missae-ix/kyrie`. Rehearse the rollback (remove the manifest entry and rebuild) in staging. **G4** is the user's sign-off.
 
 ### C4a [S] Batch tooling — lane PY — depends: C3
