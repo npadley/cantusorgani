@@ -1,9 +1,12 @@
 import { DOMParser, XMLSerializer } from '@xmldom/xmldom';
+import fontkit from '@pdf-lib/fontkit';
+import type { Font } from '@pdf-lib/fontkit';
 import type { Element } from '@xmldom/xmldom';
 import { resolveBreaks } from './breaks';
 import { materialiseBreaks, revealSplitSustainsAfter } from './meiDoc';
 import { paginate } from './paginate';
 import { paperDimensions, verovioOptions } from './settings';
+import { lyricCollisions } from './lyricGeometry';
 import { measureSvgPage } from './svgGeometry';
 import type { MeasuredPage, MeasuredSystem } from './svgGeometry';
 import { STAFF_SIZES } from './types';
@@ -11,6 +14,7 @@ import type {
   BreakOverride,
   EffectiveBreak,
   EffectiveBreaks,
+  FontProfile,
   LayoutConstraints,
   LayoutDiagnostic,
   LayoutDiagnosticCode,
@@ -43,6 +47,8 @@ const TALL_PAGE = 60000;
 const STAFF_TOLERANCE_MM = 0.1;
 /** Lowest justification ratio accepted when moving an automatic line break to a word boundary. */
 const MIN_WORD_BREAK_RATIO = 0.8;
+/** Closest two lyric syllables may sit after a word-boundary move. */
+const MIN_SYLLABLE_GAP_MM = 0.3;
 const RIGHT_EDGE_TOLERANCE_MM = 0.5;
 const BOTTOM_TOLERANCE_MM = 0.05;
 const MEI_NS = 'http://www.music-encoding.org/ns/mei';
@@ -390,40 +396,56 @@ export async function renderMei(
     let planned = planSystems(sys1, allMeasures, realisable, measureByBoundary, boundaryBeforeMeasure);
     let measuredForGaps: readonly MeasuredSystem[] = sys1;
 
-    // Automatic reflow: Verovio breaks at any measure, even inside a word ("Chri-" / "ste"). Move
-    // such a start back to the nearest earlier word boundary, then verify with ONE encoded render
-    // that nothing overflows. All or nothing, and never repeated.
+    // Automatic reflow: Verovio breaks at any measure, even inside a word ("Chri-" / "ste"). First
+    // try moving each such start back to the nearest earlier word boundary; if that overfills a
+    // line, try moving them forward instead. Each attempt is ONE encoded render, all or nothing,
+    // accepted only when the systems match, nothing overhangs, Verovio does not compress a line
+    // (ratio below 0.8) and no two syllables come closer than 0.3 mm. Never repeated.
     if (settings.linePolicy === 'automatic' && planned.length > 1) {
       const wordFinal = wordFinalMeasures(part.meiXml);
       const pinned = new Set(realisable.map((b) => nextMeasureInMei.get(measureByBoundary.get(b.boundaryId) ?? '') ?? ''));
-      const moved: string[] = [];
-      planned.forEach((p, k) => {
-        moved.push(k === 0 || pinned.has(p.startMeasureId)
-          ? p.startMeasureId
-          : moveToWordStart(p.startMeasureId, moved[k - 1] ?? '', allMeasures, measureIndex, wordFinal, boundaryByMeasure));
-      });
-      if (moved.some((m, k) => m !== planned[k]?.startMeasureId)) {
+      const original = planned.map((p) => p.startMeasureId);
+      const lyricFont = lyricFontOf(ctx);
+      const attempt = async (moved: readonly string[]): Promise<{ ok: boolean; systems: readonly MeasuredSystem[] } | string> => {
         const messagesBefore = consoleMessages.length;
         const mei1b = rewriteBreaks(part.meiXml, { stripSb: true, insertBefore: new Map(moved.slice(1).map((m) => [m, 'system'] as const)) });
         const bad1b = apply({ ...pass1Options, breaks: 'encoded' });
-        if (bad1b.length > 0) return failed(`word-boundary options not applied: ${bad1b.join('; ')}`);
-        if (!load(mei1b)) return failed('loadData failed in the word-boundary pass');
+        if (bad1b.length > 0) return `word-boundary options not applied: ${bad1b.join('; ')}`;
+        if (!load(mei1b)) return 'loadData failed in the word-boundary pass';
         const pages1b = captureConsole(consoleMessages, () => tk.getPageCount());
-        const sys1b = pages1b === 1 ? measureSvgPage(renderPage(1)).systems : [];
-        // Moving a start back makes one line denser. Only accept it while Verovio does not compress
-        // that line (no ratio below 0.8): at 0.7 to 0.76 neighbouring syllables overlap, which is
-        // worse than breaking inside a word. Large staves on narrow pages therefore keep theirs.
+        const svg1b = pages1b === 1 ? renderPage(1) : '';
+        const sys1b = svg1b ? measureSvgPage(svg1b).systems : [];
         const ratios = consoleMessages.slice(messagesBefore)
           .map((m) => /ratio smaller than [\d.]+: ([\d.]+)/.exec(m)?.[1])
           .flatMap((r) => (r === undefined ? [] : [Number(r)]));
         const sameStarts = sys1b.length === moved.length && sys1b.every((s, k) => s.firstMeasureId === moved[k]);
-        const fits = Math.max(...sys1b.map((s) => s.maxXMm)) - page.content.widthMm <= RIGHT_EDGE_TOLERANCE_MM;
-        if (sameStarts && fits && ratios.every((r) => r >= MIN_WORD_BREAK_RATIO)) {
-          planned = planSystems(sys1b, allMeasures, [], measureByBoundary, boundaryBeforeMeasure);
-          measuredForGaps = sys1b;
-        }
+        const fits = sys1b.length > 0 && Math.max(...sys1b.map((s) => s.maxXMm)) - page.content.widthMm <= RIGHT_EDGE_TOLERANCE_MM;
+        // Syllables on the systems next to a moved start.
+        const touched = new Set<number>();
+        moved.forEach((m, k) => { if (m !== original[k]) { touched.add(k - 1); touched.add(k); } });
+        const crowded = svg1b !== '' && lyricFont !== null
+          && lyricCollisions(svg1b, lyricFont, MIN_SYLLABLE_GAP_MM).some((c) => touched.has(c.system));
+        return { ok: sameStarts && fits && ratios.every((r) => r >= MIN_WORD_BREAK_RATIO) && !crowded, systems: sys1b };
+      };
+      // Backward moves chain on the moved previous start so a system never loses all its measures.
+      const back: string[] = [];
+      original.forEach((m, k) => {
+        back.push(k === 0 || pinned.has(m) ? m : moveToWordStart(m, back[k - 1] ?? '', allMeasures, measureIndex, wordFinal, boundaryByMeasure, -1));
+      });
+      const forward = original.map((m, k) =>
+        (k === 0 || pinned.has(m) ? m : moveToWordStart(m, original[k + 1] ?? '', allMeasures, measureIndex, wordFinal, boundaryByMeasure, 1)));
+      const candidates = [back, forward];
+      for (const moved of candidates) {
+        if (!moved.some((m, k) => m !== original[k])) continue;
+        const r = await attempt(moved);
+        if (typeof r === 'string') return failed(r);
         await tick();
         if (ctx.isCancelled()) return cancelled();
+        if (r.ok) {
+          planned = planSystems(r.systems, allMeasures, [], measureByBoundary, boundaryBeforeMeasure);
+          measuredForGaps = r.systems;
+          break;
+        }
       }
     }
     const gaps = measuredForGaps.slice(1).map((s, i) => s.topMm - ((measuredForGaps[i]?.topMm ?? 0) + (measuredForGaps[i]?.heightMm ?? 0)));
@@ -604,22 +626,43 @@ export function wordFinalMeasures(meiXml: string): Set<string> {
   return out;
 }
 
-/** Nearest start at or before `start` (after `prevStart`) that begins a new word and follows a safe boundary. */
+/**
+ * A start that begins a new word and follows a safe boundary: the nearest one at or before `start`
+ * (dir -1, keeping the previous system's first measure) or at or after it (dir 1, stopping before
+ * the next system's first measure). Returns `start` when there is none.
+ */
 function moveToWordStart(
   start: string,
-  prevStart: string,
+  limit: string,
   allMeasures: readonly string[],
   measureIndex: ReadonlyMap<string, number>,
   wordFinal: ReadonlySet<string>,
   boundaryByMeasure: ReadonlyMap<string, string>,
+  dir: -1 | 1,
 ): string {
   const idx = measureIndex.get(start) ?? 0;
-  const lo = (measureIndex.get(prevStart) ?? -1) + 1;
-  for (let j = idx; j > lo; j--) {
+  const ok = (j: number): boolean => {
     const before = allMeasures[j - 1] ?? '';
-    if (wordFinal.has(before) && boundaryByMeasure.has(before)) return allMeasures[j] ?? start;
+    return wordFinal.has(before) && boundaryByMeasure.has(before);
+  };
+  if (dir === -1) {
+    const lo = (measureIndex.get(limit) ?? -1) + 1;
+    for (let j = idx; j > lo; j--) if (ok(j)) return allMeasures[j] ?? start;
+  } else {
+    const hi = measureIndex.get(limit) ?? allMeasures.length; // the last system has no next start
+    for (let j = idx; j < hi; j++) if (ok(j)) return allMeasures[j] ?? start;
   }
   return start;
+}
+
+const fontCache = new WeakMap<Uint8Array, Font>();
+/** The lyric face, when the render context carries one (unit tests with fakes do not). */
+function lyricFontOf(ctx: RenderContext): Font | null {
+  const bytes = (ctx.fonts as Partial<FontProfile>).lyricFont?.bytes;
+  if (!bytes) return null;
+  let f = fontCache.get(bytes);
+  if (f === undefined) { f = fontkit.create(bytes); fontCache.set(bytes, f); }
+  return f;
 }
 
 /** First (page, system) where planned and actual system-start lists differ, or null when identical. */

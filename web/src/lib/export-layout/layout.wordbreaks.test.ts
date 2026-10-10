@@ -3,9 +3,19 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { renderMei, wordFinalMeasures } from './layout';
 import { paperDimensions } from './settings';
-import { WASM_TIMEOUT_MS, ctxOf, errors, partOf, rectsOf, settingsOf, useRealVerovio } from './__fixtures__/layoutHarness';
+import { WASM_TIMEOUT_MS, ctxOf as baseCtxOf, errors, partOf, rectsOf, settingsOf, useRealVerovio } from './__fixtures__/layoutHarness';
 import manifest from './__fixtures__/manifest.fixture.json';
 import type { LayoutSettings, SafeBoundary } from './types';
+
+import type { FontAsset, FontProfile, RenderContext, VerovioLike } from './types';
+
+const LIBERATION = new Uint8Array(readFileSync(join(__dirname, '..', '..', '..', 'public', 'fonts', 'export', 'LiberationSerif-Regular.ttf')));
+/** The harness context plus the real lyric face, so layout can check syllable gaps. */
+const ctxOf = (tk: VerovioLike): RenderContext => {
+  const ctx = baseCtxOf(tk);
+  const lyricFont = { family: 'Liberation Serif', url: '', sha256: '', license: 'OFL', bytes: LIBERATION } as FontAsset;
+  return { ...ctx, fonts: { lyricFont } as unknown as FontProfile };
+};
 
 const MEI = readFileSync(join(__dirname, '__fixtures__', 'kyrie-ix.mei'), 'utf8');
 const BOUNDARIES = manifest.parts[0]!.boundaries as unknown as SafeBoundary[];
@@ -44,10 +54,9 @@ describe('automatic line breaks prefer word boundaries (real Kyrie IX)', { timeo
     const starts = layout.pages.flatMap((p) => p.systems).flatMap((sys) => (sys.firstBoundaryId ? [sys.firstBoundaryId] : []));
     const midWord = starts.filter((id) => !WORD_FINAL.has(measureOf.get(id)!));
     console.info(`[wordbreaks] ${name}: ${starts.length + 1} systems, ${midWord.length} mid-word starts`);
-    // A large staff on a narrow page has no room to move a break without squeezing the lyrics
-    // (justification ratio < 0.8, syllables overlap), so those keep Verovio's choice.
-    if (s.staff === 'large') expect(midWord.length).toBeLessThanOrEqual(2);
-    else expect(midWord).toEqual([]);
+    // Large staves on narrow pages cannot move a break back without squeezing the lyrics; they
+    // move it forward to a later word boundary instead.
+    expect(midWord).toEqual([]);
   });
 
   it('leaves original lines alone', async () => {
