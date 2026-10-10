@@ -10,6 +10,16 @@ declare module "verovio/wasm" {
 
 declare module "verovio/esm" {
   import type { VerovioModule } from "verovio/wasm";
+  export interface VerovioAvailableOption {
+    readonly type: string;
+    readonly default: unknown;
+    readonly values?: readonly string[];
+    readonly min?: number;
+    readonly max?: number;
+  }
+  export interface VerovioAvailableOptions {
+    readonly groups: Readonly<Record<string, { readonly options: Readonly<Record<string, VerovioAvailableOption>> }>>;
+  }
   export class VerovioToolkit {
     constructor(module: VerovioModule);
     loadData(data: string): boolean;
@@ -18,5 +28,10 @@ declare module "verovio/esm" {
     getVersion(): string;
     setOptions(options: Record<string, string | number | boolean | readonly string[]>): boolean;
     destroy(): void;
+    /** Verovio 6.3.0 reports rejected options on console.error only; getLog() is empty in the WASM build. */
+    getLog(): string;
+    /** Current option values. Read these back after setOptions: a rejected option silently keeps its old value. */
+    getOptions(defaultValues?: boolean): Record<string, unknown>;
+    getAvailableOptions(): VerovioAvailableOptions;
   }
 }
