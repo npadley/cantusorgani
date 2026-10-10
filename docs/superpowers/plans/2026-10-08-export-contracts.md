@@ -953,25 +953,39 @@ No case asserts an exact system count. The old "Letter/Large/Automatic → 4 + 1
 
 ## 4. TSV grammar (output of `listen_full.ily`, owned by spike S1)
 
-S1 finalises this grammar and checks raw outputs for F1–F5 into `tests/fixtures/mei/extraction/<basename>.tsv`.
-- Columns are tab-separated.
-- `onset` is an exact Guile rational (`"109/8"`, `"0"`).
-- `loc` is `file:line:col`, with a repository-relative file.
+**Finalised by S1 (2026-10-09), extractor `listen_full/1`.** This replaced the draft grammar; the change list is at the end of this section. Raw outputs for F1–F5 (and the cross-staff/accidental supplement `agnus_XI.tsv`) are checked in at `tests/fixtures/mei/extraction/<basename>.tsv`. Evidence and field mapping: `docs/superpowers/experiments/s1-extraction.md`.
+- One record per line, `\n`-terminated, UTF-8. Fields are tab-separated; the field count is fixed per `kind` (column 4).
+- `onset` is an exact Guile rational of whole notes (`"109/8"`, `"0"`, `"3"`); parse with `Fraction`. A moment with a grace part is written `main@grace` so that a plain-rational parser fails loudly (no pilot has one).
+- `dur` is the same kind of rational and already includes the duration scale.
+- `loc` is `file:line:col` with a repository-relative file, a 1-based line and LilyPond's 0-based column; `-` when no event caused the record. A location inside `noh2.ily`'s music functions reports the **call site** in the source.
+- `<layer>` is `<home staff>:<voice id>` or `<home staff>:#<ordinal>` (Kyrie IX: `up:chant`, `up:#1`, `down:#2`, `down:#3`). The home staff and ordinal are fixed at the voice's first record; the ordinal counts voices in first-record order and equals `LayerDef.ordinal`. Voices that never emit a record (an empty `voiceLines` voice) produce no layer.
+- `<staff>` (column 3 on voice rows) is the **effective** staff when the record happened, so it differs from the layer's home staff after `\change Staff` (`\voiceLine "down" "up"`). `staff#<n>` names an unnamed staff.
+- `lyrics:<ctx>` is the Lyrics context id, or `#<n>` in first-syllable order for unnamed contexts. `<assoc-layer>` is the layer of the Lyrics context's `associatedVoiceContext` at that moment, `-` if none (=> `LYRIC_UNANCHORED`).
+- Within one onset, rows come in LilyPond's iteration order: listener rows (note, slur, tie, gliss, lyric ...) before acknowledger rows (head, stem, div, acc). Readers must key acknowledger rows by `(onset, layer, loc)`, not by adjacency.
+- Text fields escape `\` as `\\`, tab as `\t`, newline as `\n`, CR as `\r`. A blank syllable (`_`) is the empty string.
 
 ```
-onset  layer  staff  note   step alter octave log dots scale_num scale_den dur loc
-onset  layer  staff  rest   dur loc
-onset  layer  staff  skip   dur loc
-onset  layer  staff  head   transparent(0|1) stencil(normal|quilisma)      # acknowledger; follows its note row
-onset  layer  staff  stem   transparent(0|1)
-onset  layer  staff  tie    loc
-onset  layer  staff  slur   dir(-1|1) loc
-onset  layer  staff  gliss  loc                                            # \voiceLine start
-onset  layer  staff  div    kind(finalis|maxima|maior|minima) loc
-onset  -      -      break  loc                                            # \forceBreak / \break
-onset  lyrics:<ctx> <assoc-layer>  lyric  text stanza loc                  # text may be ""
-onset  lyrics:<ctx> <assoc-layer>  hyphen
-onset  lyrics:<ctx> <assoc-layer>  extender
-onset  -      <staff> key    fifths loc
-onset  -      <staff> clef   glyph position loc
+onset  -            -        version  extractor(listen_full/N) lilypond(X.Y.Z)        # first row
+onset  -            <staff>  staff    index(1-based, creation = top-to-bottom order)   # once per Staff
+onset  <layer>      <home>   voice    ordinal voice_command(voiceOne..voiceFour|none)  # once per layer, before its first record
+onset  -            <staff>  key      fifths loc                                       # one per voice that states \key (dedupe)
+onset  -            <staff>  clef     glyph(clefs.G|clefs.F|clefs.C...) position loc   # only when glyph/position changes; loc usually "-"
+onset  <layer>      <staff>  note     step(a-g) alter(semitones) octave(sci, c'=4) log dots scale_num scale_den dur loc
+onset  <layer>      <staff>  rest     dur loc
+onset  <layer>      <staff>  skip     dur loc
+onset  <layer>      <staff>  head     transparent(0|1) stencil(normal|quilisma|none|other) loc   # acknowledger; loc = its note's loc
+onset  <layer>      <staff>  rhead    hidden(0|1) loc                                  # rest grob; hidden = transparent or no stencil
+onset  <layer>      <staff>  stem     hidden(0|1) loc                                  # one per chord; also emitted for rests; loc = first note/rest
+onset  <layer|->    <staff>  acc      kind(natural|sharp|flat|double-sharp|double-flat|other) loc   # printed (visible) accidentals only
+onset  <layer>      <staff>  col      force_hshift(number|-) x_extent(a,b|-) loc       # only when a source override is in force
+onset  <layer>      <staff>  tie      loc
+onset  <layer>      <staff>  slur     dir(-1 start|1 stop) loc
+onset  <layer>      <staff>  gliss    loc                                              # any \glissando, incl. \voiceLine's
+onset  <layer>      <staff>  div      kind(finalis|maxima|maior|minima|other) loc      # BreathingSign stencil procedure
+onset  -            -        break    loc                                              # line-break-event with break-permission 'force
+onset  lyrics:<ctx> <assoc-layer|->  lyric    text stanza loc                          # text "" = blank; stanza "-" = no new marker
+onset  lyrics:<ctx> <assoc-layer|->  hyphen   loc
+onset  lyrics:<ctx> <assoc-layer|->  extender loc
 ```
+
+**Changes from the draft (coordinator review needed):** added `version`, `staff`, `voice`, `rhead`, `acc` and `col` rows; added `loc` to `head` and `stem` (needed to key them to their note); `head` stencil also allows `none|other`, `div` kind also allows `other`; `stem` and `rhead` report "hidden" (transparent **or** no stencil); `note` fields are now in IR units (step letter, alter in semitones, scientific octave); `key` is emitted once per voice stating `\key` (readers dedupe); `clef` is emitted only on change; lyric rows give `stanza` as `-` when no new marker; `hyphen`/`extender` gain `loc`; `break` is only a **forced** break.
