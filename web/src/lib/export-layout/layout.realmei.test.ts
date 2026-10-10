@@ -42,11 +42,14 @@ describe('real converter output lays out (Kyrie IX)', { timeout: WASM_TIMEOUT_MS
     const present = new Set([...svg.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]!));
     expect(ORIGINAL_NOTES.filter((id) => !present.has(id))).toEqual([]);
 
-    // Continuation fragments draw nothing: no glyph, no stem, no tie.
+    // Continuation fragments draw nothing mid-system. Under automatic reflow a sustain can cross a
+    // line break that Verovio chose; D17 reveals it there with a split-tie (layout.reveal.test.ts
+    // checks exactly which), so the visible count must equal the tie count.
     const groups = [...svg.matchAll(/<g\b[^>]*class="note split-continuation"[^>]*?(?:\/>|>[\s\S]*?<\/g>)/g)];
     expect(groups.length).toBeGreaterThan(0);
-    expect(groups.filter((g) => /<use|<path|<text/.test(g[0]))).toEqual([]);
-    expect(svg).not.toContain('split-tie');
+    const shown = groups.filter((g) => /<use|<path|<text/.test(g[0]));
+    expect(shown.length).toBe(svg.match(/class="tie split-tie/g)?.length ?? 0);
+    if (linePolicy === 'original') expect(shown).toEqual([]);
 
     expect(Math.abs(layout.staffHeightMm - 7.2)).toBeLessThanOrEqual(0.1);
 

@@ -356,12 +356,12 @@ describe('verovioOptions', () => {
       expect(verovioOptions({ ...DEFAULT_SETTINGS, staff }, content).pageMarginLeft).toBe(margin);
     });
 
-  it('sets the other pageMargins to 0', () => {
+  it('reserves 0.8 mm on the right and sets top and bottom pageMargins to 0', () => {
     const settings = DEFAULT_SETTINGS;
     const content: RectMm = { xMm: 0, yMm: 0, widthMm: 186, heightMm: 265 };
     const options = verovioOptions(settings, content);
 
-    expect(options.pageMarginRight).toBe(0);
+    expect(options.pageMarginRight).toBe(8);
     expect(options.pageMarginTop).toBe(0);
     expect(options.pageMarginBottom).toBe(0);
   });

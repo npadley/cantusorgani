@@ -383,7 +383,10 @@ export function verovioOptions(
     pageHeight: Math.floor(content.heightMm * 10),
     // Verovio draws the brace left of the system origin (S2): leave room for it.
     pageMarginLeft: Math.ceil(STAFF_SIZES[settings.staff].unit * 3),
-    pageMarginRight: 0,
+    // Right reserve (0.8 mm): Verovio justifies the last barline to the page edge and its stroke and
+    // glyphs overhang by up to ~1.9 mm when the line is tight (large staff on iPad mini). Measured on
+    // Kyrie IX over the contracts s3 matrix: 5 leaves 0.53 mm, 8 leaves at most 0.24 mm.
+    pageMarginRight: 8,
     pageMarginTop: 0,
     pageMarginBottom: 0,
 
