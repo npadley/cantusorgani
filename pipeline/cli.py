@@ -168,6 +168,11 @@ def build_parser() -> argparse.ArgumentParser:
     mei_extract.add_argument("source", type=Path)
     mei_extract.add_argument("--out", type=Path, required=True)
 
+    mei_convert = subs.add_parser("typeset-mei-convert",
+                                  help="extract, encode and schema-check one typeset source as MEI (runs LilyPond)")
+    mei_convert.add_argument("source", type=Path)
+    mei_convert.add_argument("--out", type=Path, required=True)
+
     cat = subs.add_parser("catalog", help="build data/catalog.json and review-queue.json")
     cat.add_argument("--volume", required=True)
     cat.add_argument("--no-parts", action="store_true",
@@ -372,6 +377,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "typeset-mei-extract":
         from pipeline.typeset.mei.cli import extract_command
         return extract_command(args.source, args.out)
+    if args.command == "typeset-mei-convert":
+        from pipeline.typeset.mei.cli import convert_command
+        return convert_command(args.source, args.out)
     if args.command == "typeset-source-batch":
         import json
 

@@ -83,3 +83,48 @@ def test_extract_score_failed_runner_returns_error_diagnostic(tmp_path: Path):
 def test_extract_command_failed_runner_returns_one_and_writes_no_ir(tmp_path: Path):
     assert extract_command(ITE_IB, tmp_path / "out", FakeRunner(ok=False), tmp_path / "b") == 1
     assert not (tmp_path / "out").exists()
+
+
+# --- typeset-mei-convert ---------------------------------------------------------------
+
+from pipeline.typeset.mei.cli import convert_command
+from pipeline.typeset.mei.schema import load_schema_bundle, validate_schema
+
+
+def test_convert_command_fake_runner_writes_four_artifacts(tmp_path: Path):
+    out = tmp_path / "out"
+    assert convert_command(ITE_IB, out, FakeRunner(), tmp_path / "build") == 0
+    assert sorted(p.name for p in out.iterdir()) == ["boundaries.json", "diagnostics.json", "ir.json", "score.mei"]
+    assert validate_schema((out / "score.mei").read_bytes(), load_schema_bundle()) == []
+    boundaries = json.loads((out / "boundaries.json").read_text(encoding="utf-8"))
+    assert boundaries
+    assert set(boundaries[0]) == {"id", "onset", "sourceBreak", "division", "measureId", "afterText"}
+    assert boundaries[0]["measureId"] == "m001"
+    assert json.loads((out / "diagnostics.json").read_text(encoding="utf-8")) == []
+    assert json.loads((out / "ir.json").read_text(encoding="utf-8"))["totalDuration"] == "5/1"
+
+
+def test_convert_command_is_deterministic(tmp_path: Path):
+    convert_command(ITE_IB, tmp_path / "a", FakeRunner(), tmp_path / "b")
+    convert_command(ITE_IB, tmp_path / "c", FakeRunner(), tmp_path / "b")
+    for name in ("score.mei", "boundaries.json", "diagnostics.json", "ir.json"):
+        assert (tmp_path / "a" / name).read_bytes() == (tmp_path / "c" / name).read_bytes()
+
+
+def test_convert_command_failed_runner_returns_one_with_diagnostics_only(tmp_path: Path):
+    out = tmp_path / "out"
+    assert convert_command(ITE_IB, out, FakeRunner(ok=False), tmp_path / "b") == 1
+    assert [p.name for p in out.iterdir()] == ["diagnostics.json"]
+    (diag,) = json.loads((out / "diagnostics.json").read_text(encoding="utf-8"))
+    assert diag["code"] == "COMPILE_FAILED"
+
+
+def test_convert_command_schema_failure_returns_one(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+    from pipeline.typeset.mei import cli
+    from pipeline.typeset.mei.diagnostics import Diagnostic
+
+    bad = Diagnostic("SCHEMA_INVALID", "error", "nope")
+    monkeypatch.setattr(cli, "validate_schema", lambda xml, bundle: [bad])
+    assert convert_command(ITE_IB, tmp_path / "out", FakeRunner(), tmp_path / "b") == 1
+    codes = [d["code"] for d in json.loads((tmp_path / "out" / "diagnostics.json").read_text(encoding="utf-8"))]
+    assert codes == ["SCHEMA_INVALID"]
