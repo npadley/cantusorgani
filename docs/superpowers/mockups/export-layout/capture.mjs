@@ -27,13 +27,13 @@ const check = (name, ok, detail = "") => {
 const browser = await chromium.launch();
 const errors = [];
 
-async function open(vp, scenario) {
+async function open(vp, scenario, extra = "") {
   const ctx = await browser.newContext({ viewport: VP[vp], reducedMotion: "reduce" });
   const page = await ctx.newPage();
   page.on("pageerror", (e) => errors.push(`s${scenario}@${vp}: ${e.message}`));
   page.on("console", (m) => { if (m.type() === "error") errors.push(`s${scenario}@${vp}: ${m.text()}`); });
   page.on("request", (r) => { if (!r.url().startsWith("file:") && !r.url().startsWith("data:")) errors.push(`external request ${r.url()}`); });
-  await page.goto(`${editor}?s=${scenario}`);
+  await page.goto(`${editor}?s=${scenario}${extra}`);
   await page.waitForTimeout(500);
   return { page, ctx };
 }
@@ -45,16 +45,11 @@ const shots = [
   [4, "desktop", "s04-mixed-parts"], [4, "tablet", "s04-mixed-parts"], [4, "phone", "s04-mixed-parts"],
   [6, "desktop", "s06-break-editing"], [6, "tablet", "s06-break-editing"], [6, "phone", "s06-break-editing"],
   [7, "desktop", "s07-impossible-layout"], [7, "phone", "s07-impossible-layout"],
-  [13, "phone", "s13-narrow-collapsed"],
+  [13, "phone", "s13-narrow-fit-strip"],
 ];
 for (const [n, vp, name] of shots) {
   const { page, ctx } = await open(vp, n);
   await page.screenshot({ path: `${outDir}${name}-${VP[vp].width}.png` });
-  if (n === 13) {
-    await page.evaluate(() => document.querySelector(".cx-preview").scrollIntoView());
-    await page.waitForTimeout(150);
-    await page.screenshot({ path: `${outDir}${name}-preview-${VP[vp].width}.png` });
-  }
   if (n === 4 && vp === "desktop") {
     await page.evaluate(() => document.querySelector('[data-page="3"]').scrollIntoView());
     await page.waitForTimeout(150);
@@ -75,7 +70,12 @@ for (const [n, vp, name] of shots) {
   await page.screenshot({ path: `${outDir}s01-kyrie-ready-zoom50-1280.png` });
   await ctx.close();
 }
-check("screenshots written", true, `${shots.length + 4} images in screens/`);
+for (const [n, vp, name] of [[2, "tablet", "s02-ipad-11-panel"], [2, "phone", "s02-ipad-11-panel"], [4, "phone", "s04-mixed-parts-panel"], [1, "tablet", "s01-kyrie-ready-panel"]]) {
+  const { page, ctx } = await open(vp, n, "&panel=1");
+  await page.screenshot({ path: `${outDir}${name}-${VP[vp].width}.png` });
+  await ctx.close();
+}
+check("screenshots written", true, `${shots.length + 8} images in screens/`);
 {
   const { readdirSync } = await import("node:fs");
   const big = readdirSync(outDir).filter((f) => statSync(outDir + f).size > 400 * 1024);
@@ -120,6 +120,77 @@ for (const vp of ["desktop", "tablet", "phone"]) {
   check(`every visible interactive element is at least 44x44 CSS px at ${VP[vp].width}px (all 14 scenarios)`, bad.length === 0, [...new Set(bad)].slice(0, 8).join("; "));
 }
 
+for (const vp of ["tablet", "phone"]) {
+  const bad = [];
+  for (let n = 1; n <= 14; n++) {
+    const { page, ctx } = await open(vp, n, "&panel=1");
+    const inPanel = await page.evaluate(() => document.getElementById("cx").dataset.panel === "open" && document.getElementById("cx-settings").getBoundingClientRect().height > 0);
+    if (!inPanel) bad.push(`s${n} panel not open`);
+    await page.evaluate(() => { document.getElementById("g-more").open = true; });
+    (await page.evaluate(measure)).forEach((b) => bad.push(`s${n} ${b}`));
+    await ctx.close();
+  }
+  check(`Settings panel: every control is at least 44x44 CSS px at ${VP[vp].width}px (all 14 scenarios, panel open)`, bad.length === 0, [...new Set(bad)].slice(0, 8).join("; "));
+}
+
+// --- Preview first below 62rem ----------------------------------------------------
+for (const vp of ["tablet", "phone"]) {
+  for (const n of [1, 2]) {
+    const { page, ctx } = await open(vp, n);
+    const m = await page.evaluate(() => {
+      const pg = document.querySelector(".cx-page").getBoundingClientRect();
+      const foot = document.getElementById("cx-foot").getBoundingClientRect();
+      const strip = document.getElementById("cx-fitstrip").getBoundingClientRect();
+      const body = document.querySelector(".cx-body").scrollTop;
+      return { top: Math.round(pg.top), footTop: Math.round(foot.top), strip: Math.round(strip.height), vh: innerHeight, scrolled: body };
+    });
+    const lim = vp === "tablet" ? 120 : 170;
+    check(`first page top is visible without scrolling at ${VP[vp].width}x${VP[vp].height}, scenario ${n}`, m.top > 0 && m.top < m.footTop - 40 && m.scrolled === 0, JSON.stringify(m));
+    check(`FIT strip is at most ${lim} px tall at ${VP[vp].width}px, scenario ${n}`, m.strip <= lim, `${m.strip}px`);
+    await ctx.close();
+  }
+}
+
+// --- Settings panel behaviour ---------------------------------------------------------
+for (const vp of ["tablet", "phone"]) {
+  const { page, ctx } = await open(vp, 1);
+  const st = () => page.evaluate(() => ({ open: document.getElementById("cx").dataset.panel === "open", dlg: document.getElementById("cx").open, focus: document.activeElement && document.activeElement.id, inPanel: !!document.activeElement.closest("#cx-settings"), expanded: document.getElementById("open-settings").getAttribute("aria-expanded") }));
+  await page.click("#open-settings");
+  const a = await st();
+  check(`Settings button opens the panel and moves focus into it at ${VP[vp].width}px`, a.open && a.inPanel && a.expanded === "true", JSON.stringify(a));
+  if (vp === "tablet") {
+    const g = await page.evaluate(() => { const p = document.getElementById("cx-settings").getBoundingClientRect(), pg = document.querySelector(".cx-page").getBoundingClientRect(); return { panelLeft: Math.round(p.left), panelW: Math.round(p.width), panelH: Math.round(p.height), pageRight: Math.round(pg.right), pageW: Math.round(pg.width), pageTop: Math.round(pg.top), vh: innerHeight }; });
+    check("at 768 the panel is 22rem wide from the right and the preview is visible beside it", g.panelW === 352 && g.pageRight <= g.panelLeft + 1 && g.pageW > 250 && g.pageTop < g.vh, JSON.stringify(g));
+    // The preview keeps updating while the panel is open.
+    await page.click('label.seg-o:has(input[name="orient"][value="landscape"])');
+    await page.waitForTimeout(1000);
+    const asp = await page.evaluate(() => { const r = document.querySelector(".cx-page").getBoundingClientRect(); return r.width / r.height; });
+    check("preview updates live while the panel is open", asp > 1, asp.toFixed(2));
+  } else {
+    const g = await page.evaluate(() => { const p = document.getElementById("cx-settings").getBoundingClientRect(); return { w: Math.round(p.width), h: Math.round(p.height), vh: innerHeight }; });
+    check("at 390 the panel is a full-width bottom sheet of at most 85% height", g.w === 390 && g.h <= Math.round(0.85 * g.vh) + 1, JSON.stringify(g));
+  }
+  await page.keyboard.press("Escape");
+  const b = await st();
+  check(`Esc closes the panel first and the dialog stays open at ${VP[vp].width}px`, !b.open && b.dlg && b.focus === "open-settings", JSON.stringify(b));
+  await page.keyboard.press("Escape");
+  const c = await st();
+  check(`a second Esc closes the dialog at ${VP[vp].width}px`, !c.dlg, JSON.stringify(c));
+  await ctx.close();
+}
+{
+  const { page, ctx } = await open("phone", 1);
+  await page.click("#open-settings");
+  await page.click("#panel-done");
+  const r = await page.evaluate(() => ({ open: document.getElementById("cx").dataset.panel === "open", focus: document.activeElement.id }));
+  check("Done closes the panel and returns focus to the Settings button", !r.open && r.focus === "open-settings", JSON.stringify(r));
+  await page.click("#open-settings");
+  await page.click("#break-mode");
+  const k = await page.evaluate(() => ({ open: document.getElementById("cx").dataset.panel === "open", handles: document.querySelectorAll(".cx-bp").length, pressed: document.getElementById("break-mode").getAttribute("aria-pressed") }));
+  check("turning on break editing closes the panel so the handles are usable", !k.open && k.handles > 0 && k.pressed === "true", JSON.stringify(k));
+  await ctx.close();
+}
+
 // --- Tab order (UI section 5), scenario 1 --------------------------------------
 {
   const { page, ctx } = await open("desktop", 1);
@@ -142,6 +213,21 @@ for (const vp of ["desktop", "tablet", "phone"]) {
   check("tab order follows UI section 5 (scenario 1)", JSON.stringify(seen) === JSON.stringify(expected), JSON.stringify(seen) === JSON.stringify(expected) ? "" : `got ${seen.join(" > ")}`);
   const first = await (async () => { const c = await browser.newContext({ viewport: VP.desktop }); const p = await c.newPage(); await p.goto(`${editor}?s=1`); await p.waitForTimeout(300); const id = await p.evaluate(() => document.activeElement && document.activeElement.id); await c.close(); return id; })();
   check("focus lands on the dialog title on open", first === "cx-title", first);
+  await ctx.close();
+}
+
+{
+  const { page, ctx } = await open("tablet", 1);
+  const expected = ["cx-close", "radio:staff", "cap-minus", "open-settings", "radio:view", "z-minus", "z-plus", "z-fit", "cx-reset", "cx-download"];
+  const seen = [];
+  await page.focus("#cx-title");
+  for (let i = 0; i < 30; i++) {
+    await page.keyboard.press("Tab");
+    const key = await page.evaluate(() => { const a = document.activeElement; return a.type === "radio" ? "radio:" + a.name : a.id || a.tagName; });
+    if (key === "proto-sel") break;
+    seen.push(key);
+  }
+  check("tab order below 62rem: Close, FIT strip, Settings, toolbar, footer (scenario 1 at 768)", JSON.stringify(seen) === JSON.stringify(expected), JSON.stringify(seen) === JSON.stringify(expected) ? "" : `got ${seen.join(" > ")}`);
   await ctx.close();
 }
 
