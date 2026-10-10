@@ -187,6 +187,7 @@ def test_build_evidence_without_a_record_derives_inputs_from_the_files_and_valid
     assert TARGET in page  # looked up in data/typeset/manifest.json, never inferred
     assert "Schema: valid" in page
     assert "Semantic differences: 0" in page
+    assert "Eligible: yes" in page
     assert re.search(r"source_sha256</th><td>[0-9a-f]{64}<", page)
 
 
@@ -319,3 +320,27 @@ def test_run_node_renderer_kyrie_writes_thirteen_case_folders_with_svgs(converte
         svgs = sorted((tmp_path / "evidence" / "cases" / case.id).glob(f"{case.id}-p*.svg"))
         assert svgs, case.id
         assert packet.cases[case.id].read_text(encoding="utf-8").lstrip().startswith("<svg")
+
+
+def test_build_evidence_semantic_difference_is_listed_with_code_layer_onset_and_ids(converted: Path, tmp_path: Path) -> None:
+    from fractions import Fraction
+
+    from pipeline.typeset.mei.model import SemanticDifference
+
+    diff = SemanticDifference("PITCH_MISMATCH", "1.1", Fraction(3, 4), ("0e0007",), "pitch differs")
+    record = record_for(converted)
+    record = dataclasses.replace(
+        record, validation=ValidationReport(True, (), (diff,), False, {}, {})
+    )
+    page = html_of(build(converted, tmp_path, record=record))
+    assert "Semantic differences: 1" in page and "Eligible: NO" in page
+    assert "PITCH_MISMATCH" in page and "layer 1.1" in page and "onset 3/4" in page and "0e0007" in page
+
+
+def test_build_evidence_without_record_agrees_with_validate_command(converted: Path, tmp_path: Path) -> None:
+    from pipeline.typeset.mei.cli import validation_for_directory
+
+    report = validation_for_directory(converted)
+    page = html_of(build(converted, tmp_path))
+    assert f"Semantic differences: {len(report.semantic_differences)}" in page
+    assert f"Eligible: {'yes' if report.eligible else 'NO'}" in page
