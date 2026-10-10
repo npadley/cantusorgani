@@ -350,12 +350,17 @@ describe('verovioOptions', () => {
     expect(options.pageHeight).toBe(2653);
   });
 
-  it('sets all pageMargins to 0', () => {
+  it.each([['small', 21], ['medium', 27], ['large', 36]] as const)(
+    'should leave room for the %s staff brace left of the system (S2)', (staff, margin) => {
+      const content: RectMm = { xMm: 0, yMm: 0, widthMm: 186, heightMm: 265 };
+      expect(verovioOptions({ ...DEFAULT_SETTINGS, staff }, content).pageMarginLeft).toBe(margin);
+    });
+
+  it('sets the other pageMargins to 0', () => {
     const settings = DEFAULT_SETTINGS;
     const content: RectMm = { xMm: 0, yMm: 0, widthMm: 186, heightMm: 265 };
     const options = verovioOptions(settings, content);
 
-    expect(options.pageMarginLeft).toBe(0);
     expect(options.pageMarginRight).toBe(0);
     expect(options.pageMarginTop).toBe(0);
     expect(options.pageMarginBottom).toBe(0);
@@ -409,6 +414,7 @@ describe('verovioOptions', () => {
     expect(options.evenNoteSpacing).toBe(true);
     expect(options.spacingLinear).toBe(0.25);
     expect(options.spacingNonLinear).toBe(0.6);
+    expect(options.xmlIdChecksum).toBe(true);
   });
 
   it('sets lyricSize from LYRIC_SIZE lookup', () => {

@@ -381,7 +381,8 @@ export function verovioOptions(
     scale: 100,
     pageWidth: Math.floor(content.widthMm * 10),
     pageHeight: Math.floor(content.heightMm * 10),
-    pageMarginLeft: 0,
+    // Verovio draws the brace left of the system origin (S2): leave room for it.
+    pageMarginLeft: Math.ceil(STAFF_SIZES[settings.staff].unit * 3),
     pageMarginRight: 0,
     pageMarginTop: 0,
     pageMarginBottom: 0,
@@ -398,6 +399,7 @@ export function verovioOptions(
     footer: 'none',
     svgViewBox: true,
     mnumInterval: 0,
+    xmlIdChecksum: true,
     evenNoteSpacing: true,
     spacingLinear: 0.25,
     spacingNonLinear: 0.6,
