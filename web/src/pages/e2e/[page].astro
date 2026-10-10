@@ -8,6 +8,7 @@
 //   E2E_TEST_PAGES=1 PUBLIC_ASSET_BASE=/systems pnpm exec astro build
 import Layout from "../../components/Layout.astro";
 import ExportPagePreview from "../../components/ExportPagePreview.astro";
+import ExportLayoutEditor from "../../components/ExportLayoutEditor.astro";
 
 export function getStaticPaths() {
   return process.env["E2E_TEST_PAGES"] === "1" ? [{ params: { page: "export-layout-worker" } }] : [];
@@ -18,8 +19,15 @@ export function getStaticPaths() {
   <p id="state" data-state="idle">idle</p>
   <!-- B8a: the preview component, driven by e2e/export-layout-preview.e2e.ts through window.__preview. -->
   <ExportPagePreview />
+  <!-- B8b: the editor dialog (cloned from its template on first open), opened by e2e/export-layout-editor.e2e.ts. -->
+  <ExportLayoutEditor />
+  <p id="export-status" class="small" role="status"></p>
+  <button type="button" id="export-btn">Export PDF</button>
+  <button type="button" id="export-customize">Customize export</button>
   <script>
     import type { LayoutWorkerRequest, PdfWorkerRequest } from "../../lib/export-layout/types";
+    import type { EditorHandle } from "../../scripts/exportLayout";
+    import type { ExportPart, LayoutDiagnostic, WorkerLike } from "../../lib/export-layout/types";
     import { destroyPreview, getView, getZoom, renderPreview, setView, setZoom } from "../../scripts/exportPagePreview";
 
     interface WorkerHarness {
@@ -140,6 +148,36 @@ export function getStaticPaths() {
         pdfPending.set(token, { start: performance.now(), firstProgressMs: null, progress: 0, resolve });
         pdfWorker.postMessage({ type: "pdf", token, result: lastResult });
       }),
+    };
+
+    interface EditorFaults { error: LayoutDiagnostic | null }
+    declare global { interface Window { __openEditor?: (parts: readonly ExportPart[], title: string) => Promise<EditorHandle>; __editorFaults?: EditorFaults } }
+    const faults: EditorFaults = { error: null };
+    window.__editorFaults = faults;
+    // Wraps the real layout worker; while a fault is armed, the next layout request is answered with that error.
+    const faultingWorker = (): WorkerLike => {
+      const real = new Worker(new URL("../../workers/export-layout.worker.ts", import.meta.url), { type: "module" });
+      const wrapper: WorkerLike = {
+        onmessage: null, onerror: null,
+        postMessage(message: unknown, transfer?: Transferable[]) {
+          const m = message as { type: string; request?: { token: number } };
+          if (m.type === "layout" && faults.error !== null && m.request) {
+            const diagnostic = faults.error;
+            const token = m.request.token;
+            window.setTimeout(() => wrapper.onmessage?.({ data: { type: "error", token, diagnostic } } as MessageEvent), 0);
+            return;
+          }
+          real.postMessage(message, transfer ?? []);
+        },
+        terminate() { real.terminate(); },
+      };
+      real.onmessage = (e) => wrapper.onmessage?.(e);
+      real.onerror = (e) => wrapper.onerror?.(e);
+      return wrapper;
+    };
+    window.__openEditor = async (parts, title) => {
+      const { openExportEditor } = await import("../../scripts/exportLayout");
+      return openExportEditor({ parts, title, opener: document.getElementById("export-customize"), deps: { createLayoutWorker: faultingWorker } });
     };
 
     const state = document.getElementById("state");
