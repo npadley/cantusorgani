@@ -341,13 +341,22 @@ Text-scan counts are classified as candidates only. Remove the old PA assertion 
 **Escalate if:** any syllable is `LYRIC_UNANCHORED` on F1–F5.
 
 ### A2d [S] Boundaries and `after_text` — depends: A2c
+**Rule (revised 2026-10-09 after the first A2d run):**
+- **Candidates:** chant-layer attack onsets, plus `break` and division onsets.
+- **Unsafe reasons, in order:**
+  1. `not-common-onset`: no chant attack at that onset.
+  2. `sustain-not-splittable`: a chant event crosses the onset.
+  3. `slur-crosses`.
+  4. `voice-line-crosses`.
+  5. `lyric-extender-crosses`.
+- Accompaniment and voice-line events that cross a safe boundary are **split by A3d** (`splits_at`). They do not make the boundary unsafe. This follows the spec's §6.3 note on subdividing sustains.
+
 **Done when:**
-- Kyrie source breaks map to boundaries at onsets `7, 109/8, 85/4, 233/8, 38`.
-- A boundary inside a slur is `safe=False, reason="slur-crosses"`.
-- A boundary crossing an F3 glissando is `voice-line-crosses`.
-- A boundary that is not a common onset across all layers is `not-common-onset`.
-- `after_text` is the joined last word before each boundary (Kyrie b001 ends "eléison" or as printed).
-- IDs are `b000…` in onset order.
+- Every source break in F1–F5 is safe.
+- Kyrie's source breaks fall at `7, 109/8, 85/4, 233/8, 38`, with `after_text` "Kyrie" / "eléison." as printed.
+- A slur crossing gives `slur-crosses`; an agnus_XI glissando crossing gives `voice-line-crosses`; a chant sustain gives `sustain-not-splittable`.
+- `splits_at` lists the sustained accompaniment events at a break.
+- IDs run `b000…` in onset order.
 
 ### A2e [H] Extract CLI — depends: A2d
 **Done when:** `typeset-mei-extract SOURCE --out DIR` writes `ir.json` (to_dict, sorted) and `events.tsv` under `build/typeset/mei/<digest>/`, and a CLI test passes with the fake runner.
