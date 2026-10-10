@@ -793,7 +793,7 @@ Not Haiku. **Review focus:** whether any path lets the uploader execute source.
 **Done when:** `web/scripts/measure-export-layout.ts` records cold start, first preview, warm change, PDF time, chunk bytes and memory where available, over 5 runs per condition, and writes JSON under `build/`.
 
 ### C2c [U] Device runs
-Run C2b on a desktop and a real iPad. The coordinator derives the measured profile (`provisional: false`). **G3.**
+Run C2b on a desktop and a real iPad. The coordinator derives the measured profile (`provisional: false`). **G3.** *(2026-10-10: the iPad runs were waived by the user; G3 passed on the desktop run plus the B10b device experience. See DL G3.)*
 
 ### C3 [O+U] Kyrie IX pilot release — depends: G0–G3, A5d
 **Publish order (from C1a):** run `build_manifest` (which validates `boundaries.json` against the verified MEI) **before** `verify_publish_bundle`/`publish_verified`. The record pins only the MEI hash; `boundaries.json` is pinned from verify to publish time only.
