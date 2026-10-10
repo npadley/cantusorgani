@@ -1,7 +1,7 @@
 import { DOMParser, XMLSerializer } from '@xmldom/xmldom';
 import type { Element } from '@xmldom/xmldom';
 import { resolveBreaks } from './breaks';
-import { materialiseBreaks } from './meiDoc';
+import { materialiseBreaks, revealSplitSustainsAfter } from './meiDoc';
 import { paginate } from './paginate';
 import { paperDimensions, verovioOptions } from './settings';
 import { measureSvgPage } from './svgGeometry';
@@ -335,7 +335,7 @@ export async function renderMei(
     // Pass 1 sees user breaks as system breaks (<pb/> is ignored under 'line'); under 'auto'
     // they are ignored and handled by inserting extra system starts below.
     const systemised: EffectiveBreaks = { ...eff, breaks: realisable.map((b): EffectiveBreak => ({ ...b, kind: 'system' })) };
-    const mei1 = rewriteBreaks(materialiseBreaks(part.meiXml, systemised, boundaries, settings.linePolicy), { stripSb: false });
+    const mei1 = rewriteBreaks(materialiseBreaks(part.meiXml, systemised, boundaries, settings.linePolicy, false), { stripSb: false });
     const pass1Options: OptionRecord = {
       ...base,
       pageHeight: TALL_PAGE,
@@ -426,7 +426,15 @@ export async function renderMei(
         if (start) inserts.set(start, k === 0 && pi > 0 ? 'page' : 'system');
       });
     });
-    const mei2 = rewriteBreaks(part.meiXml, { stripSb: true, insertBefore: inserts });
+    // D17: a sustain crossing ANY final system or page start (user, source, automatic or
+    // pagination) must show its continuation, tied. Pass 1 measured with them hidden.
+    const brokenAfter = new Set<string>();
+    for (const si of pag.pages.flat()) {
+      const start = planned[si]?.startMeasureId;
+      const i = start === undefined ? -1 : (measureIndex.get(start) ?? -1);
+      if (i > 0) brokenAfter.add(allMeasures[i - 1] ?? '');
+    }
+    const mei2 = revealSplitSustainsAfter(rewriteBreaks(part.meiXml, { stripSb: true, insertBefore: inserts }), brokenAfter);
     const plannedPages = pag.pages.map((indices) => indices.map((i) => planned[i]?.startMeasureId ?? ''));
     // R5: with no break element 'encoded' silently falls back to 'auto'. A one-system part must
     // stay one system, so ask for 'none' instead.
