@@ -410,5 +410,11 @@ export function verovioOptions(
     // "Chri" shrinks to 0.47 mm on A5 once justification squeezes the line; 2 keeps every
     // word gap at or above 1.1 mm over the contracts s3 matrix without changing any page count.
     lyricWordSpace: 2,
+    // Vertical justification (screen and custom pages) must put the spare height between systems,
+    // never between the two staves of a brace: with the defaults the treble-to-bass gap grew from
+    // 18.0 to 32.6 mm at medium size on an iPad page. Weight 0 on the brace group and on staves
+    // leaves only the system weight (1).
+    justificationBraceGroup: 0,
+    justificationStaff: 0,
   };
 }
