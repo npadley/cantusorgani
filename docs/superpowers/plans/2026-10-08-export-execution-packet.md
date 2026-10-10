@@ -445,6 +445,7 @@ Not Haiku.
 - Approval never touches proofreading data.
 
 ### A5b [S] Evidence packet — depends: A5a, A3e
+**Inputs rule (from A6):** `ConversionInputs` for a source must come from `pipeline.typeset.mei.manifest.current_inputs_from_files` (and the record's tool versions), which is the single definition of `source_sha256`/`include_sha256`/profile/schema hashes. Never recompute them another way; a mismatch silently excludes every approved record as stale.
 **Files:** `evidence.py` and the `typeset-mei-evidence DIRECTORY` CLI.
 
 The packet is HTML with, per `LayoutCase`:
