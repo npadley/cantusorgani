@@ -19,9 +19,9 @@ class FakeWorker implements WorkerLike {
   get layouts(): number[] { return this.posts.filter((p) => p.type === 'layout').map((p) => p.request?.token ?? -1); }
 }
 
-function mei(id: string, target: string, rev = 'r1'): MeiExportPart {
+function mei(id: string, target: string, rev = 'r1', systems = 2): MeiExportPart {
   return {
-    id, kind: 'mei', label: id, heading: null, sourceSystemCount: 2, sourceRevision: rev,
+    id, kind: 'mei', label: id, heading: null, sourceSystemCount: systems, sourceRevision: rev,
     target, renderHash: rev,
     conversion: {
       digest: 'd', meiUrl: 'u', meiSha256: 's', sourceRevision: rev, profile: 'p', verovio: 'v',
@@ -52,7 +52,7 @@ function memStorage(initial: Record<string, string> = {}): StorageLike & { data:
   };
 }
 
-function setup(storage: StorageLike | null = memStorage(), parts: ExportPart[] = [mei('p1', 'movement:a')]) {
+function setup(storage: StorageLike | null = memStorage(), parts: ExportPart[] = [mei('p1', 'movement:a')], over: Partial<ControllerDependencies> = {}) {
   const layoutWorkers: FakeWorker[] = [];
   const pdfWorkers: FakeWorker[] = [];
   const timers = new Map<number, { fn: () => void; ms: number }>();
@@ -66,6 +66,7 @@ function setup(storage: StorageLike | null = memStorage(), parts: ExportPart[] =
     clearTimeout: (id) => { timers.delete(id); },
     saveFile: (bytes, filename) => { saved.push({ bytes, filename }); },
     limits: PROVISIONAL_LIMITS,
+    ...over,
   };
   const c: ExportController = createExportController(deps);
   const fire = (ms: number) => {
@@ -293,6 +294,49 @@ describe('export controller', () => {
     const c = setup();
     c.c.updateSettings({ page: 'ipad-11', marginMm: 7 });
     expect(c.st().settings.marginMm).toBe(7);
+  });
+
+  it('rejects over the source ceiling without creating a worker', () => {
+    const t = setup(memStorage(), [mei('p1', 'movement:a', 'r1', 301)]);
+    expect(t.layoutWorkers).toHaveLength(0);
+    expect(t.st().phase).toBe('error');
+    expect(t.st().diagnostics[0]?.code).toBe('SOURCE_CEILING');
+    expect(t.st().diagnostics[0]?.severity).toBe('error');
+    expect(t.st().canDownload).toBe(false);
+  });
+
+  it('admits exactly at the source ceiling', () => {
+    const t = setup(memStorage(), [mei('p1', 'movement:a', 'r1', 300)], {
+      limits: { ...PROVISIONAL_LIMITS, maxPages: 100 },
+    });
+    expect(t.layoutWorkers).toHaveLength(1);
+    expect(t.st().phase).toBe('loading');
+  });
+
+  it('uses the injected estimate for later requests', () => {
+    let bytes = 10;
+    const t = setup(memStorage(), [mei('p1', 'movement:a')], {
+      estimate: () => ({ meiBytes: [bytes], eventCounts: [1], sourceSystems: 2, predictedPages: 1 }),
+    });
+    ready(t);
+    bytes = PROVISIONAL_LIMITS.maxMeiBytes + 1;
+    t.c.updateSettings({ staff: 'large' });
+    expect(t.st().phase).toBe('error');
+    expect(t.st().diagnostics[0]?.code).toBe('BUDGET_EXCEEDED');
+    expect(t.lw(0).layouts).toEqual([1]);
+  });
+
+  it('rejects a result with more pages than maxPages, accepts exactly maxPages', () => {
+    const page = {} as LayoutResult['pages'][number];
+    const t = setup();
+    t.lw(0).emit({ type: 'result', token: 1, result: result(1, { pages: new Array(PROVISIONAL_LIMITS.maxPages + 1).fill(page) }) });
+    expect(t.st().phase).toBe('error');
+    expect(t.st().diagnostics[0]?.code).toBe('BUDGET_EXCEEDED');
+    expect(t.st().canDownload).toBe(false);
+    t.c.updateSettings({ staff: 'large' });
+    t.lw(0).emit({ type: 'result', token: 2, result: result(2, { pages: new Array(PROVISIONAL_LIMITS.maxPages).fill(page) }) });
+    expect(t.st().phase).toBe('ready');
+    expect(t.st().canDownload).toBe(true);
   });
 
   it('subscribe emits immediately and unsubscribes', () => {

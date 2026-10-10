@@ -1,6 +1,7 @@
 import type {
   BreakAction,
   BreakOverride,
+  BudgetInput,
   ControllerDependencies,
   ControllerState,
   ExportController,
@@ -11,11 +12,13 @@ import type {
   LayoutWorkerResponse,
   MeiExportPart,
   PdfWorkerResponse,
+  ResourceProfile,
   SettingsNotice,
   WorkerLike,
 } from './types';
 import { DEFAULT_SETTINGS, PAGE_PRESETS } from './types';
 import { defaultMarginFor, nextMargin, normalizeSettings } from './settings';
+import { checkLayoutBudget } from './limits';
 import { readPreferences, writePreferences } from './preferences';
 
 const DEBOUNCE_MS = 250;
@@ -30,6 +33,25 @@ function timeoutDiagnostic(detail: string): LayoutDiagnostic {
 }
 function failureDiagnostic(code: 'RENDERER_FAILED' | 'PDF_FAILED', detail: string): LayoutDiagnostic {
   return { code, severity: 'error', partId: null, pageIndex: null, boundaryIds: [], reason: null, suggestions: [], detail };
+}
+
+function budgetDiagnostic(code: 'BUDGET_EXCEEDED' | 'SOURCE_CEILING', detail: string): LayoutDiagnostic {
+  return { code, severity: 'error', partId: null, pageIndex: null, boundaryIds: [], reason: null, suggestions: [], detail };
+}
+
+/**
+ * Default estimate when sizes are unknown: sums sourceSystemCount, reports 0 bytes and 0 events,
+ * and predicts ceil(sourceSystems / 3) pages (a deliberately conservative 3 systems per page).
+ */
+function defaultEstimate(parts: readonly ExportPart[]): BudgetInput {
+  const sourceSystems = parts.reduce((sum, p) => sum + p.sourceSystemCount, 0);
+  const meiCount = parts.filter((p) => p.kind === 'mei').length;
+  return {
+    meiBytes: new Array<number>(meiCount).fill(0),
+    eventCounts: new Array<number>(meiCount).fill(0),
+    sourceSystems,
+    predictedPages: Math.ceil(sourceSystems / 3),
+  };
 }
 
 function isMei(part: ExportPart): part is MeiExportPart {
@@ -47,6 +69,11 @@ function computeCanDownload(phase: ControllerState['phase'], result: LayoutResul
 }
 
 export function createExportController(deps: ControllerDependencies): ExportController {
+  const profile: ResourceProfile = deps.profile ?? {
+    version: 1, provisional: true, limits: deps.limits, maxAggregateEvents: Number.MAX_SAFE_INTEGER,
+    measuredOn: [], rendererDigest: '', fontDigest: '',
+  };
+  const estimate = deps.estimate ?? defaultEstimate;
   const listeners = new Set<(state: ControllerState) => void>();
   let state: ControllerState = {
     phase: 'idle', parts: [], settings: DEFAULT_SETTINGS, overrides: {}, requestToken: 0,
@@ -131,7 +158,12 @@ export function createExportController(deps: ControllerDependencies): ExportCont
     if (msg.token !== state.requestToken || dirty) return;
     clearLayoutWatchdog();
     inflight = null;
-    if (msg.type === 'result') {
+    if (msg.type === 'result' && msg.result.pages.length > profile.limits.maxPages) {
+      set({
+        phase: 'error', result: null,
+        diagnostics: [budgetDiagnostic('BUDGET_EXCEEDED', `${msg.result.pages.length} pages exceeds ${profile.limits.maxPages}`)],
+      });
+    } else if (msg.type === 'result') {
       set({ phase: 'ready', result: msg.result, previousResult: msg.result, diagnostics: msg.result.diagnostics });
     } else {
       set({ phase: 'error', result: null, diagnostics: [msg.diagnostic] });
@@ -164,6 +196,17 @@ export function createExportController(deps: ControllerDependencies): ExportCont
     clearDebounce();
     dirty = false;
     markStale();
+    const decision = checkLayoutBudget(estimate(state.parts), profile);
+    if (!decision.eligible) {
+      // Rejected before any worker (and its WASM) is created. Bump the token so late results are ignored.
+      if (layoutWorker !== null && inflight !== null) layoutWorker.postMessage({ type: 'cancel', token: inflight });
+      inflight = null;
+      set({
+        requestToken: state.requestToken + 1, phase: 'error', result: null,
+        diagnostics: [budgetDiagnostic(decision.code, decision.limit)],
+      });
+      return;
+    }
     const worker = ensureLayoutWorker();
     if (inflight !== null) worker.postMessage({ type: 'cancel', token: inflight });
     const token = state.requestToken + 1;

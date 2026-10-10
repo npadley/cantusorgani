@@ -393,6 +393,10 @@ export interface ControllerDependencies {
   readonly clearTimeout: (id: number) => void;
   readonly saveFile: (bytes: Uint8Array, filename: string) => void;
   readonly limits: ResourceLimits;
+  /** Admission profile; when absent, one is derived from `limits` (no aggregate event cap). */
+  readonly profile?: ResourceProfile;
+  /** Supplies MEI byte sizes and event counts when known; default counts source systems only. */
+  readonly estimate?: (parts: readonly ExportPart[]) => BudgetInput;
 }
 export type BreakAction = BreakOverride | { readonly boundaryId: string; readonly kind: 'remove' };
 export interface ExportController {
