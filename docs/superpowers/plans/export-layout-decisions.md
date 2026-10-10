@@ -50,3 +50,32 @@ _(S0–S7 append here: date, spike, decision, evidence paths, consequences for d
 - B3a may use the existing presets as final.
 - forScore documents "Best Fit" as fitting the page as large as possible without clipping. "Standard Fit" letterboxes to a common aspect ratio. The "fills the screen in forScore" copy therefore holds in Best Fit only. Whether toolbars overlap the page is undocumented, so it needs a real-device check ([U]).
 - 10.2-inch iPads (9th gen, 4:3) fall outside every preset; they use Custom 155.9 × 207.8 mm.
+
+### S2: Verovio layout control and two-pass pagination (2026-10-09)
+- **Decision:** the B4d two-pass algorithm is **confirmed**. Each pass works as follows:
+  - **Pass 1:** one page with `pageHeight: 60000`, `justifyVertically: false`, `svgBoundingBoxes: true`, and `breaks` set to `line` (original) or `auto` (automatic).
+  - **`paginate()`:** run with `minGapMm` set to the **maximum measured pass-1 inter-system gap**. This is not `spacingSystem` in mm: the gap measured 6.89, 8.86 and 11.82 mm for small, medium and large.
+  - **Breaks:** write `<pb/><sb/>` at each page start and `<sb/>` at each other system start.
+  - **Pass 2:** render with `breaks: "encoded"`.
+
+  Pass 2 equalled pass 1's system starts and page assignment in 28/28 cases, covering the required 12, the contracts §3 matrix and three cap variants. There was no clipping and no missing events, and the staff measured exactly 5.6/7.2/9.6 mm. `systemMaxPerPage` is not used: `encoded` ignores it, and `line`/`auto` ignore `<pb>`.
+- **Contract change (§1.1):**
+  - `pageMarginLeft = ceil(3 * unit)` (the brace sits at −0.28 × unit mm);
+  - add `xmlIdChecksum: true`;
+  - use a 0.5 mm right-edge tolerance;
+  - read the option values back with `getOptions()`, because `setOptions` rejects silently and the WASM `getLog()` is always empty.
+
+  The merged `settings.ts` needs a W1 follow-up.
+- **Glissando:** `<gliss lform="dotted">` between `@visible="false"` notes renders acceptably: cross-staff, within a system, and across a system break as a `spanning` continuation. This **does not block** G1 for F3. Hidden notes keep their notehead under `visibility="hidden"`, so B5 and the PDF walker must honour it.
+- **Determinism:** the Python `verovio==6.3.0` wheel (`6.3.0-425dd7b`) gives SVG byte-identical to WASM with `xmlIdChecksum: true` (different without it). A5 evidence still renders via Node/WASM.
+- **A3b inputs:**
+  - finalis → `measure@right="dbl"`;
+  - maxima → `right="single"`;
+  - maior → `<caesura glyph.num="U+E8F4">`;
+  - minima → `<caesura glyph.num="U+E8F3">`, replacing the experiment's `<breath>`, which draws a comma;
+  - quilisma → hidden head plus `<dir place="within"><symbol glyph.num="U+E56C"/></dir>`. It renders, but as Leipzig SVG text, so S4 must confirm PDF support; the fallback is `<mordent form="upper">`.
+- **Evidence:**
+  - `docs/superpowers/experiments/s2-verovio.md` and `s2-assets/`;
+  - `web/scripts/spike-verovio.ts`;
+  - `web/src/lib/export-layout/__fixtures__/s2-pass1-letter-medium.json`.
+- **Consequences:** B4d reads rectangles from pass 2, because `justifyVertically` changes heights. It assigns spanner bboxes to the nearest staff band. It handles first-page heading height under justification (risk R4). It parses the SVG without `DOMParser`.
