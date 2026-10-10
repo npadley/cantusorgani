@@ -378,3 +378,109 @@ def test_feature_uses_kyrie_reports_marker_blank_and_division_families():
     assert families["divisio-minima"] == 4
     assert families["force-break"] == 5
     assert families["key-change"] == 0 and families["clef-change"] == 0
+
+
+# --- A2d: boundaries -----------------------------------------------------------------
+
+from pipeline.typeset.mei.extract import build_boundaries
+
+
+def load_boundaries(name: str):
+    rows, layers, events, lyrics, _, _, spans, _, divisions, _ = load_all(name)
+    return build_boundaries(rows, layers, events, spans, lyrics, divisions), spans, events
+
+
+def test_build_boundaries_kyrie_source_breaks_are_at_known_onsets_and_safe():
+    boundaries, _, _ = load_boundaries("kyrie_IX")
+    breaks = [b for b in boundaries if b.source_break]
+    assert [b.onset for b in breaks] == [
+        Fraction(7), Fraction(109, 8), Fraction(85, 4), Fraction(233, 8), Fraction(38),
+    ]
+    # Every Kyrie source break is a safe common onset.
+    assert all(b.safe and b.reason is None for b in breaks)
+    assert [b.division for b in breaks] == [None, "finalis", "finalis", "finalis", "minima"]
+
+
+def test_build_boundaries_kyrie_after_text_is_last_printed_word():
+    boundaries, _, _ = load_boundaries("kyrie_IX")
+    by_onset = {b.onset: b for b in boundaries}
+    assert by_onset[Fraction(7)].after_text == "Kyrie"
+    assert by_onset[Fraction(109, 8)].after_text == "eléison."
+    assert by_onset[Fraction(38)].after_text == "Kyrie"
+
+
+def test_build_boundaries_ids_are_ordered_and_contiguous():
+    boundaries, _, _ = load_boundaries("kyrie_IX")
+    assert [b.id for b in boundaries] == [f"b{i:03d}" for i in range(len(boundaries))]
+    onsets = [b.onset for b in boundaries]
+    assert onsets == sorted(set(onsets))
+    assert all(0 < t < Fraction(373, 8) for t in onsets)
+
+
+def test_build_boundaries_inside_real_kyrie_slur_is_unsafe_slur_crosses():
+    boundaries, spans, events = load_boundaries("kyrie_IX")
+    by_id = {e.id: e for e in events}
+    slur = next(s for s in spans if s.kind == "slur" and by_id[s.end_event_id].onset > by_id[s.start_event_id].onset)
+    start, end = by_id[slur.start_event_id].onset, by_id[slur.end_event_id].onset
+    inside = [b for b in boundaries if start < b.onset <= end]
+    assert inside
+    assert all(not b.safe and b.reason in ("slur-crosses", "not-common-onset") for b in inside)
+    assert any(b.reason == "slur-crosses" for b in boundaries)
+
+
+def test_build_boundaries_agnus_xi_has_voice_line_crosses():
+    boundaries, _, _ = load_boundaries("agnus_XI")
+    assert any(b.reason == "voice-line-crosses" and not b.safe for b in boundaries)
+
+
+SYNTHETIC_HEAD = (
+    "0\t-\t-\tversion\tlisten_full/1\t2.26.0\n"
+    "0\t-\tup\tstaff\t1\n"
+    "0\t-\tup\tclef\tclefs.G\t-2\t-\n"
+    "0\tup:chant\tup\tvoice\t0\tvoiceOne\n"
+    "0\tup:#1\tup\tvoice\t1\tvoiceTwo\n"
+)
+
+
+def _synthetic(body: str):
+    rows = parse_rows(SYNTHETIC_HEAD + body)
+    layers = build_layers(rows)
+    events, _ = build_events(rows, "a.ly")
+    spans, _ = build_spans(rows, events)
+    lyrics, _, _ = build_lyrics(rows, layers, events)
+    return build_boundaries(rows, layers, events, spans, lyrics, build_divisions(rows, layers))
+
+
+def test_build_boundaries_sustain_is_not_common_onset():
+    note = "\tup\tnote\tc\t0\t4\t{log}\t0\t1\t1\t{dur}\ta.ly:{n}:0\n"
+    body = (
+        "0\tup:chant" + note.format(log=2, dur="1/4", n=1)
+        + "1/4\tup:chant" + note.format(log=2, dur="1/4", n=2)
+        + "0\tup:#1" + note.format(log=1, dur="1/2", n=3)
+        + "1/4\t-\t-\tbreak\ta.ly:2:0\n"
+    )
+    boundaries = _synthetic(body)
+    assert [(b.onset, b.safe, b.reason, b.source_break) for b in boundaries] == [
+        (Fraction(1, 4), False, "not-common-onset", True)
+    ]
+
+
+def test_build_boundaries_single_layer_without_breaks_works():
+    rows = parse_rows(
+        "0\t-\t-\tversion\tlisten_full/1\t2.26.0\n"
+        "0\t-\tup\tstaff\t1\n"
+        "0\t-\tup\tclef\tclefs.G\t-2\t-\n"
+        "0\tup:chant\tup\tvoice\t0\tvoiceOne\n"
+        "0\tup:chant\tup\tnote\tc\t0\t4\t2\t0\t1\t1\t1/4\ta.ly:1:0\n"
+        "1/4\tup:chant\tup\tnote\td\t0\t4\t2\t0\t1\t1\t1/4\ta.ly:1:3\n"
+        "0\tlyrics:#0\tup:chant\tlyric\tA\t-\ta.ly:2:0\n"
+        "0\tlyrics:#0\tup:chant\thyphen\ta.ly:2:1\n"
+        "1/4\tlyrics:#0\tup:chant\tlyric\tmen\t-\ta.ly:2:2\n"
+    )
+    layers = build_layers(rows)
+    events, _ = build_events(rows, "a.ly")
+    lyrics, _, _ = build_lyrics(rows, layers, events)
+    (b,) = build_boundaries(rows, layers, events, (), lyrics, ())
+    assert (b.id, b.onset, b.safe, b.source_break, b.division, b.after_text) == (
+        "b000", Fraction(1, 4), True, False, None, "A",
+    )
