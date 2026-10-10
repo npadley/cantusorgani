@@ -62,7 +62,8 @@ export interface PdfjsPage {
 export interface PdfjsDocument {
   readonly numPages: number;
   getPage(n: number): Promise<PdfjsPage>;
-  destroy(): Promise<void>;
+  /** pdf.js 6 removed this from the document proxy (it lives on the loading task); older builds and test doubles still have it. */
+  destroy?(): Promise<void>;
 }
 export interface PdfjsModule {
   GlobalWorkerOptions: { workerSrc: string };
@@ -173,6 +174,7 @@ export async function previewFixedPage(page: FixedCanonicalPage, assets: AssetLo
     throwIfAborted(opts.signal);
     return { width: geo.widthPx, height: geo.heightPx, blob };
   } finally {
-    await doc.destroy().catch(() => undefined);
+    // pdf.js 6: PDFDocumentProxy has no destroy(); the loading task owns the worker-side document.
+    await (doc.destroy !== undefined ? doc.destroy() : task.destroy?.())?.catch(() => undefined);
   }
 }

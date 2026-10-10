@@ -1,0 +1,100 @@
+---
+// The export editor's paginated preview (UI spec 1.6, 5): a sticky toolbar (View, Zoom, updating
+// indicator) over `.cx-pages`, which src/scripts/exportPagePreview.ts fills with page frames.
+// This file is only the static scaffold and the styles; there is no script in it, so the editor
+// imports the script itself (lazily, with the rest of the editor).
+interface Props {
+  /** Makes the view radio group's name unique when more than one preview exists on a page. */
+  readonly id?: string;
+}
+const { id = "cx" } = Astro.props;
+---
+
+<section class="cx-preview ui" data-cx-preview aria-label="Preview">
+  <div class="cx-toolbar">
+    <div class="cx-tg">
+      <span class="cx-tl" id={`${id}-view-l`}>View</span>
+      <div class="cx-vseg" role="radiogroup" aria-labelledby={`${id}-view-l`}>
+        <label class="cx-vo"><input class="sr-only" type="radio" name={`${id}-view`} value="pages" data-cx-view checked /><span>Pages</span></label>
+        <label class="cx-vo"><input class="sr-only" type="radio" name={`${id}-view`} value="continuous" data-cx-view /><span>Continuous</span></label>
+      </div>
+    </div>
+    <div class="cx-tg">
+      <span class="cx-tl" id={`${id}-zoom-l`}>Zoom</span>
+      <button type="button" data-cx-zoom="out" aria-label="Zoom out">−</button>
+      <output data-cx-zoom-value aria-labelledby={`${id}-zoom-l`}>100%</output>
+      <button type="button" data-cx-zoom="in" aria-label="Zoom in">+</button>
+      <button type="button" data-cx-zoom="fit">Fit width</button>
+    </div>
+    <span class="small muted cx-updating" data-cx-updating aria-hidden="true" hidden>Updating preview…</span>
+  </div>
+  <div class="cx-pages" data-cx-pages></div>
+</section>
+
+<style is:global>
+  /* Bundled text face, so the preview's lettering matches the PDF (S3/S4): the PDF embeds these
+     same files. Leipzig music glyphs are SVG paths and need no font. */
+  @font-face { font-family: "Liberation Serif"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/export/LiberationSerif-Regular.ttf") format("truetype"); }
+  @font-face { font-family: "Liberation Serif"; font-style: italic; font-weight: 400; font-display: swap; src: url("/fonts/export/LiberationSerif-Italic.ttf") format("truetype"); }
+  @font-face { font-family: "Liberation Serif"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/export/LiberationSerif-Bold.ttf") format("truetype"); }
+
+  /* TODO(B9): promote to tokens.css. The physical sheet in export previews; never themed. */
+  :root { --print-paper: #ffffff; --print-ink: #000000; }
+
+  .cx-preview { position: relative; min-width: 0; }
+
+  /* Toolbar */
+  .cx-toolbar {
+    position: sticky; top: 0; z-index: 3; background: var(--paper); border-bottom: 1px solid var(--rule);
+    padding: var(--s-2) var(--s-3); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3);
+    font-family: var(--font-ui);
+  }
+  .cx-tg { display: flex; align-items: center; gap: var(--s-2); }
+  .cx-tg button { min-width: var(--tap-min); border-color: var(--control-border); }
+  .cx-tg output { min-width: 3.5em; text-align: center; }
+  .cx-updating { margin-left: auto; }
+
+  /* View toggle: a two-option segmented radio group (local; the editor's own .seg is B8b's). */
+  .cx-vseg { display: flex; }
+  .cx-vo { position: relative; display: block; margin-left: -1px; cursor: pointer; }
+  .cx-vo:first-child { margin-left: 0; }
+  .cx-vo > span {
+    display: flex; align-items: center; justify-content: center; min-height: var(--tap-min); min-width: var(--tap-min);
+    padding: 0 var(--s-3); border: 1px solid var(--control-border); font: inherit; font-family: var(--font-ui);
+    background: var(--paper); color: var(--ink);
+  }
+  .cx-vo:first-child > span { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
+  .cx-vo:last-child > span { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+  .cx-vo input:checked + span { border: 2px solid var(--accent); color: var(--accent); font-weight: 600; padding: 0 calc(var(--s-3) - 1px); position: relative; z-index: 1; }
+  .cx-vo input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* Pages. Width is the zoom (--z, 1 = fit width). Pinch zoom stays available: no gesture overrides. */
+  .cx-pages { padding: var(--s-4) var(--s-3); display: flex; flex-direction: column; gap: var(--s-5); overflow-x: auto; --z: 1; }
+  .cx-pg { width: calc(var(--z) * 100%); margin-inline: auto; flex: none; }
+  .cx-plabel { display: flex; justify-content: space-between; gap: var(--s-2); margin: 0 0 var(--s-1); font-family: var(--font-ui); }
+  .cx-plabel .sub { display: block; }
+  .cx-blank { margin: 0 0 var(--s-1); font-family: var(--font-ui); }
+  .cx-pagebox { position: relative; }
+  /* The sheet as it prints: white with black ink in every theme. No shadow, no radius. */
+  .cx-page { position: relative; width: 100%; background: var(--print-paper); color: var(--print-ink); border: 1px solid var(--control-border); overflow: hidden; }
+  .cx-pg.cont .cx-page { border: 0; }
+  .cx-sheet { position: absolute; left: 0; top: 0; width: 100%; }
+  .cx-guide { position: absolute; border: 1px dashed var(--rule); pointer-events: none; }
+  .cx-div { display: flex; align-items: center; gap: var(--s-2); font-family: var(--font-ui); margin-bottom: var(--s-2); }
+  .cx-div::before, .cx-div::after { content: ""; flex: 1; border-top: 1px solid var(--rule); }
+
+  /* Engraved music. The bundled serif replaces Verovio's "Times, serif" for lyrics; Leipzig text spans keep theirs. */
+  .cx-svg { position: absolute; }
+  .cx-svg > svg { display: block; width: 100%; height: 100%; }
+  .cx-svg :is(svg, g, text, tspan):not([font-family="Leipzig"]) { font-family: "Liberation Serif", "Times New Roman", Times, serif; }
+
+  /* Heading and credit lines, in the faces the PDF embeds (heading bold, rubric and translation italic, credit regular). */
+  .cx-text { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .cx-line { fill: currentColor; font-family: "Liberation Serif", "Times New Roman", Times, serif; }
+  .cx-line-heading { font-weight: 700; }
+  .cx-line-rubric, .cx-line-translation { font-style: italic; }
+
+  .cx-scanimg { position: absolute; display: block; max-width: none; height: auto; }
+  .cx-fixed { position: absolute; }
+  .cx-fixed img { width: 100%; height: 100%; display: block; max-width: none; }
+</style>
