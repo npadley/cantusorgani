@@ -23,11 +23,13 @@ from pipeline.typeset.mei.model import (
     IR_SCHEMA_VERSION,
     Boundary,
     BoundaryReason,
+    ConversionProfile,
     Division,
     DivisionKind,
     EntryMarker,
     Event,
     EventKind,
+    ExtractionResult,
     FeatureUse,
     LayerDef,
     LayerRole,
@@ -43,6 +45,7 @@ from pipeline.typeset.mei.model import (
     StaffDef,
     Step,
 )
+from pipeline.typeset.render import source_hash
 from pipeline.typeset.source_check import check_file
 
 # Number of fields after the kind column, per row kind (contracts section 4).
@@ -828,6 +831,10 @@ LISTENER_TIMEOUT = 300
 class ListenerError(RuntimeError):
     """The source failed the source check, or LilyPond did not produce the listener TSV."""
 
+    def __init__(self, message: str, code: str = "COMPILE_FAILED") -> None:
+        super().__init__(message)
+        self.code = code
+
 
 class PinnedLilyPondRunner:
     """Production LilyPondRunnerAdapter: the pinned, optionally sandboxed LilyPond."""
@@ -856,7 +863,7 @@ def run_listener(source: Path, runner: LilyPondRunnerAdapter) -> str:
     source = source.resolve()
     problems = check_file(source, frozenset(INCLUDES))
     if problems:
-        raise ListenerError(f"{source.name}: source check failed: {problems}")
+        raise ListenerError(f"{source.name}: source check failed: {problems}", "SOURCE_CHECK_FAILED")
     with tempfile.TemporaryDirectory() as tmp_name:
         tmp = Path(tmp_name)
         wrapper = tmp / "wrapper.ly"
@@ -877,3 +884,44 @@ def run_listener(source: Path, runner: LilyPondRunnerAdapter) -> str:
         if not ok or not produced.exists():
             raise ListenerError(f"{source.name}: LilyPond failed\n{log}")
         return produced.read_bytes().decode("utf-8")
+
+
+# --- the extraction entry point (card A2e) ---------------------------------------------
+
+BUILD_ROOT = lilypond.ROOT / "build" / "typeset" / "mei"
+
+
+def _failure(code: str, message: str, version: str, digest: str, path: Path) -> ExtractionResult:
+    diagnostic = Diagnostic(code, "error", message)  # type: ignore[arg-type]
+    return ExtractionResult(None, (diagnostic,), version, digest, path)
+
+
+def extract_score(
+    source: Path,
+    *,
+    runner: LilyPondRunnerAdapter,
+    profile: ConversionProfile | None = None,
+    build_root: Path = BUILD_ROOT,
+) -> ExtractionResult:
+    """Run the listener, save its raw TSV as evidence and assemble the ScoreIR.
+
+    The dependency digest is ``render.source_hash`` of the source text. The raw TSV is written
+    to ``<build_root>/<digest>/events.tsv`` before parsing, so a parse failure still leaves
+    evidence. Failures come back as an ExtractionResult with ``ir=None`` and an error
+    Diagnostic. ``profile`` is accepted for the A3 pipeline and is not used by extraction.
+    """
+    source = source.resolve()
+    digest = source_hash(source.read_text(encoding="utf-8"))
+    evidence = build_root / digest / "events.tsv"
+    try:
+        tsv = run_listener(source, runner)
+    except ListenerError as error:
+        return _failure(error.code, str(error), runner.version, digest, evidence)
+    evidence.parent.mkdir(parents=True, exist_ok=True)
+    evidence.write_bytes(tsv.encode("utf-8"))
+    try:
+        rows = parse_rows(tsv)
+        ir = ir_from_rows(rows, source.relative_to(lilypond.ROOT).as_posix(), digest)
+    except ValueError as error:
+        return _failure("UNKNOWN_FEATURE", str(error), runner.version, digest, evidence)
+    return ExtractionResult(ir, ir.diagnostics, ir.lilypond_version, digest, evidence)
