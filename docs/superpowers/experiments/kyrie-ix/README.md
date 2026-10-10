@@ -55,3 +55,5 @@ The conversation comparison includes static SVG previews and compressed source X
 Both encodings can represent this complete free-meter accompaniment and be laid out dynamically in a browser. Neither automatically carries over the bespoke LilyPond engraving. MEI is the more direct route for controlling Verovio's encoding and placement. Keep LilyPond authoritative until the visual differences are accepted or resolved.
 
 Per-container widths, user-defined system/page breaks, and content editing would need editor logic that modifies the encoding and rerenders; these are not demonstrated controls in this probe.
+
+**Fixture change (2026-10-09, coordinator):** the checked-in copies of `kyrie-ix.mei` (`tests/fixtures/mei/kyrie-ix/experiment.mei` and `web/src/lib/export-layout/__fixtures__/kyrie-ix-experiment.mei`) add `xml:id="m001"`…`"m061"` to each `<measure>` (from its `@n`), so the web lanes can anchor breaks to measures before the production encoder (A3c) exists. Nothing else changed.
