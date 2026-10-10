@@ -13,10 +13,21 @@ from pathlib import Path
 import pytest
 from lxml import etree
 
-from pipeline.typeset.mei.diagnostics import Diagnostic
+from pipeline.typeset.mei.diagnostics import Diagnostic, SourceLocation
 from pipeline.typeset.mei.encode import encode_score
 from pipeline.typeset.mei.extract import ir_from_rows, parse_rows
-from pipeline.typeset.mei.model import ConversionProfile, EncodedScore, ScoreIR, rational_to_str
+from pipeline.typeset.mei.model import (
+    Boundary,
+    ConversionProfile,
+    EncodedScore,
+    Event,
+    LayerDef,
+    NotatedDuration,
+    Pitch,
+    ScoreIR,
+    StaffDef,
+    rational_to_str,
+)
 from pipeline.typeset.mei.schema import load_schema_bundle, validate_schema
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -112,10 +123,13 @@ def test_encode_score_pilot_every_event_has_one_mei_element(fixture: str) -> Non
     ir = ir_for(tsv)
     root = tree(tsv)
     elements = q(root, "//m:note | //m:rest | //m:space")
-    assert len(elements) == len(ir.events)
+    originals = [e for e in elements if e.get("type") != "split-continuation"]
+    assert len(originals) == len(ir.events)
     by_id = {e.get(XML_ID): e for e in elements}
     assert set(by_id) == set(encoded(tsv).provenance)
-    assert sorted(encoded(tsv).provenance.values()) == sorted(e.id for e in ir.events)
+    assert sorted(v for k, v in encoded(tsv).provenance.items() if k in {o.get(XML_ID) for o in originals}) == sorted(
+        e.id for e in ir.events
+    )
 
 
 @pytest.mark.parametrize("fixture", sorted(PILOTS))
@@ -193,13 +207,9 @@ def test_encode_score_pilot_feature_decisions_count_every_family(fixture: str) -
         assert decision.status == next(r.status for r in profile().rules if r.family == family)
 
 
-def test_encode_score_pilot_only_pending_split_diagnostics_are_emitted() -> None:
+def test_encode_score_pilot_has_no_diagnostics() -> None:
     for fixture in PILOTS.values():
-        for d in encoded(fixture[0]).diagnostics:
-            assert d.code == "UNSUPPORTED_FEATURE"
-            assert dict(d.details)["code"] == "sustain-split-pending"
-            assert d.source_location is not None
-            assert len(d.event_ids) == 1
+        assert encoded(fixture[0]).diagnostics == ()
 
 
 # --- Kyrie IX (F1) -----------------------------------------------------------------------------
@@ -209,8 +219,8 @@ KYRIE = "kyrie_IX.tsv"
 
 def test_encode_score_kyrie_counts_notes_and_spaces() -> None:
     root = tree(KYRIE)
-    assert len(q(root, "//m:note")) == 358
-    assert len(q(root, "//m:space")) == 5
+    assert len(q(root, "//m:note[not(@type='split-continuation')]")) == 358
+    assert len(q(root, "//m:space[not(@type='split-continuation')]")) == 5
     assert q(root, "//m:rest") == []
 
 
@@ -218,9 +228,11 @@ def test_encode_score_kyrie_mei_ids_are_derived_from_ir_event_ids() -> None:
     ir = ir_for(KYRIE)
     ids = mei_ids(KYRIE)
     # IR ids such as "0e0000" start with a digit, so they are not NCNames and cannot be an xml:id.
-    assert {mei_id: ir_id for mei_id, ir_id in ids.items()} == {f"ev{e.id}": e.id for e in ir.events}
+    originals = {k: v for k, v in ids.items() if "c" not in k[2:]}
+    assert originals == {f"ev{e.id}": e.id for e in ir.events}
+    assert all(f"ev{v}" == k or k.startswith(f"ev{v}c") for k, v in ids.items())
     root = tree(KYRIE)
-    assert {n.get(XML_ID) for n in q(root, "//m:note")} == {f"ev{e.id}" for e in ir.events if e.kind == "note"}
+    assert {n.get(XML_ID) for n in q(root, "//m:note[not(@type='split-continuation')]")} == {f"ev{e.id}" for e in ir.events if e.kind == "note"}
 
 
 def test_encode_score_kyrie_lyrics_are_above_with_word_positions() -> None:
@@ -294,7 +306,7 @@ def test_encode_score_kyrie_staff_defs_carry_clef_and_key_only() -> None:
     assert (grp.get("symbol"), grp.get("bar.thru")) == ("brace", "true")
 
 
-def test_encode_score_kyrie_ties_slurs_and_sustain_split_diagnostics() -> None:
+def test_encode_score_kyrie_ties_and_slurs_follow_the_ir() -> None:
     ir = ir_for(KYRIE)
     root = tree(KYRIE)
     ties = Counter(n.get("tie") for n in q(root, "//m:note[@tie]"))
@@ -305,11 +317,6 @@ def test_encode_score_kyrie_ties_slurs_and_sustain_split_diagnostics() -> None:
     for slur in slurs:
         assert slur.get("startid", "").startswith("#ev") and slur.get("endid", "").startswith("#ev")
         assert slur.get(XML_ID)
-    # Sustains that cross a boundary are reported (A3d splits them) and still emitted whole.
-    ons = sorted({b.onset for b in ir.boundaries if b.safe})
-    crossing = [e for e in ir.events if any(e.onset < o < e.onset + e.duration for o in ons)]
-    assert crossing
-    assert {d.event_ids[0] for d in encoded(KYRIE).diagnostics} == {e.id for e in crossing}
 
 
 # --- agnus_XI (F3): cross-staff, voice-line glissandi, printed accidentals --------------------
@@ -317,13 +324,13 @@ def test_encode_score_kyrie_ties_slurs_and_sustain_split_diagnostics() -> None:
 
 def test_encode_score_agnus_xi_cross_staff_notes_carry_staff() -> None:
     root = tree("agnus_XI.tsv")
-    cross = q(root, "//m:note[@staff]")
+    cross = q(root, "//m:note[@staff][not(@type='split-continuation')]")
     assert len(cross) >= 3
     for note in cross:
         home = note.xpath("ancestor::m:staff/@n", namespaces=NS)[0]
         assert note.get("staff") != home
     assert len(cross) == 3
-    assert len(q(root, "//m:space[@staff]")) == 2
+    assert len(q(root, "//m:space[@staff][not(@type='split-continuation')]")) == 2
 
 
 def test_encode_score_agnus_xi_voice_line_glissandi_are_dotted_between_hidden_notes() -> None:
@@ -343,7 +350,7 @@ def test_encode_score_agnus_xi_printed_naturals_write_accid_and_hidden_rests_are
     root = tree("agnus_XI.tsv")
     assert sum(1 for n in q(root, "//m:note") if n.get("accid") == "n") == 3
     assert q(root, "//m:rest") == []
-    assert len(q(root, "//m:space")) == 11
+    assert len(q(root, "//m:space[not(@type='split-continuation')]")) == 11
 
 
 # --- ite_Ib (F4): quilisma -----------------------------------------------------------------
@@ -422,7 +429,12 @@ if (loaded) {
     }
   }
 }
-console.log(JSON.stringify({ loaded: Boolean(loaded), pages: toolkit.getPageCount(), ids, labels: (text.match(/>\\*\\*?</g) || []).length }));
+const groups = [...text.matchAll(/<g\\b[^>]*class="note split-continuation"[^>]*?(\\/>|>[\\s\\S]*?<\\/g>)/g)];
+console.log(JSON.stringify({ loaded: Boolean(loaded), pages: toolkit.getPageCount(), ids,
+  labels: (text.match(/>\\*\\*?</g) || []).length,
+  continuations: groups.length, continuationsWithGlyphs: groups.filter((g) => /<use|<path|<text/.test(g[0])).length,
+  splitTies: (text.match(/class="tie split-tie/g) || []).length,
+  ties: (text.match(/class="tie"/g) || []).length }));
 """
 
 
@@ -454,3 +466,127 @@ def test_encode_score_kyrie_loads_and_renders_every_note_in_verovio(tmp_path: Pa
     expected = {f"ev{e.id}" for e in ir.events if e.kind == "note"}
     assert expected <= set(result["ids"])  # type: ignore[arg-type]
     assert len(expected) == 358
+
+
+# --- card A3d: splitting events at measure lines ---------------------------------------------------
+
+
+def _synthetic_ir(*, chant_second_layer: bool = False) -> ScoreIR:
+    """Two layers on one staff: a 7/8 sustain over two notes of 3/8 and 1/2, with a safe boundary at 3/8."""
+    loc = SourceLocation("x.ly", 1, 1)
+
+    def note(eid: str, layer: str, onset: Fraction, dur: Fraction, log: int, dots: int) -> Event:
+        return Event(eid, layer, "up", "note", onset, dur, NotatedDuration(log, dots, Fraction(1)),
+                     Pitch("c", Fraction(0), 4), "none", "normal", False, False, loc)
+
+    events = (
+        note("0e0000", "up:#1", Fraction(0), Fraction(7, 8), 1, 2),
+        note("1e0000", "up:#2", Fraction(0), Fraction(3, 8), 2, 1),
+        note("1e0001", "up:#2", Fraction(3, 8), Fraction(1, 2), 1, 0),
+    )
+    layers = (
+        LayerDef("up:#1", "up", 0, "voiceOne", "chant" if chant_second_layer else "accompaniment"),
+        LayerDef("up:#2", "up", 1, "voiceTwo", "accompaniment"),
+    )
+    boundary = Boundary("b000", Fraction(3, 8), False, None, None, True, None)
+    return ScoreIR(1, "x/synthetic.ly", "0" * 64, "2.26.0", "t", Fraction(7, 8),
+                   (StaffDef("up", 1, "G", 2, 0),), layers, events, (), (), (), (), (boundary,), (), ())
+
+
+def test_encode_score_sustain_split_keeps_one_attack_and_the_total() -> None:
+    result = encode_score(_synthetic_ir(), profile())
+    root = etree.fromstring(result.xml)
+    layer1 = q(root, "//m:staff/m:layer[@n='1']/m:note")
+    assert [n.get(XML_ID) for n in layer1] == ["ev0e0000", "ev0e0000c1"]
+    first, cont = layer1
+    assert (first.get("dur"), first.get("dots")) == ("4", "1")  # 3/8
+    assert (cont.get("dur"), cont.get("dots")) == ("2", None)  # 1/2
+    assert first.get("type") is None and first.get("head.visible") is None
+    assert cont.get("type") == "split-continuation"
+    assert cont.get("head.visible") == "false" and cont.get("stem.visible") == "false"
+    assert cont.get("accid") is None
+    assert first.get("next") == "#ev0e0000c1" and cont.get("prev") == "#ev0e0000"
+    assert q(root, "//m:tie") == [] and first.get("tie") is None and cont.get("tie") is None
+    assert sum(dur_of(n) for n in layer1) == Fraction(7, 8)
+    assert result.provenance == {
+        "ev0e0000": "0e0000", "ev0e0000c1": "0e0000", "ev1e0000": "1e0000", "ev1e0001": "1e0001"
+    }
+    assert [e.measure_id for e in result.boundaries] == ["m001"]
+    assert result.diagnostics == ()
+    assert validate_schema(result.xml, load_schema_bundle()) == []
+
+
+def test_encode_score_chant_event_crossing_a_boundary_is_unsafe_and_dropped() -> None:
+    result = encode_score(_synthetic_ir(chant_second_layer=True), profile())
+    assert [d.code for d in result.diagnostics] == ["UNSAFE_BOUNDARY"]
+    assert result.diagnostics[0].event_ids == ("0e0000",)
+    assert result.boundaries == ()
+    root = etree.fromstring(result.xml)
+    assert len(q(root, "//m:measure")) == 1
+    assert q(root, "//*[@type='split-continuation']") == []
+
+
+EXPECTED_SPLITS: dict[str, tuple[int, int]] = {
+    "F1": (75, 81),
+    "F2": (58, 69),
+    "F3": (17, 62),
+    "F4": (9, 9),
+    "F5": (12, 12),
+}
+
+
+def _split_events(tsv: str) -> tuple[int, int]:
+    root = tree(tsv)
+    continuations = q(root, "//*[@type='split-continuation']")
+    split = {encoded(tsv).provenance[c.get(XML_ID)] for c in continuations}
+    return len(split), len(continuations)
+
+
+@pytest.mark.parametrize("fixture", sorted(PILOTS))
+def test_encode_score_pilot_continuations_map_back_and_sum_exactly(fixture: str) -> None:
+    tsv = PILOTS[fixture][0]
+    ir = ir_for(tsv)
+    result = encoded(tsv)
+    root = tree(tsv)
+    safe_onsets = sorted({b.onset for b in ir.boundaries if b.safe})
+    expected_pieces = 0
+    for event in ir.events:
+        end = event.onset + event.duration
+        expected_pieces += sum(1 for o in safe_onsets if event.onset < o < end)
+    split, continuations = _split_events(tsv)
+    assert continuations == expected_pieces and split > 0
+    by_event: dict[str, Fraction] = {}
+    for element in q(root, "//m:note | //m:space | //m:rest"):
+        by_event[result.provenance[element.get(XML_ID)]] = by_event.get(result.provenance[element.get(XML_ID)], Fraction(0)) + dur_of(element)
+    assert by_event == {e.id: e.duration for e in ir.events}
+    for c in q(root, "//*[@type='split-continuation']"):
+        assert c.get(XML_ID).split("c")[0] in result.provenance
+        assert c.get("tie") in (None, "i")  # only the real outgoing tie of the last fragment
+
+
+def test_encode_score_split_counts_per_fixture_are_stable() -> None:
+    counts = {k: _split_events(v[0]) for k, v in PILOTS.items()}
+    # (events split, continuation fragments)
+    assert counts == EXPECTED_SPLITS
+
+
+def test_encode_score_continuation_keeps_sounding_pitch_without_a_written_accidental() -> None:
+    ir = ir_for("agnus_XI.tsv")
+    root = tree("agnus_XI.tsv")
+    printed = {f"ev{e.id}" for e in ir.events if e.printed_accidental != "none"}
+    for continuation in q(root, "//m:note[@type='split-continuation']"):
+        assert continuation.get("accid") is None
+    assert printed  # the first fragments keep their written accidental
+    assert all(q(root, f"//m:note[@xml:id='{i}']")[0].get("accid") for i in printed)
+
+
+def test_encode_score_kyrie_renders_continuations_without_noteheads_or_ties(tmp_path: Path) -> None:
+    result = _render(tmp_path, KYRIE)
+    ids = set(result["ids"])  # type: ignore[arg-type]
+    ir = ir_for(KYRIE)
+    assert {f"ev{e.id}" for e in ir.events if e.kind == "note"} <= ids
+    assert result["continuations"] == len(q(tree(KYRIE), "//m:note[@type='split-continuation']"))
+    assert result["continuationsWithGlyphs"] == 0
+    assert result["splitTies"] == 0
+    # Only the score's own ties are drawn (spanning pieces aside).
+    assert result["ties"] == sum(1 for e in ir.events if e.tie_to_next)

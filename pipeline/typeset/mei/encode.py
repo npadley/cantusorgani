@@ -4,8 +4,12 @@
 between consecutive IR boundary onsets (safe or not), invisible barlines except at chant
 divisions, one ``<layer>`` per IR layer, and hidden tuplets for scaled durations.
 
-Events that cross a measure boundary are emitted whole in the measure where they start, with a
-``sustain-split-pending`` diagnostic; card A3d replaces that with real tie splitting.
+Measures are cut only at safe boundaries (D17). An event that crosses a measure line is split into
+fragments: the first keeps the original attack, id, lyrics and slur/glissando anchors; the others are
+continuations (``type="split-continuation"``, hidden head, stem and written accidental, ``@prev`` /
+``@next`` links). No tie is drawn between fragments, so mid-system the engraving shows one held note;
+the editor reveals a continuation and inserts a ``<tie type="split-tie">`` when a break lands there.
+A boundary that would cut a chant event is dropped with ``UNSAFE_BOUNDARY``.
 
 IR event ids such as ``0e0000`` begin with a digit and so are not XML NCNames. The MEI id of an
 event is therefore ``mei_id(event.id)``; ``EncodedScore.provenance`` maps it back.
@@ -21,9 +25,11 @@ import re
 from bisect import bisect_right
 from dataclasses import dataclass, field
 from fractions import Fraction
+from itertools import pairwise
 from pathlib import PurePosixPath
 
-from pipeline.typeset.mei.diagnostics import Diagnostic, SourceLocation
+from pipeline.typeset.mei.diagnostics import Diagnostic, DiagnosticCode, SourceLocation
+from pipeline.typeset.mei.extract import notated_from_duration
 from pipeline.typeset.mei.model import (
     BoundaryManifestEntry,
     ConversionProfile,
@@ -32,6 +38,7 @@ from pipeline.typeset.mei.model import (
     FeatureDecision,
     LayerDef,
     LyricSyllable,
+    NotatedDuration,
     PrintedAccidental,
     ScoreIR,
     rational_to_str,
@@ -39,7 +46,11 @@ from pipeline.typeset.mei.model import (
 
 MEI_NS = "http://www.music-encoding.org/ns/mei"
 EVENT_ID_PREFIX = "ev"
-SENTINEL_SPLIT_PENDING = "sustain-split-pending"
+SPLIT_CONTINUATION = "split-continuation"
+#: ``type`` B4c gives the ``<tie>`` it inserts between fragments when it reveals a split at a break.
+#: The encoder itself emits no tie between fragments (the pinned schema has no ``@visible`` on ``<tie>``
+#: and Verovio cannot hide one), only ``@prev``/``@next`` links and the continuation ``@type``.
+SPLIT_TIE = "split-tie"
 
 _NCNAME_START = re.compile(r"^[A-Za-z_]")
 _CAESURA_GLYPHS = {"minima": "U+E8F3", "maior": "U+E8F4"}
@@ -130,17 +141,48 @@ def _title(source_path: str) -> str:
     return name.removesuffix(".ly")
 
 
+@dataclass(frozen=True)
+class _Fragment:
+    """One piece of an IR event after splitting at measure lines (index 0 is the original attack)."""
+
+    event: Event
+    index: int
+    count: int
+    onset: Fraction
+    duration: Fraction
+    notated: NotatedDuration
+    mei_id: str
+
+
+def _representable(value: Fraction) -> tuple[int, int] | None:
+    """(log, dots) with value == 2**-log * (2 - 2**-dots), log 0..8, dots 0..3."""
+    for log in range(9):
+        for dots in range(4):
+            if Fraction(1, 2**log) * (2 - Fraction(1, 2**dots)) == value:
+                return log, dots
+    return None
+
+
+def _fragment_notated(duration: Fraction, original: NotatedDuration) -> NotatedDuration:
+    """Notated value for a fragment: keep the event's own scale when the fragment fits it."""
+    exact = _representable(duration / original.scale)
+    if exact is not None:
+        return NotatedDuration(log=exact[0], dots=exact[1], scale=original.scale)
+    return notated_from_duration(duration)
+
+
 def _diagnostic(
     message: str,
     code_detail: str,
     *,
+    code: DiagnosticCode = "UNSUPPORTED_FEATURE",
     location: SourceLocation | None = None,
     event_ids: tuple[str, ...] = (),
     **extra: str,
 ) -> Diagnostic:
     details = tuple(sorted({"code": code_detail, **extra}.items()))
     return Diagnostic(
-        code="UNSUPPORTED_FEATURE",
+        code=code,
         severity="error",
         message=message,
         source_location=location,
@@ -223,7 +265,27 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
         if not 0 < boundary.onset <= total:
             raise ValueError(f"boundary {boundary.id} at {boundary.onset} lies outside (0, {total}]")
     # D17: measure lines only at safe boundaries; unsafe onsets fall inside measures.
-    safe_boundaries = tuple(b for b in ir.boundaries if b.safe)
+    chant_layers = {layer.id for layer in ir.layers if layer.role == "chant"}
+    safe_list: list = []
+    for b in ir.boundaries:
+        if not b.safe:
+            continue
+        hit = tuple(
+            e.id for e in ir.events if e.layer_id in chant_layers and e.onset < b.onset < e.onset + e.duration
+        )
+        if hit:
+            diagnostics.append(
+                _diagnostic(
+                    f"boundary {b.id} cuts a chant event and cannot be a measure line",
+                    "chant-event-crosses-boundary",
+                    code="UNSAFE_BOUNDARY",
+                    event_ids=hit,
+                    boundary=b.id,
+                )
+            )
+        else:
+            safe_list.append(b)
+    safe_boundaries = tuple(safe_list)
     points = {Fraction(0), total, *(b.onset for b in safe_boundaries)}
     ordered = sorted(points)
     if len(ordered) == 1:
@@ -320,11 +382,14 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                 attrs["con"] = "d"
             verse.children.append(_Node("syl", attrs, [], syllable.text))
 
-    def tie_attr(event: Event) -> str | None:
-        incoming = event.id in tie_from_previous
-        if event.tie_to_next and incoming:
+    def tie_attr(frag: _Fragment) -> str | None:
+        """Real (visible) tie attribute. Ties between fragments of one event are control events."""
+        event = frag.event
+        incoming = event.id in tie_from_previous and frag.index == 0
+        outgoing = event.tie_to_next and frag.index == frag.count - 1
+        if outgoing and incoming:
             return "m"
-        if event.tie_to_next:
+        if outgoing:
             return "i"
         if incoming:
             return "t"
@@ -344,12 +409,21 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
             attrs["accid.ges"] = _GESTURAL[int(alter)]
         return attrs
 
-    def event_node(event: Event) -> _Node:
-        attrs: dict[str, str] = {"xml:id": mei_of[event.id], "dur": str(2**event.notated.log)}
-        if event.notated.dots:
-            attrs["dots"] = str(event.notated.dots)
-        cross_staff = event.staff_id != home_staff[event.layer_id]
-        if cross_staff:
+    def _fragment_id(event: Event, index: int) -> str:
+        return mei_of[event.id] if index == 0 else f"{mei_of[event.id]}c{index}"
+
+    def event_node(frag: _Fragment) -> _Node:
+        event = frag.event
+        continuation = frag.index > 0
+        attrs: dict[str, str] = {"xml:id": frag.mei_id, "dur": str(2**frag.notated.log)}
+        if frag.notated.dots:
+            attrs["dots"] = str(frag.notated.dots)
+        if continuation:
+            attrs["type"] = SPLIT_CONTINUATION
+            attrs["prev"] = "#" + _fragment_id(event, frag.index - 1)
+        if frag.index < frag.count - 1:
+            attrs["next"] = "#" + _fragment_id(event, frag.index + 1)
+        if event.staff_id != home_staff[event.layer_id]:
             attrs["staff"] = str(staff_index[event.staff_id])
         if event.kind == "skip" or (event.kind == "rest" and event.id in hidden_rests):
             return _Node("space", attrs)
@@ -357,39 +431,48 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
             return _Node("rest", attrs)
         assert event.pitch is not None
         attrs.update(pname=event.pitch.step, oct=str(event.pitch.octave))
-        attrs.update(accidental_attrs(event))
-        if not event.stem_visible:
+        accidentals = accidental_attrs(event)
+        if continuation:
+            accidentals.pop("accid", None)
+        attrs.update(accidentals)
+        if not event.stem_visible or continuation:
             attrs["stem.visible"] = "false"
         if event.notehead == "hidden":
             attrs["visible"] = "false"
-        elif event.notehead == "quilisma":
+        elif event.notehead == "quilisma" or continuation:
             attrs["head.visible"] = "false"
-        tie = tie_attr(event)
+        tie = tie_attr(frag)
         if tie is not None:
             attrs["tie"] = tie
         node = _Node("note", attrs)
-        for number in sorted(verses.get(event.id, {})):
-            node.children.append(verses[event.id][number])
+        if not continuation:
+            for number in sorted(verses.get(event.id, {})):
+                node.children.append(verses[event.id][number])
         return node
 
     # --- distribute events and control events over measures ------------------------------------
-    by_layer_measure: dict[tuple[str, int], list[Event]] = {}
-    for event in ir.events:
-        k = measure_of(event.onset)
-        by_layer_measure.setdefault((event.layer_id, k), []).append(event)
-        if event.onset + event.duration > ordered[k + 1]:
-            crossed = next(b for b in safe_boundaries if b.onset == ordered[k + 1])
-            diagnostics.append(
-                _diagnostic(
-                    "event crosses a measure boundary and is emitted whole until the split card lands",
-                    SENTINEL_SPLIT_PENDING,
-                    location=event.location,
-                    event_ids=(event.id,),
-                    crosses=crossed.id,
-                )
-            )
-
+    by_layer_measure: dict[tuple[str, int], list[_Fragment]] = {}
     controls: list[list[_Node]] = [[] for _ in range(measure_count)]
+    first_of: dict[str, _Fragment] = {}
+    for event in ir.events:
+        end = event.onset + event.duration
+        cuts = [p for p in ordered[bisect_right(ordered, event.onset) :] if p < end]
+        edges = [event.onset, *cuts, end]
+        pieces: list[_Fragment] = []
+        for index, (lo, hi) in enumerate(pairwise(edges)):
+            notated = event.notated if not cuts else _fragment_notated(hi - lo, event.notated)
+            if index == 0:
+                fragment_id = mei_of[event.id]
+            else:
+                fragment_id = f"{mei_of[event.id]}c{index}"
+                if fragment_id in xml_ids:
+                    raise ValueError(f"duplicate MEI id {fragment_id!r}")
+                xml_ids[fragment_id] = event.id
+            pieces.append(_Fragment(event, index, len(edges) - 1, lo, hi - lo, notated, fragment_id))
+        first_of[event.id] = pieces[0]
+        for piece in pieces:
+            by_layer_measure.setdefault((event.layer_id, measure_of(piece.onset)), []).append(piece)
+
     for span in ir.spans:
         if span.kind == "tie":
             continue
@@ -451,12 +534,12 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
             lid for lid in division_layers.get(boundary.onset, []) if lid in home_staff
         ] or [layer.id for layer in ir.layers[:1]]
         layer_id = wanted[0]
-        candidates = [e for e in by_layer_measure.get((layer_id, k), []) if e.onset < boundary.onset] or [
-            e
-            for (lid, mk), evs in sorted(by_layer_measure.items())
+        candidates = [f for f in by_layer_measure.get((layer_id, k), []) if f.onset < boundary.onset] or [
+            f
+            for (lid, mk), frags in sorted(by_layer_measure.items())
             if mk == k and home_staff[lid] == home_staff[layer_id]
-            for e in evs
-            if e.onset < boundary.onset
+            for f in frags
+            if f.onset < boundary.onset
         ]
         if not candidates:
             diagnostics.append(
@@ -474,7 +557,7 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                 "caesura",
                 {
                     "xml:id": "c" + boundary.id,
-                    "startid": "#" + mei_of[anchor.id],
+                    "startid": "#" + anchor.mei_id,
                     "staff": str(staff_index[home_staff[layer_id]]),
                     "glyph.auth": "smufl",
                     "glyph.num": _CAESURA_GLYPHS[boundary.division],
@@ -522,8 +605,8 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                 layer_node = staff_node.add("layer", n=str(number))
                 parent = layer_node
                 current_scale: Fraction | None = None
-                for event in by_layer_measure.get((layer.id, k), []):
-                    scale = event.notated.scale
+                for frag in by_layer_measure.get((layer.id, k), []):
+                    scale = frag.notated.scale
                     if scale == 1:
                         parent = layer_node
                         current_scale = None
@@ -535,7 +618,7 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                             **{"num.visible": "false", "bracket.visible": "false"},
                         )
                         current_scale = scale
-                    parent.children.append(event_node(event))
+                    parent.children.append(event_node(frag))
         measure.children.extend(controls[k])
         if boundary is not None and boundary.source_break and end != total:
             section.add("sb")
