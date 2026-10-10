@@ -1,0 +1,340 @@
+---
+// The export layout editor (UI spec 1, 5, 6): markup and styles only.
+//
+// The dialog sits inside an inert <template>, so it costs no layout, no focus stops and no
+// accessibility-tree nodes until src/scripts/exportLayout.ts clones it on the first open
+// (openExportEditor). Render this component once per page that offers "Customize export".
+//
+// Layout is CSS media queries only (rem, the site's existing breakpoints):
+//   >= 62rem   two columns: FIT + settings on the left, the preview on the right
+//   <  62rem   header, sticky FIT strip, preview, footer; the settings are a panel
+//              (a side panel from 40rem, a bottom sheet below that)
+import ExportPagePreview from "./ExportPagePreview.astro";
+import DisclosureCue from "./DisclosureCue.astro";
+
+const STAFF = [
+  { v: "small", name: "Small", abbr: "S", mm: "5.6 mm", h: 10 },
+  { v: "medium", name: "Medium", abbr: "M", mm: "7.2 mm", h: 13 },
+  { v: "large", name: "Large", abbr: "L", mm: "9.6 mm", h: 17 },
+] as const;
+const PRINT = [
+  { v: "letter", name: "Letter", sub: "8½ × 11 in" },
+  { v: "a4", name: "A4", sub: "210 × 297 mm" },
+  { v: "a5", name: "A5", sub: "148 × 210 mm" },
+] as const;
+const IPAD = [
+  { v: "ipad-mini", name: "iPad mini" },
+  { v: "ipad-11", name: "11-inch iPad" },
+  { v: "ipad-13", name: "13-inch iPad" },
+] as const;
+---
+
+<template data-cx-template>
+  <dialog class="cx no-print" aria-labelledby="cx-title" aria-describedby="cx-sel">
+    <header class="cx-head">
+      <h2 id="cx-title" tabindex="-1">Customize export</h2>
+      <p class="cx-sel ui small muted" id="cx-sel" data-cx="selection"></p>
+      <button type="button" class="cx-close" data-cx="close">Close</button>
+    </header>
+
+    <fieldset class="cx-fit" data-cx="fit">
+      <legend class="cx-h">Fit</legend>
+      <p class="small muted ui cx-help" data-cx="applies" hidden></p>
+      <div class="cx-field" data-cx="music-field">
+        <span class="cx-lab" id="cx-l-staff">Music size</span>
+        <div class="seg tall" role="radiogroup" aria-labelledby="cx-l-staff">
+          {STAFF.map((s) => (
+            <label class="seg-o">
+              <input class="sr-only" type="radio" name="cx-staff" value={s.v} aria-label={`${s.name}, ${s.mm}`} />
+              <span>
+                <span class="nm">{s.name}</span><span class="abbr" aria-hidden="true">{s.abbr}</span>
+                <small class="mm">
+                  <svg class="staffglyph" aria-hidden="true" focusable="false" width="22" height={s.h} viewBox={`0 0 22 ${s.h}`}>
+                    {[0, 1, 2, 3, 4].map((i) => <line x1="0" x2="22" y1={0.5 + (i * (s.h - 1)) / 4} y2={0.5 + (i * (s.h - 1)) / 4} stroke="currentColor" stroke-width="1" />)}
+                  </svg>
+                  {s.mm}
+                </small>
+              </span>
+            </label>
+          ))}
+        </div>
+        <p class="small muted ui cx-help">Height of one staff on the page.</p>
+      </div>
+      <p class="small muted ui cx-nomusic" data-cx="nomusic" hidden>Music size and line breaks apply only to customizable typeset. None of the parts in this PDF are.</p>
+      <div class="cx-field">
+        <span class="cx-lab" id="cx-l-cap">Systems per page</span>
+        <div class="cx-step big" role="group" aria-label="Systems per page">
+          <button type="button" data-cx="cap-minus" aria-label="Fewer systems per page">−</button>
+          <output data-cx="cap-value">As many as fit</output>
+          <button type="button" data-cx="cap-plus" aria-label="More systems per page">+</button>
+        </div>
+        <p class="small muted ui cx-help">The most on any page. Fewer may fit with large music or your own page breaks.</p>
+        <p class="small muted ui cx-help" data-cx="fixed-note" hidden></p>
+      </div>
+      <p class="cx-result" data-cx="result" aria-hidden="true"></p>
+      <button type="button" class="cx-settings-btn" data-cx="settings-btn" aria-expanded="false" aria-controls="cx-settings">Settings</button>
+    </fieldset>
+
+    <aside class="cx-settings" id="cx-settings" data-cx="settings" role="region" aria-label="Export settings" tabindex="-1">
+      <div class="cx-phead"><span class="cx-ptitle" aria-hidden="true">Settings</span><button type="button" data-cx="panel-done">Done</button></div>
+
+      <section class="cx-grp first" aria-labelledby="cx-h-parts">
+        <h3 class="cx-h" id="cx-h-parts">In this PDF</h3>
+        <ul class="cx-partlist ui" data-cx="partlist"></ul>
+        <p class="small muted ui cx-tight">To change the parts, close this and tick them on the page.</p>
+      </section>
+
+      <fieldset class="cx-grp" data-cx="page-group">
+        <legend class="cx-h">Page</legend>
+        <div class="cx-field">
+          <span class="cx-lab" id="cx-l-tier">Page size</span>
+          <div class="seg" role="radiogroup" aria-labelledby="cx-l-tier">
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-tier" value="print" /><span>Print</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-tier" value="ipad" /><span>iPad</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-tier" value="custom" /><span>Custom</span></label>
+          </div>
+          <div class="seg tall cx-tier2" role="radiogroup" aria-label="Print paper" data-cx="tier-print">
+            {PRINT.map((p) => (
+              <label class="seg-o"><input class="sr-only" type="radio" name="cx-print" value={p.v} aria-label={`${p.name}, ${p.sub}`} /><span>{p.name}<small>{p.sub}</small></span></label>
+            ))}
+          </div>
+          <div class="seg tall cx-tier2" role="radiogroup" aria-label="iPad size" data-cx="tier-ipad">
+            {IPAD.map((p) => (
+              <label class="seg-o"><input class="sr-only" type="radio" name="cx-ipad" value={p.v} /><span>{p.name}</span></label>
+            ))}
+          </div>
+          <div class="cx-tier2" data-cx="tier-custom">
+            <div class="cx-custom">
+              <label>Width <input class="cx-num" type="text" data-cx="custom-w" inputmode="decimal" autocomplete="off" aria-describedby="cx-e-custom" /></label>
+              <label>Height <input class="cx-num" type="text" data-cx="custom-h" inputmode="decimal" autocomplete="off" aria-describedby="cx-e-custom" /></label>
+              <div class="seg" role="radiogroup" aria-label="Unit">
+                <label class="seg-o"><input class="sr-only" type="radio" name="cx-unit" value="mm" /><span>mm</span></label>
+                <label class="seg-o"><input class="sr-only" type="radio" name="cx-unit" value="in" /><span>in</span></label>
+              </div>
+            </div>
+            <p class="small cx-err ui" id="cx-e-custom" data-cx="custom-error" hidden></p>
+          </div>
+          <p class="small muted ui cx-help" data-cx="page-help"></p>
+        </div>
+        <div class="cx-field">
+          <span class="cx-lab" id="cx-l-orient">Orientation</span>
+          <div class="seg" role="radiogroup" aria-labelledby="cx-l-orient">
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-orient" value="portrait" /><span><span class="seg-row"><svg aria-hidden="true" focusable="false" width="12" height="16" viewBox="0 0 12 16"><rect x="0.5" y="0.5" width="11" height="15" fill="none" stroke="currentColor" stroke-width="1" /></svg>Portrait</span></span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-orient" value="landscape" /><span><span class="seg-row"><svg aria-hidden="true" focusable="false" width="16" height="12" viewBox="0 0 16 12"><rect x="0.5" y="0.5" width="15" height="11" fill="none" stroke="currentColor" stroke-width="1" /></svg>Landscape</span></span></label>
+          </div>
+        </div>
+        <div class="cx-field">
+          <span class="cx-lab" id="cx-l-margin">Margins</span>
+          <div class="cx-step m" role="group" aria-labelledby="cx-l-margin">
+            <button type="button" data-cx="margin-minus" aria-label="Smaller margins">−</button>
+            <input type="number" data-cx="margin" min="3" max="25" step="1" inputmode="numeric" aria-labelledby="cx-l-margin" />
+            <span class="ui">mm</span>
+            <button type="button" data-cx="margin-plus" aria-label="Larger margins">+</button>
+          </div>
+          <p class="small muted ui cx-help" data-cx="margin-help"></p>
+        </div>
+      </fieldset>
+
+      <fieldset class="cx-grp" data-cx="breaks-group">
+        <legend class="cx-h">Breaks</legend>
+        <div class="notice" data-cx="stale" hidden><p></p><button type="button" class="link" data-cx="stale-dismiss">Dismiss</button></div>
+        <div class="cx-field" data-cx="lines-field">
+          <span class="cx-lab" id="cx-l-lines">Line breaks</span>
+          <div class="seg" role="radiogroup" aria-labelledby="cx-l-lines">
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-lines" value="original" /><span>Original</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-lines" value="automatic" /><span>Fit to page</span></label>
+          </div>
+          <p class="small muted ui cx-help" data-cx="lines-help"></p>
+          <p class="small muted ui cx-help" data-cx="crowded" hidden>Some original lines are tight at this size. Fit to page may read better.</p>
+        </div>
+        <p class="small ui cx-tight cx-rule">Each part starts on a new page.</p>
+        <div class="cx-field" data-cx="yours-field">
+          <span class="cx-lab" id="cx-l-yours">Your breaks</span>
+          <button type="button" data-cx="break-mode" aria-pressed="false">Choose where systems break</button>
+          <p class="small muted ui cx-help" data-cx="break-count" hidden></p>
+        </div>
+      </fieldset>
+
+      <details class="cx-grp cx-more" data-cx="more">
+        <summary class="disclosure-summary"><DisclosureCue /><span>More options</span><span class="small muted ui" data-cx="more-summary"></span></summary>
+        <div class="cx-field" data-cx="lyrics-field">
+          <span class="cx-lab" id="cx-l-lyrics">Sung text size</span>
+          <div class="seg" role="radiogroup" aria-labelledby="cx-l-lyrics">
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-lyrics" value="small" /><span>Small</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-lyrics" value="medium" /><span>Medium</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-lyrics" value="large" /><span>Large</span></label>
+          </div>
+        </div>
+        <div class="cx-field" data-cx="spacing-field">
+          <span class="cx-lab" id="cx-l-spacing">Space between systems</span>
+          <div class="seg" role="radiogroup" aria-labelledby="cx-l-spacing">
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-spacing" value="compact" /><span>Compact</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-spacing" value="normal" /><span>Normal</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-spacing" value="spacious" /><span>Spacious</span></label>
+          </div>
+          <p class="small muted ui cx-help">A minimum; the music never overlaps.</p>
+        </div>
+      </details>
+
+      <p class="cx-storage small muted ui" data-cx="storage" hidden>This browser isn't saving site settings, so your choices will reset when you leave.</p>
+      <p class="cx-storage small muted ui" data-cx="prefs" hidden>Your saved export settings couldn't be read, so the defaults are used.</p>
+    </aside>
+
+    <ExportPagePreview id="cxp" />
+
+    <footer class="cx-foot">
+      <p id="cx-status" class="small ui" role="status" aria-live="polite"></p>
+      <button type="button" class="link" data-cx="undo" hidden>Undo</button>
+      <button type="button" class="link" data-cx="reset">Reset layout</button>
+      <button type="button" class="link" data-cx="cancel" hidden>Cancel</button>
+      <button type="button" class="primary" data-cx="download" disabled>Download PDF</button>
+    </footer>
+  </dialog>
+</template>
+
+<style is:global>
+  /* TODO(B9): promote .primary and .link to base.css (--print-paper / --print-ink come from ExportPagePreview for now). */
+  button.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  button.primary:disabled { background: var(--paper); color: var(--ink-muted); border-color: var(--rule); }
+  button.link { background: none; border: 0; padding: 0 var(--s-1); min-height: var(--tap-min); min-width: var(--tap-min); color: var(--accent); text-decoration: underline; font: inherit; font-family: var(--font-ui); }
+  button.link:hover:not(:disabled) { text-decoration-thickness: 2px; }
+
+  html:has(dialog.cx[open]) { overflow: hidden; }
+
+  dialog.cx {
+    inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
+    background: var(--paper); color: var(--ink); overflow: hidden; font-family: var(--font-ui);
+  }
+  dialog.cx::backdrop { background: var(--paper); }
+  dialog.cx[open] { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; grid-template-columns: minmax(0, 1fr); }
+  dialog.cx button, dialog.cx input, dialog.cx select { font-family: var(--font-ui); }
+
+  .cx-head { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s-1) var(--s-3); border-bottom: 1px solid var(--rule); padding: var(--s-2) var(--s-3); }
+  .cx-head h2 { margin: 0; font-family: var(--font-text); font-size: var(--step-1); font-weight: 600; }
+  .cx-head h2:focus, .cx-head h2:focus-visible { outline: none; }
+  .cx-sel { margin: 0; flex: 1; }
+  .cx-close { margin-left: auto; min-width: var(--tap-min); border-color: var(--control-border); }
+
+  /* Group headings: rubric-style small caps. */
+  .cx-h { font-family: var(--font-text); font-variant-caps: all-small-caps; letter-spacing: 0.06em; font-size: var(--step-0); color: var(--accent); font-weight: 600; margin: 0 0 var(--s-2); padding: 0; }
+  :where(dialog.cx fieldset) { border: 0; margin: 0; padding: 0; min-width: 0; }
+  dialog.cx legend.cx-h { float: left; width: 100%; }
+  dialog.cx legend.cx-h + * { clear: both; }
+  .cx-grp { border-top: 1px solid var(--rule); padding-top: var(--s-3); margin-top: var(--s-3); }
+  .cx-grp.first { border-top: 0; padding-top: 0; margin-top: 0; }
+  .cx-field { margin-top: var(--s-3); }
+  .cx-field:first-of-type { margin-top: 0; }
+  .cx-lab { display: block; font-family: var(--font-ui); font-weight: 600; margin-bottom: var(--s-1); }
+  .cx-help { margin: var(--s-1) 0 0; }
+  .cx-tight { margin: 0; }
+  .cx-rule { margin-top: var(--s-3); }
+  .cx-partlist { list-style: none; padding: 0; margin: 0 0 var(--s-2); }
+  .cx-partlist li { margin-bottom: var(--s-2); }
+  .cx-pn { display: block; font-size: var(--step-0); }
+  .cx-result { font-size: var(--step-0); font-weight: 600; margin: var(--s-3) 0 0; font-family: var(--font-ui); }
+  .cx-result[data-pending="true"] { color: var(--ink-muted); font-weight: 400; }
+  .cx-nomusic { margin: 0 0 var(--s-3); }
+  .cx-err { color: var(--warn-ink); margin: var(--s-1) 0 0; }
+  .cx-storage { margin: var(--s-4) 0 0; }
+  dialog.cx .notice { margin: var(--s-2) 0; }
+  dialog.cx .notice p { margin: 0 0 var(--s-2); }
+  .cx-acts { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  .cx-acts button { border-color: var(--control-border); }
+  .cx-more summary .small { margin-left: var(--s-1); }
+
+  /* Segmented radios: real inputs, visually hidden; the span is the visible control. */
+  .seg { display: flex; }
+  .seg-o { flex: 1 1 0; position: relative; display: block; margin-left: -1px; cursor: pointer; }
+  .seg-o:first-child { margin-left: 0; }
+  .seg-o > span {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    min-height: var(--tap-min); min-width: var(--tap-min); height: 100%; padding: 0 var(--s-1);
+    border: 1px solid var(--control-border); font: inherit; font-family: var(--font-ui); background: var(--paper); color: var(--ink);
+  }
+  .seg-o:first-child > span { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
+  .seg-o:last-child > span { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+  .seg-o input:checked + span { border: 2px solid var(--accent); color: var(--accent); font-weight: 600; padding: 0 calc(var(--s-1) - 1px); position: relative; z-index: 1; }
+  .seg-o input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .seg-o input:disabled + span { color: var(--ink-muted); border-style: dashed; cursor: not-allowed; }
+  .seg.tall .seg-o > span { min-height: 56px; }
+  .seg-o small { font-size: var(--step--1); font-weight: 400; color: var(--ink-muted); display: inline-flex; align-items: center; gap: var(--s-1); }
+  .seg-o input:checked + span small { color: var(--accent); }
+  .seg-row { display: inline-flex; align-items: center; gap: var(--s-1); white-space: nowrap; }
+  .seg-o .abbr { display: none; }
+  .staffglyph { display: block; }
+
+  /* Steppers */
+  .cx-step { display: flex; align-items: stretch; }
+  .cx-step button { min-width: var(--tap-min); border-color: var(--control-border); }
+  .cx-step.big button { width: 56px; height: 56px; padding: 0; font-size: var(--step-1); }
+  .cx-step output { flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; border-top: 1px solid var(--control-border); border-bottom: 1px solid var(--control-border); padding: 0 var(--s-2); font-family: var(--font-ui); }
+  .cx-step.m { align-items: center; gap: var(--s-2); }
+  .cx-step.m input, .cx-num { min-height: var(--tap-min); width: 5rem; padding: 0 var(--s-2); border: 1px solid var(--control-border); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; font-family: var(--font-ui); }
+  .cx-custom { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-3); align-items: flex-end; }
+  .cx-custom label { display: flex; flex-direction: column; font-family: var(--font-ui); font-size: var(--step--1); }
+  .cx-custom .seg { min-width: 8rem; }
+  .cx-tier2 { margin-top: var(--s-2); }
+  button[aria-pressed="true"] { border: 2px solid var(--accent); color: var(--accent); font-weight: 600; }
+
+  .cx-settings-btn { margin-left: auto; border-color: var(--control-border); }
+  .cx-phead { align-items: center; justify-content: space-between; gap: var(--s-2); margin-bottom: var(--s-3); }
+  .cx-phead .cx-ptitle { font-family: var(--font-text); font-size: var(--step-1); font-weight: 600; }
+  .cx-phead button { border-color: var(--control-border); }
+  .cx-settings:focus { outline: none; }
+
+  /* Preview region. */
+  dialog.cx .cx-preview { min-width: 0; min-height: 0; overflow: auto; }
+  .cx-extras { padding: var(--s-4) var(--s-3) 0; }
+  .cx-extras:empty { display: none; }
+  .cx-wait { position: relative; width: 100%; background: var(--print-paper); color: var(--print-ink); border: 1px solid var(--control-border); display: flex; align-items: center; justify-content: center; text-align: center; padding: var(--s-3); font-family: var(--font-ui); }
+  .cx-wait[data-pages] { margin-top: var(--s-3); }
+
+  /* Footer. */
+  .cx-foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); border-top: 1px solid var(--rule); padding: var(--s-2) var(--s-3); }
+  .cx-foot #cx-status { flex: 1 1 12rem; margin: 0; min-height: 1.4em; }
+  .cx-foot .primary { min-width: 12rem; }
+
+  /* ---- Below 62rem: header, FIT strip, preview, footer; settings are a panel. ---- */
+  @media (max-width: 61.99rem) {
+    .cx-fit { border-bottom: 1px solid var(--rule); padding: var(--s-2) var(--s-3); background: var(--paper); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }
+    .cx-fit legend, .cx-fit .cx-lab { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; float: none; }
+    .cx-fit .cx-help, .cx-fit [data-cx="applies"], .cx-fit [data-cx="fixed-note"] { display: none; }
+    .cx-fit .cx-field { margin: 0; }
+    .cx-fit .cx-nomusic { margin: 0; flex: 1 1 12rem; }
+    .cx-fit .seg { min-width: 14rem; }
+    .cx-fit .seg.tall .seg-o > span { min-height: var(--tap-min); }
+    .cx-fit .seg-o small { display: none; }
+    .cx-fit .cx-step.big button { width: var(--tap-min); height: auto; min-height: var(--tap-min); font-size: var(--step-0); }
+    .cx-fit .cx-step output { min-width: 8.5rem; font-size: var(--step--1); line-height: 1.2; }
+    .cx-fit .cx-result { margin: 0; flex: 1 1 10rem; font-size: var(--step--1); }
+
+    .cx-settings { display: none; position: absolute; z-index: 6; background: var(--paper); overflow-y: auto; padding: var(--s-3); border: 0 solid var(--control-border); }
+    dialog.cx[data-panel="open"] .cx-settings { display: block; }
+    .cx-phead { display: flex; }
+    .cx-settings { top: 0; bottom: 0; right: 0; width: 22rem; max-width: 100%; border-left-width: 1px; }
+    dialog.cx[data-panel="open"] :is(.cx-preview, .cx-head, .cx-fit, .cx-foot) { margin-right: 22rem; }
+  }
+  @media (max-width: 39.99rem) {
+    .cx-fit .seg { min-width: 9rem; }
+    .cx-fit .seg-o .abbr { display: inline; }
+    .cx-fit .seg-o .nm { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .cx-settings { top: auto; left: 0; right: 0; bottom: 0; width: auto; max-height: 85dvh; border-left-width: 0; border-top-width: 1px; }
+    dialog.cx[data-panel="open"] :is(.cx-preview, .cx-head, .cx-fit, .cx-foot) { margin-right: 0; }
+    .cx-sel { flex: 1 1 100%; order: 3; }
+    .cx-foot #cx-status { flex: 1 1 100%; order: -1; }
+    .cx-foot .primary { flex: 1 1 auto; }
+  }
+
+  /* ---- 62rem and up: two columns. ---- */
+  @media (min-width: 62rem) {
+    dialog.cx[open] { grid-template-columns: 20rem minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr) auto; }
+    .cx-head { grid-column: 1 / -1; grid-row: 1; }
+    .cx-fit { grid-column: 1; grid-row: 2; padding: var(--s-3) var(--s-3) 0; border-right: 1px solid var(--rule); }
+    .cx-settings { grid-column: 1; grid-row: 3; overflow-y: auto; border-right: 1px solid var(--rule); padding: 0 var(--s-3) var(--s-3); min-width: 0; }
+    .cx-settings .cx-grp.first { border-top: 1px solid var(--rule); padding-top: var(--s-3); margin-top: var(--s-3); }
+    .cx-settings:focus { outline: none; }
+    dialog.cx .cx-preview { grid-column: 2; grid-row: 2 / 4; }
+    .cx-foot { grid-column: 1 / -1; grid-row: 4; }
+    .cx-phead, .cx-settings-btn { display: none; }
+  }
+</style>
