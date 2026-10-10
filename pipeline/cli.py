@@ -159,6 +159,10 @@ def build_parser() -> argparse.ArgumentParser:
             preview.add_argument("--key", required=True)
         preview.add_argument("--out", type=Path, default=Path("build/typeset-preview"))
 
+    mei_audit = subs.add_parser("typeset-mei-audit",
+                                help="audit the typeset sources for MEI conversion (text scan, no LilyPond)")
+    mei_audit.add_argument("--out", type=Path, default=Path("build/typeset/mei/audit.json"))
+
     cat = subs.add_parser("catalog", help="build data/catalog.json and review-queue.json")
     cat.add_argument("--volume", required=True)
     cat.add_argument("--no-parts", action="store_true",
@@ -357,6 +361,9 @@ def main(argv: list[str] | None = None) -> int:
         from pipeline.typeset.source_batch import validate_source_evidence
         validate_source_evidence(json.loads(args.payload.read_text()), args.artifact)
         return 0
+    if args.command == "typeset-mei-audit":
+        from pipeline.typeset.mei.cli import audit_command
+        return audit_command(args.out)
     if args.command == "typeset-source-batch":
         import json
 
