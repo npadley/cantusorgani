@@ -76,3 +76,48 @@ _(S0–S7 append here: date, spike, decision, evidence paths, consequences for d
   - A2b keys `head`/`stem`/`acc` rows by (onset, layer, loc), not adjacency, and dedupes `key` rows (one per voice).
   - A2b derives rest/skip `notated` from `dur`, and fails on `main@grace` onsets.
   - A2c derives `LayerRole` from lyric association and hidden heads.
+
+### S3: text face (2026-10-09)
+
+**Decision:** one text face, **Liberation Serif 2.1.5 (OFL-1.1)**. Regular is the lyric face and the heading regular; Italic and Bold are the heading italic and bold. The fonts go in `web/public/fonts/export/` with the OFL text beside them.
+
+**Files and hashes:** `LiberationSerif-Regular.ttf` `058ea808…fb74`, `-Italic.ttf` `0e3dea9f…2fc2e`, `-Bold.ttf` `d754ba42…d5ce`. Full hashes and the source URL are in the experiment doc. The files are staged in `build/s34-fonts/`.
+
+**Evidence:** `docs/superpowers/experiments/s3-s4-fonts-pdf.md`.
+- Verovio 6.3.0 has no text-font option. `fontAddCustom` is for music fonts only.
+- It measures text with built-in Times New Roman tables (`data/text/Times*.xml`).
+- `fontTextLiberation` changes 0 of 685 element geometries. It only embeds about 390 KB of woff2 per SVG, so it stays off.
+- Liberation Serif is metric-identical to Times New Roman. 80 of 94 ASCII regular advances match Verovio's table exactly. The 14 that differ are capitals and `w`, by at most 0.067 em, because Verovio uses bbox widths where its table lacks an advance.
+
+**Consequences:**
+- Verovio measures **every non-ASCII character as 0.5 em** (an upstream bug: its Latin-1 rows are keyed by UTF-8 bytes). ǽ and œ therefore draw up to 0.22 em wider than the space reserved for them, and í narrower. Preview and PDF still agree, because both draw at Verovio's `x` with the same face.
+- The preview must render SVG text in the bundled face. B5 or B8a rewrites `font-family="Times, serif"` and the page loads the face with `@font-face`. It must never fall back to the system Times.
+- `FontProfile` is **unchanged**.
+
+### S4: vector PDF route (2026-10-09)
+
+**Decision:** route **(ii)**, `pdf-lib` plus `@pdf-lib/fontkit@1.1.1` plus our walker over Verovio's SVG subset. The prototype is `web/scripts/spike-pdf/walker.ts` + `xml.ts`. The coordinator adds `@pdf-lib/fontkit` `1.1.1` (exact) and, suggested, pins `pdf-lib` to `1.17.1`. No other dependency is needed. pdfkit, svg-to-pdfkit and fontkit 2 are rejected.
+
+**Evidence** (experiment doc; ipad-11 page, primary and accented Kyrie at `scale:100`, plus the `scale:40` fixture on A4):
+
+| Measure | Route (ii) | Route (i) |
+|---|---|---|
+| MediaBox | 447.30709 × 643.74803, error 0 | error 5e-7 pt |
+| Image XObjects | 0 | 0 |
+| `<use>` resolved | 197/197 and 384/384 | no warnings |
+| Paint ops vs SVG drawables | 649/649 and 1272/1272 | 649/649 and 1272/1272 |
+| Fonts in the PDF | Liberation subsets only; no music font | same |
+| Accented syllables and heading | extractable by pdf.js | extractable by pdf.js |
+| Misplaced ink at 288 dpi | 0 px | 0 px only with a stroke pre-pass; 51 % without one, because svg-to-pdfkit ignores Verovio's `stroke:currentColor` stylesheet |
+| Module worker | runs, 56–79 ms/page | ESM build runs; standalone fails (`Dynamic require of "url"`) |
+| gzip chunk | 549,661 B | 235,667 B (ESM) |
+
+**Why (ii) despite the larger chunk:**
+- B6b's `embedPdf` for fixed pages requires pdf-lib, and pdfkit cannot import existing PDF pages.
+- The walker has a closed input surface.
+- svg-to-pdfkit has had no release since 2019.
+
+**Consequences:**
+- G2 is not at risk.
+- The 550 KB gzip chunk loads only at export time, in the PDF worker. An adapter onto `fontkit@2.0.4` (measured: 333 KB gzip, same output) is an option if size matters later.
+- pdf-lib is dormant (last release 2021). Accept this, because quick export already depends on it.
