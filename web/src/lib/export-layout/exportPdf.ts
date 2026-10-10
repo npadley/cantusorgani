@@ -19,6 +19,7 @@ import type {
   RectMm,
   ScanCanonicalPage,
 } from './types';
+import { measureSvgBounds } from './svg';
 import { createEmbeddedFonts, drawSvgOnPage } from './vectorPdf';
 import type { EmbeddedFonts, FaceName } from './vectorPdf';
 
@@ -60,20 +61,6 @@ const FACE: Readonly<Record<HeadingBlock['lines'][number]['role'], FaceName>> = 
   translation: 'italic',
   credit: 'regular',
 };
-
-/**
- * The SVG's own viewBox size in mm (1 SVG unit = 1 mm), so that the walker's
- * meet-fit is exactly scale 1 with the top-left at the translate. Falls back to
- * the content rect when the root has no usable viewBox.
- */
-function svgSizeMm(svg: string, p: { readonly content: RectMm }): { widthMm: number; heightMm: number } {
-  const tag = /<svg\b[^>]*>/.exec(svg)?.[0] ?? '';
-  const vb = /\sviewBox\s*=\s*"([^"]*)"/.exec(tag)?.[1]?.trim().split(/[\s,]+/).map(Number);
-  if (vb !== undefined && vb.length === 4 && vb.every(Number.isFinite) && vb[2]! > 0 && vb[3]! > 0) {
-    return { widthMm: vb[2]!, heightMm: vb[3]! };
-  }
-  return { widthMm: p.content.widthMm, heightMm: p.content.heightMm };
-}
 
 async function drawBlock(page: PDFPage, block: HeadingBlock, pageHeightMm: number, embedded: EmbeddedFonts): Promise<void> {
   for (const line of block.lines) {
@@ -137,6 +124,9 @@ export async function exportCanonicalPdf(result: LayoutResult, deps: ExportPdfDe
     if (srcDoc.getPageCount() <= p.sourcePageIndex) {
       throw new Error(`FIXED_PAGE_COUNT_MISMATCH: ${p.sourceUrl} has ${srcDoc.getPageCount()} pages, need page ${p.sourcePageIndex + 1}`);
     }
+    if (srcDoc.getPage(p.sourcePageIndex).getRotation().angle % 360 !== 0) {
+      throw new Error(`FIXED_PAGE_COUNT_MISMATCH: rotated-source ${p.sourceUrl}`);
+    }
     const key = `${p.sourceUrl}#${p.sourcePageIndex}`;
     let ep = embeddedSource.get(key);
     if (ep === undefined) {
@@ -144,9 +134,11 @@ export async function exportCanonicalPdf(result: LayoutResult, deps: ExportPdfDe
       embeddedSource.set(key, ep);
     }
     const t = p.transform;
-    const widthPt = p.sourceSizePt.width * t.scaleX;
-    const heightPt = p.sourceSizePt.height * t.scaleY;
-    page.drawPage(await ep, {
+    // The embedded page's real size (MediaBox origin handled by pdf-lib), not the recorded one.
+    const real = await ep;
+    const widthPt = real.width * t.scaleX;
+    const heightPt = real.height * t.scaleY;
+    page.drawPage(real, {
       x: t.translateXMm * MM_TO_PT,
       y: p.heightMm * MM_TO_PT - t.translateYMm * MM_TO_PT - heightPt,
       width: widthPt,
@@ -161,7 +153,7 @@ export async function exportCanonicalPdf(result: LayoutResult, deps: ExportPdfDe
         await drawSvgOnPage(page, p.svg.svg, deps.fonts, embedded, {
           xMm: p.svgPlacement.translateXMm,
           yMm: p.svgPlacement.translateYMm,
-          ...svgSizeMm(p.svg.svg, p),
+          ...measureSvgBounds(p.svg),
         });
         break;
       case 'scan':

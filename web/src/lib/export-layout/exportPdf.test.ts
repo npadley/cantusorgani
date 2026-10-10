@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { deflateSync } from 'node:zlib';
-import { PDFArray, PDFDict, PDFDocument, PDFName, PDFNumber, PDFRawStream, PDFRef } from 'pdf-lib';
+import { PDFDict, PDFDocument, PDFName, PDFNumber, PDFRawStream, PDFRef, degrees } from 'pdf-lib';
 import type { PDFObject } from 'pdf-lib';
 import * as pdfjs from 'pdfjs-dist/legacy/build/pdf.mjs';
 import createVerovioModule from 'verovio/wasm';
@@ -182,6 +182,60 @@ describe('exportCanonicalPdf', () => {
     return tc.items.map((it) => ('str' in it ? it.str : '')).join('');
   }
 
+
+  type Mat = readonly [number, number, number, number, number, number];
+  const mul = (m: Mat, n: Mat): Mat => [
+    n[0] * m[0] + n[1] * m[2], n[0] * m[1] + n[1] * m[3],
+    n[2] * m[0] + n[3] * m[2], n[2] * m[1] + n[3] * m[3],
+    n[4] * m[0] + n[5] * m[2] + m[4], n[4] * m[1] + n[5] * m[3] + m[5],
+  ];
+  interface Drawn { readonly bbox: { x0: number; y0: number; x1: number; y1: number }; readonly staffYs: number[] }
+  /** What was actually drawn on a page: path bounds in top-left mm after the CTM, plus horizontal-line path y's. */
+  async function measureDrawn(bytes: Uint8Array, pageIndex: number, pageHeightMm: number): Promise<Drawn> {
+    const doc = await pdfjs.getDocument({ data: bytes.slice(), useSystemFonts: false, disableFontFace: true }).promise;
+    const ops = await (await doc.getPage(pageIndex + 1)).getOperatorList();
+    let ctm: Mat = [1, 0, 0, 1, 0, 0];
+    const stack: Mat[] = [];
+    const bbox = { x0: Infinity, y0: Infinity, x1: -Infinity, y1: -Infinity };
+    const ys = new Set<number>();
+    ops.fnArray.forEach((fn, i) => {
+      const a = ops.argsArray[i] as unknown[];
+      if (fn === pdfjs.OPS.save) stack.push(ctm);
+      else if (fn === pdfjs.OPS.restore) ctm = stack.pop() ?? ctm;
+      else if (fn === pdfjs.OPS.transform) ctm = mul(ctm, a as unknown as Mat);
+      else if (fn === pdfjs.OPS.constructPath) {
+        const mm = a[2] as ArrayLike<number>;
+        const pts: [number, number][] = [[mm[0]!, mm[1]!], [mm[2]!, mm[3]!]];
+        const dev = pts.map(([x, y]) => [ctm[0] * x + ctm[2] * y + ctm[4], ctm[1] * x + ctm[3] * y + ctm[5]] as const);
+        for (const [x, y] of dev) {
+          bbox.x0 = Math.min(bbox.x0, x / MM); bbox.x1 = Math.max(bbox.x1, x / MM);
+          const ymm = pageHeightMm - y / MM;
+          bbox.y0 = Math.min(bbox.y0, ymm); bbox.y1 = Math.max(bbox.y1, ymm);
+        }
+        // A horizontal staff-line candidate: wide and (almost) flat.
+        if (Math.abs(dev[1]![1] - dev[0]![1]) < 0.01 && Math.abs(dev[1]![0] - dev[0]![0]) / MM > 20) ys.add(Math.round((pageHeightMm - dev[0]![1] / MM) * 1000) / 1000);
+      }
+    });
+    return { bbox, staffYs: [...ys].sort((p, q) => p - q) };
+  }
+
+  it('draws MEI content inside the content rect at the true staff size', async () => {
+    const result = await compose(LETTER, true);
+    const out = await exportCanonicalPdf(result, { assets, fonts });
+    const idx = result.pages.findIndex((p) => p.kind === 'mei');
+    const page = result.pages[idx]!;
+    const d = await measureDrawn(out.bytes, idx, page.heightMm);
+    console.log('DRAWN', JSON.stringify(d.bbox), 'CONTENT', JSON.stringify(page.content), 'STAFF', JSON.stringify(d.staffYs.slice(0, 6)));
+    const c = page.content;
+    const tol = 0.5;
+    expect(d.bbox.x0).toBeGreaterThanOrEqual(c.xMm - tol);
+    expect(d.bbox.y0).toBeGreaterThanOrEqual(c.yMm - tol);
+    expect(d.bbox.x1).toBeLessThanOrEqual(c.xMm + c.widthMm + tol);
+    expect(d.bbox.y1).toBeLessThanOrEqual(c.yMm + c.heightMm + tol);
+    expect(d.staffYs.length).toBeGreaterThanOrEqual(5);
+    for (let i = 1; i < 5; i++) expect(Math.abs(d.staffYs[i]! - d.staffYs[i - 1]! - 1.8)).toBeLessThan(0.05);
+  }, WASM_TIMEOUT_MS);
+
   it('converts top-left mm rects to bottom-left pt', () => {
     const r = mmRectToPdfPt({ xMm: 10, yMm: 20, widthMm: 30, heightMm: 40 }, 200);
     expect(r.x).toBeCloseTo(10 * MM, 9);
@@ -223,6 +277,14 @@ describe('exportCanonicalPdf', () => {
       if (p.kind === 'fixed') expect(n).toEqual({ images: 0, forms: 1 });
       if (p.kind === 'scan') expect(n.images).toBe(p.images.length);
     });
+    // The embedded page's real size matches what compose recorded.
+    const fx = result.pages.find((q) => q.kind === 'fixed')!;
+    if (fx.kind === 'fixed') {
+      const src = await PDFDocument.load(pdfBytes[fx.sourceUrl]!);
+      const sz = src.getPage(fx.sourcePageIndex).getSize();
+      expect(Math.abs(sz.width - fx.sourceSizePt.width)).toBeLessThan(0.5);
+      expect(Math.abs(sz.height - fx.sourceSizePt.height)).toBeLessThan(0.5);
+    }
     // Fixed source text stays real text (vector, not rasterised).
     const fixedIdx = result.pages.findIndex((p) => p.kind === 'fixed');
     expect(await pageText(out.bytes, fixedIdx)).toContain('Credo in unum');
@@ -276,6 +338,19 @@ describe('exportCanonicalPdf', () => {
     const shorter: AssetLoader = { async bytes(url) { return url.endsWith('.pdf') ? makeSourcePdf([[612, 792]]) : assets.bytes(url, null); } };
     const pages = result.pages.map((p) => (p === fixed ? { ...fixed, sourcePageIndex: 1 } : p));
     await expect(exportCanonicalPdf({ ...result, pages }, { assets: shorter, fonts })).rejects.toThrow(/^FIXED_PAGE_COUNT_MISMATCH/);
+  }, WASM_TIMEOUT_MS);
+
+  it('rejects a rotated fixed source', async () => {
+    const result = await compose(LETTER, false);
+    const rotated: AssetLoader = {
+      async bytes(url) {
+        if (!url.endsWith('.pdf')) return assets.bytes(url, null);
+        const d = await PDFDocument.load(pdfBytes[url]!);
+        d.getPage(0).setRotation(degrees(90));
+        return d.save();
+      },
+    };
+    await expect(exportCanonicalPdf(result, { assets: rotated, fonts })).rejects.toThrow(/^FIXED_PAGE_COUNT_MISMATCH: rotated-source/);
   }, WASM_TIMEOUT_MS);
 
   it('refuses an incomplete layout', async () => {
