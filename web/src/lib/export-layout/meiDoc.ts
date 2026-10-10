@@ -43,6 +43,7 @@ function revealSplitSustains(doc: Document, brokenMeasureIds: ReadonlySet<string
     if (id) byXmlId.set(id, e);
   }
   const continuations = Array.from(byXmlId.values()).filter((e) => e.getAttribute('type') === 'split-continuation');
+  const revealed = new Set<string>();
   for (const cont of continuations) {
     if (localName(cont) !== 'note') continue;
     const prevId = refId(cont.getAttribute('prev'));
@@ -55,6 +56,7 @@ function revealSplitSustains(doc: Document, brokenMeasureIds: ReadonlySet<string
 
     cont.removeAttribute('head.visible');
     cont.removeAttribute('stem.visible');
+    revealed.add(contId);
 
     // Courtesy accidental: copy the written accid from the first fragment of the chain.
     let first: Element = prev;
@@ -77,6 +79,31 @@ function revealSplitSustains(doc: Document, brokenMeasureIds: ReadonlySet<string
     tie.setAttribute('startid', `#${prevId}`);
     tie.setAttribute('endid', `#${contId}`);
     measure.appendChild(tie);
+  }
+  retargetSustainTies(doc, byXmlId, revealed);
+}
+
+/**
+ * The converter draws a note's tie from its first head to the next note's first head, across the
+ * hidden fragments. Once a fragment is revealed at a break (with its own split-tie from the one
+ * before), the arc to the next note must start at the last revealed head, or it would run over it.
+ */
+function retargetSustainTies(doc: Document, byXmlId: ReadonlyMap<string, Element>, revealed: ReadonlySet<string>): void {
+  if (revealed.size === 0) return;
+  for (const tie of Array.from(doc.getElementsByTagName('tie'))) {
+    if (tie.getAttribute('type') === 'split-tie') continue;
+    let current = refId(tie.getAttribute('startid'));
+    const seen = new Set<string>();
+    let last = current;
+    while (current && !seen.has(current)) {
+      seen.add(current);
+      const next = refId(byXmlId.get(current)?.getAttribute('next') ?? null);
+      if (!next) break;
+      if (revealed.has(next)) last = next;
+      current = next;
+    }
+    const start = refId(tie.getAttribute('startid'));
+    if (last && last !== start) tie.setAttribute('startid', `#${last}`);
   }
 }
 

@@ -46,6 +46,7 @@ MEI_NS = "http://www.music-encoding.org/ns/mei"
 _XML_ID = "{http://www.w3.org/XML/1998/namespace}id"
 _M = "{" + MEI_NS + "}"
 SPLIT_CONTINUATION = "split-continuation"
+SPLIT_TIE = "split-tie"  # inserted by the layout code when it reveals a split at a break
 
 _DUR = {
     "maxima": Fraction(8),
@@ -300,6 +301,12 @@ def normalize_mei(xml: bytes, provenance: Mapping[str, str]) -> NormalizedScore:
     for tag, kind in (("slur", "slur"), ("gliss", "voice-line")):
         for el in root.iter(_M + tag):
             spans.add((kind, resolve(_ref(el.get("startid"))), resolve(_ref(el.get("endid")))))  # type: ignore[arg-type]
+    for el in root.iter(_M + "tie"):
+        if el.get("type") == SPLIT_TIE:
+            continue
+        start, end = _ref(el.get("startid")), _ref(el.get("endid"))
+        if start is not None and end is not None:
+            spans.add(("tie", resolve(start), resolve(end)))
     for key in layer_order:
         events = [f for f in frags if f.layer_key == key and not f.absorbed]
         for i, f in enumerate(events):

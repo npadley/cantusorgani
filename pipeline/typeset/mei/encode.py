@@ -164,8 +164,15 @@ def _representable(value: Fraction) -> tuple[int, int] | None:
     return None
 
 
-def _fragment_notated(duration: Fraction, original: NotatedDuration) -> NotatedDuration:
-    """Notated value for a fragment: keep the event's own scale when the fragment fits it."""
+def _fragment_notated(duration: Fraction, original: NotatedDuration, first: bool = False) -> NotatedDuration:
+    """Notated value for a fragment of an event cut at a measure line.
+
+    The first fragment of a scaled event (LilyPond ``2*7/4``) keeps the event's written head (a half
+    head), with a scale that gives the fragment its real length, so the head looks as in LilyPond and
+    sits at its real onset. Other fragments keep the event's own scale when they fit it."""
+    if first and original.scale != 1:
+        written = Fraction(1, 2**original.log) * (2 - Fraction(1, 2**original.dots))
+        return NotatedDuration(log=original.log, dots=original.dots, scale=duration / written)
     exact = _representable(duration / original.scale)
     if exact is not None:
         return NotatedDuration(log=exact[0], dots=exact[1], scale=original.scale)
@@ -305,12 +312,14 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
     hidden_rests = {eid for use in ir.features if use.family == "hidden-rest" for eid in use.event_ids}
 
     tie_from_previous: set[str] = set()
+    tie_target: dict[str, Event] = {}
     last_in_layer: dict[str, Event] = {}
     for event in ir.events:
         previous = last_in_layer.get(event.layer_id)
         if previous is not None and previous.tie_to_next:
             if event.kind == "note":
                 tie_from_previous.add(event.id)
+                tie_target[previous.id] = event
             else:
                 diagnostics.append(
                     _diagnostic(
@@ -383,19 +392,6 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                 attrs["con"] = "d"
             verse.children.append(_Node("syl", attrs, [], syllable.text))
 
-    def tie_attr(frag: _Fragment) -> str | None:
-        """Real (visible) tie attribute. Ties between fragments of one event are control events."""
-        event = frag.event
-        incoming = event.id in tie_from_previous and frag.index == 0
-        outgoing = event.tie_to_next and frag.index == frag.count - 1
-        if outgoing and incoming:
-            return "m"
-        if outgoing:
-            return "i"
-        if incoming:
-            return "t"
-        return None
-
     def accidental_attrs(event: Event) -> dict[str, str]:
         assert event.pitch is not None
         attrs: dict[str, str] = {}
@@ -442,9 +438,6 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
             attrs["visible"] = "false"
         elif event.notehead == "quilisma" or continuation:
             attrs["head.visible"] = "false"
-        tie = tie_attr(frag)
-        if tie is not None:
-            attrs["tie"] = tie
         node = _Node("note", attrs)
         if not continuation:
             for number in sorted(verses.get(event.id, {})):
@@ -461,7 +454,7 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
         edges = [event.onset, *cuts, end]
         pieces: list[_Fragment] = []
         for index, (lo, hi) in enumerate(pairwise(edges)):
-            notated = event.notated if not cuts else _fragment_notated(hi - lo, event.notated)
+            notated = event.notated if not cuts else _fragment_notated(hi - lo, event.notated, index == 0)
             if index == 0:
                 fragment_id = mei_of[event.id]
             else:
@@ -493,6 +486,19 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
         if span.kind == "voice-line":
             attrs["lform"] = "dotted"
         controls[measure_of(start.onset)].append(_Node(tag, attrs))
+
+    # Ties are explicit control events from the first (visible) head of a note to the first head of
+    # the note it is tied to, so a sustain cut into fragments still shows one arc between the two
+    # real heads (as LilyPond does), never an arc starting at a hidden fragment.
+    for event in ir.events:
+        target = tie_target.get(event.id)
+        if target is not None and event.kind == "note":
+            controls[measure_of(event.onset)].append(
+                _Node(
+                    "tie",
+                    {"xml:id": "t" + mei_of[event.id], "startid": "#" + mei_of[event.id], "endid": "#" + mei_of[target.id]},
+                )
+            )
 
     for event in ir.events:
         if event.notehead == "quilisma":
