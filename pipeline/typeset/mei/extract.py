@@ -10,11 +10,14 @@ import re
 from collections import defaultdict
 from dataclasses import dataclass
 from fractions import Fraction
+from itertools import pairwise
 from typing import Literal, cast
 
 from pipeline.typeset.mei.diagnostics import Diagnostic, SourceLocation
 from pipeline.typeset.mei.model import (
     FEATURE_FAMILIES,
+    Boundary,
+    BoundaryReason,
     Division,
     DivisionKind,
     EntryMarker,
@@ -659,3 +662,113 @@ def feature_uses(
                 use(family, _loc_or_blank(row.fields[width], kind))
             previous[row.staff] = state
     return tuple(u for family in FEATURE_FAMILIES for u in found[family])
+
+
+# --- boundaries (card A2d) -----------------------------------------------------------
+
+_DIVISION_PRIORITY = ("finalis", "maxima", "maior", "minima")
+
+
+def _after_text(syllables: list[LyricSyllable], onset: Fraction) -> str | None:
+    """Last word ending before ``onset`` in the primary (first) lyrics context.
+
+    Take the last non-blank syllable starting before ``onset``, extend backwards while the previous
+    syllable has ``hyphen_after``, and join the non-blank texts as printed.
+    """
+    before = [s for s in syllables if s.onset < onset]
+    while before and before[-1].text == "":
+        before.pop()
+    if not before:
+        return None
+    first = len(before) - 1
+    while first > 0 and before[first - 1].hyphen_after:
+        first -= 1
+    return "".join(s.text for s in before[first:])
+
+
+def build_boundaries(
+    rows: list[Row],
+    layers: tuple[LayerDef, ...],
+    events: tuple[Event, ...],
+    spans: tuple[Span, ...],
+    lyrics: tuple[LyricSyllable, ...],
+    divisions: tuple[Division, ...],
+) -> tuple[Boundary, ...]:
+    """Candidate break points with safety and the preceding printed word.
+
+    Candidates are the note attack onsets of chant-role layers, plus every ``break`` and division
+    onset, for 0 < t < total duration. The first failing reason wins:
+    not-common-onset (no chant layer attacks at t; only possible for break/division rows),
+    sustain-not-splittable (a chant event spans t), slur-crosses, voice-line-crosses,
+    lyric-extender-crosses. Accompaniment and voice-line events (notes, rests, skips) that span t
+    are splittable (spec 6.3): they do not make t unsafe, and ``splits_at`` lists them for A3d,
+    which ties or divides them. A tie crossing t is never a reason.
+    """
+    total = total_duration(events)
+    chant_layers = {layer.id for layer in layers if layer.role == "chant"}
+    chant_events = [e for e in events if e.layer_id in chant_layers]
+    break_onsets = {r.onset for r in rows if r.kind == "break"}
+    division_at: dict[Fraction, str] = {}
+    for d in divisions:
+        current = division_at.get(d.onset)
+        if current is None or _DIVISION_PRIORITY.index(d.kind) < _DIVISION_PRIORITY.index(current):
+            division_at[d.onset] = d.kind
+
+    chant_attacks = {e.onset for e in chant_events if e.kind == "note"}
+    candidates = chant_attacks | break_onsets | set(division_at)
+    candidates = {t for t in candidates if 0 < t < total}
+
+    by_id = {e.id: e for e in events}
+    crossing = {
+        kind: [(by_id[s.start_event_id].onset, by_id[s.end_event_id].onset) for s in spans if s.kind == kind]
+        for kind in ("slur", "voice-line")
+    }
+    attack_layer = {e.id: e.layer_id for e in events}
+    ordered = sorted(lyrics, key=lambda s: s.onset)
+    primary = [s for s in ordered if s.anchor_event_id and attack_layer[s.anchor_event_id] in chant_layers]
+    if primary:
+        primary = [s for s in primary if s.lyrics_context == primary[0].lyrics_context]
+    by_context: dict[str, list[LyricSyllable]] = defaultdict(list)
+    for syllable in ordered:
+        by_context[syllable.lyrics_context].append(syllable)
+    extenders = [
+        (s.onset, nxt.onset)
+        for context in by_context.values()
+        for s, nxt in pairwise(context)
+        if s.extender_after
+    ]
+
+    boundaries: list[Boundary] = []
+    for index, t in enumerate(sorted(candidates)):
+        reason: BoundaryReason | None = None
+        if t not in chant_attacks:
+            reason = "not-common-onset"
+        elif any(e.onset < t < e.onset + e.duration for e in chant_events):
+            reason = "sustain-not-splittable"
+        elif any(start < t <= end for start, end in crossing["slur"]):
+            reason = "slur-crosses"
+        elif any(start < t <= end for start, end in crossing["voice-line"]):
+            reason = "voice-line-crosses"
+        elif any(start < t < nxt for start, nxt in extenders):
+            reason = "lyric-extender-crosses"
+        boundaries.append(
+            Boundary(
+                id=f"b{index:03d}",
+                onset=t,
+                source_break=t in break_onsets,
+                division=cast("DivisionKind | None", division_at.get(t)),
+                after_text=_after_text(primary, t),
+                safe=reason is None,
+                reason=reason,
+            )
+        )
+    return tuple(boundaries)
+
+
+def splits_at(boundary: Boundary, events: tuple[Event, ...]) -> tuple[str, ...]:
+    """Ids of events that start before the boundary and end after it, in event order.
+
+    For a safe boundary these are all accompaniment or voice-line events, which A3d must split.
+    """
+    t = boundary.onset
+    return tuple(e.id for e in events if e.onset < t < e.onset + e.duration)
