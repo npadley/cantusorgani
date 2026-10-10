@@ -42,3 +42,28 @@ _(S0–S7 append here: date, spike, decision, evidence paths, consequences for d
 - B3a may use the existing presets as final.
 - forScore documents "Best Fit" as fitting the page as large as possible without clipping. "Standard Fit" letterboxes to a common aspect ratio. The "fills the screen in forScore" copy therefore holds in Best Fit only. Whether toolbars overlap the page is undocumented, so it needs a real-device check ([U]).
 - 10.2-inch iPads (9th gen, 4:3) fall outside every preset; they use Custom 155.9 × 207.8 mm.
+
+### S1: Extraction strategy (2026-10-09)
+- **Decision:** extract with an **iteration-time listener**, `pipeline/typeset/mei/listen_full.ily`, extractor version **`listen_full/1`**. It runs via `pipeline.typeset.lilypond.run(..., includes=(INCLUDE, pipeline/typeset/mei))` on a temporary wrapper that defines `listen-full-root`, includes the listener and then includes the unmodified source. **No compiler-tree fallback is needed** for any ScoreIR property of F1–F5, so `xml-export.ily` is not used.
+- **Lyric anchoring is exact.** The anchor comes from `associatedVoiceContext`. For every lyric row in all fixtures, a note of the associated layer starts at the same onset.
+- **Effective staff** comes from `ly:context-find voice 'Staff` at event time.
+- **Grob facts** come from acknowledgers using `ly:grob-property-data`:
+  - notehead transparency and stencil, where `\quil` is `ly:text-interface::print`;
+  - stem visibility;
+  - division kind, from the `eq?` BreathingSign stencil procedure.
+- **Evidence:** `docs/superpowers/experiments/s1-extraction.md`.
+  - The Kyrie TSV equals `baseline-events.json` on all 4 layers: 358 notes and 5 skips, with every onset, duration and pitch matching.
+  - All 82 Kyrie lyrics are anchored to `up:chant`, and there are 3 stanza markers.
+  - F3 has `gliss` rows, F4 has a `head … quilisma` row, and F5 has `div maxima` rows.
+  - Two runs gave byte-identical TSVs.
+  - The raw TSVs are in `tests/fixtures/mei/extraction/`.
+- **Contract change (needs coordinator review):** Contracts §4 is rewritten with the final grammar. The change list is at its end:
+  - new `version`, `staff`, `voice`, `rhead`, `acc` and `col` rows;
+  - `loc` on `head` and `stem`;
+  - note fields in IR units.
+- **Finding:** F3 (`agnus_IX.ly`) uses only `\voiceLine "down" "down"`, so its effective staff never changes. `tests/fixtures/mei/extraction/agnus_XI.tsv` (three `\voiceLine "down" "up"`, plus printed naturals) is checked in as supplementary proof of cross-staff and `acc` rows. The coordinator decides whether it becomes a pilot fixture.
+- **Consequences:**
+  - A2a wraps the runner above and checks the `version` row.
+  - A2b keys `head`/`stem`/`acc` rows by (onset, layer, loc), not adjacency, and dedupes `key` rows (one per voice).
+  - A2b derives rest/skip `notated` from `dur`, and fails on `main@grace` onsets.
+  - A2c derives `LayerRole` from lyric association and hidden heads.

@@ -1,0 +1,1066 @@
+0	-	-	version	listen_full/1	2.26.0
+0	-	up	staff	1
+0	-	down	staff	2
+0	-	up	key	2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:11:1
+0	up:chant	up	voice	0	voiceOne
+0	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:11
+0	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:15
+0	-	up	key	2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:11:1
+0	up:#1	up	voice	1	voiceTwo
+0	up:#1	up	rest	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:0
+0	-	down	key	2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:11:1
+0	down:#2	down	voice	2	voiceOne
+0	down:#2	down	rest	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:56:0
+0	-	down	key	2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:11:1
+0	down:#3	down	voice	3	voiceTwo
+0	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:0
+0	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:3
+0	-	down	key	2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:11:1
+0	down:#4	down	voice	4	voiceThree
+0	down:#4	down	skip	55/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:83:0
+0	lyrics:#0	up:chant	lyric	A	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:17:0
+0	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:17:2
+0	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:11
+0	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:11
+0	up:#1	up	rhead	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:0
+0	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:0
+0	-	up	clef	clefs.G	-2	-
+0	down:#2	down	rhead	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:56:0
+0	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:56:0
+0	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:0
+0	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:0
+0	-	down	clef	clefs.F	2	-
+1/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:17
+1/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:22
+1/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:17
+1/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:17
+1/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:24
+1/2	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:28
+1/2	up:#1	up	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:3
+1/2	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:6
+1/2	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:5
+1/2	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:8
+1/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:17:5
+1/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:24
+1/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:24
+1/2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:3
+1/2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:3
+1/2	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:5
+1/2	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:5
+3/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:30
+3/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:33
+3/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:30
+3/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:30
+1	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:35
+1	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:39
+1	up:#1	up	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:8
+1	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:11
+1	down:#2	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:56:7
+1	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:10
+1	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:13
+1	lyrics:#0	up:chant	lyric	gnus	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:17:7
+1	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:35
+1	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:35
+1	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:8
+1	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:8
+1	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:56:7
+1	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:56:7
+1	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:10
+1	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:10
+5/4	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:41
+5/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:44
+5/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:41
+5/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:41
+3/2	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:46
+3/2	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:50
+3/2	up:#1	up	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:13
+3/2	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:16
+3/2	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:56:12
+3/2	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:15
+3/2	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:18
+3/2	lyrics:#0	up:chant	lyric	De	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:17:12
+3/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:17:15
+3/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:46
+3/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:46
+3/2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:13
+3/2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:13
+3/2	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:56:12
+3/2	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:56:12
+3/2	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:15
+3/2	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:15
+7/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:52
+7/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:55
+7/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:52
+7/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:52
+2	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:57
+2	up:#1	up	note	b	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:18
+2	down:#2	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:56:15
+2	down:#3	down	note	e	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:20
+2	lyrics:#0	up:chant	lyric	i,	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:17:18
+2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:57
+2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:28:57
+2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:18
+2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:44:18
+2	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:56:15
+2	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:56:15
+2	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:20
+2	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:68:20
+9/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:1
+9/4	up:#1	up	rest	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:0
+9/4	down:#2	down	rest	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:0
+9/4	down:#3	down	rest	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:0
+9/4	lyrics:#0	up:chant	lyric	qui	 * 	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:18:20
+9/4	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+9/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:1
+9/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:1
+9/4	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+9/4	up:#1	up	rhead	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:0
+9/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:0
+9/4	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+9/4	down:#2	down	rhead	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:0
+9/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:0
+9/4	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+9/4	down:#3	down	rhead	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:0
+9/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:0
+5/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:7
+5/2	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:11
+5/2	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:3
+5/2	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:7
+5/2	down:#2	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:3
+5/2	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:3
+5/2	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:7
+5/2	lyrics:#0	up:chant	lyric	tol	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:18:24
+5/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:18:28
+5/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:7
+5/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:7
+5/2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:3
+5/2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:3
+5/2	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:3
+5/2	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:3
+5/2	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:3
+5/2	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:3
+11/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:13
+11/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:16
+11/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:13
+11/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:13
+3	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:18
+3	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:22
+3	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:9
+3	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:17
+3	down:#2	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:8
+3	down:#3	down	note	b	0	2	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:9
+3	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:17
+3	lyrics:#0	up:chant	lyric	lis	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:18:31
+3	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:18
+3	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:18
+3	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:9
+3	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:9
+3	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:8
+3	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:8
+3	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:9
+3	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:9
+13/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:24
+13/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:24
+13/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:24
+7/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:28
+7/2	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:33
+7/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:28
+7/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:28
+15/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:35
+15/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:41
+15/4	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:19
+15/4	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:27
+15/4	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:15
+15/4	down:#3	down	note	b	0	2	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:19
+15/4	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:27
+15/4	lyrics:#0	up:chant	lyric	pec	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:18:35
+15/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:18:39
+15/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:35
+15/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:35
+15/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:19
+15/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:19
+15/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:15
+15/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:15
+15/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:19
+15/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:19
+4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:43
+4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:43
+4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:43
+17/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:47
+17/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:50
+17/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:47
+17/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:47
+9/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:52
+9/2	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:56
+9/2	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:29
+9/2	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:37
+9/2	down:#2	down	note	f	1	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:22
+9/2	down:#3	down	note	b	0	2	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:29
+9/2	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:37
+9/2	lyrics:#0	up:chant	lyric	cá	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:18:42
+9/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:18:45
+9/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:52
+9/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:52
+9/2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:29
+9/2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:29
+9/2	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:22
+9/2	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:22
+9/2	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:29
+9/2	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:29
+19/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:58
+19/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:58
+19/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:58
+5	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:62
+5	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:67
+5	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:62
+5	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:62
+21/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:69
+21/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:73
+21/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:39
+21/4	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:43
+21/4	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:31
+21/4	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:39
+21/4	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:43
+21/4	lyrics:#0	up:chant	lyric	ta	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:18:48
+21/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:69
+21/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:69
+21/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:39
+21/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:39
+21/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:31
+21/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:31
+21/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:39
+21/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:39
+11/2	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:75
+11/2	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:78
+11/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:75
+11/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:75
+23/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:80
+23/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:84
+23/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:45
+23/4	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:49
+23/4	down:#2	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:34
+23/4	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:45
+23/4	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:49
+23/4	lyrics:#0	up:chant	lyric	mun	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:18:51
+23/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:18:55
+23/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:80
+23/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:80
+23/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:45
+23/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:45
+23/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:34
+23/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:34
+23/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:45
+23/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:45
+6	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:86
+6	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:120
+6	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:86
+6	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:86
+25/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:122
+25/4	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:51
+25/4	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:55
+25/4	down:#2	down	note	b	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:37
+25/4	down:#3	down	note	b	0	2	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:51
+25/4	lyrics:#0	up:chant	lyric	di:	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:18:58
+25/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:122
+25/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:29:122
+25/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:51
+25/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:45:51
+25/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:37
+25/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:57:37
+25/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:51
+25/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:69:51
+13/2	-	-	break	data/typeset/include/noh2.ily:75:24
+13/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:1
+13/2	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:0
+13/2	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:4
+13/2	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:0
+13/2	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:0
+13/2	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:3
+13/2	lyrics:#0	up:chant	lyric	mi	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:19:0
+13/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:19:3
+13/2	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+13/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:1
+13/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:1
+13/2	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+13/2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:0
+13/2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:0
+13/2	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+13/2	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:0
+13/2	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:0
+13/2	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+13/2	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:0
+13/2	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:0
+27/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:7
+27/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:11
+27/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:6
+27/4	down:#2	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:3
+27/4	down:#2	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:8
+27/4	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:5
+27/4	lyrics:#0	up:chant	lyric	se	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:19:6
+27/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:19:9
+27/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:7
+27/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:7
+27/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:6
+27/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:6
+27/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:3
+27/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:3
+27/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:5
+27/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:5
+7	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:13
+7	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:16
+7	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:13
+7	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:13
+29/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:18
+29/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:22
+29/4	up:#1	up	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:10
+29/4	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:13
+29/4	down:#2	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:10
+29/4	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:8
+29/4	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:11
+29/4	lyrics:#0	up:chant	lyric	ré	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:19:12
+29/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:19:15
+29/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:18
+29/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:18
+29/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:10
+29/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:10
+29/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:10
+29/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:10
+29/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:8
+29/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:8
+15/2	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:24
+15/2	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:27
+15/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:24
+15/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:24
+31/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:29
+31/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:33
+31/4	up:#1	up	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:15
+31/4	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:22
+31/4	down:#2	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:15
+31/4	down:#3	down	col	0.9	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:25
+31/4	down:#3	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:25
+31/4	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:32
+31/4	lyrics:#0	up:chant	lyric	re	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:19:18
+31/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:29
+31/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:29
+31/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:15
+31/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:15
+31/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:15
+31/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:15
+31/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:25
+31/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:25
+8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:35
+8	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:35
+8	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:35
+33/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:41
+33/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:44
+33/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:41
+33/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:41
+17/2	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:46
+17/2	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:50
+17/2	up:#1	up	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:24
+17/2	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:27
+17/2	down:#2	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:22
+17/2	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:34
+17/2	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:37
+17/2	lyrics:#0	up:chant	lyric	no	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:19:21
+17/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:19:24
+17/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:46
+17/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:46
+17/2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:24
+17/2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:24
+17/2	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:22
+17/2	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:22
+17/2	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:34
+17/2	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:34
+35/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:52
+35/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:55
+35/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:52
+35/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:52
+9	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:57
+9	up:#1	up	note	b	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:29
+9	down:#2	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:27
+9	down:#3	down	note	e	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:39
+9	lyrics:#0	up:chant	lyric	bis.	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:19:27
+9	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:57
+9	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:31:57
+9	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:29
+9	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:46:29
+9	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:27
+9	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:58:27
+9	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:39
+9	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:70:39
+37/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:1
+37/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:5
+37/4	up:#1	up	rest	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:47:0
+37/4	down:#2	down	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:59:0
+37/4	down:#3	down	rest	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:71:0
+37/4	lyrics:#0	up:chant	lyric	A	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:20:0
+37/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:20:2
+37/4	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+37/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:1
+37/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:1
+37/4	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+37/4	up:#1	up	rhead	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:47:0
+37/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:47:0
+37/4	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+37/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:59:0
+37/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:59:0
+37/4	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2
+37/4	down:#3	down	rhead	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:71:0
+37/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:71:0
+19/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:7
+19/2	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:12
+19/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:7
+19/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:7
+39/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:14
+39/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:18
+39/4	up:#1	up	note	f	1	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:47:3
+39/4	down:#2	down	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:59:4
+39/4	lyrics:#0	up:chant	lyric	gnus	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:20:5
+39/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:14
+39/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:14
+39/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:47:3
+39/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:47:3
+39/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:59:4
+39/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:59:4
+10	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:20
+10	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:23
+10	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:20
+10	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:20
+41/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:26
+41/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:30
+41/4	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:47:9
+41/4	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:47:13
+41/4	down:#2	down	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:59:8
+41/4	down:#3	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:71:7
+41/4	lyrics:#0	up:chant	lyric	De	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:20:10
+41/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:20:13
+41/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:26
+41/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:26
+41/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:47:9
+41/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:47:9
+41/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:59:8
+41/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:59:8
+41/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:71:7
+41/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:71:7
+41/4	down:#3	down	acc	natural	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:71:7
+21/2	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:32
+21/2	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:36
+21/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:32
+21/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:32
+21/2	up:chant	up	acc	natural	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:32
+43/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:38
+43/4	up:#1	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:47:15
+43/4	down:#2	down	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:59:12
+43/4	down:#3	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:71:11
+43/4	lyrics:#0	up:chant	lyric	i,	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:20:16
+43/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:38
+43/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:32:38
+43/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:47:15
+43/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:47:15
+43/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:59:12
+43/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:59:12
+43/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:71:11
+43/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:71:11
+11	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:1
+11	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:5
+11	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:0
+11	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:8
+11	down:#2	down	note	f	1	3	1	0	2	1	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:0
+11	down:#3	down	note	b	0	2	1	0	2	1	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:0
+11	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:8
+11	lyrics:#0	up:chant	lyric	qui	 * 	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:21:20
+11	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+11	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:1
+11	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:1
+11	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+11	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:0
+11	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:0
+11	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+11	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:0
+11	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:0
+11	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+11	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:0
+11	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:0
+45/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:7
+45/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:7
+45/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:7
+23/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:11
+23/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:11
+23/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:11
+47/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:15
+47/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:18
+47/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:15
+47/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:15
+12	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:20
+12	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:26
+12	up:#1	up	note	d	0	4	1	0	5	2	5/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:10
+12	down:#2	down	note	a	0	3	1	0	5	2	5/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:9
+12	down:#2	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:16
+12	down:#3	down	note	b	0	2	1	0	5	2	5/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:10
+12	lyrics:#0	up:chant	lyric	tol	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:21:24
+12	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:21:28
+12	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:20
+12	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:20
+12	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:10
+12	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:10
+12	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:9
+12	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:9
+12	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:10
+12	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:10
+49/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:28
+49/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:28
+49/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:28
+25/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:32
+25/2	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:37
+25/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:32
+25/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:32
+51/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:39
+51/4	lyrics:#0	up:chant	lyric	lis	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:21:31
+51/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:39
+51/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:39
+13	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:45
+13	lyrics:#0	up:chant	lyric	pec	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:21:35
+13	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:21:39
+13	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:45
+13	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:33:45
+53/4	-	-	break	data/typeset/include/noh2.ily:75:24
+53/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:1
+53/4	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:18
+53/4	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:18
+53/4	down:#2	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:21
+53/4	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:18
+53/4	lyrics:#0	up:chant	lyric	cá	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:21:42
+53/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:21:45
+53/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:1
+53/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:1
+53/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:18
+53/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:18
+53/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:18
+53/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:18
+53/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:18
+53/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:18
+53/4	down:#3	down	acc	natural	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:18
+27/2	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:5
+27/2	lyrics:#0	up:chant	lyric	ta	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:21:48
+27/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:5
+27/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:5
+55/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:9
+55/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:13
+55/4	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:22
+55/4	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:23
+55/4	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:21
+55/4	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:28
+55/4	down:#4	down	gliss	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:85:0
+55/4	down:#4	down	col	0	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:85:23
+55/4	down:#4	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:85:23
+55/4	lyrics:#0	up:chant	lyric	mun	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:21:51
+55/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:21:55
+55/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:9
+55/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:9
+55/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:22
+55/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:22
+55/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:23
+55/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:23
+55/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:21
+55/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:21
+55/4	down:#4	down	head	1	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:85:23
+55/4	down:#4	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:85:23
+14	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:15
+14	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:15
+14	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:15
+57/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:50
+57/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:82
+57/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:50
+57/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:50
+29/2	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:84
+29/2	up:#1	up	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:30
+29/2	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:33
+29/2	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:30
+29/2	down:#2	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:35
+29/2	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:30
+29/2	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:33
+29/2	down:#4	up	col	0	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:85:30
+29/2	down:#4	up	note	a	0	3	1	0	1	2	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:85:30
+29/2	lyrics:#0	up:chant	lyric	di:	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:21:58
+29/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:84
+29/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:34:84
+29/2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:30
+29/2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:48:30
+29/2	down:#4	up	head	1	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:85:30
+29/2	down:#4	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:85:30
+29/2	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:30
+29/2	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:60:30
+29/2	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:30
+29/2	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:72:30
+59/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:1
+59/4	up:#1	up	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:0
+59/4	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:0
+59/4	down:#2	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:5
+59/4	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:0
+59/4	down:#4	up	skip	6	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:88:0
+59/4	lyrics:#0	up:chant	lyric	mi	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:22:0
+59/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:22:3
+59/4	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+59/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:1
+59/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:1
+59/4	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+59/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:0
+59/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:0
+59/4	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+59/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:0
+59/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:0
+59/4	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+59/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:0
+59/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:0
+15	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:7
+15	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:11
+15	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:3
+15	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:7
+15	down:#2	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:7
+15	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:3
+15	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:7
+15	lyrics:#0	up:chant	lyric	se	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:22:6
+15	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:22:9
+15	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:7
+15	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:7
+15	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:3
+15	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:3
+15	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:7
+15	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:7
+15	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:3
+15	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:3
+61/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:13
+61/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:16
+61/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:13
+61/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:13
+31/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:18
+31/2	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:22
+31/2	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:9
+31/2	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:13
+31/2	down:#2	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:12
+31/2	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:9
+31/2	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:13
+31/2	lyrics:#0	up:chant	lyric	ré	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:22:12
+31/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:22:15
+31/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:18
+31/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:18
+31/2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:9
+31/2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:9
+31/2	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:12
+31/2	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:12
+31/2	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:9
+31/2	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:9
+63/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:24
+63/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:27
+63/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:24
+63/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:24
+16	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:29
+16	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:35
+16	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:15
+16	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:19
+16	down:#2	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:15
+16	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:15
+16	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:19
+16	lyrics:#0	up:chant	lyric	re	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:22:18
+16	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:29
+16	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:29
+16	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:15
+16	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:15
+16	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:15
+16	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:15
+16	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:15
+16	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:15
+65/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:37
+65/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:40
+65/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:37
+65/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:37
+33/2	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:42
+33/2	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:46
+33/2	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:21
+33/2	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:20
+33/2	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:21
+33/2	lyrics:#0	up:chant	lyric	no	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:22:21
+33/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:22:24
+33/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:42
+33/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:42
+33/2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:21
+33/2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:21
+33/2	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:20
+33/2	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:20
+33/2	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:21
+33/2	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:21
+67/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:48
+67/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:51
+67/4	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:25
+67/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:48
+67/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:48
+67/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:25
+67/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:25
+17	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:53
+17	up:#1	up	note	b	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:29
+17	down:#2	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:23
+17	down:#3	down	note	e	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:25
+17	lyrics:#0	up:chant	lyric	bis.	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:22:27
+17	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:53
+17	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:35:53
+17	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:29
+17	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:49:29
+17	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:23
+17	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:61:23
+17	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:25
+17	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:73:25
+69/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:1
+69/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:5
+69/4	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:50:0
+69/4	down:#2	down	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:62:0
+69/4	down:#3	down	rest	5/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:74:0
+69/4	lyrics:#0	up:chant	lyric	A	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:23:0
+69/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:23:2
+69/4	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+69/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:1
+69/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:1
+69/4	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+69/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:50:0
+69/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:50:0
+69/4	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+69/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:62:0
+69/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:62:0
+69/4	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2
+69/4	down:#3	down	rhead	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:74:0
+69/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:74:0
+35/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:7
+35/2	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:12
+35/2	up:#1	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:50:4
+35/2	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:50:10
+35/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:7
+35/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:7
+35/2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:50:4
+35/2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:50:4
+71/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:14
+71/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:18
+71/4	up:#1	up	note	f	1	4	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:50:12
+71/4	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:50:22
+71/4	down:#2	down	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:62:4
+71/4	down:#2	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:62:12
+71/4	lyrics:#0	up:chant	lyric	gnus	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:23:5
+71/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:14
+71/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:14
+71/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:50:12
+71/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:50:12
+71/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:62:4
+71/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:62:4
+18	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:20
+18	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:20
+18	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:20
+73/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:24
+73/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:29
+73/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:24
+73/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:24
+37/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:31
+37/2	up:#1	up	note	f	1	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:50:24
+37/2	down:#2	down	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:62:14
+37/2	down:#3	down	note	c	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:74:7
+37/2	lyrics:#0	up:chant	lyric	De	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:23:10
+37/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:23:13
+37/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:31
+37/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:31
+37/2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:50:24
+37/2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:50:24
+37/2	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:62:14
+37/2	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:62:14
+37/2	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:74:7
+37/2	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:74:7
+75/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:35
+75/4	down:#3	down	note	b	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:74:13
+75/4	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:74:16
+75/4	lyrics:#0	up:chant	lyric	i,	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:23:16
+75/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:35
+75/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:36:35
+75/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:74:13
+75/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:74:13
+19	-	-	break	data/typeset/include/noh2.ily:75:24
+19	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:1
+19	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:5
+19	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:0
+19	down:#2	down	note	c	1	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:0
+19	down:#3	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:0
+19	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:3
+19	lyrics:#0	up:chant	lyric	qui	 * 	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:24:20
+19	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+19	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:1
+19	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:1
+19	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+19	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:0
+19	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:0
+19	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+19	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:0
+19	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:0
+19	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+19	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:0
+19	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:0
+77/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:7
+77/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:10
+77/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:7
+77/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:7
+39/2	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:12
+39/2	up:#1	up	note	f	1	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:4
+39/2	down:#2	down	col	0.9	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:18
+39/2	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:18
+39/2	down:#2	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:21
+39/2	down:#3	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:5
+39/2	lyrics:#0	up:chant	lyric	tol	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:24:24
+39/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:24:28
+39/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:12
+39/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:12
+39/2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:4
+39/2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:4
+39/2	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:18
+39/2	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:18
+39/2	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:5
+39/2	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:5
+79/4	up:chant	up	note	e	0	5	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:17
+79/4	lyrics:#0	up:chant	lyric	lis	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:24:31
+79/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:17
+79/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:17
+20	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:22
+20	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:27
+20	up:#1	up	note	f	1	4	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:10
+20	down:#2	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:23
+20	down:#2	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:30
+20	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:8
+20	lyrics:#0	up:chant	lyric	pec	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:24:35
+20	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:24:39
+20	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:22
+20	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:22
+20	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:10
+20	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:10
+20	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:23
+20	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:23
+20	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:8
+20	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:8
+81/4	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:29
+81/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:29
+81/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:29
+41/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:36
+41/2	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:39
+41/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:36
+41/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:36
+83/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:41
+83/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:45
+83/4	up:#1	up	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:20
+83/4	down:#2	down	note	b	0	3	1	0	2	1	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:32
+83/4	down:#3	down	note	e	0	3	1	0	2	1	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:15
+83/4	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:22
+83/4	down:#4	down	gliss	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:90:0
+83/4	down:#4	down	col	0	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:90:23
+83/4	down:#4	down	note	b	0	3	1	0	2	1	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:90:23
+83/4	lyrics:#0	up:chant	lyric	cá	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:24:42
+83/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:24:45
+83/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:41
+83/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:41
+83/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:20
+83/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:20
+83/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:32
+83/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:32
+83/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:15
+83/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:15
+83/4	down:#4	down	head	1	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:90:23
+83/4	down:#4	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:90:23
+21	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:47
+21	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:47
+21	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:47
+85/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:51
+85/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:54
+85/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:51
+85/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:51
+43/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:56
+43/2	lyrics:#0	up:chant	lyric	ta	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:24:48
+43/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:56
+43/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:56
+87/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:62
+87/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:66
+87/4	up:#1	up	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:28
+87/4	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:39
+87/4	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:24
+87/4	down:#4	up	col	0	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:90:30
+87/4	down:#4	up	note	b	0	3	1	0	1	2	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:90:30
+87/4	lyrics:#0	up:chant	lyric	mun	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:24:51
+87/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:24:55
+87/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:62
+87/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:62
+87/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:28
+87/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:28
+87/4	down:#4	up	head	1	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:90:30
+87/4	down:#4	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:90:30
+87/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:39
+87/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:39
+87/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:24
+87/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:24
+22	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:68
+22	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:102
+22	down:#4	up	skip	9/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:93:0
+22	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:68
+22	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:68
+89/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:104
+89/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:110
+89/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:31
+89/4	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:42
+89/4	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:27
+89/4	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:30
+89/4	lyrics:#0	up:chant	lyric	di:	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:24:58
+89/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:104
+89/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:104
+89/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:31
+89/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:31
+89/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:42
+89/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:42
+89/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:27
+89/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:27
+45/2	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:112
+45/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:112
+45/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:112
+91/4	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:116
+91/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:119
+91/4	up:#1	up	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:35
+91/4	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:38
+91/4	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:45
+91/4	down:#2	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:50
+91/4	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:32
+91/4	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:35
+91/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:116
+91/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:38:116
+91/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:35
+91/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:51:35
+91/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:45
+91/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:63:45
+91/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:32
+91/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:75:32
+23	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:1
+23	up:#1	up	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:0
+23	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:0
+23	down:#2	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:5
+23	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:0
+23	lyrics:#0	up:chant	lyric	do	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:25:0
+23	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:25:3
+23	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+23	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:1
+23	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:1
+23	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+23	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:0
+23	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:0
+23	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+23	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:0
+23	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:0
+23	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+23	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:0
+23	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:0
+93/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:7
+93/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:11
+93/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:3
+93/4	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:7
+93/4	down:#2	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:7
+93/4	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:3
+93/4	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:7
+93/4	lyrics:#0	up:chant	lyric	na	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:25:6
+93/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:7
+93/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:7
+93/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:3
+93/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:3
+93/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:7
+93/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:7
+93/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:3
+93/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:3
+47/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:13
+47/2	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:16
+47/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:13
+47/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:13
+95/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:18
+95/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:22
+95/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:9
+95/4	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:13
+95/4	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:12
+95/4	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:9
+95/4	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:13
+95/4	lyrics:#0	up:chant	lyric	nó	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:25:9
+95/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:25:12
+95/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:18
+95/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:18
+95/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:9
+95/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:9
+95/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:12
+95/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:12
+95/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:9
+95/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:9
+24	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:24
+24	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:27
+24	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:24
+24	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:24
+97/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:29
+97/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:33
+97/4	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:15
+97/4	down:#2	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:15
+97/4	down:#3	down	note	b	0	2	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:15
+97/4	down:#3	down	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:23
+97/4	down:#4	down	gliss	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:95:0
+97/4	down:#4	down	col	0	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:95:23
+97/4	down:#4	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:95:23
+97/4	lyrics:#0	up:chant	lyric	bis	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:25:15
+97/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:29
+97/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:29
+97/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:15
+97/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:15
+97/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:15
+97/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:15
+97/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:15
+97/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:15
+97/4	down:#4	down	head	1	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:95:23
+97/4	down:#4	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:95:23
+49/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:35
+49/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:35
+49/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:35
+99/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:41
+99/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:44
+99/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:41
+99/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:41
+25	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:46
+25	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:50
+25	up:#1	up	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:23
+25	up:#1	up	tie	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:26
+25	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:22
+25	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:25
+25	down:#4	up	col	0	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:95:30
+25	down:#4	up	note	b	0	3	1	0	1	2	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:95:30
+25	lyrics:#0	up:chant	lyric	pa	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:25:19
+25	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:25:22
+25	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:46
+25	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:46
+25	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:23
+25	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:23
+25	down:#4	up	head	1	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:95:30
+25	down:#4	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:95:30
+25	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:22
+25	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:22
+25	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:25
+25	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:25
+101/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:52
+101/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:55
+101/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:52
+101/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:52
+51/2	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:57
+51/2	up:#1	up	note	b	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:28
+51/2	down:#2	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:25
+51/2	down:#3	down	note	e	0	3	2	0	1	1	1/4	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:29
+51/2	lyrics:#0	up:chant	lyric	cem.	-	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:25:25
+51/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:57
+51/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:39:57
+51/2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:28
+51/2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:52:28
+51/2	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:25
+51/2	down:#2	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:64:25
+51/2	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:29
+51/2	down:#3	down	stem	1	data/typeset/src/vol-5/missa-xi/agnus_XI.ly:76:29
+103/4	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+103/4	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+103/4	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+103/4	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2
