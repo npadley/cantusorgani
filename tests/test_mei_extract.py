@@ -382,7 +382,7 @@ def test_feature_uses_kyrie_reports_marker_blank_and_division_families():
 
 # --- A2d: boundaries -----------------------------------------------------------------
 
-from pipeline.typeset.mei.extract import build_boundaries
+from pipeline.typeset.mei.extract import build_boundaries, splits_at
 
 
 def load_boundaries(name: str):
@@ -424,8 +424,7 @@ def test_build_boundaries_inside_real_kyrie_slur_is_unsafe_slur_crosses():
     start, end = by_id[slur.start_event_id].onset, by_id[slur.end_event_id].onset
     inside = [b for b in boundaries if start < b.onset <= end]
     assert inside
-    assert all(not b.safe and b.reason in ("slur-crosses", "not-common-onset") for b in inside)
-    assert any(b.reason == "slur-crosses" for b in boundaries)
+    assert all(not b.safe and b.reason == "slur-crosses" for b in inside)
 
 
 def test_build_boundaries_agnus_xi_has_voice_line_crosses():
@@ -451,18 +450,81 @@ def _synthetic(body: str):
     return build_boundaries(rows, layers, events, spans, lyrics, build_divisions(rows, layers))
 
 
-def test_build_boundaries_sustain_is_not_common_onset():
-    note = "\tup\tnote\tc\t0\t4\t{log}\t0\t1\t1\t{dur}\ta.ly:{n}:0\n"
+_NOTE = "\tup\tnote\tc\t0\t4\t{log}\t0\t1\t1\t{dur}\ta.ly:{n}:0\n"
+
+
+def test_build_boundaries_chant_sustain_is_not_splittable():
+    # Both layers carry lyrics (chant role); layer 0 sustains across layer 1's attack at 1/4.
     body = (
-        "0\tup:chant" + note.format(log=2, dur="1/4", n=1)
-        + "1/4\tup:chant" + note.format(log=2, dur="1/4", n=2)
-        + "0\tup:#1" + note.format(log=1, dur="1/2", n=3)
-        + "1/4\t-\t-\tbreak\ta.ly:2:0\n"
+        "0\tup:chant" + _NOTE.format(log=1, dur="1/2", n=1)
+        + "0\tup:#1" + _NOTE.format(log=2, dur="1/4", n=2)
+        + "1/4\tup:#1" + _NOTE.format(log=2, dur="1/4", n=3)
+        + "0\tlyrics:#0\tup:chant\tlyric\tA\t-\ta.ly:5:0\n"
+        + "0\tlyrics:#1\tup:#1\tlyric\tB\t-\ta.ly:6:0\n"
     )
     boundaries = _synthetic(body)
-    assert [(b.onset, b.safe, b.reason, b.source_break) for b in boundaries] == [
-        (Fraction(1, 4), False, "not-common-onset", True)
+    assert [(b.onset, b.safe, b.reason) for b in boundaries] == [
+        (Fraction(1, 4), False, "sustain-not-splittable"),
     ]
+
+
+def test_build_boundaries_break_without_chant_attack_is_not_common_onset():
+    body = (
+        "0\tup:chant" + _NOTE.format(log=1, dur="1/2", n=1)
+        + "0\tup:#1" + _NOTE.format(log=2, dur="1/4", n=2)
+        + "1/4\tup:#1" + _NOTE.format(log=2, dur="1/4", n=3)
+        + "1/4\t-\t-\tbreak\ta.ly:2:0\n"
+    )
+    (b,) = _synthetic(body)
+    assert (b.safe, b.reason) == (False, "not-common-onset")
+
+
+def test_build_boundaries_accompaniment_sustain_is_splittable():
+    body = (
+        "0\tup:chant" + _NOTE.format(log=2, dur="1/4", n=1)
+        + "1/4\tup:chant" + _NOTE.format(log=2, dur="1/4", n=2)
+        + "0\tup:#1" + _NOTE.format(log=1, dur="1/2", n=3)
+        + "0\tlyrics:#0\tup:chant\tlyric\tA\t-\ta.ly:5:0\n"
+    )
+    rows = parse_rows(SYNTHETIC_HEAD + body)
+    layers = build_layers(rows)
+    events, _ = build_events(rows, "a.ly")
+    (b,) = build_boundaries(rows, layers, events, (), (), ())
+    assert (b.onset, b.safe, b.reason) == (Fraction(1, 4), True, None)
+    sustained = next(e for e in events if e.layer_id == "up:#1")
+    assert splits_at(b, events) == (sustained.id,)
+
+
+@pytest.mark.parametrize("name", ["kyrie_IX", "al_ego_dilecto.csv", "agnus_XI", "ite_Ib", "co_inclina_aurem_tuam.csv", "agnus_IX"])
+def test_build_boundaries_every_source_break_is_safe(name):
+    boundaries, _, _ = load_boundaries(name)
+    assert all(b.safe for b in boundaries if b.source_break)
+
+
+def test_splits_at_agnus_xi_source_break_lists_sustained_accompaniment():
+    boundaries, _, events = load_boundaries("agnus_XI")
+    layer_of = {e.id: e.layer_id for e in events}
+    breaks = [b for b in boundaries if b.source_break]
+    crossing = [splits_at(b, events) for b in breaks]
+    assert any(crossing)
+    for b, ids in zip(breaks, crossing, strict=True):
+        assert all(not layer_of[i].endswith("chant") for i in ids)
+
+
+def test_build_boundaries_counts_by_reason():
+    expected = {
+        "kyrie_IX": (179, 81, {"slur-crosses": 98}),
+        "agnus_XI": (102, 50, {"slur-crosses": 48, "voice-line-crosses": 4}),
+        "agnus_IX": (115, 50, {"slur-crosses": 59, "voice-line-crosses": 6}),
+        "al_ego_dilecto.csv": (99, 50, {"slur-crosses": 49}),
+        "co_inclina_aurem_tuam.csv": (40, 17, {"slur-crosses": 23}),
+        "ite_Ib": (19, 7, {"slur-crosses": 12}),
+    }
+    for name, (total, safe, reasons) in expected.items():
+        boundaries, _, _ = load_boundaries(name)
+        assert len(boundaries) == total
+        assert sum(b.safe for b in boundaries) == safe
+        assert Counter(b.reason for b in boundaries if not b.safe) == reasons
 
 
 def test_build_boundaries_single_layer_without_breaks_works():
