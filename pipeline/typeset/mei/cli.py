@@ -129,3 +129,30 @@ def convert_command(
         f"sha256 {encoded.artifact_sha256}; wrote {out}"
     )
     return 1 if errors else 0
+
+
+# --- typeset-mei-manifest --------------------------------------------------------------
+
+
+def manifest_command(
+    records_dir: Path, out: Path, artifacts: Path | None = None, matched: Path | None = None
+) -> int:
+    """Build the approved-conversion manifest from ConversionRecord JSON files in RECORDS_DIR."""
+    from pipeline.typeset.mei.manifest import (
+        build_manifest_report,
+        current_inputs_from_files,
+        load_matched_parts,
+        record_from_dict,
+        write_manifest,
+    )
+
+    records = [
+        record_from_dict(json.loads(path.read_text(encoding="utf-8"))) for path in sorted(records_dir.glob("*.json"))
+    ]
+    parts = load_matched_parts(matched or Path(__file__).resolve().parents[3] / "data" / "typeset" / "manifest.json")
+    manifest, excluded = build_manifest_report(records, parts, artifacts or records_dir, current_inputs_from_files)
+    write_manifest(manifest, out)
+    for key, reason in sorted(excluded.items()):
+        print(f"excluded {key}: {reason}")
+    print(f"wrote {len(manifest.parts)} approved conversion(s) to {out}")
+    return 0

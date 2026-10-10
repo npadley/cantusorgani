@@ -173,6 +173,13 @@ def build_parser() -> argparse.ArgumentParser:
     mei_convert.add_argument("source", type=Path)
     mei_convert.add_argument("--out", type=Path, required=True)
 
+    mei_manifest = subs.add_parser("typeset-mei-manifest",
+                                   help="build the approved-conversion manifest from ConversionRecord JSON files")
+    mei_manifest.add_argument("--records", type=Path, required=True)
+    mei_manifest.add_argument("--out", type=Path, required=True)
+    mei_manifest.add_argument("--artifacts", type=Path, default=None,
+                              help="folder of <sha256>/score.mei + boundaries.json (default: --records)")
+
     cat = subs.add_parser("catalog", help="build data/catalog.json and review-queue.json")
     cat.add_argument("--volume", required=True)
     cat.add_argument("--no-parts", action="store_true",
@@ -380,6 +387,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "typeset-mei-convert":
         from pipeline.typeset.mei.cli import convert_command
         return convert_command(args.source, args.out)
+    if args.command == "typeset-mei-manifest":
+        from pipeline.typeset.mei.cli import manifest_command
+        return manifest_command(args.records, args.out, args.artifacts)
     if args.command == "typeset-source-batch":
         import json
 
