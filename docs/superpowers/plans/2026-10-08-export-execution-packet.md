@@ -322,7 +322,7 @@ Text-scan counts are classified as candidates only. Remove the old PA assertion 
 - Per-layer `(onset, duration, pitch)` equals `baseline-events.json`.
 - `total_duration == Fraction(373, 8)`.
 - 358 notes and 5 skips.
-- F2 has a 5th layer with `role == "voice-line"` and every `notehead == "hidden"`.
+- F3 (`agnus_XI`) has a 5th layer with `role == "voice-line"` and every `notehead == "hidden"` (F2's `voiceLines` voice is empty and emits no layer; S1).
 - F3 events have `staff_id != home_staff_id` where `\change Staff` applies.
 - No float appears anywhere (add a test that greps `extract.py` for `float(`).
 
