@@ -38,7 +38,7 @@ test("the real layout worker loads Verovio, lays out the Kyrie MEI, then fails i
   test.skip(probe.status() === 404, "dist was built without E2E_TEST_PAGES=1");
 
   await page.route(`**${MEI_URL}`, (route) =>
-    route.fulfill({ contentType: "application/xml", body: readFileSync(`${FIXTURES}/kyrie-ix-experiment.mei`) }));
+    route.fulfill({ contentType: "application/xml", body: readFileSync(`${FIXTURES}/kyrie-ix.mei`) }));
   const workerFailures: string[] = [];
   page.on("pageerror", (error) => workerFailures.push(error.message));
 
