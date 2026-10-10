@@ -1,0 +1,1137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customize export (approval mockup)</title>
+<style>
+/* ===== tokens.css (inlined unchanged) ===== */
+/* Reading tokens. Every component consumes these; none may introduce a raw hex,
+   a px font size, or an ad-hoc shadow.
+
+   The reference is a printed liturgical edition — rules, generous margins, small
+   caps — not a SaaS landing page. Forbidden: gradients, glassmorphism, drop
+   shadows on cards, decorative radius above 2px, more than one accent colour.
+
+   Contrast ratios below were measured against --paper / --warn-bg. */
+
+:root, :root[data-scan-polarity="normal"] {
+  color-scheme: light;
+  --score-filter: none;
+
+  /* Ink. The scans are pure #000 on #FFF; never tint the ground behind them. */
+  --paper:     #fdfcf9;   /* warm off-white, 1942 letterpress reference */
+  --ink:       #14120e;   /* on --paper: 15.8:1  AAA */
+  --ink-muted: #524e45;   /* on --paper:  7.4:1  AAA */
+  --rule:      #c9c2b4;   /* hairlines and table rules; never used for text */
+  --control-border: #8a8272; /* edges of inputs and buttons: 3.7:1 on --paper (WCAG 1.4.11 asks 3:1) */
+  --accent:    #6b2318;   /* rubric red, from the source edition; 8.9:1  AAA */
+  --warn-bg:   #fbf3e2;
+  --warn-ink:  #5a4409;   /* on --warn-bg: 7.1:1  AAA */
+
+  /* Type: one serif for text, one UI face. No third family. */
+  --font-text: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-ui: system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --step--1: clamp(0.94rem, 0.9rem + 0.2vw, 1rem);
+  --step-0:  clamp(1.06rem, 1rem + 0.3vw, 1.19rem);   /* body: >=17px on tablet */
+  --step-1:  clamp(1.33rem, 1.2rem + 0.6vw, 1.6rem);
+  --step-2:  clamp(1.66rem, 1.4rem + 1.2vw, 2.25rem);
+
+  --s-1: 0.25rem; --s-2: 0.5rem; --s-3: 1rem;
+  --s-4: 1.5rem;  --s-5: 2.5rem; --s-6: 4rem;
+
+  --tap-min: 44px;    /* every interactive target, no exceptions */
+  --measure: 62ch;
+  --radius: 2px;      /* print-shop square, not app-store round */
+  --page-max: 62rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-scan-polarity="normal"]) {
+    color-scheme: dark;
+    --score-filter: invert(1);
+    --paper: #14140f;
+    --ink: #ece7da;
+    --ink-muted: #b3ac9c;
+    --rule: #3c382f;
+    --control-border: #7a7363; /* 3.9:1 on --paper */
+    --accent: #e0a08c;
+    --warn-bg: #2a2318;
+    --warn-ink: #e8c87a;
+  }
+}
+
+/* The viewer's explicit choice controls both the page and its music. */
+:root[data-scan-polarity="inverted"] {
+  color-scheme: dark;
+  --score-filter: invert(1);
+  --paper: #14140f;
+  --ink: #ece7da;
+  --ink-muted: #b3ac9c;
+  --rule: #3c382f;
+  --accent: #e0a08c;
+  --warn-bg: #2a2318;
+  --warn-ink: #e8c87a;
+}
+
+:is(.system, .typeset-music) { filter: var(--score-filter); }
+/* ===== base.css (inlined unchanged, except its first line, an @import of tokens.css, is dropped) ===== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 { font-weight: 600; line-height: 1.2; margin: 0 0 var(--s-2); }
+h1 { font-size: var(--step-2); }
+h2 { font-size: var(--step-1); }
+h3 { font-size: var(--step-0); }
+
+a { color: var(--accent); text-underline-offset: 0.15em; }
+a:hover { text-decoration-thickness: 2px; }
+
+/* Focus must be visible: someone tabbing through a Mass page at a console has no
+   pointer. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
+
+img { max-width: 100%; height: auto; }
+
+/* `hidden` must hide: a component's own display (flex, grid) would otherwise
+   override the browser's rule and show an element meant to be gone. */
+[hidden] { display: none !important; }
+
+.page { max-width: var(--page-max); margin: 0 auto; padding: var(--s-4) var(--s-3) var(--s-6); }
+.prose { max-width: var(--measure); }
+.muted { color: var(--ink-muted); }
+.small { font-size: var(--step--1); }
+.ui { font-family: var(--font-ui); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: var(--s-2); top: -3rem;
+  background: var(--paper); color: var(--ink);
+  padding: var(--s-2) var(--s-3); border: 1px solid var(--rule);
+  transition: top 0.15s;
+  z-index: 10;
+}
+.skip-link:focus { top: var(--s-2); }
+
+button, .button {
+  font: inherit;
+  font-family: var(--font-ui);
+  min-height: var(--tap-min);
+  padding: var(--s-2) var(--s-3);
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+button:hover:not(:disabled) { border-color: var(--ink-muted); }
+button:disabled { color: var(--ink-muted); cursor: not-allowed; }
+
+.notice {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+  border-left: 3px solid currentColor;
+  padding: var(--s-3);
+  margin: var(--s-3) 0;
+  font-family: var(--font-ui);
+  font-size: var(--step--1);
+}
+
+hr { border: 0; border-top: 1px solid var(--rule); margin: var(--s-5) 0; }
+
+/* Organists print from the browser. Without this they get navigation chrome on
+   the music stand. */
+@media print {
+  :root, :root[data-scan-polarity] { color-scheme: light; --paper: #fff; --ink: #000; --ink-muted: #333; --rule: #999; }
+  body { font-size: 11pt; }
+  nav, .no-print, .skip-link, button { display: none !important; }
+  .page { max-width: none; padding: 0; }
+  .system, .typeset-music { break-inside: avoid; filter: none !important; }
+  .systems figure, figure { break-inside: avoid; }
+  a[href]::after { content: ""; }
+}
+
+/* A shared rubric marker for expandable text and export selections. */
+.disclosure-summary {
+  display: flex; align-items: center; gap: var(--s-2);
+  min-height: var(--tap-min); cursor: pointer; list-style: none;
+}
+.disclosure-summary::-webkit-details-marker { display: none; }
+.disclosure-cue {
+  display: inline-flex; flex-shrink: 0; color: var(--accent);
+  transition: transform 130ms ease;
+}
+details[open] > summary .disclosure-cue { transform: rotate(90deg); }
+@media (prefers-reduced-motion: reduce) { .disclosure-cue { transition: none; } }
+</style>
+<style>
+/* ===== Editor CSS (UI spec sections 1 and 5). No transitions, no radius above 2px. ===== */
+:root { --print-paper: #ffffff; --print-ink: #000000; --proto-h: 3.5rem; }
+html:has(dialog.cx[open]) { overflow: hidden; }
+
+/* Host page standing in for a Mass page */
+.host .export { display: flex; flex-direction: column; gap: var(--s-2); align-items: flex-start; margin: var(--s-4) 0; padding-top: var(--s-3); border-top: 1px solid var(--rule); }
+.host .go { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
+.host .paper { display: flex; align-items: center; gap: var(--s-1); min-height: var(--tap-min); }
+.host .paper select { min-height: var(--tap-min); }
+#export-status { margin: 0; min-height: 1.4em; }
+
+/* Container */
+dialog.cx {
+  inset: 0 auto auto 0; width: 100vw; height: calc(100dvh - var(--proto-h));
+  max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
+  background: var(--paper); color: var(--ink); overflow: hidden;
+}
+dialog.cx[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+dialog.cx::backdrop { background: var(--paper); }
+dialog.cx[data-forced] { width: 390px; left: 50%; margin-left: -195px; border-left: 1px solid var(--rule); border-right: 1px solid var(--rule); }
+.cx, .cx button, .cx input, .cx select { font-family: var(--font-ui); }
+
+.cx-head { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s-1) var(--s-3); border-bottom: 1px solid var(--rule); padding: var(--s-2) var(--s-3); }
+.cx-head h2 { margin: 0; font-family: var(--font-text); font-size: var(--step-1); font-weight: 600; }
+.cx-head h2:focus { outline: none; }
+.cx-head h2:focus-visible { outline: none; }
+.cx-sel { margin: 0; flex: 1; }
+.cx[data-bp="phone"] .cx-sel { flex: 1 1 100%; order: 3; }
+.cx-close { margin-left: auto; min-width: var(--tap-min); }
+
+.cx-body { min-height: 0; overflow-y: auto; }
+.cx[data-bp="wide"] .cx-body { display: grid; grid-template-columns: 20rem minmax(0, 1fr); overflow: hidden; }
+.cx-settings { padding: var(--s-3); min-width: 0; }
+.cx[data-bp="wide"] .cx-settings { overflow-y: auto; border-right: 1px solid var(--rule); }
+.cx-preview { position: relative; min-width: 0; }
+.cx[data-bp="wide"] .cx-preview { overflow: auto; }
+
+/* Groups */
+.cx fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.cx .cx-grp { border-top: 1px solid var(--rule); padding-top: var(--s-3); margin-top: var(--s-3); }
+.cx .cx-grp.first { border-top: 0; padding-top: 0; margin-top: 0; }
+.cx-h { font-family: var(--font-text); font-variant-caps: all-small-caps; letter-spacing: 0.06em; font-size: var(--step-0); color: var(--accent); font-weight: 600; margin: 0 0 var(--s-2); padding: 0; }
+.cx-grp legend.cx-h { float: left; width: 100%; }
+.cx-grp legend.cx-h + * { clear: both; }
+.cx-det > summary .cx-h { margin: 0; }
+.cx[data-bp="wide"] .cx-det > summary { display: none; }
+.cx:not([data-bp="wide"]) .cx-det legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.cx-field { margin-top: var(--s-3); }
+.cx-field:first-of-type { margin-top: 0; }
+.cx-lab { display: block; font-family: var(--font-ui); font-weight: 600; margin-bottom: var(--s-1); }
+.cx-help { margin: var(--s-1) 0 0; }
+.cx-partlist { list-style: none; padding: 0; margin: 0 0 var(--s-2); }
+.cx-partlist li { margin-bottom: var(--s-2); }
+.cx-pn { display: block; font-size: var(--step-0); }
+.cx-fit { font-size: var(--step-0); font-weight: 600; margin: var(--s-3) 0 0; font-family: var(--font-ui); }
+.cx-fit[data-pending="true"] { color: var(--ink-muted); font-weight: 400; }
+.cx-err { color: var(--warn-ink); margin: var(--s-1) 0 0; }
+
+/* Segmented radios */
+.seg { display: flex; }
+.seg-o { flex: 1 1 0; position: relative; display: block; margin-left: -1px; cursor: pointer; }
+.seg-o:first-child { margin-left: 0; }
+.seg-o > span {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  min-height: var(--tap-min); min-width: var(--tap-min); height: 100%; padding: 0 var(--s-1);
+  border: 1px solid var(--control-border); font: inherit; font-family: var(--font-ui); background: var(--paper); color: var(--ink);
+}
+.seg-o:first-child > span { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
+.seg-o:last-child > span { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
+.seg-o input:checked + span { border: 2px solid var(--accent); color: var(--accent); font-weight: 600; padding: 0 calc(var(--s-1) - 1px); position: relative; z-index: 1; }
+.seg-o input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.seg-o input:disabled + span { color: var(--ink-muted); border-style: dashed; cursor: not-allowed; }
+.seg.tall .seg-o > span { min-height: 56px; }
+.seg-o small { font-size: var(--step--1); font-weight: 400; color: var(--ink-muted); }
+.seg-o input:checked + span small { color: var(--accent); }
+.seg-o svg { display: inline-block; vertical-align: middle; margin-right: var(--s-1); }
+.seg-row { display: inline-flex; align-items: center; gap: var(--s-1); white-space: nowrap; }
+.staffglyph { display: block; }
+
+/* Steppers */
+.cx-step { display: flex; align-items: stretch; gap: 0; }
+.cx-step button { min-width: var(--tap-min); border-color: var(--control-border); }
+.cx-step.big button { width: 56px; height: 56px; padding: 0; font-size: var(--step-1); }
+.cx-step output, .cx-step .val { flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; border-top: 1px solid var(--control-border); border-bottom: 1px solid var(--control-border); padding: 0 var(--s-2); font-family: var(--font-ui); }
+.cx-step.m { align-items: center; gap: var(--s-2); }
+.cx-step.m input, .cx-num { min-height: var(--tap-min); width: 5rem; padding: 0 var(--s-2); border: 1px solid var(--control-border); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; font-family: var(--font-ui); }
+.cx-custom { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-3); align-items: flex-end; }
+.cx-custom label { display: flex; flex-direction: column; font-family: var(--font-ui); font-size: var(--step--1); }
+.cx-custom .seg { min-width: 8rem; }
+
+button.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+button.primary:disabled { background: var(--paper); color: var(--ink-muted); border-color: var(--rule); }
+button.link { background: none; border: 0; padding: 0 var(--s-1); min-height: var(--tap-min); min-width: var(--tap-min); color: var(--accent); text-decoration: underline; font: inherit; font-family: var(--font-ui); }
+button[aria-pressed="true"] { border: 2px solid var(--accent); color: var(--accent); font-weight: 600; }
+.cx-more summary .small { margin-left: var(--s-1); }
+.cx-storage { margin: var(--s-4) 0 0; }
+.cx .notice { margin: var(--s-2) 0; }
+.cx .notice p { margin: 0 0 var(--s-2); }
+.cx-acts { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.cx-acts button { border-color: var(--control-border); }
+
+/* Preview */
+.cx-toolbar { position: sticky; top: 0; z-index: 3; background: var(--paper); border-bottom: 1px solid var(--rule); padding: var(--s-2) var(--s-3); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); font-family: var(--font-ui); }
+.cx-tg { display: flex; align-items: center; gap: var(--s-2); }
+.cx-tg .seg { min-width: 12rem; }
+.cx-tg button { min-width: var(--tap-min); }
+.cx-tg output { min-width: 3.5em; text-align: center; }
+.cx-updating { margin-left: auto; }
+.cx-strip { font-weight: 600; }
+.cx-pages { padding: var(--s-4) var(--s-3); display: flex; flex-direction: column; gap: var(--s-5); overflow-x: auto; --z: 1; }
+.cx-pg { width: calc(var(--z) * 100%); margin-inline: auto; flex: none; }
+.cx-plabel { display: flex; justify-content: space-between; gap: var(--s-2); margin: 0 0 var(--s-1); font-family: var(--font-ui); }
+.cx-plabel .sub { display: block; }
+.cx-blank { margin: 0 0 var(--s-1); font-family: var(--font-ui); }
+.cx-pagebox { position: relative; container-type: inline-size; }
+.cx-page { position: relative; width: 100%; background: var(--print-paper); color: var(--print-ink); border: 1px solid var(--control-border); overflow: hidden; }
+.cx-pg.cont .cx-page { border: 0; }
+.cx-guide { position: absolute; border: 1px dashed var(--rule); pointer-events: none; }
+.cx-cap { margin: var(--s-1) 0 0; font-family: var(--font-ui); }
+.cx-sh { position: absolute; font-family: var(--font-text); font-variant-caps: all-small-caps; letter-spacing: 0.06em; font-size: max(0.8rem, 3.4cqw); font-weight: 600; }
+.cx-sys { position: absolute; overflow: hidden; aspect-ratio: 782 / 145; }
+.cx-sys img { position: absolute; top: 0; max-width: none; width: calc(840 / 782 * 100%); height: auto; left: calc(-24 / 782 * 100%); }
+.cx-scan { position: absolute; background: var(--rule); color: var(--print-ink); display: flex; align-items: center; justify-content: center; font-family: var(--font-ui); font-size: max(0.75rem, 2.2cqw); }
+.cx-fixed { position: absolute; }
+.cx-fixed img { width: 100%; height: 100%; object-fit: contain; object-position: top; display: block; }
+.cx-div { display: flex; align-items: center; gap: var(--s-2); font-family: var(--font-ui); }
+.cx-div::before, .cx-div::after { content: ""; flex: 1; border-top: 1px solid var(--rule); }
+
+/* Break editing */
+.cx-overlay { position: absolute; inset: 0; pointer-events: none; }
+.cx-overlay > * { pointer-events: auto; }
+.cx-bpline { position: absolute; width: 1px; background: var(--accent); pointer-events: none !important; }
+.cx-orig { position: absolute; color: var(--ink-muted); font-family: var(--font-ui); font-size: 0.75rem; pointer-events: none !important; }
+.cx-bp { position: absolute; width: var(--tap-min); height: var(--tap-min); min-height: var(--tap-min); padding: 0; margin: 0; background: transparent; border: 0; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; font-family: var(--font-ui); font-size: 0.75rem; color: var(--accent); cursor: pointer; }
+.cx-bp .box { width: 24px; height: 24px; border: 1px solid var(--accent); border-radius: var(--radius); background: var(--print-paper); display: flex; align-items: center; justify-content: center; }
+.cx-bp[data-kind="page"] .box { background: var(--accent); color: var(--print-paper); }
+.cx-bp[data-kind="orig"] { color: var(--ink-muted); }
+.cx-bp[data-kind="orig"] .box { border-color: var(--ink-muted); }
+.cx-bp[data-bad="true"] .box { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cx-bp:hover .box { border-width: 2px; }
+.cx-bplab { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); white-space: nowrap; background: var(--print-paper); color: var(--print-ink); padding: 0 var(--s-1); font-size: var(--step--1); }
+.cx-bp:hover .cx-bplab, .cx-bp:focus-visible .cx-bplab { display: block; }
+.cx-menu { position: absolute; z-index: 4; width: 20rem; max-width: 90%; background: var(--paper); color: var(--ink); border: 1px solid var(--control-border); border-radius: var(--radius); padding: var(--s-3); font-family: var(--font-ui); transform: translateX(-50%); margin-top: 26px; }
+.cx-menu p { margin: 0 0 var(--s-2); }
+.cx-menu button { display: block; width: 100%; margin-bottom: var(--s-2); border-color: var(--control-border); }
+.cx-menu .nav { display: flex; gap: var(--s-2); }
+.cx-menu .nav button { margin-bottom: var(--s-2); }
+.cx-menu button.link { width: auto; display: inline-block; margin: 0; }
+.cx[data-bp="phone"] .cx-menu { position: fixed; left: 0 !important; right: 0; top: auto !important; bottom: calc(var(--proto-h) + var(--foot-h, 8rem)); width: auto; max-width: none; transform: none; margin: 0; max-height: 60dvh; overflow-y: auto; }
+.cx[data-forced] .cx-menu { left: 50% !important; right: auto; margin-left: -195px; width: 390px; }
+
+/* Footer */
+.cx-foot { border-top: 1px solid var(--rule); padding: var(--s-2) var(--s-3); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1) var(--s-2); }
+#cx-status { flex: 1 1 12rem; margin: 0; min-height: 1.4em; font-family: var(--font-ui); }
+#cx-reset, #cx-cancel { margin-right: var(--s-4); }
+.cx[data-bp="phone"] #cx-status, .cx[data-bp="mid"] #cx-status { flex-basis: 100%; }
+.cx[data-bp="phone"] #cx-reset, .cx[data-bp="phone"] #cx-cancel { margin-right: 0; margin-left: 0; }
+.cx[data-bp="phone"] #cx-download { flex: 1; }
+
+/* Prototype control: not part of the editor */
+.proto { position: fixed; left: 0; right: 0; bottom: 0; height: var(--proto-h); display: flex; align-items: center; gap: var(--s-2); padding: 0 var(--s-3); background: var(--warn-bg); color: var(--warn-ink); border-top: 2px dashed var(--warn-ink); font-family: var(--font-ui); font-size: var(--step--1); z-index: 20; }
+.cx[data-bp="phone"] .proto .long { display: none; }
+.proto label { flex: none; }
+.proto select { flex: 1; min-width: 0; min-height: var(--tap-min); font: inherit; background: var(--paper); color: var(--ink); border: 1px solid var(--control-border); border-radius: var(--radius); }
+.cx[data-forced] .proto { left: 50%; right: auto; width: 390px; margin-left: -195px; }
+</style>
+</head>
+<body>
+<main class="page host no-print" id="host">
+  <h1>Missa IX · Kyrie</h1>
+  <p class="small muted prose ui">Prototype host page standing in for a Mass page. The export bar below is the existing one with the new "Customize export" button. The editor opens on load; use Close, then the button, to reopen it.</p>
+  <div class="export ui">
+    <div class="go">
+      <button id="export-btn" type="button">Export PDF (5 systems, ~1 page)</button>
+      <button id="export-customize" type="button">Customize export</button>
+      <label class="small paper">Paper
+        <select id="export-paper"><option value="letter">Letter (8½ × 11)</option><option value="a4">A4</option></select>
+      </label>
+    </div>
+    <p id="export-status" class="small" role="status" aria-live="polite"></p>
+  </div>
+</main>
+
+<dialog class="cx no-print" id="cx" aria-labelledby="cx-title" aria-describedby="cx-sel" data-bp="wide">
+  <header class="cx-head">
+    <h2 id="cx-title" tabindex="-1">Customize export</h2>
+    <p class="cx-sel ui small muted" id="cx-sel">Missa IX · Kyrie</p>
+    <button type="button" class="cx-close" id="cx-close">Close</button>
+  </header>
+
+  <div class="cx-body">
+    <aside class="cx-settings" aria-label="Export settings">
+      <section class="cx-grp first" aria-labelledby="h-parts">
+        <h3 class="cx-h" id="h-parts">In this PDF</h3>
+        <ul class="cx-partlist ui" id="cx-partlist"></ul>
+        <p class="small muted ui" style="margin:0">To change the parts, close this and tick them on the page.</p>
+      </section>
+
+      <fieldset class="cx-grp" id="g-fit">
+        <legend class="cx-h">Fit</legend>
+        <p class="small muted ui cx-help" id="f-applies" hidden style="margin:0 0 var(--s-2)"></p>
+        <div class="cx-field" id="f-music">
+          <span class="cx-lab" id="l-staff">Music size</span>
+          <div class="seg tall" role="radiogroup" aria-labelledby="l-staff" id="seg-staff"></div>
+          <p class="small muted ui cx-help">Height of one staff on the page.</p>
+        </div>
+        <p class="small muted ui" id="f-nomusic" hidden style="margin:0 0 var(--s-3)">Music size and line breaks apply only to customizable typeset. None of the parts in this PDF are.</p>
+        <div class="cx-field">
+          <span class="cx-lab" id="l-cap">Systems per page</span>
+          <div class="cx-step big" role="group" aria-label="Systems per page">
+            <button type="button" id="cap-minus" aria-label="Fewer systems per page">−</button>
+            <output id="cap-val" for="cap-minus cap-plus">As many as fit</output>
+            <button type="button" id="cap-plus" aria-label="More systems per page">+</button>
+          </div>
+          <p class="small muted ui cx-help">The most on any page. Fewer may fit with large music or your own page breaks.</p>
+          <p class="small muted ui cx-help" id="f-fixednote" hidden></p>
+        </div>
+        <p class="cx-fit" id="cx-fit" aria-hidden="true"></p>
+      </fieldset>
+
+      <details class="cx-grp cx-det" id="g-page" open>
+        <summary class="disclosure-summary"><span class="disclosure-cue" aria-hidden="true"><svg viewBox="0 0 16 16" width="16" height="16" focusable="false"><path d="M5 3 L10 8 L5 13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" /></svg></span><span class="cx-h">Page</span><span class="small muted ui" id="sum-page"></span></summary>
+        <fieldset>
+          <legend class="cx-h">Page</legend>
+          <div class="cx-field">
+            <span class="cx-lab" id="l-tier">Page size</span>
+            <div class="seg" role="radiogroup" aria-labelledby="l-tier" id="seg-tier"></div>
+            <div class="seg tall" role="radiogroup" aria-label="Print paper" id="seg-print" style="margin-top:var(--s-2)"></div>
+            <div class="seg tall" role="radiogroup" aria-label="iPad size" id="seg-ipad" style="margin-top:var(--s-2)"></div>
+            <div id="box-custom" style="margin-top:var(--s-2)">
+              <div class="cx-custom">
+                <label>Width <input class="cx-num" id="cw" type="number" step="any" inputmode="decimal" aria-describedby="e-custom"></label>
+                <label>Height <input class="cx-num" id="ch" type="number" step="any" inputmode="decimal" aria-describedby="e-custom"></label>
+                <div class="seg" role="radiogroup" aria-label="Unit" id="seg-unit"></div>
+              </div>
+              <p class="small cx-err ui" id="e-custom" hidden></p>
+            </div>
+            <p class="small muted ui cx-help" id="h-page"></p>
+          </div>
+          <div class="cx-field">
+            <span class="cx-lab" id="l-orient">Orientation</span>
+            <div class="seg" role="radiogroup" aria-labelledby="l-orient" id="seg-orient"></div>
+          </div>
+          <div class="cx-field">
+            <span class="cx-lab" id="l-margin">Margins</span>
+            <div class="cx-step m" role="group" aria-labelledby="l-margin">
+              <button type="button" id="m-minus" aria-label="Smaller margins">−</button>
+              <input type="number" id="margin" min="3" max="25" step="1" inputmode="numeric" aria-labelledby="l-margin">
+              <span class="ui">mm</span>
+              <button type="button" id="m-plus" aria-label="Larger margins">+</button>
+            </div>
+            <p class="small muted ui cx-help" id="h-margin"></p>
+          </div>
+        </fieldset>
+      </details>
+
+      <details class="cx-grp cx-det" id="g-breaks" open>
+        <summary class="disclosure-summary"><span class="disclosure-cue" aria-hidden="true"><svg viewBox="0 0 16 16" width="16" height="16" focusable="false"><path d="M5 3 L10 8 L5 13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" /></svg></span><span class="cx-h">Breaks</span><span class="small muted ui" id="sum-breaks"></span></summary>
+        <fieldset>
+          <legend class="cx-h">Breaks</legend>
+          <div class="notice" id="n-stale" hidden>
+            <p></p><button type="button" class="link" id="stale-dismiss">Dismiss</button>
+          </div>
+          <div class="cx-field" id="f-lines">
+            <span class="cx-lab" id="l-lines">Line breaks</span>
+            <div class="seg" role="radiogroup" aria-labelledby="l-lines" id="seg-lines"></div>
+            <p class="small muted ui cx-help" id="h-lines"></p>
+            <p class="small muted ui cx-help" id="h-crowded" hidden>Some original lines are tight at this size. Fit to page may read better.</p>
+          </div>
+          <p class="small ui" style="margin:var(--s-3) 0 0">Each part starts on a new page.</p>
+          <div class="cx-field" id="f-yours">
+            <span class="cx-lab" id="l-yours">Your breaks</span>
+            <button type="button" id="break-mode" aria-pressed="false">Choose where systems break</button>
+            <p class="small muted ui cx-help" id="h-count" hidden></p>
+          </div>
+        </fieldset>
+      </details>
+
+      <details class="cx-grp cx-more" id="g-more">
+        <summary class="disclosure-summary"><span class="disclosure-cue" aria-hidden="true"><svg viewBox="0 0 16 16" width="16" height="16" focusable="false"><path d="M5 3 L10 8 L5 13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" /></svg></span><span>More options</span><span class="small muted ui" id="sum-more"></span></summary>
+        <div class="cx-field">
+          <span class="cx-lab" id="l-lyrics">Sung text size</span>
+          <div class="seg" role="radiogroup" aria-labelledby="l-lyrics" id="seg-lyrics"></div>
+        </div>
+        <div class="cx-field">
+          <span class="cx-lab" id="l-spacing">Space between systems</span>
+          <div class="seg" role="radiogroup" aria-labelledby="l-spacing" id="seg-spacing"></div>
+          <p class="small muted ui cx-help">A minimum; the music never overlaps.</p>
+        </div>
+      </details>
+
+      <p class="cx-storage small muted ui" id="cx-storage" hidden>This browser isn't saving site settings, so your choices will reset when you leave.</p>
+    </aside>
+
+    <section class="cx-preview" aria-label="Preview">
+      <div class="cx-toolbar" id="cx-toolbar">
+        <div class="cx-tg"><span class="small muted" id="l-view">View</span>
+          <div class="seg" role="radiogroup" aria-labelledby="l-view" id="seg-view"></div></div>
+        <div class="cx-tg"><span class="small muted">Zoom</span>
+          <button type="button" id="z-minus" aria-label="Zoom out">−</button>
+          <output id="z-val">100%</output>
+          <button type="button" id="z-plus" aria-label="Zoom in">+</button>
+          <button type="button" id="z-fit">Fit width</button></div>
+        <span class="small muted cx-strip" id="cx-strip" aria-hidden="true" hidden></span>
+        <span class="small muted cx-updating" id="cx-updating" aria-hidden="true" hidden>Updating preview…</span>
+      </div>
+      <div class="cx-pages" id="cx-pages"></div>
+    </section>
+  </div>
+
+  <footer class="cx-foot" id="cx-foot">
+    <p id="cx-status" class="small" role="status" aria-live="polite"></p>
+    <button type="button" class="link" id="cx-undo" hidden>Undo</button>
+    <button type="button" class="link" id="cx-reset">Reset layout</button>
+    <button type="button" class="link" id="cx-cancel" hidden>Cancel</button>
+    <button type="button" class="primary" id="cx-download">Download PDF</button>
+  </footer>
+
+  <div class="proto" id="proto" data-prototype>
+    <label for="proto-sel"><strong>Prototype control</strong><span class="long"> (not part of the editor)</span></label>
+    <select id="proto-sel"></select>
+  </div>
+</dialog>
+
+<script>
+"use strict";
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const dlg = $("#cx");
+
+  /* ---- Data: PAGE_PRESETS from contracts section 1 ---- */
+  const PRESETS = {
+    letter: { w: 215.9, h: 279.4, kind: "print", label: "Letter", sub: "8½ × 11 in" },
+    a4: { w: 210, h: 297, kind: "print", label: "A4", sub: "210 × 297 mm" },
+    a5: { w: 148, h: 210, kind: "print", label: "A5", sub: "148 × 210 mm" },
+    "ipad-mini": { w: 115.9, h: 176.6, kind: "screen", label: "iPad mini", sub: "" },
+    "ipad-11": { w: 157.8, h: 227.1, kind: "screen", label: "11-inch iPad", sub: "" },
+    "ipad-13": { w: 197.0, h: 262.9, kind: "screen", label: "13-inch iPad", sub: "" },
+  };
+  const STAFF = { small: 5.6, medium: 7.2, large: 9.6 };
+  const CAP = (s) => s[0].toUpperCase() + s.slice(1);
+  const K = { small: 0.72, medium: 0.86, large: 1.0 };      /* simulated: width of a system relative to the text block */
+  const GAP = { compact: 12, normal: 22, spacious: 32 };
+  const LY = { small: -1, medium: 0, large: 2 };
+  const HEAD = 18, NPTS = 23, BAND_ASPECT = 145 / 782;
+  const LABELS = ["Kyrie", "Kyrie", "Kyrie", "eléison", "Kyrie", "Kyrie", "Kyrie", "eléison", "Christe", "Christe", "eléison", "Christe", "Christe", "eléison", "Kyrie", "Kyrie", "Kyrie", "eléison", "Kyrie", "Kyrie", "Kyrie", "eléison", "eléison"];
+  const PARTS = {
+    kyrie: { id: "kyrie", label: "Kyrie", kind: "mei", systems: 5 },
+    gloria: { id: "gloria", label: "Gloria", kind: "scan", systems: 14, meiAvailable: true },
+    credo: { id: "credo", label: "Credo", kind: "fixed", pages: 2 },
+  };
+  const defaults = () => ({
+    tier: "print", preset: "letter", custom: { w: 160, h: 230 }, unit: "mm", orient: "portrait", margin: 12, marginTouched: false,
+    staff: "medium", lyrics: "medium", spacing: "normal", cap: null, lines: "original", breaks: {},
+  });
+
+  const S = Object.assign(defaults(), {
+    parts: [PARTS.kyrie], view: "pages", zoom: 100, breakMode: false, menu: null, cur: {},
+    pending: false, frozen: false, showUpdating: false, shown: null, err: null, globalErr: null,
+    storage: false, stale: false, forced: null, undo: [], exporting: null, scenario: 1,
+  });
+  const T = {};
+
+  /* ---- Geometry and layout model (a simulation; see README) ---- */
+  function physical(s) {
+    let w, h;
+    if (s.tier === "custom") { w = s.custom.w; h = s.custom.h; } else { const p = PRESETS[s.preset]; w = p.w; h = p.h; }
+    return s.orient === "landscape" ? { w: h, h: w } : { w, h };
+  }
+  const pageName = (s) => s.tier === "custom" ? `Custom ${fmt(s.custom.w)} × ${fmt(s.custom.h)} mm` : PRESETS[s.preset].label;
+  const fmt = (n) => String(Math.round(n * 10) / 10);
+  const inch = (mm) => (mm / 25.4).toFixed(2);
+  const an = (t) => (/^(iPad|A4|A5|11|13|8)/.test(t) ? "an " : "a ") + t;
+  const nSys = (s) => Object.values(s.breaks).filter((k) => k === "system").length;
+
+  function geom(s) {
+    const { w, h } = physical(s), m = s.margin, cw = w - 2 * m, ch = h - 2 * m;
+    const bandW = cw * K[s.staff], bandH = bandW * BAND_ASPECT;
+    return { W: w, H: h, m, cw, ch, bandW, bandH, pitch: bandH + GAP[s.spacing] + LY[s.lyrics] };
+  }
+  function forcedAfter(s, T_) {
+    const set = new Set();
+    for (const [pt, k] of Object.entries(s.breaks)) if (k === "page") {
+      const g = Math.floor((Number(pt) + 1) * T_ / NPTS);
+      if (g >= 1 && g < T_) set.add(g);
+    }
+    return set;
+  }
+  function paginate(s, g, total, cap, avail0) {
+    const pages = [], forced = forcedAfter(s, total);
+    let idx = 0;
+    while (idx < total) {
+      const first = pages.length === 0;
+      const avail = g.ch - (first ? HEAD : 0);
+      let fit = Math.floor(avail / g.pitch);
+      if (first && fit < 1) return null;
+      fit = Math.max(1, fit);
+      let n = Math.min(fit, cap == null ? Infinity : cap, total - idx);
+      for (let k = idx + 1; k < idx + n; k++) if (forced.has(k)) { n = k - idx; break; }
+      pages.push({ n, first, start: idx, avail });
+      idx += n;
+    }
+    return pages;
+  }
+  function computeLayout(s, parts, capOverride) {
+    const g = geom(s), cap = capOverride === undefined ? s.cap : capOverride;
+    const pages = [], summary = [];
+    for (const part of parts) {
+      let list;
+      if (part.kind === "mei") {
+        const total = (s.lines === "fit" ? 4 : 5) + nSys(s);
+        list = paginate(s, g, total, cap, 0);
+        if (!list) return { ok: false, error: { code: "UNSATISFIABLE_LAYOUT", reason: "system-too-tall", part: part.label } };
+        list.forEach((p) => { p.kind = "mei"; p.total = total; p.used = (p.first ? HEAD : 0) + p.n * g.pitch; });
+      } else if (part.kind === "scan") {
+        const sg = Object.assign({}, g, { pitch: g.cw / 6.5 + 6 });
+        list = paginate(s, sg, part.systems, cap, 0) || [{ n: 1, first: true, start: 0, avail: g.ch }];
+        list.forEach((p) => { p.kind = "scan"; p.total = part.systems; p.scanH = g.cw / 6.5; p.spitch = sg.pitch; p.used = (p.first ? HEAD : 0) + p.n * sg.pitch; });
+      } else {
+        list = Array.from({ length: part.pages }, (_, i) => ({ kind: "fixed", n: 0, first: i === 0, start: i, used: g.ch }));
+      }
+      list.forEach((p, i) => {
+        p.part = part; p.partFirst = i === 0; p.idxInPart = i; p.partPages = list.length;
+        const pit = p.kind === "scan" ? p.spitch : g.pitch;
+        p.blank = p.kind !== "fixed" && i < list.length - 1 && (g.ch - p.used) / g.ch > 0.25 && (g.ch - p.used) < pit;
+      });
+      pages.push(...list);
+      summary.push({ part, count: list.length, per: list.map((p) => p.n) });
+    }
+    pages.forEach((p, i) => { p.num = i + 1; });
+    const maxN = Math.max(0, ...pages.filter((p) => p.kind !== "fixed").map((p) => p.n));
+    return { ok: true, pages, summary, g, maxN, desc: `${pageName(s)}, ${s.orient}`, snap: JSON.parse(JSON.stringify({ staff: s.staff, orient: s.orient, lines: s.lines, margin: s.margin, tier: s.tier, preset: s.preset })) };
+  }
+  function suggestions(s, parts, err) {
+    const out = [];
+    for (const sz of s.staff === "large" ? ["medium", "small"] : s.staff === "medium" ? ["small"] : []) {
+      if (computeLayout(Object.assign({}, s, { staff: sz }), parts).ok) { out.push({ act: "staff:" + sz, text: `Use ${CAP(sz)} music` }); break; }
+    }
+    if (s.orient === "landscape" && computeLayout(Object.assign({}, s, { orient: "portrait" }), parts).ok) out.push({ act: "orient:portrait", text: "Switch to portrait" });
+    const pb = Object.entries(s.breaks).find(([, k]) => k === "page");
+    if (pb) out.push({ act: "rmbreak:" + pb[0], text: `Remove the page break after '${LABELS[pb[0]]}'` });
+    return out;
+  }
+
+  /* ---- Commit: compute the layout and keep the previous good one on failure ---- */
+  function settingsOf() { return Object.assign({}, S, { breaks: S.breaks }); }
+  function commit() {
+    const L = computeLayout(settingsOf(), S.parts);
+    if (L.ok) { S.shown = L; S.err = null; }
+    else { S.err = Object.assign({}, L.error, { sug: suggestions(settingsOf(), S.parts, L.error), paper: pageName(S), orient: S.orient, size: S.staff }); }
+  }
+  const naturalMax = () => computeLayout(settingsOf(), S.parts, null).maxN || 0;
+
+  /* ---- Live region (throttled to one announcement per 2 s) ---- */
+  let lastAnn = 0, annTimer = 0;
+  function announce(text) {
+    const st = $("#cx-status"), now = Date.now();
+    clearTimeout(annTimer);
+    const go = () => { st.textContent = text; lastAnn = Date.now(); };
+    if (now - lastAnn >= 2000) go(); else annTimer = setTimeout(go, 2000 - (now - lastAnn));
+  }
+  function setStatus(text) { clearTimeout(annTimer); $("#cx-status").textContent = text; lastAnn = Date.now(); }
+
+  /* ---- Jobs ---- */
+  function change(opts) {
+    S.frozen = false; S.pending = true; S.showUpdating = false; S.globalErr = null; S.exporting = null;
+    clearTimeout(T.job); clearTimeout(T.ind);
+    T.ind = setTimeout(() => { if (S.pending) { S.showUpdating = true; chrome(); announce("Updating preview…"); } }, 300);
+    T.job = setTimeout(finishJob, ((opts && opts.debounce) || 0) + 700);
+    syncControls(); chrome();
+  }
+  function finishJob() {
+    S.pending = false; S.showUpdating = false;
+    commit(); render();
+    if (S.err) announce(`Can't lay out ${S.err.part} with these settings.`);
+    else announce(`Preview updated: ${S.shown.pages.length} page${S.shown.pages.length === 1 ? "" : "s"}.`);
+  }
+
+  /* ---- Undo ---- */
+  const snap = () => JSON.stringify({ breaks: S.breaks, st: pick(S) });
+  const pick = (o) => ({ tier: o.tier, preset: o.preset, custom: o.custom, unit: o.unit, orient: o.orient, margin: o.margin, marginTouched: o.marginTouched, staff: o.staff, lyrics: o.lyrics, spacing: o.spacing, cap: o.cap, lines: o.lines });
+  function pushUndo(text) {
+    S.undo.push(snap()); if (S.undo.length > 50) S.undo.shift();
+    clearTimeout(T.undo); $("#cx-undo").hidden = false;
+    T.undo = setTimeout(() => { $("#cx-undo").hidden = true; }, 30000);
+    if (text) announce(text + " Undo is available.");
+  }
+  function undo() {
+    const last = S.undo.pop(); if (!last) return;
+    const d = JSON.parse(last); S.breaks = d.breaks; Object.assign(S, d.st);
+    if (!S.undo.length) $("#cx-undo").hidden = true;
+    change(); setStatus("Undone.");
+  }
+
+  /* ---- Static control markup ---- */
+  function seg(id, name, opts, tall) {
+    $("#" + id).innerHTML = opts.map((o) => `<label class="seg-o"><input type="radio" class="sr-only" name="${name}" value="${esc(o.v)}"><span>${o.html}</span></label>`).join("");
+  }
+  function staffGlyph(mm) {
+    const h = Math.round(mm * 1.5), lines = [0, 1, 2, 3, 4].map((i) => `<line x1="0" x2="24" y1="${(i * h / 4 + 0.5).toFixed(1)}" y2="${(i * h / 4 + 0.5).toFixed(1)}" stroke="currentColor" stroke-width="1"/>`).join("");
+    return `<svg class="staffglyph" aria-hidden="true" focusable="false" width="24" height="${h + 1}" viewBox="0 0 24 ${h + 1}">${lines}</svg>`;
+  }
+  const orientSvg = (w, h) => `<svg aria-hidden="true" focusable="false" width="${w + 2}" height="${h + 2}" viewBox="0 0 ${w + 2} ${h + 2}"><rect x="1.5" y="1.5" width="${w - 1}" height="${h - 1}" fill="none" stroke="currentColor" stroke-width="1"/></svg>`;
+  seg("seg-staff", "staff", ["small", "medium", "large"].map((k) => ({ v: k, html: `<span>${CAP(k)}</span><small class="seg-row">${staffGlyph(STAFF[k])}${STAFF[k].toFixed(1)} mm</small>` })));
+  seg("seg-tier", "tier", [{ v: "print", html: "Print" }, { v: "ipad", html: "iPad" }, { v: "custom", html: "Custom" }]);
+  seg("seg-print", "preset", ["letter", "a4", "a5"].map((k) => ({ v: k, html: `${PRESETS[k].label}<small>${PRESETS[k].sub}</small>` })));
+  seg("seg-ipad", "preset", ["ipad-mini", "ipad-11", "ipad-13"].map((k) => ({ v: k, html: PRESETS[k].label.replace("iPad mini", "iPad mini") })));
+  seg("seg-unit", "unit", [{ v: "mm", html: "mm" }, { v: "in", html: "in" }]);
+  seg("seg-orient", "orient", [{ v: "portrait", html: `${orientSvg(12, 16)}Portrait` }, { v: "landscape", html: `${orientSvg(16, 12)}Landscape` }]);
+  seg("seg-lines", "lines", [{ v: "original", html: "Original" }, { v: "fit", html: "Fit to page" }]);
+  seg("seg-lyrics", "lyrics", ["small", "medium", "large"].map((k) => ({ v: k, html: CAP(k) })));
+  seg("seg-spacing", "spacing", ["compact", "normal", "spacious"].map((k) => ({ v: k, html: CAP(k) })));
+  seg("seg-view", "view", [{ v: "pages", html: "Pages" }, { v: "continuous", html: "Continuous" }]);
+  /* iPad tier-2 radios share the name "preset" with the print group; give each its own name for native grouping */
+  $$("#seg-ipad input").forEach((i) => { i.name = "preset-ipad"; });
+  $$("#seg-print input").forEach((i) => { i.name = "preset-print"; });
+
+  /* ---- Sync controls from state ---- */
+  const NAME_KEY = { staff: "staff", tier: "tier", "preset-print": "preset", "preset-ipad": "preset", unit: "unit", orient: "orient", lines: "lines", lyrics: "lyrics", spacing: "spacing", view: "view" };
+  function syncControls() {
+    $$("input[type=radio]", dlg).forEach((r) => { const k = NAME_KEY[r.name]; if (k) r.checked = String(S[k]) === r.value; });
+    const hasMei = S.parts.some((p) => p.kind === "mei");
+    $("#f-music").hidden = !hasMei; $("#f-nomusic").hidden = hasMei;
+    $("#f-lines").hidden = !hasMei; $("#f-yours").hidden = !hasMei; $("#g-more").hidden = !hasMei;
+    const notMei = S.parts.filter((p) => p.kind !== "mei");
+    const ap = $("#f-applies");
+    ap.hidden = !(hasMei && notMei.length);
+    if (!ap.hidden) ap.textContent = `Applies to: ${S.parts.filter((p) => p.kind === "mei").map((p) => p.label).join(", ")}. Not to: ${notMei.map((p) => `${p.label} (${p.kind === "scan" ? "original scan" : "fixed typeset layout"})`).join(", ")}.`;
+    const fx = S.parts.filter((p) => p.kind === "fixed"), fn = $("#f-fixednote");
+    fn.hidden = !fx.length; if (fx.length) fn.textContent = `Doesn't apply to ${fx.map((p) => p.label).join(", ")} (fixed typeset layout).`;
+    $("#seg-print").hidden = S.tier !== "print"; $("#seg-ipad").hidden = S.tier !== "ipad"; $("#box-custom").hidden = S.tier !== "custom";
+    const u = S.unit, conv = (mm) => u === "mm" ? fmt(mm) : (mm / 25.4).toFixed(2);
+    if (document.activeElement !== $("#cw")) $("#cw").value = conv(S.custom.w);
+    if (document.activeElement !== $("#ch")) $("#ch").value = conv(S.custom.h);
+    $("#h-page").textContent = S.tier === "custom" ? "90–450 mm (3.5–17.7 in) each side." : S.tier === "ipad" ? "Fills the screen in forScore and similar apps" : "";
+    $("#h-page").hidden = !$("#h-page").textContent;
+    $("#margin").value = S.margin;
+    let mh = `${S.margin} mm (${inch(S.margin)} in)`;
+    if (S.tier === "print" && S.margin < 6) mh += ". Most printers can't print this close to the edge.";
+    $("#h-margin").textContent = mh;
+    $("#h-lines").textContent = S.lines === "original" ? "Keeps the typeset lines; pages are filled to fit." : "Re-flows the music for this page and music size.";
+    $("#h-crowded").hidden = !(S.lines === "original" && S.staff === "large");
+    $("#break-mode").setAttribute("aria-pressed", String(S.breakMode));
+    const nb = Object.keys(S.breaks).length, hc = $("#h-count");
+    hc.hidden = nb === 0; hc.textContent = `${nb} of your breaks`;
+    $("#sum-page").textContent = ` · ${pageName(S)}, ${CAP(S.orient)}, ${S.margin} mm`;
+    $("#sum-breaks").textContent = ` · ${S.lines === "original" ? "Original" : "Fit to page"}${nb ? `, ${nb} of your breaks` : ""}`;
+    const nd = []; if (S.lyrics !== "medium") nd.push(`${CAP(S.lyrics)} sung text`); if (S.spacing !== "normal") nd.push(CAP(S.spacing));
+    const more = $("#g-more"); $("#sum-more").textContent = nd.length && !more.open ? " · " + nd.join(", ") : "";
+    $("#n-stale").hidden = !S.stale;
+    if (S.stale) $("#n-stale p").textContent = "Your saved breaks for Kyrie were removed because its music was updated.";
+    $("#cx-storage").hidden = !S.storage;
+    const now = S.shown ? S.shown.maxN : 0, nat = naturalMax();
+    $("#cap-val").textContent = S.cap == null ? `As many as fit (now ${now})` : String(S.cap);
+    const plus = $("#cap-plus"); const atFit = S.cap == null;
+    plus.disabled = atFit; plus.setAttribute("aria-label", atFit ? "Already as many as fit" : "More systems per page");
+    $("#cap-minus").disabled = S.cap === 1 || (S.cap == null && now <= 1);
+    $("#cap-minus").dataset.nat = nat;
+  }
+
+  /* ---- Chrome: footer, toolbar, result line, parts ---- */
+  function resultLine() {
+    const L = S.shown; if (!L) return "";
+    if (L.summary.length === 1) {
+      const per = L.summary[0].per.filter((n) => n > 0), c = L.pages.length;
+      return per.length ? `${c} page${c === 1 ? "" : "s"} · ${per.join(" + ")} system${per.reduce((a, b) => a + b, 0) === 1 ? "" : "s"}` : `${c} pages`;
+    }
+    return L.summary.map((x) => `${x.part.label}: ${x.count} page${x.count === 1 ? "" : "s"}${x.part.kind === "scan" ? " (scan)" : x.part.kind === "fixed" ? " (fixed)" : ""}`).join(" · ");
+  }
+  function chrome() {
+    const f = $("#cx-fit"), busy = S.pending || S.frozen;
+    f.textContent = busy ? "Updating…" : resultLine(); f.dataset.pending = String(busy);
+    $("#cx-strip").textContent = resultLine();
+    $("#cx-updating").hidden = !(S.showUpdating || S.frozen && S.showUpdating);
+    const dl = $("#cx-download"), n = S.shown ? S.shown.pages.length : 0;
+    const can = !busy && !S.err && !S.globalErr && !S.exporting && S.shown;
+    dl.disabled = !can;
+    dl.textContent = S.exporting ? "Preparing PDF…" : can ? `Download PDF · ${n} page${n === 1 ? "" : "s"}` : "Download PDF";
+    $("#cx-reset").hidden = !!S.exporting; $("#cx-cancel").hidden = !S.exporting;
+    $("#z-val").textContent = S.zoom + "%";
+    $("#z-minus").disabled = S.zoom <= 50; $("#z-plus").disabled = S.zoom >= 300;
+    $("#cx-foot").style.setProperty("--x", "0");
+    dlg.style.setProperty("--foot-h", $("#cx-foot").offsetHeight + "px");
+    $("#cx-sel").textContent = "Missa IX · " + S.parts.map((p) => p.label).join(", ");
+  }
+  function renderParts() {
+    $("#cx-partlist").innerHTML = S.parts.map((p) => {
+      let sub = "";
+      if (p.kind === "scan") sub = "Page size, margins and systems per page apply. The music itself can't be resized." + (p.meiAvailable ? " Customizable typeset is available. To use it, close this and choose 'Show the typeset music' on the page." : "");
+      if (p.kind === "fixed") sub = "Fitted to your paper. Its lines and lettering can't change.";
+      return `<li><span class="cx-pn">${esc(p.label)}</span>${sub ? `<span class="small muted">${esc(sub)}</span>` : ""}</li>`;
+    }).join("");
+  }
+
+  /* ---- Preview rendering ---- */
+  const pct = (x, base) => (x / base * 100).toFixed(3) + "%";
+  const BASE = "assets/";
+  function noticeHTML(code, text, acts, alert) {
+    return `<div class="notice" data-code="${esc(code)}"><p${alert ? ' role="alert"' : ""}>${esc(text)}</p><div class="cx-acts">${acts.map((a) => `<button type="button" data-act="${esc(a.act)}">${esc(a.text)}</button>`).join("")}</div></div>`;
+  }
+  function errCopy(e) {
+    return `Can't fit ${e.part}: at ${CAP(e.size)} music size, one system is taller than the space on ${an(e.paper)} ${e.orient} page.`;
+  }
+  function ptsBefore(g, total) { const b = Math.floor(NPTS / total), x = NPTS % total; return g * b + Math.min(g, x); }
+  const ptsIn = (g, total) => Math.floor(NPTS / total) + (g < NPTS % total ? 1 : 0);
+
+  function pageHTML(pg, L, total) {
+    const g = L.g, W = g.W, cont = S.view === "continuous";
+    const boxH = cont ? Math.min(g.H, g.m + pg.used) : g.H;
+    const m = g.m, named = L.desc.replace(/^(.*), (portrait|landscape)$/, "$1, $2");
+    let inner = "";
+    if (pg.kind === "mei" || pg.kind === "scan") {
+      if (pg.first) inner += `<div class="cx-sh" style="left:${pct(m, W)};top:${pct(m + 1, boxH)}">${esc(pg.part.label)}</div>`;
+      for (let j = 0; j < pg.n; j++) {
+        const top = m + (pg.first ? HEAD : 0) + j * (pg.kind === "mei" ? g.pitch : pg.spitch);
+        if (pg.kind === "mei") {
+          const bi = (pg.start + j) % 6;
+          inner += `<div class="cx-sys" style="left:${pct(m, W)};top:${pct(top, boxH)};width:${pct(g.bandW, W)}"><img src="${BASE}kyrie-ix-mei-page1.svg" alt="" style="margin-top:-${((31 + 163 * bi) / 782 * 100).toFixed(3)}%"></div>`;
+        } else {
+          inner += `<div class="cx-scan" style="left:${pct(m, W)};top:${pct(top, boxH)};width:${pct(g.cw, W)};height:${pct(pg.scanH, boxH)}">Original scan (simulated)</div>`;
+        }
+      }
+    } else {
+      inner += `<div class="cx-fixed" style="left:${pct(m, W)};top:${pct(m, boxH)};width:${pct(g.cw, W)};height:${pct(g.ch, boxH)}"><img src="${BASE}kyrie-ix-lilypond.svg" alt=""></div>`;
+    }
+    const guide = cont ? "" : `<div class="cx-guide" aria-hidden="true" style="left:${pct(m, W)};right:${pct(m, W)};top:${pct(m, boxH)};bottom:${pct(m, boxH)}"></div>`;
+    const lab = pg.kind === "fixed" ? `Page ${pg.num} of ${total}: ${pg.part.label}, fixed typeset layout` : `Page ${pg.num} of ${total}: ${pg.part.label}, ${pg.n} system${pg.n === 1 ? "" : "s"}`;
+    const overlay = S.breakMode && !cont && pg.kind === "mei" ? overlayHTML(pg, L, boxH) : "";
+    const blank = pg.blank && !cont ? `<p class="cx-blank small muted">The rest of page ${pg.num} is blank: the next system doesn't fit.</p>` : "";
+    const labelRow = cont ? (pg.num > 1 ? `<div class="cx-div small muted"><span>Page ${pg.num} begins</span></div>` : "")
+      : `<div class="cx-plabel small muted"><span>Page ${pg.num} of ${total} · ${esc(named)}${pg.kind === "fixed" ? '<span class="sub">Fixed typeset layout</span>' : ""}</span><span>${pg.partFirst ? esc(pg.part.label) : ""}</span></div>`;
+    const cap = pg.kind === "scan" ? "" : `<p class="cx-cap small muted">Simulated layout</p>`;
+    return `<div class="cx-pg${cont ? " cont" : ""}" data-page="${pg.num}">${labelRow}${blank}<div class="cx-pagebox"><div class="cx-page" role="img" aria-label="${esc(lab)}" style="aspect-ratio:${W} / ${boxH}"><div aria-hidden="true" style="position:absolute;inset:0">${inner}${guide}</div></div>${overlay}</div>${cont ? "" : cap}</div>`;
+  }
+  function overlayHTML(pg, L, boxH) {
+    const g = L.g, W = g.W, m = g.m, total = pg.total, parts = [];
+    for (let j = 0; j < pg.n; j++) {
+      const sys = pg.start + j, cnt = ptsIn(sys, total), p0 = ptsBefore(sys, total);
+      const top = m + (pg.first ? HEAD : 0) + j * g.pitch;
+      for (let t = 0; t < cnt; t++) {
+        const pt = p0 + t, orig = t === 0 && sys > 0 && S.lines === "original";
+        const x = orig ? m + 0.5 : m + g.bandW * (t + 1) / (cnt + 1);
+        const kind = S.breaks[pt] === "page" ? "page" : S.breaks[pt] === "system" ? "system" : orig ? "orig" : "none";
+        const now = kind === "page" ? "your new page" : kind === "system" ? "your new system" : kind === "orig" ? "original line break" : "no break";
+        const glyph = kind === "page" ? "⤓" : kind === "system" || kind === "orig" ? "↵" : "";
+        const bad = S.err && S.err.code && S.breaks[pt] === "page" ? ' data-bad="true"' : "";
+        parts.push(`<div class="cx-bpline" aria-hidden="true" data-line="${pt}" style="left:${pct(x, W)};top:${pct(top, boxH)};height:${pct(g.bandH, boxH)}"></div>`);
+        parts.push(`<button type="button" class="cx-bp" data-pt="${pt}" data-sys="${sys}" data-t="${t}" data-kind="${kind}"${bad} tabindex="-1" aria-label="Break point ${pt + 1} of ${NPTS} in ${esc(pg.part.label)}, after '${esc(LABELS[pt])}', page ${pg.num}. Now: ${now}." style="left:${pct(x, W)};top:${pct(top, boxH)}${orig ? ";margin-left:22px" : ""}"><span class="box" aria-hidden="true">${glyph}</span><span class="cx-bplab" aria-hidden="true">after '${esc(LABELS[pt])}'</span></button>`);
+      }
+    }
+    return `<div class="cx-overlay" role="group" aria-label="Break points, page ${pg.num}" data-page="${pg.num}">${parts.join("")}${S.menu && menuOnPage(pg) ? menuHTML(pg, L, boxH) : ""}</div>`;
+  }
+  const menuOnPage = (pg) => { const t = pg.total; for (let j = 0; j < pg.n; j++) { const s = pg.start + j, a = ptsBefore(s, t); if (S.menu.pt >= a && S.menu.pt < a + ptsIn(s, t)) return true; } return false; };
+  function menuHTML(pg, L, boxH) {
+    const pt = S.menu.pt, g = L.g, W = g.W, m = g.m, total = pg.total;
+    let sys = 0; for (let s = 0; s < total; s++) if (pt >= ptsBefore(s, total)) sys = s;
+    const j = sys - pg.start, cnt = ptsIn(sys, total), t = pt - ptsBefore(sys, total);
+    const orig = t === 0 && sys > 0 && S.lines === "original";
+    const x = orig ? m + 0.5 : m + g.bandW * (t + 1) / (cnt + 1), top = m + (pg.first ? HEAD : 0) + j * g.pitch;
+    const k = S.breaks[pt], now = k === "page" ? "your new page" : k === "system" ? "your new system" : orig ? "original line break" : "no break";
+    const lab = LABELS[pt];
+    return `<div class="cx-menu" id="cx-menu" role="group" aria-labelledby="cx-menu-t" style="left:${pct(x, W)};top:${pct(top, boxH)}">
+      <p id="cx-menu-t"><strong>After "${esc(lab)}"</strong> · break point ${pt + 1} of ${NPTS}</p>
+      <div class="nav"><button type="button" data-m="prev"${pt === 0 ? " disabled" : ""}>◀ Previous</button><button type="button" data-m="next"${pt === NPTS - 1 ? " disabled" : ""}>Next ▶</button></div>
+      <p class="small">Now: ${now}</p>
+      ${orig ? `<p class="small muted">Original line break. To remove it, choose Line breaks: Fit to page.</p>` : `<button type="button" data-m="system"${k === "system" ? " disabled" : ""}>Start new system here${k === "system" ? " (current)" : ""}</button>`}
+      <button type="button" data-m="page"${k === "page" ? " disabled" : ""}>Start new page here${k === "page" ? " (current)" : ""}</button>
+      ${k ? `<button type="button" data-m="remove">Remove my break</button>` : ""}
+      <button type="button" class="link" data-m="cancel">Cancel</button></div>`;
+  }
+
+  function render() {
+    syncControls(); chrome(); renderParts();
+    const host = $("#cx-pages"), cont = S.view === "continuous", L = S.shown;
+    host.style.setProperty("--z", String(S.zoom / 100));
+    let html = "";
+    if (cont) html += `<div class="notice" style="margin:0"><p style="margin:0">Reading view: page breaks are hidden here. The PDF uses the pages shown in Pages view.</p></div>`;
+    if (S.globalErr) html += noticeHTML(S.globalErr.code, `Can't update the preview. ${S.globalErr.text}`, S.globalErr.acts, true);
+    if (L && !S.globalErr) {
+      const total = L.pages.length;
+      L.pages.forEach((pg) => {
+        if (S.err && pg.part.label === S.err.part && pg.partFirst) html += noticeHTML(S.err.code, errCopy(S.err), S.err.sug, false).replace('<p>', `<p data-reason="${esc(S.err.reason)}">`);
+        html += pageHTML(pg, L, total);
+      });
+    } else if (S.err && !S.globalErr) {
+      html += noticeHTML(S.err.code, errCopy(S.err), S.err.sug, false);
+    }
+    host.innerHTML = html;
+    layoutHandles(); observeFirst();
+  }
+
+  /* ---- Break handles: dense hiding, roving tabindex ---- */
+  function visibleHandles() { return $$(".cx-bp", dlg).filter((b) => !b.hidden); }
+  function layoutHandles() {
+    $$(".cx-overlay", dlg).forEach((ov) => {
+      const w = ov.getBoundingClientRect().width, W = Number(ov.closest(".cx-pg").dataset.page) && S.shown ? S.shown.g.W : 1;
+      const bw = S.shown ? S.shown.g.bandW : 1, bandPx = w * bw / W;
+      const bySys = {};
+      $$(".cx-bp", ov).forEach((b) => { (bySys[b.dataset.sys] = bySys[b.dataset.sys] || []).push(b); });
+      Object.values(bySys).forEach((list) => { const sp = bandPx / (list.length + 1); list.forEach((b) => { b.hidden = sp < 44 && Number(b.dataset.t) % 2 === 1; $$(`[data-line="${b.dataset.pt}"]`, ov).forEach((l) => { l.hidden = b.hidden; }); }); });
+      const vis = $$(".cx-bp", ov).filter((b) => !b.hidden);
+      const want = S.cur[ov.dataset.page];
+      const cur = vis.find((b) => Number(b.dataset.pt) === want) || vis[0];
+      vis.forEach((b) => { b.tabIndex = b === cur ? 0 : -1; });
+    });
+    if (S.menu) {
+      const menu = $("#cx-menu"); if (menu) {
+        if (S.menuFocus) { const f = $$("button:not(:disabled)", menu).filter((b) => b.dataset.m && !["prev", "next", "cancel"].includes(b.dataset.m))[0]; (S.menuFocus === "nav" ? $(`[data-m="${S.menuNavFocus}"]`, menu) || f : f)?.focus(); S.menuFocus = null; }
+        const pb = menu.closest(".cx-pagebox"); if (pb && dlg.dataset.bp !== "phone") { const pw = pb.getBoundingClientRect().width, half = menu.offsetWidth / 2, left = menu.offsetLeft; if (left - half < 0) menu.style.left = half + "px"; if (left + half > pw) menu.style.left = (pw - half) + "px"; }
+      }
+    } else if (S.restore != null) {
+      const b = $(`.cx-bp[data-pt="${S.restore}"]`, dlg) || visibleHandles()[0]; S.restore = null; b?.focus();
+    }
+  }
+  function moveFocus(btn, to) {
+    if (!to) return;
+    const ov = to.closest(".cx-overlay"); S.cur[ov.dataset.page] = Number(to.dataset.pt);
+    $$(".cx-bp", ov).forEach((b) => { b.tabIndex = b === to ? 0 : -1; });
+    to.focus(); to.scrollIntoView({ block: "nearest", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  }
+  function openMenu(pt) { S.menu = { pt }; S.menuFocus = "first"; render(); }
+  function closeMenu(restorePt) { S.menu = null; S.restore = restorePt; render(); }
+  function setBreak(pt, kind) {
+    pushUndo();
+    if (kind) S.breaks[pt] = kind; else delete S.breaks[pt];
+    S.menu = null; S.restore = pt;
+    const text = kind === "page" ? `New page starts after '${LABELS[pt]}'.` : kind === "system" ? `New system starts after '${LABELS[pt]}'.` : "Break removed.";
+    announce(text + " Undo is available."); change();
+  }
+
+  /* ---- First-page observer for the narrow result strip ---- */
+  let io;
+  function observeFirst() {
+    if (io) io.disconnect();
+    const first = $(".cx-pg"); if (!first || !("IntersectionObserver" in window)) return;
+    io = new IntersectionObserver((es) => { $("#cx-strip").hidden = dlg.dataset.bp === "wide" || es[0].isIntersecting; }, { root: dlg.dataset.bp === "wide" ? null : $(".cx-body") });
+    io.observe(first);
+  }
+
+  /* ---- Breakpoints (rem values from the site; set by script so scenario 13 can show the phone layout on a desktop) ---- */
+  function setBp() {
+    const w = matchMedia("(min-width: 62rem)").matches ? "wide" : matchMedia("(min-width: 40rem)").matches ? "mid" : "phone";
+    const bp = S.forced || w, prev = dlg.dataset.bp;
+    dlg.dataset.bp = bp;
+    if (S.forced) dlg.setAttribute("data-forced", ""); else dlg.removeAttribute("data-forced");
+    if (bp !== prev) {
+      ["g-page", "g-breaks"].forEach((id) => { $("#" + id).open = bp === "wide"; });
+      layoutHandles(); observeFirst();
+    }
+    $("#cx-strip").hidden = bp === "wide" || $("#cx-strip").hidden;
+    chrome();
+  }
+  matchMedia("(min-width: 62rem)").addEventListener("change", setBp);
+  matchMedia("(min-width: 40rem)").addEventListener("change", setBp);
+  new ResizeObserver(() => { if (S.breakMode) layoutHandles(); chrome(); }).observe($("#cx-pages"));
+
+  /* ---- Events ---- */
+  const startPaper = () => { S.margin = S.tier === "print" ? 12 : 4; };
+  dlg.addEventListener("change", (e) => {
+    const t = e.target;
+    if (t.type === "radio") {
+      const k = NAME_KEY[t.name]; if (!k) return;
+      if (k === "view") { S.view = t.value; if (t.value === "continuous") { S.breakMode = false; S.menu = null; } render(); return; }
+      if (k === "unit") { S.unit = t.value; syncControls(); return; }
+      if (k === "tier") {
+        const base = physical(Object.assign({}, S, { orient: "portrait" }));
+        S.tier = t.value;
+        if (t.value === "print") S.preset = PRESETS[S.preset] && PRESETS[S.preset].kind === "print" ? S.preset : "letter";
+        if (t.value === "ipad") S.preset = PRESETS[S.preset] && PRESETS[S.preset].kind === "screen" ? S.preset : "ipad-11";
+        if (t.value === "custom") S.custom = { w: Math.round(base.w * 10) / 10, h: Math.round(base.h * 10) / 10 };
+        if (!S.marginTouched) startPaper();
+      } else S[k] = t.value;
+      if (k === "staff" || k === "lines") S.cap = S.cap;
+      change(); return;
+    }
+    if (t.id === "margin") {
+      let v = Math.round(Number(t.value)); if (!Number.isFinite(v) || t.value === "") v = S.margin;
+      S.margin = Math.min(25, Math.max(3, v)); S.marginTouched = true; change({ debounce: 250 }); return;
+    }
+    if (t.id === "cw" || t.id === "ch") commitCustom();
+  });
+  function commitCustom() {
+    const u = S.unit, toMm = (v) => u === "mm" ? v : v * 25.4, e = $("#e-custom");
+    const raw = [$("#cw").value, $("#ch").value];
+    let msg = "";
+    if (raw.some((r) => r.trim() === "" || !Number.isFinite(Number(r)))) msg = "Enter a number.";
+    else {
+      const [w, h] = raw.map((r) => toMm(Number(r)));
+      if (w < 90 || w > 450) msg = "Use a width between 90 and 450 mm (3.5–17.7 in).";
+      else if (h < 90 || h > 450) msg = "Use a height between 90 and 450 mm (3.5–17.7 in).";
+      else if (Math.max(w, h) > 3 * Math.min(w, h)) msg = "The long side can be at most three times the short side.";
+      else { S.custom = { w: Math.round(w * 10) / 10, h: Math.round(h * 10) / 10 }; }
+    }
+    e.hidden = !msg; e.textContent = msg;
+    $("#cw").setAttribute("aria-invalid", String(!!msg)); $("#ch").setAttribute("aria-invalid", String(!!msg));
+    if (!msg) { S.marginTouched = S.marginTouched; change({ debounce: 250 }); }
+  }
+  $("#m-minus").addEventListener("click", () => { S.margin = Math.max(3, S.margin - 1); S.marginTouched = true; change({ debounce: 250 }); });
+  $("#m-plus").addEventListener("click", () => { S.margin = Math.min(25, S.margin + 1); S.marginTouched = true; change({ debounce: 250 }); });
+  $("#cap-minus").addEventListener("click", () => {
+    const now = S.shown ? S.shown.maxN : 1;
+    S.cap = S.cap == null ? Math.max(1, now - 1) : Math.max(1, S.cap - 1);
+    change({ debounce: 250 });
+  });
+  $("#cap-plus").addEventListener("click", () => {
+    if (S.cap == null) return;
+    const nat = naturalMax(), next = S.cap + 1;
+    S.cap = next >= nat || next > 8 ? null : next;
+    change({ debounce: 250 });
+  });
+  $("#g-more").addEventListener("toggle", () => syncControls());
+  $("#z-minus").addEventListener("click", () => zoom(-1));
+  $("#z-plus").addEventListener("click", () => zoom(1));
+  $("#z-fit").addEventListener("click", () => { S.zoom = 100; render(); });
+  function zoom(d) { const st = [50, 75, 100, 125, 150, 200, 300], i = Math.max(0, Math.min(st.length - 1, st.indexOf(S.zoom) + d)); S.zoom = st[i]; render(); }
+  $("#break-mode").addEventListener("click", () => {
+    S.breakMode = !S.breakMode; S.menu = null;
+    if (S.breakMode) { S.view = "pages"; setStatus("Break points shown. Select one to start a new system or page there."); } else setStatus("Break points hidden.");
+    render(); $("#break-mode").focus();
+  });
+  $("#stale-dismiss").addEventListener("click", () => { S.stale = false; syncControls(); $("#break-mode").focus(); });
+  $("#cx-undo").addEventListener("click", undo);
+  $("#cx-reset").addEventListener("click", () => {
+    pushUndo(); Object.assign(S, defaults(), { breaks: {} }); S.breakMode = false; S.menu = null; announce("Layout reset. Undo is available."); change();
+  });
+  $("#cx-download").addEventListener("click", () => {
+    const n = S.shown.pages.length; S.exporting = { k: 0 }; chrome();
+    T.exp = setInterval(() => {
+      S.exporting.k++;
+      if (S.exporting.k >= n) { clearInterval(T.exp); S.exporting = null; chrome(); setStatus(`PDF downloaded: ${n} pages, 0.4 MB.`); }
+      else setStatus(`Preparing PDF — page ${S.exporting.k} of ${n}`);
+    }, 600);
+    setStatus(`Preparing PDF — page 1 of ${n}`);
+  });
+  $("#cx-cancel").addEventListener("click", () => { clearInterval(T.exp); S.exporting = null; chrome(); setStatus("Custom PDF cancelled."); });
+
+  /* Preview delegation: notices, handles, menu */
+  $("#cx-pages").addEventListener("click", (e) => {
+    const a = e.target.closest("[data-act]"), bp = e.target.closest(".cx-bp"), m = e.target.closest("[data-m]");
+    if (a) {
+      const [k, v] = a.dataset.act.split(":");
+      if (k === "staff") { S.staff = v; change(); } else if (k === "orient") { S.orient = v; change(); }
+      else if (k === "rmbreak") { pushUndo(); delete S.breaks[v]; change(); }
+      else if (k === "try") { S.globalErr = null; change(); }
+      else if (k === "orig") closeEditor(true);
+      else if (k === "reload") location.reload();
+      return;
+    }
+    if (m) {
+      const pt = S.menu.pt, d = m.dataset.m;
+      if (d === "system" || d === "page") setBreak(pt, d);
+      else if (d === "remove") setBreak(pt, null);
+      else if (d === "cancel") closeMenu(pt);
+      else if (d === "prev" || d === "next") { S.menu = { pt: pt + (d === "next" ? 1 : -1) }; S.menuFocus = "nav"; S.menuNavFocus = d; S.cur[0] = S.menu.pt; render(); }
+      return;
+    }
+    if (bp) openMenu(Number(bp.dataset.pt));
+  });
+  $("#cx-pages").addEventListener("keydown", (e) => {
+    const bp = e.target.closest(".cx-bp");
+    if (e.target.closest("#cx-menu")) { if (e.key === "Escape") { e.preventDefault(); closeMenu(S.menu.pt); } return; }
+    if (!bp) return;
+    const vis = visibleHandles(), i = vis.indexOf(bp);
+    if (e.key === "ArrowRight") { e.preventDefault(); moveFocus(bp, vis[Math.min(vis.length - 1, i + 1)]); }
+    else if (e.key === "ArrowLeft") { e.preventDefault(); moveFocus(bp, vis[Math.max(0, i - 1)]); }
+    else if (e.key === "Home") { e.preventDefault(); moveFocus(bp, vis[0]); }
+    else if (e.key === "End") { e.preventDefault(); moveFocus(bp, vis[vis.length - 1]); }
+    else if (e.key === "Escape") { e.preventDefault(); $("#break-mode").focus(); }
+  });
+  dlg.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z" && !/^(INPUT|TEXTAREA)$/.test(e.target.tagName) || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z" && e.target.type === "radio")) { e.preventDefault(); undo(); }
+  });
+
+  /* ---- Open / close, with history ---- */
+  let viaPop = false;
+  function openEditor() {
+    if (!dlg.open) { dlg.showModal(); try { history.pushState({ cx: true }, "", "#customize-export"); } catch (_) { /* file URLs may refuse */ } }
+    setBp(); render(); $("#cx-title").focus();
+  }
+  function closeEditor(original) {
+    if (dlg.open) dlg.close();
+    const st = $("#export-status");
+    if (original) st.textContent = "Custom layout closed. Export PDF uses the original layout.";
+    else if (S.exporting) { clearInterval(T.exp); S.exporting = null; st.textContent = "Custom PDF cancelled."; }
+    $("#export-btn").focus(); if (!original) $("#export-customize").focus();
+  }
+  dlg.addEventListener("close", () => {
+    if (!viaPop && history.state && history.state.cx) { try { history.back(); } catch (_) { /* ignore */ } }
+    $("#export-customize").focus();
+  });
+  window.addEventListener("popstate", () => { if (dlg.open) { viaPop = true; dlg.close(); viaPop = false; } });
+  $("#cx-close").addEventListener("click", () => closeEditor(false));
+  $("#export-customize").addEventListener("click", openEditor);
+  if (location.hash === "#customize-export") { try { history.replaceState(null, "", location.pathname + location.search); } catch (_) { /* ignore */ } }
+
+  /* ---- Scenarios ---- */
+  const BREAKS6 = { 2: "system", 8: "system", 12: "page" };
+  const SCEN = [
+    { n: 1, name: "1. Kyrie ready (Letter, Medium, as many as fit)", set: {} },
+    { n: 2, name: "2. iPad 11-inch portrait, 4 mm margins", set: { tier: "ipad", preset: "ipad-11", margin: 4 } },
+    { n: 3, name: "3. Custom 160 × 230 mm", set: { tier: "custom", custom: { w: 160, h: 230 }, margin: 4 } },
+    { n: 4, name: "4. Mixed: customizable, scan and fixed parts", set: {}, parts: ["kyrie", "gloria", "credo"] },
+    { n: 5, name: "5. A blank-page note", set: { tier: "ipad", preset: "ipad-mini", margin: 4, staff: "large", spacing: "spacious" } },
+    { n: 6, name: "6. Break editing, menu open", set: { breaks: BREAKS6 }, after: () => { S.breakMode = true; S.menu = { pt: 3 }; S.menuFocus = null; } },
+    { n: 7, name: "7. Impossible layout with suggestions", set: { tier: "ipad", preset: "ipad-mini", orient: "landscape", margin: 20, staff: "large", lyrics: "large", spacing: "spacious", breaks: { 3: "page" } }, prev: { staff: "medium", orient: "portrait" }, breakMode: true },
+    { n: 8, name: "8. Updating", set: { staff: "large" }, after: () => { S.frozen = true; S.showUpdating = true; } },
+    { n: 9, name: "9. Global error with Use original layout", set: {}, after: () => { S.globalErr = { code: "RENDERER_LOAD_FAILED", text: "The layout tools couldn't start in this browser.", acts: [{ act: "try", text: "Try again" }, { act: "orig", text: "Use original layout" }] }; setStatus("Can't update the preview. The layout tools couldn't start in this browser."); } },
+    { n: 10, name: "10. Continuous view", set: {}, after: () => { S.view = "continuous"; } },
+    { n: 11, name: "11. Blocked storage", set: {}, after: () => { S.storage = true; } },
+    { n: 12, name: "12. Stale anchors", set: {}, after: () => { S.stale = true; setStatus("Your saved breaks for Kyrie were removed because its music was updated."); } },
+    { n: 13, name: "13. Narrow-screen collapsed groups", set: { tier: "ipad", preset: "ipad-11", margin: 4 }, forced: "phone" },
+    { n: 14, name: "14. (Extra) Scans only: no customizable part", set: {}, parts: ["gloria", "credo"] },
+  ];
+  $("#proto-sel").innerHTML = SCEN.map((s) => `<option value="${s.n}">${esc(s.name)}</option>`).join("");
+  function applyScenario(n) {
+    const sc = SCEN.find((s) => s.n === n) || SCEN[0];
+    clearTimeout(T.job); clearTimeout(T.ind); clearInterval(T.exp);
+    Object.assign(S, defaults(), { parts: (sc.parts || ["kyrie"]).map((id) => PARTS[id]), view: "pages", zoom: 100, breakMode: false, menu: null, cur: {}, pending: false, frozen: false, showUpdating: false,
+      shown: null, err: null, globalErr: null, storage: false, stale: false, forced: sc.forced || null, undo: [], exporting: null, scenario: n });
+    $("#cx-undo").hidden = true; $("#cx-status").textContent = "";
+    const set = sc.set || {}; Object.assign(S, JSON.parse(JSON.stringify(set)));
+    if (!("margin" in set)) S.margin = S.tier === "print" ? 12 : 4;
+    S.marginTouched = false;
+    if (sc.prev) { S.shown = computeLayout(Object.assign({}, settingsOf(), sc.prev), S.parts); }
+    commit();
+    if (sc.breakMode) S.breakMode = true;
+    if (sc.after) sc.after();
+    $("#proto-sel").value = String(n);
+    $("#g-more").open = S.lyrics !== "medium" || S.spacing !== "normal";
+    $("#e-custom").hidden = true;
+    setBp();
+    if (S.err) setStatus(`Can't lay out ${S.err.part} with these settings.`);
+    if (S.frozen) setStatus("Updating preview…");
+    render();
+    try { history.replaceState(history.state, "", location.pathname + "?s=" + n); } catch (_) { /* ignore */ }
+  }
+  $("#proto-sel").addEventListener("change", (e) => applyScenario(Number(e.target.value)));
+
+  window.__cx = { S, applyScenario, computeLayout };
+  const start = Number(new URLSearchParams(location.search).get("s")) || 1;
+  dlg.showModal();
+  try { history.pushState({ cx: true }, "", location.pathname + "?s=" + start + "#customize-export"); } catch (_) { /* ignore */ }
+  applyScenario(start);
+  $("#cx-title").focus();
+})();
+</script>
+</body>
+</html>
