@@ -24,6 +24,7 @@ Append-only. Each entry: date, ID, decision, evidence, owner. Spikes (S0–S7) a
 | D18 | 2026-10-10 | The semantic oracle treats an IR hidden rest (`hidden-rest` feature) as equivalent to a skip: both encode as `<space>`, both silent and unprinted. | A4a; MEI cannot distinguish them and no music is lost. Revisit if a visible-rest source appears. | Coordinator |
 | G0 | 2026-10-10 | **Gate G0 passed: editor mockups approved** by the user, as merged at `432ff94` (B1 plus the preview-first iPad portrait revision). B8a–c build from `docs/superpowers/mockups/export-layout/editor.html` and the UI spec. | User review of mockups and screenshots. | User |
 | D19 | 2026-10-10 | GitHub environment `mei-publish` exists (created by the user) for the `mei-conversion.yml` publish job. | User confirmation. | User |
+| G1 | 2026-10-10 | **Gate G1 passed: Kyrie IX conversion fidelity approved** by the user, from the evidence packet built at `bfff8a4` (schema valid, 0 semantic differences, eligible; all 13 required layout cases; no lyric collisions). Accepted engraving differences as presented: slur direction chosen by Verovio; divisio maior drawn from the top staff line; horizontal spacing is Verovio's even chant spacing rather than LilyPond's. Signed record produced by A5d. | User review of `build/review/kyrie-ix/index.html`. | User |
 
 ## Spike outcomes
 
