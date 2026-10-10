@@ -1,23 +1,17 @@
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
-import { beforeAll, describe, expect, it } from 'vitest';
-import createVerovioModule from 'verovio/wasm';
-import type { VerovioModule } from 'verovio/wasm';
-import { VerovioToolkit } from 'verovio/esm';
+import { describe, expect, it } from 'vitest';
 import { renderMei, validateLayout } from './layout';
 import type { PageRects } from './layout';
-import { paperDimensions, usableRect } from './settings';
-import { DEFAULT_SETTINGS, PROVISIONAL_LIMITS } from './types';
+import { paperDimensions } from './settings';
+import {
+  ctxOf, errors, EXPERIMENT, EXPERIMENT_MEI, EXPERIMENT_NOTES, experimentBoundaries, pad, partOf, rectsOf,
+  settingsOf, useRealVerovio, WASM_TIMEOUT_MS,
+} from './__fixtures__/layoutHarness';
 import type {
   BreakOverride,
-  FontProfile,
   LayoutConstraints,
   LayoutDiagnostic,
   LayoutSettings,
-  MeiExportPart,
   MeiLayout,
-  MeiPart,
-  RenderContext,
   SafeBoundary,
   VerovioLike,
 } from './types';
@@ -57,7 +51,6 @@ interface Fake extends VerovioLike {
 }
 
 const mm = (v: number): number => Math.round(v * 100);
-const pad = (n: number): string => String(n).padStart(3, '0');
 
 function makeFake(cfg: FakeConfig): Fake {
   let options: Options = {};
@@ -176,32 +169,12 @@ const boundariesOf = (measures: readonly string[]): SafeBoundary[] =>
     id: `b${pad(i + 1)}`, onset: `${i + 1}/1`, sourceBreak: false, division: null, measureId: m, afterText: null,
   }));
 
-function partOf(meiXml: string, boundaries: readonly SafeBoundary[], rev = 'rev1'): MeiPart {
-  const part: MeiExportPart = {
-    id: 'seg:0', kind: 'mei', label: 'Kyrie', heading: null, sourceSystemCount: 4, sourceRevision: rev,
-    target: 'movement:test', renderHash: 'h'.repeat(32),
-    conversion: {
-      digest: 'd'.repeat(64), meiUrl: '', meiSha256: '', sourceRevision: rev, profile: 'accompaniment-v1',
-      verovio: '6.3.0-425dd7b', boundaries, capabilities: { manualBreaks: true },
-    },
-  };
-  return { part, meiXml };
-}
 const FAKE_PART = partOf(meiOf(MEASURES), boundariesOf(MEASURES));
 
-const settingsOf = (patch: Partial<LayoutSettings> = {}): LayoutSettings => ({ ...DEFAULT_SETTINGS, ...patch });
-const rectsOf = (s: LayoutSettings, headingMm = 0): PageRects => {
-  const content = usableRect(paperDimensions(s), s.marginMm);
-  return { content, firstPageContent: { ...content, heightMm: content.heightMm - headingMm } };
-};
-function ctxOf(toolkit: VerovioLike, isCancelled: () => boolean = () => false): RenderContext {
-  return { token: 1, fonts: {} as FontProfile, limits: PROVISIONAL_LIMITS, isCancelled, toolkit };
-}
 /** Content height 100 mm: with 30 mm systems and 8 mm gaps, two fit per page. */
 const SHORT: LayoutSettings = settingsOf({ page: 'custom', customSize: { widthMm: 150, heightMm: 124 }, marginMm: 12 });
 const FOUR_SYSTEMS = { measures: MEASURES, pass1Starts: ['m001', 'm004', 'm007', 'm010'] } as const;
 
-const errors = (d: readonly LayoutDiagnostic[]): LayoutDiagnostic[] => d.filter((x) => x.severity === 'error');
 const codes = (d: readonly LayoutDiagnostic[]): string[] => d.map((x) => x.code);
 const count = (s: string, re: RegExp): number => (s.match(re) ?? []).length;
 
@@ -600,35 +573,11 @@ describe('validateLayout', () => {
 
 // ====================================================== real Verovio WASM ===
 
-const EXPERIMENT_MEI = readFileSync(join(__dirname, '__fixtures__', 'kyrie-ix-experiment.mei'), 'utf8');
-const SOURCE_BREAK_MEASURES = [8, 16, 26, 39, 50]; // each <sb/> follows these measures in the fixture
-const m3 = (n: number): string => `m${pad(n)}`;
-/**
- * Boundaries: the five source-break boundaries are b001..b005 (so b002 follows m016), the rest are c001...
- * Every measure but the last has one.
- */
-function experimentBoundaries(): SafeBoundary[] {
-  const out: SafeBoundary[] = [];
-  let other = 1;
-  for (let k = 1; k <= 60; k++) {
-    const si = SOURCE_BREAK_MEASURES.indexOf(k);
-    out.push({
-      id: si >= 0 ? `b${pad(si + 1)}` : `c${pad(other++)}`,
-      onset: `${k}/1`, sourceBreak: si >= 0, division: null, measureId: m3(k), afterText: null,
-    });
-  }
-  return out;
-}
-const EXPERIMENT = partOf(EXPERIMENT_MEI, experimentBoundaries());
-const EXPERIMENT_NOTES = new Set([...EXPERIMENT_MEI.matchAll(/<note\b[^>]*?\sxml:id="([^"]+)"/g)].map((m) => m[1]!));
 const PAGE_BREAK_B002: BreakOverride = { boundaryId: 'b002', sourceRevision: 'rev1', kind: 'page' };
 
-describe('renderMei with real Verovio 6.3.0 (WASM)', () => {
-  let wasm: VerovioModule;
-  const toolkits: VerovioToolkit[] = [];
+describe('renderMei with real Verovio 6.3.0 (WASM)', { timeout: WASM_TIMEOUT_MS }, () => {
+  const { newToolkit } = useRealVerovio();
   const timings: string[] = [];
-  beforeAll(async () => { wasm = await createVerovioModule(); });
-  const newToolkit = (): VerovioToolkit => { const t = new VerovioToolkit(wasm); toolkits.push(t); return t; };
 
   async function run(label: string, s: LayoutSettings, overrides: readonly BreakOverride[] = [], headingMm = 0): Promise<{ layout: MeiLayout; rects: PageRects }> {
     const rects = rectsOf(s, headingMm);
@@ -745,7 +694,6 @@ describe('renderMei with real Verovio 6.3.0 (WASM)', () => {
 
   it('prints timings', () => {
     console.info(`[layout.test real-WASM timings]\n${timings.join('\n')}`);
-    for (const t of toolkits) t.destroy();
     expect(timings.length).toBeGreaterThan(0);
   });
 });
