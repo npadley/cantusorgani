@@ -21,6 +21,7 @@ from pipeline.typeset.mei.model import (
     EncodedScore,
     LilyPondRunnerAdapter,
     ScoreIR,
+    ValidationReport,
 )
 from pipeline.typeset.mei.schema import load_schema_bundle, validate_schema
 from pipeline.typeset.mei.validate import validate_conversion
@@ -242,9 +243,9 @@ def _diagnostic_from_dict(raw: dict[str, Any]) -> Diagnostic:
     )
 
 
-def validate_command(directory: Path) -> int:
+def validation_for_directory(directory: Path) -> ValidationReport:
     """Validate a converter output directory (ir.json, score.mei, provenance.json, diagnostics.json).
-    Writes validation.json; exit 1 when the conversion is not eligible."""
+    Shared by typeset-mei-validate and the evidence packet so they never disagree."""
     ir = ScoreIR.from_dict(json.loads((directory / "ir.json").read_text(encoding="utf-8")))
     xml = (directory / "score.mei").read_bytes()
     provenance = json.loads((directory / "provenance.json").read_text(encoding="utf-8"))
@@ -262,7 +263,12 @@ def validate_command(directory: Path) -> int:
         provenance=provenance,
         diagnostics=tuple(recorded),
     )
-    report = validate_conversion(ir, encoded, load_schema_bundle())
+    return validate_conversion(ir, encoded, load_schema_bundle())
+
+
+def validate_command(directory: Path) -> int:
+    """Validate a converter output directory. Writes validation.json; exit 1 when not eligible."""
+    report = validation_for_directory(directory)
     _write_json(
         directory / "validation.json",
         json.loads(json.dumps(dataclasses.asdict(report), default=_json_default)),

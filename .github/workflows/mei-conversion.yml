@@ -41,6 +41,17 @@ jobs:
           enable-cache: false
       - run: uv sync --frozen
       - run: uv run noh lilypond-install
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - name: Install the layout renderer (evidence packets)
+        run: pnpm install --frozen-lockfile
+        working-directory: web
       - name: Convert without network or credentials
         env:
           NOH_SANDBOX: '1'
@@ -53,13 +64,13 @@ jobs:
           while IFS= read -r src; do
             n=$((n+1))
             uv run noh typeset-mei-convert "$src" --out "build/mei/work/$n"
+            uv run noh typeset-mei-validate "build/mei/work/$n"
             digest=$(sha256sum "build/mei/work/$n/score.mei" | cut -d' ' -f1)
             mkdir -p "build/mei/artifacts/$digest"
             cp "build/mei/work/$n/score.mei" "build/mei/work/$n/boundaries.json" "build/mei/artifacts/$digest/"
             cp -r "build/mei/work/$n" "build/mei/evidence/$digest"
+            uv run noh typeset-mei-evidence "build/mei/work/$n" --out "build/mei/evidence/$digest/packet"
           done < "$RUNNER_TEMP/sources.txt"
-      # typeset-mei-validate and typeset-mei-evidence are added here once A4b merges; until then
-      # conversion output and diagnostics are the only evidence uploaded.
       - uses: actions/upload-artifact@v7
         with:
           name: mei-artifacts

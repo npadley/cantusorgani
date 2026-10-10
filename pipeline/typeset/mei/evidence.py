@@ -38,6 +38,8 @@ from pipeline.typeset.mei.model import (
     ConversionRecord,
     EvidencePacket,
     LayoutCase,
+    SemanticDifference,
+    rational_to_str,
 )
 
 __all__ = [
@@ -308,35 +310,10 @@ def _inputs_without_record(ir: dict[str, Any], profile_id: str) -> ConversionInp
     return current_inputs_from_files(skeleton)
 
 
-def _checks(convert_dir: Path, ir: dict[str, Any]) -> tuple[bool, list[str], list[str]]:
-    """(schema_ok, schema messages, differences) for a convert directory with no record.
-
-    TODO(A4b): replace the equality comparison with ``validate.compare_scores`` (coded differences with
-    source_event_ids) once ``pipeline/typeset/mei/validate.py`` is merged. Until then the independent
-    reader (``normalize_mei``) is compared with ``normalize_ir`` and any inequality is listed."""
-    from pipeline.typeset.mei.cli import PROFILE_PATH
-    from pipeline.typeset.mei.encode import encode_score
-    from pipeline.typeset.mei.model import ConversionProfile, ScoreIR
-    from pipeline.typeset.mei.normalize import normalize_ir, normalize_mei
-    from pipeline.typeset.mei.schema import load_schema_bundle, validate_schema
-
-    xml = (convert_dir / "score.mei").read_bytes()
-    schema = validate_schema(xml, load_schema_bundle())
-    score = ScoreIR.from_dict(ir)
-    provenance = encode_score(score, ConversionProfile.load(PROFILE_PATH)).provenance
-    expected, actual = normalize_ir(score), normalize_mei(xml, provenance)
-    differences: list[str] = []
-    for field in dataclasses.fields(expected):
-        a, b = getattr(expected, field.name), getattr(actual, field.name)
-        if a == b:
-            continue
-        if field.name == "layers":
-            for key in sorted(set(a) | set(b)):
-                if a.get(key) != b.get(key):
-                    differences.append(f"layer {key}: {len(a.get(key, ()))} source events vs {len(b.get(key, ()))} in MEI")
-        else:
-            differences.append(f"{field.name} differ")
-    return not schema, [d.message for d in schema], differences
+def _describe(difference: SemanticDifference) -> str:
+    onset = "-" if difference.onset is None else rational_to_str(difference.onset)
+    ids = ", ".join(difference.source_event_ids) or "-"
+    return f"{difference.code} | layer {difference.layer_key or '-'} | onset {onset} | events {ids} | {difference.detail}"
 
 
 # --- html ----------------------------------------------------------------------------------------------------
@@ -506,15 +483,15 @@ def build_evidence(
 
     if record is not None and record.validation is not None:
         v = record.validation
-        schema_ok, schema_messages = v.schema_ok, [d.message for d in v.schema_diagnostics]
-        differences = [f"{s.code}: {s.detail}" for s in v.semantic_differences]
-        tool_versions = dict(v.tool_versions)
-        hashes = dict(v.hashes)
         validation_note = "from the conversion record"
     else:
-        schema_ok, schema_messages, differences = _checks(convert_dir, ir)
-        tool_versions, hashes = {}, {}
-        validation_note = "computed here from the convert directory (schema, then normalize_ir vs normalize_mei)"
+        from pipeline.typeset.mei.cli import validation_for_directory
+
+        v = validation_for_directory(convert_dir)  # the same helper typeset-mei-validate uses
+        validation_note = "computed here by validate.validate_conversion, as typeset-mei-validate does"
+    schema_ok, schema_messages = v.schema_ok, [d.message for d in v.schema_diagnostics]
+    differences = [_describe(d) for d in v.semantic_differences]
+    tool_versions, hashes, eligible = dict(v.tool_versions), dict(v.hashes), v.eligible
     diagnostics = (
         [_diag_from_object(d) for d in record.diagnostics]
         if record is not None
@@ -524,7 +501,7 @@ def build_evidence(
     page = _render_html(
         source_path=source_path, target=target, render_hash=render_hash, inputs=inputs, artifact_sha256=artifact_sha256,
         ir=ir, verovio=str(summary.get("verovio") or UNRECORDED), record=record, schema_ok=schema_ok,
-        schema_messages=schema_messages, differences=differences, validation_note=validation_note,
+        schema_messages=schema_messages, differences=differences, eligible=eligible, validation_note=validation_note,
         tool_versions=tool_versions, hashes=hashes, diagnostics=diagnostics, findings=findings,
         cases=cases, info=info, pages=pages, original=original, original_is_cached=_is_cached(original, work), scans=scans,
     )
@@ -547,7 +524,7 @@ def _is_cached(original: Path | None, work: Path) -> bool:
 def _render_html(
     *, source_path: str, target: str | None, render_hash: str | None, inputs: ConversionInputs, artifact_sha256: str,
     ir: dict[str, Any], verovio: str, record: ConversionRecord | None, schema_ok: bool, schema_messages: list[str],
-    differences: list[str], validation_note: str, tool_versions: dict[str, str], hashes: dict[str, str],
+    differences: list[str], eligible: bool, validation_note: str, tool_versions: dict[str, str], hashes: dict[str, str],
     diagnostics: list[dict[str, Any]], findings: list[Diagnostic], cases: list[LayoutCase], info: dict[str, Any],
     pages: dict[str, list[Path]], original: Path | None, original_is_cached: bool, scans: list[Path],
 ) -> str:
@@ -591,6 +568,7 @@ def _render_html(
     out.append(f'<p class="{cls}">Schema: {"valid" if schema_ok else "INVALID"}</p>')
     out += [f"<p class=\"bad\">{_e(m)}</p>" for m in schema_messages[:10]]
     out.append(f'<p class="{"ok" if not differences else "bad"}">Semantic differences: {len(differences)}</p>')
+    out.append(f'<p class="{"ok" if eligible else "bad"}">Eligible: {"yes" if eligible else "NO"}</p>')
     if differences:
         out.append("<ul>" + "".join(f"<li>{_e(d)}</li>" for d in differences) + "</ul>")
     out.append(f"<h2>Diagnostics ({len(diagnostics)})</h2>")

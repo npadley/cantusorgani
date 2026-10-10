@@ -38,6 +38,26 @@ def test_convert_job_has_no_permissions_secrets_or_persisted_credentials() -> No
     assert "NOH_SANDBOX" in text(convert) and "ulimit" in text(convert) and "unshare" in text(convert)
 
 
+def test_convert_job_validates_and_builds_evidence_per_source() -> None:
+    convert, _ = jobs()
+    run = "\n".join(s.get("run", "") for s in convert["steps"])
+    assert 'uv run noh typeset-mei-convert "$src"' in run
+    assert "uv run noh typeset-mei-validate " in run
+    assert "uv run noh typeset-mei-evidence " in run
+    # validate follows convert and precedes evidence, inside the same per-source loop; a validate
+    # failure fails the job because the script does not mask exit codes.
+    assert run.index("typeset-mei-convert") < run.index("typeset-mei-validate") < run.index("typeset-mei-evidence")
+    assert "|| true" not in run and "set +e" not in run
+    uploads = [s for s in convert["steps"] if s.get("with", {}).get("name") == "mei-evidence"]
+    assert uploads and uploads[0]["with"]["path"] == "build/mei/evidence/"
+    assert "build/mei/evidence/$digest/packet" in run
+
+
+def test_publish_job_does_not_run_validate_or_evidence() -> None:
+    _, publish = jobs()
+    assert "typeset-mei-validate" not in text(publish) and "typeset-mei-evidence" not in text(publish)
+
+
 def test_publish_job_does_not_install_or_run_the_compiler() -> None:
     _, publish = jobs()
     commands = "\n".join(s.get("run", "") for s in publish["steps"])
