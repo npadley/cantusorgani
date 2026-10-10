@@ -434,7 +434,40 @@ class ConversionProfile:
     rules: tuple[FeatureRule, ...]
     @classmethod
     def load(cls, path: Path) -> ConversionProfile:
-        raise NotImplementedError("card A3b")
+        import json  # local import: this card may only touch the body of load()
+
+        raw = json.loads(path.read_text(encoding="utf-8"))
+        if raw["meiVersion"] != "5.0":
+            raise ValueError(f"unsupported meiVersion: {raw['meiVersion']!r}")
+
+        rules = tuple(
+            FeatureRule(family=item["family"], status=item["status"], mei=item["mei"])
+            for item in raw["rules"]
+        )
+        valid_statuses = ("supported", "unsupported", "engraving-only")
+        for rule in rules:
+            if rule.status not in valid_statuses:
+                raise ValueError(f"invalid status for {rule.family}: {rule.status!r}")
+
+        families = [rule.family for rule in rules]
+        duplicates = sorted({family for family in families if families.count(family) > 1})
+        if duplicates:
+            raise ValueError(f"duplicate families: {duplicates}")
+        missing = sorted(set(FEATURE_FAMILIES) - set(families))
+        unknown = sorted(set(families) - set(FEATURE_FAMILIES))
+        if missing or unknown:
+            raise ValueError(f"families must match FEATURE_FAMILIES; missing {missing}, unknown {unknown}")
+        if tuple(families) != FEATURE_FAMILIES:
+            raise ValueError("families are not in FEATURE_FAMILIES order")
+
+        return cls(
+            id=raw["id"],
+            version=raw["version"],
+            mei_version=raw["meiVersion"],
+            lyric_place=raw["lyricPlace"],
+            container_policy=raw["containerPolicy"],
+            rules=rules,
+        )
 
 # --- runner / extract ----------------------------------------------------------
 class LilyPondRunnerAdapter(Protocol):
