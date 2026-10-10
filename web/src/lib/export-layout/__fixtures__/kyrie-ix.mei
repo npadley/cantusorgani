@@ -1851,7 +1851,12 @@
                 </layer>
               </staff>
               <slur endid="#ev0e0146" startid="#ev0e0144" xml:id="sp0048"/>
-              <caesura glyph.auth="smufl" glyph.num="U+E8F3" staff="1" startid="#ev0e0146" xml:id="cb146"/>
+              <dir ho="2.5" place="above" staff="1" startid="#ev0e0146" type="divisio-minima" vo="-1.5" xml:id="cb146">
+                <rend fontsize="50%" fontstyle="normal">|</rend>
+              </dir>
+              <dir ho="2.5" place="above" staff="2" startid="#ev0e0146" type="divisio-minima" vo="-1.5" xml:id="cb146s2">
+                <rend fontsize="50%" fontstyle="normal">|</rend>
+              </dir>
             </measure>
             <sb/>
             <measure metcon="false" n="72" right="invis" xml:id="m072">
@@ -1986,7 +1991,12 @@
               <slur endid="#ev0e0161" startid="#ev0e0159" xml:id="sp0052"/>
               <tie endid="#ev1e0056" startid="#ev1e0055" xml:id="tev1e0055"/>
               <tie endid="#ev3e0056" startid="#ev3e0055" xml:id="tev3e0055"/>
-              <caesura glyph.auth="smufl" glyph.num="U+E8F3" staff="1" startid="#ev0e0161" xml:id="cb161"/>
+              <dir ho="2.5" place="above" staff="1" startid="#ev0e0161" type="divisio-minima" vo="-1.5" xml:id="cb161">
+                <rend fontsize="50%" fontstyle="normal">|</rend>
+              </dir>
+              <dir ho="2.5" place="above" staff="2" startid="#ev0e0161" type="divisio-minima" vo="-1.5" xml:id="cb161s2">
+                <rend fontsize="50%" fontstyle="normal">|</rend>
+              </dir>
             </measure>
             <measure metcon="false" n="76" right="invis" xml:id="m076">
               <staff n="1">
