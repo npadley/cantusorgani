@@ -117,6 +117,11 @@ dialog.cx .cx-preview { min-width: 0; min-height: 0; overflow: auto; }
 /* The caption sits beside the chip, in the empty gap, never over the lyrics. */
 .cx-bplab { display: none; position: absolute; left: calc(50% + 12px); top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: var(--step--1); color: var(--ink); background: var(--print-paper); padding: 0 var(--s-1); z-index: 2; }
 .cx-bp:hover .cx-bplab, .cx-bp:focus .cx-bplab { display: block; }
+.cx-bp.cx-flip .cx-bplab { left: auto; right: calc(50% + 12px); }
+/* A chip under the open caption steps aside while it shows (it comes back when the caption goes). Invisible, not hidden:
+   it must stay focusable for the arrow keys. */
+.cx-bp.cx-covered { opacity: 0; }
+.cx-bp.cx-quiet .cx-bplab { display: none; }
 .cx-bp:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
 .cx-bp:hover, .cx-bp:focus { z-index: 3; }
 

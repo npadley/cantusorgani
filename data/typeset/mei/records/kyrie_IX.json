@@ -1,11 +1,21 @@
 {
   "artifact_sha256": "ccfcbdb499ca3203d4420507ee14b262c600a108dcc067ff3c724bf161eaf69d",
+  "carried_from": {
+    "attributed_to": "ci",
+    "prior_artifact_sha256": "ccfcbdb499ca3203d4420507ee14b262c600a108dcc067ff3c724bf161eaf69d",
+    "prior_inputs_digest": "d5facb256c58c762d1acf989cfcdd8632345c551b89548df4e38eb241a9697db",
+    "reason": [
+      "converter_version",
+      "include_sha256"
+    ],
+    "timestamp": "2026-10-11T20:01:13Z"
+  },
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+3a91423f1d449675",
+    "converter_version": "mei-convert/1+b4a21deaac3c0577",
     "extractor_version": "listen_full/1+c4de7df64f8a458d",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
-    "include_sha256": "9d75f6ac3f4cc9bb55b7f1d985ffa17b1daee43ea3d5197181a914fea8556b3e",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
     "profile_id": "accompaniment-v1",
     "profile_sha256": "fa94870c1f30bc0e08d0736ac39ffd5cb394cf2fd132c1c2f8dd6f9ec80f7b2d",
@@ -22,7 +32,7 @@
     ],
     "artifact_sha256": "ccfcbdb499ca3203d4420507ee14b262c600a108dcc067ff3c724bf161eaf69d",
     "decision": "approve",
-    "inputs_digest": "d5facb256c58c762d1acf989cfcdd8632345c551b89548df4e38eb241a9697db",
+    "inputs_digest": "d5a1ed75bd7f1ffdb11c85b2fed96107f65ca10d4f91d1d4e6b4a7c948fc68b0",
     "matrix_results": {
       "a4-l-auto": "accepted-difference",
       "a4-p-orig": "accepted-difference",

@@ -2,6 +2,7 @@
 import AdminNav from "../../components/AdminNav.astro";
 import Layout from "../../components/Layout.astro";
 import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
+import { EXPORT_PAUSED } from "../../lib/admin/exportPaused";
 
 // The admin home: what is waiting on every list (/admin/api/summary), then the
 // corrections queue. Static: everything on it is loaded from /admin/api,
@@ -57,6 +58,11 @@ import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
               <td><a href="/admin/typeset/?queue=proofreading">See proofreading</a></td>
             </tr>
             <tr>
+              <th scope="row">Custom export: paused</th>
+              <td>{EXPORT_PAUSED.length === 0 ? "None" : `${EXPORT_PAUSED.length} to re-review`}</td>
+              <td>{EXPORT_PAUSED.length > 0 && <a href="#paused-h">See why</a>}</td>
+            </tr>
+            <tr>
               <th scope="row">Last published</th><td id="last-published">…</td>
               <td><a href="#batches-h">See publishing</a></td>
             </tr>
@@ -72,6 +78,34 @@ import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
           <a href="/about/#corrections">How corrections work</a>.</p>
       </details>
     </section>
+
+    {EXPORT_PAUSED.length > 0 && (
+      <section aria-labelledby="paused-h">
+        <h2 id="paused-h">Custom export paused: MEI re-review needed</h2>
+        <p class="small muted">An approved conversion no longer matches what the site publishes, so the Customize button is
+          hidden on these pieces until it is re-reviewed or its approval is carried forward
+          (<code>noh typeset-mei-carry</code>). Run <code>noh typeset-mei-stale</code> for the full list of changed inputs.</p>
+        <div class="scroll">
+          <table class="paused">
+            <thead><tr><th scope="col">Target</th><th scope="col">Why</th></tr></thead>
+            <tbody>
+              {EXPORT_PAUSED.map((p) => (
+                <tr>
+                  <th scope="row"><code>{p.target}</code><br /><span class="small muted">{p.sourcePath}</span></th>
+                  <td>
+                    <ul class="reasons">{p.reasons.map((r) => <li>{r}</li>)}</ul>
+                    {p.currentRenderHash !== null && p.recordedRenderHash !== p.currentRenderHash && (
+                      <span class="small muted">Approved on render <code>{p.recordedRenderHash?.slice(0, 8)}</code>, site now
+                        <code>{p.currentRenderHash.slice(0, 8)}</code></span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )}
 
     <section aria-labelledby="pending-h">
       <h2 id="pending-h">Readers' reports</h2>
@@ -110,6 +144,11 @@ import { MELODY_AUDIT_COUNTS } from "../../lib/admin/melodyAudit";
   .waiting td:nth-child(2) { font-variant-numeric: tabular-nums; }
   .waiting td:last-child { text-align: right; padding-right: 0; white-space: nowrap; }
   .waiting .publish-row th { font-weight: 600; }
+  .paused { width: 100%; border-collapse: collapse; }
+  .paused th, .paused td { text-align: left; padding: var(--s-2) var(--s-3) var(--s-2) 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .paused tbody th { font-weight: 400; }
+  .paused thead th { color: var(--ink-muted); font-size: var(--step--1); }
+  .paused .reasons { margin: 0; padding-left: var(--s-4); }
   @media (max-width: 40rem) {
     .waiting, .waiting tbody { display: block; }
     .waiting tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: var(--s-3);

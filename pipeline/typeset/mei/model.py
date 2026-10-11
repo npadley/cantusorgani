@@ -618,6 +618,15 @@ class ReviewDecision:
     decision: Literal["approve", "reject"]
 
 @dataclass(frozen=True)
+class CarriedFrom:
+    """Why an approval was carried forward (D20): set only by ``review.carry_forward``, by CI."""
+    prior_artifact_sha256: str         # the artifact the human approved
+    prior_inputs_digest: str           # ConversionInputs.digest() of that approval
+    reason: tuple[str, ...]            # ConversionInputs field names that changed, sorted
+    timestamp: str                     # ISO 8601 UTC, when the carry was made
+    attributed_to: Literal["ci"]
+
+@dataclass(frozen=True)
 class ConversionRecord:
     source_path: str
     target: str | None                 # from data/typeset/manifest.json; never inferred
@@ -628,6 +637,7 @@ class ConversionRecord:
     diagnostics: tuple[Diagnostic, ...]
     validation: ValidationReport | None
     review: ReviewDecision | None
+    carried_from: CarriedFrom | None = None   # C5: absent on records approved directly by a human
 
 class ReviewBlocked(Exception):
     def __init__(self, codes: tuple[str, ...], message: str) -> None:
