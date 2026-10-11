@@ -144,6 +144,8 @@ test.describe("Customize export is lazy", () => {
   });
 
   test("a custom download is counted once, with the settings and nothing personal", async ({ page }) => {
+    // The real count.js would replace the stub below (and send a real hit), so it never loads here.
+    await page.route("**/gc.zgo.at/**", (route) => route.fulfill({ body: "", contentType: "application/javascript" }));
     await page.addInitScript(() => {
       (window as unknown as { __gc: unknown[] }).__gc = [];
       (window as unknown as { goatcounter: { count(e: unknown): void } }).goatcounter = { count: (e) => (window as unknown as { __gc: unknown[] }).__gc.push(e) };
