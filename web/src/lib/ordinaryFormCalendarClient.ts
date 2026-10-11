@@ -1,10 +1,11 @@
-import { addDays, isoOf, nextSunday, parseIso, today, type LocalDate } from "./liturgy";
-import { DEFAULT_OF_SETTINGS, OF_SEASON_LABELS, ofDay, type OfSettings } from "./ordinaryForm";
-import { ofQuery, OF_SETTINGS_STORAGE_KEY, presetForSettings, readOfSettings, settingsForPreset, type OfPreset } from "./ordinaryFormSettings";
+import { addDays, isoOf, nextSunday, parseIso, today, weekday, type LocalDate } from "./liturgy";
+import { OF_SEASON_LABELS, ofDay, type OfSettings } from "./ordinaryForm";
+import { ofQuery, OF_SETTINGS_STORAGE_KEY, readOfSettings } from "./ordinaryFormSettings";
 import type { OfSeason } from "./ordinaryForm";
 
 type Cycle = "A" | "B" | "C";
 type Season = OfSeason;
+export interface OfMusicChoice { readonly key: string; readonly sundayCycle: Cycle; readonly season: Season }
 interface OfPart {
   slot: string; sourceSlot: string; kind?: string; variant: string; years: Cycle[]; seasons?: Season[];
   gregobaseId: number; incipit: string; label: string; href: string | null;
@@ -48,9 +49,27 @@ function readStored(): unknown {
   try { return localStorage.getItem(OF_SETTINGS_STORAGE_KEY); }
   catch { return undefined; }
 }
-function persist(settings: OfSettings): void {
-  try { localStorage.setItem(OF_SETTINGS_STORAGE_KEY, JSON.stringify(settings)); }
-  catch { /* Calendar settings remain usable when storage is blocked. */ }
+
+/** Occasion pairs for Sundays whose proper changes under one of the legacy transfer choices. */
+export function dateMusicChoices(date: LocalDate, settings: OfSettings): OfMusicChoice[] {
+  if (weekday(date) !== 0) return [];
+  const current = ofDay(date, settings);
+  if (!current.occasion) return [];
+  const alternatives = [
+    { feast: "epiphany", settings: { ...settings, epiphany: settings.epiphany === "sunday" ? "jan6" : "sunday" } },
+    { feast: "ascension", settings: { ...settings, ascension: settings.ascension === "sunday" ? "thursday" : "sunday" } },
+    { feast: "corpus-christi", settings: { ...settings, corpusChristi: settings.corpusChristi === "sunday" ? "thursday" : "sunday" } },
+  ] as const;
+  for (const alternative of alternatives) {
+    const other = ofDay(date, alternative.settings);
+    if (!other.occasion || other.occasion === current.occasion ||
+        (other.occasion !== alternative.feast && current.occasion !== alternative.feast)) continue;
+    return [
+      { key: current.occasion, sundayCycle: current.sundayCycle, season: current.season },
+      { key: other.occasion, sundayCycle: other.sundayCycle, season: other.season },
+    ];
+  }
+  return [];
 }
 function readData(): Data {
   const el = document.getElementById("of-occasion-index");
@@ -66,34 +85,18 @@ function readIsoParameter(params: URLSearchParams): { date: LocalDate; error: st
   if (!parsed) return { date: today(), error: `Enter a valid date from ${MIN_YEAR}-01-01 to ${MAX_YEAR}-12-31.` };
   return { date: parsed, error: null };
 }
-function settingRadios(root: HTMLElement): HTMLInputElement[] {
-  return [...root.querySelectorAll<HTMLInputElement>('input[type="radio"][name="epiphany"], input[type="radio"][name="ascension"], input[type="radio"][name="corpusChristi"]')];
-}
-
 export function mountOrdinaryFormCalendar(root: HTMLElement): void {
   const data = readData();
   const input = root.querySelector<HTMLInputElement>("#date");
   const result = root.querySelector<HTMLElement>("#result");
   const feedback = root.querySelector<HTMLElement>("#date-feedback");
-  const changed = root.querySelector<HTMLElement>("#settings-changed");
-  const settingsRadiosList = settingRadios(root);
-  if (!input || !result || !feedback || !changed) return;
-  const dateInput = input, results = result, dateFeedback = feedback, settingsChanged = changed;
+  if (!input || !result || !feedback) return;
+  const dateInput = input, results = result, dateFeedback = feedback;
   let params = new URLSearchParams(window.location.search);
   let currentDate = readIsoParameter(params).date;
   let settings = readOfSettings(params, readStored());
   let dateError = readIsoParameter(params).error;
 
-  const presetRadios = [...root.querySelectorAll<HTMLInputElement>('input[name="preset"]')];
-  function syncControls(): void {
-    for (const radio of settingsRadiosList) {
-      const key = radio.name as keyof OfSettings;
-      radio.checked = settings[key] === radio.value;
-    }
-    const preset = presetForSettings(settings);
-    presetRadios.forEach(radio => { radio.checked = radio.value === preset; });
-    settingsChanged.hidden = preset === "general-roman";
-  }
   function announceInvalid(message: string): void {
     dateError = message;
     dateInput.setAttribute("aria-invalid", "true");
@@ -168,8 +171,21 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
           if (parts.length) dd.append(list);
         }
         music.append(dd); block.append(music);
-        const cta = anchor("View accompaniments for this occasion", occasionHref(key, day.sundayCycle, day.season));
-        cta.className = "accompaniments"; block.append(cta);
+        const choices = dateMusicChoices(date, settings).filter(choice => data[choice.key]);
+        if (choices.length === 2) {
+          const links = element("div", undefined, "occasion-options accompaniment-choices");
+          links.append("Choose the music for your local celebration: ");
+          choices.forEach((choice, i) => {
+            if (i) links.append(" · ");
+            const occasionChoice = data[choice.key]!;
+            links.append(anchor(`View ${occasionChoice.titleEn} accompaniments`,
+              occasionHref(choice.key, choice.sundayCycle, choice.season)));
+          });
+          block.append(links);
+        } else {
+          const cta = anchor("View accompaniments for this occasion", occasionHref(key, day.sundayCycle, day.season));
+          cta.className = "accompaniments"; block.append(cta);
+        }
         results.append(block);
       }
     } else if (day.season === "ordinary") {
@@ -204,26 +220,11 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
     if (prev) prev.disabled = isoOf(currentDate) <= `${MIN_YEAR}-01-01`;
     if (next) next.disabled = isoOf(currentDate) >= `${MAX_YEAR}-12-31`;
   }
-  function updateSettings(next: OfSettings, push = true): void {
-    settings = next; persist(settings); syncControls(); serialize(push); render(currentDate); refreshNavigation();
-  }
   function move(date: LocalDate): void {
     if (!inRange(date)) { render(date); refreshNavigation(); return; }
     clearInvalid(); currentDate = date; serialize(true); render(date); refreshNavigation();
   }
 
-  settingsRadiosList.forEach(radio => radio.addEventListener("change", () => {
-    if (!radio.checked) return;
-    const key = radio.name as keyof OfSettings;
-    updateSettings({ ...settings, [key]: radio.value } as OfSettings);
-  }));
-  presetRadios.forEach(radio => radio.addEventListener("change", () => {
-    if (!radio.checked || radio.value === "custom") return;
-    updateSettings(settingsForPreset(radio.value as Exclude<OfPreset, "custom">));
-  }));
-  const reset = () => updateSettings(DEFAULT_OF_SETTINGS);
-  root.querySelector<HTMLButtonElement>("#reset-settings")?.addEventListener("click", reset);
-  root.querySelector<HTMLAnchorElement>("#reset-link")?.addEventListener("click", event => { event.preventDefault(); reset(); });
   root.querySelectorAll<HTMLButtonElement>("[data-step]").forEach(button => button.addEventListener("click", () => move(addDays(currentDate, Number(button.dataset["step"])) )));
   root.querySelector<HTMLButtonElement>("[data-go=today]")?.addEventListener("click", () => move(today()));
   root.querySelector<HTMLButtonElement>("[data-go=sunday]")?.addEventListener("click", () => move(nextSunday(currentDate)));
@@ -240,9 +241,8 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
   window.addEventListener("popstate", () => {
     params = new URLSearchParams(window.location.search);
     const parsed = readIsoParameter(params); currentDate = parsed.date; dateError = parsed.error;
-    settings = readOfSettings(params, readStored()); syncControls(); render(currentDate); refreshNavigation();
+    settings = readOfSettings(params, readStored()); render(currentDate); refreshNavigation();
   });
-  syncControls();
   const initial = readIsoParameter(params);
   currentDate = initial.date; dateError = initial.error;
   render(currentDate); refreshNavigation();

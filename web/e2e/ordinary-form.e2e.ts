@@ -26,10 +26,24 @@ test.describe("Ordinary Form discovery and date calendar", () => {
   test("home page links directly to the Ordinary Form calendar", async ({ page }) => {
     await page.clock.install({ time: new Date("2026-10-11T12:00:00") });
     await page.goto("/");
-    await page.getByRole("link", { name: "Find the Mass for any date in the Ordinary Form" }).click();
+    await page.getByRole("link", { name: "What is sung today in the Ordinary Form?" }).click();
     await expect(page).toHaveURL(/\/calendar\/ordinary-form\//);
     await expect(page.getByLabel("Date")).toHaveValue("2026-10-11");
     await expect(page.getByText("Year A · Weekday Year II")).toBeVisible();
+  });
+
+  test("home calendar cards sit side by side on desktop and stack on mobile", async ({ page }) => {
+    await page.goto("/");
+    const cards = page.locator(".calendar-links .calendar-card");
+    await expect(cards).toHaveCount(2);
+    const desktop = await Promise.all([cards.nth(0).boundingBox(), cards.nth(1).boundingBox()]);
+    expect(desktop[0]).not.toBeNull(); expect(desktop[1]).not.toBeNull();
+    expect(desktop[0]!.y).toBe(desktop[1]!.y);
+    expect(desktop[1]!.x).toBeGreaterThan(desktop[0]!.x);
+    await page.setViewportSize({ width: 390, height: 844 });
+    const mobile = await Promise.all([cards.nth(0).boundingBox(), cards.nth(1).boundingBox()]);
+    expect(mobile[1]!.y).toBeGreaterThan(mobile[0]!.y);
+    expect(mobile[1]!.x).toBe(mobile[0]!.x);
   });
 
   test("Ordinary Form pages are discoverable and keep source music references", async ({ page }) => {
@@ -48,16 +62,24 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     await expect(page.locator("#of-export-note")).toContainText("Year A · easter season");
   });
 
-  test("presets derive Custom and reset writes explicit defaults to the URL", async ({ page }) => {
-    await page.goto("/calendar/ordinary-form/?date=2026-04-05");
-    await page.getByLabel("Sunday transfers", { exact: true }).check();
-    await expect(page).toHaveURL(/epiphany=sunday.*ascension=sunday.*corpusChristi=sunday/);
-    await page.getByLabel("6 January", { exact: true }).check();
-    await expect(page.getByLabel("Custom")).toBeChecked();
-    await expect(page.locator("#settings-changed")).toContainText("Calendar settings changed");
-    await page.getByRole("button", { name: "Reset to General Roman" }).click();
-    await expect(page).toHaveURL(/epiphany=jan6.*ascension=thursday.*corpusChristi=thursday/);
-    await expect(page.getByLabel("General Roman", { exact: true })).toBeChecked();
+  test("legacy transfer URLs are honored while choices link directly to either accompaniment set", async ({ page }) => {
+    await page.goto("/calendar/ordinary-form/?date=2026-01-04");
+    await expect(page.getByRole("heading", { name: "The Second Sunday after Christmas" })).toBeVisible();
+    await expect(page.locator(".settings")).toHaveCount(0);
+    await expect(page.locator('input[type="radio"]')).toHaveCount(0);
+    const options = page.locator(".accompaniment-choices a");
+    await expect(options).toHaveCount(2);
+    const epiphany = page.getByRole("link", { name: "View The Epiphany of the Lord accompaniments" });
+    await expect(epiphany).toHaveAttribute("href", "/ordinary-form/epiphany/?cycle=A&season=christmas");
+    await epiphany.click();
+    await expect(page).toHaveURL(/\/ordinary-form\/epiphany\/\?cycle=A&season=christmas/);
+    await expect(page.locator("#of-export-note")).toContainText("Year A · christmas season");
+    await page.goto("/calendar/ordinary-form/?date=2026-05-17&ascension=sunday");
+    await expect(page.getByRole("heading", { name: "The Ascension of the Lord" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "View 7th Sunday of Easter accompaniments" }))
+      .toHaveAttribute("href", "/ordinary-form/easter-7/?cycle=A&season=easter");
+    await expect(page.getByRole("link", { name: "View The Ascension of the Lord accompaniments" }))
+      .toHaveAttribute("href", "/ordinary-form/ascension/?cycle=A&season=easter");
   });
 
   test("browser back and forward restore the selected date and live result", async ({ page }) => {
@@ -78,13 +100,14 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     })));
     const page = await context.newPage();
     await page.goto("/calendar/ordinary-form/");
-    await expect(page.getByLabel("Sunday transfers", { exact: true })).toBeChecked();
     await expect(page).toHaveURL(/epiphany=sunday.*ascension=sunday.*corpusChristi=sunday/);
-    await page.getByLabel("6 January", { exact: true }).check();
-    await expect(page.getByLabel("Custom", { exact: true })).toBeChecked();
+    const originalDate = await page.locator("#date").inputValue();
+    await page.locator("#date").fill("2026-04-06");
+    await page.locator("#date").press("Enter");
+    await expect(page).toHaveURL(/date=2026-04-06.*epiphany=sunday.*ascension=sunday.*corpusChristi=sunday/);
     await page.goBack();
-    await expect(page.getByLabel("Sunday transfers", { exact: true })).toBeChecked();
-    await expect(page.getByLabel("6 January", { exact: true })).not.toBeChecked();
+    await expect(page.locator("#date")).toHaveValue(originalDate);
+    await expect(page).toHaveURL(new RegExp(`date=${originalDate}.*epiphany=sunday.*ascension=sunday.*corpusChristi=sunday`));
     await context.close();
   });
 
@@ -93,9 +116,7 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     await page.locator("#date").fill("2026-04-06");
     await page.locator("#date").press("Enter");
     await expect(page).toHaveURL(/date=2026-04-06.*epiphany=jan6.*ascension=sunday.*corpusChristi=thursday/);
-    await expect(page.getByLabel("6 January", { exact: true })).toBeChecked();
-    await expect(page.getByLabel("Sunday", { exact: true }).nth(1)).toBeChecked();
-    await expect(page.getByLabel("Thursday", { exact: true }).last()).toBeChecked();
+    await expect(page.getByText("weekday chants are not yet covered")).toBeVisible();
   });
 
   test("cycle and season links filter an occasion's export checkboxes without hiding static chants", async ({ page }) => {
@@ -230,24 +251,24 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     await page.goto("/calendar/ordinary-form/?date=2038-06-24&epiphany=jan6&ascension=thursday&corpusChristi=thursday");
     await expect(page.getByRole("heading", { name: "The Most Holy Body and Blood of Christ" })).toBeVisible();
     await expect(page.getByText(/Provisional:.*Nativity of John the Baptist.*June 25/)).toBeVisible();
+    await expect(page.locator(".accompaniment-choices")).toHaveCount(0);
     await page.goto("/calendar/ordinary-form/?date=2038-06-25&epiphany=jan6&ascension=thursday&corpusChristi=thursday");
     await expect(page.getByRole("heading", { name: "The Nativity of Saint John the Baptist" })).toBeVisible();
     await expect(page.getByText(/Provisional:.*Corpus Christi.*June 24/)).toBeVisible();
+    await expect(page.locator(".accompaniment-choices")).toHaveCount(0);
   });
 
-  test("keyboard radio navigation changes settings and reset focus stays on its control", async ({ page }) => {
-    await page.goto("/calendar/ordinary-form/?date=2026-04-05");
-    const generalRoman = page.getByLabel("General Roman", { exact: true });
-    await generalRoman.focus();
-    await page.keyboard.press("ArrowRight");
-    await expect(page.getByLabel("Sunday transfers", { exact: true })).toBeChecked();
-    await page.keyboard.press("Tab");
-    await page.keyboard.press("Tab");
-    const reset = page.getByRole("button", { name: "Reset to General Roman" });
-    await reset.focus();
-    await page.keyboard.press("Enter");
-    await expect(page.getByLabel("General Roman", { exact: true })).toBeChecked();
-    await expect(reset).toBeFocused();
+  test("offers Corpus Christi and the Sunday proper without changing transfer settings", async ({ page }) => {
+    await page.goto("/calendar/ordinary-form/?date=2026-06-07");
+    await expect(page.getByRole("heading", { name: "Sunday 10 in Ordinary Time" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "View The Most Holy Body and Blood of Christ accompaniments" }))
+      .toHaveAttribute("href", "/ordinary-form/corpus-christi/?cycle=A&season=ordinary");
+    await expect(page.getByRole("link", { name: "View Sunday 10 in Ordinary Time accompaniments" }))
+      .toHaveAttribute("href", "/ordinary-form/ot-10/?cycle=A&season=ordinary");
+    await expect(page).toHaveURL(/date=2026-06-07.*epiphany=jan6.*ascension=thursday.*corpusChristi=thursday/);
+    await page.goto("/calendar/ordinary-form/?date=2026-06-08");
+    await expect(page.locator(".accompaniment-choices")).toHaveCount(0);
+    await expect(page.getByRole("link", { name: "View accompaniments for this occasion" })).toHaveCount(0);
   });
 
   test("a shared default URL overrides another context's saved transfers", async ({ browser }) => {
@@ -257,8 +278,9 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     })));
     const page = await context.newPage();
     await page.goto("/calendar/ordinary-form/?date=2026-04-05&epiphany=jan6&ascension=thursday&corpusChristi=thursday");
-    await expect(page.getByLabel("6 January", { exact: true })).toBeChecked();
-    await expect(page.getByLabel("Thursday", { exact: true }).first()).toBeChecked();
+    await expect(page.getByRole("heading", { name: "Easter Sunday" })).toBeVisible();
+    await expect(page.locator('input[type="radio"]')).toHaveCount(0);
+    await expect(page).toHaveURL(/epiphany=jan6.*ascension=thursday.*corpusChristi=thursday/);
     await context.close();
   });
 
@@ -270,13 +292,15 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     });
     const page = await context.newPage();
     await page.goto("/calendar/ordinary-form/?date=2026-04-05&epiphany=broken");
-    await expect(page.getByLabel("General Roman", { exact: true })).toBeChecked();
+    await expect(page.getByRole("heading", { name: "Easter Sunday" })).toBeVisible();
+    await expect(page).toHaveURL(/epiphany=jan6.*ascension=thursday.*corpusChristi=thursday/);
+    await expect(page.locator('input[type="radio"]')).toHaveCount(0);
     await page.goto("/calendar/ordinary-form/?date=2026-02-30");
     await expect(page.locator("#date-feedback")).toContainText("valid date");
     await page.goto("/calendar/ordinary-form/?date=2026-04-05");
     await expect(page.getByRole("heading", { name: "Easter Sunday" })).toBeVisible();
-    await page.getByLabel("Sunday", { exact: true }).first().check();
-    await expect(page.locator("#settings-changed")).toContainText("Calendar settings changed");
+    await expect(page.getByRole("link", { name: "View accompaniments for this occasion" })).toBeVisible();
+    await expect(page.locator('input[type="radio"]')).toHaveCount(0);
     await context.close();
   });
 });
