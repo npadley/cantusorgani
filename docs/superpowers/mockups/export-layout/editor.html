@@ -727,7 +727,7 @@ button[aria-pressed="true"] { border: 2px solid var(--accent); color: var(--acce
   seg("seg-staff", "staff", ["small", "medium", "large"].map((k) => ({ v: k, html: `<span class="nm">${CAP(k)}</span><span class="abbr" aria-hidden="true">${CAP(k)[0]}</span><small class="seg-row">${staffGlyph(STAFF[k])}${STAFF[k].toFixed(1)} mm</small>` })));
   seg("seg-tier", "tier", [{ v: "print", html: "Print" }, { v: "ipad", html: "iPad" }, { v: "custom", html: "Custom" }]);
   seg("seg-print", "preset", ["letter", "a4", "a5"].map((k) => ({ v: k, html: `${PRESETS[k].label}<small>${PRESETS[k].sub}</small>` })));
-  seg("seg-ipad", "preset", ["ipad-mini", "ipad-11", "ipad-13"].map((k) => ({ v: k, html: PRESETS[k].label.replace("iPad mini", "iPad mini") })));
+  seg("seg-ipad", "preset", ["ipad-mini", "ipad-11", "ipad-13"].map((k) => ({ v: k, html: PRESETS[k].label })));
   seg("seg-unit", "unit", [{ v: "mm", html: "mm" }, { v: "in", html: "in" }]);
   seg("seg-orient", "orient", [{ v: "portrait", html: `${orientSvg(12, 16)}Portrait` }, { v: "landscape", html: `${orientSvg(16, 12)}Landscape` }]);
   seg("seg-lines", "lines", [{ v: "original", html: "Original" }, { v: "fit", html: "Fit to page" }]);
@@ -740,6 +740,9 @@ button[aria-pressed="true"] { border: 2px solid var(--accent); color: var(--acce
 
   /* ---- Sync controls from state ---- */
   const NAME_KEY = { staff: "staff", tier: "tier", "preset-print": "preset", "preset-ipad": "preset", unit: "unit", orient: "orient", lines: "lines", lyrics: "lyrics", spacing: "spacing", view: "view" };
+  // Radio values come back from the page; map each to its own constant so only known values reach state.
+  const ALLOWED = { staff: ["small", "medium", "large"], tier: ["print", "ipad", "custom"], preset: ["letter", "a4", "a5", "ipad-mini", "ipad-11", "ipad-13"], unit: ["mm", "in"], orient: ["portrait", "landscape"], lines: ["original", "fit"], lyrics: ["small", "medium", "large"], spacing: ["compact", "normal", "spacious"], view: ["pages", "continuous"] };
+  const known = (k, v) => (ALLOWED[k] || []).find((a) => a === v);
   function syncControls() {
     $$("input[type=radio]", dlg).forEach((r) => { const k = NAME_KEY[r.name]; if (k) r.checked = String(S[k]) === r.value; });
     const hasMei = S.parts.some((p) => p.kind === "mei");
@@ -985,16 +988,17 @@ button[aria-pressed="true"] { border: 2px solid var(--accent); color: var(--acce
     const t = e.target;
     if (t.type === "radio") {
       const k = NAME_KEY[t.name]; if (!k) return;
-      if (k === "view") { S.view = t.value; if (t.value === "continuous") { S.breakMode = false; S.menu = null; } render(); return; }
-      if (k === "unit") { S.unit = t.value; syncControls(); return; }
+      const value = known(k, t.value); if (value === undefined) return;
+      if (k === "view") { S.view = value; if (value === "continuous") { S.breakMode = false; S.menu = null; } render(); return; }
+      if (k === "unit") { S.unit = value; syncControls(); return; }
       if (k === "tier") {
         const base = physical(Object.assign({}, S, { orient: "portrait" }));
-        S.tier = t.value;
-        if (t.value === "print") S.preset = PRESETS[S.preset] && PRESETS[S.preset].kind === "print" ? S.preset : "letter";
-        if (t.value === "ipad") S.preset = PRESETS[S.preset] && PRESETS[S.preset].kind === "screen" ? S.preset : "ipad-11";
-        if (t.value === "custom") S.custom = { w: Math.round(base.w * 10) / 10, h: Math.round(base.h * 10) / 10 };
+        S.tier = value;
+        if (value === "print") S.preset = PRESETS[S.preset] && PRESETS[S.preset].kind === "print" ? S.preset : "letter";
+        if (value === "ipad") S.preset = PRESETS[S.preset] && PRESETS[S.preset].kind === "screen" ? S.preset : "ipad-11";
+        if (value === "custom") S.custom = { w: Math.round(base.w * 10) / 10, h: Math.round(base.h * 10) / 10 };
         if (!S.marginTouched) startPaper();
-      } else S[k] = t.value;
+      } else S[k] = value;
       if (k === "staff" || k === "lines") S.cap = S.cap;
       change(); return;
     }
