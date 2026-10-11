@@ -1,0 +1,4 @@
+% C4b-1: ordinary (visible-note) glissandi are dropped by the extractor with an UNKNOWN_FEATURE warning.
+% sanctus_IX.ly:52-53 and :61 (3 in all), agnus_IX.ly (4), gloria_IX.ly (5). LilyPond draws a solid line between the notes; the MEI has none.
+  d2*3/2 -\tweak Glissando.Y-offset #-1.2 \glissando e4*4
+  cis2*3/2 -\tweak Glissando.Y-offset #-0.5 \glissando d4~
