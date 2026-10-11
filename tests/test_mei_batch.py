@@ -31,8 +31,11 @@ def inputs_for(path: Path, include: str = "i1", extractor: str = "e1") -> Conver
 class Harness:
     """Fake converter + evidence builder that count calls and can fail or report unsupported features."""
 
-    def __init__(self, fail: set[str] = frozenset(), unsupported: set[str] = frozenset(), include: str = "i1") -> None:
-        self.fail, self.unsupported, self.include = fail, unsupported, include
+    def __init__(
+        self, fail: set[str] = frozenset(), unsupported: set[str] = frozenset(), include: str = "i1",
+        chords: set[str] = frozenset(),
+    ) -> None:
+        self.fail, self.unsupported, self.include, self.chords = fail, unsupported, include, chords
         self.converted: list[str] = []
         self.packets: list[str] = []
         self.active = 0
@@ -57,6 +60,9 @@ class Harness:
             (out / "diagnostics.json").write_text(
                 json.dumps([{"code": c, "severity": "error", "message": c} for c in codes]), encoding="utf-8"
             )
+            if source.name in self.chords:
+                events = [{"kind": "note", "layerId": "up:#1", "onset": "1/2"}] * 2
+                (out / "ir.json").write_text(json.dumps({"events": events}), encoding="utf-8")
         finally:
             with self.lock:
                 self.active -= 1
@@ -92,6 +98,16 @@ def test_run_batch_counts_every_requested_source_once_by_state_and_never_approve
     assert report.counts == {"unsupported": 1, "failed": 1, "needs-review": 2, "approved": 0}
     assert set(report.counts) == STATES and sum(report.counts.values()) == len(sources)
     assert report.counts["approved"] == 0  # conversion itself never approves
+
+
+def test_run_batch_chord_inside_a_voice_is_reported_unsupported_with_its_reason(tmp_path: Path) -> None:
+    sources = make_sources(tmp_path, ["a.ly", "chord.ly"])
+    out = tmp_path / "out"
+    report = batch(Harness(chords={"chord.ly"}), sources, out)
+    assert report.results[str(sources[1])] == "unsupported" and report.results[str(sources[0])] == "needs-review"
+    (path,) = (out / "reports").glob("*.json")
+    entry = next(e for e in json.loads(path.read_text(encoding="utf-8"))["scores"] if e["source"] == str(sources[1]))
+    assert "chord in a voice" in entry["message"]
 
 
 def test_run_batch_partial_failure_does_not_abort_unrelated_scores(tmp_path: Path) -> None:
@@ -215,4 +231,4 @@ def test_run_batch_real_kyrie_conversion_with_the_fake_lilypond_runner(tmp_path:
 
     h = Harness()
     report = run_batch([source], PROFILE, tmp_path / "out", convert_fn=convert, evidence_fn=h.evidence)
-    assert report.results == {str(source): "needs-review"} and report.counts["approved"] == 0
+    assert report.results == {"data/typeset/src/vol-5/missa-ix/kyrie_IX.ly": "needs-review"} and report.counts["approved"] == 0

@@ -56,7 +56,11 @@ EvidenceFn = Callable[[Path, Path], None]
 
 
 def _display(source: Path) -> str:
-    return str(source)
+    """Repo-relative POSIX path for a source inside the repository, else the path as given."""
+    try:
+        return source.resolve().relative_to(lilypond.ROOT).as_posix()
+    except ValueError:
+        return str(source)
 
 
 def _default_inputs(profile: ConversionProfile) -> InputsFn:
@@ -107,22 +111,48 @@ def _diagnostics(directory: Path) -> list[dict[str, Any]]:
     return [d for d in data if isinstance(d, dict)]
 
 
-def _state(directory: Path) -> ConversionState:
-    """The state of a finished conversion: never ``approved``."""
+def _chord_in_voice(directory: Path) -> str | None:
+    """A reason when two notes start together in one layer (a LilyPond chord inside a voice).
+
+    The encoder writes layers as sequences, so such a score cannot be encoded faithfully; it is
+    reported as unsupported rather than left to fail validation with a cascade of onset errors."""
+    path = directory / "ir.json"
+    if not path.is_file():
+        return None
+    try:
+        events = json.loads(path.read_text(encoding="utf-8")).get("events", [])
+    except ValueError:
+        return None
+    starts: set[tuple[str, str]] = set()
+    for event in events:
+        if event.get("kind") != "note":
+            continue
+        key = (str(event.get("layerId")), str(event.get("onset")))
+        if key in starts:
+            return f"chord in a voice: two notes start together in layer {key[0]} at {key[1]}"
+        starts.add(key)
+    return None
+
+
+def _state(directory: Path) -> tuple[ConversionState, str | None]:
+    """The state of a finished conversion, with a reason when it is unsupported. Never ``approved``."""
+    chord = _chord_in_voice(directory)
+    if chord is not None:
+        return "unsupported", chord
     diagnostics = _diagnostics(directory)
     codes = {d.get("code") for d in diagnostics}
     if "UNSUPPORTED_FEATURE" in codes:
-        return "unsupported"
+        return "unsupported", None
     if any(d.get("severity") == "error" and d.get("code") in BLOCKING for d in diagnostics):
-        return "failed"
+        return "failed", None
     if any(d.get("severity") == "error" for d in diagnostics):
-        return "failed"
+        return "failed", None
     if (directory / "ir.json").is_file() and (directory / "provenance.json").is_file():
         from pipeline.typeset.mei.cli import validation_for_directory
 
         if not validation_for_directory(directory).eligible:
-            return "failed"
-    return "needs-review"
+            return "failed", None
+    return "needs-review", None
 
 
 def _read_result(directory: Path) -> dict[str, Any] | None:
@@ -158,7 +188,7 @@ def _build(
     try:
         try:
             convert_fn(source, tmp)
-            state = _state(tmp)
+            state, message = _state(tmp)
         except Exception as error:  # noqa: BLE001  one bad score must not abort the others
             state, message = "failed", f"{type(error).__name__}: {error}"
             tmp.mkdir(parents=True, exist_ok=True)
