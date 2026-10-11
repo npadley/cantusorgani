@@ -17,6 +17,7 @@ trap 'printf "\nFAILED at: %s\n" "${CURRENT:-setup}" >&2' ERR
 
 CURRENT="lint";               step "$CURRENT";  uv run ruff check pipeline tools tests
 CURRENT="pipeline tests";     step "$CURRENT";  uv run pytest -q -m "not slow"
+CURRENT="Ordinary Form coverage current"; step "$CURRENT"; uv run noh ordinary-form --check
 CURRENT="corrections applied"; step "$CURRENT"; uv run noh apply-corrections --check
 CURRENT="typeset sources";    step "$CURRENT";  uv run noh typeset-check
 CURRENT="chant notation current"; step "$CURRENT"

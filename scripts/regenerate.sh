@@ -43,19 +43,23 @@ uv run noh typeset-match
 step "noh apply-corrections"
 uv run noh apply-corrections
 
-# 5. The typeset manifest and its checks.
+# 5. Ordinary Form lender mappings depend on the final overlaid catalogue.
+step "noh ordinary-form"
+uv run noh ordinary-form
+
+# 6. The typeset manifest and its checks.
 step "noh typeset-manifest"
 uv run noh typeset-manifest
 step "noh typeset-check"
 uv run noh typeset-check
 
-# 6. NOH8 is the Vespers book: its lineup follows a rebuild of it.
+# 7. NOH8 is the Vespers book: its lineup follows a rebuild of it.
 if [[ " ${VOLUMES[*]:-} " == *" noh8 "* ]]; then
   step "noh vespers-lineup"
   uv run noh vespers-lineup
 fi
 
-# 7. Confirmations a rebuild has undone: their items are back in Review.
+# 8. Confirmations a rebuild has undone: their items are back in Review.
 step "noh corrections --lapsed"
 uv run noh corrections --lapsed
 

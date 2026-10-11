@@ -1,0 +1,237 @@
+occasions:
+- occasion: lent-3
+  slot: introitus
+  reviewed: Codex source inspection, 2026-10-11
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 96
+    note: Printed alternative refers to p249.
+  assignments:
+  - id: 916
+    incipit: Oculi mei
+    years:
+    - A
+    - B
+    - C
+  - id: 418
+    incipit: Dum sanctificatus
+    years:
+    - A
+    - B
+    - C
+- occasion: lent-3
+  slot: communio
+  reviewed: Codex source inspection, 2026-10-11
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 99
+    note: 'Default Sunday readings: Samaritan Gospel in A; other Gospel in B/C. Alternate
+      melody not yet matched independently; source review records limitation.'
+  assignments:
+  - id: 894
+    incipit: Qui biberit
+    years:
+    - A
+  - id: 1090
+    incipit: Passer invenit
+    years:
+    - B
+    - C
+- occasion: annunciation
+  slot: graduale
+  reviewed: Codex source inspection, 2026-10-11
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 553
+    note: Omitted in Paschal time; two Alleluias replace Gradual and Tract.
+  assignments:
+  - id: 756
+    incipit: Tollite portas
+    years:
+    - A
+    - B
+    - C
+    seasons:
+    - lent
+  - id: 1209
+    incipit: Ave Maria
+    years:
+    - A
+    - B
+    - C
+    seasons:
+    - easter
+    kind: alleluia
+- occasion: annunciation
+  slot: tractus
+  reviewed: Codex source inspection, 2026-10-11
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 553
+    note: Omitted in Paschal time; two Alleluias replace Gradual and Tract.
+  assignments:
+  - id: 738
+    incipit: Audi, filia
+    years:
+    - A
+    - B
+    - C
+    seasons:
+    - lent
+- occasion: annunciation
+  slot: alleluia
+  reviewed: Codex source inspection, 2026-10-11
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 553
+    note: Paschal second Alleluia, from printed p416. First Alleluia occupies the
+      first interlectional slot.
+  assignments:
+  - id: 281
+    incipit: Virga Jesse
+    years:
+    - A
+    - B
+    - C
+    seasons:
+    - easter
+- occasion: christmas-vigil
+  slot: introitus
+  reviewed: Codex source inspection, 2026-10-11
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 38
+    note: Printed GR1974 proper; GregoBase ID checked for chant role and melody mode.
+  assignments:
+  - id: 150
+    incipit: Hodie scietis
+    years:
+    - A
+    - B
+    - C
+- occasion: christmas-vigil
+  slot: graduale
+  reviewed: Codex source inspection, 2026-10-11
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 38
+    note: Printed GR1974 proper; GregoBase ID checked for chant role and melody mode.
+  assignments:
+  - id: 202
+    incipit: Hodie scietis
+    years:
+    - A
+    - B
+    - C
+- occasion: christmas-vigil
+  slot: alleluia
+  reviewed: Codex source inspection, 2026-10-11
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 39
+    note: Printed GR1974 proper; GregoBase ID checked for chant role and melody mode.
+  assignments:
+  - id: 167
+    incipit: Crastina die
+    years:
+    - A
+    - B
+    - C
+- occasion: christmas-vigil
+  slot: offertorium
+  reviewed: Codex source inspection, 2026-10-11
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 40
+    note: Printed GR1974 proper; GregoBase ID checked for chant role and melody mode.
+  assignments:
+  - id: 171
+    incipit: Tollite portas
+    years:
+    - A
+    - B
+    - C
+- occasion: christmas-vigil
+  slot: communio
+  reviewed: Codex source inspection, 2026-10-11
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 40
+    note: Printed GR1974 proper; GregoBase ID checked for chant role and melody mode.
+  assignments:
+  - id: 367
+    incipit: Revelabitur
+    years:
+    - A
+    - B
+    - C
+- occasion: christmas-dawn
+  slot: introitus
+  reviewed: Codex source inspection, 2026-10-11
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 44
+    note: Printed GR1974 proper; GregoBase ID checked for chant role and melody mode.
+  assignments:
+  - id: 917
+    incipit: Lux fulgebit
+    years:
+    - A
+    - B
+    - C
+- occasion: christmas-dawn
+  slot: graduale
+  reviewed: Codex source inspection, 2026-10-11
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 45
+    note: Printed GR1974 proper; GregoBase ID checked for chant role and melody mode.
+  assignments:
+  - id: 217
+    incipit: Benedictus qui venit
+    years:
+    - A
+    - B
+    - C
+- occasion: christmas-dawn
+  slot: alleluia
+  reviewed: Codex source inspection, 2026-10-11
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 46
+    note: Printed GR1974 proper; GregoBase ID checked for chant role and melody mode.
+  assignments:
+  - id: 714
+    incipit: Dominus regnavit decorem
+    years:
+    - A
+    - B
+    - C
+- occasion: christmas-dawn
+  slot: offertorium
+  reviewed: Codex source inspection, 2026-10-11
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 46
+    note: Printed GR1974 proper; GregoBase ID checked for chant role and melody mode.
+  assignments:
+  - id: 979
+    incipit: Deus enim
+    years:
+    - A
+    - B
+    - C
+- occasion: christmas-dawn
+  slot: communio
+  reviewed: Codex source inspection, 2026-10-11
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 47
+    note: Printed GR1974 proper; GregoBase ID checked for chant role and melody mode.
+  assignments:
+  - id: 1125
+    incipit: Exsulta filia
+    years:
+    - A
+    - B
+    - C

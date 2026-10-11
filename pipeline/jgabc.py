@@ -23,6 +23,9 @@ ROOT = Path(__file__).resolve().parent.parent
 VENDORED = ROOT / "data" / "jgabc-propers.json"
 REPO = "bbloomf/jgabc"
 SOURCE_PATH = "propersdata.js"
+NOVUS_SOURCE_PATH = "propersdatanovus.js"
+NOVUS_VENDORED = ROOT / "data" / "jgabc-novus-propers.json"
+_NOVUS_SLOTS = {"introitus", "graduale", "alleluia", "tractus", "sequentia", "offertorium", "communio"}
 
 
 class JgabcSyntaxError(ValueError):
@@ -45,13 +48,13 @@ _IDENT = re.compile(r"[A-Za-z_$][\w$]*")
 
 
 class _Parser:
-    def __init__(self, src: str, start: int = 0) -> None:
-        self.src, self.pos = src, start
+    def __init__(self, src: str, start: int = 0, source: str = SOURCE_PATH) -> None:
+        self.src, self.pos, self.source = src, start, source
 
     # -- errors and whitespace --
     def error(self, what: str) -> JgabcSyntaxError:
         line = self.src.count("\n", 0, self.pos) + 1
-        return JgabcSyntaxError(f"propersdata.js line {line}: {what}")
+        return JgabcSyntaxError(f"{self.source} line {line}: {what}")
 
     def skip(self) -> None:
         while self.pos < len(self.src):
@@ -205,11 +208,16 @@ def parse_js_literal(src: str) -> object:
     return value
 
 
-def _extract_var(js: str, name: str) -> object:
+def _extract_var(js: str, name: str, source: str = SOURCE_PATH,
+                strict_statement_end: bool = False) -> object:
     m = re.search(rf"\bvar\s+{name}\s*=\s*", js)
     if not m:
-        raise JgabcSyntaxError(f"propersdata.js: no `var {name} = ...` found")
-    return _Parser(js, m.end()).value()
+        raise JgabcSyntaxError(f"{source}: no `var {name} = ...` found")
+    parser = _Parser(js, m.end(), source)
+    value = parser.value()
+    if strict_statement_end and parser.peek() not in ("", ";"):
+        raise parser.error("selected literal must end before the next statement")
+    return value
 
 
 def extract_proprium(js: str) -> dict[str, object]:
@@ -217,6 +225,112 @@ def extract_proprium(js: str) -> dict[str, object]:
     if not isinstance(value, dict):
         raise JgabcSyntaxError("propersdata.js: proprium is not an object")
     return value
+
+
+def extract_novus(js: str) -> dict[str, object]:
+    """Parse and validate the non-executable OF assignment literal."""
+    raw = _extract_var(js, "propriumNoviOrdinis", NOVUS_SOURCE_PATH, strict_statement_end=True)
+    if not isinstance(raw, dict):
+        raise JgabcSyntaxError(f"{NOVUS_SOURCE_PATH}: propriumNoviOrdinis is not an object")
+    out: dict[str, object] = {}
+    for raw_name, raw_proper in raw.items():
+        name = raw_name.replace("\u00ad", "")
+        if name in out:
+            raise JgabcSyntaxError(f"{NOVUS_SOURCE_PATH}: normalization collision for {name!r}")
+        if not isinstance(raw_proper, dict):
+            raise JgabcSyntaxError(f"{NOVUS_SOURCE_PATH}: {name}: proper is not an object")
+        proper: dict[str, object] = {}
+        for slot, assignment in raw_proper.items():
+            if slot not in _NOVUS_SLOTS:
+                raise JgabcSyntaxError(f"{NOVUS_SOURCE_PATH}: {name}: unknown slot {slot!r}")
+            proper[slot] = _validate_novus_assignment(name, slot, assignment)
+        out[name] = proper
+    return out
+
+
+def _validate_novus_assignment(name: str, slot: str, value: object) -> object:
+    if isinstance(value, dict) and set(value) <= {"A", "B", "C"} and value:
+        return {year: _validate_novus_list(name, slot, rows) for year, rows in value.items()}
+    if isinstance(value, list):
+        return _validate_novus_list(name, slot, value)
+    if isinstance(value, dict) and set(value) == {"id", "incipit"}:
+        return _validate_novus_list(name, slot, [value])
+    raise JgabcSyntaxError(f"{NOVUS_SOURCE_PATH}: {name}.{slot}: invalid assignment shape")
+
+
+def _validate_novus_list(name: str, slot: str, value: object) -> list[dict[str, object]]:
+    if not isinstance(value, list):
+        raise JgabcSyntaxError(f"{NOVUS_SOURCE_PATH}: {name}.{slot}: expected an array")
+    rows: list[dict[str, object]] = []
+    for row in value:
+        if not isinstance(row, dict) or set(row) != {"id", "incipit"}:
+            raise JgabcSyntaxError(f"{NOVUS_SOURCE_PATH}: {name}.{slot}: invalid chant row")
+        chant_id = row["id"]
+        if isinstance(chant_id, bool) or not (isinstance(chant_id, int) or
+                isinstance(chant_id, str) and chant_id.isdecimal()):
+            raise JgabcSyntaxError(f"{NOVUS_SOURCE_PATH}: {name}.{slot}: id must be decimal")
+        chant_id = int(chant_id)
+        if chant_id <= 0 or not isinstance(row["incipit"], str):
+            raise JgabcSyntaxError(f"{NOVUS_SOURCE_PATH}: {name}.{slot}: invalid id or incipit")
+        rows.append({"id": chant_id, "incipit": row["incipit"]})
+    return rows
+
+
+def _novus_content_sha(proprium: dict[str, object]) -> str:
+    canonical = json.dumps(proprium, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+
+
+def write_novus(proprium: dict[str, object], commit: str, source_sha256: str,
+                path: Path = NOVUS_VENDORED) -> Path:
+    doc = {"source": {"repo": f"https://github.com/{REPO}", "path": NOVUS_SOURCE_PATH,
+                       "commit": commit, "source_sha256": source_sha256,
+                       "licence": "Unlicense", "refresh": "uv run noh jgabc-fetch [--commit SHA]; do not hand-edit"},
+           "content_sha256": _novus_content_sha(proprium), "proprium": proprium}
+    path.write_text(json.dumps(doc, indent=1, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
+    return path
+
+
+def load_novus(path: Path = NOVUS_VENDORED) -> dict[str, object]:
+    if not path.exists():
+        raise JgabcIntegrityError(f"{path} is missing -- run uv run noh jgabc-fetch to vendor it.")
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    source = doc.get("source", {}) if isinstance(doc, dict) else None
+    if (not isinstance(source, dict) or source.get("repo") != f"https://github.com/{REPO}" or
+            source.get("path") != NOVUS_SOURCE_PATH or
+            source.get("licence") != "Unlicense" or
+            not isinstance(source.get("commit"), str) or
+            not re.fullmatch(r"[0-9a-f]{40}", source["commit"]) or
+            not isinstance(source.get("source_sha256"), str) or
+            not re.fullmatch(r"[0-9a-f]{64}", source["source_sha256"])):
+        raise JgabcIntegrityError(f"{path.name} has invalid source provenance")
+    proprium = doc.get("proprium")
+    if not isinstance(proprium, dict):
+        raise JgabcIntegrityError(f"{path.name} does not contain an Ordinary Form proprium")
+    try:
+        extract_novus("var propriumNoviOrdinis = " + json.dumps(proprium, ensure_ascii=False) + ";")
+    except JgabcSyntaxError as exc:
+        raise JgabcIntegrityError(f"{path.name} contains invalid assignments: {exc}") from exc
+    if _novus_content_sha(proprium) != doc.get("content_sha256"):
+        raise JgabcIntegrityError(f"{path.name} content hash mismatch -- re-run uv run noh jgabc-fetch; do not hand-edit.")
+    return doc
+
+
+def load_sources(ef_path: Path = VENDORED, of_path: Path = NOVUS_VENDORED) -> tuple[dict[str, object], dict[str, object]]:
+    """Load both validated source documents and require their full commit SHAs to agree."""
+    ef, novus = _load(ef_path), load_novus(of_path)
+    ef_source = ef.get("source", {})
+    ef_commit = ef_source.get("commit") if isinstance(ef_source, dict) else None
+    of_source = novus["source"]
+    if (not isinstance(ef_source, dict) or ef_source.get("repo") != f"https://github.com/{REPO}" or
+            ef_source.get("path") != SOURCE_PATH or ef_source.get("licence") != "Unlicense" or
+            not isinstance(ef_source.get("source_sha256"), str) or
+            not re.fullmatch(r"[0-9a-f]{64}", ef_source["source_sha256"]) or
+            not isinstance(ef_commit, str) or not re.fullmatch(r"[0-9a-f]{40}", ef_commit)):
+        raise JgabcIntegrityError(f"{ef_path.name} has invalid source commit provenance")
+    if ef_commit != of_source["commit"]:
+        raise JgabcIntegrityError(f"{ef_path.name} and {of_path.name} were fetched from different commits")
+    return ef, novus
 
 
 # The page's four menus; its link hash names the menu: propers.html#saint=Oct3.
@@ -355,6 +469,54 @@ def fetch(commit: str | None = None, path: Path = VENDORED) -> tuple[Path, str, 
     return path, commit, len(proprium)
 
 
+def fetch_all(commit: str | None = None) -> list[tuple[Path, str, int]]:
+    """Refresh the two jgabc sources together; a failed fetch or replace rolls back both."""
+    import os
+    import tempfile
+    import urllib.request
+
+    def get(url: str) -> bytes:
+        request = urllib.request.Request(url, headers={"User-Agent": "cantusorgani-pipeline"})
+        with urllib.request.urlopen(request, timeout=60) as response:
+            return response.read()
+
+    if commit is None:
+        head = json.loads(get(f"https://api.github.com/repos/{REPO}/commits/master"))
+        commit = str(head["sha"])
+    if not re.fullmatch(r"[0-9a-f]{40}", commit):
+        raise JgabcSyntaxError(f"not a full commit sha: {commit!r}")
+    raw_ef = get(f"https://raw.githubusercontent.com/{REPO}/{commit}/{SOURCE_PATH}")
+    raw_of = get(f"https://raw.githubusercontent.com/{REPO}/{commit}/{NOVUS_SOURCE_PATH}")
+    ef_js, of_js = raw_ef.decode("utf-8"), raw_of.decode("utf-8")
+    ef = slim(extract_proprium(ef_js))
+    menus = extract_menus(ef_js)
+    of = extract_novus(of_js)
+    # Prepare both complete outputs before touching either committed file.
+    with tempfile.TemporaryDirectory(dir=str(ROOT)) as temp:
+        temp_root = Path(temp)
+        ef_stage, of_stage = temp_root / "ef.json", temp_root / "of.json"
+        write_vendored(ef, commit, hashlib.sha256(raw_ef).hexdigest(), ef_stage, menus)
+        write_novus(of, commit, hashlib.sha256(raw_of).hexdigest(), of_stage)
+        targets = ((ef_stage, VENDORED), (of_stage, NOVUS_VENDORED))
+        backups = {target: target.read_bytes() if target.exists() else None for _, target in targets}
+        replaced: list[Path] = []
+        try:
+            for staged, target in targets:
+                os.replace(staged, target)
+                replaced.append(target)
+        except OSError:
+            for target in reversed(replaced):
+                old = backups[target]
+                if old is None:
+                    target.unlink(missing_ok=True)
+                else:
+                    rollback = temp_root / f"rollback-{target.name}"
+                    rollback.write_bytes(old)
+                    os.replace(rollback, target)
+            raise
+    return [(VENDORED, commit, len(ef)), (NOVUS_VENDORED, commit, len(of))]
+
+
 # ------------------------------------------------------------ key mapping ---
 
 _MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
@@ -479,12 +641,16 @@ __all__ = [
     "JgabcIntegrityError",
     "JgabcSyntaxError",
     "extract_menus",
+    "extract_novus",
     "extract_proprium",
     "fetch",
+    "fetch_all",
     "jgabc_key",
     "jgabc_key_for_piece",
     "load_menus",
+    "load_novus",
     "load_proprium",
+    "load_sources",
     "parse_js_literal",
     "proper_url",
     "resolve",

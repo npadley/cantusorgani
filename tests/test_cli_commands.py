@@ -27,6 +27,27 @@ def test_main_doctor_returns_zero_when_everything_needed_is_present(capsys):
     assert "tesseract" in capsys.readouterr().out
 
 
+def test_main_ordinary_form_check_reports_coverage(monkeypatch, capsys):
+    from pipeline import ordinary_form
+
+    monkeypatch.setattr(ordinary_form, "run", lambda check=False: {
+        "matched": 7, "total": 9, "unmapped_occasions": ["st-joseph"]})
+    assert cli.main(["ordinary-form", "--check"]) == 0
+    output = capsys.readouterr().out
+    assert "7/9" in output and "st-joseph" in output
+
+
+def test_main_ordinary_form_reports_invalid_input_without_traceback(monkeypatch, capsys):
+    from pipeline import ordinary_form
+
+    monkeypatch.setattr(ordinary_form, "run", lambda check=False: (_ for _ in ()).throw(
+        TypeError("ordinary-form: invalid occasion input")))
+    assert cli.main(["ordinary-form"]) == 1
+    error = capsys.readouterr().err
+    assert "invalid occasion input" in error
+    assert "Traceback" not in error
+
+
 def test_main_render_writes_the_requested_page(tmp_path, capsys):
     assert cli.main(["render", "--volume", "noh5", "--pages", "229", "--out", str(tmp_path)]) == 0
     assert (tmp_path / "0229.png").exists()
