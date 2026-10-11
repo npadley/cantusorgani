@@ -86,13 +86,16 @@ def stale_entries(
     return found
 
 
-def report_dict(entries: Sequence[StaleEntry], checked: int) -> dict[str, object]:
-    """The ``--json`` shape: ``{"checked": N, "stale": [{sourcePath, target, renderHash, artifactSha256, reasons}]}``."""
+def report_dict(
+    entries: Sequence[StaleEntry], checked: int, record_files: Mapping[str, str] | None = None
+) -> dict[str, object]:
+    """The ``--json`` shape: ``{"checked": N, "stale": [{sourcePath, record, target, renderHash, artifactSha256, reasons}]}``."""
     return {
         "checked": checked,
         "stale": [
             {
-                "sourcePath": e.source_path, "target": e.target, "renderHash": e.render_hash,
+                "sourcePath": e.source_path, "record": (record_files or {}).get(e.source_path), "target": e.target,
+                "renderHash": e.render_hash,
                 "artifactSha256": e.artifact_sha256, "reasons": [dataclasses.asdict(r) for r in e.reasons],
             }
             for e in entries

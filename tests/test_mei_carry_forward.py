@@ -58,6 +58,12 @@ def test_carry_forward_reason_lists_every_changed_input_field_sorted() -> None:
     assert carried.carried_from.reason == ("converter_version", "source_sha256")
 
 
+def test_carry_forward_unchanged_inputs_has_nothing_to_carry() -> None:
+    prior = prior_record()
+    same = dataclasses.replace(prior, state="needs-review", review=None)
+    assert carry_forward(prior, same, EQUAL, now=NOW) == same
+
+
 def test_carry_forward_semantic_difference_stays_needs_review() -> None:
     prior = prior_record()
     new = new_record(prior)

@@ -490,13 +490,12 @@ def stale_command(
     )
     from pipeline.typeset.mei.stale import report_dict, report_table, stale_entries
 
-    records = [
-        record_from_dict(json.loads(path.read_text(encoding="utf-8"))) for path in sorted(records_dir.glob("*.json"))
-    ]
+    files = sorted(records_dir.glob("*.json"))
+    records = [record_from_dict(json.loads(path.read_text(encoding="utf-8"))) for path in files]
     parts = load_matched_parts(matched or Path(__file__).resolve().parents[3] / "data" / "typeset" / "manifest.json")
     entries = stale_entries(records, current_inputs or current_inputs_from_files, parts)
     checked = sum(1 for record in records if record.state == "approved")
-    report = report_dict(entries, checked)
+    report = report_dict(entries, checked, {r.source_path: p.as_posix() for r, p in zip(records, files, strict=True)})
     text = json.dumps(report, indent=2, sort_keys=True)
     if out is not None:
         out.parent.mkdir(parents=True, exist_ok=True)

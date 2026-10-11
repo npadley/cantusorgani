@@ -94,6 +94,7 @@ def test_stale_command_json_lists_stale_records_and_exits_zero(tmp_path: Path, c
     assert data["checked"] == 1 and len(data["stale"]) == 1
     item = data["stale"][0]
     assert item["sourcePath"] == "data/typeset/src/x.ly" and item["target"] == "movement:x"
+    assert item["record"] == (records / "r0.json").as_posix()
     assert item["reasons"] == [{"field": "include_sha256", "reason": "include", "recorded": "i", "current": "new"}]
 
 

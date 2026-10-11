@@ -170,6 +170,7 @@ def carry_forward(
         or prior.target != new.target
         or prior.inputs.profile_id != new.inputs.profile_id
         or not evidence_equal.identical
+        or prior.inputs == new.inputs  # nothing changed, so nothing to carry
     ):
         return new
     stamp = now or datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
