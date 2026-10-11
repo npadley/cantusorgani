@@ -101,7 +101,6 @@ def _carried_from_is_valid(carried: CarriedFrom, inputs: ConversionInputs) -> bo
         carried.attributed_to == "ci"
         and bool(_SHA256.match(carried.prior_artifact_sha256))
         and bool(_SHA256.match(carried.prior_inputs_digest))
-        and carried.prior_inputs_digest != inputs.digest()
         and bool(carried.reason)
         and bool(carried.timestamp)
     )
@@ -170,9 +169,15 @@ def carry_forward(
         or prior.target != new.target
         or prior.inputs.profile_id != new.inputs.profile_id
         or not evidence_equal.identical
-        or prior.inputs == new.inputs  # nothing changed, so nothing to carry
     ):
         return new
+    reason = changed_input_fields(prior.inputs, new.inputs)
+    if prior.render_hash != new.render_hash:
+        # render.source_hash covers every include file, so an include edit moves the site hash of
+        # every piece; the approval follows the hash the site now publishes.
+        reason = tuple(sorted((*reason, "render_hash")))
+    if not reason:
+        return new  # nothing changed, so nothing to carry
     stamp = now or datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
     carried_review = dataclasses.replace(
         review, inputs_digest=new.inputs.digest(), artifact_sha256=new.artifact_sha256
@@ -184,7 +189,7 @@ def carry_forward(
         carried_from=CarriedFrom(
             prior_artifact_sha256=prior.artifact_sha256,
             prior_inputs_digest=prior.inputs.digest(),
-            reason=changed_input_fields(prior.inputs, new.inputs),
+            reason=reason,
             timestamp=stamp,
             attributed_to="ci",
         ),

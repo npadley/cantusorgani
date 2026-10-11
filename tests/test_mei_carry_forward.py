@@ -58,10 +58,29 @@ def test_carry_forward_reason_lists_every_changed_input_field_sorted() -> None:
     assert carried.carried_from.reason == ("converter_version", "source_sha256")
 
 
-def test_carry_forward_unchanged_inputs_has_nothing_to_carry() -> None:
+def test_carry_forward_unchanged_inputs_and_render_hash_has_nothing_to_carry() -> None:
     prior = prior_record()
     same = dataclasses.replace(prior, state="needs-review", review=None)
     assert carry_forward(prior, same, EQUAL, now=NOW) == same
+
+
+def test_carry_forward_moved_render_hash_alone_is_carried_and_named() -> None:
+    # An include edit moves every piece's site render hash (render.source_hash) without touching
+    # this piece's conversion inputs: the approval follows the new hash.
+    prior = prior_record()
+    moved = dataclasses.replace(prior, state="needs-review", review=None, render_hash="b" * 32)
+    carried = carry_forward(prior, moved, EQUAL, now=NOW)
+    assert carried.state == "approved" and carried.render_hash == "b" * 32
+    assert carried.carried_from is not None and carried.carried_from.reason == ("render_hash",)
+    assert carried.carried_from.prior_inputs_digest == carried.inputs.digest()
+    assert approval_is_current(carried, carried.inputs)
+
+
+def test_carry_forward_reason_includes_render_hash_among_changed_inputs() -> None:
+    prior = prior_record()
+    new = dataclasses.replace(new_record(prior, source_sha256="s2"), render_hash="b" * 32)
+    carried = carry_forward(prior, new, EQUAL, now=NOW)
+    assert carried.carried_from is not None and carried.carried_from.reason == ("render_hash", "source_sha256")
 
 
 def test_carry_forward_semantic_difference_stays_needs_review() -> None:
@@ -139,7 +158,7 @@ def test_approval_is_current_malformed_carried_from_is_not_current() -> None:
         dataclasses.replace(carried.carried_from, attributed_to="human"),
         dataclasses.replace(carried.carried_from, prior_artifact_sha256="short"),
         dataclasses.replace(carried.carried_from, reason=()),
-        dataclasses.replace(carried.carried_from, prior_inputs_digest=carried.inputs.digest()),
+        dataclasses.replace(carried.carried_from, prior_inputs_digest="short"),
     ):
         assert not approval_is_current(dataclasses.replace(carried, carried_from=bad), carried.inputs)
 
