@@ -29,6 +29,9 @@ export function getStaticPaths() {
     import type { EditorHandle } from "../../scripts/exportLayout";
     import type { ExportPart, LayoutDiagnostic, WorkerLike } from "../../lib/export-layout/types";
     import { destroyPreview, getView, getZoom, renderPreview, setView, setZoom } from "../../scripts/exportPagePreview";
+    import { createMeasureCore } from "../../lib/export-layout/measureHarness";
+    import type { Wire } from "../../lib/export-layout/measureHarness";
+    import type { Timed } from "../../lib/export-layout/measureCore";
 
     interface WorkerHarness {
       readonly messages: unknown[];
@@ -51,17 +54,6 @@ export function getStaticPaths() {
       readonly destroyPreview: typeof destroyPreview;
     }
     /** Timing helpers for scripts/measure-export-layout.ts: every time is performance.now() inside the page. */
-    interface Timed {
-      readonly ms: number;
-      readonly firstProgressMs: number | null;
-      readonly progress: number;
-      readonly type: string;
-      readonly token: number;
-      readonly complete: boolean | null;
-      readonly pageCount: number | null;
-      readonly byteSize: number | null;
-      readonly errorDetail: string | null;
-    }
     interface MeasureHarness {
       readonly workersCreatedAt: number;
       layout(request: LayoutWorkerRequest & { readonly type: "layout" }): Promise<Timed>;
@@ -72,47 +64,17 @@ export function getStaticPaths() {
       interface Window { __layoutWorker?: WorkerHarness; __pdfWorker?: PdfHarness; __preview?: PreviewHarness; __measure?: MeasureHarness }
     }
 
-    interface Pending {
-      readonly start: number;
-      firstProgressMs: number | null;
-      progress: number;
-      readonly resolve: (timed: Timed) => void;
-    }
     /** ?measure: keep nothing but timings, so retained results do not inflate the memory figures. */
     const keep = !location.search.includes("measure");
     const workersCreatedAt = performance.now();
-    const layoutPending = new Map<number, Pending>();
-    const pdfPending = new Map<number, Pending>();
-    let lastResult: unknown = null;
-    interface Wire { readonly type: string; readonly token: number; readonly result?: { complete: boolean; pages: unknown[]; diagnostics: { severity: string; detail: string }[] }; readonly pageCount?: number; readonly byteSize?: number; readonly diagnostic?: { detail: string } }
-    function settle(table: Map<number, Pending>, message: Wire, now: number): void {
-      const pending = table.get(message.token);
-      if (!pending) return;
-      if (message.type === "progress") {
-        pending.progress += 1;
-        pending.firstProgressMs ??= now - pending.start;
-        return;
-      }
-      table.delete(message.token);
-      const firstError = message.result?.diagnostics.find((d) => d.severity === "error");
-      pending.resolve({
-        ms: now - pending.start, firstProgressMs: pending.firstProgressMs, progress: pending.progress,
-        type: message.type, token: message.token,
-        complete: message.result?.complete ?? null,
-        pageCount: message.result?.pages.length ?? message.pageCount ?? null,
-        byteSize: message.byteSize ?? null,
-        errorDetail: message.diagnostic?.detail ?? firstError?.detail ?? null,
-      });
-    }
+    const core = createMeasureCore({ layout: (request) => worker.postMessage(request), pdf: (message) => pdfWorker.postMessage(message) });
 
     const worker = new Worker(new URL("../../workers/export-layout.worker.ts", import.meta.url), { type: "module" });
     const messages: unknown[] = [];
     const errors: string[] = [];
     worker.onmessage = (event: MessageEvent<Wire>) => {
-      const now = performance.now();
       if (keep) messages.push(event.data);
-      if (event.data.type === "result") lastResult = event.data.result;
-      settle(layoutPending, event.data, now);
+      core.onLayoutMessage(event.data);
     };
     worker.onerror = (event) => { errors.push(event.message); };
     window.__layoutWorker = { messages, errors, post: (message) => worker.postMessage(message) };
@@ -121,9 +83,8 @@ export function getStaticPaths() {
     const pdfMessages: unknown[] = [];
     const pdfHarness: PdfHarness = { messages: pdfMessages, pdfBase64: null, post: (message) => pdfWorker.postMessage(message) };
     pdfWorker.onmessage = (event: MessageEvent<{ type: string; bytes?: ArrayBuffer }>) => {
-      const now = performance.now();
       const { bytes, ...rest } = event.data;
-      settle(pdfPending, rest as unknown as Wire, now);
+      core.onPdfMessage(rest as unknown as Wire);
       if (bytes && keep) {
         let binary = "";
         const view = new Uint8Array(bytes);
@@ -138,17 +99,7 @@ export function getStaticPaths() {
     const previewRoot = document.querySelector<HTMLElement>("[data-cx-preview]");
     if (previewRoot) window.__preview = { root: previewRoot, renderPreview, setZoom, setView, getZoom, getView, destroyPreview };
 
-    window.__measure = {
-      workersCreatedAt,
-      layout: (request) => new Promise<Timed>((resolve) => {
-        layoutPending.set(request.request.token, { start: performance.now(), firstProgressMs: null, progress: 0, resolve });
-        worker.postMessage(request);
-      }),
-      pdf: (token) => new Promise<Timed>((resolve) => {
-        pdfPending.set(token, { start: performance.now(), firstProgressMs: null, progress: 0, resolve });
-        pdfWorker.postMessage({ type: "pdf", token, result: lastResult });
-      }),
-    };
+    window.__measure = { workersCreatedAt, layout: (request) => core.layout(request), pdf: (token) => core.pdf(token) };
 
     interface EditorFaults { error: LayoutDiagnostic | null }
     declare global { interface Window { __openEditor?: (parts: readonly ExportPart[], title: string) => Promise<EditorHandle>; __editorFaults?: EditorFaults } }

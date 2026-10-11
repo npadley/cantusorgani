@@ -34,6 +34,11 @@ import { brotliCompressSync, gzipSync } from "node:zlib";
 import { chromium } from "@playwright/test";
 import type { BrowserContext, Page } from "@playwright/test";
 
+// The measuring itself (conditions, the cold/warm/pdf sequence, percentiles) is shared with the in-browser timing page
+// (/e2e/export-timing/), so both report comparable numbers.
+import { CONDITIONS, fmtMs, fmtTriple, kib, makeParts, mib, runSequence, stat } from "../src/lib/export-layout/measureCore.ts";
+import type { Condition, Timed } from "../src/lib/export-layout/measureCore.ts";
+
 const RUNS = Number(process.env["RUNS"] ?? 5);
 const REQUEST_TIMEOUT_MS = 120_000;
 const DIST = resolve("dist");
@@ -43,15 +48,6 @@ const FIXTURES = resolve("src/lib/export-layout/__fixtures__");
 const COMMAND = "node scripts/measure-export-layout.ts";
 
 // ---------------------------------------------------------------- types ---
-interface Timed {
-  ms: number; firstProgressMs: number | null; progress: number; type: string; token: number;
-  complete: boolean | null; pageCount: number | null; byteSize: number | null; errorDetail: string | null;
-}
-interface Settings {
-  version: 2; page: string; customSize: null; orientation: "portrait"; marginMm: number;
-  staff: "small" | "medium" | "large"; lyrics: "medium"; spacing: "normal"; maxSystems: null; linePolicy: "original" | "automatic";
-}
-interface Condition { id: string; description: string; parts: number; settings: Settings; warmStaff: "medium" | "large" }
 interface MemoryReading {
   userAgentSpecific: { totalBytes: number | null; status: "ok" | "unavailable"; reason: string | null };
   cdpMainThreadJsHeap: { usedBytes: number | null; totalBytes: number | null; status: "ok" | "unavailable"; reason: string | null };
@@ -69,33 +65,12 @@ interface RunRecord {
   /** True when the 1-minute load average at the start or end of the run exceeded the CPU count. */
   noisy: boolean;
 }
-interface Stat { n: number; p50: number | null; p95: number | null; max: number | null }
 
 // ------------------------------------------------------------- fixtures ---
 interface Manifest { parts: Record<string, unknown>[] }
 const manifest = JSON.parse(readFileSync(join(FIXTURES, "manifest.fixture.json"), "utf8")) as Manifest;
 const entry = manifest.parts[0] as Record<string, unknown>;
 const meiBytes = readFileSync(join(FIXTURES, "kyrie-ix.mei"));
-
-function makeParts(count: number): unknown[] {
-  return Array.from({ length: count }, (_, i) => ({
-    id: `kyrie:${i}`, kind: "mei", label: `Kyrie IX (${i + 1})`,
-    heading: { label: `Kyrie IX (${i + 1})`, rubric: "Lord, have mercy", rubricTranslation: null, credit: null },
-    sourceSystemCount: 5, sourceRevision: entry["renderHash"], target: entry["target"], renderHash: entry["renderHash"],
-    conversion: { ...entry, meiUrl: MEI_URL },
-  }));
-}
-const base = (patch: Partial<Settings>): Settings => ({
-  version: 2, page: "letter", customSize: null, orientation: "portrait", marginMm: 12, staff: "medium",
-  lyrics: "medium", spacing: "normal", maxSystems: null, linePolicy: "original", ...patch,
-});
-const CONDITIONS: Condition[] = [
-  { id: "letter-p-orig", description: "Kyrie, Letter portrait, medium staff, original lines", parts: 1, settings: base({}), warmStaff: "large" },
-  { id: "ipad11-p-auto", description: "Kyrie, iPad 11 portrait (4 mm margins), medium staff, automatic lines", parts: 1, settings: base({ page: "ipad-11", marginMm: 4, linePolicy: "automatic" }), warmStaff: "large" },
-  { id: "letter-p-large-auto", description: "Kyrie, Letter portrait, large staff, automatic lines (warm change goes large to medium)", parts: 1, settings: base({ staff: "large", linePolicy: "automatic" }), warmStaff: "medium" },
-  { id: "multi-3x", description: "Kyrie repeated as 3 separate parts (distinct ids, same MEI), Letter, original lines", parts: 3, settings: base({}), warmStaff: "large" },
-  { id: "multi-6x", description: "Kyrie repeated as 6 separate parts (distinct ids, same MEI), Letter, original lines", parts: 6, settings: base({}), warmStaff: "large" },
-];
 
 // --------------------------------------------------------------- server ---
 const MIME: Record<string, string> = {
@@ -142,18 +117,6 @@ function handle(req: IncomingMessage, res: ServerResponse): void {
   });
   createReadStream(file).pipe(res);
 }
-
-// ---------------------------------------------------------------- stats ---
-function stat(values: readonly (number | null)[]): Stat {
-  const xs = values.filter((v): v is number => v !== null).sort((a, b) => a - b);
-  if (xs.length === 0) return { n: 0, p50: null, p95: null, max: null };
-  const rank = (p: number): number => xs[Math.max(0, Math.ceil(p * xs.length) - 1)] as number;
-  return { n: xs.length, p50: rank(0.5), p95: rank(0.95), max: xs[xs.length - 1] as number };
-}
-const fmtMs = (v: number | null): string => (v === null ? "n/a" : v >= 100 ? v.toFixed(0) : v.toFixed(1));
-const fmtTriple = (s: Stat): string => (s.n === 0 ? "n/a" : `${fmtMs(s.p50)} / ${fmtMs(s.p95)} / ${fmtMs(s.max)}`);
-const kib = (b: number | null): string => (b === null ? "n/a" : `${(b / 1024).toFixed(1)} KiB`);
-const mib = (b: number | null): string => (b === null ? "unavailable" : `${(b / 1048576).toFixed(1)} MiB`);
 
 // ------------------------------------------------------------- measuring ---
 function withTimeout<T>(work: Promise<T>, label: string): Promise<T> {
@@ -214,28 +177,14 @@ async function oneRun(browser: Awaited<ReturnType<typeof chromium.launch>>, orig
   try {
     await page.goto(origin + PAGE_PATH);
     await page.waitForFunction(() => document.getElementById("state")?.dataset["state"] === "ready", undefined, { timeout: 30_000 });
-    const parts = makeParts(condition.parts);
-    const request = (token: number, settings: Settings): unknown => ({ type: "layout", request: { token, title: "Kyrie", parts, settings, overrides: {} } });
-
-    stage = "cold layout";
-    const cold = await layoutIn(page, request(1, condition.settings));
-    record.coldMs = cold.ms; record.firstPartMs = cold.firstProgressMs; record.coldPages = cold.pageCount;
-    if (cold.type !== "result" || cold.complete !== true) throw new Error(`layout ${cold.type}${cold.complete === false ? " (incomplete)" : ""}: ${cold.errorDetail ?? "no detail"}`);
-
-    stage = "cold pdf";
-    const pdfCold = await pdfIn(page, 1);
-    record.pdfColdMs = pdfCold.ms; record.pdfColdBytes = pdfCold.byteSize; record.pdfColdPages = pdfCold.pageCount;
-    if (pdfCold.type !== "pdf") throw new Error(`pdf ${pdfCold.type}: ${pdfCold.errorDetail ?? "no detail"}`);
-
-    stage = "warm layout";
-    const warm = await layoutIn(page, request(2, { ...condition.settings, staff: condition.warmStaff }));
-    record.warmMs = warm.ms; record.warmPages = warm.pageCount;
-    if (warm.type !== "result" || warm.complete !== true) throw new Error(`warm layout ${warm.type}${warm.complete === false ? " (incomplete)" : ""}: ${warm.errorDetail ?? "no detail"}`);
-
-    stage = "warm pdf";
-    const pdfWarm = await pdfIn(page, 2);
-    record.pdfWarmMs = pdfWarm.ms; record.pdfWarmBytes = pdfWarm.byteSize;
-    if (pdfWarm.type !== "pdf") throw new Error(`warm pdf ${pdfWarm.type}: ${pdfWarm.errorDetail ?? "no detail"}`);
+    const parts = makeParts(condition.parts, entry, MEI_URL);
+    stage = "sequence";
+    const sequence = await runSequence({ layout: (request) => layoutIn(page, request), pdf: (token) => pdfIn(page, token) }, condition, parts);
+    Object.assign(record, {
+      coldMs: sequence.coldMs, firstPartMs: sequence.firstPartMs, coldPages: sequence.coldPages, warmMs: sequence.warmMs, warmPages: sequence.warmPages,
+      pdfColdMs: sequence.pdfColdMs, pdfColdBytes: sequence.pdfColdBytes, pdfColdPages: sequence.pdfColdPages, pdfWarmMs: sequence.pdfWarmMs, pdfWarmBytes: sequence.pdfWarmBytes,
+    });
+    if (!sequence.ok) { stage = sequence.failedStage ?? "sequence"; throw new Error(sequence.failureDetail ?? "no detail"); }
 
     if (pageErrors.length > 0) throw new Error(`page errors: ${pageErrors.join("; ")}`);
     record.ok = true;

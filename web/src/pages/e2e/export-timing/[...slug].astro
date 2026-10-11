@@ -1,0 +1,233 @@
+---
+// TEST ONLY. The export editor's timing page for real devices (C2c): /e2e/export-timing/
+//
+// Built only with E2E_TEST_PAGES=1 (like e2e/[page].astro): a normal `pnpm build` emits no /e2e/ page, so check-links
+// and check-no-fixture are unaffected. It is in dist-e2e/ and on the device server (`pnpm serve:device`).
+// It runs the SAME measurement as scripts/measure-export-layout.ts (src/lib/export-layout/measureCore.ts) in the
+// browser it is opened in, and shows the desktop quiet-machine numbers beside the result.
+import Layout from "../../../components/Layout.astro";
+import baseline from "../../../lib/export-layout/__fixtures__/desktop-baseline.json";
+import manifest from "../../../lib/export-layout/__fixtures__/manifest.fixture.json";
+
+// The fixtures reach the page as data in its HTML, not as imports of the client script: a script's chunk is built even
+// when the page is not (no E2E_TEST_PAGES), and a normal build must hold nothing from the fixture manifest.
+const data = JSON.stringify({ baseline, entry: manifest.parts[0] }).replace(/</g, "\\u003c");
+
+export function getStaticPaths() {
+  return process.env["E2E_TEST_PAGES"] === "1" ? [{ params: { slug: undefined } }] : [];
+}
+---
+
+<Layout title="Export timing" description="Timing page for the export layout editor." noindex>
+  <script is:inline type="application/json" id="timing-data" set:html={data} />
+  <main class="page timing ui">
+    <h1>Export timing</h1>
+    <p class="muted small">Measures the export editor's layout and PDF on this device, for Kyrie IX in five conditions, and shows the desktop numbers beside them. Keep this tab in front and the screen on until it says Done.</p>
+    <p>
+      <button type="button" id="run" class="primary">Run timings</button>
+      <span class="small muted" id="runs-note"></span>
+    </p>
+    <p id="progress" class="small" role="status" aria-live="polite"></p>
+    <section id="device" hidden></section>
+    <section id="results"></section>
+    <section id="share" hidden>
+      <p><button type="button" id="copy">Copy results</button> <span class="small" id="copy-status" role="status"></span></p>
+      <details id="manual">
+        <summary class="disclosure-summary">Text to copy by hand</summary>
+        <p class="small muted">If Copy results does not work (a plain-http address is not a secure context, so the clipboard may be blocked), press and hold in a box, choose Select All, then Copy.</p>
+        <label class="small">JSON <textarea id="json" rows="8" readonly spellcheck="false"></textarea></label>
+        <label class="small">Markdown <textarea id="markdown" rows="8" readonly spellcheck="false"></textarea></label>
+      </details>
+    </section>
+  </main>
+
+  <style>
+    .timing h1 { margin-top: var(--s-3); }
+    .timing table { border-collapse: collapse; width: 100%; margin: var(--s-2) 0 var(--s-4); font-size: var(--step--1); }
+    .timing th, .timing td { border-bottom: 1px solid var(--rule); padding: var(--s-1) var(--s-2); text-align: right; }
+    .timing th:first-child, .timing td:first-child { text-align: left; }
+    .timing h2 { font-size: var(--step-0); margin: var(--s-4) 0 0; }
+    .timing textarea { display: block; width: 100%; font-family: ui-monospace, monospace; font-size: var(--step--1); margin-bottom: var(--s-2); }
+    .timing .bad { color: var(--warn-ink); }
+    .timing #device p { margin: var(--s-1) 0; }
+  </style>
+
+  <script>
+    import { CONDITIONS, fmtMs, kib, makeParts, mib, runSequence } from "../../../lib/export-layout/measureCore";
+    import type { Condition } from "../../../lib/export-layout/measureCore";
+    import { createMeasureCore } from "../../../lib/export-layout/measureHarness";
+    import type { Wire } from "../../../lib/export-layout/measureHarness";
+    import { METRICS, buildReport, compare, toMarkdown } from "../../../lib/export-layout/timingReport";
+    import type { Baseline, DeviceInfo, Report, RunMemory, RunOutcome } from "../../../lib/export-layout/timingReport";
+
+    const data = JSON.parse(document.getElementById("timing-data")?.textContent ?? "{}") as { baseline: Baseline; entry: Record<string, unknown> };
+    const baseline = data.baseline;
+    const entry = data.entry;
+    const MEI_URL = String(entry["meiUrl"]);
+    const requested = Number(new URLSearchParams(location.search).get("runs"));
+    const RUNS = Number.isInteger(requested) && requested >= 1 && requested <= 20 ? requested : 3;
+
+    const $ = <T extends HTMLElement>(id: string): T => document.getElementById(id) as T;
+    const runButton = $<HTMLButtonElement>("run");
+    $("runs-note").textContent = `${RUNS} run${RUNS === 1 ? "" : "s"} per condition (add ?runs=5 to the address for more).`;
+
+    function device(): DeviceInfo {
+      const nav = navigator as Navigator & { deviceMemory?: number };
+      return {
+        userAgent: navigator.userAgent,
+        hardwareConcurrency: typeof navigator.hardwareConcurrency === "number" ? navigator.hardwareConcurrency : null,
+        deviceMemoryGiB: typeof nav.deviceMemory === "number" ? nav.deviceMemory : null,
+        screen: { width: screen.width, height: screen.height, devicePixelRatio: window.devicePixelRatio },
+        crossOriginIsolated: window.crossOriginIsolated === true,
+        secureContext: window.isSecureContext,
+      };
+    }
+
+    /** Only the browser's own memory API; where it is missing the reason is recorded and nothing is estimated. */
+    async function readMemory(): Promise<RunMemory> {
+      const perf = performance as Performance & { measureUserAgentSpecificMemory?: () => Promise<{ bytes: number }> };
+      if (typeof perf.measureUserAgentSpecificMemory !== "function") return { bytes: null, reason: "performance.measureUserAgentSpecificMemory is not available" };
+      if (!window.crossOriginIsolated) return { bytes: null, reason: "page is not cross-origin isolated" };
+      try { return { bytes: (await perf.measureUserAgentSpecificMemory()).bytes, reason: null }; } catch (e) { return { bytes: null, reason: e instanceof Error ? `${e.name}: ${e.message}` : String(e) }; }
+    }
+
+    /** One run on a FRESH pair of workers (cold), then both are terminated. */
+    async function oneRun(condition: Condition, run: number): Promise<RunOutcome> {
+      const layoutWorker = new Worker(new URL("../../../workers/export-layout.worker.ts", import.meta.url), { type: "module" });
+      const pdfWorker = new Worker(new URL("../../../workers/export-layout-pdf.worker.ts", import.meta.url), { type: "module" });
+      const core = createMeasureCore({ layout: (request) => layoutWorker.postMessage(request), pdf: (message) => pdfWorker.postMessage(message) });
+      layoutWorker.onmessage = (event: MessageEvent<Wire>) => core.onLayoutMessage(event.data);
+      pdfWorker.onmessage = (event: MessageEvent<{ type: string; token: number; bytes?: ArrayBuffer }>) => {
+        const { bytes: _bytes, ...rest } = event.data;
+        core.onPdfMessage(rest as unknown as Wire);
+      };
+      let workerError: string | null = null;
+      layoutWorker.onerror = (e) => { workerError = e.message || "layout worker error"; };
+      pdfWorker.onerror = (e) => { workerError = e.message || "pdf worker error"; };
+      try {
+        const seq = await Promise.race([
+          runSequence({ layout: (r) => core.layout(r as { request: { token: number } }), pdf: (t) => core.pdf(t) }, condition, makeParts(condition.parts, entry, MEI_URL)),
+          new Promise<never>((_, reject) => { const id = setInterval(() => { if (workerError !== null) { clearInterval(id); reject(new Error(`worker error: ${workerError}`)); } }, 250); }),
+        ]);
+        return { ...seq, run, memory: seq.ok ? await readMemory() : { bytes: null, reason: "run failed" } };
+      } catch (e) {
+        return {
+          run, ok: false, failedStage: "worker", failureDetail: e instanceof Error ? e.message : String(e), coldMs: null, firstPartMs: null, coldPages: null, warmMs: null,
+          warmPages: null, pdfColdMs: null, pdfColdBytes: null, pdfColdPages: null, pdfWarmMs: null, pdfWarmBytes: null, memory: { bytes: null, reason: "run failed" },
+        };
+      } finally {
+        layoutWorker.terminate();
+        pdfWorker.terminate();
+      }
+    }
+
+    const cell = (tag: "td" | "th", text: string, cls?: string): HTMLElement => {
+      const c = document.createElement(tag);
+      c.textContent = text;
+      if (cls) c.className = cls;
+      return c;
+    };
+
+    function show(report: Report): void {
+      const dev = $("device");
+      dev.hidden = false;
+      dev.replaceChildren();
+      const h = document.createElement("h2");
+      h.textContent = "Device";
+      dev.append(h);
+      const d = report.device;
+      for (const line of [
+        `User agent: ${d.userAgent}`, `Cores: ${d.hardwareConcurrency ?? "not reported"}`, `Device memory: ${d.deviceMemoryGiB === null ? "not reported" : `${d.deviceMemoryGiB} GiB`}`,
+        `Screen: ${d.screen.width} x ${d.screen.height} at ${d.screen.devicePixelRatio}x`, `Secure context: ${d.secureContext ? "yes" : "no"}; cross-origin isolated: ${d.crossOriginIsolated ? "yes" : "no"}`,
+      ]) { const p = document.createElement("p"); p.className = "small"; p.textContent = line; dev.append(p); }
+      for (const n of report.notes) { const p = document.createElement("p"); p.className = "small muted"; p.textContent = n; dev.append(p); }
+      const b = document.createElement("p");
+      b.className = "small muted";
+      b.textContent = `Desktop: ${baseline.cpu}, ${baseline.browser}, commit ${baseline.commit}, ${baseline.date.slice(0, 10)}.`;
+      dev.append(b);
+
+      const host = $("results");
+      host.replaceChildren();
+      for (const c of report.conditions) {
+        const section = document.createElement("section");
+        section.dataset["condition"] = c.id;
+        section.dataset["status"] = c.failed === 0 && c.succeeded > 0 ? "ok" : "failed";
+        const title = document.createElement("h2");
+        title.textContent = c.id;
+        const sub = document.createElement("p");
+        sub.className = c.failed > 0 ? "small bad" : "small muted";
+        sub.textContent = `${c.description}. ${c.succeeded}/${c.runs} runs succeeded${c.failed > 0 ? ` (${c.failed} failed)` : ""}; ${c.pages.cold ?? "n/a"} pages.`;
+        const table = document.createElement("table");
+        const head = document.createElement("tr");
+        for (const t of ["Metric", "p50", "p95", "max", "Desktop p50", "x desktop"]) head.append(cell("th", t));
+        table.append(head);
+        for (const m of METRICS) {
+          const s = c.stats[m.key];
+          const cmp = compare(report, baseline, c.id, m.key);
+          const fmtv = (v: number | null): string => (v === null ? "n/a" : m.key === "pdfBytes" ? kib(v) : m.unit === "bytes" ? mib(v) : fmtMs(v));
+          const tr = document.createElement("tr");
+          tr.dataset["metric"] = m.key;
+          if (m.key === "memoryUserAgentSpecificBytes" && s.n === 0) {
+            const note = cell("td", c.memoryNote ?? "not available");
+            note.setAttribute("colspan", "3");
+            note.style.textAlign = "left";
+            tr.append(cell("td", m.label), note, cell("td", fmtv(cmp.desktop)), cell("td", ""));
+          } else {
+            tr.append(cell("td", `${m.label}${m.unit === "ms" ? " (ms)" : ""}`), cell("td", fmtv(s.p50)), cell("td", fmtv(s.p95)), cell("td", fmtv(s.max)), cell("td", fmtv(cmp.desktop)),
+              cell("td", m.unit === "ms" && cmp.ratio !== null ? cmp.ratio.toFixed(1) : ""));
+          }
+          table.append(tr);
+        }
+        section.append(title, sub, table);
+        for (const f of c.failures) { const p = document.createElement("p"); p.className = "small bad"; p.textContent = `Run ${f.run} failed at ${f.stage ?? "?"}: ${f.detail ?? "no detail"}`; section.append(p); }
+        host.append(section);
+      }
+    }
+
+    let latest = "";
+    async function run(): Promise<void> {
+      runButton.disabled = true;
+      $("share").hidden = true;
+      $("results").replaceChildren();
+      const outcomes: Record<string, RunOutcome[]> = {};
+      const total = CONDITIONS.length * RUNS;
+      let done = 0;
+      for (const condition of CONDITIONS) {
+        outcomes[condition.id] = [];
+        for (let i = 1; i <= RUNS; i++) {
+          $("progress").textContent = `Running ${condition.id}, run ${i} of ${RUNS} (${done + 1} of ${total}). Keep this tab open.`;
+          await new Promise((r) => setTimeout(r, 30)); // let the progress text paint before the workers start
+          outcomes[condition.id]!.push(await oneRun(condition, i));
+          done += 1;
+        }
+      }
+      const report = buildReport({ conditions: CONDITIONS, outcomes, device: device(), baseline, runsPerCondition: RUNS });
+      show(report);
+      const json = JSON.stringify(report, null, 2);
+      const markdown = toMarkdown(report, baseline);
+      $<HTMLTextAreaElement>("json").value = json;
+      $<HTMLTextAreaElement>("markdown").value = markdown;
+      latest = `${markdown}\n\n\`\`\`json\n${json}\n\`\`\`\n`;
+      $("share").hidden = false;
+      const failed = report.conditions.reduce((n, c) => n + c.failed, 0);
+      $("progress").textContent = failed === 0 ? "Done. Tap Copy results." : `Done, with ${failed} failed run(s) (listed below). Tap Copy results anyway.`;
+      runButton.disabled = false;
+    }
+
+    runButton.addEventListener("click", () => { void run(); });
+    for (const id of ["json", "markdown"]) $<HTMLTextAreaElement>(id).addEventListener("focus", (e) => (e.target as HTMLTextAreaElement).select());
+    $("copy").addEventListener("click", async () => {
+      const status = $("copy-status");
+      try {
+        if (!navigator.clipboard) throw new Error("no clipboard");
+        await navigator.clipboard.writeText(latest);
+        status.textContent = "Copied. Paste it into the chat.";
+      } catch {
+        // A plain-http LAN address is not a secure context, so the clipboard is not offered: show the text to select by hand.
+        $<HTMLDetailsElement>("manual").open = true;
+        $<HTMLTextAreaElement>("json").focus();
+        status.textContent = "The clipboard is not available here. The text is open below: Select All, then Copy.";
+      }
+    });
+  </script>
+</Layout>

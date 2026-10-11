@@ -65,3 +65,14 @@ Fill in one row each; "pass" or "fail" and a short note. Then give the table bac
 | 13 | Anything else odd (freezes, blank pages, wrong fonts) | | |
 
 Device: iPad model ______, iOS ______, forScore version ______. Date ______.
+
+## C2c iPad timing
+
+A separate, 5-minute check: how fast the editor is on the iPad, next to the desktop numbers.
+
+1. With the server running (see the top), open `http://<lan-ip>:4330/e2e/export-timing/` on the iPad (same address as before, different page). Add `?runs=5` for a steadier result (about 5 minutes); the default is 3 runs per condition.
+2. Keep the iPad **plugged in**, the **screen on** (Settings, Display & Brightness, Auto-Lock: Never, for now), and **no other tabs** open. Do not switch apps while it runs.
+3. Tap **Run timings**. Wait for "Done."
+4. Tap **Copy results**. If it says the clipboard is not available (it will not be, over plain http), the text opens below: press and hold in the JSON box, **Select All**, **Copy**, and paste it to the coordinator.
+
+The page shows the desktop times beside yours. "Cold" here means new workers, not an empty cache, so it is a little kinder than a first visit. Memory will say "not available" on iOS; that is expected.
