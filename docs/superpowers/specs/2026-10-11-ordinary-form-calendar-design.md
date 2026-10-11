@@ -1,6 +1,6 @@
 # Ordinary Form calendar: Graduale Romanum (1974) over the NOH substrate
 
-Status: decisions recorded, awaiting approval · 2026-10-11
+Status: calendar policy decisions confirmed; implementation not started · 2026-10-11
 
 ## Intent
 
@@ -14,7 +14,10 @@ What the user decided:
   header.
 - The chant book is the *Graduale Romanum* (1974), the Solesmes edition that
   carries out the *Ordo Cantus Missae* (1972; 2nd ed. 1987).
-- Scope is **Sundays and solemnities only**. Weekdays come later.
+- Scope is **Sundays and solemnities, plus every explicitly named exception**
+  in §3: Ash Wednesday, the Triduum, feasts of the Lord, Birth of the BVM
+  and Presentation of the BVM. No additional saints’ feasts or memorials are
+  added; other weekday propers come later.
 - The Sunday cycle (A/B/C) must be correct. The weekday cycle (I/II) is shown.
 - Switches for **Epiphany** and **Ascension** (proper day, or transferred to
   Sunday) make the calendar usable outside any one country.
@@ -28,6 +31,18 @@ Decided at review (2026-10-11):
   same kind of choice.
 - The default is the **General Roman Calendar**: Epiphany on 6 January,
   Ascension and Corpus Christi on their Thursdays.
+- Transfer presets: **General Roman**, **Sunday transfers**, and **Custom**,
+  alongside the three individual switches. Sunday transfers sets all three
+  celebrations to Sunday; this is a transfer preset, not a full US calendar.
+- Named feasts of the Lord stay on their fixed dates, including weekdays,
+  whenever precedence permits; higher-ranked impediments cause omission.
+- Ordinary Time weekday links use the preceding Sunday’s actual celebration,
+  including a solemnity, and never suggest an unrelated set across seasons.
+- Christmas Vigil is an evening option on December 24; December 25 offers
+  Night, Dawn and Day Masses separately, with no automatic clock-based choice.
+- Equal-rank collisions follow published precedence/transfer directives and
+  documented exceptions, with citations and regression tests. An unverified
+  collision rule must be resolved before release; data order never decides it.
 
 Assumption, open to correction:
 
@@ -118,7 +133,7 @@ names never become URLs or keys:
 
 ```yaml
 - key: ot-21                     # URL slug and calendar key
-  jgabc: "Twenty-first Sunday"   # after soft-hyphen stripping; null if absent
+  jgabc: "Twentyfirst Sunday"    # after soft-hyphen stripping; null if absent
   title_en: Twenty-first Sunday in Ordinary Time
   title_la: Dominica XXI per annum
   rank: sunday                   # see §3
@@ -129,6 +144,8 @@ The file is checked against the vendored data in both directions:
 
 - Every jgabc occasion must be mapped to a key.
 - Every key that names a jgabc occasion must find it.
+
+Partial assignment checks use `source_reviews` records with reviewer, ISO date, evidence path, source citation and explicit slot scope. The required A/B/C-sensitive review covers 40 occasions and 60 slot maps, pinned in `data/ordinary-form/review-manifest.yml` and validated against the source. `reviewed: false` denotes no complete occasion-level assignment review; a scoped review must not imply one. Filled overrides retain their separate review attribution.
 
 The 77 jgabc occasions, plus the following occasions the scope needs but jgabc
 lacks:
@@ -157,11 +174,12 @@ export interface OfSettings {
 }
 export interface OfDay {
   readonly occasion: string | null;   // occasions.yml key, or null for a weekday
-  readonly vigil: string | null;      // Easter Vigil, Pentecost Vigil (evening)
+  readonly vigil: string | null;      // Easter, Pentecost or Christmas Vigil (evening)
   readonly sundayCycle: "A" | "B" | "C";
   readonly weekdayCycle: "I" | "II";
   readonly season: OfSeason;          // advent | christmas | lent | triduum | easter | ordinary
-  readonly otWeek: number | null;     // for "chants of the preceding Sunday may be used"
+  readonly otWeek: number | null;
+  readonly precedingSundayOccasion: string | null; // actual resolved Sunday; no cross-season fallback
 }
 export function ofDay(date: LocalDate, settings: OfSettings): OfDay;
 ```
@@ -170,7 +188,10 @@ export function ofDay(date: LocalDate, settings: OfSettings): OfDay;
 
 - **Advent 1:** the Sunday from 27 Nov to 3 Dec.
 - **Christmas season:**
-  - Christmas, 25 Dec.
+  - Christmas, 25 Dec: links for Mass during the Night, Mass at Dawn and
+    Mass during the Day. Christmas Vigil is an evening option on 24 Dec.
+    No Mass is selected automatically from the time of day; unmapped
+    assignments show "chants not yet mapped".
   - Holy Family: the Sunday within the octave, or 30 Dec when there is none.
   - Mary, Mother of God, 1 Jan.
   - Second Sunday after Christmas: only when Epiphany is on 6 Jan and a Sunday
@@ -197,7 +218,7 @@ export function ofDay(date: LocalDate, settings: OfSettings): OfDay;
   - Trinity and a transferred Corpus Christi take the place of their Sunday
     numbers.
 
-**Sanctoral, Sundays-and-solemnities scope:** each fixed-date occasion has a
+**Sanctoral, Sundays-and-solemnities scope with named exceptions:** each fixed-date occasion has a
 rank, following the *Universal Norms on the Liturgical Year*, table of
 precedence:
 
@@ -213,7 +234,10 @@ precedence:
 
 The resolution rules:
 
-- **The higher rank wins.**
+- **The higher rank wins.** Equal-rank collisions use published authoritative
+  precedence and transfer directives, including documented exceptions, never
+  data order. Each exceptional collision has a source citation and a regression
+  test. Unverified collision rules block release until resolved.
 - **Solemnities and Sundays.** A solemnity that falls on a Sunday of Advent,
   Lent or Easter is transferred to the nearest following day outside ranks 1–8.
   Examples:
@@ -225,8 +249,9 @@ The resolution rules:
 
   A solemnity on an Ordinary Time Sunday is celebrated on that Sunday.
 - **All Souls.** On a Sunday it is celebrated on that Sunday.
-- **Feasts of the Lord** replace a Sunday of Ordinary Time or Christmas.
-  Elsewhere they are omitted that year.
+- **Feasts of the Lord** are celebrated on their fixed dates when precedence
+  permits, including weekdays. They replace a Sunday of Ordinary Time or
+  Christmas, and are omitted when impeded by a higher-ranked celebration.
 - **Feasts and memorials** appear only on weekdays. On a Sunday they are
   omitted.
 
@@ -241,7 +266,10 @@ The resolution rules:
 cycles, and says:
 
 - In Ordinary Time: "the chants of the preceding Sunday may be used", linking
-  to that Sunday's occasion. This is the 1974 Graduale's own rubric for weekdays
+  to that Sunday’s actual resolved occasion, including Trinity, transferred
+  Corpus Christi or another solemnity replacing a numbered Sunday. If the
+  preceding Sunday was outside Ordinary Time, show the rubric without linking
+  to an unrelated chant set. This is the 1974 Graduale’s rubric for weekdays
   *per annum*.
 - In other seasons: "weekday chants are not yet covered".
 
@@ -285,7 +313,14 @@ request.
   reset link.
 - **`/calendar/ordinary-form/`:**
   - The same date picker and controls as the 1962 page.
-  - Below the picker, a "Calendar settings" group of three two-way switches:
+  - Below the picker, a "Calendar settings" group with a preset selector:
+    **General Roman** (January 6 / Thursday / Thursday), **Sunday transfers**
+    (Sunday / Sunday / Sunday), or **Custom** when the effective settings match
+    neither preset. General Roman remains the default; reset restores it.
+    Selecting a named preset updates all three settings. The preset is derived
+    from the effective settings, so there is no conflicting extra preset state
+    in the URL or storage.
+  - Keep three individual two-way switches:
     Epiphany *6 January / Sunday*, Ascension *Thursday / Sunday*, Corpus Christi
     *Thursday / Sunday*.
   - The result shows the occasion, colour, "Year A · Weekday Year II", and the
@@ -299,7 +334,8 @@ request.
     `localStorage`, read and written inside try/catch. The page works without
     storage.
   - The footer credits jgabc and states that the rules follow the General Roman
-    Calendar, with the three switches as the only national variations.
+    Calendar, with the three transfers as the only supported variations.
+    The Sunday transfers preset does not imply a complete US calendar.
 - **`/ordinary-form/[key]/`:**
   - One static page per occasion. Each is a synthetic `Piece` (division
     `ordinary-form`, genre `proper`) whose every part is a `BorrowedPart` pointing
@@ -309,7 +345,9 @@ request.
     on.
   - An unresolved slot uses the existing missing-music notice.
   - Corrections and typeset switches still address the lending piece through
-    `sourceTarget`. This is unchanged.
+    `sourceTarget`. Eligible existing lender typeset SVGs and Letter/A4 PDFs
+    are reused, retaining proofreading status, scan choices and fallback
+    behavior; no duplicate OF transcription or manifest entry is created.
 - **Wiring:**
   - The home page gets a second line: "Find the Mass for any date in the
     Ordinary Form".
@@ -346,7 +384,10 @@ unaffected.
     - Peter & Paul and All Souls on a Sunday;
     - the earliest and latest Easter in range.
   - Each of the 8 switch combinations is run over every year, and asserts that
-    every Sunday has exactly one occasion.
+    every Sunday has exactly one occasion. Named presets select existing
+    combinations and do not introduce a separate national rules engine.
+  - Verify named weekday feast exceptions, actual preceding-Sunday weekday
+    links, Christmas Mass choices, and source-backed equal-rank collisions.
 - **Cycles:** spot dates either side of each Advent 1.
 - **Parser and resolution** (pytest):
   - The literal parser on the real file and on a fixture containing the
@@ -365,8 +406,10 @@ unaffected.
 
 - Weekday propers of Advent, Lent and Easter, and 17–24 Dec. That would need a
   hand transcription of the *Ordo Cantus Missae*, and is a separate spec.
-- Saints' memorials and the Commons.
-- National proper calendars beyond the three switches.
+- Additional saints’ feasts and memorials beyond the explicitly named
+  exceptions, and the Commons.
+- National proper calendars beyond the three transfer settings/presets,
+  including a full US calendar.
 - The *Graduale Simplex*.
 - Readings.
 - Page numbers in the 1974 Graduale.
@@ -378,3 +421,19 @@ unaffected.
 | Header labels | "Extraordinary Form (1962)" and "Ordinary Form"; paths and code names use `ordinary-form` |
 | Corpus Christi switch | Kept, beside Epiphany and Ascension |
 | Default settings | General Roman Calendar (all three on their proper days) |
+| Named exceptions | Keep every explicitly named exception; add no further saints’ feasts or memorials |
+| Transfer presets | General Roman / Sunday transfers / Custom; retain individual switches; no full US calendar |
+| Weekday feasts of the Lord | Celebrate on fixed dates when precedence permits; omit only when impeded |
+| Ordinary Time weekday link | Preceding Sunday’s actual resolved celebration; no unrelated cross-season suggestion |
+| Christmas Mass choices | Dec 24 evening Vigil; Dec 25 Night / Dawn / Day; no automatic clock-based selection |
+| Equal-rank collisions | Published authoritative directives and documented exceptions; cited tests; no guessed/data-order result |
+
+
+## Source-verified implementation refinements (2026-10-11)
+
+GR1974 p553 changes Annunciation's interlectional chants in Paschal time. Parts may include an optional `seasons` availability list using the calendar's season enum and an optional semantic `kind` using the catalogue proper-part vocabulary (`introit`, `gradual`, `alleluia`, `tract`, `sequence`, `offertory`, `communion`). Missing `seasons` means all seasons. The first Paschal Alleluia occupies the `graduale` source slot with `kind: alleluia`; the second occupies `alleluia`. These are consecutive chants, not alternatives. Preserve source-slot order and include these fields in assignment/mapping coverage identities. Other Easter-season first interlectional chants are labeled according to the book rather than the upstream slot's name. Date-to-score links carry validated cycle and season; static pages retain all seasonal options.
+
+The user approved applying the year-specific 2022 John the Baptist transfer provisionally to June 23 in 2033 and 2044. June 23 and 24 in those years must visibly identify the policy as provisional. Future authoritative guidance may supersede it; the source review must not claim a permanent ecclesiastical directive.
+
+
+The exhaustive collision audit additionally found Thursday Corpus Christi / John the Baptist on 2038-06-24. The user approved provisional Corpus Christi precedence with John the Baptist moved to June 25, disclosed on both affected dates. With Sunday Corpus Christi selected, John remains June 24. This is a product policy awaiting future authoritative corroboration, not a claimed 2038 directive.

@@ -41,11 +41,16 @@ commit it was taken from.
 
 ## jgabc per-day chant ids — Unlicense (public domain)
 
-`data/jgabc-propers.json` is extracted from `propersdata.js` in
+`data/jgabc-propers.json` is extracted from `propersdata.js`;
+`data/jgabc-novus-propers.json` is extracted from `propersdatanovus.js`
+(the `propriumNoviOrdinis` literal), both in
 [bbloomf/jgabc](https://github.com/bbloomf/jgabc), which carries the Unlicense.
 It records, per day, which parts a Proper has and the GregoBase id of each; the
 site uses it to divide Propers into parts and to link each part to GregoBase.
-Source commit and sha256 are in the file's header.
+Source commit and sha256 are in each file's header. The Ordinary Form
+assignment projection in `data/ordinary-form-propers.json` links the 1974
+Graduale's assignments to the same NOH catalogue. It does not redistribute
+the modern Graduale scan, and a missing accompaniment remains explicit.
 
 ## Reference editions — not redistributed
 
