@@ -1,6 +1,7 @@
 import type { ApprovedConversion, ConversionManifest, ConversionManifestPart, SafeBoundary } from "./export-layout/types";
 import productionManifest from "../../../data/typeset/mei/manifest.json";
 import fixtureManifest from "./export-layout/__fixtures__/manifest.fixture.json";
+import { ASSET_BASE } from "./config";
 
 const EMPTY: ConversionManifest = { schemaVersion: 1, parts: [] };
 const DIVISIONS: ReadonlySet<string> = new Set(["finalis", "maxima", "maior", "minima"]);
@@ -47,7 +48,13 @@ export function approvedConversionFor(target: string, renderHash: string, manife
   return conversion;
 }
 
-/** Production manifest, or the experimental fixture when PUBLIC_MEI_MANIFEST=fixture (B10a hardens this). */
+/** Published MEI paths (`/mei/<sha>/score.mei`) live on the asset host, not the site: prefix the base. */
+export function withAssetBase(manifest: ConversionManifest, base: string = ASSET_BASE): ConversionManifest {
+  return { ...manifest, parts: manifest.parts.map((p) => (p.meiUrl.startsWith("/") ? { ...p, meiUrl: base + p.meiUrl } : p)) };
+}
+
+/** Production manifest (MEI on the asset host), or the experimental fixture when PUBLIC_MEI_MANIFEST=fixture,
+ *  whose MEI the e2e server serves from the site itself. */
 export function loadManifest(): ConversionManifest {
-  return parseManifest(import.meta.env.PUBLIC_MEI_MANIFEST === "fixture" ? fixtureManifest : productionManifest);
+  return import.meta.env.PUBLIC_MEI_MANIFEST === "fixture" ? parseManifest(fixtureManifest) : withAssetBase(parseManifest(productionManifest));
 }

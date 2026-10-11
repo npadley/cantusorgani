@@ -9,13 +9,17 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import fixture from "../src/lib/export-layout/__fixtures__/manifest.fixture.json" with { type: "json" };
+import production from "../../data/typeset/mei/manifest.json" with { type: "json" };
 
 interface FixturePart { readonly meiSha256: string; readonly digest: string; readonly meiUrl: string; readonly profile: string }
 
-/** Strings that appear only in the fixture: its MEI digest, its URL and its unapproved profile name. */
+/** Strings that appear only in the fixture: its MEI digest and URL (unless an approved production entry shares
+ *  them) and its unapproved profile name. */
 export function fixtureMarkers(): string[] {
   const markers = new Set<string>(["accompaniment-v1-unapproved", "__fixtures__/kyrie-ix", "experimental, unapproved, never published"]);
   for (const part of fixture.parts as readonly FixturePart[]) { markers.add(part.meiSha256); markers.add(part.digest); markers.add(part.meiUrl); }
+  // The fixture MEI may be byte-identical to an approved, published conversion; its digest is then legitimate.
+  for (const part of production.parts as readonly FixturePart[]) { markers.delete(part.meiSha256); markers.delete(part.digest); markers.delete(part.meiUrl); }
   return [...markers];
 }
 
