@@ -308,8 +308,9 @@ def normalize_mei(xml: bytes, provenance: Mapping[str, str]) -> NormalizedScore:
         return mapped if mapped is not None else f"unmapped:{ref}"
 
     spans: set[tuple[SpanKind, str, str]] = set()
-    for tag, kind in (("slur", "slur"), ("gliss", "voice-line")):
+    for tag in ("slur", "gliss"):
         for el in root.iter(_M + tag):
+            kind = "slur" if tag == "slur" else ("voice-line" if el.get("type") == "voice-line" else "glissando")
             spans.add((kind, resolve(_ref(el.get("startid"))), resolve(_ref(el.get("endid")))))  # type: ignore[arg-type]
     for el in root.iter(_M + "tie"):
         if el.get("type") == SPLIT_TIE:

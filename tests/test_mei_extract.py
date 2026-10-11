@@ -333,10 +333,11 @@ def test_build_spans_agnus_xi_voice_line_spans():
     assert span_diags == ()
 
 
-def test_build_spans_ordinary_glissando_warns():
+def test_build_spans_ordinary_glissando_becomes_a_glissando_span():
     _, _, _, _, _, _, spans, span_diags, _, _ = load_all("agnus_IX")
-    assert Counter(s.kind for s in spans)["voice-line"] == 4
-    assert [(d.code, d.severity) for d in span_diags] == [("UNKNOWN_FEATURE", "warning")] * 4
+    kinds = Counter(s.kind for s in spans)
+    assert kinds["voice-line"] == 4 and kinds["glissando"] == 4
+    assert span_diags == ()  # A5g: no longer an UNKNOWN_FEATURE warning that silently drops the line
 
 
 def test_build_spans_unbalanced_slur_reports_error():
@@ -515,7 +516,7 @@ def test_build_boundaries_counts_by_reason():
     expected = {
         "kyrie_IX": (179, 81, {"slur-crosses": 98}),
         "agnus_XI": (102, 50, {"slur-crosses": 48, "voice-line-crosses": 4}),
-        "agnus_IX": (115, 50, {"slur-crosses": 59, "voice-line-crosses": 6}),
+        "agnus_IX": (115, 48, {"slur-crosses": 59, "voice-line-crosses": 6, "glissando-crosses": 2}),
         "al_ego_dilecto.csv": (99, 50, {"slur-crosses": 49}),
         "co_inclina_aurem_tuam.csv": (40, 17, {"slur-crosses": 23}),
         "ite_Ib": (19, 7, {"slur-crosses": 12}),

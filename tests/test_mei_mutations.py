@@ -468,3 +468,23 @@ def test_compare_scores_scaled_first_fragment_without_its_tuplet_reports_duratio
 
     hits = with_code(run("F1", mutate), "DURATION_MISMATCH")
     assert any(target["id"] in d.source_event_ids for d in hits)
+
+
+def test_compare_scores_dropped_ordinary_glissando_reports_a_span_mismatch() -> None:
+    target: dict[str, str] = {}
+
+    def mutate(root: etree._Element, prov: dict[str, str]) -> None:
+        gliss = next(g for g in root.iter(M + "gliss") if g.get("type") != "voice-line")
+        target["start"] = prov[gliss.get("startid").removeprefix("#")]  # type: ignore[union-attr]
+        gliss.getparent().remove(gliss)
+
+    hits = with_code(run("F6", mutate), "SLUR_MISMATCH")
+    assert any("glissando" in d.detail and target["start"] in d.source_event_ids for d in hits)
+
+
+def test_compare_scores_ordinary_glissando_retyped_as_a_voice_line_reports_a_span_mismatch() -> None:
+    def mutate(root: etree._Element, prov: dict[str, str]) -> None:
+        next(g for g in root.iter(M + "gliss") if g.get("type") != "voice-line").set("type", "voice-line")
+
+    hits = with_code(run("F6", mutate), "SLUR_MISMATCH")
+    assert hits

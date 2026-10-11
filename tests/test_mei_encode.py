@@ -351,11 +351,13 @@ def test_encode_score_agnus_xi_cross_staff_notes_carry_staff() -> None:
     assert len(q(root, "//m:space[@staff][not(@type='split-continuation')]")) == 2
 
 
-def test_encode_score_agnus_xi_voice_line_glissandi_are_dotted_between_hidden_notes() -> None:
+def test_encode_score_agnus_xi_voice_line_glissandi_are_solid_between_hidden_notes() -> None:
     root = tree("agnus_XI.tsv")
     glisses = q(root, "//m:gliss")
     assert len(glisses) == 3
-    assert all(g.get("lform") == "dotted" and g.get(XML_ID) for g in glisses)
+    # A5g: LilyPond's Cairo render draws the dotted-line voice lines as solid lines, so the MEI does too;
+    # type="voice-line" is what tells them from ordinary glissandi.
+    assert all(g.get("lform") == "solid" and g.get("type") == "voice-line" and g.get(XML_ID) for g in glisses)
     hidden = {n.get(XML_ID): n for n in q(root, "//m:note[@visible='false']")}
     assert len(hidden) == 6
     for g in glisses:
@@ -654,3 +656,21 @@ def test_encode_score_split_scaled_sustain_keeps_the_written_head_and_real_onset
     }
     assert seen == expected
     assert normalize_ir(ir).layers.keys() == converted.layers.keys()
+
+
+def test_encode_score_agnus_ix_ordinary_glissandi_are_solid_lines_between_visible_notes() -> None:
+    """A5g: a visible-note \\glissando is a solid <gliss> (no @lform), unlike the dotted voice lines."""
+    from tests.test_mei_normalize import pilot
+
+    ir, encoded = pilot("F6")
+    root = etree.fromstring(encoded.xml)
+    glisses = q(root, "//m:gliss")
+    solid = [g for g in glisses if g.get("type") != "voice-line"]
+    voice_lines = [g for g in glisses if g.get("type") == "voice-line"]
+    assert (len(solid), len(voice_lines)) == (4, 4) and all(g.get("lform") == "solid" for g in glisses)
+    notes = {n.get(XML_ID): n for n in q(root, "//m:note")}
+    for gliss in solid:
+        start, end = notes[gliss.get("startid")[1:]], notes[gliss.get("endid")[1:]]
+        assert start.get("visible") != "false" and end.get("visible") != "false"
+    assert not [d for d in encoded.diagnostics if d.code == "UNKNOWN_FEATURE"]
+    assert sum(1 for s in ir.spans if s.kind == "glissando") == 4

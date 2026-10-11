@@ -472,7 +472,10 @@ def build_spans(
       pitch (repeated attacks without a tie row never form a span); a missing target is an
       UNKNOWN_FEATURE warning.
     - voice-line: a ``gliss`` row in a voice-line-role layer spans from that layer's note at the
-      onset to the layer's next note; a gliss in any other layer is an UNKNOWN_FEATURE warning.
+      onset to the layer's next note.
+    - glissando: the same row in any other layer is an ordinary (visible-note) glissando, a span of
+      kind ``glissando`` between the same two notes; without a start or end note it is an
+      UNKNOWN_FEATURE error.
     """
     roles = {layer.id: layer.role for layer in build_layers(rows)}
     per_layer: dict[str, list[Event]] = defaultdict(list)
@@ -530,15 +533,14 @@ def build_spans(
         if row.kind != "gliss":
             continue
         where = _loc_or_blank(row.fields[0], "gliss")
-        if roles.get(row.layer) != "voice-line":
-            diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "warning", f"ordinary glissando at {row.onset} in {row.layer}", where))
-            continue
+        voice_line = roles.get(row.layer) == "voice-line"
+        label = "voice-line" if voice_line else "ordinary"
         start = note_at(row.layer, row.onset)
         later = [e for e in per_layer[row.layer] if e.kind == "note" and e.onset > row.onset]
         if start is None or not later:
-            diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "error", f"voice-line glissando at {row.onset} in {row.layer} lacks a start or end note", where))
+            diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "error", f"{label} glissando at {row.onset} in {row.layer} lacks a start or end note", where))
         else:
-            add("voice-line", start, later[0])
+            add("voice-line" if voice_line else "glissando", start, later[0])
     return tuple(spans), tuple(diagnostics)
 
 
@@ -628,6 +630,8 @@ def feature_uses(
             use("slur", start.location, span.start_event_id, span.end_event_id)
         elif span.kind == "voice-line":
             use("voice-line-glissando", start.location, span.start_event_id, span.end_event_id)
+        elif span.kind == "glissando":
+            use("ordinary-glissando", start.location, span.start_event_id, span.end_event_id)
     for layer in layers:
         if layer.role == "voice-line":
             ids = tuple(e.id for e in events if e.layer_id == layer.id)
@@ -732,7 +736,7 @@ def build_boundaries(
     by_id = {e.id: e for e in events}
     crossing = {
         kind: [(by_id[s.start_event_id].onset, by_id[s.end_event_id].onset) for s in spans if s.kind == kind]
-        for kind in ("slur", "voice-line")
+        for kind in ("slur", "voice-line", "glissando")
     }
     attack_layer = {e.id: e.layer_id for e in events}
     ordered = sorted(lyrics, key=lambda s: s.onset)
@@ -760,6 +764,8 @@ def build_boundaries(
             reason = "slur-crosses"
         elif any(start < t <= end for start, end in crossing["voice-line"]):
             reason = "voice-line-crosses"
+        elif any(start < t <= end for start, end in crossing["glissando"]):
+            reason = "glissando-crosses"
         elif any(start < t < nxt for start, nxt in extenders):
             reason = "lyric-extender-crosses"
         boundaries.append(

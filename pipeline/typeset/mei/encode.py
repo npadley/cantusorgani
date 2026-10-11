@@ -508,14 +508,18 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                 _diagnostic(f"{span.kind} {span.id} refers to an unknown event", "span-unknown-event")
             )
             continue
-        tag = "slur" if span.kind == "slur" else "gliss"
+        tag = "slur" if span.kind == "slur" else "gliss"  # voice-line and glissando spans
         attrs = {
             "xml:id": span.id,
             "startid": "#" + mei_of[start.id],
             "endid": "#" + mei_of[end.id],
         }
-        if span.kind == "voice-line":
-            attrs["lform"] = "dotted"
+        if span.kind in ("voice-line", "glissando"):
+            # LilyPond's Cairo render draws both as solid lines (the voice line's "dotted-line" style comes
+            # out solid there). @type tells the hidden-note voice line from an ordinary glissando.
+            attrs["lform"] = "solid"
+            if span.kind == "voice-line":
+                attrs["type"] = "voice-line"
         controls[measure_of(start.onset)].append(_Node(tag, attrs))
 
     # Ties are explicit control events from the first (visible) head of a note to the first head of

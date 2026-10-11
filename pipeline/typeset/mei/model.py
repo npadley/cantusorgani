@@ -42,8 +42,8 @@ Notehead = Literal["normal", "hidden", "quilisma"]
 PrintedAccidental = Literal["none", "sharp", "flat", "natural", "double-sharp", "double-flat"]
 DivisionKind = Literal["finalis", "maxima", "maior", "minima"]
 LayerRole = Literal["chant", "accompaniment", "voice-line"]
-SpanKind = Literal["tie", "slur", "voice-line"]
-BoundaryReason = Literal["sustain-not-splittable", "slur-crosses", "voice-line-crosses",
+SpanKind = Literal["tie", "slur", "voice-line", "glissando"]
+BoundaryReason = Literal["sustain-not-splittable", "slur-crosses", "voice-line-crosses", "glissando-crosses",
                          "lyric-extender-crosses", "not-common-onset"]
 
 @dataclass(frozen=True)
@@ -142,7 +142,7 @@ class FeatureUse:
 FEATURE_FAMILIES: tuple[str, ...] = (
     "scaled-duration", "tie", "slur", "hidden-stem", "hidden-rest", "skip",
     "finalis", "divisio-maxima", "divisio-maior", "divisio-minima", "force-break",
-    "stanza-marker", "blank-lyric", "melisma", "voice-line-voice", "voice-line-glissando",
+    "stanza-marker", "blank-lyric", "melisma", "voice-line-voice", "voice-line-glissando", "ordinary-glissando",
     "cross-staff", "quilisma", "key-change", "clef-change", "note-shift", "manual-spacing",
 )
 
