@@ -1,8 +1,58 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import coverage from "../../../data/ordinary-form-coverage.json";
 import { allPieces } from "./catalog";
 import { exportSegments } from "./exportParts";
 import { ordinaryFormOccasions, ordinaryFormParts, ordinaryFormPiece, ordinaryFormPieces } from "./ordinaryFormPieces";
+
+describe("Ordinary Form semantic chant kinds", () => {
+  it("projects a validated non-Alleluia semantic kind through resolved and borrowed-piece output", async () => {
+    const candidate = allPieces().flatMap(piece => piece.parts
+      .filter((part): part is import("./catalog").PrintedPart => part.kind === "printed" &&
+        part.gregobaseId !== null && part.placed !== "order" && piece.systems.includes(part.ref))
+      .map(section => ({ piece, section })))
+      .find(({ section }) => section.part !== "tract");
+    expect(candidate).toBeDefined();
+    const { piece: lender, section } = candidate!;
+    const key = "semantic-kind-fixture";
+    const rawFixture = {
+      schema_version: 1,
+      occasions: [{
+        key, title_en: "Semantic kind fixture", title_la: "Experimentum", rank: "solemnity", color: "white",
+        assignment_status: "mapped",
+        parts: [{ slot: "graduale", kind: "tract", variant: "fixture", years: ["A"],
+          gregobase_id: section.gregobaseId, incipit: section.title ?? "Fixture incipit",
+          lender: { slug: lender.slug, ref: section.ref, part: section.part, variant: section.variant } }],
+      }],
+    };
+
+    vi.resetModules();
+    vi.doMock("../../../data/ordinary-form-propers.json", () => ({ default: rawFixture }));
+    try {
+      const adapter = await import("./ordinaryFormPieces");
+      const [resolved] = adapter.ordinaryFormParts(key, "A");
+      expect(resolved).toMatchObject({ slot: "tract", sourceSlot: "gradual", kind: "tract" });
+      expect(resolved?.lender).toMatchObject({
+        slug: lender.slug, ref: section.ref, part: section.part, variant: section.variant,
+      });
+
+      const borrower = adapter.ordinaryFormPiece(key)!;
+      const projected = borrower.parts.find(part => part.kind === "borrowed");
+      expect(projected).toMatchObject({
+        kind: "borrowed", part: "tract", variant: "fixture", title: section.title ?? "Fixture incipit",
+        borrowedFrom: lender.slug, borrowedRef: section.ref, borrowedPart: section.part,
+        borrowedVariant: section.variant,
+      });
+      const [segment] = exportSegments([borrower]);
+      expect(segment).toMatchObject({
+        part: "tract", label: expect.stringMatching(/^Tract \(Year A\) \(from /),
+        source: { slug: lender.slug, part: section.part, variant: section.variant },
+      });
+    } finally {
+      vi.doUnmock("../../../data/ordinary-form-propers.json");
+      vi.resetModules();
+    }
+  });
+});
 
 describe("Ordinary Form accompaniment projection", () => {
   it("keeps synthetic occasions outside the NOH catalogue", () => {

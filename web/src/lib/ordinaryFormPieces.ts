@@ -38,7 +38,12 @@ const SEMANTIC_PARTS = new Set<ProperPartName>(Object.values(SLOTS));
 const CATALOG = allPieces();
 
 function semanticPart(part: RawPart): ProperPartName {
-  return part.kind ? part.kind as ProperPartName : SLOTS[part.slot]!;
+  return semanticKind(part.slot, part.kind);
+}
+
+/** Preserve an explicit semantic chant kind; source slots only supply the fallback. */
+function semanticKind(sourceSlot: string, kind?: string): ProperPartName {
+  return kind === undefined ? SLOTS[sourceSlot]! : kind as ProperPartName;
 }
 
 /** Require the generated lender identity to match one exportable catalogue
@@ -134,7 +139,7 @@ function resolvedParts(key: string, cycle?: OfCycle, season?: OfSeason): readonl
     const lenderSection = found?.section ?? null;
     return {
       slot, sourceSlot: SLOTS[part.slot]!,
-      ...(part.kind ? { kind: SLOTS[part.kind]! } : {}), variant: part.variant, years: part.years as OfCycle[],
+      ...(part.kind ? { kind: semanticKind(part.slot, part.kind) } : {}), variant: part.variant, years: part.years as OfCycle[],
       ...(part.seasons ? { seasons: part.seasons as OfSeason[] } : {}),
       gregobaseId: part.gregobase_id, incipit: part.incipit,
       label: displayLabel(part, cycle, counts.get(slot)! > 1 ? ordinal : undefined),
