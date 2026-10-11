@@ -514,10 +514,14 @@ def _synthetic_ir(*, chant_second_layer: bool = False) -> ScoreIR:
 def test_encode_score_sustain_split_keeps_one_attack_and_the_total() -> None:
     result = encode_score(_synthetic_ir(), profile())
     root = etree.fromstring(result.xml)
-    layer1 = q(root, "//m:staff/m:layer[@n='1']/m:note")
+    layer1 = q(root, "//m:staff/m:layer[@n='1']//m:note")
     assert [n.get(XML_ID) for n in layer1] == ["ev0e0000", "ev0e0000c1"]
     first, cont = layer1
-    assert (first.get("dur"), first.get("dots")) == ("4", "1")  # 3/8
+    # A5g: the first fragment keeps the event's written head (dotted half), as LilyPond prints it, and a
+    # hidden tuplet gives it its real length of 3/8; only the hidden continuation is notated by length.
+    assert (first.get("dur"), first.get("dots")) == ("2", "2")
+    assert first.getparent().tag.endswith("}tuplet") and (first.getparent().get("num"), first.getparent().get("numbase")) == ("7", "3")
+    assert dur_of(first) == Fraction(3, 8)
     assert (cont.get("dur"), cont.get("dots")) == ("2", None)  # 1/2
     assert first.get("type") is None and first.get("head.visible") is None
     assert cont.get("type") == "split-continuation"

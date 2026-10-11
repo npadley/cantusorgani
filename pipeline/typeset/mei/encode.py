@@ -190,13 +190,18 @@ def _division_mark(boundary: Boundary, kind: str, anchor: str, staff: int, ordin
     )
 
 
+def _drawn(event: Event, hidden_rests: set[str]) -> bool:
+    """True for events with a visible written head: notes and rests that are not hidden or skipped."""
+    return event.kind == "note" or (event.kind == "rest" and event.id not in hidden_rests)
+
+
 def _fragment_notated(duration: Fraction, original: NotatedDuration, first: bool = False) -> NotatedDuration:
     """Notated value for a fragment of an event cut at a measure line.
 
-    The first fragment of a scaled event (LilyPond ``2*7/4``) keeps the event's written head (a half
-    head), with a scale that gives the fragment its real length, so the head looks as in LilyPond and
-    sits at its real onset. Other fragments keep the event's own scale when they fit it."""
-    if first and original.scale != 1:
+    The first fragment of ANY split note or visible rest (a plain half note or a scaled ``2*7/4``) keeps the event's
+    written head, with a scale that gives the fragment its real length, so the head looks as in LilyPond
+    and sits at its real onset. Other fragments keep the event's own scale when they fit it."""
+    if first:
         written = Fraction(1, 2**original.log) * (2 - Fraction(1, 2**original.dots))
         return NotatedDuration(log=original.log, dots=original.dots, scale=duration / written)
     exact = _representable(duration / original.scale)
@@ -480,7 +485,7 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
         edges = [event.onset, *cuts, end]
         pieces: list[_Fragment] = []
         for index, (lo, hi) in enumerate(pairwise(edges)):
-            notated = event.notated if not cuts else _fragment_notated(hi - lo, event.notated, index == 0)
+            notated = event.notated if not cuts else _fragment_notated(hi - lo, event.notated, index == 0 and _drawn(event, hidden_rests))
             if index == 0:
                 fragment_id = mei_of[event.id]
             else:
