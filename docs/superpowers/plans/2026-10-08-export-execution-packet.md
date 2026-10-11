@@ -832,19 +832,38 @@ B0[H] ────────────────────────�
 
 ## 6. Status board
 
-| Card | Model | Lane | Status | Commit | Reviewer verdict |
-|---|---|---|---|---|---|
-| S0 | H | DOC/PY | ready | | |
-| S1 | O | PY | blocked: S0 | | |
-| S2 | O | W1 | blocked: S0, S6 | | |
-| S3+S4 | O | W2 | blocked: S0, S6 | | |
-| S5 | S | PY | blocked: S0 | | |
-| S6 | S | W1 | ready | | |
-| S7 | O | DOC | ready | | |
-| B0 | H | W3 | ready | | |
-| B1 | S | DOC | blocked: S0 | | |
-| A1a | H | PY | blocked: S0 | | |
-| B3a | H | W1 | ready (provisional presets) | | |
-| _all others_ | per card | per card | blocked: dependencies | | |
+*Updated 2026-10-11, after the Kyrie IX pilot went live (#97, #99).*
+
+### Done
+
+| Group | Cards | Notes |
+|---|---|---|
+| Spikes | S0–S7 | Outcomes in DL. |
+| Python lane (conversion) | A1a–A1c, A2a–A2e, A3a–A3e, A4a–A4c, A5a–A5d, A6 | Plus follow-ups A5d2 (approval binds to code digests), A5e (ties, written heads, unison heads), A5f (divisio minima ticks). |
+| Web lanes (editor and PDF) | B0–B9, B10a | Plus follow-ups b4d5/b4d6 (brace justification, word-boundary breaks), B8c2 (break handles clear of the music). |
+| Device check | B10b | User, on iPad + forScore + print. **G2.** |
+| Publication | C1a, C1b, C2a, C2b | C2b re-run on a quiet machine, 2026-10-10. |
+| Pilot | C3 | Kyrie IX MEI published (mei-conversion run 38100796436); manifest entry live (#99). |
+
+### Waived
+
+| Card | Decision |
+|---|---|
+| C2c | iPad timing runs skipped by the user; G3 passed on desktop timings (DL G3). The timing page is kept uncommitted on branch `export/c2c-prep`. |
+
+### Open
+
+| Item | Owner | What it needs |
+|---|---|---|
+| **G4** | User | Sign-off on the live Kyrie IX export. Then record the release commit, published files and rollback (revert #99) in DL. |
+| **C5** Conversion maintenance | Coordinator (plan), then [S] | Proposed, not started: stale-conversion report and CI re-conversion; carry approval forward when nothing visible changed (**policy choice for the user**); narrow approval to the includes a piece uses; surface paused pieces in the admin corrections queue. Recommended before or alongside C4. |
+| **C4a** Batch tooling | [S], lane PY | Ready after G4. |
+| **C4b…** Conversion batches | [S] per batch, user approves | Converts the remaining pieces (e.g. the rest of Missa IX) in bounded batches with independent evidence reviewers. |
+| Measured resource profile | Coordinator | Before C4, if larger pieces need tighter limits than the provisional ones. |
+
+### Small follow-ups
+
+- At 1280 px the focused break-point label can touch the next break-point square (cosmetic).
+- Dependabot reports 15 alerts on `main` that predate this work.
 
 **Tally:** 60 cards: [O] 8 (S1, S2, S3+S4, S7, A3b table, B3b, B9, C3), [S] 41, [H] 8 (S0, A1a, A1c, A2e, B0, B3a, B7a, C2a; plus A3b's transcription), [U] 3 cards (A5d, B10b, C2c). The user also signs gates G0 (B1), G1 (A5d), G2 (with B10b) and G4 (C3).
