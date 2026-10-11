@@ -153,6 +153,8 @@ jobs:
         run: uv run noh gregobase-fetch
       - name: Pipeline tests
         run: uv run pytest -q -m "not slow"
+      - name: Ordinary Form coverage current
+        run: uv run noh ordinary-form --check
       - name: Hand corrections applied
         run: uv run noh apply-corrections --check
       # The typeset sources pass the source check, and parts.yml is sound. Needs

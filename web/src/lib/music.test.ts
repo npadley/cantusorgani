@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { pieceBySlug, jumpTargets, systemUrlStem } from "./catalog";
 import { musicView } from "./music";
+import { ordinaryFormPiece } from "./ordinaryFormPieces";
 import { segmentKey } from "./typeset";
 
 // Catch omission of borrowed sections, wrong ranges, and loss of source assets.
@@ -61,4 +62,14 @@ it("uses the borrowing section's rubric in the inline score and omits source-onl
   });
   const without = musicView(original, [original, lender]);
   expect(jumpTargets(without).find((p) => p.anchor === "tract")?.rubric).toBeUndefined();
+});
+
+it("keeps Ordinary Form lender captions factual and points corrections at the real lender", () => {
+  const borrower = ordinaryFormPiece("easter")!;
+  const view = musicView(borrower);
+  const targets = jumpTargets(view);
+  expect(targets.length).toBeGreaterThan(0);
+  expect(targets[0]?.source).toMatch(/part [IVX]+, p{1,2}\. \d+/i);
+  expect(targets[0]?.source).not.toContain("rubric cites");
+  expect(targets[0]?.target).toMatch(/^part:(?!of-easter\/)[a-z0-9-]+\/(introit|gradual|alleluia|tract|sequence|offertory|communion)/);
 });

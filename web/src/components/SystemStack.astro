@@ -1,5 +1,5 @@
 ---
-import { jumpTargets, pagesLabel, systemUrlStem, volumeLabel, sectionName } from "../lib/catalog";
+import { gregobaseUrl, jumpTargets, pagesLabel, systemUrlStem, volumeLabel, sectionName } from "../lib/catalog";
 import { annotationFor, chantEntry } from "../lib/chants";
 import type { JumpTarget, Piece } from "../lib/catalog";
 import { segmentKey, segments } from "../lib/typeset";
@@ -45,11 +45,15 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
 ) : (
   <figure class="systems" id={id} role="group" aria-labelledby={captionId}>
     <figcaption id={captionId} class="sr-only">
-      {piece.title}
-      {piece.mode ? `, mode ${piece.mode}` : ", mode not recorded"},
-      organ accompaniment from {volumeLabel(piece)}, {pagesLabel(piece)}, shown as
-      {" "}{piece.systems.length} scanned music systems. These are images of a
-      1942 printed score and cannot be read by a screen reader.
+      {piece.division === "ordinary-form" ? (
+        <>{piece.title}, assembled from Nova Organi Harmonia sources for the Graduale Romanum (1974) assignment. Each borrowed section identifies its printed NOH source. The music is shown as {piece.systems.length} scanned systems from the 1942 edition and cannot be read by a screen reader.</>
+      ) : (
+        <>{piece.title}
+        {piece.mode ? `, mode ${piece.mode}` : ", mode not recorded"},
+        organ accompaniment from {volumeLabel(piece)}, {pagesLabel(piece)}, shown as
+        {" "}{piece.systems.length} scanned music systems. These are images of a
+        1942 printed score and cannot be read by a screen reader.</>
+      )}
     </figcaption>
 
     {jumpTargets(piece).length === 0 && <ChantText text={textForHeading(piece)} />}
@@ -148,10 +152,17 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
 )}
 
 {piece.parts.filter((p) => p.kind === "borrowed").map((p) => (
-  p.kind === "borrowed" && <p class="notice ui small" role="status">
-    {sectionName(p)}: the book refers to {p.borrowedVolume ? volumeLabel({ ...piece, volume: p.borrowedVolume }) : "another volume"},
-    printed page {p.borrowedPage}. The exact music systems for this reference have not yet been identified.
-  </p>
+  p.kind === "borrowed" && (piece.division === "ordinary-form" ? (
+    <p class="notice ui small" role="status">
+      {sectionName(p)}: <strong>Not in Nova Organi Harmonia.</strong>{" "}
+      {gregobaseUrl(p.gregobaseId) && <a href={gregobaseUrl(p.gregobaseId)!} target="_blank" rel="noopener">Open chant {p.gregobaseId} on GregoBase</a>}
+    </p>
+  ) : (
+    <p class="notice ui small" role="status">
+      {sectionName(p)}: the book refers to {p.borrowedVolume ? volumeLabel({ ...piece, volume: p.borrowedVolume }) : "another volume"},
+      printed page {p.borrowedPage}. The exact music systems for this reference have not yet been identified.
+    </p>
+  ))
 ))}
 
 <style>
@@ -244,29 +255,43 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
   document.querySelectorAll("[data-typeset]").forEach(function (seg) {
     var button = seg.querySelector(".show-scan");
     var img = seg.querySelector("img.typeset-music");
+    var key = seg.getAttribute("data-typeset-key");
+    function group() {
+      if (!key) return [seg];
+      return Array.from(document.querySelectorAll('[data-typeset-key="' + CSS.escape(key) + '"]'));
+    }
     function scansShown() {
       var root = document.documentElement.getAttribute("data-view") === "scans";
-      return seg.getAttribute("data-show") === "scan" || (root && seg.getAttribute("data-show") !== "typeset");
+      var copies = group();
+      return copies.some(function (copy) { return copy.getAttribute("data-show") === "scan"; }) ||
+        (root && !copies.some(function (copy) { return copy.getAttribute("data-show") === "typeset"; }));
     }
     function sync() {
-      if (!button) return;
       var on = scansShown();
-      button.textContent = on ? "Show the typeset music" : "Show the scan";
-      button.setAttribute("aria-expanded", on ? "true" : "false");
+      group().forEach(function (copy) {
+        var control = copy.querySelector(".show-scan");
+        if (!control) return;
+        control.textContent = on ? "Show the typeset music" : "Show the scan";
+        control.setAttribute("aria-expanded", on ? "true" : "false");
+      });
     }
     if (button) {
       button.addEventListener("click", function () {
-        seg.setAttribute("data-show", scansShown() ? "typeset" : "scan");
+        var next = scansShown() ? "typeset" : "scan";
+        group().forEach(function (copy) { copy.setAttribute("data-show", next); });
         sync();
       });
     }
     document.addEventListener("typeset-view", sync);
     sync();
     function failed() {
-      seg.setAttribute("data-state", "error");
-      var note = seg.querySelector(".typeset-state");
-      if (note) note.textContent = "The typeset music could not be loaded; the scan is shown";
-      if (button) button.hidden = true;
+      group().forEach(function (copy) {
+        copy.setAttribute("data-state", "error");
+        var note = copy.querySelector(".typeset-state");
+        if (note) note.textContent = "The typeset music could not be loaded; the scan is shown";
+        var control = copy.querySelector(".show-scan");
+        if (control) control.hidden = true;
+      });
     }
     if (img) {
       img.addEventListener("error", failed);

@@ -14,17 +14,142 @@ from pipeline.jgabc import (
     JgabcIntegrityError,
     JgabcSyntaxError,
     extract_menus,
+    extract_novus,
     extract_proprium,
+    fetch_all,
     jgabc_key,
     jgabc_key_for_piece,
     load_menus,
+    load_novus,
     load_proprium,
+    load_sources,
     parse_js_literal,
     proper_url,
     resolve,
     slim,
+    write_novus,
     write_vendored,
 )
+
+
+def test_novus_extract_ignores_trailing_concat():
+    parsed = extract_novus('var propriumNoviOrdinis = {"First Sunday": {introitus: [{id:"403", incipit:"Ad te"}]}};\nsundaysNovusOrdo = [].concat(Object.keys(propriumNoviOrdinis));')
+    assert parsed["First Sunday"]["introitus"][0]["id"] == 403
+
+
+def test_novus_fixture_keeps_the_trailing_helper_out_of_the_literal_parser():
+    fixture = Path(__file__).parent / "fixtures" / "jgabc-novus.js"
+    parsed = extract_novus(fixture.read_text(encoding="utf-8"))
+    assert parsed["First Sunday of Advent"]["introitus"] == [
+        {"id": 132, "incipit": "Ad te levavi"}]
+
+
+def test_novus_normalizes_soft_hyphen_and_preserves_empty_and_year_arrays():
+    parsed = extract_novus('var propriumNoviOrdinis = {"Twenty\\u00adfirst Sunday": {communio: {A: [], B: [{id:"3", incipit:"x"}], C: []}}};')
+    assert "Twentyfirst Sunday" in parsed
+    assert parsed["Twentyfirst Sunday"]["communio"]["A"] == []
+    assert parsed["Twentyfirst Sunday"]["communio"]["B"] == [{"id": 3, "incipit": "x"}]
+
+
+def test_novus_rejects_calls_and_bad_assignment_shapes():
+    with pytest.raises(JgabcSyntaxError, match="propersdatanovus.js line"):
+        extract_novus('var propriumNoviOrdinis = {"Day": {introitus: evil()}};')
+    with pytest.raises(JgabcSyntaxError, match="id"):
+        extract_novus('var propriumNoviOrdinis = {"Day": {introitus: [{id:"nope", incipit:"x"}]}};')
+    with pytest.raises(JgabcSyntaxError, match="selected literal must end"):
+        extract_novus('var propriumNoviOrdinis = {} + evil();')
+
+
+def test_novus_normalization_collision_fails():
+    with pytest.raises(JgabcSyntaxError, match="collision"):
+        extract_novus('var propriumNoviOrdinis = {"Twentyfirst Sunday": {}, "Twenty\\u00adfirst Sunday": {}};')
+
+
+def test_vendored_novus_source_has_expected_provenance():
+    doc = load_novus()
+    assert doc["source"]["commit"] == "3bf01d3c3248fe11ee17a53c8df70e364dc2e89e"
+    assert "Twentyfirst Sunday" in doc["proprium"]
+
+
+def test_fetch_all_failure_leaves_both_files_unchanged(tmp_path, monkeypatch):
+    import io
+    import urllib.request
+
+    from pipeline import jgabc
+
+    ef_path, of_path = tmp_path / "ef.json", tmp_path / "of.json"
+    ef_path.write_bytes(b"old ef")
+    of_path.write_bytes(b"old of")
+    monkeypatch.setattr(jgabc, "VENDORED", ef_path)
+    monkeypatch.setattr(jgabc, "NOVUS_VENDORED", of_path)
+    responses = iter([
+        b'var proprium = {}; var sundayKeys=[]; var saintKeys=[]; var otherKeys=[]; var commonsKeys=[];',
+        b'var propriumNoviOrdinis = {"Bad": {introitus: evil()}};',
+    ])
+    monkeypatch.setattr(urllib.request, "urlopen", lambda *a, **k: io.BytesIO(next(responses)))
+    with pytest.raises(JgabcSyntaxError, match="propersdatanovus.js line"):
+        fetch_all("3bf01d3c3248fe11ee17a53c8df70e364dc2e89e")
+    assert ef_path.read_bytes() == b"old ef"
+    assert of_path.read_bytes() == b"old of"
+
+
+def test_fetch_all_rolls_back_first_replace_if_second_replace_fails(tmp_path, monkeypatch):
+    import io
+    import os
+    import urllib.request
+
+    from pipeline import jgabc
+
+    ef_path, of_path = tmp_path / "ef.json", tmp_path / "of.json"
+    ef_path.write_bytes(b"old ef")
+    of_path.write_bytes(b"old of")
+    monkeypatch.setattr(jgabc, "VENDORED", ef_path)
+    monkeypatch.setattr(jgabc, "NOVUS_VENDORED", of_path)
+    responses = iter([
+        b'var proprium = {}; var sundayKeys=[]; var saintKeys=[]; var otherKeys=[]; var commonsKeys=[];',
+        b'var propriumNoviOrdinis = {"Day": {introitus: []}};',
+    ])
+    monkeypatch.setattr(urllib.request, "urlopen", lambda *a, **k: io.BytesIO(next(responses)))
+    replace = os.replace
+    count = 0
+
+    def fail_second(source, target):
+        nonlocal count
+        count += 1
+        if count == 2:
+            raise OSError("injected second replacement failure")
+        return replace(source, target)
+
+    monkeypatch.setattr(os, "replace", fail_second)
+    with pytest.raises(OSError, match="injected"):
+        fetch_all("3bf01d3c3248fe11ee17a53c8df70e364dc2e89e")
+    assert ef_path.read_bytes() == b"old ef"
+    assert of_path.read_bytes() == b"old of"
+
+
+def test_load_sources_rejects_mixed_full_commits(tmp_path):
+    ef, of = tmp_path / "ef.json", tmp_path / "of.json"
+    write_vendored({}, "a" * 40, "0" * 64, ef)
+    write_novus({}, "b" * 40, "1" * 64, of)
+    with pytest.raises(JgabcIntegrityError, match="different commits"):
+        load_sources(ef, of)
+
+
+def test_load_novus_validates_provenance_and_assignment_shape(tmp_path):
+    path = tmp_path / "of.json"
+    write_novus({"Day": {"introitus": []}}, "a" * 40, "b" * 64, path)
+    doc = json.loads(path.read_text())
+    doc["source"]["commit"] = "short"
+    path.write_text(json.dumps(doc))
+    with pytest.raises(JgabcIntegrityError, match="invalid source provenance"):
+        load_novus(path)
+
+    doc["source"]["commit"] = "a" * 40
+    doc["proprium"]["Day"]["introitus"] = {"id": "bad"}
+    doc["content_sha256"] = "0" * 64
+    path.write_text(json.dumps(doc))
+    with pytest.raises(JgabcIntegrityError, match="invalid assignments"):
+        load_novus(path)
 
 # ---------------------------------------------------------------- parsing ---
 

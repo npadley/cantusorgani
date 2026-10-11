@@ -13,7 +13,7 @@ const lastYear = lineups.at(-1) ? sungOn(lineups.at(-1)!).slice(0, 4) : "";
   <div class="prose">
     <p class="crumb small muted ui"><a href="/">Cantus Organi</a></p>
     <h1>About Cantus Organi</h1>
-    <p class="lede">The organ accompaniment of the Graduale, for the Traditional Latin Mass and Vespers, at the console.</p>
+    <p class="lede">Organ accompaniment to Gregorian chant, with music for both the Extraordinary Form and Ordinary Form at the console.</p>
 
     <h2 id="what">What it is for</h2>
     <p>
@@ -25,7 +25,7 @@ const lastYear = lineups.at(-1) ? sungOn(lineups.at(-1)!).slice(0, 4) : "";
     </p>
     <p>
       This site puts the scanned pages online, divided into {pieces} pieces, and ties them to the
-      calendar of the 1962 Missal, so an organist can go from a date to the music for that day's
+      calendar of the 1962 Missal and the Ordinary Form calendar, so an organist can go from a date to the music for that day's
       Mass and Vespers. Nothing is re-engraved: every system of music is an image of the printed
       page, with its printed page number.
     </p>
@@ -36,6 +36,13 @@ const lastYear = lineups.at(-1) ? sungOn(lineups.at(-1)!).slice(0, 4) : "";
       Open the <a href="/calendar/">Calendar</a> and choose a date. The day's page lists the Proper
       of the Mass (Introit, Gradual, Alleluia or Tract, Offertory, Communion), the Ordinary it
       suggests, and its Vespers. Each part has a link straight to its place in the music.
+    </p>
+    <p>
+      The <a href="/calendar/ordinary-form/">Ordinary Form calendar</a> assigns the chants of the
+      <em>Graduale Romanum</em> (1974) and links each chant to an NOH accompaniment when the same
+      music is printed there. The assigned chant and the available accompaniment are separate
+      facts: a missing accompaniment is labeled, and an occasion whose assignments are not yet
+      mapped says so.
     </p>
     <h3>Vespers</h3>
     <p>
@@ -69,7 +76,8 @@ const lastYear = lineups.at(-1) ? sungOn(lineups.at(-1)!).slice(0, 4) : "";
 
     <h2 id="limits">What it does not do yet</h2>
     <ul>
-      <li>Only the 1962 rubrics. Earlier and later calendars are not followed.</li>
+      <li>The Extraordinary Form calendar follows the 1962 rubrics. The Ordinary Form calendar covers the General Roman Calendar with switches for the Epiphany, Ascension and Corpus Christi transfers; it is not a national or diocesan calendar.</li>
+      <li>Ordinary Form chant assignments follow the pinned jgabc data and reviewed overrides for the 1974 Graduale Romanum. They do not establish that a chant is printed in NOH. Missing accompaniment and unmapped assignment notices are kept distinct.</li>
       <li>Vespers is built for Sundays and I and II class feasts that the book prints. A few feasts
         that fall on a Sunday only in some years (the Transfiguration, the Holy Cross, St Michael)
         have no Vespers page, because the book has no section for them.</li>
@@ -116,7 +124,7 @@ const lastYear = lineups.at(-1) ? sungOn(lineups.at(-1)!).slice(0, 4) : "";
         maintained by Benjamin Bloomfield.</dd>
 
       <dt><a href="https://github.com/bbloomf/jgabc">jgabc</a></dt>
-      <dd>Which chants make up each day's Proper. The Unlicense (public domain).</dd>
+      <dd>Which chants make up each day's Proper. The pinned <code>propersdata.js</code> source supports the 1962 calendar; <code>propersdatanovus.js</code> supplies Ordinary Form assignments based on the 1974 Graduale Romanum. Both are under the Unlicense. Its assignment data can link a chant to a NOH source, but cannot correct NOH catalogue records or assert that every chant has an accompaniment.</dd>
 
       <dt><a href="https://github.com/mmolenda/missalemeum">Missalemeum</a></dt>
       <dd>The 1962 calendar: which Mass is said on each date. MIT licence.</dd>

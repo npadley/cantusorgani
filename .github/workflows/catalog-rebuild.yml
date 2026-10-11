@@ -73,6 +73,7 @@ jobs:
           uv run noh vespers-lineup
           uv run noh chants
           uv run noh apply-corrections
+          uv run noh ordinary-form
           uv run noh doctor || true
 
       - name: Commit, and open a pull request from main

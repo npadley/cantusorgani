@@ -84,10 +84,16 @@ export interface BorrowedPart extends SectionRubric {
   /** The lending piece and the system its part starts on; null when unresolved. */
   readonly borrowedFrom: string | null;
   readonly borrowedRef: string | null;
+  /** Exact printed section identity when the borrowing data records it. */
+  readonly borrowedPart?: ProperPartName;
+  readonly borrowedVariant?: string;
   /** The volume it is printed in ("noh4"), and its printed page there. */
   readonly borrowedVolume: string | null;
   readonly borrowedPage: number;
   readonly gregobaseId: number | null;
+  /** Ordinary Form assignment applicability, used for cycle/season-aware exports. */
+  readonly years?: readonly ("A" | "B" | "C")[];
+  readonly seasons?: readonly string[];
 }
 
 export type ProperPart = PrintedPart | BorrowedPart;
@@ -575,6 +581,12 @@ export function partLabel(part: ProperPartName, variant = ""): string {
  * section outside the Mass by the label the book (or an editor) gives it.
  */
 export function sectionName(x: ProperPart): string {
+  // Ordinary Form borrower rows carry reviewed, year-specific display labels.
+  // Leave the established EF naming rules untouched.
+  if ((/^year-[abc](?:-|$)|^assignment-/.test(x.variant) ||
+      /^\w+(?:\s+\w+)* \((?:Year|Years|Advent|Christmas|Lent|Triduum|Easter|Ordinary)/.test(x.label ?? "") ||
+      /^(?:Alleluia|Gradual|Introit|Communion|Offertory|Tract) (?:I|II|III)$/.test(x.label ?? "")) && x.label)
+    return x.label;
   if (x.part === "hymn" && x.title) return x.title;
   if (x.part === "other" && (x.label || x.title)) return (x.label ?? x.title) as string;
   return partLabel(x.part, x.variant);

@@ -1,0 +1,1291 @@
+- key: annunciation
+  jgabc: Annunciation of the Lord
+  title_en: The Annunciation of the Lord
+  title_la: In Annuntiatione Domini
+  rank: solemnity
+  color: w
+  calendar:
+    kind: fixed
+    month: 3
+    day: 25
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ascension
+  jgabc: Ascension of the Lord
+  title_en: The Ascension of the Lord
+  title_la: In Ascensione Domini
+  rank: privileged
+  color: w
+  calendar:
+    kind: special
+    name: ascension
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+  semantic_kinds:
+    graduale: alleluia
+  semantic_kind_source: 'Graduale Romanum 1974: these seasonal interlectional chants are Alleluias; Ascension p.
+    236.'
+- key: ash-wednesday
+  jgabc: Ash Wednesday
+  title_en: Ash Wednesday
+  title_la: Feria Quarta Cinerum
+  rank: privileged
+  color: v
+  calendar:
+    kind: easter
+    offset: -46
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: assumption
+  jgabc: Assumption of the Blessed Virgin Mary
+  title_en: The Assumption of the Blessed Virgin Mary
+  title_la: In Assumptione Beatae Mariae Virginis
+  rank: solemnity
+  color: w
+  calendar:
+    kind: fixed
+    month: 8
+    day: 15
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: baptism
+  jgabc: Baptism of the Lord
+  title_en: The Baptism of the Lord
+  title_la: In Baptismate Domini
+  rank: feast-of-the-lord
+  color: w
+  calendar:
+    kind: special
+    name: baptism
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: birth-mary
+  jgabc: Birth of the Blessed Virgin Mary
+  title_en: The Nativity of the Blessed Virgin Mary
+  title_la: Nativitas Beatae Mariae Virginis
+  rank: feast
+  color: w
+  calendar:
+    kind: fixed
+    month: 9
+    day: 8
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: mary-mother-of-god
+  jgabc: Blessed Virgin Mary
+  title_en: Mary, Mother of God
+  title_la: Sancta Dei Genetrix Maria
+  rank: solemnity
+  color: w
+  calendar:
+    kind: fixed
+    month: 1
+    day: 1
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: corpus-christi
+  jgabc: Body and Blood of Christ
+  title_en: The Most Holy Body and Blood of Christ
+  title_la: Sanctissimum Corpus et Sanguis Christi
+  rank: solemnity
+  color: w
+  calendar:
+    kind: special
+    name: corpus-christi
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: christ-the-king
+  jgabc: Christ the King
+  title_en: Our Lord Jesus Christ, King of the Universe
+  title_la: Domini Nostri Iesu Christi Universorum Regis
+  rank: solemnity
+  color: w
+  calendar:
+    kind: special
+    name: christ-the-king
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: all-souls
+  jgabc: Commemoration of the Faithful Departed
+  title_en: All Souls
+  title_la: Commemoratio Omnium Fidelium Defunctorum
+  rank: solemnity
+  color: w
+  calendar:
+    kind: fixed
+    month: 11
+    day: 2
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: easter
+  jgabc: Easter Sunday
+  title_en: Easter Sunday
+  title_la: Dominica Paschae
+  rank: privileged
+  color: w
+  calendar:
+    kind: easter
+    offset: 0
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: easter-vigil
+  jgabc: Easter Vigil
+  title_en: The Easter Vigil
+  title_la: Vigilia Paschalis
+  rank: triduum
+  color: r
+  calendar: null
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-18
+  jgabc: Eighteenth Sunday
+  title_en: Sunday 18 in Ordinary Time
+  title_la: Dominica 18 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 18
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - introitus
+          - graduale
+          - offertorium
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-8
+  jgabc: Eighth Sunday
+  title_en: Sunday 8 in Ordinary Time
+  title_la: Dominica 8 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 8
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - graduale
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-11
+  jgabc: Eleventh Sunday
+  title_en: Sunday 11 in Ordinary Time
+  title_la: Dominica 11 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 11
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - graduale
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: epiphany
+  jgabc: Epiphany
+  title_en: The Epiphany of the Lord
+  title_la: In Epiphania Domini
+  rank: privileged
+  color: w
+  calendar:
+    kind: special
+    name: epiphany
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: exaltation-cross
+  jgabc: Exaltation of the Holy Cross
+  title_en: The Exaltation of the Holy Cross
+  title_la: In Exaltatione Sanctae Crucis
+  rank: feast-of-the-lord
+  color: w
+  calendar:
+    kind: fixed
+    month: 9
+    day: 14
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-15
+  jgabc: Fifteenth Sunday
+  title_en: Sunday 15 in Ordinary Time
+  title_la: Dominica 15 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 15
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - graduale
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-5
+  jgabc: Fifth Sunday
+  title_en: Sunday 5 in Ordinary Time
+  title_la: Dominica 5 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 5
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - graduale
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: lent-5
+  jgabc: Fifth Sunday in Lent
+  title_en: 5th Sunday of Lent
+  title_la: Dominica V Quadragesimae
+  rank: privileged
+  color: v
+  calendar:
+    kind: easter
+    offset: -7
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: easter-5
+  jgabc: Fifth Sunday of Easter
+  title_en: 5th Sunday of Easter
+  title_la: Dominica V Paschae
+  rank: privileged
+  color: w
+  calendar:
+    kind: easter
+    offset: 35
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+  semantic_kinds:
+    graduale: alleluia
+  semantic_kind_source: 'Graduale Romanum 1974: these seasonal interlectional chants are Alleluias; Ascension p.
+    236.'
+- key: lent-1
+  jgabc: First Sunday in Lent
+  title_en: 1st Sunday of Lent
+  title_la: Dominica I Quadragesimae
+  rank: privileged
+  color: v
+  calendar:
+    kind: easter
+    offset: -35
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: advent-1
+  jgabc: First Sunday of Advent
+  title_en: 1st Sunday of Advent
+  title_la: Dominica I Adventus
+  rank: privileged
+  color: v
+  calendar:
+    kind: advent
+    week: 1
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-14
+  jgabc: Fourteenth Sunday
+  title_en: Sunday 14 in Ordinary Time
+  title_la: Dominica 14 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 14
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - alleluia
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-4
+  jgabc: Fourth Sunday
+  title_en: Sunday 4 in Ordinary Time
+  title_la: Dominica 4 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 4
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: lent-4
+  jgabc: Fourth Sunday in Lent
+  title_en: 4th Sunday of Lent
+  title_la: Dominica IV Quadragesimae
+  rank: privileged
+  color: v
+  calendar:
+    kind: easter
+    offset: -14
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - offertorium
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: advent-4
+  jgabc: Fourth Sunday of Advent
+  title_en: 4th Sunday of Advent
+  title_la: Dominica IV Adventus
+  rank: privileged
+  color: v
+  calendar:
+    kind: advent
+    week: 4
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: easter-4
+  jgabc: Fourth Sunday of Easter
+  title_en: 4th Sunday of Easter
+  title_la: Dominica IV Paschae
+  rank: privileged
+  color: w
+  calendar:
+    kind: easter
+    offset: 28
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+  semantic_kinds:
+    graduale: alleluia
+  semantic_kind_source: 'Graduale Romanum 1974: these seasonal interlectional chants are Alleluias; Ascension p.
+    236.'
+- key: good-friday
+  jgabc: Good Friday
+  title_en: Good Friday
+  title_la: Feria Sexta in Passione Domini
+  rank: triduum
+  color: r
+  calendar: null
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: holy-family
+  jgabc: Holy Family
+  title_en: The Holy Family
+  title_la: Sanctae Familiae Iesu, Mariae et Ioseph
+  rank: feast-of-the-lord
+  color: w
+  calendar:
+    kind: special
+    name: holy-family
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: immaculate-conception
+  jgabc: Immaculate Conception
+  title_en: The Immaculate Conception of the Blessed Virgin Mary
+  title_la: In Conceptione Immaculata Beatae Mariae Virginis
+  rank: solemnity
+  color: w
+  calendar:
+    kind: fixed
+    month: 12
+    day: 8
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: holy-thursday
+  jgabc: Maundy Thursday
+  title_en: Holy Thursday
+  title_la: Feria Quinta in Cena Domini
+  rank: triduum
+  color: w
+  calendar: null
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: trinity
+  jgabc: Most Holy Trinity
+  title_en: The Most Holy Trinity
+  title_la: Sanctissima Trinitas
+  rank: solemnity
+  color: w
+  calendar:
+    kind: easter
+    offset: 56
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - introitus
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: christmas-day
+  jgabc: Nativity Mass at Day
+  title_en: 'The Nativity of the Lord: Mass during the Day'
+  title_la: 'In Nativitate Domini: Missa in Die'
+  rank: privileged
+  color: w
+  calendar:
+    kind: fixed
+    month: 12
+    day: 25
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: christmas-night
+  jgabc: Nativity Mass at Midnight
+  title_en: 'The Nativity of the Lord: Mass during the Night'
+  title_la: 'In Nativitate Domini: Missa in Nocte'
+  rank: privileged
+  color: w
+  calendar: null
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: nativity-john-baptist
+  jgabc: Nativity of John the Baptist
+  title_en: The Nativity of Saint John the Baptist
+  title_la: Nativitas Sancti Ioannis Baptistae
+  rank: solemnity
+  color: w
+  calendar:
+    kind: fixed
+    month: 6
+    day: 24
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-19
+  jgabc: Nineteenth Sunday
+  title_en: Sunday 19 in Ordinary Time
+  title_la: Dominica 19 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 19
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - graduale
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-9
+  jgabc: Ninth Sunday
+  title_en: Sunday 9 in Ordinary Time
+  title_la: Dominica 9 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 9
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - graduale
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: palm-sunday
+  jgabc: Palm Sunday
+  title_en: Palm Sunday
+  title_la: Palm Sunday
+  rank: privileged
+  color: r
+  calendar:
+    kind: easter
+    offset: -7
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: pentecost
+  jgabc: Pentecost
+  title_en: Pentecost Sunday
+  title_la: Dominica Pentecostes
+  rank: privileged
+  color: r
+  calendar:
+    kind: easter
+    offset: 49
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+  semantic_kinds:
+    graduale: alleluia
+  semantic_kind_source: 'Graduale Romanum 1974: these seasonal interlectional chants are Alleluias; Ascension p.
+    236.'
+- key: pentecost-vigil
+  jgabc: Pentecost Vigil
+  title_en: Pentecost Vigil
+  title_la: Vigilia Pentecostes
+  rank: privileged
+  color: r
+  calendar: null
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+  semantic_kinds:
+    graduale: alleluia
+  semantic_kind_source: 'Graduale Romanum 1974: these seasonal interlectional chants are Alleluias; Ascension p.
+    236.'
+- key: presentation-mary
+  jgabc: Presentation of the Blessed Virgin Mary
+  title_en: The Presentation of the Blessed Virgin Mary
+  title_la: In Praesentatione Beatae Mariae Virginis
+  rank: memorial
+  color: w
+  calendar:
+    kind: fixed
+    month: 11
+    day: 21
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: presentation
+  jgabc: Presentation of the Lord
+  title_en: The Presentation of the Lord
+  title_la: In Praesentatione Domini
+  rank: feast-of-the-lord
+  color: w
+  calendar:
+    kind: fixed
+    month: 2
+    day: 2
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: peter-paul
+  jgabc: Saints Peter and Paul
+  title_en: Saints Peter and Paul, Apostles
+  title_la: Sancti Petri et Pauli Apostolorum
+  rank: solemnity
+  color: w
+  calendar:
+    kind: fixed
+    month: 6
+    day: 29
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-2
+  jgabc: Second Sunday
+  title_en: Sunday 2 in Ordinary Time
+  title_la: Dominica 2 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 2
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: lent-2
+  jgabc: Second Sunday in Lent
+  title_en: 2nd Sunday of Lent
+  title_la: Dominica II Quadragesimae
+  rank: privileged
+  color: v
+  calendar:
+    kind: easter
+    offset: -28
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: advent-2
+  jgabc: Second Sunday of Advent
+  title_en: 2nd Sunday of Advent
+  title_la: Dominica II Adventus
+  rank: privileged
+  color: v
+  calendar:
+    kind: advent
+    week: 2
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: easter-2
+  jgabc: Second Sunday of Easter
+  title_en: 2nd Sunday of Easter
+  title_la: Dominica II Paschae
+  rank: privileged
+  color: w
+  calendar:
+    kind: easter
+    offset: 14
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+  semantic_kinds:
+    graduale: alleluia
+  semantic_kind_source: 'Graduale Romanum 1974: these seasonal interlectional chants are Alleluias; Ascension p.
+    236.'
+- key: ot-17
+  jgabc: Seventeenth Sunday
+  title_en: Sunday 17 in Ordinary Time
+  title_la: Dominica 17 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 17
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - graduale
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-7
+  jgabc: Seventh Sunday
+  title_en: Sunday 7 in Ordinary Time
+  title_la: Dominica 7 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 7
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: easter-7
+  jgabc: Seventh Sunday of Easter
+  title_en: 7th Sunday of Easter
+  title_la: Dominica VII Paschae
+  rank: privileged
+  color: w
+  calendar:
+    kind: easter
+    offset: 49
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - alleluia
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+  semantic_kinds:
+    graduale: alleluia
+  semantic_kind_source: 'Graduale Romanum 1974: these seasonal interlectional chants are Alleluias; Ascension p.
+    236.'
+- key: ot-16
+  jgabc: Sixteenth Sunday
+  title_en: Sunday 16 in Ordinary Time
+  title_la: Dominica 16 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 16
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - graduale
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-6
+  jgabc: Sixth Sunday
+  title_en: Sunday 6 in Ordinary Time
+  title_la: Dominica 6 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 6
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: easter-6
+  jgabc: Sixth Sunday of Easter
+  title_en: 6th Sunday of Easter
+  title_la: Dominica VI Paschae
+  rank: privileged
+  color: w
+  calendar:
+    kind: easter
+    offset: 42
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - graduale
+          - alleluia
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+  semantic_kinds:
+    graduale: alleluia
+  semantic_kind_source: 'Graduale Romanum 1974: these seasonal interlectional chants are Alleluias; Ascension p.
+    236.'
+- key: all-saints
+  jgabc: Solemnity of All Saints
+  title_en: All Saints
+  title_la: Omnium Sanctorum
+  rank: solemnity
+  color: w
+  calendar:
+    kind: fixed
+    month: 11
+    day: 1
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-10
+  jgabc: Tenth Sunday
+  title_en: Sunday 10 in Ordinary Time
+  title_la: Dominica 10 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 10
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - introitus
+          - graduale
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-3
+  jgabc: Third Sunday
+  title_en: Sunday 3 in Ordinary Time
+  title_la: Dominica 3 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 3
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - introitus
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: lent-3
+  jgabc: Third Sunday in Lent
+  title_en: 3rd Sunday of Lent
+  title_la: Dominica III Quadragesimae
+  rank: privileged
+  color: v
+  calendar:
+    kind: easter
+    offset: -21
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: advent-3
+  jgabc: Third Sunday of Advent
+  title_en: 3rd Sunday of Advent
+  title_la: Dominica III Adventus
+  rank: privileged
+  color: v
+  calendar:
+    kind: advent
+    week: 3
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - graduale
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: easter-3
+  jgabc: Third Sunday of Easter
+  title_en: 3rd Sunday of Easter
+  title_la: Dominica III Paschae
+  rank: privileged
+  color: w
+  calendar:
+    kind: easter
+    offset: 21
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+  semantic_kinds:
+    graduale: alleluia
+  semantic_kind_source: 'Graduale Romanum 1974: these seasonal interlectional chants are Alleluias; Ascension p.
+    236.'
+- key: ot-13
+  jgabc: Thirteenth Sunday
+  title_en: Sunday 13 in Ordinary Time
+  title_la: Dominica 13 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 13
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - graduale
+          - alleluia
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-30
+  jgabc: Thirtieth Sunday
+  title_en: Sunday 30 in Ordinary Time
+  title_la: Dominica 30 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 30
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - graduale
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-31
+  jgabc: Thirtyfirst Sunday
+  title_en: Sunday 31 in Ordinary Time
+  title_la: Dominica 31 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 31
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - introitus
+          - alleluia
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-32
+  jgabc: Thirtysecond Sunday
+  title_en: Sunday 32 in Ordinary Time
+  title_la: Dominica 32 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 32
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - alleluia
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-33
+  jgabc: Thirtythird Sunday
+  title_en: Sunday 33 in Ordinary Time
+  title_la: Dominica 33 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 33
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: transfiguration
+  jgabc: Transfiguration of the Lord
+  title_en: The Transfiguration of the Lord
+  title_la: In Transfiguratione Domini
+  rank: feast-of-the-lord
+  color: w
+  calendar:
+    kind: fixed
+    month: 8
+    day: 6
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-12
+  jgabc: Twelfth Sunday
+  title_en: Sunday 12 in Ordinary Time
+  title_la: Dominica 12 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 12
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-20
+  jgabc: Twentieth Sunday
+  title_en: Sunday 20 in Ordinary Time
+  title_la: Dominica 20 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 20
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - alleluia
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-28
+  jgabc: Twentyeighth Sunday
+  title_en: Sunday 28 in Ordinary Time
+  title_la: Dominica 28 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 28
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - graduale
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-25
+  jgabc: Twentyfifth Sunday
+  title_en: Sunday 25 in Ordinary Time
+  title_la: Dominica 25 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 25
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - graduale
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-21
+  jgabc: Twentyfirst Sunday
+  title_en: Sunday 21 in Ordinary Time
+  title_la: Dominica 21 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 21
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - alleluia
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-24
+  jgabc: Twentyfourth Sunday
+  title_en: Sunday 24 in Ordinary Time
+  title_la: Dominica 24 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 24
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - offertorium
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-29
+  jgabc: Twentyninth Sunday
+  title_en: Sunday 29 in Ordinary Time
+  title_la: Dominica 29 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 29
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-22
+  jgabc: Twentysecond Sunday
+  title_en: Sunday 22 in Ordinary Time
+  title_la: Dominica 22 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 22
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - communio
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-27
+  jgabc: Twentyseventh Sunday
+  title_en: Sunday 27 in Ordinary Time
+  title_la: Dominica 27 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 27
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-26
+  jgabc: Twentysixth Sunday
+  title_en: Sunday 26 in Ordinary Time
+  title_la: Dominica 26 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 26
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - introitus
+          - graduale
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: ot-23
+  jgabc: Twentythird Sunday
+  title_en: Sunday 23 in Ordinary Time
+  title_la: Dominica 23 per annum
+  rank: sunday
+  color: g
+  calendar:
+    kind: ordinary
+    week: 23
+  reviewed: false
+  source_reviews:
+    - reviewer: Codex
+      date: "2026-10-11"
+      evidence: docs/superpowers/reviews/2026-10-11-ordinary-form-source-review.md
+      citation: https://media.churchmusicassociation.org/pdf/propers1974.pdf
+      scope:
+        cycle_sensitive_slots:
+          - graduale
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: st-joseph
+  jgabc: null
+  title_en: Saint Joseph
+  title_la: Sanctus Ioseph
+  rank: solemnity
+  color: w
+  calendar:
+    kind: fixed
+    month: 3
+    day: 19
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: sacred-heart
+  jgabc: null
+  title_en: The Most Sacred Heart of Jesus
+  title_la: Sacratissimum Cor Iesu
+  rank: solemnity
+  color: w
+  calendar:
+    kind: easter
+    offset: 68
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: lateran-dedication
+  jgabc: null
+  title_en: The Dedication of the Lateran Basilica
+  title_la: In Dedicatione Archibasilicae Sanctissimi Salvatoris
+  rank: feast-of-the-lord
+  color: w
+  calendar:
+    kind: fixed
+    month: 11
+    day: 9
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: second-christmas
+  jgabc: null
+  title_en: The Second Sunday after Christmas
+  title_la: Dominica II post Nativitatem
+  rank: sunday
+  color: w
+  calendar:
+    kind: special
+    name: second-christmas
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: christmas-vigil
+  jgabc: null
+  title_en: 'The Nativity of the Lord: Vigil Mass'
+  title_la: In Vigilia Nativitatis Domini
+  rank: privileged
+  color: w
+  calendar: null
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml
+- key: christmas-dawn
+  jgabc: null
+  title_en: 'The Nativity of the Lord: Mass at Dawn'
+  title_la: 'In Nativitate Domini: Missa in Aurora'
+  rank: privileged
+  color: w
+  calendar: null
+  reviewed: false
+  calendar_source: https://www.liturgyoffice.org.uk/Calendar/Info/Days.shtml

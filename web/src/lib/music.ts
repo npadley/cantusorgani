@@ -25,7 +25,9 @@ export function musicView(piece: Piece, lenders: readonly Piece[] = allPieces())
       systemSources.push({ slug: source.slug, index: i });
     }
     if (!segment.part) continue;
-    const printed = source.parts.find((p): p is PrintedPart => p.kind === "printed" && p.ref === source.systems[start]);
+    const printed = source.parts.find((p): p is PrintedPart => p.kind === "printed" && p.ref === source.systems[start] &&
+      (segment.source?.part === undefined || p.part === segment.source.part) &&
+      (segment.source?.variant === undefined || p.variant === segment.source.variant));
     if (!printed) continue;
     const borrower = piece.parts.find((p) => p.part === segment.part && p.variant === segment.variant);
     const borrowed = borrower?.kind === "borrowed" ? borrower : null;
@@ -35,9 +37,12 @@ export function musicView(piece: Piece, lenders: readonly Piece[] = allPieces())
       ...(segment.rubric ? { rubric: segment.rubric } : {}),
       ...(segment.rubricTranslation ? { rubricTranslation: segment.rubricTranslation } : {}),
       part: segment.part, variant: segment.variant, system: at,
+      ...(borrowed ? { label: borrowed.label, title: borrowed.title } : {}),
       gregobaseId: borrower?.gregobaseId ?? printed.gregobaseId,
       sourceTarget: `part:${source.slug}/${printed.part}${printed.variant ? `:${printed.variant}` : ""}`,
-      ...(borrowed ? { source: `${source.incipit ?? source.title}, ${volumeLabel(source)}, ${pagesLabel(source)} (rubric cites ${volumeLabel({ ...source, volume: borrowed.borrowedVolume ?? source.volume })}, p. ${borrowed.borrowedPage})` } : {}),
+      ...(borrowed ? { source: piece.division === "ordinary-form"
+        ? `${source.incipit ?? source.title}, ${volumeLabel(source)}, ${pagesLabel(source)}`
+        : `${source.incipit ?? source.title}, ${volumeLabel(source)}, ${pagesLabel(source)} (rubric cites ${volumeLabel({ ...source, volume: borrowed.borrowedVolume ?? source.volume })}, p. ${borrowed.borrowedPage})` } : {}),
     });
   }
   // Keep unresolved citations available to the page's explicit missing-music notice.

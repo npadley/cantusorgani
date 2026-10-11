@@ -123,8 +123,13 @@ def build_parser() -> argparse.ArgumentParser:
                     help="proposal path (default data/index-<vol>.proposed.yml)")
 
     jg = subs.add_parser("jgabc-fetch",
-                         help="vendor jgabc's per-day chant ids into data/jgabc-propers.json")
+                         help="vendor jgabc's 1962 and Ordinary Form chant ids")
     jg.add_argument("--commit", default=None, help="jgabc commit sha (default: master's head)")
+
+    ordinary_form = subs.add_parser("ordinary-form",
+                                    help="resolve Ordinary Form assignments and check coverage")
+    ordinary_form.add_argument("--check", action="store_true",
+                               help="verify generated files and reviewed coverage without writing")
 
     subs.add_parser("chants", help="write data/chants.json: the notation of every chant a part names")
     subs.add_parser("gregobase-fetch",
@@ -626,14 +631,33 @@ def main(argv: list[str] | None = None) -> int:
         return _index_extract(args)
 
     if args.command == "jgabc-fetch":
-        from pipeline.jgabc import JgabcSyntaxError, fetch
+        from pipeline.jgabc import JgabcIntegrityError, JgabcSyntaxError, fetch_all
         try:
-            path, commit, count = fetch(args.commit)
-        except JgabcSyntaxError as exc:
-            print(f"jgabc-fetch: {exc}\n  data/jgabc-propers.json was left untouched.",
+            files = fetch_all(args.commit)
+        except (JgabcSyntaxError, JgabcIntegrityError, OSError, UnicodeError, ValueError, KeyError) as exc:
+            print(f"jgabc-fetch: {exc}\n  data/jgabc-propers.json and data/jgabc-novus-propers.json were left untouched.",
                   file=sys.stderr)
             return 1
-        print(f"{path}: {count} Propers from jgabc @ {commit[:12]}")
+        for path, commit, count in files:
+            print(f"{path}: {count} Propers from jgabc @ {commit[:12]}")
+        return 0
+
+    if args.command == "ordinary-form":
+        from pipeline.ordinary_form import run
+        try:
+            coverage = run(check=args.check)
+        except (OSError, TypeError, ValueError, KeyError) as exc:
+            print(f"ordinary-form: {exc}", file=sys.stderr)
+            return 1
+        print(f"Ordinary Form coverage: {coverage['matched']}/{coverage['total']} matched")
+        if coverage.get("unmapped_occasions"):
+            print("Unmapped occasions: " + ", ".join(coverage["unmapped_occasions"]))
+        if coverage.get("cross_kind_matches"):
+            print(f"Cross-kind matches: {len(coverage['cross_kind_matches'])}")
+        if coverage.get("unresolved_gregobase_urls"):
+            print(f"Unresolved GregoBase assignments: {len(coverage['unresolved_gregobase_urls'])}")
+        if coverage.get("unexportable_candidate_urls"):
+            print(f"Unexportable catalog candidates: {len(coverage['unexportable_candidate_urls'])}")
         return 0
 
     if args.command == "officium-fetch":

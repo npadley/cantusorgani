@@ -1,6 +1,6 @@
 /** Shared production identity and indexing policy for HTML and discovery files. */
 export const SITE_ORIGIN = "https://cantusorgani.org";
-export const SITE_DESCRIPTION = "Gregorian chant organ accompaniments from Nova Organi Harmonia, with Mass and Vespers music for the 1962 Roman calendar.";
+export const SITE_DESCRIPTION = "Gregorian chant organ accompaniments from Nova Organi Harmonia, with Mass and Vespers for the 1962 calendar and Ordinary Form Mass music based on the Graduale Romanum (1974).";
 
 export function canonicalUrl(path: string): string {
   const url = new URL(path, SITE_ORIGIN);

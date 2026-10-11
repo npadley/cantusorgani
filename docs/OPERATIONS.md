@@ -575,3 +575,42 @@ push, open a pull request, merge when green.
 
 **Monthly:** run **typeset-prune** as a dry run, then for real if the list looks
 right. `uv run noh corrections --lapsed` to see whether anything came back.
+
+
+## Ordinary Form calendar and accompaniments
+
+The Ordinary Form pages project Graduale Romanum (1974) assignments over the
+existing NOH catalogue. They do not add source pieces to the EF catalogue or
+admin queues. Existing eligible lender typeset music and scan assets are reused.
+
+- `data/ordinary-form/occasions.yml` defines stable keys, titles and scheduling metadata.
+- Occasion `source_reviews` record only the slots actually checked; `review-manifest.yml` pins the required cycle-sensitive review scope. Update attribution and evidence with a source review, keeping partial checks distinct from full occasion review.
+- `data/ordinary-form/overrides.yml` holds source-reviewed slot replacements; unfilled occasions remain visible as unmapped.
+- `data/jgabc-novus-propers.json` is vendored and must never be hand-edited.
+- `data/ordinary-form-propers.json` and `data/ordinary-form-coverage.json` are generated and committed.
+- `data/ordinary-form/coverage-baseline.json` is the reviewed ratchet; regeneration does not automatically lower or advance it.
+
+Refresh both jgabc sources together at one pinned commit:
+
+```bash
+uv run noh jgabc-fetch --commit <full-commit-sha>
+scripts/regenerate.sh
+uv run noh ordinary-form --check
+```
+
+After catalogue corrections or section changes, `scripts/regenerate.sh` rebuilds
+the OF resolution after the final overlay. The site CI checks freshness and
+coverage before building; automated catalogue/correction writers regenerate the
+same outputs. Review changed lenders and ranges as well as matched counts.
+Advance the baseline only with a reviewed mapping/source change and include it
+in the same commit as the regenerated artifacts. Missing assignments and
+missing NOH settings are separate states; do not remove missing rows to improve
+the reported percentage.
+
+Calendar defaults use the General Roman transfers. The Sunday transfers preset
+sets Epiphany, Ascension and Corpus Christi to Sunday; it does not select a US
+national proper calendar. Individual switches remain available and the displayed
+preset is derived from their effective values. URLs preserve all three values.
+
+For source verification and remaining limitations, see
+[the source review](superpowers/reviews/2026-10-11-ordinary-form-source-review.md).

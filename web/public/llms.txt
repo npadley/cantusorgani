@@ -1,13 +1,15 @@
 # Cantus Organi
 
-> Gregorian chant organ accompaniments from Nova Organi Harmonia ad Graduale Romanum (Lemmens Institute, Mechelen: H. Dessain, 1942), arranged for organists using the 1962 Roman calendar.
+> Gregorian chant organ accompaniments from Nova Organi Harmonia ad Graduale Romanum (Lemmens Institute, Mechelen: H. Dessain, 1942), with 1962 calendar pages and Ordinary Form chant assignments based on the Graduale Romanum (1974).
 
 The site contains scanned score systems and, where available, volunteer transcriptions. It provides Mass Propers, the Kyriale, hymns and Vespers. Chant text is included in expandable Latin text sections where a source is available. Scores can be exported as PDFs in the browser; use the HTML page as the citation URL.
 
 ## Find music
 
 - [Search](https://cantusorgani.org/search/): Search titles, Latin opening words and chant text.
-- [Calendar](https://cantusorgani.org/calendar/): Find the Mass and Vespers for a date under the 1962 rubrics.
+- [Extraordinary Form (1962) Calendar](https://cantusorgani.org/calendar/): Find the Mass and Vespers for a date under the 1962 rubrics.
+- [Ordinary Form Calendar](https://cantusorgani.org/calendar/ordinary-form/): Find the Ordinary Form celebration, cycles and Graduale Romanum (1974) chants for a date; follow available NOH accompaniments.
+- [Ordinary Form accompaniments](https://cantusorgani.org/ordinary-form/): Static pages assemble the available NOH music for each Ordinary Form occasion. Chant assignments come from the pinned jgabc source and reviewed overrides; a chant may have no NOH accompaniment.
 - [Proper of Time](https://cantusorgani.org/proper-of-time/): Sundays and movable observances.
 - [Proper of Saints](https://cantusorgani.org/proper-of-saints/): Saints and fixed feasts.
 - [Common](https://cantusorgani.org/commune/): Common Masses.
@@ -28,8 +30,10 @@ Suggested citation: “Nova Organi Harmonia, [volume], [printed pages], [piece o
 
 - [About and source attributions](https://cantusorgani.org/about/#sources): The 1942 NOH page images and their slices are public domain. Published GregoBase chant transcriptions are CC0; transcriptions flagged copyrighted are linked rather than reproduced. Other contributions have their own licensing; the whole website should not be described as uniformly public domain.
 - [Typeset music](https://cantusorgani.org/about/#typeset): Volunteer transcriptions are marked with their proofreading status. The scan is the reference when a transcription differs.
-- [Limits](https://cantusorgani.org/about/#limits): Only the 1962 calendar is followed. Missing accompaniments, unprinted tones and uncertain catalogue records are identified on their pages. These notices matter when describing coverage.
+- [Limits](https://cantusorgani.org/about/#limits): Calendar scope, Ordinary Form source assignments, missing accompaniments, unprinted tones and uncertain catalogue records.
 - [Corrections log](https://cantusorgani.org/corrections/log/): Published catalogue corrections.
 - [Report an error](https://cantusorgani.org/corrections/): Report a discrepancy using its linked piece or part.
 
 This is a navigation and citation guide, not a promise of complete liturgical coverage or an indexing requirement. robots.txt provides the site's crawler policy.
+
+The Ordinary Form calendar assigns chants from the 1974 Graduale Romanum; it does not imply that those chants are printed in NOH. Missing NOH accompaniments and unmapped assignments are identified on the page.

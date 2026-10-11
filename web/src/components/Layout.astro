@@ -67,7 +67,12 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
       <div class="nav-inner">
         <a class="brand" href="/">Cantus Organi</a>
         <div class="nav-links">
-          <a href="/calendar/">Calendar</a>
+          <a href="/calendar/" class="form-link" aria-label="Extraordinary Form (1962) calendar">
+            <span class="form-full">Extraordinary Form (1962)</span><span class="form-short" aria-hidden="true">EF (1962)</span>
+          </a>
+          <a href="/calendar/ordinary-form/" class="form-link" aria-label="Ordinary Form calendar">
+            <span class="form-full">Ordinary Form</span><span class="form-short" aria-hidden="true">OF</span>
+          </a>
           <a href="/search/">Search</a>
           <a href="/about/">About</a>
           <a href="/corrections/">Corrections</a>
@@ -160,6 +165,11 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
     min-height: var(--tap-min);
     display: inline-flex;
     align-items: center;
+  }
+  .form-short { display: none; }
+  @media (max-width: 44rem) {
+    .form-full { display: none; }
+    .form-short { display: inline; }
   }
   .footer {
     border-top: 1px solid var(--rule);

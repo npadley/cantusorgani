@@ -21,8 +21,16 @@ export interface ExportSegment extends SectionRubric {
   /** Full URL stems of the segment's systems, in order. */
   readonly stems: readonly string[];
   /** Where those systems are: a piece and a range of its systems (for typeset music). */
-  readonly source?: { readonly slug: string; readonly start: number; readonly end: number };
+  readonly source?: { readonly slug: string; readonly start: number; readonly end: number;
+    readonly part?: ProperPartName; readonly variant?: string };
+  readonly years?: readonly ("A" | "B" | "C")[];
+  readonly seasons?: readonly string[];
 }
+type OrderedExportSegment = Omit<ExportSegment, "part" | "source"> & {
+  readonly part: ProperPartName;
+  readonly source: NonNullable<ExportSegment["source"]>;
+  readonly order: number;
+};
 
 /** The confident parts of a piece, each with the systems it runs over. */
 function partRanges(piece: Piece): { x: PrintedPart; start: number; end: number }[] {
@@ -31,7 +39,8 @@ function partRanges(piece: Piece): { x: PrintedPart; start: number; end: number 
                                     && piece.systems.includes(x.ref))
     .map((x) => ({ x, start: piece.systems.indexOf(x.ref) }))
     .sort((a, b) => a.start - b.start);
-  return printed.map((p, k) => ({ ...p, end: printed[k + 1]?.start ?? piece.systems.length }));
+  const boundaries = [...new Set(printed.map(({ start }) => start))].sort((a, b) => a - b);
+  return printed.map((p) => ({ ...p, end: boundaries.find(start => start > p.start) ?? piece.systems.length }));
 }
 
 /** A Mass with sections of its own: a segment for each heading on its page
@@ -69,20 +78,25 @@ export function exportSegments(pieces: readonly Piece[],
     }
     const ranges = partRanges(piece);
     // Parts printed elsewhere: the lender's systems for that part.
-    const borrowed: (ExportSegment & { order: number })[] = [];
+    const borrowed: OrderedExportSegment[] = [];
     for (const b of piece.parts.filter((x): x is BorrowedPart => x.kind === "borrowed")) {
       const lender = lenders.find((p) => p.slug === b.borrowedFrom);
-      const range = lender ? partRanges(lender).find((r) => r.x.ref === b.borrowedRef) : undefined;
+      const range = lender ? partRanges(lender).find((r) => r.x.ref === b.borrowedRef &&
+        (!b.borrowedPart || r.x.part === b.borrowedPart) &&
+        (b.borrowedVariant === undefined || r.x.variant === b.borrowedVariant)) : undefined;
       if (!lender || !range) continue;
       const lenderStems = lender.systems.map((_, i) => systemUrlStem(lender, i)).slice(range.start, range.end);
       borrowed.push({
-        id: `${piece.slug}:from:${lender.slug}:${range.start}`,
+        // Include borrower identity so year variants that reuse one source
+        // range still have separate export checkboxes.
+        id: `${piece.slug}:from:${lender.slug}:${range.start}:${piece.parts.indexOf(b)}`,
         label: `${sectionName(b)} (from ${lender.incipit ?? lender.title})`,
         part: b.part, variant: b.variant, pieceSlug: piece.slug,
         ...(b.rubric ? { rubric: b.rubric } : {}),
         ...(b.rubricTranslation ? { rubricTranslation: b.rubricTranslation } : {}),
+        ...(b.years ? { years: b.years } : {}), ...(b.seasons ? { seasons: b.seasons } : {}),
         systems: lenderStems.length, stems: lenderStems, order: piece.division === "vesperale" ? piece.parts.indexOf(b) : partOrder(b.part, b.variant),
-        source: { slug: lender.slug, start: range.start, end: range.end },
+        source: { slug: lender.slug, start: range.start, end: range.end, part: range.x.part, variant: range.x.variant },
       });
     }
     if (ranges.length === 0 && borrowed.length === 0) {
@@ -99,7 +113,7 @@ export function exportSegments(pieces: readonly Piece[],
                  part: null, variant: "", pieceSlug: piece.slug, systems: first, stems: stems.slice(0, first),
                  source: { slug: piece.slug, start: 0, end: first } });
     }
-    const own = ranges.map(({ x, start, end }) => ({
+    const own: OrderedExportSegment[] = ranges.map(({ x, start, end }) => ({
       id: `${piece.slug}:${start}`, label: sectionName(x), part: x.part, variant: x.variant,
       pieceSlug: piece.slug, systems: end - start, stems: stems.slice(start, end), order: piece.division === "vesperale" ? piece.parts.indexOf(x) : partOrder(x.part, x.variant),
       source: { slug: piece.slug, start, end },

@@ -1,0 +1,141 @@
+---
+import Layout from "../../../components/Layout.astro";
+import { allOrdinaryFormParts, ordinaryFormOccasions, ordinaryFormHref } from "../../../lib/ordinaryFormPieces";
+import { partAnchor } from "../../../lib/catalog";
+import { pieceHref } from "../../../lib/indexes";
+
+const choices = ["A", "B", "C"] as const;
+const occasions = Object.fromEntries(ordinaryFormOccasions().map(row => [row.key, {
+  key: row.key, titleEn: row.title_en, titleLa: row.title_la, color: row.color, rank: row.rank,
+  assignmentStatus: row.assignment_status,
+  partsByCycle: Object.fromEntries(choices.map(cycle => [cycle, allOrdinaryFormParts(row.key, cycle).map(part => ({
+    slot: part.slot, sourceSlot: part.sourceSlot, kind: part.kind, variant: part.variant, years: part.years, seasons: part.seasons,
+    gregobaseId: part.gregobaseId, incipit: part.incipit, label: part.label,
+    href: part.lender ? `${pieceHref(part.lender.piece)}#${partAnchor(part.lender.section.part, part.lender.section.variant)}` : null,
+  }))])),
+}]));
+const [first, last] = [2024, 2050];
+const additionalKeys = new Set(["christmas-vigil", "christmas-night", "christmas-dawn", "christmas-day", "easter-vigil", "pentecost-vigil"]);
+const calendarPages = ordinaryFormOccasions().filter(row => !additionalKeys.has(row.key));
+const additionalPages = ordinaryFormOccasions().filter(row => additionalKeys.has(row.key));
+---
+
+<Layout title="Ordinary Form Calendar" description="Find the Ordinary Form celebration, cycles and Graduale Romanum (1974) chants for a date, with available Nova Organi Harmonia accompaniments.">
+  <div class="prose">
+    <p class="crumb small muted ui"><a href="/">Cantus Organi</a></p>
+    <h1>Calendar: Ordinary Form</h1>
+    <p class="muted">Choose a date to see the celebration, Sunday and weekday cycles, and the chants assigned in the 1974 <em>Graduale Romanum</em>.</p>
+  </div>
+
+  <div id="of-calendar" class="ui" data-calendar-root>
+    <form id="picker" class="picker no-print" novalidate>
+      <label for="date" class="sr-only">Date</label>
+      <input id="date" name="date" type="date" min={`${first}-01-01`} max={`${last}-12-31`} aria-describedby="date-feedback" />
+      <div class="buttons">
+        <button type="button" data-step="-1" aria-label="Previous day">‹ Day</button>
+        <button type="button" data-go="today">Today</button>
+        <button type="button" data-go="sunday">Next Sunday</button>
+        <button type="button" data-step="1" aria-label="Next day">Day ›</button>
+      </div>
+    </form>
+    <p id="date-feedback" class="feedback" role="status"></p>
+
+    <section class="settings no-print" aria-labelledby="settings-title">
+      <h2 id="settings-title">Calendar settings</h2>
+      <fieldset class="presets">
+        <legend>Transfer preset</legend>
+        <label><input type="radio" name="preset" value="general-roman" /> General Roman</label>
+        <label><input type="radio" name="preset" value="sunday-transfers" /> Sunday transfers</label>
+        <label><input type="radio" name="preset" value="custom" disabled /> <span>Custom</span></label>
+        <button type="button" id="reset-settings">Reset to General Roman</button>
+      </fieldset>
+      <div class="switches">
+        <fieldset>
+          <legend>Epiphany</legend>
+          <label><input type="radio" name="epiphany" value="jan6" /> 6 January</label>
+          <label><input type="radio" name="epiphany" value="sunday" /> Sunday</label>
+        </fieldset>
+        <fieldset>
+          <legend>Ascension</legend>
+          <label><input type="radio" name="ascension" value="thursday" /> Thursday</label>
+          <label><input type="radio" name="ascension" value="sunday" /> Sunday</label>
+        </fieldset>
+        <fieldset>
+          <legend>Corpus Christi</legend>
+          <label><input type="radio" name="corpusChristi" value="thursday" /> Thursday</label>
+          <label><input type="radio" name="corpusChristi" value="sunday" /> Sunday</label>
+        </fieldset>
+      </div>
+    </section>
+    <p id="settings-changed" class="notice changed" hidden>Calendar settings changed. <a href="#" id="reset-link">Reset to General Roman</a>.</p>
+    <article id="result" aria-live="polite">
+      <noscript><p class="notice">The calendar needs JavaScript to look up a date.</p></noscript>
+    </article>
+  </div>
+
+  <details class="occasion-directory ui">
+    <summary>Browse Ordinary Form chant sets</summary>
+    <p>Every link leads to a static occasion page that is available without selecting a date or enabling JavaScript.</p>
+    <h2>Calendar Sundays, feasts, and solemnities</h2>
+    <ul>{calendarPages.map(row => <li><a href={ordinaryFormHref(row.key)}>{row.title_en}</a></li>)}</ul>
+    <h2>Vigils and Christmas Mass choices</h2>
+    <p>These are additional evening and Mass options, not separate calendar days.</p>
+    <ul>{additionalPages.map(row => <li><a href={ordinaryFormHref(row.key)}>{row.title_en}</a></li>)}</ul>
+  </details>
+
+  <p class="source small muted">
+    Calendar follows the General Roman Calendar. The only supported national variations are the transfers of Epiphany, Ascension and Corpus Christi.
+    Assignments are based on <a href="https://github.com/bbloomf/jgabc">jgabc</a> and reviewed overrides for the 1974 <em>Graduale Romanum</em>;
+    they do not imply that every chant has a NOH accompaniment. NOH source pages remain the authority for the accompaniment and corrections.
+    The Ordinary Form calendar is not a complete national or diocesan calendar.
+  </p>
+
+  <script type="application/json" id="of-occasion-index" set:html={JSON.stringify(occasions).replace(/</g, "\\u003c")} />
+  <script>
+    import { mountOrdinaryFormCalendar } from "../../../lib/ordinaryFormCalendarClient";
+    const root = document.querySelector<HTMLElement>("[data-calendar-root]");
+    if (root) mountOrdinaryFormCalendar(root);
+  </script>
+</Layout>
+
+<style>
+  .crumb { margin: 0 0 var(--s-1); }
+  .crumb a { color: var(--ink-muted); }
+  .picker { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; margin: var(--s-4) 0 var(--s-1); }
+  .picker input { font: inherit; min-height: var(--tap-min); padding: var(--s-1) var(--s-2); background: var(--paper); color: var(--ink); border: 1px solid var(--rule); border-radius: var(--radius); }
+  .buttons { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  .buttons button, .presets button { min-height: var(--tap-min); }
+  .feedback { min-height: 1.5em; margin: 0; color: var(--warn-ink); }
+  .settings { margin: var(--s-3) 0 var(--s-4); padding: var(--s-3); border: 1px solid var(--rule); border-radius: var(--radius); }
+  .settings h2 { margin: 0 0 var(--s-2); font-size: var(--step-1); }
+  .presets, .switches fieldset { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); margin: 0; border: 0; padding: 0; }
+  .presets { padding-bottom: var(--s-3); border-bottom: 1px solid var(--rule); }
+  .presets legend, .switches legend { font-weight: 600; margin-right: var(--s-2); }
+  .presets label, .switches label { min-height: var(--tap-min); display: inline-flex; align-items: center; gap: var(--s-1); }
+  .switches { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: var(--s-3); padding-top: var(--s-3); }
+  .switches fieldset { align-content: start; }
+  .changed { margin: var(--s-2) 0; }
+  .source { margin-top: var(--s-6); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+  .occasion-directory { margin: var(--s-5) 0; border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+  .occasion-directory summary { min-height: var(--tap-min); display: flex; align-items: center; cursor: pointer; font-weight: 600; }
+  .occasion-directory h2 { font-size: var(--step-1); margin: var(--s-3) 0 var(--s-1); }
+  .occasion-directory ul { columns: 2; column-gap: var(--s-5); margin-top: var(--s-1); }
+  .occasion-directory li { break-inside: avoid; margin-bottom: var(--s-1); }
+  @media (max-width: 40rem) { .occasion-directory ul { columns: 1; } }
+</style>
+
+<style is:global>
+  #result .date-heading { margin: var(--s-4) 0 var(--s-1); }
+  #result .season { margin: 0 0 var(--s-4); color: var(--ink-muted); font-family: var(--font-ui); }
+  #result .observance { padding: var(--s-3) 0; border-top: 1px solid var(--rule); }
+  #result .observance h2 { margin: 0; }
+  #result .latin { font-style: italic; margin: var(--s-1) 0; }
+  #result .meta { font-family: var(--font-ui); font-size: var(--step--1); color: var(--ink-muted); display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; }
+  #result .swatch { width: 0.9rem; height: 0.9rem; border: 1px solid var(--rule); display: inline-block; }
+  #result .music { margin: var(--s-3) 0 0; }
+  #result .music dt { font-family: var(--font-ui); font-size: var(--step--1); color: var(--ink-muted); }
+  #result .music dd { margin: 0 0 var(--s-2); }
+  #result .note, #result .alternatives { font-size: var(--step--1); color: var(--ink-muted); margin: var(--s-1) 0 0; }
+  #result .accompaniments { display: inline-block; margin-top: var(--s-2); padding: var(--s-2) var(--s-3); border: 1px solid var(--accent); border-radius: var(--radius); font-family: var(--font-ui); font-weight: 600; }
+  #result .occasion-options { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-2); }
+</style>
