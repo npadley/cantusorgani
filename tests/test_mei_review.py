@@ -273,4 +273,4 @@ def test_review_module_imports_nothing_from_proofreading_or_corrections() -> Non
     assert imported
     forbidden = ("proofread", "correction", "review_queue", "queue")
     assert not [m for m in imported if any(word in m for word in forbidden)]
-    assert all(m.startswith(("pipeline.typeset.mei", "__future__", "dataclasses")) for m in imported)
+    assert all(m.startswith("pipeline.typeset.mei") or m in {"__future__", "dataclasses", "datetime", "re"} for m in imported)
