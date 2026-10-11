@@ -736,7 +736,7 @@ def build_boundaries(
     by_id = {e.id: e for e in events}
     crossing = {
         kind: [(by_id[s.start_event_id].onset, by_id[s.end_event_id].onset) for s in spans if s.kind == kind]
-        for kind in ("slur", "voice-line", "glissando")
+        for kind in ("slur", "voice-line")
     }
     attack_layer = {e.id: e.layer_id for e in events}
     ordered = sorted(lyrics, key=lambda s: s.onset)
@@ -764,8 +764,6 @@ def build_boundaries(
             reason = "slur-crosses"
         elif any(start < t <= end for start, end in crossing["voice-line"]):
             reason = "voice-line-crosses"
-        elif any(start < t <= end for start, end in crossing["glissando"]):
-            reason = "glissando-crosses"
         elif any(start < t < nxt for start, nxt in extenders):
             reason = "lyric-extender-crosses"
         boundaries.append(

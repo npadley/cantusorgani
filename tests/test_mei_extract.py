@@ -516,7 +516,7 @@ def test_build_boundaries_counts_by_reason():
     expected = {
         "kyrie_IX": (179, 81, {"slur-crosses": 98}),
         "agnus_XI": (102, 50, {"slur-crosses": 48, "voice-line-crosses": 4}),
-        "agnus_IX": (115, 48, {"slur-crosses": 59, "voice-line-crosses": 6, "glissando-crosses": 2}),
+        "agnus_IX": (115, 50, {"slur-crosses": 59, "voice-line-crosses": 6}),  # an ordinary glissando never makes a boundary unsafe
         "al_ego_dilecto.csv": (99, 50, {"slur-crosses": 49}),
         "co_inclina_aurem_tuam.csv": (40, 17, {"slur-crosses": 23}),
         "ite_Ib": (19, 7, {"slur-crosses": 12}),

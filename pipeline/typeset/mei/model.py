@@ -43,7 +43,7 @@ PrintedAccidental = Literal["none", "sharp", "flat", "natural", "double-sharp", 
 DivisionKind = Literal["finalis", "maxima", "maior", "minima"]
 LayerRole = Literal["chant", "accompaniment", "voice-line"]
 SpanKind = Literal["tie", "slur", "voice-line", "glissando"]
-BoundaryReason = Literal["sustain-not-splittable", "slur-crosses", "voice-line-crosses", "glissando-crosses",
+BoundaryReason = Literal["sustain-not-splittable", "slur-crosses", "voice-line-crosses",
                          "lyric-extender-crosses", "not-common-onset"]
 
 @dataclass(frozen=True)
