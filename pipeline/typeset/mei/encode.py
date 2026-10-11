@@ -58,9 +58,11 @@ _CAESURA_GLYPHS = {"minima": "U+E8F3", "maior": "U+E8F4"}
 #: The divisio minima is a "|" in the page's serif text, not the SMuFL tick (E8F3): Verovio places that
 #: glyph above the top line and ignores @vo on a caesura, whereas a <dir> honours @vo, so the text tick can
 #: be centred on the top line. 50% of the default direction size makes the bar about one staff space tall;
-#: @vo and @ho (virtual units = half a staff space) were fitted from real renders; web/layout.ties-style test
-#: ``layout.divisio.realmei.test.ts`` asserts the tick crosses the top line on both staves.
-_MINIMA_VO = "-1.5"
+#: @vo and @ho (virtual units = half a staff space) were fitted from real renders. ``place="above"`` made Verovio
+#: push the tick up whenever a tie arc occupied the slot above the bass staff (A5g); ``place="within"`` is a
+#: fixed position, so one @vo (4.5) lands the tick on the top line whatever else is drawn. The web test
+#: ``layout.divisio.realmei.test.ts`` asserts the tick crosses the top line on every staff of Kyrie and Agnus.
+_MINIMA_VO = "4.5"
 _MINIMA_HO = "2.5"
 _MINIMA_TYPE = "divisio-minima"
 _RIGHT_BARLINE = {"finalis": "dbl", "maxima": "single"}
@@ -179,7 +181,7 @@ def _division_mark(boundary: Boundary, kind: str, anchor: str, staff: int, ordin
         node = _Node(
             "dir",
             {"xml:id": mark_id, "type": _MINIMA_TYPE, "staff": str(staff), "startid": "#" + anchor,
-             "place": "above", "vo": _MINIMA_VO, "ho": _MINIMA_HO},
+             "place": "within", "vo": _MINIMA_VO, "ho": _MINIMA_HO},
         )
         node.add("rend", "|", fontstyle="normal", fontsize="50%")
         return node

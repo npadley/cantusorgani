@@ -132,7 +132,7 @@ describe('divisio minima ticks on the real Kyrie IX conversion (A5f)', { timeout
   });
 
   it('flags a tick that floats above the line or is missing (mutation)', async () => {
-    const floated = MEI.replace(/vo="-1\.5"/g, 'vo="1.5"');
+    const floated = MEI.replace(/vo="4\.5"/g, 'vo="-1.5"');
     expect(floated).not.toBe(MEI);
     expect(tickProblems(await render(floated, 'ipad-13'), ids).length).toBeGreaterThan(0);
     const dropped = MEI.replace(/<dir\b[^>]*xml:id="cb161s2"[\s\S]*?<\/dir>/, '');
