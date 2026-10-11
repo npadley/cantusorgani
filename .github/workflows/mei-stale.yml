@@ -1,0 +1,120 @@
+name: mei-stale
+# After a change to a typeset source, an include or the converter, report which approved MEI
+# conversions went stale (their Customize button vanishes until re-approved) and try to carry each
+# approval forward (D20): re-convert, compare against the approved artifact, and keep the new
+# record only as a build artifact. Nothing here publishes, commits or opens a pull request; a
+# person commits a carried record they trust.
+on:
+  push:
+    branches: [main]
+    paths:
+      - data/typeset/src/**
+      - data/typeset/include/**
+      - pipeline/typeset/mei/**
+  workflow_dispatch:
+permissions: {}
+concurrency:
+  group: mei-stale-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  stale:
+    permissions: {}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      # The revision before this push, so the approved artifact can be rebuilt with the code that
+      # made it. Optional: a force-push or a manual run has none, and carry-forward then needs the
+      # re-conversion to be byte-identical to the approved artifact.
+      - uses: actions/checkout@v7
+        if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
+        continue-on-error: true
+        with:
+          ref: ${{ github.event.before }}
+          path: prior
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: false
+      - run: uv sync --frozen
+      - run: uv run noh lilypond-install
+      - name: Prepare the prior revision
+        run: |
+          [ -f prior/pyproject.toml ] || { echo "no prior revision"; exit 0; }
+          ln -s "$GITHUB_WORKSPACE/vendor" prior/vendor
+          uv sync --frozen
+        working-directory: prior
+        continue-on-error: true
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - name: Install the layout renderer
+        run: pnpm install --frozen-lockfile
+        working-directory: web
+      - name: Report stale approvals
+        run: |
+          mkdir -p build/mei/stale
+          uv run noh typeset-mei-stale --json --out build/mei/stale/stale.json > /dev/null
+          { echo '### Stale MEI conversions'; echo; echo '```'; uv run noh typeset-mei-stale; echo '```'; } | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Re-convert stale sources and try to carry approvals forward, without network or credentials
+        env:
+          NOH_SANDBOX: '1'
+        run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          unshare --user --net --map-current-user true
+          ulimit -t 180 -f 32768 -v 2097152
+          mkdir -p build/mei/carry/artifacts
+          n=0
+          while IFS=$'\t' read -r src rec; do
+            case "$src" in
+              /*|*..*) echo "rejected path: $src"; exit 1 ;;
+            esac
+            [[ "$src" =~ ^data/typeset/src/[A-Za-z0-9._/-]+\.ly$ ]] || { echo "rejected path: $src"; exit 1; }
+            case "$rec" in
+              /*|*..*) echo "rejected record: $rec"; exit 1 ;;
+            esac
+            [[ "$rec" =~ ^data/typeset/mei/records/[A-Za-z0-9._-]+\.json$ ]] || { echo "rejected record: $rec"; exit 1; }
+            [ -f "$src" ] || { echo "::warning::$src no longer exists; its approval cannot be carried"; continue; }
+            n=$((n+1))
+            if ! uv run noh typeset-mei-convert "$src" --out "build/mei/carry/$n/convert"; then
+              echo "::warning::$src no longer converts; needs a fix before it can be reviewed"
+              continue
+            fi
+            if ! uv run noh typeset-mei-validate "build/mei/carry/$n/convert"; then
+              echo "::warning::$src converts but is not eligible for review"
+              continue
+            fi
+            digest=$(sha256sum "build/mei/carry/$n/convert/score.mei" | cut -d' ' -f1)
+            mkdir -p "build/mei/carry/artifacts/$digest"
+            cp "build/mei/carry/$n/convert/score.mei" "build/mei/carry/$n/convert/boundaries.json" "build/mei/carry/artifacts/$digest/"
+            prior_args=()
+            if [ -d prior/.venv ]; then
+              if (cd prior && uv run noh typeset-mei-convert "$src" --out "$GITHUB_WORKSPACE/build/mei/carry/$n/prior"); then
+                prior_args=(--prior-dir "build/mei/carry/$n/prior")
+              else
+                echo "::warning::the prior revision could not convert $src"
+              fi
+            fi
+            if ! uv run noh typeset-mei-carry "build/mei/carry/$n/convert" --prior "$rec" "${prior_args[@]}" --out "build/mei/carry/$n/record.json"; then
+              echo "::warning::carry-forward could not be attempted for $src"
+            fi
+          done < <(jq -r '.stale[] | select(.record != null) | [.sourcePath, .record] | @tsv' build/mei/stale/stale.json)
+      - uses: actions/upload-artifact@v7
+        with:
+          name: mei-stale-report
+          path: build/mei/stale/
+          retention-days: 14
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v7
+        with:
+          name: mei-carry-results
+          path: build/mei/carry/
+          retention-days: 14
+          if-no-files-found: ignore
