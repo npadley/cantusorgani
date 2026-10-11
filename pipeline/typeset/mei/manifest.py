@@ -203,27 +203,29 @@ def write_manifest(manifest: ConversionManifest, out: Path) -> None:
 
 
 def current_inputs_from_files(record: ConversionRecord) -> ConversionInputs:
-    """Recompute the file-derived inputs now; tool versions and the font digest cannot be derived
-    here and are taken from the record. ``source_sha256`` is the sha256 of the source file's bytes;
-    ``include_sha256`` hashes every data/typeset/include/*.ily as ``name NUL text NUL`` in name order."""
+    """Recompute the inputs that can be derived from the working tree now. ``source_sha256`` is the
+    sha256 of the source file's bytes; ``include_sha256`` hashes only the ``.ily`` files that source
+    loads, transitively (``includes.include_digest``), as ``name NUL text NUL`` in name order. The
+    LilyPond version comes from the pin; the Verovio version and font digest from the repo
+    (``cli.VEROVIO_VERSION`` and the bundled export fonts)."""
     from pipeline.typeset import lilypond
-    from pipeline.typeset.mei.cli import PROFILE_PATH
+    from pipeline.typeset.mei.cli import PROFILE_PATH, VEROVIO_VERSION, font_digest
+    from pipeline.typeset.mei.includes import include_digest
     from pipeline.typeset.mei.schema import load_schema_bundle
     from pipeline.typeset.mei.versions import converter_version, extractor_version
 
     source = lilypond.ROOT / record.source_path
-    include = hashlib.sha256()
-    for path in sorted(lilypond.INCLUDE.glob("*.ily")):
-        include.update(f"{path.name}\0{path.read_text(encoding='utf-8')}\0".encode())
     return dataclasses.replace(
         record.inputs,
         source_sha256=hashlib.sha256(source.read_bytes()).hexdigest() if source.is_file() else "missing",
-        include_sha256=include.hexdigest(),
+        include_sha256=include_digest(source, lilypond.INCLUDE) if source.is_file() else "missing",
         lilypond_version=lilypond.load_pin().version,
         extractor_version=extractor_version(),
         converter_version=converter_version(),
         profile_sha256=hashlib.sha256(PROFILE_PATH.read_bytes()).hexdigest(),
         schema_sha256=load_schema_bundle().sha256,
+        verovio_version=VEROVIO_VERSION,
+        font_digest=font_digest(),
     )
 
 
