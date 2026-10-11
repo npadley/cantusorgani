@@ -120,8 +120,9 @@ def precheck_packet(convert_dir: Path, evidence_dir: Path | None = None) -> dict
         if event["kind"] != "note" or note is None:
             continue
         want = (str(2 ** event["notated"]["log"]), str(event["notated"]["dots"]) if event["notated"]["dots"] else None)
-        if (note.get("dur"), note.get("dots")) != want:
-            findings["piece"].append(f"head type: {event['id']} is dur={note.get('dur')} dots={note.get('dots')}, LilyPond writes {want}")
+        head = note.getparent() if note.get("dur") is None and note.getparent().tag == M + "chord" else note  # chord members
+        if (head.get("dur"), head.get("dots")) != want:
+            findings["piece"].append(f"head type: {event['id']} is dur={head.get('dur')} dots={head.get('dots')}, LilyPond writes {want}")
     explicit_ties = [(t.get(XML_ID), (t.get("startid") or "")[1:], (t.get("endid") or "")[1:]) for t in root.iter(M + "tie")]
     ticks_wanted = [d.get(XML_ID) for d in root.iter(M + "dir") if d.get("type") == "divisio-minima"]
     syllables = sum(1 for _ in root.iter(M + "syl"))  # blank syllables carrying an entry marker are drawn too
@@ -197,8 +198,10 @@ def precheck_packet(convert_dir: Path, evidence_dir: Path | None = None) -> dict
             if len(crossed) != 1 or abs((top + bottom) / 2 - crossed[0][1]) > SPACE * scale / 2:
                 out.append(f"divisio {tick_id}: does not cross exactly one top line (ink {top:.0f}..{bottom:.0f})")
         drawn = sum(page.syllables for page in pages)
-        if drawn != syllables:
-            out.append(f"lyrics: {drawn} syllables drawn, {syllables} encoded")
+        if drawn < syllables:
+            out.append(f"lyrics: only {drawn} of {syllables} encoded syllables are drawn")
+        elif drawn > syllables:
+            out.append(f"note: {drawn - syllables} extra syllable piece(s) drawn at system breaks (continued extenders or hyphens)")
         if case.endswith("-auto") or "-auto" in case:
             mid_word = 0
             for page in pages:
