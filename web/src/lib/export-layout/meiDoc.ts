@@ -103,7 +103,15 @@ function retargetSustainTies(doc: Document, byXmlId: ReadonlyMap<string, Element
       current = next;
     }
     const start = refId(tie.getAttribute('startid'));
-    if (last && last !== start) tie.setAttribute('startid', `#${last}`);
+    if (last && last !== start) {
+      tie.setAttribute('startid', `#${last}`);
+      // A tie is drawn where its element sits. The new start lies in a later measure, which may be on
+      // the next PAGE: move the element there, or the tie is drawn on the page of the old start and
+      // the page that holds the revealed head and the end note gets none.
+      const startEl = byXmlId.get(last);
+      const home = startEl ? enclosingMeasure(startEl) : null;
+      if (home && enclosingMeasure(tie) !== home) home.appendChild(tie);
+    }
   }
 }
 
