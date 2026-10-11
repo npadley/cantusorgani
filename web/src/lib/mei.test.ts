@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { findFixtureMarkers, fixtureMarkers } from "../../scripts/check-no-fixture";
-import { approvedConversionFor, loadManifest, parseManifest } from "./mei";
+import { approvedConversionFor, loadManifest, parseManifest, withAssetBase } from "./mei";
 import fixture from "./export-layout/__fixtures__/manifest.fixture.json";
 import production from "../../../data/typeset/mei/manifest.json";
 
@@ -61,9 +61,24 @@ describe("shipped manifests", () => {
     expect(m.parts[0]?.boundaries).toHaveLength(81);
   });
 
-  it("should ship an empty production manifest", () => {
-    expect(parseManifest(production).parts).toEqual([]);
-    expect(loadManifest().parts).toEqual([]);
+  it("should ship only the approved Kyrie IX conversion, published under its own digest", () => {
+    const parts = parseManifest(production).parts;
+    expect(parts.map((p) => p.target)).toEqual(["movement:ordinarium-missae-ix/kyrie"]);
+    expect(parts[0]?.meiUrl).toBe(`/mei/${parts[0]?.meiSha256}/score.mei`);
+    expect(parts[0]?.profile).not.toContain("unapproved");
+  });
+
+});
+
+describe("withAssetBase", () => {
+  it("should resolve a published MEI path against the asset host", () => {
+    const m = withAssetBase(parseManifest(production), "https://images.example.org");
+    expect(m.parts[0]?.meiUrl).toMatch(/^https:\/\/images\.example\.org\/mei\/[0-9a-f]{64}\/score\.mei$/);
+  });
+
+  it("should leave an absolute MEI URL unchanged", () => {
+    const abs = parseManifest({ ...production, parts: production.parts.map((p) => ({ ...p, meiUrl: "https://other.example/x.mei" })) });
+    expect(withAssetBase(abs, "https://images.example.org").parts[0]?.meiUrl).toBe("https://other.example/x.mei");
   });
 });
 
@@ -71,7 +86,7 @@ describe("the fixture manifest never reaches production", () => {
   afterEach(() => vi.unstubAllEnvs());
 
   it("should return the production manifest unless PUBLIC_MEI_MANIFEST is exactly \"fixture\"", () => {
-    const prod = parseManifest(production);
+    const prod = withAssetBase(parseManifest(production));
     for (const value of [undefined, "", "production", "Fixture", "FIXTURE", "fixture ", "true", "1", "fixtures"]) {
       if (value === undefined) vi.stubEnv("PUBLIC_MEI_MANIFEST", undefined as unknown as string);
       else vi.stubEnv("PUBLIC_MEI_MANIFEST", value);
@@ -85,8 +100,10 @@ describe("the fixture manifest never reaches production", () => {
 
   it("should know markers that exist only in the fixture, and find them in a build output", () => {
     const markers = fixtureMarkers();
-    expect(markers).toContain(fixture.parts[0]!.meiSha256);
     expect(markers).toContain(fixture.parts[0]!.meiUrl);
+    // A digest shared with an approved production conversion is published content, not a fixture leak.
+    const published = new Set(production.parts.map((p) => p.meiSha256));
+    expect(markers.includes(fixture.parts[0]!.meiSha256)).toBe(!published.has(fixture.parts[0]!.meiSha256));
     // The fixture's render hash is the real Kyrie hash that pages use, so it must NOT be a marker.
     expect(markers).not.toContain(fixture.parts[0]!.renderHash);
     const dir = mkdtempSync(join(tmpdir(), "nofixture-"));
