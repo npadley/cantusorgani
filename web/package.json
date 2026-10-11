@@ -4,19 +4,27 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/with-public-env.ts astro dev",
-    "build": "node scripts/with-public-env.ts astro build && node scripts/build-discovery.ts && rm -rf dist/systems && pagefind --site dist && node scripts/check-links.ts",
+    "build": "node scripts/with-public-env.ts astro build && node scripts/build-discovery.ts && rm -rf dist/systems && pagefind --site dist && node scripts/check-links.ts && node scripts/check-no-fixture.ts dist",
+    "build:e2e": "E2E_TEST_PAGES=1 PUBLIC_MEI_MANIFEST=fixture PUBLIC_ASSET_BASE=/systems node scripts/with-public-env.ts astro build --outDir dist-e2e",
+    "serve:device": "node scripts/serve-device-test.ts",
+    "check:no-fixture": "node scripts/check-no-fixture.ts dist",
     "check:links": "node scripts/check-links.ts",
     "preview": "astro preview",
     "typecheck": "astro check",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "test:e2e:export": "E2E_DIST=dist-e2e playwright test e2e/export-",
     "check:seo": "node scripts/build-discovery.ts"
   },
   "dependencies": {
     "@codemirror/state": "^6.7.6",
+    "@pdf-lib/fontkit": "1.1.1",
+    "@xmldom/xmldom": "0.9.12",
     "astro": "^7.3.5",
     "codemirror": "^6.0.2",
-    "pdf-lib": "^1.17.1"
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "6.4.299",
+    "verovio": "6.3.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

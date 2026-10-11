@@ -1,0 +1,199 @@
+---
+// Styles live in src/styles/exportEditor.css and load with the script, not with the page.
+// The export layout editor (UI spec 1, 5, 6): markup and styles only.
+//
+// The dialog sits inside an inert <template>, so it costs no layout, no focus stops and no
+// accessibility-tree nodes until src/scripts/exportLayout.ts clones it on the first open
+// (openExportEditor). Render this component once per page that offers "Customize export".
+//
+// Layout is CSS media queries only (rem, the site's existing breakpoints):
+//   >= 62rem   two columns: FIT + settings on the left, the preview on the right
+//   <  62rem   header, sticky FIT strip, preview, footer; the settings are a panel
+//              (a side panel from 40rem, a bottom sheet below that)
+import ExportPagePreview from "./ExportPagePreview.astro";
+import DisclosureCue from "./DisclosureCue.astro";
+
+const STAFF = [
+  { v: "small", name: "Small", abbr: "S", mm: "5.6 mm", h: 10 },
+  { v: "medium", name: "Medium", abbr: "M", mm: "7.2 mm", h: 13 },
+  { v: "large", name: "Large", abbr: "L", mm: "9.6 mm", h: 17 },
+] as const;
+const PRINT = [
+  { v: "letter", name: "Letter", sub: "8½ × 11 in" },
+  { v: "a4", name: "A4", sub: "210 × 297 mm" },
+  { v: "a5", name: "A5", sub: "148 × 210 mm" },
+] as const;
+const IPAD = [
+  { v: "ipad-mini", name: "iPad mini" },
+  { v: "ipad-11", name: "11-inch iPad" },
+  { v: "ipad-13", name: "13-inch iPad" },
+] as const;
+---
+
+<template data-cx-template>
+  <dialog class="cx no-print" aria-labelledby="cx-title" aria-describedby="cx-sel">
+    <header class="cx-head">
+      <h2 id="cx-title" tabindex="-1">Customize export</h2>
+      <p class="cx-sel ui small muted" id="cx-sel" data-cx="selection"></p>
+      <button type="button" class="cx-close" data-cx="close">Close</button>
+    </header>
+
+    <fieldset class="cx-fit" data-cx="fit">
+      <legend class="cx-h">Fit</legend>
+      <p class="small muted ui cx-help" data-cx="applies" hidden></p>
+      <div class="cx-field" data-cx="music-field">
+        <span class="cx-lab" id="cx-l-staff">Music size</span>
+        <div class="seg tall" role="radiogroup" aria-labelledby="cx-l-staff">
+          {STAFF.map((s) => (
+            <label class="seg-o">
+              <input class="sr-only" type="radio" name="cx-staff" value={s.v} aria-label={`${s.name}, ${s.mm}`} />
+              <span>
+                <span class="nm">{s.name}</span><span class="abbr" aria-hidden="true">{s.abbr}</span>
+                <small class="mm">
+                  <svg class="staffglyph" aria-hidden="true" focusable="false" width="22" height={s.h} viewBox={`0 0 22 ${s.h}`}>
+                    {[0, 1, 2, 3, 4].map((i) => <line x1="0" x2="22" y1={0.5 + (i * (s.h - 1)) / 4} y2={0.5 + (i * (s.h - 1)) / 4} stroke="currentColor" stroke-width="1" />)}
+                  </svg>
+                  {s.mm}
+                </small>
+              </span>
+            </label>
+          ))}
+        </div>
+        <p class="small muted ui cx-help">Height of one staff on the page.</p>
+      </div>
+      <p class="small muted ui cx-nomusic" data-cx="nomusic" hidden>Music size and line breaks apply only to customizable typeset. None of the parts in this PDF are.</p>
+      <div class="cx-field">
+        <span class="cx-lab" id="cx-l-cap">Systems per page</span>
+        <div class="cx-step big" role="group" aria-label="Systems per page">
+          <button type="button" data-cx="cap-minus" aria-label="Fewer systems per page">−</button>
+          <output data-cx="cap-value">As many as fit</output>
+          <button type="button" data-cx="cap-plus" aria-label="More systems per page">+</button>
+        </div>
+        <p class="small muted ui cx-help">The most on any page. Fewer may fit with large music or your own page breaks.</p>
+        <p class="small muted ui cx-help" data-cx="fixed-note" hidden></p>
+      </div>
+      <p class="cx-result" data-cx="result" aria-hidden="true"></p>
+      <button type="button" class="cx-settings-btn" data-cx="settings-btn" aria-expanded="false" aria-controls="cx-settings">Settings</button>
+    </fieldset>
+
+    <div class="cx-breakbar" data-cx="breakbar">
+      <span class="cx-breakbar-title">Choose where systems break</span>
+      <button type="button" data-cx="break-done">Done</button>
+    </div>
+
+    <aside class="cx-settings" id="cx-settings" data-cx="settings" role="region" aria-label="Export settings" tabindex="-1">
+      <div class="cx-phead"><span class="cx-ptitle" aria-hidden="true">Settings</span><button type="button" data-cx="panel-done">Done</button></div>
+
+      <section class="cx-grp first" aria-labelledby="cx-h-parts">
+        <h3 class="cx-h" id="cx-h-parts">In this PDF</h3>
+        <ul class="cx-partlist ui" data-cx="partlist"></ul>
+        <p class="small muted ui cx-tight">To change the parts, close this and tick them on the page.</p>
+      </section>
+
+      <fieldset class="cx-grp" data-cx="page-group">
+        <legend class="cx-h">Page</legend>
+        <div class="cx-field">
+          <span class="cx-lab" id="cx-l-tier">Page size</span>
+          <div class="seg" role="radiogroup" aria-labelledby="cx-l-tier">
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-tier" value="print" /><span>Print</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-tier" value="ipad" /><span>iPad</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-tier" value="custom" /><span>Custom</span></label>
+          </div>
+          <div class="seg tall cx-tier2" role="radiogroup" aria-label="Print paper" data-cx="tier-print">
+            {PRINT.map((p) => (
+              <label class="seg-o"><input class="sr-only" type="radio" name="cx-print" value={p.v} aria-label={`${p.name}, ${p.sub}`} /><span>{p.name}<small>{p.sub}</small></span></label>
+            ))}
+          </div>
+          <div class="seg tall cx-tier2" role="radiogroup" aria-label="iPad size" data-cx="tier-ipad">
+            {IPAD.map((p) => (
+              <label class="seg-o"><input class="sr-only" type="radio" name="cx-ipad" value={p.v} /><span>{p.name}</span></label>
+            ))}
+          </div>
+          <div class="cx-tier2" data-cx="tier-custom">
+            <div class="cx-custom">
+              <label>Width <input class="cx-num" type="text" data-cx="custom-w" inputmode="decimal" autocomplete="off" aria-describedby="cx-e-custom" /></label>
+              <label>Height <input class="cx-num" type="text" data-cx="custom-h" inputmode="decimal" autocomplete="off" aria-describedby="cx-e-custom" /></label>
+              <div class="seg" role="radiogroup" aria-label="Unit">
+                <label class="seg-o"><input class="sr-only" type="radio" name="cx-unit" value="mm" /><span>mm</span></label>
+                <label class="seg-o"><input class="sr-only" type="radio" name="cx-unit" value="in" /><span>in</span></label>
+              </div>
+            </div>
+            <p class="small cx-err ui" id="cx-e-custom" data-cx="custom-error" hidden></p>
+          </div>
+          <p class="small muted ui cx-help" data-cx="page-help"></p>
+        </div>
+        <div class="cx-field">
+          <span class="cx-lab" id="cx-l-orient">Orientation</span>
+          <div class="seg" role="radiogroup" aria-labelledby="cx-l-orient">
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-orient" value="portrait" /><span><span class="seg-row"><svg aria-hidden="true" focusable="false" width="12" height="16" viewBox="0 0 12 16"><rect x="0.5" y="0.5" width="11" height="15" fill="none" stroke="currentColor" stroke-width="1" /></svg>Portrait</span></span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-orient" value="landscape" /><span><span class="seg-row"><svg aria-hidden="true" focusable="false" width="16" height="12" viewBox="0 0 16 12"><rect x="0.5" y="0.5" width="15" height="11" fill="none" stroke="currentColor" stroke-width="1" /></svg>Landscape</span></span></label>
+          </div>
+        </div>
+        <div class="cx-field">
+          <span class="cx-lab" id="cx-l-margin">Margins</span>
+          <div class="cx-step m" role="group" aria-labelledby="cx-l-margin">
+            <button type="button" data-cx="margin-minus" aria-label="Smaller margins">−</button>
+            <input type="number" data-cx="margin" min="3" max="25" step="1" inputmode="numeric" aria-labelledby="cx-l-margin" />
+            <span class="ui">mm</span>
+            <button type="button" data-cx="margin-plus" aria-label="Larger margins">+</button>
+          </div>
+          <p class="small muted ui cx-help" data-cx="margin-help"></p>
+        </div>
+      </fieldset>
+
+      <fieldset class="cx-grp" data-cx="breaks-group">
+        <legend class="cx-h">Breaks</legend>
+        <div class="notice" data-cx="stale" hidden><p></p><button type="button" class="link" data-cx="stale-dismiss">Dismiss</button></div>
+        <div class="cx-field" data-cx="lines-field">
+          <span class="cx-lab" id="cx-l-lines">Line breaks</span>
+          <div class="seg" role="radiogroup" aria-labelledby="cx-l-lines">
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-lines" value="original" /><span>Original</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-lines" value="automatic" /><span>Fit to page</span></label>
+          </div>
+          <p class="small muted ui cx-help" data-cx="lines-help"></p>
+          <p class="small muted ui cx-help" data-cx="crowded" hidden>Some original lines are tight at this size. Fit to page may read better.</p>
+        </div>
+        <p class="small ui cx-tight cx-rule">Each part starts on a new page.</p>
+        <div class="cx-field" data-cx="yours-field">
+          <span class="cx-lab" id="cx-l-yours">Your breaks</span>
+          <button type="button" data-cx="break-mode" aria-pressed="false">Choose where systems break</button>
+          <p class="small muted ui cx-help" data-cx="break-count" hidden></p>
+        </div>
+      </fieldset>
+
+      <details class="cx-grp cx-more" data-cx="more">
+        <summary class="disclosure-summary"><DisclosureCue /><span>More options</span><span class="small muted ui" data-cx="more-summary"></span></summary>
+        <div class="cx-field" data-cx="lyrics-field">
+          <span class="cx-lab" id="cx-l-lyrics">Sung text size</span>
+          <div class="seg" role="radiogroup" aria-labelledby="cx-l-lyrics">
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-lyrics" value="small" /><span>Small</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-lyrics" value="medium" /><span>Medium</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-lyrics" value="large" /><span>Large</span></label>
+          </div>
+        </div>
+        <div class="cx-field" data-cx="spacing-field">
+          <span class="cx-lab" id="cx-l-spacing">Space between systems</span>
+          <div class="seg" role="radiogroup" aria-labelledby="cx-l-spacing">
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-spacing" value="compact" /><span>Compact</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-spacing" value="normal" /><span>Normal</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-spacing" value="spacious" /><span>Spacious</span></label>
+          </div>
+          <p class="small muted ui cx-help">A minimum; the music never overlaps.</p>
+        </div>
+      </details>
+
+      <p class="cx-storage small muted ui" data-cx="storage" hidden>This browser isn't saving site settings, so your choices will reset when you leave.</p>
+      <p class="cx-storage small muted ui" data-cx="prefs" hidden>Your saved export settings couldn't be read, so the defaults are used.</p>
+    </aside>
+
+    <ExportPagePreview id="cxp" />
+
+    <footer class="cx-foot">
+      <p id="cx-status" class="small ui" role="status" aria-live="polite"></p>
+      <button type="button" class="link" data-cx="undo" hidden>Undo</button>
+      <button type="button" class="link" data-cx="reset">Reset layout</button>
+      <button type="button" class="link" data-cx="cancel" hidden>Cancel</button>
+      <button type="button" class="primary" data-cx="download" disabled>Download PDF</button>
+    </footer>
+  </dialog>
+</template>

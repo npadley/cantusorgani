@@ -159,6 +159,49 @@ def build_parser() -> argparse.ArgumentParser:
             preview.add_argument("--key", required=True)
         preview.add_argument("--out", type=Path, default=Path("build/typeset-preview"))
 
+    mei_audit = subs.add_parser("typeset-mei-audit",
+                                help="audit the typeset sources for MEI conversion (text scan, no LilyPond)")
+    mei_audit.add_argument("--out", type=Path, default=Path("build/typeset/mei/audit.json"))
+
+    mei_extract = subs.add_parser("typeset-mei-extract",
+                                  help="extract one typeset source's score structure (runs LilyPond)")
+    mei_extract.add_argument("source", type=Path)
+    mei_extract.add_argument("--out", type=Path, required=True)
+
+    mei_convert = subs.add_parser("typeset-mei-convert",
+                                  help="extract, encode and schema-check one typeset source as MEI (runs LilyPond)")
+    mei_convert.add_argument("source", type=Path)
+    mei_convert.add_argument("--out", type=Path, required=True)
+
+    mei_evidence = subs.add_parser("typeset-mei-evidence",
+                                   help="build the review evidence packet (index.html) for a typeset-mei-convert directory")
+    mei_evidence.add_argument("convert_dir", type=Path)
+    mei_evidence.add_argument("--out", type=Path, default=None,
+                              help="evidence folder (default build/typeset/mei/<digest>/evidence)")
+
+    mei_review = subs.add_parser("typeset-mei-review",
+                                 help="apply a reviewer's decision JSON to a convert directory and write the review record")
+    mei_review.add_argument("convert_dir", type=Path)
+    mei_review.add_argument("--decision", type=Path, required=True)
+    mei_review.add_argument("--out", type=Path, required=True)
+
+    mei_manifest = subs.add_parser("typeset-mei-manifest",
+                                   help="build the approved-conversion manifest from ConversionRecord JSON files")
+    mei_manifest.add_argument("--records", type=Path, required=True)
+    mei_manifest.add_argument("--out", type=Path, required=True)
+    mei_manifest.add_argument("--artifacts", type=Path, default=None,
+                              help="folder of <sha256>/score.mei + boundaries.json (default: --records)")
+
+    mei_publish = subs.add_parser("typeset-mei-publish",
+                                  help="verify approved MEI conversions and upload them write-once (never compiles)")
+    mei_publish.add_argument("--artifacts", type=Path, required=True)
+    mei_publish.add_argument("--records", type=Path, required=True)
+    mei_publish.add_argument("--dry-run", action="store_true", help="print the keys that would be uploaded")
+
+    mei_validate = subs.add_parser("typeset-mei-validate",
+                                   help="check a converted MEI directory against its IR (no LilyPond)")
+    mei_validate.add_argument("directory", type=Path)
+
     cat = subs.add_parser("catalog", help="build data/catalog.json and review-queue.json")
     cat.add_argument("--volume", required=True)
     cat.add_argument("--no-parts", action="store_true",
@@ -357,6 +400,31 @@ def main(argv: list[str] | None = None) -> int:
         from pipeline.typeset.source_batch import validate_source_evidence
         validate_source_evidence(json.loads(args.payload.read_text()), args.artifact)
         return 0
+    if args.command == "typeset-mei-audit":
+        from pipeline.typeset.mei.cli import audit_command
+        return audit_command(args.out)
+    if args.command == "typeset-mei-extract":
+        from pipeline.typeset.mei.cli import extract_command
+        return extract_command(args.source, args.out)
+    if args.command == "typeset-mei-convert":
+        from pipeline.typeset.mei.cli import convert_command
+        return convert_command(args.source, args.out)
+    if args.command == "typeset-mei-evidence":
+        from pipeline.typeset.mei.cli import evidence_command
+        return evidence_command(args.convert_dir, args.out)
+    if args.command == "typeset-mei-review":
+        from pipeline.typeset.mei.cli import review_command
+        return review_command(args.convert_dir, args.decision, args.out)
+    if args.command == "typeset-mei-manifest":
+        from pipeline.typeset.mei.cli import manifest_command
+        return manifest_command(args.records, args.out, args.artifacts)
+    if args.command == "typeset-mei-publish":
+        from pipeline.typeset.mei.cli import publish_command
+        return publish_command(args.artifacts, args.records, args.dry_run)
+
+    if args.command == "typeset-mei-validate":
+        from pipeline.typeset.mei.cli import validate_command
+        return validate_command(args.directory)
     if args.command == "typeset-source-batch":
         import json
 

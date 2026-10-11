@@ -1,0 +1,33 @@
+---
+// Styles live in src/styles/exportPreview.css and load with the script, not with the page.
+// The export editor's paginated preview (UI spec 1.6, 5): a sticky toolbar (View, Zoom, updating
+// indicator) over `.cx-pages`, which src/scripts/exportPagePreview.ts fills with page frames.
+// This file is only the static scaffold and the styles; there is no script in it, so the editor
+// imports the script itself (lazily, with the rest of the editor).
+interface Props {
+  /** Makes the view radio group's name unique when more than one preview exists on a page. */
+  readonly id?: string;
+}
+const { id = "cx" } = Astro.props;
+---
+
+<section class="cx-preview ui" data-cx-preview aria-label="Preview">
+  <div class="cx-toolbar">
+    <div class="cx-tg">
+      <span class="cx-tl" id={`${id}-view-l`}>View</span>
+      <div class="cx-vseg" role="radiogroup" aria-labelledby={`${id}-view-l`}>
+        <label class="cx-vo"><input class="sr-only" type="radio" name={`${id}-view`} value="pages" data-cx-view checked /><span>Pages</span></label>
+        <label class="cx-vo"><input class="sr-only" type="radio" name={`${id}-view`} value="continuous" data-cx-view /><span>Continuous</span></label>
+      </div>
+    </div>
+    <div class="cx-tg">
+      <span class="cx-tl" id={`${id}-zoom-l`}>Zoom</span>
+      <button type="button" data-cx-zoom="out" aria-label="Zoom out">−</button>
+      <output data-cx-zoom-value aria-labelledby={`${id}-zoom-l`}>100%</output>
+      <button type="button" data-cx-zoom="in" aria-label="Zoom in">+</button>
+      <button type="button" data-cx-zoom="fit">Fit width</button>
+    </div>
+    <span class="small muted cx-updating" data-cx-updating aria-hidden="true" hidden>Updating preview…</span>
+  </div>
+  <div class="cx-pages" data-cx-pages></div>
+</section>

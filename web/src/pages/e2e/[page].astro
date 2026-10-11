@@ -1,0 +1,207 @@
+---
+// TEST ONLY. Starts the real export layout worker for e2e/export-layout-worker.e2e.ts.
+//
+// The page is not built unless the build is run with E2E_TEST_PAGES=1: without it
+// getStaticPaths returns nothing, so a normal `pnpm build` emits no /e2e/ page, no link to
+// one, and no worker chunk from this file (check-links has no exemption mechanism, and an
+// unlinked page would fail it). The e2e build is
+//   E2E_TEST_PAGES=1 PUBLIC_ASSET_BASE=/systems pnpm exec astro build
+import Layout from "../../components/Layout.astro";
+import ExportPagePreview from "../../components/ExportPagePreview.astro";
+import ExportLayoutEditor from "../../components/ExportLayoutEditor.astro";
+
+export function getStaticPaths() {
+  return process.env["E2E_TEST_PAGES"] === "1" ? [{ params: { page: "export-layout-worker" } }] : [];
+}
+---
+
+<Layout title="Export worker test" description="Test page for the export layout worker." noindex>
+  <p id="state" data-state="idle">idle</p>
+  <!-- B8a: the preview component, driven by e2e/export-layout-preview.e2e.ts through window.__preview. -->
+  <ExportPagePreview />
+  <!-- B8b: the editor dialog (cloned from its template on first open), opened by e2e/export-layout-editor.e2e.ts. -->
+  <ExportLayoutEditor />
+  <p id="export-status" class="small" role="status"></p>
+  <button type="button" id="export-btn">Export PDF</button>
+  <button type="button" id="export-customize">Customize export</button>
+  <script>
+    import type { LayoutWorkerRequest, PdfWorkerRequest } from "../../lib/export-layout/types";
+    import type { EditorHandle } from "../../scripts/exportLayout";
+    import type { ExportPart, LayoutDiagnostic, WorkerLike } from "../../lib/export-layout/types";
+    import { destroyPreview, getView, getZoom, renderPreview, setView, setZoom } from "../../scripts/exportPagePreview";
+
+    interface WorkerHarness {
+      readonly messages: unknown[];
+      readonly errors: string[];
+      post(message: LayoutWorkerRequest): void;
+    }
+    interface PdfHarness {
+      readonly messages: unknown[];
+      /** Base64 of the bytes of the last `pdf` response (an ArrayBuffer cannot cross to the test). */
+      pdfBase64: string | null;
+      post(message: PdfWorkerRequest): void;
+    }
+    interface PreviewHarness {
+      readonly root: HTMLElement;
+      readonly renderPreview: typeof renderPreview;
+      readonly setZoom: typeof setZoom;
+      readonly setView: typeof setView;
+      readonly getZoom: typeof getZoom;
+      readonly getView: typeof getView;
+      readonly destroyPreview: typeof destroyPreview;
+    }
+    /** Timing helpers for scripts/measure-export-layout.ts: every time is performance.now() inside the page. */
+    interface Timed {
+      readonly ms: number;
+      readonly firstProgressMs: number | null;
+      readonly progress: number;
+      readonly type: string;
+      readonly token: number;
+      readonly complete: boolean | null;
+      readonly pageCount: number | null;
+      readonly byteSize: number | null;
+      readonly errorDetail: string | null;
+    }
+    interface MeasureHarness {
+      readonly workersCreatedAt: number;
+      layout(request: LayoutWorkerRequest & { readonly type: "layout" }): Promise<Timed>;
+      /** Exports the result of the last completed layout request. */
+      pdf(token: number): Promise<Timed>;
+    }
+    declare global {
+      interface Window { __layoutWorker?: WorkerHarness; __pdfWorker?: PdfHarness; __preview?: PreviewHarness; __measure?: MeasureHarness }
+    }
+
+    interface Pending {
+      readonly start: number;
+      firstProgressMs: number | null;
+      progress: number;
+      readonly resolve: (timed: Timed) => void;
+    }
+    /** ?measure: keep nothing but timings, so retained results do not inflate the memory figures. */
+    const keep = !location.search.includes("measure");
+    const workersCreatedAt = performance.now();
+    const layoutPending = new Map<number, Pending>();
+    const pdfPending = new Map<number, Pending>();
+    let lastResult: unknown = null;
+    interface Wire { readonly type: string; readonly token: number; readonly result?: { complete: boolean; pages: unknown[]; diagnostics: { severity: string; detail: string }[] }; readonly pageCount?: number; readonly byteSize?: number; readonly diagnostic?: { detail: string } }
+    function settle(table: Map<number, Pending>, message: Wire, now: number): void {
+      const pending = table.get(message.token);
+      if (!pending) return;
+      if (message.type === "progress") {
+        pending.progress += 1;
+        pending.firstProgressMs ??= now - pending.start;
+        return;
+      }
+      table.delete(message.token);
+      const firstError = message.result?.diagnostics.find((d) => d.severity === "error");
+      pending.resolve({
+        ms: now - pending.start, firstProgressMs: pending.firstProgressMs, progress: pending.progress,
+        type: message.type, token: message.token,
+        complete: message.result?.complete ?? null,
+        pageCount: message.result?.pages.length ?? message.pageCount ?? null,
+        byteSize: message.byteSize ?? null,
+        errorDetail: message.diagnostic?.detail ?? firstError?.detail ?? null,
+      });
+    }
+
+    const worker = new Worker(new URL("../../workers/export-layout.worker.ts", import.meta.url), { type: "module" });
+    const messages: unknown[] = [];
+    const errors: string[] = [];
+    worker.onmessage = (event: MessageEvent<Wire>) => {
+      const now = performance.now();
+      if (keep) messages.push(event.data);
+      if (event.data.type === "result") lastResult = event.data.result;
+      settle(layoutPending, event.data, now);
+    };
+    worker.onerror = (event) => { errors.push(event.message); };
+    window.__layoutWorker = { messages, errors, post: (message) => worker.postMessage(message) };
+
+    const pdfWorker = new Worker(new URL("../../workers/export-layout-pdf.worker.ts", import.meta.url), { type: "module" });
+    const pdfMessages: unknown[] = [];
+    const pdfHarness: PdfHarness = { messages: pdfMessages, pdfBase64: null, post: (message) => pdfWorker.postMessage(message) };
+    pdfWorker.onmessage = (event: MessageEvent<{ type: string; bytes?: ArrayBuffer }>) => {
+      const now = performance.now();
+      const { bytes, ...rest } = event.data;
+      settle(pdfPending, rest as unknown as Wire, now);
+      if (bytes && keep) {
+        let binary = "";
+        const view = new Uint8Array(bytes);
+        for (let i = 0; i < view.length; i += 0x8000) binary += String.fromCharCode(...view.subarray(i, i + 0x8000));
+        pdfHarness.pdfBase64 = btoa(binary);
+      }
+      if (keep) pdfMessages.push(rest);
+    };
+    pdfWorker.onerror = (event) => { errors.push(event.message); };
+    window.__pdfWorker = pdfHarness;
+
+    const previewRoot = document.querySelector<HTMLElement>("[data-cx-preview]");
+    if (previewRoot) window.__preview = { root: previewRoot, renderPreview, setZoom, setView, getZoom, getView, destroyPreview };
+
+    window.__measure = {
+      workersCreatedAt,
+      layout: (request) => new Promise<Timed>((resolve) => {
+        layoutPending.set(request.request.token, { start: performance.now(), firstProgressMs: null, progress: 0, resolve });
+        worker.postMessage(request);
+      }),
+      pdf: (token) => new Promise<Timed>((resolve) => {
+        pdfPending.set(token, { start: performance.now(), firstProgressMs: null, progress: 0, resolve });
+        pdfWorker.postMessage({ type: "pdf", token, result: lastResult });
+      }),
+    };
+
+    interface EditorFaults { error: LayoutDiagnostic | null }
+    declare global { interface Window { __openEditor?: (parts: readonly ExportPart[], title: string) => Promise<EditorHandle>; __editorFaults?: EditorFaults } }
+    const faults: EditorFaults = { error: null };
+    window.__editorFaults = faults;
+    // Wraps the real layout worker; while a fault is armed, the next layout request is answered with that error.
+    const faultingWorker = (): WorkerLike => {
+      const real = new Worker(new URL("../../workers/export-layout.worker.ts", import.meta.url), { type: "module" });
+      const wrapper: WorkerLike = {
+        onmessage: null, onerror: null,
+        postMessage(message: unknown, transfer?: Transferable[]) {
+          const m = message as { type: string; request?: { token: number } };
+          if (m.type === "layout" && faults.error !== null && m.request) {
+            const diagnostic = faults.error;
+            const token = m.request.token;
+            window.setTimeout(() => wrapper.onmessage?.({ data: { type: "error", token, diagnostic } } as MessageEvent), 0);
+            return;
+          }
+          real.postMessage(message, transfer ?? []);
+        },
+        terminate() { real.terminate(); },
+      };
+      real.onmessage = (e) => wrapper.onmessage?.(e);
+      real.onerror = (e) => wrapper.onerror?.(e);
+      return wrapper;
+    };
+    window.__openEditor = async (parts, title) => {
+      const { openExportEditor, stylesReady } = await import("../../scripts/exportLayout");
+      await stylesReady;
+      return openExportEditor({ parts, title, opener: document.getElementById("export-customize"), deps: { createLayoutWorker: faultingWorker } });
+    };
+
+    // B10a: draw one page of a PDF with pdf.js, so the e2e can look at what the export really contains.
+    declare global { interface Window { __renderPdfPage?: (base64: string, pageNumber: number, scale: number) => Promise<string> } }
+    window.__renderPdfPage = async (base64, pageNumber, scale) => {
+      const pdfjs = (await import("pdfjs-dist/legacy/build/pdf.mjs")) as unknown as {
+        GlobalWorkerOptions: { workerSrc: string };
+        getDocument(src: { data: Uint8Array }): { promise: Promise<{ getPage(n: number): Promise<{ getViewport(p: { scale: number }): { width: number; height: number }; render(p: { canvasContext: CanvasRenderingContext2D; canvas: HTMLCanvasElement; viewport: { width: number; height: number }; background: string }): { promise: Promise<void> } }> }> };
+      };
+      pdfjs.GlobalWorkerOptions.workerSrc = new URL("pdfjs-dist/legacy/build/pdf.worker.min.mjs", import.meta.url).toString();
+      const bytes = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
+      const doc = await pdfjs.getDocument({ data: bytes }).promise;
+      const pdfPage = await doc.getPage(pageNumber);
+      const viewport = pdfPage.getViewport({ scale });
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.ceil(viewport.width);
+      canvas.height = Math.ceil(viewport.height);
+      const context = canvas.getContext("2d")!;
+      await pdfPage.render({ canvasContext: context, canvas, viewport, background: "rgb(255,255,255)" }).promise;
+      return canvas.toDataURL("image/png");
+    };
+
+    const state = document.getElementById("state");
+    if (state) { state.dataset["state"] = "ready"; state.textContent = "ready"; }
+  </script>
+</Layout>

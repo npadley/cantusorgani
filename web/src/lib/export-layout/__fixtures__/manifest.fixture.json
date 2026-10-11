@@ -1,0 +1,669 @@
+{
+  "_note": "experimental, unapproved, never published",
+  "schemaVersion": 1,
+  "parts": [
+    {
+      "target": "movement:ordinarium-missae-ix/kyrie",
+      "renderHash": "640b269879f24af40180e6c68c5dffbd",
+      "digest": "ccfcbdb499ca3203d4420507ee14b262c600a108dcc067ff3c724bf161eaf69d",
+      "meiUrl": "/__fixtures__/kyrie-ix.mei",
+      "meiSha256": "ccfcbdb499ca3203d4420507ee14b262c600a108dcc067ff3c724bf161eaf69d",
+      "sourceRevision": "640b269879f24af40180e6c68c5dffbd",
+      "profile": "accompaniment-v1-unapproved",
+      "verovio": "6.3.0-425dd7b",
+      "capabilities": {
+        "manualBreaks": true
+      },
+      "boundaries": [
+        {
+          "afterText": "Ky",
+          "division": null,
+          "id": "b001",
+          "measureId": "m001",
+          "onset": "1/2",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Ky",
+          "division": null,
+          "id": "b003",
+          "measureId": "m002",
+          "onset": "1/1",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "ri",
+          "division": null,
+          "id": "b005",
+          "measureId": "m003",
+          "onset": "3/2",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "rie",
+          "division": null,
+          "id": "b007",
+          "measureId": "m004",
+          "onset": "17/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "rie",
+          "division": null,
+          "id": "b011",
+          "measureId": "m005",
+          "onset": "25/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "e",
+          "division": null,
+          "id": "b013",
+          "measureId": "m006",
+          "onset": "29/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "elé",
+          "division": null,
+          "id": "b015",
+          "measureId": "m007",
+          "onset": "33/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "eléi",
+          "division": null,
+          "id": "b016",
+          "measureId": "m008",
+          "onset": "35/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "eléison.",
+          "division": "finalis",
+          "id": "b018",
+          "measureId": "m009",
+          "onset": "39/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Ky",
+          "division": null,
+          "id": "b019",
+          "measureId": "m010",
+          "onset": "41/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyri",
+          "division": null,
+          "id": "b021",
+          "measureId": "m011",
+          "onset": "45/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": null,
+          "id": "b022",
+          "measureId": "m012",
+          "onset": "6/1",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": null,
+          "id": "b026",
+          "measureId": "m013",
+          "onset": "7/1",
+          "sourceBreak": true
+        },
+        {
+          "afterText": "e",
+          "division": null,
+          "id": "b028",
+          "measureId": "m014",
+          "onset": "15/2",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "elé",
+          "division": null,
+          "id": "b030",
+          "measureId": "m015",
+          "onset": "8/1",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "eléi",
+          "division": null,
+          "id": "b031",
+          "measureId": "m016",
+          "onset": "33/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "eléison.",
+          "division": "finalis",
+          "id": "b033",
+          "measureId": "m017",
+          "onset": "35/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Ky",
+          "division": null,
+          "id": "b035",
+          "measureId": "m018",
+          "onset": "37/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Ky",
+          "division": null,
+          "id": "b037",
+          "measureId": "m019",
+          "onset": "39/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "ri",
+          "division": null,
+          "id": "b039",
+          "measureId": "m020",
+          "onset": "41/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "rie",
+          "division": null,
+          "id": "b041",
+          "measureId": "m021",
+          "onset": "87/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "rie",
+          "division": null,
+          "id": "b045",
+          "measureId": "m022",
+          "onset": "95/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "e",
+          "division": null,
+          "id": "b047",
+          "measureId": "m023",
+          "onset": "99/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "elé",
+          "division": null,
+          "id": "b049",
+          "measureId": "m024",
+          "onset": "103/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "eléi",
+          "division": null,
+          "id": "b050",
+          "measureId": "m025",
+          "onset": "105/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "eléison.",
+          "division": "finalis",
+          "id": "b052",
+          "measureId": "m026",
+          "onset": "109/8",
+          "sourceBreak": true
+        },
+        {
+          "afterText": "Chri",
+          "division": null,
+          "id": "b053",
+          "measureId": "m027",
+          "onset": "111/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Christe",
+          "division": null,
+          "id": "b055",
+          "measureId": "m028",
+          "onset": "29/2",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Christe",
+          "division": null,
+          "id": "b059",
+          "measureId": "m029",
+          "onset": "31/2",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "e",
+          "division": null,
+          "id": "b060",
+          "measureId": "m030",
+          "onset": "63/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "elé",
+          "division": null,
+          "id": "b062",
+          "measureId": "m031",
+          "onset": "65/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "eléi",
+          "division": null,
+          "id": "b063",
+          "measureId": "m032",
+          "onset": "33/2",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "eléison.",
+          "division": "finalis",
+          "id": "b064",
+          "measureId": "m033",
+          "onset": "67/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Chri",
+          "division": null,
+          "id": "b067",
+          "measureId": "m034",
+          "onset": "35/2",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Chri",
+          "division": null,
+          "id": "b069",
+          "measureId": "m035",
+          "onset": "18/1",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "ste",
+          "division": null,
+          "id": "b071",
+          "measureId": "m036",
+          "onset": "37/2",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "ste",
+          "division": null,
+          "id": "b075",
+          "measureId": "m037",
+          "onset": "39/2",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "e",
+          "division": null,
+          "id": "b077",
+          "measureId": "m038",
+          "onset": "20/1",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "elé",
+          "division": null,
+          "id": "b079",
+          "measureId": "m039",
+          "onset": "41/2",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "eléi",
+          "division": null,
+          "id": "b080",
+          "measureId": "m040",
+          "onset": "83/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "eléison.",
+          "division": "finalis",
+          "id": "b082",
+          "measureId": "m041",
+          "onset": "85/4",
+          "sourceBreak": true
+        },
+        {
+          "afterText": "Chri",
+          "division": null,
+          "id": "b083",
+          "measureId": "m042",
+          "onset": "43/2",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Christe",
+          "division": null,
+          "id": "b085",
+          "measureId": "m043",
+          "onset": "177/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Christe",
+          "division": null,
+          "id": "b089",
+          "measureId": "m044",
+          "onset": "185/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "e",
+          "division": null,
+          "id": "b090",
+          "measureId": "m045",
+          "onset": "187/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "elé",
+          "division": null,
+          "id": "b092",
+          "measureId": "m046",
+          "onset": "191/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "eléi",
+          "division": null,
+          "id": "b093",
+          "measureId": "m047",
+          "onset": "193/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "eléison.",
+          "division": "finalis",
+          "id": "b094",
+          "measureId": "m048",
+          "onset": "195/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Ky",
+          "division": null,
+          "id": "b095",
+          "measureId": "m049",
+          "onset": "197/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyri",
+          "division": null,
+          "id": "b097",
+          "measureId": "m050",
+          "onset": "201/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": null,
+          "id": "b098",
+          "measureId": "m051",
+          "onset": "51/2",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": null,
+          "id": "b101",
+          "measureId": "m052",
+          "onset": "211/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": null,
+          "id": "b107",
+          "measureId": "m053",
+          "onset": "223/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "e",
+          "division": null,
+          "id": "b108",
+          "measureId": "m054",
+          "onset": "225/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "elé",
+          "division": null,
+          "id": "b110",
+          "measureId": "m055",
+          "onset": "229/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "eléi",
+          "division": null,
+          "id": "b111",
+          "measureId": "m056",
+          "onset": "231/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "eléison.",
+          "division": "finalis",
+          "id": "b112",
+          "measureId": "m057",
+          "onset": "233/8",
+          "sourceBreak": true
+        },
+        {
+          "afterText": "Ky",
+          "division": null,
+          "id": "b115",
+          "measureId": "m058",
+          "onset": "239/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyri",
+          "division": null,
+          "id": "b117",
+          "measureId": "m059",
+          "onset": "243/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": null,
+          "id": "b119",
+          "measureId": "m060",
+          "onset": "31/1",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "e",
+          "division": null,
+          "id": "b123",
+          "measureId": "m061",
+          "onset": "32/1",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "e",
+          "division": null,
+          "id": "b125",
+          "measureId": "m062",
+          "onset": "65/2",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "lé",
+          "division": null,
+          "id": "b127",
+          "measureId": "m063",
+          "onset": "33/1",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "léi",
+          "division": null,
+          "id": "b128",
+          "measureId": "m064",
+          "onset": "133/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "léison.",
+          "division": "finalis",
+          "id": "b130",
+          "measureId": "m065",
+          "onset": "135/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Ky",
+          "division": null,
+          "id": "b131",
+          "measureId": "m066",
+          "onset": "34/1",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyri",
+          "division": null,
+          "id": "b133",
+          "measureId": "m067",
+          "onset": "69/2",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": null,
+          "id": "b134",
+          "measureId": "m068",
+          "onset": "279/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": null,
+          "id": "b137",
+          "measureId": "m069",
+          "onset": "143/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": null,
+          "id": "b143",
+          "measureId": "m070",
+          "onset": "149/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": "minima",
+          "id": "b146",
+          "measureId": "m071",
+          "onset": "38/1",
+          "sourceBreak": true
+        },
+        {
+          "afterText": "Kyrie",
+          "division": null,
+          "id": "b149",
+          "measureId": "m072",
+          "onset": "311/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": null,
+          "id": "b152",
+          "measureId": "m073",
+          "onset": "159/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": null,
+          "id": "b158",
+          "measureId": "m074",
+          "onset": "165/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": "minima",
+          "id": "b161",
+          "measureId": "m075",
+          "onset": "42/1",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": null,
+          "id": "b164",
+          "measureId": "m076",
+          "onset": "171/4",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": null,
+          "id": "b168",
+          "measureId": "m077",
+          "onset": "351/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "Kyrie",
+          "division": null,
+          "id": "b172",
+          "measureId": "m078",
+          "onset": "359/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "e",
+          "division": null,
+          "id": "b174",
+          "measureId": "m079",
+          "onset": "363/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "elé",
+          "division": null,
+          "id": "b176",
+          "measureId": "m080",
+          "onset": "367/8",
+          "sourceBreak": false
+        },
+        {
+          "afterText": "eléi",
+          "division": null,
+          "id": "b177",
+          "measureId": "m081",
+          "onset": "369/8",
+          "sourceBreak": false
+        }
+      ]
+    }
+  ]
+}

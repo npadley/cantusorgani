@@ -1,0 +1,48 @@
+{
+  "verovio": "6.3.0-425dd7b",
+  "voices": [
+    180,
+    61,
+    61,
+    61
+  ],
+  "total_whole_note_duration": "373/8",
+  "layout_containers": 61,
+  "lyric_syllables": 60,
+  "original_breaks": [
+    "7",
+    "109/8",
+    "85/4",
+    "233/8",
+    "38"
+  ],
+  "options": {
+    "pageWidth": 2100,
+    "pageHeight": 2970,
+    "pageMarginLeft": 100,
+    "pageMarginRight": 100,
+    "pageMarginTop": 100,
+    "pageMarginBottom": 100,
+    "scale": 40,
+    "breaks": "line",
+    "svgViewBox": true,
+    "header": "none",
+    "footer": "none",
+    "evenNoteSpacing": true,
+    "spacingLinear": 0.25,
+    "spacingNonLinear": 0.6,
+    "mnumInterval": 0
+  },
+  "musicxml": {
+    "pages": 1,
+    "log": "",
+    "onset_mismatches": [],
+    "pitch_mismatches": []
+  },
+  "mei": {
+    "pages": 1,
+    "log": "",
+    "onset_mismatches": [],
+    "pitch_mismatches": []
+  }
+}

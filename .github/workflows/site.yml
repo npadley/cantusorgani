@@ -232,6 +232,16 @@ jobs:
         working-directory: web
         env:
           CI: "true"
+      # The custom-export editor against the fixture manifest and the gated test
+      # pages. Built to dist-e2e/, so the deployed dist/ never contains them
+      # (with-public-env.ts refuses the fixture manifest with a remote asset base).
+      - name: Export editor browser tests
+        run: |
+          pnpm build:e2e
+          pnpm test:e2e:export
+        working-directory: web
+        env:
+          CI: "true"
       - name: Browser test report
         if: failure()
         uses: actions/upload-artifact@v7

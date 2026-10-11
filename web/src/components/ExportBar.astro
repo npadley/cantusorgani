@@ -1,5 +1,7 @@
 ---
 import DisclosureCue from "./DisclosureCue.astro";
+import ExportLayoutEditor from "./ExportLayoutEditor.astro";
+import { approvedConversionFor, loadManifest } from "../lib/mei";
 import { defaultTicked, defaultsNote, exportSegments, seasonGroup } from "../lib/exportParts";
 import { pieceBySlug } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
@@ -35,8 +37,13 @@ const note = defaultsNote(segments, group, dateLabel);
 const runsOf = (s: ExportSegment): readonly ExportRun[] => {
   const piece = s.source ? pieceBySlug(s.source.slug) : undefined;
   return piece && s.source ? exportRuns(piece, s.source.start, s.source.end)
-    : [{ count: s.systems, key: null, label: null, letter: null, a4: null }];
+    : [{ count: s.systems, key: null, label: null, letter: null, a4: null, target: null, hash: null }];
 };
+// "Customize export" is offered only where a part on the page has an approved conversion (decision D5):
+// anywhere else the editor would be a more elaborate paper picker for scans.
+const manifest = loadManifest();
+const customizable = segments.some((s) => runsOf(s).some((r) =>
+  r.target !== null && r.hash !== null && approvedConversionFor(r.target, r.hash, manifest) !== null));
 const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${estimatePages(n)} page${estimatePages(n) === 1 ? "" : "s"})`;
 ---
 
@@ -65,6 +72,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
       <button id="export-btn" type="button" disabled={refusal !== null}>
         {refusal !== null && count === 0 ? "Tick at least one part" : label(count)}
       </button>
+      {customizable && <button id="export-customize" type="button" disabled={refusal !== null}>Customize export</button>}
       <label class="small paper">Paper
         <select id="export-paper">
           <option value="letter">Letter (8½ × 11)</option>
@@ -77,6 +85,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     <p id="export-status" class="small" role="status" aria-live="polite">{refusal ?? ""}</p>
   </div>
 )}
+{segments.length > 0 && customizable && <ExportLayoutEditor />}
 
 <style>
   .export {
@@ -118,7 +127,8 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
   import type { BuildRequest, BuildResponse } from "../workers/pdf.worker";
   import { estimatePages, validateSelection } from "../lib/pdf";
   import type { Paper, TypesetInsert } from "../lib/pdf";
-  import type { ExportRun } from "../lib/typeset";
+  import { readSelectionInput } from "../lib/exportSelection";
+  import { trackExport } from "../lib/exportAnalytics";
 
   const root = document.querySelector<HTMLElement>(".export");
   const button = document.getElementById("export-btn") as HTMLButtonElement | null;
@@ -126,6 +136,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
   const progress = document.getElementById("export-progress") as HTMLProgressElement | null;
   const tickedCount = root?.querySelector<HTMLElement>("[data-ticked]") ?? null;
   const paperSelect = document.getElementById("export-paper") as HTMLSelectElement | null;
+  const customize = document.getElementById("export-customize") as HTMLButtonElement | null;
   const PAPER_KEY = "export-paper";
 
   // The paper size is remembered in this browser; Letter until chosen.
@@ -150,15 +161,6 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     return document.documentElement.getAttribute("data-view") === "scans";
   }
 
-  function runsOf(box: HTMLInputElement): ExportRun[] {
-    try {
-      const runs: unknown = JSON.parse(box.dataset["runs"] ?? "[]");
-      return Array.isArray(runs) ? runs as ExportRun[] : [];
-    } catch {
-      return [];
-    }
-  }
-
   if (root && button && status && progress) {
     const title = root.dataset["title"] ?? "Nova Organi Harmonia";
     const boxes = [...root.querySelectorAll<HTMLInputElement>('input[name="export-part"]')];
@@ -170,16 +172,11 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
       const parts: { label: string; systems: number }[] = [];
       const typeset: TypesetInsert[] = [];
       const paper: Paper = paperSelect?.value === "a4" ? "a4" : "letter";
-      const ticked = boxes.filter((b) => b.checked);
-      for (const box of ticked) {
-        const stems = (box.dataset["stems"] ?? "").split(",").filter(Boolean);
-        const label = box.dataset["label"] ?? "";
+      const ticked = readSelectionInput(boxes, title, showsScans).segments;
+      for (const { stems, label, rubric, rubricTranslation, runs } of ticked) {
         const start = refs.length;
-        const rubric = box.dataset["rubric"];
-        const rubricTranslation = box.dataset["rubricTranslation"];
         if (ticked.length > 1 || rubric || rubricTranslation) headings.push({ index: start, label,
           ...(rubric ? { rubric } : {}), ...(rubricTranslation ? { rubricTranslation } : {}) });
-        const runs = runsOf(box);
         // The runs cover the part's systems in order; if they do not add up,
         // the part goes in as scans.
         if (runs.reduce((n, r) => n + r.count, 0) === stems.length) {
@@ -187,7 +184,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
           for (const run of runs) {
             const pdf = run[paper];
             if (runs.length > 1 && run.label && at !== start) headings.push({ index: at, label: run.label });
-            if (pdf && run.key && !showsScans(run.key)) {
+            if (pdf && run.key && !run.showsScans) {
               typeset.push({ index: at, count: run.count, pdf, label: run.label ?? label });
             }
             at += run.count;
@@ -204,6 +201,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
       if (tickedCount) tickedCount.textContent = String(ticked);
       const problem = validateSelection(refs.length, parts);
       button!.disabled = problem !== null;
+      if (customize) customize.disabled = problem !== null;
       button!.textContent = refs.length === 0
         ? "Tick at least one part"
         : `Export PDF (${refs.length} system${refs.length === 1 ? "" : "s"}, ~${estimatePages(refs.length)} page${estimatePages(refs.length) === 1 ? "" : "s"})`;
@@ -211,6 +209,42 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
       status!.textContent = problem ?? "";
     }
     boxes.forEach((b) => b.addEventListener("change", refresh));
+
+    // The editor adds #customize-export while open. A stale one in a loaded URL is stripped, and never opens it.
+    if (location.hash === "#customize-export") history.replaceState(history.state, "", location.pathname + location.search);
+
+    // Everything the editor needs (the dialog code, the manifest, the selection snapshot) is imported on click:
+    // until then this page loads no Verovio, workers, pdf.js or export fonts.
+    customize?.addEventListener("click", async () => {
+      if (customize.getAttribute("aria-busy") === "true") return;
+      const idle = customize.textContent ?? "Customize export";
+      customize.setAttribute("aria-busy", "true");
+      customize.textContent = "Opening…";
+      try {
+        const [editor, mei, snapshot] = await Promise.all([
+          import("../scripts/exportLayout"), import("../lib/mei"), import("../lib/export-layout/selection"),
+        ]);
+        await editor.stylesReady;
+        const manifest = mei.loadManifest();
+        const parts = snapshot.snapshotSelection(readSelectionInput(boxes, title, showsScans),
+          (target, hash) => mei.approvedConversionFor(target, hash, manifest));
+        editor.openExportEditor({
+          parts,
+          title: title.replace(/ — Nova Organi Harmonia$/, ""),
+          opener: customize,
+          onExported: (s) => trackExport("custom", {
+            page: s.page, orientation: s.orientation, staff: s.staff,
+            maxSystems: s.maxSystems === null ? "auto" : String(s.maxSystems), linePolicy: s.linePolicy,
+          }),
+        });
+      } catch {
+        status.setAttribute("data-state", "error");
+        status.textContent = "Can't open the layout editor. Try again, or use Export PDF.";
+      } finally {
+        customize.removeAttribute("aria-busy");
+        customize.textContent = idle;
+      }
+    });
 
     button.addEventListener("click", () => {
       const { refs, headings, typeset, paper } = selection();
@@ -270,6 +304,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
 
       const request: BuildRequest = { refs, base: "", title, headings, paper, typeset };
       worker.postMessage(request);
+      trackExport("quick", { paper });
     });
   }
 </script>
