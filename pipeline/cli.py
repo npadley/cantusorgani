@@ -198,6 +198,21 @@ def build_parser() -> argparse.ArgumentParser:
     mei_publish.add_argument("--records", type=Path, required=True)
     mei_publish.add_argument("--dry-run", action="store_true", help="print the keys that would be uploaded")
 
+    mei_stale = subs.add_parser("typeset-mei-stale",
+                                help="list approved MEI conversions whose inputs no longer match (why Customize vanished)")
+    mei_stale.add_argument("--records", type=Path, default=Path("data/typeset/mei/records"))
+    mei_stale.add_argument("--json", action="store_true", help="print the report as JSON instead of a table")
+    mei_stale.add_argument("--out", type=Path, default=None, help="also write the JSON report here")
+    mei_stale.add_argument("--fail-on-stale", action="store_true", help="exit 1 when any approved conversion is stale")
+
+    mei_carry = subs.add_parser("typeset-mei-carry",
+                                help="carry a prior MEI approval onto a re-conversion when nothing visible changed (D20)")
+    mei_carry.add_argument("convert_dir", type=Path)
+    mei_carry.add_argument("--prior", type=Path, required=True, help="the approved ConversionRecord JSON")
+    mei_carry.add_argument("--out", type=Path, required=True, help="where to write the new record JSON")
+    mei_carry.add_argument("--prior-dir", type=Path, default=None,
+                           help="convert directory of the approved artifact (default: convert_dir, when byte-identical)")
+
     mei_validate = subs.add_parser("typeset-mei-validate",
                                    help="check a converted MEI directory against its IR (no LilyPond)")
     mei_validate.add_argument("directory", type=Path)
@@ -422,6 +437,12 @@ def main(argv: list[str] | None = None) -> int:
         from pipeline.typeset.mei.cli import publish_command
         return publish_command(args.artifacts, args.records, args.dry_run)
 
+    if args.command == "typeset-mei-stale":
+        from pipeline.typeset.mei.cli import stale_command
+        return stale_command(args.records, args.json, args.fail_on_stale, args.out)
+    if args.command == "typeset-mei-carry":
+        from pipeline.typeset.mei.cli import carry_command
+        return carry_command(args.convert_dir, args.prior, args.out, prior_dir=args.prior_dir)
     if args.command == "typeset-mei-validate":
         from pipeline.typeset.mei.cli import validate_command
         return validate_command(args.directory)

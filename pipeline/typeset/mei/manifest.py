@@ -27,6 +27,7 @@ from typing import Any
 from pipeline.typeset.mei.diagnostics import Diagnostic, SourceLocation
 from pipeline.typeset.mei.model import (
     BoundaryManifestEntry,
+    CarriedFrom,
     ConversionInputs,
     ConversionManifest,
     ConversionRecord,
@@ -281,12 +282,20 @@ def record_to_dict(record: ConversionRecord) -> dict[str, Any]:
             "artifact_sha256": review.artifact_sha256, "matrix_results": dict(review.matrix_results),
             "accepted_differences": list(review.accepted_differences), "decision": review.decision,
         },
+        # Written only for a carried-forward approval, so records approved directly are unchanged.
+        **({} if record.carried_from is None else {"carried_from": {
+            "prior_artifact_sha256": record.carried_from.prior_artifact_sha256,
+            "prior_inputs_digest": record.carried_from.prior_inputs_digest,
+            "reason": list(record.carried_from.reason), "timestamp": record.carried_from.timestamp,
+            "attributed_to": record.carried_from.attributed_to,
+        }}),
     }
 
 
 def record_from_dict(d: dict[str, Any]) -> ConversionRecord:
     v = d["validation"]
     r = d["review"]
+    c = d.get("carried_from")  # absent on records approved directly (and on all older records)
     return ConversionRecord(
         source_path=d["source_path"], target=d["target"], render_hash=d["render_hash"], state=d["state"],
         inputs=ConversionInputs(**d["inputs"]), artifact_sha256=d["artifact_sha256"],
@@ -306,6 +315,10 @@ def record_from_dict(d: dict[str, Any]) -> ConversionRecord:
         review=None if r is None else ReviewDecision(
             r["reviewer"], r["timestamp"], r["inputs_digest"], r["artifact_sha256"], dict(r["matrix_results"]),
             tuple(r["accepted_differences"]), r["decision"],
+        ),
+        carried_from=None if c is None else CarriedFrom(
+            c["prior_artifact_sha256"], c["prior_inputs_digest"], tuple(c["reason"]), c["timestamp"],
+            c["attributed_to"],
         ),
     )
 
