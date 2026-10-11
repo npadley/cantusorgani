@@ -51,6 +51,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
             <input type="checkbox" name="export-part" value={s.id}
                    checked={defaultTicked(s, segments, group)}
                    data-stems={s.stems.join(",")} data-systems={s.systems} data-label={s.label}
+                   data-years={s.years?.join(",")} data-seasons={s.seasons?.join(",")}
                    data-rubric={s.rubric} data-rubric-translation={s.rubricTranslation}
                    data-runs={JSON.stringify(runsOf(s))} />
             <span>{s.label}</span>
@@ -143,10 +144,9 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
   // switch or the part's own, or the typeset music failed to load. The export
   // follows what they see.
   function showsScans(key: string): boolean {
-    const seg = document.querySelector<HTMLElement>(`[data-typeset-key="${CSS.escape(key)}"]`);
-    if (seg?.dataset["state"] === "error") return true;
-    if (seg?.dataset["show"] === "scan") return true;
-    if (seg?.dataset["show"] === "typeset") return false;
+    const copies = [...document.querySelectorAll<HTMLElement>(`[data-typeset-key="${CSS.escape(key)}"]`)];
+    if (copies.some((seg) => seg.dataset["state"] === "error" || seg.dataset["show"] === "scan")) return true;
+    if (copies.length > 0 && copies.every((seg) => seg.dataset["show"] === "typeset")) return false;
     return document.documentElement.getAttribute("data-view") === "scans";
   }
 

@@ -27,6 +27,10 @@ const withMusic = allPieces().filter((p) => p.systems.length > 0).length;
     <span class="card-title">What is sung today?</span>
     <span class="muted small">Find the Mass for any date under the 1962 rubrics, with its music.</span>
   </a>
+  <a class="calendar-card ui ordinary-calendar-card" href="/calendar/ordinary-form/">
+    <span class="card-title">Find the Mass for any date in the Ordinary Form</span>
+    <span class="muted small">See the Graduale Romanum (1974) chants and available Nova Organi Harmonia accompaniments.</span>
+  </a>
 
   <h2>The books</h2>
   <ul class="divisions ui">
@@ -66,6 +70,7 @@ const withMusic = allPieces().filter((p) => p.systems.length > 0).length;
     color: var(--ink); text-decoration: none;
   }
   .calendar-card { margin: var(--s-4) 0; border-left: 3px solid var(--accent); }
+  .ordinary-calendar-card { margin-top: calc(-1 * var(--s-2)); }
   .calendar-card:hover, .divisions a:hover { background: color-mix(in srgb, var(--rule) 20%, transparent); }
   .card-title { font-family: var(--font-text); font-size: var(--step-1); }
   .la { font-style: italic; }

@@ -1,0 +1,64 @@
+---
+import ExportBar from "../../components/ExportBar.astro";
+import Layout from "../../components/Layout.astro";
+import MovementNav from "../../components/MovementNav.astro";
+import SystemStack from "../../components/SystemStack.astro";
+import TypesetSwitch from "../../components/TypesetSwitch.astro";
+import { allOrdinaryFormParts, ordinaryFormOccasions, ordinaryFormPiece } from "../../lib/ordinaryFormPieces";
+import { musicView } from "../../lib/music";
+import { hasTypeset } from "../../lib/typeset";
+
+export function getStaticPaths() {
+  return ordinaryFormOccasions().map(row => ({ params: { key: row.key }, props: { key: row.key } }));
+}
+
+interface Props { readonly key: string }
+const { key } = Astro.props;
+const piece = ordinaryFormPiece(key);
+if (!piece) return Astro.redirect("/404/", 302);
+const score = musicView(piece);
+const parts = allOrdinaryFormParts(key);
+const missing = parts.filter(part => !part.lender).length;
+const unmapped = piece.sourceNote === "chants not yet mapped";
+---
+
+<Layout title={piece.title} description={`${piece.title} — Ordinary Form chants assigned in the Graduale Romanum (1974), with available Nova Organi Harmonia accompaniments.`} skipTo="music">
+  <article data-of-page>
+    <header class="head">
+      <p class="crumb small muted ui"><a href="/">Cantus Organi</a> · <a href="/calendar/ordinary-form/">Ordinary Form calendar</a></p>
+      <h1>{piece.title}</h1>
+      <p class="latin" lang="la">{ordinaryFormOccasions().find(row => row.key === key)?.title_la}</p>
+      <p class="meta ui small muted">Graduale Romanum (1974) · {parts.length} assigned chant{parts.length === 1 ? "" : "s"}{missing ? ` · ${missing} without a NOH match` : ""}</p>
+    </header>
+
+    <p class="notice ui" role="status">
+      This page assembles available Nova Organi Harmonia music for chants assigned in the 1974 Graduale Romanum.
+      {missing > 0 && ` ${missing} assigned chant${missing === 1 ? " is" : "s are"} not in Nova Organi Harmonia.`}
+      {unmapped && " chants not yet mapped."}
+    </p>
+
+    <p id="of-export-note" class="small muted ui" aria-live="polite">
+      All years and seasons are shown. Every applicable alternative starts selected; choose the chants required for this celebration.
+    </p>
+    <ExportBar pieces={[piece]} title={piece.title} />
+    <TypesetSwitch show={hasTypeset(score)} />
+    <MovementNav piece={score} />
+    <SystemStack piece={score} id="music" />
+    <p class="small muted ui source-note">Chant assignments follow the Graduale Romanum (1974). Each NOH section remains linked to its printed source and correction target.</p>
+  </article>
+  <script>
+    import { mountOrdinaryFormPage } from "../../lib/ordinaryFormPageClient";
+    const root = document.querySelector<HTMLElement>("[data-of-page]");
+    if (root) mountOrdinaryFormPage(root);
+  </script>
+</Layout>
+
+<style>
+  .head { margin-bottom: var(--s-4); }
+  .crumb { margin: 0 0 var(--s-1); }
+  .crumb a { color: var(--ink-muted); }
+  h1 { margin-bottom: var(--s-1); }
+  .latin { margin: 0; font-style: italic; }
+  .meta { margin: var(--s-1) 0 0; }
+  .source-note { margin-top: var(--s-4); }
+</style>

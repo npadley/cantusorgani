@@ -183,6 +183,35 @@ describe("exportSegments with borrowed parts", () => {
       x.kind === "borrowed" ? { ...x, borrowedFrom: null, borrowedRef: null } : x) };
     expect(exportSegments([angels], pieces).map((s) => s.label)).toEqual(["Offertory"]);
   });
+
+  it("keeps year-specific borrower rows unique when they share one lender section", () => {
+    const [lender, borrower] = catalog();
+    const introit = borrower!.parts.find((p) => p.kind === "borrowed" && p.part === "introit")!;
+    const a = { ...introit, variant: "year-a", label: "Introit (Year A)", title: "Ad te levavi" };
+    const b = { ...introit, part: "communion" as const, variant: "year-b", label: "Communion (Year B)", title: "Dominus dabit" };
+    const result = exportSegments([{ ...borrower!, systems: [], systemAssets: [], systemAspect: [], parts: [a, b] }], [lender!]);
+    expect(result.map((s) => s.id)).toEqual(["angels:from:michael:0:0", "angels:from:michael:0:1"]);
+    expect(result.map((s) => s.label)).toEqual([
+      "Introit (Year A) (from S. Michael)", "Communion (Year B) (from S. Michael)",
+    ]);
+    expect(result.map((s) => s.stems[0])).toEqual(["/systems/noh3/0387/000", "/systems/noh3/0387/000"]);
+  });
+
+  it("resolves the lender part and variant when two printed headings share one ref", () => {
+    const [baseLender, baseBorrower] = catalog();
+    const ref = baseLender!.systems[0]!;
+    const lender = { ...baseLender!, parts: [...baseLender!.parts,
+      { kind: "printed" as const, part: "communion" as const, variant: "second", label: "Communion II",
+        title: null, system: 0, ref, gregobaseId: 222, placed: "reviewed" as const }] };
+    const borrower = { ...baseBorrower!, systems: [], systemAssets: [], systemAspect: [], parts: [{
+      kind: "borrowed" as const, part: "communion" as const, variant: "year-a", label: "Communion (Year A)",
+      title: "Dominus dabit", borrowedFrom: lender.slug, borrowedRef: ref, borrowedPage: 1,
+      borrowedVolume: "noh3", borrowedPart: "communion" as const, borrowedVariant: "second", gregobaseId: 222,
+    }] };
+    const segment = exportSegments([borrower], [lender])[0]!;
+    expect(segment.source).toMatchObject({ slug: lender.slug, start: 0, end: 3, part: "communion", variant: "second" });
+    expect(segment.id).toContain(":0");
+  });
 });
 
 describe("exportSegments for a Mass with rows of its own", () => {
