@@ -23,14 +23,16 @@ const withMusic = allPieces().filter((p) => p.systems.length > 0).length;
     </p>
   </div>
 
-  <a class="calendar-card ui" href="/calendar/">
-    <span class="card-title">What is sung today?</span>
-    <span class="muted small">Find the Mass for any date under the 1962 rubrics, with its music.</span>
-  </a>
-  <a class="calendar-card ui ordinary-calendar-card" href="/calendar/ordinary-form/">
-    <span class="card-title">Find the Mass for any date in the Ordinary Form</span>
-    <span class="muted small">See the Graduale Romanum (1974) chants and available Nova Organi Harmonia accompaniments.</span>
-  </a>
+  <nav class="calendar-links" aria-label="Choose a liturgical calendar">
+    <a class="calendar-card ui" href="/calendar/">
+      <span class="card-title">What is sung today in the Extraordinary Form?</span>
+      <span class="muted small">Find the Mass for any date under the 1962 rubrics, with its available organ accompaniments.</span>
+    </a>
+    <a class="calendar-card ui" href="/calendar/ordinary-form/">
+      <span class="card-title">What is sung today in the Ordinary Form?</span>
+      <span class="muted small">Find the Mass using the General Roman Calendar, with Graduale Romanum (1974) chants and available Nova Organi Harmonia accompaniments.</span>
+    </a>
+  </nav>
 
   <h2>The books</h2>
   <ul class="divisions ui">
@@ -69,9 +71,13 @@ const withMusic = allPieces().filter((p) => p.systems.length > 0).length;
     padding: var(--s-3); border: 1px solid var(--rule); border-radius: var(--radius);
     color: var(--ink); text-decoration: none;
   }
-  .calendar-card { margin: var(--s-4) 0; border-left: 3px solid var(--accent); }
-  .ordinary-calendar-card { margin-top: calc(-1 * var(--s-2)); }
+  .calendar-links {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-3);
+    margin: var(--s-4) 0;
+  }
+  .calendar-card { min-height: 7rem; border-left: 3px solid var(--accent); }
   .calendar-card:hover, .divisions a:hover { background: color-mix(in srgb, var(--rule) 20%, transparent); }
+  .calendar-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   .card-title { font-family: var(--font-text); font-size: var(--step-1); }
   .la { font-style: italic; }
   .count { color: var(--accent); }
@@ -80,4 +86,7 @@ const withMusic = allPieces().filter((p) => p.systems.length > 0).length;
     display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
   }
   .pending { margin-top: var(--s-4); }
+  @media (max-width: 42rem) {
+    .calendar-links { grid-template-columns: minmax(0, 1fr); }
+  }
 </style>

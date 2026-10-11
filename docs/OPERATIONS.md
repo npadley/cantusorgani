@@ -607,10 +607,11 @@ in the same commit as the regenerated artifacts. Missing assignments and
 missing NOH settings are separate states; do not remove missing rows to improve
 the reported percentage.
 
-Calendar defaults use the General Roman transfers. The Sunday transfers preset
-sets Epiphany, Ascension and Corpus Christi to Sunday; it does not select a US
-national proper calendar. Individual switches remain available and the displayed
-preset is derived from their effective values. URLs preserve all three values.
+The calendar uses the General Roman transfer defaults; there is no recurring
+settings panel or separate settings page. On Sundays when Epiphany, Ascension or
+Corpus Christi may be transferred, the calendar offers links to both the
+usual celebration and the transferred feast, using the existing precedence rules. Existing shared URLs with transfer parameters continue to be
+honored so legacy links retain their behavior.
 
 For source verification and remaining limitations, see
 [the source review](superpowers/reviews/2026-10-11-ordinary-form-source-review.md).
