@@ -10,6 +10,8 @@
 
 **Spec:** [Export layout editor design](../specs/2026-10-06-export-layout-editor-design.md).
 
+> **Revised 2026-10-08.** Execution now follows the [execution packet](2026-10-08-export-execution-packet.md) (60 single-session cards with model routing), the [frozen contracts](2026-10-08-export-contracts.md), the [UI specification](../specs/2026-10-08-export-editor-ui-spec.md), and the [decision log](export-layout-decisions.md). Where this document conflicts with them, they win. Sections 1–3 below are retained as rationale; §3's type sketches are **superseded** by the contracts. Review evidence: `docs/superpowers/reviews/2026-10-08-export-{ceo,design,eng}-review.md`.
+
 ## Global Constraints
 
 - “LilyPond remains the authoritative source; MEI is a generated, reviewed derivative used for browser layout.”
@@ -18,7 +20,9 @@
 - “No visitor-supplied source is compiled.”
 - “Do not silently rasterize typeset notation or use browser print as a substitute for a reliable Download PDF action.”
 - “Each selected part starts on a new page in the first release.”
-- Default paper remains Letter, orientation Portrait; preserve `EXPORT_CEILING = 300` source systems.
+- Default page remains Letter, orientation Portrait; preserve `EXPORT_CEILING = 300` source systems.
+- v1 reflows for print, iPad screen and custom page sizes (D2, D4). No font-choice controls in v1 (D3). Verovio runs at `scale: 100` (D8).
+- Converter work must pass all five pilot fixtures F1–F5, not Kyrie IX alone (D6).
 - Production UI implementation follows approval of the complete editor mockups. Planning, audit, and fidelity proofs can proceed before that approval.
 
 ## Review Focus
@@ -43,7 +47,7 @@ Read the spec, this coordination document, and **only the assigned subsystem/tas
 
 Treat task boundaries as review boundaries, not independent branches of an untested implementation. Commit each accepted task. An implementer marks checkboxes only after recording the specified evidence. A reviewer reports findings before the next dependent task starts.
 
-Suggested order:
+Suggested order (**superseded** by the execution packet §5 DAG, which adds spikes S0–S7 and splits every task):
 
 ```text
 A1 audit → A2 extraction → A3 encoding → A4 semantic validation → A5 evidence
@@ -60,6 +64,8 @@ B10 + C1 → C2 release measurements → C3 Kyrie pilot → C4 batches
 B1 can run while A1–A3 are underway; it produces reviewable mockups, not the live editor. B2 starts with the checked-in pilot derivative from A3, including its unresolved diagnostics. C1 may run after A6 without waiting for UI. **No task may publish an unapproved conversion.**
 
 ## 2. Cost-conscious agent allocation
+
+> Model routing per card (Opus / Sonnet / Haiku / User) is now in the execution packet §0.1 and on each card. The templates below remain valid for conversion batches (C4b…).
 
 Use a lower-cost coding agent for bounded tasks with fixed contracts and fixtures. Reuse that agent within a subsystem for adjacent accepted tasks; do not pay to reload the entire repository for each checkbox. Give an independent reviewer the diff, task, contracts, and evidence—not the implementer's reasoning transcript.
 
@@ -89,7 +95,9 @@ Do not parallelize agents that own the same files. A coordinator owns `pipeline/
 
 ## 3. Shared contracts—freeze before downstream work
 
-Contract changes require a coordinator review and rerunning every consumer's tests. Version fields are explicit; JSON uses stable sorted serialization. Hashes are SHA-256 of bytes or documented canonical JSON, never Git HEAD alone.
+> **Superseded by [the frozen contracts](2026-10-08-export-contracts.md)** (LayoutSettings v2 with page presets and custom size, structured `LayoutDiagnostic`, `SafeBoundary.afterText`, `ExportRun.target/hash`, complete Python types). Text below is kept for rationale only.
+
+Contract changes require a coordinator review and rerunning every consumer's tests. Version fields are explicit; JSON uses stable sorted serialization. Hashes are SHA-256 of bytes or documented canonical JSON, never Git HEAD alone. Exception: existing render hashes in `data/typeset/manifest.json` are SHA-256 truncated to 32 hex (`render.py:90`) and are copied verbatim, never recomputed.
 
 ### Conversion contract
 
@@ -136,10 +144,11 @@ Worker protocol: `{type:'layout', request:LayoutRequest}`, `{type:'cancel', toke
 
 ## 4. Working and verification conventions
 
-- Establish a clean execution worktree and inspect applicable `AGENTS.md` before implementation. Do not base new feature work on an unrelated in-progress branch without coordinator selection.
-- Python setup: `uv sync --extra dev`; pinned LilyPond setup follows `docs/TYPESETTING.md`. Native compiler tests use the existing `lilypond` marker and explicitly report skipped tests.
+- Establish a clean execution worktree and read `.claude/rules/security.md` before implementation (the repository has no `AGENTS.md`). Do not base new feature work on an unrelated in-progress branch without coordinator selection.
+- Python setup: `uv sync` (the `dev` dependency group is synced by default); pinned LilyPond setup follows `docs/TYPESETTING.md`. Native compiler tests use the existing `lilypond` marker and explicitly report skipped tests.
 - Web setup: `cd web` then `pnpm install --frozen-lockfile`. Change dependencies only in their owning task and regenerate `pnpm-lock.yaml` through pnpm.
 - A focused failure is an expected assertion/import failure. Syntax errors, missing unrelated tools, or a skipped compiler test are not meaningful red/green evidence.
+- Production web builds need `PUBLIC_ASSET_BASE`; agents run `PUBLIC_ASSET_BASE=/systems pnpm build` because `web/.env` is a 1Password pipe.
 - Run targeted tests first. Integration gates run `uv run pytest -q -m "not slow"`, `uv run ruff check pipeline tools tests`, and web `pnpm test`, `pnpm typecheck`, `pnpm build`, `pnpm test:e2e`. Source/slow suites run in the configured CI environment with their assets; do not claim coverage from missing source fixtures.
 - Add meaningful mutation, timing, boundary, and PDF geometry tests. Do not manufacture large numbers of tests that merely repeat constants or implementation internals.
 - Never commit temporary compiler environments, generated bulk render outputs, secrets, or absolute developer paths. Check in small reproducible fixtures with source attribution and fixture-generation instructions.
@@ -148,9 +157,10 @@ Worker protocol: `{type:'layout', request:LayoutRequest}`, `{type:'cancel', toke
 
 | Gate | Required evidence | Decision owner |
 | --- | --- | --- |
-| G0 interface | B1 complete desktop/narrow mockups; controls and mixed sources | User |
-| G1 musical fidelity | A1–A5 schema/semantic/mutation results and visual packet | Independent reviewer recommendation; designated maintainer approval |
-| G2 rendering/PDF | B2/B10 font, vector, six paper/orientation and manual-break matrix | Independent rendering reviewer |
+| S0–S7 spikes | Decision entries in the decision log with evidence (extraction, Verovio layout, text face + vector PDF, schema validator, WASM bundling, iPad dimensions) | Coordinator; S1/S2/S4 blockers escalate to user |
+| G0 interface | B1 mockups: 13 scenarios at 1280/768/390 px including iPad and Custom page sizes | User |
+| G1 musical fidelity | A1–A5 schema/semantic/mutation results and visual packets for all fixtures F1–F5 | Independent reviewer recommendation; user signature (A5d) |
+| G2 rendering/PDF | B2/B10a contracts §3 matrix, vector-only PDF, exact page size; B10b real-iPad forScore import and printed staff measurement | Independent rendering reviewer + user (B10b) |
 | G3 resources/security | C1/C2 isolated CI, bounded jobs, measured desktop/tablet limits | Coordinator/reviewer |
 | G4 pilot enablement | Current approved provenance, all integration checks, rollback tested | Designated maintainer |
 

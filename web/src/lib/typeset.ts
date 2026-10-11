@@ -125,6 +125,10 @@ export interface ExportRun {
   readonly label: string | null;
   readonly letter: string | null;
   readonly a4: string | null;
+  /** The typeset segment's catalogue target and render hash, which the custom
+   * export uses to find an approved conversion; null for scans. */
+  readonly target: string | null;
+  readonly hash: string | null;
 }
 
 /** The runs of systems start..end (exclusive) of a piece, in order. */
@@ -134,7 +138,7 @@ export function exportRuns(piece: Piece, start: number, end: number,
   const out: ExportRun[] = [];
   let scans = 0;
   const flush = (): void => {
-    if (scans > 0) out.push({ count: scans, key: null, label: null, letter: null, a4: null });
+    if (scans > 0) out.push({ count: scans, key: null, label: null, letter: null, a4: null, target: null, hash: null });
     scans = 0;
   };
   const typeset = new Map(segments(piece, find).filter((s) => s.render).map((s) => [s.start, s]));
@@ -143,7 +147,7 @@ export function exportRuns(piece: Piece, start: number, end: number,
     if (seg?.render && seg.end <= end) {
       flush();
       out.push({ count: seg.end - seg.start, key: segmentKey(piece, seg.start), label: labels.get(seg.start) ?? null,
-                 letter: seg.render.letter, a4: seg.render.a4 });
+                 letter: seg.render.letter, a4: seg.render.a4, target: seg.target, hash: seg.render.hash });
       i = seg.end;
       continue;
     }

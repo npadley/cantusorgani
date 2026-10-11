@@ -12,11 +12,11 @@
     "backup": "wrangler d1 export cantusorgani-corrections --output backups/$(date -u +%Y%m%dT%H%M%SZ).sql"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20260928.1",
-    "@vitest/coverage-v8": "^5.0.2",
+    "@cloudflare/workers-types": "^5.20261002.1",
+    "@vitest/coverage-v8": "^5.0.3",
     "typescript": "^7.0.2",
-    "vite": "^8.3.1",
-    "vitest": "^5.0.2",
-    "wrangler": "^4.142.0"
+    "vite": "^8.3.2",
+    "vitest": "^5.0.3",
+    "wrangler": "^4.147.0"
   }
 }

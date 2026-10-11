@@ -1,0 +1,912 @@
+0	-	-	version	listen_full/1	2.26.0
+0	-	up	staff	1
+0	-	down	staff	2
+0	-	up	key	-2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:10:1
+0	up:chant	up	voice	0	voiceOne
+0	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:11
+0	-	up	key	-2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:10:1
+0	up:#1	up	voice	1	voiceTwo
+0	up:#1	up	rest	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:0
+0	-	down	key	-2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:10:1
+0	down:#2	down	voice	2	voiceOne
+0	down:#2	down	rest	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:0
+0	-	down	key	-2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:10:1
+0	down:#3	down	voice	3	voiceTwo
+0	down:#3	down	rest	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:0
+0	-	down	key	-2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:10:1
+0	lyrics:#0	up:chant	lyric	Al	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:38:0
+0	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:38:3
+0	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:11
+0	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:11
+0	up:#1	up	rhead	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:0
+0	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:0
+0	-	up	clef	clefs.G	-2	-
+0	down:#2	down	rhead	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:0
+0	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:0
+0	down:#3	down	rhead	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:0
+0	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:0
+0	-	down	clef	clefs.F	2	-
+1/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:15
+1/4	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:19
+1/4	up:#1	up	note	f	0	4	1	0	2	1	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:3
+1/4	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:11
+1/4	down:#2	down	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:3
+1/4	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:11
+1/4	down:#3	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:3
+1/4	lyrics:#0	up:chant	lyric	le	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:38:6
+1/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:38:9
+1/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:15
+1/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:15
+1/4	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:3
+1/4	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:3
+1/4	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:3
+1/4	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:3
+1/4	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:3
+1/4	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:3
+1/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:21
+1/2	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:21
+1/2	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:21
+3/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:30
+3/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:30
+3/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:30
+1	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:34
+1	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:37
+1	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:34
+1	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:34
+5/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:39
+5/4	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:13
+5/4	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:13
+5/4	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:17
+5/4	down:#3	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:10
+5/4	lyrics:#0	up:chant	lyric	lú	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:38:12
+5/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:38:15
+5/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:39
+5/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:39
+5/4	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:13
+5/4	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:13
+5/4	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:13
+5/4	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:13
+5/4	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:10
+5/4	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:10
+3/2	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:43
+3/2	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:48
+3/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:38:18
+3/2	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:43
+3/2	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:43
+7/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:50
+7/4	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:55
+7/4	up:chant	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:57
+7/4	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:17
+7/4	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:25
+7/4	down:#2	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:19
+7/4	down:#3	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:13
+7/4	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:20
+7/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:50
+7/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:50
+7/4	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:17
+7/4	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:17
+7/4	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:19
+7/4	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:19
+7/4	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:13
+7/4	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:13
+2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:59
+2	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:65
+2	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:59
+2	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:59
+9/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:67
+9/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:67
+9/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:67
+5/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:71
+5/2	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:27
+5/2	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:27
+5/2	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:22
+5/2	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:71
+5/2	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:71
+5/2	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:27
+5/2	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:27
+5/2	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:27
+5/2	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:27
+5/2	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:22
+5/2	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:22
+11/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:75
+11/4	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:78
+11/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:75
+11/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:75
+3	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:80
+3	up:#1	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:31
+3	down:#2	down	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:32
+3	down:#3	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:25
+3	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:38:20
+3	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:80
+3	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:48:80
+3	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:31
+3	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:31
+3	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:32
+3	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:32
+3	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:25
+3	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:25
+13/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:2
+13/4	up:#1	up	rest	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:35
+13/4	down:#2	down	rest	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:36
+13/4	down:#3	down	rest	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:28
+13/4	lyrics:#0	up:chant	lyric	ia,	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:38:22
+13/4	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+13/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:2
+13/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:2
+13/4	up:#1	up	rhead	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:35
+13/4	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:35
+13/4	down:#2	down	rhead	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:36
+13/4	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:36
+13/4	down:#3	down	rhead	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:28
+13/4	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:28
+7/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:6
+7/2	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:10
+7/2	up:#1	up	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:38
+7/2	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:46
+7/2	down:#2	down	note	f	0	3	1	0	2	1	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:39
+7/2	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:46
+7/2	down:#3	down	note	a	0	2	1	0	2	1	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:31
+7/2	lyrics:#0	up:chant	lyric	al	 * 	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:40:0
+7/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:40:3
+7/2	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:6
+7/2	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:6
+7/2	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:38
+7/2	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:38
+7/2	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:39
+7/2	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:39
+7/2	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:31
+7/2	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:31
+15/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:12
+15/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:12
+15/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:12
+4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:21
+4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:21
+4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:21
+17/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:25
+17/4	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:28
+17/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:25
+17/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:25
+9/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:30
+9/2	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:48
+9/2	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:52
+9/2	down:#2	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:48
+9/2	down:#3	down	note	f	0	2	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:39
+9/2	lyrics:#0	up:chant	lyric	le	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:40:6
+9/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:40:9
+9/2	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:30
+9/2	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:30
+9/2	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:48
+9/2	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:48
+9/2	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:48
+9/2	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:48
+9/2	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:39
+9/2	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:39
+19/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:34
+19/4	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:39
+19/4	lyrics:#0	up:chant	lyric	lú	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:40:12
+19/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:40:15
+19/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:34
+19/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:34
+5	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:41
+5	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:46
+5	up:chant	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:48
+5	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:54
+5	down:#2	down	note	d	0	3	1	0	5	2	5/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:51
+5	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:58
+5	down:#3	down	note	g	0	2	1	0	5	2	5/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:43
+5	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:41
+5	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:41
+5	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:54
+5	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:54
+5	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:51
+5	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:51
+5	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:43
+5	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:43
+21/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:50
+21/4	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:56
+21/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:50
+21/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:50
+11/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:58
+11/2	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:58
+11/2	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:58
+23/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:62
+23/4	up:#1	up	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:62
+23/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:62
+23/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:62
+23/4	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:62
+23/4	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:62
+6	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:66
+6	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:69
+6	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:66
+6	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:66
+25/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:71
+25/4	up:#1	up	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:67
+25/4	down:#2	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:60
+25/4	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:51
+25/4	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:54
+25/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:40:18
+25/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:71
+25/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:49:71
+25/4	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:67
+25/4	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:61:67
+25/4	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:60
+25/4	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:72:60
+25/4	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:51
+25/4	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:83:51
+13/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:1
+13/2	up:#1	up	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:62:0
+13/2	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:62:5
+13/2	down:#2	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:73:0
+13/2	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:84:0
+13/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:40:20
+13/2	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+13/2	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:1
+13/2	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:1
+13/2	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+13/2	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:62:0
+13/2	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:62:0
+13/2	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+13/2	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:73:0
+13/2	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:73:0
+13/2	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+13/2	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:84:0
+13/2	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:84:0
+27/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:5
+27/4	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:9
+27/4	lyrics:#0	up:chant	lyric	ia.	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:40:22
+27/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:5
+27/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:5
+7	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:11
+7	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:14
+7	up:chant	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:16
+7	up:#1	up	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:62:7
+7	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:73:3
+7	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:84:3
+7	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:84:10
+7	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:11
+7	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:11
+7	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:62:7
+7	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:62:7
+7	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:73:3
+7	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:73:3
+7	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:84:3
+7	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:84:3
+29/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:18
+29/4	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:22
+29/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:18
+29/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:18
+15/2	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:24
+15/2	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:29
+15/2	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:24
+15/2	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:24
+31/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:31
+31/4	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:35
+31/4	up:#1	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:62:16
+31/4	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:62:22
+31/4	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:73:10
+31/4	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:73:15
+31/4	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:84:12
+31/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:41:0
+31/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:31
+31/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:31
+31/4	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:62:16
+31/4	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:62:16
+31/4	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:73:10
+31/4	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:73:10
+31/4	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:84:12
+31/4	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:84:12
+8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:37
+8	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:62:24
+8	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:62:30
+8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:37
+8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:37
+8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:62:24
+8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:62:24
+33/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:43
+33/4	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:46
+33/4	down:#2	down	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:73:17
+33/4	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:73:22
+33/4	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:84:15
+33/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:43
+33/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:50:43
+33/4	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:73:17
+33/4	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:73:17
+33/4	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:84:15
+33/4	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:84:15
+17/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:1
+17/2	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:63:0
+17/2	down:#2	down	note	b	-1	3	1	0	5	2	5/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:74:0
+17/2	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:74:9
+17/2	down:#3	down	note	e	-1	3	1	0	5	2	5/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:85:0
+17/2	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:85:9
+17/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:41:2
+17/2	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+17/2	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:1
+17/2	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:1
+17/2	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+17/2	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:63:0
+17/2	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:63:0
+17/2	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+17/2	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:74:0
+17/2	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:74:0
+17/2	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+17/2	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:85:0
+17/2	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:85:0
+35/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:5
+35/4	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:11
+35/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:41:4
+35/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:5
+35/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:5
+9	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:13
+9	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:16
+9	up:chant	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:18
+9	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:63:6
+9	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:13
+9	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:13
+9	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:63:6
+9	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:63:6
+37/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:20
+37/4	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:24
+37/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:20
+37/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:20
+19/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:26
+19/2	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:29
+19/2	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:26
+19/2	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:26
+39/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:31
+39/4	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:35
+39/4	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:63:14
+39/4	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:63:18
+39/4	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:74:11
+39/4	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:74:16
+39/4	down:#3	down	note	e	-1	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:85:11
+39/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:41:6
+39/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:31
+39/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:31
+39/4	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:63:14
+39/4	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:63:14
+39/4	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:74:11
+39/4	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:74:11
+39/4	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:85:11
+39/4	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:85:11
+10	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:37
+10	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:37
+10	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:37
+41/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:41
+41/4	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:44
+41/4	up:chant	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:46
+41/4	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:63:20
+41/4	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:74:18
+41/4	down:#3	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:85:16
+41/4	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:85:19
+41/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:41
+41/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:41
+41/4	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:63:20
+41/4	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:63:20
+41/4	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:74:18
+41/4	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:74:18
+41/4	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:85:16
+41/4	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:85:16
+21/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:48
+21/2	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:52
+21/2	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:48
+21/2	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:48
+43/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:54
+43/4	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:57
+43/4	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:74:23
+43/4	down:#3	down	note	f	0	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:85:21
+43/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:54
+43/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:51:54
+43/4	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:74:23
+43/4	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:74:23
+43/4	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:85:21
+43/4	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:85:21
+11	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:1
+11	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:5
+11	up:#1	up	note	d	0	4	1	0	3	1	3/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:0
+11	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:8
+11	down:#2	down	note	b	-1	3	1	0	3	1	3/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:0
+11	down:#3	down	note	b	-1	2	1	0	3	1	3/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:0
+11	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:10
+11	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:41:8
+11	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+11	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:1
+11	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:1
+11	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+11	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:0
+11	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:0
+11	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+11	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:0
+11	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:0
+11	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2
+11	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:0
+11	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:0
+45/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:7
+45/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:7
+45/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:7
+23/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:16
+23/2	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:16
+23/2	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:16
+47/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:20
+47/4	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:25
+47/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:20
+47/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:20
+12	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:27
+12	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:41:10
+12	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:27
+12	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:27
+49/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:33
+49/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:41:12
+49/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:33
+49/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:33
+25/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:39
+25/2	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:45
+25/2	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:10
+25/2	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:18
+25/2	down:#2	down	note	f	0	3	1	0	2	1	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:9
+25/2	down:#3	down	note	b	-1	2	1	0	2	1	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:12
+25/2	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:22
+25/2	lyrics:#0	up:chant	lyric	℣.	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:41:14
+25/2	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:39
+25/2	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:39
+25/2	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:10
+25/2	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:10
+25/2	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:9
+25/2	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:9
+25/2	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:12
+25/2	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:12
+51/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:47
+51/4	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:50
+51/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:47
+51/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:47
+13	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:52
+13	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:56
+13	lyrics:#0	up:chant	lyric	E	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:42:0
+13	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:42:2
+13	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:52
+13	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:52
+53/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:58
+53/4	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:61
+53/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:58
+53/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:58
+27/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:63
+27/2	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:67
+27/2	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:20
+27/2	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:24
+27/2	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:16
+27/2	down:#3	down	note	b	-1	2	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:24
+27/2	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:30
+27/2	lyrics:#0	up:chant	lyric	go	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:42:5
+27/2	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:63
+27/2	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:63
+27/2	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:20
+27/2	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:20
+27/2	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:16
+27/2	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:16
+27/2	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:24
+27/2	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:24
+55/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:69
+55/4	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:72
+55/4	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:69
+55/4	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:69
+14	up:chant	up	note	f	0	4	2	1	1	1	3/8	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:74
+14	up:#1	up	note	d	0	4	1	0	7	4	7/8	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:26
+14	down:#2	down	note	b	-1	3	1	0	7	4	7/8	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:19
+14	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:28
+14	down:#3	down	note	b	-1	2	1	0	7	4	7/8	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:32
+14	lyrics:#0	up:chant	lyric	di	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:42:8
+14	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:42:11
+14	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:74
+14	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:74
+14	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:26
+14	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:26
+14	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:19
+14	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:19
+14	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:32
+14	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:32
+115/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:79
+115/8	lyrics:#0	up:chant	lyric	lé	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:42:14
+115/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:42:17
+115/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:79
+115/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:79
+117/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:83
+117/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:89
+117/8	lyrics:#0	up:chant	lyric	cto	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:42:20
+117/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:83
+117/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:83
+119/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:91
+119/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:94
+119/8	up:chant	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:96
+119/8	up:#1	up	note	e	-1	4	1	0	5	2	5/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:34
+119/8	down:#2	down	note	b	-1	3	1	0	5	2	5/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:30
+119/8	down:#3	down	note	c	0	3	1	0	5	2	5/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:42
+119/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:91
+119/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:91
+119/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:34
+119/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:34
+119/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:30
+119/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:30
+119/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:42
+119/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:42
+121/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:98
+121/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:102
+121/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:98
+121/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:98
+123/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:104
+123/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:107
+123/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:104
+123/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:104
+125/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:109
+125/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:113
+125/8	lyrics:#0	up:chant	lyric	me	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:42:24
+125/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:42:27
+125/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:109
+125/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:109
+127/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:115
+127/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:115
+127/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:115
+129/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:119
+129/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:122
+129/8	up:chant	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:124
+129/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:44
+129/8	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:39
+129/8	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:49
+129/8	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:56
+129/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:119
+129/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:119
+129/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:44
+129/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:64:44
+129/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:39
+129/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:75:39
+129/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:49
+129/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:86:49
+131/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:126
+131/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:130
+131/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:126
+131/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:126
+133/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:132
+133/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:135
+133/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:132
+133/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:52:132
+135/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:1
+135/8	up:#1	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:65:0
+135/8	down:#2	down	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:76:0
+135/8	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:87:0
+135/8	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:87:3
+135/8	lyrics:#0	up:chant	lyric	o,	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:42:30
+135/8	up:chant	up	div	maxima	data/typeset/include/noh2.ily:30:2
+135/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:1
+135/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:1
+135/8	up:#1	up	div	maxima	data/typeset/include/noh2.ily:30:2
+135/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:65:0
+135/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:65:0
+135/8	down:#2	down	div	maxima	data/typeset/include/noh2.ily:30:2
+135/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:76:0
+135/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:76:0
+135/8	down:#3	down	div	maxima	data/typeset/include/noh2.ily:30:2
+135/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:87:0
+135/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:87:0
+137/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:5
+137/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:9
+137/8	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:65:6
+137/8	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:65:10
+137/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:76:4
+137/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:87:5
+137/8	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:87:8
+137/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:42:33
+137/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:5
+137/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:5
+137/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:65:6
+137/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:65:6
+137/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:76:4
+137/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:76:4
+137/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:87:5
+137/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:87:5
+139/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:11
+139/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:43
+139/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:11
+139/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:11
+141/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:45
+141/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:49
+141/8	up:#1	up	note	f	0	4	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:65:12
+141/8	down:#2	down	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:76:8
+141/8	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:76:17
+141/8	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:87:10
+141/8	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:87:17
+141/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:42:35
+141/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:45
+141/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:45
+141/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:65:12
+141/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:65:12
+141/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:76:8
+141/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:76:8
+141/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:87:10
+141/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:87:10
+143/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:51
+143/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:51
+143/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:51
+145/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:57
+145/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:60
+145/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:57
+145/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:53:57
+147/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:1
+147/8	up:#1	up	rest	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:0
+147/8	down:#2	down	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:0
+147/8	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:5
+147/8	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:0
+147/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:42:37
+147/8	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+147/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:1
+147/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:1
+147/8	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+147/8	up:#1	up	rhead	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:0
+147/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:0
+147/8	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+147/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:0
+147/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:0
+147/8	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+147/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:0
+147/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:0
+149/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:5
+149/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:9
+149/8	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:3
+149/8	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:11
+149/8	down:#2	down	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:7
+149/8	down:#3	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:3
+149/8	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:10
+149/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:42:39
+149/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:5
+149/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:5
+149/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:3
+149/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:3
+149/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:7
+149/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:7
+149/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:3
+149/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:3
+151/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:11
+151/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:14
+151/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:11
+151/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:11
+153/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:16
+153/8	lyrics:#0	up:chant	lyric	et	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:43:0
+153/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:16
+153/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:16
+155/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:20
+155/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:24
+155/8	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:13
+155/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:16
+155/8	down:#3	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:12
+155/8	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:15
+155/8	lyrics:#0	up:chant	lyric	ad	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:43:3
+155/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:20
+155/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:20
+155/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:13
+155/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:13
+155/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:16
+155/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:16
+155/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:12
+155/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:12
+157/8	up:chant	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:26
+157/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:29
+157/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:26
+157/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:26
+159/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:32
+159/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:38
+159/8	up:#1	up	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:17
+159/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:19
+159/8	down:#3	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:17
+159/8	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:20
+159/8	lyrics:#0	up:chant	lyric	me	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:43:6
+159/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:32
+159/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:32
+159/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:17
+159/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:17
+159/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:19
+159/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:19
+159/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:17
+159/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:17
+161/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:40
+161/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:72
+161/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:40
+161/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:40
+163/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:74
+163/8	up:#1	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:22
+163/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:22
+163/8	down:#3	down	note	f	0	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:22
+163/8	lyrics:#0	up:chant	lyric	con	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:43:9
+163/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:43:13
+163/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:74
+163/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:54:74
+163/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:22
+163/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:66:22
+163/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:22
+163/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:77:22
+163/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:22
+163/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:88:22
+165/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:1
+165/8	up:#1	up	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:67:0
+165/8	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:67:5
+165/8	down:#2	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:78:0
+165/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:89:0
+165/8	lyrics:#0	up:chant	lyric	vér	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:43:16
+165/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:43:20
+165/8	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+165/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:1
+165/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:1
+165/8	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+165/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:67:0
+165/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:67:0
+165/8	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+165/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:78:0
+165/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:78:0
+165/8	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+165/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:89:0
+165/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:89:0
+167/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:5
+167/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:9
+167/8	lyrics:#0	up:chant	lyric	si	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:43:23
+167/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:43:26
+167/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:5
+167/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:5
+169/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:11
+169/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:14
+169/8	up:chant	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:16
+169/8	up:#1	up	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:67:7
+169/8	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:78:3
+169/8	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:89:3
+169/8	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:89:10
+169/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:11
+169/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:11
+169/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:67:7
+169/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:67:7
+169/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:78:3
+169/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:78:3
+169/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:89:3
+169/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:89:3
+171/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:18
+171/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:22
+171/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:18
+171/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:18
+173/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:24
+173/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:29
+173/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:24
+173/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:24
+175/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:31
+175/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:35
+175/8	up:#1	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:67:16
+175/8	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:67:22
+175/8	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:78:10
+175/8	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:78:15
+175/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:89:12
+175/8	lyrics:#0	up:chant	lyric	o	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:43:29
+175/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:31
+175/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:31
+175/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:67:16
+175/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:67:16
+175/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:78:10
+175/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:78:10
+175/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:89:12
+175/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:89:12
+177/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:37
+177/8	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:67:24
+177/8	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:67:30
+177/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:37
+177/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:37
+177/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:67:24
+177/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:67:24
+179/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:43
+179/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:46
+179/8	down:#2	down	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:78:17
+179/8	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:78:22
+179/8	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:89:15
+179/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:43
+179/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:55:43
+179/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:78:17
+179/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:78:17
+179/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:89:15
+179/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:89:15
+181/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:1
+181/8	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:0
+181/8	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:0
+181/8	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:5
+181/8	down:#3	down	note	e	-1	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:0
+181/8	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:5
+181/8	lyrics:#0	up:chant	lyric	e	 * 	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:44:20
+181/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:44:22
+181/8	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+181/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:1
+181/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:1
+181/8	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+181/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:0
+181/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:0
+181/8	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+181/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:0
+181/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:0
+181/8	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+181/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:0
+181/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:0
+183/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:5
+183/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:11
+183/8	lyrics:#0	up:chant	lyric	jus.	-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:44:25
+183/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:5
+183/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:5
+185/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:13
+185/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:16
+185/8	up:chant	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:18
+185/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:6
+185/8	down:#2	down	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:7
+185/8	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:16
+185/8	down:#3	down	note	e	-1	3	1	0	3	2	3/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:7
+185/8	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:16
+185/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:13
+185/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:13
+185/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:6
+185/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:6
+185/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:7
+185/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:7
+185/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:7
+185/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:7
+187/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:20
+187/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:24
+187/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:20
+187/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:20
+189/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:26
+189/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:29
+189/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:26
+189/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:26
+191/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:31
+191/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:35
+191/8	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:14
+191/8	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:18
+191/8	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:18
+191/8	down:#2	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:23
+191/8	down:#3	down	note	e	-1	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:18
+191/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:45:0
+191/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:31
+191/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:31
+191/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:14
+191/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:14
+191/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:18
+191/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:18
+191/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:18
+191/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:18
+193/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:37
+193/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:37
+193/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:37
+195/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:41
+195/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:44
+195/8	up:chant	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:46
+195/8	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:20
+195/8	up:#1	up	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:24
+195/8	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:25
+195/8	down:#3	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:23
+195/8	down:#3	down	tie	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:26
+195/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:41
+195/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:41
+195/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:20
+195/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:20
+195/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:25
+195/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:25
+195/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:23
+195/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:23
+197/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:48
+197/8	up:chant	up	slur	-1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:52
+197/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:48
+197/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:48
+199/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:54
+199/8	up:chant	up	slur	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:57
+199/8	up:#1	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:26
+199/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:30
+199/8	down:#3	down	note	f	0	3	2	0	1	1	1/4	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:28
+199/8	up:chant	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:54
+199/8	up:chant	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:56:54
+199/8	up:#1	up	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:26
+199/8	up:#1	up	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:68:26
+199/8	down:#2	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:30
+199/8	down:#2	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:79:30
+199/8	down:#3	down	head	0	normal	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:28
+199/8	down:#3	down	stem	1	data/typeset/src/vol-3/al_ego_dilecto.csv.ly:90:28
+201/8	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+201/8	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+201/8	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+201/8	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2

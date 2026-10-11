@@ -2,11 +2,11 @@
 
 Date: October 6, 2026
 
-Status: Draft for user review. The Kyrie IX feasibility experiment informed this specification; the complete editor interface and production engraving have not been approved. This document defines the proposed behavior and release gates, not an implementation plan.
+Status: Revised 2026-10-08 after CEO, design and engineering review. The settled decisions are in the [decision log](../plans/export-layout-decisions.md) (D1–D11). The screen, states and copy are in the [UI specification](2026-10-08-export-editor-ui-spec.md); types and units are in the [frozen contracts](../plans/2026-10-08-export-contracts.md); work is in the [execution packet](../plans/2026-10-08-export-execution-packet.md). Where this document conflicts with those, they win. The Kyrie IX feasibility experiment informed this specification; the complete editor mockups (gate G0) and production engraving (gate G1) are not yet approved.
 
 ## 1. Outcome
 
-Let organists prepare readable accompaniment PDFs for their paper, printer, and music desk. Users can choose parts, paper size, orientation, staff size, supported fonts, spacing, and system/page breaks, then download a PDF that matches the paper preview.
+Let organists prepare readable accompaniment PDFs for their paper, printer, music desk, **or tablet reader app such as forScore**. Users choose parts, page size (print, iPad screen, or custom), orientation, margins, staff size, systems per page, spacing, and system/page breaks; the music reflows, and they download a PDF whose pages are exactly the chosen physical size and match the paper preview (decisions D1, D2).
 
 Build a reusable conversion pipeline so most supported LilyPond scores can enter this editor automatically. Conversion must preserve the music and expose unsupported engraving instead of silently simplifying it. LilyPond remains the authoritative source; MEI is a generated, reviewed derivative used for browser layout.
 
@@ -23,7 +23,7 @@ The experiment independently generated MusicXML 4.0 with `senza-misura` and MEI 
 It also established that:
 
 - Browser layout responds to paper dimensions, staff size, line breaks, and a systems-per-page maximum.
-- Full-page SVGs need visible page boundaries. With Letter, large staff, and automatic reflow, MEI placed four systems on page 1 and one on page 2; unused paper was mistaken for inter-system spacing in the experiment.
+- Full-page SVGs need visible page boundaries. With Letter, large staff, and automatic reflow, MEI placed four systems on page 1 and one on page 2; unused paper was mistaken for inter-system spacing in the experiment. **The experiment ran Verovio at `scale: 40`, so its staves were about 0.4× physical size; its system counts are not acceptance criteria (D8).**
 - Verovio's `breaks="line"` preserves source line breaks while paginating; exact `breaks="encoded"` can override the systems-per-page cap.
 - The MusicXML import placed lyrics below the staff despite requested above-staff placement. Direct MEI supported above-staff placement.
 - This experiment used modern noteheads matching the accompaniment. It did not demonstrate square-neume chant plus accompaniment in one score.
@@ -48,6 +48,7 @@ It also established that:
 - Public MusicXML export, round-trip MEI editing back into LilyPond, or treating MEI as the new master.
 - Dragging individual noteheads, arbitrary per-note spacing, or promising an exact number of systems on every page.
 - Cloud accounts, shared layout presets, or integration with Bachable/Hacklily.
+- **Music-font (Bravura) and text-font (serif/sans) choices.** v1 ships Leipzig and one bundled text face; the controls are not rendered (D3).
 
 MEI is the proposed first production target because it provides direct access to Verovio's representation and placement controls. MusicXML remains an experiment/reference, not a second production pipeline. If MEI cannot meet the pilot fidelity requirements, retain current exports and reconsider the renderer before broad conversion.
 
@@ -55,22 +56,22 @@ MEI is the proposed first production target because it provides direct access to
 
 Keep the current quick **Export PDF** action available. Add **Customize export** alongside it. Opening customization carries over the selected parts, their catalogue order, and the current scan/typeset choices. Never silently substitute MEI for a scan the reader deliberately selected.
 
-On desktop, show a compact settings column and the paper preview. On narrow screens, show settings above the preview. The header identifies the selection; the footer provides **Download PDF** and **Reset layout**. Close returns to the reading page without changing its display preferences.
+The editor is a full-screen native `<dialog>` with a history entry, so Back closes it (D7). On desktop, show a 20rem settings column and the paper preview; below 62rem, settings stack above the preview with groups collapsed except FIT. The header identifies the selection; the footer provides **Download PDF · N pages**, **Reset layout**, and **Undo** after a reversible change. Close returns to the reading page without changing its display preferences. The complete screen, state and copy specification is the [UI specification](2026-10-08-export-editor-ui-spec.md).
 
-Settings are grouped as Paper, Music, and Breaks. Availability is specific to each selected part. Mixed exports identify which parts support music controls with plain labels such as “Customizable typeset” and “Original scan.” Technical format names do not belong in the ordinary export flow.
+Settings are grouped as **FIT** (music size, systems per page, live result line), **PAGE**, **BREAKS**, and a closed **More options** (sung text size, space between systems). Availability is specific to each selected part. Mixed exports identify which parts support music controls with plain labels such as “Customizable typeset” and “Original scan.” Technical format names do not belong in the ordinary export flow.
 
 ### Controls
 
 | Control | Proposed first-release behavior |
 | --- | --- |
-| Paper size | Letter (215.9 × 279.4 mm), A4 (210 × 297 mm), A5 (148 × 210 mm). |
-| Orientation | Separate Portrait/Landscape control for **every** paper size. Swap dimensions; do not rotate the music as an image. |
-| Margins | One margin value, 8–25 mm; default 12 mm. Applied to every page, with headings inside the usable area. |
-| Staff size | Small 5.6 mm, Medium 7.2 mm, Large 9.6 mm; Medium default. These are physical staff heights, not preview zoom. |
-| Music font | Leipzig default; Bravura alternative, enabled only after glyph and PDF verification for the approved pilot. |
-| Text font | Bundled serif default and bundled sans-serif alternative. The same font assets and metrics must be used for lyrics/headings in preview and PDF. |
+| Page size | **Print:** Letter (215.9 × 279.4 mm), A4 (210 × 297 mm), A5 (148 × 210 mm). **iPad:** mini, 11-inch, 13-inch at the physical screen size, so the PDF fills the screen in forScore (dimensions in contracts `PAGE_PRESETS`, verified by spike S7). **Custom:** width × height, 90–450 mm each side, long side ≤ 3× short side, entered in mm or inches (D4). |
+| Orientation | Separate Portrait/Landscape control for **every** page size. Swap dimensions; do not rotate the music as an image. |
+| Margins | One margin value, 3–25 mm; default 12 mm for print sizes, 4 mm for iPad and Custom. Print sizes below 6 mm show a non-blocking printer advisory. Applied to every page, with headings inside the usable area. |
+| Staff size ("Music size") | Small 5.6 mm, Medium 7.2 mm, Large 9.6 mm; Medium default. These are physical staff heights (Verovio `unit` 7/9/12 at `scale: 100`), not preview zoom. |
+| Music font | Leipzig only in v1; no control (D3). |
+| Text font | One bundled face in v1, chosen by spike S3 to match Verovio's lyric metrics; no control (D3). The same font assets and metrics are used for lyrics/headings in preview and PDF. |
 | Lyrics size | Small, Medium (default), Large, initially Verovio `lyricSize` 3.5, 4.5, and 5.5 MEI units. Relative to staff size; values are versioned and subject to pilot visual approval. |
-| Systems per page | Automatic or a **maximum** of 1–8. Fewer may fit because of staff size, margins, headings, and explicit breaks. |
+| Systems per page | "As many as fit" or a **maximum** of 1–8, set with a −/+ stepper whose first − press goes to one fewer than currently fit. Fewer may fit because of staff size, margins, headings, and explicit breaks. |
 | System spacing | Compact, Normal (default), Spacious, initially Verovio `spacingSystem` 2, 4, and 8 MEI units. These are minimum-spacing settings, subject to collision avoidance and pilot approval. |
 | Line breaks | Original line breaks (default for typeset parts) or Automatic reflow. Both paginate for the chosen paper and system cap. |
 | Part starts | Each selected part starts on a new page in the first release. This preserves current typeset behavior and avoids ambiguous scan/typeset joins. |
@@ -83,23 +84,23 @@ Fixed LilyPond-only parts are labeled “Fixed typeset layout.” Their original
 
 For approved MEI parts, selecting a musical boundary offers **Start new system here**, **Start new page here**, and **Remove my break**. Show boundaries in an editing overlay; omit them from the PDF. Use “phrase” or “break point,” not invented metrical measure numbers, for free-meter chant.
 
-Only offer boundaries the converter has marked safe: all voices can cross without lost notes, ties, or lyrics. Preserve explicit user anchors when paper/orientation/staff size changes. Defaults and user overrides are separate so **Reset layout** removes overrides without deleting the score's source breaks.
+Only offer boundaries the converter has marked safe: all voices can cross without lost notes, ties, lyrics, or voice-line glissandi. Each boundary carries `afterText` (the last sung word before it) so labels read “after ‘eléison’”. Break points are shown only in an explicit break-editing mode (UI §4). Preserve explicit user anchors when page/orientation/staff size changes. Defaults and user overrides are separate: **Reset layout** removes the user's breaks and restores every setting to its default **except page size and orientation**; source breaks remain; Undo is offered instead of a confirmation.
 
 Priority is: user page breaks, user system breaks, selected original/automatic line-break policy, then automatic page packing under the system cap. A page-break anchor also begins a new system. Automatic pagination may add breaks. It must not remove user breaks or exceed the cap. Reject unsatisfiable layout constraints with a specific explanation rather than silently changing staff size or discarding anchors.
 
 ## 5. Preview and export contract
 
-**Paper preview** is the primary view. Show the selected physical aspect ratio, page boundary, margin area, and “Page N of M” outside the printable page. Display actual page/system counts after rendering. Blank paper at a page bottom remains visible and clearly belongs to that page. Preview zoom changes display magnification only.
+**Paper preview** is the primary view. Show the selected physical aspect ratio, page boundary, margin area, and “Page N of M · preset” outside the printable page. The page stays white (`--print-paper`) in dark mode. Display actual page/system counts after rendering. Blank paper at a page bottom remains visible and clearly belongs to that page; when more than 25% of a page's usable height is unused and another page of the same part follows, show “The rest of page N is blank: the next system doesn't fit.” outside the page. Preview zoom changes display magnification only.
 
 Offer **Continuous view** as a secondary reading aid. It can crop unused page bottoms while preserving a consistent display scale and content order. It does not change the paper layout or export and is visibly labeled as a reading view.
 
-Coalesce rapid setting changes in a worker. Show “Updating preview…” while retaining the previous preview. Every job has a revision token; obsolete results cannot replace the latest preview. Download is disabled until all selected parts have a current, complete layout. Errors identify the affected part and retain the user's settings.
+The preview reflows on every change with no Apply button; stepper presses and custom-size entries coalesce for 250 ms. Show “Updating preview…” (after 300 ms) while retaining the previous preview. Every job has a revision token; obsolete results cannot replace the latest preview. Download is disabled until all selected parts have a current, complete layout. Errors identify the affected part and retain the user's settings. Visible error text comes only from the UI copy deck keyed by diagnostic code, reason and suggestions; worker messages are never shown.
 
 One canonical layout result supplies both the paper preview and PDF. It includes page dimensions, page SVGs, headings/rubrics/credits, ordered part IDs, effective break anchors, font profile, source hashes, renderer version, and a settings digest. PDF generation must use this result rather than rerunning a separate pagination algorithm.
 
 PDF pages have the selected physical dimensions. Typeset notation stays vector; required fonts are embedded or converted to paths. Scans retain their original resolution. Include existing attribution, rubrics, translations, and selected part headings. Download success reports the actual page count and file size.
 
-Use a dedicated SVG-to-vector-PDF adapter and the existing PDF assembly layer for scan/fixed-page composition. PDFKit with SVG-to-PDFKit is the proposed adapter to evaluate; it is **not yet verified for these Verovio assets**. Font mapping, SVG `<use>` references, accented lyrics, and page geometry must pass the PDF fidelity gate before adoption. Do not silently rasterize typeset notation or use browser print as a substitute for a reliable Download PDF action.
+Use a dedicated SVG-to-vector-PDF adapter and the existing PDF assembly layer for scan/fixed-page composition. Spike S4 chooses between PDFKit + SVG-to-PDFKit and a pdf-lib + fontkit walker over Verovio's SVG subset; neither is verified for these assets yet. Leipzig glyphs are SVG paths, so only text fonts are embedded. Font mapping, SVG `<use>` references, accented lyrics, and page geometry must pass the PDF fidelity gate before adoption. Do not silently rasterize typeset notation or use browser print as a substitute for a reliable Download PDF action.
 
 ## 6. Conversion architecture
 
@@ -107,11 +108,11 @@ Conversion happens at build/review time, not per visitor. The browser loads pre-
 
 ### 6.1 Catalogue audit
 
-Inventory all nonempty LilyPond sources, their dependency closures, matched catalogue targets, number of scores/staves/voices, include families, and notation/engraving constructs. Group shared patterns and emit exceptions with source locations. Report unsupported features and compilation failures explicitly. The audit must distinguish absent transcriptions from failed conversions and must not claim a coverage percentage before it is run.
+Inventory all LilyPond sources (859 at review time; none are empty, so “absent” means a catalogue target with no source), their dependency closures, matched catalogue targets, number of scores/staves/voices, include families, and notation/engraving constructs. Group shared patterns and emit exceptions with source locations. Report unsupported features and compilation failures explicitly. The audit must distinguish absent transcriptions from failed conversions and must not claim a coverage percentage before it is run. The review found 857/859 sources carry a hidden `voiceLines` voice, 92 use `\voiceLine` cross-staff glissandi and 45 use `\quil`; Kyrie IX uses none of these, so the pilot fixture set is F1–F5 (D6, contracts `PILOT_FIXTURES`).
 
 ### 6.2 Extraction and intermediate representation
 
-Use the pinned LilyPond compiler to resolve variables, relative pitches, durations, includes, and Scheme expressions. Generalize the trusted event listener or use a reviewed compiler-tree extractor where events do not preserve enough information. Do not depend on the experimental converter's line-number voice selection or its lyric-to-slur heuristic.
+Use the pinned LilyPond compiler to resolve variables, relative pitches, durations, includes, and Scheme expressions. The proposed mechanism is a new iteration-time listener (`pipeline/typeset/mei/listen_full.ily`) that reads `associatedVoiceContext` for exact lyric anchors and acknowledgers for notehead/stem/division properties; spike S1 confirms it and fixes the TSV grammar (contracts §4). The experiment's parse-tree dump (python-ly `xml-export.ily`, GPL) is not vendored (D9). Do not depend on the experimental converter's line-number voice selection or its lyric-to-slur heuristic.
 
 Capture every staff and simultaneous voice, score boundaries, exact rational onsets/durations, notated duration and scaling, pitched attacks, invisible skips/rests, keys/accidentals/clefs, ties/slurs, lyric syllables and their actual note associations, entry markers, divisions, source breaks, and supported cross-staff events. Keep resolved sounding pitch distinct from printed accidental behavior and notehead appearance.
 
@@ -155,7 +156,7 @@ Extend the export selection model without equating source scan indices with refl
 
 If a conversion is unavailable, show its existing scan or fixed typeset route. If an approved asset/renderer fails during customization, block the custom download and offer an explicit **Use original layout** recovery action. This returns to the existing quick-export controls and explains that custom music settings will not apply. Do not quietly export different notation or settings from the completed preview.
 
-Save paper/orientation preferences and versioned layout defaults locally, with graceful operation when storage is blocked. Default paper remains Letter, orientation Portrait. Migrate the current `export-paper` preference. Per-part manual overrides include the source revision; discard stale anchors with a visible explanation after a source change. Browser settings do not write to catalogue/source files.
+Save page/orientation preferences and versioned layout defaults locally (key `export-layout-v2`), with graceful operation when storage is blocked. Default paper remains Letter, orientation Portrait. Migrate the current `export-paper` preference. Per-part manual overrides include the source revision; discard stale anchors with a visible explanation after a source change. Browser settings do not write to catalogue/source files.
 
 ## 8. Acceptance criteria and release gates
 
@@ -168,15 +169,16 @@ Save paper/orientation preferences and versioned layout defaults locally, with g
 - Deliberately removed voices, changed pitches, timing changes, missing endings/lyrics, broken ties, and unsupported commands fail validation with localized diagnostics.
 - Schema validation and conversion approval are tied to the current artifact and tool versions.
 
-The representative pilot runs all six paper/orientation combinations at the default staff size, both line policies, the largest staff size on Letter portrait, both music/text font choices, and the two-systems-per-page cap. Each additional score receives semantic checks plus visual inspection at its default layout and Letter/Large/Automatic stress layout. A newly discovered feature family expands the representative matrix before that family is enabled publicly.
+The representative pilot runs the 13-case matrix in contracts §3 (print sizes in both orientations, both line policies, small/large staff, the two-systems cap, iPad mini/11-inch, and a custom 160 × 230 mm page) on every pilot fixture F1–F5. Each additional score receives semantic checks plus visual inspection at its default layout and Letter/Large/Automatic stress layout. A newly discovered feature family expands the representative matrix before that family is enabled publicly.
 
 ### Layout gate
 
-- All three paper sizes work in both orientations; dimensions and physical staff size are correct.
+- All print, iPad and custom page sizes work in both orientations; PDF pages are exactly the chosen size (± 0.01 pt) and the measured staff height is within ± 0.1 mm.
 - Original and automatic line policies preserve music. Manual breaks survive layout changes; impossible constraints explain the conflict.
 - The systems-per-page maximum is honored, with fewer systems allowed when content cannot fit.
 - Paper preview marks every page boundary; continuous view leaves the exported pagination unchanged.
-- The reported Letter/Large/Automatic MEI case visibly shows four systems on page 1 and the final system on page 2 for the pinned experiment profile. Future profile changes may change pagination, but must still clearly separate pages.
+- Every page is visibly separate and the final system is always present. No exact system count is asserted (the experiment's 4 + 1 result was measured at `scale: 40`; D8).
+- An 11-inch-preset PDF imported into forScore on a real iPad fills the screen (B10b).
 - No default supported layout clips content or loses final systems. Font/size changes preserve accents and symbols.
 - Stale jobs cannot replace newer previews; busy/error states and keyboard/touch operation work on desktop and narrow screens.
 
@@ -202,4 +204,4 @@ Before implementation, review this specification and approve the complete editor
 - Primary renderer documentation: [Verovio options](https://book.verovio.org/toolkit-reference/toolkit-options.html), [SVG geometry and physical staff size](https://book.verovio.org/advanced-topics/controlling-the-svg-output.html).
 - Encoding: [MEI conventional notation](https://music-encoding.org/guidelines/v5/content/cmn.html), [MEI neumes](https://music-encoding.org/guidelines/v5/content/neumes.html), [MusicXML senza-misura](https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/senza-misura/).
 - Proposed PDF adapter evidence: [SVG-to-PDFKit](https://github.com/alafr/SVG-to-PDFKit), [PDFKit browser support](https://pdfkit.org/docs/getting_started.html).
-- Experimental artifacts are retained in this chat's `kyrie-ix-experiment` directory: `README.md`, `convert.py`, `validation.json`, the resolved LilyPond snapshot, MusicXML/MEI, and rendered comparisons. Production fixtures must be checked into the project during implementation; they must not rely on a developer's temporary environment or chat storage.
+- Experimental artifacts are checked in by task S0: `docs/superpowers/experiments/kyrie-ix/` (README with provenance, reference-only `convert.py`), `tests/fixtures/mei/kyrie-ix/` (validation baseline, derived `baseline-events.json`, experiment MEI), and `web/src/lib/export-layout/__fixtures__/`. The originals were produced in Codex session `01a10f81-7606-7733-b9d5-b66fceed337e`. Production must not rely on a developer's temporary environment or chat storage.

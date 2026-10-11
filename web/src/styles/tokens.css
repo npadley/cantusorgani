@@ -34,6 +34,11 @@
   --s-4: 1.5rem;  --s-5: 2.5rem; --s-6: 4rem;
 
   --tap-min: 44px;    /* every interactive target, no exceptions */
+  /* The physical sheet in export previews: a proof of what prints. Never themed, so the
+     dark and inverted blocks below deliberately leave them alone. */
+  --print-paper: #ffffff;
+  --print-ink:   #000000;
+
   --measure: 62ch;
   --radius: 2px;      /* print-shop square, not app-store round */
   --page-max: 62rem;

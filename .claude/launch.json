@@ -49,6 +49,16 @@
         "cd web && exec npx wrangler pages dev dist --port 8788 --binding EDITORS=editor@example.org --binding ADMIN_DEV_EMAIL=editor@example.org"
       ],
       "port": 8788
+    },
+    {
+      "name": "device-test",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--dir",
+        "web",
+        "serve:device"
+      ],
+      "port": 4330
     }
   ]
 }

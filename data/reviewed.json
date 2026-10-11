@@ -1,6 +1,18 @@
 {
   "schema_version": 1,
   "reviewed": {
+    "part:dominica-xix-post-pentecosten/alleluia": {
+      "was": "start 11, 6 systems",
+      "date": "2026-10-04"
+    },
+    "part:dominica-xv-post-pentecosten/alleluia": {
+      "was": "start 20, 7 systems",
+      "date": "2026-10-04"
+    },
+    "part:ss-angelorum-custodum/alleluia": {
+      "was": "start 1, 6 systems",
+      "date": "2026-10-04"
+    },
     "review:noh1/page_out_of_range/05dfb5e2": {
       "was": "4c132fe0f6f4",
       "date": "2026-10-03"
@@ -708,6 +720,10 @@
     "review:noh5/uncertain_movement/ea86eadc": {
       "was": "cebec024d76f",
       "date": "2026-10-03"
+    },
+    "review:noh5/unpaired/0cc98854": {
+      "was": "87031078c375",
+      "date": "2026-10-04"
     },
     "review:noh5/unverified_pairing/90c6efa1": {
       "was": "de5588192c0c",

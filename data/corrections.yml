@@ -2705,3 +2705,43 @@
   source: editor
   date: '2026-10-04'
   editor_email: nick@padley.com
+- id: c-0304
+  target: part:dominica-v-post-pascha/alleluia:2
+  field: start_system
+  was: 20
+  value: 18
+  source: editor
+  date: '2026-10-04'
+  editor_email: nick@padley.com
+- id: c-0305
+  target: part:dominica-xv-post-pentecosten/alleluia
+  field: reviewed
+  was: start 20, 7 systems
+  value: 'yes'
+  source: editor
+  date: '2026-10-04'
+  editor_email: nick@padley.com
+- id: c-0306
+  target: part:dominica-xix-post-pentecosten/alleluia
+  field: reviewed
+  was: start 11, 6 systems
+  value: 'yes'
+  source: editor
+  date: '2026-10-04'
+  editor_email: nick@padley.com
+- id: c-0307
+  target: part:ss-angelorum-custodum/alleluia
+  field: reviewed
+  was: start 1, 6 systems
+  value: 'yes'
+  source: editor
+  date: '2026-10-04'
+  editor_email: nick@padley.com
+- id: c-0308
+  target: review:noh5/unpaired/0cc98854
+  field: reviewed
+  was: 87031078c375
+  value: 'yes'
+  source: editor
+  date: '2026-10-04'
+  editor_email: nick@padley.com
