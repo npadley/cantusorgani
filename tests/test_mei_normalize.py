@@ -31,6 +31,10 @@ PILOTS = {
     "F5": ("co_inclina_aurem_tuam.csv.tsv", "data/typeset/src/vol-2/co_inclina_aurem_tuam.csv.ly"),
     # A5g: carries ordinary (visible-note) glissandi next to voice-line glissandi; Missa IX Agnus Dei.
     "F6": ("agnus_IX.tsv", "data/typeset/src/vol-5/missa-ix/agnus_IX.ly"),
+    # A5g: Gloria IX has a chord inside a voice (<c, e>2*2, gloria_IX.ly:172); Sanctus IX has ordinary
+    # glissandi and a divisio maxima.
+    "F7": ("gloria_IX.tsv", "data/typeset/src/vol-5/missa-ix/gloria_IX.ly"),
+    "F8": ("sanctus_IX.tsv", "data/typeset/src/vol-5/missa-ix/sanctus_IX.ly"),
 }
 NORMALIZE_SOURCE = ROOT / "pipeline/typeset/mei/normalize.py"
 

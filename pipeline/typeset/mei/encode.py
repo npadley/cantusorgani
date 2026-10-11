@@ -657,6 +657,7 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                 layer_node = staff_node.add("layer", n=str(number))
                 parent = layer_node
                 current_scale: Fraction | None = None
+                chord_done: set[str] = set()
                 for frag in by_layer_measure.get((layer.id, k), []):
                     scale = frag.notated.scale
                     if scale == 1:
@@ -670,6 +671,31 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                             **{"num.visible": "false", "bracket.visible": "false"},
                         )
                         current_scale = scale
+                    # Notes of one voice that start together (a LilyPond chord) become one <chord>.
+                    if frag.event.kind == "note" and frag.mei_id not in chord_done:
+                        mates = [
+                            other for other in by_layer_measure.get((layer.id, k), [])
+                            if other.event.kind == "note" and other.onset == frag.onset and other.index == frag.index
+                            and other.duration == frag.duration and other.notated == frag.notated
+                        ]
+                        if len(mates) > 1:
+                            chord_done.update(m.mei_id for m in mates)
+                            members = [event_node(m) for m in mates]
+                            attrs = {"dur": members[0].attrs.pop("dur")}
+                            if "dots" in members[0].attrs:
+                                attrs["dots"] = members[0].attrs.pop("dots")
+                            for m in members[1:]:
+                                m.attrs.pop("dur", None)
+                                m.attrs.pop("dots", None)
+                            if all(m.attrs.get("stem.visible") == "false" for m in members):
+                                attrs["stem.visible"] = "false"
+                            attrs["xml:id"] = "ch" + mates[0].mei_id
+                            chord = _Node("chord", attrs)
+                            chord.children.extend(members)
+                            parent.children.append(chord)
+                            continue
+                    if frag.mei_id in chord_done:
+                        continue
                     parent.children.append(event_node(frag))
         measure.children.extend(controls[k])
         if boundary is not None and boundary.source_break and end != total:

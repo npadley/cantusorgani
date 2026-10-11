@@ -68,7 +68,7 @@ _CAESURA_DIVISION: dict[str, DivisionKind] = {"U+E8F3": "minima", "U+E8F4": "mai
 #: <dir type="..."> the encoder uses for a tick mark drawn as text (Verovio cannot place the SMuFL tick on the line).
 _DIR_DIVISION: dict[str, DivisionKind] = {"divisio-minima": "minima"}
 _MARK_DIVISIONS = ("minima", "maior")
-_UNSUPPORTED = {"chord", "mRest", "mSpace", "multiRest", "beatRpt", "mRpt", "halfmRpt", "graceGrp"}
+_UNSUPPORTED = {"mRest", "mSpace", "multiRest", "beatRpt", "mRpt", "halfmRpt", "graceGrp"}
 _PITCH_STEPS = ("c", "d", "e", "f", "g", "a", "b")
 
 
@@ -395,6 +395,26 @@ def _merge_tie(first: str | None, last: str | None) -> str | None:
     return None
 
 
+def _fragment(child: etree._Element, kind: EventKind, duration: Fraction, key: str, onset: Fraction) -> _Frag:
+    accid = child.get("accid")
+    return _Frag(
+        xml_id=child.get(_XML_ID) or "",
+        layer_key=key,
+        kind=kind,
+        onset=onset,
+        duration=duration,
+        pitch=_pitch(child) if kind == "note" else None,
+        printed=_PRINTED.get(accid, "none") if accid else "none",
+        hidden=child.get("visible") == "false",
+        head_hidden=child.get("head.visible") == "false",
+        continuation=child.get("type") == SPLIT_CONTINUATION,
+        prev=_ref(child.get("prev")),
+        next=_ref(child.get("next")),
+        tie=child.get("tie"),
+        verses=child.findall(_M + "verse"),
+    )
+
+
 def _walk(
     parent: etree._Element,
     ratio: Fraction,
@@ -412,28 +432,19 @@ def _walk(
             if num <= 0 or base <= 0:
                 raise ValueError("tuplet without positive @num and @numbase")
             _walk(child, ratio * Fraction(base, num), key, position, out)
+        elif name == "chord":
+            # A5g: members share the chord's duration and onset; the position moves on once.
+            duration = _duration(child, ratio)
+            members = [m for m in child if _local(m) == "note"]
+            if not members:
+                raise ValueError(f"chord {child.get(_XML_ID)!r} has no notes in layer {key}")
+            for member in members:
+                out.append(_fragment(member, "note", duration, key, position[key]))
+            position[key] += duration
         elif name in ("note", "rest", "space"):
             duration = _duration(child, ratio)
             kind: EventKind = {"note": "note", "rest": "rest", "space": "skip"}[name]  # type: ignore[assignment]
-            accid = child.get("accid")
-            out.append(
-                _Frag(
-                    xml_id=child.get(_XML_ID) or "",
-                    layer_key=key,
-                    kind=kind,
-                    onset=position[key],
-                    duration=duration,
-                    pitch=_pitch(child) if name == "note" else None,
-                    printed=_PRINTED.get(accid, "none") if accid else "none",
-                    hidden=child.get("visible") == "false",
-                    head_hidden=child.get("head.visible") == "false",
-                    continuation=child.get("type") == SPLIT_CONTINUATION,
-                    prev=_ref(child.get("prev")),
-                    next=_ref(child.get("next")),
-                    tie=child.get("tie"),
-                    verses=child.findall(_M + "verse"),
-                )
-            )
+            out.append(_fragment(child, kind, duration, key, position[key]))
             position[key] += duration
         elif name in ("beam", "bTrem", "fTrem", "graceGrp", "ligature"):
             _walk(child, ratio, key, position, out)

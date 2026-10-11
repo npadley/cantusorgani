@@ -111,34 +111,8 @@ def _diagnostics(directory: Path) -> list[dict[str, Any]]:
     return [d for d in data if isinstance(d, dict)]
 
 
-def _chord_in_voice(directory: Path) -> str | None:
-    """A reason when two notes start together in one layer (a LilyPond chord inside a voice).
-
-    The encoder writes layers as sequences, so such a score cannot be encoded faithfully; it is
-    reported as unsupported rather than left to fail validation with a cascade of onset errors."""
-    path = directory / "ir.json"
-    if not path.is_file():
-        return None
-    try:
-        events = json.loads(path.read_text(encoding="utf-8")).get("events", [])
-    except ValueError:
-        return None
-    starts: set[tuple[str, str]] = set()
-    for event in events:
-        if event.get("kind") != "note":
-            continue
-        key = (str(event.get("layerId")), str(event.get("onset")))
-        if key in starts:
-            return f"chord in a voice: two notes start together in layer {key[0]} at {key[1]}"
-        starts.add(key)
-    return None
-
-
 def _state(directory: Path) -> tuple[ConversionState, str | None]:
-    """The state of a finished conversion, with a reason when it is unsupported. Never ``approved``."""
-    chord = _chord_in_voice(directory)
-    if chord is not None:
-        return "unsupported", chord
+    """The state of a finished conversion, with a reason when there is one. Never ``approved``."""
     diagnostics = _diagnostics(directory)
     codes = {d.get("code") for d in diagnostics}
     if "UNSUPPORTED_FEATURE" in codes:

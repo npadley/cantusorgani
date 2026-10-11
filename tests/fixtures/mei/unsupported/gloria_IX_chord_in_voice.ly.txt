@@ -1,4 +1,0 @@
-% C4b-1: Gloria IX %16 (gloria_IX.ly:172). A chord inside a voice: <c, e>2*2 in the accompaniment voice.
-% The encoder writes layers as sequences, so both notes start in one layer at one onset; typeset-mei-batch reports the score as unsupported.
-  s4 g2~ g2 e2*3/2~ e2
-  g2 <c, e>2*2

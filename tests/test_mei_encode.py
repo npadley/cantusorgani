@@ -674,3 +674,37 @@ def test_encode_score_agnus_ix_ordinary_glissandi_are_solid_lines_between_visibl
         assert start.get("visible") != "false" and end.get("visible") != "false"
     assert not [d for d in encoded.diagnostics if d.code == "UNKNOWN_FEATURE"]
     assert sum(1 for s in ir.spans if s.kind == "glissando") == 4
+
+
+def test_encode_score_chord_in_a_voice_is_a_chord_element_and_survives_a_split() -> None:
+    """A5g: two notes of one voice that start together are one <chord> (written head, hidden tuplet
+    for the real length), cut at a safe boundary like a single note, and the oracle agrees."""
+    from pipeline.typeset.mei.normalize import normalize_ir, normalize_mei
+    from pipeline.typeset.mei.validate import compare_scores
+
+    loc = SourceLocation("x.ly", 1, 1)
+
+    def note(eid: str, layer: str, onset: Fraction, dur: Fraction, log: int, dots: int, step: str) -> Event:
+        return Event(eid, layer, "up", "note", onset, dur, NotatedDuration(log, dots, Fraction(1)),
+                     Pitch(step, Fraction(0), 4), "none", "normal", False, False, loc)
+
+    events = (
+        note("0e0000", "up:#1", Fraction(0), Fraction(7, 8), 1, 2, "c"),
+        note("0e0001", "up:#1", Fraction(0), Fraction(7, 8), 1, 2, "e"),
+        note("1e0000", "up:#2", Fraction(0), Fraction(3, 8), 2, 1, "g"),
+        note("1e0001", "up:#2", Fraction(3, 8), Fraction(1, 2), 1, 0, "g"),
+    )
+    layers = (LayerDef("up:#1", "up", 0, "voiceOne", "accompaniment"), LayerDef("up:#2", "up", 1, "voiceTwo", "accompaniment"))
+    boundary = Boundary("b000", Fraction(3, 8), False, None, None, True, None)
+    ir = ScoreIR(1, "x/synthetic.ly", "0" * 64, "2.26.0", "t", Fraction(7, 8), (StaffDef("up", 1, "G", 2, 0),),
+                 layers, events, (), (), (), (), (boundary,), (), ())
+    result = encode_score(ir, profile())
+    root = etree.fromstring(result.xml)
+    chords = q(root, "//m:chord")
+    assert len(chords) == 2  # the first piece and the hidden continuation
+    first, cont = chords
+    assert [n.get("pname") for n in first.findall("m:note", NS)] == ["c", "e"]
+    assert (first.get("dur"), first.get("dots")) == ("2", "2") and all(n.get("dur") is None for n in first)
+    assert cont.findall("m:note", NS)[0].get("type") == "split-continuation"
+    assert compare_scores(normalize_ir(ir), normalize_mei(result.xml, result.provenance)) == []
+    assert not [d for d in result.diagnostics if d.severity == "error"]

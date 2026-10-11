@@ -488,3 +488,28 @@ def test_compare_scores_ordinary_glissando_retyped_as_a_voice_line_reports_a_spa
 
     hits = with_code(run("F6", mutate), "SLUR_MISMATCH")
     assert hits
+
+
+def test_compare_scores_dropped_chord_member_reports_a_missing_event() -> None:
+    target: dict[str, str] = {}
+
+    def mutate(root: etree._Element, prov: dict[str, str]) -> None:
+        chord = next(root.iter(M + "chord"))
+        member = chord.findall(M + "note")[-1]
+        target["id"] = sid(prov, member)
+        chord.remove(member)
+
+    hits = run("F7", mutate)
+    assert any(target["id"] in d.source_event_ids for d in hits)
+
+
+def test_compare_scores_chord_member_with_another_pitch_reports_pitch_mismatch() -> None:
+    target: dict[str, str] = {}
+
+    def mutate(root: etree._Element, prov: dict[str, str]) -> None:
+        member = next(root.iter(M + "chord")).findall(M + "note")[0]
+        member.set("pname", "f" if member.get("pname") != "f" else "g")
+        target["id"] = sid(prov, member)
+
+    hits = with_code(run("F7", mutate), "PITCH_MISMATCH")
+    assert any(target["id"] in d.source_event_ids for d in hits)
