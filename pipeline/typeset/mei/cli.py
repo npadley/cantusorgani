@@ -392,3 +392,38 @@ def review_command(convert_dir: Path, decision_path: Path, out: Path, inputs_fn:
     _write_json(out, record_to_dict(reviewed))
     print(f"{reviewed.state}: inputs {current.digest()} artifact {reviewed.artifact_sha256}; wrote {out}")
     return 0
+
+
+# --- typeset-mei-batch -----------------------------------------------------------------------
+
+
+def batch_command(sources_file: Path, out: Path, workers: int = 2, no_evidence: bool = False) -> int:
+    """Convert every source named in SOURCES_FILE (one path per line, ``#`` comments allowed) into OUT.
+
+    Digest-keyed and resumable; prints one line per source and the counts. Exit 1 when any source
+    failed, so a scripted run notices; unsupported sources are reported, not errors. Never approves."""
+    from pipeline.typeset import lilypond
+    from pipeline.typeset.mei.batch import run_batch
+
+    sources: list[Path] = []
+    for raw in sources_file.read_text(encoding="utf-8").splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if line:
+            path = Path(line)
+            sources.append(path if path.is_absolute() else lilypond.ROOT / path)
+    report = run_batch(
+        sources, ConversionProfile.load(PROFILE_PATH), out, workers=workers,
+        evidence_fn=None if no_evidence else _batch_evidence(),
+    )
+    for name, state in report.results.items():
+        marks = " (cached)" if name in report.cached else ""
+        packet = f" {report.evidence[name] / 'index.html'}" if name in report.evidence else ""
+        print(f"{state}: {name}{marks}{packet}")
+    print("counts: " + ", ".join(f"{k} {v}" for k, v in report.counts.items()))
+    return 1 if report.counts["failed"] else 0
+
+
+def _batch_evidence() -> Any:
+    from pipeline.typeset.mei.batch import _default_evidence
+
+    return _default_evidence

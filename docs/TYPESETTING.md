@@ -187,6 +187,31 @@ unfinished hyphen) don't fail a render. A LilyPond "programming error" does,
 except two it recovers from with the drawing otherwise whole: a tie dropped
 where it meets a line break, and a loose spacing column.
 
+## MEI conversion batches and review protocol
+
+`noh typeset-mei-batch --sources LIST --out DIR` converts the sources named in LIST (one path per
+line, `#` comments allowed) with the same extractor, encoder, validator and evidence packet as the
+single-score commands. It never approves anything.
+
+- **Output.** Each finished build sits in `DIR/<inputs digest>/` (`score.mei`, `ir.json`,
+  `diagnostics.json`, `evidence/index.html`, `batch-result.json`). The digest covers the source, every
+  include, the extractor and converter code, the profile, the schema and the tool versions, so a
+  changed input is a new folder. A run never rewrites a finished folder, and each run writes its own
+  `DIR/reports/report-<list hash>-<n>.json`.
+- **Resume.** A rerun reuses every folder whose digest is unchanged and converts the rest. A build is
+  renamed into place only when complete, so an interrupted run leaves nothing half-written behind.
+- **Failures.** One bad score is reported as `failed` and the others continue. Every requested
+  non-empty source is counted once as `unsupported`, `failed` or `needs-review`; `approved` is always 0.
+  An unsupported feature is reported, never forced.
+- **Cost.** `--workers N` bounds how many LilyPond runs are in flight (default 2). Start with about
+  five scores and size later batches from how long their packets take to review.
+- **Review.** Each piece gets its own reviewer, who compares the packet's 13 layout cases and the
+  LilyPond original with the scan: all voices, lyrics, ties, divisions and endings, and the Letter,
+  Large, Automatic stress layouts. Only the maintainer approves, with `noh typeset-mei-review`; the
+  coordinator adds approved records to the manifest in a separate commit. A new notation feature needs
+  its own implementation task, mutation fixture and profile version before any score that uses it can
+  be approved. Never approve a score because a sibling with the same includes passed.
+
 ## Safety
 
 LilyPond runs Scheme code written in the files it reads. So every file passes

@@ -179,6 +179,13 @@ def build_parser() -> argparse.ArgumentParser:
     mei_evidence.add_argument("--out", type=Path, default=None,
                               help="evidence folder (default build/typeset/mei/<digest>/evidence)")
 
+    mei_batch = subs.add_parser("typeset-mei-batch",
+                                help="convert a list of typeset sources into digest-keyed MEI folders with evidence packets (never approves)")
+    mei_batch.add_argument("--sources", type=Path, required=True, help="file with one source path per line")
+    mei_batch.add_argument("--out", type=Path, required=True)
+    mei_batch.add_argument("--workers", type=int, default=2, help="LilyPond runs in flight (default 2)")
+    mei_batch.add_argument("--no-evidence", action="store_true", help="convert and validate only")
+
     mei_review = subs.add_parser("typeset-mei-review",
                                  help="apply a reviewer's decision JSON to a convert directory and write the review record")
     mei_review.add_argument("convert_dir", type=Path)
@@ -412,6 +419,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "typeset-mei-evidence":
         from pipeline.typeset.mei.cli import evidence_command
         return evidence_command(args.convert_dir, args.out)
+    if args.command == "typeset-mei-batch":
+        from pipeline.typeset.mei.cli import batch_command
+        return batch_command(args.sources, args.out, args.workers, args.no_evidence)
     if args.command == "typeset-mei-review":
         from pipeline.typeset.mei.cli import review_command
         return review_command(args.convert_dir, args.decision, args.out)
