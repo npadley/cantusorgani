@@ -262,9 +262,13 @@ def test_build_lyrics_kyrie_entry_markers_on_right_syllables():
     assert got == [("*", Fraction(25, 8), "e"), ("*", Fraction(38), ""), ("**", Fraction(42), "")]
 
 
-def test_build_lyrics_ite_ib_unnamed_contexts_are_separate():
-    _, _, _, lyrics, *_ = load_all("ite_Ib")
-    assert {s.lyrics_context for s in lyrics} == {"lyrics:#0", "lyrics:#1"}
+@pytest.mark.parametrize("fixture,contexts", [
+    ("ite_Ib_unnamed", {"lyrics:#0", "lyrics:#1"}),
+    ("ite_Ib", {"lyrics:chantLyricsA", "lyrics:chantLyricsB"}),
+])
+def test_build_lyrics_ite_ib_contexts_are_separate(fixture, contexts):
+    _, _, _, lyrics, *_ = load_all(fixture)
+    assert {s.lyrics_context for s in lyrics} == contexts
     assert any(s.hyphen_after for s in lyrics)
 
 

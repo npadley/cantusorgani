@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T18:02:16Z"
+    "timestamp": "2026-10-12T19:56:35Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "65021cc75654dea2f4d5d491680a62ae841d68fc77d40e84dd284c6b00ab63d2",
+    "source_sha256": "646072bfbe3e54d26f2d21cd43b3b2a03bea6b7c8bb56564b0b23b38204b76f7",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "860451bf76d0b2261e64335b3e108bbf",
+  "render_hash": "b015017f4504b697f909f3fbf8bc34ac",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "86469cfc5064889d56164e9c7706924628918744d8fa213fad4fc862bf7f29a7",
     "decision": "approve",
-    "inputs_digest": "aad3d1215883204573fc25620da0c651570e64d37c010b016899c9330a2b0abe",
+    "inputs_digest": "0b493e32e830be557f736ce5ad36d1218470f6a36c9417e1544d2063dacc74a0",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T18:02:16Z"
+    "timestamp": "2026-10-12T19:56:35Z"
   },
   "source_path": "data/typeset/src/vol-3/in_veni_de_libano.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "17ae578fe2968855f3994838c19e6783f26f7adfdba91474b063b57931e7bfac",
+      "ir": "6df58f76eb411a0ec134e215a7edec5dcc1d0776148e80f681f91f4bd9b05935",
       "mei": "86469cfc5064889d56164e9c7706924628918744d8fa213fad4fc862bf7f29a7",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

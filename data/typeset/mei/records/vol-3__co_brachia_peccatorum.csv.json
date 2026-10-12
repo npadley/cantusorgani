@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T17:51:29Z"
+    "timestamp": "2026-10-12T19:44:23Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "206ff6f7c4d46a0a14d80a6bc2294eb5c63dde301ef3e2b7b05505c5fdd22369",
+    "source_sha256": "0eb71c504e041c952367711a88fc0d38d29588c75ebd6f1dd4c2e79e60b2037b",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "b4880a3b6434879f5db9e7eb200944e2",
+  "render_hash": "d1d5d2ea1f9489738cfdbd5cb3b0190f",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "f5a449ac4fd09aed37ba5e902a61dfaa46358b0f70d3be70b42634b04b6f1a26",
     "decision": "approve",
-    "inputs_digest": "ac2b21e411eaa87256742905d6eae78b5afc20289fe6695de0d67cd97585e32d",
+    "inputs_digest": "ad7c577aa788cf52d47158578051bace2b3e51eeffc626da281757c2d720831c",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T17:51:29Z"
+    "timestamp": "2026-10-12T19:44:23Z"
   },
   "source_path": "data/typeset/src/vol-3/co_brachia_peccatorum.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "47455ac453667a4275be90ad0c2a04762c4e5ddc4ccd795ffec4d4a62d1e23e7",
+      "ir": "34fea2c695b9c352b5378706f2796a2f476550c403eb9a6fe3f8536e0675583d",
       "mei": "f5a449ac4fd09aed37ba5e902a61dfaa46358b0f70d3be70b42634b04b6f1a26",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

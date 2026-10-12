@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T17:05:59Z"
+    "timestamp": "2026-10-12T18:59:55Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "7ac46b82c765868e12c033b4ac9d1dc63a0df7094f3ba5b284e9317e2fc3ce1b",
+    "source_sha256": "31d93214a8a70f618c971e8dc507954bc10b3bd03faab8ec724dc8c10670e4d6",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "f5a37ce0d80d4fc35ccf32ab202d303d",
+  "render_hash": "a569811245eb57f70d8e3e80b37d7892",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "3c137ab9f0ccbf89dee163928e9b2955911acb0cc2b6f5535d473ea9dd43d9d2",
     "decision": "approve",
-    "inputs_digest": "95e396f3299dc41aefbff25b1e2597aa0d6b712a0e8a39f95526cfd24ec8cf33",
+    "inputs_digest": "355f9d87850b8ea338b3edffa8e8234db8ded79cdc8761b1a0078aede3f369ee",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T17:05:59Z"
+    "timestamp": "2026-10-12T18:59:55Z"
   },
   "source_path": "data/typeset/src/vol-1/an_pueri_hebraeorum_vestimenta.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "e08f77ad84b7c5eb8215cc44bb5fdfea05a28394c9ecec7222aa6eb1c5e4b508",
+      "ir": "39da8a32a8e8086f677b2ebccb0cfc52ed9ec2fecc5578d31813391a40feffbf",
       "mei": "3c137ab9f0ccbf89dee163928e9b2955911acb0cc2b6f5535d473ea9dd43d9d2",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

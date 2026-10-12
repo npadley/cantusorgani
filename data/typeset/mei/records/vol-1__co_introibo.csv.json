@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T17:06:42Z"
+    "timestamp": "2026-10-12T19:01:30Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "1986a38e7bc8a8eee4e4cc41afd087ee13219d3c99762e4e6eca1539ad9826fe",
+    "source_sha256": "19e04ad7833e1068816fd8f6b77fdee93543b01d65ce7f4330244a6889d831f3",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "0e735ae8a74d06c1d6606add867a6b94",
+  "render_hash": "964d416724a981b4f984f8649cced829",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "a2d2fde9308594b8c265127efaddbf608126d3a7e03f9304246ef09537fa054e",
     "decision": "approve",
-    "inputs_digest": "27478bb11b146c2b8b72066090449ae59fe1ad6920648ad34f5b0421c00402e6",
+    "inputs_digest": "3385789c9b387f4e15ac32f98c29c7ba79b12f7fe0d38b800516625ad82d8a9b",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T17:06:42Z"
+    "timestamp": "2026-10-12T19:01:30Z"
   },
   "source_path": "data/typeset/src/vol-1/co_introibo.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "7213d881cb09a423a19de9a90be518ad14e8886182672fa36c8a3bb4cb484902",
+      "ir": "d75c2f5cbbeae092d30ac8f76ec4169785650ed5bdda42f06691bdc6aef8e5f6",
       "mei": "a2d2fde9308594b8c265127efaddbf608126d3a7e03f9304246ef09537fa054e",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

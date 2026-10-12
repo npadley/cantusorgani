@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T17:37:39Z"
+    "timestamp": "2026-10-12T19:30:02Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "f7cbe9f11feef0e9e32348206928d89f18043810b959de4dc388c51e5a09e506",
+    "source_sha256": "c78e9ec9b40e64a92ada4cd4a8fe192ce97c5efe87195a9fba328e0486b37118",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "c8de38e71a6e3314151001c8d482118b",
+  "render_hash": "a4259997fdb33e176ccd50cd22af6e4d",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "102d37139400f02abb12108548253b151ee5f9c70b090e45d059694e79c2d7fa",
     "decision": "approve",
-    "inputs_digest": "947509828519430f485418f1f3310794afa33438ade7f01dacdf062378521bec",
+    "inputs_digest": "d6f9ed049c23d919a5402b40914186902c00114988c2ebcff749d4b839b017e8",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T17:37:39Z"
+    "timestamp": "2026-10-12T19:30:02Z"
   },
   "source_path": "data/typeset/src/vol-2/gr_bonum_est_confiteri.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "8e9b394b4a854e515df570242c2712b8c905b55d55834c860e3d0d5810ccb226",
+      "ir": "d88d7dcd1e6a174bec9dc3eb56294f3a7f53f9ae1966324ee0c69fb623e0daf1",
       "mei": "102d37139400f02abb12108548253b151ee5f9c70b090e45d059694e79c2d7fa",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

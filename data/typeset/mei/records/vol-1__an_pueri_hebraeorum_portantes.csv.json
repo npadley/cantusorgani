@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T17:05:55Z"
+    "timestamp": "2026-10-12T18:59:51Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "a0a5a57e741731b8b96d81de58b04ee9b52433761b470b1b900d7bc5b5b8e3b5",
+    "source_sha256": "c0a47adea451540595f1a39a93fdc02f7d7211a6c110461f9c4e7043bd7aafb1",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "438cbcb8a1df01c8f42486fbe2abbdbb",
+  "render_hash": "5a76884fc880cb9e9b1ff4618d244838",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "5bdedc0bf5e27a4a5dae6e75a991b91a3471dd2f4075dd51e73b6761dc6660c2",
     "decision": "approve",
-    "inputs_digest": "6ad532c9dd5f1f117ab5215a608a3b4bbf01eb0b004211691cc68b9a7d22a985",
+    "inputs_digest": "c03c4aaee154b8ea5623f59bea8733069fa9832656b424820c458b9ddc3cdaaf",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T17:05:55Z"
+    "timestamp": "2026-10-12T18:59:51Z"
   },
   "source_path": "data/typeset/src/vol-1/an_pueri_hebraeorum_portantes.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "3d26c13cff2fc92039c86e7a2b2cdd0e61cc9b64e84609f6925c5b908d1cb180",
+      "ir": "90193480179fc1e86a953ac5119bb5174fe30ccdac89f10f93cc1efbbb53b2f5",
       "mei": "5bdedc0bf5e27a4a5dae6e75a991b91a3471dd2f4075dd51e73b6761dc6660c2",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

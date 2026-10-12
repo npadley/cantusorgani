@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T17:01:52Z"
+    "timestamp": "2026-10-12T18:58:13Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "573d7a8da30d860f6ce2055e5b148625b16e5913a42526e279cc4b6d651f2291",
+    "source_sha256": "d1856ff2452e604cebc95d87243ecfd65f7bb3e030b9f59a328877136df7fcfb",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "f38a86689feeed2018c7880b95a55a80",
+  "render_hash": "96de381742cea4e8154dd16daef27834",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "b1af7fe6263d43f296ec4e66104002b8062dec003679558a2749d226d41a6142",
     "decision": "approve",
-    "inputs_digest": "6ddcce0cb393a21cff510ebdf7739245a68d0ecc8f29c2e120858054feb1d3a7",
+    "inputs_digest": "79cdfd344457b468d95dd5f0420ab71f787e14db80333aa6aecde49a050fc6b0",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T17:01:52Z"
+    "timestamp": "2026-10-12T18:58:13Z"
   },
   "source_path": "data/typeset/src/vol-1/al_crastina_die.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "9a874c7800318622fdae401b7201a2e304c98889945b76bb416e5966f7da8f6d",
+      "ir": "f297c1488917a682d37fadedc4b24612464c740438efdc94e2c8df63ca2930b3",
       "mei": "b1af7fe6263d43f296ec4e66104002b8062dec003679558a2749d226d41a6142",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

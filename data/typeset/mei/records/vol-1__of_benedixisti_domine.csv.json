@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T17:20:24Z"
+    "timestamp": "2026-10-12T19:16:11Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "8dc51d269cf5a3f95e6c33320a77b2359cce2433414353accf37db71c919b353",
+    "source_sha256": "5c8c02f3dbc8ac8cd04a48978e0e16fac03c09bcdf645d7bedb1f2bee8c929ab",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "c16f44041f7a475eb34179679463d9bc",
+  "render_hash": "90d25178129a54683798487289223235",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "7d0d41ab3c5131cff59b6e0d327f5977926f496cec155a8e0bd651ca6dae9c62",
     "decision": "approve",
-    "inputs_digest": "3431abfe978f18ffdf27159bc74ec467e68d4f2b7807a5dcab3b4277b0f0909a",
+    "inputs_digest": "a79f497da5b3925abd2ba74245bb50d5f0f90062fde06ab9f1f620a5e51f6194",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T17:20:24Z"
+    "timestamp": "2026-10-12T19:16:11Z"
   },
   "source_path": "data/typeset/src/vol-1/of_benedixisti_domine.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "4a6942bd7fabcfdfbd6252ce303a8907b2434cc4f88a7e0b32021c18cea4ae7e",
+      "ir": "24346472b6b856ff1e060a077dcb05336ad13d846a59467f8a33e057360b34a5",
       "mei": "7d0d41ab3c5131cff59b6e0d327f5977926f496cec155a8e0bd651ca6dae9c62",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

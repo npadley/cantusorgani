@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T17:32:44Z"
+    "timestamp": "2026-10-12T19:26:15Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "06722cec1c3b1f579eb9a0665c32a0cb6a65a4b0b9b102f2b0ea3875e656753b",
+    "source_sha256": "78ab499388331fe91a00e31c08ac0a27354918cc223f6f16362e782531d2a1b6",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "44448c6cb20abbdc45381ff59efd0dd3",
+  "render_hash": "ce227c1bf1833037ba9d860082973e7d",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "ac391cdb03caf338945e660b5408a570e06e94f3afc84aeb7fa6814ed1b72a5c",
     "decision": "approve",
-    "inputs_digest": "52f0c431c6d0d16a2839454502a6d919e874c8a1e334c8317050c45d3061c808",
+    "inputs_digest": "479cbc57110e904b7d9f0d89de7868d6dd54a15a33c30787e18c49fdb84907a2",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T17:32:44Z"
+    "timestamp": "2026-10-12T19:26:15Z"
   },
   "source_path": "data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "8d4a533bdaf5391572ca7d2ae7d4e3cdacb45f87c35765cb2d817c41bd06210c",
+      "ir": "12e653da36b81e9698a1dabdc69bcc36f0bd7943b174c4a98581c9645ff6f075",
       "mei": "ac391cdb03caf338945e660b5408a570e06e94f3afc84aeb7fa6814ed1b72a5c",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },
