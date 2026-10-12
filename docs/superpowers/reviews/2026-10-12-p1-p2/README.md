@@ -88,3 +88,7 @@ staff are the existing export profile's choice.
   conservatively lower coverage until a mapping and attachment are verified.
 - Included note-local chord ties in P2 after review found silent loss in an existing source. Cost if wrong:
   additional listener rows must retain single-pitch semantics; the regression checks only the tied member.
+
+CI follow-up: the Python job initially ran before Verovio was installed, failing both new
+ornament render checks. The existing pnpm/Node installation now runs before Python tests,
+so CI exercises the real-render prechecks. Both targeted tests pass locally.
