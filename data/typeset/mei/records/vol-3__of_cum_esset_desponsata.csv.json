@@ -1,0 +1,67 @@
+{
+  "artifact_sha256": "f42d78c2ff1199c6f16255b5f06d7df0c6c73ee30b11e17877b01a480e70b8a5",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T18:02:53Z"
+  },
+  "diagnostics": [],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "7527509190a486b4499a2c59fe82189b68f301ed6352a3e7afb8062f74a44f85",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "c0c88e07257c05807a8fe788f5f78d2e",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "f42d78c2ff1199c6f16255b5f06d7df0c6c73ee30b11e17877b01a480e70b8a5",
+    "decision": "approve",
+    "inputs_digest": "f208ac8f65faef610f4197c800999aea3d4b90eb40158aeb4e42d51c1f8b0ecd",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T18:02:53Z"
+  },
+  "source_path": "data/typeset/src/vol-3/of_cum_esset_desponsata.csv.ly",
+  "state": "approved",
+  "target": "part:maternitatis-beat-mari-virginis/offertory",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "fdcdfd91dab6b5d73d5a10d25cfe9fe962e98f354d5b6420ed09aef1a49ae3d5",
+      "mei": "f42d78c2ff1199c6f16255b5f06d7df0c6c73ee30b11e17877b01a480e70b8a5",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}
