@@ -37,6 +37,7 @@ from pipeline.typeset.mei.model import (
     LyricSyllable,
     NotatedDuration,
     Notehead,
+    Ornament,
     Pitch,
     PrintedAccidental,
     ScoreIR,
@@ -64,8 +65,10 @@ FIELD_COUNTS: dict[str, int] = {
     "acc": 2,
     "col": 3,
     "tie": 1,
+    "ntie": 1,
     "slur": 2,
     "gliss": 1,
+    "art": 3,
     "div": 2,
     "break": 1,
     "lyric": 3,
@@ -300,6 +303,7 @@ def build_events(
     by_onset: dict[tuple[str, Fraction, str], Row] = {}
     acc_any_layer: dict[tuple[Fraction, str], Row] = {}
     ties: set[tuple[Fraction, str]] = set()
+    note_ties: set[tuple[Fraction, str, str]] = set()
     for row in rows:
         if row.kind in ("head", "rhead", "stem", "acc"):
             loc = row.fields[-1]
@@ -310,6 +314,8 @@ def build_events(
                 by_onset.setdefault((row.kind, row.onset, row.layer), row)
         elif row.kind == "tie":
             ties.add((row.onset, row.layer))
+        elif row.kind == "ntie":
+            note_ties.add((row.onset, row.layer, row.fields[0]))
 
     staff_ids = {r.staff for r in rows if r.kind == "staff"}
     staged: list[tuple[Fraction, int, int, Event]] = []
@@ -364,7 +370,7 @@ def build_events(
                 printed_accidental=cast(PrintedAccidental, accidental),
                 notehead=_notehead(head) if kind == "note" else "normal",
                 stem_visible=stem is not None and stem.fields[0] == "0",
-                tie_to_next=kind == "note" and (row.onset, layer_id) in ties,
+                tie_to_next=kind == "note" and ((row.onset, layer_id) in ties or key in note_ties),
                 location=location,
             )
             staged.append((row.onset, layer.ordinal, seq, event))
@@ -468,8 +474,9 @@ def build_spans(
     - slur: start/stop rows paired per layer in order (stops before starts at one onset); the
       endpoints are the layer's first note attack at each row's onset. Unbalanced or unattached
       slurs give an UNKNOWN_FEATURE error.
-    - tie: each ``tie_to_next`` note spans to the next later event of its layer with the same
-      pitch (repeated attacks without a tie row never form a span); a missing target is an
+    - tie: each ``tie_to_next`` note spans to a matching pitch at the next attack of its layer
+      (including every matching chord pitch); rests or unmatched attacks never get skipped.
+      Repeated attacks without a tie row never form a span; a missing target is an
       UNKNOWN_FEATURE warning.
     - voice-line: a ``gliss`` row in a voice-line-role layer spans from that layer's note at the
       onset to the layer's next note.
@@ -527,8 +534,12 @@ def build_spans(
         for i, event in enumerate(layer_events):
             if event.kind != "note" or not event.tie_to_next:
                 continue
+            # A chord contributes several simultaneous events. Match within the next
+            # attack's onset, never within this chord or past a rest/unmatched attack.
+            following = [e for e in layer_events[i + 1 :] if e.onset >= event.onset + event.duration]
+            next_onset = following[0].onset if following else None
             target = next(
-                (e for e in layer_events[i + 1 :] if e.kind == "note" and e.onset >= event.onset + event.duration),
+                (e for e in following if e.onset == next_onset and e.kind == "note" and e.pitch == event.pitch),
                 None,
             )
             if target is not None and target.pitch == event.pitch:
@@ -629,6 +640,9 @@ def feature_uses(
             use("cross-staff", e.location, e.id)
         if e.notehead == "quilisma":
             use("quilisma", e.location, e.id)
+    for ornament in build_ornaments(rows, events)[0]:
+        event = by_id[ornament.event_id]
+        use(ornament.kind, event.location, event.id)
     for span in spans:
         start = by_id[span.start_event_id]
         if span.kind == "tie":
@@ -801,6 +815,25 @@ def splits_at(boundary: Boundary, events: tuple[Event, ...]) -> tuple[str, ...]:
     return tuple(e.id for e in events if e.onset < t < e.onset + e.duration)
 
 
+def build_ornaments(rows: list[Row], events: tuple[Event, ...]) -> tuple[tuple[Ornament, ...], tuple[Diagnostic, ...]]:
+    """Articulations attach to their voice's note at the listener moment.
+
+    A chord-wide mark cannot be assigned safely to one member; keep it in review.
+    """
+    ornaments: list[Ornament] = []
+    diagnostics: list[Diagnostic] = []
+    for row in rows:
+        if row.kind != "art":
+            continue
+        kind, direction, location = row.fields
+        candidates = [e for e in events if e.layer_id == row.layer and e.onset == row.onset and e.kind == "note"]
+        if kind != "prall" or len(candidates) != 1 or direction not in ("-1", "0", "1"):
+            diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "warning", f"unconverted articulation {kind} at {row.onset} in {row.layer}", _loc_or_blank(location, "art")))
+            continue
+        ornaments.append(Ornament("prall", candidates[0].id, "below" if direction == "-1" else "above"))
+    return tuple(ornaments), tuple(diagnostics)
+
+
 def ir_from_rows(rows: list[Row], source_path: str, dependency_digest: str) -> ScoreIR:
     """Assemble the whole ScoreIR from parsed listener rows. Pure: no LilyPond, no I/O."""
     staves = build_staves(rows)
@@ -810,6 +843,7 @@ def ir_from_rows(rows: list[Row], source_path: str, dependency_digest: str) -> S
     spans, span_diagnostics = build_spans(rows, events)
     divisions = build_divisions(rows, layers)
     boundaries = build_boundaries(rows, layers, events, spans, lyrics, divisions)
+    ornaments, ornament_diagnostics = build_ornaments(rows, events)
     features = feature_uses(rows, events, spans, layers, lyrics, markers, divisions)
     return ScoreIR(
         schema_version=IR_SCHEMA_VERSION,
@@ -827,8 +861,10 @@ def ir_from_rows(rows: list[Row], source_path: str, dependency_digest: str) -> S
         divisions=divisions,
         boundaries=boundaries,
         features=features,
+        ornaments=ornaments,
         diagnostics=(
             *event_diagnostics,
+            *ornament_diagnostics,
             *lyric_diagnostics,
             *span_diagnostics,
             *division_diagnostics(rows),

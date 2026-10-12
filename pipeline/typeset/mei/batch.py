@@ -291,7 +291,7 @@ def run_batch(
 #: score that uses one converts without any diagnostic yet lacks the mark LilyPond draws (``\prall`` is in 588
 #: catalogue sources). Until one is converted, such a score is not eligible for automatic approval.
 DROPPED_COMMANDS = (
-    "prall", "mordent", "prallprall", "prallmordent", "turn", "reverseturn", "trill", "fermata", "shortfermata",
+    "mordent", "prallprall", "prallmordent", "turn", "reverseturn", "trill", "fermata", "shortfermata",
     "longfermata", "staccato", "staccatissimo", "accent", "marcato", "tenuto", "portato", "espressivo", "stopped",
     "open", "flageolet", "upbow", "downbow", "segno", "coda",
 )

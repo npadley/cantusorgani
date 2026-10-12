@@ -148,6 +148,7 @@ def normalize_ir(ir: ScoreIR) -> NormalizedScore:
         divisions=divisions,
         total_duration=ir.total_duration,
         division_marks=marks,
+        ornaments=tuple(sorted((o.kind, "upper", o.event_id, str(staff_index[event_by_id[o.event_id].staff_id]), o.place) for o in ir.ornaments)),
     )
 
 
@@ -271,7 +272,7 @@ def normalize_mei(xml: bytes, provenance: Mapping[str, str]) -> NormalizedScore:
     mordents = {
         _ref(el.get("startid"))
         for el in root.iter(_M + "mordent")
-        if _ref(el.get("startid"))
+        if _ref(el.get("startid")) and el.get("type") is None
     }
 
     layers: dict[str, list[NormalizedEvent]] = {key: [] for key in layer_order}
@@ -379,6 +380,7 @@ def normalize_mei(xml: bytes, provenance: Mapping[str, str]) -> NormalizedScore:
         divisions=divisions,
         total_duration=total,
         division_marks=tuple(sorted(mark_set, key=lambda m: (m[1], m[0], m[2]))),
+        ornaments=tuple(sorted((el.get("type", ""), el.get("form", ""), resolve(_ref(el.get("startid"))), el.get("staff", ""), el.get("place", "")) for el in root.iter(_M + "mordent") if el.get("type") is not None)),
     )
 
 

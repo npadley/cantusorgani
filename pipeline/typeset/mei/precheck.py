@@ -58,6 +58,7 @@ class _Page:
         self.ties: dict[str, list[tuple[tuple[float, float], tuple[float, float]]]] = defaultdict(list)
         self.ticks: list[tuple[str, float, float, float]] = []
         self.staves: list[tuple[int, float]] = []
+        self.ornaments: set[str] = set()
         self.syllables = 0
         self.system_starts: list[str] = []
         self.hidden_dots: list[str] = []  # augmentation dots drawn for a hidden split-continuation head
@@ -106,6 +107,12 @@ class _Page:
             cls = _cls(el)
             ident = el.get("id")
             if "bounding-box" not in cls:
+                if "mordent" in cls and ident and any(
+                    c.tag in (S + "use", S + "path")
+                    and not any("bounding-box" in _cls(a) for a in c.iterancestors() if a is not el)
+                    for c in el.iter()
+                ):
+                    self.ornaments.add(ident)
                 if "system" in cls:
                     self._system += 1
                 if "measure" in cls and ident:
@@ -206,6 +213,7 @@ def precheck_packet(convert_dir: Path, evidence_dir: Path | None = None) -> dict
         if (head.get("dur"), head.get("dots")) != want:
             findings["piece"].append(f"head type: {event['id']} is dur={head.get('dur')} dots={head.get('dots')}, LilyPond writes {want}")
     explicit_ties = [(t.get(XML_ID), (t.get("startid") or "")[1:], (t.get("endid") or "")[1:]) for t in root.iter(M + "tie")]
+    ornaments_wanted = [o.get(XML_ID) for o in root.iter(M + "mordent")]
     ticks_wanted = [d.get(XML_ID) for d in root.iter(M + "dir") if d.get("type") == "divisio-minima"]
     syllables = sum(1 for _ in root.iter(M + "syl"))  # blank syllables carrying an entry marker are drawn too
     if sum(1 for e in ir["events"] if e["kind"] == "note" and e["tieToNext"]) != len(explicit_ties):
@@ -249,6 +257,10 @@ def precheck_packet(convert_dir: Path, evidence_dir: Path | None = None) -> dict
             out.append(f"no pages rendered ({reasons or 'no diagnostic'})")
             continue
         scale = float(sizes.get(case, 7.2)) / 7.2  # staff size relative to medium
+        drawn_ornaments = set().union(*(page.ornaments for page in pages))
+        for ornament_id in ornaments_wanted:
+            if ornament_id not in drawn_ornaments:
+                out.append(f"ornament {ornament_id}: no drawn glyph")
         heads = {k: v for page in pages for k, v in page.heads.items()}
         page_of = {k: n for n, page in enumerate(pages) for k in page.heads}
         tick_by_id = {t[0]: (page, t) for page in pages for t in page.ticks}

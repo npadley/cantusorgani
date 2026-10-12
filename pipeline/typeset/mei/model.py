@@ -91,6 +91,12 @@ class Event:
     location: SourceLocation
 
 @dataclass(frozen=True)
+class Ornament:
+    kind: Literal["prall"]
+    event_id: str
+    place: Literal["above", "below"]
+
+@dataclass(frozen=True)
 class Span:
     id: str
     kind: SpanKind
@@ -143,7 +149,7 @@ FEATURE_FAMILIES: tuple[str, ...] = (
     "scaled-duration", "tie", "slur", "hidden-stem", "hidden-rest", "skip",
     "finalis", "divisio-maxima", "divisio-maior", "divisio-minima", "force-break",
     "stanza-marker", "blank-lyric", "melisma", "voice-line-voice", "voice-line-glissando", "ordinary-glissando",
-    "cross-staff", "quilisma", "key-change", "clef-change", "note-shift", "manual-spacing",
+    "cross-staff", "quilisma", "prall", "key-change", "clef-change", "note-shift", "manual-spacing",
 )
 
 @dataclass(frozen=True)
@@ -164,6 +170,7 @@ class ScoreIR:
     boundaries: tuple[Boundary, ...]
     features: tuple[FeatureUse, ...]
     diagnostics: tuple[Diagnostic, ...]
+    ornaments: tuple[Ornament, ...] = ()
 
     def to_dict(self) -> dict[str, object]:
         """Convert to dict with camelCase keys and rationals as strings."""
@@ -303,6 +310,8 @@ class ScoreIR:
                 location=location,
             ))
         snake_dict['events'] = tuple(events)
+
+        snake_dict["ornaments"] = tuple(Ornament(**o) for o in snake_dict.get("ornaments", ()))
 
         # Convert spans
         spans = []
@@ -540,6 +549,7 @@ class NormalizedScore:
     total_duration: Fraction
     #: (kind, onset, staff number) of every divisio drawn as a mark on a staff (minima, maior).
     division_marks: tuple[tuple[DivisionKind, Fraction, int], ...] = ()
+    ornaments: tuple[tuple[str, str, str, str, str], ...] = ()  # kind, form, source event, staff, place
 
 @dataclass(frozen=True)
 class SemanticDifference:
