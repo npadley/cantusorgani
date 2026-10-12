@@ -15,20 +15,20 @@ as the list of what is left. Decisions and gates stay in `export-layout-decision
 | iPad timing page (C2c) | **Parked** on branch `export/c2c-prep` (`f929660`); G3 passed without it. |
 | Catalogue | Dry runs only. Of the first ~230 vol-1 sources after the slur fix: 0 unsupported, about 20 % auto-approve. The rest are blocked by an unconverted `\prall` (61 of 70 sampled needs-review), then layout findings (34) and narrow-page layout failures (11). |
 
-## R. Finish the release (coordinator; user merges)
+## R. Finish the release (coordinator; user merges) — done 2026-10-12, see DL R4
 
-- [ ] **R1** — Merge #104 when CI is green. Customize export goes live on every page; reflow stays Kyrie-only
+- [x] **R1** — Merge #104 when CI is green. Customize export goes live on every page; reflow stays Kyrie-only
   until R3.
-- [ ] **R2** — Run `mei-conversion` on `main` with `publish: true` and the five Missa IX sources
+- [x] **R2** — Run `mei-conversion` on `main` with `publish: true` and the five Missa IX sources
   (`data/typeset/src/vol-5/missa-ix/{kyrie,gloria,sanctus,agnus,ite}_IX.ly`). Then check each
   `https://images.cantusorgani.org/mei/<sha>/{score.mei,boundaries.json}`: 200, `immutable`, CORS `*`,
   and the sha256 matches its record. If CI's conversion is not byte-identical to the record, the publish job
   refuses — find the difference before retrying.
-- [ ] **R3** — Manifest PR: `uv run noh typeset-mei-manifest --records data/typeset/mei/records --out
+- [x] **R3** — Manifest PR: `uv run noh typeset-mei-manifest --records data/typeset/mei/records --out
   data/typeset/mei/manifest.json --artifacts <dir of the live files>` (lay the downloaded files out as
   `<sha>/{score.mei,boundaries.json}`). Build production locally with the CI env, run the full Playwright suite,
   open Missa IX → Customize export → whole Mass, then merge.
-- [ ] **R4** — Live smoke test: Missa IX whole-Mass custom export reflows all five parts; another Mass shows the
+- [x] **R4** — Live smoke test: Missa IX whole-Mass custom export reflows all five parts; another Mass shows the
   button with fixed/scan placement; a scan-only piece works; quick export is unchanged. Record the release in DL
   (commit, published shas, rollback = revert the manifest PR).
 
@@ -74,6 +74,20 @@ Order matters: P1 and P2 change the converter, so run the catalogue (P4) after t
 - [ ] **P6 Measured resource profile** — coordinator, before large pieces go live. `resource-profile.json` is
   still `provisional: true`. Re-run `web/scripts/measure-export-layout.ts` on a quiet machine with the largest
   approved pieces and set real limits (the parked C2c page can give iPad numbers if wanted).
+
+### What each P card costs
+
+| Card | Agent (usage) | Laptop (processing) |
+|---|---|---|
+| P1 `\prall` | **Yes** — one encoder-agent run, about the size of the A5g card: write the LilyPond listener hook, IR, encoder and oracle changes with tests, and view a few pieces against LilyPond. | Light: tests and a handful of conversions. |
+| P2 ties | Yes — a smaller encoder-agent run (one bug, five fixtures). Can share P1's run. | Light. |
+| P3 source errors | Minimal — the coordinator files two corrections. | None. |
+| P4 catalogue | Minimal — the coordinator starts one command, then reads its report and commits records. | **Heavy**: LilyPond plus 13 Verovio renders per piece for ~860 pieces; several hours (run overnight, plugged in). |
+| P5 layout | Yes — one layout-agent run. | Light. |
+| P6 limits | Minimal. | Moderate: one measurement run on a quiet machine. |
+
+The cheapest order on a tight week: P1 + P2 in one agent run, then P4 overnight (almost no usage), then decide on P5
+from P4's report.
 
 ## O. Operations and follow-ups
 
