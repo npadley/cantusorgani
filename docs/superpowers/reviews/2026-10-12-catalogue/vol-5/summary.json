@@ -1,0 +1,383 @@
+{
+  "catalogue_denominator": 859,
+  "catalogue_states": {
+    "approved": 777,
+    "failed": 25,
+    "needs-review": 41,
+    "unsupported": 16
+  },
+  "volume": "vol-5",
+  "audited_sources": 138,
+  "states": {
+    "approved": 109,
+    "unsupported": 14,
+    "needs-review": 10,
+    "failed": 5
+  },
+  "new_approved_records": 89,
+  "verified_objects": 178,
+  "blocking_diagnostic_families": {
+    "UNSUPPORTED_FEATURE": 14,
+    "SCHEMA_INVALID": 5,
+    "VOICE_ENDS_UNEQUAL": 26,
+    "UNKNOWN_FEATURE": 12
+  },
+  "failed_auto_review_criteria": {
+    "precheck": 10,
+    "unsupported": 10
+  },
+  "optional_spot_check_sample": [
+    "data/typeset/src/vol-5/missa-x/kyrie_X.ly",
+    "data/typeset/src/vol-5/missa-iv/agnus_IV.ly",
+    "data/typeset/src/vol-5/missa-ii/ite_IIa.ly",
+    "data/typeset/src/vol-5/ad-libitum/sanctus_ad_libitum_I.ly",
+    "data/typeset/src/vol-5/missa-iii/sanctus_III.ly"
+  ],
+  "approved_but_not_manifest_ready": {
+    "data/typeset/src/vol-5/ad-libitum/agnus_dei_ad_libitum_II.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-5/ad-libitum/an_asperges_me__ad_lib3.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-5/ad-libitum/an_asperges_me__ad_lib4.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-5/ad-libitum/gloria_ad_libitum_II.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-5/ad-libitum/gloria_ad_libitum_III.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-5/ad-libitum/gloria_ad_libitum_IV.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-5/ad-libitum/sanctus_ad_libitum_II.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-5/ad-libitum/sanctus_ad_libitum_III.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-5/pro-defunctis/agnus_pro_defunctis.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-5/pro-defunctis/an_ego_sum_resurrectio.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-5/pro-defunctis/an_in_paradisum.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-5/pro-defunctis/ca_benedictus_dominus.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-5/pro-defunctis/kyrie_pro_defunctis.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-5/pro-defunctis/sanctus_pro_defunctis.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-5/tonus-solemnis.ly": "UNMATCHED_TARGET"
+  },
+  "blocked_sources": [
+    {
+      "source": "data/typeset/src/vol-5/ad-libitum/gloria_ad_libitum_I.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNSUPPORTED_FEATURE",
+        "SCHEMA_INVALID",
+        "SCHEMA_INVALID"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/ad-libitum/kyrie_ad_libitum_III.ly",
+      "state": "needs-review",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNKNOWN_FEATURE",
+        "UNKNOWN_FEATURE"
+      ],
+      "criteria_failed": [
+        "unsupported",
+        "precheck"
+      ],
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/ad-libitum/kyrie_ad_libitum_IX.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNSUPPORTED_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/ad-libitum/kyrie_ad_libitum_VI.ly",
+      "state": "failed",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "SCHEMA_INVALID"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/ad-libitum/kyrie_ad_libitum_VII.ly",
+      "state": "failed",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "SCHEMA_INVALID"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/ad-libitum/kyrie_ad_libitum_XI.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNSUPPORTED_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/credo_I.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNKNOWN_FEATURE",
+        "UNSUPPORTED_FEATURE",
+        "UNSUPPORTED_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/credo_III.ly",
+      "state": "needs-review",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNKNOWN_FEATURE"
+      ],
+      "criteria_failed": [
+        "unsupported",
+        "precheck"
+      ],
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/credo_IV.ly",
+      "state": "failed",
+      "diagnostics": [
+        "UNKNOWN_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/missa-i/gloria_I.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNSUPPORTED_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/missa-ii/agnus_II.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNSUPPORTED_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/missa-ii/kyrie_II.ly",
+      "state": "needs-review",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNKNOWN_FEATURE",
+        "UNKNOWN_FEATURE"
+      ],
+      "criteria_failed": [
+        "unsupported",
+        "precheck"
+      ],
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/missa-iii/gloria_III.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNSUPPORTED_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/missa-iv/kyrie_IV.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNSUPPORTED_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/missa-xi/gloria_XI.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNSUPPORTED_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/missa-xi/kyrie_XI.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNSUPPORTED_FEATURE",
+        "UNSUPPORTED_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/missa-xii/gloria_XII.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNSUPPORTED_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/missa-xiii/kyrie_XIII.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNSUPPORTED_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/missa-xiv/kyrie_XIV.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNSUPPORTED_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/missa-xv/sanctus_XV.ly",
+      "state": "failed",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "SCHEMA_INVALID"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/missa-xvii/kyrie_XVIIa.ly",
+      "state": "needs-review",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNKNOWN_FEATURE"
+      ],
+      "criteria_failed": [
+        "unsupported",
+        "precheck"
+      ],
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/missa-xviii/agnus_XVIII.ly",
+      "state": "needs-review",
+      "diagnostics": [
+        "UNKNOWN_FEATURE"
+      ],
+      "criteria_failed": [
+        "unsupported",
+        "precheck"
+      ],
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/missa-xviii/sanctus_XVIII.ly",
+      "state": "failed",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "SCHEMA_INVALID"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/pro-defunctis/co_lux_aeterna.ly",
+      "state": "needs-review",
+      "diagnostics": [
+        "UNKNOWN_FEATURE",
+        "UNKNOWN_FEATURE"
+      ],
+      "criteria_failed": [
+        "unsupported",
+        "precheck"
+      ],
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/pro-defunctis/gr_requiem_aeternam.ly",
+      "state": "needs-review",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNKNOWN_FEATURE",
+        "UNKNOWN_FEATURE"
+      ],
+      "criteria_failed": [
+        "unsupported",
+        "precheck"
+      ],
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/pro-defunctis/of_domine_jesu_christe.ly",
+      "state": "needs-review",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNKNOWN_FEATURE"
+      ],
+      "criteria_failed": [
+        "unsupported",
+        "precheck"
+      ],
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/pro-defunctis/re_libera_me_domine_de_morte.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNSUPPORTED_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/pro-defunctis/re_subvenite.ly",
+      "state": "needs-review",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNKNOWN_FEATURE"
+      ],
+      "criteria_failed": [
+        "unsupported",
+        "precheck"
+      ],
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-5/pro-defunctis/tr_absolve.ly",
+      "state": "needs-review",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNKNOWN_FEATURE",
+        "UNKNOWN_FEATURE",
+        "UNKNOWN_FEATURE"
+      ],
+      "criteria_failed": [
+        "unsupported",
+        "precheck"
+      ],
+      "message": null
+    }
+  ]
+}

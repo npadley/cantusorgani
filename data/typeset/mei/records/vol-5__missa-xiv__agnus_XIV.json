@@ -1,0 +1,103 @@
+{
+  "artifact_sha256": "262549bf9b51181fc4d6b640d3068be46c31ab0db9b8bde3f8dd4233fb12170d",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T18:11:49Z"
+  },
+  "diagnostics": [
+    {
+      "code": "VOICE_ENDS_UNEQUAL",
+      "details": [
+        [
+          "down:#2",
+          "95/4"
+        ],
+        [
+          "down:#3",
+          "95/4"
+        ],
+        [
+          "down:#4",
+          "29/2"
+        ],
+        [
+          "up:#1",
+          "95/4"
+        ],
+        [
+          "up:chant",
+          "95/4"
+        ]
+      ],
+      "event_ids": [
+        "0e0094",
+        "1e0049",
+        "2e0047",
+        "3e0046",
+        "4e0005"
+      ],
+      "message": "layers of data/typeset/src/vol-5/missa-xiv/agnus_XIV.ly end at different onsets",
+      "severity": "warning",
+      "source_location": null
+    }
+  ],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "040ccb87c7e5aac06ee9b25f2ddc1d3d3ca3f51d0e80e896e3744eccc2a07bad",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "d9205f6349adb41550c8aee1c107ae18",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "262549bf9b51181fc4d6b640d3068be46c31ab0db9b8bde3f8dd4233fb12170d",
+    "decision": "approve",
+    "inputs_digest": "158dac1b02ee930d9a54b384002e9e659bc28241745008e2833519da1dcdf06a",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T18:11:49Z"
+  },
+  "source_path": "data/typeset/src/vol-5/missa-xiv/agnus_XIV.ly",
+  "state": "approved",
+  "target": "movement:ordinarium-missae-xiv/agnus",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "2730c30e974d1ea599e2b09b5db6dbfabf3e4b1b1d21cd4446a00fe0d3ce282a",
+      "mei": "262549bf9b51181fc4d6b640d3068be46c31ab0db9b8bde3f8dd4233fb12170d",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}

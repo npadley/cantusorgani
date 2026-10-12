@@ -1,0 +1,103 @@
+{
+  "artifact_sha256": "e6e44b555e542924f10ea0d6fdcd842552b71005914cd6e65574fd1d0273e001",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T18:09:48Z"
+  },
+  "diagnostics": [
+    {
+      "code": "VOICE_ENDS_UNEQUAL",
+      "details": [
+        [
+          "down:#2",
+          "69/2"
+        ],
+        [
+          "down:#3",
+          "69/2"
+        ],
+        [
+          "down:#4",
+          "37/2"
+        ],
+        [
+          "up:#1",
+          "69/2"
+        ],
+        [
+          "up:chant",
+          "69/2"
+        ]
+      ],
+      "event_ids": [
+        "0e0137",
+        "1e0061",
+        "2e0061",
+        "3e0051",
+        "4e0002"
+      ],
+      "message": "layers of data/typeset/src/vol-5/missa-vi/agnus_VI.ly end at different onsets",
+      "severity": "warning",
+      "source_location": null
+    }
+  ],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "316171612bb4549088827baa4e43b27b6e7fed0947604ac8cfe1c0064800574c",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "7c0771dee5afb27d404f18cda4fa4011",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "e6e44b555e542924f10ea0d6fdcd842552b71005914cd6e65574fd1d0273e001",
+    "decision": "approve",
+    "inputs_digest": "30bfee341667978f8c636aaeb63a96386118136e0ce6e9faef94401c7b688406",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T18:09:48Z"
+  },
+  "source_path": "data/typeset/src/vol-5/missa-vi/agnus_VI.ly",
+  "state": "approved",
+  "target": "part:ordinarium-missae-vi/other:agnus",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "7e95e7193c4707b15c6c2c5cba979f4c69e2362cfb89bcd73ccec1d1154ed5b5",
+      "mei": "e6e44b555e542924f10ea0d6fdcd842552b71005914cd6e65574fd1d0273e001",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "artifact_sha256": "abbcc3436dd1647bc9ede4ec65d8120196018f9148dd0da70ab5e56505afba1e",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T18:12:40Z"
+  },
+  "diagnostics": [
+    {
+      "code": "VOICE_ENDS_UNEQUAL",
+      "details": [
+        [
+          "down:#2",
+          "419/8"
+        ],
+        [
+          "down:#3",
+          "419/8"
+        ],
+        [
+          "down:#4",
+          "113/8"
+        ],
+        [
+          "up:#1",
+          "419/8"
+        ],
+        [
+          "up:chant",
+          "419/8"
+        ]
+      ],
+      "event_ids": [
+        "0e0206",
+        "1e0080",
+        "2e0078",
+        "3e0075",
+        "4e0002"
+      ],
+      "message": "layers of data/typeset/src/vol-5/missa-xvii/kyrie_XVII.ly end at different onsets",
+      "severity": "warning",
+      "source_location": null
+    }
+  ],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "a8d8e2d288fd935a747b9a9273e3e195620ea99756014573863dad7e609bda3b",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "b355758372fa56f81fba9680eae2c9e5",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "abbcc3436dd1647bc9ede4ec65d8120196018f9148dd0da70ab5e56505afba1e",
+    "decision": "approve",
+    "inputs_digest": "2fa028639974c7bd9beb7b199dce9237d59151589729786a7192af743f92e2fd",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T18:12:40Z"
+  },
+  "source_path": "data/typeset/src/vol-5/missa-xvii/kyrie_XVII.ly",
+  "state": "approved",
+  "target": "movement:ordinarium-missae-xvii/kyrie",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "577a735155b16cebec78ea6333980d3caed994edad383071023b4638d7f12426",
+      "mei": "abbcc3436dd1647bc9ede4ec65d8120196018f9148dd0da70ab5e56505afba1e",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}
