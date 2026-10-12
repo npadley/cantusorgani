@@ -96,8 +96,10 @@ def _default_inputs(profile: ConversionProfile) -> InputsFn:
 def _default_convert(source: Path, out: Path) -> None:
     from pipeline.typeset.mei.cli import convert_command
 
-    if convert_command(source, out) != 0:
-        raise RuntimeError("conversion reported errors")
+    # A non-zero status means an error diagnostic. The build directory still holds the diagnostics, so
+    # let _state classify it (unsupported / failed); raise only when nothing was written.
+    if convert_command(source, out) != 0 and not (out / "diagnostics.json").is_file():
+        raise RuntimeError("conversion reported errors and wrote nothing")
 
 
 def _default_evidence(convert_dir: Path, out: Path) -> None:
