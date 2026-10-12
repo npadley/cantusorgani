@@ -24,6 +24,7 @@ Compiler concurrency is bounded by ``workers``.
 from __future__ import annotations
 
 import contextlib
+import dataclasses
 import hashlib
 import json
 import os
@@ -315,9 +316,12 @@ def _judge(
             def precheck_fn(d: Path, _s: Path) -> dict[str, list[str]]:
                 return precheck_packet(d)
         cases = (cases_fn or _default_cases)(directory)
-        record = auto_approve(
-            record_fn(directory, source), precheck_fn(directory, source), cases, profile_version=profile_version
-        )
+        unjudged = record_fn(directory, source)
+        if entry["state"] == "needs-review" and unjudged.state != "needs-review":
+            # state_for fails a record on any blocking-code diagnostic, warnings included (VOICE_ENDS_UNEQUAL);
+            # the batch has already classified this build by severity, so judge it as needs-review.
+            unjudged = dataclasses.replace(unjudged, state="needs-review")
+        record = auto_approve(unjudged, precheck_fn(directory, source), cases, profile_version=profile_version)
         _atomic_write(saved, json.dumps(record_to_dict(record), indent=2, sort_keys=True) + "\n")
     if record.state == "approved":
         records = output / "records"

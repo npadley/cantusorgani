@@ -200,3 +200,29 @@ def test_run_batch_auto_approve_resume_reuses_the_judged_record(tmp_path: Path) 
     batch(tmp_path, sources, set())
     second = batch(tmp_path, sources, set())
     assert second.cached == (str(sources[0]),) and second.results[str(sources[0])] == "approved"
+
+
+def test_run_batch_auto_approve_judges_a_warning_only_conversion_as_needs_review(tmp_path: Path) -> None:
+    """state_for fails a record on a blocking CODE even at warning severity (VOICE_ENDS_UNEQUAL); the batch has
+    already classified the build by severity, so it must still be judged."""
+    sources = make_sources(tmp_path, ["a.ly"])
+
+    def record_fn(convert_dir: Path, source: Path) -> ConversionRecord:
+        return record(source_path=source.name, state="failed", inputs=inputs(source_sha256=source.name),
+                      diagnostics=(Diagnostic("VOICE_ENDS_UNEQUAL", "warning", "x"),))
+
+    def convert(_source: Path, out: Path) -> None:
+        out.mkdir(parents=True)
+        (out / "score.mei").write_text("<mei/>", encoding="utf-8")
+        (out / "diagnostics.json").write_text("[]", encoding="utf-8")
+
+    def packet(_dir: Path, out: Path) -> None:
+        out.mkdir(parents=True)
+        (out / "index.html").write_text("<html/>", encoding="utf-8")
+
+    report = run_batch(
+        sources, PROFILE, tmp_path / "out", convert_fn=convert, evidence_fn=packet,
+        inputs_fn=lambda s: inputs(source_sha256=s.name), auto_approve=True, record_fn=record_fn,
+        precheck_fn=lambda d, s: precheck(), cases_fn=lambda d: evidence(),
+    )
+    assert report.results == {str(sources[0]): "approved"}
