@@ -1,0 +1,67 @@
+{
+  "artifact_sha256": "9d1c08a6f28a95bf12296ebf9ee78410a628a91e0a17256f687639c6fe4824e8",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T17:49:08Z"
+  },
+  "diagnostics": [],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "48187b4826bd42beaa007c9434df7ec86ce463cc7cf9f91e938a43d77d8520c2",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "cdb6c3a528afe1db7b27d0071189b62c",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "9d1c08a6f28a95bf12296ebf9ee78410a628a91e0a17256f687639c6fe4824e8",
+    "decision": "approve",
+    "inputs_digest": "9e9a160ece957841ec1007f37bf2989c1d8fa63e3e6753b9e8bf8f108265bfbf",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T17:49:08Z"
+  },
+  "source_path": "data/typeset/src/vol-3/al_per_te_dei_genitrix.csv.ly",
+  "state": "approved",
+  "target": "part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/alleluia",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "f499a5096cc38f35bc0c11694e4ea2be0bde640f4bde938eb4153f3cf7c3244d",
+      "mei": "9d1c08a6f28a95bf12296ebf9ee78410a628a91e0a17256f687639c6fe4824e8",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}

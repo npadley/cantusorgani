@@ -1,0 +1,67 @@
+{
+  "artifact_sha256": "89cee1edc5c77ebaf1b75f1577e9fd79d9d95b5f3feb6ba579df6254e932c8b8",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T17:53:03Z"
+  },
+  "diagnostics": [],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "737f81bdeeaa0daafa40290367dbcea4492eb5d784a774bcbd4a42c0ef420ee4",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "19cde1d317f3fcdb2f1e172404c6991b",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "89cee1edc5c77ebaf1b75f1577e9fd79d9d95b5f3feb6ba579df6254e932c8b8",
+    "decision": "approve",
+    "inputs_digest": "dcd9f71ed48a78f982233561867c41bf7faa8f9155e960c320c7ad00201c5abc",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T17:53:03Z"
+  },
+  "source_path": "data/typeset/src/vol-3/co_quam_magna.csv.ly",
+  "state": "approved",
+  "target": "part:s-francisci-caracciolo-confessoris/communion",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "73834ebe25f8ca4375910ac152a406a014a6db085a28733763e3a3fec87372e5",
+      "mei": "89cee1edc5c77ebaf1b75f1577e9fd79d9d95b5f3feb6ba579df6254e932c8b8",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}

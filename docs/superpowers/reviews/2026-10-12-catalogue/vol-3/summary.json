@@ -1,0 +1,195 @@
+{
+  "catalogue_denominator": 859,
+  "catalogue_states": {
+    "approved": 777,
+    "failed": 25,
+    "needs-review": 41,
+    "unsupported": 16
+  },
+  "volume": "vol-3",
+  "audited_sources": 238,
+  "states": {
+    "approved": 226,
+    "unsupported": 2,
+    "failed": 8,
+    "needs-review": 2
+  },
+  "new_approved_records": 192,
+  "verified_objects": 384,
+  "blocking_diagnostic_families": {
+    "UNSUPPORTED_FEATURE": 2,
+    "VOICE_ENDS_UNEQUAL": 2,
+    "COMPILE_FAILED": 7,
+    "SCHEMA_INVALID": 1,
+    "UNKNOWN_FEATURE": 2
+  },
+  "failed_auto_review_criteria": {
+    "precheck": 1,
+    "layout": 1,
+    "unsupported": 1
+  },
+  "optional_spot_check_sample": [
+    "data/typeset/src/vol-3/an_adorna.csv.ly",
+    "data/typeset/src/vol-3/co_christus_semel.csv.ly",
+    "data/typeset/src/vol-3/of_benedicite_dominum.csv.ly",
+    "data/typeset/src/vol-3/of_confessio.csv.ly",
+    "data/typeset/src/vol-3/al_defecit_caro.csv.ly"
+  ],
+  "approved_but_not_manifest_ready": {
+    "data/typeset/src/vol-3/al_beata_es.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/al_custodi_innocentiam.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/al_habet_in_vestimento.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/al_in_deo_salutare.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/al_laetamini.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/al_missus_est_angelus.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/al_potens_in_terra.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/al_potestas_ejus.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/al_qui_ad_justitiam.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/al_quia_factus_es.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/an_lumen_ad_revelationem.2.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/an_lumen_ad_revelationem.3.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/an_lumen_ad_revelationem.4.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/an_lumen_ad_revelationem.5.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/an_responsum_accepit.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/co_posuerunt.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/co_quae_est_ista.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/co_regina_mundi_272.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/co_sedebit_dominus.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/co_signa_eos.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/co_vos_estis_lux.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/gr_dominabitur.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/in_dignus_est_agnus.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/in_gaudeamus__annae.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/in_judicant_sancti.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/in_loquetur_dominus.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/in_probasti.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/in_timete_dominum.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/in_venite_audite.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/of_ego_dilecto.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/of_postula_a_me.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/of_venite_filii.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/tr_bonum_est_confiteri.csv.ly": "UNMATCHED_TARGET",
+    "data/typeset/src/vol-3/tr_contristatus_sum.csv.ly": "UNMATCHED_TARGET"
+  },
+  "blocked_sources": [
+    {
+      "source": "data/typeset/src/vol-3/al_christo_confixus.csv.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNSUPPORTED_FEATURE",
+        "UNSUPPORTED_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-3/al_te_gloriosus.csv.ly",
+      "state": "failed",
+      "diagnostics": [
+        "COMPILE_FAILED"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-3/co_cor_meum.csv.ly",
+      "state": "unsupported",
+      "diagnostics": [
+        "VOICE_ENDS_UNEQUAL",
+        "UNSUPPORTED_FEATURE",
+        "UNSUPPORTED_FEATURE"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-3/co_jacob_autem.csv.ly",
+      "state": "needs-review",
+      "diagnostics": [],
+      "criteria_failed": [
+        "layout",
+        "precheck"
+      ],
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-3/in_exsultabo_in_jerusalem.csv.ly",
+      "state": "failed",
+      "diagnostics": [
+        "UNKNOWN_FEATURE",
+        "UNKNOWN_FEATURE",
+        "SCHEMA_INVALID",
+        "SCHEMA_INVALID",
+        "SCHEMA_INVALID"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-3/in_multae_tribulationes.csv.ly",
+      "state": "needs-review",
+      "diagnostics": [
+        "UNKNOWN_FEATURE"
+      ],
+      "criteria_failed": [
+        "unsupported"
+      ],
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-3/of_calix_benedictionis.csv.ly",
+      "state": "failed",
+      "diagnostics": [
+        "COMPILE_FAILED"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-3/of_dextera_domini_alleluia.csv.ly",
+      "state": "failed",
+      "diagnostics": [
+        "COMPILE_FAILED"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-3/of_lauda_jerusalem.csv.ly",
+      "state": "failed",
+      "diagnostics": [
+        "COMPILE_FAILED"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-3/re_obtulerunt.csv.ly",
+      "state": "failed",
+      "diagnostics": [
+        "COMPILE_FAILED"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-3/tr_christo_igitur.csv.ly",
+      "state": "failed",
+      "diagnostics": [
+        "COMPILE_FAILED"
+      ],
+      "criteria_failed": null,
+      "message": null
+    },
+    {
+      "source": "data/typeset/src/vol-3/tr_non_judicavi.csv.ly",
+      "state": "failed",
+      "diagnostics": [
+        "COMPILE_FAILED"
+      ],
+      "criteria_failed": null,
+      "message": null
+    }
+  ]
+}

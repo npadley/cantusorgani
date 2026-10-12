@@ -1,0 +1,67 @@
+{
+  "artifact_sha256": "9f06506c7e04f927b5dcb7b41ba726ca14fc635b91e4c7bc66367033d6afb43f",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T17:48:34Z"
+  },
+  "diagnostics": [],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "300050941e957b4a8329974369a27b345014a4639d44a0fa39759dd5557aa0f1",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "f838184583c9ac98c32c690a45155bbe",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "9f06506c7e04f927b5dcb7b41ba726ca14fc635b91e4c7bc66367033d6afb43f",
+    "decision": "approve",
+    "inputs_digest": "6e32e7e67e0fb25a1b052a1e992a47acdb7060455546655176d0ff2d5d73b6e0",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T17:48:34Z"
+  },
+  "source_path": "data/typeset/src/vol-3/al_in_multitudine.csv.ly",
+  "state": "approved",
+  "target": "part:s-irenaei-episcopi-et-martyris/alleluia",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "9512e668aeaecdd525ed8bf1a5cc867f8a4f87004d74177a6ed8de0d8dbfa0be",
+      "mei": "9f06506c7e04f927b5dcb7b41ba726ca14fc635b91e4c7bc66367033d6afb43f",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}
