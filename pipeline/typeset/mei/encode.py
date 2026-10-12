@@ -471,6 +471,10 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
             attrs["visible"] = "false"
         elif event.notehead == "quilisma" or continuation:
             attrs["head.visible"] = "false"
+            if continuation and frag.notated.dots:
+                # Verovio still draws the augmentation dots of a head that is only head.visible="false";
+                # visible="false" hides them too. The layout code unhides the head AND this at a break.
+                attrs["visible"] = "false"
         node = _Node("note", attrs)
         if not continuation:
             for number in sorted(verses.get(event.id, {})):

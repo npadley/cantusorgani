@@ -708,3 +708,16 @@ def test_encode_score_chord_in_a_voice_is_a_chord_element_and_survives_a_split()
     assert cont.findall("m:note", NS)[0].get("type") == "split-continuation"
     assert compare_scores(normalize_ir(ir), normalize_mei(result.xml, result.provenance)) == []
     assert not [d for d in result.diagnostics if d.severity == "error"]
+
+
+def test_encode_score_dotted_continuation_fragment_is_fully_hidden_so_its_dots_do_not_draw() -> None:
+    """A8: Verovio draws the augmentation dots of a head that is only head.visible="false"."""
+    from tests.test_mei_normalize import pilot
+
+    _, encoded = pilot("F10")
+    root = etree.fromstring(encoded.xml)
+    dotted = [n for n in q(root, "//m:note[@type='split-continuation']") if n.get("dots")]
+    assert dotted
+    assert all(n.get("visible") == "false" and n.get("head.visible") == "false" for n in dotted)
+    plain = [n for n in q(root, "//m:note[@type='split-continuation']") if not n.get("dots")]
+    assert plain and all(n.get("visible") is None for n in plain)
