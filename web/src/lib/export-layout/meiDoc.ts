@@ -70,6 +70,9 @@ function revealSplitSustains(doc: Document, brokenMeasureIds: ReadonlySet<string
     }
     const accid = first.getAttribute('accid');
     if (accid) cont.setAttribute('accid', accid);
+    // A dotted continuation is also visible="false" (its dots would show); a continuation of a hidden
+    // voice-line note stays hidden because its first fragment is.
+    if (first.getAttribute('visible') !== 'false') cont.removeAttribute('visible');
 
     const tieId = `${contId}-tie`;
     if (byXmlId.has(tieId)) continue;
@@ -81,6 +84,67 @@ function revealSplitSustains(doc: Document, brokenMeasureIds: ReadonlySet<string
     measure.appendChild(tie);
   }
   retargetSustainTies(doc, byXmlId, revealed);
+  continueSlursAcrossPages(doc, byXmlId);
+}
+
+/**
+ * Verovio draws a spanning control element only on the page that holds its measure. A slur that crosses a
+ * page break (a source line break inside a slur, A8) would therefore lose its end on the next page, so a
+ * copy of it goes into the first measure after each page break it crosses. Slurs end on first heads, which
+ * are always visible, so no retargeting is needed (unlike ties).
+ */
+/** The first note in `measure` on the same staff number and layer number as `like`. */
+function firstNoteLike(measure: Element, like: Element): Element | null {
+  const place = (el: Element): [string, string] => {
+    let staff = '';
+    let layer = '';
+    for (let n: Node | null = el.parentNode; n; n = n.parentNode) {
+      if (n.nodeType !== 1) continue;
+      const name = localName(n as Element);
+      if (name === 'layer' && layer === '') layer = (n as Element).getAttribute('n') ?? '1';
+      if (name === 'staff' && staff === '') staff = (n as Element).getAttribute('n') ?? '1';
+    }
+    return [staff, layer];
+  };
+  const [staff, layer] = place(like);
+  for (const note of Array.from(measure.getElementsByTagName('note'))) {
+    const [s, l] = place(note);
+    if (s === staff && l === layer && note.getAttribute(XML_ID)) return note;
+  }
+  return null;
+}
+
+function continueSlursAcrossPages(doc: Document, byXmlId: ReadonlyMap<string, Element>): void {
+  const pbs = Array.from(doc.getElementsByTagName('pb'));
+  if (pbs.length === 0) return;
+  const measures = Array.from(doc.getElementsByTagName('measure'));
+  const index = new Map(measures.map((m, i) => [m, i] as const));
+  for (const slur of Array.from(doc.getElementsByTagName('slur'))) {
+    const id = slur.getAttribute(XML_ID);
+    const start = byXmlId.get(refId(slur.getAttribute('startid')) ?? '');
+    const end = byXmlId.get(refId(slur.getAttribute('endid')) ?? '');
+    const from = start ? enclosingMeasure(start) : null;
+    const to = end ? enclosingMeasure(end) : null;
+    if (!id || !from || !to) continue;
+    const a = index.get(from) ?? -1;
+    const b = index.get(to) ?? -1;
+    pbs.forEach((pb, k) => {
+      let next: Element | null = nextElementSibling(pb);
+      while (next && (localName(next) === 'sb' || localName(next) === 'pb')) next = nextElementSibling(next);
+      const n = next && localName(next) === 'measure' ? (index.get(next) ?? -1) : -1;
+      if (n <= a || n > b) return;
+      const copyId = `${id}-pg${k}`;
+      if (byXmlId.has(copyId)) return;
+      // Verovio draws nothing for a slur whose start is on another page, so the copy starts at the first
+      // note of the same staff and layer on the new page and keeps the true end note.
+      const first = firstNoteLike(next!, start!);
+      if (!first) return;
+      const copy = slur.cloneNode(true) as Element;
+      copy.setAttribute(XML_ID, copyId);
+      copy.setAttribute('startid', `#${first.getAttribute(XML_ID) ?? ''}`);
+      next!.appendChild(copy);
+    });
+  }
 }
 
 /**

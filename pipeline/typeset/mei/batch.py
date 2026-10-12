@@ -287,6 +287,24 @@ def run_batch(
     return report
 
 
+#: Ornament and articulation commands the converter does not read: the listener never reports them, so a
+#: score that uses one converts without any diagnostic yet lacks the mark LilyPond draws (``\prall`` is in 588
+#: catalogue sources). Until one is converted, such a score is not eligible for automatic approval.
+DROPPED_COMMANDS = (
+    "prall", "mordent", "prallprall", "prallmordent", "turn", "reverseturn", "trill", "fermata", "shortfermata",
+    "longfermata", "staccato", "staccatissimo", "accent", "marcato", "tenuto", "portato", "espressivo", "stopped",
+    "open", "flageolet", "upbow", "downbow", "segno", "coda",
+)
+_DROPPED = re.compile(r"\\(" + "|".join(DROPPED_COMMANDS) + r")\b")
+
+
+def dropped_commands(text: str) -> list[str]:
+    """Distinct ``DROPPED_COMMANDS`` used in LilyPond ``text`` (comments ignored), in order of first use."""
+    text = re.sub(r"%\{.*?%\}", "", text, flags=re.DOTALL)
+    text = "\n".join(line.split("%", 1)[0] for line in text.splitlines())
+    return list(dict.fromkeys(m.group(1) for m in _DROPPED.finditer(text)))
+
+
 def _flat(name: str) -> str:
     """A flat file stem: ``vol-5/missa-ix/kyrie_IX.ly`` -> ``vol-5__missa-ix__kyrie_IX``; a path outside the repo -> its name."""
     if name.startswith("/"):
@@ -323,6 +341,17 @@ def _judge(
             # state_for fails a record on any blocking-code diagnostic, warnings included (VOICE_ENDS_UNEQUAL);
             # the batch has already classified this build by severity, so judge it as needs-review.
             unjudged = dataclasses.replace(unjudged, state="needs-review")
+        dropped = dropped_commands(source.read_text(encoding="utf-8")) if source.is_file() else []
+        if dropped:
+            from pipeline.typeset.mei.diagnostics import Diagnostic
+
+            unjudged = dataclasses.replace(
+                unjudged,
+                diagnostics=(
+                    *unjudged.diagnostics,
+                    Diagnostic("UNKNOWN_FEATURE", "warning", f"not converted: {', '.join('\\' + c for c in dropped)}"),
+                ),
+            )
         record = auto_approve(unjudged, precheck_fn(directory, source), cases, profile_version=profile_version)
         _atomic_write(saved, json.dumps(record_to_dict(record), indent=2, sort_keys=True) + "\n")
     if record.state == "approved":

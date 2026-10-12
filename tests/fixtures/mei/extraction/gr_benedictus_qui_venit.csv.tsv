@@ -1,0 +1,2059 @@
+0	-	-	version	listen_full/1	2.26.0
+0	-	up	staff	1
+0	-	down	staff	2
+0	-	up	key	-2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:10:1
+0	up:chant	up	voice	0	voiceOne
+0	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:10
+0	-	up	key	-2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:10:1
+0	up:#1	up	voice	1	voiceTwo
+0	up:#1	up	rest	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:78:0
+0	-	down	key	-2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:10:1
+0	down:#2	down	voice	2	voiceOne
+0	down:#2	down	rest	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:97:0
+0	-	down	key	-2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:10:1
+0	down:#3	down	voice	3	voiceTwo
+0	down:#3	down	rest	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:116:0
+0	-	down	key	-2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:10:1
+0	lyrics:#0	up:chant	lyric	Be	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:38:0
+0	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:38:3
+0	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:10
+0	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:10
+0	up:#1	up	rhead	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:78:0
+0	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:78:0
+0	-	up	clef	clefs.G	-2	-
+0	down:#2	down	rhead	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:97:0
+0	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:97:0
+0	down:#3	down	rhead	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:116:0
+0	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:116:0
+0	-	down	clef	clefs.F	2	-
+1/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:16
+1/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:20
+1/4	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:78:3
+1/4	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:97:3
+1/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:97:7
+1/4	lyrics:#0	up:chant	lyric	ne	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:38:6
+1/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:38:9
+1/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:16
+1/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:16
+1/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:78:3
+1/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:78:3
+1/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:97:3
+1/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:97:3
+1/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:22
+1/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:27
+1/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:22
+1/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:22
+3/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:29
+3/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:78:9
+3/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:78:13
+3/4	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:97:9
+3/4	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:116:7
+3/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:116:10
+3/4	lyrics:#0	up:chant	lyric	dí	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:38:12
+3/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:38:15
+3/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:29
+3/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:29
+3/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:78:9
+3/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:78:9
+3/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:97:9
+3/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:97:9
+3/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:116:7
+3/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:116:7
+1	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:35
+1	lyrics:#0	up:chant	lyric	ctus	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:38:18
+1	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:35
+1	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:51:35
+5/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:1
+5/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:7
+5/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:0
+5/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:4
+5/4	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:0
+5/4	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:0
+5/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:3
+5/4	lyrics:#0	up:chant	lyric	qui	 * 	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:39:20
+5/4	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+5/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:1
+5/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:1
+5/4	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+5/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:0
+5/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:0
+5/4	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+5/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:0
+5/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:0
+5/4	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+5/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:0
+5/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:0
+3/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:9
+3/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:12
+3/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:9
+3/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:9
+7/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:14
+7/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:20
+7/4	up:#1	up	note	d	0	4	1	0	5	2	5/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:6
+7/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:14
+7/4	down:#2	down	note	a	0	3	1	0	5	2	5/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:5
+7/4	down:#3	down	note	g	0	3	1	0	5	2	5/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:5
+7/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:12
+7/4	lyrics:#0	up:chant	lyric	ve	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:39:24
+7/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:39:27
+7/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:14
+7/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:14
+7/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:6
+7/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:6
+7/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:5
+7/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:5
+7/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:5
+7/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:5
+2	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:22
+2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:22
+2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:22
+9/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:27
+9/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:27
+9/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:27
+5/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:33
+5/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:33
+5/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:33
+11/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:37
+11/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:40
+11/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:37
+11/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:37
+3	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:42
+3	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:46
+3	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:16
+3	down:#2	down	note	b	-1	3	1	0	5	2	5/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:12
+3	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:21
+3	down:#3	down	note	g	0	3	1	0	5	2	5/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:14
+3	lyrics:#0	up:chant	lyric	nit	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:39:30
+3	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:42
+3	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:42
+3	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:16
+3	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:16
+3	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:12
+3	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:12
+3	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:14
+3	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:14
+13/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:48
+13/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:48
+13/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:48
+7/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:54
+7/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:54
+7/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:54
+15/4	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:58
+15/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:63
+15/4	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:24
+15/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:28
+15/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:58
+15/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:58
+15/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:24
+15/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:24
+4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:65
+4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:69
+4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:39:34
+4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:65
+4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:65
+17/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:71
+17/4	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:30
+17/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:34
+17/4	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:23
+17/4	down:#3	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:21
+17/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:24
+17/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:71
+17/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:71
+17/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:30
+17/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:30
+17/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:23
+17/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:23
+17/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:21
+17/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:21
+9/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:75
+9/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:75
+9/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:75
+19/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:79
+19/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:82
+19/4	up:#1	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:36
+19/4	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:28
+19/4	down:#3	down	note	f	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:26
+19/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:79
+19/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:52:79
+19/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:36
+19/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:79:36
+19/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:28
+19/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:98:28
+19/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:26
+19/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:117:26
+5	-	-	break	data/typeset/include/noh2.ily:75:24
+5	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:1
+5	up:#1	up	note	e	-1	4	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:80:0
+5	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:80:10
+5	down:#2	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:99:0
+5	down:#3	down	note	c	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:118:0
+5	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:118:7
+5	lyrics:#0	up:chant	lyric	in	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:40:0
+5	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+5	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:1
+5	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:1
+5	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+5	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:80:0
+5	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:80:0
+5	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+5	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:99:0
+5	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:99:0
+5	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+5	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:118:0
+5	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:118:0
+21/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:8
+21/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:12
+21/4	lyrics:#0	up:chant	lyric	nó	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:40:3
+21/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:40:6
+21/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:8
+21/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:8
+11/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:14
+11/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:14
+11/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:14
+23/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:18
+23/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:21
+23/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:18
+23/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:18
+6	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:23
+6	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:27
+6	up:#1	up	note	e	-1	4	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:80:12
+6	down:#2	down	note	e	-1	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:99:7
+6	down:#3	down	note	c	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:118:9
+6	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:40:9
+6	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:23
+6	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:23
+6	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:80:12
+6	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:80:12
+6	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:99:7
+6	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:99:7
+6	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:118:9
+6	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:118:9
+25/4	up:chant	up	note	a	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:29
+25/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:34
+25/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:29
+25/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:29
+25/4	up:chant	up	acc	flat	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:29
+13/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:36
+13/2	lyrics:#0	up:chant	lyric	mi	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:40:11
+13/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:40:14
+13/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:36
+13/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:36
+27/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:40
+27/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:46
+27/4	lyrics:#0	up:chant	lyric	ne	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:40:17
+27/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:40
+27/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:40
+7	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:48
+7	up:chant	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:52
+7	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:80:22
+7	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:80:30
+7	down:#2	down	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:99:16
+7	down:#3	down	note	b	-1	2	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:118:16
+7	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:118:26
+7	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:48
+7	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:48
+7	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:80:22
+7	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:80:22
+7	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:99:16
+7	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:99:16
+7	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:118:16
+7	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:118:16
+29/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:54
+29/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:58
+29/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:54
+29/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:54
+15/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:60
+15/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:60
+15/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:54:60
+31/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:0
+31/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:2
+31/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:6
+31/4	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:0
+31/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:8
+31/4	down:#2	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:0
+31/4	down:#3	down	note	b	-1	2	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:0
+31/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:10
+31/4	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+31/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:2
+31/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:2
+31/4	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+31/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:0
+31/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:0
+31/4	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+31/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:0
+31/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:0
+31/4	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+31/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:0
+31/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:0
+8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:8
+8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:8
+8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:8
+33/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:17
+33/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:17
+33/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:17
+17/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:23
+17/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:26
+17/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:23
+17/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:23
+35/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:28
+35/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:34
+35/4	up:#1	up	note	d	0	4	1	0	5	2	5/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:10
+35/4	down:#2	down	note	g	0	3	1	0	5	2	5/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:7
+35/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:14
+35/4	down:#3	down	note	b	-1	2	1	0	5	2	5/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:12
+35/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:40:20
+35/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:28
+35/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:28
+35/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:10
+35/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:10
+35/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:7
+35/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:7
+35/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:12
+35/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:12
+9	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:36
+9	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:36
+9	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:36
+37/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:41
+37/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:41
+37/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:41
+19/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:47
+19/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:47
+19/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:47
+39/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:51
+39/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:54
+39/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:51
+39/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:51
+10	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:56
+10	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:60
+10	up:#1	up	note	e	-1	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:18
+10	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:16
+10	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:23
+10	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:22
+10	lyrics:#0	up:chant	lyric	Dó	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:40:22
+10	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:40:25
+10	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:56
+10	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:56
+10	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:18
+10	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:18
+10	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:16
+10	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:16
+10	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:22
+10	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:22
+41/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:62
+41/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:62
+41/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:62
+21/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:67
+21/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:70
+21/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:67
+21/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:67
+43/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:72
+43/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:78
+43/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:28
+43/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:32
+43/4	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:25
+43/4	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:29
+43/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:32
+43/4	lyrics:#0	up:chant	lyric	mi	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:40:28
+43/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:40:31
+43/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:72
+43/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:72
+43/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:28
+43/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:28
+43/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:25
+43/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:25
+43/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:29
+43/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:29
+11	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:80
+11	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:80
+11	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:80
+45/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:84
+45/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:87
+45/4	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:34
+45/4	down:#2	down	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:28
+45/4	down:#3	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:34
+45/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:84
+45/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:55:84
+45/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:34
+45/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:81:34
+45/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:28
+45/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:100:28
+45/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:34
+45/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:119:34
+23/2	-	-	break	data/typeset/include/noh2.ily:75:24
+23/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:1
+23/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:7
+23/2	up:#1	up	note	b	-1	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:0
+23/2	down:#2	down	note	d	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:0
+23/2	down:#3	down	note	g	0	2	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:0
+23/2	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:8
+23/2	lyrics:#0	up:chant	lyric	ni:	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:40:34
+23/2	up:chant	up	div	maxima	data/typeset/include/noh2.ily:30:2
+23/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:1
+23/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:1
+23/2	up:#1	up	div	maxima	data/typeset/include/noh2.ily:30:2
+23/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:0
+23/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:0
+23/2	down:#2	down	div	maxima	data/typeset/include/noh2.ily:30:2
+23/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:0
+23/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:0
+23/2	down:#3	down	div	maxima	data/typeset/include/noh2.ily:30:2
+23/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:0
+23/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:0
+47/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:9
+47/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:9
+47/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:9
+12	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:13
+12	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:16
+12	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:13
+12	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:13
+49/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:18
+49/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:40:38
+49/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:18
+49/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:18
+25/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:24
+25/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:30
+25/2	up:#1	up	note	d	0	4	1	0	5	2	5/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:9
+25/2	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:17
+25/2	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:7
+25/2	down:#3	down	note	g	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:10
+25/2	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:14
+25/2	lyrics:#0	up:chant	lyric	De	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:41:0
+25/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:41:3
+25/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:24
+25/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:24
+25/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:9
+25/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:9
+25/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:7
+25/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:7
+25/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:10
+25/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:10
+51/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:32
+51/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:35
+51/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:32
+51/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:32
+13	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:37
+13	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:43
+13	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:10
+13	down:#3	down	note	g	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:16
+13	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:24
+13	lyrics:#0	up:chant	lyric	us	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:41:6
+13	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:37
+13	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:37
+13	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:10
+13	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:10
+13	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:16
+13	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:16
+53/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:45
+53/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:45
+53/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:45
+27/2	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:50
+27/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:54
+27/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:50
+27/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:50
+55/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:56
+55/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:62
+55/4	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:19
+55/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:27
+55/4	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:17
+55/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:24
+55/4	down:#3	down	note	g	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:26
+55/4	lyrics:#0	up:chant	lyric	Dó	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:41:9
+55/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:41:12
+55/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:56
+55/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:56
+55/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:19
+55/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:19
+55/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:17
+55/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:17
+55/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:26
+55/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:26
+14	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:64
+14	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:64
+14	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:64
+57/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:68
+57/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:71
+57/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:68
+57/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:68
+29/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:73
+29/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:77
+29/2	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:29
+29/2	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:26
+29/2	down:#3	down	note	b	-1	2	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:34
+29/2	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:44
+29/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:41:15
+29/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:73
+29/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:73
+29/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:29
+29/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:29
+29/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:26
+29/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:26
+29/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:34
+29/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:34
+59/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:79
+59/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:79
+59/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:79
+15	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:85
+15	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:85
+15	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:85
+61/4	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:89
+61/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:94
+61/4	up:#1	up	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:37
+61/4	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:33
+61/4	down:#3	down	note	b	-1	2	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:46
+61/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:89
+61/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:89
+61/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:37
+61/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:37
+61/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:33
+61/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:33
+61/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:46
+61/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:46
+31/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:96
+31/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:100
+31/2	lyrics:#0	up:chant	lyric	mi	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:41:17
+31/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:41:20
+31/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:96
+31/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:96
+63/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:102
+63/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:105
+63/4	up:chant	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:107
+63/4	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:42
+63/4	down:#2	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:37
+63/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:44
+63/4	down:#3	down	note	a	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:52
+63/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:102
+63/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:102
+63/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:42
+63/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:82:42
+63/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:37
+63/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:101:37
+63/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:52
+63/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:120:52
+16	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:109
+16	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:113
+16	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:109
+16	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:109
+65/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:115
+65/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:118
+65/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:115
+65/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:57:115
+33/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:1
+33/2	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:0
+33/2	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:4
+33/2	down:#2	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:0
+33/2	down:#3	down	note	b	-1	2	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:0
+33/2	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:6
+33/2	lyrics:#0	up:chant	lyric	nus,	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:41:23
+33/2	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+33/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:1
+33/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:1
+33/2	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+33/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:0
+33/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:0
+33/2	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+33/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:0
+33/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:0
+33/2	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+33/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:0
+33/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:0
+67/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:5
+67/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:41:28
+67/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:5
+67/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:5
+17	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:11
+17	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:6
+17	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:14
+17	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:3
+17	down:#3	down	note	b	-1	2	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:8
+17	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:18
+17	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:41:30
+17	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:11
+17	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:11
+17	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:6
+17	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:6
+17	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:3
+17	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:3
+17	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:8
+17	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:8
+69/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:17
+69/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:21
+69/4	lyrics:#0	up:chant	lyric	et	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:0
+69/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:17
+69/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:17
+35/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:23
+35/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:57
+35/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:23
+35/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:23
+71/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:59
+71/4	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:16
+71/4	down:#2	down	note	e	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:10
+71/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:15
+71/4	down:#3	down	note	b	-1	2	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:20
+71/4	lyrics:#0	up:chant	lyric	il	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:3
+71/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:6
+71/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:59
+71/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:58:59
+71/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:16
+71/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:16
+71/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:10
+71/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:10
+71/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:20
+71/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:20
+18	-	-	break	data/typeset/include/noh2.ily:75:24
+18	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:2
+18	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:6
+18	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:20
+18	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:24
+18	down:#2	down	note	e	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:17
+18	down:#3	down	note	a	-1	2	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:26
+18	lyrics:#0	up:chant	lyric	lú	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:9
+18	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:12
+18	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:2
+18	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:2
+18	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:20
+18	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:20
+18	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:17
+18	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:17
+18	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:26
+18	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:26
+18	down:#3	down	acc	flat	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:26
+73/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:8
+73/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:11
+73/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:8
+73/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:8
+37/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:13
+37/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:17
+37/2	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:26
+37/2	down:#2	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:22
+37/2	down:#3	down	note	a	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:32
+37/2	lyrics:#0	up:chant	lyric	xit	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:15
+37/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:13
+37/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:13
+37/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:26
+37/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:26
+37/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:22
+37/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:22
+37/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:32
+37/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:32
+75/4	up:chant	up	note	a	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:19
+75/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:19
+75/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:19
+75/4	up:chant	up	acc	flat	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:19
+19	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:25
+19	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:25
+19	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:25
+77/4	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:29
+77/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:35
+77/4	up:#1	up	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:34
+77/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:39
+77/4	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:29
+77/4	down:#3	down	note	g	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:40
+77/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:44
+77/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:29
+77/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:29
+77/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:34
+77/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:34
+77/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:29
+77/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:29
+77/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:40
+77/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:40
+39/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:37
+39/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:37
+39/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:37
+79/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:46
+79/4	up:#1	up	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:41
+79/4	down:#2	down	note	e	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:32
+79/4	down:#3	down	note	g	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:46
+79/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:54
+79/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:46
+79/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:46
+79/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:41
+79/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:83:41
+79/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:32
+79/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:102:32
+79/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:46
+79/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:121:46
+20	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:50
+20	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:50
+20	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:50
+81/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:54
+81/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:57
+81/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:54
+81/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:59:54
+41/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:1
+41/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:7
+41/2	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:84:0
+41/2	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:84:8
+41/2	down:#2	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:103:0
+41/2	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:103:7
+41/2	down:#3	down	note	g	0	2	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:122:0
+41/2	lyrics:#0	up:chant	lyric	no	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:19
+41/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:22
+41/2	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+41/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:1
+41/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:1
+41/2	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+41/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:84:0
+41/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:84:0
+41/2	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+41/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:103:0
+41/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:103:0
+41/2	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+41/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:122:0
+41/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:122:0
+83/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:9
+83/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:9
+83/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:9
+21	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:14
+21	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:14
+21	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:14
+85/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:20
+85/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:23
+85/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:20
+85/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:20
+43/2	up:chant	up	note	a	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:25
+43/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:31
+43/2	up:#1	up	note	d	0	4	1	0	7	4	7/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:84:10
+43/2	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:84:18
+43/2	down:#2	down	note	g	0	3	1	0	7	4	7/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:103:9
+43/2	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:103:16
+43/2	down:#3	down	note	b	-1	2	1	0	7	4	7/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:122:8
+43/2	lyrics:#0	up:chant	lyric	bis.	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:25
+43/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:25
+43/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:25
+43/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:84:10
+43/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:84:10
+43/2	up:chant	up	acc	flat	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:25
+43/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:103:9
+43/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:103:9
+43/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:122:8
+43/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:122:8
+87/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:33
+87/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:33
+87/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:33
+22	up:chant	up	note	g	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:39
+22	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:43
+22	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:39
+22	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:39
+179/8	up:chant	up	note	a	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:45
+179/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:51
+179/8	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:84:20
+179/8	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:84:28
+179/8	down:#2	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:103:18
+179/8	down:#3	down	note	d	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:122:18
+179/8	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:122:25
+179/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:30
+179/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:45
+179/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:45
+179/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:84:20
+179/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:84:20
+179/8	up:chant	up	acc	flat	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:45
+179/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:103:18
+179/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:103:18
+179/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:122:18
+179/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:122:18
+181/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:53
+181/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:53
+181/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:53
+183/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:59
+183/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:59
+183/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:59
+185/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:63
+185/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:66
+185/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:63
+185/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:63
+187/8	up:chant	up	note	a	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:68
+187/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:74
+187/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:84:30
+187/8	down:#2	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:103:25
+187/8	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:122:27
+187/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:32
+187/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:68
+187/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:68
+187/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:84:30
+187/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:84:30
+187/8	up:chant	up	acc	flat	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:68
+187/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:103:25
+187/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:103:25
+187/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:122:27
+187/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:122:27
+189/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:76
+189/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:76
+189/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:76
+191/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:80
+191/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:83
+191/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:80
+191/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:60:80
+193/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:1
+193/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:7
+193/8	up:#1	up	note	e	-1	4	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:0
+193/8	down:#2	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:0
+193/8	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:7
+193/8	down:#3	down	note	c	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:0
+193/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:34
+193/8	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+193/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:1
+193/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:1
+193/8	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+193/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:0
+193/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:0
+193/8	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+193/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:0
+193/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:0
+193/8	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+193/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:0
+193/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:0
+195/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:9
+195/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:9
+195/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:9
+197/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:18
+197/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:18
+197/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:18
+199/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:22
+199/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:25
+199/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:22
+199/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:22
+201/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:27
+201/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:31
+201/8	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:10
+201/8	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:14
+201/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:9
+201/8	down:#3	down	note	b	-1	2	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:7
+201/8	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:13
+201/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:36
+201/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:27
+201/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:27
+201/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:10
+201/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:10
+201/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:9
+201/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:9
+201/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:7
+201/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:7
+203/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:33
+203/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:33
+203/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:33
+205/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:39
+205/8	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:16
+205/8	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:12
+205/8	down:#3	down	note	b	-1	2	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:15
+205/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:39
+205/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:39
+205/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:16
+205/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:16
+205/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:12
+205/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:12
+205/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:15
+205/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:15
+207/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:43
+207/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:46
+207/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:43
+207/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:43
+209/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:48
+209/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:54
+209/8	up:#1	up	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:20
+209/8	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:25
+209/8	down:#2	down	note	a	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:17
+209/8	down:#3	down	note	e	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:21
+209/8	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:26
+209/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:38
+209/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:48
+209/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:48
+209/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:20
+209/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:20
+209/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:17
+209/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:17
+209/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:21
+209/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:21
+209/8	down:#2	down	acc	flat	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:17
+211/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:56
+211/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:56
+211/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:56
+213/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:60
+213/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:65
+213/8	up:#1	up	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:27
+213/8	down:#2	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:22
+213/8	down:#3	down	note	e	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:28
+213/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:60
+213/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:61:60
+213/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:27
+213/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:85:27
+213/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:22
+213/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:104:22
+213/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:28
+213/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:123:28
+215/8	-	-	break	data/typeset/include/noh2.ily:75:24
+215/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:1
+215/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:7
+215/8	up:#1	up	rest	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:0
+215/8	down:#2	down	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:0
+215/8	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:6
+215/8	down:#3	down	rest	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:0
+215/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:40
+215/8	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+215/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:1
+215/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:1
+215/8	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+215/8	up:#1	up	rhead	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:0
+215/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:0
+215/8	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+215/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:0
+215/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:0
+215/8	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2
+215/8	down:#3	down	rhead	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:0
+215/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:0
+217/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:9
+217/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:12
+217/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:9
+217/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:9
+219/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:14
+219/8	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:3
+219/8	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:7
+219/8	down:#2	down	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:8
+219/8	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:14
+219/8	down:#3	down	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:3
+219/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:42
+219/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:14
+219/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:14
+219/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:3
+219/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:3
+219/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:8
+219/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:8
+219/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:3
+219/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:3
+221/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:20
+221/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:44
+221/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:20
+221/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:20
+223/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:26
+223/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:31
+223/8	up:#1	up	note	g	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:9
+223/8	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:17
+223/8	down:#2	down	note	e	-1	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:16
+223/8	down:#3	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:7
+223/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:46
+223/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:26
+223/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:26
+223/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:9
+223/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:9
+223/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:16
+223/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:16
+223/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:7
+223/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:7
+225/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:33
+225/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:33
+225/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:33
+227/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:39
+227/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:44
+227/8	up:chant	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:46
+227/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:39
+227/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:39
+229/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:48
+229/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:54
+229/8	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:19
+229/8	down:#2	down	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:26
+229/8	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:15
+229/8	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:18
+229/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:48
+229/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:48
+229/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:19
+229/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:19
+229/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:26
+229/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:26
+229/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:15
+229/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:15
+231/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:56
+231/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:59
+231/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:56
+231/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:56
+233/8	up:chant	up	note	b	-1	4	2	1	1	1	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:61
+233/8	up:#1	up	note	e	-1	4	1	0	3	4	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:23
+233/8	down:#2	down	note	c	0	4	1	0	3	4	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:30
+233/8	down:#3	down	note	g	0	3	1	0	3	4	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:20
+233/8	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:27
+233/8	lyrics:#0	up:chant	lyric	℣.	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:42:48
+233/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:61
+233/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:61
+233/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:23
+233/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:23
+233/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:30
+233/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:30
+233/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:20
+233/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:20
+59/2	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:68
+59/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:73
+59/2	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:33
+59/2	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:37
+59/2	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:38
+59/2	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:29
+59/2	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:32
+59/2	lyrics:#0	up:chant	lyric	A	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:43:0
+59/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:68
+59/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:68
+59/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:33
+59/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:33
+59/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:38
+59/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:38
+59/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:29
+59/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:29
+119/4	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:75
+119/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:75
+119/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:75
+30	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:80
+30	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:85
+30	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:39
+30	down:#2	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:41
+30	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:44
+30	down:#3	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:34
+30	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:80
+30	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:63:80
+30	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:39
+30	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:86:39
+30	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:41
+30	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:105:41
+30	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:34
+30	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:124:34
+121/4	up:chant	up	note	b	-1	4	2	1	1	1	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:1
+121/4	up:#1	up	note	g	0	4	1	0	3	4	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:0
+121/4	down:#2	down	note	g	0	3	1	0	3	4	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:0
+121/4	down:#3	down	note	e	-1	3	1	0	3	4	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:0
+121/4	lyrics:#0	up:chant	lyric	Dó	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:43:2
+121/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:43:5
+121/4	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+121/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:1
+121/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:1
+121/4	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+121/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:0
+121/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:0
+121/4	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+121/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:0
+121/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:0
+121/4	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+121/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:0
+121/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:0
+245/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:8
+245/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:13
+245/8	up:#1	up	note	f	0	4	1	0	9	4	9/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:8
+245/8	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:16
+245/8	down:#2	down	note	b	-1	3	1	0	9	4	9/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:7
+245/8	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:16
+245/8	down:#3	down	note	d	0	3	1	0	9	4	9/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:9
+245/8	lyrics:#0	up:chant	lyric	mi	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:43:8
+245/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:43:11
+245/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:8
+245/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:8
+245/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:8
+245/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:8
+245/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:7
+245/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:7
+245/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:9
+245/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:9
+247/8	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:15
+247/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:15
+247/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:15
+249/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:20
+249/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:20
+249/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:20
+251/8	up:chant	up	note	b	-1	4	2	1	1	1	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:25
+251/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:31
+251/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:25
+251/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:25
+127/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:33
+127/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:38
+127/4	up:#1	up	note	f	0	4	1	0	9	4	9/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:18
+127/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:26
+127/4	down:#2	down	note	b	-1	3	1	0	9	4	9/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:18
+127/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:27
+127/4	down:#3	down	note	g	0	3	1	0	9	4	9/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:16
+127/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:23
+127/4	lyrics:#0	up:chant	lyric	no	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:43:14
+127/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:33
+127/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:33
+127/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:18
+127/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:18
+127/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:18
+127/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:18
+127/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:16
+127/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:16
+32	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:40
+32	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:40
+32	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:40
+129/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:45
+129/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:45
+129/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:45
+65/2	up:chant	up	note	g	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:51
+65/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:55
+65/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:51
+65/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:51
+263/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:57
+263/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:61
+263/8	up:#1	up	note	f	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:28
+263/8	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:29
+263/8	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:34
+263/8	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:25
+263/8	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:28
+263/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:43:17
+263/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:57
+263/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:57
+263/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:28
+263/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:28
+263/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:29
+263/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:29
+263/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:25
+263/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:25
+265/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:63
+265/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:63
+265/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:63
+267/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:69
+267/8	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:36
+267/8	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:41
+267/8	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:30
+267/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:69
+267/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:69
+267/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:36
+267/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:106:36
+267/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:30
+267/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:125:30
+269/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:73
+269/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:78
+269/8	up:#1	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:36
+269/8	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:42
+269/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:73
+269/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:64:73
+269/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:36
+269/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:87:36
+271/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:1
+271/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:5
+271/8	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:0
+271/8	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:6
+271/8	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:0
+271/8	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:5
+271/8	down:#3	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:0
+271/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:43:19
+271/8	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+271/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:1
+271/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:1
+271/8	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+271/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:0
+271/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:0
+271/8	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+271/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:0
+271/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:0
+271/8	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+271/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:0
+271/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:0
+273/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:7
+273/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:7
+273/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:7
+275/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:13
+275/8	up:#1	up	note	e	-1	4	1	0	7	4	7/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:8
+275/8	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:18
+275/8	down:#2	down	note	b	-1	3	1	0	7	4	7/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:7
+275/8	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:16
+275/8	down:#3	down	note	e	0	3	1	0	7	4	7/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:3
+275/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:13
+275/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:13
+275/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:8
+275/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:8
+275/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:7
+275/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:7
+275/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:3
+275/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:3
+275/8	down:#3	down	acc	natural	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:3
+277/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:17
+277/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:17
+277/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:17
+279/8	up:chant	up	note	e	-1	4	2	1	1	1	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:21
+279/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:21
+279/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:65:21
+141/4	-	-	break	data/typeset/include/noh2.ily:75:24
+141/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:0
+141/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:2
+141/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:6
+141/4	up:#1	up	note	e	-1	4	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:20
+141/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:30
+141/4	down:#2	down	note	b	-1	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:18
+141/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:27
+141/4	down:#3	down	note	d	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:10
+141/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:2
+141/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:2
+141/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:20
+141/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:20
+141/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:18
+141/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:18
+141/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:10
+141/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:10
+71/2	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:8
+71/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:13
+71/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:8
+71/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:8
+143/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:15
+143/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:19
+143/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:43:21
+143/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:15
+143/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:15
+36	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:21
+36	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:24
+36	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:21
+36	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:21
+145/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:26
+145/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:32
+145/4	up:#1	up	note	e	-1	4	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:32
+145/4	down:#2	down	note	b	-1	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:29
+145/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:38
+145/4	down:#3	down	note	c	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:17
+145/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:43:23
+145/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:26
+145/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:26
+145/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:32
+145/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:32
+145/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:29
+145/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:29
+145/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:17
+145/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:17
+73/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:34
+73/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:39
+73/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:34
+73/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:34
+147/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:41
+147/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:46
+147/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:43:25
+147/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:41
+147/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:41
+37	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:48
+37	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:51
+37	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:48
+37	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:48
+149/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:53
+149/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:59
+149/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:42
+149/4	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:40
+149/4	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:24
+149/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:27
+149/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:44:0
+149/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:53
+149/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:53
+149/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:42
+149/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:42
+149/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:40
+149/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:40
+149/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:24
+149/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:24
+75/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:61
+75/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:64
+75/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:61
+75/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:61
+151/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:66
+151/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:72
+151/4	up:#1	up	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:46
+151/4	down:#2	down	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:45
+151/4	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:29
+151/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:44:2
+151/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:66
+151/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:66
+151/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:46
+151/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:46
+151/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:45
+151/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:45
+151/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:29
+151/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:29
+38	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:74
+38	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:78
+38	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:74
+38	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:74
+153/4	up:chant	up	note	e	-1	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:80
+153/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:87
+153/4	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:49
+153/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:53
+153/4	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:49
+153/4	down:#3	down	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:32
+153/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:44:4
+153/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:80
+153/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:80
+153/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:49
+153/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:49
+153/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:49
+153/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:49
+153/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:32
+153/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:126:32
+77/2	up:chant	up	note	e	-1	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:89
+77/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:95
+77/2	up:chant	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:97
+77/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:89
+77/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:89
+155/4	up:chant	up	note	e	-1	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:99
+155/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:106
+155/4	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:55
+155/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:59
+155/4	down:#2	down	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:53
+155/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:59
+155/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:99
+155/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:99
+155/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:55
+155/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:88:55
+155/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:53
+155/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:107:53
+39	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:108
+39	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:113
+39	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:108
+39	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:66:108
+157/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:1
+157/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:7
+157/4	up:#1	up	note	g	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:0
+157/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:8
+157/4	down:#2	down	note	e	-1	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:0
+157/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:10
+157/4	down:#3	down	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:0
+157/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:44:6
+157/4	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+157/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:1
+157/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:1
+157/4	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+157/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:0
+157/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:0
+157/4	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+157/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:0
+157/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:0
+157/4	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+157/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:0
+157/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:0
+79/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:9
+79/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:9
+79/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:9
+159/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:15
+159/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:15
+159/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:15
+40	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:20
+40	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:25
+40	up:chant	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:27
+40	up:#1	up	note	g	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:10
+40	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:18
+40	down:#2	down	note	e	-1	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:12
+40	down:#3	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:8
+40	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:20
+40	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:20
+40	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:10
+40	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:10
+40	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:12
+40	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:12
+40	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:8
+40	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:8
+161/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:29
+161/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:35
+161/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:29
+161/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:29
+81/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:37
+81/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:40
+81/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:37
+81/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:37
+163/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:42
+163/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:48
+163/4	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:20
+163/4	down:#2	down	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:22
+163/4	down:#3	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:16
+163/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:44:8
+163/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:42
+163/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:42
+163/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:20
+163/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:20
+163/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:22
+163/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:22
+163/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:16
+163/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:16
+41	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:50
+41	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:50
+41	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:50
+165/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:54
+165/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:59
+165/4	up:chant	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:61
+165/4	up:#1	up	note	f	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:24
+165/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:32
+165/4	down:#2	down	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:26
+165/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:35
+165/4	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:21
+165/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:54
+165/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:54
+165/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:24
+165/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:24
+165/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:26
+165/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:26
+165/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:21
+165/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:21
+83/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:63
+83/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:69
+83/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:63
+83/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:63
+167/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:71
+167/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:74
+167/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:71
+167/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:71
+42	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:76
+42	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:80
+42	up:#1	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:34
+42	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:37
+42	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:28
+42	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:31
+42	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:44:10
+42	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:76
+42	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:76
+42	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:34
+42	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:34
+42	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:37
+42	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:37
+42	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:28
+42	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:28
+42	down:#3	down	acc	natural	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:28
+169/4	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:82
+169/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:87
+169/4	up:#1	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:38
+169/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:82
+169/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:82
+169/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:38
+169/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:38
+85/2	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:89
+85/2	up:#1	up	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:44
+85/2	down:#2	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:42
+85/2	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:45
+85/2	down:#3	down	note	e	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:33
+85/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:44:12
+85/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:89
+85/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:67:89
+85/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:44
+85/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:89:44
+85/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:42
+85/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:108:42
+85/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:33
+85/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:33
+85/2	down:#3	down	acc	natural	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:127:33
+171/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:68:1
+171/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:68:7
+171/4	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:0
+171/4	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:0
+171/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:3
+171/4	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:0
+171/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:44:14
+171/4	up:chant	up	div	maxima	data/typeset/include/noh2.ily:30:2
+171/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:68:1
+171/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:68:1
+171/4	up:#1	up	div	maxima	data/typeset/include/noh2.ily:30:2
+171/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:0
+171/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:0
+171/4	down:#2	down	div	maxima	data/typeset/include/noh2.ily:30:2
+171/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:0
+171/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:0
+171/4	down:#3	down	div	maxima	data/typeset/include/noh2.ily:30:2
+171/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:0
+171/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:0
+43	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:68:9
+43	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:68:14
+43	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:68:9
+43	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:68:9
+173/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:68:16
+173/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:68:22
+173/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:6
+173/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:10
+173/4	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:5
+173/4	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:3
+173/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:7
+173/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:44:16
+173/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:68:16
+173/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:68:16
+173/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:6
+173/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:6
+173/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:5
+173/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:5
+173/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:3
+173/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:3
+173/4	down:#3	down	acc	natural	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:3
+87/2	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:68:24
+87/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:68:24
+87/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:68:24
+175/4	-	-	break	data/typeset/include/noh2.ily:75:24
+175/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:0
+175/4	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:2
+175/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:7
+175/4	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:12
+175/4	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:8
+175/4	down:#3	down	note	b	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:9
+175/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:2
+175/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:2
+175/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:12
+175/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:12
+175/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:8
+175/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:8
+175/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:9
+175/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:9
+175/4	down:#3	down	acc	natural	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:9
+44	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:9
+44	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:14
+44	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:9
+44	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:9
+177/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:16
+177/4	lyrics:#0	up:chant	lyric	fa	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:45:0
+177/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:45:3
+177/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:16
+177/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:16
+89/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:22
+89/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:28
+89/2	up:#1	up	note	e	-1	4	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:20
+89/2	down:#2	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:15
+89/2	down:#3	down	note	c	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:17
+89/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:45:6
+89/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:22
+89/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:22
+89/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:20
+89/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:20
+89/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:15
+89/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:15
+89/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:17
+89/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:17
+179/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:30
+179/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:30
+179/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:30
+45	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:35
+45	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:35
+45	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:35
+181/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:41
+181/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:44
+181/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:41
+181/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:41
+91/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:46
+91/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:52
+91/2	up:#1	up	note	f	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:30
+91/2	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:38
+91/2	down:#2	down	note	f	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:22
+91/2	down:#3	down	note	d	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:24
+91/2	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:31
+91/2	lyrics:#0	up:chant	lyric	ctum	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:45:8
+91/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:46
+91/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:46
+91/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:30
+91/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:30
+91/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:22
+91/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:22
+91/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:24
+91/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:24
+183/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:54
+183/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:54
+183/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:54
+46	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:58
+46	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:61
+46	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:58
+46	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:58
+185/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:63
+185/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:68
+185/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:45:13
+185/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:63
+185/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:63
+93/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:70
+93/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:75
+93/2	up:chant	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:77
+93/2	up:#1	up	note	f	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:40
+93/2	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:48
+93/2	down:#2	down	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:29
+93/2	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:33
+93/2	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:40
+93/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:70
+93/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:70
+93/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:40
+93/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:40
+93/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:29
+93/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:29
+93/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:33
+93/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:33
+187/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:79
+187/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:85
+187/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:79
+187/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:79
+47	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:87
+47	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:90
+47	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:87
+47	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:87
+189/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:92
+189/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:96
+189/4	up:#1	up	note	f	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:50
+189/4	down:#2	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:37
+189/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:45
+189/4	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:42
+189/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:45:15
+189/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:92
+189/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:92
+189/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:50
+189/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:50
+189/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:37
+189/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:37
+189/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:42
+189/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:42
+95/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:98
+95/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:98
+95/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:98
+191/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:104
+191/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:107
+191/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:104
+191/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:104
+48	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:109
+48	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:113
+48	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:58
+48	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:62
+48	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:47
+48	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:49
+48	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:52
+48	lyrics:#0	up:chant	lyric	est:	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:45:17
+48	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:109
+48	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:109
+48	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:58
+48	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:58
+48	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:47
+48	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:47
+48	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:49
+48	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:49
+193/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:115
+193/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:115
+193/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:115
+97/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:121
+97/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:124
+97/2	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:64
+97/2	down:#2	down	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:51
+97/2	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:56
+97/2	down:#3	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:54
+97/2	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:57
+97/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:121
+97/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:69:121
+97/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:64
+97/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:90:64
+97/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:51
+97/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:109:51
+97/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:54
+97/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:128:54
+195/4	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:1
+195/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:7
+195/4	up:#1	up	note	e	-1	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:0
+195/4	down:#2	down	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:0
+195/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:9
+195/4	down:#3	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:0
+195/4	lyrics:#0	up:chant	lyric	et	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:0
+195/4	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+195/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:1
+195/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:1
+195/4	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+195/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:0
+195/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:0
+195/4	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+195/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:0
+195/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:0
+195/4	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+195/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:0
+195/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:0
+49	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:9
+49	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:12
+49	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:9
+49	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:9
+197/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:14
+197/4	lyrics:#0	up:chant	lyric	est	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:3
+197/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:14
+197/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:14
+99/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:18
+99/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:24
+99/2	up:#1	up	note	f	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:10
+99/2	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:18
+99/2	down:#2	down	note	b	-1	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:11
+99/2	down:#3	down	note	d	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:7
+99/2	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:14
+99/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:7
+99/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:18
+99/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:18
+99/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:10
+99/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:10
+99/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:11
+99/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:11
+99/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:7
+99/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:7
+199/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:26
+199/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:31
+199/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:26
+199/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:26
+50	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:33
+50	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:38
+50	lyrics:#0	up:chant	lyric	mi	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:9
+50	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:12
+50	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:33
+50	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:33
+201/4	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:40
+201/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:40
+201/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:40
+101/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:45
+101/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:50
+101/2	up:chant	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:52
+101/2	up:#1	up	note	f	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:20
+101/2	down:#2	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:20
+101/2	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:16
+101/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:45
+101/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:45
+101/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:20
+101/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:20
+101/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:20
+101/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:20
+101/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:16
+101/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:16
+203/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:54
+203/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:60
+203/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:54
+203/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:54
+51	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:62
+51	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:65
+51	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:62
+51	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:62
+205/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:67
+205/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:73
+205/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:28
+205/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:32
+205/4	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:28
+205/4	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:23
+205/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:26
+205/4	lyrics:#0	up:chant	lyric	rá	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:15
+205/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:18
+205/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:67
+205/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:67
+205/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:28
+205/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:28
+205/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:28
+205/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:28
+205/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:23
+205/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:23
+103/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:75
+103/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:78
+103/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:75
+103/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:75
+207/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:80
+207/4	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:34
+207/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:38
+207/4	down:#2	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:33
+207/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:36
+207/4	down:#3	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:28
+207/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:21
+207/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:80
+207/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:70:80
+207/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:34
+207/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:91:34
+207/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:33
+207/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:110:33
+207/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:28
+207/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:129:28
+52	-	-	break	data/typeset/include/noh2.ily:75:24
+52	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:1
+52	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:7
+52	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:0
+52	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:4
+52	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:0
+52	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:3
+52	down:#3	down	note	g	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:0
+52	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:23
+52	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+52	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:1
+52	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:1
+52	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+52	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:0
+52	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:0
+52	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+52	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:0
+52	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:0
+52	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+52	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:0
+52	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:0
+209/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:9
+209/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:14
+209/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:9
+209/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:9
+105/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:16
+105/2	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:6
+105/2	down:#2	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:5
+105/2	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:12
+105/2	down:#3	down	note	b	0	2	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:4
+105/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:25
+105/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:16
+105/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:16
+105/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:6
+105/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:6
+105/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:5
+105/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:5
+105/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:4
+105/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:4
+105/2	down:#3	down	acc	natural	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:4
+211/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:22
+211/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:27
+211/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:22
+211/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:22
+53	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:28
+53	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:29
+53	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:28
+53	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:28
+213/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:34
+213/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:39
+213/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:31
+213/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:34
+213/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:34
+107/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:41
+107/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:46
+107/2	up:chant	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:48
+107/2	up:#1	up	note	e	-1	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:14
+107/2	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:14
+107/2	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:12
+107/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:41
+107/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:41
+107/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:14
+107/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:14
+107/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:14
+107/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:14
+107/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:12
+107/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:12
+215/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:50
+215/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:56
+215/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:50
+215/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:50
+54	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:58
+54	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:61
+54	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:58
+54	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:58
+217/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:63
+217/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:69
+217/4	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:24
+217/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:28
+217/4	down:#2	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:21
+217/4	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:19
+217/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:22
+217/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:33
+217/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:63
+217/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:63
+217/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:24
+217/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:24
+217/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:21
+217/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:21
+217/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:19
+217/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:19
+109/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:71
+109/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:76
+109/2	up:chant	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:78
+109/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:71
+109/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:71
+219/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:80
+219/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:86
+219/4	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:30
+219/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:34
+219/4	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:24
+219/4	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:24
+219/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:27
+219/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:80
+219/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:80
+219/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:30
+219/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:30
+219/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:24
+219/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:24
+219/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:24
+219/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:24
+55	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:88
+55	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:91
+55	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:88
+55	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:88
+221/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:93
+221/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:99
+221/4	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:36
+221/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:40
+221/4	down:#2	down	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:29
+221/4	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:29
+221/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:32
+221/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:35
+221/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:93
+221/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:93
+221/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:36
+221/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:36
+221/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:29
+221/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:29
+221/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:29
+221/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:29
+111/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:101
+111/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:106
+111/2	up:chant	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:108
+111/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:101
+111/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:101
+223/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:110
+223/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:116
+223/4	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:42
+223/4	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:33
+223/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:37
+223/4	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:34
+223/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:110
+223/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:110
+223/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:42
+223/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:42
+223/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:33
+223/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:33
+223/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:34
+223/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:34
+56	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:118
+56	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:121
+56	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:118
+56	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:118
+225/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:123
+225/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:129
+225/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:46
+225/4	up:#1	up	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:50
+225/4	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:39
+225/4	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:37
+225/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:40
+225/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:37
+225/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:123
+225/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:123
+225/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:46
+225/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:46
+225/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:39
+225/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:39
+225/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:37
+225/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:37
+113/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:131
+113/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:131
+113/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:131
+227/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:137
+227/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:140
+227/4	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:52
+227/4	down:#2	down	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:43
+227/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:48
+227/4	down:#3	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:42
+227/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:45
+227/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:137
+227/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:72:137
+227/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:52
+227/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:92:52
+227/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:43
+227/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:111:43
+227/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:42
+227/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:130:42
+57	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:1
+57	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:7
+57	up:#1	up	note	e	-1	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:0
+57	down:#2	down	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:0
+57	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:9
+57	down:#3	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:0
+57	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:7
+57	lyrics:#0	up:chant	lyric	bi	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:39
+57	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:42
+57	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+57	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:1
+57	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:1
+57	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+57	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:0
+57	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:0
+57	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+57	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:0
+57	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:0
+57	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+57	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:0
+57	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:0
+229/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:9
+229/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:12
+229/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:9
+229/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:9
+115/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:14
+115/2	lyrics:#0	up:chant	lyric	le	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:46:45
+115/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:14
+115/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:14
+231/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:18
+231/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:24
+231/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:10
+231/4	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:11
+231/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:16
+231/4	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:9
+231/4	lyrics:#0	up:chant	lyric	in	 * 	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:48:0
+231/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:18
+231/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:18
+231/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:10
+231/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:10
+231/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:11
+231/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:11
+231/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:9
+231/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:9
+58	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:26
+58	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:31
+58	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:26
+58	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:26
+233/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:33
+233/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:38
+233/4	up:#1	up	note	f	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:14
+233/4	down:#2	down	note	b	-1	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:18
+233/4	down:#2	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:27
+233/4	down:#3	down	note	d	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:12
+233/4	lyrics:#0	up:chant	lyric	ó	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:48:3
+233/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:48:5
+233/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:33
+233/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:33
+233/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:14
+233/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:14
+233/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:18
+233/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:18
+233/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:12
+233/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:12
+117/2	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:40
+117/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:40
+117/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:40
+235/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:45
+235/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:45
+235/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:45
+59	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:49
+59	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:49
+59	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:49
+237/4	up:chant	up	note	g	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:55
+237/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:59
+237/4	up:#1	up	note	d	0	4	1	0	3	4	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:22
+237/4	down:#2	down	note	b	-1	3	1	0	3	4	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:29
+237/4	down:#3	down	note	e	0	3	1	0	3	4	3/8	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:19
+237/4	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:26
+237/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:55
+237/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:55
+237/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:22
+237/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:22
+237/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:29
+237/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:29
+237/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:19
+237/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:19
+237/4	down:#3	down	acc	natural	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:19
+477/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:62
+477/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:66
+477/8	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:30
+477/8	down:#2	down	note	a	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:38
+477/8	down:#3	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:28
+477/8	down:#3	down	tie	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:35
+477/8	lyrics:#0	up:chant	lyric	cu	-	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:48:8
+477/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:48:11
+477/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:62
+477/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:62
+477/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:30
+477/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:30
+477/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:38
+477/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:38
+477/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:28
+477/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:28
+477/8	down:#2	down	acc	flat	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:38
+477/8	down:#3	down	acc	natural	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:28
+479/8	up:chant	up	note	a	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:68
+479/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:68
+479/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:68
+479/8	up:chant	up	acc	flat	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:68
+481/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:74
+481/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:74
+481/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:74
+483/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:78
+483/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:83
+483/8	up:#1	up	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:38
+483/8	down:#2	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:47
+483/8	down:#3	down	note	e	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:37
+483/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:78
+483/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:73:78
+483/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:38
+483/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:93:38
+483/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:47
+483/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:112:47
+483/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:37
+483/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:37
+483/8	down:#3	down	acc	natural	data/typeset/src/vol-1/gr_benedictus_qui_venit.csv.ly:131:37
+485/8	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+485/8	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+485/8	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+485/8	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2

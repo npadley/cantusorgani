@@ -513,3 +513,24 @@ def test_compare_scores_chord_member_with_another_pitch_reports_pitch_mismatch()
 
     hits = with_code(run("F7", mutate), "PITCH_MISMATCH")
     assert any(target["id"] in d.source_event_ids for d in hits)
+
+
+def _measure_of(note: etree._Element) -> etree._Element:
+    return next(a for a in note.iterancestors() if a.tag == M + "measure")
+
+
+def test_compare_scores_dropped_slur_that_spans_a_source_break_reports_slur_mismatch() -> None:
+    """A8: a source line break inside a slur is a measure boundary the slur crosses; losing it is detected."""
+    target: dict[str, str] = {}
+
+    def mutate(root: etree._Element, prov: dict[str, str]) -> None:
+        notes = {n.get(XML_ID): n for n in root.iter(M + "note")}
+        crossing = next(
+            s for s in root.iter(M + "slur")
+            if _measure_of(notes[s.get("startid")[1:]]) is not _measure_of(notes[s.get("endid")[1:]])
+        )
+        target["start"] = prov[crossing.get("startid").removeprefix("#")]  # type: ignore[union-attr]
+        crossing.getparent().remove(crossing)
+
+    hits = with_code(run("F9", mutate), "SLUR_MISMATCH")
+    assert any(target["start"] in d.source_event_ids for d in hits)

@@ -1,0 +1,1621 @@
+0	-	-	version	listen_full/1	2.26.0
+0	-	up	staff	1
+0	-	down	staff	2
+0	-	up	key	-2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:10:1
+0	up:chant	up	voice	0	voiceOne
+0	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:11
+0	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:17
+0	-	up	key	-2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:10:1
+0	up:#1	up	voice	1	voiceTwo
+0	up:#1	up	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:0
+0	-	down	key	-2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:10:1
+0	down:#2	down	voice	2	voiceOne
+0	down:#2	down	rest	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:0
+0	-	down	key	-2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:10:1
+0	down:#3	down	voice	3	voiceTwo
+0	down:#3	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:0
+0	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:7
+0	-	down	key	-2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:10:1
+0	lyrics:#0	up:chant	lyric	Al	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:38:0
+0	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:38:3
+0	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:11
+0	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:11
+0	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:0
+0	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:0
+0	-	up	clef	clefs.G	-2	-
+0	down:#2	down	rhead	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:0
+0	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:0
+0	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:0
+0	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:0
+0	-	down	clef	clefs.F	2	-
+1/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:19
+1/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:19
+1/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:19
+1/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:23
+1/2	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:26
+1/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:23
+1/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:23
+3/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:28
+3/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:32
+3/4	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:9
+3/4	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:7
+3/4	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:9
+3/4	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:12
+3/4	lyrics:#0	up:chant	lyric	le	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:38:6
+3/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:38:9
+3/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:28
+3/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:28
+3/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:9
+3/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:9
+3/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:7
+3/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:7
+3/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:9
+3/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:9
+1	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:34
+1	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:37
+1	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:34
+1	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:34
+5/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:39
+5/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:43
+5/4	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:13
+5/4	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:21
+5/4	down:#2	down	note	b	-1	3	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:10
+5/4	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:19
+5/4	down:#3	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:14
+5/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:38:12
+5/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:39
+5/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:39
+5/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:13
+5/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:13
+5/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:10
+5/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:10
+5/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:14
+5/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:14
+3/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:45
+3/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:45
+3/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:45
+7/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:54
+7/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:54
+7/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:54
+2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:60
+2	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:63
+2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:60
+2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:60
+9/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:65
+9/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:69
+9/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:23
+9/4	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:21
+9/4	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:26
+9/4	down:#3	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:21
+9/4	lyrics:#0	up:chant	lyric	lú	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:38:14
+9/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:38:17
+9/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:65
+9/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:65
+9/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:23
+9/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:23
+9/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:21
+9/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:21
+9/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:21
+9/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:21
+5/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:71
+5/2	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:76
+5/2	up:chant	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:78
+5/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:71
+5/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:71
+11/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:80
+11/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:86
+11/4	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:27
+11/4	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:28
+11/4	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:33
+11/4	down:#3	down	note	e	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:24
+11/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:80
+11/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:80
+11/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:27
+11/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:27
+11/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:28
+11/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:28
+11/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:24
+11/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:24
+3	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:88
+3	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:93
+3	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:88
+3	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:88
+13/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:95
+13/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:101
+13/4	up:#1	up	note	f	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:31
+13/4	down:#2	down	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:35
+13/4	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:44
+13/4	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:29
+13/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:38:20
+13/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:95
+13/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:95
+13/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:31
+13/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:31
+13/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:35
+13/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:35
+13/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:29
+13/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:29
+7/2	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:103
+7/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:103
+7/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:103
+15/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:108
+15/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:108
+15/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:108
+4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:114
+4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:117
+4	up:chant	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:119
+4	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:39
+4	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:43
+4	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:46
+4	down:#3	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:36
+4	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:39
+4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:114
+4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:114
+4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:39
+4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:39
+4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:46
+4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:46
+4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:36
+4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:36
+17/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:121
+17/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:125
+17/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:121
+17/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:121
+9/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:127
+9/2	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:130
+9/2	up:#1	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:45
+9/2	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:51
+9/2	down:#3	down	note	f	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:41
+9/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:127
+9/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:49:127
+9/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:45
+9/2	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:69:45
+9/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:51
+9/2	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:81:51
+9/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:41
+9/2	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:93:41
+19/4	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:1
+19/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:7
+19/4	up:#1	up	note	e	-1	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:0
+19/4	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:0
+19/4	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:7
+19/4	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:0
+19/4	lyrics:#0	up:chant	lyric	ia,	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:38:22
+19/4	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+19/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:1
+19/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:1
+19/4	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+19/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:0
+19/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:0
+19/4	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+19/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:0
+19/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:0
+19/4	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+19/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:0
+19/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:0
+5	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:9
+5	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:9
+5	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:9
+21/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:13
+21/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:16
+21/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:13
+21/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:13
+11/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:18
+11/2	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:22
+11/2	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:10
+11/2	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:9
+11/2	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:12
+11/2	down:#3	down	note	a	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:7
+11/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:38:26
+11/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:18
+11/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:18
+11/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:10
+11/2	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:10
+11/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:9
+11/2	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:9
+11/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:7
+11/2	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:7
+23/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:24
+23/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:27
+23/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:24
+23/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:24
+6	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:29
+6	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:33
+6	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:14
+6	down:#2	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:14
+6	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:21
+6	down:#3	down	note	b	-1	2	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:11
+6	lyrics:#0	up:chant	lyric	al	 * 	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:40:0
+6	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:40:3
+6	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:29
+6	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:29
+6	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:14
+6	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:14
+6	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:14
+6	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:14
+6	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:11
+6	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:11
+25/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:35
+25/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:35
+25/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:35
+13/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:44
+13/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:44
+13/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:44
+27/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:50
+27/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:50
+27/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:50:50
+7	-	-	break	data/typeset/include/noh2.ily:75:24
+7	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:0
+7	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:2
+7	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:6
+7	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:22
+7	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:23
+7	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:21
+7	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:2
+7	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:2
+7	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:22
+7	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:22
+7	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:23
+7	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:23
+7	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:21
+7	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:21
+29/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:8
+29/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:13
+29/4	up:chant	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:15
+29/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:8
+29/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:8
+15/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:17
+15/2	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:23
+15/2	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:28
+15/2	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:32
+15/2	down:#2	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:26
+15/2	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:24
+15/2	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:27
+15/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:17
+15/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:17
+15/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:28
+15/2	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:28
+15/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:26
+15/2	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:26
+15/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:24
+15/2	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:24
+31/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:25
+31/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:30
+31/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:25
+31/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:25
+8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:32
+8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:38
+8	up:#1	up	note	f	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:34
+8	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:29
+8	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:29
+8	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:36
+8	lyrics:#0	up:chant	lyric	le	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:40:6
+8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:40:9
+8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:32
+8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:32
+8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:34
+8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:34
+8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:29
+8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:29
+8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:29
+8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:29
+33/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:40
+33/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:40
+33/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:40
+17/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:45
+17/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:45
+17/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:45
+35/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:51
+35/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:54
+35/4	up:chant	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:56
+35/4	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:42
+35/4	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:36
+35/4	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:38
+35/4	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:45
+35/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:51
+35/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:51
+35/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:42
+35/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:70:42
+35/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:36
+35/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:82:36
+35/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:38
+35/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:94:38
+9	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:58
+9	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:62
+9	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:58
+9	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:58
+37/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:64
+37/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:67
+37/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:64
+37/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:51:64
+19/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:1
+19/2	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:5
+19/2	up:#1	up	note	b	-1	3	1	0	5	4	5/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:0
+19/2	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:9
+19/2	down:#2	down	note	f	0	3	1	0	5	4	5/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:0
+19/2	down:#3	down	note	d	0	3	1	0	5	4	5/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:0
+19/2	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:7
+19/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:40:12
+19/2	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+19/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:1
+19/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:1
+19/2	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+19/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:0
+19/2	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:0
+19/2	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+19/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:0
+19/2	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:0
+19/2	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+19/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:0
+19/2	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:0
+39/4	up:chant	up	note	b	-1	4	2	1	1	1	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:7
+39/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:13
+39/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:7
+39/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:7
+81/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:15
+81/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:19
+81/8	up:#1	up	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:11
+81/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:20
+81/8	down:#2	down	note	e	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:7
+81/8	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:16
+81/8	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:9
+81/8	lyrics:#0	up:chant	lyric	lú	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:40:14
+81/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:40:17
+81/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:15
+81/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:15
+81/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:11
+81/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:11
+81/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:7
+81/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:7
+81/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:9
+81/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:9
+83/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:21
+83/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:21
+83/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:21
+85/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:25
+85/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:25
+85/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:25
+87/8	up:chant	up	note	e	-1	4	2	1	1	1	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:29
+87/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:35
+87/8	up:#1	up	note	b	-1	3	1	0	3	4	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:22
+87/8	down:#2	down	note	e	-1	3	1	0	3	4	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:18
+87/8	down:#3	down	note	c	0	3	1	0	3	4	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:16
+87/8	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:23
+87/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:29
+87/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:29
+87/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:22
+87/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:22
+87/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:18
+87/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:18
+87/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:16
+87/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:16
+45/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:37
+45/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:41
+45/4	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:31
+45/4	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:27
+45/4	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:25
+45/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:40:20
+45/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:37
+45/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:37
+45/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:31
+45/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:31
+45/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:27
+45/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:27
+45/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:25
+45/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:25
+23/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:43
+23/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:43
+23/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:43
+47/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:52
+47/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:57
+47/4	up:chant	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:59
+47/4	up:#1	up	note	f	0	4	1	0	7	4	7/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:37
+47/4	down:#2	down	note	c	0	4	1	0	7	4	7/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:32
+47/4	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:40
+47/4	down:#3	down	note	d	0	3	1	0	7	4	7/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:28
+47/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:52
+47/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:52
+47/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:37
+47/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:37
+47/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:32
+47/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:32
+47/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:28
+47/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:28
+12	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:61
+12	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:67
+12	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:61
+12	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:61
+49/4	up:chant	up	note	a	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:69
+49/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:73
+49/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:69
+49/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:69
+101/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:75
+101/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:79
+101/8	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:45
+101/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:49
+101/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:42
+101/8	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:35
+101/8	lyrics:#0	up:chant	lyric	ia.	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:40:22
+101/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:75
+101/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:75
+101/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:45
+101/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:45
+101/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:42
+101/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:42
+101/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:35
+101/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:35
+103/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:81
+103/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:81
+103/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:81
+105/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:87
+105/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:90
+105/8	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:51
+105/8	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:46
+105/8	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:51
+105/8	down:#3	down	note	e	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:38
+105/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:87
+105/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:87
+105/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:51
+105/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:51
+105/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:46
+105/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:46
+105/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:38
+105/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:38
+107/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:92
+107/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:96
+107/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:40:26
+107/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:92
+107/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:92
+109/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:98
+109/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:101
+109/8	up:chant	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:103
+109/8	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:55
+109/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:59
+109/8	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:53
+109/8	down:#3	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:43
+109/8	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:46
+109/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:98
+109/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:98
+109/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:55
+109/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:55
+109/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:53
+109/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:53
+109/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:43
+109/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:43
+111/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:105
+111/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:109
+111/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:105
+111/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:105
+113/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:111
+113/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:114
+113/8	up:#1	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:61
+113/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:58
+113/8	down:#3	down	note	f	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:48
+113/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:111
+113/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:52:111
+113/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:61
+113/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:71:61
+113/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:58
+113/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:83:58
+113/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:48
+113/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:95:48
+115/8	-	-	break	data/typeset/include/noh2.ily:75:24
+115/8	up:chant	up	note	b	-1	4	2	1	1	1	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:1
+115/8	up:#1	up	note	f	0	4	1	0	13	4	13/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:0
+115/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:9
+115/8	down:#2	down	note	d	0	4	1	0	13	4	13/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:0
+115/8	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:9
+115/8	down:#3	down	rest	13/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:0
+115/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:41:0
+115/8	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+115/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:1
+115/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:1
+115/8	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+115/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:0
+115/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:0
+115/8	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+115/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:0
+115/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:0
+115/8	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2
+115/8	down:#3	down	rhead	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:0
+115/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:0
+59/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:8
+59/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:12
+59/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:41:2
+59/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:8
+59/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:8
+15	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:14
+15	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:14
+15	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:14
+61/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:19
+61/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:24
+61/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:19
+61/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:19
+31/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:26
+31/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:41:4
+31/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:26
+31/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:26
+63/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:32
+63/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:41:6
+63/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:32
+63/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:32
+16	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:38
+16	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:44
+16	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:11
+16	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:15
+16	down:#2	down	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:11
+16	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:8
+16	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:11
+16	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:41:8
+16	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:38
+16	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:38
+16	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:11
+16	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:11
+16	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:11
+16	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:11
+16	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:8
+16	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:8
+65/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:46
+65/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:49
+65/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:46
+65/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:46
+33/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:51
+33/2	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:55
+33/2	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:17
+33/2	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:15
+33/2	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:13
+33/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:41:10
+33/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:51
+33/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:51
+33/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:17
+33/2	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:17
+33/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:15
+33/2	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:15
+33/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:13
+33/2	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:13
+67/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:57
+67/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:57
+67/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:57
+17	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:63
+17	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:67
+17	up:chant	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:69
+17	up:#1	up	note	d	0	4	1	0	3	1	3/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:21
+17	down:#2	down	note	b	-1	3	1	0	3	1	3/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:19
+17	down:#3	down	note	g	0	3	1	0	3	1	3/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:16
+17	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:63
+17	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:63
+17	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:21
+17	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:21
+17	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:19
+17	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:19
+17	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:16
+17	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:16
+69/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:71
+69/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:76
+69/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:71
+69/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:71
+35/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:78
+35/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:78
+35/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:78
+71/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:84
+71/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:87
+71/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:84
+71/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:84
+18	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:89
+18	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:95
+18	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:41:12
+18	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:89
+18	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:89
+73/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:97
+73/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:100
+73/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:97
+73/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:97
+37/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:102
+37/2	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:106
+37/2	up:#1	up	note	f	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:29
+37/2	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:37
+37/2	down:#2	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:28
+37/2	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:36
+37/2	down:#3	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:23
+37/2	lyrics:#0	up:chant	lyric	℣.	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:41:14
+37/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:102
+37/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:102
+37/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:29
+37/2	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:72:29
+37/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:28
+37/2	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:84:28
+37/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:23
+37/2	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:96:23
+75/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:108
+75/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:113
+75/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:108
+75/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:108
+19	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:115
+19	lyrics:#0	up:chant	lyric	Dó	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:42:0
+19	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:42:3
+19	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:115
+19	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:54:115
+77/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:1
+77/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:5
+77/4	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:0
+77/4	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:4
+77/4	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:0
+77/4	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:0
+77/4	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:3
+77/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:42:6
+77/4	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+77/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:1
+77/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:1
+77/4	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+77/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:0
+77/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:0
+77/4	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+77/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:0
+77/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:0
+77/4	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+77/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:0
+77/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:0
+39/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:7
+39/2	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:10
+39/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:7
+39/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:7
+79/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:12
+79/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:18
+79/4	up:#1	up	note	f	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:6
+79/4	down:#2	down	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:4
+79/4	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:13
+79/4	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:5
+79/4	lyrics:#0	up:chant	lyric	mi	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:42:8
+79/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:42:11
+79/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:12
+79/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:12
+79/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:6
+79/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:6
+79/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:4
+79/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:4
+79/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:5
+79/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:5
+20	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:20
+20	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:20
+20	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:20
+81/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:25
+81/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:29
+81/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:25
+81/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:25
+41/2	up:chant	up	note	b	-1	4	2	1	1	1	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:31
+41/2	up:#1	up	note	d	0	4	1	0	3	4	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:14
+41/2	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:22
+41/2	down:#2	down	note	b	-1	3	1	0	3	4	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:15
+41/2	down:#3	down	note	g	0	3	1	0	3	4	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:12
+41/2	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:19
+41/2	lyrics:#0	up:chant	lyric	nus	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:42:14
+41/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:31
+41/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:55:31
+41/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:14
+41/2	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:14
+41/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:15
+41/2	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:15
+41/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:12
+41/2	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:12
+167/8	-	-	break	data/typeset/include/noh2.ily:75:24
+167/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:1
+167/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:5
+167/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:24
+167/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:32
+167/8	down:#2	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:24
+167/8	down:#3	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:21
+167/8	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:28
+167/8	lyrics:#0	up:chant	lyric	re	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:42:18
+167/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:42:21
+167/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:1
+167/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:1
+167/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:24
+167/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:24
+167/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:24
+167/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:24
+167/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:21
+167/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:21
+169/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:7
+169/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:7
+169/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:7
+171/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:13
+171/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:13
+171/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:13
+173/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:17
+173/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:34
+173/8	down:#2	down	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:32
+173/8	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:41
+173/8	down:#3	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:30
+173/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:17
+173/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:17
+173/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:34
+173/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:34
+173/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:32
+173/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:32
+173/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:30
+173/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:30
+175/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:21
+175/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:21
+175/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:21
+177/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:25
+177/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:28
+177/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:25
+177/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:25
+179/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:30
+179/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:36
+179/8	up:#1	up	note	f	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:42
+179/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:50
+179/8	down:#2	down	note	b	-1	3	1	0	9	4	9/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:43
+179/8	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:52
+179/8	down:#3	down	note	d	0	3	1	0	9	4	9/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:37
+179/8	lyrics:#0	up:chant	lyric	gná	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:42:24
+179/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:42:28
+179/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:30
+179/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:30
+179/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:42
+179/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:42
+179/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:43
+179/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:43
+179/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:37
+179/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:37
+181/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:38
+181/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:38
+181/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:38
+183/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:44
+183/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:44
+183/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:44
+185/8	up:chant	up	note	f	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:48
+185/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:52
+185/8	up:#1	up	note	f	0	4	1	0	3	4	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:52
+185/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:48
+185/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:48
+185/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:52
+185/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:52
+47/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:55
+47/2	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:59
+47/2	up:#1	up	note	e	-1	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:60
+47/2	down:#2	down	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:54
+47/2	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:44
+47/2	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:51
+47/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:42:31
+47/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:55
+47/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:55
+47/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:60
+47/2	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:60
+47/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:54
+47/2	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:54
+47/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:44
+47/2	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:44
+95/4	up:chant	up	note	a	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:61
+95/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:61
+95/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:61
+95/4	up:chant	up	acc	flat	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:61
+24	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:67
+24	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:67
+24	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:67
+97/4	up:chant	up	note	e	-1	4	2	1	1	1	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:71
+97/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:77
+97/4	up:#1	up	note	c	0	4	1	0	3	4	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:70
+97/4	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:78
+97/4	down:#2	down	note	g	0	3	1	0	3	4	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:63
+97/4	down:#3	down	note	c	0	3	1	0	3	4	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:53
+97/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:71
+97/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:71
+97/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:70
+97/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:70
+97/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:63
+97/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:63
+97/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:53
+97/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:53
+197/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:79
+197/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:83
+197/8	up:#1	up	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:80
+197/8	down:#2	down	note	f	0	3	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:70
+197/8	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:77
+197/8	down:#3	down	note	a	-1	2	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:60
+197/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:42:33
+197/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:79
+197/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:79
+197/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:80
+197/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:80
+197/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:70
+197/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:70
+197/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:60
+197/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:60
+197/8	down:#3	down	acc	flat	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:60
+199/8	up:chant	up	note	a	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:85
+199/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:85
+199/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:85
+199/8	up:chant	up	acc	flat	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:85
+201/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:91
+201/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:91
+201/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:91
+203/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:95
+203/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:98
+203/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:95
+203/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:95
+205/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:100
+205/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:104
+205/8	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:88
+205/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:92
+205/8	down:#2	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:79
+205/8	down:#3	down	note	b	-1	2	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:70
+205/8	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:76
+205/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:42:35
+205/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:100
+205/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:100
+205/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:88
+205/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:88
+205/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:79
+205/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:79
+205/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:70
+205/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:70
+207/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:106
+207/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:109
+207/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:106
+207/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:106
+209/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:111
+209/8	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:94
+209/8	down:#2	down	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:82
+209/8	down:#3	down	note	b	-1	2	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:78
+209/8	lyrics:#0	up:chant	lyric	vit,	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:42:37
+209/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:111
+209/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:56:111
+209/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:94
+209/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:73:94
+209/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:82
+209/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:85:82
+209/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:78
+209/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:97:78
+211/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:1
+211/8	up:#1	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:0
+211/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:4
+211/8	down:#2	down	rest	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:0
+211/8	down:#3	down	note	a	0	2	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:0
+211/8	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:4
+211/8	lyrics:#0	up:chant	lyric	ex	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:43:0
+211/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:43:3
+211/8	up:chant	up	div	maxima	data/typeset/include/noh2.ily:30:2
+211/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:1
+211/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:1
+211/8	up:#1	up	div	maxima	data/typeset/include/noh2.ily:30:2
+211/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:0
+211/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:0
+211/8	down:#2	down	div	maxima	data/typeset/include/noh2.ily:30:2
+211/8	down:#2	down	rhead	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:0
+211/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:0
+211/8	down:#3	down	div	maxima	data/typeset/include/noh2.ily:30:2
+211/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:0
+211/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:0
+213/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:5
+213/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:9
+213/8	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:6
+213/8	down:#2	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:3
+213/8	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:6
+213/8	down:#3	down	note	a	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:6
+213/8	lyrics:#0	up:chant	lyric	súl	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:43:6
+213/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:43:10
+213/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:5
+213/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:5
+213/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:6
+213/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:6
+213/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:3
+213/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:3
+213/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:6
+213/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:6
+215/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:11
+215/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:11
+215/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:11
+217/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:15
+217/8	up:#1	up	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:10
+217/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:15
+217/8	down:#2	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:8
+217/8	down:#3	down	note	g	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:10
+217/8	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:14
+217/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:15
+217/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:15
+217/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:10
+217/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:10
+217/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:8
+217/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:8
+217/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:10
+217/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:10
+219/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:21
+219/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:26
+219/8	up:chant	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:28
+219/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:21
+219/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:21
+221/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:30
+221/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:36
+221/8	up:#1	up	note	b	-1	3	1	0	11	4	11/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:17
+221/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:27
+221/8	down:#2	down	note	g	0	3	1	0	11	4	11/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:11
+221/8	down:#3	down	note	g	0	2	1	0	11	4	11/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:16
+221/8	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:25
+221/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:30
+221/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:30
+221/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:17
+221/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:17
+221/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:11
+221/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:11
+221/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:16
+221/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:16
+223/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:38
+223/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:38
+223/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:38
+225/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:42
+225/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:42
+225/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:42
+227/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:48
+227/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:48
+227/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:48
+229/8	up:chant	up	note	f	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:52
+229/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:52
+229/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:57:52
+29	-	-	break	data/typeset/include/noh2.ily:75:24
+29	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:0
+29	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:2
+29	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:6
+29	up:#1	up	note	b	-1	3	1	0	9	4	9/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:29
+29	down:#2	down	note	e	-1	3	1	0	9	4	9/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:19
+29	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:28
+29	down:#3	down	note	g	0	2	1	0	9	4	9/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:27
+29	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:2
+29	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:2
+29	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:29
+29	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:29
+29	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:19
+29	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:19
+29	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:27
+29	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:27
+117/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:8
+117/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:8
+117/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:8
+59/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:14
+59/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:14
+59/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:14
+119/4	up:chant	up	note	e	-1	4	2	1	1	1	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:18
+119/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:24
+119/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:18
+119/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:18
+241/8	up:chant	up	note	a	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:27
+241/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:33
+241/8	up:#1	up	note	e	-1	4	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:38
+241/8	down:#2	down	note	e	-1	3	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:30
+241/8	down:#3	down	note	c	0	3	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:35
+241/8	lyrics:#0	up:chant	lyric	tet	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:43:13
+241/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:27
+241/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:27
+241/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:38
+241/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:38
+241/8	up:chant	up	acc	flat	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:27
+241/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:30
+241/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:30
+241/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:35
+241/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:35
+243/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:35
+243/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:35
+243/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:35
+245/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:39
+245/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:39
+245/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:39
+247/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:43
+247/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:46
+247/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:43
+247/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:43
+249/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:48
+249/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:54
+249/8	up:#1	up	note	f	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:48
+249/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:56
+249/8	down:#2	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:39
+249/8	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:42
+249/8	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:49
+249/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:43:17
+249/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:48
+249/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:48
+249/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:48
+249/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:48
+249/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:39
+249/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:39
+249/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:42
+249/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:42
+251/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:56
+251/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:56
+251/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:56
+253/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:62
+253/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:67
+253/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:62
+253/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:62
+255/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:69
+255/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:74
+255/8	up:#1	up	note	f	0	4	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:58
+255/8	down:#2	down	note	b	-1	3	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:46
+255/8	down:#3	down	note	d	0	3	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:51
+255/8	lyrics:#0	up:chant	lyric	ter	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:43:19
+255/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:43:23
+255/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:69
+255/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:69
+255/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:58
+255/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:74:58
+255/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:46
+255/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:86:46
+255/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:51
+255/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:98:51
+257/8	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:76
+257/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:76
+257/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:76
+259/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:81
+259/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:81
+259/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:81
+261/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:87
+261/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:90
+261/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:87
+261/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:58:87
+263/8	up:chant	up	note	a	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:1
+263/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:7
+263/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:0
+263/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:8
+263/8	down:#2	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:0
+263/8	down:#3	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:0
+263/8	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:7
+263/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:43:26
+263/8	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+263/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:1
+263/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:1
+263/8	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+263/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:0
+263/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:0
+263/8	up:chant	up	acc	flat	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:1
+263/8	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+263/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:0
+263/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:0
+263/8	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+263/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:0
+263/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:0
+265/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:9
+265/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:9
+265/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:9
+267/8	up:chant	up	note	a	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:14
+267/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:19
+267/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:14
+267/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:14
+267/8	up:chant	up	acc	flat	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:14
+269/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:21
+269/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:26
+269/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:10
+269/8	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:8
+269/8	down:#3	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:9
+269/8	lyrics:#0	up:chant	lyric	ra:	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:43:28
+269/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:21
+269/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:21
+269/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:10
+269/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:10
+269/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:8
+269/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:8
+269/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:9
+269/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:9
+271/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:28
+271/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:28
+271/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:28
+273/8	up:chant	up	note	a	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:34
+273/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:39
+273/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:34
+273/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:34
+273/8	up:chant	up	acc	flat	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:34
+275/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:41
+275/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:47
+275/8	up:#1	up	note	b	-1	3	1	0	5	4	5/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:18
+275/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:27
+275/8	down:#2	down	note	f	0	3	1	0	5	4	5/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:15
+275/8	down:#3	down	note	d	0	3	1	0	5	4	5/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:16
+275/8	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:23
+275/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:43:32
+275/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:41
+275/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:41
+275/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:18
+275/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:18
+275/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:15
+275/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:15
+275/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:16
+275/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:16
+277/8	up:chant	up	note	f	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:49
+277/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:53
+277/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:49
+277/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:49
+35	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:56
+35	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:60
+35	up:#1	up	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:29
+35	down:#2	down	note	e	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:22
+35	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:27
+35	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:25
+35	lyrics:#0	up:chant	lyric	læ	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:0
+35	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:3
+35	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:56
+35	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:56
+35	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:29
+35	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:29
+35	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:22
+35	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:22
+35	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:25
+35	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:25
+141/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:62
+141/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:65
+141/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:62
+141/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:62
+71/2	up:chant	up	note	a	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:67
+71/2	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:73
+71/2	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:34
+71/2	down:#2	down	note	e	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:29
+71/2	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:28
+71/2	lyrics:#0	up:chant	lyric	tén	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:6
+71/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:10
+71/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:67
+71/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:67
+71/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:34
+71/2	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:34
+71/2	up:chant	up	acc	flat	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:67
+71/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:29
+71/2	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:29
+71/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:28
+71/2	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:28
+143/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:75
+143/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:78
+143/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:75
+143/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:75
+36	up:chant	up	note	a	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:80
+36	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:86
+36	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:40
+36	down:#2	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:34
+36	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:41
+36	down:#3	down	note	e	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:31
+36	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:40
+36	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:13
+36	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:80
+36	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:80
+36	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:40
+36	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:40
+36	up:chant	up	acc	flat	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:80
+36	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:34
+36	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:34
+36	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:31
+36	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:31
+145/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:88
+145/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:88
+145/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:88
+73/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:92
+73/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:92
+73/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:59:92
+147/4	-	-	break	data/typeset/include/noh2.ily:75:24
+147/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:60:0
+147/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:60:2
+147/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:60:6
+147/4	up:#1	up	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:48
+147/4	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:53
+147/4	down:#2	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:43
+147/4	down:#3	down	note	e	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:42
+147/4	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:47
+147/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:60:2
+147/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:60:2
+147/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:48
+147/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:48
+147/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:43
+147/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:43
+147/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:42
+147/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:42
+37	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:60:8
+37	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:60:13
+37	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:60:8
+37	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:60:8
+149/4	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:60:15
+149/4	up:#1	up	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:55
+149/4	down:#2	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:46
+149/4	down:#3	down	note	e	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:49
+149/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:15
+149/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:60:15
+149/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:60:15
+149/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:55
+149/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:75:55
+149/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:46
+149/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:87:46
+149/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:49
+149/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:99:49
+75/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:1
+75/2	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:5
+75/2	up:#1	up	note	c	0	4	1	0	5	2	5/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:76:0
+75/2	down:#2	down	note	e	-1	3	1	0	5	2	5/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:88:0
+75/2	down:#3	down	note	c	0	3	1	0	5	2	5/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:100:0
+75/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:17
+75/2	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+75/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:1
+75/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:1
+75/2	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+75/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:76:0
+75/2	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:76:0
+75/2	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+75/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:88:0
+75/2	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:88:0
+75/2	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+75/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:100:0
+75/2	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:100:0
+151/4	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:7
+151/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:12
+151/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:7
+151/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:7
+38	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:14
+38	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:18
+38	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:19
+38	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:14
+38	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:14
+153/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:20
+153/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:23
+153/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:20
+153/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:20
+77/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:25
+77/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:21
+77/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:25
+77/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:25
+155/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:30
+155/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:36
+155/4	up:#1	up	note	d	0	4	1	0	5	2	5/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:76:8
+155/4	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:76:16
+155/4	down:#2	down	note	g	0	3	1	0	5	2	5/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:88:9
+155/4	down:#3	down	note	b	-1	2	1	0	5	2	5/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:100:7
+155/4	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:100:17
+155/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:23
+155/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:30
+155/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:30
+155/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:76:8
+155/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:76:8
+155/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:88:9
+155/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:88:9
+155/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:100:7
+155/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:100:7
+39	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:38
+39	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:41
+39	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:38
+39	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:38
+157/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:43
+157/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:49
+157/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:25
+157/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:43
+157/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:43
+79/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:51
+79/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:51
+79/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:51
+159/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:55
+159/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:60
+159/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:55
+159/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:55
+40	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:62
+40	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:66
+40	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:76:18
+40	down:#2	down	note	b	-1	3	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:88:16
+40	down:#3	down	note	b	-1	2	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:100:19
+40	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:27
+40	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:62
+40	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:62
+40	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:76:18
+40	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:76:18
+40	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:88:16
+40	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:88:16
+40	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:100:19
+40	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:100:19
+161/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:68
+161/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:68
+161/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:68
+81/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:74
+81/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:74
+81/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:74
+163/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:78
+163/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:81
+163/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:78
+163/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:61:78
+41	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:1
+41	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:7
+41	up:#1	up	note	e	-1	4	1	0	11	4	11/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:0
+41	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:11
+41	down:#2	down	note	g	0	3	1	0	11	4	11/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:0
+41	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:8
+41	down:#3	down	note	c	0	3	1	0	11	4	11/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:0
+41	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:8
+41	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:29
+41	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+41	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:1
+41	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:1
+41	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+41	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:0
+41	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:0
+41	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+41	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:0
+41	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:0
+41	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+41	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:0
+41	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:0
+165/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:9
+165/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:12
+165/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:9
+165/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:9
+83/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:14
+83/2	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:20
+83/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:31
+83/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:14
+83/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:14
+167/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:22
+167/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:22
+167/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:22
+42	up:chant	up	note	f	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:26
+42	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:30
+42	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:26
+42	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:26
+339/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:32
+339/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:38
+339/8	up:#1	up	note	e	-1	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:13
+339/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:23
+339/8	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:10
+339/8	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:10
+339/8	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:17
+339/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:33
+339/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:32
+339/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:32
+339/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:13
+339/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:13
+339/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:10
+339/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:10
+339/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:10
+339/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:10
+341/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:40
+341/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:40
+341/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:40
+343/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:44
+343/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:44
+343/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:44
+345/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:53
+345/8	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:25
+345/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:17
+345/8	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:21
+345/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:19
+345/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:53
+345/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:53
+345/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:25
+345/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:25
+345/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:17
+345/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:17
+345/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:19
+345/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:19
+347/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:59
+347/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:59
+347/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:62:59
+349/8	-	-	break	data/typeset/include/noh2.ily:75:24
+349/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:0
+349/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:2
+349/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:8
+349/8	up:#1	up	note	f	0	4	1	0	9	4	9/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:31
+349/8	down:#2	down	note	c	0	4	1	0	9	4	9/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:23
+349/8	down:#3	down	note	d	0	3	1	0	9	4	9/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:22
+349/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:2
+349/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:2
+349/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:31
+349/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:31
+349/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:23
+349/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:23
+349/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:22
+349/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:22
+351/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:10
+351/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:10
+351/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:10
+353/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:14
+353/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:14
+353/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:14
+355/8	up:chant	up	note	a	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:18
+355/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:22
+355/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:18
+355/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:18
+179/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:24
+179/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:28
+179/4	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:39
+179/4	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:31
+179/4	down:#3	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:29
+179/4	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:36
+179/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:35
+179/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:24
+179/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:24
+179/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:39
+179/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:39
+179/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:31
+179/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:31
+179/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:29
+179/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:29
+45	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:30
+45	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:30
+45	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:30
+181/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:34
+181/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:37
+181/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:34
+181/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:34
+91/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:39
+91/2	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:43
+91/2	up:#1	up	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:47
+91/2	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:38
+91/2	down:#3	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:38
+91/2	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:45
+91/2	lyrics:#0	up:chant	lyric	tur	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:44:37
+91/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:39
+91/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:39
+91/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:47
+91/2	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:47
+91/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:38
+91/2	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:38
+91/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:38
+91/2	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:38
+183/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:45
+183/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:45
+183/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:45
+46	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:49
+46	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:54
+46	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:49
+46	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:49
+185/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:56
+185/4	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:60
+185/4	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:56
+185/4	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:45
+185/4	down:#3	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:47
+185/4	lyrics:#0	up:chant	lyric	ín	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:45:0
+185/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:45:3
+185/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:56
+185/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:56
+185/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:56
+185/4	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:56
+185/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:45
+185/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:45
+185/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:47
+185/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:47
+93/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:62
+93/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:62
+93/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:62
+187/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:66
+187/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:69
+187/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:66
+187/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:63:66
+47	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:2
+47	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:8
+47	up:#1	up	note	b	-1	3	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:64
+47	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:73
+47	down:#2	down	note	f	0	3	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:52
+47	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:59
+47	down:#3	down	note	d	0	3	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:54
+47	lyrics:#0	up:chant	lyric	su	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:45:6
+47	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:45:9
+47	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+47	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:2
+47	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:2
+47	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:64
+47	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:64
+47	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:52
+47	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:52
+47	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:54
+47	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:54
+189/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:10
+189/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:10
+189/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:10
+95/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:16
+95/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:16
+95/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:16
+191/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:20
+191/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:23
+191/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:20
+191/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:20
+48	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:25
+48	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:29
+48	up:#1	up	note	b	-1	3	1	0	9	4	9/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:75
+48	down:#2	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:61
+48	down:#3	down	note	e	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:61
+48	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:70
+48	lyrics:#0	up:chant	lyric	læ	-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:45:12
+48	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:25
+48	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:25
+48	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:75
+48	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:75
+48	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:61
+48	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:61
+48	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:61
+48	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:61
+193/4	up:chant	up	note	a	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:31
+193/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:31
+193/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:31
+193/4	up:chant	up	acc	flat	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:31
+97/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:37
+97/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:37
+97/2	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:37
+195/4	up:chant	up	note	e	-1	4	2	1	1	1	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:41
+195/4	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:47
+195/4	down:#2	down	note	g	0	3	1	0	3	4	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:68
+195/4	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:75
+195/4	down:#3	down	note	e	-1	3	1	0	3	4	3/8	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:72
+195/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:41
+195/4	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:41
+195/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:68
+195/4	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:68
+195/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:72
+195/4	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:72
+393/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:50
+393/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:56
+393/8	up:#1	up	note	e	-1	4	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:84
+393/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:94
+393/8	down:#2	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:77
+393/8	down:#3	down	note	c	0	3	1	0	2	1	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:81
+393/8	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:88
+393/8	lyrics:#0	up:chant	lyric	mul	 * 	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:46:20
+393/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:46:24
+393/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:50
+393/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:50
+393/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:84
+393/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:84
+393/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:77
+393/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:77
+393/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:81
+393/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:81
+395/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:58
+395/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:58
+395/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:58
+397/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:64
+397/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:64
+397/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:64
+399/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:68
+399/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:71
+399/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:68
+399/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:68
+401/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:73
+401/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:77
+401/8	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:96
+401/8	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:84
+401/8	down:#2	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:89
+401/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:90
+401/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:46:27
+401/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:73
+401/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:73
+401/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:96
+401/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:96
+401/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:84
+401/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:84
+401/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:90
+401/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:90
+403/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:79
+403/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:79
+403/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:79
+405/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:83
+405/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:86
+405/8	up:chant	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:88
+405/8	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:102
+405/8	up:#1	up	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:106
+405/8	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:91
+405/8	down:#3	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:93
+405/8	down:#3	down	tie	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:96
+405/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:83
+405/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:83
+405/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:102
+405/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:102
+405/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:91
+405/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:91
+405/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:93
+405/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:93
+407/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:90
+407/8	up:chant	up	slur	-1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:94
+407/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:90
+407/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:90
+409/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:96
+409/8	up:chant	up	slur	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:99
+409/8	up:#1	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:108
+409/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:96
+409/8	down:#3	down	note	f	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:98
+409/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:96
+409/8	up:chant	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:64:96
+409/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:108
+409/8	up:#1	up	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:77:108
+409/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:96
+409/8	down:#2	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:89:96
+409/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:98
+409/8	down:#3	down	stem	1	data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly:101:98
+411/8	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+411/8	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+411/8	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+411/8	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2

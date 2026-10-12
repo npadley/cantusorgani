@@ -11,6 +11,7 @@ review state or approval. Checks:
 * divisio ticks: each ``<dir type="divisio-minima">`` crosses the top line of exactly one staff;
 * bar lines: a finalis measure end is drawn as a double bar and a divisio maxima as a single bar;
 * all 13 required layout cases exist and laid out;
+* hidden heads draw nothing: no augmentation dots on a split continuation;
 * lyrics: every encoded syllable is drawn;
 * word-boundary breaks: automatic cases that start a system in the middle of a word (informational).
 """
@@ -30,7 +31,7 @@ from pipeline.typeset.mei.model import REQUIRED_MATRIX
 __all__ = ["PRECHECK_VERSION", "precheck_packet"]
 
 #: Bump when a check is added or changed: an automatic approval records the version it was judged under.
-PRECHECK_VERSION = "precheck/3"
+PRECHECK_VERSION = "precheck/5"
 
 M = "{http://www.music-encoding.org/ns/mei}"
 XML_ID = "{http://www.w3.org/XML/1998/namespace}id"
@@ -56,6 +57,9 @@ class _Page:
         self.staves: list[tuple[int, float]] = []
         self.syllables = 0
         self.system_starts: list[str] = []
+        self.hidden_dots: list[str] = []  # augmentation dots drawn for a hidden split-continuation head
+        self._note = ""
+        self._head = False
         self.bars: dict[str, set[int]] = defaultdict(set)  # measure id -> x of every vertical bar line stroke
         self._measure = ""
         self._system = -1
@@ -91,8 +95,14 @@ class _Page:
                     ]
                     if len(ys) == 5 and (self._system, min(ys)) not in self.staves:
                         self.staves.append((self._system, min(ys)))
+                if "dots" in cls and self._note and not self._head and re.search(r"c\d+$", self._note) and any(
+                    c.tag in (S + "ellipse", S + "circle", S + "use", S + "path") for c in el.iter()
+                ):
+                    self.hidden_dots.append(self._note)
                 if "note" in cls and ident:
+                    self._note = ident
                     use = next(iter(el.iter(S + "use")), None)
+                    self._head = use is not None  # a revealed continuation has a visible head (and legitimate dots)
                     mm = _TRANSLATE.search(use.get("transform") or "") if use is not None else None
                     if mm:
                         self.heads[ident] = (float(mm.group(1)) + dx, float(mm.group(2) or 0) + dy)
@@ -223,6 +233,9 @@ def precheck_packet(convert_dir: Path, evidence_dir: Path | None = None) -> dict
             for measure_id, want in expected_bars.items():
                 if measure_id in page.bars and len(page.bars[measure_id]) != want:
                     out.append(f"bar line: measure {measure_id} ends with {len(page.bars[measure_id])} bar(s), want {want}")
+        dots = [n for page in pages for n in page.hidden_dots]
+        if dots:
+            out.append(f"dots: {len(dots)} augmentation dot(s) drawn on hidden continuation heads (e.g. {dots[0]})")
         drawn = sum(page.syllables for page in pages)
         if drawn < syllables:
             out.append(f"lyrics: only {drawn} of {syllables} encoded syllables are drawn")
