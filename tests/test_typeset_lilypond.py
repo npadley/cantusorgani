@@ -83,3 +83,19 @@ def test_find_refuses_another_version_and_says_how_to_install(tmp_path, monkeypa
 
 def test_home_is_under_vendor(tmp_path: Path):
     assert lilypond.home(pin_for(b""), tmp_path) == tmp_path / "lilypond-2.26.0"
+
+
+def test_sandboxed_compiler_retains_limits_independent_of_evidence_budget(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    monkeypatch.setenv('NOH_SANDBOX', '1')
+    monkeypatch.setattr(lilypond, 'find', lambda: Path('/pinned/lilypond'))
+    captured = []
+    monkeypatch.setattr(lilypond.subprocess, 'run', lambda command, **kwargs:
+                        captured.append(command) or SimpleNamespace(returncode=0, stderr=''))
+    assert lilypond.run(['source.ly'], tmp_path).ok
+    command = captured[0]
+    assert command[:len(lilypond.SANDBOX)] == lilypond.SANDBOX
+    compiler = command.index('/pinned/lilypond')
+    assert command[len(lilypond.SANDBOX):compiler] == [
+        'prlimit', '--cpu=180', '--fsize=33554432', '--as=2147483648', '--',
+    ]
