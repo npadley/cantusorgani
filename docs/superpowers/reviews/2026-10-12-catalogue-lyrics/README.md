@@ -17,3 +17,7 @@ The Ite Ib extraction snapshot was regenerated from the pinned listener. Its onl
 The original anonymous-context fixture is retained separately, and the context-separation test now covers both anonymous and named rows.
 
 ![Both dismissal rows above the staff](ite-two-rows.png)
+
+CI publication follow-up: the first render job drew 701 scores but rejected `co_fili_quid_fecisti` against the editor-selected St John communion (correction c-0029). Its original page-based match had no numeric confidence; the retarget's existing 0.547 agreement fell below the default 0.85 threshold. Pinned listener evidence independently proves all 110 notes and 32 words identical before and after the layout edit. The generated target-specific baseline includes original-source and GABC digests. Publication, previews and source-correction refresh now resolve baselines by exact source and target; GABC changes invalidate it, unrecorded retargets keep 0.85, and degraded music is rejected. The matching-regression tests passed red before the fix and green afterward; 43 publisher/preview/source-batch checks passed. No converter or MEI digest was changed by this follow-up.
+
+Release decision (2026-10-12): the user chose to defer the additional P6 resource measurement and proceed using the existing export limits, and authorized upload and merge after green CI and live artifact verification.

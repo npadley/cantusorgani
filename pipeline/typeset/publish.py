@@ -19,6 +19,7 @@ review list and fails is reported, and left for the admin screen.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -69,7 +70,7 @@ class RenderReport:
 
 
 def melody_problem(file: str, target: str, src: Path = SRC, data: Path = DATA,
-                   recorded: float | None = None) -> str | None:
+                   recorded: float | dict[str, Any] | None = None) -> str | None:
     """A matched file whose melody no longer matches its part's chant.
     `recorded`: the score parts.yml has for it, when that is what it was matched at."""
     from pipeline.typeset.events import read
@@ -83,17 +84,36 @@ def melody_problem(file: str, target: str, src: Path = SRC, data: Path = DATA,
         return None
     events = read(src / file)
     score = agreement(events.steps, (), gabc, with_words=False).melody if events.ok else 0.0
+    if isinstance(recorded, dict):
+        value = recorded.get("score")
+        current_gabc = hashlib.sha256(gabc.encode("utf-8")).hexdigest()
+        recorded = float(value) if (
+            recorded.get("gabc_sha256") == current_gabc
+            and isinstance(value, int | float) and not isinstance(value, bool) and 0 <= value <= 1
+        ) else None
     needs = min(MATCHED, recorded) if recorded is not None else MATCHED
     if score < needs:
         return f"{file}: its melody now matches {target}'s chant only {score:.2f} (it needs {needs}); check the edit"
     return None
 
 
-def recorded_melodies(path: Path = PARTS_FILE) -> dict[str, float]:
-    """The melody score parts.yml records for each file. A file matched by its
-    name, or by an editor, may sit below MATCHED: an edit must not take it lower."""
-    return {str(e["file"]): float(e["evidence"]["melody"]) for e in load(path)
-            if isinstance((e.get("evidence") or {}).get("melody"), int | float)}
+def recorded_melodies(path: Path = PARTS_FILE) -> dict[tuple[str, str], float | dict[str, Any]]:
+    """Recorded agreement by exact source and target, including measured editor choices.
+
+    A primary match's confidence never applies to another target. Editor baselines
+    carry the chant digest, checked by melody_problem before accepting the score.
+    """
+    scores: dict[tuple[str, str], float | dict[str, Any]] = {}
+    for entry in load(path):
+        file = str(entry["file"])
+        evidence = entry.get("evidence") or {}
+        value = evidence.get("melody")
+        if isinstance(value, int | float) and not isinstance(value, bool) and entry.get("target"):
+            scores[file, str(entry["target"])] = float(value)
+        for target, baseline in (evidence.get("melody_by_target") or {}).items():
+            if isinstance(baseline, dict):
+                scores[file, str(target)] = baseline
+    return scores
 
 
 class StaleManifest(RuntimeError):
@@ -122,7 +142,7 @@ def render_missing(base: str | None, out: Path = OUT, src: Path = SRC, workers: 
         if result.ok and result.hash != digest:
             problems.append(f"rendered as {result.hash}, but the manifest says {digest}: run `uv run noh typeset-manifest`")
         if result.ok and digest in shown:
-            problem = melody_problem(file, shown[digest]["target"], src, recorded=melodies.get(file))
+            problem = melody_problem(file, shown[digest]["target"], src, recorded=melodies.get((file, shown[digest]["target"])))
             if problem:
                 problems.append(problem)
         return digest, file, problems

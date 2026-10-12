@@ -831,6 +831,11 @@
     melody: null
     words: null
     name: Fili quid fecisti nobis
+    melody_by_target:
+      part:s-joannis-apostoli-et-evangelist/communion:
+        score: 0.547
+        baseline_source_sha256: cc7b84a15c3e0d04b7490f39e6202f28658949b65c5f1b0dddf85c912c9925a2
+        gabc_sha256: 4618f4b7460dc074fbcf7fe4bf81cd938efb8ca2c2d8ebb3e5779b6fb4d2f05f
 - file: vol-1/co_hoc_corpus.csv.ly
   target: part:dominica-i-passionis/communion
   status: matched

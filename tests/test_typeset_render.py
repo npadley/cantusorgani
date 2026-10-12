@@ -299,3 +299,36 @@ def test_render_keeps_the_existing_gradual_layout_when_it_already_fits(tmp_path:
         # The existing drawing is 898 pt high. Doubling its systems regresses
         # an already readable layout; leave a little room for backend rounding.
         assert document[0].rect.height < 1000
+
+
+def test_recorded_melodies_are_specific_to_the_matched_target(tmp_path):
+    path = tmp_path / 'parts.yml'
+    baseline = {'score': 0.455, 'gabc_sha256': 'a' * 64, 'baseline_source_sha256': 'b' * 64}
+    path.write_text(json.dumps([{'file': 'x.ly', 'target': 'part:original', 'evidence': {
+        'melody': 0.95, 'melody_by_target': {'part:editor': baseline},
+    }}]))
+    scores = publish.recorded_melodies(path)
+    assert scores[('x.ly', 'part:original')] == 0.95
+    assert scores[('x.ly', 'part:editor')] == baseline
+    assert scores.get(('x.ly', 'part:unrecorded')) is None
+
+
+def test_editor_baseline_rejects_degradation_and_changed_chant(tmp_path, monkeypatch):
+    import hashlib
+
+    from pipeline.typeset import events
+    gabc = '(c3) a(h) a(j) a(l) a(k) a(j) a(h)'
+    (tmp_path / 'catalog.json').write_text(json.dumps({'pieces': [{
+        'slug': 'ordinarium-missae-i', 'volume': 'noh5', 'genre': 'mass_ordinary', 'systems': ['noh5/0010/000'],
+        'movements': [{'movement': 'kyrie', 'ref': 'noh5/0010/000'}], 'chant': [{'movement': 'kyrie', 'id': 7}],
+    }]}))
+    (tmp_path / 'chants.json').write_text(json.dumps({'chants': {'7': {'gabc': gabc}}}))
+    original = (0, 2, 4, 3, 2, 0, 5, 7, 5, 8, 6, 9)
+    monkeypatch.setattr(events, 'read', lambda _: events.Events(True, original, ()))
+    args = ('x.ly', 'movement:ordinarium-missae-i/kyrie', tmp_path, tmp_path)
+    baseline = {'score': 0.455, 'gabc_sha256': hashlib.sha256(gabc.encode()).hexdigest()}
+    assert publish.melody_problem(*args, recorded=baseline) is None
+    assert publish.melody_problem(*args, recorded={**baseline, 'gabc_sha256': '0' * 64}) is not None
+    assert publish.melody_problem(*args, recorded={**baseline, 'score': False}) is not None
+    monkeypatch.setattr(events, 'read', lambda _: events.Events(True, (0, 0, 0), ()))
+    assert publish.melody_problem(*args, recorded=baseline) is not None

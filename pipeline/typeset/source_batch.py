@@ -49,7 +49,7 @@ def refresh_sources(batch: dict, out: Path) -> None:
                 raise CorrectionError(f"{file}: render failed: {str(rendered.problems[:3])[:3000]}")
             previous = shown.get(file, {})
             if previous.get("status") == "matched":
-                problem = melody_problem(file, previous["target"], recorded=scores.get(file))
+                problem = melody_problem(file, previous["target"], recorded=scores.get((file, previous["target"])))
                 if problem:
                     raise CorrectionError(problem)
             for i, row in enumerate(rows):
