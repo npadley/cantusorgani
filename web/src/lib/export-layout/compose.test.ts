@@ -286,6 +286,15 @@ describe('composeExport', () => {
     expect(r.pages).toEqual([]);
   });
 
+  it('accepts a MEI page narrower than the content, such as a single short line', async () => {
+    const mei = meiPart('m:0', null);
+    const good = await meiLayout(mei, IPAD);
+    const narrower = await meiLayout(mei, settingsOf({ page: 'ipad-mini', marginMm: 4, linePolicy: 'automatic' }));
+    const r = await composeExport([mei], new Map([['m:0', { ...good, pages: narrower.pages.slice(0, 1) }]]), IPAD, deps(), 1);
+    expect(r.diagnostics.filter((d) => d.code === 'INVALID_PAGE')).toEqual([]);
+    expect(r.pages.length).toBeGreaterThan(0);
+  });
+
   it('computes digests that are stable across runs and change with settings', async () => {
     const mei = meiPart('m:0', heading('Kyrie'));
     const layouts = new Map([[mei.id, await meiLayout(mei, IPAD)]]);
