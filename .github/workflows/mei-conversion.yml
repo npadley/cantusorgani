@@ -58,7 +58,9 @@ jobs:
         run: |
           sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
           unshare --user --net --map-current-user true
-          ulimit -t 180 -f 32768 -v 2097152
+          # Evidence spans 13 layouts and embeds SVGs; compiler limits remain
+          # 180 CPU seconds / 32 MiB per file / 2 GiB via lilypond.run's prlimit.
+          ulimit -t 600 -f 131072 -v 2097152
           mkdir -p build/mei/artifacts build/mei/work build/mei/evidence
           n=0
           while IFS= read -r src; do

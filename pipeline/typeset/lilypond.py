@@ -144,7 +144,11 @@ def sandbox() -> list[str]:
 def run(args: list[str], cwd: Path, timeout: int = 180, includes: tuple[Path, ...] = (INCLUDE,)) -> Result:
     """Run the pinned lilypond with our include directories on its path."""
     binary = find()
-    command = [*sandbox(), str(binary), *(f"--include={i}" for i in includes), "-dno-point-and-click", *args]
+    limits = (
+        ["prlimit", "--cpu=180", "--fsize=33554432", "--as=2147483648", "--"]
+        if os.environ.get("NOH_SANDBOX") == "1" else []
+    )
+    command = [*sandbox(), *limits, str(binary), *(f"--include={i}" for i in includes), "-dno-point-and-click", *args]
     try:
         done = subprocess.run(command, cwd=cwd, check=False, capture_output=True, text=True, timeout=timeout)
     except subprocess.TimeoutExpired:
