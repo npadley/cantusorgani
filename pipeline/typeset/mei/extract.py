@@ -506,7 +506,14 @@ def build_spans(
                 diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "error", f"slur at {row.onset} in {layer_id} has no note", where))
             elif row.fields[0] == "-1":
                 if open_start is not None:
-                    diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "error", f"nested slur start at {row.onset} in {layer_id}", where))
+                    # LilyPond warns "already have slur" and keeps the first; so does the converter. The
+                    # warning keeps the piece out of automatic approval: the source has a doubled start.
+                    diagnostics.append(Diagnostic(
+                        "UNKNOWN_FEATURE", "warning",
+                        f"slur start at {row.onset} in {layer_id} ignored: a slur is already open (LilyPond ignores it too)",
+                        where,
+                    ))
+                    continue
                 open_start = event
             elif open_start is None:
                 diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "error", f"slur stop without start at {row.onset} in {layer_id}", where))
@@ -730,6 +737,8 @@ def build_boundaries(
             division_at[d.onset] = d.kind
 
     chant_attacks = {e.onset for e in chant_events if e.kind == "note"}
+    # A8: where the chant itself stops (the accompaniment may run on) is a common boundary too.
+    chant_ends = {max(e.onset + e.duration for e in chant_events)} if chant_events else set()
     candidates = chant_attacks | break_onsets | set(division_at)
     candidates = {t for t in candidates if 0 < t < total}
 
@@ -756,11 +765,14 @@ def build_boundaries(
     boundaries: list[Boundary] = []
     for index, t in enumerate(sorted(candidates)):
         reason: BoundaryReason | None = None
-        if t not in chant_attacks:
+        if t not in chant_attacks and t not in chant_ends:
             reason = "not-common-onset"
         elif any(e.onset < t < e.onset + e.duration for e in chant_events):
             reason = "sustain-not-splittable"
-        elif any(start < t <= end for start, end in crossing["slur"]):
+        elif t not in break_onsets and t not in division_at and any(start < t <= end for start, end in crossing["slur"]):
+            # A line break or a division the source itself puts inside a slur (LilyPond draws the slur across
+            # it) must stay placeable: the slur is a control event and spans it. Breaks the reader adds
+            # inside a slur remain unsafe.
             reason = "slur-crosses"
         elif any(start < t <= end for start, end in crossing["voice-line"]):
             reason = "voice-line-crosses"

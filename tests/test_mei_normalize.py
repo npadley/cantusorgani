@@ -35,6 +35,12 @@ PILOTS = {
     # glissandi and a divisio maxima.
     "F7": ("gloria_IX.tsv", "data/typeset/src/vol-5/missa-ix/gloria_IX.ly"),
     "F8": ("sanctus_IX.tsv", "data/typeset/src/vol-5/missa-ix/sanctus_IX.ly"),
+    # A8: the source breaks lines inside slurs in both; the slur spans the break.
+    "F9": ("co_ab_occultis_meis.csv.tsv", "data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly"),
+    "F10": ("al_dominus_regnavit__exsultet.csv.tsv", "data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly"),
+    # A8: a finalis at the end of a chant that stops before the accompaniment; a finalis inside a slur.
+    "F11": ("of_benedicam_dominum.csv.tsv", "data/typeset/src/vol-1/of_benedicam_dominum.csv.ly"),
+    "F12": ("al_surrexit_dominus_de_sepulcro.csv.tsv", "data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly"),
 }
 NORMALIZE_SOURCE = ROOT / "pipeline/typeset/mei/normalize.py"
 
