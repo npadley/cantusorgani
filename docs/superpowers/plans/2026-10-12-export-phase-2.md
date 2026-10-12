@@ -36,7 +36,7 @@ as the list of what is left. Decisions and gates stay in `export-layout-decision
 
 Order matters: P1 and P2 change the converter, so run the catalogue (P4) after them.
 
-- [ ] **P1 `\prall` and other ornaments → MEI** — [S], encoder. Start from `export/a9` (`7fe46d5`).
+- [x] **P1 `\prall` and other ornaments → MEI** — [S], encoder. Start from `export/a9` (`7fe46d5`).
   588 of 859 sources use `\prall`; a score with an unconverted ornament is never auto-approved
   (UNKNOWN_FEATURE), so this is the single biggest coverage win.
   - Listener acknowledger → IR field → encoder `<mordent form="upper" type="prall">` → oracle comparison and
@@ -46,9 +46,11 @@ Order matters: P1 and P2 change the converter, so run the catalogue (P4) after t
   - Then the rest of the ornament scan list (`\accent` etc.) where they map cleanly; otherwise they stay
     UNKNOWN_FEATURE.
   - View a few real pieces against LilyPond (above/below, which staff).
-- [ ] **P2 TIE_MISMATCH in five vol-1 pieces** — [S], encoder. `of_ad_te_domine`, `gr_dirigatur_oratio_mea`,
+- [x] **P2 TIE_MISMATCH in five vol-1 pieces** — [S], encoder. `of_ad_te_domine`, `gr_dirigatur_oratio_mea`,
   `of_deus_enim`, `of_exsulta_satis`, `gr_salvos_fac_nos`: the IR and the encoder pick different tie targets.
   Fix with fixtures.
+  P1 + P2 implemented 2026-10-12; [verification and sample evidence](../reviews/2026-10-12-p1-p2/README.md).
+  Other/ambiguous ornaments stay UNKNOWN_FEATURE; four malformed P2 sources retain review warnings.
 - [ ] **P3 Source errors → corrections workflow** — coordinator. `vol-1/al_excita_domine.csv.ly`
   (non-positive duration) and `vol-1/in_rorate__ps_caeli_enarrant.csv.ly` (slur never stops; LilyPond also
   ignores a doubled slur start elsewhere). These are transcription errors, not converter bugs: file them as
