@@ -61,11 +61,14 @@ describe("shipped manifests", () => {
     expect(m.parts[0]?.boundaries).toHaveLength(81);
   });
 
-  it("should ship only the approved Kyrie IX conversion, published under its own digest", () => {
+  it("should ship only approved conversions, each published under its own digest", () => {
     const parts = parseManifest(production).parts;
-    expect(parts.map((p) => p.target)).toEqual(["movement:ordinarium-missae-ix/kyrie"]);
-    expect(parts[0]?.meiUrl).toBe(`/mei/${parts[0]?.meiSha256}/score.mei`);
-    expect(parts[0]?.profile).not.toContain("unapproved");
+    expect(parts.map((p) => p.target)).toContain("movement:ordinarium-missae-ix/kyrie");
+    for (const p of parts) {
+      expect(p.meiUrl).toBe(`/mei/${p.meiSha256}/score.mei`);
+      expect(p.profile).not.toContain("unapproved");
+      expect(p.boundaries.length).toBeGreaterThan(0);
+    }
   });
 
 });

@@ -263,7 +263,8 @@ export async function composeExport(
           const maxHeight = contentFor(false).heightMm;
           const svg = sanitizePageSvg(lp.svg, svgNamespace(part.id, pages.length + i, i));
           const bounds = measureSvgBounds(svg);
-          if (Math.abs(bounds.widthMm - content.widthMm) > SIZE_TOLERANCE_MM || bounds.heightMm > maxHeight + SIZE_TOLERANCE_MM) {
+          // A single short line (e.g. Ite, missa est) is narrower than the content: it stays ragged at the right, as in LilyPond.
+          if (bounds.widthMm > content.widthMm + SIZE_TOLERANCE_MM || bounds.heightMm > maxHeight + SIZE_TOLERANCE_MM) {
             diagnostics.push(diag(part.id, 'INVALID_PAGE',
               `page ${i} SVG is ${bounds.widthMm} x ${bounds.heightMm} mm; the content rect is ${content.widthMm} x ${maxHeight} mm`,
               { pageIndex: pages.length + i }));
