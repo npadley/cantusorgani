@@ -4,8 +4,8 @@
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
-    "profile_version": 2,
-    "timestamp": "2026-10-12T13:20:18Z"
+    "profile_version": 3,
+    "timestamp": "2026-10-12T17:04:35Z"
   },
   "diagnostics": [
     {
@@ -45,13 +45,13 @@
     }
   ],
   "inputs": {
-    "converter_version": "mei-convert/1+e585dd34b3d2ff29",
-    "extractor_version": "listen_full/1+275a588056280f9b",
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
     "profile_id": "accompaniment-v1",
-    "profile_sha256": "fdd5ce65da4fdfd210c2d4d2642e23f3c6b78a0941e9a7725b95a30090353568",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
     "source_sha256": "be839b351150dd551dfecfea3d8a59e6ae34bbabb7f70e03b00cd3074936151d",
     "verovio_version": "6.3.0-425dd7b"
@@ -61,7 +61,7 @@
     "accepted_differences": [],
     "artifact_sha256": "332b3fadd0b0abaa7280feedeab39e52033a69279faaa11af13c2b4f4f8b74bc",
     "decision": "approve",
-    "inputs_digest": "440f6b1fbb15bfb0e913d92ea39b92be1dfbe92ba8f319bc0c7100f0e33c1f28",
+    "inputs_digest": "af6fc022128883fb85f348103c98d1e99a7b79164a811a4fe7a307c3424df2a4",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -78,7 +78,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T13:20:18Z"
+    "timestamp": "2026-10-12T17:04:35Z"
   },
   "source_path": "data/typeset/src/vol-5/missa-ix/agnus_IX.ly",
   "state": "approved",
@@ -86,7 +86,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "a9f85f47d8cb439d6cb4d428fecd12929adbd5ca217c4b416f53f65515117bcf",
+      "ir": "4aef5cabb703e1bb6e331fba8fe586c8014cdf48a09165558f64e5a84d927576",
       "mei": "332b3fadd0b0abaa7280feedeab39e52033a69279faaa11af13c2b4f4f8b74bc",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

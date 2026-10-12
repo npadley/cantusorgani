@@ -1,21 +1,25 @@
 {
   "artifact_sha256": "14583bb6e9fe8bc6c9d26018f442e6e2ab70d8455400a65ea78e0c15a3b8329c",
-  "auto_review": {
-    "criteria_failed": [],
-    "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
-    "profile_version": 2,
-    "timestamp": "2026-10-12T13:20:04Z"
+  "carried_from": {
+    "attributed_to": "ci",
+    "prior_artifact_sha256": "14583bb6e9fe8bc6c9d26018f442e6e2ab70d8455400a65ea78e0c15a3b8329c",
+    "prior_inputs_digest": "c26f499aece245d4c70de4016f148caa2199424910c6c851a39ed2b15977dc10",
+    "reason": [
+      "converter_version",
+      "extractor_version",
+      "profile_sha256"
+    ],
+    "timestamp": "2026-10-12T17:01:46Z"
   },
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+e585dd34b3d2ff29",
-    "extractor_version": "listen_full/1+275a588056280f9b",
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
     "profile_id": "accompaniment-v1",
-    "profile_sha256": "fdd5ce65da4fdfd210c2d4d2642e23f3c6b78a0941e9a7725b95a30090353568",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
     "source_sha256": "d6a8f853ad416f45c2be9f61e0269d0f74ef95a8fc979ee744bcc8a63ed7e3e5",
     "verovio_version": "6.3.0-425dd7b"
@@ -25,7 +29,7 @@
     "accepted_differences": [],
     "artifact_sha256": "14583bb6e9fe8bc6c9d26018f442e6e2ab70d8455400a65ea78e0c15a3b8329c",
     "decision": "approve",
-    "inputs_digest": "c26f499aece245d4c70de4016f148caa2199424910c6c851a39ed2b15977dc10",
+    "inputs_digest": "5afbd06a0de9521692e20e961b4b0d624d2e5a75e4010c79efbe6ba5ffab7237",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -50,7 +54,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "08140377a68cadd755b2e633d982b165c67d9125dcc11074f01cd261ada1059c",
+      "ir": "f45ac349ca2ab9760b6880eb575acf7740d42ef8eae3c08c92262af1c713e169",
       "mei": "14583bb6e9fe8bc6c9d26018f442e6e2ab70d8455400a65ea78e0c15a3b8329c",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

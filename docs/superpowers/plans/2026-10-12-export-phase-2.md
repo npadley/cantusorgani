@@ -51,7 +51,7 @@ Order matters: P1 and P2 change the converter, so run the catalogue (P4) after t
   Fix with fixtures.
   P1 + P2 implemented 2026-10-12; [verification and sample evidence](../reviews/2026-10-12-p1-p2/README.md).
   Other/ambiguous ornaments stay UNKNOWN_FEATURE; four malformed P2 sources retain review warnings.
-- [ ] **P3 Source errors → corrections workflow** — coordinator. `vol-1/al_excita_domine.csv.ly`
+- [x] **P3 Source errors → corrections workflow** — coordinator. `vol-1/al_excita_domine.csv.ly`
   (non-positive duration) and `vol-1/in_rorate__ps_caeli_enarrant.csv.ly` (slur never stops; LilyPond also
   ignores a doubled slur start elsewhere). These are transcription errors, not converter bugs: file them as
   corrections rather than working around them.
@@ -93,7 +93,7 @@ from P4's report.
 
 ## O. Operations and follow-ups
 
-- [ ] **O1 First real run of `mei-stale.yml`** — it has only structure tests. Watch its first run after a
+- [x] **O1 First real run of `mei-stale.yml`** — it has only structure tests. Watch its first run after a
   source/include/converter change on `main`; check the prior-revision rebuild and the carry-forward artifact.
 - [ ] **O2 Admin "Custom export paused" list** — confirm it shows real stale pieces after O1 (the site build
   writes `build/mei/stale/stale.json`).
@@ -131,3 +131,5 @@ from P4's report.
   renders are unchanged; the rest are re-judged.
 - **Device testing.** `pnpm build:e2e && pnpm serve:device` serves the fixture build to an iPad on the LAN
   (see `b10b-device-checklist.md`).
+
+Operations started 2026-10-12 after #108: [carry restoration and catalogue notes](../reviews/2026-10-12-export-operations/README.md). The catalogue is running; P4 publication is not complete.
