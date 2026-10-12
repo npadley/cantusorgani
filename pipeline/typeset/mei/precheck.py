@@ -21,6 +21,7 @@ from __future__ import annotations
 import json
 import re
 from collections import defaultdict
+from itertools import pairwise
 from pathlib import Path
 from typing import Any
 
@@ -77,7 +78,7 @@ class _Page:
     def _finish(self) -> tuple[list[str], list[str]]:
         """Ledger lines no drawn head stands on (a hidden continuation drew them) and mid-system arc stubs."""
         ys = sorted({y for _s, _a, _b, y in self._ledgers})
-        gaps = [b - a for a, b in zip(ys, ys[1:]) if b - a > 100]
+        gaps = [b - a for a, b in pairwise(ys) if b - a > 100]
         spacing = min(gaps) if gaps else SPACE
         orphans = [
             f"ledger {x1:.0f}-{x2:.0f} at {y:.0f}"
