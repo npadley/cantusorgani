@@ -1,0 +1,67 @@
+{
+  "artifact_sha256": "a59df4cd7055b4dfcd353aeef8263422302ec8c583be19a20e95b51f37b9a816",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T17:46:10Z"
+  },
+  "diagnostics": [],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "3ab8d955aec4b7939c42358fb0439f38d4f2e45a31a67cf154fd7460f8a5ae4e",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "a96b05c3ebb6ba76a8197dc10b350b04",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "a59df4cd7055b4dfcd353aeef8263422302ec8c583be19a20e95b51f37b9a816",
+    "decision": "approve",
+    "inputs_digest": "e86a0c049bfdd78b6dca4064e06f8f5e1f2ce067b0fedb9f6061e3a6add49d2d",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T17:46:10Z"
+  },
+  "source_path": "data/typeset/src/vol-2/of_sicut_in_holocausto.csv.ly",
+  "state": "approved",
+  "target": "part:dominica-vii-post-pentecosten/offertory",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "a9051f482dc95c4d0dcd3f898f69f354829e1dbb5ac973bde14557f8ee0b5ae0",
+      "mei": "a59df4cd7055b4dfcd353aeef8263422302ec8c583be19a20e95b51f37b9a816",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}
