@@ -1,0 +1,180 @@
+0	-	-	version	listen_full/1	2.26.0
+0	-	up	staff	1
+0	-	down	staff	2
+0	-	up	key	-2	data/typeset/src/vol-5/missa-i/ite_Ib.ly:11:1
+0	up:chant	up	voice	0	voiceOne
+0	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:11
+0	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:15
+0	-	up	key	-2	data/typeset/src/vol-5/missa-i/ite_Ib.ly:11:1
+0	up:#1	up	voice	1	voiceTwo
+0	up:#1	up	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:0
+0	-	down	key	-2	data/typeset/src/vol-5/missa-i/ite_Ib.ly:11:1
+0	down:#2	down	voice	2	voiceOne
+0	down:#2	down	note	f	0	3	1	0	2	1	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:0
+0	down:#2	down	tie	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:7
+0	-	down	key	-2	data/typeset/src/vol-5/missa-i/ite_Ib.ly:11:1
+0	down:#3	down	voice	3	voiceTwo
+0	down:#3	down	note	a	0	2	1	0	2	1	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:0
+0	-	down	key	-2	data/typeset/src/vol-5/missa-i/ite_Ib.ly:11:1
+0	lyrics:#0	up:chant	lyric	I	-	data/typeset/src/vol-5/missa-i/ite_Ib.ly:17:0
+0	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-i/ite_Ib.ly:17:2
+0	lyrics:#1	up:chant	lyric	De	-	data/typeset/src/vol-5/missa-i/ite_Ib.ly:19:0
+0	lyrics:#1	up:chant	hyphen	data/typeset/src/vol-5/missa-i/ite_Ib.ly:19:3
+0	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:11
+0	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:11
+0	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:0
+0	up:#1	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:0
+0	-	up	clef	clefs.G	-2	-
+0	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:0
+0	down:#2	down	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:0
+0	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:0
+0	down:#3	down	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:0
+0	-	down	clef	clefs.F	2	-
+1/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:17
+1/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:17
+1/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:17
+1/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:27
+1/2	up:chant	up	head	0	quilisma	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:27
+1/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:27
+3/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:32
+3/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:36
+3/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:32
+3/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:32
+1	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:38
+1	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:44
+1	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:8
+1	up:#1	up	tie	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:16
+1	down:#2	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:9
+1	down:#2	down	tie	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:16
+1	down:#3	down	note	b	-1	2	1	0	3	2	3/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:8
+1	lyrics:#0	up:chant	lyric	te,	-	data/typeset/src/vol-5/missa-i/ite_Ib.ly:17:5
+1	lyrics:#1	up:chant	lyric	o,	-	data/typeset/src/vol-5/missa-i/ite_Ib.ly:19:6
+1	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:38
+1	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:38
+1	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:8
+1	up:#1	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:8
+1	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:9
+1	down:#2	down	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:9
+1	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:8
+1	down:#3	down	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:8
+5/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:46
+5/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:50
+5/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:46
+5/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:46
+3/2	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:52
+3/2	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:57
+3/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-5/missa-i/ite_Ib.ly:17:9
+3/2	lyrics:#1	up:chant	lyric		-	data/typeset/src/vol-5/missa-i/ite_Ib.ly:19:9
+3/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:52
+3/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:52
+7/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:59
+7/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:63
+7/4	up:chant	up	tie	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:65
+7/4	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:18
+7/4	up:#1	up	tie	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:26
+7/4	down:#2	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:18
+7/4	down:#2	down	tie	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:25
+7/4	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:18
+7/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:59
+7/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:59
+7/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:18
+7/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:18
+7/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:18
+7/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:18
+7/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:18
+7/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:18
+2	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:67
+2	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:72
+2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:67
+2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:67
+9/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:74
+9/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:77
+9/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:74
+9/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:74
+5/2	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:79
+5/2	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:84
+5/2	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:28
+5/2	down:#2	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:27
+5/2	down:#2	down	tie	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:34
+5/2	down:#3	down	note	g	0	2	1	0	3	2	3/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:25
+5/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-5/missa-i/ite_Ib.ly:17:11
+5/2	lyrics:#1	up:chant	lyric		-	data/typeset/src/vol-5/missa-i/ite_Ib.ly:19:11
+5/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:79
+5/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:79
+5/2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:28
+5/2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:28
+5/2	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:27
+5/2	down:#2	down	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:27
+5/2	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:25
+5/2	down:#3	down	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:25
+11/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:86
+11/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:86
+11/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:86
+3	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:92
+3	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:92
+3	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:92
+13/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:96
+13/4	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:36
+13/4	down:#2	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:36
+13/4	down:#3	down	note	a	0	2	1	0	1	1	1/2	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:33
+13/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:96
+13/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:96
+13/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:36
+13/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:36
+13/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:36
+13/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:36
+13/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:33
+13/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:33
+7/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:100
+7/2	up:chant	up	slur	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:103
+7/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:100
+7/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:100
+15/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:105
+15/4	up:chant	up	slur	-1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:109
+15/4	up:#1	up	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:40
+15/4	down:#2	down	note	e	-1	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:39
+15/4	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:37
+15/4	lyrics:#0	up:chant	lyric	mis	-	data/typeset/src/vol-5/missa-i/ite_Ib.ly:17:13
+15/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-5/missa-i/ite_Ib.ly:17:17
+15/4	lyrics:#1	up:chant	lyric	grá	-	data/typeset/src/vol-5/missa-i/ite_Ib.ly:19:13
+15/4	lyrics:#1	up:chant	hyphen	data/typeset/src/vol-5/missa-i/ite_Ib.ly:19:17
+15/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:105
+15/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:105
+15/4	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:40
+15/4	up:#1	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:40
+15/4	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:39
+15/4	down:#2	down	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:39
+15/4	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:37
+15/4	down:#3	down	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:37
+4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:111
+4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:111
+4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:111
+17/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:115
+17/4	up:chant	up	slur	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:118
+17/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:115
+17/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:115
+9/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:120
+9/2	up:#1	up	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:49
+9/2	down:#2	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:48
+9/2	down:#3	down	col	0.9	-	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:56
+9/2	down:#3	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:56
+9/2	lyrics:#0	up:chant	lyric	sa	-	data/typeset/src/vol-5/missa-i/ite_Ib.ly:17:20
+9/2	lyrics:#1	up:chant	lyric	ti	-	data/typeset/src/vol-5/missa-i/ite_Ib.ly:19:20
+9/2	lyrics:#1	up:chant	hyphen	data/typeset/src/vol-5/missa-i/ite_Ib.ly:19:23
+9/2	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:120
+9/2	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:120
+9/2	up:#1	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:49
+9/2	up:#1	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:27:49
+9/2	down:#2	down	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:48
+9/2	down:#2	down	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:31:48
+9/2	down:#3	down	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:56
+9/2	down:#3	down	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:35:56
+19/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:124
+19/4	lyrics:#0	up:chant	lyric	est.	-	data/typeset/src/vol-5/missa-i/ite_Ib.ly:17:23
+19/4	lyrics:#1	up:chant	lyric	as.	-	data/typeset/src/vol-5/missa-i/ite_Ib.ly:19:26
+19/4	up:chant	up	head	0	normal	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:124
+19/4	up:chant	up	stem	1	data/typeset/src/vol-5/missa-i/ite_Ib.ly:22:124
+5	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+5	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+5	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+5	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2
