@@ -198,11 +198,13 @@ def publish_command(
     dry_run: bool = False,
     store: Any = None,
     current_inputs: Any = None,
+    sources_file: Path | None = None,
 ) -> int:
     """Verify every ConversionRecord JSON in RECORDS_DIR against ARTIFACTS, then upload write-once.
 
     Reads bytes only; never runs a compiler. Every record in RECORDS_DIR must be publishable, so the
-    directory holds approved records only. Exit 1 on PublishBlocked (codes printed)."""
+    directory holds approved records only. With SOURCES_FILE, verify just the explicitly requested
+    source records; absent or ambiguous records block the batch. Exit 1 on PublishBlocked (codes printed)."""
     from pipeline.typeset.mei.manifest import current_inputs_from_files, record_from_dict
     from pipeline.typeset.mei.publish import (
         PublishBlocked,
@@ -215,6 +217,20 @@ def publish_command(
         record_from_dict(json.loads(path.read_text(encoding="utf-8"))) for path in sorted(records_dir.glob("*.json"))
     ]
     try:
+        if sources_file is not None:
+            try:
+                requested = {line.strip() for line in sources_file.read_text(encoding="utf-8").splitlines() if line.strip()}
+            except OSError as error:
+                raise PublishBlocked(["ASSET_MISSING"], f"cannot read source list: {error}") from error
+            if not requested:
+                raise PublishBlocked(["NOT_APPROVED"], "source list is empty")
+            selected = {}
+            for source in sorted(requested):
+                matches = [r for r in records if r.source_path == source]
+                if len(matches) != 1:
+                    raise PublishBlocked(["NOT_APPROVED"], f"{source}: expected one record, found {len(matches)}")
+                selected[source] = matches[0]
+            records = list(selected.values())
         bundle = verify_publish_bundle(artifacts, records, current_inputs or current_inputs_from_files)
         if dry_run:
             memory = _MemoryStore()
