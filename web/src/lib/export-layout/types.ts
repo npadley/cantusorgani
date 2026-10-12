@@ -246,13 +246,14 @@ export type LayoutDiagnosticCode =
   | 'EVENT_MISSING' | 'STAFF_HEIGHT_MISMATCH' | 'CROWDED_ORIGINAL_LINES'
   | 'RENDERER_FAILED' | 'RENDERER_LOAD_FAILED' | 'ASSET_MISSING' | 'ASSET_HASH_MISMATCH'
   | 'UNSAFE_SVG' | 'INVALID_PAGE' | 'FONT_UNAVAILABLE' | 'BUDGET_EXCEEDED' | 'SOURCE_CEILING'
-  | 'FIXED_PAGE_COUNT_MISMATCH' | 'SCAN_TOO_LARGE' | 'PDF_FAILED' | 'CANCELLED' | 'TIMEOUT';
+  | 'FIXED_PAGE_COUNT_MISMATCH' | 'SCAN_TOO_LARGE' | 'PDF_FAILED' | 'CANCELLED' | 'TIMEOUT'
+  | 'MIDWORD_UNAVOIDABLE';   // info (D24): an automatic system starts inside a word that no safe boundary could avoid
 export type UnsatisfiableReason = 'system-too-tall' | 'system-too-wide' | 'heading-too-tall' | 'no-convergence';
 export type LayoutSuggestion =
   | 'smaller-music' | 'larger-page' | 'landscape' | 'portrait' | 'smaller-margins' | 'fit-to-page' | 'remove-break';
 export interface LayoutDiagnostic {
   readonly code: LayoutDiagnosticCode;
-  readonly severity: 'error' | 'warning';
+  readonly severity: 'error' | 'warning' | 'info';
   readonly partId: string | null;
   readonly pageIndex: number | null;
   readonly boundaryIds: readonly string[];

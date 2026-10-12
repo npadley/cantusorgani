@@ -7,17 +7,10 @@ import { MATRIX, catalogueSlugs, loadPiece, runCase } from './__fixtures__/catal
  * __fixtures__/catalogue/), laid out in all 13 Contracts section 3 cases with real Verovio.
  * Every case must lay out; ties must be drawn; automatic lines must not start inside a word.
  *
- * KNOWN lists what is still unavoidable, as upper bounds: a start that cannot move to a word boundary
- * without squeezing two syllables closer than 0.3 mm or overfilling a neighbouring line. Shrink an entry
- * when the layout improves; never grow one.
+ * D24: a start that cannot move to a word boundary without squeezing two syllables closer than 0.3 mm
+ * or overfilling a line stays, recorded as an info MIDWORD_UNAVOIDABLE diagnostic. Every other mid-word
+ * start is a defect. KNOWN_COLLISIONS lists syllable pairs already too close in Verovio's own layout.
  */
-const KNOWN_MID_WORD: Readonly<Record<string, Readonly<Record<string, number>>>> = {
-  'al-ostende-nobis': { 'custom-160x230-auto': 1 },
-  'in-ecce-advenit': { 'ipadmini-p-auto': 1 },
-  'in-exsurge': { 'ipadmini-p-auto': 3 },
-  'in-in-nomine-jesu--ps-domine': { 'ipadmini-p-auto': 2 },
-  'in-miserere--tribulor': { 'ipad11-l-large-auto': 1, 'ipadmini-p-auto': 1 }, // precheck counts the first as clean
-};
 /** Syllable pairs under 0.3 mm in Verovio's own automatic layout (not caused by a moved break). */
 const KNOWN_COLLISIONS: Readonly<Record<string, Readonly<Record<string, number>>>> = {
   'al-crastina-die': { 'letter-p-large-auto': 1, 'ipadmini-p-auto': 1 },
@@ -40,8 +33,7 @@ describe('catalogue pieces that needed review', { timeout: WASM_TIMEOUT_MS * 8 }
       if (result.errors.length > 0) failures.push(`${id}: ${result.errors.join('; ')}`);
       if (result.pages === 0 && result.errors.length === 0) failures.push(`${id}: no pages`);
       if (result.deadTies.length > 0) failures.push(`${id}: ties not drawn ${result.deadTies.join(',')}`);
-      const mid = KNOWN_MID_WORD[slug]?.[id] ?? 0;
-      if (result.midWord > mid) failures.push(`${id}: ${result.midWord} mid-word starts (known ${mid})`);
+      if (result.midWord > 0) failures.push(`${id}: ${result.midWord} avoidable mid-word starts`);
       const col = id.endsWith('-auto') ? (KNOWN_COLLISIONS[slug]?.[id] ?? 0) : Infinity; // original lines keep the source breaks
       if (result.collisions > col) failures.push(`${id}: ${result.collisions} lyric collisions (known ${col})`);
     }

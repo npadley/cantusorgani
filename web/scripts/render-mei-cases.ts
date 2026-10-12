@@ -60,7 +60,7 @@ interface CaseResult {
   readonly files: readonly string[];
   /** Adjacent-lyric pairs closer than 1 mm, measured with real Liberation Serif widths (lyricCollisions.ts). */
   readonly lyricGaps: readonly { readonly page: number; readonly a: string; readonly b: string; readonly gapMm: number }[];
-  readonly diagnostics: readonly { readonly code: string; readonly severity: string; readonly detail: string }[];
+  readonly diagnostics: readonly { readonly code: string; readonly severity: string; readonly detail: string; readonly boundaryIds: readonly string[] }[];
 }
 
 const [meiPath, casesPath, outDir, boundariesPath] = process.argv.slice(2);
@@ -148,7 +148,7 @@ for (const spec of cases) {
       }
     });
     const diagnostics = layout.diagnostics.map((d: LayoutDiagnostic) => ({
-      code: d.code, severity: d.severity, detail: d.detail,
+      code: d.code, severity: d.severity, detail: d.detail, boundaryIds: d.boundaryIds,
     }));
     results.push({
       id: spec.id,

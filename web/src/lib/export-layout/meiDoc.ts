@@ -54,25 +54,10 @@ function revealSplitSustains(doc: Document, brokenMeasureIds: ReadonlySet<string
     const contId = cont.getAttribute(XML_ID);
     if (!contId || enclosingMeasure(cont) === measure) continue;
 
+    // D17: a revealed continuation shows its head only. The stem, flag and accidental stay off.
     cont.removeAttribute('head.visible');
-    cont.removeAttribute('stem.visible');
+    cont.removeAttribute('visible');
     revealed.add(contId);
-
-    // Courtesy accidental: copy the written accid from the first fragment of the chain.
-    let first: Element = prev;
-    const seen = new Set<Element>();
-    while (first.getAttribute('type') === 'split-continuation' && !seen.has(first)) {
-      seen.add(first);
-      const pid = refId(first.getAttribute('prev'));
-      const p = pid ? byXmlId.get(pid) : undefined;
-      if (!p) break;
-      first = p;
-    }
-    const accid = first.getAttribute('accid');
-    if (accid) cont.setAttribute('accid', accid);
-    // A dotted continuation is also visible="false" (its dots would show); a continuation of a hidden
-    // voice-line note stays hidden because its first fragment is.
-    if (first.getAttribute('visible') !== 'false') cont.removeAttribute('visible');
 
     const tieId = `${contId}-tie`;
     if (byXmlId.has(tieId)) continue;
@@ -256,6 +241,26 @@ export function revealSplitSustainsAfter(meiXml: string, brokenMeasureIds: Reado
     },
   }).parseFromString(meiXml, 'text/xml');
   revealSplitSustains(doc, brokenMeasureIds);
+  const out = new XMLSerializer().serializeToString(doc);
+  const decl = /^\s*(<\?xml[^?]*\?>)/.exec(meiXml);
+  return decl && !out.startsWith('<?xml') ? `${decl[1]}\n${out}` : out;
+}
+
+/**
+ * Mark every split-continuation note `visible="false"` so Verovio draws nothing for it: with only
+ * `head.visible="false"` its ledger lines, dots and stubs are still drawn. A continuation revealed at
+ * a system start loses the attribute again (see `revealSplitSustains`). Returns a new string.
+ */
+export function hideSplitContinuations(meiXml: string): string {
+  if (!meiXml.includes('split-continuation')) return meiXml;
+  const doc = new DOMParser({
+    onError: (level, msg) => {
+      if (level === 'error' || level === 'fatalError') throw new Error(`MEI_PARSE_ERROR: ${msg}`);
+    },
+  }).parseFromString(meiXml, 'text/xml');
+  for (const el of Array.from(doc.getElementsByTagName('note'))) {
+    if (el.getAttribute('type') === 'split-continuation') el.setAttribute('visible', 'false');
+  }
   const out = new XMLSerializer().serializeToString(doc);
   const decl = /^\s*(<\?xml[^?]*\?>)/.exec(meiXml);
   return decl && !out.startsWith('<?xml') ? `${decl[1]}\n${out}` : out;

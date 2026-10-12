@@ -31,7 +31,7 @@ from pipeline.typeset.mei.model import REQUIRED_MATRIX
 __all__ = ["PRECHECK_VERSION", "precheck_packet"]
 
 #: Bump when a check is added or changed: an automatic approval records the version it was judged under.
-PRECHECK_VERSION = "precheck/5"
+PRECHECK_VERSION = "precheck/6"
 
 M = "{http://www.music-encoding.org/ns/mei}"
 XML_ID = "{http://www.w3.org/XML/1998/namespace}id"
@@ -40,6 +40,8 @@ HEAD_WIDTH = 226.0  # 0.01 mm at staff size medium (unit 9)
 SPACE = 180.0
 X_SLACK = 150.0
 Y_SLACK = 350.0
+#: A tie or slur drawn shorter than this (0.01 mm) in mid-system is a stub, not an arc.
+MIN_ARC = 100.0
 #: Liberation Serif "|": ink from 0.683 em above to 0.217 em below the baseline.
 BAR_TOP, BAR_BOTTOM = 0.683, 0.217
 _TRANSLATE = re.compile(r"translate\(\s*(-?[\d.]+)[ ,]+(-?[\d.]+)?")
@@ -58,6 +60,11 @@ class _Page:
         self.syllables = 0
         self.system_starts: list[str] = []
         self.hidden_dots: list[str] = []  # augmentation dots drawn for a hidden split-continuation head
+        self.stemmed_continuations: list[str] = []  # revealed continuations that also draw a stem, flag or accidental
+        self._ledgers: list[tuple[str, float, float, float]] = []  # (above|below, x1, x2, y)
+        self._head_points: list[tuple[float, float]] = []
+        self._arcs: list[tuple[str, float, float]] = []  # (class, min x, max x) of every tie/slur piece
+        self._staff_x: list[tuple[float, float]] = []
         self._note = ""
         self._head = False
         self.bars: dict[str, set[int]] = defaultdict(set)  # measure id -> x of every vertical bar line stroke
@@ -65,6 +72,29 @@ class _Page:
         self._system = -1
         root = etree.parse(str(svg), etree.XMLParser(resolve_entities=False, no_network=True)).getroot()
         self._walk(root, 0.0, 0.0)
+        self.orphan_ledgers, self.stubs = self._finish()
+
+    def _finish(self) -> tuple[list[str], list[str]]:
+        """Ledger lines no drawn head stands on (a hidden continuation drew them) and mid-system arc stubs."""
+        ys = sorted({y for _s, _a, _b, y in self._ledgers})
+        gaps = [b - a for a, b in zip(ys, ys[1:]) if b - a > 100]
+        spacing = min(gaps) if gaps else SPACE
+        orphans = [
+            f"ledger {x1:.0f}-{x2:.0f} at {y:.0f}"
+            for side, x1, x2, y in self._ledgers
+            if not any(
+                x1 - 60 <= hx <= x2 + 60 and (hy <= y + 0.7 * spacing if side == "above" else hy >= y - 0.7 * spacing)
+                for hx, hy in self._head_points
+            )
+        ]
+        stubs: list[str] = []
+        if self._staff_x:
+            left = min(a for a, _b in self._staff_x)
+            right = max(b for _a, b in self._staff_x)
+            for cls, lo, hi in self._arcs:
+                if hi - lo < MIN_ARC and hi < right - 200 and lo > left + 1200:  # not a piece at a system edge
+                    stubs.append(f"{cls} {lo:.0f}-{hi:.0f}")
+        return orphans, stubs
 
     def _walk(self, el: etree._Element, dx: float, dy: float) -> None:
         if el.tag == S + "g":
@@ -95,6 +125,30 @@ class _Page:
                     ]
                     if len(ys) == 5 and (self._system, min(ys)) not in self.staves:
                         self.staves.append((self._system, min(ys)))
+                if "ledgerLines" in cls:
+                    side = "above" if "above" in cls else "below"
+                    for p in el.findall(S + "path"):
+                        mm = re.match(r"^M(-?[\d.]+) (-?[\d.]+) L(-?[\d.]+) (-?[\d.]+)$", p.get("d") or "")
+                        if mm:
+                            self._ledgers.append((side, float(mm.group(1)) + dx, float(mm.group(3)) + dx, float(mm.group(2)) + dy))
+                if "staff" in cls:
+                    for p in el.findall(S + "path"):
+                        mm = re.match(r"^M(-?[\d.]+) (-?[\d.]+) L(-?[\d.]+) (-?[\d.]+)$", p.get("d") or "")
+                        if mm:
+                            self._staff_x.append((float(mm.group(1)) + dx, float(mm.group(3)) + dx))
+                if ("tie" in cls or "slur" in cls):
+                    path = el.find(S + "path")
+                    arc = [float(v) for v in re.findall(r"-?\d+(?:\.\d+)?", path.get("d") or "")][0::2] if path is not None else []
+                    if arc:
+                        self._arcs.append((" ".join(cls), min(arc) + dx, max(arc) + dx))
+                if "split-continuation" in cls and ident and any(
+                    c.tag == S + "g" and "notehead" in _cls(c) and next(iter(c.iter(S + "use")), None) is not None for c in el.iter()
+                ) and any(
+                    c.tag == S + "g" and (
+                        "stem" in _cls(c) or "flag" in _cls(c) or ("accid" in _cls(c) and next(iter(c.iter(S + "use")), None) is not None)
+                    ) for c in el.iter()
+                ):
+                    self.stemmed_continuations.append(ident)
                 if "dots" in cls and self._note and not self._head and re.search(r"c\d+$", self._note) and any(
                     c.tag in (S + "ellipse", S + "circle", S + "use", S + "path") for c in el.iter()
                 ):
@@ -106,6 +160,7 @@ class _Page:
                     mm = _TRANSLATE.search(use.get("transform") or "") if use is not None else None
                     if mm:
                         self.heads[ident] = (float(mm.group(1)) + dx, float(mm.group(2) or 0) + dy)
+                        self._head_points.append(self.heads[ident])
                 if "syl" in cls:
                     self.syllables += 1
                 if "tie" in cls and "split-tie" not in cls:
@@ -236,6 +291,15 @@ def precheck_packet(convert_dir: Path, evidence_dir: Path | None = None) -> dict
         dots = [n for page in pages for n in page.hidden_dots]
         if dots:
             out.append(f"dots: {len(dots)} augmentation dot(s) drawn on hidden continuation heads (e.g. {dots[0]})")
+        ledgers = [f for page in pages for f in page.orphan_ledgers]
+        if ledgers:
+            out.append(f"ledger: {len(ledgers)} ledger line(s) with no drawn head on them (a hidden continuation draws them), e.g. {ledgers[0]}")
+        stemmed = [n for page in pages for n in page.stemmed_continuations]
+        if stemmed:
+            out.append(f"stem: {len(stemmed)} revealed continuation(s) draw a stem, flag or accidental (head only, D17), e.g. {stemmed[0]}")
+        stubs = [f for page in pages for f in page.stubs]
+        if stubs:
+            out.append(f"arc: {len(stubs)} tie/slur piece(s) shorter than {MIN_ARC / 100:.1f} mm in mid-system, e.g. {stubs[0]}")
         drawn = sum(page.syllables for page in pages)
         if drawn < syllables:
             out.append(f"lyrics: only {drawn} of {syllables} encoded syllables are drawn")
@@ -243,12 +307,22 @@ def precheck_packet(convert_dir: Path, evidence_dir: Path | None = None) -> dict
             out.append(f"info: {drawn - syllables} extra syllable piece(s) drawn at system breaks (continued extenders or hyphens)")
         if case.endswith("-auto") or "-auto" in case:
             mid_word = 0
+            unavoidable = 0
+            allowed = {
+                bid for c in summary["cases"] if c["id"] == case for d in c.get("diagnostics", [])
+                if d.get("code") == "MIDWORD_UNAVOIDABLE" for bid in d.get("boundaryIds", [])
+            }
             for page in pages:
                 for first in page.system_starts[1:]:
                     previous = _previous_measure(root, first)
                     boundary = after_of_measure.get(previous or "")
                     if boundary is not None and syl_before.get(_onset_key(boundary["onset"], syl_before), False):
-                        mid_word += 1
+                        if boundary["id"] in allowed:
+                            unavoidable += 1  # D24: the layout kept the hyphenated break and said so
+                        else:
+                            mid_word += 1
+            if unavoidable:
+                out.append(f"info: {unavoidable} automatic system(s) start in the middle of a word that no word boundary could avoid (D24)")
             if mid_word:
                 out.append(f"note: {mid_word} automatic system(s) start in the middle of a word")
     return findings

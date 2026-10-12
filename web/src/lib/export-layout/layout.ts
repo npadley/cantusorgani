@@ -3,7 +3,7 @@ import fontkit from '@pdf-lib/fontkit';
 import type { Font } from '@pdf-lib/fontkit';
 import type { Element } from '@xmldom/xmldom';
 import { resolveBreaks } from './breaks';
-import { materialiseBreaks, revealSplitSustainsAfter } from './meiDoc';
+import { hideSplitContinuations, materialiseBreaks, revealSplitSustainsAfter } from './meiDoc';
 import { paginate } from './paginate';
 import { paperDimensions, verovioOptions } from './settings';
 import { lyricCollisions } from './lyricGeometry';
@@ -104,7 +104,7 @@ function optionMismatches(tk: VerovioLike & OptionReader, requested: OptionRecor
 function diag(
   partId: string,
   code: LayoutDiagnosticCode,
-  severity: 'error' | 'warning',
+  severity: 'error' | 'warning' | 'info',
   o: {
     readonly pageIndex?: number | null;
     readonly boundaryIds?: readonly string[];
@@ -354,6 +354,7 @@ async function layoutOnce(
     const boundaries = part.part.conversion.boundaries;
     const boundaryByMeasure = new Map(boundaries.map((b) => [b.measureId, b.id] as const));
     const measureByBoundary = new Map(boundaries.map((b) => [b.id, b.measureId] as const));
+    const meiSource = hideSplitContinuations(part.meiXml);
     const meiMeasures = measureOrderInMei(part.meiXml);
     const nextMeasureInMei = new Map(meiMeasures.map((id, i) => [id, meiMeasures[i + 1] ?? null] as const));
     /** Breaks that have a measure after them; a break after the final measure is a no-op. */
@@ -366,7 +367,7 @@ async function layoutOnce(
     // Pass 1 sees user breaks as system breaks (<pb/> is ignored under 'line'); under 'auto'
     // they are ignored and handled by inserting extra system starts below.
     const systemised: EffectiveBreaks = { ...eff, breaks: realisable.map((b): EffectiveBreak => ({ ...b, kind: 'system' })) };
-    const mei1 = rewriteBreaks(materialiseBreaks(part.meiXml, systemised, boundaries, settings.linePolicy, false), { stripSb: false });
+    const mei1 = rewriteBreaks(materialiseBreaks(meiSource, systemised, boundaries, settings.linePolicy, false), { stripSb: false });
     /** Right reserve in 0.1 mm; grows when Verovio overflows the width and the lines are re-measured. */
     let reserveRight = Number(base['pageMarginRight']);
     let pass1Options: OptionRecord = {
@@ -413,7 +414,7 @@ async function layoutOnce(
     type AttemptResult = { ok: boolean; systems: readonly MeasuredSystem[]; sameStarts: boolean; ratiosOk: boolean; bad: ReadonlySet<number> };
     const attempt = async (moved: readonly string[], original: readonly string[]): Promise<AttemptResult | string> => {
       const messagesBefore = consoleMessages.length;
-      const mei1b = rewriteBreaks(part.meiXml, { stripSb: true, insertBefore: new Map(moved.slice(1).map((m) => [m, 'system'] as const)) });
+      const mei1b = rewriteBreaks(meiSource, { stripSb: true, insertBefore: new Map(moved.slice(1).map((m) => [m, 'system'] as const)) });
       const bad1b = apply({ ...pass1Options, breaks: 'encoded' });
       if (bad1b.length > 0) return `word-boundary options not applied: ${bad1b.join('; ')}`;
       if (!load(mei1b)) return 'loadData failed in the word-boundary pass';
@@ -602,6 +603,17 @@ async function layoutOnce(
         measuredForGaps = currentSystems;
       }
     }
+    // D24: a start that stayed inside a word is allowed, but recorded (informational) on that system.
+    if (settings.linePolicy === 'automatic') {
+      planned.forEach((p, k) => {
+        if (k === 0 || pinned.has(p.startMeasureId) || wordFinal.has(allMeasures[(measureIndex.get(p.startMeasureId) ?? 0) - 1] ?? '')) return;
+        diagnostics.push(diag(partId, 'MIDWORD_UNAVOIDABLE', 'info', {
+          pageIndex: null,
+          boundaryIds: p.firstBoundaryId ? [p.firstBoundaryId] : [],
+          detail: `system ${k} starts inside a word at ${p.startMeasureId}; no word boundary was reachable without a syllable gap below ${MIN_SYLLABLE_GAP_MM} mm or an overfull line`,
+        }));
+      });
+    }
     const gaps = measuredForGaps.slice(1).map((s, i) => s.topMm - ((measuredForGaps[i]?.topMm ?? 0) + (measuredForGaps[i]?.heightMm ?? 0)));
     const minGapMm = gaps.length > 0 ? Math.max(0, ...gaps) : 0; // R1: the maximum measured gap
 
@@ -651,7 +663,7 @@ async function layoutOnce(
       const i = start === undefined ? -1 : (measureIndex.get(start) ?? -1);
       if (i > 0) brokenAfter.add(allMeasures[i - 1] ?? '');
     }
-    const mei2 = revealSplitSustainsAfter(rewriteBreaks(part.meiXml, { stripSb: true, insertBefore: inserts }), brokenAfter);
+    const mei2 = revealSplitSustainsAfter(rewriteBreaks(meiSource, { stripSb: true, insertBefore: inserts }), brokenAfter);
     const plannedPages = pag.pages.map((indices) => indices.map((i) => planned[i]?.startMeasureId ?? ''));
     // R5: with no break element 'encoded' silently falls back to 'auto'. A one-system part must
     // stay one system, so ask for 'none' instead.

@@ -38,7 +38,8 @@ export function settingsFor(patch: Partial<LayoutSettings>): LayoutSettings {
 export interface CaseResult {
   readonly id: string;
   readonly errors: string[];
-  readonly midWord: number;
+  readonly midWord: number; // avoidable ones (not recorded as MIDWORD_UNAVOIDABLE)
+  readonly unavoidable: number;
   readonly collisions: number;
   readonly syllables: string; // "drawn/encoded"
   readonly syllablesOk: boolean;
@@ -52,7 +53,11 @@ export async function runCase(piece: ReturnType<typeof loadPiece>, id: string, p
   const wordFinal = wordFinalMeasures(piece.mei);
   const measureOf = new Map(piece.boundaries.map((b) => [b.id, b.measureId]));
   const starts = layout.pages.flatMap((p) => p.systems).flatMap((x) => (x.firstBoundaryId ? [x.firstBoundaryId] : []));
-  const midWord = s.linePolicy === 'automatic' ? starts.filter((b) => !wordFinal.has(measureOf.get(b)!)).length : 0;
+  // D24: a mid-word start the layout recorded as MIDWORD_UNAVOIDABLE is allowed; any other one is a defect.
+  const flagged = new Set(layout.diagnostics.filter((d) => d.code === 'MIDWORD_UNAVOIDABLE').flatMap((d) => d.boundaryIds));
+  const midStarts = s.linePolicy === 'automatic' ? starts.filter((b) => !wordFinal.has(measureOf.get(b)!)) : [];
+  const midWord = midStarts.filter((b) => !flagged.has(b)).length;
+  const unavoidable = midStarts.length - midWord;
   const encoded = (piece.mei.match(/<syl\b/g) ?? []).length;
   const drawn = layout.pages.reduce((n, p) => n + (p.svg.match(/class="[^"]*syl[^"]*"/g) ?? []).length, 0);
   const collisions = layout.pages.flatMap((p) => lyricCollisions(p.svg, 0.3)).length;
@@ -67,5 +72,5 @@ export async function runCase(piece: ReturnType<typeof loadPiece>, id: string, p
     const e = layout.pages.findIndex((p) => p.svg.includes(`id="${t.end}"`));
     return e >= 0 && !drawnTies[e]!.has(t.id);
   }).map((t) => t.id);
-  return { layout, result: { id, errors, midWord, collisions, syllables: `${drawn}/${encoded}`, syllablesOk: layout.pages.length === 0 || drawn === encoded, deadTies, pages: layout.pages.length } };
+  return { layout, result: { id, errors, midWord, unavoidable, collisions, syllables: `${drawn}/${encoded}`, syllablesOk: layout.pages.length === 0 || drawn === encoded, deadTies, pages: layout.pages.length } };
 }

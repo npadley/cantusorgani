@@ -89,3 +89,30 @@ def test_precheck_packet_flags_a_required_case_that_was_never_laid_out(tmp_path:
     packet = _kyrie_packet(tmp_path)
     shutil.rmtree(packet / "evidence" / "cases" / "a5-l-orig")
     assert "case was not laid out" in precheck_packet(packet)["a5-l-orig"][0]
+
+
+def _inject(tmp_path: Path, markup: str) -> dict[str, list[str]]:
+    packet = _kyrie_packet(tmp_path)
+    svg = packet / "evidence" / "cases" / "letter-p-orig" / "letter-p-orig-p1.svg"
+    text = svg.read_text(encoding="utf-8")
+    svg.write_text(text[: text.rindex("</svg>")] + markup + "</svg>", encoding="utf-8")
+    return precheck_packet(packet)
+
+
+@pytest.mark.slow
+def test_precheck_flags_a_ledger_line_with_no_head_on_it(tmp_path: Path) -> None:
+    findings = _inject(tmp_path, '<g class="ledgerLines below"><path d="M100 99999 L400 99999" stroke-width="22"/></g>')
+    assert any(f.startswith("ledger:") for f in findings["letter-p-orig"])
+
+
+@pytest.mark.slow
+def test_precheck_flags_a_revealed_continuation_that_draws_a_stem(tmp_path: Path) -> None:
+    markup = '<g id="ev9c1" class="note split-continuation"><g class="notehead"><use transform="translate(10, 10)"/></g><g class="stem"/></g>'
+    findings = _inject(tmp_path, markup)
+    assert any(f.startswith("stem:") and "ev9c1" in f for f in findings["letter-p-orig"])
+
+
+@pytest.mark.slow
+def test_precheck_flags_a_tie_stub_in_mid_system(tmp_path: Path) -> None:
+    findings = _inject(tmp_path, '<g class="tie"><path d="M5000,100 C5020,50 5060,50 5080,100"/></g>')
+    assert any(f.startswith("arc:") for f in findings["letter-p-orig"])

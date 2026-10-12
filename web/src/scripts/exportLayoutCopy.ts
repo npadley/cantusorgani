@@ -105,6 +105,8 @@ export const COPY_DECK: Readonly<Record<LayoutDiagnosticCode, Row>> = {
   UNSAFE_ANCHOR: (_d, c) => ({ text: `Your saved breaks for ${c.partLabel} were removed because its music was updated.`, actions: ['dismiss'], blocking: false }),
   CROWDED_ORIGINAL_LINES: () => ({ text: 'Some original lines are tight at this size. Fit to page may read better.', actions: [], blocking: false }),
   CANCELLED: () => ({ text: '', actions: [], blocking: false, silent: true }),
+  // D24: informational, recorded for the pre-review only; the reader is never told.
+  MIDWORD_UNAVOIDABLE: () => ({ text: '', actions: [], blocking: false, silent: true }),
   // Internal layout faults: the generic row.
   CAP_EXCEEDED: UNKNOWN,
   CONTENT_CLIPPED: UNKNOWN,
