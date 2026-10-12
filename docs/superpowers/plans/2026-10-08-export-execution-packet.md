@@ -832,6 +832,10 @@ B0[H] ────────────────────────�
 
 ## 6. Status board
 
+> **Superseded.** Phase 1 is complete (G0–G4). What is left is tracked in
+> [`2026-10-12-export-phase-2.md`](2026-10-12-export-phase-2.md).
+
+
 | Card | Model | Lane | Status | Commit | Reviewer verdict |
 |---|---|---|---|---|---|
 | S0 | H | DOC/PY | ready | | |
