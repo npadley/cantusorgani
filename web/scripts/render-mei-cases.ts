@@ -31,6 +31,12 @@ import type {
   VerovioLike,
 } from '../src/lib/export-layout/types.ts';
 
+/** The lyric face production lays out with: layout verifies syllable gaps against its real widths. */
+const LYRIC_FONT = {
+  family: 'Liberation Serif', url: '', sha256: '', license: 'OFL',
+  bytes: new Uint8Array(readFileSync(new URL('../public/fonts/export/LiberationSerif-Regular.ttf', import.meta.url))),
+};
+
 interface CaseSpec {
   readonly id: string;
   readonly page: string;
@@ -127,7 +133,7 @@ for (const spec of cases) {
   } as VerovioLike;
   try {
     const layout = await renderMei(partOf(), settings, [], {
-      token: 1, fonts: {} as FontProfile, limits: PROVISIONAL_LIMITS, isCancelled: () => false, toolkit: spy,
+      token: 1, fonts: { lyricFont: LYRIC_FONT } as unknown as FontProfile, limits: PROVISIONAL_LIMITS, isCancelled: () => false, toolkit: spy,
     }, rects);
     const files: string[] = [];
     const lyricGaps = layout.pages.flatMap((p, i) => lyricCollisions(p.svg, 1.0).map((c) => ({ page: i + 1, ...c })));
