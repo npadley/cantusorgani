@@ -1,0 +1,103 @@
+{
+  "artifact_sha256": "bcf681ba573edf6f0a03dc0b2dc328c6c1969d5848a8740e4f99189a5a5128a0",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T18:14:27Z"
+  },
+  "diagnostics": [
+    {
+      "code": "VOICE_ENDS_UNEQUAL",
+      "details": [
+        [
+          "down:#2",
+          "307/2"
+        ],
+        [
+          "down:#3",
+          "307/2"
+        ],
+        [
+          "down:#4",
+          "217/2"
+        ],
+        [
+          "up:#1",
+          "307/2"
+        ],
+        [
+          "up:chant",
+          "307/2"
+        ]
+      ],
+      "event_ids": [
+        "0e0613",
+        "1e0304",
+        "2e0318",
+        "3e0278",
+        "4e0017"
+      ],
+      "message": "layers of data/typeset/src/vol-5/pro-defunctis/se_dies_irae.ly end at different onsets",
+      "severity": "warning",
+      "source_location": null
+    }
+  ],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "4a833729d1f9445d80ede254cff6c9d032da4b39fd29a5f41d9c53d4e0d3acd6",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "6380ea4d72b654111524b8284d1075f3",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "bcf681ba573edf6f0a03dc0b2dc328c6c1969d5848a8740e4f99189a5a5128a0",
+    "decision": "approve",
+    "inputs_digest": "afd4805b22198441aeb54de06efdf9ca9c075f4fcf8f2519d889e76523106388",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T18:14:27Z"
+  },
+  "source_path": "data/typeset/src/vol-5/pro-defunctis/se_dies_irae.ly",
+  "state": "approved",
+  "target": "part:missa-pro-defunctis-i/sequence",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "01ce9b9654ec604b31191d4f5385802d3867dd5353bede8691844de369eb68a2",
+      "mei": "bcf681ba573edf6f0a03dc0b2dc328c6c1969d5848a8740e4f99189a5a5128a0",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}

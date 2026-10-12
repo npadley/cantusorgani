@@ -1,0 +1,103 @@
+{
+  "artifact_sha256": "9a617fdb2110a65943f4012cb4f583fe415bd26ce4eed5835c2ceb04ec576fdf",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T18:06:29Z"
+  },
+  "diagnostics": [
+    {
+      "code": "VOICE_ENDS_UNEQUAL",
+      "details": [
+        [
+          "down:#2",
+          "83/4"
+        ],
+        [
+          "down:#3",
+          "83/4"
+        ],
+        [
+          "down:#4",
+          "15/1"
+        ],
+        [
+          "up:#1",
+          "83/4"
+        ],
+        [
+          "up:chant",
+          "83/4"
+        ]
+      ],
+      "event_ids": [
+        "0e0082",
+        "1e0038",
+        "2e0037",
+        "3e0035",
+        "4e0005"
+      ],
+      "message": "layers of data/typeset/src/vol-5/ad-libitum/sanctus_ad_libitum_I.ly end at different onsets",
+      "severity": "warning",
+      "source_location": null
+    }
+  ],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "d0365f8d1514eca70176985a25afeb7c2f999eced12d10c1282fae205c3f078c",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "c28de5007397ca18fb6a51f743aa989f",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "9a617fdb2110a65943f4012cb4f583fe415bd26ce4eed5835c2ceb04ec576fdf",
+    "decision": "approve",
+    "inputs_digest": "7cc67f1ab69cce1f10c8f04b5d2d0a31f6e2ab19dd0ece35e240ffb23336e16f",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T18:06:29Z"
+  },
+  "source_path": "data/typeset/src/vol-5/ad-libitum/sanctus_ad_libitum_I.ly",
+  "state": "approved",
+  "target": "piece:cantus-ad-libitum-sanctus-i-iii",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "e8c61461267809927d1c0ec703ced7632ae4e368e7ecf1fbeb308a443c001fe3",
+      "mei": "9a617fdb2110a65943f4012cb4f583fe415bd26ce4eed5835c2ceb04ec576fdf",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}

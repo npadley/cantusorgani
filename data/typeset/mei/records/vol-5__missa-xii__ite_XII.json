@@ -1,0 +1,103 @@
+{
+  "artifact_sha256": "68e348052cbd04c2a1b3b0455910f0103caea265ff00b8edeae13c08580e90fa",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T18:11:24Z"
+  },
+  "diagnostics": [
+    {
+      "code": "VOICE_ENDS_UNEQUAL",
+      "details": [
+        [
+          "down:#2",
+          "33/8"
+        ],
+        [
+          "down:#3",
+          "33/8"
+        ],
+        [
+          "down:#4",
+          "25/8"
+        ],
+        [
+          "up:#1",
+          "33/8"
+        ],
+        [
+          "up:chant",
+          "33/8"
+        ]
+      ],
+      "event_ids": [
+        "0e0015",
+        "1e0006",
+        "2e0006",
+        "3e0006",
+        "4e0002"
+      ],
+      "message": "layers of data/typeset/src/vol-5/missa-xii/ite_XII.ly end at different onsets",
+      "severity": "warning",
+      "source_location": null
+    }
+  ],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "2830b26e57a07eff155c98e81e74651ac323b1bc61e0e39be1b62513d8ca7dc6",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "8668943339422abc90a050f3abf2c643",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "68e348052cbd04c2a1b3b0455910f0103caea265ff00b8edeae13c08580e90fa",
+    "decision": "approve",
+    "inputs_digest": "f82c30493c409638e91f79d6099a07aa584882d4fbe63d5428ff19c8960f17ec",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T18:11:24Z"
+  },
+  "source_path": "data/typeset/src/vol-5/missa-xii/ite_XII.ly",
+  "state": "approved",
+  "target": "movement:ordinarium-missae-xii/ite",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "f0b3759c52e5086d4177049eb3527413d9c600272e11d0a3724373e1d932da7d",
+      "mei": "68e348052cbd04c2a1b3b0455910f0103caea265ff00b8edeae13c08580e90fa",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}

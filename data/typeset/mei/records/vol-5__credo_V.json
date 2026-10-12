@@ -1,0 +1,103 @@
+{
+  "artifact_sha256": "7b3a51d2491e2293202a8a13b4afc6b2060d382798b9bfecb2517321465c4d15",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T18:07:42Z"
+  },
+  "diagnostics": [
+    {
+      "code": "VOICE_ENDS_UNEQUAL",
+      "details": [
+        [
+          "down:#2",
+          "453/4"
+        ],
+        [
+          "down:#3",
+          "453/4"
+        ],
+        [
+          "down:#4",
+          "371/4"
+        ],
+        [
+          "up:#1",
+          "453/4"
+        ],
+        [
+          "up:chant",
+          "453/4"
+        ]
+      ],
+      "event_ids": [
+        "0e0452",
+        "1e0194",
+        "2e0192",
+        "3e0179",
+        "4e0032"
+      ],
+      "message": "layers of data/typeset/src/vol-5/credo_V.ly end at different onsets",
+      "severity": "warning",
+      "source_location": null
+    }
+  ],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "83b7cc59a1593084f951ed6d614dd4a58e8471139b0b99d42e9ba8c1d150fd37",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "70e297a1b192e1190bd42ad9bb455adf",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "7b3a51d2491e2293202a8a13b4afc6b2060d382798b9bfecb2517321465c4d15",
+    "decision": "approve",
+    "inputs_digest": "e9c2d6b627646937fe2a9e8aca86f6cd69a47e52b15f5aa86eba9d465783df00",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T18:07:42Z"
+  },
+  "source_path": "data/typeset/src/vol-5/credo_V.ly",
+  "state": "approved",
+  "target": "piece:alii-cantus-ad-libitum-credo-v",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "78ddeca99ae7d322b111264370b68e0c7f58c85f84e4f3c0cd74567342bf0626",
+      "mei": "7b3a51d2491e2293202a8a13b4afc6b2060d382798b9bfecb2517321465c4d15",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}

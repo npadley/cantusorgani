@@ -1,0 +1,67 @@
+{
+  "artifact_sha256": "cf6f8be8d741720add5998e9149caf434c11fe9cb48d8c1f81cc5614fbb4ce0c",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T18:11:22Z"
+  },
+  "diagnostics": [],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "60840f6ab765afb1cb9000b47cc17ae5d60b8712093b8c6de5449269518dc49d",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "dab3e420bb3e66e3a3e07b2aca47ed3e",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "cf6f8be8d741720add5998e9149caf434c11fe9cb48d8c1f81cc5614fbb4ce0c",
+    "decision": "approve",
+    "inputs_digest": "19560832f7e0be3841e57608780a1fde2b3f4def51b9adde49b11c59163266a5",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T18:11:22Z"
+  },
+  "source_path": "data/typeset/src/vol-5/missa-xii/agnus_XII.ly",
+  "state": "approved",
+  "target": "movement:ordinarium-missae-xii/agnus",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "c9d126a8daa9cac782ac299c8740502333ec668256a553dd9c445c028d8c6067",
+      "mei": "cf6f8be8d741720add5998e9149caf434c11fe9cb48d8c1f81cc5614fbb4ce0c",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}

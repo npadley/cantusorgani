@@ -1,0 +1,103 @@
+{
+  "artifact_sha256": "837e8ea8f79c3696231dae0af79fcc6ff5fc15c05e7de6e38c4fb006c06b9fe4",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T18:10:48Z"
+  },
+  "diagnostics": [
+    {
+      "code": "VOICE_ENDS_UNEQUAL",
+      "details": [
+        [
+          "down:#2",
+          "115/2"
+        ],
+        [
+          "down:#3",
+          "115/2"
+        ],
+        [
+          "down:#4",
+          "319/8"
+        ],
+        [
+          "up:#1",
+          "115/2"
+        ],
+        [
+          "up:chant",
+          "115/2"
+        ]
+      ],
+      "event_ids": [
+        "0e0220",
+        "1e0108",
+        "2e0099",
+        "3e0095",
+        "4e0011"
+      ],
+      "message": "layers of data/typeset/src/vol-5/missa-viii/kyrie_VIII.ly end at different onsets",
+      "severity": "warning",
+      "source_location": null
+    }
+  ],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "7a4a21e60eb5a26ce849df4a608f843617193c092f6494688a429eb655a278e9",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "903b0cdfea633dad1578ea87b3a10f06",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "837e8ea8f79c3696231dae0af79fcc6ff5fc15c05e7de6e38c4fb006c06b9fe4",
+    "decision": "approve",
+    "inputs_digest": "d373c1d0abe114df350577cb465ca8b572fc329924ddac4aeda896773db2405b",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T18:10:48Z"
+  },
+  "source_path": "data/typeset/src/vol-5/missa-viii/kyrie_VIII.ly",
+  "state": "approved",
+  "target": "movement:ordinarium-missae-viii/kyrie",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "5fe4570b30032aa7e95f277266d6825f11a0d4c2a3a01c48da0bf2f2b81da00a",
+      "mei": "837e8ea8f79c3696231dae0af79fcc6ff5fc15c05e7de6e38c4fb006c06b9fe4",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}
