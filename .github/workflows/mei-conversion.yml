@@ -106,10 +106,14 @@ jobs:
         with:
           name: mei-artifacts
           path: build/mei/artifacts/
+      - name: Requested publication sources
+        env:
+          SOURCES: ${{ inputs.sources }}
+        run: printf '%s\n' "$SOURCES" > "$RUNNER_TEMP/sources.txt"
       - name: Verify artifacts against approved records and upload; never execute source
         env:
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           R2_BUCKET: ${{ vars.R2_BUCKET }}
-        run: uv run noh typeset-mei-publish --artifacts build/mei/artifacts --records data/typeset/mei/records
+        run: uv run noh typeset-mei-publish --artifacts build/mei/artifacts --records data/typeset/mei/records --sources "$RUNNER_TEMP/sources.txt"

@@ -338,3 +338,56 @@ def test_r2_asset_store_lost_race_precondition_failed_returns_false() -> None:
     assert store.put_if_absent("mei/k", b"loser", "application/xml") is False
     assert racy.objects["mei/k"] == b"winner"
     del client
+
+
+def _publish_selection(tmp_path, records, sources):
+    import json
+
+    from pipeline.typeset.mei.manifest import record_to_dict
+    record_dir = tmp_path / 'records'
+    record_dir.mkdir()
+    for index, record in enumerate(records):
+        (record_dir / f'{index}.json').write_text(json.dumps(record_to_dict(record)))
+    source_file = tmp_path / 'sources.txt'
+    source_file.write_text('\n'.join(sources) + '\n')
+    return record_dir, source_file
+
+
+def test_publish_command_requested_source_excludes_unrelated_missing_artifact(tmp_path):
+    from pipeline.typeset.mei.cli import publish_command
+    digest = sha(MEI)
+    directory = tmp_path / digest
+    directory.mkdir()
+    (directory / 'score.mei').write_bytes(MEI)
+    (directory / 'boundaries.json').write_bytes(BOUNDARIES)
+    selected = make_record(digest)
+    unrelated = make_record('b' * 64, source_path='data/typeset/src/other.ly')
+    record_dir, sources = _publish_selection(tmp_path, [selected, unrelated], [selected.source_path])
+    store = FakeStore()
+    assert publish_command(tmp_path, record_dir, store=store, current_inputs=current, sources_file=sources) == 0
+    assert store.objects == {f'mei/{digest}/score.mei': MEI, f'mei/{digest}/boundaries.json': BOUNDARIES}
+
+
+@pytest.mark.parametrize('scenario', ['missing', 'duplicate', 'unapproved', 'stale', 'empty', 'corrupt'])
+def test_publish_command_invalid_requested_batch_uploads_nothing(tmp_path, scenario):
+    from pipeline.typeset.mei.cli import publish_command
+    record = make_record(sha(MEI))
+    records = [record]
+    requested = [record.source_path]
+    if scenario == 'missing':
+        requested = [record.source_path, 'data/typeset/src/missing.ly']
+    elif scenario == 'duplicate':
+        records.append(record)
+    elif scenario == 'unapproved':
+        records = [dataclasses.replace(record, state='needs-review')]
+    elif scenario == 'empty':
+        requested = []
+    folder = tmp_path / sha(MEI)
+    folder.mkdir()
+    (folder / 'score.mei').write_bytes(MEI + b'corrupt' if scenario == 'corrupt' else MEI)
+    (folder / 'boundaries.json').write_bytes(BOUNDARIES)
+    record_dir, sources = _publish_selection(tmp_path, records, requested)
+    store = FakeStore()
+    inputs = (lambda _: dataclasses.replace(INPUTS, converter_version='changed')) if scenario == 'stale' else current
+    assert publish_command(tmp_path, record_dir, store=store, current_inputs=inputs, sources_file=sources) == 1
+    assert store.objects == {}

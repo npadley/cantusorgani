@@ -4,8 +4,8 @@
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
-    "profile_version": 2,
-    "timestamp": "2026-10-12T13:20:12Z"
+    "profile_version": 3,
+    "timestamp": "2026-10-12T17:04:53Z"
   },
   "diagnostics": [
     {
@@ -50,13 +50,13 @@
     }
   ],
   "inputs": {
-    "converter_version": "mei-convert/1+e585dd34b3d2ff29",
-    "extractor_version": "listen_full/1+275a588056280f9b",
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
     "profile_id": "accompaniment-v1",
-    "profile_sha256": "fdd5ce65da4fdfd210c2d4d2642e23f3c6b78a0941e9a7725b95a30090353568",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
     "source_sha256": "d063bdb6c726e82724e19de125553c6b6e957007e3d8bc2d0ae1f6c67ebc58bd",
     "verovio_version": "6.3.0-425dd7b"
@@ -66,7 +66,7 @@
     "accepted_differences": [],
     "artifact_sha256": "9e1bc45fbf91ca4146dde8114e73677e7cc7fd7be7a2dfd29d0beaa1a9426b0c",
     "decision": "approve",
-    "inputs_digest": "cb9cd6615301e5378f6c167c6f839ee605fa97427ac161fe96c93e1e17335eac",
+    "inputs_digest": "48eeebce7dc7a79489231571840af27fed78fbe2eb434efb499ea493210923a1",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -83,7 +83,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T13:20:12Z"
+    "timestamp": "2026-10-12T17:04:53Z"
   },
   "source_path": "data/typeset/src/vol-5/missa-ix/sanctus_IX.ly",
   "state": "approved",
@@ -91,7 +91,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "d67025776522751284f9b0bfa0061950b19dd86128cff7935ccffb3bbc4b85b4",
+      "ir": "c577e2391ace6080a0394b6b2854cc61c5b7f47b71dc6f203e584e831b7c4f06",
       "mei": "9e1bc45fbf91ca4146dde8114e73677e7cc7fd7be7a2dfd29d0beaa1a9426b0c",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

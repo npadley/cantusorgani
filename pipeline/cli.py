@@ -210,6 +210,8 @@ def build_parser() -> argparse.ArgumentParser:
                                   help="verify approved MEI conversions and upload them write-once (never compiles)")
     mei_publish.add_argument("--artifacts", type=Path, required=True)
     mei_publish.add_argument("--records", type=Path, required=True)
+    mei_publish.add_argument("--sources", type=Path, default=None,
+                             help="publish only records for source paths listed one per line")
     mei_publish.add_argument("--dry-run", action="store_true", help="print the keys that would be uploaded")
 
     mei_stale = subs.add_parser("typeset-mei-stale",
@@ -452,7 +454,7 @@ def main(argv: list[str] | None = None) -> int:
         return manifest_command(args.records, args.out, args.artifacts)
     if args.command == "typeset-mei-publish":
         from pipeline.typeset.mei.cli import publish_command
-        return publish_command(args.artifacts, args.records, args.dry_run)
+        return publish_command(args.artifacts, args.records, args.dry_run, sources_file=args.sources)
 
     if args.command == "typeset-mei-stale":
         from pipeline.typeset.mei.cli import stale_command
