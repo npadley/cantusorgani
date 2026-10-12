@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T17:46:40Z"
+    "timestamp": "2026-10-12T19:39:13Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "9fbe7807db141743ad755bb9cae5ea3e111ac7eacc7189c153153bd832c6ffa2",
+    "source_sha256": "c8c8b8b08f65dc36c41a1f32a3fa6bb3022257db8f4758c083cde8bc0059d531",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "fd19a273a0b074d912cdafbc8fc109f1",
+  "render_hash": "468b93098dfcb9597424cfbfe4a0174f",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "453168ed83fbd2bcf8dcbbdabc498c303361b8b70895a5e26bf2192bad147f02",
     "decision": "approve",
-    "inputs_digest": "be856c126315ce8a58f785e3f7e6f8d11d8f290aa26a76cd1f6f4423af173bc4",
+    "inputs_digest": "84bb0a0d629ea687caf06ac0578d13e548ffc73bf76a815546799d4c81c58176",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T17:46:40Z"
+    "timestamp": "2026-10-12T19:39:13Z"
   },
   "source_path": "data/typeset/src/vol-2/se_veni_sancte_spiritus.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "64f2dc84fb56fa1ac9da5b988666c0fb11d67059cfd03ba9a4d6d84ff8910ef4",
+      "ir": "eab03ab8c0a6fb38665d9feba376ed089f471164b6bc1b690d537fa1b7523386",
       "mei": "453168ed83fbd2bcf8dcbbdabc498c303361b8b70895a5e26bf2192bad147f02",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T17:12:31Z"
+    "timestamp": "2026-10-12T19:08:34Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "ce1764895c2c33fb9bdb629e8588bcfe0ad0a4645e42c7bda2725f6605b4f40c",
+    "source_sha256": "90dc79b0a9bec0737d49bc957cb0a51a920cf0d0c2459b2f10f28d2da8817f89",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "7b01613644c54ca77c60b91f62b6f204",
+  "render_hash": "03a9ac16b7aa89f9995942ef6c8d8add",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "577933a242ec0830f20678d14e2b012d2383797b407bd0111212a85b41a9d3ae",
     "decision": "approve",
-    "inputs_digest": "02b39cce1e2938dcd19d6af89f6e623e12b30d9d5faf9dd3d58b9af66042b5d0",
+    "inputs_digest": "894ecbb2f635178fe48baeed22693faadfac4d01ed3cda2cfdc8d3d8ae576a08",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T17:12:31Z"
+    "timestamp": "2026-10-12T19:08:34Z"
   },
   "source_path": "data/typeset/src/vol-1/gr_sederunt_principes.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "0640e958aac4ee77efdf87765694ccea0df03f2602a97cfadaed91826f5d9402",
+      "ir": "361eabb129698344e9e727975105055c3781574b5d987dd8c39270fdb04f74d6",
       "mei": "577933a242ec0830f20678d14e2b012d2383797b407bd0111212a85b41a9d3ae",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

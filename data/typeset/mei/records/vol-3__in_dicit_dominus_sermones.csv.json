@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T17:57:24Z"
+    "timestamp": "2026-10-12T19:51:04Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "1a62802f39f73b51f84f7a59ad2c663464674f87ee09e4e1be4f45ac0070ffd8",
+    "source_sha256": "72efa447c543a444809d86ac667b4dc83c4717fe1e89e8fa1d923eed30d8e1c1",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "9180e49422b189f939dfa2e740b79077",
+  "render_hash": "076b0cc985d428a434618eb53903c288",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "7dff1f1819081bac1b2708fe1bbeb312e6943c63b5b9cfe30ed717d15e7231c8",
     "decision": "approve",
-    "inputs_digest": "bde1e90a19d67c8bbd383279b7ca0b6b11ff151c3362cc27e5706dfee5f20cf6",
+    "inputs_digest": "95d5c86b6dd35b022e879780aac1f0d64bf45f243c1c5b60f69219581f5b77c4",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T17:57:24Z"
+    "timestamp": "2026-10-12T19:51:04Z"
   },
   "source_path": "data/typeset/src/vol-3/in_dicit_dominus_sermones.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "a17b8969fe99dc833f5b2ee638e05d2fa9442dc131e76edd17abf756df69f26b",
+      "ir": "2f72f1b09ec4b31a5deacc8712c748d9b20614a8ef537cc6f524e81f3cb17aa1",
       "mei": "7dff1f1819081bac1b2708fe1bbeb312e6943c63b5b9cfe30ed717d15e7231c8",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

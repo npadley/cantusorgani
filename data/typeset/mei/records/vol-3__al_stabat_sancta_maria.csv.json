@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T17:50:29Z"
+    "timestamp": "2026-10-12T19:43:21Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "3f9b79625c871cbf3d48741140f80b0d879470d5ab26b2845c12ae6ef8daabfd",
+    "source_sha256": "58fe03f0bf7a3ae0e8b8b44ea3223b0d1796f9ca8d363bd18179b69e0e28681a",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "80a952bcc49a37627bf00e2c292f7da4",
+  "render_hash": "404af2af73cabc0d1867b07483661b91",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "499ec18024cf458af454af1a220c8d74f8b0afe26f70892f5c38b4cdc3624120",
     "decision": "approve",
-    "inputs_digest": "a3ad45a2c964b056d4d9711e449f1052d36898b2d34ec178c4d96566645b930e",
+    "inputs_digest": "7c47ca53b0a6c32117515a36f92ac6e0a0349621d782424390f6c9990097cdf4",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T17:50:29Z"
+    "timestamp": "2026-10-12T19:43:21Z"
   },
   "source_path": "data/typeset/src/vol-3/al_stabat_sancta_maria.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "42a474f6a00ea86bd7ee1e6f278569546e5d00d0b57d82f2dbc6d14b36cfbc2e",
+      "ir": "9fae14939776fdebe5dbcebdb78f0d0db7bf45544739f41230087ce4a0f7dd65",
       "mei": "499ec18024cf458af454af1a220c8d74f8b0afe26f70892f5c38b4cdc3624120",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

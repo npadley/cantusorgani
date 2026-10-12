@@ -1,0 +1,25 @@
+{
+  "python_tests": {
+    "passed": 2171,
+    "skipped": 4,
+    "slow_deselected": 125,
+    "expected_failure": 1
+  },
+  "site_tests": {
+    "passed": 1498,
+    "files": 100
+  },
+  "production_build_exit": 0,
+  "source_check": "pass",
+  "stale_check": "none stale;708approved checked",
+  "diff_check": "pass",
+  "ruff": "pass",
+  "independent_review": "no remaining blockers",
+  "mei_svg_audit": {
+    "scores": 777,
+    "pages": 17623,
+    "lyric_baselines": 612586,
+    "below_staff": 0,
+    "missing_evidence": 0
+  }
+}

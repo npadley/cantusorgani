@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T17:32:32Z"
+    "timestamp": "2026-10-12T19:26:03Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "463278213b952842bf41f13dfa478f8f531b6d6c3e9e09b972261133573ffdc9",
+    "source_sha256": "590015cff46068a1acbf6bb4e8c041570278e7ebfb6c4791a22f17ca8f091ca3",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "dc597efd9d8653a30f9a7b8715abd604",
+  "render_hash": "76c5c85d96dc0a901941e70e24e4e11c",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "568d1cf9424a3dd7e8a2d68c555c12a927df5415265fab4eedaa8e59811f2b84",
     "decision": "approve",
-    "inputs_digest": "3ac69bf42325a52c5cd13ce877e4ac3a6aa49e5faf8964dcdc7586bd6f71eebc",
+    "inputs_digest": "eafb63d4bd0f5375a92adbc6b14991b4ca63dd86b90488b15a2586a5d0a25050",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T17:32:32Z"
+    "timestamp": "2026-10-12T19:26:03Z"
   },
   "source_path": "data/typeset/src/vol-2/al_surrexit_christus_qui.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "9be672b5c3597cf17c101f2e77982505bfd7cd43dac3dd771a29708a064a2bbe",
+      "ir": "749d40aba8c4dd5281f03495def0723024bc0db1dd739117de3b81e46ec86b5a",
       "mei": "568d1cf9424a3dd7e8a2d68c555c12a927df5415265fab4eedaa8e59811f2b84",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

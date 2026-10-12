@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T17:23:04Z"
+    "timestamp": "2026-10-12T19:18:43Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "57413798a6f1ac481a2ac919dc27e1002925cca5f17241240846b995ec3e241f",
+    "source_sha256": "ae0fed683f93383a96a3c629e980c5e2ec521dcf6b4427dce425e21b946113bb",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "24b550aacea8616cb41356acc441ed3c",
+  "render_hash": "f2d28ffa99e08bbcccecb8220eac9eaf",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "629d52e31d0743cad6f5af3dbed885b3942e69c32a40164ec2e53df6ec6f6e1d",
     "decision": "approve",
-    "inputs_digest": "5382f6fec0b0852312b988d7e8d7ee2db2064db230ee534f7e7c52efc7275f6f",
+    "inputs_digest": "f3253d8731006b488dfe2fb6f8390dc5f0ddc2d0fb8a543d794d77247550b674",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T17:23:04Z"
+    "timestamp": "2026-10-12T19:18:43Z"
   },
   "source_path": "data/typeset/src/vol-1/of_tollite_portas.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "902d5440f88c614b26d2a70b60d0a3e6f8e2192b7866db9260048f5e152d6e50",
+      "ir": "15cb548a37bfd65c550819c64b7619c11ac3d39ef4b4e3ca52e4ed37fac72474",
       "mei": "629d52e31d0743cad6f5af3dbed885b3942e69c32a40164ec2e53df6ec6f6e1d",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },

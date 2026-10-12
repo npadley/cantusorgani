@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/6",
     "profile_version": 3,
-    "timestamp": "2026-10-12T18:02:42Z"
+    "timestamp": "2026-10-12T19:57:04Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -17,15 +17,15 @@
     "profile_id": "accompaniment-v1",
     "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
     "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
-    "source_sha256": "9e08514491725f98dd1aefbf0d96651b4bdde360d135b774db2181269b7b3316",
+    "source_sha256": "9f2c7f1ead7fe6f78945396bcd2703f4fc0eea326b247c1caeb0e74f2b1473d1",
     "verovio_version": "6.3.0-425dd7b"
   },
-  "render_hash": "31a9d1b997088265b46eb2488297e403",
+  "render_hash": "6c66698b65f9a7f42561a4b92a27b535",
   "review": {
     "accepted_differences": [],
     "artifact_sha256": "add49ea4d6c4b173c948cd3a888835298f9f010e3203842436d27650aaf808f3",
     "decision": "approve",
-    "inputs_digest": "51db7ada289db99b441a7289a6e81b2c140dc397c6f64c52a67878050a5d34c3",
+    "inputs_digest": "f91c46ad85fd3f762acefa98f10d2e7576592e390385bb41492cd9993e6944b1",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T18:02:42Z"
+    "timestamp": "2026-10-12T19:57:04Z"
   },
   "source_path": "data/typeset/src/vol-3/of_benedicite_dominum.csv.ly",
   "state": "approved",
@@ -50,7 +50,7 @@
   "validation": {
     "eligible": true,
     "hashes": {
-      "ir": "c7e505d7b9c6c69ba04b867260e85dd3f74a5f80c1757811aedf4bad25f6077a",
+      "ir": "e8f680061bdb512e43f36b5b2db2bfdab5f55fe5e4a8ffc07c99cc99aaa7b17a",
       "mei": "add49ea4d6c4b173c948cd3a888835298f9f010e3203842436d27650aaf808f3",
       "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
     },
