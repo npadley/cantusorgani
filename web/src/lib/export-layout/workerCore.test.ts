@@ -78,6 +78,15 @@ describe('createLayoutHandler', () => {
     expect(seen).toEqual({ layouts: ['a', 'b'], token: 4 });
   });
 
+  it('does not load the toolkit when nothing in the selection reflows (fixed and scan parts need no engraver)', async () => {
+    const { handler, counts, posted } = harness();
+    await handler.onMessage({ type: 'layout', request: request(1, [scan('s'), scan('t')]) });
+    expect(counts.loads).toBe(0);
+    expect(posted.map((m) => m.type)).toEqual(['result']);
+    await handler.onMessage({ type: 'layout', request: request(2, [scan('s'), mei('a')]) });
+    expect(counts.loads).toBe(1);
+  });
+
   it('loads the toolkit once across requests', async () => {
     const { handler, counts } = harness();
     await handler.onMessage({ type: 'layout', request: request(1, [mei('a')]) });

@@ -34,7 +34,10 @@ describe("ExportBar", () => {
     const html = await render(ExportBar, { pieces: [THERESE], title: "T" });
     expect(html).toMatch(/<legend[^>]*>Parts to export<\/legend>/);
     expect((html.match(/name="export-part"/g) ?? []).length).toBe(5);
-    expect((html.match(/checked/g) ?? []).length).toBe(5);
+    expect((html.match(/<input[^>]*name="export-part"[^>]*\bchecked\b/g) ?? []).length).toBe(5);
+    // D23: Customize export is on every page with an export bar, here a plain scan page with no typeset parts.
+    expect(html).toContain('id="export-customize"');
+    expect(html).toContain("data-cx-template");
     expect(html).toContain("Export PDF (10 systems");
   });
 

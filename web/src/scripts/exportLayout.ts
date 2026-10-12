@@ -719,6 +719,13 @@ class Session {
       plus.disabled = false;
       plus.setAttribute('aria-label', 'More systems per page');
     }
+    // Fixed typeset pages are placed whole: when nothing in the selection can be capped, the stepper says so.
+    if (!this.parts.some((p) => capabilitiesFor(p).maxSystems)) {
+      val.textContent = 'Not used for these parts';
+      minus.disabled = true;
+      plus.disabled = true;
+      plus.setAttribute('aria-label', 'Systems per page does not apply to these parts');
+    }
     const line = this.q('result');
     const pending = s.result === null;
     line.dataset['pending'] = String(pending);
