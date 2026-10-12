@@ -75,6 +75,20 @@ Order matters: P1 and P2 change the converter, so run the catalogue (P4) after t
   still `provisional: true`. Re-run `web/scripts/measure-export-layout.ts` on a quiet machine with the largest
   approved pieces and set real limits (the parked C2c page can give iPad numbers if wanted).
 
+### What each P card costs
+
+| Card | Agent (usage) | Laptop (processing) |
+|---|---|---|
+| P1 `\prall` | **Yes** — one encoder-agent run, about the size of the A5g card: write the LilyPond listener hook, IR, encoder and oracle changes with tests, and view a few pieces against LilyPond. | Light: tests and a handful of conversions. |
+| P2 ties | Yes — a smaller encoder-agent run (one bug, five fixtures). Can share P1's run. | Light. |
+| P3 source errors | Minimal — the coordinator files two corrections. | None. |
+| P4 catalogue | Minimal — the coordinator starts one command, then reads its report and commits records. | **Heavy**: LilyPond plus 13 Verovio renders per piece for ~860 pieces; several hours (run overnight, plugged in). |
+| P5 layout | Yes — one layout-agent run. | Light. |
+| P6 limits | Minimal. | Moderate: one measurement run on a quiet machine. |
+
+The cheapest order on a tight week: P1 + P2 in one agent run, then P4 overnight (almost no usage), then decide on P5
+from P4's report.
+
 ## O. Operations and follow-ups
 
 - [ ] **O1 First real run of `mei-stale.yml`** — it has only structure tests. Watch its first run after a
