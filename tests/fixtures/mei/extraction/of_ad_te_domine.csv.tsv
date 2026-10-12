@@ -1,0 +1,1330 @@
+0	-	-	version	listen_full/1	2.26.0
+0	-	up	staff	1
+0	-	down	staff	2
+0	-	up	key	0	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:10:1
+0	up:chant	up	voice	0	voiceOne
+0	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:11
+0	-	up	key	0	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:10:1
+0	up:#1	up	voice	1	voiceTwo
+0	up:#1	up	note	e	0	4	1	0	7	4	7/8	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:0
+0	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:8
+0	-	down	key	0	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:10:1
+0	down:#2	down	voice	2	voiceOne
+0	down:#2	down	rest	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:0
+0	-	down	key	0	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:10:1
+0	down:#3	down	voice	3	voiceTwo
+0	down:#3	down	rest	7/8	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:0
+0	-	down	key	0	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:10:1
+0	lyrics:#0	up:chant	lyric	Ad	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:38:0
+0	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:11
+0	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:11
+0	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:0
+0	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:0
+0	-	up	clef	clefs.G	-2	-
+0	down:#2	down	rhead	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:0
+0	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:0
+0	down:#3	down	rhead	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:0
+0	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:0
+0	-	down	clef	clefs.F	2	-
+1/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:15
+1/4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:19
+1/4	down:#2	down	note	c	0	4	1	0	5	4	5/8	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:3
+1/4	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:11
+1/4	lyrics:#0	up:chant	lyric	te	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:38:3
+1/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:15
+1/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:15
+1/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:3
+1/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:3
+1/2	up:chant	up	note	a	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:21
+1/2	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:25
+1/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:21
+1/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:21
+7/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:27
+7/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:31
+7/8	up:#1	up	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:10
+7/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:18
+7/8	down:#2	down	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:13
+7/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:21
+7/8	down:#3	down	note	b	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:7
+7/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:38:6
+7/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:27
+7/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:27
+7/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:10
+7/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:10
+7/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:13
+7/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:13
+7/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:7
+7/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:7
+9/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:33
+9/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:33
+9/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:33
+11/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:37
+11/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:37
+11/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:37
+13/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:41
+13/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:44
+13/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:41
+13/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:41
+15/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:46
+15/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:51
+15/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:20
+15/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:23
+15/8	down:#3	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:14
+15/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:38:8
+15/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:46
+15/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:46
+15/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:20
+15/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:20
+15/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:23
+15/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:23
+15/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:14
+15/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:14
+17/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:53
+17/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:57
+17/8	up:chant	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:59
+17/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:53
+17/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:53
+19/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:61
+19/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:66
+19/8	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:24
+19/8	down:#2	down	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:27
+19/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:31
+19/8	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:17
+19/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:61
+19/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:61
+19/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:24
+19/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:24
+19/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:27
+19/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:27
+19/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:17
+19/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:17
+21/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:68
+21/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:71
+21/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:68
+21/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:68
+23/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:73
+23/8	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:28
+23/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:32
+23/8	down:#2	down	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:33
+23/8	down:#3	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:20
+23/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:23
+23/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:38:10
+23/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:73
+23/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:73
+23/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:28
+23/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:28
+23/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:33
+23/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:33
+23/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:20
+23/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:20
+25/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:77
+25/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:81
+25/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:34
+25/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:37
+25/8	down:#3	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:25
+25/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:28
+25/8	lyrics:#0	up:chant	lyric	Dó	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:38:12
+25/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:38:15
+25/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:77
+25/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:77
+25/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:34
+25/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:34
+25/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:37
+25/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:37
+25/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:25
+25/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:25
+27/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:83
+27/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:86
+27/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:83
+27/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:83
+29/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:88
+29/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:93
+29/8	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:38
+29/8	down:#2	down	note	b	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:41
+29/8	down:#3	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:30
+29/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:37
+29/8	lyrics:#0	up:chant	lyric	mi	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:38:18
+29/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:38:21
+29/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:88
+29/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:88
+29/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:38
+29/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:38
+29/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:41
+29/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:41
+29/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:30
+29/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:30
+31/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:95
+31/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:95
+31/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:95
+33/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:99
+33/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:99
+33/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:99
+35/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:103
+35/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:106
+35/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:103
+35/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:103
+37/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:108
+37/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:112
+37/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:46
+37/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:50
+37/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:48
+37/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:52
+37/8	down:#3	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:39
+37/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:38:24
+37/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:108
+37/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:108
+37/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:46
+37/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:66:46
+37/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:48
+37/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:79:48
+37/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:39
+37/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:92:39
+39/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:114
+39/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:117
+39/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:114
+39/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:48:114
+41/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:1
+41/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:5
+41/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:0
+41/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:4
+41/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:0
+41/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:0
+41/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:3
+41/8	lyrics:#0	up:chant	lyric	ne	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:38:26
+41/8	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+41/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:1
+41/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:1
+41/8	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+41/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:0
+41/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:0
+41/8	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+41/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:0
+41/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:0
+41/8	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+41/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:0
+41/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:0
+43/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:7
+43/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:10
+43/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:7
+43/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:7
+45/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:12
+45/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:16
+45/8	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:6
+45/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:14
+45/8	down:#2	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:4
+45/8	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:5
+45/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:12
+45/8	lyrics:#0	up:chant	lyric	le	 * 	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:0
+45/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:3
+45/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:12
+45/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:12
+45/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:6
+45/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:6
+45/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:4
+45/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:4
+45/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:5
+45/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:5
+47/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:18
+47/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:18
+47/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:18
+47/8	up:chant	up	art	prall	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:20
+49/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:27
+49/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:31
+49/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:27
+49/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:27
+51/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:33
+51/8	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:16
+51/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:11
+51/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:14
+51/8	down:#3	down	note	c	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:14
+51/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:6
+51/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:33
+51/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:33
+51/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:16
+51/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:16
+51/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:11
+51/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:11
+51/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:14
+51/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:14
+53/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:38
+53/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:42
+53/8	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:20
+53/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:16
+53/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:17
+53/8	lyrics:#0	up:chant	lyric	vá	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:8
+53/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:11
+53/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:38
+53/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:38
+53/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:20
+53/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:20
+53/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:16
+53/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:16
+53/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:17
+53/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:17
+55/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:44
+55/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:47
+55/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:44
+55/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:44
+57/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:49
+57/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:54
+57/8	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:24
+57/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:28
+57/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:19
+57/8	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:20
+57/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:23
+57/8	lyrics:#0	up:chant	lyric	vi	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:14
+57/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:49
+57/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:49
+57/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:24
+57/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:24
+57/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:19
+57/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:19
+57/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:20
+57/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:20
+59/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:56
+59/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:56
+59/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:49:56
+61/8	-	-	break	data/typeset/include/noh2.ily:75:24
+61/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:0
+61/8	up:chant	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:2
+61/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:4
+61/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:9
+61/8	up:#1	up	note	g	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:30
+61/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:38
+61/8	down:#2	down	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:22
+61/8	down:#3	down	note	e	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:25
+61/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:32
+61/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:4
+61/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:4
+61/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:30
+61/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:30
+61/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:22
+61/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:22
+61/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:25
+61/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:25
+63/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:11
+63/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:11
+63/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:11
+65/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:15
+65/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:18
+65/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:15
+65/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:15
+67/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:20
+67/8	lyrics:#0	up:chant	lyric	á	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:17
+67/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:19
+67/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:20
+67/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:20
+69/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:24
+69/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:29
+69/8	up:#1	up	note	g	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:40
+69/8	down:#2	down	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:30
+69/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:38
+69/8	down:#3	down	note	e	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:34
+69/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:22
+69/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:24
+69/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:24
+69/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:40
+69/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:40
+69/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:30
+69/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:30
+69/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:34
+69/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:34
+71/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:31
+71/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:31
+71/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:31
+73/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:36
+73/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:40
+73/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:36
+73/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:36
+75/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:42
+75/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:24
+75/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:42
+75/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:42
+77/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:46
+77/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:50
+77/8	up:#1	up	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:48
+77/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:56
+77/8	down:#2	down	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:40
+77/8	down:#3	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:41
+77/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:48
+77/8	lyrics:#0	up:chant	lyric	ni	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:26
+77/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:29
+77/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:46
+77/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:46
+77/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:48
+77/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:48
+77/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:40
+77/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:40
+77/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:41
+77/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:41
+79/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:52
+79/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:52
+79/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:52
+81/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:56
+81/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:56
+81/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:56
+83/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:60
+83/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:63
+83/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:60
+83/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:60
+85/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:65
+85/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:69
+85/8	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:58
+85/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:66
+85/8	down:#2	down	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:48
+85/8	down:#3	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:50
+85/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:57
+85/8	lyrics:#0	up:chant	lyric	mam	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:32
+85/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:65
+85/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:65
+85/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:58
+85/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:58
+85/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:48
+85/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:48
+85/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:50
+85/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:50
+87/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:71
+87/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:71
+87/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:71
+89/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:75
+89/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:78
+89/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:75
+89/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:75
+91/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:80
+91/8	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:68
+91/8	down:#2	down	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:56
+91/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:60
+91/8	down:#3	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:59
+91/8	lyrics:#0	up:chant	lyric	me	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:36
+91/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:39
+91/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:80
+91/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:50:80
+91/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:68
+91/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:67:68
+91/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:56
+91/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:80:56
+91/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:59
+91/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:93:59
+93/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:1
+93/8	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:68:0
+93/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:81:0
+93/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:81:4
+93/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:94:0
+93/8	lyrics:#0	up:chant	lyric	am:	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:40:42
+93/8	up:chant	up	div	maxima	data/typeset/include/noh2.ily:30:2
+93/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:1
+93/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:1
+93/8	up:#1	up	div	maxima	data/typeset/include/noh2.ily:30:2
+93/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:68:0
+93/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:68:0
+93/8	down:#2	down	div	maxima	data/typeset/include/noh2.ily:30:2
+93/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:81:0
+93/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:81:0
+93/8	down:#3	down	div	maxima	data/typeset/include/noh2.ily:30:2
+93/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:94:0
+93/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:94:0
+95/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:6
+95/8	lyrics:#0	up:chant	lyric	De	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:41:0
+95/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:41:3
+95/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:6
+95/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:6
+97/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:11
+97/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:16
+97/8	up:#1	up	note	g	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:68:4
+97/8	down:#2	down	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:81:6
+97/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:81:14
+97/8	down:#3	down	note	e	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:94:3
+97/8	lyrics:#0	up:chant	lyric	us	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:41:6
+97/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:11
+97/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:11
+97/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:68:4
+97/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:68:4
+97/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:81:6
+97/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:81:6
+97/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:94:3
+97/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:94:3
+99/8	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:18
+99/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:18
+99/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:18
+101/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:23
+101/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:23
+101/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:23
+103/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:28
+103/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:32
+103/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:28
+103/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:28
+105/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:34
+105/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:38
+105/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:68:12
+105/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:81:16
+105/8	down:#3	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:94:10
+105/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:94:13
+105/8	lyrics:#0	up:chant	lyric	me	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:41:9
+105/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:41:12
+105/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:34
+105/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:34
+105/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:68:12
+105/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:68:12
+105/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:81:16
+105/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:81:16
+105/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:94:10
+105/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:94:10
+107/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:40
+107/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:43
+107/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:40
+107/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:51:40
+109/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:1
+109/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:5
+109/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:69:0
+109/8	down:#2	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:82:0
+109/8	down:#3	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:95:0
+109/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:95:7
+109/8	lyrics:#0	up:chant	lyric	us,	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:41:15
+109/8	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+109/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:1
+109/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:1
+109/8	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+109/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:69:0
+109/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:69:0
+109/8	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+109/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:82:0
+109/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:82:0
+109/8	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+109/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:95:0
+109/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:95:0
+111/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:7
+111/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:39
+111/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:7
+111/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:7
+113/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:41
+113/8	lyrics:#0	up:chant	lyric	in	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:41:19
+113/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:41
+113/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:41
+115/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:45
+115/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:49
+115/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:69:8
+115/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:82:7
+115/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:82:11
+115/8	down:#3	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:95:9
+115/8	lyrics:#0	up:chant	lyric	te	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:41:22
+115/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:45
+115/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:45
+115/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:69:8
+115/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:69:8
+115/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:82:7
+115/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:82:7
+115/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:95:9
+115/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:95:9
+117/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:51
+117/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:51
+117/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:52:51
+119/8	-	-	break	data/typeset/include/noh2.ily:75:24
+119/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:0
+119/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:2
+119/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:6
+119/8	up:#1	up	note	f	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:69:12
+119/8	down:#2	down	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:82:13
+119/8	down:#3	down	note	d	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:95:12
+119/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:2
+119/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:2
+119/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:69:12
+119/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:69:12
+119/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:82:13
+119/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:82:13
+119/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:95:12
+119/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:95:12
+121/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:8
+121/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:8
+121/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:8
+123/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:13
+123/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:13
+123/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:13
+125/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:17
+125/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:20
+125/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:17
+125/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:17
+127/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:22
+127/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:26
+127/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:69:20
+127/8	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:82:21
+127/8	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:95:19
+127/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:95:22
+127/8	lyrics:#0	up:chant	lyric	con	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:41:25
+127/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:41:29
+127/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:22
+127/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:22
+127/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:69:20
+127/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:69:20
+127/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:82:21
+127/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:82:21
+127/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:95:19
+127/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:95:19
+129/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:28
+129/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:31
+129/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:28
+129/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:53:28
+131/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:1
+131/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:6
+131/8	up:#1	up	note	g	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:0
+131/8	down:#2	down	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:0
+131/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:8
+131/8	down:#3	down	note	e	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:0
+131/8	lyrics:#0	up:chant	lyric	fí	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:41:32
+131/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:41:35
+131/8	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+131/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:1
+131/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:1
+131/8	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+131/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:0
+131/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:0
+131/8	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+131/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:0
+131/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:0
+131/8	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+131/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:0
+131/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:0
+133/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:8
+133/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:8
+133/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:8
+135/8	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:13
+135/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:17
+135/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:13
+135/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:13
+137/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:19
+137/8	lyrics:#0	up:chant	lyric	do,	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:41:38
+137/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:19
+137/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:19
+139/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:24
+139/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:29
+139/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:8
+139/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:12
+139/8	down:#2	down	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:10
+139/8	down:#3	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:7
+139/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:10
+139/8	lyrics:#0	up:chant	lyric	non	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:42:0
+139/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:24
+139/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:24
+139/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:8
+139/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:8
+139/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:10
+139/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:10
+139/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:7
+139/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:7
+141/8	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:31
+141/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:31
+141/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:31
+143/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:36
+143/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:14
+143/8	down:#2	down	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:14
+143/8	down:#3	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:12
+143/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:15
+143/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:36
+143/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:36
+143/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:14
+143/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:14
+143/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:14
+143/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:14
+143/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:12
+143/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:12
+145/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:40
+145/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:44
+145/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:40
+145/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:40
+147/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:46
+147/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:51
+147/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:18
+147/8	down:#2	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:18
+147/8	down:#3	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:17
+147/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:24
+147/8	lyrics:#0	up:chant	lyric	e	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:42:4
+147/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:42:6
+147/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:46
+147/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:46
+147/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:18
+147/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:18
+147/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:18
+147/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:18
+147/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:17
+147/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:17
+149/8	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:53
+149/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:53
+149/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:53
+151/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:58
+151/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:62
+151/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:58
+151/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:58
+153/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:64
+153/8	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:26
+153/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:30
+153/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:25
+153/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:28
+153/8	down:#3	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:26
+153/8	lyrics:#0	up:chant	lyric	ru	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:42:9
+153/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:42:12
+153/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:64
+153/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:54:64
+153/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:26
+153/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:70:26
+153/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:25
+153/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:83:25
+153/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:26
+153/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:96:26
+155/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:1
+155/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:6
+155/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:0
+155/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:0
+155/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:3
+155/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:0
+155/8	lyrics:#0	up:chant	lyric	bé	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:42:15
+155/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:42:18
+155/8	up:chant	up	div	maxima	data/typeset/include/noh2.ily:30:2
+155/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:1
+155/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:1
+155/8	up:#1	up	div	maxima	data/typeset/include/noh2.ily:30:2
+155/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:0
+155/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:0
+155/8	down:#2	down	div	maxima	data/typeset/include/noh2.ily:30:2
+155/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:0
+155/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:0
+155/8	down:#3	down	div	maxima	data/typeset/include/noh2.ily:30:2
+155/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:0
+155/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:0
+157/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:8
+157/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:12
+157/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:8
+157/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:8
+159/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:14
+159/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:19
+159/8	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:4
+159/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:5
+159/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:3
+159/8	lyrics:#0	up:chant	lyric	scam:	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:42:21
+159/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:14
+159/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:14
+159/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:4
+159/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:4
+159/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:5
+159/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:5
+159/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:3
+159/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:3
+161/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:21
+161/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:24
+161/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:21
+161/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:21
+163/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:26
+163/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:31
+163/8	up:#1	up	note	g	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:8
+163/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:16
+163/8	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:8
+163/8	down:#3	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:6
+163/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:13
+163/8	lyrics:#0	up:chant	lyric	ne	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:0
+163/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:3
+163/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:26
+163/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:26
+163/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:8
+163/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:8
+163/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:8
+163/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:8
+163/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:6
+163/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:6
+165/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:33
+165/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:33
+165/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:33
+167/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:38
+167/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:42
+167/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:38
+167/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:38
+169/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:44
+169/8	down:#2	down	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:15
+169/8	down:#3	down	note	e	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:15
+169/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:18
+169/8	lyrics:#0	up:chant	lyric	que	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:6
+169/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:44
+169/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:44
+169/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:15
+169/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:15
+169/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:15
+169/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:15
+171/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:48
+171/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:52
+171/8	up:#1	up	note	g	0	4	1	0	5	2	5/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:18
+171/8	down:#2	down	note	d	0	4	1	0	5	2	5/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:19
+171/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:27
+171/8	down:#3	down	note	e	0	3	1	0	5	2	5/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:20
+171/8	lyrics:#0	up:chant	lyric	ir	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:10
+171/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:13
+171/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:48
+171/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:48
+171/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:18
+171/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:18
+171/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:19
+171/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:19
+171/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:20
+171/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:20
+173/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:54
+173/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:54
+173/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:54
+173/8	up:chant	up	art	prall	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:56
+175/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:63
+175/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:63
+175/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:63
+177/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:68
+177/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:68
+177/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:68
+179/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:72
+179/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:72
+179/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:55:72
+181/8	-	-	break	data/typeset/include/noh2.ily:75:24
+181/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:56:0
+181/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:56:2
+181/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:56:6
+181/8	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:26
+181/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:34
+181/8	down:#2	down	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:29
+181/8	down:#3	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:27
+181/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:34
+181/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:56:2
+181/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:56:2
+181/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:26
+181/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:26
+181/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:29
+181/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:29
+181/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:27
+181/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:27
+183/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:56:8
+183/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:56:8
+183/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:56:8
+185/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:56:12
+185/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:56:15
+185/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:56:12
+185/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:56:12
+187/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:56:17
+187/8	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:36
+187/8	down:#2	down	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:37
+187/8	down:#3	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:36
+187/8	lyrics:#0	up:chant	lyric	rí	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:16
+187/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:19
+187/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:56:17
+187/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:56:17
+187/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:36
+187/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:71:36
+187/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:37
+187/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:84:37
+187/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:36
+187/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:97:36
+189/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:1
+189/8	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:0
+189/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:4
+189/8	down:#2	down	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:85:0
+189/8	down:#3	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:0
+189/8	lyrics:#0	up:chant	lyric	de	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:22
+189/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:25
+189/8	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+189/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:1
+189/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:1
+189/8	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+189/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:0
+189/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:0
+189/8	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+189/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:85:0
+189/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:85:0
+189/8	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+189/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:0
+189/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:0
+191/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:5
+191/8	lyrics:#0	up:chant	lyric	ant	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:28
+191/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:5
+191/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:5
+193/8	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:9
+193/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:14
+193/8	up:#1	up	note	g	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:6
+193/8	down:#2	down	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:85:4
+193/8	down:#3	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:3
+193/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:10
+193/8	lyrics:#0	up:chant	lyric	me	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:32
+193/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:9
+193/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:9
+193/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:6
+193/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:6
+193/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:85:4
+193/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:85:4
+193/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:3
+193/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:3
+195/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:16
+195/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:20
+195/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:16
+195/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:16
+197/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:22
+197/8	lyrics:#0	up:chant	lyric	in	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:35
+197/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:38
+197/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:22
+197/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:22
+199/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:27
+199/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:32
+199/8	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:14
+199/8	down:#2	down	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:85:12
+199/8	down:#3	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:12
+199/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:15
+199/8	lyrics:#0	up:chant	lyric	i	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:41
+199/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:43
+199/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:27
+199/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:27
+199/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:14
+199/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:14
+199/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:85:12
+199/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:85:12
+199/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:12
+199/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:12
+201/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:34
+201/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:37
+201/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:34
+201/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:34
+203/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:39
+203/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:43
+203/8	up:#1	up	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:18
+203/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:26
+203/8	down:#2	down	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:85:16
+203/8	down:#3	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:17
+203/8	lyrics:#0	up:chant	lyric	mí	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:46
+203/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:49
+203/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:39
+203/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:39
+203/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:18
+203/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:18
+203/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:85:16
+203/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:85:16
+203/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:17
+203/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:17
+205/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:45
+205/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:45
+205/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:45
+207/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:49
+207/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:49
+207/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:49
+209/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:53
+209/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:56
+209/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:53
+209/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:53
+211/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:58
+211/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:62
+211/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:28
+211/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:32
+211/8	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:85:24
+211/8	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:24
+211/8	lyrics:#0	up:chant	lyric	ci	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:52
+211/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:58
+211/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:58
+211/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:28
+211/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:72:28
+211/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:85:24
+211/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:85:24
+211/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:24
+211/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:98:24
+213/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:64
+213/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:67
+213/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:64
+213/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:57:64
+215/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:1
+215/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:5
+215/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:73:0
+215/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:86:0
+215/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:99:0
+215/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:99:3
+215/8	lyrics:#0	up:chant	lyric	me	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:55
+215/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:58
+215/8	up:chant	up	div	maxima	data/typeset/include/noh2.ily:30:2
+215/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:1
+215/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:1
+215/8	up:#1	up	div	maxima	data/typeset/include/noh2.ily:30:2
+215/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:73:0
+215/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:73:0
+215/8	down:#2	down	div	maxima	data/typeset/include/noh2.ily:30:2
+215/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:86:0
+215/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:86:0
+215/8	down:#3	down	div	maxima	data/typeset/include/noh2.ily:30:2
+215/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:99:0
+215/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:99:0
+217/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:7
+217/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:10
+217/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:7
+217/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:7
+219/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:12
+219/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:16
+219/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:73:4
+219/8	down:#2	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:86:4
+219/8	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:99:5
+219/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:99:12
+219/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:61
+219/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:12
+219/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:12
+219/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:73:4
+219/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:73:4
+219/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:86:4
+219/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:86:4
+219/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:99:5
+219/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:99:5
+221/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:18
+221/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:18
+221/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:18
+223/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:22
+223/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:25
+223/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:22
+223/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:22
+225/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:27
+225/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:31
+225/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:73:12
+225/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:86:11
+225/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:99:14
+225/8	lyrics:#0	up:chant	lyric	i:	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:43:63
+225/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:27
+225/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:27
+225/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:73:12
+225/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:73:12
+225/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:86:11
+225/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:86:11
+225/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:99:14
+225/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:99:14
+227/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:33
+227/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:36
+227/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:33
+227/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:58:33
+229/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:59:1
+229/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:59:5
+229/8	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:0
+229/8	down:#2	down	note	e	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:0
+229/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:7
+229/8	down:#3	down	note	b	0	2	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:0
+229/8	lyrics:#0	up:chant	lyric	ét	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:0
+229/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:3
+229/8	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+229/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:59:1
+229/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:59:1
+229/8	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+229/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:0
+229/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:0
+229/8	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+229/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:0
+229/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:0
+229/8	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+229/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:0
+229/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:0
+231/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:59:7
+231/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:59:7
+231/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:59:7
+233/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:59:11
+233/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:59:14
+233/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:59:11
+233/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:59:11
+235/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:59:16
+235/8	lyrics:#0	up:chant	lyric	e	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:6
+235/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:8
+235/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:59:16
+235/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:59:16
+237/8	-	-	break	data/typeset/include/noh2.ily:75:24
+237/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:1
+237/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:5
+237/8	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:8
+237/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:16
+237/8	down:#2	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:9
+237/8	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:8
+237/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:15
+237/8	lyrics:#0	up:chant	lyric	nim	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:11
+237/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:1
+237/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:1
+237/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:8
+237/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:8
+237/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:9
+237/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:9
+237/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:8
+237/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:8
+239/8	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:7
+239/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:7
+239/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:7
+241/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:12
+241/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:45
+241/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:12
+241/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:12
+243/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:47
+243/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:52
+243/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:18
+243/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:16
+243/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:19
+243/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:17
+243/8	lyrics:#0	up:chant	lyric	u	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:15
+243/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:17
+243/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:47
+243/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:47
+243/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:18
+243/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:18
+243/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:16
+243/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:16
+243/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:17
+243/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:17
+245/8	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:54
+245/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:58
+245/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:54
+245/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:54
+247/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:60
+247/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:65
+247/8	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:22
+247/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:26
+247/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:21
+247/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:20
+247/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:23
+247/8	lyrics:#0	up:chant	lyric	ni	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:20
+247/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:23
+247/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:60
+247/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:60
+247/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:22
+247/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:22
+247/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:21
+247/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:21
+247/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:20
+247/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:20
+249/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:67
+249/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:70
+249/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:67
+249/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:67
+251/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:72
+251/8	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:28
+251/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:24
+251/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:25
+251/8	lyrics:#0	up:chant	lyric	ver	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:26
+251/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:30
+251/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:72
+251/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:72
+251/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:28
+251/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:28
+251/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:24
+251/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:24
+251/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:25
+251/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:25
+253/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:76
+253/8	lyrics:#0	up:chant	lyric	si	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:33
+253/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:76
+253/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:76
+255/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:80
+255/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:84
+255/8	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:32
+255/8	down:#2	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:28
+255/8	down:#3	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:28
+255/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:35
+255/8	lyrics:#0	up:chant	lyric	qui	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:36
+255/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:80
+255/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:80
+255/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:32
+255/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:32
+255/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:28
+255/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:28
+255/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:28
+255/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:28
+257/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:86
+257/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:86
+257/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:86
+259/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:90
+259/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:93
+259/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:90
+259/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:90
+261/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:95
+261/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:99
+261/8	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:40
+261/8	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:35
+261/8	down:#3	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:37
+261/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:44
+261/8	lyrics:#0	up:chant	lyric	te	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:40
+261/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:95
+261/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:95
+261/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:40
+261/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:74:40
+261/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:35
+261/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:87:35
+261/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:37
+261/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:100:37
+263/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:101
+263/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:101
+263/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:101
+265/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:105
+265/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:108
+265/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:105
+265/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:60:105
+267/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:1
+267/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:5
+267/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:0
+267/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:4
+267/8	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:0
+267/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:3
+267/8	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:0
+267/8	lyrics:#0	up:chant	lyric	ex	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:43
+267/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:46
+267/8	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+267/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:1
+267/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:1
+267/8	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+267/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:0
+267/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:0
+267/8	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+267/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:0
+267/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:0
+267/8	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+267/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:0
+267/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:0
+269/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:7
+269/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:10
+269/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:7
+269/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:7
+271/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:12
+271/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:16
+271/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:6
+271/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:10
+271/8	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:5
+271/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:3
+271/8	lyrics:#0	up:chant	lyric	spé	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:49
+271/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:53
+271/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:12
+271/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:12
+271/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:6
+271/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:6
+271/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:5
+271/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:5
+271/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:3
+271/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:3
+273/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:18
+273/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:21
+273/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:18
+273/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:18
+275/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:23
+275/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:27
+275/8	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:12
+275/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:20
+275/8	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:8
+275/8	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:6
+275/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:13
+275/8	lyrics:#0	up:chant	lyric	ctant,	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:44:56
+275/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:23
+275/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:23
+275/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:12
+275/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:12
+275/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:8
+275/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:8
+275/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:6
+275/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:6
+277/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:29
+277/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:29
+277/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:29
+277/8	up:chant	up	art	prall	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:31
+279/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:38
+279/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:42
+279/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:38
+279/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:38
+281/8	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:44
+281/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:49
+281/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:22
+281/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:26
+281/8	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:15
+281/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:15
+281/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:18
+281/8	lyrics:#0	up:chant	lyric	non	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:45:0
+281/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:44
+281/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:44
+281/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:22
+281/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:22
+281/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:15
+281/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:15
+281/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:15
+281/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:15
+283/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:51
+283/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:54
+283/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:51
+283/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:51
+285/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:56
+285/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:61
+285/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:28
+285/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:18
+285/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:21
+285/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:20
+285/8	lyrics:#0	up:chant	lyric	con	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:45:4
+285/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:45:8
+285/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:56
+285/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:56
+285/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:28
+285/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:28
+285/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:18
+285/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:18
+285/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:20
+285/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:20
+287/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:63
+287/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:66
+287/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:63
+287/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:63
+289/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:68
+289/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:72
+289/8	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:32
+289/8	up:#1	up	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:36
+289/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:23
+289/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:23
+289/8	down:#3	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:26
+289/8	lyrics:#0	up:chant	lyric	fun	-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:45:11
+289/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:45:15
+289/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:68
+289/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:68
+289/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:32
+289/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:32
+289/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:23
+289/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:23
+289/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:23
+289/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:23
+291/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:74
+291/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:77
+291/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:74
+291/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:74
+293/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:79
+293/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:84
+293/8	up:#1	up	note	f	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:38
+293/8	down:#2	down	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:26
+293/8	down:#2	down	tie	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:34
+293/8	down:#3	down	note	d	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:28
+293/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:45:18
+293/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:79
+293/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:79
+293/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:38
+293/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:38
+293/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:26
+293/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:26
+293/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:28
+293/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:28
+295/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:86
+295/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:86
+295/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:86
+297/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:90
+297/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:90
+297/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:90
+299/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:94
+299/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:97
+299/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:94
+299/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:94
+301/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:99
+301/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:103
+301/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:46
+301/8	down:#2	down	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:36
+301/8	down:#3	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:35
+301/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:45:20
+301/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:99
+301/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:99
+301/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:46
+301/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:75:46
+301/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:36
+301/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:36
+301/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:35
+301/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:101:35
+303/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:105
+303/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:108
+303/8	down:#2	down	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:40
+303/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:105
+303/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:61:105
+303/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:40
+303/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_ad_te_domine.csv.ly:88:40
+305/8	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+305/8	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+305/8	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+305/8	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2

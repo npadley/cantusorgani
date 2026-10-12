@@ -231,13 +231,13 @@ def test_run_batch_auto_approve_judges_a_warning_only_conversion_as_needs_review
 def test_dropped_commands_finds_ornaments_outside_comments_only() -> None:
     from pipeline.typeset.mei.batch import dropped_commands
 
-    assert dropped_commands("a'\\prall b'4 c'\\trill % d'\\fermata\n%{ \\turn %}\n") == ["prall", "trill"]
+    assert dropped_commands("a'\\prall b'4 c'\\trill % d'\\fermata\n%{ \\turn %}\n") == ["trill"]
     assert dropped_commands("\\relative c' { c4 d \\divisioMinima }") == []
 
 
 def test_run_batch_auto_approve_keeps_a_score_with_an_unconverted_ornament_in_review(tmp_path: Path) -> None:
     sources = make_sources(tmp_path, ["clean.ly", "ornament.ly"])
-    sources[1].write_text("\\relative c' { a'\\prall b }\n", encoding="utf-8")
+    sources[1].write_text("\\relative c' { a'\\trill b }\n", encoding="utf-8")
     report = batch(tmp_path, sources, set())
     assert report.results == {str(sources[0]): "approved", str(sources[1]): "needs-review"}
     judged = next(p for p in (tmp_path / "out").glob("*/record.json") if "ornament" in p.read_text(encoding="utf-8"))

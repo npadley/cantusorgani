@@ -1,0 +1,1177 @@
+0	-	-	version	listen_full/1	2.26.0
+0	-	up	staff	1
+0	-	down	staff	2
+0	-	up	key	-2	data/typeset/src/vol-1/of_deus_enim.csv.ly:10:1
+0	up:chant	up	voice	0	voiceOne
+0	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:10
+0	-	up	key	-2	data/typeset/src/vol-1/of_deus_enim.csv.ly:10:1
+0	up:#1	up	voice	1	voiceTwo
+0	up:#1	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:0
+0	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:6
+0	-	down	key	-2	data/typeset/src/vol-1/of_deus_enim.csv.ly:10:1
+0	down:#2	down	voice	2	voiceOne
+0	down:#2	down	rest	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:0
+0	-	down	key	-2	data/typeset/src/vol-1/of_deus_enim.csv.ly:10:1
+0	down:#3	down	voice	3	voiceTwo
+0	down:#3	down	note	e	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:0
+0	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:5
+0	-	down	key	-2	data/typeset/src/vol-1/of_deus_enim.csv.ly:10:1
+0	lyrics:#0	up:chant	lyric	De	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:38:0
+0	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_deus_enim.csv.ly:38:3
+0	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:10
+0	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:10
+0	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:0
+0	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:0
+0	-	up	clef	clefs.G	-2	-
+0	down:#2	down	rhead	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:0
+0	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:0
+0	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:0
+0	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:0
+0	-	down	clef	clefs.F	2	-
+1/4	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:14
+1/4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:20
+1/4	up:#1	up	note	e	-1	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:8
+1/4	down:#2	down	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:3
+1/4	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:12
+1/4	down:#3	down	note	e	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:7
+1/4	lyrics:#0	up:chant	lyric	us	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:38:6
+1/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:14
+1/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:14
+1/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:8
+1/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:8
+1/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:3
+1/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:3
+1/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:7
+1/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:7
+1/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:22
+1/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:22
+1/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:22
+3/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:26
+3/4	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:29
+3/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:26
+3/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:26
+1	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:31
+1	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:18
+1	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:22
+1	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:14
+1	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:19
+1	down:#3	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:16
+1	lyrics:#0	up:chant	lyric	e	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:38:9
+1	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_deus_enim.csv.ly:38:11
+1	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:31
+1	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:31
+1	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:18
+1	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:18
+1	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:14
+1	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:14
+1	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:16
+1	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:16
+5/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:35
+5/4	lyrics:#0	up:chant	lyric	nim	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:38:14
+5/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:35
+5/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:35
+3/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:40
+3/2	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:44
+3/2	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:24
+3/2	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:28
+3/2	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:21
+3/2	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:26
+3/2	down:#3	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:21
+3/2	lyrics:#0	up:chant	lyric	fir	 * 	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:20
+3/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:24
+3/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:40
+3/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:40
+3/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:24
+3/2	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:24
+3/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:21
+3/2	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:21
+3/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:21
+3/2	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:21
+7/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:46
+7/4	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:78
+7/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:46
+7/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:46
+2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:80
+2	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:84
+2	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:30
+2	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:28
+2	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:33
+2	down:#3	down	note	e	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:24
+2	lyrics:#0	up:chant	lyric	má	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:27
+2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:30
+2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:80
+2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:80
+2	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:30
+2	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:30
+2	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:28
+2	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:28
+2	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:24
+2	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:24
+9/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:86
+9/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:86
+9/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:86
+5/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:92
+5/2	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:96
+5/2	up:#1	up	note	f	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:34
+5/2	down:#2	down	note	b	-1	3	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:35
+5/2	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:44
+5/2	down:#3	down	note	d	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:29
+5/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:92
+5/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:92
+5/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:34
+5/2	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:61:34
+5/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:35
+5/2	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:72:35
+5/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:29
+5/2	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:83:29
+11/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:98
+11/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:98
+11/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:98
+11/4	up:chant	up	art	prall	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:100
+3	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:107
+3	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:112
+3	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:107
+3	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:107
+13/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:114
+13/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:33
+13/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:114
+13/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:45:114
+7/2	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:1
+7/2	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:7
+7/2	up:#1	up	note	e	-1	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:0
+7/2	down:#2	down	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:0
+7/2	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:9
+7/2	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:0
+7/2	lyrics:#0	up:chant	lyric	vit	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:35
+7/2	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+7/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:1
+7/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:1
+7/2	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+7/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:0
+7/2	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:0
+7/2	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+7/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:0
+7/2	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:0
+7/2	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+7/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:0
+7/2	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:0
+15/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:9
+15/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:9
+15/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:9
+4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:13
+4	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:16
+4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:13
+4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:13
+17/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:18
+17/4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:24
+17/4	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:10
+17/4	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:14
+17/4	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:11
+17/4	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:7
+17/4	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:10
+17/4	lyrics:#0	up:chant	lyric	or	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:39
+17/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:42
+17/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:18
+17/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:18
+17/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:10
+17/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:10
+17/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:11
+17/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:11
+17/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:7
+17/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:7
+9/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:26
+9/2	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:31
+9/2	up:chant	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:33
+9/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:26
+9/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:26
+19/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:35
+19/4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:41
+19/4	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:16
+19/4	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:16
+19/4	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:20
+19/4	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:12
+19/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:35
+19/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:35
+19/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:16
+19/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:16
+19/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:16
+19/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:16
+19/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:12
+19/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:12
+5	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:43
+5	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:46
+5	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:43
+5	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:43
+21/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:48
+21/4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:54
+21/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:20
+21/4	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:24
+21/4	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:22
+21/4	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:15
+21/4	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:18
+21/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:45
+21/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:48
+21/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:48
+21/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:20
+21/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:20
+21/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:22
+21/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:22
+21/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:15
+21/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:15
+11/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:56
+11/2	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:61
+11/2	up:chant	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:63
+11/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:56
+11/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:56
+23/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:65
+23/4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:71
+23/4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:26
+23/4	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:26
+23/4	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:31
+23/4	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:20
+23/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:65
+23/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:65
+23/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:26
+23/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:26
+23/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:26
+23/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:26
+23/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:20
+23/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:20
+6	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:73
+6	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:73
+6	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:46:73
+25/4	-	-	break	data/typeset/include/noh2.ily:75:24
+25/4	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:0
+25/4	up:chant	up	note	g	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:2
+25/4	up:#1	up	note	e	-1	4	1	0	3	4	3/8	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:30
+25/4	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:40
+25/4	down:#2	down	note	b	-1	3	1	0	3	4	3/8	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:33
+25/4	down:#3	down	note	e	-1	3	1	0	3	4	3/8	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:23
+25/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:2
+25/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:2
+25/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:30
+25/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:30
+25/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:33
+25/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:33
+25/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:23
+25/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:23
+53/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:7
+53/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:13
+53/8	up:#1	up	note	e	-1	4	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:42
+53/8	down:#2	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:42
+53/8	down:#3	down	note	d	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:32
+53/8	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:39
+53/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:47
+53/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:7
+53/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:7
+53/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:42
+53/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:42
+53/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:42
+53/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:42
+53/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:32
+53/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:32
+55/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:15
+55/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:15
+55/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:15
+57/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:19
+57/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:19
+57/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:19
+59/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:25
+59/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:28
+59/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:25
+59/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:25
+61/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:30
+61/8	up:#1	up	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:52
+61/8	down:#2	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:49
+61/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:41
+61/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:49
+61/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:30
+61/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:30
+61/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:52
+61/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:52
+61/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:49
+61/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:49
+61/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:41
+61/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:41
+63/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:34
+63/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:51
+63/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:34
+63/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:34
+65/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:38
+65/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:44
+65/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:57
+65/8	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:65
+65/8	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:52
+65/8	down:#3	down	note	b	-1	2	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:44
+65/8	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:54
+65/8	lyrics:#0	up:chant	lyric	bem	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:53
+65/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:38
+65/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:38
+65/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:57
+65/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:57
+65/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:52
+65/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:52
+65/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:44
+65/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:44
+67/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:46
+67/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:46
+67/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:46
+69/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:52
+69/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:55
+69/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:52
+69/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:52
+71/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:57
+71/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:61
+71/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:67
+71/8	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:59
+71/8	down:#3	down	note	b	-1	2	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:56
+71/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:57
+71/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:57
+71/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:57
+71/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:67
+71/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:67
+71/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:59
+71/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:59
+71/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:56
+71/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:56
+73/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:63
+73/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:63
+73/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:63
+75/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:67
+75/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:67
+75/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:67
+77/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:71
+77/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:74
+77/8	up:chant	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:76
+77/8	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:75
+77/8	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:66
+77/8	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:73
+77/8	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:66
+77/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:71
+77/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:71
+77/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:75
+77/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:62:75
+77/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:66
+77/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:73:66
+77/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:66
+77/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:84:66
+79/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:78
+79/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:82
+79/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:78
+79/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:78
+81/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:84
+81/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:89
+81/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:84
+81/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:47:84
+83/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:1
+83/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:7
+83/8	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:0
+83/8	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:6
+83/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:0
+83/8	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:3
+83/8	down:#3	down	note	e	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:0
+83/8	lyrics:#0	up:chant	lyric	ter	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:59
+83/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:63
+83/8	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+83/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:1
+83/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:1
+83/8	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+83/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:0
+83/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:0
+83/8	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+83/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:0
+83/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:0
+83/8	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+83/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:0
+83/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:0
+85/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:9
+85/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:12
+85/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:9
+85/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:9
+87/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:14
+87/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:18
+87/8	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:8
+87/8	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:14
+87/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:5
+87/8	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:8
+87/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:5
+87/8	lyrics:#0	up:chant	lyric	ræ,	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:66
+87/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:14
+87/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:14
+87/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:8
+87/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:8
+87/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:5
+87/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:5
+87/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:5
+87/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:5
+89/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:20
+89/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:23
+89/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:20
+89/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:20
+91/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:25
+91/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:31
+91/8	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:16
+91/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:10
+91/8	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:13
+91/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:8
+91/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:70
+91/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:25
+91/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:25
+91/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:16
+91/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:16
+91/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:10
+91/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:10
+91/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:8
+91/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:8
+93/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:33
+93/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:38
+93/8	up:chant	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:40
+93/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:33
+93/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:33
+95/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:42
+95/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:48
+95/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:22
+95/8	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:30
+95/8	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:15
+95/8	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:22
+95/8	down:#3	down	note	b	-1	2	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:11
+95/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:42
+95/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:42
+95/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:22
+95/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:22
+95/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:15
+95/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:15
+95/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:11
+95/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:11
+97/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:50
+97/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:50
+97/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:50
+99/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:54
+99/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:57
+99/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:54
+99/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:54
+101/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:59
+101/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:65
+101/8	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:32
+101/8	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:36
+101/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:24
+101/8	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:27
+101/8	down:#3	down	note	a	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:21
+101/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:72
+101/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:59
+101/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:59
+101/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:32
+101/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:32
+101/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:24
+101/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:24
+101/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:21
+101/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:21
+103/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:67
+103/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:67
+103/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:48:67
+105/8	-	-	break	data/typeset/include/noh2.ily:75:24
+105/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:0
+105/8	up:chant	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:2
+105/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:4
+105/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:10
+105/8	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:38
+105/8	down:#2	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:29
+105/8	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:36
+105/8	down:#3	down	note	g	0	2	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:25
+105/8	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:33
+105/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:4
+105/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:4
+105/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:38
+105/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:38
+105/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:29
+105/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:29
+105/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:25
+105/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:25
+107/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:12
+107/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:12
+107/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:12
+109/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:16
+109/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:16
+109/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:16
+111/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:20
+111/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:23
+111/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:20
+111/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:20
+113/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:25
+113/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:31
+113/8	up:#1	up	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:46
+113/8	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:55
+113/8	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:38
+113/8	down:#3	down	note	g	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:35
+113/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:39:74
+113/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:25
+113/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:25
+113/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:46
+113/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:46
+113/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:38
+113/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:38
+113/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:35
+113/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:35
+115/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:33
+115/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:65
+115/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:33
+115/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:33
+117/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:67
+117/8	lyrics:#0	up:chant	lyric	qui	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:0
+117/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:67
+117/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:67
+119/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:71
+119/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:75
+119/8	up:#1	up	note	b	-1	3	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:57
+119/8	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:66
+119/8	down:#2	down	note	e	-1	3	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:45
+119/8	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:54
+119/8	down:#3	down	note	c	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:43
+119/8	lyrics:#0	up:chant	lyric	non	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:4
+119/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:71
+119/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:71
+119/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:57
+119/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:57
+119/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:45
+119/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:45
+119/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:43
+119/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:43
+121/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:77
+121/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:77
+121/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:77
+123/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:81
+123/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:81
+123/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:81
+125/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:87
+125/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:90
+125/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:87
+125/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:87
+127/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:92
+127/8	up:#1	up	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:68
+127/8	down:#2	down	note	e	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:56
+127/8	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:61
+127/8	down:#3	down	note	b	-1	2	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:50
+127/8	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:56
+127/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:8
+127/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:92
+127/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:92
+127/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:68
+127/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:68
+127/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:56
+127/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:56
+127/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:50
+127/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:50
+129/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:96
+129/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:100
+129/8	up:#1	up	note	a	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:73
+129/8	down:#2	down	note	e	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:63
+129/8	down:#3	down	note	b	-1	2	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:58
+129/8	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:68
+129/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:10
+129/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:96
+129/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:96
+129/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:73
+129/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:73
+129/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:63
+129/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:63
+129/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:58
+129/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:58
+131/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:102
+131/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:102
+131/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:102
+133/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:106
+133/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:109
+133/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:106
+133/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:106
+135/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:111
+135/8	up:#1	up	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:81
+135/8	down:#2	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:72
+135/8	down:#3	down	note	b	-1	2	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:70
+135/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:12
+135/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:111
+135/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:49:111
+135/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:81
+135/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:63:81
+135/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:72
+135/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:74:72
+135/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:70
+135/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:85:70
+137/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:1
+137/8	up:#1	up	note	f	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:64:0
+137/8	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:64:8
+137/8	down:#2	down	rest	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:75:0
+137/8	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:86:0
+137/8	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:86:3
+137/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:14
+137/8	up:chant	up	div	maxima	data/typeset/include/noh2.ily:30:2
+137/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:1
+137/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:1
+137/8	up:#1	up	div	maxima	data/typeset/include/noh2.ily:30:2
+137/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:64:0
+137/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:64:0
+137/8	down:#2	down	div	maxima	data/typeset/include/noh2.ily:30:2
+137/8	down:#2	down	rhead	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:75:0
+137/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:75:0
+137/8	down:#3	down	div	maxima	data/typeset/include/noh2.ily:30:2
+137/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:86:0
+137/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:86:0
+139/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:7
+139/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:11
+139/8	down:#2	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:75:3
+139/8	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:86:5
+139/8	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:86:12
+139/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:16
+139/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:7
+139/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:7
+139/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:75:3
+139/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:75:3
+139/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:86:5
+139/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:86:5
+141/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:13
+141/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:13
+141/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:13
+143/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:18
+143/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:23
+143/8	up:chant	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:25
+143/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:18
+143/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:18
+145/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:27
+145/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:33
+145/8	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:64:10
+145/8	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:64:14
+145/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:75:10
+145/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:86:14
+145/8	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:86:17
+145/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:27
+145/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:27
+145/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:64:10
+145/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:64:10
+145/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:75:10
+145/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:75:10
+145/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:86:14
+145/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:86:14
+147/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:35
+147/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:40
+147/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:35
+147/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:35
+149/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:42
+149/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:46
+149/8	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:64:16
+149/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:75:13
+149/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:86:19
+149/8	lyrics:#0	up:chant	lyric	com	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:18
+149/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:22
+149/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:42
+149/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:42
+149/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:64:16
+149/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:64:16
+149/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:75:13
+149/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:75:13
+149/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:86:19
+149/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:86:19
+151/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:48
+151/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:51
+151/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:48
+151/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:50:48
+153/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:51:1
+153/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:51:7
+153/8	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:0
+153/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:0
+153/8	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:3
+153/8	down:#3	down	note	b	-1	2	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:0
+153/8	lyrics:#0	up:chant	lyric	mo	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:25
+153/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:28
+153/8	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+153/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:51:1
+153/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:51:1
+153/8	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+153/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:0
+153/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:0
+153/8	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+153/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:0
+153/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:0
+153/8	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+153/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:0
+153/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:0
+155/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:51:9
+155/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:51:9
+155/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:51:9
+157/8	-	-	break	data/typeset/include/noh2.ily:75:24
+157/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:0
+157/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:2
+157/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:8
+157/8	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:4
+157/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:5
+157/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:6
+157/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:2
+157/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:2
+157/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:4
+157/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:4
+157/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:5
+157/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:5
+157/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:6
+157/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:6
+159/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:10
+159/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:15
+159/8	up:chant	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:17
+159/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:10
+159/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:10
+161/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:19
+161/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:25
+161/8	up:#1	up	note	f	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:10
+161/8	down:#2	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:8
+161/8	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:9
+161/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:19
+161/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:19
+161/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:10
+161/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:10
+161/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:8
+161/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:8
+161/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:9
+161/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:9
+163/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:27
+163/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:30
+163/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:27
+163/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:27
+165/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:32
+165/8	lyrics:#0	up:chant	lyric	vé	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:31
+165/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:34
+165/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:32
+165/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:32
+167/8	up:chant	up	note	b	-1	4	2	1	1	1	3/8	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:38
+167/8	up:chant	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:45
+167/8	up:#1	up	note	e	-1	4	1	0	3	4	3/8	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:18
+167/8	down:#2	down	note	g	0	3	1	0	3	4	3/8	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:15
+167/8	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:22
+167/8	down:#3	down	note	e	-1	3	1	0	3	4	3/8	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:16
+167/8	lyrics:#0	up:chant	lyric	bi	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:37
+167/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:40
+167/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:38
+167/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:38
+167/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:18
+167/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:18
+167/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:15
+167/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:15
+167/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:16
+167/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:16
+85/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:47
+85/4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:53
+85/4	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:28
+85/4	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:24
+85/4	down:#3	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:25
+85/4	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:32
+85/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:47
+85/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:47
+85/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:28
+85/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:28
+85/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:24
+85/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:24
+85/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:25
+85/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:25
+43/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:55
+43/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:55
+43/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:55
+87/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:61
+87/4	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:66
+87/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:61
+87/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:61
+22	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:68
+22	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:72
+22	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:36
+22	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:31
+22	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:34
+22	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:37
+22	lyrics:#0	up:chant	lyric	tur:	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:40:43
+22	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:68
+22	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:68
+22	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:36
+22	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:36
+22	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:31
+22	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:31
+22	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:34
+22	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:34
+89/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:74
+89/4	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:77
+89/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:74
+89/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:74
+45/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:79
+45/2	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:83
+45/2	up:#1	up	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:40
+45/2	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:34
+45/2	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:39
+45/2	down:#3	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:39
+45/2	lyrics:#0	up:chant	lyric	pa	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:0
+45/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:3
+45/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:79
+45/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:79
+45/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:40
+45/2	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:40
+45/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:34
+45/2	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:34
+45/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:39
+45/2	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:39
+91/4	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:85
+91/4	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:90
+91/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:85
+91/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:85
+23	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:92
+23	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:96
+23	up:#1	up	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:45
+23	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:53
+23	down:#2	down	note	b	-1	3	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:41
+23	down:#3	down	note	f	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:42
+23	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:49
+23	lyrics:#0	up:chant	lyric	rá	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:6
+23	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:9
+23	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:92
+23	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:92
+23	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:45
+23	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:45
+23	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:41
+23	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:41
+23	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:42
+23	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:42
+93/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:98
+93/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:98
+93/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:98
+47/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:102
+47/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:102
+47/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:102
+95/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:106
+95/4	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:109
+95/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:106
+95/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:106
+24	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:111
+24	up:#1	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:55
+24	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:59
+24	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:50
+24	down:#3	down	note	f	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:51
+24	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:12
+24	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:111
+24	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:52:111
+24	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:55
+24	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:65:55
+24	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:50
+24	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:76:50
+24	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:51
+24	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:87:51
+97/4	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:1
+97/4	up:#1	up	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:66:0
+97/4	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:66:8
+97/4	down:#2	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:77:0
+97/4	down:#3	down	note	c	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:88:0
+97/4	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:88:3
+97/4	lyrics:#0	up:chant	lyric	ta	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:14
+97/4	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+97/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:1
+97/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:1
+97/4	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+97/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:66:0
+97/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:66:0
+97/4	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+97/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:77:0
+97/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:77:0
+97/4	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+97/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:88:0
+97/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:88:0
+49/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:7
+49/2	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:11
+49/2	down:#2	down	note	e	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:77:3
+49/2	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:88:5
+49/2	lyrics:#0	up:chant	lyric	se	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:17
+49/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:20
+49/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:7
+49/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:7
+49/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:77:3
+49/2	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:77:3
+49/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:88:5
+49/2	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:88:5
+99/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:13
+99/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:13
+99/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:13
+25	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:17
+25	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:20
+25	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:17
+25	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:17
+101/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:22
+101/4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:26
+101/4	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:66:10
+101/4	down:#2	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:77:12
+101/4	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:77:15
+101/4	down:#3	down	note	g	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:88:12
+101/4	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:88:16
+101/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:23
+101/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:22
+101/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:22
+101/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:66:10
+101/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:66:10
+101/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:77:12
+101/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:77:12
+101/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:88:12
+101/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:88:12
+51/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:28
+51/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:28
+51/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:28
+103/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:32
+103/4	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:35
+103/4	up:#1	up	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:66:14
+103/4	down:#2	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:77:17
+103/4	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:77:20
+103/4	down:#3	down	note	g	0	2	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:88:18
+103/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:32
+103/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:53:32
+103/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:66:14
+103/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:66:14
+103/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:77:17
+103/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:77:17
+103/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:88:18
+103/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:88:18
+26	-	-	break	data/typeset/include/noh2.ily:75:24
+26	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:1
+26	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:67:0
+26	down:#2	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:0
+26	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:3
+26	down:#3	down	note	a	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:0
+26	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:25
+26	up:chant	up	div	maxima	data/typeset/include/noh2.ily:30:2
+26	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:1
+26	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:1
+26	up:#1	up	div	maxima	data/typeset/include/noh2.ily:30:2
+26	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:67:0
+26	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:67:0
+26	down:#2	down	div	maxima	data/typeset/include/noh2.ily:30:2
+26	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:0
+26	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:0
+26	down:#3	down	div	maxima	data/typeset/include/noh2.ily:30:2
+26	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:0
+26	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:0
+105/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:5
+105/4	lyrics:#0	up:chant	lyric	des	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:27
+105/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:5
+105/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:5
+53/2	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:9
+53/2	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:15
+53/2	up:#1	up	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:67:4
+53/2	down:#2	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:5
+53/2	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:12
+53/2	down:#3	down	note	g	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:4
+53/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:31
+53/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:9
+53/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:9
+53/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:67:4
+53/2	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:67:4
+53/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:5
+53/2	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:5
+53/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:4
+53/2	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:4
+107/4	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:17
+107/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:17
+107/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:17
+27	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:23
+27	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:28
+27	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:23
+27	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:23
+109/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:30
+109/4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:34
+109/4	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:67:13
+109/4	down:#2	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:14
+109/4	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:21
+109/4	down:#3	down	note	a	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:12
+109/4	lyrics:#0	up:chant	lyric	tu	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:33
+109/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:36
+109/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:30
+109/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:30
+109/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:67:13
+109/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:67:13
+109/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:14
+109/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:14
+109/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:12
+109/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:12
+55/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:36
+55/2	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:40
+55/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:36
+55/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:36
+111/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:42
+111/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:42
+111/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:42
+111/4	up:chant	up	art	prall	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:44
+28	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:51
+28	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:67:21
+28	down:#2	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:23
+28	down:#3	down	note	b	-1	2	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:20
+28	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:26
+28	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:51
+28	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:51
+28	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:67:21
+28	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:67:21
+28	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:23
+28	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:23
+28	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:20
+28	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:20
+113/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:55
+113/4	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:58
+113/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:55
+113/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:55
+57/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:60
+57/2	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:64
+57/2	down:#2	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:26
+57/2	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:29
+57/2	down:#3	down	note	b	-1	2	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:28
+57/2	lyrics:#0	up:chant	lyric	a,	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:39
+57/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:60
+57/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:60
+57/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:26
+57/2	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:26
+57/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:28
+57/2	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:28
+115/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:66
+115/4	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:69
+115/4	up:chant	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:71
+115/4	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:67:29
+115/4	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:31
+115/4	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:38
+115/4	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:34
+115/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:66
+115/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:66
+115/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:67:29
+115/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:67:29
+115/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:31
+115/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:78:31
+115/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:34
+115/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:89:34
+29	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:73
+29	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:77
+29	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:73
+29	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:73
+117/4	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:79
+117/4	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:84
+117/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:79
+117/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:55:79
+59/2	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:1
+59/2	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:7
+59/2	up:#1	up	note	b	-1	3	1	0	7	4	7/8	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:0
+59/2	down:#2	down	note	g	0	3	1	0	7	4	7/8	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:0
+59/2	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:7
+59/2	down:#3	down	note	e	-1	3	1	0	7	4	7/8	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:0
+59/2	lyrics:#0	up:chant	lyric	De	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:42
+59/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:45
+59/2	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+59/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:1
+59/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:1
+59/2	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+59/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:0
+59/2	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:0
+59/2	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+59/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:0
+59/2	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:0
+59/2	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+59/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:0
+59/2	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:0
+119/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:9
+119/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:9
+119/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:9
+30	up:chant	up	note	g	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:13
+30	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:17
+30	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:13
+30	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:13
+243/8	up:chant	up	note	e	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:19
+243/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:25
+243/8	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:9
+243/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:9
+243/8	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:12
+243/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:9
+243/8	lyrics:#0	up:chant	lyric	us,	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:48
+243/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:19
+243/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:19
+243/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:9
+243/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:9
+243/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:9
+243/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:9
+243/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:9
+243/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:9
+245/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:27
+245/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:30
+245/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:27
+245/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:27
+247/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:32
+247/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:36
+247/8	up:#1	up	note	e	-1	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:13
+247/8	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:23
+247/8	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:14
+247/8	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:12
+247/8	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:19
+247/8	lyrics:#0	up:chant	lyric	ex	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:52
+247/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:32
+247/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:32
+247/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:13
+247/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:13
+247/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:14
+247/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:14
+247/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:12
+247/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:12
+249/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:38
+249/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:38
+249/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:38
+251/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:42
+251/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:45
+251/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:42
+251/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:42
+253/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:47
+253/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:51
+253/8	up:#1	up	note	e	-1	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:25
+253/8	down:#2	down	note	b	-1	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:21
+253/8	down:#2	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:26
+253/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:21
+253/8	lyrics:#0	up:chant	lyric	tunc,	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:55
+253/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:47
+253/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:47
+253/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:25
+253/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:25
+253/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:21
+253/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:21
+253/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:21
+253/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:21
+255/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:53
+255/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:56
+255/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:53
+255/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:53
+257/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:58
+257/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:62
+257/8	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:31
+257/8	up:#1	up	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:39
+257/8	down:#2	down	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:28
+257/8	down:#3	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:24
+257/8	down:#3	down	tie	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:31
+257/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_deus_enim.csv.ly:41:61
+257/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:58
+257/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:58
+257/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:31
+257/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:31
+257/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:28
+257/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:28
+257/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:24
+257/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:24
+259/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:64
+259/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:64
+259/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:64
+261/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:68
+261/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:71
+261/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:68
+261/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:68
+263/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:73
+263/8	up:#1	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:41
+263/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:37
+263/8	down:#3	down	note	f	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:33
+263/8	lyrics:#0	up:chant	lyric	a	-	data/typeset/src/vol-1/of_deus_enim.csv.ly:42:0
+263/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:73
+263/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:56:73
+263/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:41
+263/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:68:41
+263/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:37
+263/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:79:37
+263/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:33
+263/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_deus_enim.csv.ly:90:33
+265/8	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+265/8	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+265/8	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+265/8	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2

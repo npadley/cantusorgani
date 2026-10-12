@@ -1,0 +1,1521 @@
+0	-	-	version	listen_full/1	2.26.0
+0	-	up	staff	1
+0	-	down	staff	2
+0	-	up	key	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:10:1
+0	up:chant	up	voice	0	voiceOne
+0	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:11
+0	-	up	key	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:10:1
+0	up:#1	up	voice	1	voiceTwo
+0	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:68:0
+0	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:68:8
+0	-	down	key	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:10:1
+0	down:#2	down	voice	2	voiceOne
+0	down:#2	down	rest	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:0
+0	-	down	key	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:10:1
+0	down:#3	down	voice	3	voiceTwo
+0	down:#3	down	rest	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:0
+0	-	down	key	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:10:1
+0	lyrics:#0	up:chant	lyric	Di	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:38:0
+0	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:38:3
+0	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:11
+0	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:11
+0	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:68:0
+0	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:68:0
+0	-	up	clef	clefs.G	-2	-
+0	down:#2	down	rhead	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:0
+0	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:0
+0	down:#3	down	rhead	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:0
+0	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:0
+0	-	down	clef	clefs.F	2	-
+1/4	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:15
+1/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:19
+1/4	down:#2	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:3
+1/4	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:3
+1/4	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:10
+1/4	lyrics:#0	up:chant	lyric	ri	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:38:6
+1/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:38:9
+1/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:15
+1/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:15
+1/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:3
+1/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:3
+1/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:3
+1/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:3
+1/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:21
+1/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:24
+1/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:21
+1/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:21
+3/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:26
+3/4	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:6
+3/4	lyrics:#0	up:chant	lyric	gá	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:38:12
+3/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:38:15
+3/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:26
+3/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:26
+3/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:6
+3/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:6
+1	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:30
+1	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:34
+1	up:#1	up	note	d	0	4	1	0	3	1	3/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:68:10
+1	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:68:18
+1	down:#2	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:11
+1	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:18
+1	down:#3	down	note	d	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:12
+1	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:19
+1	lyrics:#0	up:chant	lyric	tur	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:38:18
+1	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:30
+1	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:30
+1	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:68:10
+1	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:68:10
+1	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:11
+1	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:11
+1	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:12
+1	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:12
+5/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:36
+5/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:41
+5/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:36
+5/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:36
+3/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:43
+3/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:47
+3/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:38:22
+3/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:43
+3/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:43
+7/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:49
+7/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:49
+7/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:49
+2	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:53
+2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:56
+2	up:chant	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:58
+2	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:20
+2	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:21
+2	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:24
+2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:53
+2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:53
+2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:20
+2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:20
+2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:21
+2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:21
+9/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:60
+9/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:64
+9/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:60
+9/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:60
+5/2	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:66
+5/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:69
+5/2	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:68:20
+5/2	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:68:24
+5/2	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:23
+5/2	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:28
+5/2	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:26
+5/2	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:29
+5/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:66
+5/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:48:66
+5/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:68:20
+5/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:68:20
+5/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:23
+5/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:82:23
+5/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:26
+5/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:95:26
+11/4	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:1
+11/4	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:0
+11/4	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:0
+11/4	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:0
+11/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:38:24
+11/4	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+11/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:1
+11/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:1
+11/4	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+11/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:0
+11/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:0
+11/4	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+11/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:0
+11/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:0
+11/4	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+11/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:0
+11/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:0
+3	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:5
+3	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:9
+3	up:#1	up	note	f	1	4	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:4
+3	down:#2	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:5
+3	down:#3	down	note	b	0	2	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:3
+3	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:11
+3	lyrics:#0	up:chant	lyric	o	 * 	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:39:20
+3	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:39:22
+3	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:5
+3	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:5
+3	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:4
+3	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:4
+3	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:5
+3	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:5
+3	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:3
+3	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:3
+13/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:11
+13/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:11
+13/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:11
+7/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:15
+7/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:15
+7/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:15
+15/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:21
+15/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:24
+15/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:21
+15/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:21
+4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:26
+4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:30
+4	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:14
+4	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:18
+4	down:#2	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:12
+4	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:13
+4	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:17
+4	lyrics:#0	up:chant	lyric	rá	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:39:25
+4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:39:28
+4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:26
+4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:26
+4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:14
+4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:14
+4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:12
+4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:12
+4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:13
+4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:13
+17/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:32
+17/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:35
+17/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:32
+17/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:32
+9/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:37
+9/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:41
+9/2	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:20
+9/2	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:17
+9/2	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:24
+9/2	down:#3	down	note	b	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:19
+9/2	lyrics:#0	up:chant	lyric	ti	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:39:31
+9/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:39:34
+9/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:37
+9/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:37
+9/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:20
+9/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:20
+9/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:17
+9/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:17
+9/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:19
+9/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:19
+19/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:43
+19/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:43
+19/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:43
+5	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:47
+5	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:50
+5	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:47
+5	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:47
+21/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:52
+21/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:56
+21/4	up:#1	up	note	e	0	4	1	0	3	1	3/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:28
+21/4	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:36
+21/4	down:#2	down	note	g	0	3	1	0	3	1	3/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:26
+21/4	down:#3	down	note	c	0	3	1	0	3	1	3/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:27
+21/4	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:34
+21/4	lyrics:#0	up:chant	lyric	o	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:39:37
+21/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:52
+21/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:52
+21/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:28
+21/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:28
+21/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:26
+21/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:26
+21/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:27
+21/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:27
+11/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:58
+11/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:58
+11/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:58
+23/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:62
+23/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:62
+23/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:62
+6	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:67
+6	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:67
+6	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:67
+25/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:71
+25/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:71
+25/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:71
+13/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:75
+13/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:78
+13/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:75
+13/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:75
+27/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:80
+27/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:84
+27/4	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:38
+27/4	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:42
+27/4	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:33
+27/4	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:36
+27/4	lyrics:#0	up:chant	lyric	me	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:39:39
+27/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:39:42
+27/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:80
+27/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:80
+27/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:38
+27/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:38
+27/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:33
+27/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:33
+27/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:36
+27/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:36
+7	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:86
+7	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:86
+7	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:49:86
+29/4	-	-	break	data/typeset/include/noh2.ily:75:24
+29/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:50:0
+29/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:50:2
+29/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:50:7
+29/4	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:44
+29/4	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:48
+29/4	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:36
+29/4	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:39
+29/4	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:39
+29/4	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:42
+29/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:50:2
+29/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:50:2
+29/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:44
+29/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:69:44
+29/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:36
+29/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:83:36
+29/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:39
+29/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:96:39
+15/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:50:9
+15/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:50:12
+15/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:50:9
+15/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:50:9
+31/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:1
+31/4	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:0
+31/4	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:4
+31/4	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:0
+31/4	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:0
+31/4	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:3
+31/4	lyrics:#0	up:chant	lyric	a	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:39:45
+31/4	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+31/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:1
+31/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:1
+31/4	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+31/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:0
+31/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:0
+31/4	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+31/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:0
+31/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:0
+31/4	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+31/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:0
+31/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:0
+8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:5
+8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:39:47
+8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:5
+8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:5
+33/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:9
+33/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:13
+33/4	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:6
+33/4	down:#2	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:3
+33/4	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:8
+33/4	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:5
+33/4	lyrics:#0	up:chant	lyric	sic	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:0
+33/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:4
+33/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:9
+33/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:9
+33/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:6
+33/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:6
+33/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:3
+33/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:3
+33/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:5
+33/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:5
+17/2	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:15
+17/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:48
+17/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:15
+17/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:15
+35/4	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:50
+35/4	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:10
+35/4	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:14
+35/4	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:10
+35/4	down:#3	down	note	b	0	2	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:8
+35/4	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:12
+35/4	lyrics:#0	up:chant	lyric	ut	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:7
+35/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:50
+35/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:50
+35/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:10
+35/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:10
+35/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:10
+35/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:10
+35/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:8
+35/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:8
+9	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:55
+9	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:60
+9	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:16
+9	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:20
+9	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:15
+9	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:14
+9	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:18
+9	lyrics:#0	up:chant	lyric	in	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:10
+9	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:13
+9	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:55
+9	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:55
+9	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:16
+9	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:16
+9	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:15
+9	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:15
+9	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:14
+9	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:14
+37/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:62
+37/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:65
+37/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:62
+37/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:62
+19/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:67
+19/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:71
+19/2	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:22
+19/2	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:26
+19/2	down:#2	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:18
+19/2	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:20
+19/2	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:24
+19/2	lyrics:#0	up:chant	lyric	cén	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:16
+19/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:20
+19/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:67
+19/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:67
+19/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:22
+19/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:70:22
+19/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:18
+19/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:84:18
+19/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:20
+19/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:97:20
+39/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:73
+39/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:76
+39/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:73
+39/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:51:73
+10	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:1
+10	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:0
+10	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:0
+10	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:3
+10	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:0
+10	lyrics:#0	up:chant	lyric	sum	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:23
+10	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+10	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:1
+10	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:1
+10	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+10	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:0
+10	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:0
+10	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+10	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:0
+10	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:0
+10	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+10	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:0
+10	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:0
+41/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:5
+41/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:27
+41/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:5
+41/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:5
+21/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:9
+21/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:13
+21/2	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:4
+21/2	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:12
+21/2	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:5
+21/2	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:12
+21/2	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:4
+21/2	lyrics:#0	up:chant	lyric	in	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:29
+21/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:9
+21/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:9
+21/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:4
+21/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:4
+21/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:5
+21/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:5
+21/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:4
+21/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:4
+43/4	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:15
+43/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:19
+43/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:15
+43/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:15
+11	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:21
+11	lyrics:#0	up:chant	lyric	con	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:32
+11	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:36
+11	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:21
+11	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:21
+45/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:26
+45/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:30
+45/4	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:14
+45/4	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:14
+45/4	down:#3	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:11
+45/4	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:18
+45/4	lyrics:#0	up:chant	lyric	spé	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:39
+45/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:43
+45/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:26
+45/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:26
+45/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:14
+45/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:14
+45/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:14
+45/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:14
+45/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:11
+45/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:11
+23/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:32
+23/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:32
+23/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:32
+47/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:36
+47/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:39
+47/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:36
+47/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:36
+12	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:41
+12	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:45
+12	up:#1	up	note	f	1	4	1	0	5	4	5/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:22
+12	down:#2	down	note	c	0	4	1	0	5	4	5/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:21
+12	down:#3	down	note	e	0	3	1	0	5	4	5/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:20
+12	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:27
+12	lyrics:#0	up:chant	lyric	ctu	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:46
+12	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:41
+12	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:41
+12	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:22
+12	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:22
+12	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:21
+12	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:21
+12	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:20
+12	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:20
+49/4	up:chant	up	note	f	1	4	2	1	1	1	3/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:47
+49/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:53
+49/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:47
+49/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:47
+101/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:55
+101/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:59
+101/8	up:#1	up	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:32
+101/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:40
+101/8	down:#2	down	note	b	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:29
+101/8	down:#3	down	note	e	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:29
+101/8	lyrics:#0	up:chant	lyric	tu	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:50
+101/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:53
+101/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:55
+101/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:55
+101/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:32
+101/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:32
+101/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:29
+101/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:29
+101/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:29
+101/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:29
+103/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:61
+103/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:61
+103/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:61
+105/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:65
+105/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:68
+105/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:65
+105/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:65
+107/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:70
+107/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:74
+107/8	lyrics:#0	up:chant	lyric	o,	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:56
+107/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:70
+107/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:70
+109/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:76
+109/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:79
+109/8	up:chant	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:81
+109/8	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:42
+109/8	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:36
+109/8	down:#3	down	note	f	1	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:36
+109/8	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:45
+109/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:76
+109/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:76
+109/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:42
+109/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:42
+109/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:36
+109/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:85:36
+109/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:36
+109/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:98:36
+111/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:83
+111/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:87
+111/8	up:#1	up	rest	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:46
+111/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:83
+111/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:83
+111/8	up:#1	up	rhead	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:46
+111/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:71:46
+113/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:89
+113/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:92
+113/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:89
+113/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:52:89
+115/8	-	-	break	data/typeset/include/noh2.ily:75:24
+115/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:1
+115/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:5
+115/8	up:#1	up	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:0
+115/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:7
+115/8	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:0
+115/8	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:7
+115/8	down:#3	down	note	f	1	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:0
+115/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:59
+115/8	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+115/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:1
+115/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:1
+115/8	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+115/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:0
+115/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:0
+115/8	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+115/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:0
+115/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:0
+115/8	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+115/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:0
+115/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:0
+117/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:7
+117/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:7
+117/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:7
+119/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:11
+119/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:14
+119/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:11
+119/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:11
+121/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:16
+121/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:20
+121/8	up:#1	up	note	b	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:9
+121/8	down:#2	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:9
+121/8	down:#3	down	note	e	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:9
+121/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:61
+121/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:16
+121/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:16
+121/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:9
+121/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:9
+121/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:9
+121/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:9
+121/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:9
+121/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:9
+123/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:22
+123/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:22
+123/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:22
+125/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:28
+125/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:31
+125/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:28
+125/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:28
+127/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:33
+127/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:40:63
+127/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:33
+127/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:33
+129/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:39
+129/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:43
+129/8	up:#1	up	note	d	0	4	1	0	5	2	5/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:16
+129/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:24
+129/8	down:#2	down	note	f	1	3	1	0	5	2	5/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:16
+129/8	down:#3	down	note	b	0	2	1	0	5	2	5/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:16
+129/8	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:24
+129/8	lyrics:#0	up:chant	lyric	Dó	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:41:0
+129/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:41:3
+129/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:39
+129/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:39
+129/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:16
+129/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:16
+129/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:16
+129/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:16
+129/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:16
+129/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:16
+131/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:45
+131/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:45
+131/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:45
+133/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:51
+133/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:51
+133/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:51
+135/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:55
+135/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:55
+135/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:55
+137/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:59
+137/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:59
+137/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:59
+139/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:63
+139/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:66
+139/8	up:chant	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:68
+139/8	up:#1	up	note	d	0	4	1	0	7	4	7/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:26
+139/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:34
+139/8	down:#2	down	note	g	0	3	1	0	7	4	7/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:25
+139/8	down:#3	down	note	b	0	2	1	0	7	4	7/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:26
+139/8	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:34
+139/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:63
+139/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:63
+139/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:26
+139/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:26
+139/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:25
+139/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:25
+139/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:26
+139/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:26
+141/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:70
+141/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:74
+141/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:70
+141/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:70
+143/8	up:chant	up	note	f	1	4	2	1	1	1	3/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:76
+143/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:82
+143/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:76
+143/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:76
+73/4	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:84
+73/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:88
+73/4	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:36
+73/4	down:#2	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:32
+73/4	down:#3	down	note	b	0	2	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:36
+73/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:41:6
+73/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:84
+73/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:84
+73/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:36
+73/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:36
+73/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:32
+73/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:32
+73/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:36
+73/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:36
+37/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:90
+37/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:90
+37/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:90
+75/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:96
+75/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:99
+75/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:96
+75/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:96
+19	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:101
+19	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:107
+19	lyrics:#0	up:chant	lyric	mi	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:41:8
+19	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:41:11
+19	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:101
+19	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:101
+77/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:109
+77/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:112
+77/4	up:chant	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:114
+77/4	up:#1	up	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:44
+77/4	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:47
+77/4	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:39
+77/4	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:44
+77/4	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:47
+77/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:109
+77/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:109
+77/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:44
+77/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:44
+77/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:39
+77/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:39
+77/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:44
+77/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:44
+39/2	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:116
+39/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:120
+39/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:116
+39/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:116
+79/4	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:122
+79/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:125
+79/4	up:#1	up	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:49
+79/4	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:42
+79/4	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:49
+79/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:122
+79/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:54:122
+79/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:49
+79/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:72:49
+79/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:42
+79/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:86:42
+79/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:49
+79/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:99:49
+20	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:1
+20	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:0
+20	down:#2	down	rest	45/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:0
+20	down:#3	down	rest	31/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:100:0
+20	lyrics:#0	up:chant	lyric	ne.	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:41:14
+20	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+20	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:1
+20	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:1
+20	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+20	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:0
+20	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:0
+20	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+20	down:#2	down	rhead	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:0
+20	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:0
+20	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2
+20	down:#3	down	rhead	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:100:0
+20	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:100:0
+81/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:5
+81/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:41:18
+81/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:5
+81/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:5
+41/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:9
+41/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:13
+41/2	up:#1	up	note	a	0	4	1	0	5	4	5/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:5
+41/2	up:#1	up	note	f	0	4	1	0	5	4	5/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:8
+41/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:41:20
+41/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:9
+41/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:9
+41/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:5
+41/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:8
+41/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:5
+41/2	up:#1	up	acc	natural	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:8
+83/4	up:chant	up	note	d	0	5	2	1	1	1	3/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:15
+83/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:20
+83/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:15
+83/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:15
+169/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:22
+169/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:27
+169/8	up:#1	up	note	a	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:18
+169/8	up:#1	up	note	g	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:21
+169/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:41:22
+169/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:22
+169/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:22
+169/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:18
+169/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:21
+169/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:18
+171/8	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:29
+171/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:33
+171/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:29
+171/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:29
+173/8	up:chant	up	note	e	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:35
+173/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:40
+173/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:41:24
+173/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:35
+173/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:35
+175/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:42
+175/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:42
+175/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:55:42
+177/8	-	-	break	data/typeset/include/noh2.ily:75:24
+177/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:0
+177/8	up:chant	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:2
+177/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:4
+177/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:9
+177/8	up:#1	up	note	a	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:31
+177/8	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:34
+177/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:37
+177/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:4
+177/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:4
+177/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:31
+177/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:34
+177/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:37
+177/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:31
+179/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:11
+179/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:15
+179/8	up:chant	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:17
+179/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:11
+179/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:11
+181/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:19
+181/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:24
+181/8	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:43
+181/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:46
+181/8	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:49
+181/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:19
+181/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:19
+181/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:43
+181/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:46
+181/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:49
+181/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:43
+183/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:26
+183/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:26
+183/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:26
+185/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:30
+185/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:33
+185/8	up:chant	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:35
+185/8	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:55
+185/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:58
+185/8	up:#1	up	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:61
+185/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:30
+185/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:30
+185/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:55
+185/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:58
+185/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:61
+185/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:73:55
+187/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:37
+187/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:41
+187/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:37
+187/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:37
+189/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:43
+189/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:46
+189/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:43
+189/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:56:43
+191/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:1
+191/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:5
+191/8	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:1
+191/8	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:4
+191/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:13
+191/8	down:#3	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:0
+191/8	lyrics:#0	up:chant	lyric	℣.	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:41:26
+191/8	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+191/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:1
+191/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:1
+191/8	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+191/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:1
+191/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:4
+191/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:1
+191/8	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+191/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:0
+191/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:0
+193/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:7
+193/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:7
+193/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:7
+195/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:11
+195/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:14
+195/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:11
+195/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:11
+197/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:16
+197/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:20
+197/8	up:#1	up	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:16
+197/8	up:#1	up	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:19
+197/8	down:#3	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:7
+197/8	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:14
+197/8	lyrics:#0	up:chant	lyric	E	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:0
+197/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:2
+197/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:16
+197/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:16
+197/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:16
+197/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:19
+197/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:16
+197/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:7
+197/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:7
+199/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:22
+199/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:22
+199/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:22
+201/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:26
+201/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:29
+201/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:26
+201/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:26
+203/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:31
+203/8	lyrics:#0	up:chant	lyric	le	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:5
+203/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:8
+203/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:31
+203/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:31
+205/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:35
+205/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:39
+205/8	up:#1	up	note	d	0	4	1	0	5	4	5/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:28
+205/8	down:#2	down	note	b	0	3	1	0	5	4	5/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:8
+205/8	down:#3	down	note	a	0	3	1	0	5	4	5/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:16
+205/8	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:23
+205/8	lyrics:#0	up:chant	lyric	vá	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:11
+205/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:14
+205/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:35
+205/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:35
+205/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:28
+205/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:28
+205/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:8
+205/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:8
+205/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:16
+205/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:16
+207/8	up:chant	up	note	g	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:41
+207/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:45
+207/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:41
+207/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:41
+105/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:47
+105/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:51
+105/4	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:36
+105/4	down:#2	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:15
+105/4	down:#3	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:25
+105/4	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:32
+105/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:17
+105/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:47
+105/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:47
+105/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:36
+105/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:36
+105/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:15
+105/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:15
+105/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:25
+105/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:25
+53/2	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:53
+53/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:53
+53/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:53
+107/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:58
+107/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:61
+107/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:58
+107/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:58
+27	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:63
+27	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:68
+27	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:44
+27	down:#2	down	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:23
+27	down:#3	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:34
+27	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:19
+27	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:63
+27	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:63
+27	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:44
+27	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:44
+27	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:23
+27	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:23
+27	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:34
+27	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:34
+109/4	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:70
+109/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:70
+109/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:70
+55/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:75
+55/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:78
+55/2	up:chant	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:80
+55/2	up:#1	up	note	f	1	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:48
+55/2	down:#2	down	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:27
+55/2	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:35
+55/2	down:#3	down	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:37
+55/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:75
+55/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:75
+55/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:48
+55/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:74:48
+55/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:27
+55/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:87:27
+55/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:37
+55/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:101:37
+111/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:82
+111/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:86
+111/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:82
+111/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:82
+28	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:88
+28	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:91
+28	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:88
+28	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:57:88
+113/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:1
+113/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:5
+113/4	up:#1	up	note	a	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:0
+113/4	down:#2	down	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:0
+113/4	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:4
+113/4	down:#3	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:0
+113/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:21
+113/4	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+113/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:1
+113/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:1
+113/4	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+113/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:0
+113/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:0
+113/4	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+113/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:0
+113/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:0
+113/4	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+113/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:0
+113/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:0
+57/2	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:7
+57/2	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:11
+57/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:7
+57/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:7
+115/4	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:13
+115/4	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:4
+115/4	down:#2	down	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:6
+115/4	down:#3	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:4
+115/4	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:7
+115/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:23
+115/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:13
+115/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:13
+115/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:4
+115/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:4
+115/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:6
+115/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:6
+115/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:4
+115/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:4
+29	up:chant	up	note	e	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:18
+29	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:25
+29	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:18
+29	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:18
+117/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:23
+117/4	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:8
+117/4	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:12
+117/4	down:#2	down	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:10
+117/4	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:14
+117/4	down:#3	down	note	b	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:9
+117/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:27
+117/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:23
+117/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:58:23
+117/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:8
+117/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:8
+117/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:10
+117/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:10
+117/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:9
+117/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:9
+59/2	-	-	break	data/typeset/include/noh2.ily:75:24
+59/2	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:1
+59/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:6
+59/2	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:14
+59/2	down:#2	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:16
+59/2	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:24
+59/2	down:#3	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:12
+59/2	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:19
+59/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:29
+59/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:1
+59/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:1
+59/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:14
+59/2	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:14
+59/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:16
+59/2	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:16
+59/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:12
+59/2	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:12
+119/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:8
+119/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:11
+119/4	up:chant	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:13
+119/4	up:#1	up	note	f	1	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:18
+119/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:8
+119/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:8
+119/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:18
+119/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:18
+30	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:15
+30	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:19
+30	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:15
+30	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:15
+121/4	up:chant	up	note	f	1	4	2	1	1	1	3/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:21
+121/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:27
+121/4	up:#1	up	note	e	0	4	1	0	3	4	3/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:24
+121/4	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:32
+121/4	down:#2	down	note	c	0	4	1	0	3	4	3/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:26
+121/4	down:#3	down	note	a	0	3	1	0	3	4	3/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:21
+121/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:21
+121/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:21
+121/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:24
+121/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:24
+121/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:26
+121/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:26
+121/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:21
+121/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:21
+245/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:29
+245/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:33
+245/8	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:34
+245/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:42
+245/8	down:#2	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:34
+245/8	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:41
+245/8	down:#3	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:28
+245/8	lyrics:#0	up:chant	lyric	ti	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:31
+245/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:34
+245/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:29
+245/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:29
+245/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:34
+245/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:34
+245/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:34
+245/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:34
+245/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:28
+245/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:28
+247/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:35
+247/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:35
+247/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:35
+249/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:39
+249/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:39
+249/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:39
+251/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:43
+251/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:46
+251/8	up:chant	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:48
+251/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:44
+251/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:48
+251/8	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:43
+251/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:35
+251/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:43
+251/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:43
+251/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:44
+251/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:44
+251/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:43
+251/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:43
+251/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:35
+251/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:35
+253/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:50
+253/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:54
+253/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:50
+253/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:50
+255/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:56
+255/8	up:#1	up	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:50
+255/8	down:#2	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:46
+255/8	down:#3	down	note	c	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:38
+255/8	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:45
+255/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:56
+255/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:56
+255/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:50
+255/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:50
+255/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:46
+255/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:46
+255/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:38
+255/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:38
+257/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:60
+257/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:60
+257/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:60
+257/8	up:chant	up	art	prall	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:64
+259/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:71
+259/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:71
+259/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:71
+261/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:75
+261/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:75
+261/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:75
+263/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:81
+263/8	up:#1	up	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:58
+263/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:65
+263/8	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:53
+263/8	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:60
+263/8	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:47
+263/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:81
+263/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:81
+263/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:58
+263/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:58
+263/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:53
+263/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:53
+263/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:47
+263/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:47
+265/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:85
+265/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:85
+265/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:85
+267/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:89
+267/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:92
+267/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:89
+267/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:89
+269/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:94
+269/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:98
+269/8	up:#1	up	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:67
+269/8	down:#2	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:62
+269/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:54
+269/8	lyrics:#0	up:chant	lyric	o	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:37
+269/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:94
+269/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:94
+269/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:67
+269/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:75:67
+269/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:62
+269/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:62
+269/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:54
+269/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:102:54
+271/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:100
+271/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:103
+271/8	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:65
+271/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:100
+271/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:59:100
+271/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:65
+271/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:88:65
+273/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:1
+273/8	up:#1	up	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:0
+273/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:3
+273/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:0
+273/8	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:3
+273/8	down:#3	down	rest	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:0
+273/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:39
+273/8	up:chant	up	div	maxima	data/typeset/include/noh2.ily:30:2
+273/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:1
+273/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:1
+273/8	up:#1	up	div	maxima	data/typeset/include/noh2.ily:30:2
+273/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:0
+273/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:0
+273/8	down:#2	down	div	maxima	data/typeset/include/noh2.ily:30:2
+273/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:0
+273/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:0
+273/8	down:#3	down	div	maxima	data/typeset/include/noh2.ily:30:2
+273/8	down:#3	down	rhead	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:0
+273/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:0
+275/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:5
+275/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:41
+275/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:5
+275/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:5
+277/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:9
+277/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:13
+277/8	up:#1	up	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:5
+277/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:12
+277/8	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:5
+277/8	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:12
+277/8	down:#3	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:3
+277/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:42:43
+277/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:9
+277/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:9
+277/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:5
+277/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:5
+277/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:5
+277/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:5
+277/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:3
+277/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:3
+279/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:15
+279/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:15
+279/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:15
+281/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:19
+281/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:22
+281/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:19
+281/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:19
+283/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:24
+283/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:28
+283/8	up:#1	up	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:14
+283/8	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:14
+283/8	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:21
+283/8	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:10
+283/8	lyrics:#0	up:chant	lyric	má	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:43:0
+283/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:43:3
+283/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:24
+283/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:24
+283/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:14
+283/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:14
+283/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:14
+283/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:14
+283/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:10
+283/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:10
+285/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:30
+285/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:30
+285/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:30
+287/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:34
+287/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:37
+287/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:34
+287/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:34
+289/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:39
+289/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:43
+289/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:21
+289/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:25
+289/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:23
+289/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:17
+289/8	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:20
+289/8	lyrics:#0	up:chant	lyric	nu	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:43:6
+289/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:43:9
+289/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:39
+289/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:39
+289/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:21
+289/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:21
+289/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:23
+289/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:23
+289/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:17
+289/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:17
+291/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:45
+291/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:48
+291/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:45
+291/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:45
+293/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:50
+293/8	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:27
+293/8	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:26
+293/8	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:31
+293/8	down:#3	down	note	c	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:22
+293/8	lyrics:#0	up:chant	lyric	um	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:43:12
+293/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:50
+293/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:60:50
+293/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:27
+293/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:76:27
+293/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:26
+293/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:89:26
+293/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:22
+293/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:103:22
+295/8	-	-	break	data/typeset/include/noh2.ily:75:24
+295/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:1
+295/8	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:0
+295/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:4
+295/8	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:0
+295/8	down:#3	down	note	b	0	2	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:0
+295/8	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:4
+295/8	lyrics:#0	up:chant	lyric	me	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:43:15
+295/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:43:18
+295/8	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+295/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:1
+295/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:1
+295/8	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+295/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:0
+295/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:0
+295/8	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+295/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:0
+295/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:0
+295/8	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+295/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:0
+295/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:0
+297/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:5
+297/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:9
+297/8	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:6
+297/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:5
+297/8	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:8
+297/8	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:6
+297/8	lyrics:#0	up:chant	lyric	á	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:43:21
+297/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:43:23
+297/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:5
+297/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:5
+297/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:6
+297/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:6
+297/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:5
+297/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:5
+297/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:6
+297/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:6
+299/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:11
+299/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:14
+299/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:11
+299/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:11
+301/8	up:chant	up	note	g	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:16
+301/8	up:#1	up	note	c	0	4	1	0	3	4	3/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:10
+301/8	down:#2	down	note	g	0	3	1	0	3	4	3/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:10
+301/8	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:17
+301/8	down:#3	down	note	a	0	2	1	0	3	4	3/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:10
+301/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:43:26
+301/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:16
+301/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:16
+301/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:10
+301/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:10
+301/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:10
+301/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:10
+301/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:10
+301/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:10
+38	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:21
+38	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:27
+38	up:#1	up	note	d	0	4	1	0	5	2	5/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:18
+38	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:26
+38	down:#2	down	note	g	0	3	1	0	5	2	5/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:19
+38	down:#3	down	note	b	0	2	1	0	5	2	5/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:18
+38	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:26
+38	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:43:28
+38	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:21
+38	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:21
+38	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:18
+38	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:18
+38	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:19
+38	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:19
+38	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:18
+38	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:18
+153/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:29
+153/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:32
+153/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:29
+153/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:29
+77/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:34
+77/2	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:38
+77/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:43:30
+77/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:34
+77/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:34
+155/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:40
+155/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:40
+155/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:40
+39	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:44
+39	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:47
+39	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:44
+39	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:44
+157/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:49
+157/4	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:53
+157/4	up:#1	up	note	d	0	4	1	0	7	4	7/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:28
+157/4	down:#2	down	note	f	1	3	1	0	7	4	7/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:26
+157/4	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:35
+157/4	down:#3	down	note	b	0	2	1	0	7	4	7/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:28
+157/4	lyrics:#0	up:chant	lyric	rum	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:43:32
+157/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:49
+157/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:49
+157/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:28
+157/4	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:28
+157/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:26
+157/4	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:26
+157/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:28
+157/4	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:28
+79/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:55
+79/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:55
+79/2	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:55
+159/4	up:chant	up	note	f	1	4	2	1	1	1	3/8	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:59
+159/4	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:65
+159/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:59
+159/4	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:59
+321/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:67
+321/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:71
+321/8	up:#1	up	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:36
+321/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:44
+321/8	down:#2	down	note	f	1	3	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:37
+321/8	down:#3	down	note	c	0	3	1	0	2	1	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:36
+321/8	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:43
+321/8	lyrics:#0	up:chant	lyric	sa	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:44:0
+321/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:44:3
+321/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:67
+321/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:67
+321/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:36
+321/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:36
+321/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:37
+321/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:37
+321/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:36
+321/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:36
+323/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:73
+323/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:73
+323/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:73
+325/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:78
+325/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:78
+325/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:78
+327/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:82
+327/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:85
+327/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:82
+327/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:82
+329/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:87
+329/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:92
+329/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:46
+329/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:50
+329/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:46
+329/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:45
+329/8	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:48
+329/8	lyrics:#0	up:chant	lyric	cri	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:44:6
+329/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:44:10
+329/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:87
+329/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:87
+329/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:46
+329/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:46
+329/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:46
+329/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:46
+329/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:45
+329/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:45
+331/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:94
+331/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:94
+331/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:94
+333/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:98
+333/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:101
+333/8	up:chant	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:103
+333/8	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:52
+333/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:60
+333/8	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:49
+333/8	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:50
+333/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:98
+333/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:98
+333/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:52
+333/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:77:52
+333/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:49
+333/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:90:49
+333/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:50
+333/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:104:50
+335/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:105
+335/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:109
+335/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:105
+335/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:105
+337/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:111
+337/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:116
+337/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:111
+337/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:62:111
+339/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:1
+339/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:5
+339/8	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:0
+339/8	down:#2	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:0
+339/8	down:#3	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:0
+339/8	lyrics:#0	up:chant	lyric	fí	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:44:13
+339/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:44:16
+339/8	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+339/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:1
+339/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:1
+339/8	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+339/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:0
+339/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:0
+339/8	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+339/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:0
+339/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:0
+339/8	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+339/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:0
+339/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:0
+341/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:7
+341/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:7
+341/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:7
+343/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:11
+343/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:16
+343/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:11
+343/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:11
+345/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:18
+345/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:22
+345/8	up:#1	up	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:8
+345/8	down:#2	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:7
+345/8	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:7
+345/8	lyrics:#0	up:chant	lyric	ci	-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:44:19
+345/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:44:22
+345/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:18
+345/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:18
+345/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:8
+345/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:8
+345/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:7
+345/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:7
+345/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:7
+345/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:7
+347/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:24
+347/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:24
+347/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:24
+349/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:28
+349/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:31
+349/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:28
+349/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:28
+351/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:33
+351/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:37
+351/8	up:#1	up	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:15
+351/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:18
+351/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:14
+351/8	down:#2	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:17
+351/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:14
+351/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:44:25
+351/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:33
+351/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:33
+351/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:15
+351/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:15
+351/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:14
+351/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:14
+351/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:14
+351/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:14
+353/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:39
+353/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:39
+353/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:39
+355/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:45
+355/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:48
+355/8	up:chant	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:50
+355/8	up:#1	up	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:20
+355/8	up:#1	up	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:23
+355/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:19
+355/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:17
+355/8	down:#3	down	tie	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:20
+355/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:45
+355/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:45
+355/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:20
+355/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:20
+355/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:19
+355/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:19
+355/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:17
+355/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:17
+357/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:52
+357/8	up:chant	up	slur	-1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:56
+357/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:52
+357/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:52
+359/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:58
+359/8	up:chant	up	slur	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:61
+359/8	up:#1	up	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:25
+359/8	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:22
+359/8	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:22
+359/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:58
+359/8	up:chant	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:63:58
+359/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:25
+359/8	up:#1	up	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:78:25
+359/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:22
+359/8	down:#2	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:91:22
+359/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:22
+359/8	down:#3	down	stem	1	data/typeset/src/vol-1/gr_dirigatur_oratio_mea.csv.ly:105:22
+361/8	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+361/8	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+361/8	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+361/8	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2

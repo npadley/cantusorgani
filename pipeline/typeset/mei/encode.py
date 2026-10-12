@@ -344,30 +344,18 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
     # --- per-event decoration ------------------------------------------------------------------
     hidden_rests = {eid for use in ir.features if use.family == "hidden-rest" for eid in use.event_ids}
 
-    tie_from_previous: set[str] = set()
+    # Extraction resolves simultaneous chord pitches and rejects unmatched attacks. Reusing
+    # those spans prevents the encoder from inventing ties to an adjacent, different pitch.
     tie_target: dict[str, Event] = {}
-    last_in_layer: dict[str, Event] = {}
-    for event in ir.events:
-        previous = last_in_layer.get(event.layer_id)
-        if previous is not None and previous.tie_to_next:
-            if event.kind == "note":
-                tie_from_previous.add(event.id)
-                tie_target[previous.id] = event
-            else:
-                diagnostics.append(
-                    _diagnostic(
-                        "tie runs into a rest or skip",
-                        "dangling-tie",
-                        location=previous.location,
-                        event_ids=(previous.id,),
-                    )
-                )
-        last_in_layer[event.layer_id] = event
-    for event in last_in_layer.values():
-        if event.tie_to_next:
-            diagnostics.append(
-                _diagnostic("tie has no following note", "dangling-tie", location=event.location, event_ids=(event.id,))
-            )
+    for span in ir.spans:
+        if span.kind != "tie":
+            continue
+        start = event_by_id.get(span.start_event_id)
+        end = event_by_id.get(span.end_event_id)
+        if start is None or end is None:
+            diagnostics.append(_diagnostic("tie refers to an unknown event", "span-unknown-event"))
+            continue
+        tie_target[start.id] = end
 
     contexts: list[str] = []
     for syllable in ir.lyrics:
@@ -549,6 +537,14 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                     {"xml:id": "q" + mei_of[event.id], "startid": "#" + mei_of[event.id], "form": "upper"},
                 )
             )
+
+    for index, ornament in enumerate(ir.ornaments):
+        event = event_by_id[ornament.event_id]
+        controls[measure_of(event.onset)].append(_Node("mordent", {
+            "xml:id": f"o{index:04d}", "type": ornament.kind, "form": "upper",
+            "startid": "#" + mei_of[event.id], "staff": str(staff_index[event.staff_id]),
+            "place": ornament.place,
+        }))
 
     division_layers: dict[Fraction, list[str]] = {}
     for division in ir.divisions:

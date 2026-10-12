@@ -160,6 +160,11 @@ def compare_scores(source: NormalizedScore, converted: NormalizedScore) -> list[
             detail = f"{label} {kind} span {start} -> {end}"
             out.append(located(code, detail, (start, end)))
 
+    missing_o, extra_o = _both_ways(source.ornaments, converted.ornaments)
+    for label, ornaments in (("missing", missing_o), ("extra", extra_o)):
+        for kind, form, anchor, staff, place in ornaments:
+            out.append(located("ORNAMENT_MISMATCH", f"{label} {kind} ({form}, staff {staff}, {place}) on {anchor}", (anchor,)))
+
     missing_div, extra_div = _both_ways(source.divisions, converted.divisions)
     for label, divisions in (("missing", missing_div), ("extra", extra_div)):
         for kind, onset in divisions:  # type: ignore[misc]

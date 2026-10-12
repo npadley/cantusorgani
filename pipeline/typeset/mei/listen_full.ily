@@ -235,7 +235,21 @@
   \context {
     \Voice
     \consists #(lambda (context)
+      (let ((scripts '()))
       (make-engraver
+        ;; Wait until the timestep's acknowledgers have linked the Script to its
+        ;; stem. This resolves neutral direction and Voice/Script overrides.
+        ((stop-translation-timestep engraver)
+           (for-each
+             (lambda (grob)
+               (let* ((event (lf-cause grob))
+                      (kind (ly:event-property event 'articulation-type))
+                      (dir (ly:grob-property grob 'direction)))
+                 (lf-emit (lf-now context) (lf-layer context) (lf-staff-of context) "art"
+                          (if (symbol? kind) (symbol->string kind) "-")
+                          (if (number? dir) dir 0) (lf-loc event))))
+             (reverse scripts))
+           (set! scripts '()))
         (listeners
           ((note-event engraver event)
              (let* ((p (ly:event-property event 'pitch))
@@ -244,6 +258,13 @@
                     (layer (lf-layer context)))
                (hashq-set! lf-event-layer event layer)
                (lf-column context layer event)
+               ;; A tie on one chord member is carried inside the note event,
+               ;; not broadcast to the tie-event listener. Keep its note location.
+               (for-each
+                 (lambda (art)
+                   (if (ly:in-event-class? art 'tie-event)
+                       (lf-emit (lf-now context) layer (lf-staff-of context) "ntie" (lf-loc event))))
+                 (ly:event-property event 'articulations '()))
                (lf-emit (lf-now context) layer (lf-staff-of context) "note"
                         (vector-ref lf-steps (ly:pitch-notename p))
                         (* 2 (ly:pitch-alteration p))
@@ -268,6 +289,10 @@
           ((glissando-event engraver event)
              (lf-emit (lf-now context) (lf-layer context) (lf-staff-of context) "gliss" (lf-loc event))))
         (acknowledgers
+          ;; Also sees note-local chord articulations that never broadcast an
+          ;; articulation-event. Extraction conservatively flags ambiguous chords.
+          ((script-interface engraver grob source-engraver)
+             (set! scripts (cons grob scripts)))
           ((note-head-interface engraver grob source-engraver)
              (let ((event (lf-cause grob)))
                (lf-emit (lf-now context) (lf-layer context) (lf-staff-of context) "head"
@@ -285,7 +310,7 @@
           ((breathing-sign-interface engraver grob source-engraver)
              (lf-emit (lf-now context) (lf-layer context) (lf-staff-of context) "div"
                       (lf-division-kind (ly:grob-property-data grob 'stencil))
-                      (lf-loc (lf-cause grob)))))))
+                      (lf-loc (lf-cause grob))))))))
   }
   \context {
     \Lyrics

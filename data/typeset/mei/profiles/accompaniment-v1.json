@@ -1,6 +1,6 @@
 {
   "id": "accompaniment-v1",
-  "version": 2,
+  "version": 3,
   "meiVersion": "5.0",
   "lyricPlace": "above",
   "containerPolicy": "common-onset",
@@ -99,6 +99,11 @@
       "family": "quilisma",
       "status": "supported",
       "mei": "hidden notehead plus <mordent form=\"upper\"> over it (drawn as a path); the Leipzig-text <dir><symbol U+E56C> route is rejected by the SVG sanitizer and vector PDF (B2/B5, D16). Visual approximation reviewed in A5d."
+    },
+    {
+      "family": "prall",
+      "status": "supported",
+      "mei": "<mordent form=\"upper\" type=\"prall\" startid=\"#note\" staff=\"n\" place=\"above|below\">"
     },
     {
       "family": "key-change",

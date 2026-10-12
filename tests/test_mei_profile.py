@@ -23,16 +23,16 @@ def _write_variant(tmp_path: Path, mutate) -> Path:
     return path
 
 
-def test_load_checked_in_profile_returns_23_rules_in_family_order():
+def test_load_checked_in_profile_returns_rules_in_family_order():
     profile = ConversionProfile.load(PROFILE_PATH)
 
     assert profile.id == "accompaniment-v1"
-    assert profile.version == 2  # A5g: ordinary-glissando added
+    assert profile.version == 3  # P1: prall added
     assert profile.mei_version == "5.0"
     assert profile.lyric_place == "above"
     assert profile.container_policy == "common-onset"
     assert isinstance(profile.rules, tuple)
-    assert len(profile.rules) == 23
+    assert len(profile.rules) == len(FEATURE_FAMILIES)
     assert tuple(rule.family for rule in profile.rules) == FEATURE_FAMILIES
 
 
