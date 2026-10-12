@@ -1,0 +1,67 @@
+{
+  "artifact_sha256": "57b382041b5f0fa37429e69ad9924c0ee6d68a2ad5f42b89dcc632186e4a27a7",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T17:20:18Z"
+  },
+  "diagnostics": [],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "c9c181e0d7ec9f05c95cd7c4fbe6ff0ef94d780131d2c8a5ceca40c1e03c5f49",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "7020342cfb5eaa469785b66cea7d7fe2",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "57b382041b5f0fa37429e69ad9924c0ee6d68a2ad5f42b89dcc632186e4a27a7",
+    "decision": "approve",
+    "inputs_digest": "253b181073a0412c54a46905874f3fc71703949a481c155db2f09c13542f48cf",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T17:20:18Z"
+  },
+  "source_path": "data/typeset/src/vol-1/of_benedictus_es__et_non_tradas.csv.ly",
+  "state": "approved",
+  "target": "part:feria-vi-infra-hebd-passionis/offertory",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "a801410ae11e63f929ca5e65639213fd4307c203f0b9007172279024753c2016",
+      "mei": "57b382041b5f0fa37429e69ad9924c0ee6d68a2ad5f42b89dcc632186e4a27a7",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}
