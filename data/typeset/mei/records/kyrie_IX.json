@@ -3,9 +3,9 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/5",
+    "precheck_version": "precheck/6",
     "profile_version": 2,
-    "timestamp": "2026-10-12T12:39:35Z"
+    "timestamp": "2026-10-12T13:20:04Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T12:39:35Z"
+    "timestamp": "2026-10-12T13:20:04Z"
   },
   "source_path": "data/typeset/src/vol-5/missa-ix/kyrie_IX.ly",
   "state": "approved",
