@@ -133,3 +133,5 @@ from P4's report.
   (see `b10b-device-checklist.md`).
 
 Operations started 2026-10-12 after #108: [carry restoration and catalogue notes](../reviews/2026-10-12-export-operations/README.md). The catalogue is running; P4 publication is not complete.
+
+2026-10-12 release decision: user authorized upload and merge using the existing export limits; additional P6 measurement is deferred. Site release PRs may be merged by the coordinator after green CI and verification.

@@ -110,7 +110,7 @@ def render_preview(payload_path: Path, out: Path, *, verify_context: bool = True
             row = next((r for r in effective() if r["file"] == file), {})
             if row.get("status") == "matched":
                 melody = melody_problem(
-                    file, row["target"], src=root, recorded=recorded_melodies().get(file)
+                    file, row["target"], src=root, recorded=recorded_melodies().get((file, row["target"]))
                 )
         problems = [str(p)[:1000] for p in result.problems[:20]]
         if melody:
