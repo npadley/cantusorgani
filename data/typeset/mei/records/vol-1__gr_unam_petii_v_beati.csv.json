@@ -1,0 +1,67 @@
+{
+  "artifact_sha256": "09e160f882691ca3893f6f07f8783cdd8517d588f16520c099e6b7435f156948",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/6",
+    "profile_version": 3,
+    "timestamp": "2026-10-12T17:13:53Z"
+  },
+  "diagnostics": [],
+  "inputs": {
+    "converter_version": "mei-convert/1+7605ee4db5478d6a",
+    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "da9e616b949c61795125f4c18f95b6597fcfe04ddda25a629af5f8427d2b390c",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "c388dd390c96ccbf6ec0a0ab822f5a1a",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "09e160f882691ca3893f6f07f8783cdd8517d588f16520c099e6b7435f156948",
+    "decision": "approve",
+    "inputs_digest": "e79be1d5fdf4afdb985510dbb560ac2d5b94a36dd60017f98d31faaf3763c353",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-12T17:13:53Z"
+  },
+  "source_path": "data/typeset/src/vol-1/gr_unam_petii_v_beati.csv.ly",
+  "state": "approved",
+  "target": "part:noh1-p104/gradual",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "8db03224d6420ab17c8cb765b3b666519581436ea22591a032fcfa90d92b0d36",
+      "mei": "09e160f882691ca3893f6f07f8783cdd8517d588f16520c099e6b7435f156948",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}
