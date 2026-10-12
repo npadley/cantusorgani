@@ -197,6 +197,8 @@ test.describe("Customize export where nothing reflows", () => {
 
   test("Customize export counts one custom download, and Verovio does load for a part that reflows", async ({ page }) => {
     test.setTimeout(240_000);
+    // The real count.js would replace the stub below (and send a real hit), so it never loads here.
+    await page.route("**/gc.zgo.at/**", (route) => route.fulfill({ body: "", contentType: "application/javascript" }));
     await page.addInitScript(() => {
       (window as unknown as { __gc: unknown[] }).__gc = [];
       (window as unknown as { goatcounter: { count(e: unknown): void } }).goatcounter = { count: (e) => (window as unknown as { __gc: unknown[] }).__gc.push(e) };
