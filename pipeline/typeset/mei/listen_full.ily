@@ -266,7 +266,15 @@
              (lf-emit (lf-now context) (lf-layer context) (lf-staff-of context) "slur"
                       (ly:event-property event 'span-direction) (lf-loc event)))
           ((glissando-event engraver event)
-             (lf-emit (lf-now context) (lf-layer context) (lf-staff-of context) "gliss" (lf-loc event))))
+             (lf-emit (lf-now context) (lf-layer context) (lf-staff-of context) "gliss" (lf-loc event)))
+          ;; A9: articulations and ornaments (\prall, ...): type and written direction (0 = LilyPond's default).
+          ((articulation-event engraver event)
+             (let ((kind (ly:event-property event 'articulation-type))
+                   (dir (ly:event-property event 'direction)))
+               (lf-emit (lf-now context) (lf-layer context) (lf-staff-of context) "art"
+                        (if (symbol? kind) (symbol->string kind) "-")
+                        (if (number? dir) dir 0)
+                        (lf-loc event)))))
         (acknowledgers
           ((note-head-interface engraver grob source-engraver)
              (let ((event (lf-cause grob)))

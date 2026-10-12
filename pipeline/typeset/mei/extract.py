@@ -66,6 +66,7 @@ FIELD_COUNTS: dict[str, int] = {
     "tie": 1,
     "slur": 2,
     "gliss": 1,
+    "art": 3,
     "div": 2,
     "break": 1,
     "lyric": 3,
