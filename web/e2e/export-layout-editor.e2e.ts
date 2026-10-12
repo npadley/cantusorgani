@@ -728,6 +728,51 @@ for (const vp of BREAK_VIEWPORTS) {
       expect(await plain.locator(".box").textContent()).toBe("↵");
     });
 
+    test("the focused or hovered caption never overlaps another visible chip or any lyric text", async ({ page }) => {
+      await openEditor(page);
+      await modeOn(page);
+      const shots = resolve(process.cwd(), "..", "build", "b8c3");
+      mkdirSync(shots, { recursive: true });
+      const phase = process.env["B8C3_PHASE"] ?? "after";
+      const all = await page.locator("dialog.cx .cx-bp:not([hidden])").evaluateAll((els) => els.map((e) => ({ id: e.getAttribute("data-boundary")!, x: e.getBoundingClientRect().left, y: Math.round(e.getBoundingClientRect().top / 8) })));
+      expect(all.length).toBeGreaterThan(6);
+      // The pairs of chips on one row that sit closest together (the dense neighbours), the first, a middle and the last handle.
+      let closest = { id: all[1]!.id, gap: Infinity };
+      all.forEach((a, i) => { const b = all[i + 1]; if (b !== undefined && a.y === b.y && b.x - a.x < closest.gap) closest = { id: a.id, gap: b.x - a.x }; });
+      const picks = [...new Set([all[0]!.id, all[Math.floor(all.length / 2)]!.id, closest.id, all[all.length - 1]!.id])];
+      const check = (id: string) => page.evaluate((boundary) => {
+        const chip = document.querySelector<HTMLElement>(`dialog.cx .cx-bp[data-boundary="${boundary}"]`)!;
+        const cap = chip.querySelector<HTMLElement>(".cx-bplab")!;
+        const c = cap.getBoundingClientRect();
+        const bad: string[] = [];
+        if (getComputedStyle(cap).display === "none" || c.width === 0) bad.push("caption not shown");
+        const hit = (r: DOMRect, pad = 0): boolean => r.width > 0 && r.height > 0 && r.left < c.right - pad && r.right > c.left + pad && r.top < c.bottom - pad && r.bottom > c.top + pad;
+        for (const other of document.querySelectorAll<HTMLElement>("dialog.cx .cx-bp")) {
+          if (other === chip || other.hidden || getComputedStyle(other).visibility === "hidden" || Number(getComputedStyle(other).opacity) === 0) continue;
+          const box = other.querySelector(".box")!;
+          if (getComputedStyle(box).visibility === "hidden") continue;
+          if (hit(box.getBoundingClientRect())) bad.push(`caption overlaps the chip after '${other.getAttribute("aria-label")?.slice(0, 40)}'`);
+        }
+        for (const n of document.querySelectorAll("dialog.cx .cx-svg text, dialog.cx .cx-svg tspan")) if (hit(n.getBoundingClientRect(), 2)) bad.push(`caption overlaps lyric "${n.textContent}"`);
+        const frame = chip.closest(".cx-pagebox")!.getBoundingClientRect();
+        if (c.left < frame.left - 1 || c.right > frame.right + 1) bad.push("caption leaves the page");
+        return bad;
+      }, id);
+      for (const [i, id] of picks.entries()) {
+        const chip = byId(page, id);
+        await chip.scrollIntoViewIfNeeded();
+        await page.mouse.move(0, 0);
+        await chip.focus();
+        const box = (await chip.boundingBox())!;
+        await page.screenshot({ path: `${shots}/${phase}-caption-${vp.name}-${i}.png`, clip: { x: Math.max(0, box.x + box.width / 2 - 170), y: Math.max(0, box.y - 70), width: Math.min(340, vp.width), height: 150 } });
+        expect(await check(id), `focused ${id}`).toEqual([]);
+        // Hover (a mouse over another chip while focus is elsewhere) obeys the same rule.
+        await page.locator("#cx-title").focus();
+        await chip.hover();
+        expect(await check(id), `hovered ${id}`).toEqual([]);
+      }
+    });
+
     test("with the action panel open the current system is fully visible above the panel", async ({ page }) => {
       await openEditor(page);
       await modeOn(page);

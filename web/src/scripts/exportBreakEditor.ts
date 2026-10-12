@@ -70,6 +70,10 @@ export class BreakEditor {
     p.addEventListener('click', this.onClick);
     p.addEventListener('keydown', this.onKeydown);
     p.addEventListener('focusin', this.onFocusIn);
+    p.addEventListener('focusin', this.onCaptionEvent);
+    p.addEventListener('focusout', this.onCaptionEvent);
+    p.addEventListener('mouseover', this.onCaptionEvent);
+    p.addEventListener('mouseout', this.onCaptionEvent);
     p.addEventListener('cx-zoom-change', this.onZoom);
     const pages = p.querySelector('[data-cx-pages]');
     this.resize = typeof ResizeObserver === 'undefined' || pages === null ? null : new ResizeObserver(() => this.applyThinning());
@@ -83,6 +87,10 @@ export class BreakEditor {
     p.removeEventListener('click', this.onClick);
     p.removeEventListener('keydown', this.onKeydown);
     p.removeEventListener('focusin', this.onFocusIn);
+    p.removeEventListener('focusin', this.onCaptionEvent);
+    p.removeEventListener('focusout', this.onCaptionEvent);
+    p.removeEventListener('mouseover', this.onCaptionEvent);
+    p.removeEventListener('mouseout', this.onCaptionEvent);
     p.removeEventListener('cx-zoom-change', this.onZoom);
     this.resize?.disconnect();
     this.clear();
@@ -383,6 +391,34 @@ export class BreakEditor {
 
   // ---------------------------------------------------------------- events ---
   private readonly onZoom = (): void => this.applyThinning();
+
+  /**
+   * The caption of the hovered chip (else the focused one) is drawn beside it. It flips to the left when it would leave
+   * the page, and any chip it would still cover is hidden while it shows, so it never sits on another chip. Lyrics are
+   * never reached: the caption stays in the gap row under the staves, centred on the chip.
+   */
+  private readonly onCaptionEvent = (): void => { queueMicrotask(() => this.layoutCaption()); };
+
+  private layoutCaption(): void {
+    for (const h of this.handles) { h.el.classList.remove('cx-flip', 'cx-covered', 'cx-quiet'); }
+    const hovered = this.host.preview.querySelector<HTMLElement>('.cx-bp:hover');
+    const focused = document.activeElement instanceof HTMLElement ? document.activeElement.closest<HTMLElement>('.cx-bp') : null;
+    const target = hovered ?? focused;
+    const id = target?.dataset['boundary'];
+    const h = id === undefined ? undefined : this.handleFor(id);
+    const cap = h?.el.querySelector<HTMLElement>('.cx-bplab');
+    if (h === undefined || cap === null || cap === undefined || !this.host.preview.contains(h.el)) return;
+    // One caption at a time: a chip that is only focused keeps quiet while another is hovered.
+    for (const other of this.handles) if (other !== h) other.el.classList.add('cx-quiet');
+    let c = cap.getBoundingClientRect();
+    const frame = h.overlay.getBoundingClientRect();
+    if (c.right > frame.right - 2) { h.el.classList.add('cx-flip'); c = cap.getBoundingClientRect(); }
+    for (const other of this.handles) {
+      if (other === h || other.el.hidden) continue;
+      const r = other.el.querySelector('.box')?.getBoundingClientRect();
+      if (r !== undefined && r.left < c.right + 1 && r.right > c.left - 1 && r.top < c.bottom && r.bottom > c.top) other.el.classList.add('cx-covered');
+    }
+  }
 
   private readonly onFocusIn = (e: Event): void => {
     const t = e.target instanceof Element ? e.target.closest<HTMLElement>('.cx-bp') : null;

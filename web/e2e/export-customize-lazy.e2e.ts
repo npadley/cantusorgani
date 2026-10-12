@@ -116,13 +116,32 @@ test.describe("Customize export is lazy", () => {
     expect(await page.evaluate(() => document.activeElement?.id)).toBe("export-customize");
   });
 
-  test("a page without a conversion has no button and no editor markup", async ({ page }) => {
-    await page.goto("/kyriale/i/", { waitUntil: "networkidle" });
-    await expect(page.locator("#export-btn")).toBeVisible();
-    await expect(page.locator("#export-customize")).toHaveCount(0);
-    await expect(page.locator("template[data-cx-template]")).toHaveCount(0);
+  test("every page with an export bar offers the button (D23), and the home page, which has none, does not", async ({ page }) => {
+    for (const path of ["/kyriale/i/", "/kyriale/ix/", "/piece/cantus-ad-libitum-kyrie-iii/"]) {
+      await page.goto(path, { waitUntil: "networkidle" });
+      await expect(page.locator("#export-btn"), path).toBeVisible();
+      await expect(page.locator("#export-customize"), path).toBeVisible();
+      await expect(page.locator("#export-customize"), path).toHaveText("Customize export");
+      await expect(page.locator("template[data-cx-template]"), path).toHaveCount(1);
+    }
     await page.goto("/", { waitUntil: "networkidle" });
     await expect(page.locator("#export-customize")).toHaveCount(0);
+  });
+
+  test("a page whose parts cannot reflow opens the editor without ever fetching the engraver", async ({ page }) => {
+    await page.route("**/systems/typeset/**", (route) =>
+      route.fulfill({ contentType: "image/svg+xml", body: '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"/>' }));
+    const w = watch(page);
+    await page.goto("/kyriale/i/", { waitUntil: "networkidle" });
+    expect(heavy(w.urls)).toEqual([]);
+    const before = new Set(w.urls);
+    const workerLoaded = page.waitForEvent("worker");
+    await page.locator("#export-customize").click();
+    await workerLoaded;
+    await expect(page.locator("dialog.cx")).toHaveAttribute("open", "");
+    await expect(page.locator("#cx-title")).toBeFocused();
+    expect([...w.urls].filter((u) => !before.has(u)).some((u) => /export-layout/.test(u))).toBe(true);
+    expect([...w.urls].filter((u) => /verovio|\.wasm/i.test(u))).toEqual([]);
   });
 
   test("the button follows the quick export's disabled rule", async ({ page }) => {
@@ -180,8 +199,8 @@ test("screenshots of the export bar (build/b10a/), only where the button exists"
   ] as const) {
     await page.setViewportSize(size);
     await page.goto(path, { waitUntil: "networkidle" });
-    // Kyrie IX shows the button, Missa I does not; the shot must show exactly that.
-    await expect(page.locator("#export-customize")).toHaveCount(name.startsWith("kyriale-ix") ? 1 : 0);
+    // Every page with an export bar shows the button (D23).
+    await expect(page.locator("#export-customize")).toHaveCount(1);
     await page.locator(".export").scrollIntoViewIfNeeded();
     await page.screenshot({ path: `${shots}/export-bar-${name}.png` });
   }

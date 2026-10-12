@@ -1,0 +1,1692 @@
+0	-	-	version	listen_full/1	2.26.0
+0	-	up	staff	1
+0	-	down	staff	2
+0	-	up	key	4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:10:1
+0	up:chant	up	voice	0	voiceOne
+0	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:11
+0	-	up	key	4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:10:1
+0	up:#1	up	voice	1	voiceTwo
+0	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:74:0
+0	-	down	key	4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:10:1
+0	down:#2	down	voice	2	voiceOne
+0	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:91:0
+0	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:91:3
+0	-	down	key	4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:10:1
+0	down:#3	down	voice	3	voiceTwo
+0	down:#3	down	note	g	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:108:0
+0	-	down	key	4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:10:1
+0	lyrics:#0	up:chant	lyric	Al	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:38:0
+0	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:38:3
+0	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:11
+0	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:11
+0	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:74:0
+0	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:74:0
+0	-	up	clef	clefs.G	-2	-
+0	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:91:0
+0	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:91:0
+0	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:108:0
+0	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:108:0
+0	-	down	clef	clefs.F	2	-
+1/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:15
+1/4	lyrics:#0	up:chant	lyric	le	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:38:6
+1/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:38:9
+1/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:15
+1/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:15
+1/2	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:21
+1/2	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:27
+1/2	up:#1	up	note	c	1	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:74:4
+1/2	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:91:5
+1/2	down:#3	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:108:5
+1/2	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:108:10
+1/2	lyrics:#0	up:chant	lyric	lú	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:38:12
+1/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:38:15
+1/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:21
+1/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:21
+1/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:74:4
+1/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:74:4
+1/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:91:5
+1/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:91:5
+1/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:108:5
+1/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:108:5
+3/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:29
+3/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:34
+3/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:29
+3/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:29
+1	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:37
+1	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:44
+1	up:#1	up	note	f	1	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:74:10
+1	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:74:16
+1	down:#2	down	note	g	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:91:8
+1	down:#3	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:108:12
+1	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:108:17
+1	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:38:18
+1	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:37
+1	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:37
+1	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:74:10
+1	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:74:10
+1	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:91:8
+1	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:91:8
+1	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:108:12
+1	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:108:12
+5/4	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:46
+5/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:50
+5/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:46
+5/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:46
+5/4	up:chant	up	acc	natural	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:46
+3/2	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:52
+3/2	up:#1	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:74:18
+3/2	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:91:13
+3/2	down:#3	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:108:19
+3/2	lyrics:#0	up:chant	lyric	ia,	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:38:20
+3/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:52
+3/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:50:52
+3/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:74:18
+3/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:74:18
+3/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:91:13
+3/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:91:13
+3/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:108:19
+3/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:108:19
+7/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:1
+7/4	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:75:0
+7/4	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:75:4
+7/4	down:#2	down	note	g	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:92:0
+7/4	down:#3	down	note	c	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:109:0
+7/4	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:109:5
+7/4	lyrics:#0	up:chant	lyric	al	 * 	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:39:20
+7/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:39:23
+7/4	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+7/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:1
+7/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:1
+7/4	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+7/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:75:0
+7/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:75:0
+7/4	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+7/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:92:0
+7/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:92:0
+7/4	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+7/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:109:0
+7/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:109:0
+2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:5
+2	lyrics:#0	up:chant	lyric	le	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:39:26
+2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:39:29
+2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:5
+2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:5
+9/4	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:11
+9/4	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:17
+9/4	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:75:6
+9/4	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:92:5
+9/4	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:92:8
+9/4	down:#3	down	note	c	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:109:7
+9/4	lyrics:#0	up:chant	lyric	lú	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:39:32
+9/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:39:35
+9/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:11
+9/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:11
+9/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:75:6
+9/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:75:6
+9/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:92:5
+9/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:92:5
+9/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:109:7
+9/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:109:7
+5/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:19
+5/2	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:24
+5/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:19
+5/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:19
+11/4	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:27
+11/4	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:34
+11/4	up:#1	up	note	f	1	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:75:10
+11/4	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:75:16
+11/4	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:92:10
+11/4	down:#3	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:109:12
+11/4	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:109:17
+11/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:39:38
+11/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:27
+11/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:27
+11/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:75:10
+11/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:75:10
+11/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:92:10
+11/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:92:10
+11/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:109:12
+11/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:109:12
+3	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:36
+3	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:40
+3	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:36
+3	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:36
+3	up:chant	up	acc	natural	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:36
+13/4	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:42
+13/4	up:#1	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:75:18
+13/4	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:75:24
+13/4	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:92:13
+13/4	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:92:16
+13/4	down:#3	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:109:19
+13/4	lyrics:#0	up:chant	lyric	ia.	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:39:40
+13/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:42
+13/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:51:42
+13/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:75:18
+13/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:75:18
+13/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:92:13
+13/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:92:13
+13/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:109:19
+13/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:109:19
+7/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:1
+7/2	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:5
+7/2	up:#1	up	note	f	1	4	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:0
+7/2	down:#2	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:0
+7/2	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:7
+7/2	down:#3	down	note	d	0	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:0
+7/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:39:44
+7/2	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+7/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:1
+7/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:1
+7/2	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+7/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:0
+7/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:0
+7/2	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+7/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:0
+7/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:0
+7/2	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+7/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:0
+7/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:0
+7/2	down:#3	down	acc	natural	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:0
+15/4	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:7
+15/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:7
+15/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:7
+4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:14
+4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:14
+4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:14
+17/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:18
+17/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:21
+17/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:18
+17/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:18
+9/2	up:chant	up	note	c	1	5	2	1	1	1	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:23
+9/2	up:#1	up	note	e	0	4	1	0	3	4	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:10
+9/2	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:18
+9/2	down:#2	down	note	a	0	3	1	0	3	4	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:9
+9/2	down:#3	down	note	c	1	3	1	0	3	4	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:7
+9/2	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:16
+9/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:39:46
+9/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:23
+9/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:23
+9/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:10
+9/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:10
+9/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:9
+9/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:9
+9/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:7
+9/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:7
+39/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:31
+39/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:35
+39/8	up:#1	up	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:20
+39/8	down:#2	down	note	b	0	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:16
+39/8	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:23
+39/8	down:#3	down	note	c	1	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:18
+39/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:39:48
+39/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:31
+39/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:31
+39/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:20
+39/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:20
+39/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:16
+39/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:16
+39/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:18
+39/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:18
+41/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:37
+41/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:37
+41/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:37
+43/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:41
+43/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:41
+43/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:41
+45/8	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:45
+45/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:50
+45/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:45
+45/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:45
+47/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:52
+47/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:56
+47/8	up:#1	up	note	c	1	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:28
+47/8	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:38
+47/8	down:#2	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:25
+47/8	down:#3	down	note	f	1	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:27
+47/8	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:36
+47/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:40:0
+47/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:52
+47/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:52
+47/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:28
+47/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:28
+47/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:25
+47/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:25
+47/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:27
+47/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:27
+49/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:58
+49/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:58
+49/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:58
+51/8	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:62
+51/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:62
+51/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:62
+53/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:68
+53/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:73
+53/8	up:#1	up	note	c	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:40
+53/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:32
+53/8	down:#3	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:38
+53/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:68
+53/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:52:68
+53/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:40
+53/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:76:40
+53/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:32
+53/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:93:32
+53/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:38
+53/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:110:38
+55/8	-	-	break	data/typeset/include/noh2.ily:75:24
+55/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:1
+55/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:5
+55/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:77:0
+55/8	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:77:4
+55/8	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:94:0
+55/8	down:#3	down	note	c	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:0
+55/8	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:5
+55/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:40:2
+55/8	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+55/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:1
+55/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:1
+55/8	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+55/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:77:0
+55/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:77:0
+55/8	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+55/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:94:0
+55/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:94:0
+55/8	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+55/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:0
+55/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:0
+57/8	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:7
+57/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:7
+57/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:7
+59/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:13
+59/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:16
+59/8	up:chant	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:18
+59/8	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:77:6
+59/8	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:77:14
+59/8	down:#2	down	note	g	1	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:94:3
+59/8	down:#3	down	note	c	1	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:7
+59/8	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:16
+59/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:13
+59/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:13
+59/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:77:6
+59/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:77:6
+59/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:94:3
+59/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:94:3
+59/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:7
+59/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:7
+61/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:20
+61/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:24
+61/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:20
+61/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:20
+63/8	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:26
+63/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:26
+63/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:26
+65/8	up:chant	up	note	a	0	4	2	1	1	1	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:32
+65/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:36
+65/8	up:#1	up	note	e	0	4	1	0	3	4	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:77:16
+65/8	down:#2	down	note	f	1	3	1	0	3	4	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:94:12
+65/8	down:#3	down	note	c	1	3	1	0	3	4	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:18
+65/8	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:27
+65/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:32
+65/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:32
+65/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:77:16
+65/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:77:16
+65/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:94:12
+65/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:94:12
+65/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:18
+65/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:18
+17/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:38
+17/2	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:44
+17/2	up:#1	up	note	c	1	4	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:77:24
+17/2	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:77:34
+17/2	down:#2	down	note	g	1	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:94:21
+17/2	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:94:30
+17/2	down:#3	down	note	c	1	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:29
+17/2	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:38
+17/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:40:4
+17/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:38
+17/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:38
+17/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:77:24
+17/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:77:24
+17/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:94:21
+17/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:94:21
+17/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:29
+17/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:111:29
+35/4	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:46
+35/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:46
+35/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:46
+9	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:52
+9	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:52
+9	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:52
+37/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:58
+37/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:61
+37/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:58
+37/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:54:58
+19/2	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:1
+19/2	up:#1	up	note	c	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:0
+19/2	down:#2	down	note	g	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:0
+19/2	down:#3	down	note	c	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:0
+19/2	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:5
+19/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:40:6
+19/2	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+19/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:1
+19/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:1
+19/2	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+19/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:0
+19/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:0
+19/2	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+19/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:0
+19/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:0
+19/2	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+19/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:0
+19/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:0
+39/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:5
+39/4	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:9
+39/4	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:6
+39/4	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:10
+39/4	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:5
+39/4	down:#3	down	note	c	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:7
+39/4	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:12
+39/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:40:8
+39/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:5
+39/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:5
+39/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:6
+39/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:6
+39/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:5
+39/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:5
+39/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:7
+39/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:7
+10	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:11
+10	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:14
+10	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:11
+10	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:11
+41/4	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:16
+41/4	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:22
+41/4	up:#1	up	note	e	0	4	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:12
+41/4	down:#2	down	note	b	0	3	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:8
+41/4	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:15
+41/4	down:#3	down	note	c	1	3	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:14
+41/4	lyrics:#0	up:chant	lyric	℣.	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:40:10
+41/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:16
+41/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:16
+41/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:12
+41/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:12
+41/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:8
+41/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:8
+41/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:14
+41/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:14
+21/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:24
+21/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:24
+21/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:24
+43/4	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:28
+43/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:28
+43/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:28
+11	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:35
+11	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:35
+11	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:35
+45/4	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:39
+45/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:39
+45/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:39
+23/2	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:45
+23/2	up:#1	up	note	c	1	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:20
+23/2	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:30
+23/2	down:#2	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:17
+23/2	down:#3	down	note	f	1	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:23
+23/2	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:32
+23/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:45
+23/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:45
+23/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:20
+23/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:20
+23/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:17
+23/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:17
+23/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:23
+23/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:23
+47/4	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:49
+47/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:49
+47/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:49
+12	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:60
+12	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:60
+12	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:60
+49/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:64
+49/4	up:#1	up	note	c	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:32
+49/4	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:24
+49/4	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:27
+49/4	down:#3	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:34
+49/4	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:39
+49/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:64
+49/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:55:64
+49/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:32
+49/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:78:32
+49/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:24
+49/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:95:24
+49/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:34
+49/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:112:34
+25/2	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:0
+25/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:2
+25/2	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:8
+25/2	up:#1	up	note	f	1	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:0
+25/2	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:0
+25/2	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:3
+25/2	down:#3	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:0
+25/2	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+25/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:2
+25/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:2
+25/2	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+25/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:0
+25/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:0
+25/2	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+25/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:0
+25/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:0
+25/2	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2
+25/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:0
+25/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:0
+51/4	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:10
+51/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:16
+51/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:10
+51/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:10
+13	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:18
+13	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:6
+13	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:10
+13	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:5
+13	down:#3	down	note	c	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:5
+13	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:10
+13	lyrics:#0	up:chant	lyric	Sur	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:0
+13	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:4
+13	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:18
+13	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:18
+13	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:6
+13	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:6
+13	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:5
+13	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:5
+13	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:5
+13	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:5
+53/4	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:25
+53/4	lyrics:#0	up:chant	lyric	ré	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:7
+53/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:10
+53/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:25
+53/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:25
+27/2	up:chant	up	note	e	0	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:32
+27/2	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:37
+27/2	up:#1	up	note	e	0	4	1	0	3	1	3/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:12
+27/2	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:20
+27/2	down:#2	down	note	g	1	3	1	0	3	1	3/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:8
+27/2	down:#3	down	note	c	1	3	1	0	3	1	3/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:12
+27/2	lyrics:#0	up:chant	lyric	xit	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:13
+27/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:32
+27/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:32
+27/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:12
+27/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:12
+27/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:8
+27/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:8
+27/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:12
+27/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:12
+55/4	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:39
+55/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:39
+55/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:39
+14	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:46
+14	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:49
+14	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:46
+14	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:46
+57/4	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:51
+57/4	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:58
+57/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:17
+57/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:51
+57/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:51
+29/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:60
+29/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:60
+29/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:60
+59/4	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:64
+59/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:69
+59/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:64
+59/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:64
+15	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:71
+15	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:75
+15	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:22
+15	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:17
+15	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:21
+15	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:19
+15	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:71
+15	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:71
+15	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:22
+15	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:22
+15	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:17
+15	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:17
+15	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:21
+15	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:21
+61/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:77
+61/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:80
+61/4	down:#2	down	note	g	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:22
+61/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:77
+61/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:56:77
+61/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:22
+61/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:22
+31/2	-	-	break	data/typeset/include/noh2.ily:75:24
+31/2	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:2
+31/2	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:8
+31/2	up:#1	up	note	f	1	4	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:26
+31/2	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:36
+31/2	down:#2	down	note	b	0	3	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:27
+31/2	down:#3	down	note	d	0	3	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:24
+31/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:21
+31/2	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+31/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:2
+31/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:2
+31/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:26
+31/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:26
+31/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:27
+31/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:27
+31/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:24
+31/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:24
+31/2	down:#3	down	acc	natural	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:24
+63/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:10
+63/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:10
+63/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:10
+16	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:14
+16	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:14
+16	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:14
+16	up:chant	up	acc	natural	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:14
+65/4	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:19
+65/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:19
+65/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:19
+33/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:26
+33/2	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:29
+33/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:26
+33/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:26
+67/4	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:31
+67/4	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:38
+67/4	up:#1	up	note	f	1	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:38
+67/4	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:44
+67/4	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:34
+67/4	down:#3	down	note	f	1	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:31
+67/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:23
+67/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:31
+67/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:31
+67/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:38
+67/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:38
+67/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:34
+67/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:34
+67/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:31
+67/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:31
+17	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:40
+17	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:40
+17	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:40
+69/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:44
+69/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:49
+69/4	up:#1	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:46
+69/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:44
+69/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:44
+69/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:46
+69/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:46
+35/2	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:51
+35/2	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:52
+35/2	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:56
+35/2	down:#2	down	note	b	0	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:41
+35/2	down:#3	down	note	c	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:40
+35/2	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:45
+35/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:25
+35/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:51
+35/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:58:51
+35/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:52
+35/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:79:52
+35/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:41
+35/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:96:41
+35/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:40
+35/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:113:40
+71/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:1
+71/4	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:5
+71/4	up:#1	up	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:0
+71/4	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:8
+71/4	down:#2	down	note	g	1	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:0
+71/4	down:#3	down	note	c	1	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:0
+71/4	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:9
+71/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:27
+71/4	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+71/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:1
+71/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:1
+71/4	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+71/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:0
+71/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:0
+71/4	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+71/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:0
+71/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:0
+71/4	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+71/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:0
+71/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:0
+18	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:7
+18	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:7
+18	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:7
+73/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:14
+73/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:14
+73/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:14
+37/2	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:18
+37/2	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:23
+37/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:18
+37/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:18
+75/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:25
+75/4	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:29
+75/4	up:#1	up	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:10
+75/4	down:#2	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:9
+75/4	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:16
+75/4	down:#3	down	note	c	1	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:11
+75/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:29
+75/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:25
+75/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:25
+75/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:10
+75/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:10
+75/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:9
+75/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:9
+75/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:11
+75/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:11
+19	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:31
+19	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:31
+19	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:31
+77/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:38
+77/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:38
+77/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:38
+39/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:42
+39/2	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:45
+39/2	up:chant	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:47
+39/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:42
+39/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:42
+79/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:49
+79/4	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:53
+79/4	up:#1	up	note	c	1	4	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:18
+79/4	down:#2	down	note	a	0	3	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:18
+79/4	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:25
+79/4	down:#3	down	note	f	1	3	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:20
+79/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:49
+79/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:49
+79/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:18
+79/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:18
+79/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:18
+79/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:18
+79/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:20
+79/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:20
+20	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:55
+20	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:55
+20	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:55
+81/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:61
+81/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:61
+81/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:61
+41/2	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:65
+41/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:65
+41/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:65
+83/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:71
+83/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:76
+83/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:71
+83/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:71
+21	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:78
+21	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:82
+21	up:#1	up	note	f	1	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:28
+21	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:27
+21	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:34
+21	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:29
+21	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:31
+21	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:78
+21	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:78
+21	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:28
+21	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:28
+21	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:27
+21	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:27
+21	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:29
+21	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:29
+21	down:#3	down	acc	natural	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:29
+85/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:84
+85/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:84
+85/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:84
+43/2	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:88
+43/2	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:94
+43/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:88
+43/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:88
+87/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:96
+87/4	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:100
+87/4	up:#1	up	note	e	0	4	1	0	7	2	7/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:38
+87/4	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:46
+87/4	down:#2	down	note	a	0	3	1	0	7	2	7/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:36
+87/4	down:#3	down	note	c	1	3	1	0	7	2	7/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:36
+87/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:33
+87/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:96
+87/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:96
+87/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:38
+87/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:38
+87/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:36
+87/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:36
+87/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:36
+87/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:36
+22	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:102
+22	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:102
+22	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:102
+89/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:106
+89/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:106
+89/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:106
+45/2	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:115
+45/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:115
+45/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:115
+91/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:122
+91/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:122
+91/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:122
+23	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:126
+23	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:126
+23	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:126
+93/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:130
+93/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:133
+93/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:130
+93/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:130
+47/2	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:135
+47/2	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:142
+47/2	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:48
+47/2	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:52
+47/2	down:#2	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:43
+47/2	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:45
+47/2	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:48
+47/2	lyrics:#0	up:chant	lyric	Dó	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:35
+47/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:38
+47/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:135
+47/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:135
+47/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:48
+47/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:48
+47/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:43
+47/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:43
+47/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:45
+47/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:45
+95/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:144
+95/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:147
+95/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:144
+95/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:144
+24	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:149
+24	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:54
+24	down:#2	down	note	g	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:48
+24	down:#3	down	note	e	0	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:50
+24	lyrics:#0	up:chant	lyric	mi	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:41
+24	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:44
+24	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:149
+24	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:59:149
+24	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:54
+24	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:80:54
+24	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:48
+24	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:97:48
+24	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:50
+24	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:114:50
+97/4	-	-	break	data/typeset/include/noh2.ily:75:24
+97/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:1
+97/4	up:#1	up	note	c	1	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:0
+97/4	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:0
+97/4	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:3
+97/4	down:#3	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:0
+97/4	lyrics:#0	up:chant	lyric	nus	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:41:47
+97/4	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+97/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:1
+97/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:1
+97/4	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+97/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:0
+97/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:0
+97/4	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+97/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:0
+97/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:0
+97/4	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+97/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:0
+97/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:0
+49/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:5
+49/2	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:9
+49/2	lyrics:#0	up:chant	lyric	de	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:42:0
+49/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:5
+49/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:5
+99/4	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:11
+99/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:17
+99/4	up:chant	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:19
+99/4	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:6
+99/4	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:5
+99/4	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:12
+99/4	down:#3	down	note	c	1	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:5
+99/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:11
+99/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:11
+99/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:6
+99/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:6
+99/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:5
+99/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:5
+99/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:5
+99/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:5
+25	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:21
+25	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:28
+25	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:21
+25	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:21
+101/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:30
+101/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:33
+101/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:30
+101/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:30
+51/2	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:35
+51/2	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:42
+51/2	up:#1	up	note	f	1	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:14
+51/2	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:14
+51/2	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:21
+51/2	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:14
+51/2	lyrics:#0	up:chant	lyric	se	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:42:3
+51/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:42:6
+51/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:35
+51/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:35
+51/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:14
+51/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:14
+51/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:14
+51/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:14
+51/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:14
+51/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:14
+51/2	down:#3	down	acc	natural	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:14
+103/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:44
+103/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:44
+103/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:44
+26	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:48
+26	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:51
+26	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:48
+26	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:48
+105/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:53
+105/4	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:57
+105/4	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:24
+105/4	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:23
+105/4	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:30
+105/4	down:#3	down	note	b	0	2	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:21
+105/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:42:9
+105/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:53
+105/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:53
+105/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:24
+105/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:24
+105/4	up:#1	up	acc	natural	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:24
+105/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:23
+105/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:23
+105/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:21
+105/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:21
+53/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:59
+53/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:59
+53/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:59
+107/4	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:63
+107/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:68
+107/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:63
+107/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:63
+27	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:70
+27	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:76
+27	up:#1	up	note	e	0	4	1	0	9	4	9/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:32
+27	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:40
+27	down:#2	down	note	a	0	3	1	0	9	4	9/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:32
+27	down:#3	down	note	c	1	3	1	0	9	4	9/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:29
+27	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:38
+27	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:42:11
+27	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:70
+27	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:70
+27	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:32
+27	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:32
+27	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:32
+27	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:32
+27	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:29
+27	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:29
+109/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:78
+109/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:78
+109/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:78
+55/2	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:82
+55/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:82
+55/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:82
+111/4	up:chant	up	note	a	0	4	2	1	1	1	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:88
+111/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:92
+111/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:88
+111/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:88
+225/8	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:94
+225/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:100
+225/8	up:#1	up	note	e	0	4	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:42
+225/8	down:#2	down	note	b	0	3	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:39
+225/8	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:46
+225/8	down:#3	down	note	c	1	3	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:40
+225/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:42:13
+225/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:94
+225/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:94
+225/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:42
+225/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:42
+225/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:39
+225/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:39
+225/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:40
+225/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:40
+227/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:102
+227/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:102
+227/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:102
+229/8	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:106
+229/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:106
+229/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:106
+231/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:113
+231/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:113
+231/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:113
+233/8	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:117
+233/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:122
+233/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:117
+233/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:117
+235/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:124
+235/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:128
+235/8	up:#1	up	note	c	1	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:50
+235/8	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:56
+235/8	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:48
+235/8	down:#3	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:49
+235/8	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:54
+235/8	lyrics:#0	up:chant	lyric	púl	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:42:15
+235/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:42:19
+235/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:124
+235/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:124
+235/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:50
+235/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:50
+235/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:48
+235/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:48
+235/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:49
+235/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:49
+237/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:130
+237/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:135
+237/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:130
+237/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:130
+239/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:137
+239/8	up:#1	up	note	c	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:58
+239/8	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:64
+239/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:51
+239/8	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:54
+239/8	down:#3	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:56
+239/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:42:22
+239/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:137
+239/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:61:137
+239/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:58
+239/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:81:58
+239/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:51
+239/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:98:51
+239/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:56
+239/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:115:56
+241/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:1
+241/8	up:#1	up	note	c	1	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:0
+241/8	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:10
+241/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:0
+241/8	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:3
+241/8	down:#3	down	rest	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:0
+241/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:42:24
+241/8	up:chant	up	div	maxima	data/typeset/include/noh2.ily:30:2
+241/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:1
+241/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:1
+241/8	up:#1	up	div	maxima	data/typeset/include/noh2.ily:30:2
+241/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:0
+241/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:0
+241/8	down:#2	down	div	maxima	data/typeset/include/noh2.ily:30:2
+241/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:0
+241/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:0
+241/8	down:#3	down	div	maxima	data/typeset/include/noh2.ily:30:2
+241/8	down:#3	down	rhead	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:0
+241/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:0
+243/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:5
+243/8	lyrics:#0	up:chant	lyric	cro,	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:42:26
+243/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:5
+243/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:5
+245/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:11
+245/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:17
+245/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:5
+245/8	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:8
+245/8	down:#3	down	note	g	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:3
+245/8	lyrics:#0	up:chant	lyric	qui	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:43:0
+245/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:11
+245/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:11
+245/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:5
+245/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:5
+245/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:3
+245/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:3
+247/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:19
+247/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:22
+247/8	up:chant	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:24
+247/8	up:#1	up	note	c	1	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:12
+247/8	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:22
+247/8	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:10
+247/8	down:#3	down	note	f	1	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:8
+247/8	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:17
+247/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:19
+247/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:19
+247/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:12
+247/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:12
+247/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:10
+247/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:10
+247/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:8
+247/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:8
+249/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:26
+249/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:30
+249/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:26
+249/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:26
+251/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:32
+251/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:37
+251/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:32
+251/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:32
+253/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:39
+253/8	up:#1	up	note	c	1	4	1	0	7	4	7/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:24
+253/8	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:34
+253/8	down:#2	down	note	b	0	3	1	0	7	4	7/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:17
+253/8	down:#3	down	note	f	1	3	1	0	7	4	7/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:19
+253/8	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:28
+253/8	lyrics:#0	up:chant	lyric	pro	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:43:4
+253/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:39
+253/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:39
+253/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:24
+253/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:24
+253/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:17
+253/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:17
+253/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:19
+253/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:19
+255/8	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:43
+255/8	lyrics:#0	up:chant	lyric	no	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:43:8
+255/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:43:11
+255/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:43
+255/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:43
+257/8	up:chant	up	note	f	1	4	2	1	1	1	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:49
+257/8	up:chant	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:56
+257/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:43:14
+257/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:49
+257/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:49
+65/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:58
+65/2	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:64
+65/2	up:#1	up	note	c	1	4	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:36
+65/2	down:#2	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:24
+65/2	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:31
+65/2	down:#3	down	note	f	1	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:30
+65/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:58
+65/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:58
+65/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:36
+65/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:36
+65/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:24
+65/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:24
+65/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:30
+65/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:30
+131/4	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:66
+131/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:66
+131/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:66
+33	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:72
+33	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:72
+33	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:72
+133/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:76
+133/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:76
+133/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:62:76
+67/2	-	-	break	data/typeset/include/noh2.ily:75:24
+67/2	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:0
+67/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:2
+67/2	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:6
+67/2	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:46
+67/2	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:50
+67/2	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:33
+67/2	down:#3	down	note	e	0	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:39
+67/2	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:42
+67/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:2
+67/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:2
+67/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:46
+67/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:46
+67/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:33
+67/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:33
+67/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:39
+67/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:39
+135/4	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:8
+135/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:14
+135/4	up:chant	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:16
+135/4	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:52
+135/4	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:60
+135/4	down:#2	down	note	g	1	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:36
+135/4	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:45
+135/4	down:#3	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:44
+135/4	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:51
+135/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:8
+135/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:8
+135/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:52
+135/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:82:52
+135/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:36
+135/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:99:36
+135/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:44
+135/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:116:44
+34	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:18
+34	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:25
+34	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:18
+34	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:18
+137/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:27
+137/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:30
+137/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:27
+137/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:63:27
+69/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:1
+69/2	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:5
+69/2	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:0
+69/2	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:4
+69/2	down:#2	down	note	g	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:0
+69/2	down:#3	down	note	e	0	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:0
+69/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:43:16
+69/2	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+69/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:1
+69/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:1
+69/2	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+69/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:0
+69/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:0
+69/2	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+69/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:0
+69/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:0
+69/2	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+69/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:0
+69/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:0
+139/4	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:7
+139/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:13
+139/4	up:chant	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:15
+139/4	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:6
+139/4	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:5
+139/4	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:12
+139/4	down:#3	down	note	c	1	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:3
+139/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:7
+139/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:7
+139/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:6
+139/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:6
+139/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:5
+139/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:5
+139/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:3
+139/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:3
+35	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:17
+35	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:24
+35	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:17
+35	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:17
+141/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:26
+141/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:29
+141/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:26
+141/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:26
+71/2	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:31
+71/2	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:38
+71/2	up:#1	up	note	f	1	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:14
+71/2	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:14
+71/2	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:21
+71/2	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:12
+71/2	lyrics:#0	up:chant	lyric	bis	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:43:18
+71/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:31
+71/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:31
+71/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:14
+71/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:14
+71/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:14
+71/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:14
+71/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:12
+71/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:12
+71/2	down:#3	down	acc	natural	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:12
+143/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:40
+143/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:40
+143/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:40
+36	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:44
+36	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:47
+36	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:44
+36	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:44
+145/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:49
+145/4	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:53
+145/4	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:24
+145/4	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:23
+145/4	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:30
+145/4	down:#3	down	note	b	0	2	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:19
+145/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:43:22
+145/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:49
+145/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:49
+145/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:24
+145/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:24
+145/4	up:#1	up	acc	natural	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:24
+145/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:23
+145/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:23
+145/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:19
+145/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:19
+73/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:55
+73/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:55
+73/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:55
+147/4	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:59
+147/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:64
+147/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:59
+147/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:59
+37	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:66
+37	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:72
+37	up:#1	up	note	e	0	4	1	0	9	4	9/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:32
+37	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:40
+37	down:#2	down	note	a	0	3	1	0	9	4	9/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:32
+37	down:#3	down	note	c	1	3	1	0	9	4	9/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:27
+37	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:36
+37	lyrics:#0	up:chant	lyric	pe	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:44:0
+37	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:44:3
+37	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:66
+37	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:66
+37	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:32
+37	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:32
+37	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:32
+37	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:32
+37	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:27
+37	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:27
+149/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:74
+149/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:74
+149/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:74
+75/2	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:78
+75/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:78
+75/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:78
+151/4	up:chant	up	note	a	0	4	2	1	1	1	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:84
+151/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:88
+151/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:84
+151/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:84
+305/8	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:90
+305/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:96
+305/8	up:#1	up	note	e	0	4	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:42
+305/8	down:#2	down	note	b	0	3	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:39
+305/8	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:46
+305/8	down:#3	down	note	c	1	3	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:38
+305/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:44:6
+305/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:90
+305/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:90
+305/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:42
+305/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:42
+305/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:39
+305/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:39
+305/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:38
+305/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:38
+307/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:98
+307/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:98
+307/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:98
+309/8	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:102
+309/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:102
+309/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:102
+311/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:109
+311/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:109
+311/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:109
+313/8	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:113
+313/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:118
+313/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:113
+313/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:113
+315/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:120
+315/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:124
+315/8	up:#1	up	note	c	1	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:50
+315/8	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:56
+315/8	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:48
+315/8	down:#3	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:47
+315/8	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:52
+315/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:44:8
+315/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:120
+315/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:120
+315/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:50
+315/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:50
+315/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:48
+315/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:48
+315/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:47
+315/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:47
+317/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:126
+317/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:131
+317/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:126
+317/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:126
+319/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:133
+319/8	up:#1	up	note	c	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:58
+319/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:51
+319/8	down:#3	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:54
+319/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:44:10
+319/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:133
+319/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:64:133
+319/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:58
+319/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:83:58
+319/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:51
+319/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:100:51
+319/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:54
+319/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:117:54
+321/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:1
+321/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:5
+321/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:84:0
+321/8	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:101:0
+321/8	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:101:3
+321/8	down:#3	down	note	g	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:118:0
+321/8	lyrics:#0	up:chant	lyric	pén	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:44:12
+321/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:44:16
+321/8	up:chant	up	div	maxima	data/typeset/include/noh2.ily:30:2
+321/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:1
+321/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:1
+321/8	up:#1	up	div	maxima	data/typeset/include/noh2.ily:30:2
+321/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:84:0
+321/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:84:0
+321/8	down:#2	down	div	maxima	data/typeset/include/noh2.ily:30:2
+321/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:101:0
+321/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:101:0
+321/8	down:#3	down	div	maxima	data/typeset/include/noh2.ily:30:2
+321/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:118:0
+321/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:118:0
+323/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:7
+323/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:12
+323/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:7
+323/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:7
+325/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:14
+325/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:18
+325/8	up:#1	up	note	c	1	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:84:4
+325/8	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:101:5
+325/8	down:#3	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:118:5
+325/8	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:118:10
+325/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:44:19
+325/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:14
+325/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:14
+325/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:84:4
+325/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:84:4
+325/8	up:chant	up	acc	natural	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:14
+325/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:101:5
+325/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:101:5
+325/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:118:5
+325/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:118:5
+327/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:20
+327/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:25
+327/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:20
+327/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:20
+329/8	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:28
+329/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:35
+329/8	up:#1	up	note	f	1	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:84:10
+329/8	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:84:16
+329/8	down:#2	down	note	g	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:101:8
+329/8	down:#3	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:118:12
+329/8	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:118:17
+329/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:44:21
+329/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:28
+329/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:28
+329/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:84:10
+329/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:84:10
+329/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:101:8
+329/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:101:8
+329/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:118:12
+329/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:118:12
+331/8	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:37
+331/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:41
+331/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:37
+331/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:37
+331/8	up:chant	up	acc	natural	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:37
+333/8	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:43
+333/8	up:#1	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:84:18
+333/8	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:84:24
+333/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:101:13
+333/8	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:101:16
+333/8	down:#3	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:118:19
+333/8	lyrics:#0	up:chant	lyric	dit	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:44:23
+333/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:43
+333/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:65:43
+333/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:84:18
+333/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:84:18
+333/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:101:13
+333/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:101:13
+333/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:118:19
+333/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:118:19
+335/8	-	-	break	data/typeset/include/noh2.ily:75:24
+335/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:1
+335/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:5
+335/8	up:#1	up	note	f	1	4	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:0
+335/8	down:#2	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:0
+335/8	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:7
+335/8	down:#3	down	note	d	0	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:0
+335/8	lyrics:#0	up:chant	lyric	in	 * 	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:46:0
+335/8	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+335/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:1
+335/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:1
+335/8	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+335/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:0
+335/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:0
+335/8	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+335/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:0
+335/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:0
+335/8	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+335/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:0
+335/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:0
+335/8	down:#3	down	acc	natural	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:0
+337/8	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:7
+337/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:7
+337/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:7
+339/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:14
+339/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:14
+339/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:14
+341/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:18
+341/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:21
+341/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:18
+341/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:18
+343/8	up:chant	up	note	c	1	5	2	1	1	1	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:23
+343/8	up:#1	up	note	e	0	4	1	0	3	4	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:10
+343/8	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:18
+343/8	down:#2	down	note	a	0	3	1	0	3	4	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:9
+343/8	down:#3	down	note	c	1	3	1	0	3	4	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:7
+343/8	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:16
+343/8	lyrics:#0	up:chant	lyric	li	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:46:3
+343/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:46:6
+343/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:23
+343/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:23
+343/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:10
+343/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:10
+343/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:9
+343/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:9
+343/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:7
+343/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:7
+173/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:31
+173/4	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:35
+173/4	up:#1	up	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:20
+173/4	down:#2	down	note	b	0	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:16
+173/4	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:23
+173/4	down:#3	down	note	c	1	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:18
+173/4	lyrics:#0	up:chant	lyric	gno.	-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:46:9
+173/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:31
+173/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:31
+173/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:20
+173/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:20
+173/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:16
+173/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:16
+173/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:18
+173/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:18
+87/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:37
+87/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:37
+87/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:37
+175/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:41
+175/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:41
+175/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:41
+44	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:45
+44	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:50
+44	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:45
+44	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:45
+177/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:52
+177/4	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:56
+177/4	up:#1	up	note	c	1	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:28
+177/4	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:38
+177/4	down:#2	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:25
+177/4	down:#3	down	note	f	1	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:27
+177/4	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:36
+177/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:46:14
+177/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:52
+177/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:52
+177/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:28
+177/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:28
+177/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:25
+177/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:25
+177/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:27
+177/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:27
+89/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:58
+89/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:58
+89/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:58
+179/4	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:62
+179/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:62
+179/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:62
+45	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:68
+45	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:73
+45	up:#1	up	note	c	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:40
+45	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:32
+45	down:#3	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:38
+45	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:68
+45	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:67:68
+45	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:40
+45	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:85:40
+45	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:32
+45	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:102:32
+45	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:38
+45	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:119:38
+181/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:1
+181/4	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:5
+181/4	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:86:0
+181/4	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:86:4
+181/4	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:103:0
+181/4	down:#3	down	note	c	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:0
+181/4	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:5
+181/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:46:16
+181/4	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+181/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:1
+181/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:1
+181/4	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+181/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:86:0
+181/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:86:0
+181/4	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+181/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:103:0
+181/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:103:0
+181/4	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+181/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:0
+181/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:0
+91/2	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:7
+91/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:7
+91/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:7
+183/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:13
+183/4	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:16
+183/4	up:chant	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:18
+183/4	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:86:6
+183/4	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:86:14
+183/4	down:#2	down	note	g	1	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:103:3
+183/4	down:#3	down	note	c	1	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:7
+183/4	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:16
+183/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:13
+183/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:13
+183/4	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:86:6
+183/4	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:86:6
+183/4	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:103:3
+183/4	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:103:3
+183/4	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:7
+183/4	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:7
+46	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:20
+46	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:24
+46	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:20
+46	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:20
+185/4	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:26
+185/4	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:26
+185/4	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:26
+93/2	up:chant	up	note	a	0	4	2	1	1	1	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:32
+93/2	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:36
+93/2	up:#1	up	note	e	0	4	1	0	3	4	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:86:16
+93/2	down:#2	down	note	f	1	3	1	0	3	4	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:103:12
+93/2	down:#3	down	note	c	1	3	1	0	3	4	3/8	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:18
+93/2	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:27
+93/2	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:32
+93/2	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:32
+93/2	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:86:16
+93/2	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:86:16
+93/2	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:103:12
+93/2	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:103:12
+93/2	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:18
+93/2	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:18
+375/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:38
+375/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:44
+375/8	up:#1	up	note	c	1	4	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:86:24
+375/8	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:86:34
+375/8	down:#2	down	note	g	1	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:103:21
+375/8	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:103:30
+375/8	down:#3	down	note	c	1	3	1	0	2	1	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:29
+375/8	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:38
+375/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:46:18
+375/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:38
+375/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:38
+375/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:86:24
+375/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:86:24
+375/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:103:21
+375/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:103:21
+375/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:29
+375/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:120:29
+377/8	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:46
+377/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:46
+377/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:46
+379/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:52
+379/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:52
+379/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:52
+381/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:58
+381/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:61
+381/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:58
+381/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:68:58
+383/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:1
+383/8	up:#1	up	note	c	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:0
+383/8	down:#2	down	note	g	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:0
+383/8	down:#3	down	note	c	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:0
+383/8	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:5
+383/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:47:0
+383/8	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+383/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:1
+383/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:1
+383/8	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+383/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:0
+383/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:0
+383/8	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+383/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:0
+383/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:0
+383/8	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+383/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:0
+383/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:0
+385/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:5
+385/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:9
+385/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:6
+385/8	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:10
+385/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:5
+385/8	down:#3	down	note	c	1	3	1	0	1	1	1/2	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:7
+385/8	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:12
+385/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:47:2
+385/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:5
+385/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:5
+385/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:6
+385/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:6
+385/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:5
+385/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:5
+385/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:7
+385/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:7
+387/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:11
+387/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:14
+387/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:11
+387/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:11
+389/8	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:16
+389/8	up:chant	up	slur	-1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:22
+389/8	up:#1	up	note	e	0	4	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:12
+389/8	down:#2	down	note	b	0	3	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:8
+389/8	down:#2	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:15
+389/8	down:#3	down	note	c	1	3	1	0	5	2	5/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:14
+389/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:47:4
+389/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:16
+389/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:16
+389/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:12
+389/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:12
+389/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:8
+389/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:8
+389/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:14
+389/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:14
+391/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:24
+391/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:24
+391/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:24
+393/8	up:chant	up	note	c	1	5	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:28
+393/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:28
+393/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:28
+395/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:35
+395/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:35
+395/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:35
+397/8	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:39
+397/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:39
+397/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:39
+399/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:45
+399/8	up:#1	up	note	c	1	4	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:20
+399/8	up:#1	up	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:30
+399/8	down:#2	down	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:17
+399/8	down:#3	down	note	f	1	3	1	0	3	2	3/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:23
+399/8	down:#3	down	tie	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:32
+399/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:45
+399/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:45
+399/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:20
+399/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:20
+399/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:17
+399/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:17
+399/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:23
+399/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:23
+401/8	up:chant	up	note	g	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:49
+401/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:49
+401/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:49
+403/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:60
+403/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:60
+403/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:60
+405/8	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:64
+405/8	up:chant	up	slur	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:69
+405/8	up:#1	up	note	c	1	4	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:32
+405/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:24
+405/8	down:#3	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:34
+405/8	up:chant	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:64
+405/8	up:chant	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:69:64
+405/8	up:#1	up	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:32
+405/8	up:#1	up	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:87:32
+405/8	down:#2	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:24
+405/8	down:#2	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:104:24
+405/8	down:#3	down	head	0	normal	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:34
+405/8	down:#3	down	stem	1	data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly:121:34
+407/8	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+407/8	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+407/8	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+407/8	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2

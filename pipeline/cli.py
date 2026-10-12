@@ -184,6 +184,15 @@ def build_parser() -> argparse.ArgumentParser:
     mei_evidence.add_argument("--out", type=Path, default=None,
                               help="evidence folder (default build/typeset/mei/<digest>/evidence)")
 
+    mei_batch = subs.add_parser("typeset-mei-batch",
+                                help="convert a list of typeset sources into digest-keyed MEI folders with evidence packets (never approves)")
+    mei_batch.add_argument("--sources", type=Path, required=True, help="file with one source path per line")
+    mei_batch.add_argument("--out", type=Path, required=True)
+    mei_batch.add_argument("--workers", type=int, default=2, help="LilyPond runs in flight (default 2)")
+    mei_batch.add_argument("--no-evidence", action="store_true", help="convert and validate only")
+    mei_batch.add_argument("--auto-approve", action="store_true",
+                           help="D22: approve pieces that pass every check; records go to OUT/records/ only")
+
     mei_review = subs.add_parser("typeset-mei-review",
                                  help="apply a reviewer's decision JSON to a convert directory and write the review record")
     mei_review.add_argument("convert_dir", type=Path)
@@ -202,6 +211,21 @@ def build_parser() -> argparse.ArgumentParser:
     mei_publish.add_argument("--artifacts", type=Path, required=True)
     mei_publish.add_argument("--records", type=Path, required=True)
     mei_publish.add_argument("--dry-run", action="store_true", help="print the keys that would be uploaded")
+
+    mei_stale = subs.add_parser("typeset-mei-stale",
+                                help="list approved MEI conversions whose inputs no longer match (why Customize vanished)")
+    mei_stale.add_argument("--records", type=Path, default=Path("data/typeset/mei/records"))
+    mei_stale.add_argument("--json", action="store_true", help="print the report as JSON instead of a table")
+    mei_stale.add_argument("--out", type=Path, default=None, help="also write the JSON report here")
+    mei_stale.add_argument("--fail-on-stale", action="store_true", help="exit 1 when any approved conversion is stale")
+
+    mei_carry = subs.add_parser("typeset-mei-carry",
+                                help="carry a prior MEI approval onto a re-conversion when nothing visible changed (D20)")
+    mei_carry.add_argument("convert_dir", type=Path)
+    mei_carry.add_argument("--prior", type=Path, required=True, help="the approved ConversionRecord JSON")
+    mei_carry.add_argument("--out", type=Path, required=True, help="where to write the new record JSON")
+    mei_carry.add_argument("--prior-dir", type=Path, default=None,
+                           help="convert directory of the approved artifact (default: convert_dir, when byte-identical)")
 
     mei_validate = subs.add_parser("typeset-mei-validate",
                                    help="check a converted MEI directory against its IR (no LilyPond)")
@@ -417,6 +441,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "typeset-mei-evidence":
         from pipeline.typeset.mei.cli import evidence_command
         return evidence_command(args.convert_dir, args.out)
+    if args.command == "typeset-mei-batch":
+        from pipeline.typeset.mei.cli import batch_command
+        return batch_command(args.sources, args.out, args.workers, args.no_evidence, args.auto_approve)
     if args.command == "typeset-mei-review":
         from pipeline.typeset.mei.cli import review_command
         return review_command(args.convert_dir, args.decision, args.out)
@@ -427,6 +454,12 @@ def main(argv: list[str] | None = None) -> int:
         from pipeline.typeset.mei.cli import publish_command
         return publish_command(args.artifacts, args.records, args.dry_run)
 
+    if args.command == "typeset-mei-stale":
+        from pipeline.typeset.mei.cli import stale_command
+        return stale_command(args.records, args.json, args.fail_on_stale, args.out)
+    if args.command == "typeset-mei-carry":
+        from pipeline.typeset.mei.cli import carry_command
+        return carry_command(args.convert_dir, args.prior, args.out, prior_dir=args.prior_dir)
     if args.command == "typeset-mei-validate":
         from pipeline.typeset.mei.cli import validate_command
         return validate_command(args.directory)

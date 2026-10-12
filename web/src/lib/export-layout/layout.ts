@@ -3,7 +3,7 @@ import fontkit from '@pdf-lib/fontkit';
 import type { Font } from '@pdf-lib/fontkit';
 import type { Element } from '@xmldom/xmldom';
 import { resolveBreaks } from './breaks';
-import { materialiseBreaks, revealSplitSustainsAfter } from './meiDoc';
+import { hideSplitContinuations, materialiseBreaks, revealSplitSustainsAfter } from './meiDoc';
 import { paginate } from './paginate';
 import { paperDimensions, verovioOptions } from './settings';
 import { lyricCollisions } from './lyricGeometry';
@@ -49,6 +49,8 @@ const STAFF_TOLERANCE_MM = 0.1;
 const MIN_WORD_BREAK_RATIO = 0.8;
 /** Closest two lyric syllables may sit after a word-boundary move. */
 const MIN_SYLLABLE_GAP_MM = 0.3;
+/** Lowest justification ratio accepted when the syllable gaps were verified with real lyric widths. */
+const MIN_CHECKED_RATIO = 0.7;
 const RIGHT_EDGE_TOLERANCE_MM = 0.5;
 const BOTTOM_TOLERANCE_MM = 0.05;
 const MEI_NS = 'http://www.music-encoding.org/ns/mei';
@@ -102,7 +104,7 @@ function optionMismatches(tk: VerovioLike & OptionReader, requested: OptionRecor
 function diag(
   partId: string,
   code: LayoutDiagnosticCode,
-  severity: 'error' | 'warning',
+  severity: 'error' | 'warning' | 'info',
   o: {
     readonly pageIndex?: number | null;
     readonly boundaryIds?: readonly string[];
@@ -285,6 +287,10 @@ interface PlannedSystem {
   readonly heightMm: number;
 }
 
+/** System sizes measured in pass 2, handed to a second planning run when pass 1 under-estimated them. */
+interface GeometryHint { readonly heights: readonly number[]; readonly gapMm: number }
+const measuredHints = new WeakMap<MeiLayout, GeometryHint>();
+
 /**
  * Lay out one MEI part. Never rejects for layout problems: they come back as diagnostics on
  * the returned MeiLayout (pages is empty when any error stops the run).
@@ -296,10 +302,27 @@ export async function renderMei(
   ctx: RenderContext,
   page: PageRects,
 ): Promise<MeiLayout> {
+  const layout = await layoutOnce(part, settings, overrides, ctx, page, null);
+  // Pass 1 measures with the sustain continuations hidden; revealing them at the final starts (and
+  // their ties) can make a system a few mm taller, so the last system of a page can land below the
+  // content area. Pass 2 knows the true sizes: plan the pages again from them, once.
+  const hint = measuredHints.get(layout);
+  if (hint !== undefined) return layoutOnce(part, settings, overrides, ctx, page, hint);
+  return layout;
+}
+
+async function layoutOnce(
+  part: MeiPart,
+  settings: LayoutSettings,
+  overrides: readonly BreakOverride[],
+  ctx: RenderContext,
+  page: PageRects,
+  hint: GeometryHint | null,
+): Promise<MeiLayout> {
   const partId = part.part.id;
   const eff = resolveBreaks(part, settings, overrides);
   const diagnostics: LayoutDiagnostic[] = [];
-  const base = verovioOptions(settings, page.content);
+  const base: OptionRecord = verovioOptions(settings, page.content);
   let finalOptions: OptionRecord = base;
 
   for (const d of eff.droppedOverrides) {
@@ -331,6 +354,7 @@ export async function renderMei(
     const boundaries = part.part.conversion.boundaries;
     const boundaryByMeasure = new Map(boundaries.map((b) => [b.measureId, b.id] as const));
     const measureByBoundary = new Map(boundaries.map((b) => [b.id, b.measureId] as const));
+    const meiSource = hideSplitContinuations(part.meiXml);
     const meiMeasures = measureOrderInMei(part.meiXml);
     const nextMeasureInMei = new Map(meiMeasures.map((id, i) => [id, meiMeasures[i + 1] ?? null] as const));
     /** Breaks that have a measure after them; a break after the final measure is a no-op. */
@@ -343,8 +367,10 @@ export async function renderMei(
     // Pass 1 sees user breaks as system breaks (<pb/> is ignored under 'line'); under 'auto'
     // they are ignored and handled by inserting extra system starts below.
     const systemised: EffectiveBreaks = { ...eff, breaks: realisable.map((b): EffectiveBreak => ({ ...b, kind: 'system' })) };
-    const mei1 = rewriteBreaks(materialiseBreaks(part.meiXml, systemised, boundaries, settings.linePolicy, false), { stripSb: false });
-    const pass1Options: OptionRecord = {
+    const mei1 = rewriteBreaks(materialiseBreaks(meiSource, systemised, boundaries, settings.linePolicy, false), { stripSb: false });
+    /** Right reserve in 0.1 mm; grows when Verovio overflows the width and the lines are re-measured. */
+    let reserveRight = Number(base['pageMarginRight']);
+    let pass1Options: OptionRecord = {
       ...base,
       pageHeight: TALL_PAGE,
       justifyVertically: false,
@@ -356,8 +382,9 @@ export async function renderMei(
     if (!load(mei1)) return failed('loadData failed in pass 1');
     const pageCount1 = captureConsole(consoleMessages, () => tk.getPageCount());
     if (pageCount1 !== 1) return failed(`pass 1 produced ${pageCount1} pages; the part is taller than one 6 m page`);
-    const measured1 = measureSvgPage(renderPage(1));
-    const sys1 = measured1.systems;
+    let svg1 = renderPage(1);
+    const measured1 = measureSvgPage(svg1);
+    let sys1 = measured1.systems;
     if (sys1.length === 0) return failed('pass 1 produced no systems');
     await tick();
     if (ctx.isCancelled()) return cancelled();
@@ -369,9 +396,101 @@ export async function renderMei(
       return i <= 0 ? null : (boundaryByMeasure.get(allMeasures[i - 1] ?? '') ?? null);
     };
 
+    const wordFinal = wordFinalMeasures(part.meiXml);
+    const pinned = new Set(realisable.map((b) => nextMeasureInMei.get(measureByBoundary.get(b.boundaryId) ?? '') ?? ''));
+    const lyricFont = lyricFontOf(ctx);
+    const pairKey = (c: { a: string; b: string }): string => `${c.a}|${c.b}`;
+    /** Syllable pairs that already sit too close in Verovio's own layout: moving a break did not cause them. */
+    const baselinePairs = (): Map<string, number> => {
+      const m = new Map<string, number>();
+      if (lyricFont !== null) for (const c of lyricCollisions(svg1, lyricFont, MIN_SYLLABLE_GAP_MM)) m.set(pairKey(c), (m.get(pairKey(c)) ?? 0) + 1);
+      return m;
+    };
+    /**
+     * ONE encoded render with a system start at each of `moved`. Accepted only when the systems match,
+     * nothing overhangs, Verovio does not compress a line (ratio below 0.8) and no two syllables on a
+     * system next to a changed start are closer than 0.3 mm.
+     */
+    type AttemptResult = { ok: boolean; systems: readonly MeasuredSystem[]; sameStarts: boolean; ratiosOk: boolean; bad: ReadonlySet<number> };
+    const attempt = async (moved: readonly string[], original: readonly string[]): Promise<AttemptResult | string> => {
+      const messagesBefore = consoleMessages.length;
+      const mei1b = rewriteBreaks(meiSource, { stripSb: true, insertBefore: new Map(moved.slice(1).map((m) => [m, 'system'] as const)) });
+      const bad1b = apply({ ...pass1Options, breaks: 'encoded' });
+      if (bad1b.length > 0) return `word-boundary options not applied: ${bad1b.join('; ')}`;
+      if (!load(mei1b)) return 'loadData failed in the word-boundary pass';
+      const pages1b = captureConsole(consoleMessages, () => tk.getPageCount());
+      const svg1b = pages1b === 1 ? renderPage(1) : '';
+      const sys1b = svg1b ? measureSvgPage(svg1b).systems : [];
+      const ratios = consoleMessages.slice(messagesBefore)
+        .map((m) => /ratio smaller than [\d.]+: ([\d.]+)/.exec(m)?.[1])
+        .flatMap((r) => (r === undefined ? [] : [Number(r)]));
+      const sameStarts = sys1b.length === moved.length && sys1b.every((s, k) => s.firstMeasureId === moved[k]);
+      // With the real lyric widths to check syllable gaps, a denser line is acceptable down to 0.7.
+      const minRatio = lyricFont !== null ? MIN_CHECKED_RATIO : MIN_WORD_BREAK_RATIO;
+      const ratiosOk = ratios.every((r) => r >= minRatio);
+      // Systems that overhang the content or whose syllables come closer than the minimum gap.
+      const bad = new Set<number>();
+      sys1b.forEach((x, i) => { if (x.maxXMm - page.content.widthMm > RIGHT_EDGE_TOLERANCE_MM) bad.add(i); });
+      if (svg1b !== '' && lyricFont !== null) {
+        const allowed = baselinePairs();
+        for (const c of lyricCollisions(svg1b, lyricFont, MIN_SYLLABLE_GAP_MM)) {
+          const left = allowed.get(pairKey(c)) ?? 0;
+          if (left > 0) allowed.set(pairKey(c), left - 1);
+          else bad.add(c.system);
+        }
+      }
+      const known = new Set(original);
+      const touched = new Set<number>();
+      moved.forEach((m, k) => { if (!known.has(m)) { touched.add(k - 1); touched.add(k); } });
+      const ok = sameStarts && sys1b.length > 0 && ratiosOk && [...touched].every((i) => !bad.has(i));
+      return { ok, systems: sys1b, sameStarts, ratiosOk, bad };
+    };
+
     // Right edge. Original lines are compressed, never split, so overhang is a warning there.
     const crowdedDetails: string[] = [];
-    const overhang1 = Math.max(...sys1.map((s) => s.maxXMm)) - page.content.widthMm;
+    let overhang1 = Math.max(...sys1.map((s) => s.maxXMm)) - page.content.widthMm;
+    if (overhang1 > RIGHT_EDGE_TOLERANCE_MM && settings.linePolicy === 'automatic') {
+      // A line Verovio cannot compress further overflows the width. Reserve the overflow on the right
+      // for the measuring passes and let Verovio break again: pass 2 then has that room to spare.
+      reserveRight = Number(base['pageMarginRight']) + Math.ceil((overhang1 + 0.15) * 10);
+      pass1Options = { ...pass1Options, pageMarginRight: reserveRight };
+      const badRetry = apply(pass1Options);
+      if (badRetry.length > 0) return failed(`pass 1 retry options not applied: ${badRetry.join('; ')}`);
+      if (!load(mei1)) return failed('loadData failed in the pass 1 retry');
+      const svgRetry = captureConsole(consoleMessages, () => tk.getPageCount()) === 1 ? renderPage(1) : '';
+      const retried = svgRetry ? measureSvgPage(svgRetry).systems : [];
+      if (retried.length > 0) svg1 = svgRetry;
+      if (retried.length > 0) {
+        sys1 = retried;
+        overhang1 = Math.max(...sys1.map((x) => x.maxXMm)) - page.content.widthMm;
+      }
+    }
+    if (overhang1 > RIGHT_EDGE_TOLERANCE_MM && settings.linePolicy === 'automatic') {
+      // Verovio let an automatic line run past the content width (glyph and barline overhang). Pull
+      // the start of the next system back to an earlier word boundary (or split the last system)
+      // and re-measure once.
+      const starts = sys1.map((x) => x.firstMeasureId);
+      const next = [...starts];
+      sys1.forEach((x, i) => {
+        if (x.maxXMm - page.content.widthMm <= RIGHT_EDGE_TOLERANCE_MM) return;
+        if (i + 1 < starts.length) {
+          const idx = measureIndex.get(starts[i + 1] ?? '') ?? 0;
+          if (!pinned.has(starts[i + 1] ?? '')) next[i + 1] = moveToWordStart(allMeasures[idx - 1] ?? '', starts[i] ?? '', allMeasures, measureIndex, wordFinal, boundaryByMeasure, -1);
+        } else {
+          const lastIdx = (measureIndex.get(starts[i] ?? '') ?? 0) + x.measureIds.length - 1;
+          const split = moveToWordStart(allMeasures[lastIdx] ?? '', starts[i] ?? '', allMeasures, measureIndex, wordFinal, boundaryByMeasure, -1);
+          if (split !== starts[i]) next.push(split);
+        }
+      });
+      next.sort((a, b) => (measureIndex.get(a) ?? 0) - (measureIndex.get(b) ?? 0));
+      if (next.length !== starts.length || next.some((m, k) => m !== starts[k])) {
+        const r = await attempt(next, starts);
+        if (typeof r === 'string') return failed(r);
+        await tick();
+        if (ctx.isCancelled()) return cancelled();
+        if (r.ok) { sys1 = [...r.systems]; overhang1 = Math.max(...sys1.map((x) => x.maxXMm)) - page.content.widthMm; }
+      }
+    }
     if (overhang1 > RIGHT_EDGE_TOLERANCE_MM) {
       if (settings.linePolicy === 'original') {
         crowdedDetails.push(`right edge overhang ${round3(overhang1)} mm`);
@@ -396,57 +515,104 @@ export async function renderMei(
     let planned = planSystems(sys1, allMeasures, realisable, measureByBoundary, boundaryBeforeMeasure);
     let measuredForGaps: readonly MeasuredSystem[] = sys1;
 
-    // Automatic reflow: Verovio breaks at any measure, even inside a word ("Chri-" / "ste"). First
-    // try moving each such start back to the nearest earlier word boundary; if that overfills a
-    // line, try moving them forward instead. Each attempt is ONE encoded render, all or nothing,
-    // accepted only when the systems match, nothing overhangs, Verovio does not compress a line
-    // (ratio below 0.8) and no two syllables come closer than 0.3 mm. Never repeated.
+    // Automatic reflow: Verovio breaks at any measure, even inside a word ("Chri-" / "ste"). Try to
+    // move each such start to a word boundary: the nearest one either way, then only backward, then
+    // only forward. Each try is ONE encoded render; the moves that leave their two systems clean
+    // (no overhang, no syllables closer than 0.3 mm, no justification ratio below 0.7/0.8) are kept,
+    // confirmed by one more render when only some of them were. At most three tries, never repeated.
     if (settings.linePolicy === 'automatic' && planned.length > 1) {
-      const wordFinal = wordFinalMeasures(part.meiXml);
-      const pinned = new Set(realisable.map((b) => nextMeasureInMei.get(measureByBoundary.get(b.boundaryId) ?? '') ?? ''));
       const original = planned.map((p) => p.startMeasureId);
-      const lyricFont = lyricFontOf(ctx);
-      const attempt = async (moved: readonly string[]): Promise<{ ok: boolean; systems: readonly MeasuredSystem[] } | string> => {
-        const messagesBefore = consoleMessages.length;
-        const mei1b = rewriteBreaks(part.meiXml, { stripSb: true, insertBefore: new Map(moved.slice(1).map((m) => [m, 'system'] as const)) });
-        const bad1b = apply({ ...pass1Options, breaks: 'encoded' });
-        if (bad1b.length > 0) return `word-boundary options not applied: ${bad1b.join('; ')}`;
-        if (!load(mei1b)) return 'loadData failed in the word-boundary pass';
-        const pages1b = captureConsole(consoleMessages, () => tk.getPageCount());
-        const svg1b = pages1b === 1 ? renderPage(1) : '';
-        const sys1b = svg1b ? measureSvgPage(svg1b).systems : [];
-        const ratios = consoleMessages.slice(messagesBefore)
-          .map((m) => /ratio smaller than [\d.]+: ([\d.]+)/.exec(m)?.[1])
-          .flatMap((r) => (r === undefined ? [] : [Number(r)]));
-        const sameStarts = sys1b.length === moved.length && sys1b.every((s, k) => s.firstMeasureId === moved[k]);
-        const fits = sys1b.length > 0 && Math.max(...sys1b.map((s) => s.maxXMm)) - page.content.widthMm <= RIGHT_EDGE_TOLERANCE_MM;
-        // Syllables on the systems next to a moved start.
-        const touched = new Set<number>();
-        moved.forEach((m, k) => { if (m !== original[k]) { touched.add(k - 1); touched.add(k); } });
-        const crowded = svg1b !== '' && lyricFont !== null
-          && lyricCollisions(svg1b, lyricFont, MIN_SYLLABLE_GAP_MM).some((c) => touched.has(c.system));
-        return { ok: sameStarts && fits && ratios.every((r) => r >= MIN_WORD_BREAK_RATIO) && !crowded, systems: sys1b };
+      let current = [...original];
+      let currentSystems: readonly MeasuredSystem[] | null = null;
+      const midWord = (m: string): boolean => !wordFinal.has(allMeasures[(measureIndex.get(m) ?? 0) - 1] ?? '');
+      const movable = (k: number): boolean => k > 0 && !pinned.has(original[k] ?? '') && midWord(current[k] ?? '');
+      const pick = (mode: 'nearest' | 'back' | 'forward' | 'cascade' | 'cascade-forward'): string[] => {
+        const out = [...current];
+        if (mode === 'cascade' || mode === 'cascade-forward') {
+          const dir = mode === 'cascade' ? -1 : 1;
+          // A word too long to start earlier without overfilling the next system: shift this start back
+          // to its word boundary and every later start back by the same number of measures (each to a
+          // word boundary), so the extra measures flow to the end of the part.
+          const k = out.findIndex((_, i) => movable(i));
+          if (k < 0) return out;
+          const at = measureIndex.get(out[k]!) ?? 0;
+          const b = moveToWordStart(out[k]!, dir === -1 ? (out[k - 1] ?? '') : (out[k + 1] ?? ''), allMeasures, measureIndex, wordFinal, boundaryByMeasure, dir);
+          if (b === out[k]) return out;
+          const d = (measureIndex.get(b) ?? 0) - at; // negative: earlier
+          out[k] = b;
+          for (let j = k + 1; j < out.length; j++) {
+            if (pinned.has(original[j] ?? '')) break;
+            const target = (measureIndex.get(out[j]!) ?? 0) + d;
+            const prev = measureIndex.get(out[j - 1]!) ?? 0;
+            let found = '';
+            // nearest word boundary to the shifted position, on the side of the shift
+            for (let t = target; dir === -1 ? t > prev : t < allMeasures.length; t += dir === -1 ? -1 : 1) {
+              const before = allMeasures[t - 1] ?? '';
+              if (t > prev && wordFinal.has(before) && boundaryByMeasure.has(before)) { found = allMeasures[t] ?? ''; break; }
+            }
+            if (found === '') break;
+            out[j] = found;
+          }
+          return out;
+        }
+        for (let k = 1; k < out.length; k++) {
+          if (!movable(k)) continue;
+          const m = out[k]!;
+          const b = moveToWordStart(m, out[k - 1] ?? '', allMeasures, measureIndex, wordFinal, boundaryByMeasure, -1);
+          const f = moveToWordStart(m, out[k + 1] ?? '', allMeasures, measureIndex, wordFinal, boundaryByMeasure, 1);
+          const at = measureIndex.get(m) ?? 0;
+          const db = b === m ? Infinity : at - (measureIndex.get(b) ?? 0);
+          const df = f === m ? Infinity : (measureIndex.get(f) ?? 0) - at;
+          out[k] = mode === 'back' ? b : mode === 'forward' ? f : db <= df ? b : f;
+        }
+        return out;
       };
-      // Backward moves chain on the moved previous start so a system never loses all its measures.
-      const back: string[] = [];
-      original.forEach((m, k) => {
-        back.push(k === 0 || pinned.has(m) ? m : moveToWordStart(m, back[k - 1] ?? '', allMeasures, measureIndex, wordFinal, boundaryByMeasure, -1));
-      });
-      const forward = original.map((m, k) =>
-        (k === 0 || pinned.has(m) ? m : moveToWordStart(m, original[k + 1] ?? '', allMeasures, measureIndex, wordFinal, boundaryByMeasure, 1)));
-      const candidates = [back, forward];
-      for (const moved of candidates) {
-        if (!moved.some((m, k) => m !== original[k])) continue;
-        const r = await attempt(moved);
+      for (const mode of ['nearest', 'back', 'forward', 'cascade', 'cascade-forward'] as const) {
+        if (!current.some((_, k) => movable(k))) break;
+        const moved = pick(mode);
+        const changed = moved.map((m, k) => (m !== current[k] ? k : -1)).filter((k) => k >= 0);
+        if (changed.length === 0) continue;
+        const r = await attempt(moved, current);
         if (typeof r === 'string') return failed(r);
         await tick();
         if (ctx.isCancelled()) return cancelled();
-        if (r.ok) {
-          planned = planSystems(r.systems, allMeasures, [], measureByBoundary, boundaryBeforeMeasure);
-          measuredForGaps = r.systems;
-          break;
+        if (!r.sameStarts || !r.ratiosOk) continue;
+        if (mode === 'cascade' || mode === 'cascade-forward') {
+          if (r.ok) { current = moved; currentSystems = r.systems; }
+          continue;
+        }
+        const keep = changed.filter((k) => !r.bad.has(k - 1) && !r.bad.has(k));
+        if (keep.length === 0) continue;
+        if (keep.length === changed.length) {
+          current = moved;
+          currentSystems = r.systems;
+          continue;
+        }
+        const subset = current.map((m, k) => (keep.includes(k) ? moved[k]! : m));
+        const r2 = await attempt(subset, current);
+        if (typeof r2 === 'string') return failed(r2);
+        await tick();
+        if (ctx.isCancelled()) return cancelled();
+        if (r2.ok) {
+          current = subset;
+          currentSystems = r2.systems;
         }
       }
+      if (currentSystems !== null) {
+        planned = planSystems(currentSystems, allMeasures, [], measureByBoundary, boundaryBeforeMeasure);
+        measuredForGaps = currentSystems;
+      }
+    }
+    // D24: a start that stayed inside a word is allowed, but recorded (informational) on that system.
+    if (settings.linePolicy === 'automatic') {
+      planned.forEach((p, k) => {
+        if (k === 0 || pinned.has(p.startMeasureId) || wordFinal.has(allMeasures[(measureIndex.get(p.startMeasureId) ?? 0) - 1] ?? '')) return;
+        diagnostics.push(diag(partId, 'MIDWORD_UNAVOIDABLE', 'info', {
+          pageIndex: null,
+          boundaryIds: p.firstBoundaryId ? [p.firstBoundaryId] : [],
+          detail: `system ${k} starts inside a word at ${p.startMeasureId}; no word boundary was reachable without a syllable gap below ${MIN_SYLLABLE_GAP_MM} mm or an overfull line`,
+        }));
+      });
     }
     const gaps = measuredForGaps.slice(1).map((s, i) => s.topMm - ((measuredForGaps[i]?.topMm ?? 0) + (measuredForGaps[i]?.heightMm ?? 0)));
     const minGapMm = gaps.length > 0 ? Math.max(0, ...gaps) : 0; // R1: the maximum measured gap
@@ -456,10 +622,10 @@ export async function renderMei(
     planned.forEach((s, i) => { if (s.firstBoundaryId !== null && userPageBoundaries.has(s.firstBoundaryId)) forcedPageStarts.add(i); });
 
     const pagInput = {
-      systems: planned.map((s) => ({ heightMm: s.heightMm, startsAfterBoundary: s.firstBoundaryId })),
+      systems: planned.map((s, i) => ({ heightMm: hint !== null && hint.heights.length === planned.length ? Math.max(s.heightMm, hint.heights[i] ?? 0) : s.heightMm, startsAfterBoundary: s.firstBoundaryId })),
       contentHeightMm: page.content.heightMm,
       firstPageContentHeightMm: page.firstPageContent.heightMm,
-      minGapMm,
+      minGapMm: hint !== null ? Math.max(minGapMm, hint.gapMm) : minGapMm,
       maxSystems: settings.maxSystems,
       forcedPageStarts,
     };
@@ -468,13 +634,14 @@ export async function renderMei(
       const bad = planned[pag.systemIndex];
       const prefix = paginate({ ...pagInput, systems: pagInput.systems.slice(0, pag.systemIndex) });
       const pageIndex = prefix.ok ? prefix.pages.length : 0;
-      const headingBound = pageIndex === 0 && (bad?.heightMm ?? 0) <= page.content.heightMm;
+      const badHeight = pagInput.systems[pag.systemIndex]?.heightMm ?? bad?.heightMm ?? 0;
+      const headingBound = pageIndex === 0 && badHeight <= page.content.heightMm;
       return fail(diag(partId, 'UNSATISFIABLE_LAYOUT', 'error', {
         pageIndex,
         boundaryIds: bad?.firstBoundaryId ? [bad.firstBoundaryId] : [],
         reason: headingBound ? 'heading-too-tall' : 'system-too-tall',
         suggestions: sizeSuggestions(settings, 'tall'),
-        detail: `system ${pag.systemIndex} is ${bad?.heightMm} mm tall; the page offers ${pageIndex === 0 ? page.firstPageContent.heightMm : page.content.heightMm} mm`,
+        detail: `system ${pag.systemIndex} is ${badHeight} mm tall; the page offers ${pageIndex === 0 ? page.firstPageContent.heightMm : page.content.heightMm} mm`,
       }));
     }
     if (ctx.isCancelled()) return cancelled();
@@ -496,13 +663,13 @@ export async function renderMei(
       const i = start === undefined ? -1 : (measureIndex.get(start) ?? -1);
       if (i > 0) brokenAfter.add(allMeasures[i - 1] ?? '');
     }
-    const mei2 = revealSplitSustainsAfter(rewriteBreaks(part.meiXml, { stripSb: true, insertBefore: inserts }), brokenAfter);
+    const mei2 = revealSplitSustainsAfter(rewriteBreaks(meiSource, { stripSb: true, insertBefore: inserts }), brokenAfter);
     const plannedPages = pag.pages.map((indices) => indices.map((i) => planned[i]?.startMeasureId ?? ''));
     // R5: with no break element 'encoded' silently falls back to 'auto'. A one-system part must
     // stay one system, so ask for 'none' instead.
     const pass2Breaks = planned.length <= 1 ? 'none' : 'encoded';
-    const pass2Options: OptionRecord = { ...base, breaks: pass2Breaks, svgBoundingBoxes: true };
-    finalOptions = { ...base, breaks: pass2Breaks };
+    const pass2Options: OptionRecord = { ...base, pageMarginRight: reserveRight, breaks: pass2Breaks, svgBoundingBoxes: true };
+    finalOptions = { ...base, pageMarginRight: reserveRight, breaks: pass2Breaks };
 
     // ------------------------------------------------------------ pass 2 ---
     const bad2 = apply(pass2Options);
@@ -599,7 +766,15 @@ export async function renderMei(
         detail: [...new Set(crowdedDetails)].join('; '),
       }));
     }
-    if (problems.length > 0) return { ...layout, pages: [], diagnostics: [...diagnostics, ...problems] };
+    if (problems.length > 0) {
+      const failedLayout: MeiLayout = { ...layout, pages: [], diagnostics: [...diagnostics, ...problems] };
+      if (hint === null && problems.some((d) => d.code === 'CONTENT_CLIPPED' && d.detail.includes('content bottom'))) {
+        const sys = rendered.flatMap((r) => r.measured.systems);
+        const gaps = rendered.flatMap((r) => r.measured.systems.slice(1).map((x, i) => x.topMm - ((r.measured.systems[i]?.topMm ?? 0) + (r.measured.systems[i]?.heightMm ?? 0))));
+        measuredHints.set(failedLayout, { heights: sys.map((x) => x.heightMm), gapMm: gaps.length > 0 ? Math.max(0, ...gaps) : 0 });
+      }
+      return failedLayout;
+    }
     return { ...layout, diagnostics };
   } catch (e) {
     const message = errorMessage(e);
@@ -620,7 +795,11 @@ export function wordFinalMeasures(meiXml: string): Set<string> {
   let open = false;
   for (const block of meiXml.split(/<measure\b/).slice(1)) {
     const id = /\sxml:id="([^"]+)"/.exec(block)?.[1];
-    for (const m of block.matchAll(/<syl\b[^>]*?\swordpos="([imts])"/g)) open = m[1] === 'i' || m[1] === 'm';
+    // A syllable without wordpos is a whole word.
+    for (const m of block.matchAll(/<syl\b[^>]*>/g)) {
+      const pos = /\swordpos="([imts])"/.exec(m[0])?.[1];
+      open = pos === 'i' || pos === 'm';
+    }
     if (id && !open) out.add(id);
   }
   return out;

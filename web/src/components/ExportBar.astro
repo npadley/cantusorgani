@@ -1,7 +1,6 @@
 ---
 import DisclosureCue from "./DisclosureCue.astro";
 import ExportLayoutEditor from "./ExportLayoutEditor.astro";
-import { approvedConversionFor, loadManifest } from "../lib/mei";
 import { defaultTicked, defaultsNote, exportSegments, seasonGroup } from "../lib/exportParts";
 import { pieceBySlug } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
@@ -39,11 +38,6 @@ const runsOf = (s: ExportSegment): readonly ExportRun[] => {
   return piece && s.source ? exportRuns(piece, s.source.start, s.source.end)
     : [{ count: s.systems, key: null, label: null, letter: null, a4: null, target: null, hash: null }];
 };
-// "Customize export" is offered only where a part on the page has an approved conversion (decision D5):
-// anywhere else the editor would be a more elaborate paper picker for scans.
-const manifest = loadManifest();
-const customizable = segments.some((s) => runsOf(s).some((r) =>
-  r.target !== null && r.hash !== null && approvedConversionFor(r.target, r.hash, manifest) !== null));
 const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${estimatePages(n)} page${estimatePages(n) === 1 ? "" : "s"})`;
 ---
 
@@ -73,7 +67,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
       <button id="export-btn" type="button" disabled={refusal !== null}>
         {refusal !== null && count === 0 ? "Tick at least one part" : label(count)}
       </button>
-      {customizable && <button id="export-customize" type="button" disabled={refusal !== null}>Customize export</button>}
+      <button id="export-customize" type="button" disabled={refusal !== null}>Customize export</button>
       <label class="small paper">Paper
         <select id="export-paper">
           <option value="letter">Letter (8½ × 11)</option>
@@ -86,7 +80,8 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     <p id="export-status" class="small" role="status" aria-live="polite">{refusal ?? ""}</p>
   </div>
 )}
-{segments.length > 0 && customizable && <ExportLayoutEditor />}
+{/* On every page with an export bar (D23): parts with an approved conversion reflow, the rest are placed as they are. */}
+{segments.length > 0 && <ExportLayoutEditor />}
 
 <style>
   .export {

@@ -3,19 +3,9 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { renderMei, wordFinalMeasures } from './layout';
 import { paperDimensions } from './settings';
-import { WASM_TIMEOUT_MS, ctxOf as baseCtxOf, errors, partOf, rectsOf, settingsOf, useRealVerovio } from './__fixtures__/layoutHarness';
+import { WASM_TIMEOUT_MS, ctxOf, errors, partOf, rectsOf, settingsOf, useRealVerovio } from './__fixtures__/layoutHarness';
 import manifest from './__fixtures__/manifest.fixture.json';
 import type { LayoutSettings, SafeBoundary } from './types';
-
-import type { FontAsset, FontProfile, RenderContext, VerovioLike } from './types';
-
-const LIBERATION = new Uint8Array(readFileSync(join(__dirname, '..', '..', '..', 'public', 'fonts', 'export', 'LiberationSerif-Regular.ttf')));
-/** The harness context plus the real lyric face, so layout can check syllable gaps. */
-const ctxOf = (tk: VerovioLike): RenderContext => {
-  const ctx = baseCtxOf(tk);
-  const lyricFont = { family: 'Liberation Serif', url: '', sha256: '', license: 'OFL', bytes: LIBERATION } as FontAsset;
-  return { ...ctx, fonts: { lyricFont } as unknown as FontProfile };
-};
 
 const MEI = readFileSync(join(__dirname, '__fixtures__', 'kyrie-ix.mei'), 'utf8');
 const BOUNDARIES = manifest.parts[0]!.boundaries as unknown as SafeBoundary[];

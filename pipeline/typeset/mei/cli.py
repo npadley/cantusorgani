@@ -5,6 +5,7 @@ from __future__ import annotations
 import dataclasses
 import hashlib
 import json
+import tempfile
 from collections import Counter
 from fractions import Fraction
 from pathlib import Path
@@ -392,3 +393,151 @@ def review_command(convert_dir: Path, decision_path: Path, out: Path, inputs_fn:
     _write_json(out, record_to_dict(reviewed))
     print(f"{reviewed.state}: inputs {current.digest()} artifact {reviewed.artifact_sha256}; wrote {out}")
     return 0
+
+
+# --- typeset-mei-batch -----------------------------------------------------------------------
+
+
+def batch_command(
+    sources_file: Path, out: Path, workers: int = 2, no_evidence: bool = False, auto_approve: bool = False
+) -> int:
+    """Convert every source named in SOURCES_FILE (one path per line, ``#`` comments allowed) into OUT.
+
+    Digest-keyed and resumable; prints one line per source and the counts. Exit 1 when any source
+    failed, so a scripted run notices; unsupported sources are reported, not errors. Without ``auto_approve``
+    it never approves; with it (D22) a piece that passes every check is approved as ``auto (D22)`` and its
+    record is written to OUT/records/, never to data/typeset/mei/records/."""
+    from pipeline.typeset import lilypond
+    from pipeline.typeset.mei.batch import run_batch
+
+    sources: list[Path] = []
+    for raw in sources_file.read_text(encoding="utf-8").splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if line:
+            path = Path(line)
+            sources.append(path if path.is_absolute() else lilypond.ROOT / path)
+    report = run_batch(
+        sources, ConversionProfile.load(PROFILE_PATH), out, workers=workers,
+        evidence_fn=None if no_evidence else _batch_evidence(), auto_approve=auto_approve and not no_evidence,
+    )
+    for name, state in report.results.items():
+        marks = " (cached)" if name in report.cached else ""
+        packet = f" {report.evidence[name] / 'index.html'}" if name in report.evidence else ""
+        print(f"{state}: {name}{marks}{packet}")
+    print("counts: " + ", ".join(f"{k} {v}" for k, v in report.counts.items()))
+    return 1 if report.counts["failed"] else 0
+
+
+def _batch_evidence() -> Any:
+    from pipeline.typeset.mei.batch import _default_evidence
+
+    return _default_evidence
+
+
+# --- typeset-mei-carry -----------------------------------------------------------------------
+
+
+def carry_command(
+    convert_dir: Path,
+    prior_record: Path,
+    out: Path,
+    prior_dir: Path | None = None,
+    node_runner: Any = None,
+    inputs_fn: Any = None,
+    now: str | None = None,
+) -> int:
+    """Try to carry the approval in PRIOR_RECORD forward onto the re-conversion in CONVERT_DIR (D20).
+
+    ``prior_dir`` is a convert directory holding the artifact that approval was made on (its
+    ``score.mei`` must hash to the prior record's ``artifact_sha256``); it may be omitted when
+    CONVERT_DIR itself is byte-identical to that artifact. Both are laid out for the 13 required
+    cases and compared. Writes the new record to OUT: approved with a ``carried_from`` block when
+    the evidence is identical, otherwise the plain ``needs-review`` record, with the differing cases
+    named on stdout and in OUT's sibling ``<name>.carry.json``. Exit 1 only when the comparison
+    cannot be made; a record left in needs-review is still exit 0. Never publishes or commits."""
+    from pipeline.typeset.mei import carry, evidence
+    from pipeline.typeset.mei.manifest import record_from_dict, record_to_dict
+    from pipeline.typeset.mei.review import carry_forward
+
+    prior = record_from_dict(json.loads(prior_record.read_text(encoding="utf-8")))
+    if prior.state != "approved" or prior.artifact_sha256 is None:
+        print(f"error: {prior_record} is not an approved record")
+        return 1
+    if prior_dir is None:
+        if carry.sha256_of(convert_dir / "score.mei") != prior.artifact_sha256:
+            print("error: the conversion differs from the approved artifact; pass --prior-dir, a convert directory "
+                  f"of artifact {prior.artifact_sha256}")
+            return 1
+        prior_dir = convert_dir
+    elif not (prior_dir / "score.mei").is_file() or carry.sha256_of(prior_dir / "score.mei") != prior.artifact_sha256:
+        print(f"error: {prior_dir / 'score.mei'} is not the approved artifact {prior.artifact_sha256}")
+        return 1
+    new, _current = record_for_directory(convert_dir, inputs_fn)
+    runner = node_runner or evidence.run_node_renderer
+    try:
+        with tempfile.TemporaryDirectory(prefix="mei-carry-") as work:
+            comparison = carry.compare_conversions(prior_dir, convert_dir, runner, Path(work))
+    except evidence.EvidenceError as error:
+        print(f"error: {error}")
+        return 1
+    result = carry_forward(prior, new, comparison, now)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    _write_json(out, record_to_dict(result))
+    carried = result.carried_from is not None
+    _write_json(
+        out.with_name(out.stem + ".carry.json"),
+        {
+            "sourcePath": new.source_path, "carried": carried, "state": result.state,
+            "semanticEqual": comparison.semantic_equal, "casesDiffering": list(comparison.cases_differing),
+            "changedInputs": [] if result.carried_from is None else list(result.carried_from.reason),
+            "priorArtifact": prior.artifact_sha256, "newArtifact": new.artifact_sha256,
+        },
+    )
+    if carried:
+        print(f"carried {new.source_path}: approval of {prior.artifact_sha256} now covers inputs "
+              f"{result.inputs.digest()} (artifact {result.artifact_sha256}); wrote {out}")
+    else:
+        why = []
+        if not comparison.semantic_equal:
+            why.append("normalized semantics differ")
+        if comparison.cases_differing:
+            why.append(f"renders differ in {', '.join(comparison.cases_differing)}")
+        if not why:
+            why.append(f"record is {new.state} or its target, source or profile changed")
+        print(f"needs-review {new.source_path}: {'; '.join(why)}; wrote {out}")
+    return 0
+
+
+# --- typeset-mei-stale -----------------------------------------------------------------------
+
+
+def stale_command(
+    records_dir: Path,
+    as_json: bool = False,
+    fail_on_stale: bool = False,
+    out: Path | None = None,
+    current_inputs: Any = None,
+    matched: Path | None = None,
+) -> int:
+    """List approved ConversionRecords in RECORDS_DIR whose current inputs no longer match the signed
+    ones (per-field reasons, plus a moved render hash). Read-only; exit 0 unless ``fail_on_stale``
+    and something is stale. ``out`` also writes the JSON report to a file."""
+    from pipeline.typeset.mei.manifest import (
+        current_inputs_from_files,
+        load_matched_parts,
+        record_from_dict,
+    )
+    from pipeline.typeset.mei.stale import report_dict, report_table, stale_entries
+
+    files = sorted(records_dir.glob("*.json"))
+    records = [record_from_dict(json.loads(path.read_text(encoding="utf-8"))) for path in files]
+    parts = load_matched_parts(matched or Path(__file__).resolve().parents[3] / "data" / "typeset" / "manifest.json")
+    entries = stale_entries(records, current_inputs or current_inputs_from_files, parts)
+    checked = sum(1 for record in records if record.state == "approved")
+    report = report_dict(entries, checked, {r.source_path: p.as_posix() for r, p in zip(records, files, strict=True)})
+    text = json.dumps(report, indent=2, sort_keys=True)
+    if out is not None:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(text + "\n", encoding="utf-8")
+    print(text if as_json else report_table(entries, checked))
+    return 1 if fail_on_stale and entries else 0

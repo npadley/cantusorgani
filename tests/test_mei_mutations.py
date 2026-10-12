@@ -468,3 +468,69 @@ def test_compare_scores_scaled_first_fragment_without_its_tuplet_reports_duratio
 
     hits = with_code(run("F1", mutate), "DURATION_MISMATCH")
     assert any(target["id"] in d.source_event_ids for d in hits)
+
+
+def test_compare_scores_dropped_ordinary_glissando_reports_a_span_mismatch() -> None:
+    target: dict[str, str] = {}
+
+    def mutate(root: etree._Element, prov: dict[str, str]) -> None:
+        gliss = next(g for g in root.iter(M + "gliss") if g.get("type") != "voice-line")
+        target["start"] = prov[gliss.get("startid").removeprefix("#")]  # type: ignore[union-attr]
+        gliss.getparent().remove(gliss)
+
+    hits = with_code(run("F6", mutate), "SLUR_MISMATCH")
+    assert any("glissando" in d.detail and target["start"] in d.source_event_ids for d in hits)
+
+
+def test_compare_scores_ordinary_glissando_retyped_as_a_voice_line_reports_a_span_mismatch() -> None:
+    def mutate(root: etree._Element, prov: dict[str, str]) -> None:
+        next(g for g in root.iter(M + "gliss") if g.get("type") != "voice-line").set("type", "voice-line")
+
+    hits = with_code(run("F6", mutate), "SLUR_MISMATCH")
+    assert hits
+
+
+def test_compare_scores_dropped_chord_member_reports_a_missing_event() -> None:
+    target: dict[str, str] = {}
+
+    def mutate(root: etree._Element, prov: dict[str, str]) -> None:
+        chord = next(root.iter(M + "chord"))
+        member = chord.findall(M + "note")[-1]
+        target["id"] = sid(prov, member)
+        chord.remove(member)
+
+    hits = run("F7", mutate)
+    assert any(target["id"] in d.source_event_ids for d in hits)
+
+
+def test_compare_scores_chord_member_with_another_pitch_reports_pitch_mismatch() -> None:
+    target: dict[str, str] = {}
+
+    def mutate(root: etree._Element, prov: dict[str, str]) -> None:
+        member = next(root.iter(M + "chord")).findall(M + "note")[0]
+        member.set("pname", "f" if member.get("pname") != "f" else "g")
+        target["id"] = sid(prov, member)
+
+    hits = with_code(run("F7", mutate), "PITCH_MISMATCH")
+    assert any(target["id"] in d.source_event_ids for d in hits)
+
+
+def _measure_of(note: etree._Element) -> etree._Element:
+    return next(a for a in note.iterancestors() if a.tag == M + "measure")
+
+
+def test_compare_scores_dropped_slur_that_spans_a_source_break_reports_slur_mismatch() -> None:
+    """A8: a source line break inside a slur is a measure boundary the slur crosses; losing it is detected."""
+    target: dict[str, str] = {}
+
+    def mutate(root: etree._Element, prov: dict[str, str]) -> None:
+        notes = {n.get(XML_ID): n for n in root.iter(M + "note")}
+        crossing = next(
+            s for s in root.iter(M + "slur")
+            if _measure_of(notes[s.get("startid")[1:]]) is not _measure_of(notes[s.get("endid")[1:]])
+        )
+        target["start"] = prov[crossing.get("startid").removeprefix("#")]  # type: ignore[union-attr]
+        crossing.getparent().remove(crossing)
+
+    hits = with_code(run("F9", mutate), "SLUR_MISMATCH")
+    assert any(target["start"] in d.source_event_ids for d in hits)

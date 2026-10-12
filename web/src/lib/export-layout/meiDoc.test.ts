@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { describe, it, expect } from 'vitest';
 import { DOMParser } from '@xmldom/xmldom';
 import type { Element } from '@xmldom/xmldom';
-import { materialiseBreaks } from './meiDoc';
+import { hideSplitContinuations, materialiseBreaks, revealSplitSustainsAfter } from './meiDoc';
 import type { EffectiveBreak, EffectiveBreaks, SafeBoundary } from './types';
 
 const MEI_NS = 'http://www.music-encoding.org/ns/mei';
@@ -127,8 +127,9 @@ describe('materialiseBreaks split sustains', () => {
       const out = materialiseBreaks(SPLIT, breaksOf(eb('b1', kind)), SB, 'automatic');
       const cont = el(out, 'evxc1');
       expect(cont?.hasAttribute('head.visible')).toBe(false);
-      expect(cont?.hasAttribute('stem.visible')).toBe(false);
-      expect(cont?.getAttribute('accid')).toBe('s');
+      // D17: head only; the stem stays off and no courtesy accidental is copied.
+      expect(cont?.getAttribute('stem.visible')).toBe('false');
+      expect(cont?.hasAttribute('accid')).toBe(false);
       const tie = el(out, 'evxc1-tie');
       expect(tie?.localName).toBe('tie');
       expect(tie?.namespaceURI).toBe(MEI_NS);
@@ -142,11 +143,15 @@ describe('materialiseBreaks split sustains', () => {
     });
   }
 
-  it('copies no accid when the first fragment had none', () => {
-    const noAccid = SPLIT.replace(' accid="s"', '');
-    const out = materialiseBreaks(noAccid, breaksOf(eb('b1', 'system')), SB, 'automatic');
-    expect(el(out, 'evxc1')?.hasAttribute('accid')).toBe(false);
-    expect(el(out, 'evxc1-tie')).toBeDefined();
+  it('hideSplitContinuations marks continuations invisible and a reveal removes it again', () => {
+    const hidden = hideSplitContinuations(SPLIT);
+    expect(el(hidden, 'evxc1')?.getAttribute('visible')).toBe('false');
+    expect(el(hidden, 'evx')?.hasAttribute('visible')).toBe(false);
+    expect(eventIds(hidden)).toEqual(eventIds(SPLIT));
+    const shown = revealSplitSustainsAfter(hidden, new Set(['ma']));
+    expect(el(shown, 'evxc1')?.hasAttribute('visible')).toBe(false);
+    expect(el(shown, 'evxc1')?.hasAttribute('head.visible')).toBe(false);
+    expect(hideSplitContinuations('<mei/>')).toBe('<mei/>');
   });
 
   it('leaves continuations untouched where there is no break', () => {

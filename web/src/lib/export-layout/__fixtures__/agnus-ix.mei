@@ -1,0 +1,1685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mei meiversion="5.0" xmlns="http://www.music-encoding.org/ns/mei">
+  <meiHead>
+    <fileDesc>
+      <titleStmt>
+        <title>agnus_IX</title>
+      </titleStmt>
+      <pubStmt/>
+    </fileDesc>
+  </meiHead>
+  <music>
+    <body>
+      <mdiv>
+        <score>
+          <scoreDef mnum.visible="false">
+            <staffGrp bar.thru="true" symbol="brace">
+              <staffDef clef.line="2" clef.shape="G" keysig="2s" lines="5" n="1"/>
+              <staffDef clef.line="4" clef.shape="F" keysig="2s" lines="5" n="2"/>
+            </staffGrp>
+          </scoreDef>
+          <section>
+            <measure metcon="false" n="1" right="invis" xml:id="m001">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0000">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">A</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev1e0000"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <space dur="4" xml:id="ev2e0000"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="3" pname="d" stem.visible="false" xml:id="ev3e0000"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" xml:id="ev4e0000"/>
+                </layer>
+              </staff>
+              <tie endid="#ev1e0001" startid="#ev1e0000" xml:id="tev1e0000"/>
+              <tie endid="#ev3e0001" startid="#ev3e0000" xml:id="tev3e0000"/>
+            </measure>
+            <measure metcon="false" n="2" right="invis" xml:id="m002">
+              <staff n="1">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0001">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">gnus</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0002"/>
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0003">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">De</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev0e0004"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" oct="4" pname="d" stem.visible="false" xml:id="ev1e0001"/>
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev1e0002"/>
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev1e0003"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="2" oct="3" pname="a" stem.visible="false" xml:id="ev2e0001"/>
+                  <note dur="2" oct="3" pname="b" stem.visible="false" xml:id="ev2e0002"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" oct="3" pname="d" stem.visible="false" xml:id="ev3e0001"/>
+                  <note dur="2" oct="3" pname="a" stem.visible="false" xml:id="ev3e0002"/>
+                </layer>
+                <layer n="3">
+                  <note dur="2" oct="3" pname="a" stem.visible="false" visible="false" xml:id="ev4e0001"/>
+                  <note dur="2" oct="3" pname="a" stem.visible="false" visible="false" xml:id="ev4e0002"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0002" startid="#ev0e0001" xml:id="sp0000"/>
+              <slur endid="#ev0e0004" startid="#ev0e0003" xml:id="sp0001"/>
+              <gliss endid="#ev1e0002" lform="solid" startid="#ev1e0001" xml:id="sp0087"/>
+              <gliss endid="#ev4e0002" lform="solid" startid="#ev4e0001" type="voice-line" xml:id="sp0088"/>
+              <tie endid="#ev3e0003" startid="#ev3e0002" xml:id="tev3e0002"/>
+              <tie endid="#ev1e0004" startid="#ev1e0003" xml:id="tev1e0003"/>
+            </measure>
+            <measure metcon="false" n="3" right="invis" xml:id="m003">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0005"/>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0006"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" next="#ev1e0004c1" oct="4" pname="e" stem.visible="false" xml:id="ev1e0004"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note accid.ges="s" dur="2" next="#ev2e0003c1" oct="4" pname="c" stem.visible="false" xml:id="ev2e0003"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" next="#ev3e0003c1" oct="3" pname="a" stem.visible="false" xml:id="ev3e0003"/>
+                </layer>
+                <layer n="3">
+                  <space dur="2" next="#ev4e0003c1" xml:id="ev4e0003"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0006" startid="#ev0e0005" xml:id="sp0002"/>
+              <tie endid="#ev2e0004" startid="#ev2e0003" xml:id="tev2e0003"/>
+            </measure>
+            <measure metcon="false" n="4" right="invis" xml:id="m004">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0007">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">i,</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0008"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="4" head.visible="false" oct="4" pname="e" prev="#ev1e0004" stem.visible="false" type="split-continuation" xml:id="ev1e0004c1"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note accid.ges="s" dur="4" head.visible="false" oct="4" pname="c" prev="#ev2e0003" stem.visible="false" type="split-continuation" xml:id="ev2e0003c1"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="4" head.visible="false" oct="3" pname="a" prev="#ev3e0003" stem.visible="false" type="split-continuation" xml:id="ev3e0003c1"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dur="2" next="#ev4e0003c2" prev="#ev4e0003" type="split-continuation" xml:id="ev4e0003c1"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0008" startid="#ev0e0007" xml:id="sp0003"/>
+              <dir ho="2.5" place="within" staff="1" startid="#ev0e0008" type="divisio-minima" vo="4.5" xml:id="cb008">
+                <rend fontsize="50%" fontstyle="normal">|</rend>
+              </dir>
+              <dir ho="2.5" place="within" staff="2" startid="#ev0e0008" type="divisio-minima" vo="4.5" xml:id="cb008s2">
+                <rend fontsize="50%" fontstyle="normal">|</rend>
+              </dir>
+            </measure>
+            <measure metcon="false" n="5" right="invis" xml:id="m005">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0009">
+                    <verse n="1" place="above">
+                      <label>*</label>
+                      <syl>qui</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0010"/>
+                  <note accid.ges="s" dur="4" oct="5" pname="c" stem.visible="false" xml:id="ev0e0011"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note accid.ges="s" dur="2" oct="4" pname="f" stem.visible="false" xml:id="ev1e0005"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note accid.ges="s" dur="2" oct="4" pname="c" stem.visible="false" xml:id="ev2e0004"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note accid.ges="s" dur="2" oct="3" pname="f" stem.visible="false" xml:id="ev3e0004"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dots="1" dur="2" next="#ev4e0003c3" prev="#ev4e0003c1" type="split-continuation" xml:id="ev4e0003c2"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0011" startid="#ev0e0009" xml:id="sp0004"/>
+              <tie endid="#ev1e0006" startid="#ev1e0005" xml:id="tev1e0005"/>
+            </measure>
+            <measure metcon="false" n="6" right="invis" xml:id="m006">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="5" pname="d" stem.visible="false" xml:id="ev0e0012">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">tol</syl>
+                    </verse>
+                  </note>
+                  <note accid.ges="s" dur="4" oct="5" pname="c" stem.visible="false" xml:id="ev0e0013"/>
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0014"/>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0015"/>
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0016"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="5">
+                    <note accid.ges="s" dur="2" oct="4" pname="f" stem.visible="false" xml:id="ev1e0006"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="4" num.visible="false" numbase="5">
+                    <space dur="1" xml:id="ev2e0005"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="5">
+                    <note dur="2" oct="3" pname="b" stem.visible="false" xml:id="ev3e0005"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <tuplet bracket.visible="false" num="4" num.visible="false" numbase="5">
+                    <space dur="1" next="#ev4e0003c4" prev="#ev4e0003c2" type="split-continuation" xml:id="ev4e0003c3"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0016" startid="#ev0e0012" xml:id="sp0005"/>
+              <tie endid="#ev3e0006" startid="#ev3e0005" xml:id="tev3e0005"/>
+            </measure>
+            <measure metcon="false" n="7" right="invis" xml:id="m007">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0017">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">lis</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev1e0007"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="4" pname="c" stem.visible="false" xml:id="ev2e0006"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="3" pname="b" stem.visible="false" xml:id="ev3e0006"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0003c5" prev="#ev4e0003c3" type="split-continuation" xml:id="ev4e0003c4"/>
+                </layer>
+              </staff>
+              <tie endid="#ev3e0007" startid="#ev3e0006" xml:id="tev3e0006"/>
+              <dir ho="2.5" place="within" staff="1" startid="#ev0e0017" type="divisio-minima" vo="4.5" xml:id="cb017">
+                <rend fontsize="50%" fontstyle="normal">|</rend>
+              </dir>
+              <dir ho="2.5" place="within" staff="2" startid="#ev0e0017" type="divisio-minima" vo="4.5" xml:id="cb017s2">
+                <rend fontsize="50%" fontstyle="normal">|</rend>
+              </dir>
+            </measure>
+            <measure metcon="false" n="8" right="invis" xml:id="m008">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="5" pname="d" stem.visible="false" xml:id="ev0e0018">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">pec</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev1e0008"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev2e0007"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="3" pname="b" stem.visible="false" xml:id="ev3e0007"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0003c6" prev="#ev4e0003c4" type="split-continuation" xml:id="ev4e0003c5"/>
+                </layer>
+              </staff>
+              <tie endid="#ev2e0008" startid="#ev2e0007" xml:id="tev2e0007"/>
+            </measure>
+            <measure metcon="false" n="9" right="invis" xml:id="m009">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0019">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="m">cá</syl>
+                    </verse>
+                  </note>
+                  <note accid.ges="s" dur="4" oct="5" pname="c" stem.visible="false" xml:id="ev0e0020"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" next="#ev1e0009c1" oct="4" pname="g" stem.visible="false" xml:id="ev1e0009"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="2" next="#ev2e0008c1" oct="4" pname="d" stem.visible="false" xml:id="ev2e0008"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" next="#ev3e0008c1" oct="3" pname="e" stem.visible="false" xml:id="ev3e0008"/>
+                </layer>
+                <layer n="3">
+                  <space dur="2" next="#ev4e0003c7" prev="#ev4e0003c5" type="split-continuation" xml:id="ev4e0003c6"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0020" startid="#ev0e0019" xml:id="sp0006"/>
+              <tie endid="#ev2e0009" startid="#ev2e0008" xml:id="tev2e0008"/>
+            </measure>
+            <measure metcon="false" n="10" right="invis" xml:id="m010">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="5" pname="d" stem.visible="false" xml:id="ev0e0021">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">ta</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note dur="4" head.visible="false" oct="4" pname="g" prev="#ev1e0009" stem.visible="false" type="split-continuation" xml:id="ev1e0009c1"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="4" head.visible="false" oct="4" pname="d" prev="#ev2e0008" stem.visible="false" type="split-continuation" xml:id="ev2e0008c1"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" head.visible="false" oct="3" pname="e" prev="#ev3e0008" stem.visible="false" type="split-continuation" xml:id="ev3e0008c1"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0003c8" prev="#ev4e0003c6" type="split-continuation" xml:id="ev4e0003c7"/>
+                </layer>
+              </staff>
+            </measure>
+            <measure metcon="false" n="11" right="invis" xml:id="m011">
+              <staff n="1">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="5" pname="c" stem.visible="false" xml:id="ev0e0022">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">mun</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0023"/>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0024"/>
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0025"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="2" oct="4" pname="e" stem.visible="false" xml:id="ev1e0010"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="2" oct="4" pname="d" stem.visible="false" xml:id="ev2e0009"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="2" oct="3" pname="a" stem.visible="false" xml:id="ev3e0009"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dur="1" next="#ev4e0003c9" prev="#ev4e0003c7" type="split-continuation" xml:id="ev4e0003c8"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0025" startid="#ev0e0022" xml:id="sp0007"/>
+              <tie endid="#ev1e0011" startid="#ev1e0010" xml:id="tev1e0010"/>
+              <tie endid="#ev3e0010" startid="#ev3e0009" xml:id="tev3e0009"/>
+            </measure>
+            <measure metcon="false" n="12" right="invis" xml:id="m012">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0026">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">di:</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev1e0011"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="4" pname="c" stem.visible="false" xml:id="ev2e0010"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="3" pname="a" stem.visible="false" xml:id="ev3e0010"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0003c10" prev="#ev4e0003c8" type="split-continuation" xml:id="ev4e0003c9"/>
+                </layer>
+              </staff>
+              <caesura glyph.auth="smufl" glyph.num="U+E8F4" staff="1" startid="#ev0e0026" xml:id="cb026"/>
+              <caesura glyph.auth="smufl" glyph.num="U+E8F4" staff="2" startid="#ev0e0026" xml:id="cb026s2"/>
+            </measure>
+            <sb/>
+            <measure metcon="false" n="13" right="invis" xml:id="m013">
+              <staff n="1">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0027">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">mi</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="g" stem.visible="false" xml:id="ev0e0028"/>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0029"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="4" pname="d" stem.visible="false" xml:id="ev1e0012"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="b" stem.visible="false" xml:id="ev2e0011"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="b" stem.visible="false" xml:id="ev3e0011"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dots="1" dur="2" next="#ev4e0003c11" prev="#ev4e0003c9" type="split-continuation" xml:id="ev4e0003c10"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0029" startid="#ev0e0027" xml:id="sp0008"/>
+              <tie endid="#ev1e0013" startid="#ev1e0012" xml:id="tev1e0012"/>
+            </measure>
+            <measure metcon="false" n="14" right="invis" xml:id="m014">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0030">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="m">se</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="g" stem.visible="false" xml:id="ev0e0031"/>
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0032"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="4" pname="d" stem.visible="false" xml:id="ev1e0013"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="a" stem.visible="false" xml:id="ev2e0012"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note accid.ges="s" dur="2" oct="3" pname="f" stem.visible="false" xml:id="ev3e0012"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dots="1" dur="2" prev="#ev4e0003c10" type="split-continuation" xml:id="ev4e0003c11"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0032" startid="#ev0e0030" xml:id="sp0009"/>
+              <gliss endid="#ev1e0014" lform="solid" startid="#ev1e0013" xml:id="sp0089"/>
+            </measure>
+            <measure metcon="false" n="15" right="invis" xml:id="m015">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev0e0033">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="m">ré</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0034"/>
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev0e0035">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">re</syl>
+                    </verse>
+                  </note>
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0036"/>
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0037">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">no</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev0e0038"/>
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0039"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev1e0014"/>
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev1e0015"/>
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev1e0016"/>
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev1e0017"/>
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="a" stem.visible="false" xml:id="ev1e0018"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="2" oct="3" pname="b" stem.visible="false" xml:id="ev2e0013"/>
+                  </tuplet>
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="g" stem.visible="false" xml:id="ev2e0014"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="2" oct="3" pname="g" stem.visible="false" xml:id="ev3e0013"/>
+                  </tuplet>
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="d" stem.visible="false" xml:id="ev3e0014"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="2" oct="3" pname="g" stem.visible="false" visible="false" xml:id="ev4e0004"/>
+                  </tuplet>
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="g" stem.visible="false" visible="false" xml:id="ev4e0005"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0034" startid="#ev0e0033" xml:id="sp0010"/>
+              <slur endid="#ev0e0036" startid="#ev0e0035" xml:id="sp0011"/>
+              <slur endid="#ev0e0039" startid="#ev0e0037" xml:id="sp0012"/>
+              <gliss endid="#ev4e0005" lform="solid" startid="#ev4e0004" type="voice-line" xml:id="sp0090"/>
+              <tie endid="#ev1e0019" startid="#ev1e0018" xml:id="tev1e0018"/>
+              <tie endid="#ev3e0015" startid="#ev3e0014" xml:id="tev3e0014"/>
+            </measure>
+            <measure metcon="false" n="16" right="dbl" xml:id="m016">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0040">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">bis.</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="3" pname="a" stem.visible="false" xml:id="ev1e0019"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="3" pname="f" stem.visible="false" xml:id="ev2e0015"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="3" pname="d" stem.visible="false" xml:id="ev3e0015"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0006c1" xml:id="ev4e0006"/>
+                </layer>
+              </staff>
+            </measure>
+            <measure metcon="false" n="17" right="invis" xml:id="m017">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0041">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">A</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev1e0020"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <space dur="4" xml:id="ev2e0016"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="3" pname="d" stem.visible="false" xml:id="ev3e0016"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0006c2" prev="#ev4e0006" type="split-continuation" xml:id="ev4e0006c1"/>
+                </layer>
+              </staff>
+              <tie endid="#ev1e0021" startid="#ev1e0020" xml:id="tev1e0020"/>
+              <tie endid="#ev3e0017" startid="#ev3e0016" xml:id="tev3e0016"/>
+            </measure>
+            <measure metcon="false" n="18" right="invis" xml:id="m018">
+              <staff n="1">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0042">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">gnus</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0043"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" oct="4" pname="d" stem.visible="false" xml:id="ev1e0021"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="2" oct="3" pname="a" stem.visible="false" xml:id="ev2e0017"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" oct="3" pname="d" stem.visible="false" xml:id="ev3e0017"/>
+                </layer>
+                <layer n="3">
+                  <space dur="2" next="#ev4e0006c3" prev="#ev4e0006c1" type="split-continuation" xml:id="ev4e0006c2"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0043" startid="#ev0e0042" xml:id="sp0013"/>
+              <tie endid="#ev1e0022" startid="#ev1e0021" xml:id="tev1e0021"/>
+              <tie endid="#ev3e0018" startid="#ev3e0017" xml:id="tev3e0017"/>
+            </measure>
+            <measure metcon="false" n="19" right="invis" xml:id="m019">
+              <staff n="1">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0044">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">De</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev0e0045"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" oct="4" pname="d" stem.visible="false" xml:id="ev1e0022"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="2" oct="3" pname="b" stem.visible="false" xml:id="ev2e0018"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" oct="3" pname="d" stem.visible="false" xml:id="ev3e0018"/>
+                </layer>
+                <layer n="3">
+                  <space dur="2" next="#ev4e0006c4" prev="#ev4e0006c2" type="split-continuation" xml:id="ev4e0006c3"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0045" startid="#ev0e0044" xml:id="sp0014"/>
+              <tie endid="#ev3e0019" startid="#ev3e0018" xml:id="tev3e0018"/>
+            </measure>
+            <measure metcon="false" n="20" right="invis" xml:id="m020">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0046"/>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0047"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" oct="4" pname="e" stem.visible="false" xml:id="ev1e0023"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="2" oct="3" pname="a" stem.visible="false" xml:id="ev2e0019"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" oct="3" pname="d" stem.visible="false" xml:id="ev3e0019"/>
+                </layer>
+                <layer n="3">
+                  <space dur="2" next="#ev4e0006c5" prev="#ev4e0006c3" type="split-continuation" xml:id="ev4e0006c4"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0047" startid="#ev0e0046" xml:id="sp0015"/>
+              <tie endid="#ev1e0024" startid="#ev1e0023" xml:id="tev1e0023"/>
+              <tie endid="#ev2e0020" startid="#ev2e0019" xml:id="tev2e0019"/>
+            </measure>
+            <measure metcon="false" n="21" right="invis" xml:id="m021">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0048">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">i,</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0049"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" oct="4" pname="e" stem.visible="false" xml:id="ev1e0024"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="2" oct="3" pname="a" stem.visible="false" xml:id="ev2e0020"/>
+                </layer>
+                <layer n="2">
+                  <note accid.ges="s" dur="2" oct="3" pname="c" stem.visible="false" xml:id="ev3e0020"/>
+                </layer>
+                <layer n="3">
+                  <space dur="2" next="#ev4e0006c6" prev="#ev4e0006c4" type="split-continuation" xml:id="ev4e0006c5"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0049" startid="#ev0e0048" xml:id="sp0016"/>
+              <tie endid="#ev1e0025" startid="#ev1e0024" xml:id="tev1e0024"/>
+              <tie endid="#ev2e0021" startid="#ev2e0020" xml:id="tev2e0020"/>
+              <tie endid="#ev3e0021" startid="#ev3e0020" xml:id="tev3e0020"/>
+              <dir ho="2.5" place="within" staff="1" startid="#ev0e0049" type="divisio-minima" vo="4.5" xml:id="cb049">
+                <rend fontsize="50%" fontstyle="normal">|</rend>
+              </dir>
+              <dir ho="2.5" place="within" staff="2" startid="#ev0e0049" type="divisio-minima" vo="4.5" xml:id="cb049s2">
+                <rend fontsize="50%" fontstyle="normal">|</rend>
+              </dir>
+            </measure>
+            <sb/>
+            <measure metcon="false" n="22" right="invis" xml:id="m022">
+              <staff n="1">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0050">
+                    <verse n="1" place="above">
+                      <label>*</label>
+                      <syl>qui</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev1e0025"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="4" oct="3" pname="a" stem.visible="false" xml:id="ev2e0021"/>
+                </layer>
+                <layer n="2">
+                  <note accid.ges="s" dur="4" oct="3" pname="c" stem.visible="false" xml:id="ev3e0021"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0006c7" prev="#ev4e0006c5" type="split-continuation" xml:id="ev4e0006c6"/>
+                </layer>
+              </staff>
+            </measure>
+            <measure metcon="false" n="23" right="invis" xml:id="m023">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="g" stem.visible="false" xml:id="ev0e0051">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">tol</syl>
+                    </verse>
+                  </note>
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0052"/>
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev0e0053"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="4" pname="d" stem.visible="false" xml:id="ev1e0026"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="b" stem.visible="false" xml:id="ev2e0022"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="2" pname="b" stem.visible="false" xml:id="ev3e0022"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dots="1" dur="2" next="#ev4e0006c8" prev="#ev4e0006c6" type="split-continuation" xml:id="ev4e0006c7"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0053" startid="#ev0e0051" xml:id="sp0017"/>
+              <tie endid="#ev1e0027" startid="#ev1e0026" xml:id="tev1e0026"/>
+              <tie endid="#ev3e0023" startid="#ev3e0022" xml:id="tev3e0022"/>
+            </measure>
+            <measure metcon="false" n="24" right="invis" xml:id="m024">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0054">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">lis</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="1">
+                    <note dur="2" next="#ev1e0027c1" oct="4" pname="d" stem.visible="false" xml:id="ev1e0027"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="1">
+                    <note accid.ges="s" dur="2" next="#ev2e0023c1" oct="3" pname="f" stem.visible="false" xml:id="ev2e0023"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="1">
+                    <note dur="2" next="#ev3e0023c1" oct="2" pname="b" stem.visible="false" xml:id="ev3e0023"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0006c9" prev="#ev4e0006c7" type="split-continuation" xml:id="ev4e0006c8"/>
+                </layer>
+              </staff>
+              <tie endid="#ev1e0028" startid="#ev1e0027" xml:id="tev1e0027"/>
+              <tie endid="#ev3e0024" startid="#ev3e0023" xml:id="tev3e0023"/>
+            </measure>
+            <measure metcon="false" n="25" right="invis" xml:id="m025">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0055">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">pec</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note dur="4" head.visible="false" oct="4" pname="d" prev="#ev1e0027" stem.visible="false" type="split-continuation" xml:id="ev1e0027c1"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" head.visible="false" oct="3" pname="f" prev="#ev2e0023" stem.visible="false" type="split-continuation" xml:id="ev2e0023c1"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" head.visible="false" oct="2" pname="b" prev="#ev3e0023" stem.visible="false" type="split-continuation" xml:id="ev3e0023c1"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0006c10" prev="#ev4e0006c8" type="split-continuation" xml:id="ev4e0006c9"/>
+                </layer>
+              </staff>
+            </measure>
+            <measure metcon="false" n="26" right="invis" xml:id="m026">
+              <staff n="1">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0056">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="m">cá</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="1">
+                    <note dur="2" next="#ev1e0028c1" oct="4" pname="d" stem.visible="false" xml:id="ev1e0028"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="1">
+                    <note dur="2" next="#ev2e0024c1" oct="3" pname="d" stem.visible="false" xml:id="ev2e0024"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="1">
+                    <note dur="2" next="#ev3e0024c1" oct="2" pname="b" stem.visible="false" xml:id="ev3e0024"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0006c11" prev="#ev4e0006c9" type="split-continuation" xml:id="ev4e0006c10"/>
+                </layer>
+              </staff>
+              <tie endid="#ev1e0029" startid="#ev1e0028" xml:id="tev1e0028"/>
+            </measure>
+            <measure metcon="false" n="27" right="invis" xml:id="m027">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="g" stem.visible="false" xml:id="ev0e0057">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">ta</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note dur="4" head.visible="false" oct="4" pname="d" prev="#ev1e0028" stem.visible="false" type="split-continuation" xml:id="ev1e0028c1"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="4" head.visible="false" oct="3" pname="d" prev="#ev2e0024" stem.visible="false" type="split-continuation" xml:id="ev2e0024c1"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" head.visible="false" oct="2" pname="b" prev="#ev3e0024" stem.visible="false" type="split-continuation" xml:id="ev3e0024c1"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0006c12" prev="#ev4e0006c10" type="split-continuation" xml:id="ev4e0006c11"/>
+                </layer>
+              </staff>
+            </measure>
+            <measure metcon="false" n="28" right="invis" xml:id="m028">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0058">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">mun</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0059"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" oct="4" pname="d" stem.visible="false" xml:id="ev1e0029"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="2" oct="3" pname="e" stem.visible="false" xml:id="ev2e0025"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" oct="2" pname="a" stem.visible="false" xml:id="ev3e0025"/>
+                </layer>
+                <layer n="3">
+                  <space dur="2" next="#ev4e0006c13" prev="#ev4e0006c11" type="split-continuation" xml:id="ev4e0006c12"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0059" startid="#ev0e0058" xml:id="sp0018"/>
+              <tie endid="#ev2e0026" startid="#ev2e0025" xml:id="tev2e0025"/>
+              <tie endid="#ev3e0026" startid="#ev3e0025" xml:id="tev3e0025"/>
+            </measure>
+            <measure metcon="false" n="29" right="invis" xml:id="m029">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0060">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">di:</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note accid.ges="s" dur="4" oct="4" pname="c" stem.visible="false" xml:id="ev1e0030"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="4" oct="3" pname="e" stem.visible="false" xml:id="ev2e0026"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="2" pname="a" stem.visible="false" xml:id="ev3e0026"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0006c14" prev="#ev4e0006c12" type="split-continuation" xml:id="ev4e0006c13"/>
+                </layer>
+              </staff>
+              <caesura glyph.auth="smufl" glyph.num="U+E8F4" staff="1" startid="#ev0e0060" xml:id="cb060"/>
+              <caesura glyph.auth="smufl" glyph.num="U+E8F4" staff="2" startid="#ev0e0060" xml:id="cb060s2"/>
+            </measure>
+            <measure metcon="false" n="30" right="invis" xml:id="m030">
+              <staff n="1">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0061">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">mi</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="g" stem.visible="false" xml:id="ev0e0062"/>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0063"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="4" pname="d" stem.visible="false" xml:id="ev1e0031"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="d" stem.visible="false" xml:id="ev2e0027"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="2" pname="b" stem.visible="false" xml:id="ev3e0027"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dots="1" dur="2" next="#ev4e0006c15" prev="#ev4e0006c13" type="split-continuation" xml:id="ev4e0006c14"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0063" startid="#ev0e0061" xml:id="sp0019"/>
+              <tie endid="#ev2e0028" startid="#ev2e0027" xml:id="tev2e0027"/>
+            </measure>
+            <measure metcon="false" n="31" right="invis" xml:id="m031">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0064">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="m">se</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="g" stem.visible="false" xml:id="ev0e0065"/>
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0066"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="a" stem.visible="false" xml:id="ev1e0032"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="d" stem.visible="false" xml:id="ev2e0028"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note accid.ges="s" dur="2" oct="2" pname="f" stem.visible="false" xml:id="ev3e0028"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dots="1" dur="2" next="#ev4e0006c16" prev="#ev4e0006c14" type="split-continuation" xml:id="ev4e0006c15"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0066" startid="#ev0e0064" xml:id="sp0020"/>
+              <tie endid="#ev2e0029" startid="#ev2e0028" xml:id="tev2e0028"/>
+            </measure>
+            <measure metcon="false" n="32" right="invis" xml:id="m032">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev0e0067">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="m">ré</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0068"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" next="#ev1e0033c1" oct="3" pname="b" stem.visible="false" xml:id="ev1e0033"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="2" next="#ev2e0029c1" oct="3" pname="d" stem.visible="false" xml:id="ev2e0029"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" next="#ev3e0029c1" oct="2" pname="g" stem.visible="false" xml:id="ev3e0029"/>
+                </layer>
+                <layer n="3">
+                  <space dur="2" next="#ev4e0006c17" prev="#ev4e0006c15" type="split-continuation" xml:id="ev4e0006c16"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0068" startid="#ev0e0067" xml:id="sp0021"/>
+            </measure>
+            <measure metcon="false" n="33" right="invis" xml:id="m033">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev0e0069">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">re</syl>
+                    </verse>
+                  </note>
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0070"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="4" head.visible="false" oct="3" pname="b" prev="#ev1e0033" stem.visible="false" type="split-continuation" xml:id="ev1e0033c1"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="4" head.visible="false" oct="3" pname="d" prev="#ev2e0029" stem.visible="false" type="split-continuation" xml:id="ev2e0029c1"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="4" head.visible="false" oct="2" pname="g" prev="#ev3e0029" stem.visible="false" type="split-continuation" xml:id="ev3e0029c1"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dur="2" next="#ev4e0006c18" prev="#ev4e0006c16" type="split-continuation" xml:id="ev4e0006c17"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0070" startid="#ev0e0069" xml:id="sp0022"/>
+            </measure>
+            <measure metcon="false" n="34" right="invis" xml:id="m034">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0071">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">no</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev0e0072"/>
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0073"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="a" stem.visible="false" xml:id="ev1e0034"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="e" stem.visible="false" xml:id="ev2e0030"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="d" stem.visible="false" xml:id="ev3e0030"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dots="1" dur="2" next="#ev4e0006c19" prev="#ev4e0006c17" type="split-continuation" xml:id="ev4e0006c18"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0073" startid="#ev0e0071" xml:id="sp0023"/>
+              <tie endid="#ev1e0035" startid="#ev1e0034" xml:id="tev1e0034"/>
+              <tie endid="#ev3e0031" startid="#ev3e0030" xml:id="tev3e0030"/>
+            </measure>
+            <measure metcon="false" n="35" right="dbl" xml:id="m035">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0074">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">bis.</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="3" pname="a" stem.visible="false" xml:id="ev1e0035"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="3" pname="f" stem.visible="false" xml:id="ev2e0031"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="3" pname="d" stem.visible="false" xml:id="ev3e0031"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0006c20" prev="#ev4e0006c18" type="split-continuation" xml:id="ev4e0006c19"/>
+                </layer>
+              </staff>
+            </measure>
+            <sb/>
+            <measure metcon="false" n="36" right="invis" xml:id="m036">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0075">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">A</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev1e0036"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <space dur="4" xml:id="ev2e0032"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="3" pname="d" stem.visible="false" xml:id="ev3e0032"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" prev="#ev4e0006c19" type="split-continuation" xml:id="ev4e0006c20"/>
+                </layer>
+              </staff>
+              <tie endid="#ev1e0037" startid="#ev1e0036" xml:id="tev1e0036"/>
+              <tie endid="#ev3e0033" startid="#ev3e0032" xml:id="tev3e0032"/>
+            </measure>
+            <measure metcon="false" n="37" right="invis" xml:id="m037">
+              <staff n="1">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0076">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">gnus</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0077"/>
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0078">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">De</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev0e0079"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" oct="4" pname="d" stem.visible="false" xml:id="ev1e0037"/>
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev1e0038"/>
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev1e0039"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="2" oct="3" pname="a" stem.visible="false" xml:id="ev2e0033"/>
+                  <note dur="2" oct="3" pname="b" stem.visible="false" xml:id="ev2e0034"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" oct="3" pname="d" stem.visible="false" xml:id="ev3e0033"/>
+                  <note dur="2" oct="3" pname="a" stem.visible="false" xml:id="ev3e0034"/>
+                </layer>
+                <layer n="3">
+                  <note dur="2" oct="3" pname="a" stem.visible="false" visible="false" xml:id="ev4e0007"/>
+                  <note dur="2" oct="3" pname="a" stem.visible="false" visible="false" xml:id="ev4e0008"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0077" startid="#ev0e0076" xml:id="sp0024"/>
+              <slur endid="#ev0e0079" startid="#ev0e0078" xml:id="sp0025"/>
+              <gliss endid="#ev1e0038" lform="solid" startid="#ev1e0037" xml:id="sp0091"/>
+              <gliss endid="#ev4e0008" lform="solid" startid="#ev4e0007" type="voice-line" xml:id="sp0092"/>
+              <tie endid="#ev3e0035" startid="#ev3e0034" xml:id="tev3e0034"/>
+            </measure>
+            <measure metcon="false" n="38" right="invis" xml:id="m038">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0080"/>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0081"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" next="#ev1e0040c1" oct="4" pname="e" stem.visible="false" xml:id="ev1e0040"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note accid.ges="s" dur="2" next="#ev2e0035c1" oct="4" pname="c" stem.visible="false" xml:id="ev2e0035"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" next="#ev3e0035c1" oct="3" pname="a" stem.visible="false" xml:id="ev3e0035"/>
+                </layer>
+                <layer n="3">
+                  <space dur="2" next="#ev4e0009c1" xml:id="ev4e0009"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0081" startid="#ev0e0080" xml:id="sp0026"/>
+              <tie endid="#ev2e0036" startid="#ev2e0035" xml:id="tev2e0035"/>
+            </measure>
+            <measure metcon="false" n="39" right="invis" xml:id="m039">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0082">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">i,</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0083"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="4" head.visible="false" oct="4" pname="e" prev="#ev1e0040" stem.visible="false" type="split-continuation" xml:id="ev1e0040c1"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note accid.ges="s" dur="4" head.visible="false" oct="4" pname="c" prev="#ev2e0035" stem.visible="false" type="split-continuation" xml:id="ev2e0035c1"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="4" head.visible="false" oct="3" pname="a" prev="#ev3e0035" stem.visible="false" type="split-continuation" xml:id="ev3e0035c1"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dur="2" next="#ev4e0009c2" prev="#ev4e0009" type="split-continuation" xml:id="ev4e0009c1"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0083" startid="#ev0e0082" xml:id="sp0027"/>
+              <dir ho="2.5" place="within" staff="1" startid="#ev0e0083" type="divisio-minima" vo="4.5" xml:id="cb083">
+                <rend fontsize="50%" fontstyle="normal">|</rend>
+              </dir>
+              <dir ho="2.5" place="within" staff="2" startid="#ev0e0083" type="divisio-minima" vo="4.5" xml:id="cb083s2">
+                <rend fontsize="50%" fontstyle="normal">|</rend>
+              </dir>
+            </measure>
+            <measure metcon="false" n="40" right="invis" xml:id="m040">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0084">
+                    <verse n="1" place="above">
+                      <label>*</label>
+                      <syl>qui</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0085"/>
+                  <note accid.ges="s" dur="4" oct="5" pname="c" stem.visible="false" xml:id="ev0e0086"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note accid.ges="s" dur="2" oct="4" pname="f" stem.visible="false" xml:id="ev1e0041"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note accid.ges="s" dur="2" oct="4" pname="c" stem.visible="false" xml:id="ev2e0036"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note accid.ges="s" dur="2" oct="3" pname="f" stem.visible="false" xml:id="ev3e0036"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dots="1" dur="2" next="#ev4e0009c3" prev="#ev4e0009c1" type="split-continuation" xml:id="ev4e0009c2"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0086" startid="#ev0e0084" xml:id="sp0028"/>
+              <tie endid="#ev1e0042" startid="#ev1e0041" xml:id="tev1e0041"/>
+            </measure>
+            <measure metcon="false" n="41" right="invis" xml:id="m041">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="5" pname="d" stem.visible="false" xml:id="ev0e0087">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">tol</syl>
+                    </verse>
+                  </note>
+                  <note accid.ges="s" dur="4" oct="5" pname="c" stem.visible="false" xml:id="ev0e0088"/>
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0089"/>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0090"/>
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0091"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="5">
+                    <note accid.ges="s" dur="2" oct="4" pname="f" stem.visible="false" xml:id="ev1e0042"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="5">
+                    <note dur="2" oct="3" pname="b" stem.visible="false" xml:id="ev2e0037"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="5">
+                    <note dur="2" oct="3" pname="b" stem.visible="false" xml:id="ev3e0037"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <tuplet bracket.visible="false" num="4" num.visible="false" numbase="5">
+                    <space dur="1" next="#ev4e0009c4" prev="#ev4e0009c2" type="split-continuation" xml:id="ev4e0009c3"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0091" startid="#ev0e0087" xml:id="sp0029"/>
+              <tie endid="#ev3e0038" startid="#ev3e0037" xml:id="tev3e0037"/>
+            </measure>
+            <measure metcon="false" n="42" right="invis" xml:id="m042">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0092">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">lis</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev1e0043"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="4" pname="c" stem.visible="false" xml:id="ev2e0038"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="3" pname="b" stem.visible="false" xml:id="ev3e0038"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0009c5" prev="#ev4e0009c3" type="split-continuation" xml:id="ev4e0009c4"/>
+                </layer>
+              </staff>
+              <tie endid="#ev3e0039" startid="#ev3e0038" xml:id="tev3e0038"/>
+              <dir ho="2.5" place="within" staff="1" startid="#ev0e0092" type="divisio-minima" vo="4.5" xml:id="cb092">
+                <rend fontsize="50%" fontstyle="normal">|</rend>
+              </dir>
+              <dir ho="2.5" place="within" staff="2" startid="#ev0e0092" type="divisio-minima" vo="4.5" xml:id="cb092s2">
+                <rend fontsize="50%" fontstyle="normal">|</rend>
+              </dir>
+            </measure>
+            <measure metcon="false" n="43" right="invis" xml:id="m043">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="5" pname="d" stem.visible="false" xml:id="ev0e0093">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">pec</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev1e0044"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev2e0039"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="3" pname="b" stem.visible="false" xml:id="ev3e0039"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0009c6" prev="#ev4e0009c4" type="split-continuation" xml:id="ev4e0009c5"/>
+                </layer>
+              </staff>
+              <tie endid="#ev2e0040" startid="#ev2e0039" xml:id="tev2e0039"/>
+            </measure>
+            <measure metcon="false" n="44" right="invis" xml:id="m044">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0094">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="m">cá</syl>
+                    </verse>
+                  </note>
+                  <note accid.ges="s" dur="4" oct="5" pname="c" stem.visible="false" xml:id="ev0e0095"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" next="#ev1e0045c1" oct="4" pname="g" stem.visible="false" xml:id="ev1e0045"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="2" next="#ev2e0040c1" oct="4" pname="d" stem.visible="false" xml:id="ev2e0040"/>
+                </layer>
+                <layer n="2">
+                  <note dur="2" next="#ev3e0040c1" oct="3" pname="e" stem.visible="false" xml:id="ev3e0040"/>
+                </layer>
+                <layer n="3">
+                  <space dur="2" next="#ev4e0009c7" prev="#ev4e0009c5" type="split-continuation" xml:id="ev4e0009c6"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0095" startid="#ev0e0094" xml:id="sp0030"/>
+              <tie endid="#ev2e0041" startid="#ev2e0040" xml:id="tev2e0040"/>
+            </measure>
+            <measure metcon="false" n="45" right="invis" xml:id="m045">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="5" pname="d" stem.visible="false" xml:id="ev0e0096">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">ta</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note dur="4" head.visible="false" oct="4" pname="g" prev="#ev1e0045" stem.visible="false" type="split-continuation" xml:id="ev1e0045c1"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note dur="4" head.visible="false" oct="4" pname="d" prev="#ev2e0040" stem.visible="false" type="split-continuation" xml:id="ev2e0040c1"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" head.visible="false" oct="3" pname="e" prev="#ev3e0040" stem.visible="false" type="split-continuation" xml:id="ev3e0040c1"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0009c8" prev="#ev4e0009c6" type="split-continuation" xml:id="ev4e0009c7"/>
+                </layer>
+              </staff>
+            </measure>
+            <measure metcon="false" n="46" right="invis" xml:id="m046">
+              <staff n="1">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="5" pname="c" stem.visible="false" xml:id="ev0e0097">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">mun</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0098"/>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0099"/>
+                  <note dur="4" oct="4" pname="b" stem.visible="false" xml:id="ev0e0100"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="2" oct="4" pname="e" stem.visible="false" xml:id="ev1e0046"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="2" oct="4" pname="d" stem.visible="false" xml:id="ev2e0041"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="2" oct="3" pname="a" stem.visible="false" xml:id="ev3e0041"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dur="1" next="#ev4e0009c9" prev="#ev4e0009c7" type="split-continuation" xml:id="ev4e0009c8"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0100" startid="#ev0e0097" xml:id="sp0031"/>
+              <tie endid="#ev1e0047" startid="#ev1e0046" xml:id="tev1e0046"/>
+              <tie endid="#ev3e0042" startid="#ev3e0041" xml:id="tev3e0041"/>
+            </measure>
+            <measure metcon="false" n="47" right="invis" xml:id="m047">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0101">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">di:</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev1e0047"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="4" pname="c" stem.visible="false" xml:id="ev2e0042"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="3" pname="a" stem.visible="false" xml:id="ev3e0042"/>
+                </layer>
+                <layer n="3">
+                  <space dur="4" next="#ev4e0009c10" prev="#ev4e0009c8" type="split-continuation" xml:id="ev4e0009c9"/>
+                </layer>
+              </staff>
+              <caesura glyph.auth="smufl" glyph.num="U+E8F4" staff="1" startid="#ev0e0101" xml:id="cb101"/>
+              <caesura glyph.auth="smufl" glyph.num="U+E8F4" staff="2" startid="#ev0e0101" xml:id="cb101s2"/>
+            </measure>
+            <sb/>
+            <measure metcon="false" n="48" right="invis" xml:id="m048">
+              <staff n="1">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0102">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">do</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="g" stem.visible="false" xml:id="ev0e0103"/>
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0104"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="4" pname="d" stem.visible="false" xml:id="ev1e0048"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="b" stem.visible="false" xml:id="ev2e0043"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="b" stem.visible="false" xml:id="ev3e0043"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dots="1" dur="2" next="#ev4e0009c11" prev="#ev4e0009c9" type="split-continuation" xml:id="ev4e0009c10"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0104" startid="#ev0e0102" xml:id="sp0032"/>
+              <tie endid="#ev1e0049" startid="#ev1e0048" xml:id="tev1e0048"/>
+            </measure>
+            <measure metcon="false" n="49" right="invis" xml:id="m049">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="a" stem.visible="false" xml:id="ev0e0105">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">na</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="g" stem.visible="false" xml:id="ev0e0106"/>
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0107"/>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="4" pname="d" stem.visible="false" xml:id="ev1e0049"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="a" stem.visible="false" xml:id="ev2e0044"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note accid.ges="s" dur="2" oct="3" pname="f" stem.visible="false" xml:id="ev3e0044"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <space dots="1" dur="2" prev="#ev4e0009c10" type="split-continuation" xml:id="ev4e0009c11"/>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0107" startid="#ev0e0105" xml:id="sp0033"/>
+              <gliss endid="#ev1e0050" lform="solid" startid="#ev1e0049" xml:id="sp0093"/>
+            </measure>
+            <measure metcon="false" n="50" right="invis" xml:id="m050">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev0e0108">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">no</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0109"/>
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev0e0110">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">bis</syl>
+                    </verse>
+                  </note>
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev0e0111"/>
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0112">
+                    <verse n="1" place="above">
+                      <syl con="d" wordpos="i">pa</syl>
+                    </verse>
+                  </note>
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev0e0113"/>
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0114"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev1e0050"/>
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev1e0051"/>
+                  <note dur="4" oct="4" pname="e" stem.visible="false" xml:id="ev1e0052"/>
+                  <note accid.ges="s" dur="4" oct="4" pname="f" stem.visible="false" xml:id="ev1e0053"/>
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="a" stem.visible="false" xml:id="ev1e0054"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="2" oct="3" pname="b" stem.visible="false" xml:id="ev2e0045"/>
+                  </tuplet>
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="g" stem.visible="false" xml:id="ev2e0046"/>
+                  </tuplet>
+                </layer>
+                <layer n="2">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="2" oct="3" pname="g" stem.visible="false" xml:id="ev3e0045"/>
+                  </tuplet>
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="d" stem.visible="false" xml:id="ev3e0046"/>
+                  </tuplet>
+                </layer>
+                <layer n="3">
+                  <tuplet bracket.visible="false" num="1" num.visible="false" numbase="2">
+                    <note dur="2" oct="3" pname="g" stem.visible="false" visible="false" xml:id="ev4e0010"/>
+                  </tuplet>
+                  <tuplet bracket.visible="false" num="2" num.visible="false" numbase="3">
+                    <note dur="2" oct="3" pname="g" stem.visible="false" visible="false" xml:id="ev4e0011"/>
+                  </tuplet>
+                </layer>
+              </staff>
+              <slur endid="#ev0e0109" startid="#ev0e0108" xml:id="sp0034"/>
+              <slur endid="#ev0e0111" startid="#ev0e0110" xml:id="sp0035"/>
+              <slur endid="#ev0e0114" startid="#ev0e0112" xml:id="sp0036"/>
+              <gliss endid="#ev4e0011" lform="solid" startid="#ev4e0010" type="voice-line" xml:id="sp0094"/>
+              <tie endid="#ev1e0055" startid="#ev1e0054" xml:id="tev1e0054"/>
+              <tie endid="#ev3e0047" startid="#ev3e0046" xml:id="tev3e0046"/>
+            </measure>
+            <measure metcon="false" n="51" right="dbl" xml:id="m051">
+              <staff n="1">
+                <layer n="1">
+                  <note dur="4" oct="4" pname="d" stem.visible="false" xml:id="ev0e0115">
+                    <verse n="1" place="above">
+                      <syl wordpos="t">cem.</syl>
+                    </verse>
+                  </note>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="3" pname="a" stem.visible="false" xml:id="ev1e0055"/>
+                </layer>
+              </staff>
+              <staff n="2">
+                <layer n="1">
+                  <note accid.ges="s" dur="4" oct="3" pname="f" stem.visible="false" xml:id="ev2e0047"/>
+                </layer>
+                <layer n="2">
+                  <note dur="4" oct="3" pname="d" stem.visible="false" xml:id="ev3e0047"/>
+                </layer>
+                <layer n="3"/>
+              </staff>
+            </measure>
+          </section>
+        </score>
+      </mdiv>
+    </body>
+  </music>
+</mei>

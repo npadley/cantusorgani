@@ -12,5 +12,8 @@ export default defineConfig({
     // Slices live outside web/ during development so the site can be built
     // before anything is uploaded to R2.
     server: { fs: { allow: [".."] } },
+    // ES module workers, so a worker can import() a chunk on demand (the layout worker loads Verovio only for music that
+    // reflows). The site already starts every worker with { type: "module" }.
+    worker: { format: "es" },
   },
 });

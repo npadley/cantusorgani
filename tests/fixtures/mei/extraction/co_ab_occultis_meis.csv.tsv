@@ -1,0 +1,644 @@
+0	-	-	version	listen_full/1	2.26.0
+0	-	up	staff	1
+0	-	down	staff	2
+0	-	up	key	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:10:1
+0	up:chant	up	voice	0	voiceOne
+0	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:11
+0	-	up	key	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:10:1
+0	up:#1	up	voice	1	voiceTwo
+0	up:#1	up	rest	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:0
+0	-	down	key	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:10:1
+0	down:#2	down	voice	2	voiceOne
+0	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:63:0
+0	down:#2	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:63:3
+0	-	down	key	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:10:1
+0	down:#3	down	voice	3	voiceTwo
+0	down:#3	down	rest	3/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:71:0
+0	-	down	key	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:10:1
+0	lyrics:#0	up:chant	lyric	Ab	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:38:0
+0	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:11
+0	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:11
+0	up:#1	up	rhead	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:0
+0	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:0
+0	-	up	clef	clefs.G	-2	-
+0	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:63:0
+0	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:63:0
+0	down:#3	down	rhead	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:71:0
+0	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:71:0
+0	-	down	clef	clefs.F	2	-
+1/4	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:15
+1/4	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:3
+1/4	up:#1	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:7
+1/4	lyrics:#0	up:chant	lyric	oc	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:38:3
+1/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:38:6
+1/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:15
+1/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:15
+1/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:3
+1/4	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:3
+1/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:19
+1/2	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:25
+1/2	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:9
+1/2	up:#1	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:17
+1/2	down:#2	down	note	b	0	3	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:63:5
+1/2	lyrics:#0	up:chant	lyric	cúl	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:38:9
+1/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:38:13
+1/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:19
+1/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:19
+1/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:9
+1/2	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:9
+1/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:63:5
+1/2	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:63:5
+3/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:27
+3/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:27
+3/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:27
+1	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:31
+1	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:34
+1	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:31
+1	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:31
+5/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:36
+5/4	lyrics:#0	up:chant	lyric	tis	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:38:16
+5/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:36
+5/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:36
+3/2	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:42
+3/2	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:46
+3/2	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:19
+3/2	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:63:12
+3/2	down:#3	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:71:7
+3/2	lyrics:#0	up:chant	lyric	me	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:38:20
+3/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:38:23
+3/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:42
+3/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:42
+3/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:19
+3/2	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:19
+3/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:63:12
+3/2	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:63:12
+3/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:71:7
+3/2	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:71:7
+7/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:48
+7/4	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:51
+7/4	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:23
+7/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:48
+7/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:48
+7/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:23
+7/4	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:23
+2	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:53
+2	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:57
+2	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:27
+2	down:#2	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:63:15
+2	down:#2	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:63:22
+2	down:#3	down	note	e	0	3	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:71:12
+2	down:#3	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:71:19
+2	lyrics:#0	up:chant	lyric	is	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:38:26
+2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:53
+2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:53
+2	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:27
+2	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:27
+2	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:63:15
+2	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:63:15
+2	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:71:12
+2	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:71:12
+9/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:59
+9/4	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:31
+9/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:59
+9/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:59
+9/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:31
+9/4	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:31
+5/2	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:63
+5/2	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:35
+5/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:63
+5/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:63
+5/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:35
+5/2	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:35
+11/4	up:chant	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:67
+11/4	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:70
+11/4	up:#1	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:39
+11/4	up:#1	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:43
+11/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:67
+11/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:44:67
+11/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:39
+11/4	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:55:39
+3	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:1
+3	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:5
+3	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:0
+3	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:0
+3	down:#2	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:3
+3	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:0
+3	down:#3	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:3
+3	lyrics:#0	up:chant	lyric	mun	 * 	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:39:20
+3	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:39:24
+3	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+3	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:1
+3	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:1
+3	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+3	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:0
+3	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:0
+3	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+3	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:0
+3	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:0
+3	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+3	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:0
+3	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:0
+13/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:7
+13/4	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:10
+13/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:7
+13/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:7
+7/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:12
+7/2	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:16
+7/2	up:#1	up	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:4
+7/2	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:5
+7/2	down:#2	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:12
+7/2	down:#3	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:5
+7/2	lyrics:#0	up:chant	lyric	da	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:39:27
+7/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:12
+7/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:12
+7/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:4
+7/2	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:4
+7/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:5
+7/2	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:5
+7/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:5
+7/2	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:5
+15/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:18
+15/4	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:21
+15/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:18
+15/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:18
+4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:23
+4	lyrics:#0	up:chant	lyric	me,	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:39:30
+4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:23
+4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:23
+17/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:27
+17/4	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:31
+17/4	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:11
+17/4	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:14
+17/4	down:#2	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:17
+17/4	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:12
+17/4	lyrics:#0	up:chant	lyric	Dó	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:39:34
+17/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:39:37
+17/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:27
+17/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:27
+17/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:11
+17/4	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:11
+17/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:14
+17/4	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:14
+17/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:12
+17/4	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:12
+9/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:33
+9/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:33
+9/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:33
+19/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:37
+19/4	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:40
+19/4	up:chant	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:42
+19/4	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:15
+19/4	up:#1	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:23
+19/4	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:19
+19/4	down:#3	down	note	b	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:15
+19/4	down:#3	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:23
+19/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:37
+19/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:37
+19/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:15
+19/4	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:15
+19/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:19
+19/4	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:19
+19/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:15
+19/4	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:15
+5	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:44
+5	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:48
+5	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:44
+5	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:44
+21/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:50
+21/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:50
+21/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:45:50
+11/2	-	-	break	data/typeset/include/noh2.ily:75:24
+11/2	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:0
+11/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:2
+11/2	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:8
+11/2	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:25
+11/2	up:#1	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:33
+11/2	down:#2	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:26
+11/2	down:#3	down	note	b	0	2	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:25
+11/2	down:#3	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:33
+11/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:2
+11/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:2
+11/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:25
+11/2	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:25
+11/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:26
+11/2	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:26
+11/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:25
+11/2	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:25
+23/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:10
+23/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:10
+23/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:10
+6	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:14
+6	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:14
+6	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:14
+25/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:18
+25/4	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:21
+25/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:18
+25/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:18
+13/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:23
+13/2	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:27
+13/2	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:35
+13/2	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:33
+13/2	down:#3	down	note	b	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:35
+13/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:39:40
+13/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:23
+13/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:23
+13/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:35
+13/2	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:56:35
+13/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:33
+13/2	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:64:33
+13/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:35
+13/2	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:72:35
+27/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:29
+27/4	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:34
+27/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:29
+27/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:46:29
+7	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:1
+7	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:0
+7	up:#1	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:4
+7	down:#2	down	rest	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:0
+7	down:#3	down	note	e	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:0
+7	down:#3	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:3
+7	lyrics:#0	up:chant	lyric	mi	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:39:42
+7	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:39:45
+7	up:chant	up	div	maxima	data/typeset/include/noh2.ily:30:2
+7	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:1
+7	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:1
+7	up:#1	up	div	maxima	data/typeset/include/noh2.ily:30:2
+7	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:0
+7	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:0
+7	down:#2	down	div	maxima	data/typeset/include/noh2.ily:30:2
+7	down:#2	down	rhead	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:0
+7	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:0
+7	down:#3	down	div	maxima	data/typeset/include/noh2.ily:30:2
+7	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:0
+7	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:0
+29/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:5
+29/4	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:9
+29/4	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:6
+29/4	up:#1	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:10
+29/4	down:#2	down	note	f	1	3	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:3
+29/4	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:5
+29/4	down:#3	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:8
+29/4	lyrics:#0	up:chant	lyric	ne:	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:39:48
+29/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:5
+29/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:5
+29/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:6
+29/4	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:6
+29/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:3
+29/4	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:3
+29/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:5
+29/4	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:5
+15/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:11
+15/2	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:14
+15/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:11
+15/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:11
+31/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:16
+31/4	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:20
+31/4	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:12
+31/4	up:#1	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:20
+31/4	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:8
+31/4	down:#3	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:10
+31/4	down:#3	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:17
+31/4	lyrics:#0	up:chant	lyric	et	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:40:0
+31/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:16
+31/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:16
+31/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:12
+31/4	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:12
+31/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:8
+31/4	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:8
+31/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:10
+31/4	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:10
+8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:22
+8	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:26
+8	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:22
+8	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:22
+33/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:28
+33/4	lyrics:#0	up:chant	lyric	ab	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:40:3
+33/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:28
+33/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:28
+17/2	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:32
+17/2	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:37
+17/2	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:22
+17/2	up:#1	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:26
+17/2	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:15
+17/2	down:#3	down	note	e	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:19
+17/2	down:#3	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:22
+17/2	lyrics:#0	up:chant	lyric	a	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:40:6
+17/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:40:8
+17/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:32
+17/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:32
+17/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:22
+17/2	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:22
+17/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:15
+17/2	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:15
+17/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:19
+17/2	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:19
+35/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:39
+35/4	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:42
+35/4	up:chant	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:44
+35/4	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:28
+35/4	up:#1	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:36
+35/4	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:20
+35/4	down:#2	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:27
+35/4	down:#3	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:24
+35/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:39
+35/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:39
+35/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:28
+35/4	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:28
+35/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:20
+35/4	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:20
+35/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:24
+35/4	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:24
+9	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:46
+9	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:50
+9	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:46
+9	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:46
+37/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:52
+37/4	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:55
+37/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:52
+37/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:52
+19/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:57
+19/2	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:61
+19/2	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:38
+19/2	up:#1	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:42
+19/2	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:29
+19/2	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:31
+19/2	lyrics:#0	up:chant	lyric	li	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:40:11
+19/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:40:14
+19/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:57
+19/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:57
+19/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:38
+19/2	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:38
+19/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:29
+19/2	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:29
+19/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:31
+19/2	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:31
+39/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:63
+39/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:63
+39/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:63
+10	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:68
+10	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:71
+10	up:chant	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:73
+10	up:#1	up	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:44
+10	down:#2	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:32
+10	down:#3	down	note	c	0	3	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:34
+10	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:68
+10	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:68
+10	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:44
+10	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:44
+10	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:32
+10	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:32
+10	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:34
+10	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:34
+41/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:75
+41/4	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:79
+41/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:75
+41/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:75
+21/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:81
+21/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:81
+21/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:81
+43/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:85
+43/4	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:88
+43/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:85
+43/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:85
+11	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:90
+11	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:94
+11	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:52
+11	up:#1	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:60
+11	down:#2	down	note	b	0	3	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:39
+11	down:#3	down	note	b	0	2	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:41
+11	down:#3	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:49
+11	lyrics:#0	up:chant	lyric	é	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:40:17
+11	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:40:19
+11	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:90
+11	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:90
+11	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:52
+11	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:57:52
+11	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:39
+11	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:65:39
+11	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:41
+11	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:73:41
+45/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:96
+45/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:96
+45/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:96
+23/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:100
+23/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:100
+23/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:100
+47/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:104
+47/4	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:109
+47/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:104
+47/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:47:104
+12	-	-	break	data/typeset/include/noh2.ily:75:24
+12	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:1
+12	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:7
+12	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:58:0
+12	up:#1	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:58:8
+12	down:#2	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:66:0
+12	down:#3	down	note	b	0	2	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:74:0
+12	down:#3	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:74:8
+12	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:40:22
+12	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+12	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:1
+12	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:1
+12	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+12	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:58:0
+12	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:58:0
+12	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+12	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:66:0
+12	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:66:0
+12	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+12	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:74:0
+12	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:74:0
+49/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:9
+49/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:9
+49/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:9
+25/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:13
+25/2	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:16
+25/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:13
+25/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:13
+51/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:18
+51/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:40:24
+51/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:18
+51/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:18
+13	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:22
+13	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:28
+13	up:#1	up	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:58:10
+13	down:#2	down	note	g	0	3	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:66:7
+13	down:#3	down	note	b	0	2	1	0	2	1	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:74:10
+13	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:40:26
+13	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:22
+13	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:22
+13	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:58:10
+13	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:58:10
+13	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:66:7
+13	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:66:7
+13	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:74:10
+13	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:74:10
+53/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:30
+53/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:30
+53/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:30
+27/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:34
+27/2	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:37
+27/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:34
+27/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:34
+55/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:39
+55/4	lyrics:#0	up:chant	lyric	nis	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:40:28
+55/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:39
+55/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:39
+14	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:43
+14	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:49
+14	up:#1	up	note	b	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:58:18
+14	up:#1	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:58:25
+14	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:66:14
+14	down:#3	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:74:18
+14	down:#3	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:74:25
+14	lyrics:#0	up:chant	lyric	par	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:41:0
+14	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:41:4
+14	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:43
+14	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:43
+14	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:58:18
+14	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:58:18
+14	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:66:14
+14	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:66:14
+14	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:74:18
+14	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:74:18
+57/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:51
+57/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:51
+57/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:51
+29/2	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:55
+29/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:55
+29/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:55
+59/4	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:59
+59/4	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:62
+59/4	up:#1	up	note	b	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:58:27
+59/4	down:#2	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:66:21
+59/4	down:#2	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:66:24
+59/4	down:#3	down	note	e	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:74:27
+59/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:59
+59/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:49:59
+59/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:58:27
+59/4	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:58:27
+59/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:66:21
+59/4	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:66:21
+59/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:74:27
+59/4	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:74:27
+15	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:1
+15	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:5
+15	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:59:0
+15	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:0
+15	down:#2	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:7
+15	down:#3	down	note	b	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:0
+15	lyrics:#0	up:chant	lyric	ce	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:41:7
+15	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+15	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:1
+15	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:1
+15	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+15	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:59:0
+15	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:59:0
+15	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+15	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:0
+15	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:0
+15	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+15	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:0
+15	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:0
+61/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:7
+61/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:7
+61/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:7
+31/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:11
+31/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:11
+31/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:11
+63/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:17
+63/4	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:20
+63/4	up:chant	up	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:22
+63/4	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:59:8
+63/4	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:9
+63/4	down:#2	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:16
+63/4	down:#3	down	note	a	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:8
+63/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:17
+63/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:17
+63/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:59:8
+63/4	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:59:8
+63/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:9
+63/4	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:9
+63/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:8
+63/4	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:8
+16	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:24
+16	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:28
+16	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:24
+16	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:24
+65/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:30
+65/4	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:35
+65/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:30
+65/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:30
+33/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:37
+33/2	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:41
+33/2	up:#1	up	note	d	0	4	1	0	5	2	5/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:59:16
+33/2	down:#2	down	note	g	0	3	1	0	5	2	5/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:18
+33/2	down:#3	down	note	b	0	2	1	0	5	2	5/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:16
+33/2	down:#3	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:24
+33/2	lyrics:#0	up:chant	lyric	ser	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:41:10
+33/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:41:14
+33/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:37
+33/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:37
+33/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:59:16
+33/2	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:59:16
+33/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:18
+33/2	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:18
+33/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:16
+33/2	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:16
+67/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:43
+67/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:43
+67/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:43
+17	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:47
+17	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:50
+17	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:47
+17	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:47
+69/4	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:52
+69/4	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:56
+69/4	lyrics:#0	up:chant	lyric	vo	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:41:17
+69/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:52
+69/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:52
+35/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:58
+35/2	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:61
+35/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:58
+35/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:58
+71/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:63
+71/4	up:chant	up	slur	-1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:67
+71/4	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:59:24
+71/4	down:#2	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:25
+71/4	down:#3	down	note	b	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:26
+71/4	down:#3	down	tie	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:34
+71/4	lyrics:#0	up:chant	lyric	tu	-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:41:20
+71/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:41:23
+71/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:63
+71/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:63
+71/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:59:24
+71/4	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:59:24
+71/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:25
+71/4	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:25
+71/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:26
+71/4	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:26
+18	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:69
+18	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:69
+18	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:69
+73/4	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:73
+73/4	up:chant	up	slur	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:78
+73/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:73
+73/4	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:73
+37/2	up:chant	up	note	f	1	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:80
+37/2	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:59:32
+37/2	down:#2	down	note	f	1	3	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:32
+37/2	down:#3	down	note	b	0	2	2	0	1	1	1/4	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:36
+37/2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:41:26
+37/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:80
+37/2	up:chant	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:50:80
+37/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:59:32
+37/2	up:#1	up	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:59:32
+37/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:32
+37/2	down:#2	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:67:32
+37/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:36
+37/2	down:#3	down	stem	1	data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly:75:36
+75/4	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+75/4	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2
+75/4	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+75/4	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2

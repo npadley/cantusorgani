@@ -1,6 +1,6 @@
 {
   "id": "accompaniment-v1",
-  "version": 1,
+  "version": 2,
   "meiVersion": "5.0",
   "lyricPlace": "above",
   "containerPolicy": "common-onset",
@@ -83,7 +83,12 @@
     {
       "family": "voice-line-glissando",
       "status": "supported",
-      "mei": "<gliss lform=\"dotted\"> between hidden notes; note@staff when cross-staff"
+      "mei": "<gliss type=\"voice-line\" lform=\"solid\"> between hidden notes (LilyPond draws it solid); note@staff when cross-staff"
+    },
+    {
+      "family": "ordinary-glissando",
+      "status": "supported",
+      "mei": "<gliss lform=\"solid\"> between the two real, visible notes (A5g)"
     },
     {
       "family": "cross-staff",

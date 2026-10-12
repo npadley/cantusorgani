@@ -358,12 +358,19 @@ describe('renderMei with a fake toolkit', () => {
       expect(ok.diagnostics).toEqual([]);
     });
 
-    it('reports CONTENT_CLIPPED when pass 2 draws below the content area', async () => {
+    it('re-plans the pages from pass 2 sizes when pass 2 draws taller than pass 1 measured', async () => {
       const fake = makeFake({ ...FOUR_SYSTEMS, pass2SystemHeightMm: 48 });
       const layout = await renderMei(FAKE_PART, SHORT, [], ctxOf(fake), rectsOf(SHORT));
-      const d = layout.diagnostics.find((x) => x.code === 'CONTENT_CLIPPED')!;
-      expect(d).toMatchObject({ severity: 'error', pageIndex: 0 });
-      expect(d.suggestions).toEqual(['smaller-music', 'smaller-margins']);
+      expect(errors(layout.diagnostics)).toEqual([]);
+      // 48 mm systems no longer fit two to a 100 mm page.
+      expect(layout.pages.map((p) => p.systems.length)).toEqual([1, 1, 1, 1]);
+    });
+
+    it('reports system-too-tall when even one system is taller than the content in pass 2', async () => {
+      const fake = makeFake({ ...FOUR_SYSTEMS, pass2SystemHeightMm: 110 });
+      const layout = await renderMei(FAKE_PART, SHORT, [], ctxOf(fake), rectsOf(SHORT));
+      expect(layout.pages).toEqual([]);
+      expect(layout.diagnostics.find((x) => x.code === 'UNSATISFIABLE_LAYOUT')).toMatchObject({ severity: 'error', reason: 'system-too-tall' });
     });
 
     it('lists dropped overrides as non-blocking warnings', async () => {

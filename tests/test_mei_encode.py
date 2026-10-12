@@ -351,11 +351,13 @@ def test_encode_score_agnus_xi_cross_staff_notes_carry_staff() -> None:
     assert len(q(root, "//m:space[@staff][not(@type='split-continuation')]")) == 2
 
 
-def test_encode_score_agnus_xi_voice_line_glissandi_are_dotted_between_hidden_notes() -> None:
+def test_encode_score_agnus_xi_voice_line_glissandi_are_solid_between_hidden_notes() -> None:
     root = tree("agnus_XI.tsv")
     glisses = q(root, "//m:gliss")
     assert len(glisses) == 3
-    assert all(g.get("lform") == "dotted" and g.get(XML_ID) for g in glisses)
+    # A5g: LilyPond's Cairo render draws the dotted-line voice lines as solid lines, so the MEI does too;
+    # type="voice-line" is what tells them from ordinary glissandi.
+    assert all(g.get("lform") == "solid" and g.get("type") == "voice-line" and g.get(XML_ID) for g in glisses)
     hidden = {n.get(XML_ID): n for n in q(root, "//m:note[@visible='false']")}
     assert len(hidden) == 6
     for g in glisses:
@@ -514,10 +516,14 @@ def _synthetic_ir(*, chant_second_layer: bool = False) -> ScoreIR:
 def test_encode_score_sustain_split_keeps_one_attack_and_the_total() -> None:
     result = encode_score(_synthetic_ir(), profile())
     root = etree.fromstring(result.xml)
-    layer1 = q(root, "//m:staff/m:layer[@n='1']/m:note")
+    layer1 = q(root, "//m:staff/m:layer[@n='1']//m:note")
     assert [n.get(XML_ID) for n in layer1] == ["ev0e0000", "ev0e0000c1"]
     first, cont = layer1
-    assert (first.get("dur"), first.get("dots")) == ("4", "1")  # 3/8
+    # A5g: the first fragment keeps the event's written head (dotted half), as LilyPond prints it, and a
+    # hidden tuplet gives it its real length of 3/8; only the hidden continuation is notated by length.
+    assert (first.get("dur"), first.get("dots")) == ("2", "2")
+    assert first.getparent().tag.endswith("}tuplet") and (first.getparent().get("num"), first.getparent().get("numbase")) == ("7", "3")
+    assert dur_of(first) == Fraction(3, 8)
     assert (cont.get("dur"), cont.get("dots")) == ("2", None)  # 1/2
     assert first.get("type") is None and first.get("head.visible") is None
     assert cont.get("type") == "split-continuation"
@@ -650,3 +656,68 @@ def test_encode_score_split_scaled_sustain_keeps_the_written_head_and_real_onset
     }
     assert seen == expected
     assert normalize_ir(ir).layers.keys() == converted.layers.keys()
+
+
+def test_encode_score_agnus_ix_ordinary_glissandi_are_solid_lines_between_visible_notes() -> None:
+    """A5g: a visible-note \\glissando is a solid <gliss> (no @lform), unlike the dotted voice lines."""
+    from tests.test_mei_normalize import pilot
+
+    ir, encoded = pilot("F6")
+    root = etree.fromstring(encoded.xml)
+    glisses = q(root, "//m:gliss")
+    solid = [g for g in glisses if g.get("type") != "voice-line"]
+    voice_lines = [g for g in glisses if g.get("type") == "voice-line"]
+    assert (len(solid), len(voice_lines)) == (4, 4) and all(g.get("lform") == "solid" for g in glisses)
+    notes = {n.get(XML_ID): n for n in q(root, "//m:note")}
+    for gliss in solid:
+        start, end = notes[gliss.get("startid")[1:]], notes[gliss.get("endid")[1:]]
+        assert start.get("visible") != "false" and end.get("visible") != "false"
+    assert not [d for d in encoded.diagnostics if d.code == "UNKNOWN_FEATURE"]
+    assert sum(1 for s in ir.spans if s.kind == "glissando") == 4
+
+
+def test_encode_score_chord_in_a_voice_is_a_chord_element_and_survives_a_split() -> None:
+    """A5g: two notes of one voice that start together are one <chord> (written head, hidden tuplet
+    for the real length), cut at a safe boundary like a single note, and the oracle agrees."""
+    from pipeline.typeset.mei.normalize import normalize_ir, normalize_mei
+    from pipeline.typeset.mei.validate import compare_scores
+
+    loc = SourceLocation("x.ly", 1, 1)
+
+    def note(eid: str, layer: str, onset: Fraction, dur: Fraction, log: int, dots: int, step: str) -> Event:
+        return Event(eid, layer, "up", "note", onset, dur, NotatedDuration(log, dots, Fraction(1)),
+                     Pitch(step, Fraction(0), 4), "none", "normal", False, False, loc)
+
+    events = (
+        note("0e0000", "up:#1", Fraction(0), Fraction(7, 8), 1, 2, "c"),
+        note("0e0001", "up:#1", Fraction(0), Fraction(7, 8), 1, 2, "e"),
+        note("1e0000", "up:#2", Fraction(0), Fraction(3, 8), 2, 1, "g"),
+        note("1e0001", "up:#2", Fraction(3, 8), Fraction(1, 2), 1, 0, "g"),
+    )
+    layers = (LayerDef("up:#1", "up", 0, "voiceOne", "accompaniment"), LayerDef("up:#2", "up", 1, "voiceTwo", "accompaniment"))
+    boundary = Boundary("b000", Fraction(3, 8), False, None, None, True, None)
+    ir = ScoreIR(1, "x/synthetic.ly", "0" * 64, "2.26.0", "t", Fraction(7, 8), (StaffDef("up", 1, "G", 2, 0),),
+                 layers, events, (), (), (), (), (boundary,), (), ())
+    result = encode_score(ir, profile())
+    root = etree.fromstring(result.xml)
+    chords = q(root, "//m:chord")
+    assert len(chords) == 2  # the first piece and the hidden continuation
+    first, cont = chords
+    assert [n.get("pname") for n in first.findall("m:note", NS)] == ["c", "e"]
+    assert (first.get("dur"), first.get("dots")) == ("2", "2") and all(n.get("dur") is None for n in first)
+    assert cont.findall("m:note", NS)[0].get("type") == "split-continuation"
+    assert compare_scores(normalize_ir(ir), normalize_mei(result.xml, result.provenance)) == []
+    assert not [d for d in result.diagnostics if d.severity == "error"]
+
+
+def test_encode_score_dotted_continuation_fragment_is_fully_hidden_so_its_dots_do_not_draw() -> None:
+    """A8: Verovio draws the augmentation dots of a head that is only head.visible="false"."""
+    from tests.test_mei_normalize import pilot
+
+    _, encoded = pilot("F10")
+    root = etree.fromstring(encoded.xml)
+    dotted = [n for n in q(root, "//m:note[@type='split-continuation']") if n.get("dots")]
+    assert dotted
+    assert all(n.get("visible") == "false" and n.get("head.visible") == "false" for n in dotted)
+    plain = [n for n in q(root, "//m:note[@type='split-continuation']") if not n.get("dots")]
+    assert plain and all(n.get("visible") is None for n in plain)

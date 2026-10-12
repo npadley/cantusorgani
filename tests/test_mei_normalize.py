@@ -29,6 +29,18 @@ PILOTS = {
     "F3": ("agnus_XI.tsv", "data/typeset/src/vol-5/missa-xi/agnus_XI.ly"),
     "F4": ("ite_Ib.tsv", "data/typeset/src/vol-5/missa-i/ite_Ib.ly"),
     "F5": ("co_inclina_aurem_tuam.csv.tsv", "data/typeset/src/vol-2/co_inclina_aurem_tuam.csv.ly"),
+    # A5g: carries ordinary (visible-note) glissandi next to voice-line glissandi; Missa IX Agnus Dei.
+    "F6": ("agnus_IX.tsv", "data/typeset/src/vol-5/missa-ix/agnus_IX.ly"),
+    # A5g: Gloria IX has a chord inside a voice (<c, e>2*2, gloria_IX.ly:172); Sanctus IX has ordinary
+    # glissandi and a divisio maxima.
+    "F7": ("gloria_IX.tsv", "data/typeset/src/vol-5/missa-ix/gloria_IX.ly"),
+    "F8": ("sanctus_IX.tsv", "data/typeset/src/vol-5/missa-ix/sanctus_IX.ly"),
+    # A8: the source breaks lines inside slurs in both; the slur spans the break.
+    "F9": ("co_ab_occultis_meis.csv.tsv", "data/typeset/src/vol-1/co_ab_occultis_meis.csv.ly"),
+    "F10": ("al_dominus_regnavit__exsultet.csv.tsv", "data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly"),
+    # A8: a finalis at the end of a chant that stops before the accompaniment; a finalis inside a slur.
+    "F11": ("of_benedicam_dominum.csv.tsv", "data/typeset/src/vol-1/of_benedicam_dominum.csv.ly"),
+    "F12": ("al_surrexit_dominus_de_sepulcro.csv.tsv", "data/typeset/src/vol-2/al_surrexit_dominus_de_sepulcro.csv.ly"),
 }
 NORMALIZE_SOURCE = ROOT / "pipeline/typeset/mei/normalize.py"
 
@@ -206,11 +218,21 @@ def test_normalize_mei_slur_resolves_through_provenance() -> None:
     xml = doc(
         measure(
             '<note xml:id="a" pname="c" oct="4" dur="4"/><note xml:id="b" pname="d" oct="4" dur="4"/>',
-            extra='<slur startid="#a" endid="#b"/><gliss startid="#a" endid="#b"/>',
+            extra='<slur startid="#a" endid="#b"/><gliss type="voice-line" startid="#a" endid="#b"/>',
         )
     )
     score = normalize_mei(xml, {"a": "A", "b": "B"})
     assert score.spans == (("slur", "A", "B"), ("voice-line", "A", "B"))
+
+
+def test_normalize_mei_plain_gliss_is_a_glissando_span_and_typed_gliss_a_voice_line() -> None:
+    xml = doc(
+        measure(
+            '<note xml:id="a" pname="c" oct="4" dur="4"/><note xml:id="b" pname="d" oct="4" dur="4"/>',
+            extra='<gliss lform="solid" startid="#a" endid="#b"/>',
+        )
+    )
+    assert normalize_mei(xml, {"a": "A", "b": "B"}).spans == (("glissando", "A", "B"),)
 
 
 def test_normalize_mei_quilisma_and_hidden_noteheads() -> None:

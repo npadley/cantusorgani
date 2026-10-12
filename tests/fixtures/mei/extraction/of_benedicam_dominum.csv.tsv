@@ -1,0 +1,1289 @@
+0	-	-	version	listen_full/1	2.26.0
+0	-	up	staff	1
+0	-	down	staff	2
+0	-	up	key	0	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:10:1
+0	up:chant	up	voice	0	voiceOne
+0	up:chant	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:11
+0	-	up	key	0	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:10:1
+0	up:#1	up	voice	1	voiceTwo
+0	up:#1	up	rest	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:0
+0	-	down	key	0	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:10:1
+0	down:#2	down	voice	2	voiceOne
+0	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:0
+0	-	down	key	0	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:10:1
+0	down:#3	down	voice	3	voiceTwo
+0	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:0
+0	-	down	key	0	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:10:1
+0	lyrics:#0	up:chant	lyric	Be	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:38:0
+0	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:38:3
+0	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:11
+0	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:11
+0	up:#1	up	rhead	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:0
+0	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:0
+0	-	up	clef	clefs.G	-2	-
+0	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:0
+0	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:0
+0	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:0
+0	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:0
+0	-	down	clef	clefs.F	2	-
+1/4	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:15
+1/4	lyrics:#0	up:chant	lyric	ne	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:38:6
+1/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:38:9
+1/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:15
+1/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:15
+1/2	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:20
+1/2	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:24
+1/2	up:#1	up	note	d	0	4	1	0	5	2	5/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:3
+1/2	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:11
+1/2	down:#2	down	note	f	0	3	1	0	5	2	5/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:3
+1/2	down:#3	down	note	d	0	3	1	0	5	2	5/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:3
+1/2	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:10
+1/2	lyrics:#0	up:chant	lyric	dí	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:38:12
+1/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:38:15
+1/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:20
+1/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:20
+1/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:3
+1/2	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:3
+1/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:3
+1/2	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:3
+1/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:3
+1/2	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:3
+3/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:26
+3/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:26
+3/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:26
+1	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:30
+1	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:35
+1	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:30
+1	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:30
+1	up:chant	up	acc	flat	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:30
+5/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:37
+5/4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:41
+5/4	lyrics:#0	up:chant	lyric	cam	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:38:18
+5/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:37
+5/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:37
+3/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:43
+3/2	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:75
+3/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:43
+3/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:43
+7/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:77
+7/4	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:13
+7/4	down:#2	down	note	e	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:10
+7/4	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:13
+7/4	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:12
+7/4	lyrics:#0	up:chant	lyric	Dó	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:38:22
+7/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:38:25
+7/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:77
+7/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:77
+7/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:13
+7/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:13
+7/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:10
+7/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:10
+7/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:12
+7/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:12
+2	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:81
+2	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:86
+2	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:17
+2	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:21
+2	down:#2	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:15
+2	down:#3	down	note	a	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:15
+2	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:19
+2	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:38:28
+2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:81
+2	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:81
+2	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:17
+2	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:17
+2	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:15
+2	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:15
+2	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:15
+2	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:15
+9/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:88
+9/4	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:92
+9/4	up:chant	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:94
+9/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:88
+9/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:88
+5/2	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:96
+5/2	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:101
+5/2	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:23
+5/2	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:27
+5/2	down:#2	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:18
+5/2	down:#3	down	note	a	0	2	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:21
+5/2	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:25
+5/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:96
+5/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:96
+5/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:23
+5/2	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:23
+5/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:18
+5/2	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:18
+5/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:21
+5/2	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:21
+11/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:103
+11/4	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:106
+11/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:103
+11/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:103
+3	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:108
+3	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:112
+3	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:29
+3	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:37
+3	down:#2	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:21
+3	down:#3	down	note	a	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:27
+3	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:35
+3	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:38:30
+3	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:108
+3	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:108
+3	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:29
+3	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:64:29
+3	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:21
+3	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:76:21
+3	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:27
+3	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:88:27
+13/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:114
+13/4	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:117
+13/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:114
+13/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:114
+7/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:119
+7/2	lyrics:#0	up:chant	lyric	mi	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:38:32
+7/2	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:38:35
+7/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:119
+7/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:47:119
+15/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:1
+15/4	up:#1	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:0
+15/4	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:0
+15/4	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:3
+15/4	down:#3	down	note	a	0	2	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:0
+15/4	lyrics:#0	up:chant	lyric	num,	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:38:38
+15/4	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+15/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:1
+15/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:1
+15/4	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+15/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:0
+15/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:0
+15/4	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+15/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:0
+15/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:0
+15/4	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+15/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:0
+15/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:0
+4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:5
+4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:9
+4	up:#1	up	note	f	0	4	1	0	3	1	3/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:4
+4	down:#2	down	note	a	0	3	1	0	3	1	3/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:5
+4	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:12
+4	down:#3	down	note	d	0	3	1	0	3	1	3/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:4
+4	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:11
+4	lyrics:#0	up:chant	lyric	qui	 * 	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:0
+4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:5
+4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:5
+4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:4
+4	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:4
+4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:5
+4	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:5
+4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:4
+4	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:4
+17/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:11
+17/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:11
+17/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:11
+9/2	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:15
+9/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:15
+9/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:15
+19/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:24
+19/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:24
+19/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:24
+5	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:29
+5	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:32
+5	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:29
+5	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:29
+21/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:34
+21/4	lyrics:#0	up:chant	lyric	mi	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:4
+21/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:7
+21/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:34
+21/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:34
+11/2	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:38
+11/2	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:12
+11/2	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:16
+11/2	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:14
+11/2	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:17
+11/2	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:13
+11/2	lyrics:#0	up:chant	lyric	hi	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:10
+11/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:38
+11/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:38
+11/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:12
+11/2	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:12
+11/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:14
+11/2	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:14
+11/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:13
+11/2	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:13
+23/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:42
+23/4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:46
+23/4	up:#1	up	note	e	0	4	1	0	5	2	5/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:18
+23/4	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:26
+23/4	down:#2	down	note	a	0	3	1	0	5	2	5/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:19
+23/4	down:#3	down	note	c	0	3	1	0	5	2	5/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:16
+23/4	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:23
+23/4	lyrics:#0	up:chant	lyric	trí	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:13
+23/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:17
+23/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:42
+23/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:42
+23/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:18
+23/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:18
+23/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:19
+23/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:19
+23/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:16
+23/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:16
+6	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:48
+6	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:48
+6	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:48
+25/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:52
+25/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:52
+25/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:48:52
+13/2	-	-	break	data/typeset/include/noh2.ily:75:24
+13/2	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:0
+13/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:2
+13/2	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:6
+13/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:2
+13/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:2
+27/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:8
+27/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:8
+27/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:8
+7	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:12
+7	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:15
+7	up:chant	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:17
+7	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:28
+7	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:36
+7	down:#2	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:26
+7	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:34
+7	down:#3	down	note	c	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:25
+7	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:32
+7	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:12
+7	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:12
+7	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:28
+7	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:65:28
+7	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:26
+7	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:77:26
+7	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:25
+7	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:89:25
+29/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:19
+29/4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:23
+29/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:19
+29/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:19
+15/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:25
+15/2	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:28
+15/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:25
+15/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:49:25
+31/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:1
+31/4	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:0
+31/4	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:4
+31/4	down:#2	down	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:0
+31/4	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:4
+31/4	down:#3	down	note	c	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:0
+31/4	lyrics:#0	up:chant	lyric	bu	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:20
+31/4	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:23
+31/4	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+31/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:1
+31/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:1
+31/4	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+31/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:0
+31/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:0
+31/4	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+31/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:0
+31/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:0
+31/4	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+31/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:0
+31/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:0
+8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:5
+8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:9
+8	up:#1	up	note	e	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:6
+8	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:14
+8	down:#2	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:6
+8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:14
+8	down:#3	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:3
+8	lyrics:#0	up:chant	lyric	it	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:26
+8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:5
+8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:5
+8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:6
+8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:6
+8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:6
+8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:6
+8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:3
+8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:3
+33/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:11
+33/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:11
+33/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:11
+17/2	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:15
+17/2	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:47
+17/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:15
+17/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:15
+35/4	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:49
+35/4	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:16
+35/4	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:20
+35/4	down:#2	down	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:16
+35/4	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:20
+35/4	down:#3	down	note	b	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:11
+35/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:29
+35/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:49
+35/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:49
+35/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:16
+35/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:16
+35/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:16
+35/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:16
+35/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:11
+35/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:11
+9	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:53
+9	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:58
+9	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:22
+9	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:22
+9	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:26
+9	down:#3	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:14
+9	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:17
+9	lyrics:#0	up:chant	lyric	in	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:31
+9	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:34
+9	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:53
+9	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:53
+9	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:22
+9	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:22
+9	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:22
+9	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:22
+9	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:14
+9	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:14
+37/4	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:60
+37/4	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:64
+37/4	up:chant	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:66
+37/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:60
+37/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:60
+19/2	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:68
+19/2	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:73
+19/2	up:#1	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:26
+19/2	down:#2	down	note	c	0	4	1	0	7	4	7/8	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:28
+19/2	down:#3	down	note	a	0	3	1	0	7	4	7/8	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:19
+19/2	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:26
+19/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:68
+19/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:68
+19/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:26
+19/2	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:26
+19/2	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:28
+19/2	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:28
+19/2	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:19
+19/2	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:19
+39/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:75
+39/4	up:#1	up	rest	5/8	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:30
+39/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:75
+39/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:75
+39/4	up:#1	up	rhead	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:30
+39/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:30
+10	up:chant	up	note	f	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:79
+10	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:83
+10	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:79
+10	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:79
+83/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:85
+83/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:89
+83/8	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:37
+83/8	down:#2	down	note	b	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:36
+83/8	down:#3	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:28
+83/8	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:31
+83/8	lyrics:#0	up:chant	lyric	tel	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:37
+83/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:41
+83/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:85
+83/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:85
+83/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:37
+83/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:37
+83/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:36
+83/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:36
+83/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:28
+83/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:28
+85/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:91
+85/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:94
+85/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:91
+85/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:91
+87/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:96
+87/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:100
+87/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:41
+87/8	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:45
+87/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:39
+87/8	down:#3	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:33
+87/8	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:36
+87/8	lyrics:#0	up:chant	lyric	lé	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:44
+87/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:47
+87/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:96
+87/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:96
+87/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:41
+87/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:41
+87/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:39
+87/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:39
+87/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:33
+87/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:33
+89/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:102
+89/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:102
+89/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:102
+91/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:107
+91/8	up:#1	up	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:47
+91/8	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:55
+91/8	down:#2	down	note	d	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:43
+91/8	down:#3	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:38
+91/8	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:45
+91/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:107
+91/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:107
+91/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:47
+91/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:47
+91/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:43
+91/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:43
+91/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:38
+91/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:38
+93/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:111
+93/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:111
+93/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:111
+95/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:120
+95/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:120
+95/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:120
+97/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:125
+97/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:128
+97/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:125
+97/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:125
+99/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:130
+99/8	up:#1	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:57
+99/8	down:#2	down	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:51
+99/8	down:#3	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:47
+99/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:50
+99/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:130
+99/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:50:130
+99/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:57
+99/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:66:57
+99/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:51
+99/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:78:51
+99/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:47
+99/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:90:47
+101/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:51:1
+101/8	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:67:0
+101/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:79:0
+101/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:79:3
+101/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:91:0
+101/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:52
+101/8	up:chant	up	div	maxima	data/typeset/include/noh2.ily:30:2
+101/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:51:1
+101/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:51:1
+101/8	up:#1	up	div	maxima	data/typeset/include/noh2.ily:30:2
+101/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:67:0
+101/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:67:0
+101/8	down:#2	down	div	maxima	data/typeset/include/noh2.ily:30:2
+101/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:79:0
+101/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:79:0
+101/8	down:#3	down	div	maxima	data/typeset/include/noh2.ily:30:2
+101/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:91:0
+101/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:91:0
+103/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:51:5
+103/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:54
+103/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:51:5
+103/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:51:5
+105/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:51:9
+105/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:67:4
+105/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:79:5
+105/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:79:8
+105/8	down:#3	down	note	c	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:91:3
+105/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:56
+105/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:51:9
+105/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:51:9
+105/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:67:4
+105/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:67:4
+105/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:79:5
+105/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:79:5
+105/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:91:3
+105/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:91:3
+107/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:51:13
+107/8	lyrics:#0	up:chant	lyric	ctum:	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:40:58
+107/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:51:13
+107/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:51:13
+109/8	-	-	break	data/typeset/include/noh2.ily:75:24
+109/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:1
+109/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:6
+109/8	up:#1	up	note	g	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:67:8
+109/8	down:#2	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:79:10
+109/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:79:17
+109/8	down:#3	down	note	e	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:91:6
+109/8	lyrics:#0	up:chant	lyric	pro	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:41:0
+109/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:41:4
+109/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:1
+109/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:1
+109/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:67:8
+109/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:67:8
+109/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:79:10
+109/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:79:10
+109/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:91:6
+109/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:91:6
+111/8	up:chant	up	note	d	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:8
+111/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:8
+111/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:8
+113/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:13
+113/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:13
+113/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:13
+115/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:18
+115/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:21
+115/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:18
+115/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:18
+117/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:23
+117/8	up:#1	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:67:16
+117/8	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:67:20
+117/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:79:19
+117/8	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:91:13
+117/8	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:91:16
+117/8	lyrics:#0	up:chant	lyric	vi	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:41:7
+117/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:41:10
+117/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:23
+117/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:52:23
+117/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:67:16
+117/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:67:16
+117/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:79:19
+117/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:79:19
+117/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:91:13
+117/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:91:13
+119/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:1
+119/8	up:#1	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:0
+119/8	down:#2	down	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:0
+119/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:4
+119/8	down:#3	down	note	d	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:0
+119/8	lyrics:#0	up:chant	lyric	dé	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:41:13
+119/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:41:16
+119/8	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+119/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:1
+119/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:1
+119/8	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+119/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:0
+119/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:0
+119/8	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+119/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:0
+119/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:0
+119/8	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+119/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:0
+119/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:0
+121/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:5
+121/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:9
+121/8	up:#1	up	note	g	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:4
+121/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:6
+121/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:10
+121/8	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:3
+121/8	lyrics:#0	up:chant	lyric	bam	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:41:19
+121/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:5
+121/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:5
+121/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:4
+121/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:4
+121/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:6
+121/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:6
+121/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:3
+121/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:3
+123/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:11
+123/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:14
+123/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:11
+123/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:11
+125/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:16
+125/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:20
+125/8	up:#1	up	note	f	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:8
+125/8	down:#2	down	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:12
+125/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:20
+125/8	down:#3	down	note	f	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:6
+125/8	lyrics:#0	up:chant	lyric	De	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:41:23
+125/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:41:26
+125/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:16
+125/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:16
+125/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:8
+125/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:8
+125/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:12
+125/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:12
+125/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:6
+125/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:6
+127/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:22
+127/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:22
+127/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:22
+129/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:26
+129/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:29
+129/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:26
+129/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:26
+131/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:31
+131/8	lyrics:#0	up:chant	lyric	um	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:41:29
+131/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:31
+131/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:31
+133/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:35
+133/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:39
+133/8	up:#1	up	note	e	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:16
+133/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:22
+133/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:26
+133/8	down:#3	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:13
+133/8	lyrics:#0	up:chant	lyric	in	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:0
+133/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:35
+133/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:35
+133/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:16
+133/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:16
+133/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:22
+133/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:22
+133/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:13
+133/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:13
+135/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:41
+135/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:44
+135/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:41
+135/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:41
+137/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:46
+137/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:51
+137/8	up:#1	up	note	f	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:20
+137/8	down:#2	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:28
+137/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:36
+137/8	down:#3	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:17
+137/8	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:24
+137/8	lyrics:#0	up:chant	lyric	con	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:3
+137/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:7
+137/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:46
+137/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:46
+137/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:20
+137/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:20
+137/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:28
+137/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:28
+137/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:17
+137/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:17
+139/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:53
+139/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:57
+139/8	up:chant	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:59
+139/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:53
+139/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:53
+141/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:61
+141/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:66
+141/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:61
+141/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:61
+143/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:68
+143/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:71
+143/8	up:chant	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:73
+143/8	up:#1	up	rest	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:28
+143/8	down:#2	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:38
+143/8	down:#3	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:26
+143/8	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:33
+143/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:68
+143/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:68
+143/8	up:#1	up	rhead	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:28
+143/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:28
+143/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:38
+143/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:38
+143/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:26
+143/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:26
+145/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:75
+145/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:79
+145/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:75
+145/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:75
+147/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:81
+147/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:84
+147/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:81
+147/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:81
+149/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:86
+149/8	up:#1	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:35
+149/8	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:39
+149/8	down:#2	down	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:46
+149/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:51
+149/8	down:#3	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:35
+149/8	lyrics:#0	up:chant	lyric	spé	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:10
+149/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:14
+149/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:86
+149/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:86
+149/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:35
+149/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:35
+149/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:46
+149/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:46
+149/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:35
+149/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:35
+149/8	down:#2	down	acc	flat	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:46
+151/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:91
+151/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:95
+151/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:41
+151/8	down:#2	down	note	b	-1	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:53
+151/8	down:#3	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:38
+151/8	lyrics:#0	up:chant	lyric	ctu	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:17
+151/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:91
+151/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:91
+151/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:41
+151/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:41
+151/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:53
+151/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:53
+151/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:38
+151/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:38
+151/8	down:#2	down	acc	flat	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:53
+153/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:97
+153/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:100
+153/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:97
+153/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:97
+155/8	up:chant	up	note	b	-1	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:102
+155/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:108
+155/8	lyrics:#0	up:chant	lyric	me	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:21
+155/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:24
+155/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:102
+155/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:102
+155/8	up:chant	up	acc	flat	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:102
+157/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:110
+157/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:113
+157/8	up:chant	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:115
+157/8	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:49
+157/8	down:#2	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:62
+157/8	down:#3	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:45
+157/8	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:52
+157/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:110
+157/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:110
+157/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:49
+157/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:49
+157/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:62
+157/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:62
+157/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:45
+157/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:45
+159/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:117
+159/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:121
+159/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:117
+159/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:117
+161/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:123
+161/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:155
+161/8	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:59
+161/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:123
+161/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:123
+161/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:59
+161/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:59
+163/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:157
+163/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:161
+163/8	down:#2	down	note	b	-1	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:70
+163/8	down:#3	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:54
+163/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:27
+163/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:157
+163/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:157
+163/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:70
+163/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:70
+163/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:54
+163/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:92:54
+163/8	down:#2	down	acc	flat	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:70
+165/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:163
+165/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:166
+165/8	up:#1	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:73
+165/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:75
+165/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:163
+165/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:53:163
+165/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:73
+165/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:73
+165/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:75
+165/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:80:75
+167/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:54:1
+167/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:54:5
+167/8	up:#1	up	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:75
+167/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:0
+167/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:4
+167/8	down:#3	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:0
+167/8	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:3
+167/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:29
+167/8	up:chant	up	div	maxima	data/typeset/include/noh2.ily:30:2
+167/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:54:1
+167/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:54:1
+167/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:75
+167/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:68:75
+167/8	down:#2	down	div	maxima	data/typeset/include/noh2.ily:30:2
+167/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:0
+167/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:0
+167/8	down:#3	down	div	maxima	data/typeset/include/noh2.ily:30:2
+167/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:0
+167/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:0
+169/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:54:7
+169/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:54:7
+169/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:54:7
+171/8	-	-	break	data/typeset/include/noh2.ily:75:24
+171/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:0
+171/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:2
+171/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:6
+171/8	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:69:0
+171/8	down:#2	down	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:6
+171/8	down:#3	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:5
+171/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:2
+171/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:2
+171/8	up:#1	up	div	maxima	data/typeset/include/noh2.ily:30:2
+171/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:69:0
+171/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:69:0
+171/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:6
+171/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:6
+171/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:5
+171/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:5
+173/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:8
+173/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:8
+173/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:8
+175/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:17
+175/8	up:#1	up	note	e	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:69:4
+175/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:17
+175/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:17
+175/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:69:4
+175/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:69:4
+177/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:22
+177/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:25
+177/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:22
+177/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:22
+179/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:27
+179/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:31
+179/8	down:#2	down	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:14
+179/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:21
+179/8	down:#3	down	note	e	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:12
+179/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:31
+179/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:27
+179/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:27
+179/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:14
+179/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:14
+179/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:12
+179/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:12
+181/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:33
+181/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:33
+181/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:33
+183/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:38
+183/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:41
+183/8	up:#1	up	note	g	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:69:12
+183/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:38
+183/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:38
+183/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:69:12
+183/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:69:12
+185/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:43
+185/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:47
+185/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:23
+185/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:26
+185/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:19
+185/8	lyrics:#0	up:chant	lyric	o	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:33
+185/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:43
+185/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:43
+185/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:23
+185/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:23
+185/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:19
+185/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:19
+187/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:49
+187/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:49
+187/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:49
+189/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:53
+189/8	up:#1	up	note	f	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:69:20
+189/8	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:69:28
+189/8	down:#2	down	note	a	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:28
+189/8	down:#3	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:22
+189/8	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:25
+189/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:53
+189/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:53
+189/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:69:20
+189/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:69:20
+189/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:28
+189/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:28
+189/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:22
+189/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:22
+191/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:57
+191/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:60
+191/8	down:#2	down	note	b	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:31
+191/8	down:#3	down	note	g	0	3	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:27
+191/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:57
+191/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:55:57
+191/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:31
+191/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:81:31
+191/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:27
+191/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:93:27
+193/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:1
+193/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:5
+193/8	down:#2	down	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:0
+193/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:8
+193/8	down:#3	down	note	a	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:0
+193/8	lyrics:#0	up:chant	lyric	sem	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:35
+193/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:39
+193/8	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+193/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:1
+193/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:1
+193/8	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+193/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:0
+193/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:0
+193/8	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+193/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:0
+193/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:0
+195/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:7
+195/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:7
+195/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:7
+197/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:16
+197/8	up:#1	up	note	f	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:0
+197/8	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:8
+197/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:16
+197/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:16
+197/8	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+197/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:0
+197/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:0
+199/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:20
+199/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:23
+199/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:20
+199/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:20
+201/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:25
+201/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:29
+201/8	down:#2	down	note	c	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:10
+201/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:18
+201/8	down:#3	down	note	f	0	3	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:7
+201/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:42
+201/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:25
+201/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:25
+201/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:10
+201/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:10
+201/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:7
+201/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:7
+203/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:31
+203/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:34
+203/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:31
+203/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:31
+205/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:36
+205/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:40
+205/8	up:#1	up	note	f	0	4	1	0	2	1	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:10
+205/8	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:18
+205/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:44
+205/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:36
+205/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:36
+205/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:10
+205/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:10
+207/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:42
+207/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:45
+207/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:42
+207/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:42
+209/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:47
+209/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:51
+209/8	down:#2	down	note	c	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:20
+209/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:24
+209/8	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:14
+209/8	lyrics:#0	up:chant	lyric	per:	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:42:46
+209/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:47
+209/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:47
+209/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:20
+209/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:20
+209/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:14
+209/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:14
+211/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:53
+211/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:53
+211/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:53
+213/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:58
+213/8	up:#1	up	note	f	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:20
+213/8	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:24
+213/8	down:#2	down	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:26
+213/8	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:17
+213/8	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:24
+213/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:58
+213/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:58
+213/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:20
+213/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:20
+213/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:26
+213/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:26
+213/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:17
+213/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:17
+215/8	up:chant	up	note	b	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:62
+215/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:62
+215/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:62
+217/8	up:chant	up	note	c	0	5	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:71
+217/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:75
+217/8	up:#1	up	note	f	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:26
+217/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:71
+217/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:71
+217/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:26
+217/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:26
+219/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:77
+219/8	down:#2	down	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:34
+219/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:26
+219/8	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:29
+219/8	lyrics:#0	up:chant	lyric	quó	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:0
+219/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:4
+219/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:77
+219/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:77
+219/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:34
+219/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:34
+219/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:26
+219/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:26
+221/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:81
+221/8	lyrics:#0	up:chant	lyric	ni	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:7
+221/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:10
+221/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:81
+221/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:81
+223/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:85
+223/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:89
+223/8	up:#1	up	note	d	0	4	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:34
+223/8	down:#2	down	note	f	0	3	1	0	3	1	3/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:37
+223/8	down:#3	down	note	d	0	3	1	0	3	1	3/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:31
+223/8	lyrics:#0	up:chant	lyric	am	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:13
+223/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:85
+223/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:85
+223/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:34
+223/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:34
+223/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:37
+223/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:37
+223/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:31
+223/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:31
+225/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:91
+225/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:91
+225/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:91
+227/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:100
+227/8	up:#1	up	note	a	0	3	1	0	3	1	3/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:38
+227/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:100
+227/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:100
+227/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:38
+227/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:38
+229/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:104
+229/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:104
+229/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:104
+231/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:108
+231/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:108
+231/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:108
+233/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:112
+233/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:115
+233/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:112
+233/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:112
+235/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:117
+235/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:121
+235/8	down:#2	down	note	g	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:44
+235/8	down:#3	down	note	e	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:38
+235/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:16
+235/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:117
+235/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:117
+235/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:44
+235/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:82:44
+235/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:38
+235/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:94:38
+237/8	up:chant	up	note	c	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:123
+237/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:126
+237/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:123
+237/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:56:123
+239/8	-	-	break	data/typeset/include/noh2.ily:75:24
+239/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:1
+239/8	up:#1	up	rest	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:45
+239/8	down:#2	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:0
+239/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:7
+239/8	down:#3	down	note	d	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:0
+239/8	lyrics:#0	up:chant	lyric	a	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:18
+239/8	up:chant	up	div	maior	data/typeset/include/noh2.ily:20:2
+239/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:1
+239/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:1
+239/8	up:#1	up	rhead	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:45
+239/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:70:45
+239/8	down:#2	down	div	maior	data/typeset/include/noh2.ily:20:2
+239/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:0
+239/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:0
+239/8	down:#3	down	div	maior	data/typeset/include/noh2.ily:20:2
+239/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:0
+239/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:0
+241/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:5
+241/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:9
+241/8	lyrics:#0	up:chant	lyric	dex	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:20
+241/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:24
+241/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:5
+241/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:5
+243/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:11
+243/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:43
+243/8	up:#1	up	note	a	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:0
+243/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:11
+243/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:11
+243/8	up:#1	up	div	maior	data/typeset/include/noh2.ily:20:2
+243/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:0
+243/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:0
+245/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:45
+245/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:49
+245/8	down:#2	down	note	f	0	3	1	0	5	4	5/8	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:9
+245/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:16
+245/8	down:#3	down	note	b	-1	2	1	0	5	4	5/8	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:7
+245/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:27
+245/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:45
+245/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:45
+245/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:9
+245/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:9
+245/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:7
+245/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:7
+245/8	down:#3	down	acc	flat	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:7
+247/8	up:chant	up	note	d	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:51
+247/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:55
+247/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:51
+247/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:51
+249/8	up:#1	up	note	d	0	4	1	0	5	4	5/8	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:7
+249/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:7
+249/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:7
+125/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:57
+125/4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:61
+125/4	down:#2	down	note	f	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:18
+125/4	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:25
+125/4	down:#3	down	note	a	0	2	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:17
+125/4	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:29
+125/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:57
+125/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:57
+125/4	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:18
+125/4	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:18
+125/4	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:17
+125/4	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:17
+63/2	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:63
+63/2	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:66
+63/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:63
+63/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:63
+127/4	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:68
+127/4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:72
+127/4	up:#1	up	note	c	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:15
+127/4	lyrics:#0	up:chant	lyric	tris	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:31
+127/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:68
+127/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:68
+127/4	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:15
+127/4	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:15
+32	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:74
+32	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:77
+32	up:chant	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:79
+32	down:#2	down	note	f	0	3	1	0	7	4	7/8	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:27
+32	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:34
+32	down:#3	down	note	g	0	2	1	0	7	4	7/8	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:25
+32	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:74
+32	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:74
+32	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:27
+32	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:27
+32	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:25
+32	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:25
+129/4	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:81
+129/4	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:85
+129/4	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:81
+129/4	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:81
+65/2	up:chant	up	note	d	0	4	2	1	1	1	3/8	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:87
+65/2	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:91
+65/2	up:#1	up	note	b	-1	3	1	0	7	4	7/8	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:23
+65/2	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:87
+65/2	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:87
+65/2	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:23
+65/2	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:23
+65/2	up:#1	up	acc	flat	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:23
+263/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:93
+263/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:97
+263/8	down:#2	down	note	f	0	3	1	0	5	2	5/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:36
+263/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:43
+263/8	down:#3	down	note	a	0	2	1	0	5	2	5/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:33
+263/8	lyrics:#0	up:chant	lyric	est	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:36
+263/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:93
+263/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:93
+263/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:36
+263/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:83:36
+263/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:33
+263/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:95:33
+265/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:99
+265/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:102
+265/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:99
+265/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:99
+267/8	up:chant	up	note	a	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:104
+267/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:108
+267/8	up:#1	up	note	c	0	4	1	0	5	2	5/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:32
+267/8	lyrics:#0	up:chant	lyric	mi	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:40
+267/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:43
+267/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:104
+267/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:104
+267/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:32
+267/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:71:32
+269/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:110
+269/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:110
+269/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:110
+271/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:114
+271/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:117
+271/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:114
+271/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:58:114
+273/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:1
+273/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:5
+273/8	down:#2	down	note	f	0	3	1	0	3	1	3/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:84:0
+273/8	down:#3	down	note	b	-1	2	1	0	3	1	3/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:0
+273/8	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:10
+273/8	lyrics:#0	up:chant	lyric	hi,	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:43:46
+273/8	up:chant	up	div	minima	data/typeset/include/noh2.ily:10:2
+273/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:1
+273/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:1
+273/8	down:#2	down	div	minima	data/typeset/include/noh2.ily:10:2
+273/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:84:0
+273/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:84:0
+273/8	down:#3	down	div	minima	data/typeset/include/noh2.ily:10:2
+273/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:0
+273/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:0
+273/8	down:#3	down	acc	flat	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:0
+275/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:7
+275/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:7
+275/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:7
+277/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:11
+277/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:14
+277/8	up:#1	up	note	d	0	4	1	0	3	1	3/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:72:0
+277/8	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:72:8
+277/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:11
+277/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:11
+277/8	up:#1	up	div	minima	data/typeset/include/noh2.ily:10:2
+277/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:72:0
+277/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:72:0
+279/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:16
+279/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:20
+279/8	lyrics:#0	up:chant	lyric	ne	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:44:0
+279/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:16
+279/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:16
+281/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:22
+281/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:25
+281/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:22
+281/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:22
+283/8	up:chant	up	note	g	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:27
+283/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:31
+283/8	lyrics:#0	up:chant	lyric	com	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:44:3
+283/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:44:7
+283/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:27
+283/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:27
+285/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:33
+285/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:36
+285/8	up:chant	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:38
+285/8	down:#2	down	note	g	0	3	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:84:7
+285/8	down:#2	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:84:14
+285/8	down:#3	down	note	b	-1	2	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:12
+285/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:33
+285/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:33
+285/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:84:7
+285/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:84:7
+285/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:12
+285/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:12
+285/8	down:#3	down	acc	flat	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:12
+287/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:40
+287/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:44
+287/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:40
+287/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:40
+289/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:46
+289/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:49
+289/8	up:#1	up	note	d	0	4	1	0	3	2	3/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:72:10
+289/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:46
+289/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:46
+289/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:72:10
+289/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:72:10
+291/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:51
+291/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:55
+291/8	down:#2	down	note	g	0	3	1	0	3	1	3/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:84:16
+291/8	down:#3	down	note	d	0	3	1	0	3	1	3/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:22
+291/8	down:#3	down	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:29
+291/8	lyrics:#0	up:chant	lyric	mó	-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:44:10
+291/8	lyrics:#0	up:chant	hyphen	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:44:13
+291/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:51
+291/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:51
+291/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:84:16
+291/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:84:16
+291/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:22
+291/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:22
+293/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:57
+293/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:57
+293/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:57
+295/8	up:chant	up	note	f	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:61
+295/8	up:#1	up	note	a	0	3	1	0	3	1	3/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:72:18
+295/8	up:#1	up	tie	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:72:25
+295/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:61
+295/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:61
+295/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:72:18
+295/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:72:18
+297/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:65
+297/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:65
+297/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:65
+299/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:69
+299/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:69
+299/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:69
+301/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:73
+301/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:76
+301/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:73
+301/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:73
+303/8	up:chant	up	note	e	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:78
+303/8	up:chant	up	slur	-1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:82
+303/8	down:#2	down	note	f	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:84:23
+303/8	down:#3	down	note	d	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:31
+303/8	lyrics:#0	up:chant	lyric		-	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:44:16
+303/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:78
+303/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:78
+303/8	down:#2	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:84:23
+303/8	down:#2	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:84:23
+303/8	down:#3	down	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:31
+303/8	down:#3	down	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:96:31
+305/8	up:chant	up	note	d	0	4	2	0	1	1	1/4	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:84
+305/8	up:chant	up	slur	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:87
+305/8	up:chant	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:84
+305/8	up:chant	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:59:84
+307/8	up:#1	up	note	a	0	3	1	0	1	1	1/2	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:72:27
+307/8	up:chant	up	div	finalis	data/typeset/include/noh2.ily:40:2
+307/8	up:#1	up	head	0	normal	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:72:27
+307/8	up:#1	up	stem	1	data/typeset/src/vol-1/of_benedicam_dominum.csv.ly:72:27
+307/8	down:#2	down	div	finalis	data/typeset/include/noh2.ily:40:2
+307/8	down:#3	down	div	finalis	data/typeset/include/noh2.ily:40:2
+311/8	up:#1	up	div	finalis	data/typeset/include/noh2.ily:40:2

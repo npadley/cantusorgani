@@ -472,7 +472,10 @@ def build_spans(
       pitch (repeated attacks without a tie row never form a span); a missing target is an
       UNKNOWN_FEATURE warning.
     - voice-line: a ``gliss`` row in a voice-line-role layer spans from that layer's note at the
-      onset to the layer's next note; a gliss in any other layer is an UNKNOWN_FEATURE warning.
+      onset to the layer's next note.
+    - glissando: the same row in any other layer is an ordinary (visible-note) glissando, a span of
+      kind ``glissando`` between the same two notes; without a start or end note it is an
+      UNKNOWN_FEATURE error.
     """
     roles = {layer.id: layer.role for layer in build_layers(rows)}
     per_layer: dict[str, list[Event]] = defaultdict(list)
@@ -503,7 +506,14 @@ def build_spans(
                 diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "error", f"slur at {row.onset} in {layer_id} has no note", where))
             elif row.fields[0] == "-1":
                 if open_start is not None:
-                    diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "error", f"nested slur start at {row.onset} in {layer_id}", where))
+                    # LilyPond warns "already have slur" and keeps the first; so does the converter. The
+                    # warning keeps the piece out of automatic approval: the source has a doubled start.
+                    diagnostics.append(Diagnostic(
+                        "UNKNOWN_FEATURE", "warning",
+                        f"slur start at {row.onset} in {layer_id} ignored: a slur is already open (LilyPond ignores it too)",
+                        where,
+                    ))
+                    continue
                 open_start = event
             elif open_start is None:
                 diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "error", f"slur stop without start at {row.onset} in {layer_id}", where))
@@ -530,15 +540,14 @@ def build_spans(
         if row.kind != "gliss":
             continue
         where = _loc_or_blank(row.fields[0], "gliss")
-        if roles.get(row.layer) != "voice-line":
-            diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "warning", f"ordinary glissando at {row.onset} in {row.layer}", where))
-            continue
+        voice_line = roles.get(row.layer) == "voice-line"
+        label = "voice-line" if voice_line else "ordinary"
         start = note_at(row.layer, row.onset)
         later = [e for e in per_layer[row.layer] if e.kind == "note" and e.onset > row.onset]
         if start is None or not later:
-            diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "error", f"voice-line glissando at {row.onset} in {row.layer} lacks a start or end note", where))
+            diagnostics.append(Diagnostic("UNKNOWN_FEATURE", "error", f"{label} glissando at {row.onset} in {row.layer} lacks a start or end note", where))
         else:
-            add("voice-line", start, later[0])
+            add("voice-line" if voice_line else "glissando", start, later[0])
     return tuple(spans), tuple(diagnostics)
 
 
@@ -628,6 +637,8 @@ def feature_uses(
             use("slur", start.location, span.start_event_id, span.end_event_id)
         elif span.kind == "voice-line":
             use("voice-line-glissando", start.location, span.start_event_id, span.end_event_id)
+        elif span.kind == "glissando":
+            use("ordinary-glissando", start.location, span.start_event_id, span.end_event_id)
     for layer in layers:
         if layer.role == "voice-line":
             ids = tuple(e.id for e in events if e.layer_id == layer.id)
@@ -726,6 +737,8 @@ def build_boundaries(
             division_at[d.onset] = d.kind
 
     chant_attacks = {e.onset for e in chant_events if e.kind == "note"}
+    # A8: where the chant itself stops (the accompaniment may run on) is a common boundary too.
+    chant_ends = {max(e.onset + e.duration for e in chant_events)} if chant_events else set()
     candidates = chant_attacks | break_onsets | set(division_at)
     candidates = {t for t in candidates if 0 < t < total}
 
@@ -752,11 +765,14 @@ def build_boundaries(
     boundaries: list[Boundary] = []
     for index, t in enumerate(sorted(candidates)):
         reason: BoundaryReason | None = None
-        if t not in chant_attacks:
+        if t not in chant_attacks and t not in chant_ends:
             reason = "not-common-onset"
         elif any(e.onset < t < e.onset + e.duration for e in chant_events):
             reason = "sustain-not-splittable"
-        elif any(start < t <= end for start, end in crossing["slur"]):
+        elif t not in break_onsets and t not in division_at and any(start < t <= end for start, end in crossing["slur"]):
+            # A line break or a division the source itself puts inside a slur (LilyPond draws the slur across
+            # it) must stay placeable: the slur is a control event and spans it. Breaks the reader adds
+            # inside a slur remain unsafe.
             reason = "slur-crosses"
         elif any(start < t <= end for start, end in crossing["voice-line"]):
             reason = "voice-line-crosses"

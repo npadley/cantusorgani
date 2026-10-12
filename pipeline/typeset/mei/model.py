@@ -42,7 +42,7 @@ Notehead = Literal["normal", "hidden", "quilisma"]
 PrintedAccidental = Literal["none", "sharp", "flat", "natural", "double-sharp", "double-flat"]
 DivisionKind = Literal["finalis", "maxima", "maior", "minima"]
 LayerRole = Literal["chant", "accompaniment", "voice-line"]
-SpanKind = Literal["tie", "slur", "voice-line"]
+SpanKind = Literal["tie", "slur", "voice-line", "glissando"]
 BoundaryReason = Literal["sustain-not-splittable", "slur-crosses", "voice-line-crosses",
                          "lyric-extender-crosses", "not-common-onset"]
 
@@ -142,7 +142,7 @@ class FeatureUse:
 FEATURE_FAMILIES: tuple[str, ...] = (
     "scaled-duration", "tie", "slur", "hidden-stem", "hidden-rest", "skip",
     "finalis", "divisio-maxima", "divisio-maior", "divisio-minima", "force-break",
-    "stanza-marker", "blank-lyric", "melisma", "voice-line-voice", "voice-line-glissando",
+    "stanza-marker", "blank-lyric", "melisma", "voice-line-voice", "voice-line-glissando", "ordinary-glissando",
     "cross-staff", "quilisma", "key-change", "clef-change", "note-shift", "manual-spacing",
 )
 
@@ -559,7 +559,7 @@ class ValidationReport:
     tool_versions: dict[str, str]
 
 # --- review ------------------------------------------------------------------------
-ConversionState = Literal["unsupported", "failed", "needs-review", "approved"]
+ConversionState = Literal["unsupported", "failed", "needs-review", "approved", "revoked"]
 
 @dataclass(frozen=True)
 class ConversionInputs:
@@ -618,6 +618,30 @@ class ReviewDecision:
     decision: Literal["approve", "reject"]
 
 @dataclass(frozen=True)
+class CarriedFrom:
+    """Why an approval was carried forward (D20): set only by ``review.carry_forward``, by CI."""
+    prior_artifact_sha256: str         # the artifact the human approved
+    prior_inputs_digest: str           # ConversionInputs.digest() of that approval
+    reason: tuple[str, ...]            # ConversionInputs field names that changed, sorted
+    timestamp: str                     # ISO 8601 UTC, when the carry was made
+    attributed_to: Literal["ci"]
+
+@dataclass(frozen=True)
+class AutoReview:
+    """D22: what an automatic judgement saw. ``criteria_failed`` is empty exactly when it approved."""
+    criteria_failed: tuple[str, ...]   # subset of ("unsupported", "schema", "oracle", "layout", "precheck")
+    oracle_version: str                # comparer + normalizer versions of the validation
+    precheck_version: str
+    profile_version: int
+    timestamp: str
+
+@dataclass(frozen=True)
+class Revocation:
+    """A revoked approval (D22): excluded from the manifest and never current."""
+    reason: str
+    timestamp: str
+
+@dataclass(frozen=True)
 class ConversionRecord:
     source_path: str
     target: str | None                 # from data/typeset/manifest.json; never inferred
@@ -628,6 +652,9 @@ class ConversionRecord:
     diagnostics: tuple[Diagnostic, ...]
     validation: ValidationReport | None
     review: ReviewDecision | None
+    carried_from: CarriedFrom | None = None   # C5: absent on records approved directly by a human
+    auto_review: AutoReview | None = None     # A7: present on records an automatic judgement saw
+    revocation: Revocation | None = None      # A7: present when state == "revoked"
 
 class ReviewBlocked(Exception):
     def __init__(self, codes: tuple[str, ...], message: str) -> None:

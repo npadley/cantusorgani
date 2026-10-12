@@ -195,3 +195,43 @@ if (process.argv[1] !== undefined && fileURLToPath(import.meta.url) === process.
   console.log(report.ok ? `OK ${report.pageCount} pages` : `${report.problems.length} problem(s)`);
   process.exit(report.ok ? 0 : 1);
 }
+
+/** The pdf.js operator numbers for painting an image, and the unit square a placed image occupies before its matrix. */
+export interface ImageBox { readonly xMm: number; readonly yMm: number; readonly widthMm: number; readonly heightMm: number }
+
+/** Where each page of a PDF paints images, as boxes in mm from the top-left of the page (any rotation is ignored: placements here are upright). */
+export async function imageBoxes(bytes: Uint8Array): Promise<{ readonly pageWidthMm: number; readonly pageHeightMm: number; readonly boxes: readonly ImageBox[] }[]> {
+  const pdfjs = (await import('pdfjs-dist/legacy/build/pdf.mjs')) as unknown as PdfjsModule;
+  const doc = await pdfjs.getDocument({ data: bytes.slice(), useSystemFonts: false, verbosity: 0 }).promise;
+  const out: { pageWidthMm: number; pageHeightMm: number; boxes: ImageBox[] }[] = [];
+  try {
+    for (let n = 1; n <= doc.numPages; n++) {
+      const page = await doc.getPage(n);
+      const [x0, y0, x1, y1] = page.view as [number, number, number, number];
+      const list = await page.getOperatorList();
+      const stack: Matrix[] = [];
+      let ctm: Matrix = IDENTITY;
+      const boxes: ImageBox[] = [];
+      for (let i = 0; i < list.fnArray.length; i++) {
+        const fn = list.fnArray[i]!;
+        if (fn === pdfjs.OPS['save']) stack.push(ctm);
+        else if (fn === pdfjs.OPS['restore']) ctm = stack.pop() ?? IDENTITY;
+        else if (fn === pdfjs.OPS['transform']) ctm = compose(list.argsArray[i] as unknown as Matrix, ctm);
+        else if (fn === pdfjs.OPS['paintImageXObject'] || fn === pdfjs.OPS['paintInlineImageXObject']) {
+          // An image fills the unit square; the CTM places it.
+          const corners = [apply(ctm, 0, 0), apply(ctm, 1, 0), apply(ctm, 0, 1), apply(ctm, 1, 1)];
+          const xs = corners.map((c) => c[0]);
+          const ys = corners.map((c) => c[1]);
+          boxes.push({
+            xMm: (Math.min(...xs) - x0) / PT_PER_MM, yMm: (y1 - Math.max(...ys)) / PT_PER_MM,
+            widthMm: (Math.max(...xs) - Math.min(...xs)) / PT_PER_MM, heightMm: (Math.max(...ys) - Math.min(...ys)) / PT_PER_MM,
+          });
+        }
+      }
+      out.push({ pageWidthMm: (x1 - x0) / PT_PER_MM, pageHeightMm: (y1 - y0) / PT_PER_MM, boxes });
+    }
+  } finally {
+    await doc.destroy?.().catch(() => undefined);
+  }
+  return out;
+}

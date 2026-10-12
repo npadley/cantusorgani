@@ -113,12 +113,16 @@ export function createLayoutHandler(deps: LayoutHandlerDeps): LayoutHandler {
     const { token, parts, settings, overrides } = request.request;
     if (!isCurrent(token)) return;
 
-    let tk: VerovioLike;
-    try {
-      tk = await toolkit();
-    } catch (error) {
-      fail(token, 'RENDERER_LOAD_FAILED', error);
-      return;
+    const meiParts = parts.filter(isMei);
+    // Verovio is loaded only when something in the selection reflows: fixed and scan parts need no engraver.
+    let tk: VerovioLike | null = null;
+    if (meiParts.length > 0) {
+      try {
+        tk = await toolkit();
+      } catch (error) {
+        fail(token, 'RENDERER_LOAD_FAILED', error);
+        return;
+      }
     }
     let fontProfile: FontProfile;
     try {
@@ -129,16 +133,15 @@ export function createLayoutHandler(deps: LayoutHandlerDeps): LayoutHandler {
     }
     if (!isCurrent(token)) return;
 
-    const ctx: RenderContext = {
+    const ctx = {
       token,
       fonts: fontProfile,
       limits: deps.limits,
       isCancelled: () => !isCurrent(token),
       toolkit: tk,
-    };
+    } as unknown as RenderContext; // toolkit is null only when there are no MEI parts, so renderPart is never called
 
     try {
-      const meiParts = parts.filter(isMei);
       const layouts: MeiLayout[] = [];
       for (const part of meiParts) {
         if (!isCurrent(token)) return;

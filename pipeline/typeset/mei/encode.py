@@ -58,9 +58,11 @@ _CAESURA_GLYPHS = {"minima": "U+E8F3", "maior": "U+E8F4"}
 #: The divisio minima is a "|" in the page's serif text, not the SMuFL tick (E8F3): Verovio places that
 #: glyph above the top line and ignores @vo on a caesura, whereas a <dir> honours @vo, so the text tick can
 #: be centred on the top line. 50% of the default direction size makes the bar about one staff space tall;
-#: @vo and @ho (virtual units = half a staff space) were fitted from real renders; web/layout.ties-style test
-#: ``layout.divisio.realmei.test.ts`` asserts the tick crosses the top line on both staves.
-_MINIMA_VO = "-1.5"
+#: @vo and @ho (virtual units = half a staff space) were fitted from real renders. ``place="above"`` made Verovio
+#: push the tick up whenever a tie arc occupied the slot above the bass staff (A5g); ``place="within"`` is a
+#: fixed position, so one @vo (4.5) lands the tick on the top line whatever else is drawn. The web test
+#: ``layout.divisio.realmei.test.ts`` asserts the tick crosses the top line on every staff of Kyrie and Agnus.
+_MINIMA_VO = "4.5"
 _MINIMA_HO = "2.5"
 _MINIMA_TYPE = "divisio-minima"
 _RIGHT_BARLINE = {"finalis": "dbl", "maxima": "single"}
@@ -179,7 +181,7 @@ def _division_mark(boundary: Boundary, kind: str, anchor: str, staff: int, ordin
         node = _Node(
             "dir",
             {"xml:id": mark_id, "type": _MINIMA_TYPE, "staff": str(staff), "startid": "#" + anchor,
-             "place": "above", "vo": _MINIMA_VO, "ho": _MINIMA_HO},
+             "place": "within", "vo": _MINIMA_VO, "ho": _MINIMA_HO},
         )
         node.add("rend", "|", fontstyle="normal", fontsize="50%")
         return node
@@ -190,13 +192,18 @@ def _division_mark(boundary: Boundary, kind: str, anchor: str, staff: int, ordin
     )
 
 
+def _drawn(event: Event, hidden_rests: set[str]) -> bool:
+    """True for events with a visible written head: notes and rests that are not hidden or skipped."""
+    return event.kind == "note" or (event.kind == "rest" and event.id not in hidden_rests)
+
+
 def _fragment_notated(duration: Fraction, original: NotatedDuration, first: bool = False) -> NotatedDuration:
     """Notated value for a fragment of an event cut at a measure line.
 
-    The first fragment of a scaled event (LilyPond ``2*7/4``) keeps the event's written head (a half
-    head), with a scale that gives the fragment its real length, so the head looks as in LilyPond and
-    sits at its real onset. Other fragments keep the event's own scale when they fit it."""
-    if first and original.scale != 1:
+    The first fragment of ANY split note or visible rest (a plain half note or a scaled ``2*7/4``) keeps the event's
+    written head, with a scale that gives the fragment its real length, so the head looks as in LilyPond
+    and sits at its real onset. Other fragments keep the event's own scale when they fit it."""
+    if first:
         written = Fraction(1, 2**original.log) * (2 - Fraction(1, 2**original.dots))
         return NotatedDuration(log=original.log, dots=original.dots, scale=duration / written)
     exact = _representable(duration / original.scale)
@@ -464,6 +471,10 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
             attrs["visible"] = "false"
         elif event.notehead == "quilisma" or continuation:
             attrs["head.visible"] = "false"
+            if continuation and frag.notated.dots:
+                # Verovio still draws the augmentation dots of a head that is only head.visible="false";
+                # visible="false" hides them too. The layout code unhides the head AND this at a break.
+                attrs["visible"] = "false"
         node = _Node("note", attrs)
         if not continuation:
             for number in sorted(verses.get(event.id, {})):
@@ -480,7 +491,7 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
         edges = [event.onset, *cuts, end]
         pieces: list[_Fragment] = []
         for index, (lo, hi) in enumerate(pairwise(edges)):
-            notated = event.notated if not cuts else _fragment_notated(hi - lo, event.notated, index == 0)
+            notated = event.notated if not cuts else _fragment_notated(hi - lo, event.notated, index == 0 and _drawn(event, hidden_rests))
             if index == 0:
                 fragment_id = mei_of[event.id]
             else:
@@ -503,14 +514,18 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                 _diagnostic(f"{span.kind} {span.id} refers to an unknown event", "span-unknown-event")
             )
             continue
-        tag = "slur" if span.kind == "slur" else "gliss"
+        tag = "slur" if span.kind == "slur" else "gliss"  # voice-line and glissando spans
         attrs = {
             "xml:id": span.id,
             "startid": "#" + mei_of[start.id],
             "endid": "#" + mei_of[end.id],
         }
-        if span.kind == "voice-line":
-            attrs["lform"] = "dotted"
+        if span.kind in ("voice-line", "glissando"):
+            # LilyPond's Cairo render draws both as solid lines (the voice line's "dotted-line" style comes
+            # out solid there). @type tells the hidden-note voice line from an ordinary glissando.
+            attrs["lform"] = "solid"
+            if span.kind == "voice-line":
+                attrs["type"] = "voice-line"
         controls[measure_of(start.onset)].append(_Node(tag, attrs))
 
     # Ties are explicit control events from the first (visible) head of a note to the first head of
@@ -646,6 +661,7 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                 layer_node = staff_node.add("layer", n=str(number))
                 parent = layer_node
                 current_scale: Fraction | None = None
+                chord_done: set[str] = set()
                 for frag in by_layer_measure.get((layer.id, k), []):
                     scale = frag.notated.scale
                     if scale == 1:
@@ -659,6 +675,31 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                             **{"num.visible": "false", "bracket.visible": "false"},
                         )
                         current_scale = scale
+                    # Notes of one voice that start together (a LilyPond chord) become one <chord>.
+                    if frag.event.kind == "note" and frag.mei_id not in chord_done:
+                        mates = [
+                            other for other in by_layer_measure.get((layer.id, k), [])
+                            if other.event.kind == "note" and other.onset == frag.onset and other.index == frag.index
+                            and other.duration == frag.duration and other.notated == frag.notated
+                        ]
+                        if len(mates) > 1:
+                            chord_done.update(m.mei_id for m in mates)
+                            members = [event_node(m) for m in mates]
+                            attrs = {"dur": members[0].attrs.pop("dur")}
+                            if "dots" in members[0].attrs:
+                                attrs["dots"] = members[0].attrs.pop("dots")
+                            for m in members[1:]:
+                                m.attrs.pop("dur", None)
+                                m.attrs.pop("dots", None)
+                            if all(m.attrs.get("stem.visible") == "false" for m in members):
+                                attrs["stem.visible"] = "false"
+                            attrs["xml:id"] = "ch" + mates[0].mei_id
+                            chord = _Node("chord", attrs)
+                            chord.children.extend(members)
+                            parent.children.append(chord)
+                            continue
+                    if frag.mei_id in chord_done:
+                        continue
                     parent.children.append(event_node(frag))
         measure.children.extend(controls[k])
         if boundary is not None and boundary.source_break and end != total:

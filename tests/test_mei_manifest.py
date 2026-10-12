@@ -315,7 +315,7 @@ def test_manifest_module_imports_nothing_from_proofreading() -> None:
     assert not [m for m in imported if any(w in m for w in ("proofread", "correction", "queue"))]
 
 
-def test_current_inputs_from_files_recomputes_file_hashes_and_keeps_tool_versions(world) -> None:
+def test_current_inputs_from_files_recomputes_file_hashes_and_repo_tool_versions(world) -> None:
     from pipeline.typeset.mei.manifest import current_inputs_from_files
 
     _, record = world
@@ -324,5 +324,7 @@ def test_current_inputs_from_files_recomputes_file_hashes_and_keeps_tool_version
     from pipeline.typeset.mei import versions
 
     assert (now.extractor_version, now.converter_version) == (versions.extractor_version(), versions.converter_version())
-    assert (now.verovio_version, now.font_digest) == (INPUTS.verovio_version, INPUTS.font_digest)
+    from pipeline.typeset.mei.cli import VEROVIO_VERSION, font_digest
+
+    assert (now.verovio_version, now.font_digest) == (VEROVIO_VERSION, font_digest())
     assert now != INPUTS  # the placeholder file hashes in INPUTS are stale, so such a record is excluded

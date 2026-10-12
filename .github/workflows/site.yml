@@ -217,6 +217,10 @@ jobs:
         env:
           PUBLIC_ASSET_BASE: ${{ vars.PUBLIC_ASSET_BASE }}
         run: uv run noh typeset-check --remote "$PUBLIC_ASSET_BASE"
+      # Which approved MEI conversions went stale and why: the admin home lists them
+      # (web/src/lib/admin/exportPaused.ts). Always exit 0; the report is the output.
+      - name: Stale MEI conversions
+        run: uv run noh typeset-mei-stale --json --out build/mei/stale/stale.json > /dev/null
       # Also crawls dist/: fails on any page no link reaches.
       - name: Build
         run: pnpm build

@@ -1,7 +1,4 @@
 /// <reference lib="webworker" />
-import createVerovioModule from "verovio/wasm";
-import { VerovioToolkit } from "verovio/esm";
-
 import { loadFontProfile } from "../lib/export-layout/fonts";
 import { PROVISIONAL_LIMITS } from "../lib/export-layout/types";
 import type { LayoutWorkerRequest, LayoutWorkerResponse, VerovioLike } from "../lib/export-layout/types";
@@ -22,7 +19,8 @@ const fetchBytes: FetchBytes = async (url) => {
 };
 
 const handler = createLayoutHandler({
-  loadToolkit: async (): Promise<VerovioLike> => new VerovioToolkit(await createVerovioModule()),
+  // A separate chunk, fetched only when a part reflows (see workerCore: no MEI part, no toolkit).
+  loadToolkit: async (): Promise<VerovioLike> => (await import("../lib/export-layout/verovioToolkit")).createToolkit(),
   loadFonts: () => loadFontProfile(fetchBytes),
   limits: PROVISIONAL_LIMITS,
   renderPart: createRenderPart(fetchBytes),

@@ -39,8 +39,10 @@ export const rectsOf = (s: LayoutSettings, headingMm = 0): PageRects => {
   const content = usableRect(paperDimensions(s), s.marginMm);
   return { content, firstPageContent: { ...content, heightMm: content.heightMm - headingMm } };
 };
+/** The real lyric face, so layout can verify syllable gaps the way production does. */
+const LYRIC_FONT = { family: 'Liberation Serif', url: '', sha256: '', license: 'OFL', bytes: new Uint8Array(readFileSync(join(__dirname, '..', '..', '..', '..', 'public', 'fonts', 'export', 'LiberationSerif-Regular.ttf'))) };
 export function ctxOf(toolkit: VerovioLike, isCancelled: () => boolean = () => false): RenderContext {
-  return { token: 1, fonts: {} as FontProfile, limits: PROVISIONAL_LIMITS, isCancelled, toolkit };
+  return { token: 1, fonts: { lyricFont: LYRIC_FONT } as unknown as FontProfile, limits: PROVISIONAL_LIMITS, isCancelled, toolkit };
 }
 export const errors = (d: readonly LayoutDiagnostic[]): LayoutDiagnostic[] => d.filter((x) => x.severity === 'error');
 

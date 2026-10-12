@@ -54,22 +54,10 @@ function revealSplitSustains(doc: Document, brokenMeasureIds: ReadonlySet<string
     const contId = cont.getAttribute(XML_ID);
     if (!contId || enclosingMeasure(cont) === measure) continue;
 
+    // D17: a revealed continuation shows its head only. The stem, flag and accidental stay off.
     cont.removeAttribute('head.visible');
-    cont.removeAttribute('stem.visible');
+    cont.removeAttribute('visible');
     revealed.add(contId);
-
-    // Courtesy accidental: copy the written accid from the first fragment of the chain.
-    let first: Element = prev;
-    const seen = new Set<Element>();
-    while (first.getAttribute('type') === 'split-continuation' && !seen.has(first)) {
-      seen.add(first);
-      const pid = refId(first.getAttribute('prev'));
-      const p = pid ? byXmlId.get(pid) : undefined;
-      if (!p) break;
-      first = p;
-    }
-    const accid = first.getAttribute('accid');
-    if (accid) cont.setAttribute('accid', accid);
 
     const tieId = `${contId}-tie`;
     if (byXmlId.has(tieId)) continue;
@@ -81,6 +69,67 @@ function revealSplitSustains(doc: Document, brokenMeasureIds: ReadonlySet<string
     measure.appendChild(tie);
   }
   retargetSustainTies(doc, byXmlId, revealed);
+  continueSlursAcrossPages(doc, byXmlId);
+}
+
+/**
+ * Verovio draws a spanning control element only on the page that holds its measure. A slur that crosses a
+ * page break (a source line break inside a slur, A8) would therefore lose its end on the next page, so a
+ * copy of it goes into the first measure after each page break it crosses. Slurs end on first heads, which
+ * are always visible, so no retargeting is needed (unlike ties).
+ */
+/** The first note in `measure` on the same staff number and layer number as `like`. */
+function firstNoteLike(measure: Element, like: Element): Element | null {
+  const place = (el: Element): [string, string] => {
+    let staff = '';
+    let layer = '';
+    for (let n: Node | null = el.parentNode; n; n = n.parentNode) {
+      if (n.nodeType !== 1) continue;
+      const name = localName(n as Element);
+      if (name === 'layer' && layer === '') layer = (n as Element).getAttribute('n') ?? '1';
+      if (name === 'staff' && staff === '') staff = (n as Element).getAttribute('n') ?? '1';
+    }
+    return [staff, layer];
+  };
+  const [staff, layer] = place(like);
+  for (const note of Array.from(measure.getElementsByTagName('note'))) {
+    const [s, l] = place(note);
+    if (s === staff && l === layer && note.getAttribute(XML_ID)) return note;
+  }
+  return null;
+}
+
+function continueSlursAcrossPages(doc: Document, byXmlId: ReadonlyMap<string, Element>): void {
+  const pbs = Array.from(doc.getElementsByTagName('pb'));
+  if (pbs.length === 0) return;
+  const measures = Array.from(doc.getElementsByTagName('measure'));
+  const index = new Map(measures.map((m, i) => [m, i] as const));
+  for (const slur of Array.from(doc.getElementsByTagName('slur'))) {
+    const id = slur.getAttribute(XML_ID);
+    const start = byXmlId.get(refId(slur.getAttribute('startid')) ?? '');
+    const end = byXmlId.get(refId(slur.getAttribute('endid')) ?? '');
+    const from = start ? enclosingMeasure(start) : null;
+    const to = end ? enclosingMeasure(end) : null;
+    if (!id || !from || !to) continue;
+    const a = index.get(from) ?? -1;
+    const b = index.get(to) ?? -1;
+    pbs.forEach((pb, k) => {
+      let next: Element | null = nextElementSibling(pb);
+      while (next && (localName(next) === 'sb' || localName(next) === 'pb')) next = nextElementSibling(next);
+      const n = next && localName(next) === 'measure' ? (index.get(next) ?? -1) : -1;
+      if (n <= a || n > b) return;
+      const copyId = `${id}-pg${k}`;
+      if (byXmlId.has(copyId)) return;
+      // Verovio draws nothing for a slur whose start is on another page, so the copy starts at the first
+      // note of the same staff and layer on the new page and keeps the true end note.
+      const first = firstNoteLike(next!, start!);
+      if (!first) return;
+      const copy = slur.cloneNode(true) as Element;
+      copy.setAttribute(XML_ID, copyId);
+      copy.setAttribute('startid', `#${first.getAttribute(XML_ID) ?? ''}`);
+      next!.appendChild(copy);
+    });
+  }
 }
 
 /**
@@ -103,7 +152,15 @@ function retargetSustainTies(doc: Document, byXmlId: ReadonlyMap<string, Element
       current = next;
     }
     const start = refId(tie.getAttribute('startid'));
-    if (last && last !== start) tie.setAttribute('startid', `#${last}`);
+    if (last && last !== start) {
+      tie.setAttribute('startid', `#${last}`);
+      // A tie is drawn where its element sits. The new start lies in a later measure, which may be on
+      // the next PAGE: move the element there, or the tie is drawn on the page of the old start and
+      // the page that holds the revealed head and the end note gets none.
+      const startEl = byXmlId.get(last);
+      const home = startEl ? enclosingMeasure(startEl) : null;
+      if (home && enclosingMeasure(tie) !== home) home.appendChild(tie);
+    }
   }
 }
 
@@ -184,6 +241,26 @@ export function revealSplitSustainsAfter(meiXml: string, brokenMeasureIds: Reado
     },
   }).parseFromString(meiXml, 'text/xml');
   revealSplitSustains(doc, brokenMeasureIds);
+  const out = new XMLSerializer().serializeToString(doc);
+  const decl = /^\s*(<\?xml[^?]*\?>)/.exec(meiXml);
+  return decl && !out.startsWith('<?xml') ? `${decl[1]}\n${out}` : out;
+}
+
+/**
+ * Mark every split-continuation note `visible="false"` so Verovio draws nothing for it: with only
+ * `head.visible="false"` its ledger lines, dots and stubs are still drawn. A continuation revealed at
+ * a system start loses the attribute again (see `revealSplitSustains`). Returns a new string.
+ */
+export function hideSplitContinuations(meiXml: string): string {
+  if (!meiXml.includes('split-continuation')) return meiXml;
+  const doc = new DOMParser({
+    onError: (level, msg) => {
+      if (level === 'error' || level === 'fatalError') throw new Error(`MEI_PARSE_ERROR: ${msg}`);
+    },
+  }).parseFromString(meiXml, 'text/xml');
+  for (const el of Array.from(doc.getElementsByTagName('note'))) {
+    if (el.getAttribute('type') === 'split-continuation') el.setAttribute('visible', 'false');
+  }
   const out = new XMLSerializer().serializeToString(doc);
   const decl = /^\s*(<\?xml[^?]*\?>)/.exec(meiXml);
   return decl && !out.startsWith('<?xml') ? `${decl[1]}\n${out}` : out;

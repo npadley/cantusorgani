@@ -31,6 +31,12 @@ import type {
   VerovioLike,
 } from '../src/lib/export-layout/types.ts';
 
+/** The lyric face production lays out with: layout verifies syllable gaps against its real widths. */
+const LYRIC_FONT = {
+  family: 'Liberation Serif', url: '', sha256: '', license: 'OFL',
+  bytes: new Uint8Array(readFileSync(new URL('../public/fonts/export/LiberationSerif-Regular.ttf', import.meta.url))),
+};
+
 interface CaseSpec {
   readonly id: string;
   readonly page: string;
@@ -54,7 +60,7 @@ interface CaseResult {
   readonly files: readonly string[];
   /** Adjacent-lyric pairs closer than 1 mm, measured with real Liberation Serif widths (lyricCollisions.ts). */
   readonly lyricGaps: readonly { readonly page: number; readonly a: string; readonly b: string; readonly gapMm: number }[];
-  readonly diagnostics: readonly { readonly code: string; readonly severity: string; readonly detail: string }[];
+  readonly diagnostics: readonly { readonly code: string; readonly severity: string; readonly detail: string; readonly boundaryIds: readonly string[] }[];
 }
 
 const [meiPath, casesPath, outDir, boundariesPath] = process.argv.slice(2);
@@ -127,7 +133,7 @@ for (const spec of cases) {
   } as VerovioLike;
   try {
     const layout = await renderMei(partOf(), settings, [], {
-      token: 1, fonts: {} as FontProfile, limits: PROVISIONAL_LIMITS, isCancelled: () => false, toolkit: spy,
+      token: 1, fonts: { lyricFont: LYRIC_FONT } as unknown as FontProfile, limits: PROVISIONAL_LIMITS, isCancelled: () => false, toolkit: spy,
     }, rects);
     const files: string[] = [];
     const lyricGaps = layout.pages.flatMap((p, i) => lyricCollisions(p.svg, 1.0).map((c) => ({ page: i + 1, ...c })));
@@ -142,7 +148,7 @@ for (const spec of cases) {
       }
     });
     const diagnostics = layout.diagnostics.map((d: LayoutDiagnostic) => ({
-      code: d.code, severity: d.severity, detail: d.detail,
+      code: d.code, severity: d.severity, detail: d.detail, boundaryIds: d.boundaryIds,
     }));
     results.push({
       id: spec.id,
