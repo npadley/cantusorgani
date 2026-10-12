@@ -27,7 +27,9 @@ import contextlib
 import hashlib
 import json
 import os
+import re
 import shutil
+import time
 import uuid
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
@@ -50,6 +52,9 @@ DEFAULT_WORKERS = 2
 RESULT = "batch-result.json"
 STATES: tuple[ConversionState, ...] = ("unsupported", "failed", "needs-review", "approved")
 
+RecordFn = Callable[[Path, Path], Any]  # (convert dir, source) -> ConversionRecord
+PrecheckFn = Callable[[Path, Path], dict[str, list[str]]]
+CasesFn = Callable[[Path], dict[str, Any]]
 ConvertFn = Callable[[Path, Path], None]
 InputsFn = Callable[[Path], ConversionInputs]
 EvidenceFn = Callable[[Path, Path], None]
@@ -140,11 +145,14 @@ def _read_result(directory: Path) -> dict[str, Any] | None:
     return data if isinstance(data, dict) and data.get("state") in STATES else None
 
 
-def _write_result(directory: Path, source: Path, digest: str, state: ConversionState, message: str | None) -> None:
+def _write_result(
+    directory: Path, source: Path, digest: str, state: ConversionState, message: str | None, seconds: float = 0.0
+) -> None:
     codes = sorted({str(d.get("code")) for d in _diagnostics(directory)})
     (directory / RESULT).write_text(
         json.dumps(
-            {"source": _display(source), "digest": digest, "state": state, "diagnostics": codes, "message": message},
+            {"source": _display(source), "digest": digest, "state": state, "diagnostics": codes, "message": message,
+             "seconds": round(seconds, 1)},
             indent=2, sort_keys=True,
         )
         + "\n",
@@ -159,6 +167,7 @@ def _build(
     tmp = output / f".tmp-{digest}-{uuid.uuid4().hex[:8]}"
     final = output / digest
     message: str | None = None
+    started = time.monotonic()
     try:
         try:
             convert_fn(source, tmp)
@@ -171,7 +180,7 @@ def _build(
                 evidence_fn(tmp, tmp / "evidence")
             except Exception as error:  # noqa: BLE001
                 state, message = "failed", f"evidence: {type(error).__name__}: {error}"
-        _write_result(tmp, source, digest, state, message)
+        _write_result(tmp, source, digest, state, message, time.monotonic() - started)
         if final.exists() and _read_result(final) is None:
             shutil.rmtree(final, ignore_errors=True)  # a leftover without a result is an interrupted build
         try:
@@ -182,7 +191,8 @@ def _build(
             if existing is not None:
                 return {**existing, "decision": "kept-existing"}
             raise
-        return {"source": _display(source), "digest": digest, "state": state, "message": message, "decision": "converted"}
+        return {"source": _display(source), "digest": digest, "state": state, "message": message, "decision": "converted",
+                "seconds": round(time.monotonic() - started, 1)}
     finally:
         with contextlib.suppress(OSError):
             shutil.rmtree(tmp, ignore_errors=True)
@@ -197,12 +207,21 @@ def run_batch(
     convert_fn: ConvertFn | None = None,
     inputs_fn: InputsFn | None = None,
     evidence_fn: EvidenceFn | None = _default_evidence,
+    auto_approve: bool = False,
+    record_fn: RecordFn | None = None,
+    precheck_fn: PrecheckFn | None = None,
+    cases_fn: CasesFn | None = None,
 ) -> BatchReport:
     """Convert ``sources`` into digest-keyed folders under ``output`` and report every one of them.
 
     Empty sources and repeated entries are not counted; each remaining source appears once in
     ``results`` and in ``counts``. ``workers`` bounds how many conversions (LilyPond runs) are in
-    flight. ``cached`` lists sources whose finished build for the current digest already existed."""
+    flight. ``cached`` lists sources whose finished build for the current digest already existed.
+
+    With ``auto_approve`` (D22) each clean ``needs-review`` conversion is judged by ``review.auto_approve``
+    (record, precheck and the packet's cases). The judged record is kept in ``<digest>/record.json`` and an
+    approved one is also copied into ``<output>/records/``; nothing is ever written into the repository's
+    ``data/typeset/mei/records/``. The result state of an approved piece is ``approved``."""
     output.mkdir(parents=True, exist_ok=True)
     convert = convert_fn or _default_convert
     inputs = inputs_fn or _default_inputs(profile)
@@ -221,9 +240,13 @@ def run_batch(
         except Exception as error:  # noqa: BLE001
             return {"source": _display(source), "digest": None, "state": "failed", "message": f"inputs: {error}", "decision": "failed"}
         cached = _read_result(output / digest)
-        if cached is not None:
-            return {**cached, "decision": "cached"}
-        return _build(source, digest, output, convert, evidence_fn)
+        entry = {**cached, "decision": "cached"} if cached is not None else _build(source, digest, output, convert, evidence_fn)
+        if auto_approve and entry["state"] in ("needs-review", "approved"):
+            try:
+                entry = {**entry, **_judge(source, digest, output, entry, record_fn, precheck_fn, cases_fn, profile.version)}
+            except Exception as error:  # noqa: BLE001  a judging error leaves the piece in review
+                entry = {**entry, "message": f"auto-approve: {type(error).__name__}: {error}"}
+        return entry
 
     with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
         entries = list(pool.map(one, requested))
@@ -238,7 +261,7 @@ def run_batch(
         results[name] = state
         digest = entry.get("digest")
         packet = output / str(digest) / "evidence"
-        if digest and state == "needs-review" and (packet / "index.html").is_file():
+        if digest and state in ("needs-review", "approved") and (packet / "index.html").is_file():
             evidence[name] = packet
         if entry.get("decision") == "cached":
             cached.append(name)
@@ -246,7 +269,8 @@ def run_batch(
         scores.append(
             {
                 "source": name, "digest": digest, "state": state, "decision": entry.get("decision"),
-                "message": entry.get("message"), "diagnostics": entry.get("diagnostics")
+                "message": entry.get("message"), "seconds": entry.get("seconds"),
+                "criteria_failed": entry.get("criteria_failed"), "diagnostics": entry.get("diagnostics")
                 or ([d.get("code") for d in _diagnostics(directory)] if directory else []),
                 "evidence": str(evidence[name]) if name in evidence else None,
             }
@@ -258,6 +282,64 @@ def run_batch(
     )
     _write_report(output, report, scores)
     return report
+
+
+def _flat(name: str) -> str:
+    """A flat file stem: ``vol-5/missa-ix/kyrie_IX.ly`` -> ``vol-5__missa-ix__kyrie_IX``; a path outside the repo -> its name."""
+    if name.startswith("/"):
+        name = Path(name).name
+    return re.sub(r"[^A-Za-z0-9._-]+", "__", name.removesuffix(".ly").removeprefix("data/typeset/src/"))
+
+
+def _judge(
+    source: Path, digest: str, output: Path, entry: dict[str, Any], record_fn: RecordFn | None,
+    precheck_fn: PrecheckFn | None, cases_fn: CasesFn | None, profile_version: int,
+) -> dict[str, Any]:
+    """Auto-approve (D22) the finished build ``output/<digest>``; reuse an earlier judgement of it."""
+    from pipeline.typeset.mei.manifest import record_from_dict, record_to_dict
+    from pipeline.typeset.mei.review import auto_approve
+
+    directory = output / digest
+    saved = directory / "record.json"
+    if saved.is_file():
+        record = record_from_dict(json.loads(saved.read_text(encoding="utf-8")))
+    else:
+        if record_fn is None:
+            from pipeline.typeset.mei.cli import record_for_directory
+
+            def record_fn(d: Path, _s: Path) -> Any:
+                return record_for_directory(d)[0]
+        if precheck_fn is None:
+            from pipeline.typeset.mei.precheck import precheck_packet
+
+            def precheck_fn(d: Path, _s: Path) -> dict[str, list[str]]:
+                return precheck_packet(d)
+        cases = (cases_fn or _default_cases)(directory)
+        record = auto_approve(
+            record_fn(directory, source), precheck_fn(directory, source), cases, profile_version=profile_version
+        )
+        _atomic_write(saved, json.dumps(record_to_dict(record), indent=2, sort_keys=True) + "\n")
+    if record.state == "approved":
+        records = output / "records"
+        records.mkdir(exist_ok=True)
+        target = records / f"{_flat(_display(source))}.json"
+        if target.exists() and json.loads(target.read_text(encoding="utf-8")).get("artifact_sha256") != record.artifact_sha256:
+            target = records / f"{_flat(_display(source))}-{digest[:8]}.json"
+        if not target.exists():
+            _atomic_write(target, json.dumps(record_to_dict(record), indent=2, sort_keys=True) + "\n")
+    failed = list(record.auto_review.criteria_failed) if record.auto_review else []
+    return {"state": record.state, "criteria_failed": failed}
+
+
+def _default_cases(directory: Path) -> dict[str, Any]:
+    path = directory / "evidence" / "cases" / "cases.json"
+    return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {"cases": []}
+
+
+def _atomic_write(path: Path, text: str) -> None:
+    tmp = path.with_name(f".{path.name}.{uuid.uuid4().hex[:6]}.tmp")
+    tmp.write_text(text, encoding="utf-8")
+    os.replace(tmp, path)
 
 
 def _write_report(output: Path, report: BatchReport, scores: list[dict[str, Any]]) -> Path:

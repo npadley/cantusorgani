@@ -398,11 +398,15 @@ def review_command(convert_dir: Path, decision_path: Path, out: Path, inputs_fn:
 # --- typeset-mei-batch -----------------------------------------------------------------------
 
 
-def batch_command(sources_file: Path, out: Path, workers: int = 2, no_evidence: bool = False) -> int:
+def batch_command(
+    sources_file: Path, out: Path, workers: int = 2, no_evidence: bool = False, auto_approve: bool = False
+) -> int:
     """Convert every source named in SOURCES_FILE (one path per line, ``#`` comments allowed) into OUT.
 
     Digest-keyed and resumable; prints one line per source and the counts. Exit 1 when any source
-    failed, so a scripted run notices; unsupported sources are reported, not errors. Never approves."""
+    failed, so a scripted run notices; unsupported sources are reported, not errors. Without ``auto_approve``
+    it never approves; with it (D22) a piece that passes every check is approved as ``auto (D22)`` and its
+    record is written to OUT/records/, never to data/typeset/mei/records/."""
     from pipeline.typeset import lilypond
     from pipeline.typeset.mei.batch import run_batch
 
@@ -414,7 +418,7 @@ def batch_command(sources_file: Path, out: Path, workers: int = 2, no_evidence: 
             sources.append(path if path.is_absolute() else lilypond.ROOT / path)
     report = run_batch(
         sources, ConversionProfile.load(PROFILE_PATH), out, workers=workers,
-        evidence_fn=None if no_evidence else _batch_evidence(),
+        evidence_fn=None if no_evidence else _batch_evidence(), auto_approve=auto_approve and not no_evidence,
     )
     for name, state in report.results.items():
         marks = " (cached)" if name in report.cached else ""

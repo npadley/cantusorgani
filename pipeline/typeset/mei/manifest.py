@@ -26,6 +26,7 @@ from typing import Any
 
 from pipeline.typeset.mei.diagnostics import Diagnostic, SourceLocation
 from pipeline.typeset.mei.model import (
+    AutoReview,
     BoundaryManifestEntry,
     CarriedFrom,
     ConversionInputs,
@@ -33,6 +34,7 @@ from pipeline.typeset.mei.model import (
     ConversionRecord,
     ManifestPart,
     ReviewDecision,
+    Revocation,
     SemanticDifference,
     ValidationReport,
     rational_from_str,
@@ -282,6 +284,15 @@ def record_to_dict(record: ConversionRecord) -> dict[str, Any]:
             "artifact_sha256": review.artifact_sha256, "matrix_results": dict(review.matrix_results),
             "accepted_differences": list(review.accepted_differences), "decision": review.decision,
         },
+        **({} if record.auto_review is None else {"auto_review": {
+            "criteria_failed": list(record.auto_review.criteria_failed),
+            "oracle_version": record.auto_review.oracle_version,
+            "precheck_version": record.auto_review.precheck_version,
+            "profile_version": record.auto_review.profile_version, "timestamp": record.auto_review.timestamp,
+        }}),
+        **({} if record.revocation is None else {"revocation": {
+            "reason": record.revocation.reason, "timestamp": record.revocation.timestamp,
+        }}),
         # Written only for a carried-forward approval, so records approved directly are unchanged.
         **({} if record.carried_from is None else {"carried_from": {
             "prior_artifact_sha256": record.carried_from.prior_artifact_sha256,
@@ -296,6 +307,8 @@ def record_from_dict(d: dict[str, Any]) -> ConversionRecord:
     v = d["validation"]
     r = d["review"]
     c = d.get("carried_from")  # absent on records approved directly (and on all older records)
+    ar = d.get("auto_review")
+    rv = d.get("revocation")
     return ConversionRecord(
         source_path=d["source_path"], target=d["target"], render_hash=d["render_hash"], state=d["state"],
         inputs=ConversionInputs(**d["inputs"]), artifact_sha256=d["artifact_sha256"],
@@ -320,6 +333,11 @@ def record_from_dict(d: dict[str, Any]) -> ConversionRecord:
             c["prior_artifact_sha256"], c["prior_inputs_digest"], tuple(c["reason"]), c["timestamp"],
             c["attributed_to"],
         ),
+        auto_review=None if ar is None else AutoReview(
+            tuple(ar["criteria_failed"]), ar["oracle_version"], ar["precheck_version"], ar["profile_version"],
+            ar["timestamp"],
+        ),
+        revocation=None if rv is None else Revocation(rv["reason"], rv["timestamp"]),
     )
 
 
