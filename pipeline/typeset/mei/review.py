@@ -10,25 +10,34 @@ from __future__ import annotations
 import dataclasses
 import datetime
 import re
+from collections.abc import Mapping, Sequence
+from typing import Any
 
 from pipeline.typeset.mei.diagnostics import BLOCKING
 from pipeline.typeset.mei.model import (
     REQUIRED_MATRIX,
+    AutoReview,
     CarriedFrom,
     ConversionInputs,
     ConversionRecord,
     ConversionState,
     ReviewBlocked,
     ReviewDecision,
+    Revocation,
 )
 
+AUTO_REVIEWER = "auto (D22)"
+
 __all__ = [
+    "AUTO_REVIEWER",
     "EvidenceComparison",
     "ReviewBlocked",
     "apply_review",
     "approval_is_current",
+    "auto_approve",
     "carry_forward",
     "changed_input_fields",
+    "revoke",
     "state_for",
 ]
 
@@ -194,3 +203,76 @@ def carry_forward(
             attributed_to="ci",
         ),
     )
+
+
+# --- automatic approval (D22) ---------------------------------------------------------------------------
+
+
+def _now() -> str:
+    return datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def auto_criteria_failed(
+    record: ConversionRecord, precheck_report: Mapping[str, Sequence[str]], evidence: Mapping[str, Any]
+) -> tuple[str, ...]:
+    """The D22 criteria a record fails, in order: ``unsupported`` (1), ``schema`` (2), ``oracle`` (3),
+    ``layout`` (4) and ``precheck`` (5). ``evidence`` is the packet's ``cases.json``; ``precheck_report`` the
+    findings per case. Lines starting ``info:`` are not findings; every other line is."""
+    failed: list[str] = []
+    if any(d.code in ("UNSUPPORTED_FEATURE", "UNKNOWN_FEATURE") for d in record.diagnostics):
+        failed.append("unsupported")
+    validation = record.validation
+    if validation is None or not validation.schema_ok:
+        failed.append("schema")
+    if validation is None or validation.semantic_differences or not validation.eligible:
+        failed.append("oracle")
+    cases = {c.get("id"): c for c in evidence.get("cases", [])}
+    for case in REQUIRED_MATRIX:
+        entry = cases.get(case.id)
+        errors = [d for d in (entry or {}).get("diagnostics", []) if d.get("severity") == "error"]
+        if entry is None or not entry.get("pageCount") or errors:
+            failed.append("layout")
+            break
+    wanted = ("piece", *(c.id for c in REQUIRED_MATRIX))
+    if any(key not in precheck_report for key in wanted) or any(
+        not line.startswith("info:") for key in wanted for line in precheck_report.get(key, ())
+    ):
+        failed.append("precheck")
+    return tuple(failed)
+
+
+def auto_approve(
+    record: ConversionRecord,
+    precheck_report: Mapping[str, Sequence[str]],
+    evidence: Mapping[str, Any],
+    *,
+    profile_version: int,
+    now: str | None = None,
+) -> ConversionRecord:
+    """Approve ``record`` automatically (D22) when all five criteria hold, else leave it needs-review.
+
+    Only a clean ``needs-review`` conversion is judged; ``failed``, ``unsupported``, ``approved`` and ``revoked``
+    records come back unchanged. The result stores the oracle, precheck and profile versions it was judged
+    under and, when not approved, the criteria that failed."""
+    from pipeline.typeset.mei.precheck import PRECHECK_VERSION
+
+    if record.state != "needs-review":
+        return record
+    stamp = now or _now()
+    failed = auto_criteria_failed(record, precheck_report, evidence)
+    versions = record.validation.tool_versions if record.validation else {}
+    oracle = f"{versions['comparer']}+{versions['normalizer']}" if "comparer" in versions and "normalizer" in versions else "unknown"
+    judged = AutoReview(failed, oracle, PRECHECK_VERSION, profile_version, stamp)
+    if failed or record.artifact_sha256 is None:
+        return dataclasses.replace(record, auto_review=judged)
+    decision = ReviewDecision(
+        reviewer=AUTO_REVIEWER, timestamp=stamp, inputs_digest=record.inputs.digest(),
+        artifact_sha256=record.artifact_sha256, matrix_results={c.id: "pass" for c in REQUIRED_MATRIX},
+        accepted_differences=(), decision="approve",
+    )
+    return dataclasses.replace(record, state="approved", review=decision, auto_review=judged)
+
+
+def revoke(record: ConversionRecord, reason: str, now: str | None = None) -> ConversionRecord:
+    """Revoke an approval (D22): state ``revoked``, never current, excluded from the manifest."""
+    return dataclasses.replace(record, state="revoked", revocation=Revocation(reason, now or _now()))

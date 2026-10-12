@@ -212,6 +212,16 @@ single-score commands. It never approves anything.
   its own implementation task, mutation fixture and profile version before any score that uses it can
   be approved. Never approve a score because a sibling with the same includes passed.
 
+### Automatic approval (D22)
+
+`--auto-approve` judges each clean conversion with `review.auto_approve`: no unsupported or unknown feature,
+schema-valid, 0 oracle differences, all 13 layout cases laid out without an error, and 0 precheck findings in
+every case (`info:` lines are not findings). A piece that passes is approved as `auto (D22)` and its record
+stores the oracle, precheck and profile versions it was judged under; any other piece stays needs-review with
+the failing criteria in `<digest>/record.json`. Records of approved pieces are written to `OUT/records/`; the
+coordinator commits them into `data/typeset/mei/records/`. A record can be revoked (`review.revoke`, state
+`revoked`); it is then never current and the manifest excludes it.
+
 ## Safety
 
 LilyPond runs Scheme code written in the files it reads. So every file passes

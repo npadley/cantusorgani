@@ -218,3 +218,22 @@ def test_run_batch_real_kyrie_conversion_with_the_fake_lilypond_runner(tmp_path:
     h = Harness()
     report = run_batch([source], PROFILE, tmp_path / "out", convert_fn=convert, evidence_fn=h.evidence)
     assert report.results == {"data/typeset/src/vol-5/missa-ix/kyrie_IX.ly": "needs-review"} and report.counts["approved"] == 0
+
+
+def test_run_batch_default_convert_classifies_an_errored_conversion_by_its_diagnostics(tmp_path: Path, monkeypatch) -> None:
+    """convert_command returns 1 for any error diagnostic; the batch must read the diagnostics it wrote
+    (unsupported / failed) rather than call every such score failed."""
+    from pipeline.typeset.mei import cli
+
+    def fake_convert(source: Path, out: Path, *args, **kwargs) -> int:
+        out.mkdir(parents=True, exist_ok=True)
+        (out / "diagnostics.json").write_text(
+            json.dumps([{"code": "UNSUPPORTED_FEATURE", "severity": "error", "message": "source line break falls inside a measure"}]),
+            encoding="utf-8",
+        )
+        return 1
+
+    monkeypatch.setattr(cli, "convert_command", fake_convert)
+    sources = make_sources(tmp_path, ["a.ly"])
+    report = run_batch(sources, PROFILE, tmp_path / "out", inputs_fn=lambda s: inputs_for(s), evidence_fn=None)
+    assert report.results == {str(sources[0]): "unsupported"}

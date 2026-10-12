@@ -559,7 +559,7 @@ class ValidationReport:
     tool_versions: dict[str, str]
 
 # --- review ------------------------------------------------------------------------
-ConversionState = Literal["unsupported", "failed", "needs-review", "approved"]
+ConversionState = Literal["unsupported", "failed", "needs-review", "approved", "revoked"]
 
 @dataclass(frozen=True)
 class ConversionInputs:
@@ -627,6 +627,21 @@ class CarriedFrom:
     attributed_to: Literal["ci"]
 
 @dataclass(frozen=True)
+class AutoReview:
+    """D22: what an automatic judgement saw. ``criteria_failed`` is empty exactly when it approved."""
+    criteria_failed: tuple[str, ...]   # subset of ("unsupported", "schema", "oracle", "layout", "precheck")
+    oracle_version: str                # comparer + normalizer versions of the validation
+    precheck_version: str
+    profile_version: int
+    timestamp: str
+
+@dataclass(frozen=True)
+class Revocation:
+    """A revoked approval (D22): excluded from the manifest and never current."""
+    reason: str
+    timestamp: str
+
+@dataclass(frozen=True)
 class ConversionRecord:
     source_path: str
     target: str | None                 # from data/typeset/manifest.json; never inferred
@@ -638,6 +653,8 @@ class ConversionRecord:
     validation: ValidationReport | None
     review: ReviewDecision | None
     carried_from: CarriedFrom | None = None   # C5: absent on records approved directly by a human
+    auto_review: AutoReview | None = None     # A7: present on records an automatic judgement saw
+    revocation: Revocation | None = None      # A7: present when state == "revoked"
 
 class ReviewBlocked(Exception):
     def __init__(self, codes: tuple[str, ...], message: str) -> None:

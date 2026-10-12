@@ -9,6 +9,8 @@ review state or approval. Checks:
 * tie endpoints: each explicit ``<tie>`` is drawn from the head of its start note to the head of its end note;
 * unison heads: chant and accompaniment heads on one pitch and onset are both drawn, side by side;
 * divisio ticks: each ``<dir type="divisio-minima">`` crosses the top line of exactly one staff;
+* bar lines: a finalis measure end is drawn as a double bar and a divisio maxima as a single bar;
+* all 13 required layout cases exist and laid out;
 * lyrics: every encoded syllable is drawn;
 * word-boundary breaks: automatic cases that start a system in the middle of a word (informational).
 """
@@ -23,7 +25,12 @@ from typing import Any
 
 from lxml import etree
 
-__all__ = ["precheck_packet"]
+from pipeline.typeset.mei.model import REQUIRED_MATRIX
+
+__all__ = ["PRECHECK_VERSION", "precheck_packet"]
+
+#: Bump when a check is added or changed: an automatic approval records the version it was judged under.
+PRECHECK_VERSION = "precheck/3"
 
 M = "{http://www.music-encoding.org/ns/mei}"
 XML_ID = "{http://www.w3.org/XML/1998/namespace}id"
@@ -49,6 +56,8 @@ class _Page:
         self.staves: list[tuple[int, float]] = []
         self.syllables = 0
         self.system_starts: list[str] = []
+        self.bars: dict[str, set[int]] = defaultdict(set)  # measure id -> x of every vertical bar line stroke
+        self._measure = ""
         self._system = -1
         root = etree.parse(str(svg), etree.XMLParser(resolve_entities=False, no_network=True)).getroot()
         self._walk(root, 0.0, 0.0)
@@ -64,8 +73,15 @@ class _Page:
             if "bounding-box" not in cls:
                 if "system" in cls:
                     self._system += 1
-                if "measure" in cls and ident and len(self.system_starts) <= self._system:
-                    self.system_starts.append(ident)
+                if "measure" in cls and ident:
+                    self._measure = ident
+                    if len(self.system_starts) <= self._system:
+                        self.system_starts.append(ident)
+                if "barLine" in cls and self._measure:
+                    for p in el.iter(S + "path"):
+                        mm = re.match(r"^M(-?[\d.]+) (-?[\d.]+) L(-?[\d.]+) (-?[\d.]+)$", p.get("d") or "")
+                        if mm and mm.group(1) == mm.group(3) and mm.group(2) != mm.group(4):
+                            self.bars[self._measure].add(round(float(mm.group(1)) / 20))
                 if "staff" in cls:
                     ys = [
                         float(mm.group(1)) + dy
@@ -148,11 +164,17 @@ def precheck_packet(convert_dir: Path, evidence_dir: Path | None = None) -> dict
     for syl in sorted(ir["lyrics"], key=lambda s: s["onset"]):
         syl_before[syl["onset"]] = bool(syl["hyphenAfter"])
 
+    required = {c.id for c in REQUIRED_MATRIX}
+    expected_bars = {
+        m.get(XML_ID): {"dbl": 2, "single": 1}[m.get("right")] for m in root.iter(M + "measure") if m.get("right") in ("dbl", "single")
+    }
     cases_root = evidence / "cases"
+    for missing in sorted(required - {p.name for p in cases_root.iterdir() if p.is_dir()}):
+        findings[missing] = ["case was not laid out (no folder in the packet)"]
     summary = json.loads((cases_root / "cases.json").read_text(encoding="utf-8"))
     sizes = {c["id"]: c.get("staffHeightMm", 7.2) for c in summary["cases"]}
     problems_by_case = {c["id"]: [d for d in c.get("diagnostics", []) if d.get("severity") == "error"] for c in summary["cases"]}
-    for case_dir in sorted(p for p in cases_root.iterdir() if p.is_dir()):
+    for case_dir in sorted(p for p in cases_root.iterdir() if p.is_dir() and p.name not in findings):
         case = case_dir.name
         pages = [_Page(p) for p in sorted(case_dir.glob(f"{case}-p*.svg")) if not p.name.endswith(".bbox.svg")]
         out: list[str] = findings.setdefault(case, [])
@@ -197,11 +219,15 @@ def precheck_packet(convert_dir: Path, evidence_dir: Path | None = None) -> dict
             crossed = [s for s in page.staves if top < s[1] < bottom]
             if len(crossed) != 1 or abs((top + bottom) / 2 - crossed[0][1]) > SPACE * scale / 2:
                 out.append(f"divisio {tick_id}: does not cross exactly one top line (ink {top:.0f}..{bottom:.0f})")
+        for page in pages:
+            for measure_id, want in expected_bars.items():
+                if measure_id in page.bars and len(page.bars[measure_id]) != want:
+                    out.append(f"bar line: measure {measure_id} ends with {len(page.bars[measure_id])} bar(s), want {want}")
         drawn = sum(page.syllables for page in pages)
         if drawn < syllables:
             out.append(f"lyrics: only {drawn} of {syllables} encoded syllables are drawn")
         elif drawn > syllables:
-            out.append(f"note: {drawn - syllables} extra syllable piece(s) drawn at system breaks (continued extenders or hyphens)")
+            out.append(f"info: {drawn - syllables} extra syllable piece(s) drawn at system breaks (continued extenders or hyphens)")
         if case.endswith("-auto") or "-auto" in case:
             mid_word = 0
             for page in pages:

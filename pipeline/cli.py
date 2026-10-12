@@ -185,6 +185,8 @@ def build_parser() -> argparse.ArgumentParser:
     mei_batch.add_argument("--out", type=Path, required=True)
     mei_batch.add_argument("--workers", type=int, default=2, help="LilyPond runs in flight (default 2)")
     mei_batch.add_argument("--no-evidence", action="store_true", help="convert and validate only")
+    mei_batch.add_argument("--auto-approve", action="store_true",
+                           help="D22: approve pieces that pass every check; records go to OUT/records/ only")
 
     mei_review = subs.add_parser("typeset-mei-review",
                                  help="apply a reviewer's decision JSON to a convert directory and write the review record")
@@ -436,7 +438,7 @@ def main(argv: list[str] | None = None) -> int:
         return evidence_command(args.convert_dir, args.out)
     if args.command == "typeset-mei-batch":
         from pipeline.typeset.mei.cli import batch_command
-        return batch_command(args.sources, args.out, args.workers, args.no_evidence)
+        return batch_command(args.sources, args.out, args.workers, args.no_evidence, args.auto_approve)
     if args.command == "typeset-mei-review":
         from pipeline.typeset.mei.cli import review_command
         return review_command(args.convert_dir, args.decision, args.out)
