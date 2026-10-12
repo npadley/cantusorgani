@@ -356,6 +356,27 @@ def test_build_spans_unbalanced_slur_reports_error():
     assert [(d.code, d.severity) for d in diags] == [("UNKNOWN_FEATURE", "error")]
 
 
+def test_build_spans_second_slur_start_inside_an_open_slur_is_ignored_as_lilypond_ignores_it():
+    """A8: `( a ( b )` has two starts and one stop; LilyPond warns "already have slur" and keeps the first."""
+    rows = parse_rows(
+        "0\t-\t-\tversion\tlisten_full/1\t2.26.0\n"
+        "0\t-\tup\tstaff\t1\n"
+        "0\t-\tup\tclef\tclefs.G\t-2\t-\n"
+        "0\tup:chant\tup\tvoice\t0\tvoiceOne\n"
+        "0\tup:chant\tup\tnote\tc\t0\t4\t2\t0\t1\t1\t1/4\ta.ly:1:0\n"
+        "0\tup:chant\tup\tslur\t-1\ta.ly:1:2\n"
+        "1/4\tup:chant\tup\tnote\td\t0\t4\t2\t0\t1\t1\t1/4\ta.ly:1:4\n"
+        "1/4\tup:chant\tup\tslur\t-1\ta.ly:1:6\n"
+        "1/2\tup:chant\tup\tnote\te\t0\t4\t2\t0\t1\t1\t1/4\ta.ly:1:8\n"
+        "1/2\tup:chant\tup\tslur\t1\ta.ly:1:10\n"
+    )
+    events, _ = build_events(rows, "a.ly")
+    spans, diags = build_spans(rows, events)
+    assert [(s.kind, s.start_event_id, s.end_event_id) for s in spans] == [("slur", events[0].id, events[2].id)]
+    assert [(d.code, d.severity) for d in diags] == [("UNKNOWN_FEATURE", "warning")]
+    assert "already open" in diags[0].message
+
+
 def test_feature_uses_ite_ib_reports_quilisma():
     *_, features = load_all("ite_Ib")
     assert [f.family for f in features].count("quilisma") == 1
@@ -496,7 +517,12 @@ def test_build_boundaries_accompaniment_sustain_is_splittable():
     assert splits_at(b, events) == (sustained.id,)
 
 
-@pytest.mark.parametrize("name", ["kyrie_IX", "al_ego_dilecto.csv", "agnus_XI", "ite_Ib", "co_inclina_aurem_tuam.csv", "agnus_IX"])
+@pytest.mark.parametrize(
+    "name",
+    ["kyrie_IX", "al_ego_dilecto.csv", "agnus_XI", "ite_Ib", "co_inclina_aurem_tuam.csv", "agnus_IX",
+     # A8: LilyPond breaks lines inside slurs here; the slur spans the break, so the break must stay placeable.
+     "co_ab_occultis_meis.csv", "al_dominus_regnavit__exsultet.csv"],
+)
 def test_build_boundaries_every_source_break_is_safe(name):
     boundaries, _, _ = load_boundaries(name)
     assert all(b.safe for b in boundaries if b.source_break)
@@ -510,6 +536,27 @@ def test_splits_at_agnus_xi_source_break_lists_sustained_accompaniment():
     assert any(crossing)
     for b, ids in zip(breaks, crossing, strict=True):
         assert all(not layer_of[i].endswith("chant") for i in ids)
+
+
+@pytest.mark.parametrize("name", ["co_ab_occultis_meis.csv", "al_dominus_regnavit__exsultet.csv"])
+def test_build_boundaries_source_break_inside_a_slur_is_safe_but_other_slur_boundaries_stay_unsafe(name):
+    boundaries, _, events = load_boundaries(name)
+    spans = load_all(name)[6]
+    by_id = {e.id: e for e in events}
+    slurs = [(by_id[s.start_event_id].onset, by_id[s.end_event_id].onset) for s in spans if s.kind == "slur"]
+    assert slurs
+    inside = [b for b in boundaries if b.source_break and any(st < b.onset <= en for st, en in slurs)]
+    assert inside and all(b.safe for b in inside)
+    assert any(not b.safe and b.reason == "slur-crosses" for b in boundaries if not b.source_break)
+
+
+@pytest.mark.parametrize("name", ["of_benedicam_dominum.csv", "al_surrexit_dominus_de_sepulcro.csv"])
+def test_build_boundaries_every_finalis_and_maxima_is_a_safe_boundary(name):
+    """A8: a barline division inside a slur, or at the end of a chant that stops before the accompaniment,
+    is still a measure end: the slur spans it, and the accompaniment is split there like any sustain."""
+    boundaries, _, _ = load_boundaries(name)
+    bars = [b for b in boundaries if b.division in ("finalis", "maxima")]
+    assert bars and all(b.safe for b in bars), [(b.division, b.reason) for b in bars if not b.safe]
 
 
 def test_build_boundaries_counts_by_reason():
