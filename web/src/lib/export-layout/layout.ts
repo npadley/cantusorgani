@@ -49,6 +49,8 @@ const STAFF_TOLERANCE_MM = 0.1;
 const MIN_WORD_BREAK_RATIO = 0.8;
 /** Closest two lyric syllables may sit after a word-boundary move. */
 const MIN_SYLLABLE_GAP_MM = 0.3;
+/** Lowest justification ratio accepted when the syllable gaps were verified with real lyric widths. */
+const MIN_CHECKED_RATIO = 0.7;
 const RIGHT_EDGE_TOLERANCE_MM = 0.5;
 const BOTTOM_TOLERANCE_MM = 0.05;
 const MEI_NS = 'http://www.music-encoding.org/ns/mei';
@@ -357,7 +359,7 @@ export async function renderMei(
     const pageCount1 = captureConsole(consoleMessages, () => tk.getPageCount());
     if (pageCount1 !== 1) return failed(`pass 1 produced ${pageCount1} pages; the part is taller than one 6 m page`);
     const measured1 = measureSvgPage(renderPage(1));
-    const sys1 = measured1.systems;
+    let sys1 = measured1.systems;
     if (sys1.length === 0) return failed('pass 1 produced no systems');
     await tick();
     if (ctx.isCancelled()) return cancelled();
@@ -369,9 +371,67 @@ export async function renderMei(
       return i <= 0 ? null : (boundaryByMeasure.get(allMeasures[i - 1] ?? '') ?? null);
     };
 
+    const wordFinal = wordFinalMeasures(part.meiXml);
+    const pinned = new Set(realisable.map((b) => nextMeasureInMei.get(measureByBoundary.get(b.boundaryId) ?? '') ?? ''));
+    const lyricFont = lyricFontOf(ctx);
+    /**
+     * ONE encoded render with a system start at each of `moved`. Accepted only when the systems match,
+     * nothing overhangs, Verovio does not compress a line (ratio below 0.8) and no two syllables on a
+     * system next to a changed start are closer than 0.3 mm.
+     */
+    const attempt = async (moved: readonly string[], original: readonly string[]): Promise<{ ok: boolean; systems: readonly MeasuredSystem[] } | string> => {
+      const messagesBefore = consoleMessages.length;
+      const mei1b = rewriteBreaks(part.meiXml, { stripSb: true, insertBefore: new Map(moved.slice(1).map((m) => [m, 'system'] as const)) });
+      const bad1b = apply({ ...pass1Options, breaks: 'encoded' });
+      if (bad1b.length > 0) return `word-boundary options not applied: ${bad1b.join('; ')}`;
+      if (!load(mei1b)) return 'loadData failed in the word-boundary pass';
+      const pages1b = captureConsole(consoleMessages, () => tk.getPageCount());
+      const svg1b = pages1b === 1 ? renderPage(1) : '';
+      const sys1b = svg1b ? measureSvgPage(svg1b).systems : [];
+      const ratios = consoleMessages.slice(messagesBefore)
+        .map((m) => /ratio smaller than [\d.]+: ([\d.]+)/.exec(m)?.[1])
+        .flatMap((r) => (r === undefined ? [] : [Number(r)]));
+      const sameStarts = sys1b.length === moved.length && sys1b.every((s, k) => s.firstMeasureId === moved[k]);
+      const fits = sys1b.length > 0 && Math.max(...sys1b.map((s) => s.maxXMm)) - page.content.widthMm <= RIGHT_EDGE_TOLERANCE_MM;
+      // With the real lyric widths to check syllable gaps, a denser line is acceptable down to 0.7.
+      const minRatio = lyricFont !== null ? MIN_CHECKED_RATIO : MIN_WORD_BREAK_RATIO;
+      const known = new Set(original);
+      const touched = new Set<number>();
+      moved.forEach((m, k) => { if (!known.has(m)) { touched.add(k - 1); touched.add(k); } });
+      const crowded = svg1b !== '' && lyricFont !== null
+        && lyricCollisions(svg1b, lyricFont, MIN_SYLLABLE_GAP_MM).some((c) => touched.has(c.system));
+      return { ok: sameStarts && fits && ratios.every((r) => r >= minRatio) && !crowded, systems: sys1b };
+    };
+
     // Right edge. Original lines are compressed, never split, so overhang is a warning there.
     const crowdedDetails: string[] = [];
-    const overhang1 = Math.max(...sys1.map((s) => s.maxXMm)) - page.content.widthMm;
+    let overhang1 = Math.max(...sys1.map((s) => s.maxXMm)) - page.content.widthMm;
+    if (overhang1 > RIGHT_EDGE_TOLERANCE_MM && settings.linePolicy === 'automatic') {
+      // Verovio let an automatic line run past the content width (glyph and barline overhang). Pull
+      // the start of the next system back to an earlier word boundary (or split the last system)
+      // and re-measure once.
+      const starts = sys1.map((x) => x.firstMeasureId);
+      const next = [...starts];
+      sys1.forEach((x, i) => {
+        if (x.maxXMm - page.content.widthMm <= RIGHT_EDGE_TOLERANCE_MM) return;
+        if (i + 1 < starts.length) {
+          const idx = measureIndex.get(starts[i + 1] ?? '') ?? 0;
+          if (!pinned.has(starts[i + 1] ?? '')) next[i + 1] = moveToWordStart(allMeasures[idx - 1] ?? '', starts[i] ?? '', allMeasures, measureIndex, wordFinal, boundaryByMeasure, -1);
+        } else {
+          const lastIdx = (measureIndex.get(starts[i] ?? '') ?? 0) + x.measureIds.length - 1;
+          const split = moveToWordStart(allMeasures[lastIdx] ?? '', starts[i] ?? '', allMeasures, measureIndex, wordFinal, boundaryByMeasure, -1);
+          if (split !== starts[i]) next.push(split);
+        }
+      });
+      next.sort((a, b) => (measureIndex.get(a) ?? 0) - (measureIndex.get(b) ?? 0));
+      if (next.length !== starts.length || next.some((m, k) => m !== starts[k])) {
+        const r = await attempt(next, starts);
+        if (typeof r === 'string') return failed(r);
+        await tick();
+        if (ctx.isCancelled()) return cancelled();
+        if (r.ok) { sys1 = [...r.systems]; overhang1 = Math.max(...sys1.map((x) => x.maxXMm)) - page.content.widthMm; }
+      }
+    }
     if (overhang1 > RIGHT_EDGE_TOLERANCE_MM) {
       if (settings.linePolicy === 'original') {
         crowdedDetails.push(`right edge overhang ${round3(overhang1)} mm`);
@@ -398,35 +458,11 @@ export async function renderMei(
 
     // Automatic reflow: Verovio breaks at any measure, even inside a word ("Chri-" / "ste"). First
     // try moving each such start back to the nearest earlier word boundary; if that overfills a
-    // line, try moving them forward instead. Each attempt is ONE encoded render, all or nothing,
+    // line, try moving them forward instead (and the nearest boundary either way first). Each attempt is ONE encoded render, all or nothing,
     // accepted only when the systems match, nothing overhangs, Verovio does not compress a line
     // (ratio below 0.8) and no two syllables come closer than 0.3 mm. Never repeated.
     if (settings.linePolicy === 'automatic' && planned.length > 1) {
-      const wordFinal = wordFinalMeasures(part.meiXml);
-      const pinned = new Set(realisable.map((b) => nextMeasureInMei.get(measureByBoundary.get(b.boundaryId) ?? '') ?? ''));
       const original = planned.map((p) => p.startMeasureId);
-      const lyricFont = lyricFontOf(ctx);
-      const attempt = async (moved: readonly string[]): Promise<{ ok: boolean; systems: readonly MeasuredSystem[] } | string> => {
-        const messagesBefore = consoleMessages.length;
-        const mei1b = rewriteBreaks(part.meiXml, { stripSb: true, insertBefore: new Map(moved.slice(1).map((m) => [m, 'system'] as const)) });
-        const bad1b = apply({ ...pass1Options, breaks: 'encoded' });
-        if (bad1b.length > 0) return `word-boundary options not applied: ${bad1b.join('; ')}`;
-        if (!load(mei1b)) return 'loadData failed in the word-boundary pass';
-        const pages1b = captureConsole(consoleMessages, () => tk.getPageCount());
-        const svg1b = pages1b === 1 ? renderPage(1) : '';
-        const sys1b = svg1b ? measureSvgPage(svg1b).systems : [];
-        const ratios = consoleMessages.slice(messagesBefore)
-          .map((m) => /ratio smaller than [\d.]+: ([\d.]+)/.exec(m)?.[1])
-          .flatMap((r) => (r === undefined ? [] : [Number(r)]));
-        const sameStarts = sys1b.length === moved.length && sys1b.every((s, k) => s.firstMeasureId === moved[k]);
-        const fits = sys1b.length > 0 && Math.max(...sys1b.map((s) => s.maxXMm)) - page.content.widthMm <= RIGHT_EDGE_TOLERANCE_MM;
-        // Syllables on the systems next to a moved start.
-        const touched = new Set<number>();
-        moved.forEach((m, k) => { if (m !== original[k]) { touched.add(k - 1); touched.add(k); } });
-        const crowded = svg1b !== '' && lyricFont !== null
-          && lyricCollisions(svg1b, lyricFont, MIN_SYLLABLE_GAP_MM).some((c) => touched.has(c.system));
-        return { ok: sameStarts && fits && ratios.every((r) => r >= MIN_WORD_BREAK_RATIO) && !crowded, systems: sys1b };
-      };
       // Backward moves chain on the moved previous start so a system never loses all its measures.
       const back: string[] = [];
       original.forEach((m, k) => {
@@ -434,10 +470,21 @@ export async function renderMei(
       });
       const forward = original.map((m, k) =>
         (k === 0 || pinned.has(m) ? m : moveToWordStart(m, original[k + 1] ?? '', allMeasures, measureIndex, wordFinal, boundaryByMeasure, 1)));
-      const candidates = [back, forward];
+      // Nearest word boundary either way, per start, so no single start has to move far.
+      const nearest: string[] = [];
+      original.forEach((m, k) => {
+        if (k === 0 || pinned.has(m)) { nearest.push(m); return; }
+        const b = moveToWordStart(m, nearest[k - 1] ?? '', allMeasures, measureIndex, wordFinal, boundaryByMeasure, -1);
+        const f = moveToWordStart(m, original[k + 1] ?? '', allMeasures, measureIndex, wordFinal, boundaryByMeasure, 1);
+        const at = measureIndex.get(m) ?? 0;
+        const db = b === m ? Infinity : at - (measureIndex.get(b) ?? 0);
+        const df = f === m ? Infinity : (measureIndex.get(f) ?? 0) - at;
+        nearest.push(db <= df ? b : f);
+      });
+      const candidates = [nearest, back, forward].filter((c, i, all) => all.findIndex((o) => o.join() === c.join()) === i);
       for (const moved of candidates) {
         if (!moved.some((m, k) => m !== original[k])) continue;
-        const r = await attempt(moved);
+        const r = await attempt(moved, original);
         if (typeof r === 'string') return failed(r);
         await tick();
         if (ctx.isCancelled()) return cancelled();
@@ -620,7 +667,11 @@ export function wordFinalMeasures(meiXml: string): Set<string> {
   let open = false;
   for (const block of meiXml.split(/<measure\b/).slice(1)) {
     const id = /\sxml:id="([^"]+)"/.exec(block)?.[1];
-    for (const m of block.matchAll(/<syl\b[^>]*?\swordpos="([imts])"/g)) open = m[1] === 'i' || m[1] === 'm';
+    // A syllable without wordpos is a whole word.
+    for (const m of block.matchAll(/<syl\b[^>]*>/g)) {
+      const pos = /\swordpos="([imts])"/.exec(m[0])?.[1];
+      open = pos === 'i' || pos === 'm';
+    }
     if (id && !open) out.add(id);
   }
   return out;

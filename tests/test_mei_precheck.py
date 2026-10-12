@@ -25,7 +25,7 @@ class _Runner:
 
 
 @pytest.mark.slow
-def test_precheck_packet_kyrie_findings_are_only_the_known_page_break_tie(tmp_path: Path) -> None:
+def test_precheck_packet_kyrie_is_clean(tmp_path: Path) -> None:
     if shutil.which("node") is None or not (WEB / "node_modules" / "verovio").is_dir():
         pytest.skip("node or web/node_modules is missing")
     assert convert_command(SOURCE, tmp_path / "kyrie", _Runner(), tmp_path / "build") == 0
@@ -35,11 +35,8 @@ def test_precheck_packet_kyrie_findings_are_only_the_known_page_break_tie(tmp_pa
     )
     findings = precheck_packet(tmp_path / "kyrie")
     assert len(findings) == 14  # the piece plus the 13 required cases
-    # The only finding is a known Verovio limitation: a tie across a PAGE break is not fully drawn
-    # (one tie, in the four matrix cases that break the part across pages). Everything else must be clean.
-    found = {k: v for k, v in findings.items() if v}
-    assert all("crosses a page break" in f for fs in found.values() for f in fs), found
-    assert len(found) == 4
+    # A tie across a page break is drawn on the page of its end note (B4d7 moved the tie element).
+    assert {k: v for k, v in findings.items() if v} == {}
 
 
 def test_precheck_packet_flags_a_tie_that_is_not_drawn(tmp_path: Path) -> None:
