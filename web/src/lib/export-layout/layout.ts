@@ -622,13 +622,14 @@ async function layoutOnce(
       const bad = planned[pag.systemIndex];
       const prefix = paginate({ ...pagInput, systems: pagInput.systems.slice(0, pag.systemIndex) });
       const pageIndex = prefix.ok ? prefix.pages.length : 0;
-      const headingBound = pageIndex === 0 && (bad?.heightMm ?? 0) <= page.content.heightMm;
+      const badHeight = pagInput.systems[pag.systemIndex]?.heightMm ?? bad?.heightMm ?? 0;
+      const headingBound = pageIndex === 0 && badHeight <= page.content.heightMm;
       return fail(diag(partId, 'UNSATISFIABLE_LAYOUT', 'error', {
         pageIndex,
         boundaryIds: bad?.firstBoundaryId ? [bad.firstBoundaryId] : [],
         reason: headingBound ? 'heading-too-tall' : 'system-too-tall',
         suggestions: sizeSuggestions(settings, 'tall'),
-        detail: `system ${pag.systemIndex} is ${bad?.heightMm} mm tall; the page offers ${pageIndex === 0 ? page.firstPageContent.heightMm : page.content.heightMm} mm`,
+        detail: `system ${pag.systemIndex} is ${badHeight} mm tall; the page offers ${pageIndex === 0 ? page.firstPageContent.heightMm : page.content.heightMm} mm`,
       }));
     }
     if (ctx.isCancelled()) return cancelled();

@@ -366,11 +366,11 @@ describe('renderMei with a fake toolkit', () => {
       expect(layout.pages.map((p) => p.systems.length)).toEqual([1, 1, 1, 1]);
     });
 
-    it('reports CONTENT_CLIPPED when even one system is taller than the content in pass 2', async () => {
+    it('reports system-too-tall when even one system is taller than the content in pass 2', async () => {
       const fake = makeFake({ ...FOUR_SYSTEMS, pass2SystemHeightMm: 110 });
       const layout = await renderMei(FAKE_PART, SHORT, [], ctxOf(fake), rectsOf(SHORT));
       expect(layout.pages).toEqual([]);
-      expect(layout.diagnostics.find((x) => x.code === 'CONTENT_CLIPPED')).toMatchObject({ severity: 'error', pageIndex: 0 });
+      expect(layout.diagnostics.find((x) => x.code === 'UNSATISFIABLE_LAYOUT')).toMatchObject({ severity: 'error', reason: 'system-too-tall' });
     });
 
     it('lists dropped overrides as non-blocking warnings', async () => {
