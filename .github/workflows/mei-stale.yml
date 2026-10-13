@@ -35,7 +35,7 @@ jobs:
           ref: ${{ github.event.before }}
           path: prior
           persist-credentials: false
-      - uses: astral-sh/setup-uv@v10.2.0
+      - uses: astral-sh/setup-uv@v10.3.0
         with:
           enable-cache: false
       - run: uv sync --frozen
