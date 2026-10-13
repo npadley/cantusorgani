@@ -167,3 +167,7 @@ _(S0–S7 append here: date, spike, decision, evidence paths, consequences for d
   - `web/scripts/spike-verovio.ts`;
   - `web/src/lib/export-layout/__fixtures__/s2-pass1-letter-medium.json`.
 - **Consequences:** B4d reads rectangles from pass 2, because `justifyVertically` changes heights. It assigns spanner bboxes to the nearest staff band. It handles first-page heading height under justification (risk R4). It parses the SVG without `DOMParser`.
+
+## P5 lyric-spacing policy — 2026-10-12
+
+The user chose “Keep overlaps as review warnings”. Measured lyric gaps below 0.3 mm are surfaced as nonblocking `info: lyrics:` precheck advice, with case/page/system, syllable pair and gap. They do not block automatic approval. Other precheck findings keep their existing approval gates.

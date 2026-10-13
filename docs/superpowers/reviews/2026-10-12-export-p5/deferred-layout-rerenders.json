@@ -1,0 +1,105 @@
+[
+  {
+    "source": "data/typeset/src/vol-1/gr_excita_domine.csv.ly",
+    "baseline_family": "layout-tie-rendering",
+    "current_blockers": {
+      "ipadmini-p-auto": [
+        "tie tev0e0208: crosses a page break and is not fully drawn"
+      ]
+    },
+    "warnings": 7
+  },
+  {
+    "source": "data/typeset/src/vol-1/of_confitebor_tibi__deus.csv.ly",
+    "baseline_family": "layout-clipping",
+    "current_blockers": {
+      "custom-160x230-auto": [
+        "no pages rendered (CONTENT_CLIPPED: content overhangs the right edge by 0.54 mm)"
+      ]
+    },
+    "warnings": 5
+  },
+  {
+    "source": "data/typeset/src/vol-2/gr_haec_dies_v_dextera.csv.ly",
+    "baseline_family": "layout-tie-rendering",
+    "current_blockers": {
+      "a4-p-orig": [
+        "arc: 1 tie/slur piece(s) shorter than 1.0 mm in mid-system, e.g. tie 16686-16723"
+      ],
+      "a5-l-orig": [
+        "arc: 1 tie/slur piece(s) shorter than 1.0 mm in mid-system, e.g. tie 16686-16723"
+      ],
+      "letter-l-orig": [
+        "arc: 1 tie/slur piece(s) shorter than 1.0 mm in mid-system, e.g. tie 22806-22887"
+      ],
+      "letter-p-orig": [
+        "arc: 1 tie/slur piece(s) shorter than 1.0 mm in mid-system, e.g. tie 17212-17261"
+      ]
+    },
+    "warnings": 39
+  },
+  {
+    "source": "data/typeset/src/vol-2/gr_haec_dies_v_dicant_nunc.csv.ly",
+    "baseline_family": "layout-tie-rendering",
+    "current_blockers": {
+      "a4-p-orig": [
+        "arc: 2 tie/slur piece(s) shorter than 1.0 mm in mid-system, e.g. tie 10532-10630"
+      ],
+      "a5-l-orig": [
+        "arc: 2 tie/slur piece(s) shorter than 1.0 mm in mid-system, e.g. tie 10532-10630"
+      ],
+      "letter-l-orig": [
+        "arc: 1 tie/slur piece(s) shorter than 1.0 mm in mid-system, e.g. tie 22633-22712"
+      ],
+      "letter-p-orig": [
+        "arc: 1 tie/slur piece(s) shorter than 1.0 mm in mid-system, e.g. tie 17094-17131"
+      ]
+    },
+    "warnings": 37
+  },
+  {
+    "source": "data/typeset/src/vol-2/gr_haec_dies_v_lapidem.csv.ly",
+    "baseline_family": "layout-tie-rendering",
+    "current_blockers": {
+      "a4-p-orig": [
+        "arc: 1 tie/slur piece(s) shorter than 1.0 mm in mid-system, e.g. tie 16756-16793"
+      ],
+      "a5-l-orig": [
+        "arc: 1 tie/slur piece(s) shorter than 1.0 mm in mid-system, e.g. tie 16756-16793"
+      ],
+      "letter-l-orig": [
+        "arc: 1 tie/slur piece(s) shorter than 1.0 mm in mid-system, e.g. tie 22890-22971"
+      ],
+      "letter-p-orig": [
+        "arc: 1 tie/slur piece(s) shorter than 1.0 mm in mid-system, e.g. tie 17271-17320"
+      ]
+    },
+    "warnings": 46
+  },
+  {
+    "source": "data/typeset/src/vol-2/in_exaudi_domine__adjutor.csv.ly",
+    "baseline_family": "layout-tie-rendering",
+    "current_blockers": {
+      "custom-160x230-auto": [
+        "arc: 1 tie/slur piece(s) shorter than 1.0 mm in mid-system, e.g. tie id-ev1e0057c2-tie spanning split-tie 1477-1565"
+      ]
+    },
+    "warnings": 4
+  },
+  {
+    "source": "data/typeset/src/vol-3/co_jacob_autem.csv.ly",
+    "baseline_family": "layout-clipping",
+    "current_blockers": {
+      "a5-p-auto": [
+        "no pages rendered (CONTENT_CLIPPED: content starts 16.39 mm left of the content area)"
+      ],
+      "ipad11-l-large-auto": [
+        "no pages rendered (CONTENT_CLIPPED: content starts 21.74 mm left of the content area)"
+      ],
+      "letter-p-auto": [
+        "no pages rendered (CONTENT_CLIPPED: content starts 16.39 mm left of the content area)"
+      ]
+    },
+    "warnings": 3
+  }
+]

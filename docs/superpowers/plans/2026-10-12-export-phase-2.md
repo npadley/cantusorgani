@@ -55,14 +55,14 @@ Order matters: P1 and P2 change the converter, so run the catalogue (P4) after t
   (non-positive duration) and `vol-1/in_rorate__ps_caeli_enarrant.csv.ly` (slur never stops; LilyPond also
   ignores a doubled slur start elsewhere). These are transcription errors, not converter bugs: file them as
   corrections rather than working around them.
-- [ ] **P4 Catalogue run and batch publication** — [S] run, coordinator publishes.
+- [x] **P4 Catalogue run and batch publication** — [S] run, coordinator publishes.
   - `uv run noh typeset-mei-batch --sources <all non-empty sources> --out build/catalogue --workers 2
     --auto-approve` (resumable; about 1.5–3 pieces a minute on a loaded machine — run it overnight).
   - Commit approved records in reviewable batches (by volume), publish each batch through `mei-conversion`
     (check how many sources one dispatch can take; split if needed), then a manifest PR per batch.
   - Each batch report lists a small random sample of auto-approved pieces for an optional spot-check (D22).
   - Report coverage from the audited denominator, and blockers by family.
-- [ ] **P5 Layout residuals** — [S], layout.
+- [x] **P5 Layout residuals** — [S], layout.
   - Avoidable mid-word starts that remain (B4d8: 8 starts in 5 pieces, fixtures in
     `web/src/lib/export-layout/__fixtures__/catalogue/`). D24 already lets an unavoidable one through as `info`.
   - Precheck tie-endpoint tolerance: a revealed eighth-note continuation with a flag starts its tie ~0.3 mm
@@ -105,7 +105,7 @@ from P4's report.
 
 ## Decisions needed from the user
 
-1. Should a lyric collision (Verovio's spacing, below 0.3 mm) block automatic approval? (P5)
+1. Resolved: gaps below 0.3 mm are nonblocking review warnings (user, 2026-10-12). (P5)
 2. Spot-check cadence for auto-approved batches: optional sample as now, or a required sample per volume? (P4)
 3. When to schedule P1–P4 against the weekly usage budget (P4 is mostly machine time, not agent time).
 
@@ -132,6 +132,8 @@ from P4's report.
 - **Device testing.** `pnpm build:e2e && pnpm serve:device` serves the fixture build to an iPad on the LAN
   (see `b10b-device-checklist.md`).
 
-Operations started 2026-10-12 after #108: [carry restoration and catalogue notes](../reviews/2026-10-12-export-operations/README.md). The catalogue is running; P4 publication is not complete.
+Operations started 2026-10-12 after #108: [carry restoration and catalogue notes](../reviews/2026-10-12-export-operations/README.md). P4 completed: 708 eligible records published, all 1,416 live objects verified, volume manifest PRs #117–120 merged, deployment and live reflow/lyric-placement checks passed. Of 859 audited sources, 69 approved sources await target matching and 82 remain technically or editorially blocked. [P5 evidence and deferred inventory](../reviews/2026-10-12-export-p5/README.md).
 
 2026-10-12 release decision: user authorized upload and merge using the existing export limits; additional P6 measurement is deferred. Site release PRs may be merged by the coordinator after green CI and verification.
+
+2026-10-12 P5: generated split ties now attach to the nearest visible predecessor; lyric spacing is reported as nonblocking advice. Existing word-boundary fixtures and flagged-note endpoint checks pass, so no speculative tolerance relaxation was added. The seven additional deferred layout cases still reproduce and remain deferred; completing this card does not approve or publish them.
