@@ -12,7 +12,7 @@ review state or approval. Checks:
 * bar lines: a finalis measure end is drawn as a double bar and a divisio maxima as a single bar;
 * all 13 required layout cases exist and laid out;
 * hidden heads draw nothing: no augmentation dots on a split continuation;
-* lyrics: every encoded syllable is drawn;
+* lyrics: every encoded syllable is drawn; measured gaps below 0.3 mm are nonblocking review advice;
 * word-boundary breaks: automatic cases that start a system in the middle of a word (informational).
 """
 
@@ -32,7 +32,7 @@ from pipeline.typeset.mei.model import REQUIRED_MATRIX
 __all__ = ["PRECHECK_VERSION", "precheck_packet"]
 
 #: Bump when a check is added or changed: an automatic approval records the version it was judged under.
-PRECHECK_VERSION = "precheck/6"
+PRECHECK_VERSION = "precheck/7"
 
 M = "{http://www.music-encoding.org/ns/mei}"
 XML_ID = "{http://www.w3.org/XML/1998/namespace}id"
@@ -246,6 +246,7 @@ def precheck_packet(convert_dir: Path, evidence_dir: Path | None = None) -> dict
     for missing in sorted(required - {p.name for p in cases_root.iterdir() if p.is_dir()}):
         findings[missing] = ["case was not laid out (no folder in the packet)"]
     summary = json.loads((cases_root / "cases.json").read_text(encoding="utf-8"))
+    case_evidence = {c["id"]: c for c in summary["cases"]}
     sizes = {c["id"]: c.get("staffHeightMm", 7.2) for c in summary["cases"]}
     problems_by_case = {c["id"]: [d for d in c.get("diagnostics", []) if d.get("severity") == "error"] for c in summary["cases"]}
     for case_dir in sorted(p for p in cases_root.iterdir() if p.is_dir() and p.name not in findings):
@@ -256,6 +257,16 @@ def precheck_packet(convert_dir: Path, evidence_dir: Path | None = None) -> dict
             reasons = "; ".join(f"{d['code']}: {d.get('detail', '')[:120]}" for d in problems_by_case.get(case, []))
             out.append(f"no pages rendered ({reasons or 'no diagnostic'})")
             continue
+        # The renderer measures these gaps with the real lyric font. SVG text has
+        # no reliable ink box, so do not estimate widths here. D22 keeps info:
+        # advice visible in the report without blocking automatic approval.
+        for gap in case_evidence.get(case, {}).get("lyricGaps", []):
+            if gap["gapMm"] < 0.3:
+                system = f", system {gap['system'] + 1}" if "system" in gap else ""
+                out.append(
+                    f"info: lyrics: {gap['a']!r} / {gap['b']!r} gap {gap['gapMm']:.3f} mm "
+                    f"on page {gap['page']}{system} (below 0.3 mm; review warning)"
+                )
         scale = float(sizes.get(case, 7.2)) / 7.2  # staff size relative to medium
         drawn_ornaments = set().union(*(page.ornaments for page in pages))
         for ornament_id in ornaments_wanted:

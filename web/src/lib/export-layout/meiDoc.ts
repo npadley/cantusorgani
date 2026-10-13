@@ -1,6 +1,7 @@
 import { DOMParser, XMLSerializer } from '@xmldom/xmldom';
 import type { Document, Element, Node } from '@xmldom/xmldom';
 import type { EffectiveBreaks, LinePolicy, SafeBoundary } from './types';
+import { splitTieStartId } from './splitTieGeometry';
 
 const MEI_NS = 'http://www.music-encoding.org/ns/mei';
 const XML_ID = 'xml:id';
@@ -64,7 +65,7 @@ function revealSplitSustains(doc: Document, brokenMeasureIds: ReadonlySet<string
     const tie = doc.createElementNS(MEI_NS, 'tie');
     tie.setAttribute(XML_ID, tieId);
     tie.setAttribute('type', 'split-tie');
-    tie.setAttribute('startid', `#${prevId}`);
+    tie.setAttribute('startid', `#${splitTieStartId(prev, byXmlId)}`);
     tie.setAttribute('endid', `#${contId}`);
     measure.appendChild(tie);
   }
