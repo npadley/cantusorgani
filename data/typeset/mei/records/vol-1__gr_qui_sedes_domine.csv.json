@@ -3,14 +3,14 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T19:07:57Z"
+    "timestamp": "2026-10-13T05:33:23Z"
   },
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -25,7 +25,7 @@
     "accepted_differences": [],
     "artifact_sha256": "d03a52d2b61d0327402d1f05fc779cd91d28a02f9f26adc53e51b767f7f5b300",
     "decision": "approve",
-    "inputs_digest": "bed4a59f6f3a3c3367341611c18d1b9b0ff511651c184932d09d7c1d2f334a55",
+    "inputs_digest": "1000153d600061e90cfcb85c883a9a45e4d6d3e737b39c7258b52734110285a2",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T19:07:57Z"
+    "timestamp": "2026-10-13T05:33:23Z"
   },
   "source_path": "data/typeset/src/vol-1/gr_qui_sedes_domine.csv.ly",
   "state": "approved",

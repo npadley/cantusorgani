@@ -3,14 +3,14 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T19:38:38Z"
+    "timestamp": "2026-10-13T05:36:00Z"
   },
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -25,7 +25,7 @@
     "accepted_differences": [],
     "artifact_sha256": "a59df4cd7055b4dfcd353aeef8263422302ec8c583be19a20e95b51f37b9a816",
     "decision": "approve",
-    "inputs_digest": "0b5c741227d93b66a4538e5f467665620748b6d54ac831b7e02fe213e56d6754",
+    "inputs_digest": "8a647cd1d19cef2f1bfaa161ea48942925fe479dccbd0c3aad9c0373d1077809",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T19:38:38Z"
+    "timestamp": "2026-10-13T05:36:00Z"
   },
   "source_path": "data/typeset/src/vol-2/of_sicut_in_holocausto.csv.ly",
   "state": "approved",

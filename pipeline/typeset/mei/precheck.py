@@ -19,6 +19,7 @@ review state or approval. Checks:
 from __future__ import annotations
 
 import json
+import math
 import re
 from collections import defaultdict
 from itertools import pairwise
@@ -32,7 +33,7 @@ from pipeline.typeset.mei.model import REQUIRED_MATRIX
 __all__ = ["PRECHECK_VERSION", "precheck_packet"]
 
 #: Bump when a check is added or changed: an automatic approval records the version it was judged under.
-PRECHECK_VERSION = "precheck/7"
+PRECHECK_VERSION = "precheck/8"
 
 M = "{http://www.music-encoding.org/ns/mei}"
 XML_ID = "{http://www.w3.org/XML/1998/namespace}id"
@@ -65,8 +66,11 @@ class _Page:
         self.stemmed_continuations: list[str] = []  # revealed continuations that also draw a stem, flag or accidental
         self._ledgers: list[tuple[str, float, float, float]] = []  # (above|below, x1, x2, y)
         self._head_points: list[tuple[float, float]] = []
-        self._arcs: list[tuple[str, float, float]] = []  # (class, min x, max x) of every tie/slur piece
-        self._staff_x: list[tuple[float, float]] = []
+        self._arcs: list[tuple[str, float, float, int, tuple[float, float] | None, list[tuple[float, float]]]] = []
+        self._staff_x: list[tuple[int, float, float]] = []  # (system, min x, max x)
+        self._drawn_split_ties: dict[str, tuple[int, list[tuple[float, float]]]] = {}
+        self._head_system: dict[str, int] = {}
+        self._split_continuation_heads: set[str] = set()
         self._note = ""
         self._head = False
         self.bars: dict[str, set[int]] = defaultdict(set)  # measure id -> x of every vertical bar line stroke
@@ -91,10 +95,59 @@ class _Page:
         ]
         stubs: list[str] = []
         if self._staff_x:
-            left = min(a for a, _b in self._staff_x)
-            right = max(b for _a, b in self._staff_x)
-            for cls, lo, hi in self._arcs:
+            left = min(a for _system, a, _b in self._staff_x)
+            right = max(b for _system, _a, b in self._staff_x)
+            system_bounds = {
+                system: (
+                    min(a for s, a, _b in self._staff_x if s == system),
+                    max(b for s, _a, b in self._staff_x if s == system),
+                )
+                for system, _a, _b in self._staff_x
+            }
+            for cls, lo, hi, system, endpoint, points in self._arcs:
                 if hi - lo < MIN_ARC and hi < right - 200 and lo > left + 1200:  # not a piece at a system edge
+                    classes = cls.split()
+                    tie_ref = next((c[3:] for c in classes if c.startswith("id-") and c.endswith("-tie")), None)
+                    continuation = tie_ref[:-4] if tie_ref else None
+                    source = re.sub(r"c\d+$", "", continuation) if continuation else None
+                    own_left = system_bounds.get(system, (None, None))[0]
+                    own_bounds = system_bounds.get(system)
+                    counterpart = self._drawn_split_ties.get(tie_ref) if tie_ref else None
+                    source_head = self.heads.get(source) if source else None
+                    valid_counterpart = False
+                    if counterpart and source_head:
+                        source_system, source_points = counterpart
+                        bounds = system_bounds.get(source_system)
+                        if bounds and len(source_points) >= 4:
+                            source_left, source_right = bounds
+                            valid_counterpart = (
+                                self._head_system.get(source) == source_system == system - 1
+                                and _near(source_points[0], source_head)
+                                and source_right - 1200 <= source_points[3][0] <= source_right + 200
+                                and all(
+                                    math.isfinite(x) and math.isfinite(y)
+                                    and source_left - 200 <= x <= source_right + 200
+                                    and abs(y - source_head[1]) <= Y_SLACK
+                                    for x, y in source_points
+                                )
+                            )
+                    if (
+                        "spanning" in classes and "split-tie" in classes and valid_counterpart
+                        and continuation in self._split_continuation_heads
+                        and self._head_system.get(continuation) == system
+                        and endpoint is not None and _near(endpoint, self.heads[continuation])
+                        and own_bounds is not None and len(points) >= 4
+                        and all(
+                            math.isfinite(x) and math.isfinite(y)
+                            and own_bounds[0] - 200 <= x <= own_bounds[1] + 200
+                            and abs(y - self.heads[continuation][1]) <= Y_SLACK
+                            for x, y in points
+                        )
+                        and own_left is not None and own_left - 200 <= lo <= own_left + 1200 + MIN_ARC
+                    ):
+                        # Verovio draws this generated continuation at the next system's left edge.
+                        # The real split tie, its target head and its source head are all present.
+                        continue
                     stubs.append(f"{cls} {lo:.0f}-{hi:.0f}")
         return orphans, stubs
 
@@ -143,12 +196,18 @@ class _Page:
                     for p in el.findall(S + "path"):
                         mm = re.match(r"^M(-?[\d.]+) (-?[\d.]+) L(-?[\d.]+) (-?[\d.]+)$", p.get("d") or "")
                         if mm:
-                            self._staff_x.append((float(mm.group(1)) + dx, float(mm.group(3)) + dx))
+                            self._staff_x.append((self._system, float(mm.group(1)) + dx, float(mm.group(3)) + dx))
                 if ("tie" in cls or "slur" in cls):
                     path = el.find(S + "path")
-                    arc = [float(v) for v in re.findall(r"-?\d+(?:\.\d+)?", path.get("d") or "")][0::2] if path is not None else []
-                    if arc:
-                        self._arcs.append((" ".join(cls), min(arc) + dx, max(arc) + dx))
+                    nums = [float(v) for v in re.findall(r"-?\d+(?:\.\d+)?", path.get("d") or "")] if path is not None else []
+                    if nums:
+                        arc = nums[0::2]
+                        endpoint = (nums[6] + dx, nums[7] + dy) if len(nums) >= 8 else None
+                        points = [(nums[i] + dx, nums[i + 1] + dy) for i in range(0, len(nums) - 1, 2)]
+                        self._arcs.append((" ".join(cls), min(arc) + dx, max(arc) + dx, self._system, endpoint, points))
+                        if "tie" in cls and "split-tie" in cls and ident and len(nums) >= 8 and len(nums) % 2 == 0:
+                            points = [(nums[i] + dx, nums[i + 1] + dy) for i in range(0, len(nums), 2)]
+                            self._drawn_split_ties[ident] = (self._system, points)
                 if "split-continuation" in cls and ident and any(
                     c.tag == S + "g" and "notehead" in _cls(c) and next(iter(c.iter(S + "use")), None) is not None for c in el.iter()
                 ) and any(
@@ -168,6 +227,9 @@ class _Page:
                     mm = _TRANSLATE.search(use.get("transform") or "") if use is not None else None
                     if mm:
                         self.heads[ident] = (float(mm.group(1)) + dx, float(mm.group(2) or 0) + dy)
+                        self._head_system[ident] = self._system
+                        if "split-continuation" in cls:
+                            self._split_continuation_heads.add(ident)
                         self._head_points.append(self.heads[ident])
                 if "syl" in cls:
                     self.syllables += 1

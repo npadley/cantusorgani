@@ -3,14 +3,14 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T19:43:54Z"
+    "timestamp": "2026-10-13T05:36:22Z"
   },
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -25,7 +25,7 @@
     "accepted_differences": [],
     "artifact_sha256": "8af62243e65dc17bcb14acc04dc5189b80cfdf7487042b7576d5fe64d4adfed8",
     "decision": "approve",
-    "inputs_digest": "ab1e162744ffcf609107e157a164db47807e6e4e2b4ab68afc7144215fd771e2",
+    "inputs_digest": "d75c436d00e8dba44b54f14ed61cb2632949bf46257f66637215b77e3468ee59",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T19:43:54Z"
+    "timestamp": "2026-10-13T05:36:22Z"
   },
   "source_path": "data/typeset/src/vol-3/an_adorna.csv.ly",
   "state": "approved",

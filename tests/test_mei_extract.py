@@ -458,6 +458,49 @@ def test_build_boundaries_agnus_xi_has_voice_line_crosses():
     assert any(b.reason == "voice-line-crosses" and not b.safe for b in boundaries)
 
 
+def test_original_break_inside_voice_line_is_placeable_but_user_candidate_stays_unsafe():
+    rows, layers, events, _ = load("agnus_XI")
+    lyrics, _, _ = build_lyrics(rows, layers, events)
+    spans, _ = build_spans(rows, events)
+    divisions = build_divisions(rows, layers)
+    original = build_boundaries(rows, layers, events, spans, lyrics, divisions)
+    crossings = [b for b in original if b.reason == "voice-line-crosses" and not b.source_break]
+    assert len(crossings) >= 2
+    chosen = crossings[0]
+    rows_with_source_break = [*rows, extract.Row(chosen.onset, "-", "-", "break", ("agnus_XI.ly:1:0",))]
+    boundaries = build_boundaries(rows_with_source_break, layers, events, spans, lyrics, divisions)
+    at = {b.onset: b for b in boundaries}
+    assert at[chosen.onset].source_break
+    assert at[chosen.onset].safe and at[chosen.onset].reason is None
+    assert not at[crossings[1].onset].safe
+    assert at[crossings[1].onset].reason == "voice-line-crosses"
+
+
+def test_original_break_strictly_inside_voice_line_remains_unsafe():
+    rows, layers, events, _ = load("agnus_XI")
+    lyrics, _, _ = build_lyrics(rows, layers, events)
+    spans, _ = build_spans(rows, events)
+    divisions = build_divisions(rows, layers)
+    by_id = {event.id: event for event in events}
+    original = build_boundaries(rows, layers, events, spans, lyrics, divisions)
+    interior = next(
+        b for b in original
+        if b.reason == "voice-line-crosses"
+        and any(
+            span.kind == "voice-line"
+            and by_id[span.start_event_id].onset < b.onset < by_id[span.end_event_id].onset
+            for span in spans
+        )
+    )
+    rows_with_source_break = [*rows, extract.Row(interior.onset, "-", "-", "break", ("agnus_XI.ly:1:0",))]
+    boundary = next(
+        b for b in build_boundaries(rows_with_source_break, layers, events, spans, lyrics, divisions)
+        if b.onset == interior.onset
+    )
+    assert boundary.source_break
+    assert not boundary.safe and boundary.reason == "voice-line-crosses"
+
+
 SYNTHETIC_HEAD = (
     "0\t-\t-\tversion\tlisten_full/1\t2.26.0\n"
     "0\t-\tup\tstaff\t1\n"

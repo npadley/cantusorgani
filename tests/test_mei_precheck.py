@@ -9,7 +9,7 @@ import pytest
 
 from pipeline.typeset.mei.cli import convert_command
 from pipeline.typeset.mei.evidence import build_evidence, run_node_renderer
-from pipeline.typeset.mei.precheck import precheck_packet
+from pipeline.typeset.mei.precheck import _Page, precheck_packet
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "data/typeset/src/vol-5/missa-ix/kyrie_IX.ly"
@@ -116,3 +116,74 @@ def test_precheck_flags_a_revealed_continuation_that_draws_a_stem(tmp_path: Path
 def test_precheck_flags_a_tie_stub_in_mid_system(tmp_path: Path) -> None:
     findings = _inject(tmp_path, '<g class="tie"><path d="M5000,100 C5020,50 5060,50 5080,100"/></g>')
     assert any(f.startswith("arc:") for f in findings["letter-p-orig"])
+
+
+def _system_edge_split_tie_svg(tmp_path: Path, *, spanning: str | None = None,
+                               counterpart: str | None = None, source: str | None = None,
+                               continuation: str | None = None, intervening: str = "") -> Path:
+    source = source if source is not None else '<g id="ev9" class="note"><g class="notehead"><use transform="translate(4700, 100)"/></g></g>'
+    counterpart = counterpart if counterpart is not None else '<g id="ev9c2-tie" class="tie split-tie"><path d="M4700,100 C4750,0 4850,0 4900,100"/></g>'
+    spanning = spanning if spanning is not None else '<g class="tie id-ev9c2-tie spanning split-tie"><path d="M1477,100 C1499,0 1543,0 1565,100"/></g>'
+    continuation = continuation if continuation is not None else '<g id="ev9c2" class="note split-continuation"><g class="notehead"><use transform="translate(1610, 100)"/></g></g>'
+    svg = tmp_path / "edge.svg"
+    svg.write_text(
+        '<svg xmlns="http://www.w3.org/2000/svg">'
+        '<g class="system"><g class="staff"><path d="M0 0 L5000 0"/></g>' + source + counterpart + '</g>'
+        + intervening +
+        '<g class="system"><g class="staff"><path d="M270 0 L5000 0"/></g>'
+        + continuation + spanning + '</g></svg>', encoding="utf-8",
+    )
+    return svg
+
+
+def test_precheck_accepts_drawn_split_tie_continuation_at_its_own_system_edge(tmp_path: Path) -> None:
+    page = _Page(_system_edge_split_tie_svg(tmp_path))
+    assert page.stubs == []
+
+
+@pytest.mark.parametrize("mutation", [
+    "no-counterpart", "malformed-counterpart", "displaced-counterpart", "no-source",
+    "distant-endpoint", "giant-spanning-control", "wrong-target-class", "skipped-system",
+    "interior", "not-split-tie", "ordinary-tie",
+])
+def test_precheck_keeps_short_arc_gate_when_split_tie_proof_is_missing(tmp_path: Path, mutation: str) -> None:
+    kwargs: dict[str, str] = {}
+    if mutation == "no-counterpart":
+        kwargs["counterpart"] = ""
+    elif mutation == "malformed-counterpart":
+        kwargs["counterpart"] = '<g id="ev9c2-tie" class="tie split-tie"><path d="M-2147468953,100 C1610627456,0 536885696,0 4900,100"/></g>'
+    elif mutation == "displaced-counterpart":
+        kwargs["counterpart"] = '<g id="ev9c2-tie" class="tie split-tie"><path d="M4000,100 C4100,0 4200,0 4300,100"/></g>'
+    elif mutation == "no-source":
+        kwargs["source"] = ""
+    elif mutation == "distant-endpoint":
+        kwargs["continuation"] = '<g id="ev9c2" class="note split-continuation"><g class="notehead"><use transform="translate(2500, 100)"/></g></g>'
+    elif mutation == "giant-spanning-control":
+        kwargs["spanning"] = '<g class="tie id-ev9c2-tie spanning split-tie"><path d="M1477,100 C1499,9999999 1543,0 1565,100"/></g>'
+    elif mutation == "wrong-target-class":
+        kwargs["continuation"] = '<g id="ev9c2" class="note"><g class="notehead"><use transform="translate(1610, 100)"/></g></g>'
+    elif mutation == "skipped-system":
+        kwargs["intervening"] = '<g class="system"><g class="staff"><path d="M0 0 L5000 0"/></g></g>'
+    elif mutation == "interior":
+        kwargs["spanning"] = '<g class="tie id-ev9c2-tie spanning split-tie"><path d="M3000,100 C3020,0 3060,0 3080,100"/></g>'
+    elif mutation == "not-split-tie":
+        kwargs["spanning"] = '<g class="tie id-ev9c2-tie spanning"><path d="M1477,100 C1499,0 1543,0 1565,100"/></g>'
+    else:
+        kwargs["spanning"] = '<g class="tie"><path d="M1477,100 C1499,0 1543,0 1565,100"/></g>'
+    assert _Page(_system_edge_split_tie_svg(tmp_path, **kwargs)).stubs
+
+
+def test_precheck_cached_exaudi_malformed_source_tie_stays_blocking() -> None:
+    svg = ROOT / "build/catalogue/efa7e3cce8baa2d30b97885d3703df2b88a9d699f810fe9a108d6d7ccba5c66d/evidence/cases/custom-160x230-auto/custom-160x230-auto-p1.svg"
+    if not svg.exists():
+        pytest.skip("cached real render unavailable")
+    page = _Page(svg)
+    assert any("id-ev1e0057c2-tie" in stub for stub in page.stubs)
+
+
+def test_precheck_fresh_exaudi_split_tie_is_a_system_edge_piece() -> None:
+    svg = ROOT / "build/p5-rerenders/efa7e3cce8baa2d30b97885d3703df2b88a9d699f810fe9a108d6d7ccba5c66d/evidence/cases/custom-160x230-auto/custom-160x230-auto-p1.svg"
+    if not svg.exists():
+        pytest.skip("fresh P5 render unavailable")
+    page = _Page(svg)
+    assert not any("id-ev1e0057c2-tie" in stub for stub in page.stubs)

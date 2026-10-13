@@ -3,14 +3,14 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T19:44:58Z"
+    "timestamp": "2026-10-13T05:36:27Z"
   },
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -25,7 +25,7 @@
     "accepted_differences": [],
     "artifact_sha256": "4da6a5ff9ed26c8e572a006f37722fcb86b74c040fab3477536cf87d683a7040",
     "decision": "approve",
-    "inputs_digest": "24ed4965a56c41904208c07e7e4e0b977cc9c5d68a01abe5ecdcf24833a1aaf7",
+    "inputs_digest": "6b9ed1f5c23e6c85c9fc45bbaab0b9ebffee355edf7f28a552865b5dd809e6ad",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T19:44:58Z"
+    "timestamp": "2026-10-13T05:36:27Z"
   },
   "source_path": "data/typeset/src/vol-3/co_domine_quinque_talenta.csv.ly",
   "state": "approved",

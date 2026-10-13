@@ -3,9 +3,9 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T18:10:56Z"
+    "timestamp": "2026-10-13T05:38:19Z"
   },
   "diagnostics": [
     {
@@ -50,8 +50,8 @@
     }
   ],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -66,7 +66,7 @@
     "accepted_differences": [],
     "artifact_sha256": "943ce6f59aad91fa709f947eca0965a4787695d16c50db6d0aded93d59496ee0",
     "decision": "approve",
-    "inputs_digest": "efe76a42c97e3707a50ec948e13a2a676703de2bf300c294f863f2b240712640",
+    "inputs_digest": "d57f3f9e9779651a05d6f5dfadb424cfdc80d5fafae4865823e9f9729b47f761",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -83,7 +83,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T18:10:56Z"
+    "timestamp": "2026-10-13T05:38:19Z"
   },
   "source_path": "data/typeset/src/vol-5/missa-viii/sanctus_VIII.ly",
   "state": "approved",

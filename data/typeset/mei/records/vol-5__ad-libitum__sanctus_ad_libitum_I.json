@@ -3,9 +3,9 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T18:06:29Z"
+    "timestamp": "2026-10-13T05:37:49Z"
   },
   "diagnostics": [
     {
@@ -45,8 +45,8 @@
     }
   ],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -61,7 +61,7 @@
     "accepted_differences": [],
     "artifact_sha256": "9a617fdb2110a65943f4012cb4f583fe415bd26ce4eed5835c2ceb04ec576fdf",
     "decision": "approve",
-    "inputs_digest": "7cc67f1ab69cce1f10c8f04b5d2d0a31f6e2ab19dd0ece35e240ffb23336e16f",
+    "inputs_digest": "2157e445d210e1103a520e84b97b0cb214fdbba26e3b65282f792a5b35ec072b",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -78,7 +78,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T18:06:29Z"
+    "timestamp": "2026-10-13T05:37:49Z"
   },
   "source_path": "data/typeset/src/vol-5/ad-libitum/sanctus_ad_libitum_I.ly",
   "state": "approved",

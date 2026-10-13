@@ -1,0 +1,108 @@
+{
+  "artifact_sha256": "2363db17192ff0ecf93ac87d69688efc226e95157ae3791493856fa0e3d0c27d",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/8",
+    "profile_version": 3,
+    "timestamp": "2026-10-13T05:37:48Z"
+  },
+  "diagnostics": [
+    {
+      "code": "VOICE_ENDS_UNEQUAL",
+      "details": [
+        [
+          "down:#2",
+          "487/8"
+        ],
+        [
+          "down:#3",
+          "487/8"
+        ],
+        [
+          "down:#4",
+          "473/8"
+        ],
+        [
+          "down:#5",
+          "479/8"
+        ],
+        [
+          "up:#1",
+          "487/8"
+        ],
+        [
+          "up:chant",
+          "487/8"
+        ]
+      ],
+      "event_ids": [
+        "0e0240",
+        "1e0088",
+        "2e0085",
+        "3e0081",
+        "4e0005",
+        "5e0003"
+      ],
+      "message": "layers of data/typeset/src/vol-5/ad-libitum/kyrie_ad_libitum_VII.ly end at different onsets",
+      "severity": "warning",
+      "source_location": null
+    }
+  ],
+  "inputs": {
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "5aac2454a716ee667a5e2cc91f07f512decdac7da15df7128553c6951dad3cd1",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "75ac51c66638adcccf2b5fcbf1d220c7",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "2363db17192ff0ecf93ac87d69688efc226e95157ae3791493856fa0e3d0c27d",
+    "decision": "approve",
+    "inputs_digest": "e92092dfe6f6907c11db71b1d177562c86cdfc49e97a254d8b2167c3748def30",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-13T05:37:48Z"
+  },
+  "source_path": "data/typeset/src/vol-5/ad-libitum/kyrie_ad_libitum_VII.ly",
+  "state": "approved",
+  "target": "piece:cantus-ad-libitum-kyrie-vii",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "ee9ec2081221f751d181f73731eda5f5161d5f407e80e31f1f300cbda3abb31b",
+      "mei": "2363db17192ff0ecf93ac87d69688efc226e95157ae3791493856fa0e3d0c27d",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}

@@ -5364,10 +5364,20 @@
     words: 0.99
     name: Domine Dominus noster
 - file: vol-2/gr_domine_refugium.csv.ly
-  target: null
-  status: broken
+  target: part:dominica-xxi-post-pentecosten/gradual
+  status: proposed
   evidence:
-    error: 'line 111:1: error: not a note name: gg'
+    by: page
+    incipit: Domine refú gium fa ctus es no bis
+    page: 244
+    candidates:
+    - target: part:dominica-xxi-post-pentecosten/gradual
+      melody: 0.983
+      words: 1.0
+    melody: 0.983
+    words: 1.0
+    name: Domine refugium
+    note: Printed source correction verified; complete chromatic reference comparison remains unresolved.
 - file: vol-2/gr_dulcis_et_rectus.csv.ly
   target: part:noh2-p133/gradual
   status: matched
@@ -5489,10 +5499,20 @@
     words: 1.0
     name: Haec dies
 - file: vol-2/gr_haec_dies_v_dicat_nunc.csv.ly
-  target: null
-  status: broken
+  target: part:die-ii-infra-octavam-pasch/gradual
+  status: proposed
   evidence:
-    error: 'line 125:35: error: octave marks must precede duration'
+    by: page
+    incipit: Hæc di es quam fecit Dóminus exsulté mus
+    page: 9
+    candidates:
+    - target: part:die-ii-infra-octavam-pasch/gradual
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Haec dies
+    note: Printed source correction verified; complete chromatic reference comparison remains unresolved.
 - file: vol-2/gr_haec_dies_v_lapidem.csv.ly
   target: part:die-v-infra-octavam-pasch/gradual
   status: matched
@@ -6574,7 +6594,7 @@
   target: null
   status: broken
   evidence:
-    error: 'line 107:59: error: syntax error, unexpected ''.'''
+    error: 'line 115:18: error: not a note name: df'
 - file: vol-2/of_populum_humilem.csv.ly
   target: part:dominica-viii-post-pentecosten/offertory
   status: matched
@@ -7501,10 +7521,21 @@
     words: 1.0
     name: Tanto tempore vobiscum sum
 - file: vol-3/al_te_gloriosus.csv.ly
-  target: null
-  status: broken
+  target: part:s-bartholom-i-apostoli/alleluia
+  status: matched
   evidence:
-    error: 'line 49:104: error: unknown command: `\normal'''
+    by: page
+    incipit: Alle lú ia alle lú ia ℣ Te
+    page: 338
+    candidates:
+    - target: part:s-bartholom-i-apostoli/alleluia
+      melody: 1.0
+      words: 1.0
+    melody: 1.0
+    words: 1.0
+    name: Te gloriosus
+    note: Printed pp.338–339 and complete 142-pitch expanded Alleluia comparison agree diatonically and chromatically; eight
+      tied continuations produce 134 physical attacks.
 - file: vol-3/al_tu_es_petrus_31.csv.ly
   target: part:in-cathedra-s-petri-romae/alleluia:shared
   status: matched
@@ -8240,26 +8271,20 @@
     name: Quicumque fecerit
 - file: vol-3/co_regina_mundi_272.csv.ly
   target: part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/communion
-  status: proposed
+  status: matched
   evidence:
-    by: kind
+    by: page
     incipit: Regína mundi di gníssima María Virgo perpétua intercé
-    page: 456
+    page: 272
     candidates:
     - target: part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/communion
       melody: 1.0
       words: 1.0
-    - target: part:b-mariae-virginis-reginae/communion
-      melody: 1.0
-      words: 1.0
-    - target: part:ss-quadraginta-martyrum/communion
-      melody: 0.607
-      words: 0.264
-    - target: part:s-basilidus/communion
-      melody: 0.548
-      words: 0.227
     melody: 1.0
     words: 1.0
+    name: Regina mundi
+    note: Printed Carmel p.272; all 98 pitches agree after scan-confirmed seasonal appendix and tied-head normalization; see
+      recovery evidence.
 - file: vol-3/co_religio_munda.csv.ly
   target: part:s-hieronymi-emiliani-confessoris/communion
   status: matched
