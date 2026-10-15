@@ -1,12 +1,12 @@
 # Deferred recovery results
 
-Fresh catalogue judgments: {'approved': 797, 'failed': 18, 'needs-review': 42, 'unsupported': 2}. Eligible current records: 727; all 708 published MEI bytes and boundaries unchanged; zero manifest exclusions.
+Fresh catalogue judgments: {'approved': 797, 'failed': 18, 'needs-review': 42, 'unsupported': 2}. Eligible current records: 728; all 708 published MEI bytes and boundaries unchanged; zero manifest exclusions.
 
-Recovered 19 of the original 151 deferred sources; 132 remain.
+Recovered 20 of the original 151 deferred sources; 131 remain.
 
 ## Remaining decisions and engineering
 
-- Preserve the existing St John Communion editor override pending the user’s response about the printed Exiit sermo/Fili quid fecisti assignments.
+- On 2026-10-15 the user restored the printed Communion assignments: Exiit sermo for St John (NOH1 p.73), Fili quid fecisti for the first Sunday after Epiphany (p.118). The superseded override is retained in [decision provenance](printed-communion-assignments.json) and Git history.
 - Catalogue gaps require printed section targets for S. Annae Introit (NOH3 p.281) and Ego dixi Gradual (NOH2 p.112), followed by full melody checks.
 - Proposed target collisions and musical variants require original-page/reference comparisons rather than lower approval thresholds.
 - Ambiguous syntax and notation need voice/pitch/duration confirmation against the printed scan; Oravi still has an unresolved df token.
@@ -103,7 +103,7 @@ Recovered 19 of the original 151 deferred sources; 132 remain.
 | `vol-1/al_vita_nostra.csv.ly` | approved | deferred | target-matching-editorial |
 | `vol-1/an_cum_angelis.csv.ly` | approved | deferred | target-matching-editorial |
 | `vol-1/an_omnes_collaudant_b.csv.ly` | approved | deferred | target-matching-editorial |
-| `vol-1/co_exiit_sermo.csv.ly` | approved | deferred | target-matching-editorial |
+| `vol-1/co_exiit_sermo.csv.ly` | approved | yes | target-matching-editorial |
 | `vol-1/hy_gloria_laus.2.csv.ly` | approved | deferred | target-matching-editorial |
 | `vol-1/hy_gloria_laus.3.csv.ly` | approved | deferred | target-matching-editorial |
 | `vol-1/hy_gloria_laus.4.csv.ly` | approved | deferred | target-matching-editorial |

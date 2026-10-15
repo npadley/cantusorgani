@@ -6,8 +6,9 @@
     "unsupported": 2
   },
   "published_baseline_preserved": 708,
-  "candidate_entries": 727,
+  "candidate_entries": 728,
   "new_eligible_sources": [
+    "data/typeset/src/vol-1/co_exiit_sermo.csv.ly",
     "data/typeset/src/vol-2/in_exaudi_domine__adjutor.csv.ly",
     "data/typeset/src/vol-3/al_te_gloriosus.csv.ly",
     "data/typeset/src/vol-3/co_regina_mundi_272.csv.ly",
@@ -30,8 +31,8 @@
   ],
   "excluded": {},
   "original_deferred": 151,
-  "original_deferred_recovered": 19,
-  "remaining_original_deferred": 132,
+  "original_deferred_recovered": 20,
+  "remaining_original_deferred": 131,
   "remaining_by_previous_family": {
     "zero-duration-extraction": 2,
     "source-tie-slur-review": 34,
@@ -42,7 +43,7 @@
     "source-compile-syntax": 15,
     "converter-divisio-inside-measure": 2,
     "converter-source-break-inside-measure": 2,
-    "target-matching-editorial": 68
+    "target-matching-editorial": 67
   },
   "items": [
     {
@@ -823,8 +824,7 @@
       "state": "approved",
       "criteria_failed": [],
       "previous_family": "target-matching-editorial",
-      "newly_eligible": false,
-      "remaining_work": "target/reference/editorial verification"
+      "newly_eligible": true
     },
     {
       "source": "data/typeset/src/vol-1/hy_gloria_laus.2.csv.ly",
@@ -1345,5 +1345,14 @@
       "newly_eligible": false,
       "remaining_work": "target/reference/editorial verification"
     }
-  ]
+  ],
+  "printed_assignment_restoration": {
+    "date": "2026-10-15",
+    "targets": {
+      "data/typeset/src/vol-1/co_exiit_sermo.csv.ly": "part:s-joannis-apostoli-et-evangelist/communion",
+      "data/typeset/src/vol-1/co_fili_quid_fecisti.csv.ly": "part:noh1-p112/communion"
+    },
+    "published_artifacts_unchanged": 708,
+    "published_target_rebindings": 1
+  }
 }

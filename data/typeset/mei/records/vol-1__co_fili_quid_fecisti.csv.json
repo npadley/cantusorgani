@@ -5,7 +5,7 @@
     "oracle_version": "a4b-1+a4a-1",
     "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-13T05:32:56Z"
+    "timestamp": "2026-10-15T21:58:56Z"
   },
   "diagnostics": [],
   "inputs": {
@@ -42,11 +42,11 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-13T05:32:56Z"
+    "timestamp": "2026-10-15T21:58:56Z"
   },
   "source_path": "data/typeset/src/vol-1/co_fili_quid_fecisti.csv.ly",
   "state": "approved",
-  "target": "part:s-joannis-apostoli-et-evangelist/communion",
+  "target": "part:noh1-p112/communion",
   "validation": {
     "eligible": true,
     "hashes": {
