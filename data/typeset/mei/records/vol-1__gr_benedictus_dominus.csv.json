@@ -3,14 +3,14 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T19:04:16Z"
+    "timestamp": "2026-10-13T05:33:06Z"
   },
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -25,7 +25,7 @@
     "accepted_differences": [],
     "artifact_sha256": "63fa115476a0a4a1b320333cde8e3d77421fb45d30b7e4a51d172b2c0793d505",
     "decision": "approve",
-    "inputs_digest": "1336c4c700d4ea2e89d7d3c936b139e5c0381ae62adb9b7a0920d0ceb03aa7a6",
+    "inputs_digest": "dfe2dba1e4b1a9f63fd7cf78d8e38671f5cad0a84ccee7375663dc812c2b73d6",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T19:04:16Z"
+    "timestamp": "2026-10-13T05:33:06Z"
   },
   "source_path": "data/typeset/src/vol-1/gr_benedictus_dominus.csv.ly",
   "state": "approved",

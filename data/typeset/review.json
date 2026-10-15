@@ -69,24 +69,6 @@
    ]
   },
   {
-   "file": "vol-1/co_exiit_sermo.csv.ly",
-   "status": "proposed",
-   "target": "part:s-joannis-apostoli-et-evangelist/communion",
-   "hash": "10f75385f4e91a0f4835e93c59c5962f",
-   "melody": 1.0,
-   "words": 1.0,
-   "incipit": "Exiit sermo inter fratres quod discípulus ille non",
-   "page": 73,
-   "note": "an editor chose vol-1/co_fili_quid_fecisti.csv.ly for part:s-joannis-apostoli-et-evangelist/communion",
-   "candidates": [
-    {
-     "target": "part:s-joannis-apostoli-et-evangelist/communion",
-     "melody": 1.0,
-     "words": 1.0
-    }
-   ]
-  },
-  {
    "file": "vol-1/hy_gloria_laus.2.csv.ly",
    "status": "proposed",
    "target": "part:noh1-p302/other:4",
@@ -333,22 +315,21 @@
   },
   {
    "file": "vol-2/gr_domine_refugium.csv.ly",
-   "status": "broken",
-   "target": null,
-   "error": "line 111:1: error: not a note name: gg",
-   "excerpt": {
-    "first": 108,
-    "line": 111,
-    "lines": [
-     "a4 ~ a2*6/2 b2*5/2 a4 ~ \\divisioMaior",
-     "a2 ~ a2*6/2 ~ a2 ~ a2*3/2 \\divisioMinima",
-     "gg2 fis2*3/2 ~ fis2*4/2 ~ fis2*9/4 ~ fis2*3/2 ~ fis2*3/2 b2 a4 ~ \\divisioMaxima",
-     "a2*6/2 ~ a2*7/2 b2*3/2 ~ \\divisioMinima",
-     "b2 fis2*3/2 ~ fis2*5/2 ~ fis2*3/2 ~ fis2*5/2 ~ fis2*3/2 \\divisioMaxima",
-     "a2*3/2 ~ a2*4/2 gis2 fis2 ~ fis2 ~ fis2*6/2 \\divisioMinima",
-     "a2*4/2 gis2 fis2*7/4 ~ fis2*3/2 ~ fis2*9/4 ~ \\divisioMinima"
-    ]
-   }
+   "status": "proposed",
+   "target": "part:dominica-xxi-post-pentecosten/gradual",
+   "hash": "376f4b7dff77de1f9b6a89d64082fc9c",
+   "melody": 0.983,
+   "words": 1.0,
+   "incipit": "Domine refú gium fa ctus es no bis",
+   "page": 244,
+   "note": "Printed source correction verified; complete chromatic reference comparison remains unresolved.",
+   "candidates": [
+    {
+     "target": "part:dominica-xxi-post-pentecosten/gradual",
+     "melody": 0.983,
+     "words": 1.0
+    }
+   ]
   },
   {
    "file": "vol-2/gr_ego_dixi.csv.ly",
@@ -384,22 +365,21 @@
   },
   {
    "file": "vol-2/gr_haec_dies_v_dicat_nunc.csv.ly",
-   "status": "broken",
-   "target": null,
-   "error": "line 125:35: error: octave marks must precede duration",
-   "excerpt": {
-    "first": 122,
-    "line": 125,
-    "lines": [
-     "cis2*5/2 b,2 fis2 \\finalis",
-     "r2*25/4 b2*4/2 a2*4/2 ~ a2*4/2 b2*3/2 ~ b2*3/2 \\divisioMaxima",
-     "r2*15/4 cis'2*4/2 b2*3/4 ~ b2*3/2 'a2 a2*6/2 gis4 ~ \\divisioMinima",
-     "gis2*3/4 fis2*3/2 ~ fis2*3/2 ~ fis2*3/2 ~ fis2 ~ fis4 \\divisioMaxima",
-     "cis2*6/2 ~ cis2 ~ cis2*5/2 ~ cis2*3/2 \\divisioMinima",
-     "d2 ~ d2*3/2 ~ d4 cis2*5/2 b,2*3/2 cis2*5/2 fis2*3/2 \\divisioMaxima",
-     "b,4 ~ b,2*5/2 ~ b,2*4/2 cis2 ~ cis2*4/2 d2*4/2 ~ d2 ~ \\divisioMinima"
-    ]
-   }
+   "status": "proposed",
+   "target": "part:die-ii-infra-octavam-pasch/gradual",
+   "hash": "1d8de1aeb9796591e0b113b2cfa55e4c",
+   "melody": 1.0,
+   "words": 1.0,
+   "incipit": "Hæc di es quam fecit Dóminus exsulté mus",
+   "page": 9,
+   "note": "Printed source correction verified; complete chromatic reference comparison remains unresolved.",
+   "candidates": [
+    {
+     "target": "part:die-ii-infra-octavam-pasch/gradual",
+     "melody": 1.0,
+     "words": 1.0
+    }
+   ]
   },
   {
    "file": "vol-2/in_domine_in_tua_misericordia.csv.ly",
@@ -628,18 +608,18 @@
    "file": "vol-2/of_oravi_deum.csv.ly",
    "status": "broken",
    "target": null,
-   "error": "line 107:59: error: syntax error, unexpected '.'",
+   "error": "line 115:18: error: not a note name: df",
    "excerpt": {
-    "first": 104,
-    "line": 107,
+    "first": 112,
+    "line": 115,
     "lines": [
-     "",
-     "bassMusic = {",
-     "d2*3/2 ~ d2*7/4 ~ d2*3/2 ~ d2 ~ d2*7/4 ~ d2*9/4 ~ d2*3/2 a.2 a,2*3/4 \\divisioMinima",
-     "c2*4/2 bes,2 ~ bes,4 d2 ~ d4 \\divisioMaior",
-     "a,2*3/2 bes,2 c2*3/2 d2 ~ d4 ~ d2*9/4 a,2*4/2 ~ a,2*4/2 c2*3/2 \\divisioMaxima",
-     "e4 c2*3/2 b,2 a,2*6/2 c2*3/2 ~ \\divisioMaior",
-     "c2*5/2 ~ c2*4/2 ~ c2 ~ c2*4/2 d2 ~ d2*3/4 \\divisioMaxima"
+     "c4 e2 d2*3/2 ~ d2 c2*3/2 ~ c2*3/2 ~ c2*4/2 ~ c2*4/2 g,2*3/2 ~ g,4 \\divisioMaxima",
+     "r2 c2*4/2 e2 d2*3/2 bes,2*3/2 c2*3/4 ~ \\divisioMaior",
+     "c2*5/2 f2 e2*3/2 df2 a,2 ~ a,2 c2 \\divisioMinima",
+     "e2 a2*4/2 f2*3/2 d2*4/2 a,2*3/2 c2 \\divisioMinima",
+     "e2*3/2 ~ e2 ~ e2*3/4 d2 ~ d2*3/2 b,2 ~ \\divisioMaior",
+     "b,4 d2*3/2 ~ d2*7/4 a,2 ~ a,2*4/2 e2*9/4 ~ e2 ~ e2*7/4 d2*3/2 a,2*4/2 ~ a,2*3/2 ~ a,2 ~ a,2*3/2 ~ a,4 \\finalis",
+     "}"
     ]
    }
   },
@@ -894,25 +874,6 @@
    ]
   },
   {
-   "file": "vol-3/al_te_gloriosus.csv.ly",
-   "status": "broken",
-   "target": null,
-   "error": "line 49:104: error: unknown command: `\\normal'",
-   "excerpt": {
-    "first": 46,
-    "line": 49,
-    "lines": [
-     "chantMusic = {",
-     "\\tieDown   ees'4 ( f'4) g'4 ( aes'4 bes'4 c''4) ~ c''4 ( bes'4) bes'4 ( d''4 ees''4 c''4) d''4 ( \\tiny c'' bes' 4) bes'4 \\divisioMaior",
-     "  ees'4 ( f'4) g'4 ( aes'4 bes'4 c''4) ~ c''4 ( bes'4) bes'4 ( d''4 ees''4 c''4) d''4 ( \\tiny c'' bes' \\normal) bes'4 \\divisioMaior",
-     " bes'4 ( c''4) d''4 ( ees''4 c''4.) ees''4 ( d''4 c''4 bes'4.) aes'4 ( c''4 aes'4 bes'4.) g'4 ( bes'4 aes'4 g'4 f'4 ees'4) \\divisioMinima",
-     " ees'4 ( f'4 g'4 aes'4 bes'4 c''4) ~ c''4 ( bes'4 aes'4 f'4) g'4 ( f'4) ~ f'4 ( ees'4) \\finalis",
-     " ees'4 ( f'4) aes'4 g'4 aes'4 ( bes'4) bes'4 ( aes'4 g'4 f'4) aes'4 ( bes'4 c''4) ~ c''4 ( bes'4) \\divisioMinima",
-     " bes'4 bes'4 ( c''4) c''4 ( bes'4) aes'4 ( g'4 f'4) f'4 ( bes'4 aes'4 g'4) ees'4 ( f'4 ees'4) ees'4 \\divisioMaxima"
-    ]
-   }
-  },
-  {
    "file": "vol-3/an_lumen_ad_revelationem.2.csv.ly",
    "status": "proposed",
    "target": "part:s-ignatii-episcopi-et-martyris/communion",
@@ -1053,38 +1014,6 @@
      "target": "part:s-ambrosii-episcopi-confessoris-et-ecclesi-doctoris/communion",
      "melody": 0.574,
      "words": 0.369
-    }
-   ]
-  },
-  {
-   "file": "vol-3/co_regina_mundi_272.csv.ly",
-   "status": "proposed",
-   "target": "part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/communion",
-   "hash": "5e1aa2db2d1556e39fc17bbe66f27c5e",
-   "melody": 1.0,
-   "words": 1.0,
-   "incipit": "Regína mundi di gníssima María Virgo perpétua intercé",
-   "page": 456,
-   "candidates": [
-    {
-     "target": "part:in-commemoratione-beat-mari-virgine-de-monte-carmelo/communion",
-     "melody": 1.0,
-     "words": 1.0
-    },
-    {
-     "target": "part:b-mariae-virginis-reginae/communion",
-     "melody": 1.0,
-     "words": 1.0
-    },
-    {
-     "target": "part:ss-quadraginta-martyrum/communion",
-     "melody": 0.607,
-     "words": 0.264
-    },
-    {
-     "target": "part:s-basilidus/communion",
-     "melody": 0.548,
-     "words": 0.227
     }
    ]
   },

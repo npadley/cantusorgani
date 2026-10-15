@@ -3,9 +3,9 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T19:27:32Z"
+    "timestamp": "2026-10-13T05:35:02Z"
   },
   "diagnostics": [
     {
@@ -40,8 +40,8 @@
     }
   ],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -56,7 +56,7 @@
     "accepted_differences": [],
     "artifact_sha256": "f50e151bace43e0a5f2209f8acff96ba6d4a1bffd287a7ccadb6cce523eedc0b",
     "decision": "approve",
-    "inputs_digest": "56abf95533bc2d2b6fde7f759979ff6f70cd04c15ba163a3507218f65daedfff",
+    "inputs_digest": "8bfdbb87c372154507befa2b3d0aa382489885cb7a94e82acf6713ab1183fd64",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -73,7 +73,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T19:27:32Z"
+    "timestamp": "2026-10-13T05:35:02Z"
   },
   "source_path": "data/typeset/src/vol-2/co_dominus_firmamentum.csv.ly",
   "state": "approved",

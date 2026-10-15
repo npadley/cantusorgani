@@ -3,14 +3,14 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T19:00:19Z"
+    "timestamp": "2026-10-13T05:32:54Z"
   },
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -25,7 +25,7 @@
     "accepted_differences": [],
     "artifact_sha256": "cad3539cae1eee6f44f78e8c490008afcf867f2c95b372d71caaf8a4a56e63fa",
     "decision": "approve",
-    "inputs_digest": "1feacb2a36b271d9100948e34857ab029fabef2b68ca49fb23694d97bb0f71de",
+    "inputs_digest": "02af6f7f52846ea194c998d7174e5aff99ab40c7d08004ccf5e6b305d80d1f27",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T19:00:19Z"
+    "timestamp": "2026-10-13T05:32:54Z"
   },
   "source_path": "data/typeset/src/vol-1/co_domine_dominus_noster.csv.ly",
   "state": "approved",

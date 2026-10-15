@@ -1,7 +1,7 @@
 {
   "algorithm": "melody-audit-1",
   "algorithm_hash": "83dec6fe8378f73647f0acfe4ccaf8bf33a7e9def632d864353bba9856a31a6f",
-  "source_commit": "dd00a024b390c6b4ce14ffa138d7f7c6f04e1573",
+  "source_commit": "bd84a0a4b67a9c0b9a4cbbb0ec561c1c85f838b2",
   "lilypond": "2.26.0",
   "items": [
     {
@@ -545,6 +545,16 @@
       "difference_kind": "repeated-attacks"
     },
     {
+      "file": "vol-1/co_exiit_sermo.csv.ly",
+      "target": "part:s-joannis-apostoli-et-evangelist/communion",
+      "hash": "10f75385f4e91a0f4835e93c59c5962f",
+      "source_hash": "389b32815d27d068e3b8bc7ad6b21885209350c4b4d8f58149f058d7046f57a1",
+      "event_key": "0e6bb7a95a1a3e326624a3ee9b107aa04c142e08832d7bd79b2ecedce574b427",
+      "chant_id": 781,
+      "gabc_hash": "4618f4b7460dc074fbcf7fe4bf81cd938efb8ca2c2d8ebb3e5779b6fb4d2f05f",
+      "status": "melody-agrees"
+    },
+    {
       "file": "vol-1/co_exsulta_filia.csv.ly",
       "target": "part:noh1-p54/communion",
       "hash": "e8d60284351f67b926eb55548d529eff",
@@ -566,14 +576,10 @@
     },
     {
       "file": "vol-1/co_fili_quid_fecisti.csv.ly",
-      "target": "part:s-joannis-apostoli-et-evangelist/communion",
+      "target": "part:noh1-p112/communion",
       "hash": "4325c37e3313ef50eaa2e63ac0d2813c",
-      "source_hash": "bc4bd826d461f227a49a6a0c9a8796b89129ded383fe855d5e4a6af9cf6a8b80",
-      "event_key": "47b2e081f239e3898c958f6db6d7866f569d0edce9c2dbc35aa5c06e01b4bf42",
-      "chant_id": 781,
-      "gabc_hash": "4618f4b7460dc074fbcf7fe4bf81cd938efb8ca2c2d8ebb3e5779b6fb4d2f05f",
-      "status": "differences",
-      "difference_kind": "pitch-or-order"
+      "chant_id": null,
+      "status": "no-reference"
     },
     {
       "file": "vol-1/co_hoc_corpus.csv.ly",

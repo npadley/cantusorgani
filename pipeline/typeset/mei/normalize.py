@@ -216,6 +216,11 @@ def _pitch(el: etree._Element) -> Pitch:
 
 
 def _duration(el: etree._Element, ratio: Fraction) -> Fraction:
+    if el.get("grace") is not None:
+        if (el.get("type") == "voice-line-anchor" and el.get("grace") == "unacc"
+                and el.get("visible") == "false" and el.get("vel") == "0"):
+            return Fraction(0)
+        raise ValueError("unsupported grace note: expected a silent hidden voice-line anchor")
     dur = el.get("dur")
     if dur not in _DUR:
         raise ValueError(f"{_local(el)} {el.get(_XML_ID)!r} has unsupported @dur {dur!r}")

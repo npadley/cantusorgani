@@ -3,14 +3,14 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T19:44:18Z"
+    "timestamp": "2026-10-13T05:36:25Z"
   },
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -25,7 +25,7 @@
     "accepted_differences": [],
     "artifact_sha256": "dbd4bde9a290fff03f074ecbea8a85c669630714c642903a1086df4fa68c25e1",
     "decision": "approve",
-    "inputs_digest": "64542efa9e8876a80be386e36d7fd5f99dc22141fd561b15fea5e7a86e2bdef3",
+    "inputs_digest": "67ef5dc12226b5cf784a1ab8963a22cdf547d68e2463fa538bc7e802e1a90fa7",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T19:44:18Z"
+    "timestamp": "2026-10-13T05:36:25Z"
   },
   "source_path": "data/typeset/src/vol-3/co_benedicite_omnes_angeli.csv.ly",
   "state": "approved",

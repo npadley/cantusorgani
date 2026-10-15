@@ -3,14 +3,14 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T19:46:28Z"
+    "timestamp": "2026-10-13T05:36:32Z"
   },
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -25,7 +25,7 @@
     "accepted_differences": [],
     "artifact_sha256": "027710f33fe7f8da5a51ddee0735214b2d1419c30fdec7c0cca698b4ac99f21a",
     "decision": "approve",
-    "inputs_digest": "5e5983a7530798fe0cc09095a4b0b2a89bf599f673b0960ad5de93bd6cc031e7",
+    "inputs_digest": "37ce95f0f60b200e2f048fbe38d0836312bc86c9e2fe2cfd5afafcc9b0ffbc6f",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T19:46:28Z"
+    "timestamp": "2026-10-13T05:36:32Z"
   },
   "source_path": "data/typeset/src/vol-3/co_sacerdos_magnus.csv.ly",
   "state": "approved",

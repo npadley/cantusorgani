@@ -1,0 +1,67 @@
+{
+  "artifact_sha256": "af671516660cc78a4eb1b726171e682419789b37e80b7d41a05170f31f361052",
+  "auto_review": {
+    "criteria_failed": [],
+    "oracle_version": "a4b-1+a4a-1",
+    "precheck_version": "precheck/8",
+    "profile_version": 3,
+    "timestamp": "2026-10-15T21:58:56Z"
+  },
+  "diagnostics": [],
+  "inputs": {
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
+    "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
+    "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
+    "lilypond_version": "2.26.0",
+    "profile_id": "accompaniment-v1",
+    "profile_sha256": "cd1130bc5567cada2ca71059086b483dbb4784c9b5ac153c65d97fe3de913cba",
+    "schema_sha256": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c",
+    "source_sha256": "389b32815d27d068e3b8bc7ad6b21885209350c4b4d8f58149f058d7046f57a1",
+    "verovio_version": "6.3.0-425dd7b"
+  },
+  "render_hash": "10f75385f4e91a0f4835e93c59c5962f",
+  "review": {
+    "accepted_differences": [],
+    "artifact_sha256": "af671516660cc78a4eb1b726171e682419789b37e80b7d41a05170f31f361052",
+    "decision": "approve",
+    "inputs_digest": "e1f1327e7ec5b8995955a5ab3f7686601aedc307f999d8e4a4f1a5689ed19c7b",
+    "matrix_results": {
+      "a4-l-auto": "pass",
+      "a4-p-orig": "pass",
+      "a5-l-orig": "pass",
+      "a5-p-auto": "pass",
+      "custom-160x230-auto": "pass",
+      "ipad11-l-large-auto": "pass",
+      "ipad11-p-auto": "pass",
+      "ipadmini-p-auto": "pass",
+      "letter-l-orig": "pass",
+      "letter-p-auto": "pass",
+      "letter-p-large-auto": "pass",
+      "letter-p-orig": "pass",
+      "letter-p-small-cap2": "pass"
+    },
+    "reviewer": "auto (D22)",
+    "timestamp": "2026-10-15T21:58:56Z"
+  },
+  "source_path": "data/typeset/src/vol-1/co_exiit_sermo.csv.ly",
+  "state": "approved",
+  "target": "part:s-joannis-apostoli-et-evangelist/communion",
+  "validation": {
+    "eligible": true,
+    "hashes": {
+      "ir": "8df74123eb30c43d66a3072bd54e3cdc4152d07c490dec4c1f8ad92804dcca3b",
+      "mei": "af671516660cc78a4eb1b726171e682419789b37e80b7d41a05170f31f361052",
+      "schema": "fa2081b4e0c858e1dcde339b1b733b8e6350212a46c0db50b94cc71bbe68ca4c"
+    },
+    "schema_diagnostics": [],
+    "schema_ok": true,
+    "semantic_differences": [],
+    "tool_versions": {
+      "comparer": "a4b-1",
+      "lxml": "6.1.3.0",
+      "normalizer": "a4a-1",
+      "schema_validator": "lxml-relaxng 6.1.3"
+    }
+  }
+}

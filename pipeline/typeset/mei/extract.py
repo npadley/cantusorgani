@@ -736,7 +736,10 @@ def build_boundaries(
     onset, for 0 < t < total duration. The first failing reason wins:
     not-common-onset (no chant layer attacks at t; only possible for break/division rows),
     sustain-not-splittable (a chant event spans t), slur-crosses, voice-line-crosses,
-    lyric-extender-crosses. Accompaniment and voice-line events (notes, rests, skips) that span t
+    lyric-extender-crosses. Original source breaks may cross slurs. A source break exactly at a
+    voice-line end anchor is also placeable: the renderer draws its glissando to the system edge.
+    Breaks strictly inside voice lines, and ordinary candidates at their end anchors, stay unsafe.
+    Accompaniment and voice-line events (notes, rests, skips) that span t
     are splittable (spec 6.3): they do not make t unsafe, and ``splits_at`` lists them for A3d,
     which ties or divides them. A tie crossing t is never a reason.
     """
@@ -788,7 +791,10 @@ def build_boundaries(
             # it) must stay placeable: the slur is a control event and spans it. Breaks the reader adds
             # inside a slur remain unsafe.
             reason = "slur-crosses"
-        elif any(start < t <= end for start, end in crossing["voice-line"]):
+        elif any(start < t <= end and (t < end or t not in break_onsets)
+                 for start, end in crossing["voice-line"]):
+            # Only an original forceBreak at the glissando's end anchor is placeable. An interior
+            # cut would need a continuation on the next system that the renderer does not draw.
             reason = "voice-line-crosses"
         elif any(start < t < nxt for start, nxt in extenders):
             reason = "lyric-extender-crosses"

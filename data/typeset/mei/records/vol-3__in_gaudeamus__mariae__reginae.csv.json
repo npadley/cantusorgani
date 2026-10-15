@@ -3,14 +3,14 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T19:52:43Z"
+    "timestamp": "2026-10-13T05:37:02Z"
   },
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -25,7 +25,7 @@
     "accepted_differences": [],
     "artifact_sha256": "d1d680a30e2b3355f207820505e10252fe74349ba434b1f0e1322f912cd7a92c",
     "decision": "approve",
-    "inputs_digest": "e3ca9a7a7cf3ffbee09fa4a70ad37dba7a1e5cd5d255aee12e07fc029f6230f6",
+    "inputs_digest": "1d724fa805999a902328e830b33b84697a0a21a15bc20e285254125763bfb876",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T19:52:43Z"
+    "timestamp": "2026-10-13T05:37:02Z"
   },
   "source_path": "data/typeset/src/vol-3/in_gaudeamus__mariae__reginae.csv.ly",
   "state": "approved",

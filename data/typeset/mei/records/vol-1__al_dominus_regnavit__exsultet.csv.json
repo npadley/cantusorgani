@@ -3,14 +3,14 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T18:58:31Z"
+    "timestamp": "2026-10-13T05:32:43Z"
   },
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -25,7 +25,7 @@
     "accepted_differences": [],
     "artifact_sha256": "a062cd2b2b89f146f6821a132f2f40c3d9fca0779c26960bf7e908788aa68d28",
     "decision": "approve",
-    "inputs_digest": "3cc0d286778fe6b6e5b8c7cc35872ff0e8d33072558afb6fe3916ad26d45f55b",
+    "inputs_digest": "d1230cc5525c10664ee6353997919d71c6ff1bd49ade93b4318ad3a2f4f988b8",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T18:58:31Z"
+    "timestamp": "2026-10-13T05:32:43Z"
   },
   "source_path": "data/typeset/src/vol-1/al_dominus_regnavit__exsultet.csv.ly",
   "state": "approved",

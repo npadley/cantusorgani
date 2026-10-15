@@ -3,14 +3,14 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T19:02:42Z"
+    "timestamp": "2026-10-13T05:33:01Z"
   },
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -25,7 +25,7 @@
     "accepted_differences": [],
     "artifact_sha256": "984ed8b35fc9f0457ca3e64fa8d8891cde0d69bb078c0d43dc8b1fa7b05612bd",
     "decision": "approve",
-    "inputs_digest": "2506f065a9a890e603f2f8203a76aca795d4ec762d7b3da739950d8fea192237",
+    "inputs_digest": "a83ccc9e27ba2c357392f94d7cc39d9ba0488ef59c44aca8641f4d39ab898c29",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T19:02:42Z"
+    "timestamp": "2026-10-13T05:33:01Z"
   },
   "source_path": "data/typeset/src/vol-1/co_qui_meditabitur.csv.ly",
   "state": "approved",

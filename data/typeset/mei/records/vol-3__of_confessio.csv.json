@@ -3,14 +3,14 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T19:57:07Z"
+    "timestamp": "2026-10-13T05:37:28Z"
   },
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -25,7 +25,7 @@
     "accepted_differences": [],
     "artifact_sha256": "cdc7095ecf94d227a1d2d8040973fa11154505f2aa22b2eeff4e4a7b837f9775",
     "decision": "approve",
-    "inputs_digest": "891e069fd2bc2a0dac3575fc38a37ecbcb5786e0250e8948e7aa5eda977aeb6a",
+    "inputs_digest": "2814b428258cbac2e668b9c0701285e90ce7d70bbd31f81207a9b757e6c00f43",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T19:57:07Z"
+    "timestamp": "2026-10-13T05:37:28Z"
   },
   "source_path": "data/typeset/src/vol-3/of_confessio.csv.ly",
   "state": "approved",

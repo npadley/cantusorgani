@@ -3,9 +3,9 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T18:12:15Z"
+    "timestamp": "2026-10-13T05:38:30Z"
   },
   "diagnostics": [
     {
@@ -45,8 +45,8 @@
     }
   ],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -61,7 +61,7 @@
     "accepted_differences": [],
     "artifact_sha256": "a5f321d8bbed345f3ce41bf1799170114e0a8ffb8c8ace02702e0a0175af929e",
     "decision": "approve",
-    "inputs_digest": "df9e5b2c2a08551a0c3fac49da6ccefc1ad6ebb36c2da8bfc546dec14d2f200b",
+    "inputs_digest": "261a37a11bb811f076887db7b78750cdfc69afcb60bc454fe5f123883ad785bf",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -78,7 +78,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T18:12:15Z"
+    "timestamp": "2026-10-13T05:38:30Z"
   },
   "source_path": "data/typeset/src/vol-5/missa-xv/kyrie_XV.ly",
   "state": "approved",

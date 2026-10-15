@@ -300,6 +300,22 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
         xml_ids[key] = event.id
     mei_of = {event.id: mei_id(event.id) for event in ir.events}
 
+    roles = {layer.id: layer.role for layer in ir.layers}
+    lyric_anchors = {s.anchor_event_id for s in ir.lyrics}
+    line_anchors = {eid for span in ir.spans if span.kind == "voice-line"
+                    for eid in (span.start_event_id, span.end_event_id)}
+    tied_events = {eid for span in ir.spans if span.kind == "tie"
+                   for eid in (span.start_event_id, span.end_event_id)}
+    zero_anchors = {
+        e.id for e in ir.events
+        if e.duration == 0 and e.kind == "note" and e.notehead == "hidden"
+        and roles[e.layer_id] == "voice-line" and not e.tie_to_next
+        and e.id in line_anchors and e.id not in tied_events and e.id not in lyric_anchors
+    }
+    for event in ir.events:
+        if event.duration <= 0 and event.id not in zero_anchors:
+            raise ValueError(f"event {event.id}: non-positive duration is not a zero-time voice-line anchor")
+
     # --- measures -------------------------------------------------------------------------------
     total = ir.total_duration
     for boundary in ir.boundaries:
@@ -463,6 +479,11 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                 # Verovio still draws the augmentation dots of a head that is only head.visible="false";
                 # visible="false" hides them too. The layout code unhides the head AND this at a break.
                 attrs["visible"] = "false"
+        if event.id in zero_anchors:
+            # A hidden LilyPond voice-line endpoint may have duration *0. Grace
+            # positioning advances no engraving time; zero velocity makes the
+            # anchor silent. The oracle accepts only this complete marker set.
+            attrs.update(type="voice-line-anchor", grace="unacc", vel="0")
         node = _Node("note", attrs)
         if not continuation:
             for number in sorted(verses.get(event.id, {})):
@@ -658,8 +679,10 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                 parent = layer_node
                 current_scale: Fraction | None = None
                 chord_done: set[str] = set()
-                for frag in by_layer_measure.get((layer.id, k), []):
-                    scale = frag.notated.scale
+                # Zero-time anchors precede timed attacks at the same onset.
+                for frag in sorted(by_layer_measure.get((layer.id, k), []),
+                                   key=lambda f: (f.onset, f.duration > 0)):
+                    scale = Fraction(1) if frag.event.id in zero_anchors else frag.notated.scale
                     if scale == 1:
                         parent = layer_node
                         current_scale = None
@@ -672,7 +695,8 @@ def encode_score(ir: ScoreIR, profile: ConversionProfile) -> EncodedScore:
                         )
                         current_scale = scale
                     # Notes of one voice that start together (a LilyPond chord) become one <chord>.
-                    if frag.event.kind == "note" and frag.mei_id not in chord_done:
+                    if (frag.event.kind == "note" and frag.event.id not in zero_anchors
+                            and frag.mei_id not in chord_done):
                         mates = [
                             other for other in by_layer_measure.get((layer.id, k), [])
                             if other.event.kind == "note" and other.onset == frag.onset and other.index == frag.index

@@ -3,9 +3,9 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T18:10:56Z"
+    "timestamp": "2026-10-13T05:38:19Z"
   },
   "diagnostics": [
     {
@@ -45,8 +45,8 @@
     }
   ],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -61,7 +61,7 @@
     "accepted_differences": [],
     "artifact_sha256": "d4281c4bb10a3e94cb792839b9a6f8a2a8007912743d381b0e2aab20dd54bb22",
     "decision": "approve",
-    "inputs_digest": "640aabf01f934b9e587b3f2cabb46716792fad0e8d603e0a6673230acb130457",
+    "inputs_digest": "2a85e518b814fb6b9b4e28859d209d67f932966e219d29faa6a6ade5330bae96",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -78,7 +78,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T18:10:56Z"
+    "timestamp": "2026-10-13T05:38:19Z"
   },
   "source_path": "data/typeset/src/vol-5/missa-x/agnus_X.ly",
   "state": "approved",

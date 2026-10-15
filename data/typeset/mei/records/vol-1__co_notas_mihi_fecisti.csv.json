@@ -3,14 +3,14 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T19:02:17Z"
+    "timestamp": "2026-10-13T05:32:59Z"
   },
   "diagnostics": [],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -25,7 +25,7 @@
     "accepted_differences": [],
     "artifact_sha256": "eab93ec957d12e3c4ce2eeddd7fb798da1e775ac56bfa11b515033ecd311b1dc",
     "decision": "approve",
-    "inputs_digest": "03038dffd9ab9850939eec34883340c860cdbbe5841711032475c4248d59f343",
+    "inputs_digest": "594ca3fa419e3e2119eb2d7d69ef712b18e62cb4c760a06894f7311bd0143053",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -42,7 +42,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T19:02:17Z"
+    "timestamp": "2026-10-13T05:32:59Z"
   },
   "source_path": "data/typeset/src/vol-1/co_notas_mihi_fecisti.csv.ly",
   "state": "approved",

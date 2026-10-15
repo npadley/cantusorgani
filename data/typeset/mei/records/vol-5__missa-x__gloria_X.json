@@ -3,9 +3,9 @@
   "auto_review": {
     "criteria_failed": [],
     "oracle_version": "a4b-1+a4a-1",
-    "precheck_version": "precheck/6",
+    "precheck_version": "precheck/8",
     "profile_version": 3,
-    "timestamp": "2026-10-12T18:11:12Z"
+    "timestamp": "2026-10-13T05:38:20Z"
   },
   "diagnostics": [
     {
@@ -45,8 +45,8 @@
     }
   ],
   "inputs": {
-    "converter_version": "mei-convert/1+7605ee4db5478d6a",
-    "extractor_version": "listen_full/1+13cfd4cfbcc3ba03",
+    "converter_version": "mei-convert/1+21943acb558565ea",
+    "extractor_version": "listen_full/1+b7848d5150b692be",
     "font_digest": "fc77576ae1c6346bcc0b9199ccd3df47e8bc3ad6c620ba4b486077b8ea6bb765",
     "include_sha256": "fa3e1f2f59bcb25bddea4b959a6b87e2af98e74cdd21b2bcca00103d240454df",
     "lilypond_version": "2.26.0",
@@ -61,7 +61,7 @@
     "accepted_differences": [],
     "artifact_sha256": "08a12a3ed850caaa27841567e0617be76b39b84dac210a77b0fa68a667d1836d",
     "decision": "approve",
-    "inputs_digest": "9d94baf8e1f34f89bd0bb0cb58de155c35863c9c8d46fcd5c62625b3ec9c7b2d",
+    "inputs_digest": "854a9a6445c196d4438bcb87b0c810ecb1712047e34dfa67d04671d95ff88eef",
     "matrix_results": {
       "a4-l-auto": "pass",
       "a4-p-orig": "pass",
@@ -78,7 +78,7 @@
       "letter-p-small-cap2": "pass"
     },
     "reviewer": "auto (D22)",
-    "timestamp": "2026-10-12T18:11:12Z"
+    "timestamp": "2026-10-13T05:38:20Z"
   },
   "source_path": "data/typeset/src/vol-5/missa-x/gloria_X.ly",
   "state": "approved",

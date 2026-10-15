@@ -1,0 +1,37 @@
+[
+  {
+    "source": "data/typeset/src/vol-2/gr_domine_refugium.csv.ly",
+    "before_sha256": "7e767a8d159a51c22c6b76f39859c00f4c1e68ea05b641a40d141ec62610cc6f",
+    "after_sha256": "e38fbff0d6acd804d50fe1fe2bf338051389775a14c0127f4a378c6e3f456c92",
+    "scan_evidence": "NOH2 printed p.245/PDF277 first system under es/no-bis: tenor G-natural3 with explicit natural, after tied A3 and before F#3; source line110, fourth source division phrase.",
+    "backup": "build/deferred-coverage/source-backups/gr_domine_refugium.csv.ly"
+  },
+  {
+    "source": "data/typeset/src/vol-3/al_te_gloriosus.csv.ly",
+    "before_sha256": "d422855bd06582907809ed89edb2bcededa40acfba8500949085656fba950dfa",
+    "after_sha256": "5e31c873100fe804fcba4b137cf919d8e38ccbe1e9db047fc5bfcba0423b3614",
+    "scan_evidence": "NOH3 printed p.338, repeated Alleluia endings: two small cue heads followed by normal-sized final head; p.339/PDF372 first system tenor two F3 heads on second bass line from top joined by a tie; fd corrected to tied F3.",
+    "backup": "build/deferred-coverage/source-backups/al_te_gloriosus.csv.ly"
+  },
+  {
+    "source": "data/typeset/src/vol-2/gr_haec_dies_v_dicat_nunc.csv.ly",
+    "before_sha256": "994b7bf5aab928eb2661a9244fc604d6dfa05a57df1171b309c341d383e6b65e",
+    "after_sha256": "48d8402df9067b620be47b68966580a94adf27daddc516585303596de13a4db5",
+    "scan_evidence": "NOH2 printed p.10/PDF42, second system bass: C#4, tied B3, A3 followed by sustained A3. Remove misplaced leading apostrophe at line124.",
+    "backup": "build/deferred-coverage/source-backups/gr_haec_dies_v_dicat_nunc.csv.ly"
+  },
+  {
+    "source": "data/typeset/src/vol-2/of_oravi_deum.csv.ly",
+    "before_sha256": "4001fd13e17056aade7b194f1664f055bc5bcd599b4c0d33dd73eb72c3fe42df",
+    "after_sha256": "a898dce622a30a8bb3d0cc4fb924fe4c21f8489162d1e37960bbc771a47b6754",
+    "scan_evidence": "NOH2 printed p.220/PDF252, Offertory first system, bass final two heads both A2 above bottom G2 staff line; first hollow undotted. Repair dot typo as octave comma at line106.",
+    "backup": "build/deferred-coverage/source-backups/of_oravi_deum.csv.ly"
+  },
+  {
+    "source": "data/typeset/src/vol-3/co_regina_mundi_272.csv.ly",
+    "before_sha256": "4384470f426eadc0bc5829a76520b4cb8704bba5626894897acc87c95d718879",
+    "after_sha256": "507ae15e005def7f59c3cd18b287c71c14789fb46393b101ae4c15d92c24fb3a",
+    "scan_evidence": "NOH3 printed p272/PDF305 Carmel feast Communion; header iii.456 is copied stale reference. Comment-only correction, musical text unchanged.",
+    "backup": "build/deferred-coverage/source-backups/co_regina_mundi_272.csv.ly"
+  }
+]
