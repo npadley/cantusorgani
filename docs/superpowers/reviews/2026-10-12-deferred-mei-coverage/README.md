@@ -42,3 +42,7 @@ The local typeset uploader received no credentials from the 1Password pipe. The 
 The printed-assignment restoration adds Exiit sermo as the twentieth new eligible source. Candidate coverage is now 728, with 131 deferred (69 matching/editorial and 62 technical). Only the two affected approvals were rejudged from unchanged complete evidence; no conversion or catalogue render was repeated.
 
 Restoration validation (2026-10-15): 212 affected correction/manifest/review/publication/choice tests pass; all 728 approvals are current; correction output and source checks, Ruff, production links and fixture checks pass. Independent review confirms the only public manifest metadata change is Fili’s target; all 708 public object hashes and boundaries remain unchanged.
+
+The restoration also refreshes the two affected melody-audit rows through the existing audit pipeline. Exiit sermo matches all 93 reference notes without flags; Fili’s restored printed target has no catalogue-selected GABC and is correctly recorded as no-reference. All other 754 audit rows are preserved. The checked snapshot is now 756 current rows with 71 melody agreements.
+
+After the audit refresh, all 1,504 web tests and 12 Python audit-producer tests pass. Independent review confirms all 754 unaffected audit rows are identical and the audit algorithm is unchanged.
