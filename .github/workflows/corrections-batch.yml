@@ -53,7 +53,7 @@ jobs:
         with:
           ref: ${{ steps.source.outputs.branch }}
           persist-credentials: false
-      - uses: astral-sh/setup-uv@v10.2.0
+      - uses: astral-sh/setup-uv@v10.3.0
         with:
           enable-cache: false
       - run: uv sync --frozen
@@ -110,7 +110,7 @@ jobs:
           ref: ${{ steps.batch.outputs.ref }}
           token: ${{ steps.app.outputs.token }}
 
-      - uses: astral-sh/setup-uv@v10.2.0
+      - uses: astral-sh/setup-uv@v10.3.0
         with:
           enable-cache: true
       - run: uv sync --frozen
