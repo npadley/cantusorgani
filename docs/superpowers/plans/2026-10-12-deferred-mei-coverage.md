@@ -35,4 +35,4 @@
 - [x] Inspect printed pages, record correction provenance, and correct only unambiguous transcriptions.
 - [x] Verify proposed mappings and preserve explicit editor choices.
 - [x] Freeze changes, generate current approvals, verify baseline preservation, and prepare reviewed PRs.
-- [ ] After merged changes, publish current approved records and verified manifests.
+- [x] After merged changes, publish current approved records and verified manifests. Done in #127 (728 live).
