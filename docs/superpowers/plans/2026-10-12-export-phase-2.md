@@ -112,10 +112,11 @@ blocks the 728 live pieces.
 - [ ] **O2 Admin "Custom export paused" list** — confirm it shows real stale pieces after O1 (the site build
   writes `build/mei/stale/stale.json`).
 - [x] **O3 Dependabot** — 15 alerts on `main` (10 high) that predate this work. 0 open as of 2026-10-17.
-- [ ] **O4 Docs** (in progress, branch `export/o4-o5`) — bring `docs/TYPESETTING.md` up to date with the batch, carry, stale and auto-approval
+- [x] **O4 Docs** — bring `docs/TYPESETTING.md` up to date with the batch, carry, stale and auto-approval
   commands and the release steps in R.
-- [ ] **O5 Revocation drill** (in progress, branch `export/o4-o5`) — revoke one auto-approved record (state `revoked`), rebuild the manifest, check
-  the button reverts to fixed placement for that piece, then restore it.
+- [x] **O5 Revocation drill** — revoke one auto-approved record (state `revoked`), rebuild the manifest, check
+  the button reverts to fixed placement for that piece, then restore it. Done 2026-10-17 with the new
+  `typeset-mei-revoke`; see `docs/superpowers/reviews/2026-10-17-o5-revocation-drill/`.
 
 ## Decisions needed from the user
 
