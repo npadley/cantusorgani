@@ -4,16 +4,15 @@ Written 2026-10-12, at the hand-off from phase 1 (the Kyrie IX pilot, then Custo
 automatic approval). This document replaces the status board in `2026-10-08-export-execution-packet.md` §6
 as the list of what is left. Decisions and gates stay in `export-layout-decisions.md` (D1–D24, G0–G4).
 
-## Where things stand
+## Where things stand (refreshed 2026-10-17)
 
 | What | State |
 |---|---|
-| Kyrie IX custom export | **Live** since #99. Serves MEI `ccfcbdb4…` (published, G1/G4). |
-| Customize export on every page (D23), layout and encoder fixes, carry-forward (D20), automatic approval (D22) | In **#104** (`export/next` → `main`), CI green pending the GoatCounter test fix `7c74c7e`. |
-| Missa IX, all five pieces | Auto-approved records committed in #104 (Kyrie `14583bb6…`, Gloria `e33b12b9…`, Sanctus `9e1bc45f…`, Agnus `332b3fad…`, Ite `d5439c18…`). **Not yet published**; the live manifest still points Kyrie at `ccfcbdb4…`. |
-| `\prall` support (A9) | **Parked**, unfinished: WIP commit `7fe46d5` on branch `export/a9` (listener and extractor only). |
-| iPad timing page (C2c) | **Parked** on branch `export/c2c-prep` (`f929660`); G3 passed without it. |
-| Catalogue | Dry runs only. Of the first ~230 vol-1 sources after the slur fix: 0 unsupported, about 20 % auto-approve. The rest are blocked by an unconverted `\prall` (61 of 70 sampled needs-review), then layout findings (34) and narrow-page layout failures (11). |
+| Customize export | **Live on every page** with an export bar (#104, D23). |
+| Reflow coverage | **728 of 859** non-empty sources live (85 %): Missa IX (#106), volumes 1, 2, 3 and 5 (#117–#120), and 20 recovered deferred scores (#122, #127). The manifest has 728 entries and zero exclusions. |
+| Converter | `\prall` and the vol-1 tie targets fixed (#108); layout residuals and split-tie marks fixed (#121). |
+| Remaining | **131 deferred sources**, listed per source in [final-coverage.md](../reviews/2026-10-12-deferred-mei-coverage/final-coverage.md); summarised under "Deferred sources" below. |
+| iPad timing page (C2c) | Parked on branch `export/c2c-prep`; G3 passed without it. |
 
 ## R. Finish the release (coordinator; user merges) — done 2026-10-12, see DL R4
 
@@ -91,13 +90,28 @@ Order matters: P1 and P2 change the converter, so run the catalogue (P4) after t
 The cheapest order on a tight week: P1 + P2 in one agent run, then P4 overnight (almost no usage), then decide on P5
 from P4's report.
 
+## Deferred sources (131)
+
+Fresh judgments (2026-10-15): 797 approved, 42 needs-review, 18 failed, 2 unsupported. Of the 131 not live:
+
+| Blocker | Sources | Owner |
+|---|---:|---|
+| Converts and passes, but has no site target (catalogue/mapping gaps, e.g. S. Annae Introit NOH3 p.281, Ego dixi Gradual NOH2 p.112) | 67 | **User** — editorial target decisions |
+| Source ties/slurs to check against the printed scan | 34 | User/editor → corrections |
+| Source does not compile (transcription syntax; Oravi has an unresolved token) | 15 | Corrections against the scan |
+| Layout: compact ties (four Haec dies), clipping | 6 | Engineering |
+| Converter edge cases: zero-duration notes, tuplet schema, divisio or break inside a measure, unclosed slur | 9 | Engineering, partly source fixes |
+
+The cheapest next step is an editorial review list of the 67 unmapped sources, grouped by volume. Nothing here
+blocks the 728 live pieces.
+
 ## O. Operations and follow-ups
 
 - [x] **O1 First real run of `mei-stale.yml`** — it has only structure tests. Watch its first run after a
   source/include/converter change on `main`; check the prior-revision rebuild and the carry-forward artifact.
 - [ ] **O2 Admin "Custom export paused" list** — confirm it shows real stale pieces after O1 (the site build
   writes `build/mei/stale/stale.json`).
-- [ ] **O3 Dependabot** — 15 alerts on `main` (10 high) that predate this work.
+- [x] **O3 Dependabot** — 15 alerts on `main` (10 high) that predate this work. 0 open as of 2026-10-17.
 - [x] **O4 Docs** — bring `docs/TYPESETTING.md` up to date with the batch, carry, stale and auto-approval
   commands and the release steps in R.
 - [x] **O5 Revocation drill** — revoke one auto-approved record (state `revoked`), rebuild the manifest, check
@@ -108,7 +122,7 @@ from P4's report.
 
 1. Resolved: gaps below 0.3 mm are nonblocking review warnings (user, 2026-10-12). (P5)
 2. Spot-check cadence for auto-approved batches: optional sample as now, or a required sample per volume? (P4)
-3. When to schedule P1–P4 against the weekly usage budget (P4 is mostly machine time, not agent time).
+3. Resolved: P1–P5 were run by Codex (2026-10-12 to 2026-10-15).
 
 ## Working notes for whoever picks this up
 
