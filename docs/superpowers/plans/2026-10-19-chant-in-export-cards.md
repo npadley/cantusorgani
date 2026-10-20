@@ -1,6 +1,6 @@
 # Chant in the PDF export — Execution Cards
 
-Date: 2026-10-19. Status: **ready once the user decides P1–P5** (spec §0). Protocol, standard commands, prompt templates and review are those of the [export execution packet §0](2026-10-08-export-execution-packet.md#0-read-this-first). Where a card and the spec disagree, **the card wins**.
+Date: 2026-10-19. Status: **ready** (P1–P5 decided 2026-10-19, DL D25–D29; spec §0). Protocol, standard commands, prompt templates and review are those of the [export execution packet §0](2026-10-08-export-execution-packet.md#0-read-this-first). Where a card and the spec disagree, **the card wins**.
 
 | Short name | Document |
 |---|---|
@@ -18,19 +18,18 @@ Date: 2026-10-19. Status: **ready once the user decides P1–P5** (spec §0). Pr
 ```
 K0 ─┬─ K1 ──────────┐
     ├─ K2 ── K3 ────┤
-    └─ K4a ── K4b ──┼─ K5 ── K6 ── K7 ── K8 ── K9[U]
-                    │                      └── K10 (only if P3 = ship)
+    └─ K4a ── K4b ──┼─ K5 ── K6 ── K7 ── K10 ── K8 ── K9[U]
 ```
 
 Parallel after K0: **K1, K2, K4a** (no shared files). Cap at 3 parallel agents.
 
 ---
 
-### K0 [H] Fixtures and the fixture generator — depends: user decisions recorded in DL
+### K0 [H] Fixtures and the fixture generator — depends: none (DL D25–D29 recorded)
 **Read:** CS §4.3, §5; Spike `render-exsurge.mjs`.
 
 **Files:**
-- `web/scripts/render-chant-fixtures.ts`: the spike's `render-exsurge.mjs` turned into a dev script (Playwright Chromium, the vendored `exsurge.min.js`, `cleanGabc`, `setRubricColor('#000')`, `setFont("'Liberation Serif'", …)` with the face loaded via `@font-face` from `public/fonts/export/`). It writes, per chant id and width, `{svg, lines:[{y,height}]}` JSON.
+- `web/scripts/render-chant-fixtures.ts`: the spike's `render-exsurge.mjs` turned into a dev script (Playwright Chromium, the vendored `exsurge.min.js`, `cleanGabc`, `setRubricColor('#d00')`, `setFont("'Liberation Serif'", …)` with the face loaded via `@font-face` from `public/fonts/export/`). It writes, per chant id and width, `{svg, lines:[{y,height}]}` JSON.
 - `web/src/lib/export-layout/__fixtures__/chant/`: `al-1-749.json` (Alleluia *Laudem Domini*, iPad-mini width), `gr-277-1333.json` (Gradual *Exaltabo te*, Letter Medium), `tr-889-749.json` (Tract *Qui habitat*), each with `SOURCE.md` (Exsurge commit `16c626f`, chant ids, command).
 - `__fixtures__/chant/pages.json`: two page paths found by a query over the built catalogue: one Kyriale page whose part links a chant (expected: Kyrie IX → #2976), and the page whose linked chant has the most GABC characters. Record the query in `SOURCE.md`.
 
@@ -68,7 +67,7 @@ Parallel after K0: **K1, K2, K4a** (no shared files). Cap at 3 parallel agents.
 
 **Files:**
 - `web/src/lib/exsurgeLoader.ts`: `loadExsurge()` moved out of `chantNotation.ts` (which now imports it; behaviour unchanged).
-- `web/src/lib/export-layout/chantRender.ts::renderChantSvg(lib, chant: {gabc, annotation, mode}, scale): Promise<string>` using `createSvg` (string) or `createSvgNode().outerHTML`, `setRubricColor('#000')`, and `ensureExportFace(): Promise<boolean>` (awaits `document.fonts.load` for the regular and italic Liberation Serif; false on failure).
+- `web/src/lib/export-layout/chantRender.ts::renderChantSvg(lib, chant: {gabc, annotation, mode}, scale): Promise<string>` using `createSvg` (string) or `createSvgNode().outerHTML`, `setRubricColor('#d00')`, and `ensureExportFace(): Promise<boolean>` (awaits `document.fonts.load` for the regular and italic Liberation Serif; false on failure).
 - A memo cache keyed by `(chantId, widthUnits, setFontSize)`.
 - Extend `exsurge.d.ts` with the members used (`setRubricColor`, `createSvg`, `lines`).
 
@@ -84,7 +83,7 @@ Parallel after K0: **K1, K2, K4a** (no shared files). Cap at 3 parallel agents.
 
 **Files:** `types.ts` (paste CS §9 verbatim), `settings.ts` (`normalizeSettings` accepts `chant`; junk → default), `preferences.ts` (persist `chant`; first-run default per DL P2 decision, reading `chant-display` through `readChantDisplay`), tests.
 
-**Done when:** settings tests cover `off`/`before`/junk; preferences tests cover P2 default with `chant-display` = `show`, `link`, missing and a throwing store; existing settings and preferences tests pass unchanged except new-field expectations; WEB passes.
+**Done when:** settings tests cover `off`/`before`/`only`/junk; preferences tests cover P2 default with `chant-display` = `show`, `link`, missing and a throwing store; existing settings and preferences tests pass unchanged except new-field expectations; WEB passes.
 
 ### K4b [S] Chant ids into the selection — depends: K4a
 **Read:** CS §3.1, §9; `ExportBar.astro`, `lib/exportSelection.ts::readSelectionInput`, `capabilities.ts`/snapshot code, `SystemStack.astro` (how starts carry `chantId`, `annotationFor`).
@@ -135,7 +134,7 @@ Parallel after K0: **K1, K2, K4a** (no shared files). Cap at 3 parallel agents.
 - `exportAnalytics.test.ts`: `chant` and `chantParts` pass the filter; no chant ids are sent.
 - No box-shadow, gradient or radius > 2 px is added (grep).
 
-### K8 [S] E2E and PDF verifier — depends: K7
+### K8 [S] E2E and PDF verifier — depends: K7, K10
 **Read:** CS §6, §10; `web/scripts/verify-export-pdf.ts`; `e2e/export-layout.e2e.ts`, `e2e/export-customize-lazy.e2e.ts`; K0 `pages.json`.
 
 **Files:**
@@ -157,13 +156,15 @@ The coordinator builds the device-test build and gives the user the Letter PDF a
 - `V.`/`R.` and `*`;
 - the "Dómine" spacing seen in the spike;
 - forScore Best Fit.
+- a chant-only PDF (K10);
+- the red rubrics on a monochrome print (DL D29 keeps red; this is a legibility check only).
 
 The coordinator records the approval in DL (as for G2) and merges.
 
-### K10 [S] Chant-only export — depends: K9, and only if the user decides P3 = ship
+### K10 [S] Chant-only export — depends: K7 (P3 = ship in v1, DL D27)
 **Read:** CS §0 P3, §3; K5, K7 diffs.
 
-**Files:** `types.ts` (`ChantMode` adds `'only'`, coordinator merges), `compose.ts` (`only`: skip accompaniment; parts with no chant are omitted, and the result line says how many), `ExportLayoutEditor.astro` (third radio "Chant only"; Music size and Systems per page show "Not used for chant only" helper), analytics value `only`, filename suffix " (chant)", tests.
+**Files:** `compose.ts` (`only`: skip accompaniment; parts with no chant are omitted, and the result line says how many), `ExportLayoutEditor.astro` (third radio "Chant only"; Music size and Systems per page show "Not used for chant only" helper), analytics value `only`, filename suffix " (chant)", tests.
 
 **Done when:** a compose test exports chant only for a three-part selection with one chantless part; an e2e downloads it and the verifier finds 0 five-line staves; the editor test covers the third radio and the disabled-FIT helper copy.
 
@@ -173,7 +174,7 @@ The coordinator records the approval in DL (as for G2) and merges.
 
 | Card | Model | Status |
 |---|---|---|
-| K0 | H | waiting for P1–P5 |
+| K0 | H | ready |
 | K1 | S | — |
 | K2 | H | — |
 | K3 | S | — |
@@ -184,4 +185,4 @@ The coordinator records the approval in DL (as for G2) and merges.
 | K7 | S | — |
 | K8 | S | — |
 | K9 | U | — |
-| K10 | S | only if P3 = ship |
+| K10 | S | — |

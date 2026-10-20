@@ -1,20 +1,20 @@
 # Chant in the PDF export — design
 
-Date: 2026-10-19. Status: **draft for the user's decisions** (§0). Feature request: a reader who ticks "Show the chant with each part" on the site wants that chant in the PDF too.
+Date: 2026-10-19. Status: **decided** (§0, user, 2026-10-19; recorded as DL D25–D29). Feature request: a reader who ticks "Show the chant with each part" on the site wants that chant in the PDF too.
 
 Read with: [export editor UI spec](2026-10-08-export-editor-ui-spec.md) (**UI**), [decision log](../plans/export-layout-decisions.md) (**DL**, D1–D24), [execution packet](../plans/2026-10-08-export-execution-packet.md) (house protocol). Cards: [plans/2026-10-19-chant-in-export-cards.md](../plans/2026-10-19-chant-in-export-cards.md). Spike evidence: [experiments/chant-export/](../experiments/chant-export/).
 
-## 0. Open product decisions (for the user)
+## 0. Product decisions (decided 2026-10-19)
 
-| # | Question | Options | Recommendation |
+| # | Question | Options | Decision |
 |---|---|---|---|
 | **P1** | Where the chant goes | (a) **Chant block before each part, accompaniment continues below it on the same page** (the site's order: chant above the part). (b) Chant on its own page(s) before each part; accompaniment always starts a new page. (c) Chant-only PDF (cantor's copy). (d) Chant aligned system-by-system above the accompaniment — rejected: Exsurge and Verovio space the same syllables differently, so they cannot line up. | **(a)**. It matches the site and wastes no paper. (b) is the same code with one flag (`newPageAfterChant`), so it can be added later if organists want page turns to stay clean. |
 | **P2** | Default | Off / On / **Follow the site's "Show the chant" preference** (`localStorage["chant-display"]`) | **Follow the site preference**, falling back to Off. The reader who ticked the box on the page is the reader who asked for this; everyone else gets today's PDF unchanged. |
-| **P3** | Chant-only export for cantors | Ship in v1 as a third choice / later / never | **Later (card K10, after v1 ships)**. It reuses everything in v1; the open question is only whether demand exists. Analytics (§8) will show how often chant is switched on. |
+| **P3** | Chant-only export for cantors | Ship in v1 as a third choice / later / never | **Ship in v1** (user; the recommendation was later). It is the third choice in the same control, card K10, and reuses everything else in v1. |
 | **P4** | Which export first | Customize export / Quick export / both | **Customize export only** (§2). |
-| P5 (minor) | Rubric colour of ℣, ℟, * | Red (`#d00`, Exsurge's default, as on screen) / black | **Black.** Most bench copies come off a monochrome printer, where red prints pale grey. |
+| P5 (minor) | Rubric colour of ℣, ℟, * | Red (`#d00`, Exsurge's default, as on screen) / black | **Red `#d00`, as on screen** (user; the recommendation was black, because red prints pale grey on monochrome printers). |
 
-Once decided, the coordinator appends them to DL as D25–D28. Agents must not reopen them.
+P1–P5 are recorded in DL as D25–D29. Agents must not reopen them.
 
 ## 1. How chant is shown today
 
@@ -31,7 +31,7 @@ Once decided, the coordinator appends them to DL as D25–D28. Agents must not r
 
 | Group | Label | Control | Options | Default | Helper (`.small.muted`) |
 |---|---|---|---|---|---|
-| Chant | Chant | Segmented, 2 (3 if P3 ships) | **Off** / **Before each part** (/ **Chant only**) | P2 | Off: none. Before: "The Gregorian chant from GregoBase, set to your page width." |
+| Chant | Chant | Segmented, 3 | **Off** / **Before each part** / **Chant only** | P2 (Before when the site preference is on) | Off: none. Before: "The Gregorian chant from GregoBase, set to your page width." Chant only: "Only the chant; parts without chant are left out." |
 
 - It follows the UI §1.4 segmented-control spec exactly: real radios, `.sr-only`, 44 px targets, accent border plus weight change when checked.
 - In the narrow (<62rem) layout it lives in the Settings panel, not the FIT strip.
@@ -68,7 +68,7 @@ Exsurge needs a text measurer. Its Canvas strategy needs a DOM, so not the worke
 - **Width:** `widthUnits = printable.widthMm / mmPerUnit`. For example, Letter at Medium is 191.9 mm → 1333 units, and iPad mini is 107.9 mm → 749 units. Exsurge lays out to that width (`layoutChantLines(ctxt, widthUnits)`). Because Exsurge **reflows**, a page or iPad change gives new line breaks, not a scaled picture.
 - **Lyric size:** the chant lyric size equals the accompaniment's Sung text size: `lyricMm = LYRIC_SIZE[lyrics] × unit / 10` (Medium/Medium = 4.05 mm, 11.5 pt). Exsurge prints lyrics at 0.9 × the `setFont` size (spike: `setFont(f, 21.33)` → `.lyric` 19.2 px), so call `setFont("'Liberation Serif'", lyricMm / mmPerUnit / 0.9)`. This is about 1.5× the site's lyric-to-staff ratio. Check it in K9's visual review. If it looks crowded, P-decide a fixed chant lyric size.
 - **Annotation** (`Grad.`, mode `5`) comes from `annotationFor(part, mode)`, as on the site. **Drop cap** stays on (Exsurge's default, as on the site).
-- Colours: `ctxt.setRubricColor('#000')` (P5). All other colours are `#000`. Never `currentColor`, because the page is print paper (UI `--print-ink`).
+- Colours: rubrics keep Exsurge's `#d00` (P5); call `ctxt.setRubricColor('#d00')` explicitly so a future default change can't alter it. All other colours are `#000`. Never `currentColor`, because the page is print paper (UI `--print-ink`).
 
 ### 4.3 Splitting long chants
 
@@ -107,7 +107,7 @@ What Exsurge emits (inventory of the three chants):
 5. Rewrites inline style declarations as attributes:
    - `font-style: italic` → `font-style`;
    - `font-weight: bold` → `font-weight`;
-   - `fill` → `fill="#000"`;
+   - `fill` → a `fill` attribute with the same value (`#d00` for rubrics);
    - `font-variant: small-caps` → upper-cased text at 0.8 × size;
    - `font-family: 'Exsurge Characters'` → dropped. The run keeps its letter (`V.`/`R.`) in Liberation Serif, as the site shows it.
 6. **Rejects** anything else with `UNSAFE_SVG: exsurge <what>`, so a new Exsurge version cannot slip a feature through by being stripped.
@@ -149,16 +149,16 @@ It uses `@xmldom/xmldom` (no `DOMParser` in workers), like `svg.ts`. The output 
 
 Extend `trackExport` (`lib/exportAnalytics.ts`):
 
-- Add `chant` to `ALLOWED_KEYS`, with values `off` | `before` (| `only`). Custom exports send it.
+- Add `chant` to `ALLOWED_KEYS`, with values `off` | `before` | `only`. Custom exports send it.
 - Add `chantParts`, the number of parts that printed chant, as a string. No chant ids and no personal data (D11).
-- This answers P3: how many custom exports turn chant on, and on which kinds of pages.
+- This shows how often each mode is used, including chant only.
 
 ## 9. Contract changes (coordinator merges; `types.ts` is frozen otherwise)
 
 ```ts
 // LayoutSettings
 readonly chant: ChantMode;                       // default from P2
-export type ChantMode = 'off' | 'before';        // | 'only' when K10 ships
+export type ChantMode = 'off' | 'before' | 'only';
 
 // ExportPartBase
 readonly chants: readonly ChantRef[];            // [] when none; only on a segment's first run
