@@ -54,6 +54,9 @@ test("record the request lists", async ({ page }) => {
 
 const MEI_URL = "/__fixtures__/kyrie-ix.mei"; // the fixture manifest's meiUrl for Kyrie IX
 const heavy = (urls: Iterable<string>): string[] => [...urls].filter((u) => HEAVY.test(u));
+/** Chant costs nothing until Chant is on in the editor (CS 6): no Exsurge script, no chant JSON. */
+const CHANT = /exsurge|\/chant\//i;
+const chantRequests = (urls: Iterable<string>): string[] => [...urls].filter((u) => CHANT.test(u));
 
 /** The page has the button only in a build with the fixture manifest; elsewhere these tests have nothing to say. */
 async function kyrie(page: Page): Promise<{ urls: Set<string>; jsBytes: () => Promise<number> }> {
@@ -78,11 +81,31 @@ async function tick(page: Page, wanted: (label: string | null) => boolean): Prom
 const onlyKyrie = (page: Page): Promise<void> => tick(page, (label) => label === "Kyrie");
 
 test.describe("Customize export is lazy", () => {
+  test("(b) opening the editor with Chant off requests no Exsurge and no chant, and (c) switching it on requests both", async ({ page }) => {
+    await page.route("**/gc.zgo.at/**", (route) => route.fulfill({ body: "", contentType: "application/javascript" }));
+    const w = await kyrie(page);
+    await onlyKyrie(page);
+    await page.locator("#export-customize").click();
+    const download = page.locator('dialog.cx [data-cx="download"]');
+    await expect(download).toBeEnabled({ timeout: 120_000 });
+    await expect(page.locator('dialog.cx input[name="cx-chant"][value="off"]')).toBeChecked();
+    expect(chantRequests(w.urls)).toEqual([]);
+
+    const settings = page.locator('dialog.cx [data-cx="settings-btn"]');
+    if (await settings.isVisible()) await settings.click();
+    await page.locator('dialog.cx input[name="cx-chant"][value="before"]').locator("xpath=..").click();
+    await expect.poll(() => chantRequests(w.urls).length, { timeout: 120_000 }).toBeGreaterThanOrEqual(2);
+    expect(chantRequests(w.urls).some((u) => /exsurge/i.test(u))).toBe(true);
+    expect(chantRequests(w.urls).some((u) => /\/chant\/\d+\.json/.test(u))).toBe(true);
+  });
+
   for (const p of PAGES) {
     test(`${p.path} loads no editor code before Customize is clicked`, async ({ page }) => {
       const w = watch(page);
       await page.goto(p.path, { waitUntil: "networkidle" });
       expect(heavy(w.urls)).toEqual([]);
+      // (a) An ordinary page load requests neither Exsurge nor a chant.
+      expect(chantRequests(w.urls)).toEqual([]);
       // Nor any worker or wasm at all.
       expect([...w.urls].filter((u) => /\.wasm|worker/i.test(u))).toEqual([]);
     });
@@ -181,7 +204,7 @@ test.describe("Customize export is lazy", () => {
     expect(saved.suggestedFilename()).toBe("Missa IX (11-inch iPad).pdf");
     await expect.poll(() => page.evaluate(() => (window as unknown as { __gc: unknown[] }).__gc.length)).toBe(1);
     const events = await page.evaluate(() => (window as unknown as { __gc: { path: string; title: string; event: boolean }[] }).__gc);
-    expect(events[0]).toEqual({ path: "export/custom", title: "linePolicy=original, maxSystems=auto, orientation=portrait, page=ipad-11, staff=medium", event: true });
+    expect(events[0]).toEqual({ path: "export/custom", title: "chant=off, chantParts=0, linePolicy=original, maxSystems=auto, orientation=portrait, page=ipad-11, staff=medium", event: true });
   });
 });
 

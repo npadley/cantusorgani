@@ -9,6 +9,8 @@
 //   - each page's MediaBox in mm, within 0.5 pt;
 //   - each page's staves, found as five equally spaced long horizontal strokes (position of every staff line
 //     within STAFF_TOLERANCE_MM, and the staff height within STAFF_HEIGHT_TOLERANCE_MM of the expected size);
+//   - when the expectation carries `chantStaffSpaceMm`, the chant staves: four equally spaced strokes at that
+//     spacing (the chant is drawn about 2.5 x the accompaniment's staff space, DL D30), counted apart from the five-line staves and compared with each page's `chantLines`;
 //   - the page's text content and order (heading, sung text, credit), compared as the sequence of letters,
 //     so that a changed, dropped, added or reordered syllable fails and hyphen or spacing differences do not.
 // Nothing is drawn: pdf.js is asked for the operator list and the text layer, so the check is exact rather than
@@ -34,14 +36,20 @@ export interface ExpectedPage {
   readonly staves: readonly (readonly number[])[];
   /** Every string the page draws, in drawing order (sung syllables, then heading and credit lines). */
   readonly text: readonly string[];
+  /** Chant staves (four lines) on the page. Checked only when the expectation has `chantStaffSpaceMm`. */
+  readonly chantLines?: number;
 }
 export interface CanonicalExpectation {
   readonly staffHeightMm: number;
+  /** Distance between chant staff lines in mm (Exsurge's 12.5-unit space at the chant scale). Absent = no chant check. */
+  readonly chantStaffSpaceMm?: number;
   readonly pages: readonly ExpectedPage[];
 }
 export interface PageReport {
   readonly mediaBoxMm: { readonly width: number; readonly height: number };
   readonly staves: readonly (readonly number[])[];
+  /** Four-line chant staves found at the expected spacing (empty unless the expectation asks). */
+  readonly chantStaves: readonly (readonly number[])[];
   readonly maxStaffDeltaMm: number;
   readonly staffHeightsMm: readonly number[];
   readonly letters: string;
@@ -135,6 +143,31 @@ export function groupStaves(ys: readonly number[]): number[][] {
   return staves;
 }
 
+/** Spacing tolerance for chant staff lines, as a fraction of the expected space. */
+const CHANT_SPACE_TOLERANCE = 0.05;
+/** Chant staff space against the accompaniment's on the same page (DL D30). */
+const CHANT_MATCH_TOLERANCE = 0.02;
+
+/**
+ * Splits line positions (mm from the top) into five-line staves and four-line chant staves. Five-line staves
+ * are taken first; chant staves are four equally spaced lines, at `chantSpaceMm`, among the lines left over.
+ */
+export function splitStaves(ys: readonly number[], chantSpaceMm: number | undefined): { staves: number[][]; chant: number[][] } {
+  const staves = groupStaves(ys);
+  if (chantSpaceMm === undefined) return { staves, chant: [] };
+  const taken = new Set(staves.flat().map((y) => y.toFixed(3)));
+  const rest = [...ys].sort((a, b) => a - b).filter((y) => !taken.has(y.toFixed(3)));
+  const unique: number[] = [];
+  for (const y of rest) if (unique.length === 0 || y - unique[unique.length - 1]! > 0.02) unique.push(y);
+  const chant: number[][] = [];
+  for (let i = 0; i + 3 < unique.length;) {
+    const four = unique.slice(i, i + 4);
+    const gaps = four.slice(1).map((y, k) => y - four[k]!);
+    if (gaps.every((g) => Math.abs(g - chantSpaceMm) <= chantSpaceMm * CHANT_SPACE_TOLERANCE)) { chant.push(four); i += 4; } else i += 1;
+  }
+  return { staves, chant };
+}
+
 export async function verifyExportPdf(bytes: Uint8Array, expected: CanonicalExpectation): Promise<VerifyReport> {
   const pdfjs = (await import('pdfjs-dist/legacy/build/pdf.mjs')) as unknown as PdfjsModule;
   const task = pdfjs.getDocument({ data: bytes.slice(), useSystemFonts: false, verbosity: 0 });
@@ -154,7 +187,10 @@ export async function verifyExportPdf(bytes: Uint8Array, expected: CanonicalExpe
       }
 
       const strokes = horizontalStrokes(pdfjs.OPS, await page.getOperatorList());
-      const staves = groupStaves(strokes.map((s) => (heightPt - (s.y - y0)) / PT_PER_MM));
+      const { staves, chant: chantStaves } = splitStaves(strokes.map((s) => (heightPt - (s.y - y0)) / PT_PER_MM), expected.chantStaffSpaceMm);
+      if (expected.chantStaffSpaceMm !== undefined && want.chantLines !== undefined && chantStaves.length !== want.chantLines) {
+        problems.push(`page ${n}: ${chantStaves.length} chant staves in the PDF, ${want.chantLines} in the canonical layout`);
+      }
       const heights = staves.map((s) => s[4]! - s[0]!);
       if (staves.length !== want.staves.length) {
         problems.push(`page ${n}: ${staves.length} staves in the PDF, ${want.staves.length} in the canonical layout`);
@@ -164,6 +200,17 @@ export async function verifyExportPdf(bytes: Uint8Array, expected: CanonicalExpe
         for (let k = 0; k < 5; k++) maxDelta = Math.max(maxDelta, Math.abs(staves[s]![k]! - want.staves[s]![k]!));
         if (Math.abs(heights[s]! - expected.staffHeightMm) > STAFF_HEIGHT_TOLERANCE_MM) {
           problems.push(`page ${n} staff ${s + 1}: height ${heights[s]!.toFixed(3)} mm, expected ${expected.staffHeightMm} mm +/- ${STAFF_HEIGHT_TOLERANCE_MM}`);
+        }
+      }
+      // The chant's staff space equals the accompaniment's (CS 4.2): a page with both must show the same line spacing.
+      if (chantStaves.length > 0 && staves.length > 0) {
+        const mean = (list: readonly (readonly number[])[]): number => list.reduce((a, s) => a + (s[s.length - 1]! - s[0]!) / (s.length - 1), 0) / list.length;
+        const chantSpace = mean(chantStaves);
+        const musicSpace = mean(staves);
+        // DL D30: the chant is drawn larger so a punctum matches a notehead; the ratio is the one the expectation names.
+        const wantRatio = expected.chantStaffSpaceMm! / (expected.staffHeightMm / 4);
+        if (Math.abs(chantSpace / musicSpace / wantRatio - 1) > CHANT_MATCH_TOLERANCE) {
+          problems.push(`page ${n}: chant staff space ${chantSpace.toFixed(3)} mm is ${(chantSpace / musicSpace).toFixed(3)} x the accompaniment's ${musicSpace.toFixed(3)} mm, expected ${wantRatio.toFixed(3)} x (within ${CHANT_MATCH_TOLERANCE * 100}%)`);
         }
       }
       if (maxDelta > STAFF_TOLERANCE_MM) problems.push(`page ${n}: a staff line is ${maxDelta.toFixed(3)} mm from the canonical position (tolerance ${STAFF_TOLERANCE_MM} mm)`);
@@ -176,7 +223,7 @@ export async function verifyExportPdf(bytes: Uint8Array, expected: CanonicalExpe
         while (at < letters.length && letters[at] === wantLetters[at]) at++;
         problems.push(`page ${n}: text differs at letter ${at} (PDF "${letters.slice(Math.max(0, at - 8), at + 12)}", canonical "${wantLetters.slice(Math.max(0, at - 8), at + 12)}")`);
       }
-      pages.push({ mediaBoxMm: { width: widthPt / PT_PER_MM, height: heightPt / PT_PER_MM }, staves, maxStaffDeltaMm: maxDelta, staffHeightsMm: heights, letters });
+      pages.push({ mediaBoxMm: { width: widthPt / PT_PER_MM, height: heightPt / PT_PER_MM }, staves, chantStaves, maxStaffDeltaMm: maxDelta, staffHeightsMm: heights, letters });
     }
   } finally {
     await doc.destroy?.().catch(() => undefined);

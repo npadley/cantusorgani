@@ -58,3 +58,15 @@ describe("readSelectionInput", () => {
     expect(seg?.stems).toEqual([]);
   });
 });
+
+describe("data-chants", () => {
+  const chants = [{ id: 2976, incipit: "Kyrie", annotation: "", mode: "1" }];
+  it("is read into each segment", () => {
+    const [seg] = readSelectionInput([box({ dataset: { chants: JSON.stringify(chants) } })], "t", () => false).segments;
+    expect(seg?.chants).toEqual(chants);
+  });
+  it.each([[undefined], ["not json"], ['{"id":1}'], ['[{"id":"x"}]'], ["[null]"]])("reads %j as no chants", (json) => {
+    const [seg] = readSelectionInput([box({ dataset: { chants: json } })], "t", () => false).segments;
+    expect(seg?.chants).toEqual([]);
+  });
+});

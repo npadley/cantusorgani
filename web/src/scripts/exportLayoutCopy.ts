@@ -106,6 +106,7 @@ export const COPY_DECK: Readonly<Record<LayoutDiagnosticCode, Row>> = {
   CROWDED_ORIGINAL_LINES: () => ({ text: 'Some original lines are tight at this size. Fit to page may read better.', actions: [], blocking: false }),
   CANCELLED: () => ({ text: '', actions: [], blocking: false, silent: true }),
   // D24: informational, recorded for the pre-review only; the reader is never told.
+  CHANT_UNAVAILABLE: () => ({ text: '', actions: [], blocking: false, silent: true }),   // K7 replaces this with the "In this PDF" line
   MIDWORD_UNAVOIDABLE: () => ({ text: '', actions: [], blocking: false, silent: true }),
   // Internal layout faults: the generic row.
   CAP_EXCEEDED: UNKNOWN,

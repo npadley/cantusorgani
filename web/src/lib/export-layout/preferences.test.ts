@@ -392,3 +392,41 @@ describe('preferences', () => {
     });
   });
 });
+
+describe('chant default (DL D26)', () => {
+  const store = (items: Record<string, string>, throws = false): StorageLike => ({
+    getItem: (k) => { if (throws) throw new Error('blocked'); return items[k] ?? null; },
+    setItem: () => {},
+    removeItem: () => {},
+  });
+
+  it("starts at 'before' when the site preference is show", () => {
+    expect(readPreferences(store({ 'chant-display': 'show' })).preferences.settings.chant).toBe('before');
+  });
+  it.each([['link'], ['junk']])("starts at 'off' when the site preference is %s", (v) => {
+    expect(readPreferences(store({ 'chant-display': v })).preferences.settings.chant).toBe('off');
+  });
+  it("starts at 'off' when the site preference is missing", () => {
+    expect(readPreferences(store({})).preferences.settings.chant).toBe('off');
+  });
+  it("starts at 'off' with a throwing store and with no store", () => {
+    expect(readPreferences(store({}, true)).preferences.settings.chant).toBe('off');
+    expect(readPreferences(null).preferences.settings.chant).toBe('off');
+  });
+  it('keeps a saved choice over the site preference', () => {
+    const saved: Preferences = { version: 2, settings: { ...DEFAULT_SETTINGS, chant: 'only' }, overrides: {} };
+    const r = readPreferences(store({ 'chant-display': 'show', [PREFERENCES_KEY]: JSON.stringify(saved) }));
+    expect(r.preferences.settings.chant).toBe('only');
+  });
+  it('keeps a saved Off even when the site preference is show', () => {
+    const saved: Preferences = { version: 2, settings: { ...DEFAULT_SETTINGS, chant: 'off' }, overrides: {} };
+    const r = readPreferences(store({ 'chant-display': 'show', [PREFERENCES_KEY]: JSON.stringify(saved) }));
+    expect(r.preferences.settings.chant).toBe('off');
+  });
+  it('round-trips chant through write and read', () => {
+    const items: Record<string, string> = {};
+    const s: StorageLike = { getItem: (k) => items[k] ?? null, setItem: (k, v) => { items[k] = v; }, removeItem: () => {} };
+    writePreferences(s, { version: 2, settings: { ...DEFAULT_SETTINGS, chant: 'before' }, overrides: {} });
+    expect(readPreferences(s).preferences.settings.chant).toBe('before');
+  });
+});

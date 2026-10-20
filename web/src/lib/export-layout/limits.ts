@@ -7,6 +7,9 @@ import type { BudgetDecision, BudgetInput, ResourceLimits, ResourceProfile } fro
  * renderer loader, so that rejection happens before any expensive work.
  */
 
+/** Chant lines in one export (CS §9); the 300-system ceiling does not count them. */
+export const MAX_CHANT_LINES = 120;
+
 const INVALID = (detail: string): Error => new Error(`INVALID_PROFILE: ${detail}`);
 
 function isRecord(value: unknown): value is Record<string, unknown> {

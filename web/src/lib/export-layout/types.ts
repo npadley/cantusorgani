@@ -28,7 +28,10 @@ export interface LayoutSettings {
   /** null = "As many as fit"; else integer 1..MAX_SYSTEMS_LIMIT (a maximum, never an exact count). */
   readonly maxSystems: number | null;
   readonly linePolicy: LinePolicy;          // default 'original'
+  /** Chant in the PDF (DL D25-D29). Default 'off'; the first-run default follows the site's chant-display preference. */
+  readonly chant: ChantMode;
 }
+export type ChantMode = 'off' | 'before' | 'only';
 
 export const PAGE_MIN_MM = 90;
 export const PAGE_MAX_MM = 450;
@@ -61,7 +64,7 @@ export const PAGE_PRESETS: Readonly<Record<Exclude<PagePresetId, 'custom'>, Page
 
 export const DEFAULT_SETTINGS: LayoutSettings = {
   version: 2, page: 'letter', customSize: null, orientation: 'portrait', marginMm: 12,
-  staff: 'medium', lyrics: 'medium', spacing: 'normal', maxSystems: null, linePolicy: 'original',
+  staff: 'medium', lyrics: 'medium', spacing: 'normal', maxSystems: null, linePolicy: 'original', chant: 'off',
 };
 
 /** Physical page after orientation is applied. */
@@ -97,7 +100,10 @@ interface ExportPartBase {
   /** Source systems this part covers. Used for selection and the 300 ceiling only, NEVER as output system counts. */
   readonly sourceSystemCount: number;
   readonly sourceRevision: string;          // render hash for mei/fixed; first stem for scan
+  /** Chants linked from this segment's starts, in page order. [] when none; set on a segment's first run only. */
+  readonly chants: readonly ChantRef[];
 }
+export interface ChantRef { readonly id: number; readonly incipit: string; readonly annotation: string; readonly mode: string }
 
 export interface SafeBoundary {
   readonly id: string;                      // "b017"
@@ -170,6 +176,8 @@ export interface SelectionInput {
     readonly rubricTranslation: string | null;
     readonly credit: string | null;
     readonly stems: readonly string[];
+    /** Chants this segment starts (ExportBar's data-chants); [] when none. */
+    readonly chants: readonly ChantRef[];
     readonly runs: readonly {
       readonly count: number;
       readonly key: string | null;
@@ -238,6 +246,11 @@ export interface MeiLayout {
   readonly staffHeightMm: number;               // measured from the SVG
   readonly verovioOptions: Readonly<Record<string, string | number | boolean>>;
   readonly diagnostics: readonly LayoutDiagnostic[];
+  /**
+   * False when this layout was made without the accompaniment sharing the last chant page (the chant
+   * left too little room for the first system, so the accompaniment starts on a fresh page). Absent = true.
+   */
+  readonly chantShare?: boolean;
 }
 
 /** Canonical runtime codes. The UI copy deck (UI spec §7) maps every one of these; unknown codes get the generic copy. */
@@ -247,7 +260,7 @@ export type LayoutDiagnosticCode =
   | 'RENDERER_FAILED' | 'RENDERER_LOAD_FAILED' | 'ASSET_MISSING' | 'ASSET_HASH_MISMATCH'
   | 'UNSAFE_SVG' | 'INVALID_PAGE' | 'FONT_UNAVAILABLE' | 'BUDGET_EXCEEDED' | 'SOURCE_CEILING'
   | 'FIXED_PAGE_COUNT_MISMATCH' | 'SCAN_TOO_LARGE' | 'PDF_FAILED' | 'CANCELLED' | 'TIMEOUT'
-  | 'MIDWORD_UNAVOIDABLE';   // info (D24): an automatic system starts inside a word that no safe boundary could avoid
+  | 'MIDWORD_UNAVOIDABLE' | 'CHANT_UNAVAILABLE';   // info (D24): an automatic system starts inside a word that no safe boundary could avoid
 export type UnsatisfiableReason = 'system-too-tall' | 'system-too-wide' | 'heading-too-tall' | 'no-convergence';
 export type LayoutSuggestion =
   | 'smaller-music' | 'larger-page' | 'landscape' | 'portrait' | 'smaller-margins' | 'fit-to-page' | 'remove-break';
@@ -281,7 +294,12 @@ interface CanonicalPageBase {
   readonly footer: HeadingBlock | null;
   /** Fraction of content height left unused (0..1). UI shows the blank-page note when > 0.25 and another page of the same part follows. */
   readonly unusedFraction: number;
+  /** Chant lines placed on this page ([] when none). */
+  readonly chant: readonly ChantPlacement[];
 }
+/** One chant line, ready to place: sanitized SVG and its size on paper. Built by the worker from K1's split lines. */
+export interface ChantLineArt { readonly chantId: number; readonly line: number; readonly svg: SanitizedSvg; readonly widthMm: number; readonly heightMm: number }
+export interface ChantPlacement { readonly chantId: number; readonly line: number; readonly svg: SanitizedSvg; readonly rect: RectMm }
 export interface MeiCanonicalPage extends CanonicalPageBase {
   readonly kind: 'mei';
   readonly svg: SanitizedSvg;
@@ -311,6 +329,8 @@ export interface LayoutRequest {
   readonly parts: readonly ExportPart[];
   readonly settings: LayoutSettings;
   readonly overrides: Readonly<Record<string, readonly BreakOverride[]>>;   // by part id
+  /** chantId -> Exsurge SVG string at this job's scale; null when chant is off. */
+  readonly chantSvgs: ReadonlyMap<number, string> | null;
 }
 export interface LayoutResult {
   readonly token: number;
@@ -398,6 +418,11 @@ export interface ControllerDependencies {
   readonly profile?: ResourceProfile;
   /** Supplies MEI byte sizes and event counts when known; default counts source systems only. */
   readonly estimate?: (parts: readonly ExportPart[]) => BudgetInput;
+  /**
+   * Draws the selection's chants with Exsurge on the main thread (chantId -> SVG string). Called only when
+   * Chant is on and a part has chants; absent = chant cannot be drawn (parts print without it).
+   */
+  readonly renderChants?: (parts: readonly ExportPart[], settings: LayoutSettings) => Promise<ReadonlyMap<number, string>>;
 }
 export type BreakAction = BreakOverride | { readonly boundaryId: string; readonly kind: 'remove' };
 export interface ExportController {

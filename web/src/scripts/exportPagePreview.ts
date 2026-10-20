@@ -90,6 +90,7 @@ export function usedBottomMm(page: CanonicalPage): number {
   } else if (page.kind === 'scan') {
     for (const image of page.images) bottom = Math.max(bottom, image.rect.yMm + image.rect.heightMm);
   }
+  for (const c of page.chant) bottom = Math.max(bottom, c.rect.yMm + c.rect.heightMm);
   if (page.footer !== null) bottom = Math.max(bottom, page.footer.rect.yMm + page.footer.rect.heightMm);
   const floor = page.content.yMm + Math.min(10, page.content.heightMm);
   return Math.min(page.heightMm, Math.max(floor, bottom + CONTINUOUS_PAD_MM));
@@ -97,8 +98,10 @@ export function usedBottomMm(page: CanonicalPage): number {
 
 export function pageAriaLabel(page: CanonicalPage, number: number, total: number, partLabel: string): string {
   const lead = `Page ${number} of ${total}: ${partLabel}`;
+  const chant = page.chant.length > 0 ? ', with chant' : '';
   if (page.kind === 'fixed') return `${lead}, fixed typeset layout`;
-  return `${lead}, ${page.systemCount} system${page.systemCount === 1 ? '' : 's'}`;
+  if (page.systemCount === 0) return `${lead}${chant}`;
+  return `${lead}, ${page.systemCount} system${page.systemCount === 1 ? '' : 's'}${chant}`;
 }
 
 export function blankNote(pages: readonly CanonicalPage[], i: number): string | null {
@@ -336,6 +339,7 @@ function draw(root: HTMLElement, s: PreviewState): void {
         sheet.append(slot);
         fixedJobs.push({ page, key, slot });
       }
+      drawChant(sheet, page);
       drawTextBlocks(sheet, page);
       if (!continuous) sheet.append(guide(page));
       frame.append(sheet);
@@ -403,6 +407,20 @@ function drawMei(sheet: HTMLElement, page: MeiCanonicalPage): void {
   holder.style.width = pct((size?.widthMm ?? page.widthMm) * p.scaleX, page.widthMm);
   holder.style.height = pct((size?.heightMm ?? page.heightMm) * p.scaleY, page.heightMm);
   sheet.append(holder);
+}
+
+/** Chant lines: sanitized SVG, each scaled into its rect like the accompaniment page above. */
+function drawChant(sheet: HTMLElement, page: CanonicalPage): void {
+  for (const c of page.chant) {
+    const holder = el('div', 'cx-svg');
+    holder.setAttribute('aria-hidden', 'true');
+    insertPageSvg(holder, c.svg.svg);
+    holder.style.left = pct(c.rect.xMm, page.widthMm);
+    holder.style.top = pct(c.rect.yMm, page.heightMm);
+    holder.style.width = pct(c.rect.widthMm, page.widthMm);
+    holder.style.height = pct(c.rect.heightMm, page.heightMm);
+    sheet.append(holder);
+  }
 }
 
 function drawScan(sheet: HTMLElement, page: ScanCanonicalPage, partLabel: string): void {

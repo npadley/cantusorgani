@@ -20,11 +20,17 @@
 import fontkit from '@pdf-lib/fontkit';
 import type { Font } from '@pdf-lib/fontkit';
 import { sha256Hex } from './fonts';
+import { CHANT_CREDIT, MIN_ACCOMPANIMENT_FALLBACK_MM, NO_CHANT, firstAccompanimentTopMm, planChant } from './chantPlan';
+import type { ChantPlan } from './chantPlan';
+import { MAX_CHANT_LINES } from './limits';
 import { paperDimensions } from './settings';
+import { STAFF_SIZES } from './types';
 import { measureSvgBounds, sanitizePageSvg } from './svg';
 import type {
   AssetLoader,
   CanonicalPage,
+  ChantLineArt,
+  ChantPlacement,
   EffectiveBreaks,
   ExportPart,
   FixedCanonicalPage,
@@ -127,10 +133,11 @@ function headingLines(h: PartHeading, fonts: FontProfile, widthMm: number): RawL
   add(h.rubricTranslation, 'translation', TRANSLATION_PT, fonts.headingItalic);
   return lines;
 }
-function footerLines(h: PartHeading, fonts: FontProfile, widthMm: number): RawLine[] {
+function footerLines(h: PartHeading, fonts: FontProfile, widthMm: number, withChant = false): RawLine[] {
   const lines: RawLine[] = [];
-  if (h.credit !== null && h.credit.trim() !== '') {
-    for (const t of wrap(fonts.headingRegular, h.credit, CREDIT_PT, widthMm)) {
+  const credit = [h.credit, withChant ? CHANT_CREDIT : null].filter((c): c is string => c !== null && c.trim() !== '').join(' ');
+  if (credit !== '') {
+    for (const t of wrap(fonts.headingRegular, credit, CREDIT_PT, widthMm)) {
       lines.push({ text: t, role: 'credit', sizePt: CREDIT_PT, asset: fonts.headingRegular });
     }
   }
@@ -142,15 +149,77 @@ export interface PartReservation {
   readonly headingMm: number;
   /** Height reserved below the content on every page of the part (0 when none). */
   readonly footerMm: number;
+  /** Height used by chant on the part's first accompaniment page (the shared page), 0 when none. */
+  readonly chantTailMm: number;
+  /** Pages that hold chant only, before the part's accompaniment. */
+  readonly chantPages: number;
 }
-/** What composeExport reserves for a part; callers build renderMei's PageRects from it so both agree. */
-export function reservationFor(part: ExportPart, settings: LayoutSettings, fonts: FontProfile): PartReservation {
-  if (part.kind === 'fixed' || part.heading === null) return { headingMm: 0, footerMm: 0 };
+/**
+ * Smallest room below a part's chant that lets the accompaniment share the page (CS §3.4). For MEI it is an
+ * estimate of one grand-staff system with its lyrics at the chosen Music size; if the first real system is
+ * taller, the worker lays the part out again with `share` false (MeiLayout.chantShare).
+ */
+export function minAccompanimentMm(part: ExportPart, settings: LayoutSettings): number {
+  if (part.kind !== 'mei') return MIN_ACCOMPANIMENT_FALLBACK_MM;
+  return 2 * STAFF_SIZES[settings.staff].heightMm + 20;
+}
+
+interface PartChantGeometry {
+  readonly plan: ChantPlan;
+  /** Height of the heading shown at the top of the part's first page (chant page or accompaniment page). */
+  readonly headingMm: number;
+  /** Footer reservation on every page of the part, the chant credit included. */
+  readonly footerMm: number;
+}
+
+/** The heading a part prints above its chant: fixed parts have none of their own, so theirs is built from the label. */
+export function chantHeading(part: ExportPart): PartHeading | null {
+  if (part.kind !== 'fixed') return part.heading;
+  return { label: part.heading?.label ?? part.label, rubric: null, rubricTranslation: null, credit: null };
+}
+
+/**
+ * Where a part's chant goes. Shared by reservationFor (what renderMei is given) and composeExport (what is
+ * drawn), so the two cannot disagree. Throws RangeError when one chant line is taller than a page.
+ */
+export function chantGeometryFor(
+  part: ExportPart,
+  settings: LayoutSettings,
+  fonts: FontProfile,
+  arts: readonly ChantLineArt[],
+  share: boolean,
+  firstAccompanimentMm = 0,
+): PartChantGeometry {
   const page = paperDimensions(settings);
   const width = page.widthMm - 2 * settings.marginMm;
-  const h = block(headingLines(part.heading, fonts, width), 0, 0, width, HEADING_GAP_MM);
-  const f = block(footerLines(part.heading, fonts, width), 0, 0, width, 0);
-  return { headingMm: h.rect.heightMm, footerMm: f.lines.length === 0 ? 0 : f.rect.heightMm + FOOTER_GAP_MM };
+  const printableH = page.heightMm - 2 * settings.marginMm;
+  const heading = chantHeading(part);
+  const headingMm = heading === null ? 0 : block(headingLines(heading, fonts, width), 0, 0, width, HEADING_GAP_MM).rect.heightMm;
+  const footLines = heading === null ? [] : footerLines(heading, fonts, width, arts.length > 0);
+  const footerMm = footLines.length === 0 ? 0 : block(footLines, 0, 0, width, 0).rect.heightMm + FOOTER_GAP_MM;
+  if (arts.length === 0) return { plan: NO_CHANT, headingMm, footerMm };
+  const minAcc = Math.max(minAccompanimentMm(part, settings), firstAccompanimentMm);
+  return { plan: planChant(arts, headingMm, printableH - footerMm, minAcc, share && part.kind !== 'fixed'), headingMm, footerMm };
+}
+
+/** What composeExport reserves for a part; callers build renderMei's PageRects from it so both agree. */
+export function reservationFor(
+  part: ExportPart,
+  settings: LayoutSettings,
+  fonts: FontProfile,
+  chant: readonly ChantLineArt[] = [],
+  share = true,
+): PartReservation {
+  const geo = chantGeometryFor(part, settings, fonts, chant, share);
+  const { plan } = geo;
+  if (part.kind === 'fixed') return { headingMm: 0, footerMm: 0, chantTailMm: 0, chantPages: plan.chantPages };
+  if (part.heading === null) return { headingMm: 0, footerMm: 0, chantTailMm: plan.tailMm, chantPages: plan.chantPages };
+  return { headingMm: geo.headingMm, footerMm: geo.footerMm, chantTailMm: plan.tailMm, chantPages: plan.chantPages };
+}
+
+/** Top of the part's first accompaniment page below the printable top: the heading unless it stayed on a chant page, plus the chant tail. */
+export function firstPageTopMm(r: PartReservation): number {
+  return firstAccompanimentTopMm(r.headingMm, r.chantPages, r.chantTailMm);
 }
 
 // ------------------------------------------------------------- digests ---
@@ -175,6 +244,9 @@ function diag(
     reason: o.reason ?? null, suggestions: o.suggestions ?? [], detail,
   };
 }
+function info(partId: string | null, code: LayoutDiagnosticCode, detail: string): LayoutDiagnostic {
+  return { ...diag(partId, code, detail), severity: 'info' };
+}
 const codeOfError = (e: unknown, fallback: LayoutDiagnosticCode): LayoutDiagnosticCode => {
   const m = /^([A-Z_]+):/.exec(e instanceof Error ? e.message : '');
   const known: readonly LayoutDiagnosticCode[] = ['ASSET_MISSING', 'ASSET_HASH_MISMATCH', 'UNSAFE_SVG', 'INVALID_PAGE'];
@@ -197,6 +269,8 @@ export async function composeExport(
   settings: LayoutSettings,
   deps: ComposeDeps,
   token: number,
+  /** chantId -> the chant's lines on paper; null or missing = it could not be drawn (the part prints without it). */
+  chantLines: ReadonlyMap<number, readonly ChantLineArt[] | null> = new Map(),
 ): Promise<LayoutResult> {
   const { fonts } = deps;
   const phys = paperDimensions(settings);
@@ -211,15 +285,53 @@ export async function composeExport(
 
   const pageBase = (partId: string, content: RectMm, heading: HeadingBlock | null, footer: HeadingBlock | null, unused: number) => ({
     index: pages.length, widthMm: phys.widthMm, heightMm: phys.heightMm, partId, printable, content, heading, footer,
-    unusedFraction: clamp01(unused),
+    unusedFraction: clamp01(unused), chant: [],
   });
+
+  // Chant lines to print, per part (CS §3): only when the setting asks for them and the lines exist.
+  const chantOf = new Map<string, readonly ChantLineArt[]>();
+  if (settings.chant !== 'off') {
+    let total = 0;
+    for (const part of parts) {
+      const arts: ChantLineArt[] = [];
+      for (const ref of part.chants) {
+        const lines = chantLines.get(ref.id);
+        if (lines === undefined || lines === null || lines.length === 0) {
+          diagnostics.push(info(part.id, 'CHANT_UNAVAILABLE', `chant ${ref.id} has no lines`));
+          continue;
+        }
+        arts.push(...lines);
+      }
+      total += arts.length;
+      chantOf.set(part.id, arts);
+    }
+    if (total > MAX_CHANT_LINES) {
+      diagnostics.push(diag(null, 'CAP_EXCEEDED', `${total} chant lines; the limit is ${MAX_CHANT_LINES}`));
+      chantOf.clear();
+    }
+  }
 
   for (const part of parts) {
     const startCount = pages.length;
-    const rawHead = part.kind !== 'fixed' && part.heading !== null ? headingLines(part.heading, fonts, printable.widthMm) : [];
-    const rawFoot = part.kind !== 'fixed' && part.heading !== null ? footerLines(part.heading, fonts, printable.widthMm) : [];
+    let arts = chantOf.get(part.id) ?? [];
+    const only = settings.chant === 'only';
+    const meiShare = !only && (part.kind !== 'mei' || meiLayouts.get(part.id)?.chantShare !== false);
+    const geoFor = (firstAccMm: number): PartChantGeometry => {
+      try {
+        return chantGeometryFor(part, settings, fonts, arts, meiShare, firstAccMm);
+      } catch (e) {
+        if (!(e instanceof RangeError)) throw e;
+        diagnostics.push(info(part.id, 'CHANT_UNAVAILABLE', e.message));
+        arts = [];
+        return chantGeometryFor(part, settings, fonts, arts, meiShare, firstAccMm);
+      }
+    };
+    let geo = geoFor(0);
+    const hd = chantHeading(part);
+    const rawHead = hd === null ? [] : headingLines(hd, fonts, printable.widthMm);
+    const rawFoot = hd === null ? [] : footerLines(hd, fonts, printable.widthMm, arts.length > 0);
     const headingBlock = rawHead.length === 0 ? null : block(rawHead, printable.xMm, printable.yMm, printable.widthMm, HEADING_GAP_MM);
-    const headingH = headingBlock?.rect.heightMm ?? 0;
+    const headingH = part.kind === 'fixed' ? 0 : headingBlock?.rect.heightMm ?? 0;
     const footerOf = (): HeadingBlock | null => {
       if (rawFoot.length === 0) return null;
       const probe = block(rawFoot, 0, 0, printable.widthMm, 0);
@@ -227,10 +339,38 @@ export async function composeExport(
       return block(rawFoot, printable.xMm, top, printable.widthMm, 0);
     };
     const footerH = rawFoot.length === 0 ? 0 : block(rawFoot, 0, 0, printable.widthMm, 0).rect.heightMm + FOOTER_GAP_MM;
+    const accTop = (): number => firstAccompanimentTopMm(headingH, geo.plan.chantPages, geo.plan.tailMm);
     const contentFor = (first: boolean): RectMm => {
-      const top = first ? headingH : 0;
+      const top = first ? accTop() : 0;
       return { xMm: printable.xMm, yMm: printable.yMm + top, widthMm: printable.widthMm, heightMm: printable.heightMm - top - footerH };
     };
+    /** Chant placements on one chant page index, as page-absolute rects. */
+    const placementsOn = (pageIdx: number): ChantPlacement[] => geo.plan.placed.filter((l) => l.page === pageIdx).map((l) => ({
+      chantId: l.art.chantId, line: l.art.line, svg: l.art.svg,
+      rect: { xMm: printable.xMm, yMm: printable.yMm + l.topMm, widthMm: l.art.widthMm, heightMm: l.art.heightMm },
+    }));
+    /** The chant-only pages before the accompaniment (empty scan pages that carry the heading and the chant). */
+    const leadPages = (): ScanCanonicalPage[] => Array.from({ length: geo.plan.chantPages }, (_, k) => {
+      const top = k === 0 ? headingH : 0;
+      const content: RectMm = { xMm: printable.xMm, yMm: printable.yMm + top, widthMm: printable.widthMm, heightMm: printable.heightMm - top - footerH };
+      const mine = geo.plan.placed.filter((l) => l.page === k);
+      const bottom = Math.max(top, ...mine.map((l) => l.topMm + l.art.heightMm));
+      const lastOfFixed = (part.kind === 'fixed' || only) && k === geo.plan.chantPages - 1;
+      return {
+        ...pageBase(part.id, content, k === 0 ? headingBlock : null, lastOfFixed ? footerOf() : null, 1 - (bottom - top) / content.heightMm),
+        index: startCount + k,
+        kind: 'scan',
+        images: [],
+        systemCount: 0,
+        chant: placementsOn(k),
+      };
+    });
+
+    // Chant only (DL D27): the part is its chant pages alone; a part with no chant is left out.
+    if (only) {
+      if (arts.length > 0) pages.push(...leadPages());
+      continue;
+    }
 
     if (part.kind !== 'fixed' && contentFor(true).heightMm <= 0) {
       diagnostics.push(diag(part.id, 'UNSATISFIABLE_LAYOUT', `heading ${headingH} mm leaves no room on a ${printable.heightMm} mm page`, {
@@ -255,27 +395,30 @@ export async function composeExport(
           }
           continue;
         }
+        const lead = leadPages();
+        const sharedChant = geo.plan.shared ? placementsOn(geo.plan.pageCount - 1) : [];
         const built: MeiCanonicalPage[] = [];
         let bad = false;
         for (let i = 0; i < layout.pages.length; i++) {
           const lp = layout.pages[i]!;
           const content = contentFor(i === 0);
           const maxHeight = contentFor(false).heightMm;
-          const svg = sanitizePageSvg(lp.svg, svgNamespace(part.id, pages.length + i, i));
+          const svg = sanitizePageSvg(lp.svg, svgNamespace(part.id, pages.length + lead.length + i, i));
           const bounds = measureSvgBounds(svg);
           // A single short line (e.g. Ite, missa est) is narrower than the content: it stays ragged at the right, as in LilyPond.
           if (bounds.widthMm > content.widthMm + SIZE_TOLERANCE_MM || bounds.heightMm > maxHeight + SIZE_TOLERANCE_MM) {
             diagnostics.push(diag(part.id, 'INVALID_PAGE',
               `page ${i} SVG is ${bounds.widthMm} x ${bounds.heightMm} mm; the content rect is ${content.widthMm} x ${maxHeight} mm`,
-              { pageIndex: pages.length + i }));
+              { pageIndex: pages.length + lead.length + i }));
             bad = true;
             break;
           }
           const bottom = Math.max(0, ...lp.systems.map((s) => s.topMm + s.heightMm));
           const last = i === layout.pages.length - 1;
           built.push({
-            ...pageBase(part.id, content, i === 0 ? headingBlock : null, last ? footerOf() : null, 1 - bottom / content.heightMm),
-            index: pages.length + i,
+            ...pageBase(part.id, content, i === 0 && geo.plan.chantPages === 0 ? headingBlock : null, last ? footerOf() : null, 1 - bottom / content.heightMm),
+            index: pages.length + lead.length + i,
+            chant: i === 0 ? sharedChant : [],
             kind: 'mei',
             svg,
             svgPlacement: { scaleX: 1, scaleY: 1, translateXMm: content.xMm, translateYMm: content.yMm },
@@ -286,7 +429,7 @@ export async function composeExport(
             }]),
           });
         }
-        if (!bad) pages.push(...built);
+        if (!bad) pages.push(...lead, ...built);
       } else if (part.kind === 'scan') {
         const sizes: { stem: string; w: number; h: number }[] = [];
         for (const stem of part.stems) {
@@ -294,6 +437,8 @@ export async function composeExport(
           const s = deps.pngSize(bytes);
           sizes.push({ stem, w: s.width, h: s.height });
         }
+        const firstImageMm = sizes[0] === undefined ? 0 : (sizes[0].h / sizes[0].w) * Math.min(printable.widthMm, (sizes[0].w / SCAN_MIN_DPI) * 25.4);
+        geo = geoFor(firstImageMm);
         const cap = settings.maxSystems ?? Infinity;
         const groups: { stem: string; w: number; h: number; wMm: number; hMm: number }[][] = [[]];
         let used = 0;
@@ -321,6 +466,8 @@ export async function composeExport(
           cur.push({ ...s, wMm, hMm });
         }
         if (!tooLarge) {
+          pages.push(...leadPages());
+          const sharedChant = geo.plan.shared ? placementsOn(geo.plan.pageCount - 1) : [];
           groups.forEach((g, gi) => {
             const content = contentFor(gi === 0);
             let y = content.yMm;
@@ -331,8 +478,9 @@ export async function composeExport(
             });
             const bottom = g.reduce((acc, im, k) => acc + im.hMm + (k === 0 ? 0 : SCAN_GAP_MM), 0);
             const page: ScanCanonicalPage = {
-              ...pageBase(part.id, content, gi === 0 ? headingBlock : null, gi === groups.length - 1 ? footerOf() : null, 1 - bottom / content.heightMm),
+              ...pageBase(part.id, content, gi === 0 && geo.plan.chantPages === 0 ? headingBlock : null, gi === groups.length - 1 ? footerOf() : null, 1 - bottom / content.heightMm),
               index: pages.length,
+              chant: gi === 0 ? sharedChant : [],
               kind: 'scan',
               images,
               systemCount: images.length,
@@ -349,6 +497,7 @@ export async function composeExport(
           diagnostics.push(diag(part.id, 'FIXED_PAGE_COUNT_MISMATCH', `${url} has ${first.count} pages`));
           continue;
         }
+        const lead = leadPages();
         const built: FixedCanonicalPage[] = [];
         for (let i = 0; i < first.count; i++) {
           const size = i === 0 ? first : await deps.pdfPageSize(bytes, i);
@@ -360,7 +509,7 @@ export async function composeExport(
           const drawnH = srcH * scale;
           built.push({
             ...pageBase(part.id, content, null, null, 1 - drawnH / content.heightMm),
-            index: pages.length + i,
+            index: pages.length + lead.length + i,
             kind: 'fixed',
             sourceUrl: url,
             sourcePaper: paper,
@@ -374,7 +523,7 @@ export async function composeExport(
             systemCount: null,
           });
         }
-        pages.push(...built);
+        pages.push(...lead, ...built);
       }
     } catch (e) {
       pages.length = startCount;
@@ -382,11 +531,26 @@ export async function composeExport(
     }
   }
 
-  const svgHashes = await Promise.all(pages.map((p) => (p.kind === 'mei' ? sha256Hex(new TextEncoder().encode(p.svg.svg)) : Promise.resolve(null))));
-  const pagesForDigest = pages.map((p, i) => (p.kind === 'mei' ? { ...p, svg: { sha256: svgHashes[i], ids: p.svg.ids, namespace: p.svg.namespace } } : p));
+  if (settings.chant === 'only' && pages.length === 0 && parts.length > 0) {
+    diagnostics.push(diag(null, 'INVALID_PAGE', 'chant only: no part has a chant to print'));
+  }
+
+  const hash = (svg: string): Promise<string> => sha256Hex(new TextEncoder().encode(svg));
+  const svgHashes = await Promise.all(pages.map((p) => (p.kind === 'mei' ? hash(p.svg.svg) : Promise.resolve(null))));
+  const chantHashes = await Promise.all(pages.map((p) => Promise.all(p.chant.map((c) => hash(c.svg.svg)))));
+  // A page without chant digests exactly as it did before chant existed: no `chant` key, so cached results stay valid.
+  const pagesForDigest = pages.map((p, i) => {
+    const { chant, ...rest } = p;
+    const withSvg = p.kind === 'mei' ? { ...rest, svg: { sha256: svgHashes[i], ids: p.svg.ids, namespace: p.svg.namespace } } : rest;
+    return chant.length === 0 ? withSvg : {
+      ...withSvg,
+      chant: chant.map((c, k) => ({ chantId: c.chantId, line: c.line, rect: c.rect, svg: { sha256: chantHashes[i]![k], ids: c.svg.ids, namespace: c.svg.namespace } })),
+    };
+  });
+  const { chant: chantSetting, ...settingsRest } = settings;
   const [input, settingsDigest, result] = await Promise.all([
     sha(parts.map((p) => ({ id: p.id, sourceRevision: p.sourceRevision })).sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))),
-    sha(settings),
+    sha(chantSetting === 'off' ? settingsRest : settings),
     sha(pagesForDigest),
   ]);
 

@@ -1,5 +1,5 @@
 import type { ExportRun } from "./typeset";
-import type { SelectionInput } from "./export-layout/types";
+import type { ChantRef, SelectionInput } from "./export-layout/types";
 
 /** What the export reads from one of ExportBar's part checkboxes. An
  * HTMLInputElement is one; tests pass plain objects. */
@@ -34,6 +34,26 @@ export function parseRuns(json: string | undefined): ExportRun[] {
   return out;
 }
 
+/** A part's chants, from its data-chants JSON: [{id, incipit, annotation, mode}]. Anything malformed
+ * reads as no chants (the part prints without chant). */
+export function parseChants(json: string | undefined): ChantRef[] {
+  let list: unknown;
+  try {
+    list = JSON.parse(json ?? "[]");
+  } catch {
+    return [];
+  }
+  if (!Array.isArray(list)) return [];
+  const out: ChantRef[] = [];
+  for (const c of list as unknown[]) {
+    if (typeof c !== "object" || c === null) return [];
+    const o = c as Record<string, unknown>;
+    if (typeof o["id"] !== "number" || !Number.isInteger(o["id"]) || o["id"] <= 0) return [];
+    out.push({ id: o["id"], incipit: text(o["incipit"]) ?? "", annotation: text(o["annotation"]) ?? "", mode: text(o["mode"]) ?? "" });
+  }
+  return out;
+}
+
 /** The ticked parts, in page order, with each run marked by whether the reader
  * is looking at its scans. Reads no DOM itself: `showsScans` does. */
 export function readSelectionInput(boxes: readonly PartBox[], title: string,
@@ -47,6 +67,7 @@ export function readSelectionInput(boxes: readonly PartBox[], title: string,
       rubricTranslation: box.dataset["rubricTranslation"] || null,
       credit: null,
       stems: (box.dataset["stems"] ?? "").split(",").filter(Boolean),
+      chants: parseChants(box.dataset["chants"]),
       runs: parseRuns(box.dataset["runs"]).map((run): Run => ({
         ...run, showsScans: run.key !== null && showsScans(run.key),
       })),

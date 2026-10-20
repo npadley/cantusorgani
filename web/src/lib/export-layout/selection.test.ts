@@ -17,7 +17,7 @@ const run = (over: Partial<Run> = {}): Run => ({
 });
 const scanRun = (count = 1): Run => run({ count, key: null, label: null, target: null, hash: null, letter: null, a4: null });
 const segment = (over: Partial<Segment> = {}): Segment => ({
-  segmentId: "s", label: "Intr", rubric: "R", rubricTranslation: "T", credit: null, stems: ["a", "b", "c"], runs: [run()], ...over,
+  segmentId: "s", label: "Intr", rubric: "R", rubricTranslation: "T", credit: null, stems: ["a", "b", "c"], chants: [], runs: [run()], ...over,
 });
 const input = (...segments: Segment[]): SelectionInput => ({ title: "x", segments });
 
@@ -56,5 +56,20 @@ describe("snapshotSelection", () => {
 
   it("should throw on a duplicate part id", () => {
     expect(() => snapshotSelection(input(segment(), segment()), lookup)).toThrow("DUPLICATE_PART: s:0");
+  });
+
+  it("should put a segment's chants on its first part only", () => {
+    const chants = [{ id: 2976, incipit: "Kyrie", annotation: "", mode: "1" }];
+    const seg = segment({ stems: ["a", "b", "c"], chants, runs: [run(), scanRun(), run({ target: "t/other" })] });
+    const parts = snapshotSelection(input(seg), lookup);
+    expect(parts.map((p) => p.chants.length)).toEqual([1, 0, 0]);
+    expect(parts[0]?.chants).toEqual(chants);
+  });
+
+  it("should keep chants when the segment falls back to one scan", () => {
+    const chants = [{ id: 7, incipit: "Ad te", annotation: "Intr.", mode: "1" }];
+    const parts = snapshotSelection(input(segment({ chants, runs: [run({ count: 1 })] })), lookup);
+    expect(parts).toHaveLength(1);
+    expect(parts[0]?.chants).toEqual(chants);
   });
 });

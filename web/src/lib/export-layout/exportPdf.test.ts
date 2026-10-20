@@ -32,18 +32,18 @@ const heading = (label: string, extra: Partial<PartHeading> = {}): PartHeading =
   label, rubric: null, rubricTranslation: null, credit: null, ...extra,
 });
 const meiPart = (id: string, h: PartHeading | null): MeiExportPart => ({
-  id, kind: 'mei', label: 'Kyrie', heading: h, sourceSystemCount: 3, sourceRevision: 'rev1', target: 'movement:test', renderHash: 'h'.repeat(32),
+  id, kind: 'mei', label: 'Kyrie', heading: h, sourceSystemCount: 3, chants: [], sourceRevision: 'rev1', target: 'movement:test', renderHash: 'h'.repeat(32),
   conversion: {
     digest: 'd'.repeat(64), meiUrl: '', meiSha256: '', sourceRevision: 'rev1', profile: 'accompaniment-v1',
     verovio: '6.3.0-425dd7b', boundaries: [], capabilities: { manualBreaks: true },
   },
 });
 const scanPart = (id: string, stems: readonly string[]): ScanExportPart => ({
-  id, kind: 'scan', label: 'Gradual', heading: heading('Gradual', { credit: 'Source: Graduale Romanum' }), sourceSystemCount: 3,
+  id, kind: 'scan', label: 'Gradual', heading: heading('Gradual', { credit: 'Source: Graduale Romanum' }), sourceSystemCount: 3, chants: [],
   sourceRevision: stems[0] ?? '', stems, customizableAvailable: false,
 });
 const fixedPart = (id: string): FixedExportPart => ({
-  id, kind: 'fixed', label: 'Credo', heading: heading('Credo'), sourceSystemCount: 3, sourceRevision: 'fx',
+  id, kind: 'fixed', label: 'Credo', heading: heading('Credo'), sourceSystemCount: 3, chants: [], sourceRevision: 'fx',
   target: 'movement:credo', renderHash: 'f'.repeat(32), letterPdf: 'letter.pdf', a4Pdf: 'a4.pdf',
 });
 

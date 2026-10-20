@@ -10,8 +10,10 @@
 import editorCss from '../styles/exportEditor.css?url';
 import { loadStylesheet } from './lazyStyles';
 import { createExportController } from '../lib/export-layout/controller';
+import { renderChantSvgs } from '../lib/export-layout/chantJob';
 import { parseResourceProfile } from '../lib/export-layout/limits';
 import { capabilitiesFor } from '../lib/export-layout/capabilities';
+import { chantAnnouncement, chantCounts, chantNote, chantPartsPrinted } from '../lib/export-layout/chantNotes';
 import { paperDimensions } from '../lib/export-layout/settings';
 import { PAGE_PRESETS, MARGIN_MAX_MM, MARGIN_MIN_MM, MAX_SYSTEMS_LIMIT, PAGE_MAX_MM, PAGE_MAX_RATIO, PAGE_MIN_MM, PRINT_MARGIN_ADVISORY_MM } from '../lib/export-layout/types';
 import type {
@@ -37,7 +39,8 @@ export interface OpenExportEditorOptions {
   /** Receives focus when the dialog closes (#export-customize). */
   readonly opener: HTMLElement | null;
   /** Called after a custom PDF has been delivered, with the settings it was made with (analytics). */
-  readonly onExported?: (settings: LayoutSettings) => void;
+  /** Called after a download starts, with the settings and how many parts printed chant. */
+  readonly onExported?: (settings: LayoutSettings, chantParts: number) => void;
   /** Dependency overrides (tests, the e2e fault injector). */
   readonly deps?: Partial<ControllerDependencies>;
 }
@@ -181,6 +184,7 @@ class Session {
       saveFile: (bytes, filename) => { this.savedBytes = bytes.byteLength; saveBlob(bytes, filename); },
       limits: profile.limits,
       profile,
+      renderChants: (parts, settings) => renderChantSvgs(parts, settings),
       ...options.deps,
     };
     this.controller = createExportController(deps);
@@ -355,6 +359,7 @@ class Session {
       case 'cx-lyrics': this.patch({ lyrics: t.value as LayoutSettings['lyrics'] }); break;
       case 'cx-spacing': this.patch({ spacing: t.value as LayoutSettings['spacing'] }); break;
       case 'cx-lines': this.patch({ linePolicy: t.value as LayoutSettings['linePolicy'] }); break;
+      case 'cx-chant': this.onChant(t.value as LayoutSettings['chant']); break;
       case 'cx-orient': this.patch({ orientation: t.value as LayoutSettings['orientation'] }); break;
       case 'cx-print': this.lastPrint = t.value as PagePresetId; this.patch({ page: this.lastPrint }); break;
       case 'cx-ipad': this.lastIpad = t.value as PagePresetId; this.patch({ page: this.lastIpad }); break;
@@ -495,7 +500,7 @@ class Session {
     await this.controller.download();
     const s = this.state;
     if (this.savedBytes !== null && s !== null && s.phase === 'ready' && s.result !== null) {
-      this.options.onExported?.(s.settings);
+      this.options.onExported?.(s.settings, this.chantPartsPrinted(s));
       this.say(`PDF downloaded: ${pageWord(s.result.pages.length)}, ${(this.savedBytes / (1024 * 1024)).toFixed(1)} MB.`, true);
     }
   }
@@ -571,7 +576,27 @@ class Session {
   }
 
   // ----------------------------------------------------------------- parts ---
-  private buildPartList(): void {
+  private onChant(mode: LayoutSettings['chant']): void {
+    this.patch({ chant: mode });
+    // The change's own sentence is the announcement; "Preview updated" would overwrite it.
+    this.holdUpdated = true;
+    this.say(chantAnnouncement(mode, this.parts), true);
+  }
+
+  private syncChantHelp(mode: LayoutSettings['chant']): void {
+    const none = !this.parts.some((p) => p.chants.length > 0);
+    this.q('chant-help').hidden = mode !== 'before' || none;
+    this.q('chant-only-help').hidden = mode !== 'only' || none;
+    this.q('chant-none').hidden = !none;
+    // Chant only can't print anything when no part has a chant.
+    for (const r of this.radios('cx-chant')) if (r.value === 'only') r.disabled = none;
+  }
+
+  private chantPartsPrinted(s: ControllerState): number {
+    return s.result === null ? 0 : chantPartsPrinted(s.result.pages);
+  }
+
+  private buildPartList(diagnostics: ControllerState['diagnostics'] = [], mode: LayoutSettings['chant'] = 'off'): void {
     const list = this.q('partlist');
     list.replaceChildren();
     for (const part of this.parts) {
@@ -585,6 +610,23 @@ class Session {
         const p = document.createElement('span');
         p.className = 'small muted';
         p.textContent = note;
+        li.append(p);
+      }
+      const chant = chantNote(part, this.parts, mode, diagnostics);
+      if (chant !== null) {
+        const p = document.createElement('span');
+        p.className = 'small muted';
+        p.textContent = chant.text;
+        if (chant.incipits.length > 0) {
+          p.append(' (');
+          chant.incipits.forEach((incipit, k) => {
+            if (k > 0) p.append('; ');
+            const i = document.createElement('i');
+            i.textContent = incipit;
+            p.append(i);
+          });
+          p.append(')');
+        }
         li.append(p);
       }
       list.append(li);
@@ -620,6 +662,9 @@ class Session {
     this.setRadio('cx-lyrics', set.lyrics);
     this.setRadio('cx-spacing', set.spacing);
     this.setRadio('cx-lines', set.linePolicy);
+    this.setRadio('cx-chant', set.chant);
+    this.buildPartList(s.diagnostics, set.chant);
+    this.syncChantHelp(set.chant);
     this.setRadio('cx-orient', set.orientation);
     this.setRadio('cx-tier', kind);
     this.setRadio('cx-unit', this.unit);
@@ -726,12 +771,28 @@ class Session {
       plus.disabled = true;
       plus.setAttribute('aria-label', 'Systems per page does not apply to these parts');
     }
+    // Chant only has no staves of ours to size and no systems to cap.
+    const onlyChant = s.settings.chant === 'only';
+    for (const r of this.radios('cx-staff')) r.disabled = onlyChant;
+    this.q('staff-only').hidden = !onlyChant;
+    this.q('cap-only').hidden = !onlyChant;
+    if (onlyChant) {
+      val.textContent = 'Not used for chant only';
+      minus.disabled = true;
+      plus.disabled = true;
+      plus.setAttribute('aria-label', 'Systems per page does not apply to chant only');
+    }
     const line = this.q('result');
     const pending = s.result === null;
     line.dataset['pending'] = String(pending);
     const r = this.shownResult(s);
     line.textContent = pending && (r === null || s.phase !== 'error') ? 'Updating…' : r === null ? '' : this.resultLine(r.pages);
     if (r !== null && !pending) line.textContent = this.resultLine(r.pages);
+    // Chant only: say how many parts were left out for having no chant.
+    const leftOut = s.settings.chant === 'only' ? chantCounts(this.parts).without : 0;
+    if (leftOut > 0 && line.textContent !== '' && line.textContent !== 'Updating…') {
+      line.textContent += ` · ${leftOut} part${leftOut === 1 ? '' : 's'} left out (no chant)`;
+    }
   }
 
   private resultLine(pages: readonly { partId: string; systemCount: number | null; kind: string }[]): string {

@@ -23,7 +23,7 @@ function letterOnIpad(sourcePageIndex = 0): FixedCanonicalPage {
   const scale = Math.min(content.widthMm / srcW, content.heightMm / srcH);
   return {
     index: 0, kind: 'fixed', widthMm: phys.widthMm, heightMm: phys.heightMm, partId: 'f:0',
-    printable: content, content, heading: null, footer: null, unusedFraction: 0,
+    printable: content, content, heading: null, footer: null, unusedFraction: 0, chant: [],
     sourceUrl: 'letter.pdf', sourcePaper: 'letter', sourcePageIndex, sourceSizePt: size,
     transform: {
       scaleX: scale, scaleY: scale,

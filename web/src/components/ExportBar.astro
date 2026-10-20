@@ -5,6 +5,7 @@ import { defaultTicked, defaultsNote, exportSegments, seasonGroup } from "../lib
 import { pieceBySlug } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
 import { exportRuns } from "../lib/typeset";
+import { segmentChants } from "../lib/exportChants";
 import type { ExportRun } from "../lib/typeset";
 import type { ExportSegment } from "../lib/exportParts";
 import type { Season } from "../lib/liturgy";
@@ -38,6 +39,10 @@ const runsOf = (s: ExportSegment): readonly ExportRun[] => {
   return piece && s.source ? exportRuns(piece, s.source.start, s.source.end)
     : [{ count: s.systems, key: null, label: null, letter: null, a4: null, target: null, hash: null }];
 };
+const chantsOf = (s: ExportSegment) => {
+  const piece = s.source ? pieceBySlug(s.source.slug) : undefined;
+  return piece && s.source ? segmentChants(piece, s.source.start, s.source.end) : [];
+};
 const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${estimatePages(n)} page${estimatePages(n) === 1 ? "" : "s"})`;
 ---
 
@@ -54,7 +59,8 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
                    data-stems={s.stems.join(",")} data-systems={s.systems} data-label={s.label}
                    data-years={s.years?.join(",")} data-seasons={s.seasons?.join(",")}
                    data-rubric={s.rubric} data-rubric-translation={s.rubricTranslation}
-                   data-runs={JSON.stringify(runsOf(s))} />
+                   data-runs={JSON.stringify(runsOf(s))}
+                   data-chants={JSON.stringify(chantsOf(s))} />
             <span>{s.label}</span>
             <span class="muted small">{s.systems}</span>
           </label>
@@ -227,9 +233,10 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
           parts,
           title: title.replace(/ — Nova Organi Harmonia$/, ""),
           opener: customize,
-          onExported: (s) => trackExport("custom", {
+          onExported: (s, printed) => trackExport("custom", {
             page: s.page, orientation: s.orientation, staff: s.staff,
             maxSystems: s.maxSystems === null ? "auto" : String(s.maxSystems), linePolicy: s.linePolicy,
+            chant: s.chant, chantParts: String(printed),
           }),
         });
       } catch {

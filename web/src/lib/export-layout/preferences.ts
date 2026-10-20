@@ -7,9 +7,12 @@ import type {
 } from './types';
 import { DEFAULT_SETTINGS, LEGACY_PAPER_KEY, PREFERENCES_KEY } from './types';
 import { migrateLegacyPaper, normalizeSettings } from './settings';
+import { readChantDisplay } from '../gabc';
 
-function defaultPreferences(): Preferences {
-  return { version: 2, settings: DEFAULT_SETTINGS, overrides: {} };
+/** Defaults for a reader with no saved preferences. Chant follows the site's "Show the chant" choice (DL D26). */
+function defaultPreferences(storage: StorageLike | null = null): Preferences {
+  const chant = readChantDisplay(storage) === 'show' ? 'before' : 'off';
+  return { version: 2, settings: { ...DEFAULT_SETTINGS, chant }, overrides: {} };
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -51,12 +54,12 @@ export function readPreferences(
 
   if (raw === null) {
     if (legacy === null) {
-      return { preferences: defaultPreferences(), notices };
+      return { preferences: defaultPreferences(storage), notices };
     }
     const page = migrateLegacyPaper(legacy);
     notices.push({ code: 'MIGRATED_EXPORT_PAPER', field: 'page', partId: null });
     return {
-      preferences: { version: 2, settings: { ...DEFAULT_SETTINGS, page }, overrides: {} },
+      preferences: { version: 2, settings: { ...defaultPreferences(storage).settings, page }, overrides: {} },
       notices,
     };
   }

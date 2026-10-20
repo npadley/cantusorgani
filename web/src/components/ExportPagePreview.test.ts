@@ -12,7 +12,7 @@ const SCRIPT = readFileSync(new URL("../scripts/exportPagePreview.ts", import.me
 const COMPONENT = readFileSync(new URL("../styles/exportPreview.css", import.meta.url), "utf8");
 
 const rect = { xMm: 12, yMm: 12, widthMm: 191.9, heightMm: 255.4 };
-const base = { index: 0, widthMm: 215.9, heightMm: 279.4, partId: "kyrie:0", printable: rect, content: rect, heading: null, footer: null, unusedFraction: 0 };
+const base = { index: 0, widthMm: 215.9, heightMm: 279.4, partId: "kyrie:0", printable: rect, content: rect, heading: null, footer: null, unusedFraction: 0, chant: [] };
 const mei = (over: Partial<MeiCanonicalPage> = {}): MeiCanonicalPage => ({
   ...base, kind: "mei", svg: { svg: "<svg/>", ids: [], namespace: "p0" },
   svgPlacement: { scaleX: 1, scaleY: 1, translateXMm: 12, translateYMm: 12 }, systemCount: 4, boundaries: [], ...over,
@@ -98,11 +98,12 @@ describe("zoom", () => {
 });
 
 describe("SVG insertion boundary", () => {
-  it("should insert generated SVG in exactly one place, fed only by CanonicalPage.svg.svg", () => {
+  it("should insert generated SVG in exactly one function, fed only by sanitized page SVG (CanonicalPage.svg.svg and each chant line svg.svg)", () => {
     const sinks = SCRIPT.match(/\.(innerHTML|outerHTML)\s*=|insertAdjacentHTML|document\.write|DOMParser|createContextualFragment/g) ?? [];
     expect(sinks).toEqual([".innerHTML ="]);
-    expect(SCRIPT.match(/insertPageSvg\(/g)).toHaveLength(2); // definition and its single call
+    expect(SCRIPT.match(/insertPageSvg\(/g)).toHaveLength(3); // definition, the accompaniment page and each chant line
     expect(SCRIPT).toContain("insertPageSvg(holder, page.svg.svg)");
+    expect(SCRIPT).toContain("insertPageSvg(holder, c.svg.svg)");
     expect(SCRIPT).not.toMatch(/\beval\(|new Function\(/);
   });
 });

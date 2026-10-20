@@ -189,4 +189,13 @@ describe("trackExport", () => {
       });
     });
   });
+
+  it("passes chant and chantParts and nothing else about chant", () => {
+    withMockedWindow(() => {
+      const mockCount = vi.fn();
+      mockWindow.goatcounter = { count: mockCount };
+      trackExport("custom", { chant: "before", chantParts: "3", chantId: "277", chantIds: "1,2" });
+      expect(mockCount).toHaveBeenCalledWith({ path: "export/custom", title: "chant=before, chantParts=3", event: true });
+    });
+  });
 });

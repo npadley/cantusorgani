@@ -28,6 +28,8 @@ const ALLOWED_KEYS = new Set<string>([
   "maxSystems",
   "linePolicy",
   "paper",
+  "chant",
+  "chantParts",
 ]);
 
 /**
@@ -37,7 +39,7 @@ const ALLOWED_KEYS = new Set<string>([
  * @param details - Export details (only allowed keys are sent)
  *
  * Sends no personal data. Only the keys page, orientation, staff, maxSystems,
- * linePolicy and paper are allowed. Unknown keys are silently dropped.
+ * linePolicy, paper, chant (off | before | only) and chantParts (a count; never a chant id) are allowed. Unknown keys are silently dropped.
  *
  * This function never throws, even if GoatCounter is unavailable or throws.
  */

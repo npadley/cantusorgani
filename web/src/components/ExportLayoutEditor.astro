@@ -60,6 +60,7 @@ const IPAD = [
           ))}
         </div>
         <p class="small muted ui cx-help">Height of one staff on the page.</p>
+        <p class="small muted ui cx-help" data-cx="staff-only" hidden>Not used for chant only.</p>
       </div>
       <p class="small muted ui cx-nomusic" data-cx="nomusic" hidden>Music size and line breaks apply only to customizable typeset. None of the parts in this PDF are.</p>
       <div class="cx-field">
@@ -71,6 +72,7 @@ const IPAD = [
         </div>
         <p class="small muted ui cx-help">The most on any page. Fewer may fit with large music or your own page breaks.</p>
         <p class="small muted ui cx-help" data-cx="fixed-note" hidden></p>
+        <p class="small muted ui cx-help" data-cx="cap-only" hidden>Not used for chant only.</p>
       </div>
       <p class="cx-result" data-cx="result" aria-hidden="true"></p>
       <button type="button" class="cx-settings-btn" data-cx="settings-btn" aria-expanded="false" aria-controls="cx-settings">Settings</button>
@@ -158,6 +160,20 @@ const IPAD = [
           <span class="cx-lab" id="cx-l-yours">Your breaks</span>
           <button type="button" data-cx="break-mode" aria-pressed="false">Choose where systems break</button>
           <p class="small muted ui cx-help" data-cx="break-count" hidden></p>
+        </div>
+      </fieldset>
+
+      <fieldset class="cx-grp" data-cx="chant-group">
+        <legend class="cx-h">Chant</legend>
+        <div class="cx-field">
+          <div class="seg" role="radiogroup" aria-label="Chant">
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-chant" value="off" /><span>Off</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-chant" value="before" /><span>Before each part</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-chant" value="only" /><span>Chant only</span></label>
+          </div>
+          <p class="small muted ui cx-help" data-cx="chant-help" hidden>The Gregorian chant from GregoBase, set to your page width.</p>
+          <p class="small muted ui cx-help" data-cx="chant-only-help" hidden>Only the chant; parts without chant are left out.</p>
+          <p class="small muted ui cx-help" data-cx="chant-none" hidden>None of the parts in this PDF has a chant.</p>
         </div>
       </fieldset>
 

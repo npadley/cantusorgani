@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { capabilitiesFor } from "./capabilities";
 import type { ApprovedConversion, ExportPart } from "./types";
 
-const base = { id: "s:0", label: "L", heading: null, sourceSystemCount: 1, sourceRevision: "r" };
+const base = { id: "s:0", label: "L", heading: null, sourceSystemCount: 1, sourceRevision: "r", chants: [] };
 const conversion = (manualBreaks: boolean): ApprovedConversion => ({
   digest: "d", meiUrl: "u", meiSha256: "h", sourceRevision: "r", profile: "p", verovio: "v", boundaries: [], capabilities: { manualBreaks },
 });

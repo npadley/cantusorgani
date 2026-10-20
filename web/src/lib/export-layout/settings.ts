@@ -6,6 +6,7 @@ import type {
   SettingsNotice,
   PagePresetId,
   PageKind,
+  ChantMode,
 } from './types';
 import {
   DEFAULT_SETTINGS,
@@ -130,6 +131,7 @@ export function normalizeSettings(unknown: unknown): NormalizedSettings {
           spacing: DEFAULT_SETTINGS.spacing,
           maxSystems: DEFAULT_SETTINGS.maxSystems,
           linePolicy: DEFAULT_SETTINGS.linePolicy,
+          chant: DEFAULT_SETTINGS.chant,
         },
         notices,
       };
@@ -161,6 +163,7 @@ export function normalizeSettings(unknown: unknown): NormalizedSettings {
           spacing: DEFAULT_SETTINGS.spacing,
           maxSystems: DEFAULT_SETTINGS.maxSystems,
           linePolicy: DEFAULT_SETTINGS.linePolicy,
+          chant: DEFAULT_SETTINGS.chant,
         },
         notices,
       };
@@ -296,6 +299,15 @@ export function normalizeSettings(unknown: unknown): NormalizedSettings {
     DEFAULT_SETTINGS.linePolicy
   );
 
+  // Settings saved before the chant control existed have no `chant`: default silently, no notice.
+  const chant: ChantMode = obj.chant === undefined
+    ? DEFAULT_SETTINGS.chant
+    : getField<ChantMode>(
+        'chant',
+        (v): v is ChantMode => v === 'off' || v === 'before' || v === 'only',
+        DEFAULT_SETTINGS.chant
+      );
+
   settings = {
     version: 2,
     page,
@@ -307,6 +319,7 @@ export function normalizeSettings(unknown: unknown): NormalizedSettings {
     spacing,
     maxSystems,
     linePolicy,
+    chant,
   };
 
   return { settings, notices };

@@ -30,7 +30,7 @@ const entry = (JSON.parse(readFileSync(`${FIXTURES}/manifest.fixture.json`, "utf
 const meiPart = {
   id: "kyrie:0", kind: "mei", label: "Kyrie IX",
   heading: { label: "Kyrie IX", rubric: "Lord, have mercy", rubricTranslation: null, credit: "Nova Organi Harmonia" },
-  sourceSystemCount: 5, sourceRevision: entry["renderHash"], target: entry["target"], renderHash: entry["renderHash"],
+  sourceSystemCount: 5, chants: [], sourceRevision: entry["renderHash"], target: entry["target"], renderHash: entry["renderHash"],
   conversion: { ...entry, meiUrl: MEI_URL },
 };
 

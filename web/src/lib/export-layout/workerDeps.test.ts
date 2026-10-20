@@ -93,7 +93,7 @@ describe('heading reservation agrees with composeExport', () => {
   }));
   const heading: PartHeading = { label: 'Kyrie', rubric: 'A rubric', rubricTranslation: 'A translation', credit: 'Credit line' };
   const partOf = async (): Promise<MeiExportPart> => ({
-    id: 'k:0', kind: 'mei', label: 'Kyrie', heading, sourceSystemCount: 3, sourceRevision: 'rev1', target: 'movement:test',
+    id: 'k:0', kind: 'mei', label: 'Kyrie', heading, sourceSystemCount: 3, chants: [], sourceRevision: 'rev1', target: 'movement:test',
     renderHash: 'h'.repeat(32),
     conversion: {
       digest: 'd'.repeat(64), meiUrl: '/mei', meiSha256: await sha256Hex(new Uint8Array(MEI)), sourceRevision: 'rev1',

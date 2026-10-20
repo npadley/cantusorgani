@@ -16,7 +16,7 @@ const ALL_CODES = Object.keys({
   EVENT_MISSING: 1, STAFF_HEIGHT_MISMATCH: 1, CROWDED_ORIGINAL_LINES: 1,
   RENDERER_FAILED: 1, RENDERER_LOAD_FAILED: 1, ASSET_MISSING: 1, ASSET_HASH_MISMATCH: 1,
   UNSAFE_SVG: 1, INVALID_PAGE: 1, FONT_UNAVAILABLE: 1, BUDGET_EXCEEDED: 1, SOURCE_CEILING: 1,
-  FIXED_PAGE_COUNT_MISMATCH: 1, SCAN_TOO_LARGE: 1, PDF_FAILED: 1, CANCELLED: 1, TIMEOUT: 1, MIDWORD_UNAVOIDABLE: 1,
+  FIXED_PAGE_COUNT_MISMATCH: 1, SCAN_TOO_LARGE: 1, PDF_FAILED: 1, CANCELLED: 1, TIMEOUT: 1, MIDWORD_UNAVOIDABLE: 1, CHANT_UNAVAILABLE: 1,
 } satisfies Record<LayoutDiagnosticCode, 1>) as LayoutDiagnosticCode[];
 const REASONS: readonly UnsatisfiableReason[] = ["system-too-tall", "system-too-wide", "heading-too-tall", "no-convergence"];
 const SENTINEL = "SENTINEL-detail-9f3a";
@@ -29,7 +29,7 @@ const ctx = { partLabel: "Kyrie", settings: { ...DEFAULT_SETTINGS, staff: "large
 
 describe("copy deck", () => {
   it("should have a row for every LayoutDiagnosticCode and never print a code or the detail", () => {
-    expect(ALL_CODES).toHaveLength(23);
+    expect(ALL_CODES).toHaveLength(24);
     expect(Object.keys(COPY_DECK).sort()).toEqual([...ALL_CODES].sort());
     for (const code of ALL_CODES) {
       const reasons = code === "UNSATISFIABLE_LAYOUT" ? REASONS : [null];
@@ -38,7 +38,7 @@ describe("copy deck", () => {
         const shown = JSON.stringify(copy);
         expect(shown, code).not.toContain(SENTINEL);
         expect(shown, code).not.toMatch(/\b(MEI|SVG|WASM|Verovio)\b/);
-        if (code !== "CANCELLED" && code !== "MIDWORD_UNAVOIDABLE") expect(copy.text.length, code).toBeGreaterThan(0);
+        if (code !== "CANCELLED" && code !== "MIDWORD_UNAVOIDABLE" && code !== "CHANT_UNAVAILABLE") expect(copy.text.length, code).toBeGreaterThan(0);
         if (copy.blocking) expect(copy.text, code).toMatch(/^Can't|^Your saved/);
       }
     }
@@ -117,5 +117,30 @@ describe("ExportLayoutEditor markup", async () => {
     expect(SOURCE).not.toMatch(/box-shadow|gradient|backdrop-filter|border-radius:\s*[3-9]/);
     expect(SOURCE).toContain("html:has(dialog.cx[open]) { overflow: hidden; }");
     expect(SOURCE).not.toMatch(/transition:/);
+  });
+
+  it("should put the Chant fieldset after Breaks and before More options, with the specified copy", () => {
+    const fieldset = /<fieldset[^>]*data-cx="chant-group"[^>]*>([\s\S]*?)<\/fieldset>/.exec(html);
+    expect(fieldset).not.toBeNull();
+    const body = fieldset![1]!;
+    expect(body).toMatch(/<legend[^>]*>Chant<\/legend>/);
+    const radios = body.match(/<input[^>]*type="radio"[^>]*name="cx-chant"[^>]*>/g) ?? [];
+    expect(radios.map((r) => /value="(\w+)"/.exec(r)![1])).toEqual(["off", "before", "only"]);
+    expect(body).toContain("Off");
+    expect(body).toContain("Before each part");
+    expect(body).toContain("Chant only");
+    expect(body).toContain("The Gregorian chant from GregoBase, set to your page width.");
+    expect(body).toContain("Only the chant; parts without chant are left out.");
+    expect(html.match(/Not used for chant only\./g)).toHaveLength(2); // Music size and Systems per page
+    const at = (needle: string): number => html.indexOf(needle);
+    expect(at('data-cx="breaks-group"')).toBeLessThan(at('data-cx="chant-group"'));
+    expect(at('data-cx="chant-group"')).toBeLessThan(at('data-cx="more"'));
+    // Tab order follows source order: Breaks, then Chant, then More options.
+    expect(at('name="cx-lines"')).toBeLessThan(at('name="cx-chant"'));
+  });
+
+  it("should add no shadow, gradient or large radius for chant, and give the options the 44 px segmented target", () => {
+    expect(SOURCE).not.toMatch(/chant[^{]*\{[^}]*(box-shadow|gradient|border-radius:\s*[3-9])/);
+    expect(SOURCE).toMatch(/\.seg-o > span \{[^}]*min-height: var\(--tap-min\)/);
   });
 });
