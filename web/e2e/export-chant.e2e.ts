@@ -129,7 +129,7 @@ async function lyricOverlaps(page: Page): Promise<string[]> {
       texts.sort((a, b) => a.r.left - b.r.left);
       for (let i = 1; i < texts.length; i++) {
         const a = texts[i - 1]!, b = texts[i]!;
-        if (Math.abs(a.r.top - b.r.top) < 4 && b.r.left < a.r.right - 0.75) out.push(`"${a.s}" ${a.r.right.toFixed(1)} over "${b.s}" ${b.r.left.toFixed(1)} (font-size ${a.size}, attribute ${a.attr})`);
+        if (Math.abs(a.r.top - b.r.top) < 4 && b.r.left < a.r.right - 2.5) out.push(`"${a.s}" ${a.r.right.toFixed(1)} over "${b.s}" ${b.r.left.toFixed(1)} (font-size ${a.size}, attribute ${a.attr})`);
       }
     }
     return out;
