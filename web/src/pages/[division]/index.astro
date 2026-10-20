@@ -5,7 +5,7 @@ import VespersDates from "../../components/VespersDates.astro";
 import { allPieces, hymnIndex } from "../../lib/catalog";
 import type { Piece } from "../../lib/catalog";
 import {
-  MONTHS_EN, MONTHS_LA, dayHref, divisionsWithContent, pieceHref, piecesIn, sanctoraleIndex,
+  MONTHS_EN, MONTHS_LA, communeDays, dayHref, divisionsWithContent, pieceHref, piecesIn, sanctoraleIndex,
   temporaleIndex,
 } from "../../lib/indexes";
 import type { Division, DivisionSummary } from "../../lib/indexes";
@@ -28,6 +28,8 @@ const seasons = meta.division === "temporale" ? temporaleIndex(pieces) : [];
 // Saints' days from every book: a feast whose Mass is taken from the Common is
 // listed with the Common Mass it uses.
 const months = meta.division === "sanctorale" ? sanctoraleIndex(allPieces()) : [];
+// Days the calendar keeps with a Mass of this book (the Saturdays of Our Lady).
+const commune = communeDays(pieces);
 const bySection = new Map<string, Piece[]>();
 if (!seasons.length && !months.length) {
   for (const p of pieces) bySection.set(p.section, [...(bySection.get(p.section) ?? []), p]);
@@ -77,6 +79,18 @@ const lineups = meta.division === "vesperale" ? allLineups() : [];
       </ul>
     </section>
   ))}
+
+  {commune.length > 0 && (
+    <section>
+      <h2>In the 1962 calendar</h2>
+      <ul class="days ui">
+        {commune.map((d) => (
+          <li><a href={dayHref(d.key)}><span class="name">{d.title}</span>
+            <span class="muted small">{d.titleLa}</span></a></li>
+        ))}
+      </ul>
+    </section>
+  )}
 
   {rest.length > 0 && (
     <section>
