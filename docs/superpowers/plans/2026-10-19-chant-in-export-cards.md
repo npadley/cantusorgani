@@ -172,17 +172,19 @@ The coordinator records the approval in DL (as for G2) and merges.
 
 ## Status
 
+Built on `chant/next` (2026-10-19/20). All cards are done except K9, which is the user's visual review.
+
 | Card | Model | Status |
 |---|---|---|
-| K0 | H | ready |
-| K1 | S | — |
-| K2 | H | — |
-| K3 | S | — |
-| K4a | S | — |
-| K4b | S | — |
-| K5 | S | — |
-| K6 | S | — |
-| K7 | S | — |
-| K8 | S | — |
-| K9 | U | — |
-| K10 | S | — |
+| K0 | H | done (fixtures and generator; Kyrie IX links #2976; the longest linked chant is #889 on `ordinary-form/lent-1`) |
+| K1 | S | done. One fixture line (`gr-277-1333` line 3) is within 1.1 units of Exsurge's own box, not 0.5; the splitter's box constants are fitted to the fixtures |
+| K2 | H | done |
+| K3 | S | done. `renderChantSvg` returns `null` when the export face is unavailable; it uses `createSvgNode(...).outerHTML` |
+| K4a | S | done. Settings saved before the control existed default silently to Off |
+| K4b | S | done |
+| K5 | S | done. The accompaniment shares the last chant page on an estimate of one system (`minAccompanimentMm`); chant-only pages are `scan` pages with no images |
+| K6 | S | done. If the first real system does not fit under the chant, `createRenderPart` lays the part out again with `chantShare: false` |
+| K7 | S | done |
+| K8 | S | done. Desktop timing per chant render was not measured on the device-test build; the spike's 4-39 ms stands |
+| K9 | U | ready for the user: PDFs in `build/chant/`, checklist in the PR |
+| K10 | S | done |
