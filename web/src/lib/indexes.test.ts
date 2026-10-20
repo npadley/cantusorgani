@@ -6,6 +6,7 @@ import type { Piece } from "./catalog";
 import {
   DIVISIONS,
   catalogedDays,
+  communeDays,
   dayHref,
   dayIndex,
   divisionMeta,
@@ -209,5 +210,20 @@ describe("dayHref", () => {
 
   it("should give the empty-flexibility feria a readable segment", () => {
     expect(dayHref(":feria")).toBe("/day/feria/feria/");
+  });
+});
+
+describe("communeDays", () => {
+  it("should list the Saturdays of Our Lady in the order of the year", () => {
+    const pieces = [
+      piece({ slug: "after-pentecost", days: ["commune:C10t"] }),
+      piece({ slug: "christmastide", days: ["commune:C10b"] }),
+      piece({ slug: "eastertide", days: ["commune:C10Pasc"] }),
+    ];
+    expect(communeDays(pieces).map((d) => d.key)).toEqual(["commune:C10b", "commune:C10Pasc", "commune:C10t"]);
+  });
+
+  it("should list nothing when no piece has a Common day", () => {
+    expect(communeDays([piece({ slug: "x", days: ["sancti:10-DU"] })])).toEqual([]);
   });
 });

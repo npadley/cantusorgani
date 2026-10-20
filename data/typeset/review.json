@@ -314,24 +314,6 @@
    ]
   },
   {
-   "file": "vol-2/gr_domine_refugium.csv.ly",
-   "status": "proposed",
-   "target": "part:dominica-xxi-post-pentecosten/gradual",
-   "hash": "376f4b7dff77de1f9b6a89d64082fc9c",
-   "melody": 0.983,
-   "words": 1.0,
-   "incipit": "Domine refú gium fa ctus es no bis",
-   "page": 244,
-   "note": "Printed source correction verified; complete chromatic reference comparison remains unresolved.",
-   "candidates": [
-    {
-     "target": "part:dominica-xxi-post-pentecosten/gradual",
-     "melody": 0.983,
-     "words": 1.0
-    }
-   ]
-  },
-  {
    "file": "vol-2/gr_ego_dixi.csv.ly",
    "status": "proposed",
    "target": "part:dominica-xxi-post-pentecosten/gradual",
@@ -360,24 +342,6 @@
      "target": "part:dominica-xiv-post-pentecosten/gradual",
      "melody": 0.48,
      "words": 0.298
-    }
-   ]
-  },
-  {
-   "file": "vol-2/gr_haec_dies_v_dicat_nunc.csv.ly",
-   "status": "proposed",
-   "target": "part:die-ii-infra-octavam-pasch/gradual",
-   "hash": "1d8de1aeb9796591e0b113b2cfa55e4c",
-   "melody": 1.0,
-   "words": 1.0,
-   "incipit": "Hæc di es quam fecit Dóminus exsulté mus",
-   "page": 9,
-   "note": "Printed source correction verified; complete chromatic reference comparison remains unresolved.",
-   "candidates": [
-    {
-     "target": "part:die-ii-infra-octavam-pasch/gradual",
-     "melody": 1.0,
-     "words": 1.0
     }
    ]
   },
@@ -727,14 +691,14 @@
      "words": 0.392
     },
     {
+     "target": "part:noh3-p415/alleluia",
+     "melody": 0.467,
+     "words": 0.5
+    },
+    {
      "target": "part:s-martini-episcopi-et-confessoris/alleluia",
      "melody": 0.467,
      "words": 0.392
-    },
-    {
-     "target": "part:ss-septem-fundat-ord-servorum-b-m-v/alleluia",
-     "melody": 0.452,
-     "words": 0.405
     }
    ]
   },
@@ -804,38 +768,6 @@
      "target": "part:s-joachim-confessoris-patris-b-mari-virginis/alleluia",
      "melody": null,
      "words": null
-    }
-   ]
-  },
-  {
-   "file": "vol-3/al_potestas_ejus.csv.ly",
-   "status": "proposed",
-   "target": "part:s-ignatii-episcopi-et-martyris/alleluia",
-   "hash": "e2aba1faa3a97e596baf71b994834a4c",
-   "melody": 0.546,
-   "words": 0.407,
-   "incipit": "Alle lúia alle lúia ℣ Potéstas ejus poté",
-   "page": 418,
-   "candidates": [
-    {
-     "target": "part:s-ignatii-episcopi-et-martyris/alleluia",
-     "melody": 0.546,
-     "words": 0.407
-    },
-    {
-     "target": "part:s-barnab-apostoli/alleluia",
-     "melody": 0.515,
-     "words": 0.321
-    },
-    {
-     "target": "part:s-martini-episcopi-et-confessoris/alleluia",
-     "melody": 0.485,
-     "words": 0.259
-    },
-    {
-     "target": "part:septem-dolorum-b-mariae-virginis-in-quadragesima/alleluia:2",
-     "melody": 0.463,
-     "words": 0.333
     }
    ]
   },
@@ -1018,38 +950,6 @@
    ]
   },
   {
-   "file": "vol-3/co_sedebit_dominus.csv.ly",
-   "status": "proposed",
-   "target": "part:s-agath-virginis-et-martyris/communion",
-   "hash": "2ea0be8794965cfd704ca41825640915",
-   "melody": 0.814,
-   "words": 0.207,
-   "incipit": "Sedébit Dóminus Rex in ætérnum Dóminus benedícet pópulo",
-   "page": 423,
-   "candidates": [
-    {
-     "target": "part:s-agath-virginis-et-martyris/communion",
-     "melody": 0.814,
-     "words": 0.207
-    },
-    {
-     "target": "part:in-assumptione-beat-mari-virginis/communion",
-     "melody": 0.791,
-     "words": 0.207
-    },
-    {
-     "target": "part:s-theresiae-a-jesu-infante-virginis/communion",
-     "melody": 0.791,
-     "words": 0.31
-    },
-    {
-     "target": "part:omnium-sanctorum/communion",
-     "melody": 0.767,
-     "words": 0.397
-    }
-   ]
-  },
-  {
    "file": "vol-3/co_signa_eos.csv.ly",
    "status": "proposed",
    "target": "part:ss-cyriaci-largi-et-smaragdi-martyrum/communion",
@@ -1095,70 +995,6 @@
      "target": "part:maternitatis-beat-mari-virginis/communion",
      "melody": 0.681,
      "words": 0.292
-    }
-   ]
-  },
-  {
-   "file": "vol-3/gr_dominabitur.csv.ly",
-   "status": "proposed",
-   "target": "part:in-apparitione-b-mariae-virginis-immaculatae/gradual",
-   "hash": "35eb86cb46da9a4c5586e6b656320bdb",
-   "melody": 0.607,
-   "words": 0.31,
-   "incipit": "Dominá bitur a mari us que ad mare",
-   "page": 416,
-   "candidates": [
-    {
-     "target": "part:in-apparitione-b-mariae-virginis-immaculatae/gradual",
-     "melody": 0.607,
-     "words": 0.31
-    },
-    {
-     "target": "part:in-conversione-s-pauli-apostoli/gradual",
-     "melody": 0.602,
-     "words": 0.259
-    },
-    {
-     "target": "part:s-theresiae-a-jesu-infante-virginis/gradual",
-     "melody": 0.592,
-     "words": 0.216
-    },
-    {
-     "target": "part:s-joannis-bosco-confessoris/gradual",
-     "melody": 0.534,
-     "words": 0.216
-    }
-   ]
-  },
-  {
-   "file": "vol-3/in_dignus_est_agnus.csv.ly",
-   "status": "proposed",
-   "target": "part:s-bonifatii-episc-et-mart/introit",
-   "hash": "e205fa9bb7f35ac0cdda34d195ea1a8b",
-   "melody": 0.688,
-   "words": 0.387,
-   "incipit": "Dignus est Agnus qui occísus est accípere virtú",
-   "page": 415,
-   "candidates": [
-    {
-     "target": "part:s-bonifatii-episc-et-mart/introit",
-     "melody": 0.688,
-     "words": 0.387
-    },
-    {
-     "target": "part:s-ignatii-confessoris/introit",
-     "melody": 0.625,
-     "words": 0.525
-    },
-    {
-     "target": "part:s-alfonsi-mari-de-ligorio-episcopi-confessoris-et-ecclesi-doctor/introit",
-     "melody": 0.618,
-     "words": 0.448
-    },
-    {
-     "target": "part:s-theresiae-a-jesu-infante-virginis/introit",
-     "melody": 0.604,
-     "words": 0.379
     }
    ]
   },
@@ -1384,38 +1220,6 @@
    }
   },
   {
-   "file": "vol-3/of_postula_a_me.csv.ly",
-   "status": "proposed",
-   "target": "part:s-joannis-bosco-confessoris/offertory",
-   "hash": "0bb2b7be81c5010c9a045c148a738057",
-   "melody": 0.755,
-   "words": 0.203,
-   "incipit": "Póstula a me et dabo tibi gen tes",
-   "page": 422,
-   "candidates": [
-    {
-     "target": "part:s-joannis-bosco-confessoris/offertory",
-     "melody": 0.755,
-     "words": 0.203
-    },
-    {
-     "target": "part:s-pii-x-papae-et-confessoris/offertory",
-     "melody": 0.755,
-     "words": 0.203
-    },
-    {
-     "target": "part:s-laurentii-martyris/offertory",
-     "melody": 0.653,
-     "words": 0.156
-    },
-    {
-     "target": "part:s-philippi-neri-confessoris/offertory",
-     "melody": 0.612,
-     "words": 0.234
-    }
-   ]
-  },
-  {
    "file": "vol-3/of_venite_filii.csv.ly",
    "status": "proposed",
    "target": "part:s-joannis-bosco-confessoris/offertory",
@@ -1436,14 +1240,14 @@
      "words": 1.0
     },
     {
+     "target": "part:noh3-p415/offertory",
+     "melody": 0.937,
+     "words": 0.556
+    },
+    {
      "target": "part:s-laurentii-martyris/offertory",
      "melody": 0.747,
      "words": 0.333
-    },
-    {
-     "target": "part:b-mariae-virginis-reginae/offertory",
-     "melody": 0.709,
-     "words": 0.25
     }
    ]
   },

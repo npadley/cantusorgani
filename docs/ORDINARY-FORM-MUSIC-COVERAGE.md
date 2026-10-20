@@ -4,9 +4,9 @@ This document records the current, generated mapping coverage and the limits of 
 
 ## Current coverage
 
-The generated assignments contain **1016 rows; 939 have an eligible Nova Organi Harmonia lender and 77 do not**. These are assignment rows after cycle merging, not separate counts per A/B/C year. Sundays, solemnities and feasts account for 482 rows (440 matched, 42 unmatched, listed under [Unmatched assignment rows](#unmatched-assignment-rows)); the seasonal weekdays, the Christmas-octave feasts and the Second Sunday after Christmas added on 2026-10-19 account for 512 rows (484 matched, 28 unmatched, listed under [Seasonal weekdays](#seasonal-weekdays)). The Ordinary Time week 1 weekday Masses added on 2026-10-20 account for 22 rows (15 matched, 7 unmatched, listed under [Ordinary Time weekdays](#ordinary-time-weekdays)). Every unmatched row links to its exact GregoBase chant ID; no chant was selected by incipit similarity.
+The generated assignments contain **1016 rows; 944 have an eligible Nova Organi Harmonia lender and 72 do not**. These are assignment rows after cycle merging, not separate counts per A/B/C year. Sundays, solemnities and feasts account for 482 rows (445 matched, 37 unmatched, listed under [Unmatched assignment rows](#unmatched-assignment-rows)); the seasonal weekdays, the Christmas-octave feasts and the Second Sunday after Christmas added on 2026-10-19 account for 512 rows (484 matched, 28 unmatched, listed under [Seasonal weekdays](#seasonal-weekdays)). The Ordinary Time week 1 weekday Masses added on 2026-10-20 account for 22 rows (15 matched, 7 unmatched, listed under [Ordinary Time weekdays](#ordinary-time-weekdays)). Every unmatched row links to its exact GregoBase chant ID; no chant was selected by incipit similarity.
 
-The report lists **53 distinct unresolved GregoBase URLs** for the unmatched rows. Several rows share a chant ID, which is why this count is lower than 70. It separately lists **96 distinct URLs with at least one rejected catalogue candidate**. A rejected candidate failed exportability checks; another eligible section may still resolve the assignment. These candidates do not add to the unmatched-row count.
+The report lists **49 distinct unresolved GregoBase URLs** for the unmatched rows. Several rows share a chant ID, which is why this count is lower than 72. It separately lists **96 distinct URLs with at least one rejected catalogue candidate**. A rejected candidate failed exportability checks; another eligible section may still resolve the assignment. These candidates do not add to the unmatched-row count.
 
 ## Occasions without any assignment source
 
@@ -37,11 +37,6 @@ Each entry below has a source assignment but no eligible printed lender in the c
 | `baptism` | `graduale` | A, B, C; all seasons | [553 — Benedictus Dominus Deus](https://gregobase.selapa.net/chant.php?id=553) |
 | `baptism` | `alleluia` | A, B, C; all seasons | [866 — Benedictus qui venit](https://gregobase.selapa.net/chant.php?id=866) |
 | `corpus-christi` | `sequentia` | A, B, C; all seasons | [308 — Lauda, Sion](https://gregobase.selapa.net/chant.php?id=308) |
-| `christ-the-king` | `introitus` | A, B, C; all seasons | [128 — Dignus est Agnus](https://gregobase.selapa.net/chant.php?id=128) |
-| `christ-the-king` | `graduale` | A, B, C; all seasons | [583 — Dominabitur](https://gregobase.selapa.net/chant.php?id=583) |
-| `christ-the-king` | `alleluia` | A, B, C; all seasons | [746 — Potestas ejus](https://gregobase.selapa.net/chant.php?id=746) |
-| `christ-the-king` | `offertorium` | A, B, C; all seasons | [390 — Postula a me](https://gregobase.selapa.net/chant.php?id=390) |
-| `christ-the-king` | `communio` | B, C; all seasons | [1229 — Sedebit Dominus](https://gregobase.selapa.net/chant.php?id=1229) |
 | `all-souls` | `tractus` | A, B, C; all seasons | [338 — Absolve, Domine](https://gregobase.selapa.net/chant.php?id=338) |
 | `exaltation-cross` | `offertorium` | A, B, C; all seasons | [195 — Protege, Domine](https://gregobase.selapa.net/chant.php?id=195) |
 | `exaltation-cross` | `communio` | A, B, C; all seasons | [346 — Per signum Crucis](https://gregobase.selapa.net/chant.php?id=346) |
