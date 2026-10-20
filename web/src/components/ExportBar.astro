@@ -233,9 +233,10 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
           parts,
           title: title.replace(/ — Nova Organi Harmonia$/, ""),
           opener: customize,
-          onExported: (s) => trackExport("custom", {
+          onExported: (s, printed) => trackExport("custom", {
             page: s.page, orientation: s.orientation, staff: s.staff,
             maxSystems: s.maxSystems === null ? "auto" : String(s.maxSystems), linePolicy: s.linePolicy,
+            chant: s.chant, chantParts: String(printed),
           }),
         });
       } catch {

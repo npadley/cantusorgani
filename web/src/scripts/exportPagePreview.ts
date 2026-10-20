@@ -98,8 +98,10 @@ export function usedBottomMm(page: CanonicalPage): number {
 
 export function pageAriaLabel(page: CanonicalPage, number: number, total: number, partLabel: string): string {
   const lead = `Page ${number} of ${total}: ${partLabel}`;
+  const chant = page.chant.length > 0 ? ', with chant' : '';
   if (page.kind === 'fixed') return `${lead}, fixed typeset layout`;
-  return `${lead}, ${page.systemCount} system${page.systemCount === 1 ? '' : 's'}`;
+  if (page.systemCount === 0) return `${lead}${chant}`;
+  return `${lead}, ${page.systemCount} system${page.systemCount === 1 ? '' : 's'}${chant}`;
 }
 
 export function blankNote(pages: readonly CanonicalPage[], i: number): string | null {

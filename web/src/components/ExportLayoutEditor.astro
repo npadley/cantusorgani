@@ -161,6 +161,18 @@ const IPAD = [
         </div>
       </fieldset>
 
+      <fieldset class="cx-grp" data-cx="chant-group">
+        <legend class="cx-h">Chant</legend>
+        <div class="cx-field">
+          <div class="seg" role="radiogroup" aria-label="Chant">
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-chant" value="off" /><span>Off</span></label>
+            <label class="seg-o"><input class="sr-only" type="radio" name="cx-chant" value="before" /><span>Before each part</span></label>
+          </div>
+          <p class="small muted ui cx-help" data-cx="chant-help" hidden>The Gregorian chant from GregoBase, set to your page width.</p>
+          <p class="small muted ui cx-help" data-cx="chant-none" hidden>None of the parts in this PDF has a chant.</p>
+        </div>
+      </fieldset>
+
       <details class="cx-grp cx-more" data-cx="more">
         <summary class="disclosure-summary"><DisclosureCue /><span>More options</span><span class="small muted ui" data-cx="more-summary"></span></summary>
         <div class="cx-field" data-cx="lyrics-field">

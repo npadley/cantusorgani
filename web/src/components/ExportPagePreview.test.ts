@@ -98,11 +98,12 @@ describe("zoom", () => {
 });
 
 describe("SVG insertion boundary", () => {
-  it("should insert generated SVG in exactly one place, fed only by CanonicalPage.svg.svg", () => {
+  it("should insert generated SVG in exactly one function, fed only by sanitized page SVG (CanonicalPage.svg.svg and each chant line svg.svg)", () => {
     const sinks = SCRIPT.match(/\.(innerHTML|outerHTML)\s*=|insertAdjacentHTML|document\.write|DOMParser|createContextualFragment/g) ?? [];
     expect(sinks).toEqual([".innerHTML ="]);
-    expect(SCRIPT.match(/insertPageSvg\(/g)).toHaveLength(2); // definition and its single call
+    expect(SCRIPT.match(/insertPageSvg\(/g)).toHaveLength(3); // definition, the accompaniment page and each chant line
     expect(SCRIPT).toContain("insertPageSvg(holder, page.svg.svg)");
+    expect(SCRIPT).toContain("insertPageSvg(holder, c.svg.svg)");
     expect(SCRIPT).not.toMatch(/\beval\(|new Function\(/);
   });
 });
