@@ -81,4 +81,12 @@ describe("PartLinks", () => {
   it("should render nothing for a piece with no parts and no chant link", async () => {
     expect(await render(PartLinks, { pieces: [proper(4, [])] })).not.toContain("<nav");
   });
+
+  it("should carry each part's chants in data-chants", async () => {
+    const html = await render(ExportBar, { pieces: [THERESE], title: "T" });
+    const attrs = [...html.matchAll(/data-chants="([^"]*)"/g)].map((m) => m[1]);
+    expect(attrs).toHaveLength(5);
+    for (const a of attrs) expect(JSON.parse((a ?? "").replaceAll("&#34;", '"').replaceAll("&quot;", '"'))).toEqual([]);
+  });
 });
+

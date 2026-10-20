@@ -176,6 +176,8 @@ export interface SelectionInput {
     readonly rubricTranslation: string | null;
     readonly credit: string | null;
     readonly stems: readonly string[];
+    /** Chants this segment starts (ExportBar's data-chants); [] when none. */
+    readonly chants: readonly ChantRef[];
     readonly runs: readonly {
       readonly count: number;
       readonly key: string | null;

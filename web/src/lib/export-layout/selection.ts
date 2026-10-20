@@ -1,6 +1,12 @@
-import type { ConversionLookup, ExportPart, PartHeading, ScanExportPart, SelectionInput } from "./types";
+import type { ChantRef, ConversionLookup, ExportPart, PartHeading, ScanExportPart, SelectionInput } from "./types";
 
 type Segment = SelectionInput["segments"][number];
+
+/** A segment's chants belong to its first part only (CS §3.1). */
+function attachChants(parts: ExportPart[], first: number, chants: readonly ChantRef[]): void {
+  const part = parts[first];
+  if (part && chants.length > 0) parts[first] = { ...part, chants };
+}
 
 /** Snapshot of the reader's selection as export parts, in page order. */
 export function snapshotSelection(input: SelectionInput, lookup: ConversionLookup): ExportPart[] {
@@ -18,9 +24,11 @@ export function snapshotSelection(input: SelectionInput, lookup: ConversionLooku
     const scan = (runIndex: number, stems: readonly string[], count: number, available: boolean): ScanExportPart =>
       ({ ...base(runIndex, count, stems[0] ?? ""), kind: "scan", stems, customizableAvailable: available });
 
+    const firstPart = parts.length;
     const total = seg.runs.reduce((n, r) => n + r.count, 0);
     if (seg.runs.length === 0 || total !== seg.stems.length) {
       push(scan(0, seg.stems, seg.stems.length, false));
+      attachChants(parts, firstPart, seg.chants);
       continue;
     }
     let pending: ScanExportPart | null = null;
@@ -53,6 +61,7 @@ export function snapshotSelection(input: SelectionInput, lookup: ConversionLooku
       }
     });
     flush();
+    attachChants(parts, firstPart, seg.chants);
   }
   return parts;
 }
