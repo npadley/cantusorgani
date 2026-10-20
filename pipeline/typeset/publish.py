@@ -21,6 +21,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import time
+import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
@@ -36,18 +38,39 @@ from pipeline.volumes import DATA
 OUT = DATA.parent / "build" / "typeset" / "out"
 
 
-def published(base: str, digest: str, timeout: int = 20) -> bool:
-    """Whether every file of a render answers at its public address."""
-    for name in FILES:
-        request = urllib.request.Request(f"{base.rstrip('/')}/{PREFIX}/{digest}/{name}", method="HEAD",
-                                         headers={"User-Agent": "cantusorgani-pipeline"})
+#: A status that means the file is not there; anything else that is not 200 may be passing.
+_ABSENT = frozenset({403, 404, 410})
+
+
+def _answers(url: str, timeout: int, attempts: int, opener: Any, sleep: Any) -> bool:
+    """Whether a HEAD request gets 200, retrying timeouts, connection errors and 5xx/429 a few times:
+    the whole-catalogue check makes thousands of requests, and one transient failure must not read as
+    a missing render. A definite 403/404/410 is not retried."""
+    request = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "cantusorgani-pipeline"})
+    for attempt in range(attempts):
         try:
-            with urllib.request.urlopen(request, timeout=timeout) as response:
-                if response.status != 200:
+            with opener(request, timeout=timeout) as response:
+                if response.status == 200:
+                    return True
+                if response.status in _ABSENT:
                     return False
+        except urllib.error.HTTPError as error:
+            if error.code in _ABSENT:
+                return False
         except OSError:
-            return False
-    return True
+            pass
+        if attempt + 1 < attempts:
+            sleep(2 ** attempt)
+    return False
+
+
+def published(base: str, digest: str, timeout: int = 20, attempts: int = 3,
+              opener: Any = None, sleep: Any = None) -> bool:
+    """Whether every file of a render answers at its public address."""
+    opener = opener or urllib.request.urlopen
+    sleep = sleep or time.sleep
+    return all(_answers(f"{base.rstrip('/')}/{PREFIX}/{digest}/{name}", timeout, attempts, opener, sleep)
+               for name in FILES)
 
 
 def missing(base: str, wanted: dict[str, str], workers: int = 16) -> dict[str, str]:

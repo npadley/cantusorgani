@@ -22,8 +22,8 @@ const MEI = readFileSync(`${FIXTURES}/kyrie-ix.mei`, "utf8");
 const MEI_URL = "/__fixtures__/kyrie-ix.mei";
 const PAGES = JSON.parse(readFileSync(`${FIXTURES}/chant/pages.json`, "utf8")) as { kyrie: string; longest: string };
 const urlOf = (distPath: string): string => `/${distPath.replace(/index\.html$/, "")}`;
-/** Medium music: the accompaniment staff space is 1.8 mm and the chant is drawn 2.5114 x larger so a punctum matches a notehead (DL D30). */
-const MEDIUM_SPACE_MM = 1.8 * 2.5114;
+/** Medium music: the accompaniment staff space is 1.8 mm and the chant's is 1.565 x that, as on the site (DL D30). */
+const MEDIUM_SPACE_MM = 1.8 * 1.565;
 
 function crc32(buf: Buffer): number {
   let c = ~0;
@@ -116,6 +116,30 @@ async function expectation(page: Page): Promise<CanonicalExpectation> {
   return { staffHeightMm: 7.2, chantStaffSpaceMm: MEDIUM_SPACE_MM, pages };
 }
 
+/**
+ * Lyric <text> boxes of the preview's chant lines that overlap a neighbour on the same row. K9 finding: when the page had
+ * already drawn chant, Exsurge's own `svg.Exsurge .lyric { font-size: 19.2px }` restyled the preview's lyrics and they collided.
+ */
+async function lyricOverlaps(page: Page): Promise<string[]> {
+  return page.evaluate(() => {
+    const out: string[] = [];
+    const holders = [...document.querySelectorAll("dialog.cx .cx-svg")].filter((h) => h.querySelector("g.system") === null);
+    for (const holder of holders) {
+      const texts = [...holder.querySelectorAll("text.lyric")].map((t) => ({ s: t.textContent ?? "", r: t.getBoundingClientRect(), size: getComputedStyle(t).fontSize, attr: t.getAttribute("font-size") }));
+      texts.sort((a, b) => a.r.left - b.r.left);
+      for (let i = 1; i < texts.length; i++) {
+        const a = texts[i - 1]!, b = texts[i]!;
+        // A quarter of the font size: on-screen text snaps glyphs to whole pixels on Linux (CI), so a syllable can draw
+        // a few px wider than the canvas measured. The PDF's spacing is checked exactly with fontkit (chantLyrics.test.ts);
+        // the K9 bug this guards against overlapped by tens of px.
+        const slack = 0.25 * parseFloat(a.size);
+        if (Math.abs(a.r.top - b.r.top) < 4 && b.r.left < a.r.right - slack) out.push(`"${a.s}" ${a.r.right.toFixed(1)} over "${b.s}" ${b.r.left.toFixed(1)} (font-size ${a.size}, attribute ${a.attr})`);
+      }
+    }
+    return out;
+  });
+}
+
 async function download(page: Page): Promise<{ bytes: Uint8Array; filename: string }> {
   const [file] = await Promise.all([page.waitForEvent("download", { timeout: 120_000 }), page.locator('dialog.cx [data-cx="download"]').click()]);
   return { bytes: new Uint8Array(readFileSync(await file.path())), filename: file.suggestedFilename() };
@@ -159,6 +183,7 @@ test.describe("chant in the PDF", () => {
       await expect(chantHolders(page).first()).toBeAttached({ timeout: 120_000 });
       await pickPage(page, size);
 
+      expect(await lyricOverlaps(page)).toEqual([]);
       const want = await expectation(page);
       const total = want.pages.reduce((n, p) => n + p.chantLines, 0);
       expect(total).toBeGreaterThan(10);
@@ -173,6 +198,7 @@ test.describe("chant in the PDF", () => {
       expect(report.problems).toEqual([]);
       expect(report.pageCount).toBe(want.pages.length);
       expect(report.pages.flatMap((p) => p.chantStaves).length).toBe(total);
+      mkdirSync(OUT, { recursive: true });
       writeFileSync(`${OUT}/longest-${size}.pdf`, bytes);
     });
   }

@@ -23,18 +23,18 @@ const BEFORE: LayoutSettings = { ...DEFAULT_SETTINGS, chant: 'before' };
 
 describe('buildChantLines', () => {
   it('turns a fixture into sanitized lines sized by the Medium scale', () => {
-    const lines = buildChantLines([scan('s', [REF])], BEFORE, new Map([[277, fixtureSvg('gr-277-1333.json')]]));
+    const lines = buildChantLines([scan('s', [REF])], BEFORE, new Map([[277, fixtureSvg('gr-277-852.json')]]));
     const got = lines.get(277)!;
-    expect(got.length).toBe(4);
-    expect(got[0]!.widthMm).toBeCloseTo(1333 * chantScale({ ...BEFORE }, 191.9, 'scan').mmPerUnit, 6);
+    expect(got.length).toBe(6);
+    expect(got[0]!.widthMm).toBeCloseTo(852 * chantScale({ ...BEFORE }, 191.9, 'scan').mmPerUnit, 6);
     expect(got.every((l) => l.heightMm > 10 && l.svg.namespace.startsWith('c277l'))).toBe(true);
   });
 
   it('rejects a malicious chant string: null, never drawn', () => {
-    const evil = fixtureSvg('gr-277-1333.json').replace('<defs>', '<defs><foreignObject><script>alert(1)</script></foreignObject>');
+    const evil = fixtureSvg('gr-277-852.json').replace('<defs>', '<defs><foreignObject><script>alert(1)</script></foreignObject>');
     const lines = buildChantLines([scan('s', [REF])], BEFORE, new Map([[277, evil]]));
     expect(lines.get(277)).toBeNull();
-    const onclick = fixtureSvg('gr-277-1333.json').replace('<g ', '<g onclick="x()" ');
+    const onclick = fixtureSvg('gr-277-852.json').replace('<g ', '<g onclick="x()" ');
     expect(buildChantLines([scan('s', [REF])], BEFORE, new Map([[277, onclick]])).get(277)).toBeNull();
   });
 
@@ -61,14 +61,14 @@ describe('layout worker with chant', () => {
       post: (m) => { posted.push(m); },
       now: () => 0,
     });
-    const good = fixtureSvg('gr-277-1333.json');
+    const good = fixtureSvg('gr-277-852.json');
     const request: LayoutRequest = {
       token: 1, title: 'T', parts: [scan('a', [REF]), scan('b', [{ ...REF, id: 9 }])], settings: BEFORE, overrides: {},
       chantSvgs: new Map([[277, good], [9, '<svg xmlns="http://www.w3.org/2000/svg"><image href="http://evil/x.png"/></svg>']]),
     };
     await handler.onMessage({ type: 'layout', request });
     expect(posted.map((m) => m.type)).toEqual(['result']);
-    expect(seen!.get(277)!.length).toBe(4);
+    expect(seen!.get(277)!.length).toBe(6);
     expect(seen!.get(9)).toBeNull();
   });
 });
