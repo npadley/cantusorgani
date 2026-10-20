@@ -38,7 +38,24 @@ function unsafe(what: string): Error {
 
 const NUMBER_RE = /^-?(?:\d+\.?\d*|\.\d+)(?:e[-+]?\d+)?$/i;
 const COLOR_RE = /^#[0-9a-fA-F]{3}(?:[0-9a-fA-F]{3})?$/;
-const TRANSFORM_RE = /^\s*(?:(?:translate|scale)\(\s*-?[\d.e+-]+(?:\s*,\s*-?[\d.e+-]+)?\s*\)\s*)+$/i;
+/**
+ * Only `translate(n[,n])` and `scale(n[,n])`, in any number. Walked token by token with plain string operations (no
+ * nested or overlapping regex quantifiers, so no input can make it backtrack).
+ */
+export function isSafeTransform(value: string): boolean {
+  let rest = value.trim().toLowerCase();
+  if (rest === '') return false;
+  while (rest !== '') {
+    const open = rest.startsWith('translate(') ? 'translate(' : rest.startsWith('scale(') ? 'scale(' : null;
+    if (open === null) return false;
+    const close = rest.indexOf(')');
+    if (close < 0) return false;
+    const args = rest.slice(open.length, close).split(',');
+    if (args.length > 2 || !args.every((a) => NUMBER_RE.test(a.trim()))) return false;
+    rest = rest.slice(close + 1).trimStart();
+  }
+  return true;
+}
 const PATH_DATA_RE = /^[MmLlHhVvCcSsQqTtAaZz0-9eE+\-.,\s]*$/;
 const ID_RE = /^[A-Za-z0-9_][A-Za-z0-9_.:-]*$/;
 const CLASS_RE = /^[A-Za-z0-9_.: -]*$/;
@@ -230,7 +247,7 @@ function checkAttributeValue(tag: string, name: string, kind: AttrKind, value: s
       if (!ID_RE.test(value)) throw bad();
       break;
     case 'transform':
-      if (!TRANSFORM_RE.test(value)) throw unsafe(`transform "${value.slice(0, 40)}" on <${tag}>`);
+      if (!isSafeTransform(value)) throw unsafe(`transform "${value.slice(0, 40)}" on <${tag}>`);
       break;
     case 'path':
       if (!PATH_DATA_RE.test(value)) throw bad();
@@ -428,6 +445,10 @@ export function normalizeExsurgeSvg(svg: string): string {
   const doc = parse(svg);
   const root = doc.documentElement;
   checkRoot(root);
+  // Exsurge's root class is `Exsurge ChantScore`. A page that already drew chant carries Exsurge's own `<style>`
+  // (`svg.Exsurge .lyric{font-size:19.2px}`), which applies document-wide to any SVG with that class and would restyle the
+  // export's lyrics (K9 finding: syllables collided). The export's SVG is self-styled, so it drops the class.
+  root.removeAttribute('class');
   const faces = takeStyles(doc);
   walkChildren(doc, root, faces);
   return new XMLSerializer().serializeToString(doc as unknown as XmldomNode);
@@ -447,14 +468,20 @@ const IDENTITY: Matrix = { sx: 1, sy: 1, tx: 0, ty: 0 };
 function parseTransform(src: string | null): Matrix {
   let m = IDENTITY;
   if (src === null) return m;
-  for (const part of src.matchAll(/(translate|scale)\(\s*([-\d.e+]+)(?:\s*,\s*([-\d.e+]+))?\s*\)/gi)) {
-    const a = Number(part[2]);
-    const b = part[3] === undefined ? undefined : Number(part[3]);
-    if (part[1]?.toLowerCase() === 'translate') {
+  let rest = src.trim().toLowerCase();
+  while (rest !== '') {
+    const translate = rest.startsWith('translate(');
+    const close = rest.indexOf(')');
+    if (close < 0) break;
+    const args = rest.slice(translate ? 'translate('.length : 'scale('.length, close).split(',').map((n) => Number(n.trim()));
+    const a = args[0] ?? 0;
+    const b = args[1];
+    if (translate) {
       m = { ...m, tx: m.tx + m.sx * a, ty: m.ty + m.sy * (b ?? 0) };
     } else {
       m = { ...m, sx: m.sx * a, sy: m.sy * (b ?? a) };
     }
+    rest = rest.slice(close + 1).trimStart();
   }
   return m;
 }
@@ -648,7 +675,7 @@ export function splitChantLines(normalized: string): readonly ChantLineSvg[] {
     const heightUnits = round2(extent.bottom - extent.top);
 
     const out = new DOMParser().parseFromString(
-      `<svg xmlns="${SVG_NS}" xmlns:xlink="${XLINK_NS}" version="1.1" class="Exsurge ChantScore" ` +
+      `<svg xmlns="${SVG_NS}" xmlns:xlink="${XLINK_NS}" version="1.1" ` +
         `width="${widthUnits}" height="${heightUnits}" viewBox="0 0 ${widthUnits} ${heightUnits}"><defs/></svg>`,
       'image/svg+xml',
     ) as unknown as Document;
