@@ -370,6 +370,22 @@ function seasonalWeekday(d: LocalDate, season: OfSeason, settings: OfSettings): 
   return NO_WEEKDAY;
 }
 
+/**
+ * Ordinary Time weekdays whose preceding Sunday lies outside the season: week 1
+ * has its own Mass (GR1974 pp. 257–260), and the weekdays after Pentecost take
+ * the Sunday Mass of their numbered week.
+ */
+function ordinaryWeekday(d: LocalDate, otWeek: number | null, weekdayCycle: "I" | "II"): SeasonalWeekday {
+  if (otWeek === 1) {
+    const dow = weekday(d);
+    if (dow === 1) return { own: weekdayCycle === "I" ? "ot-1-monday-year-1" : "ot-1-monday", sunday: null, reading: null };
+    if (dow === 2 && weekdayCycle === "I") return { own: "ot-1-tuesday-year-1", sunday: null, reading: null };
+    return { own: "ot-1", sunday: null, reading: null };
+  }
+  if (otWeek !== null && otWeek >= 2 && otWeek <= 33) return { own: null, sunday: `ot-${otWeek}`, reading: null };
+  return NO_WEEKDAY;
+}
+
 /** Resolve a Gregorian civil date under the three General Roman transfer choices. */
 export function ofDay(date: LocalDate, settings: OfSettings = DEFAULT_OF_SETTINGS): OfDay {
   const { occasion, otWeek } = resolve(date, settings);
@@ -394,13 +410,16 @@ export function ofDay(date: LocalDate, settings: OfSettings = DEFAULT_OF_SETTING
     if (dateSeason(prev, settings) === "ordinary") precedingSundayOccasion = resolve(prev, settings).occasion;
   }
   const year = cycleYear(date);
-  const seasonal = occasion === null || occasion === "christmas-sunday" ? seasonalWeekday(date, season, settings) : NO_WEEKDAY;
+  const weekdayCycle = year % 2 === 0 ? "II" : "I";
+  const seasonal = occasion !== null && occasion !== "christmas-sunday" ? NO_WEEKDAY
+    : season === "ordinary" ? (weekday(date) !== 0 && !precedingSundayOccasion ? ordinaryWeekday(date, otWeek, weekdayCycle) : NO_WEEKDAY)
+      : seasonalWeekday(date, season, settings);
   return {
     occasion: occasion === "christmas-sunday" ? null : occasion,
     provisionalNotice,
     vigil: vig,
     sundayCycle: cycleForYear(year),
-    weekdayCycle: year % 2 === 0 ? "II" : "I",
+    weekdayCycle,
     season,
     otWeek,
     precedingSundayOccasion,

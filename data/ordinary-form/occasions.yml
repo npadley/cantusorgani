@@ -2358,3 +2358,45 @@
   reviewed: false
   rubric_en: 'Saturday: the morning Mass; the Pentecost Vigil is celebrated in the evening.'
   calendar_source: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+- key: ot-1
+  jgabc: null
+  title_en: Weekdays of the First Week in Ordinary Time
+  title_la: In feriis Hebdomadae I per annum
+  rank: weekday
+  color: g
+  calendar: null
+  reviewed: false
+  rubric_en: The Baptism of the Lord takes the place of the First Sunday; this Mass is sung on the weekdays (GR1974 p. 257).
+  calendar_source: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+- key: ot-1-monday
+  jgabc: null
+  title_en: Monday of the First Week in Ordinary Time
+  title_la: Feria II Hebdomadae I per annum
+  rank: weekday
+  color: g
+  calendar: null
+  reviewed: false
+  weekday_of: ot-1
+  calendar_source: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+- key: ot-1-monday-year-1
+  jgabc: null
+  title_en: Monday of the First Week in Ordinary Time (Year I)
+  title_la: Feria II Hebdomadae I per annum, anno I
+  rank: weekday
+  color: g
+  calendar: null
+  reviewed: false
+  weekday_of: ot-1
+  rubric_en: 'Year I: the Alleluia Multifárie (p. 52) may be sung ad libitum (GR1974 p. 259).'
+  calendar_source: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+- key: ot-1-tuesday-year-1
+  jgabc: null
+  title_en: Tuesday of the First Week in Ordinary Time (Year I)
+  title_la: Feria III Hebdomadae I per annum, anno I
+  rank: weekday
+  color: g
+  calendar: null
+  reviewed: false
+  weekday_of: ot-1
+  rubric_en: 'Year I: the Gradual is Dómine, Dóminus noster (p. 308) or Glória et honóre (p. 476) (GR1974 p. 258).'
+  calendar_source: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf

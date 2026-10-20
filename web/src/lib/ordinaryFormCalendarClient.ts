@@ -190,6 +190,11 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
         }
         results.append(block);
       }
+    } else if (day.season === "ordinary" && day.sundayMassOccasion) {
+      const rubric = element("p", "the chants of this week's Sunday Mass may be used", "note");
+      const sunday = data[day.sundayMassOccasion];
+      if (sunday) rubric.append(" · ", anchor(`${sunday.titleEn} (Sunday Mass of this week)`, occasionHref(sunday.key, day.sundayCycle, day.season)));
+      results.append(rubric);
     } else if (day.season === "ordinary") {
       const rubric = element("p", "the chants of the preceding Sunday may be used", "note");
       if (day.precedingSundayOccasion) {

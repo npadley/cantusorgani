@@ -4,7 +4,7 @@ This document records the current, generated mapping coverage and the limits of 
 
 ## Current coverage
 
-The generated assignments contain **994 rows; 924 have an eligible Nova Organi Harmonia lender and 70 do not**. These are assignment rows after cycle merging, not separate counts per A/B/C year. Sundays, solemnities and feasts account for 482 rows (440 matched, 42 unmatched, listed under [Unmatched assignment rows](#unmatched-assignment-rows)); the seasonal weekdays, the Christmas-octave feasts and the Second Sunday after Christmas added on 2026-10-19 account for 512 rows (484 matched, 28 unmatched, listed under [Seasonal weekdays](#seasonal-weekdays)). Every unmatched row links to its exact GregoBase chant ID; no chant was selected by incipit similarity.
+The generated assignments contain **1016 rows; 939 have an eligible Nova Organi Harmonia lender and 77 do not**. These are assignment rows after cycle merging, not separate counts per A/B/C year. Sundays, solemnities and feasts account for 482 rows (440 matched, 42 unmatched, listed under [Unmatched assignment rows](#unmatched-assignment-rows)); the seasonal weekdays, the Christmas-octave feasts and the Second Sunday after Christmas added on 2026-10-19 account for 512 rows (484 matched, 28 unmatched, listed under [Seasonal weekdays](#seasonal-weekdays)). The Ordinary Time week 1 weekday Masses added on 2026-10-20 account for 22 rows (15 matched, 7 unmatched, listed under [Ordinary Time weekdays](#ordinary-time-weekdays)). Every unmatched row links to its exact GregoBase chant ID; no chant was selected by incipit similarity.
 
 The report lists **53 distinct unresolved GregoBase URLs** for the unmatched rows. Several rows share a chant ID, which is why this count is lower than 70. It separately lists **96 distinct URLs with at least one rejected catalogue candidate**. A rejected candidate failed exportability checks; another eligible section may still resolve the assignment. These candidates do not add to the unmatched-row count.
 
@@ -89,6 +89,15 @@ Editorial decisions recorded in the data (`rubric_en`):
 - Lent 5 Monday: Nemo te condemnavit with the Gospel of the woman taken in adultery (Years A/B), otherwise Panis quem ego dedero (Year C), following the Lectionary default (p. 126).
 - Advent weeks 1–3 weekdays that repeat the Sunday link the Sunday page, so in Year B the Third Sunday link also shows its Sunday-only Gradual Fuit homo.
 - Where GregoBase holds several transcriptions of one chant, the canonical Solesmes transcription already used by the Sunday data and jgabc's 1962 assignments is chosen; a GR1974-only transcription is used only when nothing else exists (e.g. Voce mea, 8285; Memento nostri, 165). The *Alleluia Confitemini … quoniam bonus* after the Ascension (p. 239) matches the 1908 Rogation melody (1535), not the Easter Vigil Alleluia.
+
+## Ordinary Time weekdays
+
+An Ordinary Time weekday normally links the chants of the preceding Sunday. Two stretches have no Ordinary Time Sunday before them, and the calendar now resolves both:
+
+- **Week 1** (the weekdays after the Baptism of the Lord) uses the GR1974 Mass *Hebdomada prima, in feriis* (pp. 257–260): In excelso throno (20), Benedictus Dominus (553), Alleluia Jubilate Deo (802), Jubilate Deo omnis terra (718) and Notas mihi fecisti (531). The book's weekday notes are separate occasions chosen by weekday and weekday-lectionary year: `ot-1-monday` takes the Communion Venite post me (552, p. 267); `ot-1-monday-year-1` also lists the *ad libitum* Year I Alleluia Multifarie (863, p. 52) after the week's Alleluia; `ot-1-tuesday-year-1` takes the Year I Gradual Domine Dominus noster (1205, p. 308) or Gloria et honore (1206, p. 476). The other weekdays use `ot-1`. In excelso throno and Benedictus Dominus have no NOH lender (7 rows).
+- **The weekdays after Pentecost** link the Sunday Mass of their numbered Ordinary Time week (`sundayMassOccasion`, for example Sunday 7 in Ordinary Time for 17–22 May 2027), since the preceding Sunday is Pentecost.
+
+The calendar test checks that every Ordinary Time weekday without a celebration resolves to a preceding Sunday, a week 1 Mass or a Sunday Mass link, for 2024–2050 under all eight transfer settings.
 
 ### Weekday slots without a lender
 

@@ -19815,6 +19815,404 @@
       "source_reviews": [],
       "title_en": "Saturday of the Seventh Week of Easter",
       "title_la": "Sabbato Hebdomadae VII Paschae"
+    },
+    {
+      "assignment_status": "mapped",
+      "calendar": null,
+      "color": "g",
+      "empty_slots": [],
+      "key": "ot-1",
+      "parts": [
+        {
+          "gregobase_id": 20,
+          "incipit": "In excelso throno",
+          "lender": null,
+          "slot": "introitus",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 553,
+          "incipit": "Benedictus Dominus",
+          "lender": null,
+          "slot": "graduale",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 802,
+          "incipit": "Jubilate Deo",
+          "lender": {
+            "part": "alleluia",
+            "ref": "noh1/0142/002",
+            "slug": "noh1-p112",
+            "variant": ""
+          },
+          "slot": "alleluia",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 718,
+          "incipit": "Jubilate Deo omnis",
+          "lender": {
+            "part": "offertory",
+            "ref": "noh1/0143/002",
+            "slug": "noh1-p112",
+            "variant": ""
+          },
+          "slot": "offertorium",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 531,
+          "incipit": "Notas mihi fecisti",
+          "lender": {
+            "part": "communion",
+            "ref": "noh1/0270/003",
+            "slug": "feria-iv-infra-hebd-iii-quadragesim",
+            "variant": ""
+          },
+          "slot": "communio",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        }
+      ],
+      "rank": "weekday",
+      "reviewed": false,
+      "rubric_en": "The Baptism of the Lord takes the place of the First Sunday; this Mass is sung on the weekdays (GR1974 p. 257).",
+      "source_reviews": [],
+      "title_en": "Weekdays of the First Week in Ordinary Time",
+      "title_la": "In feriis Hebdomadae I per annum"
+    },
+    {
+      "assignment_status": "mapped",
+      "calendar": null,
+      "color": "g",
+      "empty_slots": [],
+      "key": "ot-1-monday",
+      "parts": [
+        {
+          "gregobase_id": 20,
+          "incipit": "In excelso throno",
+          "lender": null,
+          "slot": "introitus",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 553,
+          "incipit": "Benedictus Dominus",
+          "lender": null,
+          "slot": "graduale",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 802,
+          "incipit": "Jubilate Deo",
+          "lender": {
+            "part": "alleluia",
+            "ref": "noh1/0142/002",
+            "slug": "noh1-p112",
+            "variant": ""
+          },
+          "slot": "alleluia",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 718,
+          "incipit": "Jubilate Deo omnis",
+          "lender": {
+            "part": "offertory",
+            "ref": "noh1/0143/002",
+            "slug": "noh1-p112",
+            "variant": ""
+          },
+          "slot": "offertorium",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 552,
+          "incipit": "Venite post me",
+          "lender": {
+            "part": "communion",
+            "ref": "noh3/0042/003",
+            "slug": "s-andre-apostoli",
+            "variant": ""
+          },
+          "slot": "communio",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        }
+      ],
+      "rank": "weekday",
+      "reviewed": false,
+      "source_reviews": [],
+      "title_en": "Monday of the First Week in Ordinary Time",
+      "title_la": "Feria II Hebdomadae I per annum"
+    },
+    {
+      "assignment_status": "mapped",
+      "calendar": null,
+      "color": "g",
+      "empty_slots": [],
+      "key": "ot-1-monday-year-1",
+      "parts": [
+        {
+          "gregobase_id": 20,
+          "incipit": "In excelso throno",
+          "lender": null,
+          "slot": "introitus",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 553,
+          "incipit": "Benedictus Dominus",
+          "lender": null,
+          "slot": "graduale",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 802,
+          "incipit": "Jubilate Deo",
+          "lender": {
+            "part": "alleluia",
+            "ref": "noh1/0142/002",
+            "slug": "noh1-p112",
+            "variant": ""
+          },
+          "slot": "alleluia",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 863,
+          "incipit": "Multifarie olim",
+          "lender": {
+            "part": "alleluia",
+            "ref": "noh1/0112/000",
+            "slug": "noh1-p86",
+            "variant": ""
+          },
+          "slot": "alleluia",
+          "variant": "2",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 718,
+          "incipit": "Jubilate Deo omnis",
+          "lender": {
+            "part": "offertory",
+            "ref": "noh1/0143/002",
+            "slug": "noh1-p112",
+            "variant": ""
+          },
+          "slot": "offertorium",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 552,
+          "incipit": "Venite post me",
+          "lender": {
+            "part": "communion",
+            "ref": "noh3/0042/003",
+            "slug": "s-andre-apostoli",
+            "variant": ""
+          },
+          "slot": "communio",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        }
+      ],
+      "rank": "weekday",
+      "reviewed": false,
+      "rubric_en": "Year I: the Alleluia Multifárie (p. 52) may be sung ad libitum (GR1974 p. 259).",
+      "source_reviews": [],
+      "title_en": "Monday of the First Week in Ordinary Time (Year I)",
+      "title_la": "Feria II Hebdomadae I per annum, anno I"
+    },
+    {
+      "assignment_status": "mapped",
+      "calendar": null,
+      "color": "g",
+      "empty_slots": [],
+      "key": "ot-1-tuesday-year-1",
+      "parts": [
+        {
+          "gregobase_id": 20,
+          "incipit": "In excelso throno",
+          "lender": null,
+          "slot": "introitus",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 1205,
+          "incipit": "Domine Dominus noster",
+          "lender": {
+            "part": "gradual",
+            "ref": "noh2/0205/001",
+            "slug": "dominica-ix-post-pentecosten",
+            "variant": ""
+          },
+          "slot": "graduale",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 1206,
+          "incipit": "Gloria et honore",
+          "lender": {
+            "part": "gradual",
+            "ref": "noh4/0043/003",
+            "slug": "commune-unius-martyris-pontificis-alia-missa",
+            "variant": ""
+          },
+          "slot": "graduale",
+          "variant": "2",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 802,
+          "incipit": "Jubilate Deo",
+          "lender": {
+            "part": "alleluia",
+            "ref": "noh1/0142/002",
+            "slug": "noh1-p112",
+            "variant": ""
+          },
+          "slot": "alleluia",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 718,
+          "incipit": "Jubilate Deo omnis",
+          "lender": {
+            "part": "offertory",
+            "ref": "noh1/0143/002",
+            "slug": "noh1-p112",
+            "variant": ""
+          },
+          "slot": "offertorium",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        },
+        {
+          "gregobase_id": 531,
+          "incipit": "Notas mihi fecisti",
+          "lender": {
+            "part": "communion",
+            "ref": "noh1/0270/003",
+            "slug": "feria-iv-infra-hebd-iii-quadragesim",
+            "variant": ""
+          },
+          "slot": "communio",
+          "variant": "",
+          "years": [
+            "A",
+            "B",
+            "C"
+          ]
+        }
+      ],
+      "rank": "weekday",
+      "reviewed": false,
+      "rubric_en": "Year I: the Gradual is Dómine, Dóminus noster (p. 308) or Glória et honóre (p. 476) (GR1974 p. 258).",
+      "source_reviews": [],
+      "title_en": "Tuesday of the First Week in Ordinary Time (Year I)",
+      "title_la": "Feria III Hebdomadae I per annum, anno I"
     }
   ],
   "schema_version": 1,
