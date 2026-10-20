@@ -7,6 +7,7 @@ import TypesetSwitch from "../../components/TypesetSwitch.astro";
 import { allOrdinaryFormParts, ordinaryFormOccasions, ordinaryFormPiece } from "../../lib/ordinaryFormPieces";
 import { musicView } from "../../lib/music";
 import { hasTypeset } from "../../lib/typeset";
+import { goodFridayHref } from "../../lib/goodFriday";
 
 export function getStaticPaths() {
   return ordinaryFormOccasions().map(row => ({ params: { key: row.key }, props: { key: row.key } }));
@@ -20,6 +21,7 @@ const score = musicView(piece);
 const parts = allOrdinaryFormParts(key);
 const missing = parts.filter(part => !part.lender).length;
 const unmapped = piece.sourceNote === "chants not yet mapped";
+const chantsOnly = goodFridayHref(key);
 ---
 
 <Layout title={piece.title} description={`${piece.title} — Ordinary Form chants assigned in the Graduale Romanum (1974), with available Nova Organi Harmonia accompaniments.`} skipTo="music">
@@ -30,6 +32,13 @@ const unmapped = piece.sourceNote === "chants not yet mapped";
       <p class="latin" lang="la">{ordinaryFormOccasions().find(row => row.key === key)?.title_la}</p>
       <p class="meta ui small muted">Graduale Romanum (1974) · {parts.length} assigned chant{parts.length === 1 ? "" : "s"}{missing ? ` · ${missing} without a NOH match` : ""}</p>
     </header>
+
+    {chantsOnly && (
+      <p class="notice ui" role="note">
+        <strong>The organ is silent on Good Friday.</strong> The settings below are borrowed from other
+        days. For the liturgy itself, see <a href={chantsOnly}>the chants of Good Friday</a>, unaccompanied.
+      </p>
+    )}
 
     <p class="notice ui" role="status">
       This page assembles available Nova Organi Harmonia music for chants assigned in the 1974 Graduale Romanum.

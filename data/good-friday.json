@@ -1,0 +1,80 @@
+{
+ "note": "Hand-curated. The chants of Good Friday, which NOH does not set: the organ is silent from the Gloria of Holy Thursday to the Easter Vigil, and NOH1 goes from Maundy Thursday (p. 344) to Holy Saturday (p. 345). Each chant is named by its GregoBase id, checked against the edition and page GregoBase records for it (never chosen by incipit similarity). `noh chants` copies their notation into data/chants.json; tests/test_good_friday.py checks every id is there and not flagged copyrighted.",
+ "calendars": {
+  "1962": "tempora:Quad6-5r",
+  "ordinary-form": "good-friday"
+ },
+ "rites": [
+  {
+   "id": "missal-1962",
+   "title": "1962 Missal",
+   "subtitle": "The Good Friday liturgy restored in 1955 (Ordo Hebdomadae Sanctae instauratus)",
+   "edition": "Graduale Romanum (1961) and Liber Usualis (1961)",
+   "sections": [
+    {
+     "heading": "The Lessons",
+     "items": [
+      {"label": "Tract after the first lesson (Osee 6)", "gregobase_id": 602, "source": "Graduale Romanum 1961, p. 219; Liber Usualis, p. 721"},
+      {"label": "Tract after the second lesson (Exodus 12)", "gregobase_id": 22, "source": "Graduale Romanum 1961, p. 221; Liber Usualis, p. 725"}
+     ],
+     "note": "The Passion according to St John and the Solemn Intercessions follow, sung to their own tones."
+    },
+    {
+     "heading": "The Adoration of the Cross",
+     "items": [
+      {"label": "Showing of the Cross", "gregobase_id": 2087, "source": "Liber Usualis, p. 735"},
+      {"label": "The Reproaches: Popule meus", "gregobase_id": 157, "source": "Graduale Romanum 1961, p. 225; Liber Usualis, p. 737"},
+      {"label": "Trisagion: Hagios o Theos", "gregobase_id": 4311, "source": "Graduale Romanum 1961, p. 226; Liber Usualis, p. 737", "note": "GregoBase transcribes only the first invocation. The alternation with Sanctus Deus and the remaining invocations are in the Liber Usualis, pp. 737–738."},
+      {"label": "The Reproaches: Quia eduxi te per desertum", "gregobase_id": 7808, "source": "Graduale Romanum 1961, p. 227; Liber Usualis, p. 738"},
+      {"label": "The Reproaches: Quid ultra debui", "gregobase_id": 7809, "source": "Graduale Romanum 1961, p. 227; Liber Usualis, p. 738"},
+      {"label": "The lesser Reproaches: Ego propter te", "gregobase_id": 8749, "source": "Graduale Romanum 1961, p. 228; Liber Usualis, p. 739"},
+      {"label": "The lesser Reproaches: Ego te pavi", "gregobase_id": 4309, "source": "Liber Usualis, p. 740"},
+      {"label": "The lesser Reproaches: Ego dedi tibi", "gregobase_id": 4310, "source": "Liber Usualis, p. 741", "note": "GregoBase has three of the nine lesser Reproaches; the others are in the Liber Usualis, pp. 739–741. Each is answered by Popule meus."},
+      {"label": "Antiphon Crucem tuam, with Psalm 66", "gregobase_id": 428, "source": "Graduale Romanum 1961, p. 231; Liber Usualis, p. 741"},
+      {"label": "Hymn: Crux fidelis (refrain)", "gregobase_id": 1128, "source": "Graduale Romanum 1961, p. 232; Liber Usualis, p. 742"},
+      {"label": "Hymn: Pange lingua … lauream certaminis (first verse)", "gregobase_id": 638, "source": "Graduale Romanum 1961, p. 232; Liber Usualis, p. 742"}
+     ]
+    },
+    {
+     "heading": "Holy Communion",
+     "items": [
+      {"label": "As the Blessed Sacrament is brought from the Altar of Repose: Adoramus te, Christe", "gregobase_id": 1238, "source": "Graduale Romanum 1961, p. 239A; Liber Usualis, p. 746"},
+      {"label": "Per lignum servi facti sumus", "gregobase_id": 940, "source": "Graduale Romanum 1961, p. 239A; Liber Usualis, p. 746"},
+      {"label": "Salvator mundi, salva nos", "gregobase_id": 1335, "source": "Graduale Romanum 1961, p. 239A; Liber Usualis, p. 747"},
+      {"label": "During Communion: Psalm 21, Deus, Deus meus", "gregobase_id": 447, "source": "Graduale Romanum 1961, p. 239B; Liber Usualis, p. 749"}
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ordinary-form",
+   "title": "Ordinary Form",
+   "subtitle": "The Celebration of the Passion of the Lord",
+   "edition": "Graduale Romanum (1974)",
+   "sections": [
+    {
+     "heading": "The Liturgy of the Word",
+     "items": [
+      {"label": "Tract", "gregobase_id": 824, "source": "Graduale Romanum 1974 assignment; transcribed from Graduale Romanum 1961, p. 191"},
+      {"label": "Gradual (before the Passion)", "gregobase_id": 873, "source": "Graduale Romanum 1974 assignment; transcribed from Graduale Romanum 1961, p. 202"}
+     ],
+     "note": "These are the two assignments the site's Ordinary Form propers record for Good Friday. The Passion according to St John and the Solemn Intercessions follow."
+    },
+    {
+     "heading": "The Adoration of the Cross",
+     "items": [
+      {"label": "Showing of the Cross", "gregobase_id": 4612, "source": "Graduale Romanum 1974, p. 174"},
+      {"label": "Antiphon Crucem tuam, with Psalm 66", "gregobase_id": 17786, "source": "Graduale Romanum 1974, p. 175"},
+      {"label": "The Reproaches: Popule meus", "gregobase_id": 157, "source": "transcribed from Graduale Romanum 1961, p. 225"},
+      {"label": "Trisagion: Hagios o Theos", "gregobase_id": 4311, "source": "transcribed from Graduale Romanum 1961, p. 226", "note": "GregoBase transcribes only the first invocation."},
+      {"label": "The Reproaches: Quia eduxi te per desertum", "gregobase_id": 7808, "source": "transcribed from Graduale Romanum 1961, p. 227"},
+      {"label": "The Reproaches: Quid ultra debui", "gregobase_id": 7809, "source": "transcribed from Graduale Romanum 1961, p. 227"},
+      {"label": "Hymn: Crux fidelis (refrain)", "gregobase_id": 1128, "source": "transcribed from Graduale Romanum 1961, p. 232"},
+      {"label": "Hymn: Pange lingua … praelium certaminis (first verse)", "gregobase_id": 17928, "source": "Graduale Romanum 1974, p. 182"}
+     ],
+     "note": "GregoBase has no transcription of the Reproaches or Crux fidelis taken from the 1974 Graduale; the 1961 transcriptions are shown here. Compare them with the 1974 book before singing from them."
+    }
+   ]
+  }
+ ]
+}

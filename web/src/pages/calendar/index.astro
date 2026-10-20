@@ -85,6 +85,7 @@ const [first, last] = CALENDAR_SOURCE.years;
   } from "../../lib/liturgy";
   import type { LocalDate } from "../../lib/liturgy";
   import { dayHref } from "../../lib/indexes";
+  import { goodFridayHref } from "../../lib/goodFriday";
 
   interface Link { title: string; href: string; division?: string }
 
@@ -158,12 +159,15 @@ const [first, last] = CALENDAR_SOURCE.years;
       const propers = all.filter((p) => p.division !== "vesperale");
       const vespers = all.filter((p) => p.division === "vesperale");
       const properDd = el("dd");
+      const chantsOnly = goodFridayHref(key);
       if (propers.length) {
         propers.forEach((p, i) => {
           if (i) properDd.append(" · ");
           properDd.append(link(p.title, p.href));
         });
         properDd.append(" · ", link("all for this day", dayHref(key)));
+      } else if (chantsOnly) {
+        properDd.append("The organ is silent today. ", link("The chants of Good Friday", chantsOnly));
       } else {
         properDd.textContent = "No Proper of its own is catalogued for this day.";
       }
