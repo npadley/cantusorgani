@@ -3,7 +3,8 @@ chant of a Vespers lineup).
 
 `noh chants` writes data/chants.json: for every GregoBase chant a catalogued
 part names (printed or borrowed), and every verified pairing of a Kyriale
-movement, its GABC, mode and office part. GregoBase
+movement, and every chant of the Good Friday page (data/good-friday.json), its
+GABC, mode and office part. GregoBase
 releases its transcriptions under CC0; the ones it flags `copyrighted` (taken
 from modern editions still in copyright) are left out, and those parts keep a
 link to GregoBase only. The site renders the GABC in the browser with Exsurge.
@@ -18,6 +19,7 @@ from pipeline.gregobase import DUMP, Chant, load_chant_rows
 from pipeline.volumes import DATA
 
 CHANTS = DATA / "chants.json"
+GOOD_FRIDAY = DATA / "good-friday.json"
 
 
 def chant_body(gabc: str | None) -> str | None:
@@ -46,6 +48,16 @@ def referenced_ids(catalog: dict[str, object]) -> set[int]:
         ids |= {int(c["id"]) for c in piece.get("chant", []) or []
                 if c.get("status") == "verified" and isinstance(c.get("id"), int)}
     return ids
+
+
+def good_friday_ids(path: Path = GOOD_FRIDAY) -> set[int]:
+    """Every GregoBase id the Good Friday page shows: NOH sets nothing for the
+    day, so these chants are named there, not by a catalogued part."""
+    if not path.exists():
+        return set()
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    return {int(i["gregobase_id"]) for rite in doc["rites"] for s in rite["sections"]
+            for i in s["items"]}
 
 
 def select_chants(catalog: dict[str, object], rows: list[tuple[Chant, bool]],
@@ -81,14 +93,14 @@ def build(catalog_path: Path = DATA / "catalog.json", path: Path = CHANTS,
     from pipeline.vespers import referenced_chants
     catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
     rows = load_chant_rows(dump)
-    vespers = referenced_chants()
+    named = referenced_chants() | good_friday_ids()
     if catalog_path.resolve() == (DATA / "catalog.json").resolve():
         from pipeline.hymnpairings import build as hymn_pairings
         from pipeline.hymnpairings import supplementary_chants
         rows += supplementary_chants()
-        vespers |= hymn_pairings(catalog, rows)
-    chosen = select_chants(catalog, rows, vespers)
-    return write_chants(chosen, path), len(chosen), len((referenced_ids(catalog) | vespers) - set(chosen))
+        named |= hymn_pairings(catalog, rows)
+    chosen = select_chants(catalog, rows, named)
+    return write_chants(chosen, path), len(chosen), len((referenced_ids(catalog) | named) - set(chosen))
 
 
-__all__ = ["build", "chant_body", "referenced_ids", "select_chants", "write_chants"]
+__all__ = ["build", "chant_body", "good_friday_ids", "referenced_ids", "select_chants", "write_chants"]
