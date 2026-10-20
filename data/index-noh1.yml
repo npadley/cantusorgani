@@ -301,15 +301,18 @@ sections:
     - tempora:Epi1-0
     calendar_note: 'weak title match (0.839): check'
   - slug: noh1-p112
-    label: Missa Dominiclle I post Epiphaniam
-    title: Missa Dominiclle I post Epiphaniam
+    label: Missa Dominicae I post Epiphaniam
+    title: Missa Dominicae I post Epiphaniam
     genre: proper
     page: 112
     status: verified
     score: 1.0
     token: '112'
     index_title: Missa Dominiclle I post Epiphaniam
-    calendar_note: no 1962 title matched
+    # 1962: Holy Family takes the Sunday; this Mass is sung on the ferias of
+    # the week after it (Missalemeum's tempora:Epi1-0a).
+    days:
+    - tempora:Epi1-0a
   - slug: noh1-p118
     label: S. Hygini Paplll, Martyris.
     title: S. Hygini Paplll, Martyris.

@@ -1038,7 +1038,12 @@
         {
           "gregobase_id": 128,
           "incipit": "Dignus est Agnus",
-          "lender": null,
+          "lender": {
+            "part": "introit",
+            "ref": "noh3/0450/000",
+            "slug": "noh3-p415",
+            "variant": ""
+          },
           "slot": "introitus",
           "variant": "",
           "years": [
@@ -1050,7 +1055,12 @@
         {
           "gregobase_id": 583,
           "incipit": "Dominabitur",
-          "lender": null,
+          "lender": {
+            "part": "gradual",
+            "ref": "noh3/0451/003",
+            "slug": "noh3-p415",
+            "variant": ""
+          },
           "slot": "graduale",
           "variant": "",
           "years": [
@@ -1062,7 +1072,12 @@
         {
           "gregobase_id": 746,
           "incipit": "Potestas ejus",
-          "lender": null,
+          "lender": {
+            "part": "alleluia",
+            "ref": "noh3/0453/000",
+            "slug": "noh3-p415",
+            "variant": ""
+          },
           "slot": "alleluia",
           "variant": "",
           "years": [
@@ -1074,7 +1089,12 @@
         {
           "gregobase_id": 390,
           "incipit": "Postula a me",
-          "lender": null,
+          "lender": {
+            "part": "offertory",
+            "ref": "noh3/0457/003",
+            "slug": "noh3-p415",
+            "variant": ""
+          },
           "slot": "offertorium",
           "variant": "",
           "years": [
@@ -1101,7 +1121,12 @@
         {
           "gregobase_id": 1229,
           "incipit": "Sedebit Dominus",
-          "lender": null,
+          "lender": {
+            "part": "communion",
+            "ref": "noh3/0458/002",
+            "slug": "noh3-p415",
+            "variant": ""
+          },
           "slot": "communio",
           "variant": "year-b",
           "years": [

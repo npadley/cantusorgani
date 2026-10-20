@@ -301,7 +301,10 @@ sections:
     score: 0.75
     token: '110'
     index_title: Dominica I. post Pentecosten
-    calendar_note: no 1962 title matched
+    # 1962: Trinity takes the Sunday; this Mass is sung on the ferias of the
+    # week after it (Missalemeum's tempora:Pent01-0a).
+    days:
+    - tempora:Pent01-0a
     reference: 'Offertorium. Intende voci, Pars I, p. 245. Communio. Narrabo omnia, ibid., p. 215.'
   - slug: noh2-p114
     label: Corporis Christi

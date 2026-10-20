@@ -6033,9 +6033,11 @@
       "slug": "noh1-p112",
       "section": "Proprium de Tempore",
       "division": "temporale",
-      "days": [],
-      "label": "Missa Dominiclle I post Epiphaniam",
-      "title": "Missa Dominiclle I post Epiphaniam",
+      "days": [
+        "tempora:Epi1-0a"
+      ],
+      "label": "Missa Dominicae I post Epiphaniam",
+      "title": "Missa Dominicae I post Epiphaniam",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -25304,7 +25306,9 @@
       "slug": "noh2-p110",
       "section": "Proprium de Tempore",
       "division": "temporale",
-      "days": [],
+      "days": [
+        "tempora:Pent01-0a"
+      ],
       "label": "Dominica I. post Pentecosten",
       "title": "Dominica I. post Pentecosten",
       "incipit": null,
@@ -57906,9 +57910,11 @@
       "slug": "noh3-p415",
       "section": "Proprium Sanctorum",
       "division": "sanctorale",
-      "days": [],
-      "label": "Jesu Christi Regis, Dom. ultima Oetobris",
-      "title": "Jesu Christi Regis, Dom. ultima Oetobris",
+      "days": [
+        "sancti:10-DU"
+      ],
+      "label": "In Festo D. N. Jesu Christi Regis",
+      "title": "In Festo D. N. Jesu Christi Regis",
       "incipit": null,
       "reference": null,
       "genre": "proper",
@@ -58247,8 +58253,74 @@
         ]
       ],
       "movements": [],
-      "sections": [],
-      "jgabc_url": null,
+      "sections": [
+        {
+          "kind": "introit",
+          "variant": "",
+          "system": 0,
+          "ref": "noh3/0450/000",
+          "gregobase_id": 128,
+          "placed": "label",
+          "score": 1.0,
+          "label": "Intr.",
+          "title": "Dignus est Agnus"
+        },
+        {
+          "kind": "gradual",
+          "variant": "",
+          "system": 9,
+          "ref": "noh3/0451/003",
+          "gregobase_id": 583,
+          "placed": "label",
+          "score": 1.0,
+          "label": "Grad. V",
+          "title": "Dominabitur"
+        },
+        {
+          "kind": "alleluia",
+          "variant": "",
+          "system": 18,
+          "ref": "noh3/0453/000",
+          "gregobase_id": 746,
+          "placed": "text",
+          "score": 0.8,
+          "title": "Potestas ejus"
+        },
+        {
+          "kind": "tract",
+          "variant": "",
+          "system": 27,
+          "ref": "noh3/0454/003",
+          "gregobase_id": 483,
+          "placed": "label",
+          "score": 1.0,
+          "label": "Tract.",
+          "title": "Ipse invocabit me"
+        },
+        {
+          "kind": "offertory",
+          "variant": "",
+          "system": 45,
+          "ref": "noh3/0457/003",
+          "gregobase_id": 390,
+          "placed": "label",
+          "score": 1.0,
+          "label": "Offert. V",
+          "title": "Postula a me"
+        },
+        {
+          "kind": "communion",
+          "variant": "",
+          "system": 50,
+          "ref": "noh3/0458/002",
+          "gregobase_id": 1229,
+          "placed": "label",
+          "score": 1.0,
+          "label": "Comm. VI",
+          "title": "Sedebit Dominus"
+        }
+      ],
+      "jgabc_url": "https://bbloomf.github.io/jgabc/propers.html#sunday=ChristusRex",
       "chant": [],
       "review_status": "verified",
       "hymns": [],
@@ -63561,7 +63633,8 @@
         "sancti:09-22",
         "sancti:10-01",
         "sancti:11-04",
-        "sancti:11-17"
+        "sancti:11-17",
+        "sancti:06-17r"
       ],
       "label": "Commune Confessoris Pontificis",
       "title": "Commune Confessoris Pontificis",
@@ -63869,7 +63942,8 @@
         "sancti:09-22",
         "sancti:10-01",
         "sancti:11-04",
-        "sancti:11-17"
+        "sancti:11-17",
+        "sancti:06-17r"
       ]
     },
     {
@@ -63881,7 +63955,8 @@
       "days": [
         "sancti:05-28",
         "sancti:06-22",
-        "sancti:07-07"
+        "sancti:07-07",
+        "sancti:10-23r"
       ],
       "label": "Commune Confessoris Pontificis \u2014 alia Missa",
       "title": "Commune Confessoris Pontificis \u2014 alia Missa",
@@ -64147,7 +64222,8 @@
       "linked_days": [
         "sancti:05-28",
         "sancti:06-22",
-        "sancti:07-07"
+        "sancti:07-07",
+        "sancti:10-23r"
       ]
     },
     {
@@ -64177,7 +64253,8 @@
         "sancti:07-14",
         "sancti:08-28",
         "sancti:09-30",
-        "sancti:11-15"
+        "sancti:11-15",
+        "sancti:07-21r"
       ],
       "label": "Commune Doctorum",
       "title": "Commune Doctorum",
@@ -64496,7 +64573,8 @@
         "sancti:07-14",
         "sancti:08-28",
         "sancti:09-30",
-        "sancti:11-15"
+        "sancti:11-15",
+        "sancti:07-21r"
       ]
     },
     {
@@ -70216,7 +70294,9 @@
       "slug": "missa-de-sancta-maria-in-sabbato-a-nativitate-usque-ad-purificat",
       "section": "Missae Votivae",
       "division": "varia",
-      "days": [],
+      "days": [
+        "commune:C10b"
+      ],
       "label": "Missa de Sancta Maria in Sabbato \u2014 a Nativitate usque ad Purificationem",
       "title": "Missa de Sancta Maria in Sabbato \u2014 a Nativitate usque ad Purificationem",
       "incipit": null,
@@ -70407,7 +70487,9 @@
       "slug": "missa-de-sancta-maria-in-sabbato-a-purificatione-usque-ad-pascha",
       "section": "Missae Votivae",
       "division": "varia",
-      "days": [],
+      "days": [
+        "commune:C10c"
+      ],
       "label": "Missa de Sancta Maria in Sabbato \u2014 a Purificatione usque ad Pascha",
       "title": "Missa de Sancta Maria in Sabbato \u2014 a Purificatione usque ad Pascha",
       "incipit": null,
@@ -70499,7 +70581,9 @@
       "slug": "missa-de-sancta-maria-in-sabbato-a-pascha-usque-ad-pentecosten",
       "section": "Missae Votivae",
       "division": "varia",
-      "days": [],
+      "days": [
+        "commune:C10Pasc"
+      ],
       "label": "Missa de Sancta Maria in Sabbato \u2014 a Pascha usque ad Pentecosten",
       "title": "Missa de Sancta Maria in Sabbato \u2014 a Pascha usque ad Pentecosten",
       "incipit": null,
@@ -70614,6 +70698,7 @@
       "section": "Missae Votivae",
       "division": "varia",
       "days": [
+        "commune:C10t",
         "sancti:08-05",
         "sancti:09-08",
         "sancti:09-24",

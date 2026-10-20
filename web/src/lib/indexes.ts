@@ -135,6 +135,20 @@ export function temporaleIndex(pieces: readonly Piece[]): readonly SeasonGroup[]
     }));
 }
 
+/** Days of the Common keyed by the calendar itself (the Saturdays of Our Lady),
+ *  in the order of the year: Christmastide, after the Purification,
+ *  Eastertide, after Pentecost. */
+export function communeDays(pieces: readonly Piece[]): readonly DayEntry[] {
+  const order = ["C10a", "C10b", "C10c", "C10Pasc", "C10t"];
+  const rank = (key: string) => {
+    const i = order.indexOf(key.split(":")[1] ?? "");
+    return i < 0 ? order.length : i;
+  };
+  return [...dayEntries(pieces, "commune")]
+    .map(([key, dayPieces]) => entry(key, dayPieces))
+    .sort((a, b) => rank(a.key) - rank(b.key) || a.key.localeCompare(b.key));
+}
+
 // ---------------------------------------------------------- Proper of Saints ---
 
 export const MONTHS_LA = [

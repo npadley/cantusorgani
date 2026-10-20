@@ -337,6 +337,7 @@ sections:
     score: 1.0
     token: ''
     index_title: Missa de Sancta Maria, in Sabbato. Ab Adventu usque ad Nativitatem Domini
+    calendar_note: the 1962 calendar keeps no Saturday of Our Lady in Advent
   - slug: missa-de-sancta-maria-in-sabbato-a-nativitate-usque-ad-purificat
     label: Missa de Sancta Maria in Sabbato — a Nativitate usque ad Purificationem
     title: Missa de Sancta Maria in Sabbato — a Nativitate usque ad Purificationem
@@ -346,6 +347,8 @@ sections:
     score: 1.0
     token: ''
     index_title: Missa de Sancta Maria, in Sabbato — A Nativitate Domini usque ad Purificationem
+    days:
+    - commune:C10b
   - slug: missa-de-sancta-maria-in-sabbato-a-purificatione-usque-ad-pascha
     label: Missa de Sancta Maria in Sabbato — a Purificatione usque ad Pascha
     title: Missa de Sancta Maria in Sabbato — a Purificatione usque ad Pascha
@@ -355,6 +358,8 @@ sections:
     score: 1.0
     token: ''
     index_title: Missa de Sancta Maria, in Sabbato — A Purificatione usque ad Pascha
+    days:
+    - commune:C10c
   - slug: missa-de-sancta-maria-in-sabbato-a-pascha-usque-ad-pentecosten
     label: Missa de Sancta Maria in Sabbato — a Pascha usque ad Pentecosten
     title: Missa de Sancta Maria in Sabbato — a Pascha usque ad Pentecosten
@@ -364,6 +369,8 @@ sections:
     score: 1.0
     token: ''
     index_title: Missa de Sancta Maria, in Sabbato — A Pascha usque ad Pentecosten
+    days:
+    - commune:C10Pasc
   - slug: missa-de-sancta-maria-in-sabbato-a-pentecoste-usque-ad-adventum
     label: Missa de Sancta Maria in Sabbato — a Pentecoste usque ad Adventum
     title: Missa de Sancta Maria in Sabbato — a Pentecoste usque ad Adventum
@@ -373,6 +380,8 @@ sections:
     score: 1.0
     token: ''
     index_title: Missa de Sancta Maria, in Sabbato — A Pentecoste usque ad Adventum
+    days:
+    - commune:C10t
   - slug: missa-pro-eligendo-summo-pontifice
     label: Missa pro eligendo Summo Pontifice
     title: Missa pro eligendo Summo Pontifice

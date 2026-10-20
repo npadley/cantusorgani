@@ -4,9 +4,9 @@ This document records the current, generated mapping coverage and the limits of 
 
 ## Current coverage
 
-The generated assignments contain **482 rows; 440 have an eligible Nova Organi Harmonia lender and 42 do not**. These are assignment rows after cycle merging, not separate counts per A/B/C year. The 42 rows below link to their exact GregoBase chant IDs; no chant was selected by incipit similarity.
+The generated assignments contain **482 rows; 445 have an eligible Nova Organi Harmonia lender and 37 do not**. These are assignment rows after cycle merging, not separate counts per A/B/C year. The 37 rows below link to their exact GregoBase chant IDs; no chant was selected by incipit similarity.
 
-The report lists **39 distinct unresolved GregoBase URLs** for the unmatched rows. Several rows share a chant ID, which is why this count is lower than 42. It separately lists **81 distinct URLs with at least one rejected catalogue candidate**. A rejected candidate failed exportability checks; another eligible section may still resolve the assignment. These 81 candidates do not add to the unmatched-row count.
+The report lists **34 distinct unresolved GregoBase URLs** for the unmatched rows. Several rows share a chant ID, which is why this count is lower than 37. It separately lists **81 distinct URLs with at least one rejected catalogue candidate**. A rejected candidate failed exportability checks; another eligible section may still resolve the assignment. These 81 candidates do not add to the unmatched-row count.
 
 ## Occasions without any assignment source
 
@@ -38,11 +38,6 @@ Each entry below has a source assignment but no eligible printed lender in the c
 | `baptism` | `graduale` | A, B, C; all seasons | [553 — Benedictus Dominus Deus](https://gregobase.selapa.net/chant.php?id=553) |
 | `baptism` | `alleluia` | A, B, C; all seasons | [866 — Benedictus qui venit](https://gregobase.selapa.net/chant.php?id=866) |
 | `corpus-christi` | `sequentia` | A, B, C; all seasons | [308 — Lauda, Sion](https://gregobase.selapa.net/chant.php?id=308) |
-| `christ-the-king` | `introitus` | A, B, C; all seasons | [128 — Dignus est Agnus](https://gregobase.selapa.net/chant.php?id=128) |
-| `christ-the-king` | `graduale` | A, B, C; all seasons | [583 — Dominabitur](https://gregobase.selapa.net/chant.php?id=583) |
-| `christ-the-king` | `alleluia` | A, B, C; all seasons | [746 — Potestas ejus](https://gregobase.selapa.net/chant.php?id=746) |
-| `christ-the-king` | `offertorium` | A, B, C; all seasons | [390 — Postula a me](https://gregobase.selapa.net/chant.php?id=390) |
-| `christ-the-king` | `communio` | B, C; all seasons | [1229 — Sedebit Dominus](https://gregobase.selapa.net/chant.php?id=1229) |
 | `all-souls` | `tractus` | A, B, C; all seasons | [338 — Absolve, Domine](https://gregobase.selapa.net/chant.php?id=338) |
 | `exaltation-cross` | `offertorium` | A, B, C; all seasons | [195 — Protege, Domine](https://gregobase.selapa.net/chant.php?id=195) |
 | `exaltation-cross` | `communio` | A, B, C; all seasons | [346 — Per signum Crucis](https://gregobase.selapa.net/chant.php?id=346) |
