@@ -176,7 +176,8 @@ export function createExportController(deps: ControllerDependencies): ExportCont
     if (msg.type === 'pdf') {
       const label = state.settings.page === 'custom' ? 'custom' : PAGE_PRESETS[state.settings.page].label;
       endExport();
-      deps.saveFile(new Uint8Array(msg.bytes), `${title} (${label}).pdf`);
+      const suffix = state.settings.chant === 'only' ? ' (chant)' : '';
+      deps.saveFile(new Uint8Array(msg.bytes), `${title} (${label})${suffix}.pdf`);
       set({ phase: 'ready' });
     } else {
       endExport();
@@ -218,7 +219,7 @@ export function createExportController(deps: ControllerDependencies): ExportCont
       worker.postMessage({ type: 'layout', request: { token, title, parts, settings, overrides, chantSvgs } });
     };
     // Exsurge, its font and the chant JSON load only when Chant is on and a part has a chant (CS §6).
-    if (settings.chant === 'before' && parts.some((p) => p.chants.length > 0)) {
+    if (settings.chant !== 'off' && parts.some((p) => p.chants.length > 0)) {
       const draw = deps.renderChants === undefined ? Promise.resolve(new Map<number, string>()) : deps.renderChants(parts, settings);
       draw.then(send, () => send(new Map()));
     } else {

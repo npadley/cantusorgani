@@ -13,7 +13,7 @@ import { createExportController } from '../lib/export-layout/controller';
 import { renderChantSvgs } from '../lib/export-layout/chantJob';
 import { parseResourceProfile } from '../lib/export-layout/limits';
 import { capabilitiesFor } from '../lib/export-layout/capabilities';
-import { chantAnnouncement, chantNote, chantPartsPrinted } from '../lib/export-layout/chantNotes';
+import { chantAnnouncement, chantCounts, chantNote, chantPartsPrinted } from '../lib/export-layout/chantNotes';
 import { paperDimensions } from '../lib/export-layout/settings';
 import { PAGE_PRESETS, MARGIN_MAX_MM, MARGIN_MIN_MM, MAX_SYSTEMS_LIMIT, PAGE_MAX_MM, PAGE_MAX_RATIO, PAGE_MIN_MM, PRINT_MARGIN_ADVISORY_MM } from '../lib/export-layout/types';
 import type {
@@ -586,7 +586,10 @@ class Session {
   private syncChantHelp(mode: LayoutSettings['chant']): void {
     const none = !this.parts.some((p) => p.chants.length > 0);
     this.q('chant-help').hidden = mode !== 'before' || none;
+    this.q('chant-only-help').hidden = mode !== 'only' || none;
     this.q('chant-none').hidden = !none;
+    // Chant only can't print anything when no part has a chant.
+    for (const r of this.radios('cx-chant')) if (r.value === 'only') r.disabled = none;
   }
 
   private chantPartsPrinted(s: ControllerState): number {
@@ -768,12 +771,28 @@ class Session {
       plus.disabled = true;
       plus.setAttribute('aria-label', 'Systems per page does not apply to these parts');
     }
+    // Chant only has no staves of ours to size and no systems to cap.
+    const onlyChant = s.settings.chant === 'only';
+    for (const r of this.radios('cx-staff')) r.disabled = onlyChant;
+    this.q('staff-only').hidden = !onlyChant;
+    this.q('cap-only').hidden = !onlyChant;
+    if (onlyChant) {
+      val.textContent = 'Not used for chant only';
+      minus.disabled = true;
+      plus.disabled = true;
+      plus.setAttribute('aria-label', 'Systems per page does not apply to chant only');
+    }
     const line = this.q('result');
     const pending = s.result === null;
     line.dataset['pending'] = String(pending);
     const r = this.shownResult(s);
     line.textContent = pending && (r === null || s.phase !== 'error') ? 'Updating…' : r === null ? '' : this.resultLine(r.pages);
     if (r !== null && !pending) line.textContent = this.resultLine(r.pages);
+    // Chant only: say how many parts were left out for having no chant.
+    const leftOut = s.settings.chant === 'only' ? chantCounts(this.parts).without : 0;
+    if (leftOut > 0 && line.textContent !== '' && line.textContent !== 'Updating…') {
+      line.textContent += ` · ${leftOut} part${leftOut === 1 ? '' : 's'} left out (no chant)`;
+    }
   }
 
   private resultLine(pages: readonly { partId: string; systemCount: number | null; kind: string }[]): string {

@@ -238,6 +238,31 @@ describe('composeExport with chant', () => {
     expect(r.pages[0]!.kind).toBe('scan');
   });
 
+  it('chantOnly: three parts, one without chant, give chant pages only and leave the chantless part out', async () => {
+    const withChant = scanPart('s:0', [ref(7)]);
+    const none = scanPart('s:1', []);
+    const fixed = fixedPart('f:0', [ref(5)]);
+    const settings = { ...IPAD, chant: 'only' as const };
+    const r = await composeExport([withChant, none, fixed], new Map(), settings, deps(), 1,
+      lines({ 7: syntheticLines(7, 2, 25), 5: syntheticLines(5, 3, 30) }));
+    expect(r.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+    expect(r.pages.map((p) => p.partId)).toEqual(['s:0', 'f:0']);
+    expect(r.pages.every((p) => p.kind === 'scan' && p.images.length === 0 && p.chant.length > 0)).toBe(true);
+    expect(r.pages.find((p) => p.partId === 's:0')!.footer!.lines.map((l) => l.text).join(' ')).toContain('GregoBase');
+    expect(r.pages.map((p) => p.index)).toEqual([0, 1]);
+  });
+
+  it('chantOnly: MEI parts need no layout, and nothing to print is an error', async () => {
+    const mei = meiPart('m:0', [ref(1)]);
+    const settings = { ...IPAD, chant: 'only' as const };
+    const ok = await composeExport([mei], new Map(), settings, deps(), 1, lines({ 1: syntheticLines(1, 2, 20) }));
+    expect(ok.diagnostics).toEqual([]);
+    expect(ok.pages).toHaveLength(1);
+    const empty = await composeExport([scanPart('s:0', [])], new Map(), settings, deps(), 1);
+    expect(empty.complete).toBe(false);
+    expect(empty.pages).toHaveLength(0);
+  });
+
   it('prints no chant when the setting is off, whatever the parts carry', async () => {
     const part = scanPart('s:0', [ref(7)]);
     const r = await composeExport([part], new Map(), { ...IPAD, chant: 'off' }, deps(), 1, lines({ 7: syntheticLines(7, 2, 25) }));

@@ -21,6 +21,9 @@ describe('chantAnnouncement', () => {
     expect(chantAnnouncement('before', [part('a:0', [])])).toBe('No part in this PDF has a chant.');
     expect(chantAnnouncement('off', THREE_OF_FOUR)).toBe('Chant removed.');
   });
+  it('announces chant only', () => {
+    expect(chantAnnouncement('only', THREE_OF_FOUR)).toBe('Chant only: 3 parts. 1 part has no chant.');
+  });
   it('counts a segment once, however many runs it splits into', () => {
     const runs = [part('seg:1:0', [ref(1)]), part('seg:1:1', []), part('other:0', [])];
     expect(chantCounts(runs)).toEqual({ withChant: 1, without: 1 });
@@ -37,6 +40,9 @@ describe('chantNote', () => {
     expect(chantNote(THREE_OF_FOUR[3]!, THREE_OF_FOUR, 'before', [])).toEqual({ text: 'No chant for this part.', incipits: [] });
     expect(chantNote(THREE_OF_FOUR[1]!, THREE_OF_FOUR, 'before', [unavailable('b:0')])?.text)
       .toBe('The chant could not be drawn; this part prints without it.');
+  });
+  it('says a part without chant is left out when only the chant is printed', () => {
+    expect(chantNote(THREE_OF_FOUR[3]!, THREE_OF_FOUR, 'only', [])?.text).toBe('No chant for this part, so it is left out.');
   });
   it('shows nothing on the later runs of a segment', () => {
     const runs = [part('seg:1:0', [ref(1)]), part('seg:1:1', [])];

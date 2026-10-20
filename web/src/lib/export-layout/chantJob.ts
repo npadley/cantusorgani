@@ -40,7 +40,7 @@ export async function renderChantSvgs(
 ): Promise<ReadonlyMap<number, string>> {
   const out = new Map<number, string>();
   const jobs = chantJobs(parts);
-  if (settings.chant !== 'before' || jobs.length === 0) return out;
+  if (settings.chant === 'off' || jobs.length === 0) return out;
   if (!(await deps.ensureFace())) return out;
   let lib: ExsurgeLib;
   try {

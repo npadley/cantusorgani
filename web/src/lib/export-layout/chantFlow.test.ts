@@ -142,6 +142,27 @@ describe('controller with chant', () => {
     expect([...worker.posts[0]!.request!.chantSvgs!]).toEqual([[277, '<svg/>']]);
   });
 
+  it('names a chant-only download with the (chant) suffix', async () => {
+    const saved: string[] = [];
+    const worker = new FakeWorker();
+    const pdf = new FakeWorker();
+    const data: Record<string, string> = { [PREFERENCES_KEY]: JSON.stringify({ version: 2, settings: { ...DEFAULT_SETTINGS, chant: 'only' }, overrides: {} }) };
+    const c = createExportController({
+      createLayoutWorker: () => worker, createPdfWorker: () => pdf,
+      storage: { getItem: (k) => data[k] ?? null, setItem: () => {}, removeItem: () => {} },
+      now: () => 0, setTimeout: () => 1, clearTimeout: () => {}, saveFile: (_b, name) => { saved.push(name); },
+      limits: PROVISIONAL_LIMITS, renderChants: async () => new Map([[277, '<svg/>']]),
+    });
+    c.open([scan('s', [REF])], 'Gradual');
+    await flush();
+    const token = worker.posts[0]!.request!.token;
+    worker.onmessage?.({ data: { type: 'result', token, result: { token, partIds: [], digests: { input: '', settings: '', fonts: '', renderer: '', result: '' }, effectiveBreaks: [], diagnostics: [], pages: [{}], complete: true } } } as MessageEvent);
+    void c.download();
+    await flush();
+    pdf.onmessage?.({ data: { type: 'pdf', token, bytes: new ArrayBuffer(1), pageCount: 1, byteSize: 1 } } as MessageEvent);
+    expect(saved).toEqual(['Gradual (Letter) (chant).pdf']);
+  });
+
   it('chant On without chants in the selection does not draw', async () => {
     let called = 0;
     const { worker } = setup(BEFORE, [scan('s', [])], async () => { called += 1; return new Map(); });

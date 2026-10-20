@@ -118,7 +118,8 @@ export function createLayoutHandler(deps: LayoutHandlerDeps): LayoutHandler {
     const { token, parts, settings, overrides, chantSvgs } = request.request;
     if (!isCurrent(token)) return;
 
-    const meiParts = parts.filter(isMei);
+    // Chant only prints no accompaniment, so nothing is engraved and Verovio is never loaded.
+    const meiParts = settings.chant === 'only' ? [] : parts.filter(isMei);
     // Verovio is loaded only when something in the selection reflows: fixed and scan parts need no engraver.
     let tk: VerovioLike | null = null;
     if (meiParts.length > 0) {

@@ -47,7 +47,8 @@ export function chantNote(
   const segmentHasChant = list.some((p) => segmentKey(p.id) === key && p.chants.length > 0);
   if (part.chants.length === 0) {
     const firstOfSegment = list.find((p) => segmentKey(p.id) === key)?.id === part.id;
-    return segmentHasChant || !firstOfSegment ? null : { text: 'No chant for this part.', incipits: [] };
+    if (segmentHasChant || !firstOfSegment) return null;
+    return { text: mode === 'only' ? 'No chant for this part, so it is left out.' : 'No chant for this part.', incipits: [] };
   }
   if (diagnostics.some((d) => d.code === 'CHANT_UNAVAILABLE' && d.partId === part.id)) {
     return { text: 'The chant could not be drawn; this part prints without it.', incipits: [] };

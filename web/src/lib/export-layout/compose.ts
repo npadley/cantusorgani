@@ -290,7 +290,7 @@ export async function composeExport(
 
   // Chant lines to print, per part (CS §3): only when the setting asks for them and the lines exist.
   const chantOf = new Map<string, readonly ChantLineArt[]>();
-  if (settings.chant === 'before') {
+  if (settings.chant !== 'off') {
     let total = 0;
     for (const part of parts) {
       const arts: ChantLineArt[] = [];
@@ -314,7 +314,8 @@ export async function composeExport(
   for (const part of parts) {
     const startCount = pages.length;
     let arts = chantOf.get(part.id) ?? [];
-    const meiShare = part.kind !== 'mei' || meiLayouts.get(part.id)?.chantShare !== false;
+    const only = settings.chant === 'only';
+    const meiShare = !only && (part.kind !== 'mei' || meiLayouts.get(part.id)?.chantShare !== false);
     const geoFor = (firstAccMm: number): PartChantGeometry => {
       try {
         return chantGeometryFor(part, settings, fonts, arts, meiShare, firstAccMm);
@@ -354,7 +355,7 @@ export async function composeExport(
       const content: RectMm = { xMm: printable.xMm, yMm: printable.yMm + top, widthMm: printable.widthMm, heightMm: printable.heightMm - top - footerH };
       const mine = geo.plan.placed.filter((l) => l.page === k);
       const bottom = Math.max(top, ...mine.map((l) => l.topMm + l.art.heightMm));
-      const lastOfFixed = part.kind === 'fixed' && k === geo.plan.chantPages - 1;
+      const lastOfFixed = (part.kind === 'fixed' || only) && k === geo.plan.chantPages - 1;
       return {
         ...pageBase(part.id, content, k === 0 ? headingBlock : null, lastOfFixed ? footerOf() : null, 1 - (bottom - top) / content.heightMm),
         index: startCount + k,
@@ -364,6 +365,12 @@ export async function composeExport(
         chant: placementsOn(k),
       };
     });
+
+    // Chant only (DL D27): the part is its chant pages alone; a part with no chant is left out.
+    if (only) {
+      if (arts.length > 0) pages.push(...leadPages());
+      continue;
+    }
 
     if (part.kind !== 'fixed' && contentFor(true).heightMm <= 0) {
       diagnostics.push(diag(part.id, 'UNSATISFIABLE_LAYOUT', `heading ${headingH} mm leaves no room on a ${printable.heightMm} mm page`, {
@@ -522,6 +529,10 @@ export async function composeExport(
       pages.length = startCount;
       diagnostics.push(diag(part.id, codeOfError(e, part.kind === 'mei' ? 'INVALID_PAGE' : 'ASSET_MISSING'), msg(e)));
     }
+  }
+
+  if (settings.chant === 'only' && pages.length === 0 && parts.length > 0) {
+    diagnostics.push(diag(null, 'INVALID_PAGE', 'chant only: no part has a chant to print'));
   }
 
   const hash = (svg: string): Promise<string> => sha256Hex(new TextEncoder().encode(svg));

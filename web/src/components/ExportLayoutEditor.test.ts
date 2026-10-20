@@ -125,10 +125,13 @@ describe("ExportLayoutEditor markup", async () => {
     const body = fieldset![1]!;
     expect(body).toMatch(/<legend[^>]*>Chant<\/legend>/);
     const radios = body.match(/<input[^>]*type="radio"[^>]*name="cx-chant"[^>]*>/g) ?? [];
-    expect(radios.map((r) => /value="(\w+)"/.exec(r)![1])).toEqual(["off", "before"]);
+    expect(radios.map((r) => /value="(\w+)"/.exec(r)![1])).toEqual(["off", "before", "only"]);
     expect(body).toContain("Off");
     expect(body).toContain("Before each part");
+    expect(body).toContain("Chant only");
     expect(body).toContain("The Gregorian chant from GregoBase, set to your page width.");
+    expect(body).toContain("Only the chant; parts without chant are left out.");
+    expect(html.match(/Not used for chant only\./g)).toHaveLength(2); // Music size and Systems per page
     const at = (needle: string): number => html.indexOf(needle);
     expect(at('data-cx="breaks-group"')).toBeLessThan(at('data-cx="chant-group"'));
     expect(at('data-cx="chant-group"')).toBeLessThan(at('data-cx="more"'));

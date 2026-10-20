@@ -8,7 +8,7 @@ import type { ChantLineArt, ExportPart, LayoutSettings } from './types';
 
 /**
  * chantId -> its lines on paper, or null when it was not drawn or was rejected. Empty when chant is
- * not `before`.
+ * off.
  */
 export function buildChantLines(
   parts: readonly ExportPart[],
@@ -16,7 +16,7 @@ export function buildChantLines(
   chantSvgs: ReadonlyMap<number, string> | null,
 ): ReadonlyMap<number, readonly ChantLineArt[] | null> {
   const out = new Map<number, readonly ChantLineArt[] | null>();
-  if (settings.chant !== 'before' || chantSvgs === null) return out;
+  if (settings.chant === 'off' || chantSvgs === null) return out;
   for (const { id, part } of chantJobs(parts)) {
     const raw = chantSvgs.get(id);
     if (raw === undefined) {
