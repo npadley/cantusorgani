@@ -246,6 +246,11 @@ export interface MeiLayout {
   readonly staffHeightMm: number;               // measured from the SVG
   readonly verovioOptions: Readonly<Record<string, string | number | boolean>>;
   readonly diagnostics: readonly LayoutDiagnostic[];
+  /**
+   * False when this layout was made without the accompaniment sharing the last chant page (the chant
+   * left too little room for the first system, so the accompaniment starts on a fresh page). Absent = true.
+   */
+  readonly chantShare?: boolean;
 }
 
 /** Canonical runtime codes. The UI copy deck (UI spec §7) maps every one of these; unknown codes get the generic copy. */
@@ -292,6 +297,8 @@ interface CanonicalPageBase {
   /** Chant lines placed on this page ([] when none). */
   readonly chant: readonly ChantPlacement[];
 }
+/** One chant line, ready to place: sanitized SVG and its size on paper. Built by the worker from K1's split lines. */
+export interface ChantLineArt { readonly chantId: number; readonly line: number; readonly svg: SanitizedSvg; readonly widthMm: number; readonly heightMm: number }
 export interface ChantPlacement { readonly chantId: number; readonly line: number; readonly svg: SanitizedSvg; readonly rect: RectMm }
 export interface MeiCanonicalPage extends CanonicalPageBase {
   readonly kind: 'mei';

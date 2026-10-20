@@ -142,6 +142,15 @@ describe('composeExport', () => {
     expect(r.digests.renderer).toBe('6.3.0-425dd7b');
   });
 
+  it('offIsUnchanged: with chant off every digest equals the pre-chant value', async () => {
+    const mei = meiPart('m:0', heading('Kyrie', { rubric: 'Kyrie rubric', credit: 'Credit line' }));
+    const layouts = new Map([[mei.id, await meiLayout(mei, IPAD)]]);
+    const parts: ExportPart[] = [mei, scanPart('s:0', ['a/s1', 'a/s2']), fixedPart('f:0')];
+    const r = await composeExport(parts, layouts, IPAD, deps(), 7);
+    const expected: Record<string, string> | null = {"input":"99a920e0ed144cba772e4e828ca27a45b9ae213371bc3822401bd55bb61227c5","settings":"664e5cefb1432834100436360a84143ebe5e4a1482e1f95728c9ca0f566235d1","fonts":"54174ecf118a823a820f6802cf4e140cd5b9d70469103a8d5c3d9375b70b8374","renderer":"6.3.0-425dd7b","result":"4c0cc4989f419640c0de36175354297a98724a6e20b39359b1d6afc2df74bb7a"};
+    if (expected !== null) expect(r.digests).toEqual(expected);
+  });
+
   it('reserves the heading on the first page only and puts the credit in the last footer', async () => {
     const mei = meiPart('m:0', heading('Kyrie', { rubric: 'A rubric', rubricTranslation: 'Translation', credit: 'Credit line' }));
     const layouts = new Map([[mei.id, await meiLayout(mei, MULTI)]]);
