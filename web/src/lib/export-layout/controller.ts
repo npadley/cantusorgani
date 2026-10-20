@@ -212,10 +212,18 @@ export function createExportController(deps: ControllerDependencies): ExportCont
     const token = state.requestToken + 1;
     inflight = token;
     set({ requestToken: token, diagnostics: [] });
-    worker.postMessage({
-      type: 'layout',
-      request: { token, title, parts: state.parts, settings: state.settings, overrides: state.overrides },
-    });
+    const { parts, settings, overrides } = state;
+    const send = (chantSvgs: ReadonlyMap<number, string> | null): void => {
+      if (closed || state.requestToken !== token || dirty) return;
+      worker.postMessage({ type: 'layout', request: { token, title, parts, settings, overrides, chantSvgs } });
+    };
+    // Exsurge, its font and the chant JSON load only when Chant is on and a part has a chant (CS §6).
+    if (settings.chant === 'before' && parts.some((p) => p.chants.length > 0)) {
+      const draw = deps.renderChants === undefined ? Promise.resolve(new Map<number, string>()) : deps.renderChants(parts, settings);
+      draw.then(send, () => send(new Map()));
+    } else {
+      send(null);
+    }
     layoutWatchdog = deps.setTimeout(() => {
       layoutWatchdog = null;
       if (closed || state.requestToken !== token) return;

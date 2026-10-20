@@ -10,6 +10,7 @@
 import editorCss from '../styles/exportEditor.css?url';
 import { loadStylesheet } from './lazyStyles';
 import { createExportController } from '../lib/export-layout/controller';
+import { renderChantSvgs } from '../lib/export-layout/chantJob';
 import { parseResourceProfile } from '../lib/export-layout/limits';
 import { capabilitiesFor } from '../lib/export-layout/capabilities';
 import { paperDimensions } from '../lib/export-layout/settings';
@@ -181,6 +182,7 @@ class Session {
       saveFile: (bytes, filename) => { this.savedBytes = bytes.byteLength; saveBlob(bytes, filename); },
       limits: profile.limits,
       profile,
+      renderChants: (parts, settings) => renderChantSvgs(parts, settings),
       ...options.deps,
     };
     this.controller = createExportController(deps);

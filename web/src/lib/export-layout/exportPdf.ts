@@ -163,6 +163,8 @@ export async function exportCanonicalPdf(result: LayoutResult, deps: ExportPdfDe
         await drawFixed(page, p);
         break;
     }
+    // Chant lines are sanitized vector SVG like the accompaniment: the same walker, the same embedded faces.
+    for (const c of p.chant) await drawSvgOnPage(page, c.svg.svg, deps.fonts, embedded, c.rect);
     if (p.heading !== null) await drawBlock(page, p.heading, p.heightMm, embedded);
     if (p.footer !== null) await drawBlock(page, p.footer, p.heightMm, embedded);
   };

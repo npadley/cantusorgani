@@ -1,4 +1,5 @@
-import { LYRIC_SIZE, STAFF_SIZES, type LayoutSettings, type PartKind } from './types';
+import { paperDimensions } from './settings';
+import { LYRIC_SIZE, STAFF_SIZES, type ExportPart, type LayoutSettings, type PartKind } from './types';
 
 /** Scale for chant notation so it matches the accompaniment (spec 4.2). */
 export interface ChantScale {
@@ -29,3 +30,24 @@ export function chantScale(settings: LayoutSettings, printableWidthMm: number, p
   const setFontSize = lyricMm / mmPerUnit / EXSURGE_LYRIC_FACTOR;
   return { mmPerUnit, widthUnits, setFontSize };
 }
+
+/** The Exsurge scale a chant was rendered at: the first part that carries it decides (the controller does the same). */
+export function chantScaleFor(settings: LayoutSettings, part: ExportPart): ChantScale {
+  const page = paperDimensions(settings);
+  return chantScale(settings, page.widthMm - 2 * settings.marginMm, part.kind);
+}
+
+/** The chants to draw, each once, with the part kind whose scale applies. */
+export function chantJobs(parts: readonly ExportPart[]): { readonly id: number; readonly part: ExportPart }[] {
+  const seen = new Set<number>();
+  const out: { id: number; part: ExportPart }[] = [];
+  for (const part of parts) {
+    for (const ref of part.chants) {
+      if (seen.has(ref.id)) continue;
+      seen.add(ref.id);
+      out.push({ id: ref.id, part });
+    }
+  }
+  return out;
+}
+

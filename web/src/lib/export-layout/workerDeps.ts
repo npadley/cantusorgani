@@ -7,7 +7,7 @@
 // `createRenderPart` fetches and verifies a part's MEI, builds the page rectangles from compose's
 // own reservationFor (so compose never sees a size mismatch) and calls renderMei.
 import { PDFDocument } from 'pdf-lib';
-import { composeExport as composeParts, reservationFor } from './compose';
+import { composeExport as composeParts, firstPageTopMm, reservationFor } from './compose';
 import type { ComposeDeps } from './compose';
 import { exportCanonicalPdf } from './exportPdf';
 import { renderMei } from './layout';
@@ -18,6 +18,7 @@ import { paperDimensions, usableRect } from './settings';
 import type {
   AssetLoader,
   BreakOverride,
+  ChantLineArt,
   ExportPart,
   FontProfile,
   LayoutResult,
@@ -35,17 +36,21 @@ export type FetchBytes = (url: string) => Promise<Uint8Array>;
  * the usable rect minus the footer on every page, and also minus the heading (with the y offset
  * moved down by it) on the part's first page.
  */
-export function pageRectsFor(settings: LayoutSettings, part: MeiExportPart, fonts: FontProfile): PageRects {
-  const reservation = reservationFor(part, settings, fonts);
+export function pageRectsFor(
+  settings: LayoutSettings,
+  part: MeiExportPart,
+  fonts: FontProfile,
+  chant: readonly ChantLineArt[] = [],
+  share = true,
+): PageRects {
+  const reservation = reservationFor(part, settings, fonts, chant, share);
   const full = usableRect(paperDimensions(settings), settings.marginMm);
   const content = { ...full, heightMm: full.heightMm - reservation.footerMm };
+  // The heading (unless it stayed on a chant page) and the chant tail sit above the first system.
+  const top = firstPageTopMm(reservation);
   return {
     content,
-    firstPageContent: {
-      ...content,
-      yMm: content.yMm + reservation.headingMm,
-      heightMm: content.heightMm - reservation.headingMm,
-    },
+    firstPageContent: { ...content, yMm: content.yMm + top, heightMm: content.heightMm - top },
   };
 }
 
@@ -56,13 +61,22 @@ export function createRenderPart(fetchBytes: FetchBytes) {
     settings: LayoutSettings,
     overrides: readonly BreakOverride[],
     ctx: RenderContext,
+    chant: readonly ChantLineArt[] = [],
   ): Promise<MeiLayout> => {
     const { meiUrl, meiSha256 } = part.conversion;
     const bytes = await fetchBytes(meiUrl);
     if (bytes.byteLength > ctx.limits.maxMeiBytes) throw new Error(`SOURCE_CEILING: ${meiUrl}`);
     if ((await sha256Hex(bytes)) !== meiSha256) throw new Error(`ASSET_HASH_MISMATCH: ${meiUrl}`);
     const meiXml = new TextDecoder().decode(bytes);
-    return renderMei({ part, meiXml }, settings, overrides, ctx, pageRectsFor(settings, part, ctx.fonts));
+    const render = (share: boolean): Promise<MeiLayout> =>
+      renderMei({ part, meiXml }, settings, overrides, ctx, pageRectsFor(settings, part, ctx.fonts, chant, share));
+    const shared = await render(true);
+    // The accompaniment shared the last chant page on an estimate of one system's height. If the first real
+    // system does not fit there, start the accompaniment on a fresh page instead.
+    const tooTall = shared.diagnostics.some((d) => d.severity === 'error' && d.reason === 'heading-too-tall');
+    if (chant.length === 0 || !tooTall) return shared;
+    const apart = await render(false);
+    return { ...apart, chantShare: false };
   };
 }
 
@@ -123,8 +137,9 @@ export function createCompose(assets: AssetLoader) {
     settings: LayoutSettings,
     token: number,
     fonts: FontProfile,
+    chantLines: ReadonlyMap<number, readonly ChantLineArt[] | null> = new Map(),
   ): Promise<LayoutResult> =>
-    composeParts(parts, new Map(layouts.map((l) => [l.partId, l] as const)), settings, composeDepsFor(assets, fonts), token);
+    composeParts(parts, new Map(layouts.map((l) => [l.partId, l] as const)), settings, composeDepsFor(assets, fonts), token, chantLines);
 }
 
 /** The PDF worker's `exportPdf` dependency. Fonts load on first use; a failed load is retried. */

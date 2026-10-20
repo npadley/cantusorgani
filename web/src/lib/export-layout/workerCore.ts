@@ -6,8 +6,10 @@
 // makes an older job's `ctx.isCancelled()` return true, and nothing is posted for it. Jobs run
 // one at a time because they share one stateful Verovio toolkit; a superseded job notices
 // within a part and the next job starts straight after it.
+import { buildChantLines } from './chantLines';
 import type {
   BreakOverride,
+  ChantLineArt,
   ExportPart,
   FontProfile,
   LayoutDiagnostic,
@@ -37,6 +39,8 @@ export interface LayoutHandlerDeps {
     settings: LayoutSettings,
     overrides: readonly BreakOverride[],
     ctx: RenderContext,
+    /** This part's chant lines (empty when none), so the first page can reserve room for them. */
+    chant: readonly ChantLineArt[],
   ) => Promise<MeiLayout>;
   readonly compose: (
     parts: readonly ExportPart[],
@@ -44,6 +48,7 @@ export interface LayoutHandlerDeps {
     settings: LayoutSettings,
     token: number,
     fonts: FontProfile,
+    chantLines: ReadonlyMap<number, readonly ChantLineArt[] | null>,
   ) => Promise<LayoutResult>;
   readonly post: (message: LayoutWorkerResponse) => void;
   /** Reserved for timing; the controller owns the job timeout and terminates the worker. */
@@ -110,7 +115,7 @@ export function createLayoutHandler(deps: LayoutHandlerDeps): LayoutHandler {
   }
 
   async function run(request: LayoutWorkerRequest & { readonly type: 'layout' }): Promise<void> {
-    const { token, parts, settings, overrides } = request.request;
+    const { token, parts, settings, overrides, chantSvgs } = request.request;
     if (!isCurrent(token)) return;
 
     const meiParts = parts.filter(isMei);
@@ -142,15 +147,18 @@ export function createLayoutHandler(deps: LayoutHandlerDeps): LayoutHandler {
     } as unknown as RenderContext; // toolkit is null only when there are no MEI parts, so renderPart is never called
 
     try {
+      // Normalize, split and sanitize the chant SVG before anything is laid out; a string that fails stays out.
+      const chantLines = buildChantLines(parts, settings, chantSvgs);
+      const chantOf = (part: ExportPart): ChantLineArt[] => part.chants.flatMap((c) => chantLines.get(c.id) ?? []);
       const layouts: MeiLayout[] = [];
       for (const part of meiParts) {
         if (!isCurrent(token)) return;
-        const layout = await deps.renderPart(part, settings, overrides[part.id] ?? [], ctx);
+        const layout = await deps.renderPart(part, settings, overrides[part.id] ?? [], ctx, chantOf(part));
         if (!isCurrent(token)) return;
         layouts.push(layout);
         deps.post({ type: 'progress', token, partId: part.id, done: layouts.length, total: meiParts.length });
       }
-      const result = await deps.compose(parts, layouts, settings, token, fontProfile);
+      const result = await deps.compose(parts, layouts, settings, token, fontProfile, chantLines);
       if (!isCurrent(token)) return;
       deps.post({ type: 'result', token, result });
     } catch (error) {

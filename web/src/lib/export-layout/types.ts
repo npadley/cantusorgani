@@ -418,6 +418,11 @@ export interface ControllerDependencies {
   readonly profile?: ResourceProfile;
   /** Supplies MEI byte sizes and event counts when known; default counts source systems only. */
   readonly estimate?: (parts: readonly ExportPart[]) => BudgetInput;
+  /**
+   * Draws the selection's chants with Exsurge on the main thread (chantId -> SVG string). Called only when
+   * Chant is on and a part has chants; absent = chant cannot be drawn (parts print without it).
+   */
+  readonly renderChants?: (parts: readonly ExportPart[], settings: LayoutSettings) => Promise<ReadonlyMap<number, string>>;
 }
 export type BreakAction = BreakOverride | { readonly boundaryId: string; readonly kind: 'remove' };
 export interface ExportController {
