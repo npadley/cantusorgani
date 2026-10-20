@@ -4125,6 +4125,17 @@
   "title_en": "The Holy Family: Jesus, Mary & Joseph",
   "title_la": "Sanctæ Familiæ Jesu Mariæ Joseph"
  },
+ "tempora:Epi1-0a": {
+  "key": "tempora:Epi1-0a",
+  "flexibility": "tempora",
+  "name": "Epi1-0a",
+  "rank": 2,
+  "colors": [
+   "w"
+  ],
+  "title_en": "Sunday after Epiphany",
+  "title_la": "Dominica post Epiphaniam"
+ },
  "tempora:Epi2-0": {
   "key": "tempora:Epi2-0",
   "flexibility": "tempora",
@@ -4465,6 +4476,17 @@
   ],
   "title_en": "Ember Saturday of Pentecost",
   "title_la": "Sabbato Quattuor Temporum Pentecostes"
+ },
+ "tempora:Pent01-0a": {
+  "key": "tempora:Pent01-0a",
+  "flexibility": "tempora",
+  "name": "Pent01-0a",
+  "rank": 2,
+  "colors": [
+   "g"
+  ],
+  "title_en": "Sunday after Pentecost",
+  "title_la": "Dominica Post Pentecosten"
  },
  "tempora:Pent01-0r": {
   "key": "tempora:Pent01-0r",

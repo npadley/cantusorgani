@@ -28,6 +28,21 @@ export interface Observance {
 export interface CalendarDay {
   readonly celebration: readonly string[];
   readonly commemoration: readonly string[];
+  /** A feria with no Mass of its own: the day whose Mass the 1962 rubrics take
+   *  (usually the Sunday before; Missalemeum resolves Holy Family, Trinity and
+   *  a Sunday displaced by a feast). */
+  readonly proper_from?: string;
+}
+
+/** Where a day's Proper is found: its own celebration's key when that has
+ *  music, otherwise the day it borrows its Mass from, if any. */
+export function properSource(
+  day: CalendarDay | undefined, key: string, hasMusic: (key: string) => boolean,
+): { key: string; borrowed: boolean } | null {
+  if (hasMusic(key)) return { key, borrowed: false };
+  const from = day?.proper_from;
+  if (from && from !== key && hasMusic(from)) return { key: from, borrowed: true };
+  return null;
 }
 
 export interface CalendarSource {

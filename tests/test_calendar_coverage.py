@@ -20,14 +20,18 @@ VOCABULARY = load_vocabulary()
 BY_SLUG = {p["slug"]: p for p in PIECES}
 
 # Days of class I-III that NOH has no Mass for, and why. Nothing else may go
-# missing: a new gap is a catalogue error until it is explained here.
+# missing: a new gap is a catalogue error until it is explained here. (Feasts
+# added after NOH whose Mass is a Common are linked in data/rubrics-1962.yml.)
 NOT_IN_NOH = {
     "tempora:Quad6-5r": "Good Friday: the organ is silent from Holy Thursday to the Vigil",
     "sancti:05-01r": "St Joseph the Worker, instituted 1955: NOH3's addenda print only the two 1954 feasts",
-    "sancti:06-17r": "St Gregory Barbarigo, canonised 1960: after NOH was printed",
-    "sancti:07-21r": "St Lawrence of Brindisi, added 1959: after NOH was printed",
-    "sancti:10-23r": "St Anthony Mary Claret, canonised 1950: after NOH was printed",
 }
+
+
+def mass_days() -> set[str]:
+    """Days some Mass music is catalogued for. Vespers (NOH8) does not count:
+    its Christ the King hid that NOH3's Mass for the day had no `days`."""
+    return {d for p in PIECES if p["division"] != "vesperale" for d in p["days"]}
 
 
 def own_mass_days() -> set[str]:
@@ -36,15 +40,13 @@ def own_mass_days() -> set[str]:
 
 
 def test_every_1962_day_with_its_own_mass_has_a_proper():
-    catalogued = {d for p in PIECES for d in p["days"]}
-    missing = sorted(own_mass_days() - catalogued - set(NOT_IN_NOH))
+    missing = sorted(own_mass_days() - mass_days() - set(NOT_IN_NOH))
     assert missing == [], f"no Proper for {[(k, VOCABULARY[k]['title_la']) for k in missing]}"
 
 
 def test_every_explained_gap_is_still_a_gap():
     """When one of these is catalogued, take it off the list."""
-    catalogued = {d for p in PIECES for d in p["days"]}
-    assert sorted(set(NOT_IN_NOH) & catalogued) == []
+    assert sorted(set(NOT_IN_NOH) & mass_days()) == []
     assert set(NOT_IN_NOH) <= set(VOCABULARY)
 
 
@@ -104,3 +106,20 @@ def test_1942_feasts_the_1962_calendar_dropped_claim_no_day():
     for slug in ("in-octava-s-laurentii-martyris", "in-octava-omnium-sanctorum",
                  "in-inventione-s-crucis", "s-petri-ad-vincula", "in-vigilia-s-andreae-apostoli"):
         assert BY_SLUG[slug]["days"] == [], slug
+
+
+def test_every_date_resolves_to_a_mass_with_music():
+    """Each date of the generated calendar finds a Proper: its celebration's own,
+    or, on a feria with no Mass of its own, the one the 1962 rubrics borrow
+    (`proper_from`, the Sunday before as Missalemeum resolves it). Only the
+    days NOH has no Mass for may come up empty."""
+    from pipeline.litcal import load_year
+    years = json.loads((DATA / "calendar" / "source.json").read_text(encoding="utf-8"))["years"]
+    music = mass_days()
+    missing = []
+    for year in range(years[0], years[1] + 1):
+        for date, day in load_year(year).items():
+            keys = [*day["celebration"], *([day["proper_from"]] if "proper_from" in day else [])]
+            if not any(k in music for k in keys) and not set(day["celebration"]) & set(NOT_IN_NOH):
+                missing.append((date, keys))
+    assert missing == [], f"{len(missing)} dates with no Mass, e.g. {missing[:5]}"
