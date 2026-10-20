@@ -40,7 +40,7 @@ describe('exportCanonicalPdf with chant', () => {
   beforeAll(async () => {
     fonts = await loadFontProfile(async (url) => new Uint8Array(readFileSync(join(FONT_DIR, url.split('/').pop()!))));
     const part = gradual();
-    const chantLines = buildChantLines([part], LETTER, new Map([[277, fixtureSvg('gr-277-1333.json')]]));
+    const chantLines = buildChantLines([part], LETTER, new Map([[277, fixtureSvg('gr-277-852.json')]]));
     result = await composeExport([part], new Map(), LETTER, composeDeps(), 1, chantLines);
     expect(result.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
     // The scan itself is not under test: draw the chant pages only.

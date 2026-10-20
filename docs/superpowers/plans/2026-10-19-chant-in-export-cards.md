@@ -189,4 +189,4 @@ Built on `chant/next` (2026-10-19/20). All cards are done except K9, which is th
 | K9 | U | ready for the user: PDFs in `build/chant/`, checklist in the PR |
 | K10 | S | done |
 
-Chant size: DL D30 (2026-10-20) draws the chant 2.51x the equal-staff-space scale so a punctum matches a notehead; K2 and the guard now test that.
+Chant size: DL D30 (2026-10-20) draws the chant at the site's proportions (staff gap 1.565 x the accompaniment's, lyrics 1.07 x); K2 and the guard test that. The K0 fixtures are regenerated at 479 (iPad mini) and 852 (Letter) units, all three chants at both.

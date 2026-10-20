@@ -16,21 +16,21 @@ const LETTER_PRINTABLE_MM = 191.9;
 const withSizes = (staff: StaffSizeId, lyrics: LyricSizeId): LayoutSettings =>
   ({ ...DEFAULT_SETTINGS, staff, lyrics });
 
-/** DL D30 formulae, written out independently of the implementation: punctum width = notehead width. */
+/** DL D30 formulae, written out independently of the implementation: the chant as it is on the site. */
 function expectedMmPerUnit(unit: number): number {
   const spaceMm = (2 * unit) / 10;
-  return (spaceMm * 1.2556) / 6.25;
+  return (spaceMm * 1.565) / 12.5;
 }
 function expectedSetFont(unit: number, lyrics: LyricSizeId): number {
-  const lyricMm = (LYRIC_SIZE[lyrics] * unit) / 10;
+  const lyricMm = (LYRIC_SIZE[lyrics] * unit * 1.07) / 10;
   return lyricMm / expectedMmPerUnit(unit) / 0.9;
 }
 
 describe('chantScale mmPerUnit', () => {
-  it('gives about 0.281 / 0.362 / 0.482 for Small / Medium / Large Music size (2.51 x the equal-staff-space scale)', () => {
-    expect(chantScale(withSizes('small', 'medium'), LETTER_PRINTABLE_MM, 'mei').mmPerUnit).toBeCloseTo(0.112 * 2.5114, 3);
-    expect(chantScale(withSizes('medium', 'medium'), LETTER_PRINTABLE_MM, 'mei').mmPerUnit).toBeCloseTo(0.144 * 2.5114, 3);
-    expect(chantScale(withSizes('large', 'medium'), LETTER_PRINTABLE_MM, 'mei').mmPerUnit).toBeCloseTo(0.192 * 2.5114, 3);
+  it('gives about 0.175 / 0.225 / 0.300 for Small / Medium / Large Music size (1.565 x the equal-staff-space scale)', () => {
+    expect(chantScale(withSizes('small', 'medium'), LETTER_PRINTABLE_MM, 'mei').mmPerUnit).toBeCloseTo(0.112 * 1.565, 6);
+    expect(chantScale(withSizes('medium', 'medium'), LETTER_PRINTABLE_MM, 'mei').mmPerUnit).toBeCloseTo(0.144 * 1.565, 6);
+    expect(chantScale(withSizes('large', 'medium'), LETTER_PRINTABLE_MM, 'mei').mmPerUnit).toBeCloseTo(0.192 * 1.565, 6);
   });
 
   it.each(STAFFS)('matches the spec formula for Music size %s', (staff) => {
@@ -40,9 +40,10 @@ describe('chantScale mmPerUnit', () => {
 });
 
 describe('chantScale widthUnits', () => {
-  it('gives 531 (+-1) for Letter printable width 191.9 mm at Medium', () => {
+  it('gives 852 (+-1) for Letter printable width 191.9 mm at Medium, and 479 for the iPad mini', () => {
     const s = chantScale(withSizes('medium', 'medium'), LETTER_PRINTABLE_MM, 'mei');
-    expect(Math.abs(s.widthUnits - 531)).toBeLessThanOrEqual(1);
+    expect(Math.abs(s.widthUnits - 852)).toBeLessThanOrEqual(1);
+    expect(Math.abs(chantScale(withSizes('medium', 'medium'), 107.9, 'mei').widthUnits - 479)).toBeLessThanOrEqual(1);
   });
 
   it.each(STAFFS)('equals round(printableWidthMm / mmPerUnit) for Music size %s', (staff) => {
@@ -52,10 +53,10 @@ describe('chantScale widthUnits', () => {
 });
 
 describe('chantScale setFontSize', () => {
-  it('keeps the lyrics at 4.05 mm: 4.05 / mmPerUnit / 0.9 at Medium/Medium', () => {
+  it('sets the lyrics 1.07 x the accompaniment size (4.05 mm at Medium), the site ratio, which is also the site setFont of 21.3 units', () => {
     const s = chantScale(withSizes('medium', 'medium'), LETTER_PRINTABLE_MM, 'mei');
-    expect(Math.abs(s.setFontSize - 4.05 / s.mmPerUnit / 0.9)).toBeLessThanOrEqual(0.01);
-    expect(s.setFontSize * 0.9 * s.mmPerUnit).toBeCloseTo(4.05, 6);
+    expect(s.setFontSize * 0.9 * s.mmPerUnit).toBeCloseTo(4.05 * 1.07, 6);
+    expect(s.setFontSize).toBeCloseTo(19.2 / 0.9, 0);
   });
 
   it.each(STAFFS.flatMap((staff) => LYRICS.map((lyrics) => [staff, lyrics] as const)))(

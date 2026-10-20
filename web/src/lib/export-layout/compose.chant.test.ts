@@ -182,7 +182,7 @@ describe('composeExport with chant', () => {
   });
 
   it('longChantSplitsBetweenLines: the Tract fixture spans pages, never splits a line and keeps order', async () => {
-    const arts = fixtureLines('tr-889-749.json', 889);
+    const arts = fixtureLines('tr-889-479.json', 889);
     const part = scanPart('s:0', [ref(889)]);
     const r = await composeExport([part], new Map(), settingsOf({ page: 'ipad-mini', marginMm: 4, chant: 'before' }), deps(), 1, lines({ 889: arts }));
     expect(r.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);

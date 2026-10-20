@@ -35,15 +35,18 @@ const PART_ABBREVIATIONS: Readonly<Record<string, string>> = {
   an: "Ant.", hy: "Hymn.",
 };
 
-// Widths in Exsurge units: 749 is an iPad mini page, 1333 is Letter at Medium.
-const FIXTURES: readonly FixtureSpec[] = [
-  { file: "al-1-749.json", chantId: "1", width: 749 },
-  { file: "gr-277-1333.json", chantId: "277", width: 1333 },
-  { file: "tr-889-749.json", chantId: "889", width: 749 },
-];
+// DL D30: the chant is drawn at 1.565 x the accompaniment's staff space (as on the site), Medium music. These numbers
+// repeat chantScale.ts: mmPerUnit = 1.8 mm x 1.565 / 12.5 = 0.22536; width units = printable width / mmPerUnit, with the
+// Letter (191.9 mm) and iPad mini (107.9 mm) printable widths; the lyric is 4.05 mm x 1.07, as setFont(size / 0.9).
+const MM_PER_UNIT = (1.8 * 1.565) / 12.5;
+const LETTER_UNITS = Math.round(191.9 / MM_PER_UNIT);
+const MINI_UNITS = Math.round(107.9 / MM_PER_UNIT);
+const FIXTURES: readonly FixtureSpec[] = [1, 277, 889].flatMap((id) => {
+  const kind = id === 1 ? "al" : id === 277 ? "gr" : "tr";
+  return [MINI_UNITS, LETTER_UNITS].map((width): FixtureSpec => ({ file: `${kind}-${id}-${width}.json`, chantId: String(id), width }));
+});
 
-// Lyric size as the spike and chantNotation.ts use it: setFont(family, 19.2 / 0.9).
-const SET_FONT_SIZE = 19.2 / 0.9;
+const SET_FONT_SIZE = (4.05 * 1.07) / MM_PER_UNIT / 0.9;
 
 const FONT_FILES: readonly { family: string; style: string; file: string }[] = [
   { family: "Liberation Serif", style: "normal", file: "LiberationSerif-Regular.ttf" },

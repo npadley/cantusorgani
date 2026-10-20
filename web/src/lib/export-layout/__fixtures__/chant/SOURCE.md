@@ -12,7 +12,7 @@ and a second run gives byte-identical files.
   `@font-face` data URIs in the page.
 - Chromium: Playwright's headless shell. Set `CHROME_EXECUTABLE` to use another build.
 - GABC: `data/chants.json`, through `cleanGabc` from `web/src/lib/gabc.ts`.
-- Settings: `ChantContext` with glyph scaling 1/16, `setFont("'Liberation Serif'", 19.2 / 0.9)`,
+- Settings: `ChantContext` with glyph scaling 1/16, `setFont("'Liberation Serif'", 4.05 x 1.07 / 0.22536 / 0.9)`,
   `setRubricColor('#d00')`, black lines and text, white negative fill, drop cap on.
 - Annotation: the part abbreviation from `PART_ABBREVIATIONS` in `web/src/lib/chants.ts`
   (al: `Allel.`, gr: `Grad.`, tr: `Tract.`), with the chant's own mode from `data/chants.json`
@@ -25,9 +25,12 @@ and a second run gives byte-identical files.
 
 | File | Chant | Part | Mode | Width (units) | Use |
 |---|---|---|---|---|---|
-| `al-1-749.json` | #1 *Laudem Domini* (Alleluia) | al | 1 | 749 | iPad mini |
-| `gr-277-1333.json` | #277 *Exaltabo te* (Gradual) | gr | 3 | 1333 | Letter, Medium |
-| `tr-889-749.json` | #889 *Qui habitat* (Tract) | tr | 2 | 749 | iPad mini, longest chant |
+| `al-1-479.json`, `al-1-852.json` | #1 *Laudem Domini* (Alleluia) | al | 1 | 479 / 852 | iPad mini / Letter |
+| `gr-277-479.json`, `gr-277-852.json` | #277 *Exaltabo te* (Gradual) | gr | 3 | 479 / 852 | iPad mini / Letter |
+| `tr-889-479.json`, `tr-889-852.json` | #889 *Qui habitat* (Tract, longest chant) | tr | 2 | 479 / 852 | iPad mini / Letter |
+
+Widths and lyric size follow DL D30 (`chantScale.ts`): Medium music, staff gap 1.565 x 1.8 mm, so 0.22536 mm per unit; Letter
+printable 191.9 mm = 852 units, iPad mini 107.9 mm = 479; `setFont` size 4.05 x 1.07 / 0.22536 / 0.9 = 21.4.
 
 Command (from `web/`):
 
