@@ -241,7 +241,8 @@ def test_vocabulary_maps_all_upstream_names_and_exact_stable_key_inventory():
                 "holy-monday", "holy-tuesday", "holy-wednesday", *(f"easter-octave-{d}" for d in days),
                 *(f"easter-{w}-{d}" for w in (2, 3, 4, 5, 7) for d in days),
                 *(f"easter-6-{d}" for d in days[:5]),
-                "easter-6-friday-after-ascension", "easter-6-saturday-after-ascension"}
+                "easter-6-friday-after-ascension", "easter-6-saturday-after-ascension",
+                "ot-1", "ot-1-monday", "ot-1-monday-year-1", "ot-1-tuesday-year-1"}
     assert keys == expected | weekdays
     assert {row["key"] for row in rows if row["rank"] == "weekday"} == weekdays
     mapped = {row["jgabc"] for row in rows if row["jgabc"] is not None}

@@ -4121,3 +4121,97 @@ occasions:
   assignments:
   - id: 190
     incipit: Spiritus ubi vult
+- occasion: ot-1
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-20
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 257
+    note: Printed GR1974 Hebdomada I per annum, in feriis; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 20
+    incipit: In excelso throno
+- occasion: ot-1
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-20
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 257
+    note: Printed GR1974 Hebdomada I per annum, in feriis; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 553
+    incipit: Benedictus Dominus
+- occasion: ot-1
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-20
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 258
+    note: Printed GR1974 Hebdomada I per annum, in feriis; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 802
+    incipit: Jubilate Deo
+- occasion: ot-1
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-20
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 259
+    note: Printed GR1974 Hebdomada I per annum, in feriis; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 718
+    incipit: Jubilate Deo omnis
+- occasion: ot-1
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-20
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 260
+    note: Printed GR1974 Hebdomada I per annum, in feriis; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 531
+    incipit: Notas mihi fecisti
+- occasion: ot-1-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-20
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 260
+    note: 'p. 260: Feria 2: Veníte post me, 267 (CO. VIII); GregoBase ID matched to the printed incipit, chant role and mode.'
+  assignments:
+  - id: 552
+    incipit: Venite post me
+- occasion: ot-1-monday-year-1
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-20
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 260
+    note: 'p. 260: Feria 2: Veníte post me, 267 (CO. VIII); GregoBase ID matched to the printed incipit, chant role and mode.'
+  assignments:
+  - id: 552
+    incipit: Venite post me
+- occasion: ot-1-monday-year-1
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-20
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 259
+    note: 'p. 259: Ad libitum, anno I, feria 2: Multifárie, 52 (VII); the Alleluia of the week remains the first choice.'
+  assignments:
+  - id: 802
+    incipit: Jubilate Deo
+  - id: 863
+    incipit: Multifarie olim
+- occasion: ot-1-tuesday-year-1
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-20
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 258
+    note: 'p. 258: Anno I, feria 3: Dómine, Dóminus noster, 308 (GR. V), vel Glória et honóre, 476 (GR. V).'
+  assignments:
+  - id: 1205
+    incipit: Domine Dominus noster
+  - id: 1206
+    incipit: Gloria et honore
