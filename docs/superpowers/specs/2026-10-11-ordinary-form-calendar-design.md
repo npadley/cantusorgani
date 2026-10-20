@@ -17,7 +17,9 @@ What the user decided:
 - Scope is **Sundays and solemnities, plus every explicitly named exception**
   in §3: Ash Wednesday, the Triduum, feasts of the Lord, Birth of the BVM
   and Presentation of the BVM. No additional saints’ feasts or memorials are
-  added; other weekday propers come later.
+  added. *Update 2026-10-19:* the seasonal weekday propers and the
+  Christmas-octave feasts (St Stephen, St John, Holy Innocents) are now in
+  scope; see [the weekday plan](../plans/2026-10-19-of-seasonal-weekdays.md).
 - The Sunday cycle (A/B/C) must be correct. The weekday cycle (I/II) is shown.
 - Switches for **Epiphany** and **Ascension** (proper day, or transferred to
   Sunday) make the calendar usable outside any one country.
@@ -262,8 +264,7 @@ The resolution rules:
   2027 is B, 2028 is C.
 - Weekday cycle = odd year → I, even year → II.
 
-**Weekdays (out of scope, but handled honestly):** the day shows season and
-cycles, and says:
+**Weekdays:** the day shows season and cycles, and:
 
 - In Ordinary Time: "the chants of the preceding Sunday may be used", linking
   to that Sunday’s actual resolved occasion, including Trinity, transferred
@@ -271,7 +272,12 @@ cycles, and says:
   preceding Sunday was outside Ordinary Time, show the rubric without linking
   to an unrelated chant set. This is the 1974 Graduale’s rubric for weekdays
   *per annum*.
-- In other seasons: "weekday chants are not yet covered".
+- In Advent, Christmas, Lent and Easter (added 2026-10-19): the weekday's own
+  GR1974 Mass, or its Sunday's Mass with the printed weekday substitutions,
+  or a link to the Sunday when the book repeats the Sunday's chants. Holy
+  Saturday says no Mass is celebrated during the day. See
+  [the weekday plan](../plans/2026-10-19-of-seasonal-weekdays.md) and
+  `docs/ORDINARY-FORM-MUSIC-COVERAGE.md`.
 
 ### 4. Resolution: `pipeline/ordinary_form.py` → `data/ordinary-form-propers.json`
 
@@ -404,8 +410,8 @@ unaffected.
 
 ## Out of scope
 
-- Weekday propers of Advent, Lent and Easter, and 17–24 Dec. That would need a
-  hand transcription of the *Ordo Cantus Missae*, and is a separate spec.
+- ~~Weekday propers of Advent, Lent and Easter, and 17–24 Dec.~~ Added
+  2026-10-19 from the printed *Graduale Romanum* (1974).
 - Additional saints’ feasts and memorials beyond the explicitly named
   exceptions, and the Commons.
 - National proper calendars beyond the three transfer settings/presets,

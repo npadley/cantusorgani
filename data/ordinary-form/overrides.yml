@@ -235,3 +235,3889 @@ occasions:
     - A
     - B
     - C
+- occasion: advent-1-wednesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 278
+    note: Printed weekday substitution under the Mass of the Sunday (advent-1); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 677
+    incipit: Manducaverunt
+- occasion: advent-1-thursday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 324
+    note: Printed weekday substitution under the Mass of the Sunday (advent-1); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 547
+    incipit: Bonum est confidere
+- occasion: advent-1-friday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 288
+    note: Printed weekday substitution under the Mass of the Sunday (advent-1); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 874
+    incipit: Dominus illuminatio
+- occasion: advent-2-monday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 26
+    note: Printed weekday substitution under the Mass of the Sunday (advent-2); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 290
+    incipit: Confortamini
+- occasion: advent-2-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 23
+    note: Printed weekday substitution under the Mass of the Sunday (advent-2); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 218
+    incipit: Dicite Pusillanimes
+- occasion: advent-2-tuesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 40
+    note: Printed weekday substitution under the Mass of the Sunday (advent-2); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 367
+    incipit: Revelabitur
+- occasion: advent-2-wednesday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 619
+    note: Printed weekday substitution under the Mass of the Sunday (advent-2); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1237
+    incipit: Venite ad me
+- occasion: advent-2-friday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 480
+    note: Printed weekday substitution under the Mass of the Sunday (advent-2); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1201
+    incipit: Qui sequitur me
+- occasion: advent-3-wednesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 34
+    note: Printed weekday substitution under the Mass of the Sunday (advent-3); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 79
+    incipit: Rorate caeli
+- occasion: advent-3-wednesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 22
+    note: Printed weekday substitution under the Mass of the Sunday (advent-3); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1007
+    incipit: Qui sedes
+- occasion: advent-3-friday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 402
+    note: Printed weekday substitution under the Mass of the Sunday (advent-3); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 43
+    incipit: Domus mea
+- occasion: advent-3-friday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 22
+    note: Printed weekday substitution under the Mass of the Sunday (advent-3); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1007
+    incipit: Qui sedes
+- occasion: advent-late-monday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 24
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 86
+    incipit: Prope es tu
+- occasion: advent-late-monday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 25
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 756
+    incipit: Tollite portas
+- occasion: advent-late-monday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 26
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 290
+    incipit: Confortamini
+- occasion: advent-late-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 26
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 439
+    incipit: Ecce Dominus veniet
+- occasion: advent-late-monday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 24
+    note: Alleluia ad libitum de Tempore (GR1974 p. 24); no chant is assigned.
+  assignments: []
+- occasion: advent-late-tuesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 27
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 169
+    incipit: Veni et ostende
+- occasion: advent-late-tuesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 27
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 698
+    incipit: A summo caelo
+- occasion: advent-late-tuesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 28
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 929
+    incipit: Exsulta satis
+- occasion: advent-late-tuesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 28
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 88
+    incipit: Exsultavit ut gigas
+- occasion: advent-late-tuesday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 27
+    note: Alleluia ad libitum de Tempore (GR1974 p. 24); no chant is assigned.
+  assignments: []
+- occasion: advent-late-wednesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 29
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 165
+    incipit: Memento nostri
+- occasion: advent-late-wednesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 30
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 203
+    incipit: In sole posuit
+- occasion: advent-late-wednesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 30
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 872
+    incipit: Audi Israel
+- occasion: advent-late-wednesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 31
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 757
+    incipit: Veni Domine
+- occasion: advent-late-wednesday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 29
+    note: Alleluia ad libitum de Tempore (GR1974 p. 24); no chant is assigned.
+  assignments: []
+- occasion: advent-late-thursday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 24
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 86
+    incipit: Prope es tu
+- occasion: advent-late-thursday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 31
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1055
+    incipit: Ostende nobis
+- occasion: advent-late-thursday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 26
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 290
+    incipit: Confortamini
+- occasion: advent-late-thursday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 26
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 439
+    incipit: Ecce Dominus veniet
+- occasion: advent-late-thursday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 31
+    note: Alleluia ad libitum de Tempore (GR1974 p. 24); no chant is assigned.
+  assignments: []
+- occasion: advent-late-friday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 27
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 169
+    incipit: Veni et ostende
+- occasion: advent-late-friday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 32
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 38
+    incipit: Domine Deus virtutum
+- occasion: advent-late-friday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 28
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 929
+    incipit: Exsulta satis
+- occasion: advent-late-friday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 28
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 88
+    incipit: Exsultavit ut gigas
+- occasion: advent-late-friday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 32
+    note: Alleluia ad libitum de Tempore (GR1974 p. 24); no chant is assigned.
+  assignments: []
+- occasion: advent-late-saturday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 29
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 165
+    incipit: Memento nostri
+- occasion: advent-late-saturday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 33
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 506
+    incipit: Excita Domine
+- occasion: advent-late-saturday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 30
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 872
+    incipit: Audi Israel
+- occasion: advent-late-saturday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 31
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 757
+    incipit: Veni Domine
+- occasion: advent-late-saturday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 33
+    note: Alleluia ad libitum de Tempore (GR1974 p. 24); no chant is assigned.
+  assignments: []
+- occasion: advent-dec-19
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 568
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1141
+    incipit: Ne timeas
+- occasion: advent-dec-20
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 36
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 843
+    incipit: Ave Maria... et benedictus
+- occasion: advent-dec-20
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 37
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1144
+    incipit: Ecce virgo
+- occasion: second-christmas
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 53
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 564
+    incipit: Dum medium silentium
+- occasion: second-christmas
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 54
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1308
+    incipit: Speciosus... Eructavit
+- occasion: second-christmas
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 46
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 714
+    incipit: Dominus regnavit decorem
+- occasion: second-christmas
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 362
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1359
+    incipit: Benedic anima mea
+- occasion: second-christmas
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 357
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 998
+    incipit: Domine Dominus noster
+- occasion: christmas-octave
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 44
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Lux fulgebit p. 44; Puer natus p. 47.'
+  assignments:
+  - id: 917
+    incipit: Lux fulgebit
+  - id: 72
+    incipit: Puer natus
+- occasion: christmas-octave
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 45
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Benedictus qui venit p. 45; Viderunt omnes p. 48.'
+  assignments:
+  - id: 217
+    incipit: Benedictus qui venit
+  - id: 1163
+    incipit: Viderunt omnes
+- occasion: christmas-octave
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 52
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 863
+    incipit: Multifarie
+- occasion: christmas-octave
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 46
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Deus enim p. 46; Tui sunt caeli p. 49.'
+  assignments:
+  - id: 979
+    incipit: Deus enim
+  - id: 1274
+    incipit: Tui sunt caeli
+- occasion: christmas-octave
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 47
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Exsulta filia p. 47; Viderunt omnes p. 50.'
+  assignments:
+  - id: 1125
+    incipit: Exsulta filia
+  - id: 1139
+    incipit: Viderunt omnes
+- occasion: christmas-octave-dec-29
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 44
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Lux fulgebit p. 44; Puer natus p. 47.'
+  assignments:
+  - id: 917
+    incipit: Lux fulgebit
+  - id: 72
+    incipit: Puer natus
+- occasion: christmas-octave-dec-29
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 45
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Benedictus qui venit p. 45; Viderunt omnes p. 48.'
+  assignments:
+  - id: 217
+    incipit: Benedictus qui venit
+  - id: 1163
+    incipit: Viderunt omnes
+- occasion: christmas-octave-dec-29
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 52
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 863
+    incipit: Multifarie
+- occasion: christmas-octave-dec-29
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 46
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Deus enim p. 46; Tui sunt caeli p. 49.'
+  assignments:
+  - id: 979
+    incipit: Deus enim
+  - id: 1274
+    incipit: Tui sunt caeli
+- occasion: christmas-octave-dec-29
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 544
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 803
+    incipit: Responsum
+- occasion: christmas-before-epiphany
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 53
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Dum medium silentium p. 53; Puer natus p. 47.'
+  assignments:
+  - id: 564
+    incipit: Dum medium silentium
+  - id: 72
+    incipit: Puer natus
+- occasion: christmas-before-epiphany
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 54
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Speciosus... Eructavit p. 54; Viderunt omnes p. 48.'
+  assignments:
+  - id: 1308
+    incipit: Speciosus... Eructavit
+  - id: 1163
+    incipit: Viderunt omnes
+- occasion: christmas-before-epiphany
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 46
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Dominus regnavit decorem p. 46; Dies sanctificatus p. 49.'
+  assignments:
+  - id: 714
+    incipit: Dominus regnavit decorem
+  - id: 324
+    incipit: Dies sanctificatus
+- occasion: christmas-before-epiphany
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 362
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Benedic anima mea p. 362; Tui sunt caeli p. 49.'
+  assignments:
+  - id: 1359
+    incipit: Benedic anima mea
+  - id: 1274
+    incipit: Tui sunt caeli
+- occasion: christmas-before-epiphany
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 357
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Domine Dominus noster p. 357; Viderunt omnes p. 50.'
+  assignments:
+  - id: 998
+    incipit: Domine Dominus noster
+  - id: 1139
+    incipit: Viderunt omnes
+- occasion: christmas-jan-4
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 53
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Dum medium silentium p. 53; Puer natus p. 47.'
+  assignments:
+  - id: 564
+    incipit: Dum medium silentium
+  - id: 72
+    incipit: Puer natus
+- occasion: christmas-jan-4
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 54
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Speciosus... Eructavit p. 54; Viderunt omnes p. 48.'
+  assignments:
+  - id: 1308
+    incipit: Speciosus... Eructavit
+  - id: 1163
+    incipit: Viderunt omnes
+- occasion: christmas-jan-4
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 46
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Dominus regnavit decorem p. 46; Dies sanctificatus p. 49.'
+  assignments:
+  - id: 714
+    incipit: Dominus regnavit decorem
+  - id: 324
+    incipit: Dies sanctificatus
+- occasion: christmas-jan-4
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 362
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Benedic anima mea p. 362; Tui sunt caeli p. 49.'
+  assignments:
+  - id: 1359
+    incipit: Benedic anima mea
+  - id: 1274
+    incipit: Tui sunt caeli
+- occasion: christmas-jan-4
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 263
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1021
+    incipit: Dicit Andreas
+- occasion: christmas-jan-7
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 53
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Dum medium silentium p. 53; Puer natus p. 47.'
+  assignments:
+  - id: 564
+    incipit: Dum medium silentium
+  - id: 72
+    incipit: Puer natus
+- occasion: christmas-jan-7
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 54
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Speciosus... Eructavit p. 54; Viderunt omnes p. 48.'
+  assignments:
+  - id: 1308
+    incipit: Speciosus... Eructavit
+  - id: 1163
+    incipit: Viderunt omnes
+- occasion: christmas-jan-7
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 46
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Dominus regnavit decorem p. 46; Dies sanctificatus p. 49.'
+  assignments:
+  - id: 714
+    incipit: Dominus regnavit decorem
+  - id: 324
+    incipit: Dies sanctificatus
+- occasion: christmas-jan-7
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 362
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Benedic anima mea p. 362; Tui sunt caeli p. 49.'
+  assignments:
+  - id: 1359
+    incipit: Benedic anima mea
+  - id: 1274
+    incipit: Tui sunt caeli
+- occasion: christmas-jan-7
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 263
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 230
+    incipit: Dicit Dominus
+- occasion: christmas-after-epiphany
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 56
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Ecce advenit p. 56; Lux fulgebit p. 44.'
+  assignments:
+  - id: 403
+    incipit: Ecce advenit
+  - id: 917
+    incipit: Lux fulgebit
+- occasion: christmas-after-epiphany
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 57
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Omnes de Saba p. 57; Benedictus qui venit p. 45.'
+  assignments:
+  - id: 205
+    incipit: Omnes de Saba
+  - id: 217
+    incipit: Benedictus qui venit
+- occasion: christmas-after-epiphany
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 58
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Vidimus stellam p. 58; Dominus regnavit decorem p. 46.'
+  assignments:
+  - id: 524
+    incipit: Vidimus stellam
+  - id: 714
+    incipit: Dominus regnavit decorem
+- occasion: christmas-after-epiphany
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 58
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Reges Tharsis p. 58; Deus enim p. 46.'
+  assignments:
+  - id: 1147
+    incipit: Reges Tharsis
+  - id: 979
+    incipit: Deus enim
+- occasion: christmas-after-epiphany
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 59
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Vidimus stellam p. 59; Exsulta filia p. 47.'
+  assignments:
+  - id: 918
+    incipit: Vidimus stellam
+  - id: 1125
+    incipit: Exsulta filia
+- occasion: christmas-jan-8
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 56
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Ecce advenit p. 56; Lux fulgebit p. 44.'
+  assignments:
+  - id: 403
+    incipit: Ecce advenit
+  - id: 917
+    incipit: Lux fulgebit
+- occasion: christmas-jan-8
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 57
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Omnes de Saba p. 57; Benedictus qui venit p. 45.'
+  assignments:
+  - id: 205
+    incipit: Omnes de Saba
+  - id: 217
+    incipit: Benedictus qui venit
+- occasion: christmas-jan-8
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 58
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Vidimus stellam p. 58; Dominus regnavit decorem p. 46.'
+  assignments:
+  - id: 524
+    incipit: Vidimus stellam
+  - id: 714
+    incipit: Dominus regnavit decorem
+- occasion: christmas-jan-8
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 58
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Reges Tharsis p. 58; Deus enim p. 46.'
+  assignments:
+  - id: 1147
+    incipit: Reges Tharsis
+  - id: 979
+    incipit: Deus enim
+- occasion: christmas-jan-8
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 278
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 677
+    incipit: Manducaverunt
+- occasion: st-stephen
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 632
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1321
+    incipit: Etenim sederunt
+- occasion: st-stephen
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 633
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 906
+    incipit: Sederunt principes
+- occasion: st-stephen
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 634
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 561
+    incipit: Video caelos
+- occasion: st-stephen
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 634
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Elegerunt apostoli p. 634; In virtute tua p. 512.'
+  assignments:
+  - id: 462
+    incipit: Elegerunt apostoli
+  - id: 667
+    incipit: In virtute tua
+- occasion: st-stephen
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 635
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 920
+    incipit: Video caelos
+- occasion: st-john
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 493
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 233
+    incipit: In medio Ecclesiae
+- occasion: st-john
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 636
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 702
+    incipit: Exiit sermo
+- occasion: st-john
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 636
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 914
+    incipit: Hic est discipulus
+- occasion: st-john
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 497
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 777
+    incipit: Iustus ut palma
+- occasion: st-john
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 637
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 781
+    incipit: Exiit sermo
+- occasion: holy-innocents
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 638
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 350
+    incipit: Ex ore infantium
+- occasion: holy-innocents
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 453
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 432
+    incipit: Anima nostra sicut passer
+- occasion: holy-innocents
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 215
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 661
+    incipit: Laudate pueri
+- occasion: holy-innocents
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 466
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1031
+    incipit: Anima nostra
+- occasion: holy-innocents
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 638
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 136
+    incipit: Vox in Rama
+- occasion: ash-thursday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 303
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 299
+    incipit: Dum clamarem
+- occasion: ash-thursday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 295
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1046
+    incipit: Convertere
+- occasion: ash-thursday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 17
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 962
+    incipit: Ad te Domine
+- occasion: ash-thursday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 484
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 89
+    incipit: Qui vult venire
+- occasion: ash-friday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 68
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 45
+    incipit: Audivit Dominus
+- occasion: ash-friday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 358
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 229
+    incipit: Unam petii
+- occasion: ash-friday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 359
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 109
+    incipit: Domine vivifica
+- occasion: ash-friday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 68
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 897
+    incipit: Servite Domino
+- occasion: ash-saturday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 69
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1081
+    incipit: Exaudi nos Domine
+- occasion: ash-saturday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 69
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 222
+    incipit: Adiutor in opportunitatibus
+- occasion: ash-saturday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 283
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 848
+    incipit: Domine convertere
+- occasion: ash-saturday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 71
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 8285
+    incipit: Voce mea
+- occasion: lent-1-monday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 77
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1330
+    incipit: Sicut oculi
+- occasion: lent-1-monday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 292
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1226
+    incipit: Protector noster
+- occasion: lent-1-monday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 78
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1060
+    incipit: Levabo oculos
+- occasion: lent-1-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 79
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 623
+    incipit: Amen dico vobis quod uni
+- occasion: lent-1-tuesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 79
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 549
+    incipit: Domine refugium
+- occasion: lent-1-tuesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 340
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 44
+    incipit: Dirigatur
+- occasion: lent-1-tuesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 322
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 967
+    incipit: In te speravi
+- occasion: lent-1-tuesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 80
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 384
+    incipit: Cum invocarem
+- occasion: lent-1-wednesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 81
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1294
+    incipit: Reminiscere
+- occasion: lent-1-wednesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 81
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 596
+    incipit: Tribulationes cordis
+- occasion: lent-1-wednesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 356
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 810
+    incipit: Meditabor
+- occasion: lent-1-wednesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 82
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 373
+    incipit: Intellige clamorem
+- occasion: lent-1-thursday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 83
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1248
+    incipit: Verba mea
+- occasion: lent-1-thursday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 304
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1088
+    incipit: Custodi me
+- occasion: lent-1-thursday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 352
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 67
+    incipit: Recordare mei
+- occasion: lent-1-thursday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 83
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 422
+    incipit: Petite et accipietis
+- occasion: lent-1-friday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 84
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 100
+    incipit: De necessitatibus
+- occasion: lent-1-friday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 85
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1117
+    incipit: Salvum fac servum
+- occasion: lent-1-friday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 362
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1359
+    incipit: Benedic anima mea
+- occasion: lent-1-friday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 85
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 484
+    incipit: Erubescant
+- occasion: lent-1-saturday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 86
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1216
+    incipit: Lex Domini
+- occasion: lent-1-saturday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 86
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 851
+    incipit: Adiutor meus
+- occasion: lent-1-saturday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 87
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 542
+    incipit: Domine Deus salutis
+- occasion: lent-1-saturday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 87
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 131
+    incipit: Domine Deus meus
+- occasion: lent-2-monday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 91
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1314
+    incipit: Redime me
+- occasion: lent-2-monday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 288
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 332
+    incipit: Propitius esto
+- occasion: lent-2-monday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 293
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 143
+    incipit: Benedicam Dominum
+- occasion: lent-2-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 357
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 998
+    incipit: Domine Dominus noster
+- occasion: lent-2-tuesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 91
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 529
+    incipit: Exsurge quare obdormis
+- occasion: lent-2-tuesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 285
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 423
+    incipit: Jacta cogitatum
+- occasion: lent-2-tuesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 92
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 922
+    incipit: Miserere mihi Domine
+- occasion: lent-2-tuesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 281
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 639
+    incipit: Narrabo omnia
+- occasion: lent-2-wednesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 360
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 323
+    incipit: Ne derelinquas
+- occasion: lent-2-wednesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 354
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 296
+    incipit: Salvum fac populum
+- occasion: lent-2-wednesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 17
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 962
+    incipit: Ad te Domine
+- occasion: lent-2-wednesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 93
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 268
+    incipit: Justus Dominus
+- occasion: lent-2-thursday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 315
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 501
+    incipit: Deus in adjutorium
+- occasion: lent-2-thursday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 475
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 153
+    incipit: Beatus vir
+- occasion: lent-2-thursday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 94
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 731
+    incipit: Domine ad adjuvandum
+- occasion: lent-2-thursday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 383
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 798
+    incipit: Qui manducat
+- occasion: lent-2-friday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 94
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 830
+    incipit: Ego autem cum justitia
+- occasion: lent-2-friday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 282
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 697
+    incipit: Ad Dominum
+- occasion: lent-2-friday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 331
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 993
+    incipit: Domine in auxilium
+- occasion: lent-2-friday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 95
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1159
+    incipit: Tu Domine servabis
+- occasion: lent-2-saturday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 363
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 238
+    incipit: Intret oratio
+- occasion: lent-2-saturday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 327
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1338
+    incipit: Bonum est confiteri
+- occasion: lent-2-saturday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 290
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 708
+    incipit: Illumina oculos meos
+- occasion: lent-2-saturday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 95
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1066
+    incipit: Oportet te
+- occasion: lent-3-monday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 100
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 839
+    incipit: In Deo laudabo
+- occasion: lent-3-monday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 311
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 865
+    incipit: In Deo speravit
+- occasion: lent-3-monday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 100
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 842
+    incipit: Exaudi Deus
+- occasion: lent-3-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 101
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 931
+    incipit: Quis dabit
+- occasion: lent-3-tuesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 354
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 558
+    incipit: Ego clamavi
+- occasion: lent-3-tuesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 101
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1210
+    incipit: Ab occultis
+- occasion: lent-3-tuesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 299
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 675
+    incipit: Sicut in holocausto
+- occasion: lent-3-tuesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 102
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1340
+    incipit: Domine quis habitabit
+- occasion: lent-3-wednesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 103
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 572
+    incipit: Meditatio cordis
+- occasion: lent-3-wednesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 103
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 562
+    incipit: Miserere mihi Domine
+- occasion: lent-3-wednesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 104
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1369
+    incipit: Domine fac mecum
+- occasion: lent-3-wednesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 362
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 531
+    incipit: Notas mihi fecisti
+- occasion: lent-3-thursday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 339
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 389
+    incipit: Salus populi
+- occasion: lent-3-thursday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 333
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1044
+    incipit: Beata gens
+- occasion: lent-3-thursday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 341
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 616
+    incipit: Si ambulavero
+- occasion: lent-3-thursday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 342
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 479
+    incipit: Tu mandasti
+- occasion: lent-3-friday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 105
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 733
+    incipit: Fac mecum
+- occasion: lent-3-friday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 324
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 547
+    incipit: Bonum est confidere
+- occasion: lent-3-friday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 280
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 293
+    incipit: Intende voci
+- occasion: lent-3-friday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 287
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 464
+    incipit: Ego clamavi
+- occasion: lent-3-saturday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 106
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 30
+    incipit: Exsurge Domine adiuva nos
+- occasion: lent-3-saturday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 107
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 621
+    incipit: Deus exaudi orationem
+- occasion: lent-3-saturday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 283
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 848
+    incipit: Domine convertere
+- occasion: lent-3-saturday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 108
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 81
+    incipit: Dominus virtutum
+- occasion: lent-4-monday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 111
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1049
+    incipit: Ego autem in Domino speravi
+- occasion: lent-4-monday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 112
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 277
+    incipit: Exaltabo te
+- occasion: lent-4-monday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 259
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 718
+    incipit: Jubilate Deo omnis terra
+- occasion: lent-4-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 113
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1316
+    incipit: Ab occultis
+- occasion: lent-4-tuesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 114
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 776
+    incipit: Sitientes
+- occasion: lent-4-tuesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 114
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 152
+    incipit: Exsurge Domine fer opem
+- occasion: lent-4-tuesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 328
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 182
+    incipit: Exspectans exspectavi
+- occasion: lent-4-tuesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 365
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 278
+    incipit: Dominus regit me
+- occasion: lent-4-wednesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 115
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 904
+    incipit: Exaudi Deus
+- occasion: lent-4-wednesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 298
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1022
+    incipit: Venite filii
+- occasion: lent-4-wednesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 231
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 860
+    incipit: Benedicite gentes
+- occasion: lent-4-wednesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 359
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1296
+    incipit: Laetabimur
+- occasion: lent-4-thursday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 268
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 864
+    incipit: Laetetur cor
+- occasion: lent-4-thursday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 320
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1232
+    incipit: Respice Domine
+- occasion: lent-4-thursday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 317
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 325
+    incipit: Precatus est
+- occasion: lent-4-thursday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 332
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1318
+    incipit: Domine memorabor
+- occasion: lent-4-friday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 116
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 458
+    incipit: Deus in nomine
+- occasion: lent-4-friday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 454
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1009
+    incipit: Clamaverunt iusti
+- occasion: lent-4-friday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 302
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1080
+    incipit: Populum humilem
+- occasion: lent-4-friday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 387
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1058
+    incipit: 'Dico vobis: Gaudium est'
+- occasion: lent-4-saturday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 117
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1168
+    incipit: Circumdederunt me
+- occasion: lent-4-saturday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 118
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 818
+    incipit: Tibi Domine derelictus
+- occasion: lent-4-saturday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 119
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 223
+    incipit: Factus est Dominus firmamentum
+- occasion: lent-4-saturday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 290
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 512
+    incipit: Dominus firmamentum
+- occasion: lent-5-monday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 125
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 138
+    incipit: Miserere mihi Domine quoniam conculcavit
+- occasion: lent-5-monday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 125
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1121
+    incipit: Si ambulem
+- occasion: lent-5-monday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 365
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1099
+    incipit: Gressus meos
+- occasion: lent-5-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 124
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1010
+    incipit: Nemo te condemnavit
+    years:
+    - A
+    - B
+  - id: 782
+    incipit: Panis quem ego dedero
+    years:
+    - C
+- occasion: lent-5-tuesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 126
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 60
+    incipit: Exspecta Dominum
+- occasion: lent-5-tuesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 127
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 665
+    incipit: Discerne causam
+- occasion: lent-5-tuesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 286
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1328
+    incipit: Sperent in te
+- occasion: lent-5-tuesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 128
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 433
+    incipit: Redime me Deus Israel
+- occasion: lent-5-wednesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 128
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1054
+    incipit: Liberator meus
+- occasion: lent-5-wednesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 372
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 965
+    incipit: Benedictus es Domine
+- occasion: lent-5-wednesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 129
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 245
+    incipit: Eripe me de inimicis
+- occasion: lent-5-wednesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 129
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 141
+    incipit: Lavabo inter innocentes
+- occasion: lent-5-thursday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 342
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1056
+    incipit: Omnia quae fecisti
+- occasion: lent-5-thursday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 301
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 886
+    incipit: Esto mihi
+- occasion: lent-5-thursday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 345
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 812
+    incipit: Super flumina
+- occasion: lent-5-thursday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 346
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 696
+    incipit: Memento verbi
+- occasion: lent-5-friday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 130
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 267
+    incipit: Miserere mihi Domine quoniam tribulor
+- occasion: lent-5-friday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 131
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 819
+    incipit: Pacifice loquebantur
+- occasion: lent-5-friday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 131
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 408
+    incipit: Benedictus es Domine doce me
+- occasion: lent-5-friday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 132
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1158
+    incipit: Ne tradideris
+- occasion: lent-5-saturday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 132
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1171
+    incipit: Domine ne longe
+- occasion: lent-5-saturday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 133
+    note: 'Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and
+      mode. Printed alternatives: Tenuisti p. 133; Collegerunt p. 135.'
+  assignments:
+  - id: 49
+    incipit: Tenuisti
+  - id: 1401
+    incipit: Collegerunt
+- occasion: lent-5-saturday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 359
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 109
+    incipit: Domine vivifica
+- occasion: lent-5-saturday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 353
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 828
+    incipit: Aufer a me
+- occasion: holy-monday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 150
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 226
+    incipit: Iudica Domine nocentes
+- occasion: holy-monday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 150
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 783
+    incipit: Exsurge Domine et intende
+- occasion: holy-monday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 151
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 411
+    incipit: Eripe me de inimicis
+- occasion: holy-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 152
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 196
+    incipit: Erubescant et revereantur
+- occasion: holy-tuesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 162
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 374
+    incipit: Nos autem gloriari
+- occasion: holy-tuesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 152
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 903
+    incipit: Ego autem dum mihi molesti
+- occasion: holy-tuesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 154
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1322
+    incipit: Custodi me Domine
+- occasion: holy-tuesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 154
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 397
+    incipit: Adversum me
+- occasion: holy-wednesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 155
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 236
+    incipit: In nomine Domini
+- occasion: holy-wednesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 155
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1239
+    incipit: Ne avertas
+- occasion: holy-wednesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 156
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 867
+    incipit: Domine exaudi orationem
+- occasion: holy-wednesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 157
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 588
+    incipit: Potum meum
+- occasion: easter-octave-monday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 200
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1315
+    incipit: Introduxit vos
+- occasion: easter-octave-monday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 201
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1150
+    incipit: Haec dies... Dicat nunc
+- occasion: easter-octave-monday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 201
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 377
+    incipit: Angelus Domini
+- occasion: easter-octave-monday
+  slot: sequentia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 198
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1086
+    incipit: Victimae paschali
+- occasion: easter-octave-monday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 217
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 789
+    incipit: Angelus Domini
+- occasion: easter-octave-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 202
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 121
+    incipit: Surrexit Dominus et apparuit
+- occasion: easter-octave-tuesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 202
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1135
+    incipit: Aqua sapientiae
+- occasion: easter-octave-tuesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 203
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1188
+    incipit: Haec dies... Dicant nunc
+- occasion: easter-octave-tuesday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 203
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 438
+    incipit: Surrexit Dominus de sepulcro
+- occasion: easter-octave-tuesday
+  slot: sequentia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 198
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1086
+    incipit: Victimae paschali
+- occasion: easter-octave-tuesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 204
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 869
+    incipit: Intonuit de caelo
+- occasion: easter-octave-tuesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 205
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 243
+    incipit: Si consurrexistis
+- occasion: easter-octave-wednesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 205
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 997
+    incipit: Venite benedicti
+- occasion: easter-octave-wednesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 206
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 416
+    incipit: Haec dies... Dextera
+- occasion: easter-octave-wednesday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 206
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1217
+    incipit: Surrexit Dominus vere
+- occasion: easter-octave-wednesday
+  slot: sequentia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 198
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1086
+    incipit: Victimae paschali
+- occasion: easter-octave-wednesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 207
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1361
+    incipit: Portas caeli
+- occasion: easter-octave-wednesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 207
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 593
+    incipit: Christus resurgens
+- occasion: easter-octave-thursday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 208
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1332
+    incipit: Victricem manum
+- occasion: easter-octave-thursday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 209
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 975
+    incipit: Haec dies... Lapidem
+- occasion: easter-octave-thursday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 209
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 215
+    incipit: Surrexit Christus qui creavit
+- occasion: easter-octave-thursday
+  slot: sequentia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 198
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1086
+    incipit: Victimae paschali
+- occasion: easter-octave-thursday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 210
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1129
+    incipit: In die sollemnitatis
+- occasion: easter-octave-thursday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 210
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1219
+    incipit: Populus acquisitionis
+- occasion: easter-octave-friday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 211
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 758
+    incipit: Eduxit eos
+- occasion: easter-octave-friday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 212
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1305
+    incipit: Haec dies... Benedictus
+- occasion: easter-octave-friday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 212
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 627
+    incipit: Dicite in gentibus
+- occasion: easter-octave-friday
+  slot: sequentia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 198
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1086
+    incipit: Victimae paschali
+- occasion: easter-octave-friday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 213
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 151
+    incipit: Erit vobis
+- occasion: easter-octave-friday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 213
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1260
+    incipit: Data est mihi
+- occasion: easter-octave-saturday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 214
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 974
+    incipit: Eduxit Dominus
+- occasion: easter-octave-saturday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 214
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 568
+    incipit: Haec dies
+- occasion: easter-octave-saturday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 215
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 661
+    incipit: Laudate pueri
+- occasion: easter-octave-saturday
+  slot: sequentia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 198
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1086
+    incipit: Victimae paschali
+- occasion: easter-octave-saturday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 60
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 941
+    incipit: Benedictus qui venit
+- occasion: easter-octave-saturday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 61
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1293
+    incipit: Omnes qui in Christo
+- occasion: easter-2-monday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 243
+    note: Printed weekday substitution under the Mass of the Sunday (easter-2); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1278
+    incipit: Accipite jucunditatem
+- occasion: easter-2-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 218
+    note: Printed weekday substitution under the Mass of the Sunday (easter-2); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 190
+    incipit: Spiritus ubi vult
+- occasion: easter-2-tuesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 243
+    note: Printed weekday substitution under the Mass of the Sunday (easter-2); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1278
+    incipit: Accipite jucunditatem
+- occasion: easter-2-tuesday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 46
+    note: Printed weekday substitution under the Mass of the Sunday (easter-2); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 714
+    incipit: Dominus regnavit decorem
+- occasion: easter-2-tuesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 218
+    note: Printed weekday substitution under the Mass of the Sunday (easter-2); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 190
+    incipit: Spiritus ubi vult
+- occasion: easter-2-wednesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 243
+    note: Printed weekday substitution under the Mass of the Sunday (easter-2); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1278
+    incipit: Accipite jucunditatem
+- occasion: easter-2-thursday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 244
+    note: Printed weekday substitution under the Mass of the Sunday (easter-2); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 822
+    incipit: Deus dum egredereris
+- occasion: easter-2-friday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 659
+    note: Printed weekday substitution under the Mass of the Sunday (easter-2); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 123
+    incipit: Redemisti nos
+- occasion: easter-2-saturday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 243
+    note: Printed weekday substitution under the Mass of the Sunday (easter-2); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1278
+    incipit: Accipite jucunditatem
+- occasion: easter-2-saturday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 209
+    note: Printed weekday substitution under the Mass of the Sunday (easter-2); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 215
+    incipit: Surrexit Christus qui creavit
+- occasion: easter-3-monday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 528
+    note: Printed weekday substitution under the Mass of the Sunday (easter-3); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 642
+    incipit: Loquebar
+- occasion: easter-3-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 222
+    note: Printed weekday substitution under the Mass of the Sunday (easter-3); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 579
+    incipit: Cantate Domino
+- occasion: easter-3-tuesday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 296
+    note: Printed weekday substitution under the Mass of the Sunday (easter-3); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 239
+    incipit: In te Domine speravi
+- occasion: easter-3-tuesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 635
+    note: Printed weekday substitution under the Mass of the Sunday (easter-3); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 920
+    incipit: Video caelos
+- occasion: easter-3-wednesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 246
+    note: Printed weekday substitution under the Mass of the Sunday (easter-3); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 557
+    incipit: Repleatur os meum
+- occasion: easter-3-wednesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 222
+    note: Printed weekday substitution under the Mass of the Sunday (easter-3); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 579
+    incipit: Cantate Domino
+- occasion: easter-3-thursday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 322
+    note: Printed weekday substitution under the Mass of the Sunday (easter-3); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 782
+    incipit: Panis quem ego dedero
+- occasion: easter-3-friday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 378
+    note: Printed weekday substitution under the Mass of the Sunday (easter-3); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 774
+    incipit: Caro mea
+- occasion: easter-3-friday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 383
+    note: Printed weekday substitution under the Mass of the Sunday (easter-3); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 798
+    incipit: Qui manducat
+- occasion: easter-3-saturday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 245
+    note: Printed weekday substitution under the Mass of the Sunday (easter-3); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1236
+    incipit: Spiritus est qui vivificat
+- occasion: easter-3-saturday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 222
+    note: Printed weekday substitution under the Mass of the Sunday (easter-3); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 579
+    incipit: Cantate Domino
+- occasion: easter-4-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 222
+    note: Printed weekday substitution under the Mass of the Sunday (easter-4); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 579
+    incipit: Cantate Domino
+- occasion: easter-4-tuesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 222
+    note: Printed weekday substitution under the Mass of the Sunday (easter-4); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 579
+    incipit: Cantate Domino
+- occasion: easter-4-wednesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 222
+    note: Printed weekday substitution under the Mass of the Sunday (easter-4); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 579
+    incipit: Cantate Domino
+- occasion: easter-4-thursday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 244
+    note: Printed weekday substitution under the Mass of the Sunday (easter-4); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 822
+    incipit: Deus dum egredereris
+- occasion: easter-4-thursday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 446
+    note: Printed weekday substitution under the Mass of the Sunday (easter-4); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1350
+    incipit: Inveni David
+- occasion: easter-4-thursday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 222
+    note: Printed weekday substitution under the Mass of the Sunday (easter-4); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 579
+    incipit: Cantate Domino
+- occasion: easter-4-friday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 659
+    note: Printed weekday substitution under the Mass of the Sunday (easter-4); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 123
+    incipit: Redemisti nos
+- occasion: easter-4-friday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 222
+    note: Printed weekday substitution under the Mass of the Sunday (easter-4); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 579
+    incipit: Cantate Domino
+- occasion: easter-4-saturday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 276
+    note: 'Printed weekday substitution under the Mass of the Sunday (easter-4); GregoBase ID matched
+      to the printed incipit, chant role and mode. Printed alternatives: Cantate Domino p. 276; Cantate
+      Domino p. 331.'
+  assignments:
+  - id: 7668
+    incipit: Cantate Domino
+  - id: 1077
+    incipit: Cantate Domino
+- occasion: easter-4-saturday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 560
+    note: Printed weekday substitution under the Mass of the Sunday (easter-4); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 921
+    incipit: Tanto tempore
+- occasion: easter-5-monday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 432
+    note: Printed weekday substitution under the Mass of the Sunday (easter-5); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1197
+    incipit: Spiritus Sanctus docebit vos
+- occasion: easter-5-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 232
+    note: Printed weekday substitution under the Mass of the Sunday (easter-5); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1151
+    incipit: Spiritus Sanctus docebit vos
+- occasion: easter-5-tuesday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 463
+    note: Printed weekday substitution under the Mass of the Sunday (easter-5); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 106
+    incipit: Sancti tui Domine benedicent te
+- occasion: easter-5-tuesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 228
+    note: Printed weekday substitution under the Mass of the Sunday (easter-5); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 91
+    incipit: Pacem meam
+- occasion: easter-5-wednesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 246
+    note: Printed weekday substitution under the Mass of the Sunday (easter-5); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 557
+    incipit: Repleatur os meum
+- occasion: easter-5-wednesday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 19
+    note: Printed weekday substitution under the Mass of the Sunday (easter-5); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 292
+    incipit: Laetatus sum
+- occasion: easter-5-wednesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 228
+    note: Printed weekday substitution under the Mass of the Sunday (easter-5); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 3314
+    incipit: Ego sum vitis
+- occasion: easter-5-thursday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 340
+    note: Printed weekday substitution under the Mass of the Sunday (easter-5); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1192
+    incipit: Confitemini Domino et invocate
+- occasion: easter-5-thursday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 228
+    note: Printed weekday substitution under the Mass of the Sunday (easter-5); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 3314
+    incipit: Ego sum vitis
+- occasion: easter-5-friday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 429
+    note: Printed weekday substitution under the Mass of the Sunday (easter-5); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1030
+    incipit: Ego vos elegi
+- occasion: easter-5-friday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 436
+    note: Printed weekday substitution under the Mass of the Sunday (easter-5); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 470
+    incipit: Ego vos elegi
+- occasion: easter-5-saturday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 258
+    note: Printed weekday substitution under the Mass of the Sunday (easter-5); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 802
+    incipit: Iubilate Deo omnis terra
+- occasion: easter-5-saturday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 228
+    note: Printed weekday substitution under the Mass of the Sunday (easter-5); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 3314
+    incipit: Ego sum vitis
+- occasion: easter-6-monday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 230
+    note: Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 633
+    incipit: Surrexit Christus et illuxit
+- occasion: easter-6-monday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 276
+    note: 'Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched
+      to the printed incipit, chant role and mode. Printed alternatives: Cantate Domino p. 276; Cantate
+      Domino p. 331.'
+  assignments:
+  - id: 7668
+    incipit: Cantate Domino
+  - id: 1077
+    incipit: Cantate Domino
+- occasion: easter-6-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 233
+    note: Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 333
+    incipit: Spiritus qui a Patre
+- occasion: easter-6-tuesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 230
+    note: Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 633
+    incipit: Surrexit Christus et illuxit
+- occasion: easter-6-tuesday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 230
+    note: Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1040
+    incipit: Exivi a Patre
+- occasion: easter-6-tuesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 233
+    note: Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 39
+    incipit: Dum venerit
+- occasion: easter-6-wednesday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 230
+    note: Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 633
+    incipit: Surrexit Christus et illuxit
+- occasion: easter-6-wednesday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 230
+    note: Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1040
+    incipit: Exivi a Patre
+- occasion: easter-6-wednesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 233
+    note: Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 333
+    incipit: Spiritus qui a Patre
+- occasion: easter-6-thursday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 230
+    note: Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 633
+    incipit: Surrexit Christus et illuxit
+- occasion: easter-6-thursday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 230
+    note: Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1040
+    incipit: Exivi a Patre
+- occasion: easter-6-thursday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 244
+    note: Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 822
+    incipit: Deus dum egredereris
+- occasion: easter-6-thursday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 234
+    note: Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 813
+    incipit: Modicum
+- occasion: easter-6-friday
+  slot: graduale
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 230
+    note: Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 633
+    incipit: Surrexit Christus et illuxit
+- occasion: easter-6-friday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 230
+    note: Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 1040
+    incipit: Exivi a Patre
+- occasion: easter-6-friday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 659
+    note: Printed weekday substitution under the Mass of the Sunday (easter-6); GregoBase ID matched to
+      the printed incipit, chant role and mode.
+  assignments:
+  - id: 123
+    incipit: Redemisti nos
+- occasion: easter-6-friday-after-ascension
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 239
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 939
+    incipit: Exaudivit de templo
+- occasion: easter-6-friday-after-ascension
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 239
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1535
+    incipit: Confitemini Domino quoniam bonus
+- occasion: easter-6-friday-after-ascension
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 240
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 584
+    incipit: Confitebor Domino
+- occasion: easter-6-friday-after-ascension
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 232
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 981
+    incipit: Non vos relinquam
+- occasion: easter-6-saturday-after-ascension
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 239
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 939
+    incipit: Exaudivit de templo
+- occasion: easter-6-saturday-after-ascension
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 230
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1040
+    incipit: Exivi a Patre
+- occasion: easter-6-saturday-after-ascension
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 240
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 584
+    incipit: Confitebor Domino
+- occasion: easter-6-saturday-after-ascension
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 232
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 981
+    incipit: Non vos relinquam
+- occasion: easter-7-monday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 243
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1278
+    incipit: Accipite jucunditatem
+- occasion: easter-7-monday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 432
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1197
+    incipit: Spiritus Sanctus docebit vos
+- occasion: easter-7-monday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 221
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 668
+    incipit: Lauda anima mea
+- occasion: easter-7-monday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 233
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 333
+    incipit: Spiritus qui a Patre
+- occasion: easter-7-tuesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 244
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 822
+    incipit: Deus dum egredereris
+- occasion: easter-7-tuesday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 245
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1236
+    incipit: Spiritus est qui vivificat
+- occasion: easter-7-tuesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 245
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1218
+    incipit: Meditabor... alleluia
+- occasion: easter-7-tuesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 232
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1151
+    incipit: Spiritus Sanctus docebit vos
+- occasion: easter-7-wednesday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 246
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 557
+    incipit: Repleatur os meum
+- occasion: easter-7-wednesday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 242
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 107
+    incipit: Non vos relinquam
+- occasion: easter-7-wednesday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 237
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 211
+    incipit: Ascendit Deus
+- occasion: easter-7-wednesday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 243
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1091
+    incipit: Pater cum essem
+- occasion: easter-7-thursday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 243
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1278
+    incipit: Accipite jucunditatem
+- occasion: easter-7-thursday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 432
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1197
+    incipit: Spiritus Sanctus docebit vos
+- occasion: easter-7-thursday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 221
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 668
+    incipit: Lauda anima mea
+- occasion: easter-7-thursday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 233
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 333
+    incipit: Spiritus qui a Patre
+- occasion: easter-7-friday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 244
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 822
+    incipit: Deus dum egredereris
+- occasion: easter-7-friday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 245
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1236
+    incipit: Spiritus est qui vivificat
+- occasion: easter-7-friday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 245
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 1218
+    incipit: Meditabor... alleluia
+- occasion: easter-7-friday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 574
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 846
+    incipit: Simon Joannis
+- occasion: easter-7-saturday
+  slot: introitus
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 246
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 557
+    incipit: Repleatur os meum
+- occasion: easter-7-saturday
+  slot: alleluia
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 242
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 107
+    incipit: Non vos relinquam
+- occasion: easter-7-saturday
+  slot: offertorium
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 237
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 211
+    incipit: Ascendit Deus
+- occasion: easter-7-saturday
+  slot: communio
+  reviewed: Claude source inspection of the printed GR1974 scan, 2026-10-19
+  source:
+    url: https://media.churchmusicassociation.org/books/graduale-romanum-1974.pdf
+    page: 218
+    note: Printed GR1974 weekday proper; GregoBase ID matched to the printed incipit, chant role and mode.
+  assignments:
+  - id: 190
+    incipit: Spiritus ubi vult

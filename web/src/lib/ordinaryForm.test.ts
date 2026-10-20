@@ -109,6 +109,11 @@ describe("Ordinary Form calendar rules", () => {
             if (result.occasion) expect(occasionKeys.has(result.occasion), `${label}: occasion ${result.occasion}`).toBe(true);
             if (result.vigil) expect(occasionKeys.has(result.vigil), `${label}: vigil ${result.vigil}`).toBe(true);
             if (result.precedingSundayOccasion) expect(occasionKeys.has(result.precedingSundayOccasion), `${label}: preceding Sunday ${result.precedingSundayOccasion}`).toBe(true);
+            for (const key of [result.weekdayOccasion, result.sundayMassOccasion, result.readingChantsOccasion])
+              if (key) expect(occasionKeys.has(key), `${label}: weekday ${key}`).toBe(true);
+            const holySaturday = daysBetween(easter(year), day) === -1;
+            if (weekday(day) !== 0 && !result.occasion && result.season !== "ordinary" && !holySaturday)
+              expect(result.weekdayOccasion ?? result.sundayMassOccasion, `${label}: uncovered seasonal weekday`).toBeTruthy();
             if (result.season === "ordinary") expect(result.otWeek, label).toBeGreaterThanOrEqual(1);
             if (result.otWeek !== null) expect(result.otWeek, label).toBeLessThanOrEqual(34);
             if (result.season === "ordinary" && daysBetween(easter(year), day) >= 50) {
@@ -182,5 +187,30 @@ describe("Ordinary Form calendar rules", () => {
           occasion: "nativity-john-baptist", provisionalNotice: null,
         });
       }
+  });
+
+  it("resolves GR1974 seasonal weekdays to their own Mass or to the Sunday's chants", () => {
+    const d = (y: number, m: number, day: number, settings: OfSettings = DEFAULT_OF_SETTINGS) => ofDay(localDate(y, m, day), settings);
+    expect(d(2026, 12, 2)).toMatchObject({ weekdayOccasion: "advent-1-wednesday", sundayMassOccasion: null });
+    expect(d(2026, 11, 30)).toMatchObject({ weekdayOccasion: null, sundayMassOccasion: "advent-1" });
+    expect(d(2026, 12, 18)).toMatchObject({ weekdayOccasion: "advent-late-friday" });
+    expect(d(2026, 12, 19)).toMatchObject({ weekdayOccasion: "advent-late-saturday", readingChantsOccasion: "advent-dec-19" });
+    expect(d(2026, 12, 24)).toMatchObject({ weekdayOccasion: "advent-late-thursday", vigil: "christmas-vigil" });
+    expect(d(2026, 12, 26).occasion).toBe("st-stephen");
+    expect(d(2026, 12, 29).weekdayOccasion).toBe("christmas-octave-dec-29");
+    expect(d(2027, 1, 4).weekdayOccasion).toBe("christmas-jan-4");
+    expect(d(2027, 1, 8).weekdayOccasion).toBe("christmas-jan-8");
+    expect(d(2027, 2, 11).weekdayOccasion).toBe("ash-thursday");
+    expect(d(2027, 3, 1).weekdayOccasion).toBe("lent-3-monday");
+    expect(d(2027, 3, 22).weekdayOccasion).toBe("holy-monday");
+    expect(d(2027, 3, 27)).toMatchObject({ season: "triduum", occasion: null, weekdayOccasion: null, vigil: "easter-vigil" });
+    expect(d(2027, 3, 29).weekdayOccasion).toBe("easter-octave-monday");
+    expect(d(2027, 5, 7).weekdayOccasion).toBe("easter-6-friday-after-ascension");
+    const sundayAscension: OfSettings = { ...DEFAULT_OF_SETTINGS, ascension: "sunday" };
+    expect(d(2027, 5, 6, sundayAscension).weekdayOccasion).toBe("easter-6-thursday");
+    expect(d(2027, 5, 8, sundayAscension).sundayMassOccasion).toBe("easter-6");
+    expect(d(2027, 5, 10, sundayAscension).sundayMassOccasion).toBe("easter-7");
+    expect(d(2027, 5, 11, sundayAscension).weekdayOccasion).toBe("easter-6-friday-after-ascension");
+    expect(d(2027, 5, 15).weekdayOccasion).toBe("easter-7-saturday");
   });
 });

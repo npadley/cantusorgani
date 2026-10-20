@@ -26,6 +26,12 @@ export interface OfDay {
   readonly season: OfSeason;
   readonly otWeek: number | null;
   readonly precedingSundayOccasion: string | null;
+  /** A seasonal weekday's own Mass, or its Sunday's Mass with printed weekday substitutions. */
+  readonly weekdayOccasion: string | null;
+  /** A seasonal weekday on which the GR1974 repeats the chants of the week's Sunday. */
+  readonly sundayMassOccasion: string | null;
+  /** Optional chants suited to the readings (19 and 20 December). */
+  readonly readingChantsOccasion: string | null;
 }
 
 interface Event { readonly key: string; readonly rank: number }
@@ -144,6 +150,10 @@ function buildSchedule(year: number, settings: OfSettings): Schedule {
   ];
   for (const [month, day, key] of lords) push(out, localDate(year, month, day), key, 5);
   push(out, localDate(year, 9, 8), "birth-mary", 7);
+  // Christmas-octave feasts: feasts are never kept on Sundays (see activeOccasion).
+  push(out, localDate(year, 12, 26), "st-stephen", 7);
+  push(out, localDate(year, 12, 27), "st-john", 7);
+  push(out, localDate(year, 12, 28), "holy-innocents", 7);
   push(out, localDate(year, 11, 21), "presentation-mary", 10);
 
   // The CDW resolved this exact collision for 2022 only. Per the user's
@@ -233,7 +243,7 @@ function activeOccasion(schedule: Schedule, d: LocalDate): Resolution {
     // feasts may share a Sunday, with precedence deciding the winner.
     return selectByPrecedence(candidates, d);
   }
-  const valid = candidates.filter(e => e.rank <= 6 && e.key !== "birth-mary" && e.key !== "presentation-mary");
+  const valid = candidates.filter(e => e.rank <= 6);
   return selectByPrecedence(valid, d);
 }
 
@@ -305,6 +315,61 @@ function resolve(d: LocalDate, settings: OfSettings): { occasion: string | null;
   return { occasion: result.occasion, otWeek: computedOtWeek(d, settings, result.occasion) };
 }
 
+const DAY_NAMES = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"] as const;
+/** Advent weeks 1–3: weekdays with a printed substitution under the Sunday Mass (GR1974 pp. 15–24). */
+const ADVENT_EXCEPTIONS: Readonly<Record<number, readonly number[]>> = { 1: [3, 4, 5], 2: [1, 2, 3, 5], 3: [3, 5] };
+
+interface SeasonalWeekday { readonly own: string | null; readonly sunday: string | null; readonly reading: string | null }
+const NO_WEEKDAY: SeasonalWeekday = { own: null, sunday: null, reading: null };
+
+/** GR1974 weekday chants outside Ordinary Time (see docs/superpowers/plans/2026-10-19-of-seasonal-weekdays.md). */
+function seasonalWeekday(d: LocalDate, season: OfSeason, settings: OfSettings): SeasonalWeekday {
+  const dow = weekday(d), name = DAY_NAMES[dow]!;
+  const own = (key: string): SeasonalWeekday => ({ own: key, sunday: null, reading: null });
+  const sunday = (key: string): SeasonalWeekday => ({ own: null, sunday: key, reading: null });
+  if (dow === 0) return NO_WEEKDAY;
+  const e = easter(d.year), offset = daysBetween(e, d);
+  if (season === "advent") {
+    if (d.month === 12 && d.day >= 17) {
+      const reading = d.day === 19 ? "advent-dec-19" : d.day === 20 ? "advent-dec-20" : null;
+      return { own: `advent-late-${name}`, sunday: null, reading };
+    }
+    const week = Math.floor(daysBetween(adventStart(d.year), d) / 7) + 1;
+    return ADVENT_EXCEPTIONS[week]?.includes(dow) ? own(`advent-${week}-${name}`) : sunday(`advent-${week}`);
+  }
+  if (season === "christmas") {
+    if (d.month === 12) return own(d.day === 29 ? "christmas-octave-dec-29" : "christmas-octave");
+    const epiphany = settings.epiphany === "jan6" ? localDate(d.year, 1, 6) : nextSunday(localDate(d.year, 1, 2), true);
+    const sinceEpiphany = daysBetween(epiphany, d);
+    if (sinceEpiphany < 0) {
+      if (d.day === 4) return own("christmas-jan-4");
+      if (d.day === 7) return own("christmas-jan-7");
+      return own("christmas-before-epiphany");
+    }
+    const jan8 = settings.epiphany === "jan6" ? d.day === 8 : dow === 2 && sinceEpiphany <= 6;
+    return own(jan8 ? "christmas-jan-8" : "christmas-after-epiphany");
+  }
+  if (season === "lent") {
+    if (offset >= -45 && offset <= -43) return own(`ash-${name}`);
+    if (offset >= -6) return own(`holy-${name}`);
+    const week = Math.floor((offset + 46 - 4) / 7) + 1;
+    return own(`lent-${week}-${name}`);
+  }
+  if (season === "easter") {
+    if (offset <= 6) return own(`easter-octave-${name}`);
+    const week = Math.floor(offset / 7) + 1;
+    if (settings.ascension === "thursday") {
+      if (offset === 40 || offset === 41) return own(`easter-6-${name}-after-ascension`);
+    } else {
+      if (offset === 41) return sunday("easter-6");
+      if (offset === 43) return sunday("easter-7");
+      if (offset === 44) return own("easter-6-friday-after-ascension");
+    }
+    return own(`easter-${week}-${name}`);
+  }
+  return NO_WEEKDAY;
+}
+
 /** Resolve a Gregorian civil date under the three General Roman transfer choices. */
 export function ofDay(date: LocalDate, settings: OfSettings = DEFAULT_OF_SETTINGS): OfDay {
   const { occasion, otWeek } = resolve(date, settings);
@@ -329,6 +394,7 @@ export function ofDay(date: LocalDate, settings: OfSettings = DEFAULT_OF_SETTING
     if (dateSeason(prev, settings) === "ordinary") precedingSundayOccasion = resolve(prev, settings).occasion;
   }
   const year = cycleYear(date);
+  const seasonal = occasion === null || occasion === "christmas-sunday" ? seasonalWeekday(date, season, settings) : NO_WEEKDAY;
   return {
     occasion: occasion === "christmas-sunday" ? null : occasion,
     provisionalNotice,
@@ -338,5 +404,8 @@ export function ofDay(date: LocalDate, settings: OfSettings = DEFAULT_OF_SETTING
     season,
     otWeek,
     precedingSundayOccasion,
+    weekdayOccasion: seasonal.own,
+    sundayMassOccasion: seasonal.sunday,
+    readingChantsOccasion: seasonal.reading,
   };
 }

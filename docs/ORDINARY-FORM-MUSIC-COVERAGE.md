@@ -4,24 +4,23 @@ This document records the current, generated mapping coverage and the limits of 
 
 ## Current coverage
 
-The generated assignments contain **482 rows; 440 have an eligible Nova Organi Harmonia lender and 42 do not**. These are assignment rows after cycle merging, not separate counts per A/B/C year. The 42 rows below link to their exact GregoBase chant IDs; no chant was selected by incipit similarity.
+The generated assignments contain **994 rows; 924 have an eligible Nova Organi Harmonia lender and 70 do not**. These are assignment rows after cycle merging, not separate counts per A/B/C year. Sundays, solemnities and feasts account for 482 rows (440 matched, 42 unmatched, listed under [Unmatched assignment rows](#unmatched-assignment-rows)); the seasonal weekdays, the Christmas-octave feasts and the Second Sunday after Christmas added on 2026-10-19 account for 512 rows (484 matched, 28 unmatched, listed under [Seasonal weekdays](#seasonal-weekdays)). Every unmatched row links to its exact GregoBase chant ID; no chant was selected by incipit similarity.
 
-The report lists **39 distinct unresolved GregoBase URLs** for the unmatched rows. Several rows share a chant ID, which is why this count is lower than 42. It separately lists **81 distinct URLs with at least one rejected catalogue candidate**. A rejected candidate failed exportability checks; another eligible section may still resolve the assignment. These 81 candidates do not add to the unmatched-row count.
+The report lists **53 distinct unresolved GregoBase URLs** for the unmatched rows. Several rows share a chant ID, which is why this count is lower than 70. It separately lists **96 distinct URLs with at least one rejected catalogue candidate**. A rejected candidate failed exportability checks; another eligible section may still resolve the assignment. These candidates do not add to the unmatched-row count.
 
 ## Occasions without any assignment source
 
-These four stable occasions have no jgabc proper and no reviewed assignment override, so they remain wholly unmapped:
+These three stable occasions have no jgabc proper and no reviewed assignment override, so they remain wholly unmapped:
 
 | Stable key | Occasion | Printed source reference located | Status |
 | --- | --- | --- | --- |
 | `st-joseph` | Saint Joseph | *Graduale Romanum* (1974), pp. 552–553 | No reviewed IDs or override rows |
 | `sacred-heart` | The Most Sacred Heart of Jesus | *Graduale Romanum* (1974), pp. 384–387 | No reviewed IDs or override rows |
 | `lateran-dedication` | Dedication of the Lateran Basilica | *Graduale Romanum* (1974), p. 621 | No reviewed IDs or override rows |
-| `second-christmas` | Second Sunday after Christmas | No rubric page verified for this stable occasion | Source assignment remains unverified; no IDs or override rows |
 
-The first three references were located for future editorial mapping; location alone does not verify GregoBase IDs or authorize an accompaniment. The Second Sunday after Christmas still needs its own rubric check. These gaps are supported outcomes, not invented assignments.
+These references were located for future editorial mapping; location alone does not verify GregoBase IDs or authorize an accompaniment. The Second Sunday after Christmas is now mapped from GR1974 pp. 53–55 (its chants also serve the weekdays before Epiphany). These gaps are supported outcomes, not invented assignments.
 
-The reviewed Christmas Vigil and Christmas Dawn overrides are present separately in [`data/ordinary-form/overrides.yml`](../data/ordinary-form/overrides.yml): five chants each. Their source references are GR1974 pp. 38–41 and pp. 44–47 respectively. They are not among the four unmapped occasions.
+The reviewed Christmas Vigil and Christmas Dawn overrides are present separately in [`data/ordinary-form/overrides.yml`](../data/ordinary-form/overrides.yml): five chants each. Their source references are GR1974 pp. 38–41 and pp. 44–47 respectively. They are not among the unmapped occasions.
 
 ## Unmatched assignment rows
 
@@ -71,6 +70,28 @@ Each entry below has a source assignment but no eligible printed lender in the c
 | `ot-21` | `communio` | A, B, C; all seasons | [1245 — De fructu](https://gregobase.selapa.net/chant.php?id=1245) |
 | `ot-24` | `alleluia` | A, B, C; all seasons | [1097 — Timebunt gentes](https://gregobase.selapa.net/chant.php?id=1097) |
 | `ot-29` | `alleluia` | A, B, C; all seasons | [3318 — Lauda, anima mea](https://gregobase.selapa.net/chant.php?id=3318) |
+
+## Seasonal weekdays
+
+The weekdays of Advent, Christmas, Lent and Easter follow the printed *Graduale Romanum* (1974), transcribed from the CMAA scan on 2026-10-19 ([plan and season mapping](superpowers/plans/2026-10-19-of-seasonal-weekdays.md)). Each weekday resolves in one of three ways:
+
+- **Own Mass:** 17–24 December (by weekday; 24 December takes that weekday's Mass in the morning), Ash Thursday–Saturday, every Lent weekday, Holy Monday–Wednesday, the Easter Octave and Easter week 7, plus the Christmas-season weekday Masses. Christmas-season weekdays list both printed options per slot (e.g. Christmas at Dawn or during the Day).
+- **The Sunday's Mass with printed substitutions** (`weekday_of` in `occasions.yml`): Advent weeks 1–3 and Easter weeks 2–6, where the book prints "Feria N: …" under the chant it replaces. Sunday-only choices printed as "Dom. anno …" are not carried to weekdays; a weekday that genuinely inherits a cycle-dependent Sunday chant says so in `inherit_cycle_slots`.
+- **The Sunday's chants repeated:** weekdays of Advent weeks 1–3 with no printed substitution, and (where the Ascension is kept on Sunday) Saturday of Easter week 6 and Monday of week 7, which the book assigns to the Mass of the Sixth and Seventh Sundays of Easter.
+
+Holy Saturday shows that no Mass is celebrated during the day, with the Easter Vigil link. St Stephen, St John and the Holy Innocents are added as feasts on 26–28 December from the GR1974 sanctorale (pp. 632–639).
+
+Editorial decisions recorded in the data (`rubric_en`):
+
+- 17–23 December: the Alleluia is *ad libitum* from the season (p. 24), so the slot is left empty with that rubric. 19 and 20 December link their optional "chants suited to the readings" (p. 34).
+- Easter Octave: the Sequence may be added when the Alleluia is sung (p. 202); Victimae paschali is listed.
+- Easter week 2, Wednesday–Saturday: "the Communion antiphons of the Easter Octave may be resumed *ad libitum*" (p. 219). The Sunday's Mitte manum is listed and the rubric is shown; the octave communions are not listed as alternatives.
+- Lent 5 Monday: Nemo te condemnavit with the Gospel of the woman taken in adultery (Years A/B), otherwise Panis quem ego dedero (Year C), following the Lectionary default (p. 126).
+- Advent weeks 1–3 weekdays that repeat the Sunday link the Sunday page, so in Year B the Third Sunday link also shows its Sunday-only Gradual Fuit homo.
+- Where GregoBase holds several transcriptions of one chant, the canonical Solesmes transcription already used by the Sunday data and jgabc's 1962 assignments is chosen; a GR1974-only transcription is used only when nothing else exists (e.g. Voce mea, 8285; Memento nostri, 165). The *Alleluia Confitemini … quoniam bonus* after the Ascension (p. 239) matches the 1908 Rogation melody (1535), not the Easter Vigil Alleluia.
+
+### Weekday slots without a lender
+
 
 ## Matching and ownership rules
 

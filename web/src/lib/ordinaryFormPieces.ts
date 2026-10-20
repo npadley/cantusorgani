@@ -27,7 +27,7 @@ export interface OfResolvedPart {
 interface RawLender { slug: string; ref: string; part: string; variant: string }
 interface RawPart { slot: string; kind?: string; variant: string; years: string[]; seasons?: string[]; gregobase_id: number; incipit: string; lender: RawLender | null }
 interface RawOccasion { key: string; title_en: string; title_la: string; rank: string; color: string;
-  assignment_status: "mapped" | "unmapped"; parts: RawPart[] }
+  assignment_status: "mapped" | "unmapped"; parts: RawPart[]; rubric_en?: string }
 const SLOTS: Readonly<Record<string, ProperPartName>> = {
   introitus: "introit", graduale: "gradual", alleluia: "alleluia", tractus: "tract",
   sequentia: "sequence", offertorium: "offertory", communio: "communion",

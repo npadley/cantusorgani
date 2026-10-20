@@ -28,6 +28,7 @@ const unmapped = piece.sourceNote === "chants not yet mapped";
       <p class="crumb small muted ui"><a href="/">Cantus Organi</a> · <a href="/calendar/ordinary-form/">Ordinary Form calendar</a></p>
       <h1>{piece.title}</h1>
       <p class="latin" lang="la">{ordinaryFormOccasions().find(row => row.key === key)?.title_la}</p>
+      {ordinaryFormOccasions().find(row => row.key === key)?.rubric_en && <p class="rubric ui small">{ordinaryFormOccasions().find(row => row.key === key)?.rubric_en}</p>}
       <p class="meta ui small muted">Graduale Romanum (1974) · {parts.length} assigned chant{parts.length === 1 ? "" : "s"}{missing ? ` · ${missing} without a NOH match` : ""}</p>
     </header>
 
