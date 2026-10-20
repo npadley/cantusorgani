@@ -14,3 +14,13 @@ condition = "AND"
 paths = ['''^data/typeset/melody-audit\.json$''']
 regexTarget = "line"
 regexes = ['''^\s*"event_key":\s*"[a-f0-9]{64}"[,]?\s*$''']
+
+# Ordinary Form occasion keys are lowercase hyphenated slugs such as
+# "advent-1-thursday" (data/ordinary-form/occasions.yml and its generated
+# JSON). Ignore only a line that is nothing but such a key.
+[[rules.allowlists]]
+description = "Ordinary Form occasion slug keys, not API credentials"
+condition = "AND"
+paths = ['''^data/ordinary-form/occasions\.yml$''', '''^data/ordinary-form-propers\.json$''']
+regexTarget = "line"
+regexes = ['''^\s*(- key: [a-z0-9]+(-[a-z0-9]+)*|"key": "[a-z0-9]+(-[a-z0-9]+)*",?)\s*$''']
