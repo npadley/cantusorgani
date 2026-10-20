@@ -145,6 +145,8 @@ export function groupStaves(ys: readonly number[]): number[][] {
 
 /** Spacing tolerance for chant staff lines, as a fraction of the expected space. */
 const CHANT_SPACE_TOLERANCE = 0.05;
+/** Chant staff space against the accompaniment's on the same page (CS 4.2). */
+const CHANT_MATCH_TOLERANCE = 0.02;
 
 /**
  * Splits line positions (mm from the top) into five-line staves and four-line chant staves. Five-line staves
@@ -198,6 +200,15 @@ export async function verifyExportPdf(bytes: Uint8Array, expected: CanonicalExpe
         for (let k = 0; k < 5; k++) maxDelta = Math.max(maxDelta, Math.abs(staves[s]![k]! - want.staves[s]![k]!));
         if (Math.abs(heights[s]! - expected.staffHeightMm) > STAFF_HEIGHT_TOLERANCE_MM) {
           problems.push(`page ${n} staff ${s + 1}: height ${heights[s]!.toFixed(3)} mm, expected ${expected.staffHeightMm} mm +/- ${STAFF_HEIGHT_TOLERANCE_MM}`);
+        }
+      }
+      // The chant's staff space equals the accompaniment's (CS 4.2): a page with both must show the same line spacing.
+      if (chantStaves.length > 0 && staves.length > 0) {
+        const mean = (list: readonly (readonly number[])[]): number => list.reduce((a, s) => a + (s[s.length - 1]! - s[0]!) / (s.length - 1), 0) / list.length;
+        const chantSpace = mean(chantStaves);
+        const musicSpace = mean(staves);
+        if (Math.abs(chantSpace / musicSpace - 1) > CHANT_MATCH_TOLERANCE) {
+          problems.push(`page ${n}: chant staff space ${chantSpace.toFixed(3)} mm, accompaniment ${musicSpace.toFixed(3)} mm (must match within ${CHANT_MATCH_TOLERANCE * 100}%)`);
         }
       }
       if (maxDelta > STAFF_TOLERANCE_MM) problems.push(`page ${n}: a staff line is ${maxDelta.toFixed(3)} mm from the canonical position (tolerance ${STAFF_TOLERANCE_MM} mm)`);
