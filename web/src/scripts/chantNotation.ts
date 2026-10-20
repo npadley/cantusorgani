@@ -1,4 +1,5 @@
 import type { ExsurgeContext, ExsurgeLib } from "../lib/exsurge";
+import { loadExsurge } from "../lib/exsurgeLoader";
 import { cleanGabc, readChantDisplay, writeChantDisplay } from "../lib/gabc";
 import type { ChantDisplay, PrefStore } from "../lib/gabc";
 
@@ -18,19 +19,6 @@ export function initChantNotation(): void {
 
   interface ChantJson { readonly gabc: string; readonly incipit: string }
   const cache = new Map<string, Promise<ChantJson>>();
-  let library: Promise<ExsurgeLib> | null = null;
-
-  function loadExsurge(): Promise<ExsurgeLib> {
-    library ??= new Promise((resolve, reject) => {
-      if (window.exsurge) { resolve(window.exsurge); return; }
-      const script = document.createElement("script");
-      script.src = "/vendor/exsurge/exsurge.min.js";
-      script.onload = () => (window.exsurge ? resolve(window.exsurge) : reject(new Error("no exsurge")));
-      script.onerror = () => reject(new Error("exsurge did not load"));
-      document.head.appendChild(script);
-    });
-    return library;
-  }
 
   function context(lib: ExsurgeLib, box: HTMLElement): ExsurgeContext {
     const ctxt = new lib.ChantContext(lib.TextMeasuringStrategy.Canvas);

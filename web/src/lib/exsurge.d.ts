@@ -2,6 +2,7 @@
 export interface ExsurgeContext {
   setGlyphScaling(scale: number): void;
   setFont(family: string, size: number): void;
+  setRubricColor(color: string): void;
   textColor: string;
   staffLineColor: string;
   neumeLineColor: string;
@@ -12,6 +13,8 @@ export interface ExsurgeContext {
 
 export interface ExsurgeScore {
   annotation: unknown;
+  /** One entry per chant line, with its bounds in Exsurge units (after layoutChantLines). */
+  lines: readonly { readonly bounds: { readonly y: number; readonly height: number } }[];
   performLayoutAsync(ctxt: ExsurgeContext, done: () => void): void;
   layoutChantLines(ctxt: ExsurgeContext, width: number, done: () => void): void;
   createSvgNode(ctxt: ExsurgeContext): SVGSVGElement;
