@@ -20,7 +20,7 @@ const manifest = JSON.parse(readFileSync(`${FIXTURES}/manifest.fixture.json`, "u
 const entry = manifest.parts[0] as Record<string, unknown>;
 
 const part = {
-  id: "kyrie:0", kind: "mei", label: "Kyrie IX", heading: { label: "Kyrie IX", rubric: "Lord, have mercy", rubricTranslation: null, credit: null }, sourceSystemCount: 5, sourceRevision: entry["renderHash"],
+  id: "kyrie:0", kind: "mei", label: "Kyrie IX", heading: { label: "Kyrie IX", rubric: "Lord, have mercy", rubricTranslation: null, credit: null }, sourceSystemCount: 5, chants: [], sourceRevision: entry["renderHash"],
   target: entry["target"], renderHash: entry["renderHash"],
   conversion: { ...entry, meiUrl: MEI_URL },
 };

@@ -27,11 +27,11 @@ const entry = (JSON.parse(readFileSync(`${FIXTURES}/manifest.fixture.json`, "utf
 const meiPart = {
   id: "kyrie:0", kind: "mei", label: "Kyrie IX",
   heading: { label: "Kyrie IX", rubric: "Lord, have mercy", rubricTranslation: null, credit: "Nova Organi Harmonia" },
-  sourceSystemCount: 5, sourceRevision: entry["renderHash"], target: entry["target"], renderHash: entry["renderHash"],
+  sourceSystemCount: 5, chants: [], sourceRevision: entry["renderHash"], target: entry["target"], renderHash: entry["renderHash"],
   conversion: { ...entry, meiUrl: MEI_URL },
 };
 const fixedPart = {
-  id: "credo:1", kind: "fixed", label: "Credo", heading: null, sourceSystemCount: 3, sourceRevision: "f".repeat(32),
+  id: "credo:1", kind: "fixed", label: "Credo", heading: null, sourceSystemCount: 3, chants: [], sourceRevision: "f".repeat(32),
   target: "movement:ordinarium-missae-ix/credo", renderHash: "f".repeat(32), letterPdf: FIXED_URL, a4Pdf: FIXED_URL,
 };
 const LETTER = { version: 2, page: "letter", customSize: null, orientation: "portrait", marginMm: 12, staff: "medium", lyrics: "medium", spacing: "normal", maxSystems: null, linePolicy: "original" };
@@ -304,7 +304,7 @@ test.describe("preview behaviour", () => {
         token: 1, partIds: ["gloria:0"], digests: {}, effectiveBreaks: [], diagnostics: [], complete: true,
         pages: [{
           kind: "scan", index: 0, widthMm: 215.9, heightMm: 279.4, partId: "gloria:0", printable, content: printable,
-          heading: null, footer: null, unusedFraction: 0.5, systemCount: 2,
+          heading: null, footer: null, unusedFraction: 0.5, systemCount: 2, chant: [],
           images: [{ stem: `${stem}-1`, rect: r, pxWidth: 1, pxHeight: 1 }, { stem: `${stem}-2`, rect: { ...r, yMm: 80 }, pxWidth: 1, pxHeight: 1 }],
         }],
       };
