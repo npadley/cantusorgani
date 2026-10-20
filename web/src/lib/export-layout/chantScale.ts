@@ -1,9 +1,9 @@
 import { paperDimensions } from './settings';
 import { LYRIC_SIZE, STAFF_SIZES, type ExportPart, type LayoutSettings, type PartKind } from './types';
 
-/** Scale for chant notation so it matches the accompaniment (spec 4.2). */
+/** Scale for chant notation: a punctum is as wide as an accompaniment notehead (DL D30, which supersedes spec 4.2's equal staff space). */
 export interface ChantScale {
-  /** mm per Exsurge unit: staff space (2 * unit / 10 mm) divided by Exsurge's 12.5-unit staff space. */
+  /** mm per Exsurge unit: the accompaniment notehead's width divided by Exsurge's 6.25-unit punctum. */
   readonly mmPerUnit: number;
   /** Exsurge layout width in units for the printable width. */
   readonly widthUnits: number;
@@ -11,8 +11,17 @@ export interface ChantScale {
   readonly setFontSize: number;
 }
 
-/** Exsurge staff space in units at glyph scaling 1/16. */
-const EXSURGE_STAFF_SPACE_UNITS = 12.5;
+/** Exsurge staff space (distance between staff lines) in units at glyph scaling 1/16. */
+export const EXSURGE_STAFF_SPACE_UNITS = 12.5;
+/** Exsurge punctum width in units at glyph scaling 1/16 (glyph 100 wide x 1/16; measured on the fixtures: 6.25). */
+export const EXSURGE_PUNCTUM_UNITS = 6.25;
+/**
+ * Width of Verovio's Leipzig black notehead (E0A4) in staff spaces: 314 glyph units x 0.072 = 22.6 page units against an
+ * 18-unit staff space at Medium, measured with getBBox on a real Verovio page (Kyrie IX). It scales with the Music size.
+ */
+export const NOTEHEAD_STAFF_SPACES = 1.2556;
+/** How much larger than the equal-staff-space scale the chant is drawn: about 2.5. */
+export const CHANT_SIZE_FACTOR = (NOTEHEAD_STAFF_SPACES * EXSURGE_STAFF_SPACE_UNITS) / EXSURGE_PUNCTUM_UNITS;
 /** Exsurge prints lyrics at this fraction of the setFont size. */
 const EXSURGE_LYRIC_FACTOR = 0.9;
 /** Scan and fixed parts always use the Medium Music size (Verovio unit 9). */
@@ -24,7 +33,7 @@ export function chantScale(settings: LayoutSettings, printableWidthMm: number, p
   }
   const unit = partKind === 'mei' ? STAFF_SIZES[settings.staff].unit : FIXED_PART_UNIT;
   const spaceMm = (2 * unit) / 10;
-  const mmPerUnit = spaceMm / EXSURGE_STAFF_SPACE_UNITS;
+  const mmPerUnit = (spaceMm * NOTEHEAD_STAFF_SPACES) / EXSURGE_PUNCTUM_UNITS;
   const widthUnits = Math.round(printableWidthMm / mmPerUnit);
   const lyricMm = (LYRIC_SIZE[settings.lyrics] * unit) / 10;
   const setFontSize = lyricMm / mmPerUnit / EXSURGE_LYRIC_FACTOR;

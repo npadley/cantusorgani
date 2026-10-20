@@ -64,6 +64,8 @@ Exsurge needs a text measurer. Its Canvas strategy needs a DOM, so not the worke
 
 ### 4.2 Scale, so chant matches the accompaniment
 
+> **Superseded in part by DL D30 (2026-10-20).** The staff-space rule below made the neumes look about 2.5 x too small, because Exsurge's punctum is only half its staff-line gap wide. The chant is now drawn so a punctum equals an accompaniment notehead: `mmPerUnit = spaceMm x 1.2556 / 6.25` (see `chantScale.ts`; `CHANT_SIZE_FACTOR` is about 2.51). Widths in units (1333 / 749 below) become about 531 / 298. Lyric size is unchanged.
+
 - **Staff space:** the chant staff space equals the accompaniment staff space for the chosen Music size: `spaceMm = 2 × unit / 10` (D8: `unit` 7/9/12). Exsurge's staff space is 12.5 units at glyph scaling 1/16 (spike: lines at y −43.75, −31.25, −18.75, −6.25). So `mmPerUnit = spaceMm / 12.5`, which gives 0.112 / 0.144 / 0.192 for Small / Medium / Large. Scan and fixed parts use Medium.
 - **Width:** `widthUnits = printable.widthMm / mmPerUnit`. For example, Letter at Medium is 191.9 mm → 1333 units, and iPad mini is 107.9 mm → 749 units. Exsurge lays out to that width (`layoutChantLines(ctxt, widthUnits)`). Because Exsurge **reflows**, a page or iPad change gives new line breaks, not a scaled picture.
 - **Lyric size:** the chant lyric size equals the accompaniment's Sung text size: `lyricMm = LYRIC_SIZE[lyrics] × unit / 10` (Medium/Medium = 4.05 mm, 11.5 pt). Exsurge prints lyrics at 0.9 × the `setFont` size (spike: `setFont(f, 21.33)` → `.lyric` 19.2 px), so call `setFont("'Liberation Serif'", lyricMm / mmPerUnit / 0.9)`. This is about 1.5× the site's lyric-to-staff ratio. Check it in K9's visual review. If it looks crowded, P-decide a fixed chant lyric size.

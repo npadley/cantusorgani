@@ -22,8 +22,8 @@ const MEI = readFileSync(`${FIXTURES}/kyrie-ix.mei`, "utf8");
 const MEI_URL = "/__fixtures__/kyrie-ix.mei";
 const PAGES = JSON.parse(readFileSync(`${FIXTURES}/chant/pages.json`, "utf8")) as { kyrie: string; longest: string };
 const urlOf = (distPath: string): string => `/${distPath.replace(/index\.html$/, "")}`;
-/** Medium music: the chant staff space equals the accompaniment's, 2 x 9 / 10 mm (CS 4.2). */
-const MEDIUM_SPACE_MM = 1.8;
+/** Medium music: the accompaniment staff space is 1.8 mm and the chant is drawn 2.5114 x larger so a punctum matches a notehead (DL D30). */
+const MEDIUM_SPACE_MM = 1.8 * 2.5114;
 
 function crc32(buf: Buffer): number {
   let c = ~0;

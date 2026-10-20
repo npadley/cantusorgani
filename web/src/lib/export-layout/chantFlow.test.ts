@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { buildChantLines } from './chantLines';
+import { chantScale } from './chantScale';
 import { renderChantSvgs } from './chantJob';
 import type { ChantJobDeps } from './chantJob';
 import { createExportController } from './controller';
@@ -25,7 +26,7 @@ describe('buildChantLines', () => {
     const lines = buildChantLines([scan('s', [REF])], BEFORE, new Map([[277, fixtureSvg('gr-277-1333.json')]]));
     const got = lines.get(277)!;
     expect(got.length).toBe(4);
-    expect(got[0]!.widthMm).toBeCloseTo(1333 * 0.144, 0);
+    expect(got[0]!.widthMm).toBeCloseTo(1333 * chantScale({ ...BEFORE }, 191.9, 'scan').mmPerUnit, 6);
     expect(got.every((l) => l.heightMm > 10 && l.svg.namespace.startsWith('c277l'))).toBe(true);
   });
 

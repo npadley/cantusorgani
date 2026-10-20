@@ -10,7 +10,7 @@
 //   - each page's staves, found as five equally spaced long horizontal strokes (position of every staff line
 //     within STAFF_TOLERANCE_MM, and the staff height within STAFF_HEIGHT_TOLERANCE_MM of the expected size);
 //   - when the expectation carries `chantStaffSpaceMm`, the chant staves: four equally spaced strokes at that
-//     spacing, counted apart from the five-line staves and compared with each page's `chantLines`;
+//     spacing (the chant is drawn about 2.5 x the accompaniment's staff space, DL D30), counted apart from the five-line staves and compared with each page's `chantLines`;
 //   - the page's text content and order (heading, sung text, credit), compared as the sequence of letters,
 //     so that a changed, dropped, added or reordered syllable fails and hyphen or spacing differences do not.
 // Nothing is drawn: pdf.js is asked for the operator list and the text layer, so the check is exact rather than
@@ -145,7 +145,7 @@ export function groupStaves(ys: readonly number[]): number[][] {
 
 /** Spacing tolerance for chant staff lines, as a fraction of the expected space. */
 const CHANT_SPACE_TOLERANCE = 0.05;
-/** Chant staff space against the accompaniment's on the same page (CS 4.2). */
+/** Chant staff space against the accompaniment's on the same page (DL D30). */
 const CHANT_MATCH_TOLERANCE = 0.02;
 
 /**
@@ -207,8 +207,10 @@ export async function verifyExportPdf(bytes: Uint8Array, expected: CanonicalExpe
         const mean = (list: readonly (readonly number[])[]): number => list.reduce((a, s) => a + (s[s.length - 1]! - s[0]!) / (s.length - 1), 0) / list.length;
         const chantSpace = mean(chantStaves);
         const musicSpace = mean(staves);
-        if (Math.abs(chantSpace / musicSpace - 1) > CHANT_MATCH_TOLERANCE) {
-          problems.push(`page ${n}: chant staff space ${chantSpace.toFixed(3)} mm, accompaniment ${musicSpace.toFixed(3)} mm (must match within ${CHANT_MATCH_TOLERANCE * 100}%)`);
+        // DL D30: the chant is drawn larger so a punctum matches a notehead; the ratio is the one the expectation names.
+        const wantRatio = expected.chantStaffSpaceMm! / (expected.staffHeightMm / 4);
+        if (Math.abs(chantSpace / musicSpace / wantRatio - 1) > CHANT_MATCH_TOLERANCE) {
+          problems.push(`page ${n}: chant staff space ${chantSpace.toFixed(3)} mm is ${(chantSpace / musicSpace).toFixed(3)} x the accompaniment's ${musicSpace.toFixed(3)} mm, expected ${wantRatio.toFixed(3)} x (within ${CHANT_MATCH_TOLERANCE * 100}%)`);
         }
       }
       if (maxDelta > STAFF_TOLERANCE_MM) problems.push(`page ${n}: a staff line is ${maxDelta.toFixed(3)} mm from the canonical position (tolerance ${STAFF_TOLERANCE_MM} mm)`);

@@ -41,6 +41,7 @@ Append-only. Each entry: date, ID, decision, evidence, owner. Spikes (S0–S7) a
 | D27 | 2026-10-19 | **Chant-only export ships in v1** as the third Chant choice (card K10). Parts without chant are left out. | [chant spec §0](../specs/2026-10-19-chant-in-export-design.md) P3; the recommendation was to wait for demand data. | User |
 | D28 | 2026-10-19 | **Chant goes into Customize export only.** Quick export is unchanged. | [chant spec §0](../specs/2026-10-19-chant-in-export-design.md) P4. | User |
 | D29 | 2026-10-19 | **Rubrics (℣, ℟, \*) print red `#d00`**, as on screen. | [chant spec §0](../specs/2026-10-19-chant-in-export-design.md) P5; the recommendation was black for monochrome printers. | User |
+| D30 | 2026-10-20 | **Chant is drawn the same size as the typeset music:** a punctum is as wide as an accompaniment notehead, so the chant scale is 2.51 x the equal-staff-space scale (staff-line gap 4.52 mm at Medium against 1.8 mm). Lyrics stay at the accompaniment's Sung text size. This **supersedes chant spec §4.2's "chant staff space = accompaniment staff space"**. | K9 review: the equal-staff-space chant looked about 2.5 x too small. Measured: Exsurge's punctum is 6.25 units (half a staff-line gap of 12.5); Verovio's Leipzig notehead is 1.2556 staff spaces (314 glyph units x 0.072 = 22.6 page units against 18 at Medium, `getBBox` on a real page). | User |
 
 ## Spike outcomes
 
