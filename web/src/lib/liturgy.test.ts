@@ -13,6 +13,7 @@ import {
   loadYear,
   localDate,
   nextSunday,
+  properSource,
   observance,
   parseIso,
   parseVocabulary,
@@ -286,5 +287,36 @@ describe("nextDateOf", () => {
     const { findNextDate } = await import("./liturgy");
     const d = await findNextDate("sancti:12-25m1", { year: 2026, month: 1, day: 1 });
     expect(d).toEqual({ year: 2026, month: 12, day: 25 });
+  });
+});
+
+describe("properSource", () => {
+  const music = new Set(["tempora:Pent22-0", "sancti:10-DU", "tempora:Epi1-0a"]);
+  const has = (key: string) => music.has(key);
+
+  it("should use the day's own Proper when it has music", () => {
+    const day = { celebration: ["sancti:10-DU"], commemoration: [] };
+    expect(properSource(day, "sancti:10-DU", has)).toEqual({ key: "sancti:10-DU", borrowed: false });
+  });
+
+  it("should borrow the Sunday's Mass for a feria", () => {
+    const day = { celebration: [":feria"], commemoration: [], proper_from: "tempora:Pent22-0" };
+    expect(properSource(day, ":feria", has)).toEqual({ key: "tempora:Pent22-0", borrowed: true });
+  });
+
+  it("should return null when neither the day nor its source has music", () => {
+    const day = { celebration: [":feria"], commemoration: [], proper_from: "tempora:Pent02-0" };
+    expect(properSource(day, ":feria", has)).toBeNull();
+    expect(properSource(undefined, ":feria", has)).toBeNull();
+  });
+});
+
+describe("calendar years", () => {
+  it("should give every feria of 2027 the day whose Mass it takes", async () => {
+    const year = await loadYear(2027);
+    const ferias = Object.entries(year ?? {}).filter(([, d]) => d.celebration.includes(":feria"));
+    expect(ferias.length).toBeGreaterThan(0);
+    expect(ferias.filter(([, d]) => !d.proper_from)).toEqual([]);
+    expect(year?.["2027-01-12"]?.proper_from).toBe("tempora:Epi1-0a");
   });
 });

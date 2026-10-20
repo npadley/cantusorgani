@@ -7,7 +7,7 @@ import { pieceHref } from "../../../lib/indexes";
 const choices = ["A", "B", "C"] as const;
 const occasions = Object.fromEntries(ordinaryFormOccasions().map(row => [row.key, {
   key: row.key, titleEn: row.title_en, titleLa: row.title_la, color: row.color, rank: row.rank,
-  assignmentStatus: row.assignment_status,
+  assignmentStatus: row.assignment_status, rubric: row.rubric_en ?? null,
   partsByCycle: Object.fromEntries(choices.map(cycle => [cycle, allOrdinaryFormParts(row.key, cycle).map(part => ({
     slot: part.slot, sourceSlot: part.sourceSlot, kind: part.kind, variant: part.variant, years: part.years, seasons: part.seasons,
     gregobaseId: part.gregobaseId, incipit: part.incipit, label: part.label,
@@ -16,7 +16,8 @@ const occasions = Object.fromEntries(ordinaryFormOccasions().map(row => [row.key
 }]));
 const [first, last] = [2024, 2050];
 const additionalKeys = new Set(["christmas-vigil", "christmas-night", "christmas-dawn", "christmas-day", "easter-vigil", "pentecost-vigil"]);
-const calendarPages = ordinaryFormOccasions().filter(row => !additionalKeys.has(row.key));
+const calendarPages = ordinaryFormOccasions().filter(row => !additionalKeys.has(row.key) && row.rank !== "weekday");
+const weekdayPages = ordinaryFormOccasions().filter(row => row.rank === "weekday");
 const additionalPages = ordinaryFormOccasions().filter(row => additionalKeys.has(row.key));
 ---
 
@@ -50,6 +51,9 @@ const additionalPages = ordinaryFormOccasions().filter(row => additionalKeys.has
     <p>Every link leads to a static occasion page that is available without selecting a date or enabling JavaScript.</p>
     <h2>Calendar Sundays, feasts, and solemnities</h2>
     <ul>{calendarPages.map(row => <li><a href={ordinaryFormHref(row.key)}>{row.title_en}</a></li>)}</ul>
+    <h2>Seasonal weekdays</h2>
+    <p>Weekday Masses of Advent, Christmas, Lent and Easter printed in the 1974 <em>Graduale Romanum</em>. On other seasonal weekdays the Sunday's chants are repeated.</p>
+    <ul>{weekdayPages.map(row => <li><a href={ordinaryFormHref(row.key)}>{row.title_en}</a></li>)}</ul>
     <h2>Vigils and Christmas Mass choices</h2>
     <p>These are additional evening and Mass options, not separate calendar days.</p>
     <ul>{additionalPages.map(row => <li><a href={ordinaryFormHref(row.key)}>{row.title_en}</a></li>)}</ul>

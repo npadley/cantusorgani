@@ -1,0 +1,109 @@
+---
+import Layout from "../../components/Layout.astro";
+import { gregobaseUrl } from "../../lib/catalog";
+import { annotationFor, chantEntry } from "../../lib/chants";
+import { goodFridayRites } from "../../lib/goodFriday";
+
+// Good Friday has no organ music: NOH1 goes from Maundy Thursday (p. 344) to
+// Holy Saturday (p. 345). The page is the day's Gregorian chants alone, for the
+// 1962 Missal and for the Ordinary Form, always drawn (there is no score to
+// switch to).
+const rites = goodFridayRites();
+---
+
+<Layout title="Good Friday" skipTo="chants"
+        description="The Gregorian chants of Good Friday for the 1962 Missal and the Ordinary Form. The organ is silent: there is no Nova Organi Harmonia accompaniment for the day.">
+  <div class="prose">
+    <p class="crumb small muted ui">
+      <a href="/">Cantus Organi</a> · <a href="/calendar/">Calendar</a> · <a href="/calendar/ordinary-form/">Ordinary Form calendar</a>
+    </p>
+    <h1>Good Friday</h1>
+    <p class="lede" lang="la">Feria Sexta in Passione et Morte Domini</p>
+    <p class="notice ui" role="note">
+      <strong>The organ is silent</strong> from the Gloria of the Mass of Holy Thursday until the
+      Gloria of the Easter Vigil. Nova Organi Harmonia has no accompaniment for Good Friday (Book I
+      goes from Maundy Thursday, p. 344, to Holy Saturday, p. 345), so this page gives the chants
+      alone, to be sung unaccompanied.
+    </p>
+    <nav class="rites ui no-print" aria-label="Rite">
+      {rites.map((r) => <a href={`#${r.id}`}>{r.title}</a>)}
+    </nav>
+  </div>
+
+  <div id="chants">
+    {rites.map((rite) => (
+      <section class="rite" aria-labelledby={`${rite.id}-h`}>
+        <h2 class="rite-heading" id={rite.id}><span id={`${rite.id}-h`}>{rite.title}</span></h2>
+        <p class="ui small muted rite-sub">{rite.subtitle} · {rite.edition}</p>
+        {rite.sections.map((section) => (
+          <section class="part">
+            <h3 class="part-heading ui">{section.heading}</h3>
+            {section.items.map((item) => {
+              const entry = chantEntry(item.gregobase_id);
+              const url = gregobaseUrl(item.gregobase_id);
+              const [annotation, mode] = entry ? annotationFor(entry.part, entry.mode) : ["", ""];
+              return (
+                <div class="item" data-gregobase-id={item.gregobase_id}>
+                  <div class="item-head">
+                    <h4 class="item-heading ui">{item.label}</h4>
+                    {url && (
+                      <a class="chant-link ui small no-print" href={url} target="_blank" rel="noopener">
+                        GregoBase {item.gregobase_id}<span class="sr-only"> (opens in new tab)</span>
+                      </a>
+                    )}
+                  </div>
+                  <p class="source ui small muted">{item.source}</p>
+                  {item.note && <p class="note ui small">{item.note}</p>}
+                  {entry ? (
+                    <div class="chant-notation" data-chant-id={entry.id} data-incipit={entry.incipit}
+                         data-annotation={annotation} data-mode={mode}>
+                      <noscript><p class="ui small muted">The chant is drawn in the browser; follow the GregoBase link to see it without JavaScript.</p></noscript>
+                    </div>
+                  ) : (
+                    <p class="note ui small">This chant's notation is not published here; follow the GregoBase link.</p>
+                  )}
+                </div>
+              );
+            })}
+            {section.note && <p class="section-note ui small muted">{section.note}</p>}
+          </section>
+        ))}
+      </section>
+    ))}
+  </div>
+
+  <p class="attribution small muted ui">
+    Chant notation from <a href="https://gregobase.selapa.net">GregoBase</a> (CC0), drawn with Exsurge.
+  </p>
+</Layout>
+
+<style>
+  .crumb { margin: 0 0 var(--s-1); }
+  .crumb a { color: var(--ink-muted); }
+  .lede { font-style: italic; font-size: var(--step-1); margin: 0 0 var(--s-3); }
+  .rites {
+    display: flex; flex-wrap: wrap; gap: 0 var(--s-2); align-items: center;
+    margin: var(--s-3) 0; padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule);
+  }
+  .rites a { min-height: var(--tap-min); display: inline-flex; align-items: center; padding: 0 var(--s-2); }
+  .rite { margin: 0 0 var(--s-5, 2.5rem); }
+  .rite-heading { font-family: var(--font-ui); font-size: var(--step-2); margin: var(--s-5, 2.5rem) 0 var(--s-1); scroll-margin-top: var(--s-4); }
+  .rite-sub { margin: 0 0 var(--s-3); }
+  .part-heading { font-size: var(--step-1); font-weight: 600; margin: var(--s-4) 0 var(--s-2); }
+  .item { margin: 0 0 var(--s-4); }
+  .item-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--s-3); }
+  .item-heading { font-size: var(--step-0); font-weight: 600; margin: 0; }
+  .chant-link { color: var(--ink-muted); min-height: var(--tap-min); display: inline-flex; align-items: center; }
+  .source { margin: 0 0 var(--s-2); }
+  .note, .section-note { margin: 0 0 var(--s-2); padding-left: var(--s-3); border-left: 2px solid var(--rule); max-width: var(--measure); }
+  .chant-notation { color: var(--ink); margin: 0 0 var(--s-3); --exsurge-negative-fill: var(--paper); }
+  .chant-notation :global(svg) { display: block; max-width: 100%; height: auto; }
+  .chant-notation :global(svg use) { fill: currentColor; }
+  .chant-notation :global(.chant-error) { margin: 0; }
+  .attribution { margin-top: var(--s-5, 2.5rem); }
+</style>
+
+<script>
+  import { initChantNotation } from "../../scripts/chantNotation";
+  initChantNotation({ always: true });
+</script>

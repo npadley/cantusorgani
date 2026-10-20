@@ -557,3 +557,33 @@ def stale_command(
         out.write_text(text + "\n", encoding="utf-8")
     print(text if as_json else report_table(entries, checked))
     return 1 if fail_on_stale and entries else 0
+
+
+# --- typeset-mei-revoke ----------------------------------------------------------------------
+
+
+def revoke_command(record_path: Path, reason: str, now: str | None = None) -> int:
+    """Revoke the approved ConversionRecord at RECORD_PATH (D22): state ``revoked`` with REASON.
+
+    Rewrites the file in place; every other field is kept. A revoked record is never current, so
+    ``typeset-mei-manifest`` excludes it and ``typeset-mei-stale`` no longer lists it. Exit 1, leaving the
+    file untouched, for an empty reason, an unreadable file or a record that is not approved. To undo,
+    ``git checkout`` the record and rebuild the manifest; never publishes or commits."""
+    from pipeline.typeset.mei.manifest import record_from_dict, record_to_dict
+    from pipeline.typeset.mei.review import revoke
+
+    if not reason.strip():
+        print("error: --reason must say why the approval is revoked")
+        return 1
+    try:
+        record = record_from_dict(json.loads(record_path.read_text(encoding="utf-8")))
+    except (OSError, ValueError, KeyError) as error:
+        print(f"error: cannot read {record_path}: {error}")
+        return 1
+    if record.state != "approved":
+        print(f"error: {record_path} is not approved (state is {record.state}); nothing to revoke")
+        return 1
+    revoked = revoke(record, reason.strip(), now)
+    _write_json(record_path, record_to_dict(revoked))
+    print(f"revoked {record.source_path}: wrote {record_path}")
+    return 0

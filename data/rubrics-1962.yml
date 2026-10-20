@@ -31,3 +31,14 @@ rubrics:
 - title: In Commemoratione Omnium Fidelium Defunctorum
   reference: Missa pro Defunctis, Pars V, p. 163
   days: [sancti:11-02m1, sancti:11-02m2, sancti:11-02m3]
+# Feasts added after NOH was printed, whose 1962 Mass is from the Common
+# (Missale Romanum 1962; DivinumOfficium Sancti/<date>r.txt "vide C...").
+- title: S. Gregorii Barbadici Episcopi et Confessoris
+  reference: Missa. Statuit, de Communi Confessoris Pontificis, Pars IV, p. 60
+  days: [sancti:06-17r]
+- title: S. Laurentii de Brundusio Confessoris et Ecclesiae Doctoris
+  reference: Missa. In medio Ecclesiae, de Communi Doctorum, Pars IV, p. 71
+  days: [sancti:07-21r]
+- title: S. Antonii Mariae Claret Episcopi et Confessoris
+  reference: Missa. Sacerdotes tui, de Communi Confessoris Pontificis, Pars IV, p. 66
+  days: [sancti:10-23r]

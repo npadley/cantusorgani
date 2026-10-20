@@ -19,7 +19,7 @@ BASELINE = ROOT / "data/ordinary-form/coverage-baseline.json"
 GENERATED = ROOT / "data/ordinary-form-propers.json"
 COVERAGE = ROOT / "data/ordinary-form-coverage.json"
 REVIEW_MANIFEST = ROOT / "data/ordinary-form/review-manifest.yml"
-RANKS = {"triduum", "privileged", "solemnity", "feast-of-the-lord", "sunday", "feast", "memorial"}
+RANKS = {"triduum", "privileged", "solemnity", "feast-of-the-lord", "sunday", "feast", "memorial", "weekday"}
 COLORS = {"g", "w", "v", "r"}
 SEASONS = {"advent", "christmas", "lent", "triduum", "easter", "ordinary"}
 KINDS = {"introitus": "introit", "graduale": "gradual", "alleluia": "alleluia",
@@ -160,6 +160,14 @@ def _validate_occasion(row: dict[str, Any]) -> None:
             raise ValueError(f"{key}: Ordinary Time week out of range")
         if rule["kind"] == "easter" and not -46 <= rule["offset"] <= 68:
             raise ValueError(f"{key}: Easter offset out of range")
+    for field in ("omit_slots", "inherit_cycle_slots"):
+        slots = row.get(field, [])
+        if not isinstance(slots, list) or any(slot not in KINDS for slot in slots):
+            raise ValueError(f"{key}: {field} must list chant slots")
+        if slots and not row.get("weekday_of"):
+            raise ValueError(f"{key}: {field} applies only to a weekday_of occasion")
+    if "rubric_en" in row and (not isinstance(row["rubric_en"], str) or not row["rubric_en"]):
+        raise ValueError(f"{key}: rubric_en must be a nonempty string")
     semantic = row.get("semantic_kinds", {})
     if not isinstance(semantic, dict) or any(slot not in KINDS or kind not in set(KINDS.values())
                                               for slot, kind in semantic.items()):
@@ -275,11 +283,8 @@ def _candidate_rank(candidate: dict[str, Any], slot: str, occasion: dict[str, An
             _section_variant(section))
 
 
-def _source_assignment_rows(name: str, assignments: dict[str, Any], overrides: dict[str, Any], key: str,
-                            semantic_kinds: dict[str, str] | None = None) -> tuple[dict[str, Any], list[str]]:
-    proper = assignments.get(name, {}) if name is not None else {}
-    slot_values = dict(proper) if isinstance(proper, dict) else {}
-    semantic_kinds = semantic_kinds or {}
+def _override_values(overrides: dict[str, Any], key: str) -> dict[str, Any]:
+    values: dict[str, Any] = {}
     override_slots = overrides.get(key, {})
     if isinstance(override_slots, dict):
         for slot, override in override_slots.items():
@@ -287,7 +292,52 @@ def _source_assignment_rows(name: str, assignments: dict[str, Any], overrides: d
                 raise ValueError(f"{key}.{slot}: override must record reviewed attribution")
             if not override.get("source"):
                 raise ValueError(f"{key}.{slot}: override must record its source")
-            slot_values[slot] = override.get("assignments", override.get("rows", []))
+            values[slot] = override.get("assignments", override.get("rows", []))
+    return values
+
+
+def _slot_values(name: str | None, assignments: dict[str, Any], overrides: dict[str, Any],
+                 key: str) -> dict[str, Any]:
+    proper = assignments.get(name, {}) if name is not None else {}
+    slot_values = dict(proper) if isinstance(proper, dict) else {}
+    slot_values.update(_override_values(overrides, key))
+    return slot_values
+
+
+def _weekday_slot_values(row: dict[str, Any], base: dict[str, Any], assignments: dict[str, Any],
+                         overrides: dict[str, Any]) -> dict[str, Any]:
+    """A weekday Mass is its Sunday's chants with the printed weekday substitutions.
+
+    A base slot whose chant changes with the Sunday cycle is usually a Sunday-only
+    choice, so inheriting one must be stated in inherit_cycle_slots."""
+    key = row["key"]
+    base_name = base.get("jgabc")
+    base_values = _slot_values(None if base_name is None else base_name.replace("\u00ad", ""),
+                               assignments, overrides, base["key"])
+    own = _override_values(overrides, key)
+    omitted = set(row.get("omit_slots", []))
+    if omitted & set(own):
+        raise ValueError(f"{key}: a slot cannot be both omitted and substituted")
+    values: dict[str, Any] = {}
+    for slot, value in base_values.items():
+        if slot in omitted or slot in own:
+            continue
+        by_year = _by_year(value, key, slot)
+        if (any(by_year.get(year) != by_year.get("A") for year in "BC") and
+                slot not in row.get("inherit_cycle_slots", [])):
+            raise ValueError(f"{key}.{slot}: inherits a cycle-sensitive Sunday slot; "
+                             "substitute it or list it in inherit_cycle_slots")
+        values[slot] = value
+    values.update(own)
+    return values
+
+
+def _source_assignment_rows(name: str, assignments: dict[str, Any], overrides: dict[str, Any], key: str,
+                            semantic_kinds: dict[str, str] | None = None,
+                            slot_values: dict[str, Any] | None = None) -> tuple[dict[str, Any], list[str]]:
+    if slot_values is None:
+        slot_values = _slot_values(name, assignments, overrides, key)
+    semantic_kinds = semantic_kinds or {}
     out: dict[str, Any] = {}
     empty: list[str] = []
     for slot, value in slot_values.items():
@@ -370,9 +420,13 @@ def build_propers(catalog: dict[str, Any], occasions: list[dict[str, Any]], assi
     cross_kind: list[dict[str, Any]] = []
     unresolved: set[str] = set()
     unexportable: set[str] = set()
+    by_key = {row.get("key"): row for row in occasions}
     for row in occasions:
         _validate_occasion(row)
         key, name = row["key"], row.get("jgabc")
+        base = by_key.get(row.get("weekday_of")) if row.get("weekday_of") else None
+        if row.get("weekday_of") and (base is None or base.get("weekday_of") or name is not None):
+            raise ValueError(f"{key}: weekday_of must name a non-weekday occasion and replace jgabc")
         if key in keys:
             raise ValueError(f"duplicate stable key: {key}")
         keys.add(key)
@@ -381,8 +435,13 @@ def build_propers(catalog: dict[str, Any], occasions: list[dict[str, Any]], assi
             if name not in normalized_assignments:
                 raise ValueError(f"occasion {key} names absent jgabc source {name!r}")
             source_names.add(name)
+        semantic = row.get("semantic_kinds")
+        slot_values = None
+        if base is not None:
+            semantic = {**base.get("semantic_kinds", {}), **(semantic or {})}
+            slot_values = _weekday_slot_values(row, base, normalized_assignments, overrides)
         by_slot, empty_slots = _source_assignment_rows(name, normalized_assignments, overrides, key,
-                                                       row.get("semantic_kinds"))
+                                                       semantic, slot_values)
         parts: list[dict[str, Any]] = []
         for slot, _kind in KINDS.items():
             for part in by_slot.get(slot, []):
@@ -418,12 +477,15 @@ def build_propers(catalog: dict[str, Any], occasions: list[dict[str, Any]], assi
                 if lender is not None:
                     mapping_ids.append(_identity(mapping))
                 parts.append({**part, "lender": lender})
-        results.append({"key": key, "title_en": row["title_en"], "title_la": row["title_la"],
-                        "rank": row["rank"], "color": row["color"], "calendar": row.get("calendar"),
-                        "reviewed": bool(row.get("reviewed", False)),
-                        "source_reviews": row.get("source_reviews", []),
-                        "assignment_status": "mapped" if parts or empty_slots else "unmapped",
-                        "parts": parts, "empty_slots": empty_slots})
+        result = {"key": key, "title_en": row["title_en"], "title_la": row["title_la"],
+                  "rank": row["rank"], "color": row["color"], "calendar": row.get("calendar"),
+                  "reviewed": bool(row.get("reviewed", False)),
+                  "source_reviews": row.get("source_reviews", []),
+                  "assignment_status": "mapped" if parts or empty_slots else "unmapped",
+                  "parts": parts, "empty_slots": empty_slots}
+        if row.get("rubric_en"):
+            result["rubric_en"] = row["rubric_en"]
+        results.append(result)
     if len(source_names) != len(normalized_assignments):
         raise ValueError("occasion vocabulary does not map every jgabc source name")
     matched = sum(matched_by_slot.values())

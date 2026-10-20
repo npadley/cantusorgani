@@ -412,6 +412,11 @@
    "hash": "e5b437c3187e019cc30562ee33400ce8"
   },
   {
+   "target": "part:die-ii-infra-octavam-pasch/gradual",
+   "file": "vol-2/gr_haec_dies_v_dicat_nunc.csv.ly",
+   "hash": "1d8de1aeb9796591e0b113b2cfa55e4c"
+  },
+  {
    "target": "part:die-ii-infra-octavam-pasch/introit",
    "file": "vol-2/in_introduxit_vos.csv.ly",
    "hash": "d3f0842fb8bb12b76e8304cc449b61f6"
@@ -1445,6 +1450,11 @@
    "target": "part:dominica-xxi-post-pentecosten/communion",
    "file": "vol-2/co_in_salutari.csv.ly",
    "hash": "dc60cc97db4f01c2bf030fc688ce947a"
+  },
+  {
+   "target": "part:dominica-xxi-post-pentecosten/gradual",
+   "file": "vol-2/gr_domine_refugium.csv.ly",
+   "hash": "376f4b7dff77de1f9b6a89d64082fc9c"
   },
   {
    "target": "part:dominica-xxi-post-pentecosten/introit",
@@ -2690,6 +2700,31 @@
    "target": "part:noh2-p37/introit",
    "file": "vol-2/in_quasi_modo.csv.ly",
    "hash": "48aac8a6ba2878671a09e1f6798ce671"
+  },
+  {
+   "target": "part:noh3-p415/alleluia",
+   "file": "vol-3/al_potestas_ejus.csv.ly",
+   "hash": "e2aba1faa3a97e596baf71b994834a4c"
+  },
+  {
+   "target": "part:noh3-p415/communion",
+   "file": "vol-3/co_sedebit_dominus.csv.ly",
+   "hash": "2ea0be8794965cfd704ca41825640915"
+  },
+  {
+   "target": "part:noh3-p415/gradual",
+   "file": "vol-3/gr_dominabitur.csv.ly",
+   "hash": "35eb86cb46da9a4c5586e6b656320bdb"
+  },
+  {
+   "target": "part:noh3-p415/introit",
+   "file": "vol-3/in_dignus_est_agnus.csv.ly",
+   "hash": "e205fa9bb7f35ac0cdda34d195ea1a8b"
+  },
+  {
+   "target": "part:noh3-p415/offertory",
+   "file": "vol-3/of_postula_a_me.csv.ly",
+   "hash": "0bb2b7be81c5010c9a045c148a738057"
   },
   {
    "target": "part:omnium-sanctorum/communion",
