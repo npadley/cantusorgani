@@ -35,6 +35,7 @@ uv run noh typeset-check                     # the source check, parts.yml and t
 uv run noh typeset-render                    # draw into build/typeset/out/ (CI: only what R2 lacks)
 uv run noh typeset-publish                   # check and upload build/typeset/out/ to R2 (needs the R2 variables)
 uv run noh typeset-prune                     # what the cleanup would delete from R2 (--delete to do it)
+uv run noh typeset-mei-batch --help          # and typeset-mei-{stale,carry,review,manifest,publish,revoke}: see Custom export (MEI)
 ```
 
 After changing a source, an include or parts.yml, run `noh typeset-manifest`
@@ -187,40 +188,218 @@ unfinished hyphen) don't fail a render. A LilyPond "programming error" does,
 except two it recovers from with the drawing otherwise whole: a tie dropped
 where it meets a line break, and a loose spacing column.
 
-## MEI conversion batches and review protocol
+## Custom export (MEI)
 
-`noh typeset-mei-batch --sources LIST --out DIR` converts the sources named in LIST (one path per
-line, `#` comments allowed) with the same extractor, encoder, validator and evidence packet as the
-single-score commands. It never approves anything.
+"Customize export" lays a part out again in the reader's browser, from MEI (music notation XML) instead of
+from LilyPond's fixed pages. `pipeline/typeset/mei/` converts a LilyPond source to MEI. An independent oracle
+and a render pre-check then judge each conversion. Everything below is the operator's side: converting,
+approving, releasing and withdrawing. The history and reasons are in the plans
+(`docs/superpowers/plans/2026-10-06-mei-conversion-plan.md`,
+`docs/superpowers/plans/2026-10-12-export-phase-2.md`) and the decisions log
+(`docs/superpowers/plans/export-layout-decisions.md`); this section does not repeat them.
 
-- **Output.** Each finished build sits in `DIR/<inputs digest>/` (`score.mei`, `ir.json`,
-  `diagnostics.json`, `evidence/index.html`, `batch-result.json`). The digest covers the source, every
-  include, the extractor and converter code, the profile, the schema and the tool versions, so a
-  changed input is a new folder. A run never rewrites a finished folder, and each run writes its own
-  `DIR/reports/report-<list hash>-<n>.json`.
-- **Resume.** A rerun reuses every folder whose digest is unchanged and converts the rest. A build is
-  renamed into place only when complete, so an interrupted run leaves nothing half-written behind.
-- **Failures.** One bad score is reported as `failed` and the others continue. Every requested
-  non-empty source is counted once as `unsupported`, `failed` or `needs-review`; `approved` is always 0.
-  An unsupported feature is reported, never forced.
-- **Cost.** `--workers N` bounds how many LilyPond runs are in flight (default 2). Start with about
-  five scores and size later batches from how long their packets take to review.
-- **Review.** Each piece gets its own reviewer, who compares the packet's 13 layout cases and the
-  LilyPond original with the scan: all voices, lyrics, ties, divisions and endings, and the Letter,
-  Large, Automatic stress layouts. Only the maintainer approves, with `noh typeset-mei-review`; the
-  coordinator adds approved records to the manifest in a separate commit. A new notation feature needs
-  its own implementation task, mutation fixture and profile version before any score that uses it can
-  be approved. Never approve a score because a sibling with the same includes passed.
+On a page, a part reflows when it has a current approved conversion in `data/typeset/mei/manifest.json`.
+Without one it is placed as its LilyPond pages (fixed) or its scan systems (D23), and the editor's
+"Applies to / Not to" note says which is which.
 
-### Automatic approval (D22)
+| Path | What |
+|---|---|
+| `data/typeset/mei/records/*.json` | one record per source: its inputs, the judgement, the review and the state (`approved`, `needs-review`, `failed`, `unsupported` or `revoked`) |
+| `data/typeset/mei/manifest.json` | the parts that reflow on the site, built from the records; CI and the site read this |
+| `https://images.cantusorgani.org/mei/<sha256>/{score.mei,boundaries.json}` | the published artifacts, write-once, named by the MEI's own sha256 |
+| `build/mei/stale/stale.json` | the stale report the site build reads for the admin list (written by `mei-stale`) |
 
-`--auto-approve` judges each clean conversion with `review.auto_approve`: no unsupported or unknown feature,
-schema-valid, 0 oracle differences, all 13 layout cases laid out without an error, and 0 precheck findings in
-every case (`info:` lines are not findings). A piece that passes is approved as `auto (D22)` and its record
-stores the oracle, precheck and profile versions it was judged under; any other piece stays needs-review with
-the failing criteria in `<digest>/record.json`. Records of approved pieces are written to `OUT/records/`; the
-coordinator commits them into `data/typeset/mei/records/`. A record can be revoked (`review.revoke`, state
-`revoked`); it is then never current and the manifest excludes it.
+### What approves a conversion
+
+**Automatically (D22, D24).** A conversion is approved with reviewer `auto (D22)` when all five hold:
+no unsupported or unknown feature; the MEI is schema-valid; the independent oracle finds 0 differences
+from the LilyPond events; every one of the 13 layout cases (page sizes, orientations, music sizes) lays out
+without an error; and the pre-check finds nothing in any case. The pre-check looks for notes that were
+dropped, ties that lose an end (including across a page break), unison heads, divisio ticks, lyric counts,
+syllable gaps and glissandi. Lines starting `info:` are not findings. D24: where no word boundary lets a
+system start without squeezing a syllable below 0.3 mm or overfilling a line, a hyphenated break in
+the middle of a word is allowed and reported as `info:`. Any other finding leaves the piece in
+needs-review with the failed criteria in `record.json`, and it waits for a person (below). The record stores the
+oracle, pre-check and profile versions it was judged under.
+
+**By carry-forward (D20).** When a source, include or converter change makes a record stale, the piece is
+converted again. If its normalized music is equal to the approved artifact's and all 13 layout cases draw
+identically (after id normalization), the old approval moves to the new record, which says what changed and
+that CI made the decision (`carried_from`). If anything visible differs, the new record is needs-review.
+
+**By a person.** `typeset-mei-review` (below) records a reviewer's decision for a piece that was not approved
+automatically. Only the maintainer approves this way. A new notation feature needs its own implementation
+task, mutation fixture and profile version before any score using it can be approved, and a sibling that
+passed is never grounds to approve another.
+
+### Convert in batches: `typeset-mei-batch`
+
+```bash
+printf '%s\n' data/typeset/src/vol-5/missa-ix/{kyrie,gloria,sanctus,agnus,ite}_IX.ly > build/missa-ix.txt
+uv run noh typeset-mei-batch --sources build/missa-ix.txt --out build/mei/missa-ix --workers 2 --auto-approve
+```
+
+`--sources` lists one source path per line (`#` comments allowed). The run prints one line per source
+(`approved`, `needs-review`, `unsupported` or `failed`, with `(cached)` for a reused folder) and the counts;
+it exits 1 only when a source failed.
+
+- **Output.** Each finished build sits in `OUT/<inputs digest>/`: `score.mei`, `ir.json`, `diagnostics.json`,
+  `evidence/index.html` (the review packet) and `batch-result.json`. The digest covers the source, every
+  include it loads, the extractor and converter code, the profile, the schema and the tool versions, so a
+  changed input is a new folder. Each run also writes `OUT/reports/report-<list hash>-<n>.json`.
+- **Resuming.** A rerun reuses every folder whose digest is unchanged and converts the rest. A folder is
+  renamed into place only when complete, so an interrupted run leaves nothing half-written. Rerun the same
+  command after a crash or Ctrl-C.
+- **`--workers N`** bounds the LilyPond runs in flight (default 2). Start with about five scores and size
+  later batches from how long their packets take to review.
+- **`--auto-approve`** judges each clean conversion by the D22 criteria and writes the approved ones to
+  `OUT/records/<name>.json`. It never writes into `data/typeset/mei/records/`; the coordinator copies the
+  records worth keeping into a pull request. Without the flag nothing is approved. `--no-evidence` converts and
+  validates only (and so cannot auto-approve).
+- **Failures.** One bad score is `failed` and the others continue. An unsupported feature is reported, never
+  forced.
+- **Spot-checking** an auto-approved batch is optional: open a few of the `evidence/index.html` packets
+  and compare against the scan.
+
+### Review a piece: `typeset-mei-review`
+
+For a needs-review piece, the reviewer compares the packet's 13 layout cases and the LilyPond original with
+the scan (every voice, the lyrics, ties, divisions, endings, and the Letter, Large and Automatic stress
+layouts), then writes a decision file. Its fields are `reviewer`, `timestamp`, `inputs_digest` and
+`artifact_sha256` (both from the convert directory), `matrix_results` (`pass`, `fail` or
+`accepted-difference` for each of the 13 case ids), `accepted_differences` and `decision` (`approve` or
+`reject`).
+
+```bash
+uv run noh typeset-mei-review build/mei/missa-ix/<digest> --decision build/decision.json --out build/mei/records/ite_IX.json
+```
+
+The command refuses (exit 1, printing the codes) a decision bound to other inputs or another artifact, a
+piece with a blocking diagnostic or oracle difference, and a matrix with a missing or failed case.
+Otherwise it writes the record, `approved` or `failed`.
+
+### Find stale approvals: `typeset-mei-stale`
+
+```bash
+uv run noh typeset-mei-stale                              # a table; exit 0
+uv run noh typeset-mei-stale --json --out build/mei/stale/stale.json
+uv run noh typeset-mei-stale --fail-on-stale              # exit 1 when anything is stale
+```
+
+It compares every approved record's inputs and render hash with the working tree and lists each piece whose
+approval no longer matches, with the reason per input (source, include, converter, extractor, profile, schema,
+LilyPond, Verovio, fonts, or a moved render hash). Such a piece loses its Customize button until it is
+approved again. It reads files only, no LilyPond. A revoked record is not listed, because it is no longer
+approved. A clean tree prints `none stale: 728 approved conversion(s) checked`.
+
+### Carry an approval forward: `typeset-mei-carry`
+
+```bash
+uv run noh typeset-mei-carry build/mei/carry/convert \
+  --prior data/typeset/mei/records/ite_IX.json --prior-dir build/mei/carry/prior \
+  --out build/mei/carry/record.json
+```
+
+`convert_dir` is the new conversion (from `typeset-mei-convert`). `--prior` is the approved record.
+`--prior-dir` is a convert directory built from the approved artifact, that is, from the revision before the
+change; omit it when the new conversion is byte-identical to the approved artifact. The command lays out
+both for the 13 cases and compares. It writes the new record to `--out` (approved with a `carried_from` block, or
+plain needs-review), and `<name>.carry.json` beside it says which cases or inputs differed. Exit 1 means the
+comparison could not be made; needs-review is still exit 0. It never commits or publishes: a person reviews the
+result and commits the record.
+
+### Build the manifest: `typeset-mei-manifest`
+
+```bash
+uv run noh typeset-mei-manifest --records data/typeset/mei/records \
+  --artifacts build/mei/live --out data/typeset/mei/manifest.json
+```
+
+A record reaches the manifest only when it is approved, its approval matches the current inputs, its
+target and render hash match `data/typeset/manifest.json`, and its artifacts exist and hash correctly. The
+command prints `excluded <source>: <reason>` for every record left out (`state is revoked`,
+`STALE_APPROVAL`, `UNMATCHED_TARGET`, `TARGET_HASH_MISMATCH`, `ASSET_MISSING`, `HASH_MISMATCH`,
+`KEY_COLLISION`) and then `wrote N approved conversion(s)`.
+
+`--artifacts` is a folder laid out as `<sha256>/score.mei` and `<sha256>/boundaries.json`, one folder per
+record (default: the records folder). Build it from the **live** files, so the manifest describes what readers
+will actually fetch: download each `https://images.cantusorgani.org/mei/<sha256>/<file>` into it. Verification
+cannot be skipped; an entry whose files are not there is excluded, not guessed.
+
+### Publish: `typeset-mei-publish` and the `mei-conversion` workflow
+
+`typeset-mei-publish` verifies approved records against their artifacts and uploads `mei/<sha256>/...`
+write-once to the asset host. It never compiles. Check what it would upload first:
+
+```bash
+uv run noh typeset-mei-publish --records data/typeset/mei/records --artifacts build/mei/artifacts \
+  --sources build/missa-ix.txt --dry-run
+```
+
+`--sources` limits it to the listed sources; each must have exactly one record or the batch is blocked
+(exit 1, codes printed). Without `--dry-run` it needs the R2 variables and never overwrites a key.
+
+The upload is normally done by **Actions → mei-conversion → Run workflow** (`.github/workflows/mei-conversion.yml`),
+run on `main`:
+
+| Input | Meaning |
+|---|---|
+| `sources` | Newline-separated paths under `data/typeset/src/`, each ending `.ly`. Anything else is rejected. |
+| `publish` | Off (default): only convert and attach the artifacts and evidence packets for a look. On: also publish. |
+
+The `convert` job has no secrets and no network: it converts, validates and builds the evidence packet for
+each source. The `publish` job runs only when `publish` is ticked and the run is on the default branch. It
+runs in the **`mei-publish` environment** and uses the R2 secrets (`R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`,
+`R2_SECRET_ACCESS_KEY`, variable `R2_BUCKET`). The environment currently has no required reviewers, so ticking
+`publish` on `main` is the only gate: check the source list before running. The job checks out `main`, so **the
+records must already be merged**. It verifies each artifact the convert job built against its record; if
+CI's conversion is not byte-identical to the approved artifact, it refuses, and the cause must be found
+before retrying.
+
+### Release sequence
+
+1. **Records.** Merge a pull request that adds or updates records in `data/typeset/mei/records/` (the
+   batch's `OUT/records/`, or reviewed and carried ones). `typeset-mei-stale` should report nothing.
+2. **Publish run.** Run `mei-conversion` on `main` with `publish: true` and the new sources.
+3. **Verify the live files.** For each new sha: `https://images.cantusorgani.org/mei/<sha>/score.mei` and
+   `boundaries.json` answer 200, with `immutable` caching and CORS `*`, and the sha256 of `score.mei`
+   equals the sha in its record.
+4. **Manifest PR.** Download the live files into `<sha>/...` and run `typeset-mei-manifest` as above. Build
+   production with the CI variables (`PUBLIC_ASSET_BASE=https://images.cantusorgani.org`,
+   `PUBLIC_CORRECTIONS_ENDPOINT=https://api.cantusorgani.org`, `PUBLIC_TURNSTILE_SITE_KEY=<site key>`), run
+   the Playwright suite, open a page with a new piece, **Customize export**, and merge when it lays out.
+
+**Rollback.** Published files are immutable and stay; the manifest decides what readers see. Revert the
+manifest pull request to return to the previous set (the pieces drop to fixed placement). One piece is
+withdrawn by revoking its record (below). Never delete or overwrite a published file.
+
+### Revoke a record: `typeset-mei-revoke`
+
+```bash
+uv run noh typeset-mei-revoke data/typeset/mei/records/ite_IX.json --reason "wrong rhythm in bar 3"
+```
+
+The record is rewritten in place with state `revoked` and the reason and time; nothing else changes. It
+is exit 1, with the file untouched, for an empty reason or a record that is not approved. A revoked
+record is never current: `typeset-mei-manifest` excludes it (`state is revoked`) and `typeset-mei-stale`
+no longer lists it. Commit the record, then rebuild the manifest with the steps above in a pull request.
+The part then shows as fixed typeset pages in Customize export while the others still reflow. To undo,
+restore the record from git and rebuild the manifest. A drill that did this on a live record
+and checked it on the built site is in `docs/superpowers/reviews/2026-10-17-o5-revocation-drill/`.
+
+### When approvals go stale: `mei-stale` and the admin list
+
+`.github/workflows/mei-stale.yml` runs on every push to `main` that touches `data/typeset/src/**`,
+`data/typeset/include/**` or `pipeline/typeset/mei/**` (and by hand). It runs `typeset-mei-stale`, puts the table
+in the run summary, converts each stale source again, and tries `typeset-mei-carry` against the
+revision before the push. It never publishes, commits or opens a pull request. Its artifacts are
+`mei-stale-report` (`stale.json`) and `mei-carry-results` (one record per piece, 14 days). Commit the
+carried records you trust, then follow the release sequence above. Whatever is not carried needs review.
+
+The admin screen's **Custom export paused** list (`/admin/`) shows every approved piece whose
+approval no longer matches: a moved render hash or unmatched target (always known from the committed files), and,
+when `build/mei/stale/stale.json` was present at site build, which other input changed. A piece on it has
+lost its button. A revoked piece is not on this list, since revoking is deliberate.
 
 ## Safety
 
