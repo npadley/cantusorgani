@@ -12,7 +12,7 @@ const SCRIPT = readFileSync(new URL("../scripts/exportPagePreview.ts", import.me
 const COMPONENT = readFileSync(new URL("../styles/exportPreview.css", import.meta.url), "utf8");
 
 const rect = { xMm: 12, yMm: 12, widthMm: 191.9, heightMm: 255.4 };
-const base = { index: 0, widthMm: 215.9, heightMm: 279.4, partId: "kyrie:0", printable: rect, content: rect, heading: null, footer: null, unusedFraction: 0 };
+const base = { index: 0, widthMm: 215.9, heightMm: 279.4, partId: "kyrie:0", printable: rect, content: rect, heading: null, footer: null, unusedFraction: 0, chant: [] };
 const mei = (over: Partial<MeiCanonicalPage> = {}): MeiCanonicalPage => ({
   ...base, kind: "mei", svg: { svg: "<svg/>", ids: [], namespace: "p0" },
   svgPlacement: { scaleX: 1, scaleY: 1, translateXMm: 12, translateYMm: 12 }, systemCount: 4, boundaries: [], ...over,

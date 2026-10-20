@@ -16,7 +16,7 @@ const ALL_CODES = Object.keys({
   EVENT_MISSING: 1, STAFF_HEIGHT_MISMATCH: 1, CROWDED_ORIGINAL_LINES: 1,
   RENDERER_FAILED: 1, RENDERER_LOAD_FAILED: 1, ASSET_MISSING: 1, ASSET_HASH_MISMATCH: 1,
   UNSAFE_SVG: 1, INVALID_PAGE: 1, FONT_UNAVAILABLE: 1, BUDGET_EXCEEDED: 1, SOURCE_CEILING: 1,
-  FIXED_PAGE_COUNT_MISMATCH: 1, SCAN_TOO_LARGE: 1, PDF_FAILED: 1, CANCELLED: 1, TIMEOUT: 1, MIDWORD_UNAVOIDABLE: 1,
+  FIXED_PAGE_COUNT_MISMATCH: 1, SCAN_TOO_LARGE: 1, PDF_FAILED: 1, CANCELLED: 1, TIMEOUT: 1, MIDWORD_UNAVOIDABLE: 1, CHANT_UNAVAILABLE: 1,
 } satisfies Record<LayoutDiagnosticCode, 1>) as LayoutDiagnosticCode[];
 const REASONS: readonly UnsatisfiableReason[] = ["system-too-tall", "system-too-wide", "heading-too-tall", "no-convergence"];
 const SENTINEL = "SENTINEL-detail-9f3a";
@@ -38,7 +38,7 @@ describe("copy deck", () => {
         const shown = JSON.stringify(copy);
         expect(shown, code).not.toContain(SENTINEL);
         expect(shown, code).not.toMatch(/\b(MEI|SVG|WASM|Verovio)\b/);
-        if (code !== "CANCELLED" && code !== "MIDWORD_UNAVOIDABLE") expect(copy.text.length, code).toBeGreaterThan(0);
+        if (code !== "CANCELLED" && code !== "MIDWORD_UNAVOIDABLE" && code !== "CHANT_UNAVAILABLE") expect(copy.text.length, code).toBeGreaterThan(0);
         if (copy.blocking) expect(copy.text, code).toMatch(/^Can't|^Your saved/);
       }
     }

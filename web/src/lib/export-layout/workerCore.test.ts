@@ -9,15 +9,15 @@ import type {
 
 function mei(id: string): MeiExportPart {
   return {
-    id, kind: 'mei', label: id, heading: null, sourceSystemCount: 1, sourceRevision: 'r1', target: `t:${id}`, renderHash: 'r1',
+    id, kind: 'mei', label: id, heading: null, sourceSystemCount: 1, chants: [], sourceRevision: 'r1', target: `t:${id}`, renderHash: 'r1',
     conversion: { digest: 'd', meiUrl: 'u', meiSha256: 's', sourceRevision: 'r1', profile: 'p', verovio: 'v', boundaries: [], capabilities: { manualBreaks: true } },
   };
 }
 function scan(id: string): ExportPart {
-  return { id, kind: 'scan', label: id, heading: null, sourceSystemCount: 1, sourceRevision: 's', stems: ['a'], customizableAvailable: false };
+  return { id, kind: 'scan', label: id, heading: null, sourceSystemCount: 1, chants: [], sourceRevision: 's', stems: ['a'], customizableAvailable: false };
 }
 function request(token: number, parts: readonly ExportPart[]): LayoutRequest {
-  return { token, title: 'T', parts, settings: DEFAULT_SETTINGS, overrides: {} };
+  return { token, title: 'T', parts, settings: DEFAULT_SETTINGS, overrides: {}, chantSvgs: null };
 }
 function layoutOf(partId: string): MeiLayout {
   return {

@@ -13,7 +13,7 @@ function makePart(boundaries: readonly SafeBoundary[], sourceRevision = REV): Me
   return {
     meiXml: '<mei/>',
     part: {
-      id: 'seg:0', kind: 'mei', label: 'Kyrie', heading: null, sourceSystemCount: 3, sourceRevision,
+      id: 'seg:0', kind: 'mei', label: 'Kyrie', heading: null, sourceSystemCount: 3, chants: [], sourceRevision,
       target: 'movement:x/kyrie', renderHash: sourceRevision,
       conversion: {
         digest: 'd'.repeat(64), meiUrl: 'u', meiSha256: 's', sourceRevision, profile: 'accompaniment-v1',

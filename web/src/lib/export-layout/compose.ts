@@ -142,15 +142,19 @@ export interface PartReservation {
   readonly headingMm: number;
   /** Height reserved below the content on every page of the part (0 when none). */
   readonly footerMm: number;
+  /** Height used by chant on the part's first accompaniment page (the shared page), 0 when none. */
+  readonly chantTailMm: number;
+  /** Pages that hold chant only, before the part's accompaniment. */
+  readonly chantPages: number;
 }
 /** What composeExport reserves for a part; callers build renderMei's PageRects from it so both agree. */
 export function reservationFor(part: ExportPart, settings: LayoutSettings, fonts: FontProfile): PartReservation {
-  if (part.kind === 'fixed' || part.heading === null) return { headingMm: 0, footerMm: 0 };
+  if (part.kind === 'fixed' || part.heading === null) return { headingMm: 0, footerMm: 0, chantTailMm: 0, chantPages: 0 };
   const page = paperDimensions(settings);
   const width = page.widthMm - 2 * settings.marginMm;
   const h = block(headingLines(part.heading, fonts, width), 0, 0, width, HEADING_GAP_MM);
   const f = block(footerLines(part.heading, fonts, width), 0, 0, width, 0);
-  return { headingMm: h.rect.heightMm, footerMm: f.lines.length === 0 ? 0 : f.rect.heightMm + FOOTER_GAP_MM };
+  return { headingMm: h.rect.heightMm, footerMm: f.lines.length === 0 ? 0 : f.rect.heightMm + FOOTER_GAP_MM, chantTailMm: 0, chantPages: 0 };
 }
 
 // ------------------------------------------------------------- digests ---
@@ -211,7 +215,7 @@ export async function composeExport(
 
   const pageBase = (partId: string, content: RectMm, heading: HeadingBlock | null, footer: HeadingBlock | null, unused: number) => ({
     index: pages.length, widthMm: phys.widthMm, heightMm: phys.heightMm, partId, printable, content, heading, footer,
-    unusedFraction: clamp01(unused),
+    unusedFraction: clamp01(unused), chant: [],
   });
 
   for (const part of parts) {

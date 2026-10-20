@@ -21,7 +21,7 @@ class FakeWorker implements WorkerLike {
 
 function mei(id: string, target: string, rev = 'r1', systems = 2): MeiExportPart {
   return {
-    id, kind: 'mei', label: id, heading: null, sourceSystemCount: systems, sourceRevision: rev,
+    id, kind: 'mei', label: id, heading: null, sourceSystemCount: systems, chants: [], sourceRevision: rev,
     target, renderHash: rev,
     conversion: {
       digest: 'd', meiUrl: 'u', meiSha256: 's', sourceRevision: rev, profile: 'p', verovio: 'v',

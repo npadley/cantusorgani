@@ -28,7 +28,10 @@ export interface LayoutSettings {
   /** null = "As many as fit"; else integer 1..MAX_SYSTEMS_LIMIT (a maximum, never an exact count). */
   readonly maxSystems: number | null;
   readonly linePolicy: LinePolicy;          // default 'original'
+  /** Chant in the PDF (DL D25-D29). Default 'off'; the first-run default follows the site's chant-display preference. */
+  readonly chant: ChantMode;
 }
+export type ChantMode = 'off' | 'before' | 'only';
 
 export const PAGE_MIN_MM = 90;
 export const PAGE_MAX_MM = 450;
@@ -61,7 +64,7 @@ export const PAGE_PRESETS: Readonly<Record<Exclude<PagePresetId, 'custom'>, Page
 
 export const DEFAULT_SETTINGS: LayoutSettings = {
   version: 2, page: 'letter', customSize: null, orientation: 'portrait', marginMm: 12,
-  staff: 'medium', lyrics: 'medium', spacing: 'normal', maxSystems: null, linePolicy: 'original',
+  staff: 'medium', lyrics: 'medium', spacing: 'normal', maxSystems: null, linePolicy: 'original', chant: 'off',
 };
 
 /** Physical page after orientation is applied. */
@@ -97,7 +100,10 @@ interface ExportPartBase {
   /** Source systems this part covers. Used for selection and the 300 ceiling only, NEVER as output system counts. */
   readonly sourceSystemCount: number;
   readonly sourceRevision: string;          // render hash for mei/fixed; first stem for scan
+  /** Chants linked from this segment's starts, in page order. [] when none; set on a segment's first run only. */
+  readonly chants: readonly ChantRef[];
 }
+export interface ChantRef { readonly id: number; readonly incipit: string; readonly annotation: string; readonly mode: string }
 
 export interface SafeBoundary {
   readonly id: string;                      // "b017"
@@ -247,7 +253,7 @@ export type LayoutDiagnosticCode =
   | 'RENDERER_FAILED' | 'RENDERER_LOAD_FAILED' | 'ASSET_MISSING' | 'ASSET_HASH_MISMATCH'
   | 'UNSAFE_SVG' | 'INVALID_PAGE' | 'FONT_UNAVAILABLE' | 'BUDGET_EXCEEDED' | 'SOURCE_CEILING'
   | 'FIXED_PAGE_COUNT_MISMATCH' | 'SCAN_TOO_LARGE' | 'PDF_FAILED' | 'CANCELLED' | 'TIMEOUT'
-  | 'MIDWORD_UNAVOIDABLE';   // info (D24): an automatic system starts inside a word that no safe boundary could avoid
+  | 'MIDWORD_UNAVOIDABLE' | 'CHANT_UNAVAILABLE';   // info (D24): an automatic system starts inside a word that no safe boundary could avoid
 export type UnsatisfiableReason = 'system-too-tall' | 'system-too-wide' | 'heading-too-tall' | 'no-convergence';
 export type LayoutSuggestion =
   | 'smaller-music' | 'larger-page' | 'landscape' | 'portrait' | 'smaller-margins' | 'fit-to-page' | 'remove-break';
@@ -281,7 +287,10 @@ interface CanonicalPageBase {
   readonly footer: HeadingBlock | null;
   /** Fraction of content height left unused (0..1). UI shows the blank-page note when > 0.25 and another page of the same part follows. */
   readonly unusedFraction: number;
+  /** Chant lines placed on this page ([] when none). */
+  readonly chant: readonly ChantPlacement[];
 }
+export interface ChantPlacement { readonly chantId: number; readonly line: number; readonly svg: SanitizedSvg; readonly rect: RectMm }
 export interface MeiCanonicalPage extends CanonicalPageBase {
   readonly kind: 'mei';
   readonly svg: SanitizedSvg;
@@ -311,6 +320,8 @@ export interface LayoutRequest {
   readonly parts: readonly ExportPart[];
   readonly settings: LayoutSettings;
   readonly overrides: Readonly<Record<string, readonly BreakOverride[]>>;   // by part id
+  /** chantId -> Exsurge SVG string at this job's scale; null when chant is off. */
+  readonly chantSvgs: ReadonlyMap<number, string> | null;
 }
 export interface LayoutResult {
   readonly token: number;

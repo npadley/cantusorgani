@@ -599,3 +599,26 @@ describe('preset heights (S7 verification)', () => {
     expect(PAGE_PRESETS['ipad-13'].heightMm).toBe(262.9);
   });
 });
+
+describe('chant setting (CS §9)', () => {
+  const withChant = (chant: unknown) => normalizeSettings({ ...DEFAULT_SETTINGS, chant });
+
+  it.each(['off', 'before', 'only'] as const)('accepts %s', (mode) => {
+    const r = withChant(mode);
+    expect(r.settings.chant).toBe(mode);
+    expect(r.notices).toEqual([]);
+  });
+
+  it.each([['junk'], [3], [null], [true]])('resets %j to the default with a notice', (junk) => {
+    const r = withChant(junk);
+    expect(r.settings.chant).toBe(DEFAULT_SETTINGS.chant);
+    expect(r.notices).toContainEqual({ code: 'INVALID_VALUE_RESET', field: 'chant', partId: null });
+  });
+
+  it('defaults silently when saved before the control existed', () => {
+    const { chant: _chant, ...old } = DEFAULT_SETTINGS;
+    const r = normalizeSettings(old);
+    expect(r.settings.chant).toBe('off');
+    expect(r.notices).toEqual([]);
+  });
+});

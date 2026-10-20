@@ -25,7 +25,7 @@ export const pad = (n: number): string => String(n).padStart(3, '0');
 
 export function partOf(meiXml: string, boundaries: readonly SafeBoundary[], rev = 'rev1'): MeiPart {
   const part: MeiExportPart = {
-    id: 'seg:0', kind: 'mei', label: 'Kyrie', heading: null, sourceSystemCount: 4, sourceRevision: rev,
+    id: 'seg:0', kind: 'mei', label: 'Kyrie', heading: null, sourceSystemCount: 4, chants: [], sourceRevision: rev,
     target: 'movement:test', renderHash: 'h'.repeat(32),
     conversion: {
       digest: 'd'.repeat(64), meiUrl: '', meiSha256: '', sourceRevision: rev, profile: 'accompaniment-v1',

@@ -37,7 +37,7 @@ const heading = (label: string, extra: Partial<PartHeading> = {}): PartHeading =
 });
 
 // ---- parts ----------------------------------------------------------------
-const base = { sourceSystemCount: 3 };
+const base = { sourceSystemCount: 3, chants: [] };
 const meiPart = (id: string, h: PartHeading | null): MeiExportPart => ({
   ...base, id, kind: 'mei', label: 'Kyrie', heading: h, sourceRevision: 'rev1', target: 'movement:test', renderHash: 'h'.repeat(32),
   conversion: {

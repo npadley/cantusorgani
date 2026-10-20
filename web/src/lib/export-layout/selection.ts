@@ -14,7 +14,7 @@ export function snapshotSelection(input: SelectionInput, lookup: ConversionLooku
   for (const seg of input.segments) {
     const heading: PartHeading = { label: seg.label, rubric: seg.rubric, rubricTranslation: seg.rubricTranslation, credit: seg.credit };
     const base = (runIndex: number, count: number, sourceRevision: string) =>
-      ({ id: `${seg.segmentId}:${runIndex}`, label: seg.label, heading, sourceSystemCount: count, sourceRevision });
+      ({ id: `${seg.segmentId}:${runIndex}`, label: seg.label, heading, sourceSystemCount: count, sourceRevision, chants: [] });
     const scan = (runIndex: number, stems: readonly string[], count: number, available: boolean): ScanExportPart =>
       ({ ...base(runIndex, count, stems[0] ?? ""), kind: "scan", stems, customizableAvailable: available });
 
