@@ -12,6 +12,7 @@ interface OfPart {
 }
 interface Occasion {
   key: string; titleEn: string; titleLa: string; color: string; rank: string; assignmentStatus: string;
+  rubric?: string | null;
   partsByCycle: Record<Cycle, OfPart[]>;
 }
 interface Data { readonly [key: string]: Occasion }
@@ -137,7 +138,7 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
     results.append(element("p", `${SEASONS[day.season]} · Year ${day.sundayCycle} · Weekday Year ${day.weekdayCycle}`, "season"));
     if (day.provisionalNotice) results.append(element("p", day.provisionalNotice, "notice provisional"));
 
-    const key = day.occasion;
+    const key = day.occasion ?? day.weekdayOccasion;
     if (key) {
       const occasion = data[key];
       if (occasion) {
@@ -149,6 +150,7 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
         const swatch = element("span", undefined, "swatch"); swatch.style.background = color.swatch; swatch.setAttribute("aria-hidden", "true");
         meta.append(swatch, `${color.label} · ${occasion.rank.replaceAll("-", " ")}`);
         block.append(meta);
+        if (occasion.rubric) block.append(element("p", occasion.rubric, "note rubric"));
         const music = element("dl", undefined, "music");
         music.append(element("dt", "Proper chants"));
         const dd = element("dd");
@@ -188,6 +190,11 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
         }
         results.append(block);
       }
+    } else if (day.season === "ordinary" && day.sundayMassOccasion) {
+      const rubric = element("p", "the chants of this week's Sunday Mass may be used", "note");
+      const sunday = data[day.sundayMassOccasion];
+      if (sunday) rubric.append(" · ", anchor(`${sunday.titleEn} (Sunday Mass of this week)`, occasionHref(sunday.key, day.sundayCycle, day.season)));
+      results.append(rubric);
     } else if (day.season === "ordinary") {
       const rubric = element("p", "the chants of the preceding Sunday may be used", "note");
       if (day.precedingSundayOccasion) {
@@ -195,13 +202,24 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
         if (prior) rubric.append(" · ", anchor(`${prior.titleEn} (preceding Sunday)`, occasionHref(prior.key, day.sundayCycle, day.season)));
       }
       results.append(rubric);
-    } else {
-      results.append(element("p", "weekday chants are not yet covered", "note"));
+    } else if (day.sundayMassOccasion) {
+      const rubric = element("p", "the chants of the Sunday are repeated on this weekday", "note");
+      const sunday = data[day.sundayMassOccasion];
+      if (sunday) rubric.append(" · ", anchor(`${sunday.titleEn} (Mass of the Sunday)`, occasionHref(sunday.key, day.sundayCycle, day.season)));
+      results.append(rubric);
+    } else if (day.season === "triduum") {
+      results.append(element("p", "No Mass is celebrated during the day.", "note"));
     }
 
     if (day.vigil) {
       const options = element("p", undefined, "occasion-options");
       options.append("Vigil (evening): ", anchor(data[day.vigil]?.titleEn ?? "Vigil", occasionHref(day.vigil, day.sundayCycle, day.season)));
+      results.append(options);
+    }
+    if (day.readingChantsOccasion && data[day.readingChantsOccasion]) {
+      const options = element("p", undefined, "occasion-options");
+      options.append("Optional chants suited to the readings: ",
+        anchor(data[day.readingChantsOccasion]!.titleEn, occasionHref(day.readingChantsOccasion, day.sundayCycle, day.season)));
       results.append(options);
     }
     if (key === "christmas-day") {

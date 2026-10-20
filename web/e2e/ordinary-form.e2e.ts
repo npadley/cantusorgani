@@ -116,7 +116,7 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     await page.locator("#date").fill("2026-04-06");
     await page.locator("#date").press("Enter");
     await expect(page).toHaveURL(/date=2026-04-06.*epiphany=jan6.*ascension=sunday.*corpusChristi=thursday/);
-    await expect(page.getByText("weekday chants are not yet covered")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Monday within the Octave of Easter" })).toBeVisible();
   });
 
   test("cycle and season links filter an occasion's export checkboxes without hiding static chants", async ({ page }) => {
@@ -241,7 +241,14 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     await page.goto("/calendar/ordinary-form/?date=2026-01-19");
     await expect(page.getByText("the chants of the preceding Sunday may be used")).toBeVisible();
     await page.goto("/calendar/ordinary-form/?date=2026-04-06");
-    await expect(page.getByText("weekday chants are not yet covered")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Monday within the Octave of Easter" })).toBeVisible();
+    await expect(page.getByText("weekday chants are not yet covered")).toHaveCount(0);
+    await page.goto("/calendar/ordinary-form/?date=2025-12-01");
+    await expect(page.getByText("the chants of the Sunday are repeated on this weekday")).toBeVisible();
+    await expect(page.getByRole("link", { name: "1st Sunday of Advent (Mass of the Sunday)" }))
+      .toHaveAttribute("href", "/ordinary-form/advent-1/?cycle=A&season=advent");
+    await page.goto("/calendar/ordinary-form/?date=2026-04-04");
+    await expect(page.getByText("No Mass is celebrated during the day.")).toBeVisible();
     await page.goto("/calendar/ordinary-form/?date=2051-01-01");
     await expect(page.locator("#date-feedback")).toContainText("covers 2024–2050");
     await expect(page.getByRole("button", { name: "Next day" })).toBeDisabled();

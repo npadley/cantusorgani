@@ -228,8 +228,23 @@ def test_vocabulary_maps_all_upstream_names_and_exact_stable_key_inventory():
                 "second-christmas", "epiphany", "baptism", "st-joseph", "annunciation",
                 "presentation", "transfiguration", "exaltation-cross", "lateran-dedication",
                 "nativity-john-baptist", "peter-paul", "assumption", "all-saints", "all-souls",
-                "immaculate-conception", "birth-mary", "presentation-mary"}
-    assert keys == expected
+                "immaculate-conception", "birth-mary", "presentation-mary",
+                "st-stephen", "st-john", "holy-innocents"}
+    days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
+    weekdays = {"advent-1-wednesday", "advent-1-thursday", "advent-1-friday", "advent-2-monday",
+                "advent-2-tuesday", "advent-2-wednesday", "advent-2-friday", "advent-3-wednesday",
+                "advent-3-friday", *(f"advent-late-{d}" for d in days), "advent-dec-19", "advent-dec-20",
+                "christmas-octave", "christmas-octave-dec-29", "christmas-before-epiphany",
+                "christmas-jan-4", "christmas-jan-7", "christmas-after-epiphany", "christmas-jan-8",
+                "ash-thursday", "ash-friday", "ash-saturday",
+                *(f"lent-{w}-{d}" for w in range(1, 6) for d in days),
+                "holy-monday", "holy-tuesday", "holy-wednesday", *(f"easter-octave-{d}" for d in days),
+                *(f"easter-{w}-{d}" for w in (2, 3, 4, 5, 7) for d in days),
+                *(f"easter-6-{d}" for d in days[:5]),
+                "easter-6-friday-after-ascension", "easter-6-saturday-after-ascension",
+                "ot-1", "ot-1-monday", "ot-1-monday-year-1", "ot-1-tuesday-year-1"}
+    assert keys == expected | weekdays
+    assert {row["key"] for row in rows if row["rank"] == "weekday"} == weekdays
     mapped = {row["jgabc"] for row in rows if row["jgabc"] is not None}
     assert mapped == set(load_novus()["proprium"])
 
@@ -313,3 +328,56 @@ def test_coverage_rejects_shrinking_missing_assignment_denominator():
     with pytest.raises(ValueError, match="total denominator"):
         validate_coverage({"matched": 1, "total": 2, "assignment_ids": ["a"],
                            "mapping_ids": ["m"]}, baseline)
+
+
+def weekday_row(**fields):
+    return {"key": "ot-2-monday", "jgabc": None, "title_en": "Monday", "title_la": "Feria II",
+            "rank": "weekday", "color": "g", "calendar": None, "weekday_of": "ot-2", **fields}
+
+
+def weekday_override(slot, chant_id, incipit):
+    return {"reviewed": "Claude", "source": {"page": 15},
+            "assignments": [{"id": chant_id, "incipit": incipit}]}
+
+
+def test_weekday_inherits_base_slots_and_applies_its_own_substitutions():
+    catalog, occasions, assignments = sample_inputs()
+    row = weekday_row(inherit_cycle_slots=["communio"])
+    overrides = {"ot-2-monday": {"introitus": weekday_override("introitus", 11, "A")}}
+    resolved, _ = build_propers(catalog, occasions + [row], assignments, overrides)
+    weekday = next(o for o in resolved["occasions"] if o["key"] == "ot-2-monday")
+    intro = [p["gregobase_id"] for p in weekday["parts"] if p["slot"] == "introitus"]
+    communions = [(p["years"], p["gregobase_id"]) for p in weekday["parts"] if p["slot"] == "communio"]
+    assert intro == [11]
+    assert communions == [(["A", "C"], 11), (["B"], 12)]
+    sunday = next(o for o in resolved["occasions"] if o["key"] == "ot-2")
+    assert [p["gregobase_id"] for p in sunday["parts"] if p["slot"] == "introitus"] == [10]
+
+
+def test_weekday_must_acknowledge_inherited_cycle_sensitive_slots():
+    catalog, occasions, assignments = sample_inputs()
+    with pytest.raises(ValueError, match="cycle-sensitive"):
+        build_propers(catalog, occasions + [weekday_row()], assignments, {})
+    overrides = {"ot-2-monday": {"communio": weekday_override("communio", 11, "A")}}
+    resolved, _ = build_propers(catalog, occasions + [weekday_row()], assignments, overrides)
+    weekday = next(o for o in resolved["occasions"] if o["key"] == "ot-2-monday")
+    assert [p["gregobase_id"] for p in weekday["parts"] if p["slot"] == "communio"] == [11]
+
+
+def test_weekday_omits_slots_and_carries_its_rubric():
+    catalog, occasions, assignments = sample_inputs()
+    row = weekday_row(omit_slots=["communio"], rubric_en="Alleluia ad libitum.")
+    resolved, _ = build_propers(catalog, occasions + [row], assignments, {})
+    weekday = next(o for o in resolved["occasions"] if o["key"] == "ot-2-monday")
+    assert {p["slot"] for p in weekday["parts"]} == {"introitus"}
+    assert weekday["rubric_en"] == "Alleluia ad libitum."
+    assert "rubric_en" not in resolved["occasions"][0]
+
+
+def test_weekday_base_must_exist_and_cannot_be_a_weekday():
+    catalog, occasions, assignments = sample_inputs()
+    with pytest.raises(ValueError, match="weekday_of"):
+        build_propers(catalog, occasions + [weekday_row(weekday_of="missing")], assignments, {})
+    chained = weekday_row(key="ot-2-tuesday", weekday_of="ot-2-monday")
+    with pytest.raises(ValueError, match="weekday_of"):
+        build_propers(catalog, occasions + [weekday_row(omit_slots=["communio"]), chained], assignments, {})
