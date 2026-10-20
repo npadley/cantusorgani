@@ -129,7 +129,11 @@ async function lyricOverlaps(page: Page): Promise<string[]> {
       texts.sort((a, b) => a.r.left - b.r.left);
       for (let i = 1; i < texts.length; i++) {
         const a = texts[i - 1]!, b = texts[i]!;
-        if (Math.abs(a.r.top - b.r.top) < 4 && b.r.left < a.r.right - 2.5) out.push(`"${a.s}" ${a.r.right.toFixed(1)} over "${b.s}" ${b.r.left.toFixed(1)} (font-size ${a.size}, attribute ${a.attr})`);
+        // A quarter of the font size: on-screen text snaps glyphs to whole pixels on Linux (CI), so a syllable can draw
+        // a few px wider than the canvas measured. The PDF's spacing is checked exactly with fontkit (chantLyrics.test.ts);
+        // the K9 bug this guards against overlapped by tens of px.
+        const slack = 0.25 * parseFloat(a.size);
+        if (Math.abs(a.r.top - b.r.top) < 4 && b.r.left < a.r.right - slack) out.push(`"${a.s}" ${a.r.right.toFixed(1)} over "${b.s}" ${b.r.left.toFixed(1)} (font-size ${a.size}, attribute ${a.attr})`);
       }
     }
     return out;
@@ -194,6 +198,7 @@ test.describe("chant in the PDF", () => {
       expect(report.problems).toEqual([]);
       expect(report.pageCount).toBe(want.pages.length);
       expect(report.pages.flatMap((p) => p.chantStaves).length).toBe(total);
+      mkdirSync(OUT, { recursive: true });
       writeFileSync(`${OUT}/longest-${size}.pdf`, bytes);
     });
   }
