@@ -1521,15 +1521,18 @@ sections:
     - sancti:10-24
     reference: Introitus. Benedicite, uf supra, p. 354.
   - slug: noh3-p415
-    label: Jesu Christi Regis, Dom. ultima Oetobris
-    title: Jesu Christi Regis, Dom. ultima Oetobris
+    label: In Festo D. N. Jesu Christi Regis
+    title: In Festo D. N. Jesu Christi Regis
     genre: proper
     page: 415
     status: verified
     score: 0.833
     token: '415'
     index_title: Jesu Christi Regis, Dom. ultima Oetobris
-    calendar_note: no 1962 title matched
+    # OCR read "Oetobris", so the 1962 title match failed; heading on p. 415
+    # reads "Dominica ultima Octobris. In Festo D. N. Jesu Christi Regis".
+    days:
+    - sancti:10-DU
   - slug: in-vigilia-ss-simonis-et-judae
     label: In Vigilia Ss. Simonis et Judæ Apostolorum
     title: In Vigilia Ss. Simonis et Judæ Apostolorum

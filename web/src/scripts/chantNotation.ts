@@ -6,9 +6,10 @@ import type { ChantDisplay, PrefStore } from "../lib/gabc";
  * Chant notation beside each part (or Vespers item), drawn in the browser by
  * Exsurge when the reader asks for it: the switch `[data-chant-toggle]` and the
  * boxes `.chant-notation[data-chant-id]`. Off by default: the page is the organ
- * score. Shared by MovementNav and the Vespers page.
+ * score. Shared by MovementNav and the Vespers page. A page with no organ
+ * score (Good Friday) passes `always` and draws every box, with no switch.
  */
-export function initChantNotation(): void {
+export function initChantNotation(options: { readonly always?: boolean } = {}): void {
   const toggle = document.querySelector<HTMLInputElement>("[data-chant-toggle]");
   const boxes = [...document.querySelectorAll<HTMLElement>(".chant-notation")];
 
@@ -117,19 +118,24 @@ export function initChantNotation(): void {
     }
   }
 
-  if (toggle && boxes.length > 0) {
+  if (boxes.length === 0) return;
+  if (options.always) {
+    apply("show");
+  } else if (toggle) {
     apply(readChantDisplay(store()));
     toggle.addEventListener("change", () => {
       const display: ChantDisplay = toggle.checked ? "show" : "link";
       writeChantDisplay(store(), display);
       apply(display);
     });
-    let resizing: number | undefined;
-    window.addEventListener("resize", () => {
-      window.clearTimeout(resizing);
-      resizing = window.setTimeout(() => {
-        for (const box of boxes) if (!box.hidden && box.dataset["width"]) void draw(box);
-      }, 250);
-    });
+  } else {
+    return;
   }
+  let resizing: number | undefined;
+  window.addEventListener("resize", () => {
+    window.clearTimeout(resizing);
+    resizing = window.setTimeout(() => {
+      for (const box of boxes) if (!box.hidden && box.dataset["width"]) void draw(box);
+    }, 250);
+  });
 }

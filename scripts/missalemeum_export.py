@@ -22,31 +22,43 @@ def key(observance) -> str:
     return f"{observance.flexibility}:{observance.name}"
 
 
+def record(vocabulary: dict[str, dict[str, object]], o_en, o_la) -> None:
+    k = key(o_en)
+    vocabulary.setdefault(k, {
+        "key": k,
+        "flexibility": o_en.flexibility,
+        "name": o_en.name,
+        "rank": o_en.rank,
+        "colors": list(o_en.colors),
+        "title_en": o_en.title,
+        "title_la": o_la.title,
+    })
+
+
 def export(first: int, last: int, out: Path) -> None:
     out.mkdir(parents=True, exist_ok=True)
     vocabulary: dict[str, dict[str, object]] = {}
 
     for year in range(first, last + 1):
         calendars = {lang: MissalFactory().create(year, lang) for lang in ("en", "la")}
-        days: dict[str, dict[str, list[str]]] = {}
+        days: dict[str, dict[str, object]] = {}
         current = date(year, 1, 1)
         while current.year == year:
-            entry: dict[str, list[str]] = {}
+            entry: dict[str, object] = {}
+            day_en, day_la = (calendars[lang].get_day(current) for lang in ("en", "la"))
             for role in ("celebration", "commemoration"):
-                en = getattr(calendars["en"].get_day(current), role)
-                la = getattr(calendars["la"].get_day(current), role)
+                en = getattr(day_en, role)
+                la = getattr(day_la, role)
                 entry[role] = [key(o) for o in en]
                 for o_en, o_la in zip(en, la):
-                    k = key(o_en)
-                    vocabulary.setdefault(k, {
-                        "key": k,
-                        "flexibility": o_en.flexibility,
-                        "name": o_en.name,
-                        "rank": o_en.rank,
-                        "colors": list(o_en.colors),
-                        "title_en": o_en.title,
-                        "title_la": o_la.title,
-                    })
+                    record(vocabulary, o_en, o_la)
+            # A feria with no Mass of its own takes the Mass of the Sunday
+            # before (1960 rubrics); Missalemeum works out which, including
+            # Holy Family, Trinity and a Sunday displaced by a feast.
+            if not (day_en.celebration and all(o.has_proper() for o in day_en.celebration)):
+                borrowed_en, borrowed_la = day_en._infer_observance(), day_la._infer_observance()
+                entry["proper_from"] = key(borrowed_en)
+                record(vocabulary, borrowed_en, borrowed_la)
             days[current.isoformat()] = entry
             current += timedelta(days=1)
         (out / f"{year}.json").write_text(

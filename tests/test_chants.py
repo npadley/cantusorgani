@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import json
 
-from pipeline.chants import chant_body, select_chants, write_chants
-from pipeline.gregobase import Chant
+import pytest
+
+from pipeline.chants import chant_body, good_friday_ids, select_chants, write_chants
+from pipeline.gregobase import DUMP, Chant, load_chant_rows
 
 GABC = '[["tex","\\\\grechangedim"],["gabc","(c4) VE(gj)ni(jjj) de(j) Lí(hj)ba(jvIH)no,(h.)"]]'
 
@@ -71,3 +73,24 @@ def test_select_chants_verified_movement_pairings_of_the_kyriale_are_published()
 def test_chant_body_gabc_stored_as_a_json_string():
     """Kyrie I (GregoBase 1143) keeps its notation as a JSON-quoted string."""
     assert chant_body('"(c3) KY(ef!hv)ri(f)e(fhhvGE)"') == "(c3) KY(ef!hv)ri(f)e(fhhvGE)"
+
+
+def test_good_friday_ids_every_item_of_both_rites(tmp_path):
+    path = tmp_path / "good-friday.json"
+    path.write_text(json.dumps({"rites": [
+        {"sections": [{"items": [{"gregobase_id": 602}, {"gregobase_id": 157}]}]},
+        {"sections": [{"items": [{"gregobase_id": 157}, {"gregobase_id": 4612}]}]},
+    ]}), encoding="utf-8")
+    assert good_friday_ids(path) == {602, 157, 4612}
+    assert good_friday_ids(tmp_path / "missing.json") == set()
+
+
+@pytest.mark.skipif(not DUMP.exists(), reason="GregoBase dump not vendored")
+def test_good_friday_chants_are_in_the_dump_and_publishable():
+    """Every chant the Good Friday page names is a GregoBase row that is not a
+    duplicate, has notation, and is not flagged copyrighted."""
+    rows = {chant.id: (chant, copyrighted) for chant, copyrighted in load_chant_rows()}
+    ids = good_friday_ids()
+    assert ids
+    assert sorted(i for i in ids if i not in rows) == []
+    assert sorted(i for i in ids if rows[i][1] or not chant_body(rows[i][0].gabc)) == []
