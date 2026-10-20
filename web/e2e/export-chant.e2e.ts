@@ -10,6 +10,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { deflateSync } from "node:zlib";
 import { resolve } from "node:path";
 import { expect, test } from "@playwright/test";
+import { PDFDocument } from "pdf-lib";
 import type { Page } from "@playwright/test";
 
 import { verifyExportPdf } from "../scripts/verify-export-pdf";
@@ -49,6 +50,11 @@ async function prepare(page: Page, chantDisplay: "show" | "link"): Promise<void>
   // Any test that counts analytics must replace the real count.js first.
   await page.route("**/gc.zgo.at/**", (route) => route.fulfill({ body: "", contentType: "application/javascript" }));
   const scan = png(1700, 420);
+  // A fixed (pre-typeset) part, such as the Gradual here, is a LilyPond PDF: stand in with a one-page letter PDF.
+  const doc = await PDFDocument.create();
+  doc.addPage([612, 792]).drawRectangle({ x: 72, y: 600, width: 468, height: 100, borderWidth: 2 });
+  const letter = Buffer.from(await doc.save());
+  await page.route("**/typeset/**/*.pdf", (route) => route.fulfill({ contentType: "application/pdf", body: letter }));
   await page.route("**/*@2x.png", (route) => route.fulfill({ contentType: "image/png", body: scan }));
   await page.route("**/typeset/**/*.svg", (route) => route.fulfill({ contentType: "image/svg+xml", body: '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"/>' }));
   await page.route(`**${MEI_URL}`, (route) => route.fulfill({ contentType: "application/xml", body: MEI }));
@@ -73,15 +79,15 @@ async function openEditor(page: Page): Promise<void> {
   await expect(page.locator('dialog.cx [data-cx="download"]')).toBeEnabled({ timeout: 120_000 });
 }
 
-async function pickPage(page: Page, size: "letter" | "ipad-mini"): Promise<void> {
+async function pickPage(page: Page, size: "letter" | "ipad-mini" | "ipad-11"): Promise<void> {
   const settings = page.locator('dialog.cx [data-cx="settings-btn"]');
   if (await settings.isVisible()) await settings.click();
-  if (size === "ipad-mini") {
+  if (size !== "letter") {
     await radio(page, "cx-tier", "ipad").click();
-    await radio(page, "cx-ipad", "ipad-mini").click();
+    await radio(page, "cx-ipad", size).click();
   }
   if (await settings.isVisible()) await page.locator('dialog.cx [data-cx="panel-done"]').click();
-  await expect(page.locator("dialog.cx .cx-plabel").first()).toContainText(size === "letter" ? "Letter" : "iPad mini", { timeout: 120_000 });
+  await expect(page.locator("dialog.cx .cx-plabel").first()).toContainText(size === "letter" ? "Letter" : size === "ipad-mini" ? "iPad mini" : "11-inch iPad", { timeout: 120_000 });
   await expect(page.locator('dialog.cx [data-cx="download"]')).toBeEnabled({ timeout: 120_000 });
 }
 
@@ -168,6 +174,28 @@ test.describe("chant in the PDF", () => {
       expect(report.pageCount).toBe(want.pages.length);
       expect(report.pages.flatMap((p) => p.chantStaves).length).toBe(total);
       writeFileSync(`${OUT}/longest-${size}.pdf`, bytes);
+    });
+  }
+
+  // K9 preparation: the PDFs the user reviews (a Gradual, a Tract and a short piece, Letter and 11-inch iPad, chant on).
+  const REVIEW = [
+    { name: "gradual", path: PAGES.longest, wanted: (l: string | null) => l?.startsWith("Gradual") === true },
+    { name: "tract", path: PAGES.longest, wanted: (l: string | null) => l?.startsWith("Tract") === true },
+    { name: "kyrie-ix", path: PAGES.kyrie, wanted: (l: string | null) => l === "Kyrie" },
+  ] as const;
+  for (const r of REVIEW) for (const size of ["letter", "ipad-11"] as const) {
+    test(`review PDF: ${r.name} at ${size} with chant (build/chant/)`, async ({ page }) => {
+      await prepare(page, "show");
+      await page.goto(urlOf(r.path), { waitUntil: "networkidle" });
+      await tick(page, r.wanted);
+      await openEditor(page);
+      await expect(chantHolders(page).first()).toBeAttached({ timeout: 120_000 });
+      await pickPage(page, size);
+      const want = await expectation(page);
+      const { bytes } = await download(page);
+      expect((await verifyExportPdf(bytes, want)).problems).toEqual([]);
+      mkdirSync(OUT, { recursive: true });
+      writeFileSync(`${OUT}/review-${r.name}-${size}.pdf`, bytes);
     });
   }
 
