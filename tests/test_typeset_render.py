@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import urllib.error
 from pathlib import Path
 from typing import Self
 
@@ -208,7 +209,7 @@ def test_missing_asks_the_public_address_for_every_file(monkeypatch):
     def urlopen(request, timeout):
         path = request.full_url.split("example.org/", 1)[1]
         if path not in there:
-            raise OSError("404")
+            raise urllib.error.HTTPError(request.full_url, 404, "Not Found", None, None)
         return Answer(200)
 
     monkeypatch.setattr(publish.urllib.request, "urlopen", urlopen)
