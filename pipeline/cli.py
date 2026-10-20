@@ -229,6 +229,11 @@ def build_parser() -> argparse.ArgumentParser:
     mei_carry.add_argument("--prior-dir", type=Path, default=None,
                            help="convert directory of the approved artifact (default: convert_dir, when byte-identical)")
 
+    mei_revoke = subs.add_parser("typeset-mei-revoke",
+                                 help="revoke an approved MEI record (state revoked; the manifest drops it)")
+    mei_revoke.add_argument("record", type=Path, help="the ConversionRecord JSON to revoke, rewritten in place")
+    mei_revoke.add_argument("--reason", required=True, help="why the approval is withdrawn")
+
     mei_validate = subs.add_parser("typeset-mei-validate",
                                    help="check a converted MEI directory against its IR (no LilyPond)")
     mei_validate.add_argument("directory", type=Path)
@@ -462,6 +467,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "typeset-mei-carry":
         from pipeline.typeset.mei.cli import carry_command
         return carry_command(args.convert_dir, args.prior, args.out, prior_dir=args.prior_dir)
+    if args.command == "typeset-mei-revoke":
+        from pipeline.typeset.mei.cli import revoke_command
+        return revoke_command(args.record, args.reason)
     if args.command == "typeset-mei-validate":
         from pipeline.typeset.mei.cli import validate_command
         return validate_command(args.directory)

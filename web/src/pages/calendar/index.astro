@@ -85,6 +85,7 @@ const [first, last] = CALENDAR_SOURCE.years;
   } from "../../lib/liturgy";
   import type { LocalDate } from "../../lib/liturgy";
   import { dayHref } from "../../lib/indexes";
+  import { goodFridayHref } from "../../lib/goodFriday";
 
   interface Link { title: string; href: string; division?: string }
 
@@ -159,6 +160,7 @@ const [first, last] = CALENDAR_SOURCE.years;
       const vespers = all.filter((p) => p.division === "vesperale");
       const source = properSource(day, key, (k) => massOf(k).length > 0);
       const properDd = el("dd");
+      const chantsOnly = goodFridayHref(key);
       if (source) {
         massOf(source.key).forEach((p, i) => {
           if (i) properDd.append(" · ");
@@ -169,6 +171,8 @@ const [first, last] = CALENDAR_SOURCE.years;
           const from = observance(source.key);
           properDd.append(el("p", `No Mass of its own: the 1962 rubrics take the Mass of ${from?.titleEn ?? "the Sunday before"}.`, "note"));
         }
+      } else if (chantsOnly) {
+        properDd.append("The organ is silent today. ", link("The chants of Good Friday", chantsOnly));
       } else {
         properDd.textContent = "No Proper of its own is catalogued for this day.";
       }

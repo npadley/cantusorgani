@@ -34,6 +34,25 @@ def mass_days() -> set[str]:
     return {d for p in PIECES if p["division"] != "vesperale" for d in p["days"]}
 
 
+# Good Friday has no NOH music but its own chant-only page: these GregoBase ids,
+# each checked against the edition and page GregoBase records for it.
+GOOD_FRIDAY_1962 = [602, 22, 2087, 157, 4311, 7808, 7809, 8749, 4309, 4310, 428, 1128, 638,
+                    1238, 940, 1335, 447]
+GOOD_FRIDAY_ORDINARY_FORM = [824, 873, 4612, 17786, 157, 4311, 7808, 7809, 1128, 17928]
+
+
+def test_good_friday_has_a_chant_only_page_with_its_chants():
+    page = Path("web/src/pages/good-friday/index.astro")
+    assert page.exists()
+    doc = json.loads((DATA / "good-friday.json").read_text(encoding="utf-8"))
+    assert doc["calendars"] == {"1962": "tempora:Quad6-5r", "ordinary-form": "good-friday"}
+    rites = {r["id"]: [i["gregobase_id"] for s in r["sections"] for i in s["items"]] for r in doc["rites"]}
+    assert rites == {"missal-1962": GOOD_FRIDAY_1962, "ordinary-form": GOOD_FRIDAY_ORDINARY_FORM}
+    # data/chants.json holds no transcription GregoBase flags copyrighted.
+    published = json.loads((DATA / "chants.json").read_text(encoding="utf-8"))["chants"]
+    assert [i for i in GOOD_FRIDAY_1962 + GOOD_FRIDAY_ORDINARY_FORM if str(i) not in published] == []
+
+
 def own_mass_days() -> set[str]:
     return {k for k, v in VOCABULARY.items()
             if int(str(v["rank"])) <= 3 and not k.endswith("c")}
