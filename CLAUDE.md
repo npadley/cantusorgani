@@ -16,6 +16,11 @@ here. This section holds only what is specific to Claude Code.
 - **Worktrees** under `.claude/worktrees/` have no `web/.env`. `pnpm dev`
   still runs, using local image paths. `pnpm build` refuses without
   `PUBLIC_ASSET_BASE`; `scripts/check.sh` exports public defaults for it.
+- **Usage.** Read the plan limits (usage tool) and `tools.codex_usage` before
+  dispatching. While Claude's weekly limit is the tighter one, give executor
+  cards to Codex and keep Claude to coordinating and short read-only reviews.
+  A long coordinating session is itself costly: start a fresh session for each
+  phase rather than carrying one conversation through everything.
 - **Subagents** follow `AGENTS.md` § Working with several agents:
   - Set `model` on every Agent call: `haiku` for search and inventory,
     `sonnet` for bounded cards. Leave Opus for coordinating and reviewing.

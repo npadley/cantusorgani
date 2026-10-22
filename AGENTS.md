@@ -190,6 +190,27 @@ the other model family checks.**
 | A bounded change with clear done criteria (a script fix, a doc section, tests) | Sonnet, or Codex at medium effort |
 | Design, ambiguous debugging, anything touching the data model or the export pipeline, final review | Opus, or Codex at high effort |
 
+**Route by remaining usage.** Claude (Pro) and Codex (Plus) have separate
+weekly limits. Before each batch of cards, check both:
+
+- Claude: the usage card in the Claude app (Claude Code can also read it
+  with its usage tool).
+- Codex: `uv run python -m tools.codex_usage`, which reads the limit Codex
+  logs after each run. It updates only after the next run, so treat an old
+  figure as approximate.
+
+Then route:
+
+| Situation | Executors | Cross-checker |
+|---|---|---|
+| Codex has more weekly limit left (the usual case) | Codex, at low or medium effort | Claude Haiku or Sonnet, read-only |
+| Claude has more left | Claude Sonnet or Haiku subagents | Codex, read-only |
+| Either is above 80% of its weekly limit | The other one only; defer non-urgent cards | The other one too, or the coordinator spot-checks |
+
+Keep about 20% of each in reserve for coordinating and for fixes. A writing
+card costs far more than a review, so send the writing to whichever tool has
+more limit left, and keep the cross-check with the other family.
+
 **Write cards that don't need the conversation.** An executor starts cold.
 A good card says:
 
