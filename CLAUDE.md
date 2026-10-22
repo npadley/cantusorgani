@@ -19,6 +19,8 @@ here. This section holds only what is specific to Claude Code.
 - **Usage.** Read the plan limits (usage tool) and `tools.codex_usage` before
   dispatching. While Claude's weekly limit is the tighter one, give executor
   cards to Codex and keep Claude to coordinating and short read-only reviews.
+  Past 80% of Claude's weekly limit, run no Claude subagents at all (see the
+  80% rule in `AGENTS.md`).
   A long coordinating session is itself costly: start a fresh session for each
   phase rather than carrying one conversation through everything.
 - **Subagents** follow `AGENTS.md` § Working with several agents:

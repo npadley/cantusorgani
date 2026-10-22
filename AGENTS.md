@@ -209,7 +209,9 @@ Then route:
 
 Keep about 20% of each in reserve for coordinating and for fixes. A writing
 card costs far more than a review, so send the writing to whichever tool has
-more limit left, and keep the cross-check with the other family.
+more limit left, and keep the cross-check with the other family. The 80% row
+overrides the others: past 80%, that tool does no new cards or reviews, and the
+coordinator spot-checks instead.
 
 **Write cards that don't need the conversation.** An executor starts cold.
 A good card says:

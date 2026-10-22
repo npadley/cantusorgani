@@ -4,19 +4,43 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
 import time
 from datetime import datetime
 from pathlib import Path
 
 
+def _valid_window(value: object) -> bool:
+    if not isinstance(value, dict):
+        return False
+    for key in ("used_percent", "resets_at"):
+        number = value.get(key)
+        if type(number) not in (int, float):
+            return False
+        try:
+            if not math.isfinite(number):
+                return False
+        except OverflowError:
+            return False
+    if type(value.get("window_minutes")) is not int:
+        return False
+    try:
+        _local(value["resets_at"])
+    except (ValueError, OverflowError, OSError):
+        return False
+    return True
+
+
 def _rate_limits(value: object) -> dict | None:
     if isinstance(value, dict):
         record = value.get("rate_limits")
-        if isinstance(record, dict) and any(
-            isinstance(record.get(key), dict) for key in ("primary", "secondary")
-        ):
-            return record
+        if isinstance(record, dict):
+            windows = {key: record[key] for key in ("primary", "secondary")
+                       if _valid_window(record.get(key))}
+            if windows:
+                return {**record, "primary": windows.get("primary"),
+                        "secondary": windows.get("secondary")}
         for child in value.values():
             found = _rate_limits(child)
             if found is not None:
@@ -25,29 +49,39 @@ def _rate_limits(value: object) -> dict | None:
 
 
 def latest_record(sessions_dir: Path) -> tuple[dict, float] | None:
-    """Search at most 50 logs, newest file first and last record within a file."""
+    """Choose the newest valid record by line timestamp in the 50 newest logs."""
     files = []
     for path in sessions_dir.rglob("rollout-*.jsonl"):
         try:
             files.append((path.stat().st_mtime, path))
         except OSError:
             continue
+    latest = None
     for modified, path in sorted(files, key=lambda item: item[0], reverse=True)[:50]:
-        latest = None
         try:
             with path.open(encoding="utf-8", errors="replace") as stream:
                 for line in stream:
                     try:
-                        record = _rate_limits(json.loads(line))
-                    except json.JSONDecodeError:
+                        value = json.loads(line)
+                        record = _rate_limits(value)
+                        if record is None:
+                            continue
+                        recorded_at = modified
+                        if "timestamp" in value:
+                            timestamp = value["timestamp"]
+                            if not isinstance(timestamp, str):
+                                continue
+                            recorded_at = datetime.fromisoformat(
+                                timestamp
+                            ).timestamp()
+                        _local(recorded_at)
+                    except (ValueError, TypeError, OverflowError, OSError, RecursionError):
                         continue
-                    if record is not None:
-                        latest = record
+                    if latest is None or recorded_at >= latest[1]:
+                        latest = record, recorded_at
         except OSError:
             continue
-        if latest is not None:
-            return latest, modified
-    return None
+    return latest
 
 
 def _local(timestamp: float) -> str:

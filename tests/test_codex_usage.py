@@ -5,6 +5,9 @@ from __future__ import annotations
 import json
 import os
 import time
+from datetime import UTC, datetime
+
+import pytest
 
 from tools.codex_usage import main
 
@@ -88,3 +91,71 @@ def test_codex_usage_other_window_minute_label(tmp_path, capsys):
     write_log(tmp_path, records=[record])
     assert main(["--sessions-dir", str(tmp_path)]) == 0
     assert "60-minute:" in capsys.readouterr().out
+
+
+def test_codex_usage_missing_window_fields_skipped(tmp_path, capsys):
+    record = limits()
+    record['secondary'] = {'used_percent': 10}
+    write_log(tmp_path, records=[record])
+    assert main(['--sessions-dir', str(tmp_path), '--json']) == 0
+    assert len(json.loads(capsys.readouterr().out)['windows']) == 1
+
+
+@pytest.mark.parametrize(('field', 'value'), [
+    ('used_percent', value) for value in (None, '20', True, float('nan'), float('inf'))
+] + [
+    ('window_minutes', value) for value in (None, '300', 300.5, True)
+] + [
+    ('resets_at', value) for value in (None, 'tomorrow', True, float('inf'), 1e100)
+])
+def test_codex_usage_invalid_records_preserve_latest_valid(tmp_path, capsys, field, value):
+    record = limits()
+    record['primary'][field] = value
+    write_log(tmp_path, records=[limits(42), record])
+    assert main(['--sessions-dir', str(tmp_path), '--json']) == 0
+    assert json.loads(capsys.readouterr().out)['windows'][0]['used_percent'] == 42
+
+
+@pytest.mark.parametrize('field', ['used_percent', 'window_minutes', 'resets_at'])
+def test_codex_usage_missing_fields_preserve_latest_valid(tmp_path, capsys, field):
+    record = limits()
+    del record['primary'][field]
+    write_log(tmp_path, records=[limits(42), record])
+    assert main(['--sessions-dir', str(tmp_path), '--json']) == 0
+    assert json.loads(capsys.readouterr().out)['windows'][0]['used_percent'] == 42
+
+
+def timestamp_log(path, timestamp, record):
+    modified = path.stat().st_mtime
+    path.write_text(json.dumps({'timestamp': timestamp, 'payload': {'rate_limits': record}}) + '\n')
+    os.utime(path, (modified, modified))
+
+
+def test_codex_usage_newer_record_in_older_file_wins(tmp_path, capsys):
+    newer = datetime.now(UTC).isoformat()
+    old_file = write_log(tmp_path, 'old', age=3600)
+    timestamp_log(old_file, newer, limits(23))
+    new_file = write_log(tmp_path, 'new')
+    timestamp_log(new_file, '2020-01-01T00:00:00Z', limits(99))
+    assert main(['--sessions-dir', str(tmp_path), '--json']) == 0
+    result = json.loads(capsys.readouterr().out)
+    assert result['windows'][0]['used_percent'] == 23
+    assert datetime.fromisoformat(result['as_of']).timestamp() == int(
+        datetime.fromisoformat(newer).timestamp())
+
+
+def test_codex_usage_stale_warning_uses_record_timestamp(tmp_path, capsys):
+    path = write_log(tmp_path)
+    timestamp_log(path, '2020-01-01T00:00:00Z', limits())
+    assert main(['--sessions-dir', str(tmp_path), '--json']) == 0
+    captured = capsys.readouterr()
+    assert 'older than 24 h' in captured.err
+    assert datetime.fromisoformat(json.loads(captured.out)['as_of']).timestamp() == 1577836800
+
+
+def test_codex_usage_malformed_timestamp_record_skipped(tmp_path, capsys):
+    write_log(tmp_path, 'valid', age=60, records=[limits(42)])
+    path = write_log(tmp_path)
+    timestamp_log(path, 'invalid', limits(99))
+    assert main(['--sessions-dir', str(tmp_path), '--json']) == 0
+    assert json.loads(capsys.readouterr().out)['windows'][0]['used_percent'] == 42
