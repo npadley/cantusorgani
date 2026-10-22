@@ -440,7 +440,7 @@ Other views: [390 light](screenshots/calendar-390-light.jpg) · [1024 dark](scre
 6. Source line.
 
 **Interactive behaviour.** `web/src/lib/ordinaryFormCalendarClient.ts` reads `#of-occasion-index` JSON. Date changes by the buttons `push` history (Back works); the initial load `replace`s it. Prev and next are disabled at the range ends. `popstate` re-renders.
-- Transfers of Epiphany, Ascension and Corpus Christi are read from the URL, else from `localStorage` key `cantusorgani.ordinary-form.settings.v1`. There is no control on the page that sets them, and nothing in the site writes that key, so today only the URL carries them.
+- Transfers of Epiphany, Ascension and Corpus Christi come only from the URL, with General Roman defaults when omitted. On affected Sundays the calendar offers both music links so the reader can choose the music for their local celebration.
 
 **States**
 - No scripts: `<noscript>` notice (the browse list still works).
