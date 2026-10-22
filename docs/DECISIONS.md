@@ -22,6 +22,7 @@ the export decision log win ([index](design/README.md)).
 | P9 | 2026-10-20 | **A control missing from a mockup is not approval to delete it.** Every export control, the scan/typeset switch, polarity inversion, skip-to-music and clean printing must stay unless the user approves a scoped change. | Mockups omit things by accident. | [reading-edition correction](reports/2026-10-20-reading-edition-design-correction.md), [AGENTS.md](../AGENTS.md) |
 | P10 | 2026-10-22 | **Agent concurrency.** Run at most 3–4 subagents at once. Reuse an agent (SendMessage) for follow-on cards. Opus coordinates; Sonnet or Haiku take bounded cards. | Past sessions overloaded the machine and the maintainer's review. | [CLAUDE.md](../CLAUDE.md), export decision [D10](superpowers/plans/export-layout-decisions.md) |
 | P11 | 2026-10-22 | **The maintainer approves every upload, deploy and merge to `main`.** Images go to R2 through the `publish` workflow, not local credentials. | One owner for anything that reaches production. | [AGENTS.md](../AGENTS.md) "Ask the maintainer first" |
+| P12 | 2026-10-22 | **Accessibility target: WCAG 2.2 AA across the site, with AAA (7:1) contrast for body text and music.** Applies to the public site, the admin screen and exported PDFs' on-screen preview; new UI is checked against it. | Organists read at the console, often on an iPad in poor light; the token file already aims for 7:1 text contrast. | Maintainer, 2026-10-22; criteria in [docs/ui/accessibility.md](ui/accessibility.md) |
 
 ## Proposed, not decided
 
