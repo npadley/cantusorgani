@@ -61,7 +61,7 @@ cd web
 pnpm install
 pnpm dev          # http://localhost:4321
 pnpm build        # static site in web/dist, with the Pagefind index; fails if a page
-                  # cannot be reached by a link (scripts/check-links.ts)
+                  # cannot be reached by a link (web/scripts/check-links.ts)
 pnpm test
 ```
 

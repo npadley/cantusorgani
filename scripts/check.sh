@@ -16,6 +16,7 @@ step() { printf '\n== %s\n' "$*"; }
 trap 'printf "\nFAILED at: %s\n" "${CURRENT:-setup}" >&2' ERR
 
 CURRENT="lint";               step "$CURRENT";  uv run ruff check pipeline tools tests
+CURRENT="docs references";    step "$CURRENT";  uv run python -m tools.check_docs
 CURRENT="pipeline tests";     step "$CURRENT";  uv run pytest -q -m "not slow"
 CURRENT="Ordinary Form coverage current"; step "$CURRENT"; uv run noh ordinary-form --check
 CURRENT="corrections applied"; step "$CURRENT"; uv run noh apply-corrections --check
