@@ -3,6 +3,8 @@ import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import type { PDFFont } from "pdf-lib";
 import type { SectionRubric } from "./catalog";
 
+import { fetchWithRetry } from "./fetchRetry";
+import type { FetchDelay } from "./fetchRetry";
 import { scanPngUrl } from "./export-layout/selection";
 
 import { EXPORT_CEILING } from "./config";
@@ -257,22 +259,22 @@ export async function buildPdf(options: BuildOptions): Promise<BuildResult> {
 }
 
 /** Fetches a typeset PDF from R2 (under its own cache key, like the slices). */
-export async function httpPdfFetcher(url: string): Promise<ArrayBuffer> {
-  const response = await fetch(/^https?:/.test(url) ? `${url}?export=1` : url);
+export async function httpPdfFetcher(url: string, fetchFn: typeof fetch = fetch, delay?: FetchDelay): Promise<ArrayBuffer> {
+  const response = await fetchWithRetry(fetchFn, /^https?:/.test(url) ? `${url}?export=1` : url, delay);
   if (!response.ok) throw new Error(`typeset PDF ${response.status}`);
   return response.arrayBuffer();
 }
 
-/** Fetches the @2x.png variant. pdf-lib cannot embed WebP, and decoding WebP via
+/** Fetches the double-resolution PNG variant. pdf-lib cannot embed WebP, and decoding WebP via
  *  canvas fails silently on older Safari on iPad — the exact device this is for. */
-export function httpPngFetcher(base: string): (ref: string) => Promise<ArrayBuffer> {
+export function httpPngFetcher(base: string, fetchFn: typeof fetch = fetch, delay?: FetchDelay): (ref: string) => Promise<ArrayBuffer> {
   // `ref` is a full URL stem carrying the content hash, because published keys
   // cannot be derived from a system reference. `base` is retained only for
   // callers that still pass bare refs (the Node tests read local files).
   return async (ref: string): Promise<ArrayBuffer> => {
     const stem = base.length > 0 ? `${base}/${ref}` : ref;
     const url = scanPngUrl(stem);
-    const response = await fetch(url);
+    const response = await fetchWithRetry(fetchFn, url, delay);
     if (!response.ok) {
       throw new Error(
         `Could not fetch system ${ref} (${response.status}). Nothing was downloaded.`,

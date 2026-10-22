@@ -8,6 +8,7 @@
     "build:e2e": "E2E_TEST_PAGES=1 PUBLIC_MEI_MANIFEST=fixture PUBLIC_ASSET_BASE=/systems node scripts/with-public-env.ts astro build --outDir dist-e2e",
     "serve:device": "node scripts/serve-device-test.ts",
     "check:no-fixture": "node scripts/check-no-fixture.ts dist",
+    "check:export-assets": "node scripts/check-export-assets.ts",
     "check:links": "node scripts/check-links.ts",
     "preview": "astro preview",
     "ui:screenshots": "node scripts/ui-screenshots.ts",
