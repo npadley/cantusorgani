@@ -14,8 +14,9 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
 VOLUMES=("$@")
+# The all list must match .github/workflows/catalog-rebuild.yml.
 if [[ "${VOLUMES[*]:-}" == "all" ]]; then
-  VOLUMES=(noh1 noh2 noh3 noh4 noh5 noh8)
+  VOLUMES=(noh1 noh2 noh3 noh4 noh5 noh7 noh8)
 fi
 
 step() { printf '\n== %s\n' "$*"; }
