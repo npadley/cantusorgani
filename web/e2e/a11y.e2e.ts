@@ -20,8 +20,9 @@ const templates = routes.filter(({ url }) => {
 });
 
 test.describe("Accessibility of page templates", () => {
-  for (const { id, url } of templates) {
-    test(`${id} should have no serious or critical axe violations`, async ({ page }) => {
+  for (const scheme of ["light", "dark"] as const) for (const { id, url } of templates) {
+    test(`${id} (${scheme}) should have no serious or critical axe violations`, async ({ page }) => {
+      await page.emulateMedia({ colorScheme: scheme });
       await page.goto(url);
       const results = await new AxeBuilder({ page })
         .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
