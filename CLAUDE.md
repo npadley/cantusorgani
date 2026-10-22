@@ -33,7 +33,8 @@ here. This section holds only what is specific to Claude Code.
 - **Codex** is installed and logged in. Hand it mechanical or script cards,
   and use it as the cross-checker for Claude-written diffs. The commands are
   in `AGENTS.md`. Always close stdin (`< /dev/null`), and use
-  `-s workspace-write` only inside a card's worktree.
+  `-s workspace-write` only inside a card's worktree. Pick the Codex model per
+  card with `-m`; the roles are in `AGENTS.md`.
 - **Path-scoped rules** in `.claude/rules/` load when you touch matching files.
   They cover the front end, the admin API and Worker, migrations, tests, data
   and security.
