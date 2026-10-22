@@ -19,6 +19,7 @@ runs:
         path: ~/.cache/ms-playwright
         key: playwright-${{ runner.os }}-${{ runner.arch }}-${{ steps.version.outputs.version }}
     - name: Browser runtime
+      id: runtime
       shell: bash
       working-directory: web
       env:
@@ -33,7 +34,7 @@ runs:
         echo "::error::Playwright Chromium/dependencies install failed or hung after two attempts."
         exit 1
     - name: Save Playwright browsers
-      if: always() && steps.cache.outputs.cache-primary-key != '' && steps.cache.outputs.cache-hit != 'true'
+      if: always() && steps.runtime.outcome == 'success' && steps.cache.outputs.cache-primary-key != '' && steps.cache.outputs.cache-hit != 'true'
       uses: actions/cache/save@v6
       with:
         path: ~/.cache/ms-playwright
