@@ -24,7 +24,6 @@ runs:
       working-directory: web
       env:
         CACHE_HIT: ${{ steps.cache.outputs.cache-hit }}
-      timeout-minutes: 12
       run: |
         # A killed attempt can leave apt running; make the retry wait for its
         # lock instead of failing on it, and fail slow mirrors fast.
