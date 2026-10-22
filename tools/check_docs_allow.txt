@@ -28,6 +28,3 @@ docs/ADMIN-UX-REVIEW.md:typeset-phone-fold.png
 README.md:data/vespers/vespers-noh8.proposed.yml
 README.md:data/vespers/vespers-offices.proposed.yml
 docs/ADMIN-SETUP.md:workers/corrections/migrations/NNNN_*.sql
-
-# AGENTS.md Known gaps names this missing test on purpose; remove when the test exists.
-AGENTS.md:tests/test_good_friday.py

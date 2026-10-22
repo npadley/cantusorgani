@@ -93,13 +93,10 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     await expect(page.locator("#date")).toHaveValue("2026-04-06");
   });
 
-  test("back restores stored initial settings from a bare URL after an edit", async ({ browser }) => {
+  test("back restores initial URL transfer settings after an edit", async ({ browser }) => {
     const context = await browser.newContext();
-    await context.addInitScript(() => localStorage.setItem("cantusorgani.ordinary-form.settings.v1", JSON.stringify({
-      epiphany: "sunday", ascension: "sunday", corpusChristi: "sunday",
-    })));
     const page = await context.newPage();
-    await page.goto("/calendar/ordinary-form/");
+    await page.goto("/calendar/ordinary-form/?date=2026-05-17&epiphany=sunday&ascension=sunday&corpusChristi=sunday");
     await expect(page).toHaveURL(/epiphany=sunday.*ascension=sunday.*corpusChristi=sunday/);
     const originalDate = await page.locator("#date").inputValue();
     await page.locator("#date").fill("2026-04-06");
@@ -278,12 +275,11 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     await expect(page.getByRole("link", { name: "View accompaniments for this occasion" })).toHaveCount(0);
   });
 
-  test("a shared default URL overrides another context's saved transfers", async ({ browser }) => {
+  test("a shared default URL replaces previous URL transfers", async ({ browser }) => {
     const context = await browser.newContext();
-    await context.addInitScript(() => localStorage.setItem("cantusorgani.ordinary-form.settings.v1", JSON.stringify({
-      epiphany: "sunday", ascension: "sunday", corpusChristi: "sunday",
-    })));
     const page = await context.newPage();
+    await page.goto("/calendar/ordinary-form/?date=2026-05-17&epiphany=sunday&ascension=sunday&corpusChristi=sunday");
+    await expect(page.getByRole("heading", { name: "The Ascension of the Lord" })).toBeVisible();
     await page.goto("/calendar/ordinary-form/?date=2026-04-05&epiphany=jan6&ascension=thursday&corpusChristi=thursday");
     await expect(page.getByRole("heading", { name: "Easter Sunday" })).toBeVisible();
     await expect(page.locator('input[type="radio"]')).toHaveCount(0);
@@ -291,7 +287,7 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     await context.close();
   });
 
-  test("handles invalid dates and blocked settings storage without losing the calendar", async ({ browser }) => {
+  test("handles invalid dates and blocked storage without losing the calendar", async ({ browser }) => {
     const context = await browser.newContext();
     await context.addInitScript(() => {
       Object.defineProperty(Storage.prototype, "getItem", { value() { throw new DOMException("Blocked", "SecurityError"); } });

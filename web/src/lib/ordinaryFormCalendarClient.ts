@@ -1,6 +1,6 @@
 import { addDays, isoOf, nextSunday, parseIso, today, weekday, type LocalDate } from "./liturgy";
 import { OF_SEASON_LABELS, ofDay, type OfSettings } from "./ordinaryForm";
-import { ofQuery, OF_SETTINGS_STORAGE_KEY, readOfSettings } from "./ordinaryFormSettings";
+import { ofQuery, readOfSettings } from "./ordinaryFormSettings";
 import type { OfSeason } from "./ordinaryForm";
 
 type Cycle = "A" | "B" | "C";
@@ -46,10 +46,6 @@ function longDate(date: LocalDate): string {
   });
 }
 function inRange(date: LocalDate): boolean { return date.year >= MIN_YEAR && date.year <= MAX_YEAR; }
-function readStored(): unknown {
-  try { return localStorage.getItem(OF_SETTINGS_STORAGE_KEY); }
-  catch { return undefined; }
-}
 
 /** Occasion pairs for Sundays whose proper changes under one of the legacy transfer choices. */
 export function dateMusicChoices(date: LocalDate, settings: OfSettings): OfMusicChoice[] {
@@ -95,7 +91,7 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
   const dateInput = input, results = result, dateFeedback = feedback;
   let params = new URLSearchParams(window.location.search);
   let currentDate = readIsoParameter(params).date;
-  let settings = readOfSettings(params, readStored());
+  let settings = readOfSettings(params);
   let dateError = readIsoParameter(params).error;
 
   function announceInvalid(message: string): void {
@@ -263,7 +259,7 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
   window.addEventListener("popstate", () => {
     params = new URLSearchParams(window.location.search);
     const parsed = readIsoParameter(params); currentDate = parsed.date; dateError = parsed.error;
-    settings = readOfSettings(params, readStored()); render(currentDate); refreshNavigation();
+    settings = readOfSettings(params); render(currentDate); refreshNavigation();
   });
   const initial = readIsoParameter(params);
   currentDate = initial.date; dateError = initial.error;
