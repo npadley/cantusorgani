@@ -188,9 +188,7 @@ scripts/regenerate.sh noh1 noh3
 
 Rebuilds those volumes from the scans first (2–7 minutes each), then does the
 above. Use it after an edit to `index-*.yml` or `volumes.yml`. `all` rebuilds
-every volume: noh1–5, noh7, noh8 (about half an hour). (To confirm: in
-`scripts/regenerate.sh` today `all` stops at noh5 and noh8; name `noh7`
-yourself until that is fixed.)
+every volume: noh1–5, noh7, noh8 (about half an hour).
 
 It ends by listing what changed under `data/`. Read that list: it's what you'll
 commit.

@@ -652,8 +652,8 @@ If the day shows a NOH setting that is the wrong piece, fix that piece's
   A chant GregoBase flags `copyrighted` is left out on purpose and keeps a
   link only.
 - **Notation drawn wrongly**: it is GregoBase's transcription. Don't edit
-  `data/chants.json`; correct the chant id (to confirm: there is no local
-  override for a bad transcription).
+  `data/chants.json`. There is no local override for a transcription: point
+  the part at a better GregoBase id, or report the error to GregoBase.
 
 ### Typeset and Customize export
 
