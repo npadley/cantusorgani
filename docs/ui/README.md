@@ -25,10 +25,10 @@ decided 2026-10-22 in [DECISIONS.md, P12](../DECISIONS.md). See
 
 ## What a redesign should know first
 
-- **Readers never see the declared text font.** `--font-text` names Source
-  Serif 4, but no `@font-face` loads it, so pages render in Georgia.
+- **Fixed 2026-10-22: readers never saw the declared text font.** Source Serif 4
+  is now self-hosted and loaded.
 - **Controls fail non-text contrast.** Buttons and public form fields are
-  bordered with `--rule` (about 1.7:1). `--control-border` (3.7:1) exists but
+  bordered with `--rule` (about 1.7:1; fixed 2026-10-22). `--control-border` (3.7:1) existed but
   is used mainly in admin and the export editor.
 - **There are no breakpoint tokens.** Nine raw widths are in use; 40, 60 and
   62rem are the de facto ones.

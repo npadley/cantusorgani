@@ -39,9 +39,7 @@ The attribute is set before first paint from `localStorage["scan-polarity"]`
 
 Two gaps:
 
-- Block 3 does not set `--control-border`. In explicit "inverted" on a light
-  system it stays `#8a8272` (4.85:1 on the dark paper, so it still passes). Block 2
-  sets `#7a7363`.
+- Closed 2026-10-22: block 3 now sets `--control-border: #7a7363`, like block 2.
 - `--print-paper`, `--print-ink`, `--font-*`, `--step-*` and the spacing tokens
   are never themed.
 
@@ -57,7 +55,7 @@ says otherwise. Light `--paper` is `#fdfcf9`. Dark `--paper` is `#14140f`.
 | `--ink` | `#14120e` | `#ece7da` | Body text. | 18.23 | 14.96 | Text AAA |
 | `--ink-muted` | `#524e45` | `#b3ac9c` | Secondary text, disabled text. | 8.08 | 8.18 | Text AAA |
 | `--rule` | `#c9c2b4` | `#3c382f` | "Hairlines and table rules; never used for text." In practice also the border of many controls (see section 6). | 1.73 | 1.58 | Fails non-text 3:1. Fine for decoration only. |
-| `--control-border` | `#8a8272` | `#7a7363` (block 2 only) | "Edges of inputs and buttons." Used in the export editor and preview, and for admin controls through `AdminNav.astro:38-40`. | 3.71 | 3.92 | Non-text pass (3:1). Fails AAA/AA text, not meant for text. |
+| `--control-border` | `#8a8272` | `#7a7363` (blocks 2 and 3) | "Edges of inputs and buttons." Used in the export editor and preview, and for admin controls through `AdminNav.astro:38-40`. | 3.71 | 3.92 | Non-text pass (3:1). Fails AAA/AA text, not meant for text. |
 | `--accent` | `#6b2318` | `#e0a08c` | "Rubric red, from the source edition." Links, focus ring, markers, selected state. The only accent. | 10.89 | 8.42 | Text AAA, non-text pass |
 | `--warn-bg` | `#fbf3e2` | `#2a2318` | Ground of `.notice`, admin error bar, "current char" highlight. | 1.08 | 1.19 | Background only. No non-text meaning, so no requirement. |
 | `--warn-ink` | `#5a4409` | `#e8c87a` | Text on `--warn-bg`, error status text, error borders. | 9.03 on paper; 8.40 on `--warn-bg` | 11.41 on paper; 9.60 on `--warn-bg` | Text AAA both |
@@ -113,7 +111,7 @@ as the ones to use, and update the comments in any redesign.
 The comment at `tokens.css:24` says "one serif for text, one UI face. No third
 family." There is no mono token (see section 6).
 
-**Source Serif 4 is never loaded.** I searched `web/src` and `web/public` for
+**Closed 2026-10-22: Source Serif 4 is now self-hosted** (latin 400, 400 italic, 600 and latin-ext 400 woff2 in `public/fonts/source-serif-4/`, `font-display: swap`, `@font-face` at the top of `tokens.css`, preload of the regular latin file in `Layout.astro`). The paragraph below is the earlier finding, kept for the record: **Source Serif 4 was never loaded.** I searched `web/src` and `web/public` for
 `@font-face`, `font-display`, `fonts.googleapis`, and the name "Source Serif".
 The only hit for the name is the token itself (`tokens.css:25`). The only
 `@font-face` rules are three for "Liberation Serif" in `exportPreview.css:5-7`,
@@ -378,7 +376,7 @@ have no token.
 
 `--rule` fails the 3:1 non-text test (WCAG 1.4.11). `--control-border` exists
 for this, but it is only applied in the export editor and preview, and to
-admin pages through `AdminNav.astro:38-40`. **Public controls still use `--rule`:**
+admin pages through `AdminNav.astro:38-40`. **Public controls used `--rule` until 2026-10-22, when they moved to `--control-border`:**
 
 | File:line | Selector | Public? |
 |---|---|---|
@@ -424,9 +422,9 @@ Counts of lines using `border` with `var(--rule)`, `border-radius`, and raw
 
 ### Redesign checklist from this section
 
-1. Apply `--control-border` to `base.css:66` (and the four public input rules),
+1. Done 2026-10-22: apply `--control-border` to `base.css:66` (and the four public input rules),
    or raise `--rule` so it passes. This fixes every public control at once.
-2. Load Source Serif 4 or change the token to the font actually shown (Georgia).
+2. Done 2026-10-22: load Source Serif 4 or change the token to the font actually shown (Georgia).
 3. Update the contrast comments in `tokens.css`.
 4. Replace `--line` at `admin/typeset/edit.astro:39`.
 5. Replace `#fff` at `admin/typeset/index.astro:213` with `--print-paper`.

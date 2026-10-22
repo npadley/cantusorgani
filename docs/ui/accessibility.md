@@ -17,7 +17,7 @@ Paths are relative to `web/`.
 | # | Criterion | Pass condition | How it is tested today | How it could be tested |
 |---|---|---|---|---|
 | 1 | Contrast, text (1.4.3, 1.4.6) | Body text and muted text at 7:1 or better, light and dark. Links, notices and error text at 7:1 | No test. Ratios are written in comments in `src/styles/tokens.css` | A small script that reads the token pairs and fails below 7:1; axe on the built pages |
-| 2 | Contrast, controls (1.4.11) | Every control edge, focus ring and state indicator at 3:1 or better | Not tested. The export editor uses `--control-border`; base buttons and public form fields do not (see gap 1) | The same script; axe `color-contrast` and manual review of borders |
+| 2 | Contrast, controls (1.4.11) | Every control edge, focus ring and state indicator at 3:1 or better | `e2e/a11y.e2e.ts` runs axe (not 1.4.11 borders, which axe does not measure). Base buttons and public form fields now use `--control-border` (gap 1, closed 2026-10-22) | The same script; axe `color-contrast` and manual review of borders |
 | 3 | Contrast, music | Scans are black on white, or white on black when inverted; typeset music uses external SVG images themed by `--score-filter`; chant uses `currentColor`; chant rubrics stay legible | No test | Pixel check of one scan and one chant in each theme |
 | 4 | Target size (2.5.8, AA minimum 24 px; this site aims for 44 px) | Every control is at least 44 by 44 CSS px, apart from links inside a sentence | `e2e/export-layout-editor.e2e.ts` ("every interactive target is at least 44 px"; handles at 44 px). Nothing for public pages | A Playwright test that walks `a, button, input, select, summary` on key pages and checks `boundingBox()` |
 | 5 | Focus visible (2.4.7) and not obscured (2.4.11) | Every focused control shows a ring and is not hidden behind the sticky export bar or the editor's sticky strip | No test | Playwright: Tab through a piece page at 768 px wide and assert the focused element is above the bar |
@@ -44,7 +44,7 @@ test files.
 
 | Feature | Where | Notes |
 |---|---|---|
-| Skip link "Skip to music" | `src/components/Layout.astro`, `src/styles/base.css` (`.skip-link`) | Only on pages that pass `skipTo`: piece, Kyriale, OF occasion, Vespers (`initium`), Good Friday (`chants`). Home, calendars, day, search, hymns, division, corrections and about have none. Moves in with `transition: top 0.15s` |
+| Skip link "Skip to music" | `src/components/Layout.astro`, `src/styles/base.css` (`.skip-link`) | On every page. Pages that pass `skipTo` (piece, Kyriale, OF occasion, Vespers, Good Friday) say "Skip to music"; all others say "Skip to main content" and target `#main-content`. The move-in transition runs only without `prefers-reduced-motion: reduce` |
 | Visible focus | `src/styles/base.css` (`:focus-visible`: 2px `--accent`, 2px offset, 2px radius) | Applies site-wide. The editor's hidden radio inputs show focus on the sibling label (spec; `src/styles/exportEditor.css`) |
 | Target size | `--tap-min: 44px` in `src/styles/tokens.css`; buttons, `.nav-links a`, list links, jump links, disclosure summaries, labels | In-sentence and crumb links have no minimum |
 | Latin language | `lang="la"` in `src/components/ChantText.astro`, `src/components/SystemStack.astro` (rubrics), `src/pages/ordinary-form/[key].astro`, `src/pages/good-friday/index.astro` | Page language is `en` (`Layout.astro`). See gap 5 |
@@ -89,7 +89,7 @@ written.
 
 Each gap was checked in the code. The fix is the maintainer's call.
 
-1. **Control borders use `--rule` (1.7:1).** `src/styles/base.css` sets
+1. **CLOSED 2026-10-22: control borders used `--rule` (1.7:1).** Public buttons and inputs now use `--control-border`. Original finding: `src/styles/base.css` sets
    `button` and `.button` to `border: 1px solid var(--rule)`. The date field
    and the calendar and corrections inputs also use `--rule`:
    `src/pages/calendar/index.astro`, `src/pages/calendar/ordinary-form/index.astro`,
@@ -98,11 +98,11 @@ Each gap was checked in the code. The fix is the maintainer's call.
    the admin selects and textareas (`src/components/AdminNav.astro`) use
    `--control-border` (3.7:1). The admin review (`docs/ADMIN-UX-REVIEW.md`,
    section 2) found the same fault. Buttons with a filled `.primary` style pass.
-2. **No focus-not-obscured protection.** Below 62rem the export bar is
+2. **CLOSED 2026-10-22 (rule added; not browser-tested): no focus-not-obscured protection.** `ExportBar.astro` now sets `scroll-padding-bottom: 8rem` below 62rem. Original finding: Below 62rem the export bar is
    `position: sticky; bottom: 0` (`src/components/ExportBar.astro`) and no
    `scroll-padding-bottom` is set on public pages. Admin sets one
    (`AdminNav.astro`). A focused link in the music could sit under the bar.
-3. **Skip link is missing on most pages and animates.** See table above. The
+3. **CLOSED 2026-10-22: skip link was missing on most pages and animated.** See table above. The
    `top` transition ignores `prefers-reduced-motion`.
 4. **Status semantics are doubled on the switches.** The page-wide typeset
    switch (`src/components/TypesetSwitch.astro`) changes its text ("Show the
@@ -112,7 +112,7 @@ Each gap was checked in the code. The fix is the maintainer's call.
    does not control a collapsible region. "Invert" has a fixed name with
    `aria-pressed`, which is correct, but the name does not say what is inverted
    (the `title` does).
-5. **Latin text without `lang="la"`.** Latin names print without the attribute
+5. **CLOSED 2026-10-22: Latin text without `lang="la"`** (home, division, day, Vespers, hymns, both calendars). Original finding: Latin names print without the attribute
    in `src/pages/index.astro` (`.la`), `src/pages/[division]/index.astro`,
    `src/pages/day/[flex]/[name].astro` (lede), `src/components/VespersPage.astro`
    (lede), `src/pages/hymns/index.astro` ("Hymni"), `src/pages/calendar/index.astro`
@@ -124,7 +124,7 @@ Each gap was checked in the code. The fix is the maintainer's call.
    on any of them.
 7. **No forced-colours support.** No `forced-colors` rule exists, and the
    scans and typeset music rely on `filter`. Not tested.
-8. **Explicit "Invert" does not set `--control-border`.** The system-dark block
+8. **CLOSED 2026-10-22: explicit "Invert" did not set `--control-border`.** It now matches the system-dark value. The system-dark block
    sets 3.9:1; the explicit-inverted block (`:root[data-scan-polarity="inverted"]`)
    does not, so it inherits the light value (4.9:1 on dark). It passes, but the
    two dark themes use different values.
@@ -149,8 +149,7 @@ at 320 px, and `Turnstile`'s own accessibility.
 
 Existing checks:
 
-- No axe, `@axe-core`, or other automated accessibility scanner. `package.json`
-  and `playwright.config.ts` have none, and no test imports one.
+- `e2e/a11y.e2e.ts` runs axe (`@axe-core/playwright`, WCAG 2 A/AA, 2.1 and 2.2 AA tags) over one URL per template from `routes.json`, in light and dark system schemes, failing on serious or critical violations. Its allowlist is empty: no violations found on 2026-10-22. Axe does not measure control-border contrast (1.4.11), the 7:1 target, focus obscured, or Invert.
 - Editor: 44 px targets, handle hit areas, `aria-label` text on page frames and
   break handles, `aria-expanded` on Settings, Esc and focus return, keyboard
   breaks and undo, one live region, labelled radio groups.

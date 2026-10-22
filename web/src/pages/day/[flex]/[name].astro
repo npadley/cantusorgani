@@ -64,7 +64,7 @@ const longDate = date
   <div class="prose">
     <p class="crumb small muted ui"><a href="/">Cantus Organi</a> · <a href="/calendar/">Calendar</a></p>
     <h1>{title}</h1>
-    {o && <p class="lede">{o.titleLa}</p>}
+    {o && <p class="lede" lang="la">{o.titleLa}</p>}
     {o && (
       <p class="meta ui small muted">
         {classLabel(o.rank)} · {o.colors.map((c) => COLOR_LABELS[c] ?? c).join(" / ")}

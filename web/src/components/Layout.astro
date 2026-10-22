@@ -33,6 +33,7 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
     <title>{fullTitle}</title>
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonical} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/source-serif-4/source-serif-4-latin-400-normal.woff2" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Cantus Organi" />
     <meta property="og:title" content={fullTitle} />
@@ -61,7 +62,7 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
     </script>
   </head>
   <body>
-    {skipTo && <a class="skip-link ui" href={`#${skipTo}`}>Skip to music</a>}
+    <a class="skip-link ui" href={`#${skipTo ?? "main-content"}`}>{skipTo ? "Skip to music" : "Skip to main content"}</a>
 
     <nav class="nav no-print ui">
       <div class="nav-inner">
@@ -82,7 +83,7 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
       </div>
     </nav>
 
-    <main class="page" data-pagefind-ignore={noindex ? "all" : undefined}>
+    <main id="main-content" tabindex="-1" class="page" data-pagefind-ignore={noindex ? "all" : undefined}>
       <slot />
     </main>
 
