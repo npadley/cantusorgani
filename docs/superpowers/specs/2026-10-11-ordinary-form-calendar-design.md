@@ -1,6 +1,6 @@
 # Ordinary Form calendar: Graduale Romanum (1974) over the NOH substrate
 
-Status: calendar policy decisions confirmed; implementation not started · 2026-10-11
+Status: SHIPPED · see docs/design/README.md · policy decisions confirmed 2026-10-11
 
 ## Intent
 

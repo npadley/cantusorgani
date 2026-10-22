@@ -1,5 +1,7 @@
 # Export Publication and Catalogue Rollout Implementation Plan
 
+Status: SUPERSEDED-BY [execution packet](2026-10-08-export-execution-packet.md) (this is its Plan C; kept for rationale) · see docs/design/README.md
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Publish only current approved conversions, release a bounded Kyrie IX pilot, and expand safely through economical conversion/review batches.

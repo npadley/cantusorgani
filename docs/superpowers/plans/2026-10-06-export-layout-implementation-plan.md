@@ -1,5 +1,7 @@
 # Export Layout Implementation Plan and Agent Handoff
 
+Status: SUPERSEDED-BY [execution packet](2026-10-08-export-execution-packet.md) (this is its Plan 0; kept for rationale) · see docs/design/README.md
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Deliver a reviewed Kyrie IX export editor, then enable additional scores through reproducible conversion and review.

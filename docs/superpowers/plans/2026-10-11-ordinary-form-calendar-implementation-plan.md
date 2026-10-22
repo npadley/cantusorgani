@@ -2,6 +2,8 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
+Status: SHIPPED · see docs/design/README.md
+
 **Execution status (2026-10-11):** Tasks 1–9 are implemented and verified. The original per-step checklists below remain the implementation recipe; the execution record at the end records the actual grouped work and verification.
 
 **Goal:** Let organists select a date in 2024–2050 under the Ordinary Form calendar and find the 1974 Graduale's chants and their NOH accompaniments.

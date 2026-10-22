@@ -1,5 +1,7 @@
 # Export layout catalogue audit (October 2026)
 
+Status: REFERENCE · see docs/design/README.md
+
 Date: 2026-10-09. Command: `uv run noh typeset-mei-audit --out build/typeset/mei/audit.json`
 
 A text scan of the LilyPond sources (no LilyPond run). Counts are candidate signals only; the extractor and validators are the authority.

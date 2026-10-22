@@ -1,6 +1,6 @@
 # Chant in the PDF export — Execution Cards
 
-Date: 2026-10-19. Status: **ready** (P1–P5 decided 2026-10-19, DL D25–D29; spec §0). Protocol, standard commands, prompt templates and review are those of the [export execution packet §0](2026-10-08-export-execution-packet.md#0-read-this-first). Where a card and the spec disagree, **the card wins**.
+Date: 2026-10-19. Status: SHIPPED (K9 user review open) · see docs/design/README.md. Was **ready** (P1–P5 decided 2026-10-19, DL D25–D29; spec §0). Protocol, standard commands, prompt templates and review are those of the [export execution packet §0](2026-10-08-export-execution-packet.md#0-read-this-first). Where a card and the spec disagree, **the card wins**.
 
 | Short name | Document |
 |---|---|

@@ -1,6 +1,6 @@
 # Export Layout — Frozen Contracts (v2)
 
-Date: 2026-10-08. Status: **authoritative**. This file supersedes the type sketches in the coordination plan (§3) and in each task. The coordinator freezes it in tasks **A1a** (Python) and **B3a** (TypeScript). After that, any change needs coordinator review, and every consumer's tests must be re-run.
+Date: 2026-10-08. Status: ACTIVE REFERENCE · see docs/design/README.md. Authoritative. This file supersedes the type sketches in the coordination plan (§3) and in each task. The coordinator freezes it in tasks **A1a** (Python) and **B3a** (TypeScript). After that, any change needs coordinator review, and every consumer's tests must be re-run.
 
 Sources: the engineering review §5 (types), the design review §§C4/C5 (structured diagnostics, `afterText`), and the user decisions of 2026-10-08 (decision log D1–D6).
 

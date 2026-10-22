@@ -1,4 +1,6 @@
 # Design: Nova Organi Harmonia Online
+
+Status: SHIPPED · see docs/design/README.md
 Date: 2026-09-07
 
 ## Summary
@@ -196,6 +198,8 @@ status of each before committing):
 - **Client-side Exsurge** — pure JS, no build dependency, lighter output quality
   and less actively maintained.
 
+> Superseded: GregoBase is CC0 (data/LICENSES.md; commit c9a0f0b).
+
 Licensing consequence: GregoBase is CC-BY-SA, so this moves attribution from an
 ingest concern to a **display** concern. Every page showing a rendered chant
 carries attribution, and share-alike attaches to the chant renderings and
@@ -293,6 +297,8 @@ Then: NOH1+NOH2 (Temporale, the core "every Sunday" promise) → NOH8 (Vesperale
 1. ~~**NOH6**~~ — **Resolved 2026-09-07:** contains Belgian diocesan propers only.
    Out of scope for launch; additive later with no schema impact. Document the
    gap on the site.
+> Superseded: GregoBase is CC0 (data/LICENSES.md).
+
 2. ~~**Chant database licensing**~~ — **Resolved 2026-09-07:** CC-BY-SA accepted.
    `data/catalog.json` and chant renderings carry CC-BY-SA with GregoBase
    attribution; NOH scan assets remain public domain and are labelled separately.

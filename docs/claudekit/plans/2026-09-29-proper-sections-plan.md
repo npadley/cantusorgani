@@ -1,7 +1,7 @@
 # Plan: a Proper's sections, as the book prints them
 
 **Date**: 2026-09-29
-**Status**: decisions taken 2026-09-29 (see Decisions); ready to build
+**Status**: SHIPPED · see docs/design/README.md. Decisions taken 2026-09-29 (see Decisions).
 **Builds on**: `2026-09-26-proper-parts-export-chant-links-plan.md` (parts),
 `2026-09-27-editing-admin-refactor-plan.md` (corrections overlay, admin)
 

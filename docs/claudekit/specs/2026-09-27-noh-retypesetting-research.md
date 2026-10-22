@@ -1,6 +1,6 @@
 # Spec (research): re-typesetting the Nova Organi Harmonia
 
-**Status**: research only, not scheduled. Written 2026-09-27.
+**Status**: SUPERSEDED-BY [typesetting design](2026-09-28-typesetting-design.md) · see docs/design/README.md. Research only; written 2026-09-27.
 **Related**: `docs/claudekit/specs/2026-09-07-nova-organi-harmonia-design.md`,
 `docs/claudekit/plans/2026-09-26-proper-parts-export-chant-links-plan.md`
 

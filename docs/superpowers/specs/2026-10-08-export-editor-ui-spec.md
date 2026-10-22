@@ -1,6 +1,6 @@
 # Export Layout Editor — UI Specification
 
-Date: 2026-10-08. Status: **authoritative for B1 (mockups) and B8 (build)**. Derived from the design review (`docs/superpowers/reviews/2026-10-08-export-design-review.md` §§5–11) with the user decisions of 2026-10-08 applied (decision log D1–D6). Types and codes referenced here are defined in [the frozen contracts](../plans/2026-10-08-export-contracts.md); where this document and the contracts disagree on a name or value, **the contracts win** and this document is corrected.
+Date: 2026-10-08. Status: ACTIVE REFERENCE · see docs/design/README.md. Authoritative for B1 (mockups) and B8 (build), and the inventory of controls that must stay. Derived from the design review (`docs/superpowers/reviews/2026-10-08-export-design-review.md` §§5–11) with the user decisions of 2026-10-08 applied (decision log D1–D6). Types and codes referenced here are defined in [the frozen contracts](../plans/2026-10-08-export-contracts.md); where this document and the contracts disagree on a name or value, **the contracts win** and this document is corrected.
 
 Applied decisions:
 

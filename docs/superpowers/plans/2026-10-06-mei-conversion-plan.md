@@ -1,5 +1,7 @@
 # LilyPond-to-MEI Conversion Implementation Plan
 
+Status: SUPERSEDED-BY [execution packet](2026-10-08-export-execution-packet.md) (this is its Plan A; kept for rationale) · see docs/design/README.md
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Produce faithfully encoded Kyrie IX MEI, a reproducible catalogue audit, and evidence that supports independent approval.

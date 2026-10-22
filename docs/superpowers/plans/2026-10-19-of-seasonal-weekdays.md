@@ -1,5 +1,7 @@
 # Ordinary Form seasonal weekdays
 
+Status: SHIPPED · see docs/design/README.md
+
 **Goal:** every weekday of Advent, Christmas, Lent and Easter on the OF calendar
 resolves either to its own chant set (with NOH lenders where they exist) or to
 the preceding Sunday, as the *Graduale Romanum* (1974) directs. Ordinary Time

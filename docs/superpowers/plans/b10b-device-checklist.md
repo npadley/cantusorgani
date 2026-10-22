@@ -1,5 +1,7 @@
 # B10b: iPad device check
 
+Status: ACTIVE REFERENCE · see docs/design/README.md
+
 One sitting, about 30 minutes. You need the Mac and the iPad on the same Wi-Fi, forScore on the iPad, and a printer with Letter or A4 paper and a ruler.
 
 ## Start the server (on the Mac)

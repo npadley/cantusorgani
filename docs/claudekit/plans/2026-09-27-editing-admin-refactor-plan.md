@@ -1,8 +1,8 @@
 # Editing guide, corrections admin, and refactor — brainstorm and plan
 
 **Date**: 2026-09-27
-**Status**: decisions taken; autoplan review applied (all 16 fixes, see
-`docs/claudekit/reviews/2026-09-27-editing-admin-refactor-plan-autoplan-2026-09-27.md`); ready to build
+**Status**: SHIPPED · see docs/design/README.md. Decisions taken; autoplan review applied (all 16 fixes, see
+`docs/claudekit/reviews/2026-09-27-editing-admin-refactor-plan-autoplan-2026-09-27.md`).
 
 ## Why now
 

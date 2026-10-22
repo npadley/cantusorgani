@@ -1,6 +1,6 @@
 # Export Layout — Execution Packet (task cards for Sonnet/Haiku, coordinated by Opus)
 
-Date: 2026-10-08. Status: **ready for approval**. This packet replaces the 20 tasks in Plans A/B/C with 60 single-session task cards. Plans A/B/C remain the rationale and background; **where a card and a plan disagree, the card wins.**
+Date: 2026-10-08. Status: SHIPPED · see docs/design/README.md. (Its §6 status board is superseded by the phase 2 plan.) This packet replaces the 20 tasks in Plans A/B/C with 60 single-session task cards. Plans A/B/C remain the rationale and background; **where a card and a plan disagree, the card wins.**
 
 ## 0. Read this first
 
@@ -805,6 +805,8 @@ Follow PC C3 exactly, using the Kyrie target `movement:ordinarium-missae-ix/kyri
 ### C4b… [S] Conversion batches
 These run per PC C4, using the conversion-batch prompt in P0 §2. Each batch has its own reviewer. Only the user approves.
 
+> Superseded by D22 (export-layout-decisions.md).
+
 ---
 
 ## 5. DAG
@@ -831,6 +833,8 @@ B0[H] ────────────────────────�
 **Escalation checkpoints (DL D10):** if S1 + A2 + A3 together pass 4 weeks, or S4 passes 2 weeks, the coordinator stops and reviews with the user.
 
 ## 6. Status board
+
+> Superseded by the phase 2 plan (2026-10-12-export-phase-2.md).
 
 > **Superseded.** Phase 1 is complete (G0–G4). What is left is tracked in
 > [`2026-10-12-export-phase-2.md`](2026-10-12-export-phase-2.md).
