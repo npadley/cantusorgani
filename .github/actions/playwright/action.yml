@@ -12,12 +12,19 @@ runs:
       run: |
         version=$(node -e "const fs = require('fs'); const lock = fs.readFileSync('pnpm-lock.yaml', 'utf8'); const match = lock.match(/'@playwright\/test':\s+specifier: [^\n]+\s+version: ([^\s(]+)/); if (!match) throw new Error('Playwright version missing from lockfile'); process.stdout.write(match[1]);")
         echo "version=$version" >> "$GITHUB_OUTPUT"
+        echo "image=$ImageOS-$ImageVersion" >> "$GITHUB_OUTPUT"
     - name: Restore Playwright browsers
       id: cache
       uses: actions/cache/restore@v6
       with:
         path: ~/.cache/ms-playwright
         key: playwright-${{ runner.os }}-${{ runner.arch }}-${{ steps.version.outputs.version }}
+    - name: Restore system packages
+      id: apt
+      uses: actions/cache/restore@v6
+      with:
+        path: ${{ runner.temp }}/apt-archives-playwright/*.deb
+        key: apt-playwright-${{ runner.os }}-${{ runner.arch }}-${{ steps.version.outputs.image }}-${{ steps.version.outputs.version }}
     - name: Browser runtime
       id: runtime
       shell: bash
@@ -27,7 +34,8 @@ runs:
       run: |
         # A killed attempt can leave apt running; make the retry wait for its
         # lock instead of failing on it, and fail slow mirrors fast.
-        printf '%s\n' 'DPkg::Lock::Timeout "300";' 'Acquire::Retries "3";' 'Acquire::http::Timeout "30";' 'Acquire::https::Timeout "30";' | sudo tee /etc/apt/apt.conf.d/99ci-timeouts > /dev/null
+        mkdir -p "$RUNNER_TEMP/apt-archives-playwright/partial"
+        printf '%s\n' "Dir::Cache::archives \"$RUNNER_TEMP/apt-archives-playwright\";" 'APT::Keep-Downloaded-Packages "true";' 'DPkg::Lock::Timeout "300";' 'Acquire::Retries "3";' 'Acquire::http::Timeout "30";' 'Acquire::https::Timeout "30";' | sudo tee /etc/apt/apt.conf.d/99ci-timeouts > /dev/null
         for attempt in 1 2; do
           if timeout --kill-after=10s 300s bash -e -c 'if [ "$CACHE_HIT" = "true" ]; then pnpm exec playwright install-deps chromium; else pnpm exec playwright install --with-deps chromium; fi'; then
             exit 0
@@ -42,3 +50,9 @@ runs:
       with:
         path: ~/.cache/ms-playwright
         key: ${{ steps.cache.outputs.cache-primary-key }}
+    - name: Save system packages
+      if: always() && steps.runtime.outcome == 'success' && steps.apt.outputs.cache-primary-key != '' && steps.apt.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v6
+      with:
+        path: ${{ runner.temp }}/apt-archives-playwright/*.deb
+        key: ${{ steps.apt.outputs.cache-primary-key }}
