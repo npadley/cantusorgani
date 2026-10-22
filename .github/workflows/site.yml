@@ -4,15 +4,9 @@
 # check and build the site, but never deploy. A push to main does the same and
 # then deploys to Cloudflare Pages by direct upload.
 #
-# Two jobs, side by side:
-#   check-build-deploy  the fast tests, the build, the browser tests, the deploy
-#                       (about 2 minutes to the site after a merge);
-#   scan-tests          the slow tests that read the scans (pages rendered at
-#                       300 dpi, about 8 minutes). They test the code that reads
-#                       the books, not what the site shows, so the deploy does
-#                       not wait for them, and they run only when that code, its
-#                       tests or its inputs change (or by hand). A failure is a
-#                       red check on the commit.
+# Python, site and browser checks run in parallel. Only their success gates
+# deploy; LilyPond and conditional scan tests also feed the aggregate check.
+# The browser job hands its tested build to deploy as an artifact.
 #
 # Free: GitHub Actions minutes are unlimited for public repositories, and a
 # wrangler direct upload does not use Cloudflare Pages' build quota.
@@ -32,10 +26,11 @@ on:
     paths-ignore: ["docs/**", "**/*.md"]
   workflow_dispatch:
 
-# A newer push supersedes a run still going on the same branch.
+# Cancel superseded pull requests; main runs wait for the active run.
 concurrency:
   group: site-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  queue: ${{ github.event_name == 'pull_request' && 'single' || 'max' }}
 
 permissions:
   contents: read
@@ -60,12 +55,28 @@ jobs:
           enable-cache: true
       - run: uv sync --frozen
       - name: Pinned LilyPond, cached
-        uses: actions/cache@v6
+        id: lilypond-cache
+        uses: actions/cache/restore@v6
         with:
           path: vendor/lilypond-*
           key: lilypond-${{ runner.os }}-${{ hashFiles('data/typeset/lilypond.yml') }}
       - name: Install LilyPond
-        run: uv run noh lilypond-install
+        timeout-minutes: 5
+        run: |
+          for attempt in 1 2; do
+            if timeout --kill-after=10s 130s bash -e -c 'uv run noh lilypond-install'; then
+              exit 0
+            fi
+            echo "::warning::Pinned LilyPond install failed or hung (attempt $attempt of 2)."
+          done
+          echo "::error::Pinned LilyPond install failed or hung after two attempts."
+          exit 1
+      - name: Save LilyPond
+        if: always() && steps.lilypond-cache.outputs.cache-primary-key != '' && steps.lilypond-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: vendor/lilypond-*
+          key: ${{ steps.lilypond-cache.outputs.cache-primary-key }}
       # Ubuntu blocks unprivileged user namespaces by default; the sandbox
       # (unshare --user --net) needs one.
       - name: Allow the LilyPond sandbox
@@ -90,6 +101,11 @@ jobs:
   typeset-upload:
     name: Typeset upload
     needs: typeset-render
+    # Shared with typeset-prune: never upload while pruning.
+    concurrency:
+      group: typeset-r2-mutations
+      cancel-in-progress: false
+      queue: max
     # Not for pull requests from forks, which get no secrets.
     if: >-
       needs.typeset-render.outputs.rendered != '0' &&
@@ -118,7 +134,7 @@ jobs:
           R2_BUCKET: ${{ vars.R2_BUCKET }}
         run: uv run noh typeset-publish
 
-  check-build-deploy:
+  python:
     needs: [typeset-render, typeset-upload]
     # After the renders are published (the upload is skipped when there is
     # nothing new, and for forks); never after a failed render or upload.
@@ -141,8 +157,34 @@ jobs:
       - uses: astral-sh/setup-uv@v10.3.0
         with:
           enable-cache: true
+      - name: Apt cache key
+        id: apt-key
+        run: |
+          echo "image=$ImageOS-$ImageVersion" >> "$GITHUB_OUTPUT"
+          mkdir -p "$RUNNER_TEMP/apt-archives/partial"
+      - name: Restore Tesseract packages
+        id: apt-cache
+        uses: actions/cache/restore@v6
+        with:
+          path: ${{ runner.temp }}/apt-archives/*.deb
+          key: apt-${{ runner.os }}-${{ runner.arch }}-${{ steps.apt-key.outputs.image }}-tesseract-ocr-tesseract-ocr-lat
       - name: Tesseract (a few unit tests read a synthetic image)
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-lat
+        timeout-minutes: 5
+        run: |
+          for attempt in 1 2; do
+            if timeout --kill-after=10s 130s bash -e -c 'sudo apt-get update -qq && sudo apt-get -o Dir::Cache::archives="$RUNNER_TEMP/apt-archives" -o APT::Keep-Downloaded-Packages=true install -y -qq tesseract-ocr tesseract-ocr-lat'; then
+              exit 0
+            fi
+            echo "::warning::Tesseract apt install failed or hung (attempt $attempt of 2)."
+          done
+          echo "::error::Tesseract apt install failed or hung after two attempts."
+          exit 1
+      - name: Save Tesseract packages
+        if: always() && steps.apt-cache.outputs.cache-primary-key != '' && steps.apt-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: ${{ runner.temp }}/apt-archives/*.deb
+          key: ${{ steps.apt-cache.outputs.cache-primary-key }}
       - run: uv sync --frozen
       - name: Lint
         run: uv run ruff check pipeline tools tests
@@ -183,12 +225,29 @@ jobs:
             exit 1
           }
 
-      # --------------------------------------------------------------- site ---
+  site:
+    needs: [typeset-render, typeset-upload]
+    # After the renders are published (the upload is skipped when there is
+    # nothing new, and for forks); never after a failed render or upload.
+    if: >-
+      !cancelled() && needs.typeset-render.result == 'success' &&
+      (needs.typeset-upload.result == 'success' || needs.typeset-upload.result == 'skipped')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: web
       - name: Type check
         run: pnpm exec astro check
-        working-directory: web
-      - name: Browser runtime
-        run: pnpm exec playwright install --with-deps chromium
         working-directory: web
       - name: Site tests
         run: pnpm exec vitest run
@@ -212,6 +271,64 @@ jobs:
           PUBLIC_ASSET_BASE: ${{ vars.PUBLIC_ASSET_BASE }}
           PUBLIC_CORRECTIONS_ENDPOINT: ${{ vars.PUBLIC_CORRECTIONS_ENDPOINT }}
           PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_TURNSTILE_SITE_KEY }}
+
+  browser:
+    needs: [typeset-render, typeset-upload]
+    # After the renders are published (the upload is skipped when there is
+    # nothing new, and for forks); never after a failed render or upload.
+    if: >-
+      !cancelled() && needs.typeset-render.result == 'success' &&
+      (needs.typeset-upload.result == 'success' || needs.typeset-upload.result == 'skipped')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.0
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: web
+      - name: Playwright cache key
+        id: playwright-version
+        working-directory: web
+        run: |
+          version=$(node -e "const fs = require('fs'); const lock = fs.readFileSync('pnpm-lock.yaml', 'utf8'); const match = lock.match(/'@playwright\/test':\s+specifier: [^\n]+\s+version: ([^\s(]+)/); if (!match) throw new Error('Playwright version missing from lockfile'); process.stdout.write(match[1]);")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - name: Restore Playwright browsers
+        id: playwright-cache
+        uses: actions/cache/restore@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ runner.arch }}-${{ steps.playwright-version.outputs.version }}
+      - name: Browser runtime
+        working-directory: web
+        env:
+          CACHE_HIT: ${{ steps.playwright-cache.outputs.cache-hit }}
+        timeout-minutes: 8
+        run: |
+          for attempt in 1 2; do
+            if timeout --kill-after=10s 220s bash -e -c 'if [ "$CACHE_HIT" = "true" ]; then pnpm exec playwright install-deps chromium; else pnpm exec playwright install --with-deps chromium; fi'; then
+              exit 0
+            fi
+            echo "::warning::Playwright Chromium/dependencies install failed or hung (attempt $attempt of 2)."
+          done
+          echo "::error::Playwright Chromium/dependencies install failed or hung after two attempts."
+          exit 1
+      - name: Save Playwright browsers
+        if: always() && steps.playwright-cache.outputs.cache-primary-key != '' && steps.playwright-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ steps.playwright-cache.outputs.cache-primary-key }}
       # Every render the manifest names answers at its public address, so the
       # site never links to music that is not there. (Forks cannot upload.)
       - name: Typeset music published
@@ -258,7 +375,36 @@ jobs:
           path: web/test-results/
           retention-days: 7
 
-      # ------------------------------------------------------------- deploy ---
+      - name: Tested site
+        uses: actions/upload-artifact@v7
+        with:
+          name: site-dist
+          path: web/dist/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 1
+
+  deploy:
+    needs: [python, site, browser]
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: web
+      - uses: actions/download-artifact@v8
+        with:
+          name: site-dist
+          path: web/dist
       - name: Deploy to Cloudflare Pages
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: cloudflare/wrangler-action@v4
@@ -266,7 +412,26 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: web
+          packageManager: pnpm
           command: pages deploy dist --project-name cantusorgani --branch main --commit-hash ${{ github.sha }}
+
+  # One stable required check; upload and deploy retain their skip conditions.
+  check:
+    needs: [typeset-render, typeset-upload, python, site, browser, lilypond-tests, scan-tests, deploy]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: All required jobs succeeded
+        env:
+          NEEDS: ${{ toJSON(needs) }}
+          DEPLOY_EXPECTED: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
+        run: |
+          echo "$NEEDS" | jq -e --arg deploy "$DEPLOY_EXPECTED" '
+            .["typeset-render"].result == "success" and
+            (.["typeset-upload"].result == "success" or .["typeset-upload"].result == "skipped") and
+            ([.python, .site, .browser, .["lilypond-tests"], .["scan-tests"]] | all(.result == "success")) and
+            .deploy.result == (if $deploy == "true" then "success" else "skipped" end)
+          '
 
   # The tests that run LilyPond itself (marked `lilypond`), on the pinned
   # version from data/typeset/lilypond.yml, checksum-checked. No secrets: LilyPond
@@ -283,12 +448,28 @@ jobs:
           enable-cache: true
       - run: uv sync --frozen
       - name: Pinned LilyPond, cached
-        uses: actions/cache@v6
+        id: lilypond-cache
+        uses: actions/cache/restore@v6
         with:
           path: vendor/lilypond-*
           key: lilypond-${{ runner.os }}-${{ hashFiles('data/typeset/lilypond.yml') }}
       - name: Install LilyPond
-        run: uv run noh lilypond-install
+        timeout-minutes: 5
+        run: |
+          for attempt in 1 2; do
+            if timeout --kill-after=10s 130s bash -e -c 'uv run noh lilypond-install'; then
+              exit 0
+            fi
+            echo "::warning::Pinned LilyPond install failed or hung (attempt $attempt of 2)."
+          done
+          echo "::error::Pinned LilyPond install failed or hung after two attempts."
+          exit 1
+      - name: Save LilyPond
+        if: always() && steps.lilypond-cache.outputs.cache-primary-key != '' && steps.lilypond-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: vendor/lilypond-*
+          key: ${{ steps.lilypond-cache.outputs.cache-primary-key }}
       - name: LilyPond tests
         run: uv run pytest -q -m lilypond
 
@@ -324,9 +505,37 @@ jobs:
         if: steps.changed.outputs.run == 'true'
         with:
           enable-cache: true
+      - name: Apt cache key
+        id: apt-key
+        if: steps.changed.outputs.run == 'true'
+        run: |
+          echo "image=$ImageOS-$ImageVersion" >> "$GITHUB_OUTPUT"
+          mkdir -p "$RUNNER_TEMP/apt-archives/partial"
+      - name: Restore Tesseract packages
+        id: apt-cache
+        if: steps.changed.outputs.run == 'true'
+        uses: actions/cache/restore@v6
+        with:
+          path: ${{ runner.temp }}/apt-archives/*.deb
+          key: apt-${{ runner.os }}-${{ runner.arch }}-${{ steps.apt-key.outputs.image }}-tesseract-ocr-tesseract-ocr-lat
       - name: Tesseract
         if: steps.changed.outputs.run == 'true'
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-lat
+        timeout-minutes: 5
+        run: |
+          for attempt in 1 2; do
+            if timeout --kill-after=10s 130s bash -e -c 'sudo apt-get update -qq && sudo apt-get -o Dir::Cache::archives="$RUNNER_TEMP/apt-archives" -o APT::Keep-Downloaded-Packages=true install -y -qq tesseract-ocr tesseract-ocr-lat'; then
+              exit 0
+            fi
+            echo "::warning::Tesseract apt install failed or hung (attempt $attempt of 2)."
+          done
+          echo "::error::Tesseract apt install failed or hung after two attempts."
+          exit 1
+      - name: Save Tesseract packages
+        if: always() && steps.changed.outputs.run == 'true' && steps.apt-cache.outputs.cache-primary-key != '' && steps.apt-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6
+        with:
+          path: ${{ runner.temp }}/apt-archives/*.deb
+          key: ${{ steps.apt-cache.outputs.cache-primary-key }}
       - name: Install
         if: steps.changed.outputs.run == 'true'
         run: uv sync --frozen && uv run noh gregobase-fetch
