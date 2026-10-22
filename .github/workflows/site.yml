@@ -322,6 +322,10 @@ jobs:
           PUBLIC_CORRECTIONS_ENDPOINT: ${{ vars.PUBLIC_CORRECTIONS_ENDPOINT }}
           PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_TURNSTILE_SITE_KEY }}
 
+      - name: Deploy size
+        run: pnpm check:deploy-size
+        working-directory: web
+
       # The built site in a real browser, on Cloudflare's local runtime with a
       # throwaway corrections database (web/playwright.config.ts).
       - name: Browser tests

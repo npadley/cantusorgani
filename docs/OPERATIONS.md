@@ -259,6 +259,14 @@ export asset check and the browser tests of the admin screen and forms. About
 eight minutes. Run it before a change to `web/`, or when `--quick` passes but
 GitHub fails.
 
+After the build, CI and the full check run `pnpm check:deploy-size` in `web/`.
+It counts uploadable assets (excluding Wrangler's ignored files and Pages config),
+warns at 15,000 files and fails at 19,000, before Pages Free's 20,000-file limit.
+It warns at 1,500 static redirects, fails above 2,000 static or 100 dynamic
+redirects, and rejects any asset over 25 MiB. When it warns, review growth and
+plan capacity using [P16's review triggers](reports/2026-10-23-platform-options.md#what-would-change-the-recommendation)
+before adding more routes or assets.
+
 After a publish and before a release, run `pnpm check:export-assets` from `web/`
 to check every exported scan stem in the built pages for HTTP 200 and a CORS
 header (HEAD requests, up to three attempts for network errors or server
