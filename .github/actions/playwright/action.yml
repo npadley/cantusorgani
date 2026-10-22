@@ -24,9 +24,13 @@ runs:
       working-directory: web
       env:
         CACHE_HIT: ${{ steps.cache.outputs.cache-hit }}
+      timeout-minutes: 12
       run: |
+        # A killed attempt can leave apt running; make the retry wait for its
+        # lock instead of failing on it, and fail slow mirrors fast.
+        printf '%s\n' 'DPkg::Lock::Timeout "300";' 'Acquire::Retries "3";' 'Acquire::http::Timeout "30";' 'Acquire::https::Timeout "30";' | sudo tee /etc/apt/apt.conf.d/99ci-timeouts > /dev/null
         for attempt in 1 2; do
-          if timeout --kill-after=10s 220s bash -e -c 'if [ "$CACHE_HIT" = "true" ]; then pnpm exec playwright install-deps chromium; else pnpm exec playwright install --with-deps chromium; fi'; then
+          if timeout --kill-after=10s 300s bash -e -c 'if [ "$CACHE_HIT" = "true" ]; then pnpm exec playwright install-deps chromium; else pnpm exec playwright install --with-deps chromium; fi'; then
             exit 0
           fi
           echo "::warning::Playwright Chromium/dependencies install failed or hung (attempt $attempt of 2)."
