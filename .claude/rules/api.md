@@ -10,9 +10,10 @@ paths:
 - Admin endpoints (Pages Functions, code in `web/src/lib/admin/`) require
   Cloudflare Access plus the `EDITORS` allowlist (`auth.ts`). Never add an
   unauthenticated admin route.
-- The public Worker checks Turnstile and `Origin`, honours the
-  `CORRECTIONS_ENABLED` kill switch, and rate-limits by a D1 row count per
-  hashed submitter. Keep all three on any new public route.
+- The public Worker's submission route (POST) checks Turnstile and `Origin`,
+  honours the `CORRECTIONS_ENABLED` kill switch, and rate-limits by a D1 row
+  count per hashed submitter. Keep all of these on any new route that accepts
+  data from the public.
 - Validate request bodies by hand at the boundary, as the existing handlers do
   (`parseSections`, the Worker's checks); reject with a 4xx.
 - Errors are `json({ error: "<plain sentence>" }, status)` with the right

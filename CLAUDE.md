@@ -30,5 +30,6 @@ here. This section holds only what is specific to Claude Code.
 - **Path-scoped rules** in `.claude/rules/` load when you touch matching files.
   They cover the front end, the admin API and Worker, migrations, tests, data
   and security.
-- **Hooks** (`.claude/settings.local.json`) auto-format on edit and block
+- **Hooks** (registered in the maintainer's untracked
+  `.claude/settings.local.json`; scripts in `.claude/hooks/`) auto-format on edit and block
   dangerous shell commands. If a hook blocks something, don't route around it.

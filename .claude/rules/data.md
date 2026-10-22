@@ -6,7 +6,9 @@ paths:
 
 # Data and pipeline
 
-- Edit sources only (`corrections.yml`, `sections/`, `index-*.yml`,
+- Change `corrections.yml` only through `noh correct`, `noh correct-batch` or
+  the admin screen.
+- Edit sources only (`sections/`, `index-*.yml`,
   `vespers/vespers-*.yml`, `ordinary-form/*.yml`, `good-friday.json`,
   `typeset/src/`). Generated and vendored files are rewritten by `noh`
   commands; the list is in `AGENTS.md`.

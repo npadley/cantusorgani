@@ -6,8 +6,9 @@ static site at [cantusorgani.org](https://cantusorgani.org).
 
 Who it serves: **organists** reading at the console (often on an iPad, and
 exporting PDFs for forScore or print), **editors** fixing the catalogue in the
-admin screen at `/admin/`, and **the maintainer**, who owns this repository and
-approves every pull request, upload and deploy.
+admin screen at `/admin/`, and **the maintainer**, who owns this repository.
+Agents ask the maintainer before merging, uploading or deploying. (Correction
+batches from the admin screen merge themselves; a merge to `main` deploys.)
 
 This file is the map. The detail lives in the docs below; read the one for
 your task before you change anything.
@@ -66,14 +67,18 @@ pnpm dev            # http://localhost:4321
 pnpm build          # static site + Pagefind; fails on unreachable pages or broken links
 pnpm test           # vitest
 pnpm typecheck      # astro check
-pnpm test:e2e       # Playwright (pnpm build:e2e first for export tests)
+pnpm test:e2e       # Playwright against dist/
+pnpm build:e2e && pnpm test:e2e:export   # export tests, against dist-e2e/
 ```
 
 `cd workers/corrections && pnpm test && pnpm typecheck` covers the Worker.
 
 ## Data: sources versus generated files
 
-**Edit these sources by hand:** `data/corrections.yml`, `data/sections/*.yml`,
+**Change `data/corrections.yml` only through `noh correct`, `noh
+correct-batch` or the admin screen**; each entry records the value it replaced.
+
+**Edit these sources by hand:** `data/sections/*.yml`,
 `data/index-*.yml`, `data/vespers/vespers-noh8.yml`,
 `data/vespers/vespers-offices.yml`, `data/vespers/hymns-noh7.yml`,
 `data/hymn-pairings.yml`, `data/ordinary-form/*.yml`, `data/good-friday.json`,
@@ -91,7 +96,8 @@ hand edit is either lost or fails its checksum. They include:
   `vesperale-lineup.json`, `web/public/vendor/exsurge/`
 
 After any hand edit under `data/`, run `scripts/regenerate.sh` and commit what
-it changes. When merging `main`, take `main`'s copy of each generated file and
+it changes. It reruns `noh vespers-lineup` only when noh8 is rebuilt, so after
+editing `data/vespers/*.yml` also run `uv run noh vespers-lineup`. When merging `main`, take `main`'s copy of each generated file and
 regenerate (`docs/OPERATIONS.md` § Merging main into a branch). Don't resolve
 generated-file conflicts by hand.
 
@@ -228,7 +234,7 @@ codex exec review --base main < /dev/null
 codex exec -s read-only -C .claude/worktrees/<card> \
   "Review git diff origin/main...HEAD for <what to check>. Report only problems." < /dev/null
 # Codex → Claude: a read-only review or check, on a cheaper model
-claude -p "<card text>" --model sonnet --allowedTools Read,Grep,Glob
+claude -p "<card text>" --model sonnet --tools Read,Grep,Glob
 ```
 
 ## Known gaps
