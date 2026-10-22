@@ -11,6 +11,7 @@
 // pdf.js is reached only through a dynamic import of fixedPreview.ts, the first time a fixed
 // page is drawn.
 
+import { scanPngUrl } from '../lib/export-layout/selection';
 import previewCss from '../styles/exportPreview.css?url';
 import { loadStylesheet } from './lazyStyles';
 import { PAGE_PRESETS } from '../lib/export-layout/types';
@@ -426,7 +427,8 @@ function drawChant(sheet: HTMLElement, page: CanonicalPage): void {
 function drawScan(sheet: HTMLElement, page: ScanCanonicalPage, partLabel: string): void {
   page.images.forEach((image, k) => {
     const img = el('img', 'cx-scanimg');
-    img.src = `${image.stem}@2x.png`;
+    img.crossOrigin = 'anonymous';
+    img.src = scanPngUrl(image.stem);
     img.alt = `Original scan of ${partLabel}, system ${k + 1} of ${page.images.length} on this page`;
     img.loading = 'lazy';
     img.decoding = 'async';

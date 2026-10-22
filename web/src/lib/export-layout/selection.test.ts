@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { snapshotSelection } from "./selection";
+import { scanPngUrl, snapshotSelection } from "./selection";
 import type { ApprovedConversion, ConversionLookup, SelectionInput } from "./types";
 
 type Run = SelectionInput["segments"][number]["runs"][number];
@@ -71,5 +71,19 @@ describe("snapshotSelection", () => {
     const parts = snapshotSelection(input(segment({ chants, runs: [run({ count: 1 })] })), lookup);
     expect(parts).toHaveLength(1);
     expect(parts[0]?.chants).toEqual(chants);
+  });
+});
+
+
+describe("scanPngUrl", () => {
+  it("uses a CORS-only cache key for HTTP and HTTPS stems", () => {
+    expect(scanPngUrl("https://images.example/scan")).toBe("https://images.example/scan@2x.png?export=1");
+    expect(scanPngUrl("http://images.example/scan")).toBe("http://images.example/scan@2x.png?export=1");
+  });
+
+  it("keeps relative and local stems unchanged", () => {
+    for (const stem of ["a/scan", "/systems/scan", "file:///tmp/scan"]) {
+      expect(scanPngUrl(stem)).toBe(`${stem}@2x.png`);
+    }
   });
 });

@@ -17,6 +17,7 @@
 //  - The credit footer is reserved on EVERY page of a MEI or scan part (that is
 //    what the caller's PageRects.content for renderMei must subtract), but is
 //    drawn only on the part's last page.
+import { scanPngUrl } from './selection';
 import fontkit from '@pdf-lib/fontkit';
 import type { Font } from '@pdf-lib/fontkit';
 import { sha256Hex } from './fonts';
@@ -433,7 +434,7 @@ export async function composeExport(
       } else if (part.kind === 'scan') {
         const sizes: { stem: string; w: number; h: number }[] = [];
         for (const stem of part.stems) {
-          const bytes = await deps.assets.bytes(`${stem}@2x.png`, null);
+          const bytes = await deps.assets.bytes(scanPngUrl(stem), null);
           const s = deps.pngSize(bytes);
           sizes.push({ stem, w: s.width, h: s.height });
         }

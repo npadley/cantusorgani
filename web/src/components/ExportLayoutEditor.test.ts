@@ -44,6 +44,13 @@ describe("copy deck", () => {
     }
   });
 
+  it("should explain that missing music blocks the PDF and offer working alternatives", () => {
+    const copy = copyFor(diag("ASSET_MISSING"), ctx);
+    expect(copy.text).toBe("Can't make this PDF: the music for Kyrie didn't load. Try again. If it still fails, close this and use Export PDF, or untick Kyrie under Choose parts.");
+    expect(copy.actions).toEqual(["try-again", "use-original", "close"]);
+    expect(copy.blocking).toBe(true);
+  });
+
   it("should write the spec sentences for the layout failures, naming part, size and paper", () => {
     expect(copyFor(diag("UNSATISFIABLE_LAYOUT", "system-too-tall"), ctx).text).toBe("Can't fit Kyrie: at Large music size, one system is taller than the space on a Letter portrait page.");
     expect(copyFor(diag("UNSATISFIABLE_LAYOUT", "system-too-wide"), ctx).text).toBe("Can't fit Kyrie: its original lines are too long for Letter portrait at Large music size.");

@@ -86,7 +86,7 @@ const UNKNOWN: Row = (_d, c) => ({ text: `Can't update the preview of ${c.partLa
 /** Every LayoutDiagnosticCode has a row; the Record type makes a missing one a compile error. */
 export const COPY_DECK: Readonly<Record<LayoutDiagnosticCode, Row>> = {
   UNSATISFIABLE_LAYOUT: unsatisfiable,
-  ASSET_MISSING: (_d, c) => ({ text: `Can't update the preview. The music for ${c.partLabel} didn't load. Check your connection and try again.`, actions: TRY_ORIGINAL }),
+  ASSET_MISSING: (_d, c) => ({ text: `Can't make this PDF: the music for ${c.partLabel} didn't load. Try again. If it still fails, close this and use Export PDF, or untick ${c.partLabel} under Choose parts.`, actions: ['try-again', 'use-original', 'close'] }),
   ASSET_HASH_MISMATCH: (_d, c) => ({ text: `Can't use the music for ${c.partLabel}: it doesn't match the approved version. If the site was just updated, reloading the page will fix this.`, actions: ['reload', 'use-original'] }),
   UNSAFE_SVG: (_d, c) => ({ text: `Can't show the preview of ${c.partLabel}: it failed a safety check.`, actions: ['use-original', 'report'] }),
   INVALID_PAGE: (_d, c) => ({ text: `Can't show the preview of ${c.partLabel}: it failed a safety check.`, actions: ['use-original', 'report'] }),
