@@ -1,0 +1,35 @@
+# Exact doc:reference exceptions; full-line # comments are ignored.
+
+# Architecture refresh is in flight: the Vespers YAML moved into data/vespers/.
+docs/ARCHITECTURE.md:data/vespers-*.yml
+
+# Typesetting docs refresh is in flight: these historical spec/plan paths are stale.
+docs/TYPESETTING.md:docs/claudekit/specs/2026-09-28-typesetting-design.md
+docs/TYPESETTING.md:docs/claudekit/plans/2026-09-28-typesetting-plan.md
+
+# Accepted: the UX audit screenshots are external review artifacts, not repo files.
+docs/ADMIN-UX-REVIEW.md:edit-kyriale-desktop.png
+docs/ADMIN-UX-REVIEW.md:edit-part-desktop.png
+docs/ADMIN-UX-REVIEW.md:edit-piece-desktop.png
+docs/ADMIN-UX-REVIEW.md:home-desktop-fold.png
+docs/ADMIN-UX-REVIEW.md:home-desktop.png
+docs/ADMIN-UX-REVIEW.md:home-phone-fold.png
+docs/ADMIN-UX-REVIEW.md:home-phone.png
+docs/ADMIN-UX-REVIEW.md:parts-desktop.png
+docs/ADMIN-UX-REVIEW.md:review-check-desktop.png
+docs/ADMIN-UX-REVIEW.md:review-fix-desktop-top.png
+docs/ADMIN-UX-REVIEW.md:review-fix-phone-fold.png
+docs/ADMIN-UX-REVIEW.md:review-info-desktop-top.png
+docs/ADMIN-UX-REVIEW.md:sections-desktop-top.png
+docs/ADMIN-UX-REVIEW.md:typeset-desktop-top.png
+docs/ADMIN-UX-REVIEW.md:typeset-phone-fold.png
+
+# found by first run
+README.md:data/vespers/vespers-noh8.proposed.yml
+README.md:data/vespers/vespers-offices.proposed.yml
+README.md:web/.env
+README.md:web/dist
+docs/ADMIN-SETUP.md:workers/corrections/migrations/NNNN_*.sql
+# docs/EDITING.md: web/.env is a local 1Password mount, absent in worktrees.
+docs/EDITING.md:web/.env
+docs/OPERATIONS.md:web/.env

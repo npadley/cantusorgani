@@ -8,7 +8,7 @@ sharing image, made from the site's typography and palette.
 
 ## Build and indexing policy
 
-`pnpm build` runs `scripts/build-discovery.ts` after Astro. It scans rendered
+`pnpm build` runs `web/scripts/build-discovery.ts` after Astro. It scans rendered
 HTML, checks the metadata, and writes `/sitemap.xml`. It excludes redirects,
 admin/API pages, site search, the corrections form and the 404 page. The corrections log is
 indexable. Both evergreen piece pages and dated Vespers have their own canonical
