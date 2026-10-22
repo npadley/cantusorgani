@@ -167,14 +167,15 @@ jobs:
         uses: actions/cache/restore@v6
         with:
           path: ${{ runner.temp }}/apt-archives/*.deb
-          key: apt-${{ runner.os }}-${{ runner.arch }}-${{ steps.apt-key.outputs.image }}-tesseract-ocr-tesseract-ocr-lat
+          key: apt-${{ runner.os }}-${{ runner.arch }}-${{ steps.apt-key.outputs.image }}-tesseract-ocr-tesseract-ocr-lat-v2
       - name: Tesseract (a few unit tests read a synthetic image)
+        id: tesseract
         timeout-minutes: 5
         env:
           CACHE_HIT: ${{ steps.apt-cache.outputs.cache-hit }}
         run: |
           for attempt in 1 2; do
-            if timeout --kill-after=10s 130s bash -e -c 'if [ "$CACHE_HIT" = "true" ] && sudo dpkg -i "$RUNNER_TEMP"/apt-archives/*.deb; then exit 0; fi; A="-o Acquire::Retries=2 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20"; sudo apt-get $A update && sudo apt-get $A -o Dir::Cache::archives="$RUNNER_TEMP/apt-archives" -o APT::Keep-Downloaded-Packages=true install -y tesseract-ocr tesseract-ocr-lat'; then
+            if timeout --kill-after=10s 130s bash -e -c 'if [ "$CACHE_HIT" = "true" ] && sudo dpkg -i "$RUNNER_TEMP"/apt-archives/*.deb; then exit 0; fi; sudo dpkg --configure -a || true; A="-o Acquire::Retries=2 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20"; sudo apt-get $A update && sudo apt-get $A -o Dir::Cache::archives="$RUNNER_TEMP/apt-archives" -o APT::Keep-Downloaded-Packages=true install -y tesseract-ocr tesseract-ocr-lat'; then
               exit 0
             fi
             echo "::warning::Tesseract apt install failed or hung (attempt $attempt of 2)."
@@ -182,7 +183,7 @@ jobs:
           echo "::error::Tesseract apt install failed or hung after two attempts."
           exit 1
       - name: Save Tesseract packages
-        if: always() && steps.apt-cache.outputs.cache-primary-key != '' && steps.apt-cache.outputs.cache-hit != 'true'
+        if: always() && steps.tesseract.outcome == 'success' && steps.apt-cache.outputs.cache-primary-key != '' && steps.apt-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v6
         with:
           path: ${{ runner.temp }}/apt-archives/*.deb
@@ -489,15 +490,16 @@ jobs:
         uses: actions/cache/restore@v6
         with:
           path: ${{ runner.temp }}/apt-archives/*.deb
-          key: apt-${{ runner.os }}-${{ runner.arch }}-${{ steps.apt-key.outputs.image }}-tesseract-ocr-tesseract-ocr-lat
+          key: apt-${{ runner.os }}-${{ runner.arch }}-${{ steps.apt-key.outputs.image }}-tesseract-ocr-tesseract-ocr-lat-v2
       - name: Tesseract
+        id: tesseract
         if: steps.changed.outputs.run == 'true'
         timeout-minutes: 5
         env:
           CACHE_HIT: ${{ steps.apt-cache.outputs.cache-hit }}
         run: |
           for attempt in 1 2; do
-            if timeout --kill-after=10s 130s bash -e -c 'if [ "$CACHE_HIT" = "true" ] && sudo dpkg -i "$RUNNER_TEMP"/apt-archives/*.deb; then exit 0; fi; A="-o Acquire::Retries=2 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20"; sudo apt-get $A update && sudo apt-get $A -o Dir::Cache::archives="$RUNNER_TEMP/apt-archives" -o APT::Keep-Downloaded-Packages=true install -y tesseract-ocr tesseract-ocr-lat'; then
+            if timeout --kill-after=10s 130s bash -e -c 'if [ "$CACHE_HIT" = "true" ] && sudo dpkg -i "$RUNNER_TEMP"/apt-archives/*.deb; then exit 0; fi; sudo dpkg --configure -a || true; A="-o Acquire::Retries=2 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20"; sudo apt-get $A update && sudo apt-get $A -o Dir::Cache::archives="$RUNNER_TEMP/apt-archives" -o APT::Keep-Downloaded-Packages=true install -y tesseract-ocr tesseract-ocr-lat'; then
               exit 0
             fi
             echo "::warning::Tesseract apt install failed or hung (attempt $attempt of 2)."
@@ -505,7 +507,7 @@ jobs:
           echo "::error::Tesseract apt install failed or hung after two attempts."
           exit 1
       - name: Save Tesseract packages
-        if: always() && steps.changed.outputs.run == 'true' && steps.apt-cache.outputs.cache-primary-key != '' && steps.apt-cache.outputs.cache-hit != 'true'
+        if: always() && steps.tesseract.outcome == 'success' && steps.apt-cache.outputs.cache-primary-key != '' && steps.apt-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v6
         with:
           path: ${{ runner.temp }}/apt-archives/*.deb
