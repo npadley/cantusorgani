@@ -107,6 +107,7 @@ const [first, last] = CALENDAR_SOURCE.years;
     const node = document.createElement(tag);
     if (text !== undefined) node.textContent = text;
     if (cls) node.className = cls;
+    if (cls === "latin") node.lang = "la";
     return node;
   }
 
@@ -135,7 +136,11 @@ const [first, last] = CALENDAR_SOURCE.years;
       return;
     }
     const season = SEASON_LABELS[seasonForDate(d)];
-    result.append(el("p", `${season.en} · ${season.la}`, "season"));
+    const seasonLine = el("p", `${season.en} · `, "season");
+    const seasonLatin = el("span", season.la);
+    seasonLatin.lang = "la";
+    seasonLine.append(seasonLatin);
+    result.append(seasonLine);
 
     const day = calendar[isoOf(d)];
     for (const key of day?.celebration ?? []) {

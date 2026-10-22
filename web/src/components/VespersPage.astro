@@ -41,7 +41,7 @@ const eveningTitle = evening ? lineupTitle(evening) : null;
       <a href="/">Cantus Organi</a> · <a href="/calendar/">Calendar</a> · <a href={`/day/${flex}/${name}/`}>{title}</a>
     </p>
     <h1>{title}</h1>
-    {o && <p class="lede">{o.titleLa} · ad Vesperas</p>}
+    {o && <p class="lede" lang="la">{o.titleLa} · ad Vesperas</p>}
     <p class="meta ui small muted">{day.vespers} Vespers · {when} · 1962 rubrics · Nova Organi Harmonia VIII</p>
     <p class="console ui">{consoleLine(day)}</p>
     {evening && (
