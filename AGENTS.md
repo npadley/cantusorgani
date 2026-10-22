@@ -130,6 +130,23 @@ generated-file conflicts by hand.
   - TypeScript tests are colocated `*.test.ts` files (vitest). Playwright tests
     are in `web/e2e/*.e2e.ts`.
   - Write the failing test first for a bug fix.
+- **Typeset lyrics.** Put every lyric row above the chant staff in LilyPond
+  and MEI, including both rows of an Ite response. For catalogue layout
+  changes, check narrow and wide SVG, Letter and A4 PDF. Compare render
+  failures with the unchanged sources before treating them as regressions.
+- **MEI approvals.** Source, include and converter edits can stale approvals.
+  Run `uv run noh typeset-mei-stale --fail-on-stale`. Use the conversion and
+  carry-forward commands in `docs/TYPESETTING.md`; never patch approval
+  digests by hand. Carry-forward needs equal normalized music and identical
+  renders in all 13 layout cases after ID normalization. Anything else needs
+  a fresh approval. Lyric gaps below 0.3 mm are nonblocking review warnings
+  (`info: lyrics:`); other pre-check findings still block automatic approval.
+- **MEI releases.** Merge current approved records first, then publish with
+  the maintainer's approval. Verify both live artifacts (`score.mei` and
+  `boundaries.json`), their hashes, immutable caching and CORS. Build the
+  manifest from those live files in a separate PR. Published files stay;
+  withdraw a piece through its record and manifest, never by deleting or
+  overwriting its assets. Follow `docs/TYPESETTING.md` § Release sequence.
 - **Styling.** Plain CSS with the tokens in `web/src/styles/tokens.css` and
   `base.css`. No Tailwind or other framework. House rules from the token file:
   no gradients, no card shadows, radius at most 2px, one accent colour, 44px
