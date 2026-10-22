@@ -115,6 +115,10 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
 
   /* Reachable one-handed on a console-mounted tablet. */
   @media (max-width: 62rem) {
+    :global(html:has(.export)) {
+      /* Leave room for the bar, including controls wrapping on narrow screens. */
+      scroll-padding-bottom: 8rem;
+    }
     .export {
       position: sticky; bottom: 0; z-index: 5;
       background: var(--paper);
