@@ -51,10 +51,12 @@ img { max-width: 100%; height: auto; }
   position: absolute; left: var(--s-2); top: -3rem;
   background: var(--paper); color: var(--ink);
   padding: var(--s-2) var(--s-3); border: 1px solid var(--rule);
-  transition: top 0.15s;
   z-index: 10;
 }
 .skip-link:focus { top: var(--s-2); }
+@media (prefers-reduced-motion: no-preference) {
+  .skip-link { transition: top 0.15s; }
+}
 
 button, .button {
   font: inherit;
