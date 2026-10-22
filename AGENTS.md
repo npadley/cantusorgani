@@ -24,12 +24,12 @@ your task before you change anything.
 | Admin screen, Cloudflare Access, GitHub App, D1 migrations | `docs/ADMIN-SETUP.md` |
 | Ordinary Form calendar | `docs/OPERATIONS.md` § Ordinary Form calendar, `docs/ORDINARY-FORM-MUSIC-COVERAGE.md` |
 | Routes, canonicals, sitemap | `docs/SEO.md` |
-| UI or product direction | `docs/reports/2026-10-20-reading-edition-design-correction.md` |
+| UI or product direction | `docs/ui/README.md` (current state), then `docs/reports/2026-10-20-reading-edition-design-correction.md` |
 | Licensing of data and vendored code | `data/LICENSES.md` |
 | Whether a spec or plan is still live | `docs/design/README.md` (status of every design doc) |
 | What a domain term means (Proper, lender, system, polarity…) | `docs/GLOSSARY.md` |
 
-**Decisions already made** are recorded in `docs/DECISIONS.md` (P1–P11) and,
+**Decisions already made** are recorded in `docs/DECISIONS.md` and,
 for the export, `docs/superpowers/plans/export-layout-decisions.md` (D1–D30).
 Proposals not yet decided are listed separately there. Don't re-propose
 a rejected option. Raise it only if new evidence changes the case, and say what
@@ -274,8 +274,5 @@ claude -p "<card text>" --model sonnet --tools Read,Grep,Glob
 Remove each line once it is fixed. The documentation audit
 (`docs/reports/2026-10-22-documentation-audit.md`) has the detail.
 
-- There is no current-state UI baseline yet (page templates, screenshots,
-  breakpoints, journeys, WCAG target). Read `web/src/styles/tokens.css` and the
-  pages themselves before any redesign work.
 - Some `noh` subcommands, npm scripts and environment variables are documented
   only in code (`pipeline/cli.py`, `web/package.json`, `wrangler.toml`).
