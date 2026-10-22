@@ -151,7 +151,8 @@ changes how the scans are *read* goes through the repository.
 |---|---|
 | `data/catalog.base.json`, `data/review-queue.json` | `noh catalog` |
 | `data/catalog.json`, `data/reviewed.json`, `data/corrections-log.json` | `noh apply-corrections` (also run by `noh correct`) |
-| `data/vespers/vespers-lineup.json`, `data/vespers/hymn-links.json` | `noh vespers-lineup` (and `noh apply-corrections`, for the years it covers) |
+| `data/vespers/vespers-lineup.json` | `noh vespers-lineup`, and `noh apply-corrections` for the years it covers |
+| `data/vespers/hymn-links.json` | `noh vespers-lineup` only |
 | `data/chants.json`, `data/hymn-pairings.json` | `noh chants` (`hymn-pairings.json` is compiled from the hand-edited `data/hymn-pairings.yml`) |
 | `data/ordinary-form-propers.json`, `data/ordinary-form-coverage.json` | `noh ordinary-form` |
 | `data/typeset/parts.yml` | `noh typeset-match` |
@@ -178,8 +179,9 @@ After any hand edit to `data/`. Runs, in order: apply the corrections, the
 chant notation, the typeset matching, the corrections again (typeset
 corrections are checked against the new matching), the Ordinary Form
 resolution (`noh ordinary-form`), the typeset manifest and its check, and lists
-any confirmation a rebuild has undone. The Vespers lineup is rebuilt only when
-you name `noh8`. About two minutes. It is
+any confirmation a rebuild has undone. `noh apply-corrections` refreshes the
+Vespers lineup for its existing window; naming `noh8` also runs
+`noh vespers-lineup`, which rebuilds the window and `hymn-links.json`. About two minutes. It is
 safe to run twice: the second run changes nothing.
 
 ```bash
@@ -261,7 +263,8 @@ the secret scan (gitleaks), `noh typeset-check --remote` (every render the
 manifest names is on R2), the stale MEI report, the export editor browser tests
 (`pnpm build:e2e && pnpm test:e2e:export` in `web/`), the LilyPond tests
 (`uv run pytest -m lilypond`, needs LilyPond), and the slow scan tests (`-m
-slow`, which run only when scan-reading code changes). A green `check.sh` can
+slow`, which CI runs when `pipeline/`, `tests/`, scan inputs or dependencies
+change, or by hand). A green `check.sh` can
 still fail on one of these.
 
 Both stop at the first failure and print `FAILED at: <step>`. The step's own
@@ -400,7 +403,7 @@ The overlay is written to `build/overlay/`: every staff should sit in a box. If 
 "Slicing a page" in [EDITING.md](EDITING.md#slicing-a-page).
 
 **Typeset music** is drawn by LilyPond on GitHub on every pull request and push
-to `main` (the site workflow's typeset render job; it draws only what R2 lacks).
+to `main` that changes more than Markdown (the site workflow's typeset render job; it draws only what R2 lacks).
 Renders from a same-repo pull request or `main` are uploaded under
 `typeset/<hash>/` (pull requests from forks get no secrets, so no upload), and
 the deploy waits for them. Old renders
