@@ -1,16 +1,23 @@
 ---
 paths:
-  - "src/api/**"
-  - "**/routes/**"
-  - "**/endpoints/**"
-  - "**/controllers/**"
+  - "web/functions/**"
+  - "web/src/lib/admin/**"
+  - "workers/corrections/src/**"
 ---
 
-# API Development Rules
+# Admin API and corrections Worker
 
-- All endpoints must include input validation (Zod for TS, Pydantic for Python)
-- Use standard error response format: `{ error: string, code: number, details?: any }`
-- Return appropriate HTTP status codes — never use 200 for errors
-- Include OpenAPI documentation comments on all endpoints
-- Rate limiting required on all public endpoints
-- Authentication middleware on all protected routes
+- Admin endpoints (Pages Functions, code in `web/src/lib/admin/`) require
+  Cloudflare Access plus the `EDITORS` allowlist (`auth.ts`). Never add an
+  unauthenticated admin route.
+- The public Worker checks Turnstile and `Origin`, honours the
+  `CORRECTIONS_ENABLED` kill switch, and rate-limits by a D1 row count per
+  hashed submitter. Keep all three on any new public route.
+- Validate request bodies by hand at the boundary, as the existing handlers do
+  (`parseSections`, the Worker's checks); reject with a 4xx.
+- Errors are `json({ error: "<plain sentence>" }, status)` with the right
+  status code; never 200 for an error. The message is shown to editors, so
+  write it as an instruction.
+- D1 queries use bound parameters (`.bind(...)`) only.
+- No secrets in code. Bindings and secrets live in `wrangler.toml` and
+  Cloudflare; see `docs/ADMIN-SETUP.md`.

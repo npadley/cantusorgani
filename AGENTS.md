@@ -159,6 +159,72 @@ generated-file conflicts by hand.
 - **Docs.** Update the doc your change affects in the same PR. If a plan's
   status changes, update its `Status:` line.
 
+## Working with several agents
+
+Claude Code and Codex both work on this repository. Used together, they cost
+less and catch more than either one alone. The rule underneath all of this:
+**the strongest model plans and reviews; cheaper models execute bounded cards;
+the other model family checks.**
+
+**Roles**
+
+| Role | Who | Does |
+|---|---|---|
+| Coordinator | One strong session (Claude Opus, or Codex at high effort) | Holds the conversation with the maintainer, splits the work into cards, reviews every diff, pushes and opens PRs |
+| Executor | Claude Sonnet or Haiku subagents; Codex at low or medium effort | One card each, in its own worktree; commits locally, never pushes |
+| Cross-checker | The *other* model family from the one that wrote the change | Reviews the diff or re-checks the facts before it reaches the maintainer |
+
+**Pick the cheapest model that can do the card**
+
+| Card | Use |
+|---|---|
+| Find files, list references, inventory, mechanical sweeps | Haiku, or Codex at low effort |
+| A bounded change with clear done criteria (a script fix, a doc section, tests) | Sonnet, or Codex at medium effort |
+| Design, ambiguous debugging, anything touching the data model or the export pipeline, final review | Opus, or Codex at high effort |
+
+**Write cards that don't need the conversation.** An executor starts cold.
+A good card says:
+
+- the goal, in one line
+- the worktree path and branch
+- which files it may edit, and that it must not touch others
+- the inputs to read, named by path and section; don't paste their contents
+- the done criteria and the exact command that proves them
+- what it must not do (push, run remote commands, edit generated files)
+- the report shape: a word limit and a fixed structure, so the result costs
+  few tokens to read
+
+**One writer per set of files.** Each writing card gets its own worktree,
+under `.claude/worktrees/` for Claude and Codex alike, branched from
+`origin/main`. Read-only cards can share a checkout. Run at most 3–4 cards at
+once.
+
+**Treat reports as claims.** Before acting on a finding, the coordinator
+spot-checks it against the code; on 2026-10-22 a spot check caught an agent
+reading a stale branch. Before pushing, it reads the diff and runs the card's
+check.
+
+**Saving tokens**
+
+- Point to `file:line` or a doc section instead of pasting text.
+- Reuse a warm agent for the next related card (Claude: SendMessage; Codex:
+  `codex exec resume --last`) instead of starting a cold one.
+- Ask for structured reports with a word cap. Keep raw output in a scratch
+  file and read only what you need.
+- Run audits and research read-only, with no edit permissions.
+
+**Calling one from the other**
+
+```bash
+# Claude → Codex: a card in a worktree. Close stdin, or it waits forever.
+codex exec -s workspace-write -c model_reasoning_effort=low \
+  -C .claude/worktrees/<card> -o /tmp/<card>.md "<card text>" < /dev/null
+# Claude → Codex: a second-opinion review of a branch
+codex exec review --base main < /dev/null
+# Codex → Claude: a read-only review or check, on a cheaper model
+claude -p "<card text>" --model sonnet --allowedTools Read,Grep,Glob
+```
+
 ## Known gaps
 
 These are tracked in `docs/reports/2026-10-22-documentation-audit.md`. Remove
@@ -174,5 +240,3 @@ each line here once it is fixed.
 - Many specs and plans under `docs/claudekit/` and `docs/superpowers/` have
   stale status headers. Check the audit's status table before treating one as
   live.
-- `.claude/rules/*` are generic templates written for another stack (Next.js,
-  Tailwind, Zod). Where they conflict with this file, this file wins.

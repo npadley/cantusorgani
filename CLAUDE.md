@@ -16,12 +16,19 @@ here. This section holds only what is specific to Claude Code.
 - **Worktrees** under `.claude/worktrees/` have no `web/.env`. `pnpm dev`
   still runs, using local image paths. `pnpm build` refuses without
   `PUBLIC_ASSET_BASE`; `scripts/check.sh` exports public defaults for it.
-- **Subagents.** Run at most 3–4 at once. Reuse an agent (SendMessage) for
-  follow-on cards, and use Sonnet or Haiku for bounded cards while Opus
-  coordinates.
-- **Codex** is installed and logged in, and can take delegated tasks. Run it
-  with stdin closed, or it waits forever:
-  `codex exec -s read-only -C . -o <out.md> "<prompt>" < /dev/null`.
-  Use `-s workspace-write` only in a worktree.
+- **Subagents** follow `AGENTS.md` § Working with several agents:
+  - Set `model` on every Agent call: `haiku` for search and inventory,
+    `sonnet` for bounded cards. Leave Opus for coordinating and reviewing.
+  - Use `Explore` for read-only fan-out searches. Give a writing agent its own
+    worktree path in the card, rather than letting it work in yours.
+  - Run them in the background, at most 3–4 at once, and continue a finished
+    agent with SendMessage rather than spawning a fresh one.
+- **Codex** is installed and logged in. Hand it mechanical or script cards,
+  and use it as the cross-checker for Claude-written diffs. The commands are
+  in `AGENTS.md`. Always close stdin (`< /dev/null`), and use
+  `-s workspace-write` only inside a card's worktree.
+- **Path-scoped rules** in `.claude/rules/` load when you touch matching files.
+  They cover the front end, the admin API and Worker, migrations, tests, data
+  and security.
 - **Hooks** (`.claude/settings.local.json`) auto-format on edit and block
   dangerous shell commands. If a hook blocks something, don't route around it.
