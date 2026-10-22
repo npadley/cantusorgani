@@ -19,17 +19,19 @@ your task before you change anything.
 |---|---|
 | Fix something the site shows (title, pages, day, system, Proper part) | `docs/EDITING.md` (recipes by symptom) |
 | Regenerate data, run checks, merge `main`, get a change to the site | `docs/OPERATIONS.md` |
-| Understand how the parts fit together | `docs/ARCHITECTURE.md` (out of date; see [Known gaps](#known-gaps)) |
+| Understand how the parts fit together | `docs/ARCHITECTURE.md` |
 | Typeset music, LilyPond, MEI/Verovio, Customize export | `docs/TYPESETTING.md`, then `docs/superpowers/plans/export-layout-decisions.md` |
 | Admin screen, Cloudflare Access, GitHub App, D1 migrations | `docs/ADMIN-SETUP.md` |
 | Ordinary Form calendar | `docs/OPERATIONS.md` § Ordinary Form calendar, `docs/ORDINARY-FORM-MUSIC-COVERAGE.md` |
 | Routes, canonicals, sitemap | `docs/SEO.md` |
 | UI or product direction | `docs/reports/2026-10-20-reading-edition-design-correction.md` |
 | Licensing of data and vendored code | `data/LICENSES.md` |
-| Whether a spec or plan is still live | `docs/reports/2026-10-22-documentation-audit.md` § 3 |
+| Whether a spec or plan is still live | `docs/design/README.md` (status of every design doc) |
+| What a domain term means (Proper, lender, system, polarity…) | `docs/GLOSSARY.md` |
 
-**Decisions already made** are recorded in
-`docs/superpowers/plans/export-layout-decisions.md` (D1–D30). Don't re-propose
+**Decisions already made** are recorded in `docs/DECISIONS.md` (P1–P11) and,
+for the export, `docs/superpowers/plans/export-layout-decisions.md` (D1–D30).
+Proposals not yet decided are listed separately there. Don't re-propose
 a rejected option. Raise it only if new evidence changes the case, and say what
 the new evidence is.
 
@@ -239,16 +241,13 @@ claude -p "<card text>" --model sonnet --tools Read,Grep,Glob
 
 ## Known gaps
 
-These are tracked in `docs/reports/2026-10-22-documentation-audit.md`. Remove
-each line here once it is fixed.
+Remove each line once it is fixed. The documentation audit
+(`docs/reports/2026-10-22-documentation-audit.md`) has the detail.
 
-- `docs/ARCHITECTURE.md` predates several subsystems: the OF calendar, the PDF
-  and MEI/Verovio exports, chant in export, typeset source editing in admin,
-  the Good Friday page, and the `mei-conversion`, `mei-stale`,
-  `typeset-preview` and `r2-check` workflows. It also wrongly says the
-  maintainer merges every corrections batch; most auto-merge
-  (`corrections-batch.yml`). Check the code before relying on it.
-- `scripts/regenerate.sh all` omits `noh7`. Name the volume explicitly.
-- Many specs and plans under `docs/claudekit/` and `docs/superpowers/` have
-  stale status headers. Check the audit's status table before treating one as
-  live.
+- There is no current-state UI baseline yet (page templates, screenshots,
+  breakpoints, journeys, WCAG target). Read `web/src/styles/tokens.css` and the
+  pages themselves before any redesign work.
+- Some `noh` subcommands, npm scripts and environment variables are documented
+  only in code (`pipeline/cli.py`, `web/package.json`, `wrangler.toml`).
+- `data/good-friday.json` says `tests/test_good_friday.py` checks its chant ids;
+  that test does not exist.
