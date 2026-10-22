@@ -661,3 +661,58 @@ honored so legacy links retain their behavior.
 
 For source verification and remaining limitations, see
 [the source review](superpowers/reviews/2026-10-11-ordinary-form-source-review.md).
+
+## Commands and settings that live only in code
+
+These are extra tools for checks, source previews and local testing. Run `noh`
+commands with `uv run noh`. For the typesetting workflow, use
+[TYPESETTING.md](TYPESETTING.md); these entries only say when a tool is useful.
+
+### noh subcommands
+
+| Command | What it does; when to run it |
+|---|---|
+| `noh typeset-source-evidence PAYLOAD ARTIFACT` | Checks source evidence against the approved edits without rendering; use before accepting a source batch's evidence. |
+| `noh typeset-source-batch PAYLOAD --out FILE` | Checks and renders approved source edits and writes refreshed matching evidence without secrets; use in the source batch render job. |
+| `noh typeset-preview-render PAYLOAD --out DIR` | Renders a source preview and its result; use in the preview render job. |
+| `noh typeset-preview-publish --key KEY --out DIR` | Checks preview artifacts against the requested key and uploads them to R2 without compiling; use after rendering, with the maintainer's approval. |
+| `noh typeset-mei-audit --out FILE` | Scans typeset sources for MEI conversion features without LilyPond; use to assess conversion coverage. |
+| `noh typeset-mei-extract SOURCE --out DIR` | Runs LilyPond to extract score structure and event evidence; use to inspect a source before conversion. |
+| `noh typeset-mei-evidence DIR --out DIR` | Builds an HTML review packet from a conversion directory; use before reviewing the conversion. |
+| `noh typeset-mei-validate DIR` | Checks converted MEI against its extracted score and schema, writing validation results without LilyPond; use to recheck a conversion. |
+
+### Scripts
+
+Run these from the repository root.
+
+| Script | What it does; when to run it |
+|---|---|
+| `scripts/cloudflare-setup.sh` | Creates missing R2, D1 and Pages resources, records the database ID and applies local and remote migrations; use for initial setup after Wrangler login, with the maintainer's approval. |
+| `scripts/test-all.sh` | Runs Python, Worker and site tests with coverage floors, type checks and Python lint; use for a coverage check with the source PDFs and Latin Tesseract data installed. |
+
+### npm scripts
+
+Run `pnpm <script>` in the directory shown.
+
+| Directory | Script | What it does; when to run it |
+|---|---|---|
+| `web/` | `check:no-fixture` | Checks the production build for fixture-only content; use to recheck that test music has not entered the build. |
+| `web/` | `check:links` | Checks the built site's reachability, internal links and Vespers listing; use to rerun the build's link check. |
+| `web/` | `preview` | Serves the built Astro site locally; use after building to inspect its pages. |
+| `workers/corrections/` | `backup` | Exports D1 to a timestamped SQL file under the backups directory; use for a database snapshot. For the explicit remote backup before a migration, follow [ADMIN-SETUP.md](ADMIN-SETUP.md#6-database-changes). |
+
+### Environment variables and bindings
+
+Set these only for the build, server or test that needs them.
+`CORRECTIONS_ENABLED`, the reader-report kill switch, is already covered in
+[ARCHITECTURE.md](ARCHITECTURE.md#the-parts).
+
+| Name | Where; what it does and when to set it |
+|---|---|
+| `PUBLIC_ASSET_BASE_REMOTE` | Device testing only: gives the device server an absolute image-host URL for its asset proxy; set it when the server cannot find the remote asset base. |
+| `PUBLIC_MEI_MANIFEST` | Test only: set to `fixture` for a build using the experimental MEI manifest; `build:e2e` sets it with a local asset base. Leave unset for production. |
+| `ALLOWED_ORIGIN` | Corrections Worker binding: the exact browser origin allowed to submit reports and receive CORS headers; set for the site using the Worker. |
+| `GITHUB_REPO` | Pages binding: the repository in `owner/repo` form used by the admin GitHub App for dispatches and repository requests; set when configuring the App. |
+| `E2E_TEST_PAGES` | Test only: set to `1` to include the export test page in a build; `build:e2e` sets it. |
+| `E2E_WEBKIT` | Test only: set to `1` to run the `ipad-lan` Playwright project in WebKit instead of Chromium; install Playwright's WebKit browser first. |
+| `DEVICE_TEST` | Test only: a nonempty value allows the device export test to run without selecting the fixture output through `E2E_DIST`; build the fixture site first. |
