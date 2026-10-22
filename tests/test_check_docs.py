@@ -184,3 +184,14 @@ def test_check_docs_glob_ignores_vendor_matches(repo):
     write(repo, "data/vendor/a.py")
     write(repo, "README.md", "`data/**/*.py`")
     assert check_docs(repo) == ["README.md:1: data/**/*.py: glob matches no files"]
+
+
+def test_check_docs_local_only_paths_are_accepted(repo):
+    write(repo, "README.md", "`web/.env`, `.claude/worktrees/` and `web/dist`")
+    assert check_docs(repo) == []
+
+
+def test_check_docs_astro_route_brackets_are_literal(repo):
+    write(repo, "web/src/pages/chant/[id].json.ts")
+    write(repo, "README.md", "`web/src/pages/chant/[id].json.ts`")
+    assert check_docs(repo) == []

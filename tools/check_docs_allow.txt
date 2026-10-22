@@ -27,9 +27,4 @@ docs/ADMIN-UX-REVIEW.md:typeset-phone-fold.png
 # found by first run
 README.md:data/vespers/vespers-noh8.proposed.yml
 README.md:data/vespers/vespers-offices.proposed.yml
-README.md:web/.env
-README.md:web/dist
 docs/ADMIN-SETUP.md:workers/corrections/migrations/NNNN_*.sql
-# docs/EDITING.md: web/.env is a local 1Password mount, absent in worktrees.
-docs/EDITING.md:web/.env
-docs/OPERATIONS.md:web/.env

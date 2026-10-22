@@ -20,6 +20,11 @@ REPO_DIRS = {
     "pipeline", "web", "data", "scripts", "docs", "workers", "tools", "tests",
     ".github", ".claude", "vendor", "pdf-source", "node_modules",
 }
+# Untracked by design: 1Password mounts, build output, local agent config.
+LOCAL_ONLY = {
+    "web/.env", ".dev.vars", "web/dist", "web/dist-e2e", ".venv",
+    ".claude/worktrees", ".claude/settings.local.json",
+}
 FENCE = re.compile(r"^\s{0,3}(`{3,}|~{3,})(.*)$")
 INLINE = re.compile(r"(`+)(?!`)(.+?)(?<!`)\1(?!`)")
 TOKEN = re.compile(r'''[^\s`"'(),;|=&]+''')
@@ -160,7 +165,9 @@ def check_docs(root: Path = ROOT) -> list[str]:
                     if reference.split()[1] not in commands:
                         problem = "unknown noh subcommand"
                 elif kind == "path":
-                    if any(char in reference for char in "*?["):
+                    if reference.rstrip("/") in LOCAL_ONLY or (root / reference).exists():
+                        pass  # Astro routes such as [key].astro are literal paths
+                    elif any(char in reference for char in "*?["):
                         pattern = reference + "/*" if reference.endswith("/**") else reference
                         matches = (
                             any(fnmatch.fnmatchcase(name, pattern) for name in filenames)
