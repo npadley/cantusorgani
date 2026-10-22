@@ -14,7 +14,7 @@ flowchart LR
     CAL["Missalemeum<br/>→ data/calendar/"]
     DO["Divinum Officium<br/>→ divinum-officium-vespers.json"]
     GB["GregoBase dump<br/>(noh gregobase-fetch)"]
-    VES["data/vespers-*.yml<br/>reviewed Vespers items"]
+    VES["data/vespers/vespers-*.yml<br/>reviewed Vespers items"]
   end
 
   subgraph pipeline["Pipeline (noh)"]
@@ -23,6 +23,7 @@ flowchart LR
     LINE["noh vespers-lineup"]
     CH["noh chants → chants.json"]
     PUB["noh publish --upload<br/>→ R2 images"]
+    OF["noh ordinary-form"]
   end
 
   CORR["data/corrections.yml<br/>hand corrections"]
@@ -31,7 +32,10 @@ flowchart LR
     CAT["catalog.json"]
     LU["vespers-lineup.json"]
     LOG["corrections-log.json"]
+    OFP["ordinary-form-propers.json<br/>ordinary-form-coverage.json"]
   end
+
+  TS["data/typeset/<br/>LilyPond sources, manifest<br/>+ mei/ approved conversions"]
 
   SITE["web/ (Astro)<br/>pnpm build → dist/<br/>+ link check"]
   CF["Cloudflare Pages<br/>cantusorgani.org"]
@@ -50,6 +54,10 @@ flowchart LR
   LINE --> LU
   GB --> CH
   PDF --> PUB
+  CAT --> OF
+  OF --> OFP
+  OFP --> SITE
+  TS --> SITE
   CAT --> SITE
   LU --> SITE
   LOG --> SITE
@@ -62,15 +70,23 @@ flowchart LR
 | Part | Where | What it does |
 |---|---|---|
 | **Pipeline** | `pipeline/` (`uv run noh …`) | Reads the scans (`pdf-source/`, in git), splits pages into systems, reads the printed indexes and the calendar, and writes the data files. A catalogue rebuild also reads `data/published/` and `data/ocr/margins/`, so it gives the same result anywhere; only uploading images needs the R2 keys. |
-| **Data** | `data/` | Reviewed inputs (`index-*.yml`, `vespers-*.yml`, `rubrics-1962.yml`, `corrections.yml`), vendored sources, and generated outputs (`catalog*.json`, `vespers-lineup.json`, `chants.json`, `corrections-log.json`). The generated outputs are committed, so the site builds from git alone. |
+| **Data** | `data/` | Reviewed inputs (`index-*.yml`, `vespers/vespers-*.yml`, `rubrics-1962.yml`, `corrections.yml`, `ordinary-form/*.yml`, `good-friday.json`), vendored sources, and generated outputs (`catalog*.json`, `vespers/vespers-lineup.json`, `chants.json`, `corrections-log.json`, `ordinary-form-*.json`). The generated outputs are committed, so the site builds from git alone. |
 | **Site** | `web/` | A static Astro site built from `data/`. `pnpm build` ends by crawling `dist/` and fails if any page can't be reached by a link. Page images come from R2 (`images.cantusorgani.org`). |
-| **Admin API** | `web/functions/` → `web/src/lib/admin/` | Pages Functions behind Cloudflare Access: the corrections queue, editors' own fixes, and publishing a batch. |
-| **Corrections Worker** | `workers/corrections/` | Takes readers' reports from the Corrections form (Turnstile, rate limit) into D1. Its migrations are the database schema, shared with the admin API. |
-| **CI** | `.github/workflows/site.yml` | On every pull request: tests, secret scan, checks that corrections are applied, build and link check. On `main`: the same, then deploy. |
-| **Publishing** | `.github/workflows/corrections-batch.yml` | Runs when the admin screen publishes: records the batch (`noh correct-batch`), rebuilds the chant notation, and opens a pull request as the GitHub App. |
+| **Admin API** | `web/functions/admin/` → `web/src/lib/admin/` | Pages Functions behind Cloudflare Access (a signed-in email on the `EDITORS` list; `auth.ts`): the corrections queue, editors' own fixes, and publishing a batch. |
+| **GitHub webhook** | `web/functions/api/github/webhook.ts` | Tells the admin API what happened to a batch (see [A correction's journey](#a-corrections-journey)) and releases typeset previews. |
+| **Corrections Worker** | `workers/corrections/` | Takes readers' reports from the Corrections form (Turnstile, Origin allowlist) into D1, at `api.cantusorgani.org`. The rate limit is a count of D1 rows (5 per hashed submitter), and `CORRECTIONS_ENABLED` is its kill switch. Its migrations are the database schema, shared with the admin API. |
+| **CI** | `.github/workflows/site.yml` | On every pull request that changes more than Markdown: the typeset render (and, for same-repo pull requests, upload to R2), then secret scan, lint, pipeline tests, Ordinary Form coverage, corrections applied, typeset checks (`--remote` except on fork pull requests), chant notation current, type check, site and Worker tests, stale MEI report, build and link check, both browser suites (site and export editor). Separate jobs run the LilyPond tests and, when `pipeline/`, `tests/`, scan inputs or dependencies change, the slow scan tests. On `main`: the same, then deploy; the deploy waits for the typeset render and upload. See [OPERATIONS.md](OPERATIONS.md#checking). |
+| **Publishing** | `.github/workflows/corrections-batch.yml` | Runs when the admin screen publishes: for typeset source edits, a sandboxed `source-check` job first; then records the batch (`noh correct-batch`), rebuilds the chant notation, regenerates the typeset manifest and the Ordinary Form files, and opens a pull request as the GitHub App. |
 | **Rebuilding** | `.github/workflows/catalog-rebuild.yml` | Run by hand from the Actions tab: rebuilds a volume's catalogue from the scans after an index edit, on a branch or as a pull request. |
 | **Review queue** | `data/review-queue.json` → `/admin/review/` | What `noh catalog` was unsure of. The admin screen lists it, less what is confirmed (`reviewed` corrections, in `data/reviewed.json`) or settled by the data (`web/src/lib/admin/reviews.ts`). A confirmation holds the item's fingerprint and lapses when a rebuild changes the item. |
 | **Typeset music** | `data/typeset/`, `pipeline/typeset/` | The volunteers' LilyPond transcriptions: matched to parts (`noh typeset-match` → `parts.yml`, by page, file name and melody against GregoBase), listed in `manifest.json`, drawn by LilyPond in the site workflow and uploaded to R2 under `typeset/<hash>/`. See [TYPESETTING.md](TYPESETTING.md). |
+| **Typeset source editing** | `web/src/lib/admin/typesetApi.ts` (`/admin/api/typeset/{source,draft,approve,preview}`), `typesetStore.ts`, `typesetPreview.ts`; `.github/workflows/typeset-preview.yml`; D1 migrations 0006–0008 | Editors fix a LilyPond file on `/admin/typeset/`: a private draft, a preview drawn on GitHub, then an approved edit that publishes as a correction. |
+| **Ordinary Form calendar** | `pipeline/ordinary_form.py` (`noh ordinary-form`), `data/ordinary-form/`, `web/src/lib/ordinaryForm*.ts`, `web/src/pages/ordinary-form/[key].astro` | Projects Graduale Romanum (1974) assignments over the existing catalogue, reusing its scans and typeset music; adds no pieces. Operations: [OPERATIONS.md](OPERATIONS.md#ordinary-form-calendar-and-accompaniments); coverage: [ORDINARY-FORM-MUSIC-COVERAGE.md](ORDINARY-FORM-MUSIC-COVERAGE.md). |
+| **PDF export** | `web/src/lib/pdf.ts`, `exportParts.ts`, `exportSelection.ts`, `web/src/workers/pdf.worker.ts` | The basic export: the scan images of chosen parts, joined into a PDF in the browser (pdf-lib). |
+| **Customize export (MEI/Verovio)** | `pipeline/typeset/mei/` (`noh typeset-mei-*`), `data/typeset/mei/`, R2 `mei/<sha256>/`, `web/src/lib/export-layout/`, `web/src/workers/export-layout*.worker.ts` | Approved conversions of typeset parts reflow in the browser to the reader's page size, then export to PDF. Chant is set in the same export (`export-layout/chant*.ts`, `exportChants.ts`, `exsurgeLoader.ts`). Stale approvals are listed in admin (`admin/exportPaused.ts`). See [TYPESETTING.md](TYPESETTING.md#custom-export-mei). |
+| **MEI workflows** | `.github/workflows/mei-conversion.yml`, `mei-stale.yml` | `mei-conversion`: run by hand; converts typeset sources and, if asked and on the default branch, uploads the conversion artifacts that match existing approved records (it does not create or commit records). `mei-stale`: on a push to `main` that touches typeset sources, includes or the converter, reports which approvals went stale and tries to carry them forward; it commits nothing. |
+| **Good Friday** | `data/good-friday.json` → `noh chants` → `web/src/pages/good-friday/`, `web/src/lib/goodFriday.ts` | A chant-only page for both calendars: NOH sets nothing for the day, so each chant is named by its GregoBase id. |
+| **R2 check** | `.github/workflows/r2-check.yml` | Run by hand after setting or rotating the R2 secrets. See [ADMIN-SETUP.md](ADMIN-SETUP.md). |
 | **Typeset cleanup** | `.github/workflows/typeset-prune.yml` | Run by hand: deletes renders on R2 that nothing names, keeping anything recent. |
 | **Images** | `.github/workflows/publish.yml` | Run by hand from the Actions tab: slices the PDF pages named, uploads their images to R2, and rebuilds that volume's catalogue so it names them; on a branch or as a pull request. |
 
@@ -84,11 +100,16 @@ flowchart LR
    and records it in `data/corrections.yml` with the value it replaces
    (`was`). Then `noh apply-corrections` rewrites the generated files, and the
    workflow opens a pull request.
-4. The site workflow checks the pull request. The owner merges it, and the
-   merge deploys.
-5. GitHub's webhook tells the admin API what happened. The report is marked
-   accepted (with the merge commit), back to review (closed unmerged), or back
-   to approved (the workflow failed).
+4. The site workflow checks the pull request. Most batches merge themselves
+   when it passes (`gh pr merge --auto`), and the merge deploys. A batch waits
+   for the owner when `hold_reasons` fires (`pipeline/corrections.py`): it
+   moves systems between pieces, or has 25 or more non-review changes.
+5. GitHub's webhook tells the admin API what happened. Merged: the reports are
+   accepted, with the merge commit. Closed unmerged: editors' rows return to
+   approved, readers' reports to review (a twin of a pending report becomes
+   `duplicate`). The site check failed on the batch branch: the rows return to
+   approved and the pull request is closed (best effort: a failed close is logged). The `corrections-batch` run
+   itself failed: the rows return to approved.
 
 What a correction can name: `piece:<slug>` (title, incipit, mode, genre,
 printed pages), `part:<slug>/<part>` (where it starts, its chant) and
@@ -145,7 +166,14 @@ settings under "faint print" in `pipeline/segment.py`.
   (`staff_finder`), inserted leaves (`inserts`, "162 bis"), addenda.
 - `pipeline/typeset/`: importing, matching (`match.py`, `melody.py`: words and
   melody against GregoBase, with the repeats written out), the manifest,
-  rendering and publishing of the typeset music.
+  rendering and publishing of the typeset music; `mei/`: converting it to MEI
+  for the Customize export.
+- `pipeline/ordinary_form.py`: the Ordinary Form resolution and its coverage
+  check. `pipeline/chants.py`: `chants.json`, including the Good Friday chants;
+  `pipeline/hymnpairings.py`: `hymn-pairings.json`.
+- `web/src/pages/chant/[id].json.ts`: one chant's notation as JSON, for the
+  export. `web/public/_headers`: the site's security headers. Page-view
+  analytics are GoatCounter (`Layout.astro`, `exportAnalytics.ts`).
 - `scripts/regenerate.sh`, `scripts/check.sh`: the regeneration order and the
   pull request's checks, for running by hand.
 - `data/vespers/`: the reviewed Vespers files, the lineup and the vendored

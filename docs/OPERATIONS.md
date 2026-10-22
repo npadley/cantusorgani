@@ -151,13 +151,16 @@ changes how the scans are *read* goes through the repository.
 |---|---|
 | `data/catalog.base.json`, `data/review-queue.json` | `noh catalog` |
 | `data/catalog.json`, `data/reviewed.json`, `data/corrections-log.json` | `noh apply-corrections` (also run by `noh correct`) |
-| `data/vespers/vespers-lineup.json` | `noh vespers-lineup` (and `noh apply-corrections`, for the years it covers) |
-| `data/chants.json` | `noh chants` |
+| `data/vespers/vespers-lineup.json` | `noh vespers-lineup`, and `noh apply-corrections` for the years it covers |
+| `data/vespers/hymn-links.json` | `noh vespers-lineup` only |
+| `data/chants.json`, `data/hymn-pairings.json` | `noh chants` (`hymn-pairings.json` is compiled from the hand-edited `data/hymn-pairings.yml`) |
+| `data/ordinary-form-propers.json`, `data/ordinary-form-coverage.json` | `noh ordinary-form` |
 | `data/typeset/parts.yml` | `noh typeset-match` |
 | `data/typeset/manifest.json`, `review.json` | `noh typeset-manifest` (and `noh apply-corrections`) |
+| `data/typeset/mei/manifest.json` | `noh typeset-mei-manifest`, by hand from the approved records ([TYPESETTING.md](TYPESETTING.md#build-the-manifest-typeset-mei-manifest)); `regenerate.sh` doesn't run it |
 | `data/published/*.json` | `noh publish` (the record of which images are on R2) |
 | `data/ocr/margins/**` | `noh catalog` (cached margin readings; commit them) |
-| Vendored sources (`jgabc-propers.json`, `divinum-officium-vespers.json`, `vesperale-lineup.json`) | their `noh …-fetch` command |
+| Vendored sources (`jgabc-propers.json`, `jgabc-novus-propers.json`, `divinum-officium-vespers.json`, `vesperale-lineup.json`) | their `noh …-fetch` command (`noh jgabc-fetch` writes both jgabc files) |
 
 When git shows a conflict in a generated file, don't merge it by hand: see
 [Merging main into a branch](#merging-main-into-a-branch).
@@ -174,8 +177,11 @@ scripts/regenerate.sh
 
 After any hand edit to `data/`. Runs, in order: apply the corrections, the
 chant notation, the typeset matching, the corrections again (typeset
-corrections are checked against the new matching), the typeset manifest and its
-check, and lists any confirmation a rebuild has undone. About two minutes. It is
+corrections are checked against the new matching), the Ordinary Form
+resolution (`noh ordinary-form`), the typeset manifest and its check, and lists
+any confirmation a rebuild has undone. `noh apply-corrections` refreshes the
+Vespers lineup for its existing window; naming `noh8` also runs
+`noh vespers-lineup`, which rebuilds the window and `hymn-links.json`. About two minutes. It is
 safe to run twice: the second run changes nothing.
 
 ```bash
@@ -184,7 +190,7 @@ scripts/regenerate.sh noh1 noh3
 
 Rebuilds those volumes from the scans first (2–7 minutes each), then does the
 above. Use it after an edit to `index-*.yml` or `volumes.yml`. `all` rebuilds
-every volume (about half an hour).
+every volume: noh1–5, noh7, noh8 (about half an hour).
 
 It ends by listing what changed under `data/`. Read that list: it's what you'll
 commit.
@@ -198,6 +204,7 @@ commit.
 | `noh3` | Pars III: Proprium Sanctorum (and its two 1954 addenda) |
 | `noh4` | Pars IV: Commune Sanctorum, votive Masses, local feasts |
 | `noh5` | Pars V: Kyriale, Requiem, cantus ad libitum |
+| `noh7` | Pars VII: Varia (118 of 576 pieces catalogued so far) |
 | `noh8` | Pars VIII: Vespers |
 
 ### What to run after what
@@ -222,6 +229,7 @@ The individual commands, if you want them:
 uv run noh catalog --volume noh3     # scans → catalog.base.json, review-queue.json, then applies corrections
 uv run noh apply-corrections         # corrections + sections → catalog.json, reviewed.json, lineup, manifest
 uv run noh chants                    # chants.json
+uv run noh ordinary-form             # ordinary-form-propers.json, ordinary-form-coverage.json
 uv run noh typeset-match             # typeset/parts.yml
 uv run noh typeset-manifest          # typeset/manifest.json, review.json
 uv run noh typeset-check             # the typeset checks CI runs
@@ -237,10 +245,10 @@ uv run noh corrections --lapsed      # confirmations a rebuild undid
 scripts/check.sh --quick
 ```
 
-Everything a pull request checks except the site build and browser tests:
-lint, the pipeline tests, "corrections applied", the typeset checks, "chant
-notation current", the site's type check and tests, the corrections Worker's
-tests. About five minutes. Run it before every push.
+The fast part of what a pull request checks: lint, the pipeline tests,
+"Ordinary Form coverage current", "corrections applied", the typeset checks,
+"chant notation current", the site's type check and tests, the corrections
+Worker's tests. About five minutes. Run it before every push.
 
 ```bash
 scripts/check.sh
@@ -249,6 +257,15 @@ scripts/check.sh
 Adds the build (with the link check: every page must be reachable) and the
 browser tests of the admin screen and forms. About eight minutes. Run it before
 a change to `web/`, or when `--quick` passes but GitHub fails.
+
+`check.sh` does not run everything the **site** workflow does. Left to GitHub:
+the secret scan (gitleaks), `noh typeset-check --remote` (every render the
+manifest names is on R2), the stale MEI report, the export editor browser tests
+(`pnpm build:e2e && pnpm test:e2e:export` in `web/`), the LilyPond tests
+(`uv run pytest -m lilypond`, needs LilyPond), and the slow scan tests (`-m
+slow`, which CI runs when `pipeline/`, `tests/`, scan inputs or dependencies
+change, or by hand). A green `check.sh` can
+still fail on one of these.
 
 Both stop at the first failure and print `FAILED at: <step>`. The step's own
 output above that line says what's wrong; [When something goes
@@ -313,7 +330,7 @@ nothing.
 **Publish changes** on `/admin/` sends everything approved as one pull request
 (a branch named `corrections/<batch>`). Most merge themselves when their checks
 pass. A batch waits for you to merge it when it moves systems between pieces or
-has 25 corrections or more; the pull request says which. If a check fails, the
+has 25 or more non-review changes; the pull request says which. If a check fails, the
 pull request closes and the corrections return to **Approved** with the reason.
 
 ### Merging main into a branch
@@ -329,7 +346,7 @@ git merge origin/main
 For each conflicted *generated* file (see [the list](#the-data-files)):
 
 ```bash
-git checkout --theirs data/catalog.json data/catalog.base.json data/review-queue.json data/reviewed.json data/corrections-log.json data/typeset/parts.yml data/typeset/manifest.json data/typeset/review.json data/vespers/vespers-lineup.json data/chants.json
+git checkout --theirs data/catalog.json data/catalog.base.json data/review-queue.json data/reviewed.json data/corrections-log.json data/typeset/parts.yml data/typeset/manifest.json data/typeset/review.json data/vespers/vespers-lineup.json data/vespers/hymn-links.json data/chants.json data/hymn-pairings.json data/ordinary-form-propers.json data/ordinary-form-coverage.json data/jgabc-novus-propers.json data/typeset/mei/manifest.json
 ```
 
 (`--theirs` during a merge means the branch being merged in, here `main`.)
@@ -385,8 +402,11 @@ uv run noh overlay --volume noh3 --pages 140
 The overlay is written to `build/overlay/`: every staff should sit in a box. If one doesn't, see
 "Slicing a page" in [EDITING.md](EDITING.md#slicing-a-page).
 
-**Typeset music** is drawn by LilyPond on GitHub when `main` changes (the
-site workflow's typeset job) and uploaded under `typeset/<hash>/`. Old renders
+**Typeset music** is drawn by LilyPond on GitHub on every pull request and push
+to `main` that changes more than Markdown (the site workflow's typeset render job; it draws only what R2 lacks).
+Renders from a same-repo pull request or `main` are uploaded under
+`typeset/<hash>/` (pull requests from forks get no secrets, so no upload), and
+the deploy waits for them. Old renders
 pile up; the **typeset-prune** workflow removes renders nothing names. Run it
 unticked first (a dry run) and read its summary. Its grace period keeps
 anything uploaded in the last 14 days, so open pull requests keep their renders.
