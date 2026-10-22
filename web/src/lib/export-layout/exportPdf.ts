@@ -6,6 +6,7 @@
 //
 // Coordinates in the LayoutResult are page-absolute mm with a top-left origin;
 // pdf-lib's origin is bottom-left in points, converted only by `mmRectToPdfPt`.
+import { scanPngUrl } from './selection';
 import { PDFDocument } from 'pdf-lib';
 import type { PDFEmbeddedPage, PDFPage } from 'pdf-lib';
 import type {
@@ -96,7 +97,7 @@ export async function exportCanonicalPdf(result: LayoutResult, deps: ExportPdfDe
 
   const drawScan = async (page: PDFPage, p: ScanCanonicalPage): Promise<void> => {
     for (const im of p.images) {
-      const url = `${im.stem}@2x.png`;
+      const url = scanPngUrl(im.stem);
       const bytes = await fetchOnce(url);
       let img = images.get(url);
       if (img === undefined) {

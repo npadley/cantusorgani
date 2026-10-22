@@ -254,9 +254,18 @@ Worker's tests. About five minutes. Run it before every push.
 scripts/check.sh
 ```
 
-Adds the build (with the link check: every page must be reachable) and the
-browser tests of the admin screen and forms. About eight minutes. Run it before
-a change to `web/`, or when `--quick` passes but GitHub fails.
+Adds the build (with the link check: every page must be reachable), the
+export asset check and the browser tests of the admin screen and forms. About
+eight minutes. Run it before a change to `web/`, or when `--quick` passes but
+GitHub fails.
+
+After a publish and before a release, run `pnpm check:export-assets` from `web/`
+to check every exported scan stem in the built pages for HTTP 200 and a CORS
+header (HEAD requests, up to three attempts for network errors or server
+failures; local-image builds skip it).
+Export scan PNGs must use `scanPngUrl`, whose `?export=1` gives them a CORS-only
+cache key, because a cached plain image response can lack the CORS header and
+stop the PDF export.
 
 `check.sh` does not run everything the **site** workflow does. Left to GitHub:
 the secret scan (gitleaks), `noh typeset-check --remote` (every render the

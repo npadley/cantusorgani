@@ -25,7 +25,7 @@ export const TURNSTILE_SITE_KEY = orDefault(import.meta.env.PUBLIC_TURNSTILE_SIT
 export const CORRECTIONS_ENDPOINT = orDefault(import.meta.env.PUBLIC_CORRECTIONS_ENDPOINT, "").replace(/\/$/, "");
 
 /**
- * Ceiling on a single PDF export. Slices are ~12 KB each (@2x.png, measured
+ * Ceiling on a single PDF export. Slices are ~12 KB each (double-resolution PNG, measured
  * 2026-09-26), so 300 systems is ~3.6 MB of images and ~67 A4 pages -- far more
  * than any day's Proper and Ordinary. It exists to stop a runaway selection,
  * not to ration ordinary use. Shared by the export bar, pdf.ts and the Worker.

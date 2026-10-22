@@ -1,5 +1,12 @@
 import type { ChantRef, ConversionLookup, ExportPart, PartHeading, ScanExportPart, SelectionInput } from "./types";
 
+/** Export scans use a cache key that plain, non-CORS <img> requests never load.
+ * The asset host's immutable bare PNG responses may lack CORS headers.
+ * Preview images using this URL must set crossOrigin before src, too. */
+export function scanPngUrl(stem: string): string {
+  return `${stem}@2x.png${/^https?:/.test(stem) ? '?export=1' : ''}`;
+}
+
 type Segment = SelectionInput["segments"][number];
 
 /** A segment's chants belong to its first part only (CS §3.1). */

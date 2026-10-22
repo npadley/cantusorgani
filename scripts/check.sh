@@ -47,6 +47,7 @@ if ! $QUICK; then
     export PUBLIC_TURNSTILE_SITE_KEY="${PUBLIC_TURNSTILE_SITE_KEY:-1x00000000000000000000AA}"
   fi
   CURRENT="build and link check"; step "$CURRENT"; pnpm build
+  CURRENT="export assets";      step "$CURRENT";  pnpm check:export-assets
   CURRENT="browser tests";      step "$CURRENT";  CI=true pnpm exec playwright test < /dev/null
 fi
 

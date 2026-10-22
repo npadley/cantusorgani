@@ -211,7 +211,10 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     requests.length = 0;
     await doExport();
     await expect(page.locator("#export-status")).toContainText("could not be fetched, so its scans are in the PDF");
-    expect(requests.filter(url => url.endsWith(".pdf?export=1"))).toHaveLength(5);
+    // A 503 is retried once (fetchWithRetry) before the part falls back to scans.
+    const failedPdfs = requests.filter(url => url.endsWith(".pdf?export=1"));
+    expect(new Set(failedPdfs).size).toBe(5);
+    expect(failedPdfs).toHaveLength(10);
     expect(requests.filter(url => url.endsWith(".png?export=1"))).toHaveLength(43);
 
     failPdfs = false;

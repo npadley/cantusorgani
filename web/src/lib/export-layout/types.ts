@@ -123,7 +123,7 @@ export interface MeiExportPart extends ExportPartBase {
 }
 export interface ScanExportPart extends ExportPartBase {
   readonly kind: 'scan';
-  readonly stems: readonly string[];        // as ExportSegment.stems; fetch `${stem}@2x.png`
+  readonly stems: readonly string[];        // as ExportSegment.stems; resolve with scanPngUrl (CORS-only cache key for HTTP(S))
   /** True when an approved conversion exists but the reader chose scans on the page (UI explains how to switch). */
   readonly customizableAvailable: boolean;
 }

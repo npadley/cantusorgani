@@ -11,6 +11,9 @@
 // pdf.js is reached only through a dynamic import of fixedPreview.ts, the first time a fixed
 // page is drawn.
 
+import { fetchWithRetry } from '../lib/fetchRetry';
+import type { FetchDelay } from '../lib/fetchRetry';
+import { scanPngUrl } from '../lib/export-layout/selection';
 import previewCss from '../styles/exportPreview.css?url';
 import { loadStylesheet } from './lazyStyles';
 import { PAGE_PRESETS } from '../lib/export-layout/types';
@@ -144,13 +147,13 @@ function pagesHost(root: HTMLElement): HTMLElement {
   return host;
 }
 
-function createFetchLoader(): AssetLoader {
+export function createFetchLoader(fetchFn: typeof fetch = fetch, delay?: FetchDelay): AssetLoader {
   const cache = new Map<string, Promise<Uint8Array>>();
   return {
     bytes(url: string): Promise<Uint8Array> {
       let hit = cache.get(url);
       if (hit === undefined) {
-        hit = fetch(url).then(async (response) => {
+        hit = fetchWithRetry(fetchFn, url, delay).then(async (response) => {
           if (!response.ok) throw new Error(`ASSET_MISSING: ${url}`);
           return new Uint8Array(await response.arrayBuffer());
         }).catch(() => { throw new Error(`ASSET_MISSING: ${url}`); });
@@ -426,7 +429,8 @@ function drawChant(sheet: HTMLElement, page: CanonicalPage): void {
 function drawScan(sheet: HTMLElement, page: ScanCanonicalPage, partLabel: string): void {
   page.images.forEach((image, k) => {
     const img = el('img', 'cx-scanimg');
-    img.src = `${image.stem}@2x.png`;
+    img.crossOrigin = 'anonymous';
+    img.src = scanPngUrl(image.stem);
     img.alt = `Original scan of ${partLabel}, system ${k + 1} of ${page.images.length} on this page`;
     img.loading = 'lazy';
     img.decoding = 'async';

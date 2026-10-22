@@ -147,6 +147,19 @@ describe('exportCanonicalPdf', () => {
     return composeExport(parts, layouts, s, composeDeps(), 3);
   }
 
+  it('fetches HTTPS scan PNGs with the CORS-only export cache key', async () => {
+    const result = await composeExport([scanPart('s:0', ['https://images.example/s1'])], new Map(), IPAD, {
+      ...composeDeps(), assets: { async bytes() { return png; } },
+    }, 1);
+    expect(result.complete).toBe(true);
+    const requested: { url: string; hash: string | null }[] = [];
+    await exportCanonicalPdf(result, {
+      fonts,
+      assets: { async bytes(url, hash) { requested.push({ url, hash }); return png; } },
+    });
+    expect(requested).toEqual([{ url: 'https://images.example/s1@2x.png?export=1', hash: null }]);
+  });
+
   const dictOf = (o: PDFObject | undefined, doc: PDFDocument): PDFDict | undefined => {
     const r = o instanceof PDFRef ? doc.context.lookup(o) : o;
     return r instanceof PDFDict ? r : r instanceof PDFRawStream ? r.dict : undefined;

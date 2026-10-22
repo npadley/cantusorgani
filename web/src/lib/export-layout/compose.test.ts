@@ -123,6 +123,17 @@ describe('composeExport', () => {
   const PDFS = { 'letter.pdf': [[612, 792], [612, 792]], 'a4.pdf': [[595.28, 841.89]] } as const;
   const deps = (): ComposeDeps => makeDeps(fonts, PNG, PDFS);
 
+  it('requests HTTPS scan bytes with the CORS-only export cache key', async () => {
+    const calls: { url: string; hash: string | null }[] = [];
+    const d = deps();
+    const result = await composeExport([scanPart('s:0', ['https://images.example/s1'])], new Map(), IPAD, {
+      ...d,
+      assets: { async bytes(url, hash) { calls.push({ url, hash }); return enc('png:1200x400'); } },
+    }, 1);
+    expect(result.complete).toBe(true);
+    expect(calls).toEqual([{ url: 'https://images.example/s1@2x.png?export=1', hash: null }]);
+  });
+
   it('lays out mixed MEI, scan and fixed parts in order, each starting a page', async () => {
     const mei = meiPart('m:0', heading('Kyrie', { rubric: 'Kyrie rubric', credit: 'Credit line' }));
     const layouts = new Map([[mei.id, await meiLayout(mei, IPAD)]]);

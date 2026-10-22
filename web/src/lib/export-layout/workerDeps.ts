@@ -6,6 +6,8 @@
 //
 // `createRenderPart` fetches and verifies a part's MEI, builds the page rectangles from compose's
 // own reservationFor (so compose never sees a size mismatch) and calls renderMei.
+import { fetchWithRetry } from '../fetchRetry';
+import type { FetchDelay } from '../fetchRetry';
 import { PDFDocument } from 'pdf-lib';
 import { composeExport as composeParts, firstPageTopMm, reservationFor } from './compose';
 import type { ComposeDeps } from './compose';
@@ -83,12 +85,12 @@ export function createRenderPart(fetchBytes: FetchBytes) {
 // ------------------------------------------------------------ compose deps ---
 
 /** Fetch with optional sha256 verification. Errors follow the contracts' AssetLoader convention. */
-export function createAssetLoader(fetchFn: typeof fetch = fetch): AssetLoader {
+export function createAssetLoader(fetchFn: typeof fetch = fetch, delay?: FetchDelay): AssetLoader {
   return {
     async bytes(url: string, sha256: string | null): Promise<Uint8Array> {
       let data: Uint8Array;
       try {
-        const response = await fetchFn(url);
+        const response = await fetchWithRetry(fetchFn, url, delay);
         if (!response.ok) throw new Error('not ok');
         data = new Uint8Array(await response.arrayBuffer());
       } catch {
