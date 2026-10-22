@@ -35,7 +35,8 @@ has a calendar for each. OF scope is in `docs/DECISIONS.md` (P6).
 drawn in the browser by Exsurge.
 
 **GregoBase.** The chant database that supplies GABC transcriptions (CC0). A
-catalogue piece's `chant` field points at a GregoBase id.
+catalogue piece's `chant` field is a list (possibly empty) of chant pairings,
+each naming a GregoBase id.
 
 **Gradual, Introit, Alleluia, Offertory, Communion.** The sung Proper parts of
 a Mass (Tract or Sequence in some seasons). See *Proper*.
@@ -47,8 +48,9 @@ Proper has and each part's GregoBase id.
 **Kyriale.** The Ordinary of the Mass (Kyrie, Gloria, Sanctus, Agnus Dei, Ite)
 in its numbered settings (Missa IX…). NOH5.
 
-**Lender (OF).** An NOH piece "borrowed" to serve an Ordinary Form chant that
-has the same text. OF pages are synthetic and borrowed-only; "lender" counts are
+**Lender (OF).** An NOH piece "borrowed" to serve an Ordinary Form chant: its
+section must set the same GregoBase chant id (`pipeline/ordinary_form.py`);
+matching text alone is not enough. OF pages are synthetic and borrowed-only; "lender" counts are
 in `docs/ORDINARY-FORM-MUSIC-COVERAGE.md`.
 
 **LilyPond.** The engraving language of the volunteers' transcriptions in
@@ -60,7 +62,9 @@ is sung at Vespers, set by the day's Magnificat antiphon. Held in
 `data/vespers/vespers-noh8.yml` (`magnificat_antiphons`, tone bank).
 
 **MEI.** Music Encoding Initiative XML. The derived form of each approved
-LilyPond score, in `data/typeset/mei/`, which Verovio reflows.
+LilyPond score, which Verovio reflows. Approval records and the manifest are in
+`data/typeset/mei/`; the scores themselves are published to R2 at
+`mei/<sha256>/score.mei`.
 
 **NOH.** *Nova Organi Harmonia* (Mechelen, 1942), the organ accompaniment books
 this site publishes. Volumes (`data/volumes.yml`): **noh1** Part I, Proprium de
