@@ -39,7 +39,7 @@ const withMusic = allPieces().filter((p) => p.systems.length > 0).length;
     <li>
       <a href="/hymns/">
         <span class="card-title">Hymns</span>
-        <span class="la muted">Hymni</span>
+        <span class="la muted" lang="la">Hymni</span>
         <span class="muted small">Hymns across the books, including alternate settings and tones.</span>
         <span class="count small">{hymnIndex().length} settings</span>
       </a>
@@ -48,7 +48,7 @@ const withMusic = allPieces().filter((p) => p.systems.length > 0).length;
       <li>
         <a href={`/${d.slug}/`}>
           <span class="card-title">{d.en}</span>
-          <span class="la muted">{d.la}</span>
+          <span class="la muted" lang="la">{d.la}</span>
           <span class="muted small">{d.blurb}</span>
           <span class="count small">{d.count} {d.count === 1 ? "piece" : "pieces"}</span>
         </a>

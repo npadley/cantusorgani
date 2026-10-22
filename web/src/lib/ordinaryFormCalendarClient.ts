@@ -144,7 +144,11 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
       if (occasion) {
         const block = element("section", undefined, "observance");
         block.append(element("h2", occasion.titleEn));
-        if (occasion.titleLa) block.append(element("p", occasion.titleLa, "latin"));
+        if (occasion.titleLa) {
+          const latin = element("p", occasion.titleLa, "latin");
+          latin.lang = "la";
+          block.append(latin);
+        }
         const color = COLORS[occasion.color] ?? { label: occasion.color, swatch: "transparent" };
         const meta = element("p", undefined, "meta");
         const swatch = element("span", undefined, "swatch"); swatch.style.background = color.swatch; swatch.setAttribute("aria-hidden", "true");
