@@ -1,0 +1,123 @@
+[
+  {
+    "id": "home",
+    "url": "/",
+    "note": "Static web/src/pages/index.astro; divisionsWithContent(allPieces()) uses data/catalog.json."
+  },
+  {
+    "id": "division",
+    "url": "/proper-of-time/",
+    "note": "[division]/index.astro getStaticPaths uses divisionsWithContent; indexes.ts maps temporale to proper-of-time. data/catalog.json includes temporale piece dominica-i-adventus."
+  },
+  {
+    "id": "day",
+    "url": "/day/tempora/Adv1-0/",
+    "note": "day/[flex]/[name].astro getStaticPaths uses catalogedDays(allPieces()); data/catalog.json dominica-i-adventus.days includes tempora:Adv1-0, the First Sunday of Advent."
+  },
+  {
+    "id": "piece",
+    "url": "/piece/dominica-i-adventus/",
+    "note": "piece/[slug].astro getStaticPaths includes every data/catalog.json piece; this proper has 28 systems and is not a Kyriale redirect. data/typeset/manifest.json has all five part:dominica-i-adventus targets; their lengths meet suspects.ts thresholds. Catalog sections pair chants 132, 1169, 1115, 962 and 1036; data/chants.json includes their notation (132 is Ad te levavi)."
+  },
+  {
+    "id": "piece-scans",
+    "url": "/piece/s-matthi-apostoli/",
+    "note": "piece/[slug].astro getStaticPaths includes data/catalog.json s-matthi-apostoli (S. Matthiæ Apostoli), eight systems and no whole-piece reference. data/typeset/manifest.json has no targets for this slug, so its own music is scans only."
+  },
+  {
+    "id": "vespers",
+    "url": "/vespers/2026-11-08/",
+    "note": "vespers/[date].astro getStaticPaths maps loadLineup().days; data/vespers/vespers-lineup.json days[2026-11-08] is II Vespers of tempora:Epi5-0, a Sunday in November 2026."
+  },
+  {
+    "id": "vespers-first",
+    "url": "/vespers/2026-11-01/i/",
+    "note": "vespers/[date]/i.astro getStaticPaths maps loadLineup().firstVespers; data/vespers/vespers-lineup.json first_vespers[2026-11-01] is I Vespers of sancti:11-01 (All Saints, I class), evening_of 2026-10-31."
+  },
+  {
+    "id": "kyriale",
+    "url": "/kyriale/",
+    "note": "Static web/src/pages/kyriale/index.astro; Kyriale groups use data/catalog.json."
+  },
+  {
+    "id": "kyriale-mass",
+    "url": "/kyriale/i/",
+    "note": "kyriale/[mass].astro getStaticPaths maps ordinaryMasses() labels to lowercase; data/catalog.json ordinarium-missae-i has label I, genre mass_ordinary and division kyriale."
+  },
+  {
+    "id": "ordinary-form",
+    "url": "/ordinary-form/advent-1/",
+    "note": "ordinary-form/[key].astro getStaticPaths maps ordinaryFormOccasions(); data/ordinary-form-propers.json occasions includes mapped key advent-1, 1st Sunday of Advent, with catalogued lenders."
+  },
+  {
+    "id": "calendar",
+    "url": "/calendar/",
+    "note": "Static web/src/pages/calendar/index.astro; dayIndex and ordinaryMasses use data/catalog.json, with date data in data/calendar/."
+  },
+  {
+    "id": "calendar-of",
+    "url": "/calendar/ordinary-form/",
+    "note": "Static web/src/pages/calendar/ordinary-form/index.astro; occasion choices come from data/ordinary-form-propers.json."
+  },
+  {
+    "id": "good-friday",
+    "url": "/good-friday/",
+    "note": "Static web/src/pages/good-friday/index.astro; goodFridayRites() reads data/good-friday.json, with notation from data/chants.json."
+  },
+  {
+    "id": "hymns",
+    "url": "/hymns/",
+    "note": "Static web/src/pages/hymns/index.astro; hymnIndex/loadCatalog use data/catalog.json and hymnPairing uses data/hymn-pairings.json."
+  },
+  {
+    "id": "search",
+    "url": "/search/",
+    "note": "Static web/src/pages/search.astro; ordinaryMasses uses data/catalog.json; search index is supplied by the production build."
+  },
+  {
+    "id": "corrections",
+    "url": "/corrections/",
+    "note": "Static web/src/pages/corrections/index.astro; correction targets come from data/catalog.json. No form submission action."
+  },
+  {
+    "id": "corrections-log",
+    "url": "/corrections/log/",
+    "note": "Static web/src/pages/corrections/log/index.astro; correctionsLog() reads data/corrections-log.json."
+  },
+  {
+    "id": "about",
+    "url": "/about/",
+    "note": "Static web/src/pages/about.astro; counts use data/catalog.json and data/vespers/vespers-lineup.json."
+  },
+  {
+    "id": "not-found",
+    "url": "/404.html",
+    "note": "web/src/pages/404.astro generates Astro's explicit 404.html artifact; no getStaticPaths or slug data. The runner requires HTTP 200 for this explicit artifact too and reports failure if the preview serves it with status 404."
+  },
+  {
+    "id": "piece-export",
+    "url": "/piece/dominica-i-adventus/",
+    "note": "Same generated catalog slug and typeset/chant data as piece. ExportBar.astro names the button Customize export; ExportLayoutEditor.astro labels its dialog Customize export.",
+    "action": {
+      "type": "click",
+      "role": "button",
+      "name": "Customize export",
+      "dialog": "Customize export",
+      "waitHidden": [
+        "Getting the music ready to lay out",
+        "Loading the layout tools",
+        "Updating"
+      ]
+    }
+  },
+  {
+    "id": "piece-chant",
+    "url": "/piece/dominica-i-adventus/",
+    "note": "Same generated catalog slug as piece. MovementNav.astro renders this labeled checkbox when jumpTargets includes notation in data/chants.json; the catalog's introit gregobase_id 132 has notation there.",
+    "action": {
+      "type": "check",
+      "role": "checkbox",
+      "name": "Show the chant with each part"
+    }
+  }
+]
