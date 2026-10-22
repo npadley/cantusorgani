@@ -280,6 +280,23 @@ Both stop at the first failure and print `FAILED at: <step>`. The step's own
 output above that line says what's wrong; [When something goes
 wrong](#when-something-goes-wrong) lists the usual ones.
 
+On GitHub, **site** runs `python`, `site` and `browser` in parallel after
+the typeset render/upload gate. They cover the pipeline and secret scan, site
+and Worker checks, and the build and both browser suites. `deploy` needs all
+three and downloads the browser job's tested build. LilyPond and scan tests
+still do not gate deploy. The aggregate `check` job requires every check to
+pass and reports deploy failures; expected upload/deploy skips are allowed.
+Use `check` as the required branch-protection check.
+
+Apt archives are cached by runner image and package list; Playwright browsers
+by the version in `web/pnpm-lock.yaml`. A browser cache hit installs only system
+dependencies. LilyPond keeps its pinned cache. These caches save even when a
+later check fails. Apt and LilyPond installs have five-minute step limits;
+Playwright has eight. Each gets one bounded retry and names the install that
+failed or hung. New pull-request runs cancel older ones. Main runs queue
+(up to GitHub's 100-pending-run limit), so later pushes do not cancel them.
+Typeset upload and prune share a queue and never run together.
+
 **Looking at the site locally:**
 
 ```bash

@@ -32,8 +32,9 @@ permissions:
 
 # Never alongside the site's own upload (site.yml's typeset-upload job).
 concurrency:
-  group: typeset-prune
+  group: typeset-r2-mutations
   cancel-in-progress: false
+  queue: max
 
 jobs:
   prune:
