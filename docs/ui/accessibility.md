@@ -1,10 +1,9 @@
 # Accessibility: target and current state
 
-**Proposed target (not yet decided): WCAG 2.2 AA across the site, with AAA (7:1) contrast for body text and music, as the token file already aims for.**
+**Target (decided 2026-10-22, P12 in [../DECISIONS.md](../DECISIONS.md)): WCAG 2.2 AA site-wide, with AAA (7:1) contrast for body text and music.**
 
-The maintainer needs to confirm or change this. Until then, treat sections 1
-and 4 as a proposal and sections 2 and 3 as fact (read from the code on
-2026-10-22).
+Sections 1 and 4 describe the agreed target and its verification; sections 2
+and 3 record the current state (read from the code on 2026-10-22).
 
 Related: [tokens.md](tokens.md), [templates.md](templates.md),
 [must-keep.md](must-keep.md) (section 7 lists the features to keep),
@@ -13,7 +12,7 @@ Related: [tokens.md](tokens.md), [templates.md](templates.md),
 
 Paths are relative to `web/`.
 
-## 1. Proposed target: testable criteria
+## 1. Agreed target: testable criteria
 
 | # | Criterion | Pass condition | How it is tested today | How it could be tested |
 |---|---|---|---|---|
@@ -130,7 +129,7 @@ Each gap was checked in the code. The fix is the maintainer's call.
    does not, so it inherits the light value (4.9:1 on dark). It passes, but the
    two dark themes use different values.
 9. **Chant rubrics in the PDF are `#d00` on white (5.2:1).** This was the
-   maintainer's choice (D29). It is below the proposed 7:1 target and needs a
+   maintainer's choice (D29). It is below the agreed 7:1 target and needs a
    recorded exception or a change.
 10. **Public pages link to editors.** Every part heading and piece footer shows
     "Edit" (read as "Edit … (editors)" by screen readers). Not a failure, but it
@@ -163,7 +162,7 @@ Existing checks:
 - Viewports used by Playwright specs: 390 by 844 and desktop; one iPad Pro 11
   project (`export-device.e2e.ts`). None at 320.
 
-Missing, and proposed (nothing here exists yet):
+Checks needed to verify the agreed target (nothing here exists yet):
 
 1. A token contrast test (criteria 1, 2, 11).
 2. An axe pass over one built page per template in light, dark and inverted

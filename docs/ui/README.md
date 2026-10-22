@@ -14,15 +14,14 @@ Baseline taken 2026-10-22 from `main` at #139.
 | [tokens.md](tokens.md) | Colour tokens with computed contrast, type scale, spacing, house rules, every breakpoint in use, and where the system is bypassed |
 | [journeys.md](journeys.md) | How organists, readers and editors use the site today, step by step, with the friction visible in the code |
 | [must-keep.md](must-keep.md) | No-regression checklist: every capability a redesign must keep, where it lives and how to verify it |
-| [accessibility.md](accessibility.md) | What is in place, the known gaps, and the **proposed** WCAG target |
+| [accessibility.md](accessibility.md) | What is in place, the known gaps, and the agreed WCAG target |
 | [screenshots/](screenshots/) | 21 templates × (390 light, 1024 light, 1024 dark), from a production build with the published images |
 
-## Decision needed
+## Accessibility target
 
-**WCAG target.** [accessibility.md](accessibility.md) proposes WCAG 2.2 AA
-site-wide, with AAA (7:1) contrast for body text and music, which is what the
-token file already aims for. It is not decided until the maintainer confirms
-it; then record it in [DECISIONS.md](../DECISIONS.md).
+WCAG 2.2 AA site-wide, with AAA (7:1) contrast for body text and music,
+decided 2026-10-22 in [DECISIONS.md, P12](../DECISIONS.md). See
+[accessibility.md](accessibility.md) for the agreed criteria and current gaps.
 
 ## What a redesign should know first
 
