@@ -2,7 +2,7 @@
 
 Date: 2026-10-23
 
-Status: Proposed
+Status: Decided 2026-10-22 as P14 (was Q1), P15 (was Q2) and P16 (was Q7); see `docs/DECISIONS.md`.
 
 | Criterion | A: static public site + ingestion | B: Astro with database and some SSR | C: SvelteKit or Next application |
 |---|---|---|---|
