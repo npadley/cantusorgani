@@ -135,6 +135,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
   import type { Paper, TypesetInsert } from "../lib/pdf";
   import { readSelectionInput } from "../lib/exportSelection";
   import { trackExport } from "../lib/exportAnalytics";
+  import { scrollToClearBar } from "../lib/focusClearance";
 
   const root = document.querySelector<HTMLElement>(".export");
   const button = document.getElementById("export-btn") as HTMLButtonElement | null;
@@ -144,6 +145,19 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
   const paperSelect = document.getElementById("export-paper") as HTMLSelectElement | null;
   const customize = document.getElementById("export-customize") as HTMLButtonElement | null;
   const PAPER_KEY = "export-paper";
+
+  // A bar pinned to the bottom must not hide the focused element (WCAG 2.4.11).
+  if (root) {
+    document.addEventListener("focusin", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement) || root.contains(target)) return;
+      if (getComputedStyle(root).position !== "sticky") return;
+      const bar = root.getBoundingClientRect();
+      if (Math.abs(bar.bottom - window.innerHeight) > 1) return;
+      const by = scrollToClearBar(target.getBoundingClientRect(), bar);
+      if (by > 0) window.scrollBy(0, by);
+    });
+  }
 
   // The paper size is remembered in this browser; Letter until chosen.
   if (paperSelect) {
