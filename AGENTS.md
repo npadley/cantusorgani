@@ -197,7 +197,10 @@ A good card says:
 **One writer per set of files.** Each writing card gets its own worktree,
 under `.claude/worktrees/` for Claude and Codex alike, branched from
 `origin/main`. Read-only cards can share a checkout. Run at most 3–4 cards at
-once.
+once. Codex's `workspace-write` sandbox cannot write a worktree's git metadata,
+so Codex leaves its changes uncommitted and the coordinator commits them.
+Worktrees have no `.venv`; run Python with `uv run` there (it creates one), or
+with the main checkout's `.venv/bin/python`.
 
 **Treat reports as claims.** Before acting on a finding, the coordinator
 spot-checks it against the code; on 2026-10-22 a spot check caught an agent
@@ -219,8 +222,11 @@ check.
 # Claude → Codex: a card in a worktree. Close stdin, or it waits forever.
 codex exec -s workspace-write -c model_reasoning_effort=low \
   -C .claude/worktrees/<card> -o /tmp/<card>.md "<card text>" < /dev/null
-# Claude → Codex: a second-opinion review of a branch
+# Claude → Codex: a second-opinion review of a branch (no custom prompt allowed)
 codex exec review --base main < /dev/null
+# … or a focused review with your own instructions
+codex exec -s read-only -C .claude/worktrees/<card> \
+  "Review git diff origin/main...HEAD for <what to check>. Report only problems." < /dev/null
 # Codex → Claude: a read-only review or check, on a cheaper model
 claude -p "<card text>" --model sonnet --allowedTools Read,Grep,Glob
 ```
