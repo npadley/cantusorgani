@@ -1,5 +1,7 @@
 # Deferred MEI coverage implementation plan
 
+Status: SHIPPED · see docs/design/README.md
+
 > **For agentic workers:** Use superpowers:executing-plans for implementation and targeted parallel audits.
 
 **Goal:** Recover publishable deferred scores under the user-approved correction and matching policy.

@@ -1,5 +1,7 @@
 # Typesetting Review Completion Implementation Plan
 
+Status: SHIPPED (the unticked checkboxes below are stale) · see docs/design/README.md
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Native execution in the current checkout is already selected. Steps use checkbox syntax for tracking.
 
 **Goal:** Let readers report versioned music errors and invited editors repair, preview and publish LilyPond source without leaving the browser.

@@ -1,6 +1,6 @@
 # Hymns index, Book VII processing, and day-page references
 
-Status: proposed; awaiting the owner's approval. No implementation or uploads have started.
+Status: SHIPPED · see docs/design/README.md
 
 ## Goal and agreed request
 

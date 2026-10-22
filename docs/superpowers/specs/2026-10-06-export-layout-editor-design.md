@@ -2,7 +2,7 @@
 
 Date: October 6, 2026
 
-Status: Revised 2026-10-08 after CEO, design and engineering review. The settled decisions are in the [decision log](../plans/export-layout-decisions.md) (D1–D11). The screen, states and copy are in the [UI specification](2026-10-08-export-editor-ui-spec.md); types and units are in the [frozen contracts](../plans/2026-10-08-export-contracts.md); work is in the [execution packet](../plans/2026-10-08-export-execution-packet.md). Where this document conflicts with those, they win. The Kyrie IX feasibility experiment informed this specification; the complete editor mockups (gate G0) and production engraving (gate G1) are not yet approved.
+Status: SHIPPED · see docs/design/README.md. Revised 2026-10-08 after CEO, design and engineering review. The settled decisions are in the [decision log](../plans/export-layout-decisions.md) (D1–D11). The screen, states and copy are in the [UI specification](2026-10-08-export-editor-ui-spec.md); types and units are in the [frozen contracts](../plans/2026-10-08-export-contracts.md); work is in the [execution packet](../plans/2026-10-08-export-execution-packet.md). Where this document conflicts with those, they win. The Kyrie IX feasibility experiment informed this specification; gates G0 (editor mockups) and G1 (production engraving) have since passed; see the decision log.
 
 ## 1. Outcome
 

@@ -1,5 +1,7 @@
 # Corrections compatibility implementation plan
 
+Status: SHIPPED · see docs/design/README.md
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans for native execution, or superpowers:subagent-driven-development if the user chooses delegated execution. Steps use checkbox syntax for tracking.
 
 **Goal:** Keep public reports distinct, compatible with the current catalogue, and visible throughout invited-editor review and publication.

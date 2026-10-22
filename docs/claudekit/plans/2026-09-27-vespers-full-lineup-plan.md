@@ -2,7 +2,7 @@
 
 **Required Skill**: executing-plans
 **Design doc**: `docs/claudekit/specs/2026-09-07-nova-organi-harmonia-design.md`
-**Status**: releases 1-3 built 2026-09-27 (see "As built"); release 4 (NOH7) not started. Written 2026-09-27.
+**Status**: PARTIAL · see docs/design/README.md. Releases 1-3 built 2026-09-27 (see "As built"); the NOH7 hymns shipped separately (hymns Book VII plan); Compline is not built. Written 2026-09-27.
 
 ## Goal
 

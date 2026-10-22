@@ -1,5 +1,7 @@
 # Melody-first proofreading pilot
 
+Status: SHIPPED · see docs/design/README.md
+
 Approved in chat on October 3, 2026: the user selected the proposed deterministic-first plan and requested isolated worktrees. Base: fix/broken-typeset-2 at dd8acc16da7742454c88880b60f497b693d29864. Native implementation keeps coding overhead low; small, fresh-context agents inspect ambiguous evidence only.
 
 ## Outcome

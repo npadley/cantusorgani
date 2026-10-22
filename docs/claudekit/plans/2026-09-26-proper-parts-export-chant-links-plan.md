@@ -1,5 +1,7 @@
 # Plan: Proper parts, a usable export, and chant links
 
+Status: SHIPPED · see docs/design/README.md
+
 **Required Skill**: executing-plans
 **Design doc**: `docs/claudekit/specs/2026-09-07-nova-organi-harmonia-design.md`
 

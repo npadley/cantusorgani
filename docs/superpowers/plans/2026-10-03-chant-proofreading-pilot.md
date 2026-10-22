@@ -1,5 +1,7 @@
 # Chant Proofreading Pilot Implementation Plan
 
+Status: SHIPPED · see docs/design/README.md
+
 > For agentic workers: use superpowers:executing-plans for native implementation with one independent final review. Small agents review pilot evidence; do not create an implementer agent per file.
 
 **Goal:** Reduce manual chant proofreading with a strict, deterministic melody audit and targeted evidence packets.

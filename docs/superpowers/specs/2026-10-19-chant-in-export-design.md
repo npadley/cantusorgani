@@ -1,6 +1,6 @@
 # Chant in the PDF export — design
 
-Date: 2026-10-19. Status: **decided** (§0, user, 2026-10-19; recorded as DL D25–D29). Feature request: a reader who ticks "Show the chant with each part" on the site wants that chant in the PDF too.
+Date: 2026-10-19. Status: SHIPPED (K9 user review open) · see docs/design/README.md. **Decided** (§0, user, 2026-10-19; recorded as DL D25–D29). Feature request: a reader who ticks "Show the chant with each part" on the site wants that chant in the PDF too.
 
 Read with: [export editor UI spec](2026-10-08-export-editor-ui-spec.md) (**UI**), [decision log](../plans/export-layout-decisions.md) (**DL**, D1–D24), [execution packet](../plans/2026-10-08-export-execution-packet.md) (house protocol). Cards: [plans/2026-10-19-chant-in-export-cards.md](../plans/2026-10-19-chant-in-export-cards.md). Spike evidence: [experiments/chant-export/](../experiments/chant-export/).
 
@@ -63,6 +63,8 @@ Exsurge needs a text measurer. Its Canvas strategy needs a DOM, so not the worke
 **Loader:** move `loadExsurge()` out of `chantNotation.ts` into `web/src/lib/exsurgeLoader.ts` and share it, so the script loads once whether the page or the editor asks first.
 
 ### 4.2 Scale, so chant matches the accompaniment
+
+> Superseded by D30 (export-layout-decisions.md).
 
 > **Superseded in part by DL D30 (2026-10-20).** The chant keeps the proportions it has on the site: its staff-line gap is 1.565 x the accompaniment's (`CHANT_SIZE_FACTOR`) and its lyrics 1.07 x (`CHANT_LYRIC_FACTOR`), both in `chantScale.ts`. Widths in units (1333 / 749 below) become 852 (Letter) / 479 (iPad mini) at Medium.
 

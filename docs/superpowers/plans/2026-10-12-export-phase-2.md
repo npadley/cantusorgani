@@ -1,5 +1,7 @@
 # Custom export — phase 2 plan
 
+Status: PARTIAL (active) · see docs/design/README.md. Open: P6 resource profile still provisional, O2 paused list, 131 deferred sources, spot-check cadence.
+
 Written 2026-10-12, at the hand-off from phase 1 (the Kyrie IX pilot, then Customize export on every page and
 automatic approval). This document replaces the status board in `2026-10-08-export-execution-packet.md` §6
 as the list of what is left. Decisions and gates stay in `export-layout-decisions.md` (D1–D24, G0–G4).

@@ -1,5 +1,7 @@
 # Brief: P1 + P2 — `\prall` ornaments and the vol-1 tie mismatch
 
+Status: SHIPPED · see docs/design/README.md
+
 A self-contained task for a coding agent (Codex, Claude, or a person). Background: the site's **Customize export**
 reflows LilyPond-typeset chant accompaniments in the browser. Each LilyPond source is converted to MEI by
 `pipeline/typeset/mei/`, checked by an independent oracle and a render pre-check, and approved automatically
