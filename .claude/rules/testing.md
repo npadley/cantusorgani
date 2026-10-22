@@ -1,19 +1,22 @@
 ---
 paths:
-  - "**/*.test.*"
-  - "**/*.spec.*"
-  - "**/tests/**"
-  - "**/test_*"
-  - "**/__tests__/**"
+  - "tests/**"
+  - "web/**/*.test.ts"
+  - "web/e2e/**"
+  - "workers/corrections/test/**"
 ---
 
-# Test Writing Rules
+# Tests
 
-- Python test naming: `test_[function]_[scenario]_[expected]`
-- TypeScript test naming: `describe('[Component]', () => { it('should [behavior]') })`
-- Each test file must have at least one happy path and one error case
-- Mock external dependencies, not internal modules
-- Use factories/fixtures over inline test data
-- Never commit `.skip()` or `.only()` — remove before pushing
-- Minimum coverage: 80% overall, 95% for critical paths
-- Prefer pytest for Python, vitest for TypeScript
+- Python (pytest, `tests/`): name tests `test_<thing>_<scenario>_<expected>`.
+  Mark tests that need the scanned PDFs `source`, 300dpi renders `slow`,
+  LilyPond `lilypond`. CI runs `-m "not slow"`.
+- TypeScript (vitest): colocated `*.test.ts`, `describe('<module>')` /
+  `it('<does what>')`. Playwright: `web/e2e/*.e2e.ts`; run export tests with
+  `pnpm build:e2e && pnpm test:e2e:export`.
+- For a bug fix, write the failing test first.
+- Prefer the existing fixtures (`web/src/lib/__fixtures__/`, `tests/` fixtures)
+  over new inline data; never use the live catalogue where a fixture will do.
+- Never commit `.only` or `.skip`.
+- Coverage floor is 95% on the full Python suite (`scripts/test-all.sh`, needs
+  the PDFs); don't lower it.
