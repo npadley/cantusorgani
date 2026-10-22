@@ -7,7 +7,11 @@ against the 1962 Roman calendar and published at
 - `pipeline/` — Python: page maps, system segmentation, index extraction, the
   catalogue (`data/catalog.base.json`, and `data/catalog.json` with the hand
   corrections of `data/corrections.yml` applied), slicing and upload to R2.
-- `web/` — the Astro site (static), with client-side PDF export.
+- `web/` — the Astro site (static), with client-side PDF export and a
+  Customize export that reflows typeset music to your page
+  ([how](docs/TYPESETTING.md#custom-export-mei)).
+- Ordinary Form calendar — Graduale Romanum (1974) assignments projected over
+  the same catalogue ([operations](docs/OPERATIONS.md#ordinary-form-calendar-and-accompaniments)).
 - `workers/corrections/` — the Cloudflare Worker that takes readers' corrections,
   and the database migrations the admin screen shares.
 - `web/functions/` — the admin screen's API (Pages Functions; the code is in

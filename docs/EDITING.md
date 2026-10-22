@@ -27,6 +27,10 @@ in [OPERATIONS.md](OPERATIONS.md); this page is the recipes.
 | A system image misses a staff, holds two systems, or a system has no image | [Slicing a page](#slicing-a-page) | Yes (and uploads images: your machine) |
 | A newer Divinum Officium, vesperale, jgabc or calendar | [Refreshing a source](#refreshing-a-source) | No |
 | A new volume to add | [Adding a volume](#adding-a-volume) | Yes (and uploads images: your machine) |
+| An Ordinary Form day shows the wrong music, or "chants not yet mapped" | [Ordinary Form days](#ordinary-form-days) | No |
+| A chant link opens the wrong melody, or a part shows no notation | [Chant links and notation](#chant-links-and-notation) | No |
+| A typeset transcription is wrong, won't draw, or its **Customize** button is gone | [Typeset and Customize export](#typeset-and-customize-export) | No |
+| The Good Friday page shows the wrong or a missing chant | [Good Friday](#good-friday) | No |
 | A feast prints only a rubric ("resumitur Missa Feriae praecedentis") | [OPERATIONS: a feast that prints only a rubric](OPERATIONS.md#a-feast-that-prints-only-a-rubric) | Yes |
 | Two pieces should be one (or a piece moved to a new address) | [OPERATIONS: two index entries that are one piece](OPERATIONS.md#two-index-entries-that-are-one-piece) | Yes |
 | Pages printed "bis" between two others | [OPERATIONS: a leaf inserted into the book](OPERATIONS.md#a-leaf-inserted-into-the-book) | Yes (and re-slices) |
@@ -616,10 +620,72 @@ the maintainer's machine.
 
 ---
 
+### Ordinary Form days
+
+The Ordinary Form pages (`/ordinary-form/<key>/`) project Graduale Romanum
+(1974) assignments over the NOH catalogue. They add no pieces, so a fix is a
+change to the assignment, not to the catalogue. [OPERATIONS.md](OPERATIONS.md#ordinary-form-calendar-and-accompaniments)
+has the rules.
+
+- **File**: `data/ordinary-form/overrides.yml` (a source-reviewed replacement for
+  one slot of one occasion: its `source` page and `assignments`, each a
+  GregoBase `id` and the `years` it applies to). Occasion keys, titles and
+  dates are in `occasions.yml`. A day with no music shows "chants not yet
+  mapped" until a slot is filled.
+- **Change**: edit the slot, naming the Graduale page you checked. Don't remove
+  a missing row to improve the coverage figure.
+- **Command**: `scripts/regenerate.sh`, then `uv run noh ordinary-form --check`.
+  If coverage moved and you reviewed why, advance the baseline
+  (`data/ordinary-form/coverage-baseline.json`) in the same commit.
+- **Confirm**: the day's page names the right chants and lenders.
+
+If the day shows a NOH setting that is the wrong piece, fix that piece's
+[Proper parts](#proper-parts) instead.
+
+### Chant links and notation
+
+- **Wrong melody behind a Chant link**: see [Proper parts](#proper-parts)
+  (`noh correct part:<slug>/<part> chant <GregoBase id>`). The printed NOH scan
+  governs; don't swap a melody because another transcription looks nicer.
+- **A link but no notation drawn**: the notation lives in `data/chants.json`.
+  Run `uv run noh gregobase-fetch && uv run noh chants` and commit the change.
+  A chant GregoBase flags `copyrighted` is left out on purpose and keeps a
+  link only.
+- **Notation drawn wrongly**: it is GregoBase's transcription. Don't edit
+  `data/chants.json`; correct the chant id (to confirm: there is no local
+  override for a bad transcription).
+
+### Typeset and Customize export
+
+- **A drawing is wrong, won't draw, or sits on the wrong part**: use **Typeset
+  music** on the admin screen (`/admin/typeset/`): Matches, Errors (**Edit the
+  source**, **Preview draft**, **Approve this edit**), Proofreading
+  (**Problem**). See [The admin screen](#the-admin-screen).
+- **To fix a source file by hand**: edit it under `data/typeset/src/`, then run
+  `uv run noh typeset-manifest` and `uv run noh typeset-check`.
+- **The Customize button is gone, or the reflowed music is wrong**: an approved
+  conversion has gone stale, or was never approved. The admin home lists stale
+  ones under **Custom export paused**. Re-converting, reviewing and carrying an
+  approval forward are command-line work:
+  [TYPESETTING.md](TYPESETTING.md#custom-export-mei). Don't hand-edit
+  `data/typeset/mei/`.
+
+### Good Friday
+
+The page (`/good-friday/`) is chant only: NOH sets nothing for the day.
+
+- **File**: `data/good-friday.json`. Each chant is a `gregobase_id` with a
+  `label` and its `source`. Choose the id from the edition and page GregoBase
+  records, not by incipit.
+- **Command**: `uv run noh gregobase-fetch && uv run noh chants` (a chant
+  GregoBase flags `copyrighted` is left out), then commit `data/chants.json`.
+- **Confirm**: the page shows the chant.
+
 ## What never to touch
 
 - **Generated files**: `data/catalog.json`, `data/catalog.base.json`,
   `data/vespers/vespers-lineup.json`, `data/chants.json`, `data/review-queue.json`,
+  `data/ordinary-form-propers.json`, `data/ordinary-form-coverage.json`,
   and the vendored `data/*-propers.json`, `divinum-officium-vespers.json` and
   `vesperale-lineup.json`. Commands rewrite them, and a hand edit is lost or
   fails its checksum.
