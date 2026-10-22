@@ -4,7 +4,7 @@
 # check and build the site, but never deploy. A push to main does the same and
 # then deploys to Cloudflare Pages by direct upload.
 #
-# Python, site and browser checks run in parallel. Only their success gates
+# Python, site, browser and export checks run in parallel. Only their success gates
 # deploy; LilyPond and conditional scan tests also feed the aggregate check.
 # The browser job hands its tested build to deploy as an artifact.
 #
@@ -330,16 +330,6 @@ jobs:
         working-directory: web
         env:
           CI: "true"
-      # The custom-export editor against the fixture manifest and the gated test
-      # pages. Built to dist-e2e/, so the deployed dist/ never contains them
-      # (with-public-env.ts refuses the fixture manifest with a remote asset base).
-      - name: Export editor browser tests
-        run: |
-          pnpm build:e2e
-          pnpm test:e2e:export
-        working-directory: web
-        env:
-          CI: "true"
       - name: Browser test report
         if: failure()
         uses: actions/upload-artifact@v7
@@ -357,8 +347,51 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
+  export:
+    name: Export editor tests (${{ matrix.shard }}/2)
+    needs: [typeset-render, typeset-upload]
+    # After the renders are published (the upload is skipped when there is
+    # nothing new, and for forks); never after a failed render or upload.
+    if: >-
+      !cancelled() && needs.typeset-render.result == 'success' &&
+      (needs.typeset-upload.result == 'success' || needs.typeset-upload.result == 'skipped')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: web
+      - uses: ./.github/actions/playwright
+      # Each shard builds the fixture manifest and gated test pages to dist-e2e/.
+      - name: Export editor browser tests
+        run: |
+          pnpm build:e2e
+          pnpm test:e2e:export --shard=${{ matrix.shard }}/2
+        working-directory: web
+        env:
+          CI: "true"
+      - name: Export editor test report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report-export-${{ matrix.shard }}
+          path: web/test-results/
+          retention-days: 7
+
   deploy:
-    needs: [python, site, browser]
+    needs: [python, site, browser, export]
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -390,7 +423,7 @@ jobs:
 
   # One stable required check; upload and deploy retain their skip conditions.
   check:
-    needs: [typeset-render, typeset-upload, python, site, browser, lilypond-tests, scan-tests, deploy]
+    needs: [typeset-render, typeset-upload, python, site, browser, export, lilypond-tests, scan-tests, deploy]
     if: always()
     runs-on: ubuntu-latest
     steps:
@@ -402,7 +435,7 @@ jobs:
           echo "$NEEDS" | jq -e --arg deploy "$DEPLOY_EXPECTED" '
             .["typeset-render"].result == "success" and
             (.["typeset-upload"].result == "success" or .["typeset-upload"].result == "skipped") and
-            ([.python, .site, .browser, .["lilypond-tests"], .["scan-tests"]] | all(.result == "success")) and
+            ([.python, .site, .browser, .export, .["lilypond-tests"], .["scan-tests"]] | all(.result == "success")) and
             .deploy.result == (if $deploy == "true" then "success" else "skipped" end)
           '
 
