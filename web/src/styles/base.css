@@ -63,7 +63,7 @@ button, .button {
   padding: var(--s-2) var(--s-3);
   background: var(--paper);
   color: var(--ink);
-  border: 1px solid var(--rule);
+  border: 1px solid var(--control-border);
   border-radius: var(--radius);
   cursor: pointer;
 }
