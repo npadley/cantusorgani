@@ -170,9 +170,11 @@ jobs:
           key: apt-${{ runner.os }}-${{ runner.arch }}-${{ steps.apt-key.outputs.image }}-tesseract-ocr-tesseract-ocr-lat
       - name: Tesseract (a few unit tests read a synthetic image)
         timeout-minutes: 5
+        env:
+          CACHE_HIT: ${{ steps.apt-cache.outputs.cache-hit }}
         run: |
           for attempt in 1 2; do
-            if timeout --kill-after=10s 130s bash -e -c 'sudo apt-get update -qq && sudo apt-get -o Dir::Cache::archives="$RUNNER_TEMP/apt-archives" -o APT::Keep-Downloaded-Packages=true install -y -qq tesseract-ocr tesseract-ocr-lat'; then
+            if timeout --kill-after=10s 130s bash -e -c 'if [ "$CACHE_HIT" = "true" ] && sudo dpkg -i "$RUNNER_TEMP"/apt-archives/*.deb; then exit 0; fi; A="-o Acquire::Retries=2 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20"; sudo apt-get $A update && sudo apt-get $A -o Dir::Cache::archives="$RUNNER_TEMP/apt-archives" -o APT::Keep-Downloaded-Packages=true install -y tesseract-ocr tesseract-ocr-lat'; then
               exit 0
             fi
             echo "::warning::Tesseract apt install failed or hung (attempt $attempt of 2)."
@@ -246,6 +248,7 @@ jobs:
           cache-dependency-path: web/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
         working-directory: web
+      - uses: ./.github/actions/playwright
       - name: Type check
         run: pnpm exec astro check
         working-directory: web
@@ -297,38 +300,7 @@ jobs:
           cache-dependency-path: web/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
         working-directory: web
-      - name: Playwright cache key
-        id: playwright-version
-        working-directory: web
-        run: |
-          version=$(node -e "const fs = require('fs'); const lock = fs.readFileSync('pnpm-lock.yaml', 'utf8'); const match = lock.match(/'@playwright\/test':\s+specifier: [^\n]+\s+version: ([^\s(]+)/); if (!match) throw new Error('Playwright version missing from lockfile'); process.stdout.write(match[1]);")
-          echo "version=$version" >> "$GITHUB_OUTPUT"
-      - name: Restore Playwright browsers
-        id: playwright-cache
-        uses: actions/cache/restore@v6
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ runner.arch }}-${{ steps.playwright-version.outputs.version }}
-      - name: Browser runtime
-        working-directory: web
-        env:
-          CACHE_HIT: ${{ steps.playwright-cache.outputs.cache-hit }}
-        timeout-minutes: 8
-        run: |
-          for attempt in 1 2; do
-            if timeout --kill-after=10s 220s bash -e -c 'if [ "$CACHE_HIT" = "true" ]; then pnpm exec playwright install-deps chromium; else pnpm exec playwright install --with-deps chromium; fi'; then
-              exit 0
-            fi
-            echo "::warning::Playwright Chromium/dependencies install failed or hung (attempt $attempt of 2)."
-          done
-          echo "::error::Playwright Chromium/dependencies install failed or hung after two attempts."
-          exit 1
-      - name: Save Playwright browsers
-        if: always() && steps.playwright-cache.outputs.cache-primary-key != '' && steps.playwright-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v6
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ steps.playwright-cache.outputs.cache-primary-key }}
+      - uses: ./.github/actions/playwright
       # Every render the manifest names answers at its public address, so the
       # site never links to music that is not there. (Forks cannot upload.)
       - name: Typeset music published
@@ -521,9 +493,11 @@ jobs:
       - name: Tesseract
         if: steps.changed.outputs.run == 'true'
         timeout-minutes: 5
+        env:
+          CACHE_HIT: ${{ steps.apt-cache.outputs.cache-hit }}
         run: |
           for attempt in 1 2; do
-            if timeout --kill-after=10s 130s bash -e -c 'sudo apt-get update -qq && sudo apt-get -o Dir::Cache::archives="$RUNNER_TEMP/apt-archives" -o APT::Keep-Downloaded-Packages=true install -y -qq tesseract-ocr tesseract-ocr-lat'; then
+            if timeout --kill-after=10s 130s bash -e -c 'if [ "$CACHE_HIT" = "true" ] && sudo dpkg -i "$RUNNER_TEMP"/apt-archives/*.deb; then exit 0; fi; A="-o Acquire::Retries=2 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20"; sudo apt-get $A update && sudo apt-get $A -o Dir::Cache::archives="$RUNNER_TEMP/apt-archives" -o APT::Keep-Downloaded-Packages=true install -y tesseract-ocr tesseract-ocr-lat'; then
               exit 0
             fi
             echo "::warning::Tesseract apt install failed or hung (attempt $attempt of 2)."
