@@ -6,7 +6,13 @@ import { allLineups, hymnSettings, type LineupItem } from './vespers';
 import SystemStack from '../components/SystemStack.astro';
 import LineupStack from '../components/LineupStack.astro';
 
-const words = (html: string) => html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+// Text only, for comparing captions: strip tags until none remain (a single pass
+// can leave a tag formed from the pieces of nested ones).
+const words = (html: string) => {
+  let text = html;
+  for (let prev = ''; prev !== text;) { prev = text; text = text.replace(/<[^<>]*>/g, ''); }
+  return text.replace(/\s+/g, ' ').trim();
+};
 const captions = (html: string) => [...html.matchAll(/<(figcaption|p|div)\b[^>]*(?:class="(?:sr-only|notice[^"]*)"|role="status")[^>]*>([\s\S]*?)<\/\1>/g)].map(m => words(m[2]!));
 it('matches the captured pre-change labels, captions, credits and hymn-link order', async () => {
   const container = await AstroContainer.create();
