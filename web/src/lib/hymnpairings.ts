@@ -1,3 +1,5 @@
+import { parseRef } from "./sourceRefs";
+import { registeredSourceKeys } from "./identities";
 import raw from "../../../data/hymn-pairings.json";
 
 export interface HymnPairing {
@@ -14,12 +16,13 @@ export interface HymnPairing {
 }
 
 /** Review decisions belong to a printed setting, rather than an incipit alone. */
-export function parseHymnPairings(value: unknown): ReadonlyMap<string, HymnPairing> {
+export function parseHymnPairings(value: unknown, knownSources: ReadonlySet<string> = registeredSourceKeys): ReadonlyMap<string, HymnPairing> {
   const rows = (value as { pairings?: Record<string, HymnPairing> })?.pairings;
   if (!rows || typeof rows !== "object") throw new Error("Missing hymn pairings");
   const out = new Map<string, HymnPairing>();
   for (const [ref, row] of Object.entries(rows)) {
-    if (!/^noh\d+\/\d{4}\/\d{3}$/.test(ref) || !row.slug || !row.title || !row.evidence
+    parseRef(ref, knownSources);
+    if (!row.slug || !row.title || !row.evidence
       || !Array.isArray(row.sources) || !row.sources.length
       || !row.sources.every((s) => typeof s === "string" && /^https:\/\//.test(s))
       || !["verified", "unverified", "unresolved"].includes(row.status)

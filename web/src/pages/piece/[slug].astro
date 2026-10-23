@@ -16,6 +16,7 @@ import { hasTypeset } from "../../lib/typeset";
 import { musicView } from "../../lib/music";
 import { massSources } from "../../lib/references";
 import { lineupsUsing } from "../../lib/vespers";
+import { editionPolicy } from "../../lib/identities";
 
 export function getStaticPaths() {
   return allPieces().map((piece) => ({ params: { slug: piece.slug }, props: { piece } }));
@@ -29,14 +30,15 @@ const home = pieceHref(piece);
 if (home !== `/piece/${piece.slug}/`) return Astro.redirect(home, 301);
 const heading = piece.incipit ?? piece.title;
 const printedElsewhere = citedBy(piece);
-const relatedHymns = piece.volume === "noh8" ? relatedHymnSettings(piece) : [];
+const policy = editionPolicy(piece.volume);
+const relatedHymns = policy.show_related_hymns ? relatedHymnSettings(piece) : [];
 // A whole Mass cited by an empty feast entry is read here, using the lender's
 // original assets and part headings. A single-part citation must not substitute
 // a different feast's entire Mass for the music printed here.
 const referenceLinks = piece.reference ? massSources(piece) : [];
 // VII's antiphon aliases link to a containing score; they do not borrow the
 // whole litany or psalm as an antiphon export.
-const referencedMusic = piece.volume !== "noh7" && piece.systems.length === 0 && piece.parts.length === 0 ? referenceLinks : [];
+const referencedMusic = policy.borrow_whole_reference && piece.systems.length === 0 && piece.parts.length === 0 ? referenceLinks : [];
 const scorePieces = referencedMusic.length > 0 ? referencedMusic : [piece];
 const musicPieces = scorePieces.map((p) => musicView(p));
 const systemCount = musicPieces.reduce((n, p) => n + p.systems.length, 0);
@@ -88,7 +90,7 @@ const vespersDays = piece.division === "vesperale" || piece.genre === "hymn" ? l
     )}
     {musicPieces.map((p, i) => <MovementNav piece={p} anchorPrefix={musicPieces.length > 1 ? `source-${i + 1}-` : ""} />)}
     {relatedHymns.length > 0 && <aside class="notice ui no-print">
-      <h2>Related hymn settings in Book VII</h2>
+      <h2>{policy.related_hymns_heading}</h2>
       <p class="small">Other settings of these hymn incipits. Follow each source's printed verses and usage.</p>
       <ul>{relatedHymns.map((p) => <li><a href={pieceHref(p)}>{p.title}</a> · {pagesLabel(p)}</li>)}</ul>
     </aside>}

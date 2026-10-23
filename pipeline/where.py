@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import json
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
@@ -29,6 +29,7 @@ class Location:
     command: str
     #: The narrower targets on the page: its Proper parts, a Vespers office's items.
     more: tuple[str, ...] = ()
+    identities: tuple[str, ...] = ()
 
 
 def _line_of(path: Path, needle: str) -> int:
@@ -38,7 +39,36 @@ def _line_of(path: Path, needle: str) -> int:
     return 0
 
 
-def where(query: str, catalog: dict[str, Any], data: Path = DATA) -> list[Location]:
+def where(query: str, catalog: dict[str, Any], data: Path = DATA, *,
+          ids: bool = False) -> list[Location]:
+    """Locate legacy edit targets; optionally project their IDs without writing."""
+    found = _where(query, catalog, data)
+    if not ids or not found:
+        return found
+    from pipeline.identities import build
+
+    result = build(data, write=False)
+    targets = result['aliases.json']['targets']
+    graph = result['snapshot.json']
+    items = {row['id']: row for row in graph['source_items']}
+    settings = {row['id']: row for row in graph['settings']}
+    enriched = []
+    for location in found:
+        lines = []
+        for target in (location.target, *(row.split()[0] for row in location.more)):
+            row = targets.get(target)
+            if row is None:
+                lines.append(f'{target}: no identity binding')
+                continue
+            entity = row['entity_id']
+            setting_ids = items.get(entity, {}).get('setting_ids', [])
+            work_ids = sorted({settings[sid]['work_id'] for sid in setting_ids})
+            lines.append(f"{target}: {', '.join([entity, *setting_ids, *work_ids])}")
+        enriched.append(replace(location, identities=tuple(lines)))
+    return enriched
+
+
+def _where(query: str, catalog: dict[str, Any], data: Path) -> list[Location]:
     """What a page URL (or a few words of a title) is, and where to fix it."""
     path = urlparse(query).path if "/" in query else ""
     parts = [p for p in path.split("/") if p]

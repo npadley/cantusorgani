@@ -29,6 +29,7 @@ PRs in the docs repo, never here. Codex runs need `--add-dir <docs path>` to rea
 |---|---|
 | Fix something the site shows (title, pages, day, system, Proper part) | `cantusorgani-docs/EDITING.md` (recipes by symptom) |
 | Regenerate data, run checks, merge `main`, get a change to the site | `cantusorgani-docs/OPERATIONS.md` |
+| Permanent identities, ledger and aliases | `cantusorgani-docs/ARCHITECTURE.md` § Permanent identities, `cantusorgani-docs/OPERATIONS.md` § Identity commands |
 | Understand how the parts fit together | `cantusorgani-docs/ARCHITECTURE.md` |
 | Typeset music, LilyPond, MEI/Verovio, Customize export | `cantusorgani-docs/TYPESETTING.md`, then `cantusorgani-docs/superpowers/plans/export-layout-decisions.md` |
 | Admin screen, Cloudflare Access, GitHub App, D1 migrations | `cantusorgani-docs/ADMIN-SETUP.md` |
@@ -94,7 +95,14 @@ correct-batch` or the admin screen**; each entry records the value it replaced.
 `data/index-*.yml`, `data/vespers/vespers-noh8.yml`,
 `data/vespers/vespers-offices.yml`, `data/vespers/hymns-noh7.yml`,
 `data/hymn-pairings.yml`, `data/ordinary-form/*.yml`, `data/good-friday.json`,
+`data/identities/sources.json`, `data/identities/aliases.yml`,
 `data/typeset/src/`.
+
+**Command-managed identities:** `data/identities/ledger.json` and
+`data/identities/migration.json` are written by `noh identities`; never hand-edit.
+Merge conflicts: take the union, then run `noh identities check` (see
+`cantusorgani-docs/OPERATIONS.md` § Merging main into a branch). Never discard ledger IDs.
+`build/identities/snapshot.json` and `aliases.json` are generated and gitignored.
 
 **Never hand-edit generated or vendored files.** Commands rewrite them, and a
 hand edit is either lost or fails its checksum. They include:
@@ -188,7 +196,7 @@ the other model family checks.**
 
 | Role | Who | Does |
 |---|---|---|
-| Coordinator | One strong session (Claude Opus, or Codex at high effort) | Holds the conversation with the maintainer, splits the work into cards, reviews every diff, pushes and opens PRs |
+| Coordinator | One strong session (Claude Opus, or Codex `gpt-6.1-sol` at medium effort) | Holds the conversation with the maintainer, splits the work into cards, reviews every diff, pushes and opens PRs |
 | Executor | Claude Sonnet or Haiku subagents; Codex at low or medium effort | One card each, in its own worktree; commits locally, never pushes |
 | Cross-checker | The *other* model family from the one that wrote the change | Reviews the diff or re-checks the facts before it reaches the maintainer |
 
@@ -198,7 +206,7 @@ the other model family checks.**
 |---|---|
 | Find files, list references, inventory, mechanical sweeps, apply a listed set of fixes | Haiku, or Codex `gpt-6-luna` at low effort |
 | A bounded change with clear done criteria (a script fix, a doc section, tests) | Sonnet, or Codex `gpt-6.1-sol` at medium effort |
-| Design, hard debugging, risky reviews, anything touching the data model or the export pipeline | Opus, or Codex `gpt-6-astra` at high effort (use sparingly; costs more of Codex's limit) |
+| Design, hard debugging, risky reviews, anything touching the data model or the export pipeline | Opus, or Codex `gpt-6.1-sol` at medium effort; `gpt-6-astra` at medium only when Sol isn't enough |
 
 The Codex models by role: `gpt-6-luna` is fast and affordable, for easier
 tasks (mechanical work). `gpt-6.1-sol` is the workhorse for coding and everyday
@@ -206,6 +214,11 @@ work, and the default: most cards, reviews included. `gpt-6-astra` is the
 frontier model for the most demanding work: rare, for hard debugging, design
 and risky reviews. By position, Astra is the top tier, Sol the flagship
 workhorse and Luna the light tier.
+
+**Never run Codex above medium effort.** On 2026-10-23, `gpt-6-astra` at high
+effort on three design tasks used up the maintainer's whole weekly ChatGPT
+limit. Start a card on Sol at medium; move to Astra (still medium) only when
+Sol's result is clearly not good enough, and say so in the report.
 
 **Route by remaining usage.** Claude (Pro) and Codex (Plus) have separate
 weekly limits. Before each batch of cards, check both:

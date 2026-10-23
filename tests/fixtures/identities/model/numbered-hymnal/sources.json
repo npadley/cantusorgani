@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "src_00000000-0000-4000-8000-000000000001",
+      "title": "Example Numbered Hymnal",
+      "short_title": "Example Hymnal",
+      "licence_reference": null
+    }
+  ],
+  "editions": [
+    {
+      "id": "edn_00000000-0000-4000-8000-000000000002",
+      "source_id": "src_00000000-0000-4000-8000-000000000001",
+      "legacy_volume": null,
+      "title": "Example Numbered Hymnal, first edition",
+      "part": null,
+      "citation_label": "Example Numbered Hymnal",
+      "short_label": "Example Hymnal",
+      "sort_order": 1,
+      "adapter": "numbered-hymnal",
+      "scan_registry_key": null,
+      "publication_note": null,
+      "provenance_reference": null,
+      "rights_reference": null,
+      "rights_state": "unknown",
+      "policy": {
+        "show_related_hymns": false,
+        "borrow_whole_reference": false,
+        "related_hymns_heading": null,
+        "reference_group": null
+      },
+      "notes": "Test-only numbered hymnal: no scan registry, PDF pages or system refs."
+    }
+  ]
+}

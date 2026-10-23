@@ -5,6 +5,8 @@
  * behind Access with the admin pages), so the editor judges a report against
  * the scan without leaving the queue.
  */
+import { parseRange, parseRef } from "../sourceRefs";
+import { sourceKeys, registeredSourceKeys } from "../sourceKeys";
 import { type TargetInfo, normalise } from "./targets";
 
 export interface Scans {
@@ -47,8 +49,13 @@ const indexes = new WeakMap<Scans, Map<string, number>>();
  * and corrections all use it): "vol. 2, scan p. 89, system 4 · noh2/0089/003".
  * Systems count from 1 here; in a ref they count from 0. */
 export function readableRef(ref: string): string {
-  const m = /^noh(\d+)\/(\d{4})\/(\d{3})$/.exec(ref);
-  return m ? `vol. ${Number(m[1])}, scan p. ${Number(m[2])}, system ${Number(m[3]) + 1} · ${ref}` : ref;
+  try {
+    const parsed = parseRef(ref, registeredSourceKeys);
+    const edition = sourceKeys[parsed.volume]!;
+    // Preserve NOH's established numeric scan captions inside its adapter.
+    const label = edition.adapter === "noh" ? `vol. ${edition.scan_registry_key!.slice(3)}` : edition.short_label;
+    return `${label}, scan p. ${parsed.pdf_page}, system ${parsed.index + 1} · ${ref}`;
+  } catch { return ref; }
 }
 
 export function shown(scans: Scans, ref: string, caption: string): Shown {
@@ -71,7 +78,7 @@ export function pieceSystems(scans: Scans, slug: string): readonly string[] {
  * look at before accepting. `proposed` is the value as typed; a value that is
  * not yet valid shows only what is there now.
  */
-export function namedSystems(scans: Scans, info: TargetInfo, field: string, proposed = ""): readonly Shown[] {
+export function namedSystems(scans: Scans, info: TargetInfo, field: string, proposed = "", knownSources: ReadonlySet<string> = registeredSourceKeys): readonly Shown[] {
   const value = normalise(field, proposed, info.kind);
   const systems = info.slug ? pieceSystems(scans, info.slug) : [];
   const out: Shown[] = [];
@@ -81,9 +88,12 @@ export function namedSystems(scans: Scans, info: TargetInfo, field: string, prop
   if (info.kind === "vespers") {
     const now = (info.values["refs"] ?? "").split(" ").filter(Boolean);
     now.forEach((ref, i) => add(ref, `Printed on, ${i + 1} of ${now.length}`));
-    if (field === "refs" && /^(noh8\/\d{4}\/\d{3} ?)+$/.test(value) && value !== info.values["refs"]) {
+    if (field === "refs" && value && value !== info.values["refs"]) {
       const next = value.split(" ");
-      next.forEach((ref, i) => add(ref, `Proposed, ${i + 1} of ${next.length}`));
+      try {
+        next.forEach(ref => parseRef(ref, knownSources));
+        next.forEach((ref, i) => add(ref, `Proposed, ${i + 1} of ${next.length}`));
+      } catch { /* Incomplete or unregistered input shows only the current systems. */ }
     }
   } else if (info.kind === "part") {
     const start = Number(info.values["start_system"]);
@@ -98,10 +108,12 @@ export function namedSystems(scans: Scans, info: TargetInfo, field: string, prop
   } else if (field === "printed_pages" || field === "system_range") {
     add(systems[0], "First system now");
     add(systems.at(-1), "Last system now");
-    const range = /^(noh\d\/\d{4}\/\d{3})-(noh\d\/\d{4}\/\d{3})$/.exec(value);
-    if (field === "system_range" && range && value !== info.values["system_range"]) {
-      if (range[1] !== systems[0]) add(range[1], "Would be the first");
-      if (range[2] !== systems.at(-1)) add(range[2], "Would be the last");
+    if (field === "system_range" && value !== info.values["system_range"]) {
+      try {
+        const range = parseRange(value, knownSources).map(r => `${r.volume}/${String(r.pdf_page).padStart(4, "0")}/${String(r.index).padStart(3, "0")}`);
+        if (range[0] !== systems[0]) add(range[0], "Would be the first");
+        if (range[1] !== systems.at(-1)) add(range[1], "Would be the last");
+      } catch { /* Incomplete, backwards or unregistered range. */ }
     }
   } else {
     add(systems[0], "First system");

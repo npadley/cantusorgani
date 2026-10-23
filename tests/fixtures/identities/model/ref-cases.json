@@ -1,0 +1,232 @@
+{
+  "known_sources": [
+    "noh1",
+    "noh2",
+    "liber-usualis",
+    "a",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  ],
+  "refs": [
+    {
+      "name": "NOH ref",
+      "text": "noh1/0029/000",
+      "result": {
+        "volume": "noh1",
+        "pdf_page": 29,
+        "index": 0
+      }
+    },
+    {
+      "name": "hyphenated key",
+      "text": "liber-usualis/0123/004",
+      "result": {
+        "volume": "liber-usualis",
+        "pdf_page": 123,
+        "index": 4
+      }
+    },
+    {
+      "name": "maximum key length",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/0001/000",
+      "result": {
+        "volume": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "pdf_page": 1,
+        "index": 0
+      }
+    },
+    {
+      "name": "single letter key and zero fields",
+      "text": "a/0000/000",
+      "result": {
+        "volume": "a",
+        "pdf_page": 0,
+        "index": 0
+      }
+    },
+    {
+      "name": "unknown source",
+      "text": "unknown/0029/000",
+      "error": true
+    },
+    {
+      "name": "bad page width",
+      "text": "noh1/029/000",
+      "error": true
+    },
+    {
+      "name": "bad system width",
+      "text": "noh1/0029/00",
+      "error": true
+    },
+    {
+      "name": "too wide page",
+      "text": "noh1/00029/000",
+      "error": true
+    },
+    {
+      "name": "too wide system",
+      "text": "noh1/0029/0000",
+      "error": true
+    },
+    {
+      "name": "uppercase source",
+      "text": "NOH1/0029/000",
+      "error": true
+    },
+    {
+      "name": "numeric source",
+      "text": "1noh/0029/000",
+      "error": true
+    },
+    {
+      "name": "leading hyphen",
+      "text": "-noh/0029/000",
+      "error": true
+    },
+    {
+      "name": "underscore source",
+      "text": "liber_usualis/0029/000",
+      "error": true
+    },
+    {
+      "name": "oversized source",
+      "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/0001/000",
+      "error": true
+    },
+    {
+      "name": "leading whitespace",
+      "text": " noh1/0029/000",
+      "error": true
+    },
+    {
+      "name": "trailing newline",
+      "text": "noh1/0029/000\n",
+      "error": true
+    },
+    {
+      "name": "trailing text",
+      "text": "noh1/0029/000/extra",
+      "error": true
+    },
+    {
+      "name": "unicode digits",
+      "text": "noh1/\uff10\uff10\uff12\uff19/000",
+      "error": true
+    },
+    {
+      "name": "negative page",
+      "text": "noh1/-029/000",
+      "error": true
+    },
+    {
+      "name": "empty ref",
+      "text": "",
+      "error": true
+    }
+  ],
+  "ranges": [
+    {
+      "name": "NOH range",
+      "text": "noh1/0029/000-noh1/0030/004",
+      "result": [
+        {
+          "volume": "noh1",
+          "pdf_page": 29,
+          "index": 0
+        },
+        {
+          "volume": "noh1",
+          "pdf_page": 30,
+          "index": 4
+        }
+      ]
+    },
+    {
+      "name": "hyphenated range",
+      "text": "liber-usualis/0123/004-liber-usualis/0124/001",
+      "result": [
+        {
+          "volume": "liber-usualis",
+          "pdf_page": 123,
+          "index": 4
+        },
+        {
+          "volume": "liber-usualis",
+          "pdf_page": 124,
+          "index": 1
+        }
+      ]
+    },
+    {
+      "name": "same ref range",
+      "text": "noh1/0029/000-noh1/0029/000",
+      "result": [
+        {
+          "volume": "noh1",
+          "pdf_page": 29,
+          "index": 0
+        },
+        {
+          "volume": "noh1",
+          "pdf_page": 29,
+          "index": 0
+        }
+      ]
+    },
+    {
+      "name": "cross source range",
+      "text": "noh1/0029/000-noh2/0030/000",
+      "error": true
+    },
+    {
+      "name": "cross hyphenated source range",
+      "text": "noh1/0029/000-liber-usualis/0030/000",
+      "error": true
+    },
+    {
+      "name": "backwards page range",
+      "text": "noh1/0030/000-noh1/0029/000",
+      "error": true
+    },
+    {
+      "name": "backwards system range",
+      "text": "noh1/0029/002-noh1/0029/001",
+      "error": true
+    },
+    {
+      "name": "unknown range source",
+      "text": "unknown/0029/000-unknown/0030/000",
+      "error": true
+    },
+    {
+      "name": "bad range width",
+      "text": "noh1/029/000-noh1/0030/000",
+      "error": true
+    },
+    {
+      "name": "range newline",
+      "text": "noh1/0029/000-noh1/0030/000\n",
+      "error": true
+    },
+    {
+      "name": "extra range endpoint",
+      "text": "noh1/0029/000-noh1/0030/000-noh1/0031/000",
+      "error": true
+    },
+    {
+      "name": "missing range endpoint",
+      "text": "noh1/0029/000-",
+      "error": true
+    },
+    {
+      "name": "single ref is not a range",
+      "text": "noh1/0029/000",
+      "error": true
+    },
+    {
+      "name": "range whitespace",
+      "text": "noh1/0029/000 - noh1/0030/000",
+      "error": true
+    }
+  ]
+}

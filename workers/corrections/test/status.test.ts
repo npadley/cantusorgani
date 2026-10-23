@@ -135,7 +135,10 @@ describe("canonical stored fields", () => {
     expect(toPublicRow({ ...ROW, field: "refs", proposed: "noh8/0077/000" })).toBeNull();
     const vespers = { ...ROW, piece_id: "vespers", target: "vespers:adv1/antiphon-1" };
     expect(toPublicRow({ ...vespers, field: "system_range", proposed: "noh5/0001/001-noh5/0001/003" })).toBeNull();
-    expect(toPublicRow({ ...vespers, field: "refs", proposed: "noh1/0077/000" })).toBeNull();
+    // Refs are checked for shape against any registered-source key (identities card S);
+    // a ref from another source is refused when the batch applies it.
+    expect(toPublicRow({ ...vespers, field: "refs", proposed: "noh8/77/000" })).toBeNull();
+    expect(toPublicRow({ ...vespers, field: "refs", proposed: "NOH1/0077/000" })).toBeNull();
     expect(toPublicRow({ ...vespers, field: "note", proposed: "<script>private</script>" })).toBeNull();
     expect(toPublicRow({ ...vespers, field: "note", proposed: "A" })).toBeNull();
     expect(toPublicRow({ ...ROW, field: "system_range", proposed: "broken range" })).toBeNull();
