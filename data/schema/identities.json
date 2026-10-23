@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://cantusorgani.org/schema/identities.json",
-  "title": "Phase 1 identity source registry",
-  "$comment": "M1 validates sources.yml. ledger and snapshot are fail-closed placeholders for M2. load_sources also checks unique IDs, unique non-null legacy volumes, source ownership and scan-registry membership.",
+  "title": "Phase 1 identity registry, ledger and derived graph",
+  "$comment": "Registry fields use the M1 validator; graph schemas also use anyOf and typed maps. Cross-record ownership, uniqueness, structural binding and coverage are checked by pipeline.identities.",
   "$ref": "#/$defs/sourceRegistry",
   "$defs": {
     "text": {
@@ -182,7 +182,1279 @@
       },
       "additionalProperties": false
     },
-    "ledger": false,
-    "snapshot": false
+    "ledger": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "namespace": {
+          "$ref": "#/$defs/text"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ledgerEntry"
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "namespace",
+        "entries"
+      ],
+      "additionalProperties": false
+    },
+    "snapshot": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          }
+        },
+        "editions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/edition"
+          }
+        },
+        "works": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/work"
+          }
+        },
+        "source_items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceItem"
+          }
+        },
+        "settings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/setting"
+          }
+        },
+        "representations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/representation"
+          }
+        },
+        "relations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/relation"
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "sources",
+        "editions",
+        "works",
+        "source_items",
+        "settings",
+        "representations",
+        "relations"
+      ],
+      "additionalProperties": false
+    },
+    "itemId": {
+      "type": "string",
+      "pattern": "^itm_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "workId": {
+      "type": "string",
+      "pattern": "^wrk_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "settingId": {
+      "type": "string",
+      "pattern": "^set_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "representationId": {
+      "type": "string",
+      "pattern": "^rep_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "assignmentId": {
+      "type": "string",
+      "pattern": "^asg_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^(src|edn|itm|wrk|set|rep|asg|tgt)_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "origin": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/text"
+        },
+        "selector": {
+          "type": "string"
+        },
+        "legacy_target": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "path",
+        "selector",
+        "legacy_target"
+      ],
+      "additionalProperties": false
+    },
+    "ledgerLocator": {
+      "type": "object",
+      "properties": {
+        "slug": {
+          "$ref": "#/$defs/text"
+        },
+        "kind": {
+          "$ref": "#/$defs/text"
+        },
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "n": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "variant": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "slug",
+        "kind",
+        "key",
+        "n",
+        "variant"
+      ],
+      "additionalProperties": false
+    },
+    "change": {
+      "type": "object",
+      "properties": {
+        "reason": {
+          "$ref": "#/$defs/text"
+        },
+        "old": {
+          "$ref": "#/$defs/bindingChange"
+        },
+        "new": {
+          "$ref": "#/$defs/bindingChange"
+        }
+      },
+      "required": [
+        "reason",
+        "old",
+        "new"
+      ],
+      "additionalProperties": false
+    },
+    "ledgerEntry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "source",
+            "edition",
+            "item",
+            "work",
+            "setting",
+            "representation"
+          ]
+        },
+        "birth_seed": {
+          "$ref": "#/$defs/text"
+        },
+        "state": {
+          "enum": [
+            "active",
+            "retired"
+          ]
+        },
+        "legacy_keys": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": {
+                "$ref": "#/$defs/text"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "required": [
+              "role",
+              "id"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "locator": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ledgerLocator"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "row_ordinal": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "changes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/change"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "birth_seed",
+        "state",
+        "legacy_keys",
+        "links",
+        "locator",
+        "row_ordinal",
+        "changes"
+      ],
+      "additionalProperties": false
+    },
+    "locator": {
+      "type": "object",
+      "properties": {
+        "pagination": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "printed_pages": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          ]
+        },
+        "item_number": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pdf_pages": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          ]
+        },
+        "system_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "pagination",
+        "printed_pages",
+        "item_number"
+      ],
+      "additionalProperties": false
+    },
+    "externalRef": {
+      "type": "object",
+      "properties": {
+        "authority": {
+          "$ref": "#/$defs/text"
+        },
+        "value": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/text"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/origin"
+          }
+        }
+      },
+      "required": [
+        "authority",
+        "value",
+        "status",
+        "evidence"
+      ],
+      "additionalProperties": false
+    },
+    "work": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/workId"
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "language": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kind": {
+          "type": "string"
+        },
+        "identity_status": {
+          "const": "provisional"
+        },
+        "external_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/externalRef"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "language",
+        "kind",
+        "identity_status",
+        "external_refs"
+      ],
+      "additionalProperties": false
+    },
+    "sourceItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/itemId"
+        },
+        "edition_id": {
+          "$ref": "#/$defs/editionId"
+        },
+        "parent_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/itemId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "classification": {
+          "enum": [
+            "container",
+            "musical-unit",
+            "reference",
+            "unresolved"
+          ]
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "locator": {
+          "$ref": "#/$defs/locator"
+        },
+        "setting_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/settingId"
+          }
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      },
+      "required": [
+        "id",
+        "edition_id",
+        "parent_id",
+        "classification",
+        "title",
+        "locator",
+        "setting_ids",
+        "origin"
+      ],
+      "additionalProperties": false
+    },
+    "setting": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/settingId"
+        },
+        "work_id": {
+          "$ref": "#/$defs/workId"
+        },
+        "kind": {
+          "enum": [
+            "organ-accompaniment",
+            "unaccompanied",
+            "unspecified"
+          ]
+        },
+        "source_item_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/itemId"
+          }
+        },
+        "attribution": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rights_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "identity_status": {
+          "const": "provisional"
+        }
+      },
+      "required": [
+        "id",
+        "work_id",
+        "kind",
+        "source_item_ids",
+        "attribution",
+        "rights_reference",
+        "identity_status"
+      ],
+      "additionalProperties": false
+    },
+    "scanLocator": {
+      "type": "object",
+      "properties": {
+        "system_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "asset_stems": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "aspects": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          }
+        }
+      },
+      "required": [
+        "system_refs",
+        "asset_stems",
+        "aspects"
+      ],
+      "additionalProperties": false
+    },
+    "lilypondLocator": {
+      "type": "object",
+      "properties": {
+        "source_path": {
+          "type": "string"
+        },
+        "legacy_target": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "render_hash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "manifest_pointer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "source_path",
+        "legacy_target",
+        "render_hash",
+        "manifest_pointer"
+      ],
+      "additionalProperties": false
+    },
+    "meiLocator": {
+      "type": "object",
+      "properties": {
+        "record_path": {
+          "type": "string"
+        },
+        "legacy_target": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "render_hash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "artifact_sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "manifest_pointer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "record_path",
+        "legacy_target",
+        "render_hash",
+        "artifact_sha256",
+        "manifest_pointer"
+      ],
+      "additionalProperties": false
+    },
+    "representation": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/representationId"
+            },
+            "kind": {
+              "const": "scan"
+            },
+            "setting_id": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/settingId"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "source_item_ids": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/itemId"
+              }
+            },
+            "locator": {
+              "$ref": "#/$defs/scanLocator"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/origin"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "setting_id",
+            "source_item_ids",
+            "locator",
+            "evidence"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/representationId"
+            },
+            "kind": {
+              "const": "lilypond"
+            },
+            "setting_id": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/settingId"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "source_item_ids": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/itemId"
+              }
+            },
+            "locator": {
+              "$ref": "#/$defs/lilypondLocator"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/origin"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "setting_id",
+            "source_item_ids",
+            "locator",
+            "evidence"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "#/$defs/representationId"
+            },
+            "kind": {
+              "const": "mei"
+            },
+            "setting_id": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/settingId"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "source_item_ids": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/itemId"
+              }
+            },
+            "locator": {
+              "$ref": "#/$defs/meiLocator"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/origin"
+              }
+            }
+          },
+          "required": [
+            "id",
+            "kind",
+            "setting_id",
+            "source_item_ids",
+            "locator",
+            "evidence"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "relation": {
+      "type": "object",
+      "properties": {
+        "from_id": {
+          "$ref": "#/$defs/id"
+        },
+        "to_id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "borrows",
+            "related-hymn",
+            "candidate-same-work",
+            "same-work"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/text"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/origin"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "from_id",
+        "to_id",
+        "kind",
+        "status",
+        "evidence"
+      ],
+      "additionalProperties": false
+    },
+    "assignment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/assignmentId"
+        },
+        "calendar": {
+          "enum": [
+            "ef1962",
+            "of1970",
+            "vespers1960"
+          ]
+        },
+        "key": {
+          "type": "string"
+        },
+        "slot": {
+          "type": "string"
+        },
+        "variant": {
+          "type": "string"
+        },
+        "years": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "seasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_item_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/itemId"
+          }
+        },
+        "setting_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/settingId"
+          }
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        }
+      },
+      "required": [
+        "id",
+        "calendar",
+        "key",
+        "slot",
+        "variant",
+        "years",
+        "seasons",
+        "source_item_ids",
+        "setting_ids",
+        "origin"
+      ],
+      "additionalProperties": false
+    },
+    "target": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/text"
+        },
+        "entity_id": {
+          "$ref": "#/$defs/id"
+        },
+        "legacy_target": {
+          "$ref": "#/$defs/text"
+        },
+        "state": {
+          "enum": [
+            "active",
+            "retired"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "entity_id",
+        "legacy_target",
+        "state"
+      ],
+      "additionalProperties": false
+    },
+    "exceptionalAlias": {
+      "type": "object",
+      "properties": {
+        "legacy_target": {
+          "$ref": "#/$defs/text"
+        },
+        "entity_id": {
+          "$ref": "#/$defs/id"
+        },
+        "state": {
+          "enum": [
+            "active",
+            "retired"
+          ]
+        },
+        "reason": {
+          "$ref": "#/$defs/text"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/origin"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "legacy_target",
+        "entity_id",
+        "state",
+        "reason",
+        "evidence"
+      ],
+      "additionalProperties": false
+    },
+    "aliasSource": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/exceptionalAlias"
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "aliases"
+      ],
+      "additionalProperties": false
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "fragment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "destination_path": {
+          "type": "string"
+        },
+        "destination_fragment": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "mechanism": {
+          "enum": [
+            "identity",
+            "pages-rule",
+            "astro-refresh"
+          ]
+        },
+        "entity_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        }
+      },
+      "required": [
+        "path",
+        "fragment",
+        "destination_path",
+        "destination_fragment",
+        "mechanism",
+        "entity_ids"
+      ],
+      "additionalProperties": false
+    },
+    "aliases": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "legacy_ids": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/itemId"
+          }
+        },
+        "legacy_slugs": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/itemId"
+          }
+        },
+        "targets": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/target"
+          }
+        },
+        "addresses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/address"
+          }
+        },
+        "redirects": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              },
+              "status": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "from",
+              "to",
+              "status"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "of_lenders": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/ofLender"
+          }
+        }
+      },
+      "required": [
+        "schema_version",
+        "legacy_ids",
+        "legacy_slugs",
+        "targets",
+        "addresses",
+        "redirects",
+        "of_lenders"
+      ],
+      "additionalProperties": false
+    },
+    "unresolved": {
+      "type": "object",
+      "properties": {
+        "legacy_target": {
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "lapsed",
+            "external",
+            "unresolved",
+            "retired"
+          ]
+        },
+        "reason": {
+          "$ref": "#/$defs/text"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/origin"
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "legacy_target",
+        "state",
+        "reason",
+        "evidence"
+      ],
+      "additionalProperties": false
+    },
+    "migration": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "type": "integer"
+        },
+        "adapter_version": {
+          "type": "string"
+        },
+        "input_sha256": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "entity_counts": {
+          "type": "object",
+          "properties": {
+            "works": {
+              "type": "integer"
+            },
+            "source_items": {
+              "type": "integer"
+            },
+            "settings": {
+              "type": "integer"
+            },
+            "relations": {
+              "type": "integer"
+            },
+            "representations": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer"
+              }
+            }
+          },
+          "required": [
+            "works",
+            "source_items",
+            "settings",
+            "relations",
+            "representations"
+          ],
+          "additionalProperties": false
+        },
+        "alias_counts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        },
+        "reference_counts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        },
+        "unresolved": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/unresolved"
+          }
+        },
+        "of_lender_counts": {
+          "type": "object",
+          "properties": {
+            "resolved": {
+              "type": "integer"
+            },
+            "missing": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "resolved",
+            "missing"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schema_version",
+        "adapter_version",
+        "input_sha256",
+        "entity_counts",
+        "alias_counts",
+        "reference_counts",
+        "unresolved",
+        "of_lender_counts"
+      ],
+      "additionalProperties": false
+    },
+    "bindingChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "locator": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ledgerLocator"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "row_ordinal": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "legacy_keys": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "state": {
+          "enum": [
+            "active",
+            "retired"
+          ]
+        }
+      }
+    },
+    "ofLender": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "item_id": {
+              "$ref": "#/$defs/itemId"
+            },
+            "setting_id": {
+              "$ref": "#/$defs/settingId"
+            },
+            "legacy_ref": {
+              "$ref": "#/$defs/text"
+            },
+            "legacy_target": {
+              "$ref": "#/$defs/text"
+            }
+          },
+          "required": [
+            "item_id",
+            "setting_id",
+            "legacy_ref",
+            "legacy_target"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "item_id": {
+              "type": "null"
+            },
+            "setting_id": {
+              "type": "null"
+            },
+            "legacy_ref": {
+              "type": "null"
+            },
+            "legacy_target": {
+              "type": "null"
+            },
+            "state": {
+              "const": "missing"
+            }
+          },
+          "required": [
+            "item_id",
+            "setting_id",
+            "legacy_ref",
+            "legacy_target",
+            "state"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
   }
 }

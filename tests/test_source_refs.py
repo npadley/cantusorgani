@@ -158,7 +158,11 @@ def test_load_sources_numbered_hymnal_without_pdf_pages_validates(registry_dir):
     assert all("system_refs" not in item["locator"] for item in items)
 
 
-def test_schema_m2_placeholders_fail_closed():
-    schema = json.loads((DATA / "schema/identities.json").read_text())
-    assert schema["$defs"]["ledger"] is False
-    assert schema["$defs"]["snapshot"] is False
+def test_schema_completed_identity_documents_validate():
+    from pipeline.identities.model import validate
+
+    for name in ('ledger', 'snapshot', 'aliases', 'migration'):
+        value = json.loads((DATA / f'identities/{name}.json').read_text())
+        validate(value, name, DATA)
+    source = yaml.safe_load((DATA / 'identities/aliases.yml').read_text())
+    validate(source, 'aliasSource', DATA)

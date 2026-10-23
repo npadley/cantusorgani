@@ -5,7 +5,10 @@
       "pagination": null,
       "printed_pages": null,
       "item_number": "1"
-    }
+    },
+    "accompaniments": 2,
+    "text_reference": "example-text-1",
+    "tune_reference": "example-tune-1"
   },
   {
     "title": "Example hymn, second tune",
@@ -13,6 +16,8 @@
       "pagination": null,
       "printed_pages": null,
       "item_number": "2"
-    }
+    },
+    "text_reference": "example-text-1",
+    "tune_reference": "example-tune-2"
   }
 ]
