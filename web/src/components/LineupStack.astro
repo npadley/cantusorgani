@@ -1,7 +1,6 @@
 ---
-import { volumeLabel } from "../lib/catalog";
-import { annotationFor, chantEntry } from "../lib/chants";
 import { gregobaseUrl } from "../lib/catalog";
+import { annotationFor, chantEntry } from "../lib/chants";
 import { bankNote, hymnSettings, isFormula, itemHeading, itemSystems, sections, spokenTone, toneLabel, widestSystem } from "../lib/vespers";
 import { pieceHref } from "../lib/indexes";
 import type { LineupDay } from "../lib/vespers";
@@ -9,6 +8,7 @@ import ChantText from "./ChantText.astro";
 import DisclosureCue from "./DisclosureCue.astro";
 import { textForChant } from "../lib/chantText";
 import ReportLinks from "./ReportLinks.astro";
+import { sourceLabel } from "../lib/identities";
 
 // A Vespers lineup: slices from several pieces (the Sunday psalter, the day's
 // Magnificat antiphon, a tone-bank formula, the Marian antiphon) in sung order.
@@ -25,7 +25,7 @@ const secs = sections(day);
     const systemsIn = section.items.flatMap((i) => itemSystems(i));
     const pages = [...new Set(systemsIn.map((s) => Number(s.ref.split("/")[1]) - 30))].sort((a, b) => a - b);
     const captionId = `${section.anchor}-caption`;
-    const volume = systemsIn[0] ? volumeLabel(systemsIn[0].piece) : "Nova Organi Harmonia";
+    const volume = sourceLabel(systemsIn[0]?.piece.volume);
     return (
       <section class="vespers-section" aria-labelledby={`${section.anchor}-h`}>
         <h2 class="section-heading" id={section.anchor}>

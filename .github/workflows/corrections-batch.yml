@@ -139,6 +139,9 @@ jobs:
         run: |
           uv run noh typeset-manifest
           uv run noh ordinary-form
+          uv run noh identities allocate
+          uv run noh identities build
+          uv run noh identities check
 
       - name: Commit and open the pull request
         env:
@@ -150,6 +153,7 @@ jobs:
           git config user.name "${APP_SLUG}[bot]"
           git config user.email "${APP_SLUG}[bot]@users.noreply.github.com"
           if [[ "$SOURCE_REF" == "main" ]]; then git switch -c "corrections/$BATCH"; fi
+          git add data/identities/ledger.json data/identities/migration.json
           git add data/corrections.yml data/catalog.json data/vespers/vespers-lineup.json data/corrections-log.json data/chants.json data/reviewed.json data/typeset/manifest.json data/typeset/review.json data/typeset/parts.yml data/ordinary-form-propers.json data/ordinary-form-coverage.json
           count=$(jq '(.entries | length) + ((.sources // []) | length)' "$RUNNER_TEMP/batch.json")
           if ! git diff --cached --quiet; then git commit -q -m "data: corrections batch $BATCH ($count)"; fi

@@ -29,6 +29,7 @@ PRs in the docs repo, never here. Codex runs need `--add-dir <docs path>` to rea
 |---|---|
 | Fix something the site shows (title, pages, day, system, Proper part) | `cantusorgani-docs/EDITING.md` (recipes by symptom) |
 | Regenerate data, run checks, merge `main`, get a change to the site | `cantusorgani-docs/OPERATIONS.md` |
+| Permanent identities, ledger and aliases | `cantusorgani-docs/ARCHITECTURE.md` § Permanent identities, `cantusorgani-docs/OPERATIONS.md` § Identity commands |
 | Understand how the parts fit together | `cantusorgani-docs/ARCHITECTURE.md` |
 | Typeset music, LilyPond, MEI/Verovio, Customize export | `cantusorgani-docs/TYPESETTING.md`, then `cantusorgani-docs/superpowers/plans/export-layout-decisions.md` |
 | Admin screen, Cloudflare Access, GitHub App, D1 migrations | `cantusorgani-docs/ADMIN-SETUP.md` |
@@ -94,7 +95,14 @@ correct-batch` or the admin screen**; each entry records the value it replaced.
 `data/index-*.yml`, `data/vespers/vespers-noh8.yml`,
 `data/vespers/vespers-offices.yml`, `data/vespers/hymns-noh7.yml`,
 `data/hymn-pairings.yml`, `data/ordinary-form/*.yml`, `data/good-friday.json`,
+`data/identities/sources.json`, `data/identities/aliases.yml`,
 `data/typeset/src/`.
+
+**Command-managed identities:** `data/identities/ledger.json` and
+`data/identities/migration.json` are written by `noh identities`; never hand-edit.
+Merge conflicts: take the union, then run `noh identities check` (see
+`cantusorgani-docs/OPERATIONS.md` § Merging main into a branch). Never discard ledger IDs.
+`build/identities/snapshot.json` and `aliases.json` are generated and gitignored.
 
 **Never hand-edit generated or vendored files.** Commands rewrite them, and a
 hand edit is either lost or fails its checksum. They include:

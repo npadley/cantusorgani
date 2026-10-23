@@ -199,6 +199,14 @@ def test_check_docs_astro_route_brackets_are_literal(repo):
     assert check_docs(repo) == []
 
 
+@pytest.mark.parametrize('build_exists', [False, True])
+def test_check_docs_generated_build_paths_are_local_only(repo, build_exists):
+    if build_exists:
+        (repo / 'build').mkdir()
+    write(repo, 'README.md', '`build/identities/snapshot.json` and `build/mei/stale/stale.json`')
+    assert check_docs(repo) == []
+
+
 @pytest.mark.parametrize("prefix", ["cantusorgani-docs/", "../cantusorgani-docs/"])
 @pytest.mark.parametrize("linked", [False, True])
 @pytest.mark.parametrize("state", ["ok", "broken", "absent"])

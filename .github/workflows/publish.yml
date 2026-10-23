@@ -102,6 +102,9 @@ jobs:
           uv run noh chants
           uv run noh apply-corrections
           uv run noh ordinary-form
+          uv run noh identities allocate
+          uv run noh identities build
+          uv run noh identities check
           uv run noh doctor || true
 
       - name: Commit, and open a pull request from main
@@ -123,6 +126,7 @@ jobs:
           if [ "$BRANCH" = "main" ]; then
             git switch -c "publish/$VOLUME-$RUN"
           fi
+          git add data/identities/ledger.json data/identities/migration.json
           git add data/
           git commit -q -m "data: publish $VOLUME pdf $PAGES, and rebuild its catalogue"
           if [ "$BRANCH" = "main" ]; then

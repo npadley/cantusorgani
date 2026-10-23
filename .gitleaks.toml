@@ -24,3 +24,14 @@ condition = "AND"
 paths = ['''^data/ordinary-form/occasions\.yml$''', '''^data/ordinary-form-propers\.json$''']
 regexTarget = "line"
 regexes = ['''^\s*(- key: [a-z0-9]+(-[a-z0-9]+)*|"key": "[a-z0-9]+(-[a-z0-9]+)*",?)\s*$''']
+
+# The identity migration report hashes each source file it reads, keyed by
+# repository path (pipeline/identities/projection.py). Paths such as
+# "…sapientiae.csv.ly" contain "api". Ignore only a line that is nothing but a
+# data/ path and its SHA-256.
+[[rules.allowlists]]
+description = "Identity migration input SHA-256 by data/ path, not API credentials"
+condition = "AND"
+paths = ['''^data/identities/migration\.json$''']
+regexTarget = "line"
+regexes = ['''^\s*"data/[A-Za-z0-9_./-]+":\s*"[a-f0-9]{64}",?\s*$''']

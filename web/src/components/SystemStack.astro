@@ -6,6 +6,7 @@ import { segmentKey, segments } from "../lib/typeset";
 import ReportLinks from "./ReportLinks.astro";
 import { textForHeading } from "../lib/chantText";
 import ChantText from "./ChantText.astro";
+import { borrowedVolumeLabel } from "../lib/identities";
 
 interface Props {
   readonly piece: Piece;
@@ -159,7 +160,7 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
     </p>
   ) : (
     <p class="notice ui small" role="status">
-      {sectionName(p)}: the book refers to {p.borrowedVolume ? volumeLabel({ ...piece, volume: p.borrowedVolume }) : "another volume"},
+      {sectionName(p)}: the book refers to {borrowedVolumeLabel(p.borrowedVolume)},
       printed page {p.borrowedPage}. The exact music systems for this reference have not yet been identified.
     </p>
   ))

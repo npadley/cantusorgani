@@ -209,7 +209,7 @@ export function lineupsUsing(slug: string, lineup: Lineup = loadLineup()): reado
 /** Available additional settings, validated against the catalogue during generation. */
 export function hymnSettings(item: LineupItem, pieces: readonly Piece[] = allPieces()): readonly Piece[] {
   return (item.hymnLinks ?? []).flatMap((slug) => {
-    const piece = pieces.find((p) => p.slug === slug && p.volume === "noh7" && p.genre === "hymn"
+    const piece = pieces.find((p) => p.slug === slug && p.genre === "hymn"
       && p.systems.length > 0 && !p.sourceNote);
     return piece ? [piece] : [];
   });
