@@ -37,6 +37,7 @@ source of these statuses).
 | [OF music coverage](../ORDINARY-FORM-MUSIC-COVERAGE.md) | Generated. Which Ordinary Form chants have NOH music. |
 | [Device checklist (B10b)](../superpowers/plans/b10b-device-checklist.md) | The iPad and forScore check. |
 | [Typesetting manual](../TYPESETTING.md) | Best doc for LilyPond, MEI and Verovio. |
+| [Source-independent identities (Phase 1)](../superpowers/specs/2026-10-22-source-independent-identities.md) and [reviews](../superpowers/reviews/2026-10-22-identities/merged-fixes.md) | P15's model, migration and alias registry. Draft, revised after review; awaiting the maintainer. |
 
 ## docs/claudekit/ (September 2026)
 
