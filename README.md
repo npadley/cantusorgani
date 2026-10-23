@@ -1,68 +1,41 @@
 # Cantus Organi
 
 Organ accompaniments from **Nova Organi Harmonia** (Mechelen, 1942), catalogued
-against the 1962 Roman calendar and published at
+against the 1962 Roman and Ordinary Form calendars and published at
 [cantusorgani.org](https://cantusorgani.org) for organists at the console.
 
-- `pipeline/` — Python: page maps, system segmentation, index extraction, the
-  catalogue (`data/catalog.base.json`, and `data/catalog.json` with the hand
-  corrections of `data/corrections.yml` applied), slicing and upload to R2.
-- `web/` — the Astro site (static), with client-side PDF export and a
-  Customize export that reflows typeset music to your page
-  ([how](docs/TYPESETTING.md#custom-export-mei)).
-- Ordinary Form calendar — Graduale Romanum (1974) assignments projected over
-  the same catalogue ([operations](docs/OPERATIONS.md#ordinary-form-calendar-and-accompaniments)).
-- `workers/corrections/` — the Cloudflare Worker that takes readers' corrections,
-  and the database migrations the admin screen shares.
-- `web/functions/` — the admin screen's API (Pages Functions; the code is in
-  `web/src/lib/admin/`).
-- `data/` — the reviewed indexes, calendar, catalogue and review queue (all
-  tracked). Licensing: [`data/LICENSES.md`](data/LICENSES.md).
-- `docs/claudekit/` — design, plans and their reviews.
+Design docs, decisions, specs and manuals live in the private repo
+`npadley/cantusorgani-docs`, cloned next to this one:
+`git clone git@github.com:npadley/cantusorgani-docs.git ../cantusorgani-docs`.
 
-**Running it yourself: start with [`docs/OPERATIONS.md`](docs/OPERATIONS.md)**: what
-to run after which change (`scripts/regenerate.sh`), the checks a pull request
-runs (`scripts/check.sh`), how a change reaches the site, and what to do when a
-check fails.
+## Commands
 
-How the pieces fit together: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
-
-**To fix something on the site, start with [`docs/EDITING.md`](docs/EDITING.md)**:
-recipes by symptom, most of which need no PDFs. Editors use the admin screen at
-`/admin/` ([setup](docs/ADMIN-SETUP.md); a usability review and plan for it:
-[docs/ADMIN-UX-REVIEW.md](docs/ADMIN-UX-REVIEW.md)).
-
-## Pipeline
-
-Python 3.12+ with [uv](https://docs.astral.sh/uv/), Tesseract with the Latin
-pack.
+Python 3.12+ with uv; catalogue extraction also needs Tesseract with Latin.
 
 ```bash
 uv sync
-uv run noh doctor                      # preflight: every failure names its fix
-uv run noh catalog --volume noh3       # rebuild one volume (data/catalog.base.json), then apply
-                                       # data/corrections.yml into data/catalog.json
-uv run noh apply-corrections           # only the corrections: no PDFs needed
-scripts/regenerate.sh [noh1 …]         # every generated file, in order (docs/OPERATIONS.md)
-scripts/check.sh [--quick]             # what a pull request checks, here
-uv run pytest
+uv run noh doctor
+uv run noh catalog --volume noh3
+uv run noh apply-corrections
+scripts/regenerate.sh [noh1 …]
+scripts/check.sh [--quick]
+uv run pytest -q -m "not slow"
 ```
-
-The scanned NOH volumes are in git (`pdf-source/NOH*.pdf`, about 240 MB; nothing
-else in that folder is tracked). `noh catalog` also reads `data/published/`
-(the published images) and `data/ocr/margins/` (margin readings), so a rebuild on
-a fresh checkout, or on GitHub (the catalog-rebuild workflow), gives the same
-catalogue.
-
-## Site
 
 ```bash
 cd web
 pnpm install
-pnpm dev          # http://localhost:4321
-pnpm build        # static site in web/dist, with the Pagefind index; fails if a page
-                  # cannot be reached by a link (web/scripts/check-links.ts)
+pnpm dev
+pnpm build
 pnpm test
+pnpm typecheck
+pnpm test:e2e
+pnpm build:e2e && pnpm test:e2e:export
+```
+
+```bash
+cd workers/corrections
+pnpm test && pnpm typecheck
 ```
 
 ## Secrets
@@ -91,69 +64,3 @@ Data and code from elsewhere, each pinned to its source:
 A reader can show the chant above each part of a Proper ("Show the chant with
 each part", remembered in the browser; off by default), or follow the "Chant"
 link to GregoBase. Licensing: `data/LICENSES.md`.
-
-## Hymns and Book VII
-
-The home-page Hymns box opens `/hymns/`: standalone hymns, Vespers hymn starts,
-and hymns printed within Masses, with separate links for different settings.
-Book VII's full musical body is in Varia; its other genres are excluded from
-the hymn index. Source warnings identify missing or damaged scan material.
-
-Reviewed associations in `data/vespers/hymns-noh7.yml` add related VII settings
-to office, day, and Book VIII source pages. `noh vespers-lineup` regenerates
-`data/vespers/hymn-links.json`. These links preserve the existing accompaniment
-and follow the source's printed verses, tone, and usage. Office hymns remain
-separate from Mass exports. See the [Book VII reference report](docs/reports/2026-10-03-book-seven-hymn-references.md)
-and its complete route inventory for coverage and remaining gaps.
-
-## Vespers
-
-Every Sunday, and every feast NOH8 prints, has its Vespers in the order sung at
-`/vespers/<date>/` (II Vespers; on 24 December, I Vespers of Christmas), and each I
-class feast its I Vespers, sung the evening before, at `/vespers/<date>/i/`:
-*Deus in adjutorium* (with *Laus tibi* from Septuagesima), the five antiphons each
-before and after its psalm (one Alleluia antiphon in Paschaltide), the chapter's
-response (*Haec dies* in the Easter octave), the hymn and versicle, the Magnificat
-antiphon (the O antiphons from 17 December), the Magnificat, the Benedicamus and the
-Marian antiphon of the season. The site publishes a rolling window: last year and
-five ahead.
-
-- **What is sung** comes from Divinum Officium (1960), vendored in
-  `data/vespers/divinum-officium-vespers.json`; the site's 1962 calendar decides the office.
-- **The music** is NOH8's own systems: the Sunday psalter, Marian antiphons, tone bank
-  and seasons in `data/vespers/vespers-noh8.yml`, every other office in
-  `data/vespers/vespers-offices.yml` (both reviewed by hand; every tone read from the page).
-- **Psalms**: played from the full psalm where NOH8 prints it in that tone, else from a
-  printed formula in the same tone and ending (labelled, with the psalm's text below);
-  a tone NOH8 never prints is said so on the page, never guessed.
-- NOH8 prints the Magnificat only in VIII G and VIII G*; other tones use the psalm
-  formula in the same tone, or a note.
-
-Rebuild, after `noh catalog` or a change to the reviewed items:
-
-```bash
-uv run noh officium-fetch         # only to move to a newer Divinum Officium commit
-uv run noh vesperale-fetch        # only to move to a newer vesperale commit
-uv run noh vespers-lineup         # data/vespers/vespers-lineup.json, with a coverage summary
-uv run noh chants                 # picks up the lineup's chants
-```
-
-Check one day against the book without building the site:
-
-```bash
-uv run noh vespers-lineup --day 2026-12-25
-```
-
-`uv run noh vespers-items` proposes placements for review: the green Sundays'
-Magnificat antiphons (`data/vespers/vespers-noh8.proposed.yml`) and every other office's
-antiphons, Magnificat, hymn and versicle aligned to Divinum Officium's texts
-(`data/vespers/vespers-offices.proposed.yml`, each placement with a score).
-
-What the lineup's review entries mean:
-
-| Kind | Meaning | To clear it |
-|---|---|---|
-| `tone_unprinted` | Magnificat tones NOH8 prints no accompaniment for; the page shows a note | Add a `psalm_formulas` or `magnificats` entry from a printed accompaniment in that exact tone and ending |
-| `office_unprinted` | A Sunday whose office NOH8 has no section for (the Transfiguration, the Holy Cross, St Michael, St Joseph the Worker) | Nothing, unless another volume prints it |
-| `tone_disagreement` | NOH8's margin and vesperale's table give different tones; NOH8's is used | Confirm against the scan (all four current ones are confirmed: NOH8 is right) |
-| `vesperale_unavailable` | The vendored vesperale table is missing or edited | `uv run noh vesperale-fetch` |

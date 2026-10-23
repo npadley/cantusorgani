@@ -16,7 +16,7 @@
 //  10. candidate encodings for chant divisions and quilisma (A3b).
 // Output goes to <repo>/build/spike-verovio/. With --write-fixture it also writes
 // src/lib/export-layout/__fixtures__/s2-pass1-letter-medium.json and the glissando
-// SVG under docs/superpowers/experiments/s2-assets/.
+// SVG under build/spike-verovio/.
 /// <reference path="../src/workers/verovio.d.ts" />
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -30,7 +30,7 @@ const REPO = fileURLToPath(new URL("../../", import.meta.url));
 const OUT = `${REPO}build/spike-verovio/`;
 const FIXTURE_MEI = `${WEB}src/lib/export-layout/__fixtures__/kyrie-ix-experiment.mei`;
 const FIXTURE_OUT = `${WEB}src/lib/export-layout/__fixtures__/s2-pass1-letter-medium.json`;
-const ASSETS = `${REPO}docs/superpowers/experiments/s2-assets/`;
+const ASSETS = OUT;
 const WRITE_FIXTURE = process.argv.includes("--write-fixture");
 
 type OptionValue = string | number | boolean;

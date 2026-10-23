@@ -5,12 +5,14 @@ from tools.check_docs import check_docs, main
 
 @pytest.fixture
 def repo(tmp_path):
+    tmp_path = tmp_path / "repo"
+    tmp_path.mkdir()
     (tmp_path / "pipeline").mkdir()
     (tmp_path / "pipeline/cli.py").write_text(
         'subs.add_parser("doctor")\nsubs.add_parser(\n "catalog", help="build")\n'
         "subs.add_parser('chants')\n"
     )
-    (tmp_path / "docs").mkdir()
+
     (tmp_path / "tools").mkdir()
     return tmp_path
 
@@ -27,9 +29,9 @@ def test_check_docs_missing_path_reports_line(repo):
     assert check_docs(repo) == ["README.md:3: pipeline/missing.py: path does not exist"]
 
 
-@pytest.mark.parametrize("name", ["README.md", "AGENTS.md", "CLAUDE.md", "docs/GUIDE.md"])
+@pytest.mark.parametrize("name", ["README.md", "AGENTS.md", "CLAUDE.md", ".claude/rules/guide.md"])
 def test_check_docs_existing_path_ok(repo, name):
-    write(repo, name, "Read `pipeline/cli.py`, `docs/` and `pyproject.toml`.")
+    write(repo, name, "Read `pipeline/cli.py`, `pipeline/` and `pyproject.toml`.")
     write(repo, "pyproject.toml")
     assert check_docs(repo) == []
 
@@ -55,8 +57,8 @@ def test_check_docs_subcommand_exists(repo, command):
 
 @pytest.mark.parametrize("command", ["noh vanished", "uv run noh vanished"])
 def test_check_docs_missing_subcommand_reports_line(repo, command):
-    write(repo, "docs/GUIDE.md", f"Intro\n```bash\n{command} --flag\n```\n")
-    assert check_docs(repo) == ["docs/GUIDE.md:3: noh vanished: unknown noh subcommand"]
+    write(repo, ".claude/rules/guide.md", f"Intro\n```bash\n{command} --flag\n```\n")
+    assert check_docs(repo) == [".claude/rules/guide.md:3: noh vanished: unknown noh subcommand"]
 
 
 @pytest.mark.parametrize("exists", [True, False])
@@ -77,7 +79,7 @@ def test_check_docs_bash_paths_and_inline_spans(repo):
 
 
 def test_check_docs_bare_filename_is_not_checked(repo):
-    write(repo, "docs/GUIDE.md", "`screen.png` and `index.html`")
+    write(repo, ".claude/rules/guide.md", "`screen.png` and `index.html`")
     assert check_docs(repo) == []
 
 
@@ -93,7 +95,7 @@ def test_check_docs_ignored_references(repo, reference):
 
 def test_check_docs_scope_excludes_prose_nested_docs_and_non_bash_fences(repo):
     write(repo, "README.md", "data/missing.py\n```python\n`data/no.py`\n```\n")
-    write(repo, "docs/nested/PLAN.md", "`data/missing.yml`")
+    write(repo, ".claude/rules/nested/PLAN.md", "`data/missing.yml`")
     assert check_docs(repo) == []
 
 
@@ -106,16 +108,16 @@ def test_check_docs_scope_excludes_prose_nested_docs_and_non_bash_fences(repo):
     ("MISSING.md#hello-world", "linked document does not exist"),
 ])
 def test_check_docs_markdown_link_anchors(repo, target, problem):
-    write(repo, "docs/OTHER.md", "# Hello, World!\n# Hello, World!\n## Café & `code`\n"
+    write(repo, ".claude/rules/OTHER.md", "# Hello, World!\n# Hello, World!\n## Café & `code`\n"
           "Setext\n------\n```bash\n# Not a heading\n```\n")
-    write(repo, "docs/GUIDE.md", f"Intro\n[guide]({target})\n")
-    expected = [] if problem is None else [f"docs/GUIDE.md:2: {target}: {problem}"]
+    write(repo, ".claude/rules/guide.md", f"Intro\n[guide]({target})\n")
+    expected = [] if problem is None else [f".claude/rules/guide.md:2: {target}: {problem}"]
     assert check_docs(repo) == expected
 
 
 def test_check_docs_links_relative_and_percent_encoded(repo):
     write(repo, "README.md", "# Café\n")
-    write(repo, "docs/GUIDE.md", "[home](../README.md#caf%C3%A9)\n[web](https://x/a.md#no)")
+    write(repo, ".claude/rules/guide.md", "[home](../../README.md#caf%C3%A9)\n[web](https://x/a.md#no)")
     assert check_docs(repo) == []
 
 
@@ -132,10 +134,10 @@ def test_check_docs_fenced_heading_is_not_anchor(repo):
 
 def test_check_docs_allowlist_is_scoped_and_preserves_anchor(repo):
     write(repo, "README.md", "`data/gone.yml`\n[bad](#gone)\n")
-    write(repo, "docs/GUIDE.md", "`data/gone.yml`")
+    write(repo, ".claude/rules/guide.md", "`data/gone.yml`")
     write(repo, "tools/check_docs_allow.txt", "# accepted\nREADME.md:data/gone.yml\n"
           "README.md:#gone\n\n")
-    assert check_docs(repo) == ["docs/GUIDE.md:1: data/gone.yml: path does not exist"]
+    assert check_docs(repo) == [".claude/rules/guide.md:1: data/gone.yml: path does not exist"]
 
 
 def test_check_docs_cli_exit_and_output(repo, capsys):
@@ -195,3 +197,55 @@ def test_check_docs_astro_route_brackets_are_literal(repo):
     write(repo, "web/src/pages/chant/[id].json.ts")
     write(repo, "README.md", "`web/src/pages/chant/[id].json.ts`")
     assert check_docs(repo) == []
+
+
+@pytest.mark.parametrize("prefix", ["cantusorgani-docs/", "../cantusorgani-docs/"])
+@pytest.mark.parametrize("linked", [False, True])
+@pytest.mark.parametrize("state", ["ok", "broken", "absent"])
+def test_check_docs_sibling_references(repo, prefix, linked, state):
+    sibling = repo.parent / "cantusorgani-docs"
+    if state != "absent":
+        sibling.mkdir()
+    if state == "ok":
+        write(sibling, "GUIDE.md", "# Setup")
+    reference = prefix + "GUIDE.md"
+    text = f"[guide]({reference}#setup)" if linked else f"`{reference}`"
+    write(repo, "AGENTS.md", text)
+    problems = check_docs(repo)
+    if state == "broken":
+        assert len(problems) == 1
+        assert "does not exist" in problems[0]
+    else:
+        assert problems == []
+
+
+def test_check_docs_worktree_uses_main_checkout_sibling(repo, monkeypatch):
+    main = repo / "main"
+    main.mkdir()
+    sibling = repo / "cantusorgani-docs"
+    write(sibling, "GUIDE.md", "# Setup")
+    monkeypatch.setattr("pipeline.doc_paths.subprocess.check_output",
+                        lambda *args, **kwargs: str(main / ".git") + "\n")
+    write(repo, "AGENTS.md", "`cantusorgani-docs/GUIDE.md`")
+    assert check_docs(repo) == []
+
+
+def test_check_docs_sibling_link_missing_anchor_reports(repo):
+    write(repo.parent / "cantusorgani-docs", "GUIDE.md", "# Setup")
+    write(repo, "AGENTS.md", "[guide](cantusorgani-docs/GUIDE.md#gone)")
+    assert check_docs(repo) == [
+        "AGENTS.md:1: cantusorgani-docs/GUIDE.md#gone: anchor does not exist"
+    ]
+
+
+@pytest.mark.parametrize("exists", [True, False])
+def test_check_docs_private_non_markdown_link(repo, exists):
+    sibling = repo.parent / "cantusorgani-docs"
+    sibling.mkdir()
+    if exists:
+        write(sibling, "ui/routes.json", "[]")
+    write(repo, "AGENTS.md", "[routes](cantusorgani-docs/ui/routes.json)")
+    expected = [] if exists else [
+        "AGENTS.md:1: cantusorgani-docs/ui/routes.json: linked document does not exist"
+    ]
+    assert check_docs(repo) == expected

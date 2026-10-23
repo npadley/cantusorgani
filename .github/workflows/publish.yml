@@ -8,7 +8,7 @@
 # them in data/published/<volume>.json, and rebuilds the catalogue. On main it
 # opens a pull request with the result; on any other branch it commits there.
 #
-# Needs the R2 secrets and variable of r2-check (docs/ADMIN-SETUP.md, "R2 for
+# Needs the R2 secrets and variable of r2-check (cantusorgani-docs/ADMIN-SETUP.md, "R2 for
 # GitHub Actions"), and the App of catalog-rebuild: variable ADMIN_APP_ID,
 # secret ADMIN_APP_PRIVATE_KEY.
 name: publish

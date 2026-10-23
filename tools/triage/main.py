@@ -328,10 +328,10 @@ def record(catalog: dict[str, Any], c: Correction) -> None:
         raise RejectedCorrection("Music reports are resolved by a source editor correction (/admin/typeset/edit/), not a catalogue change")
     if c.field == "sections":
         raise RejectedCorrection("a missing or mislabelled part is fixed on the admin's Sections screen "
-                                 "(/admin/sections/), which writes the piece's whole list; see docs/EDITING.md, 'Sections'")
+                                 "(/admin/sections/), which writes the piece's whole list; see cantusorgani-docs/EDITING.md, 'Sections'")
     if c.field == "chant" and not c.target:
         raise RejectedCorrection("a piece's chant pairing is corrected on its parts (Introit, Gradual...), "
-                                 "not the piece; see docs/EDITING.md, 'Proper parts'")
+                                 "not the piece; see cantusorgani-docs/EDITING.md, 'Proper parts'")
     if c.target and not c.target.startswith("piece:"):
         target = c.target
     else:

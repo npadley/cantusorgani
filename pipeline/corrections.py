@@ -68,7 +68,7 @@ PARTS = ("introit", "gradual", "alleluia", "tract", "sequence", "offertory", "co
 
 HEADER = """\
 # Hand corrections over the generated catalogue. Applied by `noh catalog` and
-# `noh apply-corrections`; see docs/EDITING.md.
+# `noh apply-corrections`; see cantusorgani-docs/EDITING.md.
 #
 # Do not hand-write entries: `uv run noh correct <target> <field> <value>` fills
 # in `id`, `was` and the date, and checks the value. `was` is what the pipeline

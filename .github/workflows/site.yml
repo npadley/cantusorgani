@@ -14,16 +14,15 @@
 # Needs, in Settings -> Secrets and variables -> Actions:
 #   secrets:   CLOUDFLARE_API_TOKEN (Pages: Edit), CLOUDFLARE_ACCOUNT_ID,
 #              R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY (typeset-upload;
-#              docs/ADMIN-SETUP.md section 5)
+#              cantusorgani-docs/ADMIN-SETUP.md section 5)
 #   variables: PUBLIC_ASSET_BASE, PUBLIC_CORRECTIONS_ENDPOINT, PUBLIC_TURNSTILE_SITE_KEY, R2_BUCKET
 name: site
 
 on:
   push:
     branches: [main]
-    paths-ignore: ["docs/**", "**/*.md"]
+    paths-ignore: ["**/*.md"]
   pull_request:
-    paths-ignore: ["docs/**", "**/*.md"]
   workflow_dispatch:
 
 # Cancel superseded pull requests; main runs wait for the active run.
@@ -37,7 +36,7 @@ permissions:
 
 jobs:
   # ------------------------------------------------------------ typeset ---
-  # Typeset music (docs/TYPESETTING.md): draw what is not on R2 yet, then
+  # Typeset music (cantusorgani-docs/TYPESETTING.md): draw what is not on R2 yet, then
   # upload it, in two jobs. LilyPond runs Scheme from the files it reads, so
   # the job that runs it has no secrets, and LilyPond itself no network; the
   # job with the R2 secrets never runs it.
@@ -441,7 +440,7 @@ jobs:
 
   # The tests that run LilyPond itself (marked `lilypond`), on the pinned
   # version from data/typeset/lilypond.yml, checksum-checked. No secrets: LilyPond
-  # runs Scheme from the files it reads (docs/claudekit/specs/2026-09-28-typesetting-design.md §3).
+  # runs Scheme from the files it reads (cantusorgani-docs/claudekit/specs/2026-09-28-typesetting-design.md §3).
   lilypond-tests:
     name: LilyPond tests
     runs-on: ubuntu-latest

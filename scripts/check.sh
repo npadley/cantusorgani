@@ -4,7 +4,7 @@
 #   scripts/check.sh            # everything: about 8 minutes
 #   scripts/check.sh --quick    # skip the build and the browser tests: about 5 minutes
 #
-# Stops at the first failure and says which step. See docs/OPERATIONS.md.
+# Stops at the first failure and says which step. See cantusorgani-docs/OPERATIONS.md.
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
