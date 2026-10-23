@@ -31,7 +31,8 @@ from typing import Any
 
 import yaml
 
-from pipeline.volumes import DATA
+from pipeline.source_refs import parse_ref
+from pipeline.volumes import DATA, registered_source_keys
 
 #: Sections a person checked against the scans: data/sections/<volume>.yml.
 REVIEWED = DATA / "sections"
@@ -370,8 +371,15 @@ def save_reviewed(slug: str, volume: str, entries: list[dict[str, Any]], folder:
 _ENTRY_KEYS = frozenset({"kind", "n", "variant", "key", "label", "title", "ref", "system", "borrowed_volume",
                          "borrowed_page", "borrowed_from", "borrowed_ref", "chant", *RUBRIC_FIELDS})
 _TEXT = re.compile(r"^[^\x00-\x1f<>]{1,80}$")
-_REF = re.compile(r"^noh\d/\d{4}/\d{3}$")
 MAX_SECTIONS = 40
+
+
+def _registered_ref(text: str) -> bool:
+    try:
+        parse_ref(text, registered_source_keys())
+    except ValueError:
+        return False
+    return True
 
 
 def parse_value(value: object) -> list[dict[str, Any]]:
@@ -426,10 +434,17 @@ def parse_value(value: object) -> list[dict[str, Any]]:
         if raw.get("borrowed_page") not in (None, ""):
             page, volume = raw.get("borrowed_page"), str(raw.get("borrowed_volume") or "")
             if not isinstance(page, int) or isinstance(page, bool) or not 1 <= page <= 999 \
-                    or not re.fullmatch(r"noh\d", volume):
+                    or volume not in registered_source_keys():
                 raise ReviewedError(f"section {i}: printed elsewhere needs borrowed_volume (noh1 ...) and "
                                  "borrowed_page (a page number)")
             e.update(borrowed_volume=volume, borrowed_page=page)
+            if raw.get("borrowed_ref"):
+                try:
+                    ref = parse_ref(str(raw["borrowed_ref"]), registered_source_keys())
+                except ValueError as exc:
+                    raise ReviewedError(f"section {i}: {exc}") from None
+                if ref["volume"] != volume:
+                    raise ReviewedError(f"section {i}: borrowed_ref is not in {volume}")
             for key in ("borrowed_from", "borrowed_ref"):
                 if raw.get(key):
                     e[key] = str(raw[key])
@@ -438,7 +453,7 @@ def parse_value(value: object) -> list[dict[str, Any]]:
             if not isinstance(system, int) or isinstance(system, bool) or not 1 <= system <= 999:
                 raise ReviewedError(f"section {i}: system {system!r} should be a system of the piece, counting from 1")
             e["system"] = system
-        elif _REF.fullmatch(str(raw.get("ref") or "")):
+        elif _registered_ref(str(raw.get("ref") or "")):
             e["ref"] = str(raw["ref"])
         else:
             raise ReviewedError(f"section {i}: say where it starts (system, counting from 1) or where it is "

@@ -501,8 +501,11 @@ def test_apply_vespers_refs_replaces_the_systems_and_checks_they_exist():
     assert out.offices["adv1"]["antiphons"][0]["refs"] == ["noh8/0077/001", "noh8/0077/002"]
     bad = entry(target="vespers:adv1/antiphon-1", field="refs", was=["noh8/0077/000"], value="noh8/9999/000")
     assert "not systems in the catalogue" in problems(None, [bad], data)[0]
+    # Refs from another source are refused when applied, not by a NOH8-only pattern.
+    other = entry(target="vespers:adv1/antiphon-1", field="refs", was=["noh8/0077/000"], value="noh5/0001/000")
+    assert "must be in the source the item is printed in" in problems(None, [other], data)[0]
     with pytest.raises(CorrectionError, match="not a valid refs"):
-        coerce("refs", "noh5/0001/000", kind="vespers")
+        coerce("refs", "nohx/0001/000", kind="vespers")
 
 
 def test_fetch_dump_refuses_a_file_that_is_not_the_pinned_one(tmp_path, monkeypatch):
