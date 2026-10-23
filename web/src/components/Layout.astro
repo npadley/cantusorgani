@@ -5,7 +5,7 @@ import { canonicalUrl, indexablePath, SITE_DESCRIPTION, SITE_ORIGIN } from "../l
 interface Props {
   readonly title: string;
   readonly description?: string;
-  readonly skipTo?: string;
+  readonly skipTo?: string | undefined;
   /** Keep the page out of search engines and the site search (admin pages). */
   readonly noindex?: boolean;
 }

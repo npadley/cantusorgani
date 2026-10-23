@@ -48,7 +48,7 @@ const vespersDays = piece.division === "vesperale" || piece.genre === "hymn" ? l
 <Layout
   title={heading}
   description={`${piece.title} — Gregorian chant organ accompaniment from ${volumeLabel(piece)}, ${pagesLabel(piece)}.`}
-  skipTo="music"
+  skipTo={systemCount > 0 ? "music" : undefined}
 >
   <article>
     <header class="head">

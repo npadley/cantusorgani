@@ -36,3 +36,12 @@ describe("Ordinary Form occasion pages", () => {
     expect(html).toContain("chants not yet mapped");
   });
 });
+
+describe("skip link", () => {
+  it.each(["lateran-dedication", "sacred-heart", "st-joseph"])("%s points at an anchor that exists", async (key) => {
+    const html = await render(key);
+    const target = html.match(/class="skip-link[^"]*" href="#([^"]+)"/)?.[1];
+    expect(target).toBeDefined();
+    expect(html).toContain(`id="${target}"`);
+  });
+});

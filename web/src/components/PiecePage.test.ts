@@ -53,3 +53,15 @@ describe("a Mass printed wholly by reference", () => {
     expect(html).not.toContain('data-ref="noh4/0102/000"');
   });
 });
+
+describe("skip link", () => {
+  it.each([
+    "varia-ave-maria", "varia-benedic-anima-mea-psalmus-102", "varia-benedictus-dominus-canticum-zachariae",
+    "varia-christus-vincit", "varia-exsurge-domine", "varia-parce-domine-et-ne-des",
+  ])("%s points at an anchor that exists", async (slug) => {
+    const html = await render(pieceBySlug(slug)!);
+    const target = html.match(/class="skip-link[^"]*" href="#([^"]+)"/)?.[1];
+    expect(target).toBeDefined();
+    expect(html).toContain(`id="${target}"`);
+  });
+});
