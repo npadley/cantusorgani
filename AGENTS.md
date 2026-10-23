@@ -271,8 +271,4 @@ claude -p "<card text>" --model sonnet --tools Read,Grep,Glob
 
 ## Known gaps
 
-Remove each line once it is fixed. The documentation audit
-(`docs/reports/2026-10-22-documentation-audit.md`) has the detail.
-
-- Some `noh` subcommands, npm scripts and environment variables are documented
-  only in code (`pipeline/cli.py`, `web/package.json`, `wrangler.toml`).
+None known.

@@ -28,3 +28,6 @@ docs/ADMIN-UX-REVIEW.md:typeset-phone-fold.png
 README.md:data/vespers/vespers-noh8.proposed.yml
 README.md:data/vespers/vespers-offices.proposed.yml
 docs/ADMIN-SETUP.md:workers/corrections/migrations/NNNN_*.sql
+# Registered in a loop in pipeline/cli.py; check_docs only finds literal add_parser names.
+docs/OPERATIONS.md:noh typeset-preview-render
+docs/OPERATIONS.md:noh typeset-preview-publish
