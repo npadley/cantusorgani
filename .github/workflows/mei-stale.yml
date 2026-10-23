@@ -42,8 +42,8 @@ jobs:
       - run: uv run noh lilypond-install
       - name: Prepare the prior revision
         run: |
-          [ -f prior/pyproject.toml ] || { echo "no prior revision"; exit 0; }
-          ln -s "$GITHUB_WORKSPACE/vendor" prior/vendor
+          [ -f pyproject.toml ] || { echo "no prior revision"; exit 0; }
+          ln -s "$GITHUB_WORKSPACE/vendor" vendor
           uv sync --frozen
         working-directory: prior
         continue-on-error: true
