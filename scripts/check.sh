@@ -4,7 +4,7 @@
 #   scripts/check.sh            # everything: about 8 minutes
 #   scripts/check.sh --quick    # skip the build and the browser tests: about 5 minutes
 #
-# Stops at the first failure and says which step. See docs/OPERATIONS.md.
+# Stops at the first failure and says which step. See cantusorgani-docs/OPERATIONS.md.
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
@@ -56,6 +56,7 @@ if ! $QUICK; then
   CURRENT="build and link check"; step "$CURRENT"; pnpm build
   CURRENT="legacy addresses"; step "$CURRENT"
   uv run python -m tools.check_legacy_addresses --inventory ../data/identities/legacy-addresses.json --dist dist
+  CURRENT="deploy size";        step "$CURRENT";  pnpm check:deploy-size
   CURRENT="export assets";      step "$CURRENT";  pnpm check:export-assets
   CURRENT="browser tests";      step "$CURRENT";  CI=true pnpm exec playwright test < /dev/null
 fi

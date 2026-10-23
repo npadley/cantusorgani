@@ -10,6 +10,7 @@ from urllib.parse import urlparse
 
 import yaml
 
+from pipeline.doc_paths import docs_path, docs_reference
 from pipeline.jgabc import load_sources
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -98,8 +99,13 @@ def validate_cycle_review_coverage(occasions: list[dict[str, Any]],
                 raise ValueError(f"{name}: source review date must be ISO YYYY-MM-DD") from exc
             if not isinstance(evidence, str) or not evidence.strip():
                 raise ValueError(f"{name}: source review requires an evidence path")
-            evidence_path = (ROOT / evidence).resolve()
-            if ROOT.resolve() not in evidence_path.parents or not evidence_path.is_file():
+            external = docs_reference(evidence)
+            evidence_root = docs_path(ROOT) if external is not None else ROOT
+            evidence_path = (evidence_root / (external if external is not None else evidence)).resolve()
+            if not evidence_path.is_relative_to(evidence_root.resolve()):
+                raise ValueError(f"{name}: source review evidence path escapes its repository")
+            # CI has no private docs clone. Check evidence files when it is available.
+            if (external is None or evidence_root.is_dir()) and not evidence_path.is_file():
                 raise ValueError(f"{name}: source review evidence path does not exist in the repository")
             parsed_citation = urlparse(citation) if isinstance(citation, str) else None
             if not parsed_citation or parsed_citation.scheme != "https" or not parsed_citation.netloc:

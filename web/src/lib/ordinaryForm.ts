@@ -322,7 +322,7 @@ const ADVENT_EXCEPTIONS: Readonly<Record<number, readonly number[]>> = { 1: [3, 
 interface SeasonalWeekday { readonly own: string | null; readonly sunday: string | null; readonly reading: string | null }
 const NO_WEEKDAY: SeasonalWeekday = { own: null, sunday: null, reading: null };
 
-/** GR1974 weekday chants outside Ordinary Time (see docs/superpowers/plans/2026-10-19-of-seasonal-weekdays.md). */
+/** GR1974 weekday chants outside Ordinary Time (see cantusorgani-docs/superpowers/plans/2026-10-19-of-seasonal-weekdays.md). */
 function seasonalWeekday(d: LocalDate, season: OfSeason, settings: OfSettings): SeasonalWeekday {
   const dow = weekday(d), name = DAY_NAMES[dow]!;
   const own = (key: string): SeasonalWeekday => ({ own: key, sunday: null, reading: null });

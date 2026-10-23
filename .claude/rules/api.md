@@ -21,4 +21,4 @@ paths:
   write it as an instruction.
 - D1 queries use bound parameters (`.bind(...)`) only.
 - No secrets in code. Bindings and secrets live in `wrangler.toml` and
-  Cloudflare; see `docs/ADMIN-SETUP.md`.
+  Cloudflare; see `cantusorgani-docs/ADMIN-SETUP.md`.

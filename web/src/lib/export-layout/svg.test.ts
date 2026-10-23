@@ -62,7 +62,7 @@ function dStrings(svg: string): string[] {
 
 const FIXTURE_DIR = join(__dirname, '__fixtures__');
 const KYRIE = readFileSync(join(FIXTURE_DIR, 'kyrie-ix-verovio-page1.svg'), 'utf8');
-const S2_DIR = join(__dirname, '..', '..', '..', '..', 'docs', 'superpowers', 'experiments', 's2-assets');
+const S2_DIR = join(FIXTURE_DIR, 's2');
 
 describe('sanitizePageSvg: namespacing', () => {
   it('shares no id between two pages sanitised with different namespaces', () => {

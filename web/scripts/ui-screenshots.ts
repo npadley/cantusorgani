@@ -2,7 +2,7 @@
 //
 //   cd web
 //   node scripts/ui-screenshots.ts --only piece,piece-export,piece-chant
-import { mkdirSync, readFileSync } from "node:fs";
+import { mkdirSync, readFileSync, existsSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { chromium } from "@playwright/test";
@@ -47,7 +47,7 @@ async function main(): Promise<void> {
     options: {
       base: { type: "string", default: "http://localhost:4322" },
       only: { type: "string" },
-      out: { type: "string", default: "../docs/ui/screenshots" },
+      out: { type: "string" },
       all: { type: "boolean", default: false },
     },
     strict: true,
@@ -55,12 +55,16 @@ async function main(): Promise<void> {
   });
   const base = new URL(values.base);
   if (!["http:", "https:"].includes(base.protocol)) throw new Error("--base must be an HTTP(S) URL");
-  const routes = JSON.parse(readFileSync(new URL("../../docs/ui/routes.json", import.meta.url), "utf8")) as Route[];
+  const routes = JSON.parse(readFileSync(new URL("../e2e/routes.json", import.meta.url), "utf8")) as Route[];
   const only = values.only === undefined ? null : new Set(values.only.split(",").map((id) => id.trim()));
   const unknown = only ? [...only].filter((id) => !routes.some((route) => route.id === id)) : [];
   if (unknown.length) throw new Error(`Unknown --only IDs: ${unknown.join(", ")}`);
   const selected = routes.filter((route) => !only || only.has(route.id));
-  const out = resolve(values.out);
+  const out = resolve(values.out ?? "../../cantusorgani-docs/ui/screenshots");
+  if (values.out === undefined &&
+      (!existsSync(out) || !statSync(out).isDirectory())) {
+    throw new Error(`Default screenshot folder does not exist: ${out}. Clone npadley/cantusorgani-docs next to the main checkout, or pass --out <folder>.`);
+  }
   mkdirSync(out, { recursive: true });
 
   // The committed baseline keeps three variants per page; --all adds 768 and the

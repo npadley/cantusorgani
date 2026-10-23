@@ -17,7 +17,7 @@
 #
 # Needs: variable ADMIN_APP_ID, secret ADMIN_APP_PRIVATE_KEY (the App's key);
 # in Settings -> General, "Allow auto-merge"; and a rule on main requiring the
-# check-build-deploy check (see docs/ADMIN-SETUP.md).
+# check status (or legacy check-build-deploy) (see cantusorgani-docs/ADMIN-SETUP.md).
 name: corrections-batch
 run-name: corrections ${{ github.event.client_payload.batch }}
 
@@ -162,16 +162,17 @@ jobs:
           gh pr create --base main --head "corrections/$BATCH" \
             --title "Corrections: batch $BATCH ($count)" --body-file "$RUNNER_TEMP/pr.md"
           fi
-          # Auto-merge only when main requires the site's check: without that rule
+          # Auto-merge only when main requires check (or legacy check-build-deploy):
+          # without that rule
           # GitHub would merge at once, before any check ran. Any failure here
           # leaves the pull request open for the owner, as before; it never fails
           # the run (which would return the batch while its pull request is open).
           if [ -s "$RUNNER_TEMP/hold.txt" ]; then
             echo "::notice::Waits for the owner: $(paste -sd';' "$RUNNER_TEMP/hold.txt")"
           elif ! gh api "repos/$GITHUB_REPOSITORY/rules/branches/main" \
-                 --jq '[.[] | select(.type == "required_status_checks") | .parameters.required_status_checks[].context] | index("check-build-deploy")' \
-                 | grep -qE '^[0-9]+$'; then
-            echo "::warning::main does not require check-build-deploy, so this batch waits for the owner (docs/ADMIN-SETUP.md, section 4)"
+                 --jq '[.[] | select(.type == "required_status_checks") | .parameters.required_status_checks[].context] | any(. as $context | ["check", "check-build-deploy"] | index($context))' \
+                 | grep -qx 'true'; then
+            echo "::warning::main does not require check or check-build-deploy, so this batch waits for the owner (cantusorgani-docs/ADMIN-SETUP.md, section 4)"
           elif ! gh pr merge "corrections/$BATCH" --auto --merge; then
             echo "::warning::Could not switch on auto-merge (is Allow auto-merge ticked in Settings -> General?); this batch waits for the owner"
           fi

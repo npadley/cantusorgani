@@ -4,7 +4,7 @@
 # `noh r2-check` checks each value's shape (an API token pasted where the
 # account ID goes, a key of the wrong length) without printing it, then writes,
 # reads back and deletes one throwaway object under _probe/. It never touches a
-# published object. See docs/ADMIN-SETUP.md, "R2 for GitHub Actions".
+# published object. See cantusorgani-docs/ADMIN-SETUP.md, "R2 for GitHub Actions".
 #
 # Needs, in Settings -> Secrets and variables -> Actions:
 #   secrets:   R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY

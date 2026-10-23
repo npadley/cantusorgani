@@ -115,7 +115,7 @@ REVIEWED_HEADER = """\
 # A Proper's sections, checked against the scans: when a piece is listed here,
 # this list is the whole truth for it (the pipeline adds, drops and moves
 # nothing), applied with the hand corrections by `noh apply-corrections`.
-# See docs/EDITING.md, "Sections".
+# See cantusorgani-docs/EDITING.md, "Sections".
 #
 # Each piece is a list, in the order the book prints it:
 #   kind:   introit gradual alleluia tract sequence hymn offertory communion other

@@ -17,4 +17,4 @@ paths:
 - Corrections are an overlay on the generated catalogue; the printed NOH scans
   decide what is right.
 - New `noh` subcommands are added in `pipeline/cli.py` and documented in
-  `docs/OPERATIONS.md` in the same PR.
+  `cantusorgani-docs/OPERATIONS.md` in a linked docs-repo PR.

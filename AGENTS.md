@@ -13,25 +13,35 @@ batches from the admin screen merge themselves; a merge to `main` deploys.)
 This file is the map. The detail lives in the docs below; read the one for
 your task before you change anything.
 
+## Where the docs are
+
+The private repo `npadley/cantusorgani-docs` is cloned at `../cantusorgani-docs`
+next to the main checkout. If missing, run
+`git clone git@github.com:npadley/cantusorgani-docs.git ../cantusorgani-docs`
+from the main checkout. From a worktree under `.claude/worktrees/`, its path is
+`$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")/../cantusorgani-docs`.
+Run `scripts/docs-path.sh` to print that path. Commit doc changes and open their
+PRs in the docs repo, never here. Codex runs need `--add-dir <docs path>` to read them.
+
 ## Read before you work
 
 | Task | Read first |
 |---|---|
-| Fix something the site shows (title, pages, day, system, Proper part) | `docs/EDITING.md` (recipes by symptom) |
-| Regenerate data, run checks, merge `main`, get a change to the site | `docs/OPERATIONS.md` |
-| Permanent identities, ledger and aliases | `docs/ARCHITECTURE.md` § Permanent identities, `docs/OPERATIONS.md` § Identity commands |
-| Understand how the parts fit together | `docs/ARCHITECTURE.md` |
-| Typeset music, LilyPond, MEI/Verovio, Customize export | `docs/TYPESETTING.md`, then `docs/superpowers/plans/export-layout-decisions.md` |
-| Admin screen, Cloudflare Access, GitHub App, D1 migrations | `docs/ADMIN-SETUP.md` |
-| Ordinary Form calendar | `docs/OPERATIONS.md` § Ordinary Form calendar, `docs/ORDINARY-FORM-MUSIC-COVERAGE.md` |
-| Routes, canonicals, sitemap | `docs/SEO.md` |
-| UI or product direction | `docs/ui/README.md` (current state), then `docs/reports/2026-10-20-reading-edition-design-correction.md` |
+| Fix something the site shows (title, pages, day, system, Proper part) | `cantusorgani-docs/EDITING.md` (recipes by symptom) |
+| Regenerate data, run checks, merge `main`, get a change to the site | `cantusorgani-docs/OPERATIONS.md` |
+| Permanent identities, ledger and aliases | `cantusorgani-docs/ARCHITECTURE.md` § Permanent identities, `cantusorgani-docs/OPERATIONS.md` § Identity commands |
+| Understand how the parts fit together | `cantusorgani-docs/ARCHITECTURE.md` |
+| Typeset music, LilyPond, MEI/Verovio, Customize export | `cantusorgani-docs/TYPESETTING.md`, then `cantusorgani-docs/superpowers/plans/export-layout-decisions.md` |
+| Admin screen, Cloudflare Access, GitHub App, D1 migrations | `cantusorgani-docs/ADMIN-SETUP.md` |
+| Ordinary Form calendar | `cantusorgani-docs/OPERATIONS.md` § Ordinary Form calendar, `cantusorgani-docs/ORDINARY-FORM-MUSIC-COVERAGE.md` |
+| Routes, canonicals, sitemap | `cantusorgani-docs/SEO.md` |
+| UI or product direction | `cantusorgani-docs/ui/README.md` (current state), then `cantusorgani-docs/reports/2026-10-20-reading-edition-design-correction.md` |
 | Licensing of data and vendored code | `data/LICENSES.md` |
-| Whether a spec or plan is still live | `docs/design/README.md` (status of every design doc) |
-| What a domain term means (Proper, lender, system, polarity…) | `docs/GLOSSARY.md` |
+| Whether a spec or plan is still live | `cantusorgani-docs/design/README.md` (status of every design doc) |
+| What a domain term means (Proper, lender, system, polarity…) | `cantusorgani-docs/GLOSSARY.md` |
 
-**Decisions already made** are recorded in `docs/DECISIONS.md` and,
-for the export, `docs/superpowers/plans/export-layout-decisions.md` (D1–D30).
+**Decisions already made** are recorded in `cantusorgani-docs/DECISIONS.md` and,
+for the export, `cantusorgani-docs/superpowers/plans/export-layout-decisions.md` (D1–D30).
 Proposals not yet decided are listed separately there. Don't re-propose
 a rejected option. Raise it only if new evidence changes the case, and say what
 the new evidence is.
@@ -49,7 +59,7 @@ the new evidence is.
 | `workers/corrections/` | Cloudflare Worker for reader corrections; D1 `migrations/` with matching `rollback/*_down.sql` |
 | `scripts/` | `regenerate.sh`, `check.sh`, `test-all.sh`, `cloudflare-setup.sh` |
 | `.github/workflows/` | CI and deploy (`site.yml`), corrections batches, catalogue rebuild, publish, MEI conversion, typeset preview |
-| `docs/` | Manuals at the top level; designs and plans in `claudekit/` and `superpowers/`; `reports/` |
+| `../cantusorgani-docs/` (separate repo) | Manuals at the top level; designs and plans in `claudekit/` and `superpowers/`; `reports/` |
 
 ## Commands
 
@@ -91,7 +101,7 @@ correct-batch` or the admin screen**; each entry records the value it replaced.
 **Command-managed identities:** `data/identities/ledger.json` and
 `data/identities/migration.json` are written by `noh identities`; never hand-edit.
 Merge conflicts: take the union, then run `noh identities check` (see
-`docs/OPERATIONS.md` § Merging main into a branch). Never discard ledger IDs.
+`cantusorgani-docs/OPERATIONS.md` § Merging main into a branch). Never discard ledger IDs.
 `build/identities/snapshot.json` and `aliases.json` are generated and gitignored.
 
 **Never hand-edit generated or vendored files.** Commands rewrite them, and a
@@ -108,7 +118,7 @@ hand edit is either lost or fails its checksum. They include:
 After any hand edit under `data/`, run `scripts/regenerate.sh` and commit what
 it changes. It reruns `noh vespers-lineup` only when noh8 is rebuilt, so after
 editing `data/vespers/*.yml` also run `uv run noh vespers-lineup`. When merging `main`, take `main`'s copy of each generated file and
-regenerate (`docs/OPERATIONS.md` § Merging main into a branch). Don't resolve
+regenerate (`cantusorgani-docs/OPERATIONS.md` § Merging main into a branch). Don't resolve
 generated-file conflicts by hand.
 
 ## Ask the maintainer first
@@ -136,7 +146,7 @@ generated-file conflicts by hand.
 - **Branches and PRs.** Branch from `main` and open one PR per change. Titles
   look like `feat(of): …`, `fix: …`, `docs(export): …`, `chore(deps): …`. A PR
   that builds on another targets `main`, not the other branch
-  (`docs/OPERATIONS.md` § Pull requests that build on each other). Run
+  (`cantusorgani-docs/OPERATIONS.md` § Pull requests that build on each other). Run
   `scripts/check.sh --quick` before opening one, and the full check if you
   touched `web/`.
 - **Tests.**
@@ -152,7 +162,7 @@ generated-file conflicts by hand.
   failures with the unchanged sources before treating them as regressions.
 - **MEI approvals.** Source, include and converter edits can stale approvals.
   Run `uv run noh typeset-mei-stale --fail-on-stale`. Use the conversion and
-  carry-forward commands in `docs/TYPESETTING.md`; never patch approval
+  carry-forward commands in `cantusorgani-docs/TYPESETTING.md`; never patch approval
   digests by hand. Carry-forward needs equal normalized music and identical
   renders in all 13 layout cases after ID normalization. Anything else needs
   a fresh approval. Lyric gaps below 0.3 mm are nonblocking review warnings
@@ -162,7 +172,7 @@ generated-file conflicts by hand.
   `boundaries.json`), their hashes, immutable caching and CORS. Build the
   manifest from those live files in a separate PR. Published files stay;
   withdraw a piece through its record and manifest, never by deleting or
-  overwriting its assets. Follow `docs/TYPESETTING.md` § Release sequence.
+  overwriting its assets. Follow `cantusorgani-docs/TYPESETTING.md` § Release sequence.
 - **Styling.** Plain CSS with the tokens in `web/src/styles/tokens.css` and
   `base.css`. No Tailwind or other framework. House rules from the token file:
   no gradients, no card shadows, radius at most 2px, one accent colour, 44px
@@ -171,8 +181,8 @@ generated-file conflicts by hand.
 - **Pages must be reachable.** `pnpm build` fails if a page has no link to it.
   Link every new page from its day, section or index.
 - **Writing (docs and UI copy).** Plain and short. Say what the reader sees
-  and what to do. Match the voice of `docs/EDITING.md`.
-- **Docs.** Update the doc your change affects in the same PR. If a plan's
+  and what to do. Match the voice of `cantusorgani-docs/EDITING.md`.
+- **Docs.** Update the doc your change affects in a linked docs-repo PR. If a plan's
   status changes, update its `Status:` line.
 
 ## Working with several agents
@@ -229,7 +239,7 @@ overrides the others: past 80%, that tool does no new cards or reviews, and the
 coordinator spot-checks instead.
 
 **Write cards that don't need the conversation.** An executor starts cold.
-A good card says:
+Cards that read docs must include the resolved docs path. A good card says:
 
 - the goal, in one line
 - the worktree path and branch
@@ -279,8 +289,4 @@ claude -p "<card text>" --model sonnet --tools Read,Grep,Glob
 
 ## Known gaps
 
-Remove each line once it is fixed. The documentation audit
-(`docs/reports/2026-10-22-documentation-audit.md`) has the detail.
-
-- Some `noh` subcommands, npm scripts and environment variables are documented
-  only in code (`pipeline/cli.py`, `web/package.json`, `wrangler.toml`).
+None known.

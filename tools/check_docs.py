@@ -15,9 +15,11 @@ import unicodedata
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
+from pipeline.doc_paths import docs_path, docs_reference
+
 ROOT = Path(__file__).resolve().parents[1]
 REPO_DIRS = {
-    "pipeline", "web", "data", "scripts", "docs", "workers", "tools", "tests",
+    "pipeline", "web", "data", "scripts", "workers", "tools", "tests",
     ".github", ".claude", "vendor", "pdf-source", "node_modules",
 }
 # Untracked by design: 1Password mounts, build output, local agent config.
@@ -111,7 +113,7 @@ def code_references(code: str, roots: set[str]):
             continue
         first = token.split("/", 1)[0]
         if "/" in token:
-            if first in roots:
+            if first in roots or docs_reference(token) is not None:
                 yield "path", token
         elif token in roots:
             # Bare file names (a4.pdf, index.html) are usually build outputs named
@@ -131,7 +133,8 @@ def check_docs(root: Path = ROOT) -> list[str]:
         if line.strip() and not line.lstrip().startswith("#")
     } if allow_file.exists() else set()
     documents = [root / name for name in ("README.md", "AGENTS.md", "CLAUDE.md")]
-    documents += sorted((root / "docs").glob("*.md"))
+    documents += sorted((root / ".claude/rules").glob("*.md"))
+    sibling = docs_path(root)
     # Index names, not contents, for shorthand such as `corrections.yml`. Pruning
     # dependency and generated trees keeps the check fast on developer machines.
     filenames: set[str] = set()
@@ -165,8 +168,20 @@ def check_docs(root: Path = ROOT) -> list[str]:
                     if reference.split()[1] not in commands:
                         problem = "unknown noh subcommand"
                 elif kind == "path":
-                    if any(reference.rstrip("/") == local or reference.startswith(local + "/")
-                           for local in LOCAL_ONLY) or (root / reference).exists():
+                    external = docs_reference(reference)
+                    if external is not None:
+                        if not sibling.is_dir():
+                            continue
+                        target = sibling / external
+                        if target.exists():
+                            continue
+                        if any(char in external for char in "*?["):
+                            if not any(path.is_file() for path in sibling.glob(external)):
+                                problem = "glob matches no files"
+                        else:
+                            problem = "path does not exist"
+                    elif any(reference.rstrip("/") == local or reference.startswith(local + "/")
+                             for local in LOCAL_ONLY) or (root / reference).exists():
                         pass  # Astro routes such as [key].astro are literal paths
                     elif any(char in reference for char in "*?["):
                         pattern = reference + "/*" if reference.endswith("/**") else reference
@@ -186,13 +201,21 @@ def check_docs(root: Path = ROOT) -> list[str]:
                     if ignored(reference) or reference.startswith("/"):
                         continue
                     parsed = urlsplit(reference)
-                    if parsed.path and not parsed.path.lower().endswith(".md"):
+                    external = docs_reference(unquote(parsed.path))
+                    if external is None and parsed.path and not parsed.path.lower().endswith(".md"):
                         continue
-                    target = (doc.parent / unquote(parsed.path)).resolve() if parsed.path else doc
-                    if not target.is_relative_to(root):
-                        continue
-                    if ignored(target.relative_to(root).as_posix()):
-                        continue
+                    if external is not None:
+                        if not sibling.is_dir():
+                            continue
+                        target = (sibling / external).resolve()
+                        if not target.is_relative_to(sibling.resolve()):
+                            continue
+                    else:
+                        target = (doc.parent / unquote(parsed.path)).resolve() if parsed.path else doc
+                        if not target.is_relative_to(root):
+                            continue
+                        if ignored(target.relative_to(root).as_posix()):
+                            continue
                     if not target.is_file():
                         problem = "linked document does not exist"
                     elif parsed.fragment:
