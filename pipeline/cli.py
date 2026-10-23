@@ -40,6 +40,15 @@ def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="noh", description="Nova Organi Harmonia pipeline")
     subs = p.add_subparsers(dest="command", required=True)
 
+    identities = subs.add_parser("identities", help="permanent identities beside the legacy catalogue")
+    identities.add_argument("--data", type=Path, default=Path(__file__).resolve().parents[1] / "data")
+    identity_subs = identities.add_subparsers(dest="identity_command", required=True)
+    for name in ("bootstrap", "allocate"):
+        identity_subs.add_parser(name).add_argument("--adapter", default="noh")
+    identity_subs.add_parser("build").add_argument("--out", type=Path)
+    identity_subs.add_parser("check")
+    identity_subs.add_parser("resolve").add_argument("target")
+
     subs.add_parser("doctor", help="preflight: dependencies, sources, credentials")
     ti = subs.add_parser("typeset-import",
                          help="import the volunteers' LilyPond transcriptions from a pinned commit into data/typeset/")
@@ -266,6 +275,7 @@ def build_parser() -> argparse.ArgumentParser:
     cb.add_argument("--hold", default=None,
                     help="write why the batch waits for the owner here, one reason a line (empty: merge it)")
     wh = subs.add_parser("where", help="what a page is, and which file to change to fix it")
+    wh.add_argument("--ids", action="store_true", help="also show permanent identities (read-only)")
     wh.add_argument("query", help="a page URL or path (/piece/<slug>/), or a few words of a title")
     se = subs.add_parser("sections", help="a Proper's sections: where each starts, what the book prints "
                          "there, and its chant; --review writes them to data/sections/ to check")
@@ -371,12 +381,18 @@ def _corrections_command(args: argparse.Namespace) -> int:
             return 0
         from pipeline.where import where
         catalog = _json.loads(c.CATALOG.read_text(encoding="utf-8"))
-        found = where(args.query, catalog)
+        try:
+            found = where(args.query, catalog, ids=args.ids)
+        except (ValueError, KeyError) as exc:
+            print(f"where: {exc}", file=sys.stderr)
+            return 1
         if not found:
             print(f"nothing matches {args.query!r}. Paste a page URL, or try fewer words.", file=sys.stderr)
             return 1
         for loc in found:
             print(f"{loc.target}\n  {loc.label}\n  source:  {loc.source}\n  then:    {loc.command}")
+            if loc.identities:
+                print("  ids:     " + "\n           ".join(loc.identities))
             if loc.more:
                 print("  also:    " + "\n           ".join(loc.more))
         return 0
@@ -394,6 +410,28 @@ def main(argv: list[str] | None = None) -> int:
         sys.stdout.reconfigure(line_buffering=True)
     except (AttributeError, ValueError):
         pass
+
+    if args.command == "identities":
+        import json
+
+        from pipeline import identities
+        try:
+            command = args.identity_command
+            if command in ("bootstrap", "allocate"):
+                count = getattr(identities, command)(args.data, args.adapter)
+                print(f"{count} allocations")
+            elif command == "build":
+                result = identities.build(args.data, args.out)
+                print(json.dumps(result["migration.json"]["entity_counts"], sort_keys=True))
+            elif command == "check":
+                print(json.dumps(identities.check(args.data)["entity_counts"], sort_keys=True))
+            else:
+                print(json.dumps(identities.resolve_target(args.target, args.data),
+                                 ensure_ascii=False, sort_keys=True))
+            return 0
+        except (ValueError, KeyError) as exc:
+            print(f"identities: {exc}", file=sys.stderr)
+            return 1
 
     if args.command == "doctor":
         from pipeline.doctor import report, run

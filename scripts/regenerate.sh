@@ -64,5 +64,11 @@ fi
 step "noh corrections --lapsed"
 uv run noh corrections --lapsed
 
+# 9. Identities follow every legacy writer, including lapsed-review reporting.
+step "noh identities allocate/build/check"
+uv run noh identities allocate
+uv run noh identities build
+uv run noh identities check
+
 step "done. What changed:"
 git status --short data/

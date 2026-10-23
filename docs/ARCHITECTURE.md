@@ -90,6 +90,35 @@ flowchart LR
 | **Typeset cleanup** | `.github/workflows/typeset-prune.yml` | Run by hand: deletes renders on R2 that nothing names, keeping anything recent. |
 | **Images** | `.github/workflows/publish.yml` | Run by hand from the Actions tab: slices the PDF pages named, uploads their images to R2, and rebuilds that volume's catalogue so it names them; on a branch or as a pull request. |
 
+## Permanent identities
+
+A **work** names the music; a **source** names its collection, and an **edition**
+names a published book or other source unit. A **source item** is a printed
+unit within an edition. A **setting** is one musical treatment of a work; a
+**representation** points to its scan, LilyPond source or MEI. One page can hold
+several works, and a borrowed setting keeps its identity at the lender.
+Works inferred from printed units are provisional: matching words or GregoBase
+IDs do not prove that two works are the same.
+
+`data/catalog.json` remains the compatibility view read by the site and exports.
+Its schema, slugs and IDs stay the same. The graph follows replay; replay never
+reads the graph or ledger.
+
+```text
+NOH scans/indexes -> catalog.base.json
+base + reviewed sections + corrections -> catalog.json (existing compatibility view)
+reviewed Vespers / OF / hymn / typeset inputs -> their existing derived files
+those files + ledger + source metadata -> identity snapshot and alias indexes
+existing compatibility files + small identity lookups -> unchanged Astro reader
+```
+
+`data/identities/sources.json` holds reviewed source metadata; `aliases.yml`
+holds exceptional aliases and their evidence. `ledger.json` keeps permanent
+allocations and tombstones. `migration.json` records source hashes and counts.
+`noh identities build` writes the graph and lookup tables into gitignored
+`build/identities/`; `check` recomputes in memory. Corrections, admin, the Worker
+and D1 still use the existing targets.
+
 ## A correction's journey
 
 1. A reader reports it (Corrections form → Worker → D1), or an editor makes it
