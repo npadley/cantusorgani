@@ -137,6 +137,8 @@ changes how the scans are *read* goes through the repository.
 
 | File | What it is | How to change it |
 |---|---|---|
+| `data/identities/sources.json`, `aliases.yml` | Source metadata; exceptional identity aliases with evidence | By hand; then `scripts/regenerate.sh` |
+| `data/identities/ledger.json`, `migration.json` | Permanent allocations; source-hash migration report | `noh identities`; never hand-edit; see the ledger merge rule below |
 | `data/index-noh*.yml` | Each volume's pieces: page, title, days, genre, references | By hand; then `scripts/regenerate.sh <volume>` |
 | `data/volumes.yml` | Each scan: page map hints, `staff_finder` page fixes, inserted leaves (`inserts`), addenda | By hand; then re-slice and rebuild |
 | `data/sections/noh*.yml` | A Proper's sections as a person checked them: **the whole truth for that piece** | By hand, `noh sections <slug> --review`, or the Sections screen; then `noh apply-corrections` |
@@ -179,7 +181,9 @@ After any hand edit to `data/`. Runs, in order: apply the corrections, the
 chant notation, the typeset matching, the corrections again (typeset
 corrections are checked against the new matching), the Ordinary Form
 resolution (`noh ordinary-form`), the typeset manifest and its check, and lists
-any confirmation a rebuild has undone. `noh apply-corrections` refreshes the
+any confirmation a rebuild has undone. After that final step
+(`corrections --lapsed`), it runs `noh identities allocate`, `build`, then
+`check`, so identities see all final outputs. `noh apply-corrections` refreshes the
 Vespers lineup for its existing window; naming `noh8` also runs
 `noh vespers-lineup`, which rebuilds the window and `hymn-links.json`. About two minutes. It is
 safe to run twice: the second run changes nothing.
@@ -194,6 +198,30 @@ every volume: noh1–5, noh7, noh8 (about half an hour).
 
 It ends by listing what changed under `data/`. Read that list: it's what you'll
 commit.
+
+### Identity commands
+
+```bash
+uv run noh identities bootstrap --adapter noh  # once, for an empty ledger
+uv run noh identities allocate --adapter noh   # new records, after replay
+uv run noh identities build                    # refresh the report and local graph
+uv run noh identities check                    # read-only freshness and binding check
+uv run noh identities resolve part:dominica-i-adventus/introit
+uv run noh where --ids dominica-i-adventus
+```
+
+These mirror `python -m pipeline.identities`. Put `--data <dir>` before the
+subcommand to use a scratch data tree; `build --out <dir>` selects its output.
+Bootstrap refuses a nonempty ledger. Later allocations keep all existing IDs;
+`build` and `check` never allocate. Commit `data/identities/ledger.json` and
+`migration.json` with the source change. The graph (`snapshot.json`) and lookup
+index (`aliases.json`) go into gitignored `build/identities/`.
+
+Run allocate, build and check after the last catalogue, Vespers, OF, hymn or
+typeset writer, including direct MEI record or manifest changes. The regeneration
+script and the corrections-batch, catalog-rebuild and publish workflows do this
+once after their final writes. The workflows stage the ledger and report
+explicitly. Artifact-only MEI conversion and typeset preview are exempt.
 
 ### Which volumes?
 
@@ -247,8 +275,8 @@ scripts/check.sh --quick
 
 The fast part of what a pull request checks: lint, the pipeline tests,
 "Ordinary Form coverage current", "corrections applied", the typeset checks,
-"chant notation current", the site's type check and tests, the corrections
-Worker's tests. About five minutes. Run it before every push.
+"chant notation current", identity freshness and migration replay, the site's
+type check and tests, the corrections Worker's tests. About five minutes. Run it before every push.
 
 ```bash
 scripts/check.sh
@@ -258,6 +286,32 @@ Adds the build (with the link check: every page must be reachable), the
 export asset check and the browser tests of the admin screen and forms. About
 eight minutes. Run it before a change to `web/`, or when `--quick` passes but
 GitHub fails.
+
+The quick check also verifies historical addresses when `web/dist/` already
+exists; this checks that existing build, which may be older than the sources.
+The full check verifies the fresh build. To run it yourself:
+
+```bash
+uv run python -m tools.check_legacy_addresses --inventory data/identities/legacy-addresses.json --dist web/dist
+```
+
+The inventory keeps historical routes, linked fragments, queries and indexing
+policy. Reviewed baseline defects live in
+`data/identities/legacy-address-exceptions.json`; each exception must match a
+failure exactly. Remove it when the address is fixed: a resolved exception also
+fails the check. Do not drop old addresses to make a check pass.
+
+Before releasing the identity migration, compare matched builds from pinned
+commits (about two minutes; needs network for pnpm):
+
+```bash
+uv run python -m tools.compare_identity_dist --base <sha> --head <sha> --out <dir>
+```
+
+First run baseline against itself to establish any nondeterminism. Use the
+same public build defaults as `scripts/check.sh`. Read every changed bundle,
+including print CSS, and keep the parity report. This separate release proof
+is not part of `check.sh`; a failed comparison blocks release.
 
 After a publish and before a release, run `pnpm check:export-assets` from `web/`
 to check every exported scan stem in the built pages for HTTP 200 and a CORS
@@ -361,6 +415,15 @@ pull request closes and the corrections return to **Approved** with the reason.
 
 ### Merging main into a branch
 
+Identity files need a different merge rule. Keep the union of permanent
+`ledger.json` allocations from both branches, sorted by ID, one entry per line.
+Keep tombstones and history. An identical ID with incompatible records needs
+review; never choose one side and lose the other allocation. Merge reviewed
+`sources.json` and `aliases.yml` entries with their evidence. Refresh the
+command-managed migration report with `noh identities build`, then run
+`noh identities check` after regeneration. The report hashes source files,
+not generated catalogue bytes. A failed check must be resolved before commit.
+
 When your branch and `main` have both changed generated files, git reports
 conflicts in them. Don't resolve those by hand. Take `main`'s copy of every
 generated file, keep your own sources, and regenerate:
@@ -405,6 +468,21 @@ simply shrinks once the first merges.
 On Cloudflare: Workers & Pages → cantusorgani → Deployments → **Rollback** on
 the last good deployment. Then revert the commit on GitHub (the pull request's
 **Revert** button) so the next deploy doesn't bring the problem back.
+
+For an identity release, record baseline and candidate commits, the last good
+Pages deployment ID, the candidate deployment ID after release, the alias-file
+SHA-256, ledger and address inventory. Keep built artifacts and parity reports
+for at least 30 days (`site-dist` has that retention). Merging and deploying
+still need the maintainer's approval.
+
+If identities regress, restore the last good Pages deployment and revert the
+adapter/reader change through a PR. Keep allocations, tombstones, aliases and
+the independent deploy guard; never recycle IDs. Rebuild compatibility outputs
+from the latest accepted corrections, including corrections saved after cutover.
+Test that a post-cutover correction survives; never revert the whole `data/`
+directory. Preserve D1 reports, skips, snapshots and audit history. Phase 1
+changes neither the Worker nor D1. Pages rollback does not roll back D1 or R2;
+keep published assets and MEI approvals.
 
 ---
 

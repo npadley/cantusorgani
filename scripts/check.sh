@@ -20,6 +20,13 @@ CURRENT="docs references";    step "$CURRENT";  uv run python -m tools.check_doc
 CURRENT="pipeline tests";     step "$CURRENT";  uv run pytest -q -m "not slow"
 CURRENT="Ordinary Form coverage current"; step "$CURRENT"; uv run noh ordinary-form --check
 CURRENT="corrections applied"; step "$CURRENT"; uv run noh apply-corrections --check
+CURRENT="identities current"; step "$CURRENT"; uv run noh identities check
+CURRENT="identity migration"; step "$CURRENT"; uv run python -m tools.check_identity_migration
+# Address verification is cheap when a build already exists; --quick never builds.
+if $QUICK && [[ -f web/dist/index.html ]]; then
+  CURRENT="legacy addresses (existing dist)"; step "$CURRENT"
+  uv run python -m tools.check_legacy_addresses --inventory data/identities/legacy-addresses.json --dist web/dist
+fi
 CURRENT="typeset sources";    step "$CURRENT";  uv run noh typeset-check
 CURRENT="chant notation current"; step "$CURRENT"
 uv run noh chants
@@ -47,6 +54,8 @@ if ! $QUICK; then
     export PUBLIC_TURNSTILE_SITE_KEY="${PUBLIC_TURNSTILE_SITE_KEY:-1x00000000000000000000AA}"
   fi
   CURRENT="build and link check"; step "$CURRENT"; pnpm build
+  CURRENT="legacy addresses"; step "$CURRENT"
+  uv run python -m tools.check_legacy_addresses --inventory ../data/identities/legacy-addresses.json --dist dist
   CURRENT="export assets";      step "$CURRENT";  pnpm check:export-assets
   CURRENT="browser tests";      step "$CURRENT";  CI=true pnpm exec playwright test < /dev/null
 fi

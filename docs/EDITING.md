@@ -9,6 +9,20 @@ catalogue can run on GitHub.
 What to run after each change, the checks, and getting a change to the site are
 in [OPERATIONS.md](OPERATIONS.md); this page is the recipes.
 
+## Permanent identities and edits
+
+Corrections still name slugs, as before: `piece:<slug>`, `part:<slug>/<part>`
+and the existing Vespers targets. Use the same admin forms and recipes below.
+`uv run noh where --ids <slug>` also shows permanent IDs for diagnostics;
+those IDs are not correction input.
+
+After local source edits, run `scripts/regenerate.sh` to refresh the identity
+ledger and report after the catalogue. Never edit either by hand. A section
+rename, move, numbered insertion or change from `n` to `key` can need an explicit
+identity rebind. The module CLI does not expose `rebind` yet: ask the maintainer
+to review the binding rather than deleting the allocation or retrying bootstrap.
+See [OPERATIONS.md](OPERATIONS.md#identity-commands).
+
 ## What do you want to fix?
 
 | You see… | Recipe | Rebuilds the catalogue? |

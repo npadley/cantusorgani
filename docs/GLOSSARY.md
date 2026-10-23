@@ -3,6 +3,10 @@
 Terms an agent tends to confuse in this repository. Alphabetical. Paths are
 from the repository root.
 
+**Alias.** An evidenced mapping from an old name or address to a permanent
+identity. Reviewed exceptions live in `data/identities/aliases.yml`; generated
+lookup tables do not create redirects.
+
 **Batch.** A group of corrections published together as one pull request on a
 branch named `corrections/<batch>`. Most merge themselves when checks pass; one
 that moves systems between pieces, or has 25 or more non-review changes, waits
@@ -27,6 +31,9 @@ page, then writes a PDF. Separate from Quick export. See `docs/TYPESETTING.md`.
 are vendored in `data/vespers/divinum-officium-vespers.json` and decide what is
 sung; NOH8 supplies the music.
 
+**Edition.** A published source unit within a source, such as one NOH book.
+It need not have PDF pages. NOH3's addenda are pagination segments of its edition.
+
 **EF / OF.** Extraordinary Form (the 1962 Roman calendar, the default) and
 Ordinary Form (the 1970 calendar with the 1974 *Graduale Romanum*). The site
 has a calendar for each. OF scope is in `docs/DECISIONS.md` (P6).
@@ -47,6 +54,10 @@ Proper has and each part's GregoBase id.
 
 **Kyriale.** The Ordinary of the Mass (Kyrie, Gloria, Sanctus, Agnus Dei, Ite)
 in its numbered settings (Missa IX…). NOH5.
+
+**Ledger.** The permanent, command-managed allocation record in
+`data/identities/ledger.json`: IDs, birth seeds, legacy locators and tombstones.
+Merge by union; never regenerate it or recycle an ID.
 
 **Lender (OF).** An NOH piece "borrowed" to serve an Ordinary Form chant: its
 section must set the same GregoBase chant id (`pipeline/ordinary_form.py`);
@@ -84,9 +95,15 @@ by `noh offset` into `data/derived-offsets.json`; hints and fixes are in
 **Polarity.** The reader's switch between normal and inverted (light-on-dark)
 scan images, kept in `localStorage` as `scan-polarity`. Must stay.
 
+**Provisional work.** A work inferred from a printed unit pending review.
+The same incipit or GregoBase ID is not evidence for merging two works.
+
 **Proper (parts).** The texts and music that change by day: Introit, Gradual,
 Alleluia or Tract, Offertory, Communion. A *Proper part* is one of these within
 a piece; `data/sections/*.yml` says where each starts.
+
+**Representation.** A scan, LilyPond source or MEI form of a setting, held
+as a thin reference to existing files and publication records.
 
 **Review queue.** `data/review-queue.json`: items `noh catalog` was unsure of,
 worked through in the admin screen or by `noh correct-batch`.
@@ -96,8 +113,17 @@ piece that prints only a rubric (for example "resumitur Missa Feriae
 praecedentis") borrows another day's music; see `data/rubrics-1962.yml`. On the
 site, rubric characters in chant stay red.
 
+**Setting.** One musical treatment of a work, such as an organ accompaniment.
+A lender and its borrowers can share the same setting.
+
 **Slicing.** Cutting a scanned page into one image per system. Done by
 `pipeline/`; images upload to R2 through the `publish` workflow.
+
+**Source.** A collection, such as Nova Organi Harmonia, with its provenance
+and licence reference; it contains editions.
+
+**Source item.** A printed unit in an edition, located by its legacy slug or
+section locator. One container can hold several works; a rubric may hold none.
 
 **System.** One line of music (usually voice staff plus organ staves) on a
 printed page. Referenced as `noh<N>/<PDF page>/<n>`; counted from 1 in words,
@@ -121,3 +147,6 @@ the actual evening office, including tomorrow's First Vespers.
 [jsrjenkins/vesperale](https://github.com/jsrjenkins/vesperale) Sunday table
 vendored as `data/vespers/vesperale-lineup.json`, used only to cross-check NOH8's
 tone labels.
+
+**Work.** The musical identity independent of a book, accompaniment or file.
+Phase 1 allocates provisional works per printed musical unit.

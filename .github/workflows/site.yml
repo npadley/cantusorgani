@@ -214,6 +214,10 @@ jobs:
         run: uv run noh ordinary-form --check
       - name: Hand corrections applied
         run: uv run noh apply-corrections --check
+      - name: Identity freshness and bindings
+        run: uv run noh identities check
+      - name: Identity migration replay
+        run: uv run python -m tools.check_identity_migration
       # The typeset sources pass the source check, and parts.yml is sound. Needs
       # no LilyPond; the job below runs the tests that do.
       - name: Typeset sources
@@ -355,7 +359,7 @@ jobs:
           path: web/dist/
           include-hidden-files: true
           if-no-files-found: error
-          retention-days: 1
+          retention-days: 30
 
   deploy:
     needs: [python, site, browser]
