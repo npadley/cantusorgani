@@ -1,8 +1,38 @@
 # Phase 1: source-independent identities
 
-Status: Draft, awaiting review
+Status: Draft, revised after review (2026-10-22)
 
-Date: 2026-10-22. Scope: about 2–3 weeks, before a second collection.
+Date: 2026-10-22. Scope: about 2–3 weeks with parallel cards, before a second collection.
+
+## Review changes
+
+Applied the [merged fixes](../reviews/2026-10-22-identities/merged-fixes.md).
+
+- D1: Defer canonical correction input and handles; keep read-only legacy resolution.
+- D2: Keep thin representation records; reserve assignments and narrow the refactors.
+- D3: Use measured build parity and conditional PDF checks, without raster comparison.
+- E1: Allocate only after replay; use ledger locators as the old inventory.
+- E2: Bind ledger entries to legacy section locators; require rebinds for structural changes.
+- E3: Use UUIDv5 only at bootstrap; the ledger then owns identity.
+- E4: Merge the sorted ledger by union and check; hash only source files in the report.
+- E5: Deliver M's parser/schema first and give every edited file one card owner.
+- E6: Specify public build defaults and pin the initial fixture to baseline data.
+- E7: Refresh after lapsed reviews; capture stale-MEI and address baselines first.
+- C1: Require a numbered-hymnal dry run without PDF pages or system refs.
+- C2: Resize cards and defer LilyPond/MEI records if M passes five days.
+- C3: Reserve reviewed work equality and add setting/edition rights fields.
+- C4: Require pilot item selection before a second-source import, not the dry run.
+- C5: Describe the guard as a tripwire and move PR #155 provenance to §15.
+- K1: Record PR #158's guard as built and card G as done.
+- K2: Check headers, redirects and Wrangler's generated Function routing.
+- K3: Check every writer after its final output and stage identity sidecars explicitly.
+- K4: Compare scan, typeset and MEI upload plans without uploading.
+- K5: Reject graph and address-registry content in dist and browser bundles.
+- K6: Retain release IDs, alias digest and parity evidence for rollback.
+- U1: Compare all source labels, borrowed captions and addendum page labels.
+- U2: Record one-to-many page identities and the limits of fragment redirects.
+- U3: Read print CSS diffs and test visible dates and credits for parity.
+- U4: Map future collection, book, edition, provenance and citation fields.
 
 ## 1. Decision and result
 
@@ -13,46 +43,24 @@ without treating a NOH slug as the identity of the music.
 
 This implements [P14–P16](../../DECISIONS.md#decided): keep Astro static,
 introduce source-independent identities, and follow platform option A.
-Those rows are currently on
-[the decided-options branch](https://github.com/npadley/cantusorgani/blob/claude/platform-options-decided/docs/DECISIONS.md#decided),
-in [PR #155](https://github.com/npadley/cantusorgani/pull/155), not this checkout.
-They were read with `git show origin/claude/platform-options-decided:docs/DECISIONS.md`.
-The Q1/Q2/Q7 status in this checkout does not supersede the maintainer's decision.
 
-The phase comes from the [platform report](../../reports/2026-10-23-platform-options.md),
-“What the evidence says about today” and Option A §§1, 4, 6, 7.
-The [content-model report](../../reports/2026-10-19-multiple-sources-and-language-direction.md)
-supplies the distinction between work, setting, edition and representation.
-P2's correction overlay, P3–P5's source and approval rules, and P8/P9's reading
-and export requirements remain in force.
-
-The unapproved redesign brief was read with
-`git show claude/redesign-brief-5bd60c:docs/redesign/brief.md`, §5 and “SEO and
-public dependencies”. Stay compatible with inline settings and additive URLs;
-do not implement its interface, route names, hubs or contribution placeholder.
-This spec does not approve a second book, accounts, ingestion or publication.
+The [platform report](../../reports/2026-10-23-platform-options.md), Option A,
+and [content-model report](../../reports/2026-10-19-multiple-sources-and-language-direction.md)
+supply the scope and work/setting/edition distinction. P2–P5 and P8/P9 still apply.
+The unapproved brief (`git show claude/redesign-brief-5bd60c:docs/redesign/brief.md`,
+§5) informs inline settings and additive URLs only. No redesign, new routes,
+second book, accounts, ingestion or publication is approved here.
 
 ### Required outcome
 
-- Every current NOH item and address has a stable, checked identity mapping.
-- Same inputs produce byte-identical generated outputs. Historical corrections
-  replay without rewriting their targets, `was`, provenance or review evidence.
-- `catalog.json` remains schema 3 and the site's derived compatibility view.
-  Its old IDs, slugs, field order, record order and bytes remain unchanged.
-- Existing source files remain authoritative. The new snapshot is derived;
-  there is no second editable catalogue and no catalogue database.
-- No R2 key, LilyPond source, MEI record, approval digest or published asset changes.
-- No new public route, canonical, anchor, search document or export choice.
-- A before/after build comparison and a complete old-address test prove this.
-- A separate small guard warns at 15,000 deploy files and fails at 19,000.
-
-### Approach chosen
-
-| Approach | Trade-off | Decision |
-|---|---|---|
-| Rename every old record and convert every writer at once | Fewer adapters later; risks corrections, approvals, exports and D1 together | Do not do this in Phase 1 |
-| Add stable IDs, a NOH adapter and a compatibility view | Keeps old writers and published contracts; introduces a small permanent mapping | Use this |
-| Add only collection labels | Cheap, but leaves musical identity tied to slugs and page boundaries | Insufficient for P15 |
+- Stable mappings for every NOH item/address; identical inputs give identical output.
+- Legacy corrections replay with targets, `was`, provenance and review evidence intact.
+- `catalog.json` stays schema 3, with unchanged IDs, slugs, ordering and bytes.
+- Existing sources remain authoritative; the graph is derived, not a second catalogue.
+- No R2 key, LilyPond source, MEI record, approval or published asset changes.
+- No new route, canonical, anchor, search document or export choice.
+- Matched builds and the complete old-address test prove parity.
+- Built guard #158 warns at 15,000 uploadable files and fails at 19,000.
 
 ## 2. Checked baseline
 
@@ -84,9 +92,8 @@ No pipeline regeneration, live D1 query, R2 check or build was run for this spec
 
 ## 3. What Phase 1 materialises
 
-Materialise sources/editions, source items, provisional works, settings,
-representations, assignment references and aliases. Keep the graph small and
-explicit. Its first purpose is reliable identity and round-trip compatibility.
+Materialise sources/editions, items, provisional works, settings, thin
+representations and aliases for identity and round-trip compatibility.
 
 | Concept | Materialise now | Reserve for the pilot or later |
 |---|---|---|
@@ -94,27 +101,25 @@ explicit. Its first purpose is reliable identity and round-trip compatibility.
 | Source | NOH collection metadata and seven edition-volume records | Admission, rights evidence workflow, contributors and other collections |
 | Source item | Each legacy Piece as a printed container or standalone item; child items for identified sections/movements and reviewed Vespers music | Arbitrary movement hierarchies and new import adapters |
 | Setting/accompaniment | One per independent printed musical unit; scans and transcriptions attach to it | Two accompaniments of one work and a repeated setting across editions |
-| Representation | Existing scan ranges, LilyPond files, MEI records and published manifest entries, with their existing status | New renderers, newly approved conversions, redistribution permissions for new books |
-| Assignment | Identity links over existing EF, OF and Vespers records | A new universal calendar engine or editing UI |
+| Representation | Existing scan ranges and thin references to LilyPond files, MEI records and manifests | New renderers, conversions and redistribution permissions |
+| Assignment | None | EF/OF/Vespers links with a per-part slot; no new calendar engine |
 | Alias | Old IDs, slugs, targets, routes and fragments mapped explicitly | New public work/source routes and redirects for actual future moves |
 
-A work is the musical/textual unit to which settings belong. It is not a date,
-book, PDF, public page or every occurrence of an incipit. Phase 1's works are
-provisional identities, not a claim to have identified every chant tradition.
-External IDs such as GregoBase 132 are references with evidence, never primary
-keys and never an instruction to combine records.
+A work is the musical/textual unit to which settings belong, not a date, book
+or page. These identities are provisional. External IDs such as GregoBase 132
+are evidence-bearing references, never primary keys or instructions to merge.
 
-Do not invent a work for a rubric-only entry. Keep its source item and existing
-reference edges. An undivided compound item gets `classification: unresolved`
-and no work until its units are known. It remains readable and exportable through
-its container scan representation. Migration coverage includes unresolved items;
-it does not force guessed musical divisions to reach 100%.
+Rubrics get source items, not invented works. Undivided compounds remain
+`classification: unresolved`, with container scans for reading/export. Coverage
+includes unresolved items; never guess musical divisions to reach 100%.
 
 Known borrowing points to the lender's item/setting. It does not mint another
 accompaniment. Explicit repeated use of the same printed item may share its
 setting. Separate printings remain separate provisional works/settings unless
 an already reviewed relationship establishes the exact same printed object.
 Neither matching incipits nor matching GregoBase IDs merges works (P15).
+A setting's null rights reference means unknown, never a licence. It hides no
+existing NOH credit. Phase 1 grants no new publication or export permission.
 
 ## 4. Files and schema
 
@@ -128,37 +133,44 @@ Schema validation rejects unknown fields and dangling references.
 | Path | Ownership and purpose |
 |---|---|
 | `data/identities/sources.yml` | New reviewed source: collection/edition metadata, display labels and adapter policy; editable by hand |
-| `data/identities/ledger.json` | New command-managed source: permanent IDs, birth seeds, active locators and tombstones; never regenerated from current labels |
+| `data/identities/ledger.json` | New command-managed source: permanent IDs, birth seeds, legacy locators and tombstones; never regenerated |
 | `data/identities/aliases.yml` | New reviewed source: exceptional identity aliases and their evidence; editable by hand; existing HTTP rules are read from `_redirects` |
 | `data/identities/legacy-addresses.json` | Command-captured, reviewed baseline source: routes/fragments from old dist and sitemap, capture hashes and origins |
-| `data/identities/snapshot.json` | Generated graph: works, items, settings, representations, assignment links and relationship evidence |
+| `data/identities/snapshot.json` | Generated graph: works, items, settings, thin representations and relationship evidence |
 | `data/identities/aliases.json` | Generated lookup tables for IDs, targets and addresses; not a public endpoint |
-| `data/identities/migration.json` | Generated input hashes, entity/reference counts and classified unresolved references; no timestamps |
+| `data/identities/migration.json` | Generated source-file hashes, entity/reference counts and unresolved references; no timestamps |
 | `data/schema/identities.json` | Schema for the source and output records; tests validate both |
 
-Implementation updates AGENTS.md's source/generated lists and OPERATIONS.md's
-regeneration order. This spec-only change edits neither. Existing index, section,
-Vespers, OF and hymn YAML remains in place. Do not mass-rewrite those files to
-IDs, and never patch generated catalogue or typeset files by hand.
+I updates AGENTS.md's ownership lists and OPERATIONS' regeneration order.
+Existing index/section/Vespers/OF/hymn YAML stays authoritative; no mass ID
+rewrite or hand edit to generated files.
 
 ### Sources and editions (`sources.yml`)
 
 Top level: `schema_version: int`, `sources: Source[]`, `editions: Edition[]`.
-Every edition is one addressable volume of a published source in Phase 1.
-This avoids a redundant volume entity while allowing an edition group later.
+An edition is an addressable published source unit; it need not be a volume.
+NOH uses seven volume records. For a future source identity block: collection
+maps to Source; book maps to Edition; edition details map to Edition's title and
+publication note; provenance maps to Edition's provenance reference and
+SourceItem.origin; citation combines Edition.citation_label and SourceItem.locator.
+A later edition group can add a separate edition tier without renaming IDs.
 
 | Record | Required fields and types |
 |---|---|
-| Source | `id: src_ID`, `title: string`, `short_title: string`, `licence_reference: string|null` |
-| Edition | `id: edn_ID`, `source_id: src_ID`, `legacy_volume: string|null`, `title: string`, `part: string|null`, `citation_label: string`, `short_label: string`, `sort_order: int`, `adapter: string`, `scan_registry_key: string|null` |
-| Edition, continued | `publication_note: string|null`, `provenance_reference: string|null`, `rights_reference: string|null`, `policy: EditionPolicy` |
-| EditionPolicy | `show_related_hymns: bool`, `borrow_whole_reference: bool`, `related_hymns_heading: string|null`, `reference_group: string|null` |
+| Source | `id: src_ID`, `title: string`, `short_title: string`, `licence_reference: string\|null` |
+| Edition | `id: edn_ID`, `source_id: src_ID`, `legacy_volume: string\|null`, `title: string`, `part: string\|null`, `citation_label: string`, `short_label: string`, `sort_order: int`, `adapter: string`, `scan_registry_key: string\|null` |
+| Edition, continued | `publication_note: string\|null`, `provenance_reference: string\|null`, `rights_reference: string\|null`, `rights_state: unknown\|cleared\|withdrawn`, `policy: EditionPolicy` |
+| EditionPolicy | `show_related_hymns: bool`, `borrow_whole_reference: bool`, `related_hymns_heading: string\|null`, `reference_group: string\|null` |
 
 For NOH1, `citation_label` is exactly `Nova Organi Harmonia, part I`.
 `scan_registry_key: noh1` points to `volumes.yml`, retaining its PDF checksum,
 page-map configuration and allowlist. Do not copy those into a second authority.
 NOH3's addenda remain pagination segments of its edition; retain `regina` and
-`pius-x`, their labels and dates. Do not claim all bound material dates to 1942.
+`pius-x`, their labels and dates. New metadata must not date all bound material
+to 1942; visible dates and credits, including “1942”, remain unchanged.
+NOH editions use `rights_state: cleared` with `data/LICENSES.md` as evidence
+for the registered public-domain scans. This does not clear third-party chant
+or contributed settings; their existing restrictions still apply.
 
 Policy moves existing branching out of shared readers: NOH8 shows related hymns;
 NOH7 does not substitute a whole cited litany for an antiphon. Exact current
@@ -168,22 +180,21 @@ compatibility policy, not evidence that other sources must follow NOH's rules.
 ### Graph (`snapshot.json`)
 
 Top level: `schema_version`, `sources`, `editions`, `works`, `source_items`,
-`settings`, `representations`, `assignments`, `relations`. The first two are
-validated projections of `sources.yml`. IDs and associations come from the
-ledger; descriptive values and capabilities come from the current inputs.
+`settings`, `representations`, `relations`. The first two are validated
+projections of `sources.yml`. IDs and associations come from the ledger;
+descriptive values come from current inputs. Generate no assignments.
 
 | Record | Required fields and types |
 |---|---|
-| Work | `id: wrk_ID`, `title: string|null`, `language: string|null`, `kind: string`, `identity_status: provisional`, `external_refs: ExternalRef[]` |
-| SourceItem | `id: itm_ID`, `edition_id: edn_ID`, `parent_id: itm_ID|null`, `classification: container|musical-unit|reference|unresolved`, `title: string|null`, `locator: Locator`, `setting_ids: set_ID[]`, `origin: Origin` |
-| Locator | `pagination: string|null`, `printed_pages: [int,int]|null`, `pdf_pages: [int,int]|null`, `system_refs: string[]`, `item_number: string|null` |
-| Setting | `id: set_ID`, `work_id: wrk_ID`, `kind: organ-accompaniment|unaccompanied|unspecified`, `source_item_ids: itm_ID[]`, `attribution: string|null`, `identity_status: provisional` |
-| Representation | `id: rep_ID`, `kind: scan|lilypond|mei`, `setting_id: set_ID|null`, `source_item_ids: itm_ID[]`, `locator: RepresentationLocator`, `state: string`, `capabilities: Capabilities`, `evidence: Origin[]` |
-| Capabilities | `read: bool`, `quick: bool`, `customize_fixed: bool`, `customize_reflow: bool` |
-| Assignment | `id: asg_ID`, `calendar: ef1962|of1970|vespers1960`, `key: string`, `slot: string|null`, `variant: string`, `years: string[]`, `seasons: string[]`, `source_item_ids: itm_ID[]`, `setting_ids: set_ID[]`, `origin: Origin` |
-| Relation | `from_id: ID`, `to_id: ID`, `kind: borrows|related-hymn|chant-reference`, `status: string`, `evidence: Origin[]` |
+| Work | `id: wrk_ID`, `title: string\|null`, `language: string\|null`, `kind: string`, `identity_status: provisional`, `external_refs: ExternalRef[]` |
+| SourceItem | `id: itm_ID`, `edition_id: edn_ID`, `parent_id: itm_ID\|null`, `classification: container\|musical-unit\|reference\|unresolved`, `title: string\|null`, `locator: Locator`, `setting_ids: set_ID[]`, `origin: Origin` |
+| Locator | `pagination: string\|null`, `printed_pages: [int,int]\|null`, optional `pdf_pages: [int,int]\|null` and `system_refs: string[]`, `item_number: string\|null` |
+| Setting | `id: set_ID`, `work_id: wrk_ID`, `kind: organ-accompaniment\|unaccompanied\|unspecified`, `source_item_ids: itm_ID[]`, `attribution: string\|null`, `rights_reference: string\|null`, `identity_status: provisional` |
+| Representation | `id: rep_ID`, `kind: scan\|lilypond\|mei`, `setting_id: set_ID\|null`, `source_item_ids: itm_ID[]`, `locator: RepresentationLocator`, `evidence: Origin[]` |
+| Assignment (reserved; none generated) | `id: asg_ID`, `calendar: ef1962\|of1970\|vespers1960`, `key: string`, `slot: string`, `variant: string`, `years: string[]`, `seasons: string[]`, `source_item_ids: itm_ID[]`, `setting_ids: set_ID[]`, `origin: Origin` |
+| Relation | `from_id: ID`, `to_id: ID`, `kind: borrows\|related-hymn\|candidate-same-work\|same-work`, `status: string`, `evidence: Origin[]` |
 | ExternalRef | `authority: string`, `value: string`, `status: string`, `evidence: Origin[]` |
-| Origin | `path: string`, `selector: string`, `legacy_target: string|null` |
+| Origin | `path: string`, `selector: string`, `legacy_target: string\|null` |
 
 `Origin.selector` is a documented JSON Pointer for JSON or the same pointer over
 parsed YAML. It is evidence/location, not identity. Arrays of origins preserve
@@ -201,65 +212,50 @@ all evidence, including uncertainty and source-review notes.
   approval and boundary data; reference them instead of copying or changing them.
 
 A representation ID identifies a stable representation slot, not its bytes.
-Asset hashes still identify immutable revisions. Unmatched LilyPond sources and
-failed/revoked/unpublished MEI records get representation records with null
-setting and false publication capabilities where appropriate; do not drop their
-review history or create an invented match. A known matched but unpublished
-record may have a setting and still have no public reflow capability.
+Asset hashes still identify immutable revisions. These are thin references:
+read publication and review state from existing records/manifests, not a copied
+Capabilities block. Unmatched LilyPond sources and failed/revoked/unpublished
+MEI records retain null setting links where appropriate; invent no match.
+An approved record alone never enables reflow: the published MEI manifest must
+name the same legacy target and render hash. Existing fallback rules still govern.
 
-Capabilities mirror today's manifests and fallback rules. An approved record
-alone never enables reflow: the published MEI manifest must also name the same
-target and render hash. This graph grants no new publication permission.
+Generate only `borrows` (OF lenders and NOH7 borrowing) and `related-hymn`
+relations. External chant references stay on `ExternalRef`. Reserve
+`candidate-same-work` and `same-work` for the pilot, with required status and
+nonempty evidence; generate neither. They never merge works automatically.
 
-Assignments are a sidecar over existing calendar data, not another source of
-liturgy. EF `days` and `linked_days` retain their distinction. OF retains its
-slot, variant, cycles, seasons, missing states and exact lender. Vespers retains
-office keys, I/II distinction, repeats, notes and tone-bank provenance. A date
-selects an assignment; it does not mint another work or another source item.
+Assignments are reserved, with no `asg_` allocation or generated array.
+Their future `slot` is the part key for EF/OF/Vespers: for EF, `introit`,
+`gradual`, etc. match the child target; OF uses its existing slot; Vespers uses
+keys such as `antiphon-1`. This anchors one chosen setting per part while
+allowing several `setting_ids`. Future projection must retain EF `days` versus
+`linked_days`, OF variants/cycles/seasons/missing lenders, and Vespers offices,
+I/II, repeats and tone-bank provenance. Existing calendars remain authoritative.
 
 ### Worked example
 
-The real `dominica-i-adventus` record has ID `noh1-dominica-i-adventus`,
-volume `noh1`, printed pp. 3–7 and PDF pp. 29–33. It becomes a container item.
-Its Introit becomes a child item, work and setting; its eight systems run from
-`noh1/0029/000` up to, but excluding, the Gradual at `noh1/0030/004`.
+`noh1-dominica-i-adventus` (printed pp. 3–7, PDF pp. 29–33) becomes a
+container. Its Introit, `part:dominica-i-adventus/introit`, gets an item, work,
+setting and scan representation. Bootstrap produces
+`itm_614a61a9-f6a0-50aa-9d7d-6e4d02d6e7b8` for that child; these IDs are not
+in today's data. Its title is “Ad te levavi”, with GregoBase 132 as a reference,
+not proof of equality. Eight systems run from `noh1/0029/000` to, excluding,
+the Gradual at `noh1/0030/004`. The first stem stays
+`systems/noh1/0029/000-3160d54d7980`; `/piece/dominica-i-adventus/` stays put.
 
-These proposed IDs are calculated by §5's algorithm, not present in today's data:
-
-```yaml
-edition: edn_f1eedd3e-bae0-51ec-8ac2-9fffe817d495  # noh1
-container: itm_584f574c-028e-5fbf-a9d3-57970be04d12
-introit:
-  item: itm_614a61a9-f6a0-50aa-9d7d-6e4d02d6e7b8
-  work: wrk_72f0b834-723a-5876-aaaf-7a6878bc6287
-  setting: set_14167a29-53a2-5eec-a03b-ed7bb4b22669
-  scan: rep_04c1bd82-9d46-564e-8179-bb92a78c7178
-  title: Ad te levavi
-  external_ref: {authority: gregobase, value: '132', status: label}
-```
-
-The example's external-ref status preserves the section's placement evidence;
-it does not certify a new cross-source match. The first scan stem stays
-`systems/noh1/0029/000-3160d54d7980`. The public address stays
-`/piece/dominica-i-adventus/`; no `/work/` route appears.
-
-For Missa IX's Kyrie, the current target is
-`movement:ordinarium-missae-ix/kyrie`. Its LilyPond file is
-`data/typeset/src/vol-5/missa-ix/kyrie_IX.ly`, and the MEI record is
-`data/typeset/mei/records/kyrie_IX.json`. Its render hash is
-`640b269879f24af40180e6c68c5dffbd`, artifact SHA-256 is
-`14583bb6e9fe8bc6c9d26018f442e6e2ab70d8455400a65ea78e0c15a3b8329c`,
-and approval inputs digest is
-`350810004bbf58498689d450f15b03240fee4fc89d210f4b16099e8bdeae3ab7`.
-Attach IDs in the sidecar; leave every byte of that record unchanged.
+Missa IX's `movement:ordinarium-missae-ix/kyrie` links to
+`data/typeset/src/vol-5/missa-ix/kyrie_IX.ly` and
+`data/typeset/mei/records/kyrie_IX.json`. Attach IDs only in the sidecar;
+compare the entire existing record, including hashes and approval digest.
 
 ## 5. IDs and the permanent ledger
 
 IDs are opaque UUIDs with type prefixes: `src_`, `edn_`, `itm_`, `wrk_`,
-`set_`, `rep_`, `asg_`, `tgt_`. Titles, slugs, page numbers and content hashes
-are not identities. Consumers must not decode an ID or construct one themselves.
+`set_`, `rep_`. Reserve `asg_` and `tgt_` for the pilot; allocate neither now.
+Titles, slugs, page numbers and content hashes are not identities. Consumers
+must not decode an ID or construct one themselves.
 
-For deterministic initial allocation, use UUIDv5:
+For deterministic `bootstrap` only, use UUIDv5:
 
 ```python
 namespace = uuid.uuid5(uuid.NAMESPACE_URL, 'https://cantusorgani.org/identity/v1')
@@ -267,9 +263,9 @@ namespace = uuid.uuid5(uuid.NAMESPACE_URL, 'https://cantusorgani.org/identity/v1
 ident = prefix + '_' + str(uuid.uuid5(namespace, prefix + '\0' + birth_seed))
 ```
 
-The seed is a frozen import key, used only at allocation. It may name a legacy
-source record without making the resulting work identity source-dependent:
-changing that source, title or location never remints the ID.
+After bootstrap, the ledger is the sole authority. `allocate` uses UUIDv4 once
+for each new entry and persists it; builds never remint from seeds. A birth seed
+records the original import key. A source, title or location change retains IDs.
 
 | Allocation | Birth seed |
 |---|---|
@@ -280,46 +276,52 @@ changing that source, title or location never remints the ID.
 | Scan representation | `scan:<item birth seed>`; the example uses `scan:part:dominica-i-adventus/introit` |
 | LilyPond representation | `lilypond:<source path relative to data/typeset/src>` |
 | MEI representation | `mei:<record path relative to data/typeset/mei/records>` |
-| Assignment | Calendar + source key + slot + variant + cycle/season discriminator, not generated date order |
-| Correction target handle | Exact legacy target, e.g. `piece:dominica-i-adventus` |
 
 Ledger top level: `schema_version`, `namespace`, `entries: LedgerEntry[]`.
-Each entry has `id`, `kind`, `birth_seed`, `locator: Origin|null`,
-`state: active|retired`, and `legacy_keys: string[]`. Typed references such as
-the work for an item are recorded in `links: {role: string, id: ID}[]`.
-Separate target handles retain correction semantics even when several targets
-refer to one musical unit: `pairing:...` and `part:...` are not interchangeable.
+Each entry has `id`, `kind`, `birth_seed`, `state: active|retired`,
+`legacy_keys: string[]`, `links: {role: string, id: ID}[]`, and a nullable
+`locator: {slug, kind, key|null, n|null, variant|null}` in legacy spelling.
+Non-section entries may have a null locator and use their recorded legacy keys.
+Section entries also retain their bound `row_ordinal: int`; it is a structural guard,
+not identity. JSON Pointers belong only in generated Origin evidence.
 
-`noh identities allocate --adapter noh` proposes missing entries in stable
-seed order and writes them only after validation. Read-only build/check jobs
-never allocate. The first migration uses `noh identities bootstrap --adapter noh`;
-it refuses a nonempty ledger. Bootstrap twice in separate empty directories must
-produce identical ledgers. Subsequent replay takes the ledger as an input.
+The ledger is append-only in allocations and change history: never delete an
+entry or tombstone. Sort entries by ID, one compact JSON entry per line inside
+the JSON envelope. Only `rebind` changes a bound locator/ordinal; it appends
+old/new values and a reason to `changes`. Retirement also retains its history.
 
-Never reuse retired IDs or aliases. Duplicate seeds, an ID collision, ambiguous
-selectors or two incompatible owners of one legacy key fail with both origins.
-Do not resolve collisions by iteration order, random suffixes or fuzzy matching.
-A genuine UUID collision needs a reviewed explicit replacement seed recorded in
-the ledger; generation may not silently invent it.
+`noh identities bootstrap --adapter noh` refuses a nonempty ledger. Two empty
+scratch-directory runs must match. Later `allocate --adapter noh` proposes
+missing entries after replay and writes them only after validation. Read-only
+build/check jobs never allocate. Duplicate seeds, collisions, ambiguous selectors
+or incompatible owners fail with both origins; never guess or silently suffix.
 
-Renaming a slug or moving a section changes its locator through
-`noh identities rebind --id <ID> --to <locator> --reason <text>`; it retains the
-birth seed and old aliases. Record rebindings in an append-only `changes` array
-with old/new locators and reason. Splits/joins require explicit reviewed lineage;
-Phase 1 supplies no automatic merge command.
+Allocation is a post-replay step. `correct`/`correct-batch` change the overlay;
+`apply-corrections` replays it and writes the existing derived outputs. None
+writes the ledger or reads the snapshot during replay, including `_outputs`.
+After replay finishes, the command orchestrator calls `identities allocate`
+against the effective catalogue, then build/check. Source writes by correction
+commands remain limited to the overlay; the separate allocator owns the ledger.
 
-Numbered sections need special care. `gradual:2` must not silently switch work
-when a row is inserted before it. Compare the old and new ordered section
-inventories; structural insert/delete/key changes require reviewed rebindings
-or allocations. Title, chant, page and start-system corrections alone retain
-IDs. Keep the legacy target pinned to its original item; if an old spelling
-would now mean two items, refuse that change until an explicit compatibility
-choice is reviewed. Prefer existing named `key` fields for future insertions.
-Existing admin section editing must keep working: a writer may explicitly call
-allocation for a new unambiguous keyed row in an approved list, including in
-`corrections-batch`. Save overlay and ledger changes atomically, with their diff
-in the same PR. Existing rows retain IDs. Ambiguous renumbering needs a reviewed
-rebind before publication; never silently reassign the earlier row's identity.
+The “old” section inventory is the ledger's per-entry legacy locator and bound
+ordinal, not git history or a snapshot pointer. Check fails if any active legacy
+key resolves to a different bound row or to none. Insert/delete/reorder/key changes
+require reviewed allocations or `noh identities rebind --id <ID> --to <locator>
+--reason <text>`; an `n`→`key` change is a rebind. Title, chant, page and start
+corrections alone retain IDs. Never let `gradual:2` silently change musical unit.
+
+Keep old spellings as historical aliases with evidence; do not keep a conflicting
+old spelling active. If legacy positional replay would now address another row,
+block publication until an explicit compatibility choice is reviewed. Existing
+admin list editing still works for unambiguous new keyed rows: replay first,
+allocate afterwards, include overlay, ledger and sidecars in the same PR.
+Ambiguous renumbering stays on hold. There is no automatic split/join command.
+
+Merge concurrent ledgers by union of allocations and change histories. Take
+main's generated sidecars, regenerate after the union, then run `identities check`.
+Conflicting changes to the same ID or legacy key require review; never choose
+one silently. Card I documents this exception in OPERATIONS' merging section;
+“take main and regenerate” cannot recover permanent ledger allocations.
 
 ## 6. Deterministic migration
 
@@ -333,14 +335,13 @@ those files + ledger + source metadata -> identity snapshot and alias indexes
 existing compatibility files + small identity lookups -> unchanged Astro reader
 ```
 
-Do not reconstruct the legacy catalogue from a lossy work graph in this phase.
-`catalog.json` is retained as the derived NOH compatibility view. The graph is
-derived beside it after overlay replay. The adapter also exposes a lossless
-`legacy_catalog()` boundary returning the existing schema-3 records; all callers
-that need legacy spelling use it. No new IDs enter `Piece.id` or PDF payloads.
+The graph follows overlay replay, beside `catalog.json`. A lossless
+`legacy_catalog()` boundary returns existing schema-3 records; do not reconstruct
+them from the graph. No new IDs enter `Piece.id` or PDF payloads.
 
-The ledger and target resolver must load without importing generated snapshot
-data: corrections run before that snapshot exists. Avoid a replay cycle.
+Replay never consults the ledger or snapshot. The read-only target resolver
+loads the ledger and generated target projection independently of snapshot data;
+it is used by diagnostics and tests, not correction ingress.
 
 ### Import rules
 
@@ -359,10 +360,10 @@ data: corrections run before that snapshot exists. Avoid a replay cycle.
 5. Attach settings, representations and known lender relationships. Standalone
    musical pieces receive one unit; unclassified compounds retain container
    scans. Embedded hymns are resolved by their reviewed refs, not title equality.
-6. Resolve every relationship listed below through the ledger. Build assignment
-   and external-reference sidecars while preserving the original values/evidence.
+6. Resolve existing targets and the two supported relation kinds through the
+   ledger. Retain calendar values as evidence; generate no assignment entities.
 7. Generate aliases and the migration report. Check completeness, uniqueness,
-   no unexpected publication capability and byte equality of protected outputs.
+   no change in publication eligibility and byte equality of protected outputs.
 
 | Input/reference family | Required treatment |
 |---|---|
@@ -389,7 +390,7 @@ Add `noh identities build [--out <directory>]` and `noh identities check`.
 fails on unallocated records. `check` writes nothing: recompute in memory, compare
 bytes, verify all edges, ledger invariants and protected-file hashes.
 
-New JSON serialization: UTF-8, LF, two-space indent, sorted object keys,
+Generated JSON serialization: UTF-8, LF, two-space indent, sorted object keys,
 `ensure_ascii=False`, no NaN, one trailing newline. Sort unordered records by ID;
 retain arrays for music, sources, corrections and priorities in source order.
 No wall clock, absolute path, machine locale, random sample or filesystem order.
@@ -397,8 +398,8 @@ Do not impose this new serialization on existing generated files.
 
 The report records `adapter_version`, `input_sha256` by relative path,
 entity counts, alias counts and unresolved entries with reasons. Hash source
-inputs only, excluding the generated report and itself; include code versions
-used by the adapter. Put any run timings in CI artifacts, not tracked JSON.
+files only: no catalogues, manifests, other generated files or self-hash. Include
+code versions used by the adapter. Put any run timings in CI artifacts, not tracked JSON.
 
 `tools/check_identity_migration.py` replays twice into independent temporary
 directories, with different hash seeds/locales and identical pinned inputs.
@@ -406,81 +407,58 @@ It compares bytes and source-file hashes, verifies a second run changes nothing,
 and checks historical target/field resolution against current legacy replay.
 It must also perform bootstrap twice on the pinned initial fixture, then verify
 the checked-in ledger keeps every allocated ID across normal subsequent edits.
+“Pinned initial fixture” means `data/` at the recorded baseline commit.
 
-Add identity generation after final legacy outputs in `scripts/regenerate.sh`.
-Keep the existing two overlay passes and conditional Vespers rebuild. Refresh
-the sidecars on `noh correct`, `apply-corrections`, `catalog` and `vespers-lineup`
-where their outputs change; use one orchestration helper, not recursive commands.
-Check freshness in CI after existing corrections/OF checks. Automated catalogue
-writers must include generated identities in their PRs.
+### Writer/check matrix
+
+Use one post-write orchestration helper, outside replay. Allocation is explicit
+for approved new records; build/check never invents IDs. In read-only checks,
+missing allocations fail. Refresh means allocate when authorized, build, check.
+
+| Writer | Refresh/check point |
+|---|---|
+| `scripts/regenerate.sh` | After its last write, step 8 `corrections --lapsed`; keep both overlay passes and conditional Vespers rebuild |
+| `correct`, `correct-batch`, `apply-corrections`, `catalog`, `vespers-lineup` | After each command's final legacy output, via the outer orchestrator |
+| OF, hymn, typeset manifest/review and direct MEI record/manifest updates | Refresh after their final output; CI checks these inputs even without catalogue changes |
+| `corrections-batch.yml` | After typeset manifest **and** OF regeneration; stage ledger and all three generated sidecars explicitly with the existing file list |
+| `catalog-rebuild.yml`, `publish.yml` | After OF generation and before committing; include all identity changes |
+| `mei-conversion.yml`, `typeset-preview.yml` | Exempt: artifact-only workflows, no committed catalogue/identity writes; retain renderer/uploader permission separation |
+| CI | Check freshness after corrections/OF checks, including MEI record/manifest paths |
+
+No dependency-cache key change is needed. Any cached parity output must key on
+both commits, identity inputs, public configuration and any measured clock freeze.
 
 ## 7. Corrections, admin and D1
 
-Canonical input form: `target:<tgt_ID>`. It names one correction facet with a
-fixed legacy kind, not a work globally. For example:
+Phase 1 keeps legacy correction input and storage. No `target:tgt_…` input,
+canonical handle allocation, Worker change, admin ingress normalization or D1
+migration. Only source-neutral ref validation and the range parser change (§9).
+Replay keeps existing targets, `was`, review fingerprints and duplicate rules.
 
-```text
-piece:dominica-i-adventus
-target:tgt_507fd380-a704-5e9d-9d8a-e6c4dd9052e3
-```
+`noh identities resolve <legacy target>` is read-only and returns
+`{kind, entity_id, legacy_target, state}` from the generated target table.
+Kinds retain their correction facet: `part:...` and `pairing:...` may share an
+item but are not interchangeable. Unknown, ambiguous or retired active requests
+fail with evidence. `noh where --ids` adds graph IDs and legacy targets; normal
+`where` output stays unchanged. Replay tests compare this lookup to legacy
+resolution; replay itself does not depend on it.
 
-Both resolve to the same piece-metadata slot. A work's other settings are never
-changed by correcting this source item. `sections:<slug>`, `part:...`,
-`pairing:...`, `vespers:...`, `review:...` and `typeset:<file>` receive their own
-handles. Movement identifiers used as typeset-match values are also mapped;
-they do not become editable correction kinds accidentally.
+### Deferred: canonical input
 
-Phase 1 accepts canonical input but **persists the existing legacy form** for
-NOH. Resolve canonical handle -> facet -> current legacy target before validation,
-duplicate checks, reading `was`, fingerprinting, saving or dispatching a batch.
-This is deliberate compatibility storage, not a mass retargeting of history.
-Unknown/retired/ambiguous handles fail; a resolver never guesses from a title.
+The pilot must decide whether editors need `target:tgt_…`. If added, normalize
+before validation, `was`, dedupe, fingerprints and persistence at every boundary:
+CLI/batch, report/edit forms, API, typeset-match `corrections.proposed`, review,
+skip/unskip and audit details. Check target/`pieceId` agreement **before** the
+Worker discards explicit piece targets in favour of NULL. Preserve issue `seen`,
+legacy draft/snapshot `file`, preview hashes and numeric resolution/batch links.
+Migrations 0004/0006 dedupe legacy targets and issue hashes; 0007's snapshot
+trigger expects `typeset:<file>`. Endpoint and mixed-version tests must cover all
+of these. Do not rewrite stored history or add a schema migration by assumption.
 
-| Entry point | Change |
-|---|---|
-| `noh correct`, `correct-batch` | Accept either form; resolve before kind/field rules; preserve all-or-nothing batches and hold rules |
-| `noh where` | Keep existing output; add an explicit `--ids` option showing canonical handles and graph IDs |
-| Overlay replay | Resolve old forms through the ledger; feed unchanged legacy entries to the current range -> sections -> field replay stages |
-| Typeset-match value | Accept a canonical facet only if it denotes an existing eligible piece/part/movement; serialize the current legacy value |
-| Admin API and forms | Accept canonical deep-link/input targets; continue emitting existing Report/Edit links and storing legacy targets |
-| Corrections Worker | Accept known canonical reader targets, normalize before `parseCorrection` and insert; retain its stricter reader field set |
-
-Use one generated target-alias table with cross-language contract tests. Python,
-Pages Functions and Worker consume it at build/deploy time. Do not add a fetch
-to the reader's page load, a public identity endpoint or a D1 catalogue lookup.
-Client-side correction forms may bundle only the target lookup needed to resolve
-canonical query input; `/corrections/targets.json` stays byte-identical.
-
-Canonical input must agree with the supplied legacy `pieceId`; do not silently
-correct a mismatched pair. Preserve the `typeset` sentinel, issue category and
-`seen` drawing hash. Normalize canonical `typeset` inputs before the existing
-source-snapshot trigger sees them. Deduplication must treat old and new input
-forms as the same target, including the `seen` distinction for music issues.
-
-The Worker is deployed separately from Pages. Old forms remain emitted, so old
-Worker + new Pages and new Worker + old Pages both work. A new canonical API
-client is supported only after both accept it. A stale alias table returns an
-explicit unknown-target error; it must not insert an unresolved canonical string.
-Document deployment ordering; do not silently change the Worker deployment flow.
-
-### No D1 migration in this phase
-
-Keep `corrections.piece_id`, nullable `target`, `seen`, `resolved_by`,
-`duplicate_of`, batch fields and audit records as they are. Preserve
-`review_skips.target`, typeset draft/snapshot file paths and preview records.
-Migration 0004 deduplicates `COALESCE(target, 'piece:' || piece_id)`; 0006 adds
-the drawing hash for issues; 0007's trigger expects `typeset:<file>`.
-Normalizing at ingress preserves all three without rewriting stored rows.
-
-Test with a local SQLite/D1 fixture made by applying migrations 0001–0008,
-including pending, approved, queued, accepted, rejected and duplicate rows,
-NULL targets, skips and frozen typeset source snapshots. No production data or
-private notes need to be exported for this test.
-
-If implementation proves a database change necessary, stop that card and amend
-the spec. It must be a new numbered migration plus matching `rollback/*_down.sql`,
-with local forward/backward tests and maintainer-approved remote application.
-Never edit migrations 0001–0008 or hide a migration in the model PR.
+That pilot must define alias distribution and Worker/Pages deployment order
+before enabling canonical clients. Unknown aliases must fail, not enter storage.
+No page, sitemap, `llms.txt` or Report link emits a `tgt_` URL; correction forms
+stay noindex with query-free canonicals. None of this is a Phase 1 build card.
 
 ## 8. Alias and address registry
 
@@ -494,12 +472,17 @@ Generated `aliases.json` has:
 |---|---|
 | `legacy_ids` | Full `<volume>-<slug>` -> top-level item ID |
 | `legacy_slugs` | Exact slug -> top-level item ID; globally unique for NOH |
-| `targets` | Legacy target and canonical handle -> `{target_id, kind, entity_id, legacy_target, state}` |
-| `addresses` | `{path, fragment|null}` -> `{destination_path, destination_fragment|null, mechanism, entity_ids}` |
+| `targets` | Legacy target -> `{kind, entity_id, legacy_target, state}`; no handles |
+| `addresses` | `{path, fragment\|null}` -> `{destination_path, destination_fragment\|null, mechanism, entity_ids}` |
 | `redirects` | Ordered `{from, to, status}` for existing `_redirects` rules only |
 
 `mechanism` is `identity`, `pages-rule` or `astro-refresh`; keep the existing
 mechanism. Address rows may have empty `entity_ids` for utilities or navigation.
+One `/piece/<slug>/` container can map to several works; `entity_ids` records
+those works and the container item for a future IA. Each child anchor, such as
+`#introit` or `#gradual-2`, also maps to its child `itm_` ID. Phase 1 chooses no
+future public slug. A later move needs stable anchors or client-side fragment
+handling: a server cannot redirect on a fragment. Slugs never define identity.
 Import HTTP rules from `web/public/_redirects`; do not create a second editable
 copy. Identity generation checks that the address registry agrees with them.
 Query strings are state, not identity. Preserve query behaviour and never put
@@ -517,11 +500,8 @@ do not pretend the old local build has known commit provenance. Include:
 - Explicit bookmarked query contracts: day `date`, OF cycle/season and transfer
   parameters, correction targets/`seen`, and legacy `piece`/`field` links.
 
-Examples: `/piece/dominica-i-adventus/`, `/day/tempora/Adv1-0/`,
-`/kyriale/ix/#kyrie`, `/piece/ordinarium-missae-ix/`,
-`/ordinary-form/advent-1/`, and `/vespers/2025-01-01/`.
-Include every captured I Vespers `/vespers/<date>/i/` route and About anchors.
-The inventory is not limited to these examples or to today's navigation links.
+Include day, piece, Kyriale, OF and dated Vespers routes, especially
+`/vespers/<date>/i/`, and About anchors; do not limit capture to navigation links.
 
 `tools/check_legacy_addresses.py` resolves every captured address against the
 candidate dist: apply the existing Pages rule, follow refresh HTML, then require
@@ -541,8 +521,9 @@ join the wrapped lines with spaces.
 Do not count an Astro refresh file as a `_redirects` rule, but count it as a
 deploy file. Cloudflare allows 2,000 static and 100 dynamic rules, and does not
 apply `_redirects` to Function responses. A future move must fit these budgets
-or receive a separately reviewed redirect design. No Bulk Redirects or alias
-Function is needed here. See [Cloudflare redirects](https://developers.cloudflare.com/pages/configuration/redirects/).
+or receive a separately reviewed redirect design. About 576 piece rules would
+fit below the 1,500 warning for a later whole-piece move; fragment handling is
+a separate problem. No Bulk Redirects or alias Function is needed here. See [Cloudflare redirects](https://developers.cloudflare.com/pages/configuration/redirects/).
 
 ## 9. Remove shared one-book assumptions
 
@@ -553,17 +534,17 @@ never added to production data or routes.
 | Seam found in code | Phase 1 action |
 |---|---|
 | `catalog.py` full ID vs `corrections.py::_pieces` slug vs `catalog.ts::Piece.id` | Name each explicitly as a legacy identifier; resolve through ledger APIs; keep both old values |
-| `catalog.ts::volumeLabel` always NOH | Look up exact edition citation label; unknown edition fails at build time instead of receiving NOH credit |
+| Source labels: `volumeLabel`, `SystemStack.astro` borrowed caption, `LineupStack.astro` fallback, `pagesLabel` | Read edition labels; preserve every NOH string, including part-less and no-source fallbacks; unknown edition fails the build |
 | `pipeline/hymnlinks.py`, `catalog.ts::relatedHymnSettings`, `vespers.ts::hymnSettings` filter `noh7` | Validate reviewed links by target existence, genre, systems and source status, not volume; retain current link membership/order |
 | `piece/[slug].astro` gates related hymns on `noh8` and borrowing on `noh7` | Read edition policy; preserve the current heading and behaviour |
 | `data/schema/corrections.json` requires `noh\d` and `noh8` refs | Accept registered source keys syntactically, validate membership/ownership in a shared resolver; keep NOH tone rules in its adapter |
 | `pipeline/sections.py`, `admin/targets.ts`, `admin/scans.ts`, `hymnpairings.ts` repeat NOH ref patterns | Use source-neutral ref parsing and registered-volume validation; test hyphenated volume keys and unknown refs |
 | `coerce(system_range)` splits on every hyphen | Parse two complete refs with an anchored grammar; a future volume key may contain hyphens; preserve cross-volume/order rejection |
-| `ordinary_form.py::_candidate_rank` parses `volume[3:]` | Use edition `sort_order`, preserving the existing 1,2,3,4,5,7,8 ranking and all tie-breakers |
-| `pipeline/catalog.py::PART_TO_VOLUME`, `web/src/lib/references.ts` Roman map and NOH4 `ad calcem` | Scope to the NOH reference adapter/group; never use NOH4 as a fallback for another collection |
-| `typeset/match.py::VOLUME`, filename/page/movement hints | Keep as NOH importer rules; source-neutral representations consume the result, not its filename convention |
-| `vespers/reviewed.py`, `lineup.py` load `hymns-noh7.yml` | Retain reviewed filename; loader accepts generic validated linked items; do not rename its history |
-| `segment.py`, `parts.py`, index extraction, `vesperitems.py`, volume-specific slicing | Explicit NOH adapter boundary; no general OCR/segmentation framework in this phase |
+| `ordinary_form.py::_candidate_rank` parses `volume[3:]` | NOH adapter, unchanged in Phase 1 |
+| `pipeline/catalog.py::PART_TO_VOLUME`, `web/src/lib/references.ts` Roman map and NOH4 `ad calcem` | NOH adapter, unchanged in Phase 1 |
+| `typeset/match.py::VOLUME`, filename/page/movement hints | NOH adapter, unchanged in Phase 1; thin representations reference its output |
+| `vespers/reviewed.py`, `lineup.py` load `hymns-noh7.yml` | NOH adapter, unchanged in Phase 1; preserve filename/history |
+| `segment.py`, `parts.py`, index extraction, `vesperitems.py`, volume-specific slicing | NOH adapter, unchanged in Phase 1 |
 | `regenerate.sh all`, publish/catalog workflow volume choices | Remain NOH operational allowlists; add identity refresh/check, not arbitrary uploads |
 | `ExportBar.astro`, `pdf.ts`, source captions, SEO descriptions and footer | Keep exact NOH presentation/metadata for this corpus; record as presentation debt for the pilot, not generic source authority |
 | `indexes.ts` divisions/Kyriale routing and `good-friday.json` external IDs | Preserve current liturgical UI and external references; neither defines a universal work key |
@@ -573,184 +554,188 @@ system>`. Allow source keys matching `[a-z][a-z0-9-]{0,63}`; validate an actual
 registry member and actual system, not just that regex. Keep old fixed widths
 and page bounds in the NOH adapter. Larger/new locator formats await a pilot.
 No relaxation of source permissions, correction lengths or typeset path safety.
+This scan-ref grammar does not constrain SourceItem locators: a numbered hymnal
+may omit both PDF pages and system refs (§13).
 
-## 10. File-by-file implementation boundaries
+Render labels for all 576 pieces, including `regina` and `pius-x`, before and
+after; compare volume/page labels, borrowed captions and the LineupStack
+fallback. Keep “Nova Organi Harmonia” for `part: null` and absent-source fallback,
+and “another volume” for unresolved borrowing. Test unknown editions as build
+failures. Compare visible date and credit strings, including “1942”.
 
-The paths below are proposed implementation, not files changed by this spec.
+## 10. Implementation boundaries
 
-| Files | Change |
-|---|---|
-| `pipeline/identities/{model,ledger,aliases,noh,build}.py` (new) | Types/validation, allocation, resolvers, NOH projection and deterministic output; no rendering or network |
-| `pipeline/source_refs.py` (new), `pipeline/volumes.py` | Source-neutral ref parser and source-registry lookup; preserve scan allowlist |
-| `pipeline/cli.py`, `pipeline/where.py` | `identities` commands and optional identity display; correction command help |
-| `pipeline/catalog.py`, `pipeline/corrections.py`, `pipeline/sections.py` | Legacy adapter boundaries, target normalization, generic ref validation, refresh hooks |
-| `pipeline/hymnlinks.py`, `pipeline/hymnpairings.py`, `pipeline/ordinary_form.py`, `pipeline/vespers/{reviewed,lineup}.py` | Generic reviewed-link validation, stable lender ordering and identity relationships |
-| `web/src/lib/{identities,sourceRefs,identityTargets}.ts` (new) | Build/server lookups, shared ref parser and small client target resolver; no whole-graph browser bundle |
-| `web/src/lib/{catalog,vespers,references,hymnpairings}.ts`, `piece/[slug].astro` | Edition labels/policy and generic links; keep route and Piece contracts |
-| `web/src/lib/admin/{targets,scans,api}.ts`, `web/src/pages/{admin/edit/index,corrections/index}.astro` | Normalize canonical inputs/deep links; preserve targets JSON and stored target spelling |
-| `workers/corrections/src/{schema,index,status}.ts` | Canonical reader-input normalization and old stored-row compatibility |
-| `tools/{check_identity_migration,compare_identity_dist,check_legacy_addresses}.py` (new) | Replay, matched-build comparison, complete address resolution |
-| `web/scripts/check-deploy-budget.ts` (new), `web/package.json` | Deploy file and redirect budget guard |
-| `scripts/{regenerate,check}.sh`, `.github/workflows/site.yml` | Freshness, budget, comparison and CI artifacts |
-| `.github/workflows/{corrections-batch,catalog-rebuild,publish}.yml` | Refresh identities before committing generated data; retain current approval/publish boundaries |
-| `AGENTS.md`, `docs/{ARCHITECTURE,OPERATIONS,EDITING,SEO,GLOSSARY,ADMIN-SETUP}.md` | New source/generated ownership, commands, rollback and canonical-input deployment order |
-
-`pipeline/typeset/mei/`, rendering settings/includes, `data/typeset/` and export
-engines are read-only implementation inputs. New sidecar code belongs outside
-the MEI package. `versions.py` hashes `extract.py`/`listen_full.ily` and
-`encode.py`/`model.py`/`diagnostics.py`; moving identity fields into those files
-would stale approvals. The current manifest matches legacy target + render hash.
-Keep that join unchanged. No approval carry-forward should be needed.
+§15 assigns every file one owner: M owns core/catalogue hooks, S shared labels/
+refs, I CLI/workflows. No canonical normalization or Worker/admin API edits.
+Typeset/MEI sources, rendering settings/includes and export engines are read-only.
+Keep sidecars outside the MEI package: `versions.py` hashes `extract.py`,
+`listen_full.ily`, `encode.py`, `model.py` and `diagnostics.py`. Preserve legacy
+target + render hash joins; no approval carry-forward. Only label/policy
+projections may reach pages, never graph, target table or address-registry data.
 
 ## 11. Proving reader and export parity
 
-Add `tools/compare_identity_dist.py`. It has two modes:
+Add `tools/compare_identity_dist.py` with matched-build and existing-dist modes:
 
 ```bash
-uv run python -m tools.compare_identity_dist --base origin/main --head HEAD --out /tmp/identity-parity
+uv run python -m tools.compare_identity_dist --base <base-sha> --head <head-sha> --out /tmp/identity-parity
 uv run python -m tools.compare_identity_dist --before /tmp/main-dist --after web/dist --out /tmp/identity-parity
 ```
 
-The first resolves both refs to commit IDs and exports tracked trees into two
-temporary directories; it never checks out over a user's work or copies `.env`,
-`.dev.vars`, local generated caches or credentials. Use the same pinned Node,
-pnpm and lockfiles and explicitly supplied public build variables in both.
-Build each with `pnpm --dir <tree>/web install --frozen-lockfile` and
-`pnpm --dir <tree>/web build`. Capture the commands, versions, commit IDs and
-input hashes. Missing public configuration or a failed build fails the test.
-Retain the trees at `<out>/base` and `<out>/head` until the report is reviewed;
-their production outputs are `<out>/base/web/dist` and `<out>/head/web/dist`.
+Matched builds export tracked trees to `<out>/base` and `<out>/head`; never
+replace a working checkout or copy `.env`, `.dev.vars`, secrets or caches.
+Record commit IDs, commands, pinned Node/pnpm versions, lockfiles and input
+hashes. Install with `pnpm --dir <tree>/web install --frozen-lockfile` and
+`uv sync --frozen` in each tree. Use these public defaults from `scripts/check.sh`
+for **all** production-build proofs, including guard checks in worktrees:
 
-Freeze the build clock in the comparison process, including child Node processes,
-to the same recorded UTC instant. Test the clock hook first; do not merely assume
-`SOURCE_DATE_EPOCH` changes `new Date()`. Retain the committed Vespers generation
-window and use identical stale-MEI reports built from each tree. An intentional
-window update or content correction belongs in a separate PR.
+```bash
+export PUBLIC_ASSET_BASE=https://images.cantusorgani.org
+export PUBLIC_CORRECTIONS_ENDPOINT=https://api.cantusorgani.org
+export PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA
+unset E2E_TEST_PAGES PUBLIC_MEI_MANIFEST E2E_DIST
+uv run noh typeset-mei-stale --json --out build/mei/stale/stale.json > /dev/null
+pnpm --dir web build
+```
 
-The second mode compares already-built directories. It cannot attest to build
-provenance without manifests supplied by the first mode/CI. Use it for quick
-iterations, not as the only acceptance evidence.
+Run that block in each exported tree. Keep the committed Vespers window; generate
+and compare each tree's stale-MEI report, never copy one over the other.
+First run baseline versus baseline to measure nondeterminism. Freeze build or
+browser clocks only for fields that run proves vary; record the instant and test
+any child-process clock hook. Do not assume `SOURCE_DATE_EPOCH` controls Node.
+No blanket timestamp stripping. Existing-dist mode is a quick comparison, not
+acceptance evidence without the matched-build provenance.
 
 ### Comparison rules
 
-1. Diff complete relative file lists, including HTML, JSON, sitemap, `_headers`,
-   `_redirects`, Pagefind and assets. Report added/deleted bytes and file counts.
-2. Compare HTML byte-for-byte after tightly scoped normalization. Also parse
-   inline JSON/export datasets and compare values and array order, so incidental
-   formatting cannot hide a changed music selection or source path.
-3. Compare every standalone JSON payload, not just `catalog.json`; preserve
-   target indexes, scan indexes, chant notation and admin review data.
-4. Compare sitemap URLs, canonicals, metadata/JSON-LD, noindex, robots, headers
-   and redirect rules. `_headers` and `_redirects` should be byte-identical.
-5. Run old-address resolution on the captured old-dist inventory and fresh-base
-   inventory. Compare all anchors, including source-prefixed composed-page anchors.
-6. Produce machine-readable `report.json` and human-readable `report.md`, with
-   each differing file, normalized field, reason and old/new digest.
+1. Diff complete relative file lists and bytes: HTML, JSON, sitemap, `_headers`,
+   `_redirects`, Pagefind and assets. Compare inline/export JSON values and order.
+2. Compare canonicals, metadata/JSON-LD, noindex, robots, all anchors and old-address
+   resolution (§8). `_headers` and `_redirects` remain byte-identical; count the
+   seven current header rules and fail above the 100-rule limit. Parse whole
+   redirect rules, ignoring blanks/comments; reject malformed or conflicting
+   duplicates, preserve order and classify dynamic rules from sources only.
+3. Capture Wrangler's generated `_routes.json` from local Functions builds on both
+   trees; Astro output alone cannot prove routing. No static route may newly
+   invoke Functions. Validate at least one include, at most 100 combined rules
+   and at most 100 characters per rule. Bundle Functions locally without deploying.
+   See [Pages routing](https://developers.cloudflare.com/pages/functions/routing/).
+4. List every changed JS/CSS bundle, preload and reference with old/new digest and
+   a reviewed explanation. There is no bijective bundle normalizer. Raw HTML byte
+   differences must be reported; only individually explained bundle references
+   or measured build-only fields may differ. Read the print stylesheet bundle
+   diff explicitly. No unexplained HTML, payload or search-result change passes.
+5. Fail if graph or address-registry content appears in dist or browser bundles,
+   including embedded/minified content, not just matching filenames. Inspect the
+   module graph and test leakage with a fixture. No target projection is public
+   in Phase 1. Allow only intended build-time label/policy projections.
+6. Write `report.json` and `report.md`: each difference, reason, raw digest,
+   command duration and total time. Never normalize visible dates/credits,
+   correction dates, anchors, asset hashes, MEI inputs or musical geometry.
 
-Normalization may map bundler content-hash filenames and their references to
-stable logical bundle names using a bijective asset map. Still diff normalized
-bundle contents; do not discard JS/CSS or collapse two different files to one.
-Freeze timestamps first; strip only specifically enumerated build-only timestamp
-fields whose provenance is tested. Never strip visible dates, correction dates,
-asset SHA values, MEI inputs, render hashes, anchors or canonical paths.
-No blanket hash/date regex, HTML whitespace collapse or omission of Pagefind.
+### Export and reader proof
 
-Expected differences are limited to changed implementation bundles and, if
-emitted, their maps/preloads. Every such difference needs a path, purpose and
-test in the PR report. No unexplained HTML, public JSON or musical payload
-difference passes. Search results must stay equivalent even if a reproducible
-index packaging difference is explained. New private graph files do not belong
-in dist. An allowlist cannot waive missing pages or changed music.
+Keep `exportParts`, selection IDs/targets, ordered parts, system sources/stems,
+dimensions, chant IDs, rubrics, manifest joins and fallback availability identical.
+The fixture set is a Proper (`dominica-i-adventus`), numbered Graduals
+(`sabbato-temporum-adventus`), Kyriale IX, an OF mixed-lender page, dated I/II
+Vespers, a standalone hymn and scan-only music. Retain every control in
+[must-keep.md](../../ui/must-keep.md). Byte HTML checks cover the notice and skip
+links; add a Tab-once “Skip to music” check for piece/Kyriale/OF/Vespers pages
+and print-media checks on a Proper and Kyriale IX. Test visible dates and credits
+as text, including “1942”; source labels have the full-corpus gate in §9.
 
-### Export proof
+Always run existing production browser tests and export e2e suites on **head**.
+Export suites need `pnpm --dir web build:e2e` then
+`pnpm --dir web test:e2e:export`; production `dist/` is not their fixture build.
+The existing config uses port 8799 and `web/e2e/.state` with local D1; run these
+suites serially and never reuse another server. For paired production checks,
+B's parity test owns separate servers on 8801/8802 and separate local state
+under `<out>/base-state` and `<out>/head-state`. Test unknown paths return 404.
 
-Identical HTML is necessary, not enough. Preserve `exportParts`, selection IDs,
-target strings, system sources, source stems, dimensions, ordered parts, chant
-IDs, rubrics, manifest target/hash joins and fallback availability.
+Only if export-path JS/CSS bundles differ, build **both** trees' `dist-e2e/`
+fixtures (the script sets `E2E_TEST_PAGES=1`, `PUBLIC_MEI_MANIFEST=fixture`,
+`PUBLIC_ASSET_BASE=/systems`). Serve them on 8803/8804 with separate state.
+Compare Quick/Customize PDFs only for the fixture set above, using identical
+pinned assets and `web/scripts/verify-export-pdf.ts`: page count, MediaBoxes,
+text, order and layout checks. Cover Quick Letter/A4 and typeset/scan fallback;
+Customize MEI/fixed/scans and chant Off/Before/Only. Quick stays accompaniment-only.
+Ignore only PDF timestamps/document IDs. No rasterised PDF comparison.
+Unchanged LilyPond narrow/wide SVG and Letter/A4 PDFs need hash checks, not renders.
+Baseline failures are recorded separately and never excuse a new failure.
 
-Run existing browser suites against both baseline and candidate. Add a parity
-fixture covering a Proper (`dominica-i-adventus`), numbered Graduals
-(`sabbato-temporum-adventus`), Kyriale IX, an OF mixed lender page, dated I/II
-Vespers, a standalone hymn and scan-only music. Cover Quick Letter/A4, typeset
-and scan fallback; Customize MEI/fixed/scans and chant Off/Before/Only.
-Quick remains accompaniment-only. Retain every control in
-[must-keep.md](../../ui/must-keep.md), including polarity, skip links and print.
+### CI and cost
 
-Use identical immutable or pinned test assets in the two browser runs. Compare
-page count, MediaBoxes, text, music order and rendered PDF pages at fixed DPI;
-ignore only PDF creation timestamps/document IDs, never musical geometry.
-Use `web/scripts/verify-export-pdf.ts` for layout verification. For the unchanged
-LilyPond assets, compare narrow/wide SVG and Letter/A4 PDF hashes; do not rerender
-or republish them to attach IDs. A baseline failure must be recorded separately;
-it is not permission to accept a new failure or silently skip that case.
-
-### CI execution
-
-- Every code/data PR: `noh identities check`, replay tests, alias contracts and
-  existing corrections/OF/typeset checks; a stale generated graph fails.
-- Every production build: budget guard after Pagefind and before artifact upload;
-  also recheck the downloaded artifact before deploy.
-- Model PR: a required `identity-parity` job in `site.yml`, with two explicit
-  checkouts of PR base SHA and candidate SHA and no secrets/upload credentials.
-  Run matched builds, address checks and export comparison; upload the report
-  on failure or success. Feed its outcome into `check` and the deploy gate.
-- Gate the costly comparison by identity-related paths, but include a base/head
-  assertion so a skipped job cannot count as phase acceptance. After rollout,
-  retain it for identity/adapter changes, not unrelated documentation edits.
+- Every code/data PR checks freshness, replay, aliases and existing corrections,
+  OF and typeset contracts. Include direct MEI record/manifest changes.
+- PR #158 checks the production build after Pagefind and before artifact upload.
+  A downloaded-artifact recheck is an optional I follow-up, not already built.
+- I adds required `identity-parity` in `site.yml` with pinned base/head checkouts,
+  no upload secrets, report artifacts on success/failure and a deploy/check gate.
+  Gate by identity/adapter paths, but assert both SHAs so a skip cannot count as
+  acceptance. Retain this gate for those paths after rollout.
+- B records install, production build, fixture build and browser timings. Start
+  with a 30-minute job timeout; review measured cost before acceptance. Historical
+  two-build timing excludes installs/fixtures/suites and is not a CI estimate.
+  Freeze only measured nondeterminism; do not double all browser suites by default.
 
 ## 12. Deploy budget guard
 
-This is independent of the model and can merge first. Cloudflare Pages Free
-allows 20,000 files per deploy; these are earlier project thresholds, not a
-change of hosting plan. See [Pages limits](https://developers.cloudflare.com/pages/platform/limits/).
-Both Cloudflare limit pages were checked on 2026-10-22 for this spec.
+Built in [PR #158](https://github.com/npadley/cantusorgani/pull/158), on
+`origin/claude/deploy-size-guard`: `web/scripts/check-deploy-size.ts`.
+Use `node web/scripts/check-deploy-size.ts web/dist` after the production build.
+Do not create a second helper or claim this branch is already merged/deployed.
 
-`node web/scripts/check-deploy-budget.ts web/dist` counts every regular file
-under the final output, including Pagefind, JSON, generated redirect HTML and
-control files. Count conservatively; do not subtract `_headers` or `_redirects`.
-Reject symlinks/unsupported entries and unreadable/missing output rather than
-following files outside the deploy root or reporting a false zero.
+The helper counts uploadable assets using Wrangler's ignore list: root
+`_worker.js`, `_redirects`, `_headers`, `_routes.json`, `functions`, `.wrangler`;
+and `.DS_Store`, `node_modules`, `.git` everywhere. It follows symlinks with
+`stat`, as Wrangler does. Redirect classification examines only each rule's
+source for splats/placeholders. It reports files, separate static/dynamic counts
+and the largest file, with CI annotations and a step summary.
 
 | Measure | Warn (exit 0) | Fail (exit 1) |
 |---|---|---|
-| Files | `count >= 15000` | `count >= 19000` |
-| Total `_redirects` rules, static + dynamic | `count >= 1500` | `count > 2000` (project budget) |
-| Dynamic rules | Report count | `count > 100` |
+| Uploadable files | `>= 15000` | `>= 19000` |
+| Static redirect rules | `>= 1500` | `> 2000` |
+| Dynamic redirect rules | Count only | `> 100` |
+| One asset | Largest size reported | `> 25 MiB` |
 
-Ignore blank/comment lines; parse the whole rule and classify wildcard or named
-placeholder sources as dynamic. Fail malformed/duplicate-conflicting rules;
-never skip a line because the parser does not recognize it. Retain rule order.
-The project's 2,000 total budget is deliberately stricter than Cloudflare's
-2,000 static + 100 dynamic allowance. Absence of `_redirects` means zero rules;
-the route regression test separately detects loss of the current two rules.
+These match the built guard, with file headroom below Pages Free's 20,000 limit.
+See [Pages limits](https://developers.cloudflare.com/pages/platform/limits/).
+The 15k warning is about three times today's 5,018-file conservative inventory:
+a tripwire, not a scaling plan. The platform report §6 covers growth.
+A conservative all-file inventory belongs in parity reporting, separately from
+uploadable counts. Kyriale refresh HTML counts as files, not redirect rules.
 
-Print total files, HTML, chant JSON, Pagefind, other files and rule counts, with
-remaining headroom. Emit GitHub warning/error annotations in CI. Include the
-counts in the build artifact report. No dashboard call, credential or deployment
-is needed to measure them.
-
-Boundary tests: 14,999/15,000/18,999/19,000 files;
-1,499/1,500/2,000/2,001 rules; 100/101 dynamic rules; missing output, malformed
-rule, comments, trailing newline, hidden file, nested Pagefind and symlink.
+Keep #158's threshold, ignore-list, size and source-classification tests.
+Whole-rule validation and routing/header parity belong to B; the built helper
+does not claim them. Optional I follow-ups: recheck the downloaded artifact before
+deploy and add the `_headers` 100-rule count to the guard (parity already checks it).
 
 ## 13. Tests and review gates
 
-Each build card begins with a failing test. Run that test before implementation
-and record its expected failure, then the passing result. For comparison tools,
-mutate a fixture to prove that changed music, a missing anchor or a stale alias
-actually fails; a baseline-equals-baseline pass alone is insufficient.
+Each build card starts with a failing test and records the failure, then pass.
+Mutate fixtures to prove changed music, missing anchors, stale aliases and leaked
+graph content fail; baseline-equals-baseline alone is insufficient.
 
 | Area | Required cases |
 |---|---|
-| Identity | Rename title/slug, move page/start, reorder input files, collision, unknown ID, retired key, duplicate alias, numbered-section insertion, named-section stability |
-| Work boundary | Two identical incipits remain separate; two equal GregoBase IDs remain separate; distinct hymn tones; no-work rubric/container; known borrowed part reuses lender |
-| Migration | All 576 items; all seven volumes and both addenda; every target kind; two independent bootstraps/replays; no byte changes in protected files |
-| Corrections | Legacy/canonical equivalence, stale `was`, lapsed reviews, mixed-form duplicates, cross-volume range, hyphenated source key, all-or-nothing batch, unresolved target |
-| D1/admin | NULL targets, queues/skips/history, dedupe, issue `seen`, sections reports, typeset snapshots, old/new deployment combinations |
-| Typeset/MEI | Every match/candidate/record accounted for; no target/hash/input/approval changes; no new reflow eligibility or lost existing eligibility |
-| Address/SEO | All old dist/sitemap routes, all anchors, existing rules, Kyriale refresh, dated I/II Vespers, OF queries, corrections links, 404 and noindex |
-| UI/export | Both exports and fallback modes, stable selection payloads, all must-keep controls, no-JS content, narrow/wide music and Letter/A4 |
-| Capacity | Exact file/redirect boundary tests from §12 |
+| Identity | Title/slug rename, page/start move, input reorder, collision, unknown/retired ID, duplicate alias, numbered insertion, `n`→`key` rebind, named-key stability, concurrent ledger union |
+| Work boundary | Same incipit/GregoBase stays separate; distinct hymn tones; no-work rubric/container; lender reused; reserved equality and assignments generate nothing |
+| Foreign-shape dry run | Test-only numbered hymnal, no PDF page map or system refs, one text with two tunes and one tune with two accompaniments; load, allocate, validate against `identities.json`, resolve aliases; never production data |
+| Migration | All 576 items, seven editions, both addenda, every legacy target kind; two bootstraps/replays on pinned baseline data; protected bytes unchanged |
+| Corrections | Legacy resolution agrees with replay, stale `was`, lapsed reviews, range order/ownership, hyphenated registered key, all-or-nothing batch, unresolved target; no canonical input |
+| Typeset/MEI | Every match/candidate/record referenced; targets, hashes, approvals and publication eligibility unchanged; follow-up gate if C2 cut applies |
+| R2 | Compare before/after scan, typeset and MEI upload plans locally; exact keys and content hashes match; assert edition IDs never replace `vol_id` in key derivation |
+| Address/SEO | All old routes/anchors, rules, Kyriale refresh, dated I/II Vespers, OF queries, correction links, 404/noindex, headers and generated Function routing |
+| UI/export | Stable payloads, must-keep controls, all labels/dates/credits, explicit print CSS review, no-JS content, existing head e2e and conditional fixture PDF proof |
+| Capacity | #158's file/static/dynamic/25 MiB boundaries and ignore/source cases |
+
+For the R2 test, capture plans before any upload call using pinned local render
+artifacts or fixture stubs; compare scan `r2_key`/`upload_plans`, typeset
+`UploadPlan` keys and MEI's verified file map. Never upload, rerender or inject
+identity metadata into hashed source bytes. Manifest comparison alone is not
+this test. Existing preview keys may differ with commits; they are not releases.
 
 Required integration commands (new commands are implemented by the cards):
 
@@ -767,177 +752,170 @@ pnpm --dir web build:e2e
 pnpm --dir web test:e2e:export
 ```
 
-Also run the matched dist/export comparison from §11 and the budget guard.
-Compare the stale-MEI result with the pinned baseline before work starts. A new
-stale approval blocks the model PR; do not patch a digest or carry it forward to
-make an identity-only migration pass. If main is already stale, record that
-separately and resolve the baseline issue before claiming clean phase acceptance.
+Use §11's public defaults for builds. Also run matched parity and the guard.
+B first records stale-MEI and old-address baselines. A new stale approval blocks
+the model PR; never patch a digest or carry forward to pass this migration.
+Resolve existing staleness separately before claiming clean phase acceptance.
+The foreign-shape gate does not wait for the maintainer's pilot item selection.
 
 ## 14. Rollback
 
-No assets move and no D1 schema changes. Before release, retain the baseline
-commit, built artifact, address inventory, identity ledger and comparison report.
-The maintainer approves merge/deploy under P11; implementation cards do neither.
+No assets move, no D1 schema changes and the Worker is untouched in Phase 1.
+Before release, record the baseline/candidate commits, last good Pages deployment
+ID, candidate deployment ID after release, alias-file SHA-256, ledger and address
+inventory. Retain built artifacts and parity reports for at least 30 days, beyond
+`site-dist`'s current one-day retention. Maintainer approval still gates merge/deploy.
 
-If the reader regresses, the maintainer restores the last good Pages deployment,
-then reverts adapter/reader code through a PR. Keep ledger allocations and aliases
-in git, even when inactive; never recycle IDs. Keep the guard as its own PR so
-model rollback does not remove the capacity check.
+On regression, restore the last good Pages deployment and revert adapter/reader
+code through a PR. Keep ledger allocations, tombstones and aliases; never recycle
+IDs. Keep the guard independent so model rollback does not remove it.
 
-Corrections saved during Phase 1 use legacy storage and remain replayable by the
-old pipeline. Do not revert the entire data directory and discard new accepted
-corrections. Rebuild the old compatibility outputs from the latest accepted
-overlay. Test this rollback with a correction accepted after the cutover.
-
-If a canonical-aware Worker was deployed, keep its normalization boundary while
-rolling back Pages, or withdraw canonical-input support explicitly. Legacy forms
-continue to work in either order; stored rows need no conversion. Preserve all
-D1 reports, skips, snapshots and audit history. Never delete/overwrite R2 assets,
-revoke approvals or regenerate MEI to roll back identities.
+Corrections saved after cutover still use legacy storage. Rebuild old compatibility
+outputs from the latest accepted overlay; never revert the whole data directory
+and lose accepted corrections. Test with a post-cutover correction. Preserve D1
+reports, skips, snapshots and audit history. Pages rollback does not roll back
+D1/R2; never delete assets or regenerate/revoke MEI to undo identities.
 
 ## 15. Build cards and PR split
 
-PRs: **(1) spec + reviews**, **(2) deploy guard**, **(3) model + migration**.
-All target `main`, including dependent PRs. PR #155 must land, or its decided
-rows must be included by the maintainer, before implementation claims P14–P16
-are recorded on main. Spec approval precedes product implementation.
+PRs: **(1) spec + reviews**, **(2) guard #158 (built)**, **(3) model + migration**.
+All target `main`. P14–P16 were read on
+[PR #155](https://github.com/npadley/cantusorgani/pull/155), via
+`git show origin/claude/platform-options-decided:docs/DECISIONS.md`; they are
+not on this checkout's baseline. Land that PR, or the maintainer's decided rows,
+before implementation claims they are on main. Spec approval precedes implementation.
 
-Every executor gets this spec plus the named inputs, its own worktree under
-`.claude/worktrees/identities-<card>`, and branch `feat/identities-<card>` from
-current `origin/main` with dependency commits supplied by the coordinator.
-One writer per file set. No push, merge, remote commands, credentials, uploads,
-hand-edited generated outputs or edits outside the allowlist. Codex leaves
-changes uncommitted where git metadata is outside its sandbox.
-Report under 200 words: changed paths, checks, failures, unresolved decisions.
-The coordinator checks current diffs and proving commands before integration.
+Each executor gets this spec, named inputs, an isolated worktree under
+`.claude/worktrees/identities-<card>` and `feat/identities-<card>` from pinned
+`origin/main`, with dependency commits supplied by the coordinator. No push,
+merge, remote commands, secrets, uploads, hand-edited generated files or edits
+outside the allowlist. Codex leaves changes uncommitted if git metadata is outside
+its sandbox. Report under 200 words: paths, checks, failures, open decisions.
+The coordinator reads diffs and verifies proving commands; use the other model
+family for read-only review subject to AGENTS.md's usage reserve.
 
-Run at most three cards at once: G, B and M initially; then C and S after M;
-then I. B owns comparison tools, M owns identity core, C owns correction
-boundaries and S owns site/source assumptions. I alone owns shared integration
-scripts/workflows/docs after the other cards land. G's workflow edit lands first.
-Budget about 10–15 person-days including review; investigate scope growth before
-adding a generic ingestion framework or an identity editor.
+**Schedule:** B and M start together. M first delivers `source_refs.py`,
+`sources.yml`, schema and the TS parser contract; integrate that slice before S
+starts. S can then run alongside M/B. I follows B/M/S and incorporates built #158.
+C is deferred, with no active files. At most three active writing cards.
+Allow **16–23 person-days**: B 3–4, M 5–7, S 3–4, I 3–4, coordinator review/fixes
+2–4. With parallel work, aim for 2–3 calendar weeks; this is not a solo estimate.
 
-### G — Deploy guard (independent PR; 0.5–1 day)
+**Cut line:** if M passes five days, ship ledger + sources + items/works/settings
++ scan representations + aliases + parity. Move LilyPond/MEI representation
+records to a follow-up; retain their protected-byte/stale-approval checks now.
+Keep child/Vespers coverage, supported relations and the foreign-shape gate.
+Do not reduce parity or silently drop records: the report explicitly records
+representation coverage deferred by this cut. Assignments/canonical input remain
+pilot work regardless. Re-estimate remaining work at the cut.
 
-- Goal: catch file/rule growth before deployment.
-- May edit: `web/scripts/check-deploy-budget.ts`, its `.test.ts`,
-  `web/package.json`, `.github/workflows/site.yml`, `docs/OPERATIONS.md`.
-- Inputs: §12, `web/package.json`, `site.yml` browser/artifact/deploy steps.
-- Depends on: spec review only; no model files.
-- First failing tests: every threshold and malformed-output case in §12.
-- Done: post-Pagefind and pre-deploy checks use the same helper; warnings pass,
-  limits fail; valid existing output reports two static rules and no dynamic rule.
-- Prove: `pnpm --dir web exec vitest run scripts/check-deploy-budget.test.ts`;
-  `node web/scripts/check-deploy-budget.ts web/dist` after a production build.
+**File ownership:** the allowlists below are disjoint. G is historical, with no
+active edits; C has none. M alone updates generated model JSON, B alone owns the
+address inventory, and I never edits either. I runs checks in scratch copies;
+any generated refresh goes back to M before integration. Docs/workflows/CLI are
+I's. A new shared file must receive one owner before work starts.
 
-### B — Baseline, address and parity tools (1.5–2 days)
+### G — Deploy guard — DONE (PR #158)
 
-- Goal: make unchanged-reader claims testable before touching the model.
-- May edit: `tools/compare_identity_dist.py`, `tools/check_legacy_addresses.py`,
-  `tests/test_identity_dist.py`, `tests/test_legacy_addresses.py`,
-  `tests/fixtures/identities/addresses/`,
-  `data/identities/legacy-addresses.json`, `web/e2e/identity-parity.e2e.ts`.
-- Inputs: §§2, 8, 11; `docs/SEO.md`, must-keep, current dist/sitemap,
-  `web/scripts/{build-discovery,check-links,verify-export-pdf}.ts`.
-- Depends on: spec review; snapshot schema unnecessary.
-- First failing tests: changed payload/hash, dropped fragment, redirect loop,
-  missing sitemap route, unknown-path 404 and false bundle normalization.
-- Done: captures full inventory with provenance; baseline/base passes; mutations
-  fail; paired browser outputs compare music geometry and selection contracts.
+- Built on `origin/claude/deploy-size-guard`; no remaining Phase 1 card estimate
+  or edit allowlist. Integrate the PR with maintainer approval; do not rebuild it.
+- Helper: `web/scripts/check-deploy-size.ts`; tests: `check-deploy-size.test.ts`.
+- Proof after integration: `pnpm --dir web exec vitest run scripts/check-deploy-size.test.ts`;
+  `node web/scripts/check-deploy-size.ts web/dist` after a §11 production build.
+- Artifact recheck and guard header counting are optional I follow-ups below.
+
+### B — Baseline, address and parity tools (3–4 days)
+
+- Goal: prove unchanged reader/export contracts before the model lands.
+- May edit: `tools/{compare_identity_dist,check_legacy_addresses}.py`,
+  `tests/{test_identity_dist,test_legacy_addresses}.py`,
+  `tests/fixtures/identities/addresses/`, `data/identities/legacy-addresses.json`,
+  `web/e2e/identity-parity.e2e.ts`.
+- Inputs: §§2, 8, 11–13; `docs/SEO.md`, must-keep, existing build/check/export
+  scripts, Playwright config and `site.yml` stale-report step. No model dependency.
+- First step: pin baseline SHA, save stale-MEI report and old-address inventory;
+  “initial fixture” is that commit's `data/`. Run baseline versus baseline.
+- Failing tests: changed payload, missing fragment, loop, false 404, leaked graph,
+  changed visible credit/date and unexplained bundle reference.
+- Done: full inventory and mutation tests pass; routing/headers checked; changed
+  bundles explained; conditional PDF checks use only §11 fixtures; timings recorded.
 - Prove: `uv run pytest -q tests/test_identity_dist.py tests/test_legacy_addresses.py`;
-  `uv run python -m tools.compare_identity_dist --base origin/main --head origin/main --out /tmp/identity-base-parity`.
-- Additional proof: `pnpm --dir web exec playwright test e2e/identity-parity.e2e.ts`
+  `uv run python -m tools.compare_identity_dist --base <base-sha> --head <base-sha> --out /tmp/identity-base-parity`.
+- Paired browser proof: `pnpm --dir web exec playwright test e2e/identity-parity.e2e.ts`,
   with `IDENTITY_BASE_DIST=/tmp/identity-base-parity/base/web/dist` and
-  `IDENTITY_HEAD_DIST=/tmp/identity-base-parity/head/web/dist` set in its environment.
-  The test owns two local static servers for these paths; freeze both browser
-  clocks too. It must not accidentally compare one server against itself.
+  `IDENTITY_HEAD_DIST=/tmp/identity-base-parity/head/web/dist`. Test owns §11's
+  servers and state; assert distinct endpoints. Use §11 defaults and measured clocks.
 
-### M — Identity core and NOH projection (2–3 days)
+### M — Identity core and NOH projection (5–7 days; cut after day 5)
 
-- Goal: allocate permanent IDs and produce a complete deterministic graph.
-- May edit: `pipeline/identities/*.py`, `pipeline/source_refs.py`,
-  `web/src/lib/sourceRefs.ts`, `web/src/lib/sourceRefs.test.ts`, `data/schema/identities.json`,
+- Goal: stable IDs, deterministic thin graph and a non-PDF model acceptance test.
+- May edit: `pipeline/identities/*.py`, `pipeline/{source_refs,catalog}.py`,
+  `web/src/lib/{sourceRefs.ts,sourceRefs.test.ts}`, `data/schema/identities.json`,
   `data/identities/{sources.yml,ledger.json,aliases.yml,snapshot.json,aliases.json,migration.json}`,
-  `tools/check_identity_migration.py`, `tests/test_identities.py`,
-  `tests/test_identity_migration.py`, `tests/fixtures/identities/model/`.
-- Inputs: §§3–6, 8; catalogue, sections, Vespers, OF, hymn and typeset paths
-  in §6; `pipeline/sections.py`, `typeset/match.py`, MEI manifest/versions.
-- Depends on: spec review. G/B can run beside it.
-- First failing tests: real example allocations, no incipit merge, repeated
-  Gradual/key stability, exact lender, nonapproved MEI coverage and replay bytes.
-- Done: graph covers all inputs, every active reference resolves, protected
-  data remains byte-identical; generator refuses unknown IDs instead of minting.
-- Interface: `build(data: Path, out: Path)`, `check(data: Path) -> list[str]`,
-  `resolve_target(text: str, data: Path) -> {target_id, kind, entity_id, legacy_target}`;
-  module entry point `python -m pipeline.identities` mirrors the future CLI.
-  Shared parsers `parse_ref(text, known_volumes)` / `parseRef(text, knownVolumes)`
-  return `{volume, pdf_page, index}` or fail; callers also check actual systems.
+  `tools/check_identity_migration.py`, `tests/{test_identities,test_identity_migration}.py`,
+  `tests/fixtures/identities/model/`.
+- Inputs: §§3–6, 8, 13; source/derived paths in §6, section precedence,
+  typeset matching, MEI manifest/versions and upload-key code. Read-only otherwise.
+- First delivery: `source_refs.py` + `sources.yml` + schema and matching TS parser;
+  coordinator integrates it before S. M owns catalogue hooks and core orchestration API.
+- Failing tests: example allocations, numbered/key drift, post-replay allocation,
+  ledger union conflicts, lender identity, no title merge, non-PDF hymnal load/
+  allocate/validate/alias resolution and protected upload plans/bytes.
+- Done: every active reference resolves; foreign-shape gate passes; replay never
+  reads snapshot; build refuses missing allocation; no protected bytes change.
+- API: `build(data, out)`, `check(data)`, `resolve_target(text, data)` returning
+  §7's legacy record; module CLI `python -m pipeline.identities` before I wiring.
+  `parse_ref(text, known_sources)` / `parseRef(text, knownSources)` return
+  `{volume, pdf_page, index}`; callers validate actual system membership.
 - Prove: `uv run pytest -q tests/test_identities.py tests/test_identity_migration.py`;
   `uv run python -m tools.check_identity_migration`;
   `pnpm --dir web exec vitest run src/lib/sourceRefs.test.ts`.
 
-### C — Correction compatibility (2 days)
+### C — Canonical correction input — DEFERRED to the pilot
 
-- Goal: accept canonical inputs without losing history or changing D1 storage.
-- May edit: `pipeline/corrections.py`, `data/schema/corrections.json`,
-  `web/src/lib/admin/{targets,api}.ts`,
-  `web/src/lib/identityTargets.ts` (new),
-  `web/src/pages/{admin/edit/index,corrections/index}.astro`,
-  `workers/corrections/src/{schema,index,status}.ts`,
-  `tests/test_identity_corrections.py`, `tests/fixtures/identities/corrections/`,
-  `web/src/lib/admin/identityCompatibility.test.ts`,
-  `workers/corrections/test/identityCompatibility.test.ts`.
-- Inputs: §7, correction replay, existing admin compatibility/dedupe/sections
-  tests, Worker schema/status and migrations 0001–0008.
-- Depends on: M's resolver and alias schema; does not modify M's files.
-- First failing tests: legacy/canonical duplicate, stale `was`, mismatched
-  `pieceId`, typeset `seen`/snapshot, NULL target and mixed-version fixtures.
-- Done: local D1 fixture/history unchanged; same batch produces same legacy
-  overlay/log/review outputs; both form generations work with either deployment.
-  Shared ref validation replaces NOH patterns in the correction schema/admin
-  targets; range parsing accepts registered hyphenated keys without splitting them.
-- Prove: `uv run pytest -q tests/test_identity_corrections.py`;
-  `pnpm --dir web exec vitest run src/lib/admin/identityCompatibility.test.ts`;
-  `pnpm --dir workers/corrections test` and `pnpm --dir workers/corrections typecheck`.
+No Phase 1 estimate, edits or dependency. §7 records its future boundaries.
+Source-neutral correction ref validation belongs wholly to S.
 
-### S — Source-neutral shared readers (2 days)
+### S — Source-neutral labels and refs (3–4 days)
 
-- Goal: remove the shared assumptions in §9 while preserving NOH output.
-- May edit: `pipeline/{volumes,sections,hymnlinks,hymnpairings,ordinary_form}.py`,
-  `pipeline/vespers/{reviewed,lineup}.py`, `web/src/lib/{identities,catalog,vespers,references,hymnpairings}.ts`,
-  `web/src/lib/admin/scans.ts`, `web/src/pages/piece/[slug].astro`,
+- Goal: fix only §9's named shared seams; preserve every NOH label and selection.
+- May edit: `pipeline/{volumes,sections,corrections,hymnlinks,hymnpairings}.py`,
+  `data/schema/corrections.json`,
+  `web/src/lib/{identities,catalog,vespers,hymnpairings}.ts`,
+  `web/src/lib/admin/{targets,scans}.ts`, `web/src/pages/piece/[slug].astro`,
+  `web/src/components/{SystemStack,LineupStack}.astro`,
   `tests/test_source_identities.py`, `web/src/lib/sourceIdentities.test.ts`.
-- Inputs: §§4, 9–10; edition policy, hymn loaders, source refs and lender ranking.
-- Depends on: M; runs beside C; C owns correction-schema and admin-target edits.
-- First failing tests: a non-NOH hymn link/label, a hyphenated registered source
-  ref, unknown edition, addendum citation and identical NOH lender ordering.
-- Done: new fixture works without `noh7`/NOH label fallbacks; actual labels,
-  hymn lists, refs, lenders and rendered piece content remain identical.
+- Inputs: §§4, 7, 9–10; M's parser/schema slice, existing labels, hymn links and
+  range validation. Depends only on that integrated M slice, not the full graph.
+- Failing tests: non-NOH hymn link, hyphenated registered ref/range, unknown
+  edition, both addenda, part-less/borrowed/no-source captions and visible credits.
+- Done: full label corpus matches; links/order, correction replay and target
+  spelling unchanged. No `_candidate_rank`, reference-adapter or segmentation work.
 - Prove: `uv run pytest -q tests/test_source_identities.py`;
   `pnpm --dir web exec vitest run src/lib/sourceIdentities.test.ts`;
   `pnpm --dir web typecheck`.
 
-### I — Integrate, replay and document (2–3 days)
+### I — Integrate, replay and document (3–4 days)
 
-- Goal: wire every writer/check and prove the complete Phase 1 result.
-- May edit: `pipeline/{cli,catalog,where}.py`,
-  `scripts/{regenerate,check}.sh`, `.github/workflows/{site,corrections-batch,catalog-rebuild,publish}.yml`,
+- Goal: wire final-write freshness and prove complete Phase 1 parity.
+- May edit: `pipeline/{cli,where}.py`, `scripts/{regenerate,check}.sh`,
+  `.github/workflows/{site,corrections-batch,catalog-rebuild,publish}.yml`,
   `tests/test_identity_integration.py`, `AGENTS.md`,
   `docs/{ARCHITECTURE,OPERATIONS,EDITING,SEO,GLOSSARY,ADMIN-SETUP}.md`,
-  this spec's status, and command-generated `data/identities/*.json` only.
-- Inputs: this spec, all card reports, `docs/OPERATIONS.md`, current workflows.
-- Depends on: G, B, M, C, S. Rebase before editing G's workflow/doc paths.
-- First failing tests: missing freshness after each writer, stale sidecar in
-  CI, new approved section allocation, ignored parity failure, post-cutover
-  correction lost by rollback.
-- Done: all §13 checks pass, parity report has no unexplained differences,
-  MEI/asset hashes are unchanged and rollback retains a new correction.
-- Prove: `uv run pytest -q tests/test_identity_integration.py`, all §13 commands,
-  and `uv run python -m tools.compare_identity_dist --base origin/main --head HEAD --out /tmp/identity-parity`.
-- Review: coordinator reads the full diff; other model family reviews identity,
-  correction and parity evidence read-only, subject to AGENTS.md's usage reserve.
-  Record findings in the PR; do not change the draft status to approved yourself.
+  this spec's status; optionally `web/scripts/{check-deploy-size.ts,check-deploy-size.test.ts}`.
+- Inputs: this spec, card reports, OPERATIONS, workflows and built #158.
+  Depends on B/M/S and #158 integration; no overlap with their active files.
+- Failing tests: stale sidecar after each final writer, missing staged sidecars,
+  ignored parity failure, post-cutover correction lost on rollback.
+- Done: §13 passes, ledger union documented in OPERATIONS' merge section, writer
+  matrix wired, release/alias evidence retained 30 days, rollback keeps new edits.
+- Optional follow-ups: recheck downloaded deploy artifact; extend the existing
+  guard with a 100-rule `_headers` count. These are not claims about #158.
+- Prove: `uv run pytest -q tests/test_identity_integration.py`, all §13 commands;
+  `uv run python -m tools.compare_identity_dist --base <base-sha> --head <head-sha> --out /tmp/identity-parity`.
+  Use actual pinned commits and §11 defaults, not a moving `origin/main`.
+- Coordinator reviews full diff and read-only cross-check findings. Do not mark
+  this draft approved without the maintainer's decision.
 
 ## 16. Risks, limits and maintainer questions
 
@@ -947,27 +925,23 @@ adding a generic ingestion framework or an identity editor.
 | Numbered sections move while keeping a target spelling | Structural-change check and explicit rebind; preserve historical aliases |
 | Sidecars become stale after a less-used writer | Integration tests enumerate every catalogue/lineup/correction workflow |
 | Identity fields accidentally enter hashed typeset inputs | Keep core outside MEI; byte inventory and stale-approval check block release |
-| Normalization hides an export or SEO regression | Narrow allowlist, raw digests, mutation tests and paired PDF rendering |
-| Canonical targets outrun separately deployed Worker aliases | Keep legacy public output; explicit unknown-ID error and deployment order |
+| Parity exceptions hide export/SEO regressions | Raw diffs, explicit per-file reasons, mutation tests and conditional fixture PDF checks |
 | Fresh main differs from the old local dist | Union address inventories; classify baseline defects explicitly before merge |
 | 2–3 weeks expands into new intake/product work | Defer admission, rights workflow, work hubs and generic recognition |
 
-Questions for review, with proposed defaults:
+Remaining maintainer questions, with proposed defaults:
 
 1. Accept provisional per-printed-unit work identities and unresolved containers,
    with cross-source equality deferred to the P15 pilot? Recommended: yes.
-2. Accept canonical target input with legacy NOH persistence for Phase 1?
-   Recommended: yes; it avoids a D1/history cutover and makes rollback lossless.
-3. Which 20–50 reviewed items will exercise two accompaniments, two hymn tunes,
+2. Which 20–50 reviewed items will exercise two accompaniments, two hymn tunes,
    a repeated edition setting and unaccompanied chant in the next private pilot?
-   No answer is needed to migrate NOH, but no second book goes public before it.
-4. If the old-dist inventory reveals already-broken historical addresses, should
+   Answer before any second-source import. The synthetic dry run proceeds now
+   without that selection; it is not evidence for admitting a real book.
+3. If the old-dist inventory reveals already-broken historical addresses, should
    fixes land first or alongside an explicitly reviewed compatibility exception?
    Recommended: fix separately first; never silently drop them from the baseline.
 
-Unverified here: fresh baseline/branch build results and PDF equivalence; live
-D1 row contents and deployment versions; live R2 bytes/headers; actual account
-plan and usage; the complete old-address inventory; exact new graph counts after
-effective-unit enumeration; and the second-source pilot. The specified checks
-must establish those needed for release. This document claims a checked design,
-not a completed migration or a clean production audit.
+Unverified here: fresh builds/PDF parity, live D1/R2/deployment state and account
+usage, the full address inventory, graph counts and the second-source pilot.
+The release gates must establish these where needed; this is a design, not a
+completed migration or production audit.
