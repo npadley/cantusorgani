@@ -24,7 +24,7 @@ const unmapped = piece.sourceNote === "chants not yet mapped";
 const chantsOnly = goodFridayHref(key);
 ---
 
-<Layout title={piece.title} description={`${piece.title} — Ordinary Form chants assigned in the Graduale Romanum (1974), with available Nova Organi Harmonia accompaniments.`} skipTo="music">
+<Layout title={piece.title} description={`${piece.title} — Ordinary Form chants assigned in the Graduale Romanum (1974), with available Nova Organi Harmonia accompaniments.`} skipTo={score.systems.length > 0 ? "music" : undefined}>
   <article data-of-page>
     <header class="head">
       <p class="crumb small muted ui"><a href="/">Cantus Organi</a> · <a href="/calendar/ordinary-form/">Ordinary Form calendar</a></p>
