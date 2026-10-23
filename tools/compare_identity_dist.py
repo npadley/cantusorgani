@@ -50,7 +50,7 @@ def compare(before, after, out, allow=None):
               "removed": sorted(left.keys() - right.keys()),
               "byte_changes": [], "html_changes": [], "json_byte_changes": [],
               "json_value_changes": [], "json_field_changes": {}, "file_differences": {},
-              "bundle_changes": [], "leaks": [],
+              "bundle_changes": [], "reference_only_html": [], "leaks": [],
               "errors": [], "warnings": []}
     allowed = {}
     if allow:
@@ -115,6 +115,28 @@ def compare(before, after, out, allow=None):
                                           "reasons": {p: allowed[p] for p in sorted(matches)}})
     for path in sorted(allowed.keys() - used):
         report["errors"].append(f"Unused or ambiguous --allow entry: {path}")
+    # Normalize only explicitly allowed basenames, using one token per logical
+    # bundle on both sides. Full byte equality still governs the HTML exception.
+    basenames = {Path(path).name.encode(): path for path in sorted(allowed)}
+    reference_pattern = (re.compile(
+        rb"(?<![A-Za-z0-9_.-])(?:" + b"|".join(re.escape(base) for base in basenames)
+        + rb")(?![A-Za-z0-9_.-])") if basenames else None)
+    for name in report["html_changes"]:
+        if reference_pattern is None:
+            continue
+        involved = set()
+
+        def normalize(match, involved=involved):
+            path = basenames[match[0]]
+            involved.add(path)
+            return ("@@" + bundle_key(path) + "@@").encode()
+
+        before_bytes = reference_pattern.sub(normalize, left[name].read_bytes())
+        after_bytes = reference_pattern.sub(normalize, right[name].read_bytes())
+        if involved and before_bytes == after_bytes:
+            report["reference_only_html"].append(
+                {"path": name, "bundles": sorted(involved)})
+            explained.add(name)
     report["unexplained"] = sorted(changed - explained)
     for side, entries in (("before", left), ("after", right)):
         for name, path in entries.items():
@@ -137,7 +159,7 @@ def compare(before, after, out, allow=None):
              f"Files: {len(left)} before, {len(right)} after.", "",
              f"Header rules: {report['header_rule_counts']}", ""]
     for label in ("added", "removed", "byte_changes", "json_byte_changes", "json_value_changes",
-                  "bundle_changes", "metadata_changes", "control_file_changes", "leaks",
+                  "bundle_changes", "reference_only_html", "metadata_changes", "control_file_changes", "leaks",
                   "unexplained", "errors", "warnings"):
         lines += [f"## {label}", ""]
         lines += [f"- {json.dumps(value, ensure_ascii=False)}" for value in report[label]] or ["None."]

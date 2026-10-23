@@ -68,6 +68,68 @@ def test_bundle_change_requires_reason(trees):
     assert compare(trees, [{"path": path, "reason": "Reviewed dependency change"}]).returncode == 0
 
 
+def test_html_reference_to_allowed_renamed_bundle_is_explained(trees):
+    old, new = "export.abc123.js", "export.def456.js"
+    for tree, filename in ((trees[0], old), (trees[1], new)):
+        page = tree / "index.html"
+        page.write_bytes(page.read_bytes().replace(
+            b"</head>", f'<script src="/_astro/{filename}"></script></head>'.encode()))
+    (trees[1] / "_astro" / old).rename(trees[1] / "_astro" / new)
+    result = compare(trees, [{"path": "_astro/" + old, "reason": "Reviewed rename"},
+                             {"path": "_astro/" + new, "reason": "Reviewed rename"}])
+    assert result.returncode == 0, result.stderr
+    report = json.loads((trees[2] / "report.json").read_text())
+    assert report["reference_only_html"] == [
+        {"path": "index.html", "bundles": ["_astro/" + old, "_astro/" + new]}]
+
+
+def test_html_reference_rename_with_other_byte_change_is_unexplained(trees):
+    old, new = "export.abc123.js", "export.def456.js"
+    for tree, filename in ((trees[0], old), (trees[1], new)):
+        page = tree / "index.html"
+        page.write_bytes(page.read_bytes().replace(
+            b"</head>", f'<script src="/_astro/{filename}"></script></head>'.encode()))
+    (trees[1] / "_astro" / old).rename(trees[1] / "_astro" / new)
+    page = trees[1] / "index.html"
+    page.write_bytes(page.read_bytes().replace(b'id="top"', b'id="changed"'))
+    assert compare(trees, [{"path": "_astro/" + old, "reason": "Reviewed rename"},
+                           {"path": "_astro/" + new, "reason": "Reviewed rename"}]).returncode == 1
+
+
+def test_html_reference_to_unallowed_renamed_bundle_is_unexplained(trees):
+    old, new = "export.abc123.js", "export.def456.js"
+    for tree, filename in ((trees[0], old), (trees[1], new)):
+        page = tree / "index.html"
+        page.write_bytes(page.read_bytes().replace(
+            b"</head>", f'<script src="/_astro/{filename}"></script></head>'.encode()))
+    (trees[1] / "_astro" / old).rename(trees[1] / "_astro" / new)
+    assert compare(trees).returncode == 1
+
+
+@pytest.mark.parametrize("allow_all", [True, False])
+def test_two_renamed_files_in_one_logical_bundle(trees, allow_all):
+    old_names = ["export.abc123.js", "export.ghi789.js"]
+    new_names = ["export.xyz789.js", "export.def456.js"]
+    (trees[0] / "_astro" / old_names[1]).write_bytes(b"second bundle")
+    (trees[1] / "_astro" / old_names[0]).rename(trees[1] / "_astro" / new_names[0])
+    (trees[1] / "_astro" / new_names[1]).write_bytes(b"second bundle")
+    for tree, names in ((trees[0], old_names), (trees[1], new_names)):
+        page = tree / "index.html"
+        references = "".join(f'<script src="/_astro/{name}"></script>' for name in names)
+        page.write_bytes(page.read_bytes().replace(b"</head>", references.encode() + b"</head>"))
+    allowed_names = old_names + new_names if allow_all else old_names[:1] + new_names[:1]
+    result = compare(trees, [{"path": "_astro/" + name, "reason": "Reviewed rename"}
+                             for name in allowed_names])
+    assert result.returncode == (0 if allow_all else 1)
+    report = json.loads((trees[2] / "report.json").read_text())
+    if allow_all:
+        assert report["reference_only_html"] == [
+            {"path": "index.html", "bundles": sorted("_astro/" + n for n in allowed_names)}]
+    else:
+        assert "index.html" in report["unexplained"]
+        assert report["reference_only_html"] == []
+
+
 @pytest.mark.parametrize("path", ["index.html", "payload.json", "sitemap.xml"])
 def test_nonbundle_allow_refused(trees, path):
     assert compare(trees, [{"path": path, "reason": "Do not permit"}]).returncode == 1
