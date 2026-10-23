@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import sources from '../../../data/identities/sources.json';
 import { registeredSourceKeys, sourceKeys } from './sourceKeys';
@@ -9,5 +10,10 @@ describe('browser scan registry', () => {
     expect(sourceKeys).toEqual(Object.fromEntries(editions.map(e => [e.scan_registry_key, {
       adapter: e.adapter, short_label: e.short_label, scan_registry_key: e.scan_registry_key,
     }])));
+  });
+
+  it('needs no build-time define, because Wrangler bundles it for Pages Functions without one', () => {
+    const text = readFileSync(new URL('./sourceKeys.ts', import.meta.url), 'utf8');
+    expect(text).not.toMatch(/declare const __[A-Z_]+__/u);
   });
 });
