@@ -102,3 +102,8 @@ def resolve_source(filename: str) -> Path:
             f"read by the pipeline. Registered volumes: {sorted(registered)}"
         )
     return SOURCE / filename
+
+
+def registered_source_keys() -> frozenset[str]:
+    """Scan keys from the explicit publication allowlist, never filename guesses."""
+    return frozenset(load_volumes())

@@ -11,6 +11,8 @@
  * same values. The GitHub workflow checks every entry again with
  * `noh correct-batch`; this is the early answer, while the editor is looking.
  */
+import { parseRange, parseRef } from "../sourceRefs";
+import { registeredSourceKeys } from "../identities";
 import schema from "../../../../data/schema/corrections.json";
 
 export type Kind = "piece" | "part" | "vespers" | "pairing" | "typeset" | "sections";
@@ -294,7 +296,7 @@ export function normalise(field: string, raw: string, kind: Kind = "piece"): str
 }
 
 /** Checks a proposed value for a target's field, with the reason in words. */
-export function checkValue(targets: Targets, info: TargetInfo, field: string, raw: string): Checked {
+export function checkValue(targets: Targets, info: TargetInfo, field: string, raw: string, knownSources: ReadonlySet<string> = registeredSourceKeys): Checked {
   const rule = RULES[info.kind][field];
   const words = FIELD_LABELS[field]?.toLowerCase() ?? field.replace("_", " ");
   if (!rule) return { ok: false, error: `“${field}” is not a field this screen can correct for a ${info.kind}.` };
@@ -304,7 +306,7 @@ export function checkValue(targets: Targets, info: TargetInfo, field: string, ra
   if (field === "match" && info.fixed && raw.includes(":")) {
     return { ok: false, error: `${info.fixed} Fix the file first, or choose “not in the catalogue” or “a different setting”.` };
   }
-  if (field === "sections") return checkSections(info, raw);
+  if (field === "sections") return checkSections(info, raw, knownSources);
   const value = normalise(field, raw, info.kind);
   const letters = [...value].filter((c) => /\p{L}/u.test(c)).length;
   if (!new RegExp(rule.pattern, "u").test(value) || letters < (rule.min_letters ?? 0)) {
@@ -315,12 +317,24 @@ export function checkValue(targets: Targets, info: TargetInfo, field: string, ra
     if ((first ?? 0) > (last ?? 0)) return { ok: false, error: `The page range ${value} runs backwards.` };
   }
   if (field === "system_range") {
-    const [first = "", last = ""] = value.split("-");
+    let endpoints;
+    try { endpoints = parseRange(value, knownSources); }
+    catch (error) { return { ok: false, error: error instanceof Error ? error.message : "Invalid system range." }; }
+    const [first, last] = endpoints;
     const volume = (info.values["system_range"] ?? "").split("/", 1)[0];
-    if (volume && (first.split("/", 1)[0] !== volume || last.split("/", 1)[0] !== volume)) {
+    if (volume && (first.volume !== volume || last.volume !== volume)) {
       return { ok: false, error: `The systems must be in ${volume}, the volume the piece is printed in.` };
     }
-    if (first > last) return { ok: false, error: `The system range ${value} runs backwards.` };
+  }
+  if (field === "refs") {
+    const current = (info.values["refs"] ?? "").split(" ").filter(Boolean);
+    const volumes = new Set(current.map(ref => ref.split("/")[0]));
+    try {
+      for (const ref of value.split(" ")) {
+        const parsed = parseRef(ref, knownSources);
+        if (volumes.size && !volumes.has(parsed.volume)) return { ok: false, error: "The systems must be in the source the item is printed in." };
+      }
+    } catch (error) { return { ok: false, error: error instanceof Error ? error.message : "Invalid source ref." }; }
   }
   if (field === "note" && value === "none" && !info.values["note"]) {
     return { ok: false, error: "There is no note to remove; the music is shown." };
@@ -484,7 +498,7 @@ const intIn = (v: unknown, lo: number, hi: number): v is number =>
   typeof v === "number" && Number.isInteger(v) && v >= lo && v <= hi;
 
 /** A list as typed, checked as the pipeline checks it: the list, or why not. */
-export function parseSections(raw: string, systems: number | null): SectionEntry[] | string {
+export function parseSections(raw: string, systems: number | null, knownSources: ReadonlySet<string> = registeredSourceKeys): SectionEntry[] | string {
   let value: unknown;
   try { value = JSON.parse(raw); } catch { return "The list of sections is not valid JSON."; }
   if (!Array.isArray(value) || value.length < 1 || value.length > MAX_SECTIONS) {
@@ -532,7 +546,7 @@ export function parseSections(raw: string, systems: number | null): SectionEntry
     const base = { kind, ...(e["n"] ? { n: e["n"] as number } : {}), ...(variant ? { variant: "paschal" as const } : {}),
                    ...(key ? { key } : {}), ...words, chant: id === "none" || id === "" ? "none" as const : id as number };
     if (e["borrowed_page"] !== undefined && e["borrowed_page"] !== null && e["borrowed_page"] !== "") {
-      if (!intIn(e["borrowed_page"], 1, 999) || !/^noh\d$/.test(String(e["borrowed_volume"] ?? ""))) {
+      if (!intIn(e["borrowed_page"], 1, 999) || !knownSources.has(String(e["borrowed_volume"] ?? ""))) {
         return `${at}: printed elsewhere needs its volume and page.`;
       }
       out.push(entry({ ...base, borrowed_volume: String(e["borrowed_volume"]), borrowed_page: e["borrowed_page"] }));
@@ -548,8 +562,8 @@ export function parseSections(raw: string, systems: number | null): SectionEntry
   return out;
 }
 
-function checkSections(info: TargetInfo, raw: string): Checked {
-  const parsed = parseSections(raw, info.systems);
+export function checkSections(info: TargetInfo, raw: string, knownSources: ReadonlySet<string> = registeredSourceKeys): Checked {
+  const parsed = parseSections(raw, info.systems, knownSources);
   if (typeof parsed === "string") return { ok: false, error: parsed };
   const value = sectionsText(parsed);
   if (value === (info.values["sections"] ?? "")) return { ok: false, error: "The list is as it is now; nothing to correct." };

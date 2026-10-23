@@ -5,7 +5,8 @@ from pathlib import Path
 
 import yaml
 
-from pipeline.volumes import DATA
+from pipeline.source_refs import parse_ref
+from pipeline.volumes import DATA, registered_source_keys
 
 REVIEWED = DATA / "hymn-pairings.yml"
 PUBLISHED = DATA / "hymn-pairings.json"
@@ -36,6 +37,7 @@ def compile_pairings(entries, catalog, chants):
     out, notation = {}, set()
     for row in entries:
         ref, slug = row['ref'], row['slug']
+        parse_ref(ref, registered_source_keys())
         piece = pieces.get(slug)
         if not piece or ref not in piece['systems']:
             raise ValueError(f'{slug}: hymn source {ref} is not owned by the piece')

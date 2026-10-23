@@ -1,5 +1,5 @@
 ---
-import { volumeLabel } from "../lib/catalog";
+import { sourceLabel } from "../lib/identities";
 import { annotationFor, chantEntry } from "../lib/chants";
 import { gregobaseUrl } from "../lib/catalog";
 import { bankNote, hymnSettings, isFormula, itemHeading, itemSystems, sections, spokenTone, toneLabel, widestSystem } from "../lib/vespers";
@@ -25,7 +25,7 @@ const secs = sections(day);
     const systemsIn = section.items.flatMap((i) => itemSystems(i));
     const pages = [...new Set(systemsIn.map((s) => Number(s.ref.split("/")[1]) - 30))].sort((a, b) => a - b);
     const captionId = `${section.anchor}-caption`;
-    const volume = systemsIn[0] ? volumeLabel(systemsIn[0].piece) : "Nova Organi Harmonia";
+    const volume = sourceLabel(systemsIn[0]?.piece.volume);
     return (
       <section class="vespers-section" aria-labelledby={`${section.anchor}-h`}>
         <h2 class="section-heading" id={section.anchor}>

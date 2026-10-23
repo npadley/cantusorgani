@@ -28,7 +28,8 @@ from typing import Any
 import yaml
 
 from pipeline import sections
-from pipeline.volumes import DATA
+from pipeline.source_refs import parse_range, parse_ref
+from pipeline.volumes import DATA, registered_source_keys
 
 #: As pipeline.catalog (imported there, not here: the catalogue build is heavy).
 _SINGLE_MOVEMENT = frozenset({"kyrie", "gloria", "credo", "sanctus", "agnus"})
@@ -223,14 +224,19 @@ def coerce(name: str, value: object, genre: str | None = None, kind: str = "piec
     if name == "start_system":
         return int(text)
     if name == "refs":
+        try:
+            for ref in text.split():
+                parse_ref(ref, registered_source_keys())
+        except ValueError as exc:
+            raise CorrectionError(f"{text!r} is not a valid refs: {exc}") from None
         return text.split()
     if name == "system_range":
-        first, last = text.split("-")
-        if first.split("/")[0] != last.split("/")[0]:
-            raise CorrectionError(f"system range {text!r} runs across two volumes")
-        if first > last:
-            raise CorrectionError(f"system range {text!r} runs backwards")
-        return [first, last]
+        try:
+            first, last = parse_range(text, registered_source_keys())
+        except ValueError as exc:
+            raise CorrectionError(str(exc).replace("two sources", "two volumes")) from None
+        # Rebuild the legacy spelling rather than splitting source-key hyphens.
+        return [f"{r['volume']}/{r['pdf_page']:04d}/{r['index']:03d}" for r in (first, last)]
     if name == "note":
         return None if text == "none" else text
     return text
@@ -363,6 +369,9 @@ def _vespers_slot(target: str, name: str, data: VespersData) -> Slot:
         raise _gone(target)
 
     def check(refs: Any) -> str | None:
+        sources = {r.split("/")[0] for r in entry.get("refs") or []}
+        if sources and any(r.split("/")[0] not in sources for r in refs):
+            return f"{target} refs must be in the source the item is printed in"
         missing = [r for r in refs if data.known and r not in data.known]
         return f"{target} refs {', '.join(missing)} are not systems in the catalogue" if missing else None
 

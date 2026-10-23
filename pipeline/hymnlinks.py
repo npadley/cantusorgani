@@ -3,6 +3,8 @@ from pathlib import Path
 
 import yaml
 
+from pipeline.volumes import registered_source_keys
+
 
 def load_hymn_links(path: Path, catalog: dict) -> dict[str, list[str]]:
     if not path.exists():
@@ -13,8 +15,8 @@ def load_hymn_links(path: Path, catalog: dict) -> dict[str, list[str]]:
         slugs = row["pieces"]
         for slug in slugs:
             p = pieces.get(slug)
-            if not p or p.get("volume") != "noh7" or p.get("genre") != "hymn" or not p.get("systems") or p.get("source_note"):
-                raise ValueError(f"{path.name}: {slug} is not an available Book VII hymn")
+            if not p or p.get("volume") not in registered_source_keys() or p.get("genre") != "hymn" or not p.get("systems") or p.get("source_note"):
+                raise ValueError(f"{path.name}: {slug} is not an available source hymn")
         for title in row["titles"]:
             if title in links:
                 raise ValueError(f"{path.name}: duplicate reviewed hymn title {title}")

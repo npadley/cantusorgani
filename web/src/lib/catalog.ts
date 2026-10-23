@@ -1,5 +1,6 @@
 import raw from "../../../data/catalog.json";
 import reviewedHymnLinks from "../../../data/vespers/hymn-links.json";
+import { editionFor, sourceLabel, sourceRegistry, type Sources } from "./identities";
 import { hymnChantId } from "./hymnpairings";
 
 /** Genre of a catalogued piece. Mirrors the pipeline's controlled set. */
@@ -322,7 +323,7 @@ export function loadCatalog(): Catalog {
  * file -- a validator that is never shown bad data is a validator nobody has
  * checked.
  */
-export function parseCatalog(input: unknown): Catalog {
+export function parseCatalog(input: unknown, registry: Sources = sourceRegistry): Catalog {
   const doc = input as RawCatalog;
   if (doc.schema_version !== SCHEMA_VERSION && doc.schema_version !== OLDER_SCHEMA) {
     throw new Error(
@@ -332,6 +333,7 @@ export function parseCatalog(input: unknown): Catalog {
 
   const pieces = doc.pieces.map((p): Piece => {
     if (!(p.volume in doc.volumes)) throw new Error(`${p.id}: unknown volume ${p.volume}`);
+    editionFor(p.volume, registry);
     if (!GENRES.has(p.genre)) throw new Error(`${p.id}: unknown genre ${p.genre}`);
     if (!RECORD_STATUSES.has(p.review_status)) {
       throw new Error(`${p.id}: unknown review_status ${p.review_status}`);
@@ -449,13 +451,13 @@ export function citedBy(piece: Piece, pieces: readonly Piece[] = allPieces()): r
 /** Where in the book: "pp. 5–10", or for an addendum, which numbers its pages
  *  afresh, "Addenda ad Partem III, pp. 3–11". */
 export function pagesLabel(piece: Piece): string {
+  editionFor(piece.volume);
   const pages = `pp. ${piece.printedPages[0]}–${piece.printedPages[1]}`;
   return piece.pagination ? `${piece.pagination}, ${pages}` : pages;
 }
 
-export function volumeLabel(piece: Piece): string {
-  const part = loadCatalog().volumes[piece.volume]?.part;
-  return part ? `Nova Organi Harmonia, part ${part}` : "Nova Organi Harmonia";
+export function volumeLabel(piece: Pick<Piece, "volume">, registry: Sources = sourceRegistry): string {
+  return sourceLabel(piece.volume, registry);
 }
 
 export const MOVEMENT_LABELS: Readonly<Record<Movement, string>> = {
@@ -733,6 +735,6 @@ export function hymnIndex(pieces: readonly Piece[] = allPieces()):
 export function relatedHymnSettings(piece: Piece, pieces: readonly Piece[] = allPieces()): Piece[] {
   const links: Readonly<Record<string, readonly string[]>> = reviewedHymnLinks;
   const slugs = new Set(hymnIndex([piece]).flatMap((h) => links[h.title] ?? []));
-  return pieces.filter((p) => slugs.has(p.slug) && p.slug !== piece.slug && p.volume === "noh7"
+  return pieces.filter((p) => slugs.has(p.slug) && p.slug !== piece.slug
     && p.genre === "hymn" && p.systems.length > 0 && !p.sourceNote);
 }
