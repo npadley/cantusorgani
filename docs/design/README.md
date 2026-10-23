@@ -117,8 +117,9 @@ parts export, editing/admin refactor, Vespers full lineup.
 | Path | Type | Status | Note |
 |---|---|---|---|
 | [2026-10-20-reading-edition-design-correction.md](../reports/2026-10-20-reading-edition-design-correction.md) | report | ACTIVE | Governing product intent; supersedes the 10-19 framing. |
-| [2026-10-19-multiple-sources-and-language-direction.md](../reports/2026-10-19-multiple-sources-and-language-direction.md) | report | PROPOSAL | Its service-first mockup was rejected. Source-independent identities and English UI remain proposals. |
-| [2026-10-19-architecture-build-and-design-review.md](../reports/2026-10-19-architecture-build-and-design-review.md) | report | PROPOSAL | Product framing superseded by 10-20. Build and code findings stand. |
+| [2026-10-19-multiple-sources-and-language-direction.md](../reports/2026-10-19-multiple-sources-and-language-direction.md) | report | PROPOSAL | Its service-first mockup was rejected. Source-independent identities were decided as P15; English UI (Q3) remains a proposal. |
+| [2026-10-19-architecture-build-and-design-review.md](../reports/2026-10-19-architecture-build-and-design-review.md) | report | PROPOSAL | Product framing superseded by 10-20. Build and code findings stand. Keeping Astro static was decided as P14. |
+| [2026-10-23-platform-options.md](../reports/2026-10-23-platform-options.md) | report | ACTIVE REFERENCE | Platform for more collections; decided as P14–P16. Read before multi-source, ingestion or hosting work. |
 | [2026-10-22-documentation-audit.md](../reports/2026-10-22-documentation-audit.md) | report | ACTIVE | Read-only audit. |
 | [2026-10-03-book-seven-*](../reports/2026-10-03-book-seven-hymn-references.md) (references, routes, assets) | research | REFERENCE | Hymns Book VII evidence. |
 | [2026-10-03-hymn-gregobase-*](../reports/2026-10-03-hymn-gregobase-pairings.md) | research | REFERENCE | Hymn to GregoBase pairings. |
