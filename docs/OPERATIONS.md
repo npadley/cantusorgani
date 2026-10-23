@@ -216,6 +216,8 @@ Bootstrap refuses a nonempty ledger. Later allocations keep all existing IDs;
 `build` and `check` never allocate. Commit `data/identities/ledger.json` and
 `migration.json` with the source change. The graph (`snapshot.json`) and lookup
 index (`aliases.json`) go into gitignored `build/identities/`.
+The Astro build defines `__SOURCE_KEYS__` from `sources.json`, passing only scan
+keys, adapters and short labels to the browser correction forms.
 
 Run allocate, build and check after the last catalogue, Vespers, OF, hymn or
 typeset writer, including direct MEI record or manifest changes. The regeneration
@@ -421,8 +423,8 @@ Keep tombstones and history. An identical ID with incompatible records needs
 review; never choose one side and lose the other allocation. Merge reviewed
 `sources.json` and `aliases.yml` entries with their evidence. Refresh the
 command-managed migration report with `noh identities build`, then run
-`noh identities check` after regeneration. The report hashes source files,
-not generated catalogue bytes. A failed check must be resolved before commit.
+`noh identities check` after regeneration. The report hashes reviewed sources,
+adapter code and the post-replay catalogue. Resolve a failed check before commit.
 
 When your branch and `main` have both changed generated files, git reports
 conflicts in them. Don't resolve those by hand. Take `main`'s copy of every

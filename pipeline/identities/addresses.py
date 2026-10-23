@@ -5,10 +5,11 @@ from urllib.parse import urlsplit
 from .model import read
 
 
-def addresses(data, snapshot, aliases):
-    root = Path(__file__).resolve().parents[2]
+def addresses(data, snapshot, aliases, *, root):
+    root = Path(root)
     redirects = []
-    for line in (root / 'web/public/_redirects').read_text().splitlines():
+    path = root / 'web/public/_redirects'
+    for line in (path.read_text() if path.exists() else '').splitlines():
         if not line.strip() or line.lstrip().startswith('#'):
             continue
         parts = line.split()

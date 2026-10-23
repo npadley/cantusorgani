@@ -93,7 +93,32 @@ def bind(ledger, wanted, data, allow_new=False):
     by_alias = {k: e for e in ledger['entries'] if e['state'] == 'active' for k in e['legacy_keys']}
     bound = {}
     by_id = {e['id']: e for e in ledger['entries']}
-    current = {k: w for w in wanted for k in w['legacy_keys']}
+    current = {}
+    wanted_keys = set()
+    for w in wanted:
+        key = (w['kind'], w['birth_seed'])
+        if key in wanted_keys:
+            raise ValueError(f'duplicate wanted seed: {key}')
+        wanted_keys.add(key)
+        for alias in w['legacy_keys']:
+            if alias in current:
+                raise ValueError(f'duplicate wanted legacy key {alias}: {current[alias]} and {w}')
+            current[alias] = w
+    claimed = {}
+
+    def claim(key, entry):
+        previous = claimed.get(entry['id'])
+        if previous is not None and previous != key:
+            raise ValueError(f'entry {entry["id"]} already bound to {previous}; two wanted rows: {key}')
+        claimed[entry['id']] = key
+        bound[key] = entry
+
+    def setting_ordinal(row):
+        # Historical multi-setting seeds record the printed setting ordinal.
+        # A single setting occupies ordinal 1; never decode an opaque ID.
+        _prefix, separator, ordinal = row['birth_seed'].rpartition(':setting:')
+        return int(ordinal) if separator else 1
+
     for e in ledger['entries']:
         if e['state'] != 'active' or e['kind'] != 'item':
             continue
@@ -116,7 +141,7 @@ def bind(ledger, wanted, data, allow_new=False):
         elif e['state'] != 'active':
             raise ValueError(f'retired slot {key}: {e["id"]}')
         else:
-            bound[key] = e
+            claim(key, e)
     # After a reviewed rebind, associations in the ledger own works,
     # settings and scan slots. Their old birth seeds are historical evidence.
     for _ in range(3):
@@ -130,7 +155,9 @@ def bind(ledger, wanted, data, allow_new=False):
                               if role == 'item'), None)
                 if owner:
                     candidates = [e for e in ledger['entries'] if e['state'] == 'active'
-                                  and e['kind'] == w['kind'] and any(
+                                  and e['kind'] == w['kind']
+                                  and (w['kind'] != 'setting' or setting_ordinal(e) == setting_ordinal(w))
+                                  and any(
                                       l['role'] == 'item' and l['id'] == owner['id'] for l in e['links'])]
             elif w['kind'] == 'work':
                 for setting in wanted:
@@ -144,7 +171,7 @@ def bind(ledger, wanted, data, allow_new=False):
             if len(candidates) > 1:
                 raise ValueError(f'ambiguous ledger associations: {key}: {sorted(candidates)}')
             if candidates:
-                bound[key] = next(iter(candidates.values()))
+                claim(key, next(iter(candidates.values())))
     if not allow_new:
         for w in wanted:
             key = (w['kind'], w['birth_seed'])

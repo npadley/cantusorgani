@@ -8,21 +8,24 @@ from .model import ADAPTER_VERSION, origin, pointer, read, sha, validate
 
 
 def source_hashes(data):
-    """Reviewed/command-managed sources and adapter code, never derived outputs."""
+    """Reviewed inputs, post-replay catalogue and adapter code; never identity outputs."""
     data = Path(data)
     patterns = ['identities/sources.json', 'identities/ledger.json', 'identities/aliases.yml',
                 'identities/legacy-addresses.json', 'schema/identities.json', 'volumes.yml',
                 'index-*.yml', 'sections/*.yml', 'corrections.yml', 'rubrics-1962.yml',
                 'vespers/*.yml', 'ordinary-form/*.yml', 'hymn-pairings.yml', 'good-friday.json',
-                'typeset/src/**/*', 'typeset/mei/records/*.json', 'items.json']
+                'typeset/src/**/*', 'typeset/mei/records/*.json', 'items.json', 'catalog.json']
     files = {p for pat in patterns for p in data.glob(pat) if p.is_file()}
     result = {'data/' + p.relative_to(data).as_posix(): sha(p) for p in sorted(files)}
     root = Path(__file__).resolve().parents[2]
     for p in sorted((root / 'pipeline/identities').glob('*.py')):
         result[p.relative_to(root).as_posix()] = sha(p)
     for name in ['pipeline/source_refs.py', 'pipeline/sections.py', 'pipeline/typeset/match.py',
-                 'pipeline/corrections.py', 'web/public/_redirects']:
+                 'pipeline/corrections.py']:
         result[name] = sha(root / name)
+    redirects = data.parent / 'web/public/_redirects'
+    if redirects.exists():
+        result['web/public/_redirects'] = sha(redirects)
     return dict(sorted(result.items()))
 
 
@@ -302,7 +305,7 @@ def project(data, ledger):
         audit(read(data / file), file)
 
     from .addresses import addresses
-    addresses(data, snapshot, aliases)
+    addresses(data, snapshot, aliases, root=data.parent)
     for name in ['works', 'source_items', 'settings', 'representations']:
         snapshot[name].sort(key=lambda r: r['id'])
     snapshot['relations'].sort(key=lambda r: (r['from_id'], r['to_id'], r['kind']))

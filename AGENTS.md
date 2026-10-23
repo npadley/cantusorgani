@@ -19,7 +19,7 @@ your task before you change anything.
 |---|---|
 | Fix something the site shows (title, pages, day, system, Proper part) | `docs/EDITING.md` (recipes by symptom) |
 | Regenerate data, run checks, merge `main`, get a change to the site | `docs/OPERATIONS.md` |
-| Permanent identities, ledger and aliases | `docs/superpowers/specs/2026-10-22-source-independent-identities.md` (§6, §13–14) |
+| Permanent identities, ledger and aliases | `docs/ARCHITECTURE.md` § Permanent identities, `docs/OPERATIONS.md` § Identity commands |
 | Understand how the parts fit together | `docs/ARCHITECTURE.md` |
 | Typeset music, LilyPond, MEI/Verovio, Customize export | `docs/TYPESETTING.md`, then `docs/superpowers/plans/export-layout-decisions.md` |
 | Admin screen, Cloudflare Access, GitHub App, D1 migrations | `docs/ADMIN-SETUP.md` |

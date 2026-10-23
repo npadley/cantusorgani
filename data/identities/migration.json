@@ -20,6 +20,7 @@
     "works": 1644
   },
   "input_sha256": {
+    "data/catalog.json": "3e885deac0d13d799407669e8c0d84622f1a9d82395b6328e012caf24270872b",
     "data/corrections.yml": "206cb7c5801be8cd83dad86b651f4b2d4e3fb322fbee49d7b81bcb4f975616b5",
     "data/good-friday.json": "12bc7c317bb22c81a9e12e6230332f0c24de61555ff047236bb5cfbf3e6e6a9c",
     "data/hymn-pairings.yml": "0ba6636862adf3253a0b4bff5502759a87bf7b4ecd01a6a94232f0bcfa9d59d2",
@@ -1639,11 +1640,11 @@
     "pipeline/corrections.py": "e48b7bb5ae6cac3f4043649b2298b34453afe301a26a8c9fd90403a279fe49c8",
     "pipeline/identities/__init__.py": "f276abccaf6e986cfd638ffd6c71d49042144ea70e6dca98a4a1062c38a1e97b",
     "pipeline/identities/__main__.py": "dae5e5ace998c3854b1d1e89d8d44d0bb51835bddde91230daa50252a827c512",
-    "pipeline/identities/addresses.py": "fb00ba6103f3ab3f92bc5304d8b67e6a6fe8923a81a93a24c134b22556e9ec02",
+    "pipeline/identities/addresses.py": "545657bc36d045476cced2bad9bc608b78e5103c939dd3b607d04b58cc0738cf",
     "pipeline/identities/inventory.py": "ee8e009a295f3f0cdaf48f8d3dc44af3564ecf1887e1e4aac03b396f1fd7a5fb",
-    "pipeline/identities/ledger.py": "c688dad3160ef065d3a1db9a5a05d22d0eff4b6f0b0ec7371815a96a398a8280",
+    "pipeline/identities/ledger.py": "3c07c447c057d6cbabb8454c83ca57c326f8dfc864c2fdc039366ad760a3b686",
     "pipeline/identities/model.py": "c234a10e6e2908694d28915e21d19f90ec1642f8f7f46b6638005ac2d02fb42a",
-    "pipeline/identities/projection.py": "630159d63adb2c2a0a3b486f1e3b99ed713347e2ca4d07ab72642ae16713fb44",
+    "pipeline/identities/projection.py": "620e486464dde8505473e5d6a3a3a29757340a59a1de8e112f1d3e8da9e79a02",
     "pipeline/sections.py": "5188979764b0f28f73539d4b4d8742c137b7a2c2cf7fa3acf686a5a52e69169a",
     "pipeline/source_refs.py": "26b16d6dfd970ea0f5f9f6246b6c2c09e4c3e15d47e3da1aec9426eeaf822cfb",
     "pipeline/typeset/match.py": "f6d41c92cae3c35842f30f63272221c100f5498d40981bd3b3764ccb07ea389e",

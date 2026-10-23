@@ -57,6 +57,20 @@ def export_fixture(destination):
             shutil.copy(path, dest)
 
 
+def alternate_locale():
+    """Choose a UTF-8 locale installed on this host, without changing this process."""
+    for name in ('en_US.UTF-8', 'C.UTF-8'):
+        probe = subprocess.run(
+            [sys.executable, '-c', 'import locale, sys; locale.setlocale(locale.LC_ALL, sys.argv[1])', name],
+            capture_output=True, check=False,
+        )
+        if probe.returncode == 0:
+            return name
+    print('Note: skipping alternate-locale check: en_US.UTF-8 and C.UTF-8 unavailable; '
+          'hash-seed checks still run under C.')
+    return None
+
+
 def run(tree, seed, locale, code):
     env = {**os.environ, 'PYTHONHASHSEED': str(seed), 'LC_ALL': locale,
            'LANG': locale, 'PYTHONPATH': str(tree), 'PYTHONDONTWRITEBYTECODE': '1'}
@@ -89,7 +103,7 @@ def verify():
     with tempfile.TemporaryDirectory(prefix='identity-migration-') as folder:
         trees = [Path(folder) / name for name in ('a', 'b')]
         timings = {}
-        for tree, seed, locale in zip(trees, (1, 431), ('C', 'en_US.UTF-8'), strict=True):
+        for tree, seed, locale in zip(trees, (1, 431), ('C', alternate_locale() or 'C'), strict=True):
             t = time.monotonic()
             export_fixture(tree)
             original = {p.relative_to(tree).as_posix(): sha(p) for p in (tree / 'data').rglob('*') if p.is_file()}

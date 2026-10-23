@@ -15,6 +15,8 @@ DATA = ROOT / 'data'
 
 @pytest.fixture
 def model(tmp_path):
+    tmp_path = tmp_path / 'data'
+    tmp_path.mkdir()
     (tmp_path / 'identities').mkdir()
     (tmp_path / 'schema').mkdir()
     for name in ['schema/identities.json', 'identities/sources.json', 'volumes.yml']:
@@ -360,4 +362,76 @@ def test_captured_redirect_order_does_not_change_validation(model, reverse):
         'redirects': rules,
         'routes': [{'path': rule['to'].split('?')[0]} for rule in rules],
     }))
-    addresses(model, {'source_items': [], 'settings': []}, {'legacy_slugs': {}})
+    (model.parent / 'web/public').mkdir(parents=True, exist_ok=True)
+    shutil.copy(ROOT / 'web/public/_redirects', model.parent / 'web/public/_redirects')
+    addresses(model, {'source_items': [], 'settings': []}, {'legacy_slugs': {}}, root=model.parent)
+
+
+def test_bind_duplicate_wanted_legacy_keys_raise(model):
+    from pipeline.identities.ledger import bind, load_ledger, requests
+
+    bootstrap(model)
+    wanted = requests(model)
+    duplicate = copy.deepcopy(next(w for w in wanted if w['legacy_keys']))
+    duplicate['birth_seed'] = 'different-row'
+    wanted.append(duplicate)
+    with pytest.raises(ValueError, match='duplicate.*legacy key'):
+        bind(load_ledger(model), wanted, model)
+
+
+def test_bind_two_wanted_rows_cannot_claim_one_entry(model):
+    from pipeline.identities.ledger import bind, load_ledger, requests
+
+    bootstrap(model)
+    wanted = requests(model)
+    setting = copy.deepcopy(next(w for w in wanted if w['kind'] == 'setting'))
+    setting['birth_seed'] = 'renamed-setting'
+    wanted.append(setting)
+    with pytest.raises(ValueError, match='already bound|two wanted'):
+        bind(load_ledger(model), wanted, model)
+
+
+def test_multi_setting_rebind_preserves_ordinals(model):
+    from pipeline.identities.ledger import bind, load_ledger, requests
+
+    fixture = ROOT / 'tests/fixtures/identities/model/numbered-hymnal'
+    shutil.copy(fixture / 'sources.json', model / 'identities/sources.json')
+    shutil.copy(fixture / 'items.json', model / 'items.json')
+    (model / 'catalog.json').write_text('{"pieces": []}')
+    bootstrap(model, adapter='numbered-hymnal')
+    ledger = load_ledger(model)
+    wanted = requests(model)
+    # Model the request-side rename after a reviewed item rebind: the item
+    # still binds by its explicit alias, while work/setting birth seeds differ.
+    for w in wanted:
+        if w['birth_seed'].startswith('hymnal:1'):
+            w['birth_seed'] = w['birth_seed'].replace('hymnal:1', 'renamed:1', 1)
+        w['links'] = [(role, kind, seed.replace('hymnal:1', 'renamed:1', 1))
+                      for role, kind, seed in w['links']]
+    bound = bind(ledger, wanted, model)
+    for ordinal in (1, 2):
+        old = next(e for e in ledger['entries']
+                   if e['kind'] == 'setting' and e['birth_seed'] == f'hymnal:1:setting:{ordinal}')
+        assert bound['setting', f'renamed:1:setting:{ordinal}']['id'] == old['id']
+
+
+def test_input_hash_tracks_post_replay_catalog(model):
+    from pipeline.identities.projection import source_hashes
+
+    before = source_hashes(model)
+    c = catalog(model)
+    c['pieces'][0]['title'] = 'A corrected heading'
+    save(model, c)
+    after = source_hashes(model)
+    assert before['data/catalog.json'] != after['data/catalog.json']
+
+
+def test_addresses_use_explicit_fixture_root(model, tmp_path):
+    from pipeline.identities.addresses import addresses
+
+    root = tmp_path / 'site'
+    (root / 'web/public').mkdir(parents=True)
+    (root / 'web/public/_redirects').write_text('/old/ /new/ 301\n')
+    aliases = {'legacy_slugs': {}}
+    addresses(model, {'source_items': [], 'settings': []}, aliases, root=root)
+    assert aliases['redirects'] == [{'from': '/old/', 'to': '/new/', 'status': 301}]

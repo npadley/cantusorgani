@@ -75,8 +75,7 @@ def test_where_ids_preserves_edit_targets_and_writes_nothing(tmp_path):
 
     (tmp_path / 'identities').mkdir()
     (tmp_path / 'schema').mkdir()
-    registry = next(path for path in ('identities/sources.json', 'identities/sources.yml')
-                    if (ROOT / 'data' / path).exists())
+    registry = 'identities/sources.json'
     for name in (registry, 'schema/identities.json', 'volumes.yml'):
         shutil.copy(ROOT / 'data' / name, tmp_path / name)
     catalog = json.loads((ROOT / 'data/catalog.json').read_text())

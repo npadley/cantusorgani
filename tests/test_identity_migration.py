@@ -92,21 +92,44 @@ def test_upload_plans_and_hashes_do_not_take_identity_ids(tmp_path, monkeypatch)
 
 @pytest.mark.real_sections
 def test_replay_never_reads_identity_graph_and_preserves_bytes(tmp_path, monkeypatch):
+    import builtins
+    import io
+
     from pipeline import corrections
     from pipeline.identities import build
 
-    entries = corrections.load(DATA / 'corrections.yml')
-    base = corrections.load_base(DATA / 'catalog.base.json')
-    before = corrections.dump(corrections.apply(base, entries))
-    original = Path.read_text
-    def no_graph(path, *a, **kw):
-        assert 'identities' not in path.parts, f'legacy replay tried reading {path}'
-        return original(path, *a, **kw)
-    monkeypatch.setattr(Path, 'read_text', no_graph)
-    assert corrections.dump(corrections.apply(base, entries)) == before
-    monkeypatch.setattr(Path, 'read_text', original)
+    def replay():
+        with monkeypatch.context() as guard:
+            def check_path(path, mode='r'):
+                if isinstance(path, (str, bytes, Path)) and ('r' in mode or '+' in mode):
+                    p = Path(path.decode() if isinstance(path, bytes) else path)
+                    parts = p.parts
+                    protected = any(parts[i:i + 2] in (('data', 'identities'), ('build', 'identities'))
+                                    for i in range(len(parts) - 1))
+                    assert not protected or p.name in ('ledger.json', 'sources.json'), (
+                        f'legacy replay tried reading {path}')
+
+            def guarded_open(original):
+                def wrapped(path, mode='r', *args, **kwargs):
+                    check_path(path, mode)
+                    return original(path, mode, *args, **kwargs)
+                return wrapped
+
+            original_text = Path.read_text
+            def guarded_text(path, *args, **kwargs):
+                check_path(path)
+                return original_text(path, *args, **kwargs)
+
+            guard.setattr(builtins, 'open', guarded_open(builtins.open))
+            guard.setattr(io, 'open', guarded_open(io.open))
+            guard.setattr(Path, 'read_text', guarded_text)
+            # Guard initial loads as well as the full replay's lazy inputs.
+            return corrections._outputs(DATA / 'catalog.base.json', DATA / 'corrections.yml',
+                                        DATA / 'catalog.json')[DATA / 'catalog.json']
+
+    before = replay()
     build(DATA, out=tmp_path)
-    assert corrections.dump(corrections.apply(base, entries)) == before
+    assert replay() == before
     assert before.encode() == (DATA / 'catalog.json').read_bytes()
 
 
@@ -167,6 +190,8 @@ def test_bootstrap_and_initial_ledger_have_no_retired_allocations(tmp_path):
             return {'ledger.json', 'snapshot.json', 'aliases.json', 'migration.json'} & set(names)
         return set()
     shutil.copytree(DATA, target, ignore=ignore)
+    (tmp_path / 'web/public').mkdir(parents=True)
+    shutil.copy(DATA.parent / 'web/public/_redirects', tmp_path / 'web/public/_redirects')
     bootstrap(target)
     fresh = json.loads((target / 'identities/ledger.json').read_text())
     assert all(entry['state'] == 'active' for entry in fresh['entries'])
@@ -180,3 +205,26 @@ def test_bootstrap_and_initial_ledger_have_no_retired_allocations(tmp_path):
         settings = [setting for setting in result['snapshot.json']['settings']
                     if item_id in setting['source_item_ids']]
         assert len(settings) == 1
+
+
+@pytest.mark.parametrize('directory', ['data/identities', 'build/identities'])
+@pytest.mark.parametrize('method', ['open', 'read_text'])
+def test_replay_guard_catches_graph_reads_during_initial_loads(tmp_path, monkeypatch, directory, method):
+    from pipeline import corrections
+
+    forbidden = tmp_path / directory / 'unexpected.json'
+    forbidden.parent.mkdir(parents=True)
+    forbidden.write_text('{}')
+    original = corrections.load_base
+
+    def injected_read(*args, **kwargs):
+        if method == 'open':
+            with open(forbidden) as stream:
+                stream.read()
+        else:
+            forbidden.read_text()
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(corrections, 'load_base', injected_read)
+    with pytest.raises(AssertionError, match='legacy replay tried reading'):
+        test_replay_never_reads_identity_graph_and_preserves_bytes(tmp_path, monkeypatch)

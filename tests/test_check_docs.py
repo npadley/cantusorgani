@@ -195,3 +195,11 @@ def test_check_docs_astro_route_brackets_are_literal(repo):
     write(repo, "web/src/pages/chant/[id].json.ts")
     write(repo, "README.md", "`web/src/pages/chant/[id].json.ts`")
     assert check_docs(repo) == []
+
+
+@pytest.mark.parametrize('build_exists', [False, True])
+def test_check_docs_generated_build_paths_are_local_only(repo, build_exists):
+    if build_exists:
+        (repo / 'build').mkdir()
+    write(repo, 'README.md', '`build/identities/snapshot.json` and `build/mei/stale/stale.json`')
+    assert check_docs(repo) == []
