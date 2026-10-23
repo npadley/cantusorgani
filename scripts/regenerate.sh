@@ -8,7 +8,7 @@
 # Run it after editing anything under data/ by hand, after merging main into a
 # branch (with the generated files taken from main), or whenever a check says a
 # generated file is not current. It is safe to run twice: the second run changes
-# nothing. See docs/OPERATIONS.md.
+# nothing. See cantusorgani-docs/OPERATIONS.md.
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"

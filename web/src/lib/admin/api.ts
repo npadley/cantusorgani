@@ -208,13 +208,13 @@ async function conflict(store: Store, id: number, row: Row | null): Promise<Resp
  * never the error's own text, which can name tables and columns. A database
  * whose migrations lag the code (a column or table the code needs is missing)
  * says so, with the fix; the owner applies them before merging such a change
- * (docs/ADMIN-SETUP.md, section 6). */
+ * (cantusorgani-docs/ADMIN-SETUP.md, section 6). */
 function serverError(error: unknown): Response {
   const message = error instanceof Error ? error.message : String(error);
   console.error("admin API:", message);
   if (/no such (column|table)/i.test(message)) {
     return problem(503, "The corrections database needs its latest migration. The owner applies it with " +
-      "`pnpm migrate:remote` in workers/corrections (see docs/ADMIN-SETUP.md); then reload this page.");
+      "`pnpm migrate:remote` in workers/corrections (see cantusorgani-docs/ADMIN-SETUP.md); then reload this page.");
   }
   return problem(500, "Something went wrong on the server. Try again; if it keeps happening, tell the owner.");
 }

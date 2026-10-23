@@ -2,7 +2,7 @@
  * Typeset music: where a volunteer transcription has been matched to a part of
  * a piece, the page shows it drawn by LilyPond instead of the scan (with a
  * switch back to the scans). data/typeset/manifest.json names each matched
- * part's render; docs/TYPESETTING.md says how it gets there.
+ * part's render; cantusorgani-docs/TYPESETTING.md says how it gets there.
  *
  * A piece's systems are split into segments at its headings (movements, Proper
  * parts, a single-chant piece's one chant). Each segment is either typeset or

@@ -4,4 +4,4 @@
 
 ## How checked
 
-- [ ] Docs updated for any behaviour this changes (AGENTS.md, docs/*)
+- [ ] Docs updated for any behaviour this changes (AGENTS.md, cantusorgani-docs/*)

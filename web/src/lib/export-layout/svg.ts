@@ -5,7 +5,7 @@
  * the policy is closed: every element, attribute and CSS declaration must be on an explicit
  * allowlist, and anything else is rejected with a diagnostic (never silently stripped, because
  * that could hide music). The allowlist is no broader than what the PDF walker supports
- * (docs/superpowers/experiments/s3-s4-fonts-pdf.md), plus Verovio's fixed `<style>` rules.
+ * (cantusorgani-docs/superpowers/experiments/s3-s4-fonts-pdf.md), plus Verovio's fixed `<style>` rules.
  *
  * Uses `@xmldom/xmldom`, so it runs in a worker and in Vitest (no `DOMParser` in workers).
  * Errors: `UNSAFE_SVG: <reason>` for policy violations, `INVALID_PAGE: <reason>` for input that

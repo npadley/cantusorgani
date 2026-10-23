@@ -10,7 +10,7 @@ type TemplateRoute = { id: RouteId; url: string };
 const ALLOWLIST: Record<RouteId, { rule: string; reason: string }[]> = {};
 
 const routes: TemplateRoute[] = JSON.parse(
-  readFileSync(resolve("../docs/ui/routes.json"), "utf8"),
+  readFileSync(resolve("e2e/routes.json"), "utf8"),
 );
 const seen = new Set<string>();
 const templates = routes.filter(({ url }) => {

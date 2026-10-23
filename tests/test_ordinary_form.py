@@ -381,3 +381,27 @@ def test_weekday_base_must_exist_and_cannot_be_a_weekday():
     chained = weekday_row(key="ot-2-tuesday", weekday_of="ot-2-monday")
     with pytest.raises(ValueError, match="weekday_of"):
         build_propers(catalog, occasions + [weekday_row(omit_slots=["communio"]), chained], assignments, {})
+
+
+@pytest.mark.parametrize("state", ["present", "broken", "absent", "escape"])
+def test_source_review_private_evidence_checks_available_clone(tmp_path, monkeypatch, state):
+    from pathlib import Path
+
+    from pipeline.jgabc import load_novus
+
+    occasions = yaml.safe_load(Path("data/ordinary-form/occasions.yml").read_text())
+    clone = tmp_path / "cantusorgani-docs"
+    monkeypatch.setattr("pipeline.ordinary_form.docs_path", lambda root: clone)
+    if state != "absent":
+        clone.mkdir()
+    evidence = "review.md" if state != "escape" else "../outside.md"
+    if state == "present":
+        (clone / evidence).write_text("Reviewed")
+    for row in occasions:
+        for review in row.get("source_reviews", []):
+            review["evidence"] = "cantusorgani-docs/" + evidence
+    if state in {"broken", "escape"}:
+        with pytest.raises(ValueError, match="evidence path"):
+            validate_cycle_review_coverage(occasions, load_novus()["proprium"])
+    else:
+        assert validate_cycle_review_coverage(occasions, load_novus()["proprium"]) == (40, 60)
