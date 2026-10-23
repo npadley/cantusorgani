@@ -35,24 +35,6 @@ Unknown URLs use the branded top-level `404.html`, which makes Cloudflare return
 HTTP 404 instead of its home-page SPA fallback. The page offers search, calendar
 and home links; it is noindex and absent from the sitemap.
 
-## Identity migration and historical addresses
-
-Phase 1 adds no routes or redirects. Piece slugs, fragments, canonical URLs,
-queries, sitemap entries and indexing policy keep their existing contracts.
-A piece page may correspond to several works; identity aliases record that
-relationship without creating a new public page. Fragments cannot be redirected
-by the server; any later move needs stable anchors or client handling.
-
-`data/identities/legacy-addresses.json` is the reviewed historical address
-inventory, captured from built pages and sitemaps. `tools.check_legacy_addresses`
-checks it against a local dist, including redirect resolution and 404 behavior.
-Reviewed existing defects are named exactly in
-`data/identities/legacy-address-exceptions.json`; fixed exceptions fail too.
-The mutation tests in `tests/test_legacy_addresses.py` check missing fragments,
-redirect loops and false 404s. See
-[the checking commands](OPERATIONS.md#checking). Keep the inventory when rolling
-back identity code.
-
 ## Public AI guide and citations
 
 `/llms.txt` is a public navigation and citation guide, linked from the footer.
