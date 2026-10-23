@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cantusorgani.org/schema/identities.json",
+  "title": "Phase 1 identity source registry",
+  "$comment": "M1 validates sources.yml. ledger and snapshot are fail-closed placeholders for M2. load_sources also checks unique IDs, unique non-null legacy volumes, source ownership and scan-registry membership.",
+  "$ref": "#/$defs/sourceRegistry",
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nullableText": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "sourceKey": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,63}$"
+    },
+    "nullableSourceKey": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-z][a-z0-9-]{0,63}$"
+    },
+    "sourceId": {
+      "type": "string",
+      "pattern": "^src_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "editionId": {
+      "type": "string",
+      "pattern": "^edn_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "short_title",
+        "licence_reference"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/sourceId"
+        },
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "short_title": {
+          "$ref": "#/$defs/text"
+        },
+        "licence_reference": {
+          "$ref": "#/$defs/nullableText"
+        }
+      },
+      "additionalProperties": false
+    },
+    "editionPolicy": {
+      "type": "object",
+      "required": [
+        "show_related_hymns",
+        "borrow_whole_reference",
+        "related_hymns_heading",
+        "reference_group"
+      ],
+      "properties": {
+        "show_related_hymns": {
+          "type": "boolean"
+        },
+        "borrow_whole_reference": {
+          "type": "boolean"
+        },
+        "related_hymns_heading": {
+          "$ref": "#/$defs/nullableText"
+        },
+        "reference_group": {
+          "$ref": "#/$defs/nullableText"
+        }
+      },
+      "additionalProperties": false
+    },
+    "edition": {
+      "type": "object",
+      "required": [
+        "id",
+        "source_id",
+        "legacy_volume",
+        "title",
+        "part",
+        "citation_label",
+        "short_label",
+        "sort_order",
+        "adapter",
+        "scan_registry_key",
+        "publication_note",
+        "provenance_reference",
+        "rights_reference",
+        "rights_state",
+        "policy"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/editionId"
+        },
+        "source_id": {
+          "$ref": "#/$defs/sourceId"
+        },
+        "legacy_volume": {
+          "$ref": "#/$defs/nullableSourceKey"
+        },
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "part": {
+          "$ref": "#/$defs/nullableText"
+        },
+        "citation_label": {
+          "$ref": "#/$defs/text"
+        },
+        "short_label": {
+          "$ref": "#/$defs/text"
+        },
+        "sort_order": {
+          "type": "integer"
+        },
+        "adapter": {
+          "$ref": "#/$defs/sourceKey"
+        },
+        "scan_registry_key": {
+          "$ref": "#/$defs/nullableSourceKey"
+        },
+        "publication_note": {
+          "$ref": "#/$defs/nullableText"
+        },
+        "provenance_reference": {
+          "$ref": "#/$defs/nullableText"
+        },
+        "rights_reference": {
+          "$ref": "#/$defs/nullableText"
+        },
+        "rights_state": {
+          "enum": [
+            "unknown",
+            "cleared",
+            "withdrawn"
+          ]
+        },
+        "policy": {
+          "$ref": "#/$defs/editionPolicy"
+        }
+      },
+      "additionalProperties": false
+    },
+    "sourceRegistry": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "sources",
+        "editions"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": "integer",
+          "const": 1
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          }
+        },
+        "editions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/edition"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ledger": false,
+    "snapshot": false
+  }
+}

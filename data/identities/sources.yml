@@ -1,0 +1,146 @@
+# Reviewed source metadata. IDs use the bootstrap seeds in the Phase 1 spec §5.
+# Scan checksums, pagination segments and publication allowlist: ../volumes.yml.
+# In particular, NOH3 retains its regina and pius-x addenda, labels and 1954 dates.
+# reference_group scopes the existing NOH Roman-part citations to this collection.
+# Rights clearance covers registered scans only; see ../LICENSES.md.
+schema_version: 1
+sources:
+- id: src_49095733-788d-53cc-b1ff-c911932b8a58
+  title: Nova Organi Harmonia ad Graduale Romanum
+  short_title: Nova Organi Harmonia
+  licence_reference: data/LICENSES.md
+editions:
+- id: edn_251dd1d5-47de-5162-85f3-88d0c258bc37
+  source_id: src_49095733-788d-53cc-b1ff-c911932b8a58
+  legacy_volume: noh5
+  title: Kyriale
+  part: V
+  citation_label: Nova Organi Harmonia, part V
+  short_label: Book V
+  sort_order: 5
+  adapter: noh
+  scan_registry_key: noh5
+  publication_note: null
+  provenance_reference: null
+  rights_reference: data/LICENSES.md
+  rights_state: cleared
+  policy:
+    show_related_hymns: false
+    borrow_whole_reference: true
+    related_hymns_heading: null
+    reference_group: noh
+- id: edn_335b27a8-59a2-56e4-be91-070be878745b
+  source_id: src_49095733-788d-53cc-b1ff-c911932b8a58
+  legacy_volume: noh3
+  title: Proprium Sanctorum
+  part: III
+  citation_label: Nova Organi Harmonia, part III
+  short_label: Book III
+  sort_order: 3
+  adapter: noh
+  scan_registry_key: noh3
+  publication_note: Bound scan includes the regina and pius-x addenda (1954), each
+    labelled Addenda ad Partem III.
+  provenance_reference: null
+  rights_reference: data/LICENSES.md
+  rights_state: cleared
+  policy:
+    show_related_hymns: false
+    borrow_whole_reference: true
+    related_hymns_heading: null
+    reference_group: noh
+- id: edn_6f372772-856a-5c79-b075-6a9e8b6cf027
+  source_id: src_49095733-788d-53cc-b1ff-c911932b8a58
+  legacy_volume: noh7
+  title: 'Varia: Hymni, Sequentiae, Antiphonae et Responsoria, Litaniae, Psalmi'
+  part: VII
+  citation_label: Nova Organi Harmonia, part VII
+  short_label: Book VII
+  sort_order: 7
+  adapter: noh
+  scan_registry_key: noh7
+  publication_note: null
+  provenance_reference: null
+  rights_reference: data/LICENSES.md
+  rights_state: cleared
+  policy:
+    show_related_hymns: false
+    borrow_whole_reference: false
+    related_hymns_heading: null
+    reference_group: noh
+- id: edn_7dbc7090-c0aa-54f4-8db0-9e0ee26ecf44
+  source_id: src_49095733-788d-53cc-b1ff-c911932b8a58
+  legacy_volume: noh4
+  title: Commune Sanctorum, Missae Votivae et pro aliquibus locis
+  part: IV
+  citation_label: Nova Organi Harmonia, part IV
+  short_label: Book IV
+  sort_order: 4
+  adapter: noh
+  scan_registry_key: noh4
+  publication_note: null
+  provenance_reference: null
+  rights_reference: data/LICENSES.md
+  rights_state: cleared
+  policy:
+    show_related_hymns: false
+    borrow_whole_reference: true
+    related_hymns_heading: null
+    reference_group: noh
+- id: edn_a01d4490-86fe-595e-a405-d177d341b1e8
+  source_id: src_49095733-788d-53cc-b1ff-c911932b8a58
+  legacy_volume: noh8
+  title: Vesperale
+  part: VIII
+  citation_label: Nova Organi Harmonia, part VIII
+  short_label: Book VIII
+  sort_order: 8
+  adapter: noh
+  scan_registry_key: noh8
+  publication_note: null
+  provenance_reference: null
+  rights_reference: data/LICENSES.md
+  rights_state: cleared
+  policy:
+    show_related_hymns: true
+    borrow_whole_reference: true
+    related_hymns_heading: Related hymn settings in Book VII
+    reference_group: noh
+- id: edn_d4a744ba-7ad9-5ab4-8d58-e90d05dee087
+  source_id: src_49095733-788d-53cc-b1ff-c911932b8a58
+  legacy_volume: noh2
+  title: 'Proprium de Tempore: Easter to the last Sunday after Pentecost'
+  part: II
+  citation_label: Nova Organi Harmonia, part II
+  short_label: Book II
+  sort_order: 2
+  adapter: noh
+  scan_registry_key: noh2
+  publication_note: null
+  provenance_reference: null
+  rights_reference: data/LICENSES.md
+  rights_state: cleared
+  policy:
+    show_related_hymns: false
+    borrow_whole_reference: true
+    related_hymns_heading: null
+    reference_group: noh
+- id: edn_f1eedd3e-bae0-51ec-8ac2-9fffe817d495
+  source_id: src_49095733-788d-53cc-b1ff-c911932b8a58
+  legacy_volume: noh1
+  title: 'Proprium de Tempore: Advent to Holy Saturday'
+  part: I
+  citation_label: Nova Organi Harmonia, part I
+  short_label: Book I
+  sort_order: 1
+  adapter: noh
+  scan_registry_key: noh1
+  publication_note: null
+  provenance_reference: null
+  rights_reference: data/LICENSES.md
+  rights_state: cleared
+  policy:
+    show_related_hymns: false
+    borrow_whole_reference: true
+    related_hymns_heading: null
+    reference_group: noh
