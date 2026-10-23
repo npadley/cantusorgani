@@ -395,7 +395,16 @@ jobs:
 
   deploy:
     needs: [python, site, browser, export]
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    # A status function is needed here. Without one GitHub adds an implicit
+    # success(), which is false when any job further up the chain was skipped,
+    # and typeset-upload is skipped whenever nothing new was rendered. So name
+    # the results that gate the deploy; this is no looser than before: all four
+    # must have succeeded.
+    if: >-
+      !cancelled() && !failure() &&
+      github.event_name != 'pull_request' && github.ref == 'refs/heads/main' &&
+      needs.python.result == 'success' && needs.site.result == 'success' &&
+      needs.browser.result == 'success' && needs.export.result == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
