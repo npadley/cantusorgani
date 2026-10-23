@@ -1,5 +1,4 @@
 ---
-import { borrowedVolumeLabel } from "../lib/identities";
 import { gregobaseUrl, jumpTargets, pagesLabel, systemUrlStem, volumeLabel, sectionName } from "../lib/catalog";
 import { annotationFor, chantEntry } from "../lib/chants";
 import type { JumpTarget, Piece } from "../lib/catalog";
@@ -7,6 +6,7 @@ import { segmentKey, segments } from "../lib/typeset";
 import ReportLinks from "./ReportLinks.astro";
 import { textForHeading } from "../lib/chantText";
 import ChantText from "./ChantText.astro";
+import { borrowedVolumeLabel } from "../lib/identities";
 
 interface Props {
   readonly piece: Piece;

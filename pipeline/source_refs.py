@@ -52,7 +52,7 @@ def parse_range(text: str, known_sources: Collection[str]) -> tuple[SourceRef, S
     return first, last
 
 
-def _validate_schema(value, schema, definitions: dict, path: str = "sources.yml") -> None:
+def _validate_schema(value, schema, definitions: dict, path: str = "sources.json") -> None:
     """Validate the JSON Schema vocabulary used by the M1 registry, offline.
 
     No JSON Schema library is a pipeline dependency. Keep the schema as the
@@ -114,14 +114,14 @@ def _validate_schema(value, schema, definitions: dict, path: str = "sources.yml"
 
 
 def load_sources(data_dir: Path) -> dict:
-    """Load sources.yml, validate its schema and resolve source/scan links.
+    """Load sources.json, validate its schema and resolve source/scan links.
 
     Return the reviewed snake_case document. Null scan keys are valid for
     editions such as numbered hymnals that have no PDF or system addresses.
     """
     data_dir = Path(data_dir)
     schema = json.loads((data_dir / "schema/identities.json").read_text())
-    registry = yaml.safe_load((data_dir / "identities/sources.yml").read_text())
+    registry = json.loads((data_dir / "identities/sources.json").read_text())
     _validate_schema(registry, schema, schema["$defs"])
     source_ids = [source["id"] for source in registry["sources"]]
     edition_ids = [edition["id"] for edition in registry["editions"]]
@@ -132,7 +132,7 @@ def load_sources(data_dir: Path) -> dict:
         seen = set()
         for key in keys:
             if key in seen:
-                raise ValueError(f"sources.yml: duplicate {label}: {key}")
+                raise ValueError(f"sources.json: duplicate {label}: {key}")
             seen.add(key)
     volumes = yaml.safe_load((data_dir / "volumes.yml").read_text())["volumes"]
     for edition in registry["editions"]:

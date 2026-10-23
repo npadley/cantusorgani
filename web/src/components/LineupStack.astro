@@ -1,7 +1,6 @@
 ---
-import { sourceLabel } from "../lib/identities";
-import { annotationFor, chantEntry } from "../lib/chants";
 import { gregobaseUrl } from "../lib/catalog";
+import { annotationFor, chantEntry } from "../lib/chants";
 import { bankNote, hymnSettings, isFormula, itemHeading, itemSystems, sections, spokenTone, toneLabel, widestSystem } from "../lib/vespers";
 import { pieceHref } from "../lib/indexes";
 import type { LineupDay } from "../lib/vespers";
@@ -9,6 +8,7 @@ import ChantText from "./ChantText.astro";
 import DisclosureCue from "./DisclosureCue.astro";
 import { textForChant } from "../lib/chantText";
 import ReportLinks from "./ReportLinks.astro";
+import { sourceLabel } from "../lib/identities";
 
 // A Vespers lineup: slices from several pieces (the Sunday psalter, the day's
 // Magnificat antiphon, a tone-bank formula, the Marian antiphon) in sung order.

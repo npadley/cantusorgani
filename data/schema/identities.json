@@ -55,6 +55,9 @@
         },
         "licence_reference": {
           "$ref": "#/$defs/nullableText"
+        },
+        "notes": {
+          "type": "string"
         }
       },
       "additionalProperties": false
@@ -151,6 +154,9 @@
         },
         "policy": {
           "$ref": "#/$defs/editionPolicy"
+        },
+        "notes": {
+          "type": "string"
         }
       },
       "additionalProperties": false

@@ -22,6 +22,11 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUTS = ('snapshot.json', 'aliases.json', 'migration.json')
 
 
+def identity_path(tree, name):
+    return tree / ('data/identities' if name in ('ledger.json', 'migration.json')
+                   else 'build/identities') / name
+
+
 def tracked_bytes(root):
     names = subprocess.check_output(['git', 'ls-files', '-z'], cwd=root).decode().split('\0')
     # No secrets, pipes or untracked render/source files are traversed.
@@ -44,7 +49,7 @@ def export_fixture(destination):
                     ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
     (destination / 'web/public').mkdir(parents=True)
     shutil.copy(ROOT / 'web/public/_redirects', destination / 'web/public/_redirects')
-    for name in ['identities/sources.yml', 'schema/identities.json', 'identities/aliases.yml']:
+    for name in ['identities/sources.json', 'schema/identities.json', 'identities/aliases.yml']:
         path = DATA / name
         if path.exists():
             dest = destination / 'data' / name
@@ -96,15 +101,15 @@ def verify():
             run(tree, seed, locale, MIGRATE)
             if replayed != {name: sha(tree / name) for name in original}:
                 raise ValueError('identity migration changed legacy bytes')
-            identity_before = {name: (tree / 'data/identities' / name).read_bytes()
+            identity_before = {name: identity_path(tree, name).read_bytes()
                                for name in (*OUTPUTS, 'ledger.json')}
             run(tree, seed + 7, locale, "from pipeline.identities import build, check; build(); check()")
-            if identity_before != {name: (tree / 'data/identities' / name).read_bytes()
+            if identity_before != {name: identity_path(tree, name).read_bytes()
                                     for name in identity_before}:
                 raise ValueError('second identity build changed bytes')
             timings[tree.name] = round(time.monotonic() - t, 3)
         for name in (*OUTPUTS, 'ledger.json'):
-            a, b = [(tree / 'data/identities' / name).read_bytes() for tree in trees]
+            a, b = [identity_path(tree, name).read_bytes() for tree in trees]
             if a != b:
                 raise ValueError(f'hash-seed/locale nondeterminism: {name}')
         # Initial deterministic allocations remain a subset of the permanent

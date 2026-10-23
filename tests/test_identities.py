@@ -17,7 +17,7 @@ DATA = ROOT / 'data'
 def model(tmp_path):
     (tmp_path / 'identities').mkdir()
     (tmp_path / 'schema').mkdir()
-    for name in ['schema/identities.json', 'identities/sources.yml', 'volumes.yml']:
+    for name in ['schema/identities.json', 'identities/sources.json', 'volumes.yml']:
         shutil.copy(DATA / name, tmp_path / name)
     pieces = json.loads((DATA / 'catalog.json').read_text())['pieces']
     chosen = [copy.deepcopy(p) for p in pieces if p['slug'] in {
@@ -134,7 +134,7 @@ def test_numbered_hymnal_gate(tmp_path):
     (tmp_path / 'identities').mkdir()
     (tmp_path / 'schema').mkdir()
     shutil.copy(DATA / 'schema/identities.json', tmp_path / 'schema/identities.json')
-    shutil.copy(fixture / 'sources.yml', tmp_path / 'identities/sources.yml')
+    shutil.copy(fixture / 'sources.json', tmp_path / 'identities/sources.json')
     shutil.copy(fixture / 'items.json', tmp_path / 'items.json')
     (tmp_path / 'volumes.yml').write_text('volumes: {}\n')
     bootstrap(tmp_path, adapter='numbered-hymnal')
@@ -217,24 +217,35 @@ def test_union_collision_reports_both_origins(model):
         build(model)
 
 
-def test_check_stale_alias_and_snapshot_never_write(model):
+def test_build_keeps_large_projections_outside_sources(model):
     bootstrap(model)
     build(model)
-    alias_path = model / 'identities/aliases.json'
-    a = json.loads(alias_path.read_text())
-    a['targets'].pop('part:dominica-i-adventus/introit')
-    alias_path.write_text(json.dumps(a))
-    before = alias_path.read_bytes()
+    for name in ('snapshot.json', 'aliases.json'):
+        assert not (model / 'identities' / name).exists()
+        assert (model.parent / 'build/identities' / name).exists()
+    assert (model / 'identities/migration.json').exists()
+
+
+def test_check_and_resolver_need_no_generated_projections(model):
+    bootstrap(model)
+    build(model)
+    for name in ('snapshot.json', 'aliases.json'):
+        (model.parent / 'build/identities' / name).unlink(missing_ok=True)
+        (model / 'identities' / name).unlink(missing_ok=True)
+    before = {p: p.read_bytes() for p in model.rglob('*') if p.is_file()}
+    check(model)
+    assert resolve_target('part:dominica-i-adventus/introit', model)['state'] == 'active'
+    assert before == {p: p.read_bytes() for p in model.rglob('*') if p.is_file()}
+
+
+def test_check_stale_migration_never_writes(model):
+    bootstrap(model)
+    build(model)
+    path = model / 'identities/migration.json'
+    path.write_text('{}')
     with pytest.raises(ValueError, match='stale'):
         check(model)
-    assert alias_path.read_bytes() == before
-
-
-def test_resolver_does_not_read_snapshot(model):
-    bootstrap(model)
-    build(model)
-    (model / 'identities/snapshot.json').unlink()
-    assert resolve_target('part:dominica-i-adventus/introit', model)['state'] == 'active'
+    assert path.read_text() == '{}'
 
 
 def test_explicit_slug_rebind_preserves_work_setting_and_scan_ids(model):
@@ -295,16 +306,11 @@ def test_named_keys_stay_bound_when_unambiguous_keyed_row_is_inserted(model):
     assert before['aliases.json']['targets'][key] == after['aliases.json']['targets'][key]
 
 
-def test_retired_active_requests_and_tampered_aliases_fail(model):
+def test_retired_active_requests_fail(model):
     from pipeline.identities.ledger import ledger_bytes
     bootstrap(model)
     build(model)
-    a = json.loads((model / 'identities/aliases.json').read_text())
     key = 'part:dominica-i-adventus/introit'
-    a['targets'][key]['entity_id'] = a['legacy_slugs']['dominica-i-adventus']
-    (model / 'identities/aliases.json').write_text(json.dumps(a))
-    with pytest.raises(ValueError, match='disagrees'):
-        resolve_target(key, model)
     l = json.loads((model / 'identities/ledger.json').read_text())
     e = next(e for e in l['entries'] if key in e['legacy_keys'])
     e['state'] = 'retired'
@@ -340,3 +346,18 @@ def test_card_b_address_inventory_joins_without_queries_as_identity(model):
     a = build(model)['aliases.json']
     assert any(r['path'] == '/about/' and r['fragment'] == 'credits' for r in a['addresses'])
     assert all('?' not in r['path'] and '?' not in r['destination_path'] for r in a['addresses'])
+
+
+@pytest.mark.parametrize('reverse', [False, True])
+def test_captured_redirect_order_does_not_change_validation(model, reverse):
+    from pipeline.identities.addresses import addresses
+
+    rules = [dict(zip(('from', 'to', 'status'), line.split(), strict=True))
+             for line in (ROOT / 'web/public/_redirects').read_text().splitlines()
+             if line.strip() and not line.startswith('#')]
+    rules.sort(key=lambda r: r['from'], reverse=reverse)
+    (model / 'identities/legacy-addresses.json').write_text(json.dumps({
+        'redirects': rules,
+        'routes': [{'path': rule['to'].split('?')[0]} for rule in rules],
+    }))
+    addresses(model, {'source_items': [], 'settings': []}, {'legacy_slugs': {}})

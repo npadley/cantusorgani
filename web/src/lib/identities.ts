@@ -1,6 +1,5 @@
 /** Reviewed edition labels and compatibility policy, read at build time. */
-import sourcesText from '../../../data/identities/sources.yml?raw';
-import { parse } from 'yaml';
+import sources from '../../../data/identities/sources.json';
 
 export interface EditionPolicy {
   readonly show_related_hymns: boolean;
@@ -54,7 +53,7 @@ const edition = (v: unknown): v is Edition => object(v)
 export function parseSources(value: unknown): Sources {
   if (!object(value) || value.schema_version !== 1 || !Array.isArray(value.sources)
     || !value.sources.length || !value.sources.every(source) || !Array.isArray(value.editions)
-    || !value.editions.every(edition)) throw new Error('Invalid sources.yml labels or policy');
+    || !value.editions.every(edition)) throw new Error('Invalid sources.json labels or policy');
   const sources = value.sources;
   const editions = value.editions;
   const unique = (keys: readonly (string | null)[]) => {
@@ -64,13 +63,12 @@ export function parseSources(value: unknown): Sources {
   if (!unique(sources.map(s => s.id)) || !unique(editions.map(e => e.id))
     || !unique(editions.map(e => e.legacy_volume)) || !unique(editions.map(e => e.scan_registry_key))
     || editions.some(e => !sources.some(s => s.id === e.source_id))) {
-    throw new Error('Duplicate or dangling sources.yml edition');
+    throw new Error('Duplicate or dangling sources.json edition');
   }
   return { schema_version: 1, sources, editions };
 }
 
-const parsed: unknown = parse(sourcesText);
-export const sourceRegistry = parseSources(parsed);
+export const sourceRegistry = parseSources(sources);
 export const registeredSourceKeys: ReadonlySet<string> = new Set(sourceRegistry.editions
   .flatMap(e => e.scan_registry_key === null ? [] : [e.scan_registry_key]));
 

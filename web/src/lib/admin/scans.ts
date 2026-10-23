@@ -6,7 +6,7 @@
  * the scan without leaving the queue.
  */
 import { parseRange, parseRef } from "../sourceRefs";
-import { editionFor, registeredSourceKeys } from "../identities";
+import { sourceKeys, registeredSourceKeys } from "../sourceKeys";
 import { type TargetInfo, normalise } from "./targets";
 
 export interface Scans {
@@ -51,7 +51,7 @@ const indexes = new WeakMap<Scans, Map<string, number>>();
 export function readableRef(ref: string): string {
   try {
     const parsed = parseRef(ref, registeredSourceKeys);
-    const edition = editionFor(parsed.volume);
+    const edition = sourceKeys[parsed.volume]!;
     // Preserve NOH's established numeric scan captions inside its adapter.
     const label = edition.adapter === "noh" ? `vol. ${edition.scan_registry_key!.slice(3)}` : edition.short_label;
     return `${label}, scan p. ${parsed.pdf_page}, system ${parsed.index + 1} · ${ref}`;

@@ -5,43 +5,43 @@ Allocate only after legacy replay. Build/check are consumers, never allocators.
 from pathlib import Path
 
 from .ledger import allocate, bootstrap, load_ledger
-from .model import DATA, read, serialized
+from .model import DATA, serialized
 from .projection import project
 
 __all__ = ['allocate', 'bootstrap', 'build', 'check', 'resolve_target']
 
 
 def build(data=DATA, out=None, *, write=True):
-    """Project existing derived inputs; write only the three generated sidecars."""
+    """Write projections under build/; keep only the migration report in data/."""
     data = Path(data)
     result = project(data, load_ledger(data))
     if write:
-        directory = Path(out) if out is not None else data / 'identities'
+        directory = Path(out) if out is not None else data.parent / 'build/identities'
         directory.mkdir(parents=True, exist_ok=True)
         for name, value in result.items():
             content = serialized(value)
-            path = directory / name
+            path = (data / 'identities' / name
+                    if out is None and name == 'migration.json' else directory / name)
             if not path.exists() or path.read_bytes() != content:
                 path.write_bytes(content)
     return result
 
 
 def check(data=DATA):
-    """Recompute in memory, validate all bindings/edges and compare exact bytes."""
+    """Recompute in memory, validate bindings/edges and compare the tracked report bytes."""
     data = Path(data)
     result = build(data, write=False)
-    for name, value in result.items():
-        path = data / 'identities' / name
-        if not path.exists() or path.read_bytes() != serialized(value):
-            raise ValueError(f'stale identity sidecar: {name}; run identities build')
+    path = data / 'identities/migration.json'
+    if not path.exists() or path.read_bytes() != serialized(result['migration.json']):
+        raise ValueError('stale identity sidecar: migration.json; run identities build')
     return result['migration.json']
 
 
 def resolve_target(text, data=DATA):
-    """Read-only legacy lookup from ledger and target table, without snapshot."""
+    """Read-only legacy lookup from the ledger and an in-memory target projection."""
     data = Path(data)
     ledger = load_ledger(data)
-    table = read(data / 'identities/aliases.json', {}).get('targets', {})
+    table = project(data, ledger)['aliases.json']['targets']
     row = table.get(text)
     if row is None:
         raise ValueError(f'unknown legacy target: {text}')

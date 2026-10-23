@@ -66,13 +66,13 @@ def registry_dir(tmp_path):
     (tmp_path / "identities").mkdir()
     (tmp_path / "schema").mkdir()
     shutil.copy(DATA / "schema/identities.json", tmp_path / "schema/identities.json")
-    shutil.copy(DATA / "identities/sources.yml", tmp_path / "identities/sources.yml")
+    shutil.copy(DATA / "identities/sources.json", tmp_path / "identities/sources.json")
     shutil.copy(DATA / "volumes.yml", tmp_path / "volumes.yml")
     return tmp_path
 
 
 def write_registry(data_dir, registry):
-    (data_dir / "identities/sources.yml").write_text(yaml.safe_dump(registry))
+    (data_dir / "identities/sources.json").write_text(json.dumps(registry))
 
 
 def test_load_sources_missing_scan_registry_key_fails(registry_dir):
@@ -143,7 +143,7 @@ def test_load_sources_invalid_registry_fails(registry_dir, mutation):
 
 
 def test_load_sources_numbered_hymnal_without_pdf_pages_validates(registry_dir):
-    shutil.copy(FIXTURES / "numbered-hymnal/sources.yml", registry_dir / "identities/sources.yml")
+    shutil.copy(FIXTURES / "numbered-hymnal/sources.json", registry_dir / "identities/sources.json")
     (registry_dir / "volumes.yml").write_text("volumes: {}\n")
     registry = load_sources(registry_dir)
     edition = registry["editions"][0]
@@ -159,10 +159,20 @@ def test_load_sources_numbered_hymnal_without_pdf_pages_validates(registry_dir):
 
 
 def test_schema_completed_identity_documents_validate():
+    from pipeline.identities import build
     from pipeline.identities.model import validate
 
-    for name in ('ledger', 'snapshot', 'aliases', 'migration'):
-        value = json.loads((DATA / f'identities/{name}.json').read_text())
-        validate(value, name, DATA)
+    result = build(DATA, write=False)
+    validate(json.loads((DATA / 'identities/ledger.json').read_text()), 'ledger', DATA)
+    for name in ('snapshot', 'aliases', 'migration'):
+        validate(result[f'{name}.json'], name, DATA)
     source = yaml.safe_load((DATA / 'identities/aliases.yml').read_text())
     validate(source, 'aliasSource', DATA)
+
+
+def test_load_sources_preserves_reviewed_notes(registry_dir):
+    registry = load_sources(registry_dir)
+    registry['sources'][0]['notes'] = 'Reviewed source metadata.'
+    registry['editions'][0]['notes'] = 'Registered scans only.'
+    write_registry(registry_dir, registry)
+    assert load_sources(registry_dir) == registry

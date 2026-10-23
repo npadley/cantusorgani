@@ -10,7 +10,7 @@ from .model import ADAPTER_VERSION, origin, pointer, read, sha, validate
 def source_hashes(data):
     """Reviewed/command-managed sources and adapter code, never derived outputs."""
     data = Path(data)
-    patterns = ['identities/sources.yml', 'identities/ledger.json', 'identities/aliases.yml',
+    patterns = ['identities/sources.json', 'identities/ledger.json', 'identities/aliases.yml',
                 'identities/legacy-addresses.json', 'schema/identities.json', 'volumes.yml',
                 'index-*.yml', 'sections/*.yml', 'corrections.yml', 'rubrics-1962.yml',
                 'vespers/*.yml', 'ordinary-form/*.yml', 'hymn-pairings.yml', 'good-friday.json',

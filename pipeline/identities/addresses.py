@@ -59,8 +59,9 @@ def addresses(data, snapshot, aliases):
     # Card B owns the full capture. Its schema-2 routes include fragments;
     # queries are retained by B as state contracts, not identity keys.
     if inventory:
-        if inventory.get('redirects') and inventory['redirects'] != [
-            {**r, 'status': str(r['status'])} for r in aliases['redirects']]:
+        if inventory.get('redirects') and sorted(inventory['redirects'], key=lambda r: r['from']) != sorted(
+                [{**r, 'status': str(r['status'])} for r in aliases['redirects']],
+                key=lambda r: r['from']):
             raise ValueError('address registry disagrees with current _redirects')
         for route in inventory.get('routes', []):
             path = route['path']

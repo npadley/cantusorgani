@@ -12,7 +12,7 @@
  * `noh correct-batch`; this is the early answer, while the editor is looking.
  */
 import { parseRange, parseRef } from "../sourceRefs";
-import { registeredSourceKeys } from "../identities";
+import { registeredSourceKeys } from "../sourceKeys";
 import schema from "../../../../data/schema/corrections.json";
 
 export type Kind = "piece" | "part" | "vespers" | "pairing" | "typeset" | "sections";

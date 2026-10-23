@@ -9,7 +9,6 @@ import RecordStatusNotice from "../../components/RecordStatusNotice.astro";
 import SystemStack from "../../components/SystemStack.astro";
 import TypesetSwitch from "../../components/TypesetSwitch.astro";
 import VespersDates from "../../components/VespersDates.astro";
-import { editionPolicy } from "../../lib/identities";
 import { allPieces, citedBy, jumpTargets, pagesLabel, relatedHymnSettings, volumeLabel } from "../../lib/catalog";
 import { pieceHref } from "../../lib/indexes";
 import type { Piece } from "../../lib/catalog";
@@ -17,6 +16,7 @@ import { hasTypeset } from "../../lib/typeset";
 import { musicView } from "../../lib/music";
 import { massSources } from "../../lib/references";
 import { lineupsUsing } from "../../lib/vespers";
+import { editionPolicy } from "../../lib/identities";
 
 export function getStaticPaths() {
   return allPieces().map((piece) => ({ params: { slug: piece.slug }, props: { piece } }));
