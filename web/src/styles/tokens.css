@@ -48,14 +48,23 @@
   --score-filter: none;
 
   /* Ink. The scans are pure #000 on #FFF; never tint the ground behind them. */
-  --paper:     #fdfcf9;   /* warm off-white, 1942 letterpress reference */
-  --ink:       #14120e;   /* on --paper: 15.8:1  AAA */
-  --ink-muted: #524e45;   /* on --paper:  7.4:1  AAA */
-  --rule:      #c9c2b4;   /* hairlines and table rules; never used for text */
-  --control-border: #8a8272; /* edges of inputs and buttons: 3.7:1 on --paper (WCAG 1.4.11 asks 3:1) */
-  --accent:    #6b2318;   /* rubric red, from the source edition; 8.9:1  AAA */
-  --warn-bg:   #fbf3e2;
-  --warn-ink:  #5a4409;   /* on --warn-bg: 7.1:1  AAA */
+  --paper: #f7f7f4;
+  --ink: #202522; /* on --paper: 14.50:1 */
+  --ink-muted: #485048; /* on --paper: 7.77:1 */
+  --rule: #cbd0ca; /* hairlines and table rules; never used for text */
+  --control-border: #777f77; /* on --paper: 3.85:1 */
+  --accent: #8b2727; /* on --paper: 8.09:1 */
+  --rubric: #a00000; /* on --paper: 7.84:1 */
+  --surface: #eeeeea;
+  --warn-bg: #f7f7f4;
+  --warn-ink: #8b2727; /* on --warn-bg: 8.09:1 */
+  --day-gold: #b89a50; /* on --paper: 2.52:1; relies on outline */
+  --day-white: #f6f3ea; /* on --paper: 1.03:1; relies on outline */
+  --day-red: #9b1c1c; /* on --paper: 7.59:1 */
+  --day-green: #2e6b30; /* on --paper: 6.00:1 */
+  --day-violet: #5b2a86; /* on --paper: 9.23:1 */
+  --day-rose: #d98aa6; /* on --paper: 2.40:1; relies on outline */
+  --day-black: #111111; /* on --paper: 17.59:1 */
 
   /* Type: one serif for text, one UI face. No third family. */
   --font-text: "Source Serif 4", Georgia, "Times New Roman", serif;
@@ -84,14 +93,23 @@
   :root:not([data-scan-polarity="normal"]) {
     color-scheme: dark;
     --score-filter: invert(1);
-    --paper: #14140f;
-    --ink: #ece7da;
-    --ink-muted: #b3ac9c;
-    --rule: #3c382f;
-    --control-border: #7a7363; /* 3.9:1 on --paper */
-    --accent: #e0a08c;
-    --warn-bg: #2a2318;
-    --warn-ink: #e8c87a;
+    --paper: #171c19;
+    --ink: #eeefe9; /* on --paper: 14.93:1 */
+    --ink-muted: #b8c1b9; /* on --paper: 9.34:1 */
+    --rule: #3d4840; /* hairlines and table rules; never used for text */
+    --control-border: #879389; /* on --paper: 5.40:1 */
+    --accent: #f0aaa2; /* on --paper: 9.02:1 */
+    --rubric: #f0aaa2; /* on --paper: 9.02:1 */
+    --surface: #222a24;
+    --warn-bg: #171c19;
+    --warn-ink: #f0aaa2; /* on --warn-bg: 9.02:1 */
+    --day-gold: #d4b66a; /* on --paper: 8.79:1 */
+    --day-white: #f6f3ea; /* on --paper: 15.56:1 */
+    --day-red: #d86b6b; /* on --paper: 5.13:1 */
+    --day-green: #79ae7b; /* on --paper: 6.70:1 */
+    --day-violet: #b18bd2; /* on --paper: 6.16:1 */
+    --day-rose: #d98aa6; /* on --paper: 6.69:1 */
+    --day-black: #8e9490; /* on --paper: 5.58:1 */
   }
 }
 
@@ -99,14 +117,23 @@
 :root[data-scan-polarity="inverted"] {
   color-scheme: dark;
   --score-filter: invert(1);
-  --paper: #14140f;
-  --ink: #ece7da;
-  --ink-muted: #b3ac9c;
-  --rule: #3c382f;
-  --control-border: #7a7363;
-  --accent: #e0a08c;
-  --warn-bg: #2a2318;
-  --warn-ink: #e8c87a;
+  --paper: #171c19;
+  --ink: #eeefe9; /* on --paper: 14.93:1 */
+  --ink-muted: #b8c1b9; /* on --paper: 9.34:1 */
+  --rule: #3d4840; /* hairlines and table rules; never used for text */
+  --control-border: #879389; /* on --paper: 5.40:1 */
+  --accent: #f0aaa2; /* on --paper: 9.02:1 */
+  --rubric: #f0aaa2; /* on --paper: 9.02:1 */
+  --surface: #222a24;
+  --warn-bg: #171c19;
+  --warn-ink: #f0aaa2; /* on --warn-bg: 9.02:1 */
+  --day-gold: #d4b66a; /* on --paper: 8.79:1 */
+  --day-white: #f6f3ea; /* on --paper: 15.56:1 */
+  --day-red: #d86b6b; /* on --paper: 5.13:1 */
+  --day-green: #79ae7b; /* on --paper: 6.70:1 */
+  --day-violet: #b18bd2; /* on --paper: 6.16:1 */
+  --day-rose: #d98aa6; /* on --paper: 6.69:1 */
+  --day-black: #8e9490; /* on --paper: 5.58:1 */
 }
 
 :is(.system, .typeset-music) { filter: var(--score-filter); }

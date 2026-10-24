@@ -142,7 +142,7 @@ const secs = sections(day);
   .system-slot { max-width: 100%; margin: 0 0 var(--s-4); position: relative; }
   .system { display: block; width: 100%; height: 100%; object-fit: contain; }
   .system-slot:has(img:not([data-loaded])) { background: color-mix(in srgb, var(--rule) 22%, transparent); }
-  .system-slot[data-state="error"] { background: var(--warn-bg); }
+  .system-slot[data-state="error"] { background: var(--surface); }
   .system-slot[data-state="error"] img { display: none; }
   .system-slot[data-state="error"]::after {
     content: attr(data-message); position: absolute; inset: 0; display: flex; align-items: center;

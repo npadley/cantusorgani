@@ -233,7 +233,7 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
   /* Flat, not a shimmer: motion under sight-reading is worse than stillness. */
   .system-slot:has(img:not([data-loaded])) { background: color-mix(in srgb, var(--rule) 22%, transparent); }
 
-  .system-slot[data-state="error"] { background: var(--warn-bg); }
+  .system-slot[data-state="error"] { background: var(--surface); }
   .system-slot[data-state="error"] img { display: none; }
   .system-slot[data-state="error"]::after {
     content: attr(data-message);
