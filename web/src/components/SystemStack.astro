@@ -6,15 +6,17 @@ import { segmentKey, segments } from "../lib/typeset";
 import ReportLinks from "./ReportLinks.astro";
 import { textForHeading } from "../lib/chantText";
 import ChantText from "./ChantText.astro";
+import type { ExportSegment } from "../lib/exportParts";
 import { borrowedVolumeLabel } from "../lib/identities";
 
 interface Props {
   readonly piece: Piece;
+  readonly exportParts?: readonly ExportSegment[];
   readonly id?: string;
   readonly anchorPrefix?: string;
 }
 
-const { piece, id = "music", anchorPrefix = "" } = Astro.props;
+const { piece, id = "music", anchorPrefix = "", exportParts = [] } = Astro.props;
 const captionId = `${id}-caption`;
 
 // Render every system at one consistent scale. At width:100% a short system
@@ -75,8 +77,13 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
       <>
       {Array.from({ length: seg.end - seg.start }, (_, k) => seg.start + k).map((i) => {
         const starts = i === seg.start ? startsAt.get(i) ?? [] : [];
-        return starts.map((start) => {
+        return starts.map((start, k) => {
 
+          // A composed view retains its owner's slug but reorders borrowed
+          // systems. Match the original source position, as typeset switches do.
+          const source = piece.systemSources?.[start.index] ?? { slug: piece.slug, index: start.index };
+          // Movement and part headings can share a system: the first carries the box.
+          const exportPart = k > 0 ? undefined : exportParts.find(s => s.pieceSlug === piece.slug && s.source?.slug === source.slug && s.source.start === source.index);
           const entry = chantEntry(start.chantId);
           const [annotation, mode] = entry ? annotationFor(entry.part, entry.mode) : ["", ""];
           return (
@@ -86,6 +93,10 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
                   ? <span class="chant-only-label ui small muted" id={start.anchor}>Chant</span>
                   : <h2 class={`movement-heading ${start.kind}`} id={start.anchor}>{start.label}{printedAs(start) && (
                       <span class="printed-as"> · {printedAs(start)}</span>)}</h2>}
+                {exportPart && <label class="include ui small no-print" hidden>
+                  <input type="checkbox" data-inline-part={exportPart.id} aria-label={`In PDF: ${exportPart.label}`} checked />
+                  In PDF
+                </label>}
                 {start.chantUrl && (
                   <a class="chant-link ui no-print" href={start.chantUrl} target="_blank" rel="noopener">
                     {start.kind === "chant" ? "GregoBase" : "Chant"}<span class="sr-only"> for the {start.label} (GregoBase, opens in new tab)</span>
@@ -180,6 +191,9 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
 ))}
 
 <style>
+  [hidden] { display: none !important; }
+  .include { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--tap-min); white-space: nowrap; }
+  .part-head:has(.include) { flex-wrap: wrap; }
   .systems { margin: 0; padding: 0; }
 
   /* A jump link lands here: clear of the viewport edge, never under the music. */

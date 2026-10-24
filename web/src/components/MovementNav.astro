@@ -6,8 +6,8 @@ import type { Piece } from "../lib/catalog";
 // Jump links to the headings SystemStack prints above each movement, part and
 // hymn. Both come from jumpTargets, so every link has a target. Parts printed
 // elsewhere link to the page that prints them.
-interface Props { readonly piece: Piece; readonly anchorPrefix?: string }
-const { piece, anchorPrefix = "" } = Astro.props;
+interface Props { readonly piece: Piece; readonly anchorPrefix?: string; readonly variant?: "all" | "links" | "tools" }
+const { piece, anchorPrefix = "", variant = "all" } = Astro.props;
 const starts = jumpTargets(piece).map((s) => ({ ...s, anchor: `${anchorPrefix}${s.anchor}` }));
 const movements = starts.filter((s) => s.kind === "movement");
 const parts = starts.filter((s) => s.kind === "part");
@@ -30,7 +30,7 @@ const properLinks = inPrintedOrder(
                          lender: b.lenderTitle, page: b.page })));
 ---
 
-{(movements.length > 1 || hymns.length > 0 || parts.length + borrowed.length > 1 || (mass && inMass.length > 1)) && (
+{variant !== "tools" && (movements.length > 1 || hymns.length > 0 || parts.length + borrowed.length > 1 || (mass && inMass.length > 1)) && (
   <nav class="movements ui no-print" aria-label={label}>
     <span class="small muted">Jump to</span>
     {mass && inMass.length > 1 && inMass.map((s) => <a href={`#${s.anchor}`}>{s.label}</a>)}
@@ -41,8 +41,8 @@ const properLinks = inPrintedOrder(
     {hymns.map((s) => <a class="hymn" href={`#${s.anchor}`}>{s.label}</a>)}
   </nav>
 )}
-{notation && (
-  <label class="chant-toggle ui small no-print">
+{notation && variant !== "links" && (
+  <label class="chant-toggle ui small no-print" data-rail-tool={variant === "tools" || undefined} hidden={variant === "tools"}>
     <input type="checkbox" data-chant-toggle />
     Show the chant with each part
   </label>
@@ -59,6 +59,7 @@ const properLinks = inPrintedOrder(
     display: inline-flex; align-items: center; gap: var(--s-2);
     min-height: var(--tap-min); margin: calc(-1 * var(--s-2)) 0 var(--s-3); cursor: pointer;
   }
+  .chant-toggle[hidden] { display: none; }
   .chant-toggle input { width: 1.25rem; height: 1.25rem; margin: 0; }
   .movements a {
     min-height: var(--tap-min);

@@ -2,7 +2,7 @@
 import DisclosureCue from "./DisclosureCue.astro";
 import ExportLayoutEditor from "./ExportLayoutEditor.astro";
 import { defaultsNote, exportSegments, seasonGroup } from "../lib/exportParts";
-import { defaultIncluded } from "../lib/selection";
+import { defaultIncluded, selectionFromBoxes } from "../lib/selection";
 import { pieceBySlug } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
 import { exportRuns } from "../lib/typeset";
@@ -17,6 +17,7 @@ import { estimatePages, validateSelection } from "../lib/pdf";
 // follow the season of the date shown (no Tract in October); on a piece page
 // everything is ticked.
 interface Props {
+  readonly variant?: "default" | "rail";
   readonly pieces: readonly Piece[];
   readonly title: string;
   readonly season?: Season | null;
@@ -27,6 +28,8 @@ interface Props {
 }
 const { pieces, title, season = null, dateLabel = null } = Astro.props;
 
+const rail = Astro.props.variant === "rail";
+const PartsTag = rail ? "div" : "details";
 const segments = Astro.props.segments ?? exportSegments(pieces);
 const group = seasonGroup(season);
 const included = defaultIncluded(segments, group);
@@ -45,33 +48,53 @@ const chantsOf = (s: ExportSegment) => {
   const piece = s.source ? pieceBySlug(s.source.slug) : undefined;
   return piece && s.source ? segmentChants(piece, s.source.start, s.source.end) : [];
 };
+const initialSelection = rail ? selectionFromBoxes(segments.map(s => ({ value: s.id, checked: included.has(s.id),
+  dataset: { stems: s.stems.join(","), label: s.label, runs: JSON.stringify(runsOf(s)) },
+})), title, () => false) : null;
+const capability = (index: number) => {
+  const runs = initialSelection?.segments[index]?.runs ?? [];
+  return [...new Set(runs.map(r => r.representation === "scan" || r.capability === "scan" ? "Scans"
+    : r.capability === "mei" ? "Customizable typeset" : "Typeset"))].join(" · ");
+};
 const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${estimatePages(n)} page${estimatePages(n) === 1 ? "" : "s"})`;
 ---
 
 {segments.length > 0 && (
-  <div class="export no-print ui" data-title={`${title} — Nova Organi Harmonia`}>
-    <details class="parts" hidden={segments.length === 1}>
-      <summary class="disclosure-summary"><DisclosureCue />Choose parts (<span data-ticked>{ticked.length}</span>{" "}of {segments.length})</summary>
+  <div class:list={["export no-print ui", { "export--rail": rail }]} data-rail={rail || undefined} data-title={`${title} — Nova Organi Harmonia`}>
+    {rail && segments.length > 1 && <button type="button" data-choose-parts aria-haspopup="dialog" aria-expanded="false" aria-controls="choose-parts-sheet" hidden>Choose parts (<span data-ticked>{ticked.length}</span> of {segments.length})</button>}
+    <PartsTag class="parts" data-part-list={rail || undefined} hidden={rail || segments.length === 1}>
+      {!rail && <summary class="disclosure-summary"><DisclosureCue />Choose parts (<span data-ticked>{ticked.length}</span>{" "}of {segments.length})</summary>}
+      {rail && <p class="rail-choice-title">Choose parts (<span data-ticked>{ticked.length}</span> of {segments.length})</p>}
       <fieldset>
         <legend>Parts to export</legend>
-        {segments.map((s) => (
+        {rail && <div class="select-actions"><button type="button" data-select-all>Select all</button><button type="button" data-clear>Clear</button></div>}
+        {segments.map((s, index) => (
           <label class="part">
-            <input type="checkbox" name="export-part" value={s.id}
+            <input type="checkbox" name="export-part" value={s.id} aria-labelledby={rail ? `part-name-${index}` : undefined} aria-describedby={rail ? `part-detail-${index}` : undefined}
                    checked={included.has(s.id)}
                    data-stems={s.stems.join(",")} data-systems={s.systems} data-label={s.label}
                    data-years={s.years?.join(",")} data-seasons={s.seasons?.join(",")}
                    data-rubric={s.rubric} data-rubric-translation={s.rubricTranslation}
                    data-runs={JSON.stringify(runsOf(s))}
                    data-chants={JSON.stringify(chantsOf(s))} />
-            <span>{s.label}</span>
-            <span class="muted small">{s.systems}</span>
+            <span>{rail ? <span id={`part-name-${index}`}><span class="sr-only">In PDF: </span>{s.label}</span> : s.label}{rail && <><br /><span class="muted small" id={`part-detail-${index}`}>{s.systems} system{s.systems === 1 ? "" : "s"} · <span data-capability={s.id}>{capability(index)}</span> · {initialSelection?.segments[index]?.setting.id === "noh" ? "NOH" : ""}</span></>}</span>
+            {!rail && <span class="muted small">{s.systems}</span>}
           </label>
         ))}
       </fieldset>
-    </details>
+    </PartsTag>
+    {rail && <>
+      <details class="reader-tools"><summary><DisclosureCue />Reading controls</summary><slot name="reader-tools" /></details>
+      <div data-selection-home><p id="selection-status" class="small" role="status" aria-live="polite">{ticked.length} of {segments.length} parts, {count} systems{refusal ? `. ${refusal}` : ""}</p></div>
+      <dialog id="choose-parts-sheet" aria-labelledby="choose-parts-title">
+        <header class="sheet-heading"><h2 id="choose-parts-title">Choose parts</h2><button type="button" data-parts-done>Done</button></header>
+        <div data-sheet-list></div>
+      </dialog>
+      <noscript><p class="small">Export needs JavaScript.</p></noscript>
+    </>}
     {note && <p class="small muted note">{note}</p>}
 
-    <div class="go">
+    <div class="go" hidden={rail}>
       <button id="export-btn" type="button" disabled={refusal !== null}>
         {refusal !== null && count === 0 ? "Tick at least one part" : label(count)}
       </button>
@@ -85,13 +108,14 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     </div>
 
     <progress id="export-progress" max={count} value="0" hidden></progress>
-    <p id="export-status" class="small" role="status" aria-live="polite">{refusal ?? ""}</p>
+    <p id="export-status" class="small" role="status" aria-live="polite">{rail ? "" : refusal ?? ""}</p>
   </div>
 )}
 {/* On every page with an export bar (D23): parts with an approved conversion reflow, the rest are placed as they are. */}
 {segments.length > 0 && <ExportLayoutEditor />}
 
 <style>
+  [hidden] { display: none !important; }
   .export {
     display: flex; flex-direction: column; gap: var(--s-2);
     align-items: flex-start;
@@ -115,13 +139,36 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
   .part input { width: 1.25rem; height: 1.25rem; margin: 0; }
   #export-status[data-state="error"] { color: var(--warn-ink); }
 
+  .export--rail { margin: 0; padding: 0; border: 0; align-items: stretch; }
+  .rail-choice-title { margin: 0 0 var(--s-2); font-weight: 600; }
+  .export--rail .parts fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+  .export--rail .part { padding: var(--s-2) 0; border-bottom: 1px solid var(--rule); }
+  .export--rail .part input { flex-shrink: 0; }
+  .export--rail .go { border-top: 1px solid var(--rule); padding-top: var(--s-2); }
+  .select-actions { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  .reader-tools summary { display: flex; align-items: center; min-height: var(--tap-min); cursor: pointer; }
+  .reader-tools { border-top: 1px solid var(--rule); padding-top: var(--s-2); }
+  #selection-status { margin: 0; }
+  #choose-parts-sheet { inset: auto 0 0; width: 100%; max-width: none; max-height: 85dvh; margin: 0; padding: var(--s-3); overflow: auto; scroll-padding: var(--s-3); border: 1px solid var(--control-border); border-radius: var(--radius); background: var(--paper); color: var(--ink); }
+  .sheet-heading { display: flex; justify-content: space-between; align-items: center; gap: var(--s-2); }
+  .sheet-heading h2 { margin: 0; font-size: var(--step-1); }
+  :global(html:has(#choose-parts-sheet[open])) { overflow: hidden; }
+  @media (min-width: 62rem) {
+    .export--rail [data-choose-parts] { display: none; }
+    .export--rail .go { flex-direction: column; align-items: stretch; }
+  }
+  @media (width < 62rem) {
+    .export--rail > .parts, .rail-choice-title { display: none; }
+    .export--rail { position: static; }
+  }
+
   /* Reachable one-handed on a console-mounted tablet. */
   @media (max-width: 62rem) {
     :global(html:has(.export)) {
       /* Leave room for the bar, including controls wrapping on narrow screens. */
       scroll-padding-bottom: 8rem;
     }
-    .export {
+    .export:not(.export--rail) {
       position: sticky; bottom: 0; z-index: 5;
       background: var(--paper);
       border-top: 1px solid var(--rule);
@@ -154,8 +201,8 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     document.addEventListener("focusin", (event) => {
       const target = event.target;
       if (!(target instanceof HTMLElement) || root.contains(target)) return;
-      if (getComputedStyle(root).position !== "sticky") return;
-      const bar = root.getBoundingClientRect();
+      if (getComputedStyle(root.closest(".service-rail") ?? root).position !== "sticky") return;
+      const bar = (root.closest(".service-rail") ?? root).getBoundingClientRect();
       if (Math.abs(bar.bottom - window.innerHeight) > 1) return;
       const by = scrollToClearBar(target.getBoundingClientRect(), bar);
       if (by > 0) window.scrollBy(0, by);
@@ -184,10 +231,97 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
 
   if (root && button && status && progress) {
     const title = root.dataset["title"] ?? "Nova Organi Harmonia";
+    const rail = root.hasAttribute("data-rail");
+    if (rail) {
+      root.querySelector<HTMLElement>(".go")!.hidden = false;
+      const list = root.querySelector<HTMLElement>("[data-part-list]")!;
+      const multiple = list.querySelectorAll('input[name="export-part"]').length > 1;
+      list.hidden = !multiple;
+      const opener = root.querySelector<HTMLButtonElement>("[data-choose-parts]");
+      if (opener) opener.hidden = false;
+      const wide = matchMedia("(min-width: 62rem)");
+      root.querySelectorAll<HTMLElement>("[data-rail-tool]").forEach(tool => { tool.hidden = false; });
+      const tools = root.querySelector<HTMLDetailsElement>(".reader-tools")!;
+      tools.open = wide.matches;
+      const sheet = root.querySelector<HTMLDialogElement>("#choose-parts-sheet")!;
+      const home = list.parentElement!;
+      const next = list.nextSibling;
+      const selectionHome = root.querySelector<HTMLElement>("[data-selection-home]")!;
+      const selectionStatus = document.getElementById("selection-status")!;
+      let restoreTo: HTMLElement | null = null;
+      let lastBox: HTMLInputElement | null = null;
+      sheet.addEventListener("focusin", event => {
+        if (event.target instanceof HTMLInputElement && event.target.name === "export-part") lastBox = event.target;
+      });
+      sheet.addEventListener("close", () => {
+        opener?.setAttribute("aria-expanded", "false");
+        home.insertBefore(list, next);
+        selectionHome.append(selectionStatus);
+        restoreTo?.focus();
+        restoreTo = null;
+      });
+      opener?.addEventListener("click", () => {
+        restoreTo = opener;
+        lastBox = list.querySelector<HTMLInputElement>('input[name="export-part"]');
+        sheet.querySelector("[data-sheet-list]")!.append(list, selectionStatus);
+        sheet.showModal();
+        opener.setAttribute("aria-expanded", "true");
+        lastBox?.focus();
+      });
+      root.querySelector("[data-parts-done]")?.addEventListener("click", () => sheet.close());
+      wide.addEventListener("change", event => {
+        tools.open = event.matches;
+        if (event.matches && sheet.open) { restoreTo = lastBox; sheet.close(); }
+      });
+    }
     const boxes = [...root.querySelectorAll<HTMLInputElement>('input[name="export-part"]')];
 
+    const inline = rail ? [...document.querySelectorAll<HTMLInputElement>("[data-inline-part]")] : [];
+    inline.forEach(box => {
+      const original = boxes.find(b => b.value === box.dataset["inlinePart"]);
+      if (!original) return;
+      box.checked = original.checked;
+      box.closest<HTMLElement>(".include")!.hidden = false;
+      box.addEventListener("change", () => {
+        original.checked = box.checked;
+        original.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+    });
+    root.addEventListener("selectionchange", event => {
+      const selected = (event as CustomEvent<Selection>).detail;
+      inline.forEach(box => { box.checked = selected.segments.find(s => s.id === box.dataset["inlinePart"])?.included ?? false; });
+      renderCapabilities(selected);
+      announce(selected);
+    });
+    function renderCapabilities(selected: Selection): void {
+      selected.segments.forEach(s => {
+        const cap = root!.querySelector<HTMLElement>(`[data-capability="${CSS.escape(s.id)}"]`);
+        if (cap) cap.textContent = [...new Set(s.runs.map(r => r.representation === "scan" || r.capability === "scan" ? "Scans" : r.capability === "mei" ? "Customizable typeset" : "Typeset"))].join(" · ");
+      });
+    }
+    function announce(selected: Selection): void {
+      if (!rail) return;
+      const { refs, parts, ticked } = quickRequest(selected, paper());
+      root!.querySelectorAll("[data-ticked]").forEach(node => { node.textContent = String(ticked); });
+      const problem = validateSelection(refs.length, parts);
+      const key = JSON.stringify([selected.segments.filter(s => s.included).map(s => s.id).sort(), problem]);
+      if (key === announcedSelection) return;
+      announcedSelection = key;
+      document.getElementById("selection-status")!.textContent = `${ticked} of ${selected.segments.length} parts, ${refs.length} systems${problem ? `. ${problem}` : ""}`;
+    }
+    root.querySelector("[data-select-all]")?.addEventListener("click", () => setAll(true));
+    root.querySelector("[data-clear]")?.addEventListener("click", () => setAll(false));
+    function setAll(checked: boolean): void {
+      boxes.forEach(box => { box.checked = checked; });
+      boxes[0]?.dispatchEvent(new Event("change", { bubbles: true }));
+    }
     let selection: Selection = selectionFromBoxes(boxes, title, showsScans);
     const paper = (): Paper => paperSelect?.value === "a4" ? "a4" : "letter";
+    // The server already rendered the summary. Representation changes keep the
+    // same stems (and system count), so only inclusion or refusal changes announce.
+    const initialRequest = quickRequest(selection, paper());
+    let announcedSelection = JSON.stringify([selection.segments.filter(s => s.included).map(s => s.id).sort(),
+      validateSelection(initialRequest.refs.length, initialRequest.parts)]);
 
     // The model is rebuilt on every change (a tick, the page-wide switch, a part's own switch, a part that
     // failed to load) and announced once per real change. The bar's own text and buttons still change only
@@ -210,8 +344,9 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
         ? "Tick at least one part"
         : `Export PDF (${refs.length} system${refs.length === 1 ? "" : "s"}, ~${estimatePages(refs.length)} page${estimatePages(refs.length) === 1 ? "" : "s"})`;
       status!.removeAttribute("data-state");
-      status!.textContent = problem ?? "";
+      status!.textContent = rail ? "" : problem ?? "";
     }
+    if (rail) renderCapabilities(selection);
     boxes.forEach((b) => b.addEventListener("change", refresh));
     document.addEventListener("typeset-view", update);
     new MutationObserver((changes) => {
