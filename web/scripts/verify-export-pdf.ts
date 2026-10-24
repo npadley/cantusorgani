@@ -282,3 +282,37 @@ export async function imageBoxes(bytes: Uint8Array): Promise<{ readonly pageWidt
   }
   return out;
 }
+
+/** Raw text items on each page, in pdf.js drawing order (including embedded typeset pages). */
+export async function pageTexts(bytes: Uint8Array): Promise<string[][]> {
+  const pdfjs = (await import('pdfjs-dist/legacy/build/pdf.mjs')) as unknown as PdfjsModule;
+  const doc = await pdfjs.getDocument({ data: bytes.slice(), useSystemFonts: false, verbosity: 0 }).promise;
+  const out: string[][] = [];
+  try {
+    for (let n = 1; n <= doc.numPages; n++) {
+      const text = await (await doc.getPage(n)).getTextContent();
+      out.push(text.items.flatMap(item => item.str === undefined ? [] : [item.str]));
+    }
+  } finally {
+    await doc.destroy?.().catch(() => undefined);
+  }
+  return out;
+}
+
+/** Four-line chant staves per page, using the same stroke reader and grouping as verifyExportPdf. */
+export async function chantStaffCount(bytes: Uint8Array, chantSpaceMm: number): Promise<number[]> {
+  const pdfjs = (await import('pdfjs-dist/legacy/build/pdf.mjs')) as unknown as PdfjsModule;
+  const doc = await pdfjs.getDocument({ data: bytes.slice(), useSystemFonts: false, verbosity: 0 }).promise;
+  const out: number[] = [];
+  try {
+    for (let n = 1; n <= doc.numPages; n++) {
+      const page = await doc.getPage(n);
+      const top = page.view[3]!;
+      const strokes = horizontalStrokes(pdfjs.OPS, await page.getOperatorList());
+      out.push(splitStaves(strokes.map(s => (top - s.y) / PT_PER_MM), chantSpaceMm).chant.length);
+    }
+  } finally {
+    await doc.destroy?.().catch(() => undefined);
+  }
+  return out;
+}

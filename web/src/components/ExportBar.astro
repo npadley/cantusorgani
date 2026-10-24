@@ -1,7 +1,8 @@
 ---
 import DisclosureCue from "./DisclosureCue.astro";
 import ExportLayoutEditor from "./ExportLayoutEditor.astro";
-import { defaultTicked, defaultsNote, exportSegments, seasonGroup } from "../lib/exportParts";
+import { defaultsNote, exportSegments, seasonGroup } from "../lib/exportParts";
+import { defaultIncluded } from "../lib/selection";
 import { pieceBySlug } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
 import { exportRuns } from "../lib/typeset";
@@ -28,7 +29,8 @@ const { pieces, title, season = null, dateLabel = null } = Astro.props;
 
 const segments = Astro.props.segments ?? exportSegments(pieces);
 const group = seasonGroup(season);
-const ticked = segments.filter((s) => defaultTicked(s, segments, group));
+const included = defaultIncluded(segments, group);
+const ticked = segments.filter((s) => included.has(s.id));
 const count = ticked.reduce((n, s) => n + s.systems, 0);
 const refusal = segments.length > 0 ? validateSelection(count, ticked.map((s) => ({ label: s.label, systems: s.systems }))) : null;
 const note = defaultsNote(segments, group, dateLabel);
@@ -55,7 +57,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
         {segments.map((s) => (
           <label class="part">
             <input type="checkbox" name="export-part" value={s.id}
-                   checked={defaultTicked(s, segments, group)}
+                   checked={included.has(s.id)}
                    data-stems={s.stems.join(",")} data-systems={s.systems} data-label={s.label}
                    data-years={s.years?.join(",")} data-seasons={s.seasons?.join(",")}
                    data-rubric={s.rubric} data-rubric-translation={s.rubricTranslation}
@@ -132,8 +134,9 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
 <script>
   import type { BuildRequest, BuildResponse } from "../workers/pdf.worker";
   import { estimatePages, validateSelection } from "../lib/pdf";
-  import type { Paper, TypesetInsert } from "../lib/pdf";
-  import { readSelectionInput } from "../lib/exportSelection";
+  import type { Paper } from "../lib/pdf";
+  import { quickRequest, readQuickPaper, selectionFromBoxes } from "../lib/selection";
+  import type { Selection } from "../lib/selection";
   import { trackExport } from "../lib/exportAnalytics";
   import { scrollToClearBar } from "../lib/focusClearance";
 
@@ -162,8 +165,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
   // The paper size is remembered in this browser; Letter until chosen.
   if (paperSelect) {
     try {
-      const saved = localStorage.getItem(PAPER_KEY);
-      if (saved === "letter" || saved === "a4") paperSelect.value = saved;
+      paperSelect.value = readQuickPaper(localStorage);
     } catch { /* storage blocked: Letter */ }
     paperSelect.addEventListener("change", () => {
       try { localStorage.setItem(PAPER_KEY, paperSelect.value); } catch { /* not remembered */ }
@@ -184,39 +186,22 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     const title = root.dataset["title"] ?? "Nova Organi Harmonia";
     const boxes = [...root.querySelectorAll<HTMLInputElement>('input[name="export-part"]')];
 
-    // The ticked parts, in page order, with where each starts in the export.
-    function selection() {
-      const refs: string[] = [];
-      const headings: import("../lib/pdf").PdfHeading[] = [];
-      const parts: { label: string; systems: number }[] = [];
-      const typeset: TypesetInsert[] = [];
-      const paper: Paper = paperSelect?.value === "a4" ? "a4" : "letter";
-      const ticked = readSelectionInput(boxes, title, showsScans).segments;
-      for (const { stems, label, rubric, rubricTranslation, runs } of ticked) {
-        const start = refs.length;
-        if (ticked.length > 1 || rubric || rubricTranslation) headings.push({ index: start, label,
-          ...(rubric ? { rubric } : {}), ...(rubricTranslation ? { rubricTranslation } : {}) });
-        // The runs cover the part's systems in order; if they do not add up,
-        // the part goes in as scans.
-        if (runs.reduce((n, r) => n + r.count, 0) === stems.length) {
-          let at = start;
-          for (const run of runs) {
-            const pdf = run[paper];
-            if (runs.length > 1 && run.label && at !== start) headings.push({ index: at, label: run.label });
-            if (pdf && run.key && !run.showsScans) {
-              typeset.push({ index: at, count: run.count, pdf, label: run.label ?? label });
-            }
-            at += run.count;
-          }
-        }
-        refs.push(...stems);
-        parts.push({ label, systems: stems.length });
-      }
-      return { refs, headings, parts, typeset, paper, ticked: ticked.length };
+    let selection: Selection = selectionFromBoxes(boxes, title, showsScans);
+    const paper = (): Paper => paperSelect?.value === "a4" ? "a4" : "letter";
+
+    // The model is rebuilt on every change (a tick, the page-wide switch, a part's own switch, a part that
+    // failed to load) and announced once per real change. The bar's own text and buttons still change only
+    // when a tick does, so a switch mid-build never re-enables Export or clears its status.
+    function update(): void {
+      const next = selectionFromBoxes(boxes, title, showsScans);
+      if (JSON.stringify(next) === JSON.stringify(selection)) return;
+      selection = next;
+      root!.dispatchEvent(new CustomEvent("selectionchange", { bubbles: true, detail: selection }));
     }
 
     function refresh(): void {
-      const { refs, parts, ticked } = selection();
+      update();
+      const { refs, parts, ticked } = quickRequest(selection, paper());
       if (tickedCount) tickedCount.textContent = String(ticked);
       const problem = validateSelection(refs.length, parts);
       button!.disabled = problem !== null;
@@ -228,6 +213,10 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
       status!.textContent = problem ?? "";
     }
     boxes.forEach((b) => b.addEventListener("change", refresh));
+    document.addEventListener("typeset-view", update);
+    new MutationObserver((changes) => {
+      if (changes.some((c) => c.target instanceof HTMLElement && c.target.matches("[data-typeset-key]"))) update();
+    }).observe(document.body, { subtree: true, attributes: true, attributeFilter: ["data-show", "data-state"] });
 
     // The editor adds #customize-export while open. A stale one in a loaded URL is stripped, and never opens it.
     if (location.hash === "#customize-export") history.replaceState(history.state, "", location.pathname + location.search);
@@ -240,15 +229,15 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
       customize.setAttribute("aria-busy", "true");
       customize.textContent = "Opening…";
       try {
-        const [editor, mei, snapshot] = await Promise.all([
-          import("../scripts/exportLayout"), import("../lib/mei"), import("../lib/export-layout/selection"),
+        const [editor, mei] = await Promise.all([
+          import("../scripts/exportLayout"), import("../lib/mei"),
         ]);
         await editor.stylesReady;
         const manifest = mei.loadManifest();
-        const parts = snapshot.snapshotSelection(readSelectionInput(boxes, title, showsScans),
-          (target, hash) => mei.approvedConversionFor(target, hash, manifest));
+        update();
         editor.openExportEditor({
-          parts,
+          selection,
+          lookup: (target, hash) => mei.approvedConversionFor(target, hash, manifest),
           title: title.replace(/ — Nova Organi Harmonia$/, ""),
           opener: customize,
           onExported: (s, printed) => trackExport("custom", {
@@ -267,7 +256,9 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     });
 
     button.addEventListener("click", () => {
-      const { refs, headings, typeset, paper } = selection();
+      update();
+      const chosenPaper = paper();
+      const { refs, headings, typeset } = quickRequest(selection, chosenPaper);
       if (validateSelection(refs.length) !== null) return;
       const idleLabel = button.textContent ?? "Export PDF";
       button.disabled = true;
@@ -322,9 +313,9 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
         worker.terminate();
       };
 
-      const request: BuildRequest = { refs, base: "", title, headings, paper, typeset };
+      const request: BuildRequest = { refs, base: "", title, headings, paper: chosenPaper, typeset };
       worker.postMessage(request);
-      trackExport("quick", { paper });
+      trackExport("quick", { paper: chosenPaper });
     });
   }
 </script>
