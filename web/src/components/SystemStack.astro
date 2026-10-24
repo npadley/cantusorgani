@@ -27,6 +27,18 @@ for (const t of jumpTargets(piece)) startsAt.set(t.index, [...(startsAt.get(t.in
 // Typeset music, where a transcription is matched: each segment of systems is
 // either drawn by LilyPond (with its scans behind a switch) or scanned.
 const parts = segments(piece);
+// Reserve the page's first three default-visible images in document order.
+// Hidden scans never spend the budget; all stacks share the same page locals.
+const eagerImages = new Map<number, number>();
+for (const seg of parts) {
+  const end = seg.render ? seg.start + 1 : seg.end;
+  for (let i = seg.start; i < end; i++) {
+    const used = Astro.locals.eagerImages ?? 0;
+    if (used >= 3) break;
+    Astro.locals.eagerImages = used + 1;
+    eagerImages.set(i, used + 1);
+  }
+}
 // What the book prints beside a section, where known: its margin label and its
 // opening words ("2. Grad. I · In sole posuit"), less whatever the heading
 // already says (a hymn is named by its opening words).
@@ -107,7 +119,8 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
             <picture>
               <source media="(min-width: 40rem)" srcset={seg.render.wide} type="image/svg+xml" />
               <img class="typeset-music" src={seg.render.narrow} alt={`${partName(seg.start)}: the music, typeset`}
-                   loading={seg.start < 3 ? "eager" : "lazy"} decoding="async" data-first-system={seg.start + 1} />
+                   loading={eagerImages.has(seg.start) ? "eager" : "lazy"}
+                   fetchpriority={eagerImages.get(seg.start) === 1 ? "high" : "auto"} decoding="async" data-first-system={seg.start + 1} />
             </picture>
             <p class="typeset-note ui small muted no-print">
               <span class="typeset-state">{seg.render.proofread ? "Typeset, proofread" : "Typeset, not yet proofread"}</span>
@@ -134,9 +147,9 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
                   sizes="(min-width: 62rem) 60rem, 100vw"
                   width={aspect[0]}
                   height={aspect[1]}
-                  loading={i < 2 && !seg.render ? "eager" : "lazy"}
+                  loading={!seg.render && eagerImages.has(i) ? "eager" : "lazy"}
                   decoding="async"
-                  fetchpriority={i === 0 && !seg.render ? "high" : "auto"}
+                  fetchpriority={!seg.render && eagerImages.get(i) === 1 ? "high" : "auto"}
                   alt=""
                   data-ref={ref}
                   data-index={i + 1}
