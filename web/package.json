@@ -9,6 +9,7 @@
     "serve:device": "node scripts/serve-device-test.ts",
     "check:no-fixture": "node scripts/check-no-fixture.ts dist",
     "check:export-assets": "node scripts/check-export-assets.ts",
+    "check:preview": "node scripts/check-preview.ts",
     "check:deploy-size": "node scripts/check-deploy-size.ts",
     "check:links": "node scripts/check-links.ts",
     "preview": "astro preview",
