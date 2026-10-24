@@ -125,7 +125,7 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
             <p class="typeset-note ui small muted no-print">
               <span class="typeset-state">{seg.render.proofread ? "Typeset, proofread" : "Typeset, not yet proofread"}</span>
               · <a href="/about/#typeset">from the volunteers' transcription</a>
-              · <button type="button" class="link show-scan" aria-expanded="false">Show the scan</button>
+              · <button type="button" class="link show-scan">Show the scan<span class="sr-only"> of the {partName(seg.start)}</span></button>
             </p>
           </div>
         )}
@@ -285,8 +285,7 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
       group().forEach(function (copy) {
         var control = copy.querySelector(".show-scan");
         if (!control) return;
-        control.textContent = on ? "Show the typeset music" : "Show the scan";
-        control.setAttribute("aria-expanded", on ? "true" : "false");
+        control.firstChild.textContent = on ? "Show the typeset music" : "Show the scan";
       });
     }
     if (button) {

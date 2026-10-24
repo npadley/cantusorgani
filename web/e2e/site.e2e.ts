@@ -92,24 +92,42 @@ test.describe("Typeset music", () => {
 
   test("should swap the whole page to the scans, and remember it", async ({ page }) => {
     await page.goto("/kyriale/ix/");
-    await page.getByRole("button", { name: "Show the scans" }).click();
+    const button = page.locator("#typeset-view");
+    await expect(button).toHaveAccessibleName("Show the scans");
+    await expect(button).not.toHaveAttribute("aria-pressed");
+    await button.click();
+    await expect(button).toHaveAccessibleName("Show the typeset music");
+    await expect(button).not.toHaveAttribute("aria-pressed");
     const first = page.locator("[data-typeset]").first();
     await expect(first.locator(".scans")).toBeVisible();
     await expect(first.locator(".typeset")).toBeHidden();
     await page.reload();
     await expect(page.locator("[data-typeset]").first().locator(".scans")).toBeVisible();
-    await expect(page.getByRole("button", { name: "Show the typeset music" })).toHaveAttribute("aria-pressed", "true");
-    await page.getByRole("button", { name: "Show the typeset music" }).click();
+    await expect(button).toHaveAccessibleName("Show the typeset music");
+    await expect(button).not.toHaveAttribute("aria-pressed");
+    await button.click();
+    await expect(button).toHaveAccessibleName("Show the scans");
+    await expect(button).not.toHaveAttribute("aria-pressed");
     await expect(page.locator("[data-typeset]").first().locator("img.typeset-music")).toBeVisible();
   });
 
   test("should swap one part to its scan with its own switch", async ({ page }) => {
     await page.goto("/kyriale/ix/");
     const [kyrie, gloria] = [page.locator("[data-typeset]").nth(0), page.locator("[data-typeset]").nth(1)];
-    await gloria.getByRole("button", { name: "Show the scan" }).click();
+    const button = gloria.getByRole("button", { name: "Show the scan of the Gloria", exact: true });
+    await expect(button).not.toHaveAttribute("aria-expanded");
+    await expect(button).toHaveText("Show the scan of the Gloria");
+    await button.click();
     await expect(gloria.locator(".scans")).toBeVisible();
-    await expect(gloria.getByRole("button", { name: "Show the typeset music" })).toHaveAttribute("aria-expanded", "true");
+    await expect(gloria.locator("img.typeset-music")).toBeHidden();
+    const restore = gloria.getByRole("button", { name: "Show the typeset music of the Gloria", exact: true });
+    await expect(restore).not.toHaveAttribute("aria-expanded");
     await expect(kyrie.locator(".scans")).toBeHidden();
+    await restore.click();
+    await expect(gloria.locator(".scans")).toBeHidden();
+    await expect(gloria.locator("img.typeset-music")).toBeVisible();
+    await expect(button).toBeVisible();
+    await expect(button).not.toHaveAttribute("aria-expanded");
   });
 
   test("should fall back to the scans when the drawing cannot be loaded", async ({ page }) => {
