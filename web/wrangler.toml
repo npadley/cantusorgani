@@ -41,7 +41,9 @@ database_id = "1c587bc7-0b19-4be0-a95b-b29780df7788"
 migrations_dir = "../workers/corrections/migrations"
 
 [env.preview.vars]
-# Runtime vars cannot change the compiled site; the workflow blanks these at build time.
+# Environments don't inherit [vars]. The admin's typeset preview reads this at
+# runtime; the corrections endpoint and Turnstile key are blanked at build time.
+PUBLIC_ASSET_BASE = "https://images.cantusorgani.org"
 ACCESS_TEAM_DOMAIN = "padley.cloudflareaccess.com"
 ACCESS_AUD = "c605b03d2315a0ace4b6c1dd3396d0247f6bfb313fcbe76fdcba5d8976952ef4"  # gitleaks:allow
 # Leave publishing disabled; never give previews the production GitHub App key.
