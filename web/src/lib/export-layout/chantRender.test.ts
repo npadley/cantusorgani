@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { ExsurgeContext, ExsurgeLib } from '../exsurge';
-import { clearChantRenderCache, ensureExportFace, renderChantSvg } from './chantRender';
+import { clearChantRenderCache, ensureExportFace, renderChantSvg, RUBRIC_RED } from './chantRender';
 import type { ChantScale } from './chantScale';
 
 const SCALE: ChantScale = { mmPerUnit: 0.144, widthUnits: 1333, setFontSize: 31.25 };
@@ -62,7 +62,7 @@ describe('renderChantSvg', () => {
     stubFonts([{}]);
     const { lib, calls } = stubLib();
     await expect(renderChantSvg(lib, CHANT, SCALE)).resolves.toBe('<svg id="stub"/>');
-    expect(calls.rubric).toEqual(['#d00']);
+    expect(calls.rubric).toEqual([RUBRIC_RED]);
     expect(calls.font).toEqual([["'Liberation Serif'", 31.25]]);
     expect(calls.widths).toEqual([1333]);
     expect(calls.gabc).toEqual(['(c4) Exa(f)']);

@@ -25,6 +25,7 @@ export function initChantNotation(options: { readonly always?: boolean } = {}): 
     const ctxt = new lib.ChantContext(lib.TextMeasuringStrategy.Canvas);
     ctxt.setGlyphScaling(1 / 16);
     ctxt.textColor = ctxt.staffLineColor = ctxt.neumeLineColor = ctxt.dividerLineColor = "currentColor";
+    ctxt.setRubricColor("var(--rubric, #a00000)");
     ctxt.negativeFillColor = "var(--exsurge-negative-fill, #fff)";
     ctxt.setFont(getComputedStyle(box).fontFamily || "serif", 19.2 / 0.9);
     ctxt.spaceBetweenSystems = 0;

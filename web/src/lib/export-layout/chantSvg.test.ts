@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { DOMParser } from '@xmldom/xmldom';
 import { describe, expect, it } from 'vitest';
+import { RUBRIC_RED } from './chantRender';
 import { normalizeExsurgeSvg, splitChantLines } from './chantSvg';
 import { sanitizePageSvg } from './svg';
 
@@ -101,13 +102,13 @@ describe.each(FIXTURES)('chantSvg fixture $name', ({ name, id, fx }) => {
     }
   });
 
-  it('rubrics: V.. becomes V.; rubric glyph runs keep #d00 and Liberation Serif', () => {
+  it('rubrics: V.. becomes V.; rubric glyph runs keep the export red and Liberation Serif', () => {
     const out = normalizeExsurgeSvg(fx.svg);
     expect(out).not.toMatch(/[VR]\.\./);
     expect(out).not.toContain('Exsurge Characters');
     const rubrics = all(parse(out), 'tspan').filter((t) => t.getAttribute('class') === 'rubric');
     expect(rubrics.length).toBeGreaterThan(0);
-    for (const r of rubrics) expect(r.getAttribute('fill')).toBe('#d00');
+    for (const r of rubrics) expect(r.getAttribute('fill')).toBe(RUBRIC_RED);
   });
 });
 
