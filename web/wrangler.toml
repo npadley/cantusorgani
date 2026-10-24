@@ -29,3 +29,23 @@ GITHUB_INSTALLATION_ID = "165561944"
 #   EDITORS                 comma-separated addresses; the first is the owner
 #   GITHUB_APP_PRIVATE_KEY  the GitHub App's private key (PEM)
 #   GITHUB_WEBHOOK_SECRET   the App's webhook secret
+
+# Pages selects this environment for non-production --branch deployments.
+# These bindings are shared by all preview branches, separate from production.
+[env.preview]
+
+[[env.preview.d1_databases]]
+binding = "DB"
+database_name = "cantusorgani-corrections-preview"
+# The maintainer fills this after creating the preview database.
+database_id = "REPLACE-WITH-PREVIEW-D1-ID"
+migrations_dir = "../workers/corrections/migrations"
+
+[env.preview.vars]
+# Runtime vars cannot change the compiled site; the workflow blanks these at build time.
+ACCESS_TEAM_DOMAIN = "padley.cloudflareaccess.com"
+ACCESS_AUD = "c605b03d2315a0ace4b6c1dd3396d0247f6bfb313fcbe76fdcba5d8976952ef4"  # gitleaks:allow
+# Leave publishing disabled; never give previews the production GitHub App key.
+GITHUB_REPO = ""
+GITHUB_APP_ID = ""
+GITHUB_INSTALLATION_ID = ""

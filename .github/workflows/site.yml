@@ -1,8 +1,8 @@
 # Test, build and deploy cantusorgani.org.
 #
 # Pull requests (including the admin screen's correction batches) run every
-# check and build the site, but never deploy. A push to main does the same and
-# then deploys to Cloudflare Pages by direct upload.
+# check and build the site. Same-repository PRs deploy an isolated preview;
+# forks do not deploy. A push to main deploys production by direct upload.
 #
 # Python, site, browser and export checks run in parallel. Only their success gates
 # deploy; LilyPond and conditional scan tests also feed the aggregate check.
@@ -345,6 +345,18 @@ jobs:
           path: web/test-results/
           retention-days: 7
 
+      # Corrections e2e tests above exercise the configured form with intercepted
+      # requests. Preview HTML must instead disable intake at build time: runtime
+      # Pages vars cannot change Vite's compiled PUBLIC_ values.
+      - name: Build isolated preview artifact
+        if: vars.PREVIEW_ENABLED == 'true' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        run: pnpm build && pnpm check:deploy-size
+        working-directory: web
+        env:
+          PUBLIC_ASSET_BASE: ${{ vars.PUBLIC_ASSET_BASE }}
+          PUBLIC_CORRECTIONS_ENDPOINT: ""
+          PUBLIC_TURNSTILE_SITE_KEY: ""
+
       - name: Tested site
         uses: actions/upload-artifact@v7
         with:
@@ -436,6 +448,52 @@ jobs:
           workingDirectory: web
           packageManager: pnpm
           command: pages deploy dist --project-name cantusorgani --branch main --commit-hash ${{ github.sha }}
+
+  # Advisory: a failed preview never blocks the required check (correction batches merge on it).
+  # Off until the repository variable PREVIEW_ENABLED is true (ADMIN-SETUP.md §8).
+  preview:
+    needs: [python, site, browser, export]
+    if: >-
+      vars.PREVIEW_ENABLED == 'true' && !cancelled() && !failure() && github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      needs.python.result == 'success' && needs.site.result == 'success' &&
+      needs.browser.result == 'success' && needs.export.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: preview
+      url: ${{ steps.deploy.outputs.deployment-url }}
+    # Only Pages deployment credentials from the preview environment. No R2 secrets.
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: web
+      - uses: actions/download-artifact@v8
+        with:
+          name: site-dist
+          path: web/dist
+      - name: Deploy preview to Cloudflare Pages
+        id: deploy
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: web
+          packageManager: pnpm
+          command: pages deploy dist --project-name cantusorgani --branch "pr-${{ github.event.pull_request.number }}" --commit-hash ${{ github.sha }}
+      - name: Check deployed preview
+        env:
+          PREVIEW_URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: pnpm check:preview "$PREVIEW_URL"
+        working-directory: web
 
   # One stable required check; upload and deploy retain their skip conditions.
   check:
