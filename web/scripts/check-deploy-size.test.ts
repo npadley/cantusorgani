@@ -38,6 +38,18 @@ describe('checkDeploySize', () => {
     expect(checkDeploySize(fixture({ '_worker.js': 'worker' })).files).toBe(0);
   });
 
+  it('counts files by kind, with directory kinds taking precedence', () => {
+    const result = checkDeploySize(fixture({
+      'index.html': 'page', 'pagefind/index.json': '{}', 'chant/score.json': '{}',
+      '_astro/app.js': 'bundle', 'assets/music.woff2': 'font', 'assets/woodcut.webp': 'image',
+      'misc/data.bin': 'other',
+    }));
+    expect(result.kinds).toEqual({
+      HTML: 1, Pagefind: 1, 'Chant JSON': 1, Bundles: 1, Fonts: 1, Images: 1, Other: 1,
+    });
+    expect(Object.values(result.kinds).reduce((total, count) => total + count, 0)).toBe(result.files);
+  });
+
   it('warns at the file warning threshold and fails at the failure threshold', () => {
     const dist = fixture({ a: '', b: '' });
     const limits = { fileWarn: 2, fileFail: 3 };
@@ -90,7 +102,8 @@ describe('checkDeploySize', () => {
 
 it('emits GitHub annotations and appends the summary, including on failure', () => {
   const dist = fixture({ a: '12345' });
-  const summaryFile = join(dist, 'summary.md');
+  const summaryFile = join(tmpdir(), `deploy-size-summary-${Date.now()}.md`);
+  dirs.push(summaryFile);
   writeFileSync(summaryFile, 'Earlier step\n');
   const result = checkDeploySize(dist, { fileWarn: 1, maxFileBytes: 4 });
   const log = vi.fn<(line: string) => void>();
@@ -98,5 +111,12 @@ it('emits GitHub annotations and appends the summary, including on failure', () 
   expect(log).toHaveBeenCalledWith(result.summary);
   expect(log.mock.calls.some(([line]) => line.startsWith('::warning::'))).toBe(true);
   expect(log.mock.calls.some(([line]) => line.startsWith('::error::'))).toBe(true);
-  expect(readFileSync(summaryFile, 'utf8')).toBe(`Earlier step\n${result.summary}\n`);
+  expect(readFileSync(summaryFile, 'utf8')).toBe(`Earlier step\n${result.summary}\n\n| Kind | Files |\n|---|---:|\n| HTML | 0 |\n| Pagefind | 0 |\n| Chant JSON | 0 |\n| Bundles | 0 |\n| Fonts | 0 |\n| Images | 0 |\n| Other | 1 |\n| Total | 1 |\n`);
+});
+
+it('prints the by-kind counts to the log', () => {
+  const result = checkDeploySize(fixture({ 'index.html': 'page' }));
+  const log = vi.fn<(line: string) => void>();
+  reportDeploySize(result, {}, log);
+  expect(log).toHaveBeenCalledWith(expect.stringContaining('by kind HTML 1, Pagefind 0'));
 });

@@ -16,10 +16,14 @@ interface Limits {
   staticWarn: number; staticLimit: number; dynamicLimit: number; maxFileBytes: number;
 }
 interface Asset { path: string; bytes: number }
+export type FileKinds = Record<'HTML' | 'Pagefind' | 'Chant JSON' | 'Bundles' | 'Fonts' | 'Images' | 'Other', number>;
 interface Result {
   files: number; staticRedirects: number; dynamicRedirects: number;
   largest: Asset | null; warnings: string[]; errors: string[]; summary: string;
+  kinds: FileKinds;
 }
+
+const FILE_KIND_ORDER: (keyof FileKinds)[] = ['HTML', 'Pagefind', 'Chant JSON', 'Bundles', 'Fonts', 'Images', 'Other'];
 
 export function checkDeploySize(dist: string, overrides: Partial<Limits> = {}): Result {
   const limits: Limits = {
@@ -28,7 +32,8 @@ export function checkDeploySize(dist: string, overrides: Partial<Limits> = {}): 
     maxFileBytes: MAX_FILE_BYTES, ...overrides,
   };
   const result: Result = { files: 0, staticRedirects: 0, dynamicRedirects: 0,
-    largest: null, warnings: [], errors: [], summary: '' };
+    largest: null, warnings: [], errors: [], summary: '',
+    kinds: { HTML: 0, Pagefind: 0, 'Chant JSON': 0, Bundles: 0, Fonts: 0, Images: 0, Other: 0 } };
   // Matches Pages validate's IGNORE_LIST in wrangler-dist/cli.js. Root worker
   // files/directories and config are deployed separately, not as static assets.
   const rootIgnored = new Set(['_worker.js', '_redirects', '_headers', '_routes.json', 'functions', '.wrangler']);
@@ -42,6 +47,14 @@ export function checkDeploySize(dist: string, overrides: Partial<Limits> = {}): 
       if (stat.isDirectory()) { walk(path); continue; }
       const asset = { path: relative(dist, path).split('\\').join('/'), bytes: stat.size };
       result.files++;
+      const lowerPath = asset.path.toLowerCase();
+      const kind: keyof FileKinds = lowerPath.startsWith('pagefind/') ? 'Pagefind'
+          : lowerPath.startsWith('chant/') && lowerPath.endsWith('.json') ? 'Chant JSON'
+            : lowerPath.startsWith('_astro/') ? 'Bundles'
+              : lowerPath.endsWith('.html') ? 'HTML'
+                : /\.woff2?$/.test(lowerPath) ? 'Fonts'
+                  : /\.(webp|png|jpe?g|svg|avif|gif)$/.test(lowerPath) ? 'Images' : 'Other';
+      result.kinds[kind]++;
       if (result.largest === null || asset.bytes > result.largest.bytes) result.largest = asset;
       if (asset.bytes > limits.maxFileBytes) {
         result.errors.push(`${asset.path}: ${asset.bytes} bytes exceeds the per-file limit of ${limits.maxFileBytes} bytes (25 MiB by default).`);
@@ -76,10 +89,14 @@ function escapeAnnotation(message: string): string {
 
 export function reportDeploySize(result: Result, env: NodeJS.ProcessEnv = process.env, log: (line: string) => void = console.log): void {
   log(result.summary);
+  log(`check-deploy-size: by kind ${FILE_KIND_ORDER.map((kind) => `${kind} ${result.kinds[kind]}`).join(', ')}, Total ${result.files}`);
   for (const [level, messages] of [['warning', result.warnings], ['error', result.errors]] as const) {
     for (const message of messages) log(env.GITHUB_ACTIONS === 'true' ? `::${level}::${escapeAnnotation(message)}` : `${level}: ${message}`);
   }
-  if (env.GITHUB_STEP_SUMMARY) appendFileSync(env.GITHUB_STEP_SUMMARY, `${result.summary}\n`);
+  if (env.GITHUB_STEP_SUMMARY) {
+    const rows = FILE_KIND_ORDER.map((kind) => `| ${kind} | ${result.kinds[kind]} |`).join('\n');
+    appendFileSync(env.GITHUB_STEP_SUMMARY, `${result.summary}\n\n| Kind | Files |\n|---|---:|\n${rows}\n| Total | ${result.files} |\n`);
+  }
 }
 
 if (process.argv[1] !== undefined && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {
