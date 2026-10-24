@@ -18,7 +18,7 @@
     "typecheck": "astro check",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "test:e2e:export": "E2E_DIST=dist-e2e playwright test e2e/export-",
+    "test:e2e:export": "E2E_DIST=dist-e2e playwright test e2e/export- e2e/pdf-contents",
     "check:seo": "node scripts/build-discovery.ts"
   },
   "dependencies": {
