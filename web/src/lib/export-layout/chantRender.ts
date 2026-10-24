@@ -12,9 +12,10 @@ export interface ChantSource {
 
 /** The face the PDF embeds; Exsurge must measure with it (CS §5 "Font consistency"). */
 export const EXPORT_FONT_FAMILY = 'Liberation Serif';
-/** Print ink for notation and text. Rubrics keep Exsurge's red (DL D29). */
+/** Print ink for notation and text. */
 const INK = '#000';
-const RUBRIC_RED = '#d00';
+/** Rubric ink with at least 7:1 contrast on white PDF paper. */
+export const RUBRIC_RED = '#a00000';
 
 interface FontLoader {
   load(font: string): Promise<readonly unknown[]>;

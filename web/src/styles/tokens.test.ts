@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { RUBRIC_RED } from "../lib/export-layout/chantRender";
 
 // The Loft palette (docs: redesign/concepts/loft/tokens-delta.md): the exact
 // values, and the contrast each pair must keep in light, dark and Invert.
@@ -45,6 +46,10 @@ function contrast(foreground: string, background: string): number {
   const b = luminance(background);
   return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 }
+
+it("PDF rubric ink on white meets 7:1", () => {
+  expect(contrast(RUBRIC_RED, "#ffffff")).toBeGreaterThanOrEqual(7);
+});
 
 it("light tokens have the Loft values", () => {
   expect(light).toMatchObject({

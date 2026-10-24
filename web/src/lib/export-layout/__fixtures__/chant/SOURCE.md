@@ -13,7 +13,7 @@ and a second run gives byte-identical files.
 - Chromium: Playwright's headless shell. Set `CHROME_EXECUTABLE` to use another build.
 - GABC: `data/chants.json`, through `cleanGabc` from `web/src/lib/gabc.ts`.
 - Settings: `ChantContext` with glyph scaling 1/16, `setFont("'Liberation Serif'", 4.05 x 1.07 / 0.22536 / 0.9)`,
-  `setRubricColor('#d00')`, black lines and text, white negative fill, drop cap on.
+  `setRubricColor('#a00000')`, black lines and text, white negative fill, drop cap on.
 - Annotation: the part abbreviation from `PART_ABBREVIATIONS` in `web/src/lib/chants.ts`
   (al: `Allel.`, gr: `Grad.`, tr: `Tract.`), with the chant's own mode from `data/chants.json`
   (al 1, gr 3, tr 2). The spike used `%Grad.%` and `%5%` for every chant; this uses each chant's

@@ -3,7 +3,7 @@
 //   node scripts/render-chant-fixtures.ts
 //
 // Draws each chant with the vendored Exsurge (web/public/vendor/exsurge) in
-// headless Chromium, with the export settings: rubrics #d00, Liberation Serif
+// headless Chromium, with the export settings: rubrics #a00000, Liberation Serif
 // loaded from web/public/fonts/export, GABC from data/chants.json with the
 // GregoBase tags Exsurge does not know removed. Writes, per chant and width,
 // {svg, lines:[{y,height}]} to src/lib/export-layout/__fixtures__/chant/.
@@ -109,7 +109,7 @@ function renderInPage(args: RenderArgs): Promise<Rendered> {
     const ctxt = new lib.ChantContext(lib.TextMeasuringStrategy.Canvas);
     ctxt.setGlyphScaling(1 / 16);
     ctxt.setFont("'Liberation Serif'", args.setFontSize);
-    ctxt.setRubricColor("#d00");
+    ctxt.setRubricColor("#a00000");
     ctxt.textColor = "#000";
     ctxt.staffLineColor = "#000";
     ctxt.neumeLineColor = "#000";
