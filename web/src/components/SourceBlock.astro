@@ -1,0 +1,90 @@
+---
+import { pagesLabel, type Piece } from "../lib/catalog";
+import { editionFor } from "../lib/identities";
+import sources from "../../../data/identities/sources.json";
+
+type Props = { piece: Piece; pieces?: never } | { piece?: never; pieces: readonly Piece[] };
+
+const { piece, pieces } = Astro.props;
+const byVolume = new Map<string, Piece[]>();
+for (const item of pieces ?? (piece ? [piece] : [])) {
+  const group = byVolume.get(item.volume) ?? [];
+  group.push(item);
+  byVolume.set(item.volume, group);
+}
+
+const blocks = [...byVolume].map(([volume, items]) => {
+  const registered = editionFor(volume);
+  const edition = sources.editions.find((entry) => entry.id === registered.id)!;
+  const collection = sources.sources.find((entry) => entry.id === edition.source_id)!;
+  return { volume, edition, collection, citations: [...new Set(items.map(pagesLabel))] };
+});
+---
+
+{blocks.map(({ volume, edition, collection, citations }) => (
+  <section class="source-block" aria-labelledby={`source-${volume}`}>
+    <h2 id={`source-${volume}`}>Source</h2>
+    <dl>
+      <div>
+        <dt>Collection</dt>
+        <dd><cite lang="la">{collection.title}</cite></dd>
+      </div>
+      <div>
+        <dt>Book</dt>
+        <dd>{edition.short_label}</dd>
+      </div>
+      {edition.adapter === "noh" && (
+        <div>
+          <dt>Edition</dt>
+          <dd>
+            {/* Publication facts already published at /about/#sources; data/LICENSES.md. */}
+            Lemmens Institute, Mechelen: H. Dessain, 1942.
+            {edition.publication_note && <p>{edition.publication_note.split(/(Addenda ad Partem [IVX]+)/u)
+              .map((text) => text.startsWith("Addenda ad Partem ") ? <span lang="la">{text}</span> : text)}</p>}
+          </dd>
+        </div>
+      )}
+      <div>
+        <dt>Citation</dt>
+        <dd>{citations.map((citation) => <p>{citation.split(/(Addenda ad Partem [IVX]+)/u)
+          .map((text) => text.startsWith("Addenda ad Partem ") ? <span lang="la">{text}</span> : text)}</p>)}</dd>
+      </div>
+      {edition.adapter === "noh" && edition.rights_state === "cleared"
+        && edition.rights_reference === "data/LICENSES.md" && (
+        <div>
+          <dt>Rights</dt>
+          <dd>The page images and everything cut from them are in the public domain.</dd>
+        </div>
+      )}
+    </dl>
+    <a href="/about/#sources">Sources and attributions</a>
+  </section>
+))}
+
+<style>
+  .source-block {
+    border-block-start: 1px solid var(--rule);
+    padding-block: var(--s-3);
+    color: var(--ink-muted);
+    font-size: var(--step--1);
+    overflow-wrap: anywhere;
+  }
+  h2 {
+    margin: 0 0 var(--s-2);
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: var(--step--1);
+  }
+  dl { margin: 0; }
+  dl > div { margin-block-end: var(--s-2); }
+  dt { font-family: var(--font-ui); font-weight: 600; }
+  dd { margin: 0; }
+  p { margin: 0; }
+  dd > p + p { margin-block-start: var(--s-1); }
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-min);
+    min-width: var(--tap-min);
+  }
+</style>
