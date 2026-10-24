@@ -13,3 +13,12 @@ https://cantusorgani.pages.dev/*
 # Cloudflare also supplies noindex for its preview deployments.
 https://:preview.cantusorgani.pages.dev/*
   X-Robots-Tag: noindex
+
+# Astro hashes these filenames; changed content gets a new URL.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+# Stable filenames need a bounded lifetime, including the export fonts.
+/fonts/*
+  Cache-Control: public, max-age=604800
+/vendor/*
+  Cache-Control: public, max-age=604800
