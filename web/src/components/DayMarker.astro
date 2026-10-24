@@ -1,0 +1,13 @@
+---
+interface Props {
+  readonly colour: "gold" | "white" | "red" | "green" | "violet" | "rose" | "black";
+  readonly label?: string;
+}
+
+const { colour, label } = Astro.props;
+// The visible name carries the meaning even when the colour cannot be seen.
+const colourName = colour.charAt(0).toUpperCase() + colour.slice(1);
+---
+
+<span class={`day-marker day-marker--${colour}`} aria-hidden="true"></span>{" "}
+<span>{colourName}{label && ` — ${label}`}</span>

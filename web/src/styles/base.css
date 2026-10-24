@@ -42,6 +42,26 @@ img { max-width: 100%; height: auto; }
 .small { font-size: var(--step--1); }
 .ui { font-family: var(--font-ui); }
 
+/* The outline keeps pale day colours visible; the name accompanies every mark. */
+.day-marker {
+  display: inline-block;
+  width: var(--s-2);
+  height: 1.125rem;
+  border: 1px solid var(--control-border);
+  background: var(--day-colour);
+}
+.day-marker--gold { --day-colour: var(--day-gold); }
+.day-marker--white { --day-colour: var(--day-white); }
+.day-marker--red { --day-colour: var(--day-red); }
+.day-marker--green { --day-colour: var(--day-green); }
+.day-marker--violet { --day-colour: var(--day-violet); }
+.day-marker--rose { --day-colour: var(--day-rose); }
+.day-marker--black { --day-colour: var(--day-black); }
+
+@media (forced-colors: active) {
+  .day-marker { border-color: CanvasText; }
+}
+
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
