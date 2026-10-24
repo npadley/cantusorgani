@@ -13,6 +13,7 @@ import { expect, test } from "@playwright/test";
 import { PDFDocument } from "pdf-lib";
 import type { Page } from "@playwright/test";
 
+import { setParts } from "./parts";
 import { verifyExportPdf } from "../scripts/verify-export-pdf";
 import type { CanonicalExpectation } from "../scripts/verify-export-pdf";
 
@@ -63,11 +64,7 @@ async function prepare(page: Page, chantDisplay: "show" | "link"): Promise<void>
 
 /** Tick only the parts the filter wants. */
 async function tick(page: Page, wanted: (label: string | null) => boolean): Promise<void> {
-  await page.locator("details.parts").evaluate((d) => { (d as HTMLDetailsElement).open = true; });
-  for (const box of await page.locator('input[name="export-part"]').all()) {
-    if (wanted(await box.getAttribute("data-label")) !== (await box.isChecked())) await box.locator("xpath=..").click();
-  }
-  await page.locator("details.parts").evaluate((d) => { (d as HTMLDetailsElement).open = false; });
+  await setParts(page, wanted);
 }
 
 const radio = (page: Page, name: string, value: string) => page.locator(`dialog.cx input[name="${name}"][value="${value}"]`).locator("xpath=..");

@@ -11,6 +11,7 @@ import { createServer } from "node:http";
 import type { AddressInfo } from "node:net";
 import { resolve } from "node:path";
 import { expect, test } from "@playwright/test";
+import { setParts } from "./parts";
 import { PDFDocument } from "pdf-lib";
 
 import { createDeviceServer, lanAddresses } from "../scripts/serve-device-test";
@@ -52,11 +53,7 @@ test("Kyrie IX on the device server: Customize export, iPad preset, a valid PDF"
     const button = page.locator("#export-customize");
     await expect(button).toBeVisible();
     // Only Kyrie, so the editor holds just the approved conversion.
-    await page.locator("details.parts").evaluate((d) => { (d as HTMLDetailsElement).open = true; });
-    for (const box of await page.locator('input[name="export-part"]').all()) {
-      if ((await box.getAttribute("data-label") === "Kyrie") !== (await box.isChecked())) await box.locator("xpath=..").click();
-    }
-    await page.locator("details.parts").evaluate((d) => { (d as HTMLDetailsElement).open = false; });
+    await setParts(page, (label) => label === "Kyrie");
     await button.click();
     await expect(page.locator("dialog.cx")).toHaveAttribute("open", "");
     const download = page.locator('dialog.cx [data-cx="download"]');

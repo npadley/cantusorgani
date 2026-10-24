@@ -9,6 +9,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { deflateSync } from "node:zlib";
 import { resolve } from "node:path";
 import { expect, test } from "@playwright/test";
+import { setParts } from "./parts";
 import type { Page } from "@playwright/test";
 import { PDFDocument } from "pdf-lib";
 
@@ -215,10 +216,7 @@ test.describe("Customize export where nothing reflows", () => {
     await page.goto(PAGES.mixed, { waitUntil: "networkidle" });
     test.skip((await page.locator("#export-customize").count()) === 0, "no button");
     const before = requested.length;
-    await page.locator("details.parts").evaluate((d) => { (d as HTMLDetailsElement).open = true; });
-    for (const box of await page.locator('input[name="export-part"]').all()) {
-      if ((await box.getAttribute("data-label") === "Kyrie") !== (await box.isChecked())) await box.locator("xpath=..").click();
-    }
+    await setParts(page, (label) => label === "Kyrie");
     await page.locator("#export-customize").click();
     await expect(page.locator("dialog.cx .cx-page").first()).toBeVisible({ timeout: 120_000 });
     expect(requested.slice(before).some((u) => VEROVIO.test(u))).toBe(true);
