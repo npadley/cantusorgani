@@ -37,8 +37,7 @@ GITHUB_INSTALLATION_ID = "165561944"
 [[env.preview.d1_databases]]
 binding = "DB"
 database_name = "cantusorgani-corrections-preview"
-# The maintainer fills this after creating the preview database.
-database_id = "REPLACE-WITH-PREVIEW-D1-ID"
+database_id = "1c587bc7-0b19-4be0-a95b-b29780df7788"
 migrations_dir = "../workers/corrections/migrations"
 
 [env.preview.vars]
