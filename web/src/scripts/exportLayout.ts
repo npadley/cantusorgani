@@ -7,6 +7,9 @@
 // Visitor-facing text comes from exportLayoutCopy.ts or from literals here. `LayoutDiagnostic.detail`
 // is never read by any code in this file: it cannot reach the DOM.
 
+import type { Selection } from '../lib/selection';
+import { toSelectionInput } from '../lib/selection';
+import { snapshotSelection } from '../lib/export-layout/selection';
 import editorCss from '../styles/exportEditor.css?url';
 import { loadStylesheet } from './lazyStyles';
 import { createExportController } from '../lib/export-layout/controller';
@@ -17,6 +20,7 @@ import { chantAnnouncement, chantCounts, chantNote, chantPartsPrinted } from '..
 import { paperDimensions } from '../lib/export-layout/settings';
 import { PAGE_PRESETS, MARGIN_MAX_MM, MARGIN_MIN_MM, MAX_SYSTEMS_LIMIT, PAGE_MAX_MM, PAGE_MAX_RATIO, PAGE_MIN_MM, PRINT_MARGIN_ADVISORY_MM } from '../lib/export-layout/types';
 import type {
+  ConversionLookup,
   ControllerDependencies,
   ControllerState,
   ExportController,
@@ -33,7 +37,9 @@ import { ACTION_LABEL, CUSTOM_ERRORS, MM_PER_IN, PRINTER_ADVISORY, copyFor, isGl
 import type { ActionId, CopyContext } from './exportLayoutCopy';
 
 export interface OpenExportEditorOptions {
-  readonly parts: readonly ExportPart[];
+  readonly parts?: readonly ExportPart[];
+  readonly selection?: Selection;
+  readonly lookup?: ConversionLookup;
   /** "Missa IX · Kyrie": shown under the heading and used in the download filename. */
   readonly title: string;
   /** Receives focus when the dialog closes (#export-customize). */
@@ -44,6 +50,7 @@ export interface OpenExportEditorOptions {
   /** Dependency overrides (tests, the e2e fault injector). */
   readonly deps?: Partial<ControllerDependencies>;
 }
+type ResolvedEditorOptions = OpenExportEditorOptions & { readonly parts: readonly ExportPart[] };
 export interface EditorHandle {
   readonly controller: ExportController;
   readonly dialog: HTMLDialogElement;
@@ -118,7 +125,10 @@ function ensureDialog(): HTMLDialogElement {
 
 export function openExportEditor(options: OpenExportEditorOptions): EditorHandle {
   if (active !== null) return active.handle;
-  const session = new Session(ensureDialog(), options);
+  const parts = options.selection
+    ? snapshotSelection(toSelectionInput(options.selection), options.lookup ?? (() => null))
+    : options.parts ?? [];
+  const session = new Session(ensureDialog(), { ...options, parts });
   active = session;
   session.start();
   return session.handle;
@@ -169,7 +179,7 @@ class Session {
   private afterClose: (() => void) | null = null;
   private readonly listeners: { target: EventTarget; type: string; fn: EventListener }[] = [];
 
-  constructor(private readonly dlg: HTMLDialogElement, private readonly options: OpenExportEditorOptions) {
+  constructor(private readonly dlg: HTMLDialogElement, private readonly options: ResolvedEditorOptions) {
     this.parts = options.parts;
     for (const p of options.parts) this.partLabels[p.id] = p.label;
     const profile = parseResourceProfile(profileJson);

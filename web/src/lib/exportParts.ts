@@ -1,3 +1,4 @@
+import { defaultTicked } from "./selection";
 import { allPieces, inPrintedOrder, jumpTargets, movementStarts, partOrder, sectionName, systemUrlStem } from "./catalog";
 import type { BorrowedPart, Piece, PrintedPart, ProperPartName, SectionRubric } from "./catalog";
 import type { Season } from "./liturgy";
@@ -137,25 +138,7 @@ export function seasonGroup(season: Season | null): SeasonGroup {
   return season === "easter" ? "easter" : "other";
 }
 
-export function defaultTicked(segment: ExportSegment, all: readonly ExportSegment[], group: SeasonGroup): boolean {
-  if (group === "all" || segment.part === null) return true;
-  if (segment.variant === "extra-paschal") return group !== "easter";
-  if (segment.variant === "shared" && segment.part === "alleluia") return group !== "lent";
-  const mine = all.filter((s) => s.pieceSlug === segment.pieceSlug);
-  const has = (part: ProperPartName, variant?: string) =>
-    mine.some((s) => s.part === part && (variant === undefined || s.variant === variant
-      || (variant === "paschal" && /^paschal-\d+$/.test(s.variant))));
-  const hasAlleluia = has("alleluia");
-  const paschal = segment.part === "alleluia" && /^paschal(?:-\d+)?$/.test(segment.variant);
-  if (segment.part === "tract") return group === "lent" || !hasAlleluia;
-  if (paschal) return group === "easter";
-  if (segment.part === "alleluia") {
-    if (!has("tract")) return !(group === "easter" && has("alleluia", "paschal"));
-    return group === "other" || (group === "easter" && !has("alleluia", "paschal"));
-  }
-  if (segment.part === "gradual") return !(group === "easter" && has("alleluia", "paschal"));
-  return true;
-}
+export { defaultTicked } from "./selection";
 
 /** "Defaults for Saturday, 3 October 2026 (Tract and Paschal Alleluia unticked)." */
 export function defaultsNote(all: readonly ExportSegment[], group: SeasonGroup, dateLabel: string | null): string | null {

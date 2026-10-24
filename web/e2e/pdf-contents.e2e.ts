@@ -1,4 +1,4 @@
-// PR 8 baseline: what Quick and Customize actually put in the PDF, before the selection refactor.
+// PR 8 baseline: what Quick and Customize actually put in the PDF; landed before the selection refactor.
 // Pins heading order, omitted parts, reader scan overrides, typeset source files and chant on/off.
 //
 //   pnpm build:e2e && E2E_DIST=dist-e2e pnpm exec playwright test e2e/pdf-contents.e2e.ts
@@ -146,7 +146,7 @@ function headingsInOrder(text: readonly string[], labels: readonly string[]): vo
 }
 
 // A dropped heading, an ignored checkbox or scan switch, a wrong paper PDF, or chant in Quick fails here.
-test.describe("PDF contents before the selection refactor", () => {
+test.describe("PDF contents", () => {
   test.use({ viewport: { width: 1280, height: 800 } });
   test.beforeEach(async ({ page, baseURL }) => {
     const probe = await page.request.get("/e2e/export-layout-worker/");
@@ -189,9 +189,24 @@ test.describe("PDF contents before the selection refactor", () => {
 
       await page.locator("#export-paper").selectOption("letter");
       const baseline = await exportSelection(parts);
+      if (mode === "Quick") {
+        // Quick's Paper picks each typeset part's A4 PDF instead of its Letter one.
+        await page.locator("#export-paper").selectOption("a4");
+        const a4 = await inspect(await download(page, mode));
+        expect(a4.markers).toEqual(parts.flatMap(p => p.runs.map(r => marker(r.a4!))));
+        await page.locator("#export-paper").selectOption("letter");
+      }
+      // The bar announces each change to the selection once (PR 8's selectionchange).
+      await page.evaluate(() => {
+        const w = window as Window & { selectionChanges?: number };
+        w.selectionChanges = 0;
+        document.addEventListener("selectionchange", (e) => { if (e instanceof CustomEvent) w.selectionChanges! += 1; });
+      });
+      const changes = () => page.evaluate(() => (window as Window & { selectionChanges?: number }).selectionChanges ?? 0);
       const omitted = parts.find(p => p.label === fixture.omit)!;
       const remaining = parts.filter(p => p !== omitted);
       await tick(page, remaining.map(p => p.label));
+      expect(await changes()).toBe(1);
       const without = await exportSelection(remaining);
       expect(without.letters).not.toContain(lettersOf([omitted.label]));
       for (const text of expectedMarkers([omitted])) expect(without.markers).not.toContain(text);
@@ -205,8 +220,11 @@ test.describe("PDF contents before the selection refactor", () => {
       const mixed = await exportSelection(parts, switched);
       expect(mixed.scans - baseline.scans).toBe(switched.systems);
 
+      const beforeSwitch = await changes();
       await page.getByRole("button", { name: "Show the scans", exact: true }).click();
+      await expect.poll(changes).toBe(beforeSwitch + 1);
       await exportSelection(parts, undefined, true);
+      expect(await changes()).toBe(beforeSwitch + 1);
       await page.getByRole("button", { name: "Show the typeset music", exact: true }).click();
       await expect(page.locator("html")).not.toHaveAttribute("data-view", "scans");
       await expect.poll(() => page.evaluate(() => localStorage.getItem("typeset-view"))).toBe("typeset");

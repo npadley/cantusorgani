@@ -1,76 +1,11 @@
-import type { ExportRun } from "./typeset";
-import type { ChantRef, SelectionInput } from "./export-layout/types";
+import { selectionFromBoxes, toSelectionInput } from "./selection";
+import type { PartBox } from "./selection";
+import type { SelectionInput } from "./export-layout/types";
+export { parseRuns, parseChants } from "./selection";
+export type { PartBox } from "./selection";
 
-/** What the export reads from one of ExportBar's part checkboxes. An
- * HTMLInputElement is one; tests pass plain objects. */
-export interface PartBox {
-  readonly checked: boolean;
-  readonly value: string;
-  readonly dataset: Readonly<Record<string, string | undefined>>;
-}
-
-type Run = SelectionInput["segments"][number]["runs"][number];
-
-const text = (v: unknown): string | null => (typeof v === "string" ? v : null);
-
-/** A part's runs, from its data-runs JSON. Anything malformed reads as no
- * runs, which sends the whole part as scans. */
-export function parseRuns(json: string | undefined): ExportRun[] {
-  let runs: unknown;
-  try {
-    runs = JSON.parse(json ?? "[]");
-  } catch {
-    return [];
-  }
-  if (!Array.isArray(runs)) return [];
-  const out: ExportRun[] = [];
-  for (const r of runs as unknown[]) {
-    if (typeof r !== "object" || r === null) return [];
-    const o = r as Record<string, unknown>;
-    if (typeof o["count"] !== "number" || !Number.isInteger(o["count"]) || o["count"] < 0) return [];
-    out.push({ count: o["count"], key: text(o["key"]), label: text(o["label"]), letter: text(o["letter"]),
-               a4: text(o["a4"]), target: text(o["target"]), hash: text(o["hash"]) });
-  }
-  return out;
-}
-
-/** A part's chants, from its data-chants JSON: [{id, incipit, annotation, mode}]. Anything malformed
- * reads as no chants (the part prints without chant). */
-export function parseChants(json: string | undefined): ChantRef[] {
-  let list: unknown;
-  try {
-    list = JSON.parse(json ?? "[]");
-  } catch {
-    return [];
-  }
-  if (!Array.isArray(list)) return [];
-  const out: ChantRef[] = [];
-  for (const c of list as unknown[]) {
-    if (typeof c !== "object" || c === null) return [];
-    const o = c as Record<string, unknown>;
-    if (typeof o["id"] !== "number" || !Number.isInteger(o["id"]) || o["id"] <= 0) return [];
-    out.push({ id: o["id"], incipit: text(o["incipit"]) ?? "", annotation: text(o["annotation"]) ?? "", mode: text(o["mode"]) ?? "" });
-  }
-  return out;
-}
-
-/** The ticked parts, in page order, with each run marked by whether the reader
- * is looking at its scans. Reads no DOM itself: `showsScans` does. */
+/** Compatibility adapter for callers reading the export checkboxes. */
 export function readSelectionInput(boxes: readonly PartBox[], title: string,
                                    showsScans: (key: string) => boolean): SelectionInput {
-  return {
-    title,
-    segments: boxes.filter((b) => b.checked).map((box) => ({
-      segmentId: box.value,
-      label: box.dataset["label"] ?? "",
-      rubric: box.dataset["rubric"] || null,
-      rubricTranslation: box.dataset["rubricTranslation"] || null,
-      credit: null,
-      stems: (box.dataset["stems"] ?? "").split(",").filter(Boolean),
-      chants: parseChants(box.dataset["chants"]),
-      runs: parseRuns(box.dataset["runs"]).map((run): Run => ({
-        ...run, showsScans: run.key !== null && showsScans(run.key),
-      })),
-    })),
-  };
+  return toSelectionInput(selectionFromBoxes(boxes, title, showsScans));
 }
