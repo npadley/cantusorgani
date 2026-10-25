@@ -185,7 +185,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     .export--rail .paper select { width: 100%; min-width: 0; font: inherit; }
     .export--rail #export-btn { grid-column: 1 / 4; padding: 0 var(--s-1); }
     .export--rail #export-customize { grid-column: 4 / 7; padding: 0 var(--s-1); }
-    .export--rail .export-foot-note { grid-column: 1 / -1; }
+    .export--rail .export-foot-note { grid-column: 1 / -1; margin: 0; line-height: 1.15; }
     .export--rail > :is(.note, noscript, progress, #export-status, [data-selection-home]),
     .export--rail [data-return-customize] { grid-column: 1 / -1; }
     /* Keep refusals visible, including while the live region reports progress.
