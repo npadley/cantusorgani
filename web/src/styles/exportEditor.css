@@ -176,7 +176,8 @@ dialog.cx .cx-preview { min-width: 0; min-height: 0; overflow: auto; }
 }
 @media (max-width: 39.99rem) {
   .cx-fit .seg { min-width: 9rem; }
-  .cx-fit { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-2); align-items: end; }
+  /* Tight rows keep the strip within 170 px on a phone, with room for font differences between platforms. */
+  .cx-fit { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-1) var(--s-2); padding-block: var(--s-1); align-items: end; }
   .cx-fit [data-cx="music-field"], .cx-fit .cx-nomusic { grid-column: 1 / -1; }
   .cx-fit .cx-result { display: none; }
   .cx-fit .cx-settings-btn { grid-column: 2; }
