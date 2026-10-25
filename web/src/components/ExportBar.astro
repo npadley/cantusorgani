@@ -96,6 +96,12 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
           </label>
         ))}
       </fieldset>
+      {/* On a rail the notes sit under the part list: in the rail at 62rem and wider,
+          in the Choose parts sheet below it, so the phone's foot bar stays compact (#179). */}
+      {rail && <>
+        {(note || dayService) && <p class="small muted note" data-defaults-note hidden={!note}>{note}</p>}
+        {dayService && <p class="small muted note" data-day-summary>{daySummary}</p>}
+      </>}
     </PartsTag>
     {rail && <>
       <details class="reader-tools"><summary><DisclosureCue />Reading controls</summary><slot name="reader-tools" /></details>
@@ -106,11 +112,10 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
       </dialog>
       <noscript><p class="small">Export needs JavaScript.</p></noscript>
     </>}
-    {(note || dayService) && <p class="small muted note" data-defaults-note hidden={!note}>{note}</p>}
-    {dayService && <>
-      <p class="small muted note" data-day-summary>{daySummary}</p>
-      <p class="small note" data-day-message hidden></p>
-    </>}
+    {!rail && <>
+        {(note || dayService) && <p class="small muted note" data-defaults-note hidden={!note}>{note}</p>}
+        {dayService && <p class="small muted note" data-day-summary>{daySummary}</p>}
+      </>}
 
     <div class="go" hidden={rail}>
       <button id="export-btn" type="button" disabled={refusal !== null}>
@@ -298,7 +303,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
         if (node instanceof HTMLInputElement) { node.disabled = !active; if (!active) node.checked = false; }
         else node.hidden = !active;
       });
-      const message = root.querySelector<HTMLElement>("[data-day-message]")!;
+      const message = document.querySelector<HTMLElement>("[data-day-message]")!;
       message.textContent = service.message;
       message.hidden = !service.message;
       document.querySelectorAll<HTMLElement>("[data-service-date]").forEach(node => { node.textContent = service.iso ? serviceDateLabel(service.iso) : "build default"; });

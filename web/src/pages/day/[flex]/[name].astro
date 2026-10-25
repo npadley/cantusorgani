@@ -103,19 +103,20 @@ const longDate = date
         {date && longDate && <> · next on <a href={`/calendar/?date=${isoOf(date)}`}>{longDate}</a></>}
       </p>
     )}
+    {hasMusic && <p class="ui small day-message" data-day-message hidden></p>}
   </div>
 
   {pieces.length > 0 && (
     <>
       <h2 class="ui">Proper</h2>
       <PieceList pieces={pieces} />
-      <PartLinks pieces={pieces} />
+      <PartLinks pieces={pieces} inPage={(p) => { const i = pieces.indexOf(p); return musicPieces[i]?.systems.length ? `proper-${i}-` : null; }} />
     </>
   )}
 
   <div id="music" tabindex="-1">
       {musicPieces.map((piece, index) => <>
-        <h3 lang="la">{piece.incipit ?? piece.title}</h3>
+        {musicPieces.length > 1 && <h2 class="piece-name" lang="la">{piece.incipit ?? piece.title}</h2>}
         <SystemStack piece={piece} exportParts={properSegments} id={`proper-${index}`} anchorPrefix={`proper-${index}-`} />
       </>)}
 
@@ -186,5 +187,8 @@ const longDate = date
   .meta { margin: 0 0 var(--s-4); }
   h2 { margin: var(--s-4) 0 var(--s-2); font-size: var(--step-0); color: var(--ink-muted);
        text-transform: uppercase; letter-spacing: 0.06em; }
+  .piece-name { margin: var(--s-4) 0 var(--s-2); font-family: var(--font-text); font-size: var(--step-1);
+                color: var(--ink); text-transform: none; letter-spacing: normal; }
+  .day-message { margin: calc(-1 * var(--s-3)) 0 var(--s-4); }
   .ordinary p { margin: 0 0 var(--s-1); }
 </style>
