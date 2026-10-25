@@ -10,6 +10,8 @@ import { expect, test } from "@playwright/test";
 import type { Page } from "@playwright/test";
 import { PDFDocument, StandardFonts } from "pdf-lib";
 import { chantStaffCount, imageBoxes, lettersOf, pageTexts } from "../scripts/verify-export-pdf";
+import { dateLabel } from "../src/lib/dayService";
+import type { DayTable } from "../src/lib/dayService";
 import { parseRuns } from "../src/lib/exportSelection";
 
 const CHANT_SPACE_MM = 1.8 * 1.565; // Medium music, as in export-chant.e2e.ts (D30).
@@ -154,6 +156,56 @@ test.describe("PDF contents", () => {
     page.on("pageerror", e => { throw new Error(`pageerror: ${e.message}`); });
     await page.addInitScript(() => { localStorage.clear(); });
     await serveAssets(page, baseURL!);
+  });
+
+  for (const index of [0, 1]) test(`St Philip Neri: dated service ${index + 1} PDF contains only its Ordinary`, async ({ page }) => {
+    test.setTimeout(600_000);
+    const day = "/day/sancti/05-26/";
+    await page.goto(day, { waitUntil: "networkidle" });
+    const data = JSON.parse((await page.locator(".export").getAttribute("data-day-service"))!) as { table: DayTable };
+    const masses = data.table.options.filter((o, i, all) => o.mass !== null && all.findIndex(other => other.mass === o.mass) === i
+      && data.table.groups.some(g => g.option === o.key && g.dates.length > 0));
+    expect(masses.length, "St Philip Neri needs at least two dated, non-null Mass options").toBeGreaterThanOrEqual(2);
+    const chosen = masses[index]!;
+    const other = masses.find(o => o.mass !== chosen.mass)!;
+    const fixture = { mass: chosen.mass!, other: other.mass!, date: data.table.groups.find(g => g.option === chosen.key)!.dates[0]! };
+    await page.goto(`${day}?date=${fixture.date}`, { waitUntil: "networkidle" });
+    const root = page.locator(".export");
+    const chosenBoxes = boxes(page);
+    const parts = await chosenBoxes.evaluateAll(nodes => nodes.filter(n => !(n as HTMLInputElement).disabled && (n as HTMLInputElement).checked).map(n => ({
+      label: (n as HTMLInputElement).dataset["label"]!,
+      systems: Number((n as HTMLInputElement).dataset["systems"]),
+      runs: (n as HTMLInputElement).dataset["runs"]!,
+      ordinary: (n as HTMLInputElement).dataset["ordinaryOption"] ?? null,
+    })));
+    expect(parts.some(p => p.ordinary === chosen.key)).toBe(true);
+    expect(parts.some(p => p.ordinary === other.key)).toBe(false);
+    const excludedRuns = await root.locator(`input[data-ordinary-option="${other.key}"]`).evaluateAll(nodes => nodes.map(n => (n as HTMLInputElement).dataset["runs"]!));
+    const result = await inspect(await download(page, "Quick"));
+    expect(result.letters).toContain(lettersOf([`with Missa ${fixture.mass} — ${dateLabel(fixture.date)}`]));
+    expect(result.letters).not.toContain(lettersOf([`with Missa ${fixture.other} —`]));
+    const runs = parts.flatMap(p => parseRuns(p.runs));
+    expect(result.markers).toEqual(runs.filter(r => r.letter && r.key).map(r => marker(r.letter!)));
+    const typesetSystems = runs.filter(r => r.letter && r.key).reduce((n, r) => n + r.count, 0);
+    expect(result.scans).toBe(parts.reduce((n, p) => n + p.systems, 0) - typesetSystems);
+    for (const run of excludedRuns.flatMap(parseRuns)) if (run.letter) expect(result.markers).not.toContain(marker(run.letter));
+  });
+
+  test("St Therese: the October day PDF has no Tract", async ({ page }) => {
+    test.setTimeout(600_000);
+    const day = "/day/sancti/10-03/";
+    await page.goto(day, { waitUntil: "networkidle" });
+    const data = JSON.parse((await page.locator(".export").getAttribute("data-day-service"))!) as { table: DayTable };
+    const october = data.table.groups.filter(g => g.group === "other").flatMap(g => g.dates).find(iso => iso.slice(5, 7) === "10");
+    expect(october, "an October date in the table's other season group").toBeDefined();
+    await page.goto(`${day}?date=${october!}`, { waitUntil: "networkidle" });
+    const tract = page.locator('input[name="export-part"][data-part="tract"]');
+    expect(await tract.count()).toBeGreaterThan(0);
+    for (const box of await tract.all()) await expect(box).not.toBeChecked();
+    const omittedRuns = (await tract.evaluateAll(nodes => nodes.map(n => (n as HTMLInputElement).dataset["runs"]!))).flatMap(parseRuns);
+    const result = await inspect(await download(page, "Quick"));
+    expect(result.letters).not.toContain(lettersOf(["Tract"]));
+    for (const run of omittedRuns) if (run.letter) expect(result.markers).not.toContain(marker(run.letter));
   });
 
   for (const fixture of CASES) for (const mode of ["Quick", "Customize"] as const) {

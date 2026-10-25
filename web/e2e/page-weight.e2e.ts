@@ -1,7 +1,7 @@
 import { gzipSync } from "node:zlib";
 import { expect, test } from "@playwright/test";
 
-const PAGES = ["/piece/dominica-i-adventus/", "/day/tempora/Adv1-0/", "/vespers/2026-11-29/", "/search/"];
+const PAGES = ["/piece/dominica-i-adventus/", "/day/tempora/Adv1-0/", "/day/sancti/05-26/", "/vespers/2026-11-29/", "/search/"];
 const MUSIC = /\/(?:typeset\/[^?]+\.svg|(?:systems\/)?noh\d+\/[^?]+\.(?:webp|png))(?:\?|$)/;
 // TODO: measure gzip baselines (piece/day/Vespers/search) on the coordinator's
 // browser run: Chromium cannot launch in this sandbox. Then gate piece and

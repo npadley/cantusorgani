@@ -1,12 +1,21 @@
 ---
-import ExportBar from "../../../components/ExportBar.astro";
+import MovementNav from "../../../components/MovementNav.astro";
+import { hasNotation } from "../../../lib/chants";
+import ServiceRail from "../../../components/ServiceRail.astro";
+import SystemStack from "../../../components/SystemStack.astro";
+import SourceBlock from "../../../components/SourceBlock.astro";
+import TypesetSwitch from "../../../components/TypesetSwitch.astro";
+import { hasTypeset } from "../../../lib/typeset";
+import { musicView } from "../../../lib/music";
+import { buildDayTable, pdfTitle, resolveDate } from "../../../lib/dayService";
+import { exportSegments, seasonGroup, unavailableMusic } from "../../../lib/exportParts";
 import Layout from "../../../components/Layout.astro";
 import PartLinks from "../../../components/PartLinks.astro";
 import PieceList from "../../../components/PieceList.astro";
-import { allPieces, ordinaryMasses } from "../../../lib/catalog";
+import { allPieces, jumpTargets, ordinaryMasses } from "../../../lib/catalog";
 import { catalogedDays, pieceHref } from "../../../lib/indexes";
 import {
-  COLOR_LABELS, classLabel, findNextDate, isoOf, kyrialeFor, observance, seasonForDate, today,
+  COLOR_LABELS, classLabel, findNextDate, isoOf, kyrialeFor, loadYear, observance, seasonForDate, today,
 } from "../../../lib/liturgy";
 import { consoleLine, hymnSettingsForDay, isSunday, lineupFor, lineupHref, loadLineup, nextFirstVespers, nextLineupDate } from "../../../lib/vespers";
 
@@ -37,11 +46,24 @@ const title = o?.titleEn ?? key;
 // The Ordinary depends on the season and the weekday, so it is suggested for a
 // real date: the next one this day falls on after the build.
 const date = o ? await findNextDate(key, today()) : null;
-const suggestion = o && date ? kyrialeFor(o, date) : null;
-const ordinary = suggestion?.mass
-  ? ordinaryMasses().find((m) => m.label === suggestion.mass) ?? null
-  : null;
-const exportPieces = ordinary ? [...pieces, ordinary] : pieces;
+const buildYear = today().year;
+const years = Object.fromEntries(await Promise.all(Array.from({ length: 4 }, async (_, i) => {
+  const year = buildYear + i;
+  return [year, await loadYear(year) ?? {}] as const;
+})));
+const table = o ? buildDayTable(o, buildYear, years, d => ({ suggestion: kyrialeFor(o, d), group: seasonGroup(seasonForDate(d)) })) : { start: `${buildYear}-01-01`, end: `${buildYear + 3}-12-31`, options: [], groups: [] };
+const service = resolveDate(null, table, date ? isoOf(date) : null);
+const candidates = table.options.map(option => ({ option,
+  piece: ordinaryMasses().find(m => m.label === option.mass) ?? null,
+}));
+const properSegments = exportSegments(pieces);
+const segments = [...properSegments, ...candidates.flatMap(({ option, piece }) =>
+  piece ? exportSegments([piece]).map(s => ({ ...s, id: `${option.key}:${s.id}`, ordinaryOption: option.key })) : [])];
+const exportPieces = [...pieces, ...candidates.flatMap(c => c.piece ? [c.piece] : [])];
+const musicPieces = pieces.map(p => musicView(p));
+const unavailable = unavailableMusic(pieces);
+const hasMusic = segments.length > 0;
+const chantPiece = [...musicPieces, ...exportPieces].find(p => jumpTargets(p).some(t => hasNotation(t.chantId)));
 // The full order of Vespers, where the lineup has this day (release 1: the
 // green Sundays whose Magnificat tone NOH8 prints).
 const vespersDate = date ? nextLineupDate(key, isoOf(date)) : null;
@@ -60,7 +82,17 @@ const longDate = date
   : null;
 ---
 
-<Layout title={title} description={`${title} — organ accompaniment from Nova Organi Harmonia.`}>
+<Layout title={title} description={`${title} — organ accompaniment from Nova Organi Harmonia.`} skipTo={hasMusic ? "music" : undefined}>
+  <div class="reader-layout">
+  {hasMusic && <ServiceRail pieces={exportPieces} title={pdfTitle(title, service.option?.mass ?? null, service.iso)}
+    segments={segments} season={date ? seasonForDate(date) : null} dateLabel={longDate}
+    dayService={{ table, buildDefaultIso: service.iso, title, unavailable }}>
+    <div slot="reader-tools">
+      {chantPiece && <MovementNav piece={chantPiece} variant="tools" />}
+      <TypesetSwitch show={exportPieces.some(p => hasTypeset(p))} />
+    </div>
+  </ServiceRail>}
+  <article class="reading-column">
   <div class="prose">
     <p class="crumb small muted ui"><a href="/">Cantus Organi</a> · <a href="/calendar/">Calendar</a></p>
     <h1>{title}</h1>
@@ -81,22 +113,27 @@ const longDate = date
     </>
   )}
 
-  {suggestion && (
-    <section class="ordinary">
-      <h2 class="ui">Ordinary</h2>
-      {ordinary ? (
-        <p><a href={pieceHref(ordinary)}>Missa {ordinary.label}{ordinary.incipit ? ` — ${ordinary.incipit}` : ""}</a></p>
-      ) : (
-        <p>{suggestion.candidates.length
-          ? `Missa ${suggestion.candidates.join(" or ")}`
-          : "No single Mass is assigned"}</p>
-      )}
-      <p class="small muted">
-        Kyriale heading: “{suggestion.heading}”{longDate && ` (for ${longDate})`}.
-        {suggestion.note && ` ${suggestion.note}`}
-      </p>
+  <div id="music" tabindex="-1">
+      {musicPieces.map((piece, index) => <>
+        <h3 lang="la">{piece.incipit ?? piece.title}</h3>
+        <SystemStack piece={piece} exportParts={properSegments} id={`proper-${index}`} anchorPrefix={`proper-${index}-`} />
+      </>)}
+
+  {candidates.length > 0 && <h2 class="ui">Ordinary</h2>}
+  {candidates.map(({ option, piece }) => (
+    <section class="ordinary" data-ordinary-option={option.key} hidden={option.key !== service.option?.key}>
+      {piece ? <p lang="la"><a href={pieceHref(piece)}>Missa {piece.label}{piece.incipit ? ` — ${piece.incipit}` : ""}</a></p>
+        : <p>{option.candidates.length ? `Missa ${option.candidates.join(" or ")}` : "No single Mass is assigned"}</p>}
+      <p class="small muted">Kyriale heading: <span lang="la">“{option.heading}”</span>{longDate && <> (for <span data-service-date>{longDate}</span>)</>}.
+        {option.note && ` ${option.note}`}</p>
+      {piece && <>
+        <SystemStack piece={piece} exportParts={segments.filter(s => s.ordinaryOption === option.key)}
+          id={`music-${option.key}`} anchorPrefix={`${option.key}-`} hiddenCandidate={option.key !== service.option?.key} />
+      </>}
     </section>
-  )}
+  ))}
+  </div>
+  {hasMusic && <SourceBlock pieces={exportPieces} />}
 
   {vespersDay ? (
     <section class="vespers">
@@ -122,12 +159,23 @@ const longDate = date
     </section>
   )}
 
-  <ExportBar pieces={exportPieces}
-             title={ordinary ? `${title} with Missa ${ordinary.label}` : title}
-             season={date ? seasonForDate(date) : null} dateLabel={longDate} />
+  </article>
+  </div>
 </Layout>
 
 <style>
+  [hidden] { display: none !important; }
+  @media print { .reader-layout { display: block; } }
+  .reading-column { min-width: 0; }
+  @media screen and (width < 62rem) {
+    .reader-layout { display: flex; flex-direction: column; }
+    .reader-layout > :global(.service-rail) { order: 1; }
+  }
+  @media screen and (min-width: 62rem) {
+    .reader-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: var(--s-4); align-items: start; }
+    .reading-column { grid-column: 2; grid-row: 1; }
+    .reader-layout > :global(.service-rail) { grid-column: 1; grid-row: 1; }
+  }
   .crumb { margin: 0 0 var(--s-1); }
   .crumb a { color: var(--ink-muted); }
   .lede { font-style: italic; font-size: var(--step-1); margin: 0 0 var(--s-1); }

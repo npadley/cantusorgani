@@ -51,6 +51,7 @@ export interface Selection {
 /** What the export reads from one of ExportBar's part checkboxes. An
  * HTMLInputElement is one; tests pass plain objects. */
 export interface PartBox {
+  readonly disabled?: boolean;
   readonly checked: boolean;
   readonly value: string;
   readonly dataset: Readonly<Record<string, string | undefined>>;
@@ -105,7 +106,7 @@ const list = (value: string | undefined): string[] => (value ?? "").split(",").f
 /** All page segments, including unticked alternatives; no DOM or storage reads. */
 export function selectionFromBoxes(boxes: readonly PartBox[], title: string,
                                    showsScans: (key: string) => boolean): Selection {
-  return { title, segments: boxes.map(box => {
+  return { title, segments: boxes.filter(box => !box.disabled).map(box => {
     const stems = list(box.dataset["stems"]);
     let runs = parseRuns(box.dataset["runs"]);
     const fallback = runs.length === 0 || runs.reduce((n, r) => n + r.count, 0) !== stems.length;

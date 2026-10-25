@@ -59,6 +59,12 @@ function oldQuick(boxes: readonly PartBox[], paper: Paper, showsScans: (key: str
 }
 
 describe('selection', () => {
+  it('ignores a disabled Ordinary even if a stale caller leaves it checked', () => {
+    const selected = selectionFromBoxes([box("chosen"), { ...box("hidden"), disabled: true }], "Dated service", () => false);
+    expect(selected.segments.map(s => s.id)).toEqual(["chosen"]);
+    expect(quickRequest(selected, "letter").ticked).toBe(1);
+    expect(toSelectionInput(selected).segments.map(s => s.segmentId)).toEqual(["chosen"]);
+  });
   it('keeps page order, inclusion, run slices and the NOH setting', () => {
     const sel = selectionFromBoxes([box(), { ...box("two"), checked: false }], "Title", () => false);
     expect(sel.segments.map(s => [s.id, s.included, s.setting])).toEqual([["one", true, NOH_SETTING], ["two", false, NOH_SETTING]]);
