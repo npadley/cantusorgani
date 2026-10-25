@@ -40,5 +40,8 @@ const colour = colourNames[day?.colors[0] ?? ""];
     .rail-heading { display: none; }
     .service-rail { position: sticky; bottom: 0; z-index: 5; padding: var(--s-2) 0; max-height: calc(100dvh - var(--s-4)); overflow: auto; scroll-padding: var(--s-3); border-top: 1px solid var(--rule); }
   }
+  @media screen and (width < 62rem) {
+    .service-rail { padding: var(--s-1) 0; }
+  }
   @media print { .service-rail { display: none; } }
 </style>

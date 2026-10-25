@@ -200,14 +200,54 @@ test.describe("Service rail", () => {
       expect(visited).toEqual(expected);
     });
 
-    test(`${url} first notation is in the viewport on load at 390×844`, async ({ page }) => {
+    test(`${url} bar at rest is at most 150px tall at 390×844`, async ({ page }) => {
       await page.setViewportSize({ width: 390, height: 844 });
       await page.goto(url);
       await settled(page);
+      await expect(page.locator(".reader-tools")).not.toHaveAttribute("open");
+      const bar = page.locator(".service-rail");
+      expect((await bar.boundingBox())!.height).toBeLessThanOrEqual(150);
+      for (const selector of ["[data-choose-parts]", ".reader-tools summary", "#export-btn", "#export-customize", "#export-paper"]) {
+        const control = bar.locator(selector);
+        await expect(control).toBeVisible();
+        const bounds = (await control.boundingBox())!;
+        expect(bounds.height).toBeGreaterThanOrEqual(44);
+        expect(bounds.width).toBeGreaterThanOrEqual(44);
+      }
+      await expect(bar.locator(".export-foot-note")).toBeVisible();
+      const count = bar.locator("[data-selection-home]");
+      expect(await count.evaluate(el => getComputedStyle(el).clipPath)).toBe("inset(50%)");
+      await openerOf(page).click();
+      await sheetOf(page).getByRole("button", { name: "Clear", exact: true }).click();
+      await sheetOf(page).getByRole("button", { name: "Done", exact: true }).click();
+      await expect(count).toContainText("Tick at least one part to export.");
+      expect(await count.evaluate(el => getComputedStyle(el).clipPath)).toBe("none");
+    });
+
+    for (const viewport of [{ width: 390, height: 844 }, { width: 768, height: 1024 }]) test(`${url} first notation is in the viewport on load at ${viewport.width}×${viewport.height}`, async ({ page }) => {
+      await page.setViewportSize(viewport);
+      await page.goto(url);
+      await settled(page);
       expect(await page.evaluate(() => scrollY)).toBe(0);
-      const first = page.locator("#music img.system:visible, #music img.typeset-music:visible, #music svg:visible").first();
+      // The first system of music (a scan or the typeset drawing), not an icon inside #music.
+      const first = page.locator("#music img.system:visible, #music img.typeset-music:visible").first();
       await expect(first).toBeInViewport();
       expect(await first.evaluate(el => el instanceof HTMLImageElement ? el.complete && el.naturalWidth > 0 : true)).toBe(true);
+      const visible = await first.evaluate(el => {
+        const music = el.getBoundingClientRect();
+        const bar = document.querySelector(".service-rail")!.getBoundingClientRect();
+        const top = Math.max(0, music.top);
+        const bottom = Math.min(innerHeight, music.bottom, bar.top);
+        const x = (Math.max(0, music.left) + Math.min(innerWidth, music.right)) / 2;
+        const hit = document.elementFromPoint(x, top + (bottom - top) / 2);
+        return { height: bottom - top, unobstructed: !!hit && (hit === el || el.contains(hit)), barHeight: bar.height };
+      });
+      // At least one staff of the first system, with its notes, shows above the bar: 44 px (the tap-target size).
+      // Advent I at 390 x 844 shows about 78 px on macOS and 52 px with CI's Linux fonts.
+      expect(visible.height).toBeGreaterThanOrEqual(44);
+      expect(visible.unobstructed).toBe(true);
+      expect(visible.barHeight).toBeLessThanOrEqual(viewport.width === 390 ? 150 : 130);
+      await expect(page.locator(".reader-tools")).not.toHaveAttribute("open");
     });
   }
 
