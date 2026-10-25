@@ -85,7 +85,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     </PartsTag>
     {rail && <>
       <details class="reader-tools"><summary><DisclosureCue />Reading controls</summary><slot name="reader-tools" /></details>
-      <div data-selection-home><p id="selection-status" class="small" role="status" aria-live="polite">{ticked.length} of {segments.length} parts, {count} systems{refusal ? `. ${refusal}` : ""}</p></div>
+      <div data-selection-home><p id="selection-status" class="small">{ticked.length} of {segments.length} parts, {count} systems{refusal ? `. ${refusal}` : ""}</p></div>
       <dialog id="choose-parts-sheet" aria-labelledby="choose-parts-title">
         <header class="sheet-heading"><h2 id="choose-parts-title">Choose parts</h2><button type="button" data-parts-done>Done</button></header>
         <div data-sheet-list></div>
@@ -98,6 +98,8 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
       <button id="export-btn" type="button" disabled={refusal !== null}>
         {refusal !== null && count === 0 ? "Tick at least one part" : label(count)}
       </button>
+      {rail && <p class="small muted note export-foot-note">Accompaniment only — Customize for chant and page layout</p>}
+      <button type="button" data-return-customize hidden>Return to Customize</button>
       <button id="export-customize" type="button" disabled={refusal !== null}>Customize export</button>
       <label class="small paper">Paper
         <select id="export-paper">
@@ -108,7 +110,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     </div>
 
     <progress id="export-progress" max={count} value="0" hidden></progress>
-    <p id="export-status" class="small" role="status" aria-live="polite">{rail ? "" : refusal ?? ""}</p>
+    <p id="export-status" class:list={["small", { "sr-only": rail }]} role="status" aria-live="polite">{rail ? "" : refusal ?? ""}</p>
   </div>
 )}
 {/* On every page with an export bar (D23): parts with an approved conversion reflow, the rest are placed as they are. */}
@@ -126,6 +128,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
   progress { width: min(100%, 22rem); height: 0.5rem; }
   #export-status { margin: 0; min-height: 1.4em; }
   .note { margin: 0; }
+  .export-foot-note { flex-basis: 100%; }
   .go { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
   .paper { display: flex; align-items: center; gap: var(--s-1); min-height: var(--tap-min); }
   .paper select { min-height: var(--tap-min); }
@@ -232,6 +235,10 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
   if (root && button && status && progress) {
     const title = root.dataset["title"] ?? "Nova Organi Harmonia";
     const rail = root.hasAttribute("data-rail");
+    let suspended = false;
+    let editorHandle: import("../scripts/exportLayout").EditorHandle | null = null;
+    const returnButton = root.querySelector<HTMLButtonElement>("[data-return-customize]");
+    returnButton?.addEventListener("click", () => editorHandle?.resume());
     if (rail) {
       root.querySelector<HTMLElement>(".go")!.hidden = false;
       const list = root.querySelector<HTMLElement>("[data-part-list]")!;
@@ -248,30 +255,89 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
       const next = list.nextSibling;
       const selectionHome = root.querySelector<HTMLElement>("[data-selection-home]")!;
       const selectionStatus = document.getElementById("selection-status")!;
+      const statusHome = status.parentElement!;
       let restoreTo: HTMLElement | null = null;
       let lastBox: HTMLInputElement | null = null;
       sheet.addEventListener("focusin", event => {
         if (event.target instanceof HTMLInputElement && event.target.name === "export-part") lastBox = event.target;
       });
+      let closingSelector = false;
       sheet.addEventListener("close", () => {
         opener?.setAttribute("aria-expanded", "false");
         home.insertBefore(list, next);
         selectionHome.append(selectionStatus);
-        restoreTo?.focus();
+        statusHome.append(status);
+        restoreTo?.focus({ preventScroll: true });
         restoreTo = null;
+        if (suspended && !closingSelector) document.dispatchEvent(new Event("cx-selector-closed"));
+        closingSelector = false;
       });
-      opener?.addEventListener("click", () => {
-        restoreTo = opener;
+      function openSheet(): void {
+        if (sheet.open) return;
+        list.hidden = false;
+        restoreTo = suspended ? returnButton : opener;
         lastBox = list.querySelector<HTMLInputElement>('input[name="export-part"]');
-        sheet.querySelector("[data-sheet-list]")!.append(list, selectionStatus);
+        sheet.querySelector("[data-sheet-list]")!.append(list, selectionStatus, status!);
         sheet.showModal();
-        opener.setAttribute("aria-expanded", "true");
-        lastBox?.focus();
+        opener?.setAttribute("aria-expanded", "true");
+        lastBox?.focus({ preventScroll: true });
+      }
+      opener?.addEventListener("click", () => {
+        if (suspended) document.dispatchEvent(new Event("cx-selector-open"));
+        openSheet();
       });
-      root.querySelector("[data-parts-done]")?.addEventListener("click", () => sheet.close());
+      root.addEventListener("cx-choose-parts", event => {
+        suspended = true;
+        if (returnButton) returnButton.hidden = false;
+        selectionStatus.textContent = (event as CustomEvent<string>).detail;
+        status.classList.add("sr-only");
+        if (wide.matches) {
+          list.hidden = false;
+          list.querySelector<HTMLInputElement>('input[name="export-part"]')?.focus({ preventScroll: true });
+          list.closest<HTMLElement>(".service-rail")?.scrollTo(0, 0);
+        } else openSheet();
+        status.textContent = selectionStatus.textContent;
+      });
+      root.addEventListener("cx-selector-close", event => {
+        const resuming = (event as CustomEvent<{ resume: boolean }>).detail.resume;
+        if (resuming) {
+          suspended = false;
+          if (returnButton) returnButton.hidden = true;
+          announce(selection, false);
+        }
+        if (sheet.open) {
+          closingSelector = true;
+          restoreTo = resuming ? null : returnButton;
+          sheet.close();
+        } else if (!resuming) returnButton?.focus({ preventScroll: true });
+      });
+      root.querySelector("[data-parts-done]")?.addEventListener("click", () => {
+        if (suspended) editorHandle?.resume();
+        else sheet.close();
+      });
       wide.addEventListener("change", event => {
         tools.open = event.matches;
-        if (event.matches && sheet.open) { restoreTo = lastBox; sheet.close(); }
+        if (event.matches && sheet.open) { closingSelector = true; restoreTo = lastBox; sheet.close(); }
+        else if (!event.matches && suspended && history.state?.cxParts) openSheet();
+      });
+    }
+    if (!rail) {
+      root.addEventListener("cx-choose-parts", event => {
+        suspended = true;
+        if (returnButton) returnButton.hidden = false;
+        status.textContent = (event as CustomEvent<string>).detail;
+        const list = root.querySelector<HTMLDetailsElement>(".parts");
+        if (list) { list.hidden = false; list.open = true; }
+        root.querySelector<HTMLInputElement>('input[name="export-part"]')?.focus({ preventScroll: true });
+      });
+      root.addEventListener("cx-selector-close", event => {
+        const list = root.querySelector<HTMLDetailsElement>(".parts");
+        if (list) list.open = false;
+        if ((event as CustomEvent<{ resume: boolean }>).detail.resume) {
+          suspended = false;
+          status.textContent = "";
+          if (returnButton) returnButton.hidden = true;
+        } else returnButton?.focus({ preventScroll: true });
       });
     }
     const boxes = [...root.querySelectorAll<HTMLInputElement>('input[name="export-part"]')];
@@ -299,15 +365,19 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
         if (cap) cap.textContent = [...new Set(s.runs.map(r => r.representation === "scan" || r.capability === "scan" ? "Scans" : r.capability === "mei" ? "Customizable typeset" : "Typeset"))].join(" · ");
       });
     }
-    function announce(selected: Selection): void {
+    function announce(selected: Selection, live = true): void {
       if (!rail) return;
       const { refs, parts, ticked } = quickRequest(selected, paper());
       root!.querySelectorAll("[data-ticked]").forEach(node => { node.textContent = String(ticked); });
       const problem = validateSelection(refs.length, parts);
       const key = JSON.stringify([selected.segments.filter(s => s.included).map(s => s.id).sort(), problem]);
+      const summary = `${ticked} of ${selected.segments.length} parts, ${refs.length} systems${problem ? `. ${problem}` : ""}`;
+      document.getElementById("selection-status")!.textContent = summary;
+      if (!live) { status!.textContent = ''; return; }
       if (key === announcedSelection) return;
       announcedSelection = key;
-      document.getElementById("selection-status")!.textContent = `${ticked} of ${selected.segments.length} parts, ${refs.length} systems${problem ? `. ${problem}` : ""}`;
+      status!.classList.add("sr-only");
+      status!.textContent = summary;
     }
     root.querySelector("[data-select-all]")?.addEventListener("click", () => setAll(true));
     root.querySelector("[data-clear]")?.addEventListener("click", () => setAll(false));
@@ -344,7 +414,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
         ? "Tick at least one part"
         : `Export PDF (${refs.length} system${refs.length === 1 ? "" : "s"}, ~${estimatePages(refs.length)} page${estimatePages(refs.length) === 1 ? "" : "s"})`;
       status!.removeAttribute("data-state");
-      status!.textContent = rail ? "" : problem ?? "";
+      if (!rail) status!.textContent = problem ?? "";
     }
     if (rail) renderCapabilities(selection);
     boxes.forEach((b) => b.addEventListener("change", refresh));
@@ -359,6 +429,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     // Everything the editor needs (the dialog code, the manifest, the selection snapshot) is imported on click:
     // until then this page loads no Verovio, workers, pdf.js or export fonts.
     customize?.addEventListener("click", async () => {
+      if (suspended && editorHandle) { editorHandle.resume(); return; }
       if (customize.getAttribute("aria-busy") === "true") return;
       const idle = customize.textContent ?? "Customize export";
       customize.setAttribute("aria-busy", "true");
@@ -370,8 +441,9 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
         await editor.stylesReady;
         const manifest = mei.loadManifest();
         update();
-        editor.openExportEditor({
+        editorHandle = editor.openExportEditor({
           selection,
+          readSelection: () => { update(); return selection; },
           lookup: (target, hash) => mei.approvedConversionFor(target, hash, manifest),
           title: title.replace(/ — Nova Organi Harmonia$/, ""),
           opener: customize,
@@ -382,6 +454,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
           }),
         });
       } catch {
+        status.classList.remove("sr-only");
         status.setAttribute("data-state", "error");
         status.textContent = "Can't open the layout editor. Try again, or use Export PDF.";
       } finally {
@@ -398,6 +471,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
       const idleLabel = button.textContent ?? "Export PDF";
       button.disabled = true;
       status.removeAttribute("data-state");
+      status.classList.remove("sr-only");
       status.textContent = "Preparing…";
       progress.max = refs.length;
       progress.value = 0;

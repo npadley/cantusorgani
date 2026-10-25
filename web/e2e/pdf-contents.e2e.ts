@@ -280,4 +280,46 @@ test.describe("PDF contents", () => {
     expect(result.scans).toBe(0);
     expect(result.chant).toEqual(result.chant.map(() => 0));
   });
+
+  for (const width of [1024, 390]) test(`Advent I: Customize Change parts through the ${width === 390 ? "sheet" : "rail"} omits Gradual from the PDF`, async ({ page }) => {
+    test.setTimeout(600_000);
+    await page.setViewportSize({ width, height: width === 390 ? 844 : 800 });
+    await page.goto(CASES[0].url, { waitUntil: "networkidle" });
+    const parts: Part[] = [];
+    for (const box of await boxes(page).all()) parts.push({
+      label: (await box.getAttribute("data-label"))!,
+      systems: Number(await box.getAttribute("data-systems")),
+      runs: parseRuns((await box.getAttribute("data-runs"))!),
+    });
+    expect(parts.map(p => p.label)).toEqual(CASES[0].labels);
+    const omitted = parts.find(p => p.label === "Gradual")!;
+    const remaining = parts.filter(p => p !== omitted);
+    await page.locator("#export-customize").click();
+    await expect(page.locator("dialog.cx")).toHaveAttribute("open", "");
+    await expect(downloadButton(page)).toBeEnabled({ timeout: 120_000 });
+    const settings = page.locator('dialog.cx [data-cx="settings-btn"]');
+    if (await settings.isVisible()) await settings.click();
+    await radio(page, "cx-tier", "print").click();
+    await radio(page, "cx-print", "letter").click();
+    // Chant adds real part headings to the fixed stand-in PDFs, as in the baseline cases.
+    await setChant(page, "before");
+    await page.locator('dialog.cx [data-cx="change-parts"]').click();
+    await expect(page.locator("dialog.cx")).not.toHaveAttribute("open", "");
+    const selector = width === 390 ? page.locator("#choose-parts-sheet") : page.locator(".service-rail");
+    await expect(selector).toBeVisible();
+    await selector.getByRole("checkbox", { name: "In PDF: Gradual", exact: true }).uncheck();
+    if (width === 390) await selector.getByRole("button", { name: "Done", exact: true }).click();
+    else await selector.getByRole("button", { name: "Return to Customize", exact: true }).click();
+    await expect(page.locator("dialog.cx")).toHaveAttribute("open", "");
+    await expect(page.locator('dialog.cx [data-cx="partlist"] .cx-pn')).toHaveText(remaining.map(p => p.label));
+    await expect(page.locator("dialog.cx")).not.toHaveAttribute("data-panel", "open");
+    const result = await inspect(await download(page, "Customize"));
+    headingsInOrder(result.text, remaining.map(p => p.label));
+    expect(result.letters).not.toContain(lettersOf([omitted.label]));
+    expect(result.markers).toEqual(remaining.flatMap(p => p.runs.map(r => marker(r.letter!))));
+    for (const run of omitted.runs) expect(result.markers).not.toContain(marker(run.letter!));
+    expect(result.scans).toBe(0);
+    expect(result.chant.reduce((n, count) => n + count, 0)).toBeGreaterThan(0);
+  });
+
 });

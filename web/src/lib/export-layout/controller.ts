@@ -19,6 +19,7 @@ import type {
 import { DEFAULT_SETTINGS, PAGE_PRESETS } from './types';
 import { defaultMarginFor, nextMargin, normalizeSettings } from './settings';
 import { checkLayoutBudget } from './limits';
+import { validateSelection } from '../pdf';
 import { readPreferences, writePreferences } from './preferences';
 
 const DEBOUNCE_MS = 250;
@@ -155,7 +156,7 @@ export function createExportController(deps: ControllerDependencies): ExportCont
 
   function onLayoutMessage(msg: LayoutWorkerResponse): void {
     if (msg.type === 'progress') return;
-    if (msg.token !== state.requestToken || dirty) return;
+    if (state.phase === 'suspended' || msg.token !== state.requestToken || dirty) return;
     clearLayoutWatchdog();
     inflight = null;
     if (msg.type === 'result' && msg.result.pages.length > profile.limits.maxPages) {
@@ -197,6 +198,15 @@ export function createExportController(deps: ControllerDependencies): ExportCont
     clearDebounce();
     dirty = false;
     markStale();
+    const selectionRefusal = validateSelection(state.parts.reduce((n, p) => n + p.sourceSystemCount, 0),
+      state.parts.map(p => ({ label: p.label, systems: p.sourceSystemCount })));
+    if (selectionRefusal !== null) {
+      if (layoutWorker !== null && inflight !== null) layoutWorker.postMessage({ type: 'cancel', token: inflight });
+      inflight = null;
+      set({ phase: 'error', result: null, requestToken: state.requestToken + 1, selectionRefusal, diagnostics: state.parts.length > 0 ? [budgetDiagnostic('SOURCE_CEILING', selectionRefusal)] : [] });
+      return;
+    }
+    set({ selectionRefusal: null });
     const decision = checkLayoutBudget(estimate(state.parts), profile);
     if (!decision.eligible) {
       // Rejected before any worker (and its WASM) is created. Bump the token so late results are ignored.
@@ -263,6 +273,7 @@ export function createExportController(deps: ControllerDependencies): ExportCont
 
   const controller: ExportController = {
     open(parts, exportTitle) {
+      if (!closed && state.phase === 'suspended') { controller.resume(parts); return; }
       closed = false;
       clearDebounce();
       clearLayoutWatchdog();
@@ -282,14 +293,63 @@ export function createExportController(deps: ControllerDependencies): ExportCont
         if (list !== undefined && list.length > 0) overrides[p.id] = list;
       }
       set({
-        phase: 'loading', parts, settings: preferences.settings, overrides, requestToken: 0,
+        phase: 'loading', cancelledWork: null, selectionRefusal: null, parts, settings: preferences.settings, overrides, requestToken: 0,
         result: null, previousResult: null, diagnostics: [], notices,
       });
       postLayout();
     },
 
+    suspend() {
+      if (closed || state.phase === 'idle' || state.phase === 'suspended') return;
+      const cancelledWork = exportToken !== null ? 'pdf' : inflight !== null || dirty ? 'layout' : null;
+      clearDebounce();
+      clearLayoutWatchdog();
+      if (layoutWorker !== null && inflight !== null) layoutWorker.postMessage({ type: 'cancel', token: inflight });
+      endExport();
+      inflight = null;
+      dirty = false;
+      set({ phase: 'suspended', cancelledWork, requestToken: state.requestToken + 1 });
+    },
+
+    resume(parts) {
+      if (closed || state.phase !== 'suspended') return;
+      const oldParts = state.parts;
+      const valid = (id: string): boolean => {
+        const old = oldParts.find(p => p.id === id);
+        const next = parts.find(p => p.id === id);
+        return old?.kind === 'mei' && next?.kind === 'mei' && old.target === next.target &&
+          old.sourceRevision === next.sourceRevision && old.conversion.sourceRevision === next.conversion.sourceRevision;
+      };
+      const filter = (overrides: Overrides): Overrides => Object.fromEntries(Object.entries(overrides)
+        .filter(([id, list]) => valid(id) && list.length > 0)
+        .map(([id, list]) => [id, list.filter(o => {
+          const part = parts.find(p => p.id === id);
+          return part?.kind === 'mei' && o.sourceRevision === part.conversion.sourceRevision;
+        })]));
+      const overrides: Record<string, readonly BreakOverride[]> = { ...filter(state.overrides) };
+      const notices = [...state.notices];
+      for (const [id, list] of Object.entries(state.overrides)) {
+        if ((overrides[id]?.length ?? 0) < list.length) {
+          notices.push({ code: 'STALE_ANCHOR', field: null, partId: id });
+        }
+      }
+      // A part ticked again gets its saved breaks back, as open() would give them: leaving a part out of one
+      // export never deletes what this browser remembers for it.
+      for (const p of parts) {
+        if (!isMei(p) || overrides[p.id] !== undefined) continue;
+        const saved = (storedOverrides[p.target] ?? []).filter(o => o.sourceRevision === p.conversion.sourceRevision);
+        if (saved.length > 0) overrides[p.id] = saved;
+      }
+      // Undo retains the session's edits but cannot bring back removed or revised music's breaks.
+      undoStack = undoStack.map(snap => ({ ...snap, overrides: filter(snap.overrides) }));
+      set({ parts, overrides, notices, requestToken: state.requestToken + 1,
+        result: null, previousResult: null, diagnostics: [], selectionRefusal: null });
+      persist();
+      postLayout();
+    },
+
     updateSettings(patch: SettingsPatch) {
-      if (closed || state.phase === 'idle') return;
+      if (closed || state.phase === 'idle' || state.phase === 'suspended') return;
       const merged = { ...state.settings, ...patch, version: 2 };
       if (patch.page !== undefined && patch.marginMm === undefined) {
         const kindOf = (page: LayoutSettings['page']) => (page === 'custom' ? 'custom' as const : PAGE_PRESETS[page].kind);
@@ -306,7 +366,7 @@ export function createExportController(deps: ControllerDependencies): ExportCont
     },
 
     setBreak(partId, action: BreakAction) {
-      if (closed || state.phase === 'idle') return;
+      if (closed || state.phase === 'idle' || state.phase === 'suspended') return;
       if (!state.parts.some((p) => p.id === partId)) return;
       pushUndo();
       const current = state.overrides[partId] ?? [];
@@ -321,7 +381,7 @@ export function createExportController(deps: ControllerDependencies): ExportCont
     },
 
     resetLayout() {
-      if (closed || state.phase === 'idle') return;
+      if (closed || state.phase === 'idle' || state.phase === 'suspended') return;
       pushUndo();
       const { page, customSize, orientation } = state.settings;
       const kind = page === 'custom' ? 'custom' : PAGE_PRESETS[page].kind;
@@ -334,7 +394,7 @@ export function createExportController(deps: ControllerDependencies): ExportCont
     },
 
     undo() {
-      if (closed || state.phase === 'idle') return;
+      if (closed || state.phase === 'idle' || state.phase === 'suspended') return;
       const snap = undoStack.pop();
       if (snap === undefined) return;
       set({ settings: snap.settings, overrides: snap.overrides });

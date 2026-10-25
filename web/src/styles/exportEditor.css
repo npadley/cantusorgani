@@ -9,6 +9,11 @@ dialog.cx {
   inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
   background: var(--paper); color: var(--ink); overflow: hidden; font-family: var(--font-ui);
 }
+/* The settings column shrinks to its grid row and scrolls inside it. Without this it grows past the row, under
+   the footer, and its last controls can't be reached when the FIT summary is tall (1024 x 800). */
+dialog.cx .cx-settings { min-height: 0; }
+dialog.cx [data-cx="change-parts"] { min-height: var(--tap-min); }
+
 dialog.cx::backdrop { background: var(--paper); }
 dialog.cx[open] { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; grid-template-columns: minmax(0, 1fr); }
 dialog.cx button, dialog.cx input, dialog.cx select { font-family: var(--font-ui); }
@@ -178,10 +183,12 @@ dialog.cx .cx-preview { min-width: 0; min-height: 0; overflow: auto; }
 
 /* ---- 62rem and up: two columns. ---- */
 @media (min-width: 62rem) {
-  dialog.cx[open] { grid-template-columns: 20rem minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr) auto; }
+  /* On a short window (1024 x 800) a tall FIT group took the whole column, leaving the settings no room and pushing
+     the footer, with Download, off the screen. The settings keep at least 12rem and FIT scrolls in what is left. */
+  dialog.cx[open] { grid-template-columns: 20rem minmax(0, 1fr); grid-template-rows: auto minmax(0, auto) minmax(12rem, 1fr) auto; }
   .cx-head { grid-column: 1 / -1; grid-row: 1; }
   /* A rule and padding under the FIT group: settings text scrolling beneath it is clipped at a clean edge. */
-  .cx-fit { grid-column: 1; grid-row: 2; padding: var(--s-3) var(--s-3) var(--s-3); border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .cx-fit { grid-column: 1; grid-row: 2; min-height: 0; overflow-y: auto; padding: var(--s-3) var(--s-3) var(--s-3); border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
   .cx-settings { grid-column: 1; grid-row: 3; overflow-y: auto; border-right: 1px solid var(--rule); padding: var(--s-3); min-width: 0; }
   .cx-settings:focus { outline: none; }
   dialog.cx .cx-preview { grid-column: 2; grid-row: 2 / 4; }

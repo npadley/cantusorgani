@@ -30,6 +30,13 @@ async function render(component: typeof ExportBar | typeof PartLinks, props: Rec
 }
 
 describe("ExportBar", () => {
+  it("keeps the rail export note and a hidden Return to Customize button", async () => {
+    const html = await render(ExportBar, { pieces: [THERESE], title: "T", variant: "rail" });
+    expect(html).toContain("Accompaniment only — Customize for chant and page layout");
+    expect(html).toMatch(/<button[^>]*data-return-customize[^>]*hidden[^>]*>Return to Customize<\/button>/);
+    // Selection and PDF progress share the rail's single live region.
+    expect(html.match(/role="status"/g)).toHaveLength(2); // rail plus inert editor template
+  });
   it("should offer each part in a fieldset, ticking all on a piece page", async () => {
     const html = await render(ExportBar, { pieces: [THERESE], title: "T" });
     expect(html).toMatch(/<legend[^>]*>Parts to export<\/legend>/);

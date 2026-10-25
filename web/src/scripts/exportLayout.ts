@@ -33,13 +33,15 @@ import type {
 import profileJson from '../../../data/typeset/mei/resource-profile.json';
 import { destroyPreview, getView, getZoom, initPreview, previewStylesReady, renderPreview, setView, setZoom } from './exportPagePreview';
 import { BreakEditor } from './exportBreakEditor';
-import { ACTION_LABEL, CUSTOM_ERRORS, MM_PER_IN, PRINTER_ADVISORY, copyFor, isGlobalDiagnostic, paperName, smallerStaff } from './exportLayoutCopy';
+import { CHANGE_PARTS_COPY, ACTION_LABEL, CUSTOM_ERRORS, MM_PER_IN, PRINTER_ADVISORY, copyFor, isGlobalDiagnostic, paperName, smallerStaff } from './exportLayoutCopy';
 import type { ActionId, CopyContext } from './exportLayoutCopy';
 
 export interface OpenExportEditorOptions {
   readonly parts?: readonly ExportPart[];
   readonly selection?: Selection;
   readonly lookup?: ConversionLookup;
+  /** Re-read the PR 8 selection model when returning from Change parts. */
+  readonly readSelection?: () => Selection;
   /** "Missa IX · Kyrie": shown under the heading and used in the download filename. */
   readonly title: string;
   /** Receives focus when the dialog closes (#export-customize). */
@@ -55,6 +57,7 @@ export interface EditorHandle {
   readonly controller: ExportController;
   readonly dialog: HTMLDialogElement;
   close(): void;
+  resume(): void;
 }
 
 /** Resolves when the editor's and the preview's stylesheets are in. Await it before openExportEditor so the dialog never shows unstyled. */
@@ -137,7 +140,7 @@ export function openExportEditor(options: OpenExportEditorOptions): EditorHandle
 class Session {
   readonly handle: EditorHandle;
   private readonly controller: ExportController;
-  private readonly parts: readonly ExportPart[];
+  private parts: readonly ExportPart[];
   private readonly partLabels: Record<string, string> = {};
   private readonly wide = window.matchMedia(WIDE_QUERY);
   private readonly preview: HTMLElement;
@@ -159,6 +162,12 @@ class Session {
   private updating = false;
   private slow = false;
   private pushed = false;
+  private suspended = false;
+  private suspensionClose = false;
+  private returning = false;
+  private editorScroll: { node: HTMLElement; top: number; left: number }[] = [];
+  private restoreScrollPending = false;
+  private readingPosition = { x: window.scrollX, y: window.scrollY };
   private suppressPop = false;
   private closing = false;
   private lastAnnounceAt = 0;
@@ -241,7 +250,7 @@ class Session {
       },
       footerHeight: () => this.dlg.querySelector<HTMLElement>('.cx-foot')?.offsetHeight ?? 0,
     });
-    this.handle = { controller: this.controller, dialog: dlg, close: () => this.requestClose() };
+    this.handle = { controller: this.controller, dialog: dlg, close: () => this.requestClose(), resume: () => this.returnToEditor() };
   }
 
   // ---------------------------------------------------------------- query ---
@@ -287,6 +296,12 @@ class Session {
     this.on(dlg, 'cancel', (e) => this.onCancel(e));
     this.on(dlg, 'close', () => this.onClosed());
     this.on(window, 'popstate', () => this.onPop());
+    this.on(document, 'cx-selector-open', () => {
+      if (this.suspended && !this.pushed) history.forward();
+    });
+    this.on(document, 'cx-selector-closed', () => {
+      if (this.suspended && this.pushed) history.back();
+    });
     this.on(this.preview, 'cx-view-change', (e) => {
       const view = (e as CustomEvent<string>).detail;
       if (view === 'continuous' && this.breakEditor.active) this.setBreakMode(false, false);
@@ -301,6 +316,20 @@ class Session {
   }
 
   private onPop(): void {
+    if (this.suspended) {
+      if (this.returning) {
+        this.returning = false;
+        this.pushed = true;
+        this.resumeEditor();
+      } else if (history.state?.cxParts) {
+        this.pushed = true;
+        document.querySelector('.export')?.dispatchEvent(new CustomEvent('cx-choose-parts', { detail: CHANGE_PARTS_COPY.choose }));
+      } else {
+        this.pushed = false;
+        document.querySelector('.export')?.dispatchEvent(new CustomEvent('cx-selector-close', { detail: { resume: false } }));
+      }
+      return;
+    }
     if (this.suppressPop) { this.suppressPop = false; return; }
     this.pushed = false;
     this.requestClose();
@@ -314,11 +343,12 @@ class Session {
   }
 
   private onClosed(): void {
+    if (this.suspensionClose) { this.suspensionClose = false; return; }
     if (this.closing) return;
     this.closing = true;
     if (this.state?.phase === 'exporting') {
       const status = document.getElementById('export-status');
-      if (status !== null) status.textContent = 'Custom PDF cancelled.';
+      if (status !== null) { status.classList.remove('sr-only'); status.textContent = 'Custom PDF cancelled.'; }
     }
     this.unsubscribe?.();
     this.breakEditor.destroy();
@@ -341,6 +371,60 @@ class Session {
     active = null;
     if (this.afterClose !== null) this.afterClose();
     else this.options.opener?.focus();
+  }
+
+  private changeParts(): void {
+    if (this.suspended) return;
+    this.editorScroll = [this.dlg, ...this.dlg.querySelectorAll<HTMLElement>('*')]
+      .map(node => ({ node, top: node.scrollTop, left: node.scrollLeft }));
+    this.readingPosition = { x: window.scrollX, y: window.scrollY };
+    this.suspended = true;
+    if (this.undoTimer !== null) { window.clearTimeout(this.undoTimer); this.undoTimer = null; }
+    if (this.announceTimer !== null) { window.clearTimeout(this.announceTimer); this.announceTimer = null; }
+    this.pendingAnnounce = null;
+    this.controller.suspend();
+    this.suspensionClose = true;
+    this.dlg.close();
+    // The editor already pushed one entry. Lend it to the selector instead of
+    // pushing a second one: Back is safe and history.length never grows here.
+    history.replaceState({ ...history.state, cx: false, cxParts: true }, '', location.pathname + location.search);
+    document.querySelector('.export')?.dispatchEvent(new CustomEvent('cx-choose-parts', { detail: CHANGE_PARTS_COPY.choose }));
+    window.scrollTo(this.readingPosition.x, this.readingPosition.y);
+  }
+
+  private returnToEditor(): void {
+    if (!this.suspended || this.returning) return;
+    if (!this.pushed) {
+      // Back closed the selector. Reuse its forward entry, rather than append.
+      this.returning = true;
+      history.forward();
+      return;
+    }
+    this.resumeEditor();
+  }
+
+  private resumeEditor(): void {
+    const selection = this.options.readSelection?.() ?? this.options.selection;
+    this.parts = selection ? snapshotSelection(toSelectionInput(selection), this.options.lookup ?? (() => null)) : this.parts;
+    for (const part of this.parts) this.partLabels[part.id] = part.label;
+    document.querySelector('.export')?.dispatchEvent(new CustomEvent('cx-selector-close', { detail: { resume: true } }));
+    this.suspended = false;
+    history.replaceState({ ...history.state, cx: true, cxParts: false }, '', HASH);
+    // Change parts returns to the preview; the narrow settings panel would cover Download.
+    this.setPanel(false, false);
+    this.dlg.showModal();
+    this.dlg.querySelector<HTMLElement>('#cx-title')?.focus({ preventScroll: true });
+    this.dismissedStale.clear();
+    this.restoreScrollPending = true;
+    if (this.undoShown) this.armUndo();
+    this.controller.resume(this.parts);
+    for (const { node, top, left } of this.editorScroll) { node.scrollTop = top; node.scrollLeft = left; }
+    window.scrollTo(this.readingPosition.x, this.readingPosition.y);
+    const cancelled = this.state?.cancelledWork;
+    if (cancelled) {
+      this.holdUpdated = true;
+      this.say(cancelled === 'pdf' ? CHANGE_PARTS_COPY.pdfStopped : CHANGE_PARTS_COPY.layoutStopped, true);
+    }
   }
 
   // ----------------------------------------------------------------- panel ---
@@ -446,6 +530,7 @@ class Session {
       case 'undo': this.controller.undo(); this.armUndo(); break;
       case 'cancel': this.controller.cancelDownload(); this.say('PDF stopped.', true); break;
       case 'download': void this.download(); break;
+      case 'change-parts': this.changeParts(); break;
       case 'stale-dismiss': this.dismissStale(); break;
       case 'break-done': this.setBreakMode(false, true); if (!this.wide.matches) this.q('settings-btn').focus(); else this.q('break-mode').focus(); break;
       case 'break-mode':
@@ -562,7 +647,7 @@ class Session {
     // The dialog's `close` event is queued, so focus and status are applied in onClosed.
     this.afterClose = () => {
       const status = document.getElementById('export-status');
-      if (status !== null) status.textContent = 'Custom layout closed. Export PDF uses the original layout.';
+      if (status !== null) { status.classList.remove('sr-only'); status.textContent = 'Custom layout closed. Export PDF uses the original layout.'; }
       document.getElementById('export-btn')?.focus();
     };
     this.requestClose();
@@ -662,7 +747,11 @@ class Session {
     this.syncNotices(s);
     this.syncStale(s);
     this.syncFooter(s);
-    this.syncAnnouncements(s, prev);
+    if (this.restoreScrollPending && (s.phase === 'ready' || s.phase === 'error')) {
+      this.restoreScrollPending = false;
+      for (const { node, top, left } of this.editorScroll) { node.scrollTop = top; node.scrollLeft = left; }
+    }
+    if (!this.suspended) this.syncAnnouncements(s, prev);
   }
 
   private syncControls(s: ControllerState): void {
@@ -886,13 +975,27 @@ class Session {
     const ids = new Set<string>();
     for (const n of s.notices) if (n.code === 'STALE_ANCHOR' && n.partId !== null) ids.add(n.partId);
     for (const d of s.diagnostics) if ((d.code === 'STALE_ANCHOR' || d.code === 'UNSAFE_ANCHOR') && d.partId !== null) ids.add(d.partId);
-    const names = [...ids].map((id) => this.partLabels[id] ?? 'this part');
-    const label = names.length === 0 ? 'this part' : names.join(', ');
     const p = box.querySelector('p');
-    if (p !== null) p.textContent = `Your saved breaks for ${label} were removed because its music was updated.`;
+    if (p !== null) {
+      const removed = [...ids].filter(id => !s.parts.some(part => part.id === id));
+      const revised = [...ids].filter(id => s.parts.some(part => part.id === id));
+      p.textContent = [
+        removed.length ? CHANGE_PARTS_COPY.staleBreaks(removed.map(id => this.partLabels[id] ?? 'this part').join(', ')) : '',
+        revised.length ? CHANGE_PARTS_COPY.revisedBreaks(revised.map(id => this.partLabels[id] ?? 'this part').join(', ')) : '',
+      ].filter(Boolean).join(' ');
+    }
   }
 
   private syncNotices(s: ControllerState): void {
+    if (s.selectionRefusal) {
+      this.notices.replaceChildren();
+      const p = document.createElement('p');
+      p.className = 'notice';
+      p.textContent = s.selectionRefusal;
+      this.notices.append(p);
+      this.lastNoticeKey = '';
+      return;
+    }
     const items: { d: LayoutDiagnostic; copy: ReturnType<typeof copyFor> }[] = [];
     const seen = new Set<string>();
     for (const d of s.diagnostics) {
@@ -948,6 +1051,8 @@ class Session {
     const download = this.q<HTMLButtonElement>('download');
     const exporting = s.phase === 'exporting';
     download.disabled = !s.canDownload;
+    if (s.selectionRefusal) download.title = s.selectionRefusal;
+    else download.removeAttribute('title');
     download.textContent = exporting ? 'Preparing PDF…'
       : s.canDownload && s.result !== null ? `Download PDF · ${pageWord(s.result.pages.length)}` : 'Download PDF';
     this.q('reset').hidden = exporting;
@@ -957,9 +1062,17 @@ class Session {
 
   private syncAnnouncements(s: ControllerState, prev: ControllerState | null): void {
     if (prev === null) return;
+    if (s.selectionRefusal) {
+      if (s.selectionRefusal !== prev.selectionRefusal) this.say(s.selectionRefusal, true);
+      return;
+    }
+    if (s.phase === 'ready' && prev.phase !== 'ready' && this.holdUpdated) {
+      this.holdUpdated = false;
+      this.announcedFirst = true;
+      return;
+    }
     if (s.phase === 'ready' && prev.phase !== 'ready' && prev.phase !== 'exporting' && s.result !== null && this.hasShownResult && prev.previousResult !== null) {
-      if (this.holdUpdated) this.holdUpdated = false;
-      else this.say(`Preview updated: ${pageWord(s.result.pages.length)}.`);
+      this.say(`Preview updated: ${pageWord(s.result.pages.length)}.`);
     } else if (s.phase === 'ready' && prev.phase !== 'ready' && prev.phase !== 'exporting' && !this.announcedFirst) {
       // First open: nothing to announce, but clear the loading message.
       this.announcedFirst = true;

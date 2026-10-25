@@ -77,9 +77,13 @@ test.describe("Service rail", () => {
         await box.check();
         await expect(match).toBeChecked();
       }
+      // PR 10: the bar keeps one live region (#export-status, visually hidden in the rail). The rail shows the
+      // same count as plain text in #selection-status.
       const status = page.locator("#selection-status");
-      await expect(status).toHaveAttribute("role", "status");
-      await expect(status).toHaveAttribute("aria-live", "polite");
+      const live = page.locator("#export-status");
+      await expect(live).toHaveAttribute("role", "status");
+      await expect(live).toHaveAttribute("aria-live", "polite");
+      await expect(status).not.toHaveAttribute("role", "status");
       await settled(page);
       // Observe actual live-region writes, rather than merely counting selection events.
       await page.evaluate(() => {
@@ -103,8 +107,7 @@ test.describe("Service rail", () => {
       const refusals = await page.evaluate(() => (window as Window & {
         railWrites?: { id: string; text: string }[];
       }).railWrites?.filter(write => write.text.includes("Tick at least one part")));
-      expect(refusals).toEqual([{ id: "selection-status", text: await status.textContent() }]);
-      await expect(page.locator("#export-status")).toBeEmpty();
+      expect(refusals).toEqual([{ id: "export-status", text: await status.textContent() }]);
       await page.getByRole("button", { name: "Select all", exact: true }).click();
       for (const box of [...await boxes.all(), ...await inline.all()]) await expect(box).toBeChecked();
       const total = await boxes.evaluateAll(nodes => nodes.reduce((sum, node) => sum + Number((node as HTMLInputElement).dataset["systems"]), 0));
