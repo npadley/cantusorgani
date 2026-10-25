@@ -103,8 +103,7 @@ async function openEditor(page: Page): Promise<void> {
   await expect(downloadButton(page)).toBeEnabled({ timeout: 120_000 });
   const settings = page.locator('dialog.cx [data-cx="settings-btn"]');
   if (await settings.isVisible()) await settings.click();
-  await radio(page, "cx-tier", "print").click();
-  await radio(page, "cx-print", "letter").click();
+  await page.locator('dialog.cx select[name="cx-page"]').selectOption('letter');
   // Medium is the default; pin it since the chant verifier uses its spacing.
   await expect(page.locator('dialog.cx input[name="cx-staff"][value="medium"]')).toBeChecked();
   if (await settings.isVisible()) await page.locator('dialog.cx [data-cx="panel-done"]').click();
@@ -299,10 +298,10 @@ test.describe("PDF contents", () => {
     await expect(downloadButton(page)).toBeEnabled({ timeout: 120_000 });
     const settings = page.locator('dialog.cx [data-cx="settings-btn"]');
     if (await settings.isVisible()) await settings.click();
-    await radio(page, "cx-tier", "print").click();
-    await radio(page, "cx-print", "letter").click();
+    await page.locator('dialog.cx select[name="cx-page"]').selectOption('letter');
     // Chant adds real part headings to the fixed stand-in PDFs, as in the baseline cases.
     await setChant(page, "before");
+    if (await settings.isVisible()) await page.locator('dialog.cx [data-cx="panel-done"]').click();
     await page.locator('dialog.cx [data-cx="change-parts"]').click();
     await expect(page.locator("dialog.cx")).not.toHaveAttribute("open", "");
     const selector = width === 390 ? page.locator("#choose-parts-sheet") : page.locator(".service-rail");

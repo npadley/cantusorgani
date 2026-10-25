@@ -79,7 +79,9 @@ async function openEditor(page: Page, url: string): Promise<void> {
   await ready(page);
 }
 async function changeParts(page: Page, narrow: boolean): Promise<void> {
-  await settings(page);
+  // Change parts moved above the preview, outside the settings sheet.
+  const done = control(page, "panel-done");
+  if (await done.isVisible()) await done.click();
   await control(page, "change-parts").click();
   await expect(editor(page)).not.toHaveAttribute("open", "");
   await expect(page.locator("[data-return-customize]")).toBeVisible();

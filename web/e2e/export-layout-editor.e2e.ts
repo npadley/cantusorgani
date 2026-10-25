@@ -80,7 +80,9 @@ async function summary(page: Page): Promise<Summary> {
 const input = (page: Page, name: string, value: string) => page.locator(`dialog.cx input[name="${name}"][value="${value}"]`);
 /** Click the visible span of a segmented option (the radio itself is visually hidden). */
 async function choose(page: Page, name: string, value: string): Promise<void> {
-  await input(page, name, value).locator("xpath=..").click();
+  if (name === 'cx-page' || name === 'cx-lyrics' || name === 'cx-spacing') {
+    await page.locator(`dialog.cx select[name="${name}"]`).selectOption(value);
+  } else await input(page, name, value).locator("xpath=..").click();
 }
 async function settle(page: Page, afterToken: number): Promise<Summary> {
   await expect.poll(async () => { const s = await summary(page); return s.canDownload && s.token > afterToken; }, { timeout: 120_000 }).toBe(true);
@@ -132,7 +134,7 @@ for (const vp of VIEWPORTS) {
       await openEditor(page);
       const small = await page.evaluate(() => {
         const out: string[] = [];
-        const sel = "dialog.cx button, dialog.cx .seg-o > span, dialog.cx input.cx-num, dialog.cx input[type=number], dialog.cx summary, dialog.cx a";
+        const sel = "dialog.cx button, dialog.cx select, dialog.cx .cx-vo > span, dialog.cx .seg-o > span, dialog.cx input.cx-num, dialog.cx input[type=number], dialog.cx summary, dialog.cx a";
         for (const el of document.querySelectorAll<HTMLElement>(sel)) {
           const r = el.getBoundingClientRect();
           if (r.width === 0 && r.height === 0) continue;
@@ -149,7 +151,12 @@ for (const vp of VIEWPORTS) {
         const first = page.locator("dialog.cx .cx-page").first();
         const box = (await first.boundingBox())!;
         expect(box.y).toBeGreaterThanOrEqual(0);
+        expect(await page.locator('dialog.cx .cx-preview').evaluate(e => e.scrollTop)).toBe(0);
         expect(box.y + 80).toBeLessThan(vp.height); // the page's top edge is on screen
+        const footerTop = (await page.locator('dialog.cx .cx-foot').boundingBox())!.y;
+        expect(box.y + 80).toBeLessThan(footerTop);
+        await expect(page.locator('#cx-l-staff')).toBeVisible();
+        await expect(page.locator('#cx-l-cap')).toBeVisible();
         await expect(page.locator("dialog.cx .cx-fit")).toBeVisible();
         const strip = (await page.locator("dialog.cx .cx-fit").boundingBox())!;
         expect(strip.height).toBeLessThanOrEqual(vp.width === 768 ? 120 : 170);
@@ -163,7 +170,7 @@ for (const vp of VIEWPORTS) {
         await expect(panel).toBeVisible();
         await expect(btn).toHaveAttribute("aria-expanded", "true");
         expect(await page.evaluate(() => document.activeElement?.getAttribute("data-cx"))).toBe("settings");
-        await expect(page.locator('dialog.cx input[name="cx-tier"]').first()).toBeVisible();
+        await expect(page.locator('dialog.cx select[name="cx-page"]').first()).toBeVisible();
         const pb = (await panel.boundingBox())!;
         if (vp.width >= 640) {
           expect(pb.x + pb.width).toBeGreaterThanOrEqual(vp.width - 1);
@@ -195,7 +202,7 @@ for (const vp of VIEWPORTS) {
         const prev = (await page.locator("dialog.cx .cx-preview").boundingBox())!;
         expect(fit.width).toBeCloseTo(320, 0);
         expect(prev.x).toBeGreaterThanOrEqual(fit.x + fit.width - 1);
-        await expect(page.locator('dialog.cx input[name="cx-tier"]').first()).toBeAttached();
+        await expect(page.locator('dialog.cx select[name="cx-page"]').first()).toBeAttached();
         await expect(page.getByRole("button", { name: "Choose where systems break" })).toBeVisible();
         mkdirSync(SHOTS, { recursive: true });
         await page.screenshot({ path: `${SHOTS}/editor-${vp.name}.png` });
@@ -225,7 +232,7 @@ test.describe("editor controls", () => {
     });
     expect(Math.abs(staffMm - 9.6)).toBeLessThan(0.5);
 
-    await choose(page, "cx-tier", "ipad");
+    await choose(page, "cx-page", "ipad-11");
     const s2 = await settle(page, s1.token);
     expect(s2.settings.page).toBe("ipad-11");
     expect(s2.settings.marginMm).toBe(4);
@@ -237,7 +244,7 @@ test.describe("editor controls", () => {
 
   test("the Systems stepper reads As many as fit (now N), lowers the cap, and returns to As many as fit", async ({ page }) => {
     await openEditor(page);
-    await choose(page, "cx-tier", "ipad");
+    await choose(page, "cx-page", "ipad-11");
     const s = await settle(page, (await summary(page)).token);
     const now = Math.max(...s.pages.map((p) => p.systemCount ?? 0));
     const value = page.locator('dialog.cx [data-cx="cap-value"]');
@@ -265,7 +272,7 @@ test.describe("editor controls", () => {
 
   test("Custom size validates inline and keeps the last valid layout", async ({ page }) => {
     await openEditor(page);
-    await choose(page, "cx-tier", "custom");
+    await choose(page, "cx-page", "custom");
     const s1 = await settle(page, (await summary(page)).token);
     expect(s1.settings.page).toBe("custom");
     const w = page.locator('dialog.cx [data-cx="custom-w"]');
@@ -308,7 +315,7 @@ test.describe("editor controls", () => {
 
   test("Reset keeps page and orientation but restores the rest; Undo brings the settings back", async ({ page }) => {
     await openEditor(page);
-    await choose(page, "cx-tier", "ipad");
+    await choose(page, "cx-page", "ipad-11");
     await settle(page, (await summary(page)).token);
     await choose(page, "cx-orient", "landscape");
     await choose(page, "cx-staff", "large");
@@ -340,7 +347,7 @@ test.describe("editor controls", () => {
 
   test("Download PDF produces a real PDF with the iPad page size and the previewed page count", async ({ page }) => {
     await openEditor(page);
-    await choose(page, "cx-tier", "ipad");
+    await choose(page, "cx-page", "ipad-11");
     const s = await settle(page, (await summary(page)).token);
     const n = s.pages.length;
     const button = page.locator('dialog.cx [data-cx="download"]');
@@ -842,3 +849,137 @@ for (const vp of BREAK_VIEWPORTS) {
     });
   });
 }
+
+// P11: Settings changes position without changing its controls or losing focus.
+for (const width of [390, 600, 800, 1024]) {
+  test(`Settings geometry and Escape order at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 });
+    await openEditor(page);
+    const panel = page.locator('dialog.cx [data-cx="settings"]');
+    const chip = page.locator('dialog.cx [data-cx-group="page-group"]');
+    await expect(chip).toHaveText('Page: Letter · Portrait · 12 mm');
+    await chip.click();
+    const size = panel.locator('select[name="cx-page"]');
+    await expect(size).toBeFocused();
+    if (width < 992) await expect(chip).toHaveAttribute('aria-expanded', 'true');
+    else await expect(chip).not.toHaveAttribute('aria-expanded');
+    const box = (await panel.boundingBox())!;
+    const preview = (await page.locator('dialog.cx .cx-preview').boundingBox())!;
+    if (width < 640) {
+      expect(box.x).toBe(0);
+      expect(box.width).toBe(width);
+      expect(box.y + box.height).toBeCloseTo(844, 0);
+      expect(box.height).toBeLessThanOrEqual(844 * 0.85 + 1);
+      // Tab and Shift+Tab stay in the sheet; the rest of the dialog is inert.
+      for (let i = 0; i < 35; i++) {
+        await page.keyboard.press(i % 2 ? 'Shift+Tab' : 'Tab');
+        expect(await panel.evaluate(e => e.contains(document.activeElement))).toBe(true);
+      }
+    } else if (width < 992) {
+      expect(box.x + box.width).toBeCloseTo(width, 0);
+      expect(preview.x + preview.width).toBeLessThanOrEqual(box.x + 1);
+      expect(box.y).toBe(0);
+    } else {
+      expect(box.x).toBe(0);
+      expect(box.x + box.width).toBeLessThanOrEqual(preview.x + 1);
+      expect(box.y).toBeGreaterThan(0);
+      const footer = (await page.locator('dialog.cx .cx-foot').boundingBox())!;
+      expect(box.y + box.height).toBeLessThanOrEqual(footer.y + 1);
+      expect(footer.y + footer.height).toBeLessThanOrEqual(844);
+    }
+    await page.keyboard.press('Escape');
+    if (width < 992) {
+      await expect(panel).toBeHidden();
+      await expect(page.locator('dialog.cx')).toHaveAttribute('open', '');
+      await expect(chip).toBeFocused();
+      await expect(chip).toHaveAttribute('aria-expanded', 'false');
+      await page.keyboard.press('Escape');
+    }
+    await expect(page.locator('dialog.cx')).not.toHaveAttribute('open', '');
+  });
+}
+
+test('resizing an open Settings column to a sheet keeps focus inside and controls usable', async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 800 });
+  await openEditor(page);
+  await page.locator('dialog.cx [data-cx-group="page-group"]').click();
+  const panel = page.locator('dialog.cx [data-cx="settings"]');
+  const size = panel.locator('select[name="cx-page"]');
+  await expect(size).toBeFocused();
+  await page.setViewportSize({ width: 600, height: 800 });
+  await expect(panel).toBeVisible();
+  await expect(size).toBeFocused();
+  expect(await panel.evaluate(e => e.contains(document.activeElement))).toBe(true);
+  const before = (await summary(page)).token;
+  await size.selectOption('a4');
+  await settle(page, before);
+  await expect(size).toHaveValue('a4');
+  await expect(panel.locator('[data-cx="panel-done"]')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(panel).toBeHidden();
+  await expect(page.locator('dialog.cx [data-cx-group="page-group"]')).toHaveText('Page: A4 · Portrait · 12 mm');
+  await expect(page.locator('dialog.cx [data-cx="download"]')).toBeEnabled();
+});
+
+test('summary chips focus their group and keep the complete parts list reachable', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await openEditor(page);
+  for (const [group, first] of [
+    ['page-group', 'select[name="cx-page"]'],
+    ['breaks-group', 'input[name="cx-lines"]'],
+    ['chant-group', 'input[name="cx-chant"]'],
+    ['more', 'select[name="cx-lyrics"]'],
+  ]) {
+    await page.locator(`dialog.cx [data-cx-group="${group}"]`).click();
+    await expect(page.locator(`dialog.cx [data-cx="${group}"] ${first}`).first()).toBeFocused();
+    await page.keyboard.press('Escape');
+  }
+  await expect(page.locator('dialog.cx [data-cx="parts-summary"]')).toHaveText('1 part in this PDF · Kyrie IX');
+  await page.locator('dialog.cx [data-cx="parts"] summary').click();
+  await expect(page.locator('dialog.cx [data-cx="partlist"] .cx-pn')).toBeVisible();
+  await expect(page.locator('dialog.cx [data-cx="change-parts"]')).toBeVisible();
+});
+
+
+test('rotation leaves unopened Settings closed and height resizes preserve typing focus', async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 800 });
+  await openEditor(page);
+  await page.setViewportSize({ width: 768, height: 1024 });
+  const panel = page.locator('dialog.cx [data-cx="settings"]');
+  await expect(panel).toBeHidden();
+  await page.locator('dialog.cx [data-cx-group="page-group"]').click();
+  for (const chip of await page.locator('dialog.cx [data-cx-group]').all()) {
+    await expect(chip).toHaveAttribute('aria-expanded', 'true');
+  }
+  const margin = panel.locator('[data-cx="margin"]');
+  await margin.focus();
+  await page.setViewportSize({ width: 768, height: 650 });
+  await expect(margin).toBeFocused();
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await expect(margin).toBeFocused();
+  // The side panel leaves the header, footer and toggle available to pointer users.
+  await page.locator('dialog.cx [data-cx="download"]').click({ trial: true });
+  await page.locator('dialog.cx [data-cx="settings-btn"]').click();
+  await expect(panel).toBeHidden();
+  await page.locator('dialog.cx [data-cx="settings-btn"]').click();
+  await page.locator('dialog.cx [data-cx="close"]').click();
+  await expect(page.locator('dialog.cx')).not.toHaveAttribute('open', '');
+});
+
+test('custom Page chip shows the dimensions in the selected input units', async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 800 });
+  await openEditor(page);
+  await choose(page, 'cx-page', 'custom');
+  const width = page.locator('dialog.cx [data-cx="custom-w"]');
+  const height = page.locator('dialog.cx [data-cx="custom-h"]');
+  await width.fill('160');
+  await height.fill('230');
+  await height.press('Tab');
+  const chip = page.locator('dialog.cx [data-cx-group="page-group"]');
+  // Custom pages default to 4 mm margins (D4).
+  await expect(chip).toHaveText('Page: 160 × 230 mm · Portrait · 4 mm');
+  await choose(page, 'cx-unit', 'in');
+  await expect(width).toHaveValue('6.3');
+  await expect(height).toHaveValue('9.06');
+  await expect(chip).toHaveText('Page: 6.3 × 9.06 in · Portrait · 4 mm');
+});

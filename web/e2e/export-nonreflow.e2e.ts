@@ -80,8 +80,7 @@ async function openAndPickIpad(page: Page, preset: keyof typeof SIZES = "ipad-11
   await expect(download).toBeEnabled({ timeout: 120_000 });
   const settings = page.locator('dialog.cx [data-cx="settings-btn"]');
   if (await settings.isVisible()) await settings.click();
-  await radio(page, "cx-tier", "ipad").click();
-  await radio(page, "cx-ipad", preset).click();
+  await page.locator('dialog.cx select[name="cx-page"]').selectOption(preset);
   if (await settings.isVisible()) await page.locator('dialog.cx [data-cx="panel-done"]').click();
   await expect(page.locator("dialog.cx .cx-plabel").first()).toContainText(`${SIZES[preset].label}, portrait`, { timeout: 120_000 });
   await expect(download).toBeEnabled({ timeout: 120_000 });

@@ -151,8 +151,6 @@ class Session {
 
   private state: ControllerState | null = null;
   private unit: 'mm' | 'in' = 'mm';
-  private lastPrint: PagePresetId = 'letter';
-  private lastIpad: PagePresetId = 'ipad-11';
   private customInvalid = false;
   private naturalMax: number | null = null;
   private undoShown = false;
@@ -281,6 +279,7 @@ class Session {
     history.pushState({ cx: true }, '', HASH);
     this.pushed = true;
     dlg.showModal();
+    this.syncPanelFocus();
     dlg.querySelector<HTMLElement>('#cx-title')?.focus();
 
     this.unsubscribe = this.controller.subscribe((s) => this.onState(s));
@@ -296,6 +295,14 @@ class Session {
     this.on(dlg, 'cancel', (e) => this.onCancel(e));
     this.on(dlg, 'close', () => this.onClosed());
     this.on(window, 'popstate', () => this.onPop());
+    this.on(this.wide, 'change', () => {
+      // A focused control in the permanent column must not disappear on resize.
+      if (!this.wide.matches && this.q('settings').contains(document.activeElement)) {
+        this.dlg.dataset['panel'] = 'open';
+      }
+      this.syncPanelFocus();
+    });
+    this.on(window, 'resize', () => this.syncPanelFocus());
     this.on(document, 'cx-selector-open', () => {
       if (this.suspended && !this.pushed) history.forward();
     });
@@ -336,7 +343,7 @@ class Session {
   }
 
   private onCancel(e: Event): void {
-    if (this.panelOpen() && !this.wide.matches) {
+    if (this.panelOpen()) {
       e.preventDefault();
       this.setPanel(false, true);
     }
@@ -360,6 +367,7 @@ class Session {
     this.listeners.length = 0;
     this.dlg.removeAttribute('data-panel');
     this.dlg.removeAttribute('data-breaking');
+    for (const node of this.dlg.querySelectorAll<HTMLElement>('[inert]')) node.inert = false;
     this.zoomBefore = null;
     this.notices.replaceChildren();
     this.wait.hidden = true;
@@ -428,14 +436,31 @@ class Session {
   }
 
   // ----------------------------------------------------------------- panel ---
-  private panelOpen(): boolean { return this.dlg.dataset['panel'] === 'open'; }
+  private panelOpener: HTMLElement | null = null;
+
+  private syncPanelFocus(): void {
+    const sheet = this.panelOpen() && matchMedia('(max-width: 39.99rem)').matches;
+    const focused = document.activeElement;
+    for (const node of this.dlg.querySelectorAll<HTMLElement>('.cx-head, .cx-fit, .cx-chips, .cx-parts, .cx-preview, .cx-foot')) node.inert = sheet;
+    const open = this.panelOpen();
+    this.q('settings-btn').setAttribute('aria-expanded', String(open));
+    for (const chip of this.dlg.querySelectorAll<HTMLElement>('[data-cx-group]')) {
+      if (this.wide.matches) chip.removeAttribute('aria-expanded');
+      else chip.setAttribute('aria-expanded', String(open));
+    }
+    // Only a transition into the modal sheet can make the current focus inert.
+    // Height-only resizes (including the keyboard) must leave an active field alone.
+    if (sheet && focused instanceof HTMLElement && focused.closest('[inert]')) this.q('settings').focus();
+  }
+
+  private panelOpen(): boolean { return !this.wide.matches && this.dlg.dataset['panel'] === 'open'; }
   private setPanel(open: boolean, focusButton: boolean): void {
     const btn = this.q<HTMLButtonElement>('settings-btn');
     if (open) this.dlg.dataset['panel'] = 'open';
-    else this.dlg.removeAttribute('data-panel');
-    btn.setAttribute('aria-expanded', String(open));
+    else this.dlg.dataset['panel'] = 'closed';
+    this.syncPanelFocus();
     if (open) this.q('settings').focus();
-    else if (focusButton) btn.focus();
+    else if (focusButton) (this.panelOpener ?? btn).focus();
   }
 
   // ----------------------------------------------------------------- input ---
@@ -446,7 +471,7 @@ class Session {
 
   private onChange(e: Event): void {
     const t = e.target;
-    if (!(t instanceof HTMLInputElement) || this.state === null) return;
+    if (!(t instanceof HTMLInputElement || t instanceof HTMLSelectElement) || this.state === null) return;
     const s = this.state.settings;
     switch (t.name) {
       case 'cx-staff': this.patch({ staff: t.value as LayoutSettings['staff'] }); break;
@@ -455,20 +480,19 @@ class Session {
       case 'cx-lines': this.patch({ linePolicy: t.value as LayoutSettings['linePolicy'] }); break;
       case 'cx-chant': this.onChant(t.value as LayoutSettings['chant']); break;
       case 'cx-orient': this.patch({ orientation: t.value as LayoutSettings['orientation'] }); break;
-      case 'cx-print': this.lastPrint = t.value as PagePresetId; this.patch({ page: this.lastPrint }); break;
-      case 'cx-ipad': this.lastIpad = t.value as PagePresetId; this.patch({ page: this.lastIpad }); break;
-      case 'cx-tier': this.onTier(t.value, s); break;
-      case 'cx-unit': this.unit = t.value === 'in' ? 'in' : 'mm'; this.fillCustom(s, true); break;
+      case 'cx-page':
+        if (t.value === 'custom') this.onTier('custom', s);
+        else this.patch({ page: t.value as PagePresetId });
+        break;
+      case 'cx-unit': this.unit = t.value === 'in' ? 'in' : 'mm'; this.fillCustom(s, true); this.syncPageChip(s); break;
       default:
         if (t.dataset['cx'] === 'custom-w' || t.dataset['cx'] === 'custom-h') this.commitCustom();
-        else if (t.dataset['cx'] === 'margin') this.commitMargin(t);
+        else if (t.dataset['cx'] === 'margin' && t instanceof HTMLInputElement) this.commitMargin(t);
     }
   }
 
   private onTier(tier: string, s: LayoutSettings): void {
-    if (tier === 'print') this.patch({ page: this.lastPrint });
-    else if (tier === 'ipad') this.patch({ page: this.lastIpad });
-    else {
+    if (tier === 'custom') {
       const d = paperDimensions(s);
       // Switching to Custom pre-fills the previous page's dimensions (portrait-normalised).
       const size = s.customSize ?? { widthMm: round1(Math.min(d.widthMm, d.heightMm)), heightMm: round1(Math.max(d.widthMm, d.heightMm)) };
@@ -515,12 +539,25 @@ class Session {
     const target = e.target instanceof Element ? e.target : null;
     const btn = target?.closest<HTMLElement>('button, a');
     if (btn === null || btn === undefined || !this.dlg.contains(btn)) return;
+    const group = btn.dataset['cxGroup'];
+    if (group !== undefined) {
+      this.panelOpener = btn;
+      if (!this.wide.matches) this.setPanel(true, false);
+      const target = this.q(group);
+      if (target instanceof HTMLDetailsElement) target.open = true;
+      const first = [...target.querySelectorAll<HTMLElement>('select:not(:disabled), input:not(:disabled), button:not(:disabled)')]
+        .find(control => control.getClientRects().length > 0);
+      if (first) first.focus();
+      else { target.tabIndex = -1; target.focus(); }
+      target.scrollIntoView({ block: 'nearest' });
+      return;
+    }
     const action = btn.dataset['cxAction'];
     if (action !== undefined) { this.runAction(action as ActionId, btn.dataset['cxPart'] ?? null); return; }
     const s = this.state;
     switch (btn.dataset['cx']) {
       case 'close': this.requestClose(); break;
-      case 'settings-btn': this.setPanel(!this.panelOpen(), true); break;
+      case 'settings-btn': this.panelOpener = btn; this.setPanel(!this.panelOpen(), true); break;
       case 'panel-done': this.setPanel(false, true); break;
       case 'cap-minus': this.stepCap(-1); break;
       case 'cap-plus': this.stepCap(1); break;
@@ -541,6 +578,13 @@ class Session {
   }
 
   private onKeydown(e: KeyboardEvent): void {
+    // Handle the panel before the browser's dialog close watcher. Repeated Esc
+    // presses must keep closing just the panel, even without fresh user activation.
+    if (e.key === 'Escape' && !e.defaultPrevented && this.panelOpen()) {
+      e.preventDefault();
+      this.setPanel(false, true);
+      return;
+    }
     if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && e.key.toLowerCase() === 'z') {
       const t = e.target;
       const typing = t instanceof HTMLInputElement && (t.type === 'text' || t.type === 'number') || t instanceof HTMLTextAreaElement;
@@ -758,21 +802,19 @@ class Session {
     const set = s.settings;
     const kind = kindOf(set.page);
     this.setRadio('cx-staff', set.staff);
-    this.setRadio('cx-lyrics', set.lyrics);
-    this.setRadio('cx-spacing', set.spacing);
+    this.dlg.querySelector<HTMLSelectElement>('[name="cx-lyrics"]')!.value = set.lyrics;
+    this.dlg.querySelector<HTMLSelectElement>('[name="cx-spacing"]')!.value = set.spacing;
+    this.dlg.querySelector<HTMLSelectElement>('[name="cx-page"]')!.value = set.page;
     this.setRadio('cx-lines', set.linePolicy);
     this.setRadio('cx-chant', set.chant);
     this.buildPartList(s.diagnostics, set.chant);
     this.syncChantHelp(set.chant);
     this.setRadio('cx-orient', set.orientation);
-    this.setRadio('cx-tier', kind);
     this.setRadio('cx-unit', this.unit);
-    if (kind === 'print') this.lastPrint = set.page;
-    if (kind === 'ipad') this.lastIpad = set.page;
-    this.setRadio('cx-print', kind === 'print' ? set.page : '');
-    this.setRadio('cx-ipad', kind === 'ipad' ? set.page : '');
-    this.q('tier-print').hidden = kind !== 'print';
-    this.q('tier-ipad').hidden = kind !== 'ipad';
+    this.syncPageChip(set);
+    this.dlg.querySelector<HTMLElement>('[data-cx-group="breaks-group"]')!.textContent = `Breaks: ${set.linePolicy === 'original' ? 'Original' : 'Fit to page'}`;
+    this.dlg.querySelector<HTMLElement>('[data-cx-group="chant-group"]')!.textContent = `Chant: ${set.chant === 'before' ? 'Before each part' : set.chant === 'only' ? 'Chant only' : 'Off'}`;
+    this.q('parts-summary').textContent = `${this.parts.length} part${this.parts.length === 1 ? '' : 's'} in this PDF · ${this.parts.map(p => p.label).join(', ')}`;
     this.q('tier-custom').hidden = kind !== 'custom';
     this.q('page-help').textContent = kind === 'custom' ? '90–450 mm (3.5–17.7 in) each side.'
       : kind === 'ipad' ? 'Fills the screen in forScore and similar apps.' : '';
@@ -803,6 +845,7 @@ class Session {
     this.q('lyrics-field').hidden = !hasMei;
     this.q('spacing-field').hidden = !hasMei;
     this.q('more').hidden = !hasMei;
+    this.dlg.querySelector<HTMLElement>('[data-cx-group="more"]')!.hidden = !hasMei;
     const applies = this.q('applies');
     applies.hidden = !(hasMei && others.length > 0);
     applies.textContent = `Applies to: ${mei.map((p) => p.label).join(', ')}. Not to: ${others.map((p) => `${p.label} (${p.kind === 'scan' ? 'original scan' : 'fixed typeset layout'})`).join(', ')}.`;
@@ -817,6 +860,7 @@ class Session {
     if (set.lyrics !== 'medium') nonDefault.push(`${cap(set.lyrics)} sung text`);
     if (set.spacing !== 'normal') nonDefault.push(cap(set.spacing));
     this.q('more-summary').textContent = more.open || nonDefault.length === 0 ? '' : `· ${nonDefault.join(', ')}`;
+    this.dlg.querySelector<HTMLElement>('[data-cx-group="more"]')!.textContent = `More options${nonDefault.length === 0 ? '' : ` · ${nonDefault.join(', ')}`}`;
     if (!this.moreChecked) { this.moreChecked = true; if (nonDefault.length > 0) more.open = true; }
 
     const count = Object.values(s.overrides).reduce((n, list) => n + list.length, 0);
@@ -830,14 +874,23 @@ class Session {
     this.syncFit(s);
   }
 
+  private showLength(mm: number): string {
+    return String(this.unit === 'in' ? Math.round((mm / MM_PER_IN) * 100) / 100 : round1(mm));
+  }
+
+  private syncPageChip(set: LayoutSettings): void {
+    const d = set.customSize ?? paperDimensions(set);
+    const page = set.page === 'custom' ? `${this.showLength(d.widthMm)} × ${this.showLength(d.heightMm)} ${this.unit}` : paperName(set);
+    this.dlg.querySelector<HTMLElement>('[data-cx-group="page-group"]')!.textContent = `Page: ${page} · ${cap(set.orientation)} · ${set.marginMm} mm`;
+  }
+
   private fillCustom(set: LayoutSettings, force: boolean): void {
     const w = this.q<HTMLInputElement>('custom-w');
     const h = this.q<HTMLInputElement>('custom-h');
     if (!force && (document.activeElement === w || document.activeElement === h)) return;
     const d = set.customSize ?? { widthMm: paperDimensions(set).widthMm, heightMm: paperDimensions(set).heightMm };
-    const show = (mm: number): string => String(this.unit === 'in' ? Math.round((mm / MM_PER_IN) * 100) / 100 : round1(mm));
-    w.value = show(d.widthMm);
-    h.value = show(d.heightMm);
+    w.value = this.showLength(d.widthMm);
+    h.value = this.showLength(d.heightMm);
     this.customInvalid = false;
     const err = this.q('custom-error');
     err.hidden = true;

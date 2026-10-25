@@ -15,10 +15,10 @@ dialog.cx .cx-settings { min-height: 0; }
 dialog.cx [data-cx="change-parts"] { min-height: var(--tap-min); }
 
 dialog.cx::backdrop { background: var(--paper); }
-dialog.cx[open] { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; grid-template-columns: minmax(0, 1fr); }
+dialog.cx[open] { display: grid; grid-template-rows: auto auto auto auto minmax(0, 1fr) auto; grid-template-columns: minmax(0, 1fr); }
 dialog.cx button, dialog.cx input, dialog.cx select { font-family: var(--font-ui); }
 
-.cx-head { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s-1) var(--s-3); border-bottom: 1px solid var(--rule); padding: var(--s-2) var(--s-3); }
+.cx-head { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s-1) var(--s-3); border-bottom: 1px solid var(--rule); padding: var(--s-2); }
 .cx-head h2 { margin: 0; font-family: var(--font-text); font-size: var(--step-1); font-weight: 600; }
 .cx-head h2:focus, .cx-head h2:focus-visible { outline: none; }
 .cx-sel { margin: 0; flex: 1; }
@@ -33,7 +33,7 @@ dialog.cx legend.cx-h + * { clear: both; }
 .cx-grp.first { border-top: 0; padding-top: 0; margin-top: 0; }
 .cx-field { margin-top: var(--s-3); }
 .cx-field:first-of-type { margin-top: 0; }
-.cx-lab { display: block; font-family: var(--font-ui); font-weight: 600; margin-bottom: var(--s-1); }
+.cx-lab { font-size: var(--step--1); display: block; font-family: var(--font-ui); font-weight: 600; margin-bottom: var(--s-1); }
 .cx-help { margin: var(--s-1) 0 0; }
 .cx-tight { margin: 0; }
 .cx-rule { margin-top: var(--s-3); }
@@ -52,22 +52,24 @@ dialog.cx .notice p { margin: 0 0 var(--s-2); }
 .cx-more summary .small { margin-left: var(--s-1); }
 
 /* Segmented radios: real inputs, visually hidden; the span is the visible control. */
-.seg { display: flex; }
-.seg-o { flex: 1 1 0; position: relative; display: block; margin-left: -1px; cursor: pointer; }
+.seg { display: flex; width: 100%; font-size: var(--step--1); }
+.seg-o { min-width: 0; flex: 1 1 0; position: relative; display: block; margin-left: -1px; cursor: pointer; }
 .seg-o:first-child { margin-left: 0; }
 .seg-o > span {
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
   min-height: var(--tap-min); min-width: var(--tap-min); height: 100%; padding: 0 var(--s-1);
-  border: 1px solid var(--control-border); font: inherit; font-family: var(--font-ui); background: var(--paper); color: var(--ink);
+  border: 1px solid var(--control-border); font: inherit; position: relative; font-family: var(--font-ui); background: var(--paper); color: var(--ink);
 }
 .seg-o:first-child > span { border-top-left-radius: var(--radius); border-bottom-left-radius: var(--radius); }
 .seg-o:last-child > span { border-top-right-radius: var(--radius); border-bottom-right-radius: var(--radius); }
-.seg-o input:checked + span { border: 2px solid var(--accent); color: var(--accent); font-weight: 600; padding: 0 calc(var(--s-1) - 1px); position: relative; z-index: 1; }
+.seg-o > span::after { content: "✓"; position: absolute; top: 0; right: var(--s-1); font-size: 0.65em; visibility: hidden; }
+.seg-o input:checked + span { background: var(--ink); color: var(--paper); z-index: 1; }
+.seg-o input:checked + span::after { visibility: visible; }
 .seg-o input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
 .seg-o input:disabled + span { color: var(--ink-muted); border-style: dashed; cursor: not-allowed; }
-.seg.tall .seg-o > span { min-height: 56px; }
+.seg.tall .seg-o > span { min-height: var(--tap-min); gap: var(--s-1); }
 .seg-o small { font-size: var(--step--1); font-weight: 400; color: var(--ink-muted); display: inline-flex; align-items: center; gap: var(--s-1); }
-.seg-o input:checked + span small { color: var(--accent); }
+.seg-o input:checked + span small { color: inherit; }
 .seg-row { display: inline-flex; align-items: center; gap: var(--s-1); white-space: nowrap; }
 .seg-o .abbr { display: none; }
 .staffglyph { display: block; }
@@ -75,7 +77,7 @@ dialog.cx .notice p { margin: 0 0 var(--s-2); }
 /* Steppers */
 .cx-step { display: flex; align-items: stretch; }
 .cx-step button { min-width: var(--tap-min); border-color: var(--control-border); }
-.cx-step.big button { width: 56px; height: 56px; padding: 0; font-size: var(--step-1); }
+.cx-step.big button { width: var(--tap-min); height: var(--tap-min); padding: 0; font-size: var(--step-1); }
 .cx-step output { flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; border-top: 1px solid var(--control-border); border-bottom: 1px solid var(--control-border); padding: 0 var(--s-2); font-family: var(--font-ui); }
 .cx-step.m { align-items: center; gap: var(--s-2); }
 .cx-step.m input, .cx-num { min-height: var(--tap-min); width: 5rem; padding: 0 var(--s-2); border: 1px solid var(--control-border); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; font-family: var(--font-ui); }
@@ -93,13 +95,14 @@ button[aria-pressed="true"] { border: 2px solid var(--accent); color: var(--acce
 
 /* Preview region. */
 dialog.cx .cx-preview { min-width: 0; min-height: 0; overflow: auto; }
-.cx-extras { padding: var(--s-4) var(--s-3) 0; }
+.cx-extras { padding: 0 var(--s-2); }
+.cx-extras:has(.cx-notices:empty):has(.cx-wait[hidden]) { display: none; }
 .cx-extras:empty { display: none; }
 .cx-wait { position: relative; width: 100%; background: var(--print-paper); color: var(--print-ink); border: 1px solid var(--control-border); display: flex; align-items: center; justify-content: center; text-align: center; padding: var(--s-3); font-family: var(--font-ui); }
 .cx-wait[data-pages] { margin-top: var(--s-3); }
 
 /* Footer. */
-.cx-foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); border-top: 1px solid var(--rule); padding: var(--s-2) var(--s-3); }
+.cx-foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); border-top: 1px solid var(--rule); padding: var(--s-2); }
 .cx-foot #cx-status { flex: 1 1 12rem; margin: 0; min-height: 1.4em; }
 .cx-foot .primary { min-width: 12rem; }
 
@@ -130,7 +133,7 @@ dialog.cx .cx-preview { min-width: 0; min-height: 0; overflow: auto; }
 .cx-bp:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
 .cx-bp:hover, .cx-bp:focus { z-index: 3; }
 
-.cx-menu { position: absolute; z-index: 4; width: 20rem; max-width: 90%; background: var(--paper); color: var(--ink); border: 1px solid var(--control-border); border-radius: var(--radius); padding: var(--s-2) var(--s-3); font-family: var(--font-ui); transform: translateX(-50%); margin-top: 26px; }
+.cx-menu { position: absolute; z-index: 4; width: 20rem; max-width: 90%; background: var(--paper); color: var(--ink); border: 1px solid var(--control-border); border-radius: var(--radius); padding: var(--s-2); font-family: var(--font-ui); transform: translateX(-50%); margin-top: 26px; }
 .cx-menu-head { display: flex; align-items: center; gap: var(--s-1); flex-wrap: wrap; }
 .cx-menu-title { margin: 0; flex: 1 1 8rem; font-size: var(--step--1); }
 .cx-menu button { margin: 0; border-color: var(--control-border); }
@@ -152,30 +155,34 @@ dialog.cx .cx-preview { min-width: 0; min-height: 0; overflow: auto; }
 
 /* ---- Below 62rem: header, FIT strip, preview, footer; settings are a panel. ---- */
 @media (max-width: 61.99rem) {
-  .cx-fit { border-bottom: 1px solid var(--rule); padding: var(--s-2) var(--s-3); background: var(--paper); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }
-  .cx-fit legend, .cx-fit .cx-lab { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; float: none; }
+  .cx-fit { border-bottom: 1px solid var(--rule); padding: var(--s-2); background: var(--paper); display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); }
+  .cx-fit legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .cx-fit .cx-lab { display: block; }
   .cx-fit .cx-help, .cx-fit [data-cx="applies"], .cx-fit [data-cx="fixed-note"] { display: none; }
   .cx-fit .cx-field { margin: 0; }
   .cx-fit .cx-nomusic { margin: 0; flex: 1 1 12rem; }
   .cx-fit .seg { min-width: 14rem; }
-  .cx-fit .seg.tall .seg-o > span { min-height: var(--tap-min); }
-  .cx-fit .seg-o small { display: none; }
+  .cx-fit .seg.tall .seg-o > span { min-height: var(--tap-min); flex-direction: row; }
+
   .cx-fit .cx-step.big button { width: var(--tap-min); height: auto; min-height: var(--tap-min); font-size: var(--step-0); }
   .cx-fit .cx-step output { min-width: 8.5rem; font-size: var(--step--1); line-height: 1.2; }
   .cx-fit .cx-result { margin: 0; flex: 1 1 10rem; font-size: var(--step--1); }
 
-  .cx-settings { display: none; position: absolute; z-index: 6; background: var(--paper); overflow-y: auto; padding: var(--s-3); border: 0 solid var(--control-border); }
+  .cx-settings { display: none; position: absolute; z-index: 6; background: var(--paper); overflow-y: auto; padding: var(--s-2); border: 0 solid var(--control-border); }
   dialog.cx[data-panel="open"] .cx-settings { display: block; }
   .cx-phead { display: flex; }
   .cx-settings { top: 0; bottom: 0; right: 0; width: 22rem; max-width: 100%; border-left-width: 1px; }
-  dialog.cx[data-panel="open"] :is(.cx-preview, .cx-head, .cx-fit, .cx-foot) { margin-right: 22rem; }
+  dialog.cx[data-panel="open"] :is(.cx-head, .cx-fit, .cx-chips, .cx-parts, .cx-preview, .cx-foot) { margin-right: 22rem; }
 }
 @media (max-width: 39.99rem) {
   .cx-fit .seg { min-width: 9rem; }
-  .cx-fit .seg-o .abbr { display: inline; }
-  .cx-fit .seg-o .nm { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  /* Tight rows keep the strip within 170 px on a phone, with room for font differences between platforms. */
+  .cx-fit { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-1) var(--s-2); padding-block: var(--s-1); align-items: end; }
+  .cx-fit [data-cx="music-field"], .cx-fit .cx-nomusic { grid-column: 1 / -1; }
+  .cx-fit .cx-result { display: none; }
+  .cx-fit .cx-settings-btn { grid-column: 2; }
   .cx-settings { top: auto; left: 0; right: 0; bottom: 0; width: auto; max-height: 85dvh; border-left-width: 0; border-top-width: 1px; }
-  dialog.cx[data-panel="open"] :is(.cx-preview, .cx-head, .cx-fit, .cx-foot) { margin-right: 0; }
+  dialog.cx[data-panel="open"] :is(.cx-head, .cx-fit, .cx-chips, .cx-parts, .cx-preview, .cx-foot) { margin-right: 0; }
   .cx-sel { flex: 1 1 100%; order: 3; }
   .cx-foot #cx-status { flex: 1 1 100%; order: -1; }
   .cx-foot .primary { flex: 1 1 auto; }
@@ -185,13 +192,54 @@ dialog.cx .cx-preview { min-width: 0; min-height: 0; overflow: auto; }
 @media (min-width: 62rem) {
   /* On a short window (1024 x 800) a tall FIT group took the whole column, leaving the settings no room and pushing
      the footer, with Download, off the screen. The settings keep at least 12rem and FIT scrolls in what is left. */
-  dialog.cx[open] { grid-template-columns: 20rem minmax(0, 1fr); grid-template-rows: auto minmax(0, auto) minmax(12rem, 1fr) auto; }
+  dialog.cx[open] { grid-template-columns: 20rem minmax(0, 1fr); grid-template-rows: auto auto auto minmax(0, auto) minmax(12rem, 1fr) auto; }
   .cx-head { grid-column: 1 / -1; grid-row: 1; }
   /* A rule and padding under the FIT group: settings text scrolling beneath it is clipped at a clean edge. */
-  .cx-fit { grid-column: 1; grid-row: 2; min-height: 0; overflow-y: auto; padding: var(--s-3) var(--s-3) var(--s-3); border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-  .cx-settings { grid-column: 1; grid-row: 3; overflow-y: auto; border-right: 1px solid var(--rule); padding: var(--s-3); min-width: 0; }
+  .cx-fit { grid-column: 1; grid-row: 2 / 5; min-height: 0; overflow-y: auto; padding: var(--s-2); border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .cx-settings { grid-column: 1; grid-row: 5; overflow-y: auto; border-right: 1px solid var(--rule); padding: var(--s-2); min-width: 0; }
   .cx-settings:focus { outline: none; }
-  dialog.cx .cx-preview { grid-column: 2; grid-row: 2 / 4; }
-  .cx-foot { grid-column: 1 / -1; grid-row: 4; }
+  dialog.cx .cx-preview { grid-column: 2; grid-row: 4 / 6; }
+  .cx-foot { grid-column: 1 / -1; grid-row: 6; }
   .cx-phead, .cx-settings-btn { display: none; }
+}
+
+/* Compact, state-driven summaries stay above the preview at every width. */
+.cx-chips { grid-row: 3; display: flex; flex-wrap: wrap; gap: var(--s-2); padding: var(--s-2); border-bottom: 1px solid var(--rule); }
+.cx-chips button { min-height: var(--tap-min); font-size: var(--step--1); }
+.cx-parts { grid-row: 4; display: flex; align-items: flex-start; gap: var(--s-2); padding: var(--s-2); border-bottom: 1px solid var(--rule); min-width: 0; }
+.cx-parts details { flex: 1; min-width: 0; }
+.cx-parts summary { min-height: var(--tap-min); font-size: var(--step--1); }
+.cx-parts summary > span:last-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.cx-parts .cx-partlist { max-height: 30dvh; overflow: auto; }
+.cx-parts > button { flex: none; padding-inline: var(--s-2); font-size: var(--step--1); }
+.cx-settings select { width: 100%; min-height: var(--tap-min); border: 1px solid var(--control-border); border-radius: var(--radius); padding: var(--s-2); background: var(--paper); color: var(--ink); font-size: var(--step--1); }
+@media (max-width: 61.99rem) {
+  .cx-fit { grid-row: 2; }
+  dialog.cx .cx-preview { grid-row: 5; }
+  .cx-foot { grid-row: 6; }
+}
+@media (max-width: 39.99rem) {
+  .cx-chips { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+  .cx-chips button { padding: var(--s-2); }
+  .cx-breakbar { grid-row: 2; }
+  dialog.cx[data-breaking] :is(.cx-chips, .cx-parts) { display: none; }
+}
+@media (min-width: 62rem) {
+  .cx-chips { grid-column: 2; grid-row: 2; }
+  .cx-parts { grid-column: 2; grid-row: 3; }
+}
+@media (forced-colors: active) {
+  .seg-o input:checked + span { background: Highlight; color: HighlightText; forced-color-adjust: none; }
+}
+
+/* Keep the labelled FIT controls on one row and the result below at tablet widths. */
+@media (min-width: 40rem) and (max-width: 61.99rem) {
+  /* A tight row gap and a one-line result keep the strip within 120 px, so the page shows high on a tablet. */
+  .cx-fit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; row-gap: var(--s-1); padding-block: var(--s-1); }
+  .cx-fit .seg { min-width: 0; }
+  .cx-fit .cx-result { grid-column: 1 / -1; line-height: 1.2; }
+  .cx-fit .cx-settings-btn { grid-column: 3; grid-row: 1; align-self: end; }
+  dialog.cx[data-panel="open"] .cx-fit { grid-template-columns: minmax(0, 1fr) auto; }
+  dialog.cx[data-panel="open"] .cx-fit [data-cx="music-field"] { grid-column: 1 / -1; }
+  dialog.cx[data-panel="open"] .cx-fit .cx-settings-btn { grid-column: 2; grid-row: 2; }
 }

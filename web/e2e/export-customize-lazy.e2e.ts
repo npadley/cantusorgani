@@ -200,7 +200,7 @@ test.describe("Customize export is lazy", () => {
     await page.locator("#export-customize").click();
     const download = page.locator('dialog.cx [data-cx="download"]');
     await expect(download).toBeEnabled({ timeout: 120_000 });
-    await page.locator('dialog.cx input[name="cx-tier"][value="ipad"]').locator("xpath=..").click();
+    await page.locator('dialog.cx select[name="cx-page"]').selectOption("ipad-11");
     await expect(download).toHaveText(/Download PDF · \d+ pages?/, { timeout: 120_000 });
     await expect(download).toBeEnabled({ timeout: 120_000 });
     const [saved] = await Promise.all([page.waitForEvent("download", { timeout: 120_000 }), download.click()]);
