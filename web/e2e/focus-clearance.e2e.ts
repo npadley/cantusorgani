@@ -10,6 +10,8 @@ for (const viewport of [
   { name: "desktop", width: 1280, height: 900, sticky: false },
 ]) {
   test(`focus stays clear of the export bar while tabbing the whole piece page (${viewport.name})`, async ({ page }) => {
+    // Up to 200 Tab presses, each settled for 400 ms: the rail adds stops, so this outlasts the 30 s default.
+    test.setTimeout(150_000);
     page.on("pageerror", e => { throw new Error(`pageerror: ${e.message}`); });
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
     await page.goto("/piece/dominica-i-adventus/");
