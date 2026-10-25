@@ -2,7 +2,9 @@
 import ChantPair from "../../components/ChantPair.astro";
 import HymnChantLinks from "../../components/HymnChantLinks.astro";
 import { hymnPairingsFor } from "../../lib/hymnpairings";
-import ExportBar from "../../components/ExportBar.astro";
+import ServiceRail from "../../components/ServiceRail.astro";
+import SourceBlock from "../../components/SourceBlock.astro";
+import { exportSegments } from "../../lib/exportParts";
 import Layout from "../../components/Layout.astro";
 import MovementNav from "../../components/MovementNav.astro";
 import RecordStatusNotice from "../../components/RecordStatusNotice.astro";
@@ -40,6 +42,7 @@ const referenceLinks = piece.reference ? massSources(piece) : [];
 // whole litany or psalm as an antiphon export.
 const referencedMusic = policy.borrow_whole_reference && piece.systems.length === 0 && piece.parts.length === 0 ? referenceLinks : [];
 const scorePieces = referencedMusic.length > 0 ? referencedMusic : [piece];
+const exportParts = exportSegments(scorePieces);
 const musicPieces = scorePieces.map((p) => musicView(p));
 const systemCount = musicPieces.reduce((n, p) => n + p.systems.length, 0);
 // A Vesperale section prints only the day's own chants; the full order of
@@ -52,7 +55,20 @@ const vespersDays = piece.division === "vesperale" || piece.genre === "hymn" ? l
   description={`${piece.title} — Gregorian chant organ accompaniment from ${volumeLabel(piece)}, ${pagesLabel(piece)}.`}
   skipTo={systemCount > 0 ? "music" : undefined}
 >
-  <article>
+  <div class="reader-layout">
+  <ServiceRail pieces={scorePieces} title={piece.title} occasion={piece}>
+    <div slot="reader-tools">
+      {musicPieces.map(p => <MovementNav piece={p} variant="tools" />)}
+      <TypesetSwitch show={musicPieces.some(p => hasTypeset(p))} />
+      {piece.jgabcUrl && (
+        <p class="chant-proper ui small no-print">
+          <a href={piece.jgabcUrl} target="_blank" rel="noopener">Chant for the whole Proper<span class="sr-only"> (jgabc, opens in new tab)</span></a>
+          <span class="muted"> · jgabc</span>
+        </p>
+      )}
+    </div>
+  </ServiceRail>
+  <article class="reading-column">
     <header class="head">
       <p class="crumb small muted ui"><a href="/">Cantus Organi</a> · {piece.section}</p>
       <h1>{heading}</h1>
@@ -75,12 +91,6 @@ const vespersDays = piece.division === "vesperale" || piece.genre === "hymn" ? l
         )}
       </div>
     )}
-    {piece.jgabcUrl && (
-      <p class="chant-proper ui small no-print">
-        <a href={piece.jgabcUrl} target="_blank" rel="noopener">Chant for the whole Proper<span class="sr-only"> (jgabc, opens in new tab)</span></a>
-        <span class="muted"> · jgabc</span>
-      </p>
-    )}
     {vespersDays.length > 0 && (
       <div class="no-print">
         <p class="notice ui small">This page is the book's music as printed. For the whole of Vespers in the
@@ -88,19 +98,18 @@ const vespersDays = piece.division === "vesperale" || piece.genre === "hymn" ? l
         <VespersDates days={vespersDays} />
       </div>
     )}
-    {musicPieces.map((p, i) => <MovementNav piece={p} anchorPrefix={musicPieces.length > 1 ? `source-${i + 1}-` : ""} />)}
+    {musicPieces.map((p, i) => <MovementNav piece={p} variant="links" anchorPrefix={musicPieces.length > 1 ? `source-${i + 1}-` : ""} />)}
     {relatedHymns.length > 0 && <aside class="notice ui no-print">
       <h2>{policy.related_hymns_heading}</h2>
       <p class="small">Other settings of these hymn incipits. Follow each source's printed verses and usage.</p>
       <ul>{relatedHymns.map((p) => <li><a href={pieceHref(p)}>{p.title}</a> · {pagesLabel(p)}</li>)}</ul>
     </aside>}
-    <ExportBar pieces={scorePieces} title={piece.title} />
     <HymnChantLinks slug={piece.slug} />
-    <TypesetSwitch show={musicPieces.some((p) => hasTypeset(p))} />
     {musicPieces.map((p, i) => <>
       {musicPieces.length > 1 && <h2>{p.incipit ?? p.title} · {volumeLabel(p)}, {pagesLabel(p)}</h2>}
-      <SystemStack piece={p} id={i === 0 ? "music" : `music-${i + 1}`} anchorPrefix={musicPieces.length > 1 ? `source-${i + 1}-` : ""} />
+      <SystemStack piece={p} exportParts={exportParts} id={i === 0 ? "music" : `music-${i + 1}`} anchorPrefix={musicPieces.length > 1 ? `source-${i + 1}-` : ""} />
     </>)}
+    <SourceBlock pieces={scorePieces} />
     {/* Headings carry their own chant links; the old pairing box would be a second set. */}
     {!hymnPairingsFor(piece.slug).length && !musicPieces.some((p) => jumpTargets(p).some((t) => t.chantUrl)) && <ChantPair piece={piece} />}
     <p class="edit-link small muted ui no-print">
@@ -108,9 +117,21 @@ const vespersDays = piece.division === "vesperale" || piece.genre === "hymn" ? l
       <a href={`/admin/edit/?target=piece:${piece.slug}`}>Edit</a> <span>(editors)</span>
     </p>
   </article>
+  </div>
 </Layout>
 
 <style>
+  @media print { .reader-layout { display: block; } }
+  .reading-column { min-width: 0; }
+  @media screen and (width < 62rem) {
+    .reader-layout { display: flex; flex-direction: column; }
+    .reader-layout > :global(.service-rail) { order: 1; }
+  }
+  @media screen and (min-width: 62rem) {
+    .reader-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: var(--s-4); align-items: start; }
+    .reading-column { grid-column: 2; grid-row: 1; }
+    .reader-layout > :global(.service-rail) { grid-column: 1; grid-row: 1; }
+  }
   .edit-link { margin: var(--s-5) 0 0; padding-top: var(--s-2); border-top: 1px solid var(--rule); }
   .edit-link a { color: var(--ink-muted); }
   .head { margin-bottom: var(--s-4); }

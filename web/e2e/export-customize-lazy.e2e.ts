@@ -72,11 +72,14 @@ async function kyrie(page: Page): Promise<{ urls: Set<string>; jsBytes: () => Pr
 }
 /** Tick only Kyrie, so every part in the editor is the approved conversion. */
 async function tick(page: Page, wanted: (label: string | null) => boolean): Promise<void> {
-  await page.locator("details.parts").evaluate((d) => { (d as HTMLDetailsElement).open = true; });
+  const opener = page.getByRole("button", { name: /^Choose parts/ });
+  const sheet = page.getByRole("dialog", { name: "Choose parts", exact: true });
+  const inSheet = await opener.isVisible();
+  if (inSheet) await opener.click();
   for (const box of await page.locator('input[name="export-part"]').all()) {
     if (wanted(await box.getAttribute("data-label")) !== (await box.isChecked())) await box.locator("xpath=..").click();
   }
-  await page.locator("details.parts").evaluate((d) => { (d as HTMLDetailsElement).open = false; });
+  if (inSheet) await sheet.getByRole("button", { name: "Done", exact: true }).click();
 }
 const onlyKyrie = (page: Page): Promise<void> => tick(page, (label) => label === "Kyrie");
 

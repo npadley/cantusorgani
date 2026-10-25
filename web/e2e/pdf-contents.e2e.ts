@@ -83,11 +83,12 @@ async function serveAssets(page: Page, baseURL: string): Promise<void> {
 }
 
 async function tick(page: Page, wanted: readonly string[]): Promise<void> {
-  await page.locator("details.parts").evaluate(d => { (d as HTMLDetailsElement).open = true; });
+  const details = page.locator("details.parts");
+  if (await details.count()) await details.evaluate(d => { (d as HTMLDetailsElement).open = true; });
   for (const box of await boxes(page).all()) {
     if (wanted.includes((await box.getAttribute("data-label"))!) !== await box.isChecked()) await box.locator("xpath=..").click();
   }
-  await page.locator("details.parts").evaluate(d => { (d as HTMLDetailsElement).open = false; });
+  if (await details.count()) await details.evaluate(d => { (d as HTMLDetailsElement).open = false; });
 }
 
 const radio = (page: Page, name: string, value: string) => page.locator(`dialog.cx input[name="${name}"][value="${value}"]`).locator("xpath=..");
@@ -212,6 +213,19 @@ test.describe("PDF contents", () => {
       for (const text of expectedMarkers([omitted])) expect(without.markers).not.toContain(text);
       await tick(page, parts.map(p => p.label));
 
+      if (fixture.name === "Advent I") {
+        // Both visible entry points must omit exactly the same music as tick().
+        for (const surface of ["rail", "inline"] as const) {
+          const scope = surface === "rail" ? page.locator(".service-rail") : page.locator("#music");
+          const box = scope.getByRole("checkbox", { name: `In PDF: ${omitted.label}`, exact: true });
+          await box.uncheck();
+          const result = await exportSelection(remaining);
+          expect(result.letters).not.toContain(lettersOf([omitted.label]));
+          for (const text of expectedMarkers([omitted])) expect(result.markers).not.toContain(text);
+          await box.check();
+        }
+      }
+
       const switched = parts[0]!;
       const key = switched.runs[0]!.key!;
       const ownSegment = page.locator(`.typeset-segment[data-typeset-key="${key}"]`).first();
@@ -244,4 +258,26 @@ test.describe("PDF contents", () => {
       }
     });
   }
+
+  test("Advent I: Quick preserves an omission made in the phone sheet", async ({ page }) => {
+    test.setTimeout(600_000);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(CASES[0].url, { waitUntil: "networkidle" });
+    await page.getByRole("button", { name: /^Choose parts/ }).click();
+    const sheet = page.getByRole("dialog", { name: "Choose parts", exact: true });
+    const box = sheet.getByRole("checkbox", { name: "In PDF: Gradual", exact: true });
+    const omittedRuns = parseRuns((await box.getAttribute("data-runs"))!);
+    const remaining = await boxes(page).evaluateAll(nodes => nodes.filter(n => (n as HTMLInputElement).dataset["label"] !== "Gradual")
+      .map(n => ({ label: (n as HTMLInputElement).dataset["label"]!, runs: (n as HTMLInputElement).dataset["runs"]! })));
+    await box.uncheck();
+    await sheet.getByRole("button", { name: "Done", exact: true }).click();
+    await expect(sheet).not.toBeVisible();
+    const result = await inspect(await download(page, "Quick"));
+    headingsInOrder(result.text, remaining.map(p => p.label));
+    expect(result.letters).not.toContain(lettersOf(["Gradual"]));
+    expect(result.markers).toEqual(remaining.flatMap(p => parseRuns(p.runs).map(r => marker(r.letter!))));
+    for (const run of omittedRuns) expect(result.markers).not.toContain(marker(run.letter!));
+    expect(result.scans).toBe(0);
+    expect(result.chant).toEqual(result.chant.map(() => 0));
+  });
 });
