@@ -143,3 +143,11 @@ export const CUSTOM_ERRORS = {
 
 export const PRINTER_ADVISORY = "Most printers can't print this close to the edge.";
 export const MM_PER_IN = 25.4;
+
+export const CHANGE_PARTS_COPY = {
+  choose: 'Choose the parts, then Return to Customize.',
+  layoutStopped: 'Preview stopped while you changed parts. Your settings are kept.',
+  pdfStopped: 'PDF stopped while you changed parts. Download again when the preview is ready.',
+  staleBreaks: (parts: string): string => `Breaks for ${parts} are not in this PDF. Tick a part again to get them back.`,
+  revisedBreaks: (parts: string): string => `Your saved breaks for ${parts} were removed because their music was updated.`,
+};

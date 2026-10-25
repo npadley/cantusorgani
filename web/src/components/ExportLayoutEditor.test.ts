@@ -76,6 +76,11 @@ describe("copy deck", () => {
 describe("ExportLayoutEditor markup", async () => {
   const html = await (await AstroContainer.create()).renderToString(ExportLayoutEditor, { props: {} });
 
+  it("offers Change parts in In this PDF with a tap target", () => {
+    expect(html).toMatch(/In this PDF<\/h3>\s*<button[^>]*type="button"[^>]*data-cx="change-parts"[^>]*>Change parts<\/button>/);
+    expect(readFileSync("src/styles/exportEditor.css", "utf8")).toMatch(/\[data-cx="change-parts"\][^{]*\{[^}]*min-height:\s*var\(--tap-min\)/);
+  });
+
   it("should keep the dialog inside an inert template, labelled by its title and selection", () => {
     expect(html).toMatch(/<template[^>]*data-cx-template/);
     expect(html).toMatch(/<dialog[^>]*class="cx no-print"[^>]*aria-labelledby="cx-title"[^>]*aria-describedby="cx-sel"/);

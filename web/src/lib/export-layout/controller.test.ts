@@ -84,6 +84,112 @@ function ready(t: ReturnType<typeof setup>, token = 1) {
 }
 
 describe('export controller', () => {
+  it('suspend and resume keep settings, chant, undo and the title', async () => {
+    const t = setup();
+    t.c.updateSettings({ staff: 'large', chant: 'before', page: 'a4' });
+    t.c.setBreak('p1', { boundaryId: 'b1', sourceRevision: 'r1', kind: 'system' });
+    t.c.suspend();
+    expect(t.st().phase).toBe('suspended');
+    expect(t.st().cancelledWork).toBe('layout');
+    expect(t.st().canDownload).toBe(false);
+    t.c.resume([mei('p1', 'movement:a')]);
+    expect(t.st().settings).toMatchObject({ staff: 'large', chant: 'before', page: 'a4' });
+    expect(t.st().canUndo).toBe(true);
+    t.c.undo();
+    expect(t.st().overrides).toEqual({});
+    const token = t.st().requestToken;
+    t.lw(0).emit({ type: 'result', token, result: result(token) });
+    const pdf = t.c.download();
+    t.pw(0).emit({ type: 'pdf', token, bytes: new ArrayBuffer(1) });
+    await pdf;
+    expect(t.saved[0]?.filename).toBe('Kyrie (A4).pdf');
+  });
+
+  it('resume drops removed and revised breaks, including undo snapshots, and keeps matching breaks', () => {
+    const t = setup(null, [mei('p1', 'a'), mei('p2', 'b'), mei('p3', 'c')]);
+    for (const id of ['p1', 'p2', 'p3']) t.c.setBreak(id, { boundaryId: 'b1', sourceRevision: 'r1', kind: 'system' });
+    t.c.suspend();
+    t.c.resume([mei('p1', 'a'), mei('p3', 'c', 'r2')]);
+    expect(Object.keys(t.st().overrides)).toEqual(['p1']);
+    expect(t.st().notices.filter(n => n.code === 'STALE_ANCHOR').map(n => n.partId)).toEqual(['p2', 'p3']);
+    t.c.undo();
+    expect(Object.keys(t.st().overrides)).toEqual(['p1']);
+  });
+
+  it("keeps a removed part's saved breaks in storage and restores them when the part is ticked again", () => {
+    const storage = memStorage();
+    const t = setup(storage, [mei('p1', 'a'), mei('p2', 'b')]);
+    t.c.setBreak('p2', { boundaryId: 'b1', sourceRevision: 'r1', kind: 'page' });
+    t.c.suspend();
+    t.c.resume([mei('p1', 'a')]);
+    expect(t.st().overrides['p2']).toBeUndefined();
+    expect(JSON.parse(storage.data['export-layout-v2']!).overrides['b']).toHaveLength(1);
+    t.c.suspend();
+    t.c.resume([mei('p1', 'a'), mei('p2', 'b')]);
+    expect(t.st().overrides['p2']).toEqual([{ boundaryId: 'b1', sourceRevision: 'r1', kind: 'page' }]);
+  });
+
+  it('discards results from before suspend even after resume', () => {
+    const t = setup();
+    const old = t.st().requestToken;
+    t.c.suspend();
+    ready(t, old);
+    expect(t.st().phase).toBe('suspended');
+    t.c.resume([mei('p1', 'movement:a')]);
+    ready(t, old);
+    expect(t.st().result).toBeNull();
+    const token = t.st().requestToken;
+    ready(t, token);
+    expect(t.st().result?.token).toBe(token);
+  });
+
+  it('suspend cancels a PDF and records why it stopped', async () => {
+    const t = setup();
+    ready(t);
+    const pdf = t.c.download();
+    t.c.suspend();
+    expect(t.st().cancelledWork).toBe('pdf');
+    expect(t.pw(0).terminated).toBe(true);
+    t.pw(0).emit({ type: 'pdf', token: 1, bytes: new ArrayBuffer(1) });
+    await pdf;
+    expect(t.saved).toHaveLength(0);
+  });
+
+  it.each([0, 301])('resume refuses %i systems with the selection reason', (count) => {
+    const t = setup();
+    t.c.suspend();
+    t.c.resume(count ? [mei('p1', 'a', 'r1', count)] : []);
+    expect(t.st().phase).toBe('error');
+    expect(t.st().canDownload).toBe(false);
+    expect(t.st().selectionRefusal).toContain(count ? 'the limit is 300' : 'Tick at least one part');
+    const layouts = t.lw(0).layouts.length;
+    t.c.updateSettings({ staff: 'large' });
+    expect(t.lw(0).layouts).toHaveLength(layouts);
+  });
+
+  it('close while suspended still permits a fresh open', () => {
+    const t = setup();
+    t.c.setBreak('p1', { boundaryId: 'b1', sourceRevision: 'r1', kind: 'system' });
+    t.c.suspend();
+    t.c.close();
+    t.c.open([mei('p1', 'movement:a')], 'New title');
+    let current = t.st();
+    t.c.subscribe(s => { current = s; });
+    expect(current.phase).toBe('loading');
+    expect(current.canUndo).toBe(false);
+  });
+
+  it('normal close then open starts a fresh undo session', () => {
+    const t = setup();
+    t.c.setBreak('p1', { boundaryId: 'b1', sourceRevision: 'r1', kind: 'system' });
+    t.c.close();
+    t.c.open([mei('p1', 'movement:a')]);
+    let current = t.st();
+    t.c.subscribe(s => { current = s; });
+    expect(current.canUndo).toBe(false);
+    expect(current.phase).toBe('loading');
+  });
+
   it('opens lazily: loading, token 1 posted', () => {
     const t = setup();
     expect(t.layoutWorkers).toHaveLength(1);

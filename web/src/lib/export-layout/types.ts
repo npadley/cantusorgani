@@ -383,9 +383,12 @@ export interface SanitizedSvg { readonly svg: string; readonly ids: readonly str
 export interface SvgBounds { readonly widthMm: number; readonly heightMm: number; readonly contentBBox: RectMm }
 
 // -------------------------------------------------------------- controller ---
-export type ControllerPhase = 'idle' | 'loading' | 'rendering' | 'ready' | 'exporting' | 'error';
+export type ControllerPhase = 'idle' | 'loading' | 'rendering' | 'ready' | 'exporting' | 'error' | 'suspended';
 export interface ControllerState {
   readonly phase: ControllerPhase;
+  /** Work stopped by Change parts; retained through resume for the dialog announcement. */
+  readonly cancelledWork?: 'layout' | 'pdf' | null;
+  readonly selectionRefusal?: string | null;
   readonly parts: readonly ExportPart[];
   readonly settings: LayoutSettings;
   readonly overrides: Readonly<Record<string, readonly BreakOverride[]>>;
@@ -427,6 +430,8 @@ export interface ControllerDependencies {
 export type BreakAction = BreakOverride | { readonly boundaryId: string; readonly kind: 'remove' };
 export interface ExportController {
   open(parts: readonly ExportPart[], title?: string): void;
+  suspend(): void;
+  resume(parts: readonly ExportPart[]): void;
   updateSettings(patch: Partial<Omit<LayoutSettings, 'version'>>): void;
   setBreak(partId: string, action: BreakAction): void;
   /** Clears user breaks and restores every setting to default EXCEPT page, customSize, orientation. Undoable. */
