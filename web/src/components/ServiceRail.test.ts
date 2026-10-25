@@ -40,6 +40,10 @@ describe("ServiceRail", () => {
     expect(html).toContain("day-marker--violet");
     expect(html).toContain("Violet");
   });
+  it("keeps Paper before the export note so the compact bar can share its controls row", async () => {
+    const html = await render();
+    expect(html.indexOf('class="small paper"')).toBeLessThan(html.indexOf('export-foot-note'));
+  });
   it("keeps exports and tools but hides the chooser for one part", async () => {
     const html = await render([{ ...piece, parts: [], movements: [] }]);
     expect(html).not.toContain("data-choose-parts");
