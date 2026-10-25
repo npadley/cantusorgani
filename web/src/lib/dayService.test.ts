@@ -32,11 +32,14 @@ describe("dayService", () => {
     expect(table.groups.flatMap(o => o.dates)).toEqual(expect.arrayContaining(["2027-05-26", "2028-05-26"]));
   });
   it("formats the same date-first summary for build and browser", () => {
-    const service = { iso: "2027-05-26", option: null, group: "other" as const, message: null };
+    const open = { key: "ordinary-9", mass: null, candidates: ["IX", "X"], heading: "In Festis B. Mariae V.", note: "" };
+    const service = { iso: "2027-05-26", option: open, group: "other" as const, message: null };
     expect(serviceSummary(service, ["Gradual", "Alleluia"], ["Offertory: no music on this site"]))
       .toBe("For 26 May 2027: Gradual, Alleluia · Ordinary: no single Mass is assigned · Offertory: no music on this site");
     const chosen = resolveDate("2027-05-26", table, "2027-05-26");
     expect(serviceSummary(chosen, [], [])).toBe("For 26 May 2027");
+    // A day with no Ordinary at all claims nothing about one.
+    expect(serviceSummary({ ...service, option: null }, [], [])).toBe("For 26 May 2027");
   });
   it("dates the complete PDF title in en-GB style", () => {
     expect(pdfTitle("St. Philip Neri", "I", "2028-05-26")).toBe("St. Philip Neri with Missa I — 26 May 2028");

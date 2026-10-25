@@ -181,9 +181,12 @@ test.describe("PDF contents", () => {
     expect(parts.some(p => p.ordinary === chosen.key)).toBe(true);
     expect(parts.some(p => p.ordinary === other.key)).toBe(false);
     const excludedRuns = await root.locator(`input[data-ordinary-option="${other.key}"]`).evaluateAll(nodes => nodes.map(n => (n as HTMLInputElement).dataset["runs"]!));
-    const result = await inspect(await download(page, "Quick"));
-    expect(result.letters).toContain(lettersOf([`with Missa ${fixture.mass} — ${dateLabel(fixture.date)}`]));
-    expect(result.letters).not.toContain(lettersOf([`with Missa ${fixture.other} —`]));
+    const bytes = await download(page, "Quick");
+    const result = await inspect(bytes);
+    // The title is the PDF's metadata (pdf.ts setTitle); the pages print only the part headings.
+    const pdfTitle = (await PDFDocument.load(bytes, { updateMetadata: false })).getTitle() ?? "";
+    expect(pdfTitle).toContain(`with Missa ${fixture.mass} — ${dateLabel(fixture.date)}`);
+    expect(pdfTitle).not.toContain(`Missa ${fixture.other} `);
     const runs = parts.flatMap(p => parseRuns(p.runs));
     expect(result.markers).toEqual(runs.filter(r => r.letter && r.key).map(r => marker(r.letter!)));
     const typesetSystems = runs.filter(r => r.letter && r.key).reduce((n, r) => n + r.count, 0);

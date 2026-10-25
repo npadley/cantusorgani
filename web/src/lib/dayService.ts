@@ -83,7 +83,7 @@ export function formatDefaultsNote(unticked: readonly string[], date: string | n
 export function serviceSummary(service: DatedService, alternatives: readonly string[], unavailable: readonly string[]): string {
   const details = [
     [...new Set(alternatives)].join(", "),
-    ...(service.option?.mass ? [] : ["Ordinary: no single Mass is assigned"]),
+    ...(service.option && !service.option.mass ? ["Ordinary: no single Mass is assigned"] : []),
     ...unavailable,
   ].filter(Boolean).join(" · ");
   return `For ${service.iso ? dateLabel(service.iso) : "the build default"}${details ? `: ${details}` : ""}`;

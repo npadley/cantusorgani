@@ -65,6 +65,8 @@ test.describe("day reader", () => {
       (node as HTMLElement).dataset["e2eSelection"] = JSON.stringify(selection.segments.map(s => ({ id: s.id, included: s.included })));
     }));
     await page.getByRole("button", { name: "Clear", exact: true }).click();
+    await expect(root.locator('input[name="export-part"]:checked')).toHaveCount(0);
+    expect((JSON.parse((await root.getAttribute("data-e2e-selection"))!) as { included: boolean }[]).some(s => s.included)).toBe(false);
     // Select all cannot introduce the other Ordinary into the model.
     await page.getByRole("button", { name: "Select all", exact: true }).click();
     await expect(root.locator('input[name="export-part"]:disabled:checked')).toHaveCount(0);

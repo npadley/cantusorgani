@@ -84,7 +84,7 @@ const longDate = date
 
 <Layout title={title} description={`${title} — organ accompaniment from Nova Organi Harmonia.`} skipTo={hasMusic ? "music" : undefined}>
   <div class="reader-layout">
-  {hasMusic && <ServiceRail pieces={exportPieces} title={pdfTitle(title, service.option?.mass ?? null, service.iso)}
+  {hasMusic && <ServiceRail pieces={exportPieces} {...(forDay[0] ? { occasion: forDay[0] } : {})} title={pdfTitle(title, service.option?.mass ?? null, service.iso)}
     segments={segments} season={date ? seasonForDate(date) : null} dateLabel={longDate}
     dayService={{ table, buildDefaultIso: service.iso, title, unavailable }}>
     <div slot="reader-tools">
@@ -133,7 +133,11 @@ const longDate = date
     </section>
   ))}
   </div>
-  {hasMusic && <SourceBlock pieces={exportPieces} />}
+  {hasMusic && (candidates.length === 0 ? <SourceBlock pieces={pieces} /> : candidates.map(({ option, piece }) => (
+    <div data-ordinary-option={option.key} hidden={option.key !== service.option?.key}>
+      <SourceBlock pieces={piece ? [...pieces, piece] : pieces} idPrefix={`${option.key}-`} />
+    </div>
+  )))}
 
   {vespersDay ? (
     <section class="vespers">
