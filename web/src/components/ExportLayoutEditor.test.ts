@@ -76,9 +76,44 @@ describe("copy deck", () => {
 describe("ExportLayoutEditor markup", async () => {
   const html = await (await AstroContainer.create()).renderToString(ExportLayoutEditor, { props: {} });
 
-  it("offers Change parts in In this PDF with a tap target", () => {
-    expect(html).toMatch(/In this PDF<\/h3>\s*<button[^>]*type="button"[^>]*data-cx="change-parts"[^>]*>Change parts<\/button>/);
-    expect(readFileSync("src/styles/exportEditor.css", "utf8")).toMatch(/\[data-cx="change-parts"\][^{]*\{[^}]*min-height:\s*var\(--tap-min\)/);
+  it("keeps the parts disclosure and Change parts above the preview", () => {
+    expect(html).toMatch(/<details[^>]*data-cx="parts"/);
+    expect(html).toMatch(/data-cx="parts-summary"/);
+    expect(html.indexOf('data-cx="change-parts"')).toBeLessThan(html.indexOf('data-cx-preview'));
+    expect(html.indexOf('data-cx="partlist"')).toBeLessThan(html.indexOf('data-cx-preview'));
+    expect(SOURCE).toMatch(/\[data-cx="change-parts"\][^{]*\{[^}]*min-height:\s*var\(--tap-min\)/);
+  });
+
+  it("offers the grouped page dropdown and unchanged size and spacing values", () => {
+    for (const [name, values] of Object.entries({
+      'cx-page': ['letter', 'a4', 'a5', 'ipad-mini', 'ipad-11', 'ipad-13', 'custom'],
+      'cx-lyrics': ['small', 'medium', 'large'],
+      'cx-spacing': ['compact', 'normal', 'spacious'],
+    })) {
+      const select = new RegExp(`<select[^>]*name="${name}"[^>]*>([\\s\\S]*?)</select>`).exec(html);
+      expect(select, name).not.toBeNull();
+      expect([...select![1]!.matchAll(/<option value="([^"]+)"/g)].map(m => m[1])).toEqual(values);
+    }
+    for (const label of ['Print', 'iPad', 'Custom']) expect(html).toContain(`<optgroup label="${label}">`);
+    for (const [name, values] of Object.entries({
+      'cx-staff': ['small', 'medium', 'large'],
+      'cx-orient': ['portrait', 'landscape'],
+      'cx-lines': ['original', 'automatic'],
+      'cx-chant': ['off', 'before', 'only'],
+      'cxp-view': ['pages', 'continuous'],
+    })) {
+      const radios = html.match(new RegExp(`<input[^>]*name="${name}"[^>]*>`, 'g')) ?? [];
+      expect(radios.map(r => /value="([^"]+)"/.exec(r)![1]), name).toEqual(values);
+    }
+  });
+
+  it("offers summary chips targeting each settings group", () => {
+    for (const group of ['page-group', 'breaks-group', 'chant-group', 'more']) {
+      expect(html).toContain(`data-cx-group="${group}"`);
+    }
+    expect(html).toContain('Page: Letter · Portrait · 12 mm');
+    expect(html).toContain('Breaks: Original');
+    expect(html).toContain('Chant: Before each part');
   });
 
   it("should keep the dialog inside an inert template, labelled by its title and selection", () => {
@@ -98,7 +133,7 @@ describe("ExportLayoutEditor markup", async () => {
   it("should label the settings region and every radio group", () => {
     expect(html).toMatch(/<aside[^>]*role="region"[^>]*aria-label="Export settings"[^>]*tabindex="-1"/);
     const groups = html.match(/<div[^>]*role="radiogroup"[^>]*>/g) ?? [];
-    expect(groups.length).toBeGreaterThanOrEqual(9);
+    expect(groups).toHaveLength(6);
     for (const g of groups) expect(g, g).toMatch(/aria-label(ledby)?=/);
     // Real radios, hidden with the sr-only technique (never display:none).
     const radios = html.match(/<input[^>]*type="radio"[^>]*>/g) ?? [];
@@ -118,7 +153,7 @@ describe("ExportLayoutEditor markup", async () => {
     expect(html).toContain('aria-label="Large, 9.6 mm"');
     expect(html).toMatch(/aria-controls="cx-settings"/);
     expect(html).toMatch(/data-cx="margin"[^>]*min="3"[^>]*max="25"/);
-    expect(html.match(/<details/g)).toHaveLength(1); // only More options
+    expect(html.match(/<details/g)).toHaveLength(2); // Parts and More options
     expect(html).not.toMatch(/type="range"/); // no sliders anywhere
   });
 

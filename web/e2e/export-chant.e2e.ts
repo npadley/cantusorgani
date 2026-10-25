@@ -80,8 +80,7 @@ async function pickPage(page: Page, size: "letter" | "ipad-mini" | "ipad-11"): P
   const settings = page.locator('dialog.cx [data-cx="settings-btn"]');
   if (await settings.isVisible()) await settings.click();
   if (size !== "letter") {
-    await radio(page, "cx-tier", "ipad").click();
-    await radio(page, "cx-ipad", size).click();
+    await page.locator('dialog.cx select[name="cx-page"]').selectOption(size);
   }
   if (await settings.isVisible()) await page.locator('dialog.cx [data-cx="panel-done"]').click();
   await expect(page.locator("dialog.cx .cx-plabel").first()).toContainText(size === "letter" ? "Letter" : size === "ipad-mini" ? "iPad mini" : "11-inch iPad", { timeout: 120_000 });

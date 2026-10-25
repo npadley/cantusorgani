@@ -62,7 +62,7 @@ test("Kyrie IX on the device server: Customize export, iPad preset, a valid PDF"
     // The narrow layout of an iPad Pro 11 in portrait: choose the iPad preset in the Settings panel.
     const settings = page.locator('dialog.cx [data-cx="settings-btn"]');
     if (await settings.isVisible()) await settings.click();
-    await page.locator('dialog.cx input[name="cx-tier"][value="ipad"]').locator("xpath=..").click();
+    await page.locator('dialog.cx select[name="cx-page"]').selectOption("ipad-11");
     if (await settings.isVisible()) await page.locator('dialog.cx [data-cx="panel-done"]').click();
     await expect(page.locator("dialog.cx .cx-plabel").first()).toContainText("11-inch iPad, portrait", { timeout: 120_000 });
     await expect(download).toBeEnabled({ timeout: 150_000 });

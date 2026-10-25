@@ -147,16 +147,15 @@ const radio = (page: Page, name: string, value: string) => page.locator(`dialog.
 /** Set every setting of the case through the editor's controls. */
 async function applySettings(page: Page, c: Case): Promise<void> {
   if (c.page === "custom") {
-    await radio(page, "cx-tier", "custom").click();
+    await page.locator('dialog.cx select[name="cx-page"]').selectOption("custom");
     const [w, h] = c.custom!;
     await page.locator('dialog.cx [data-cx="custom-w"]').fill(String(w));
     await page.locator('dialog.cx [data-cx="custom-h"]').fill(String(h));
     await page.locator('dialog.cx [data-cx="custom-h"]').press("Tab");
   } else if (c.page === "ipad-mini" || c.page === "ipad-11") {
-    await radio(page, "cx-tier", "ipad").click();
-    await radio(page, "cx-ipad", c.page).click();
+    await page.locator('dialog.cx select[name="cx-page"]').selectOption(c.page);
   } else if (c.page !== "letter") {
-    await radio(page, "cx-print", c.page).click();
+    await page.locator('dialog.cx select[name="cx-page"]').selectOption(c.page);
   }
   if (c.orientation === "landscape") await radio(page, "cx-orient", "landscape").click();
   if (c.staff !== "medium") await radio(page, "cx-staff", c.staff).click();
