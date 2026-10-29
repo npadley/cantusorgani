@@ -364,7 +364,9 @@ jobs:
           path: web/dist/
           include-hidden-files: true
           if-no-files-found: error
-          retention-days: 30
+          # 30 days for what main deploys (OPERATIONS.md § Rolling back keeps release builds that long);
+          # a pull request only needs it within its own run, for the preview.
+          retention-days: ${{ github.event_name == 'push' && 30 || 3 }}
 
   export:
     name: Export editor tests (${{ matrix.shard }}/2)
