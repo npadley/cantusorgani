@@ -243,3 +243,21 @@ dialog.cx .cx-preview { min-width: 0; min-height: 0; overflow: auto; }
   dialog.cx[data-panel="open"] .cx-fit [data-cx="music-field"] { grid-column: 1 / -1; }
   dialog.cx[data-panel="open"] .cx-fit .cx-settings-btn { grid-column: 2; grid-row: 2; }
 }
+
+/* Phones with Settings closed: cap the controls as one scrolling region. The preview keeps half
+   the dialog, including on short screens; expanding the parts list cannot squeeze it away.
+   An open Settings sheet uses the layout above, without the preview's minimum height.
+   display: contents preserves the existing grid placement at every wider width. */
+.cx-controls { display: contents; }
+@media (max-width: 39.99rem) {
+  dialog.cx[open]:not([data-panel="open"]) { grid-template-rows: auto minmax(0, 1fr) minmax(50%, 1fr) auto; }
+  dialog.cx:not([data-panel="open"]) .cx-controls { display: block; grid-row: 2; min-height: 0; overflow: auto; overscroll-behavior-y: contain; }
+  dialog.cx:not([data-panel="open"]) .cx-head { grid-row: 1; }
+  dialog.cx:not([data-panel="open"]) .cx-preview { grid-row: 3; }
+  dialog.cx:not([data-panel="open"]) .cx-foot { grid-row: 4; }
+  /* Keep Close and Download scrollable when browser chrome or a keyboard shortens the dialog. */
+  dialog.cx:not([data-panel="open"]) :is(.cx-head, .cx-foot) { max-height: 20dvh; overflow: auto; }
+  dialog.cx[open][data-breaking]:not([data-panel="open"]) { grid-template-rows: auto auto minmax(0, 1fr) auto; }
+  dialog.cx[data-breaking]:not([data-panel="open"]) .cx-breakbar { align-self: start; }
+  dialog.cx[data-breaking]:not([data-panel="open"]) .cx-controls { display: none; }
+}
