@@ -28,7 +28,7 @@ import type { Division } from "./indexes";
  */
 function piece(overrides: Partial<Piece> = {}): Piece {
   return {
-    id: "noh1-x", volume: "noh1", slug: "x", section: "S", division: "temporale", days: [],
+    id: "noh1-x", volume: "noh1", slug: "x", section: "S", division: "temporale", days: [], linkedDays: [],
     label: "L", title: "T", incipit: null, genre: "mass_ordinary", mode: null, mass: null,
     printedPages: [1, 2], pdfPages: [26, 27], systems: [], systemAssets: [], systemAspect: [],
     movements: [], chant: [], status: "verified",
@@ -271,6 +271,18 @@ describe("neighbours", () => {
         expect(neighbours(pieces, piece({ division, days })).back).toEqual({ title: en, href: `/${slug}/` });
       }
     }
+  });
+});
+
+describe("a piece linked to other days", () => {
+  it("should count only the day it is printed for", () => {
+    const sunday = piece({ slug: "sunday", days: ["tempora:Adv1-0", "tempora:Adv1-1", "tempora:Adv1-2"],
+      linkedDays: ["tempora:Adv1-1", "tempora:Adv1-2"] });
+    const vespers = piece({ slug: "vespers", division: "vesperale", days: ["tempora:Adv1-0"] });
+    expect(neighbours([sunday, vespers], sunday).back.href).toBe(dayHref("tempora:Adv1-0"));
+    expect(moreFor([sunday, vespers], { piece: sunday })).toEqual({
+      heading: "More for this day", links: [{ title: "T", href: "/piece/vespers/", division: "vesperale" }],
+    });
   });
 });
 

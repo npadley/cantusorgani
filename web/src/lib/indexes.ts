@@ -307,6 +307,13 @@ function readerIndex(pieces: readonly Piece[]): ReaderIndex {
   return index;
 }
 
+/** The one day a piece is printed for. Days it is only linked to (a Sunday
+ *  Mass repeated on the ferias of its week) do not count. */
+function ownDay(piece: Piece): string | undefined {
+  const own = piece.days.filter((key) => !piece.linkedDays.includes(key));
+  return own.length === 1 ? own[0] : undefined;
+}
+
 /** Previous and next distinct pages in the division's printed catalogue order. */
 export function neighbours(pieces: readonly Piece[], piece: Piece): PieceNeighbours {
   const group = readerIndex(pieces).divisions.get(piece.division);
@@ -320,7 +327,7 @@ export function neighbours(pieces: readonly Piece[], piece: Piece): PieceNeighbo
     }
     return null;
   }
-  const day = piece.days.length === 1 ? piece.days[0] : undefined;
+  const day = ownDay(piece);
   const division = divisionMeta(piece.division as Division);
   return {
     previous: adjacent(-1), next: adjacent(1),
@@ -334,7 +341,7 @@ export function moreFor(pieces: readonly Piece[], current: { piece: Piece } | { 
   const index = readerIndex(pieces);
   if ("piece" in current) {
     const { piece } = current;
-    const day = piece.days.length === 1 ? piece.days[0] : undefined;
+    const day = ownDay(piece);
     if (!day) return { heading: "More for this day", links: [] };
     const links = uniqueLinks(index.byDay[day] ?? [], pieceHref(piece));
     return links.length ? { heading: "More for this day", links } : moreFor(pieces, { day });
