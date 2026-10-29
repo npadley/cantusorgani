@@ -20,7 +20,7 @@ test.describe("Recurring Vespers without JavaScript", () => {
       await expect(page.locator("[data-next-evening]")).toBeHidden();
       await expect(page.locator(".service-rail, .lineup")).toHaveCount(0);
       await expect(page.locator("[data-console]")).not.toHaveAttribute("lang", "la");
-      await expect(page.locator("#partial-coverage + p")).not.toContainText("Transfiguration");
+      await expect(page.getByRole("region", { name: "The Magnificat", exact: true })).not.toContainText("Transfiguration");
       for (const day of group.days) {
         const dated = await request.get(lineupHref(day));
         expect(dated.status(), lineupHref(day)).toBe(200);
@@ -58,4 +58,19 @@ test("the hub is linked from the day, dated service and Vesperale", async ({ pag
   await expect(page.locator("[data-coming] li").first()).toBeVisible();
   await page.emulateMedia({ media: "print" });
   await expect(page.locator(".vespers-dates")).toBeHidden();
+});
+
+
+test("Advent and green-Sunday hubs explain their Magnificat accompaniment", async ({ page }) => {
+  await page.goto("/vespers/tempora/Adv1-0/");
+  const note = page.getByRole("region", { name: "The Magnificat", exact: true });
+  await expect(note).toContainText("The Magnificat in VIII G is printed in NOH VIII (Advent I, p. 53); each dated page includes it.");
+  await expect(note).not.toHaveAttribute("lang", "la");
+  await expect(note.locator("[lang=la], img, svg, audio")).toHaveCount(0);
+  await expect(note.getByRole("link")).toHaveCount(1);
+  await expect(note.getByRole("link", { name: "Browse the Vesperale in printed order" })).toHaveAttribute("href", "/vespers/");
+
+  await page.goto("/vespers/tempora/Epi5-0/");
+  await expect(note).toContainText("NOH VIII prints no Magnificat in I g, only the antiphon. Each dated page sets it to Psalm 109 in I g (Advent II, p. 54), the formula in the same tone.");
+  await expect(page.locator(".service-rail, .lineup")).toHaveCount(0);
 });

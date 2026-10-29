@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  musicForDayHref, occasions, hubHref, allLineups, bankNote, consoleLine, exportLineup, itemSystems, lineupTitle, lineupsUsing, sungOn, isFormula, isSunday, itemHeading, lineupFor, lineupHref, loadLineup, nextFirstVespers, nextLineupDate,
+  magnificatGuide, musicForDayHref, occasions, hubHref, allLineups, bankNote, consoleLine, exportLineup, itemSystems, lineupTitle, lineupsUsing, sungOn, isFormula, isSunday, itemHeading, lineupFor, lineupHref, loadLineup, nextFirstVespers, nextLineupDate,
   parseLineup, sections, spokenTone, toneLabel,
 } from "./vespers";
 import type { LineupDay } from "./vespers";
@@ -256,4 +256,52 @@ describe("recurring Vespers occasions", () => {
 it("links every hub back to an existing day route", () => {
   const days = new Set(catalogedDays(allPieces()));
   for (const group of occasions()) expect(days.has(group.days[0]!.observance), group.office).toBe(true);
+});
+
+
+describe("Magnificat guidance", () => {
+  function officeWith(source: Record<string, unknown>, tone = "VIII.G") {
+    return occasions(parseLineup(doc([item("magnificat", "magnificat", { tone, source })])))[0]!;
+  }
+
+  it("identifies the printed Advent Magnificat", () => {
+    expect(magnificatGuide(officeWith({ type: "bank", refs: ["noh8/0083/003"],
+      bank_kind: "magnificat", bank_label: "Magnificat in VIII G", borrowed_from: "Advent I, p. 53" })))
+      .toEqual([{ text: "The Magnificat in VIII G is printed in NOH VIII (Advent I, p. 53); each dated page includes it.",
+        evenings: ["II Vespers · 2026-11-08"] }]);
+  });
+
+  it("names the psalm formula and its printed source", () => {
+    expect(magnificatGuide(officeWith({ type: "bank", refs: ["noh8/0084/002"],
+      bank_kind: "psalm", bank_label: "Psalm 109 in I g", borrowed_from: "Advent II, p. 54" }, "I.g")))
+      .toEqual([{ text: "NOH VIII prints no Magnificat in I g, only the antiphon. Each dated page sets it to Psalm 109 in I g (Advent II, p. 54), the formula in the same tone.",
+        evenings: ["II Vespers · 2026-11-08"] }]);
+  });
+
+  it("explains when no accompaniment in the tone is printed", () => {
+    expect(magnificatGuide(officeWith({ type: "note", text: "Sung unaccompanied." }, "IV.A")))
+      .toEqual([{ text: "NOH VIII prints no Magnificat in IV A and no psalm in that tone: sing it unaccompanied or improvise.",
+        evenings: ["II Vespers · 2026-11-08"] }]);
+  });
+
+  it("groups repeated cases and keeps differing tones and sources with their evenings", () => {
+    const base = officeWith({ type: "bank", refs: ["noh8/0083/003"], bank_kind: "magnificat",
+      bank_label: "Magnificat in VIII G", borrowed_from: "Advent I, p. 53" }).days[0]!;
+    const mag = base.items[0]!;
+    const guide = magnificatGuide({ office: base.office, days: [base,
+      { ...base, date: "2026-11-15" },
+      { ...base, date: "2026-11-22", items: [{ ...mag, tone: "VIII.G*" }] },
+      { ...base, date: "2026-11-08", vespers: "I", eveningOf: "2026-11-07",
+        items: [{ ...mag, source: { type: "bank", refs: ["noh8/0089/001"], bankKind: "magnificat",
+          bankLabel: "Magnificat in VIII G", borrowedFrom: "Advent II, p. 59" } }] },
+    ] });
+    expect(guide).toEqual([
+      { text: "The Magnificat in VIII G is printed in NOH VIII (Advent I, p. 53); each dated page includes it.",
+        evenings: ["II Vespers · 2026-11-08", "II Vespers · 2026-11-15"] },
+      { text: "The Magnificat in VIII G* is printed in NOH VIII (Advent I, p. 53); each dated page includes it.",
+        evenings: ["II Vespers · 2026-11-22"] },
+      { text: "The Magnificat in VIII G is printed in NOH VIII (Advent II, p. 59); each dated page includes it.",
+        evenings: ["I Vespers · 2026-11-07"] },
+    ]);
+  });
 });

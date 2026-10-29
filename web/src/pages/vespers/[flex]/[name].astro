@@ -3,7 +3,7 @@ import Layout from "../../../components/Layout.astro";
 import DayMarker from "../../../components/DayMarker.astro";
 import VespersDates from "../../../components/VespersDates.astro";
 import { observance } from "../../../lib/liturgy";
-import { musicForDayHref, consoleLine, lineupHref, lineupTitle, occasions, sungOn } from "../../../lib/vespers";
+import { magnificatGuide, musicForDayHref, consoleLine, lineupHref, lineupTitle, occasions, sungOn } from "../../../lib/vespers";
 import type { VespersOccasion } from "../../../lib/vespers";
 
 export function getStaticPaths() {
@@ -15,6 +15,7 @@ export function getStaticPaths() {
 interface Props { readonly occasion: VespersOccasion }
 const { occasion } = Astro.props;
 const first = occasion.days[0]!;
+const magnificat = magnificatGuide(occasion);
 const musicHref = musicForDayHref(first.observance);
 const o = observance(first.observance);
 const title = lineupTitle(first);
@@ -54,8 +55,11 @@ const consoles = Object.fromEntries(occasion.days.map(day => [lineupHref(day), {
     <VespersDates days={occasion.days} heading="Published evenings" />
 
     <section class="notice" aria-labelledby="partial-coverage">
-      <h2 id="partial-coverage">When the book gives only part of the office</h2>
-      <p>Some Magnificat and psalm tones are not printed in the Vesperale; those are marked on the dated page to be sung unaccompanied or improvised.</p>
+      <h2 id="partial-coverage">The Magnificat</h2>
+      {magnificat.map(guide => <div>
+        {magnificat.length > 1 && <p class="ui small muted">{guide.evenings.join("; ")}</p>}
+        <p>{guide.text}</p>
+      </div>)}
       <p class="ui"><a href="/vespers/">Browse the Vesperale in printed order</a></p>
     </section>
     {musicHref && <p class="ui"><a href={musicHref}>Music for this day</a></p>}

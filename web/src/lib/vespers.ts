@@ -212,6 +212,38 @@ export interface VespersOccasion {
   readonly days: readonly LineupDay[];
 }
 
+export interface MagnificatGuide {
+  readonly text: string;
+  readonly evenings: readonly string[];
+}
+
+/** Explain what the dated pages use, once per distinct tone and source. */
+export function magnificatGuide(occasion: VespersOccasion): readonly MagnificatGuide[] {
+  const cases = new Map<string, string[]>();
+  for (const day of occasion.days) {
+    for (const item of day.items) {
+      if (item.kind !== "magnificat") continue;
+      const tone = item.tone ? toneLabel(item.tone) : "the indicated tone";
+      const source = item.source;
+      let text: string;
+      if (source.type === "bank") {
+        text = source.bankKind === "magnificat"
+          ? `The Magnificat in ${tone} is printed in NOH VIII (${source.borrowedFrom}); each dated page includes it.`
+          : `NOH VIII prints no Magnificat in ${tone}, only the antiphon. Each dated page sets it to ${source.bankLabel} (${source.borrowedFrom}), the formula in the same tone.`;
+      } else if (source.type === "note") {
+        text = `NOH VIII prints no Magnificat in ${tone} and no psalm in that tone: sing it unaccompanied or improvise.`;
+      } else {
+        throw new Error(`vespers hub: unexpected Magnificat source for ${item.key}`);
+      }
+      const evenings = cases.get(text) ?? [];
+      const evening = `${day.vespers} Vespers · ${sungOn(day)}`;
+      if (!evenings.includes(evening)) evenings.push(evening);
+      cases.set(text, evenings);
+    }
+  }
+  return [...cases].map(([text, evenings]) => ({ text, evenings }));
+}
+
 /** The day's music link, only when the catalogue generates its day page. */
 export function musicForDayHref(key: string, pieces: readonly Piece[] = allPieces()): string | null {
   return catalogedDays(pieces).includes(key) ? dayHref(key) : null;
