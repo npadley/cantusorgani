@@ -99,6 +99,7 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
         <a href="/corrections/">Report an error</a>
         <a href="/corrections/log/">Published corrections</a>
         <a href="/llms.txt">AI discovery guide</a>
+        <a href="/admin/">Editors</a>
       </nav>
       </div>
     </footer>
@@ -134,6 +135,11 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
           });
         }
       })();
+    </script>
+
+    <script>
+      import { checkEditorLinks } from "../scripts/editorLinks";
+      void checkEditorLinks();
     </script>
 
     <script data-goatcounter="https://cantusorgani.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>

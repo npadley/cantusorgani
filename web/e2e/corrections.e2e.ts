@@ -112,3 +112,54 @@ test('identifies two reported drawings of the same music file',async({page})=>{
   await queue(page,['a','b'].map(char=>({id:char==='a'?1:2,pieceId:'typeset',target:'typeset:vol-5/x.ly',field:'issue',proposedValue:'lyrics',renderHash:char.repeat(32),status:'pending',createdAt:'2026-10-02'})));
   await page.goto('/corrections/');await expect(page.locator('#queue-list')).toContainText('a'.repeat(32));await expect(page.locator('#queue-list')).toContainText('b'.repeat(32));
 });
+
+
+test.describe("Editor-only Edit links", () => {
+  test("a reader sees Report and the Editors entrance, without checking /me", async ({ page }) => {
+    const checks: string[] = [];
+    page.on("request", request => {
+      if (new URL(request.url()).pathname === "/admin/api/me") checks.push(request.url());
+    });
+    await page.goto("/piece/dominica-i-adventus/");
+    await expect(page.locator(".report-links").first().getByRole("link", { name: /^Report/ })).toBeVisible();
+    await expect(page.locator(".report-links a[href^='/admin/edit/']").first()).toBeHidden();
+    await expect(page.locator("[data-editor-only]:visible")).toHaveCount(0);
+    await expect(page.getByRole("link", { name: "Editors", exact: true })).toHaveAttribute("href", "/admin/");
+    expect(checks).toEqual([]);
+  });
+
+  test("a hint keeps Edit hidden pending /me, then reveals the exact target", async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem("editor", "1"));
+    let confirm: () => void = () => {};
+    const confirmed = new Promise<void>(resolve => { confirm = resolve; });
+    await page.route("**/admin/api/me", async route => {
+      await confirmed;
+      await route.fulfill({ json: { email: "editor@example.org" } });
+    });
+    await page.goto("/piece/dominica-i-adventus/", { waitUntil: "domcontentloaded" });
+    const part = page.locator(".part-head", { hasText: "Gradual" });
+    const edit = part.getByRole("link", { name: /^Edit/, includeHidden: true });
+    await expect(edit).toBeHidden();
+    confirm();
+    await expect(edit).toBeVisible();
+    await expect(edit).toHaveAttribute("href", "/admin/edit/?target=part%3Adominica-i-adventus%2Fgradual");
+    await expect(part.locator("[data-editor-only][aria-hidden='true']")).toBeVisible();
+  });
+
+  test("a stale hint is cleared after /me refuses it", async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem("editor", "1"));
+    await page.route("**/admin/api/me", route => route.fulfill({ status: 403, json: { error: "Not an editor" } }));
+    await page.goto("/piece/dominica-i-adventus/");
+    await expect.poll(() => page.evaluate(() => localStorage.getItem("editor"))).toBeNull();
+    await expect(page.locator("[data-editor-only]:visible")).toHaveCount(0);
+  });
+
+  test("Edit remains hidden without JavaScript", async ({ browser, baseURL }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
+    const page = await context.newPage();
+    await page.goto("/piece/dominica-i-adventus/");
+    await expect(page.locator(".report-links").first().getByRole("link", { name: /^Report/ })).toBeVisible();
+    await expect(page.locator("[data-editor-only]:visible")).toHaveCount(0);
+    await context.close();
+  });
+});
