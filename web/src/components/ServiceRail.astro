@@ -38,6 +38,12 @@ const colour = colourNames[day?.colors[0] ?? ""];
     <p class="small ui">Choose what goes into your PDF.</p>
     <slot name="heading-summary" />
   </header>
+  <template data-woodcut-selection>
+    <div class="woodcut-moment" data-selection-art>
+      <img class="woodcut woodcut-small" loading="lazy" decoding="async" src="/art/v1/detail-chalice-360.webp" srcset="/art/v1/detail-chalice-360.webp 360w, /art/v1/detail-chalice-720.webp 720w" sizes="6rem" width="360" height="412" alt="Detail of a chalice from Dürer's woodcut The Mass of Saint Gregory" />
+      <p>Tick at least one part.</p>
+    </div>
+  </template>
   <ExportBar pieces={pieces} title={title} variant="rail" {...(Astro.props.segments ? { segments: Astro.props.segments } : {})} season={Astro.props.season ?? null} dateLabel={Astro.props.dateLabel ?? null} {...(Astro.props.dayService ? { dayService: Astro.props.dayService } : {})}>
     <slot name="reader-tools" slot="reader-tools" />
   </ExportBar>
@@ -58,3 +64,27 @@ const colour = colourNames[day?.colors[0] ?? ""];
   }
   @media print { .service-rail { display: none; } }
 </style>
+
+<script>
+  // Keep the art in the existing part list, which moves into the phone sheet.
+  // Observe the summary so calendar defaults and Customize returns update it too.
+  for (const rail of document.querySelectorAll<HTMLElement>(".service-rail")) {
+    const template = rail.querySelector<HTMLTemplateElement>("[data-woodcut-selection]");
+    const list = rail.querySelector<HTMLElement>("[data-part-list]");
+    const status = rail.querySelector<HTMLElement>("#selection-status");
+    if (!template || !list || !status) continue;
+    // Single-part pages have no chooser: keep their empty state beside the
+    // summary instead of putting it into the permanently hidden part list.
+    const home = rail.querySelector("[data-choose-parts]") ? list
+      : rail.querySelector<HTMLElement>("[data-selection-home]");
+    if (!home) continue;
+    const update = (): void => {
+      const selected = list.querySelector('input[name="export-part"]:checked:not(:disabled)');
+      const art = home.querySelector("[data-selection-art]");
+      if (selected) art?.remove();
+      else if (!art) home.append(template.content.cloneNode(true));
+    };
+    new MutationObserver(update).observe(status, { childList: true, characterData: true, subtree: true });
+    update();
+  }
+</script>

@@ -291,3 +291,13 @@ test.describe("Dated Vespers at the organ", () => {
     });
   }
 });
+
+
+test("About retains its anchors and credits the woodcut", async ({ page }) => {
+  await page.goto("/about/");
+  for (const id of ["what", "how", "limits", "corrections", "typeset", "sources", "woodcut"]) {
+    await expect(page.locator(`#${id}`)).toHaveCount(1);
+  }
+  await expect(page.locator('a[href="#woodcut"]')).toBeVisible();
+  await expect(page.locator("#woodcut + dd")).toContainText("CC0");
+});

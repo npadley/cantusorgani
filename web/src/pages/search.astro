@@ -11,6 +11,7 @@ const masses = ordinaryMasses();
            placeholder="Et vitam venturi · Missa IX · mode II" />
   </div>
 
+  <template id="search-woodcut"><img class="woodcut" loading="lazy" decoding="async" src="/art/v1/detail-gregory-360.webp" srcset="/art/v1/detail-gregory-360.webp 360w, /art/v1/detail-gregory-720.webp 720w" sizes="(min-width: 62rem) 12rem, 9rem" width="360" height="596" alt="Detail of Saint Gregory from Dürer's woodcut The Mass of Saint Gregory" /></template>
   <div id="search-status" role="status" class="sr-only"></div>
   <div id="results" class="ui"></div>
 
@@ -129,7 +130,12 @@ const masses = ordinaryMasses();
         message.textContent = `No match for “${query}”. ` +
           "Try words from a chant (Et vitam venturi), a Mass number (Missa IX), " +
           "or a mode (mode II).";
-        results.replaceChildren(count, message);
+        const moment = document.createElement("div");
+        moment.className = "woodcut-moment";
+        const template = document.querySelector<HTMLTemplateElement>("#search-woodcut");
+        if (template) moment.append(template.content.cloneNode(true));
+        moment.append(message);
+        results.replaceChildren(count, moment);
         if (status) status.textContent = `No results for “${query}”.`;
         return;
       }
