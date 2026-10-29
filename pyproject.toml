@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Nova Organi Harmonia digitisation pipeline"
 requires-python = ">=3.12"
 dependencies = [
-  "pymupdf>=1.24",
+  "pymupdf>=1.24,<2",  # 2.x pulls in onnxruntime and AI-layout packages we do not use (.github/dependabot.yml)
   "opencv-python-headless>=4.10",
   "numpy>=2.0",
   "pillow>=10.4",
