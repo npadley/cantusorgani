@@ -79,3 +79,10 @@ The Cantus Organi wordmark uses the Latin subset of Manufacturing Consent
 (Google Fonts), copied from the approved Loft concept. The font and its OFL
 licence are at `web/public/fonts/v1/manufacturing-consent/`. It is used only
 for the wordmark, with `font-display: swap`, and is not preloaded.
+
+## Woodcut art — CC0 (public domain)
+
+Albrecht Dürer, *The Mass of Saint Gregory* (1511), The Metropolitan Museum
+of Art, accession 1984.1201.27. Open Access (CC0). The museum’s scan, via
+Wikimedia Commons, supplies the transparent frontispiece and detail WebP
+files in `web/public/art/v1/`. Credits also appear at `/about/#woodcut`.

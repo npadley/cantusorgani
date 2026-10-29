@@ -37,6 +37,12 @@ export function initHymnFilter(root: HTMLElement): void {
     // One live region: the count line carries the no-match sentence too.
     count.textContent = shown === 0 && input.value.trim() ? noMatchText(input.value) : summary(shown, items.length, input.value);
     empty.hidden = shown !== 0;
+    const art = empty.querySelector("img.woodcut");
+    if (empty.hidden) art?.remove();
+    else if (!art) {
+      const template = root.querySelector<HTMLTemplateElement>("[data-hymn-woodcut]");
+      if (template) empty.prepend(template.content.cloneNode(true));
+    }
   }
 
   function reset(): void {
