@@ -1,12 +1,12 @@
 ---
 import Layout from "../components/Layout.astro";
 import { allPieces, hymnIndex } from "../lib/catalog";
-import { DIVISIONS, divisionsWithContent } from "../lib/indexes";
+import { booksIndex } from "../lib/indexes";
 
-const present = divisionsWithContent(allPieces());
-const presentSet = new Set(present.map((d) => d.division));
+const books = booksIndex(allPieces());
+const present = books.filter((d) => d.count > 0);
 // Named honestly, not linked: books whose volumes have not been catalogued yet.
-const pending = DIVISIONS.filter((d) => !presentSet.has(d.division));
+const pending = books.filter((d) => d.count === 0);
 const withMusic = allPieces().filter((p) => p.systems.length > 0).length;
 ---
 
@@ -18,7 +18,7 @@ const withMusic = allPieces().filter((p) => p.systems.length > 0).length;
     <h1>Cantus Organi</h1>
     <p>
       Organ accompaniment to Gregorian chant from the{" "}
-      <em>Nova Organi Harmonia ad Graduale Romanum</em> (Mechelen, 1942) —
+      <em lang="la">Nova Organi Harmonia ad Graduale Romanum</em> (Mechelen, 1942) —
       readable in the browser, and exportable as a PDF for the organ bench.
     </p>
   </div>
@@ -34,38 +34,55 @@ const withMusic = allPieces().filter((p) => p.systems.length > 0).length;
     </a>
   </nav>
 
-  <h2>The books</h2>
-  <ul class="divisions ui">
-    <li>
-      <a href="/hymns/">
-        <span class="card-title">Hymns</span>
-        <span class="la muted" lang="la">Hymni</span>
-        <span class="muted small">Hymns across the books, including alternate settings and tones.</span>
-        <span class="count small">{hymnIndex().length} settings</span>
-      </a>
-    </li>
-    {present.map((d) => (
+  <nav class="discovery-links ui" aria-label="Find more music">
+    <a href="/search/">Search</a>
+    <a href="/hymns/">Hymns</a>
+    <a href="/kyriale/" lang="la">Kyriale</a>
+  </nav>
+
+  <section id="books" aria-labelledby="books-heading">
+    <div class="books-heading">
+      <h2 id="books-heading">The books</h2>
+      <a class="collections-link ui" href="/collections/">Browse collections</a>
+    </div>
+    <ul class="divisions ui">
       <li>
-        <a href={`/${d.slug}/`}>
-          <span class="card-title">{d.en}</span>
-          <span class="la muted" lang="la">{d.la}</span>
-          <span class="muted small">{d.blurb}</span>
-          <span class="count small">{d.count} {d.count === 1 ? "piece" : "pieces"}</span>
+        <a href="/hymns/">
+          <span class="card-title">Hymns</span>
+          <span class="la muted" lang="la">Hymni</span>
+          <span class="muted small">Hymns across the books, including alternate settings and tones.</span>
+          <span class="count small">{hymnIndex().length} settings</span>
         </a>
       </li>
-    ))}
-  </ul>
+      {present.map((d) => (
+        <li>
+          <a href={`/${d.slug}/`}>
+            <span class="card-title">{d.en}</span>
+            <span class="la muted" lang="la">{d.la}</span>
+            <span class="muted small">{d.blurb}</span>
+            <span class="count small">{d.count} {d.count === 1 ? "piece" : "pieces"}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
 
-  {pending.length > 0 && (
-    <p class="pending small muted">
-      Still to be catalogued: {pending.map((d) => d.en).join(", ")}. Each appears
-      here as soon as its volume is processed. {withMusic} pieces are available now.
-    </p>
-  )}
+    {pending.length > 0 && (
+      <p class="pending small muted">
+        Still to be catalogued: {pending.map((d) => d.en).join(", ")}. Each appears
+        here as soon as its volume is processed. {withMusic} pieces are available now.
+      </p>
+    )}
+  </section>
 </Layout>
 
 <style>
-  h2 { margin-top: var(--s-5); padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule); }
+  .discovery-links { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+  .discovery-links a, .collections-link { display: inline-flex; align-items: center; min-height: var(--tap-min); }
+  .books-heading {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-2);
+    margin-top: var(--s-5); padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule);
+  }
+  .books-heading h2 { margin: 0; }
   .calendar-card, .divisions a {
     display: flex; flex-direction: column; gap: var(--s-1);
     padding: var(--s-3); border: 1px solid var(--rule); border-radius: var(--radius);
@@ -83,7 +100,7 @@ const withMusic = allPieces().filter((p) => p.systems.length > 0).length;
   .count { color: var(--accent); }
   .divisions {
     list-style: none; margin: var(--s-3) 0 0; padding: 0;
-    display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
   }
   .pending { margin-top: var(--s-4); }
   @media (max-width: 42rem) {

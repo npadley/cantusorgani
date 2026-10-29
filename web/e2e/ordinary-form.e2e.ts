@@ -353,3 +353,24 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     await context.close();
   });
 });
+
+
+test("home discovery leads to the real books and contribute notice", async ({ page }) => {
+  await page.goto("/");
+  const discovery = page.getByRole("navigation", { name: "Find more music", exact: true });
+  for (const [name, href] of [["Search", "/search/"], ["Hymns", "/hymns/"], ["Kyriale", "/kyriale/"]]) {
+    await expect(discovery.getByRole("link", { name, exact: true })).toHaveAttribute("href", href);
+  }
+  const heading = page.getByRole("heading", { name: "Cantus Organi", exact: true });
+  const size = await heading.evaluate(element => parseFloat(getComputedStyle(element).fontSize));
+  expect(size).toBeGreaterThanOrEqual(28);
+  expect(size).toBeLessThanOrEqual(36);
+  await page.getByRole("link", { name: "Browse collections", exact: true }).click();
+  await expect(page).toHaveURL(/\/collections\/$/);
+  await expect(page.getByRole("heading", { name: "Collections", exact: true })).toBeVisible();
+  await expect(page.locator("#contribute")).toContainText("Submissions are not open yet.");
+  await expect(page.locator("main form")).toHaveCount(0);
+  await page.locator('main #books a[href="/kyriale/"]').click();
+  await expect(page).toHaveURL(/\/kyriale\/$/);
+  await expect(page.getByRole("navigation", { name: "On this page", exact: true })).toBeVisible();
+});

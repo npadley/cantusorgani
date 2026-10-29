@@ -26,7 +26,7 @@ test('the footer keeps its destinations and links to published corrections', asy
 for (const width of [320, 390]) {
   test(`chrome fits at ${width}px with all header destinations`, async ({ page }) => {
     await page.setViewportSize({ width, height: 844 });
-    for (const path of ['/', ...readers]) {
+    for (const path of ['/', '/collections/', ...readers]) {
       await page.goto(path);
       const nav = page.getByRole('navigation', { name: 'Primary', exact: true });
       for (const [name, href] of [
@@ -34,6 +34,7 @@ for (const width of [320, 390]) {
         ['Extraordinary Form (1962) calendar', '/calendar/'],
         ['Ordinary Form calendar', '/calendar/ordinary-form/'],
         ['Search', '/search/'],
+        ['Collections', '/collections/'],
         ['About', '/about/'],
         ['Corrections', '/corrections/'],
       ]) {
@@ -55,7 +56,7 @@ for (const width of [320, 390]) {
         elements.map(element => ({ x: element.getBoundingClientRect().x, y: element.getBoundingClientRect().y })),
       );
       expect(new Set(positions.map(position => position.x)).size).toBe(3);
-      expect(new Set(positions.map(position => position.y)).size).toBe(2);
+      expect(new Set(positions.map(position => position.y)).size).toBe(3);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     }
   });

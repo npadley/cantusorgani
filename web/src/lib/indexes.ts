@@ -48,16 +48,18 @@ export function divisionMeta(division: Division): DivisionMeta {
 
 export interface DivisionSummary extends DivisionMeta { readonly count: number }
 
+/** All printed divisions, including books still to be catalogued, in book order. */
+export function booksIndex(pieces: readonly Piece[]): readonly DivisionSummary[] {
+  const counts = new Map<string, number>();
+  for (const piece of pieces) {
+    counts.set(piece.division, (counts.get(piece.division) ?? 0) + 1);
+  }
+  return DIVISIONS.map((division) => ({ ...division, count: counts.get(division.division) ?? 0 }));
+}
+
 /** Divisions that have at least one catalogued piece, in liturgical-book order. */
 export function divisionsWithContent(pieces: readonly Piece[]): readonly DivisionSummary[] {
-  const counts = new Map<Division, number>();
-  for (const p of pieces) {
-    const division = p.division as Division;
-    counts.set(division, (counts.get(division) ?? 0) + 1);
-  }
-  return DIVISIONS
-    .filter((d) => (counts.get(d.division) ?? 0) > 0)
-    .map((d) => ({ ...d, count: counts.get(d.division) ?? 0 }));
+  return booksIndex(pieces).filter((division) => division.count > 0);
 }
 
 export function piecesIn(pieces: readonly Piece[], division: Division): readonly Piece[] {

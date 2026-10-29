@@ -50,3 +50,17 @@ it("does not advertise an HTML page whose route is configured as a permanent red
   expect(result.status, result.stderr).toBe(0);
   expect(result.xml).not.toContain('/old/');
 });
+
+it("includes Collections once without advertising its contribute anchor as a separate page", () => {
+  const result = check(dir => {
+    mkdirSync(join(dir, "collections"));
+    const html = readFileSync(join(dir, "index.html"), "utf8")
+      .replaceAll('https://cantusorgani.org/"', 'https://cantusorgani.org/collections/"');
+    writeFileSync(join(dir, "collections/index.html"), html + '<section id="contribute">Submissions are not open yet.</section>');
+  });
+  expect(result.status, result.stderr).toBe(0);
+  expect(result.xml).toContain('<loc>https://cantusorgani.org/collections/</loc>');
+  expect(result.xml.match(/<loc>/g)).toHaveLength(2);
+  expect(result.xml).not.toContain('#contribute');
+  expect(result.xml).not.toContain('<lastmod>');
+});

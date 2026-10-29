@@ -5,6 +5,7 @@ import { observance } from "./liturgy";
 import type { Piece } from "./catalog";
 import {
   DIVISIONS,
+  booksIndex,
   catalogedDays,
   communeDays,
   dayHref,
@@ -225,5 +226,22 @@ describe("communeDays", () => {
 
   it("should list nothing when no piece has a Common day", () => {
     expect(communeDays([piece({ slug: "x", days: ["sancti:10-DU"] })])).toEqual([]);
+  });
+});
+
+describe("booksIndex", () => {
+  it("keeps printed book order and names uncatalogued divisions with zero counts", () => {
+    const books = booksIndex([piece({ division: "kyriale" }), piece({ division: "temporale" })]);
+    expect(books.map(book => book.division)).toEqual([
+      "temporale", "sanctorale", "commune", "kyriale", "defunctorum", "vesperale", "varia",
+    ]);
+    expect(books.map(book => book.count)).toEqual([1, 0, 0, 1, 0, 0, 0]);
+    expect(books.map(book => book.slug)).toEqual(DIVISIONS.map(book => book.slug));
+  });
+
+  it("counts each real catalogue piece once without changing the content-only index", () => {
+    const books = booksIndex(allPieces());
+    expect(books.reduce((total, book) => total + book.count, 0)).toBe(allPieces().length);
+    expect(books.filter(book => book.count > 0)).toEqual(divisionsWithContent(allPieces()));
   });
 });

@@ -1,0 +1,63 @@
+---
+import Layout from "../components/Layout.astro";
+import { allPieces } from "../lib/catalog";
+import { booksIndex } from "../lib/indexes";
+
+const books = booksIndex(allPieces());
+---
+
+<Layout
+  title="Collections"
+  description="Browse the books of Nova Organi Harmonia in printed order, with links to the catalogued organ accompaniments."
+>
+  <div class="prose">
+    <h1>Collections</h1>
+    <p>Browse the books in their printed order.</p>
+  </div>
+
+  <section id="books" aria-labelledby="noh-heading">
+    <h2 id="noh-heading" lang="la">Nova Organi Harmonia</h2>
+    <p class="prose">
+      <cite lang="la">Nova Organi Harmonia ad Graduale Romanum</cite>.
+      Lemmens Institute, Mechelen: H. Dessain, 1942. Eight volumes.
+    </p>
+    <ul class="books ui">
+      {books.map((book) => (
+        <li>
+          {book.count > 0 ? (
+            <a href={`/${book.slug}/`}>
+              <span class="book-title">{book.en}<span class="muted" lang="la">{book.la}</span></span>
+              <span class="count small">{book.count} {book.count === 1 ? "piece" : "pieces"}</span>
+            </a>
+          ) : (
+            <div class="uncatalogued">
+              <span class="book-title">{book.en}<span class="muted" lang="la">{book.la}</span></span>
+              <span class="muted small">Not yet catalogued</span>
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section id="contribute" class="prose" aria-labelledby="contribute-heading">
+    <h2 id="contribute-heading">Contribute a collection</h2>
+    <p>Submissions are not open yet. Source permissions and musical review will be assessed separately.</p>
+  </section>
+</Layout>
+
+<style>
+  section { margin-top: var(--s-5); }
+  .books { list-style: none; margin: var(--s-3) 0 0; padding: 0; }
+  .books li { border-top: 1px solid var(--rule); }
+  .books li:last-child { border-bottom: 1px solid var(--rule); }
+  .books a, .uncatalogued {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+    gap: var(--s-2) var(--s-3); min-height: var(--tap-min); padding: var(--s-3) 0;
+  }
+  .books a { color: var(--ink); text-decoration: none; }
+  .books a:hover { background: var(--surface); }
+  .book-title { display: flex; flex-direction: column; }
+  .book-title [lang="la"] { font-family: var(--font-text); font-style: italic; }
+  .count { color: var(--accent); }
+</style>
