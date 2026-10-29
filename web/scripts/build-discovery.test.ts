@@ -51,6 +51,20 @@ it("does not advertise an HTML page whose route is configured as a permanent red
   expect(result.xml).not.toContain('/old/');
 });
 
+it("includes Collections once without advertising its contribute anchor as a separate page", () => {
+  const result = check(dir => {
+    mkdirSync(join(dir, "collections"));
+    const html = readFileSync(join(dir, "index.html"), "utf8")
+      .replaceAll('https://cantusorgani.org/"', 'https://cantusorgani.org/collections/"');
+    writeFileSync(join(dir, "collections/index.html"), html + '<section id="contribute">Submissions are not open yet.</section>');
+  });
+  expect(result.status, result.stderr).toBe(0);
+  expect(result.xml).toContain('<loc>https://cantusorgani.org/collections/</loc>');
+  expect(result.xml.match(/<loc>/g)).toHaveLength(2);
+  expect(result.xml).not.toContain('#contribute');
+  expect(result.xml).not.toContain('<lastmod>');
+});
+
 it("includes recurring hubs and both dated Vespers routes in the sitemap", () => {
   const paths = ["vespers/tempora/Epi5-0", "vespers/2026-11-01", "vespers/2026-11-01/i"];
   const result = check(dir => {

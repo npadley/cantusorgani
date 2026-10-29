@@ -26,24 +26,38 @@ test('the footer keeps its destinations and links to published corrections', asy
 for (const width of [320, 390]) {
   test(`chrome fits at ${width}px with all header destinations`, async ({ page }) => {
     await page.setViewportSize({ width, height: 844 });
-    for (const path of ['/', ...readers]) {
+    for (const path of ['/', '/collections/', ...readers]) {
       await page.goto(path);
+      await page.evaluate(() => document.fonts.ready);
       const nav = page.getByRole('navigation', { name: 'Primary', exact: true });
+      if (width === 390) {
+        // Before Collections: 16px padding + 44px brand + 4px gap +
+        // two 44px nav rows + 4px row gap + 1px rule = 157px.
+        const headerBox = await page.getByRole('banner').boundingBox();
+        expect(headerBox).not.toBeNull();
+        expect(headerBox!.height).toBeLessThanOrEqual(157);
+      }
       for (const [name, href] of [
         ['Cantus Organi', '/'],
         ['Extraordinary Form (1962) calendar', '/calendar/'],
         ['Ordinary Form calendar', '/calendar/ordinary-form/'],
         ['Search', '/search/'],
+        ['Collections of books', '/collections/'],
         ['About', '/about/'],
-        ['Corrections', '/corrections/'],
+        ['Corrections: report an error', '/corrections/'],
       ]) {
         const link = nav.getByRole('link', { name, exact: true });
         await expect(link).toBeVisible();
         await expect(link).toHaveAttribute('href', href);
         const box = await link.boundingBox();
         expect(box?.height).toBeGreaterThanOrEqual(44);
+        expect(box?.width).toBeGreaterThanOrEqual(44);
       }
-      await expect(nav.getByRole('button', { name: 'Invert', exact: true })).toBeVisible();
+      const invert = nav.getByRole('button', { name: 'Invert', exact: true });
+      await expect(invert).toBeVisible();
+      const invertBox = await invert.boundingBox();
+      expect(invertBox?.height).toBeGreaterThanOrEqual(44);
+      expect(invertBox?.width).toBeGreaterThanOrEqual(44);
       const brand = nav.getByRole('link', { name: 'Cantus Organi', exact: true });
       const brandBox = await brand.boundingBox();
       expect(brandBox).not.toBeNull();
@@ -54,7 +68,7 @@ for (const width of [320, 390]) {
       const positions = await grid.locator(':scope > *').evaluateAll(elements =>
         elements.map(element => ({ x: element.getBoundingClientRect().x, y: element.getBoundingClientRect().y })),
       );
-      expect(new Set(positions.map(position => position.x)).size).toBe(3);
+      expect(new Set(positions.map(position => position.x)).size).toBe(4);
       expect(new Set(positions.map(position => position.y)).size).toBe(2);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     }
