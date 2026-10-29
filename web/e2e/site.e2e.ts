@@ -271,3 +271,25 @@ for (const [slug, first, last, count] of [
     await expect(scans.first()).toBeVisible();
   });
 }
+
+
+test.describe("Dated Vespers at the organ", () => {
+  for (const url of ["/vespers/2026-11-08/", "/vespers/2026-11-01/i/"]) {
+    test(`keeps export reachable from the first antiphon to Magnificat at 390px: ${url}`, async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.goto(url);
+      const choose = page.getByRole("button", { name: /^Choose parts/ });
+      for (const anchor of ["psalm-1", "magnificat"]) {
+        await page.locator(`#${anchor}`).scrollIntoViewIfNeeded();
+        await expect(choose).toBeInViewport({ ratio: 1 });
+        await expect(page.locator("#export-btn")).toBeInViewport({ ratio: 1 });
+        await expect(page.locator("#export-customize")).toBeInViewport({ ratio: 1 });
+        await choose.click();
+        const sheet = page.getByRole("dialog", { name: "Choose parts", exact: true });
+        await expect(sheet).toBeVisible();
+        await sheet.getByRole("button", { name: "Done", exact: true }).click();
+        await expect(choose).toBeFocused();
+      }
+    });
+  }
+});
