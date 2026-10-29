@@ -24,6 +24,7 @@ const [first, last] = CALENDAR_SOURCE.years;
     </p>
   </div>
 
+  <div id="ef-calendar" data-calendar-root>
   <form id="picker" class="picker ui no-print" novalidate>
     <label for="date" class="sr-only">Date</label>
     <input id="date" name="date" type="date" min={`${first}-01-01`} max={`${last}-12-31`} />
@@ -35,9 +36,11 @@ const [first, last] = CALENDAR_SOURCE.years;
     </div>
   </form>
 
-  <article id="result" aria-live="polite">
+  <p id="calendar-status" class="sr-only" role="status"></p>
+  <article id="result">
     <noscript><p class="notice">The calendar needs JavaScript to look up a date.</p></noscript>
   </article>
+  </div>
 
   <p class="source small muted">
     Calendar computed with <a href={CALENDAR_SOURCE.url}>{CALENDAR_SOURCE.source}</a>
@@ -70,7 +73,7 @@ const [first, last] = CALENDAR_SOURCE.years;
   #result .latin { font-style: italic; margin: var(--s-1) 0; }
   #result .meta { font-family: var(--font-ui); font-size: var(--step--1); color: var(--ink-muted);
                   display: flex; align-items: center; gap: var(--s-2); }
-  #result .swatch { width: 0.9rem; height: 0.9rem; border: 1px solid var(--rule); display: inline-block; }
+  #result .accompaniments { display: inline-flex; align-items: center; min-height: var(--tap-min); margin-top: var(--s-2); padding: var(--s-2) var(--s-3); border: 1px solid var(--accent); border-radius: var(--radius); font-family: var(--font-ui); font-weight: 600; }
   #result .music { margin: var(--s-3) 0 0; }
   #result .music dt { font-family: var(--font-ui); font-size: var(--step--1); color: var(--ink-muted); }
   #result .music dd { margin: 0 0 var(--s-2); }
@@ -84,14 +87,10 @@ const [first, last] = CALENDAR_SOURCE.years;
     kyrialeFor, loadYear, nextSunday, observance, parseIso, properSource, seasonForDate, today,
   } from "../../lib/liturgy";
   import type { LocalDate } from "../../lib/liturgy";
-  import { dayHref } from "../../lib/indexes";
+  import { calendarDayHref, calendarAnnouncement, CALENDAR_MARKERS } from "../../lib/calendarLinks";
   import { goodFridayHref } from "../../lib/goodFriday";
 
   interface Link { title: string; href: string; division?: string }
-
-  const SWATCH: Record<string, string> = {
-    w: "#f6f3ea", r: "#9b1c1c", v: "#5b2a86", g: "#2e6b30", b: "#111111", p: "#d98aa6",
-  };
 
   function readJson<T>(id: string): T {
     return JSON.parse(document.getElementById(id)?.textContent ?? "{}") as T;
@@ -101,6 +100,18 @@ const [first, last] = CALENDAR_SOURCE.years;
 
   const input = document.getElementById("date") as HTMLInputElement;
   const result = document.getElementById("result") as HTMLElement;
+
+  const status = document.getElementById("calendar-status") as HTMLElement;
+  let request = 0;
+  function announce(message: string): void {
+    status.textContent = status.textContent === message ? `${message}\u00a0` : message;
+  }
+  function invalid(userChange: boolean): void {
+    const [first, last] = CALENDAR_SOURCE.years;
+    const message = `Enter a valid date from ${first}-01-01 to ${last}-12-31.`;
+    result.replaceChildren(el("p", message, "notice"));
+    if (userChange) announce(message);
+  }
 
   // Every node is built with createElement/textContent -- never innerHTML.
   function el<K extends keyof HTMLElementTagNameMap>(tag: K, text?: string, cls?: string) {
@@ -123,16 +134,23 @@ const [first, last] = CALENDAR_SOURCE.years;
     });
   }
 
-  async function show(d: LocalDate): Promise<void> {
+  async function show(d: LocalDate, userChange = true, popstate = false): Promise<void> {
+    const pending = ++request;
     input.value = isoOf(d);
-    history.replaceState(null, "", `?date=${isoOf(d)}`);
+    if (!popstate) {
+      if (userChange) history.pushState(null, "", `?date=${isoOf(d)}`);
+      else history.replaceState(null, "", `?date=${isoOf(d)}`);
+    }
     const calendar = await loadYear(d.year);
+    if (pending !== request) return;
     result.replaceChildren();
 
     result.append(el("h2", longDate(d), "date-heading"));
     if (!calendar) {
       const [a, b] = CALENDAR_SOURCE.years;
-      result.append(el("p", `The calendar covers ${a}–${b}. Choose a date in that range.`, "notice"));
+      const message = `The calendar covers ${a}–${b}. Choose a date in that range.`;
+      result.append(el("p", message, "notice"));
+      if (userChange) announce(message);
       return;
     }
     const season = SEASON_LABELS[seasonForDate(d)];
@@ -143,17 +161,19 @@ const [first, last] = CALENDAR_SOURCE.years;
     result.append(seasonLine);
 
     const day = calendar[isoOf(d)];
+    let firstTitle = "";
     for (const key of day?.celebration ?? []) {
       const o = observance(key);
       if (!o) continue;
       const block = el("section", undefined, "observance");
-      block.append(el("h2", o.flexibility === "" ? `Feria · ${season.en}` : o.titleEn));
+      const title = o.flexibility === "" ? `Feria · ${season.en}` : o.titleEn;
+      firstTitle ||= title;
+      block.append(el("h2", title));
       if (o.flexibility !== "") block.append(el("p", o.titleLa, "latin"));
 
       const meta = el("p", undefined, "meta");
       const colour = colorOf(o, d);
-      const swatch = el("span", undefined, "swatch");
-      swatch.style.background = SWATCH[colour] ?? "transparent";
+      const swatch = el("span", undefined, `day-marker day-marker--${CALENDAR_MARKERS[colour] ?? "white"}`);
       swatch.setAttribute("aria-hidden", "true");
       meta.append(swatch, `${COLOR_LABELS[colour] ?? colour} · ${classLabel(o.rank)}`);
       block.append(meta);
@@ -167,11 +187,14 @@ const [first, last] = CALENDAR_SOURCE.years;
       const properDd = el("dd");
       const chantsOnly = goodFridayHref(key);
       if (source) {
+        const cta = link("Read and choose this day's music", calendarDayHref(source, isoOf(d)));
+        cta.className = "accompaniments";
+        block.append(cta);
         massOf(source.key).forEach((p, i) => {
           if (i) properDd.append(" · ");
           properDd.append(link(p.title, p.href));
         });
-        properDd.append(" · ", link("all for this day", dayHref(source.key)));
+        properDd.append(" · ", link("all for this day", calendarDayHref(source, isoOf(d))));
         if (source.borrowed) {
           const from = observance(source.key);
           properDd.append(el("p", `No Mass of its own: the 1962 rubrics take the Mass of ${from?.titleEn ?? "the Sunday before"}.`, "note"));
@@ -219,6 +242,7 @@ const [first, last] = CALENDAR_SOURCE.years;
 
     const comms = (day?.commemoration ?? []).map((key) => observance(key)?.titleEn).filter(Boolean);
     if (comms.length) result.append(el("p", `Commemoration: ${comms.join("; ")}`, "commemorations"));
+    if (userChange) announce(calendarAnnouncement(isoOf(d), firstTitle || "No observance recorded"));
   }
 
   function current(): LocalDate {
@@ -230,8 +254,27 @@ const [first, last] = CALENDAR_SOURCE.years;
   document.querySelector("[data-go=today]")?.addEventListener("click", () => void show(today()));
   document.querySelector("[data-go=sunday]")?.addEventListener("click", () =>
     void show(nextSunday(current())));
-  input.addEventListener("change", () => { const d = parseIso(input.value); if (d) void show(d); });
-
-  const requested = parseIso(new URLSearchParams(location.search).get("date") ?? "");
-  void show(requested ?? today());
+  function submitDate(): void {
+    const date = parseIso(input.value);
+    if (date) void show(date);
+    else { request++; invalid(true); }
+  }
+  // Enter can fire both change and submit; coalesce them into one date action.
+  let submission: ReturnType<typeof setTimeout> | undefined;
+  function queueDate(): void {
+    clearTimeout(submission);
+    submission = setTimeout(submitDate, 0);
+  }
+  input.addEventListener("change", queueDate);
+  document.getElementById("picker")?.addEventListener("submit", event => {
+    event.preventDefault(); queueDate();
+  });
+  function readLocation(userChange: boolean): void {
+    const raw = new URLSearchParams(location.search).get("date");
+    const requested = raw === null ? today() : parseIso(raw);
+    if (requested) void show(requested, userChange, userChange);
+    else { request++; invalid(userChange); }
+  }
+  window.addEventListener("popstate", () => readLocation(true));
+  readLocation(false);
 </script>

@@ -26,7 +26,8 @@ test("related VII settings appear on day and both dated office pages", async ({ 
 
 test("VII reference-only antiphons link to their containing scores", async ({ page }) => {
   await page.goto("/piece/varia-exsurge-domine/");
-  await expect(page.locator('a[href="/piece/varia-in-litaniis-maioribus-et-minoribus/"]')).toBeVisible();
+  // The reference notice, not the Next link to the same score.
+  await expect(page.locator('.notice a[href="/piece/varia-in-litaniis-maioribus-et-minoribus/"]')).toBeVisible();
   await expect(page.locator("#music img")).toHaveCount(0);
 });
 

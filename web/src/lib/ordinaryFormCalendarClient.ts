@@ -1,5 +1,6 @@
 import { addDays, isoOf, nextSunday, parseIso, today, weekday, type LocalDate } from "./liturgy";
 import { OF_SEASON_LABELS, ofDay, type OfSettings } from "./ordinaryForm";
+import { CALENDAR_MARKERS, calendarAnnouncement } from "./calendarLinks";
 import { ofQuery, readOfSettings } from "./ordinaryFormSettings";
 import type { OfSeason } from "./ordinaryForm";
 
@@ -18,10 +19,7 @@ interface Occasion {
 interface Data { readonly [key: string]: Occasion }
 
 const MIN_YEAR = 2024, MAX_YEAR = 2050;
-const COLORS: Record<string, { label: string; swatch: string }> = {
-  w: { label: "White", swatch: "#f6f3ea" }, g: { label: "Green", swatch: "#2e6b30" },
-  v: { label: "Violet", swatch: "#5b2a86" }, r: { label: "Red", swatch: "#9b1c1c" },
-};
+const COLOR_LABELS: Record<string, string> = { w: "White", g: "Green", v: "Violet", r: "Red" };
 const SEASONS: Record<Season, string> = OF_SEASON_LABELS;
 const CHRISTMAS_OPTIONS = [
   ["christmas-night", "Mass during the Night"], ["christmas-dawn", "Mass at Dawn"], ["christmas-day", "Mass during the Day"],
@@ -36,8 +34,9 @@ function element<K extends keyof HTMLElementTagNameMap>(tag: K, text?: string, c
 function anchor(label: string, href: string): HTMLAnchorElement {
   const link = element("a", label); link.href = href; return link;
 }
-function occasionHref(key: string, cycle: Cycle, season: Season): string {
+export function occasionHref(key: string, cycle: Cycle, season: Season, date: LocalDate, settings: OfSettings): string {
   const query = new URLSearchParams({ cycle, season });
+  ofQuery(date, settings).forEach((value, name) => query.set(name, value));
   return `/ordinary-form/${encodeURIComponent(key)}/?${query}`;
 }
 function longDate(date: LocalDate): string {
@@ -89,6 +88,10 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
   const feedback = root.querySelector<HTMLElement>("#date-feedback");
   if (!input || !result || !feedback) return;
   const dateInput = input, results = result, dateFeedback = feedback;
+  const status = root.querySelector<HTMLElement>("#calendar-status");
+  function announce(message: string): void {
+    if (status) status.textContent = status.textContent === message ? `${message}\u00a0` : message;
+  }
   let params = new URLSearchParams(window.location.search);
   let currentDate = readIsoParameter(params).date;
   let settings = readOfSettings(params);
@@ -119,14 +122,15 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
     wrap.append(gb);
     return wrap;
   }
-  function render(date: LocalDate): void {
+  function render(date: LocalDate, userChange = false): void {
     currentDate = date;
     dateInput.value = isoOf(date);
     results.replaceChildren();
     results.append(element("h2", longDate(date), "date-heading"));
-    if (dateError) { announceInvalid(dateError); return; }
+    if (dateError) { announceInvalid(dateError); if (userChange) announce(dateError); return; }
     if (!inRange(date)) {
       announceInvalid(`The Ordinary Form calendar covers ${MIN_YEAR}–${MAX_YEAR}. Choose a date in that range.`);
+      if (userChange && dateError) announce(dateError);
       return;
     }
     clearInvalid();
@@ -145,10 +149,10 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
           latin.lang = "la";
           block.append(latin);
         }
-        const color = COLORS[occasion.color] ?? { label: occasion.color, swatch: "transparent" };
+        const color = COLOR_LABELS[occasion.color] ?? occasion.color;
         const meta = element("p", undefined, "meta");
-        const swatch = element("span", undefined, "swatch"); swatch.style.background = color.swatch; swatch.setAttribute("aria-hidden", "true");
-        meta.append(swatch, `${color.label} · ${occasion.rank.replaceAll("-", " ")}`);
+        const swatch = element("span", undefined, `day-marker day-marker--${CALENDAR_MARKERS[occasion.color] ?? "white"}`); swatch.setAttribute("aria-hidden", "true");
+        meta.append(swatch, `${color} · ${occasion.rank.replaceAll("-", " ")}`);
         block.append(meta);
         if (occasion.rubric) block.append(element("p", occasion.rubric, "note rubric"));
         const music = element("dl", undefined, "music");
@@ -181,11 +185,11 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
             if (i) links.append(" · ");
             const occasionChoice = data[choice.key]!;
             links.append(anchor(`View ${occasionChoice.titleEn} accompaniments`,
-              occasionHref(choice.key, choice.sundayCycle, choice.season)));
+              occasionHref(choice.key, choice.sundayCycle, choice.season, date, settings)));
           });
           block.append(links);
         } else {
-          const cta = anchor("View accompaniments for this occasion", occasionHref(key, day.sundayCycle, day.season));
+          const cta = anchor("View accompaniments for this occasion", occasionHref(key, day.sundayCycle, day.season, date, settings));
           cta.className = "accompaniments"; block.append(cta);
         }
         results.append(block);
@@ -193,19 +197,19 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
     } else if (day.season === "ordinary" && day.sundayMassOccasion) {
       const rubric = element("p", "the chants of this week's Sunday Mass may be used", "note");
       const sunday = data[day.sundayMassOccasion];
-      if (sunday) rubric.append(" · ", anchor(`${sunday.titleEn} (Sunday Mass of this week)`, occasionHref(sunday.key, day.sundayCycle, day.season)));
+      if (sunday) rubric.append(" · ", anchor(`${sunday.titleEn} (Sunday Mass of this week)`, occasionHref(sunday.key, day.sundayCycle, day.season, date, settings)));
       results.append(rubric);
     } else if (day.season === "ordinary") {
       const rubric = element("p", "the chants of the preceding Sunday may be used", "note");
       if (day.precedingSundayOccasion) {
         const prior = data[day.precedingSundayOccasion];
-        if (prior) rubric.append(" · ", anchor(`${prior.titleEn} (preceding Sunday)`, occasionHref(prior.key, day.sundayCycle, day.season)));
+        if (prior) rubric.append(" · ", anchor(`${prior.titleEn} (preceding Sunday)`, occasionHref(prior.key, day.sundayCycle, day.season, date, settings)));
       }
       results.append(rubric);
     } else if (day.sundayMassOccasion) {
       const rubric = element("p", "the chants of the Sunday are repeated on this weekday", "note");
       const sunday = data[day.sundayMassOccasion];
-      if (sunday) rubric.append(" · ", anchor(`${sunday.titleEn} (Mass of the Sunday)`, occasionHref(sunday.key, day.sundayCycle, day.season)));
+      if (sunday) rubric.append(" · ", anchor(`${sunday.titleEn} (Mass of the Sunday)`, occasionHref(sunday.key, day.sundayCycle, day.season, date, settings)));
       results.append(rubric);
     } else if (day.season === "triduum") {
       results.append(element("p", "No Mass is celebrated during the day.", "note"));
@@ -213,13 +217,13 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
 
     if (day.vigil) {
       const options = element("p", undefined, "occasion-options");
-      options.append("Vigil (evening): ", anchor(data[day.vigil]?.titleEn ?? "Vigil", occasionHref(day.vigil, day.sundayCycle, day.season)));
+      options.append("Vigil (evening): ", anchor(data[day.vigil]?.titleEn ?? "Vigil", occasionHref(day.vigil, day.sundayCycle, day.season, date, settings)));
       results.append(options);
     }
     if (day.readingChantsOccasion && data[day.readingChantsOccasion]) {
       const options = element("p", undefined, "occasion-options");
       options.append("Optional chants suited to the readings: ",
-        anchor(data[day.readingChantsOccasion]!.titleEn, occasionHref(day.readingChantsOccasion, day.sundayCycle, day.season)));
+        anchor(data[day.readingChantsOccasion]!.titleEn, occasionHref(day.readingChantsOccasion, day.sundayCycle, day.season, date, settings)));
       results.append(options);
     }
     if (key === "christmas-day") {
@@ -227,9 +231,14 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
       options.append("Christmas Mass options: ");
       CHRISTMAS_OPTIONS.forEach(([option, label], i) => {
         if (i) options.append(" · ");
-        options.append(anchor(label, occasionHref(option, day.sundayCycle, "christmas")));
+        options.append(anchor(label, occasionHref(option, day.sundayCycle, "christmas", date, settings)));
       });
       results.append(options);
+    }
+    if (userChange) {
+      const titleKey = key ?? day.sundayMassOccasion ?? day.precedingSundayOccasion;
+      const title = titleKey ? data[titleKey]?.titleEn : null;
+      announce(calendarAnnouncement(isoOf(date), title ?? (day.season === "triduum" ? "No Mass is celebrated during the day" : "Feria"), day.sundayCycle));
     }
   }
   function refreshNavigation(): void {
@@ -239,8 +248,9 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
     if (next) next.disabled = isoOf(currentDate) >= `${MAX_YEAR}-12-31`;
   }
   function move(date: LocalDate): void {
-    if (!inRange(date)) { render(date); refreshNavigation(); return; }
-    clearInvalid(); currentDate = date; serialize(true); render(date); refreshNavigation();
+    clearInvalid();
+    if (!inRange(date)) { render(date, true); refreshNavigation(); return; }
+    currentDate = date; serialize(true); render(date, true); refreshNavigation();
   }
 
   root.querySelectorAll<HTMLButtonElement>("[data-step]").forEach(button => button.addEventListener("click", () => move(addDays(currentDate, Number(button.dataset["step"])) )));
@@ -249,17 +259,23 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
   function submitDate(): void {
     const value = dateInput.value;
     const date = parseIso(value);
-    if (!date) { announceInvalid(`Enter a valid date from ${MIN_YEAR}-01-01 to ${MAX_YEAR}-12-31.`); return; }
+    if (!date) { announceInvalid(`Enter a valid date from ${MIN_YEAR}-01-01 to ${MAX_YEAR}-12-31.`); announce(dateError!); return; }
     dateError = null; move(date);
   }
-  dateInput.addEventListener("change", submitDate);
+  // Enter can fire both change and submit; coalesce them into one date action.
+  let submission: ReturnType<typeof setTimeout> | undefined;
+  function queueDate(): void {
+    clearTimeout(submission);
+    submission = setTimeout(submitDate, 0);
+  }
+  dateInput.addEventListener("change", queueDate);
   root.querySelector<HTMLFormElement>("#picker")?.addEventListener("submit", event => {
-    event.preventDefault(); submitDate();
+    event.preventDefault(); queueDate();
   });
   window.addEventListener("popstate", () => {
     params = new URLSearchParams(window.location.search);
     const parsed = readIsoParameter(params); currentDate = parsed.date; dateError = parsed.error;
-    settings = readOfSettings(params); render(currentDate); refreshNavigation();
+    settings = readOfSettings(params); render(currentDate, true); refreshNavigation();
   });
   const initial = readIsoParameter(params);
   currentDate = initial.date; dateError = initial.error;
