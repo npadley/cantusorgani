@@ -9,10 +9,13 @@
     color: var(--ink-muted);
     overflow-wrap: anywhere;
   }
+  /* A 44px tap target that overlaps the space around the line instead of
+     adding to it, so the music starts higher on a phone. */
   .crumb :global(a) {
     display: inline-flex;
     align-items: center;
     min-height: var(--tap-min);
+    margin-block: calc((1.5em - var(--tap-min)) / 2);
     color: inherit;
   }
 </style>
