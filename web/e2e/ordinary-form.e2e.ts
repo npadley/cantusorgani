@@ -70,16 +70,16 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     const options = page.locator(".accompaniment-choices a");
     await expect(options).toHaveCount(2);
     const epiphany = page.getByRole("link", { name: "View The Epiphany of the Lord accompaniments" });
-    await expect(epiphany).toHaveAttribute("href", "/ordinary-form/epiphany/?cycle=A&season=christmas");
+    await expect(epiphany).toHaveAttribute("href", "/ordinary-form/epiphany/?cycle=A&season=christmas&date=2026-01-04&epiphany=jan6&ascension=thursday&corpusChristi=thursday");
     await epiphany.click();
     await expect(page).toHaveURL(/\/ordinary-form\/epiphany\/\?cycle=A&season=christmas/);
     await expect(page.locator("#of-export-note")).toContainText("Year A · christmas season");
     await page.goto("/calendar/ordinary-form/?date=2026-05-17&ascension=sunday");
     await expect(page.getByRole("heading", { name: "The Ascension of the Lord" })).toBeVisible();
     await expect(page.getByRole("link", { name: "View 7th Sunday of Easter accompaniments" }))
-      .toHaveAttribute("href", "/ordinary-form/easter-7/?cycle=A&season=easter");
+      .toHaveAttribute("href", "/ordinary-form/easter-7/?cycle=A&season=easter&date=2026-05-17&epiphany=jan6&ascension=sunday&corpusChristi=thursday");
     await expect(page.getByRole("link", { name: "View The Ascension of the Lord accompaniments" }))
-      .toHaveAttribute("href", "/ordinary-form/ascension/?cycle=A&season=easter");
+      .toHaveAttribute("href", "/ordinary-form/ascension/?cycle=A&season=easter&date=2026-05-17&epiphany=jan6&ascension=sunday&corpusChristi=thursday");
   });
 
   test("browser back and forward restore the selected date and live result", async ({ page }) => {
@@ -289,7 +289,7 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     await page.goto("/calendar/ordinary-form/?date=2025-12-01");
     await expect(page.getByText("the chants of the Sunday are repeated on this weekday")).toBeVisible();
     await expect(page.getByRole("link", { name: "1st Sunday of Advent (Mass of the Sunday)" }))
-      .toHaveAttribute("href", "/ordinary-form/advent-1/?cycle=A&season=advent");
+      .toHaveAttribute("href", "/ordinary-form/advent-1/?cycle=A&season=advent&date=2025-12-01&epiphany=jan6&ascension=thursday&corpusChristi=thursday");
     await page.goto("/calendar/ordinary-form/?date=2026-04-04");
     await expect(page.getByText("No Mass is celebrated during the day.")).toBeVisible();
     await page.goto("/calendar/ordinary-form/?date=2051-01-01");
@@ -312,9 +312,9 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     await page.goto("/calendar/ordinary-form/?date=2026-06-07");
     await expect(page.getByRole("heading", { name: "Sunday 10 in Ordinary Time" })).toBeVisible();
     await expect(page.getByRole("link", { name: "View The Most Holy Body and Blood of Christ accompaniments" }))
-      .toHaveAttribute("href", "/ordinary-form/corpus-christi/?cycle=A&season=ordinary");
+      .toHaveAttribute("href", "/ordinary-form/corpus-christi/?cycle=A&season=ordinary&date=2026-06-07&epiphany=jan6&ascension=thursday&corpusChristi=thursday");
     await expect(page.getByRole("link", { name: "View Sunday 10 in Ordinary Time accompaniments" }))
-      .toHaveAttribute("href", "/ordinary-form/ot-10/?cycle=A&season=ordinary");
+      .toHaveAttribute("href", "/ordinary-form/ot-10/?cycle=A&season=ordinary&date=2026-06-07&epiphany=jan6&ascension=thursday&corpusChristi=thursday");
     await expect(page).toHaveURL(/date=2026-06-07.*epiphany=jan6.*ascension=thursday.*corpusChristi=thursday/);
     await page.goto("/calendar/ordinary-form/?date=2026-06-08");
     await expect(page.locator(".accompaniment-choices")).toHaveCount(0);
