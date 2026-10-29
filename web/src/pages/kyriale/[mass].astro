@@ -1,4 +1,5 @@
 ---
+import Crumbs from "../../components/Crumbs.astro";
 import ChantPair from "../../components/ChantPair.astro";
 import ServiceRail from "../../components/ServiceRail.astro";
 import SourceBlock from "../../components/SourceBlock.astro";
@@ -38,9 +39,9 @@ const exportParts = exportSegments([piece]);
   </ServiceRail>
   <article class="reading-column">
     <header class="head">
-      <p class="crumb small muted ui">
+      <Crumbs>
         <a href="/">Cantus Organi</a> · <a href="/kyriale/">Kyriale</a>
-      </p>
+      </Crumbs>
       <h1>Missa {piece.label}</h1>
       <p class="lede">{piece.incipit ?? piece.title}</p>
       <p class="meta ui small muted">
@@ -79,8 +80,6 @@ const exportParts = exportSegments([piece]);
   .edit-link { margin: var(--s-5) 0 0; padding-top: var(--s-2); border-top: 1px solid var(--rule); }
   .edit-link a { color: var(--ink-muted); }
   .head { margin-bottom: var(--s-4); }
-  .crumb { margin: 0 0 var(--s-1); }
-  .crumb a { color: var(--ink-muted); }
   h1 { margin: 0; }
   .lede { font-size: var(--step-1); margin: 0 0 var(--s-1); font-style: italic; }
   .meta { margin: 0; }

@@ -72,3 +72,10 @@ Vendored dump: `vendor/gregobase_online.sql` (untracked, 17.1 MB)
 sha256 `3759c60b529b57fa13f696bfacf748d40a285a847d859276667749caa76de080`
 retrieved 2026-09-07 from
 https://raw.githubusercontent.com/gregorio-project/GregoBase/master/gregobase_online.sql
+
+## Manufacturing Consent — SIL Open Font License 1.1
+
+The Cantus Organi wordmark uses the Latin subset of Manufacturing Consent
+(Google Fonts), copied from the approved Loft concept. The font and its OFL
+licence are at `web/public/fonts/v1/manufacturing-consent/`. It is used only
+for the wordmark, with `font-display: swap`, and is not preloaded.

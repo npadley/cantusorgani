@@ -20,3 +20,29 @@ it('only animates the skip link when motion is allowed', async () => {
   const css = await readFile(new URL('../styles/base.css', import.meta.url), 'utf8');
   expect(css).toMatch(/@media\s*\(prefers-reduced-motion: no-preference\)\s*\{\s*\.skip-link\s*\{\s*transition: top 0\.15s;/);
 });
+
+it('keeps the footer destinations and adds published corrections', async () => {
+  const container = await AstroContainer.create();
+  const html = await container.renderToString(Layout, {
+    props: { title: 'Chrome' },
+    request: new Request('https://cantusorgani.org/about/'),
+  });
+  const footer = html.match(/<footer[\s\S]*?<\/footer>/)?.[0] ?? '';
+  for (const [href, label] of [
+    ['/about/#sources', 'Sources and attributions'],
+    ['/corrections/', 'Report an error'],
+    ['/corrections/log/', 'Published corrections'],
+    ['/llms.txt', 'AI discovery guide'],
+  ]) {
+    expect(footer).toMatch(new RegExp(`href="${href}"[^>]*>${label}</a>`));
+  }
+});
+
+it('renders a labelled breadcrumb trail without changing its content', async () => {
+  const { default: Crumbs } = await import('./Crumbs.astro');
+  const container = await AstroContainer.create();
+  const trail = '<a href="/">Cantus Organi</a> · <a href="/calendar/">Calendar</a>';
+  const html = await container.renderToString(Crumbs, { slots: { default: trail } });
+  expect(html).toMatch(/<nav[^>]*aria-label="Breadcrumb"/);
+  expect(html).toContain(trail);
+});

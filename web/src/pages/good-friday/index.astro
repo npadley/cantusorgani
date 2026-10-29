@@ -1,4 +1,5 @@
 ---
+import Crumbs from "../../components/Crumbs.astro";
 import Layout from "../../components/Layout.astro";
 import { gregobaseUrl } from "../../lib/catalog";
 import { annotationFor, chantEntry } from "../../lib/chants";
@@ -14,9 +15,9 @@ const rites = goodFridayRites();
 <Layout title="Good Friday" skipTo="chants"
         description="The Gregorian chants of Good Friday for the 1962 Missal and the Ordinary Form. The organ is silent: there is no Nova Organi Harmonia accompaniment for the day.">
   <div class="prose">
-    <p class="crumb small muted ui">
+    <Crumbs>
       <a href="/">Cantus Organi</a> · <a href="/calendar/">Calendar</a> · <a href="/calendar/ordinary-form/">Ordinary Form calendar</a>
-    </p>
+    </Crumbs>
     <h1>Good Friday</h1>
     <p class="lede" lang="la">Feria Sexta in Passione et Morte Domini</p>
     <p class="notice ui" role="note">
@@ -78,8 +79,6 @@ const rites = goodFridayRites();
 </Layout>
 
 <style>
-  .crumb { margin: 0 0 var(--s-1); }
-  .crumb a { color: var(--ink-muted); }
   .lede { font-style: italic; font-size: var(--step-1); margin: 0 0 var(--s-3); }
   .rites {
     display: flex; flex-wrap: wrap; gap: 0 var(--s-2); align-items: center;

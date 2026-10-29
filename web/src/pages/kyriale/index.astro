@@ -1,4 +1,5 @@
 ---
+import Crumbs from "../../components/Crumbs.astro";
 import Layout from "../../components/Layout.astro";
 import PieceList from "../../components/PieceList.astro";
 import { allPieces } from "../../lib/catalog";
@@ -10,7 +11,7 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(
 
 <Layout title="Kyriale" description="The eighteen Ordinaries of the Mass, the Credos and chants ad libitum, with organ accompaniment.">
   <div class="prose">
-    <p class="crumb small muted ui"><a href="/">Cantus Organi</a></p>
+    <Crumbs><a href="/">Cantus Organi</a></Crumbs>
     <h1>Kyriale</h1>
     <p class="muted">
       The Ordinary of the Mass from Nova Organi Harmonia, part V. To find the
@@ -31,8 +32,6 @@ const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(
 </Layout>
 
 <style>
-  .crumb { margin: 0 0 var(--s-1); }
-  .crumb a { color: var(--ink-muted); }
   .toc { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-3); margin: var(--s-4) 0; }
   .toc a { min-height: var(--tap-min); display: inline-flex; align-items: center; }
   h2 { margin-top: var(--s-5); padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule); scroll-margin-top: var(--s-4); }

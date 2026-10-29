@@ -1,4 +1,5 @@
 ---
+import Crumbs from "./Crumbs.astro";
 import ExportBar from "./ExportBar.astro";
 import Layout from "./Layout.astro";
 import LineupStack from "./LineupStack.astro";
@@ -37,9 +38,9 @@ const eveningTitle = evening ? lineupTitle(evening) : null;
 <Layout title={`${day.vespers} Vespers: ${title}`} skipTo="initium"
         description={`${day.vespers} Vespers of ${title}, ${when}, in the order sung — organ accompaniment from Nova Organi Harmonia, under the 1962 rubrics.`}>
   <div class="prose">
-    <p class="crumb small muted ui">
+    <Crumbs>
       <a href="/">Cantus Organi</a> · <a href="/calendar/">Calendar</a> · <a href={`/day/${flex}/${name}/`}>{title}</a>
-    </p>
+    </Crumbs>
     <h1>{title}</h1>
     {o && <p class="lede" lang="la">{o.titleLa} · ad Vesperas</p>}
     <p class="meta ui small muted">{day.vespers} Vespers · {when} · 1962 rubrics · Nova Organi Harmonia VIII</p>
@@ -65,8 +66,6 @@ const eveningTitle = evening ? lineupTitle(evening) : null;
 </Layout>
 
 <style>
-  .crumb { margin: 0 0 var(--s-1); }
-  .crumb a { color: var(--ink-muted); }
   .lede { font-style: italic; font-size: var(--step-1); margin: 0 0 var(--s-1); }
   .meta { margin: 0 0 var(--s-2); }
   .console { margin: 0 0 var(--s-3); font-weight: 600; }

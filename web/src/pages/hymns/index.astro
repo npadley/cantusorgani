@@ -1,4 +1,5 @@
 ---
+import Crumbs from "../../components/Crumbs.astro";
 import Layout from "../../components/Layout.astro";
 import { hymnIndex, loadCatalog } from "../../lib/catalog";
 import { pieceHref } from "../../lib/indexes";
@@ -10,7 +11,7 @@ const volumes = loadCatalog().volumes;
 
 <Layout title="Hymns" description="Hymns across the books of Nova Organi Harmonia, with their organ accompaniments.">
   <div class="prose">
-    <p class="crumb small muted ui"><a href="/">Cantus Organi</a></p>
+    <Crumbs><a href="/">Cantus Organi</a></Crumbs>
     <h1>Hymns <span class="la muted" lang="la">Hymni</span></h1>
     <p>Hymns across the books, in alphabetical order. Each link opens the accompaniment where it is printed.
       Different settings and tones are listed separately.</p>
@@ -44,8 +45,6 @@ const volumes = loadCatalog().volumes;
 </Layout>
 
 <style>
-  .crumb { margin: 0 0 var(--s-1); }
-  .crumb a { color: var(--ink-muted); }
   .la { font-weight: 400; font-size: var(--step-1); font-style: italic; }
   .hymns { list-style: none; margin: var(--s-4) 0 0; padding: 0; columns: 2 18rem; }
   .hymns li { break-inside: avoid; display: flex; flex-direction: column; padding: var(--s-2) 0;

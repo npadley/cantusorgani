@@ -1,4 +1,5 @@
 ---
+import Crumbs from "../../components/Crumbs.astro";
 import ChantPair from "../../components/ChantPair.astro";
 import HymnChantLinks from "../../components/HymnChantLinks.astro";
 import { hymnPairingsFor } from "../../lib/hymnpairings";
@@ -70,7 +71,7 @@ const vespersDays = piece.division === "vesperale" || piece.genre === "hymn" ? l
   </ServiceRail>
   <article class="reading-column">
     <header class="head">
-      <p class="crumb small muted ui"><a href="/">Cantus Organi</a> · {piece.section}</p>
+      <Crumbs><a href="/">Cantus Organi</a> · {piece.section}</Crumbs>
       <h1>{heading}</h1>
       <p class="meta ui small muted">
         {piece.label}{piece.incipit ? ` · ${piece.title}` : ""}
@@ -135,8 +136,6 @@ const vespersDays = piece.division === "vesperale" || piece.genre === "hymn" ? l
   .edit-link { margin: var(--s-5) 0 0; padding-top: var(--s-2); border-top: 1px solid var(--rule); }
   .edit-link a { color: var(--ink-muted); }
   .head { margin-bottom: var(--s-4); }
-  .crumb { margin: 0 0 var(--s-1); }
-  .crumb a { color: var(--ink-muted); }
   h1 { margin: 0 0 var(--s-1); }
   .meta { margin: 0; }
   .chant-proper { margin: 0 0 var(--s-3); }

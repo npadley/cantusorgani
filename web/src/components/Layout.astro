@@ -64,9 +64,10 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
   <body>
     <a class="skip-link ui" href={`#${skipTo ?? "main-content"}`}>{skipTo ? "Skip to music" : "Skip to main content"}</a>
 
-    <nav class="nav no-print ui">
+    <header class="masthead no-print">
+    <nav class="nav ui" aria-label="Primary">
       <div class="nav-inner">
-        <a class="brand" href="/">Cantus Organi</a>
+        <a class="brand" href="/" lang="la">Cantus Organi</a>
         <div class="nav-links">
           <a href="/calendar/" class="form-link" aria-label="Extraordinary Form (1962) calendar">
             <span class="form-full">Extraordinary Form (1962)</span><span class="form-short" aria-hidden="true">EF (1962)</span>
@@ -82,18 +83,24 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
         </div>
       </div>
     </nav>
+    </header>
 
     <main id="main-content" tabindex="-1" class="page" data-pagefind-ignore={noindex ? "all" : undefined}>
       <slot />
     </main>
 
     <footer class="footer no-print">
-      <p class="page small muted ui">
-        Music from <em>Nova Organi Harmonia</em> (Mechelen, 1942), in the public domain ·
-        <a href="/about/#sources">Sources and attributions</a> ·
-        <a href="/corrections/">Report an error</a> ·
-        <a href="/llms.txt">AI discovery guide</a>
+      <div class="page small muted ui">
+      <p>
+        Music from <em lang="la">Nova Organi Harmonia</em> (Mechelen, 1942), in the public domain.
       </p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="/about/#sources">Sources and attributions</a>
+        <a href="/corrections/">Report an error</a>
+        <a href="/corrections/log/">Published corrections</a>
+        <a href="/llms.txt">AI discovery guide</a>
+      </nav>
+      </div>
     </footer>
 
     <script is:inline>
@@ -149,33 +156,50 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
     flex-wrap: wrap;
   }
   .brand {
-    font-family: var(--font-text);
-    font-size: var(--step-0);
+    font-family: "Manufacturing Consent", var(--font-text);
+    font-size: var(--step-1);
     color: var(--ink);
     text-decoration: none;
-    letter-spacing: 0.01em;
+    min-height: var(--tap-min);
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
   }
   .nav-links {
     display: flex;
     flex-wrap: wrap;
     min-width: 0;
     align-items: center;
-    gap: var(--s-3);
+    gap: var(--s-2) var(--s-3);
   }
   .nav-links a {
     min-height: var(--tap-min);
     display: inline-flex;
     align-items: center;
+    color: var(--ink);
+    text-decoration: none;
   }
+  .nav-links a:hover { text-decoration: underline; }
   .form-short { display: none; }
   @media (max-width: 44rem) {
     .form-full { display: none; }
     .form-short { display: inline; }
+    .nav-inner { display: grid; gap: var(--s-1); }
+    .nav-links {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--s-1) var(--s-2);
+    }
+    .nav-links a { min-width: 0; }
+    .nav-links button { padding-inline: var(--s-2); }
   }
   .footer {
     border-top: 1px solid var(--rule);
     margin-top: var(--s-6);
     padding: var(--s-4) 0;
   }
+  .footer p { margin: 0; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 0 var(--s-3); }
+  .footer-links a { display: inline-flex; align-items: center; min-height: var(--tap-min); }
   .footer .page { margin: 0 auto; padding: var(--s-2) var(--s-3); line-height: 1.6; }
 </style>
