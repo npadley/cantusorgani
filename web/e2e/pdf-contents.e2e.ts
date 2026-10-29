@@ -410,4 +410,32 @@ test.describe("PDF contents", () => {
     expect(result.chant).toEqual(result.chant.map(() => 0));
   });
 
+  test("dated Vespers: the lineup PDF follows the sung order", async ({ page }) => {
+    test.setTimeout(600_000);
+    await page.goto("/vespers/2026-11-08/", { waitUntil: "networkidle" });
+    const parts = await boxes(page).evaluateAll(nodes => nodes.map(node => ({
+      label: (node as HTMLInputElement).dataset["label"]!,
+      systems: Number((node as HTMLInputElement).dataset["systems"]),
+      checked: (node as HTMLInputElement).checked,
+    })));
+    expect(parts.length).toBeGreaterThan(10);
+    for (const part of parts) expect(part.checked, part.label).toBe(true);
+    // The rendered reading order is independent of the export selector.
+    const sung = await page.locator(".lineup .item").evaluateAll(nodes => nodes.flatMap(node => {
+      const systems = node.querySelectorAll("img.system");
+      if (systems.length === 0) return [];
+      const section = node.closest(".vespers-section")!;
+      const heading = section.querySelector("h2")!.textContent!.trim();
+      const itemHeading = node.querySelector("h3")?.textContent?.trim();
+      return [section.querySelectorAll(".item").length > 1
+        ? `${heading}: ${itemHeading ?? (systems[0] as HTMLElement).dataset["item"]}` : heading];
+    }));
+    expect(parts.map(part => part.label)).toEqual(sung);
+    const result = await inspect(await download(page, "Quick"));
+    headingsInOrder(result.text, sung);
+    expect(result.scans).toBe(parts.reduce((sum, part) => sum + part.systems, 0));
+    expect(result.markers).toEqual([]);
+    expect(result.chant).toEqual(result.chant.map(() => 0));
+  });
+
 });

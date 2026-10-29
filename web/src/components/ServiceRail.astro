@@ -10,7 +10,11 @@ import { observance } from "../lib/liturgy";
 interface Props {
   readonly pieces: readonly Piece[];
   readonly title: string;
+  /** English reader heading when the service needs more context than the day name. */
+  readonly railTitle?: string;
+  readonly showDayMarker?: boolean;
   readonly occasion?: Piece;
+  readonly observanceKey?: string;
   readonly segments?: readonly ExportSegment[];
   readonly season?: Season | null;
   readonly dateLabel?: string | null;
@@ -19,7 +23,7 @@ interface Props {
 }
 const { pieces, title, occasion = pieces[0] } = Astro.props;
 const hasMusic = (Astro.props.segments ?? exportSegments(pieces)).length > 0;
-const day = occasion?.days.map(key => observance(key)).find(Boolean);
+const day = Astro.props.observanceKey ? observance(Astro.props.observanceKey) : occasion?.days.map(key => observance(key)).find(Boolean);
 // Calendar vocabulary stores colour codes, not CSS colour names. Never infer
 // an occasion's colour from words in its title.
 const colourNames: Readonly<Record<string, "white" | "red" | "violet" | "green" | "black" | "rose">> = {
@@ -29,8 +33,8 @@ const colour = colourNames[day?.colors[0] ?? ""];
 ---
 {hasMusic ? <aside class="service-rail no-print" aria-label="PDF and reading controls">
   <header class="rail-heading">
-    {colour && <p class="small ui"><DayMarker colour={colour} /></p>}
-    <p class="rail-title" lang={day?.titleEn ? "en" : "la"}>{day?.titleEn ?? title}</p>
+    {colour && Astro.props.showDayMarker !== false && <p class="small ui"><DayMarker colour={colour} /></p>}
+    <p class="rail-title" lang={Astro.props.railTitle || day?.titleEn ? "en" : "la"}>{Astro.props.railTitle ?? day?.titleEn ?? title}</p>
     <p class="small ui">Choose what goes into your PDF.</p>
     <slot name="heading-summary" />
   </header>

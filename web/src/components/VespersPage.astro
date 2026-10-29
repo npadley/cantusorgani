@@ -1,10 +1,12 @@
 ---
-import ExportBar from "./ExportBar.astro";
+import ServiceRail from "./ServiceRail.astro";
+import DayMarker from "./DayMarker.astro";
+import SourceBlock from "./SourceBlock.astro";
 import Layout from "./Layout.astro";
 import LineupStack from "./LineupStack.astro";
 import { hasNotation } from "../lib/chants";
 import { observance } from "../lib/liturgy";
-import { consoleLine, exportLineup, lineupHref, lineupTitle, loadLineup, sections } from "../lib/vespers";
+import { consoleLine, exportLineup, itemSystems, lineupHref, lineupTitle, loadLineup, sections } from "../lib/vespers";
 import type { LineupDay } from "../lib/vespers";
 
 // One Vespers in the order sung: II Vespers of a date (/vespers/<date>/), or
@@ -13,6 +15,10 @@ interface Props { readonly day: LineupDay }
 const { day } = Astro.props;
 const o = observance(day.observance);
 const title = lineupTitle(day);
+const colours: Readonly<Record<string, "white" | "red" | "violet" | "green" | "black" | "rose">> = {
+  w: "white", r: "red", v: "violet", g: "green", b: "black", p: "rose",
+};
+const colour = colours[o?.colors[0] ?? ""];
 function long(iso: string): string {
   const [y, m, d] = iso.split("-").map(Number);
   return new Date(Date.UTC(y ?? 1970, (m ?? 1) - 1, d ?? 1)).toLocaleDateString("en-GB", {
@@ -20,6 +26,8 @@ function long(iso: string): string {
   });
 }
 const when = day.eveningOf ? `sung on the evening of ${long(day.eveningOf)}` : long(day.date);
+const serviceTitle = `${day.vespers} Vespers — ${title}, ${when}`;
+const sources = [...new Map(day.items.flatMap(item => itemSystems(item).map(system => [system.piece.slug, system.piece] as const))).values()];
 const secs = sections(day);
 const nav = secs.filter((s) => s.nav !== null);
 const notation = day.items.some((i) => !i.repeat && hasNotation(i.chant));
@@ -36,10 +44,19 @@ const eveningTitle = evening ? lineupTitle(evening) : null;
 
 <Layout title={`${day.vespers} Vespers: ${title}`} skipTo="initium"
         description={`${day.vespers} Vespers of ${title}, ${when}, in the order sung — organ accompaniment from Nova Organi Harmonia, under the 1962 rubrics.`}>
+  <div class="reader-layout">
+  <ServiceRail pieces={[]} segments={exportLineup(day)} title={serviceTitle} railTitle={serviceTitle} showDayMarker={false} observanceKey={day.observance}>
+    {notation && <label slot="reader-tools" class="chant-toggle ui small no-print">
+      <input type="checkbox" data-chant-toggle />
+      Show the chant with each antiphon and hymn
+    </label>}
+  </ServiceRail>
+  <article class="reading-column">
   <div class="prose">
     <p class="crumb small muted ui">
       <a href="/">Cantus Organi</a> · <a href="/calendar/">Calendar</a> · <a href={`/day/${flex}/${name}/`}>{title}</a>
     </p>
+    {colour && <p class="day-colour ui small"><DayMarker colour={colour} /></p>}
     <h1>{title}</h1>
     {o && <p class="lede" lang="la">{o.titleLa} · ad Vesperas</p>}
     <p class="meta ui small muted">{day.vespers} Vespers · {when} · 1962 rubrics · Nova Organi Harmonia VIII</p>
@@ -49,22 +66,32 @@ const eveningTitle = evening ? lineupTitle(evening) : null;
     )}
   </div>
 
-  <nav class="order ui no-print" aria-label="Order of Vespers">
+  <h2 id="order-of-vespers-heading" class="order-heading no-print">Order of Vespers</h2>
+  <nav class="order ui no-print" aria-labelledby="order-of-vespers-heading">
     {nav.map((s) => <a href={`#${s.anchor}`}>{s.nav}</a>)}
   </nav>
-  {notation && (
-    <label class="chant-toggle ui small no-print">
-      <input type="checkbox" data-chant-toggle />
-      Show the chant with each antiphon and hymn
-    </label>
-  )}
-
   <LineupStack day={day} />
 
-  <ExportBar pieces={[]} segments={exportLineup(day)} title={`${day.vespers} Vespers — ${title}, ${when}`} />
+  <SourceBlock pieces={sources} />
+  </article>
+  </div>
 </Layout>
 
 <style>
+  .reading-column { min-width: 0; }
+  .order-heading { font-family: var(--font-text); font-size: var(--step-1); margin: 0 0 var(--s-1); }
+  @media screen and (width < 62rem) {
+    .reader-layout { display: flex; flex-direction: column; }
+    .reader-layout > :global(.service-rail) { order: 1; }
+  }
+  @media screen and (min-width: 62rem) {
+    .reader-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: var(--s-4); align-items: start; }
+    .reading-column { grid-column: 2; grid-row: 1; }
+    .reader-layout > :global(.service-rail) { grid-column: 1; grid-row: 1; }
+  }
+  @media print { .reader-layout { display: block; } }
+
+  .day-colour { margin: 0 0 var(--s-1); }
   .crumb { margin: 0 0 var(--s-1); }
   .crumb a { color: var(--ink-muted); }
   .lede { font-style: italic; font-size: var(--step-1); margin: 0 0 var(--s-1); }
