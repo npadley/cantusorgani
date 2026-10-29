@@ -2,6 +2,7 @@ import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'nod
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { occasions, hubHref } from '../src/lib/vespers';
 import { checkDeploySize, reportDeploySize } from './check-deploy-size';
 
 const dirs: string[] = [];
@@ -119,4 +120,17 @@ it('prints the by-kind counts to the log', () => {
   const log = vi.fn<(line: string) => void>();
   reportDeploySize(result, {}, log);
   expect(log).toHaveBeenCalledWith(expect.stringContaining('by kind HTML 1, Pagefind 0'));
+});
+
+it('counts the 70 recurring hubs and their Pagefind fragments within the existing budget', () => {
+  const files: Record<string, string> = {};
+  for (const group of occasions()) {
+    files[`${hubHref(group.office).slice(1)}index.html`] = 'hub';
+    files[`pagefind/${group.office}.pf_fragment`] = 'fragment';
+  }
+  const result = checkDeploySize(fixture(files));
+  expect(result.kinds.HTML).toBe(70);
+  expect(result.kinds.Pagefind).toBe(70);
+  expect(result.files).toBe(140);
+  expect(result.errors).toEqual([]);
 });

@@ -39,3 +39,18 @@ test.describe("Accessibility of page templates", () => {
     });
   }
 });
+
+for (const scheme of ["light", "dark"] as const) {
+  test(`woodcut no-match states (${scheme}) remain accessible`, async ({ page }) => {
+    await page.emulateMedia({ colorScheme: scheme });
+    for (const [path, input] of [["/search/", "#q"], ["/hymns/", "#hymn-filter"]]) {
+      await page.goto(path);
+      await page.locator(input).fill("zzzznothingmatcheszzzz");
+      await expect(page.locator("img.woodcut")).toBeVisible();
+      const results = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
+        .analyze();
+      expect(results.violations.filter(v => v.impact === "serious" || v.impact === "critical")).toEqual([]);
+    }
+  });
+}
