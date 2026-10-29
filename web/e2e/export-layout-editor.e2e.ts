@@ -983,3 +983,57 @@ test('custom Page chip shows the dimensions in the selected input units', async 
   await expect(height).toHaveValue('9.06');
   await expect(chip).toHaveText('Page: 6.3 × 9.06 in · Portrait · 4 mm');
 });
+
+// PR 14: controls scroll independently so the preview keeps room on phones.
+for (const height of [844, 568]) {
+  test(`phone Customize reserves half the dialog for preview at 390x${height}`, async ({ page }) => {
+    await page.setViewportSize({ width: 390, height });
+    await openEditor(page);
+    const dialog = page.locator('dialog.cx');
+    const preview = dialog.locator('.cx-preview');
+    const expectPreviewRoom = async () => {
+      const box = (await preview.boundingBox())!;
+      const footer = (await dialog.locator('.cx-foot').boundingBox())!;
+      expect(box.height).toBeGreaterThanOrEqual(height * 0.45);
+      expect(box.y).toBeGreaterThanOrEqual(0);
+      expect(box.y + box.height).toBeLessThanOrEqual(footer.y + 1);
+      expect(footer.y + footer.height).toBeLessThanOrEqual(height + 1);
+    };
+    // This assertion regresses the original cramped layout before inspecting controls.
+    await expectPreviewRoom();
+    const reachable = async (selector: string) => {
+      for (const control of await dialog.locator(selector).all()) {
+        await control.scrollIntoViewIfNeeded();
+        await expect(control).toBeInViewport();
+        // Limit controls can be disabled (for example More at "As many as fit").
+        if (await control.isEnabled()) await control.click({ trial: true });
+      }
+    };
+    for (const key of ['cap-minus', 'cap-plus', 'settings-btn', 'change-parts', 'custom-w', 'custom-h', 'margin-minus', 'margin', 'margin-plus', 'break-mode', 'panel-done', 'reset', 'download', 'close']) {
+      await expect(dialog.locator(`[data-cx="${key}"]`)).toHaveCount(1);
+    }
+    await expect(dialog.locator('[data-cx-view]')).toHaveCount(2);
+    await expect(dialog.locator('[data-cx-zoom]')).toHaveCount(3);
+    await reachable('.cx-fit .seg-o, .cx-fit button, .cx-chips button, .cx-parts > button');
+    await dialog.locator('[data-cx="parts"] summary').click();
+    await dialog.locator('[data-cx="partlist"] .cx-pn').scrollIntoViewIfNeeded();
+    await expect(dialog.locator('[data-cx="partlist"] .cx-pn')).toBeInViewport();
+    await expectPreviewRoom();
+    await dialog.locator('[data-cx="parts"] summary').click();
+    // Visit every settings group, including conditional custom dimensions and More options.
+    await dialog.locator('[data-cx-group="page-group"]').click();
+    await dialog.locator('select[name="cx-page"]').selectOption('custom');
+    await dialog.locator('[data-cx="more"] summary').click();
+    for (const [name, count] of [['cx-staff', 3], ['cx-orient', 2], ['cx-unit', 2], ['cx-lines', 2], ['cx-chant', 3]] as const) {
+      await expect(dialog.locator(`input[name="${name}"]`)).toHaveCount(count);
+    }
+    for (const name of ['cx-page', 'cx-lyrics', 'cx-spacing']) {
+      await expect(dialog.locator(`select[name="${name}"]`)).toHaveCount(1);
+    }
+    await reachable('.cx-settings select:visible, .cx-settings .seg-o:visible, .cx-settings input:not(.sr-only):visible, .cx-settings button:visible');
+    await page.keyboard.press('Escape');
+    await ready(page);
+    await reachable('.cx-toolbar .cx-vo, .cx-toolbar button, .cx-foot button:visible, .cx-close');
+    await expectPreviewRoom();
+  });
+}
