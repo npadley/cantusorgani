@@ -39,9 +39,10 @@ const additionalPages = ordinaryFormOccasions().filter(row => additionalKeys.has
         <button type="button" data-step="1" aria-label="Next day">Day ›</button>
       </div>
     </form>
-    <p id="date-feedback" class="feedback" role="status"></p>
+    <p id="date-feedback" class="feedback"></p>
 
-    <article id="result" aria-live="polite">
+    <p id="calendar-status" class="sr-only" role="status"></p>
+    <article id="result">
       <noscript><p class="notice">The calendar needs JavaScript to look up a date.</p></noscript>
     </article>
   </div>
@@ -98,7 +99,6 @@ const additionalPages = ordinaryFormOccasions().filter(row => additionalKeys.has
   #result .observance h2 { margin: 0; }
   #result .latin { font-style: italic; margin: var(--s-1) 0; }
   #result .meta { font-family: var(--font-ui); font-size: var(--step--1); color: var(--ink-muted); display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; }
-  #result .swatch { width: 0.9rem; height: 0.9rem; border: 1px solid var(--rule); display: inline-block; }
   #result .music { margin: var(--s-3) 0 0; }
   #result .music dt { font-family: var(--font-ui); font-size: var(--step--1); color: var(--ink-muted); }
   #result .music dd { margin: 0 0 var(--s-2); }
