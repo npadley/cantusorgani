@@ -76,9 +76,13 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
             <span class="form-full">Ordinary Form</span><span class="form-short" aria-hidden="true">OF</span>
           </a>
           <a href="/search/">Search</a>
-          <a href="/collections/">Collections</a>
+          <a href="/collections/" aria-label="Collections of books">
+            <span class="nav-full">Collections</span><span class="nav-short" aria-hidden="true">Books</span>
+          </a>
           <a href="/about/">About</a>
-          <a href="/corrections/">Corrections</a>
+          <a href="/corrections/" aria-label="Corrections: report an error">
+            <span class="nav-full">Corrections</span><span class="nav-short" aria-hidden="true">Report</span>
+          </a>
           <button id="polarity" type="button" aria-pressed="false"
                   title="Switch the page and music between light and dark">Invert</button>
         </div>
@@ -189,14 +193,15 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
     text-decoration: none;
   }
   .nav-links a:hover { text-decoration: underline; }
-  .form-short { display: none; }
+  .form-short, .nav-short { display: none; }
   @media (max-width: 44rem) {
-    .form-full { display: none; }
-    .form-short { display: inline; }
+    .form-full, .nav-full { display: none; }
+    .form-short, .nav-short { display: inline; }
     .nav-inner { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-1); }
     .nav-links {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-items: stretch;
       gap: var(--s-1) var(--s-2);
     }
     .nav-links a { min-width: 0; }
