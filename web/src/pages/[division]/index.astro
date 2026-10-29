@@ -1,4 +1,5 @@
 ---
+import Crumbs from "../../components/Crumbs.astro";
 import Layout from "../../components/Layout.astro";
 import PieceList from "../../components/PieceList.astro";
 import VespersDates from "../../components/VespersDates.astro";
@@ -47,7 +48,7 @@ const lineups = meta.division === "vesperale" ? allLineups() : [];
 
 <Layout title={meta.en} description={meta.blurb}>
   <div class="prose">
-    <p class="crumb small muted ui"><a href="/">Cantus Organi</a></p>
+    <Crumbs><a href="/">Cantus Organi</a></Crumbs>
     <h1>{meta.en}</h1>
     <p class="lede" lang="la">{meta.la}</p>
     <p class="muted">{meta.blurb}</p>
@@ -128,8 +129,6 @@ const lineups = meta.division === "vesperale" ? allLineups() : [];
 </Layout>
 
 <style>
-  .crumb { margin: 0 0 var(--s-1); }
-  .crumb a { color: var(--ink-muted); }
   .lede { font-style: italic; font-size: var(--step-1); margin: 0 0 var(--s-2); }
   h2 { margin-top: var(--s-5); padding-bottom: var(--s-2); border-bottom: 1px solid var(--rule); }
   .la { font-weight: 400; font-style: italic; font-size: var(--step-0); }

@@ -1,5 +1,6 @@
 ---
 import Layout from "../../../components/Layout.astro";
+import Crumbs from "../../../components/Crumbs.astro";
 import DayMarker from "../../../components/DayMarker.astro";
 import VespersDates from "../../../components/VespersDates.astro";
 import { observance } from "../../../lib/liturgy";
@@ -30,9 +31,9 @@ const consoles = Object.fromEntries(occasion.days.map(day => [lineupHref(day), {
 
 <Layout title={`Vespers: ${title}`} description={`Every published evening of Vespers for ${title} under the 1962 rubrics. Choose a date for its order and organ accompaniment from Nova Organi Harmonia VIII.`}>
   <article class="vespers-hub prose" data-console-lines={JSON.stringify(consoles)}>
-    <nav class="crumb ui small" aria-label="Breadcrumb">
+    <Crumbs>
       <a href="/">Cantus Organi</a> · <a href="/vespers/">Vesperale</a> · Vespers by occasion
-    </nav>
+    </Crumbs>
     <header>
       <p class="ui small muted">The evening office · EF (1962)</p>
       {colour && <p class="ui small"><DayMarker colour={colour} /></p>}
@@ -68,8 +69,6 @@ const consoles = Object.fromEntries(occasion.days.map(day => [lineupHref(day), {
 
 <style>
   [hidden] { display: none !important; }
-  .crumb { margin-bottom: var(--s-3); }
-  .crumb a { color: var(--ink-muted); }
   .lede { font-style: italic; font-size: var(--step-1); }
   h2 { font-size: var(--step-1); margin-top: var(--s-5); }
   .console { font-weight: 600; }

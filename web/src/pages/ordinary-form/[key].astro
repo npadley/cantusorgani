@@ -1,4 +1,5 @@
 ---
+import Crumbs from "../../components/Crumbs.astro";
 import ServiceRail from "../../components/ServiceRail.astro";
 import SourceBlock from "../../components/SourceBlock.astro";
 import { exportSegments } from "../../lib/exportParts";
@@ -41,7 +42,7 @@ const sources = [...new Map(parts.flatMap(part => part.lender ? [[part.lender.pi
   </ServiceRail>
   <article class="reading-column" data-of-page>
     <header class="head">
-      <p class="crumb small muted ui"><a href="/">Cantus Organi</a> · <a href="/calendar/ordinary-form/">Ordinary Form calendar</a></p>
+      <Crumbs><a href="/">Cantus Organi</a> · <a href="/calendar/ordinary-form/">Ordinary Form calendar</a></Crumbs>
       <h1>{piece.title}</h1>
       <p class="latin" lang="la">{ordinaryFormOccasions().find(row => row.key === key)?.title_la}</p>
       {ordinaryFormOccasions().find(row => row.key === key)?.rubric_en && <p class="rubric ui small">{ordinaryFormOccasions().find(row => row.key === key)?.rubric_en}</p>}
@@ -125,8 +126,6 @@ const sources = [...new Map(parts.flatMap(part => part.lender ? [[part.lender.pi
   #missing-lender { margin-top: var(--s-4); }
   #missing-lender h2 { font-size: var(--step-0); }
   #missing-lender a { display: inline-flex; align-items: center; min-height: var(--tap-min); }
-  .crumb { margin: 0 0 var(--s-1); }
-  .crumb a { color: var(--ink-muted); }
   h1 { margin-bottom: var(--s-1); }
   .latin { margin: 0; font-style: italic; }
   .source-note { margin-top: var(--s-4); }

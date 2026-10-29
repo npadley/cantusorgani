@@ -9,6 +9,7 @@ test.describe.serial("The corrections queue", () => {
   test("should show who is signed in, the seeded reports, and that publishing is not set up", async ({ page }) => {
     await page.goto("/admin/");
     await expect(page.locator("#who")).toHaveText("Admin · signed in as editor@example.org (owner)");
+    await expect.poll(() => page.evaluate(() => localStorage.getItem("editor"))).toBe("1");
     await expect(page.locator("#pending-h")).toHaveText("Readers' reports (3)");
     await expect(page.locator("#pending article", { hasText: "III (noh5)" }).locator(".scan figcaption").first())
       .toContainText("First system (vol. 5, scan p.");
