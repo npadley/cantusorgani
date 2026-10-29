@@ -2,9 +2,8 @@
 import Layout from "../../../components/Layout.astro";
 import DayMarker from "../../../components/DayMarker.astro";
 import VespersDates from "../../../components/VespersDates.astro";
-import { dayHref } from "../../../lib/indexes";
 import { observance } from "../../../lib/liturgy";
-import { consoleLine, lineupHref, lineupTitle, occasions, sungOn } from "../../../lib/vespers";
+import { musicForDayHref, consoleLine, lineupHref, lineupTitle, occasions, sungOn } from "../../../lib/vespers";
 import type { VespersOccasion } from "../../../lib/vespers";
 
 export function getStaticPaths() {
@@ -16,6 +15,7 @@ export function getStaticPaths() {
 interface Props { readonly occasion: VespersOccasion }
 const { occasion } = Astro.props;
 const first = occasion.days[0]!;
+const musicHref = musicForDayHref(first.observance);
 const o = observance(first.observance);
 const title = lineupTitle(first);
 const colours: Readonly<Record<string, "white" | "red" | "violet" | "green" | "black" | "rose">> = {
@@ -48,17 +48,17 @@ const consoles = Object.fromEntries(occasion.days.map(day => [lineupHref(day), {
     <section>
       <h2>At the console</h2>
       <p class="ui small muted" data-console-label>{consoles[lineupHref(first)]?.label}</p>
-      <p class="console ui" lang="la" data-console>{consoleLine(first)}</p>
+      <p class="console ui" data-console>{consoleLine(first)}</p>
     </section>
 
     <VespersDates days={occasion.days} heading="Published evenings" />
 
     <section class="notice" aria-labelledby="partial-coverage">
       <h2 id="partial-coverage">When the book gives only part of the office</h2>
-      <p>NOH VIII does not print the full order of Vespers for every day. The Transfiguration, Holy Cross and St Michael have no complete dated page in this coverage. Read the available source music in the Vesperale.</p>
+      <p>Some Magnificat and psalm tones are not printed in the Vesperale; those are marked on the dated page to be sung unaccompanied or improvised.</p>
       <p class="ui"><a href="/vespers/">Browse the Vesperale in printed order</a></p>
     </section>
-    <p class="ui"><a href={dayHref(first.observance)}>Music for this day</a></p>
+    {musicHref && <p class="ui"><a href={musicHref}>Music for this day</a></p>}
   </article>
 </Layout>
 

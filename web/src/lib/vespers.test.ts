@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  occasions, hubHref, allLineups, bankNote, consoleLine, exportLineup, itemSystems, lineupTitle, lineupsUsing, sungOn, isFormula, isSunday, itemHeading, lineupFor, lineupHref, loadLineup, nextFirstVespers, nextLineupDate,
+  musicForDayHref, occasions, hubHref, allLineups, bankNote, consoleLine, exportLineup, itemSystems, lineupTitle, lineupsUsing, sungOn, isFormula, isSunday, itemHeading, lineupFor, lineupHref, loadLineup, nextFirstVespers, nextLineupDate,
   parseLineup, sections, spokenTone, toneLabel,
 } from "./vespers";
 import type { LineupDay } from "./vespers";
@@ -213,6 +213,20 @@ describe("the day's title", () => {
 
 
 describe("recurring Vespers occasions", () => {
+  it("reuses the default occasion groups without caching custom lineups", () => {
+    expect(occasions()).toBe(occasions());
+    expect(occasions(loadLineup())).toBe(occasions());
+    const custom = parseLineup(doc([]));
+    expect(occasions(custom)).not.toBe(occasions(custom));
+    expect(occasions(custom).map(group => group.office)).toEqual(["tempora:Epi5-0"]);
+  });
+
+  it("only links to day pages with catalogued music", () => {
+    expect(musicForDayHref("sancti:12-25m3")).toBe("/day/sancti/12-25m3/");
+    expect(musicForDayHref("sancti:12-25m3", [])).toBeNull();
+    expect(musicForDayHref("tempora:uncatalogued")).toBeNull();
+  });
+
   it("groups every I and II lineup once by office, in sung order", () => {
     const groups = occasions();
     expect(groups).toHaveLength(70);

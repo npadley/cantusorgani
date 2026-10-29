@@ -1,6 +1,7 @@
 import raw from "../../../data/vespers/vespers-lineup.json";
 import { allPieces, systemUrlStem } from "./catalog";
 import { observance } from "./liturgy";
+import { catalogedDays, dayHref } from "./indexes";
 import type { Piece } from "./catalog";
 import type { ExportSegment } from "./exportParts";
 
@@ -211,9 +212,18 @@ export interface VespersOccasion {
   readonly days: readonly LineupDay[];
 }
 
+/** The day's music link, only when the catalogue generates its day page. */
+export function musicForDayHref(key: string, pieces: readonly Piece[] = allPieces()): string | null {
+  return catalogedDays(pieces).includes(key) ? dayHref(key) : null;
+}
+
+let cachedOccasions: readonly VespersOccasion[] | null = null;
+
 /** One hub per office with a published lineup, including I and II Vespers.
  * Called by getStaticPaths, so a path collision fails the build. */
 export function occasions(lineup: Lineup = loadLineup()): readonly VespersOccasion[] {
+  const isDefault = lineup === loadLineup();
+  if (isDefault && cachedOccasions) return cachedOccasions;
   const groups = new Map<string, LineupDay[]>();
   const days = allLineups(lineup);
   for (const day of days) {
@@ -222,11 +232,13 @@ export function occasions(lineup: Lineup = loadLineup()): readonly VespersOccasi
     groups.set(day.office, group);
   }
   const datedPaths = new Set(days.map(lineupHref));
-  return [...groups].sort(([a], [b]) => a.localeCompare(b)).map(([office, dates]) => {
+  const result = [...groups].sort(([a], [b]) => a.localeCompare(b)).map(([office, dates]) => {
     const href = hubHref(office);
     if (datedPaths.has(href)) throw new Error(`vespers hub: path collides with dated office ${href}`);
     return { office, days: dates };
   });
+  if (isDefault) cachedOccasions = result;
+  return result;
 }
 
 /** The Vespers whose own music comes from `slug` (the day's antiphons,

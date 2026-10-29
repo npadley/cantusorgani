@@ -76,7 +76,9 @@ const eveningTitle = evening ? lineupTitle(evening) : null;
   <LineupStack day={day} />
 
   <SourceBlock pieces={sources} />
-  <VespersDates days={dates} heading="Coming evenings" />
+  <div class="no-print">
+    <VespersDates days={dates} heading="Coming evenings" />
+  </div>
   </article>
   </div>
 </Layout>

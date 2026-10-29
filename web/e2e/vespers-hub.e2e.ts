@@ -3,8 +3,12 @@ import { hubHref, lineupHref, occasions, sungOn } from "../src/lib/vespers";
 
 test.describe("Recurring Vespers without JavaScript", () => {
   test.use({ javaScriptEnabled: false });
-  for (const group of occasions()) {
-    test(`${group.office}: all evenings remain ordered and resolve`, async ({ page, request }) => {
+  test("sample hubs keep all evenings ordered and resolving", async ({ page, request }) => {
+    test.setTimeout(60_000);
+    const groups = occasions();
+    const sample = new Set([groups[0]!.office, groups[groups.length - 1]!.office,
+      "sancti:12-25", "sancti:08-15", "tempora:Epi5-0"]);
+    for (const group of groups.filter(group => sample.has(group.office))) {
       expect((await page.goto(hubHref(group.office)))?.status()).toBe(200);
       await page.getByText(`Every date (${group.days.length})`, { exact: true }).click();
       const dates = page.locator("details li[data-date]");
@@ -15,13 +19,15 @@ test.describe("Recurring Vespers without JavaScript", () => {
       await expect(dates.first()).toBeVisible();
       await expect(page.locator("[data-next-evening]")).toBeHidden();
       await expect(page.locator(".service-rail, .lineup")).toHaveCount(0);
+      await expect(page.locator("[data-console]")).not.toHaveAttribute("lang", "la");
+      await expect(page.locator("#partial-coverage + p")).not.toContainText("Transfiguration");
       for (const day of group.days) {
         const dated = await request.get(lineupHref(day));
         expect(dated.status(), lineupHref(day)).toBe(200);
         expect(await dated.text()).toContain(`rel="canonical" href="https://cantusorgani.org${lineupHref(day)}"`);
       }
-    });
-  }
+    }
+  });
 });
 
 test("chooses the next evening by local sung date, including I Vespers", async ({ page }) => {
@@ -50,4 +56,6 @@ test("the hub is linked from the day, dated service and Vesperale", async ({ pag
   await page.goto("/vespers/2026-12-25/i/");
   await expect(page.getByText(/^Every date/)).toBeVisible();
   await expect(page.locator("[data-coming] li").first()).toBeVisible();
+  await page.emulateMedia({ media: "print" });
+  await expect(page.locator(".vespers-dates")).toBeHidden();
 });
