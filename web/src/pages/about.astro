@@ -14,6 +14,10 @@ const lastYear = lineups.at(-1) ? sungOn(lineups.at(-1)!).slice(0, 4) : "";
   <div class="prose">
     <Crumbs><a href="/">Cantus Organi</a></Crumbs>
     <h1>About Cantus Organi</h1>
+    <figure class="woodcut-frontispiece no-print">
+      <img class="woodcut" loading="lazy" decoding="async" src="/art/v1/mass-of-st-gregory-600.webp" srcset="/art/v1/mass-of-st-gregory-600.webp 600w, /art/v1/mass-of-st-gregory-1200.webp 1200w" sizes="(min-width: 62rem) 15rem, 9rem" width="600" height="860" alt="Albrecht Dürer, The Mass of Saint Gregory (1511)" />
+      <figcaption class="woodcut-credit small">Albrecht Dürer, <cite>The Mass of Saint Gregory</cite> (1511). <a href="#woodcut">Source and credit</a></figcaption>
+    </figure>
     <p class="lede">Organ accompaniment to Gregorian chant, with music for both the Extraordinary Form and Ordinary Form at the console.</p>
 
     <h2 id="what">What it is for</h2>
@@ -108,6 +112,11 @@ const lastYear = lineups.at(-1) ? sungOn(lineups.at(-1)!).slice(0, 4) : "";
 
     <h2 id="sources">Sources and attributions</h2>
     <dl class="sources">
+      <dt id="woodcut">Albrecht Dürer, <cite>The Mass of Saint Gregory</cite> (1511)</dt>
+      <dd>The Metropolitan Museum of Art, accession 1984.1201.27. Open Access
+        (<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>).
+        The frontispiece and details use the museum’s scan, via Wikimedia Commons.</dd>
+
       <dt><em>Nova Organi Harmonia ad Graduale Romanum</em></dt>
       <dd>Lemmens Institute, Mechelen: H. Dessain, 1942. The page images and everything cut from
         them are in the <strong>public domain</strong>.</dd>
@@ -162,6 +171,7 @@ const lastYear = lineups.at(-1) ? sungOn(lineups.at(-1)!).slice(0, 4) : "";
 </Layout>
 
 <style>
+  .prose { display: flow-root; }
   .lede { font-style: italic; font-size: var(--step-1); }
   h2 { margin-top: var(--s-5); }
   .sources dt { margin-top: var(--s-3); font-weight: 600; }

@@ -84,6 +84,12 @@
   --print-paper: #ffffff;
   --print-ink:   #000000;
 
+  /* Decorative woodcuts stay beside the reading text. */
+  --art-width: 12rem;
+  --art-narrow-width: 9rem;
+  --art-small-width: 6rem;
+  --frontispiece-width: 15rem;
+
   --measure: 62ch;
   --radius: 2px;      /* print-shop square, not app-store round */
   --page-max: 62rem;

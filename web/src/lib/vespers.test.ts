@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  allLineups, bankNote, consoleLine, exportLineup, itemSystems, lineupTitle, lineupsUsing, sungOn, isFormula, isSunday, itemHeading, lineupFor, lineupHref, loadLineup, nextFirstVespers, nextLineupDate,
+  magnificatGuide, musicForDayHref, occasions, hubHref, allLineups, bankNote, consoleLine, exportLineup, itemSystems, lineupTitle, lineupsUsing, sungOn, isFormula, isSunday, itemHeading, lineupFor, lineupHref, loadLineup, nextFirstVespers, nextLineupDate,
   parseLineup, sections, spokenTone, toneLabel,
 } from "./vespers";
 import type { LineupDay } from "./vespers";
+import { allPieces } from "./catalog";
+import { catalogedDays } from "./indexes";
 
 function item(kind: string, group: string, extra: Record<string, unknown> = {}): Record<string, unknown> {
   return {
@@ -206,5 +208,100 @@ describe("the day's title", () => {
       expect(lineupTitle(day)).toBe(guess(day.office));
     }
     expect(lineupTitle(lineup.days.get("2026-12-25")!)).not.toMatch(/Midnight/i);
+  });
+});
+
+
+describe("recurring Vespers occasions", () => {
+  it("reuses the default occasion groups without caching custom lineups", () => {
+    expect(occasions()).toBe(occasions());
+    expect(occasions(loadLineup())).toBe(occasions());
+    const custom = parseLineup(doc([]));
+    expect(occasions(custom)).not.toBe(occasions(custom));
+    expect(occasions(custom).map(group => group.office)).toEqual(["tempora:Epi5-0"]);
+  });
+
+  it("only links to day pages with catalogued music", () => {
+    expect(musicForDayHref("sancti:12-25m3")).toBe("/day/sancti/12-25m3/");
+    expect(musicForDayHref("sancti:12-25m3", [])).toBeNull();
+    expect(musicForDayHref("tempora:uncatalogued")).toBeNull();
+  });
+
+  it("groups every I and II lineup once by office, in sung order", () => {
+    const groups = occasions();
+    expect(groups).toHaveLength(70);
+    expect(groups.flatMap(g => g.days)).toHaveLength(allLineups().length);
+    for (const group of groups) {
+      expect(group.days.every(d => d.office === group.office)).toBe(true);
+      expect(group.days.map(sungOn)).toEqual(group.days.map(sungOn).sort());
+    }
+    const christmas = groups.find(g => g.office === "sancti:12-25")!;
+    expect(christmas.days.some(d => d.vespers === "I")).toBe(true);
+    expect(christmas.days.some(d => d.vespers === "II")).toBe(true);
+  });
+  it("normalizes day keys to the same hub and keeps hub and dated paths disjoint", () => {
+    expect(hubHref("sancti:12-25m3")).toBe("/vespers/sancti/12-25/");
+    expect(hubHref("tempora:Pasc3-0r")).toBe("/vespers/tempora/Pasc3-0/");
+    const dated = new Set(allLineups().map(lineupHref));
+    for (const group of occasions()) expect(dated.has(hubHref(group.office))).toBe(false);
+    expect(() => hubHref("2026-11-01:i")).toThrow(/office/);
+  });
+  it("produces no hub for held-back offices or an empty lineup", () => {
+    const lineup = parseLineup(doc([]));
+    expect(occasions(lineup).map(g => g.office)).toEqual(["tempora:Epi5-0"]);
+    expect(occasions(parseLineup({ schema_version: 1 }))).toEqual([]);
+  });
+});
+
+it("links every hub back to an existing day route", () => {
+  const days = new Set(catalogedDays(allPieces()));
+  for (const group of occasions()) expect(days.has(group.days[0]!.observance), group.office).toBe(true);
+});
+
+
+describe("Magnificat guidance", () => {
+  function officeWith(source: Record<string, unknown>, tone = "VIII.G") {
+    return occasions(parseLineup(doc([item("magnificat", "magnificat", { tone, source })])))[0]!;
+  }
+
+  it("identifies the printed Advent Magnificat", () => {
+    expect(magnificatGuide(officeWith({ type: "bank", refs: ["noh8/0083/003"],
+      bank_kind: "magnificat", bank_label: "Magnificat in VIII G", borrowed_from: "Advent I, p. 53" })))
+      .toEqual([{ text: "The Magnificat in VIII G is printed in NOH VIII (Advent I, p. 53); each dated page includes it.",
+        evenings: ["II Vespers · 2026-11-08"] }]);
+  });
+
+  it("names the psalm formula and its printed source", () => {
+    expect(magnificatGuide(officeWith({ type: "bank", refs: ["noh8/0084/002"],
+      bank_kind: "psalm", bank_label: "Psalm 109 in I g", borrowed_from: "Advent II, p. 54" }, "I.g")))
+      .toEqual([{ text: "NOH VIII prints no Magnificat in I g, only the antiphon. Each dated page sets it to Psalm 109 in I g (Advent II, p. 54), the formula in the same tone.",
+        evenings: ["II Vespers · 2026-11-08"] }]);
+  });
+
+  it("explains when no accompaniment in the tone is printed", () => {
+    expect(magnificatGuide(officeWith({ type: "note", text: "Sung unaccompanied." }, "IV.A")))
+      .toEqual([{ text: "NOH VIII prints no Magnificat in IV A and no psalm in that tone: sing it unaccompanied or improvise.",
+        evenings: ["II Vespers · 2026-11-08"] }]);
+  });
+
+  it("groups repeated cases and keeps differing tones and sources with their evenings", () => {
+    const base = officeWith({ type: "bank", refs: ["noh8/0083/003"], bank_kind: "magnificat",
+      bank_label: "Magnificat in VIII G", borrowed_from: "Advent I, p. 53" }).days[0]!;
+    const mag = base.items[0]!;
+    const guide = magnificatGuide({ office: base.office, days: [base,
+      { ...base, date: "2026-11-15" },
+      { ...base, date: "2026-11-22", items: [{ ...mag, tone: "VIII.G*" }] },
+      { ...base, date: "2026-11-08", vespers: "I", eveningOf: "2026-11-07",
+        items: [{ ...mag, source: { type: "bank", refs: ["noh8/0089/001"], bankKind: "magnificat",
+          bankLabel: "Magnificat in VIII G", borrowedFrom: "Advent II, p. 59" } }] },
+    ] });
+    expect(guide).toEqual([
+      { text: "The Magnificat in VIII G is printed in NOH VIII (Advent I, p. 53); each dated page includes it.",
+        evenings: ["II Vespers · 2026-11-08", "II Vespers · 2026-11-15"] },
+      { text: "The Magnificat in VIII G* is printed in NOH VIII (Advent I, p. 53); each dated page includes it.",
+        evenings: ["II Vespers · 2026-11-22"] },
+      { text: "The Magnificat in VIII G is printed in NOH VIII (Advent II, p. 59); each dated page includes it.",
+        evenings: ["I Vespers · 2026-11-07"] },
+    ]);
   });
 });
