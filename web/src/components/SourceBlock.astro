@@ -3,9 +3,10 @@ import { pagesLabel, type Piece } from "../lib/catalog";
 import { editionFor } from "../lib/identities";
 import sources from "../../../data/identities/sources.json";
 
-type Props = { piece: Piece; pieces?: never } | { piece?: never; pieces: readonly Piece[] };
+/** idPrefix keeps the heading ids unique where a page has several blocks (a day page, one per Ordinary). */
+type Props = ({ piece: Piece; pieces?: never } | { piece?: never; pieces: readonly Piece[] }) & { idPrefix?: string };
 
-const { piece, pieces } = Astro.props;
+const { piece, pieces, idPrefix = "" } = Astro.props;
 const byVolume = new Map<string, Piece[]>();
 for (const item of pieces ?? (piece ? [piece] : [])) {
   const group = byVolume.get(item.volume) ?? [];
@@ -22,8 +23,8 @@ const blocks = [...byVolume].map(([volume, items]) => {
 ---
 
 {blocks.map(({ volume, edition, collection, citations }) => (
-  <section class="source-block" aria-labelledby={`source-${volume}`}>
-    <h2 id={`source-${volume}`}>Source</h2>
+  <section class="source-block" aria-labelledby={`${idPrefix}source-${volume}`}>
+    <h2 id={`${idPrefix}source-${volume}`}>Source</h2>
     <dl>
       <div>
         <dt>Collection</dt>

@@ -14,9 +14,11 @@ interface Props {
   readonly exportParts?: readonly ExportSegment[];
   readonly id?: string;
   readonly anchorPrefix?: string;
+  /** Candidate hidden at build time: no eager image allocation. */
+  readonly hiddenCandidate?: boolean;
 }
 
-const { piece, id = "music", anchorPrefix = "", exportParts = [] } = Astro.props;
+const { piece, id = "music", anchorPrefix = "", exportParts = [], hiddenCandidate = false } = Astro.props;
 const captionId = `${id}-caption`;
 
 // Render every system at one consistent scale. At width:100% a short system
@@ -32,7 +34,7 @@ const parts = segments(piece);
 // Reserve the page's first three default-visible images in document order.
 // Hidden scans never spend the budget; all stacks share the same page locals.
 const eagerImages = new Map<number, number>();
-for (const seg of parts) {
+for (const seg of hiddenCandidate ? [] : parts) {
   const end = seg.render ? seg.start + 1 : seg.end;
   for (let i = seg.start; i < end; i++) {
     const used = Astro.locals.eagerImages ?? 0;

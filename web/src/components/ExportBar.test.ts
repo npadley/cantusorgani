@@ -30,6 +30,35 @@ async function render(component: typeof ExportBar | typeof PartLinks, props: Rec
 }
 
 describe("ExportBar", () => {
+  it("renders only the build default Ordinary as enabled, checked and counted", async () => {
+    const { exportSegments } = await import("../lib/exportParts");
+    const properParts = exportSegments([THERESE]);
+    const ordinary = { ...properParts[0]!, part: null, id: "ordinary:selected", ordinaryOption: "selected" };
+    const hidden = { ...ordinary, id: "ordinary:hidden", ordinaryOption: "hidden" };
+    const html = await render(ExportBar, { pieces: [THERESE], title: "T", variant: "rail",
+      segments: [...properParts, ordinary, hidden],
+      dayService: { table: { start: "2026-01-01", end: "2029-12-31",
+        options: [ { key: "selected", mass: "XII", candidates: ["XII"], heading: "In Festis Semiduplicibus" } ],
+        groups: [ { option: "selected", group: "other", dates: ["2026-10-03"] } ],
+      }, buildDefaultIso: "2026-10-03", title: "T", unavailable: ["Sequence: no music on this site"] },
+    });
+    const boxes = html.match(/<input[^>]*name="export-part"[^>]*>/g)!;
+    expect(boxes).toHaveLength(7);
+    expect(boxes[5]).toContain("checked");
+    expect(boxes[5]).not.toContain("disabled");
+    expect(boxes[6]).toContain("disabled");
+    expect(boxes[6]).not.toContain("checked");
+    expect(html).toMatch(/data-total-parts[^>]*>6<\/span>/);
+    expect(html).toContain("For 3 October 2026: Gradual, Alleluia · Sequence: no music on this site");
+    const data = JSON.parse(html.match(/data-day-service="([^"]+)"/)![1]!.replaceAll("&quot;", '"')) as {
+      defaults: { option: string; group: string; included: string[]; unticked: string[] }[];
+    };
+    const october = data.defaults.find(d => d.option === "selected" && d.group === "other")!;
+    expect(october.included).toEqual(["t:0", "t:2", "t:4", "t:8", "ordinary:selected"]);
+    expect(october.unticked).toEqual(["Tract"]);
+    expect(html).toContain("Defaults for 3 October 2026 (Tract unticked).");
+    expect(html.match(/role="status"/g)).toHaveLength(2);
+  });
   it("keeps the rail export note and a hidden Return to Customize button", async () => {
     const html = await render(ExportBar, { pieces: [THERESE], title: "T", variant: "rail" });
     expect(html).toContain("Accompaniment only — Customize for chant and page layout");

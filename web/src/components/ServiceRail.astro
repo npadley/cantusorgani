@@ -1,6 +1,9 @@
 ---
 import ExportBar from "./ExportBar.astro";
 import DayMarker from "./DayMarker.astro";
+import type { DayTable } from "../lib/dayService";
+import type { Season } from "../lib/liturgy";
+import type { ExportSegment } from "../lib/exportParts";
 import type { Piece } from "../lib/catalog";
 import { exportSegments } from "../lib/exportParts";
 import { observance } from "../lib/liturgy";
@@ -8,9 +11,14 @@ interface Props {
   readonly pieces: readonly Piece[];
   readonly title: string;
   readonly occasion?: Piece;
+  readonly segments?: readonly ExportSegment[];
+  readonly season?: Season | null;
+  readonly dateLabel?: string | null;
+  readonly dayService?: { table: DayTable; buildDefaultIso: string | null; title: string; unavailable: readonly string[] };
+
 }
 const { pieces, title, occasion = pieces[0] } = Astro.props;
-const hasMusic = exportSegments(pieces).length > 0;
+const hasMusic = (Astro.props.segments ?? exportSegments(pieces)).length > 0;
 const day = occasion?.days.map(key => observance(key)).find(Boolean);
 // Calendar vocabulary stores colour codes, not CSS colour names. Never infer
 // an occasion's colour from words in its title.
@@ -25,7 +33,7 @@ const colour = colourNames[day?.colors[0] ?? ""];
     <p class="rail-title" lang={day?.titleEn ? "en" : "la"}>{day?.titleEn ?? title}</p>
     <p class="small ui">Choose what goes into your PDF.</p>
   </header>
-  <ExportBar pieces={pieces} title={title} variant="rail">
+  <ExportBar pieces={pieces} title={title} variant="rail" {...(Astro.props.segments ? { segments: Astro.props.segments } : {})} season={Astro.props.season ?? null} dateLabel={Astro.props.dateLabel ?? null} {...(Astro.props.dayService ? { dayService: Astro.props.dayService } : {})}>
     <slot name="reader-tools" slot="reader-tools" />
   </ExportBar>
 </aside> : <div class="no-print"><slot name="reader-tools" /></div>}

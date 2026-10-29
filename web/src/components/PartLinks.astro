@@ -3,12 +3,19 @@ import { borrowedLinks, jumpTargets } from "../lib/catalog";
 import type { Piece } from "../lib/catalog";
 import { pieceHref } from "../lib/indexes";
 
-// A day page shows no music: under each Proper, each part links to where the
-// piece's page shows it -- or, for a part printed elsewhere, to that page.
-interface Props { readonly pieces: readonly Piece[] }
+// Under each Proper, each part links to its music: on this page where the day
+// page shows it (inPage gives that piece's anchor prefix), else on the piece's
+// page -- or, for a part printed elsewhere, to that page.
+interface Props {
+  readonly pieces: readonly Piece[];
+  readonly inPage?: (piece: Piece) => string | null;
+}
+const { inPage } = Astro.props;
 const rows = Astro.props.pieces.map((piece) => {
+  const prefix = inPage?.(piece) ?? null;
   const printed = jumpTargets(piece).filter((t) => t.kind === "part")
-    .map((t) => ({ label: t.label, href: `${pieceHref(piece)}#${t.anchor}`, order: t.order ?? 0, borrowed: false }));
+    .map((t) => ({ label: t.label, href: prefix === null ? `${pieceHref(piece)}#${t.anchor}` : `#${prefix}${t.anchor}`,
+      order: t.order ?? 0, borrowed: false }));
   const borrowed = borrowedLinks(piece).flatMap((b) => b.href === null ? [] : [{
     label: b.label, href: b.href, order: b.order, borrowed: true,
   }]);

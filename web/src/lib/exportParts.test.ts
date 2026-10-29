@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { defaultTicked, defaultsNote, exportSegments, seasonGroup } from "./exportParts";
+import { defaultTicked, defaultsNote, formatDefaultsNote, unavailableMusic, exportSegments, seasonGroup } from "./exportParts";
 import type { ExportSegment } from "./exportParts";
 import { jumpTargets, movementStarts, parseCatalog } from "./catalog";
 import type { Piece } from "./catalog";
@@ -296,4 +296,37 @@ it("keeps borrowed Vespers psalms before the hymn and Magnificat", () => {
     ...own.parts,
   ] };
   expect(exportSegments([borrower], [lender]).map((s) => s.part)).toEqual(["other", "hymn", "other"]);
+});
+
+
+describe("day service availability", () => {
+  it("reports only unresolved borrowed parts and pieces with no music", () => {
+    const lender = piece("lender", 4, [["introit", 0], ["offertory", 2]]);
+    const borrower: Piece = { ...piece("borrower", 2), parts: [
+      { kind: "borrowed", part: "introit", variant: "", label: null, title: null,
+        gregobaseId: null, borrowedPage: 1, borrowedVolume: "noh3", borrowedFrom: "lender", borrowedRef: lender.systems[0]! },
+      { kind: "borrowed", part: "offertory", variant: "", label: null, title: null,
+        gregobaseId: null, borrowedPage: 9, borrowedVolume: "noh3", borrowedFrom: "missing", borrowedRef: "unknown" },
+      { kind: "borrowed", part: "communion", variant: "", label: null, title: null,
+        gregobaseId: null, borrowedPage: 9, borrowedVolume: "noh3", borrowedFrom: "lender", borrowedRef: "unknown" },
+    ] };
+    expect(exportSegments([borrower], [lender]).some(s => s.part === "introit")).toBe(true);
+    expect(unavailableMusic([borrower, piece("empty", 0)], [lender])).toEqual([
+      "Offertory: no music on this site", "Communion: no music on this site", "Title empty: no music on this site",
+    ]);
+  });
+  it("does not call a piece with fully resolved borrowed music unavailable", () => {
+    const lender = piece("lender", 2, [["introit", 0]]);
+    const borrower: Piece = { ...piece("borrower", 0), parts: [
+      { kind: "borrowed", part: "introit", variant: "", label: null, title: null,
+        gregobaseId: null, borrowedPage: 1, borrowedVolume: "noh3", borrowedFrom: "lender", borrowedRef: lender.systems[0]! },
+    ] };
+    expect(unavailableMusic([borrower], [lender])).toEqual([]);
+  });
+  it("shares the sentence formatter with defaultsNote", () => {
+    expect(formatDefaultsNote(["Tract", "Paschal Alleluia"], "3 October 2026"))
+      .toBe("Defaults for 3 October 2026 (Tract and Paschal Alleluia unticked).");
+    expect(formatDefaultsNote([], "3 October 2026")).toBeNull();
+    expect(formatDefaultsNote(["Tract"], null)).toBeNull();
+  });
 });

@@ -6,7 +6,7 @@ import type { Page } from "@playwright/test";
 
 test.use({ reducedMotion: "reduce" });
 
-const PAGES = ["/piece/dominica-i-adventus/", "/kyriale/ix/"] as const;
+const PAGES = ["/piece/dominica-i-adventus/", "/kyriale/ix/", "/day/tempora/Adv1-0/"] as const;
 // Built dist/: one export segment with a chant toggle.
 // Catalogue inventory (including borrowed ranges): the largest piece selection has 154 systems.
 // No piece/Kyriale page reaches the 300-system ceiling; the empty refusal is exercised below.
@@ -224,7 +224,10 @@ test.describe("Service rail", () => {
       expect(await count.evaluate(el => getComputedStyle(el).clipPath)).toBe("none");
     });
 
-    for (const viewport of [{ width: 390, height: 844 }, { width: 768, height: 1024 }]) test(`${url} first notation is in the viewport on load at ${viewport.width}×${viewport.height}`, async ({ page }) => {
+    // The day page keeps its Proper list and part-link rows above the music (MK009), so at 390 x 844 its
+    // first system starts just under the foot bar; where those go on phones is open on PR 12.
+    const viewports = url.startsWith("/day/") ? [{ width: 768, height: 1024 }] : [{ width: 390, height: 844 }, { width: 768, height: 1024 }];
+    for (const viewport of viewports) test(`${url} first notation is in the viewport on load at ${viewport.width}×${viewport.height}`, async ({ page }) => {
       await page.setViewportSize(viewport);
       await page.goto(url);
       await settled(page);
@@ -290,7 +293,8 @@ test.describe("Service rail without JavaScript", () => {
       await expect(page.getByRole("link", { name: "Skip to music", exact: true })).toBeFocused();
       await expect(page.getByRole("link", { name: "Skip to music", exact: true })).toBeVisible();
       if (url !== SINGLE) {
-        const links = page.locator('.movements a[href^="#"]');
+        // A day page's part-link rows are its jump links (MK009).
+        const links = page.locator('.movements a[href^="#"], .part-links a[href^="#"]');
         expect(await links.count()).toBeGreaterThan(1);
         for (const link of await links.all()) {
           await expect(link).toBeVisible();

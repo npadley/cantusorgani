@@ -1,4 +1,6 @@
-import { defaultTicked } from "./selection";
+import { formatDefaultsNote } from "./dayService";
+import type { DayDefaults, DayTable } from "./dayService";
+import { defaultIncluded, defaultTicked } from "./selection";
 import { allPieces, inPrintedOrder, jumpTargets, movementStarts, partOrder, sectionName, systemUrlStem } from "./catalog";
 import type { BorrowedPart, Piece, PrintedPart, ProperPartName, SectionRubric } from "./catalog";
 import type { Season } from "./liturgy";
@@ -12,6 +14,7 @@ import type { Season } from "./liturgy";
  * season of the date a day page shows.
  */
 export interface ExportSegment extends SectionRubric {
+  readonly ordinaryOption?: string;
   /** Unique within one export bar: "<slug>:<index>". */
   readonly id: string;
   readonly label: string;
@@ -42,6 +45,25 @@ function partRanges(piece: Piece): { x: PrintedPart; start: number; end: number 
     .sort((a, b) => a.start - b.start);
   const boundaries = [...new Set(printed.map(({ start }) => start))].sort((a, b) => a - b);
   return printed.map((p) => ({ ...p, end: boundaries.find(start => start > p.start) ?? piece.systems.length }));
+}
+
+/** The same lender range governs both exportability and missing-music notices. */
+function borrowedRange(part: BorrowedPart, lenders: readonly Piece[]) {
+  const lender = lenders.find(p => p.slug === part.borrowedFrom);
+  const range = lender ? partRanges(lender).find(r => r.x.ref === part.borrowedRef &&
+    (!part.borrowedPart || r.x.part === part.borrowedPart) &&
+    (part.borrowedVariant === undefined || r.x.variant === part.borrowedVariant)) : undefined;
+  return lender && range ? { lender, range } : null;
+}
+
+export function unavailableMusic(pieces: readonly Piece[], lenders: readonly Piece[] = allPieces()): string[] {
+  return pieces.flatMap(piece => [
+    ...(piece.systems.length === 0 && !exportSegments([piece], lenders).some(s => s.systems > 0)
+      ? [`${piece.incipit ?? piece.title}: no music on this site`] : []),
+    ...piece.parts.filter((part): part is BorrowedPart => part.kind === "borrowed")
+      .filter(part => !borrowedRange(part, lenders))
+      .map(part => `${sectionName(part)}: no music on this site`),
+  ]);
 }
 
 /** A Mass with sections of its own: a segment for each heading on its page
@@ -81,11 +103,9 @@ export function exportSegments(pieces: readonly Piece[],
     // Parts printed elsewhere: the lender's systems for that part.
     const borrowed: OrderedExportSegment[] = [];
     for (const b of piece.parts.filter((x): x is BorrowedPart => x.kind === "borrowed")) {
-      const lender = lenders.find((p) => p.slug === b.borrowedFrom);
-      const range = lender ? partRanges(lender).find((r) => r.x.ref === b.borrowedRef &&
-        (!b.borrowedPart || r.x.part === b.borrowedPart) &&
-        (b.borrowedVariant === undefined || r.x.variant === b.borrowedVariant)) : undefined;
-      if (!lender || !range) continue;
+      const resolved = borrowedRange(b, lenders);
+      if (!resolved) continue;
+      const { lender, range } = resolved;
       const lenderStems = lender.systems.map((_, i) => systemUrlStem(lender, i)).slice(range.start, range.end);
       borrowed.push({
         // Include borrower identity so year variants that reuse one source
@@ -144,7 +164,17 @@ export { defaultTicked } from "./selection";
 export function defaultsNote(all: readonly ExportSegment[], group: SeasonGroup, dateLabel: string | null): string | null {
   if (group === "all" || dateLabel === null) return null;
   const off = [...new Set(all.filter((s) => !defaultTicked(s, all, group)).map((s) => s.label))];
-  if (off.length === 0) return null;
-  const list = off.length === 1 ? off[0] : `${off.slice(0, -1).join(", ")} and ${off.at(-1)}`;
-  return `Defaults for ${dateLabel} (${list} unticked).`;
+  return formatDefaultsNote(off, dateLabel);
+}
+
+export { formatDefaultsNote } from "./dayService";
+
+/** Precompute every date group's defaults using the real, complete export segments. */
+export function buildDayDefaults(table: DayTable, segments: readonly ExportSegment[]): DayDefaults[] {
+  return table.groups.map(({ option, group }) => {
+    const active = segments.filter(s => !s.ordinaryOption || s.ordinaryOption === option);
+    const included = defaultIncluded(active, group);
+    return { option, group, included: [...included],
+      unticked: [...new Set(active.filter(s => !included.has(s.id)).map(s => s.label))] };
+  });
 }
