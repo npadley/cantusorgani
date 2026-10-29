@@ -17,6 +17,10 @@ describe("ServiceRail", () => {
     expect(html).toMatch(/<template[^>]*data-woodcut-selection/);
     expect(html).toMatch(/<img[^>]*class="woodcut woodcut-small"[^>]*loading="lazy"/);
     expect(html).toContain("/art/v1/detail-chalice-360.webp 360w, /art/v1/detail-chalice-720.webp 720w");
+    const template = html.match(/<template[^>]*data-woodcut-selection[^>]*>([\s\S]*?)<\/template>/)?.[1];
+    expect(template).toMatch(/<img[^>]*alt=""/);
+    expect(template).not.toMatch(/role=|aria-label|<p[ >]/);
+    expect(template).not.toContain("Tick at least one part");
   });
   it("offers one hidden input per part with contextual names, counts and capability", async () => {
     const html = await render();

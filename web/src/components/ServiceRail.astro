@@ -40,8 +40,7 @@ const colour = colourNames[day?.colors[0] ?? ""];
   </header>
   <template data-woodcut-selection>
     <div class="woodcut-moment" data-selection-art>
-      <img class="woodcut woodcut-small" loading="lazy" decoding="async" src="/art/v1/detail-chalice-360.webp" srcset="/art/v1/detail-chalice-360.webp 360w, /art/v1/detail-chalice-720.webp 720w" sizes="6rem" width="360" height="412" alt="Detail of a chalice from Dürer's woodcut The Mass of Saint Gregory" />
-      <p>Tick at least one part.</p>
+      <img class="woodcut woodcut-small" loading="lazy" decoding="async" src="/art/v1/detail-chalice-360.webp" srcset="/art/v1/detail-chalice-360.webp 360w, /art/v1/detail-chalice-720.webp 720w" sizes="6rem" width="360" height="412" alt="" />
     </div>
   </template>
   <ExportBar pieces={pieces} title={title} variant="rail" {...(Astro.props.segments ? { segments: Astro.props.segments } : {})} season={Astro.props.season ?? null} dateLabel={Astro.props.dateLabel ?? null} {...(Astro.props.dayService ? { dayService: Astro.props.dayService } : {})}>
