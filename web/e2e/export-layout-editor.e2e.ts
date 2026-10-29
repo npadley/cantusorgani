@@ -985,9 +985,9 @@ test('custom Page chip shows the dimensions in the selected input units', async 
 });
 
 // PR 14: controls scroll independently so the preview keeps room on phones.
-for (const height of [844, 568]) {
-  test(`phone Customize reserves half the dialog for preview at 390x${height}`, async ({ page }) => {
-    await page.setViewportSize({ width: 390, height });
+for (const [width, height] of [[390, 844], [390, 568], [620, 844]] as const) {
+  test(`phone Customize reserves half the dialog for preview at ${width}x${height}`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
     await openEditor(page);
     const dialog = page.locator('dialog.cx');
     const preview = dialog.locator('.cx-preview');
@@ -1014,7 +1014,7 @@ for (const height of [844, 568]) {
     }
     await expect(dialog.locator('[data-cx-view]')).toHaveCount(2);
     await expect(dialog.locator('[data-cx-zoom]')).toHaveCount(3);
-    await reachable('.cx-fit .seg-o, .cx-fit button, .cx-chips button, .cx-parts > button');
+    await reachable('.cx-fit label.seg-o > span:visible, .cx-fit button:visible, .cx-chips button:visible, .cx-parts > button:visible');
     await dialog.locator('[data-cx="parts"] summary').click();
     await dialog.locator('[data-cx="partlist"] .cx-pn').scrollIntoViewIfNeeded();
     await expect(dialog.locator('[data-cx="partlist"] .cx-pn')).toBeInViewport();
@@ -1030,10 +1030,32 @@ for (const height of [844, 568]) {
     for (const name of ['cx-page', 'cx-lyrics', 'cx-spacing']) {
       await expect(dialog.locator(`select[name="${name}"]`)).toHaveCount(1);
     }
-    await reachable('.cx-settings select:visible, .cx-settings .seg-o:visible, .cx-settings input:not(.sr-only):visible, .cx-settings button:visible');
+    await reachable('.cx-settings select:visible, .cx-settings label.seg-o > span:visible, .cx-settings input:not(.sr-only):visible, .cx-settings button:visible');
     await page.keyboard.press('Escape');
     await ready(page);
-    await reachable('.cx-toolbar .cx-vo, .cx-toolbar button, .cx-foot button:visible, .cx-close');
+    await reachable('.cx-toolbar label.cx-vo > span:visible, .cx-toolbar button:visible, .cx-foot button:visible, .cx-close');
     await expectPreviewRoom();
   });
 }
+
+test('phone break mode keeps its bar compact and preview usable at 390x844', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await openEditor(page);
+  const dialog = page.locator('dialog.cx');
+  await dialog.locator('[data-cx="settings-btn"]').click();
+  await dialog.locator('[data-cx="break-mode"]').click();
+  await expect(dialog).toHaveAttribute('data-breaking', 'true');
+  const bar = dialog.locator('.cx-breakbar');
+  await expect(bar).toBeVisible();
+  const barBox = (await bar.boundingBox())!;
+  const preview = (await dialog.locator('.cx-preview').boundingBox())!;
+  const footer = (await dialog.locator('.cx-foot').boundingBox())!;
+  expect(barBox.height).toBeLessThan(80);
+  expect(preview.height).toBeGreaterThanOrEqual(844 * 0.45);
+  expect(barBox.y + barBox.height).toBeLessThanOrEqual(preview.y + 1);
+  expect(preview.y + preview.height).toBeLessThanOrEqual(footer.y + 1);
+  expect(footer.y + footer.height).toBeLessThanOrEqual(844 + 1);
+  await bar.getByRole('button', { name: 'Done', exact: true }).click();
+  await expect(dialog).not.toHaveAttribute('data-breaking');
+  await expect(dialog.locator('[data-cx="settings-btn"]')).toBeVisible();
+});

@@ -248,7 +248,7 @@ dialog.cx .cx-preview { min-width: 0; min-height: 0; overflow: auto; }
    including on short screens; expanding the parts list cannot squeeze it away.
    display: contents preserves the existing grid placement at every wider width. */
 .cx-controls { display: contents; }
-@media (max-width: 600px) {
+@media (max-width: 39.99rem) {
   dialog.cx[open] { grid-template-rows: auto minmax(0, 1fr) minmax(50%, 1fr) auto; }
   .cx-controls { display: block; grid-row: 2; min-height: 0; overflow: auto; overscroll-behavior-y: contain; }
   .cx-head { grid-row: 1; }
@@ -256,5 +256,7 @@ dialog.cx .cx-preview { min-width: 0; min-height: 0; overflow: auto; }
   .cx-foot { grid-row: 4; }
   /* Keep Close and Download scrollable when browser chrome or a keyboard shortens the dialog. */
   .cx-head, .cx-foot { max-height: 20dvh; overflow: auto; }
+  dialog.cx[open][data-breaking] { grid-template-rows: auto auto minmax(0, 1fr) auto; }
+  dialog.cx[data-breaking] .cx-breakbar { align-self: start; }
   dialog.cx[data-breaking] .cx-controls { display: none; }
 }
