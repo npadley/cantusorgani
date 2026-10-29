@@ -14,7 +14,7 @@ describe("Ordinary Form occasion pages", () => {
     const html = await render("easter");
     expect(html).toContain('class="service-rail');
     expect(html).toContain('data-inline-part=');
-    const chooser = html.match(/<section id="cycle-alternatives"[\s\S]*?<\/section>/)?.[0];
+    const chooser = html.match(/<div id="cycle-alternatives"[\s\S]*?<\/nav>/)?.[0];
     expect(chooser).toBeDefined();
     expect(chooser?.match(/data-cycle=/g)).toHaveLength(3);
     expect(html).toContain('class="source-block');
@@ -51,7 +51,7 @@ describe("Ordinary Form occasion pages", () => {
     expect(ordinaryFormPiece(occasion!.key)?.parts).toEqual([]);
     const html = await render(occasion!.key);
     expect(html).toContain("chants not yet mapped");
-    expect(html).not.toContain('id="cycle-alternatives"');
+    expect(html).not.toContain("data-cycle=");
     expect(html).toContain('id="of-export-note"');
   });
 });

@@ -44,7 +44,8 @@ export function mountOrdinaryFormPage(root: HTMLElement): void {
     if (!box) return;
     const years = (box.dataset["years"] ?? "").split(",").filter(Boolean);
     const seasons = (box.dataset["seasons"] ?? "").split(",").filter(Boolean);
-    if (!years.length && !seasons.length) return;
+    // A part sung in every year and season is no alternative: it needs no label.
+    if (!seasons.length && (years.length === 0 || years.length === CYCLES.size)) return;
     const yearLabel = cycle && years.length && !years.includes(cycle) ? `Not for Year ${cycle}`
       : years.length === 1 ? `Year ${years[0]}`
       : years.length > 1 ? `Years ${years.slice(0, -1).join(", ")} and ${years.at(-1)}` : "";
@@ -70,9 +71,7 @@ export function mountOrdinaryFormPage(root: HTMLElement): void {
   // One change rebuilds ExportBar's selection and synchronizes every inline box.
   boxes[0]?.dispatchEvent(new Event("change", { bubbles: true }));
 
-  const note = root.querySelector<HTMLElement>("#of-export-note");
-  if (note) {
-    const scope = [cycle ? `Year ${cycle}` : "all years", season ? `${season} season` : "all seasons"].join(" · ");
-    note.textContent = `${scope}. Every applicable alternative starts selected; choose the chants required for this celebration.`;
-  }
+  // The visible scope only; the rest of the note is for screen readers.
+  const scope = root.querySelector<HTMLElement>("#of-export-note [data-of-scope]");
+  if (scope) scope.textContent = capitalize([cycle ? `Year ${cycle}` : "all years", season ? `${season} season` : "all seasons"].join(" · "));
 }

@@ -45,7 +45,6 @@ const sources = [...new Map(parts.flatMap(part => part.lender ? [[part.lender.pi
       <h1>{piece.title}</h1>
       <p class="latin" lang="la">{ordinaryFormOccasions().find(row => row.key === key)?.title_la}</p>
       {ordinaryFormOccasions().find(row => row.key === key)?.rubric_en && <p class="rubric ui small">{ordinaryFormOccasions().find(row => row.key === key)?.rubric_en}</p>}
-      <p class="meta ui small muted">Graduale Romanum (1974) · {parts.length} assigned chant{parts.length === 1 ? "" : "s"}{missing ? ` · ${missing} without a NOH match` : ""}</p>
     </header>
 
     {chantsOnly && (
@@ -55,20 +54,24 @@ const sources = [...new Map(parts.flatMap(part => part.lender ? [[part.lender.pi
       </p>
     )}
 
-    {score.systems.length > 0 && exportParts.length > 0 && (
-      <section id="cycle-alternatives" aria-label="Choose the year">
-        <nav class="cycle-links ui" aria-label="Lectionary year">
-          {["A", "B", "C"].map(cycle => <a href={`?cycle=${cycle}`} data-cycle={cycle}>Year {cycle}</a>)}
-        </nav>
-      </section>
-    )}
-    <p id="of-export-note" class="small muted ui" aria-live="polite">
-      All years and seasons are shown. Every applicable alternative starts selected; choose the chants required for this celebration.
-    </p>
-    <MovementNav piece={score} variant="links" />
+    {/* Below 40rem the year and jump links share one row, so the first system still shows above the foot bar. */}
+    <div class="reading-nav">
+      <div id="cycle-alternatives" class="ui">
+        {score.systems.length > 0 && exportParts.length > 0 && (
+          <nav class="cycle-links" aria-label="Lectionary year">
+            <span class="small muted" aria-hidden="true">Year</span>
+            {["A", "B", "C"].map(cycle => <a href={`?cycle=${cycle}`} data-cycle={cycle} aria-label={`Year ${cycle}`}>{cycle}</a>)}
+          </nav>
+        )}
+        <p id="of-export-note" class="small muted" aria-live="polite"><span data-of-scope>All years · all seasons</span><span class="sr-only">. Every applicable alternative starts selected; choose the chants required for this celebration.</span></p>
+      </div>
+      <MovementNav piece={score} variant="links" />
+    </div>
     <SystemStack piece={score} exportParts={exportParts} id="music" />
     <section id="missing-lender" class="small muted ui">
       <h2>About this set</h2>
+      <p class="meta">Graduale Romanum (1974) · {parts.length} assigned chant{parts.length === 1 ? "" : "s"}{missing ? ` · ${missing} without a NOH match` : ""}</p>
+      {score.systems.length > 0 && <p>Every applicable alternative starts selected, and the music for other years and seasons stays on the page. Choose the chants required for this celebration.</p>}
       <p>
         This page assembles available Nova Organi Harmonia music for chants assigned in the 1974 Graduale Romanum.
         {missing > 0 && ` ${missing} assigned chant${missing === 1 ? " is" : "s are"} not in Nova Organi Harmonia.`}
@@ -103,13 +106,22 @@ const sources = [...new Map(parts.flatMap(part => part.lender ? [[part.lender.pi
     .reading-column { grid-column: 2; grid-row: 1; }
     .reader-layout > :global(.service-rail) { grid-column: 1; grid-row: 1; }
   }
-  .reading-column :global(.movements) { flex-wrap: nowrap; overflow-x: auto; margin-bottom: var(--s-2); gap: var(--s-1); }
-  .reading-column :global(.movements a) { flex-shrink: 0; }
-  .head { margin-bottom: var(--s-2); }
-  .cycle-links { display: flex; gap: var(--s-2); }
-  .cycle-links a { display: inline-flex; align-items: center; justify-content: center; min-height: var(--tap-min); min-width: var(--tap-min); padding-inline: var(--s-2); }
-  .cycle-links a[aria-current] { font-weight: 700; color: var(--ink); }
-  #of-export-note { margin: var(--s-1) 0 var(--s-2); }
+  .reading-column :global(.movements) { flex-wrap: nowrap; overflow-x: auto; margin: 0; gap: var(--s-1); }
+  .reading-column :global(.movements > *) { flex-shrink: 0; }
+  .head { margin-bottom: var(--s-1); }
+  #cycle-alternatives { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--s-3); margin: 0 0 var(--s-1); }
+  @media (width < 40rem) {
+    .reading-nav { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: var(--s-3); }
+    .reading-nav #cycle-alternatives { display: contents; }
+    .cycle-links { grid-column: 1; grid-row: 1; }
+    .reading-nav :global(.movements) { grid-column: 2; grid-row: 1; }
+    #of-export-note { grid-column: 1 / -1; grid-row: 2; }
+  }
+  .cycle-links { display: flex; align-items: center; gap: var(--s-1); }
+  .cycle-links a { display: inline-flex; align-items: center; justify-content: center; min-height: var(--tap-min); min-width: var(--tap-min); }
+  .cycle-links a[aria-current] { font-weight: 700; color: var(--ink); text-decoration-thickness: 2px; }
+  #of-export-note { margin: 0; }
+  .reading-column :global(#music > .part-head:first-of-type) { margin-top: var(--s-1); }
   #missing-lender { margin-top: var(--s-4); }
   #missing-lender h2 { font-size: var(--step-0); }
   #missing-lender a { display: inline-flex; align-items: center; min-height: var(--tap-min); }
@@ -117,6 +129,5 @@ const sources = [...new Map(parts.flatMap(part => part.lender ? [[part.lender.pi
   .crumb a { color: var(--ink-muted); }
   h1 { margin-bottom: var(--s-1); }
   .latin { margin: 0; font-style: italic; }
-  .meta { margin: var(--s-1) 0 0; }
   .source-note { margin-top: var(--s-4); }
 </style>

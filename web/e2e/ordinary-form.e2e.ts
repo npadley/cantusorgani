@@ -153,7 +153,7 @@ test.describe("Ordinary Form discovery and date calendar", () => {
   test("every preselection keeps all music and part headings in the reading flow", async ({ page }) => {
     await page.goto("/ordinary-form/corpus-christi/");
     // Deliberate scan view makes every scan's visibility observable, even for typeset parts.
-    await page.locator(".reader-tools summary").click();
+    // Reading controls start open in the rail at this width.
     await page.getByRole("button", { name: "Show the scans", exact: true }).click();
     const images = await page.locator("#music img.system").count();
     const headings = await page.locator("#music .movement-heading").count();
@@ -220,7 +220,6 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     expect(requests.filter(url => url.endsWith("a4.pdf?export=1"))).toHaveLength(6);
 
     requests.length = 0;
-    await page.locator(".reader-tools summary").click();
     await page.getByRole("button", { name: "Show the scans" }).click();
     await doExport();
     expect(requests.filter(url => url.endsWith(".png?export=1"))).toHaveLength(43);
@@ -232,7 +231,6 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     expect(requests.filter(url => url.endsWith(".png?export=1"))).toHaveLength(43);
 
     requests.length = 0;
-    await page.locator(".reader-tools summary").click();
     await page.getByRole("button", { name: "Show the typeset music" }).click();
     const firstSegment = page.locator(".typeset-segment").first();
     const firstKey = await firstSegment.getAttribute("data-typeset-key");
