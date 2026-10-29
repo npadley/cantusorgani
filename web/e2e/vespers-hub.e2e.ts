@@ -44,7 +44,7 @@ test.describe("Recurring Vespers without JavaScript", () => {
 test("chooses the next evening by local sung date, including I Vespers", async ({ page }) => {
   await page.clock.install({ time: new Date("2026-12-24T12:00:00") });
   await page.goto("/vespers/sancti/12-25/");
-  await expect(page.locator("[data-next-link] a")).toHaveAttribute("href", "/vespers/2026-12-25/i/");
+  await expect(page.locator("[data-next-link] a")).toHaveAttribute("href", "/vespers/2026-12-24/");
   await expect(page.locator("[data-console-label]")).toHaveText("I Vespers · 2026-12-24");
   await expect(page.locator("[data-coming] li").first()).toHaveAttribute("data-date", "2026-12-24");
 });
@@ -60,11 +60,13 @@ test("keeps the archive after the published window ends", async ({ page }) => {
 
 test("the hub is linked from the day, dated service and Vesperale", async ({ page }) => {
   await page.clock.install({ time: new Date("2026-10-29T12:00:00") });
-  for (const path of ["/day/sancti/12-25m3/", "/vespers/2026-12-25/i/", "/vespers/"]) {
+  for (const path of ["/day/sancti/12-25m3/", "/vespers/2026-12-24/"]) {
     await page.goto(path);
     await expect(page.locator('a[href="/vespers/sancti/12-25/"]').first()).toBeVisible();
   }
-  await page.goto("/vespers/2026-12-25/i/");
+  await page.goto("/vespers/");
+  await expect(page.locator('a[href^="/vespers/sancti/"], a[href^="/vespers/tempora/"]').first()).toBeVisible();
+  await page.goto("/vespers/2026-12-24/");
   await expect(page.getByText(/^Every date/)).toBeVisible();
   await expect(page.locator("[data-coming] li").first()).toBeVisible();
   await page.emulateMedia({ media: "print" });
