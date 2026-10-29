@@ -133,6 +133,42 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     await expect(page.locator("#of-export-note")).toContainText("Every applicable alternative starts selected");
   });
 
+  test("year links preserve the celebration context and apply the new cycle", async ({ page }) => {
+    await page.goto("/ordinary-form/corpus-christi/?cycle=A&season=ordinary&date=2026-06-07&corpusChristi=sunday");
+    const yearB = page.locator('#cycle-alternatives a[data-cycle="B"]');
+    const query = new URLSearchParams((await yearB.getAttribute("href"))!.slice(1));
+    expect(Object.fromEntries(query)).toEqual({ cycle: "B", season: "ordinary", date: "2026-06-07", corpusChristi: "sunday" });
+    await yearB.click();
+    await expect(page.locator('#cycle-alternatives a[aria-current]')).toHaveText("Year B");
+    await expect(page.locator("#of-export-note")).toContainText("Year B · ordinary season");
+    for (const box of await page.locator('.service-rail input[name="export-part"]').all()) {
+      const years = (await box.getAttribute("data-years") ?? "").split(",").filter(Boolean);
+      const seasons = (await box.getAttribute("data-seasons") ?? "").split(",").filter(Boolean);
+      const eligible = (!years.length || years.includes("B")) && (!seasons.length || seasons.includes("ordinary"));
+      if (eligible) await expect(box).toBeChecked();
+      else await expect(box).not.toBeChecked();
+    }
+  });
+
+  test("every preselection keeps all music and part headings in the reading flow", async ({ page }) => {
+    await page.goto("/ordinary-form/corpus-christi/");
+    // Deliberate scan view makes every scan's visibility observable, even for typeset parts.
+    await page.locator(".reader-tools summary").click();
+    await page.getByRole("button", { name: "Show the scans", exact: true }).click();
+    const images = await page.locator("#music img.system").count();
+    const headings = await page.locator("#music .movement-heading").count();
+    expect(images).toBeGreaterThan(0);
+    expect(headings).toBeGreaterThan(0);
+    for (const cycle of ["A", "B", "C", "invalid"]) {
+      for (const season of ["advent", "christmas", "lent", "triduum", "easter", "ordinary", "invalid"]) {
+        await page.goto(`/ordinary-form/corpus-christi/?cycle=${cycle}&season=${season}`);
+        await expect(page.locator("#of-export-note")).toContainText("Every applicable alternative starts selected");
+        await expect(page.locator("#music img.system:visible")).toHaveCount(images);
+        await expect(page.locator("#music .movement-heading:visible")).toHaveCount(headings);
+      }
+    }
+  });
+
   test("builds Letter, A4, and scan PDFs from composed lender assets without dropping sections", async ({ page }) => {
     const png = await readFile(new URL("../src/lib/__fixtures__/slices/noh5/0051/000@2x.png", import.meta.url));
     const sourcePdf = await PDFDocument.create();
@@ -184,6 +220,7 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     expect(requests.filter(url => url.endsWith("a4.pdf?export=1"))).toHaveLength(6);
 
     requests.length = 0;
+    await page.locator(".reader-tools summary").click();
     await page.getByRole("button", { name: "Show the scans" }).click();
     await doExport();
     expect(requests.filter(url => url.endsWith(".png?export=1"))).toHaveLength(43);
@@ -195,6 +232,7 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     expect(requests.filter(url => url.endsWith(".png?export=1"))).toHaveLength(43);
 
     requests.length = 0;
+    await page.locator(".reader-tools summary").click();
     await page.getByRole("button", { name: "Show the typeset music" }).click();
     const firstSegment = page.locator(".typeset-segment").first();
     const firstKey = await firstSegment.getAttribute("data-typeset-key");

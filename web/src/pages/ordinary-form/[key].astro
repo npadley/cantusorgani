@@ -1,5 +1,8 @@
 ---
-import ExportBar from "../../components/ExportBar.astro";
+import ServiceRail from "../../components/ServiceRail.astro";
+import SourceBlock from "../../components/SourceBlock.astro";
+import { exportSegments } from "../../lib/exportParts";
+import { gregobaseUrl } from "../../lib/catalog";
 import Layout from "../../components/Layout.astro";
 import MovementNav from "../../components/MovementNav.astro";
 import SystemStack from "../../components/SystemStack.astro";
@@ -22,10 +25,21 @@ const parts = allOrdinaryFormParts(key);
 const missing = parts.filter(part => !part.lender).length;
 const unmapped = piece.sourceNote === "chants not yet mapped";
 const chantsOnly = goodFridayHref(key);
+const exportParts = exportSegments([piece]);
+// The composed piece has volume "ordinary-form", not a printed edition.
+const sources = [...new Map(parts.flatMap(part => part.lender ? [[part.lender.piece.slug, part.lender.piece] as const] : [])).values()];
 ---
 
 <Layout title={piece.title} description={`${piece.title} — Ordinary Form chants assigned in the Graduale Romanum (1974), with available Nova Organi Harmonia accompaniments.`} skipTo={score.systems.length > 0 ? "music" : undefined}>
-  <article data-of-page>
+  <div class="reader-layout">
+  <ServiceRail pieces={[piece]} title={piece.title}>
+    <p slot="heading-summary" id="selection-summary" class="small muted ui"></p>
+    <div slot="reader-tools">
+      <MovementNav piece={score} variant="tools" />
+      <TypesetSwitch show={hasTypeset(score)} />
+    </div>
+  </ServiceRail>
+  <article class="reading-column" data-of-page>
     <header class="head">
       <p class="crumb small muted ui"><a href="/">Cantus Organi</a> · <a href="/calendar/ordinary-form/">Ordinary Form calendar</a></p>
       <h1>{piece.title}</h1>
@@ -41,21 +55,35 @@ const chantsOnly = goodFridayHref(key);
       </p>
     )}
 
-    <p class="notice ui" role="status">
-      This page assembles available Nova Organi Harmonia music for chants assigned in the 1974 Graduale Romanum.
-      {missing > 0 && ` ${missing} assigned chant${missing === 1 ? " is" : "s are"} not in Nova Organi Harmonia.`}
-      {unmapped && " chants not yet mapped."}
-    </p>
-
+    {score.systems.length > 0 && exportParts.length > 0 && (
+      <section id="cycle-alternatives" aria-label="Choose the year">
+        <nav class="cycle-links ui" aria-label="Lectionary year">
+          {["A", "B", "C"].map(cycle => <a href={`?cycle=${cycle}`} data-cycle={cycle}>Year {cycle}</a>)}
+        </nav>
+      </section>
+    )}
     <p id="of-export-note" class="small muted ui" aria-live="polite">
       All years and seasons are shown. Every applicable alternative starts selected; choose the chants required for this celebration.
     </p>
-    <ExportBar pieces={[piece]} title={piece.title} />
-    <TypesetSwitch show={hasTypeset(score)} />
-    <MovementNav piece={score} />
-    <SystemStack piece={score} id="music" />
+    <MovementNav piece={score} variant="links" />
+    <SystemStack piece={score} exportParts={exportParts} id="music" />
+    <section id="missing-lender" class="small muted ui">
+      <h2>About this set</h2>
+      <p>
+        This page assembles available Nova Organi Harmonia music for chants assigned in the 1974 Graduale Romanum.
+        {missing > 0 && ` ${missing} assigned chant${missing === 1 ? " is" : "s are"} not in Nova Organi Harmonia.`}
+        {unmapped && " chants not yet mapped."}
+      </p>
+      {missing > 0 && <ul>{parts.filter(part => !part.lender).map(part => (
+        <li data-missing-label={part.label}>
+          {part.label}: Not in Nova Organi Harmonia — <a href={gregobaseUrl(part.gregobaseId)!} target="_blank" rel="noopener">Open chant {part.gregobaseId} on GregoBase</a>
+        </li>
+      ))}</ul>}
+    </section>
+    <SourceBlock pieces={sources} />
     <p class="small muted ui source-note">Chant assignments follow the Graduale Romanum (1974). Each NOH section remains linked to its printed source and correction target.</p>
   </article>
+  </div>
   <script>
     import { mountOrdinaryFormPage } from "../../lib/ordinaryFormPageClient";
     const root = document.querySelector<HTMLElement>("[data-of-page]");
@@ -64,7 +92,27 @@ const chantsOnly = goodFridayHref(key);
 </Layout>
 
 <style>
-  .head { margin-bottom: var(--s-4); }
+  @media print { .reader-layout { display: block; } }
+  .reading-column { min-width: 0; }
+  @media screen and (width < 62rem) {
+    .reader-layout { display: flex; flex-direction: column; }
+    .reader-layout > :global(.service-rail) { order: 1; }
+  }
+  @media screen and (min-width: 62rem) {
+    .reader-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: var(--s-4); align-items: start; }
+    .reading-column { grid-column: 2; grid-row: 1; }
+    .reader-layout > :global(.service-rail) { grid-column: 1; grid-row: 1; }
+  }
+  .reading-column :global(.movements) { flex-wrap: nowrap; overflow-x: auto; margin-bottom: var(--s-2); gap: var(--s-1); }
+  .reading-column :global(.movements a) { flex-shrink: 0; }
+  .head { margin-bottom: var(--s-2); }
+  .cycle-links { display: flex; gap: var(--s-2); }
+  .cycle-links a { display: inline-flex; align-items: center; justify-content: center; min-height: var(--tap-min); min-width: var(--tap-min); padding-inline: var(--s-2); }
+  .cycle-links a[aria-current] { font-weight: 700; color: var(--ink); }
+  #of-export-note { margin: var(--s-1) 0 var(--s-2); }
+  #missing-lender { margin-top: var(--s-4); }
+  #missing-lender h2 { font-size: var(--step-0); }
+  #missing-lender a { display: inline-flex; align-items: center; min-height: var(--tap-min); }
   .crumb { margin: 0 0 var(--s-1); }
   .crumb a { color: var(--ink-muted); }
   h1 { margin-bottom: var(--s-1); }

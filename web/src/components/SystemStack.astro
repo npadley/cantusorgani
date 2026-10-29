@@ -1,5 +1,5 @@
 ---
-import { gregobaseUrl, jumpTargets, pagesLabel, systemUrlStem, volumeLabel, sectionName } from "../lib/catalog";
+import { jumpTargets, pagesLabel, systemUrlStem, volumeLabel, sectionName } from "../lib/catalog";
 import { annotationFor, chantEntry } from "../lib/chants";
 import type { JumpTarget, Piece } from "../lib/catalog";
 import { segmentKey, segments } from "../lib/typeset";
@@ -178,18 +178,13 @@ const partName = (start: number): string => (startsAt.get(start) ?? []).at(-1)?.
   </figure>
 )}
 
-{piece.parts.filter((p) => p.kind === "borrowed").map((p) => (
-  p.kind === "borrowed" && (piece.division === "ordinary-form" ? (
-    <p class="notice ui small" role="status">
-      {sectionName(p)}: <strong>Not in Nova Organi Harmonia.</strong>{" "}
-      {gregobaseUrl(p.gregobaseId) && <a href={gregobaseUrl(p.gregobaseId)!} target="_blank" rel="noopener">Open chant {p.gregobaseId} on GregoBase</a>}
-    </p>
-  ) : (
+{piece.division !== "ordinary-form" && piece.parts.filter((p) => p.kind === "borrowed").map((p) => (
+  p.kind === "borrowed" && (
     <p class="notice ui small" role="status">
       {sectionName(p)}: the book refers to {borrowedVolumeLabel(p.borrowedVolume)},
       printed page {p.borrowedPage}. The exact music systems for this reference have not yet been identified.
     </p>
-  ))
+  )
 ))}
 
 <style>
