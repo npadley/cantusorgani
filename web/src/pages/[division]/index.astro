@@ -10,7 +10,7 @@ import {
 } from "../../lib/indexes";
 import type { Division, DivisionSummary } from "../../lib/indexes";
 import { SEASON_LABELS } from "../../lib/liturgy";
-import { allLineups } from "../../lib/vespers";
+import { occasions, hubHref, lineupTitle, allLineups } from "../../lib/vespers";
 
 // One page per division that has catalogued music. The Kyriale has its own page.
 // Nothing here is a placeholder: a division with no pieces produces no route.
@@ -41,6 +41,7 @@ const reached = new Set([...seasons.flatMap((g) => g.days), ...months.flatMap((m
 const rest = seasons.length || months.length ? pieces.filter((p) => !reached.has(p.id)) : [];
 // The Vesperale's hymns, A-Z, each linked to the office that prints it.
 const hymns = meta.division === "vesperale" ? hymnIndex(pieces) : [];
+const hubs = meta.division === "vesperale" ? occasions() : [];
 const lineups = meta.division === "vesperale" ? allLineups() : [];
 ---
 
@@ -51,6 +52,13 @@ const lineups = meta.division === "vesperale" ? allLineups() : [];
     <p class="lede" lang="la">{meta.la}</p>
     <p class="muted">{meta.blurb}</p>
   </div>
+
+  {hubs.length > 0 && <section>
+    <h2>Vespers by occasion</h2>
+    <ul class="days ui">
+      {hubs.map(group => <li><a href={hubHref(group.office)}>{lineupTitle(group.days[0]!)}</a></li>)}
+    </ul>
+  </section>}
 
   {lineups.length > 0 && <VespersDates days={lineups} heading="Vespers by date, in the order sung" upcoming={6} />}
 

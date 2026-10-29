@@ -199,6 +199,36 @@ export function allLineups(lineup: Lineup = loadLineup()): readonly LineupDay[] 
     .sort((a, b) => sungOn(a).localeCompare(sungOn(b)) || a.vespers.localeCompare(b.vespers));
 }
 
+/** The recurring office address; a flex can never occupy a dated route. */
+export function hubHref(office: string): string {
+  const key = normalKey(office);
+  if (!/^[a-z]+:[A-Za-z0-9-]+$/.test(key)) throw new Error(`vespers hub: invalid office ${office}`);
+  return `/vespers/${key.replace(":", "/")}/`;
+}
+
+export interface VespersOccasion {
+  readonly office: string;
+  readonly days: readonly LineupDay[];
+}
+
+/** One hub per office with a published lineup, including I and II Vespers.
+ * Called by getStaticPaths, so a path collision fails the build. */
+export function occasions(lineup: Lineup = loadLineup()): readonly VespersOccasion[] {
+  const groups = new Map<string, LineupDay[]>();
+  const days = allLineups(lineup);
+  for (const day of days) {
+    const group = groups.get(day.office) ?? [];
+    group.push(day);
+    groups.set(day.office, group);
+  }
+  const datedPaths = new Set(days.map(lineupHref));
+  return [...groups].sort(([a], [b]) => a.localeCompare(b)).map(([office, dates]) => {
+    const href = hubHref(office);
+    if (datedPaths.has(href)) throw new Error(`vespers hub: path collides with dated office ${href}`);
+    return { office, days: dates };
+  });
+}
+
 /** The Vespers whose own music comes from `slug` (the day's antiphons,
  * Magnificat antiphon or hymn) -- not borrowed tone-bank formulas. */
 export function lineupsUsing(slug: string, lineup: Lineup = loadLineup()): readonly LineupDay[] {

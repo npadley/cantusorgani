@@ -1,0 +1,100 @@
+---
+import Layout from "../../../components/Layout.astro";
+import DayMarker from "../../../components/DayMarker.astro";
+import VespersDates from "../../../components/VespersDates.astro";
+import { dayHref } from "../../../lib/indexes";
+import { observance } from "../../../lib/liturgy";
+import { consoleLine, lineupHref, lineupTitle, occasions, sungOn } from "../../../lib/vespers";
+import type { VespersOccasion } from "../../../lib/vespers";
+
+export function getStaticPaths() {
+  return occasions().map(occasion => {
+    const [flex, name] = occasion.office.split(":");
+    return { params: { flex, name }, props: { occasion } };
+  });
+}
+interface Props { readonly occasion: VespersOccasion }
+const { occasion } = Astro.props;
+const first = occasion.days[0]!;
+const o = observance(first.observance);
+const title = lineupTitle(first);
+const colours: Readonly<Record<string, "white" | "red" | "violet" | "green" | "black" | "rose">> = {
+  w: "white", r: "red", v: "violet", g: "green", b: "black", p: "rose",
+};
+const colour = colours[o?.colors[0] ?? ""];
+const consoles = Object.fromEntries(occasion.days.map(day => [lineupHref(day), {
+  label: `${day.vespers} Vespers · ${sungOn(day)}`, text: consoleLine(day),
+}]));
+---
+
+<Layout title={`Vespers: ${title}`} description={`Every published evening of Vespers for ${title} under the 1962 rubrics. Choose a date for its order and organ accompaniment from Nova Organi Harmonia VIII.`}>
+  <article class="vespers-hub prose" data-console-lines={JSON.stringify(consoles)}>
+    <nav class="crumb ui small" aria-label="Breadcrumb">
+      <a href="/">Cantus Organi</a> · <a href="/vespers/">Vesperale</a> · Vespers by occasion
+    </nav>
+    <header>
+      <p class="ui small muted">The evening office · EF (1962)</p>
+      {colour && <p class="ui small"><DayMarker colour={colour} /></p>}
+      <h1>Vespers · {title}</h1>
+      {o && <p class="lede" lang="la">{o.titleLa}</p>}
+      <p>Choose a dated evening for its exact order of Vespers and music.</p>
+    </header>
+
+    <section data-next-evening hidden>
+      <h2>Next evening</h2>
+      <div data-next-link></div>
+    </section>
+
+    <section>
+      <h2>At the console</h2>
+      <p class="ui small muted" data-console-label>{consoles[lineupHref(first)]?.label}</p>
+      <p class="console ui" lang="la" data-console>{consoleLine(first)}</p>
+    </section>
+
+    <VespersDates days={occasion.days} heading="Published evenings" />
+
+    <section class="notice" aria-labelledby="partial-coverage">
+      <h2 id="partial-coverage">When the book gives only part of the office</h2>
+      <p>NOH VIII does not print the full order of Vespers for every day. The Transfiguration, Holy Cross and St Michael have no complete dated page in this coverage. Read the available source music in the Vesperale.</p>
+      <p class="ui"><a href="/vespers/">Browse the Vesperale in printed order</a></p>
+    </section>
+    <p class="ui"><a href={dayHref(first.observance)}>Music for this day</a></p>
+  </article>
+</Layout>
+
+<style>
+  [hidden] { display: none !important; }
+  .crumb { margin-bottom: var(--s-3); }
+  .crumb a { color: var(--ink-muted); }
+  .lede { font-style: italic; font-size: var(--step-1); }
+  h2 { font-size: var(--step-1); margin-top: var(--s-5); }
+  .console { font-weight: 600; }
+  .vespers-hub a { display: inline-flex; align-items: center; min-height: var(--tap-min); }
+</style>
+
+<script>
+  const hub = document.querySelector<HTMLElement>(".vespers-hub");
+  if (hub) {
+    const now = new Date();
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+    const next = [...hub.querySelectorAll<HTMLElement>("details li[data-date]")]
+      .find(li => (li.dataset.date ?? "") >= today);
+    const link = next?.querySelector<HTMLAnchorElement>("a");
+    const section = hub.querySelector<HTMLElement>("[data-next-evening]");
+    const target = hub.querySelector("[data-next-link]");
+    if (link && section && target) {
+      target.append(link.cloneNode(true));
+      section.hidden = false;
+      const heading = hub.querySelector(".vespers-dates h2");
+      if (heading) heading.textContent = "Coming evenings";
+      const consoles: Record<string, { label: string; text: string }> = JSON.parse(hub.dataset.consoleLines ?? "{}");
+      const summary = consoles[link.getAttribute("href") ?? ""];
+      const label = hub.querySelector("[data-console-label]");
+      const text = hub.querySelector("[data-console]");
+      if (summary && label && text) {
+        label.textContent = summary.label;
+        text.textContent = summary.text;
+      }
+    }
+  }
+</script>

@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  allLineups, bankNote, consoleLine, exportLineup, itemSystems, lineupTitle, lineupsUsing, sungOn, isFormula, isSunday, itemHeading, lineupFor, lineupHref, loadLineup, nextFirstVespers, nextLineupDate,
+  occasions, hubHref, allLineups, bankNote, consoleLine, exportLineup, itemSystems, lineupTitle, lineupsUsing, sungOn, isFormula, isSunday, itemHeading, lineupFor, lineupHref, loadLineup, nextFirstVespers, nextLineupDate,
   parseLineup, sections, spokenTone, toneLabel,
 } from "./vespers";
 import type { LineupDay } from "./vespers";
+import { allPieces } from "./catalog";
+import { catalogedDays } from "./indexes";
 
 function item(kind: string, group: string, extra: Record<string, unknown> = {}): Record<string, unknown> {
   return {
@@ -207,4 +209,37 @@ describe("the day's title", () => {
     }
     expect(lineupTitle(lineup.days.get("2026-12-25")!)).not.toMatch(/Midnight/i);
   });
+});
+
+
+describe("recurring Vespers occasions", () => {
+  it("groups every I and II lineup once by office, in sung order", () => {
+    const groups = occasions();
+    expect(groups).toHaveLength(70);
+    expect(groups.flatMap(g => g.days)).toHaveLength(allLineups().length);
+    for (const group of groups) {
+      expect(group.days.every(d => d.office === group.office)).toBe(true);
+      expect(group.days.map(sungOn)).toEqual(group.days.map(sungOn).sort());
+    }
+    const christmas = groups.find(g => g.office === "sancti:12-25")!;
+    expect(christmas.days.some(d => d.vespers === "I")).toBe(true);
+    expect(christmas.days.some(d => d.vespers === "II")).toBe(true);
+  });
+  it("normalizes day keys to the same hub and keeps hub and dated paths disjoint", () => {
+    expect(hubHref("sancti:12-25m3")).toBe("/vespers/sancti/12-25/");
+    expect(hubHref("tempora:Pasc3-0r")).toBe("/vespers/tempora/Pasc3-0/");
+    const dated = new Set(allLineups().map(lineupHref));
+    for (const group of occasions()) expect(dated.has(hubHref(group.office))).toBe(false);
+    expect(() => hubHref("2026-11-01:i")).toThrow(/office/);
+  });
+  it("produces no hub for held-back offices or an empty lineup", () => {
+    const lineup = parseLineup(doc([]));
+    expect(occasions(lineup).map(g => g.office)).toEqual(["tempora:Epi5-0"]);
+    expect(occasions(parseLineup({ schema_version: 1 }))).toEqual([]);
+  });
+});
+
+it("links every hub back to an existing day route", () => {
+  const days = new Set(catalogedDays(allPieces()));
+  for (const group of occasions()) expect(days.has(group.days[0]!.observance), group.office).toBe(true);
 });

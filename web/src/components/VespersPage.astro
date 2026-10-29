@@ -1,4 +1,5 @@
 ---
+import VespersDates from "./VespersDates.astro";
 import ServiceRail from "./ServiceRail.astro";
 import DayMarker from "./DayMarker.astro";
 import SourceBlock from "./SourceBlock.astro";
@@ -6,7 +7,7 @@ import Layout from "./Layout.astro";
 import LineupStack from "./LineupStack.astro";
 import { hasNotation } from "../lib/chants";
 import { observance } from "../lib/liturgy";
-import { consoleLine, exportLineup, itemSystems, lineupHref, lineupTitle, loadLineup, sections } from "../lib/vespers";
+import { hubHref, occasions, consoleLine, exportLineup, itemSystems, lineupHref, lineupTitle, loadLineup, sections } from "../lib/vespers";
 import type { LineupDay } from "../lib/vespers";
 
 // One Vespers in the order sung: II Vespers of a date (/vespers/<date>/), or
@@ -15,6 +16,7 @@ interface Props { readonly day: LineupDay }
 const { day } = Astro.props;
 const o = observance(day.observance);
 const title = lineupTitle(day);
+const dates = occasions().find(group => group.office === day.office)?.days ?? [];
 const colours: Readonly<Record<string, "white" | "red" | "violet" | "green" | "black" | "rose">> = {
   w: "white", r: "red", v: "violet", g: "green", b: "black", p: "rose",
 };
@@ -61,6 +63,7 @@ const eveningTitle = evening ? lineupTitle(evening) : null;
     {o && <p class="lede" lang="la">{o.titleLa} · ad Vesperas</p>}
     <p class="meta ui small muted">{day.vespers} Vespers · {when} · 1962 rubrics · Nova Organi Harmonia VIII</p>
     <p class="console ui">{consoleLine(day)}</p>
+    <p class="ui no-print"><a href={hubHref(day.office)}>All evenings of this occasion</a></p>
     {evening && (
       <p class="notice-quiet ui small">This evening the 1962 rubrics give <a href={lineupHref(evening)}>I Vespers of {eveningTitle}</a> (tomorrow is a I class feast); these are the Vespers of the day itself.</p>
     )}
@@ -73,6 +76,7 @@ const eveningTitle = evening ? lineupTitle(evening) : null;
   <LineupStack day={day} />
 
   <SourceBlock pieces={sources} />
+  <VespersDates days={dates} heading="Coming evenings" />
   </article>
   </div>
 </Layout>
