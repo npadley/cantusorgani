@@ -14,8 +14,8 @@ const query = `?target=${encodeURIComponent(target)}`;
 
 <span class="report-links ui small no-print">
   <a href={`/corrections/${query}`}>Report<span class="sr-only"> an error in {name}</span></a>
-  <span aria-hidden="true">·</span>
-  <a href={`/admin/edit/${query}`}>Edit<span class="sr-only"> {name} (editors)</span></a>
+  <span aria-hidden="true" hidden data-editor-only>·</span>
+  <a href={`/admin/edit/${query}`} hidden data-editor-only>Edit<span class="sr-only"> {name} (editors)</span></a>
 </span>
 
 <style>

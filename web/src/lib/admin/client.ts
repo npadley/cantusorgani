@@ -19,6 +19,10 @@ export async function api<T>(path: string, body?: unknown): Promise<ApiResult<T>
     init.headers = { accept: "application/json", "content-type": "application/json" };
     init.body = JSON.stringify(body);
   }
+  // Clear a stale hint before checking /me; only a confirmed editor sets it.
+  if (path === "/me") {
+    try { localStorage.removeItem("editor"); } catch { /* storage unavailable */ }
+  }
   let response: Response;
   try {
     response = await fetch(`/admin/api${path}`, init);
@@ -34,6 +38,10 @@ export async function api<T>(path: string, body?: unknown): Promise<ApiResult<T>
   if (!response.ok) {
     return { ok: false, status: response.status, error: data.error ?? `The request failed (${response.status}).`,
              ...(data.fix ? { fix: data.fix } : {}) };
+  }
+  if (path === "/me" && response.status === 200 && typeof data === "object" && data !== null
+      && "email" in data && typeof data.email === "string" && data.email.trim() !== "") {
+    try { localStorage.setItem("editor", "1"); } catch { /* storage unavailable */ }
   }
   return { ok: true, data };
 }

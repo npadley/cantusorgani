@@ -20,6 +20,8 @@ test.describe("Report links", () => {
   test("should link each antiphon of a Vespers page, and list the coming evenings", async ({ page }) => {
     await page.goto("/vespers/2026-11-29/");
     await expect(page.locator(".lineup .report-links")).toHaveCount(6);
+    await expect(page.locator(".lineup .report-links").first().getByRole("link", { name: /^Report/ })).toBeVisible();
+    await expect(page.locator(".lineup [data-editor-only]:visible")).toHaveCount(0);
     await page.goto("/vespers/");
     await expect(page.locator("[data-coming] li").first()).toBeVisible();
   });
