@@ -453,8 +453,11 @@ jobs:
   # Off until the repository variable PREVIEW_ENABLED is true (ADMIN-SETUP.md §8).
   preview:
     needs: [python, site, browser, export]
+    # Dependabot PRs get no Actions secrets, so the deploy would fail; their own checks still run.
+    # Keyed on the PR's author, not github.actor, so a maintainer's rerun is skipped too.
     if: >-
       vars.PREVIEW_ENABLED == 'true' && !cancelled() && !failure() && github.event_name == 'pull_request' &&
+      github.event.pull_request.user.login != 'dependabot[bot]' &&
       github.event.pull_request.head.repo.full_name == github.repository &&
       needs.python.result == 'success' && needs.site.result == 'success' &&
       needs.browser.result == 'success' && needs.export.result == 'success'
