@@ -79,7 +79,7 @@ const sources = [...new Map(parts.flatMap(part => part.lender ? [[part.lender.pi
       </p>
       {missing > 0 && <ul>{parts.filter(part => !part.lender).map(part => (
         <li data-missing-label={part.label}>
-          {part.label}: Not in Nova Organi Harmonia — <a href={gregobaseUrl(part.gregobaseId)!} target="_blank" rel="noopener">Open chant {part.gregobaseId} on GregoBase</a>
+          {part.label}: Not in Nova Organi Harmonia{gregobaseUrl(part.gregobaseId) && <> — <a href={gregobaseUrl(part.gregobaseId)!} target="_blank" rel="noopener">Open chant {part.gregobaseId} on GregoBase</a></>}
         </li>
       ))}</ul>}
     </section>

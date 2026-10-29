@@ -139,7 +139,7 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     const query = new URLSearchParams((await yearB.getAttribute("href"))!.slice(1));
     expect(Object.fromEntries(query)).toEqual({ cycle: "B", season: "ordinary", date: "2026-06-07", corpusChristi: "sunday" });
     await yearB.click();
-    await expect(page.locator('#cycle-alternatives a[aria-current]')).toHaveText("Year B");
+    await expect(page.locator('#cycle-alternatives a[aria-current]')).toHaveAccessibleName("Year B");
     await expect(page.locator("#of-export-note")).toContainText("Year B · ordinary season");
     for (const box of await page.locator('.service-rail input[name="export-part"]').all()) {
       const years = (await box.getAttribute("data-years") ?? "").split(",").filter(Boolean);
@@ -163,6 +163,13 @@ test.describe("Ordinary Form discovery and date calendar", () => {
       for (const season of ["advent", "christmas", "lent", "triduum", "easter", "ordinary", "invalid"]) {
         await page.goto(`/ordinary-form/corpus-christi/?cycle=${cycle}&season=${season}`);
         await expect(page.locator("#of-export-note")).toContainText("Every applicable alternative starts selected");
+        // The preselection ran: Year C leaves Communion I (Years A and B) unticked, and Export counts the rest.
+        if (cycle === "C") {
+          await expect(page.locator('.service-rail input[name="export-part"]:not(:checked)')).not.toHaveCount(0);
+          const systems = await page.locator('.service-rail input[name="export-part"]:checked')
+            .evaluateAll(nodes => nodes.reduce((n, node) => n + Number((node as HTMLInputElement).dataset["systems"]), 0));
+          await expect(page.locator("#export-btn")).toContainText(`Export PDF (${systems} systems`);
+        }
         await expect(page.locator("#music img.system:visible")).toHaveCount(images);
         await expect(page.locator("#music .movement-heading:visible")).toHaveCount(headings);
       }

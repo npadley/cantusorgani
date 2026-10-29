@@ -81,7 +81,7 @@ describe("mountOrdinaryFormPage", () => {
   it("labels inline choices by segment id while keeping excluded choices available", () => {
     const { labels, boxes } = page("?cycle=B&season=easter");
     expect(labels.map(label => label.textContent)).toEqual([
-      " · Years A and B", " · Not for Year B", " · Years A, B and C · Lent",
+      " · Years A and B", " · Not for Year B", " · Lent",
     ]);
     expect(boxes.every(box => !("disabled" in box))).toBe(true);
   });

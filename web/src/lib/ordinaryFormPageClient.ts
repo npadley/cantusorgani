@@ -47,6 +47,7 @@ export function mountOrdinaryFormPage(root: HTMLElement): void {
     // A part sung in every year and season is no alternative: it needs no label.
     if (!seasons.length && (years.length === 0 || years.length === CYCLES.size)) return;
     const yearLabel = cycle && years.length && !years.includes(cycle) ? `Not for Year ${cycle}`
+      : years.length === CYCLES.size ? ""
       : years.length === 1 ? `Year ${years[0]}`
       : years.length > 1 ? `Years ${years.slice(0, -1).join(", ")} and ${years.at(-1)}` : "";
     const label = root.ownerDocument.createElement("span");
