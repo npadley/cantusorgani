@@ -292,7 +292,6 @@ test.describe("Dated Vespers at the organ", () => {
   }
 });
 
-
 test("About retains its anchors and credits the woodcut", async ({ page }) => {
   await page.goto("/about/");
   for (const id of ["what", "how", "limits", "corrections", "typeset", "sources", "woodcut"]) {

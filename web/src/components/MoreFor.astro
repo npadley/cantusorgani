@@ -1,0 +1,28 @@
+---
+import type { MoreFor as Props } from "../lib/indexes";
+
+const { heading, links } = Astro.props;
+---
+
+{links.length > 0 && <section class="more-for no-print" aria-labelledby="more-for-heading">
+  <h2 class="ui" id="more-for-heading">{heading}</h2>
+  <ul>{links.map(link => <li><a href={link.href} lang={link.href.startsWith("/piece/") || link.href.startsWith("/kyriale/") ? "la" : undefined}>{link.title}</a></li>)}</ul>
+</section>}
+
+<style>
+  h2 {
+    margin: var(--s-4) 0 var(--s-2);
+    font-size: var(--step-0);
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  ul { margin: 0; padding-inline-start: var(--s-4); }
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-min);
+    min-width: var(--tap-min);
+    overflow-wrap: anywhere;
+  }
+</style>

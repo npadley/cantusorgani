@@ -1,0 +1,36 @@
+---
+import type { PieceNeighbours as Props } from "../lib/indexes";
+import { pieceHref } from "../lib/indexes";
+
+const { previous, next, back } = Astro.props;
+---
+
+<nav aria-label="Previous and next piece" class="piece-neighbours ui no-print">
+  {previous && <a href={pieceHref(previous)}>Previous: <span lang={previous.incipit ? "la" : undefined}>{previous.incipit ?? previous.title}</span></a>}
+  <a href={back.href}>Back to {back.title}</a>
+  {next && <a href={pieceHref(next)}>Next: <span lang={next.incipit ? "la" : undefined}>{next.incipit ?? next.title}</span></a>}
+</nav>
+
+<style>
+  .piece-neighbours {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+    margin-block: var(--s-4);
+    padding-block: var(--s-3);
+    border-block: 1px solid var(--rule);
+  }
+  a {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    column-gap: var(--s-1);
+    min-height: var(--tap-min);
+    min-width: var(--tap-min);
+    overflow-wrap: anywhere;
+  }
+  @media (min-width: 40rem) {
+    .piece-neighbours { flex-direction: row; }
+    a { flex: 1; min-width: 0; }
+  }
+</style>
