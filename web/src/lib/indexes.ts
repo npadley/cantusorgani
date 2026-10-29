@@ -245,3 +245,109 @@ export function kyrialeIndex(pieces: readonly Piece[]): readonly KyrialeGroup[] 
   if (rest.length) groups.push({ heading: "Other", pieces: rest });
   return groups;
 }
+
+// ---------------------------------------------------------- reader neighbours ---
+
+export interface PieceNeighbours {
+  readonly previous: Piece | null;
+  readonly next: Piece | null;
+  readonly back: { readonly title: string; readonly href: string };
+}
+
+export interface MoreFor {
+  readonly heading: string;
+  readonly links: readonly DayLink[];
+}
+
+interface ReaderIndex {
+  readonly divisions: Map<string, { pieces: Piece[]; positions: Map<string, number> }>;
+  readonly byDay: Readonly<Record<string, readonly DayLink[]>>;
+  readonly moreByDay: Map<string, MoreFor>;
+}
+
+const readerIndexes = new WeakMap<readonly Piece[], ReaderIndex>();
+
+function uniqueLinks(links: readonly DayLink[], currentHref: string): readonly DayLink[] {
+  const seen = new Set([currentHref]);
+  return links.filter(({ href }) => {
+    if (seen.has(href)) return false;
+    seen.add(href);
+    return true;
+  }).slice(0, 6);
+}
+
+/** Catalogue arrays are immutable during a build; share their lookups across pages. */
+function readerIndex(pieces: readonly Piece[]): ReaderIndex {
+  const cached = readerIndexes.get(pieces);
+  if (cached) return cached;
+  const divisions: ReaderIndex["divisions"] = new Map();
+  for (const piece of pieces) {
+    let group = divisions.get(piece.division);
+    if (!group) {
+      group = { pieces: [], positions: new Map() };
+      divisions.set(piece.division, group);
+    }
+    group.positions.set(piece.slug, group.pieces.length);
+    group.pieces.push(piece);
+  }
+  const moreByDay = new Map<string, MoreFor>();
+  function addGroup(days: readonly DayEntry[], heading: string, division: Division): void {
+    days.forEach((day, i) => {
+      const links = days.slice(Math.max(0, i - 3), i + 4).map(other => ({
+        title: other.title, href: dayHref(other.key), division,
+      }));
+      moreByDay.set(day.key, { heading, links: uniqueLinks(links, dayHref(day.key)) });
+    });
+  }
+  for (const group of temporaleIndex(pieces)) addGroup(group.days, "More for this season", "temporale");
+  for (const group of sanctoraleIndex(pieces)) {
+    addGroup(group.days, `More for ${MONTHS_EN[group.month - 1]}`, "sanctorale");
+  }
+  // The Common's days (the Saturdays of Our Lady) run across the seasons.
+  addGroup(communeDays(pieces), "More from the Common", "commune");
+  const index = { divisions, byDay: dayIndex(pieces), moreByDay };
+  readerIndexes.set(pieces, index);
+  return index;
+}
+
+/** The one day a piece is printed for. Days it is only linked to (a Sunday
+ *  Mass repeated on the ferias of its week) do not count. */
+function ownDay(piece: Piece): string | undefined {
+  const own = piece.days.filter((key) => !piece.linkedDays.includes(key));
+  return own.length === 1 ? own[0] : undefined;
+}
+
+/** Previous and next distinct pages in the division's printed catalogue order. */
+export function neighbours(pieces: readonly Piece[], piece: Piece): PieceNeighbours {
+  const group = readerIndex(pieces).divisions.get(piece.division);
+  const position = group?.positions.get(piece.slug);
+  const href = pieceHref(piece);
+  function adjacent(step: number): Piece | null {
+    if (!group || position === undefined) return null;
+    for (let i = position + step; i >= 0 && i < group.pieces.length; i += step) {
+      const candidate = group.pieces[i]!;
+      if (pieceHref(candidate) !== href) return candidate;
+    }
+    return null;
+  }
+  const day = ownDay(piece);
+  const division = divisionMeta(piece.division as Division);
+  return {
+    previous: adjacent(-1), next: adjacent(1),
+    back: day ? { title: observance(day)?.titleEn ?? day, href: dayHref(day) }
+      : { title: division.en, href: `/${division.slug}/` },
+  };
+}
+
+/** Related music for a single day, or nearby days in its season/month/Common. */
+export function moreFor(pieces: readonly Piece[], current: { piece: Piece } | { day: string }): MoreFor {
+  const index = readerIndex(pieces);
+  if ("piece" in current) {
+    const { piece } = current;
+    const day = ownDay(piece);
+    if (!day) return { heading: "More for this day", links: [] };
+    const links = uniqueLinks(index.byDay[day] ?? [], pieceHref(piece));
+    return links.length ? { heading: "More for this day", links } : moreFor(pieces, { day });
+  }
+  return index.moreByDay.get(current.day) ?? { heading: "More for this season", links: [] };
+}

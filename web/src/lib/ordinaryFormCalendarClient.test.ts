@@ -49,3 +49,12 @@ describe("date-specific Ordinary Form accompaniment choices", () => {
     expect(ofDay(localDate(2026, 5, 17), sundayTransfers).occasion).toBe("ascension");
   });
 });
+
+describe("occasion links", () => {
+  it("keeps cycle, season, date and all transfers in order", async () => {
+    const { occasionHref } = await import("./ordinaryFormCalendarClient");
+    expect(occasionHref("easter", "A", "easter", localDate(2026, 4, 5), {
+      epiphany: "jan6", ascension: "sunday", corpusChristi: "thursday",
+    })).toBe("/ordinary-form/easter/?cycle=A&season=easter&date=2026-04-05&epiphany=jan6&ascension=sunday&corpusChristi=thursday");
+  });
+});
