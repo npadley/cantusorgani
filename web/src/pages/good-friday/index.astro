@@ -72,9 +72,12 @@ const rites = goodFridayRites();
     ))}
   </div>
 
-  <p class="attribution small muted ui">
-    Chant notation from <a href="https://gregobase.selapa.net">GregoBase</a> (CC0), drawn with Exsurge.
-  </p>
+  <section class="source-block small muted ui" aria-labelledby="source-chants">
+    <h2 id="source-chants">Source</h2>
+    <p>Chant notation from <a href="https://gregobase.selapa.net">GregoBase</a> (CC0), drawn with Exsurge.</p>
+    <p>These chants are sung unaccompanied. There is no accompaniment for Good Friday in <cite lang="la">Nova Organi Harmonia</cite>.</p>
+    <a href="/about/#sources">Sources and attributions</a>
+  </section>
 </Layout>
 
 <style>
@@ -100,7 +103,9 @@ const rites = goodFridayRites();
   .chant-notation :global(svg) { display: block; max-width: 100%; height: auto; }
   .chant-notation :global(svg use) { fill: currentColor; }
   .chant-notation :global(.chant-error) { margin: 0; }
-  .attribution { margin-top: var(--s-5, 2.5rem); }
+  .source-block { margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-block: var(--s-3); }
+  .source-block h2 { font-family: var(--font-ui); font-size: var(--step--1); }
+  .source-block a { display: inline-flex; align-items: center; min-height: var(--tap-min); }
 </style>
 
 <script>

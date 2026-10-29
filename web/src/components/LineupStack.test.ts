@@ -1,9 +1,11 @@
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import { describe, expect, it } from "vitest";
 
-import { lineupFor, sections } from "../lib/vespers";
+import { exportLineup, lineupFor, sections } from "../lib/vespers";
 import type { LineupDay } from "../lib/vespers";
 import LineupStack from "./LineupStack.astro";
+import VespersPage from "./VespersPage.astro";
+import GoodFridayPage from "../pages/good-friday/index.astro";
 
 async function render(day: LineupDay): Promise<string> {
   const container = await AstroContainer.create();
@@ -31,8 +33,16 @@ describe("LineupStack", () => {
 
   it("should say where the tone-bank Magnificat comes from and how to continue", async () => {
     const html = await render(DAY);
-    expect(html).toContain("as printed for Advent II, p. 54");
+    expect(html).toMatch(/<details class="provenance[^>]*>[\s\S]*?<summary[^>]*>[\s\S]*?Source of this formula[\s\S]*?<\/summary>[\s\S]*?as printed for Advent II, p. 54[\s\S]*?<\/details>/);
     expect(html).toContain("Continue every verse to this formula in I g");
+  });
+
+  it("offers an inline PDF choice for each accompanied item without hiding the music", async () => {
+    const html = await render(DAY);
+    const systems = [...html.matchAll(/data-ref="([^"]+)"/g)].map(match => match[1]);
+    expect(systems.length).toBeGreaterThan(100);
+    expect(html.match(/data-inline-part=/g)?.length).toBe(exportLineup(DAY).length);
+    expect(html).toMatch(/aria-label="In PDF: [^"]+" checked/);
   });
 
   it("should show a note, not a warning, for what is sung unaccompanied", async () => {
@@ -51,5 +61,28 @@ describe("LineupStack", () => {
     const html = await render(DAY);
     expect(html).toContain('data-item="Psalm 109"');
     expect(html).toContain("tone 7, ending c 2");
+  });
+});
+
+
+describe("Vespers and Good Friday readers", () => {
+  it("keeps dated Vespers controls in the rail, with the actual sources and sung anchors", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(VespersPage, { props: { day: DAY } });
+    expect(html).toContain('class="reader-layout"');
+    expect(html).toContain('class="service-rail no-print"');
+    expect(html).toContain('day-marker--green');
+    expect(html).toMatch(/<h2[^>]*>Order of Vespers<\/h2>/);
+    expect(html).toContain('data-chant-toggle');
+    expect(html).toContain('id="source-noh8"');
+    for (const section of sections(DAY)) expect(html).toContain(`id="${section.anchor}"`);
+  });
+
+  it("credits Good Friday chants in a source block without offering accompaniment export", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(GoodFridayPage);
+    expect(html).toMatch(/<section class="source-block[^>]*>[\s\S]*?GregoBase[\s\S]*?CC0[\s\S]*?no accompaniment[\s\S]*?<\/section>/);
+    expect(html).toContain('id="chants"');
+    expect(html).not.toContain('id="export-btn"');
   });
 });
