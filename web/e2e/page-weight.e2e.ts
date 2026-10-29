@@ -84,3 +84,20 @@ for (const path of PAGES) for (const preference of [null, "scans"] as const) {
     } else info.annotations.push({ type: "Customize export", description: "This page has no export control." });
   });
 }
+
+test("empty-state woodcuts make no request before the reader needs them", async ({ page }) => {
+  const requests: string[] = [];
+  page.on("request", request => {
+    if (new URL(request.url()).pathname.startsWith("/art/v1/")) requests.push(request.url());
+  });
+  for (const path of ["/search/", "/hymns/", "/piece/dominica-i-adventus/"]) {
+    await page.goto(path, { waitUntil: "networkidle" });
+    expect(requests).toEqual([]);
+  }
+  await page.goto("/hymns/");
+  await page.locator("#hymn-filter").fill("zzzznothingmatcheszzzz");
+  const art = page.locator("img.woodcut");
+  await art.scrollIntoViewIfNeeded();
+  await expect.poll(() => requests.length).toBeGreaterThan(0);
+  expect(requests.every(url => url.includes("detail-gregory-"))).toBe(true);
+});

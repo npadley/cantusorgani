@@ -72,3 +72,10 @@ Vendored dump: `vendor/gregobase_online.sql` (untracked, 17.1 MB)
 sha256 `3759c60b529b57fa13f696bfacf748d40a285a847d859276667749caa76de080`
 retrieved 2026-09-07 from
 https://raw.githubusercontent.com/gregorio-project/GregoBase/master/gregobase_online.sql
+
+## Woodcut art — CC0 (public domain)
+
+Albrecht Dürer, *The Mass of Saint Gregory* (1511), The Metropolitan Museum
+of Art, accession 1984.1201.27. Open Access (CC0). The museum’s scan, via
+Wikimedia Commons, supplies the transparent frontispiece and detail WebP
+files in `web/public/art/v1/`. Credits also appear at `/about/#woodcut`.

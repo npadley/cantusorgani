@@ -19,12 +19,15 @@ const rites = goodFridayRites();
     </p>
     <h1>Good Friday</h1>
     <p class="lede" lang="la">Feria Sexta in Passione et Morte Domini</p>
-    <p class="notice ui" role="note">
-      <strong>The organ is silent</strong> from the Gloria of the Mass of Holy Thursday until the
-      Gloria of the Easter Vigil. Nova Organi Harmonia has no accompaniment for Good Friday (Book I
-      goes from Maundy Thursday, p. 344, to Holy Saturday, p. 345), so this page gives the chants
-      alone, to be sung unaccompanied.
-    </p>
+    <div class="woodcut-moment">
+      <img class="woodcut" loading="lazy" decoding="async" src="/art/v1/detail-passion-360.webp" srcset="/art/v1/detail-passion-360.webp 360w, /art/v1/detail-passion-720.webp 720w" sizes="(min-width: 62rem) 12rem, (min-width: 40rem) 9rem, 6rem" width="360" height="592" alt="" />
+      <p class="notice ui" role="note">
+        <strong>The organ is silent</strong> from the Gloria of the Mass of Holy Thursday until the
+        Gloria of the Easter Vigil. Nova Organi Harmonia has no accompaniment for Good Friday (Book I
+        goes from Maundy Thursday, p. 344, to Holy Saturday, p. 345), so this page gives the chants
+        alone, to be sung unaccompanied.
+      </p>
+    </div>
     <nav class="rites ui no-print" aria-label="Rite">
       {rites.map((r) => <a href={`#${r.id}`}>{r.title}</a>)}
     </nav>

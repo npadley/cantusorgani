@@ -23,7 +23,8 @@ const volumes = loadCatalog().volumes;
     <label for="hymn-filter">Filter hymns</label>
     <input id="hymn-filter" type="search" autocomplete="off" />
     <p data-hymn-count role="status" aria-live="polite"></p>
-    <div data-hymn-empty hidden>
+    <template data-hymn-woodcut><img class="woodcut woodcut-small" loading="lazy" decoding="async" src="/art/v1/detail-gregory-360.webp" srcset="/art/v1/detail-gregory-360.webp 360w, /art/v1/detail-gregory-720.webp 720w" sizes="6rem" width="360" height="596" alt="" /></template>
+    <div class="woodcut-moment" data-hymn-empty hidden>
       <button type="button" data-hymn-clear>Clear</button>
     </div>
   </div>
