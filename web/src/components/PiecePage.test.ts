@@ -65,3 +65,12 @@ describe("skip link", () => {
     expect(html).toContain(`id="${target}"`);
   });
 });
+
+
+describe("piece neighbours", () => {
+  it("renders previous and next navigation with a way back", async () => {
+    const html = await render();
+    expect(html).toContain('aria-label="Previous and next piece"');
+    expect(html).toMatch(/<a[^>]+href="\/day\/sancti\/09-30\/"[^>]*>Back to /);
+  });
+});

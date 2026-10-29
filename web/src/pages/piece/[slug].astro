@@ -1,5 +1,7 @@
 ---
 import Crumbs from "../../components/Crumbs.astro";
+import PieceNeighbours from "../../components/PieceNeighbours.astro";
+import MoreFor from "../../components/MoreFor.astro";
 import ChantPair from "../../components/ChantPair.astro";
 import HymnChantLinks from "../../components/HymnChantLinks.astro";
 import { hymnPairingsFor } from "../../lib/hymnpairings";
@@ -13,7 +15,7 @@ import SystemStack from "../../components/SystemStack.astro";
 import TypesetSwitch from "../../components/TypesetSwitch.astro";
 import VespersDates from "../../components/VespersDates.astro";
 import { allPieces, citedBy, jumpTargets, pagesLabel, relatedHymnSettings, volumeLabel } from "../../lib/catalog";
-import { pieceHref } from "../../lib/indexes";
+import { neighbours, moreFor, pieceHref } from "../../lib/indexes";
 import type { Piece } from "../../lib/catalog";
 import { hasTypeset } from "../../lib/typeset";
 import { musicView } from "../../lib/music";
@@ -31,6 +33,8 @@ const { piece } = Astro.props;
 // so there is one page for it (and one search result).
 const home = pieceHref(piece);
 if (home !== `/piece/${piece.slug}/`) return Astro.redirect(home, 301);
+const navigation = neighbours(allPieces(), piece);
+const more = moreFor(allPieces(), { piece });
 const heading = piece.incipit ?? piece.title;
 const printedElsewhere = citedBy(piece);
 const policy = editionPolicy(piece.volume);
@@ -113,6 +117,8 @@ const vespersDays = piece.division === "vesperale" || piece.genre === "hymn" ? l
     <SourceBlock pieces={scorePieces} />
     {/* Headings carry their own chant links; the old pairing box would be a second set. */}
     {!hymnPairingsFor(piece.slug).length && !musicPieces.some((p) => jumpTargets(p).some((t) => t.chantUrl)) && <ChantPair piece={piece} />}
+    <PieceNeighbours {...navigation} />
+    <MoreFor {...more} />
     <p class="edit-link small muted ui no-print">
       <a href={`/corrections/?target=piece:${piece.slug}`}>Report an error</a> ·
       <a href={`/admin/edit/?target=piece:${piece.slug}`}>Edit</a> <span>(editors)</span>
