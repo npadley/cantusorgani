@@ -1,4 +1,5 @@
 ---
+import MoreFor from "../../../components/MoreFor.astro";
 import MovementNav from "../../../components/MovementNav.astro";
 import { hasNotation } from "../../../lib/chants";
 import ServiceRail from "../../../components/ServiceRail.astro";
@@ -13,7 +14,7 @@ import Layout from "../../../components/Layout.astro";
 import PartLinks from "../../../components/PartLinks.astro";
 import PieceList from "../../../components/PieceList.astro";
 import { allPieces, jumpTargets, ordinaryMasses } from "../../../lib/catalog";
-import { catalogedDays, pieceHref } from "../../../lib/indexes";
+import { catalogedDays, moreFor, pieceHref } from "../../../lib/indexes";
 import {
   COLOR_LABELS, classLabel, findNextDate, isoOf, kyrialeFor, loadYear, observance, seasonForDate, today,
 } from "../../../lib/liturgy";
@@ -30,6 +31,7 @@ export function getStaticPaths() {
 
 interface Props { readonly key: string }
 const { key } = Astro.props;
+const more = moreFor(allPieces(), { day: key });
 const o = observance(key);
 const forDay = allPieces().filter((p) => p.days.includes(key));
 // The Mass and the Office are listed apart; the export is the Mass.
@@ -164,6 +166,7 @@ const longDate = date
     </section>
   )}
 
+  <MoreFor {...more} />
   </article>
   </div>
 </Layout>

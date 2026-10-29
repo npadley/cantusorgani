@@ -12,6 +12,8 @@ import {
   divisionMeta,
   divisionsWithContent,
   kyrialeIndex,
+  neighbours,
+  moreFor,
   pieceHref,
   sanctoraleIndex,
   temporaOrder,
@@ -225,5 +227,112 @@ describe("communeDays", () => {
 
   it("should list nothing when no piece has a Common day", () => {
     expect(communeDays([piece({ slug: "x", days: ["sancti:10-DU"] })])).toEqual([]);
+  });
+});
+
+
+describe("neighbours", () => {
+  const pieces = allPieces();
+
+  it("should keep first, middle and last neighbours in each division's catalogue order", () => {
+    for (const { division } of DIVISIONS) {
+      const ordered = pieces.filter(p => p.division === division);
+      ordered.forEach((p, i) => {
+        const result = neighbours(pieces, p);
+        expect(result.previous).toBe(ordered.slice(0, i).reverse().find(q => pieceHref(q) !== pieceHref(p)) ?? null);
+        expect(result.next).toBe(ordered.slice(i + 1).find(q => pieceHref(q) !== pieceHref(p)) ?? null);
+      });
+    }
+  });
+
+  it("should cross from noh1 to noh2 within the Temporale", () => {
+    const ordered = pieces.filter(p => p.division === "temporale");
+    const i = ordered.findIndex((p, i) => p.volume === "noh2" && ordered[i - 1]?.volume === "noh1");
+    expect(i).toBeGreaterThan(0);
+    expect(neighbours(pieces, ordered[i - 1]!).next).toBe(ordered[i]);
+    expect(neighbours(pieces, ordered[i]!).previous).toBe(ordered[i - 1]);
+  });
+
+  it("should skip another entry for the same Kyriale page and link directly to Mass pages", () => {
+    const mass = piece({ division: "kyriale", mass: "I" });
+    const duplicate = piece({ ...mass, id: "duplicate", slug: "duplicate" });
+    const next = piece({ division: "kyriale", mass: "II", slug: "second" });
+    const result = neighbours([mass, duplicate, next], mass);
+    expect(result.next).toBe(next);
+    expect(pieceHref(result.next!)).toBe("/kyriale/ii/");
+  });
+
+  it("should return to the only day, or otherwise to the division", () => {
+    const day = "tempora:Adv1-0";
+    expect(neighbours(pieces, piece({ days: [day] })).back).toEqual({ title: observance(day)!.titleEn, href: dayHref(day) });
+    expect(neighbours(pieces, piece({ days: ["unknown:key"] })).back.title).toBe("unknown:key");
+    for (const { division, en, slug } of DIVISIONS) {
+      for (const days of [[], [day, "tempora:Adv2-0"]]) {
+        expect(neighbours(pieces, piece({ division, days })).back).toEqual({ title: en, href: `/${slug}/` });
+      }
+    }
+  });
+});
+
+describe("moreFor", () => {
+  const pieces = allPieces();
+
+  it("should exclude the current page, deduplicate and cap every catalogue result", () => {
+    const results = [
+      ...pieces.map(piece => ({ href: pieceHref(piece), result: moreFor(pieces, { piece }) })),
+      ...catalogedDays(pieces).map(day => ({ href: dayHref(day), result: moreFor(pieces, { day }) })),
+    ];
+    for (const { href, result } of results) {
+      const hrefs = result.links.map(link => link.href);
+      expect(hrefs).not.toContain(href);
+      expect(new Set(hrefs).size).toBe(hrefs.length);
+      expect(hrefs.length).toBeLessThanOrEqual(6);
+    }
+  });
+
+  it("should list same-day siblings in catalogue order using incipits and canonical URLs", () => {
+    const current = piece({ slug: "current", days: ["tempora:Adv1-0"] });
+    const sibling = piece({ slug: "sibling", days: current.days, incipit: "Ad te levavi" });
+    const mass = piece({ slug: "mass", days: current.days, mass: "I" });
+    expect(moreFor([current, sibling, sibling, mass], { piece: current })).toEqual({
+      heading: "More for this day", links: [
+        { title: "Ad te levavi", href: pieceHref(sibling), division: "temporale" },
+        { title: mass.title, href: "/kyriale/i/", division: "temporale" },
+      ],
+    });
+  });
+
+  it("should fall back to the day's season when a one-day piece has no siblings", () => {
+    const current = piece({ slug: "advent1", days: ["tempora:Adv1-0"] });
+    const next = piece({ slug: "advent2", days: ["tempora:Adv2-0"] });
+    const pieces = [current, next];
+    expect(moreFor(pieces, { piece: current })).toEqual(moreFor(pieces, { day: current.days[0]! }));
+    expect(moreFor(pieces, { piece: current }).links.map(l => l.href)).toEqual([dayHref(next.days[0]!)]);
+  });
+
+  it("should take up to three days on each side in the same group's order", () => {
+    const group = sanctoraleIndex(pieces).find(g => g.days.length >= 9)!;
+    const current = group.days[4]!;
+    const result = moreFor(pieces, { day: current.key });
+    expect(result.heading).toBe("More for January");
+    expect(result.links.map(l => l.href)).toEqual(group.days.slice(1, 8).filter(d => d.key !== current.key).map(d => dayHref(d.key)));
+    expect(result.links.map(l => l.title)).toEqual(group.days.slice(1, 8).filter(d => d.key !== current.key).map(d => d.title));
+  });
+
+  it("should keep Tempora and Common suggestions inside their season or Common group", () => {
+    for (const group of [...temporaleIndex(pieces).map(g => g.days), communeDays(pieces)]) {
+      group.forEach((day, i) => {
+        const result = moreFor(pieces, { day: day.key });
+        expect(result.heading).toBe("More for this season");
+        expect(result.links.map(l => l.href)).toEqual(group.slice(Math.max(0, i - 3), i + 4).filter(d => d.key !== day.key).map(d => dayHref(d.key)));
+      });
+    }
+  });
+
+  it("should render no suggestions for pieces with zero or several days, or ungrouped days", () => {
+    for (const days of [[], ["tempora:Adv1-0", "tempora:Adv2-0"]]) {
+      expect(moreFor(pieces, { piece: piece({ days }) }).links).toEqual([]);
+    }
+    expect(moreFor(pieces, { day: "unknown:key" }).links).toEqual([]);
   });
 });
