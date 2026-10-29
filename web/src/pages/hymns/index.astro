@@ -24,7 +24,6 @@ const volumes = loadCatalog().volumes;
     <input id="hymn-filter" type="search" autocomplete="off" />
     <p data-hymn-count role="status" aria-live="polite"></p>
     <div data-hymn-empty hidden>
-      <p data-hymn-message></p>
       <button type="button" data-hymn-clear>Clear</button>
     </div>
   </div>
@@ -61,6 +60,7 @@ const volumes = loadCatalog().volumes;
     border: 1px solid var(--control-border); border-radius: var(--radius);
   }
   .hymns a { display: flex; align-items: center; min-height: var(--tap-min); }
+  @media print { .hymn-filter { display: none; } }
 </style>
 
 <script>

@@ -144,7 +144,22 @@ const masses = ordinaryMasses();
       async function appendSlice(focusNew: boolean): Promise<void> {
         if (current !== revision) return;
         more.disabled = true;
-        const docs = await Promise.all(found.results.slice(shown, shown + 25).map((r) => r.data()));
+        let docs: PagefindDoc[];
+        try {
+          docs = await Promise.all(found.results.slice(shown, shown + 25).map((r) => r.data()));
+        } catch {
+          if (current !== revision) return;
+          more.disabled = false;
+          const failed = "Search could not load these results. Try again.";
+          if (shown === 0) {
+            const message = document.createElement("p");
+            message.className = "empty";
+            message.textContent = failed;
+            results?.replaceChildren(message);
+          }
+          if (status) status.textContent = failed;
+          return;
+        }
         if (current !== revision) return;
         const firstNew = shown;
         for (const doc of docs) {
@@ -184,7 +199,7 @@ const masses = ordinaryMasses();
 
       more.addEventListener("click", () => { void appendSlice(true); });
       await appendSlice(false);
-      if (current !== revision) return;
+      if (current !== revision || shown === 0) return;
       results.replaceChildren(count, list, more);
       if (status) status.textContent = `${total} ${total === 1 ? "result" : "results"} for “${query}”.`;
     }, 120);

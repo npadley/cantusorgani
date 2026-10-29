@@ -23,21 +23,20 @@ export function initHymnFilter(root: HTMLElement): void {
   const input = root.querySelector<HTMLInputElement>("#hymn-filter");
   const count = root.querySelector<HTMLElement>("[data-hymn-count]");
   const empty = root.querySelector<HTMLElement>("[data-hymn-empty]");
-  const message = root.querySelector<HTMLElement>("[data-hymn-message]");
   const clear = root.querySelector<HTMLButtonElement>("[data-hymn-clear]");
   const items = [...root.querySelectorAll<HTMLLIElement>(".hymns li")];
-  if (!controls || !input || !count || !empty || !message || !clear) return;
+  if (!controls || !input || !count || !empty || !clear) return;
 
   function update(): void {
-    if (!input || !count || !empty || !message) return;
+    if (!input || !count || !empty) return;
     let shown = 0;
     for (const item of items) {
       item.hidden = !matches(input.value, item.dataset.filter ?? "");
       if (!item.hidden) shown++;
     }
-    count.textContent = summary(shown, items.length, input.value);
+    // One live region: the count line carries the no-match sentence too.
+    count.textContent = shown === 0 && input.value.trim() ? noMatchText(input.value) : summary(shown, items.length, input.value);
     empty.hidden = shown !== 0;
-    message.textContent = shown === 0 ? noMatchText(input.value) : "";
   }
 
   function reset(): void {
