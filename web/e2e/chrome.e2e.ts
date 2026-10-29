@@ -44,6 +44,11 @@ for (const width of [320, 390]) {
         expect(box?.height).toBeGreaterThanOrEqual(44);
       }
       await expect(nav.getByRole('button', { name: 'Invert', exact: true })).toBeVisible();
+      const brand = nav.getByRole('link', { name: 'Cantus Organi', exact: true });
+      const brandBox = await brand.boundingBox();
+      expect(brandBox).not.toBeNull();
+      expect(brandBox!.x).toBeGreaterThanOrEqual(0);
+      expect(brandBox!.x + brandBox!.width).toBeLessThanOrEqual(width);
       const grid = nav.locator('.nav-links');
       await expect(grid).toHaveCSS('display', 'grid');
       const positions = await grid.locator(':scope > *').evaluateAll(elements =>
@@ -55,6 +60,14 @@ for (const width of [320, 390]) {
     }
   });
 }
+
+test('breadcrumbs stay at 16px across viewport sizes', async ({ page }) => {
+  await page.goto(readers[0]!);
+  for (const width of [320, 390, 1024]) {
+    await page.setViewportSize({ width, height: 844 });
+    await expect(page.getByRole('navigation', { name: 'Breadcrumb', exact: true })).toHaveCSS('font-size', '16px');
+  }
+});
 
 test('Manufacturing Consent is loaded for the wordmark only', async ({ page }) => {
   await page.goto('/');
@@ -70,10 +83,10 @@ test('Manufacturing Consent is loaded for the wordmark only', async ({ page }) =
 });
 
 for (const path of readers) {
-  test(`skip to music is the first Tab stop on ${path}`, async ({ page }) => {
+  test(`the skip link is the first Tab stop on ${path}`, async ({ page }) => {
     await page.goto(path);
     await page.keyboard.press('Tab');
-    const skip = page.getByRole('link', { name: 'Skip to music', exact: true });
+    const skip = page.getByRole('link', { name: /^Skip to/ });
     await expect(skip).toBeFocused();
     await expect(skip).toBeInViewport();
     const target = await skip.getAttribute('href');

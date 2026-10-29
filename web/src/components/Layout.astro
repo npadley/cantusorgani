@@ -163,7 +163,9 @@ const fullTitle = title === "Cantus Organi" ? title : `${title} — Cantus Organ
     min-height: var(--tap-min);
     display: inline-flex;
     align-items: center;
-    white-space: nowrap;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
   .nav-links {
     display: flex;
