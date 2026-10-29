@@ -10,12 +10,26 @@ async function render(key: string): Promise<string> {
 }
 
 describe("Ordinary Form occasion pages", () => {
+  it("puts selection in the rail and gives each part an inline box and year links", async () => {
+    const html = await render("easter");
+    expect(html).toContain('class="service-rail');
+    expect(html).toContain('data-inline-part=');
+    const chooser = html.match(/<div id="cycle-alternatives"[\s\S]*?<\/nav>/)?.[0];
+    expect(chooser).toBeDefined();
+    expect(chooser?.match(/data-cycle=/g)).toHaveLength(3);
+    expect(html).toContain('class="source-block');
+  });
+
   it("assembles sourced chants without inventing a printed-page citation", async () => {
     const html = await render("easter");
     expect(html).toContain("Graduale Romanum (1974)");
     expect(html).toContain("This page assembles available Nova Organi Harmonia music");
     expect(html).toContain('data-ref="noh2/0033/000"');
     expect(html).not.toContain("rubric cites");
+    expect(html).not.toContain('id="source-ordinary-form"');
+    for (const part of ordinaryFormOccasions().find(row => row.key === "easter")!.parts) {
+      if (part.lender) expect(html).toContain('id="source-' + part.lender.ref.split("/")[0] + '"');
+    }
   });
 
   it("names the missing accompaniment and links the chant to GregoBase without a fake page", async () => {
@@ -24,7 +38,10 @@ describe("Ordinary Form occasion pages", () => {
     const missing = occasion!.parts.find(part => !part.lender)!;
     const html = await render(occasion!.key);
     expect(html).toContain("Not in Nova Organi Harmonia");
-    expect(html).toContain(`chant.php?id=${missing.gregobase_id}`);
+    const about = html.match(/<section id="missing-lender"[\s\S]*?<\/section>/)?.[0];
+    expect(about).toContain(`chant.php?id=${missing.gregobase_id}`);
+    expect(about).not.toContain('role="status"');
+    expect(html).not.toMatch(/<p[^>]*role="status"[^>]*>(?:(?!<\/p>)[\s\S])*Not in Nova Organi Harmonia/);
     expect(html).not.toContain("p. 0");
   });
 
@@ -34,6 +51,8 @@ describe("Ordinary Form occasion pages", () => {
     expect(ordinaryFormPiece(occasion!.key)?.parts).toEqual([]);
     const html = await render(occasion!.key);
     expect(html).toContain("chants not yet mapped");
+    expect(html).not.toContain("data-cycle=");
+    expect(html).toContain('id="of-export-note"');
   });
 });
 

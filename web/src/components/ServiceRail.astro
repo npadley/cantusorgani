@@ -32,6 +32,7 @@ const colour = colourNames[day?.colors[0] ?? ""];
     {colour && <p class="small ui"><DayMarker colour={colour} /></p>}
     <p class="rail-title" lang={day?.titleEn ? "en" : "la"}>{day?.titleEn ?? title}</p>
     <p class="small ui">Choose what goes into your PDF.</p>
+    <slot name="heading-summary" />
   </header>
   <ExportBar pieces={pieces} title={title} variant="rail" {...(Astro.props.segments ? { segments: Astro.props.segments } : {})} season={Astro.props.season ?? null} dateLabel={Astro.props.dateLabel ?? null} {...(Astro.props.dayService ? { dayService: Astro.props.dayService } : {})}>
     <slot name="reader-tools" slot="reader-tools" />

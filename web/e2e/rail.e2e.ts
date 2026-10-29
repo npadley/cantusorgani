@@ -6,7 +6,7 @@ import type { Page } from "@playwright/test";
 
 test.use({ reducedMotion: "reduce" });
 
-const PAGES = ["/piece/dominica-i-adventus/", "/kyriale/ix/", "/day/tempora/Adv1-0/"] as const;
+const PAGES = ["/piece/dominica-i-adventus/", "/kyriale/ix/", "/day/tempora/Adv1-0/", "/ordinary-form/easter/?cycle=A&season=easter"] as const;
 // Built dist/: one export segment with a chant toggle.
 // Catalogue inventory (including borrowed ranges): the largest piece selection has 154 systems.
 // No piece/Kyriale page reaches the 300-system ceiling; the empty refusal is exercised below.

@@ -376,4 +376,38 @@ test.describe("PDF contents", () => {
     expect(result.chant.reduce((n, count) => n + count, 0)).toBeGreaterThan(0);
   });
 
+  // PR 17: the Ordinary Form occasion in the rail. Year C leaves Communion I (Years A and B) on the page, unticked;
+  // an inline In PDF box in the reading column omits one more part. The PDF holds the rest of the lenders, in order.
+  test("OF Corpus Christi: Year C, ticked through the reading column, holds the selected lenders in order", async ({ page }) => {
+    test.setTimeout(600_000);
+    await page.setViewportSize({ width: 1024, height: 800 });
+    await page.goto("/ordinary-form/corpus-christi/?cycle=C&season=ordinary", { waitUntil: "networkidle" });
+    const parts: (Part & { id: string; years: string[]; checked: boolean })[] = [];
+    for (const box of await boxes(page).all()) parts.push({
+      id: (await box.getAttribute("value"))!,
+      label: (await box.getAttribute("data-label"))!,
+      systems: Number(await box.getAttribute("data-systems")),
+      runs: parseRuns((await box.getAttribute("data-runs"))!),
+      years: ((await box.getAttribute("data-years")) ?? "").split(",").filter(Boolean),
+      checked: await box.isChecked(),
+    });
+    const excluded = parts.filter(p => p.years.length > 0 && !p.years.includes("C"));
+    expect(excluded.length, "Corpus Christi has a Year A/B alternative").toBeGreaterThan(0);
+    for (const p of parts) expect(p.checked, p.label).toBe(!excluded.includes(p));
+    const selected = parts.filter(p => p.checked);
+    const omitted = selected.find(p => p.label.startsWith("Gradual"));
+    if (!omitted) throw new Error(`No Gradual among ${selected.map(p => p.label).join(", ")}`);
+    await page.locator(`.reading-column [data-inline-part="${omitted.id}"]`).uncheck();
+    await expect(page.locator(`.service-rail input[name="export-part"][value="${omitted.id}"]`)).not.toBeChecked();
+    const remaining = selected.filter(p => p !== omitted);
+    const result = await inspect(await download(page, "Quick"));
+    headingsInOrder(result.text, remaining.map(p => p.label));
+    for (const gone of [omitted, ...excluded]) {
+      expect(result.letters).not.toContain(lettersOf([gone.label]));
+      for (const run of gone.runs) if (run.letter) expect(result.markers).not.toContain(marker(run.letter));
+    }
+    expect(result.markers).toEqual(remaining.flatMap(p => p.runs.flatMap(r => r.letter ? [marker(r.letter)] : [])));
+    expect(result.chant).toEqual(result.chant.map(() => 0));
+  });
+
 });
