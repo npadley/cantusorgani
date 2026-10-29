@@ -301,7 +301,8 @@ function readerIndex(pieces: readonly Piece[]): ReaderIndex {
   for (const group of sanctoraleIndex(pieces)) {
     addGroup(group.days, `More for ${MONTHS_EN[group.month - 1]}`, "sanctorale");
   }
-  addGroup(communeDays(pieces), "More for this season", "commune");
+  // The Common's days (the Saturdays of Our Lady) run across the seasons.
+  addGroup(communeDays(pieces), "More from the Common", "commune");
   const index = { divisions, byDay: dayIndex(pieces), moreByDay };
   readerIndexes.set(pieces, index);
   return index;

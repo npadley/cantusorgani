@@ -332,10 +332,12 @@ describe("moreFor", () => {
   });
 
   it("should keep Tempora and Common suggestions inside their season or Common group", () => {
-    for (const group of [...temporaleIndex(pieces).map(g => g.days), communeDays(pieces)]) {
+    const groups = [...temporaleIndex(pieces).map(g => ({ days: g.days, heading: "More for this season" })),
+      { days: communeDays(pieces), heading: "More from the Common" }];
+    for (const { days: group, heading } of groups) {
       group.forEach((day, i) => {
         const result = moreFor(pieces, { day: day.key });
-        expect(result.heading).toBe("More for this season");
+        expect(result.heading).toBe(heading);
         expect(result.links.map(l => l.href)).toEqual(group.slice(Math.max(0, i - 3), i + 4).filter(d => d.key !== day.key).map(d => dayHref(d.key)));
       });
     }
