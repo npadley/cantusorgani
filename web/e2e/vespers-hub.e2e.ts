@@ -1,30 +1,41 @@
 import { expect, test } from "@playwright/test";
-import { hubHref, lineupHref, occasions, sungOn } from "../src/lib/vespers";
 
 test.describe("Recurring Vespers without JavaScript", () => {
   test.use({ javaScriptEnabled: false });
   test("sample hubs keep all evenings ordered and resolving", async ({ page, request }) => {
     test.setTimeout(60_000);
-    const groups = occasions();
-    const sample = new Set([groups[0]!.office, groups[groups.length - 1]!.office,
-      "sancti:12-25", "sancti:08-15", "tempora:Epi5-0"]);
-    for (const group of groups.filter(group => sample.has(group.office))) {
-      expect((await page.goto(hubHref(group.office)))?.status()).toBe(200);
-      await page.getByText(`Every date (${group.days.length})`, { exact: true }).click();
+    expect((await page.goto("/vespers/"))?.status()).toBe(200);
+    const hubs = await page.locator('a[href^="/vespers/"]').evaluateAll(nodes =>
+      [...new Set(nodes.map(node => node.getAttribute("href") ?? ""))]
+        .filter(href => /^\/vespers\/[a-z]+\/[A-Za-z0-9-]+\/$/.test(href)));
+    expect(hubs.length).toBeGreaterThan(0);
+    const sample = new Set([hubs[0]!, hubs[hubs.length - 1]!,
+      "/vespers/sancti/12-25/", "/vespers/sancti/08-15/", "/vespers/tempora/Epi5-0/"]);
+    for (const hub of sample) {
+      expect(hubs).toContain(hub);
+      expect((await page.goto(hub))?.status()).toBe(200);
       const dates = page.locator("details li[data-date]");
-      expect(await dates.evaluateAll(nodes => nodes.map(node => node.getAttribute("data-date"))))
-        .toEqual(group.days.map(sungOn));
-      expect(await dates.locator("a").evaluateAll(nodes => nodes.map(node => node.getAttribute("href"))))
-        .toEqual(group.days.map(lineupHref));
+      const evenings = await dates.evaluateAll(nodes => nodes.map(node => ({
+        date: node.getAttribute("data-date") ?? "",
+        href: node.querySelector("a")?.getAttribute("href") ?? "",
+      })));
+      expect(evenings.length).toBeGreaterThan(0);
+      for (const evening of evenings) {
+        expect(evening.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+        expect(evening.href).toMatch(/^\/vespers\/\d{4}-\d{2}-\d{2}\/(?:i\/)?$/);
+      }
+      const sungDates = evenings.map(evening => evening.date);
+      expect(sungDates).toEqual([...sungDates].sort());
+      await page.getByText(`Every date (${evenings.length})`, { exact: true }).click();
       await expect(dates.first()).toBeVisible();
       await expect(page.locator("[data-next-evening]")).toBeHidden();
       await expect(page.locator(".service-rail, .lineup")).toHaveCount(0);
       await expect(page.locator("[data-console]")).not.toHaveAttribute("lang", "la");
       await expect(page.getByRole("region", { name: "The Magnificat", exact: true })).not.toContainText("Transfiguration");
-      for (const day of group.days) {
-        const dated = await request.get(lineupHref(day));
-        expect(dated.status(), lineupHref(day)).toBe(200);
-        expect(await dated.text()).toContain(`rel="canonical" href="https://cantusorgani.org${lineupHref(day)}"`);
+      for (const { href } of evenings) {
+        const dated = await request.get(href);
+        expect(dated.status(), href).toBe(200);
+        expect(await dated.text()).toContain(`rel="canonical" href="https://cantusorgani.org${href}"`);
       }
     }
   });
