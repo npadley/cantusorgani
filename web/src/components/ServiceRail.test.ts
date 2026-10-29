@@ -40,6 +40,14 @@ describe("ServiceRail", () => {
     expect(html).toContain("day-marker--violet");
     expect(html).toContain("Violet");
   });
+  it("can retain the page's own day marker and full English service title", async () => {
+    const railTitle = "I Vespers — Christmas, sung on the evening of 24 December 2026";
+    const html = await (await AstroContainer.create()).renderToString(ServiceRail, {
+      props: { pieces: [piece], title: "PDF title", observanceKey: piece.days[0], railTitle, showDayMarker: false },
+    });
+    expect(html).toMatch(new RegExp(`<p class="rail-title" lang="en"[^>]*>${railTitle}</p>`));
+    expect(html).not.toContain("day-marker--");
+  });
   it("keeps Paper before the export note so the compact bar can share its controls row", async () => {
     const html = await render();
     expect(html.indexOf('class="small paper"')).toBeLessThan(html.indexOf('export-foot-note'));
