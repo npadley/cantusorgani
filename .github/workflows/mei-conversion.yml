@@ -36,7 +36,7 @@ jobs:
             echo "$line" >> "$RUNNER_TEMP/sources.txt"
           done <<< "$SOURCES"
           [ -s "$RUNNER_TEMP/sources.txt" ] || { echo "no sources"; exit 1; }
-      - uses: astral-sh/setup-uv@v10.3.0
+      - uses: astral-sh/setup-uv@v10.3.2
         with:
           enable-cache: false
       - run: uv sync --frozen
@@ -100,7 +100,7 @@ jobs:
         with:
           ref: ${{ github.event.repository.default_branch }}
           persist-credentials: false
-      - uses: astral-sh/setup-uv@v10.3.0
+      - uses: astral-sh/setup-uv@v10.3.2
         with:
           enable-cache: false
       - run: uv sync --frozen
