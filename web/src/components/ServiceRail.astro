@@ -10,6 +10,9 @@ import { observance } from "../lib/liturgy";
 interface Props {
   readonly pieces: readonly Piece[];
   readonly title: string;
+  /** English reader heading when the service needs more context than the day name. */
+  readonly railTitle?: string;
+  readonly showDayMarker?: boolean;
   readonly occasion?: Piece;
   readonly observanceKey?: string;
   readonly segments?: readonly ExportSegment[];
@@ -30,8 +33,8 @@ const colour = colourNames[day?.colors[0] ?? ""];
 ---
 {hasMusic ? <aside class="service-rail no-print" aria-label="PDF and reading controls">
   <header class="rail-heading">
-    {colour && <p class="small ui"><DayMarker colour={colour} /></p>}
-    <p class="rail-title" lang={day?.titleEn ? "en" : "la"}>{day?.titleEn ?? title}</p>
+    {colour && Astro.props.showDayMarker !== false && <p class="small ui"><DayMarker colour={colour} /></p>}
+    <p class="rail-title" lang={Astro.props.railTitle || day?.titleEn ? "en" : "la"}>{Astro.props.railTitle ?? day?.titleEn ?? title}</p>
     <p class="small ui">Choose what goes into your PDF.</p>
     <slot name="heading-summary" />
   </header>

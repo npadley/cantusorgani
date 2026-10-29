@@ -26,6 +26,7 @@ function long(iso: string): string {
   });
 }
 const when = day.eveningOf ? `sung on the evening of ${long(day.eveningOf)}` : long(day.date);
+const serviceTitle = `${day.vespers} Vespers — ${title}, ${when}`;
 const sources = [...new Map(day.items.flatMap(item => itemSystems(item).map(system => [system.piece.slug, system.piece] as const))).values()];
 const secs = sections(day);
 const nav = secs.filter((s) => s.nav !== null);
@@ -44,7 +45,7 @@ const eveningTitle = evening ? lineupTitle(evening) : null;
 <Layout title={`${day.vespers} Vespers: ${title}`} skipTo="initium"
         description={`${day.vespers} Vespers of ${title}, ${when}, in the order sung — organ accompaniment from Nova Organi Harmonia, under the 1962 rubrics.`}>
   <div class="reader-layout">
-  <ServiceRail pieces={[]} segments={exportLineup(day)} title={`${day.vespers} Vespers — ${title}, ${when}`} observanceKey={day.observance}>
+  <ServiceRail pieces={[]} segments={exportLineup(day)} title={serviceTitle} railTitle={serviceTitle} showDayMarker={false} observanceKey={day.observance}>
     {notation && <label slot="reader-tools" class="chant-toggle ui small no-print">
       <input type="checkbox" data-chant-toggle />
       Show the chant with each antiphon and hymn
@@ -65,8 +66,8 @@ const eveningTitle = evening ? lineupTitle(evening) : null;
     )}
   </div>
 
-  <h2 class="order-heading no-print">Order of Vespers</h2>
-  <nav class="order ui no-print" aria-label="Order of Vespers">
+  <h2 id="order-of-vespers-heading" class="order-heading no-print">Order of Vespers</h2>
+  <nav class="order ui no-print" aria-labelledby="order-of-vespers-heading">
     {nav.map((s) => <a href={`#${s.anchor}`}>{s.nav}</a>)}
   </nav>
   <LineupStack day={day} />
