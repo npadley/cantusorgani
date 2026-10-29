@@ -1,7 +1,7 @@
 ---
 import { gregobaseUrl } from "../lib/catalog";
 import { annotationFor, chantEntry } from "../lib/chants";
-import { bankNote, hymnSettings, isFormula, itemHeading, itemSystems, sections, spokenTone, toneLabel, widestSystem } from "../lib/vespers";
+import { bankNote, exportLineup, hymnSettings, isFormula, itemHeading, itemSystems, sections, spokenTone, toneLabel, widestSystem } from "../lib/vespers";
 import { pieceHref } from "../lib/indexes";
 import type { LineupDay } from "../lib/vespers";
 import ChantText from "./ChantText.astro";
@@ -18,6 +18,7 @@ interface Props { readonly day: LineupDay }
 const { day } = Astro.props;
 const widest = widestSystem(day);
 const secs = sections(day);
+const exportParts = exportLineup(day);
 ---
 
 <div class="lineup" id="music">
@@ -46,11 +47,16 @@ const secs = sections(day);
           const systems = itemSystems(item);
           const provenance = bankNote(item);
           const name = heading ?? section.heading;
+          const exportPart = exportParts.find(part => part.id === `${day.date}:${day.items.indexOf(item)}`);
           return (
             <div class="item" data-kind={item.kind}>
-              {(heading || url || (item.target && !item.repeat)) && (
+              {(heading || url || exportPart || (item.target && !item.repeat)) && (
                 <div class="part-head">
                   {heading ? <h3 class="item-heading">{heading}</h3> : <span />}
+                  {exportPart && <label class="include ui small no-print" hidden>
+                    <input type="checkbox" data-inline-part={exportPart.id} aria-label={`In PDF: ${exportPart.label}`} checked />
+                    In PDF
+                  </label>}
                   {url && (
                     <a class="chant-link ui no-print" href={url} target="_blank" rel="noopener">
                       Chant<span class="sr-only"> for {name} (GregoBase, opens in new tab)</span>
@@ -60,7 +66,10 @@ const secs = sections(day);
                 </div>
               )}
               {item.tone && <span class="sr-only">{spokenTone(item.tone)}</span>}
-              {provenance && <p class="provenance ui small muted">{provenance}</p>}
+              {provenance && <details class="provenance ui small muted">
+                <summary class="disclosure-summary"><DisclosureCue />Source of this formula</summary>
+                <p>{provenance}</p>
+              </details>}
               {!item.repeat && <ChantText text={textForChant(item.chant)} />}
               {entry && (
                 <div class="chant-notation" hidden data-chant-id={entry.id} data-incipit={entry.incipit}
@@ -122,7 +131,9 @@ const secs = sections(day);
   .item-heading { font-family: var(--font-ui); font-size: var(--step-0); font-weight: 600; margin: 0; }
   .item[data-kind="antiphon"] .item-heading, .item[data-kind="magnificat-antiphon"] .item-heading { font-weight: 500; }
   /* The heading is never the link: a stray tap mid-service stays on the music. */
-  .part-head { display: flex; align-items: baseline; gap: var(--s-3); margin: var(--s-3) 0 var(--s-2); }
+  .include { min-height: var(--tap-min); align-items: center; gap: var(--s-2); cursor: pointer; }
+  .include:not([hidden]) { display: inline-flex; }
+  .part-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-3); margin: var(--s-3) 0 var(--s-2); }
   .chant-link {
     font-size: var(--step--1); color: var(--ink-muted);
     min-height: var(--tap-min); display: inline-flex; align-items: center;
@@ -131,7 +142,7 @@ const secs = sections(day);
   .note { margin: 0 0 var(--s-3); padding-left: var(--s-3); border-left: 2px solid var(--rule); }
   .provenance, .continue { margin: 0 0 var(--s-2); }
   .psalm-text { margin: 0 0 var(--s-4); }
-  .psalm-text summary { cursor: pointer; min-height: var(--tap-min); display: flex; align-items: center; }
+  .provenance summary, .psalm-text summary { cursor: pointer; min-height: var(--tap-min); display: flex; align-items: center; }
   .psalm-text ol { margin: var(--s-2) 0 0; padding-left: var(--s-5, 2.5rem); line-height: 1.5; }
   .psalm-text li { margin: 0 0 var(--s-1); }
   .chant-notation { color: var(--ink); margin: 0 0 var(--s-3); --exsurge-negative-fill: var(--paper); }
