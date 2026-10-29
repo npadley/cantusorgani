@@ -29,6 +29,12 @@ updates:
     groups:
       minor-and-patch: { update-types: [minor, patch] }
     open-pull-requests-limit: 5
+    ignore:
+      # PyMuPDF 2 adds ~137 MB of required AI-layout packages (onnxruntime,
+      # pymupdf4llm) the pipeline does not use; renders are identical on 1.28.
+      # Lift this when a feature needs 2.x.
+      - dependency-name: pymupdf
+        versions: [">=2.0"]
 
   - package-ecosystem: github-actions
     directory: /
