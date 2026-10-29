@@ -62,3 +62,43 @@ test("a VII hymn loads its published scans and exports a readable PDF", async ({
   expect(pdf.getPageCount()).toBeGreaterThan(0);
   await expect(page.locator("#export-status")).toContainText("PDF ready");
 });
+
+test("filters hymns and clears no matches with focus returned to the field", async ({ page }) => {
+  await page.goto("/hymns/");
+  const input = page.getByRole("searchbox", { name: "Filter hymns" });
+  await expect(input).toBeVisible();
+  const total = await page.locator("ul.hymns li:visible").count();
+  expect(total).toBeGreaterThan(0);
+  await input.fill("creator");
+  await expect(page.locator("[data-hymn-count]")).toContainText("of");
+  const visible = page.locator("ul.hymns li:visible");
+  expect(await visible.count()).toBeGreaterThan(0);
+  for (const item of await visible.all()) await expect(item).toContainText(/creator/i);
+  await input.fill("zzzz");
+  await expect(page.getByText("No hymns match ‘zzzz’.", { exact: true })).toBeVisible();
+  await expect(visible).toHaveCount(0);
+  await page.getByRole("button", { name: "Clear", exact: true }).click();
+  await expect(visible).toHaveCount(total);
+  await expect(input).toHaveValue("");
+  await expect(input).toBeFocused();
+  await input.fill("creator");
+  await input.press("Escape");
+  await expect(visible).toHaveCount(total);
+  await expect(input).toHaveValue("");
+  await expect(input).toBeFocused();
+});
+
+test("shows the complete hymn list without JavaScript and hides the filter", async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
+  try {
+    const page = await context.newPage();
+    await page.goto("/hymns/");
+    const items = page.locator("ul.hymns li");
+    const total = await items.count();
+    expect(total).toBeGreaterThan(0);
+    await expect(page.locator("ul.hymns li:visible")).toHaveCount(total);
+    await expect(page.getByRole("searchbox", { name: "Filter hymns", includeHidden: true })).toBeHidden();
+  } finally {
+    await context.close();
+  }
+});

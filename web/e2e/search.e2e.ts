@@ -22,3 +22,18 @@ test("finds a Credo's inner verse from its typeset source and still searches tit
   await expect(page.locator("#results li")).toHaveCount(0);
   await expect(page.locator("#fallback")).toBeVisible();
 });
+
+test("counts results, loads another slice and focuses its first link", async ({ page }) => {
+  await page.goto("/search/");
+  const input = page.getByRole("searchbox");
+  await input.fill("Alleluia");
+  await expect(page.locator("#results > p")).toContainText("Showing 25 of");
+  await expect(page.locator("#results li")).toHaveCount(25);
+  await expect(input).toBeFocused();
+  await expect(page.locator("#search-status")).toHaveText(/\d+ results for “Alleluia”\./);
+  await page.getByRole("button", { name: "Show 25 more", exact: true }).click();
+  const next = page.locator("#results li").nth(25);
+  await expect(next).toBeVisible();
+  await expect(next.locator("a")).toBeFocused();
+  await expect(page.locator("#results > p")).not.toContainText("Showing 25 of");
+});

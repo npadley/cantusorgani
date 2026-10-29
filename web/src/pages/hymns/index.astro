@@ -19,9 +19,17 @@ const volumes = loadCatalog().volumes;
     <p class="small muted">{hymns.length} printed settings. See <a href="/varia/">Varia</a> for Book VII’s sequences,
       antiphons, litanies, psalms, and other music.</p>
   </div>
+  <div class="hymn-filter ui" hidden data-hymn-filter data-pagefind-ignore>
+    <label for="hymn-filter">Filter hymns</label>
+    <input id="hymn-filter" type="search" autocomplete="off" />
+    <p data-hymn-count role="status" aria-live="polite"></p>
+    <div data-hymn-empty hidden>
+      <button type="button" data-hymn-clear>Clear</button>
+    </div>
+  </div>
   <ul class="hymns ui">
     {hymns.map((h) => { const chant = hymnPairing(h.ref); return (
-      <li>
+      <li data-filter={`${h.title}${h.piece.genre !== "hymn" ? ` ${h.piece.title}` : ""}`}>
         <a href={`${pieceHref(h.piece)}${h.anchor ? `#${h.anchor}` : ""}`}>{h.title}</a>
         <span class="muted small">NOH {volumes[h.piece.volume]?.part} · p. {h.printedPage}
           {h.piece.genre !== "hymn" && <> · {h.piece.title}</>}</span>
@@ -42,5 +50,20 @@ const volumes = loadCatalog().volumes;
   .hymns { list-style: none; margin: var(--s-4) 0 0; padding: 0; columns: 2 18rem; }
   .hymns li { break-inside: avoid; display: flex; flex-direction: column; padding: var(--s-2) 0;
     border-bottom: 1px solid var(--rule); }
+  .hymns li[hidden] { display: none; }
+  .hymn-filter { margin-top: var(--s-4); }
+  label { display: block; margin-bottom: var(--s-1); font-size: var(--step--1); color: var(--ink-muted); }
+  input {
+    width: 100%; font: inherit; font-family: var(--font-ui);
+    min-height: var(--tap-min); padding: var(--s-2) var(--s-3);
+    background: var(--paper); color: var(--ink);
+    border: 1px solid var(--control-border); border-radius: var(--radius);
+  }
   .hymns a { display: flex; align-items: center; min-height: var(--tap-min); }
+  @media print { .hymn-filter { display: none; } }
 </style>
+
+<script>
+  import { initHymnFilter } from "../../scripts/hymnFilter";
+  initHymnFilter(document.body);
+</script>
