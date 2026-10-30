@@ -921,6 +921,33 @@ test('resizing an open Settings column to a sheet keeps focus inside and control
   await expect(page.locator('dialog.cx [data-cx="download"]')).toBeEnabled();
 });
 
+// The browser may drop focus from the hiding column before the resize handler runs;
+// blurring first makes that ordering certain.
+test('resizing after the browser drops focus from Settings still opens the sheet there', async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 800 });
+  await openEditor(page);
+  await page.locator('dialog.cx [data-cx-group="page-group"]').click();
+  const panel = page.locator('dialog.cx [data-cx="settings"]');
+  const size = panel.locator('select[name="cx-page"]');
+  await expect(size).toBeFocused();
+  await size.evaluate(el => (el as HTMLElement).blur());
+  await page.setViewportSize({ width: 600, height: 800 });
+  await expect(panel).toBeVisible();
+  await expect(size).toBeFocused();
+});
+
+test('resizing after a click elsewhere leaves the Settings sheet closed', async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 800 });
+  await openEditor(page);
+  await page.locator('dialog.cx [data-cx-group="page-group"]').click();
+  await expect(page.locator('dialog.cx select[name="cx-page"]')).toBeFocused();
+  const preview = await page.locator('dialog.cx .cx-preview').boundingBox();
+  await page.mouse.click(preview!.x + 4, preview!.y + 4);
+  await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+  await page.setViewportSize({ width: 600, height: 800 });
+  await expect(page.locator('dialog.cx [data-cx="settings"]')).toBeHidden();
+});
+
 test('summary chips focus their group and keep the complete parts list reachable', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await openEditor(page);
