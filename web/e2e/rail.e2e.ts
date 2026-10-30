@@ -60,9 +60,10 @@ test.describe("Service rail", () => {
   for (const url of PAGES) {
     test(`${url} inline and rail synchronize both ways; Select all and Clear announce empty exactly once`, async ({ page }) => {
       await page.goto(url);
-      const boxes = railBoxes(page);
+      // Disabled boxes belong to Masses not chosen; their rows are hidden.
+      const boxes = railBoxes(page).and(page.locator(":not(:disabled)"));
       expect(await boxes.count()).toBeGreaterThan(1);
-      const inline = page.locator("#music [data-inline-part]");
+      const inline = page.locator("#music [data-inline-part]:not(section.ordinary[hidden] *)");
       await expect(inline).toHaveCount(await boxes.count());
       for (const box of await boxes.all()) {
         const id = (await box.getAttribute("value"))!;
@@ -128,7 +129,8 @@ test.describe("Service rail", () => {
         await expect(sheet.locator("#selection-status")).toHaveCount(1);
         await expect(page.locator("#selection-status")).toHaveCount(1);
         await expect(sheet.locator('input[name="export-part"]').first()).toBeFocused();
-        const stops = await sheet.locator('button, input, [tabindex="0"]').count();
+        // Visible, enabled stops only: unchosen Masses' boxes are hidden and disabled.
+        const stops = await sheet.locator('button:visible, input:visible:not(:disabled), select:visible, [tabindex="0"]:visible').count();
         for (const key of ["Tab", "Shift+Tab"]) for (let i = 0; i < stops + 2; i++) {
           await page.keyboard.press(key);
           const focus = await sheet.evaluate(el => ({

@@ -44,6 +44,8 @@ export interface OpenExportEditorOptions {
   readonly readSelection?: () => Selection;
   /** "Missa IX · Kyrie": shown under the heading and used in the download filename. */
   readonly title: string;
+  /** Current occasion title, including choices made through Change parts. */
+  readonly readTitle?: () => string;
   /** Receives focus when the dialog closes (#export-customize). */
   readonly opener: HTMLElement | null;
   /** Called after a custom PDF has been delivered, with the settings it was made with (analytics). */
@@ -203,6 +205,7 @@ class Session {
       profile,
       renderChants: (parts, settings) => renderChantSvgs(parts, settings),
       ...options.deps,
+      ...(options.readTitle ? { readTitle: options.readTitle } : {}),
     };
     this.controller = createExportController(deps);
     const root = dlg.querySelector<HTMLElement>('[data-cx-preview]');
@@ -271,7 +274,7 @@ class Session {
   // ----------------------------------------------------------------- start ---
   start(): void {
     const { dlg, options } = this;
-    this.q('selection').textContent = options.title;
+    this.q('selection').textContent = options.readTitle?.() ?? options.title;
     this.buildPartList();
     this.wireEvents();
     initPreview(this.preview);
@@ -283,7 +286,7 @@ class Session {
     dlg.querySelector<HTMLElement>('#cx-title')?.focus();
 
     this.unsubscribe = this.controller.subscribe((s) => this.onState(s));
-    this.controller.open(options.parts, options.title);
+    this.controller.open(options.parts, options.readTitle?.() ?? options.title);
     this.say('Loading the layout tools…', true);
   }
 
@@ -425,6 +428,7 @@ class Session {
     this.dismissedStale.clear();
     this.restoreScrollPending = true;
     if (this.undoShown) this.armUndo();
+    this.q('selection').textContent = this.options.readTitle?.() ?? this.options.title;
     this.controller.resume(this.parts);
     for (const { node, top, left } of this.editorScroll) { node.scrollTop = top; node.scrollLeft = left; }
     window.scrollTo(this.readingPosition.x, this.readingPosition.y);

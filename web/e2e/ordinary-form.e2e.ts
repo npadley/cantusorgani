@@ -57,7 +57,7 @@ test.describe("Ordinary Form discovery and date calendar", () => {
   test("date links carry cycle and season into the composed page selection", async ({ page }) => {
     await page.goto("/calendar/ordinary-form/?date=2026-04-05");
     await expect(page.getByText("Year A · Weekday Year II")).toBeVisible();
-    await page.getByRole("link", { name: "View accompaniments for this occasion" }).click();
+    await page.getByRole("link", { name: "Read and choose this day's music" }).click();
     await expect(page).toHaveURL(/cycle=A.*season=easter|season=easter.*cycle=A/);
     await expect(page.locator("#of-export-note")).toContainText("Year A · easter season");
   });
@@ -118,7 +118,8 @@ test.describe("Ordinary Form discovery and date calendar", () => {
 
   test("cycle and season links filter an occasion's export checkboxes without hiding static chants", async ({ page }) => {
     await page.goto("/ordinary-form/easter/?cycle=B&season=easter");
-    const boxes = page.locator('input[name="export-part"]');
+    // The Proper's boxes; the chosen Mass's boxes are covered in of-ordinary.e2e.ts.
+    const boxes = page.locator('input[name="export-part"]:not([data-ordinary-option])');
     await expect(boxes).not.toHaveCount(0);
     for (const box of await boxes.all()) {
       const years = (await box.getAttribute("data-years") ?? "").split(",").filter(Boolean);
@@ -141,7 +142,7 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     await yearB.click();
     await expect(page.locator('#cycle-alternatives a[aria-current]')).toHaveAccessibleName("Year B");
     await expect(page.locator("#of-export-note")).toContainText("Year B · ordinary season");
-    for (const box of await page.locator('.service-rail input[name="export-part"]').all()) {
+    for (const box of await page.locator('.service-rail input[name="export-part"]:not([data-ordinary-option])').all()) {
       const years = (await box.getAttribute("data-years") ?? "").split(",").filter(Boolean);
       const seasons = (await box.getAttribute("data-seasons") ?? "").split(",").filter(Boolean);
       const eligible = (!years.length || years.includes("B")) && (!seasons.length || seasons.includes("ordinary"));
@@ -155,8 +156,8 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     // Deliberate scan view makes every scan's visibility observable, even for typeset parts.
     // Reading controls start open in the rail at this width.
     await page.getByRole("button", { name: "Show the scans", exact: true }).click();
-    const images = await page.locator("#music img.system").count();
-    const headings = await page.locator("#music .movement-heading").count();
+    const images = await page.locator("#music-proper img.system").count();
+    const headings = await page.locator("#music-proper .movement-heading").count();
     expect(images).toBeGreaterThan(0);
     expect(headings).toBeGreaterThan(0);
     for (const cycle of ["A", "B", "C", "invalid"]) {
@@ -170,8 +171,8 @@ test.describe("Ordinary Form discovery and date calendar", () => {
             .evaluateAll(nodes => nodes.reduce((n, node) => n + Number((node as HTMLInputElement).dataset["systems"]), 0));
           await expect(page.locator("#export-btn")).toContainText(`Export PDF (${systems} systems`);
         }
-        await expect(page.locator("#music img.system:visible")).toHaveCount(images);
-        await expect(page.locator("#music .movement-heading:visible")).toHaveCount(headings);
+        await expect(page.locator("#music-proper img.system:visible")).toHaveCount(images);
+        await expect(page.locator("#music-proper .movement-heading:visible")).toHaveCount(headings);
       }
     }
   });
@@ -205,8 +206,14 @@ test.describe("Ordinary Form discovery and date calendar", () => {
       if (url.origin !== new URL(page.url()).origin) return route.abort();
       return route.continue();
     });
+    // This test is about the Proper's lender assets: leave the suggested Mass out.
+    const properOnly = async () => {
+      const checked = page.locator('section.ordinary:not([hidden]) [data-inline-part]:checked');
+      while (await checked.count()) await checked.first().uncheck();
+    };
     await page.goto("/ordinary-form/easter/?cycle=A&season=easter");
-    const boxes = page.locator('input[name="export-part"]');
+    await properOnly();
+    const boxes = page.locator('input[name="export-part"]:not([data-ordinary-option])');
     await expect(boxes).toHaveCount(6);
     for (const box of await boxes.all()) await expect(box).toBeChecked();
 
@@ -233,6 +240,7 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     expect(requests.some(url => url.endsWith(".pdf?export=1"))).toBe(false);
     await page.reload();
     await expect(page.locator("html")).toHaveAttribute("data-view", "scans");
+    await properOnly();
     requests.length = 0;
     await doExport();
     expect(requests.filter(url => url.endsWith(".png?export=1"))).toHaveLength(43);
@@ -318,7 +326,8 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     await expect(page).toHaveURL(/date=2026-06-07.*epiphany=jan6.*ascension=thursday.*corpusChristi=thursday/);
     await page.goto("/calendar/ordinary-form/?date=2026-06-08");
     await expect(page.locator(".accompaniment-choices")).toHaveCount(0);
-    await expect(page.getByRole("link", { name: "View accompaniments for this occasion" })).toHaveCount(0);
+    await expect(page.getByRole("link", { name: "Read and choose this day's music" }))
+      .toHaveAttribute("href", /\/ordinary-form\/ot-10\/\?.*date=2026-06-08/);
   });
 
   test("a shared default URL replaces previous URL transfers", async ({ browser }) => {
@@ -348,7 +357,7 @@ test.describe("Ordinary Form discovery and date calendar", () => {
     await expect(page.locator("#date-feedback")).toContainText("valid date");
     await page.goto("/calendar/ordinary-form/?date=2026-04-05");
     await expect(page.getByRole("heading", { name: "Easter Sunday" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "View accompaniments for this occasion" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Read and choose this day's music" })).toBeVisible();
     await expect(page.locator('input[type="radio"]')).toHaveCount(0);
     await context.close();
   });

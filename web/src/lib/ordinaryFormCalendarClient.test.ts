@@ -58,3 +58,48 @@ describe("occasion links", () => {
     })).toBe("/ordinary-form/easter/?cycle=A&season=easter&date=2026-04-05&epiphany=jan6&ascension=sunday&corpusChristi=thursday");
   });
 });
+
+// A small DOM surface exercises the real calendar renderer without Chromium.
+describe("calendar music buttons", () => {
+  it.each([
+    ["2026-04-05", "easter"], ["2026-06-08", "ot-10"],
+    ["2026-01-13", "ot-1"],
+  ])("%s links to %s with the date and transfer settings", async (iso, expected) => {
+    const { vi } = await import("vitest");
+    const { mountOrdinaryFormCalendar } = await import("./ordinaryFormCalendarClient");
+    class Node {
+      readonly children: (Node | string)[] = [];
+      readonly dataset: Record<string, string> = {};
+      textContent = ""; className = ""; href = ""; value = "";
+      constructor(readonly tagName: string, text = "") { this.textContent = text; }
+      append(...nodes: (Node | string)[]) { this.children.push(...nodes); }
+      replaceChildren() { this.children.length = 0; }
+      setAttribute() {} removeAttribute() {} addEventListener() {}
+      querySelector() { return null; }
+    }
+    const data = Object.fromEntries(["easter", "ot-10", "ot-1"].map(key => [key, {
+      key, titleEn: key, titleLa: "", color: "w", rank: "sunday", assignmentStatus: "mapped",
+      partsByCycle: { A: [], B: [], C: [] },
+    }]));
+    const index = { textContent: JSON.stringify(data) };
+    const input = new Node("input"), results = new Node("article"), feedback = new Node("p");
+    const root = {
+      querySelector: (selector: string) => selector === "#date" ? input : selector === "#result" ? results
+        : selector === "#date-feedback" ? feedback : null,
+      querySelectorAll: () => [],
+    };
+    vi.stubGlobal("document", { getElementById: () => index, createElement: (tag: string) => new Node(tag) });
+    vi.stubGlobal("window", { location: { pathname: "/calendar/ordinary-form/", search: `?date=${iso}` }, addEventListener() {} });
+    vi.stubGlobal("history", { replaceState() {} });
+    function descendants(node: Node): Node[] { return [node, ...node.children.flatMap(child => typeof child === "string" ? [] : descendants(child))]; }
+    try {
+      mountOrdinaryFormCalendar(root as unknown as HTMLElement);
+      const buttons = descendants(results).filter(node => node.className === "accompaniments");
+      expect(buttons).toHaveLength(1);
+      expect(buttons[0]?.textContent).toBe("Read and choose this day's music");
+      expect(buttons[0]?.href).toContain(`/ordinary-form/${expected}/?`);
+      expect(buttons[0]?.href).toContain(`date=${iso}`);
+      expect(buttons[0]?.href).toContain("ascension=thursday");
+    } finally { vi.unstubAllGlobals(); }
+  });
+});

@@ -2,8 +2,9 @@
 import Crumbs from "../../components/Crumbs.astro";
 import ServiceRail from "../../components/ServiceRail.astro";
 import SourceBlock from "../../components/SourceBlock.astro";
+import { pieceHref } from "../../lib/indexes";
 import { exportSegments } from "../../lib/exportParts";
-import { gregobaseUrl } from "../../lib/catalog";
+import { ordinaryMasses, gregobaseUrl } from "../../lib/catalog";
 import Layout from "../../components/Layout.astro";
 import MovementNav from "../../components/MovementNav.astro";
 import SystemStack from "../../components/SystemStack.astro";
@@ -11,6 +12,7 @@ import TypesetSwitch from "../../components/TypesetSwitch.astro";
 import { allOrdinaryFormParts, ordinaryFormOccasions, ordinaryFormPiece } from "../../lib/ordinaryFormPieces";
 import { musicView } from "../../lib/music";
 import { hasTypeset } from "../../lib/typeset";
+import { ofKyrialeSuggestion, ofOccasionKyrialeContext, ofMarianTitle } from "../../lib/ordinaryFormKyriale";
 import { goodFridayHref } from "../../lib/goodFriday";
 
 export function getStaticPaths() {
@@ -26,21 +28,30 @@ const parts = allOrdinaryFormParts(key);
 const missing = parts.filter(part => !part.lender).length;
 const unmapped = piece.sourceNote === "chants not yet mapped";
 const chantsOnly = goodFridayHref(key);
+const occasion = ordinaryFormOccasions().find(row => row.key === key)!;
+const context = ofOccasionKyrialeContext(key, occasion.rank);
+const isMarian = ofMarianTitle(occasion.title_la);
+const suggestion = ofKyrialeSuggestion(context.season, occasion.rank, context.weekday, isMarian);
+const masses = ordinaryMasses();
 const exportParts = exportSegments([piece]);
+const ordinarySegments = masses.flatMap(mass => exportSegments([mass]).map(segment => ({
+  ...segment, id: `of-mass-${mass.label}:${segment.id}`, ordinaryOption: mass.label,
+})));
+const segments = [...exportParts, ...ordinarySegments];
 // The composed piece has volume "ordinary-form", not a printed edition.
 const sources = [...new Map(parts.flatMap(part => part.lender ? [[part.lender.piece.slug, part.lender.piece] as const] : [])).values()];
 ---
 
 <Layout title={piece.title} description={`${piece.title} — Ordinary Form chants assigned in the Graduale Romanum (1974), with available Nova Organi Harmonia accompaniments.`} skipTo={score.systems.length > 0 ? "music" : undefined}>
   <div class="reader-layout">
-  <ServiceRail pieces={[piece]} title={piece.title}>
+  <ServiceRail pieces={[piece]} title={`${piece.title} with Missa ${suggestion}`} segments={segments}>
     <p slot="heading-summary" id="selection-summary" class="small muted ui"></p>
     <div slot="reader-tools">
       <MovementNav piece={score} variant="tools" />
-      <TypesetSwitch show={hasTypeset(score)} />
+      <TypesetSwitch show={hasTypeset(score) || masses.some(mass => hasTypeset(mass))} />
     </div>
   </ServiceRail>
-  <article class="reading-column" data-of-page>
+  <article class="reading-column" data-of-page data-of-rank={occasion.rank} data-of-season={context.season} data-of-weekday={context.weekday} data-of-marian={String(isMarian)}>
     <header class="head">
       <Crumbs><a href="/">Cantus Organi</a> · <a href="/calendar/ordinary-form/">Ordinary Form calendar</a></Crumbs>
       <h1>{piece.title}</h1>
@@ -68,7 +79,25 @@ const sources = [...new Map(parts.flatMap(part => part.lender ? [[part.lender.pi
       </div>
       <MovementNav piece={score} variant="links" />
     </div>
-    <SystemStack piece={score} exportParts={exportParts} id="music" />
+    <div id="music" tabindex="-1">
+    <SystemStack piece={score} exportParts={exportParts} id="music-proper" />
+    <h2 class="ui">Ordinary</h2>
+    <div class="ordinary-choice ui no-print" data-of-mass-choice>
+      <label for="of-mass" data-of-mass-label>Mass setting</label>
+      <select id="of-mass" data-of-mass>
+        {masses.map(mass => <option value={mass.label} selected={mass.label === suggestion} lang="la">Missa {mass.label}{mass.incipit ? ` — ${mass.incipit}` : ""}{mass.label === suggestion ? " (suggested)" : ""}</option>)}
+      </select>
+      <p class="small muted">The Kyriale heading suggests a setting. Every Mass is available.</p>
+    </div>
+    {masses.map(mass => (
+      <section class="ordinary" data-ordinary-option={mass.label} hidden={mass.label !== suggestion}>
+        <p lang="la"><a href={pieceHref(mass)}>Missa {mass.label}{mass.incipit ? ` — ${mass.incipit}` : ""}</a></p>
+        <SystemStack piece={mass} exportParts={ordinarySegments.filter(segment => segment.ordinaryOption === mass.label)}
+          id={`music-mass-${mass.label}`} anchorPrefix={`mass-${mass.label}-`} hiddenCandidate={mass.label !== suggestion} />
+        <SourceBlock pieces={[mass]} idPrefix={`mass-${mass.label}-`} />
+      </section>
+    ))}
+    </div>
     <section id="missing-lender" class="small muted ui">
       <h2>About this set</h2>
       <p class="meta">Graduale Romanum (1974) · {parts.length} assigned chant{parts.length === 1 ? "" : "s"}{missing ? ` · ${missing} without a NOH match` : ""}</p>
@@ -91,11 +120,24 @@ const sources = [...new Map(parts.flatMap(part => part.lender ? [[part.lender.pi
   <script>
     import { mountOrdinaryFormPage } from "../../lib/ordinaryFormPageClient";
     const root = document.querySelector<HTMLElement>("[data-of-page]");
-    if (root) mountOrdinaryFormPage(root);
+    import { mountOfKyriale } from "../../lib/ordinaryFormKyriale";
+    if (root) {
+      const mount = () => {
+        mountOrdinaryFormPage(root);
+        void mountOfKyriale(root);
+      };
+      // All deferred modules have bound their controls by DOMContentLoaded.
+      if (document.readyState === "complete") mount();
+      else document.addEventListener("DOMContentLoaded", mount, { once: true });
+    }
   </script>
 </Layout>
 
 <style>
+  .ordinary-choice { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
+  .ordinary-choice select { min-height: var(--tap-min); max-width: 100%; font: inherit; }
+  .ordinary-choice p { flex-basis: 100%; }
+  .ordinary-choice p, .ordinary p { margin: var(--s-2) 0; }
   @media print { .reader-layout { display: block; } }
   .reading-column { min-width: 0; }
   @media screen and (width < 62rem) {

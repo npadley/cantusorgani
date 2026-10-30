@@ -102,6 +102,6 @@ const additionalPages = ordinaryFormOccasions().filter(row => additionalKeys.has
   #result .music dt { font-family: var(--font-ui); font-size: var(--step--1); color: var(--ink-muted); }
   #result .music dd { margin: 0 0 var(--s-2); }
   #result .note, #result .alternatives { font-size: var(--step--1); color: var(--ink-muted); margin: var(--s-1) 0 0; }
-  #result .accompaniments { display: inline-block; margin-top: var(--s-2); padding: var(--s-2) var(--s-3); border: 1px solid var(--accent); border-radius: var(--radius); font-family: var(--font-ui); font-weight: 600; }
+  #result .accompaniments { display: inline-flex; align-items: center; min-height: var(--tap-min); margin-top: var(--s-2); padding: var(--s-2) var(--s-3); border: 1px solid var(--accent); border-radius: var(--radius); font-family: var(--font-ui); font-weight: 600; }
   #result .occasion-options { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-2); }
 </style>
