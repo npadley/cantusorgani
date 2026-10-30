@@ -298,10 +298,24 @@ class Session {
     this.on(dlg, 'cancel', (e) => this.onCancel(e));
     this.on(dlg, 'close', () => this.onClosed());
     this.on(window, 'popstate', () => this.onPop());
+    // The browser can drop focus from the column as it hides, before the change
+    // event below runs, so remember the last control focused there.
+    let settingsFocus: HTMLElement | null = null;
+    this.on(document, 'focusin', (e) => {
+      const target = e.target;
+      settingsFocus = target instanceof HTMLElement && this.q('settings').contains(target) ? target : null;
+    });
+    // A click on a blank area moves focus to the body without a focusin.
+    this.on(document, 'pointerdown', (e) => {
+      if (!(e.target instanceof Node && this.q('settings').contains(e.target))) settingsFocus = null;
+    });
     this.on(this.wide, 'change', () => {
       // A focused control in the permanent column must not disappear on resize.
-      if (!this.wide.matches && this.q('settings').contains(document.activeElement)) {
+      const active = document.activeElement;
+      const lost = active === null || active === document.body;
+      if (!this.wide.matches && settingsFocus && (settingsFocus === active || lost)) {
         this.dlg.dataset['panel'] = 'open';
+        if (lost) settingsFocus.focus();
       }
       this.syncPanelFocus();
     });
