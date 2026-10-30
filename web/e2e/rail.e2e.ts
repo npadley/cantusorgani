@@ -129,7 +129,8 @@ test.describe("Service rail", () => {
         await expect(sheet.locator("#selection-status")).toHaveCount(1);
         await expect(page.locator("#selection-status")).toHaveCount(1);
         await expect(sheet.locator('input[name="export-part"]').first()).toBeFocused();
-        const stops = await sheet.locator('button, input, [tabindex="0"]').count();
+        // Visible, enabled stops only: unchosen Masses' boxes are hidden and disabled.
+        const stops = await sheet.locator('button:visible, input:visible:not(:disabled), select:visible, [tabindex="0"]:visible').count();
         for (const key of ["Tab", "Shift+Tab"]) for (let i = 0; i < stops + 2; i++) {
           await page.keyboard.press(key);
           const focus = await sheet.evaluate(el => ({

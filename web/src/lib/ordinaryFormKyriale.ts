@@ -77,7 +77,7 @@ export async function mountOfKyriale(root: HTMLElement): Promise<void> {
       `${available.filter(box => box.checked).length} of ${available.length} parts`);
   });
   select.addEventListener("change", () => choose(select.value, true));
-  // Customize's Change parts uses this same list, in the rail or its phone sheet.
+  // The rail and its phone sheet share this list.
   const choice = root.querySelector<HTMLElement>("[data-of-mass-choice]");
   const list = bar.querySelector<HTMLElement>("[data-part-list]");
   if (choice && list) {
@@ -88,7 +88,8 @@ export async function mountOfKyriale(root: HTMLElement): Promise<void> {
     if (exportSelect) exportSelect.id = "of-mass-export";
     label?.setAttribute("for", "of-mass-export");
     exportSelect?.addEventListener("change", () => choose(exportSelect.value, true));
-    list.prepend(copy);
+    // After the parts, so the part rows keep their place in the rail.
+    list.append(copy);
   }
   choose(select.value, false);
 }
