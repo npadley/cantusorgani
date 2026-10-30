@@ -26,6 +26,8 @@ const SUBPIXEL = 1;
 
 async function open(page: Page, url: string): Promise<void> {
   page.on("pageerror", e => { throw new Error(`pageerror: ${e.message}`); });
+  // The real Turnstile widget rejects the test host (error 110200); its layout is not ours to test.
+  await page.route("**/challenges.cloudflare.com/**", r => r.abort());
   await page.goto(url);
   await page.evaluate(() => document.fonts.ready);
 }
