@@ -226,6 +226,7 @@ export function createExportController(deps: ControllerDependencies): ExportCont
     const { parts, settings, overrides } = state;
     const send = (chantSvgs: ReadonlyMap<number, string> | null): void => {
       if (closed || state.requestToken !== token || dirty) return;
+      title = deps.readTitle?.() ?? title;
       worker.postMessage({ type: 'layout', request: { token, title, parts, settings, overrides, chantSvgs } });
     };
     // Exsurge, its font and the chant JSON load only when Chant is on and a part has a chant (CS §6).
@@ -405,6 +406,7 @@ export function createExportController(deps: ControllerDependencies): ExportCont
     download() {
       if (closed || !state.canDownload || state.result === null) return Promise.resolve();
       const result = state.result;
+      title = deps.readTitle?.() ?? title;
       return new Promise<void>((resolve) => {
         exportToken = result.token;
         exportResolve = resolve;

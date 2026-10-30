@@ -269,6 +269,24 @@ describe('export controller', () => {
     expect(t.st().canDownload).toBe(false);
   });
 
+  it('reads the current title for Customize layouts and downloads', async () => {
+    let currentTitle = 'Missa I';
+    const t = setup(undefined, undefined, { readTitle: () => currentTitle });
+    expect(t.lw(0).posts.find(p => p.type === 'layout')?.request?.title).toBe('Missa I');
+    t.c.suspend();
+    currentTitle = 'Missa XVII';
+    t.c.resume([mei('p1', 'movement:a')]);
+    const layouts = t.lw(0).posts.filter(p => p.type === 'layout');
+    expect(layouts.at(-1)?.request?.title).toBe('Missa XVII');
+    const token = t.st().requestToken;
+    t.lw(0).emit({ type: 'result', token, result: result(token) });
+    currentTitle = 'Missa XI';
+    const pdf = t.c.download();
+    t.pw(0).emit({ type: 'pdf', token, bytes: new ArrayBuffer(1) });
+    await pdf;
+    expect(t.saved[0]?.filename).toBe('Missa XI (Letter).pdf');
+  });
+
   it('downloads the PDF with a titled filename', async () => {
     const t = setup();
     ready(t);

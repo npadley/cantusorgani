@@ -291,6 +291,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
 
   if (root && button && status && progress) {
     let title = root.dataset["title"] ?? "Nova Organi Harmonia";
+    const readTitle = (): string => root.dataset["title"] ?? title;
     const day = root.dataset["dayService"] ? JSON.parse(root.dataset["dayService"]) as {
       table: DayTable; defaults: DayDefaults[]; buildDefaultIso: string | null; title: string; unavailable: string[];
     } : null;
@@ -483,7 +484,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
       boxes.forEach(box => { box.checked = checked && !box.disabled; });
       boxes[0]?.dispatchEvent(new Event("change", { bubbles: true }));
     }
-    let selection: Selection = selectionFromBoxes(boxes, title, showsScans);
+    let selection: Selection = selectionFromBoxes(boxes, readTitle(), showsScans);
     const paper = (): Paper => paperSelect?.value === "a4" ? "a4" : "letter";
     // The server already rendered the summary. Representation changes keep the
     // same stems (and system count), so only inclusion or refusal changes announce.
@@ -495,7 +496,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     // failed to load) and announced once per real change. The bar's own text and buttons still change only
     // when a tick does, so a switch mid-build never re-enables Export or clears its status.
     function update(): void {
-      const next = selectionFromBoxes(boxes, title, showsScans);
+      const next = selectionFromBoxes(boxes, readTitle(), showsScans);
       if (JSON.stringify(next) === JSON.stringify(selection)) return;
       selection = next;
       root!.dispatchEvent(new CustomEvent("selectionchange", { bubbles: true, detail: selection }));
@@ -544,7 +545,8 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
           selection,
           readSelection: () => { update(); return selection; },
           lookup: (target, hash) => mei.approvedConversionFor(target, hash, manifest),
-          title: title.replace(/ — Nova Organi Harmonia$/, ""),
+          title: readTitle().replace(/ — Nova Organi Harmonia$/, ""),
+          readTitle: () => readTitle().replace(/ — Nova Organi Harmonia$/, ""),
           opener: customize,
           onExported: (s, printed) => trackExport("custom", {
             page: s.page, orientation: s.orientation, staff: s.staff,
@@ -563,6 +565,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
     });
 
     button.addEventListener("click", () => {
+      const exportTitle = readTitle();
       update();
       const chosenPaper = paper();
       const { refs, headings, typeset } = quickRequest(selection, chosenPaper);
@@ -607,7 +610,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.download = `${title.replace(/[^\w\- ]+/g, "").trim() || "export"}.pdf`;
+        link.download = `${exportTitle.replace(/[^\w\- ]+/g, "").trim() || "export"}.pdf`;
         document.body.appendChild(link);
         link.click();
         link.remove();
@@ -621,7 +624,7 @@ const label = (n: number) => `Export PDF (${n} system${n === 1 ? "" : "s"}, ~${e
         worker.terminate();
       };
 
-      const request: BuildRequest = { refs, base: "", title, headings, paper: chosenPaper, typeset };
+      const request: BuildRequest = { refs, base: "", title: exportTitle, headings, paper: chosenPaper, typeset };
       worker.postMessage(request);
       trackExport("quick", { paper: chosenPaper });
     });

@@ -10,6 +10,24 @@ async function render(key: string): Promise<string> {
 }
 
 describe("Ordinary Form occasion pages", () => {
+  it("offers all eighteen Masses, with one visible suggestion and no eager hidden images", async () => {
+    const html = await render("easter");
+    const select = html.match(/<select[^>]*data-of-mass[\s\S]*?<\/select>/)?.[0];
+    expect(select).toBeDefined();
+    expect(select?.match(/<option\b/g)).toHaveLength(18);
+    expect(select).toMatch(/value="I"[^>]*selected[^>]*>[\s\S]*?\(suggested\)/);
+    const sections = [...html.matchAll(/<section class="ordinary"[^>]*data-ordinary-option="([^"]+)"[^>]*>[\s\S]*?<\/section>/g)];
+    expect(sections).toHaveLength(18);
+    expect(sections.filter(s => !s[0].split(">")[0]!.includes("hidden"))).toHaveLength(1);
+    expect(sections.find(s => s[1] === "I")?.[0].split(">")[0]).not.toContain("hidden");
+    for (const section of sections.filter(s => s[1] !== "I")) expect(section[0]).not.toContain('loading="eager"');
+  });
+
+  it.each([["annunciation", "II"], ["assumption", "IX"]])("%s suggests Mass %s from its Latin title", async (key, mass) => {
+    const html = await render(key!);
+    expect(html).toMatch(new RegExp(`<option value="${mass}"[^>]*selected`));
+  });
+
   it("puts selection in the rail and gives each part an inline box and year links", async () => {
     const html = await render("easter");
     expect(html).toContain('class="service-rail');

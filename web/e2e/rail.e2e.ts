@@ -60,9 +60,10 @@ test.describe("Service rail", () => {
   for (const url of PAGES) {
     test(`${url} inline and rail synchronize both ways; Select all and Clear announce empty exactly once`, async ({ page }) => {
       await page.goto(url);
-      const boxes = railBoxes(page);
+      // Disabled boxes belong to Masses not chosen; their rows are hidden.
+      const boxes = railBoxes(page).and(page.locator(":not(:disabled)"));
       expect(await boxes.count()).toBeGreaterThan(1);
-      const inline = page.locator("#music [data-inline-part]");
+      const inline = page.locator("#music [data-inline-part]:not(section.ordinary[hidden] *)");
       await expect(inline).toHaveCount(await boxes.count());
       for (const box of await boxes.all()) {
         const id = (await box.getAttribute("value"))!;

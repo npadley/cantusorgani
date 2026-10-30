@@ -409,6 +409,8 @@ export interface WorkerLike {
   onerror: ((event: ErrorEvent) => void) | null;
 }
 export interface ControllerDependencies {
+  /** Read the current occasion title when laying out or exporting a PDF. */
+  readonly readTitle?: () => string;
   readonly createLayoutWorker: () => WorkerLike;
   readonly createPdfWorker: () => WorkerLike;
   readonly storage: StorageLike | null;

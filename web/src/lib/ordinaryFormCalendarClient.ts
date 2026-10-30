@@ -122,6 +122,12 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
     wrap.append(gb);
     return wrap;
   }
+  function musicButton(key: string, date: LocalDate): HTMLAnchorElement {
+    const day = ofDay(date, settings);
+    const cta = anchor("Read and choose this day's music", occasionHref(key, day.sundayCycle, day.season, date, settings));
+    cta.className = "accompaniments";
+    return cta;
+  }
   function render(date: LocalDate, userChange = false): void {
     currentDate = date;
     dateInput.value = isoOf(date);
@@ -189,8 +195,7 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
           });
           block.append(links);
         } else {
-          const cta = anchor("View accompaniments for this occasion", occasionHref(key, day.sundayCycle, day.season, date, settings));
-          cta.className = "accompaniments"; block.append(cta);
+          block.append(musicButton(key, date));
         }
         results.append(block);
       }
@@ -199,6 +204,8 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
       const sunday = data[day.sundayMassOccasion];
       if (sunday) rubric.append(" · ", anchor(`${sunday.titleEn} (Sunday Mass of this week)`, occasionHref(sunday.key, day.sundayCycle, day.season, date, settings)));
       results.append(rubric);
+      const repeated = day.sundayMassOccasion ?? day.precedingSundayOccasion;
+      if (repeated && data[repeated]) results.append(musicButton(repeated, date));
     } else if (day.season === "ordinary") {
       const rubric = element("p", "the chants of the preceding Sunday may be used", "note");
       if (day.precedingSundayOccasion) {
@@ -206,11 +213,15 @@ export function mountOrdinaryFormCalendar(root: HTMLElement): void {
         if (prior) rubric.append(" · ", anchor(`${prior.titleEn} (preceding Sunday)`, occasionHref(prior.key, day.sundayCycle, day.season, date, settings)));
       }
       results.append(rubric);
+      const repeated = day.sundayMassOccasion ?? day.precedingSundayOccasion;
+      if (repeated && data[repeated]) results.append(musicButton(repeated, date));
     } else if (day.sundayMassOccasion) {
       const rubric = element("p", "the chants of the Sunday are repeated on this weekday", "note");
       const sunday = data[day.sundayMassOccasion];
       if (sunday) rubric.append(" · ", anchor(`${sunday.titleEn} (Mass of the Sunday)`, occasionHref(sunday.key, day.sundayCycle, day.season, date, settings)));
       results.append(rubric);
+      const repeated = day.sundayMassOccasion ?? day.precedingSundayOccasion;
+      if (repeated && data[repeated]) results.append(musicButton(repeated, date));
     } else if (day.season === "triduum") {
       results.append(element("p", "No Mass is celebrated during the day.", "note"));
     }

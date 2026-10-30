@@ -29,6 +29,8 @@ const CASES = [
       "Introit (from Dominica Resurrectionis)", "Gradual (from Dominica Resurrectionis)",
       "Alleluia (from Dominica Resurrectionis)", "Sequence (from Dominica Resurrectionis)",
       "Offertory (from Dominica Resurrectionis)", "Communion (from Dominica Resurrectionis)",
+      // Missa I, the Kyriale's suggestion for Eastertide (ordinaryFormKyriale.ts).
+      "Kyrie", "Gloria", "Sanctus", "Agnus Dei", "Ite, missa est, alleluia", "Ite, missa est",
     ],
     omit: "Gradual (from Dominica Resurrectionis)",
   },
@@ -36,7 +38,8 @@ const CASES = [
 
 type Mode = "Quick" | "Customize";
 interface Part { label: string; systems: number; runs: ReturnType<typeof parseRuns> }
-const boxes = (page: Page) => page.locator('input[name="export-part"]');
+// Disabled boxes belong to Masses not chosen on an OF page; they never export.
+const boxes = (page: Page) => page.locator('input[name="export-part"]:not(:disabled)');
 const downloadButton = (page: Page) => page.locator('dialog.cx [data-cx="download"]');
 const marker = (url: string): string => `TYPESET ${new URL(url, "http://localhost").pathname}`;
 

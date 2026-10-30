@@ -51,6 +51,6 @@ for (const path of ["/calendar/", "/calendar/ordinary-form/"]) {
 
 test("OF accompaniment links keep the date and effective transfers", async ({ page }) => {
   await page.goto("/calendar/ordinary-form/?date=2026-04-05&epiphany=jan6&ascension=sunday&corpusChristi=thursday");
-  await expect(page.getByRole("link", { name: "View accompaniments for this occasion", exact: true }))
+  await expect(page.getByRole("link", { name: "Read and choose this day's music", exact: true }))
     .toHaveAttribute("href", "/ordinary-form/easter/?cycle=A&season=easter&date=2026-04-05&epiphany=jan6&ascension=sunday&corpusChristi=thursday");
 });
