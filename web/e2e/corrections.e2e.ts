@@ -146,6 +146,22 @@ test.describe("Editor-only Edit links", () => {
     await expect(part.locator("[data-editor-only][aria-hidden='true']")).toBeVisible();
   });
 
+  for (const url of ["/piece/dominica-i-adventus/", "/kyriale/xvi/"]) {
+    test(`the page-end Edit on ${url} waits for /me too`, async ({ page }) => {
+      await page.goto(url);
+      const end = page.locator(".edit-link");
+      await expect(end.getByRole("link", { name: "Report an error" })).toBeVisible();
+      await expect(end.locator("a[href^='/admin/edit/']")).toBeHidden();
+      await expect(end.locator("[data-editor-only]:visible")).toHaveCount(0);
+
+      await page.addInitScript(() => localStorage.setItem("editor", "1"));
+      await page.route("**/admin/api/me", route => route.fulfill({ json: { email: "editor@example.org" } }));
+      await page.reload();
+      await expect(end.getByRole("link", { name: /^Edit/ })).toBeVisible();
+      await expect(end.getByText("(editors)")).toBeVisible();
+    });
+  }
+
   test("a stale hint is cleared after /me refuses it", async ({ page }) => {
     await page.addInitScript(() => localStorage.setItem("editor", "1"));
     await page.route("**/admin/api/me", route => route.fulfill({ status: 403, json: { error: "Not an editor" } }));
