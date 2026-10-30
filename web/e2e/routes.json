@@ -5,6 +5,11 @@
     "note": "Static web/src/pages/index.astro; divisionsWithContent(allPieces()) uses data/catalog.json."
   },
   {
+    "id": "collections",
+    "url": "/collections/",
+    "note": "Static web/src/pages/collections.astro; booksIndex(allPieces()) lists the NOH books from data/catalog.json."
+  },
+  {
     "id": "division",
     "url": "/proper-of-time/",
     "note": "[division]/index.astro getStaticPaths uses divisionsWithContent; indexes.ts maps temporale to proper-of-time. data/catalog.json includes temporale piece dominica-i-adventus."
@@ -33,6 +38,11 @@
     "id": "vespers-first",
     "url": "/vespers/2026-11-01/i/",
     "note": "vespers/[date]/i.astro getStaticPaths maps loadLineup().firstVespers; data/vespers/vespers-lineup.json first_vespers[2026-11-01] is I Vespers of sancti:11-01 (All Saints, I class), evening_of 2026-10-31."
+  },
+  {
+    "id": "vespers-hub",
+    "url": "/vespers/sancti/12-25/",
+    "note": "vespers/[flex]/[name].astro getStaticPaths uses occasions(); the Nativity is a recurring occasion with several published dates. A music-free archive (P19)."
   },
   {
     "id": "kyriale",

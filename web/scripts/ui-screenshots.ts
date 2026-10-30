@@ -25,6 +25,8 @@ async function act(page: Page, action: Action): Promise<void> {
       }
       break;
     case "check":
+      // Below 62rem the rail folds its Reading controls into a closed disclosure; open it as a reader would.
+      if (await control.count() === 0) await page.locator("details.reader-tools:not([open]) > summary").first().click();
       await control.check();
       if (!await control.isChecked()) throw new Error(`Checkbox did not stay checked: ${action.name}`);
       break;
