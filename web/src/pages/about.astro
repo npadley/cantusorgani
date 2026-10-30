@@ -171,7 +171,8 @@ const lastYear = lineups.at(-1) ? sungOn(lineups.at(-1)!).slice(0, 4) : "";
 </Layout>
 
 <style>
-  .prose { display: flow-root; }
+  /* Full width at the maintainer's request: these pages are read, not played from. */
+  .prose { display: flow-root; max-width: none; }
   .lede { font-style: italic; font-size: var(--step-1); }
   h2 { margin-top: var(--s-5); }
   .sources dt { margin-top: var(--s-3); font-weight: 600; }

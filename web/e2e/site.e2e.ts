@@ -302,3 +302,16 @@ test("About retains its anchors and credits the woodcut", async ({ page }) => {
   await expect(page.locator('a[href="#woodcut"]')).toBeVisible();
   await expect(page.locator("#woodcut + dd")).toContainText("CC0");
 });
+
+for (const path of ["/about/", "/collections/"]) {
+  test(`${path} text uses the full page width`, async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto(path);
+    const widths = await page.evaluate(() => ({
+      page: document.querySelector(".page")!.getBoundingClientRect().width,
+      prose: document.querySelector(".prose")!.getBoundingClientRect().width,
+    }));
+    const padding = await page.evaluate(() => parseFloat(getComputedStyle(document.querySelector(".page")!).paddingLeft) * 2);
+    expect(widths.prose).toBeGreaterThanOrEqual(widths.page - padding - 1);
+  });
+}
