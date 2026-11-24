@@ -4,9 +4,10 @@
 # check and build the site. Same-repository PRs deploy an isolated preview;
 # forks do not deploy. A push to main deploys production by direct upload.
 #
-# Python, site, browser and export checks run in parallel. Only their success gates
-# deploy; LilyPond and conditional scan tests also feed the aggregate check.
-# The browser job hands its tested build to deploy as an artifact.
+# Python, site, build and export checks run in parallel; the browser tests then
+# run in four shards against the one build. Only their success gates deploy;
+# LilyPond and conditional scan tests also feed the aggregate check.
+# The build job hands the build the shards tested to deploy as an artifact.
 #
 # Free: GitHub Actions minutes are unlimited for public repositories, and a
 # wrangler direct upload does not use Cloudflare Pages' build quota.
@@ -279,7 +280,8 @@ jobs:
           PUBLIC_CORRECTIONS_ENDPOINT: ${{ vars.PUBLIC_CORRECTIONS_ENDPOINT }}
           PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_TURNSTILE_SITE_KEY }}
 
-  browser:
+  build:
+    name: Build
     needs: [typeset-render, typeset-upload]
     # After the renders are published (the upload is skipped when there is
     # nothing new, and for forks); never after a failed render or upload.
@@ -304,7 +306,6 @@ jobs:
           cache-dependency-path: web/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
         working-directory: web
-      - uses: ./.github/actions/playwright
       # Every render the manifest names answers at its public address, so the
       # site never links to music that is not there. (Forks cannot upload.)
       - name: Typeset music published
@@ -329,23 +330,20 @@ jobs:
         run: pnpm check:deploy-size
         working-directory: web
 
-      # The built site in a real browser, on Cloudflare's local runtime with a
-      # throwaway corrections database (web/playwright.config.ts).
-      - name: Browser tests
-        run: |
-          pnpm exec playwright test
-        working-directory: web
-        env:
-          CI: "true"
-      - name: Browser test report
-        if: failure()
+      # The shards test exactly this production build (corrections intake on).
+      # The preview rebuild below overwrites dist/, so keep this copy apart.
+      # On main there is no preview rebuild: both artifacts are the same build.
+      - name: Site under test
         uses: actions/upload-artifact@v7
         with:
-          name: playwright-report
-          path: web/test-results/
-          retention-days: 7
+          name: site-dist-test
+          path: web/dist/
+          include-hidden-files: true
+          if-no-files-found: error
+          # As long as site-dist: re-running a failed shard does not rerun this job.
+          retention-days: ${{ github.event_name == 'push' && 30 || 3 }}
 
-      # Corrections e2e tests above exercise the configured form with intercepted
+      # Corrections e2e tests exercise the configured form with intercepted
       # requests. Preview HTML must instead disable intake at build time: runtime
       # Pages vars cannot change Vite's compiled PUBLIC_ values.
       - name: Build isolated preview artifact
@@ -357,7 +355,7 @@ jobs:
           PUBLIC_CORRECTIONS_ENDPOINT: ""
           PUBLIC_TURNSTILE_SITE_KEY: ""
 
-      - name: Tested site
+      - name: Built site
         uses: actions/upload-artifact@v7
         with:
           name: site-dist
@@ -368,8 +366,52 @@ jobs:
           # a pull request only needs it within its own run, for the preview.
           retention-days: ${{ github.event_name == 'push' && 30 || 3 }}
 
+  # The built site in a real browser, on Cloudflare's local runtime with a
+  # throwaway corrections database (web/playwright.config.ts). Four shards,
+  # each one job: the config runs a single worker against one local D1 state.
+  browser:
+    name: Browser tests (${{ matrix.shard }}/4)
+    needs: [build]
+    if: ${{ !cancelled() && needs.build.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: web
+      - uses: ./.github/actions/playwright
+      - uses: actions/download-artifact@v8
+        with:
+          name: site-dist-test
+          path: web/dist
+      - name: Browser tests
+        run: |
+          pnpm exec playwright test --shard=${{ matrix.shard }}/4
+        working-directory: web
+        env:
+          CI: "true"
+      - name: Browser test report
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report-${{ matrix.shard }}
+          path: web/test-results/
+          retention-days: 7
+
   export:
-    name: Export editor tests (${{ matrix.shard }}/2)
+    name: Export editor tests (${{ matrix.shard }}/4)
     needs: [typeset-render, typeset-upload]
     # After the renders are published (the upload is skipped when there is
     # nothing new, and for forks); never after a failed render or upload.
@@ -381,7 +423,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2]
+        shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
@@ -399,7 +441,7 @@ jobs:
       - name: Export editor browser tests
         run: |
           pnpm build:e2e
-          pnpm test:e2e:export --shard=${{ matrix.shard }}/2
+          pnpm test:e2e:export --shard=${{ matrix.shard }}/4
         working-directory: web
         env:
           CI: "true"
@@ -412,7 +454,7 @@ jobs:
           retention-days: 7
 
   deploy:
-    needs: [python, site, browser, export]
+    needs: [python, site, build, browser, export]
     # A status function is needed here. Without one GitHub adds an implicit
     # success(), which is false when any job further up the chain was skipped,
     # and typeset-upload is skipped whenever nothing new was rendered. So name
@@ -422,7 +464,8 @@ jobs:
       !cancelled() && !failure() &&
       github.event_name != 'pull_request' && github.ref == 'refs/heads/main' &&
       needs.python.result == 'success' && needs.site.result == 'success' &&
-      needs.browser.result == 'success' && needs.export.result == 'success'
+      needs.build.result == 'success' && needs.browser.result == 'success' &&
+      needs.export.result == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -454,7 +497,7 @@ jobs:
   # Advisory: a failed preview never blocks the required check (correction batches merge on it).
   # Off until the repository variable PREVIEW_ENABLED is true (ADMIN-SETUP.md §8).
   preview:
-    needs: [python, site, browser, export]
+    needs: [python, site, build, browser, export]
     # Dependabot PRs get no Actions secrets, so the deploy would fail; their own checks still run.
     # Keyed on the PR's author, not github.actor, so a maintainer's rerun is skipped too.
     if: >-
@@ -462,7 +505,8 @@ jobs:
       github.event.pull_request.user.login != 'dependabot[bot]' &&
       github.event.pull_request.head.repo.full_name == github.repository &&
       needs.python.result == 'success' && needs.site.result == 'success' &&
-      needs.browser.result == 'success' && needs.export.result == 'success'
+      needs.build.result == 'success' && needs.browser.result == 'success' &&
+      needs.export.result == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     environment:
@@ -502,7 +546,7 @@ jobs:
 
   # One stable required check; upload and deploy retain their skip conditions.
   check:
-    needs: [typeset-render, typeset-upload, python, site, browser, export, lilypond-tests, scan-tests, deploy]
+    needs: [typeset-render, typeset-upload, python, site, build, browser, export, lilypond-tests, scan-tests, deploy]
     if: always()
     runs-on: ubuntu-latest
     steps:
@@ -514,7 +558,7 @@ jobs:
           echo "$NEEDS" | jq -e --arg deploy "$DEPLOY_EXPECTED" '
             .["typeset-render"].result == "success" and
             (.["typeset-upload"].result == "success" or .["typeset-upload"].result == "skipped") and
-            ([.python, .site, .browser, .export, .["lilypond-tests"], .["scan-tests"]] | all(.result == "success")) and
+            ([.python, .site, .build, .browser, .export, .["lilypond-tests"], .["scan-tests"]] | all(.result == "success")) and
             .deploy.result == (if $deploy == "true" then "success" else "skipped" end)
           '
 
