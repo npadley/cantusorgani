@@ -411,7 +411,7 @@ jobs:
           retention-days: 7
 
   export:
-    name: Export editor tests (${{ matrix.shard }}/2)
+    name: Export editor tests (${{ matrix.shard }}/4)
     needs: [typeset-render, typeset-upload]
     # After the renders are published (the upload is skipped when there is
     # nothing new, and for forks); never after a failed render or upload.
@@ -423,7 +423,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2]
+        shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
@@ -441,7 +441,7 @@ jobs:
       - name: Export editor browser tests
         run: |
           pnpm build:e2e
-          pnpm test:e2e:export --shard=${{ matrix.shard }}/2
+          pnpm test:e2e:export --shard=${{ matrix.shard }}/4
         working-directory: web
         env:
           CI: "true"
